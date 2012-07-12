@@ -112,6 +112,14 @@ sub _addUser
             $self->{ldb}->createRoamingProfileDirectory($entry);
         }
 
+        # Map UID to SID
+        # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
+        # it is not working when the user init session as DOMAIN/user but user@domain.com
+        # remove this when fixed
+        my $sid   = $self->{ldb}->getSidById($samAccountName);
+        my $idmap = $self->{ldb}->idmap();
+        $idmap->setupNameMapping($sid, $idmap->TYPE_UID(), $uidNumber);
+
         # Finally enable the account
         $self->{ldb}->modify($dn, { changes => [ replace => [ userAccountControl => 512 ] ] });
     } otherwise {
@@ -217,6 +225,14 @@ sub _addGroup
     try {
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($dn, { attrs => $attrs });
+
+        # Map GID to SID
+        # TODO Samba4 beta2 support rfc2307, reading gidNumber from ldap instead idmap.ldb, but
+        # it is not working when the user init session as DOMAIN/user but user@domain.com
+        # remove this when fixed
+        my $sid   = $self->{ldb}->getSidById($samAccountName);
+        my $idmap = $self->{ldb}->idmap();
+        $idmap->setupNameMapping($sid, $idmap->TYPE_GID(), $gidNumber);
     } otherwise {
         my $error = shift;
         EBox::error($error);

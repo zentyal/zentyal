@@ -715,6 +715,14 @@ sub ldapUsersToLdb
                     push ($attrs, pwdLastSet => $val);
                 }
                 $self->add($dn, { attrs => $attrs, control => $bypassControl });
+
+                # Map UID
+                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
+                # it is not working when the user init session as DOMAIN/user but user@domain.com
+                # remove this when fixed
+                my $type = $self->idmap->TYPE_UID();
+                my $sid = $self->getSidById($samAccountName);
+                $self->idmap->setupNameMapping($sid, $type, $uidNumber);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading user '$dn': $error");
@@ -767,6 +775,14 @@ sub ldapGroupsToLdb
                 push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
 
                 $self->add($dn, { attrs => $attrs });
+
+                # Map the gid
+                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
+                # it is not working when the user init session as DOMAIN/user but user@domain.com
+                # remove this when fixed
+                my $type = $self->idmap->TYPE_GID();
+                my $sid = $self->getSidById($samAccountName);
+                $self->idmap->setupNameMapping($sid, $type, $gidNumber);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading group '$dn': $error");
