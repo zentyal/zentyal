@@ -1,4 +1,7 @@
 HEAD
+	+ User addon to enable/disable the account and set the user as
+	  domain administrator
+	+ Group addon to create group shares
 	+ Added method to give captive portal module firewall rules to
 	  allow domain joins
 2.3.8

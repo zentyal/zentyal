@@ -92,44 +92,6 @@ use EBox::Gettext;
 %   }
 % }
 
-# Group shares
-% foreach my $group (@dirgroup) {
-[<% $group->{'sharename'} %>]
-% if ($group->{'groupcomment'}) {
- comment = "<% $group->{'groupcomment'} %>"
-% } else {
- comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
-% }
- path = <% $group->{'path'} %>
- browseable = yes
- read only = no
- valid users = @"<% $group->{'groupname'} %>"
- force group = "<% $group->{'groupname'} %>"
- force create mode = 0660
- force directory mode = 0660
-% my $av = ($antivirus xor defined($antivirus_exceptions->{'group'}->{$group->{'sharename'}}));
-% my $rb = ($recycle xor defined($recycle_exceptions->{'group'}->{$group->{'sharename'}}));
-% my $objects = 'acl_xattr full_audit';
-% if ($av) {
-%   $objects .= ' vscan-clamav';
-% }
-% if ($rb) {
-%   $objects .= ' recycle';
-% }
- vfs objects = <% $objects %>
-% if ($av) {
- vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% }
-% if ($rb) {
-%   foreach my $key (keys %{$recycle_config}) {
-%     next unless $key;
- recycle: <% $key %> = <% $recycle_config->{$key} %>
-%    }
-% }
-%
-% }
-
-
 % foreach my $share (@shares) {
 # Shares
 [<% $share->{share} %>]
