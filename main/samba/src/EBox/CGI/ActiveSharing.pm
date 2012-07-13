@@ -38,21 +38,25 @@ sub _group
 {
     my ($self) = @_;
 
-    my $samba = new EBox::SambaLdapUser;
+    my $smbldap = new EBox::SambaLdapUser;
 
-    $self->_requireParam('group', __('group name'));
-    $self->keepParam('group');
-    $self->{errorchain} =  "UsersAndGroups/Group";
-    $self->_requireParamAllowEmpty('sharename', __('sharing name'));
-    my $name =  $self->param('sharename');
-    my $group = $self->param('group');
-    if ($self->param('namechange') or $self->param('add')) {
-        $samba->setSharingName($group, $name);
-    } elsif ($self->param('remove')) {
-        $samba->removeSharingName($group);
-    }
-
+    $self->_requireParam('group', __('group'));
+    my $group = $self->unsafeParam('group');
     $self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{errorchain} =  "UsersAndGroups/Group";
+
+    $self->keepParam('group');
+
+    $group = new EBox::UsersAndGroups::Group(dn => $group);
+
+    $self->_requireParamAllowEmpty('sharename', __('share name'));
+    my $name =  $self->param('sharename');
+
+    if ($self->param('namechange') or $self->param('add')) {
+        $smbldap->setGroupShare($group, $name);
+    } elsif ($self->param('remove')) {
+        $smbldap->removeGroupShare($group);
+    }
 }
 
 sub _user

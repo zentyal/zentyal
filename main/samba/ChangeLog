@@ -1,6 +1,7 @@
 HEAD
 	+ User addon to enable/disable the account and set the user as
 	  domain administrator
+	+ Group addon to create group shares
 2.3.8
 	+ Recycle Bin feature is now working with samba4
 	+ Remove unnecessary dns enable depend as users already depend on it

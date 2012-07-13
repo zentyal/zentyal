@@ -69,8 +69,8 @@ use EBox::Gettext;
     <input  type="text"
             name="sharename"
             class="inputText"
-            value="<% $params->{'sharename'} %>">
-%       if (length($params->{'sharename'}) > 0)  {
+            value="<% $params->{'share'} %>">
+%       if (defined $params->{'share'})  {
             <input class='inputButton' type='submit' name='namechange'
                 value="<% __('Change') %>"
                  alt="<% __('Change') %>">

@@ -894,9 +894,6 @@ sub _setConf
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
 
-    #my $groupShares = $self->groupShareDirectories();
-    #push(@array, 'dirgroup'  => $groupShares);
-
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
     push (@array, 'recycle' => $self->defaultRecycleSettings());

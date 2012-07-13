@@ -540,25 +540,97 @@ sub _userAddOns
     return { path => '/samba/samba.mas', params => $args };
 }
 
+# Method: groupShareEnabled
+#
+#   Check if there is a share configured for the group
+#
+# Returns:
+#
+#   The share name or undef if it is not configured
+#
+sub groupShareEnabled
+{
+    my ($self, $group) = @_;
+
+    my $groupName = $group->get('cn');
+    my $sharesModel = $self->{samba}->model('SambaShares');
+    foreach my $id (@{$sharesModel->ids()}) {
+        my $row = $sharesModel->row($id);
+        my $shareName  = $row->valueByName('share');
+        my $groupShare = $row->valueByName('groupShare');
+        return $shareName if $groupShare eq $groupName;
+    }
+
+    return undef;
+}
+
+sub setGroupShare
+{
+    my ($self, $group, $shareName) = @_;
+
+    if ((not defined $shareName) or ( $shareName =~ /^\s*$/)) {
+        throw EBox::Exceptions::External(__("A name should be provided for the share."));
+    }
+
+    my $oldName = $self->groupShareEnabled($group);
+    return if ($oldName and $oldName eq $shareName);
+
+    my $groupName = $group->get('cn');
+    my $sharesModel = $self->{samba}->model('SambaShares');
+
+    # Create or rename the share for the group
+    my $row = $sharesModel->findValue(groupShare => $groupName);
+    if ($row) {
+        # Rename the share
+        EBox::debug("Renaming the share for group '$groupName' from '$oldName' to '$shareName'");
+        $row->elementByName('share')->setValue($shareName);
+        $row->store();
+    } else {
+        # Add the share
+        my %params = ( share => $shareName,
+                       path_selected => 'zentyal',
+                       zentyal => $shareName,
+                       comment => "Share for group $groupName",
+                       guest => 0,
+                       groupShare => $groupName );
+        EBox::debug("Adding share named '$shareName' for group '$groupName'");
+        my $shareRowId = $sharesModel->addRow(%params, readOnly => 1, enabled => 1);
+        my $shareRow = $sharesModel->row($shareRowId);
+        # And set the access control
+        my $accessModel = $shareRow->subModel('access');
+        %params = ( user_group_selected => 'group',
+                    group => $groupName,
+                    permissions => 'readWrite' );
+        $accessModel->addRow(%params);
+    }
+}
+
+sub removeGroupShare
+{
+    my ($self, $group) = @_;
+
+    my $groupName = $group->get('cn');
+    my $sharesModel = $self->{samba}->model('SambaShares');
+    my $row = $sharesModel->findValue(groupShare => $groupName);
+    $sharesModel->removeRow($row->id()) if $row;
+}
+
 sub _groupAddOns
 {
-    my ($self, $groupname) = @_;
+    my ($self, $group) = @_;
 
     return unless ($self->{samba}->configured());
 
-    my $samba = EBox::Global->modInstance('samba');
+    my $share = $self->groupShareEnabled($group);
 
-    my @args;
-    my $share = $self->_groupSharing($groupname) ? "yes" : "no";
-    my $printers = $samba->_printersForGroup($groupname);
+    #my $printers = $samba->_printersForGroup($groupname);
     my $args =  {
-        'groupname' => $groupname,
+        'groupname' => $group->dn(),
         'share'     => $share,
-        'sharename' => $self->sharingName($groupname),
-        'service'   => $samba->isEnabled(),
+        'service'   => $self->{samba}->isEnabled(),
 
-        'printers' => $printers,
-        'printerService' => $samba->printerService(),
+        'printers' => [], #$printers,
+        'printerService' => undef, #$samba->printerService(),
     };
 
     return { path => '/samba/samba.mas', params => $args };

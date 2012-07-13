@@ -132,8 +132,14 @@ sub _table
                                printableName => __('Access control'),
                                'foreignModel' => 'SambaSharePermissions',
                                'view' => '/Samba/View/SambaSharePermissions'
-                              )
-
+                              ),
+       # This hidden field is filled with the group name when the share is configured as
+       # a group share through the group addon
+       new EBox::Types::Text(
+            fieldName => 'groupShare',
+            hidden => 1,
+            defaultValue => '',
+            ),
       );
 
     my $dataTable = {
