@@ -2189,7 +2189,7 @@ sub sharesPaths
     my $paths = [];
 
     foreach my $share (@{$shares}) {
-        push (@{$paths}, $share->{path});
+        push (@{$paths}, $share->{path}) unless defined $share->{groupShare};
     }
 
     return $paths;
