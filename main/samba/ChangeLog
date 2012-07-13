@@ -4,6 +4,8 @@ HEAD
 	+ Group addon to create group shares
 	+ Added method to give captive portal module firewall rules to
 	  allow domain joins
+	+ Added methods to get the paths used by shares, users and groups
+	  to generate disk usage reports
 2.3.8
 	+ Recycle Bin feature is now working with samba4
 	+ Remove unnecessary dns enable depend as users already depend on it
