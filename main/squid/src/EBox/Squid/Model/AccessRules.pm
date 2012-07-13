@@ -228,22 +228,25 @@ sub objectsPolicies
     my @obsPol = map {
         my $row = $self->row($_);
 
-        my $source        = $row->elementByName('source');
-        my $obj           = $source->selectedType() eq 'object' ? $source->value() : undef;
-        my $group         = $source->selectedType() eq 'group' ? $source->value() : undef;
-        my $members       = $obj ? $objectMod->objectMembers($obj) : [];
-
-        my $policy        = $row->elementByName('policy');
-        my $allow         = $policy->value() eq 'allow';
-        my $filter        = $policy->selectedType() eq 'filter';
-
-        my $timePeriod    = $row->elementByName('timePeriod');
+        my $source = $row->elementByName('source');
+        my $members = [];
+        my $obj;
+        if ($source->selectedType() eq 'object') {
+            $obj = $source->value();
+            $members = $objectMod->objectMembers($obj);
+        }
 
         if (@{$members}) {
+            my $policy        = $row->elementByName('policy');
+            my $allow         = $policy->value() eq 'allow';
+            my $filter        = $policy->selectedType() eq 'filter';
+            my $timePeriod    = $row->elementByName('timePeriod');
+            my $addresses     = $objectMod->objectAddresses($obj);
+
             my $obPol = {
                 object    => $obj,
                 members   => $members,
-                auth      => $group,
+                addresses => $addresses,
                 allowAll  => $allow,
                 filter    => $filter,
             };
@@ -265,7 +268,7 @@ sub objectsPolicies
             ()
         }
 
-    } @{ $self->ids()  };
+    } @{ $self->ids() };
 
     return \@obsPol;
 }

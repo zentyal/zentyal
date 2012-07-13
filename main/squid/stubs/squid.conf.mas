@@ -337,19 +337,17 @@ my %groups = map {
         ($_ ->{group} => , $_->{users})
 } @groupsPolicies;
 # add group acls from object policies
-foreach my $obPol (@objectsPolicies) {
-  foreach my $grPol (@{ $obPol->{groupsPolicies} } ) {
-      $groups{ $grPol->{group} } =  $grPol->{users};
- }
+foreach my $grPol (@groupsPolicies) {
+    $groups{ $grPol->{group} } = $grPol->{users};
 }
 # escape user names
 foreach my $users_r (values %groups) {
-       my @users = map {
-           my $user = $_;
-           $user =~ s{ }{\\ }g;
-           $user
-       } @{ $users_r  };
-    $users_r =  \@users;
+    my @users = map {
+        my $user = $_;
+        $user =~ s{ }{\\ }g;
+        $user
+    } @{ $users_r };
+    $users_r = \@users;
 }
 </%init>
 % while (my ($group, $users) = each %groups)  {
@@ -379,9 +377,6 @@ acl eboxlocalnets dst <% join ' ', @localnets %>
 %   my $objectAcl = _aclName($object);
 acl <% $objectAcl %> src <% join ' ', @{ $objPol->{addresses} } %>
 <& .timeACLs, policy => $objPol, ids => [ $object ] &>
-%   foreach my $groupPol (@{ $objPol->{groupsPolicies} }) {
-     <& .timeACLs, policy => $groupPol, ids => [$object, $groupPol->{group}] &>
-%  }
 % }
 </%def>
 
