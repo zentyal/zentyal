@@ -138,6 +138,10 @@ sub getQuota
         return $user->get('captiveQuota');
     }
 
+    my $global = EBox::Global->getInstance(1);
+    my $cportal = $global->modInstance('captiveportal');
+    my $model = $cportal->model('BWSettings');
+
     return $model->defaultQuotaValue();
 }
 
