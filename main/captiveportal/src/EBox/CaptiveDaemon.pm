@@ -96,13 +96,8 @@ sub run
     }
 
     while (1) {
-        EBox::Util::Lock::lock('firewall');
-
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
-
-        EBox::Util::Lock::unlock('firewall');
-
 
         # Sleep expiration interval
         alarm($expirationTime);
@@ -206,19 +201,25 @@ sub _updateSessions
             }
         }
     }
-
-    EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
-    # remove again to be sure that we don't have left any duplicate rule
-    foreach my $remove (@removeRules) {
-        my $failed = 0;
-        while (not $failed) {
-            try {
-                EBox::Sudo::root($remove);
-            } otherwise {
+    
+    EBox::Util::Lock::lock('firewall');
+    try {
+        EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
+        # remove again to be sure that we don't have left any duplicate rule
+        foreach my $remove (@removeRules) {
+            my $failed = 0;
+            while (not $failed) {
+                try {
+                    EBox::Sudo::root($remove);
+                } otherwise {
                 $failed = 1;
             };
+            }
         }
-    }
+    } finally {
+        EBox::Util::Lock::unlock('firewall');
+    };
+
 }
 
 
