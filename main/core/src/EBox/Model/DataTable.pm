@@ -4598,5 +4598,30 @@ sub checkAllControlValue
     return 1;
 }
 
+sub _confirmation
+{
+    my ($self, $action) = @_;
+    exists  $self->{'table'}->{'confirmation'} or
+        return undef;
+    exists $self->{'table'}->{'confirmation'}->{$action} or
+        return undef;
+    return  $self->{'table'}->{'confirmation'}->{$action};
+}
+
+sub confirmationJS
+{
+    my ($self, $action) = @_;
+    my $confirmation = $self->_confirmation($action);
+    if (not $confirmation) {
+        return '';
+    }
+    my $confirmationMsg = $confirmation->($self);
+    if (not $confirmationMsg) {
+        return '';
+    }
+
+    return qq|if (! confirm('$confirmationMsg')) { return false };|;
+}
+
 
 1;

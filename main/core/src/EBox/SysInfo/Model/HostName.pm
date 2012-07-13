@@ -65,6 +65,9 @@ sub _table
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
+        'confirmation' => {
+              submit => sub { return 'Are you sure of chanigng hostname'   }
+            }
     };
 
     return $dataTable;
