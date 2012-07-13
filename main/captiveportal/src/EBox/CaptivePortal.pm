@@ -375,6 +375,13 @@ sub sessionExpired
 sub quotaExceeded
 {
     my ($self, $username, $bwusage, $extension) = @_;
+
+    my $model = $self->model('BWSettings');
+    unless ($model->limitBWValue()) {
+        # Quotas disabled, no limit:
+        return 0;
+    }
+
     my $user = EBox::Global->modInstance('users')->user($username);
     my $quota = $self->{cpldap}->getQuota($user);
 

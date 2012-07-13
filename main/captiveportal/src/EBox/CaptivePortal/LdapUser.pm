@@ -52,6 +52,7 @@ sub _userAddOns
 
     my $overridden = $self->isQuotaOverridden($user);
     my $quota = $self->getQuota($user);
+    my $limitBW = $cportal->model('BWSettings')->limitBWValue();
 
     my @args;
     my $args = {
@@ -59,6 +60,7 @@ sub _userAddOns
         'overridden' => $overridden,
         'quota'      => $quota,
         'service'    => $cportal->isEnabled(),
+        'liimitBW'    => $limitBW,
     };
 
     return { path => '/captiveportal/useraddon.mas',
@@ -101,7 +103,13 @@ sub setQuota
     # Convert to LDAP format
     $overridden = $overridden ? 'TRUE' : 'FALSE';
 
-    $user->add('objectClass', 'captiveUser', 1);
+    my $alreadyHasClass = grep {
+        $_ eq 'captiveUser'
+    } $user->get('objectClass');
+    if (not $alreadyHasClass) {
+        $user->add('objectClass', 'captiveUser', 1);
+    }
+
     $user->set('captiveQuotaOverride', $overridden, 1);
     $user->set('captiveQuota', $quota, 1);
 
@@ -124,21 +132,12 @@ sub setQuota
 sub getQuota
 {
     my ($self, $user) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $cportal = $global->modInstance('captiveportal');
-    my $model = $cportal->model('BWSettings');
-
-    # Quotas disabled, no limit:
-    unless ($model->limitBWValue()) {
-        return 0;
-    }
 
     my $captiveQuotaOverride =  $user->get('captiveQuotaOverride');
     if ((defined $captiveQuotaOverride) and ($captiveQuotaOverride eq 'TRUE')) {
         return $user->get('captiveQuota');
     }
 
-    # Not overriden:
     return $model->defaultQuotaValue();
 }
 
