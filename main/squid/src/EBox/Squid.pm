@@ -427,7 +427,7 @@ sub authNeeded
     }
 
     my $rules = $self->model('AccessRules');
-    if ($rules->rulesAuthh()) {
+    if ($rules->rulesUseAuth()) {
         return 1;
     }
 

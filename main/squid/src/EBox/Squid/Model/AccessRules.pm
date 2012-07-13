@@ -68,7 +68,6 @@ sub _table
                     editable      => 1,
                     optional      => 0,
                 ),
-                # FIXME: Only if users is installed
                 new EBox::Types::Select(
                     fieldName     => 'group',
                     printableName => __('Users Group'),
@@ -86,7 +85,7 @@ sub _table
             ]
         ),
         new EBox::Types::Union(
-            fieldName     => 'decision',
+            fieldName     => 'policy',
             printableName => __('Decision'),
             subtypes => [
                 new EBox::Types::Union::Text(
@@ -149,7 +148,6 @@ sub validateTypedRow
     }
 }
 
-# FIXME: adapt to union
 sub groupsPolicies
 {
     my ($self) = @_;
@@ -159,10 +157,12 @@ sub groupsPolicies
 
     my @groupsPol = map {
         my $row = $self->row($_);
-        my $group = $row->valueByName('group');
-        my $allow = $row->valueByName('policy') eq 'allow';
+        my $source = $row->elementByName('source');
+        my $group = $source->selectedType() eq 'group' ? $source->value() : undef;
+        my $policy = $row->elementByName('policy');
+        my $allow = $policy->value() eq 'allow';
         my $time = $row->elementByName('timePeriod');
-        my $users =  $userMod->usersInGroup($group);
+        my $users = $group ? $userMod->group($group)->users() : [];
 
         if (@{$users}) {
             my $grPol = { group => $group, users => $users, allow => $allow };
@@ -188,13 +188,14 @@ sub groupsPolicies
     return \@groupsPol;
 }
 
-# FIXME: adapt to union
 sub existsPoliciesForGroup
 {
     my ($self, $group) = @_;
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
-        my $userGroup   = $row->elementByName('group')->printableValue();
+        my $source = $row->elementByName('source');
+        next unless $source->selectedType() eq 'group';
+        my $userGroup = $source->printableValue();
         if ($group eq $userGroup) {
             return 1;
         }
@@ -203,21 +204,21 @@ sub existsPoliciesForGroup
     return 0;
 }
 
-# FIXME: adapt to union
 sub delPoliciesForGroup
 {
     my ($self, $group) = @_;
     my @ids = @{ $self->ids() };
     foreach my $id (@ids) {
         my $row = $self->row($id);
-        my $userGroup   = $row->elementByName('group')->printableValue();
+        my $source = $row->elementByName('source');
+        next unless $source->selectedType() eq 'group';
+        my $userGroup = $source->printableValue();
         if ($group eq $userGroup) {
             $self->removeRow($id);
         }
     }
 }
 
-# FIXME: adapt to union
 sub objectsPolicies
 {
     my ($self) = @_;
@@ -227,21 +228,24 @@ sub objectsPolicies
     my @obsPol = map {
         my $row = $self->row($_);
 
-        my $obj           = $row->valueByName('object');
-        my $members       = $objectMod->objectMembers($obj);
+        my $source        = $row->elementByName('source');
+        my $obj           = $source->selectedType() eq 'object' ? $source->value() : undef;
+        my $group         = $source->selectedType() eq 'group' ? $source->value() : undef;
+        my $members       = $obj ? $objectMod->objectMembers($obj) : [];
 
         my $policy        = $row->elementByName('policy');
+        my $allow         = $policy->value() eq 'allow';
+        my $filter        = $policy->selectedType() eq 'filter';
 
         my $timePeriod    = $row->elementByName('timePeriod');
-        my $groupPolicy   = $row->subModel('groupPolicy');
 
         if (@{$members}) {
             my $obPol = {
                 object    => $obj,
                 members   => $members,
-                auth      => 0, #FIXME
-                allowAll  => 0, #FIXME
-                filter    => 0, #FIXME
+                auth      => $group,
+                allowAll  => $allow,
+                filter    => $filter,
             };
 
             if (not $timePeriod->isAllTime) {
@@ -255,8 +259,6 @@ sub objectsPolicies
                 }
             }
 
-            $obPol->{groupsPolicies} = $groupPolicy->groupsPolicies();
-
             $obPol;
         }
         else {
@@ -268,7 +270,6 @@ sub objectsPolicies
     return \@obsPol;
 }
 
-# FIXME: adapt to union
 sub objectsProfiles
 {
     my ($self) = @_;
@@ -278,17 +279,15 @@ sub objectsProfiles
     my $objectMod = $self->global()->modInstance('objects');
 
     my @profiles;
-    # object policies have priority by position in table
-    foreach my $id (@{ $self->ids()  }) {
+    foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
-        my $profile = $row->valueByName('profile');
-        if ($row->valueByName('policy') ne 'profile') {
-            # FIXME
-            EBox::debug("Object row with id $id has a custom filter group and a policy that is not 'filter'");
-            next;
-        }
+        my $policy = $row->elementByName('policy');
+        next unless ($policy->selectedType() eq 'profile');
+        my $profile = $policy->value();
 
-        my $obj       = $row->valueByName('object');
+        my $source = $row->elementByName('source');
+        next unless ($source->selectedType() eq 'object');
+        my $obj       = $source->value();
         my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
         foreach my $cidrAddress (@addresses) {
             my ($addr, $netmask) = ($cidrAddress->[0],
@@ -304,37 +303,34 @@ sub objectsProfiles
     return \@profiles;
 }
 
-# FIXME: adapt to union
 sub rulesUseAuth
 {
     my ($self) = @_;
 
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
-        my $obPolicy = $row->valueByName('policy');
-        my $groupPolicy = $row->subModel('groupPolicy');
-
-        return 1 if $obPolicy eq 'auth';
-        return 1 if $obPolicy eq 'authAndFilter';
-
-        return 1 if @{ $groupPolicy->groupsPolicies() } > 0;
+        my $source = $row->elementByName('source');
+        if ($source->selectedType() eq 'group') {
+            return 1;
+        }
     }
 
     return 0;
 }
 
-# FIXME: adapt to union
 sub rulesUseFilter
 {
     my ($self) = @_;
 
     foreach my $id (@{$self->ids()}) {
-        my $obPolicy = $self->row($id)->valueByName('policy');
-        return 1 if $obPolicy eq 'profile';
-        return 1 if $obPolicy eq 'authAndFilter';
+        my $row = $self->row($id);
+        my $policy = $row->elementByName('policy');
+        if ($policy->selectedType() eq 'profile') {
+            return 1;
+        }
     }
 
-    return undef;
+    return 0;
 }
 
 1;
