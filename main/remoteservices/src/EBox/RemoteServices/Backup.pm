@@ -398,21 +398,24 @@ sub _pullConfBackup
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/get/' . $p{fileName});
 
     my $ua = new LWP::UserAgent();
-    $ENV{HTTPS_CERT_FILE} = $self->{certificate};
-    $ENV{HTTPS_KEY_FILE} = $self->{certificateKey};
-    $ENV{HTTPS_CA_FILE} = $self->{caCertificate};
+    $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
+
+    my $req = HTTP::Request->new(GET => $url->as_string());
+    $req->authorization_basic($self->{restClient}->{credentials}->{username},
+                              $self->{restClient}->{credentials}->{password});
     if ( exists $p{fh} and defined $p{fh} ) {
         my $fh = $p{fh};
         # Perform the query with fh as destination
-        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()),
+        my $res = $ua->request($req,
                                sub {
                                    my ($chunk, $res) = @_;
                                    print $fh $chunk;
                                });
+
         return undef;
     } else {
         my $outFile = EBox::Config::tmp() . 'pull-conf.backup';
-        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()), $outFile);
+        my $res = $ua->request($req, $outFile);
         return $outFile;
     }
 }
