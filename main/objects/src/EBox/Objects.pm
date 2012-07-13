@@ -99,9 +99,7 @@ sub objectIds # (object)
 #
 # Returns:
 #
-#       array ref - each element contains a hash with the member keys 'name'
-#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
-#       'macaddr', (mac address' member)
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #

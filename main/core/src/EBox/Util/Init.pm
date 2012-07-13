@@ -107,24 +107,26 @@ sub moduleAction
                    $ENV{'EBOX_SOFTWARE'} == 1 );
     }
 
+    my $redisTrans = $modname ne 'network';
+
     my $success;
     my $errorMsg;
     my $redis = $mod->redis();
     try {
-        $redis->begin();
+        $redis->begin() if ($redisTrans);
         $mod->$action();
-        $redis->commit();
+        $redis->commit() if ($redisTrans);
         $success = 0;
     } catch EBox::Exceptions::Base with {
         my $ex = shift;
         $success = 1;
         $errorMsg =  $ex->text();
-        $redis->rollback();
+        $redis->rollback() if ($redisTrans);
     } otherwise {
         my ($ex) = @_;
         $success = 1;
         $errorMsg = "$ex";
-        $redis->rollback();
+        $redis->rollback() if ($redisTrans);
     };
 
     printModuleMessage($modname, $actionName, $success, $errorMsg);

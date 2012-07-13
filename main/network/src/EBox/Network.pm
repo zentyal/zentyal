@@ -605,8 +605,8 @@ sub ifaceAddresses
         my $virtual = $self->get_hash('interfaces')->{$iface}->{virtual};
         foreach my $name (keys %{$virtual}) {
             my $viface = $virtual->{$name};
-            push(@array, { address => $viface->{addr},
-                           netmask => $viface->{mask},
+            push(@array, { address => $viface->{address},
+                           netmask => $viface->{netmask},
                            name => $name });
         }
     } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
@@ -1258,7 +1258,7 @@ sub setIfaceStatic
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ($ext != $self->ifaceIsExternal($name) ) {
+    if (defined $ext and $ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
             if ($obs->ifaceExternalChanged($name, $ext)) {
@@ -2699,10 +2699,12 @@ sub _generateDDClient
                     if ( scalar(@{$gws}) > 1 ) {
                         # Multigw scenario, use a domain-like name for subdomains
                         # One per gateway
-                        @gws = map { $_->{name} } @{$gws};
-                        foreach my $gwName (@gws) {
-                            $gwName =~ s/[^a-z0-9\-]/-/g; # Transform to domains
-                        }
+                        @gws = map {
+                                     my $name = $_->{name};
+                                     my $domain = lc $name;
+                                     $domain  =~ s/[^a-z0-9\-]/-/g; # Transform to domains
+                                      { gw => $name ,   domain => $domain }
+                               } @{$gws};
                     }
                 } else {
                     EBox::warn('Zentyal Cloud cannot be used if the host is not subscribed');
@@ -2998,24 +3000,28 @@ sub _multigwRoutes
 
         $iface = $self->realIface($iface);
 
-        my $if = new IO::Interface::Simple($iface);
-        next unless $if->address;
-
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
+        unless ($address) {
+            EBox::error("Interface $iface used by gateway " .
+                            $router ->{name} . " has not address." .
+                        " Not adding multi-gateway rules for this gateway.");
+            next;
+        }
+
         my $route = "via $ip dev $iface src $address";
         if ($method eq 'ppp') {
             $route = "dev $iface";
             (undef, $ip) = split ('/', $ip);
         }
 
-	    # Write mark rules first to avoid local output problems
+        # Write mark rules first to avoid local output problems
         push(@cmds, "/sbin/ip route flush table $table");
         push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@addrRules, "/sbin/ip rule add from $ip table $table");
 
         # Add rule by source in multi interface configuration
-        if ( scalar keys %interfaces > 1 ) {
+        if (scalar keys %interfaces > 1) {
             push(@addrRules, "/sbin/ip rule add from $address table $table");
         }
 
@@ -3146,11 +3152,9 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
-                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {
             };
-            $self->redis()->begin();
             #remove if empty
             if ($self->_isEmpty($if)) {
                 unless ($self->isReadOnly()) {
@@ -3217,7 +3221,6 @@ sub _enforceServiceState
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
-        $self->redis()->commit();
         open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
@@ -3227,7 +3230,6 @@ sub _enforceServiceState
                 }
         }
         unlink (IFUP_LOCK_FILE);
-        $self->redis()->begin();
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',

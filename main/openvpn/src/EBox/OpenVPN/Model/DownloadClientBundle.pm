@@ -15,7 +15,6 @@
 
 package EBox::OpenVPN::Model::DownloadClientBundle;
 use base 'EBox::Model::DataForm::Download';
-#
 
 use strict;
 use warnings;
@@ -30,12 +29,6 @@ use EBox::OpenVPN::Types::Certificate;
 
 use Error qw(:try);
 
-# XXX TODO
-#   - client type must hid unavailable types
-#  - certificates select must not show the certificate of the server
-#   - addresses must be filled with the dafault addresses obtained from
-#    the serversAddr class method in EBox::OpenVPN::Server::ClientBundleGenerator
-#   - installer option should be only availble for windows clients
 sub new
 {
     my $class = shift;
@@ -47,11 +40,9 @@ sub new
     return $self;
 }
 
-
-
 sub _table
 {
-#    my ($self) = @_;
+    my ($self) = @_;
 
     my @tableHead =
         (
@@ -60,15 +51,14 @@ sub _table
              fieldName => 'clientType',
              printableName => __(q{Client's type}),
              editable => 1,
-             populate => \&_clientTypeOptions,
-#                                  populate => sub {
-#                                      return $self->_clientTypeOptions()
-#                                  },
+             populate => sub {
+                                return $self->_clientTypeOptions,
+                             }
              ),
          new EBox::OpenVPN::Types::Certificate(
              fieldName => 'certificate',
              printableName => __("Client's certificate"),
-#                           excluded => $self->_parentCert,
+             excludeCertificateSub => sub { return $self->_parentCert() },
              editable => 1,
              ),
          new EBox::Types::Boolean(
@@ -76,6 +66,12 @@ sub _table
              printableName => __(q(Add OpenVPN's installer to bundle)),
              editable => 1,
              help => __('OpenVPN installer for Microsoft Windows'),
+             ),
+         new EBox::Types::Select(
+             fieldName => 'connStrategy',
+             printableName => __(q{Connection strategy}),
+             editable => 1,
+             populate => \&_connStrategyOptions,
              ),
          new EBox::Types::Host(
                  fieldName => 'addr1',
@@ -93,7 +89,7 @@ sub _table
                  ),
          new EBox::Types::Host(
                  fieldName => 'addr3',
-                 printableName => __('Additional server address (optional)'),
+                 printableName => __('Second additional server address (optional)'),
                  editable => 1,
                  optional => 1,
                  ),
@@ -117,39 +113,45 @@ sub _table
 }
 
 
+sub _connStrategyOptions
+{
+    return [
+        { value => 'random', printableValue => __('Random')},
+        { value => 'failover', printableValue => __('Failover')},
+       ];
+}
 
 
 sub _clientTypeOptions
 {
-#     my ($self) = @_;
+    my ($self) = @_;
 
-#     my $confRow = $self->_parentConfRow();
-#     my $EBoxToEBoxTunnel = $confRow->elementByName('pullRoutes')->value();
-#     my @disabledAttr = (disabled => 'disabled');
+    my $confRow = $self->_serverConfRow();
+    my $EBoxToEBoxTunnel = $confRow->elementByName('pullRoutes')->value();
+
+    if ($EBoxToEBoxTunnel) {
+        my $tunnelOption = {
+            value => 'EBoxToEBox',
+            printableValue => __('Zentyal to Zentyal tunnel') ,
+        };
+        return [$tunnelOption];
+
+    }
 
     my @options = (
                    {
                     value => 'windows',
                     printableValue => 'Windows',
-#                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    },
                    {
                     value => 'linux',
                     printableValue => 'Linux',
-#                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
                    {
                     value => 'mac',
                     printableValue => 'Mac OS X',
-#                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
-                   {
-                    value => 'EBoxToEBox',
-                    printableValue => __('Zentyal to Zentyal tunnel') ,
-#                   $EBoxToEBoxTunnel ? () : @disabledAttr,
-                   }
                   );
-
     return \@options;
 }
 
@@ -180,20 +182,25 @@ sub _validateServer
 }
 
 
+sub _parentCert
+{
+    my ($self) = @_;
+    my $confRow = $self->_serverConfRow();
+    my $serverCertificate = $confRow->elementByName('certificate')->value();
+    return $serverCertificate;
+}
+
 sub _validateCertificate
 {
     my ($self, $action, $params_r, $actual_r) = @_;
     my $cert = $params_r->{certificate}->value();
+    my $serverCertificate = $self->_parentCert();
 
-    my $confRow = $self->_serverConfRow();
-    my $serverCertificate = $confRow->elementByName('certificate')->value();
     if ($cert eq $serverCertificate) {
         throw EBox::Exceptions::External(
             __(q{Cannot use for the bundle the server's certificate})
                                         );
     }
-
-
 }
 
 
@@ -251,7 +258,17 @@ sub _validateInstaller
     }
 }
 
-
+# overriden to be able to put the defualt address for server
+sub _defaultRow
+{
+    my ($self) = @_;
+    my $row = $self->SUPER::_defaultRow();
+    my ($serverAddr) = @{ $self->_defaultServerAddr() };
+    if ($serverAddr) {
+        $row->elementByName('addr1')->setValue($serverAddr);
+    }
+    return $row;
+}
 
 sub formSubmitted
 {
@@ -261,7 +278,7 @@ sub formSubmitted
     my $type = $row->elementByName('clientType')->value();
     my $certificate = $row->elementByName('certificate')->value();
     my $installer = $row->elementByName('installer')->value();
-
+    my $connStrategy = $row->elementByName('connStrategy')->value();
 
     my @serverAddr;
     foreach my $field (qw(addr1 addr2 addr3)) {
@@ -277,6 +294,7 @@ sub formSubmitted
     my $bundle= $server->clientBundle(
                                       clientType => $type,
                                       clientCertificate => $certificate,
+                                      connStrategy => $connStrategy,
                                       addresses => \@serverAddr,
                                       installer => $installer,
                                          );
@@ -323,7 +341,7 @@ sub precondition
         }
     } otherwise {
         my $ex = shift;
-        $self->{addPreconditionMsg} = $ex->text();
+        $self->{addPreconditionMsg} = "$ex";
         $configured = 0;
     };
 }
@@ -339,6 +357,12 @@ sub pageTitle
         return $self->parentRow()->printableValueByName('name');
 }
 
+sub _defaultServerAddr
+{
+    my ($self) = @_;
+    my $server = $self->parentRow()->printableValueByName('name');
+    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server, $self->parentModule()->isReadOnly());
+}
 
 # Method: preconditionFailMsg
 #
@@ -362,5 +386,27 @@ sub preconditionFailMsg
 
     return $msg;
 }
+
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions(
+           {
+              clientType => {
+                  windows => { enable => ['installer'] },
+                  linux   => {disable => ['installer']},
+                  mac     => {disable => ['installer']},
+                  EBoxToEBox => {disable => ['installer', 'connStrategy']},
+                 }
+           }  );
+    return $customizer;
+}
+
+
+
 
 1;

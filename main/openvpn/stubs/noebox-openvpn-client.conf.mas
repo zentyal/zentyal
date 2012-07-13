@@ -12,6 +12,8 @@ $key       => undef
 $tlsRemote  => undef
 $nsCertType => undef
 
+$connStrategy => 'random'
+
 @userAndGroup => ()
 </%args>
 
@@ -62,10 +64,12 @@ proto <% $proto %>
 remote  <% "$addr $port" %>
 % }
 
+% if ($connStrategy eq 'random') {
 # Choose a random host from the remote
 # list for load-balancing.  Otherwise
 # try hosts in the order specified.
 remote-random
+% }
 
 # Keep trying indefinitely to resolve the
 # host name of the OpenVPN server.  Very useful

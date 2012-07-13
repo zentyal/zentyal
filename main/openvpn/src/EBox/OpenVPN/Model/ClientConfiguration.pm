@@ -53,43 +53,18 @@ sub new
 
 sub _table
 {
-    my @confOptions = (
-        {
-            value => 'manual',
-            printableValue => __('Manual Configuration'),
-        },
-        {
-            value => 'bundle',
-            printableValue => __('Zentyal bundle')
-        }
-    );
-
+    # allowDownload option is disabled until the bug with allowDownload +
+    # DataForm is fixed (syntoms: undef $type->row())
     my @tableHead = (
-         new EBox::Types::Select(
-                                 fieldName => 'configuration',
-                                 printableName => __('Configuration'),
-                                 editable => 1,
-                                 options => \@confOptions,
-                                 ),
-         new EBox::Types::File(
-                               fieldName => 'configurationBundle',
-                               printableName =>
-                                  __(q{Upload configuration's bundle}),
-                               editable => 1,
-                               dynamicPath => \&_bundlePath,
-                               optional => 1,
-                              ),
          new EBox::Types::Host(
                                fieldName => 'server',
                                printableName => __('Server'),
                                editable => 1,
-                               optional => 1,
                               ),
          new EBox::OpenVPN::Types::PortAndProtocol(
                                                     fieldName => 'serverPortAndProtocol',
                                                     printableName => __('Server port'),
                                                     editable => 1,
-                                                    optional => 1,
                                                   ),
          new EBox::Types::File(
                                fieldName => 'caCertificate',
@@ -97,9 +72,8 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
@@ -108,9 +82,8 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
@@ -119,17 +92,21 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
+         new EBox::Types::Boolean(
+                 fieldName =>  'tunInterface',
+                 printableName => __('TUN interface'),
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
         new EBox::Types::Password(
                                   fieldName => 'ripPasswd',
                                   printableName => __('Server tunnel password'),
                                   minLength => 6,
                                   editable => 1,
-                                  optional => 1,
                                  ),
           new EBox::Types::Port(
                                   fieldName => 'lport',
@@ -171,32 +148,7 @@ sub _table
     return $dataTable;
 }
 
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
-#   a custom behaviour to enable and disable fields
-#   depending on the 'Configuration' value
-#
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
 
-    my $customizer = new EBox::View::Customizer();
-    my $fields = [qw/server serverPortAndProtocol caCertificate
-        certificate certificateKey ripPasswd/];
-    $customizer->setModel($self);
-    $customizer->setOnChangeActions(
-            { configuration =>
-                {
-                  manual => { enable => $fields,
-                  disable => ['configurationBundle'] },
-                  bundle => { disable => $fields,
-                  enable => ['configurationBundle'] },
-                }
-            });
-    return $customizer;
-}
 
 sub name
 {
@@ -228,23 +180,16 @@ sub validateTypedRow
     my ($self, $action, $params_r, $actual_r) = @_;
 
 
-    if (exists $params_r->{configurationBundle}) {
-        if (not $params_r->{configurationBundle}->toRemove()) {
-            # other parameters would be ignored
-            return;
-        }
-    }
-
     if (exists $params_r->{server}) {
         EBox::OpenVPN::Client->checkServer($params_r->{server}->value());
     }
 
-    $self->_validateManualParams($action, $params_r, $actual_r);
+    $self->_validateNoCertParams($action, $params_r, $actual_r);
     $self->_validateCerts($action, $params_r, $actual_r);
 }
 
 
-sub _validateManualParams
+sub _validateNoCertParams
 {
     my ($self, $action, $params_r, $actual_r) = @_;
     my @mandatoryParams = qw(server serverPortAndProtocol ripPasswd);
@@ -271,37 +216,30 @@ sub _validateCerts
 
     my %path;
 
-    my $conf;
-    if (exists $params_r->{'configuration'}) {
-        $conf = $params_r->{'configuration'}->value();
-    } else {
-        $conf = $actual_r->{'configuration'}->value();
-    }
-
     my $path;
     my $noChanges = 1;
-    if ($conf eq 'manual') {
-        my @fieldNames = qw(caCertificate certificate certificateKey);
-        foreach my $fieldName (@fieldNames) {
-            my $certPath;
-            if ( exists $params_r->{$fieldName} ) {
-                $noChanges = 0;
-                $certPath =  $params_r->{$fieldName}->tmpPath();
-            } else {
+
+    my @fieldNames = qw(caCertificate certificate certificateKey);
+    foreach my $fieldName (@fieldNames) {
+        my $certPath;
+        if ( exists $params_r->{$fieldName} ) {
+            $noChanges = 0;
+            $certPath =  $params_r->{$fieldName}->tmpPath();
+        } else {
                 my $file =  $actual_r->{$fieldName};
                 if (not $file->exist()) {
                     throw EBox::Exceptions::External(
-                            __x(
-                                'No file supplied or already set for {f}',
-                                f => $file->printableName
-                               )
-                            );
+                        __x(
+                            'No file supplied or already set for {f}',
+                            f => $file->printableName
+                           )
+                       );
                 }
                 $certPath = $file->path();
             }
-            $path{$fieldName} = $certPath;
-        }
+        $path{$fieldName} = $certPath;
     }
+
 
     return if ($noChanges);
 
@@ -334,51 +272,23 @@ sub _privateFilePath
 }
 
 
-sub _bundlePath
-{
-    my ($file) = @_;
-    return unless (defined($file));
-    return unless (defined($file->model()));
-
-    my $row     = $file->row();
-    return unless defined $row;
-
-    my $clientName = __PACKAGE__->_clientName($row);
-    $clientName or
-        return;
-
-    return EBox::Config::tmp() . "$clientName.bundle";
-}
 
 
 sub updatedRowNotify
 {
     my ($self, $row) = @_;
 
-
-   my $bundleField  = $row->elementByName('configurationBundle');
-    $bundleField or
-        return;
-
-    my $bundle = $bundleField->path();
-    ( -r $bundle) or
-          return;
-
-    my $clientName = __PACKAGE__->_clientName($row);
-    $clientName or
-        return;
-
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    try {
-        $openvpn->setClientConfFromBundle($clientName, $bundle);
+    #  the interface type resides in the ServerModels so we must set it in the
+    #  parentRow
+    my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
+    my $parentRow = $self->parentRow();
+    my $ifaceType = $parentRow->elementByName('interfaceType');
+    if ($ifaceType->value() ne $toSet) {
+        $ifaceType->setValue($toSet);
+        $parentRow->store();
     }
-    finally {
-        if (-f $bundle) {
-            unlink $bundle;
-        }
-    };
-
 }
+
 
 # Method: pageTitle
 #
@@ -386,9 +296,9 @@ sub updatedRowNotify
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->parentRow()->printableValueByName('name');
+    return $self->parentRow()->printableValueByName('name');
 }
 
 sub _clientName

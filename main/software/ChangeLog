@@ -1,3 +1,5 @@
+HEAD
+	+ Install/Remove package shows log directory in error message
 2.3.3
 	+ Add proper 2.3 repository in initial-setup
 	+ Adapted to new Model management framework
@@ -204,7 +206,7 @@
 0.12
 	+ New release
 0.11.101
-	+ Bugfix. Fix typo in ebox-update-packages which prevented software 
+	+ Bugfix. Fix typo in ebox-update-packages which prevented software
 	  management from working
 	+ Add ebox-software.cron.daily to debian package
 	+ Add action to explain ebox-software cron script
@@ -232,7 +234,7 @@
 0.8.99
 	+ New release
 0.8.1
-	+ fix bug to avoid calling endlessly ebox-software 
+	+ fix bug to avoid calling endlessly ebox-software
 	  after installing a package when automatic update was enable.
 0.8
 	+ ebox-software truncates /etc/apt/sources.list and

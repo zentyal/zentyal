@@ -84,6 +84,11 @@ lport <% $lport %>
 nobind
 % }
 
+# group and user for the OpenVPN
+# daemon's privileges after initialization.
+user <% $user %>
+group <% $group %>
+
 # Try to preserve some state across restarts.
 persist-key
 persist-tun

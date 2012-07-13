@@ -75,9 +75,9 @@ sub _table
                       defaultActions => ['add', 'del', 'editField',  'changeView' ],
                       tableDescription => \@tableHead,
                       class => 'dataTable',
-                      help => __('IP'),
                       printableRowName => __('IP'),
-                      sortedBy => 'ip' };
+                      sortedBy => 'ip',
+                      help => __('The domain name will be resolved to this list of IP addresses.') };
 
     return $dataTable;
 }

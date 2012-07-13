@@ -28,6 +28,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Port;
+use EBox::Types::Int;
 
 sub new
 {
@@ -57,6 +58,15 @@ sub _table
             disableCache  => 1,
             help          => __('Only users in this group will be allowed to login.'),
             ),
+       new EBox::Types::Int(
+           fieldName     => 'expiration',
+           printableName => __('Expiration time'),
+           editable      => 1,
+           size          => 6,
+           defaultValue  => 60,
+           min           => 60,
+           max           => 86400,  # one day
+           ),
        new EBox::Types::Port(
            fieldName     => 'http_port',
            printableName => __('HTTP port'),

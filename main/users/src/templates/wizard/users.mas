@@ -7,10 +7,10 @@ my $customPrefix = EBox::Config::configkey('custom_prefix');
 <form method="post" action="./UsersAndGroups/Wizard/Users" style="text-align: center">
         <div><img src="/data/software/images/users.png" /></div>
         <h4><% __('Select the type of the server') %></h4>
-        <div><% __('Choose standalone unless you want LDAP replication or synchronization with Active Directory.') %></div>
+        <div><% __('Choose standalone unless you want LDAP replication.') %></div>
         <div style="margin: 20px auto; width: 40%; text-align: left">
             <div><input type="radio" name="standalone" id="standalone" value="1" checked="true" /><label for="standalone"><% __('Standalone server') %></label></div>
-            <div><input type="radio" name="standalone" id="advanced" value="0" onclick="$('message').appear()" /><label for="advanced"><% __('Advanced configuration (Master/Slave/AD Sync)') %></label></div>
+            <div><input type="radio" name="standalone" id="advanced" value="0" onclick="$('message').appear()" /><label for="advanced"><% __('Advanced configuration (Master/Slave)') %></label></div>
             <div id="message" style="display: none; margin: 20px; text-align: center">
 % unless ($customPrefix) {
                 <% __x('If you need the advanced features you have to configure them manually. You can find {open}all the information in our wiki{close}', open => '<a href="http://trac.zentyal.org/wiki/Document/AdvancedSetup?utm_source=zentyal&utm_medium=installer&utm_campaign=advanced.setup.documentation" target="_blank">', close=> '</a>') %>

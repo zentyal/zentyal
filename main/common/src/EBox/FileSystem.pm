@@ -24,6 +24,7 @@ use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Sudo;
+use Error qw(:try);
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';
@@ -141,6 +142,24 @@ sub isSubdir
     $parentDir =~ s{/+}{/}g;
 
     return $subDir =~ m/^$parentDir/;
+}
+
+# Function: isSubdir
+#
+#    Find if a directory is empty or not
+#
+#  Returns:
+#       - boolean
+sub dirIsEmpty
+{
+    my ($dir) = @_;
+    my $empty = 0;
+    try {
+        EBox::Sudo::root("ls $dir/*");
+    }otherwise {
+        $empty = 1;
+    };
+    return $empty;
 }
 
 # Function: permissionsFromStat
@@ -265,7 +284,7 @@ sub partitionsFileSystems
 
     while (my ($fs, $attrs) = each %fileSys) {
         # remove non-device filesystems
-        if ($fs eq 'none') {
+        unless ($fs =~ m{^/}) {
                 delete $fileSys{$fs};
                 next;
         }

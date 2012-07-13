@@ -240,7 +240,33 @@ sub addHostAlias
     }
 }
 
+# Method: setDynamic
+#
+#   Set the dynamic flag of a domain
+#
+# Parameters:
+#
+#   domain  - The domain name
+#   dynamic - Boolean flag
+#
+sub setDynamic
+{
+    my ($self, $domain, $dynamic) = @_;
 
+    unless (defined $domain) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    unless (defined $dynamic) {
+        throw EBox::Exceptions::MissingArgument('dynamic');
+    }
+
+    my $rowId = undef;
+    my $domainRow = $self->_getDomainRow($domain);
+    EBox::debug("Setting the domain named $domain dynamic flag to $dynamic");
+    $domainRow->elementByName('dynamic')->setValue($dynamic);
+    $domainRow->store();
+}
 
 # Method: addService
 #
@@ -495,7 +521,15 @@ sub addedRowNotify
 
     EBox::debug('Adding name server');
     my $nsModel = $newRow->subModel('nameServers');
-    $nsModel->add(hostName => { ownerDomain => $nsHost } )
+    $nsModel->add(hostName => { ownerDomain => $nsHost } );
+
+    my $addrs = join(', ', @{$internalIpAddresses});
+    $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
+                          . 'these IP addresses {ips}, this host name has been also set as '
+                          . 'nameserver record. Moreover, the same IP addresses have been assigned '
+                          . 'to this new domain. You can always rename it or create alias for it.',
+                          nshost => $nsHost, ips => $addrs));
+
 }
 
 # Method: viewCustomizer

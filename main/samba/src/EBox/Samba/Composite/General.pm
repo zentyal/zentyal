@@ -44,8 +44,6 @@ sub new
 
 }
 
-# Group: Protected methods
-
 # Method: _description
 #
 # Overrides:
@@ -54,20 +52,14 @@ sub new
 #
 sub _description
 {
-    my $samba = EBox::Global->modInstance('samba');
-
     my $description = {
        layout          => 'tabbed',
        name            =>  __PACKAGE__->nameFromClass,
        pageTitle       => __('File Sharing'),
        printableName   => __('File sharing options'),
        compositeDomain => 'Samba',
-       help            => __('FIXME HELP'),
+       help            => __(''), # TODO
     };
-
-#    if ($samba->isAntivirusPresent()) {
-#        push(@{$description->{'components'}}, 'samba/Antivirus');
-#    }
 
     return $description;
 }

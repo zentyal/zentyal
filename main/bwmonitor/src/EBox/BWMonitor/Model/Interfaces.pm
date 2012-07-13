@@ -112,5 +112,58 @@ sub syncRows
     return 1;
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $changes, $all) = @_;
+
+    # dont allow to disable a interface used by captiveportal
+    if (not $changes->{enabled}) {
+        return;
+    } elsif ($changes->{enabled}->value()) {
+        return;
+    }
+
+    my $interface = $all->{interface}->value();
+
+    if (not $self->global()->modExists('captiveportal')) {
+        return;
+    }
+    my $captive = $self->global()->modInstance('captiveportal');
+    if ($captive->model('Interfaces')->interfaceNeedsBWMonitor($interface)) {
+        throw EBox::Exceptions::External(__x(
+            'Cannot disable {if}, it is needed by captive portal',
+            if => $interface
+           ));
+    }
+}
+
+
+sub enabledInterfaces
+{
+    my ($self) = @_;
+    my @ifaces;
+
+    foreach my $id (@{$self->enabledRows()}) {
+        my $row = $self->row($id);
+        push(@ifaces, $row->valueByName('interface'));
+    }
+
+    return \@ifaces;
+}
+
+sub interfaceIsEnabled
+{
+    my ($self, $interface) = @_;
+    my $row = $self->find(interface => $interface);
+    return $row->valueByName('enabled');
+}
+
+sub enableInterface
+{
+    my ($self, $interface, $value) = @_;
+    my $row = $self->find(interface => $interface);
+    $row->elementByName('enabled')->setValue($value);
+    $row->store();
+}
 
 1;

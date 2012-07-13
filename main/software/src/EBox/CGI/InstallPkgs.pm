@@ -183,8 +183,10 @@ sub showInstallProgress
             . 'for a few seconds. Please wait patiently until '
             . 'the system has been fully configured. You will be automatically '
             . 'redirected to the next step'),
-        errorNote => __('The packages installation has not finished correctly '
-            . '. More information on the logs'),
+        errorNote => __x('The packages installation has not finished correctly '
+            . '. More information on the logs in {dir}',
+                         dir => EBox::Config->log()
+                        ),
         reloadInterval  => 2,
         nextStepUrl => '/Wizard',
         nextStepText => __('Go to save changes'),
@@ -207,8 +209,9 @@ sub showRemoveProgress
             . 'The administration interface may become unresponsive '
             . 'for a few seconds. Please wait patiently until '
             . 'the system has been fully restarted'),
-        errorNote => __('The packages removal has not finished correctly '
-            . '. More information on the logs'),
+        errorNote => __x('The packages removal has not finished correctly '
+            . '. More information on the logs in {dir}',
+                         dir => EBox::Config->log()),
         reloadInterval  => 2,
         nextStepUrl => '/Finish',
         nextStepText => __('Go to initial configuration wizard'),

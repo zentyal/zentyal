@@ -222,23 +222,23 @@ sub objectsPolicies
 {
     my ($self) = @_;
 
-    my $objectMod = EBox::Global->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('objects');
 
     my @obsPol = map {
         my $row = $self->row($_);
 
         my $obj           = $row->valueByName('object');
-        my $addresses     = $objectMod->objectAddresses($obj);
+        my $members       = $objectMod->objectMembers($obj);
 
         my $policy        = $row->elementByName('policy');
 
         my $timePeriod    = $row->elementByName('timePeriod');
         my $groupPolicy   = $row->subModel('groupPolicy');
 
-        if (@{ $addresses }) {
+        if (@{$members}) {
             my $obPol = {
                 object    => $obj,
-                addresses => $addresses,
+                members   => $members,
                 auth      => 0, #FIXME
                 allowAll  => 0, #FIXME
                 filter    => 0, #FIXME
@@ -275,7 +275,7 @@ sub objectsProfiles
 
     my %profileIdByRowId = %{ $self->profileModel->idByRowId() };
 
-    my $objectMod = EBox::Global->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('objects');
 
     my @profiles;
     # object policies have priority by position in table

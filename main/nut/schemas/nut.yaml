@@ -1,0 +1,14 @@
+class: 'EBox::NUT'
+
+models:
+    - Mode
+    - UPS
+    - UPSVariables
+    - UPSSettings
+
+composites:
+    General: [UPS]
+    Variables: [UPSSettings, UPSVariables]
+
+foreign:
+    UPS: [Variables]
