@@ -72,8 +72,7 @@ sub running # (daemon)
     (-f "/etc/init/$daemon.conf") or
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-    my $output = EBox::Sudo::root("status '$daemon'");
-    my $status = @{$output}[0];
+    my $status = `status '$daemon'`;
     # TODO: Parse different exit status:
     #       Pre-start
     #       Post-start
