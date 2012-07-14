@@ -783,7 +783,6 @@ sub firewallHelper
 
     if ($self->isEnabled()) {
         if ($self->filterNeeded()) {
-            return new EBox::SquidFirewall();
             return new EBox::SquidFirewall(ro => $ro);
         } else  {
             return new EBox::SquidOnlyFirewall(ro => $ro);

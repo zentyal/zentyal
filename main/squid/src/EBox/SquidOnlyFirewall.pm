@@ -25,15 +25,6 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-sub new
-{
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return $self;
-}
-
 sub _global
 {
     my ($self) = @_;
@@ -50,6 +41,14 @@ sub _trans_prerouting
 
     my $sqport = $sq->port();
     my @rules = ();
+
+    my $exceptions = $sq->model('TransparentExceptions');
+    foreach my $id (@{$exceptions->enabledRows()}) {
+        my $row = $exceptions->row($id);
+        my $addr = $row->valueByName('domain');
+        # TODO: 443 also when https proxy is implemented
+        push(@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
+    }
 
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
@@ -104,6 +103,7 @@ sub input
 sub output
 {
     my ($self) = @_;
+
     my @rules = ();
     push(@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
     push(@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");

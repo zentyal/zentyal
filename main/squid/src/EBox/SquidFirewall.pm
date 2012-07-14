@@ -119,6 +119,14 @@ sub _trans_prerouting
     my $dgport = $sq->DGPORT();
     my @rules = ();
 
+    my $exceptions = $sq->model('TransparentExceptions');
+    foreach my $id (@{$exceptions->enabledRows()}) {
+        my $row = $exceptions->row($id);
+        my $addr = $row->valueByName('domain');
+        # TODO: 443 also when https proxy is implemented
+        push(@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
+    }
+
     my @objsPolicies = @{ $self->_objectsPolicies() };
 
     my @ifaces = @{$net->InternalIfaces()};
