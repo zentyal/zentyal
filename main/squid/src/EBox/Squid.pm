@@ -300,6 +300,21 @@ sub transproxy
     return $self->model('GeneralSettings')->value('transparentProxy');
 }
 
+# Method: https
+#
+#       Returns if the https mode is enabled
+#
+# Returns:
+#
+#       boolean - true if enabled, otherwise undef
+#
+sub https
+{
+    my ($self) = @_;
+
+    return $self->model('GeneralSettings')->value('https');
+}
+
 # Method: setPort
 #
 #       Sets the listening port for the proxy
@@ -526,6 +541,7 @@ sub _writeSquidConf
     my @writeParam = ();
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
+    push @writeParam, ('https'  => $self->https());
     push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('groupsPolicies' => $groupsPolicies);
     push @writeParam, ('objectsPolicies' => $objectsPolicies);

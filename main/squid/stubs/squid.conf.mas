@@ -8,6 +8,7 @@
 <%args>
     $port
     $transparent
+    $https
     @localnets
     @objectsPolicies
     @objectsDelayPools
@@ -84,7 +85,11 @@ sub _aclName
 % if ($transparent) {
 %   $transKey = 'transparent';
 % }
-http_port <% $port %> <% $transKey %>
+% my $sslKey = '';
+% if ($https) {
+%   $sslKey = 'ssl-bump';
+% }
+http_port <% $port %> <% $transKey %> <% $sslKey %>
 # END_TAG #
 
 visible_hostname localhost
@@ -199,6 +204,12 @@ http_reply_access allow all
 
 % if ($cache_host and $cache_port) {
 never_direct allow all
+% }
+
+% if ($https) {
+# ssl-bump options
+always_direct allow SSL_ports
+ssl_bump allow SSL_ports
 % }
 
 

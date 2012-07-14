@@ -52,21 +52,27 @@ sub _table
                   fieldName => 'transparentProxy',
                   printableName => __('Transparent Proxy'),
                   editable => 1,
-                  defaultValue   => 0,
-                  help => _transparentHelp()
+                  defaultValue => 0,
+              ),
+          new EBox::Types::Boolean(
+                  fieldName => 'https',
+                  printableName => __('HTTPS Proxy'),
+                  editable => 1,
+                  defaultValue => 0,
+                  help => __('FIXME: add help'),
               ),
           new EBox::Types::Boolean(
                   fieldName => 'removeAds',
                   printableName => __('Ad Blocking'),
                   editable => 1,
-                  defaultValue   => 0,
+                  defaultValue => 0,
                   help => __('Remove advertisements from all HTTP traffic')
               ),
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),
                   editable => 1,
-                  defaultValue   => 3128,
+                  defaultValue => 3128,
                ),
           new EBox::Types::Int(
                   fieldName => 'cacheDirSize',
@@ -74,7 +80,7 @@ sub _table
                   editable => 1,
                   size => 5,
                   min  => 10,
-                  defaultValue   => 100,
+                  defaultValue => 100,
                ),
     );
 
