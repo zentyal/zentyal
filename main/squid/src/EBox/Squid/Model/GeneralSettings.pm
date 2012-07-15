@@ -35,16 +35,6 @@ use EBox::Exceptions::External;
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=enterprise_edition';
 
-sub new
-{
-    my $class = shift @_ ;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    return $self;
-}
-
 sub _table
 {
     my @tableDesc = (
@@ -57,6 +47,7 @@ sub _table
           new EBox::Types::Boolean(
                   fieldName => 'https',
                   printableName => __('HTTPS Proxy'),
+                  hidden => \&_sslSupportNotAvailable,
                   editable => 1,
                   defaultValue => 0,
                   help => __('FIXME: add help'),
@@ -192,6 +183,11 @@ sub _commercialMsg
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
+}
+
+sub _sslSupportNotAvailable
+{
+    return system('ldd /usr/sbin/squid3 | grep -q libssl') != 0;
 }
 
 1;
