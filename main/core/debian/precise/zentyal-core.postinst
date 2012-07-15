@@ -10,13 +10,6 @@ set -e
 
 #DEBHELPER#
 
-stop_ebox_processes() {
-  stop ebox.redis || true
-  OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
-  kill $OLD_APACHE_PID || true
-  pkill -u ebox || true
-}
-
 ZENTYAL_HOME=/var/lib/zentyal/
 FIRST_FILE=$ZENTYAL_HOME/.first
 

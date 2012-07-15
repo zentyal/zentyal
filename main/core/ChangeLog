@@ -1,4 +1,5 @@
 HEAD
+	+ Kill processes owned by the ebox user before trying to delete it
 	+ Do not use sudo to call status command at EBox::Service::running
 	+ Fixed regression setting default CSS class in notes
 2.3.15
