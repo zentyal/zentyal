@@ -4140,9 +4140,9 @@ sub _multipathCommand
         my $ip = $gw->{'ip'};
         next unless $ip;
 
-        my $name = $gw->{'name'};
-        my $nobalance = EBox::Config::configkey("no_balance_$name");
-        next if ($nobalance and (@gateways > 1));
+        # Skip gateways with traffic balance disabled
+        # except if we just have one gateway
+        next unless ($gw->{'balance'} or (@gateways == 1));
 
         my $iface = $gw->{'interface'};
         my $method = $self->ifaceMethod($iface);

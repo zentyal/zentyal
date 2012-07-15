@@ -460,23 +460,29 @@ sub allGateways
     $self->_gateways(1);
 }
 
-sub _gateways # (all)
+sub _gateways
 {
     my ($self, $all) = @_;
 
     my @gateways;
 
+    my $balanceModel = $self->parentModule()->model('BalanceGateways');
+    my %balanceEnabled =
+        map { $balanceModel->row($_)->valueByName('name') => 1 } @{$balanceModel->enabledRows()};
+
     foreach my $id (@{$all ? $self->ids() : $self->enabledRows()}) {
         my $gw = $self->row($id);
+        my $name = $gw->valueByName('name');
         push (@gateways, {
                             id => $id,
                             auto => $gw->valueByName('auto'),
-                            name => $gw->valueByName('name'),
+                            name => $name,
                             ip => $gw->valueByName('ip'),
                             weight => $gw->valueByName('weight'),
                             default => $gw->valueByName('default'),
                             interface => $gw->valueByName('interface'),
                             enabled => $gw->valueByName('enabled'),
+                            balance => $balanceEnabled{$name},
                          });
     }
 
