@@ -1,3 +1,5 @@
+HEAD
+	+ Added script for clearing mnesia database
 2.3.2
 	+ Adapted to new Model management framework
 	+ Now binding against LDAP to be able to access the accounts objects
