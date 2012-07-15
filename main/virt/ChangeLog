@@ -1,5 +1,6 @@
 HEAD
-	+ Always set a fixed MAC for vms interfaces
+	+ MAC addresses can be always set without need of config key and also
+	  have a random default value
 2.3.1
 	+ Added printableName for VNC service
 2.3

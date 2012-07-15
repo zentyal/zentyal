@@ -116,8 +116,8 @@ sub _table
                            fieldName     => 'mac',
                            printableName => __('MAC Address'),
                            editable      => 1,
-                           optional      => 1,
-                           hidden =>  not EBox::Config::boolean('custom_mac_addresses'),
+                           unique        => 1,
+                           defaultValue  => \&randomMAC,
                           ),
 
     );
@@ -218,6 +218,21 @@ sub randomMAC
         }
     }
 
+
+    return $mac;
+}
+
+sub randomMAC
+{
+    my ($self) = @_;
+
+    my $mac = '';
+    foreach my $i (0 .. 5) {
+        $mac .= sprintf("%02X", int(rand(255)));
+        if ($i < 5) {
+            $mac .= ':';
+        }
+    }
 
     return $mac;
 }
