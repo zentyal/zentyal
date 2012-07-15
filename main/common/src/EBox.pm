@@ -36,25 +36,27 @@ sub deprecated
 	}
 }
 
-sub info # (msg)
+sub info
 {
 	my ($msg) = @_;
+
 	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->info($msg);
 	$Log::Log4perl::caller_depth -=1;
 }
 
-sub error # (msg)
+sub error
 {
 	my ($msg) = @_;
+
 	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->error($msg);
 	$Log::Log4perl::caller_depth -=1;
 }
 
-sub debug # (msg)
+sub debug
 {
 	my ($msg) = @_;
 
@@ -66,13 +68,25 @@ sub debug # (msg)
     }
 }
 
-sub warn # (msg)
+sub warn
 {
 	my ($msg) = @_;
+
 	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->warn($msg);
 	$Log::Log4perl::caller_depth -=1;
+}
+
+sub trace
+{
+    my ($msg) = @_;
+
+    if ($debug) {
+        use Devel::StackTrace;
+        my $trace = new Devel::StackTrace();
+        EBox::debug($trace->as_string());
+    }
 }
 
 sub initLogger
