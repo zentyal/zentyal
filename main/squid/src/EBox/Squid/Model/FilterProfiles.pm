@@ -222,9 +222,8 @@ sub _setProfileDomainsPolicy
 {
     my ($self, $group, $policy) = @_;
 
-    my $domainFilter      = $policy->componentByName('DomainFilter', 1);
-    # FIXME!
-    my $domainFilterFiles = $policy->componentByName('DomainFilterFiles', 1);
+    my $domainFilter      = $policy->componentByName('Domains', 1)->componentByName('DomainFilter', 1);
+    my $domainFilterFiles = $policy->componentByName('DomainFilterCategrories', 1);
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),
@@ -236,23 +235,12 @@ sub _setProfileDomainsPolicy
                                   includes => $domainFilterFiles->allowedUrls(),
                                  ];
 
-    $group->{greysitelist} = [
-                              domains => $domainFilter->filtered(),
-                              includes => $domainFilterFiles->filtered(),
-                             ];
-
-    $group->{greyurllist} = [
-                             urls => $domainFilter->filteredUrls(),
-                             includes => $domainFilterFiles->filteredUrls(),
-                            ];
-
     $group->{bannedurllist} = [
                                urls =>  => $domainFilter->bannedUrls(),
                                includes => $domainFilterFiles->bannedUrls(),
                               ];
 
     my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
-
     $group->{bannedsitelist} = [
                                 blockIp       => $domainFilterSettings->blockIpValue,
                                 blanketBlock  => $domainFilterSettings->blanketBlockValue,
