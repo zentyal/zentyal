@@ -96,7 +96,7 @@ sub _table
         pageTitle          => __('HTTP Proxy'),
         printableTableName => __('Filter Profiles'),
         modelDomain        => 'Squid',
-        defaultActions => [ 'add', 'del', 'editField', 'changeView' ],
+        defaultActions => [ 'add', 'del', 'editField', 'changeView', 'clone' ],
         tableDescription   => $self->tableHeader(),
         class              => 'dataTable',
         rowUnique          => 1,

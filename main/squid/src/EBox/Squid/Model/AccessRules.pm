@@ -113,7 +113,7 @@ sub _table
         pageTitle          => __('HTTP Proxy'),
         printableTableName => __('Access Rules'),
         modelDomain        => 'Squid',
-        defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'clone', 'move' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         order              => 1,
