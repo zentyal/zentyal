@@ -4,6 +4,9 @@
     $rootdn
     $password
 </%args>
+<%init>
+my $usersDn = 'ou=Users,' . $rootdn;
+</%init>
 # -*- text -*-
 #
 #  $Id$
@@ -76,7 +79,7 @@ ldap {
 		# Set this to 'yes' to use TLS encrypted connections
 		# to the LDAP database by using the StartTLS extended
 		# operation.
-		#			
+		#
 		# The StartTLS operation is supposed to be
 		# used with normal ldap connections instead of
 		# using ldaps (port 689) connections
@@ -132,8 +135,8 @@ ldap {
 	#  Group membership checking.  Disabled by default.
 	#
 	groupname_attribute = cn
-        groupmembership_filter = "(&(objectClass=posixGroup)(memberUid=%{Stripped-User-Name:-%{User-Name}}))"
-	# groupmembership_attribute = radiusGroupName
+    groupmembership_filter = "(&(objectClass=posixGroup)(member=%{Stripped-User-Name:-%{User-Name}}))"
+	groupmembership_attribute = memberOf
 
 	# compare_check_items = yes
 	# do_xlat = yes
@@ -156,7 +159,7 @@ ldap {
 	#
 	#  THIS WILL ONLY WORK FOR PAP AUTHENTICATION.
 	#
-	#  THIS WILL NOT WORK FOR CHAP, MS-CHAP, or 802.1x (EAP). 
+	#  THIS WILL NOT WORK FOR CHAP, MS-CHAP, or 802.1x (EAP).
 	#
 	#  You can disable this behavior by setting the following
 	#  configuration entry to "no".
@@ -171,5 +174,5 @@ ldap {
 	#
 	#	default: 0x0000 (no debugging messages)
 	#	Example:(LDAP_DEBUG_FILTER+LDAP_DEBUG_CONNS)
-	#ldap_debug = 0x0028 
+	#ldap_debug = 0x0028
 }
