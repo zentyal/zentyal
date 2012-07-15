@@ -1,3 +1,6 @@
+HEAD
+	+ MAC addresses can be always set without need of config key and also
+	  have a random default value
 2.3.2
 	+ Remove no longer necessary parentComposite workarounds
 	+ Adapted to new Model management framework
