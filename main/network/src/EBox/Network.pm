@@ -3365,8 +3365,8 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 #
 # Returns:
 #
-#       Boolean - if name is not present, indicate whether the given
-#       gateway is reachable or not
+#       Boolean - name of the interface used to reach the gateway
+#                 undef if not reachable
 #
 # Exceptions:
 #
@@ -3400,7 +3400,7 @@ sub gatewayReachable
                 next;
             }
 
-            return 1;
+            return $iface;
         }
     }
 

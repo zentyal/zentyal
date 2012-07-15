@@ -19,12 +19,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
-
 use EBox::Types::Int;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
+use EBox::Types::Text;
 use EBox::Network::Types::Text::AutoReadOnly;
 use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
@@ -57,18 +57,6 @@ sub weights
         push @options, { 'value' => $weight,
                  'printableValue' => $weight};
     }
-    return \@options;
-}
-
-sub interfaces
-{
-    my $network = EBox::Global->modInstance('network');
-    my @ifaces = (@{$network->InternalIfaces()},
-                  @{$network->ExternalIfaces()});
-
-    my @options = map { 'value' => $_,
-                 'printableValue' => $_ }, @ifaces;
-
     return \@options;
 }
 
@@ -187,11 +175,12 @@ sub _table
                     'unique' => 0, # Uniqueness is checked in validateRow
                     'editable' => 1
                       ),
-        new EBox::Types::Select(
+        new EBox::Types::Text(
                     'fieldName' => 'interface',
                     'printableName' => __('Interface'),
-                    'populate' => \&interfaces,
-                    'editable' => 1,
+                    'editable' => 0,
+                    'hiddenOnSetter' => 1,
+                    'optional' => 1,
                     'help' => __('Interface connected to this gateway')
                 ),
         new EBox::Types::Select(
@@ -284,18 +273,28 @@ sub validateRow
                                                    'value' => $ip);
             }
         }
-    }
 
-    # Only check if gateway is reachable on static interfaces
-    if ($network->ifaceMethod($params{'interface'}) eq 'static') {
-        $network->gatewayReachable($params{'ip'}, 'LaunchException');
-        if (($action eq 'add' and ($self->size() == 0))) {
+        my $iface = $network->gatewayReachable($params{ip});
+        if ($iface) {
+            # Only check if gateway is reachable on static interfaces
+            unless ($network->ifaceMethod($iface) eq 'static') {
+                if ($action eq 'add') {
+                    throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
+                } else {
+                    throw EBox::Exceptions::External(__x("Gateway {gw} must be reachable by a static interface. "
+                                . "Currently it is reachable by {iface} which is not static",
+                                gw => $ip, iface => $iface));
+                }
+            }
+        } else {
+            throw EBox::Exceptions::External(__x("Gateway {gw} not reachable", gw => $ip));
+        }
+
+        if (($action eq 'add') and ($self->size() == 0)) {
             if (not $params{default}) {
                 throw EBox::Exceptions::External(__('Since you have not gateways you should add the first one as default'))
             }
         }
-    } elsif (($action eq 'add') and (not $auto)) {
-        throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
     }
 
     my $currentIsDefault = 0;
@@ -314,11 +313,8 @@ sub validateRow
             }
         }
     } elsif ($currentIsDefault) {
-        throw EBox::Exceptions::External(
-            __('You cannot remove the default attribute, if you want to change it assign it to another gaterway')
-           );
+        throw EBox::Exceptions::External(__('You cannot remove the default attribute, if you want to change it assign it to another gaterway'));
     }
-
 }
 
 sub validateRowRemoval
@@ -339,6 +335,8 @@ sub addedRowNotify
 {
     my ($self, $row) = @_;
 
+    $self->_autoDetectInterface($row);
+
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
         $network->storeSelectedDefaultGateway($row->id());
@@ -354,6 +352,8 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $newRow, $oldRow, $force) = @_;
+
+    $self->_autoDetectInterface($newRow);
 
     return if ($force); # failover event can force changes
 
@@ -575,6 +575,20 @@ sub checkGWName
             advice => __(q{Gateways names can only be composed of lowercase ASCII english letters, digits and '-'}),
 
            );
+    }
+}
+
+sub _autoDetectInterface
+{
+    my ($self, $row) = @_;
+
+    return if ($row->valueByName('auto'));
+
+    my $network = $self->parentModule();
+    my $iface = $network->gatewayReachable($row->valueByName('ip'));
+    if ($iface) {
+        $row->elementByName('interface')->setValue($iface);
+        $row->store();
     }
 }
 
