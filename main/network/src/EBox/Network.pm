@@ -2339,13 +2339,11 @@ sub setNameservers # (one, two)
             # remove it to insert it back in the wanted order
             $resolverModel->removeRow($existentRow->id(), 1);
         }
-        if ( $idx < $nNSS ) {
-            print "replace $idx $newNS\n";
+        if ($idx < $nNSS) {
             # There is a nameserver in the position
             $resolverModel->replace($idx, $newNS);
         } else {
             # Add a new one to the end of the list
-            print "add $newNS\n";
             $resolverModel->add(nameserver => $newNS);
         }
     }
