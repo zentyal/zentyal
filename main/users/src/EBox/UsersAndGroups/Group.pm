@@ -66,6 +66,18 @@ sub name
 }
 
 
+# Method: removeAllMembers
+#
+#   Remove all members in the group
+#
+sub removeAllMembers
+{
+    my ($self, $lazy) = @_;
+
+    $self->set('member', [], $lazy);
+}
+
+
 # Method: addMember
 #
 #   Adds the given user as a member
@@ -79,6 +91,13 @@ sub addMember
     my ($self, $user, $lazy) = @_;
 
     my @members = $self->get('member');
+
+    # return if user already in the group
+    foreach my $dn (@members) {
+        if (lc ($dn) eq lc ($user->dn())) {
+            return;
+        }
+    }
     push (@members, $user->dn());
 
     $self->set('member', \@members, $lazy);
@@ -204,7 +223,7 @@ sub deleteObject
 
     # Notify group deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods});
+    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Call super implementation
     shift @_;
@@ -225,7 +244,7 @@ sub save
         delete $self->{core_changed};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
+        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
     }
 }
 
@@ -247,6 +266,23 @@ sub setIgnoredModules
     }
 }
 
+# Method: setIgnoredSlaves
+#
+#   Set the slaves that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining slave names
+#
+sub setIgnoredSlaves
+{
+    my ($self, $slaves) = @_;
+    $self->{ignoreSlaves} = $slaves;
+}
+
+
+
 # GROUP CREATION METHODS
 
 
@@ -261,6 +297,7 @@ sub setIgnoredModules
 #   system - boolan: if true it adds the group as system group,
 #   otherwise as normal group
 #   ignoreMods - ldap modules to be ignored on addUser notify
+#   ignoreSlaves - slaves to be ignored on addUser notify
 #
 sub create
 {
@@ -312,7 +349,7 @@ sub create
 
     unless ($system) {
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods});
+        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
     }
 
     return $res;

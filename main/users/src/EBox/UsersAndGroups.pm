@@ -976,7 +976,7 @@ sub allSlaves
 #
 sub notifyModsLdapUserBase
 {
-    my ($self, $signal, $args, $ignored_modules) = @_;
+    my ($self, $signal, $args, $ignored_modules, $ignored_slaves) = @_;
 
     # convert signal to method name
     my $method = '_' . $signal;
@@ -1011,8 +1011,11 @@ sub notifyModsLdapUserBase
     }
 
     # Notify slaves
+    $ignored_slaves or $ignored_slaves = [];
     foreach my $slave (@{$self->allSlaves}) {
         my $name = $slave->name();
+        next if ($name eq any @{$ignored_slaves});
+
         $slave->sync($signal, $args);
     }
 }

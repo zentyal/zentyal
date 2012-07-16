@@ -178,7 +178,7 @@ sub save
             delete $self->{core_changed};
 
             my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
 
             delete $self->{ignoreMods};
         }
@@ -197,10 +197,22 @@ sub save
 sub setIgnoredModules
 {
     my ($self, $mods) = @_;
+    $self->{ignoreMods} = $mods;
+}
 
-    if (defined $mods) {
-        $self->{ignoreMods} = $mods;
-    }
+# Method: setIgnoredSlaves
+#
+#   Set the slaves that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining slave names
+#
+sub setIgnoredSlaves
+{
+    my ($self, $slaves) = @_;
+    $self->{ignoreSlaves} = $slaves;
 }
 
 # Method: addGroup
@@ -414,7 +426,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
+    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Mark as changed to process save
     $self->{core_changed} = 1;
@@ -457,6 +469,7 @@ sub passwordHashes
 #      uidNumber - user UID numberer
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
+#      ignoreSlaves - slaves that should not be notified about the user creation
 #
 # Returns:
 #
@@ -594,7 +607,7 @@ sub create
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
     }
 
     if ($res->{core_changed}) {
