@@ -310,7 +310,8 @@ sub _addAddressToRule
         if ($type eq $address . '_ipaddr') {
             $params{$address .'Address'} = $addr->subtype();
         } elsif ($type eq $address . '_macaddr') {
-            $params{$address . 'MAC'} = $addr->value();
+#            $params{$address . 'MAC'} = $addr->subtype();
+            $params{$address . 'Address'} = $addr->subtype();
         } elsif ($type eq $address . '_object') {
             $params{$address . 'Object'} = $addr->value();
         }

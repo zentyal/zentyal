@@ -116,9 +116,9 @@ sub _fieldDescription
                                  'printableName' => __('Source IP'),
                                  'editable' => 1,),
                              new EBox::Types::MACAddr(
-                                 'fieldName' => 'source_macddr',
+                                 'fieldName' => 'source_macaddr',
                                  'printableName' => __('Source MAC'),
-                                 'editable' => 1,), 
+                                 'editable' => 1,),
                              new EBox::Types::Select(
                                  'fieldName' => 'source_object',
                                  'printableName' => __('Source object'),
@@ -146,10 +146,6 @@ sub _fieldDescription
                                  'fieldName' => 'destination_ipaddr',
                                  'printableName' => __('Destination IP'),
                                  'editable' => 1),
-                             new EBox::Types::MACAddr(
-                                 'fieldName' => 'destination_macddr',
-                                 'printableName' => __('Destination MAC'),
-                                 'editable' => 1,), 
                              new EBox::Types::Select(
                                  'fieldName' => 'destination_object',
                                  'printableName' => __('Destination object'),

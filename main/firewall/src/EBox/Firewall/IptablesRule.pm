@@ -525,7 +525,7 @@ sub _setAddress
 
     my $addressType = delete $params{'addressType'};
 
-    my $src = delete $params{$addressType . 'Address'};
+    my $addr = delete $params{$addressType . 'Address'};
     my $obj = delete $params{$addressType . 'Object'};
     my $range = delete $params{$addressType . 'Range'};
     my $objMembers;
@@ -534,22 +534,22 @@ sub _setAddress
         $inverse = ' ! ';
     };
 
-    if (defined($src) and defined($obj)) {
+    if (defined($addr) and defined($obj)) {
         throw EBox::Exceptions::External(
                 "address and object are mutual exclusive");
     }
 
-    if (defined($src)) {
+    if (defined($addr)) {
         # Checking correct address
-        unless ( $src->isa('EBox::Types::IPAddr') or
-                 $src->isa('EBox::Types::HostIP') or
-                 $src->isa('EBox::Types::MACAddr')) {
+        unless ( $addr->isa('EBox::Types::IPAddr') or
+                 $addr->isa('EBox::Types::HostIP') or
+                 $addr->isa('EBox::Types::MACAddr')) {
             throw EBox::Exceptions::InvalidData('data' => 'src',
-                                                'value' => $src);
+                                                'value' => $addr);
         }
-        if ( $src->isa('EBox::Types::MACAddr') and
+        if ( $addr->isa('EBox::Types::MACAddr') and
              $addressType ne 'source') {
-            throw EBox::Exceptions::External(
+            print(
                'MACAddr filtering can be only ' .
                'done in source not in destination'
                                             );
@@ -592,15 +592,15 @@ sub _setAddress
         my $range = $range->begin() . '-' . $range->end();
         $self->{$addressType} = [' -m iprange ' . $inverse . $rangeFlag .  $range];
     } else {
-        if (defined ($src) and $src->isa('EBox::Types::IPAddr')
-            and defined($src->ip())) {
+        if (defined ($addr) and $addr->isa('EBox::Types::IPAddr')
+            and defined($addr->ip())) {
             $self->{$addressType} = ["$flag $inverse "
-                                     . $src->printableValue()];
-        } elsif (defined ($src) and $src->isa('EBox::Types::MACAddr')) {
+                                     . $addr->printableValue()];
+        } elsif (defined ($addr) and $addr->isa('EBox::Types::MACAddr')) {
             $self->{$addressType} = ["-m mac --mac-source $inverse " .
-                $src->printableValue()];
-        } elsif (defined ($src) and $src->isa('EBox::Types::HostIP')) {
-            $self->{$addressType} = [$src->printableValue()];
+                $addr->printableValue()] ;
+        } elsif (defined ($addr) and $addr->isa('EBox::Types::HostIP')) {
+            $self->{$addressType} = [$addr->printableValue()];
         } else {
             $self->{$addressType} = [''];
         }
