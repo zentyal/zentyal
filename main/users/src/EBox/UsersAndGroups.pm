@@ -976,7 +976,7 @@ sub addUser # (user, system)
 
     # Check for maximum users
     if (EBox::Global->edition() eq 'sb') {
-        if (length(@{$self->users()}) >= MAX_SB_USERS) {
+        if ((scalar $self->users()) >= MAX_SB_USERS) {
             throw EBox::Exceptions::External(
                 __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
 
