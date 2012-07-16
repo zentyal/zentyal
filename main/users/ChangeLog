@@ -1,4 +1,4 @@
-HEAD
+2.2.7
 	+ Fixed user name validation
 	+ Better control of slapd instances in enableActions, better error
 	  control in _loadACLDirectory
