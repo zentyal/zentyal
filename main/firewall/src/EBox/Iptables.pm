@@ -504,6 +504,7 @@ sub start
     push(@commands, @{$self->_setRemoteServices()});
 
     push(@commands, @{$self->_redirects()});
+    push (@commands, @{$self->_snat() });
 
     @ifaces = @{$self->{net}->ExternalIfaces()};
     foreach my $if (@ifaces) {
@@ -607,7 +608,14 @@ sub moduleRules
 sub _loadIptModules
 {
     my @commands;
-    foreach my $module (IPT_MODULES) {
+
+    my @toLoad = IPT_MODULES;
+    my $extraModules = EBox::Config::configkey("iptables_modules");
+    if ($extraModules) {
+        push @toLoad, split (',+', $extraModules);
+    }
+
+    foreach my $module (@toLoad) {
         push(@commands, "modprobe $module || true");
     }
     return \@commands;
@@ -870,6 +878,19 @@ sub _redirects
 
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->RedirectsRuleTable()}) {
+        push(@commands, pf("$rule"));
+    }
+    return \@commands;
+}
+
+sub _snat
+{
+    my ($self) = @_;
+
+    my @commands;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->SNATRules()}) {
         push(@commands, pf("$rule"));
     }
     return \@commands;
