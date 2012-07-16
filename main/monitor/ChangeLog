@@ -1,6 +1,7 @@
 HEAD
 	+ Fix link removal while stopping the service to avoid the
 	  creation of sporious directories
+	+ Added support for last week graphs
 	+ Fixed URL in breadcrumbs
 2.3.3
 	+ Implement new EBox::Events::WatcherProvider

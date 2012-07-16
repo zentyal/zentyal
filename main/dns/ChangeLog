@@ -1,4 +1,7 @@
-HEAD
+2.3.9
+	+ Fixed help strings
+	+ Add method to set the domain's dynamic flag
+	+ Read and apply the samba domain update policy
 	+ Added message when a domain is added to clarify concepts
 2.3.8
 	+ Adapted DHCP ranges to reverse ip fix in Net::IP

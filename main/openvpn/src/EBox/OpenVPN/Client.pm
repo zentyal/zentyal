@@ -174,8 +174,14 @@ sub privateDirForName
     my ($class, $name) = @_;
 
     my $openVPNConfDir = $class->_openvpnModule->confDir();
-    my $dir = $class->confFileForName($name, $openVPNConfDir) . '.d';
+    return $openVPNConfDir . "/$name.d";
+}
 
+sub createDirectories
+{
+    my ($self) = @_;
+
+    my $dir = $self->privateDir();
     if (not EBox::Sudo::fileTest('-d', $dir)) {
         if  ( EBox::Sudo::fileTest('-e', $dir) ) {
             throw EBox::Exceptions::Internal(
@@ -185,8 +191,6 @@ sub privateDirForName
         # create dir if it does not exist
         EBox::Sudo::root("mkdir --mode 0700 '$dir'");
     }
-
-    return $dir;
 }
 
 sub _setPrivateFile
@@ -197,6 +201,7 @@ sub _setPrivateFile
         throw EBox::Exceptions::Internal('Cannot read private file source');
     }
 
+    $self->createDirectories();
     my $privateDir = $self->privateDir();
 
     my $newPath = "$privateDir/$type";
@@ -558,6 +563,7 @@ sub backupCertificates
 sub restoreCertificates
 {
     my ($self, $dir) = @_;
+    $self->createDirectories();
 
     my $d = "$dir/" . $self->name;
     if (not -d $d) {
@@ -566,7 +572,7 @@ sub restoreCertificates
         # because uninitialized clients don't save certificates
         EBox::warn(
                'No directory found with saved certificates for client '
-              .$self->name
+              . $self->name
               .'. No certificates will be restores'
 
         );

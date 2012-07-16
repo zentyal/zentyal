@@ -18,7 +18,7 @@ package EBox::CaptivePortal::CGI::Dashboard::Index;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
 use Apache2::RequestUtil;
@@ -26,28 +26,26 @@ use Apache2::RequestUtil;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/captiveportal/popupLaunch.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => '',
+                      'template' => '/captiveportal/popupLaunch.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _print
 {
-	my $self = shift;
-	print($self->cgi()->header(-charset=>'utf-8'));
-	$self->_body;
+    my $self = shift;
+    print($self->cgi()->header(-charset=>'utf-8'));
+    $self->_body;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $r = Apache2::RequestUtil->request;
-
-	my @htmlParams = ();
-	$self->{params} = \@htmlParams;
+    my $self = shift;
+    my @htmlParams = ();
+    $self->{params} = \@htmlParams;
 }
 
 sub _top
@@ -56,12 +54,12 @@ sub _top
 
 sub _loggedIn
 {
-	return 1;
+    return 1;
 }
 
 sub _menu
 {
-	return;
+    return;
 }
 
 1;

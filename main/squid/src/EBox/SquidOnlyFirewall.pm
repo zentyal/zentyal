@@ -34,11 +34,20 @@ sub new
     return $self;
 }
 
+sub _global
+{
+    my ($self) = @_;
+    my $ro = $self->{ro};
+    return EBox::Global->getInstance($ro);
+}
+
 sub _trans_prerouting
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
+
     my $sqport = $sq->port();
     my @rules = ();
 
@@ -63,7 +72,9 @@ sub _trans_prerouting
 sub prerouting
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+
     if ($sq->transproxy()) {
         return $self->_trans_prerouting();
     }
@@ -74,8 +85,10 @@ sub prerouting
 sub input
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
+
     my $sqport = $sq->port();
     my @rules = ();
 

@@ -348,6 +348,11 @@ $editid
 <%init>
   my $tableName = $model->table()->{'tableName'};
   my @tableHead = @{$model->table()->{'tableDescription'}};
+  if ($action eq 'add') {
+      foreach my $element (@tableHead) {
+          $element->setValue($element->defaultValue());
+      }
+  }
 
   # Fetch the data to be displayed in setters, if we are editing a row
   # we should show the contents of the current fields. If we are
@@ -369,7 +374,6 @@ $editid
                   }
               }
           }
-
       }
   } elsif ( ((keys %presetParams) > 0)
             and $action eq 'presetUpdate') {

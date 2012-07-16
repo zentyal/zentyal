@@ -1,5 +1,17 @@
 HEAD
 	+ Fix exception raising when no event component is found
+	+ Dynamic default values are now properly updated when adding a row
+	+ Kill processes owned by the ebox user before trying to delete it
+	+ Do not use sudo to call status command at EBox::Service::running
+	+ Fixed regression setting default CSS class in notes
+2.3.15
+	+ Added missing call to updateRowNotify in DataForms
+	+ Fixed silent error in EBox::Types::File templates for non-readable
+	  by ebox files
+	+ Use pkill instead of killall in postinst
+	+ Use unset instead of delete_dir when removing rows
+	+ Do not set order list for DataForms
+	+ Only try to clean tmp dir on global system start
 2.3.14
 	+ Error message for failure in package cache creation
 	+ Fixed regression when showing a data table in a modal view

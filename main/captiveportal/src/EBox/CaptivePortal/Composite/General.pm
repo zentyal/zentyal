@@ -39,6 +39,7 @@ sub componentNames
     if (EBox::Config::configkey('captive_secondary_ldap')) {
         push (@components, 'SecondaryLDAP');
     }
+    push (@components, 'Exceptions');
     push (@components, 'Users');
 
     return \@components;

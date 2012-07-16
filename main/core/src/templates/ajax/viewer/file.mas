@@ -8,7 +8,7 @@ $data
 </%args>
 <%init>
 my $showPath = defined ( $data->printableValue());
-$showPath = $showPath && (-f $data->path());
+$showPath = $showPath && ($data->exist());
 my $download = $showPath && $data->allowDownload();
  my $id = $data->model()->tableName() . '_' . $data->fieldName();
  my $idRemove = $id . '_remove';

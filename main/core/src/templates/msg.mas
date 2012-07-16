@@ -12,13 +12,11 @@ Parameters:
 </%doc>
 <%args>
   $msg
-  $class => 'note'
+  $class
 </%args>
 <%init>
-  if ($class ne 'note' and $class ne 'warning' and
-      $class ne 'ad' and $class ne 'adwarning' and
-      $class ne 'error') {
-    $class = 'note';
-  }
+    unless ($class) {
+        $class = 'note';
+    }
 </%init>
 <div class="<% $class %>"><% $msg %></div>

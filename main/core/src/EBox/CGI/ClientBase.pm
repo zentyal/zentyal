@@ -29,32 +29,38 @@ use EBox::Html;
 ##		template [optional]
 sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
-	my $class = shift;
-	my %opts = @_;
-
-	my $self = $class->SUPER::new(@_);
+    my $class = shift;
+    my %opts = @_;
     my $namespace = delete $opts{'namespace'};
-	my $tmp = $class;
+    my $htmlblocks = delete $opts{'htmlblocks'};
+
+    my $self = $class->SUPER::new(@_);
+
+    my $tmp = $class;
     $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
 
     if(not $namespace) {
         $namespace = $1;
     }
-    my $classname = $namespace . "::HtmlBlocks";
-    eval "use $classname";
 
-    $self->{htmlblocks} = $classname;
-	$self->{module} = $2;
-	$self->{cginame} = $3;
-	$self->{cginame} =~ s|::|/|g;
-	if (defined($self->{cginame})) {
-		$self->{url} = $self->{module} . "/" . $self->{cginame};
-	} else {
-		$self->{url} = $self->{module} . "/Index";
-	}
 
-	bless($self, $class);
-	return $self;
+    if (not $htmlblocks) {
+        $htmlblocks = $namespace . "::HtmlBlocks";
+    }
+    eval "use $htmlblocks";
+    $self->{htmlblocks} = $htmlblocks;
+
+    $self->{module} = $2;
+    $self->{cginame} = $3;
+    $self->{cginame} =~ s|::|/|g;
+    if (defined($self->{cginame})) {
+        $self->{url} = $self->{module} . "/" . $self->{cginame};
+    } else {
+        $self->{url} = $self->{module} . "/Index";
+    }
+
+    bless($self, $class);
+    return $self;
 }
 
 # Method: setMenuFolder

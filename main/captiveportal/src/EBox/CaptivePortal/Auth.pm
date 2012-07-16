@@ -265,7 +265,6 @@ sub authen_ses_key  # (request, session_key)
     my $sidFile; # sid file handle
 
     my $user = undef;
-    my $expired;
 
     my $sess_file = EBox::CaptivePortal->SIDS_DIR . $session_key;
     return unless (-r $sess_file);
@@ -291,9 +290,6 @@ sub authen_ses_key  # (request, session_key)
     if(defined($user)) {
         updateSession($session_key, $r->connection->remote_ip());
         return $user;
-    } elsif (defined($user) and $expired) {
-        $r->subprocess_env(LoginReason => "Expired");
-        unlink(EBox::CaptivePortal->SIDS_DIR . $session_key);
     } else {
         $r->subprocess_env(LoginReason => "NotLoggedIn");
     }

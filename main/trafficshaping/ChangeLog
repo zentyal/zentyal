@@ -1,3 +1,7 @@
+HEAD
+	+ Disabled rules for ppp and non set interfaces
+	+ iptables range option used in commands upon object range members
+	+ Added all interfaces option in rule select interface option
 2.3.2
 	+ Separate rules in internal (download) and external (upload)
 	+ Use regular models instead of a dynamic select composite

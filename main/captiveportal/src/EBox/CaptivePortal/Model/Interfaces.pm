@@ -75,6 +75,76 @@ sub _table
     return $dataTable;
 }
 
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+    if (not $self->bwmonitorNeeded()) {
+        return;
+    }
+
+    my $iface = $row->valueByName('interface');
+    my $enabled = $row->valueByName('enabled');
+    my $sync = $self->_syncBWMonitorIface($iface, $enabled);
+    if ($sync) {
+        # XXX this message will not apeear due to a limitation of edit-bool in place
+        $self->setMessage(__x(
+            'Interface {if} set to {val} in bandwith monitor module',
+            if => $iface,
+            val => $enabled ? __('enabled') : __('disabled')
+           ));
+    }
+
+ }
+
+sub _syncBWMonitorIface
+{
+    my ($self, $iface, $enabled) = @_;
+    my $bwMonitorInterfaces = $self->global()->modInstance('bwmonitor')->model('Interfaces');
+    my $bwEnabled = $bwMonitorInterfaces->interfaceIsEnabled($iface);
+    if ($bwEnabled == $enabled) {
+        return 0;
+    }
+    $bwMonitorInterfaces->enableInterface($iface, $enabled);
+    return 1;
+}
+
+
+sub interfaceNeedsBWMonitor
+{
+    my ($self, $interface) = @_;
+    if (not $self->parentModule()->isEnabled()) {
+        return 0;
+    }
+    if (not $self->bwmonitorNeeded()) {
+        return 0;
+    }
+
+    my $row = $self->find(interface => $interface);
+    return $row->valueByName('enabled');
+}
+
+
+sub bwmonitorNeeded
+{
+    my ($self) = @_;
+    my $bwSettings =  $self->parentModule()->model('BWSettings');
+    return $bwSettings->limitBWValue();
+}
+
+sub bwMonitorEnabled
+{
+    my ($self) = @_;
+
+    my $anySync = 0;
+    foreach my $id (@{$self->enabledRows()  }) {
+        my $row = $self->row($id);
+        my $iface = $row->valueByName('interface');
+        my $sync = $self->_syncBWMonitorIface($iface, 1);
+        $sync and $anySync = 1;
+    }
+
+    return $anySync;
+}
 
 # Method: syncRows
 #

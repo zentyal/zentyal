@@ -903,22 +903,24 @@ sub addTypedRow
         $data = undef;
     }
 
-    # Insert the element in order
-    if ($self->table()->{'order'}) {
-        my $pos = 0;
-        my $insertPos = $self->insertPosition();
-        if (defined($insertPos)) {
-            if ( $insertPos eq 'front' ) {
-                $pos = 0;
-            } elsif ( $insertPos eq 'back' ) {
-                $pos = $#{$self->order()} + 1;
+    unless ($optParams{noOrder}) {
+        # Insert the element in order
+        if ($self->table()->{'order'}) {
+            my $pos = 0;
+            my $insertPos = $self->insertPosition();
+            if (defined($insertPos)) {
+                if ( $insertPos eq 'front' ) {
+                    $pos = 0;
+                } elsif ( $insertPos eq 'back' ) {
+                    $pos = $#{$self->order()} + 1;
+                }
             }
+            $self->_insertPos($id, $pos);
+        } else {
+            my $order = $confmod->get_list($self->{'order'});
+            push (@{$order}, $id);
+            $confmod->set($self->{'order'}, $order);
         }
-        $self->_insertPos($id, $pos);
-    } else {
-        my $order = $confmod->get_list($self->{'order'});
-        push (@{$order}, $id);
-        $confmod->set($self->{'order'}, $order);
     }
 
     if ($readOnly) {
@@ -1096,7 +1098,7 @@ sub _removeRow
     my ($self, $id) = @_;
 
     my $confmod = $self->{'confmodule'};
-    $confmod->delete_dir("$self->{'directory'}/$id");
+    $confmod->unset("$self->{'directory'}/$id");
     my @order = @{$confmod->get_list($self->{'order'})};
     @order = grep ($_ ne $id, @order);
     $confmod->set_list($self->{'order'}, 'string', \@order);

@@ -362,12 +362,12 @@ sub _setFilesystemQuota
     my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
-        throw EBox::Exceptions::External(
-            __x('Cannot set quota to {userQuota}. Please, choose another value',
-               userQuota => $userQuota)
-           )
+        EBox::error(
+            __x('Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does not support quota?',
+                uid      => $uid,
+                userQuota => $userQuota)
+           );
     }
-
 }
 
 # Method: changePassword
@@ -657,9 +657,9 @@ sub lastUid
     my ($self, $system) = @_;
 
     my $lastUid = -1;
-    while (my ($name, undef, $uid) = getpwent()) {
-        next if ($name eq 'nobody');
-
+    my $users = EBox::Global->modInstance('users');
+    foreach my $user (@{$users->users($system)}) {
+        my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
         } else {
@@ -669,8 +669,6 @@ sub lastUid
             $lastUid = $uid;
         }
     }
-    endpwent();
-
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {

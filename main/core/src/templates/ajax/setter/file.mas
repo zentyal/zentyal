@@ -8,9 +8,9 @@ my $id = $tableName . '_' . $data->fieldName();
 my $loadingId = $id . '_loading';
 my $formId    = $id . '_form';
 my $onChange = << "JS_END";
-var fileUpload = new EBox.FileUpload( 
-   { formId :   '$formId', 
-     onStart :    function() { setLoading('$loadingId'); }, 
+var fileUpload = new EBox.FileUpload(
+   { formId :   '$formId',
+     onStart :    function() { setLoading('$loadingId'); },
      onComplete : function()  { setDone('$loadingId') ; },
    }
 );
@@ -34,13 +34,13 @@ JS_END
     <span id="<% $id . '_loading'%>">
     </span>
   </form>
-  <input type='hidden' id='<% $id %>_remove' id='<% $id %>_remove' value='0'/> 
+  <input type='hidden' id='<% $id %>_remove' id='<% $id %>_remove' value='0'/>
 <form>
 </div>
-%   if ( $data->showFileWhenEditing() and (-f $data->path() )) {
+% if ( $data->showFileWhenEditing() and $data->exist()) {
   <& $data->HTMLViewer(), data => $data &>
-%   }
- 
+% }
+
 % }
 % else
 % {

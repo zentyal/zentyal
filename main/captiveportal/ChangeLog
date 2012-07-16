@@ -1,3 +1,8 @@
+HEAD
+	+ Enable interfaces in bandwith monitor module when needed
+	+ Added service and objects exceptions
+	+ Avoided LDAP errors with user quotas, user quota addon takes into
+	  account whether bandwidth limit is enabled or disabled
 2.3.2
 	+ Adapted to new Model management framework
 2.3.1

@@ -37,26 +37,19 @@ use EBox::DNS::FirewallHelper;
 
 use Error qw(:try);
 use File::Temp;
+use File::Slurp;
 use Fcntl qw(:seek);
 use IO::Socket::INET;
 use Net::IP;
 use Perl6::Junction qw(any);
 use Tie::File;
 
-# FIXME: extract this from somewhere to support multi-distro?
-#use constant BIND9CONFDIR => "@BIND9CONFDIR@";
-#use constant BIND9CONFFILE => "@BIND9CONF@";
-#use constant BIND9CONFOPTIONSFILE => "@BIND9CONFOPTIONS@";
-#use constant BIND9CONFLOCALFILE => "@BIND9CONFLOCAL@";
-#use constant BIND9INIT     => "@BIND9_INIT@";
-#use constant BIND9_UPDATE_ZONES => "@BIND9_UPDATE_ZONES@";
-
-use constant BIND9CONFDIR => "/etc/bind";
-use constant BIND9CONFFILE => "/etc/bind/named.conf";
+use constant BIND9CONFDIR         => "/etc/bind";
+use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
-use constant BIND9CONFLOCALFILE => "/etc/bind/named.conf.local";
-use constant BIND9INIT     => "/etc/init.d/bind9";
-use constant BIND9_UPDATE_ZONES => "/var/lib/bind";
+use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
+use constant BIND9INIT            => "/etc/init.d/bind9";
+use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
 
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
@@ -221,6 +214,22 @@ sub delHost
     $model->delHost($domain, $host);
 }
 
+# Method: setDynamic
+#
+#   Set the dynamic flag of a domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub setDynamic
+{
+    my ($self, $domain, $dynamic) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->setDynamic($domain, $dynamic);
+}
 
 # Method: domains
 #
@@ -229,8 +238,8 @@ sub delHost
 # Returns:
 #
 #   Array ref - containing hash refs with the following elements:
-#    name    - String the domain's name
-#    dynamic - Boolean indicating if the domain is dynamically updated
+#       name    - String the domain's name
+#       dynamic - Boolean indicating if the domain is dynamically updated
 #
 sub domains
 {
@@ -528,6 +537,7 @@ sub updateReversedData
     }
 }
 
+
 # Method: switchToReverseInfoData
 #
 #  Return a structure with all necessary data to build reverse db config
@@ -604,6 +614,7 @@ sub switchToReverseInfoData
     return \@reversedData;
 }
 
+
 # Method: usedFiles
 #
 # Override EBox::Module::Service::usedFiles
@@ -665,7 +676,6 @@ sub usedFiles
                     __x('configuration file for reverse resolution zone {zone}'
                         , zone => $file )
                 });
-
     }
 
     return $files;
@@ -795,7 +805,7 @@ sub _setConf
     my ($self) = @_;
 
     my $sambaKeytab = undef;
-    my $sambaPolicyFile = undef;
+    my @sambaPolicy = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
@@ -803,25 +813,23 @@ sub _setConf
                 $sambaKeytab = EBox::Samba::SAMBADNSKEYTAB();
             }
             if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_POLICY())) {
-                $sambaPolicyFile = EBox::Samba::SAMBA_DNS_POLICY();
+                @sambaPolicy = read_file(EBox::Samba::SAMBA_DNS_POLICY());
+                @sambaPolicy = grep (/grant/, @sambaPolicy);
+                @sambaPolicy = grep (s/[\n]|^\s*//g, @sambaPolicy);
             }
         }
     }
 
     my @array = ();
-
     $self->writeConfFile(BIND9CONFFILE,
             "dns/named.conf.mas",
             \@array);
 
     push (@array, 'forwarders' => $self->_forwarders());
     push (@array, 'sambaKeytab' => $sambaKeytab);
-
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
-
-    @array = ();
 
     # Delete the already removed RR from dynamic zones
     $self->_removeDeletedRR();
@@ -869,7 +877,7 @@ sub _setConf
     # Remove the unused reverse files
     $self->_removeUnusedReverseFiles($reversedData);
 
-    my @inaddrs;
+    my @inaddrs = ();
     foreach my $reversedDataItem (@{$reversedData}) {
         my $file;
         if ( $reversedDataItem->{'dynamic'} ) {
@@ -902,7 +910,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
-    push(@array, 'sambaPolicyFile' => $sambaPolicyFile);
+    push(@array, 'sambaPolicy' => \@sambaPolicy);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
@@ -1429,7 +1437,7 @@ sub _formatSRV
 #  'name': domain name
 #  'ipAddresses': array ref containing domain ip addresses
 #  'dynamic' : the domain is dynamically updated
-#  'tsigKey' : the TSIG key is the domain is dynamic
+#  'tsigKey' : the TSIG key if the domain is dynamic
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
 #  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
 #  'nameServers' : an array ref returned by <EBox::DNS::_formatNameServers>
@@ -1577,8 +1585,8 @@ sub _updateDynDirectZone
     }
 
     # print $fh "update delete $zone NS\n";
-    foreach my $ns ( @{$domData->{'nameServers'}}) {
-        if ( $ns !~ m:\.:g ) {
+    foreach my $ns (@{$domData->{'nameServers'}}) {
+        if ($ns !~ m:\.:g) {
             $ns .= ".$zone";
         }
         print $fh "update add $zone 259200 NS $ns\n";
@@ -1586,17 +1594,18 @@ sub _updateDynDirectZone
 
     my %seen = ();
     foreach my $host (@{$domData->{'hosts'}}) {
-        unless ( $seen{$host->{'name'}} ) {
+        unless ($seen{$host->{'name'}}) {
             # To avoid deleting same name records with different IP addresses
-            print $fh 'update delete ' . $host->{'name'} . ".$zone A \n";
+            print $fh 'update delete ' . $host->{'name'} . ".$zone A\n";
         }
         $seen{$host->{'name'}} = 1;
-        print $fh 'update add ' . $host->{'name'} . ".$zone 259200 A " . $host->{'ip'} . "\n";
-        foreach my $alias (@{$host->{'aliases'}}) {
-            print $fh 'update delete ' . $alias->{'name'} . ".$zone CNAME \n";
-            print $fh 'update add ' . $alias->{'name'} . ".$zone 259200 CNAME " . $host->{'name'} . ".$zone\n";
+        foreach my $ip (@{$host->{ip}}) {
+            print $fh 'update add ' . $host->{'name'} . ".$zone 259200 A $ip\n";
         }
-
+        foreach my $alias (@{$host->{'aliases'}}) {
+            print $fh 'update delete ' . $alias . ".$zone CNAME\n";
+            print $fh 'update add ' . $alias . ".$zone 259200 CNAME " . $host->{'name'} . ".$zone\n";
+        }
     }
 
     print $fh "update delete $zone MX\n";
@@ -1628,7 +1637,6 @@ sub _updateDynDirectZone
 
     print $fh "send\n";
     $self->_launchNSupdate($fh);
-
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1637,7 +1645,6 @@ sub _removeDeletedRR
     my ($self) = @_;
 
     my $deletedRRs = $self->st_get_list(DELETED_RR_KEY);
-
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     foreach my $rr (@{$deletedRRs}) {
         print $fh "update delete $rr\n";
@@ -1648,8 +1655,8 @@ sub _removeDeletedRR
         $self->_launchNSupdate($fh);
         $self->st_unset(DELETED_RR_KEY);
     }
-
 }
+
 
 # Send the nsupdate command or defer to the postservice hook
 sub _launchNSupdate
@@ -1697,25 +1704,23 @@ sub _removeDomainsFiles
     return if ($self->isReadOnly());
 
     my $oldList = $self->st_get_list('domain_files');
-    my @newList = ();
+    my $newList = [];
 
     my $domainModel = $self->model('DomainTable');
     foreach my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
         my $file;
-        if ( $row->valueByName('dynamic') ) {
+        if ($row->valueByName('dynamic')) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $row->valueByName('domain');
-        push(@newList, $file);
+        push (@{$newList}, $file);
     }
 
-    $self->_removeDisjuncFiles($oldList, \@newList);
-
-    $self->st_set_list('domain_files', 'string', \@newList);
-
+    $self->_removeDisjuncFiles($oldList, $newList);
+    $self->st_set_list('domain_files', 'string', $newList);
 }
 
 # Remove no longer used reverse zone files
@@ -1726,22 +1731,20 @@ sub _removeUnusedReverseFiles
     return if ($self->isReadOnly());
 
     my $oldList = $self->st_get_list('inarpa_files');
-    my @newList = ();
+    my $newList = [];
     foreach my $reversedDataItem (@{$reversedData}) {
         my $file;
-        if ( $reversedDataItem->{'dynamic'} ) {
+        if ($reversedDataItem->{'dynamic'}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $reversedDataItem->{'groupip'};
-        push(@newList, $file);
+        push (@{$newList}, $file);
     }
 
-    $self->_removeDisjuncFiles($oldList, \@newList);
-
-    $self->st_set_list('inarpa_files', 'string', \@newList);
-
+    $self->_removeDisjuncFiles($oldList, $newList);
+    $self->st_set_list('inarpa_files', 'string', $newList);
 }
 
 # Delete files from disjunction
@@ -1755,15 +1758,14 @@ sub _removeDisjuncFiles
     my @disjunc = grep { not exists $newSet{$_} } @{$oldList};
 
     foreach my $file (@disjunc) {
-        if ( -f $file ) {
+        if (-f $file) {
             EBox::Sudo::root("rm -rf '$file'");
         }
         # Remove the jnl if exists as well (only applicable for dyn zones)
-        if ( -f "${file}.jnl" ) {
+        if (-f "${file}.jnl") {
             EBox::Sudo::root("rm -rf '${file}.jnl'");
         }
     }
-
 }
 
 # Set configuration for transparent DNS cache

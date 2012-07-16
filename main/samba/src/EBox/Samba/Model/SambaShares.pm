@@ -132,8 +132,14 @@ sub _table
                                printableName => __('Access control'),
                                'foreignModel' => 'SambaSharePermissions',
                                'view' => '/Samba/View/SambaSharePermissions'
-                              )
-
+                              ),
+       # This hidden field is filled with the group name when the share is configured as
+       # a group share through the group addon
+       new EBox::Types::Text(
+            fieldName => 'groupShare',
+            hidden => 1,
+            defaultValue => '',
+            ),
       );
 
     my $dataTable = {
@@ -261,11 +267,12 @@ sub createDirs
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $pathType =  $row->elementByName('path');
+        my $guestAccess = $row->valueByName('guest');
         next unless ( $pathType->selectedType() eq 'zentyal');
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
         push(@cmds, "mkdir -p '$path'");
-        if ($row->elementByName('guest')->value()) {
+        if ($guestAccess) {
            push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
            push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
         } else {
@@ -310,6 +317,9 @@ sub createDirs
             $aceString .= $self->parentModule()->ldb()->getSidById($userType->printableValue());
             $aceString .= ')';
             push (@aceStrings, $aceString);
+        }
+        if ($guestAccess) {
+            push (@aceStrings, '(A;OICI;0x001301BF;;;S-1-1-0)');
         }
         my $fullAce = join ('', @aceStrings);
         $sdString .= "D:$fullAce";

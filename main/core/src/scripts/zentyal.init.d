@@ -16,8 +16,6 @@ use EBox::Util::Init;
 
 EBox::init();
 
-EBox::Util::Init::cleanTmpOnBoot();
-
 $SIG{PIPE} = 'IGNORE';
 
 sub usage {
@@ -30,6 +28,7 @@ sub main
 {
     if (@ARGV == 1) {
         if ($ARGV[0] eq 'start') {
+            EBox::Util::Init::cleanTmpOnBoot();
             EBox::Util::Init::start();
         }
         elsif ($ARGV[0] eq 'restart') {

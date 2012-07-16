@@ -3,6 +3,14 @@ HEAD
 	+ New libossp-uuid-perl dependency
 	+ Zentyal Cloud DynDNS updates are now done outside the VPN and using
 	  the credentials obtained when the server is subscribed
+	+ Interface is now auto-detected when adding gateways
+	+ New table to allow disabling of traffic balance for some gateways
+2.3.11
+	+ Fixed typo which made EBox::Network::ifaceAddress return empty
+	  addresses for virtual interfaces
+	+ Fixed validation of gateway names
+	+ Removed undefined value warning in setIfaceStatic()
+	+ Using EBox::Object::Members to generate multigw iptables rules
 2.3.10
 	+ Restricted gateway names to be sane with dyndns and fixed dyndns
 	  configuration with old incorrect gateway names

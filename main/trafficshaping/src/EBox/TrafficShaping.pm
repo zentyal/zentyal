@@ -215,7 +215,6 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
@@ -352,6 +351,19 @@ sub confDir
 }
 
 
+sub ifaceIsShapeable
+{
+    my ($self, $iface) = @_;
+    my $method = $self->{network}->ifaceMethod($iface);
+    if ($method eq 'notset') {
+        return 0;
+    } elsif ($method eq 'ppp') {
+        return 0;
+    }
+
+    return 1;
+}
+
 # Method: checkRule
 #
 #       Check if the rule passed can be added or updated. The guaranteed rate
@@ -403,6 +415,12 @@ sub checkRule
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
+
+    if (not $self->ifaceIsShapeable($ruleParams{interface})) {
+        throw EBox::Exceptions::External(__x('Iface {if} cannot be traffic shaped',
+                                             if => $ruleParams{interface})
+                                        );
+    }
 
     # Setting standard rates if not defined
     $ruleParams{guaranteedRate} = 0 unless defined ( $ruleParams{guaranteedRate} );
@@ -648,7 +666,7 @@ sub ifaceExternalChanged # (iface, external)
 
     my ($self, $iface, $external) = @_;
     my $ruleModel = $self->ruleModel($iface);
-    if ($ruleModel->ifaceHasRules($iface)) {
+    if ($ruleModel->explicitIfaceHasRules($iface)) {
         return 1;
     }
 
@@ -940,20 +958,15 @@ sub _buildGConfRules # (iface, regenConfig)
 
     my $model = $self->ruleModel($iface);
 
-    my $rulesRef = [];
 
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        if ($iface ne $row->valueByName('iface')) {
-            next;
-        }
-
-        my $ruleRef = {};
-        $ruleRef->{identifier} = $self->_nextMap($row->{id});
-        $ruleRef->{service} = $row->elementByName('service');
+    foreach my $ruleRef (@{$model->rulesForIface($iface)}) {
+        # transofrmations needed for the ubilder
+        # get identifier for builder
+        my $id = delete $ruleRef->{ruleId};
+        $ruleRef->{identifier} = $self->_nextMap($id);
         # Source and destination
-        for my $targetName (qw(source destination)) {
-            my $target = $row->elementByName($targetName)->subtype();
+        foreach my $targetName (qw(source destination)) {
+            my $target = delete $ruleRef->{$targetName};
             if ( $target->isa('EBox::Types::Union::Text')) {
                 $target = undef;
             } elsif ( $target->isa('EBox::Types::Select')) {
@@ -962,26 +975,20 @@ sub _buildGConfRules # (iface, regenConfig)
             }
             $ruleRef->{$targetName}  = $target;
         }
-        # Priority
-        $ruleRef->{priority} = $row->valueByName('priority');
-
         # Rates
         # Transform from conf to camelCase and set if they're null
         # since they're optional parameters
-        $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
+        $ruleRef->{guaranteedRate} = delete $ruleRef->{'guaranteed_rate'};
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
-        $ruleRef->{limitedRate} = $row->valueByName('limited_rate');
+        $ruleRef->{limitedRate} = delete $ruleRef->{'limited_rate'};
         $ruleRef->{limitedRate} = 0 unless defined ($ruleRef->{limitedRate});
+
         # Take care of enabled value only if regenConfig is enabled
-        if ( $regenConfig ) {
-            $ruleRef->{enabled} = $row->valueByName('enabled');
-            $ruleRef->{enabled} = 1 unless defined ($ruleRef->{enabled});
-        } else {
+        if (not $regenConfig) {
             $ruleRef->{enabled} = 1;
         }
 
         $self->_buildANewRule( $iface, $ruleRef, undef );
-
     }
 
 }
@@ -1169,26 +1176,21 @@ sub _buildObjMembers
     # Get the object's addresses
     my $objs = $self->{'objects'};
 
-    my $addresses_r = $objs->objectAddresses($objectName, mask => 1);
+    my $members_r = $objs->objectMembers($objectName);
 
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
-    foreach my $addr_r (@{$addresses_r}) {
-        my ($memberIP, $memberMask) = @{ $addr_r };
+    foreach my $member (@{$members_r}) {
+        my $addressObject = _addressFromObjectMember($member);
 
-        my $ip = new EBox::Types::IPAddr(
-                                         ip => $memberIP,
-                                         mask => $memberMask,
-                                         fieldName => 'ip'
-                                        );
         my $srcAddr;
         my $dstAddr;
         if ( $what eq 'source' ) {
-            $srcAddr = $ip;
+            $srcAddr = $addressObject;
             $dstAddr = $where;
         } elsif ( $what eq 'destination') {
             $srcAddr = $where;
-            $dstAddr = $ip;
+            $dstAddr = $addressObject;
         }
         $treeBuilder->addFilter(
                                 leafClassId => $ruleRelated,
@@ -1229,26 +1231,15 @@ sub _buildObjToObj
     my ($self, %args) = @_;
     my $objs = $self->{'objects'};
 
-    my $srcAddrs_ref = $objs->objectAddresses($args{srcObject}, mask => 1);
-    my $dstAddrs_ref = $objs->objectAddresses($args{dstObject}, mask => 1);
+    my $srcMembers_ref = $objs->objectMembers($args{srcObject});
+    my $dstMembers_ref = $objs->objectMembers($args{dstObject});
 
     my $filterId = $args{ruleRelated};
 
-    foreach my $srcAddr_r (@{$srcAddrs_ref}) {
-        my ($srcIP, $srcMask) = @{$srcAddr_r};
-        my $srcAddr = new EBox::Types::IPAddr(
-                                            ip   => $srcIP,
-                                            mask => $srcMask,
-                                            fieldName => 'srcAddr',
-                                             );
-
-        foreach my $dstAddr_r (@{$dstAddrs_ref}) {
-            my ($dstIP, $dstMask) = @{$dstAddr_r};
-            my $dstAddr = new EBox::Types::IPAddr(
-                                              ip   => $dstIP,
-                                              mask => $dstMask,
-                                              fieldName => 'dstAddr',
-                                             );
+    foreach my $srcMember (@{$srcMembers_ref}) {
+        my $srcAddr = _addressFromObjectMember($srcMember);
+        foreach my $dstMember (@{$dstMembers_ref}) {
+            my $dstAddr = _addressFromObjectMember($dstMember);
             $args{treeBuilder}->addFilter(
                                       leafClassId => $args{ruleRelated},
                                       priority    => $args{rulePriority},
@@ -1262,6 +1253,33 @@ sub _buildObjToObj
         }
     }
 }
+
+
+sub _addressFromObjectMember
+{
+    my ($member) = @_;
+    my $address;
+    if ($member->{type} eq 'ipaddr') {
+        my $ipAddr = $member->{'ipaddr'};
+        $ipAddr =~ s:/.*$::g;
+        $address = new EBox::Types::IPAddr(
+            ip => $ipAddr,
+            mask => $member->{mask},
+            fieldName => 'ip'
+           );
+    } elsif ($member->{type} eq 'iprange') {
+        $address = new EBox::Types::IPRange(
+            begin => $member->{begin},
+            end => $member->{end},
+                fieldName => 'iprange'
+               );
+    } else {
+        throw EBox::Exceptions::Internal("Unexpected member type: " . $member->{type})
+    }
+
+    return $address;
+}
+
 
 
 # Update a rule from the builder taking arguments from GConf
@@ -1416,6 +1434,10 @@ sub _configuredInterfaces
     push @ifaces, @{ $self->model('ExternalRules')->configuredInterfaces()  };
     push @ifaces ,@{ $self->model('InternalRules')->configuredInterfaces()  };
 
+    # exclude interfaces that cannot be shaped
+    @ifaces = grep {
+        $self->ifaceIsShapeable($_)
+    } @ifaces;
 
     return \@ifaces;
 }

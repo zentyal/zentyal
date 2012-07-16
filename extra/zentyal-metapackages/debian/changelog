@@ -1,3 +1,9 @@
+zentyal-metapackages (2.3.2) precise; urgency=low
+
+  * Added nut to zentyal-all
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 09 Jul 2012 16:10:24 +0200
+
 zentyal-metapackages (2.3.1) precise; urgency=low
 
   * Added monitor, zarafa, bwmonitor and ltsp to zentyal-all

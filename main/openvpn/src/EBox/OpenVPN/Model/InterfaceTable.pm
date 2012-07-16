@@ -25,6 +25,7 @@ use EBox::Global;
 
 use constant IFACE_TYPE_DEFAULT => 'tap';
 use constant IFACE_NUMBER_DEFAULT => -1;
+use constant MAX_IFACE_NUMBER => 99;
 
 sub new
 {
@@ -88,7 +89,10 @@ sub initializeInterfaces
         next if $interfaceNumber->value() != -1;
 
         my $interfaceType = $row->elementByName('interfaceType');
-        $interfaceType->setValue('tap');
+        if (not $interfaceType->value()) {
+            $interfaceType->setValue(IFACE_TYPE_DEFAULT);
+        }
+
 
         my $number = $self->_nextInterfaceNumber();
         $interfaceNumber->setValue($number);
@@ -120,7 +124,11 @@ sub _nextInterfaceNumber
     }
 
     # no holes founds we use last number +1
-    return $lastNumber + 1;
+    my $newNumber =  $lastNumber + 1;
+    if ($newNumber > MAX_IFACE_NUMBER) {
+        throw EBox::Exceptions::Internal('Maximum number of tap or tun interfaces reached');
+    }
+    return $newNumber;
 }
 
 

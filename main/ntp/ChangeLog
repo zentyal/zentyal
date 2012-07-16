@@ -1,3 +1,6 @@
+HEAD
+	+ enable-module script does not fail if ntp if-up script or
+	  dhclient hook does not exist
 2.3.5
 	+ Adapted to new Model management framework
 	+ Use new services API
@@ -76,7 +79,7 @@
 	+ New release
 0.8
 	+ New release
-0.7.99  
+0.7.99
 	+ Add a brazilian portuguese translation
 	+ Fix bugs giving a more robust support for adding NTP servers
 

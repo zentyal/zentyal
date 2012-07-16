@@ -277,9 +277,9 @@ sub removeAll
 {
     my ($self, $force) = @_;
 
-    if ( $force ) {
+    if ($force) {
         # Remove the data
-        $self->{confmodule}->delete_dir($self->{confdir});
+        $self->{confmodule}->unset("$self->{directory}/form");
     } else {
         throw EBox::Exceptions::Internal('Cannot remove data unless force specified');
     }
@@ -366,7 +366,10 @@ sub setTypedRow
         $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
     } else {
         $optParams{id} = $ROW_ID;
+        $optParams{noOrder} = 1;
         $self->SUPER::addTypedRow($paramsRef, %optParams);
+        # since we have used addTypedRow updatedRowNotify has not been called automatically
+        $self->updatedRowNotify($self->row());
     }
 }
 

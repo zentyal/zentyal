@@ -605,8 +605,8 @@ sub ifaceAddresses
         my $virtual = $self->get_hash('interfaces')->{$iface}->{virtual};
         foreach my $name (keys %{$virtual}) {
             my $viface = $virtual->{$name};
-            push(@array, { address => $viface->{addr},
-                           netmask => $viface->{mask},
+            push(@array, { address => $viface->{address},
+                           netmask => $viface->{netmask},
                            name => $name });
         }
     } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
@@ -1258,7 +1258,7 @@ sub setIfaceStatic
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ($ext != $self->ifaceIsExternal($name) ) {
+    if (defined $ext and $ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
             if ($obs->ifaceExternalChanged($name, $ext)) {
@@ -2339,13 +2339,11 @@ sub setNameservers # (one, two)
             # remove it to insert it back in the wanted order
             $resolverModel->removeRow($existentRow->id(), 1);
         }
-        if ( $idx < $nNSS ) {
-            print "replace $idx $newNS\n";
+        if ($idx < $nNSS) {
             # There is a nameserver in the position
             $resolverModel->replace($idx, $newNS);
         } else {
             # Add a new one to the end of the list
-            print "add $newNS\n";
             $resolverModel->add(nameserver => $newNS);
         }
     }
@@ -3380,8 +3378,8 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 #
 # Returns:
 #
-#       Boolean - if name is not present, indicate whether the given
-#       gateway is reachable or not
+#       Boolean - name of the interface used to reach the gateway
+#                 undef if not reachable
 #
 # Exceptions:
 #
@@ -3415,7 +3413,7 @@ sub gatewayReachable
                 next;
             }
 
-            return 1;
+            return $iface;
         }
     }
 
@@ -4155,9 +4153,9 @@ sub _multipathCommand
         my $ip = $gw->{'ip'};
         next unless $ip;
 
-        my $name = $gw->{'name'};
-        my $nobalance = EBox::Config::configkey("no_balance_$name");
-        next if ($nobalance and (@gateways > 1));
+        # Skip gateways with traffic balance disabled
+        # except if we just have one gateway
+        next unless ($gw->{'balance'} or (@gateways == 1));
 
         my $iface = $gw->{'interface'};
         my $method = $self->ifaceMethod($iface);

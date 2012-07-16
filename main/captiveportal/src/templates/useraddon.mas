@@ -6,6 +6,9 @@
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
     <h3><% __('Captive Portal') %></h3>
+% if (not $params->{limitBW}) {
+     <& .captiveportalNoLimitBWWarning, $params &>
+% }
 
     <& .captiveportalDisabledWarning, $params &>
 
@@ -72,6 +75,17 @@ return if $params->{service};
 <div class="warning">
 <% __(
        q{The following settings will take effect only when the Captive Portal module is enabled.},
+     )
+%>
+</div>
+</%def>
+
+
+<%def .captiveportalNoLimitBWWarning>
+<div class="warning">
+<% __x(
+       'The quota limit will only be enforced when <a href={url}>bandwith limit</a> is enabled',
+       url => q{'/CaptivePortal/Composite/General'},
      )
 %>
 </div>

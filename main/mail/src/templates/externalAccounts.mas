@@ -1,0 +1,139 @@
+<%args>
+$params
+</%args>
+<%init>
+use EBox::Gettext;
+my @externalAccounts = @{ $params->{externalAccounts} };
+</%init>
+<%shared>
+my %printableName = (
+    externalAccount => __('External account'),
+    password        => __('Password'),
+    server          => __('Server'),
+    port            => __('Port'),
+    keep            => __("Don't delete retrieved mail from external server"),
+    protocol        => __('Protocol'),
+    fetchall        => __('Fetch already read messages'),
+   );
+
+
+</%shared>
+<h3><% __('Mail retrieval from external accounts') %></h3>
+% if (not $params->{externalRetrievalEnabled} ){
+<div class='warning'>
+<% __x(q{Mail retrieval from external accounts service is not enabled; until you {ub}enable it{ue} your changes won't have any effect.},
+        ub => "<a href=''>",
+        ue => "</a>"
+      )
+%>
+</div>
+% }
+<div class='note'>
+<% __('The user can change this settings through the user corner') %>
+</div>
+<& .addAccount, params => $params &>
+<a href='#' class='addNew'
+   name='add'
+         onClick='this.style.display = "none"; $("add_external_account").show();return false'>
+    <% __('Add new') %>
+  </a>
+% if (@externalAccounts){
+<& .accountsTable,
+   externalAccounts => \@externalAccounts,
+   params           => $params,
+&>
+% }
+
+<%def .accountsTable>
+<%args>
+@externalAccounts
+$params
+</%args>
+<%init>
+my @tableOrder = qw(externalAccount server protocol port keep fetchall);
+my @rows;
+
+foreach my $account (@externalAccounts) {
+    my @accountRow;
+    foreach my $field (@tableOrder) {
+        if (($field eq 'keep') or ($field eq'fetchall')) {
+          if ($account->{$field}) {
+             push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
+          } else {
+             push @accountRow, q{<div class='tcenter'><img src="/data/images/deny-active.gif" alt="no"/></div>};
+          }
+        } else {
+          push @accountRow, $account->{$field};
+        }
+    }
+    # push action element
+    my $link = '/Mail/DelExternalAccount';
+    $link .= '?user='  . $params->{'user'}->dn();
+    $link .='&account=' . $account->{externalAccount};
+    push @accountRow, [
+        {
+           url => $link,
+           text => __('Delete external account'),
+           icon => '/data/images/delete.gif',
+        }
+
+     ];
+
+    push @rows, \@accountRow;
+}
+my @columnTitles = map {
+   $printableName{$_}
+} @tableOrder;
+push @columnTitles, __('Action');
+</%init>
+<br/><br/>
+<& /dataTable.mas,
+  columnTitles => \@columnTitles,
+  rows => \@rows,
+&>
+</%def>
+
+
+<%def .addAccount>
+<%args>
+$params
+</%args>
+<form action='/Mail/AddExternalAccount' method='POST' id='add_external_account' style='display:none;'>
+<& /formTable.mas,
+   rows => [
+    [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],
+    [ name => 'localAccount', input => 'hidden', value => $params->{'mail'}],
+    [ name => 'externalAccount', printableName => $printableName{'externalAccount'} ],
+    [ name => 'password', input =>'password', printableName => $printableName{'password'}  ],
+    [ name => 'mailServer', printableName => $printableName{'server'}],
+    [
+      name => 'mailProtocol', input => 'select',
+      printableName => $printableName{'protocol'},
+      options => [
+        {
+            value => 'pop3',
+            printableValue => 'POP3',
+        },
+        {
+            value => 'pop3s',
+            printableValue => __('Secure POP3'),
+        },
+        {
+            value => 'imap',
+            printableValue => 'IMAP',
+        },
+        {
+            value => 'imaps',
+            printableValue => __('Secure IMAP'),
+        },
+          ],
+    ],
+    [ name => 'port', printableName => $printableName{'port'} ],
+    [ name => 'keep', input => 'checkbox', printableName => $printableName{'keep'}],
+    [ name => 'fetchall', input => 'checkbox', printableName => $printableName{'fetchall'}],
+    [ name => 'addExternalAccount', input => 'submit', value => __('Add')],
+  ]
+&>
+
+</form>
+</%def>
