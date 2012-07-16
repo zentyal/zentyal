@@ -78,7 +78,6 @@ sub _aclName
     return _escapeWS($longAclNames{$name});
 }
 
-
 </%perl>
 # <EBOX> TAG_HTTPORT #
 % my $transKey = '';
@@ -157,7 +156,7 @@ url_rewrite_program <% $urlRewriteProgram %>
 <& .groupsACLs,
     groupsPolicies => \@groupsPolicies,
     objectsPolicies => \@objectsPolicies,
- &>
+&>
 
 <& .objectsACLs, objectsPolicies => \@objectsPolicies &>
 
@@ -212,42 +211,27 @@ always_direct allow SSL_ports
 ssl_bump allow SSL_ports
 % }
 
-
 # <EBOX> TAG_DELAYPOOLS #
 
 % if (@localnets) {
-<& .localnetsACLs,
-                  localnets => \@localnets,
-&>
+<& .localnetsACLs, localnets => \@localnets &>
 % }
-<& .delayPools,
-                  objectsDelayPools => \@objectsDelayPools,
-&>
+<& .delayPools, objectsDelayPools => \@objectsDelayPools &>
 
 # END_TAG
 
 # <EBOX> TAG_HTTP_ACCESS #
 
-
 % if (@notCachedDomains) {
 cache deny noCached
 % }
 
-
-<& .objectsAccess,
-                  objectsPolicies => \@objectsPolicies,
-&>
-
-<& .globalGroupsAccess,
-                groupsPolicies => \@groupsPolicies,
-&>
-
-
+<& .objectsAccess, objectsPolicies => \@objectsPolicies &>
+<& .globalGroupsAccess, groupsPolicies => \@groupsPolicies &>
 
 # default policy section
 # All denied by default if no other allow rule matchs
 http_access deny all
-
 
 # END_TAG #
 
@@ -306,7 +290,6 @@ http_access deny  <% $groupAcl %> <% $objectAcl %>
 % }
 </%def>
 
-
 <%def .objectsAccess>
 <%args>
 @objectsPolicies
@@ -314,15 +297,10 @@ http_access deny  <% $groupAcl %> <% $objectAcl %>
 % foreach my $objPol (@objectsPolicies) {
 
 %   my $object = $objPol->{'object'};
-%   my $objectAcl = _aclName($object);
-  <& .objectGroupsAccess,
-           groupsPolicies =>  $objPol->{groupsPolicies},
-           object => $object,
-   &>
+%   my $objectAcl = $objPol->{'any'} ? 'all' : _aclName($object);
 %   if ($objPol->{'auth'}) {
-  http_access allow  <% $objectAcl %>  authorized
+http_access allow <% $objectAcl %> authorized
 %   }
-
 % if ($objPol->{'allowAll'}) {
 %   my $timeAcls = _timeAclsInPolicy($objPol, $object);
 http_access allow <% $objectAcl %> <% $timeAcls %>
@@ -335,7 +313,6 @@ http_access deny <% $objectAcl %>
 %   }
 % }
 </%def>
-
 
 <%def .groupsACLs>
 <%args>
@@ -370,7 +347,6 @@ acl <% $groupAcl %> proxy_auth <% join ' ', @{ $users } %>
 % }
 </%def>
 
-
 <%def .localnetsACLs>
 <%args>
 @localnets
@@ -378,19 +354,18 @@ acl <% $groupAcl %> proxy_auth <% join ' ', @{ $users } %>
 acl eboxlocalnets dst <% join ' ', @localnets %>
 </%def>
 
-
 <%def .objectsACLs>
 <%args>
 @objectsPolicies
 </%args>
 % foreach my $objPol (@objectsPolicies) {
+%   next if $objPol->{any};
 %   my $object = $objPol->{object};
 %   my $objectAcl = _aclName($object);
 acl <% $objectAcl %> src <% join ' ', @{ $objPol->{addresses} } %>
 <& .timeACLs, policy => $objPol, ids => [ $object ] &>
 % }
 </%def>
-
 
 <%def .timeACLs>
 <%args>
@@ -407,7 +382,6 @@ acl <% _aclName('timeDays_' . $id) %> time <% $policy->{timeDays} %>
 acl <% _aclName('timeHours_' . $id) %> time <% $policy->{timeHours} %>
 % }
 </%def>
-
 
 <%def .delayPools>
 <%args>
@@ -464,4 +438,3 @@ snmp_port 3401
 snmp_access allow snmppublic localhost
 snmp_access deny all
 </%def>
-

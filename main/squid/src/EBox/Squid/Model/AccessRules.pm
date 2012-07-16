@@ -231,17 +231,20 @@ sub objectsPolicies
         my $source = $row->elementByName('source');
         my $members = [];
         my $obj;
+        my $any = 0;
         if ($source->selectedType() eq 'object') {
             $obj = $source->value();
             $members = $objectMod->objectMembers($obj);
+        } elsif ($source->selectedType() eq 'any') {
+            $any = 1;
         }
 
-        if (@{$members}) {
+        if ($any or @{$members}) {
             my $policy        = $row->elementByName('policy');
             my $allow         = $policy->value() eq 'allow';
             my $filter        = $policy->selectedType() eq 'filter';
             my $timePeriod    = $row->elementByName('timePeriod');
-            my $addresses     = $objectMod->objectAddresses($obj);
+            my $addresses     = $any ? [] : $objectMod->objectAddresses($obj);
 
             my $obPol = {
                 object    => $obj,
@@ -249,6 +252,7 @@ sub objectsPolicies
                 addresses => $addresses,
                 allowAll  => $allow,
                 filter    => $filter,
+                any       => $any,
             };
 
             if (not $timePeriod->isAllTime) {
