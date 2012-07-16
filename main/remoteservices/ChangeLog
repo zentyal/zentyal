@@ -1,4 +1,7 @@
 HEAD
+	+ Added 'journaling' optional parameter to the RESTClient methods to
+	  enable/disable the journaling for that call
+	+ Optional parameters for RESTClient methods are now named
 	+ Conf Backup go outside the VPN using the new Cloud RESTful API
 	+ Added method setServer to RESTClient
 	+ Added function cloudCredentials to get server uuid and pass

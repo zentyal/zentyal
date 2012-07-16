@@ -361,7 +361,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, %p) = @_;
 
-    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, \%p);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, journaling => 0);
 
     my $user = $self->{restClient}->{credentials}->{username};
     my $pass = $self->{restClient}->{credentials}->{password};
@@ -429,7 +429,7 @@ sub _pullAllMetaConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', \%p);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, journaling => 0);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
         throw EBox::Exceptions::DataNotFound(
@@ -445,7 +445,7 @@ sub _pullFootprintMetaConf
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', \%p);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, journaling => 0);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
         throw EBox::Exceptions::DataNotFound(
@@ -461,7 +461,7 @@ sub _removeConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName});
+    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, journaling => 0);
 
     unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
         # TODO: Throw the proper exception for each error code

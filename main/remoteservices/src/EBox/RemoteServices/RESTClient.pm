@@ -108,14 +108,18 @@ sub setServer {
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters
 #            (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub GET {
-    my ($self, $path, $query) = @_;
-    return $self->request('GET', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('GET', $path, $params{query}, $params{journaling});
 }
 
 # Method: PUT
@@ -126,14 +130,18 @@ sub GET {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub PUT {
-    my ($self, $path, $query) = @_;
-    return $self->request('PUT', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('PUT', $path, $params{query}, $params{journaling});
 }
 
 # Method: POST
@@ -144,14 +152,18 @@ sub PUT {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub POST {
-    my ($self, $path, $query) = @_;
-    return $self->request('POST', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('POST', $path, $params{query}, $params{journaling});
 }
 
 # Method: DELETE
@@ -162,19 +174,23 @@ sub POST {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub DELETE {
-    my ($self, $path, $query) = @_;
-    return $self->request('DELETE', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('DELETE', $path, $params{query}, $params{journaling});
 }
 
 
 sub request {
-    my ($self, $method, $path, $query) = @_;
+    my ($self, $method, $path, $query, $journaling) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
@@ -228,7 +244,11 @@ sub request {
         if ($res->code() == HTTP_UNAUTHORIZED) {
             throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
         }
-        $self->_storeInJournal($method, $path, $query, $res);
+
+        # Add to the journal unless specified not to do so
+        unless (defined($journaling) and not $journaling) {
+            $self->_storeInJournal($method, $path, $query, $res);
+        }
         throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
     }
 }
