@@ -369,10 +369,14 @@ sub _pushConfBackup
     # Send the file using curl
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
 
-    # TODO: Move the password to an environment variable (HTTPS_PASSWORD??)
+    my $pwfile = EBox::Config::tmp() . 'pw.file';
+    File::Slurp::write_file($pwfile, {perms => 0700},  "$user:$pass");
+
     my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
-                                     . " --user $user:$pass "
+                                     . " -u \$(cat $pwfile) "
                                      . "'" . $url->as_string() . "'");
+
+    system("rm -f '$pwfile'");
 
 }
 
@@ -460,6 +464,7 @@ sub _removeConfBackup
     my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName});
 
     unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
+        # TODO: Throw the proper exception for each error code
         if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT ) {
             throw EBox::Exceptions::DataNotFound(
                 data => 'Configuration backup',
