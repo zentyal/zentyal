@@ -16,9 +16,11 @@ models:
     - ExternalToInternalRuleTable
     - EBoxServicesRuleTable
     - RedirectsTable
+    - SNAT
     - PacketTrafficDetails
     - PacketTrafficGraph
     - PacketTrafficReportOptions
+    
 
 composites:
     PacketTrafficReport: [PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]

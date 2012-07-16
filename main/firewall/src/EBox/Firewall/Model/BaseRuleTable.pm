@@ -25,7 +25,11 @@
 # a destination field.
 #
 #
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::BaseRuleTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -38,16 +42,9 @@ use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::InverseMatchSelect;
 use EBox::Types::IPAddr;
+use EBox::Types::MACAddr;
 use EBox::Types::InverseMatchUnion;
 use EBox::Sudo;
-
-
-use strict;
-use warnings;
-
-
-use base 'EBox::Model::DataTable';
-
 
 sub new
 {
@@ -70,11 +67,6 @@ sub decision
              'printableValue' => __('LOG') });
 
     return \@options;
-}
-
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: _fieldDescription
@@ -123,10 +115,14 @@ sub _fieldDescription
                                  'fieldName' => 'source_ipaddr',
                                  'printableName' => __('Source IP'),
                                  'editable' => 1,),
+                             new EBox::Types::MACAddr(
+                                 'fieldName' => 'source_macddr',
+                                 'printableName' => __('Source MAC'),
+                                 'editable' => 1,), 
                              new EBox::Types::Select(
                                  'fieldName' => 'source_object',
                                  'printableName' => __('Source object'),
-                                 'foreignModel' => \&objectModel,
+                                 'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                                  'foreignField' => 'name',
                                  'foreignNextPageField' => 'members',
                                  'editable' => 1),
@@ -149,12 +145,15 @@ sub _fieldDescription
                              new EBox::Types::IPAddr(
                                  'fieldName' => 'destination_ipaddr',
                                  'printableName' => __('Destination IP'),
-                                 'editable' => 1,
-                                 'optional' => 1),
+                                 'editable' => 1),
+                             new EBox::Types::MACAddr(
+                                 'fieldName' => 'destination_macddr',
+                                 'printableName' => __('Destination MAC'),
+                                 'editable' => 1,), 
                              new EBox::Types::Select(
                                  'fieldName' => 'destination_object',
                                  'printableName' => __('Destination object'),
-                                 'foreignModel' => \&objectModel,
+                                 'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                                  'foreignField' => 'name',
                                  'foreignNextPageField' => 'members',
                                  'editable' => 1),
