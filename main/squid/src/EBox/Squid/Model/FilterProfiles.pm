@@ -223,7 +223,7 @@ sub _setProfileDomainsPolicy
     my ($self, $group, $policy) = @_;
 
     my $domainFilter      = $policy->componentByName('Domains', 1)->componentByName('DomainFilter', 1);
-    my $domainFilterFiles = $policy->componentByName('DomainFilterCategrories', 1);
+    my $domainFilterFiles = $policy->componentByName('DomainFilterCategories', 1);
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),

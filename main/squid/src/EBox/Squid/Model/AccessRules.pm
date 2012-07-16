@@ -282,7 +282,7 @@ sub objectsProfiles
 {
     my ($self) = @_;
 
-    my %profileIdByRowId = %{ $self->profileModel->idByRowId() };
+    my %profileIdByRowId = %{ $self->parentModule()->model('FilterProfiles')->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
 
