@@ -63,43 +63,43 @@ for my $ruser (@{$rusers}) {
 
     my $luser;
     try {
-        $luser = $users->user($ruser->{name});
-        $luser->setIgnoredSlaves(IGNORE);
+        try {
+            $luser = $users->user($ruser->{name});
+            $luser->setIgnoredSlaves(IGNORE);
 
-        # User exists, update fields:
-        $luser->set('givenname', $ruser->{firstname}, 1);
-        $luser->set('sn', $ruser->{lastname}, 1);
-        $luser->set('gidNumber', $ruser->{gid}, 1);
-        $luser->set('uidNumber', $ruser->{uid}, 1);
-        if ($ruser->{description}) {
-            $luser->set('comment', $ruser->{description}, 1);
-        } else {
-            $luser->delete('comment', 1);
-        }
+            # User exists, update fields:
+            $luser->set('givenname', $ruser->{firstname}, 1);
+            $luser->set('sn', $ruser->{lastname}, 1);
+            $luser->set('gidNumber', $ruser->{gid}, 1);
+            $luser->set('uidNumber', $ruser->{uid}, 1);
+            if ($ruser->{description}) {
+                $luser->set('comment', $ruser->{description}, 1);
+            } else {
+                $luser->delete('comment', 1);
+            }
 
-        $luser->save();
+            $luser->save();
 
-        # Update passwords
-        $luser->setPasswordFromHashes($ruser->{passwords});
-
-    } catch EBox::Exceptions::DataNotFound with {
-        EBox::info('Local user "' . $ruser->{name} . '" does not exists, creating...');
-        my $user;
-        $user->{user} = $ruser->{name};
-        $user->{name} = $ruser->{firstname};
-        $user->{surname} = $ruser->{lastname};
-        if ($user->{name}) {
-            $user->{fullname} = $user->{name} . ' ' . $user->{surname};
-            $user->{givenname} = $user->{name};
-        } else {
-            $user->{fullname} = $user->{surname};
-            $user->{givenname} = '';
-        }
-        $user->{passwords} = $ruser->{passwords};
-        $user->{comment} = $ruser->{description};
-        EBox::UsersAndGroups::User->create($user, 0, ignoreSlaves => IGNORE);
-    }
-    otherwise {
+            # Update passwords
+            $luser->setPasswordFromHashes($ruser->{passwords});
+        } catch EBox::Exceptions::DataNotFound with {
+            EBox::info('Local user "' . $ruser->{name} . '" does not exists, creating...');
+            my $user;
+            $user->{user} = $ruser->{name};
+            $user->{name} = $ruser->{firstname};
+            $user->{surname} = $ruser->{lastname};
+            if ($user->{name}) {
+                $user->{fullname} = $user->{name} . ' ' . $user->{surname};
+                $user->{givenname} = $user->{name};
+            } else {
+                $user->{fullname} = $user->{surname};
+                $user->{givenname} = '';
+            }
+            $user->{passwords} = $ruser->{passwords};
+            $user->{comment} = $ruser->{description};
+            EBox::UsersAndGroups::User->create($user, 0, ignoreSlaves => IGNORE);
+        };
+    } otherwise {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
 }
@@ -132,16 +132,16 @@ for my $rgroup (@{$rgroups}) {
 
     my $lgroup;
     try {
-        $lgroup = $users->group($rgroup->{name});
-    } catch EBox::Exceptions::DataNotFound with {
-        EBox::info('Local group "' . $rgroup->{name} . '" does not exists, creating...');
-        $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
-    }
-    otherwise {
-        EBox::error('Failed to sync remote group ' . $rgroup->{name});
-    };
+        try {
+            $lgroup = $users->group($rgroup->{name});
+        } catch EBox::Exceptions::DataNotFound with {
+            EBox::info('Local group "' . $rgroup->{name} . '" does not exists, creating...');
+            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
+        }
+        otherwise {
+            EBox::error('Failed to sync remote group ' . $rgroup->{name});
+        };
 
-    try {
         # Update group info
         $lgroup->setIgnoredSlaves(IGNORE);
         $lgroup->removeAllMembers(1);
