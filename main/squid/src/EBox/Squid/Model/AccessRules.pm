@@ -87,6 +87,7 @@ sub _table
         new EBox::Types::Union(
             fieldName     => 'policy',
             printableName => __('Decision'),
+            filter        => \&_filterProfilePrintableValue,
             subtypes => [
                 new EBox::Types::Union::Text(
                     fieldName => 'allow',
@@ -338,6 +339,17 @@ sub rulesUseFilter
     }
 
     return 0;
+}
+
+sub _filterProfilePrintableValue
+{
+    my ($type) = @_;
+
+    if ($type->selectedType() eq 'profile') {
+        return __x("Apply '{p}' profile", p => $type->value());
+    } else {
+        return $type->printableValue();
+    }
 }
 
 1;
