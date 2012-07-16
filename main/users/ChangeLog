@@ -1,4 +1,6 @@
 HEAD
+	+ Better control of slapd instances in enableActions, better error
+	  control in _loadACLDirectory
 	+ Fixed typo which unallowed user creation in smallbussiness edition
 2.2.6
 	+ Added quota checks

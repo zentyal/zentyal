@@ -259,13 +259,32 @@ sub enableActions
     return if ($self->{enabled});
     $self->{enabled} = 1;
 
-    EBox::Sudo::root(
-        'invoke-rc.d slapd stop || true',
-        'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
-    );
+    # stop and reset conf slapd commands
+    my @cmds = ('invoke-rc.d slapd stop || true');
+    my @eboxInitSlapd = glob('/etc/init/ebox.slapd*');
+    push @cmds, map {
+        $_ =~ m{/etc/init/(ebox\.slapd.*)\.conf};
+        $1 ? ("stop $1 || true") : ();
+
+    } @eboxInitSlapd;
+    push @cmds, 'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd';
+    EBox::Sudo::root(@cmds);
+    # give time to stop commands
+    my $wait = 30;
+    while ($wait) {
+        system "pgrep slapd";
+        if ($? != 0) {
+            last;
+        } elsif ($wait == 0) {
+            EBox::info("slapd process(es) running but we continue anyway");
+            last;
+        }
+
+        $wait -= 1;
+        sleep 1;
+    }
 
     my $mode = $self->mode();
-
     # Disable apparmor in slave and ad-sync modes
     $self->disableApparmorProfile('usr.sbin.slapd') if ($mode ne 'master');
 

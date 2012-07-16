@@ -186,6 +186,7 @@ sub _loadACLDirectory
 {
     my ($self, $ldap, $acl) = @_;
 
+
     my $dn = 'olcDatabase={1}hdb,cn=config';
     my %args = (
             'base' => $dn,
@@ -193,18 +194,26 @@ sub _loadACLDirectory
             'filter' => "(objectClass=*)",
             'attrs' => ['olcAccess']
     );
+
     my $result = $ldap->search(%args);
+    if ($result->count()== 0) {
+        throw EBox::Exceptions::Internal("LDAP object not found: $dn")
+    }
+
+    my $found = undef;
+
     my $entry = ($result->entries)[0];
     my $attr = ($entry->attributes)[0];
-    my $found = undef;
+
     my @rules = $entry->get_value($attr);
     for my $access (@rules) {
-        if($access =~ m/^{\d+}\Q$acl\E$/) {
+        if ($access =~ m/^{\d+}\Q$acl\E$/) {
             $found = 1;
             last;
         }
     }
-    if(not $found) {
+
+    if (not $found) {
         # place the new rule *before* the last 'catch-all' one
         my $last = pop(@rules);
         $last =~ s/^{\d+}//;
@@ -212,7 +221,7 @@ sub _loadACLDirectory
         push(@rules, $last);
         my %args = (
             'replace' => [ 'olcAccess' => \@rules ]
-        );
+           );
         try {
             $ldap->modify($dn, %args);
         } otherwise {
