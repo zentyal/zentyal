@@ -1,7 +1,7 @@
 <%args>
+    $policy
     $threshold
     $group
-    %defaults  => ()
     $groupName => undef
 
     $antivirus => 1
@@ -36,7 +36,13 @@ defined $groupName or
 #
 # Defaults to 0 if unspecified.
 # Unauthenticated users are treated as being in the first filter group.
+% if ($policy eq 'deny') {
+groupmode = 0
+% } elsif ($policy eq 'allow') {
+groupmode = 2
+% } else {
 groupmode = 1
+% }
 
 # Filter group name
 # Used to fill in the -FILTERGROUP- placeholder in the HTML template file and to
@@ -50,12 +56,10 @@ weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
 exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 
 
-% foreach my $configFile (@groupConfigFiles) {
-%    my $number = $group;
-%    if ($defaults{$configFile} ) {
-%       $number = 1;
-%    }
-<% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $number %>'
+% if ($policy eq 'profile') {
+%   foreach my $configFile (@groupConfigFiles) {
+<% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $group %>'
+%   }
 % }
 
 exceptionregexpurllist = '/etc/dansguardian/lists/exceptionregexpurllist'

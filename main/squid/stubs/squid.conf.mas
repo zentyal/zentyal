@@ -18,6 +18,8 @@
     $cache_host
     $cache_port
 
+    $filter
+
     $memory
     $max_object_size
 
@@ -152,7 +154,11 @@ acl authorized proxy_auth required
 url_rewrite_program <% $urlRewriteProgram %>
 % }
 
-<& .rulesACLs, rules => [ @rules, @objectsDelayPools] &>
+% unless ($filter) {
+<& .rulesACLs, rules => [ @rules ] &>
+% }
+
+<& .rulesACLs, rules => [ @objectsDelayPools ] &>
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
@@ -218,11 +224,16 @@ acl localnets_zentyal dst <% join ' ', @localnets %>
 cache deny noCached
 % }
 
+% if ($filter) {
+# All allowed here as dansguardian takes care of the access rules
+http_access allow all
+% } else {
 <& .rulesAccess, rules => \@rules &>
 
 # default policy section
 # All denied by default if no other allow rule matchs
 http_access deny all
+% }
 
 # END_TAG #
 
@@ -280,8 +291,9 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 %   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
 %   my $acl = $groupAcl ? $groupAcl : $objectAcl;
 %   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
-%   my $action = $rule->{'allow'} ? 'allow' : 'deny';
-http_access <% $action %> <% $timeAcls %> <% $acl %>
+%   my $policy = $rule->{'policy'};
+%   next unless (($policy eq 'allow') or ($policy eq 'deny'));
+http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
 

@@ -163,11 +163,11 @@ sub validateTypedRow
 sub idByRowId
 {
     my ($self) = @_;
+
     my %idByRowId;
-    my $id = 0;
-    foreach my $rowId (@{ $self->ids()  }) {
-        $id += 1;
-        $idByRowId{$rowId} = $id;
+    my $id = 3;
+    foreach my $rowId (@{ $self->ids() }) {
+        $idByRowId{$rowId} = $id++;
     }
 
     return \%idByRowId;
@@ -178,40 +178,39 @@ sub profiles
     my ($self) = @_;
     my @profiles = ();
 
-    # groups will have ids greater that this number
-    my $id = 0;
+    push (@profiles, { number => 1, policy => 'allow' });
+    push (@profiles, { number => 2, policy => 'deny' });
 
-    # remember id 1 is reserved for gd's default group so it must be
-    # the first to be getted
+    # groups will have ids greater that this number
+    my $id = 3;
     foreach my $rowId ( @{ $self->ids() } ) {
         my $row = $self->row($rowId);
         my $name  = $row->valueByName('name');
 
-        $id += 1;
         if ($id > MAX_DG_GROUP) {
             EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
             last;
         }
 
-        my %group = (
-                number => $id,
-                groupName => $name,
-                defaults => {},
-                );
+        my $group = {
+            number => $id++,
+            groupName => $name,
+            policy => 'filter'
+        };
 
         my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
-        $group{antivirus} = $policy->componentByName('AntiVirus', 1)->active(),
+        $group->{antivirus} = $policy->componentByName('AntiVirus', 1)->active(),
 
-        $group{threshold} = $policy->componentByName('ContentFilterThreshold', 1)->threshold();
+        $group->{threshold} = $policy->componentByName('ContentFilterThreshold', 1)->threshold();
 
-        $group{bannedExtensions} = $policy->componentByName('Extensions', 1)->banned();
+        $group->{bannedExtensions} = $policy->componentByName('Extensions', 1)->banned();
 
-        $group{bannedMIMETypes} = $policy->componentByName('MIME', 1)->banned();
+        $group->{bannedMIMETypes} = $policy->componentByName('MIME', 1)->banned();
 
-        $self->_setProfileDomainsPolicy(\%group, $policy);
+        $self->_setProfileDomainsPolicy($group, $policy);
 
-        push @profiles, \%group;
+        push (@profiles, $group);
     }
 
     return \@profiles;

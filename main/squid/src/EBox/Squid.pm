@@ -462,9 +462,11 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_writeSquidConf();
+    my $filter = $self->filterNeeded();
 
-    if ($self->filterNeeded()) {
+    $self->_writeSquidConf($filter);
+
+    if ($filter) {
         $self->_writeDgConf();
     }
 }
@@ -502,7 +504,7 @@ sub notifyAntivirusEnabled
 
 sub _writeSquidConf
 {
-    my ($self) = @_;
+    my ($self, $filter) = @_;
 
     my $rules = $self->model('AccessRules')->rules();
 
@@ -525,6 +527,7 @@ sub _writeSquidConf
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
+    push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('https'  => $self->https());
@@ -654,10 +657,12 @@ sub _writeDgConf
 
     foreach my $group (@dgProfiles) {
         my $number = $group->{number};
+        my $policy = $group->{policy};
 
         @writeParam = ();
 
         push(@writeParam, 'group' => $number);
+        push(@writeParam, 'policy' => $policy);
         push(@writeParam, 'antivirus' => $group->{antivirus});
         push(@writeParam, 'threshold' => $group->{threshold});
         push(@writeParam, 'groupName' => $group->{groupName});
@@ -665,21 +670,17 @@ sub _writeDgConf
         EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
                 'squid/dansguardianfN.conf.mas', \@writeParam);
 
-        if (not exists $group->{defaults}->{bannedextensionlist}) {
-            @writeParam = ();
-            push(@writeParam, 'extensions'  => $group->{bannedExtensions});
+        if ($policy eq 'profile') {
             EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
-                    'squid/bannedextensionlist.mas', \@writeParam);
-        }
+                                                     'squid/bannedextensionlist.mas',
+                                                     [ 'extensions'  => $group->{bannedExtensions} ]);
 
-        if (not exists $group->{defaults}->{bannedmimetypelist}) {
-            @writeParam = ();
-            push(@writeParam, 'mimeTypes' => $group->{bannedMIMETypes});
             EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedmimetypelist$number",
-                    'squid/bannedmimetypelist.mas', \@writeParam);
-        }
+                                                     'squid/bannedmimetypelist.mas',
+                                                     [ 'mimeTypes' => $group->{bannedMIMETypes} ]);
 
-        $self->_writeDgDomainsConf($group);
+            $self->_writeDgDomainsConf($group);
+        }
     }
 
     $self->_writeDgTemplates();

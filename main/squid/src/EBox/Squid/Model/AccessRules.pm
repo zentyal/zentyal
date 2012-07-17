@@ -177,10 +177,7 @@ sub rules
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
-
-        my $policy = $row->elementByName('policy');
-        $rule->{allow} = $policy->value() eq 'allow';
-        $rule->{filter} = $policy->selectedType() eq 'profile';
+        $rule->{policy} = $row->elementByName('policy')->selectedType();
 
         my $timePeriod = $row->elementByName('timePeriod');
         if (not $timePeriod->isAllTime) {
@@ -243,8 +240,14 @@ sub objectsProfiles
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $policy = $row->elementByName('policy');
-        next unless ($policy->selectedType() eq 'profile');
-        my $profile = $policy->value();
+        my $group;
+        if ($policy->selectedType() eq 'allow') {
+            $group = 1;
+        } elsif ($policy->selectedType() eq 'deny') {
+            $group = 2;
+        } else {
+            $group = $profileIdByRowId{$policy->value()};
+        }
 
         my $source = $row->elementByName('source');
         next unless ($source->selectedType() eq 'object');
@@ -254,7 +257,7 @@ sub objectsProfiles
             my ($addr, $netmask) = ($cidrAddress->[0],
                                     EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
             my $address = "$addr/$netmask";
-            push @profiles, { address => $address, group => $profileIdByRowId{$profile} };
+            push (@profiles, { address => $address, group => $group });
         }
     }
 
