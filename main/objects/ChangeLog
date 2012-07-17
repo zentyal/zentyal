@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Added EBox::Object::Members class. ObjectAddresses are always
 	  with mask, before, addresses from a range were without it
 2.3.5
