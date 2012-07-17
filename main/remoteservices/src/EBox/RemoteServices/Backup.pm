@@ -35,6 +35,7 @@ use File::Temp;
 use LWP::UserAgent;
 use URI;
 use HTTP::Status;
+use v5.10;
 
 # Constants
 use constant CURL => 'curl';
@@ -395,15 +396,16 @@ sub _handleResult
                     data => __('Configuration backup'),
                     value => $p{fileName}
                     );
-            } when (Apache2::Const::HTTP_BAD_REQUEST) {
+            } when (HTTP::Status::HTTP_BAD_REQUEST) {
                 throw EBox::Exceptions::Internal(__('Some argument is missing'));
-            } when (Apache2::Const::HTTP_INTERNAL_SERVER_ERROR) {
+            } when (HTTP::Status::HTTP_INTERNAL_SERVER_ERROR) {
                 throw EBox::Exceptions::Internal(__('Internal Server Error'));
-            } when (Apache2::Const::HTTP_FORBIDDEN) {
+            } when (HTTP::Status::HTTP_FORBIDDEN) {
                 throw EBox::Exceptions::Internal(__('Forbidden request'));
             } default {
                 throw EBox::Exceptions::Internal(__('An error has occurred'));
             }
+        }
     }
 }
 
