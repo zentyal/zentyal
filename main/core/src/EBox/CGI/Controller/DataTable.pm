@@ -294,7 +294,7 @@ sub setAllChecks
     $model->setAll($field, $value);
 }
 
-sub checkAllControlValue
+sub checkAllControlValueAction
 {
     my ($self) = @_;
     my $model = $self->{'tableModel'};
@@ -364,7 +364,101 @@ sub refreshTable
     $self->{'params'} = \@params;
 }
 
+
+sub editAction
+{
+    my ($self) = @_;
+    $self->editField();
+    $self->refreshTable();
+}
+
+sub addAction
+{
+    my ($self, %params) = @_;
+    my $rowId = $self->addRow();
+    if ($params{json}) {
+        $self->{json}->{rowId} = $rowId;
+        $self->{json}->{directory} = $params{directory};
+        $self->{json}->{success} = 1;
+    } else {
+        $self->refreshTable();
+    }
+}
+
+sub delAction
+{
+    my ($self) = @_;
+    $self->removeRow();
+    $self->refreshTable();
+}
+
+sub moveAction
+{
+    my ($self) = @_;
+    $self->moveRow();
+    $self->refreshTable();
+}
+
+sub changeAddAction
+{
+    my ($self) = @_;
+    $self->refreshTable();
+}
+
+sub changeListAction
+{
+    my ($self) = @_;
+    $self->refreshTable();
+}
+
+sub changeEditAction
+{
+    my ($self) = @_;
+    $self->refreshTable();
+}
+
+# This action will show the whole table (including the
+# table header similarly View Base CGI but inheriting
+# from ClientRawBase instead of ClientBase
+sub viewAction
+{
+    my ($self, %params) = @_;
+    $self->{template} = $params{model}->Viewer();
+    $self->refreshTable();
+}
+
+sub editBooleanAction
+{
+    my ($self) = @_;
+    delete $self->{template};
+    $self->editBoolean();
+}
+
+sub cloneAction
+{
+    my ($self) = @_;
+    $self->refreshTable();
+}
+
+sub checkboxSetAllAction
+{
+    my ($self) = @_;
+    $self->setAllChecks(1);
+    $self->refreshTable();
+
+}
+
+sub checkboxUnsetAllAction
+{
+    my ($self) = @_;
+    $self->setAllChecks(0);
+    $self->refreshTable();
+}
+
 # Group: Protected methods
+
+
+
 
 sub _process
 {
@@ -386,52 +480,16 @@ sub _process
         $self->{json} = { success => 0  };
     }
 
-    if ($action eq 'edit') {
-        $self->editField();
-        $self->refreshTable();
-    } elsif ($action eq 'add') {
-        my $rowId = $self->addRow();
-        if ($json) {
-            $self->{json}->{rowId} = $rowId;
-            $self->{json}->{directory} = $directory;
-            $self->{json}->{success} = 1;
-        } else {
-            $self->refreshTable();
-        }
-    } elsif ($action eq 'del') {
-        $self->removeRow();
-        $self->refreshTable();
-    } elsif ($action eq 'move') {
-        $self->moveRow();
-        $self->refreshTable();
-    } elsif ($action eq 'changeAdd') {
-        $self->refreshTable();
-    } elsif ($action eq 'changeList') {
-        $self->refreshTable();
-    } elsif ($action eq 'changeEdit') {
-        $self->refreshTable();
-    } elsif ($action eq 'view') {
-        # This action will show the whole table (including the
-        # table header similarly View Base CGI but inheriting
-        # from ClientRawBase instead of ClientBase
-        $self->{template} = $model->Viewer();
-        $self->refreshTable();
-    } elsif ($action eq 'editBoolean') {
-        delete $self->{template};
-        $self->editBoolean();
+    my $actionSub = $action . 'Action';
+    if ($self->can($actionSub)) {
+        $self->$actionSub(
+            model => $model,
+            directory => $directory,
+            json      => $json,
+           );
     } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
-        $self->refreshTable();
-    } elsif ($action eq 'clone') {
-        $self->refreshTable();
-    } elsif ($action eq 'checkboxSetAll') {
-        $self->setAllChecks(1);
-        $self->refreshTable();
-    } elsif ($action eq 'checkboxUnsetAll') {
-        $self->setAllChecks(0);
-        $self->refreshTable();
-    } elsif ($action eq 'checkAllControlValue') {
-        $self->checkAllControlValue();
+        $self->refreshTable()
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
@@ -441,6 +499,7 @@ sub _process
         $model->setMessage('');
     }
 }
+
 
 sub _redirect
 {
