@@ -511,7 +511,8 @@ $page
 %checkAllControls => ()
 </%args>
     <thead>
-%    foreach my $th (@tableHead)  {
+%   my $checkAll = %checkAllControls;
+%   foreach my $th (@tableHead)  {
 %      next unless ($th->HTMLViewer());
       <th class='<%
                    $th->class()
@@ -519,6 +520,9 @@ $page
         <%
           $th->printableName()
         %>
+
+%    if ($checkAll) {
+%      my $spaceAdded = 0;
 %      my $fieldName = $th->fieldName();
 %      if ($th->isa('EBox::Types::Boolean')) {
 %         my $checkAllId = $checkAllControls{$fieldName};
@@ -529,16 +533,24 @@ $page
                 model     => $model,
                 page      => $page,
              &>
-%          }
+%            $spaceAdded = 1;
+%         }
 %      }
+%      unless ($spaceAdded) {
+            <div>&nbsp;</div>
+%      }
+%     }
       </th>
-%    }
+%   }
 
 %    if ($actions) {
       <th class='thOptions'>
         <%
           __('Action')
         %>
+%      if ($checkAll) {
+            <div>&nbsp;</div>
+%      }
       </th>
 %    }
     </thead>
