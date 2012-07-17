@@ -504,11 +504,7 @@ sub _writeSquidConf
 {
     my ($self) = @_;
 
-    my $rules = $self->model('AccessRules');
-
-    # FIXME: pass just a single array of rules to the templates in the proper order
-    my $groupsPolicies = $rules->groupsPolicies();
-    my $objectsPolicies = $rules->objectsPolicies();
+    my $rules = $self->model('AccessRules')->rules();
 
     my $generalSettings = $self->model('GeneralSettings');
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
@@ -533,8 +529,7 @@ sub _writeSquidConf
     push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('https'  => $self->https());
     push @writeParam, ('localnets' => $self->_localnets());
-    push @writeParam, ('groupsPolicies' => $groupsPolicies);
-    push @writeParam, ('objectsPolicies' => $objectsPolicies);
+    push @writeParam, ('rules' => $rules);
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
     push @writeParam, ('nameservers' => $network->nameservers());
     push @writeParam, ('append_domain' => $append_domain);

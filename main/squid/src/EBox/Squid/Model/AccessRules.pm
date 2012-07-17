@@ -149,44 +149,55 @@ sub validateTypedRow
     }
 }
 
-sub groupsPolicies
+sub rules
 {
-    my ($self) = @_;
+    my ($self, $objectsOnly) = @_;
 
-    my $userMod = EBox::Global->modInstance('users');
-    return [] unless ($userMod->isEnabled());
+    my $objectMod = $self->global()->modInstance('objects');
+    my $userMod = $self->global()->modInstance('users');
+    my $usersEnabled = $userMod->isEnabled();
 
-    my @groupsPol = map {
-        my $row = $self->row($_);
+    my @rules;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         my $source = $row->elementByName('source');
-        my $group = $source->selectedType() eq 'group' ? $source->value() : undef;
+
+        my $rule = {};
+
+        if ($source->selectedType() eq 'object') {
+            my $object = $source->value();
+            $rule->{object} = $object;
+            $rule->{members} = $objectMod->objectMembers($object);
+            $rule->{addresses} = $objectMod->objectAddresses($object);
+        } elsif ($source->selectedType() eq 'group') {
+            next if ($objectsOnly or not $usersEnabled);
+            my $group = $source->value();
+            $rule->{group} = $group;
+            $rule->{users} = $userMod->group($group)->users();
+        } elsif ($source->selectedType() eq 'any') {
+            $rule->{any} = 1;
+        }
+
         my $policy = $row->elementByName('policy');
-        my $allow = $policy->value() eq 'allow';
-        my $time = $row->elementByName('timePeriod');
-        my $users = $group ? $userMod->group($group)->users() : [];
+        $rule->{allow} = $policy->value() eq 'allow';
+        $rule->{filter} = $policy->selectedType() eq 'profile';
 
-        if (@{$users}) {
-            my $grPol = { group => $group, users => $users, allow => $allow };
-            if (not $time->isAllTime) {
-                if (not $time->isAllWeek()) {
-                    $grPol->{timeDays} = $time->weekDays();
-                }
-
-                my $hours = $time->hourlyPeriod();
-                if ($hours) {
-                    $grPol->{timeHours} = $hours;
-                }
+        my $timePeriod = $row->elementByName('timePeriod');
+        if (not $timePeriod->isAllTime) {
+            if (not $timePeriod->isAllWeek()) {
+                $rule->{timeDays} = $timePeriod->weekDays();
             }
 
-            $grPol;
-        }
-        else {
-            ()
+            my $hours = $timePeriod->hourlyPeriod();
+            if ($hours) {
+                $rule->{timeHours} = $hours;
+            }
         }
 
-    } @{ $self->ids() };
+        push (@rules, $rule);
+    }
 
-    return \@groupsPol;
+    return \@rules;
 }
 
 sub existsPoliciesForGroup
@@ -220,64 +231,6 @@ sub delPoliciesForGroup
     }
 }
 
-sub objectsPolicies
-{
-    my ($self) = @_;
-
-    my $objectMod = $self->global()->modInstance('objects');
-
-    my @obsPol = map {
-        my $row = $self->row($_);
-
-        my $source = $row->elementByName('source');
-        my $members = [];
-        my $obj;
-        my $any = 0;
-        if ($source->selectedType() eq 'object') {
-            $obj = $source->value();
-            $members = $objectMod->objectMembers($obj);
-        } elsif ($source->selectedType() eq 'any') {
-            $any = 1;
-        }
-
-        if ($any or @{$members}) {
-            my $policy        = $row->elementByName('policy');
-            my $allow         = $policy->value() eq 'allow';
-            my $filter        = $policy->selectedType() eq 'filter';
-            my $timePeriod    = $row->elementByName('timePeriod');
-            my $addresses     = $any ? [] : $objectMod->objectAddresses($obj);
-
-            my $obPol = {
-                object    => $obj,
-                members   => $members,
-                addresses => $addresses,
-                allowAll  => $allow,
-                filter    => $filter,
-                any       => $any,
-            };
-
-            if (not $timePeriod->isAllTime) {
-                if (not $timePeriod->isAllWeek()) {
-                    $obPol->{timeDays} = $timePeriod->weekDays();
-                }
-
-                my $hours = $timePeriod->hourlyPeriod();
-                if ($hours) {
-                    $obPol->{timeHours} = $hours;
-                }
-            }
-
-            $obPol;
-        }
-        else {
-            ()
-        }
-
-    } @{ $self->ids() };
-
-    return \@obsPol;
-}
-
 sub objectsProfiles
 {
     my ($self) = @_;
@@ -301,10 +254,7 @@ sub objectsProfiles
             my ($addr, $netmask) = ($cidrAddress->[0],
                                     EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
             my $address = "$addr/$netmask";
-            push @profiles, {
-                                 address => $address,
-                                 group   => $profileIdByRowId{$profile}
-                                };
+            push @profiles, { address => $address, group => $profileIdByRowId{$profile} };
         }
     }
 

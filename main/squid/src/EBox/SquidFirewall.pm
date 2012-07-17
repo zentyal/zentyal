@@ -38,7 +38,8 @@ sub _objectsPolicies
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
     my $rules = $sq->model('AccessRules');
-    return $rules->objectsPolicies();
+    # rules only for objects
+    return $rules->rules(1);
 }
 
 sub _normal_prerouting
