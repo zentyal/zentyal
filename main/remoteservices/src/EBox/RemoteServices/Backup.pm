@@ -54,7 +54,8 @@ sub new
 
     my $rs = EBox::Global->modInstance('remoteservices');
     my $cloud_domain = $rs->cloudDomain();
-    # TODO: Check $cloud_domain is not undef or ''
+    # Check cloud domain is set
+    $cloud_domain or throw EBox::Exceptions::Internal('Cloud Domain is not set');
 
     # TODO: Do not hardcode
     $self->{cloud} = 'confbackup.' . $cloud_domain;
