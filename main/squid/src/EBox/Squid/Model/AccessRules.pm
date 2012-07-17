@@ -346,7 +346,7 @@ sub _filterProfilePrintableValue
     my ($type) = @_;
 
     if ($type->selectedType() eq 'profile') {
-        return __x("Apply '{p}' profile", p => $type->value());
+        return __x("Apply '{p}' profile", p => $type->printableValue());
     } else {
         return $type->printableValue();
     }
