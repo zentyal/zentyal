@@ -136,6 +136,7 @@ for my $rgroup (@{$rgroups}) {
             $lgroup = $users->group($rgroup->{name});
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local group "' . $rgroup->{name} . '" does not exists, creating...');
+            $rgroup->{description} = ($rgroup->{description} or '');
             $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
         }
         otherwise {

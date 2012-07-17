@@ -105,7 +105,7 @@ sub _addGroup
     my ($self, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    return if ($users->baseDn() ne $users->groupsDn());
+    return if ($group->baseDn() ne $users->groupsDn());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -124,7 +124,7 @@ sub _modifyGroup
     my ($self, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    return if ($users->baseDn() ne $users->groupsDn());
+    return if ($group->baseDn() ne $users->groupsDn());
 
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {

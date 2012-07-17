@@ -1,4 +1,5 @@
 HEAD
+	+ Added user synchronization with Zentyal Cloud
 	+ Removed deprecated conf keys (password hashes selection)
 	+ Sync kerberos hashes on master-slave
 	+ Resolve slave hostname during registering
