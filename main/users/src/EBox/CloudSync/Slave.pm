@@ -23,8 +23,10 @@ use base 'EBox::UsersAndGroups::Slave';
 
 use EBox::Global;
 use EBox::Exceptions::External;
-use Error qw(:try);
+use EBox::RemoteServices::Cred;
 
+use Error qw(:try);
+use MIME::Base64;
 
 sub new
 {
@@ -42,21 +44,19 @@ sub _addUser
     my $users = EBox::Global->modInstance('users');
     return if ($user->baseDn() ne $users->usersDn());
 
+    my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
-        name       => $user->get('uid'),
-        givenname  => $user->get('givenName'),
-        uid        => $user->get('uidNumber'),
-        gid        => $user->get('gidNumber'),
-        surname    => $user->get('sn'),
-        password   => $pass,
+        name        => $user->get('uid'),
+        firstname   => $user->get('givenName'),
+        lastname    => $user->get('sn'),
+        description => ($user->get('description') or ''),
+        uid         => $user->get('uidNumber'),
+        gid         => $user->get('gidNumber'),
+        passwords   => \@passwords,
     };
 
-    if ($user->get('description')) {
-        $userinfo->{description} = $user->get('description');
-    }
-
     my $uid = $user->get('uid');
-    $self->REST->POST("users/$uid", $userinfo);
+    $self->RESTClient->POST("/v1/users/users/$uid", $userinfo);
 
     return 0;
 }
@@ -65,20 +65,16 @@ sub _modifyUser
 {
     my ($self, $user, $pass) = @_;
 
+    my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
-        fullname   => $user->get('cn'),
-        surname    => $user->get('sn'),
-        givenname  => $user->get('givenName'),
+        firstname  => $user->get('givenName'),
+        lastname   => $user->get('sn'),
+        description => ($user->get('description') or ''),
+        passwords  => \@passwords,
     };
 
-    $userinfo->{password} = $pass if ($pass);
-
-    if ($user->get('description')) {
-        $userinfo->{description} = $user->get('description');
-    }
-
     my $uid = $user->get('uid');
-    $self->REST->PUT("users/$uid", $userinfo);
+    $self->RESTClient->PUT("/v1/users/users/$uid", $userinfo);
 
     return 0;
 }
@@ -87,7 +83,7 @@ sub _delUser
 {
     my ($self, $user) = @_;
     my $uid = $user->get('uid');
-    $self->REST->DELETE("users/$uid");
+    $self->RESTClient->DELETE("/v1/users/users/$uid");
     return 0;
 }
 
@@ -96,16 +92,13 @@ sub _addGroup
     my ($self, $group) = @_;
 
     my $groupinfo = {
-        name     => $group->name(),
-        gid      => $group->get('gidNumber'),
+        name        => $group->name(),
+        gid         => $group->get('gidNumber'),
+        description => ($group->get('description') or ''),
     };
 
-    if ($group->get('description')) {
-        $groupinfo->{description} = $group->get('description');
-    }
-
     my $name = $group->name();
-    $self->REST->POST("groups/$name", $groupinfo);
+    $self->RESTClient->POST("/v1/users/groups/$name", $groupinfo);
 
     return 0;
 }
@@ -116,17 +109,14 @@ sub _modifyGroup
 
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
-        name     => $group->name(),
-        gid      => $group->get('gidNumber'),
+        name        => $group->name(),
+        gid         => $group->get('gidNumber'),
+        description => ($group->get('description') or ''),
         members  => \@members,
     };
 
-    if ($group->get('description')) {
-        $groupinfo->{description} = $group->get('description');
-    }
-
-    my $cn = $group->get('cn');
-    $self->REST->PUT("groups/$cn", $groupinfo);
+    my $name = $group->get('cn');
+    $self->RESTClient->PUT("/v1/users/groups/$name", $groupinfo);
 
     return 0;
 }
@@ -134,21 +124,16 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $group) = @_;
-    my $cn = $group->get('cn');
-    $self->REST->DELETE("groups/$cn");
+    my $name = $group->get('cn');
+    $self->RESTClient->DELETE("/v1/users/groups/$name");
     return 0;
 }
 
 
-# CLIENT METHODS
-
-sub REST
+sub RESTClient
 {
-    my ($self) = @_;
-
-    my $rs = EBox::Global->modInstance('remoteservices');
-    return $rs->REST();
+    my $cred = new EBox::RemoteServices::Cred();
+    return $cred->RESTClient();
 }
-
 
 1;
