@@ -1165,6 +1165,31 @@ function checkAllControlValue(url, table, directory, controlId, field)
 }
 
 
+function confirmationDialog(url, table, directory, actionToConfirm)
+{
+  var dialogStr = null;
+  var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
+  pars +='&actionToConfirm=' + actionToConfirm;
+  var request = new Ajax.Request(url, {
+        method: 'post',
+        parameters: pars,
+        asynchronous: false,
+        onSuccess: function (t) {
+           var json = t.responseText.evalJSON(true);
+           if (json.wantDialog) {
+            dialogStr = json.message;
+           }
+        },
+        onFailure: function(t) {
+          dialogStr = 'Are you sure?';
+        }
+
+      }
+    );
+
+  return dialogStr;
+}
+
 // Detect session loss on ajax request:
 Ajax.Responders.register({
  onComplete: function(x,response) {

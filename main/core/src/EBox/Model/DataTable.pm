@@ -4598,29 +4598,55 @@ sub checkAllControlValue
     return 1;
 }
 
-sub _confirmation
+
+
+
+sub _confirmationDialogForAction
 {
-    my ($self, $action) = @_;
-    exists  $self->{'table'}->{'confirmation'} or
-        return undef;
-    exists $self->{'table'}->{'confirmation'}->{$action} or
-        return undef;
-    return  $self->{'table'}->{'confirmation'}->{$action};
+    my ($self, $action, $params_r) = @_;
+    exists  $self->{'table'}->{'confirmationDialog'} or
+        return 1;
+    exists $self->{'table'}->{'confirmationDialog'}->{$action} or
+        return 1;
+    return $self->{'table'}->{'confirmationDialog'}->{$action}->($self, $params_r);
 }
 
 sub confirmationJS
 {
-    my ($self, $action) = @_;
-    my $confirmation = $self->_confirmation($action);
-    if (not $confirmation) {
-        return '';
-    }
-    my $confirmationMsg = $confirmation->($self);
-    if (not $confirmationMsg) {
-        return '';
-    }
+    my ($self, $action, $goAheadJS) = @_;
+    my $table = $self->table();
+    exists  $table->{'confirmationDialog'} or
+        return $goAheadJS;
+    exists $table->{'confirmationDialog'}->{$action} or
+        return $goAheadJS;
 
-    return qq|if (! confirm('$confirmationMsg')) { return false };|;
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $function = "confirmationDialog('%s', '%s','%s', '%s')";
+
+
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $action,
+                    );
+    my $js =<< "ENDJS";
+       this.disable = true;
+       var goAhead = true;
+       var confirmMsg = $call;
+       if (confirmMsg) {
+         if (!confirm(confirmMsg)) {
+              goAhead = false;
+         }
+       }
+       if (goAhead) {
+          $goAheadJS
+       }
+
+       this.disable = false;
+       return false;
+ENDJS
+
 }
 
 

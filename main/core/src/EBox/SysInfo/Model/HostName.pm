@@ -65,8 +65,10 @@ sub _table
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
-        'confirmation' => {
-              submit => sub { return 'Are you sure of chanigng hostname'   }
+        'confirmationDialog' => {
+              submit => sub {
+                  return  '(new33)Are you sure of chanigng hostname'   ,
+                 }
             }
     };
 

@@ -108,8 +108,9 @@
   my $model = $m->caller_args(2)->{model};
   my $id = $model->row()->id();
   my $actions = $model->table()->{actions};
-  my $onClick =  $model->confirmationJS('submit');
-  $onClick .= $model->changeRowJS($id, 0) . '; return false';
+
+  my $onClick = $model->changeRowJS($id, 0) . '; return false';
+  $onClick =  $model->confirmationJS('submit', $onClick);
 </%init>
 <td id="<% 'buttons_' . $model->modelName() %>">
 % if ($actions) {

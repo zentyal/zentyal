@@ -455,6 +455,21 @@ sub checkboxUnsetAllAction
     $self->refreshTable();
 }
 
+sub confirmationDialogAction
+{
+    my ($self, %params) = @_;
+
+    my $actionToConfirm = $self->param('actionToConfirm');
+    my $par;
+    my $msg = $params{model}->_confirmationDialogForAction($actionToConfirm, $par);
+
+    $self->{json} = {
+        wantDialog => $msg ? 1 : 0,
+        message => $msg
+       };
+}
+
+
 # Group: Protected methods
 
 
