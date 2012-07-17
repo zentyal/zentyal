@@ -25,26 +25,22 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-sub _global
+sub prerouting
 {
     my ($self) = @_;
-    my $ro = $self->{ro};
-    return EBox::Global->getInstance($ro);
-}
 
-sub _objectsPolicies
-{
-    my ($self) = @_;
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    my $rules = $sq->model('AccessRules');
-    # rules only for objects
-    return $rules->rules(1);
+    my $sq = $self->_global()->modInstance('squid');
+    if ($sq->transproxy()) {
+        return $self->_trans_prerouting();
+    } else {
+        return $self->_normal_prerouting();
+    }
 }
 
 sub _normal_prerouting
 {
     my ($self) = @_;
+
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
     return [] unless ($sq->filterNeeded());
@@ -54,7 +50,6 @@ sub _normal_prerouting
     my $dgport = $sq->DGPORT();
     my @rules = ();
 
-    my @objsPolicies = @{ $self->_objectsPolicies() };
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
@@ -63,40 +58,8 @@ sub _normal_prerouting
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
-            foreach my $obPolicy (@objsPolicies) {
-                push @rules,
-                  @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
-            }
-
-            if ($sq->filterNeeded()) {
-                my $r = "$input -d $addr -p tcp --dport $sqport -j REDIRECT --to-ports $dgport";
-                push @rules, $r;
-            }
-        }
-
-    }
-
-    return \@rules;
-}
-
-sub _normal_prerouting_object_rules
-{
-    my ($self, $obPolicy, $ifc, $addr) = @_;
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    my $net = $global->modInstance('network');
-
-    my $sqport = $sq->port();
-    my $dgport = $sq->DGPORT();
-    my $input = $self->_inputIface($ifc);
-
-    my @rules;
-    my $members = $obPolicy->{members};
-    if (defined $members) {
-        foreach my $clientSrc (@{ $members->iptablesSrcParams() }) {
-            my $action = $obPolicy->{filter} ? "REDIRECT --to-ports $dgport" : 'RETURN';
-            my $r = "$input -d $addr $clientSrc -p tcp --dport $sqport -j $action";
-            push @rules, $r;
+            my $r = "$input -d $addr -p tcp --dport $sqport -j REDIRECT --to-ports $dgport";
+            push (@rules, $r);
         }
     }
 
@@ -106,6 +69,7 @@ sub _normal_prerouting_object_rules
 sub _trans_prerouting
 {
     my ($self) = @_;
+
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
     my $net = $global->modInstance('network');
@@ -124,8 +88,6 @@ sub _trans_prerouting
         }
     }
 
-    my @objsPolicies = @{ $self->_objectsPolicies() };
-
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
@@ -134,62 +96,13 @@ sub _trans_prerouting
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
-            foreach my $obPolicy (@objsPolicies) {
-                push @rules,
-                  @{ $self->_normal_trans_prerouting_object_rules(
-                                                                  $obPolicy,
-                                                                  $ifc,
-                                                                  $addr
-                                                                 ) };
-            }
-
             my $port = $sq->filterNeeded() ? $dgport : $sqport;
             my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
+            push (@rules, $r);
             # TODO: https? will it work with dansguardian?
         }
     }
     return \@rules;
-}
-
-sub _normal_trans_prerouting_object_rules
-{
-    my ($self, $obPolicy, $ifc, $addr) = @_;
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    return [] unless ($sq->filterNeeded());
-
-    my $net = $global->modInstance('network');
-
-    my $sqport = $sq->port();
-    my $dgport = $sq->DGPORT();
-    my $input = $self->_inputIface($ifc);
-
-    my @rules;
-
-    my $members = $obPolicy->{members};
-    if (defined $members) {
-        my $policy = $obPolicy->{policy};
-        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
-            my $port = $obPolicy->{filter} ? $dgport : $sqport;
-            my $r = "$input -d ! $addr $srcClient -p tcp --dport 80 -j REDIRECT --to-ports $port";
-            # TODO: https? will it work with dansguardian?
-            push @rules, $r;
-        }
-    }
-
-    return \@rules;
-}
-
-sub prerouting
-{
-    my ($self) = @_;
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    if ($sq->transproxy()) {
-        return $self->_trans_prerouting();
-    } else {
-        return $self->_normal_prerouting();
-    }
 }
 
 sub input
@@ -203,13 +116,8 @@ sub input
     my $dgport = $sq->DGPORT();
     my @rules = ();
 
-    my @objsPolicies = @{ $self->_objectsPolicies() };
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
-        foreach my $obPolicy (@objsPolicies) {
-            push @rules,
-                @{ $self->_input_object_rules($obPolicy, $ifc ) };
-        }
         my $input = $self->_inputIface($ifc);
 
         my $port = $sq->filterNeeded() ? $dgport : $sqport;
@@ -217,39 +125,6 @@ sub input
         push(@rules, $r);
     }
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
-    return \@rules;
-}
-
-sub _input_object_rules
-{
-    my ($self, $obPolicy, $ifc, $addr) = @_;
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    return [] unless ($sq->filterNeeded());
-
-    my $net = $global->modInstance('network');
-
-    my $sqport = $sq->port();
-    my $dgport = $sq->DGPORT();
-    my $input = $self->_inputIface($ifc);
-
-    my @rules;
-
-    my $members = $obPolicy->{members};
-    if (defined $members) {
-        my ($acceptPort, $dropPort) = ($sqport, $dgport);
-        if ($obPolicy->{filter}) {
-            ($acceptPort, $dropPort) = ($dgport, $sqport);
-        }
-        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
-            my $r = "-m state --state NEW $input $srcClient -p tcp --dport $acceptPort -j ACCEPT";
-            push @rules, $r;
-
-            $r = "-m state --state NEW $input $srcClient -p tcp --dport $dropPort -j DROP";
-            push @rules, $r;
-        }
-    }
-
     return \@rules;
 }
 
@@ -261,6 +136,13 @@ sub output
     push(@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
     push(@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");
     return \@rules;
+}
+
+sub _global
+{
+    my ($self) = @_;
+    my $ro = $self->{ro};
+    return EBox::Global->getInstance($ro);
 }
 
 1;

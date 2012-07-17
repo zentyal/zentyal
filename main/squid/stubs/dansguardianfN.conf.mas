@@ -10,6 +10,8 @@
 my @groupConfigFiles = (
       'bannedsitelist',
       'bannedurllist',
+      'greysitelist',
+      'greyurllist',
       'exceptionsitelist',
       'exceptionurllist',
       'bannedextensionlist',
@@ -56,7 +58,7 @@ weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
 exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 
 
-% if ($policy eq 'profile') {
+% if ($policy eq 'filter') {
 %   foreach my $configFile (@groupConfigFiles) {
 <% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $group %>'
 %   }

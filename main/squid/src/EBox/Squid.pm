@@ -172,6 +172,11 @@ sub usedFiles
              'reason' => __('Content filter exception site list')
             },
             {
+             'file' => DGLISTSDIR . '/greysitelist',
+             'module' => 'squid',
+             'reason' => __('Content filter grey site list')
+            },
+            {
              'file' => DGLISTSDIR . '/bannedsitelist',
              'module' => 'squid',
              'reason' => __('Content filter banned site list')
@@ -180,6 +185,11 @@ sub usedFiles
              'file' => DGLISTSDIR . '/exceptionurllist',
              'module' => 'squid',
              'reason' => __('Content filter exception URL list')
+            },
+            {
+             'file' => DGLISTSDIR . '/greyurllist',
+             'module' => 'squid',
+             'reason' => __('Content filter grey URL list')
             },
             {
              'file' => DGLISTSDIR . '/bannedurllist',
@@ -664,7 +674,7 @@ sub _writeDgConf
         EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
                 'squid/dansguardianfN.conf.mas', \@writeParam);
 
-        if ($policy eq 'profile') {
+        if ($policy eq 'filter') {
             EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
                                                      'squid/bannedextensionlist.mas',
                                                      [ 'extensions'  => $group->{bannedExtensions} ]);
@@ -809,6 +819,7 @@ sub _writeDgDomainsConf
     my $number = $group->{number};
 
     my @domainsFiles = ('bannedsitelist', 'bannedurllist',
+                        'greysitelist', 'greyurllist',
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {

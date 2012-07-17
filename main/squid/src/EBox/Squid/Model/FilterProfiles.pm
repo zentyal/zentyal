@@ -234,6 +234,16 @@ sub _setProfileDomainsPolicy
                                   includes => $domainFilterFiles->allowedUrls(),
                                  ];
 
+    $group->{greysitelist} = [
+                              domains => [],
+                              includes => [],
+                             ];
+
+    $group->{greyurllist} = [
+                             urls => [],
+                             includes => [],
+                            ];
+
     $group->{bannedurllist} = [
                                urls =>  => $domainFilter->bannedUrls(),
                                includes => $domainFilterFiles->bannedUrls(),

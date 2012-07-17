@@ -151,7 +151,7 @@ sub validateTypedRow
 
 sub rules
 {
-    my ($self, $objectsOnly) = @_;
+    my ($self) = @_;
 
     my $objectMod = $self->global()->modInstance('objects');
     my $userMod = $self->global()->modInstance('users');
@@ -170,7 +170,7 @@ sub rules
             $rule->{members} = $objectMod->objectMembers($object);
             $rule->{addresses} = $objectMod->objectAddresses($object);
         } elsif ($source->selectedType() eq 'group') {
-            next if ($objectsOnly or not $usersEnabled);
+            next unless ($usersEnabled);
             my $group = $source->value();
             $rule->{group} = $group;
             $rule->{users} = $userMod->group($group)->users();

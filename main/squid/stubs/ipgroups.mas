@@ -11,6 +11,10 @@
 #192.168.1.0/255.255.255.0 = filter1
 # Range matching:
 #192.168.1.0-192.168.1.255 = filter1
+
 % foreach my $obj (@objects) {
 <% $obj->{address} %>=filter<% $obj->{number} %>
 % }
+
+# Deny all if no other filter profiles have applied
+0.0.0.0=filter2
