@@ -3399,8 +3399,8 @@ sub _compulsoryFields
     my @compulsory = ();
     foreach my $fieldName (@{$self->fields()}) {
         my $field = $self->fieldHeader($fieldName);
-        unless ( $field->optional() ) {
-            push ( @compulsory, $fieldName );
+        unless ($field->optional() or $field->hidden()) {
+            push (@compulsory, $fieldName);
         }
     }
 
