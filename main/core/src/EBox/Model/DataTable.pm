@@ -4598,9 +4598,6 @@ sub checkAllControlValue
     return 1;
 }
 
-
-
-
 sub _confirmationDialogForAction
 {
     my ($self, $action, $params_r) = @_;
@@ -4621,14 +4618,24 @@ sub confirmationJS
         return $goAheadJS;
 
     my $actionUrl =  $table->{'actions'}->{'editField'};
-    my $function = "confirmationDialog('%s', '%s','%s', '%s')";
 
+    my @elements = map {
+        my $element = $_;
+        my @fields = map {
+            qq{'$_'}
+        } $element->fields();
+        @fields;
+    } @ {  $table->{tableDescription} };
+    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+
+    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
 
     my $call =  sprintf ($function,
                     $self->_mainController(),
                     $table->{'tableName'},
                     $table->{'confdir'},
                     $action,
+                    $elementsArrayJS
                     );
     my $js =<< "ENDJS";
        this.disable = true;

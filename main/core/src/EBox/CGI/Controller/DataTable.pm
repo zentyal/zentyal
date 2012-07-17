@@ -460,8 +460,8 @@ sub confirmationDialogAction
     my ($self, %params) = @_;
 
     my $actionToConfirm = $self->param('actionToConfirm');
-    my $par;
-    my $msg = $params{model}->_confirmationDialogForAction($actionToConfirm, $par);
+    my %confirmParams = $self->getParams();
+    my $msg = $params{model}->_confirmationDialogForAction($actionToConfirm, \%confirmParams);
 
     $self->{json} = {
         wantDialog => $msg ? 1 : 0,
@@ -471,9 +471,6 @@ sub confirmationDialogAction
 
 
 # Group: Protected methods
-
-
-
 
 sub _process
 {

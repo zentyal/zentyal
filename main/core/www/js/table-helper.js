@@ -1165,11 +1165,19 @@ function checkAllControlValue(url, table, directory, controlId, field)
 }
 
 
-function confirmationDialog(url, table, directory, actionToConfirm)
+function confirmationDialog(url, table, directory, actionToConfirm, elements)
 {
   var dialogStr = null;
   var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
   pars +='&actionToConfirm=' + actionToConfirm;
+  for (var i=0; i < elements.length; i++) {
+    var name = elements[i];
+    var id = table + '_' + name;
+    var el = $(id);
+    pars +='&'+ name + '=';
+    pars +=el.value;
+  }
+
   var request = new Ajax.Request(url, {
         method: 'post',
         parameters: pars,

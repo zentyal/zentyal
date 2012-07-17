@@ -67,7 +67,16 @@ sub _table
         'tableDescription' => \@tableHead,
         'confirmationDialog' => {
               submit => sub {
-                  return  '(new33)Are you sure of chanigng hostname'   ,
+                  my ($self, $params) = @_;
+                  my $new      = $params->{hostname};
+                  my $old      = $self->value('hostname');
+                  if ($new eq $old) {
+                      # only dialog if it is a hostname change
+                      return undef;
+                  }
+                  return  __x('Are you sure you want to change the hostname to {new}?. Maybe you would need to restart all the services or reboot the system to enforce the change',
+                              new => $new
+                             );
                  }
             }
     };
