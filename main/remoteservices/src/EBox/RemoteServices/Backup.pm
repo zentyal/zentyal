@@ -380,6 +380,33 @@ sub _pushConfBackup
 
 }
 
+sub _handleResult
+{
+    my ($res, %p) = @_;
+
+    unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
+        #Throw the proper exception for each error code
+
+        given ( $res->{result}->code ) {
+            when (HTTP::Status::HTTP_NOT_FOUND) {
+                throw EBox::Exceptions::Internal(__('Server not found'));
+            } when (HTTP::Status::HTTP_NO_CONTENT) {
+                throw EBox::Exceptions::DataNotFound(
+                    data => __('Configuration backup'),
+                    value => $p{fileName}
+                    );
+            } when (Apache2::Const::HTTP_BAD_REQUEST) {
+                throw EBox::Exceptions::Internal(__('Some argument is missing'));
+            } when (Apache2::Const::HTTP_INTERNAL_SERVER_ERROR) {
+                throw EBox::Exceptions::Internal(__('Internal Server Error'));
+            } when (Apache2::Const::HTTP_FORBIDDEN) {
+                throw EBox::Exceptions::Internal(__('Forbidden request'));
+            } default {
+                throw EBox::Exceptions::Internal(__('An error has occurred'));
+            }
+    }
+}
+
 # Method: _pullConfBackup
 #
 #     Pull the configuration backup from Zentyal Cloud
@@ -416,10 +443,15 @@ sub _pullConfBackup
                                    print $fh $chunk;
                                });
 
+        _handleResult($res, %p);
+
         return undef;
     } else {
         my $outFile = EBox::Config::tmp() . 'pull-conf.backup';
         my $res = $ua->request($req, $outFile);
+
+        _handleResult($res, %p);
+
         return $outFile;
     }
 }
@@ -431,12 +463,7 @@ sub _pullAllMetaConfBackup
 
     my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, journaling => 0);
 
-    if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
-        throw EBox::Exceptions::DataNotFound(
-            data => 'Configuration backup',
-            value => $p{fileName}
-            );
-    }
+    _handleResult($res, %p);
 
     return $res->as_string();
 }
@@ -447,12 +474,7 @@ sub _pullFootprintMetaConf
 
     my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, journaling => 0);
 
-    if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
-        throw EBox::Exceptions::DataNotFound(
-            data => 'Configuration backup',
-            value => $p{fileName}
-            );
-    }
+    _handleResult($res, %p);
 
     return $res->as_string();
 }
@@ -463,17 +485,7 @@ sub _removeConfBackup
 
     my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, journaling => 0);
 
-    unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
-        # TODO: Throw the proper exception for each error code
-        if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT ) {
-            throw EBox::Exceptions::DataNotFound(
-                data => 'Configuration backup',
-                value => $p{fileName}
-                );
-        } else {
-            throw EBox::Exceptions::Internal();
-        }
-    }
+    _handleResult($res, %p);
 }
 
 1;
