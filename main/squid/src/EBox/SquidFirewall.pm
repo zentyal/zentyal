@@ -47,6 +47,8 @@ sub _normal_prerouting
     my ($self) = @_;
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
+    return [] unless ($sq->filterNeeded());
+
     my $net = $global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->DGPORT();
@@ -67,8 +69,7 @@ sub _normal_prerouting
             }
 
             if ($sq->filterNeeded()) {
-                my $r = "$input -d $addr -p tcp --dport $sqport ".
-                  "-j REDIRECT --to-ports $dgport";
+                my $r = "$input -d $addr -p tcp --dport $sqport -j REDIRECT --to-ports $dgport";
                 push @rules, $r;
             }
         }
@@ -91,17 +92,10 @@ sub _normal_prerouting_object_rules
 
     my @rules;
     my $members = $obPolicy->{members};
-    if (not $obPolicy->{filter}) {
-        foreach my $clientSrc ( @{ $members->iptablesSrcParams() } ) {
-            my $r = "$input -d $addr $clientSrc -p tcp " .
-                "--dport $sqport -j RETURN";
-            push @rules, $r;
-        }
-    }
-    else {
-        foreach my $clientSrc ( @{ $members->iptablesSrcParams() } ) {
-            my $r = "$input -d $addr $clientSrc -p tcp " .
-                "--dport $sqport -j REDIRECT --to-ports $dgport";
+    if (defined $members) {
+        foreach my $clientSrc (@{ $members->iptablesSrcParams() }) {
+            my $action = $obPolicy->{filter} ? "REDIRECT --to-ports $dgport" : 'RETURN';
+            my $r = "$input -d $addr $clientSrc -p tcp --dport $sqport -j $action";
             push @rules, $r;
         }
     }
@@ -124,8 +118,10 @@ sub _trans_prerouting
     foreach my $id (@{$exceptions->enabledRows()}) {
         my $row = $exceptions->row($id);
         my $addr = $row->valueByName('domain');
-        # TODO: 443 also when https proxy is implemented
-        push(@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
+        push (@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
+        if ($sq->https()) {
+            push (@rules, "-p tcp -d $addr --dport 443 -j ACCEPT");
+        }
     }
 
     my @objsPolicies = @{ $self->_objectsPolicies() };
@@ -147,15 +143,9 @@ sub _trans_prerouting
                                                                  ) };
             }
 
-            if ($sq->filterNeeded()) {
-                my $r = "$input ! -d $addr -p tcp --dport 80 "
-                        . "-j REDIRECT --to-ports $dgport";
-                push(@rules, $r);
-            } else {
-                my $r = "$input ! -d $addr -p tcp --dport 80 "
-                        . "-j REDIRECT --to-ports $sqport";
-                push(@rules, $r);
-            }
+            my $port = $sq->filterNeeded() ? $dgport : $sqport;
+            my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
+            # TODO: https? will it work with dansguardian?
         }
     }
     return \@rules;
@@ -166,6 +156,8 @@ sub _normal_trans_prerouting_object_rules
     my ($self, $obPolicy, $ifc, $addr) = @_;
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
+    return [] unless ($sq->filterNeeded());
+
     my $net = $global->modInstance('network');
 
     my $sqport = $sq->port();
@@ -175,18 +167,12 @@ sub _normal_trans_prerouting_object_rules
     my @rules;
 
     my $members = $obPolicy->{members};
-    my $policy = $obPolicy->{policy};
-    if (not $obPolicy->{filter}) {
-        foreach my $srcClient ( @{ $members->iptablesSrcParams() }) {
-            my $r = "$input -d ! $addr $srcClient -p tcp " .
-                "--dport 80 -j REDIRECT --to-ports $sqport";
-            push @rules, $r;
-        }
-    }
-    else {
-        foreach my $srcClient ( @{ $members->iptablesSrcParams()  } ) {
-            my $r = "$input -d ! $addr $srcClient -p tcp " .
-                "--dport 80 -j REDIRECT --to-ports $dgport";
+    if (defined $members) {
+        my $policy = $obPolicy->{policy};
+        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
+            my $port = $obPolicy->{filter} ? $dgport : $sqport;
+            my $r = "$input -d ! $addr $srcClient -p tcp --dport 80 -j REDIRECT --to-ports $port";
+            # TODO: https? will it work with dansguardian?
             push @rules, $r;
         }
     }
@@ -226,15 +212,9 @@ sub input
         }
         my $input = $self->_inputIface($ifc);
 
-        if ($sq->filterNeeded()) {
-            my $r = "-m state --state NEW $input ".
-                "-p tcp --dport $dgport -j ACCEPT";
-            push(@rules, $r);
-        } else {
-            my $r = "-m state --state NEW $input ".
-                                "-p tcp --dport $sqport -j ACCEPT";
-            push(@rules, $r);
-        }
+        my $port = $sq->filterNeeded() ? $dgport : $sqport;
+        my $r = "-m state --state NEW $input -p tcp --dport $port -j ACCEPT";
+        push(@rules, $r);
     }
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
     return \@rules;
@@ -245,6 +225,8 @@ sub _input_object_rules
     my ($self, $obPolicy, $ifc, $addr) = @_;
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
+    return [] unless ($sq->filterNeeded());
+
     my $net = $global->modInstance('network');
 
     my $sqport = $sq->port();
@@ -254,24 +236,16 @@ sub _input_object_rules
     my @rules;
 
     my $members = $obPolicy->{members};
-    if (not $obPolicy->{filter}) {
-        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
-            my $r = "-m state --state NEW $input $srcClient ".
-                "-p tcp --dport $sqport -j ACCEPT";
-            push @rules, $r;
-
-            $r = "-m state --state NEW $input $srcClient ".
-                "-p tcp --dport $dgport -j DROP";
-            push @rules, $r;
+    if (defined $members) {
+        my ($acceptPort, $dropPort) = ($sqport, $dgport);
+        if ($obPolicy->{filter}) {
+            ($acceptPort, $dropPort) = ($dgport, $sqport);
         }
-    } else {
         foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
-            my $r = "-m state --state NEW $input $srcClient ".
-                "-p tcp --dport $dgport -j ACCEPT";
+            my $r = "-m state --state NEW $input $srcClient -p tcp --dport $acceptPort -j ACCEPT";
             push @rules, $r;
 
-            $r = "-m state --state NEW $input $srcClient ".
-                "-p tcp --dport $sqport -j DROP";
+            $r = "-m state --state NEW $input $srcClient -p tcp --dport $dropPort -j DROP";
             push @rules, $r;
         }
     }

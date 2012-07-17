@@ -34,7 +34,6 @@ use EBox::Exceptions::DataNotFound;
 
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
-use EBox::SquidOnlyFirewall;
 use EBox::Squid::LdapUserImplementation;
 
 use EBox::DBEngineFactory;
@@ -829,11 +828,7 @@ sub firewallHelper
     my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
-        if ($self->filterNeeded()) {
-            return new EBox::SquidFirewall(ro => $ro);
-        } else  {
-            return new EBox::SquidOnlyFirewall(ro => $ro);
-        }
+        return new EBox::SquidFirewall(ro => $ro);
     }
 
     return undef;
