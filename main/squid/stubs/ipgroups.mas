@@ -1,5 +1,5 @@
 <%args>
-@profiles
+@objects
 </%args>
 # IP-Group list
 # Used by the IP-based auth plugin to assign IP addresses to filter groups.
@@ -11,6 +11,6 @@
 #192.168.1.0/255.255.255.0 = filter1
 # Range matching:
 #192.168.1.0-192.168.1.255 = filter1
-% foreach my $fGroup (@profiles) {
-<% $fGroup->{address} %>=filter<% $fGroup->{group} %>
+% foreach my $obj (@objects) {
+<% $obj->{address} %>=filter<% $obj->{number} %>
 % }

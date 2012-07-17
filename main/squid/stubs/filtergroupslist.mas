@@ -14,7 +14,7 @@
  foreach my $group (@groups) {
      my $number = $group->{number};
 
-     foreach my $user (@{ $group->{users} }) {
+     foreach my $user (@{$group->{users}}) {
 </%perl>
 <% $user %>=filter<% $number %>
 %    }

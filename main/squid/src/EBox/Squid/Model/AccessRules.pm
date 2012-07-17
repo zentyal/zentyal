@@ -228,36 +228,55 @@ sub delPoliciesForGroup
     }
 }
 
-sub objectsProfiles
+sub filterProfiles
 {
     my ($self) = @_;
 
     my %profileIdByRowId = %{ $self->parentModule()->model('FilterProfiles')->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
+    my $userMod = $self->global()->modInstance('users');
 
     my @profiles;
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+
+        my $profile = {};
+
         my $policy = $row->elementByName('policy');
-        my $group;
         if ($policy->selectedType() eq 'allow') {
-            $group = 1;
+            $profile->{number} = 1;
         } elsif ($policy->selectedType() eq 'deny') {
-            $group = 2;
+            $profile->{number} = 2;
         } else {
-            $group = $profileIdByRowId{$policy->value()};
+            $profile->{number} = $profileIdByRowId{$policy->value()};
+        }
+
+        my $timePeriod = $row->elementByName('timePeriod');
+        unless ($timePeriod->isAllTime()) {
+            $profile->{timePeriod} = 1;
+            $profile->{begin} = $timePeriod->from();
+            $profile->{end} = $timePeriod->to();
+            $profile->{days} = $timePeriod->dayNumbers();
         }
 
         my $source = $row->elementByName('source');
-        next unless ($source->selectedType() eq 'object');
-        my $obj       = $source->value();
-        my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
-        foreach my $cidrAddress (@addresses) {
-            my ($addr, $netmask) = ($cidrAddress->[0],
-                                    EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
-            my $address = "$addr/$netmask";
-            push (@profiles, { address => $address, group => $group });
+        if ($source->selectedType() eq 'object') {
+            my $obj       = $source->value();
+            my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
+            foreach my $cidrAddress (@addresses) {
+                my ($addr, $netmask) = ($cidrAddress->[0], EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
+                my %profileCopy = %{$profile};
+                $profileCopy{address} = "$addr/$netmask";
+                push (@profiles, \%profileCopy);
+            }
+        } else {
+            if ($source->selectedType() eq 'group') {
+                my $group = $source->value();
+                $profile->{group} = $group;
+                $profile->{users} = $userMod->group($group)->users();
+            }
+            push (@profiles, $profile);
         }
     }
 

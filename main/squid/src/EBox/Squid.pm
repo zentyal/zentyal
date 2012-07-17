@@ -67,6 +67,7 @@ use constant {
     ADZAPPER_CONF => '/etc/adzapper.conf',
     KEYTAB_FILE => '/etc/squid3/HTTP.keytab',
     SQUID3_DEFAULT_FILE => '/etc/default/squid3',
+    CRONFILE => '/etc/cron.d/zentyal-squid',
 };
 
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
@@ -586,7 +587,6 @@ sub _localnets
     return \@localnets;
 }
 
-
 sub _writeDgConf
 {
     my ($self) = @_;
@@ -628,11 +628,6 @@ sub _writeDgConf
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
 
-    # write group lists
-    $self->writeConfFile(DGLISTSDIR . "/filtergroupslist",
-                         'squid/filtergroupslist.mas',
-                         [ groups => \@dgProfiles ]);
-
     # disable banned, exception phrases lists, regex URLs and PICS ratings
     $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
                          'squid/bannedphraselist.mas', []);
@@ -646,7 +641,7 @@ sub _writeDgConf
     $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
                          'squid/bannedregexpurllist.mas', []);
 
-    $self->_writeDgIpGroups();
+    $self->writeDgGroups();
 
     if ($antivirus) {
         my $avMod = EBox::Global->modInstance('antivirus');
@@ -683,22 +678,73 @@ sub _writeDgConf
         }
     }
 
+    $self->_writeCronFile();
     $self->_writeDgTemplates();
-
     $self->writeConfFile(DG_LOGROTATE_CONF, 'squid/dansguardian.logrotate', []);
 }
 
+sub _writeCronFile
+{
+    my ($self) = @_;
 
-sub _writeDgIpGroups
+    my $times;
+    my @cronTimes;
+
+    my $rules = $self->model('AccessRules');
+    foreach my $profile (@{$rules->filterProfiles()}) {
+        next unless $profile->{timePeriod};
+        foreach my $day (keys %{$profile->{days}}) {
+            foreach my $time ($profile->{begin}, $profile->{end}) {
+                unless (exists $times->{$time}) {
+                    $times->{$time} = {};
+                }
+                $times->{$time}->{$day} = 1;
+            }
+        }
+    }
+
+    foreach my $time (keys %{$times}) {
+        my ($hour, $min) = split (':', $time);
+        my $days = join (',', sort (keys %{$times->{$time}}));
+        push (@cronTimes, { days => $days, hour => $hour, min => $min });
+    }
+
+    $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
+}
+
+sub writeDgGroups
 {
     my ($self) = @_;
 
     my $rules = $self->model('AccessRules');
-    $self->writeConfFile(
-        DGLISTSDIR . '/authplugins/ipgroups',
-        'squid/ipgroups.mas',
-        [ profiles => $rules->objectsProfiles() ]
-    );
+    my @profiles = @{$rules->filterProfiles()};
+    my @groups;
+    my @objects;
+
+    my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
+
+    foreach my $profile (@profiles) {
+        if ($profile->{timePeriod}) {
+            next unless ($profile->{days}->{$day});
+            my ($beginHour, $beginMin) = split (':', $profile->{begin});
+            next if (($hour < $beginHour) and ($min < $beginMin));
+            my ($endHour, $endMin) = split (':', $profile->{begin});
+            next if (($hour > $endHour) and ($min < $endMin));
+        }
+        if ($profile->{group}) {
+            push (@groups, $profile);
+        } else {
+            push (@objects, $profile);
+        }
+    }
+
+    $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
+                         'squid/filtergroupslist.mas',
+                         [ groups => \@groups ]);
+
+    $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
+                         'squid/ipgroups.mas',
+                         [ objects => \@objects ]);
 }
 
 # FIXME: template format has changed, reimplement this
