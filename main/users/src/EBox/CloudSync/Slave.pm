@@ -44,6 +44,9 @@ sub _addUser
     my $users = EBox::Global->modInstance('users');
     return if ($user->baseDn() ne $users->usersDn());
 
+    # refresh user info to avoid cache problems with passwords:
+    $user = $users->user($user->name());
+
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
         name        => $user->get('uid'),
@@ -65,6 +68,12 @@ sub _modifyUser
 {
     my ($self, $user, $pass) = @_;
 
+    my $users = EBox::Global->modInstance('users');
+    return if ($user->baseDn() ne $users->usersDn());
+
+    # refresh user info to avoid cache problems with passwords:
+    $user = $users->user($user->name());
+
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
         firstname  => $user->get('givenName'),
@@ -82,6 +91,10 @@ sub _modifyUser
 sub _delUser
 {
     my ($self, $user) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    return if ($user->baseDn() ne $users->usersDn());
+
     my $uid = $user->get('uid');
     $self->RESTClient->DELETE("/v1/users/users/$uid");
     return 0;
@@ -90,6 +103,9 @@ sub _delUser
 sub _addGroup
 {
     my ($self, $group) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    return if ($users->baseDn() ne $users->groupsDn());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -106,6 +122,9 @@ sub _addGroup
 sub _modifyGroup
 {
     my ($self, $group) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    return if ($users->baseDn() ne $users->groupsDn());
 
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
@@ -124,6 +143,10 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $group) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    return if ($users->baseDn() ne $users->groupsDn());
+
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name");
     return 0;
