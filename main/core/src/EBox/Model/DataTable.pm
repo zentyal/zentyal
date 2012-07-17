@@ -4598,5 +4598,63 @@ sub checkAllControlValue
     return 1;
 }
 
+sub _confirmationDialogForAction
+{
+    my ($self, $action, $params_r) = @_;
+    exists  $self->{'table'}->{'confirmationDialog'} or
+        return 1;
+    exists $self->{'table'}->{'confirmationDialog'}->{$action} or
+        return 1;
+    return $self->{'table'}->{'confirmationDialog'}->{$action}->($self, $params_r);
+}
+
+sub confirmationJS
+{
+    my ($self, $action, $goAheadJS) = @_;
+    my $table = $self->table();
+    exists  $table->{'confirmationDialog'} or
+        return $goAheadJS;
+    exists $table->{'confirmationDialog'}->{$action} or
+        return $goAheadJS;
+
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+
+    my @elements = map {
+        my $element = $_;
+        my @fields = map {
+            qq{'$_'}
+        } $element->fields();
+        @fields;
+    } @ {  $table->{tableDescription} };
+    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+
+    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $action,
+                    $elementsArrayJS
+                    );
+    my $js =<< "ENDJS";
+       this.disable = true;
+       var goAhead = true;
+       var confirmMsg = $call;
+       if (confirmMsg) {
+         if (!confirm(confirmMsg)) {
+              goAhead = false;
+         }
+       }
+       if (goAhead) {
+          $goAheadJS
+       }
+
+       this.disable = false;
+       return false;
+ENDJS
+
+}
+
 
 1;

@@ -108,13 +108,16 @@
   my $model = $m->caller_args(2)->{model};
   my $id = $model->row()->id();
   my $actions = $model->table()->{actions};
+
+  my $onClick = $model->changeRowJS($id, 0) . '; return false';
+  $onClick =  $model->confirmationJS('submit', $onClick);
 </%init>
 <td id="<% 'buttons_' . $model->modelName() %>">
 % if ($actions) {
   <& /input/submit.mas,
      name => 'change',
      value => $model->printableActionName(),
-     onclick => $model->changeRowJS($id, 0) . '; return false',
+     onclick => $onClick,
   &>
 % }
 <& /ajax/customActions.mas, model => $model, id => $id &>
