@@ -1,4 +1,5 @@
 HEAD
+	+ Update dansguardian conf templates to 2.10 version
 	+ Use new clone and check all options in tables
 	+ Added HTTPS proxy support if squid is compiled with SSL support
 	+ New Transparent Exemptions model to skip proxying of some websites
