@@ -1,4 +1,4 @@
-HEAD
+2.3.8
 	+ Added new EBox::trace() method to easily log stack traces when debugging
 2.3.7
 	+ Added method EBox::FileSystem::isDirEmpty

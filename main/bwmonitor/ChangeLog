@@ -1,4 +1,4 @@
-HEAD
+2.3.5
 	+ Better integration with captive portal; cannot disable
 	  interfaces used by it
 	+ BWUsage recover for invalid IPs (or IPv6 addresses)
