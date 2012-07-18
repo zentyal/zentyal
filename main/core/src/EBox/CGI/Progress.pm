@@ -99,6 +99,10 @@ sub _progressId
 sub _menu
 {
     my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
@@ -115,6 +119,11 @@ sub _menu
 
 sub _top
 {
+    my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
     my $global = EBox::Global->getInstance();
     my $img = $global->theme()->{'image_title'};
     print "<div id='top'></div><div id='header'><img src='$img'/></div>";
