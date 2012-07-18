@@ -18,7 +18,6 @@ $nextStepUrlOnclick => undef
 $nextStepText => undef
 
 $nextStepTimeout => 0
-$showAds => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -192,9 +191,9 @@ unless (defined ($nextStepText)) {
     </a>
 </div>
 
-% if ($showAds) {
+% unless ( $adsJson eq '""' ) {
 <script>
-	showAds();
+      showAds();
 </script>
 % }
 
