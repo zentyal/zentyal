@@ -42,22 +42,15 @@ sub _process
     my $self = shift;
 
     my $global = EBox::Global->getInstance();
-
-    if (defined($self->param('save'))) {
-        $self->saveAllModulesAction();
-    } elsif (defined($self->param('cancel'))) {
-        $self->revokeAllModulesAction();
-    } else {
-        if ($global->unsaved) {
-            my $manager = new EBox::ServiceManager();
-            #my $askPermission = defined @{$manager->checkFiles()};
-            my @array = ();
-            push(@array, 'unsaved' => 'yes');
-            push(@array, 'askPermission' => 0);
-            push(@array, 'disabledModules' => _disabledModules());
-            push(@array, 'actions' => _pendingActions());
-            $self->{params} = \@array;
-        }
+    if ($global->unsaved) {
+        my $manager = new EBox::ServiceManager();
+        #my $askPermission = defined @{$manager->checkFiles()};
+        my @array = ();
+        push(@array, 'unsaved' => 'yes');
+        push(@array, 'askPermission' => 0);
+        push(@array, 'disabledModules' => _disabledModules());
+        push(@array, 'actions' => _pendingActions());
+        $self->{params} = \@array;
     }
 }
 
@@ -130,55 +123,6 @@ sub _pendingActions
         push(@{$actions}, $action);
     }
     return $actions;
-}
-
-sub saveAllModulesAction
-{
-    my ($self) = @_;
-
-    $self->{redirect} = "/Dashboard/Index";
-
-    my $global = EBox::Global->getInstance();
-    my $progressIndicator = $global->prepareSaveAllModules();
-
-    $self->showProgress(
-        progressIndicator  => $progressIndicator,
-        title              => __('Saving changes'),
-        text               => __('Saving changes in modules'),
-        currentItemCaption => __("Current operation"),
-        itemsLeftMessage   => __('operations performed'),
-        endNote            => __('Changes saved'),
-        errorNote          => __x('Some modules reported error when saving changes '
-                                  . '. More information on the logs in {dir}',
-                                  dir => EBox::Config->log()),
-        reloadInterval  => 2,
-        raw => 1,
-       );
-}
-
-
-sub revokeAllModulesAction
-{
-    my ($self) = @_;
-
-    $self->{redirect} = "/Dashboard/Index";
-
-    my $global = EBox::Global->getInstance();
-    my $progressIndicator = $global->prepareRevokeAllModules();
-
-    $self->showProgress(
-        progressIndicator => $progressIndicator,
-        title    => __('Revoking changes'),
-        text     => __('Revoking changes in modules'),
-        currentItemCaption  =>  __("Current module"),
-        itemsLeftMessage  => __('modules revoked'),
-        endNote  =>  __('Changes revoked'),
-        errorNote => __x('Some modules reported error when discarding changes '
-                           . '. More information on the logs in {dir}',
-                         dir => EBox::Config->log()),
-        reloadInterval  => 2,
-        raw => 1
-       );
 }
 
 # Method: _disabledModules
