@@ -38,7 +38,7 @@ use EBox::Sudo;
 use EBox::Types::Boolean;
 
 # Dependencies
-use Clone;
+use Clone::Fast;
 use Encode;
 use Error qw(:try);
 use POSIX qw(ceil);
@@ -1352,7 +1352,7 @@ sub setTypedRow
     my $checkRowUnique = $self->rowUnique();
 
     my $row = $self->row($id);
-    my $oldRow = Clone::clone($row);
+    my $oldRow = Clone::Fast::clone($row);
     my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
@@ -3873,7 +3873,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $oldParamsRef) = @_;
 
-    my $paramsRef = Clone::clone($oldParamsRef);
+    my $paramsRef = Clone::Fast::clone($oldParamsRef);
 
     # Delete the action from the name
     my $first = ( $methodName =~ s/^$action// );
@@ -4144,7 +4144,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $origParamsRef) = @_;
 
-    my $paramsRef = Clone::clone($origParamsRef);
+    my $paramsRef = Clone::Fast::clone($origParamsRef);
 
     $methodName =~ s/^$action//;
 

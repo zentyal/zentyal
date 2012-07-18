@@ -1,4 +1,5 @@
 HEAD
+	+ Swicht from Clone to Clone::Fast perl library
 	+ Fix UpdatedRowNotify 'oldRow' parameter
 	+ Use a different lock file for the usercorner redis
 	+ Improved look of tables when checkAll controls are present

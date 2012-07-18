@@ -37,7 +37,6 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use Clone;
 use Error qw(:try);
 
 my $ROW_ID = 'form';
@@ -715,7 +714,6 @@ sub clone
     } finally {
         $self->setDirectory($origDir);
     };
-
 }
 
 1;

@@ -31,7 +31,7 @@ use warnings;
 
 use EBox;
 
-use Clone;
+use Clone::Fast;
 use Scalar::Util 'weaken';
 use File::Basename;
 
@@ -82,7 +82,7 @@ sub clone
     my @suspectedAttrs = qw(model row);
     foreach my $key (keys %{$self}) {
         if ( $key ne 'model' and $key ne 'row') {
-            $clonedType->{$key} = Clone::clone($self->{$key});
+            $clonedType->{$key} = Clone::Fast::clone($self->{$key});
         }
     }
     # Just copy the reference
