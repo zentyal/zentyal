@@ -173,7 +173,7 @@ sub rules
             next unless ($usersEnabled);
             my $group = $source->value();
             $rule->{group} = $group;
-            $rule->{users} = $userMod->group($group)->users();
+            $rule->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
@@ -274,7 +274,7 @@ sub filterProfiles
             if ($source->selectedType() eq 'group') {
                 my $group = $source->value();
                 $profile->{group} = $group;
-                $profile->{users} = $userMod->group($group)->users();
+                $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
             }
             push (@profiles, $profile);
         }
