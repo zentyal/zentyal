@@ -13,12 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
-#
-
-#
 package EBox::OpenVPN::Model::Servers;
+
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use strict;
@@ -257,10 +253,9 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
-    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow);
-
+    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow, $force);
     my $openvpn = $self->parentModule();
     $openvpn->notifyLogChange();
 }

@@ -470,13 +470,14 @@ sub _setMailConf
     #}
 
     my $zarafaEnabled = $self->zarafaEnabled();
-    my $zarafaDomain = '';
-    $zarafaDomain = $self->zarafaDomain() if $zarafaEnabled;
+    my @zarafaDomains = ();
+    @zarafaDomains = $self->zarafaDomains() if $zarafaEnabled;
 
-    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
-    $self->_setZarafaConf($zarafaEnabled, $zarafaDomain);
+    # FIXME this is broken with multidomain and needs reviewing
+    #$self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
+
+    $self->_setZarafaConf($zarafaEnabled, @zarafaDomains);
 }
-
 
 sub zarafaEnabled
 {
@@ -490,23 +491,17 @@ sub zarafaEnabled
     return 0;
 }
 
-
-
-sub zarafaDomain
+sub zarafaDomains
 {
     my $gl = EBox::Global->getInstance();
     my $zarafa = $gl->modInstance('zarafa');
-    my $domain = $zarafa->model('VMailDomain')->vdomainValue();
-    if ($domain eq '_none_') {
-        $domain = '';
-    }
-    return $domain;
+    my @domains = @{$zarafa->model('VMailDomains')->vdomains()};
+    return @domains;
 }
 
 sub _setZarafaConf
 {
-    my ($self, $enabled, $domain) = @_;
-    my @toDovecot;
+    my ($self, $enabled, @domains) = @_;
 
     if (not $enabled) {
         EBox::Sudo::root('rm -f ' . TRANSPORT_FILE . ' ' . TRANSPORT_FILE . '.db');
@@ -515,17 +510,12 @@ sub _setZarafaConf
 
     $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
                          [
-                             domain => $domain,
-                             toDovecot => \@toDovecot,
+                             domains => \@domains,
                          ],
-                         { uid  => 0, gid  => 0, mode => '0600', },
+                         { uid => 0, gid => 0, mode => '0600', },
                         );
-    #my $manager = new EBox::ServiceManager;
-    #unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
     EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
-    #}
 }
-
 
 sub _alwaysBcc
 {

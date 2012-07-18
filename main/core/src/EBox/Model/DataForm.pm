@@ -37,7 +37,6 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use Clone;
 use Error qw(:try);
 
 my $ROW_ID = 'form';
@@ -367,9 +366,10 @@ sub setTypedRow
     } else {
         $optParams{id} = $ROW_ID;
         $optParams{noOrder} = 1;
+        my $force = $optParams{'force'};
         $self->SUPER::addTypedRow($paramsRef, %optParams);
         # since we have used addTypedRow updatedRowNotify has not been called automatically
-        $self->updatedRowNotify($self->row());
+        $self->updatedRowNotify($self->row(), undef, $force);
     }
 }
 
@@ -714,7 +714,6 @@ sub clone
     } finally {
         $self->setDirectory($origDir);
     };
-
 }
 
 1;

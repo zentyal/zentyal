@@ -35,77 +35,60 @@ use EBox::Exceptions::External;
 use EBox::Mail::Types::WriteOnceDomain;
 use EBox::Types::HasMany;
 
-
-sub new
-{
-        my $class = shift;
-        my %parms = @_;
-
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-
-        return $self;
-}
-
 sub _table
 {
-        my @tableHead =
-         (
+    my @tableHead =
+        (
+         new EBox::Mail::Types::WriteOnceDomain(
+             'fieldName' => 'vdomain',
+             'printableName' => __('Name'),
+             'size' => '20',
+             'editable' => 1,
+             'unique' => 1,
+         ),
+         new EBox::Types::HasMany(
+             fieldName => 'aliases',
+             printableName => __('Virtual domain aliases'),
+             foreignModel => 'mail/VDomainAliases',
+             'view' => '/Mail/View/VDomainAliases',
+             'backView' => '/Mail/View/VDomains',
+         ),
+         new EBox::Types::HasMany(
+             fieldName => 'externalAliases',
+             printableName => __('External accounts aliases'),
+             foreignModel => 'mail/ExternalAliases',
+             'view' => '/Mail/View/ExternalAliases',
+             'backView' => '/Mail/View/VDomains',
+         ),
+         new EBox::Types::HasMany(
+                 fieldName => 'settings',
+                 printableName => __('Settings'),
+                 foreignModel => 'mail/VDomainSettings',
+                 'view' => '/Mail/View/VDomainSettings',
+                 'backView' => '/Mail/View/VDomains',
+         ),
+    );
 
-                new EBox::Mail::Types::WriteOnceDomain(
-                                        'fieldName' => 'vdomain',
-                                        'printableName' => __('Name'),
-                                        'size' => '20',
-                                        'editable' => 1,
-                                        'unique' => 1,
-                                      ),
-               new EBox::Types::HasMany(
-                      fieldName => 'aliases',
-                       printableName => __('Virtual domain aliases'),
-                      foreignModel => 'mail/VDomainAliases',
-                      'view' => '/Mail/View/VDomainAliases',
-                      'backView' => '/Mail/View/VDomains',
-                     ),
-               new EBox::Types::HasMany(
-                      fieldName => 'externalAliases',
-                       printableName => __('External accounts aliases'),
-                      foreignModel => 'mail/ExternalAliases',
-                      'view' => '/Mail/View/ExternalAliases',
-                      'backView' => '/Mail/View/VDomains',
-                     ),
-               new EBox::Types::HasMany(
-                      fieldName => 'settings',
-                       printableName => __('Settings'),
-                      foreignModel => 'mail/VDomainSettings',
-                      'view' => '/Mail/View/VDomainSettings',
-                      'backView' => '/Mail/View/VDomains',
-                     ),
+    my $dataTable =
+    {
+        'tableName' => 'VDomains',
+        'printableTableName' => __('List of Domains'),
+        'pageTitle'         => __('Virtual Domains'),
+        'HTTPUrlView'       => 'Mail/View/VDomains',
+        'defaultController' => '/Mail/Controller/VDomains',
+        'defaultActions' => ['add', 'del', 'changeView'],
+        'tableDescription' => \@tableHead,
+        'menuNamespace' => 'Mail/VDomains',
+        'automaticRemove'  => 1,
+        'help' => '',
+        'printableRowName' => __('virtual domain'),
+        'sortedBy' => 'vdomain',
+        'messages' => { add => __('Virtual domain added. ' .
+                'You must save changes to use this domain')
+        },
+    };
 
-
-         );
-
-        my $dataTable =
-                {
-                        'tableName' => 'VDomains',
-                        'printableTableName' => __('List of Domains'),
-                        'pageTitle'         => __('Virtual Domains'),
-                        'HTTPUrlView'       => 'Mail/View/VDomains',
-                        'defaultController' =>
-            '/Mail/Controller/VDomains',
-                        'defaultActions' =>
-                                ['add', 'del', 'changeView'],
-                        'tableDescription' => \@tableHead,
-                        'menuNamespace' => 'Mail/VDomains',
-                        'automaticRemove'  => 1,
-                        'help' => '',
-                        'printableRowName' => __('virtual domain'),
-                        'sortedBy' => 'vdomain',
-                        'messages' => { add => __('Virtual domain added. ' .
-                                'You must save changes to use this domain')
-                            },
-                };
-
-        return $dataTable;
+    return $dataTable;
 }
 
 # Method: precondition
@@ -117,8 +100,8 @@ sub _table
 #       <EBox::Model::DataTable::precondition>
 sub precondition
 {
-        my $mail = EBox::Global->modInstance('mail');
-        return $mail->configured();
+    my $mail = EBox::Global->modInstance('mail');
+    return $mail->configured();
 }
 
 # Method: preconditionFailMsg
@@ -130,8 +113,8 @@ sub precondition
 #       <EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-        return __('You must enable the mail module in module ' .
-                  'status section in order to use it.');
+    return __('You must enable the mail module in module ' .
+              'status section in order to use it.');
 }
 
 
@@ -263,4 +246,3 @@ vd => $vdomain, al => $alias
 }
 
 1;
-

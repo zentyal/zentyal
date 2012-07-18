@@ -1,4 +1,5 @@
-HEAD
+2.3.3
+	+ Fixed firewall locking problems
 	+ Enable interfaces in bandwith monitor module when needed
 	+ Added service and objects exceptions
 	+ Avoided LDAP errors with user quotas, user quota addon takes into

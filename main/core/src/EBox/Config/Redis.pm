@@ -59,7 +59,11 @@ sub _new
     $self->{json_pretty} = JSON::XS->new->pretty;
 
     unless ($lock) {
-        $lock = EBox::Util::SHMLock->init('redis');
+        my $path = undef;
+        if ($self->_user() eq 'ebox-usercorner') {
+            $path = '/run/shm/zentyal-usercorner';
+        }
+        $lock = EBox::Util::SHMLock->init('redis', $path);
     }
 
     return $self;

@@ -46,10 +46,10 @@ use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+        my $class = shift;
+        my $self = {};
+        bless($self, $class);
+        return $self;
 }
 
 # Parameters:
@@ -59,11 +59,11 @@ sub new
 #   - session id: if the id is undef, it creates a new one
 #   - key: key for rijndael, if sid is undef creates a new one
 # Exceptions:
-# 	- Internal
-# 		- When session file cannot be opened to write
+#       - Internal
+#               - When session file cannot be opened to write
 sub _savesession
 {
-	my ($user, $passwd, $sid, $key) = @_;
+        my ($user, $passwd, $sid, $key) = @_;
 
     if(not defined($sid)) {
         my $rndStr;
@@ -93,8 +93,8 @@ sub _savesession
 
     my $cryptedpass = $cipher->encrypt($passwd);
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
-	my $sidFile;
-	my $filename = EBox::UserCorner::usersessiondir() . $user;
+    my $sidFile;
+    my $filename = EBox::UserCorner::usersessiondir() . $user;
     unless  ( open ( $sidFile, '>', $filename )){
         throw EBox::Exceptions::Internal(
                 "Could not open to write ".  $filename);
@@ -104,10 +104,10 @@ sub _savesession
         or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
     # Truncate the file after locking
     truncate($sidFile, 0);
-	print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . time if defined $sid;
+        print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . time if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
-	close($sidFile);
+        close($sidFile);
 
     return $sid . $key;
 }
@@ -132,16 +132,16 @@ sub _updatesession
     # Truncate the file
     truncate($sidFile, 0);
     seek($sidFile, 0, 0);
-	print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
+    print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
-	close($sidFile);
+    close($sidFile);
 }
 
 
 # Method: checkPassword
 #
-#   	Check if a given password matches the stored one after md5 it
+#       Check if a given password matches the stored one after md5 it
 #
 # Parameters:
 #
@@ -184,7 +184,7 @@ sub updatePassword
 
 # Method: authen_cred
 #
-#	Overriden method from <Apache2::AuthCookie>.
+#       Overriden method from <Apache2::AuthCookie>.
 #
 sub authen_cred  # (request, user, password)
 {
@@ -225,7 +225,7 @@ sub _credentials
 
     my $SID_F;
     my $sess_file  = EBox::UserCorner::usersessiondir() . $user;
-    unless (open ($SID_F,  $sess_file)) {
+    unless (open ($SID_F,  '<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
     # Lock in shared mode for reading
@@ -263,8 +263,9 @@ sub authen_ses_key  # (request, session_key)
     my $expired;
 
     for my $sess_file (glob(EBox::UserCorner::usersessiondir() . '*')) {
-        unless (open ($SID_F,  $sess_file)) {
-            throw EBox::Exceptions::Internal("Could not open $sess_file");
+        unless (open ($SID_F,  '<', $sess_file)) {
+            EBox::error("Could not open '$sess_file|'");
+            next;
         }
         # Lock in shared mode for reading
         flock($SID_F, LOCK_SH)
@@ -318,7 +319,7 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
-	my $filename = EBox::UserCorner::usersessiondir() . $r->user;
+    my $filename = EBox::UserCorner::usersessiondir() . $r->user;
     unlink($filename);
 
     $self->SUPER::logout($r);

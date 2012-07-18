@@ -84,6 +84,11 @@ sub _menu
 sub _print
 {
     my $self = shift;
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
     $self->_header();
     $self->_body();
 }
@@ -174,7 +179,7 @@ sub run
             if ($self->{json}) {
                 $self->setErrorFromException($e);
             } else {
-                $self->_print_warning($e->text());                
+                $self->_print_warning($e->text());
             }
 
             $finish = 1;

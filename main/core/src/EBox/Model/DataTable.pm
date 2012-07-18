@@ -38,7 +38,7 @@ use EBox::Sudo;
 use EBox::Types::Boolean;
 
 # Dependencies
-use Clone;
+use Clone::Fast;
 use Encode;
 use Error qw(:try);
 use POSIX qw(ceil);
@@ -621,34 +621,34 @@ sub validateRow
 
 # Method: validateTypedRow
 #
-#    Override this method to add your custom checks for
-#    the table fields. The parameters are passed like data types.
+#   Override this method to add your custom checks for
+#   the table fields. The parameters are passed like data types.
 #
-#    It will be called whenever a row is added/updated.
+#   It will be called whenever a row is added/updated.
 #
 #
 # Arguments:
 #
-#     action - String containing the action to be performed
-#              after validating this row.
-#              Current options: 'add', 'update'
+#   action - String containing the action to be performed
+#            after validating this row.
+#            Current options: 'add', 'update'
 #
-#    changedFields - hash ref containing the typed parameters
-#                    subclassing from <EBox::Types::Abstract>
-#                    that has changed, the key will be the field's name
+#   changedFields - hash ref containing the typed parameters
+#                   subclassing from <EBox::Types::Abstract>
+#                   that has changed, the key will be the field's name
 #
-#    allFields - hash ref containing the typed parameters
-#                subclassing from <EBox::Types::Abstract> including changed,
-#                the key is the field's name
+#   allFields - hash ref containing the typed parameters
+#               subclassing from <EBox::Types::Abstract> including changed,
+#               the key is the field's name
 #
 # Returns:
 #
-#    Nothing
+#   Nothing
 #
 # Exceptions:
 #
-#     You must throw an exception whenever a field value does not
-#     fulfill your requirements
+#   You must throw an exception whenever a field value does not
+#   fulfill your requirements
 #
 sub validateTypedRow
 {
@@ -750,13 +750,13 @@ sub movedDownRowNotify
 #
 # Arguments:
 #
-#     row - <EBox::Model::Row> row containing fields and values of the
-#           updated row
+#   row - <EBox::Model::Row> row containing fields and values of the
+#         updated row
 #
-#     oldRow - <EBox::Model::Row> row containing fields and values of the
-#           previous row
+#   oldRow - <EBox::Model::Row> row containing fields and values of the
+#            updated row before modification
 #
-#     force - boolean indicating whether the delete is forced or not
+#   force - boolean indicating whether the delete is forced or not
 #
 sub updatedRowNotify
 {
@@ -1343,8 +1343,6 @@ sub setTypedRow
     my $dir = $self->{'directory'};
     my $confmod = $self->{'confmodule'};
 
-    my $oldRow = $self->row($id);
-
     my @setterTypes = @{$self->setterTypes()};
 
     try {
@@ -1353,16 +1351,18 @@ sub setTypedRow
 
     my $checkRowUnique = $self->rowUnique();
 
+    my $row = $self->row($id);
+    my $oldRow = Clone::Fast::clone($row);
+    my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
-    my $allHashElements = $oldRow->hashElements();
     foreach my $paramName (keys %{$paramsRef}) {
         unless ($paramName ne any(@setterTypes)) {
             throw EBox::Exceptions::Internal('Trying to update a non setter type');
         }
 
         my $paramData = $paramsRef->{$paramName};
-        if ($oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+        if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
             next;
         }
 
@@ -1370,13 +1370,12 @@ sub setTypedRow
             # No need to check if the entire row is unique if
             # any of the fields are already checked
             $checkRowUnique = 0;
-
             $self->_checkFieldIsUnique($paramData);
         }
 
-        $paramData->setRow($oldRow);
+        $paramData->setRow($row);
         $changedElements->{$paramName} = $paramData;
-        push ( @changedElements, $paramData);
+        push (@changedElements, $paramData);
         $allHashElements->{$paramName} = $paramData;
     }
 
@@ -1422,13 +1421,13 @@ sub setTypedRow
     if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
-        my $depModelMsg = $self->_notifyManager('update', $self->row($id));
-        if ( defined ($depModelMsg)
-                and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+        my $depModelMsg = $self->_notifyManager('update', $row);
+        if (defined ($depModelMsg)
+                and ($depModelMsg ne '' and $depModelMsg ne '<br><br>')) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyManager('update', $self->row($id));
-        $self->updatedRowNotify($self->row($id), $oldRow, $force);
+        $self->_notifyManager('update', $row);
+        $self->updatedRowNotify($row, $oldRow, $force);
     }
 
     $self->_commitTransaction();
@@ -3874,7 +3873,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $oldParamsRef) = @_;
 
-    my $paramsRef = Clone::clone($oldParamsRef);
+    my $paramsRef = Clone::Fast::clone($oldParamsRef);
 
     # Delete the action from the name
     my $first = ( $methodName =~ s/^$action// );
@@ -4145,7 +4144,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $origParamsRef) = @_;
 
-    my $paramsRef = Clone::clone($origParamsRef);
+    my $paramsRef = Clone::Fast::clone($origParamsRef);
 
     $methodName =~ s/^$action//;
 
@@ -4596,6 +4595,64 @@ sub checkAllControlValue
     }
 
     return 1;
+}
+
+sub _confirmationDialogForAction
+{
+    my ($self, $action, $params_r) = @_;
+    exists  $self->{'table'}->{'confirmationDialog'} or
+        return 1;
+    exists $self->{'table'}->{'confirmationDialog'}->{$action} or
+        return 1;
+    return $self->{'table'}->{'confirmationDialog'}->{$action}->($self, $params_r);
+}
+
+sub confirmationJS
+{
+    my ($self, $action, $goAheadJS) = @_;
+    my $table = $self->table();
+    exists  $table->{'confirmationDialog'} or
+        return $goAheadJS;
+    exists $table->{'confirmationDialog'}->{$action} or
+        return $goAheadJS;
+
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+
+    my @elements = map {
+        my $element = $_;
+        my @fields = map {
+            qq{'$_'}
+        } $element->fields();
+        @fields;
+    } @ {  $table->{tableDescription} };
+    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+
+    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $action,
+                    $elementsArrayJS
+                    );
+    my $js =<< "ENDJS";
+       this.disable = true;
+       var goAhead = true;
+       var confirmMsg = $call;
+       if (confirmMsg) {
+         if (!confirm(confirmMsg)) {
+              goAhead = false;
+         }
+       }
+       if (goAhead) {
+          $goAheadJS
+       }
+
+       this.disable = false;
+       return false;
+ENDJS
+
 }
 
 

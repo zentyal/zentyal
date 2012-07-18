@@ -13,47 +13,32 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Zarafa::Model::VMailDomain
+# Class: EBox::Zarafa::Model::VMailDomains
 #
 #   TODO: Document class
 #
 
-package EBox::Zarafa::Model::VMailDomain;
+package EBox::Zarafa::Model::VMailDomains;
 
 use EBox::Config;
 use EBox::Gettext;
-use EBox::Types::Select;
+use EBox::Types::DomainName;
 
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm';
-
-sub new
-{
-        my $class = shift;
-        my %parms = @_;
-
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-
-        return $self;
-}
+use base 'EBox::Model::DataTable';
 
 sub vdomains
 {
-    my $mail = EBox::Global->getInstance()->modInstance('mail');
-    my $model = $mail->model('VDomains');
+    my ($self) = @_;
 
     my @vdomains;
 
-    push (@vdomains, { value => '_none_', printableValue => __('No domain selected') });
-
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
+    foreach my $domain (@{$self->enabledRows()}) {
+        my $row = $self->row($domain);
         my $vdomain = $row->valueByName('vdomain');
-
-        push (@vdomains, { value => $vdomain, printableValue => $vdomain });
+        push (@vdomains, $vdomain);
     }
 
     return \@vdomains;
@@ -126,40 +111,66 @@ sub notifyForeignModelAction
     return '';
 }
 
-# Method: formSubmitted
+# Method: syncRows
 #
-# Overrides:
+#   Overrides <EBox::Model::DataTable::syncRows>
 #
-#       <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub syncRows
 {
-    my ($self) = @_;
+    my ($self, $currentRows) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-    $mail->setAsChanged();
+    my $mail = $self->global()->modInstance('mail');
+    my $mailModel = $mail->model('VDomains');
+    my $mailRows = $mailModel->ids();
+
+    my %mailVDomains = map { $mailModel->row($_)->valueByName('vdomain') => $_ } @{$mailRows};
+    my %currentVDomains = map { $self->row($_)->valueByName('vdomain') => $_ } @{$currentRows};
+
+    my $modified = 0;
+
+    my @vdomainsToAdd = grep { not exists $currentVDomains{$_} } keys %mailVDomains;
+    foreach my $vdomain (@vdomainsToAdd) {
+        $self->add(vdomain => $vdomain);
+        # TODO Try to add the domain ou here if doesn't exist
+        $modified = 1;
+    }
+
+    my @vdomainsToDelete = grep { not exists $mailVDomains{$_} } keys %currentVDomains;
+    foreach my $vdomain (@vdomainsToDelete) {
+        $self->removeRow($currentVDomains{$vdomain});
+        # TODO Try to remove the domain here if empty, otherwise try to show a message
+        $modified = 1;
+    }
+
+    return $modified;
 }
 
 sub _table
 {
+    # TODO if hosted_zarafa and multi_ou are disabled, only allow to select one and advise to enable
+    # experimental hosted_zarafa and multi_ou
+    # TODO show a warning is multi_ou is disabled but hosted_zarafa is enabled
     my @tableHead =
     (
-        new EBox::Types::Select(
+        new EBox::Types::DomainName(
             'fieldName' => 'vdomain',
             'printableName' => __('Virtual domain'),
-            'disableCache' => 1,
-            'populate' => \&vdomains,
-            'editable' => 1,
+            'editable' => 0,
         ),
     );
     my $dataTable =
     {
-        'tableName' => 'VMailDomain',
-        'printableTableName' => __('Virtual mail domain'),
+        'tableName' => 'VMailDomains',
+        'printableTableName' => __('List of Domains'),
         'modelDomain' => 'Zarafa',
         'defaultActions' => [ 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'help' => __('Select the virtual mail domain to be used for Zarafa.'),
+        'automaticRemove'  => 1,
+        'printableRowName' => __('virtual domain'),
+        'sortedBy' => 'vdomain',
+        'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
     };
 
     return $dataTable;

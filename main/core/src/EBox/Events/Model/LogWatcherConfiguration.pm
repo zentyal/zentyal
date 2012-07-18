@@ -111,18 +111,16 @@ sub syncRows
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::updatedRowNotify>
+#   <EBox::Model::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $oldRow, $force) = @_;
-
-    my $row = $self->row($oldRow->id());
+    my ($self, $row, $oldRow, $force) = @_;
 
     # Warn if the parent log observer is not enabled
-    if ($row->valueByName('enabled') ) {
+    if ($row->valueByName('enabled')) {
         my $eventModel = EBox::Global->modInstance('events')->model('ConfigureWatchers');
-        my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
+        my $logConfRow = $eventModel->findValue(eventWatcher => 'EBox::Event::Watcher::Log');
         unless ($logConfRow->valueByName('enabled')) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
                                  . 'Enable to be notified when logs happen. '

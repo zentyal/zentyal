@@ -14,7 +14,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		next;
 	}
 
-	foreach my $file (qw{preinst postinst config}) {
+	foreach my $file (qw{preinst postinst postrm config}) {
 		my $f="$tmp/DEBIAN/$file";
 		if ($f) {
 			complex_doit("perl -pe 's~#SCRIPTSCOMMON#~qx{cat debian/${ext}scripts-common}~eg' -i $f");

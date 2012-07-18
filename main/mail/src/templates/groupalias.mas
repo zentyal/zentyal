@@ -81,7 +81,7 @@ $group
 			<tr class='border'>
 				<td><% $alias %></td>
 				<td class='tcenter'>
-					<a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group %>'>
+					<a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group->dn() %>'>
 					<img src='/data/images/delete.gif'
 						title="<% __('Delete') %>"
 						alt="<% __('Delete') %>"/></a>

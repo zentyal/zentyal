@@ -30,6 +30,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 
+use constant ALL_ID => -1;
+
 # Group: Public methods
 
 # Constructor: new
@@ -70,7 +72,7 @@ sub getByGroup
 
     my $row = $self->row();
 
-    return ($row->valueByName('group') ne '1901');
+    return ($row->valueByName('group') ne ALL_ID);
 }
 
 
@@ -100,7 +102,7 @@ sub getGroup
 #
 sub _groups
 {
-    my @groups = ( { value => 1901, printableValue => __('All users') });
+    my @groups = ( { value => ALL_ID, printableValue => __('All users') });
     my $users = EBox::Global->modInstance('users');
     return \@groups unless ($users->configured());
 

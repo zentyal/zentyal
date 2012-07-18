@@ -49,14 +49,38 @@ sub _userAddOns
     my $contact = 'no';
     $contact = 'yes' if ($self->hasContact($user));
 
+    my $has_pop3 = 0;
+    $has_pop3 = 1 if ($self->hasFeature($user, 'pop3'));
+
+    my $has_imap = 0;
+    $has_imap = 1 if ($self->hasFeature($user, 'imap'));
+
     my $is_admin = 0;
     $is_admin = 1 if ($self->isAdmin($user));
+
+    my $is_store = 0;
+    $is_store = 1 if ($self->isStore($user));
+
+    my $has_meeting_autoaccept = 0;
+    $has_meeting_autoaccept = 1 if ($self->hasMeetingAutoaccept($user));
+
+    my $has_meeting_declineconflict = 0;
+    $has_meeting_declineconflict = 1 if ($self->hasMeetingDeclineConflict($user));
+
+    my $has_meeting_declinerecurring = 0;
+    $has_meeting_declinerecurring = 1 if ($self->hasMeetingDeclineRecurring($user));
 
     my @args;
     my $args = {
         'user' => $user,
         'active'   => $active,
+        'has_pop3' => $has_pop3,
+        'has_imap' => $has_imap,
         'is_admin' => $is_admin,
+        'is_store' => $is_store,
+        'meeting_autoaccept' => $has_meeting_autoaccept,
+        'meeting_declineconflict' => $has_meeting_declineconflict,
+        'meeting_declinerecurring' => $has_meeting_declinerecurring,
         'contact' => $contact,
         'service' => $self->{zarafa}->isEnabled(),
     };
@@ -74,6 +98,25 @@ sub indexes
     return [ 'zarafaAccount' ];
 }
 
+sub hasFeature
+{
+    my ($self, $user, $feature) = @_;
+
+    my @enabled = split(/ /, $user->get('zarafaEnabledFeatures'));
+    return ($feature eq any @enabled);
+}
+
+sub setHasFeature
+{
+    my ($self, $user, $feature, $option) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    return unless ($self->hasFeature($user, $feature) xor $option);
+
+    my $new = $feature . " " . $user->get('zarafaEnabledFeatures');
+    $new =~ s/\s+$//;
+    $user->set('zarafaEnabledFeatures', $new);
+}
 
 sub isAdmin
 {
@@ -89,7 +132,75 @@ sub setIsAdmin
 
     return unless ($self->isAdmin($user) xor $option);
 
-    $user->set('isAdmin', $option);
+    $user->set('zarafaAdmin', $option);
+}
+
+sub isStore
+{
+    my ($self, $user) = @_;
+
+    return ($user->get('zarafaSharedStoreOnly') eq 1);
+}
+
+sub setIsStore
+{
+    my ($self, $user, $option) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    return unless ($self->isStore($user) xor $option);
+
+    $user->set('zarafaSharedStoreOnly', $option);
+}
+
+sub hasMeetingAutoaccept
+{
+    my ($self, $user) = @_;
+
+    return ($user->get('zarafaMrAccept') eq 1);
+}
+
+sub setMeetingAutoaccept
+{
+    my ($self, $user, $option) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    return unless ($self->hasMeetingAutoaccept($user) xor $option);
+
+    $user->set('zarafaMrAccept', $option);
+}
+
+sub hasMeetingDeclineConflict
+{
+    my ($self, $user) = @_;
+
+    return ($user->get('zarafaMrDeclineConflict') eq 1);
+}
+
+sub setMeetingDeclineConflict
+{
+    my ($self, $user, $option) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    return unless ($self->hasMeetingDeclineConflict($user) xor $option);
+
+    $user->set('zarafaMrDeclineConflict', $option);
+}
+
+sub hasMeetingDeclineRecurring
+{
+    my ($self, $user) = @_;
+
+    return ($user->get('zarafaMrDeclineRecurring') eq 1);
+}
+
+sub setMeetingDeclineRecurring
+{
+    my ($self, $user, $option) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    return unless ($self->hasMeetingDeclineRecurring($user) xor $option);
+
+    $user->set('zarafaMrDeclineRecurring', $option);
 }
 
 sub hasAccount
@@ -103,29 +214,40 @@ sub setHasAccount
 {
     my ($self, $user, $option) = @_;
 
+    my $model = $self->{zarafa}->model('ZarafaUser');
     if (not $self->hasAccount($user) and $option) {
         $self->setHasContact($user, 0);
         $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->set('zarafaAccount', 1, 1);
         $user->set('zarafaAdmin', 0, 1);
+        $user->set('zarafaSharedStoreOnly', 0, 1);
+        $user->set('zarafaMrAccept', 0, 1);
+        $user->set('zarafaMrDeclineConflict', 0, 1);
+        $user->set('zarafaMrDeclineRecurring', 0, 1);
         $user->set('zarafaQuotaOverride', 0, 1);
         $user->set('zarafaQuotaWarn', 0, 1);
         $user->set('zarafaQuotaSoft', 0, 1);
         $user->set('zarafaQuotaHard', 0, 1);
         $user->save();
 
+        $self->setHasFeature($user, 'pop3', $model->pop3Value());
+        $self->setHasFeature($user, 'imap', $model->imapValue());
+
         $self->{zarafa}->_hook('setacc', $user->name());
     } elsif ($self->hasAccount($user) and not $option) {
         $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->delete('zarafaAccount', 1);
         $user->delete('zarafaAdmin', 1);
+        $user->delete('zarafaSharedStoreOnly', 1);
+        $user->delete('zarafaMrAccept', 1);
+        $user->delete('zarafaMrDeclineConflict', 1);
+        $user->delete('zarafaMrDeclineRecurring', 1);
         $user->delete('zarafaQuotaOverride', 1);
         $user->delete('zarafaQuotaWarn', 1);
         $user->delete('zarafaQuotaSoft', 1);
         $user->delete('zarafaQuotaHard', 1);
         $user->save();
 
-        my $model = $self->{zarafa}->model('ZarafaUser');
         $self->setHasContact($user, $model->contactValue());
 
         $self->{zarafa}->_hook('unsetacc', $user->name());
@@ -190,6 +312,16 @@ sub _delUserWarning
 sub defaultUserModel
 {
     return 'zarafa/ZarafaUser';
+}
+
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 1;
 }
 
 1;

@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Finish;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Finish;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Config;
@@ -29,7 +27,8 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Save configuration'),
+    my $self = $class->SUPER::new(
+          #'title' => __('Save configuration'),
             'template' => '/finish.mas',
             @_);
     bless($self, $class);
@@ -40,24 +39,21 @@ sub _process
 {
     my $self = shift;
 
+    my @array = ();
     my $global = EBox::Global->getInstance();
+    if ($global->unsaved) {
+        my $manager = new EBox::ServiceManager();
+        #my $askPermission = defined @{$manager->checkFiles()};
 
-    if (defined($self->param('save'))) {
-        $self->saveAllModulesAction();
-    } elsif (defined($self->param('cancel'))) {
-        $self->revokeAllModulesAction();
+        push(@array, 'unsaved' => 'yes');
+        push(@array, 'askPermission' => 0);
+        push(@array, 'disabledModules' => _disabledModules());
+        push(@array, 'actions' => _pendingActions());
     } else {
-        if ($global->unsaved) {
-            my $manager = new EBox::ServiceManager();
-            #my $askPermission = defined @{$manager->checkFiles()};
-            my @array = ();
-            push(@array, 'unsaved' => 'yes');
-            push(@array, 'askPermission' => 0);
-            push(@array, 'disabledModules' => _disabledModules());
-            push(@array, 'actions' => _pendingActions());
-            $self->{params} = \@array;
-        }
+        push(@array, 'unsaved' => 'no');
     }
+
+    $self->{params} = \@array;
 }
 
 sub _pendingActions
@@ -131,53 +127,6 @@ sub _pendingActions
     return $actions;
 }
 
-sub saveAllModulesAction
-{
-    my ($self) = @_;
-
-    $self->{redirect} = "/Dashboard/Index";
-
-    my $global = EBox::Global->getInstance();
-    my $progressIndicator = $global->prepareSaveAllModules();
-
-    $self->showProgress(
-        progressIndicator  => $progressIndicator,
-        title              => __('Saving changes'),
-        text               => __('Saving changes in modules'),
-        currentItemCaption => __("Current operation"),
-        itemsLeftMessage   => __('operations performed'),
-        endNote            => __('Changes saved'),
-        errorNote          => __x('Some modules reported error when saving changes '
-                                  . '. More information on the logs in {dir}',
-                                  dir => EBox::Config->log()),
-        reloadInterval  => 2,
-       );
-}
-
-
-sub revokeAllModulesAction
-{
-    my ($self) = @_;
-
-    $self->{redirect} = "/Dashboard/Index";
-
-    my $global = EBox::Global->getInstance();
-    my $progressIndicator = $global->prepareRevokeAllModules();
-
-    $self->showProgress(
-        progressIndicator => $progressIndicator,
-        title    => __('Revoking changes'),
-        text     => __('Revoking changes in modules'),
-        currentItemCaption  =>  __("Current module"),
-        itemsLeftMessage  => __('modules revoked'),
-        endNote  =>  __('Changes revoked'),
-        errorNote => __x('Some modules reported error when discarding changes '
-                           . '. More information on the logs in {dir}',
-                         dir => EBox::Config->log()),
-        reloadInterval  => 2,
-       );
-}
-
 # Method: _disabledModules
 #
 #   Return those modules with unsaved changes that are disabled
@@ -194,4 +143,34 @@ sub _disabledModules
     }
     return \@modules;
 }
+
+
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
+
+sub _top
+{}
+
+sub _menu
+{}
+
+sub _footer
+{}
+
 1;

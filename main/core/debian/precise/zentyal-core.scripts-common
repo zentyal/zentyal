@@ -1,5 +1,12 @@
 PORT=443
 
+stop_ebox_processes() {
+    stop ebox.redis 2>/dev/null || true
+    OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
+    kill $OLD_APACHE_PID 2>/dev/null || true
+    pkill -u ebox || true
+}
+
 # This function uses the eBox API to fetch the configured apache port used
 # by eBox
 #
@@ -42,8 +49,8 @@ check_port_available()
         IO::Socket::INET->new(
             PeerAddr => "127.0.0.1",
             PeerPort => $port,
-            Proto	 => "tcp",
-            Timeout	 => 5) or exit 0;
+            Proto    => "tcp",
+            Timeout  => 5) or exit 0;
         exit 1;
         ' $check_port 2> /dev/null;
     ret=$?

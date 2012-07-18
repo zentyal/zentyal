@@ -60,14 +60,15 @@ sub _process
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             endNote errorNote reloadInterval currentItemUrl
-            nextStepUrl nextStepText nextStepTimeout );
+            nextStepType
+            nextStepUrl nextStepText nextStepTimeout nextStepUrlOnclick
+            barWidth );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command
         # or so is run.
         use Encode;
         my $value = encode (utf8 => $self->unsafeParam($name));
-
         $value or
             next;
 
@@ -96,9 +97,36 @@ sub _progressId
     return $pId;
 }
 
+
+# to avoid the <div id=content> in raw mode
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('raw')) {
+        return $self->SUPER::_print();
+    }
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
+
 sub _menu
 {
     my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
@@ -115,10 +143,25 @@ sub _menu
 
 sub _top
 {
+    my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
     my $global = EBox::Global->getInstance();
     my $img = $global->theme()->{'image_title'};
     print "<div id='top'></div><div id='header'><img src='$img'/></div>";
     return;
+}
+
+sub _footer
+{
+    my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
+    return $self->SUPER::_footer();
 }
 
 sub loadAds

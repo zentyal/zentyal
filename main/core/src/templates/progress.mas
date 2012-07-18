@@ -13,9 +13,15 @@ $errorNote          => undef
 $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
+
+$nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
+$nextStepUrlOnclick => undef
 $nextStepText => undef
+
 $nextStepTimeout => 0
+
+$barWidth => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -31,11 +37,17 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to return to the Dashboard');
 }
+
+my $percentMargin;
+if ($barWidth) {
+    # add px unit
+    $barWidth = $barWidth . 'px';
+    $percentMargin = $barWidth / 2;
+}
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
-
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -43,33 +55,6 @@ unless (defined ($nextStepText)) {
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
                              '<% $nextStepUrl %>');
-
-	function porcentH(i){
-		this.value = 0;
-		this.setValue = function(v){
-			if(v > 100)
-				v = 100;
-			if(v < 0)
-				v = 0;
-			this.value = v;
-			$('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
-			document.getElementById('percentValue').innerHTML= v+"%";
-		}
-
-		this.upValue = function(v){
-			v += this.value;
-			this.setValue(v);
-		}
-
-		this.downValue = function(v){
-			v = this.value - v;
-			this.setValue(v);
-		}
-
-	}
-
-
-	var ph;
 
 	function init(){
 		ph = new porcentH('progress');
@@ -133,7 +118,7 @@ unless (defined ($nextStepText)) {
     float: left;
     line-height: 20px;
 	height:20px;
-	margin-left:380px;
+	margin-left: <% $percentMargin ? $percentMargin : '380' %>px;
 	z-index : 100;
 	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
@@ -156,7 +141,7 @@ unless (defined ($nextStepText)) {
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-    <div class="bar">
+    <div class="bar"<% $barWidth ? "style='width: $barWidth'" : ""%> >
         <div id="progressValue"></div>
     </div>
 </div>
@@ -167,18 +152,58 @@ unless (defined ($nextStepText)) {
 </div>
 
 <br/>
-<div class ="note" id="done" style="display:none;">
+
+<div class id="done" style="display:none;">
+%# this div will be closed by .nextStep
+<div id="done_note" class ="note" >
    <p><% $endNote %></p>
    <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>
-   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
-</div>
-<div class="error" id="error-progress" style="display:none;">
-   <p><% $errorNote %></p>
-   <p id="error-progress-message"></p>
-   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
+   <& .nextStep,
+      type => $nextStepType,
+      url => $nextStepUrl,
+      text => $nextStepText,
+      onclick => $nextStepUrlOnclick
+   &>
 </div>
 
+
+<div id="error-progress" style="display:none;">
+%# this div will be closed by .nextStep
+<div class="error">
+   <p><% $errorNote %></p>
+   <p id="error-progress-message"></p>
+   <& .nextStep,
+      type => $nextStepType,
+      url => $nextStepUrl,
+      text => $nextStepText,
+      onclick => $nextStepUrlOnclick
+   &>
+</div>
+
+
+% unless ($adsJson eq '""')  {
 <script>
-	showAds();
+      showAds();
 </script>
+% }
+
+<%def .nextStep>
+<%args>
+$type
+$url
+$text
+$onclick
+</%args>
+% if ($type eq 'submit') {
+  </div>
+  <div class='tcenter'>
+     <input type="submit" value="<% $text %>" <% $onclick ? qq{onclick="$onclick"} : '' %> />
+  </div>
+% } else {
+   <a href="<% $url %>" <% $onclick ? qq{onclick="$onclick"} : '' %> >
+        <% $text %>
+    </a>
+  </div>
+% }
+</%def>

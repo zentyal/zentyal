@@ -1,3 +1,6 @@
+2.3.12
+	+ Interface is now auto-detected when adding gateways
+	+ New table to allow disabling of traffic balance for some gateways
 2.3.11
 	+ Fixed typo which made EBox::Network::ifaceAddress return empty
 	  addresses for virtual interfaces

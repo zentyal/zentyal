@@ -65,6 +65,20 @@ sub _table
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
+        'confirmationDialog' => {
+              submit => sub {
+                  my ($self, $params) = @_;
+                  my $new      = $params->{hostname};
+                  my $old      = $self->value('hostname');
+                  if ($new eq $old) {
+                      # only dialog if it is a hostname change
+                      return undef;
+                  }
+                  return  __x('Are you sure you want to change the hostname to {new}?. Maybe you would need to restart all the services or reboot the system to enforce the change',
+                              new => $new
+                             );
+                 }
+            }
     };
 
     return $dataTable;

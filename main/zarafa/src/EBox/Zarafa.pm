@@ -20,7 +20,7 @@ use warnings;
 
 use feature qw(switch);
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::KerberosModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -41,9 +41,6 @@ use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
 use constant ZARAFAICALCONFFILE => '/etc/zarafa/ical.cfg';
 use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
-
-use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
-use constant HTTPD_ZARAFA_WEBACCESS_DIR => '/var/www/webaccess';
 
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
@@ -89,13 +86,8 @@ sub actions
             'module' => 'zarafa'
         },
         {
-            'action' => __('Enable Zarafa dagent daemon'),
-            'reason' => __('Enable dagent daemon on /etc/default/zarafa-dagent for LMTP delivery.'),
-            'module' => 'zarafa'
-        },
-        {
             'action' => __('Add zarafa link to www data directory'),
-            'reason' => __('Zarafa will be accesible at http://ip/webaccess/.'),
+            'reason' => __('Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/.'),
             'module' => 'zarafa'
         },
         {
@@ -168,6 +160,17 @@ sub usedFiles
     return $files;
 }
 
+sub kerberosServicePrincipals
+{
+    my ($self) = @_;
+
+    my $data = { service    => 'zarafa',
+                 principals => [ 'http' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'www-data' };
+    return $data;
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -178,6 +181,9 @@ sub enableActions
 
     $self->performLDAPActions();
 
+    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
+    $self->kerberosServicePrincipals();
+
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
@@ -185,6 +191,7 @@ sub enableActions
 # Method: initialSetup
 #
 # Overrides:
+#
 #   EBox::Module::Base::initialSetup
 #
 sub initialSetup
@@ -200,6 +207,20 @@ sub initialSetup
     }
 }
 
+sub _serviceRules
+{
+    return [
+             {
+              'name' => 'Groupware',
+              'description' => __('Groupware services (Zarafa)'),
+              'internal' => 1,
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 236, 237, 8080, 8443 ],
+              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
+             },
+    ];
+}
 
 # Method: enableActions
 #
@@ -214,21 +235,6 @@ sub enableService
         my $mail = EBox::Global->modInstance('mail');
         $mail->setAsChanged();
     }
-}
-
-sub _serviceRules
-{
-    return [
-             {
-              'name' => 'Groupware',
-              'description' => __('Groupware services (Zarafa)'),
-              'internal' => 1,
-              'protocol' => 'tcp',
-              'sourcePort' => 'any',
-              'destinationPorts' => [ 236, 8080, 8443 ],
-              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
-             },
-    ];
 }
 
 #  Method: _daemons
@@ -362,6 +368,8 @@ sub _setConf
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
 
+    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
+
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
@@ -372,19 +380,30 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
-    my $server_bind = EBox::Config::configkey('zarafa_server_bind');
+    my $server_bind;
+    my $server_ssl_enabled;
+    if ($self->model('GeneralSettings')->soapValue()) {
+        $server_bind = '0.0.0.0';
+        $server_ssl_enabled = 'yes';
+    } else {
+        $server_bind = '127.0.0.1';
+        $server_ssl_enabled = 'no';
+    }
     my $attachment_storage = EBox::Config::configkey('zarafa_attachment_storage');
     my $attachment_path = EBox::Config::configkey('zarafa_attachment_path');
     my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
+    my $enable_hosted_zarafa = EBox::Config::configkey('zarafa_enable_hosted_zarafa');
     push(@array, 'server_bind' => $server_bind);
     push(@array, 'hostname' => $self->_hostname());
     push(@array, 'mysql_user' => 'zarafa');
     push(@array, 'mysql_password' => $self->_getPassword());
     push(@array, 'attachment_storage' => $attachment_storage);
     push(@array, 'attachment_path' => $attachment_path);
+    push(@array, 'server_ssl_enabled' => $server_ssl_enabled);
     push(@array, 'quota_warn' => $self->model('Quota')->warnQuota());
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
+    push(@array, 'enable_hosted_zarafa' => $enable_hosted_zarafa);
     push(@array, 'indexer' => $zarafa_indexer);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
@@ -425,8 +444,10 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     $self->_setSpellChecking();
+    # TODO configure xmpp plugin too once zarafa fixes packaging
     $self->_setWebServerConf();
     $self->_enableInnoDBIfNeeded();
+    $self->_createVMailDomainsOUs();
 }
 
 # Method: _postServiceHook
@@ -499,7 +520,6 @@ sub consolidateReportInfoQueries
                          email    => 1, },
         },
      ];
-
 }
 
 # Method: report
@@ -507,6 +527,7 @@ sub consolidateReportInfoQueries
 # Overrides:
 #
 #   <EBox::Module::Base::report>
+#
 sub report
 {
     my ($self, $beg, $end, $options) = @_;
@@ -660,6 +681,10 @@ sub _setWebServerConf
 
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $activesync = $self->model('GeneralSettings')->activeSyncValue();
+    my $jabber = $self->model('GeneralSettings')->jabberValue();
+
+    my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-webapp-xmpp';
+    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas');
 
     my @cmds = ();
 
@@ -671,13 +696,20 @@ sub _setWebServerConf
         } else {
             push(@cmds, 'a2dissite z-push');
         }
+        if ($jabber) {
+            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
+            push(@cmds, 'a2enmod proxy_http');
+        } else {
+            push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+        }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
+        push(@cmds, 'a2dissite zarafa-webapp-xmpp');
         push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
-        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync ]);
+        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);
     }
     try {
         EBox::Sudo::root(@cmds);
@@ -707,6 +739,34 @@ sub _enableInnoDBIfNeeded
     }
 }
 
+sub _createVMailDomainsOUs
+{
+    my ($self) = @_;
+
+    my @vdomains = @{$self->model('VMailDomains')->vdomains()};
+
+    foreach my $vdomain (@vdomains) {
+        $self->_addVMailDomainOU($vdomain);
+    }
+}
+
+sub _addVMailDomainOU
+{
+    my ($self, $vdomain) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $ldap = $users->ldap();
+    my $ldapconf = $ldap->ldapConf;
+    my $dn =  "ou=$vdomain," . $users->usersDn();
+
+    my $group = new EBox::UsersAndGroups::OU(dn => $dn);
+    return if $group->exists();
+
+    $group->create($dn);
+    $group->add('objectClass', [ 'zarafa-company' ], 1);
+    $group->save();
+}
+
 # Method: addModuleStatus
 #
 #   Overrides EBox::Module::Service::addModuleStatus
@@ -722,10 +782,29 @@ sub addModuleStatus
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'Zarafa/Composite/General',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Office',
-                                    'order' => 560));
+
+    my $folder = new EBox::Menu::Folder(
+                                        'name' => 'Zarafa',
+                                        'text' => $self->printableName(),
+                                        'separator' => 'Office',
+                                        'order' => 560
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'Zarafa/Composite/General',
+                                      'text' => __('General')
+                 )
+    ); 
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'Zarafa/View/VMailDomains',
+                                      'text' => __('Virtual Mail Domains')
+                 )
+    ); 
+
+    $root->add($folder);
 }
 
 # Method: _ldapModImplementation

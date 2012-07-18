@@ -31,32 +31,34 @@ my $debug = 0;
 
 sub deprecated
 {
-	if ($debug) {
-		throw EBox::Exceptions::DeprecatedMethod();
-	}
+    if ($debug) {
+        throw EBox::Exceptions::DeprecatedMethod();
+    }
 }
 
-sub info # (msg)
+sub info
 {
-	my ($msg) = @_;
-	my $logger = EBox::logger(LOGGER_CAT);
-	$Log::Log4perl::caller_depth +=1;
-	$logger->info($msg);
-	$Log::Log4perl::caller_depth -=1;
+    my ($msg) = @_;
+
+    my $logger = EBox::logger(LOGGER_CAT);
+    $Log::Log4perl::caller_depth +=1;
+    $logger->info($msg);
+    $Log::Log4perl::caller_depth -=1;
 }
 
-sub error # (msg)
+sub error
 {
-	my ($msg) = @_;
-	my $logger = EBox::logger(LOGGER_CAT);
-	$Log::Log4perl::caller_depth +=1;
-	$logger->error($msg);
-	$Log::Log4perl::caller_depth -=1;
+    my ($msg) = @_;
+
+    my $logger = EBox::logger(LOGGER_CAT);
+    $Log::Log4perl::caller_depth +=1;
+    $logger->error($msg);
+    $Log::Log4perl::caller_depth -=1;
 }
 
-sub debug # (msg)
+sub debug
 {
-	my ($msg) = @_;
+    my ($msg) = @_;
 
     if ($debug) {
         my $logger = EBox::logger(LOGGER_CAT);
@@ -66,13 +68,25 @@ sub debug # (msg)
     }
 }
 
-sub warn # (msg)
+sub warn
 {
-	my ($msg) = @_;
-	my $logger = EBox::logger(LOGGER_CAT);
-	$Log::Log4perl::caller_depth +=1;
-	$logger->warn($msg);
-	$Log::Log4perl::caller_depth -=1;
+    my ($msg) = @_;
+
+    my $logger = EBox::logger(LOGGER_CAT);
+    $Log::Log4perl::caller_depth +=1;
+    $logger->warn($msg);
+    $Log::Log4perl::caller_depth -=1;
+}
+
+sub trace
+{
+    my ($msg) = @_;
+
+    if ($debug) {
+        use Devel::StackTrace;
+        my $trace = new Devel::StackTrace(indent => 1);
+        EBox::debug($trace->as_string());
+    }
 }
 
 sub initLogger
@@ -89,38 +103,38 @@ sub initLogger
 # returns the logger for the caller package, initLogger must be called before
 sub logger # (caller?)
 {
-	my ($cat) = @_;
-	defined($cat) or $cat = LOGGER_CAT;
-	if(not $loginit) {
+    my ($cat) = @_;
+    defined($cat) or $cat = LOGGER_CAT;
+    if(not $loginit) {
             use Devel::StackTrace;
 
             my $trace = Devel::StackTrace->new();
             print STDERR $trace->as_string();
         }
-	return Log::Log4perl->get_logger($cat);
+    return Log::Log4perl->get_logger($cat);
 }
 
 # arguments
-# 	- locale: the locale the interface should use
+#   - locale: the locale the interface should use
 sub setLocale # (locale)
 {
-	my ($locale) = @_;
-	open(LOCALE, ">" . EBox::Config::conf() . "/locale");
-	print LOCALE $locale;
-	close(LOCALE);
+    my ($locale) = @_;
+    open(LOCALE, ">" . EBox::Config::conf() . "/locale");
+    print LOCALE $locale;
+    close(LOCALE);
 }
 
 # returns:
-# 	- the locale
+#   - the locale
 sub locale
 {
-	my $locale="C";
-	if (-f (EBox::Config::conf() . "locale")) {
-		open(LOCALE, EBox::Config::conf() . "locale");
-		$locale = <LOCALE>;
-		close(LOCALE);
-	}
-	return $locale;
+    my $locale="C";
+    if (-f (EBox::Config::conf() . "locale")) {
+        open(LOCALE, EBox::Config::conf() . "locale");
+        $locale = <LOCALE>;
+        close(LOCALE);
+    }
+    return $locale;
 }
 
 sub init

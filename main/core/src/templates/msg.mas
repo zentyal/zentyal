@@ -12,7 +12,7 @@ Parameters:
 </%doc>
 <%args>
   $msg
-  $class
+  $class => ''
 </%args>
 <%init>
     unless ($class) {
