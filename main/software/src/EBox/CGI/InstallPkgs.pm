@@ -213,8 +213,6 @@ sub showRemoveProgress
             . '. More information on the logs in {dir}',
                          dir => EBox::Config->log()),
         reloadInterval  => 2,
-        nextStepUrl => '/Finish',
-        nextStepText => __('Go to initial configuration wizard'),
         nextStepTimeout => 1
     );
 }
