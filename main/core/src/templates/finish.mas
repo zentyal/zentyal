@@ -9,9 +9,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-%# XXX
-<script type="text/javascript" src="/data/js/progress.js">//</script>
-<script type="text/javascript" src="/data/js/table-helper.js">//</script>
 
 % if ($askPermission) {
 
