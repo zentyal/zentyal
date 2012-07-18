@@ -6,8 +6,4 @@ if [ -n "$VERSION" ]; then
     /usr/share/zentyal-remoteservices/reload-bundle
 fi
 
-if [ ! -e /var/lib/zentyal/tmp/upgrade-from-CC ]; then
-    invoke-rc.d zentyal remoteservices restart
-fi
-
 exit 0

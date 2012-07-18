@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::GeneralSettings;
+
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -46,58 +47,55 @@ sub new
     return $self;
 }
 
-
-
 sub _table
 {
-    my @tableDesc =
-        (
-            new EBox::Types::Boolean(
-                    fieldName => 'transparentProxy',
-                    printableName => __('Transparent Proxy'),
-                    editable => 1,
-                    defaultValue   => 0,
-                    help => _transparentHelp()
-                ),
-            new EBox::Types::Boolean(
-                    fieldName => 'removeAds',
-                    printableName => __('Ad Blocking'),
-                    editable => 1,
-                    defaultValue   => 0,
-                    help => __('Remove advertisements from all HTTP traffic')
-                ),
-            new EBox::Types::Port(
-                    fieldName => 'port',
-                    printableName => __('Port'),
-                    editable => 1,
-                    defaultValue   => 3128,
-                 ),
-            new EBox::Types::Int(
-                    fieldName => 'cacheDirSize',
-                    printableName => __('Cache files size (MB)'),
-                    editable => 1,
-                    size => 5,
-                    min  => 10,
-                    defaultValue   => 100,
-                 ),
-            new EBox::Squid::Types::Policy(
-               fieldName => 'globalPolicy',
-               printableName => __('Default policy'),
-               defaultValue => 'deny',
-               help => _policyHelp(),
+    my @tableDesc = (
+          new EBox::Types::Boolean(
+                  fieldName => 'transparentProxy',
+                  printableName => __('Transparent Proxy'),
+                  editable => 1,
+                  defaultValue   => 0,
+                  help => _transparentHelp()
+              ),
+          new EBox::Types::Boolean(
+                  fieldName => 'removeAds',
+                  printableName => __('Ad Blocking'),
+                  editable => 1,
+                  defaultValue   => 0,
+                  help => __('Remove advertisements from all HTTP traffic')
+              ),
+          new EBox::Types::Port(
+                  fieldName => 'port',
+                  printableName => __('Port'),
+                  editable => 1,
+                  defaultValue   => 3128,
                ),
-        );
+          new EBox::Types::Int(
+                  fieldName => 'cacheDirSize',
+                  printableName => __('Cache files size (MB)'),
+                  editable => 1,
+                  size => 5,
+                  min  => 10,
+                  defaultValue   => 100,
+               ),
+          new EBox::Squid::Types::Policy(
+                  fieldName => 'globalPolicy',
+                  printableName => __('Default policy'),
+                  defaultValue => 'deny',
+                  help => _policyHelp(),
+             ),
+    );
 
-      my $dataForm = {
-                      tableName          => 'GeneralSettings',
-                      printableTableName => __('General Settings '),
-                      modelDomain        => 'Squid',
-                      defaultActions     => [ 'editField', 'changeView' ],
-                      tableDescription   => \@tableDesc,
-                      messages           => {
-                          update => __('Settings changed'),
-                      },
-                     };
+    my $dataForm = {
+                    tableName          => 'GeneralSettings',
+                    printableTableName => __('General Settings '),
+                    modelDomain        => 'Squid',
+                    defaultActions     => [ 'editField', 'changeView' ],
+                    tableDescription   => \@tableDesc,
+                    messages           => {
+                        update => __('Settings changed'),
+                    },
+    };
 
     return $dataForm;
 }
@@ -117,12 +115,12 @@ sub viewCustomizer
     my $customizer = $self->SUPER::viewCustomizer();
 
     my $securityUpdatesAddOn = 0;
-    if ( EBox::Global->modExists('remoteservices') ) {
+    if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
     }
 
-    unless ( $securityUpdatesAddOn ) {
+    unless ($securityUpdatesAddOn) {
         $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
 
@@ -131,73 +129,65 @@ sub viewCustomizer
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
+    my ($self, $action, $params_r, $actual_r) = @_;
 
-  if (exists $params_r->{port}) {
-    $self->_checkPortAvailable($params_r->{port}->value());
-  }
+    if (exists $params_r->{port}) {
+        $self->_checkPortAvailable($params_r->{port}->value());
+    }
 
-  if (exists $params_r->{transparentProxy} or
-      exists $params_r->{globalPolicy}) {
+    if (exists $params_r->{transparentProxy} or
+            exists $params_r->{globalPolicy}) {
 
-    $self->_checkPolicyWithTransProxy($params_r, $actual_r);
-    $self->_checkNoAuthPolicy($params_r, $actual_r);
-  }
-
+        $self->_checkPolicyWithTransProxy($params_r, $actual_r);
+        $self->_checkNoAuthPolicy($params_r, $actual_r);
+    }
 }
-
-
 
 sub _checkPortAvailable
 {
-  my ($self, $port) = @_;
+    my ($self, $port) = @_;
 
-  my $oldPort    = $self->portValue();
-  if ($port == $oldPort) {
-    # there isn't any change so we left tht things as they are
-    return;
-  }
+    my $oldPort = $self->portValue();
+    if ($port == $oldPort) {
+        # there isn't any change so we left tht things as they are
+        return;
+    }
 
-  my $firewall = EBox::Global->modInstance('firewall');
-  if (not $firewall->availablePort('tcp', $port )) {
-      throw EBox::Exceptions::External(
-              __x('{port} is already in use. Please choose another',
-                  port => $port,
-                 )
-              );
-  }
+    my $firewall = EBox::Global->modInstance('firewall');
+    if (not $firewall->availablePort('tcp', $port)) {
+        throw EBox::Exceptions::External(__x('{port} is already in use. Please choose another', port => $port));
+    }
 }
 
 
 sub _checkPolicyWithTransProxy
 {
-  my ($self, $params_r, $actual_r) = @_;
+    my ($self, $params_r, $actual_r) = @_;
 
-  my $trans = exists $params_r->{transparentProxy} ?
-                     $params_r->{transparentProxy}->value() :
-                     $actual_r->{transparentProxy}->value() ;
+    my $trans = exists $params_r->{transparentProxy} ?
+        $params_r->{transparentProxy}->value() :
+            $actual_r->{transparentProxy}->value() ;
 
-  if (not $trans) {
-    return;
-  }
+    if (not $trans) {
+        return;
+    }
 
+    my $pol = exists $params_r->{globalPolicy} ?
+        $params_r->{globalPolicy} :
+        $actual_r->{globalPolicy} ;
 
-  my $pol = exists $params_r->{globalPolicy} ?
-                     $params_r->{globalPolicy} :
-                     $actual_r->{globalPolicy} ;
+    if ($pol->usesAuth()) {
+        throw EBox::Exceptions::External(
+                __('Transparent proxy option is not compatible with authorization policy')
+        );
+    }
 
-  if ($pol->usesAuth()) {
-    throw EBox::Exceptions::External(
-       __('Transparent proxy option is not compatible with authorization policy')
-                                    );
-  }
-
-  my $objectPolicy = EBox::Global->modInstance('squid')->model('squid/ObjectPolicy');
-  if ($objectPolicy->existsAuthObjects()) {
-    throw EBox::Exceptions::External(
-     __('Transparent proxy is incompatible with the authorization policy found in some objects')
-                                    );
-  }
+    my $objectPolicy = $self->parentModule()->model('ObjectPolicy');
+    if ($objectPolicy->existsAuthObjects()) {
+        throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with the authorization policy found in some objects')
+        );
+    }
 }
 
 
@@ -209,12 +199,11 @@ sub _checkNoAuthPolicy
             $actual_r->{globalPolicy} ;
 
     if (not $pol->usesAuth()) {
-        my $squid = EBox::Global->modInstance('squid');
-        my $groupsPolicies = $squid->model('GlobalGroupPolicy')->groupsPolicies();
+        my $groupsPolicies = $self->parentModule()->model('GlobalGroupPolicy')->groupsPolicies();
         if (@{ $groupsPolicies }) {
             throw EBox::Exceptions::External(
-  __('An authorization policy is required because you are using global group policies')
-                                            );
+                __('An authorization policy is required because you are using global group policies')
+            );
         }
     }
 }

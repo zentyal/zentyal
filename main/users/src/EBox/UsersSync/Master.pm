@@ -136,7 +136,7 @@ sub addSlave
     # save slave's cert
     write_file(EBox::UsersSync::Slave->SLAVES_CERTS_DIR . $id, $cert);
 
-    $users->initialSlaveSync(new EBox::UsersSync::Slave($host, $port, $cert));
+    $users->initialSlaveSync(new EBox::UsersSync::Slave($host, $port, $id));
 
     # Regenerate slave connection password
     $self->setupMaster();
@@ -224,7 +224,7 @@ sub setupSlave
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            $client->registerSlave($self->_hostname(), $apache->port, $client_cert);
+            $client->registerSlave($apache->port(), $client_cert, 1);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);
@@ -258,16 +258,6 @@ sub _recreateLDAP
     $users->enableActions();
 
     # TODO: reenable all LDAP modules
-}
-
-
-sub _hostname
-{
-    my ($self) = @_;
-    my $hostname = `hostname -f`;
-    chomp($hostname);
-
-    return $hostname;
 }
 
 sub _analyzeException

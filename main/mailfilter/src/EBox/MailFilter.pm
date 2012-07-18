@@ -25,8 +25,6 @@ use base (
           'EBox::Mail::FilterProvider',
           'EBox::FirewallObserver',
           'EBox::LogObserver',
-          'EBox::Model::ModelProvider',
-          'EBox::Model::CompositeProvider',
          );
 
 use Perl6::Junction qw(all any);
@@ -226,71 +224,9 @@ sub enableModDepends
         push @depends, 'firewall';
     }
 
-
-
     return \@depends;;
 }
 
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            'EBox::MailFilter::Model::AmavisConfiguration',
-            'EBox::MailFilter::Model::AmavisPolicy',
-            'EBox::MailFilter::Model::ExternalMTA',
-            'EBox::MailFilter::Model::ExternalDomain',
-            'EBox::MailFilter::Model::VDomains',
-
-            'EBox::MailFilter::Model::FileExtensionACL',
-            'EBox::MailFilter::Model::MIMETypeACL',
-
-            'EBox::MailFilter::Model::AntispamConfiguration',
-            'EBox::MailFilter::Model::AntispamACL',
-            'EBox::MailFilter::Model::AntispamTraining',
-
-            'EBox::MailFilter::Model::AntispamVDomainACL',
-
-            'EBox::MailFilter::Model::POPProxyConfiguration',
-
-            'EBox::MailFilter::Model::Report::FilterDetails',
-            'EBox::MailFilter::Model::Report::FilterGraph',
-            'EBox::MailFilter::Model::Report::FilterReportOptions',
-
-            'EBox::MailFilter::Model::Report::POPProxyDetails',
-            'EBox::MailFilter::Model::Report::POPProxyGraph',
-            'EBox::MailFilter::Model::Report::POPProxyReportOptions',
-           ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-            'EBox::MailFilter::Composite::Amavis',
-            'EBox::MailFilter::Composite::ExternalConnections',
-
-            'EBox::MailFilter::Composite::FileFilter',
-
-            'EBox::MailFilter::Composite::Antispam',
-
-            'EBox::MailFilter::Composite::Report::FilterReport',
-            'EBox::MailFilter::Composite::Report::POPProxyReport',
-           ];
-}
-
-#
 # Method: smtpFilter
 #
 # Returns:
@@ -302,8 +238,6 @@ sub smtpFilter
 }
 
 
-
-#
 # Method: antispam
 #
 # Returns:

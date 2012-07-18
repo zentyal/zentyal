@@ -43,15 +43,13 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -62,23 +60,15 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'General',
+        pageTitle       => __('HTTP Proxy'),
+        compositeDomain => 'Squid',
+    };
 
-      my $description =
-        {
-         components      => [
-                             '/squid/GeneralSettings',
-                             '/squid/NoCacheDomains',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'General',
-         pageTitle => __('HTTP Proxy'),
-         compositeDomain => 'Squid',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

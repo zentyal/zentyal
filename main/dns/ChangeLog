@@ -1,4 +1,17 @@
-HEAD
+2.3.9
+	+ Fixed help strings
+	+ Add method to set the domain's dynamic flag
+	+ Read and apply the samba domain update policy
+	+ Added message when a domain is added to clarify concepts
+2.3.8
+	+ Adapted DHCP ranges to reverse ip fix in Net::IP
+	+ Fixed and improved facade method for management of domains,
+	  hostname and alias
+	+ Added foreign declarations in module schema
+2.3.7
+	+ Use FirewallObserver instead of deprecated addOutputRule
+	+ Adapted to new Model management framework
+2.3.6
 	+ Add new field subdomain to hostnames and services  model,
 	  needed to create some samba records
 	+ API to add/delete A, SRV and TXT records to a domain

@@ -65,10 +65,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                '/ltsp/GeneralClientOpts',
-                '/ltsp/OtherClientOpts',
-            ],
         layout          => 'top-bottom',
         name            => 'ClientConfiguration',
         printableName   => __('Client Configuration'),

@@ -1,4 +1,17 @@
 HEAD
+	+ Added load of custom iptables modules
+	+ Added table for SNAT rules
+	+ Added filtering by source MAC
+	+ EBox::Firewall::IPRule can accept now IPRange objects as source
+	  or destination
+2.3.7
+	+ Remove obsolete denyAction code
+	+ Adapted to new Model management framework
+	+ Remove obsolete OutputRules code
+	+ Remove obsolete localredirects methods
+	+ Remove obsolete import of EBox::Order
+2.3.6
+	+ Set RemoteServices rules taking into account no bundle state
 	+ Added clone action to tables
 	+ EBox::Firewall::availablePort now works for non-FirewallObserver modules
 	  and it uses the same readonly status as the firewall module

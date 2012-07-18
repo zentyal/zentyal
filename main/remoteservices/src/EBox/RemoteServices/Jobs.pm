@@ -14,13 +14,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Jobs;
-use base 'EBox::RemoteServices::Auth';
+use base qw(EBox::RemoteServices::Cred);
 
 # Class: EBox::RemoteServices::Jobs
 #
-#      This class sends job results to the Control Panel using the SOAP
-#      client through VPN. It already takes into account to establish
-#      the VPN connection and the required data to auth data
+#      This class sends job results to the Control Panel using the REST client
 #
 
 use strict;
@@ -69,9 +67,9 @@ sub new
 #
 sub jobResult
 {
-    my ($self, @wsParams) = @_;
+    my ($self, %wsParams) = @_;
 
-    $self->_transmitResult('jobResult', @wsParams);
+    $self->_transmitResult('/v1/jobs/', %wsParams);
 }
 
 # Method: cronJobResult
@@ -93,9 +91,9 @@ sub jobResult
 #
 sub cronJobResult
 {
-    my ($self, @wsParams) = @_;
+    my ($self, %wsParams) = @_;
 
-    $self->_transmitResult('cronJobResult', @wsParams);
+    $self->_transmitResult('/v1/jobs/cron/', %wsParams);
 }
 
 # Method: cronJobs
@@ -114,7 +112,8 @@ sub cronJobs
 {
     my ($self, @wsParams) = @_;
 
-    return $self->soapCall('cronJobs', @wsParams);
+    my $response = $self->RESTClient()->GET('/v1/jobs/cron/');
+    return $response->data();
 }
 
 # Group: Protected methods
@@ -146,9 +145,9 @@ sub _serviceHostNameKey
 # Upload the job result separated in tracks if required
 sub _transmitResult
 {
-    my ($self, $type, @wsParams) = @_;
+    my ($self, $url, %wsParams) = @_;
 
-    my %originalWSParams = @wsParams;
+    my %originalWSParams = %wsParams;
     my $lengthStdOut = length($originalWSParams{stdout});
     my $lengthStdErr = length($originalWSParams{stderr});
     if ( $lengthStdOut > MAX_SIZE or $lengthStdErr > MAX_SIZE) {
@@ -156,18 +155,22 @@ sub _transmitResult
         my $startPos = 0;
         $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
         $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
-        my $jobResultId = $self->soapCall($type, %wsParams);
+        # Create the job result and get its id
+        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams)->data();
+        my $jobResultId = $ret->{'job_result_id'};
+
+        # Append all the remaining data
         while ( $lengthStdOut > $startPos or $lengthStdErr > $startPos) {
             $startPos += MAX_SIZE;
             my $stdout = $startPos > $lengthStdOut ? '' : substr($originalWSParams{stdout}, $startPos, MAX_SIZE);
             my $stderr = $startPos > $lengthStdErr ? '' : substr($originalWSParams{stderr}, $startPos, MAX_SIZE);
-            $self->soapCall('appendJobResult',
-                            jobInstanceResultId => $jobResultId,
-                            stdout => $stdout,
-                            stderr => $stderr);
+            $self->RESTClient()->PUT($url . "$jobResultId/result/",
+                                     {jobInstanceResultId => $jobResultId,
+                                      stdout => $stdout,
+                                      stderr => $stderr});
         }
     } else {
-        $self->soapCall($type, @wsParams);
+        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams);
     }
 
 }

@@ -1,4 +1,11 @@
-HEAD
+2.3.3
+	+ Disabled rules for ppp and non set interfaces
+	+ iptables range option used in commands upon object range members
+	+ Added all interfaces option in rule select interface option
+2.3.2
+	+ Separate rules in internal (download) and external (upload)
+	+ Use regular models instead of a dynamic select composite
+	+ Adapted to new Model management framework
 	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
 	+ Fixed duplicate rows in interfaces rates page
 2.3.1

@@ -43,26 +43,33 @@ sub _makeConfBackup
         # Make the conf backup if any change has been done to Zentyal
         if ( $gl->lastModificationTime() > $lastBackupStamp ) {
             my $backupService = new EBox::RemoteServices::Backup();
-            my $automatic = 1;
+            my ($automatic, $level, $msg, $additional) = (1, 'info', '', {});
             try {
                 $backupService->makeRemoteBackup('automatic-backup-' . time(),
                                                  __('Automatic backup'),
                                                  $automatic);
                 # Save the timestamp for later use
                 File::Slurp::write_file(LAST_BACKUP_TIMESTAMP_FILE, time());
+                $msg = __('Automatic configuration backup done');
             } catch EBox::Exceptions::Base with {
                 my ($exc) = @_;
                 # Cannot make the backup, inform the user with an event
-                my $evtMod = $gl->modInstance('events');
-                my $msg = __x('Cannot make the automatic backup. {reason}',
-                              reason =>  $exc->stringify());
-                try {
-                    $evtMod->sendEvent(message => $msg,
-                                       source  => 'automatic-backup',
-                                       level   => 'error');
-                } catch EBox::Exceptions::Base with {
-                    EBox::error($msg);
-                };
+                $reason = $exc->stringify();
+                $msg = __x('Cannot make the automatic backup. {reason}',
+                           reason => $reason);
+                $level = 'error';
+                $additional = { reason => $reason };
+            };
+            my $evtMod = $gl->modInstance('events');
+            try {
+                $dispatchTo = [ 'ControlCenter' ] if ($level ne 'info');
+                $evtMod->sendEvent(message    => $msg,
+                                   source     => 'automatic-backup',
+                                   level      => $level,
+                                   additional => $additional,
+                                   dispatchTo => $dispatchTo);
+            } catch EBox::Exceptions::Base with {
+                EBox::error($msg);
             };
         }
     }

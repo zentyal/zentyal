@@ -24,10 +24,9 @@ package EBox::Services;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config);
 
 use EBox::Validate qw( :all );
-use EBox::Global;
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
 use EBox::Gettext;
@@ -47,10 +46,6 @@ sub _create
                                       printableName => __('Services'),
                                       @_);
     bless($self, $class);
-
-    $self->{'serviceModel'} = $self->model('ServiceTable');
-    $self->{'serviceConfigurationModel'} = $self->model('ServiceConfigurationTable');
-
     return $self;
 }
 
@@ -80,7 +75,7 @@ sub _defaultServices
 
     my $apachePort;
     try {
-        $apachePort = EBox::Global->modInstance('apache')->port();
+        $apachePort = $self->global()->modInstance('apache')->port();
     } otherwise {
         $apachePort = 443;
     };
@@ -137,79 +132,6 @@ sub _defaultServices
     ];
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    # TODO: Remove customized directory names and rename them
-    # in the migration script from Zentyal 2.0 to 2.2 ?
-    return [
-        {
-          class => 'EBox::Services::Model::ServiceTable',
-          parameters => [ directory => 'serviceTable' ],
-        },
-        {
-          class => 'EBox::Services::Model::ServiceConfigurationTable',
-          parameters => [ directory => 'serviceConfigurationTable' ],
-        },
-    ];
-}
-
-# Method: exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-# Returns:
-#
-#      hash ref - the list of the exposes method in a hash ref every
-#      component
-#
-sub _exposedMethods
-{
-    my %exposedMethods =
-       (
-        'serviceName'     => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'id' ],
-                               selector => [ 'name' ],
-                             },
-        'serviceId'       => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'name' ],
-                               selector => [ 'id' ],
-                             },
-        'service'         => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'id' ],
-                             },
-         'updateDestPort' => { action   => 'set',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name', 'id' ],
-                               selector => [ 'destination' ],
-                             },
-         'addSrvConf'     => { action   => 'add',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name' ],
-                             },
-         'delSrvConf'     => { action   => 'del',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name', 'id' ],
-                             },
-         'srvConf'        => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'name' ],
-                             },
-       );
-
-    return \%exposedMethods;
-}
-
 # Method: serviceNames
 #
 #       Fetch all the service identifiers and names
@@ -236,7 +158,7 @@ sub serviceNames
 {
     my ($self) = @_;
 
-    my $servicesModel = $self->{'serviceModel'};
+    my $servicesModel = $self->model('ServiceTable');
     my @services;
 
     foreach my $id (@{$servicesModel->ids()}) {
@@ -280,18 +202,18 @@ sub serviceConfiguration
 
     throw EBox::Exceptions::ArgumentMissing("id") unless defined($id);
 
-    my $row = $self->{'serviceModel'}->row($id);
+    my $row = $self->model('ServiceTable')->row($id);
 
     unless (defined($row)) {
-        throw EBox::Exceptions::DataNotFound('data' => 'id',
+        throw EBox::Exceptions::DataNotFound('data' => 'service by id',
                 'value' => $id);
     }
 
     my $model = $row->subModel('configuration');
 
     my @conf;
-    for my $id (@{$model->ids()}) {
-	my $subRow = $model->row($id);
+    foreach my $id (@{$model->ids()}) {
+        my $subRow = $model->row($id);
         push (@conf, {
                         'protocol' => $subRow->valueByName('protocol'),
                         'source' => $subRow->valueByName('source'),
@@ -300,6 +222,36 @@ sub serviceConfiguration
     }
 
     return \@conf;
+}
+
+# Method: serviceIptablesArgs
+#
+#  get a list with the iptables arguments required to match each of the
+#  configurations of the service (see serviceConfiguration)
+#
+#  Warning:
+#    for any/any/any configuration a empty string is the correct iptables argument
+sub serviceIptablesArgs
+{
+    my ($self, $id) = @_;
+    my @args;
+    my @conf =  @{ $self->serviceConfiguration($id) };
+    foreach my $conf (@conf) {
+        my $args = '';
+        if ($conf->{protocol} ne 'any') {
+            $args .= '--protocol ' . $conf->{protocol};
+        }
+        if ($conf->{source} ne 'any') {
+            $args .= ' --sport ' . $conf->{source};
+        }
+        if ($conf->{destination} ne 'any') {
+            $args .= ' --dport ' . $conf->{destination};
+        }
+
+        push @args, $args;
+    }
+
+    return \@args;
 }
 
 # Method: addService
@@ -336,7 +288,7 @@ sub addService
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->addService(%params);
+    return $self->model('ServiceTable')->addService(%params);
 }
 
 # Method: addMultipleService
@@ -386,7 +338,7 @@ sub addMultipleService
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->addMultipleService(%params);
+    return $self->model('ServiceTable')->addMultipleService(%params);
 }
 
 # Method: setService
@@ -419,7 +371,7 @@ sub setService
 {
     my ($self, %params) = @_;
 
-    $self->{'serviceModel'}->setService(%params);
+    $self->model('ServiceTable')->setService(%params);
 }
 
 # Method: setMultipleService
@@ -470,7 +422,7 @@ sub setMultipleService
 {
     my ($self, %params) = @_;
 
-    $self->{'serviceModel'}->setMultipleService(%params);
+    $self->model('ServiceTable')->setMultipleService(%params);
 }
 
 # Method: setAdministrationPort
@@ -517,7 +469,7 @@ sub availablePort
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->availablePort(%params);
+    return $self->model('ServiceTable')->availablePort(%params);
 }
 
 # Method: serviceFromPort
@@ -537,7 +489,7 @@ sub serviceFromPort
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->serviceFromPort(%params);
+    return $self->model('ServiceTable')->serviceFromPort(%params);
 }
 
 # Method: removeService
@@ -560,7 +512,7 @@ sub removeService
         throw EBox::Exceptions::MissingArgument('service');
     }
 
-    my $model =  $self->{'serviceModel'};
+    my $model =  $self->model('ServiceTable');
     my $id = $params{'id'};
 
     if (not defined($id)) {
@@ -594,7 +546,7 @@ sub serviceExists
         throw EBox::Exceptions::MissingArgument('service id or name');
     }
 
-    my $model =  $self->{'serviceModel'};
+    my $model =  $self->model('ServiceTable');
     my $id = $params{'id'};
 
     my $row;
@@ -629,7 +581,7 @@ sub serviceId
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $model = $self->{'serviceModel'};
+    my $model = $self->model('ServiceTable');
     my $row = $model->findValue('name' => $name);
     if (not defined $row) {
         return undef;

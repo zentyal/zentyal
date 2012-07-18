@@ -135,16 +135,20 @@ sub new
 #    }
     # Check addresses
     if ( $args{srcAddr} ) {
-      if ( not $args{srcAddr}->isa('EBox::Types::IPAddr') and
-	   not $args{srcAddr}->isa('EBox::Types::MACAddr') ) {
-	throw EBox::Exceptions::InvalidType( 'srcAddr',
-					     'EBox::Types::IPAddr or EBox::Types::MACAddr');
+      if ( (not $args{srcAddr}->isa('EBox::Types::IPAddr')) and
+           (not $args{srcAddr}->isa('EBox::Types::MACAddr')) and
+           (not $args{srcAddr}->isa('EBox::Types::IPRange') )
+          ) {
+          throw EBox::Exceptions::InvalidType( 'srcAddr',
+                                               'EBox::Types::IPAddr or EBox::Types::MACAddr or EBox::Types::IPRange');
       }
     }
     if ( $args{dstAddr} ) {
-      if ( not $args{dstAddr}->isa('EBox::Types::IPAddr') ) {
-	throw EBox::Exceptions::InvalidType( 'srcAddr',
-					     'EBox::Types::IPAddr');
+      if ( (not $args{dstAddr}->isa('EBox::Types::IPAddr')) and
+           (not $args{dstAddr}->isa('EBox::Types::IPRange') )
+          ) {
+        throw EBox::Exceptions::InvalidType( 'srcAddr',
+                                             'EBox::Types::IPAddr or EBox::Types::IPRange');
       }
     }
 
@@ -168,17 +172,23 @@ sub new
     if ( $args{srcAddr} ) {
       $self->{srcAddr} = $args{srcAddr};
       if ( $args{srcAddr}->isa('EBox::Types::IPAddr')) {
-	$self->{srcIP} = $args{srcAddr}->ip();
-	$self->{srcNetMask} = $args{srcAddr}->mask();
-      }
-      elsif ( $args{srcAddr}->isa('EBox::Types::MACAddr') ) {
-	$self->{srcMAC} = $args{srcAddr}->value();
+          $self->{srcIP} = $args{srcAddr}->ip();
+          $self->{srcNetMask} = $args{srcAddr}->mask();
+      } elsif ( $args{srcAddr}->isa('EBox::Types::MACAddr') ) {
+          $self->{srcMAC} = $args{srcAddr}->value();
+      } elsif ( $args{srcAddr}->isa('EBox::Types::IPRange')) {
+          $self->{srcRange} = $args{srcAddr};
       }
     }
+
     if ( $args{dstAddr} ) {
       $self->{dstAddr} = $args{dstAddr};
-      $self->{dstIP} = $args{dstAddr}->ip();
-      $self->{dstNetMask} = $args{dstAddr}->mask();
+      if ( $args{dstAddr}->isa('EBox::Types::IPAddr')) {
+          $self->{dstIP} = $args{dstAddr}->ip();
+          $self->{dstNetMask} = $args{dstAddr}->mask();
+      } elsif ( $args{dstAddr}->isa('EBox::Types::IPRange')) {
+          $self->{dstRange} = $args{dstAddr};
+      }
     }
 
     # Iptables priority
@@ -365,12 +375,18 @@ sub dumpIptablesCommands
     if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP )) {
         my $ipTablesRule = EBox::TrafficShaping::Firewall::IptablesRule->new( chain => $shaperChain );
 
-        if ( defined ( $self->{srcAddr} )) {
+        if (defined $self->{srcRange}) {
+            $ipTablesRule->setSourceAddress(inverseMatch => 0,
+                    sourceRange => $self->{srcRange});
+        } elsif ( defined ( $self->{srcAddr} )) {
             $ipTablesRule->setSourceAddress(inverseMatch => 0,
                     sourceAddress => $self->{srcAddr});
         }
 
-        if (defined ( $self->{dstAddr} )) {
+        if (defined ( $self->{dstRange} )) {
+            $ipTablesRule->setDestinationAddress( inverseMatch => 0,
+                    destinationRange => $self->{dstRange} );
+        } elsif (defined ( $self->{dstAddr} )) {
             $ipTablesRule->setDestinationAddress( inverseMatch => 0,
                     destinationAddress => $self->{dstAddr} );
         }
@@ -413,7 +429,7 @@ sub dumpIptablesCommands
             my $trafficshaping = EBox::Global->modInstance('trafficshaping');
             my $queue = $trafficshaping->ifaceUniqueId($self->{parent}->getInterface());
 
-            $ipTablesRule->setDecision("NFQUEUE --queue $queue");
+            $ipTablesRule->setDecision("NFQUEUE --queue-num $queue");
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
 
             # Set the mark to remove l7filter mark when the result is

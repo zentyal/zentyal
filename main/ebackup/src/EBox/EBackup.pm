@@ -20,8 +20,7 @@ package EBox::EBackup;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use strict;
 use warnings;
@@ -82,43 +81,6 @@ sub _create
     return $self;
 }
 
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::EBackup::Model::RemoteSettings',
-        'EBox::EBackup::Model::RemoteExcludes',
-        'EBox::EBackup::Model::RemoteStatus',
-        'EBox::EBackup::Model::RemoteFileList',
-        'EBox::EBackup::Model::RemoteRestoreLogs',
-        'EBox::EBackup::Model::RemoteRestoreConf',
-        'EBox::EBackup::Model::RemoteStorage',
-        'EBox::EBackup::Model::BackupDomains',
-    ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::EBackup::Composite::RemoteGeneral',
-        'EBox::EBackup::Composite::Remote',
-        'EBox::EBackup::Composite::ServicesRestore',
-    ];
-}
-
 # Method: addModuleStatus
 #
 #       Overrides to show a custom status for ebackup module
@@ -151,6 +113,17 @@ sub postBackupHook
 {
     my ($self) = @_;
     $self->_hook('postbackup');
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'EBackup' ];
 }
 
 # Method: restoreFile
@@ -1207,7 +1180,7 @@ sub _remoteUrl
             my $drAddOn = EBox::EBackup::Subscribed->isSubscribed();
             if (not $drAddOn) {
                 throw EBox::Exceptions::External(
-__('You need to have the disaster recovery add-on to use this backup method')
+__('Cannot use the Cloud backup method. Either you do not have the disaster recovery add-on or you could not connect to the Zentyal Cloud to get credentials.')
                                                 );
             }
 

@@ -27,28 +27,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Constructor for the technical support composite
-#
-# Returns:
-#
-#       <EBox::RemoteServices::Composite::Technical> - the technical
-#       support composite
-#
-sub new
-{
-
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -59,21 +37,14 @@ sub new
 #
 sub _description
 {
-
-    my $description =
-      {
-          components      => [
-              'TechnicalInfo',
-              'RemoteSupportAccess',
-             ],
+    my $description = {
           layout          => 'top-bottom',
           name            => __PACKAGE__->nameFromClass(),
           pageTitle       => __('Technical Support'),
           compositeDomain => 'RemoteServices',
-        };
+    };
 
     return $description;
-
 }
 
 1;

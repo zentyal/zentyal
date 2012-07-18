@@ -24,14 +24,13 @@ package EBox::RemoteServices::Auth;
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Base';
+use base 'EBox::RemoteServices::Connection';
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
 
-use Digest::MD5;
 use IO::Socket::INET;
 
 # Constants
@@ -46,37 +45,8 @@ sub new
 
     my $self = $class->SUPER::new();
 
-    # Merge self with the certs
-    my %certificates = %{$self->_certificates()};
-    while ( my ($key, $value) = each(%certificates)) {
-        $self->{$key} = $value;
-    }
-
     bless $self, $class;
     return $self;
-}
-
-# Method: clientNameForRemoteServices
-#
-#     OpenVPN client daemon name to be used by remote services which
-#     requires authentication
-#
-# Returns:
-#
-#     String - the client daemon name
-#
-sub clientNameForRemoteServices
-{
-    my ($self) = @_;
-
-    # Create the MD5sum with this and get the first 10 chars
-    my $md5 = new Digest::MD5();
-    $md5->add($self->_cn());
-    my $md5Str = $md5->hexdigest();
-
-    $md5Str = substr($md5Str, 0, 9);
-
-    return "R_D_SRVS_$md5Str";
 }
 
 # Method: soapCall
@@ -95,17 +65,6 @@ sub soapCall
 
 #  return $conn->$method(commonName => $clientToken, @params);
   return  $conn->$method(@params);
-}
-
-# Method: cleanDaemons
-#
-#    Clean the VPN daemons
-#
-sub cleanDaemons
-{
-    my ($self) = @_;
-
-    $self->_disconnect();
 }
 
 # Method: serviceUrn
@@ -168,202 +127,6 @@ sub valueFromBundle
     }
 
     return $value;
-
-}
-
-# Method: vpnClientForServices
-#
-#     Get the VPN client class for remote services
-#
-# Returns:
-#
-#     <EBox::OpenVPN::Client> - the OpenVPN client instance
-#
-sub vpnClientForServices
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    my $openvpn = $gl->modInstance('openvpn');
-
-    my $client;
-    my $clientName = $self->clientNameForRemoteServices();
-
-    if ($openvpn->clientExists($clientName)) {
-        $client = $openvpn->client($clientName);
-    } else {
-        my ($address, $port, $protocol, $vpnServerName) = @{$self->vpnLocation()};
-
-        # Configure and enable VPN module and its dependencies
-        foreach my $depName ((@{$openvpn->depends()}, $openvpn->name())) {
-            my $mod = $gl->modInstance($depName);
-            if (not $mod->configured() ) {
-                $mod->setConfigured(1);
-                $mod->enableActions();
-            }
-            if (not $mod->isEnabled() ) {
-                $mod->enableService(1);
-            }
-        }
-
-        my @localParams;
-        my $localAddr = $self->_vpnClientLocalAddress($address);
-        if ($localAddr) {
-            my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
-            @localParams = (
-                            localAddr  => $localAddr,
-                            lport  => $localPort,
-                           );
-        }
-
-
-        $client = $openvpn->newClient(
-            $clientName,
-            internal       => 1,
-            service        => 1,
-            proto          => $protocol,
-            servers        => [
-                [$vpnServerName => $port],
-               ],
-            caCertificate  => $self->{caCertificate},
-            certificate    => $self->{certificate},
-            certificateKey => $self->{certificateKey},
-            ripPasswd      => '123456', # Not used
-            @localParams,
-           );
-        $openvpn->save();
-    }
-
-    return $client;
-}
-
-# Method: vpnClientAdjustLocalAddress
-#
-#     Adjust local address and port for VPN client if there is any
-#     change in the network configuration to reach VPN server
-#
-# Parameters:
-#
-#     client - <EBox::OpenVPN::Client> the VPN client to adjust
-#
-sub vpnClientAdjustLocalAddress
-{
-    my ($self, $client) = @_;
-    my ($server_r) = @{ $client->servers() };
-    my ($serverAddr, $serverPort) = @{ $server_r };
-    my $localAddr = $client->localAddr();
-
-    my $newLocalAddr = $self->_vpnClientLocalAddress($serverAddr);
-    my $newLocalPort;
-    if ($newLocalAddr) {
-        if ($localAddr and ($localAddr eq $newLocalAddr)) {
-            # no changes
-            return;
-        }
-
-        $newLocalPort = EBox::NetWrappers::getFreePort($client->proto(), $newLocalAddr);
-    } else {
-        if (not $localAddr) {
-            # no changes
-            return;
-        }
-        $newLocalAddr = undef;
-        $newLocalPort = undef;
-    }
-
-    # There are changes
-    $client->setLocalAddrAndPort($newLocalAddr, $newLocalPort);
-    my $openvpnMod = EBox::Global->modInstance('openvpn');
-    $openvpnMod->save();
-
-}
-
-# get local address for connect with server
-sub _vpnClientLocalAddress
-{
-    my ($self, $serverAddr) = @_;
-    my $network = EBox::Global->modInstance('network');
-
-    # get interfaces to check and their order
-    my ($ifaceGw , $gw) = $network->_defaultGwAndIface();
-    # check first external ifaces..
-    my @ifaces = ( @{ $network->ExternalIfaces() }, @{ $network->InternalIfaces()}  );
-    # remove ifaces configured via dhcp
-    @ifaces = grep {
-        $network->ifaceMethod($_) ne 'dhcp'
-    } @ifaces;
-
-    my @addresses;
-    foreach my $iface ( @ifaces ) {
-        my @ifAddrs = EBox::NetWrappers::iface_addresses($iface);
-        if (defined $ifaceGw and ($iface eq $ifaceGw)) {
-            # first addresses to look up
-            unshift @addresses, @ifAddrs;
-        } else {
-            push @addresses, @ifAddrs;
-        }
-    }
-
-    # look whether address can connect to the VPN server
-    foreach my $addr (@addresses) {
-        # Change this... to use nmap check
-        my $pingCmd = "ping -w 3 -I $addr -c 1 $serverAddr 2>&1 > /dev/null";
-        system $pingCmd;
-        if ($? == 0) {
-            return $addr;
-        }
-    }
-
-    # no address found
-    return undef;
-}
-
-# Method: vpnLocation
-#
-#     Get the VPN server location, that includes IP address, port and
-#     protocol
-#
-# Returns:
-#
-#     array ref - containing the two following elements
-#
-#             ipAddr - String the VPN IP address
-#             port   - Int the port to connect to
-#             protocol - String the protocol 'udp' or 'tcp'
-#             serverName - String the server domain name
-#
-sub vpnLocation
-{
-    my ($self) = @_;
-
-    my $serverName = EBox::Config::configkeyFromFile('vpnServer',
-                                                     $self->_confFile());
-    my $address    = $self->_queryServicesNameserver($serverName,
-                                                     $self->SUPER::_nameservers());
-    my $port       = EBox::Config::configkeyFromFile('vpnPort',
-                                                     $self->_confFile());
-    my $protocol   = EBox::Config::configkeyFromFile('vpnProtocol',
-                                                     $self->_confFile());
-
-    return [$address, $port, $protocol, $serverName];
-}
-
-# Method: isConnected
-#
-#    Check whether the auth service is connected to Zentyal Cloud or not
-#
-# Returns:
-#
-#    Boolean - indicating the state
-#
-sub isConnected
-{
-    my ($self) = @_;
-
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    my $client  = $self->vpnClientForServices();
-
-    return ($client->isRunning() and $client->ifaceAddress());
 }
 
 # Method: monitorGatherers
@@ -401,9 +164,12 @@ sub _connect
 {
     my ($self) = @_;
 
-    $self->_vpnConnect();
+    my $vpnClient = $self->vpnClient();
+    unless ( $vpnClient ) {
+        $self->create();
+    }
+    $self->connect();
     $self->SUPER::_connect();
-
 }
 
 # Method: _disconnect
@@ -417,8 +183,7 @@ sub _disconnect
     my ($self) = @_;
 
     $self->SUPER::_disconnect();
-    $self->_vpnDisconnect();
-
+    $self->disconnectAndRemove();
 }
 
 # Method: _nameservers
@@ -439,26 +204,6 @@ sub _nameservers
     } else {
         return [ $ns ];
     }
-
-}
-
-# Method: _confFile
-#
-#    Get the configuration file from a directory
-#
-# Returns:
-#
-#    String - containing the path to that configuration file
-#
-sub _confFile
-{
-    my ($self) = @_;
-
-    my $confDir = EBox::Config::conf() . SERV_SUBDIR . '/' . $self->_cn();
-    my @confFiles = <$confDir/*.conf>;
-
-    return $confFiles[0];
-
 }
 
 # Method: _serviceUrnKey
@@ -492,26 +237,6 @@ sub _serviceHostNameKey
 
 # Group: Private methods
 
-# Get the certificates path from the configuration file
-sub _certificates
-{
-    my ($self) = @_;
-    my $keys = EBox::Config::configKeysFromFile($self->_confFile());
-
-    my $dirPath = EBox::Config::conf() . SERV_SUBDIR . '/' . $self->_cn() . '/';
-    my $caCertificate  = $dirPath . $keys->{caCertificate};
-    my $certificate    = $dirPath . $keys->{certificate};
-    my $certificateKey = $dirPath . $keys->{certificateKey};
-
-    my %certs = (
-        caCertificate   => $caCertificate,
-        certificate     => $certificate,
-        certificateKey  => $certificateKey,
-       );
-
-    return \%certs;
-}
-
 # Client token
 
 sub _newClientToken
@@ -541,55 +266,10 @@ sub _clientToken
 
 }
 
-# VPN connection related methods
-sub _vpnConnect
-{
-  my ($self) = @_;
-
-  my $openvpn = EBox::Global->modInstance('openvpn');
-  my $client = $self->vpnClientForServices();
-
-  my $connected = $client->isRunning(); # XXX change for other thing
-
-  if (not $connected) {
-      $client->start();
-  }
-
-}
-
-sub _vpnDisconnect
-{
-  my ($self) = @_;
-
-  my $openvpnMod = EBox::Global->modInstance('openvpn');
-  my $client = $self->vpnClientForServices();
-  if ( $client ) {
-      $client->stop() if $client->isRunning();
-#     $client->delete();
-      $openvpnMod->deleteClient($client->name());
-      $openvpnMod->save();
-  }
-
-}
-
-# Remote services options
-sub _cn
-{
-    my ($self) = @_;
-    unless ( defined($self->{rs}) ) {
-        $self->{rs} = EBox::Global->modInstance('remoteservices');
-    }
-    return $self->{rs}->eBoxCommonName();
-}
-
 sub _userName
 {
     my ($self) = @_;
-    unless ( defined($self->{rs}) ) {
-        $self->{rs} = EBox::Global->modInstance('remoteservices');
-    }
     return $self->{rs}->subscriberUsername();
 }
 
 1;
-

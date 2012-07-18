@@ -1,4 +1,11 @@
-HEAD
+2.3.5
+	+ Fixed regression in add/remove/list group alias
+	+ Added user addon for retrieval mail from external accounts
+	+ Added fetch all mail option to retrieval mail from external accounts
+2.3.4
+	+ Implement new EBox::Events::DispatcherProvider
+	+ Adapted to new Model management framework
+	+ Always run postmap
 	+ Authenticated sender have to use a mail address which they own
 	+ Using old sieve directories as home mail directories
 	+ Enable GSSAPI/Kerberos authentication

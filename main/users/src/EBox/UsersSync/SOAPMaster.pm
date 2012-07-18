@@ -48,7 +48,10 @@ sub getCertificate
 
 sub registerSlave
 {
-    my ($self, $host, $port, $cert) = @_;
+    my ($self, $port, $cert) = @_;
+
+    my $req = Apache2::RequestUtil->request();
+    my $host = $req->connection->get_remote_host();
 
     my $users = EBox::Global->modInstance('users');
     my $master = $users->masterConf();

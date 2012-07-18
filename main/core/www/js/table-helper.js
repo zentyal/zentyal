@@ -464,9 +464,9 @@ function changeView(url, table, directory, action, id, page, isFilter)
             evalScripts: true,
             onComplete: function(t) {
               // Highlight the element
-                          if (id != undefined) {
+              if (id != undefined) {
                 highlightRow(id, true);
-                          }
+              }
               // Stripe again the table
               stripe('dataTable', 'even', 'odd');
               if ( action == 'changeEdit' ) {
@@ -485,8 +485,16 @@ function changeView(url, table, directory, action, id, page, isFilter)
               }
               else if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
-              }
-            }
+              } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+                var selector = 'input[id^="' + table + '_' + id + '_"]';
+                var checkboxes = $$(selector);
+                checkboxes.each(function(e) {
+                                  restoreHidden(e.parentNode.identify(), table);
+                                });
+
+                restoreHidden(table + '_' + id + '_div_CheckAll', table);
+             }
+         }
 
         });
 
@@ -500,6 +508,14 @@ function changeView(url, table, directory, action, id, page, isFilter)
     }
     else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
+   } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+       var selector = 'input[id^="' + table + '_' + id + '_"]';
+       var checkboxes = $$(selector);
+       checkboxes.each(function(e) {
+                         setLoading(e.parentNode.identify(), table, true);
+                      });
+
+      setLoading(table + '_' + id + '_div_CheckAll', table, true);
     }
 
 }
@@ -841,14 +857,19 @@ Parameters:
 
 */
 var savedElements = {};
+
+
 function setLoading (elementId, modelName, isSaved)
 {
-  if ( isSaved ) {
-    savedElements[elementId] = $(elementId).innerHTML;
+  var element = $(elementId);
+  if (isSaved) {
+    savedElements[elementId] = element.innerHTML;
   }
 
-  $(elementId).innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
+  element.innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
 }
+
+
 
 /*
 Function: setDone
@@ -888,6 +909,16 @@ function restoreHidden (elementId, modelName)
         $(elementId).innerHTML = savedElements[elementId];
     } else {
         $(elementId).innerHTML = '';
+    }
+}
+
+function restoreHiddenElement (element)
+{
+  var elementId = element.id;
+  if (savedElements[elementId] != null) {
+        element.innerHTML = savedElements[elementId];
+    } else {
+        element.innerHTML = '';
     }
 }
 
@@ -997,7 +1028,7 @@ Parameters:
     controller - url
     model - model
     id - row id
-    dir - gconf dir
+    dir - conf dir
     field - field name
     element - HTML element
 */
@@ -1108,6 +1139,63 @@ function removeSelectChoice(id, value, selectedIndex)
      options.selectedIndex = selectedIndex;
    }
 
+}
+
+function checkAllControlValue(url, table, directory, controlId, field)
+{
+    var pars = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
+    pars += '&controlId=' + controlId  + '&field=' + field;
+    pars +=  '&json=1';
+
+    AjaxParams =  {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              completedAjaxRequest();
+              var json = t.responseText.evalJSON(true);
+              $(controlId).checked = json.success;
+            }
+    };
+
+    MyAjax = new Ajax.Request(
+      url,
+      AjaxParams
+    );
+}
+
+
+function confirmationDialog(url, table, directory, actionToConfirm, elements)
+{
+  var dialogStr = null;
+  var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
+  pars +='&actionToConfirm=' + actionToConfirm;
+  for (var i=0; i < elements.length; i++) {
+    var name = elements[i];
+    var id = table + '_' + name;
+    var el = $(id);
+    pars +='&'+ name + '=';
+    pars +=el.value;
+  }
+
+  var request = new Ajax.Request(url, {
+        method: 'post',
+        parameters: pars,
+        asynchronous: false,
+        onSuccess: function (t) {
+           var json = t.responseText.evalJSON(true);
+           if (json.wantDialog) {
+            dialogStr = json.message;
+           }
+        },
+        onFailure: function(t) {
+          dialogStr = 'Are you sure?';
+        }
+
+      }
+    );
+
+  return dialogStr;
 }
 
 // Detect session loss on ajax request:

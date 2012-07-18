@@ -26,21 +26,7 @@ use EBox::Global;
 # Constants
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=mailfilter&utm_campaign=enterprise_edition';
 
-
 # Group: Public methods
-
-# Constructor: new
-#
-#
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
 
 # Method: permanentMessage
 #
@@ -85,23 +71,16 @@ sub permanentMessageType
 #
 sub _description
 {
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            =>  'Antispam',
+        printableName   => __('Antispam'),
+        pageTitle	    => __('Antispam'),
+        compositeDomain => 'MailFilter',
+    };
 
-     my $description =
-        {
-         components      => [
-                             'AntispamConfiguration',
-                             'AntispamACL',
-                             'AntispamTraining',
-                            ],
-         layout          => 'top-bottom',
-         name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('Antispam'),
-         pageTitle	 => __('Antispam'),
-         compositeDomain => 'MailFilter',
-#         help            => __(''),
-        };
-
-      return $description;
+    return $description;
 }
 
 # Group: Private methods

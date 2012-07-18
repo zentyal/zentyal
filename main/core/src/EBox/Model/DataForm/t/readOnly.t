@@ -35,7 +35,7 @@ BEGIN {
 
 
 my $logs = EBox::Global->modInstance('logs');
-my $model = new EBox::Test::StaticForm( gconfmodule => $logs,
+my $model = new EBox::Test::StaticForm( confmodule => $logs,
                                         directory   => '1');
 
 isa_ok( $model, 'EBox::Test::StaticForm');

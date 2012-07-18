@@ -1,6 +1,10 @@
-HEAD
+2.3.6
+	+ Added EBox::Object::Members class. ObjectAddresses are always
+	  with mask, before, addresses from a range were without it
+2.3.5
+	+ Adapted to new Model management framework
 	+ Added clone options
-	+ Unallow /32 addresses ending in zero
+	+ Disallow /32 addresses ending in zero
 2.3.4
 	+ Added the posibility to create readOnly objects
 	+ addObject method now returns the object id

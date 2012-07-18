@@ -1,4 +1,11 @@
-HEAD
+2.3.3
+	+ Validate that CD images are in ISO format
+	+ MAC addresses can be always set without need of config key and also
+	  have a random default value
+2.3.2
+	+ Remove no longer necessary parentComposite workarounds
+	+ Adapted to new Model management framework
+	+ Adapted Status type to new framework
 	+ Fixed error in getting VM state with a language different than english
 2.3.1
 	+ Added printableName for VNC service

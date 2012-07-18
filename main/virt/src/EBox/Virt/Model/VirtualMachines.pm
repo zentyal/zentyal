@@ -37,31 +37,6 @@ use EBox::Types::HasMany;
 use EBox::Types::Action;
 use EBox::Types::MultiStateAction;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new VirtualMachines model.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Virt::Model::VirtualMachines> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ( $self, $class );
-
-    return $self;
-}
-
 # Group: Private methods
 
 # Method: _table
@@ -400,7 +375,7 @@ sub ifaceMethodChanged
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-    my $virt = $self->{gconfmodule};
+    my $virt = $self->{confmodule};
 
     my $vncport = $row->valueByName('vncport');
     if (not $vncport) {
@@ -416,7 +391,7 @@ sub addedRowNotify
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    my $virt = $self->{gconfmodule};
+    my $virt = $self->{confmodule};
     $virt->updateFirewallService();
 
     # stop VM

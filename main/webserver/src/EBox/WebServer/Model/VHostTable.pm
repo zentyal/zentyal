@@ -158,7 +158,7 @@ sub addedRowNotify
             } else {
                 $domainData = {
                                domain_name => $domain,
-                               hostnames => [ { hostname => $hostName, ip => $ip,}, ],
+                               hostnames => [ { name => $hostName, ipAddresses => [$ip],}, ],
                               };
             }
             $dns->addDomain($domainData);
@@ -186,9 +186,10 @@ sub addedRowNotify
                 my ($commonHostName) = grep { $_->{ip} eq $ip } @hostNames;
                 unless ( $commonHostName ) {
                     # Add a host name
-                    $dns->addHostName( $domain,
-                                       hostname => $hostName,
-                                       ipaddr => $ip);
+                    $dns->addHost( $domain, {
+                                       name => $hostName,
+                                       ipAddresses => [$ip]
+                                      } );
                     $self->setMessage(__x('Virtual host {vhost} added. A mapping ' .
                                           'name {name} - IP address {ip} has been added ' .
                                           'to {domain} domain.',
@@ -199,16 +200,16 @@ sub addedRowNotify
                                          ));
                 } else {
                     # Add an alias
-                    my $oldHostName = $commonHostName->{name};
+                    my $realHostName = $commonHostName->{name};
                     try {
                         $dns->addAlias( $domain,
-                                        $oldHostName,
+                                        $realHostName,
                                         $hostName);
                         $self->setMessage(__x('Virtual host {vhost} added as an alias {alias}'
                                               . ' to hostname {hostname}.',
                                               vhost    => $vHostName,
                                               alias    => $hostName,
-                                              hostname => $oldHostName));
+                                              hostname => $realHostName));
                     } catch EBox::Exceptions::DataExists with {
                         $self->setMessage(__x('Virtual host {vhost} added.',
                                               vhost => $vHostName));

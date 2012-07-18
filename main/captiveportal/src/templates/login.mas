@@ -1,6 +1,7 @@
 <%args>
   $reason => ""
   $destination
+  $origDestination => ''
 </%args>
 <%init>
 use EBox::Gettext;
@@ -20,15 +21,15 @@ use EBox::Gettext;
                 </div>
 
 	<table id="login">
-          <tr> 
-            <td rowspan="4" id="logotd"> 
-              <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/> 
-            </td> 
-            <td colspan="2"> 
+          <tr>
+            <td rowspan="4" id="logotd">
+              <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
+            </td>
+            <td colspan="2">
                 <center><h2 style="color: #333"><% __('Captive portal') %></h2></center>
-            <div class="warning" id="capsWarning" style="display: none"> 
+            <div class="warning" id="capsWarning" style="display: none">
                 Warning: Caps Lock is enabled
-            </div> 
+            </div>
 %		if(length($reason)){
 			<div id='reason'><% $reason %></div>
 %		}
@@ -48,6 +49,8 @@ use EBox::Gettext;
                     size='14' /></td>
                 <input type='hidden' name='destination'
                     value='<% $destination %>' />
+                <input type='hidden' name='origDestination'
+                    value='<% $origDestination %>' />
           </tr>
           <tr>
             <td></td>

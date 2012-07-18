@@ -54,57 +54,54 @@ my %policies = (
                          },
                );
 
-
 sub new
 {
-  my ($class, %params) = @_;
+    my ($class, %params) = @_;
 
-  if (not exists $params{defaultValue}) {
-    $params{defaultValue} = 'allow';
-  }
+    if (not exists $params{defaultValue}) {
+        $params{defaultValue} = 'allow';
+    }
 
-  $params{editable} = 1;
-  $params{populate} = \&_populate;
+    $params{editable} = 1;
+    $params{populate} = \&_populate;
 
-  my $self = $class->SUPER::new(%params);
+    my $self = $class->SUPER::new(%params);
 
-  bless $self, $class;
-  return $self;
+    bless $self, $class;
+    return $self;
 }
-
 
 sub _populate
 {
-  my @elements = (
-                  { value => 'allow',  printableValue => __('Always allow') },
-                  { value => 'filter', printableValue => __('Filter') },
-                  { value => 'deny',   printableValue => __('Always deny') },
-                  { value => 'auth',   printableValue => __('Authorize and allow') },
-                  { value => 'authAndFilter',   printableValue => __('Authorize and filter') },
-                  { value => 'authAndDeny',   printableValue => __('Authorize and deny') },
-                 );
+    my @elements = (
+            { value => 'allow',  printableValue => __('Always allow') },
+            { value => 'filter', printableValue => __('Filter') },
+            { value => 'deny',   printableValue => __('Always deny') },
+            { value => 'auth',   printableValue => __('Authorize and allow') },
+            { value => 'authAndFilter',   printableValue => __('Authorize and filter') },
+            { value => 'authAndDeny',   printableValue => __('Authorize and deny') },
+    );
 
-  return \@elements;
+    return \@elements;
 }
-
 
 sub _paramIsValid
 {
-  my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-  my $value = $params->{$self->fieldName()};
-  $self->checkPolicy($value);
+    my $value = $params->{$self->fieldName()};
+    $self->checkPolicy($value);
 }
 
 sub checkPolicy
 {
-  my ($class, $policy) = @_;
-  if (not exists $policies{$policy}) {
-    throw EBox::Exceptions::InvalidData(
-                                        data  => __(q{Squid's policy}),
-                                        value => $policy,
-                                       );
-  }
+    my ($class, $policy) = @_;
+    if (not exists $policies{$policy}) {
+        throw EBox::Exceptions::InvalidData(
+                data  => __(q{Squid's policy}),
+                value => $policy,
+        );
+    }
 }
 
 sub usesFilter

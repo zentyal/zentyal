@@ -18,8 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Module::Base EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
 use HTML::Entities;
@@ -27,6 +26,7 @@ use Sys::Hostname;
 use Sys::CpuLoad;
 use Filesys::Df;
 use File::Slurp qw(read_file);
+use Filesys::Df;
 use List::Util qw(sum);
 use Error qw(:try);
 
@@ -55,30 +55,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-#   Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::SysInfo::Model::Halt',
-             'EBox::SysInfo::Model::AdminUser',
-             'EBox::SysInfo::Model::TimeZone',
-             'EBox::SysInfo::Model::DateTime',
-             'EBox::SysInfo::Model::HostName' ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [ 'EBox::SysInfo::Composite::General' ];
 }
 
 # Method: menu
@@ -151,8 +127,8 @@ sub _setConf
 
     # Time zone
     my $timezoneModel = $self->model('TimeZone');
-    my $tz = $timezoneModel->timezoneValue();
-    my $tzStr = $tz->{continent} . '/' . $tz->{country};
+    my $tz = $timezoneModel->row()->elementByName('timezone');
+    my $tzStr = $tz->printableValue();
     EBox::Sudo::root("echo $tzStr > /etc/timezone",
                      "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
 
@@ -197,6 +173,16 @@ sub hostDomain
     my $domain = $model->hostdomainValue();
     return $domain;
 }
+
+
+# we override aroundRestoreconfig to restore also state data (for the widget)
+sub aroundRestoreConfig
+{
+    my ($self, $dir, @extraOptions) = @_;
+    $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
+    $self->_load_state_from_file($dir);
+}
+
 
 #
 # Method: widgets
@@ -381,49 +367,62 @@ sub linksWidget
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
-sub addKnownWidget()
-{
-    my ($self,$wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    push(@{$list},$wname);
-    $self->st_set_list("known/widgets", "string", $list);
-}
-
-sub isWidgetKnown()
+sub addKnownWidget
 {
     my ($self, $wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    my @results = grep(/^$wname$/,@{$list});
-    if(@results) {
-        return 1;
-    } else {
-        return undef;
+
+    my $widgets = $self->st_get('known/widgets');
+    if (not $widgets) {
+        $widgets  = {};
     }
+    $widgets->{$wname} = 1;
+    $self->st_set('known/widgets', $widgets);
 }
 
-sub getDashboard()
+sub isWidgetKnown
 {
-    my ($self,$dashboard) = @_;
-    return $self->st_get_list("$dashboard/widgets");
+    my ($self, $wname) = @_;
+
+    my $hash = $self->st_get('known/widgets');
+    defined $hash or
+        return 0;
+
+    return exists $hash->{$wname};
 }
 
-sub setDashboard()
+sub getDashboard
 {
-    my ($self,$dashboard,$widgets) = @_;
-    $self->st_set_list("$dashboard/widgets", "string", $widgets);
+    my ($self, $dashboard) = @_;
+
+    return $self->st_get_list($dashboard);
 }
 
-sub toggleElement()
+sub setDashboard
 {
-    my ($self,$element) = @_;
-    my $toggled = $self->st_get_bool("toggled/$element");
-    $self->st_set_bool("toggled/$element",!$toggled);
+    my ($self, $dashboard, $widgets) = @_;
+
+    $self->st_set($dashboard, $widgets);
 }
 
-sub toggledElements()
+sub toggleElement
+{
+    my ($self, $element) = @_;
+
+    my $hash = $self->st_get($element);
+    $hash->{toggled} = not $hash->{toggled};
+    $self->st_set($element, $hash);
+}
+
+sub toggledElements
 {
     my ($self) = @_;
-    return $self->st_hash_from_dir("toggled");
+    my $toggled = $self->st_get('toggled');
+    if (not defined $toggled) {
+        return []
+    }
+
+    my @toggled = keys %{ $toggled };
+    return \@toggled;
 }
 
 sub _facilitiesForDiskUsage
@@ -458,8 +457,8 @@ sub logReportInfo
     $totalEntry->{'table'} = 'sysinfo_disk_usage';
     $totalEntry->{'values'} = {};
     $totalEntry->{'values'}->{'mountpoint'} = 'total';
-    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} } @data);
-    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} } @data);
+    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
+    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
     unshift(@data, $totalEntry);
 
     return \@data;

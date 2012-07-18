@@ -26,7 +26,7 @@ use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::UsersAndGroups::User;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 sub new
 {
@@ -154,7 +154,7 @@ sub _addUser
    unless ($self->{jabber}->configured()) {
        return;
    }
-   my $model = EBox::Model::ModelManager::instance()->model('jabber/JabberUser');
+   my $model = $self->{jabber}->model('JabberUser');
    $self->setHasAccount($user, $model->enabledValue());
 }
 

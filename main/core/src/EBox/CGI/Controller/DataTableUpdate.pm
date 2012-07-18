@@ -38,7 +38,7 @@ sub _process
 {
 	my $self = shift;
 
-	$self->editField();
+	$self->editAction();
 }
 
 sub _print

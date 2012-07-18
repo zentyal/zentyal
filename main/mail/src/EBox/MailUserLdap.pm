@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::UsersAndGroups::User;
 use Error qw( :try );
@@ -247,7 +247,7 @@ sub _addUser
     my @vdomains = $mail->{vdomains}->vdomains();
     return unless (@vdomains);
 
-    my $model = EBox::Model::ModelManager::instance()->model('mail/MailUser');
+    my $model = $mail->model('MailUser');
     return unless ($model->enabledValue());
     my $vdomain = $model->domainValue();
     return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));
@@ -327,6 +327,12 @@ sub _userAddOns
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
+    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+
+
     my @paramsList = (
             user        => $user,
             mail        => $usermail,
@@ -337,6 +343,9 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
+
+            externalRetrievalEnabled => $externalRetrievalEnabled,
+            externalAccounts => \@externalAccounts,
     );
 
     return { path => '/mail/account.mas', params => { @paramsList } };

@@ -34,14 +34,10 @@ cat main_WITHOUT_VERSIONS_$ARCH extras_WITHOUT_VERSIONS_$ARCH | sort | uniq -c |
 
 for i in `cat DUPLICATED_PACKAGES_$ARCH`
 do
-    # XXX Skip false positives
-    if echo $i | grep -q samba || echo $i | grep -q apache
-    then
-        continue
-    fi
 	MAIN_VERSION=`grep $i main_WITH_VERSIONS_$ARCH | cut -d' ' -f2| head -1`
 	EXTRA_VERSION=`grep $i extras_WITH_VERSIONS_$ARCH | cut -d' ' -f2 | head -1`
-	if [ $EXTRA_VERSION \> $MAIN_VERSION ]
+	CMP=`perl -MDpkg::Version -e "print version_compare('$EXTRA_VERSION', '$MAIN_VERSION')"`
+	if [ $CMP -gt 0 ]
 	then
 		# extras version newer than main one but may be unsafe to remove
         # the main one if it is a package belonging to the base system

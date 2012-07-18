@@ -30,7 +30,7 @@ use warnings;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;
-use EBox::Logs::Model::ConfigureLogDataTable;
+use EBox::Types::Select;
 use EBox::Logs::Consolidate;
 
 # Core modules
@@ -51,14 +51,14 @@ use Error qw(:try);
 #      <EBox::Logs::Model::ForcePurge> - the recently created model
 #
 sub new
-  {
-      my ($class, @params) = @_;
+{
+    my ($class, @params) = @_;
 
-      my $self = $class->SUPER::new(@params);
-      bless( $self, $class );
+    my $self = $class->SUPER::new(@params);
+    bless( $self, $class );
 
-      return $self;
-  }
+    return $self;
+}
 
 # Method: formSubmitted
 #
@@ -73,11 +73,11 @@ sub formSubmitted
     my $lifeTime = $row->valueByName('lifeTime');
 
     # we consolidate before to avoid any data loss
-    EBox::Logs::Consolidate->consolidate('all');
+    # FIXME consolidation disabled until we reworked
+    # EBox::Logs::Consolidate->consolidate('all');
 
     my $logs = EBox::Global->modInstance('logs');
     $logs->forcePurge($lifeTime);
-
 }
 
 # Group: Protected methods
@@ -89,38 +89,37 @@ sub formSubmitted
 #     <EBox::Model::DataForm::_table>
 #
 sub _table
- {
-     my ($self) = @_;
+{
+    my ($self) = @_;
 
-     my @tableDesc =
-        (
-         new EBox::Types::Select(
-                                 'fieldName' => 'lifeTime',
-                                 'printableName' => __('Purge logs older than'),
-                                 populate       => \&_populateSelectLifeTime,
-                                 editable       => 1,
-                                 defaultValue   => 1,
-                                ),
-        );
+    my @tableDesc =
+       (
+        new EBox::Types::Select(
+                                'fieldName' => 'lifeTime',
+                                'printableName' => __('Purge logs older than'),
+                                populate       => \&_populateSelectLifeTime,
+                                editable       => 1,
+                                defaultValue   => 1,
+                               ),
+       );
 
-      my $dataForm = {
-                      tableName           => 'ForcePurge',
-                      printableTableName  => __('Force log purge'),
-                      modelDomain         => 'Logs',
-                      defaultActions      => [ 'editField', 'changeView' ],
-                      printableActionName => __('Purge'),
-                      tableDescription    => \@tableDesc,
-                      class               => 'dataForm',
-                     };
+    my $dataForm = {
+                     tableName           => 'ForcePurge',
+                     printableTableName  => __('Force log purge'),
+                     modelDomain         => 'Logs',
+                     defaultActions      => [ 'editField', 'changeView' ],
+                     printableActionName => __('Purge'),
+                     tableDescription    => \@tableDesc,
+                     class               => 'dataForm',
+                    };
 
-      return $dataForm;
-
-  }
+    return $dataForm;
+}
 
 sub _populateSelectLifeTime
 {
-  # life time values must be in hours
-  return  [
+    # life time values must be in hours
+    return  [
            {
             printableValue => __('one hour'),
             value          => 1,
@@ -153,8 +152,7 @@ sub _populateSelectLifeTime
             printableValue => __('ninety days'),
             value          =>  2160,
            },
-          ];
+    ];
 }
-
 
 1;

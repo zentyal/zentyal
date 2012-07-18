@@ -2,6 +2,8 @@
 
 set -e
 
+#SCRIPTSCOMMON#
+
 #DEBHELPER#
 
 case "$1" in
@@ -21,7 +23,11 @@ case "$1" in
         rm -rf /var/log/zentyal
 
         # delete ebox user
+        stop_ebox_processes
         deluser --remove-home ebox
+
+        # delete shared memory data
+        rm -rf /run/shm/zentyal
     ;;
 esac
 

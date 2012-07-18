@@ -39,13 +39,14 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Password;
+use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::View::Customizer;
@@ -59,30 +60,6 @@ use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&
 use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
 
 # Group: Public methods
-
-# Constructor: new
-#
-#     Create the subscription form
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::RemoteServices::Model::Subscription>
-#
-sub new
-{
-
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
-
-    return $self;
-
-}
 
 # Method: setTypedRow
 #
@@ -120,11 +97,24 @@ sub setTypedRow
         if ( $subs ) {
             # Desubscribing
             EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
-            EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing
-            my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
+            my $selectedOption = exists $paramsRef->{options} ? $paramsRef->{options}->value() : undef;
+            my $subsData = $subsServ->subscribeServer($paramsRef->{eboxCommonName}->value(),
+                                                      $selectedOption);
+            # If several options are given, then we have to show them
+            if ( $subsData->{availableEditions} ) {
+                my $subOptions = { 'options' => $subsData->{availableEditions},
+                                   'pass'    => $password };
+                my $state = $self->{confmodule}->get_state();
+                $state->{sub_options} = $subOptions;
+                $self->{confmodule}->set_state($state);
+                $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+                $self->reloadTable();
+                $self->setMessage(__('Select one of the available options'));
+                return; # Come back to show the form again
+            }
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
                 $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
@@ -136,23 +126,32 @@ sub setTypedRow
                 $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
             $self->{returnedMsg} .= ' ' . __('Please, save changes');
-            $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
+
+            $self->{confmodule}->st_set_bool('just_subscribed', 1);
+            $self->{confmodule}->st_unset('sub_options');
         }
     }
     # Call the parent method to store data in our conf storage
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
-    $self->{gconfmodule}->setAsChanged();
+    $self->{confmodule}->setAsChanged();
 
-    $self->{gconfmodule}->st_set_bool('subscribed', not $subs);
+    $self->{confmodule}->st_set_bool('subscribed', not $subs);
 
+    # Commit current data as valid
+    $self->{confmodule}->redis()->commit();
+    # Start async the bundle retrieval
+    EBox::Sudo::command(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
+
+    # Start a new transaction
+    $self->{confmodule}->redis()->begin();
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
 
-    my $modManager = EBox::Model::ModelManager->instance();
+    my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
     # Mark the apache module as changed as well
@@ -170,15 +169,14 @@ sub setTypedRow
         $self->setMessage(__('Done'));
     }
 
-    if ( not $subs ) {
-        try {
-            # Establish VPN connection after subscribing and store data in backend
-            EBox::RemoteServices::Backup->new()->connection();
-        } catch EBox::Exceptions::External with {
-            EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-        };
-    }
-
+    # if ( not $subs ) {
+    #     try {
+    #         # Establish VPN connection after subscribing and store data in backend
+    #         EBox::RemoteServices::Backup->new()->connection();
+    #     } catch EBox::Exceptions::External with {
+    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
+    #     };
+    # }
 }
 
 # Method: eBoxSubscribed
@@ -193,9 +191,24 @@ sub eBoxSubscribed
 {
     my ($self) = @_;
 
-    my $subs = $self->{gconfmodule}->st_get_bool('subscribed');
+    my $subs = $self->{confmodule}->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
+}
+
+# Method: showAvailable
+#
+#      Check if we have options available to show them to the user
+#
+# Returns:
+#
+#      Boolean - indicating if there are options available or not
+#
+sub showAvailable
+{
+    my ($self) = @_;
+
+    return exists $self->{confmodule}->get_state()->{'sub_options'};
 }
 
 # Method: unsubscribe
@@ -222,7 +235,7 @@ sub unsubscribe
         # unsubscribing if Zentyal is subscribed
         $row->store();
         # clear cache
-        $self->{gconfmodule}->clearCache();
+        $self->{confmodule}->clearCache();
 
         return 1;
     } else {
@@ -245,7 +258,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    if ( $self->{gconfmodule}->subscriptionLevel() < 1) {
+    if ( $self->{confmodule}->subscriptionLevel() < 1) {
         $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
     return $customizer;
@@ -342,23 +355,25 @@ sub _table
                                            # the hostname to make it a
                                            # valid subdomain name
 
+    my $subscribed = $self->eBoxSubscribed();
+
     my @tableDesc =
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
                              printableName => __('User Name or Email Address'),
-                             editable      => (not $self->eBoxSubscribed()),
+                             editable      => (not $subscribed),
                              volatile      => 1,
-                             acquirer      => \&_acquireFromGConfState,
-                             storer        => \&_storeInGConfState,
+                             acquirer      => \&_acquireFromState,
+                             storer        => \&_storeInConfigState,
                              ),
        new EBox::RemoteServices::Types::EBoxCommonName(
                              fieldName      => 'eboxCommonName',
                              printableName  => __('Server Name'),
-                             editable       => (not $self->eBoxSubscribed()),
+                             editable       => (not $subscribed),
                              volatile       => 1,
-                             acquirer       => \&_acquireFromGConfState,
-                             storer         => \&_storeInGConfState,
+                             acquirer       => \&_acquireFromState,
+                             storer         => \&_storeInConfigState,
                              help           => __('Choose a name for your server which is '
                                                   . 'a valid subdomain name'),
                              defaultValue   => $hostname,
@@ -371,7 +386,19 @@ sub _table
         editable      => 1,
         volatile      => 1,
         storer        => \&_emptyFunc,
+        acquirer      => \&_tempPasswd,
        );
+
+    if ( $self->showAvailable() ) {
+        push(@tableDesc,
+             new EBox::Types::Select(fieldName     => 'options',
+                                     printableName => __('Available Options'),
+                                     populate      => \&_populateOptions,
+                                     help          => __('Select one of your purchases'),
+                                     editable      => 1,
+                                     volatile      => 1,
+                                     storer        => \&_emptyFunc));
+    }
 
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
@@ -404,33 +431,52 @@ sub _emptyFunc
 }
 
 # Only applicable to text types
-sub _acquireFromGConfState
+sub _acquireFromState
 {
     my ($type) = @_;
 
-    my $model    = $type->model();
-    my $gconfmod = EBox::Global->modInstance('remoteservices');
-    my $keyField = $model->name() . '/' . $type->fieldName();
-    my $value    = $gconfmod->st_get_string($keyField);
+    my $model = $type->model();
+    my $value = $model->parentModule()->get_state()->{$model->name()}->{$type->fieldName()};
     if ( defined($value) and ($value ne '') ) {
         return $value;
     }
 
     return undef;
-
 }
 
-# Only applicable to text types, whose value is store in GConf state
-sub _storeInGConfState
+# Only applicable to text types, whose value is store in state config
+sub _storeInConfigState
 {
-    my ($type, $gconfModule, $directory) = @_;
+    my ($type, $hash) = @_;
 
-    my $keyField = "$directory/" . $type->fieldName();
+    my $model     = $type->model();
+    my $module    = $model->parentModule();
+    my $state     = $module->get_state();
+    my $modelName = $model->name();
+    my $keyField  = $type->fieldName();
     if ( $type->memValue() ) {
-        $gconfModule->st_set_string($keyField, $type->memValue());
+        $state->{$modelName}->{$keyField} = $type->memValue();
     } else {
-        $gconfModule->st_unset($keyField);
+        delete $state->{$modelName}->{$keyField};
     }
+    $module->set_state($state)
+}
+
+# Store the password temporary when selecting the options
+sub _tempPasswd
+{
+    my ($type) = @_;
+
+    my $module = EBox::Global->instance()->modInstance('remoteservices');
+    my $pass = undef;
+    my $state = $module->get_state();
+    if (exists $state->{'sub_options'}) {
+        # Store the password temporary
+        my $options = $module->{'sub_options'};
+        $pass = $options->{pass};
+    }
+    return $pass;
+
 }
 
 # Manage the event control center dispatcher and events module
@@ -448,14 +494,13 @@ sub _manageEvents # (subscribing)
     }
 
     # Enable Cloud dispatcher
-    my $model = $eventMod->configureDispatcherModel();
-    my $rowId = $model->findId( eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter' );
+    my $model = $eventMod->model('ConfigureDispatchers');
+    my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
     $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);
 
-
-    if ( $subscribing ) {
+    if ($subscribing) {
         try {
             # Enable software updates alert
             # Read-only feature depends on subscription level
@@ -464,7 +509,6 @@ sub _manageEvents # (subscribing)
             # Ignore when the event watcher is not there
         };
     }
-
 }
 
 sub _manageMonitor
@@ -611,6 +655,35 @@ sub _commercialMsg
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
+}
+
+# Populate the available options from the cloud
+sub _populateOptions
+{
+    my $rs = EBox::Global->instance()->modInstance('remoteservices');
+
+    my $options = $rs->get_state()->{'sub_options'};
+    $options = $options->{options};
+
+    my @options = map { { value          => $_->{id},
+                          printableValue => $_->{server} ? __x('Use existing server from {c}', c => $_->{company} )
+                                                          :  $_->{company} . ' : ' . $_->{name} } }
+      @{$options};
+
+    # Filter out the repetitive values
+    my %seen = ();
+    my @r = ();
+    foreach my $e (@options) {
+        unless ( $seen{$e->{printableValue}} ) {
+            push(@r, $e);
+            $seen{$e->{printableValue}} = 1;
+        }
+    }
+    @options = @r;
+
+    # Option to reload the available options
+    push(@options, { value => 'reload', printableValue => __('Reload available options')});
+    return \@options;
 }
 
 1;

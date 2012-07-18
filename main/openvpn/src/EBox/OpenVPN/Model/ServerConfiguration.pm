@@ -26,13 +26,12 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Model::ModelManager;
-
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 use EBox::Types::Password;
-
+use EBox::Types::DomainName;
+use EBox::Types::Host;
 use EBox::Types::IPNetwork;
 use EBox::Types::IPAddr;
 
@@ -97,6 +96,12 @@ sub _table
                            )
                  ),
          new EBox::Types::Boolean(
+                 fieldName =>  'tunInterface',
+                 printableName => __('TUN interface'),
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
+         new EBox::Types::Boolean(
                  fieldName =>  'masquerade',
                  printableName => __('Network Address Translation'),
                  editable => 1,
@@ -134,6 +139,39 @@ sub _table
                  populate      => \&_populateLocal,
                  defaultValue => ALL_INTERFACES,
                  ),
+         new EBox::Types::Boolean(
+             fieldName => 'redirectGw',
+             printableName => __('Redirect gateway'),
+             editable => 1,
+             defaultValue => 0,
+             help => __('Makes Zentyal the default gateway for the client'),
+            ),
+         new EBox::Types::Host(
+             fieldName => 'dns1',
+             printableName => __('First nameserver'),
+             editable => 1,
+             optional => 1,
+
+            ),
+         new EBox::Types::Host(
+             fieldName => 'dns2',
+             printableName => __('Secod nameserver'),
+             editable => 1,
+             optional => 1,
+            ),
+         new EBox::Types::DomainName(
+             fieldName => 'searchDomain',
+             printableName => __('Search domain'),
+             editable => 1,
+             optional => 1,
+            ),
+         new EBox::Types::Host(
+             fieldName => 'wins',
+             printableName => __('WINS server'),
+             editable => 1,
+             optional => 1,
+            ),
+
          );
 
     my $dataTable =
@@ -165,11 +203,19 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
+    my $tunnelParams = [qw/ripPasswd/];
+    my $noTunnelParams = [qw/redirectGw dns1 dns2 searchDomain wins/];
+
     $customizer->setOnChangeActions(
             { pullRoutes =>
                 {
-                on  => { enable => [qw/ripPasswd/] },
-                off => { disable => [qw/ripPasswd/] },
+                on  => { enable  => $tunnelParams,
+                         disable => $noTunnelParams,
+                        },
+                off => {
+                        enable  => $noTunnelParams,
+                        disable => $tunnelParams
+                       },
                 }
             });
     return $customizer;
@@ -226,6 +272,8 @@ sub validateTypedRow
 #    $self->_checkIfaceAndMasquerade($action, $params_r, $actual_r);
 
     $self->_checkTlsRemote($action, $params_r, $actual_r);
+
+    $self->_checkTunnelForbiddenParams($action, $params_r, $actual_r);
 
     $self->_checkPortIsAvailable($action, $params_r, $actual_r);
 }
@@ -289,8 +337,7 @@ sub _checkVPN
 sub _uniqVPNAddress
 {
     my ($self, $vpnAddress) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
-    my $serverList = $manager->model('/openvpn/Servers');
+    my $serverList = $self->parentModule()->model('Servers');
 
     my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
@@ -316,8 +363,7 @@ sub _uniqPortAndProtocol
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $serverList = $manager->model('/openvpn/Servers');
+    my $serverList = $self->parentModule()->model('Servers');
 
     my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
@@ -541,6 +587,45 @@ sub _checkTlsRemote
 
     EBox::OpenVPN::Server->checkCertificate($cn);
 }
+
+
+sub _checkTunnelForbiddenParams
+{
+    my ($self, $action, $params_r, $all_r) = @_;
+    if (not $all_r->{pullRoutes}->value()) {
+        # no tunnel, no checks needed
+        return;
+    }
+
+    my @forbidParams = qw(clientToClient dns1 dns2 searchDomain wins);
+    foreach my $param (@forbidParams) {
+        if ($all_r->{$param}->value()) {
+            throw EBox::Exceptions::External(
+                __x('{par} is not compatible with Zentyal-to-Zentyal tunnel',
+                    par => $all_r->{$param}->printableName()
+                   )
+               )
+        }
+    }
+}
+
+
+#  the interface type resides in the ServerModels so we must set it in the
+#  parentRow
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow) = @_;
+
+    my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
+    my $parentRow = $self->parentRow();
+    my $ifaceType = $parentRow->elementByName('interfaceType');
+    if ($ifaceType->value() ne $toSet) {
+        $ifaceType->setValue($toSet);
+        $parentRow->store();
+    }
+}
+
+
 
 sub configured
 {

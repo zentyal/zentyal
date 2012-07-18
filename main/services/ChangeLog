@@ -1,4 +1,10 @@
-HEAD
+2.3.7
+	+ Added serviceIptablesArgs method
+2.3.6
+	+ Adapted to new Model management framework
+2.3.5
+	+ setService method does not fail if the existent service has not
+	  any configuration
 	+ Added clone action to service configuration table
 2.3.4
 	+ Packaging fixes for precise

@@ -38,9 +38,6 @@ sub new
     return $self;
 }
 
-
-
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -62,8 +59,5 @@ sub _paramIsValid
 
     return 1;
 }
-
-
-
 
 1;

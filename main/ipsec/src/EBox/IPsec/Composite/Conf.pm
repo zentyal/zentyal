@@ -26,25 +26,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general configuration composite
-#
-# Returns:
-#
-#       <EBox::IPsec::Conmposite::Conf>
-#
-sub new
-{
-      my ($class, @params) = @_;
-
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -55,47 +36,43 @@ sub new
 #
 sub _description
 {
-      my $description =
-      {
-         components      => [
-                            'ConfGeneral',
-                            'Auth',
-                            ],
-         layout          => 'tabbed',
-         name            => 'Conf',
-         compositeDomain => 'IPsec',
-      };
+    my $description =
+    {
+        layout          => 'tabbed',
+        name            => 'Conf',
+        compositeDomain => 'IPsec',
+    };
 
-      return $description;
+    return $description;
 }
 
 sub HTMLTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $parentRow = $self->parentRow();
+    my $parentRow = $self->parentRow();
 
-        if (not defined $parentRow) {
-            return ([
-                    {
-                        title => __('IPsec Connections'),
-                        link  => '/VPN/IPsec',
-                    },
-            ]);
-        }
-
-        my $vpn = $parentRow->elementByName('name')->printableValue();
-
+    if (not defined $parentRow) {
         return ([
                 {
                     title => __('IPsec Connections'),
                     link  => '/VPN/IPsec',
                 },
-                {
-                    title => $vpn,
-                    link => '',
-                },
         ]);
+    }
+
+    my $vpn = $parentRow->elementByName('name')->printableValue();
+
+    return ([
+            {
+                title => __('IPsec Connections'),
+                link  => '/VPN/IPsec',
+            },
+            {
+                title => $vpn,
+                link => '',
+            },
+    ]);
 }
 
 1;

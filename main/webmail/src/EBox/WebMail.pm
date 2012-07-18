@@ -23,10 +23,7 @@ package EBox::WebMail;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-           );
+use base qw(EBox::Module::Service);
 
 use EBox::Gettext;
 use EBox::Service;
@@ -234,38 +231,6 @@ sub menu
                    'separator' => 'Communications',
               )
     );
-}
-
-# Method: modelClasses
-#
-#       Return the model classes used by the module.
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            'EBox::WebMail::Model::Options',
-            'EBox::WebMail::Model::OperationMode',
-            'EBox::WebMail::Model::RemoteServerConfiguration',
-           ];
-}
-
-# Method: compositeClasses
-#
-#       Return the composite classes used by the module
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-            'EBox::WebMail::Composite::Backend',
-           ];
 }
 
 # Method: usedFiles

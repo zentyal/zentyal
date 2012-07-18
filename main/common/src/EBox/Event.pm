@@ -73,6 +73,10 @@ use Perl6::Junction qw(any);
 #      duration - Int the event duration in seconds
 #                 Default value: 0, no duration an instant event
 #
+#
+#      additional - Hash ref containing additional info for further processing
+#                   *(Optional)* Default value: {}
+#
 #      - Named parameters
 #
 # Exceptions:
@@ -107,10 +111,15 @@ sub new
     $self->{level} = 'info' unless defined ( $self->{level} );
     $self->{dispatchers} = delete ( $args{dispatchTo} );
     $self->{dispatchers} = ['any'] unless defined ( $self->{dispatchers} );
+    unless ( ref($self->{dispatchers}) eq 'ARRAY' ) {
+        throw EBox::Exceptions::InvalidType('dispatchTo', 'array ref');
+    }
     $self->{timestamp} = delete ( $args{timestamp} );
     $self->{timestamp} = time() unless defined ( $self->{timestamp} );
     $self->{duration}  = delete ( $args{duration} );
     $self->{duration}  = 0 unless ( defined($self->{duration}) );
+    $self->{additional}  = delete ( $args{additional} );
+    $self->{additional}  = {} unless ( defined($self->{additional}) );
 
     return $self;
 }
@@ -243,6 +252,36 @@ sub duration
     my ($self) = @_;
 
     return $self->{duration};
+}
+
+# Method: additional
+#
+#       Get the event additional info for further processing
+#
+# Returns:
+#
+#       Hash ref - the event additional info
+#
+sub additional
+{
+    my ($self) = @_;
+
+    return $self->{additional};
+}
+
+# Method: TO_JSON
+#
+#       Call by JSON::XS::encode
+#
+# Returns:
+#
+#       Unblessed result of this object
+#
+sub TO_JSON
+{
+    my ($self) = @_;
+
+    return { %{$self} };
 }
 
 1;

@@ -122,7 +122,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
 
     my $sampleReportURL = SAMPLE_REPORT_URL;
     if ( EBox::locale() =~ m:^es: ) {

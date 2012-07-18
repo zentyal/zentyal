@@ -40,11 +40,11 @@ use MIME::Base64;
 
 sub new
 {
-    my ($class, $host, $port, $cert) = @_;
-    my $self = $class->SUPER::new(name => "users-$host-$port");
+    my ($class, $host, $port, $id) = @_;
+    my $self = $class->SUPER::new(name => $id);
     $self->{host} = $host;
     $self->{port} = $port;
-    $self->{cert} = SLAVES_CERTS_DIR . $cert;
+    $self->{cert} = SLAVES_CERTS_DIR . $id;
     bless($self, $class);
     return $self;
 }
@@ -54,6 +54,7 @@ sub _addUser
 {
     my ($self, $user) = @_;
 
+    # encode passwords
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
         user       => $user->get('uid'),
@@ -73,6 +74,17 @@ sub _addUser
         $userinfo->{ou} = $user->baseDn();
     }
 
+    # Convert userinfo to SOAP::Data to avoid automatic conversion errors
+    my @params;
+    for my $k (keys %$userinfo) {
+        if (ref($userinfo->{$k}) eq 'ARRAY') {
+            push(@params, SOAP::Data->name($k => SOAP::Data->value(@{$userinfo->{$k}})));
+        } else {
+            push(@params, SOAP::Data->name($k => $userinfo->{$k}));
+        }
+    }
+
+    $userinfo = SOAP::Data->name("userinfo" => \SOAP::Data->value(@params));
     $self->soapClient->addUser($userinfo);
 
     return 0;

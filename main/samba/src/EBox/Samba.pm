@@ -18,11 +18,7 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::CompositeProvider
-            EBox::Model::ModelProvider
-            EBox::LdapModule
-            EBox::FirewallObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Service;
@@ -30,19 +26,21 @@ use EBox::Sudo;
 use EBox::SambaLdapUser;
 use EBox::Network;
 use EBox::SambaFirewall;
+use EBox::SambaLogHelper;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::Util::Random qw( generate );
 
+use Perl6::Junction qw( any );
 use Net::Domain qw(hostdomain);
 use Error qw(:try);
+use File::Slurp;
 
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
@@ -61,13 +59,14 @@ use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
+use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
 
 sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __n('File Sharing'),
+        printableName => __('File Sharing'),
         @_);
     bless ($self, $class);
     return $self;
@@ -87,10 +86,11 @@ sub bootDepends
 
     my $dependsList = $self->depends();
 
-    if (EBox::Global->modExists('printers')) {
-        my $printers = EBox::Global->modInstance('printers');
+    my $module = 'printers';
+    if (EBox::Global->modExists($module)) {
+        my $printers = EBox::Global->modInstance($module);
         if ($printers->isEnabled()) {
-            push (@{$dependsList}, 'printers');
+            push (@{$dependsList}, $module);
         }
     }
 
@@ -107,7 +107,7 @@ sub actions
         {
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/samba.'),
+                           'shares and groups under /home/ebox/samba.'),
             'module' => 'samba',
         },
     ];
@@ -134,7 +134,12 @@ sub usedFiles
             'file'   => '/etc/services',
             'reason' => __('To add microsoft specific services'),
             'module' => 'samba',
-        }
+        },
+        {
+            'file' => CLAMAVSMBCONFFILE,
+            'reason' => __('To set the antivirus settings for Samba.'),
+            'module' => 'samba'
+        },
     ];
 }
 
@@ -151,6 +156,7 @@ sub initialSetup
     # Create default rules and services only if enabling the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
+
         my $serviceName = 'samba';
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
@@ -164,7 +170,7 @@ sub initialSetup
         }
 
         my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->setInternalService('samba', 'accept');
+        $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
 }
@@ -259,9 +265,11 @@ sub enableActions
     my @cmds = ();
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
 
     # Remount filesystem with user_xattr and acl options
+    EBox::debug('Setting up filesystem options');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
     # Add 'Global catalog' service to /etc/services
@@ -270,10 +278,19 @@ sub enableActions
     my $services = $srvModel->services();
     my %aux = map { $_->{name} => 1 } @{$services};
     unless (exists $aux{gc}) {
+        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
         EBox::debug('Adding Microsoft global catalog service to /etc/services');
         my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
         EBox::Sudo::root($cmd);
     }
+}
+
+sub isProvisioned
+{
+    my $samba = EBox::Global->modInstance('samba');
+    my $isProvisioned = $samba->get_bool('provisioned');
+    EBox::debug("Samba provisioned flag: $isProvisioned");
+    return $isProvisioned;
 }
 
 # Method: enableService
@@ -287,10 +304,19 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed() and $status) {
-        my $isProvisioned = $self->get_bool('provisioned');
-        EBox::debug("Flag: $isProvisioned");
+        my $isProvisioned = isProvisioned();
         unless ($isProvisioned == 1) {
-            $self->provision();
+            try {
+                $self->provision();
+            } otherwise {
+                my $error = shift;
+                EBox::error($error);
+
+                # Disable the module if not provisioned
+                $self->SUPER::enableService(0);
+
+                throw $error;
+            };
         }
     }
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
@@ -298,42 +324,10 @@ sub enableService
         $module->kerberosCreatePrincipals();
     }
 
-    EBox::Global->modChange('dns');
-    EBox::Global->modChange('users');
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return [
-               'EBox::Samba::Model::GeneralSettings',
-               'EBox::Samba::Model::SambaShares',
-               'EBox::Samba::Model::SambaSharePermissions',
-               'EBox::Samba::Model::SambaDeletedShares',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [
-             'EBox::Samba::Composite::General',
-           ];
+    if ($self->changed()) {
+        EBox::Global->modChange('dns');
+        EBox::Global->modChange('users');
+    }
 }
 
 # Method: shares
@@ -415,10 +409,94 @@ sub shares
         $shareConf->{'validUsers'} = join (', ', @readOnly,
                                                  @readWrite,
                                                  @administrators);
+
         push (@shares, $shareConf);
     }
 
     return \@shares;
+}
+
+sub defaultAntivirusSettings
+{
+    my ($self) = @_;
+
+    my $antivirus = $self->model('AntivirusDefault');
+    return $antivirus->row()->valueByName('scan');
+}
+
+sub antivirusExceptions
+{
+    my ($self) = @_;
+
+    my $model = $self->model('AntivirusExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+
+    return $exceptions;
+}
+
+sub defaultRecycleSettings
+{
+    my ($self) = @_;
+
+    my $recycle = $self->model('RecycleDefault');
+    return $recycle->row()->valueByName('enabled');
+}
+
+sub recycleExceptions
+{
+    my ($self) = @_;
+
+    my $model = $self->model('RecycleExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+    return $exceptions;
+}
+
+sub recycleConfig
+{
+    my ($self) = @_;
+
+    my $conf = {};
+    my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
+                'maxsize', 'exclude', 'excludedir', 'noversions');
+
+    foreach my $key (@keys) {
+        my $value = EBox::Config::configkey($key);
+        if ($value) {
+            $conf->{$key} = $value;
+        }
+    }
+
+    return $conf;
 }
 
 sub cleanDNS
@@ -563,6 +641,15 @@ sub provision
 {
     my ($self) = @_;
 
+    # Check that there are internal IP addresses configured
+    my $network = EBox::Global->modInstance('network');
+    my $ipaddrs = $network->internalIpAddresses();
+    unless (scalar @{$ipaddrs} > 0) {
+        throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
+                                            'cannot continue with database provision. The module ' .
+                                            'will remain disabled.'));
+    }
+
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $users   = EBox::Global->modInstance('users');
     my $hostName   = $sysinfo->hostName();
@@ -579,20 +666,30 @@ sub provision
         ' --workgroup=' . $self->workgroup() .
         ' --realm=' . $realm .
         ' --dns-backend=BIND9_FLATFILE' .
+        ' --use-xattrs=yes ' .
         ' --server-role=' . $self->mode() .
         ' --users=' . $users->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
 
     EBox::debug("Provisioning database '$cmd'");
 
-    $cmd .= ' --adminpass=' . $self->administratorPassword();
+    $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
-    try {
-        my $output = EBox::Sudo::root($cmd);
+    # Use silent root to avoid showing the admin pass in the logs if
+    # provision command fails.
+    my $output = EBox::Sudo::silentRoot($cmd);
+    if ($? == 0) {
         EBox::debug("Provision result: @{$output}");
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal("Error provisioning database: $error");
+        # Mark the module as provisioned
+        EBox::debug('Setting provisioned flag');
+        $self->set_bool('provisioned', 1);
+    } else {
+        my @error = ();
+        my $stderr = EBox::Config::tmp() . 'stderr';
+        if (-r $stderr) {
+            @error = read_file($stderr);
+        }
+        throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
 
     # The administrator password is also the password for the 'Zentyal' user,
@@ -601,13 +698,12 @@ sub provision
                          EBox::Config->conf() . "ldb.passwd");
 
     # Once provisioned start the service to make queries
+    EBox::debug('Starting service');
     $self->_manageService('start');
 
     # Add the DNS records
     EBox::debug('Adding domain DNS records');
-    my $network = EBox::Global->modInstance('network');
     my $dnsMod  = EBox::Global->modInstance('dns');
-    my $ipaddrs = $network->internalIpAddresses();
 
     # Get the domain GUID
     my $args = { base   => $self->ldb->dn(),
@@ -694,6 +790,9 @@ sub provision
     $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
     $dnsMod->addService($domainName, $service);
 
+    # Set the domain as dynamic. Otherwise apparmor deny the updates.
+    $dnsMod->setDynamic($domainName, 1);
+
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
@@ -717,17 +816,17 @@ sub provision
                "\@LIST: zentyal,samba_dsdb\n";
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 
-    # Mark the module as provisioned
-    EBox::debug('Setting provisioned flag');
-    $self->set_bool('provisioned', 1);
 }
 
-# Return interfaces upon samba should listen
+# Method: sambaInterfaces
+#
+#   Return interfaces upon samba should listen
+#
 sub sambaInterfaces
 {
     my ($self) = @_;
-    my @ifaces;
 
+    my @ifaces = ();
     # Always listen on loopback interface
     push (@ifaces, 'lo');
 
@@ -766,29 +865,40 @@ sub _setConf
 {
     my ($self) = @_;
 
-    return unless $self->configured() and $self->isEnabled();
+    return unless $self->configured() and $self->isEnabled() and isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
+    my $netbiosName = $self->netbiosName();
+    my $realmName   = $self->realm();
+
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
     my @array = ();
-    push(@array, 'workgroup'   => $self->workgroup());
-    push(@array, 'netbiosName' => $self->netbiosName());
-    push(@array, 'description' => $self->description());
-    push(@array, 'ifaces'      => $interfaces);
-    push(@array, 'mode'        => $self->mode());
-    push(@array, 'realm'       => $self->realm());
-    #push(@array, 'roamingProfiles' => $self->roamingProfiles());
-    #push(@array, 'drive'       => $self->drive());
+    push (@array, 'prefix'      => $prefix);
+    push (@array, 'workgroup'   => $self->workgroup());
+    push (@array, 'netbiosName' => $netbiosName);
+    push (@array, 'description' => $self->description());
+    push (@array, 'ifaces'      => $interfaces);
+    push (@array, 'mode'        => $self->mode());
+    push (@array, 'realm'       => $realmName);
+    push (@array, 'roamingProfiles' => $self->roamingProfiles());
+
+    #push(@array, 'printers'  => $self->_sambaPrinterConf());
+    #push(@array, 'active_printer' => $self->printerService());
+
+    #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
+    #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
-    my $guestShares = 0;
-    foreach my $share (@{$shares}) {
-        if ($share->{'guest'}) {
-            $guestShares = 1;
-            last;
-        }
-    }
+
+    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
+    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push (@array, 'recycle' => $self->defaultRecycleSettings());
+    push (@array, 'recycle_exceptions' => $self->recycleExceptions());
+    push (@array, 'recycle_config' => $self->recycleConfig());
 
     #my $netlogonDir = "/var/lib/samba/sysvol/" . $self->realm() . "/scripts";
     #if ($self->mode() eq 'dc') {
@@ -803,10 +913,28 @@ sub _setConf
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
 
+    $self->writeConfFile(CLAMAVSMBCONFFILE,
+                         'samba/vscan-clamav.conf.mas', []);
+
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
-    # Create samba shares
+    # Create shares
     $self->model('SambaShares')->createDirs();
+
+    # Change group ownership of quarantine_dir to __USERS__
+    my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
+    EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
+
+    # Set roaming profiles
+    if ($self->roamingProfiles()) {
+        my $path = "\\\\$netbiosName.$realmName\\profiles";
+        $self->ldb()->setRoamingProfiles(1, $path);
+    } else {
+        $self->ldb()->setRoamingProfiles(0);
+    }
+
+    # Mount user home on network drive
+    $self->ldb()->setHomeDrive($self->drive());
 }
 
 sub _shareUsers
@@ -936,10 +1064,13 @@ sub _daemons
 {
     return [
         {
-            'name' => 'zentyal.s4sync',
+            name => 'samba4',
+            precondition => \&isProvisioned,
+            pidfiles => ['/var/run/samba.pid'],
         },
         {
-            'name' => 'samba4',
+            name => 'zentyal.s4sync',
+            precondition => \&isProvisioned,
         },
     ];
 }
@@ -971,6 +1102,51 @@ sub firewallHelper
     return undef;
 }
 
+# Method: firewallCaptivePortalExceptions
+#
+#  this method gives firewall ruels to add to the captive portal module.
+#  They purpose is to allow domain joins without captive portal interference
+sub firewallCaptivePortalExceptions
+{
+    my ($self) = @_;
+    my @rules;
+
+    if (not $self->isEnabled()) {
+       return [];
+    }
+
+     my @services = @{ $self->_services() };
+    foreach my $conf (@services) {
+        my $args = '';
+        my $tcpAndUdp = 0;
+        if ($conf->{protocol} ne 'any') {
+            if ($conf->{protocol} eq 'tcp/udp') {
+                $tcpAndUdp = 1;
+            } else {
+                $args .= '--protocol ' . $conf->{protocol};
+            }
+        }
+        if ($conf->{sourcePort} ne 'any') {
+            $args .= ' --sport ' . $conf->{sourcePort};
+        }
+        if ($conf->{destinationPort} ne 'any') {
+            $args .= ' --dport ' . $conf->{destinationPort};
+        }
+
+        if ($args) {
+            if ($tcpAndUdp) {
+                push @rules, "--protocol tcp $args -j RETURN";
+                push @rules, "--protocol udp $args -j RETURN";
+            } else {
+                push @rules, "$args -j RETURN";
+            }
+        }
+    }
+
+    return \@rules;
+}
+
+
 sub menu
 {
     my ($self, $root) = @_;
@@ -998,13 +1174,13 @@ sub setPrinterService # (enabled)
     $self->set_bool('printer_active', $active);
 }
 
-#   Method: servicePrinter
+# Method: servicePrinter
 #
-#       Returns if the printer sharing service is enabled
+#   Returns if the printer sharing service is enabled
 #
-#   Returns:
+# Returns:
 #
-#       boolean - true if enabled, otherwise undef
+#   boolean - true if enabled, otherwise undef
 #
 sub printerService
 {
@@ -1181,9 +1357,12 @@ sub _addPrinter
 {
     my ($self, $name) = @_;
 
-    $self->set_list("printers/$name/users", 'string', []);
-    $self->set_list("printers/$name/groups", 'string', []);
-    $self->set_bool("printers/$name/external", 1);
+    my $printers = $self->get_hash('printers');
+    $printers->{$name} = {};
+    $printers->{$name}->{users} = [];
+    $printers->{$name}->{groups} = [];
+    $printers->{$name}->{external} = 1;
+    $self->set('printers', $printers);
 }
 
 sub printers
@@ -1201,15 +1380,15 @@ sub printers
 
     my @printers;
     my $readOnly = $self->isReadOnly();
-    foreach my $printer (@{$self->array_from_dir('printers')}) {
-        my $name = $printer->{'_dir'};
+    my $printers = $self->get_hash('printers');
+    foreach my $name (keys %{$printers}) {
         if (exists $external{$name}) {
             $external{$name} = 'exists';
         } else {
             $self->delPrinter($name) unless ($readOnly);
             $external{$name} = 'removed';
         }
-        push (@printers,  $printer->{'_dir'});
+        push (@printers,  $name);
     }
 
     unless ($readOnly) {
@@ -1243,7 +1422,8 @@ sub _setPrinterUsers
 {
     my ($self, $printer, $users) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return;
     }
@@ -1253,14 +1433,16 @@ sub _setPrinterUsers
         $usermod->userExists($_)
     } @{ $users };
 
-    $self->set_list("printers/$printer/users", "string", \@okUsers);
+    $printers->{$printer}->{users} = \@okUsers;
+    $self->set('printers', $printers);
 }
 
 sub _setPrinterGroups
 {
     my ($self, $printer, $groups) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return;
     }
@@ -1270,43 +1452,48 @@ sub _setPrinterGroups
         $groupmod->groupExists($_)
     } @{ $groups };
 
-    $self->set_list("printers/$printer/groups", "string", \@okGroups);
+    $printers->{$printer}->{groups} = \@okGroups;
+    $self->set('printers', $printers);
 }
 
-sub _printerUsers # (printer)
+sub _printerUsers
 {
     my ($self, $printer) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return [];
     }
 
-    return $self->get_list("printers/$printer/users");
+    return $printers->{$printer}->{users};
 }
 
-sub _printerGroups # (group)
+sub _printerGroups
 {
     my ($self, $printer) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return [];
     }
 
-    return $self->get_list("printers/$printer/groups");
+    return $printers->{$printer}->{groups};
 }
 
-sub _printersForUser # (user)
+sub _printersForUser
 {
     my ($self, $user) = @_;
 
+    my $username = $user->get('uid');
+    my $printPerms = $self->get_hash('printers');
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
-        my $users = $self->get_list("printers/$name/users");
+        my $users = $printPerms->{$name}->{users};
         if (@{$users}) {
-            $print->{'allowed'} = 1 if (grep(/^$user$/, @{$users}));
+            $print->{'allowed'} = 1 if (grep(/^$username$/, @{$users}));
         }
         push (@printers, $print);
     }
@@ -1339,16 +1526,17 @@ sub setPrintersForUser
     }
 }
 
-sub _printersForGroup # (group)
+sub _printersForGroup
 {
     my ($self, $group) = @_;
 
     $self->_checkGroupExists($group);
 
+    my $printPerms = $self->get_hash('printers');
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
-        my $groups = $self->get_list("printers/$name/groups");
+        my $groups = $printPerms->{$name}->{groups};
         if (@{$groups}) {
             $print->{'allowed'} = 1 if (grep(/^$group$/, @{$groups}));
         }
@@ -1545,99 +1733,90 @@ sub restoreDependencies
 #}
 
 # Implement LogHelper interface
-#sub tableInfo
-#{
-#    my ($self) = @_;
-#
-#    my $access_titles = {
-#        'timestamp' => __('Date'),
-#        'client' => __('Client address'),
-#        'username' => __('User'),
-#        'event' => __('Action'),
-#        'resource' => __('Resource'),
-#    };
-#    my @access_order = qw(timestamp client username event resource);;
-#    my $access_events = {
-#        'connect' => __('Connect'),
-#        'opendir' => __('Access to directory'),
-#        'readfile' => __('Read file'),
-#        'writefile' => __('Write file'),
-#        'disconnect' => __('Disconnect'),
-#        'unlink' => __('Remove'),
-#        'mkdir' => __('Create directory'),
-#        'rmdir' => __('Remove directory'),
-#        'rename' => __('Rename'),
-#    };
-#
-#    my $virus_titles = {
-#        'timestamp' => __('Date'),
-#        'client' => __('Client address'),
-#        'filename' => __('File name'),
-#        'virus' => __('Virus'),
-#        'event' => __('Type'),
-#    };
-#    my @virus_order = qw(timestamp client filename virus event);;
-#    my $virus_events = { 'virus' => __('Virus') };
-#
-#    my $quarantine_titles = {
-#        'timestamp' => __('Date'),
-#        'filename' => __('File name'),
-#        'qfilename' => __('Quarantined file name'),
-#        'event' => __('Quarantine'),
-#    };
-#    my @quarantine_order = qw(timestamp filename qfilename event);
-#    my $quarantine_events = { 'quarantine' => __('Quarantine') };
-#
-#    return [{
-#        'name' => __('Samba access'),
-#        'tablename' => 'samba_access',
-#        'titles' => $access_titles,
-#        'order' => \@access_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['client', 'username', 'resource'],
-#        'types' => { 'client' => 'IPAddr' },
-#        'events' => $access_events,
-#        'eventcol' => 'event'
-#    },
-#    {
-#        'name' => __('Samba virus'),
-#        'tablename' => 'samba_virus',
-#        'titles' => $virus_titles,
-#        'order' => \@virus_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['client', 'filename', 'virus'],
-#        'types' => { 'client' => 'IPAddr' },
-#        'events' => $virus_events,
-#        'eventcol' => 'event'
-#    },
-#    {
-#        'name' => __('Samba quarantine'),
-#        'tablename' => 'samba_quarantine',
-#        'titles' => $quarantine_titles,
-#        'order' => \@quarantine_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['filename'],
-#        'events' => $quarantine_events,
-#        'eventcol' => 'event'
-#    }];
-#}
-#
-#sub logHelper
-#{
-#    my ($self) = @_;
-#
-#    return (new EBox::SambaLogHelper);
-#}
-#
-#sub isAntivirusPresent
-#{
-#
-#    my $global = EBox::Global->getInstance();
-#
-#    return ($global->modExists('antivirus')
-#             and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
-#}
-#
+sub tableInfo
+{
+    my ($self) = @_;
+
+    my $access_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
+        'event' => __('Action'),
+        'resource' => __('Resource'),
+    };
+    my @access_order = qw(timestamp client username event resource);
+    my $access_events = {
+        'connect' => __('Connect'),
+        'opendir' => __('Access to directory'),
+        'readfile' => __('Read file'),
+        'writefile' => __('Write file'),
+        'disconnect' => __('Disconnect'),
+        'unlink' => __('Remove'),
+        'mkdir' => __('Create directory'),
+        'rmdir' => __('Remove directory'),
+        'rename' => __('Rename'),
+    };
+
+    my $virus_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'filename' => __('File name'),
+        'virus' => __('Virus'),
+        'event' => __('Type'),
+    };
+    my @virus_order = qw(timestamp client filename virus event);;
+    my $virus_events = { 'virus' => __('Virus') };
+
+    my $quarantine_titles = {
+        'timestamp' => __('Date'),
+        'filename' => __('File name'),
+        'qfilename' => __('Quarantined file name'),
+        'event' => __('Quarantine'),
+    };
+    my @quarantine_order = qw(timestamp filename qfilename event);
+    my $quarantine_events = { 'quarantine' => __('Quarantine') };
+
+    return [{
+        'name' => __('Samba access'),
+        'tablename' => 'samba_access',
+        'titles' => $access_titles,
+        'order' => \@access_order,
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'username', 'resource'],
+        'types' => { 'client' => 'IPAddr' },
+        'events' => $access_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba virus'),
+        'tablename' => 'samba_virus',
+        'titles' => $virus_titles,
+        'order' => \@virus_order,
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'filename', 'virus'],
+        'types' => { 'client' => 'IPAddr' },
+        'events' => $virus_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba quarantine'),
+        'tablename' => 'samba_quarantine',
+        'titles' => $quarantine_titles,
+        'order' => \@quarantine_order,
+        'timecol' => 'timestamp',
+        'filter' => ['filename'],
+        'events' => $quarantine_events,
+        'eventcol' => 'event'
+    }];
+}
+
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::SambaLogHelper);
+}
+
 #sub report
 #{
 #    my ($self, $beg, $end, $options) = @_;

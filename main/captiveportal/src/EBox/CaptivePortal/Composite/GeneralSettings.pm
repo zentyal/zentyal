@@ -23,15 +23,6 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-sub new
-{
-    my ($class) = @_;
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
-
 # Method: _description
 #
 # Overrides:
@@ -42,11 +33,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'captiveportal/Settings',
-                               'captiveportal/BWSettings',
-                               'captiveportal/Interfaces',
-                           ],
         layout          => 'top-bottom',
         name            => 'GeneralSettings',
         printableName   => __('Settings'),
@@ -55,6 +41,5 @@ sub _description
 
     return $description;
 }
-
 
 1;

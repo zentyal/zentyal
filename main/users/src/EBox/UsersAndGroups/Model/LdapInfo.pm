@@ -28,68 +28,34 @@ use EBox::Types::Text;
 use strict;
 use warnings;
 
-
-# Group: Public methods
-
-# Constructor: new
-#
-#      Create a data form
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::new>
-#
-sub new
-{
-    my ($class, %params) = @_;
-
-    my $self = $class->SUPER::new(%params);
-    bless( $self, $class );
-
-    $self->{'users'} = EBox::Global->modInstance('users');
-
-    return $self;
-}
-
 # Method: _table
 #
 #	Overrides <EBox::Model::DataForm::_table to change its name
 #
 sub _table
 {
-
     my ($self) = @_;
 
     my @tableDesc = (
         new EBox::Types::Text(
             fieldName => 'dn',
             printableName => __('Base DN'),
-            volatile => 1,
-            acquirer => \&_acquirer
         ),
         new EBox::Types::Text (
             fieldName => 'rootDn',
             printableName => __('Root DN'),
-            volatile => 1,
-            acquirer => \&_acquirer
         ),
         new EBox::Types::Text (
             fieldName => 'password',
             printableName => __('Password'),
-            volatile => 1,
-            acquirer => \&_acquirer
         ),
         new EBox::Types::Text (
             fieldName => 'usersDn',
             printableName => __('Users DN'),
-            volatile => 1,
-            acquirer => \&_acquirer
         ),
         new EBox::Types::Text (
             fieldName => 'groupsDn',
             printableName => __('Groups DN'),
-            volatile => 1,
-            acquirer => \&_acquirer
         ),
     );
 
@@ -109,25 +75,24 @@ sub menuFolder
     return 'UsersAndGroups';
 }
 
-sub _acquirer
+# Method: _content
+#
+# Overrides:
+#
+#    <EBox::Model::DataForm::ReadOnly::_content>
+#
+sub _content
 {
-    my ($type) = @_;
+    my ($self) = @_;
 
-    my $model = $type->model();
-    ($model and $model->precondition()) or return '';
+    my $users = $self->parentModule();
 
-    if ($type->fieldName() eq 'dn') {
-        return $model->{'users'}->ldap()->dn();
-    } elsif ($type->fieldName() eq 'rootDn') {
-        return $model->{'users'}->ldap()->rootDn();
-    } elsif ($type->fieldName() eq 'password') {
-        return $model->{'users'}->ldap()->getPassword();
-    } elsif ($type->fieldName() eq 'usersDn') {
-        return $model->{'users'}->usersDn();
-    } elsif ($type->fieldName() eq 'groupsDn') {
-        return $model->{'users'}->groupsDn();
-    } else {
-        return '';
+    return {
+        dn => $users->ldap()->dn(),
+        rootDn => $users->ldap()->rootDn(),
+        password => $users->ldap()->getPassword(),
+        usersDn => $users->usersDn(),
+        groupsDn => $users->groupsDn(),
     }
 }
 
@@ -143,7 +108,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->{'users'}->isEnabled();
+    return $self->parentModule()->isEnabled();
 }
 
 # Method: preconditionFailMsg

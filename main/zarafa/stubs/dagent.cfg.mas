@@ -1,5 +1,4 @@
 <%args>
-    $zarafa7
 </%args>
 ##############################################################
 # DAGENT SETTINGS
@@ -9,7 +8,7 @@ server_socket	=	file:///var/run/zarafa
 
 ##############################################################
 # DAGENT SSL LOGIN SETTINGS
-# 
+#
 # Note: server_socket must be set to https://servername:portname/zarafa
 #       to use this type of login method
 
@@ -29,20 +28,17 @@ log_method	=	file
 log_level	=	2
 
 # Logfile for log_method = file, use '-' for stderr
-log_file	=	-
-#log_file = /var/log/zarafa/dagent.log
+log_file = /var/log/zarafa/dagent.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
-log_timestamp	=	0
+log_timestamp	=	1
 
-% if ($zarafa7) {
 # Log raw message to a file
 log_raw_message = no
 
 # Log raw messages path
 log_raw_message_path = /tmp
 
-% }
 ##############################################################
 # DAGENT LMTP SETTINGS
 #  start dagent with -d to create an lmtp daemon of the zarafa-dagent
@@ -57,9 +53,6 @@ lmtp_port = 2003
 # Maximum LMTP threads that ca be running simultaneously
 # This is also limited by your SMTP server. (20 is the postfix default concurrency limit)
 lmtp_max_threads = 20
-
-# Process model for LMTP daemon, using pthreads (thread) or processes (fork)
-process_model = fork
 
 # run as specific user in LMTP mode.
 #   make sure this user is listed in local_admin_users in your zarafa server config
@@ -80,8 +73,35 @@ spam_header_name = X-Spam-Status
 
 # If the above header is found, and contains the following value
 # the mail will be considered as spam.
-# Notes: 
+# Notes:
 #  - The value is case insensitive.
 #  - Leading and trailing spaces are stripped.
 #  - The word 'bayes' also contains the word 'yes'.
 spam_header_value = Yes,
+
+##############################################################
+# DAGENT ARCHIVING SETTINGS
+
+# Enable archive_on_delivery to automatically archive all incoming
+# messages on delivery.
+# This will do nothing if no archive is attached to the target mailbox.
+archive_on_delivery = no
+
+##############################################################
+# DAGENT PLUGIN SETTINGS
+
+# Enable the dagent plugin framework
+plugin_enabled = yes
+
+# Path to the dagent plugin manager
+plugin_manager_path = /usr/share/zarafa-dagent/python
+
+# Path to the activated dagent plugins.
+#   This folder contains symlinks to the zarafa plugins and custom scripts. The plugins are 
+#   installed in '/usr/share/zarafa-dagent/python/plugins/'. To activate a plugin create a symbolic 
+#   link in the 'plugin_path' directory.
+#
+# Example:
+#  $ ln -s /usr/share/zarafa-dagent/python/plugins/BMP2PNG.py /var/lib/zarafa/dagent/plugins/BMP2PNG.py
+plugin_path = /var/lib/zarafa/dagent/plugins
+

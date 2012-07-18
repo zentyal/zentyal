@@ -19,12 +19,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
-
 use EBox::Types::Int;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
+use EBox::Types::Text;
 use EBox::Network::Types::Text::AutoReadOnly;
 use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
@@ -60,18 +60,6 @@ sub weights
     return \@options;
 }
 
-sub interfaces
-{
-    my $network = EBox::Global->modInstance('network');
-    my @ifaces = (@{$network->InternalIfaces()},
-                  @{$network->ExternalIfaces()});
-
-    my @options = map { 'value' => $_,
-                 'printableValue' => $_ }, @ifaces;
-
-    return \@options;
-}
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -80,26 +68,24 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
     my $network = EBox::Global->modInstance('network');
 
     my %dynamicGws;
 
+    my $state = $conf->get_state();
+
     foreach my $iface (@{$network->dhcpIfaces()}) {
-        my $gw = $gconf->st_get_string("dhcp/$iface/gateway");
+        my $gw = $state->{dhcp}->{$iface}->{gateway};
         if ($gw) {
             $dynamicGws{$iface} = $gw;
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
     foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $gconf->st_get_string("interfaces/$iface/ppp_addr");
-        my $ppp_iface = $gconf->st_get_string("interfaces/$iface/ppp_iface");
+        my $addr = $state->{interfaces}->{$iface}->{ppp_addr};
+        my $ppp_iface = $state->{interfaces}->{$iface}->{ppp_iface};
         if ($addr and $ppp_iface) {
             $dynamicGws{$iface} = "$ppp_iface/$addr";
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
 
@@ -189,11 +175,12 @@ sub _table
                     'unique' => 0, # Uniqueness is checked in validateRow
                     'editable' => 1
                       ),
-        new EBox::Types::Select(
+        new EBox::Types::Text(
                     'fieldName' => 'interface',
                     'printableName' => __('Interface'),
-                    'populate' => \&interfaces,
-                    'editable' => 1,
+                    'editable' => 0,
+                    'hiddenOnSetter' => 1,
+                    'optional' => 1,
                     'help' => __('Interface connected to this gateway')
                 ),
         new EBox::Types::Select(
@@ -263,6 +250,11 @@ sub validateRow
         $auto = $currentRow->valueByName('auto');
         $oldIP = $currentRow->valueByName('ip');
     }
+
+    if (exists $params{name}) {
+        $self->checkGWName($params{name});
+    }
+
     my $network = EBox::Global->modInstance('network');
 
     # Do not check for valid IP in case of auto-added ifaces
@@ -281,18 +273,28 @@ sub validateRow
                                                    'value' => $ip);
             }
         }
-    }
 
-    # Only check if gateway is reachable on static interfaces
-    if ($network->ifaceMethod($params{'interface'}) eq 'static') {
-        $network->gatewayReachable($params{'ip'}, 'LaunchException');
-        if (($action eq 'add' and ($self->size() == 0))) {
+        my $iface = $network->gatewayReachable($params{ip});
+        if ($iface) {
+            # Only check if gateway is reachable on static interfaces
+            unless ($network->ifaceMethod($iface) eq 'static') {
+                if ($action eq 'add') {
+                    throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
+                } else {
+                    throw EBox::Exceptions::External(__x("Gateway {gw} must be reachable by a static interface. "
+                                . "Currently it is reachable by {iface} which is not static",
+                                gw => $ip, iface => $iface));
+                }
+            }
+        } else {
+            throw EBox::Exceptions::External(__x("Gateway {gw} not reachable", gw => $ip));
+        }
+
+        if (($action eq 'add') and ($self->size() == 0)) {
             if (not $params{default}) {
                 throw EBox::Exceptions::External(__('Since you have not gateways you should add the first one as default'))
             }
         }
-    } elsif (($action eq 'add') and (not $auto)) {
-        throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
     }
 
     my $currentIsDefault = 0;
@@ -311,17 +313,14 @@ sub validateRow
             }
         }
     } elsif ($currentIsDefault) {
-        throw EBox::Exceptions::External(
-            __('You cannot remove the default attribute, if you want to change it assign it to another gaterway')
-           );
+        throw EBox::Exceptions::External(__('You cannot remove the default attribute, if you want to change it assign it to another gaterway'));
     }
-
 }
 
 sub validateRowRemoval
 {
     my ($self, $row, $force) = @_;
-    if ( $row->valueByName('auto')) {
+    if ( $row->valueByName('auto') and not $force) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
 }
@@ -335,6 +334,8 @@ sub validateRowRemoval
 sub addedRowNotify
 {
     my ($self, $row) = @_;
+
+    $self->_autoDetectInterface($row);
 
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
@@ -351,6 +352,8 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $newRow, $oldRow, $force) = @_;
+
+    $self->_autoDetectInterface($newRow);
 
     return if ($force); # failover event can force changes
 
@@ -457,23 +460,29 @@ sub allGateways
     $self->_gateways(1);
 }
 
-sub _gateways # (all)
+sub _gateways
 {
     my ($self, $all) = @_;
 
     my @gateways;
 
+    my $balanceModel = $self->parentModule()->model('BalanceGateways');
+    my %balanceEnabled =
+        map { $balanceModel->row($_)->valueByName('name') => 1 } @{$balanceModel->enabledRows()};
+
     foreach my $id (@{$all ? $self->ids() : $self->enabledRows()}) {
         my $gw = $self->row($id);
+        my $name = $gw->valueByName('name');
         push (@gateways, {
                             id => $id,
                             auto => $gw->valueByName('auto'),
-                            name => $gw->valueByName('name'),
+                            name => $name,
                             ip => $gw->valueByName('ip'),
                             weight => $gw->valueByName('weight'),
                             default => $gw->valueByName('default'),
                             interface => $gw->valueByName('interface'),
                             enabled => $gw->valueByName('enabled'),
+                            balance => $balanceEnabled{$name},
                          });
     }
 
@@ -528,7 +537,7 @@ sub removeRow
         $row or
             throw EBox::Exceptions::Internal("Invalid row id $id");
         my $gw = $row->valueByName('name');
-        my $global = EBox::Global->getInstance($self->{gconfmodule}->{ro});
+        my $global = EBox::Global->getInstance($self->{confmodule}->{ro});
         my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
         foreach my $mod (@mods) {
             if ($mod->gatewayDelete($gw)) {
@@ -543,6 +552,44 @@ sub removeRow
     }
 
     $self->SUPER::removeRow($id, $force);
+}
+
+
+sub checkGWName
+{
+    my ($self, $name) = @_;
+
+    if (($name =~ m/^-/) or ($name =~ m/-$/)) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names cannot begin or end with '-'})
+
+           );
+    }
+
+    unless ($name =~ m/^[a-z0-9\-]+$/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names can only be composed of lowercase ASCII english letters, digits and '-'}),
+
+           );
+    }
+}
+
+sub _autoDetectInterface
+{
+    my ($self, $row) = @_;
+
+    return if ($row->valueByName('auto'));
+
+    my $network = $self->parentModule();
+    my $iface = $network->gatewayReachable($row->valueByName('ip'));
+    if ($iface) {
+        $row->elementByName('interface')->setValue($iface);
+        $row->store();
+    }
 }
 
 1;

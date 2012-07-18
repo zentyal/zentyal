@@ -32,7 +32,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Event;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Constructor: new
 #
@@ -195,9 +195,9 @@ sub configurationSubModel
     defined ( $package ) or
         throw EBox::Exceptions::MissingArgument('package');
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $watchers = $manager->model('/events/ConfigureEventDataTable');
-    my $row = $watchers->findValue('eventWatcher' => $package);
+    my $events = EBox::Global->modInstance('events');
+    my $watchers = $events->model('ConfigureWatchers');
+    my $row = $watchers->findValue('watcher' => $package);
     return $row->subModel('configuration_model');
 }
 

@@ -40,31 +40,6 @@ use constant HDDS_DIR => '/var/lib/zentyal';
 use constant MAX_IDE_NUM => 4;
 use constant MAX_SCSI_NUM => 16;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new DeviceSettings model.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Virt::Model::DeviceSettings> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Group: Private methods
 
 sub _populateDriveTypes
@@ -200,6 +175,12 @@ sub validateTypedRow
         unless (-e $path) {
             throw EBox::Exceptions::External(__x("ISO image '{img}' does not exist", img => $path));
         }
+        unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
+            throw EBox::Exceptions::External(
+                    __x('The CD disk image {img} should be in ISO format',
+                        img => $path)
+                   );
+       }
     } else {
         my $disk_action = exists $changedFields->{disk_action} ? $changedFields->{disk_action}->value() :
                                                                  $allFields->{disk_action}->value();
@@ -210,8 +191,7 @@ sub validateTypedRow
             unless (-e $path) {
                 throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", img => $path));
             }
-            my $fileOutput = EBox::Sudo::root("file $path");
-            if (not $fileOutput->[0] =~ m/Format:\s+Qcow\s+,\s+Version:\s+2/) {
+            unless (_checkFileOutput($path, qr/Format:\s+Qcow\s+,\s+Version:\s+2/)) {
                 throw EBox::Exceptions::External(
                     __x('The hard disk image {img} should be in qcow2 format',
                         img => $path)
@@ -265,6 +245,12 @@ sub validateTypedRow
     }
 }
 
+sub _checkFileOutput
+{
+    my ($path, $wantedRe) = @_;
+    my $fileOutput = EBox::Sudo::root("file $path");
+    return $fileOutput->[0] =~ m/$wantedRe/
+}
 
 sub _checkHdName
 {
@@ -309,10 +295,6 @@ sub viewCustomizer
     my ($self) = @_;
 
     my $customizer = new EBox::View::Customizer();
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('VMSettings');
-    $self->setParentComposite($composite);
-
     $customizer->setModel($self);
 
     $customizer->setHTMLTitle([]);

@@ -28,9 +28,10 @@ package EBox::Firewall::IptablesHelper;
 use warnings;
 use strict;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Firewall::IptablesRule;
 use EBox::Firewall::IptablesRedirectRule;
+use EBox::Firewall::IptablesRule::SNAT;
 use EBox::Types::IPAddr;
 use EBox::Exceptions::Internal;
 
@@ -39,7 +40,7 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $self = {};
-    $self->{'manager'} = EBox::Model::ModelManager->instance();
+    $self->{'manager'} = EBox::Model::Manager->instance();
     $self->{firewall} = EBox::Global->modInstance('firewall');
     bless($self, $class);
     return $self;
@@ -229,6 +230,31 @@ sub RedirectsRuleTable
     return \@rules;
 }
 
+sub SNATRules
+{
+    my ($self) = @_;
+
+    my $model = $self->{'manager'}->model('SNAT');
+    defined($model) or throw EBox::Exceptions::Internal(
+            "Can't get RedirectsTable Model");
+
+    my @rules;
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $rule = new EBox::Firewall::IptablesRule::SNAT();
+        $rule->setState('new' => 1);
+        $self->_addIfaceToRule($rule, $row);
+        $self->_addServiceToRule($rule, $row);
+        $self->_addAddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'destination');
+        $self->_addSNATToRule($rule, $row);
+        $self->_addLoggingToRule($rule, $row);
+        push (@rules, @{$rule->strings()});
+    }
+
+    return \@rules;
+}
+
 sub _addOrigAddressToRule
 {
     my ($self, $rule, $row) = @_;
@@ -283,6 +309,9 @@ sub _addAddressToRule
 
         if ($type eq $address . '_ipaddr') {
             $params{$address .'Address'} = $addr->subtype();
+        } elsif ($type eq $address . '_macaddr') {
+#            $params{$address . 'MAC'} = $addr->subtype();
+            $params{$address . 'Address'} = $addr->subtype();
         } elsif ($type eq $address . '_object') {
             $params{$address . 'Object'} = $addr->value();
         }
@@ -382,8 +411,8 @@ sub _addSNATToRule
 {
     my ($self, $rule, $row) = @_;
 
-    my $snat = $row->valueByName('snat');
-    $rule->setSNAT($snat);
+    my $snat = $row->elementByName('snat');
+    $rule->setSNAT($snat->value());
 }
 
 # Logging for redirect rules

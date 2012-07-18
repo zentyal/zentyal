@@ -17,7 +17,7 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Validate qw( :all );
 use EBox::Sudo;
@@ -41,14 +41,8 @@ use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
 
 # Constants
-use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
-use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
-use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
-use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant INCLUDE_KEY => 'includes';
 use constant CAS_KEY => 'cas';
-use constant ABS_PATH => 'absolute';
-use constant REL_PATH => 'relative';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
@@ -60,16 +54,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-#   Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::Apache::Model::Language',
-             'EBox::Apache::Model::AdminPort' ];
 }
 
 sub serverroot
@@ -152,6 +136,7 @@ sub _setConf
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setDesktopServicesPort();
     $self->enableRestartOnTrigger();
 }
 
@@ -183,8 +168,13 @@ sub _writeHttpdConfFile
     push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
-    push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
+    push @confFileParams, ( restrictedResources => $self->get_list('restricted_resources') );
     push @confFileParams, ( includes => $self->_includes(1) );
+
+    my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');
+    my $desktop_services_port = EBox::Config::configkey('desktop_services_port');
+    push @confFileParams, ( desktop_services_enabled => $desktop_services_enabled );
+    push @confFileParams, ( desktop_services_port => $desktop_services_port );
 
     my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
@@ -287,6 +277,60 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
+sub _setDesktopServicesPort
+{
+    my $desktop_services_port = (EBox::Config::configkey('desktop_services_port') or 6895);
+    checkPort($desktop_services_port, __("Desktop services port"));
+
+    my $fw = EBox::Global->modInstance('firewall');
+    my $services = EBox::Global->modInstance('services');
+    if (defined($fw)) {
+        my $serviceName = 'desktop-services';
+        unless ( $services->serviceExists(name => $serviceName) ) {
+            $fw->addInternalService(
+                'name'              => $serviceName,
+                'printableName'     => __('Desktop Services'),
+                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+                'protocol'          => 'tcp',
+                'sourcePort'        => 'any',
+                'destinationPort'   => $desktop_services_port,
+               );
+            $fw->saveConfigRecursive();
+        } else {
+            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
+            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
+                $services->setService(name          => $serviceName,
+                                      printableName => __('Desktop Services'),
+                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
+                                      protocol      => 'tcp',
+                                      sourcePort    => 'any',
+                                      destinationPort => $desktop_services_port,
+                                      internal => 1, readOnly => 1);
+                $services->saveConfigRecursive();
+            }
+        }
+    }
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        $self->_setDesktopServicesPort();
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+}
+
 sub port
 {
     my ($self) = @_;
@@ -313,6 +357,17 @@ sub setPort # (port)
 
     return if ($oldPort == $port);
 
+    $self->checkAdminPort($port);
+
+    $adminPortModel->setValue('port', $port);
+    $self->updateAdminPortService($port);
+}
+
+
+sub checkAdminPort
+{
+    my ($self, $port) = @_;
+
     my $global = EBox::Global->getInstance();
     my $fw = $global->modInstance('firewall');
     if (defined($fw)) {
@@ -338,13 +393,16 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
             );
         }
     }
+}
 
+sub updateAdminPortService
+{
+    my ($self, $port) = @_;
+    my $global = $self->global();
     if ($global->modExists('services')) {
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
-
-    $adminPortModel->setValue('port', $port);
 }
 
 sub logs
@@ -426,21 +484,9 @@ sub setRestrictedResource
         }
     }
 
-    my $nSubs = ($resourceName =~ s:^/::);
-    my $rootKey = RESTRICTED_RESOURCES_KEY . "/$resourceName/";
-    if ( $nSubs > 0 ) {
-        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
-                           ABS_PATH );
-    } else {
-        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
-                           REL_PATH );
-    }
-
-    # Set the current list
-    $self->set_list( $rootKey . RESTRICTED_IP_LIST_KEY,
-                     'string', $allowedIPs );
-    $self->set_string( $rootKey . RESTRICTED_RESOURCE_TYPE_KEY,
-                       $resourceType);
+    my $resources = $self->get_list('restricted_resources');
+    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
+    $self->set('restricted_resources', $resources);
 }
 
 # Method: delRestrictedResource
@@ -465,49 +511,19 @@ sub delRestrictedResource
     my ($self, $resourcename) = @_;
 
     throw EBox::Exceptions::MissingArgument('resourcename')
-      unless defined ( $resourcename );
+        unless defined ($resourcename);
 
     $resourcename =~ s:^/::;
 
-    my $resourceKey = RESTRICTED_RESOURCES_KEY . "/$resourcename";
+    my $resources = $self->get_list('restricted_resources');
 
-    unless ( $self->dir_exists($resourceKey) ) {
-        throw EBox::Exceptions::DataNotFound( data  => 'resourcename',
-                                              value => $resourcename);
+    unless (exists $resources->{$resourcename}) {
+        throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
+                                             value => $resourcename);
     }
 
-    $self->delete_dir($resourceKey);
-}
-
-# Get the structure for the apache.mas.in template to restrict a
-# certain number of resources for a set of ip addresses
-sub _restrictedResources
-{
-    my ($self) = @_;
-
-    my @restrictedResources = ();
-    foreach my $dir (@{$self->all_dirs_base(RESTRICTED_RESOURCES_KEY)}) {
-        my $resourcename = $dir;
-        my $compKey = RESTRICTED_RESOURCES_KEY . "/$dir";
-        while ( @{$self->all_dirs_base($compKey)} > 0 ) {
-            my ($subdir) = @{$self->all_dirs_base($compKey)};
-            $compKey .= "/$subdir";
-            $resourcename .= "/$subdir";
-        }
-        # Add first slash if the added resource name is absolute
-        if ( $self->get_string("$compKey/" . RESTRICTED_PATH_TYPE_KEY )
-             eq ABS_PATH ) {
-            $resourcename = "/$resourcename";
-        }
-        my $restrictedResource = {
-                              allowedIPs => $self->get_list("$compKey/" . RESTRICTED_IP_LIST_KEY),
-                              name       => $resourcename,
-                              type       => $self->get_string( "$compKey/"
-                                                               . RESTRICTED_RESOURCE_TYPE_KEY),
-                             };
-        push ( @restrictedResources, $restrictedResource );
-    }
-    return \@restrictedResources;
+    my @deleted = grep { $_ ne $resourcename} @{$resources};
+    $self->set('restricted_resources', \@deleted);
 }
 
 # Method: isEnabled
@@ -548,6 +564,8 @@ sub addModuleStatus
 # Method: addInclude
 #
 #      Add an "include" directive to the apache configuration
+#
+#      Added only in the main virtual host
 #
 # Parameters:
 #

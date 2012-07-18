@@ -28,7 +28,7 @@ use Test::Deep;
 use EBox::TestStubs;
 use EBox::Objects;
 use EBox::Objects::Model::MemberTable;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 BEGIN {
     use_ok ( 'EBox::Test::Model' );
@@ -44,14 +44,14 @@ sub _fakeSetUpModels
       my ($self) = @_;
 
       $self->{models}->{MemberTable} = new EBox::Objects::Model::MemberTable(
-                         gconfmodule => EBox::Global->modInstance('objects'),
+                         confmodule => EBox::Global->modInstance('objects'),
                          directory   => 'memberTable'
                                                                             );
 
   }
 
 # Fake the model manager
-Test::MockObject->fake_module('EBox::Model::ModelManager',
+Test::MockObject->fake_module('EBox::Model::Manager',
                               _setUpModels => \&_fakeSetUpModels);
 
 # Fake eBox
@@ -63,7 +63,7 @@ EBox::TestStubs::fakeEBoxModule( name => 'objects',
 my $fakeModule = EBox::Global->modInstance('foo');
 
 my $model = new EBox::Test::Model(
-                                  gconfmodule => $fakeModule,
+                                  confmodule => $fakeModule,
                                   directory   => 'model'
                                  );
 

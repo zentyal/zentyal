@@ -35,24 +35,6 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the composite
-#
-# Returns:
-#
-#       <EBox::IDS::Model::Composite> - a
-#       composite
-#
-sub new
-{
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
 # Method: permanentMessage
 #
 #     Override to show a message depending on the subscription status
@@ -98,10 +80,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                            'ids/Interfaces',
-                            'ids/Rules',
-                           ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('Intrusion Detection System'),

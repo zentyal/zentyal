@@ -39,9 +39,6 @@ sub new
     return $self;
 }
 
-
-
-
 # Method: _paramIsValid
 #
 #
@@ -87,7 +84,5 @@ sub validate
                                         );
     }
 }
-
-
 
 1;

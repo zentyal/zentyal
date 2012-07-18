@@ -22,9 +22,9 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $gconfmodule = delete $opts{'gconfmodule'};
+    my $confmodule = delete $opts{'confmodule'};
     my $version = delete $opts{'version'};
-    my $self = { 'gconfmodule' => $gconfmodule, 'version' => $version };
+    my $self = { 'confmodule' => $confmodule, 'version' => $version };
 
     bless($self, $class);
 
@@ -35,7 +35,7 @@ sub _checkCurrentGConfVersion
 {
 	my $self = shift;
 
-	my $currentVer = $self->{'gconfmodule'}->get_int("data_version");
+	my $currentVer = $self->{'confmodule'}->get_int("data_version");
 
 	if (not defined($currentVer)) {
 		$currentVer = 0;
@@ -50,21 +50,21 @@ sub _setCurrentGConfVersion
 {
 	my $self = shift;
 
-	$self->{'gconfmodule'}->set_int("data_version", $self->{'version'});
+	$self->{'confmodule'}->set_int("data_version", $self->{'version'});
 }
 
 sub _saveGConfChanges
 {
 	my $self = shift;
 
-	$self->{'gconfmodule'}->saveConfigRecursive();
+	$self->{'confmodule'}->saveConfigRecursive();
 }
 
 sub executeGConf
 {
 	my $self = shift;
 
-	my $name = $self->{'gconfmodule'}->name();
+	my $name = $self->{'confmodule'}->name();
 	my $version = $self->{'version'};
 	if ($self->_checkCurrentGConfVersion()) {
 		EBox::debug("Migrating $name to $version");
@@ -80,7 +80,7 @@ sub execute
 {
 	my $self = shift;
 
-	if (defined($self->{'gconfmodule'})) {
+	if (defined($self->{'confmodule'})) {
 		$self->executeGConf();
 	}
 }
@@ -88,7 +88,7 @@ sub execute
 # Method: runGConf
 #
 #	This method must be overriden by each migration script to do
-#	the neccessary changes to the data model stored in gconf to migrate
+#	the neccessary changes to the data model stored in conf to migrate
 #	between two consecutive versions
 sub runGConf
 {

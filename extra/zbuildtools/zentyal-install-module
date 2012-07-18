@@ -26,9 +26,14 @@ my ($DESTDIR) = @ARGV;
 unless ($DESTDIR) {
     $DESTDIR = '/';
 }
+
 my $MODULE_NAME = basename(getcwd());
 $MODULE_NAME =~ s/^zentyal-//;
 $MODULE_NAME =~ s/-.*$//;
+
+if (exists $ENV{MODULE_NAME}) {
+    $MODULE_NAME = $ENV{MODULE_NAME};
+}
 
 my %DIR;
 $DIR{PERL} = "${DESTDIR}usr/share/perl5";

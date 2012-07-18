@@ -14,8 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Composite::DelayPools;
+
 # Class: EBox::Squid::Composite::DelayPools
-#
 #
 
 use base 'EBox::Model::Composite';
@@ -38,13 +38,11 @@ use EBox::Gettext;
 #
 sub new
 {
-
       my ($class, @params) = @_;
 
       my $self = $class->SUPER::new(@params);
 
       return $self;
-
 }
 
 # Group: Protected methods
@@ -57,19 +55,13 @@ sub new
 #
 sub _description
 {
-
-    my $description =
-        {
-         components      => [
-                             '/squid/DelayPools1',
-                             '/squid/DelayPools2',
-                            ],
+    my $description = {
          layout          => 'top-bottom',
          name            => 'DelayPools',
          pageTitle       => __('Bandwidth Throttling'),
          compositeDomain => 'Squid',
          help            => __("Bandwith throttling allows you to control download rates for connections going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) allow you to limit the download rate for the whole network whereas client bandwidth rules (class 2 delay pools) allow you to limit the download rate on a per client basis. Class 1 pools have more priority than class 2 pools and the first rule to match is applied. If a connection doesn't match any rule, then no bandwidth throttling is applied."),
-        };
+    };
 
     return $description;
 }

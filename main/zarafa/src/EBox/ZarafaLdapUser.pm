@@ -25,7 +25,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use Perl6::Junction qw(any);
 
 sub new
@@ -104,7 +104,6 @@ sub setHasAccount
     my ($self, $user, $option) = @_;
 
     if (not $self->hasAccount($user) and $option) {
-
         $self->setHasContact($user, 0);
         $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->set('zarafaAccount', 1, 1);
@@ -116,9 +115,7 @@ sub setHasAccount
         $user->save();
 
         $self->{zarafa}->_hook('setacc', $user->name());
-
-    } elsif ($self->hasAccount($user) and not $option)) {
-
+    } elsif ($self->hasAccount($user) and not $option) {
         $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->delete('zarafaAccount', 1);
         $user->delete('zarafaAdmin', 1);
@@ -128,7 +125,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaHard', 1);
         $user->save();
 
-        my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
+        my $model = $self->{zarafa}->model('ZarafaUser');
         $self->setHasContact($user, $model->contactValue());
 
         $self->{zarafa}->_hook('unsetacc', $user->name());
@@ -144,7 +141,7 @@ sub _addUser
    unless ($self->{zarafa}->configured()) {
        return;
    }
-   my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
+   my $model = $self->{zarafa}->model('ZarafaUser');
 
    $self->setHasAccount($user, $model->enabledValue());
    $self->setHasContact($user, $model->contactValue());

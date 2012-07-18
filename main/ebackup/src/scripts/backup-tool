@@ -45,7 +45,7 @@ use constant EBACKUP_CONF => EBox::Config::etc() . 'ebackup.conf';
 
 sub _sendEvent
 {
-    my ($msg, $level) = @_;
+    my ($msg, $level, $additionalInfo) = @_;
 
     # Generate event
     my $enabled = 0;
@@ -56,9 +56,11 @@ sub _sendEvent
             $enabled = $events
                 ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
             if ($enabled) {
-                $events->sendEvent(message => $msg,
-                        source  => 'EBackup',
-                        level   => $level);
+                $events->sendEvent(
+                    message => $msg,
+                    source  => 'ebackup',
+                    level   => $level,
+                    additional => $additionalInfo );
             }
         }
     }
@@ -68,11 +70,11 @@ sub _sendEvent
     }
 }
 
-sub _sendSuccessEvent
+sub _prepareAndSendEvent
 {
     my ($success, $type, $msgError) = @_;
-    my $msg;
-    my $level;
+
+    my ($msg, $level, $additionalInfo);
 
     my $printableMode;
     if ($type eq 'full') {
@@ -88,21 +90,23 @@ sub _sendSuccessEvent
         $msg = __x('Zentyal {mode} backup succeeded',
                     mode => $printableMode);
         $level = 'info';
+        $additionalInfo = { success => 1, type => $type };
     } else {
+        $additionalInfo = { error => 1, type => $type };
         if ($msgError) {
             $msg = __x("Zentyal {mode} backup failed: {error}",
                        mode  => $printableMode,
                        error => $msgError,
                       );
+            $additionalInfo->{error_msg} = $msgError;
         } else {
             $msg = __x("Zentyal {mode} backup failed",
                        mode  => $printableMode,
                       );
         }
-
         $level = 'error';
     }
-    _sendEvent( $msg, $level);
+    _sendEvent( $msg, $level, $additionalInfo);
 }
 
 sub _mangleDuplicityErrorMsg
@@ -189,7 +193,7 @@ sub _existsFullBackup
         my ($ex) = @_;
         my $errorMsg = _errorMessageFromDuplicityCmd($ex);
 
-        _sendSuccessEvent(0, $type, $errorMsg);
+        _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
     };
 
@@ -225,7 +229,7 @@ sub _adjustType
     } otherwise {
         my ($ex) = @_;
         my $errorMsg = _errorMessageFromDuplicityCmd($ex);
-        _sendSuccessEvent(0, $type, $errorMsg);
+        _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
     };
 
@@ -480,7 +484,7 @@ try {
     my $alreadyMsg = __('Another backup process is running, wait until it finishes and try again');
     print $alreadyMsg;
     print "\n";
-    _sendSuccessEvent(0, $type, $alreadyMsg);
+    _prepareAndSendEvent(0, $type, $alreadyMsg);
     $mustExit= 1;
 };
 if ($mustExit) {
@@ -495,7 +499,7 @@ try {
     my $busyMsg = __('The backup module is busy, retry later');
     print $busyMsg;
     print "\n";
-    _sendSuccessEvent(0, $type, $busyMsg);
+    _prepareAndSendEvent(0, $type, $busyMsg);
     $mustExit =  1;
 };
 
@@ -518,7 +522,7 @@ try {
     } otherwise {
         my ($ex) = @_;
         EBox::error("Error in backup target: $ex");
-        _sendSuccessEvent(0, $type, "$ex");
+        _prepareAndSendEvent(0, $type, "$ex");
         $ebackup->backupProcessUnlock();
         exit 1;
     };
@@ -557,7 +561,7 @@ try {
         _cleanup($ebackup);
     }
 
-    _sendSuccessEvent($success, $type, $errorMsg);
+    _prepareAndSendEvent($success, $type, $errorMsg);
 
 } finally {
     try {
@@ -588,8 +592,8 @@ if ($success) {
 # usage, with leftover files..
 $ebackup->gatherReportInfo($type, $backupStats);
 my $roGlobal  = EBox::Global->getInstance(1);
-my $cloudProf = $roGlobal->modInstance('cloud-prof');
-if ($cloudProf) {
+if ( $roGlobal->modExists('cloud-prof') ) {
+    my $cloudProf = $roGlobal->modInstance('cloud-prof');
     $cloudProf->ebackupAlerts();
 }
 

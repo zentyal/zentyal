@@ -150,24 +150,16 @@ sub isEqual
     return 1;
 }
 
-# XXX this method is only overriden to make the parentComposite fudge for view
-# customizer possible
 sub viewCustomizer
 {
     my ($self) = @_;
 
-    unless ($self->{viewCustomizer}) {
-        # XXX workaround for parentComposite with viewCustomizer bug
-        my $composite  = $self->{gconfmodule}->composite('VMSettings');
-        $self->setParentComposite($composite);
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
 
-        my $viewCustom = new EBox::View::Customizer();
-        $viewCustom->setModel($self);
-        $viewCustom->setHTMLTitle([]);
-        $self->{viewCustomizer} = $viewCustom;
-    }
+    $customizer->setHTMLTitle([]);
 
-    return $self->{viewCustomizer};
+    return $customizer;
 }
 
 1;

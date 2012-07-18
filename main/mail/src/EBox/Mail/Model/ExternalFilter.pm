@@ -40,6 +40,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Union;
 use EBox::Types::Port;
 use EBox::Types::HostIP;
+use EBox::Types::Select;
 
 # XXX TODO: disable custom filter controls when custom filter is not selected
 

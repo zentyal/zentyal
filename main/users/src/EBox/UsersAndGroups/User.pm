@@ -118,12 +118,6 @@ sub set
 {
     my ($self, $attr, $value) = @_;
 
-    if ($attr =~ m/^krb5Key$/ or
-        $attr =~ m/^userPassword$/) {
-        throw EBox::Exceptions::Internal(
-            __('The user password and kerberos keys cannot be modified directly. Please use the changePassword method.'));
-    }
-
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any CORE_ATTRS) {
         $self->{core_changed} = 1;
@@ -184,7 +178,7 @@ sub save
             delete $self->{core_changed};
 
             my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
 
             delete $self->{ignoreMods};
         }
@@ -203,10 +197,22 @@ sub save
 sub setIgnoredModules
 {
     my ($self, $mods) = @_;
+    $self->{ignoreMods} = $mods;
+}
 
-    if (defined $mods) {
-        $self->{ignoreMods} = $mods;
-    }
+# Method: setIgnoredSlaves
+#
+#   Set the slaves that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining slave names
+#
+sub setIgnoredSlaves
+{
+    my ($self, $slaves) = @_;
+    $self->{ignoreSlaves} = $slaves;
 }
 
 # Method: addGroup
@@ -362,12 +368,12 @@ sub _setFilesystemQuota
     my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
-        throw EBox::Exceptions::External(
-            __x('Cannot set quota to {userQuota}. Please, choose another value',
-               userQuota => $userQuota)
-           )
+        EBox::error(
+            __x('Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does not support quota?',
+                uid      => $uid,
+                userQuota => $userQuota)
+           );
     }
-
 }
 
 # Method: changePassword
@@ -387,6 +393,24 @@ sub changePassword
 }
 
 
+# Method: setPasswordFromHashes
+#
+#   Configure user password directly from its kerberos hashes
+#
+# Parameters:
+#
+#   passwords - array ref of krb5keys
+#
+sub setPasswordFromHashes
+{
+    my ($self, $passwords) = @_;
+
+    $self->set('userPassword', '{K5KEY}');
+    $self->set('krb5Key', $passwords);
+    $self->set('krb5KeyVersionNumber', 1);
+}
+
+
 # Method: deleteObject
 #
 #   Delete the user
@@ -402,7 +426,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
+    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Mark as changed to process save
     $self->{core_changed} = 1;
@@ -445,6 +469,7 @@ sub passwordHashes
 #      uidNumber - user UID numberer
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
+#      ignoreSlaves - slaves that should not be notified about the user creation
 #
 # Returns:
 #
@@ -455,6 +480,15 @@ sub create
     my ($self, $user, $system, %params) = @_;
 
     my $users = EBox::Global->modInstance('users');
+
+    unless (_checkUserName($user->{'user'})) {
+        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'},
+                                            'advice' => $advice
+                                           );
+    }
 
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
@@ -471,15 +505,6 @@ sub create
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
-    }
-
-    unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'},
-                                            'advice' => $advice
-                                           );
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});
@@ -565,12 +590,11 @@ sub create
 
     # Set the user password and kerberos keys
     if (defined $passwd) {
-        $res->changePassword($passwd, 1);
-        delete $res->{core_changed_password};
+        $self->_checkPwdLength($passwd);
         $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
     elsif (defined($user->{passwords})) {
-        $res->setPasswordFromHashes($user->{passwords}, 1);
+        $res->setPasswordFromHashes($user->{passwords});
     }
 
     # Init user
@@ -583,7 +607,7 @@ sub create
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
     }
 
     if ($res->{core_changed}) {
@@ -651,9 +675,9 @@ sub lastUid
     my ($self, $system) = @_;
 
     my $lastUid = -1;
-    while (my ($name, undef, $uid) = getpwent()) {
-        next if ($name eq 'nobody');
-
+    my $users = EBox::Global->modInstance('users');
+    foreach my $user (@{$users->users($system)}) {
+        my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
         } else {
@@ -663,8 +687,6 @@ sub lastUid
             $lastUid = $uid;
         }
     }
-    endpwent();
-
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {

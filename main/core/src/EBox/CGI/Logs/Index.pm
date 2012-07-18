@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Html;
 use POSIX qw(ceil);
 
@@ -213,14 +213,14 @@ sub _saveAsEvent
     my $selected = $self->param('selected');
 
     # TODO Use new row/ids API
-    my $manager = EBox::Model::ModelManager->instance();
-    my $logConfModel = $manager->model('/events/LogWatcherConfiguration');
+    my $manager = EBox::Model::Manager->instance();
+    my $logConfModel = $manager->model('events/LogWatcherConfiguration');
     my $loggerConfRow = $logConfModel->findValue(domain => $selected);
     my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};
 
-    my $url = "Events/View/LogWatcherFiltering/$selected";
-    my $params = '?action=presetUpdate&tablename=LogWatcherFiltering&'
-      . "directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
+    my $modelName = "LogWatcherFiltering_$selected";
+    my $url = "Events/View/$modelName";
+    my $params = "?action=presetUpdate&tablename=$modelName&directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
     while (my ($key, $value) = each %{$hfilters}) {
         if ( $key eq 'event' and not $value) {
             $value = 'any';

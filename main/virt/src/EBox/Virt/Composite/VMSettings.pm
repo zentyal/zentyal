@@ -23,26 +23,6 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#      Constructor for the General composite
-#
-# Returns:
-#
-#      <EBox::Virt::Model::GeneralComposite> - the recently created model
-#
-sub new
-{
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -55,11 +35,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'virt/SystemSettings',
-                               'virt/NetworkSettings',
-                               'virt/DeviceSettings',
-                           ],
         layout          => 'tabbed',
         name            => 'VMSettings',
         printableName   => __('Virtual Machine Settings'),

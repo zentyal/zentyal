@@ -318,7 +318,8 @@ sub setClientRouteUp
         $routeUpCmd = ROUTEUP_SCRIPT;
     }
 
-    if ($vpnClient->routeUpCmd() eq $routeUpCmd) {
+    my $currentRouteUpCmd = $vpnClient->routeUpCmd();
+    if (defined($currentRouteUpCmd) and ($currentRouteUpCmd eq $routeUpCmd) ) {
         return;
     }
 
