@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Finish;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Finish;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Config;
@@ -144,6 +142,26 @@ sub _disabledModules
         push (@modules, $modInstance->printableName());
     }
     return \@modules;
+}
+
+
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
 }
 
 sub _top

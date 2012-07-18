@@ -95,6 +95,29 @@ sub _progressId
     return $pId;
 }
 
+
+# to avoid the <div id=content> in raw mode
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('raw')) {
+        return $self->SUPER::print();
+    }
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
+
 sub _menu
 {
     my ($self) = @_;

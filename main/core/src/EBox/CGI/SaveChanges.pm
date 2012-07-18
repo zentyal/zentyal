@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::SaveChanges;
-
 use strict;
 use warnings;
 
+package EBox::CGI::SaveChanges;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
+
 
 use EBox::Config;
 use EBox::Global;
@@ -29,8 +29,6 @@ sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Save configuration'),
-#            'template' => '/finish.mas',
-#            'template' => '/savechanges.mas',
             @_);
     bless($self, $class);
     return $self;
@@ -61,11 +59,10 @@ my @commonProgressParams = (
         nextStepUrl  => '#',
         nextStepUrlOnclick => 'Modalbox.hide(); return false',
 );
+
 sub saveAllModulesAction
 {
     my ($self) = @_;
-
- #   $self->{redirect} = "/Dashboard/Index";
 
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareSaveAllModules();
@@ -80,16 +77,12 @@ sub saveAllModulesAction
                                   . '. More information on the logs in {dir}',
                                   dir => EBox::Config->log()),
         @commonProgressParams
-
        );
 }
-
 
 sub revokeAllModulesAction
 {
     my ($self) = @_;
-
-#    $self->{redirect} = "/Dashboard/Index";
 
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareRevokeAllModules();
@@ -107,29 +100,23 @@ sub revokeAllModulesAction
        );
 }
 
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
 
-# sub _header
-# {
-# 	my $self = shift;
-# 	print <<END;
-# <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-# 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-# <html xmlns="http://www.w3.org/1999/xhtml">
-# <head>
-# <title>TITLE_TO_CHANGE</title>
-# <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-# <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
-# <link rel="shortcut icon" href="FAV_ICON" />
-# <script type="text/javascript" src="/data/js/progress.js">//</script>
-# <script type="text/javascript" src="/data/js/common.js">//</script>
-# <script type="text/javascript" src="/data/js/prototype.js">//</script>
-# <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
-# <script type="text/javascript" src="/data/js/modalbox.js">//</script>
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
 
-# </head>
-# <body>
-# END
-
-#     }
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
 
 1;
