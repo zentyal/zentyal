@@ -103,7 +103,7 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('raw')) {
-        return $self->SUPER::print();
+        return $self->SUPER::_print();
     }
 
     my $json = $self->{json};
