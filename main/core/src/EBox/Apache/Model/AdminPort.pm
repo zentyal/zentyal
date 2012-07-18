@@ -71,7 +71,8 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
+
     my $port = $row->valueByName('port');
     $self->parentModule()->updateAdminPortService($port);
 }

@@ -145,22 +145,16 @@ sub syncRows
 #
 #      <EBox::Model::DataTable::updatedRowNotify>
 #
-# Parameters:
-#
-#      oldRowRef - hash ref named parameters containing the old row values
-#
-#
 sub updatedRowNotify
 {
-    my ($self, $rowRef) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
 
     # Get whether the event watcher is enabled or not
-    my $newRow = $self->row($rowRef->id());
-    my $enabled = $newRow->valueByName('enabled');
-    my $className = $newRow->valueByName('watcher');
+    my $enabled = $row->valueByName('enabled');
+    my $className = $row->valueByName('watcher');
 
     # if the class name is a the log one, check if any log observer is ready
-    if ( $className =~ m/::Log$/ and $enabled) {
+    if ($className =~ m/::Log$/ and $enabled) {
         $self->_checkLogWatchers();
     }
 }

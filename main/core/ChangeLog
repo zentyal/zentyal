@@ -1,4 +1,6 @@
 HEAD
+	+ UpdatedRowNotify receive a hash containing the old elements before
+	  modification instead of a row reference
 	+ Use a different lock file for the usercorner redis
 	+ Improved look of tables when checkAll controls are present
 	+ Better icons for clone action

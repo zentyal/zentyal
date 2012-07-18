@@ -116,7 +116,8 @@ sub deletedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
+
     $self->_aclChanged();
 }
 

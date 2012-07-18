@@ -77,10 +77,9 @@ sub _table
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow, $force) = @_;
-    if (not $self->bwmonitorNeeded()) {
-        return;
-    }
+    my ($self, $row, $oldElements, $force) = @_;
+
+    return if (not $self->bwmonitorNeeded());
 
     my $iface = $row->valueByName('interface');
     my $enabled = $row->valueByName('enabled');
@@ -93,8 +92,7 @@ sub updatedRowNotify
             val => $enabled ? __('enabled') : __('disabled')
            ));
     }
-
- }
+}
 
 sub _syncBWMonitorIface
 {

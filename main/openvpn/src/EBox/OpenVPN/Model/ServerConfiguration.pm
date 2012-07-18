@@ -610,11 +610,11 @@ sub _checkTunnelForbiddenParams
 }
 
 
-#  the interface type resides in the ServerModels so we must set it in the
-#  parentRow
+# The interface type resides in the ServerModels so we must set it in the
+# parentRow
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow) = @_;
+    my ($self, $row, $oldElements) = @_;
 
     my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
     my $parentRow = $self->parentRow();
@@ -624,8 +624,6 @@ sub updatedRowNotify
         $parentRow->store();
     }
 }
-
-
 
 sub configured
 {

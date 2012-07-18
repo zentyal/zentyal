@@ -405,16 +405,12 @@ sub deletedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
+
     # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
     # changed but to avoid corner cases we will always notifiy to mail
     my $mail = EBox::Global->modInstance('mail');
-    defined $mail and
-        $mail->setAsChanged();
+    $mail->setAsChanged() if defined $mail;
 }
 
-
-
-
 1;
-

@@ -621,34 +621,34 @@ sub validateRow
 
 # Method: validateTypedRow
 #
-#    Override this method to add your custom checks for
-#    the table fields. The parameters are passed like data types.
+#   Override this method to add your custom checks for
+#   the table fields. The parameters are passed like data types.
 #
-#    It will be called whenever a row is added/updated.
+#   It will be called whenever a row is added/updated.
 #
 #
 # Arguments:
 #
-#     action - String containing the action to be performed
-#              after validating this row.
-#              Current options: 'add', 'update'
+#   action - String containing the action to be performed
+#            after validating this row.
+#            Current options: 'add', 'update'
 #
-#    changedFields - hash ref containing the typed parameters
-#                    subclassing from <EBox::Types::Abstract>
-#                    that has changed, the key will be the field's name
+#   changedFields - hash ref containing the typed parameters
+#                   subclassing from <EBox::Types::Abstract>
+#                   that has changed, the key will be the field's name
 #
-#    allFields - hash ref containing the typed parameters
-#                subclassing from <EBox::Types::Abstract> including changed,
-#                the key is the field's name
+#   allFields - hash ref containing the typed parameters
+#               subclassing from <EBox::Types::Abstract> including changed,
+#               the key is the field's name
 #
 # Returns:
 #
-#    Nothing
+#   Nothing
 #
 # Exceptions:
 #
-#     You must throw an exception whenever a field value does not
-#     fulfill your requirements
+#   You must throw an exception whenever a field value does not
+#   fulfill your requirements
 #
 sub validateTypedRow
 {
@@ -750,13 +750,14 @@ sub movedDownRowNotify
 #
 # Arguments:
 #
-#     row - <EBox::Model::Row> row containing fields and values of the
-#           updated row
+#   row - <EBox::Model::Row> row containing fields and values of the
+#         updated row
 #
-#     oldRow - <EBox::Model::Row> row containing fields and values of the
-#           previous row
+#   oldElements - hash ref containing the original typed parameters
+#                 subclassing from <EBox::Types::Abstract> before
+#                 updating its value, the key is the field's name
 #
-#     force - boolean indicating whether the delete is forced or not
+#   force - boolean indicating whether the delete is forced or not
 #
 sub updatedRowNotify
 {
@@ -1356,6 +1357,7 @@ sub setTypedRow
     my $changedElements = {};
     my @changedElements = ();
     my $allHashElements = $oldRow->hashElements();
+    my $oldElements = Clone::clone($allHashElements);
     foreach my $paramName (keys %{$paramsRef}) {
         unless ($paramName ne any(@setterTypes)) {
             throw EBox::Exceptions::Internal('Trying to update a non setter type');
@@ -1376,7 +1378,7 @@ sub setTypedRow
 
         $paramData->setRow($oldRow);
         $changedElements->{$paramName} = $paramData;
-        push ( @changedElements, $paramData);
+        push (@changedElements, $paramData);
         $allHashElements->{$paramName} = $paramData;
     }
 
@@ -1428,7 +1430,7 @@ sub setTypedRow
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
         $self->_notifyManager('update', $self->row($id));
-        $self->updatedRowNotify($self->row($id), $oldRow, $force);
+        $self->updatedRowNotify($self->row($id), $oldElements, $force);
     }
 
     $self->_commitTransaction();

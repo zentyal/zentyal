@@ -103,7 +103,7 @@ sub setTypedRow
         $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
     }
     $self->_notifyManager('update', $row);
-    $self->updatedRowNotify($row, $force);
+    $self->updatedRowNotify($row, $force, {}, $force);
 }
 
 1;

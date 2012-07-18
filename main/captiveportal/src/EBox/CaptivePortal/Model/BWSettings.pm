@@ -143,11 +143,11 @@ sub _table
     return $dataTable;
 }
 
-
-# reimplement this with model changed notifier when it works again
+# TODO reimplement this with model changed notifier when it works again
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow, $force) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
+
     if ($row->valueByName('limitBW')) {
         my $interfaces = $self->parentModule()->model('Interfaces');
         my $anySync = $interfaces->bwMonitorEnabled();
@@ -158,6 +158,5 @@ sub updatedRowNotify
         }
     }
 }
-
 
 1;

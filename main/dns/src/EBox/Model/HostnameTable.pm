@@ -116,18 +116,18 @@ sub validateTypedRow
 
 # Method: updatedRowNotify
 #
-#     Override to add to the list of removed of RRs
+#   Override to add to the list of removed of RRs
 #
 # Overrides:
 #
-#     <EBox::Exceptions::DataTable::updatedRowNotify>
+#   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $force) = @_;
+    my ($self, $row, $oldElements, $force) = @_;
 
     # The field is added in validateTypedRow
-    if ( exists $self->{toDelete} ) {
+    if (exists $self->{toDelete}) {
         foreach my $rr (@{$self->{toDelete}}) {
             $self->_addToDelete($rr);
         }
