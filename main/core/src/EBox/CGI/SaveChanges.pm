@@ -58,6 +58,7 @@ my @commonProgressParams = (
         nextStepText => __('Go back'),
         nextStepUrl  => '#',
         nextStepUrlOnclick => 'Modalbox.hide(); return false',
+        barWidth => 490,
 );
 
 sub saveAllModulesAction

@@ -18,6 +18,8 @@ $nextStepUrlOnclick => undef
 $nextStepText => undef
 
 $nextStepTimeout => 0
+
+$barWidth => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -32,6 +34,13 @@ defined $errorNote          or $errorNote = __('Some error has '
 my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to return to the Dashboard');
+}
+
+my $percentMargin;
+if ($barWidth) {
+    # add px unit
+    $barWidth = $barWidth . 'px';
+    $percentMargin = $barWidth / 2;
 }
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
@@ -107,7 +116,7 @@ unless (defined ($nextStepText)) {
     float: left;
     line-height: 20px;
 	height:20px;
-	margin-left:380px;
+	margin-left: <% $percentMargin ? $percentMargin : '380' %>px;
 	z-index : 100;
 	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
@@ -130,7 +139,7 @@ unless (defined ($nextStepText)) {
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-    <div class="bar">
+    <div class="bar"<% $barWidth ? "style='width: $barWidth'" : ""%> >
         <div id="progressValue"></div>
     </div>
 </div>
