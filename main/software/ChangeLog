@@ -1,4 +1,5 @@
 HEAD
+	+ Remove redirection to save changes page after removing packages
 	+ Install/Remove package shows log directory in error message
 2.3.3
 	+ Add proper 2.3 repository in initial-setup
