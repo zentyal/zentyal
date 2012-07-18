@@ -137,30 +137,24 @@ sub syncRows
 
 # Method: updatedRowNotify
 #
-#      Callback when the row has been updated. In this table model,
-#      the main change is to switch the state from enabled to disabled
-#      and viceversa.
+#   Callback when the row has been updated. In this table model,
+#   the main change is to switch the state from enabled to disabled
+#   and viceversa.
 #
 # Overrides:
 #
-#      <EBox::Model::DataTable::updatedRowNotify>
-#
-# Parameters:
-#
-#      oldRowRef - hash ref named parameters containing the old row values
-#
+#    <EBox::Model::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $rowRef) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # Get whether the event watcher is enabled or not
-    my $newRow = $self->row($rowRef->id());
-    my $enabled = $newRow->valueByName('enabled');
-    my $className = $newRow->valueByName('watcher');
+    my $enabled = $row->valueByName('enabled');
+    my $className = $row->valueByName('watcher');
 
     # if the class name is a the log one, check if any log observer is ready
-    if ( $className =~ m/::Log$/ and $enabled) {
+    if ($className =~ m/::Log$/ and $enabled) {
         $self->_checkLogWatchers();
     }
 }

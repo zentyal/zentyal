@@ -271,15 +271,12 @@ sub _privateFilePath
     return "$dir/$fileName";
 }
 
-
-
-
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
-    #  the interface type resides in the ServerModels so we must set it in the
-    #  parentRow
+    # The interface type resides in the ServerModels so we must set it in the
+    # parentRow
     my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
     my $parentRow = $self->parentRow();
     my $ifaceType = $parentRow->elementByName('interfaceType');
@@ -288,7 +285,6 @@ sub updatedRowNotify
         $parentRow->store();
     }
 }
-
 
 # Method: pageTitle
 #

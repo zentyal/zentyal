@@ -1,4 +1,6 @@
 HEAD
+	+ Fix 'oldRow' parameter in UpdatedRowNotify
+	+ Use Clone::Fast instead of Clone
 	+ Modal dialog for the save and discard changes operations
 	+ Use a different lock file for the usercorner redis
 	+ Improved look of tables when checkAll controls are present

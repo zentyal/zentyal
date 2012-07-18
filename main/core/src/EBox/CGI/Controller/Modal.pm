@@ -28,7 +28,6 @@ use EBox::Exceptions::Internal;
 
 # Dependencies
 use Error qw(:try);
-use Clone;
 
 sub new # (cgi=?)
 {

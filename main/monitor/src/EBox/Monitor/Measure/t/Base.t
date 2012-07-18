@@ -17,7 +17,7 @@
 
 # A module to test Base measure module
 
-use Clone;
+use Clone::Fast;
 use EBox;
 use EBox::Gettext;
 use File::Temp;
@@ -102,7 +102,7 @@ foreach my $printableMethod (qw(printableInstance printableTypeInstance)) {
 
 # Data set, typeInstances, printable ones bad types
 foreach my $attr (qw(dataSources types instances printableLabels printableInstances printableTypeInstances printableDataSources)) {
-    my $badDescription = Clone::clone($greatDescription);
+    my $badDescription = Clone::Fast::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
         $measure->_setDescription($badDescription);
@@ -110,7 +110,7 @@ foreach my $attr (qw(dataSources types instances printableLabels printableInstan
 }
 
 # graphPerTypeInstance
-my $badDescription = Clone::clone($greatDescription);
+my $badDescription = Clone::Fast::clone($greatDescription);
 $badDescription->{typeInstances} = [];
 $badDescription->{printableTypeInstances} = [];
 $badDescription->{graphPerTypeInstance} = 1;
@@ -120,7 +120,7 @@ throws_ok {
 
 # Printable instances (data source, type and measures)
 foreach my $kind (qw(printableInstances printableTypeInstances printableDataSources)) {
-    my $badDescription = Clone::clone($greatDescription);
+    my $badDescription = Clone::Fast::clone($greatDescription);
     $badDescription->{$kind} = { 'tmp' => 'foo',
                                  'bar' => 'baz' };
     throws_ok {
@@ -129,7 +129,7 @@ foreach my $kind (qw(printableInstances printableTypeInstances printableDataSour
 }
 
 # Printable label
-$badDescription = Clone::clone($greatDescription);
+$badDescription = Clone::Fast::clone($greatDescription);
 $badDescription->{printableLabels} = [ 'foo', 'bar' ];
 throws_ok {
     $measure->_setDescription($badDescription);
@@ -144,7 +144,7 @@ foreach my $type (qw(int percentage degree byte)) {
     cmp_ok( $measure->{type}, 'eq', $type);
 }
 
-$badDescription = Clone::clone($greatDescription);
+$badDescription = Clone::Fast::clone($greatDescription);
 $badDescription->{type} = 'foo';
 throws_ok {
     $measure->_setDescription($badDescription);
