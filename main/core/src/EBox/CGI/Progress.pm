@@ -67,7 +67,6 @@ sub _process
         # or so is run.
         use Encode;
         my $value = encode (utf8 => $self->unsafeParam($name));
-
         $value or
             next;
 

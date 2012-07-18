@@ -54,6 +54,13 @@ sub _process
 }
 
 
+my @commonProgressParams = (
+        reloadInterval  => 2,
+        raw => 1,
+        nextStepText => __('Go back'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => 'Modalbox.hide(); return false',
+);
 sub saveAllModulesAction
 {
     my ($self) = @_;
@@ -65,7 +72,6 @@ sub saveAllModulesAction
 
     $self->showProgress(
         progressIndicator  => $progressIndicator,
-        title              => __('Saving changes'),
         text               => __('Saving changes in modules'),
         currentItemCaption => __("Current operation"),
         itemsLeftMessage   => __('operations performed'),
@@ -73,10 +79,7 @@ sub saveAllModulesAction
         errorNote          => __x('Some modules reported error when saving changes '
                                   . '. More information on the logs in {dir}',
                                   dir => EBox::Config->log()),
-        reloadInterval  => 2,
-        raw => 1,
-        nextStepText => 'close',
-        nextStepUrlOnclick => 'Modalbox.hide(); return false',
+        @commonProgressParams
 
        );
 }
@@ -93,7 +96,6 @@ sub revokeAllModulesAction
 
     $self->showProgress(
         progressIndicator => $progressIndicator,
-        title    => __('Revoking changes'),
         text     => __('Revoking changes in modules'),
         currentItemCaption  =>  __("Current module"),
         itemsLeftMessage  => __('modules revoked'),
@@ -101,8 +103,7 @@ sub revokeAllModulesAction
         errorNote => __x('Some modules reported error when discarding changes '
                            . '. More information on the logs in {dir}',
                          dir => EBox::Config->log()),
-        reloadInterval  => 2,
-        raw => 1,
+        @commonProgressParams
        );
 }
 

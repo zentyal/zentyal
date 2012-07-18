@@ -34,18 +34,10 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to return to the Dashboard');
 }
-
-my @nextStepUrlAttrs;
-if ($nextStepUrlOnclick) {
-    push @nextStepUrlAttrs, (onclick => $nextStepUrlOnclick);
-
-}
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
-%# XXX
-%#<script type="text/javascript" src="/data/js/modalbox.js"></script>
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -181,12 +173,23 @@ if ($nextStepUrlOnclick) {
    <p><% $endNote %></p>
    <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>
-   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
+   <& .url,
+      url => $nextStepUrl,
+      text => $nextStepText,
+      onclick => $nextStepUrlOnclick
+   &>
 </div>
 <div class="error" id="error-progress" style="display:none;">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
-   <a href="<% $nextStepUrl %>" <& /htmlAttributes.mas, @nextStepUrlAttrs &>> <% $nextStepText %></a>
+   <& .url,
+      url => $nextStepUrl,
+      text => $nextStepText,
+      onclick => $nextStepUrlOnclick
+   &>
+   <a href="<% $nextStepUrl %>" <% $nextStepUrlOnclick ? qq{onclick="$nextStepUrlOnclick"} : '' %> >
+        <% $nextStepText %>
+    </a>
 </div>
 
 % if ($showAds) {
@@ -194,3 +197,14 @@ if ($nextStepUrlOnclick) {
 	showAds();
 </script>
 % }
+
+<%def .url>
+<%args>
+$url
+$text
+$onclick
+</%args>
+   <a href="<% $url %>" <% $onclick ? qq{onclick="$onclick"} : '' %> >
+        <% $text %>
+    </a>
+</%def>
