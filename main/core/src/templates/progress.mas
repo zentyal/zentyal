@@ -16,6 +16,7 @@ $adsJson => '""'
 $nextStepUrl => '/Dashboard/Index'
 $nextStepText => undef
 $nextStepTimeout => 0
+$showAds => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -180,8 +181,8 @@ unless (defined ($nextStepText)) {
    <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
 </div>
 
-<%doc>
+% if ($showAds) {
 <script>
 	showAds();
 </script>
-</%doc>
+% }
