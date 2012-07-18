@@ -23,7 +23,6 @@ use base 'EBox::UsersAndGroups::Slave';
 
 use EBox::Global;
 use EBox::Exceptions::External;
-use EBox::RemoteServices::Cred;
 
 use Error qw(:try);
 use MIME::Base64;
@@ -155,8 +154,8 @@ sub _delGroup
 
 sub RESTClient
 {
-    my $cred = new EBox::RemoteServices::Cred();
-    return $cred->RESTClient();
+    my $rs = new EBox::Global->modInstance('remoteservices');
+    return $rs->REST();
 }
 
 1;

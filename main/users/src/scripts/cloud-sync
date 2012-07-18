@@ -20,7 +20,6 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use EBox::RemoteServices::Cred;
 
 use MIME::Base64;
 use Error qw(:try);
@@ -38,9 +37,8 @@ if ($users->master() ne 'cloud') {
 # Cloud syncing enabled
 EBox::debug("Syncing users with Zentyal Cloud!");
 
-
-my $cred = new EBox::RemoteServices::Cred();
-my $rest = $cred->RESTClient();
+my $rs = EBox::Global->modInstance('remoteservices');
+my $rest = $rs->REST();
 
 EBox::debug("Asking for user list");
 my $res = $rest->GET('/v1/users/users/');

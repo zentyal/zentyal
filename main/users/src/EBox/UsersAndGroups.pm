@@ -497,9 +497,11 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
-            \@array);
 
+    if ($self->master() eq 'cloud') {
+        push(@array, 'cloudsync_enabled' => 1);
+        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
+    }
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
