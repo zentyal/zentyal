@@ -60,6 +60,7 @@ sub _process
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             endNote errorNote reloadInterval currentItemUrl
+            nextStepType
             nextStepUrl nextStepText nextStepTimeout nextStepUrlOnclick
             barWidth );
     foreach my $name (@paramsNames) {

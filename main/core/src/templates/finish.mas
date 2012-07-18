@@ -140,17 +140,16 @@ my $mboxSaveTitle = __('Saving changes');
 my $mboxDiscardTitle = __('Discarding changes');
 </%perl>
 <form action='Finish' method='POST'>
-	<p>
-		<input class='inputButton' type='submit' name='save'
-			   value="<% __('Save') %>"
-                             onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>'}); return false";
-
-                       />
-		<input class='inputButton' type='submit' name='cancel'
-			   value="<% __('Discard changes') %>"
-                           onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>'});  return false";
-                       />
-	</p>
+ <p>
+    <input class='inputButton' type='submit' name='save'
+                   value="<% __('Save') %>"
+                   onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false}); return false";
+     />
+    <input class='inputButton' type='submit' name='cancel'
+                   value="<% __('Discard changes') %>"
+                   onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>', overlayClose: false});  return false";
+    />
+ </p>
 </form>
 % }else{
 <div class='note'>

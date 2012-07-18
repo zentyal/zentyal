@@ -55,7 +55,8 @@ sub _process
 my @commonProgressParams = (
         reloadInterval  => 2,
         raw => 1,
-        nextStepText => __('Go back'),
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlOnclick => 'Modalbox.hide(); return false',
         barWidth => 490,

@@ -13,6 +13,8 @@ $errorNote          => undef
 $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
+
+$nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
 $nextStepUrlOnclick => undef
 $nextStepText => undef
@@ -150,28 +152,35 @@ if ($barWidth) {
 </div>
 
 <br/>
-<div class ="note" id="done" style="display:none;">
+
+<div class id="done" style="display:none;">
+%# this div will be closed by .nextStep
+<div class ="note" >
    <p><% $endNote %></p>
    <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>
-   <& .url,
+   <& .nextStep,
+      type => $nextStepType,
       url => $nextStepUrl,
       text => $nextStepText,
       onclick => $nextStepUrlOnclick
    &>
 </div>
-<div class="error" id="error-progress" style="display:none;">
+
+
+<div id="error-progress" style="display:none;">
+%# this div will be closed by .nextStep
+<div class="error">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
-   <& .url,
+   <& .nextStep,
+      type => $nextStepType,
       url => $nextStepUrl,
       text => $nextStepText,
       onclick => $nextStepUrlOnclick
    &>
-   <a href="<% $nextStepUrl %>" <% $nextStepUrlOnclick ? qq{onclick="$nextStepUrlOnclick"} : '' %> >
-        <% $nextStepText %>
-    </a>
 </div>
+
 
 % unless ($adsJson eq '""')  {
 <script>
@@ -179,13 +188,22 @@ if ($barWidth) {
 </script>
 % }
 
-<%def .url>
+<%def .nextStep>
 <%args>
+$type
 $url
 $text
 $onclick
 </%args>
+% if ($type eq 'submit') {
+  </div>
+  <div class='tcenter'>
+     <input type="submit" value="<% $text %>" <% $onclick ? qq{onclick="$onclick"} : '' %> />
+  </div>
+% } else {
    <a href="<% $url %>" <% $onclick ? qq{onclick="$onclick"} : '' %> >
         <% $text %>
     </a>
+  </div>
+% }
 </%def>
