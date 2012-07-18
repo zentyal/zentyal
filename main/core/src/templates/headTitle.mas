@@ -25,6 +25,9 @@ my $mboxTitle = __('Save changes?');
 	  <a id="m" href="/Logout/Index"><% $logout %></a>
 % }
 % if ( $save ne '' ) {
-	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish" onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>'}); return false"><% $save %></a>
+	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish"
+          onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false});return false">
+              <% $save %>
+          </a>
 % }
 	</div>
