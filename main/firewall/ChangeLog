@@ -1,4 +1,4 @@
-HEAD
+2.3.8
 	+ Use Clone::Fast instead of Clone
 	+ Added load of custom iptables modules
 	+ Added table for SNAT rules
