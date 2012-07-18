@@ -753,9 +753,8 @@ sub movedDownRowNotify
 #   row - <EBox::Model::Row> row containing fields and values of the
 #         updated row
 #
-#   oldElements - hash ref containing the original typed parameters
-#                 subclassing from <EBox::Types::Abstract> before
-#                 updating its value, the key is the field's name
+#   oldRow - <EBox::Model::Row> row containing fields and values of the
+#            updated row before modification
 #
 #   force - boolean indicating whether the delete is forced or not
 #
@@ -1344,8 +1343,6 @@ sub setTypedRow
     my $dir = $self->{'directory'};
     my $confmod = $self->{'confmodule'};
 
-    my $oldRow = $self->row($id);
-
     my @setterTypes = @{$self->setterTypes()};
 
     try {
@@ -1354,17 +1351,18 @@ sub setTypedRow
 
     my $checkRowUnique = $self->rowUnique();
 
+    my $row = $self->row($id);
+    my $oldRow = Clone::clone($row);
+    my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
-    my $allHashElements = $oldRow->hashElements();
-    my $oldElements = Clone::clone($allHashElements);
     foreach my $paramName (keys %{$paramsRef}) {
         unless ($paramName ne any(@setterTypes)) {
             throw EBox::Exceptions::Internal('Trying to update a non setter type');
         }
 
         my $paramData = $paramsRef->{$paramName};
-        if ($oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+        if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
             next;
         }
 
@@ -1372,11 +1370,10 @@ sub setTypedRow
             # No need to check if the entire row is unique if
             # any of the fields are already checked
             $checkRowUnique = 0;
-
             $self->_checkFieldIsUnique($paramData);
         }
 
-        $paramData->setRow($oldRow);
+        $paramData->setRow($row);
         $changedElements->{$paramName} = $paramData;
         push (@changedElements, $paramData);
         $allHashElements->{$paramName} = $paramData;
@@ -1424,13 +1421,13 @@ sub setTypedRow
     if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
-        my $depModelMsg = $self->_notifyManager('update', $self->row($id));
-        if ( defined ($depModelMsg)
-                and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+        my $depModelMsg = $self->_notifyManager('update', $row);
+        if (defined ($depModelMsg)
+                and ($depModelMsg ne '' and $depModelMsg ne '<br><br>')) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyManager('update', $self->row($id));
-        $self->updatedRowNotify($self->row($id), $oldElements, $force);
+        $self->_notifyManager('update', $row);
+        $self->updatedRowNotify($row, $oldRow, $force);
     }
 
     $self->_commitTransaction();

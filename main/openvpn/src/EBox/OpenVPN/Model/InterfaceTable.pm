@@ -70,7 +70,7 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # change on service, ifaceType or ifaceNumber can produce a new iface or a
     # existent iface change

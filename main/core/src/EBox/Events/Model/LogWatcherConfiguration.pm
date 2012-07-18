@@ -111,11 +111,11 @@ sub syncRows
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::updatedRowNotify>
+#   <EBox::Model::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # Warn if the parent log observer is not enabled
     if ($row->valueByName('enabled')) {

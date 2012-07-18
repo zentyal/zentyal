@@ -146,7 +146,7 @@ sub _table
 # TODO reimplement this with model changed notifier when it works again
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     if ($row->valueByName('limitBW')) {
         my $interfaces = $self->parentModule()->model('Interfaces');

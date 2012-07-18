@@ -242,9 +242,9 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
-    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldElements, $force);
+    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow, $force);
 
     my $openvpn = $self->parentModule();
     $openvpn->notifyLogChange();

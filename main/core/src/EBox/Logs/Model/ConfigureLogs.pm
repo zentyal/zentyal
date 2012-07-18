@@ -199,7 +199,7 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     my $domain = $row->valueByName('domain');
     my $enabled = $row->valueByName('enabled');

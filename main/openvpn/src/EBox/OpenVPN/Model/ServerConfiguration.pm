@@ -614,7 +614,7 @@ sub _checkTunnelForbiddenParams
 # parentRow
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
     my $parentRow = $self->parentRow();

@@ -273,7 +273,7 @@ sub _privateFilePath
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # The interface type resides in the ServerModels so we must set it in the
     # parentRow

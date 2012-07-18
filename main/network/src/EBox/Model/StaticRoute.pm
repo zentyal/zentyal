@@ -94,7 +94,7 @@ sub validateTypedRow
 #
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # Check if network or gateway values have changed to delete
     # current route from routing table

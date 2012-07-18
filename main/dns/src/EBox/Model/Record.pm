@@ -39,7 +39,7 @@ use EBox::Exceptions::NotImplemented;
 #
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {

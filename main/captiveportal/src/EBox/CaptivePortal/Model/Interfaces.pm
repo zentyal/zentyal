@@ -77,7 +77,7 @@ sub _table
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     return if (not $self->bwmonitorNeeded());
 

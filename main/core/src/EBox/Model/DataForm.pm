@@ -370,7 +370,7 @@ sub setTypedRow
         my $force = $optParams{'force'};
         $self->SUPER::addTypedRow($paramsRef, %optParams);
         # since we have used addTypedRow updatedRowNotify has not been called automatically
-        $self->updatedRowNotify($self->row(), {}, $force);
+        $self->updatedRowNotify($self->row(), undef, $force);
     }
 }
 

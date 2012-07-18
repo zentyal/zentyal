@@ -351,7 +351,7 @@ sub addedRowNotify
 #
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     $self->_autoDetectInterface($row);
 

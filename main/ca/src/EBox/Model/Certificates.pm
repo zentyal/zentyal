@@ -326,7 +326,7 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);

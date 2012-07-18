@@ -405,7 +405,7 @@ sub deletedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldElements, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
     # changed but to avoid corner cases we will always notifiy to mail
