@@ -23,6 +23,7 @@ package EBox::Samba::Model::GeneralSettings;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use Error qw(:try);
+use Encode;
 
 use EBox::Samba;
 use EBox::Types::Union;
@@ -299,6 +300,39 @@ sub updatedRowNotify
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
         $sambaMod->set_bool('provisioned', 0);
+    }
+
+    my $newAdminPwd = $row->valueByName('password');
+    my $oldAdminPwd = defined $oldRow ? $oldRow->valueByName('password') : $newAdminPwd;
+    if ($newAdminPwd ne $oldAdminPwd) {
+        EBox::debug('Changing samba admin password');
+
+        # The DC expect the pwd quoted and UTF16-LE encoded
+        $newAdminPwd = Encode::encode('UTF16-LE', '"' . $newAdminPwd . '"');
+        $oldAdminPwd = Encode::encode('UTF16-LE', '"' . $oldAdminPwd . '"');
+
+        # Get the DN of the administrator account
+        my $ldb = $self->parentModule()->ldb();
+        my $args = {
+            base   => $ldb->dn(),
+            scope  => 'sub',
+            filter => '(samAccountName=Administrator)',
+            attrs  => [],
+        };
+        my $msg = $ldb->search($args);
+        return unless ($msg->count() == 1);
+        my $entry = $msg->entry(0);
+        my $dn = $entry->dn();
+
+        # And replace the unicodePwd attribute
+        $args = {
+            changes => [
+                delete => [ unicodePwd => $oldAdminPwd ],
+                add    => [ unicodePwd => $newAdminPwd ],
+            ],
+        };
+        $msg = $ldb->modify($dn, $args);
+        EBox::debug('Samba administrator password changed successfully');
     }
 }
 
