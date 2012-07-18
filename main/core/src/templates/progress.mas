@@ -14,7 +14,9 @@ $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
 $nextStepUrl => '/Dashboard/Index'
+$nextStepUrlOnclick => undef
 $nextStepText => undef
+
 $nextStepTimeout => 0
 $showAds => 0
 </%args>
@@ -32,12 +34,18 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to return to the Dashboard');
 }
+
+my @nextStepUrlAttrs;
+if ($nextStepUrlOnclick) {
+    push @nextStepUrlAttrs, (onclick => $nextStepUrlOnclick);
+
+}
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
-%# <script type="text/javascript" src="/data/js/progress.js"></script>
+<script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 %# XXX
-<script type="text/javascript" src="/data/js/modalbox.js"></script>
+%#<script type="text/javascript" src="/data/js/modalbox.js"></script>
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -178,7 +186,7 @@ unless (defined ($nextStepText)) {
 <div class="error" id="error-progress" style="display:none;">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
-   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
+   <a href="<% $nextStepUrl %>" <& /htmlAttributes.mas, @nextStepUrlAttrs &>> <% $nextStepText %></a>
 </div>
 
 % if ($showAds) {

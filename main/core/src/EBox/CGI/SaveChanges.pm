@@ -29,6 +29,8 @@ sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Save configuration'),
+#            'template' => '/finish.mas',
+#            'template' => '/savechanges.mas',
             @_);
     bless($self, $class);
     return $self;
@@ -72,7 +74,10 @@ sub saveAllModulesAction
                                   . '. More information on the logs in {dir}',
                                   dir => EBox::Config->log()),
         reloadInterval  => 2,
-        raw => 1
+        raw => 1,
+        nextStepText => 'close',
+        nextStepUrlOnclick => 'Modalbox.hide(); return false',
+
        );
 }
 
@@ -101,5 +106,29 @@ sub revokeAllModulesAction
        );
 }
 
+
+# sub _header
+# {
+# 	my $self = shift;
+# 	print <<END;
+# <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+# 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+# <html xmlns="http://www.w3.org/1999/xhtml">
+# <head>
+# <title>TITLE_TO_CHANGE</title>
+# <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+# <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
+# <link rel="shortcut icon" href="FAV_ICON" />
+# <script type="text/javascript" src="/data/js/progress.js">//</script>
+# <script type="text/javascript" src="/data/js/common.js">//</script>
+# <script type="text/javascript" src="/data/js/prototype.js">//</script>
+# <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
+# <script type="text/javascript" src="/data/js/modalbox.js">//</script>
+
+# </head>
+# <body>
+# END
+
+#     }
 
 1;

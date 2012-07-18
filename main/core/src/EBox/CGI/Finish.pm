@@ -196,4 +196,11 @@ sub _disabledModules
     }
     return \@modules;
 }
+
+sub _top
+{}
+
+sub _menu
+{}
+
 1;
