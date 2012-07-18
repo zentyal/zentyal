@@ -1,3 +1,5 @@
+HEAD
+	+ Enable users module in the first install
 2.3.16
 	+ Fix 'oldRow' parameter in UpdatedRowNotify
 	+ Use Clone::Fast instead of Clone

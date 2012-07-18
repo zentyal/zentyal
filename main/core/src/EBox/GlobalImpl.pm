@@ -564,7 +564,6 @@ sub saveAllModules
             }
 
             next if ($name eq 'dhcp'); # Skip dhcp module
-            next if ($name eq 'users'); # Skip usersandgroups
 
             my $module = EBox::GlobalImpl->modInstance($ro, $name);
 
