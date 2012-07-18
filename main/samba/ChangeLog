@@ -4,6 +4,8 @@ HEAD
 	+ Group addon to create group shares
 	+ Added method to give captive portal module firewall rules to
 	  allow domain joins
+	+ Domain can be renamed without disabling the module. A confirmation
+	  dialog is shown to warn the user about the implications.
 2.3.8
 	+ Recycle Bin feature is now working with samba4
 	+ Remove unnecessary dns enable depend as users already depend on it

@@ -215,10 +215,21 @@ sub _checkWinName
     }
 }
 
-sub _mod_enabled
+sub updatedRowNotify
 {
-    my $module = EBox::Global->modInstance('samba');
-    return not $module->isEnabled();
+    my ($self, $newRow, $oldRow) = @_;
+
+    my $oldRealm = $oldRow->valueByName('realm');
+    my $newRealm = $newRow->valueByName('realm');
+    my $oldDomain = $oldRow->valueByName('workgroup');
+    my $newDomain = $newRow->valueByName('workgroup');
+
+    EBox::debug("On updatedRowNotify, $oldRealm, $newRealm, $oldDomain, $newDomain");
+    if ($oldRealm ne $newRealm or $oldDomain ne $newDomain) {
+        EBox::debug("Clearing the provisioned flag to force database reprovision using the new values");
+        my $sambaModule = $self->parentModule();
+        $sambaModule->set_bool('provisioned', 0);
+    }
 }
 
 sub _table
@@ -228,98 +239,82 @@ sub _table
     my @tableHead =
     (
         new EBox::Types::Select(
-            'fieldName' => 'mode',
-            'printableName' => __('Server Role'),
-            'populate' => \&_server_roles,
-            'editable' => \&_mod_enabled,
+            fieldName     => 'mode',
+            printableName => __('Server Role'),
+            populate      => \&_server_roles,
+            editable      => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'password',
+            fieldName     => 'password',
             printableName => __('Administrator password'),
-            defaultValue => EBox::Samba::defaultAdministratorPassword(),
-            'editable' => \&_mod_enabled,
+            defaultValue  => EBox::Samba::defaultAdministratorPassword(),
+            editable      => 1,
         ),
         new EBox::Types::DomainName(
-            'fieldName' => 'realm',
-            'printableName' => __('Domain'),
-            'defaultValue' => EBox::Samba::defaultRealm(),
-            'editable' => \&_mod_enabled,
+            fieldName          => 'realm',
+            printableName      => __('Domain'),
+            defaultValue       => EBox::Samba::defaultRealm(),
+            editable           => 1,
         ),
         new EBox::Types::DomainName(
-            'fieldName' => 'workgroup',
-            'printableName' => __('Workgroup'),
-            'defaultValue' => EBox::Samba::defaultWorkgroup(),
-            'editable' => \&_mod_enabled,
+            fieldName          => 'workgroup',
+            printableName      => __('NetBIOS domain name'),
+            defaultValue       => EBox::Samba::defaultWorkgroup(),
+            editable           => 1,
         ),
         new EBox::Types::Text(
-            'fieldName' => 'netbiosName',
-            'printableName' => __('NetBIOS computer name'),
-            'defaultValue' => EBox::Samba::defaultNetbios(),
-            'editable' => \&_mod_enabled,
+            fieldName     => 'netbiosName',
+            printableName => __('NetBIOS computer name'),
+            defaultValue  => EBox::Samba::defaultNetbios(),
+            editable      => 1,
         ),
         new EBox::Types::Text(
-            'fieldName' => 'description',
-            'printableName' => __('Description'),
-            'defaultValue' => EBox::Samba::defaultDescription(),
-            'editable' => \&_mod_enabled,
+            fieldName     => 'description',
+            printableName => __('Server description'),
+            defaultValue  => EBox::Samba::defaultDescription(),
+            editable      => 1,
         ),
         new EBox::Types::Boolean(
-            'fieldName' => 'roaming',
-            'printableName' => __('Enable roaming profiles'),
-            'defaultValue' => 0,
-            'editable' => 1,
+            fieldName     => 'roaming',
+            printableName => __('Enable roaming profiles'),
+            defaultValue  => 0,
+            editable      => 1,
         ),
         new EBox::Types::Select(
-            'fieldName' => 'drive',
-            'printableName' => __('Drive letter'),
-            'populate' => \&_drive_letters,
-            'editable' => 1,
+            fieldName     => 'drive',
+            printableName => __('Drive letter'),
+            populate      => \&_drive_letters,
+            editable      => 1,
         ),
     );
 
     my $dataTable =
     {
-        'tableName' => 'GeneralSettings',
-        'printableTableName' => __('General settings'),
-        'modelDomain' => 'Samba',
-        'defaultActions' => [ 'editField', 'changeView' ],
-        'tableDescription' => \@tableHead,
-        'help' => __('On this page you can set different general settings for Samba'),
+        tableName          => 'GeneralSettings',
+        printableTableName => __('General settings'),
+        modelDomain        => 'Samba',
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableHead,
+        confirmationDialog => { submit => \&confirmReprovision },
+        help               => __('On this page you can set different general settings for Samba'),
     };
 
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub confirmReprovision
 {
-    my ($self) = @_;
+    my ($self, $params) = @_;
 
-    my $row = $self->row();
-
-    my $sambaRO = EBox::Global->getInstance(1)->modInstance('samba');
-    my $modeRO  = $sambaRO->get_hash('GeneralSettings/keys/form')->{mode};
-    my $realmRO = $sambaRO->get_hash('GeneralSettings/keys/form')->{realm};
-    my $workgroupRO = $sambaRO->get_hash('GeneralSettings/keys/form')->{workgroup};
-
-    my $mode  = $row->valueByName('mode');
-    my $realm = $row->valueByName('realm');
-    my $workgroup = $row->valueByName('workgroup');
-
-    if (($realm ne $realmRO) or
-        ($mode  ne $modeRO)  or
-        ($workgroup ne $workgroupRO)) {
-        $self->parentModule->set_bool('provisioned', 0);
-        $self->setMessage(__('Changing the server mode, ' .
-            'the realm or the domain will cause a database reprovision, destroying the current one.'), 'warning');
-    }
+    my $newRealm = $params->{realm};
+    my $oldRealm = $self->value('realm');
+    my $newDomain = $params->{workgroup};
+    my $oldDomain = $self->value('workgroup');
+    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain);
+    return  __x("Changing the domain name will cause to reprovision the samba database.\n\n" .
+                'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
+                'rejoin all computers to the new domain.');
 }
-
 
 # Populate the server role select
 sub _server_roles
