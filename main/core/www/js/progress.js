@@ -66,7 +66,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
               loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
-            if ('errorMsg' in response) {
+            if (('errorMsg' in response) && (response.errorMsg)) {
                 $('warning-progress-messages').update(
                     response.errorMsg);
 
