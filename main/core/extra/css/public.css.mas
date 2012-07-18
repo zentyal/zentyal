@@ -1341,5 +1341,13 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 	text-align: center;
 }
 
+.MB_dialog {
+    top: 100px !important;
+}
+
+.MB_dialog #MB_header {
+    border-radius: 7px 7px 0px 0px;
+}
+
 /* end modalbox.js stuff */
 

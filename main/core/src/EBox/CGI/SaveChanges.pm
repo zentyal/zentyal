@@ -58,7 +58,7 @@ my @commonProgressParams = (
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => 'Modalbox.hide(); return false',
+        nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').toggleClassName('notchanged'); window.location.reload(); return false",
         barWidth => 490,
 );
 
