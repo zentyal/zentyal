@@ -23,20 +23,16 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use Fcntl qw(:flock);
 
-# TODO: remove logging when stable
-
 sub init
 {
-    my ($class, $name) = @_;
-
-    #EBox::debug("Init lock $name (pid: $$)");
+    my ($class, $name, $path) = @_;
+    $path = EBox::Config::shm() unless defined ($path);
 
     my $self = {};
     bless $self, $class;
 
     $self->{name} = $name;
 
-    my $path = EBox::Config::shm();
     my $file = "$path/$name.lock";
     $self->{file} = $file;
 
@@ -58,8 +54,6 @@ sub unlock
 
     my $file = $self->{file};
 
-    #EBox::debug("Unlocking $self->{name} (pid: $$)");
-
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
     flock(LOCKFILE, LOCK_UN);
@@ -71,8 +65,6 @@ sub lock
     my ($self) = @_;
 
     my $file = $self->{file};
-
-    #EBox::debug("Locking $self->{name} (pid: $$)");
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");
