@@ -1,4 +1,4 @@
-HEAD
+2.3.16
 	+ Fix 'oldRow' parameter in UpdatedRowNotify
 	+ Use Clone::Fast instead of Clone
 	+ Modal dialog for the save and discard changes operations
