@@ -215,23 +215,6 @@ sub _checkWinName
     }
 }
 
-sub updatedRowNotify
-{
-    my ($self, $newRow, $oldRow) = @_;
-
-    my $oldRealm = $oldRow->valueByName('realm');
-    my $newRealm = $newRow->valueByName('realm');
-    my $oldDomain = $oldRow->valueByName('workgroup');
-    my $newDomain = $newRow->valueByName('workgroup');
-
-    EBox::debug("On updatedRowNotify, $oldRealm, $newRealm, $oldDomain, $newDomain");
-    if ($oldRealm ne $newRealm or $oldDomain ne $newDomain) {
-        EBox::debug("Clearing the provisioned flag to force database reprovision using the new values");
-        my $sambaModule = $self->parentModule();
-        $sambaModule->set_bool('provisioned', 0);
-    }
-}
-
 sub _table
 {
     my ($self) = @_;
@@ -254,7 +237,7 @@ sub _table
             fieldName          => 'realm',
             printableName      => __('Domain'),
             defaultValue       => EBox::Samba::defaultRealm(),
-            editable           => 1,
+            editable           => 0,
         ),
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
@@ -266,7 +249,7 @@ sub _table
             fieldName     => 'netbiosName',
             printableName => __('NetBIOS computer name'),
             defaultValue  => EBox::Samba::defaultNetbios(),
-            editable      => 1,
+            editable      => 0,
         ),
         new EBox::Types::Text(
             fieldName     => 'description',
@@ -300,6 +283,23 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $newRealm = $row->valueByName('realm');
+    my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
+
+    my $newDomain = $row->valueByName('workgroup');
+    my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
+
+    if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
+        EBox::debug('Domain rename detected, clearing the provisioned flag');
+        my $sambaMod = $self->parentModule();
+        $sambaMod->set_bool('provisioned', 0);
+    }
 }
 
 sub confirmReprovision

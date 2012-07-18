@@ -865,7 +865,9 @@ sub _setConf
 {
     my ($self) = @_;
 
-    return unless $self->configured() and $self->isEnabled() and isProvisioned();
+    return unless $self->configured() and $self->isEnabled();
+
+    $self->provision() unless $self->isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
@@ -1215,8 +1217,12 @@ sub administratorPassword
 #
 sub defaultNetbios
 {
-    my $hostname = Sys::Hostname::hostname();
-    return $hostname;
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+
+    return $hostName;
 }
 
 # Method: netbiosName
@@ -1237,13 +1243,12 @@ sub netbiosName
 #
 sub defaultRealm
 {
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
+    my ($self) = @_;
 
-    my $domain = Net::Domain::hostdomain();
-    $domain = "$prefix.domain" unless $domain;
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domainName = $sysinfo->hostDomain();
 
-    return $domain;
+    return $domainName;
 }
 
 # Method: realm
