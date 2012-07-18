@@ -11,10 +11,11 @@ models:
     - WANFailoverOptions
     - WANFailoverRules
     - Proxy
+    - BalanceGateways
 
 composites:
     GatewaysGeneral: [Gateway, MultiGw, WANFailover]
     Gateway: [GatewayTable, Proxy]
-    MultiGw: [MultiGwRulesOptions, MultiGwRulesDataTable]
+    MultiGw: [MultiGwRulesOptions, BalanceGateways, MultiGwRulesDataTable]
     WANFailover: [WANFailoverOptions, WANFailoverRules]
     DNS: [DNSResolver, SearchDomain]

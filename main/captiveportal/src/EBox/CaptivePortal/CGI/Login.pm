@@ -18,7 +18,7 @@ package EBox::CaptivePortal::CGI::Login;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
 use Apache2::RequestUtil;
@@ -73,7 +73,6 @@ sub _process
 	}elsif ((defined $envre and $envre eq 'NotLoggedIn')){
 		$reason = __('You are not logged in');
 	}
-
 
 	my @htmlParams = (
 			  'destination' => $destination,

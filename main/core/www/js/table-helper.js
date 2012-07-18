@@ -1165,6 +1165,39 @@ function checkAllControlValue(url, table, directory, controlId, field)
 }
 
 
+function confirmationDialog(url, table, directory, actionToConfirm, elements)
+{
+  var dialogStr = null;
+  var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
+  pars +='&actionToConfirm=' + actionToConfirm;
+  for (var i=0; i < elements.length; i++) {
+    var name = elements[i];
+    var id = table + '_' + name;
+    var el = $(id);
+    pars +='&'+ name + '=';
+    pars +=el.value;
+  }
+
+  var request = new Ajax.Request(url, {
+        method: 'post',
+        parameters: pars,
+        asynchronous: false,
+        onSuccess: function (t) {
+           var json = t.responseText.evalJSON(true);
+           if (json.wantDialog) {
+            dialogStr = json.message;
+           }
+        },
+        onFailure: function(t) {
+          dialogStr = 'Are you sure?';
+        }
+
+      }
+    );
+
+  return dialogStr;
+}
+
 // Detect session loss on ajax request:
 Ajax.Responders.register({
  onComplete: function(x,response) {

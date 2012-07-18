@@ -405,48 +405,36 @@ sub _gidForNewGroup
 #
 # Parameters:
 #
-#       system - boolan: if true, it returns the last gid for system users,
-#       otherwise the last gid for normal users
+#       system - boolan: if true, it returns the last gid for system groups,
+#       otherwise the last gid for normal groups
 #
 # Returns:
 #
 #       string - last gid
 #
-sub lastGid # (gid)
+sub lastGid
 {
     my ($self, $system) = @_;
 
-    my %args = (
-        base => $self->_ldap->dn(),
-        filter => '(objectclass=posixGroup)',
-        scope => 'one',
-        attrs => ['gidNumber']
-    );
-
-    my $result = $self->_ldap->search(\%args);
-    my @users = $result->sorted('gidNumber');
-
-    my $gid = -1;
-    foreach my $user (@users) {
-        my $currgid = $user->get_value('gidNumber');
+    my $lastGid = -1;
+    my $users = EBox::Global->modInstance('users');
+    foreach my $group (@{$users->groups($system)}) {
+        my $gid = $group->get('gidNumber');
         if ($system) {
-            last if ($currgid > MINGID);
+            last if ($gid >= MINGID);
         } else {
-            next if ($currgid < MINGID);
+            next if ($gid < MINGID);
         }
-
-        if ( $currgid > $gid){
-            $gid = $currgid;
+        if ($gid > $lastGid) {
+            $lastGid = $gid;
         }
     }
-
     if ($system) {
-        return ($gid < SYSMINGID ?  SYSMINGID : $gid);
+        return ($lastGid < SYSMINGID ? SYSMINGID : $lastGid);
     } else {
-        return ($gid < MINGID ?  MINGID : $gid);
+        return ($lastGid < MINGID ? MINGID : $lastGid);
     }
 }
-
 
 sub _checkGid
 {

@@ -126,7 +126,7 @@ sub _table
                       defaultActions => ['add', 'del', 'editField',  'changeView'],
                       tableDescription => \@tableHead,
                       class => 'dataTable',
-                      help => __('IP'),
+                      help => __('The host name will be resolved to this list of IP addresses.'),
                       printableRowName => __('IP') };
 
     return $dataTable;

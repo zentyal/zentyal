@@ -18,7 +18,7 @@ package EBox::CaptivePortal::CGI::Logout;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
 use Apache2::RequestUtil;

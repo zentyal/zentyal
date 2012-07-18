@@ -27,10 +27,13 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
+    my %params = @_;
     my $self = $class->SUPER::new(@_);
 
-    $self->{network} = EBox::Global->modInstance('network');
-    $self->{captiveportal} = EBox::Global->modInstance('captiveportal');
+    my $ro = $params{readOnly};
+    my $global = EBox::Global->getInstance($ro);
+    $self->{network} = $global->modInstance('network');
+    $self->{captiveportal} = $global->modInstance('captiveportal');
 
     bless($self, $class);
     return $self;
@@ -54,6 +57,7 @@ sub prerouting
     # Redirect HTTP traffic to redirecter
     my $port = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+    my @exRules =  @{$self->_exceptionsRules('captive')};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -63,6 +67,10 @@ sub prerouting
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('captive')});
+        push @rules, map {
+            $_->{rule} = $input . ' ' . $_->{rule};
+            ($_)
+        } @exRules;
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
@@ -78,7 +86,7 @@ sub postrouting
 
     my $port = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->{network};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -140,6 +148,7 @@ sub forward
     my $port = $self->{captiveportal}->httpPort();
     my $captiveport = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+    my @exRules =  @{$self->_exceptionsRules('fcaptive')};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -149,7 +158,10 @@ sub forward
         push(@rules, { 'priority' => 6, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('fcaptive')});
-
+        push @rules, map {
+            $_->{rule} = $input . ' ' . $_->{rule};
+            ($_)
+        } @exRules;
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, priority => 5 });
@@ -176,6 +188,17 @@ sub _usersRules
         my $r = $self->{captiveportal}->userFirewallRule($user);
         push(@rules, { 'rule' => $r, 'chain' => $chain });
     }
+    return \@rules;
+}
+
+sub _exceptionsRules
+{
+    my ($self, $chain) = @_;
+
+    my @rules = map {
+        { 'rule' => $_, 'chain' => $chain }
+    } @{  $self->{captiveportal}->exceptionsFirewallRules() };
+
     return \@rules;
 }
 

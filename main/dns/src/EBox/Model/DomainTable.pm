@@ -240,7 +240,33 @@ sub addHostAlias
     }
 }
 
+# Method: setDynamic
+#
+#   Set the dynamic flag of a domain
+#
+# Parameters:
+#
+#   domain  - The domain name
+#   dynamic - Boolean flag
+#
+sub setDynamic
+{
+    my ($self, $domain, $dynamic) = @_;
 
+    unless (defined $domain) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    unless (defined $dynamic) {
+        throw EBox::Exceptions::MissingArgument('dynamic');
+    }
+
+    my $rowId = undef;
+    my $domainRow = $self->_getDomainRow($domain);
+    EBox::debug("Setting the domain named $domain dynamic flag to $dynamic");
+    $domainRow->elementByName('dynamic')->setValue($dynamic);
+    $domainRow->store();
+}
 
 # Method: addService
 #

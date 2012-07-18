@@ -138,24 +138,6 @@ sub validateTypedRow
                        'lowercase and numbers'));
         }
     }
-
-#    # Check for incompatibility between PDC and PAM
-#    # only on slave servers
-#
-#    my $users = EBox::Global->modInstance('users');
-#    return unless ($users->mode() eq 'slave');
-#
-#    my $pdc = exists $newParams->{pdc} ?
-#                  $newParams->{pdc}->value() :
-#                  $oldParams->{pdc}->value();
-#
-#    my $pam = $users->model('PAM')->enable_pamValue();
-#
-#    if ($pam and $pdc) {
-#        throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
-#            ohref => q{<a href='/Users/Composite/Settings/'>},
-#            chref => q{</a>}));
-#    }
 }
 
 sub _checkDomainName
@@ -173,6 +155,11 @@ sub _checkDomainName
     }
 
     $self->_checkWinName($domain, __('Domain name'));
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    if (lc ($domain) eq lc ($sysinfo->hostName())) {
+        throw EBox::Exceptions::External(__('Domain name cannot be equal to host name'));
+    }
 }
 
 sub _checkNetbiosName
@@ -276,18 +263,18 @@ sub _table
             'defaultValue' => EBox::Samba::defaultDescription(),
             'editable' => \&_mod_enabled,
         ),
-        #new EBox::Types::Boolean(
-        #    'fieldName' => 'roaming',
-        #    'printableName' => __('Enable roaming profiles'),
-        #    'defaultValue' => 0,
-        #    'editable' => 1,
-        #),
-        #new EBox::Types::Select(
-        #    'fieldName' => 'drive',
-        #    'printableName' => __('Drive letter'),
-        #    'populate' => \&_drive_letters,
-        #    'editable' => 1,
-        #),
+        new EBox::Types::Boolean(
+            'fieldName' => 'roaming',
+            'printableName' => __('Enable roaming profiles'),
+            'defaultValue' => 0,
+            'editable' => 1,
+        ),
+        new EBox::Types::Select(
+            'fieldName' => 'drive',
+            'printableName' => __('Drive letter'),
+            'populate' => \&_drive_letters,
+            'editable' => 1,
+        ),
     );
 
     my $dataTable =
@@ -316,25 +303,20 @@ sub formSubmitted
     my $row = $self->row();
 
     my $sambaRO = EBox::Global->getInstance(1)->modInstance('samba');
-    my $modeRO = $sambaRO->get_string('GeneralSettings/mode');
-    my $realmRO = $sambaRO->get_string('GeneralSettings/realm');
-    my $workgroupRO = $sambaRO->get_string('GeneralSettings/workgroup');
+    my $modeRO  = $sambaRO->get_hash('GeneralSettings/keys/form')->{mode};
+    my $realmRO = $sambaRO->get_hash('GeneralSettings/keys/form')->{realm};
+    my $workgroupRO = $sambaRO->get_hash('GeneralSettings/keys/form')->{workgroup};
 
-    my $mode = $row->valueByName('mode');
+    my $mode  = $row->valueByName('mode');
     my $realm = $row->valueByName('realm');
     my $workgroup = $row->valueByName('workgroup');
 
     if (($realm ne $realmRO) or
-        ($mode ne $modeRO) or
+        ($mode  ne $modeRO)  or
         ($workgroup ne $workgroupRO)) {
         $self->parentModule->set_bool('provisioned', 0);
-
-        if (($realmRO ne '') or
-            ($modeRO ne '') or
-            ($workgroupRO ne '')) {
-            $self->setMessage(__('Changing the server mode, ' .
+        $self->setMessage(__('Changing the server mode, ' .
             'the realm or the domain will cause a database reprovision, destroying the current one.'), 'warning');
-        }
     }
 }
 
@@ -354,17 +336,17 @@ sub _server_roles
     return \@roles;
 }
 
-#sub _drive_letters
-#{
-#    my @letters;
-#
-#    foreach my $letter ('H'..'Z') {
-#        $letter .= ':';
-#        push (@letters, { value => $letter, printableValue => $letter });
-#    }
-#
-#    return \@letters;
-#}
+sub _drive_letters
+{
+    my $letters;
+
+    foreach my $letter ('H'..'Z') {
+        $letter .= ':';
+        push (@{$letters}, { value => $letter, printableValue => $letter });
+    }
+
+    return $letters;
+}
 
 # Method: headTile
 #

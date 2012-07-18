@@ -368,12 +368,12 @@ sub _setFilesystemQuota
     my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
-        throw EBox::Exceptions::External(
-            __x('Cannot set quota to {userQuota}. Please, choose another value',
-               userQuota => $userQuota)
-           )
+        EBox::error(
+            __x('Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does not support quota?',
+                uid      => $uid,
+                userQuota => $userQuota)
+           );
     }
-
 }
 
 # Method: changePassword
@@ -481,6 +481,15 @@ sub create
 
     my $users = EBox::Global->modInstance('users');
 
+    unless (_checkUserName($user->{'user'})) {
+        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'},
+                                            'advice' => $advice
+                                           );
+    }
+
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
@@ -496,15 +505,6 @@ sub create
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
-    }
-
-    unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'},
-                                            'advice' => $advice
-                                           );
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});
@@ -675,9 +675,9 @@ sub lastUid
     my ($self, $system) = @_;
 
     my $lastUid = -1;
-    while (my ($name, undef, $uid) = getpwent()) {
-        next if ($name eq 'nobody');
-
+    my $users = EBox::Global->modInstance('users');
+    foreach my $user (@{$users->users($system)}) {
+        my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
         } else {
@@ -687,8 +687,6 @@ sub lastUid
             $lastUid = $uid;
         }
     }
-    endpwent();
-
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {

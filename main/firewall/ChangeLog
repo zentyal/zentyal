@@ -1,4 +1,7 @@
 HEAD
+	+ Added load of custom iptables modules
+	+ Added table for SNAT rules
+	+ Added filtering by source MAC
 	+ EBox::Firewall::IPRule can accept now IPRange objects as source
 	  or destination
 2.3.7

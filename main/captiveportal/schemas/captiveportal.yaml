@@ -17,6 +17,7 @@ models:
     - Users
     - CaptiveUser
     - SecondaryLDAP
+    - Exceptions
 
 composites:
     GeneralSettings: [Settings, BWSettings, Interfaces]

@@ -1180,7 +1180,7 @@ sub _remoteUrl
             my $drAddOn = EBox::EBackup::Subscribed->isSubscribed();
             if (not $drAddOn) {
                 throw EBox::Exceptions::External(
-__('You need to have the disaster recovery add-on to use this backup method')
+__('Cannot use the Cloud backup method. Either you do not have the disaster recovery add-on or you could not connect to the Zentyal Cloud to get credentials.')
                                                 );
             }
 

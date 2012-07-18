@@ -334,6 +334,11 @@ sub usesIface # (iface)
         }
     }
 
+    my $snatModel = $self->model('SNAT');
+    if ($snatModel->usesIface($iface)) {
+        return 1;
+    }
+
     return undef;
 }
 
@@ -372,6 +377,7 @@ sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
     $self->removePortRedirectionsOnIface($iface);
+    $self->model('snat')->freeIface($iface);
 }
 
 # Method: freeViface
@@ -383,6 +389,7 @@ sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
     $self->removePortRedirectionsOnIface("$iface:$viface");
+    $self->model('snat')->freeViface($iface, $viface);
 }
 
 # Method: setInternalService
@@ -568,6 +575,8 @@ sub menu
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/View/RedirectsTable',
                                       'text' => __('Port Forwarding')));
+    $folder->add(new EBox::Menu::Item('url' => 'Firewall/View/SNAT',
+                                      'text' => __('SNAT')));
 
     $root->add($folder);
 }

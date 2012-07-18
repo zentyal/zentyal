@@ -1,4 +1,5 @@
-HEAD
+2.3.5
+	+ Fixed regression in add/remove/list group alias
 	+ Added user addon for retrieval mail from external accounts
 	+ Added fetch all mail option to retrieval mail from external accounts
 2.3.4

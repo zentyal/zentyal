@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed auth with SID filenames which contain spaces or other
+	  confusing characters
 2.3.2
 	+ Adapted to new Model management framework
 2.3.1

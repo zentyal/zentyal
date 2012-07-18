@@ -4,6 +4,14 @@ HEAD
 	+ Sync kerberos hashes on master-slave
 	+ Resolve slave hostname during registering
 	+ Fixed framework changes related regression
+	+ Fixed user name validation
+2.3.11
+	+ Remove deprecated reference to AD Sync in wizard
+	+ Check to make sure that quota has been really assigned logs an error
+	  instead of raising an exeception, because some file systems does not
+	  support quotas
+	+ Adapt lastUid and lastGid to the new API and make them compatible
+	  with multiple OUs
 2.3.10
 	+ Use DataForm::ReadOnly::_content instead of acquirers in LdapInfo
 	+ Delete obsolete daemons and attributes regarding old replication

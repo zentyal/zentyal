@@ -1,6 +1,10 @@
-HEAD
-	+ Better exclusion of no-device filesystems in EBox::FileSystem::partitionsFileSystems
-	+ Removed redundant messages when logging sudo commands in debug
+2.3.8
+	+ Added new EBox::trace() method to easily log stack traces when debugging
+2.3.7
+	+ Added method EBox::FileSystem::isDirEmpty
+	+ Better logging of sudo commands in debug including process name and PID
+	+ Better exclusion of non-device filesystems in
+	  EBox::FileSystem::partitionsFileSystems
 2.3.6
 	+ External commands called through EBox::Sudo are logged in debug mode
 	+ Added new EBox::Config::shm() to get Zentyal shared memory dir

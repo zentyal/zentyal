@@ -903,22 +903,24 @@ sub addTypedRow
         $data = undef;
     }
 
-    # Insert the element in order
-    if ($self->table()->{'order'}) {
-        my $pos = 0;
-        my $insertPos = $self->insertPosition();
-        if (defined($insertPos)) {
-            if ( $insertPos eq 'front' ) {
-                $pos = 0;
-            } elsif ( $insertPos eq 'back' ) {
-                $pos = $#{$self->order()} + 1;
+    unless ($optParams{noOrder}) {
+        # Insert the element in order
+        if ($self->table()->{'order'}) {
+            my $pos = 0;
+            my $insertPos = $self->insertPosition();
+            if (defined($insertPos)) {
+                if ( $insertPos eq 'front' ) {
+                    $pos = 0;
+                } elsif ( $insertPos eq 'back' ) {
+                    $pos = $#{$self->order()} + 1;
+                }
             }
+            $self->_insertPos($id, $pos);
+        } else {
+            my $order = $confmod->get_list($self->{'order'});
+            push (@{$order}, $id);
+            $confmod->set($self->{'order'}, $order);
         }
-        $self->_insertPos($id, $pos);
-    } else {
-        my $order = $confmod->get_list($self->{'order'});
-        push (@{$order}, $id);
-        $confmod->set($self->{'order'}, $order);
     }
 
     if ($readOnly) {
@@ -1096,7 +1098,7 @@ sub _removeRow
     my ($self, $id) = @_;
 
     my $confmod = $self->{'confmodule'};
-    $confmod->delete_dir("$self->{'directory'}/$id");
+    $confmod->unset("$self->{'directory'}/$id");
     my @order = @{$confmod->get_list($self->{'order'})};
     @order = grep ($_ ne $id, @order);
     $confmod->set_list($self->{'order'}, 'string', \@order);
@@ -4594,6 +4596,64 @@ sub checkAllControlValue
     }
 
     return 1;
+}
+
+sub _confirmationDialogForAction
+{
+    my ($self, $action, $params_r) = @_;
+    exists  $self->{'table'}->{'confirmationDialog'} or
+        return 1;
+    exists $self->{'table'}->{'confirmationDialog'}->{$action} or
+        return 1;
+    return $self->{'table'}->{'confirmationDialog'}->{$action}->($self, $params_r);
+}
+
+sub confirmationJS
+{
+    my ($self, $action, $goAheadJS) = @_;
+    my $table = $self->table();
+    exists  $table->{'confirmationDialog'} or
+        return $goAheadJS;
+    exists $table->{'confirmationDialog'}->{$action} or
+        return $goAheadJS;
+
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+
+    my @elements = map {
+        my $element = $_;
+        my @fields = map {
+            qq{'$_'}
+        } $element->fields();
+        @fields;
+    } @ {  $table->{tableDescription} };
+    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+
+    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $action,
+                    $elementsArrayJS
+                    );
+    my $js =<< "ENDJS";
+       this.disable = true;
+       var goAhead = true;
+       var confirmMsg = $call;
+       if (confirmMsg) {
+         if (!confirm(confirmMsg)) {
+              goAhead = false;
+         }
+       }
+       if (goAhead) {
+          $goAheadJS
+       }
+
+       this.disable = false;
+       return false;
+ENDJS
+
 }
 
 

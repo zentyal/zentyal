@@ -27,7 +27,6 @@ use warnings;
 use base qw(EBox::Module::Config);
 
 use EBox::Validate qw( :all );
-use EBox::Global;
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
 use EBox::Gettext;
@@ -76,7 +75,7 @@ sub _defaultServices
 
     my $apachePort;
     try {
-        $apachePort = EBox::Global->modInstance('apache')->port();
+        $apachePort = $self->global()->modInstance('apache')->port();
     } otherwise {
         $apachePort = 443;
     };
@@ -206,15 +205,15 @@ sub serviceConfiguration
     my $row = $self->model('ServiceTable')->row($id);
 
     unless (defined($row)) {
-        throw EBox::Exceptions::DataNotFound('data' => 'id',
+        throw EBox::Exceptions::DataNotFound('data' => 'service by id',
                 'value' => $id);
     }
 
     my $model = $row->subModel('configuration');
 
     my @conf;
-    for my $id (@{$model->ids()}) {
-	my $subRow = $model->row($id);
+    foreach my $id (@{$model->ids()}) {
+        my $subRow = $model->row($id);
         push (@conf, {
                         'protocol' => $subRow->valueByName('protocol'),
                         'source' => $subRow->valueByName('source'),
@@ -223,6 +222,36 @@ sub serviceConfiguration
     }
 
     return \@conf;
+}
+
+# Method: serviceIptablesArgs
+#
+#  get a list with the iptables arguments required to match each of the
+#  configurations of the service (see serviceConfiguration)
+#
+#  Warning:
+#    for any/any/any configuration a empty string is the correct iptables argument
+sub serviceIptablesArgs
+{
+    my ($self, $id) = @_;
+    my @args;
+    my @conf =  @{ $self->serviceConfiguration($id) };
+    foreach my $conf (@conf) {
+        my $args = '';
+        if ($conf->{protocol} ne 'any') {
+            $args .= '--protocol ' . $conf->{protocol};
+        }
+        if ($conf->{source} ne 'any') {
+            $args .= ' --sport ' . $conf->{source};
+        }
+        if ($conf->{destination} ne 'any') {
+            $args .= ' --dport ' . $conf->{destination};
+        }
+
+        push @args, $args;
+    }
+
+    return \@args;
 }
 
 # Method: addService

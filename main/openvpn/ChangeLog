@@ -1,3 +1,18 @@
+2.3.9
+	+ Added redirect gateway option to the server
+2.3.8
+	+ Configuration file reside under daemon directory
+	+ ipp files are now in server own directory
+	+ Client now drop prvilegies after initialization
+	+ Different model for upload client bundles for clients
+	+ Added client config directory option to servers
+	+ Daemons can use a TUN interface
+	+ Using cloud DDNS address as defautl for client bundle
+	+ Added connection strategy option to client bundle
+	+ Unavailable options are hidden in download client bundle form
+	+ Added push dhcp-options to server: dns, searchdomain and wins
+	+ Configuration files in windows bundle now use typical window's
+	  line termination
 2.3.7
 	+ Adapted to new Model management framework
 2.3.6

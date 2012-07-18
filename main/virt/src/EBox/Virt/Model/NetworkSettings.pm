@@ -86,15 +86,15 @@ sub _table
                              optional      => 1,
                              optionalLabel => 0,
                             ),
-    );
+       new EBox::Types::MACAddr(
+                           fieldName     => 'mac',
+                           printableName => __('MAC Address'),
+                           editable      => 1,
+                           unique        => 1,
+                           defaultValue  => \&randomMAC,
+                          ),
 
-    if (EBox::Config::boolean('custom_mac_addresses')) {
-        push (@tableHeader, new EBox::Types::MACAddr(
-                                    fieldName     => 'mac',
-                                    printableName => __('MAC Address'),
-                                    editable      => 1,
-                                    optional      => 1));
-    }
+    );
 
     my $dataTable =
     {
@@ -150,6 +150,21 @@ sub isEqual
     }
 
     return 1;
+}
+
+sub randomMAC
+{
+    my ($self) = @_;
+
+    my $mac = '';
+    foreach my $i (0 .. 5) {
+        $mac .= sprintf("%02X", int(rand(255)));
+        if ($i < 5) {
+            $mac .= ':';
+        }
+    }
+
+    return $mac;
 }
 
 # Method: validateTypedRow
