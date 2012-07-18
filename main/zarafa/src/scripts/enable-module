@@ -20,18 +20,14 @@ FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 mkdir -p /etc/zarafa/ssl
 /usr/share/zentyal/create-certificate /etc/zarafa/ssl
 
+# this was only needed for Zarafa 6.40, to remove soon
 DAGENT_DFLT='/etc/default/zarafa-dagent'
 if [ -f $DAGENT_DFLT ]
 then
     sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT
 fi
-DAGENT_DFLT_7='/etc/default/zarafa'
-if [ -f $DAGENT_DFLT_7 ]
-then
-    sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT_7
-fi
 
-# look, and add, required locale
+# add if required en_US.utf8 locale
 LOCALE_FOUND=`locale -a | grep 'en_US.utf8'`
 if [ -z "$LOCALE_FOUND" ]
 then

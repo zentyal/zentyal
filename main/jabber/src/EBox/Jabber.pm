@@ -199,22 +199,42 @@ sub _setConf
     my $settings = $self->model('GeneralSettings');
     my $jabberldap = new EBox::JabberLdapUser;
 
+    push(@array, 'ldapHost' => '127.0.0.1');
+    push(@array, 'ldapPort', $ldapconf->{'port'});
+    push(@array, 'ldapBase' => $ldap->dn());
+    push(@array, 'ldapRoot', $ldapconf->{'rootdn'});
+    push(@array, 'ldapPasswd' => $ldap->getPassword());
+    push(@array, 'usersDn' => $users->usersDn());
+
     push(@array, 'domain' => $settings->domainValue());
-    push(@array, 'admins' => $jabberldap->getJabberAdmins());
     push(@array, 'ssl' => $settings->sslValue());
     push(@array, 's2s' => $settings->s2sValue());
+
+    push(@array, 'admins' => $jabberldap->getJabberAdmins());
+
     push(@array, 'muc' => $settings->mucValue());
-
-    push(@array, 'ldapsrv' => '127.0.0.1');
-    push(@array, 'ldapport', $ldapconf->{'port'});
-    push(@array, 'ldapbase' => $users->usersDn());
-    push(@array, 'ldapRootDN', $ldapconf->{'rootdn'});
-    push(@array, 'ldapPasswd' => $ldap->getPassword());
-
+    push(@array, 'stun' => $settings->stunValue());
+    push(@array, 'proxy' => $settings->proxyValue());
+    push(@array, 'zarafa' => $self->zarafaEnabled());
+    push(@array, 'sharedroster' => $settings->sharedrosterValue());
+    push(@array, 'vcard' => $settings->vcardValue());
 
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
+}
+
+sub zarafaEnabled
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('zarafa') ) {
+        my $zarafa = $gl->modInstance('zarafa');
+        my $jabber = $zarafa->model('GeneralSettings')->jabberValue();
+        return ($zarafa->isEnabled() and $jabber);
+    }
+    return 0;
 }
 
 # Method: menu

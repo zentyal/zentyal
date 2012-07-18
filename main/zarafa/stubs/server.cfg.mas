@@ -5,10 +5,12 @@
   $mysql_password
   $attachment_storage
   $attachment_path
+  $server_ssl_enabled
   $quota_warn
   $quota_soft
   $quota_hard
   $indexer
+  $enable_hosted_zarafa
 </%args>
 ##############################################################
 # SERVER SETTINGS
@@ -146,13 +148,13 @@ attachment_compression	= 6
 #  SSL SETTINGS
 
 # enable SSL support in server
-server_ssl_enabled	= no
+server_ssl_enabled	= <% $server_ssl_enabled %>
 
 # Listen for SSL connections on this port
 server_ssl_port		= 237
 
 # Required Server certificate, contains the certificate and the private key parts
-server_ssl_key_file	= /etc/zarafa/ssl/server.pem
+server_ssl_key_file	= /etc/zarafa/ssl/ssl.pem
 
 # Password of Server certificate
 server_ssl_key_pass	= replace-with-server-cert-password
@@ -328,7 +330,7 @@ thread_stacksize = 512
 # zarafa instance and assign all users and groups to particular
 # tenants.
 # When set to false, the normal single-tenancy environment is created.
-enable_hosted_zarafa = false
+enable_hosted_zarafa = <% $enable_hosted_zarafa %>
 
 # Enable multi-server environment
 # When set to true it is possible to place users and tenants on
@@ -342,7 +344,11 @@ enable_distributed_zarafa = false
 #  %f Fullname
 #  %c Teantname
 # default: %f
+% if ($enable_hosted_zarafa eq 'yes') {
+storename_format = %f@%c
+% } else {
 storename_format = %f
+% }
 
 # Loginname format (for Multi-tenancy installations)
 # When the user does not login through a system-wide unique
@@ -358,7 +364,11 @@ storename_format = %f
 #  %c Teantname
 #
 # default: %u
+% if ($enable_hosted_zarafa eq 'yes') {
+loginname_format = %u@%c
+% } else {
 loginname_format = %u
+% }
 
 # Set to yes for Windows clients to be able to download the latest
 # Zarafa Outlook client from the Zarafa server
@@ -406,8 +416,8 @@ enable_enhanced_ics = yes
 sync_gab_realtime = yes
 
 # Disable features for users. Default all features are disabled. This
-# list is space separated. Currently valid values: imap
-disabled_features =
+# list is space separated. Currently valid values: imap pop3
+disabled_features = imap pop3
 
 # Maximum number of deferred records in total
 max_deferred_records = 0
