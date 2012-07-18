@@ -151,6 +151,7 @@ sub saveAllModulesAction
                                   . '. More information on the logs in {dir}',
                                   dir => EBox::Config->log()),
         reloadInterval  => 2,
+        raw => 1,
        );
 }
 
@@ -175,6 +176,7 @@ sub revokeAllModulesAction
                            . '. More information on the logs in {dir}',
                          dir => EBox::Config->log()),
         reloadInterval  => 2,
+        raw => 1
        );
 }
 

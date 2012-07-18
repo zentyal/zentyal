@@ -33,9 +33,10 @@ unless (defined ($nextStepText)) {
 }
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
-<script type="text/javascript" src="/data/js/progress.js"></script>
+%# <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
-
+%# XXX
+<script type="text/javascript" src="/data/js/modalbox.js"></script>
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -43,7 +44,7 @@ unless (defined ($nextStepText)) {
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
                              '<% $nextStepUrl %>');
-
+/*
 	function porcentH(i){
 		this.value = 0;
 		this.setValue = function(v){
@@ -67,9 +68,9 @@ unless (defined ($nextStepText)) {
 		}
 
 	}
+*/
 
-
-	var ph;
+//	var ph;
 
 	function init(){
 		ph = new porcentH('progress');
@@ -179,6 +180,8 @@ unless (defined ($nextStepText)) {
    <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
 </div>
 
+<%doc>
 <script>
 	showAds();
 </script>
+</%doc>

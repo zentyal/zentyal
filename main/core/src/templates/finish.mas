@@ -9,6 +9,9 @@
 <%init>
 use EBox::Gettext;
 </%init>
+%# XXX
+<script type="text/javascript" src="/data/js/progress.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
 
 % if ($askPermission) {
 
@@ -135,9 +138,18 @@ function sendAcceptedFiles()
 <form action='Finish' method='POST'>
 	<p>
 		<input class='inputButton' type='submit' name='save'
-			   value="<% __('Save') %>" />
+			   value="<% __('Save') %>"
+                             onclick="Modalbox.show('/SaveChanges?save=1'); return false";
+%#                           onclick="Modalbox.show('/Finish?save=1', {evalKS:false, asyncrhonous: false, params: {evalJS: false, asyncrhonous: false}}); return false";
+                       />
+		<input class='inputButton' type='submit' name='save'
+			   value="<% __('Save Normal') %>"
+                       />
 		<input class='inputButton' type='submit' name='cancel'
-			   value="<% __('Discard changes') %>" />
+			   value="<% __('Discard changes') %>"
+%#                           onclick="Modalbox.show('/SaveChanges?cancel=1');  return false";
+                           onclick="Modalbox.show('/Finish?cancel=1'); return false";
+                       />
 	</p>
 </form>
 % }else{
