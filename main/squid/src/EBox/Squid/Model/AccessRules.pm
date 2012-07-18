@@ -57,6 +57,7 @@ sub _table
         new EBox::Types::Union(
             fieldName     => 'source',
             printableName => __('Source'),
+            filter        => \&_filterSourcePrintableValue,
             subtypes => [
                 new EBox::Types::Select(
                     fieldName     => 'object',
@@ -311,6 +312,22 @@ sub rulesUseFilter
     }
 
     return 0;
+}
+
+sub _filterSourcePrintableValue
+{
+    my ($type) = @_;
+
+    my $selected = $type->selectedType();
+    my $value = $type->printableValue();
+
+    if ($selected eq 'object') {
+        return __x('Object: {o}', o => $value);
+    } elsif ($selected eq 'group') {
+        return __x('Group: {g}', g => $value);
+    } else {
+        return $value;
+    }
 }
 
 sub _filterProfilePrintableValue
