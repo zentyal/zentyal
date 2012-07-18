@@ -155,7 +155,7 @@ if ($barWidth) {
 
 <div class id="done" style="display:none;">
 %# this div will be closed by .nextStep
-<div class ="note" >
+<div id="done_note" class ="note" >
    <p><% $endNote %></p>
    <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>

@@ -32,7 +32,7 @@ function porcentH(i){
 
 };
 
-var ph = new porcentH('progress'); 
+var ph = new porcentH('progress');
 
 // Update the page
 function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
@@ -70,8 +70,8 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
                 $('warning-progress-messages').update(
                     response.errorMsg);
 
-                $('done').removeClassName('note');
-                $('done').addClassName('warning');
+                $('done_note').removeClassName('note');
+                $('done_note').addClassName('warning');
                 $('warning-progress').show();
                 $('warning-progress-messages').show();
             }
