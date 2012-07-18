@@ -377,6 +377,7 @@ sub shares
         $shareConf->{'share'} = $row->valueByName('share');
         $shareConf->{'comment'} = $row->valueByName('comment');
         $shareConf->{'guest'} = $row->valueByName('guest');
+        $shareConf->{'groupShare'} = $row->valueByName('groupShare');
 
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
@@ -2173,6 +2174,68 @@ sub ldb
         $self->{ldb} = EBox::LDB->instance();
     }
     return $self->{ldb};
+}
+
+# Method: sharesPaths
+#
+#   This function is used to generate disk usage reports. It
+#   returns the shares paths, excluding the group shares.
+#
+sub sharesPaths
+{
+    my ($self) = @_;
+
+    my $shares = $self->shares(1);
+    my $paths = [];
+
+    foreach my $share (@{$shares}) {
+        push (@{$paths}, $share->{path}) unless defined $share->{groupShare};
+    }
+
+    return $paths;
+}
+
+# Method: userPaths
+#
+#   This function is used to generate disk usage reports. It
+#   returns all the paths where a user store data
+#
+sub userPaths
+{
+    my ($self, $user) = @_;
+
+    my $userProfilePath = EBox::SambaLdapUser::PROFILESPATH;
+    $userProfilePath .= "/" . $user->get('uid');
+
+    my $paths = [];
+    push (@{$paths}, $user->get('homeDirectory'));
+    push (@{$paths}, $userProfilePath);
+
+    return $paths;
+}
+
+# Method: groupPaths
+#
+#   This function is used to generate disk usage reports. It
+#   returns the group share path if it is configured.
+#
+sub groupPaths
+{
+    my ($self, $group) = @_;
+
+    my $groupName = $group->get('cn');
+    my $shares = $self->shares(1);
+    my $paths = [];
+
+    foreach my $share (@{$shares}) {
+        if (defined $groupName and defined $share->{groupShare} and
+            $groupName eq $share->{groupShare}) {
+            push (@{$paths}, $share->{path});
+            last;
+        }
+    }
+
+    return $paths;
 }
 
 1;

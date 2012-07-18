@@ -1,4 +1,6 @@
 HEAD
+	+ Added methods to get the paths used by shares, users and groups
+	  to generate disk usage reports
 	+ User addon to enable/disable the account and set the user as
 	  domain administrator
 	+ Group addon to create group shares
