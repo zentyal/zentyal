@@ -7,6 +7,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $mboxTitle = __('Save changes?');
 </%init>
 <div id="top"></div>
 	<div id="header">
@@ -24,7 +25,6 @@ use EBox::Gettext;
 	  <a id="m" href="/Logout/Index"><% $logout %></a>
 % }
 % if ( $save ne '' ) {
-%#	  <a class="<% $finishClass %>" id="changes_menu"   href="/Finish"><% $save %></a>
-	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish" onclick="Modalbox.show('/Finish'); return false"><% $save %></a>
+	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish" onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>'}); return false"><% $save %></a>
 % }
 	</div>

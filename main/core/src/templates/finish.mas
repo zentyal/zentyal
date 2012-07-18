@@ -4,7 +4,7 @@
 	@actions => ()
 	$unsaved => 'no'
 	@disabledModules => ()
-    $askPermission => undef
+        $askPermission => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -135,20 +135,20 @@ function sendAcceptedFiles()
 %	}
 </table>
 % }
+<%perl>
+my $mboxSaveTitle = __('Saving changes');
+my $mboxDiscardTitle = __('Discarding changes');
+</%perl>
 <form action='Finish' method='POST'>
 	<p>
 		<input class='inputButton' type='submit' name='save'
 			   value="<% __('Save') %>"
-                             onclick="Modalbox.show('/SaveChanges?save=1'); return false";
-%#                           onclick="Modalbox.show('/Finish?save=1', {evalKS:false, asyncrhonous: false, params: {evalJS: false, asyncrhonous: false}}); return false";
-                       />
-		<input class='inputButton' type='submit' name='save'
-			   value="<% __('Save Normal') %>"
+                             onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>'}); return false";
+
                        />
 		<input class='inputButton' type='submit' name='cancel'
 			   value="<% __('Discard changes') %>"
-%#                           onclick="Modalbox.show('/SaveChanges?cancel=1');  return false";
-                           onclick="Modalbox.show('/Finish?cancel=1'); return false";
+                           onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>'});  return false";
                        />
 	</p>
 </form>

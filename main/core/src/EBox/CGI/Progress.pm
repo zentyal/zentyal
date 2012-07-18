@@ -130,6 +130,16 @@ sub _top
     return;
 }
 
+sub _footer
+{
+    my ($self) = @_;
+    if ($self->param('raw')) {
+        return;
+    }
+
+    return $self->SUPER::_footer();
+}
+
 sub loadAds
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';

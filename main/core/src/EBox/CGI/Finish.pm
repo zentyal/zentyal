@@ -29,7 +29,8 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Save configuration'),
+    my $self = $class->SUPER::new(
+          #'title' => __('Save configuration'),
             'template' => '/finish.mas',
             @_);
     bless($self, $class);
@@ -201,6 +202,9 @@ sub _top
 {}
 
 sub _menu
+{}
+
+sub _footer
 {}
 
 1;
