@@ -44,33 +44,6 @@ unless (defined ($nextStepText)) {
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
                              '<% $nextStepUrl %>');
-/*
-	function porcentH(i){
-		this.value = 0;
-		this.setValue = function(v){
-			if(v > 100)
-				v = 100;
-			if(v < 0)
-				v = 0;
-			this.value = v;
-			$('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
-			document.getElementById('percentValue').innerHTML= v+"%";
-		}
-
-		this.upValue = function(v){
-			v += this.value;
-			this.setValue(v);
-		}
-
-		this.downValue = function(v){
-			v = this.value - v;
-			this.setValue(v);
-		}
-
-	}
-*/
-
-//	var ph;
 
 	function init(){
 		ph = new porcentH('progress');
@@ -191,7 +164,7 @@ unless (defined ($nextStepText)) {
     </a>
 </div>
 
-% unless ( $adsJson eq '""' ) {
+% unless ($adsJson eq '""')  {
 <script>
       showAds();
 </script>

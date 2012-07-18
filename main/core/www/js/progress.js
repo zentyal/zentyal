@@ -6,34 +6,33 @@ var time = 0;
 
 var ticks = 0;
 var totalTicks = 0;
-var ph = new porcentH('progress');; // XXX
 
 
-	function porcentH(i){
-		this.value = 0;
-		this.setValue = function(v){
-			if(v > 100)
-				v = 100;
-			if(v < 0)
-				v = 0;
-			this.value = v;
-			$('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
-			document.getElementById('percentValue').innerHTML= v+"%";
-		};
+function porcentH(i){
+  this.value = 0;
+  this.setValue = function(v){
+    if(v > 100)
+      v = 100;
+    if(v < 0)
+      v = 0;
+    this.value = v;
+    $('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
+    document.getElementById('percentValue').innerHTML= v+"%";
+  };
 
-		this.upValue = function(v){
-			v += this.value;
-			this.setValue(v);
-		};
+  this.upValue = function(v){
+    v += this.value;
+    this.setValue(v);
+  };
 
-		this.downValue = function(v){
-			v = this.value - v;
-			this.setValue(v);
-		};
+  this.downValue = function(v){
+    v = this.value - v;
+    this.setValue(v);
+  };
 
-	};
+};
 
-var ph = new porcentH('progress');; // XXX
+var ph = new porcentH('progress'); 
 
 // Update the page
 function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
@@ -106,7 +105,7 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
         method: 'post',
         parameters: par,
         asynchronous: true,
-        onSuccess: function (t) { updatePage(t, nextStepTimeout, nextStepUrl) }
+        onSuccess: function (t) { updatePage(t, nextStepTimeout, nextStepUrl); }
         }
     );
     time++;
