@@ -1,4 +1,5 @@
 HEAD
+	+ Ask for the host domain in the wizard instead of the old mode selector
 	+ Fixed user name validation
 2.3.11
 	+ Remove deprecated reference to AD Sync in wizard

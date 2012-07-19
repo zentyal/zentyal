@@ -1,3 +1,5 @@
+HEAD
+	+ User is now enabled together with the rest of modules on first install
 2.3.16
 	+ Fix 'oldRow' parameter in UpdatedRowNotify
 	+ Use Clone::Fast instead of Clone
