@@ -163,6 +163,7 @@ function finalPage() {
     content += '<form action="SaveChanges" method="POST">';
     content += '<input type="hidden" name="save" value="1"/>';
     content += '<input type="hidden" name="noPopup" value="1"/>';
+    content += '<input type="hidden" name="installer" value="1"/>';
     content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />'
 % } else {
     content += '<form  method="POST">';
