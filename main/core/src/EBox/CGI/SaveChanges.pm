@@ -84,11 +84,9 @@ sub saveAllModulesAction
         @commonProgressParams
        );
     if ($self->param('noPopup')) {
-        EBox::debug("NOpopup: params");
         push @params, (title => __('Saving changes'));
 
     } else {
-        EBox::debug("popup: params");
         push @params, @popupProgressParams;
     }
 
@@ -115,12 +113,9 @@ sub revokeAllModulesAction
        );
 
     if (not $self->param('noPopup')) {
-        EBox::debug("NOpopup: params");
         push @params, (title => __('Revoking changes'));
     } else {
-        EBox::debug("popup: params");
         push @params, @popupProgressParams;
-
     }
 
     $self->showProgress(@params);
@@ -132,10 +127,8 @@ sub _print
 {
     my ($self) = @_;
     if ($self->param('noPopup')) {
-        EBox::debug("noPopup nromal print");
-        $self->SUPER::_print();
+        return $self->SUPER::_print();
     }
-        EBox::debug("popup: _print raw");
 
     my $json = $self->{json};
     if ($json) {
