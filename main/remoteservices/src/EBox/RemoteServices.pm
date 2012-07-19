@@ -67,6 +67,7 @@ use Net::DNS;
 use File::Slurp;
 use JSON::XS;
 use POSIX;
+use Data::UUID;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -77,6 +78,12 @@ use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+
+# OCS conf constants
+use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
+use constant OCS_CONF_MAS_FILE   => 'remoteservices/ocsinventory-agent.cfg.mas';
+use constant OCS_CRON_FILE       => '/etc/cron.daily/ocsinventory-agent';
+use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
@@ -148,6 +155,7 @@ sub _setConf
     }
 
     $self->_setRemoteSupportAccessConf();
+    $self->_setInventoryAgentConf();
 }
 
 # Method: initialSetup
@@ -198,6 +206,46 @@ sub _setRemoteSupportAccessConf
         }
     }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
+}
+
+sub _setInventoryAgentConf
+{
+    my ($self) = @_;
+
+    #TODO: Do not hardcode => $self->cloudDomain()
+    my $ocs_server = 'https://inventory.edge.cloud.zentyal.com/ocsinventory';
+
+    # Check subscription level
+    if ($self->subscriptionLevel(1) > 0) {
+        my $cred = $self->cloudCredentials();
+
+        # UUID Format for login: Hexadecimal without '0x'
+        my $ug = new Data::UUID;
+        my $bin_uuid = $ug->from_string($cred->{uuid});
+        my $hex_uuid = $ug->to_hexstring($bin_uuid);
+        my $user = substr($hex_uuid, 2);      # Remove the '0x'
+        my $pass = $cred->{password};
+
+        # Agent configuration
+        my @params = (
+            server    => $ocs_server,
+            # OCS bug, only 30 chars
+            user      => substr($user, 0, 30),
+            password  => substr($pass, 0, 30),
+        );
+
+        $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
+
+        # Enable OCS agent periodic execution
+        $self->writeConfFile(OCS_CRON_FILE,
+                             OCS_CRON_MAS_FILE,
+                             [enabled => 1]);
+    } else {
+        # Disable OCS agent periodic execution
+        $self->writeConfFile(OCS_CRON_FILE,
+                             OCS_CRON_MAS_FILE,
+                             [enabled => 0]);
+    }
 }
 
 # Method: _daemons
