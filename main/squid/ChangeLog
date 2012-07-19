@@ -1,4 +1,4 @@
-HEAD
+2.3.7
 	+ Unify FirewallHelper, removed no longer needed SquidOnlyFirewall
 	+ Support for different filter profiles depending on the time period
 	+ Update dansguardian conf templates to 2.10 version
