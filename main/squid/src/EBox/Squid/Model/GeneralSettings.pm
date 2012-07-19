@@ -124,9 +124,13 @@ sub validateTypedRow
         $self->_checkPortAvailable($params_r->{port}->value());
     }
 
-    if (exists $params_r->{transparentProxy} or
-            exists $params_r->{globalPolicy}) {
-        $self->_checkPolicyWithTransProxy($params_r, $actual_r);
+    my $trans = exists $params_r->{transparentProxy} ?
+                        $params_r->{transparentProxy}->value() :
+                        $actual_r->{transparentProxy}->value() ;
+    if ($trans and $self->parentModule()->authNeeded()) {
+        throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
+        );
     }
 }
 
@@ -143,30 +147,6 @@ sub _checkPortAvailable
     my $firewall = EBox::Global->modInstance('firewall');
     if (not $firewall->availablePort('tcp', $port)) {
         throw EBox::Exceptions::External(__x('{port} is already in use. Please choose another', port => $port));
-    }
-}
-
-
-sub _checkPolicyWithTransProxy
-{
-    my ($self, $params_r, $actual_r) = @_;
-
-    my $trans = exists $params_r->{transparentProxy} ?
-        $params_r->{transparentProxy}->value() :
-            $actual_r->{transparentProxy}->value() ;
-
-    if (not $trans) {
-        return;
-    }
-
-    my $pol = exists $params_r->{globalPolicy} ?
-        $params_r->{globalPolicy} :
-        $actual_r->{globalPolicy} ;
-
-    if ($self->parentModule()->authNeeded()) {
-        throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
-        );
     }
 }
 

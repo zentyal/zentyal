@@ -442,11 +442,7 @@ sub authNeeded
     }
 
     my $rules = $self->model('AccessRules');
-    if ($rules->rulesUseAuth()) {
-        return 1;
-    }
-
-    return 0;
+    return $rules->rulesUseAuth();
 }
 
 # Function: usesPort

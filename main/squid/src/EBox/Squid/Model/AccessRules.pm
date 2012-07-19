@@ -145,7 +145,10 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
-    if ($squid->transproxy() and $squid->authNeeded()) {
+    my $type = exists $params_r->{source} ?
+                      $params_r->{source}->selectedType():
+                      $actual_r->{source}->selectedType();
+    if ($squid->transproxy() and ($type eq 'group')) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
 }
