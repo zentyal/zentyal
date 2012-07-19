@@ -1,3 +1,7 @@
+HEAD
+	+ Do not go to save changes after a regular package installation
+	  they are saved only in the first install
+	+ Progress bar in installation refactored
 2.3.17
 	+ Do not use modal box for save changes during installation
 	+ Hidden fields in DataTables are no longer considered compulsory

@@ -54,6 +54,9 @@ sub _process
 
 my @commonProgressParams = (
         reloadInterval  => 2,
+
+);
+my @popupProgressParams = (
         raw => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
@@ -69,7 +72,7 @@ sub saveAllModulesAction
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareSaveAllModules();
 
-    $self->showProgress(
+    my @params = (
         progressIndicator  => $progressIndicator,
         text               => __('Saving changes in modules'),
         currentItemCaption => __("Current operation"),
@@ -80,6 +83,14 @@ sub saveAllModulesAction
                                   dir => EBox::Config->log()),
         @commonProgressParams
        );
+    if ($self->param('noPopup')) {
+        push @params, (title => __('Saving changes'));
+
+    } else {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub revokeAllModulesAction
@@ -89,7 +100,7 @@ sub revokeAllModulesAction
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareRevokeAllModules();
 
-    $self->showProgress(
+    my @params = (
         progressIndicator => $progressIndicator,
         text     => __('Revoking changes in modules'),
         currentItemCaption  =>  __("Current module"),
@@ -100,12 +111,24 @@ sub revokeAllModulesAction
                          dir => EBox::Config->log()),
         @commonProgressParams
        );
+
+    if (not $self->param('noPopup')) {
+        push @params, (title => __('Revoking changes'));
+    } else {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
+
 
 # to avoid the <div id=content>
 sub _print
 {
     my ($self) = @_;
+    if ($self->param('noPopup')) {
+        return $self->SUPER::_print();
+    }
 
     my $json = $self->{json};
     if ($json) {
