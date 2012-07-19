@@ -1,4 +1,7 @@
 HEAD
+	+ Increased timeout redirecting to wizards on installation to 5 seconds
+	  to avoid problems on some slow or loaded machines
+	+ Save changes dialog do not appear if there are no changes
 	+ Delete no longer needed duplicated code
 	+ Do not go to save changes after a regular package installation
 	  they are saved only in the first install
