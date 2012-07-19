@@ -83,10 +83,15 @@ sub saveAllModulesAction
                                   dir => EBox::Config->log()),
         @commonProgressParams
        );
-    if (not $self->param('noPopup')) {
+    if ($self->param('noPopup')) {
+        EBox::debug("NOpopup: params");
+        push @params, (title => __('Saving changes'));
+
+    } else {
         EBox::debug("popup: params");
         push @params, @popupProgressParams;
     }
+
     $self->showProgress(@params);
 }
 
@@ -108,10 +113,16 @@ sub revokeAllModulesAction
                          dir => EBox::Config->log()),
         @commonProgressParams
        );
+
     if (not $self->param('noPopup')) {
+        EBox::debug("NOpopup: params");
+        push @params, (title => __('Revoking changes'));
+    } else {
         EBox::debug("popup: params");
         push @params, @popupProgressParams;
+
     }
+
     $self->showProgress(@params);
 }
 
