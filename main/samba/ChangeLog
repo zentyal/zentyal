@@ -1,4 +1,5 @@
 HEAD
+	+ Added syncFolders information method to allow file syncing
 	+ Sync passwords from LDAP to LDB directly from hashes
 	+ User addon to enable/disable the account and set the user as
 	  domain administrator

@@ -18,7 +18,11 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule EBox::LogObserver);
+use base qw(EBox::Module::Service
+            EBox::FirewallObserver
+            EBox::LdapModule
+            EBox::LogObserver
+            EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Service;
@@ -35,6 +39,7 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::LDB;
+use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
 
 use Perl6::Junction qw( any );
@@ -414,6 +419,19 @@ sub shares
     }
 
     return \@shares;
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+    foreach my $s (@{$self->shares()}) {
+        push(@folders, new EBox::SyncFolders::Folder($s->{path}, 'share'));
+    }
+
+    return \@folders;
 }
 
 sub defaultAntivirusSettings

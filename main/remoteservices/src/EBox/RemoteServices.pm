@@ -208,14 +208,23 @@ sub _setFilesSyncConf
 {
     my ($self) = @_;
 
-    my @shares;
-    # TODO
+    # Retrieve folders for each provider module
+    my @folders;
+    my @fmods = @{EBox::Global->modInstancesOfType('EBox::SyncFolders::Provider')};
+    for my $mod (@fmods) {
+        push(@folders, @{$mod->syncFolders()});
+    }
+
+    # get credentials
+    my $cred = new EBox::RemoteServices::Cred();
+    my $access_id = $cred->{cred}->{uuid};
+    my $access_key = $cred->{cred}->{password};
 
     my @params;
     push (@params, store_dir => FILES_SYNC_DIR);
-    push (@params, access_id => 'foo'); # TODO
-    push (@params, access_key => 'bar'); # TODO
-    push (@params, shares => \@shares);
+    push (@params, access_id => $access_id);
+    push (@params, access_key => $access_key);
+    push (@params, folders => \@folders);
 
     unless (-d FILES_SYNC_DIR) {
         mkdir(FILES_SYNC_DIR);

@@ -5,19 +5,19 @@
     $store_dir
     $access_id
     $access_key
-    @shares => ()
+    @folders => ()
 </%args>
 {
     "store_dir" : "<% $store_dir %>",
     "access_id" : "<% $access_id %>",
     "access_key" : "<% $access_key %>",
     "shares" : [
-% foreach my $share (@shares) {
+% foreach my $folder (@folders) {
         {
-            "local_path" : "$share->{local_path}",
-            "remote_path" : "$share->{remote_path}"
-% # add a coma after the dict?
-%   if (\$share == \$shares[-1]) {
+            "local_path" : "<% $folder->path() %>",
+            "remote_path" : "/<% $folder->type() %>s/<% $folder->name() %>/"
+% # add a coma after the dict
+%   if (\$folder == \$folders[-1]) {
         }
 %   } else {
         },
