@@ -156,8 +156,18 @@ function finalPage() {
     content += '<h4><% __('Installation finished') %></h4>';
     content += '<div><% __('Now you are ready to save changes and start using your new installed modules') %></div>';
 % }
-    content += '<form action="SaveChangesInstall" method="POST">';
-    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />';
+
+
+    content += '<form action="SaveChanges" method="POST">';
+% if ($first) {
+    content += '<input type="hidden" name="save" value="1"/>';
+    content += '<input type="hidden" name="noPopup" value="1"/>';
+    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />'
+% } else {
+    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>"'
+    content +=  "onclick=\"Modalbox.show('/SaveChanges?save=1', { title: 'Save changes after wizard', overlayClose: false});return false\"";
+    content += '/>';
+%}
     content += '</form>';
     content += '</div>';
     $(showed).update(content);
