@@ -190,7 +190,7 @@ sub showInstallProgress
         reloadInterval  => 2,
         nextStepUrl => '/Wizard',
         nextStepText => __('Go to save changes'),
-        nextStepTimeout => 1
+        nextStepTimeout => 5
     );
 }
 
@@ -213,7 +213,7 @@ sub showRemoveProgress
             . '. More information on the logs in {dir}',
                          dir => EBox::Config->log()),
         reloadInterval  => 2,
-        nextStepTimeout => 1
+        nextStepTimeout => 5
     );
 }
 
