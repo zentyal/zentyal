@@ -16,7 +16,7 @@
 } while (0)
 
 #define ZAVS_ERROR(_fmt, ...) do { \
-    syslog(LOG_ERROR, "ERROR: " _fmt, ##__VA_ARGS__); \
+    syslog(LOG_ERR, "ERROR: " _fmt, ##__VA_ARGS__); \
 } while (0)
 
 #endif

@@ -18,8 +18,8 @@ INC=-I${SAMBA_SOURCE} \
 
 all: zavs.so
 
-zavs.so: zavs_param.o zavs_core.o zavs_log.o zavs_module.o
-	$(CC) $(CFLAGS) -shared zavs_param.o zavs_core.o zavs_log.o zavs_module.o -o zavs.so $(LIBS)
+zavs.so: zavs_param.o zavs_core.o zavs_log.o zavs_module.o zavs_fileaccesslog.o zavs_filetype.o
+	$(CC) $(CFLAGS) -shared zavs_param.o zavs_core.o zavs_log.o zavs_module.o zavs_fileaccesslog.o zavs_filetype.o -o zavs.so $(LIBS)
 
 %.o: %.c
 	$(CC) $(INC) $(CFLAGS) -c $<
