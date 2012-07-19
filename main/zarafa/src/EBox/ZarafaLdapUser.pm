@@ -299,7 +299,7 @@ sub _delUserWarning
     $self->hasAccount($user) or
         return;
 
-    my $txt = __('This user has a Zarafa account. If the user is currently connected it will continue connected until Zarafa authorization is again required.');
+    my $txt = __('This user has a Zarafa account (if the user is currently connected it will continue connected until Zarafa authorization is again required).');
 
     return $txt;
 }

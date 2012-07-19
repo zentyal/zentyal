@@ -55,7 +55,7 @@ allow_local_users	= yes
 local_admin_users	= root vmail www-data
 % } else {
 local_admin_users	= root vmail
-}
+% }
 
 # e-mail address of the Zarafa System user
 system_email_address	= postmaster@<% $hostname %>
