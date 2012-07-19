@@ -1,4 +1,5 @@
 HEAD
+	+ Delete no longer needed duplicated code
 	+ Do not go to save changes after a regular package installation
 	  they are saved only in the first install
 	+ Progress bar in installation refactored

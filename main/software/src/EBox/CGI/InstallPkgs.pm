@@ -173,7 +173,6 @@ sub showInstallProgress
     my ($self, $progressIndicator) = @_;
 
     $self->showProgress(
-        url => '/ProgressInstall',
         progressIndicator => $progressIndicator,
         title    => __('Installing'),
         text     => __('Installing packages'),
