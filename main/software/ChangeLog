@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regression with modal box save changes
 2.3.4
 	+ Remove redirection to save changes page after removing packages
 	+ Install/Remove package shows log directory in error message

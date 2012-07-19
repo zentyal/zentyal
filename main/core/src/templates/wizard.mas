@@ -156,7 +156,7 @@ function finalPage() {
     content += '<h4><% __('Installation finished') %></h4>';
     content += '<div><% __('Now you are ready to save changes and start using your new installed modules') %></div>';
 % }
-    content += '<form action="Finish" method="POST">';
+    content += '<form action="SaveChangesInstall" method="POST">';
     content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />';
     content += '</form>';
     content += '</div>';

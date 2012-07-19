@@ -1,9 +1,9 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-    @actions => ()
-    $unsaved => 'no'
-    @disabledModules => ()
+	@actions => ()
+	$unsaved => 'no'
+	@disabledModules => ()
     $askPermission => undef
 </%args>
 <%init>
@@ -102,49 +102,43 @@ function sendAcceptedFiles()
 %      }
         </ul>
 %   } else {
-    <% __('There are unsaved changes in one or more modules, you can save or discard those changes.')%>
-    <br/>
+	<% __('There are unsaved changes in one or more modules, you can save or discard those changes.')%>
+	<br/>
 %   }
-    <br/>
-    <%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
+	<br/>
+	<%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
 </div>
 % if (@actions) {
 <div class='note'>
 <% __('The following changes are pending. You can save or discard them.') %>
 </div>
 <table class='dataTable' cellspacing='0'>
-    <thead>
-        <tr>
-            <th class='tleft'><% __('Date') %></th>
-            <th class='tleft'><% __('Module') %></th>
-            <th class='tleft'><% __('Section') %></th>
-            <th class='tleft'><% __('Description') %></th>
-        </tr>
-    </thead>
-    <tbody>
-%   foreach my $action (@actions) {
-    <tr>
-        <td><% $action->{'timestamp'} %></td>
-        <td><% $action->{'modtitle'} %></td>
-        <td><% $action->{'modeltitle'} %></td>
-        <td><% $action->{'message'} %></td>
-    </tr>
-%   }
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Date') %></th>
+			<th class='tleft'><% __('Module') %></th>
+			<th class='tleft'><% __('Section') %></th>
+			<th class='tleft'><% __('Description') %></th>
+		</tr>
+	</thead>
+	<tbody>
+%	foreach my $action (@actions) {
+	<tr>
+		<td><% $action->{'timestamp'} %></td>
+		<td><% $action->{'modtitle'} %></td>
+		<td><% $action->{'modeltitle'} %></td>
+		<td><% $action->{'message'} %></td>
+	</tr>
+%	}
 </table>
 % }
-<%perl>
-my $mboxSaveTitle = __('Saving changes');
-my $mboxDiscardTitle = __('Discarding changes');
-</%perl>
-<form action='Finish' method='POST'>
- <p>
-    <input class='inputButton' type='submit' name='save'
-                   value="<% __('Save') %>"
-                   onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false}); Modalbox.MBwindow.addClassName('MB_dialog'); Modalbox.MBclose.hide(); return false" />
-    <input class='inputButton' type='submit' name='cancel'
-                   value="<% __('Discard changes') %>"
-                   onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>', overlayClose: false}); Modalbox.MBwindow.addClassName('MB_dialog'); Modalbox.MBclose.hide(); return false" />
- </p>
+<form action='SaveChangesInstall' method='POST'>
+	<p>
+		<input class='inputButton' type='submit' name='save'
+			   value="<% __('Save') %>" />
+		<input class='inputButton' type='submit' name='cancel'
+			   value="<% __('Discard changes') %>" />
+	</p>
 </form>
 % }else{
 <div class='note'>

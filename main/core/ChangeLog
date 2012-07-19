@@ -1,4 +1,5 @@
 HEAD
+	+ Do not use modal box for save changes during installation
 	+ Hidden fields in DataTables are no longer considered compulsory
 	+ Select type has now its own viewer that allows use of filter function
 	+ User is now enabled together with the rest of modules on first install
