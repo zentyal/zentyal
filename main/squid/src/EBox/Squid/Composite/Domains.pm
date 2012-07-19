@@ -28,15 +28,6 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Method: pageTitle
 #
 #   Overrides:

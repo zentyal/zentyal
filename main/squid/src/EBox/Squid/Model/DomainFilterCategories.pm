@@ -32,35 +32,63 @@ use EBox::Sudo;
 use Error qw(:try);
 use File::Basename;
 
-# Group: Public methods
-
-# Constructor: new
+# Method: syncRows
 #
-#       Create the new  model
+#   Overrides <EBox::Model::DataTable::syncRows>
 #
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Squid::Model::DomainFilterFiles> - the recently
-#       created model
-#
-sub new
+sub syncRows
 {
-    my $class = shift;
+    my ($self, $currentRows) = @_;
 
-    my $self = $class->SUPER::new(@_);
+    my @dirs = </var/lib/zentyal/files/squid/*>;
+    my %categories;
 
-    bless $self, $class;
-    return $self;
+    foreach my $dir (@dirs) {
+        my @files =  @{ EBox::Sudo::root("find $dir") };
+        foreach my $file (@files) {
+            chomp $file;
+            $file =~ m{^(.*)/(.*?)/(.*?)$};
+            my $dirname  = $1 .'/' . $2;
+            my $category = $2;
+            my $basename = $3;
+
+            if ($basename eq any(qw(domains urls))) {
+                $categories{$category} = $dirname;
+            }
+        }
+    }
+
+    my %current =
+        map { $self->row($_)->valueByName('category') => 1 } @{$currentRows};
+
+    my $modified = 0;
+
+    my @toAdd = grep { not exists $current{$_} } keys %categories;
+    foreach my $category (@toAdd) {
+        $self->add(category => $category, present => 1, dir => $categories{$category});
+        $modified = 1;
+    }
+
+    # FIXME: instead of remove, set present to 0
+    # Remove old rows
+#    foreach my $id (@{$currentRows}) {
+#        my $row = $self->row($id);
+#        my $category = $row->valueByName('category');
+#        unless (exists $new{$category}) {
+#            $self->removeRow($id);
+#            $modified = 1;
+#        }
+#    }
+
+    return $modified;
 }
 
-# Method: _tableHeader
+# Method: _table
 #
-sub _tableHeader
+sub _table
 {
+    my ($self) = @_;
+
     my @tableHeader = (
             new EBox::Types::Text(
                 fieldName => 'category',
@@ -68,31 +96,39 @@ sub _tableHeader
                 unique   => 1,
                 editable => 0,
             ),
+            new EBox::Types::Boolean(
+                fieldName => 'present',
+                printableName => __('List Present'),
+                editable => 0,
+            ),
             new EBox::Types::Select(
                 fieldName     => 'policy',
-                printableName => __('Policy'),
+                printableName => __('Decision'),
                 populate   => \&_populate,
-                defaultValue => 'ignore',
                 editable => 1,
             ),
-            new EBox::Types::Text(
-                fieldName => 'dir',
-                printableName => 'categoryDir',
-                hidden => 1,
-                unique => 1,
-            )
     );
 
-    return \@tableHeader;
+    my $dataTable = {
+        tableName          => 'DomainFilterCategories',
+        printableTableName => __('Domain categories'),
+        modelDomain        => 'Squid',
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __('category'),
+        sortedBy           => 'category',
+    };
 }
 
 sub _populate
 {
     my @elements = (
-                    { value => 'allow',  printableValue => __('Always allow') },
-                    { value => 'filter', printableValue => __('Filter') },
-                    { value => 'deny',   printableValue => __('Always deny') },
-                    { value => 'ignore', printableValue => __('Ignore') },
+                    { value => 'ignore', printableValue => __('None') },
+                    { value => 'deny',   printableValue => __('Deny All') },
+                    { value => 'allow',  printableValue => __('Allow All') },
                    );
 
     return \@elements;
@@ -107,9 +143,8 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    return __('This list has not categories');
+    return __('There are no categories defined. You need to add categorized lists files if you want to filter by category.');
 }
-
 
 sub filesPerPolicy
 {
@@ -142,52 +177,80 @@ sub filesPerPolicy
     return \@files;
 }
 
-sub categories
-{
-    my ($self) = @_;
-
-    my @categories = ();
-    foreach my $id ( @{ $self->ids() } ) {
-        my $row = $self->row($id);
-        my $cat = $row->valueByName('category');
-        push @categories, $cat;
-    }
-
-    return \@categories;
-}
-
-sub deleteCategory
-{
-    my ($self, $category) = @_;
-    my $id = $self->findId(category => $category);
-    if (not $id) {
-        throw EBox::Exceptions::Internal("Inexistent category: $category");
-    }
-
-    $self->removeRow($id);
-}
-
-# Method: _table
+# Function: banned
 #
-sub _table
+#       Fetch the banned domains files
+#
+# Returns:
+#
+#       Array ref - containing the files
+sub banned
 {
     my ($self) = @_;
-
-    my $tableHeader = $self->_tableHeader();
-    my $dataTable = {
-        tableName          => 'DomainFilterCategories',
-        printableTableName => __('Domains list categories'),
-        modelDomain        => 'Squid',
-        defaultController  => '/Squid/Controller/DomainFilterCategories',
-        defaultActions     => [ 'editField', 'changeView' ],
-        tableDescription   => $tableHeader,
-        class              => 'dataTable',
-        order              => 0,
-        rowUnique          => 1,
-        printableRowName   => __('category'),
-        sortedBy           => 'category',
-    };
+    return $self->_filesByPolicy('deny', 'domains');
 }
+
+
+# Function: allowed
+#
+#       Fetch the allowed domains files
+#
+# Returns:
+#
+#       Array ref - containing the files
+sub allowed
+{
+    my ($self) = @_;
+    return $self->_filesByPolicy('allow', 'domains');
+}
+
+
+# Function: bannedUrls
+#
+#       Fetch the banned urls files
+#
+# Returns:
+#
+#       Array ref - containing the files
+#
+sub bannedUrls
+{
+    my ($self) = @_;
+    return $self->_filesByPolicy('deny', 'urls');
+}
+
+# Function: allowedUrls
+#
+#       Fetch the allowed urls files
+#
+# Returns:
+#
+#       Array ref - containing the files
+#
+sub allowedUrls
+{
+    my ($self) = @_;
+    return $self->_filesByPolicy('allow', 'urls');
+}
+
+sub _filesByPolicy
+{
+    my ($self, $policy, $scope) = @_;
+
+    my @files = ();
+    foreach my $id (@{$self->enabledRows()}) {
+        my $row = $self->row($id);
+        my $file = $row->elementByName('fileList');
+        $file->exist() or
+            next;
+
+        my $path = $file->path();
+        push @files, @{ $self->_archiveFiles($row, $policy, $scope) };
+    }
+
+    return \@files;
+}
+
 
 # Method: viewCustomizer
 #

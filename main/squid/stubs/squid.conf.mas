@@ -8,24 +8,22 @@
 <%args>
     $port
     $transparent
-    $authNeeded
-    $allowAll
+    $https
     @localnets
-    @objectsPolicies
+    @rules
     @objectsDelayPools
-    @groupsPolicies
     @notCachedDomains
     @nameservers
     $append_domain
     $cache_host
     $cache_port
 
+    $filter
+
     $memory
     $max_object_size
 
     $cacheDirSize
-    $dn
-    $ldapport
     $snmpEnabled => 0
 
     $urlRewriteProgram => undef
@@ -36,7 +34,6 @@
 <%perl>
 our $maxAclNameLength = 31;
 our %longAclNames = ();
-
 
 sub _timeAclsInPolicy
 {
@@ -57,7 +54,6 @@ sub _timeAclsInPolicy
    return $acls;
 }
 
-
 # needed because space scape doesnt work in acl names
 sub _escapeWS
 {
@@ -65,7 +61,6 @@ sub _escapeWS
     $string =~ s{ }{__}g;
     return $string;
 }
-
 
 # needed to avoid log acl problems
 sub _aclName
@@ -84,14 +79,17 @@ sub _aclName
     return _escapeWS($longAclNames{$name});
 }
 
-
 </%perl>
 # <EBOX> TAG_HTTPORT #
 % my $transKey = '';
-% if ($transparent eq 'yes') {
+% if ($transparent) {
 %   $transKey = 'transparent';
 % }
-http_port <% $port %> <% $transKey %>
+% my $sslKey = '';
+% if ($https) {
+%   $sslKey = 'ssl-bump';
+% }
+http_port <% $port %> <% $transKey %> <% $sslKey %>
 # END_TAG #
 
 visible_hostname localhost
@@ -143,27 +141,24 @@ cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
 % }
 
-
 # <EBOX> TAG_ACL #
+% if ($realm) {
 auth_param basic realm Zentyal HTTP proxy
 auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
 acl authorized proxy_auth required
-
+% }
 
 % if ($urlRewriteProgram) {
 url_rewrite_program <% $urlRewriteProgram %>
 % }
 
-<& .groupsACLs,
-    groupsPolicies => \@groupsPolicies,
-    objectsPolicies => \@objectsPolicies,
- &>
+% unless ($filter) {
+<& .rulesACLs, rules => [ @rules ] &>
+% }
 
-<& .objectsACLs, objectsPolicies => \@objectsPolicies &>
-
-<& .objectsACLs, objectsPolicies => \@objectsDelayPools &>
+<& .rulesACLs, rules => [ @objectsDelayPools ] &>
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
@@ -208,54 +203,37 @@ http_reply_access allow all
 never_direct allow all
 % }
 
+% if ($https) {
+# ssl-bump options
+always_direct allow SSL_ports
+ssl_bump allow SSL_ports
+% }
 
 # <EBOX> TAG_DELAYPOOLS #
 
 % if (@localnets) {
-<& .localnetsACLs,
-                  localnets => \@localnets,
-&>
+acl localnets_zentyal dst <% join ' ', @localnets %>
 % }
-<& .delayPools,
-                  objectsDelayPools => \@objectsDelayPools,
-&>
+<& .delayPools, objectsDelayPools => \@objectsDelayPools &>
 
 # END_TAG
 
 # <EBOX> TAG_HTTP_ACCESS #
 
-
 % if (@notCachedDomains) {
 cache deny noCached
 % }
 
-
-<& .objectsAccess,
-                  objectsPolicies => \@objectsPolicies,
-&>
-
-<& .globalGroupsAccess,
-                groupsPolicies => \@groupsPolicies,
-&>
-
-
-
-# default policy section
-
-
-% if ( $authNeeded ) {
-%#     if (not @groupsPolicies ) {
-%#      we force auth here to not force to authorize objects
-%#      which dont need auth
-http_access allow authorized all
-%#     }
-% }
-% if ($allowAll) {
+% if ($filter) {
+# All allowed here as dansguardian takes care of the access rules
 http_access allow all
 % } else {
+<& .rulesAccess, rules => \@rules &>
+
+# default policy section
+# All denied by default if no other allow rule matchs
 http_access deny all
 % }
-
 
 # END_TAG #
 
@@ -268,159 +246,56 @@ http_access deny all
 
 always_direct allow localhostdst
 
-<%def .globalGroupsAccess>
+<%def .rulesACLs>
 <%args>
-@groupsPolicies
+@rules
 </%args>
-% return if (@groupsPolicies == 0);
-%# if we use global group policies we must force always the authorization first
-http_access allow authorized all
-% foreach my $groupPol (@groupsPolicies) {
-%   my $group = $groupPol->{'group'};
-%   my $groupAcl = _aclName($group);
-%   my $timeAcls = _timeAclsInPolicy($groupPol, $group);
-%   my $allowPolicy = $groupPol->{'allow'};
-%   if ($allowPolicy) {
-http_access allow  <% $timeAcls %> <% $groupAcl %>
-%    }
-
-%   if ((not $allowPolicy) or $timeAcls ) {
-#   in case of allow + time acl we have to deny otherwise
-#   outsde of the time period we will slip to defualt policy
-http_access deny <% $groupAcl %> all
+% foreach my $rule (@rules) {
+%   next if $rule->{any};
+%   my $object = $rule->{object};
+%   my $group = $rule->{group};
+%   my $src = $object ? $object : $group;
+%   my $aclName = _aclName($src);
+%   if ($object) {
+acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
+%   } else {
+%       # escape user names
+%       my @users = map { $_ =~ s{}{\\ }g; $_ } @{$rule->{users}};
+acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
+<& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
-
-<%def .objectGroupsAccess>
-<%args>
-@groupsPolicies
-$object
-</%args>
-% foreach my $groupPol (@groupsPolicies) {
-%   my $group = $groupPol->{'group'};
-%   my $groupAcl = _aclName($group);
-%   my $objectAcl = _aclName($object);
-%   my $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
-%   my $allow = $groupPol->{'allow'};
-%   if ($allow) {
-http_access allow <% $timeAcls %> <% $groupAcl %> <% $objectAcl %>
-%    }
-%  if ((not $allow) or $timeAcls ) {
-#   in case of allow + time acl we have to deny otherwise
-#   outsde of the time period we will slip to defualt policy
-http_access deny  <% $groupAcl %> <% $objectAcl %>
-%   }
-% }
-</%def>
-
-
-<%def .objectsAccess>
-<%args>
-@objectsPolicies
-</%args>
-% foreach my $objPol (@objectsPolicies) {
-
-%   my $object = $objPol->{'object'};
-%   my $objectAcl = _aclName($object);
-  <& .objectGroupsAccess,
-           groupsPolicies =>  $objPol->{groupsPolicies},
-           object => $object,
-   &>
-%   if ($objPol->{'auth'}) {
-  http_access allow  <% $objectAcl %>  authorized
-%   }
-
-% if ($objPol->{'allowAll'}) {
-%   my $timeAcls = _timeAclsInPolicy($objPol, $object);
-http_access allow <% $objectAcl %> <% $timeAcls %>
-%     if ($timeAcls) {
-%     # to assure we dont slip to default configuration when we have a time acl
-http_access deny <% $objectAcl %>
-%     }
-% } else {
-http_access deny <% $objectAcl %>
-%   }
-% }
-</%def>
-
-
-<%def .groupsACLs>
-<%args>
-@groupsPolicies
-@objectsPolicies
-</%args>
-<%init>
-# group ACLs from group polices
-my %groups = map {
-        ($_ ->{group} => , $_->{users})
-} @groupsPolicies;
-# add group acls from object policies
-foreach my $obPol (@objectsPolicies) {
-  foreach my $grPol (@{ $obPol->{groupsPolicies} } ) {
-      $groups{ $grPol->{group} } =  $grPol->{users};
- }
-}
-# escape user names
-foreach my $users_r (values %groups) {
-       my @users = map {
-           my $user = $_;
-           $user =~ s{ }{\\ }g;
-           $user
-       } @{ $users_r  };
-    $users_r =  \@users;
-}
-</%init>
-% while (my ($group, $users) = each %groups)  {
-%   my $groupAcl = _aclName($group);
-acl <% $groupAcl %> proxy_auth <% join ' ', @{ $users } %>
-% }
-% foreach my $groupPol (@groupsPolicies) {
-     <& .timeACLs, policy => $groupPol, ids => [$groupPol->{group}] &>
-% }
-</%def>
-
-
-<%def .localnetsACLs>
-<%args>
-@localnets
-</%args>
-acl eboxlocalnets dst <% join ' ', @localnets %>
-</%def>
-
-
-<%def .objectsACLs>
-<%args>
-@objectsPolicies
-</%args>
-% foreach my $objPol (@objectsPolicies) {
-%   my $object = $objPol->{object};
-%   my $objectAcl = _aclName($object);
-acl <% $objectAcl %> src <% join ' ', @{ $objPol->{addresses} } %>
-<& .timeACLs, policy => $objPol, ids => [ $object ] &>
-%   foreach my $groupPol (@{ $objPol->{groupsPolicies} }) {
-     <& .timeACLs, policy => $groupPol, ids => [$object, $groupPol->{group}] &>
-%  }
-% }
-</%def>
-
 
 <%def .timeACLs>
 <%args>
-$policy
-@ids
+$rule
+$id
 </%args>
-<%init>
-my $id = join '_', @ids;
-</%init>
-% if ($policy->{timeDays}) {
-acl <% _aclName('timeDays_' . $id) %> time <% $policy->{timeDays} %>
+% if ($rule->{timeDays}) {
+acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
 % }
-% if ($policy->{timeHours}) {
-acl <% _aclName('timeHours_' . $id) %> time <% $policy->{timeHours} %>
+% if ($rule->{timeHours}) {
+acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 
+<%def .rulesAccess>
+<%args>
+@rules
+</%args>
+% foreach my $rule (@rules) {
+%   my $object = $rule->{'object'};
+%   my $group = $rule->{'group'};
+%   my $groupAcl = $group ? _aclName($group) : '';
+%   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+%   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+%   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+%   my $policy = $rule->{'policy'};
+%   next unless (($policy eq 'allow') or ($policy eq 'deny'));
+http_access <% $policy %> <% $timeAcls %> <% $acl %>
+% }
+</%def>
 
 <%def .delayPools>
 <%args>
@@ -431,7 +306,7 @@ acl <% _aclName('timeHours_' . $id) %> time <% $policy->{timeHours} %>
 delay_pools <% $pools + 1%>
 delay_class 1 2
 delay_parameters 1 -1/-1 -1/-1
-delay_access 1 allow eboxlocalnets
+delay_access 1 allow localnets_zentyal
 % }
 <%perl>
  my $id = 1;
@@ -443,7 +318,7 @@ delay_access 1 allow eboxlocalnets
      }
      my $size = $objPool->{size};
      if ($size > 0) {
-         $size *= 1024;
+         $size *= 1024 * 1024;
      }
 </%perl>
 delay_class <% $id %> <% $objPool->{class} %>
@@ -457,7 +332,7 @@ delay_parameters <% $id %> <% $rate %>/<% $size %>
      }
      my $clt_size = $objPool->{clt_size};
      if ($clt_size > 0) {
-         $clt_size *= 1024;
+         $clt_size *= 1024 * 1024;
      }
 </%perl>
 delay_parameters <% $id %> <% $rate %>/<% $size %> <% $clt_rate %>/<% $clt_size %>
@@ -477,4 +352,3 @@ snmp_port 3401
 snmp_access allow snmppublic localhost
 snmp_access deny all
 </%def>
-

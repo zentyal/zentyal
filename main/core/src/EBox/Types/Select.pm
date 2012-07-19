@@ -43,7 +43,7 @@ sub new
         $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
     }
     unless (exists $opts{'HTMLViewer'}) {
-        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+        $opts{'HTMLViewer'} ='/ajax/viewer/selectViewer.mas';
     }
     unless (exists $opts{'disableCache'}) {
         $opts{'disableCache'} = 0;

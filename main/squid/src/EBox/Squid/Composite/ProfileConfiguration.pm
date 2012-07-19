@@ -25,26 +25,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -55,9 +35,8 @@ sub new
 #
 sub _description
 {
-    my $description =
-    {
-        layout          => 'top-bottom',
+    my $description = {
+        layout          => 'tabbed',
         name            => 'ProfileConfiguration',
         compositeDomain => 'Squid',
     };

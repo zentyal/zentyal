@@ -1,0 +1,14 @@
+<%args>
+$data
+</%args>
+% my $printableValue = $data->printableValue();
+% if ($data->{filter}) {
+%   $printableValue = $data->filter();
+% }
+% if (defined ($printableValue)) {
+<span><% $printableValue %></span>
+ <%$data->trailingText() %>
+% }
+% else {
+<span>--</span>
+% }

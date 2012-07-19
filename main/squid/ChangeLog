@@ -1,5 +1,21 @@
 HEAD
+	+ Unify FirewallHelper, removed no longer needed SquidOnlyFirewall
+	+ Support for different filter profiles depending on the time period
+	+ Update dansguardian conf templates to 2.10 version
+	+ Use new clone and check all options in tables
+	+ Added HTTPS proxy support if squid is compiled with SSL support
+	+ New Transparent Exemptions model to skip proxying of some websites
+	+ Rearranged components on filter profile configuration
+	+ New Categorized Lists model to upload the lists archives
+	+ Download sizes for Bandwidth Throttling now use MB instead of KB
+	+ Users and Antivirus enable dependencies are now optional
+	+ Default policy if no other allow or filter rules are present is deny
+	+ There is no need of manually specify global authorize or filter policy
+	+ New AccessRules model instead of objects and groups policy tables
+	+ Simplified Bandwidth Throttling using a single table
+	+ Removed useless HTTP proxy status widget
 	+ Using EBox::Object::Members class to generate iptables rules
+	+ Removed greylist feature that was confusing
 2.3.6
 	+ Added enabled control to domains files lists
 	+ Remove duplicated models for default profile and custom filter profiles

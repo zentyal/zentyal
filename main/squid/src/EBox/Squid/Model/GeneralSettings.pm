@@ -27,25 +27,13 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::IPAddr;
-use EBox::Types::Union;
 use EBox::Types::Port;
-use EBox::Squid::Types::Policy;
 use EBox::Sudo;
 
 use EBox::Exceptions::External;
 
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=enterprise_edition';
-
-sub new
-{
-    my $class = shift @_ ;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    return $self;
-}
 
 sub _table
 {
@@ -54,21 +42,28 @@ sub _table
                   fieldName => 'transparentProxy',
                   printableName => __('Transparent Proxy'),
                   editable => 1,
-                  defaultValue   => 0,
-                  help => _transparentHelp()
+                  defaultValue => 0,
+              ),
+          new EBox::Types::Boolean(
+                  fieldName => 'https',
+                  printableName => __('HTTPS Proxy'),
+                  hidden => \&_sslSupportNotAvailable,
+                  editable => 1,
+                  defaultValue => 0,
+                  help => __('FIXME: add help'),
               ),
           new EBox::Types::Boolean(
                   fieldName => 'removeAds',
                   printableName => __('Ad Blocking'),
                   editable => 1,
-                  defaultValue   => 0,
+                  defaultValue => 0,
                   help => __('Remove advertisements from all HTTP traffic')
               ),
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),
                   editable => 1,
-                  defaultValue   => 3128,
+                  defaultValue => 3128,
                ),
           new EBox::Types::Int(
                   fieldName => 'cacheDirSize',
@@ -76,19 +71,13 @@ sub _table
                   editable => 1,
                   size => 5,
                   min  => 10,
-                  defaultValue   => 100,
+                  defaultValue => 100,
                ),
-          new EBox::Squid::Types::Policy(
-                  fieldName => 'globalPolicy',
-                  printableName => __('Default policy'),
-                  defaultValue => 'deny',
-                  help => _policyHelp(),
-             ),
     );
 
     my $dataForm = {
                     tableName          => 'GeneralSettings',
-                    printableTableName => __('General Settings '),
+                    printableTableName => __('General Settings'),
                     modelDomain        => 'Squid',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
@@ -135,11 +124,13 @@ sub validateTypedRow
         $self->_checkPortAvailable($params_r->{port}->value());
     }
 
-    if (exists $params_r->{transparentProxy} or
-            exists $params_r->{globalPolicy}) {
-
-        $self->_checkPolicyWithTransProxy($params_r, $actual_r);
-        $self->_checkNoAuthPolicy($params_r, $actual_r);
+    my $trans = exists $params_r->{transparentProxy} ?
+                        $params_r->{transparentProxy}->value() :
+                        $actual_r->{transparentProxy}->value() ;
+    if ($trans and $self->parentModule()->authNeeded()) {
+        throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
+        );
     }
 }
 
@@ -159,63 +150,6 @@ sub _checkPortAvailable
     }
 }
 
-
-sub _checkPolicyWithTransProxy
-{
-    my ($self, $params_r, $actual_r) = @_;
-
-    my $trans = exists $params_r->{transparentProxy} ?
-        $params_r->{transparentProxy}->value() :
-            $actual_r->{transparentProxy}->value() ;
-
-    if (not $trans) {
-        return;
-    }
-
-    my $pol = exists $params_r->{globalPolicy} ?
-        $params_r->{globalPolicy} :
-        $actual_r->{globalPolicy} ;
-
-    if ($pol->usesAuth()) {
-        throw EBox::Exceptions::External(
-                __('Transparent proxy option is not compatible with authorization policy')
-        );
-    }
-
-    my $objectPolicy = $self->parentModule()->model('ObjectPolicy');
-    if ($objectPolicy->existsAuthObjects()) {
-        throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with the authorization policy found in some objects')
-        );
-    }
-}
-
-
-sub _checkNoAuthPolicy
-{
-    my ($self, $params_r, $actual_r) = @_;
-    my $pol = exists $params_r->{globalPolicy} ?
-        $params_r->{globalPolicy} :
-            $actual_r->{globalPolicy} ;
-
-    if (not $pol->usesAuth()) {
-        my $groupsPolicies = $self->parentModule()->model('GlobalGroupPolicy')->groupsPolicies();
-        if (@{ $groupsPolicies }) {
-            throw EBox::Exceptions::External(
-                __('An authorization policy is required because you are using global group policies')
-            );
-        }
-    }
-}
-
-
-sub _policyHelp
-{
-    return __('<i>Filter</i> means that HTTP requests will go through the ' .
-              'content filter and they might be rejected if the content is ' .
-              'not considered valid.');
-}
-
 sub _transparentHelp
 {
     return  __('Note that you cannot proxy HTTPS ' .
@@ -231,5 +165,9 @@ sub _commercialMsg
                 ch => '</a>');
 }
 
-1;
+sub _sslSupportNotAvailable
+{
+    return system('ldd /usr/sbin/squid3 | grep -q libssl') != 0;
+}
 
+1;

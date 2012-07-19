@@ -26,15 +26,10 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Squid::Types::Policy;
 use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
-use EBox::Squid::Model::DomainFilterFiles;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
-
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -76,13 +71,13 @@ sub viewCustomizer
     my $customizer = $self->SUPER::viewCustomizer();
 
     my $securityUpdatesAddOn = 0;
-    if ( EBox::Global->modExists('remoteservices') ) {
+    if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
     }
 
-    unless ( $securityUpdatesAddOn ) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
+    unless ($securityUpdatesAddOn) {
+        $customizer->setPermanentMessage($self->parentModule()->_commercialMsg(), 'ad');
     }
 
     return $customizer;
@@ -98,10 +93,10 @@ sub _table
     my $dataTable =
     {
         tableName          => 'FilterProfiles',
-        pageTitle          => __('Filter profiles'),
-        printableTableName => __('List of profiles'),
+        pageTitle          => __('HTTP Proxy'),
+        printableTableName => __('Filter Profiles'),
         modelDomain        => 'Squid',
-        defaultActions => [ 'add', 'del', 'editField', 'changeView' ],
+        defaultActions => [ 'add', 'del', 'editField', 'changeView', 'clone' ],
         tableDescription   => $self->tableHeader(),
         class              => 'dataTable',
         rowUnique          => 1,
@@ -123,7 +118,7 @@ sub tableHeader
     my @header = (
             new EBox::Types::Text(
                 fieldName => 'name',
-                printableName => __('Filter group'),
+                printableName => __('Name'),
                 editable      => 1,
             ),
             new EBox::Types::HasMany(
@@ -168,79 +163,66 @@ sub validateTypedRow
 sub idByRowId
 {
     my ($self) = @_;
+
     my %idByRowId;
-    my $id = 0;
-    foreach my $rowId (@{ $self->ids()  }) {
-        $id += 1;
-        $idByRowId{$rowId} = $id;
+    my $id = 3;
+    foreach my $rowId (@{ $self->ids() }) {
+        $idByRowId{$rowId} = $id++;
     }
 
     return \%idByRowId;
 }
 
-sub filterGroups
+sub profiles
 {
     my ($self) = @_;
-    my @filterGroups = ();
+    my @profiles = ();
 
-    my $squid = EBox::Global->modInstance('squid');
-    my $usergroupPolicies = $squid->model('GlobalGroupPolicy');
-    my %usersByFilterGroupId = %{ $usergroupPolicies->usersByFilterGroup()  };
+    push (@profiles, { number => 1, policy => 'allow' });
+    push (@profiles, { number => 2, policy => 'deny' });
 
     # groups will have ids greater that this number
-    my $id = 0;
-
-    # remember id 1 is reserved for gd's default group so it must be
-    # the first to be getted
+    my $id = 3;
     foreach my $rowId ( @{ $self->ids() } ) {
         my $row = $self->row($rowId);
         my $name  = $row->valueByName('name');
 
-        $id += 1;
         if ($id > MAX_DG_GROUP) {
             EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
             last;
         }
 
-        my $users;
-        if (exists $usersByFilterGroupId{$rowId}) {
-            $users = $usersByFilterGroupId{$rowId};
-        } else {
-            $users = [];
-        }
-
-        my %group = (
-                number => $id,
-                groupName => $name,
-                users  => $users,
-                defaults => {},
-                );
+        my $group = {
+            number => $id++,
+            groupName => $name,
+            policy => 'filter'
+        };
 
         my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
-        $group{antivirus} = $policy->componentByName('AntiVirus', 1)->active(),
+        $group->{antivirus} = $policy->componentByName('AntiVirus', 1)->active(),
 
-        $group{threshold} = $policy->componentByName('ContentFilterThreshold', 1)->threshold();
+        $group->{threshold} = $policy->componentByName('ContentFilterThreshold', 1)->threshold();
 
-        $group{bannedExtensions} = $policy->componentByName('Extensions', 1)->banned();
+        $group->{bannedExtensions} = $policy->componentByName('Extensions', 1)->banned();
 
-        $group{bannedMIMETypes} = $policy->componentByName('MIME', 1)->banned();
+        $group->{bannedMIMETypes} = $policy->componentByName('MIME', 1)->banned();
 
-        $self->_setFilterGroupDomainsPolicy(\%group, $policy);
+        $self->_setProfileDomainsPolicy($group, $policy);
 
-        push @filterGroups, \%group;
+        push (@profiles, $group);
     }
 
-    return \@filterGroups;
+    return \@profiles;
 }
 
 
-sub _setFilterGroupDomainsPolicy
+sub _setProfileDomainsPolicy
 {
     my ($self, $group, $policy) = @_;
 
-    my $domainFilter      = $policy->componentByName('DomainFilter', 1);
-    my $domainFilterFiles = $policy->componentByName('DomainFilterFiles', 1);
+    my $domainFilter      = $policy->componentByName('Domains', 1)->componentByName('DomainFilter', 1);
+    my $domainFilterFiles = $policy->componentByName('DomainFilterCategories', 1);
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),
@@ -253,13 +235,13 @@ sub _setFilterGroupDomainsPolicy
                                  ];
 
     $group->{greysitelist} = [
-                              domains => $domainFilter->filtered(),
-                              includes => $domainFilterFiles->filtered(),
+                              domains => [],
+                              includes => [],
                              ];
 
     $group->{greyurllist} = [
-                             urls => $domainFilter->filteredUrls(),
-                             includes => $domainFilterFiles->filteredUrls(),
+                             urls => [],
+                             includes => [],
                             ];
 
     $group->{bannedurllist} = [
@@ -268,7 +250,6 @@ sub _setFilterGroupDomainsPolicy
                               ];
 
     my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
-
     $group->{bannedsitelist} = [
                                 blockIp       => $domainFilterSettings->blockIpValue,
                                 blanketBlock  => $domainFilterSettings->blanketBlockValue,
@@ -316,15 +297,6 @@ sub restoreConfig
 {
     my ($class, $dir)  = @_;
     EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
-}
-
-# Security Updates Add-On message
-sub _commercialMsg
-{
-    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Content Filtering feature in the automatic security updates.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
 }
 
 1;

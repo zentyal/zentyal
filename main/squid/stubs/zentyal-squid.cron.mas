@@ -1,0 +1,12 @@
+<%args>
+    @times
+</%args>
+# /etc/cron.d/zentyal-squid
+
+SHELL=/bin/sh
+PATH=/usr/bin:/bin
+
+# regenerate dansguardian conf every time we enter or left a time period
+% foreach my $time (@times) {
+<% $time->{min} %> <% $time->{hour} %> * * <% $time->{days} %> root /usr/share/zentyal-squid/update-time-periods
+% }

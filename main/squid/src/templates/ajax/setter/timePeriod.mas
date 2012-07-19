@@ -8,7 +8,6 @@ my $fieldName = $data->fieldName();
 my $id = $tableName . '_' . $fieldName;
 
 my @days =  @{ $data->days() };
-           
 
 </%init>
 
@@ -32,6 +31,6 @@ my @days =  @{ $data->days() };
                'id'   => $id . "_$day",
                'value' => $data->$day(),
          &>
-        
+
 %      }
 </span>

@@ -1,4 +1,6 @@
-# Copyright (C) 2009 EBox Technologies S.L.
+#!/usr/bin/perl
+
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,31 +18,15 @@
 use strict;
 use warnings;
 
-package EBox::Squid::LdapUserImplementation;
-use base 'EBox::LdapUserBase';
-
+use EBox;
 use EBox::Global;
+use EBox::Sudo;
 
-sub _delGroup
-{
-    my ($self, $group) = @_;
-    my $squid = EBox::Global->modInstance('squid');
+EBox::init();
 
-    my $rules = $squid->model('AccessRules');
-    $rules->delPoliciesForGroup($group);
+my $squid = EBox::Global->modInstance('squid');
+if ($squid->filterNeeded()) {
+    $squid->writeDgGroups();
+    EBox::Sudo::root('dansguardian -g');
 }
 
-sub _delGroupWarning
-{
-    my ($self, $group) = @_;
-
-    my $squid = EBox::Global->modInstance('squid');
-
-    my $rules = $squid->model('AccessRules');
-    if ($rules->existsPoliciesForGroup($group)) {
-        return (q{HTTP proxy access rules});
-    }
-    return ();
-}
-
-1;
