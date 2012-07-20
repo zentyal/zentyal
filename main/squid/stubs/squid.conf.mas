@@ -262,7 +262,7 @@ always_direct allow localhostdst
 acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %   } else {
 %       # escape user names
-%       my @users = map { $_ =~ s{}{\\ }g; $_ } @{$rule->{users}};
+%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
 <& .timeACLs, rule => $rule, id => $src &>
@@ -295,6 +295,9 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 %   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
 %   my $policy = $rule->{'policy'};
 %   next unless (($policy eq 'allow') or ($policy eq 'deny'));
+% if ($group) {
+http_access allow authorized
+% }
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>

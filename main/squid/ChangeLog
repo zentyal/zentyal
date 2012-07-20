@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed group-based authorization
 	+ Fixed wrongly set time period acls in squid configuration in some cases
 	+ Fixed 'any' rules in dansguardian configuration
 2.3.7
