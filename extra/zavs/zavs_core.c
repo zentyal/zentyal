@@ -7,6 +7,7 @@
 #include "zavs_param.h"
 #include "zavs_fileaccesslog.h"
 #include "zavs_filetype.h"
+#include "zavs_fileregexp.h"
 
 // This struct store the module configuration
 static zavs_config_struct zavs_config;
@@ -44,7 +45,7 @@ void zavs_initialize(vfs_handle_struct *handle, const char *service, const char 
 
     // initialise file regexp
     ZAVS_DEBUG(5, "init file regexp\n");
-    //fileregexp_init(vscan_config.common.exclude_file_regexp);
+    fileregexp_init(zavs_config.common.exclude_file_regexp);
 }
 
 void zavs_finalize(void)
@@ -52,5 +53,6 @@ void zavs_finalize(void)
     ZAVS_INFO("disconnected");
     lrufiles_destroy_all();
     filetype_close();
+    fileregexp_close();
 }
 
