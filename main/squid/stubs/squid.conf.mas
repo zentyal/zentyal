@@ -38,6 +38,8 @@ our %longAclNames = ();
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
+
+   @ids = grep { defined ($_) } @ids;
    my $id = join '_', @ids;
 
    my $acls = '';
