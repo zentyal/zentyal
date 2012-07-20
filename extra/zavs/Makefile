@@ -1,24 +1,19 @@
 CFLAGS = -Wall -fPIC
-LIBS =
+LIBS = -lpcre -lmagic -lclamav
 CC = gcc
 
 SAMBA_SOURCE = /home/samuel/Zentyal/packages/samba4/samba
-INC=-I${SAMBA_SOURCE} \
-    -I${SAMBA_SOURCE}/source3/include \
+INC=-I${SAMBA_SOURCE}/source3/include \
     -I${SAMBA_SOURCE}/lib/replace \
-    -I${SAMBA_SOURCE}/lib/tdb/include \
-    -I${SAMBA_SOURCE}/librpc \
-    -I${SAMBA_SOURCE}/lib/popt \
-    -I${SAMBA_SOURCE}/lib/talloc \
-    -I${SAMBA_SOURCE}/lib/tevent \
     -I${SAMBA_SOURCE}/bin/default/include \
+    -I${SAMBA_SOURCE}/source3 \
     -I${SAMBA_SOURCE}/source3/autoconf \
-    -I${SAMBA_SOURCE}/source3
+    -I${SAMBA_SOURCE}
 
 
 all: zavs.so
 
-zavs.so: zavs_param.o zavs_core.o zavs_log.o zavs_module.o zavs_fileaccesslog.o zavs_filetype.o zavs_fileregexp.o
+zavs.so: zavs_param.o zavs_core.o zavs_log.o zavs_module.o zavs_fileaccesslog.o zavs_filetype.o zavs_fileregexp.o zavs_clamav.o
 	$(CC) $(CFLAGS) -shared \
     zavs_param.o \
     zavs_core.o \
@@ -27,6 +22,7 @@ zavs.so: zavs_param.o zavs_core.o zavs_log.o zavs_module.o zavs_fileaccesslog.o 
     zavs_fileaccesslog.o \
     zavs_filetype.o \
     zavs_fileregexp.o \
+    zavs_clamav.o \
     -o zavs.so $(LIBS)
 
 %.o: %.c

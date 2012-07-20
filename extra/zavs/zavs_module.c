@@ -23,6 +23,7 @@
 
 #include <includes.h>
 #include "zavs_core.h"
+#include "zavs_log.h"
 
 static int zavs_connect(vfs_handle_struct *handle, const char *service, const char *user)
 {
@@ -38,41 +39,29 @@ static void zavs_disconnect(vfs_handle_struct *handle)
     SMB_VFS_NEXT_DISCONNECT(handle);
 }
 
-//static int zavs_open(vfs_handle_struct *handle, struct smb_filename *smb_fname, files_struct *fsp, int flags, mode_t mode)
-//{
-//    if (wrapper_zavs_open((void *)handle, (char *)fsp->conn->connectpath, (char *)smb_fname->base_name, fsp->modified) == 0) {
-//        return SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
-//    } else {
-//        errno = EACCES;
-//        return -1;
-//    }
-//}
-//
-//static int zavs_close(vfs_handle_struct *handle, files_struct *fsp)
-//{
-//    wrapper_zavs_close((void *)handle, (char *)fsp->conn->connectpath, (char *)fsp->fsp_name->base_name, fsp->modified);
-//    return SMB_VFS_NEXT_CLOSE(handle, fsp);
-//}
-//
-//static int zavs_rename(vfs_handle_struct *handle, const struct smb_filename *smb_fname_src, const struct smb_filename *smb_fname_dst)
-//{
-//    wrapper_zavs_rename((void *)handle, (char *)handle->conn->connectpath, (char *)smb_fname_src->base_name, (char *)smb_fname_dst->base_name);
-//    return SMB_VFS_NEXT_RENAME(handle, smb_fname_src, smb_fname_dst);
-//}
-//
-//static int zavs_unlink(vfs_handle_struct *handle, const struct smb_filename *smb_fname)
-//{
-//    wrapper_zavs_unlink((void *)handle, (char *)handle->conn->connectpath, (char *)smb_fname->base_name);
-//    return SMB_VFS_NEXT_UNLINK(handle, smb_fname);
-//}
+static int zavs_open(vfs_handle_struct *handle, struct smb_filename *smb_fname, files_struct *fsp, int flags, mode_t mode)
+{
+    if (zavs_open_handler(handle, fsp)) {
+        return SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
+    } else {
+        errno = EACCES;
+        return -1;
+    }
+}
+
+static int zavs_close(vfs_handle_struct *handle, files_struct *fsp)
+{
+    // First close the file
+    int retval = SMB_VFS_NEXT_CLOSE(handle, fsp);
+    zavs_close_handler(handle, fsp);
+    return retval;
+}
 
 static struct vfs_fn_pointers zavs_fn_pointers = {
     .connect_fn = zavs_connect,
     .disconnect_fn = zavs_disconnect,
-//    .open_fn = zavs_open,
-//    .close_fn = zavs_close,
-//    .rename_fn = zavs_rename,
-//    .unlink_fn = zavs_unlink,
+    .open_fn = zavs_open,
+    .close_fn = zavs_close,
 };
 
 NTSTATUS samba_init_module(void)

@@ -1,4 +1,4 @@
-/* 
+/*
  * $Id: vscan-quarantine.c,v 1.4.2.4 2007/05/19 17:59:42 reniar Exp $
  *
  * Provides functions for quarantining or removing an infected file
@@ -19,20 +19,20 @@
  * deletes the infected file
  * @param handle		pointer to vfs_handle_struct structure
  * @param connection_struct	pointer to connect_struct structure
- * @param virus_file		filepath of infected file	
+ * @param virus_file		filepath of infected file
  * @return
  *	 0			success, file deleted
  *     !=0			failure, file not deleted
 */
- 
+
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 int vscan_delete_virus(vfs_handle_struct *handle, connection_struct *conn, char *virus_file) {
 	#if (SMB_VFS_INTERFACE_VERSION >= 21)
          int rc = SMB_VFS_NEXT_UNLINK(handle, virus_file);
-        #else 
+        #else
 	 int rc = SMB_VFS_NEXT_UNLINK(handle, conn, virus_file);
 	#endif
-#else 
+#else
 int vscan_delete_virus(struct vfs_ops *ops, struct connection_struct *conn, char *virus_file) {
 	int rc = ops->unlink(conn, virus_file);
 #endif
@@ -88,7 +88,7 @@ int vscan_quarantine_virus(struct vfs_ops *ops, struct connection_struct *conn, 
 		vscan_syslog_alert("ERROR while closing quarantine file: %s, reason: %s", q_file, strerror(errno));
 		return -1;
 	}
-	
+
 	/* now do the actual quarantine, i.e. renaming */
 #if (SMB_VFS_INTERFACE_VERSION >= 21)
 	rc = SMB_VFS_NEXT_RENAME(handle, virus_file, q_file);
@@ -100,7 +100,7 @@ int vscan_quarantine_virus(struct vfs_ops *ops, struct connection_struct *conn, 
 	if (rc) {
 		vscan_syslog_alert("ERROR: quarantining file '%s' to '%s' failed, reason: %s", virus_file, q_file, strerror(errno));
 
-/* FIXME: we should not remove any file per default. An infected word document 
+/* FIXME: we should not remove any file per default. An infected word document
    may contain important data. Add "delete file on quarantine failure" for
    the next version.
 		return vscan_delete_virus(ops, conn, virus_file);
@@ -113,7 +113,7 @@ int vscan_quarantine_virus(struct vfs_ops *ops, struct connection_struct *conn, 
 
 /**
  do action on infected file
-*/ 
+*/
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 int vscan_do_infected_file_action(vfs_handle_struct *handle_ops, connection_struct *conn, char *virus_file, char *q_dir, char *q_prefix, enum infected_file_action_enum infected_file_action) {
 #else

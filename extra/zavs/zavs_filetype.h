@@ -14,6 +14,6 @@
 
 bool filetype_init (int flags, const char *exclude_list);
 void filetype_close(void);
-//int filetype_skipscan(const char *fname);
+int filetype_skipscan(const char *fname);
 
 #endif /* __ZAVS_FILETYPE_H_ */

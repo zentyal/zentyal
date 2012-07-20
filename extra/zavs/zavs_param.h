@@ -9,15 +9,8 @@
 
 #include "zavs_quarantine.h"
 
-// Location of the Clam AntiVirus daemon socket
-#define ZAVS_CLAMD_SOCKET_NAME "/var/run/clamd"
-
 // false = log only infected file, true = log every file access
 #define ZAVS_VERBOSE_FILE_LOGGING false
-
-// if a file is bigger than ZAVS_MAX_SIZE it won't be scanned. Has to be
-// specified in bytes! If it set to false, the file size check is disabled
-#define ZAVS_MAX_SIZE false
 
 // true = scan files on open
 #define ZAVS_SCAN_ON_OPEN true
@@ -26,10 +19,7 @@
 #define ZAVS_SCAN_ON_CLOSE true
 
 // true = deny access in case of virus scanning failure
-#define ZAVS_DENY_ACCESS_ON_ERROR true
-
-// true = deny access in case of minor virus scanning failure
-#define ZAVS_DENY_ACCESS_ON_MINOR_ERROR true
+#define ZAVS_DENY_ACCESS_ON_ERROR false
 
 // true = send a warning message via window messenger service for viruses found
 #define ZAVS_SEND_WARNING_MESSAGE true
@@ -52,15 +42,18 @@
 #define ZAVS_FT_EXCLUDE_LIST ""
 #define ZAVS_FT_EXCLUDE_REGEXP ""
 
+// This values are copied from libclamav defaults.h
+#define ZAVS_CLAMAV_MAX_SCAN_SIZE     104857600
+#define ZAVS_CLAMAV_MAX_FILE_SIZE     26214400
+#define ZAVS_CLAMAV_MAX_REC_LEVEL     16
+#define ZAVS_CLAMAV_MAX_FILES         10000
+
 typedef struct {
     struct {
-        const char *clamd_socket;
-        ssize_t max_size;
         bool verbose_file_logging;
         bool scan_on_open;
         bool scan_on_close;
         bool deny_access_on_error;
-        bool deny_access_on_minor_error;
         bool send_warning_message;
         const char *quarantine_dir;
         const char *quarantine_prefix;
@@ -70,6 +63,12 @@ typedef struct {
         const char *exclude_file_types;
         const char *exclude_file_regexp;
     } common;
+    struct {
+        long long max_files;
+        long long max_file_size;
+        long long max_scan_size;
+        long long max_recursion_level;
+    } clamav_limits;
     void* specific;
 } zavs_config_struct;
 

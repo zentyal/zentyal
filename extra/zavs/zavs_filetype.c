@@ -5,6 +5,7 @@
 #include <string.h>
 #include <magic.h>
 
+#include "zavs_filetype.h"
 #include "zavs_log.h"
 
 // Pointer to magic :-)
@@ -77,38 +78,37 @@ void filetype_close(void)
 }
 
 
-///**
-// * determins whether scan of file should be skipped or not
-// *
-// * @param fnamefile name
-// * @return
-// *-1error occured; file must be scanned
-// * 0file type not in list, file must be scanned
-// * 1file type in exclude list, skip file, i.e. do not
-// *scan file
-// *
-// */
-//
-//int filetype_skipscan(pstring fname) {
-//
-//    /* as next_token modifies input */
+/**
+ *
+ * determins whether scan of file should be skipped or not
+ *
+ * @param fnamefile name
+ * @return
+ *      -1  error occured; file must be scanned
+ *       0  file type not in list, file must be scanned
+ *       1  file type in exclude list, skip file
+ *
+ */
+
+int filetype_skipscan(const char *fname)
+{
+    // As next_token modifies input
 //    pstring ex_list;
 //    pstring exclude;
 //    const char* p; /* needed to avoid compiler warning */
 //    pstring ft_string, filetype_string;
 //    char* p_ft;
 //
-//
-//    if ( !filetype_init_magic ) {
-//        if ( strlen(filetype_excludelist) == 0 ) {
-//            DEBUG(5, ("exclude list is empty - feature disabled\n"));
-//        } else {
-//            DEBUG(5, ("libmagic init has failed  - feature disabled\n"));
-//        }
-//        return VSCAN_FT_ERROR_MUST_SCAN;
-//    }
-//
-//    /* get the file type */
+    if (!filetype_init_magic) {
+        if (strnlen(filetype_excludelist, sizeof(filetype_excludelist)) == 0) {
+            ZAVS_DEBUG(5, "exclude list is empty - feature disabled\n");
+        } else {
+            ZAVS_DEBUG(5, "libmagic init has failed  - feature disabled\n");
+        }
+        return ZAVS_FT_ERROR_MUST_SCAN;
+    }
+
+    // Get the file type
 //    pstrcpy(ft_string, magic_file(filetype_magic, fname));
 //    if ( ft_string == NULL ) {  /* error */
 //        vscan_syslog("could not get file type, %s", magic_error(filetype_magic));
@@ -120,13 +120,13 @@ void filetype_close(void)
 //    p_ft = ft_string;
 //    pstrcpy(filetype_string, strsep(&p_ft, ";"));
 //    DEBUG(5, ("file type of file %s is %s\n", fname, filetype_string));
-//
+
 //    /* next_token modifies input list, so copy it */
 //    pstrcpy(ex_list, filetype_excludelist);
-//
+
 //    /* to avoid compiler warnings */
 //    p = ex_list;
-//
+
 //    while ( next_token(&p, exclude, ";", sizeof(exclude)) ) {
 //        trim_string(exclude, " ", " ");
 //        DEBUG(5, ("current exclude type is: '%s'\n", exclude));
@@ -137,8 +137,8 @@ void filetype_close(void)
 //            return VSCAN_FT_SKIP_SCAN;
 //        } /* end if */
 //    } /* end while */
-//
-//    /* file must be scanned */
-//    DEBUG(5, ("no match - file must be scanned\n"));
-//    return VSCAN_FT_MUST_SCAN;
-//}
+
+    // File must be scanned
+    ZAVS_DEBUG(5, "no match - file must be scanned\n");
+    return ZAVS_FT_MUST_SCAN;
+}

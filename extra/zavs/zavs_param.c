@@ -7,15 +7,9 @@ void zavs_parse_settings(vfs_handle_struct *handle, zavs_config_struct *c)
 {
     int snum = SNUM(handle->conn);
 
-    // TODO Liberar la memoria de los punteros
+    // TODO Free char pointers
 
     ZAVS_DEBUG(3, "Loading settings\n");
-
-    c->common.clamd_socket = lp_parm_const_string(snum, "zavs", "clamd socket", ZAVS_CLAMD_SOCKET_NAME);
-    ZAVS_DEBUG(3, "value for 'clamd socket': %s\n", c->common.clamd_socket);
-
-    c->common.max_size = lp_parm_int(snum, "zavs", "max file size", ZAVS_MAX_SIZE);
-    ZAVS_DEBUG(3, "value for 'max file size': %d\n", c->common.max_size);
 
     c->common.verbose_file_logging = lp_parm_bool(snum, "zavs", "verbose file logging", ZAVS_VERBOSE_FILE_LOGGING);
     ZAVS_DEBUG(3, "value for 'verbose file logging': %d\n", c->common.verbose_file_logging);
@@ -28,9 +22,6 @@ void zavs_parse_settings(vfs_handle_struct *handle, zavs_config_struct *c)
 
     c->common.deny_access_on_error = lp_parm_bool(snum, "zavs", "deny access on error", ZAVS_DENY_ACCESS_ON_ERROR);
     ZAVS_DEBUG(3, "value for 'deny access on error': %d\n", c->common.deny_access_on_error);
-
-    c->common.deny_access_on_minor_error = lp_parm_bool(snum, "zavs", "deny access on minor error", ZAVS_DENY_ACCESS_ON_MINOR_ERROR);
-    ZAVS_DEBUG(3, "value for 'deny access on minor error': %d\n", c->common.deny_access_on_minor_error);
 
     c->common.send_warning_message = lp_parm_bool(snum, "zavs", "send warning message", ZAVS_SEND_WARNING_MESSAGE);
     ZAVS_DEBUG(3, "value for 'send warning message': %d\n", c->common.send_warning_message);
@@ -55,5 +46,18 @@ void zavs_parse_settings(vfs_handle_struct *handle, zavs_config_struct *c)
 
     c->common.exclude_file_regexp = lp_parm_const_string(snum, "zavs", "exclude file regexp", ZAVS_FT_EXCLUDE_REGEXP);
     ZAVS_DEBUG(3, "value for 'exclude file regexep': %s\n", c->common.exclude_file_regexp);
+
+    // ClamAV library limits
+    c->clamav_limits.max_file_size = lp_parm_ulong(snum, "zavs", "max file size", ZAVS_CLAMAV_MAX_FILE_SIZE);
+    ZAVS_DEBUG(3, "value for 'max file size': %lli\n", c->clamav_limits.max_file_size);
+
+    c->clamav_limits.max_scan_size = lp_parm_ulong(snum, "zavs", "max scan size", ZAVS_CLAMAV_MAX_SCAN_SIZE);
+    ZAVS_DEBUG(3, "value for 'max scan size': %lli\n", c->clamav_limits.max_scan_size);
+
+    c->clamav_limits.max_files = lp_parm_ulong(snum, "zavs", "max files", ZAVS_CLAMAV_MAX_FILES);
+    ZAVS_DEBUG(3, "value for 'max files': %lli\n", c->clamav_limits.max_files);
+
+    c->clamav_limits.max_recursion_level = lp_parm_ulong(snum, "zavs", "max recursion level", ZAVS_CLAMAV_MAX_REC_LEVEL);
+    ZAVS_DEBUG(3, "value for 'max recursion level': %lli\n", c->clamav_limits.max_recursion_level);
 }
 
