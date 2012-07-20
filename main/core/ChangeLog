@@ -1,4 +1,6 @@
 HEAD
+	+ Set MySQL root password in create-db script and added mysql script
+	  to /usr/share/zentyal for easy access to the zentyal database
 	+ Increased timeout redirecting to wizards on installation to 5 seconds
 	  to avoid problems on some slow or loaded machines
 	+ Save changes dialog do not appear if there are no changes
