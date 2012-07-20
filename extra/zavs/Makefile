@@ -34,6 +34,6 @@ clean:
 	rm -f *.o
 	rm -f *.so
 
-#install: all
-#	mkdir -p $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/ldb
-#	install -m644 zentyal.so $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/ldb
+install: all
+	mkdir -p $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/vfs
+	install -m644 zavs.so $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/vfs

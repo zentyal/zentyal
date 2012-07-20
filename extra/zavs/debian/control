@@ -1,0 +1,13 @@
+Source: zavs
+Section: universe/libs
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: cdbs, debhelper (>= 4.0.0), libmagic-dev, libpcre3-dev, libclamav-dev
+Standards-Version: 3.7.3
+
+Package: zavs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmagic1, libpcre3, libclamav6
+Description: Zentyal AntiVirus for Samba
+ This module provide a VFS plugin for samba that scan files on shares using
+ the clamav library.
