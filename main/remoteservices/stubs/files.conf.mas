@@ -15,7 +15,7 @@
 % foreach my $folder (@folders) {
         {
             "local_path" : "<% $folder->path() %>",
-            "remote_path" : "/<% $folder->type() %>s/<% $folder->name() %>/"
+            "remote_path" : "<% $folder->type() %>s/<% $folder->name() %>/"
 % # add a coma after the dict
 %   if (\$folder == \$folders[-1]) {
         }
