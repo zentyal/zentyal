@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed 'any' rules in dansguardian configuration
 2.3.7
 	+ Unify FirewallHelper, removed no longer needed SquidOnlyFirewall
 	+ Support for different filter profiles depending on the time period
