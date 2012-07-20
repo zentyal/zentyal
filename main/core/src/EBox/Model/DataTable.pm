@@ -3278,7 +3278,7 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($eValue eq $value) {
+            if ((defined $eValue) and ($eValue eq $value)) {
                 if ($allMatches) {
                     push (@matched, $id);
                 } else {
