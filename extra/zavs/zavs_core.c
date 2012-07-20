@@ -121,25 +121,24 @@ void zavs_close_handler(vfs_handle_struct *handle, files_struct *fsp)
 
 bool skip_file(vfs_handle_struct *handle, files_struct *fsp, const char *filepath)
 {
-	SMB_STRUCT_STAT stat_buf;
     bool ret = false;
+    struct stat statbuf;
 
-    //if ((SMB_VFS_NEXT_STAT(handle, &smb_fname)) != 0) {
-    //    // An error occured
-    //    ret = true;
-    //    if (errno == ENOENT) {
-    //        if (zavs_config.common.verbose_file_logging)
-    //            ZAVS_WARN("File '%s' not found! Not scanned!", filepath);
-    //    } else {
-    //        ZAVS_ERROR("File '%s' not readable or an error occured", filepath);
-    //    }
-    //} else if (S_ISDIR(smb_fname->st.st_ex_mode))
-    if (S_ISDIR(stat_buf.st_ex_mode)) {
+    if ((ret = stat(filepath, &statbuf)) != 0) {
+        // An error occured
+        ret = true;
+        if (errno == ENOENT) {
+            if (zavs_config.common.verbose_file_logging)
+                ZAVS_WARN("File '%s' not found! Not scanned!", filepath);
+        } else {
+            ZAVS_ERROR("File '%s' not readable or an error occured", filepath);
+        }
+    } else if (S_ISDIR(statbuf.st_mode)) {
         // It a directory
         ret = true;
         if (zavs_config.common.verbose_file_logging)
             ZAVS_INFO("open: File '%s' is a directory! Not scanned!", filepath);
-    } else if (stat_buf.st_ex_size == 0) {
+    } else if (statbuf.st_size == 0) {
         // Do not scan empty files
         ret = true;
         if (zavs_config.common.verbose_file_logging)

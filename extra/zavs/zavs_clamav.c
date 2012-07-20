@@ -71,9 +71,8 @@ int zavs_clamav_lib_scanfile(const char *filepath, const zavs_config_struct *con
     ret = cl_scanfile(filepath, &virname, NULL, engine, CL_SCAN_STDOPT);
     if (ret == CL_CLEAN) {
         // No virus found
-        if (config->common.verbose_file_logging) {
-            ZAVS_INFO("File '%s' is clean", filepath);
-        }
+        if (config->common.verbose_file_logging)
+            ZAVS_INFO("Access to file '%s' granted, no virus detected\n", filepath);
 
         // File is clean, add to lrufiles
         // TODO lrufiles_add(filepath, stat_buf.st_mtime, false);
@@ -81,6 +80,7 @@ int zavs_clamav_lib_scanfile(const char *filepath, const zavs_config_struct *con
         ret = ZAVS_SCAN_CLEAN;
     } else if (ret == CL_VIRUS) {
         // Virus found
+        ZAVS_WARN("VIRUS DETECTED! virus '%s' detected in file '%s'\n", virname, filepath);
         // TODO zavs_log_virus(filepath, virname, client_ip);
 
         // Do action
