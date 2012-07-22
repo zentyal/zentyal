@@ -36,6 +36,7 @@ use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
+use EBox::CloudSync::Slave;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -397,8 +398,8 @@ sub enableActions
     $self->SUPER::enableActions();
 
     # Configure SOAP to listen for new slaves
-    $self->master->confSOAPService();
-    $self->master->setupMaster();
+    $self->masterConf->confSOAPService();
+    $self->masterConf->setupMaster();
 
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -496,15 +497,17 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
-            \@array);
 
+    if ($self->master() eq 'cloud') {
+        push(@array, 'cloudsync_enabled' => 1);
+        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
+    }
 
     # Configure as slave if enabled
-    $self->master->setupSlave() unless ($noSlaveSetup);
+    $self->masterConf->setupSlave() unless ($noSlaveSetup);
 
     # Configure soap service
-    $self->master->confSOAPService();
+    $self->masterConf->confSOAPService();
 
     # Get the FQDN
     my $realm = $self->kerberosRealm();
@@ -975,7 +978,7 @@ sub allSlaves
 #
 sub notifyModsLdapUserBase
 {
-    my ($self, $signal, $args, $ignored_modules) = @_;
+    my ($self, $signal, $args, $ignored_modules, $ignored_slaves) = @_;
 
     # convert signal to method name
     my $method = '_' . $signal;
@@ -1010,7 +1013,11 @@ sub notifyModsLdapUserBase
     }
 
     # Notify slaves
+    $ignored_slaves or $ignored_slaves = [];
     foreach my $slave (@{$self->allSlaves}) {
+        my $name = $slave->name();
+        next if ($name eq any @{$ignored_slaves});
+
         $slave->sync($signal, $args);
     }
 }
@@ -1027,7 +1034,7 @@ sub initialSlaveSync
     my ($self, $slave) = @_;
 
     foreach my $user (@{$self->users()}) {
-        $slave->savePendingSync('addUser', [ $user, $user->passwordHashes() ]);
+        $slave->savePendingSync('addUser', [ $user ]);
     }
 
     foreach my $group (@{$self->groups()}) {
@@ -1305,21 +1312,42 @@ sub slaves
         push (@slaves, new EBox::UsersSync::Slave($host, $port, $id));
     }
 
+    my $g = EBox::Global->getInstance(1);
+    my $u = $g->modInstance('users');
+    if ($u->master() eq 'cloud') {
+        push (@slaves, new EBox::CloudSync::Slave());
+    }
+
     return \@slaves;
 }
+
+
+# Method: master
+#
+#   Return configured master as string, undef in none
+#
+#   Options: 'zentyal', 'cloud' or None
+#
+sub master
+{
+    my ($self) = @_;
+    my $row = $self->model('Master')->row();
+    return $row->elementByName('master')->value();
+}
+
 
 # SyncProvider implementation
 sub allowUserChanges
 {
     my ($self) = @_;
 
-    return (not $self->master->isSlave());
+    return (not $self->masterConf->isSlave());
 }
 
 
 
 # Master-Slave UsersSync object
-sub master
+sub masterConf
 {
     my ($self) = @_;
 

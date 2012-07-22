@@ -1,3 +1,10 @@
+HEAD
+	+ Better password policies for LDAP backend
+	+ Added user synchronization with Zentyal Cloud
+	+ Removed deprecated conf keys (password hashes selection)
+	+ Sync kerberos hashes on master-slave
+	+ Resolve slave hostname during registering
+	+ Fixed framework changes related regression getting redis keys directly
 2.3.12
 	+ Ask for the host domain in the wizard instead of the old mode selector
 	+ Fixed user name validation

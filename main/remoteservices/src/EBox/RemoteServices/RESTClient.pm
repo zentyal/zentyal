@@ -26,6 +26,15 @@ use strict;
 
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::RemoteServices::RESTResult;
+use URI;
+use LWP::UserAgent;
+use Error qw(:try);
+
+use constant BASE_URL => 'http://192.168.156.1:8000/api/'; #FIXME
+
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;

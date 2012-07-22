@@ -1926,7 +1926,8 @@ sub REST
     my ($self) = @_;
 
     unless ($self->{rest}) {
-        $self->{rest} = new EBox::RemoteServices::RESTClient();
+        my $cred = new EBox::RemoteServices::Cred();
+        $self->{rest} = $cred->RESTClient();
     }
 
     return $self->{rest};
