@@ -91,11 +91,11 @@ sub _table
     my @tableDesc = (
        new EBox::Types::Boolean(
                                fieldName     => 'sync',
-                               printableName => __('Sync with Zentyal Files'),
+                               printableName => __('Sync with Zentyal Cloud'),
                                editable      => 1,
                                defaultValue  => 1,
                                help          => __('Files will be synchronized with Zentyal Cloud.'),
-                               hidden        => \&_syncNotAvailable,
+                               hidden        => \&_hideSyncOption,
                                ),
        new EBox::Types::Text(
                                fieldName     => 'share',
@@ -344,20 +344,22 @@ sub createDirs
 
 # Private methods
 
-sub _syncAvailable
+sub _hideSyncOption
 {
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        return $rs->filesSyncAvailable();
+        return (not $rs->filesSyncAvailable() or _syncAllShares());
     }
 
-    return 0;
+    return _syncAllShares();
 }
 
-sub _syncNotAvailable
+sub _syncAllShares
 {
-    return not _syncAvailable()
+    my $samba = EBox::Global->modInstance('samba');
+    return $samba->model('SyncShares')->syncValue();
 }
+
 
 sub _pathHelp
 {
