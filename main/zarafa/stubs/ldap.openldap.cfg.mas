@@ -61,7 +61,7 @@ ldap_object_type_attribute = objectClass
 ldap_user_type_attribute_value = zarafa-user,zarafa-contact
 ldap_group_type_attribute_value = posixGroup
 ldap_contact_type_attribute_value = zarafa-contact
-ldap_company_type_attribute_value = organizationalUnit
+ldap_company_type_attribute_value = zarafa-company
 ldap_addresslist_type_attribute_value = zarafa-addresslist
 ldap_dynamicgroup_type_attribute_value = zarafa-dynamicgroup
 
@@ -157,7 +157,7 @@ ldap_isadmin_attribute = zarafaAdmin
 # Optional, default = empty
 # Active directory: zarafaSharedStoreOnly
 # LDAP: zarafaSharedStoreOnly
-ldap_nonactive_attribute =
+ldap_nonactive_attribute = zarafaSharedStoreOnly
 
 # A nonactive store, or resource, can be specified to be a user, room or equipment.
 # Set it to 'room' or 'equipment' to make such types. If set to empty,

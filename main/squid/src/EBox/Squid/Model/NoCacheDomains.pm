@@ -26,33 +26,6 @@ use EBox::Gettext;
 use EBox::Types::DomainName;
 use EBox::Validate;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new  model
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Squid::Model::DomainFilter> - the recently
-#       created model
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless $self, $class;
-    return $self;
-}
-
-
-
 # Method: _table
 #
 #
@@ -76,7 +49,7 @@ sub _table
 
     my $dataTable = {
         tableName          => 'NoCacheDomains',
-        printableTableName => __('Cache exemptions'),
+        printableTableName => __('Cache Exemptions'),
         modelDomain        => 'Squid',
         defaultController  => '/Squid/Controller/NoCacheDomains',
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],

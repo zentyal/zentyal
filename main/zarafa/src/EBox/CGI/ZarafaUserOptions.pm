@@ -52,10 +52,40 @@ sub _process
 
     if ($self->param('active') eq 'yes') {
         $zarafaldap->setHasAccount($user, 1);
+        if (defined($self->param('has_pop3'))) {
+            $zarafaldap->setHasFeature($user, 'pop3', 1);
+        } else {
+            $zarafaldap->setHasFeature($user, 'pop3', 0);
+        }
+        if (defined($self->param('has_imap'))) {
+            $zarafaldap->setHasFeature($user, 'imap', 1);
+        } else {
+            $zarafaldap->setHasFeature($user, 'imap', 0);
+        }
         if (defined($self->param('is_admin'))) {
             $zarafaldap->setIsAdmin($user, 1);
         } else {
             $zarafaldap->setIsAdmin($user, 0);
+        }
+        if (defined($self->param('is_store'))) {
+            $zarafaldap->setIsStore($user, 1);
+        } else {
+            $zarafaldap->setIsStore($user, 0);
+        }
+        if (defined($self->param('meeting_autoaccept'))) {
+            $zarafaldap->setMeetingAutoaccept($user, 1);
+        } else {
+            $zarafaldap->setMeetingAutoaccept($user, 0);
+        }
+        if (defined($self->param('meeting_declineconflict'))) {
+            $zarafaldap->setMeetingDeclineConflict($user, 1);
+        } else {
+            $zarafaldap->setMeetingDeclineConflict($user, 0);
+        }
+        if (defined($self->param('meeting_declinerecurring'))) {
+            $zarafaldap->setMeetingDeclineRecurring($user, 1);
+        } else {
+            $zarafaldap->setMeetingDeclineRecurring($user, 0);
         }
     } else {
         $zarafaldap->setHasAccount($user, 0);

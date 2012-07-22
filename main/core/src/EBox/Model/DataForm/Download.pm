@@ -43,7 +43,6 @@ use warnings;
 use EBox::Exceptions::MissingArgument;
 
 # Core modules
-use Clone;
 use Error qw(:try);
 use constant URL_REDIRECT => '/Controller/Downloader/FromTempDir?filename=';
 

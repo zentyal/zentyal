@@ -347,19 +347,19 @@ sub addedRowNotify
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::updatedRowNotify>
+#   <EBox::Model::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $oldRow, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
-    $self->_autoDetectInterface($newRow);
+    $self->_autoDetectInterface($row);
 
     return if ($force); # failover event can force changes
 
     my $network = $self->parentModule();
-    my $id = $newRow->id();
-    if ($newRow->valueByName('default')) {
+    my $id = $row->id();
+    if ($row->valueByName('default')) {
         $network->storeSelectedDefaultGateway($id);
     } else {
         if ($id eq $network->selectedDefaultGateway()) {

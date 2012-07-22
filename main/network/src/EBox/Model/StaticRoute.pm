@@ -90,19 +90,19 @@ sub validateTypedRow
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::deletedRowNotify>
+#   <EBox::Model::DataTable::deletedRowNotify>
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $force) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
     # Check if network or gateway values have changed to delete
     # current route from routing table
     # The check is done in validateTypedRow
-    if ( exists $self->{toDelete} ) {
+    if (exists $self->{toDelete}) {
         my $netMod = $self->parentModule();
         $netMod->gatewayDeleted($self->{toDelete}->{gateway});
-        delete($self->{toDelete});
+        delete $self->{toDelete};
     }
 }
 

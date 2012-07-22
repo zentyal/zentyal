@@ -30,7 +30,7 @@ use EBox;
 use EBox::Exceptions::Internal;
 
 # Dependencies
-use Clone;
+use Clone::Fast;
 use Perl6::Junction qw(none);
 
 # It's a package global
@@ -78,7 +78,7 @@ sub clone
     my @suspectedAttrs = qw(model row subtypes);
     foreach my $key (keys %{$self}) {
         if ( $key eq none(@suspectedAttrs) ) {
-            $clonedType->{$key} = Clone::clone($self->{$key});
+            $clonedType->{$key} = Clone::Fast::clone($self->{$key});
         }
     }
     # Just copy the reference
@@ -93,7 +93,6 @@ sub clone
     }
 
     return $clonedType;
-
 }
 
 sub subtype

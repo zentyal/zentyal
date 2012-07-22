@@ -1,6 +1,11 @@
 HEAD
 	+ Added syncFolders information method to allow file syncing
 	+ Sync passwords from LDAP to LDB directly from hashes
+2.3.9
+	+ Fields in General Settings can be edited now, with the exception
+	  of domain and computer names
+	+ Added methods to get the paths used by shares, users and groups
+	  to generate disk usage reports
 	+ User addon to enable/disable the account and set the user as
 	  domain administrator
 	+ Group addon to create group shares

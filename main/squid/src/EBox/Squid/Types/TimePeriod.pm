@@ -26,6 +26,8 @@ use Perl6::Junction qw(all);
 my @days = qw(monday tuesday wednesday thursday friday saturday sunday);
 use constant ALL_DAYS => 'MTWHFAS';
 
+my %daysToNumbers = (M => 1, T => 2, W => 3, H => 4, F => 5, A => 6, S => 0);
+
 my %daysToLetters = (
                      monday    => 'M',
                      tuesday   => 'T',
@@ -74,13 +76,11 @@ sub new
         $params{type} = 'squid-timeperiod';
     }
 
-
     my $self = $class->SUPER::new(%params);
 
     bless $self, $class;
     return $self;
 }
-
 
 sub value
 {
@@ -221,7 +221,6 @@ sub printableWeekDays
     return $st;
 }
 
-
 sub hourlyPeriod
 {
     my ($self) = @_;
@@ -234,7 +233,6 @@ sub hourlyPeriod
 
     return $from . '-' . $to;
 }
-
 
 # Method: cmp
 #
@@ -348,7 +346,6 @@ sub _paramIsValid
 
     return 1;
 }
-
 
 sub _hoursParamsAreValid
 {
@@ -518,7 +515,21 @@ sub _setValue # (defaultValue)
     }
 
     $self->setMemValue(\%memValueParams);
+}
 
+sub dayNumbers
+{
+    my ($self) = @_;
+
+    my $numbers = {};
+
+    my $days = $self->weekDays();
+    for (my $i = 0; $i < length ($days); $i++) {
+        my $day = substr ($days, $i, 1);
+        $numbers->{$daysToNumbers{$day}} = 1;
+    }
+
+    return $numbers;
 }
 
 1;

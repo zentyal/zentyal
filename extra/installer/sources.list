@@ -2,4 +2,4 @@ deb http://archive.ubuntu.com/ubuntu precise main restricted universe multiverse
 deb http://archive.ubuntu.com/ubuntu precise-updates main restricted universe multiverse
 deb http://security.ubuntu.com/ubuntu precise-security main restricted universe
 deb http://ppa.launchpad.net/zentyal/2.3/ubuntu precise main
-deb http://archive.zentyal.com/zentyal 2.3 extra
+deb http://archive.zentyal.org/zentyal 2.3 main extra

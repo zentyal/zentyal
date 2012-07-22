@@ -23,7 +23,6 @@ use warnings;
 use EBox;
 use EBox::Gettext;
 use EBox::Validate;
-use EBox::Squid::Types::Policy;
 use EBox::Types::Text;
 use EBox::Exceptions::Internal;
 

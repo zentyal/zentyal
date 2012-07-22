@@ -317,7 +317,7 @@ sub validateTypedRow
         if (exists $params_r->{cn}) {
             if (not $actual_r->{allowCustomCN}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the  certifcate  common name')
+                    __('This service does not allow to change the certificate common name')
                    );
             }
         }
@@ -326,11 +326,11 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
+
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);
     $mod->setAsChanged();
-
 }
 
 1;

@@ -1,5 +1,24 @@
 HEAD
 	+ Added EBox::SyncFolders interface
+	+ Fixed kill of ebox processes during postrm
+	+ Set MySQL root password in create-db script and added mysql script
+	  to /usr/share/zentyal for easy access to the zentyal database
+	+ Increased timeout redirecting to wizards on installation to 5 seconds
+	  to avoid problems on some slow or loaded machines
+	+ Save changes dialog do not appear if there are no changes
+	+ Delete no longer needed duplicated code
+	+ Do not go to save changes after a regular package installation
+	  they are saved only in the first install
+	+ Progress bar in installation refactored
+2.3.17
+	+ Do not use modal box for save changes during installation
+	+ Hidden fields in DataTables are no longer considered compulsory
+	+ Select type has now its own viewer that allows use of filter function
+	+ User is now enabled together with the rest of modules on first install
+2.3.16
+	+ Fix 'oldRow' parameter in UpdatedRowNotify
+	+ Use Clone::Fast instead of Clone
+	+ Modal dialog for the save and discard changes operations
 	+ Use a different lock file for the usercorner redis
 	+ Improved look of tables when checkAll controls are present
 	+ Better icons for clone action

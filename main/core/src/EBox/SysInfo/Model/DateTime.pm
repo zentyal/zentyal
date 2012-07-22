@@ -85,8 +85,7 @@ sub viewCustomizer
 
     my $custom = $self->SUPER::viewCustomizer();
     unless (_enabled()) {
-        $self->setMessage( __('As the NTP synchronization with external servers is enabled, you cannot change the date or time.'),
-                           'info');
+        $self->setMessage(__('As the NTP synchronization with external servers is enabled, you cannot change the date or time.'));
     }
 
     return $custom;

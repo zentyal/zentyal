@@ -79,6 +79,14 @@ sub formSubmitted
     push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTS2S });
     }
 
+    if ($self->stunValue()) {
+    push(@services, { protocol => 'udp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTSTUN });
+    }
+
+    if ($self->proxyValue()) {
+    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTPROXY });
+    }
+
     my $servMod = EBox::Global->modInstance('services');
 
     $servMod->setMultipleService(name => 'jabber', internal => 1, services => \@services);
@@ -111,12 +119,14 @@ sub _table
        new EBox::Types::DomainName(
                                 fieldName     => 'domain',
                                 printableName => __('Jabber domain'),
+                                help => __('Domain used to connect to this server.'),
                                 editable      => 1,
                                 defaultValue  => EBox::Jabber->fqdn(),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'ssl',
                                 printableName => __('SSL support'),
+                                help => __('SSL connection method to this server.'),
                                 editable      => 1,
                                 populate => \&_populateSSLsupport,
                                 defaultValue => 'forcessl'
@@ -124,12 +134,42 @@ sub _table
        new EBox::Types::Boolean(
                                 fieldName     => 's2s',
                                 printableName => __('Connect to other servers'),
+                                help => __('Users on this server will be able to chat with users in external servers.'),
                                 editable      => 1,
                                 defaultValue  => 0,
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'muc',
-                                printableName => __('Enable MUC (Multi User Chat)'),
+                                printableName => __('Enable MUC (Multi User Chat) service'),
+                                help => __('Multi User Chat allows to create chat rooms in this server.'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'stun',
+                                printableName => __('Enable STUN service'),
+                                help => __('STUN service helps Jingle ICE clients behind NAT.'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'proxy',
+                                printableName => __('Enable SOCKS5 proxy service'),
+                                help => __('SOCKS5 proxy service helps file transfers between clients behind NAT.'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'vcard',
+                                printableName => __('Enable VCard information'),
+                                help => __('Import users VCard information from LDAP.'),
+                                editable      => 1,
+                                defaultValue  => 1,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'sharedroster',
+                                printableName => __('Enable shared roster'),
+                                help => __('Populate users contact list with the other system users.'),
                                 editable      => 1,
                                 defaultValue  => 1,
                                ),
@@ -146,6 +186,7 @@ sub _table
                               update => __('General Jabber server configuration settings updated.'),
                              },
        modelDomain        => 'Jabber',
+       help               => __('Make sure the clients can resolve the Jabber domain. If you want other servers to send messages to your users, make sure they can resolve the same domain.'),
       };
 
     return $dataTable;

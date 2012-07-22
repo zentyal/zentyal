@@ -166,9 +166,8 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'SNAT',
-        'printableTableName' =>
-          __('Source address translation rules'),
-        'pageTitle' => __('Source network address translation rules'),
+        'printableTableName' => __('Source Network Address Translation rules'),
+        'pageTitle' => __('SNAT'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/Firewall/Controller/SNAT',

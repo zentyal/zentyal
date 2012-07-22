@@ -26,27 +26,19 @@ sub _delGroup
     my ($self, $group) = @_;
     my $squid = EBox::Global->modInstance('squid');
 
-    my $policyModel = $squid->model('GlobalGroupPolicy');
-    $policyModel->delPoliciesForGroup($group);
-
-    my $objectPolicy = $squid->model('ObjectPolicy');
-    $objectPolicy->delPoliciesForGroup($group);
+    my $rules = $squid->model('AccessRules');
+    $rules->delPoliciesForGroup($group);
 }
-
 
 sub _delGroupWarning
 {
     my ($self, $group) = @_;
+
     my $squid = EBox::Global->modInstance('squid');
 
-    my $policyModel = $squid->model('GlobalGroupPolicy');
-    if ($policyModel->existsPoliciesForGroup($group)) {
-        return ( q{HTTP proxy's group policies }  )
-    }
-
-    my $objectPolicy = $squid->model('ObjectPolicy');
-    if ($objectPolicy->existsPoliciesForGroup($group)) {
-        return ( q{HTTP proxy's object group policies }  )
+    my $rules = $squid->model('AccessRules');
+    if ($rules->existsPoliciesForGroup($group)) {
+        return (q{HTTP proxy access rules});
     }
     return ();
 }

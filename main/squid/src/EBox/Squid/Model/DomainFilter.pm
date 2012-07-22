@@ -22,20 +22,10 @@ use warnings;
 
 use EBox;
 use EBox::Gettext;
-use EBox::Squid::Types::DomainPolicy;
+use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::Internal;
-
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless $self, $class;
-    return $self;
-}
 
 sub _tableHeader
 {
@@ -46,17 +36,27 @@ sub _tableHeader
                 unique        => 1,
                 editable      => 1,
                 optional      => 0,
-                ),
-            new EBox::Squid::Types::DomainPolicy(
+            ),
+            new EBox::Types::Select(
                 fieldName     => 'policy',
-                printableName => __('Policy'),
-                defaultValue  => 'filter',
-                ),
-            );
+                printableName => __('Decision'),
+                populate      => \&_populate,
+                editable      => 1,
+            ),
+    );
 
     return \@tableHeader;
 }
 
+sub _populate
+{
+    my @elements = (
+                    { value => 'allow',  printableValue => __('Allow') },
+                    { value => 'deny',   printableValue => __('Deny') },
+                   );
+
+    return \@elements;
+}
 
 sub validateTypedRow
 {

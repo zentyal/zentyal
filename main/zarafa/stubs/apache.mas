@@ -1,5 +1,6 @@
 <%args>
     $activesync
+    $jabber
 </%args>
 Alias /webaccess /usr/share/zarafa-webaccess
 
@@ -83,4 +84,11 @@ Alias /webapp /usr/share/zarafa-webapp
 
 % if ($activesync) {
 Alias /Microsoft-Server-ActiveSync /usr/share/z-push/index.php
+% }
+
+% if ($jabber) {
+<IfModule mod_proxy_http.c>
+    ProxyPass /http-bind http://localhost:5280/http-bind/
+    ProxyPassReverse /http-bind http://localhost:5280/http-bind/
+</IfModule>
 % }

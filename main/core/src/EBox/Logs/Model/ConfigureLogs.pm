@@ -199,21 +199,21 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-  my ($self, $row) = @_;
+    my ($self, $row, $oldRow, $force) = @_;
 
-  my $domain = $row->valueByName('domain');
-  my $enabled = $row->valueByName('enabled');
+    my $domain = $row->valueByName('domain');
+    my $enabled = $row->valueByName('enabled');
 
-  my $logs = EBox::Global->modInstance('logs');
-  my $tables = $logs->getAllTables();
-  my $index = List::Util::first { $tables->{$_}->{helper}->name() eq $domain }
-      keys %{ $tables };
+    my $logs = EBox::Global->modInstance('logs');
+    my $tables = $logs->getAllTables();
+    my $index = List::Util::first { $tables->{$_}->{helper}->name() eq $domain }
+        keys %{ $tables };
 
-  if ($index) {
-      $tables->{$index}->{helper}->enableLog($enabled);
-  } else {
-      EBox::warn("Domain: $domain does not exist in logs");
-  }
+    if ($index) {
+        $tables->{$index}->{helper}->enableLog($enabled);
+    } else {
+        EBox::warn("Domain: $domain does not exist in logs");
+    }
 }
 
 # Group: Callback functions

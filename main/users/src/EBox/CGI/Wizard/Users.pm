@@ -25,41 +25,28 @@ use EBox::Gettext;
 use EBox::Validate;
 use Error qw(:try);
 
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => 'users/wizard/users.mas',
-                                  @_);
-    bless($self, $class);
+    my $self = $class->SUPER::new('template' => 'users/wizard/users.mas', @_);
+    bless ($self, $class);
     return $self;
 }
-
 
 sub _processWizard
 {
     my ($self) = @_;
 
-    if ( $self->param('standalone') ) {
-        EBox::info('enabling usersandgroups module');
-        my $mgr = EBox::ServiceManager->new();
-        my $global = EBox::Global->getInstance();
+    my $domain = $self->param('domain');
+    if ($domain) {
+        EBox::info('Setting the host domain');
 
-        my $module = $global->modInstance('users');
-
-        # don't enable if already configured
-        return if ($module->configured());
-
-        $module->setConfigured(1);
-        $module->enableService(1);
-        try {
-            $module->enableActions();
-        } otherwise {
-            my ($ex) = @_;
-            my $err = $ex->text();
-            $module->setConfigured(0);
-            $module->enableService(0);
-            EBox::debug("Failed to enable module usersandgroups: $err");
-        };
+        # Write the domain to sysinfo model
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $domainModel = $sysinfo->model('HostName');
+        my $row = $domainModel->row();
+        $row->elementByName('hostdomain')->setValue($domain);
+        $row->store();
     }
 }
 

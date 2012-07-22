@@ -1,9 +1,6 @@
 <%args>
 @groups
 </%args>
-<%init>
-my $lastReservedNumber = 1;
-</%init>
 # Filter Groups List file for DansGuardian
 #
 # Format is <user>=filter<1-99> where 1-99 are the groups
@@ -15,12 +12,9 @@ my $lastReservedNumber = 1;
 #
 <%perl>
  foreach my $group (@groups) {
-      my $number = $group->{number};
-      if ($number <= $lastReservedNumber) {
-         next;
-      }
+     my $number = $group->{number};
 
-     foreach my $user (@{ $group->{users} }) {
+     foreach my $user (@{$group->{users}}) {
 </%perl>
 <% $user %>=filter<% $number %>
 %    }

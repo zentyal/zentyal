@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Squid::Composite::ProfileConfigTabs
+# Class: EBox::Squid::Composite::FilterSettings
 #
 
-package EBox::Squid::Composite::ProfileConfigTabs;
+package EBox::Squid::Composite::FilterSettings;
 
 use base 'EBox::Model::Composite';
 
@@ -27,22 +27,19 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
+# Method: pageTitle
 #
-#         Constructor for the general events composite
+#   Overrides:
+#
+#       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
-#       <EBox::Squid::Model::ProfileConfigTabs> - a
-#       general events composite
+#   undef
 #
-sub new
+sub pageTitle
 {
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
+    return undef;
 }
 
 # Group: Protected methods
@@ -55,9 +52,11 @@ sub new
 #
 sub _description
 {
-    my $description = {
-        layout          => 'tabbed',
-        name            => 'ProfileConfigTabs',
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            => 'FilterSettings',
+        printableName   => __('Filter Settings'),
         compositeDomain => 'Squid',
     };
 
