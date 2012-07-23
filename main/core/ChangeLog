@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid undef warnings in EBox::Model::DataTable::_find when the
+	  element value is undef
 	+ Fixed kill of ebox processes during postrm
 	+ Set MySQL root password in create-db script and added mysql script
 	  to /usr/share/zentyal for easy access to the zentyal database
