@@ -36,7 +36,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use constant SYSMINGID      => 1900;
-use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');
