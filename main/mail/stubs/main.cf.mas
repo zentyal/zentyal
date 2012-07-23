@@ -122,11 +122,12 @@ recipient_delimiter = +
 inet_interfaces = all
 
 # Virtual Aliases
+virtual_alias_domains = $virtual_alias_maps
 virtual_alias_maps = ldap:valiases
 valiases_server_host = <% $ldapServer %>
 valiases_version = 3
 valiases_search_base = <% $aliasDN %>
-valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
+valiases_query_filter = (&(|(mail=%s)(mail=@%s))(objectClass=CourierMailAlias))
 valiases_result_attribute = maildrop
 valiases_bind = yes
 valiases_bind_dn = <% $bindDN %>
@@ -151,7 +152,7 @@ virtual_mailbox_domains = ldap:vmaildomains
 vmaildomains_server_host = <% $ldapServer %>
 vmaildomains_version = 3
 vmaildomains_search_base =  <% $vdomainDN %>
-vmaildomains_query_filter = (|(&(objectclass=domain)(dc=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
+vmaildomains_query_filter = (&(objectclass=domain)(dc=%s))
 vmaildomains_result_attribute = dc, maildrop
 vmaildomains_bind = yes
 vmaildomains_bind_dn = <% $bindDN %>

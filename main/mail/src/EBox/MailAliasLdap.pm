@@ -72,7 +72,7 @@ sub addAlias
 
 sub addExternalAlias
 {
-    my ($self, $alias, $maildrop) = @_;
+    my ($self, $vdomain, $alias, $maildrop) = @_;
 
     $self->_checkAccountAlias($alias, $maildrop);
 
@@ -82,8 +82,6 @@ sub addExternalAlias
                __x('{ac} is not a external account', ac => $maildrop)
                                         );
     }
-
-    my ($left, $vdomain) = split '@', $alias;
 
     $self->_addCouriermailAliasLdapElement("\@$vdomain", $alias, $maildrop);
 }
@@ -850,7 +848,7 @@ sub _syncExternalAliasTable
         my ($alias, $account) = @{ $alias_r };
 
         if (not $self->aliasExists($alias)) {
-            $self->addExternalAlias($alias, $account);
+            $self->addExternalAlias($vdomain, $alias, $account);
         }
 
         delete $aliasToDelete{$alias};

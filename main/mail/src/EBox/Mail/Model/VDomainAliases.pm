@@ -139,6 +139,15 @@ sub preconditionFailMsg
 }
 
 
+sub deletedRowNotify
+{
+    my ($self, $row, $force) = @_;
+    # remove vdomain alias external accoutn aliases
+    my $vdomainAliasId = $row->id();
+    $self->parentModule()->model('ExternalAliases')->vdomainAliasRemoved($vdomainAliasId);
+
+}
+
 # Method: pageTitle
 #
 #   Overrides <EBox::Model::DataTable::pageTitle>
