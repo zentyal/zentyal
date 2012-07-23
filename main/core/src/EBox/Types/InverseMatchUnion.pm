@@ -25,11 +25,11 @@
 #   We are repeating ourselves, this sucks so freaking much.
 #
 #
-package EBox::Types::InverseMatchUnion;
 
 use strict;
 use warnings;
 
+package EBox::Types::InverseMatchUnion;
 use base 'EBox::Types::Union';
 
 # Group: Public methods
@@ -189,6 +189,18 @@ sub _setValue # (value)
     $self->{'inverseMatch'} = $invMatch;
 
     $self->SUPER::_setValue( $value );
+}
+
+
+sub HTMLSetter
+{
+    my ($self) = @_;
+    my $unionSetter = $self->SUPER::HTMLSetter();
+    if (not $unionSetter) {
+        return undef;
+    }
+
+    return $self->{HTMLSetter};
 }
 
 1;
