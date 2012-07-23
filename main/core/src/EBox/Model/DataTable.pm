@@ -3144,7 +3144,7 @@ sub _cloneRow
                                     confmodule => $self->{confmodule});
     $row->setModel($self);
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
-	    my $element = $other->elementByName($type->{fieldName});
+        my $element = $other->elementByName($type->{fieldName});
         my $newElement = $element->clone();
         $row->addElement($newElement);
     }
