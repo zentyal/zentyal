@@ -143,7 +143,7 @@ sub _storeInHash
     my ($self, $hash) = @_;
 
     $self->SUPER::_storeInHash($hash);
-    $self->{$self->inverseMatchField()} = $self->inverseMatch();
+    $hash->{$self->inverseMatchField()} = $self->inverseMatch();
 }
 
 # Method: _restoreFromHash
@@ -156,9 +156,9 @@ sub _restoreFromHash
 {
     my ($self, $hash) = @_;
 
-    $self->SUPER::_restoreFromHash($hash);
     return unless ($self->row());
 
+    $self->SUPER::_restoreFromHash($hash);
     my $field = $self->fieldName() . '_inverseMatch';
     $self->{'inverseMatch'} = $hash->{$field};
 }
