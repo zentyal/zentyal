@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Mail::Model::ExternalAliases;
-
 use strict;
 use warnings;
 
+package EBox::Mail::Model::ExternalAliases;
 use base 'EBox::Model::DataTable';
 
 # Class: EBox::Mail::Model::ExternalAliases
@@ -31,7 +29,7 @@ use EBox::Exceptions::External;
 
 use EBox::Types::MailAddress;
 use EBox::Types::Text;
-
+use EBox::Types::Select;
 
 
 sub new
@@ -47,7 +45,9 @@ sub new
 
 sub _table
 {
-        my @tableHead =
+    my ($self) = @_;
+
+    my @tableHead =
          (
           new EBox::Types::Text(
                                        'fieldName' => 'alias',
@@ -55,10 +55,15 @@ sub _table
                                        'size' => '30',
                                        'editable' => 1,
                                        'unique' => 1,
-                                       'filter' => \&_fullAlias,
-                                       'help' =>
-        __('The mail domain is appended automatically'),
                                       ),
+          new EBox::Types::Select(
+                                       'fieldName' => 'vdomain',
+                                       'printableName' => __('Domain'),
+                                       'editable' => 1,
+                                       'populate' => $self->_vdomainOptionsSub(),
+                                       'disableCache' => 1, # otherwise this will not reflect
+                                                            # changes in vdomain aliases
+                                 ),
           new EBox::Types::MailAddress(
                                        'fieldName' => 'externalAccount',
                                        'printableName' => __('External account'),
@@ -69,14 +74,14 @@ sub _table
 
          );
 
-        my $dataTable =
+    my $dataTable =
                 {
                         'tableName' => 'ExternalAliases',
                         'printableTableName' => __('External Aliases'),
                         'defaultController' =>
             '/Mail/Controller/ExternalAliases',
                         'defaultActions' =>
-                                ['add', 'del', 'changeView'],
+                                ['add', 'del', 'changeView', 'editField'],
                         'tableDescription' => \@tableHead,
 #                        'menuNamespace' => 'Mail/ExternalAliases',
                         'automaticRemove'  => 1,
@@ -86,21 +91,48 @@ sub _table
                         'messages' => { add => __('External account alias added. ' .
                                 'You must save changes to use this alias')
                             },
+
                 };
 
-        return $dataTable;
+    return $dataTable;
 }
 
+sub _vdomainOptionsSub
+{
+    my ($self) = @_;
+    return sub {
+        my $vdomain = $self->_realVdomain();
+        my @options;
+        push @options, {
+            value => $vdomain,
+            printableValue => $vdomain,
+        };
+
+        my $aliasesModel = $self->parentModule()->model('VDomainAliases');
+        push @options, map {
+            my $alias = $_;
+            {
+                value => $alias,
+                printableValue => __x('{alias} (alias)', alias => $alias)
+            }
+        } @{ $aliasesModel->aliases()  };
+
+
+        return \@options;
+    };
+}
 
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if (exists $changedFields->{alias}) {
-        my $alias = $changedFields->{alias}->value();
-        $alias = $self->_completeAliasAddress($alias);
-        $self->_checkAliasIsNotAccount($alias);
-        $self->_checkAliasIsInternal($alias);
+    if (exists $changedFields->{alias} or exists $changedFields->{vdomain}) {
+        my $alias = $allFields->{alias}->value();
+        my $vdomain = $allFields->{vdomain}->value();
+        my $fullAlias = $alias . '@' . $vdomain;
+
+        $self->_checkAliasIsNotAccount($fullAlias);
+        $self->_checkAliasIsInternal($fullAlias);
     }
 
     if (exists $changedFields->{externalAccount}) {
@@ -108,30 +140,23 @@ sub validateTypedRow
                        $changedFields->{externalAccount}->value()
                                               );
     }
-
 }
-
 
 sub _checkAliasIsInternal
 {
     my ($self, $alias) = @_;
     my ($left, $vdomain) = split '@', $alias, 2;
-    my $vdomains = EBox::Global->modInstance('mail')->model('VDomains');
+    my $vdomains = $self->parentModule()->model('VDomains');
     if ($vdomains->existsVDomain($vdomain)) {
-        # correct!
         return 1;
     }
-
     if ($vdomains->existsVDomainAlias($vdomain)) {
-        throw EBox::Exceptions::External(
-__x('Cannot add alias because domain {vd} is a alias and aliases belonging to virtual domain aliases are not supported. Please add the alias belonging to a real domain',
-   vd => $vdomain)
-);
+        return 1;
     }
 
     # neither local vdomain nor alias domain
     throw EBox::Exceptions::External(
-__x('Cannot add alias because domain {vd} is not a virtual domain managed by this server',
+__x('Cannot add alias because domain {vd} is not a virtual domain or virtual domain alias managed by this server',
    vd => $vdomain)
 );
 }
@@ -140,7 +165,7 @@ __x('Cannot add alias because domain {vd} is not a virtual domain managed by thi
 sub _checkAliasIsNotAccount
 {
     my ($self, $alias) = @_;
-    my $mailAlias = EBox::Global->modInstance('mail')->{malias};
+    my $mailAlias = $self->parentModule()->{malias};
     if ($mailAlias->accountExists($alias)) {
         throw EBox::Exceptions::External(
       __x('An account or alias called {al} already exists',
@@ -156,30 +181,41 @@ sub _checkExternalAccountIsExternal
 {
     my ($self, $external) = @_;
     my ($left, $vdomain) = split '@', $external, 2;
-}
-
-sub _completeAliasAddress
-{
-    my ($self, $alias) = @_;
-
-    if ($alias =~ m/\@/) {
+    my $vdomains = $self->parentModule()->model('VDomains');
+    if ($vdomains->existsVDomain($vdomain) or
+        $vdomains->existsVDomainAlias($vdomain) ) {
         throw EBox::Exceptions::External(
-__('The alias account should be provided without domain portion. It will be appended automatically')
-                                        );
+            __x('{ac} is not an external account', ac => $external)
+           );
     }
-
-    my $vdomain = $self->_vdomain();
-    return $alias . '@' . $vdomain;
-
-
 }
 
-sub _vdomain
+sub _realVdomain
 {
     my ($self) = @_;
     my $parentRow = $self->parentRow();
     my $vdomain =$parentRow->valueByName('vdomain');
     return $vdomain;
+}
+
+
+# this do clenaup of all aliases with orphaned vdomain alias, not just those of
+# the removed vdomain
+sub vdomainAliasRemoved
+{
+    my ($self, $vdomainId) = @_;
+    my @idsToRemove;
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        if (not $row->elementByName('vdomain')->printableValue()) {
+            push @idsToRemove, $id;
+        }
+    }
+
+    foreach my $id (@idsToRemove) {
+        $self->removeRow($id, 1);
+    }
 }
 
 sub firstAliasForExternalVDomain
@@ -192,7 +228,7 @@ sub firstAliasForExternalVDomain
         my ($left, $externalVDomain) = split '@', $externalAccount, 2;
         if ($vdomain eq $externalVDomain) {
             my $left =  $row->valueByName('alias');
-            my $right = $self->_vdomain();
+            my $right = $row->valueByName('vdomain');
             return "$left\@$right";
         }
 
@@ -206,11 +242,11 @@ sub aliasesAndExternalAccounts
 {
     my ($self) = @_;
 
-    my $vdomain = $self->_vdomain();
     my @aliases;
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         my $alias     = $row->valueByName('alias');
+        my $vdomain   = $row->valueByName('vdomain');
         my $account   = $row->valueByName('externalAccount');
         my $fullAlias = "$alias\@$vdomain";
 
@@ -229,8 +265,9 @@ sub aliasesAndExternalAccounts
 #       <EBox::Model::DataTable::precondition>
 sub precondition
 {
-        my $mail = EBox::Global->modInstance('mail');
-        return $mail->configured();
+    my ($self) = @_;
+    my $mail = $self->parentModule();
+    return $mail->configured();
 }
 
 # Method: preconditionFailMsg
@@ -242,7 +279,7 @@ sub precondition
 #       <EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-        return __('You must enable the mail module in module ' .
+    return __('You must enable the mail module in module ' .
                   'status section in order to use it.');
 }
 
@@ -259,22 +296,6 @@ sub pageTitle
     return $self->parentRow()->printableValueByName('vdomain');
 
 }
-
-sub _fullAlias
-{
-    my ($type) = @_;
-    my $value = $type->value();
-    my $row = $type->row();
-    if (not $row) {
-        return $value;
-    }
-
-    my $model = $row->model();
-    my $domain = $model->_vdomain();
-
-    return $value . '@' . $domain;
-}
-
 
 1;
 
