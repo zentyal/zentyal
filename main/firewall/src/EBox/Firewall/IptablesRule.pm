@@ -594,7 +594,7 @@ sub _setAddress
     } else {
         if (defined ($addr) and $addr->isa('EBox::Types::IPAddr')
             and defined($addr->ip())) {
-            $self->{$addressType} = ["$flag $inverse "
+            $self->{$addressType} = ["$inverse $flag "
                                      . $addr->printableValue()];
         } elsif (defined ($addr) and $addr->isa('EBox::Types::MACAddr')) {
             $self->{$addressType} = ["-m mac --mac-source $inverse " .
