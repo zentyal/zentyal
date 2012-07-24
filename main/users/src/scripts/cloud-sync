@@ -71,9 +71,9 @@ for my $ruser (@{$rusers}) {
             $luser->set('gidNumber', $ruser->{gid}, 1);
             $luser->set('uidNumber', $ruser->{uid}, 1);
             if ($ruser->{description}) {
-                $luser->set('comment', $ruser->{description}, 1);
+                $luser->set('description', $ruser->{description}, 1);
             } else {
-                $luser->delete('comment', 1);
+                $luser->delete('description', 1);
             }
 
             $luser->save();
