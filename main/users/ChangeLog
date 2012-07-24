@@ -1,4 +1,4 @@
-HEAD
+2.2.8
 	+ Check to assure that quota has been really assigned logs an error instead
 	  of raising a execption, because some file systems does not support quota
 2.2.7
