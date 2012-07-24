@@ -1,4 +1,4 @@
-HEAD
+2.3.18
 	+ Manual clone of row in DataTable::setTypedRow to avoid segfault
 	+ Avoid undef warnings in EBox::Model::DataTable::_find when the
 	  element value is undef

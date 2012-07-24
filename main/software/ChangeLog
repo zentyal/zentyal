@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Added package icon for the UPS module
 	+ Increased timeout before redirecting to wizards from 1 to 5 seconds
 	  to avoid problems on some slow or loaded machines
