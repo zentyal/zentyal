@@ -201,7 +201,11 @@ sub _setConf
     my $options = $self->model('Options');
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
-    my $chrootUsers = $options->chrootUsers();
+
+    # disabled until vsftpd allows it, see #4133
+    # my $chrootUsers = $options->chrootUsers();
+    my $chrootUsers = 0;
+
     my $ssl = $options->ssl();
 
     $self->writeConfFile('/etc/pam.d/vsftpd',

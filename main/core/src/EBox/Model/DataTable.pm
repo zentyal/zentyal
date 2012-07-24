@@ -34,10 +34,8 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
-
 use EBox::Types::Boolean;
 
-# Dependencies
 use Clone::Fast;
 use Encode;
 use Error qw(:try);
@@ -1352,7 +1350,7 @@ sub setTypedRow
     my $checkRowUnique = $self->rowUnique();
 
     my $row = $self->row($id);
-    my $oldRow = Clone::Fast::clone($row);
+    my $oldRow = $self->_cloneRow($row);
     my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
@@ -3133,6 +3131,26 @@ sub _prepareRow
     return $row;
 }
 
+# Method: _cloneRow
+#
+#     Returns a new row instance with all its elements cloned
+#     from the given row
+#
+sub _cloneRow
+{
+    my ($self, $other) = @_;
+
+    my $row = EBox::Model::Row->new(dir => $self->directory(),
+                                    confmodule => $self->{confmodule});
+    $row->setModel($self);
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $other->elementByName($type->{fieldName});
+        my $newElement = $element->clone();
+        $row->addElement($newElement);
+    }
+    return $row;
+}
+
 # Method: _setValueRow
 #
 #     Returns a new row instance with all its elements cloned
@@ -3278,7 +3296,7 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($eValue eq $value) {
+            if ((defined $eValue) and ($eValue eq $value)) {
                 if ($allMatches) {
                     push (@matched, $id);
                 } else {

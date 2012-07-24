@@ -1,4 +1,4 @@
-HEAD
+2.3.13
 	+ Better password policies for LDAP backend
 	+ Added user synchronization with Zentyal Cloud
 	+ Removed deprecated conf keys (password hashes selection)
