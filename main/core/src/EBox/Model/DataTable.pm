@@ -4657,9 +4657,9 @@ sub confirmationJS
     my $js =<< "ENDJS";
        this.disable = true;
        var goAhead = true;
-       var confirmMsg = $call;
-       if (confirmMsg) {
-         if (!confirm(confirmMsg)) {
+       var specs = $call;
+       if (specs.wantDialog) {
+         if (!confirm(specs.message)) {
               goAhead = false;
          }
        }

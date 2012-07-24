@@ -1167,7 +1167,10 @@ function checkAllControlValue(url, table, directory, controlId, field)
 
 function confirmationDialog(url, table, directory, actionToConfirm, elements)
 {
-  var dialogStr = null;
+  var wantDialog  = true;
+  var dialogTitle = null;
+  var dialogMsg = null;
+
   var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
   pars +='&actionToConfirm=' + actionToConfirm;
   for (var i=0; i < elements.length; i++) {
@@ -1185,17 +1188,25 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
         onSuccess: function (t) {
            var json = t.responseText.evalJSON(true);
            if (json.wantDialog) {
-            dialogStr = json.message;
+             dialogTitle = json.title;
+             dialogMsg = json.message;
+           } else {
+             wantDialog = false;
            }
         },
         onFailure: function(t) {
-          dialogStr = 'Are you sure?';
+          dialogTitle = '';
+          dialogMsg = 'Are you sure?';
         }
 
       }
     );
 
-  return dialogStr;
+  return {
+    'wantDialog' : wantDialog,
+    'title': dialogTitle,
+    'message': dialogMsg
+   };
 }
 
 // Detect session loss on ajax request:
