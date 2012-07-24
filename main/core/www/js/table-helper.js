@@ -664,10 +664,6 @@ function hangTable(successId, errorId, url, formId, loadingId)
       stripe('dataTable', 'even', 'odd');
       completedAjaxRequest();
     },
-        onComplete: function(t) {
-          stripe('dataTable', 'even', 'odd');
-          completedAjaxRequest();
-        },
     onFailure: function(t) {
       restoreHidden(loadingId);
     }
@@ -1207,6 +1203,16 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
     'title': dialogTitle,
     'message': dialogMsg
    };
+}
+
+function showConfirmationDialog(params, acceptJS)
+{
+  var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
+  modalboxHtml += "</p></div><div class='tcenter'>";
+  modalboxHtml += '<input type="button" value="OK" onclick=" Modalbox.hide();' + acceptJS +  '" />';
+  modalboxHtml += "<input type='button' value='Cancel' onclick='Modalbox.hide()' />";
+  modalboxHtml += "</div>";
+  Modalbox.show(modalboxHtml, {'title' : params.title });
 }
 
 // Detect session loss on ajax request:
