@@ -6,3 +6,4 @@
 server=<% $server %>
 user=<% $user %>
 password=<% $password %>
+realm="Inventory agent area"
