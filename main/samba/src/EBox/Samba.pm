@@ -427,9 +427,26 @@ sub syncFolders
 {
     my ($self) = @_;
 
+    # sync all shares
+    my $sshares = $self->model('SyncShares');
+    my $shares = $self->model('SambaShares');
+
+    my $syncAll = $sshares->row()->valueByName('sync');
     my @folders;
-    foreach my $s (@{$self->shares()}) {
-        push(@folders, new EBox::SyncFolders::Folder($s->{path}, 'share'));
+    for my $id (@{$shares->enabledRows()}) {
+        my $row = $shares->row($id);
+        my $sync = $row->valueByName('sync');
+
+        my $path = $row->elementByName('path');
+        if ($path->selectedType() eq 'zentyal') {
+            $path = SHARES_DIR . '/' . $path->value();
+        } else {
+            $path = $path->value();
+        }
+
+        if ($sync or $syncAll) {
+            push(@folders, new EBox::SyncFolders::Folder($path, 'share'));
+        }
     }
 
     return \@folders;
