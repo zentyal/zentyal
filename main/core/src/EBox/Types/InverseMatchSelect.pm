@@ -31,6 +31,7 @@ use warnings;
 
 use base 'EBox::Types::Select';
 use EBox;
+use EBox::Gettext;
 
 # Group: Public methods
 
@@ -42,11 +43,16 @@ sub new
     unless (exists $opts{'HTMLSetter'}) {
         $opts{'HTMLSetter'} ='/ajax/setter/inverseMatchSelectSetter.mas';
     }
+    unless (exists $opts{'inverseMatchPrintableString'}) {
+        $opts{'inverseMatchPrintableString'} = __('Not');
+    }
     $opts{'type'} = 'select';
     if ( defined ( $opts{'optional'} ) and
             (not $opts{'optional'} )) {
         EBox::warn('EBox::Types::InverseMatchSelect cannot be compulsory');
     }
+
+
     $opts{'optional'} = undef;
     my $self = $class->SUPER::new(%opts);
 
@@ -94,7 +100,7 @@ sub printableValue
     my $printValue = $self->SUPER::printableValue();
 
     if ($self->inverseMatch()) {
-        $printValue = "! $printValue";
+        $printValue =  $self->{inverseMatchPrintableString} .   " $printValue";
     }
 
     return $printValue;
