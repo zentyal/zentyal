@@ -590,6 +590,17 @@ sub serviceId
     return $row->id();
 }
 
+# Method: serviceIsForAnyConnection
+#
+#  Return
+#   - whether if the service id is any/any tcp/any upd service
+#
+sub serviceIsForAnyConnection
+{
+    my ($self, $id) = @_;
+    return $self->model('ServiceTable')->serviceIsForAnyConnection($id);
+}
+
 # Method: menu
 #
 #       Overrides EBox::Module method.
