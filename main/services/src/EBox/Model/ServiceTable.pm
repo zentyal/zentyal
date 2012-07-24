@@ -636,20 +636,4 @@ sub serviceForAnyConnectionId
     return undef;
 }
 
-sub serviceIsForAnyConnection
-{
-    my ($self, $id) = @_;
-    my $row = $self->row($id);
-    my $name = $row->valueByName('name');
-    if ($name eq 'any') {
-        return 1;
-    } elsif ($name eq 'any TCP') {
-        return 1;
-    } elsif ($name eq 'any UDP') {
-        return 1;
-    }
-
-    return 0;
-}
-
 1;
