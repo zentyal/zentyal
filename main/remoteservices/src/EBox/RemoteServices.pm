@@ -231,9 +231,9 @@ sub _setInventoryAgentConf
         # Agent configuration
         my @params = (
             server    => $ocs_server,
-            # OCS bug, only 30 chars
+            # OCS bug, up to 30 chars
             user      => substr($user, 0, 30),
-            password  => substr($pass, 0, 30),
+            password  => substr($pass, 0, 20),
         );
 
         $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
