@@ -136,17 +136,17 @@ sub setService
             }
 
             if ($protocol eq 'tcp/udp') {
-                push (@{$self->{'service'}}, " -p $invProto udp " . $iptables);
-                push (@{$self->{'service'}}, " -p $invProto tcp " . $iptables);
+                push (@{$self->{'service'}}, " $invProto -p udp " . $iptables);
+                push (@{$self->{'service'}}, " $invProto -p tcp " . $iptables);
             } else {
-                push (@{$self->{'service'}}, " -p $invProto $protocol "
+                push (@{$self->{'service'}}, " $invProto -p $protocol "
                                              . $iptables);
             }
 
         } elsif ($protocol eq 'icmp') {
             my @icmp_types = qw(echo-request echo-reply destination-unreachable source-quench parameter-problem);
             foreach my $type (@icmp_types) {
-                $iptables = " -p $invProto $protocol --icmp-type $type ! -f";
+                $iptables = "  $invProto -p $protocol --icmp-type $type ! -f";
                 push (@{$self->{'service'}}, $iptables);
             }
         } elsif ($protocol eq any ('gre', 'esp')) {
