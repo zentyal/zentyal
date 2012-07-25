@@ -214,8 +214,7 @@ sub _setInventoryAgentConf
 {
     my ($self) = @_;
 
-    #TODO: Do not hardcode => $self->cloudDomain()
-    my $ocs_server = 'https://inventory.edge.cloud.zentyal.com/ocsinventory';
+    my $ocs_server = 'https://inventory.' . $self->cloudDomain() . '/ocsinventory';
 
     # Check subscription level
     if ($self->subscriptionLevel(1) > 0) {
