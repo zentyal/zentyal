@@ -1,3 +1,5 @@
+HEAD
+	+ Initialize kerberos realm in lowercase to match the host domain
 2.3.13
 	+ Better password policies for LDAP backend
 	+ Added user synchronization with Zentyal Cloud

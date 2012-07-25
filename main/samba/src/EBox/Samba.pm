@@ -47,9 +47,9 @@ use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DIR            => '/home/ebox/samba';
-use constant SAMBADNSZONE         => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
-use constant SAMBADNSKEYTAB       => PRIVATE_DIR . 'dns.keytab';
+use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -271,18 +271,6 @@ sub enableActions
     # Remount filesystem with user_xattr and acl options
     EBox::debug('Setting up filesystem options');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-
-    # Add 'Global catalog' service to /etc/services
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my $srvModel = $dnsMod->model('Services');
-    my $services = $srvModel->services();
-    my %aux = map { $_->{name} => 1 } @{$services};
-    unless (exists $aux{gc}) {
-        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
-        EBox::debug('Adding Microsoft global catalog service to /etc/services');
-        my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
-        EBox::Sudo::root($cmd);
-    }
 }
 
 sub isProvisioned
@@ -301,6 +289,8 @@ sub isProvisioned
 sub enableService
 {
     my ($self, $status) = @_;
+
+    # TODO If the module is disabled, set the DNS zone to static or dynamic again
 
     $self->SUPER::enableService($status);
     if ($self->changed() and $status) {
@@ -500,140 +490,6 @@ sub recycleConfig
     return $conf;
 }
 
-sub cleanDNS
-{
-    my ($self, $domain) = @_;
-
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my @records = (
-        {
-            type => 'host',
-            name => 'gc',
-            subdomain => '_msdcs'
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'pdc._msdcs',
-            port      => '389',
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            subdomain => '.+\.domains._msdcs',
-            protocol  => 'tcp',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 88
-        },
-    );
-
-    foreach my $record (@records) {
-        try {
-            if ($record->{type} eq 'host') {
-                $dnsMod->delHost($domain, $record->{name});
-            } elsif ($record->{type} eq 'service') {
-                $dnsMod->delService($domain, $record);
-            }
-        } otherwise {
-            my $error = shift;
-            EBox::debug($error);
-        };
-    }
-
-    # Remove serverGUID._mdscs alias
-    my $hosts = $dnsMod->getHostnames($domain);
-    foreach my $host (@{$hosts}) {
-        my $aliases = $host->{aliases};
-        foreach my $alias (@{$aliases}) {
-            if ($alias =~ m/.+\._msdcs$/) {
-                try {
-                    $dnsMod->removeAlias($domain, $host->{name}, $alias);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error($error);
-                };
-            }
-        }
-    }
-}
-
 # Method: provision
 #
 #   This method provision the database
@@ -652,24 +508,18 @@ sub provision
     }
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $users   = EBox::Global->modInstance('users');
-    my $hostName   = $sysinfo->hostName();
-    my $domainName = $sysinfo->hostDomain();
-    my $realm      = uc ($domainName); # TODO Create a function realm() in sysinfo
-
-    # Remove previous DNS records
-    $self->cleanDNS($domainName);
+    my $usersModule = EBox::Global->modInstance('users');
 
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $realm .
-        ' --dns-backend=BIND9_FLATFILE' .
+        ' --realm=' . $sysinfo->hostDomain() .
+        ' --dns-backend=BIND9_DLZ' .
         ' --use-xattrs=yes ' .
         ' --server-role=' . $self->mode() .
-        ' --users=' . $users->DEFAULTGROUP() .
+        ' --users=' . $usersModule->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
 
     EBox::debug("Provisioning database '$cmd'");
@@ -695,104 +545,9 @@ sub provision
 
     # The administrator password is also the password for the 'Zentyal' user,
     # save it to a file to connect LDB
+    # TODO Create the zentyal user
     $self->_savePassword($self->administratorPassword(),
                          EBox::Config->conf() . "ldb.passwd");
-
-    # Once provisioned start the service to make queries
-    EBox::debug('Starting service');
-    $self->_manageService('start');
-
-    # Add the DNS records
-    EBox::debug('Adding domain DNS records');
-    my $dnsMod  = EBox::Global->modInstance('dns');
-
-    # Get the domain GUID
-    my $args = { base   => $self->ldb->dn(),
-                 scope  => 'base',
-                 filter => '(objectClass=*)',
-                 attrs  => ['objectGUID'] };
-    my $result = $self->ldb->search($args);
-    my $entry = $result->entry(0);
-    my $domainGUID = $entry->get_value('objectGUID');
-    $domainGUID = $self->ldb->guidToString($domainGUID);
-    EBox::debug("Domain GUID: $domainGUID"); # TODO remove
-
-    # Get the server GUID
-    $args = { base => "CN=NTDS Settings," .
-                      "CN=" . uc ($hostName) . "," .
-                      "CN=Servers," .
-                      "CN=Default-First-Site-Name," .
-                      "CN=Sites," .
-                      "CN=Configuration," .
-                      $self->ldb->dn(),
-              scope  => 'base',
-              filter => '(objectClass=*)',
-              attrs  => ['objectGUID'] };
-    $result = $self->ldb->search($args);
-    $entry = $result->entry(0);
-    my $serverGUID = $entry->get_value('objectGUID');
-    $serverGUID = $self->ldb->guidToString($serverGUID);
-    EBox::debug("Server GUID: $serverGUID"); # TODO remove
-
-    my $host = { name => 'gc',
-                 subdomain => '_msdcs',
-                 ipAddresses => $ipaddrs };
-    $dnsMod->addHost($domainName, $host);
-
-    my $alias = "$serverGUID._msdcs";
-    $dnsMod->addAlias($domainName, $hostName, $alias);
-
-    my $service = { service => 'gc',
-                    protocol => 'tcp',
-                    port => 3268,
-                    priority => 0,
-                    weight => 100,
-                    target_type => 'domainHost',
-                    target => $hostName };
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'ldap';
-    $service->{subdomain} = 'gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = undef;
-    $service->{port} = 389;
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'pdc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = "$domainGUID.domains._msdcs";
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'kerberos';
-    $service->{port} = 88;
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    # Set the domain as dynamic. Otherwise apparmor deny the updates.
-    $dnsMod->setDynamic($domainName, 1);
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
@@ -806,6 +561,14 @@ sub provision
                        " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
+    # Set DNS. The domain should have been created by the users
+    # module.
+    $self->setupDNS();
+
+    # Start managed service
+    EBox::debug('Starting service');
+    $self->_manageService('start');
+
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
@@ -816,7 +579,28 @@ sub provision
                "replace: \@LIST\n" .
                "\@LIST: zentyal,samba_dsdb\n";
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+}
 
+sub setupDNS
+{
+    my ($self) = @_;
+
+    my $dnsModule = EBox::Global->modInstance('dns');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    # Remove the kerberos stuff created by the users module
+    $usersModule->cleanDNS($sysinfo->hostDomain());
+
+    my $domainModel = $dnsModule->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+    unless (defined $domainRow) {
+        # TODO Throw expcetion. It should have been created by the users module
+    }
+    my $DBPath = '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so'; # TODO Get this value dynamically
+    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
+    $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
+    $domainRow->store();
 }
 
 # Method: sambaInterfaces

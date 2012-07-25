@@ -59,7 +59,7 @@ sub new
     my ($class, %params) = @_;
 
     my $self = $class->SUPER::new(%params);
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -79,11 +79,11 @@ sub validateTypedRow
     $self->checkService($changedFields, $allFields);
     $self->checkHostname($changedFields, $allFields);
 
-    if ( $action eq 'update' ) {
+    if ($action eq 'update') {
         # Add toDelete the RRs for this SRV record
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ( $zoneRow->valueByName('dynamic') ) {
+        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
             my $zone = $zoneRow->valueByName('domain');
             my $srvName  = $oldRow->valueByName('service_name');
             my $protocol = $oldRow->valueByName('protocol');
@@ -105,7 +105,7 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ( $zoneRow->valueByName('dynamic') ) {
+    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
         # Add toDelete the RRs for this SRV record
         my $zone = $zoneRow->valueByName('domain');
         my $srvName  = $row->valueByName('service_name');
@@ -141,6 +141,7 @@ sub _table
               editable      => 1,
              ),
           new EBox::Types::Text(
+                # TODO Remove this field
               fieldName     => 'subdomain',
               printableName => __('Subdomain'),
               editable      => 1,

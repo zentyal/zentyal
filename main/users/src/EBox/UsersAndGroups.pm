@@ -225,7 +225,7 @@ sub initialSetup
     $self->SUPER::initialSetup($version);
 }
 
-sub _cleanDNSRecords
+sub cleanDNS
 {
     my ($self, $domain) = @_;
 
@@ -267,12 +267,9 @@ sub setupKerberos
 {
     my ($self) = @_;
 
-    # Get the FQDN
+    # Get the host domain
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $fqdn = $sysinfo->fqdn();
-    my $hostName = $sysinfo->hostName();
     my $hostDomain = $sysinfo->hostDomain();
-    my $realm = uc ($hostDomain);
 
     # Create the kerberos database
     my @cmds = ();
@@ -280,12 +277,27 @@ sub setupKerberos
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
-    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
+    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $hostDomain");
     push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
+    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$hostDomain"); #TODO Only if master
     push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-    EBox::debug("Initializing kerberos realm '$realm'");
+    EBox::debug("Initializing kerberos realm '$hostDomain'");
     EBox::Sudo::root(@cmds);
+
+    $self->setupDNS();
+}
+
+sub setupDNS
+{
+    my ($self) = @_;
+
+    # TODO Set the domain as static or dynamic if dhcp is
+    # updating the domain
+
+    # Get the host domain
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+    my $hostDomain = $sysinfo->hostDomain();
 
     # Create the domain in the DNS module if it does not exists
     my $dnsMod = EBox::Global->modInstance('dns');
@@ -296,12 +308,12 @@ sub setupKerberos
     if (not exists $domains{$hostDomain}) {
         $dnsMod->addDomain($domain);
     } else {
-        $self->_cleanDNSRecords($hostDomain);
+        $self->cleanDNS($hostDomain);
     }
 
     # Add the TXT record with the realm name
     my $txtRR = { name => '_kerberos',
-                  data => $realm };
+                  data => $hostDomain };
     $dnsMod->addText($hostDomain, $txtRR);
 
     # Add the SRV records to the domain
