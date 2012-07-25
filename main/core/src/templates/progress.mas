@@ -17,6 +17,7 @@ $adsJson => '""'
 $nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
 $nextStepUrlOnclick => undef
+$nextStepUrlFailureOnclick => undef
 $nextStepText => undef
 
 $nextStepTimeout => 0
@@ -43,6 +44,11 @@ if ($barWidth) {
     # add px unit
     $barWidth = $barWidth . 'px';
     $percentMargin = $barWidth / 2;
+}
+
+if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
+        $nextStepUrlOnclick = $nextStepUrlFailureOnclick;
+
 }
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
@@ -177,7 +183,7 @@ if ($barWidth) {
       type => $nextStepType,
       url => $nextStepUrl,
       text => $nextStepText,
-      onclick => $nextStepUrlOnclick
+      onclick => $nextStepUrlFailureOnclick,
    &>
 </div>
 
