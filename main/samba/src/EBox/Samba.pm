@@ -2243,4 +2243,54 @@ sub groupPaths
     return $paths;
 }
 
+my @sharesSortedByPathLen;
+
+sub _updatePathsByLen
+{
+    my ($self) = @_;
+
+    @sharesSortedByPathLen = ();
+# FIXME
+#    my $ldapInfo = EBox::SambaLdapUser->new();
+#    @sharesSortedByPathLen = map {
+#         { path => $_->{path},
+#           share => $_->{sharename} }
+#    } ( @{ $ldapInfo->userShareDirectories },
+#        @{ $ldapInfo->groupShareDirectories }
+#      );
+
+    foreach my $sh_r (@{ $self->shares(1) }) {
+        push @sharesSortedByPathLen, {path => $sh_r->{path},
+                                      share =>  $sh_r->{share} };
+    }
+
+    # add regexes
+    foreach my $share (@sharesSortedByPathLen) {
+        my $path = $share->{path};
+        $share->{pathRegex} = qr{^$path/};
+    }
+
+    @sharesSortedByPathLen = sort {
+        length($b->{path}) <=>  length($a->{path})
+    } @sharesSortedByPathLen;
+}
+
+sub shareByFilename
+{
+    my ($filename) = @_;
+
+    if (not @sharesSortedByPathLen) {
+        my $samba =EBox::Global->modInstance('samba');
+        $samba->_updatePathsByLen();
+    }
+
+    foreach my $shareAndPath (@sharesSortedByPathLen) {
+        if ($filename =~ m/$shareAndPath->{pathRegex}/) {
+            return $shareAndPath->{share};
+        }
+    }
+
+    return undef;
+}
+
 1;

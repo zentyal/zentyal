@@ -78,7 +78,6 @@ sub _consolidate
         # Then, group them again but now accumulating by share
         my %byShare;
         foreach my $row (@{$resFiles}) {
-            # TODO: Implement this in Samba module
             my $share = $sambaMod->shareByFilename($row->{filename});
             $byShare{$row->{hour}}->{$share} += $row->{virus_num};
         }
