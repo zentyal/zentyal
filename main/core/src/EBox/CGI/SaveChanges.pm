@@ -115,7 +115,7 @@ sub revokeAllModulesAction
         @commonProgressParams
        );
 
-    if (not $self->param('noPopup')) {
+    if ($self->param('noPopup')) {
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
