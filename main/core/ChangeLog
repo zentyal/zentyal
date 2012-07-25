@@ -1,3 +1,8 @@
+HEAD
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
 2.3.18
 	+ Manual clone of row in DataTable::setTypedRow to avoid segfault
 	+ Avoid undef warnings in EBox::Model::DataTable::_find when the

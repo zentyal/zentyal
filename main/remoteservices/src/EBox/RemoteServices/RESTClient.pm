@@ -24,6 +24,8 @@ package EBox::RemoteServices::RESTClient;
 use warnings;
 use strict;
 
+use v5.10;
+
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -81,6 +83,7 @@ sub new {
     }
     # Get the server from conf
     my $key = 'rs_api';
+    # TODO: Use cloudDomain when available
     $self->{server} = 'https://' . EBox::Config::configkey($key);
     # $self->{server} = BASE_URL; # FIXME: To remove
 
@@ -94,7 +97,7 @@ sub new {
 # Parameters:
 #
 #   path - relative path for the query (ie. /subscription)
-#   query - hash ref containing query parameters
+#   query - ref containing query parameters
 #            (Optional)
 #
 # Returns:
@@ -113,7 +116,7 @@ sub GET {
 # Parameters:
 #
 #   path - relative path for the query (ie. /subscription)
-#   query - hash ref containing query parameters (Optional)
+#   query - ref containing query parameters (Optional)
 #
 # Returns:
 #
@@ -131,7 +134,7 @@ sub PUT {
 # Parameters:
 #
 #   path - relative path for the query (ie. /subscription)
-#   query - hash ref containing query parameters (Optional)
+#   query - ref containing query parameters (Optional)
 #
 # Returns:
 #
@@ -149,7 +152,7 @@ sub POST {
 # Parameters:
 #
 #   path - relative path for the query (ie. /subscription)
-#   query - hash ref containing query parameters (Optional)
+#   query - ref containing query parameters (Optional)
 #
 # Returns:
 #
@@ -180,26 +183,37 @@ sub request {
 
     #build headers
     if ($query) {
-        if ( ref($query) eq 'ARRAY' ) {
-            throw EBox::Exceptions::Internal('Cannot send array ref as query when using GET method')
-              if ($method eq 'GET');
-            # Send data in JSON if the query is an array of elements
-            my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
-            my $data = $encoder->encode($query);
-            $req->content_type('application/json');
-            $req->content($data);
-            $req->header('Content-Length', length($data));
-        } else {
-            my $uri = URI->new();
-            $uri->query_form($query);
-            if ( $method eq 'GET' ) {
-                $req->uri( $self->{server} . $path . '?' . $uri->query() );
-                $req->header('Content-Length', 0);
-            } else {
-                my $data = $uri->query();
-                $req->content_type('application/x-www-form-urlencoded');
+        given(ref($query)) {
+            when('ARRAY' ) {
+                throw EBox::Exceptions::Internal('Cannot send array ref as query when using GET method')
+                  if ($method eq 'GET');
+                # Send data in JSON if the query is an array of elements
+                my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+                my $data = $encoder->encode($query);
+                $req->content_type('application/json');
                 $req->content($data);
                 $req->header('Content-Length', length($data));
+            }
+            when('') {
+                throw EBox::Exceptions::Internal('Cannot send scalar as query when using GET method')
+                  if ($method eq 'GET');
+                # We're assuming a JSON-encoded string has been passed
+                $req->content_type('application/json');
+                $req->content($query);
+                $req->header('Content-Length', length($query));
+            }
+            default {
+                my $uri = URI->new();
+                $uri->query_form($query);
+                if ( $method eq 'GET' ) {
+                    $req->uri( $self->{server} . $path . '?' . $uri->query() );
+                    $req->header('Content-Length', 0);
+                } else {
+                    my $data = $uri->query();
+                    $req->content_type('application/x-www-form-urlencoded');
+                    $req->content($data);
+                    $req->header('Content-Length', length($data));
+                }
             }
         }
     } else{

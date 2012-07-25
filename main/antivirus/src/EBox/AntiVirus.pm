@@ -348,44 +348,4 @@ sub summary
     $section->add($antivirus);
 }
 
-# Method: report
-#
-#  Returns:
-#    hash ref with the keys:
-#      freshclamEvent - one of 'update', 'outdated', 'error' or 'uninitialized'
-#      clamVersionRequested - new clam version requested by the 'outdated'
-#                             event. This key does not exist in other events
-#      freshclamEventTimestamp - timestamp of the last event. Undef if there was not last event
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self) = @_;
-
-    my $state = $self->freshclamState();
-
-    my $timeStamp = delete $state->{date};
-
-    my $event = 'uninitialized';
-    my $eventInfo;
-    # select which event is active if a event has happened
-    while (($event, $eventInfo) = each %{ $state } ) {
-        if ($eventInfo) {
-            last;
-        }
-    }
-
-    my $report = {
-       freshclamEvent => $event,
-       freshclamEventTimestamp => $timeStamp,
-    };
-
-    if ($event eq 'outdated') {
-        $report->{clamVersionRequested} = $eventInfo,
-    }
-
-    return $report;
-}
-
 1;

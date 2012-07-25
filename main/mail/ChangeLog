@@ -1,4 +1,5 @@
 HEAD
+	+ Move report code to remoteservices
 	+ External alias can have address on a vdomain alias
 	+ Fixed regression in vdomain aliases
 	+ Added Zarafa multitenancy support

@@ -976,13 +976,20 @@ sub usedEncryptionMode
     }
 }
 
-# return hash for reporting
+# Method: report
+#
+#     Return the backup settings
+#
+# Returns:
+#
+#     Hash ref - containing the settings to report
+#
 sub report
 {
     my ($self) = @_;
     my $row = $self->row();
 
-    my @report = ();
+    my %report = ();
 
     my @attrs = qw(method);
     if ($row->valueByName('method') ne 'cloud') {
@@ -1000,25 +1007,17 @@ sub report
             $value =  $element->value();
         }
 
-        my $row = {$attr, $value};
-        push @report, $row;
+        $report{$attr} = $value;
     }
 
     my $start = $row->valueByName('start') . ':00';
-    push @report, {start => $start};
+    $report{start} = $start;
 
     my $fullCopies =  $row->elementByName('full_copies_to_keep');
-    my $retentionPolicy =  {
-                   'retention policy type' =>  $fullCopies->selectedType()
-    };
+    $report{'retention policy type'} = $fullCopies->selectedType();
+    $report{'policy value'} = $fullCopies->value();
 
-    my $retentionCopies = {
-             'retention policy value' =>  $fullCopies->value()
-    };
-
-    push @report, $retentionPolicy, $retentionCopies;
-
-    return \@report;
+    return \%report;
 }
 
 1;
