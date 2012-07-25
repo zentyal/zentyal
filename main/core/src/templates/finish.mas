@@ -15,6 +15,7 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js?load=effects">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
 
 <script type="text/javascript">
 var acceptedFiles = new Array();
@@ -140,10 +141,10 @@ my $mboxDiscardTitle = __('Discarding changes');
  <p>
     <input class='inputButton' type='submit' name='save'
                    value="<% __('Save') %>"
-                   onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false}); Modalbox.MBwindow.addClassName('MB_dialog'); Modalbox.MBclose.hide(); return false" />
+                   onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false});  Modalbox.MBclose.hide(); return false" />
     <input class='inputButton' type='submit' name='cancel'
                    value="<% __('Discard changes') %>"
-                   onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>', overlayClose: false}); Modalbox.MBwindow.addClassName('MB_dialog'); Modalbox.MBclose.hide(); return false" />
+                   onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>', overlayClose: false});  Modalbox.MBclose.hide(); return false" />
  </p>
 </form>
 % }else{
