@@ -27,6 +27,7 @@ use strict;
 use base 'EBox::Reporter::Base';
 
 use EBox::Global;
+use Filesys::Df qw(df);
 
 # TODO: Disabled until tested with samba4
 sub enabled { return 0; }
@@ -98,8 +99,24 @@ sub _log
 
     my $sambaMod = EBox::Global->getInstance(1)->modInstance($self->module());
 
-    # TODO: Implement this in Samba module
-    my $stats = $sambaMod->diskUsageStats();
+    my $stats = [];
+    # Get information for each share
+    my $sharesInfo = $sambaMod->shares(1);
+    foreach my $share (@{$sharesInfo}) {
+        my $entry = {};
+
+        $entry->{'share'} = $share->{'share'};
+        #$entry->{'path'} = $share->{'path'};   # FIXME: Use or remove
+
+        # User or group share
+        $entry->{'type'} = ($share->{'groupShare'} ? 'group' : 'user');
+
+        # Calculate and add share size
+        my $info = df($share->{'path'}, 1);
+        $entry->{'size'} = $info->{'used'};
+
+        push (@{$stats}, $entry);
+    }
 
     return $stats;
 }
