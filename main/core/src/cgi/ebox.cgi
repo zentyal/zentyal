@@ -67,9 +67,23 @@ try {
     $params->{actions} = __('Actions');
     $params->{go_back} = __('Go back');
     $params->{title} = __('Sorry, an unexpected error has occurred');
+
+    my @brokenPackages = @{ _brokenPackages() };
     if ($theme->{hide_bug_report}) {
         $params->{title} .= '. ' . __('Please contact support.');
+        if (@brokenPackages) {
+            $params->{brokenPackages} = __x('The following software packages are not correctly installed: {pack}',
+                                            pack => join ', ', @brokenPackages);
+        } else {
+            $params->{brokenPackages};
+        }
         $templateFile = 'cgiErrorNoReport.html';
+    } elsif (@brokenPackages) {
+        $params->{show_details} = __('Show technical details');
+        $params->{main_text} = __x('There are some software packages which are not correctly installed: {pack}. <p>You should reinstall them and retry your operation.</p>',
+                                    pack => join ', ', @brokenPackages
+                                    );
+        $templateFile = 'cgiErrorBrokenPackages.html';
     } else {
         $params->{show_details} = __('Show technical details');
         $params->{report} = __('Report the problem');
@@ -118,6 +132,28 @@ try {
     }
     utf8::decode($html);
     print $html;
-
-    print end_html;
 };
+
+
+
+
+sub _brokenPackages
+{
+    my @pkgs;
+    my @output = `dpkg -l | grep -i ^i[fFHh]`;
+    foreach my $line (@output) {
+        my ($status, $name, $other) = split '\s+', $line, 3;
+        push @pkgs, $name;
+    }
+
+    return \@pkgs;
+}
+
+
+
+
+
+
+
+
+1;

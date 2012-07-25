@@ -1,3 +1,5 @@
+HEAD
+	+ Different page to show errors when they are installed broken software packages
 2.3.18
 	+ Manual clone of row in DataTable::setTypedRow to avoid segfault
 	+ Avoid undef warnings in EBox::Model::DataTable::_find when the
