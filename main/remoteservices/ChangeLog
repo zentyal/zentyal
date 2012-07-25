@@ -1,4 +1,5 @@
 HEAD
+	+ Added integration with OCS inventory agent
 	+ QA Updates go outside the VPN
 	+ QA apt configuration files are now generated or removed when
 	  setting the configuration for the module (_setConf method)
