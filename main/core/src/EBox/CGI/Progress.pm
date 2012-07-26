@@ -64,7 +64,7 @@ sub _process
             nextStepType
             nextStepUrl nextStepText nextStepTimeout
             nextStepUrlOnclick nextStepUrlFailureOnclick
-            barWidth );
+            );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command

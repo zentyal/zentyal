@@ -66,7 +66,6 @@ my @popupProgressParams = (
         nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
-        barWidth => 490,
 );
 
 sub saveAllModulesAction
