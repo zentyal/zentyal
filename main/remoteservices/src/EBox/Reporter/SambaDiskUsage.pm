@@ -29,9 +29,6 @@ use base 'EBox::Reporter::Base';
 use EBox::Global;
 use Filesys::Df qw(df);
 
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
-
 # Method: module
 #
 # Overrides:
