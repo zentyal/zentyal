@@ -1,4 +1,5 @@
 HEAD
+	+ Fix exception raising when no event component is found
 	+ Enable consolidation after reviewing and pruning
 	+ Code typo fix in Events::isEnabledWatcher
 	+ Remove all report code from core

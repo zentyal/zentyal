@@ -66,6 +66,7 @@ use EBox::Util::Lock;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
+use Data::UUID;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -2682,14 +2683,26 @@ sub _generateDDClient
             my $gl = EBox::Global->getInstance(1);
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
-                if ( $rs->eBoxSubscribed() and $rs->can('DDNSServerIP') ) {
-                    $login = $rs->subscriberUsername();
-                    $password = '123456'; # Password is useless here
+                if ( $rs->eBoxSubscribed() ) {
+                    # Server subscription credentials as user and pass
+                    my $cred = $rs->cloudCredentials();
+
+                    # UUID Format for login: Hexadecimal without '0x'
+                    my $ug = new Data::UUID;
+                    my $bin_uuid = $ug->from_string($cred->{uuid});
+                    my $hex_uuid = $ug->to_hexstring($bin_uuid);
+                    $login = substr($hex_uuid, 2);      # Remove the '0x'
+
+                    # Get DynDNS password
+                    $password = substr($cred->{password},0,20);
+
                     $hostname = $rs->dynamicHostname();
-                    $server = $rs->DDNSServerIP();
-                    unless ( $server ) {
+                    my $cloud_domain = $rs->cloudDomain();
+                    if ( $cloud_domain ) {
+                        $server = 'ddns.' . $cloud_domain;
+                    } else {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
-                                   . 'get the DynDNS server');
+                                   . 'get domain name');
                         $enabled = 0;
                     }
                     # Check for multi-output gateways
@@ -3150,7 +3163,9 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
+                $self->redis()->begin();
             } catch EBox::Exceptions::Internal with {
             };
             #remove if empty
@@ -3221,11 +3236,13 @@ sub _enforceServiceState
     if (exists $ENV{'USER'}) {
         open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
+            $self->redis()->commit();
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
-                unless ($self->isReadOnly()) {
-                    $self->_unsetChanged($iface);
-                }
+            $self->redis()->begin();
+            unless ($self->isReadOnly()) {
+                $self->_unsetChanged($iface);
+            }
         }
         unlink (IFUP_LOCK_FILE);
     }
@@ -3297,7 +3314,9 @@ sub _stopService
         } catch EBox::Exceptions::Internal with {};
     }
 
+    $self->redis()->commit();
     EBox::Sudo::root(@cmds);
+    $self->redis()->begin();
 
     $self->SUPER::_stopService();
 }

@@ -59,6 +59,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
+use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -147,6 +148,7 @@ sub _setConf
         $self->_reportAdminPort();
     }
 
+    $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
 }
 
@@ -484,15 +486,24 @@ sub monitorGathererIPAddresses
             __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
     }
 
-    # FIXME: Use monitor outside VPN
     my $monGatherers = [];
-    try {
-        $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-    } catch EBox::Exceptions::Base with {
-        ;
-    };
-    return $monGatherers;
 
+    # If conf key says so, monitoring goes inside the VPN
+    if (EBox::Config::boolean('monitoring_inside_vpn')) {
+        try {
+            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+        } catch EBox::Exceptions::Base with {
+            ;
+        };
+    } else {
+        try {
+            # TODO: Do not hardcode
+            $monGatherers = ['mon.' . $self->cloudDomain()];
+        } catch EBox::Exceptions::External with {
+            ;
+        };
+    }
+    return $monGatherers;
 }
 
 
@@ -1749,6 +1760,7 @@ sub REST
 #  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
+#  * Rename file ebox-qa.list to zentyal-qa.list
 #
 sub _migrateTo30
 {
@@ -1757,6 +1769,7 @@ sub _migrateTo30
     # Drop old VPN client
     # Create a new one
     # Get credentials again
+    # Rename file ebox-qa.list to zentyal-qa.list
 }
 
 
@@ -1777,6 +1790,96 @@ sub desktopActions
     return {
         'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
     };
+}
+
+
+# Method: subscribedUUID
+#
+#        Return the server UUID if this is subscribed to Zentyal Cloud
+#
+# Returns:
+#
+#        String - the UUID
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The UUID is only available if the host is subscribed to Zentyal Cloud')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->subscribedUUID();
+}
+
+
+# Method: cloudDomain
+#
+#        Return the Zentyal Cloud Domain if the server is subscribed
+#
+# Returns:
+#
+#        String - the Zentyal Cloud Domain
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudDomain
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Domain is only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudDomain();
+}
+
+# Method: cloudCredentials
+#
+#        Return the Zentyal Cloud Credentials if the server is subscribed
+#
+# Returns:
+#
+#        Hash ref - 'uuid' and 'password'
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudCredentials
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudCredentials();
+}
+
+# Method: _setQAUpdates
+#
+#       Turn the QA Updates ON or OFF depending on the subscription level
+#
+sub _setQAUpdates
+{
+    EBox::RemoteServices::QAUpdates::set();
+
 }
 
 1;

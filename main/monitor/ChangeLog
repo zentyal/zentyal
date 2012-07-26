@@ -1,3 +1,6 @@
+HEAD
+	+ Fix link removal while stopping the service to avoid the
+	  creation of sporious directories
 2.3.4
 	+ Added support for last week graphs
 	+ Fixed URL in breadcrumbs
