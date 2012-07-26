@@ -1,3 +1,8 @@
+HEAD
+	+ New data form row is copied from default row, avoiding letting hidden fields without its default value
+	missing fields error
+	+ Always fill abstract type with its default value, this avoids
+	errors with hidden fields with default value
 2.3.18
 	+ Manual clone of row in DataTable::setTypedRow to avoid segfault
 	+ Avoid undef warnings in EBox::Model::DataTable::_find when the
