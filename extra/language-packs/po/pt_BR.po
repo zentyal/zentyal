@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-10-13 02:41+0200\n"
+"PO-Revision-Date: 2012-06-17 04:55+0200\n"
 "Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -23,11 +23,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr "Usar configuração de perfil padrão"
+msgstr "Usar a configuração do perfil padrão"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
-msgstr "Usar perfil padrão para filtragem MIME"
+msgstr "Usar o perfil padrão para filtragem MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
@@ -156,15 +156,15 @@ msgstr "tráfego"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr "Gráfico de volume do tráfego do Squid"
+msgstr "Gráfico do volume de tráfego do Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr "Volume do tráfego"
+msgstr "Volume de tráfego"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr "Gráfico das requisições do tráfego do Squid"
+msgstr "Gráfico das requisições de tráfego do Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
@@ -187,8 +187,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"O Objeto {object} tem uma {row} habilitada na {table}. Primeiro delete ele "
-"de lá para adicionar aqui"
+"O Objeto {object} tem uma {row} ativada na {table}. Apague-a primeiro de lá "
+"para adicioná-la aqui"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
@@ -197,7 +197,7 @@ msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
 "Se {first} está configurado como ilimitado, então {second} deve ser "
-"configurado ilimitado também"
+"configurado como ilimitado também"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
@@ -211,7 +211,7 @@ msgstr "Objeto de Rede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
 msgid "Newtork download rate"
-msgstr "Taxa de download de rede"
+msgstr "Taxa de download da rede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -222,7 +222,7 @@ msgstr "KB/s"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Taxa máxima de download para esta rede. Use -1 para desabilitar esta opção."
+"Taxa máxima de download para esta rede. Use -1 para desativar esta opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Network file size"
@@ -240,8 +240,8 @@ msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Tamanho do arquivo sem estrangulação para download da rede. Use -1 para "
-"desativar essa opção."
+"Tamanho máximo do arquivo para download sem estrangulamento para esta rede. "
+"Use -1 para desativar esta opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 msgid "Client download rate"
@@ -249,23 +249,23 @@ msgstr "Taxa de download do cliente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid "Maximum download rate per client. Use -1 to disable this option."
-msgstr "Taxa máxima de download por cliente. Use -1 para desativar essa opção."
+msgstr "Taxa máxima de download por cliente. Use -1 para desativar esta opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
 msgid "Client file size"
-msgstr "Tamanho do arquivo do cliente"
+msgstr "Tamanho de arquivo do cliente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Tamanho máximo de arquivo sem estrangulamento para download por cliente. Use "
-"-1 para desativar essa opção."
+"Tamanho máximo de arquivo para download sem estrangulamento por cliente. Use "
+"-1 para desativar esta opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr "Regras de controle de banda por cliente (class 2 delay pools)"
+msgstr "Regras de largura de banda de cliente (classe 2 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 msgid ""
@@ -274,10 +274,10 @@ msgid ""
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"O download excede o tamanho de arquivo especificado e o HTTP Proxy irá "
-"diminuir a taxa de download para o valor especificado. Ambos os parâmetros "
-"podem ser definidos com base na rede inteira e por cliente. O número máximo "
-"de clientes é limitado a 256. "
+"Depois que o download excede o tamanho de arquivo, o Proxy HTTP irá "
+"desacelerar a conexão para a taxa de download especificada. Ambos os "
+"parâmetros podem ser definidos para toda a rede e por cliente. O número de "
+"clientes é limitado a 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -338,8 +338,8 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
-"Você não pode ativar o filtro antivírus por que o módulo não está "
-"habilitado. Se você deseja filtrar vírus, primeiramente {openhref}ative o "
+"Você não pode ativar o filtro antivírus por que o módulo antivírus está "
+"desativado. Se você desejar filtrar vírus, primeiro {openhref}ative o "
 "módulo{closehref} e volte aqui"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
@@ -349,17 +349,17 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
-"Você não pode ativar o filtro antivírus por que o módulo não está instalado. "
-"Se você deseja filtrar vírus, primeiramente instale o módulo, {openhref}ative"
-"{closehref} e volte aqui"
+"Você não pode ativar o filtro antivírus por que o módulo antivírus não está "
+"instalado. Se você desejar filtrar vírus, primeiro deve instalar e então "
+"{openhref}ativar o módulo{closehref} e voltar aqui"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
-msgstr "Usar perfil padrão para filtro de extensões"
+msgstr "Usar o perfil padrão para filtro de extensões"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
-msgstr "Bloquear domínios e URL's não listados"
+msgstr "Bloquear domínios e URLs não listados"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""
@@ -367,8 +367,8 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
-"Se isto estiver habilitado, qualquer domínio que não estiver presente nas "
-"seções <i>Regras de domínios e URL's</i> ou em <i>Arquivos de listas de "
+"Se isto estiver ativado, qualquer domínio ou URL que não estiver presente "
+"nas seções <i>Regras de domínios e URLs</i> ou em <i>Arquivos de listas de "
 "domínios</i> serão proibidos."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
@@ -377,7 +377,7 @@ msgstr "Bloqueia sites especificados apenas por IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 msgid "Transparent Proxy"
-msgstr "Proxy transparente"
+msgstr "Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
@@ -398,7 +398,7 @@ msgstr "Porta"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:77
 msgid "Cache files size (MB)"
-msgstr "Tamanho dos arquivos de Cache (MB)"
+msgstr "Tamanho dos arquivos de cache (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "Default policy"
@@ -411,7 +411,7 @@ msgstr "Configurações Gerais "
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:98
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
 msgid "Settings changed"
-msgstr "Opções alteradas"
+msgstr "Configurações alteradas"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:164
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:150
@@ -421,40 +421,40 @@ msgstr "{port} está em uso. Favor escolher outra"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:191
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr "Opção Proxy Transparente não é compatível com Política de Autorização"
+msgstr ""
+"Opção de proxy transparente não é compatível com a política de autorização"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:198
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
-"Opção Proxy Transparente não é compatível com a política de autorização "
-"encontrada em alguns objetos"
+"Proxy transparente é incompatível com a política de autorização encontrada "
+"em alguns objetos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:216
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
-"Uma regra de autorização é requerida pois você está usando uma regra global "
-"de grupo"
+"Uma política de autorização é necessária porque você está usando políticas "
+"de grupo globais"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:225
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
-"<i>Filtrar</i> significa que as requisições HTTP passarão através do filtro "
-"de conteúdo e elas poderão ser rejeitadas caso o conteúdo não seja "
-"considerado válido."
+"<i>Filtrar</i> significa que as requisições HTTP passarão pelo filtro de "
+"conteúdo e poderão ser rejeitadas se o conteúdo não for considerado válido."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:232
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
-"Note que você não pode fazer proxy transparente de HTTPS. Você precisa "
-"adicionar uma regra de firewall para habilitar este modo."
+"Note que você não pode fazer proxy transparente de HTTPS. Você precisará "
+"adicionar uma regra de firewall se ativar este modo."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
@@ -513,7 +513,7 @@ msgstr "Domínio"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
-msgstr "Você não deve colocar o prefixo www. no domínio."
+msgstr "Você não deve prefixar o domínio com www."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
 msgid "Domain or IP address"
@@ -522,7 +522,7 @@ msgstr "Domínio ou endereço IP"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:65
 msgid "Configure allowed file extensions"
-msgstr "Configura as extensões de arquivos permitidas"
+msgstr "Configurar as extensões de arquivo permitidas"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
@@ -540,7 +540,7 @@ msgid ""
 msgstr ""
 "Permite/Nega o tráfego HTTP dos arquivos com estas extensões.\n"
 "Extensões não listadas aqui são permitidas.\n"
-"O filtro de extensões requer uma política de 'filtro' para ter efeito"
+"O filtro de extensões requer uma política de 'filtrar' para ter efeito"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
@@ -561,11 +561,11 @@ msgstr "Extensão atualizada"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
 msgid "Using default profile configuration"
-msgstr "Usando configuração de perfil padrão"
+msgstr "Usando configuração do perfil padrão"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
-msgstr "Usar perfil padrão para filtragem de domínio"
+msgstr "Usar o perfil padrão para filtragem de domínio"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
@@ -598,7 +598,7 @@ msgid ""
 "black lists"
 msgstr ""
 "Listas simples não permitidas: apenas são permitidos arquivos compactados de "
-"listas negras reservadas"
+"listas negras classificadas"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
@@ -628,15 +628,15 @@ msgstr "Negar"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
-msgstr "Intervalo de hora"
+msgstr "Período de tempo"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
-"Intervalo de tempo no qual o acesso é permitido. isto é ignorado com uma "
-"regra de negação"
+"Período de tempo no qual o acesso é permitido. É ignorado com uma política "
+"de negação"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
@@ -646,11 +646,11 @@ msgid ""
 "group  if you want to set a group policy"
 msgstr ""
 "Não existem grupos de usuários no sistema. {open}Crie{close} pelo menos um "
-"grupo  se você desejar configurar uma política de grupo"
+"grupo se você desejar configurar uma política de grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
-msgstr "Usar perfil de entrada padrão"
+msgstr "Usar o limite do perfil padrão"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
@@ -661,12 +661,12 @@ msgstr "Limite"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
 msgid "Content filter threshold"
-msgstr "Entrada do filtro de conteúdo"
+msgstr "Limite do filtro de conteúdo"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
 msgid "Content filter threshold changed"
-msgstr "Entrada do filtro de conteúdo modificado"
+msgstr "Limite do filtro de conteúdo alterado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
@@ -699,8 +699,9 @@ msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
-"Aqui você pode bloquear ou permitir globalmente acesso por grupo. Opções do "
-"filtro serão por política global ou por política de objeto"
+"Aqui você pode globalmente bloquear ou permitir o acesso por grupo de "
+"usuários. Opções de filtro será pela política global ou pela política de "
+"objeto"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
@@ -720,13 +721,13 @@ msgstr "Política de grupo atualizada"
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Filter profile"
-msgstr "Perfil do filtro"
+msgstr "Perfil de filtro"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
-"Políticas de grupos de usuários não são compatíveis com modo de proxy "
+"Políticas de grupos de usuários não são compatíveis com o modo de proxy "
 "transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
@@ -749,7 +750,7 @@ msgstr "Tamanho de arquivo"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr "Regras de controle de banda para rede (class 1 delay pools)"
+msgstr "Regras de largura de banda de rede (classe 1 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -764,12 +765,12 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 msgid "Domain filter settings"
-msgstr "Opções de filtro de domínios"
+msgstr "Configurações de filtro de domínios"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 msgid "Filtering settings changed"
-msgstr "Opções de filtro alteradas"
+msgstr "Configurações de filtro alteradas"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
 msgid "Domains lists files for filter group"
@@ -1136,7 +1137,7 @@ msgstr "Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
-msgstr "Opções de filtro"
+msgstr "Configurações de filtro"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1161
@@ -1798,9 +1799,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "Opção de túnel Zentyal-para-Zentyal requer uma senha RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "A porta {port} já está sendo usada pelo módulo {mod}"
+msgstr "O endereço VPN {addrt} já está sendo usado pela interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1809,9 +1810,8 @@ msgstr ""
 "O endereço de VPN não pode ser o mesmo que uma das suas redes publicadas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Outro servidor está escutando nesta mesma porta"
+msgstr "Outro servidor está usando o mesmo endereço VPN, escolha outro"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -3719,9 +3719,8 @@ msgid "Remove bind9 init script link"
 msgstr "Remove o link do script de inicialização do bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Servidor de Nomes de Domínio"
+msgstr "Serviço de Nomes de Domínio"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
@@ -4192,9 +4191,8 @@ msgid "Unknown"
 msgstr "Desconhecido"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:77
-#, fuzzy
 msgid "Community"
-msgstr "Comentário"
+msgstr "Comunidade"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:78
 msgid "Professional"
@@ -4206,9 +4204,8 @@ msgid "Enterprise"
 msgstr "Enterprise"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:80
-#, fuzzy
 msgid "Small Business"
-msgstr "todos os serviços"
+msgstr "Pequenas Empresas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Zentyal Cloud Client"
@@ -4239,9 +4236,8 @@ msgstr "Suporte Técnico"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "Atualizações de segurança"
+msgstr "Atualizações de Segurança"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
@@ -4249,9 +4245,8 @@ msgid "Disaster Recovery"
 msgstr "Recuperação de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "Usuário Zentyal Cloud"
+msgstr "Serviços da Nuvem Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4366,9 +4361,8 @@ msgstr "Nome do servidor externo"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "Criação do servidor"
+msgstr "Edição servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 msgid "Technical support"
@@ -4556,9 +4550,8 @@ msgid "Latest security update"
 msgstr "Últimas atualizações de segurança"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS rules"
-msgstr "Faixa disponível"
+msgstr "Regras de IDS disponíveis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -4867,9 +4860,8 @@ msgid "Skipping bad formed line: {l}"
 msgstr "Ignorando linha mal formada: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:30
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "O serviço não está habilitado no Zentyal"
+msgstr "Este servidor não pode fazer esta ação."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -5854,6 +5846,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded by the regular expression"
 msgstr ""
+"Não é possível {action} porque o caminho '{path}', adicionado por domínios "
+"de backup, seriaexcluídos pela expressão regular"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:308
 #, perl-brace-format
@@ -5861,6 +5855,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded"
 msgstr ""
+"Não é possível {action} porque o caminho '{path}', adicionado por domínios "
+"de backup, seriaexcluído"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:318
 #, perl-brace-format
@@ -5868,30 +5864,28 @@ msgid ""
 "Cannot {action} because a subdirectory of  '{path}', added by backup "
 "domains, would be excluded"
 msgstr ""
+"Não é possível {action} porque um subdiretório de '{path}', adicionado por "
+"domínios de backup, seria excluídos"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:333
 msgid "add row"
-msgstr ""
+msgstr "adicionar linha"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:335
-#, fuzzy
 msgid "edit row"
-msgstr "Editar grupo"
+msgstr "editar linha"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:337
-#, fuzzy
 msgid "move up row"
-msgstr "Para cima"
+msgstr "para cima"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:339
-#, fuzzy
 msgid "move down row"
-msgstr "Para baixo"
+msgstr "mover linha para baixo"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:341
-#, fuzzy
 msgid "remove down"
-msgstr "Para baixo"
+msgstr "remover abaixo"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:351
 msgid "exclude path"
@@ -6346,15 +6340,13 @@ msgid "Services Restore"
 msgstr "Restauração de serviços"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/BadSymmetricKey.pm:32
-#, fuzzy
 msgid "Incorrect symmetric key"
-msgstr "Chave simétrica"
+msgstr "Chave simétrica incorreta"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
 msgid "unknown"
-msgstr "Desconhecido"
+msgstr "desconhecido"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:33
 #, perl-brace-format
@@ -6439,14 +6431,14 @@ msgstr ""
 "poderia tentar outra data?"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:372
-#, fuzzy
 msgid "Cannot found conifguration backup in cloud"
-msgstr "Backup das configurações e de todos os dados"
+msgstr "Não foi possível encontrar backup de configuração na nuvem"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:507
 #, perl-brace-format
 msgid "Cannot find metadata for backup date {date} in cloud"
 msgstr ""
+"Não é possível encontrar metadados para a data de backup {date} na nuvem"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -6544,24 +6536,20 @@ msgid "IPsec VPN"
 msgstr "VPN IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:271
-#, fuzzy
 msgid "Connection name"
-msgstr "Conexão alvo"
+msgstr "Nome da conexão"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:277
-#, fuzzy
 msgid "Stopping completed"
-msgstr "Porcentagem completa"
+msgstr "Parada concluída"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:279
-#, fuzzy
 msgid "Connection initiated"
-msgstr "Conexão de cliente iniciada"
+msgstr "Conexão iniciada"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:280
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Conexão de cliente terminada"
+msgstr "Conexão terminada"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:314
 msgid "IPsec"
@@ -6630,7 +6618,7 @@ msgstr "Chave PSK Compartilhada"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
 msgid "Pre-shared key for the IPsec connection."
-msgstr ""
+msgstr "Chave pré-compartilhada para a conexão de IPsec."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6815,9 +6803,9 @@ msgstr ""
 "Gateways automaticamente adicionados não podem ser removidos manualmente"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:483
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "A porta {port} já está sendo usada pelo módulo {mod}"
+msgstr "O gateway '{name}' está sendo usado por {mod}"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -7184,7 +7172,7 @@ msgstr "DNS dinâmico"
 
 #: ../../main/network/src/EBox/Network.pm:3903
 msgid "Tools"
-msgstr ""
+msgstr "Ferramentas"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:62
 msgid "Balance Traffic"
@@ -7394,14 +7382,12 @@ msgid "Virtual Machines"
 msgstr "Máquinas Virtuais"
 
 #: ../../main/virt/src/EBox/Virt.pm:101
-#, fuzzy
 msgid "Virtual Machines VNC"
-msgstr "Máquinas Virtuais"
+msgstr "VNC de Máquinas Virtuais"
 
 #: ../../main/virt/src/EBox/Virt.pm:102
-#, fuzzy
 msgid "VNC connections for Zentyal VMs"
-msgstr "Conexões VNC para VMs"
+msgstr "Conexões VNC para VMs Zentyal"
 
 #: ../../main/virt/src/EBox/Virt.pm:272
 msgid "VNC connections for VMs"
@@ -7430,7 +7416,6 @@ msgid "Internal Network Name"
 msgstr "Nome da Rede Interna"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:120
-#, fuzzy
 msgid "MAC Address"
 msgstr "Endereço MAC"
 
@@ -7449,7 +7434,7 @@ msgstr "Um máximo de {num} interfaces de rede são permitidas"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:202
 msgid "'None' interface is not allowed in your virtual machine backend"
-msgstr ""
+msgstr "Interface 'Nenhuma' não é permitida em seu backend de máquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
@@ -7513,6 +7498,8 @@ msgid ""
 "You have either invalid characters or spaces. Valid characters are: '[A-Z][a-"
 "z][0-9]-_'"
 msgstr ""
+"Você tem caracteres inválidos ou espaços. Os caracteres válidos são: ' [A-Z] "
+"[a-z] [0-9]-_'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:296
 #, perl-brace-format
@@ -7601,9 +7588,9 @@ msgid "Hard disk image '{img}' does not exist"
 msgstr "Imagem do disco '{img}' inexistente"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:216
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The hard disk image {img} should be in qcow2 format"
-msgstr "Imagem do disco '{img}' inexistente"
+msgstr "A imagem de disco rígido {img} deve estar no formato qcow2"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:224
 msgid "You need to specify a name for the new hard disk"
@@ -7614,6 +7601,8 @@ msgid ""
 "It already exists a disk file with this name. Save changes to synchronize "
 "disk files status"
 msgstr ""
+"Já existe um arquivo em disco com este nome. Salve as alterações para "
+"sincronizarstatus de arquivos do disco"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:237
 msgid ""
@@ -7624,9 +7613,9 @@ msgstr ""
 "adicionar um novo para alterar o tamanho."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:244
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A maximum of {num} IDE drives are allowed"
-msgstr "Um máximo de {num} CD/DVD driver são permitidos"
+msgstr "Um máximo de {num} drives IDE são permitidos"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:257
 #, perl-brace-format
@@ -7639,13 +7628,12 @@ msgid "A maximum of {num} Hard Disk drives are allowed"
 msgstr "Um máximo de {num} drives Disco Rígido são permitidos"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:274
-#, fuzzy
 msgid "HardDisk name"
-msgstr "Disco Rígido"
+msgstr "Nome do disco rígido"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:276
 msgid "The name should contain only character, digits and underscores"
-msgstr ""
+msgstr "O nome deve conter apenas caracteres, dígitos e sublinhados"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:87
 msgid "Operating System"
@@ -8594,11 +8582,13 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" está atualmente {value}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} within the {severity} region of "
 "{minBound} and {maxBound}."
-msgstr "Isso está dentro da {severity} região de {minBound} e {maxBound}. "
+msgstr ""
+"{what} \"{dS}\" esteve {duration} dentro da {severity} região de {minBound} e "
+"{maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:296
 #, perl-brace-format
@@ -8606,11 +8596,12 @@ msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr "Isso está dentro da {severity} região de {minBound} e {maxBound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:306
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} above the {severity} threshold of "
 "{bound}. "
-msgstr "Isso está acima da {severity} threshold do {bound}. "
+msgstr ""
+"{what} \"{dS}\" esteve {duration} acima do limite de {severity} do {bound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:311
 #, perl-brace-format
@@ -8618,11 +8609,12 @@ msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Isso está acima da {severity} threshold do {bound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:316
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} below the {severity} threshold of "
 "{bound}. "
-msgstr "Isso está abaixo da {severity} threshold do {bound}. "
+msgstr ""
+"{what} \"{dS}\" esteve {duration} abaixo do limite de {severity} do {bound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:321
 #, perl-brace-format
@@ -8632,22 +8624,22 @@ msgstr "Isso está abaixo da {severity} threshold do {bound}. "
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:350
 #, perl-brace-format
 msgid "The following {n} processes are likely causing it:"
-msgstr ""
+msgstr "Os {n} processos seguintes estão, provavelmente, causando isto:"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:378
 #, perl-brace-format
 msgid "{h}h {m}m {s}s"
-msgstr ""
+msgstr "{h}h {m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:381
 #, perl-brace-format
 msgid "{m}m {s}s"
-msgstr ""
+msgstr "{m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:384
 #, perl-brace-format
 msgid "{s}s"
-msgstr ""
+msgstr "{s}s"
 
 #: ../../main/monitor/src/EBox/CGI/Index.pm:67
 #, perl-brace-format
@@ -8735,13 +8727,12 @@ msgid "To configure cupsd"
 msgstr "Para configurar cupsd"
 
 #: ../../main/printers/src/EBox/Printers.pm:109
-#, fuzzy
 msgid "Network Printers"
-msgstr "Interfaces de rede"
+msgstr "Impressoras de Rede"
 
 #: ../../main/printers/src/EBox/Printers.pm:110
 msgid "Internet Printing Protocol (CUPS)"
-msgstr ""
+msgstr "Protocolo de Impressão da Internet (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:365
 msgid "Job ID"
@@ -8938,17 +8929,17 @@ msgstr "Nome do domínio"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:147
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
 msgid "NetBIOS computer name"
-msgstr ""
+msgstr "Nome NetBIOS do computador"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:157
 #, perl-brace-format
 msgid "{type} is limited to a maximum of 15 characters."
-msgstr ""
+msgstr "{type} é limitado a um máximo de 15 caracteres."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:168
 #, perl-brace-format
 msgid "{type} cannot contain the reserved name {reserved}"
-msgstr ""
+msgstr "{type} não pode conter o nome reservado {reserved}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:186
 msgid "Enable PDC"
@@ -10088,7 +10079,6 @@ msgstr "Adiciona campos e classes específicas no amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:147
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:148
-#, fuzzy
 msgid "POP Transparent proxy"
 msgstr "Proxy POP transparente"
 
@@ -10687,9 +10677,8 @@ msgid "To configure the webmail on the webserver."
 msgstr "Para configurar o webmail no servidor web."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:315
-#, fuzzy
 msgid "Create MySQL Roundcube webmail database."
-msgstr "Criar um banco de dados PostgreSQL webmail."
+msgstr "Criar banco de dados MySQL do webmail Roundcube."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:316
 msgid "This database will store the data needed by Roundcube."
@@ -11363,6 +11352,9 @@ msgid ""
 "incompatible Zentyal version. Only backups done in Zentyal >= {v} can be "
 "restored"
 msgstr ""
+"Nenhum arquivo de lista de pacotes debian encontrado; provavelmente o backup "
+"foi feito em umaversão Zentyal incompatível. Somente backups feito em "
+"Zentyal> = {v} podem serrestaurados"
 
 #: ../../main/core/src/EBox/Backup.pm:1015
 #, perl-brace-format
@@ -11371,6 +11363,9 @@ msgid ""
 "the backup was done in a incompatible Zentyal version. Only backups done in "
 "Zentyal >= {v} can be restored"
 msgstr ""
+"Zentyal-core não encontrado na lista de pacotes debian que formam o backup, "
+"provavelmenteo backup foi feito em uma versão Zentyal incompatível. Somente "
+"backups feitos emZentyal> = {v} podem ser restaurados"
 
 #: ../../main/core/src/EBox/Backup.pm:1032
 #, perl-brace-format
@@ -11379,6 +11374,10 @@ msgid ""
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
+"Não foi possível restaurar o backup por causa de um missmatch entre sua "
+"versão Zentyale a versão atual do sistema. Backup foi feito na versão "
+"Zentyal {bv} eeste sistema só poderia restaurar backups a partir da versão "
+"Zentyal {wv} ou maior"
 
 #: ../../main/core/src/EBox/Backup.pm:1395
 #, perl-brace-format
@@ -11583,9 +11582,8 @@ msgid "Process List"
 msgstr "Lista de processos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:252
-#, fuzzy
 msgid "Resources"
-msgstr "Recurso"
+msgstr "Recursos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:353
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:38
@@ -11769,14 +11767,12 @@ msgid "never purge"
 msgstr "nunca limpar"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:292
-#, fuzzy
 msgid "one year"
-msgstr "1 ano"
+msgstr "um ano"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:296
-#, fuzzy
 msgid "two years"
-msgstr "2 anos"
+msgstr "dois anos"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:400
 msgid "Current configuration"
@@ -11854,6 +11850,8 @@ msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
+" Zentyal já está configurado para usar a porta {p} para outro serviço. "
+"Escolhaoutra porta ou a libere e tente novamente."
 
 #: ../../main/core/src/EBox/Apache.pm:294
 #, perl-brace-format
@@ -11861,6 +11859,8 @@ msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
+"Porta {p} já está em uso pelo programa '{pr}'. Escolha outra porta ou a "
+"liberee tente novamente."
 
 #: ../../main/core/src/EBox/Apache.pm:625
 #: ../../main/services/src/EBox/Services.pm:116
@@ -12736,9 +12736,8 @@ msgstr ""
 "estão atualmente ocupadas"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
-#, fuzzy
 msgid "Internal name"
-msgstr "Entrada interna"
+msgstr "Nome interno"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:145
 msgid "List of services"
@@ -12753,40 +12752,33 @@ msgstr ""
 "utilizados por outros módulos como: firewall, traffic shaping..."
 
 #: ../../main/services/src/EBox/Services.pm:92
-#, fuzzy
 msgid "Any protocol and port"
-msgstr "qualquer protocolo e porta"
+msgstr "Qualquer protocolo e porta"
 
 #: ../../main/services/src/EBox/Services.pm:99
-#, fuzzy
 msgid "Any UDP"
-msgstr "qualquer UDP"
+msgstr "Qualquer UDP"
 
 #: ../../main/services/src/EBox/Services.pm:100
-#, fuzzy
 msgid "Any UDP port"
-msgstr "qualquer porta UDP"
+msgstr "Qualquer porta UDP"
 
 #: ../../main/services/src/EBox/Services.pm:107
-#, fuzzy
 msgid "Any TCP"
-msgstr "qualquer TCP"
+msgstr "Qualquer TCP"
 
 #: ../../main/services/src/EBox/Services.pm:108
-#, fuzzy
 msgid "Any TCP port"
-msgstr "qualquer porta TCP"
+msgstr "Qualquer porta TCP"
 
 #: ../../main/services/src/EBox/Services.pm:115
 #: ../../main/services/src/EBox/Services.pm:492
-#, fuzzy
 msgid "Zentyal Administration"
-msgstr "Porta de Administração do Zentyal"
+msgstr "Administração Zentyal"
 
 #: ../../main/services/src/EBox/Services.pm:124
-#, fuzzy
 msgid "Secure Shell"
-msgstr "Protejer por padrão"
+msgstr "Shell Seguro"
 
 #: ../../main/services/src/EBox/Services.pm:132
 msgid "HyperText Transport Protocol"
@@ -12864,9 +12856,8 @@ msgid "To configure smart host authentication"
 msgstr "Configurar autenticação smarthost"
 
 #: ../../main/mail/src/EBox/Mail.pm:219
-#, fuzzy
 msgid "To configure mail transports"
-msgstr "Configurar amavis"
+msgstr "Para configurar os transportes de correio"
 
 #: ../../main/mail/src/EBox/Mail.pm:257
 msgid "Outgoing Mail (SMTP protocol)."
@@ -12874,7 +12865,7 @@ msgstr "Saída de Correio (protocolo SMTP)."
 
 #: ../../main/mail/src/EBox/Mail.pm:266
 msgid "Incoming Mail"
-msgstr ""
+msgstr "E-mails Recebidos"
 
 #: ../../main/mail/src/EBox/Mail.pm:267
 msgid "POP, IMAP and SIEVE protocols"
@@ -12882,7 +12873,7 @@ msgstr "Protocolos POP, IMAP e SIEVE"
 
 #: ../../main/mail/src/EBox/Mail.pm:276
 msgid "Mail Submission"
-msgstr ""
+msgstr "Envio de E-mails"
 
 #: ../../main/mail/src/EBox/Mail.pm:277
 msgid "Outgoing Mail (Submission protocol)."
@@ -13815,6 +13806,8 @@ msgstr "Configurar regra"
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
+"Selecione os conjuntos de regras que você deseja aplicar enquanto estiver "
+"varrendo o tráfego de rede"
 
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:139
 msgid "Select in which interfaces IDS system will be enabled"
@@ -14189,10 +14182,12 @@ msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr ""
+"Instale a localidade Inglês/Estados Unidos no sistema se ele não estiver "
+"instalada"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:110
 msgid "Zarafa needs this locale to run."
-msgstr ""
+msgstr "O Zarafa precisa de uma localidade para rodar."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:129
 msgid "To properly configure Zarafa."
@@ -14383,6 +14378,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:335
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr ""
+"Host virtual apagado. Os arquivos do host virtual serão deixado no local"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:353
 #, perl-brace-format
@@ -14444,9 +14440,8 @@ msgid "Remove apache2 init script link"
 msgstr "Remove o link para o script de incialização do apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:167
-#, fuzzy
 msgid "Zentyal Web Server"
-msgstr "Servidor FTP Zentyal"
+msgstr "Servidor Web Zentyal"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:785
 msgid "Web server hosted files"
@@ -14836,30 +14831,26 @@ msgstr ""
 "usuário"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:54
-#, fuzzy
 msgid "DN"
-msgstr "DNS"
+msgstr "DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:64
 #: ../../main/users/src/EBox/UsersAndGroups.pm:905
-#, fuzzy
 msgid "Organizational Units"
-msgstr "Nome da Organização"
+msgstr "Unidades Organizacionais"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:68
-#, fuzzy
 msgid "organizational unit"
-msgstr "Nome da Organização"
+msgstr "unidade organizacional"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "OU {ou} removed"
-msgstr "{row} movida para cima"
+msgstr "OU {rou} removida"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:186
-#, fuzzy
 msgid "OU added"
-msgstr "{row} adicionada"
+msgstr "OU adicionada"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -14916,12 +14907,11 @@ msgstr "LDAP DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:69
 msgid "This will be the DN suffix in LDAP tree"
-msgstr ""
+msgstr "Este será o sufixo DN na árvore LDAP"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:76
-#, fuzzy
 msgid "Zentyal Users"
-msgstr "Modo de Usuários do Zentyal"
+msgstr "Usuários Zentyal"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
@@ -14969,7 +14959,7 @@ msgstr "Configurações LDAP"
 
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:221
 msgid "There was an error updating LDAP: "
-msgstr ""
+msgstr "Houve um erro na atualização LDAP: "
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:242
 #, perl-brace-format
@@ -14977,9 +14967,8 @@ msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Nome de grupo não deve ser superior a {maxGroupLength} caracteres"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:316
-#, fuzzy
 msgid "Maximum number of groups reached"
-msgstr "Número máximo de filtros de grupo atingido"
+msgstr "Número máximo de grupos atingido"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:383
 #, perl-brace-format
@@ -15097,15 +15086,15 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:171
 msgid "Lightweight Directory Access Protocol"
-msgstr ""
+msgstr "Lightweight Directory Access Protocol"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:232
 msgid "Error performing users initialization"
-msgstr ""
+msgstr "Erro na inicialização de usuários"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:270
 msgid "Error while creating users and groups database."
-msgstr ""
+msgstr "Erro na criação do banco de dados de usuários e grupos."
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:979
 #, perl-brace-format
@@ -15179,7 +15168,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:213
 msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr ""
+msgstr "--force-type deve ter como argumento 'basic' ou 'subscribed'"
 
 #: ../../main/ebackup/src/scripts/restore-tool:228
 msgid "Zenity package not found. Falling back to terminal mode"
@@ -15208,9 +15197,8 @@ msgid "Use the last backup done for the restore"
 msgstr "Use o último backup feito para restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:252
-#, fuzzy
 msgid "Restore all backup domains available"
-msgstr "Restaurar o backup do arquivo"
+msgstr "Restaurar todos backups de domínio disponíveis"
 
 #: ../../main/ebackup/src/scripts/restore-tool:254
 msgid "Backup domain to restore. It could be repeated several times"
@@ -15229,7 +15217,7 @@ msgstr "Não use interface gráfica"
 
 #: ../../main/ebackup/src/scripts/restore-tool:264
 msgid "Change parameters used to access the storage server"
-msgstr ""
+msgstr "Altere os parâmetros usados para acessar o servidor de armazenamento"
 
 #: ../../main/ebackup/src/scripts/restore-tool:289
 #, perl-brace-format
@@ -15242,13 +15230,13 @@ msgid "Module {mod} should be configured"
 msgstr "Módulo {mod} deve ser configurado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:307
-#, fuzzy
 msgid ""
 "Could not automatically update system date and hour. If the system time is "
 "not correct, some restore operations could fail"
 msgstr ""
-"Não foi possível atualizar a hora do sistema automaticamente. Algumas "
-"operações de restauração podem falhar se a data não estiver correta"
+"Não foi possível atualizar automaticamente a data e a hora do sistema. Se a "
+"hora do sistema não estiver correta, algumas operações de restauração podem "
+"falhar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:317
 msgid "Choose the server to restore"
@@ -15312,15 +15300,17 @@ msgid "Restoring all backed-up files"
 msgstr "Restaurando todos arquivos backupeados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:748
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr "Não foi possível restaurar {dst}, iisto já existe e não é um diretório"
+msgstr "Não foi possível restaurar {dst}, isto já existe e não é um diretório"
 
 #: ../../main/ebackup/src/scripts/restore-tool:786
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr "Erro restaurando o arquivo ou diretório {dst}"
+msgstr ""
+"Erro restaurando o arquivo ou diretório {dst}. Vamos tentar continuar a "
+"restauração"
 
 #: ../../main/ebackup/src/scripts/restore-tool:815
 #, perl-brace-format
@@ -15382,13 +15372,13 @@ msgid "Installing missing modules..."
 msgstr "Instalando módulos que faltavam..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1028
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Error installing packages: {err}. The backup will continue but it would not "
 "able to recover any configuration  whcih depends on the missing packages"
 msgstr ""
-"Erro instalando pacotes: {err}. Você pode continuar mas você não poderá "
-"restaurar dados dos pacotes faltantes"
+"Erro instalando pacotes: {err}. O backup irá continuar mas ele não será "
+"capaz de recuperar qualquer configuração   que depende dos pacotes ausentes"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1076
 msgid ""
@@ -15446,12 +15436,12 @@ msgid "Configuring modules {p} done. Current module {mod}"
 msgstr "Configurando de módulos {p} feita. Módulo atual {mod}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1226
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "of other modules"
 msgstr ""
-"Falha para configurar o módulo {name}: {err}. Isto pode afetar a restauração "
+"Falha para configurar o módulo {name}: {err}. Isso pode afetar a restauração "
 "de outros módulos"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1249
@@ -15490,7 +15480,7 @@ msgstr "Recebendo configuração"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1564
 msgid "Looking for a version 2.0.X backup"
-msgstr ""
+msgstr "Procurando pelo backup da versão 2.0.X"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1591
 msgid "Retrieving backup collection status ..."
@@ -15623,6 +15613,9 @@ msgid ""
 "Enterprise Edition, besides the configuration you are about to recover, you "
 "could have restored the data of the active modules."
 msgstr ""
+"Se você habilitou o serviço de Recuperação de Desastre na versão Small "
+"Business ou Enterprise Edition, ao lado da configuração você poderá restaurr "
+"os dados dos módulos ativos."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2507
 #, perl-brace-format
@@ -15634,7 +15627,7 @@ msgstr "Digite a senha usada para encriptar o backup {ser}"
 msgid ""
 "Incorrect password. Please, enter the correct password used for encrypt "
 "{ser}."
-msgstr ""
+msgstr "Senha incorreta. Digite a senha correta usada para encriptar {ser}."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2583
 #, perl-brace-format
@@ -15651,12 +15644,17 @@ msgid ""
 "could have been changed. We reccomend you to logut and login again with a "
 "valid user to avoid user identity problems."
 msgstr ""
+"O arquivo de senhas local foi alterado, os usuários locais e suas senhas "
+"podem ter sido alteradas. Nós recomendo que você saia e entre novamente com "
+"um usuário válido para evitar problemas de identidade."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2691
 msgid ""
 "The shadow password file was restored; your local user password could have "
 "been changed"
 msgstr ""
+"O arquivo de senha shadow foi restaurado; a senha do seu usuário local pode "
+"ter sido alterada"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2701
 msgid ""
@@ -15664,17 +15662,18 @@ msgid ""
 "changed; please fix your hostname manually or with the Zentyal option found "
 "at System -> General."
 msgstr ""
+"Nenhuma informação de hostname foi encontrada mas a configuração foi "
+"alterada; corrija seu hostname manualmente ou com a opção do Zentyal em "
+"Sistema -> Geral."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2749
 msgid "Your full backup is now successfully restored!"
 msgstr "Seu backup completo está agora restaurado com sucesso!"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2759
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now login at {url} to manage your recovered host."
-msgstr ""
-"Você pode agora ir até a interface de administração Zentyal para gerenciar o "
-"host restaurado."
+msgstr "Agora você pode entrar em {url} para gerenciar o seu host recuperado."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2833
 #: ../../main/ebackup/src/scripts/restore-tool:2842
@@ -15982,17 +15981,16 @@ msgstr "Lista de pacote atualizada com sucesso"
 #: ../../main/software/src/templates/ebox.mas:926
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Erro atualizando a lista de pacotes.<p>{msg}</p>"
 
 #: ../../main/software/src/templates/ebox.mas:928
 #: ../../main/software/src/templates/updates.mas:29
-#, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Erro na lista de pacotes de atualização. Por favor, tente executar o "
-"seguinte comando no console para ver o problema: sudo apt-get update"
+"Erro atualizando a lista de pacotes.<p>Tente executar o seguinte comando na "
+"console para resolver o problema: sudo apt-get update</ p>"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16179,6 +16177,8 @@ msgid ""
 "You have logged in successfully. If your web browser blocked the popup click "
 "{hbeg}here{hend} and allow it."
 msgstr ""
+"Você acessou com sucesso. Se seu navegador web bloqueia popup clique "
+"{hbeg}aqui{hend} e permita isto."
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:29
 #, perl-brace-format
@@ -16341,16 +16341,15 @@ msgstr "Busca"
 
 #: ../../main/network/src/templates/diag.mas:43
 msgid "Wake On LAN"
-msgstr ""
+msgstr "Wake On LAN"
 
 #: ../../main/network/src/templates/diag.mas:65
-#, fuzzy
 msgid "Other..."
-msgstr "Outra"
+msgstr "Outra..."
 
 #: ../../main/network/src/templates/diag.mas:81
 msgid "Wake"
-msgstr ""
+msgstr "Acordar"
 
 #: ../../main/network/src/templates/confirm.mas:17
 #: ../../main/network/src/templates/confirmremove.mas:11
@@ -17088,7 +17087,7 @@ msgstr "Dezembro"
 
 #: ../../main/core/src/templates/links-widget.mas:17
 msgid "Official documentation in English and Spanish."
-msgstr ""
+msgstr "Documentação oficial em Inglês e Espanhol."
 
 #: ../../main/core/src/templates/links-widget.mas:18
 msgid "Documentation"
@@ -17096,7 +17095,7 @@ msgstr "Documentação"
 
 #: ../../main/core/src/templates/links-widget.mas:21
 msgid "Community Support Forum to give and get help."
-msgstr ""
+msgstr "Forum de Suporte da Comunidade para dar e receber ajuda."
 
 #: ../../main/core/src/templates/links-widget.mas:22
 msgid "Forum"
@@ -17104,7 +17103,7 @@ msgstr "Forum"
 
 #: ../../main/core/src/templates/links-widget.mas:25
 msgid "Help us to improve by reporting any bug you find!"
-msgstr ""
+msgstr "Ajude-nos a melhorar relatando qualquer bug que encontrar!"
 
 #: ../../main/core/src/templates/links-widget.mas:26
 msgid "Report a bug"
@@ -17719,9 +17718,8 @@ msgid "Add and Edit"
 msgstr "Adicionar e Editar"
 
 #: ../../main/users/src/templates/users.mas:111
-#, fuzzy
 msgid "Organizational Unit"
-msgstr "Nome da Organização"
+msgstr "Unidade Organizacional"
 
 #: ../../main/users/src/templates/wizard/users.mas:9
 msgid "Select the type of the server"

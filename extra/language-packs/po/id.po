@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-11-16 12:00+0200\n"
-"Last-Translator: nurohman <maman.nurohman@gmail.com>\n"
+"PO-Revision-Date: 2012-03-17 04:14+0200\n"
+"Last-Translator: zzymaster <ndox.hc@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr "Gunakan configurasi profil baku"
+msgstr "Gunakan configurasi profil yang baku"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
@@ -274,7 +274,6 @@ msgid "Client bandwidth rules (class 2 delay pools)"
 msgstr "Aturan lebarpita klien"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
@@ -282,7 +281,7 @@ msgid ""
 "is limited to 256."
 msgstr ""
 "Sekali permintaan melampaui batas maksimum {max} maka HTTP Proxy akan "
-"mengurangi lebarpita pengunduhan pada tingkatan yang ditentukan, yaitu "
+"mengurangi bandwidth pengunduhan pada tingkatan yang ditentukan, yaitu "
 "{rate}. Jumlah klien dibatasi sampai dengan 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
@@ -742,25 +741,22 @@ msgstr ""
 "otentikasi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Unduh"
+msgstr "Tingkat Kecepatan Unduh"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Besar unduhan maksimum yang tidak dibatasi pada jaringan ini. Gunakan -1 "
-"untuk menonaktifkan opsi ini."
+"Besar unduhan maksimum dijaringan ini. Gunakan -1 untuk menonaktifkan opsi "
+"ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Nama File"
+msgstr "Ukuran File"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Aturan Bandwidth Jaringan (kelas 1 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -768,6 +764,9 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
+"Setelah download melebihi ukuran file kemudian HTTP Proxy akan memperlambat "
+"koneksi ke tingkat download tertentu. Klien di jaringan ini harus berbagi "
+"bandwidth yang tersedia."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1151,7 +1150,6 @@ msgid "Bandwidth Throttling"
 msgstr "Pembatasan lebarpita"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1161,12 +1159,14 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
-"Kelompok kelas 1 memungkinkan Anda untuk membatasi laju lebarpita untuk "
-"pengunduhan besar sedangkan kelompok kelas 2 memungkinkan Anda untuk "
-"mengatur penggunaan lebarpita pada tingkat berkelanjutan. Kelompok kelas 1 "
-"memiliki prioritas lebih dari kelompok kelas 2 dan kesesuaian pertama dari "
-"sumber dilakukan. Jika objek jaringan tidak cocok aturan apa pun, maka tidak "
-"ada pengurangan lebarpita yang dilakukan untuk itu"
+"Throttling bandwidth memungkinkan anda untuk mengontrol tingkat download "
+"untuk koneksi meskipun menggunakan proxy HTTP. Aturan bandwidth jaringan "
+"(kelas 1 delay pools) memungkinkan anda untuk membatasi kecepatan download "
+"untuk seluruh jaringan sedangkan aturan bandwidth yang klien (kelas 2 delay "
+"pools) memungkinkan anda untuk membatasi kecepatan download secara per "
+"klien. Kelas 1 delay pools memiliki prioritas lebih dari kelas 2 dan aturan "
+"pertama yang cocok diterapkan. Jika koneksi tidak sesuai aturan, apa pun "
+"itu, maka tidak ada throttling bandwidth yang diterapkan."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -1465,13 +1465,13 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:307
 msgid "Remove dansguardian init script link"
-msgstr ""
+msgstr "Hapus link skrip inisial dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:308 ../../main/dns/src/EBox/DNS.pm:606
 #: ../../main/ntp/src/EBox/NTP.pm:91
 #: ../../main/webserver/src/EBox/WebServer.pm:141
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr ""
+msgstr "Zentyal akan bertindak menjalankan dan menghentikan layanan."
 
 #: ../../main/squid/src/EBox/Squid.pm:336
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
@@ -1560,15 +1560,15 @@ msgstr "Host"
 
 #: ../../main/squid/src/EBox/Squid.pm:1201
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1202
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../../main/squid/src/EBox/Squid.pm:1203
 msgid "Mime/type"
-msgstr ""
+msgstr "Mime/type"
 
 #: ../../main/squid/src/EBox/Squid.pm:1204
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
@@ -1633,11 +1633,11 @@ msgstr "Nama"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 msgid "Deleted daemons"
-msgstr ""
+msgstr "dihapus daemons"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr ""
+msgstr "daemon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
@@ -1659,7 +1659,7 @@ msgstr "Server VPN"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
 #, perl-brace-format
@@ -1760,7 +1760,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:107
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Network Address Translation"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:110
 msgid "Enable it if you only have one network interface"
@@ -1806,9 +1806,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "Opsi terowongan Zentyal ke Zentyal memerlukan kata kunci RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Port {port} sudah digunakan oleh modul {mod}"
+msgstr "Alamat VPN {addr} sudah digunakan oleh antarmuka {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1818,9 +1818,9 @@ msgstr ""
 "diiklankan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Server lain mendengarkan pada port yang sama"
+msgstr ""
+"Server lain yang menggunakan alamat VPN yang sama, silakan pilih yang lain"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -1947,7 +1947,7 @@ msgstr "Alamat bind untuk klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:154
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Perintah untuk menjalankan rute setelah ditetapkan oleh"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:164
 msgid "Client configuration"
@@ -2877,9 +2877,8 @@ msgstr "Tujuan asli"
 #: ../../main/ca/src/EBox/Model/Certificates.pm:118
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "sistem VoIP eBox"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -3737,21 +3736,20 @@ msgstr "mengijinkan bind daemon diperbaharui secara dinamis"
 
 #: ../../main/dns/src/EBox/DNS.pm:605
 msgid "Remove bind9 init script link"
-msgstr ""
+msgstr "Hapus tautan inisial srip blind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Alamat Nama Domain"
+msgstr "Layanan nama domain"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
 msgid "hostname"
-msgstr ""
+msgstr "namahost"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "Sebuah nama domain yang valid atau nilai (*) wildcard harus disediakan."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
@@ -4064,9 +4062,8 @@ msgstr ""
 "sebentar lagi"
 
 #: ../../main/software/src/EBox/Software.pm:1025
-#, fuzzy
 msgid "Installation steps"
-msgstr "Instalasi"
+msgstr "Langkah-langkah instalasi"
 
 #: ../../main/software/src/EBox/Software.pm:1027
 msgid "Package Selection"
@@ -4137,9 +4134,8 @@ msgstr ""
 "lihat di catatan"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
-#, fuzzy
 msgid "Go to save changes"
-msgstr "Menyimpan perubahan"
+msgstr "Simpan perubahan"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
@@ -4173,9 +4169,8 @@ msgstr ""
 "dilihat di catatan"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
-#, fuzzy
 msgid "Go to initial configuration wizard"
-msgstr "Konfigurasi awal"
+msgstr "Buka wizard konfigurasi awal"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -4222,7 +4217,7 @@ msgstr "Tak diketahui"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:77
 msgid "Community"
-msgstr ""
+msgstr "Komunitas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:78
 msgid "Professional"
@@ -4235,7 +4230,7 @@ msgstr "Perusahaan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:80
 msgid "Small Business"
-msgstr ""
+msgstr "Bisnis kecil"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Zentyal Cloud Client"
@@ -4276,9 +4271,8 @@ msgid "Disaster Recovery"
 msgstr "Pemulihan Bencana"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "Bundel Zentyal"
+msgstr "Jasa Bundel Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4391,9 +4385,8 @@ msgstr "Nama server eksternal"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "Pembuatan server"
+msgstr "Edisi Server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 msgid "Technical support"
@@ -4482,12 +4475,16 @@ msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
 msgstr ""
+"Tidak ditemukan adanya SSH daemon yang berjalan. Dukungan akses perlu "
+"berjalan, contoh untuk mengizinkan koneksi remote."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
+"Tidak ditemukan SSH daemon disemua interface.  Dukungan yang membutuhkan "
+"akses SSH daemon yang mendengarkan pada semua antarmuka."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
 #, perl-brace-format
@@ -4495,91 +4492,90 @@ msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
 msgstr ""
+"SSH daemon ditemukan pada non-standar port (s): {p}. Pastikan untuk "
+"memberitahu dukungan port mana yang digunakan oleh SSH daemon."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
 msgid "QA software updates"
-msgstr ""
+msgstr "Update software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:93
 msgid "Latest QA software update"
-msgstr ""
+msgstr "Update software QA terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, perl-brace-format
 msgid "{date}. {num} updated packages"
-msgstr ""
+msgstr "{date}. {num} paket update"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
-msgstr ""
+msgstr "Tidak ada update yang telah dilakukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
 msgid "Software module is not installed"
-msgstr ""
+msgstr "Modul software tidak dipasang"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "Peringatan yang dihasilkan selama bulan lalu"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
 msgid "Information-level alerts"
-msgstr ""
+msgstr "informasi level peringatan "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
-msgstr ""
+msgstr "Siaga tingkat peringatan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr ""
+msgstr "Siaga akan tingkat kesalahan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
-msgstr ""
+msgstr "Siaga akan tingkat fatal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
 msgid "Alerts"
-msgstr ""
+msgstr "Siaga akan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (DynDNS)"
-msgstr "koneksi server eksternal"
+msgstr "Nama server eksternal (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
-msgstr ""
+msgstr "Gunakan nama ini untuk terhubung ke Zentyal External"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-#, fuzzy
 msgid "Subscription renovation date"
-msgstr "Deskripsi"
+msgstr "Tanggal berlangganan renovasi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Central monitoring & management"
-msgstr ""
+msgstr "Pusat pemantauan & manajemen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-#, fuzzy
 msgid "Server subcription info"
-msgstr "Konfigurasi Server"
+msgstr "Info berlangganan server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
 msgid "Not using Zentyal Cloud DynDNS service"
-msgstr ""
+msgstr "Tidak menggunakan layanan Zentyal Cloud DynDNS"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 msgid "Unlimited"
-msgstr ""
+msgstr "Tanpa batas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 msgid "Latest security update"
-msgstr ""
+msgstr "Update keamanan terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
 msgid "Available IDS rules"
-msgstr ""
+msgstr "Tersedia IDS rules"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -4588,20 +4584,24 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
+"Berlangganan dilakukan dengan benar. Simpan perubahan, kemudian tunggu "
+"sebentar untuk menjamin sistem melakukan proses berlangganan. Kemudian Anda "
+"dapat mulai menggunakan layanan berbasis cloud, anda berhak untuk dapat "
+"kepelangganan Anda (seperti remote backup, update, peringatan, dll)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:136
 msgid "Subscription data retrieved correctly."
-msgstr ""
+msgstr "Data berlangganan diambil dengan benar."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:138
 msgid "Please, save changes"
-msgstr ""
+msgstr "Mohon, simpan perubahan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
 #: ../../main/core/src/EBox/Model/DataForm.pm:682
 #: ../../main/core/src/templates/progress.mas:26
 msgid "Done"
-msgstr ""
+msgstr "Selesai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:283
 msgid ""
@@ -4609,24 +4609,29 @@ msgid ""
 "can take a while. Please do not touch anything until the subscription "
 "process is correctly finished."
 msgstr ""
+"Mempertimbangkan bahwa berlangganan Server Zentyal anda ke Cloud Zentyal "
+"bisa berlangsung agak lama. Jangan menyentuh apa-apa sampai proses "
+"berlangganan secara benar selesai."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:324
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Sebelum membuat berlangganan pada layanan remote, simpan atau batalkanlah "
+"perubahan dalam modul OpenVPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:349
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Nama Pengguna atau Alamat Email"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:357
 msgid "Server Name"
-msgstr ""
+msgstr "Nama Server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:362
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr ""
+msgstr "Pilih nama untuk server anda yang merupakan nama subdomain yang valid"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:370
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:58
@@ -4652,41 +4657,36 @@ msgstr ""
 #: ../../main/core/src/templates/login/index.mas:70
 #: ../../main/users/src/templates/users.mas:51
 #: ../../main/users/src/templates/user.mas:78
-#, fuzzy
 msgid "Password"
-msgstr ""
-"#-#-#-#-#  id.po (ebox-asterisk 1.3.12)  #-#-#-#-#\n"
-"Kata sandi\n"
-"#-#-#-#-#  id.po (ebox-webmail 1.3.12)  #-#-#-#-#\n"
-"Kata kunci"
+msgstr "Sandi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:378
 msgid "Zentyal subscription details"
-msgstr ""
+msgstr "Rincian berlangganan Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:379
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Tidak berlangganan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:382
 msgid "Subscription to Zentyal Cloud"
-msgstr ""
+msgstr "Berlangganan ke Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:383
 msgid "Subscribe"
-msgstr ""
+msgstr "Berlangganan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:555
 msgid " module"
-msgstr ""
+msgstr "modul"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:561
 msgid " and "
-msgstr ""
+msgstr "dan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:561
 msgid " modules"
-msgstr ""
+msgstr "beberapa modul"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:578
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
@@ -4706,121 +4706,121 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:23
 #: ../../main/mail/src/templates/alias.mas:39
 msgid "Action"
-msgstr "Tindakan"
+msgstr "Aksi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:579
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:67
 msgid "Reason"
-msgstr ""
+msgstr "Alasan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:93
 msgid "Latest generated report"
-msgstr ""
+msgstr "Hasil laporan terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
-#, fuzzy
 msgid "Download latest report"
-msgstr "Laporan mail filter"
+msgstr "Laporan unduh terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:103
 msgid "Reports"
-msgstr ""
+msgstr "Laporan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:108
 msgid ""
 "The download link is for the latest available report for a group where this "
 "zentyal belongs to"
 msgstr ""
+"Tautan unduh untuk laporan terbaru yang tersedia untuk kelompok zentyal mana "
+"ini milik"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:134
 #, perl-brace-format
 msgid "{oh}Download sample{ch}"
-msgstr ""
+msgstr "{oh}contoh unduh{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 #, perl-brace-format
 msgid "{oh}Download{ch}"
-msgstr ""
+msgstr "{oh}unduh{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:150
 msgid "No report generated yet"
-msgstr ""
+msgstr "Belum dihasilkannya laporan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
-msgstr ""
+msgstr "Pemulihan akan musibah"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:144
 msgid "Remote storage space available"
-msgstr ""
+msgstr "Ruang penyimpanan remote yang tersedia"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:148
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Konfigurasi klien"
+msgstr "Bakup konfigurasi terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:152
 msgid "Latest data backup"
-msgstr ""
+msgstr "Backup data terbaru"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:156
 msgid "Data backed up"
-msgstr ""
+msgstr "Data telah dibackup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:160
 msgid "Estimated backup size"
-msgstr ""
+msgstr "Perkiraan ukuran backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
 msgid "Estimated time to recover from a disaster"
-msgstr ""
+msgstr "Perkiraan waktu untuk pemulihan dari musibah"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
-msgstr ""
+msgstr "Pemulihan musibah diaktifkan penuh"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:227
 #, perl-brace-format
 msgid "{num} GB, left: {per}"
-msgstr ""
+msgstr "{num} GB, kiri: {per}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:254
 #, perl-brace-format
 msgid "{time} hours - Full Disaster Recovery"
-msgstr ""
+msgstr "{time} jam - Pemulihan Total Musibah"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:256
 #, perl-brace-format
 msgid "{size} MB"
-msgstr ""
+msgstr "{size} MB"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:259
 msgid "No backup done yet"
-msgstr ""
+msgstr "Backup belum dilakukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:271
 #, perl-brace-format
 msgid "Install {mod} module to start using Disaster Recovery"
-msgstr ""
+msgstr "Pasang modul {mod} untuk  memulai pemulihan dari musibah  "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:276
 #, perl-brace-format
 msgid "{time} minutes - Configuration Backup Only"
-msgstr ""
+msgstr "{time} menit - Hanya Backup Konfigurasi Saja"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:283
 msgid "No configuration backup has been done yet"
-msgstr ""
+msgstr "Tidak ada backup konfigurasi yang telah dilakukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
-msgstr ""
+msgstr "Mengakses panel kontrol tidak dengan sandi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
-msgstr ""
+msgstr "Pengaturan akses"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:65
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:147
@@ -4833,23 +4833,25 @@ msgstr "Zentyal Cloud"
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:204
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "Tidak ada backup di server untuk host: {h}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:209
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:244
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr ""
+msgstr "Inexistent backup: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:244
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "Kunci untuk layanan backup proxy tidak ditemukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:71
 msgid ""
 "Cannot get the restricted addresses for remote support. Check VPN logs for "
 "details"
 msgstr ""
+"Tidak bisa mendapatkan alamat terbatas untuk dukungan jarak jauh. Periksa "
+"log VPN untuk rincian"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:137
 #, perl-brace-format
@@ -4858,54 +4860,58 @@ msgid ""
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
+"Sudah ada pengguna {u} dan tidak tampak dibuat oleh Zentyal. Sampai pengguna "
+"ini dinamai atau dihapus, tidak mungkin untuk mengatur akses dukungan jarak "
+"jauh"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:126
 #, perl-brace-format
 msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
 msgstr ""
+"Tidak dapat mengambil layanan URN; kunci \"{key}\" tidak ditemukan dalam "
+"{file}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:166
 #, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr ""
+msgstr "Nilai untuk kunci {k} tidak ditemukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Lewati garis yang terbentuk buruk: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:30
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "Share ini tidak membutuhkan otentikasi"
+msgstr "Server ini tidak dapat melakukan tindakan ini."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "system"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:291
 msgid "average"
-msgstr ""
+msgstr "rata-rata"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:295
 msgid "weak"
-msgstr ""
+msgstr "lemah"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:400
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "Tidak ada {tingkat} password ditemukan pada pengguna"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:405
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr ""
+msgstr "Para pengguna berikut memiliki {level} sandi: {users}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:115
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "Kunci untuk layanan web langganan tidak ditemukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:196
 #, perl-brace-format
@@ -4913,6 +4919,9 @@ msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
 msgstr ""
+"Tidak dapat mengambil setting VPN karena dibutuhkan untuk berlangganan. "
+"Periksa {OpenURL} {brand} profil {closeurl} untuk memeriksa pengaturan "
+"server VPN."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:527
 #, perl-brace-format

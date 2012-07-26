@@ -9,39 +9,42 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2010-12-03 13:13+0100\n"
-"Last-Translator: Luka Kipić <lukakipic@yahoo.com>\n"
+"PO-Revision-Date: 2012-03-25 22:32+0200\n"
+"Last-Translator: Bojan <bojce@ubuntusrbija.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "Koristi podrazumevanu konfiguraciju profila"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "Koristi podrazumevani profil za MIME filtriranje"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
-msgstr ""
+msgstr "ekstenzije"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Postavi polise za sve ekstenzije"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Zahtevi"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -70,37 +73,37 @@ msgstr "Korisnik"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
-msgstr ""
+msgstr "Prihvaćeni zahtevi"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Prihvaćena veličina saobraćaja (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
-msgstr ""
+msgstr "Odbijeni zahtevi"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Odbijeni saobraćaj veličine (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
-msgstr ""
+msgstr "Filtrirani zahtevi"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Filtrirani saobraćaj veličine (Kb))"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1198
@@ -142,7 +145,7 @@ msgstr "Datum"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr ""
+msgstr "Detalji o internet saobraćaju"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
@@ -150,23 +153,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:98
 msgid "traffic"
-msgstr ""
+msgstr "saobraćaj"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Squid grafikon količine saobraćaja"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr ""
+msgstr "Količina saobraćaja"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Squid grafikon zahteva saobraćaja"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Pristupni zahtevi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
@@ -175,6 +178,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Objekat {object} nema članova. Molimo dodajte bar jednog da bi dodali "
+"pravila koristeći ovaj objekat."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -183,6 +188,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"Objekat {object} je omogućen u {row} u {table}. Obrišite ga prvo odatle da "
+"biste ga dodali ovde"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
@@ -190,41 +197,44 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Ako je {first} podešen na neograničeno, onda i {second} mora biti podešen na "
+"neograničeno takođe"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} je veći od {net_rate}"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
 msgid "Network object"
-msgstr ""
+msgstr "Mrežni objekat"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
 msgid "Newtork download rate"
-msgstr ""
+msgstr "Brzina mrežnog preuzimanja"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
+"Maksimalna brzina preuzimanja za ovu mrežu. Koristiti -1 da onemogućite ovu "
+"opciju."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "(Restor)ujem Module"
+msgstr "Veličina mrežnog dokumenta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -232,30 +242,34 @@ msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
+"Maksimalna neregulisana veličina preuzimanja za ovu mrežu. Koristiti -1 da "
+"onemogućite ovu opciju."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Adresa klijenta"
+msgstr "Brzina preuzimanja klijenta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
+"Maksimalna brzina preuzimanja po klijentu. Koristiti -1 da onemogućite ovu "
+"opciju."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Adresa klijenta"
+msgstr "Veličina dokumenta klijenta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
+"Maksimalna neregulisana veličina preuzimanja po klijentu. Koristiti -1 da "
+"onemogućite ovu opciju."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Pravila propusnog opsega klijenta (oseg kašnjenja klasa 2)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 msgid ""
@@ -264,6 +278,10 @@ msgid ""
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
+"Kada preuzimanje dostigne zadanu veličinu dokumenta onda će HTTP Proxy "
+"usporiti konekciju na zadanu brzinu preuzimanja. Oba parametra mogu biti "
+"definisana za celu mrežu ili na bazi klijenta. Broj klijenata je ograničen "
+"na 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -279,17 +297,17 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
 #: ../../main/ids/src/EBox/Model/Rules.pm:194
 msgid "rule"
-msgstr "Pravilo"
+msgstr "pravilo"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "Domenska i URL pravila"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 msgid "internet domain or URL"
-msgstr ""
+msgstr "internet domen ili URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
@@ -476,7 +494,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:144
 msgid "Domain"
-msgstr "Domain"
+msgstr "Domen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
@@ -1383,9 +1401,8 @@ msgid "Filter groups per IP"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:287
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Backup Konfiguracije"
+msgstr "Konfiguracija adzappera"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
@@ -1619,14 +1636,15 @@ msgid ""
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"Prvo morate kreirati Sertifikaciono Telo. Da bi ste to uradili idite na "
-"{openhref}Sertifikaciono Telo{closehref}"
+"{openpar}Prvo morate kreirati CA sertifikat da bi ste pokrenuli VPN servere. "
+"{closepar}{openpar}Da bi ste to uradili idite na {openhref}modul "
+"sertifikacionog autoriteta{closehref} i kreirajte ga.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1868,7 +1886,7 @@ msgstr ""
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:86
 #: ../../main/radius/src/EBox/Model/Clients.pm:127
 msgid "client"
-msgstr "Klijent"
+msgstr "klijent"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:298
 #, perl-brace-format
@@ -1939,7 +1957,7 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:161
 #: ../../main/core/src/templates/backup.mas:162
 msgid "Download"
-msgstr "Download"
+msgstr "Preuzimanje"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:152
 msgid "Zentyal to Zentyal tunnel"
@@ -2719,7 +2737,7 @@ msgstr ""
 #: ../../main/printers/src/EBox/Model/CUPS.pm:148
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 msgid "Interface"
-msgstr "Interface"
+msgstr "Sučelje"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:253
 msgid "Original destination"
@@ -2733,9 +2751,8 @@ msgstr ""
 #: ../../main/ca/src/EBox/Model/Certificates.pm:118
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "eBox VoIP sistem"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -2771,7 +2788,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:350
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:168
 msgid "Log"
-msgstr "Log"
+msgstr "Dnevnik"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:352
 msgid "Log new forwarded connections"
@@ -3328,9 +3345,9 @@ msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Servis je podignut i radi"
+msgstr "Odabrani servis nije u {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
 #, perl-brace-format
@@ -3436,9 +3453,9 @@ msgid "name server record"
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Unos sadrži pogrešne karaktere"
+msgstr "Ime {name} ne može biti duže od {value} karaktera"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
@@ -3510,9 +3527,8 @@ msgstr "Podigni servis"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
-#, fuzzy
 msgid "hostname"
-msgstr "Hostname"
+msgstr "ime domaćina"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -3549,18 +3565,17 @@ msgid "Anonymous access"
 msgstr "Anonimni pristup"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Omogući FTP pristup svim korisnicima svom /home direktorijumu"
+msgstr "Omogući anonimni FTP pristup u /srv/ftp direktorijum."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Lični direktorijumi"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Omogući FTP pristup svim korisnicima svom /home direktorijumu"
+msgstr ""
+"Omogući autentifikovani FTP pristup ličnom direktorijumu svakog korisnika."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
 #, fuzzy
@@ -3595,7 +3610,6 @@ msgid "FTP Server"
 msgstr "FTP Server"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3605,10 +3619,11 @@ msgid ""
 "able to rename or delete files in any case."
 msgstr ""
 "Anonimni direktorijum je /srv/ftp, proverite da ste omogućili svim "
-"korisnicima da mogu da čitaju dokumente koje kreirate u njemu (chmod o+r /"
-"srv/ftp/*). Ako hoćete da im omogućite i da upisuju u njega morate napraviti "
-"poddirektorijum sa omogućnošću pisanja za sve, na primer: mkdir /srv/ftp/"
-"incoming ; chmod o+r /srv/ftp/incoming"
+"korisnicima da mogu da čitaju dokumente koje kreirate u njemu (sudo chmod "
+"o+r /srv/ftp/*). Ako hoćete da im omogućite i da upisuju u njega morate "
+"napraviti poddirektorijum sa mogućnošću pisanja za sve, na primer: mkdir "
+"/srv/ftp/incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonimnim pristupom "
+"neće moći da preimenuju ili obrišu dokumenta u ovom slučaju."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
@@ -3626,14 +3641,12 @@ msgstr ""
 "Zentyal će kreirat potrebne certifikate za TTLS u /etc/freeradius/certs/."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
-#, fuzzy
 msgid "To configure vsftpd."
-msgstr "Konfigurišite vsftpd"
+msgstr "Konfigurišite vsftpd."
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
-msgstr "Konfigurišite vsftpd sa LDAP autentikacijom"
+msgstr "Konfigurišite vsftpd sa LDAP autentikacijom."
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
@@ -3700,7 +3713,7 @@ msgstr ""
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
-msgstr "Član"
+msgstr "član"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:132
 msgid "You can only use MAC addresses with hosts"
@@ -3727,7 +3740,7 @@ msgstr "Lista objekata"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:91
 msgid "object"
-msgstr "Objekt"
+msgstr "objekt"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:113
 msgid "This object is being used by another module"
@@ -3741,14 +3754,14 @@ msgid ""
 msgstr ""
 "Objekti su apstrakcije mašina i adrese mreža koje se mogu koristiti u drugim "
 "modulima. Svaka promena na objektu se automatski sinhronizuje u svim "
-"modulima koji se koriste za iste."
+"modulima koji se koriste za iste"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:208
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
-"'Any' Je rezervisana reč koja se ne može koristi kao ime objekata kako bi se "
+"'Any' je rezervisana reč koja se ne može koristi kao ime objekata kako bi se "
 "izbegle zabune"
 
 #: ../../main/objects/src/EBox/Objects.pm:42
@@ -3848,7 +3861,7 @@ msgstr ""
 #: ../../main/software/src/EBox/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/CGI/SysInfo/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr "Nadogradnja-Usavršavanje"
+msgstr "Nadogradnja"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:103
 msgid "There were no packages to update"
@@ -4019,14 +4032,12 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
-#, fuzzy
 msgid "Disaster Recovery"
-msgstr "oporavak"
+msgstr "Oporavak"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "eBox VoIP sistem"
+msgstr "Zentyal Cloud servisi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4096,9 +4107,9 @@ msgid "Premium"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1673
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Last update: {date}"
-msgstr "Poslednje ažuriranje je neuspelo."
+msgstr "- Poslednje ažuriranje: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1686
 #, perl-brace-format
@@ -4107,9 +4118,8 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1689
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Backup Konfiguracije"
+msgstr "Backup konfiguracije omogućen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1692
 #, perl-brace-format
@@ -4131,9 +4141,8 @@ msgid "Connection status"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
-#, fuzzy
 msgid "External server name"
-msgstr "Ime Jabber server-a"
+msgstr "Ime spoljnjeg servera"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1715
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
@@ -4154,9 +4163,8 @@ msgid "No data backup has been done yet"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
-#, fuzzy
 msgid "Support available via"
-msgstr "dostupan"
+msgstr "Podrška dostupna preko"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:123
 msgid "Service Level Agreement"
@@ -4449,9 +4457,8 @@ msgid "Latest generated report"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
-#, fuzzy
 msgid "Download latest report"
-msgstr "(Restore) Konfiguracije"
+msgstr "Preuzmite poslednji izveštaj"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:103
 #, fuzzy
@@ -4470,28 +4477,25 @@ msgid "{oh}Download sample{ch}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Download{ch}"
-msgstr "Download"
+msgstr "{oh}Preuzimanje{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:150
 msgid "No report generated yet"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
-#, fuzzy
 msgid "Disaster recovery"
-msgstr "oporavak"
+msgstr "Oporavak"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:144
-#, fuzzy
 msgid "Remote storage space available"
-msgstr "Slobodan prostor na HDD-u"
+msgstr "Prostor udaljenog skladišta je dostupan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:148
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Backup Konfiguracije"
+msgstr "Poslednji bekap konfiguracije"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:152
 msgid "Latest data backup"
@@ -4538,14 +4542,13 @@ msgid "Install {mod} module to start using Disaster Recovery"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:276
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{time} minutes - Configuration Backup Only"
-msgstr "Backup Konfiguracije"
+msgstr "{time} minuta - Samo bekap konfiguracije"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:283
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr "Backup Konfiguracije"
+msgstr "Bekap konfiguracije još nije napravljen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -4608,9 +4611,8 @@ msgid "Skipping bad formed line: {l}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:30
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "Servis je podignut i radi"
+msgstr "Ovaj server nije u mogućnosti da obavi tu akciju."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -4726,7 +4728,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:268
 msgid "Restore successful"
-msgstr "(Restore) uspešan"
+msgstr "Vraćanje bekapa uspešno"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
@@ -4748,24 +4750,25 @@ msgstr "Operacija"
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:251
 msgid "operations left to finish backup"
-msgstr "Operacija ostavljena da završi (backup)"
+msgstr "operacija preostalo do završetka bekapa"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:252
 msgid "Backup successful"
-msgstr "(Backup) uspešan"
+msgstr "Bekap uspešan"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:35
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:182
 msgid "Configuration backup"
-msgstr "Backup Konfiguracije"
+msgstr "Bekap konfiguracije"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:86
-#, fuzzy
 msgid ""
 "Please confirm that you want to restore the configuration using the "
 "following remote backup:"
-msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
+msgstr ""
+"Molimo da potvrdite da želite da vratite podatke konfiguracije koristeći "
+"sledeći daljinski bekap:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:92
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:105
@@ -4776,7 +4779,7 @@ msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:70
 #: ../../main/core/src/templates/backup.mas:97
 msgid "Restore"
-msgstr "Restore"
+msgstr "Vrati"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:99
 msgid ""
@@ -4827,11 +4830,11 @@ msgid "Delete"
 msgstr "Obriši"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:123
-#, fuzzy
 msgid ""
 "Please confirm that you want to overwrite the following remote backup with a "
 "new one"
-msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
+msgstr ""
+"Molimo da potvrdite da želite da prepišete sledeći daljinski bekap sa novim"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
@@ -4872,9 +4875,8 @@ msgid "Country"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:67
-#, fuzzy
 msgid "Phone number"
-msgstr "1 sat"
+msgstr "Telefonski broj"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:68
 #, fuzzy
@@ -4957,7 +4959,7 @@ msgstr ""
 #: ../../main/core/src/templates/login/index.mas:63
 #: ../../main/core/src/templates/password.mas:11
 msgid "Username"
-msgstr "Korisničko Ime"
+msgstr "Korisničko ime"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:57
@@ -4990,7 +4992,7 @@ msgstr "Interfaces"
 #: ../../main/printers/src/EBox/Model/CUPS.pm:167
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:137
 msgid "interface"
-msgstr "interface"
+msgstr "sučelje"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:69
 msgid "List of monitored interfaces."
@@ -5183,9 +5185,9 @@ msgid "Add LDAP schemas"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:66
-#, fuzzy
 msgid "Zentyal will use this schema to store user sessions info."
-msgstr "Zentyal-u će trebati ta šema za čuvanje Jabber korisnika."
+msgstr ""
+"Zentyal će koristiti ovu šemu za čuvanje informacija o korisničkim sesijama"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
@@ -5386,9 +5388,8 @@ msgid "Only users in this group will be allowed to login."
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:62
-#, fuzzy
 msgid "HTTP port"
-msgstr "port"
+msgstr "HTTP port"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:68
 msgid "HTTPS port"
@@ -5456,9 +5457,8 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr ""
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
-#, fuzzy
 msgid "PPTP Users"
-msgstr "Koisnici"
+msgstr "PPTP Korisnici"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:134
 msgid ""
@@ -5467,9 +5467,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
-#, fuzzy
 msgid "VPN Network Address"
-msgstr "mrežna adresa"
+msgstr "VPN mrežna adresa"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:84
 msgid ""
@@ -5540,9 +5539,8 @@ msgid "PPTP VPN"
 msgstr ""
 
 #: ../../main/pptp/src/EBox/PPTP.pm:310
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Koisnici"
+msgstr "Konektovani PPTP Korisnici"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:360
 #, fuzzy
@@ -5619,14 +5617,12 @@ msgid "move up row"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:339
-#, fuzzy
 msgid "move down row"
-msgstr "{row} pomeren dole"
+msgstr "pomeri red nadole"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:341
-#, fuzzy
 msgid "remove down"
-msgstr "{row} pomeren dole"
+msgstr "ukloni dole"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:351
 msgid "exclude path"
@@ -6045,7 +6041,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Backup.pm:748
 #: ../../main/core/src/templates/backup.mas:66
 msgid "Backup"
-msgstr "Backup"
+msgstr "Bekap"
 
 #: ../../main/ebackup/src/EBox/Composite/RemoteGeneral.pm:66
 msgid "Configuration and Status"
@@ -6061,9 +6057,8 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
 msgid "unknown"
-msgstr "Nepoznato"
+msgstr "nepoznato"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:33
 #, perl-brace-format
@@ -6087,9 +6082,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:453
-#, fuzzy
 msgid "All files in backup"
-msgstr "(Restor)ujem backup"
+msgstr "Svi dokumenti u bekapu"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:454
 msgid "All files included in the backup"
@@ -6274,9 +6268,8 @@ msgid "ESP Keylife"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
-#, fuzzy
 msgid "Enable PFS"
-msgstr "Omogući"
+msgstr "Omogući PFS"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
@@ -6392,7 +6385,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/DynDNS.pm:218
 #: ../../main/core/src/EBox/SysInfo.pm:173
 msgid "Hostname"
-msgstr "Hostname"
+msgstr "Ime domaćina"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:232
 msgid ""
@@ -6810,7 +6803,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:3883
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
-msgstr "Interfaces"
+msgstr "Sučelja"
 
 #: ../../main/network/src/EBox/Network.pm:3887
 msgid "Gateways"
@@ -7017,9 +7010,8 @@ msgid "Virtual Machines"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt.pm:101
-#, fuzzy
 msgid "Virtual Machines VNC"
-msgstr "lista sastanaka"
+msgstr "VNC virtuelnih mašina"
 
 #: ../../main/virt/src/EBox/Virt.pm:102
 msgid "VNC connections for Zentyal VMs"
@@ -7030,9 +7022,8 @@ msgid "VNC connections for VMs"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt.pm:725
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr "lista sastanaka"
+msgstr "Slike diskova virtuelnih mašina"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:69
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7088,9 +7079,8 @@ msgid "Start"
 msgstr "Start"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
-#, fuzzy
 msgid "Virtual Machine started"
-msgstr "lista sastanaka"
+msgstr "Viruelna mašina startovana"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
 #: ../../main/virt/src/templates/vmstatus.mas:32
@@ -7099,27 +7089,24 @@ msgid "Stop"
 msgstr "Stopiran"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:100
-#, fuzzy
 msgid "Virtual Machine stopped"
-msgstr "lista sastanaka"
+msgstr "Virtuelna mašina stopirana"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:111
 msgid "Pause"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:113
-#, fuzzy
 msgid "Virtual Machine paused"
-msgstr "lista sastanaka"
+msgstr "Virtuelna mašina pauzirana"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:118
 msgid "Resume"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:120
-#, fuzzy
 msgid "Virtual Machine resumed"
-msgstr "lista sastanaka"
+msgstr "Virtuelna mašina nastavljena"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:157
 #, fuzzy
@@ -7127,9 +7114,8 @@ msgid "Autostart"
 msgstr "Restart"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:166
-#, fuzzy
 msgid "List of Virtual Machines"
-msgstr "lista sastanaka"
+msgstr "Lista Virtuelnih mašina"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:168
 msgid "virtual machine"
@@ -7784,9 +7770,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs.pm:739
 #: ../../main/core/src/EBox/SysInfo.pm:382
 #: ../../main/core/src/EBox/Events.pm:149
-#, fuzzy
 msgid "Maintenance"
-msgstr "interface"
+msgstr "Održavanje"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:108
@@ -7912,9 +7897,8 @@ msgid "warning maximum"
 msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:305
-#, fuzzy
 msgid "Send events"
-msgstr "Događaj (Event)"
+msgstr "Pošalji događaje"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:307
 msgid ""
@@ -8267,9 +8251,8 @@ msgid "To configure cupsd"
 msgstr ""
 
 #: ../../main/printers/src/EBox/Printers.pm:109
-#, fuzzy
 msgid "Network Printers"
-msgstr "(Restor)ujem Module"
+msgstr "Mrežni štampači"
 
 #: ../../main/printers/src/EBox/Printers.pm:110
 msgid "Internet Printing Protocol (CUPS)"
@@ -9666,9 +9649,8 @@ msgid "Layer 7 grouped protocols"
 msgstr ""
 
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:58
-#, fuzzy
 msgid "protocols"
-msgstr "Protokol"
+msgstr "protokoli"
 
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:69
 msgid "Application content based grouped protocols"
@@ -9705,7 +9687,7 @@ msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
-"CA sertifikat treba biti opozvan_ _ili je istekao pre izdavanja novog "
+"CA sertifikat treba biti opozvan  ili je istekao pre izdavanja novog "
 "sertifikata."
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:438
@@ -9768,7 +9750,7 @@ msgid ""
 "by Zentyal"
 msgstr ""
 "Ovde možete podesiti sertifikate iz ovog CA za bezbednosne servise "
-"kontrolisane od strane Zentyal-a."
+"kontrolisane od strane Zentyal-a"
 
 #: ../../main/ca/src/EBox/Model/Certificates.pm:320
 msgid "This service does not allow to change the  certifcate  common name"
@@ -10128,9 +10110,8 @@ msgid "To configure managesieve Roundcube webmail plugin."
 msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail.pm:299
-#, fuzzy
 msgid "To configure the webmail on the webserver."
-msgstr "Konfiguracija LDAP Realtime driver-a."
+msgstr "Da konfigurišete webmail na webserveru."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:315
 msgid "Create MySQL Roundcube webmail database."
@@ -10162,8 +10143,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:177
+#, fuzzy
 msgid " To configure clamd daemon"
-msgstr "Kofiguracija CLAMD daemon-a"
+msgstr " Da konfugurišete clamd dimon"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:182
 msgid "To schedule the launch of the updater"
@@ -10186,7 +10168,7 @@ msgstr "Status"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:105
 msgid "Database Update Status"
-msgstr "Status ažurnosti antivirusne baze."
+msgstr "Status ažurnosti baze"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid ""
@@ -10426,7 +10408,7 @@ msgstr "Konfiguriši Dispečere"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:330
 msgid "dispatcher"
-msgstr "Dispečer"
+msgstr "dispečer"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:331
 msgid "Enable/Disable each event dispatcher"
@@ -10460,14 +10442,14 @@ msgstr "Upozorenje"
 #: ../../main/core/src/EBox/Events/Model/Report/EventsGraph.pm:53
 #: ../../main/core/src/EBox/Events.pm:707
 msgid "Error"
-msgstr "Greška (Error)"
+msgstr "Greška"
 
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: ../../main/core/src/EBox/Events/Model/Report/EventsGraph.pm:54
 #: ../../main/core/src/EBox/Events.pm:708
 msgid "Fatal error"
-msgstr "Fatalna greška (Fatal error)"
+msgstr "Fatalna greška"
 
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:101
 msgid "Events details"
@@ -10476,7 +10458,7 @@ msgstr "Detalji događaja"
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:109
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:310
 msgid "event"
-msgstr "Događaj (Event)"
+msgstr "događaj"
 
 #: ../../main/core/src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
@@ -10492,9 +10474,8 @@ msgid "Administrator Account"
 msgstr "Admin Jabber nalog"
 
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:117
-#, fuzzy
 msgid "Destination Jabber account to send the messages to."
-msgstr "Jabber server za slanje poruka"
+msgstr "Odredišni Jabber nalog da pošaljete poruku."
 
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:124
 #, fuzzy
@@ -10502,14 +10483,12 @@ msgid "Configure Jabber Dispatcher"
 msgstr "Konfiguriši Jabber dispečer"
 
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:129
-#, fuzzy
 msgid "This dispatcher will send events to a Jabber account."
-msgstr "Ovaj dispečer ce slati event-logove na Jabber nalog"
+msgstr "Ovaj dispečer će slati događaje Jabber nalogu."
 
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:132
-#, fuzzy
 msgid "Jabber dispatcher configuration updated."
-msgstr "Jabber dispečer konfiguracija ažurirana"
+msgstr "Jabber dispečer konfiguracija ažurirana."
 
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:155
 msgid "Jabber Dispatcher"
@@ -10564,16 +10543,16 @@ msgid ""
 "Events module configures Zentyal to help informing you about events that "
 "happen"
 msgstr ""
-"(Events module) se konfiguriše da bi vam pomogao u praćenju dešavanja na "
-"Zentyal-u"
+"Modul događaja konfiguriše Zentyal da pomogne u informisanju o događajima "
+"koji su se desili"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:302
 msgid "Configure Events"
-msgstr "Konfiguriši (Events-servis)"
+msgstr "Konfiguriši Događaje"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:311
 msgid "Enable/Disable each event watcher monitoring"
-msgstr "Omogući/Onemogući svaki (event-watcher) monitoring"
+msgstr "Omogući/Onemogući svaki nadgledač praćenja događaja"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:517
 msgid ""
@@ -10581,9 +10560,9 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
-"Upozorenje! (log domain watcher) nije pokrenut. Molimo vas, da odete na "
-"konfiguraciju i pokrenete barem jedan, da bi mogli da pratite logove i "
-"dešavanja sa tog domain-a."
+"Upozorenje! Nema omogućenog nadgledača logova domena. Molimo, idite na "
+"'Konfiguracija' i omogućite barem jedan da bi bili obavešteni kada se nešto "
+"dogodi u ovom domenu. "
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:100
 msgid "Minimum free disk space per filesystem"
@@ -10600,11 +10579,11 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
 msgid "Configure disk free space watcher"
-msgstr "Konfiguriši disk (free-space-watcher)"
+msgstr "Konfiguriši nadgledač slobodnog prostora diska"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
 msgid "Free Disk Space Watcher"
-msgstr "Free Disk Space Watcher"
+msgstr "Nadgledač slobodnog prostora diska"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:108
 #, perl-brace-format
@@ -10639,7 +10618,8 @@ msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
-"Upozorenje! (log-watcher) nije pokrenut. Pokrenite ga da bi pratili logove."
+"Upozorenje! Nadgledač logova nije omogućen. Omogućite ga da bi ste bili "
+"obavešteni kada se nešto dogodi. "
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/Log.pm:261
 msgid "Filtering"
@@ -10647,11 +10627,11 @@ msgstr "Filtracija"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/Log.pm:269
 msgid "Configure log watchers"
-msgstr "Konfiguriši (log-watcher)e"
+msgstr "Konfiguriši nadgledače logova"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/Log.pm:271
 msgid "Log watcher"
-msgstr "(Log-watcher)"
+msgstr "Nadgledač logova"
 
 #: ../../main/core/src/EBox/Events/Composite/Report/EventsReport.pm:69
 msgid "Events reports"
@@ -10707,7 +10687,7 @@ msgstr "Lifetime parametar mora biti pozitivan broj"
 
 #: ../../main/core/src/EBox/Backup.pm:97
 msgid "Creating backup archive"
-msgstr "Kreiraj (backup) arhivu"
+msgstr "Kreiraj bekap arhivu"
 
 #: ../../main/core/src/EBox/Backup.pm:142
 #, perl-brace-format
@@ -10716,38 +10696,38 @@ msgstr "Dumpirati configuraciju modula {m}"
 
 #: ../../main/core/src/EBox/Backup.pm:325
 msgid "Could not create backup archive"
-msgstr "Nemoguće kreirati (backup) arhivu"
+msgstr "Nemoguće kreirati bekap arhivu"
 
 #: ../../main/core/src/EBox/Backup.pm:332
 msgid "Could not append data to backup archive"
-msgstr "Nemoguće dodati podatke u (backup) arhivu"
+msgstr "Nemoguće dodati podatke u bekap arhivu"
 
 #: ../../main/core/src/EBox/Backup.pm:524
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr "Nemoguće iyvući tražene podatke iz (backup)a: {files}"
+msgstr "Nemoguće izvući tražene podatke iz bekapa: {files}"
 
 #: ../../main/core/src/EBox/Backup.pm:527
 #: ../../main/core/src/EBox/Backup.pm:1272
 msgid "Could not unpack the backup"
-msgstr "Nemoguće raspakovati (backup)"
+msgstr "Nemoguće raspakovati bekap"
 
 #: ../../main/core/src/EBox/Backup.pm:781
 msgid "Writing backup file to hard disk"
-msgstr "Upisuje se (backup) na HDD"
+msgstr "Upisuje se bekap na hard disk"
 
 #: ../../main/core/src/EBox/Backup.pm:821
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
 "you must save or discard them"
 msgstr ""
-"Neki moduli nisu sačuvali promene. Pre nego što napravite (backup) morate da "
-"sačuvate ili odbacite promene"
+"Sledeći moduli imaju nesačuvane promene: {mods}. Pre bekapa morate ih "
+"sačuvati ili odbaciti"
 
 #: ../../main/core/src/EBox/Backup.pm:880
 msgid "Incorrect or corrupt backup file"
-msgstr "Neispravana ili netačna (backup) datoteka"
+msgstr "Neispravana ili korumpirana bekap datoteka"
 
 #: ../../main/core/src/EBox/Backup.pm:911
 msgid "The backup file is corrupt: could not open archive"
@@ -10755,28 +10735,27 @@ msgstr "Backup datoteka je neispravana: nemoguće je otvoriti arhivu"
 
 #: ../../main/core/src/EBox/Backup.pm:922
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "Backup datoteka je neispravana: nemoguće je otvoriti (backup checksum)"
+msgstr "Backup datoteka je korumpirana: nemoguće je otvoriti proveru bekapa"
 
 #: ../../main/core/src/EBox/Backup.pm:929
 msgid "The backup file is corrupt."
 msgstr "Backup datoteka je neispravana."
 
 #: ../../main/core/src/EBox/Backup.pm:947
-#, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
 msgstr ""
-"Neispravan tip (backup) arhive. Možda je datoteka pokvarena ili koristite "
-"nekompatibilnu verziju eBox-a"
+"Neispravan tip bekap arhive. Možda je datoteka korumpirana ili koristite "
+"nekompatibilnu verziju Zentyal-a"
 
 #: ../../main/core/src/EBox/Backup.pm:952
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"Arhiva nije (backup)ovana u potpunosti , te je povratak podataka nemoguć."
-"Možda je moguće povratiti konfiguracione podatke"
+"Arhiva nije (backup)ovana u potpunosti, te je povratak podataka nemoguć. "
+"Možda je moguće povratiti  konfiguracione podatke"
 
 #: ../../main/core/src/EBox/Backup.pm:984
 #, perl-brace-format
@@ -10826,7 +10805,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Backup.pm:1458
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr "Nema modula {m} pronađenih u (backup)u"
+msgstr "Nema modula {m} pronađenih u bekapu"
 
 #: ../../main/core/src/EBox/Backup.pm:1466
 #, perl-brace-format
@@ -10853,9 +10832,8 @@ msgid "The input contains invalid characters"
 msgstr "Unos sadrži pogrešne karaktere"
 
 #: ../../main/core/src/EBox/Backup.pm:1583
-#, fuzzy
 msgid "Backup archives"
-msgstr "(Backup)ovane arhive"
+msgstr "Bekap arhive"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:37
 msgid "Audit Logging"
@@ -10944,9 +10922,8 @@ msgid "Expired session"
 msgstr ""
 
 #: ../../main/core/src/EBox/AuditLogging.pm:151
-#, fuzzy
 msgid "Administrator sessions"
-msgstr "Admin Jabber nalog"
+msgstr "Sesije administratora"
 
 #: ../../main/core/src/EBox/SysInfo.pm:54
 msgid "System Information"
@@ -10957,9 +10934,8 @@ msgid "available"
 msgstr "dostupan"
 
 #: ../../main/core/src/EBox/SysInfo.pm:132
-#, fuzzy
 msgid "No updates"
-msgstr "{row} ažuriraj"
+msgstr "Nema novih ažuriranja"
 
 #: ../../main/core/src/EBox/SysInfo.pm:143
 #, perl-brace-format
@@ -10978,7 +10954,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo.pm:174
 msgid "Core version"
-msgstr "verzija jezgra"
+msgstr "Osnovna verzija"
 
 #: ../../main/core/src/EBox/SysInfo.pm:175
 msgid "Software"
@@ -11050,9 +11026,9 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:548
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Enabling {modName} module"
-msgstr "{model} u {module} modul"
+msgstr "Omogućavanje {modName} modula"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:588
 #: ../../main/core/src/EBox/GlobalImpl.pm:622
@@ -11098,19 +11074,19 @@ msgstr "mora biti veće od 0"
 
 #: ../../main/core/src/EBox/ProgressIndicator.pm:148
 msgid "Executable has not been run"
-msgstr "(Executable) nije bio pokrenut"
+msgstr "Izvršna fajl nije bio pokrenut"
 
 #: ../../main/core/src/EBox/ProgressIndicator.pm:296
 msgid "The executable has not run"
-msgstr "(Executable) nije pokrenut"
+msgstr "Izvršni fajl nije pokrenut"
 
 #: ../../main/core/src/EBox/ProgressIndicator.pm:438
 msgid "The executable has already been started"
-msgstr "(Executable) je pokrenut i radi"
+msgstr "Izvršni fajl je već pokrenut"
 
 #: ../../main/core/src/EBox/ProgressIndicator.pm:442
 msgid "The executable has already finished"
-msgstr "(Executable) je završio sa radom"
+msgstr "Izvršni fajl je već završio sa radom"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/Details.pm:226
 #: ../../main/core/src/EBox/Logs/Model/Report/Details.pm:234
@@ -11120,19 +11096,19 @@ msgstr "Sve"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/OptionsBase.pm:41
 msgid "hour"
-msgstr "Sat"
+msgstr "sat"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "day"
-msgstr "Dan"
+msgstr "dan"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "week"
-msgstr "Nedelja"
+msgstr "nedelja"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/OptionsBase.pm:44
 msgid "month"
-msgstr "Mesec"
+msgstr "mesec"
 
 #: ../../main/core/src/EBox/Logs/Model/Report/OptionsBase.pm:80
 msgid "Report time period"
@@ -11330,19 +11306,17 @@ msgid "Halt"
 msgstr "Zaustavi"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
-#, fuzzy
 msgid "Zentyal is going down for halt"
-msgstr "eBoks ide dole za zaustavljanje"
+msgstr "Zentyal se zaustavlja"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:52
 #: ../../main/core/src/templates/halt.mas:16
 msgid "Reboot"
-msgstr "Reboot"
+msgstr "Pokreni ponovo"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:55
-#, fuzzy
 msgid "Zentyal is going down for reboot"
-msgstr "eBoks ide dole za restartovanje"
+msgstr "Zentyal se restartuje"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:62
 msgid "Halt or Reboot"
@@ -11431,9 +11405,9 @@ msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Od\" {from} mora biti veći \"Do\" {to}"
 
 #: ../../main/core/src/EBox/Event/Dispatcher/Jabber.pm:206
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed."
-msgstr "Jabber server {serverName} ne radi ili nije dozvoljena konekcija"
+msgstr "Jabber server {serverName} ne radi ili nije dozvoljena konekcija."
 
 #: ../../main/core/src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
@@ -11483,11 +11457,13 @@ msgid "The partition {mp} has low free space available."
 msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The file system {fs}, mounted on {mp}, has {left} space left which is below "
 "than the configured threshold {thres}."
-msgstr "HDisk format {fs}, montiran na {mp}, nema slobodnog prostora"
+msgstr ""
+"Fajl sistem {fs}, montiran na {mp}, ima {left} slobodnog prostora što je "
+"ispod konfigurisanog praga minimuma {thres}."
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:147
 #, perl-brace-format
@@ -11503,7 +11479,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Free storage space"
-msgstr "Slobodan prostor na HDD-u"
+msgstr "Slobodan prostor za čuvanje"
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:199
 msgid "Check if any disk partition has no storage space left"
@@ -11516,7 +11492,7 @@ msgstr "Proveri da li se nešto desilo na RAID podsistemu"
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:253
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "Informacija o novom nizu RAID uređaja {devName} :"
+msgstr "Informacija o novom nizu RAID uređaja {devName}:"
 
 # State of what
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:255
@@ -11585,12 +11561,12 @@ msgstr ""
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:394
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr "RAID uređaj {name} je odpočeo operaciju {opName}"
+msgstr "RAID uređaj {name} je odpočeo operaciju {opName}."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:400
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
-msgstr "RAID uređaj {name} je završio operaciju {opName} ili je otkazao istu"
+msgstr "RAID uređaj {name} je završio operaciju {opName} ili je otkazao istu."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:406
 #, perl-brace-format
@@ -11598,17 +11574,17 @@ msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr ""
-"RAID uređaj {name} je završio operaciju {oldOpName} i odpočeo {newOpName}"
+"RAID uređaj {name} je završio operaciju {oldOpName} i odpočeo {newOpName}."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:431
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Stanje: {percentage} kompletirano"
+msgstr "Stanje: {percentage} kompletirano."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:434
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "Očekivano vreme završetka: {time}"
+msgstr "Očekivano vreme završetka: {time}."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:464
 #, perl-brace-format
@@ -11644,7 +11620,7 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
-"Nova komponenta {compName} je (hot) dodata  RAID uređaju {arrayName} sa "
+"Nova komponenta {compName} je naživo dodata RAID uređaju {arrayName} sa "
 "statusom {status}"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:509
@@ -11653,7 +11629,7 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
-"Komponenta {compName} je (hot) odstranjena sa RAID niza {arrayName} kada je "
+"Komponenta {compName} je naživo odstranjena sa RAID niza {arrayName} kada je "
 "imala status {status}"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:536
@@ -11791,15 +11767,15 @@ msgstr "Inicijalizovati dispečer tabelu događaja"
 
 #: ../../main/core/src/EBox/Events.pm:201
 msgid "Enable default log dispatcher"
-msgstr "Omogući (default) log dispečer"
+msgstr "Omogući podrazumevani log dispečer"
 
 #: ../../main/core/src/EBox/Events.pm:458
 msgid "The events module is not enabled to send events"
-msgstr "(events module) nije podignut te ne šalje događaje"
+msgstr "Modul događaja nije omogućen da šalje događaje"
 
 #: ../../main/core/src/EBox/Events.pm:653
 msgid "Event service status"
-msgstr "Status (Event) servisa"
+msgstr "Status servisa događaja"
 
 #: ../../main/core/src/EBox/Events.pm:694
 msgid "Date of first event"
@@ -11829,7 +11805,7 @@ msgstr "Opšta konfiguracija"
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: ../../main/core/src/templates/dashboard/index.mas:80
 msgid "Configure Widgets"
-msgstr "Konfiguriši (Widget)e"
+msgstr "Konfiguriši dodatke"
 
 #: ../../main/core/src/EBox/CGI/Logs/Index.pm:331
 msgid "Full Reports"
@@ -11842,8 +11818,8 @@ msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"Pojavila se greska u (template)u.Informacije o ovom bug-u možete naći u "
-"logovima."
+"Pojavila se greska u predlošku. Ovo je greška, relevantne informacije možete "
+"naći u logovima."
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:81
 #: ../../main/core/src/EBox/CGI/Progress.pm:106
@@ -11871,19 +11847,19 @@ msgstr "Nepoznat restore mode: {mode}"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:248
 msgid "Backing up"
-msgstr "(Backup)ujem"
+msgstr "Bekapovanje"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:249
 msgid "Backing up modules"
-msgstr "(Backup) moduli"
+msgstr "Bekap moduli"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:264
 msgid "Restoring backup"
-msgstr "(Restor)ujem backup"
+msgstr "Vraćanje bekapa"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:265
 msgid "Restoring modules"
-msgstr "(Restor)ujem Module"
+msgstr "Vraćanje modula"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:267
 #, fuzzy
@@ -11892,7 +11868,7 @@ msgstr "moduli opozvani"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/RestartService.pm:50
 msgid "module name"
-msgstr "Ime Modula"
+msgstr "ime modula"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/RestartService.pm:56
 msgid "The module was restarted correctly."
@@ -11917,12 +11893,12 @@ msgstr "Backup Konfiguracije"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:111
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
+msgstr "Molim da potvrdite da želite da obrišete ovaj bekap:"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:120
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:136
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Molim da potvrdite (restore) korišćenjem ovog (backup file)a:"
+msgstr "Molim da potvrdite da želite da vratite podatke koristeći ovaj bekap:"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:185
 msgid "Full data and configuration backup"
@@ -11930,7 +11906,7 @@ msgstr "Potpuni backup koniguracije i podataka"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:188
 msgid "Bug-report configuration dump"
-msgstr "(Bug-Report) i (dump) konfiguracije "
+msgstr "Pravljenje konfiguracije izveštaja greške"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeTimeZone.pm:42
 msgid "country"
@@ -11942,11 +11918,11 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:57
 msgid "Incorrect password."
-msgstr "Pogršna Lozinka"
+msgstr "Pogrešna lozinka."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:62
 msgid "New passwords do not match."
-msgstr "Nova lozinka se ne poklapa"
+msgstr "Nova lozinka se ne poklapa."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:67
 msgid "The password must be at least 6 characters long"
@@ -11954,7 +11930,7 @@ msgstr "Lozinka mora biti od najmanje 6 karaktera"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:71
 msgid "The password was changed successfully."
-msgstr "Lozinka je uspešno promenjena"
+msgstr "Lozinka je uspešno promenjena."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:44
 msgid "Year"
@@ -12013,11 +11989,11 @@ msgstr "Sačuvaj promene u modulima"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:148
 msgid "operations performed"
-msgstr "Obavljene Operacije"
+msgstr "operacije obavljene"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:149
 msgid "Changes saved"
-msgstr "Promene Sačuvane"
+msgstr "Promene sačuvane"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:150
 #, perl-brace-format
@@ -12046,7 +12022,7 @@ msgstr "moduli opozvani"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:173
 msgid "Changes revoked"
-msgstr "promene opozvane"
+msgstr "Promene opozvane"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:174
 #, perl-brace-format
@@ -12161,9 +12137,8 @@ msgid "Any TCP"
 msgstr ""
 
 #: ../../main/services/src/EBox/Services.pm:108
-#, fuzzy
 msgid "Any TCP port"
-msgstr "port"
+msgstr "Bilo koji TCP port"
 
 #: ../../main/services/src/EBox/Services.pm:115
 #: ../../main/services/src/EBox/Services.pm:492
@@ -12249,9 +12224,8 @@ msgid "To configure smart host authentication"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail.pm:219
-#, fuzzy
 msgid "To configure mail transports"
-msgstr "Konfiguracija konfernciskih poziva."
+msgstr "Konfiguracija mail transporta"
 
 #: ../../main/mail/src/EBox/Mail.pm:257
 msgid "Outgoing Mail (SMTP protocol)."
@@ -12599,9 +12573,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:115
-#, fuzzy
 msgid "Mail dispatcher configuration updated."
-msgstr "RSS dispečer konfiguracija ažurirana"
+msgstr "Mail dispečer konfiguracija ažurirana."
 
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:138
 #, fuzzy
@@ -13058,9 +13031,9 @@ msgid "mail alias account"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:221
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot connect to {smtp} mail server."
-msgstr "Poveži se na druge servere"
+msgstr "Ne mogu se konektovati na {smtp} mail server."
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:288
 msgid "This group has a mail alias"
@@ -13108,12 +13081,12 @@ msgstr ""
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:51
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:100
 msgid "Mail address"
-msgstr "E-Mail adresa"
+msgstr "Mail adresa"
 
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:41
 #: ../../main/ids/src/EBox/Model/Report/AlertGraph.pm:47
 msgid "number of alerts"
-msgstr "Broj upozorenja"
+msgstr "broj upozorenja"
 
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
@@ -13125,7 +13098,7 @@ msgstr "Detalji upozorenja"
 
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
-msgstr "Upozorenja"
+msgstr "upozorenja"
 
 #: ../../main/ids/src/EBox/Model/Report/AlertGraph.pm:52
 msgid "Alerts chart"
@@ -13154,12 +13127,12 @@ msgstr "Izveštaj IDS upozorenja"
 
 #: ../../main/ids/src/EBox/Composite/General.pm:107
 msgid "Intrusion Detection System"
-msgstr "Sitem Detekcije Upada (IDS)"
+msgstr "Sitem Detekcije Upada"
 
 # (intrusion detection system)
 #: ../../main/ids/src/EBox/IDS.pm:174 ../../main/ids/src/EBox/IDS.pm:316
 msgid "IDS"
-msgstr "IDS Sistem za detekciju upada (intrusion detection system)"
+msgstr "SDU"
 
 #: ../../main/ids/src/EBox/IDS.pm:321
 msgid "Alert"
@@ -13739,13 +13712,8 @@ msgstr "Voicemail konfiguracija"
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
 #: ../../main/core/src/templates/password.mas:39
-#, fuzzy
 msgid "New password"
-msgstr ""
-"#-#-#-#-#  sr.po (ebox-asterisk 1.3.12)  #-#-#-#-#\n"
-"Nova lozinka\n"
-"#-#-#-#-#  sr.po (ebox-ebox 1.3.14)  #-#-#-#-#\n"
-"Nova Lozinka"
+msgstr "Nova lozinka"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:107
 msgid "Attach messages"
@@ -13778,7 +13746,7 @@ msgstr "Broj između {min} i {max}"
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:125
 #: ../../main/asterisk/src/EBox/Asterisk.pm:581
 msgid "Voicemail"
-msgstr "Voicemail"
+msgstr "Govorna pošta"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:130
 #, fuzzy
@@ -13822,7 +13790,7 @@ msgstr "Extension primalac dolaznih poziva prko-kroz provider-a."
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:135
 msgid "SIP provider"
-msgstr "SIP provider"
+msgstr "SIP provajder"
 
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:139
 msgid "SIP provider for outgoing calls configuration."
@@ -13861,7 +13829,7 @@ msgstr "Dozvoli spoljne pozive"
 
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:126
 msgid "VoIP domain"
-msgstr "VoIP domain"
+msgstr "VoIP domen"
 
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:139
 msgid "Demo extensions are *4 for Music on Hold and *6 for Echo test."
@@ -13966,7 +13934,7 @@ msgstr "Konfiguracija SIP trunk-a lokalnih korisnika i externih provider-a."
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:145
 msgid "To configure the dialplan."
-msgstr "Konfiguracija plana Tel-biranja."
+msgstr "Konfiguracija plana telefonskog biranja."
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:150
 msgid "To configure the voicemail."
@@ -14124,9 +14092,8 @@ msgid "Organizational Units"
 msgstr "Naziv organizacije"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:68
-#, fuzzy
 msgid "organizational unit"
-msgstr "Naziv organizacije"
+msgstr "organizaciona jedinica"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
 #, fuzzy, perl-brace-format
@@ -14134,9 +14101,8 @@ msgid "OU {ou} removed"
 msgstr "{row} pomeren gore"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:186
-#, fuzzy
 msgid "OU added"
-msgstr "{row} dodaj"
+msgstr "OJ dodata"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -14455,9 +14421,8 @@ msgid "Use the last backup done for the restore"
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:252
-#, fuzzy
 msgid "Restore all backup domains available"
-msgstr "(Restor)ujem backup"
+msgstr "Vrati bekap svih dostupnih domena"
 
 #: ../../main/ebackup/src/scripts/restore-tool:254
 msgid "Backup domain to restore. It could be repeated several times"
@@ -14541,9 +14506,8 @@ msgid "Registered Zentyal Servers"
 msgstr "Zentyal FTP Server"
 
 #: ../../main/ebackup/src/scripts/restore-tool:611
-#, fuzzy
 msgid "Restoring files"
-msgstr "(Restor)ujem Module"
+msgstr "Vraćanje dokumenata"
 
 #: ../../main/ebackup/src/scripts/restore-tool:634
 #, perl-brace-format
@@ -14552,9 +14516,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:688
-#, fuzzy
 msgid "Restoring all backed-up files"
-msgstr "(Restor)ujem backup"
+msgstr "Povratak svih bekapovanih dokumenata"
 
 #: ../../main/ebackup/src/scripts/restore-tool:748
 #, perl-brace-format
@@ -14581,14 +14544,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:843
-#, fuzzy
 msgid "Restoring log database"
-msgstr "(Restor)ujem Module"
+msgstr "Vraćanje dnevnika baze podataka"
 
 #: ../../main/ebackup/src/scripts/restore-tool:864
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Backup Konfiguracije"
+msgstr "Vrađanje bekapa konfiguracije"
 
 #: ../../main/ebackup/src/scripts/restore-tool:869
 msgid ""
@@ -14597,9 +14558,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:884
-#, fuzzy
 msgid "Checking configuration compability"
-msgstr "Backup Konfiguracije"
+msgstr "Provera kompatibilnosti konfiguracije"
 
 #: ../../main/ebackup/src/scripts/restore-tool:936
 #, perl-brace-format
@@ -14661,9 +14621,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:1179
-#, fuzzy
 msgid "Configuring modules"
-msgstr "(Restor)ujem Module"
+msgstr "Podešavanje modula"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1203
 #, perl-brace-format
@@ -14683,9 +14642,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:1249
-#, fuzzy
 msgid "Finishing new modules configuration"
-msgstr "Konfiguracija Status Modula"
+msgstr "Završetak konfiguracije novih modula"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1337
 msgid "Downloading backup metadata..."
@@ -14697,9 +14655,9 @@ msgid "Downloading the backup data"
 msgstr "Potpuni backup koniguracije i podataka"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1441
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Downloading  {src} backup data for {dom}"
-msgstr "Potpuni backup koniguracije i podataka"
+msgstr "Preuzimanje  {src} bekap podataka za {dom}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1455
 #, perl-brace-format
@@ -14714,9 +14672,8 @@ msgid "Downloading the backup configuration"
 msgstr "Potpuni backup koniguracije i podataka"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1522
-#, fuzzy
 msgid "Downloading configuration"
-msgstr "konfiguracija logova"
+msgstr "Preuzimanje konfiguracije"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1564
 msgid "Looking for a version 2.0.X backup"
@@ -14728,14 +14685,14 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:1620
 #: ../../main/ebackup/src/scripts/restore-tool:1681
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr "Poslednje ažuriranje je neuspelo."
+msgstr "Datum poslednjeg bekapa: {date}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1646
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
-msgstr "Backup Konfiguracije"
+msgstr "Nema napravljenog automatski konfugurisanog bekapa za server {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1697
 #, perl-brace-format
@@ -14743,19 +14700,19 @@ msgid "Choose date to restore the backup from server {cn}"
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:1721
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
-msgstr "Backup Konfiguracije"
+msgstr "Nema završenog automatski konfigurisanog bekapa za server {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1738
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr "Backup Konfiguracije"
+msgstr "Nema urađenih konfiguracionih bekapa za datum {d} na {s} serveru"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1774
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "Servis je podignut i radi"
+msgstr "Server {server} nije registrovan na Zentyal Cloudu"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1833
 msgid "Please, enter a value"
@@ -14898,9 +14855,9 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:2833
 #: ../../main/ebackup/src/scripts/restore-tool:2842
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Warning: {msg}"
-msgstr "Upozorenje"
+msgstr "Upozorenje: {msg}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2872
 msgid ""
@@ -15036,7 +14993,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/Backup/index.mas:169
 #: ../../main/core/src/templates/backup.mas:185
 msgid "delete"
-msgstr "Obriši"
+msgstr "obriši"
 
 #: ../../main/dns/src/templates/edit.mas:12
 #, perl-brace-format
@@ -15149,9 +15106,8 @@ msgid "Select"
 msgstr "Izaberite izveštaj"
 
 #: ../../main/software/src/templates/ebox.mas:738
-#, fuzzy
 msgid "Loading"
-msgstr "Nadogradnja-Usavršavanje"
+msgstr "Učitavanje"
 
 #: ../../main/software/src/templates/ebox.mas:739
 msgid "No packages found"
@@ -15260,9 +15216,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/templates/NoActive.mas:14
-#, fuzzy
 msgid "subscription page"
-msgstr "Opis"
+msgstr "stranica pretplate"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -15326,23 +15281,21 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:91
 #: ../../main/core/src/templates/backup.mas:183
 msgid "restore"
-msgstr "Povrati"
+msgstr "povrati"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:165
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:95
 #: ../../main/core/src/templates/backup.mas:181
 msgid "download"
-msgstr "download"
+msgstr "preuzimanje"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:174
-#, fuzzy
 msgid "Configuration backups' list"
-msgstr "Backup Konfiguracije"
+msgstr "Lista bekapa' konfiguracije"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:37
-#, fuzzy
 msgid "Zentyal host"
-msgstr "eBox VoIP sistem"
+msgstr "Zentyal domaćin"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:101
 #: ../../main/core/src/templates/backup.mas:124
@@ -15378,7 +15331,7 @@ msgstr ""
 #: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:52
 msgid "Warning: Caps Lock is enabled"
-msgstr "Upozorenje: (Caps Lock) je uklučen"
+msgstr "Upozorenje: Caps Lock je uključen"
 
 #: ../../main/captiveportal/src/templates/login.mas:28
 msgid "Captive portal"
@@ -15793,9 +15746,8 @@ msgid "CA Passphrase"
 msgstr ""
 
 #: ../../main/ca/src/templates/formReissue.mas:31
-#, fuzzy
 msgid "Reissue a certificate"
-msgstr "sertifikat"
+msgstr "Reizdavanje sertifikata"
 
 #: ../../main/ca/src/templates/createCA.mas:27
 #: ../../main/mail/src/templates/groupalias.mas:65
@@ -15887,7 +15839,7 @@ msgstr "Servis je podignut i radi"
 #: ../../main/core/src/templates/dashboard/index.mas:44
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
-msgstr "Restart"
+msgstr "Ponovno pokretanje"
 
 #: ../../main/core/src/templates/dashboard/index.mas:116
 msgid "Configure widgets"
@@ -15988,15 +15940,15 @@ msgstr ""
 
 #: ../../main/core/src/templates/confirm-backup.mas:102
 msgid "Full Restore"
-msgstr "Potpun (Restore)"
+msgstr "Potpun povratak bekapa"
 
 #: ../../main/core/src/templates/confirm-backup.mas:103
 msgid "Configuration Restore"
-msgstr "(Restore) Konfiguracije"
+msgstr "Povratak konfiguracije"
 
 #: ../../main/core/src/templates/confirm-backup.mas:108
 msgid "Restore mode"
-msgstr "(Restore) mod"
+msgstr "Mod povratka bekapa"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:46
 msgid "Page"
@@ -16141,9 +16093,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/datetime.mas:27
-#, fuzzy
 msgid "Synchronization enabled"
-msgstr "Backup Konfiguracije"
+msgstr "Sinhronizacija omogućena"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
@@ -16191,7 +16142,7 @@ msgstr "Juli"
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "August"
-msgstr "August"
+msgstr "Avgust"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
@@ -16264,7 +16215,7 @@ msgstr "Izlaz"
 
 #: ../../main/core/src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr "Administratorski (Interface)  TCP Portova"
+msgstr "TCP port administratorskog sučelja"
 
 #: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -16305,15 +16256,15 @@ msgstr ""
 "Molimo vas upotrebite ovaj link {url}."
 
 #: ../../main/core/src/templates/login/index.mas:58
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
-"Upozorenje: Koristite nekomatibilan web-pretraživač koji nije {url}, "
-"zvanično podržan. Molimo vas da uzmete u obzir da će te se suočiti sa "
-"problemima pri radu na eBox UI-u(korisničkom panelu)"
+"Upozorenje: Koristite nekompatibilan internet pretraživač koji nije {url}, "
+"jedini zvanično podržan. Molimo vas da uzmete u obzir da će te se možda "
+"suočiti sa problemima pri radu na Zentyal KI."
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
@@ -16389,19 +16340,16 @@ msgid "Array properties"
 msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:196
-#, fuzzy
 msgid "Resyncing array"
-msgstr "resinhonizacija"
+msgstr "Resinhronizacija niza"
 
 #: ../../main/core/src/templates/report/raid.mas:197
-#, fuzzy
 msgid "Rebuild array"
-msgstr "obnoviti"
+msgstr "Obnova niza"
 
 #: ../../main/core/src/templates/report/raid.mas:198
-#, fuzzy
 msgid "Reshape array"
-msgstr "reoblikovanu"
+msgstr "Preoblikovanje niza"
 
 #: ../../main/core/src/templates/report/raid.mas:206
 #, fuzzy
@@ -16413,9 +16361,8 @@ msgid "Percentage completed"
 msgstr "Procenata gotovo"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
-msgstr "Očekivano vreme završetka: {time}"
+msgstr "Očekivano preostalo vreme"
 
 #: ../../main/core/src/templates/report/raid.mas:212
 #, fuzzy
@@ -16613,9 +16560,8 @@ msgstr ""
 
 #: ../../main/core/src/templates/wizard.mas:182
 #: ../../main/core/src/templates/wizard.mas:192
-#, fuzzy
 msgid "Next"
-msgstr "sled"
+msgstr "Sledeći"
 
 #: ../../main/core/src/templates/input/multiSelect.mas:12
 #, fuzzy
@@ -16642,11 +16588,11 @@ msgstr "Vaša lozinka mora sadržati najmanje 6 karaktera"
 
 #: ../../main/core/src/templates/password.mas:25
 msgid "Current password"
-msgstr "Trenutna Lozinka"
+msgstr "Trenutna lozinka"
 
 #: ../../main/core/src/templates/password.mas:53
 msgid "Confirm password"
-msgstr "Potvrdi Lozinku"
+msgstr "Potvrdi lozinku"
 
 #: ../../main/core/src/templates/timezone.mas:11
 msgid "Time Zone"
@@ -16809,8 +16755,7 @@ msgstr "Lozinka Asterisk servisa je ujedno i korisnička lozinka"
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
-msgstr ""
-"Ova podešavanja će biti moguća samo ako je Asterisk modul uključen(enabled)."
+msgstr "Ova podešavanja će biti moguća samo ako je Asterisk modul omogućen."
 
 #: ../../main/users/src/templates/users.mas:13
 msgid "Add User"

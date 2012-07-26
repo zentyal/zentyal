@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-08-24 23:12+0200\n"
+"PO-Revision-Date: 2012-05-23 00:01+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
@@ -211,9 +211,8 @@ msgid "Network object"
 msgstr "Tinklo objektas"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Tinklo dažnis"
+msgstr "Tinklo siuntimo greitis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -222,16 +221,14 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Maksimalus atsiuntimo pralaidumo dažnis šiam tinklui. Naudokite -1 išjunti "
-"šiai opcijai."
+"Maksimalus atsiuntimo greitis šiam tinklui. Naudokite -1 išjunti šiai "
+"opcijai."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Tinklo maksimalus dydis"
+msgstr "Tinklo bylos dydis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -241,54 +238,49 @@ msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Maksimalus unthrottled parsisiuntimo dydis šiam tinklui. Naudokite -1 "
+"Maksimalus neapribotas parsisiuntimo dydis šiam tinklui. Naudokite -1 "
 "išjungti šiai opcijai."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "kliento adresas"
+msgstr "Kliento parsiuntimo greitis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
-"Maksimalus parsisiuntimo praleidumo dažnis per klientą. Naudokite -1 "
-"išjungti šiai parinkčiai."
+"Maksimalus parsisiuntimo greitis per klientą. Naudokite -1 išjungti šiai "
+"parinkčiai."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Kliento maksimalus dydis"
+msgstr "Kliento bylos dydis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Maksimalus unthrottled parsisiuntimo dydis per klientą. Naudokite -1 "
+"Maksimalus neapribotas bylos parsiuntimo dydis per klientą. Naudokite -1 "
 "išjungti šiai opcijai."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Kliento greičio taisyklės (Klasė 2 užlaikymo dydžiai)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"Kai tik užklausos peržengia {max} tuomet HTTP Proxy užlaikys atsiuntimo "
-"pralaidumą iki duoto dydžio {rate}. Klientų skaičius ribotas iki 256."
+"Kai parsisiuntimas viršija bylos dydį tuomet HTTP Proxy sulėtins siuntimo "
+"greitį iki nurodyto greičio. Abu parametrai gali būti nustatyti visam "
+"tinklui ar kiekvienam klientui. Klientu skaičius ribotas iki 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -740,25 +732,21 @@ msgstr ""
 "Globaliai grupės strategijai reikalinga globali strategija su autorizacija"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Parsisiųsti"
+msgstr "Siuntimo greitis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Maksimalus unthrottled parsisiuntimo dydis šiam tinklui. Naudokite -1 "
-"išjungti šiai opcijai."
+"Maksimalus siuntimo greits šiam tinklui. Naudokite -1 išjungti šiai opcijai."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Bylų sistema"
+msgstr "Bylos dydis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Tinklo pralaidumo taisyklės (Klasė 1 užlaikymo dažniai)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -766,6 +754,8 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
+"Kai tik siuntimas pasiekia bylos dydį tuomet HTTP Proxy sulėtins siuntimą "
+"iki nurodyto greičio. Klientai turės dalintis esamu pralaidumu."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1147,7 +1137,6 @@ msgid "Bandwidth Throttling"
 msgstr "Pralaidumo valdymas"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1157,11 +1146,12 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
-"Klasės 1 rinkinys leidžia apriboti srauto dažnį dideliems parsisiuntimams o "
-"klasės 2 rinkinys leidžia nustatyti srauto naudojimą nepertraukiamu dažniu. "
-"Klasė 1 turi didesnį prioritetą nei klasė 2 ir pirmas atitikimas šaltinio. "
-"Jei nei vienas objektas neatitinka taisyklės, tuomet srauto ribojimas "
-"neatliekamas"
+"Greičio ribojimai leidžia kontroliuoti parsiuntimo greitį prisijungimams per "
+"HTTP Proxy.  Tinklo greičio taisyklės ( Klasė 1 ) leidžia dėlioti ribojimus "
+"greičio visam tinklui kur kliento greičio taisyklės (Klasė 2) leidžia "
+"apriboti siuntimo greitį per klientą. Klasė 1 turi aukštesnį prioritetą nei "
+"Klasė 2 ir pirma taisyklė tinkanti galioja. Jei prisijungimas neatitinka "
+"taisyklių tuomet ribojimas neatliekamas."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -1364,7 +1354,7 @@ msgstr "Labai griežtas"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr "Tai nurodo kaip apribotas turinio filtras"
+msgstr "Tai nurodo kaip apribotas turinio filtras."
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
@@ -1458,9 +1448,8 @@ msgstr ""
 "Dansguardian blokuotų puslapių šablonas bus perrašytas Zentyal šablonais."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Pašalinit ntp init scenarijaus nuorodas"
+msgstr "Pašalinit dansguardian init scenarijaus nuorodas"
 
 #: ../../main/squid/src/EBox/Squid.pm:308 ../../main/dns/src/EBox/DNS.pm:606
 #: ../../main/ntp/src/EBox/NTP.pm:91
@@ -1715,11 +1704,11 @@ msgid ""
 msgstr ""
 "{openpar} Jūs negalite sukonfigūruoti openVPN serverio paprastam "
 "prisijungimui į nutolusį ofisą ar vartotojus. {closepar}{openpar} Spauskite "
-"{openit}Konfigūracija{closeit} nustatyti VPN parametrus.{closepar}{openpar}"
-"{openit}Aptarnaujami tinklai{closeit} jums leidžia nustatyti kuriuos tinklus "
-"norite padaryti prieinamus nutolusiems vartotojams. {openpar} Kai baigsite "
-"konfigūraciją galėsite parsisiųsti prisijungimo rinkinį jūsų operaciniai "
-"sistemai naudoti klientams"
+"{openit}Konfigūracija{closeit} nustatyti VPN "
+"parametrus.{closepar}{openpar}{openit}Aptarnaujami tinklai{closeit} jums "
+"leidžia nustatyti kuriuos tinklus norite padaryti prieinamus nutolusiems "
+"vartotojams. {openpar} Kai baigsite konfigūraciją galėsite parsisiųsti "
+"prisijungimo rinkinį jūsų operaciniai sistemai naudoti klientams."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:75
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
@@ -1797,9 +1786,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "Zentyal į Zentyal tunelio nustatymai reikalauja RIP slaptažodžio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Jungtis {port} jau naudojamas modulio {mod}"
+msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1807,9 +1796,8 @@ msgid ""
 msgstr "VPN adresas negali būti toks pat kaip vienas iš aptarnaujamų tinklų"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Kitas serveris klausosi ant tos pačios jungties"
+msgstr "Kitas serveris jau naudoja tokį patį VPN adresą, pasirinkite kitą"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -2882,7 +2870,7 @@ msgid ""
 msgstr ""
 "Pakeičia pradinio šaltinio adresą ryšyje su Zentyal nuosavu adresu. Tai gali "
 "būti privaloma kai paskirtis neturi gražinimo maršruto ar turi apribotas "
-"ugnesienės taisykles."
+"ugnesienės taisykles"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:350
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:168
@@ -3148,7 +3136,7 @@ msgstr ""
 "Normalizuoja dažnius: {limitNum} taisyklės sumažino ribojimo dažnį iki "
 "{limitRate}, {guaranNum} taisyklės normalizavo garantuotą dažnį išlaikydamos "
 "tas pačias proporcijas bei {removeNum} buvo ištrintos nes garantuoas dažnis "
-"buvo mažesnis už leidžiamą mažiausią."
+"buvo mažesnis už leidžiamą mažiausią"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:658
 msgid ""
@@ -3158,7 +3146,7 @@ msgid ""
 msgstr ""
 "Jungtim paremtas protokolas naudoja jungties numerį aptikti servisui, kol "
 "tuo metu aplikacijos paremti protokolai yra lėtesni bet efektyvesni todėl "
-"kad tikrina kiekvieną paketą ar atitinką servisą"
+"kad tikrina kiekvieną paketą ar atitinką servisą."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:674
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:693
@@ -3454,7 +3442,6 @@ msgid "Host names"
 msgstr "Vardai"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:288
-#, fuzzy
 msgid ""
 "Automatic reverse resolution is done. If you repeat an IP address in another "
 "domain, only first match will be used by reverse resolution. Dynamic zones "
@@ -3532,9 +3519,8 @@ msgstr ""
 "lygiu prioritetu"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr "Serverio jungtis"
+msgstr "Paskirties jungtis"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
 msgid "Target"
@@ -3602,7 +3588,7 @@ msgstr "Paskutinio serverio vardo negalima ištrinti"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
-msgstr "Vardų sritis nustatyta kaip skaitymui. Negalite įkelti vardų serverių."
+msgstr "Vardų sritis nustatyta kaip skaitymui. Negalite įkelti vardų serverių"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:263
 msgid "Name servers"
@@ -3623,28 +3609,28 @@ msgstr "{name} vardas negali būti ilgesnis nei {value} simbolių"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Jei pasirinkote Sritį, tuomet renkatės zoną"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} data"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
-#, fuzzy
 msgid "Any data could be provided"
-msgstr "Dalybai turi būti nurodytas vardas."
+msgstr "Nėra jokių duomenų"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Valdo TXT įrašus šiai sričiai. Vertingi SPF ar DKIM antispam protokoluose"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "{txt} įrašas"
 
 #: ../../main/dns/src/EBox/DNS.pm:533
 msgid "main bind9 configuration file"
@@ -3682,14 +3668,12 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Leisti bind tarnybai dinaminius atnaujinimus"
 
 #: ../../main/dns/src/EBox/DNS.pm:605
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Pašalinit ntp init scenarijaus nuorodas"
+msgstr "Pašalinti bind9 init scenarijaus nuorodas"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Vardų sričių serveris"
+msgstr "Vardų sričių serveris (DNS)"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
@@ -3698,12 +3682,13 @@ msgstr "vardas"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "Turi būti pateikta galiojanti vardų sritis arba žvaigždutė (*)."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
 msgstr ""
+"Jūsų konfigūracija neprileidžia anonimų ar autentifikuotu FTP vartotojų."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3731,29 +3716,28 @@ msgid "Anonymous access"
 msgstr "Viešasis priėjimas"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Įjungi FTP priėjimą kiekvienam vartotojui jų /home kataloguose"
+msgstr "Įjungti anoniminį FTP priėjimą prie /srv/ftp katalogo."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Personalios direktorijos"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Įjungi FTP priėjimą kiekvienam vartotojui jų /home kataloguose"
+msgstr "Įjungi FTP priėjimą kiekvienam vartotojui jų /home kataloguose."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Personalios direktorijos"
+msgstr "Apribota iki asmeninių direktorijų"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Apribotas priėjimas prie kiekvieno vartotojo namų katalogo. Turėkite omenyje "
+"kad šis apribojimas kai kuriais atvejais gali būti apeitas."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
@@ -3763,7 +3747,7 @@ msgstr "SSL palaikymas"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:157
 msgid "Enable FTP SSL support for authenticated users."
-msgstr ""
+msgstr "Įjungti FTP SSL palaikymą autentifikuotiems vartotojams."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:163
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
@@ -3777,7 +3761,6 @@ msgid "FTP Server"
 msgstr "FTP Serveris"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3786,48 +3769,44 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"Viešasis katalogas yra /srv/ftp, įsitikinkite kad jūsų kuriami failai šiame "
-"katoge turi skaitymo teises visiems (chmod o+r /srv/ftp/*). Jei norite "
-"suteikti rašymo teises jūs turite sukurti pokatalogį kuris turi rašymo "
-"teises visiems. Pvz.: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
+"Anoniminis katalogas yra /srv/ftp, įsitikinkite kad failus kurios kuriate "
+"ten turėtų teises skaityti visiems ( sudo chmod o+r /srv/ftp/*). Jei norite "
+"suteikti teisę rašyti tuomet turite sukurti katalogus su rašymo leidimu "
+"visiems, pvz: sudo mkdir /srv/ftp/incoming ; sudo chmod o+rwx "
+"/srv/ftp/incoming. Anoniminiai klientai neturės teisės pervadinti ar "
+"ištrinti failų."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
 msgstr "Zentyal FTP Serveris"
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "Sukurti sertifikatus"
+msgstr "Generuoti SSL sertifikatus"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr "Zentyal sukurs sertifikatus kurie bus naudojami pašto servisų"
+msgstr "Zentyal naudos savo pasirašytus SSL sertifikatus FTP servisui."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
-#, fuzzy
 msgid "To configure vsftpd."
-msgstr "Konfigūruoti vsftpd"
+msgstr "Konfigūruoti vsftpd."
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
-msgstr "Konfigūruoti vsftpd su LDAP autentifikavimu"
+msgstr "Konfigūruoti vsftpd su LDAP autentifikavimu."
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:243
-#, fuzzy
 msgid "Zentyal FTP server files"
-msgstr "Zentyal FTP Serveris"
+msgstr "Zentyal FTP Serverio bylos"
 
 #: ../../main/ftp/src/EBox/FTP.pm:244
-#, fuzzy
 msgid "User homes and global directory."
-msgstr "Vartotojų namų ir viešasis katalogai"
+msgstr "Vartotojų namų ir viešasis katalogai."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:122
@@ -4009,9 +3988,8 @@ msgstr ""
 "Sistemos tvarkymas šiuo metu užrakintas {locker}. Prašome bandyti vėliau"
 
 #: ../../main/software/src/EBox/Software.pm:1025
-#, fuzzy
 msgid "Installation steps"
-msgstr "Diegimas"
+msgstr "Diegimo žingsniai"
 
 #: ../../main/software/src/EBox/Software.pm:1027
 msgid "Package Selection"
@@ -4077,12 +4055,11 @@ msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
-"Paketų instaliacija nepavyko. Daugiau informacijos rasite istorijos įrašuose."
+"Paketų instaliacija nepavyko. Daugiau informacijos rasite istorijos įrašuose"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
-#, fuzzy
 msgid "Go to save changes"
-msgstr "Išsaugoti pakeitimus"
+msgstr "Eikite į išsugoti pakeitimus"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
@@ -4113,9 +4090,8 @@ msgstr ""
 "Paketų šalinimas nepavyko. Daugiau informacijos rasite istorijos įrašuose"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
-#, fuzzy
 msgid "Go to initial configuration wizard"
-msgstr "Pradinis konfigūravimo vedlys"
+msgstr "Eiti į pradinį konfigūravimo vedlį"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -4127,7 +4103,7 @@ msgstr "Sistemos atnaujinimai"
 
 #: ../../main/software/src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
-msgstr "Sistemos komponentai yra naujausios versijos"
+msgstr "Sistemos komponentai yra naujausios versijos."
 
 #: ../../main/software/src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
@@ -4161,9 +4137,8 @@ msgid "Unknown"
 msgstr "Nežinomas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:77
-#, fuzzy
 msgid "Community"
-msgstr "Komentaras"
+msgstr "Bendruomenė"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:78
 msgid "Professional"
@@ -4175,9 +4150,8 @@ msgid "Enterprise"
 msgstr "Enterprise"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:80
-#, fuzzy
 msgid "Small Business"
-msgstr "visi servisai"
+msgstr "Smulkus verslas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Zentyal Cloud Client"
@@ -4208,9 +4182,8 @@ msgstr "Techninė pagalba"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "Saugumo atnaujinimas"
+msgstr "Saugumo atnaujinimai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
@@ -4218,9 +4191,8 @@ msgid "Disaster Recovery"
 msgstr "Nelaimės atstatymas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "Zentyal Debesys"
+msgstr "Zentyal Debesų servisai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4327,18 +4299,16 @@ msgid "Connection status"
 msgstr "Prisijungimo statusas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
-#, fuzzy
 msgid "External server name"
-msgstr "Išorinio serverio prisijungimus"
+msgstr "Išorinis serverio vardas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1715
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "Serverio kūrimas"
+msgstr "Serverio versija"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 msgid "Technical support"
@@ -4427,12 +4397,16 @@ msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
 msgstr ""
+"Nerasta ssh tarnyba. Pagalbai turi veikti tarnyba leidžianti prisijungimą iš "
+"išorės."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
+"Nėrasta ssh tarnybą klausanti ant visų sąsajų. Pagalbai reikalinga ssh "
+"tarnyba klausanti ant visų sąsajų."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
 #, perl-brace-format
@@ -4440,6 +4414,8 @@ msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
 msgstr ""
+"ssh tarnyba rasta klausanti nestandartinės jungties(-čių): {p} Praneškite "
+"pagalbai kuriose jungtyse yra naudojama ssh tarnyba."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
@@ -4488,13 +4464,12 @@ msgid "Alerts"
 msgstr "Įspėjimai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (DynDNS)"
-msgstr "Išorinio serverio prisijungimus"
+msgstr "Išorinio serverio vardas (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
-msgstr ""
+msgstr "Naudoti šį vardą prisijungimui į Zentyal per išorę"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 msgid "Subscription renovation date"
@@ -4509,9 +4484,8 @@ msgid "Server subcription info"
 msgstr "Serverio prenumeratos informacija"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-#, fuzzy
 msgid "Not using Zentyal Cloud DynDNS service"
-msgstr "Nuotolinis Zentyal debesyje"
+msgstr "Nenaudojamas Zentyal Debesų DynDNS servisas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 msgid "Unlimited"
@@ -4522,9 +4496,8 @@ msgid "Latest security update"
 msgstr "Saugumo atnaujinimai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS rules"
-msgstr "Galimas diapozonas"
+msgstr "Galimos IDS taisyklės"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -4560,7 +4533,7 @@ msgid ""
 msgstr ""
 "Turėkite omenyje kad prenumerata Zentyal serverio Zentlyal Debesyje gali "
 "užtrukti. Prašome neliesti nieko iki tol kol prenumeratos procesas "
-"korektiškai pasibais"
+"korektiškai pasibais."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:324
 msgid ""
@@ -4799,7 +4772,7 @@ msgid ""
 "details"
 msgstr ""
 "Nepavyko gauti apriboto adreso nuotolinei pagalbai. Patikrinkite VPN "
-"žurnalus."
+"žurnalus"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:137
 #, perl-brace-format
@@ -4828,9 +4801,8 @@ msgid "Skipping bad formed line: {l}"
 msgstr "Praleidžiama blogai suformuota eilute {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:30
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
+msgstr "Šis serveris negali atlikti šio veiksmo."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -4918,9 +4890,9 @@ msgid "No ebox-services DNS key found"
 msgstr "Nėra ebox-serviso DNS rakto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:244
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Server {s} not found via DNS server {d}. Reason: {r}"
-msgstr "Serveris {s} nerastas per DNS serverį {d}"
+msgstr "Serveris {s} nerastas per DNS serverį {d}. Priežastis: {r}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:352
 msgid "Cannot create SOAP connection"
@@ -5062,7 +5034,7 @@ msgid ""
 "new one"
 msgstr ""
 "Spauskite patvirtinimą kad norite perašyti sekančius atsarginės kopijos "
-"failus:"
+"failus"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
@@ -5082,9 +5054,8 @@ msgid "Remote system backups"
 msgstr "Nuotolinės sistemos kopijos"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:57
-#, fuzzy
 msgid "Email Address"
-msgstr "pašto adresas"
+msgstr "Pašto adresas"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:64
 #: ../../main/users/src/templates/users.mas:26
@@ -5099,52 +5070,51 @@ msgid "Last name"
 msgstr "Pavardė"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:66
-#, fuzzy
 msgid "Country"
-msgstr "šalis"
+msgstr "Šalis"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:67
-#, fuzzy
 msgid "Phone number"
-msgstr "viena valanda"
+msgstr "Telefono numeris"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:68
-#, fuzzy
 msgid "Repeated password"
-msgstr "Įveskite dar kartą"
+msgstr "Pakartokite slaptažodį"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:71
-#, fuzzy
 msgid "Introduced passwords do not match"
-msgstr "Naujas slaptažodis nesutampa"
+msgstr "Pateiktas slaptažodis nesutampa"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:104
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
-msgstr ""
+msgstr "Klaida registruojant prenumeratą, patikrinkite interneto ryšį."
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:112
 msgid "An unknown error ocurred registering the subscription"
-msgstr ""
+msgstr "Įvyko nežinoma klaida registruojant prenumeratą"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:117
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
+"Vartotojas su tokiu el. adresu jau registruotas. Galite patirkinti savo "
+"paskyros duomenis "
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:119
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
 msgstr ""
+"Atsiprašome, įvyko nenustatyta klaida. Pabandykite vėliau arba susiekite "
+"info@zentyal.com"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:44
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
-#, fuzzy
 msgid "Bandwidth Monitor"
-msgstr "Pralaidumo valdymas"
+msgstr "Pralaidumo Stebėjimas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:461
 #: ../../main/samba/src/EBox/Samba.pm:1505
@@ -5153,29 +5123,24 @@ msgid "Client address"
 msgstr "kliento adresas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:464
-#, fuzzy
 msgid "External recv"
-msgstr "Išorinė sąsaja"
+msgstr "Išorė gauta"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:465
-#, fuzzy
 msgid "External sent"
-msgstr "Išorinė įvestis"
+msgstr "Išorė siųsta"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:466
-#, fuzzy
 msgid "Internal recv"
-msgstr "Vidininis"
+msgstr "Vidus gauta"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:467
-#, fuzzy
 msgid "Internal sent"
-msgstr "Vidininis"
+msgstr "Vidus siųsta"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:478
-#, fuzzy
 msgid "Bandwidth usage"
-msgstr "Pralaidumo valdymas"
+msgstr "Pralaidumo naudojimas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
 #: ../../main/network/src/EBox/Model/DynDNS.pm:206
@@ -5199,21 +5164,19 @@ msgstr "IP"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:71
 msgid "IPs assigned to users"
-msgstr ""
+msgstr "Priskirti IP vartotojui"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:72
-#, fuzzy
 msgid "useripmap"
-msgstr "vartotojo paštas"
+msgstr "useripmap"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:75
 msgid "List of IPs assigned to each user."
-msgstr ""
+msgstr "Sąrašas IP paskirtų kiekvienam vartotojui."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Configure interfaces"
-msgstr "Tinklo sąsajos"
+msgstr "Konfigūruoti tinklo sąsajas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
@@ -5224,51 +5187,44 @@ msgid "interface"
 msgstr "sąsaja"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:69
-#, fuzzy
 msgid "List of monitored interfaces."
-msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų"
+msgstr "Sąrašas stebimų sąsajų."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:73
-#, fuzzy
 msgid "There aren't any internal interfaces to monitor"
-msgstr "Kiekvienas matavimas gali turėti po keleta ribų stebėjimui"
+msgstr "Nėra vidinių sąsajų stebėjimui"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
-#, fuzzy
 msgid "External in"
-msgstr "Išorinė įvestis"
+msgstr "Išorė įeinantis"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:67
-#, fuzzy
 msgid "External out"
-msgstr "Išorinė paskyra"
+msgstr "Išorė išeinantis"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:72
-#, fuzzy
 msgid "Internal in"
-msgstr "Vidininis"
+msgstr "Vidus įeinantis"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:77
-#, fuzzy
 msgid "Internal out"
-msgstr "Vidininis"
+msgstr "Vidus įšeinantis"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:85
-#, fuzzy
 msgid "Last hour bandwidth usage"
-msgstr "Pralaidumo valdymas"
+msgstr "Paskutinės valandos pralaidomo panaudojimas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
 msgid "There is no data to show yet, the values are updated every 10 minutes"
-msgstr ""
+msgstr "Nėra duomenų rodymui, reikšmės atnaujinamos kas 10 min"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "Pralaidumo panaudojimas kiekvienam prisijungusiam klientui."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:109
 msgid "Bandwidth Monitor must be enabled in order to get data."
-msgstr ""
+msgstr "Pralaidumo stebėjimas turi būti įjungtas norit gauti duomenis."
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
@@ -5283,35 +5239,32 @@ msgstr "Veiksmai"
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:70
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:70
 #: ../../main/core/src/cgi/ebox.cgi:68
-#, fuzzy
 msgid "Go back"
-msgstr "kopija"
+msgstr "Atgal"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:71
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:71
 #: ../../main/core/src/cgi/ebox.cgi:69
 msgid "Sorry, an unexpected error has occurred"
-msgstr ""
+msgstr "Atsiprašome, įvyko netikėta klaida"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:73
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:73
 #: ../../main/core/src/cgi/ebox.cgi:71
-#, fuzzy
 msgid "Please contact support."
-msgstr "Techninė pagalba"
+msgstr "Susiekite su technine pagalba."
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:76
 #: ../../main/core/src/cgi/ebox.cgi:74
 msgid "Show technical details"
-msgstr ""
+msgstr "Rodyti techninius duomenis"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:77
 #: ../../main/core/src/cgi/ebox.cgi:75
-#, fuzzy
 msgid "Report the problem"
-msgstr "Ataskaitos laiko periodas"
+msgstr "Pranešti problemą"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:78
@@ -5336,19 +5289,19 @@ msgstr "Atšaukti"
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
 #: ../../main/core/src/cgi/ebox.cgi:77
 msgid "Email (you will receive updates on the report)"
-msgstr ""
+msgstr "El. pašas (gausite atnaujinimus apie atskaitą)"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:80
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:80
 #: ../../main/core/src/cgi/ebox.cgi:78
 msgid "Describe in English what you where doing"
-msgstr ""
+msgstr "Apibūdinkite Angliškai savo veiksmus"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
 #: ../../main/core/src/cgi/ebox.cgi:80
 msgid "Couldn't send the report"
-msgstr ""
+msgstr "Nepavyko išsiųsti pranešimo"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:83
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:83
@@ -5356,19 +5309,19 @@ msgstr ""
 msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
-msgstr ""
+msgstr "Pranešimas išsiųstas sėkmingai, galite sekti progresą problemos įraše: "
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
 #: ../../main/core/src/cgi/ebox.cgi:83
 msgid "To do a manual report, please follow these instructions:"
-msgstr ""
+msgstr "Atlikti rankinį pranešima, vykdykite sekančias instrukcijas:"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/core/src/cgi/ebox.cgi:84
 msgid "Create a new ticket in the Zentyal trac by clicking "
-msgstr ""
+msgstr "Sukurkite nauja problemą Zentyal trac spausdami "
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
@@ -5376,13 +5329,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:84 ../../main/core/src/cgi/ebox.cgi:87
 msgid "here"
-msgstr ""
+msgstr "čia"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
 #: ../../main/core/src/cgi/ebox.cgi:85
 msgid "Write a short description of the problem in the summary field"
-msgstr ""
+msgstr "Įrašykite trumpa apibūdinimą problemos santraukos lauke"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
@@ -5391,25 +5344,27 @@ msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
 msgstr ""
+"Apbibūdinkite detaliai problemą ką darėte prieš problemai iškylant aprašymo "
+"lauke"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:87
 msgid "Download the log file with additional information by clicking"
-msgstr ""
+msgstr "Parsisiųsti žurnalo bylą su papildoma informacija spausdami "
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:90
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:90
 #: ../../main/core/src/cgi/ebox.cgi:88
 msgid "Attach the downloaded file in the ticket"
-msgstr ""
+msgstr "Prikabinti parsiųstą bylą į problemą"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
 #: ../../main/captiveportal/src/templates/useraddon.mas:8
 msgid "Captive Portal"
-msgstr ""
+msgstr "Captive Portalas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:65
 #: ../../main/samba/src/EBox/Samba.pm:120 ../../main/mail/src/EBox/Mail.pm:142
@@ -5417,25 +5372,21 @@ msgid "Add LDAP schemas"
 msgstr "Įkelti LDAP schemas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:66
-#, fuzzy
 msgid "Zentyal will use this schema to store user sessions info."
-msgstr "Zentayl bus reikalinga schema saugoti Jabber vartotojams"
+msgstr "Zentyal naudos šią schemą saugoti vartotojų sesijų informaciją."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
-#, fuzzy
 msgid "Day bandwidth usage (MB)"
-msgstr "Pralaidumo valdymas"
+msgstr "Dienos pralaidumo panaudojimas (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:76
-#, fuzzy
 msgid "Week bandwidth usage (MB)"
-msgstr "Pralaidumo valdymas"
+msgstr "Savaitės pralaidumo panaudojimas (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:79
-#, fuzzy
 msgid "Month bandwidth usage (MB)"
-msgstr "Pralaidumo valdymas"
+msgstr "Mėnesio pralaidumo panaudojimas (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
 #: ../../main/core/src/EBox/SysInfo.pm:172
@@ -5444,18 +5395,16 @@ msgid "Time"
 msgstr "Laikas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:137
-#, fuzzy
 msgid "Kick user"
-msgstr "AD vartotojas"
+msgstr "Įšspriti vartotoją"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:140
 msgid "Finish user session in Captive Portal"
-msgstr ""
+msgstr "Baigti vartotojo sesija Captive Portale"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:157
-#, fuzzy
 msgid "Current users"
-msgstr "dabartinis modulis"
+msgstr "Esami vartotojai"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:158
 #: ../../main/captiveportal/src/EBox/CGI/UserOptions.pm:43
@@ -5480,53 +5429,53 @@ msgid "user"
 msgstr "vartotojas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
-#, fuzzy
 msgid "List of current logged in users."
-msgstr "Jūs neprisijungę"
+msgstr "Sąrašas prisijungusių vartotojų."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:178
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
+"Praėjimo portalas turi būti įjungtas norint matyti esamų vartotojų sąrašą."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:281
 #, perl-brace-format
 msgid "Closing session for user {user}."
-msgstr ""
+msgstr "Uždaroma sesiją vartotojui {user}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:54
 msgid "Use secondary LDAP"
-msgstr ""
+msgstr "Naudoti antrinį LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:60
-#, fuzzy
 msgid "LDAP URL"
-msgstr "LDAP DN"
+msgstr "LDAP URL"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:69
 msgid "Bind DN"
-msgstr ""
+msgstr "Bind DN"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:70
 #, perl-brace-format
 msgid "Bind DN pattern. {x} will be replaced with the username"
-msgstr ""
+msgstr "Bind DN paternas. {x} bus pakeistas vartotojo vardu"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:81
-#, fuzzy
 msgid "Secondary LDAP"
-msgstr "Antrinis serveris"
+msgstr "Antrinis LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:85
 msgid ""
 "Here you can configure a secondary LDAP. If login fails as Zentyal user this "
 "LDAP will be used."
 msgstr ""
+"Čia galite konfigūruoti antrinį LDAP. Jei prisijungimas kaip Zentyal "
+"vartotojas nepavyks šis LDAP bus panaudotas."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:54
 msgid ""
 "If you want to limit bandwidth usage install and enable Bandwidth Monitor "
 "module."
-msgstr ""
+msgstr "Jei norite apriboti pralaidumą įdiekite Pralaidumo stebėjimo modulį."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:58
 #, perl-brace-format
@@ -5534,26 +5483,27 @@ msgid ""
 "If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}"
 "Module Status{enda} section."
 msgstr ""
+"Jei norite riboti  srauto pralaidumą įjunkite Srauto stebėjimą "
+"{begina}Modulio Statusas{enda} poskyryje."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:75
 msgid "Limit bandwidth usage"
-msgstr ""
+msgstr "Riboti srauto panaudojimą"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:82
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:49
 #: ../../main/captiveportal/src/templates/useraddon.mas:17
-#, fuzzy
 msgid "Bandwidth quota"
-msgstr "Pralaidumo valdymas"
+msgstr "Pralaidumo kvota"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
-#, fuzzy
 msgid "MB"
-msgstr "M"
+msgstr "MB"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:84
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
 msgstr ""
+"Maksimalus srauto panaudojimas nustatytam periodui. 0 reiškia be limito."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:95
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:42
@@ -5561,9 +5511,8 @@ msgid "Day"
 msgstr "Diena"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:99
-#, fuzzy
 msgid "Week"
-msgstr "Savaitinis"
+msgstr "Savaitė"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:103
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:43
@@ -5572,34 +5521,29 @@ msgstr "Mėnuo"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:110
 msgid "Period"
-msgstr ""
+msgstr "Periodas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:120
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "Pralaidumo valdymas"
+msgstr "Pralaidumo Nustatymai"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:124
-#, fuzzy
 msgid "Here you can setup bandwidth usage quota for captive portal users."
-msgstr ""
-"Šiame puslapyje galite nustatyti skirtingus pagrindinius nustatymus Samba"
+msgstr "Čia galite nustatyti pralaidumo kvotas praėjimo portalo vartotojams."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
 msgid "Default external bandwidth usage limit"
-msgstr ""
+msgstr "Numatytas išorinis srauto limitas"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
 #: ../../main/captiveportal/src/templates/useraddon.mas:28
-#, fuzzy
 msgid "Use default"
-msgstr "numatytas"
+msgstr "Naudoti numatytą"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:58
 #: ../../main/captiveportal/src/templates/useraddon.mas:31
-#, fuzzy
 msgid "No limit"
-msgstr "Kvotos limitas"
+msgstr "Be limito"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:62
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:95
@@ -5618,42 +5562,36 @@ msgstr "Mb"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:96
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
-msgstr "Nustatant nutylėjimo kvota į nulį tai tas pats kas išjungti."
+msgstr "Nustatant nutylėjimo kvota į nulį tai tas pats kas išjungti"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Captive Interfaces"
-msgstr "Sąsajos"
+msgstr "Praėjimo sąsajos"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:69
 msgid "List of interfaces where Captive Portal is enabled."
-msgstr ""
+msgstr "Sąrašas sąsajų kur Praėjimo portalas įjungtas."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:58
 msgid "Only users in this group will be allowed to login."
-msgstr ""
+msgstr "Tik vartotojai iš šios grupės galės prisijungti."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:62
-#, fuzzy
 msgid "HTTP port"
-msgstr "bet kuris TCP portas"
+msgstr "HTTP jungtis"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:68
-#, fuzzy
 msgid "HTTPS port"
-msgstr "bet kuris TCP portas"
+msgstr "HTTPS jungtis"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
-msgstr "Pagrindiniai Nustatymai"
+msgstr "Pagrindinės Nuostatos"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:81
-#, fuzzy
 msgid "Here you can define general settings for captive portal."
-msgstr ""
-"Šiame puslapyje galite nustatyti skirtingus pagrindinius nustatymus Samba"
+msgstr "Čia galite nustatyti pagrindinius nustatymus praėjimo portalui."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:95
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:289
@@ -5663,7 +5601,7 @@ msgstr "Visi vartotojai"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:131
 msgid "HTTP and HTTPS ports should be different"
-msgstr ""
+msgstr "HTTP ir HTTPS jungtys turi būti skirtingos"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:61
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:62
@@ -5700,48 +5638,44 @@ msgstr "Jūs neprisijungę"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:119
 msgid "IP address assigned to this user within the VPN network."
-msgstr ""
+msgstr "IP adresas priskirtas šiam vartotojui VPN tinkle."
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
-#, fuzzy
 msgid "PPTP Users"
-msgstr "Vartotojai"
+msgstr "PPTP Vartotojai"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:134
 msgid ""
 "Users allowed to connect using the PPTP VPN. This list is independant of "
 "LDAP users defined on Users and Groups."
 msgstr ""
+"Vartotojai kuriems leidžiama prisijungti PPTP VPN. Šis sąrašas "
+"nepriklausomas nuo LDAP vartotojų nustatytų Vartotojuose ir Grupėse."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
-#, fuzzy
 msgid "VPN Network Address"
-msgstr "tinklo adresas"
+msgstr "VPN tinklo adresas"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:84
 msgid ""
 "This address should be different from any other internal or VPN network."
-msgstr ""
+msgstr "Šis adresas turi būti skirtingas nuo visų kitų vidinių ar VPN tinklo."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:88
-#, fuzzy
 msgid "Primay Nameserver"
-msgstr "Pirminis nameserver"
+msgstr "Pirminis Vardų serveris"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:94
-#, fuzzy
 msgid "Secondary Nameserver"
-msgstr "Antrinis nameserver"
+msgstr "Antrinis Vardų serveris"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:100
-#, fuzzy
 msgid "Primary WINS"
-msgstr "Pirminis serveris"
+msgstr "Pirminis WINS"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:106
-#, fuzzy
 msgid "Secondary WINS"
-msgstr "Antrinis serveris"
+msgstr "Antrinis WINS"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:115
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
@@ -5752,53 +5686,48 @@ msgid "General configuration"
 msgstr "Pagrindinė konfigūracija"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:119
-#, fuzzy
 msgid "PPTP server configuration"
-msgstr "Serverio konfigūracija"
+msgstr "PPTP serverio konfigūracija"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:121
-#, fuzzy
 msgid "PPTP server configuration updated"
-msgstr "RADIUS serverio nustatymai atnaujinti"
+msgstr "PPTP serverio konfigūracija atnaujinta"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:124
 msgid ""
 "PPTP VPN is used for connecting Microsoft Windows clients without any third "
 "party client and mobile devices like iPhone and Android."
 msgstr ""
+"PPTP VPN naudojamas prisijungimui iš Microsoft Windows klientų be jokių "
+"papildomų programų ar mobiliųjų įrenginių kaip Android ar iPhone."
 
 #: ../../main/pptp/src/EBox/Composite/General.pm:64
 msgid "PPTP"
-msgstr ""
+msgstr "PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:109
-#, fuzzy
 msgid "To configure PPTP server."
-msgstr "Konfigūruoti DTMF elgesį."
+msgstr "Konfigūruoti PPTP serverį."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:113
-#, fuzzy
 msgid "To configure PPTP options."
-msgstr "Konfigūruoti postfix"
+msgstr "Konfigūruoti PPTP parinktis."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:117
-#, fuzzy
 msgid "To configure PPTP users."
-msgstr "Konfigūruoti eiles."
+msgstr "Konfigūruoti PPTP vartotojus."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:158
 msgid "PPTP VPN"
-msgstr ""
+msgstr "PPTP VPN"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:310
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Prisijungta nuo"
+msgstr "PPTP Prisijungę vartotojai"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:360
-#, fuzzy
 msgid "Local IP address"
-msgstr "Vietinis IP adresas"
+msgstr "Vidinis IP adresas"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:372
 #: ../../main/asterisk/src/EBox/Asterisk.pm:604
@@ -5845,6 +5774,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded by the regular expression"
 msgstr ""
+"Nepavyko {action} nes kelias '{path}', įkeltas atsarginės kopijos, būtų "
+"neįtrauktas pagal reiškinio taisykles"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:308
 #, perl-brace-format
@@ -5852,37 +5783,35 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded"
 msgstr ""
+"Nepavyko {action} nes kelias '{path}', įkeltas atsarginės kopijos, būtų "
+"neįtrauktas"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:318
 #, perl-brace-format
 msgid ""
 "Cannot {action} because a subdirectory of  '{path}', added by backup "
 "domains, would be excluded"
-msgstr ""
+msgstr "Nepavyko {action} nes katalogas '{path}', būtų neįtrauktas"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:333
 msgid "add row"
-msgstr ""
+msgstr "įkelti eilutę"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:335
-#, fuzzy
 msgid "edit row"
-msgstr "Redaguoti grupę"
+msgstr "redaguoti eilutę"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:337
-#, fuzzy
 msgid "move up row"
-msgstr "Į viršų"
+msgstr "Į viršų eilute"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:339
-#, fuzzy
 msgid "move down row"
-msgstr "Į apačią"
+msgstr "Į apačią eilute"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:341
-#, fuzzy
 msgid "remove down"
-msgstr "Į apačią"
+msgstr "pašalinti apatinį"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:351
 msgid "exclude path"
@@ -5983,6 +5912,8 @@ msgid ""
 "Here you have can choose the backup method, configure the frequency and "
 "other options"
 msgstr ""
+"Čia galite pasirinkti atsarginės kopijos metodą, konfigūruoti seką ir kitas "
+"opcijas"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:346
 msgid "on Monday"
@@ -6108,7 +6039,7 @@ msgstr "vardas"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
 msgid "Root directory ('/') not allowed in target specification"
-msgstr ""
+msgstr "Šakninė direktorija (\"/\") neleidžiama paskirties nustatymuose"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:763
 msgid "directory"
@@ -6154,16 +6085,16 @@ msgstr "Katalogas kopijai"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:822
 msgid "Cannot use the / directory as target"
-msgstr ""
+msgstr "Negalima naudoti / direkorijos kaip paskirties"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:831
 msgid "File exists and it is not a directory"
 msgstr "Byla egzistuoja ir tai ne direktorija"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:841
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot read parent directory {d}"
-msgstr "sukurti katalogą"
+msgstr "Nepavyko perskaityti pradinės direktorijos {d}"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:856
 msgid ""
@@ -6252,6 +6183,8 @@ msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
 msgstr ""
+"Atstatyti bylas redaguokite eilutę bylos ar katalogo norimo atsatyti, "
+"pasirinkite kopijos data ir spauskite atstatyti mygtuką"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:207
 msgid "File already exists if you continue the current will be deleted"
@@ -6330,15 +6263,13 @@ msgid "Services Restore"
 msgstr "Servisų atstatymas"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/BadSymmetricKey.pm:32
-#, fuzzy
 msgid "Incorrect symmetric key"
-msgstr "Simetriškas raktas"
+msgstr "Neteisingas simetrinis raktas"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
 msgid "unknown"
-msgstr "Nežinomas"
+msgstr "nežinomas"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:33
 #, perl-brace-format
@@ -6346,14 +6277,14 @@ msgid "File {f} not found in backup for {d}, try a later date"
 msgstr "Byla {f} nerasta kopijoje {d}, bandykite vėlesnę datą"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:180
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} does not exists"
-msgstr "Klientas {c} neegzistuoja"
+msgstr "Nepavyko atstatytį į {d}: {dd} neegzistuoja"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} is not a directory"
-msgstr "Byla egzistuoja ir tai ne direktorija"
+msgstr "Nepavyko atstatyti į {d}: {dd} yra ne katalogas"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:216
 msgid ""
@@ -6364,14 +6295,12 @@ msgstr ""
 "zentyal ebackup restart'  atnaujinti kopijos informacijai."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:453
-#, fuzzy
 msgid "All files in backup"
-msgstr "Atsatomi duomenys"
+msgstr "Visos bylos kopijoje"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:454
-#, fuzzy
 msgid "All files included in the backup"
-msgstr "Papildomi duomenys rankiniu būdu įtraukti į kopiją"
+msgstr "Viso bylos įtrauktos kopijoje"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:727
 msgid ""
@@ -6421,14 +6350,13 @@ msgstr ""
 "Žurnalai kopijos duomenų nerasti kopijoje {d}. Gal būt pamėginkite kitą datą?"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:372
-#, fuzzy
 msgid "Cannot found conifguration backup in cloud"
-msgstr "Pilni duomenys ir atasarginės kopijos nustatymai"
+msgstr "Nepavyko rasti kopijos nustatymų debesyje"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:507
 #, perl-brace-format
 msgid "Cannot find metadata for backup date {date} in cloud"
-msgstr ""
+msgstr "Nepavyko rasti meta duomeny kopijos datai {date} debesyje"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -6443,7 +6371,7 @@ msgstr "tusčias {data}."
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Truksta argumento: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
@@ -6521,31 +6449,27 @@ msgstr "Konfigūruoti OpenSwan IPsec slaptažodžius."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:143
 msgid "IPsec VPN"
-msgstr ""
+msgstr "IPsec VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:271
-#, fuzzy
 msgid "Connection name"
-msgstr "Prisijungimo paskirtis"
+msgstr "Prisijungimo vardas"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:277
-#, fuzzy
 msgid "Stopping completed"
-msgstr "Procentaliai baigta"
+msgstr "Stabdymas įvykdytas"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:279
-#, fuzzy
 msgid "Connection initiated"
-msgstr "Kliento prisijungimas inicijuotas"
+msgstr "Prisijungimas inicijuotas"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:280
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Kliento prisijungimas nutrauktas"
+msgstr "Prisijungimas nutrauktas"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:314
 msgid "IPsec"
-msgstr ""
+msgstr "IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
@@ -6578,7 +6502,7 @@ msgstr "Vietinis IP adresas"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
 msgid "Zentyal public IP address."
-msgstr "Zentyal viešas IP adresas"
+msgstr "Zentyal viešas IP adresas."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:86
 msgid "Local Subnet"
@@ -6610,7 +6534,7 @@ msgstr "PSK Bendras Slaptažodis"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
 msgid "Pre-shared key for the IPsec connection."
-msgstr ""
+msgstr "Pre-shared raktas IPsec prisijungimui."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6638,6 +6562,9 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
+"IPsec prisijungimai leidžia pateikti saugų tunelį tarp skirtingų tinklų. Šis "
+"protokolas nepriklauso nuo gamintojo ir sujungs Zentyal su kitais saugumo "
+"įtaisais."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
@@ -6687,6 +6614,8 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
+"Jūs turite įvesti savo tiekėją iš sąrašo ir suvesti savo paskyros duomenis. "
+"Taip turite įjungti norint kad veiktų."
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:150
 msgid "IP or network address"
@@ -6751,7 +6680,7 @@ msgid ""
 "traffic feature is enabled."
 msgstr ""
 "Šis laukas naudingas jei turite daugiau nei vieną maršrutizatorių  srauto "
-"balancavimas įjungtas"
+"balancavimas įjungtas."
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:212
 msgid "Default"
@@ -6785,9 +6714,9 @@ msgid "Automatically added gateways can not be manually deleted"
 msgstr "Automatiškai įkelti vartai rankiniu būdu negali būti ištrinti"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:483
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "Jungtis {port} jau naudojamas modulio {mod}"
+msgstr "Vartai '{name} ' panaudoti {mod}"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -6812,7 +6741,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:73
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "IP adresas DNS serverio kuris bus naudojamas Zentyal išrišti adresams"
+msgstr "IP adresas DNS serverio kuris bus naudojamas Zentyal išrišti adresams."
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:79
 #: ../../main/network/src/templates/wizard/network.mas:94
@@ -6873,7 +6802,7 @@ msgstr ""
 "galite priversti subnet, servisą, tikslą ir t.t. naudoti vartus pagal "
 "pasirinkimą. Turėkite omenyje kad taisyklės bus pritaikytos eilisškumu, nuo "
 "viršaus į apačią, kur galite perrikiuoti kai įkelsite. Jei nenustatysite "
-"jungties ar IP adreso tuomet atitiks viską."
+"jungties ar IP adreso tuomet atitiks viską"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:90
 msgid "Proxy server"
@@ -6901,13 +6830,12 @@ msgstr ""
 "Proxy vartotojas ir slaptažodis bus matomi visiems sistemos vartotojams."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:144
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Įvestis turi negalimų simbolių. Visi abėcėlės simboliai, plius sekantys "
-"sibmoliai: /.?&+:-@  bei tarpai yra leidžiami."
+"Vartotojas turi negalimų simbolių. Visi abėcėlės simboliai, plius sekantys "
+"sibmoliai: \\/.?&+:-@  bei tarpai yra leidžiami."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
@@ -6965,7 +6893,7 @@ msgid ""
 "the default routes you must execute: "
 msgstr ""
 "Tai reikalaujama dirbant su daugialypiais vartų nustatymais. Pastaba: "
-"norėdamis gauti sąrašą numatytųjų maršrutų, turite įvykdyti komandą : "
+"norėdamis gauti sąrašą numatytųjų maršrutų, turite įvykdyti komandą:"
 
 #: ../../main/network/src/EBox/Network.pm:105
 msgid "Enable Zentyal DHCP hook"
@@ -7039,7 +6967,7 @@ msgstr "Jau yra sąsaja su tokiu aliasu {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1517
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr "Ši sąsaja negali būti nustatyta trunk būseną, ji yra virtuali sąsaja"
+msgstr "Ši sąsaja negali būti nustatyta trunk būseną, ji yra virtuali sąsaja."
 
 #: ../../main/network/src/EBox/Network.pm:1572
 msgid ""
@@ -7146,13 +7074,12 @@ msgid "Gateways"
 msgstr "Vartai"
 
 #: ../../main/network/src/EBox/Network.pm:3899
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Dinaminis"
+msgstr "Dinaminis DNS"
 
 #: ../../main/network/src/EBox/Network.pm:3903
 msgid "Tools"
-msgstr ""
+msgstr "Priemonės"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:62
 msgid "Balance Traffic"
@@ -7164,7 +7091,7 @@ msgid ""
 "can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Norėdami naudotį šią galimybę turite turėti bent dvejus vartus. Galite "
-"įkelti <a href=\"/Network/View/GatewayTable\">čia</a>"
+"įkelti <a href=\"/Network/View/GatewayTable\">čia</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 msgid "Gateways Configuration"
@@ -7197,7 +7124,7 @@ msgid ""
 "Failover event in order to use this feature."
 msgstr ""
 "Įvykių modulis neįjungtas. Turite įjungti šį modulį taip pat įjungti WAN "
-"pakaitinio ryšio įvykį norint naudoti šią galimybę"
+"pakaitinio ryšio įvykį norint naudoti šią galimybę."
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
@@ -7208,36 +7135,37 @@ msgstr ""
 "galimybę"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected again."
-msgstr "Vartai {gw} prisijungė"
+msgstr "Vartai {gw} vėl prisijungė."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:166
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
 msgstr ""
+"PERSPĖJIMAS: Šie pakeitimai neišsaugoti dėl neišsaugotų pakeitimų "
+"administravimo sąsajoje."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:319
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} disconnected"
-msgstr "Vartai {gw} prisijungė"
+msgstr "Vartai {gw} atsijungė"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:320
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
 msgstr ""
-"Vartai {gw} atsijungė ({failRatio}% iš '{type}' testai į mazgą '{host}' "
-"nepavyko, max={maxFailRatio}%) "
+"'{type}' testas į mazgą '{host}' nepavyko {failRatio}%, max={maxFailRatio}%."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:323
 msgid "This gateway will be connected again if the test are passed."
-msgstr ""
+msgstr "Šie vartai prisijungs vėl jei testai bus praeiti."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:416
 msgid "Check if gateways are connected or disconnected."
-msgstr "Tikrinti ar vartai prisijungę ar atsijungę"
+msgstr "Tikrinti ar vartai prisijungę ar atsijungę."
 
 #: ../../main/network/src/EBox/CGI/VIface.pm:42
 #: ../../main/network/src/EBox/CGI/Vlan.pm:40
@@ -7305,6 +7233,9 @@ msgid ""
 "own data like their password. Here you can choose the port used to accept "
 "https connections."
 msgstr ""
+"Šis modulis įjungia https web serverį leidžiantį vartotojams patiems "
+"pasikeisti duomenis pvz kaip slaptažodis. Čia galite pasirinkti jungį kuri "
+"bus naudojama priimti https prisijungimams."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:96
 msgid "listening port"
@@ -7358,24 +7289,20 @@ msgid "Virtual Machines"
 msgstr "Virtualios Mašinos"
 
 #: ../../main/virt/src/EBox/Virt.pm:101
-#, fuzzy
 msgid "Virtual Machines VNC"
-msgstr "Virtualios Mašinos"
+msgstr "Virtualios Mašinos VNC"
 
 #: ../../main/virt/src/EBox/Virt.pm:102
-#, fuzzy
 msgid "VNC connections for Zentyal VMs"
-msgstr "Ryšio klaida"
+msgstr "VNC prisijungimai Zentyal VMs"
 
 #: ../../main/virt/src/EBox/Virt.pm:272
-#, fuzzy
 msgid "VNC connections for VMs"
-msgstr "Ryšio klaida"
+msgstr "VNC prisijungimai VMs"
 
 #: ../../main/virt/src/EBox/Virt.pm:725
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr "Sąrašas Virtualių Mašinų"
+msgstr "Virtualių mašinų atvaizdai"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:69
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7384,47 +7311,42 @@ msgid "Bridged"
 msgstr "Tiltuotas"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:70
-#, fuzzy
 msgid "Internal Network"
-msgstr "Vidinis tinklas"
+msgstr "Vidinis Tinklas"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:103
-#, fuzzy
 msgid "Bridged to"
-msgstr "Tiltuotas"
+msgstr "Tiltuotas į"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:110
-#, fuzzy
 msgid "Internal Network Name"
-msgstr "Vidinis tinklas"
+msgstr "Vidinio tinklo vardas"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:120
-#, fuzzy
 msgid "MAC Address"
-msgstr "MAC adresas"
+msgstr "MAC Adresas"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:128
 msgid "Network Settings"
 msgstr "Tinklo Nustatymai"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:136
-#, fuzzy
 msgid "Here you can define the network interfaces of the virtual machine."
-msgstr "Čia galite nustatyti tinklo sąsajas virtualioms mašinoms"
+msgstr "Čia galite nustatyti tinklo sąsajas virtualioms mašinoms."
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:191
 #, perl-brace-format
 msgid "A maximum of {num} network interfaces are allowed"
-msgstr ""
+msgstr "Maksimaliai {num} tinklo sąsajų leidžiama"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:202
 msgid "'None' interface is not allowed in your virtual machine backend"
-msgstr ""
+msgstr "'None' sąsaja neleidžiama jūsų virtualioms mašinoms"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid "View Console"
-msgstr ""
+msgstr "Žiūrėti pultą"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:91
 #: ../../main/virt/src/templates/vmstatus.mas:35
@@ -7434,43 +7356,37 @@ msgid "Start"
 msgstr "Paleisti"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
-#, fuzzy
 msgid "Virtual Machine started"
-msgstr "Virtualios Mašinos"
+msgstr "Virtualios Mašinos startuotos"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
 #: ../../main/virt/src/templates/vmstatus.mas:32
-#, fuzzy
 msgid "Stop"
-msgstr "Sustabdyta"
+msgstr "Stabdyti"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:100
-#, fuzzy
 msgid "Virtual Machine stopped"
-msgstr "Virtualios Mašinos"
+msgstr "Virtualios Mašinos sustabdytos"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:111
 msgid "Pause"
-msgstr ""
+msgstr "Pauzė"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:113
-#, fuzzy
 msgid "Virtual Machine paused"
-msgstr "Virtualios Mašinos"
+msgstr "Virtualios Mašinos sulaikytos"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:118
 msgid "Resume"
-msgstr ""
+msgstr "Tęsti"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:120
-#, fuzzy
 msgid "Virtual Machine resumed"
-msgstr "Virtualios Mašinos"
+msgstr "Virtualios Mašinos paleistos"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:157
-#, fuzzy
 msgid "Autostart"
-msgstr "Automatiškai apsimokyti"
+msgstr "Automatiškai startuoti"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:166
 msgid "List of Virtual Machines"
@@ -7482,60 +7398,60 @@ msgstr "virtuali mašina"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:172
 msgid "List of configured Virtual Machines."
-msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų"
+msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:234
 msgid ""
 "You have either invalid characters or spaces. Valid characters are: '[A-Z][a-"
 "z][0-9]-_'"
-msgstr ""
+msgstr "Turit negalimų simbolių arba tarpą. Galima : '[A-Z][a-z][0-9]-_'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:296
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
-"Norint konfigūruoti spausdintuvus turite įjungti modulį {openref}Modulio "
-"Statusas{closeref} ir išsaugoti nustatymus."
+"Virtualių Mašinų modulis neįjungtas, eikite {openref}Modulio "
+"Statusas{closeref} sekciją ir įjunkite prieš bandant startuoti."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:299
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
+"Virtualios mašinos negali būti paleistos jei yra neišsaugotų pakeitimų "
+"Virtualių Mašinų modulyje, išsaugokite ir bandykite dar kartą."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:312
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
-msgstr ""
+msgstr "Nepavyko startuoti virtualios mašinos '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:334
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
-msgstr ""
+msgstr "Nepavyko sustabdyti virtualios mašinos '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:348
 msgid "Cannot pause a stopped machine. You have to start it first."
-msgstr ""
+msgstr "Negalima sulaikyti mašinos. Pradžioje turi startuoti."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
 msgstr "Kietas diskas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:81
-#, fuzzy
 msgid "Create a new disk"
-msgstr "Sukurti pašto aliasus"
+msgstr "Sukurti naują diską"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:82
 msgid "Use a existing image file"
-msgstr ""
+msgstr "Naudoti egzistuojantį atvaizdo failą"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:97
-#, fuzzy
 msgid "Drive Type"
-msgstr "Disko raidė"
+msgstr "Disko Tipas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:117
 msgid "Path"
@@ -7543,7 +7459,7 @@ msgstr "Kelias"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:124
 msgid "Size"
-msgstr ""
+msgstr "Dydis"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:135
 msgid "Device Settings"
@@ -7559,81 +7475,81 @@ msgstr "Čia galite nustatyti atminties diskus virtualioms mašinoms"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:198
 msgid "You need to provide the path of a ISO image"
-msgstr ""
+msgstr "Turite nudorydi kelią iki ISO atvaizdo"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:201
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "ISO image '{img}' does not exist"
-msgstr "Klientas {c} neegzistuoja"
+msgstr "ISO atvaizdas '{img}' neegzistuoja"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:208
 msgid "You need to provide the path of a hard disk image"
-msgstr ""
+msgstr "Turite nurodyti kelią iki kieto disko atvaizdo"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:211
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
-msgstr "Pašto vardų sritis {d} neegzistuoja"
+msgstr "Kieto disko atvaizdas '{img}' neegzistuoja"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:216
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The hard disk image {img} should be in qcow2 format"
-msgstr "Pašto vardų sritis {d} neegzistuoja"
+msgstr "Kieto disko atvaizdas '{img}' turi būti qcow2 formato"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:224
-#, fuzzy
 msgid "You need to specify a name for the new hard disk"
-msgstr "Turite nurodyti kelią iki paleidimo atvaizdo nutolusiame serveryje"
+msgstr "Turite nurodyti naujo disko vardą"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:234
 msgid ""
 "It already exists a disk file with this name. Save changes to synchronize "
 "disk files status"
 msgstr ""
+"Jau egzistuoja diskas su tokiu vardu. Išsaugokite pakeitimus sinchronizuoti "
+"diskų bylų statusams"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:237
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
+"Negalite modifikuoti jau sukurto disko. Turite ištrinti ir vėl įkelti naują "
+"jei norite pakeisti dydį."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:244
 #, perl-brace-format
 msgid "A maximum of {num} IDE drives are allowed"
-msgstr ""
+msgstr "Maksimalus skaičius {num} IDE diskų yra leidžiamas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:257
 #, perl-brace-format
 msgid "A maximum of {num} CD/DVD drives are allowed"
-msgstr ""
+msgstr "Leidžiamas maksimalus dydis {num} CD/DVD diskų"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:262
 #, perl-brace-format
 msgid "A maximum of {num} Hard Disk drives are allowed"
-msgstr ""
+msgstr "Leidžiama maksimaliai {num} Kietų diskų"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:274
-#, fuzzy
 msgid "HardDisk name"
-msgstr "Kietas diskas"
+msgstr "Kieto disko vardas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:276
 msgid "The name should contain only character, digits and underscores"
-msgstr ""
+msgstr "Vardas gali turėti tik raides skaičius ir pabraukimus"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:87
-#, fuzzy
 msgid "Operating System"
-msgstr "Operacijos tipas"
+msgstr "Operacinė sistema"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:93
 msgid "Base Memory"
 msgstr "Pagrindinė atmintis"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "Manage only"
-msgstr "Tik skaitymas"
+msgstr "Tik valdyti"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
 msgid ""
@@ -7641,6 +7557,8 @@ msgid ""
 "machine should be directly edited from VirtualBox GUI or using the "
 "vboxmanage command"
 msgstr ""
+"Konfigūracija daugiau nebus perrašome po aktyvacijos ir mašina koreguoti "
+"galima tik VirtualBox konsolėje arba naudojant vboxmanage komandas"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
@@ -7658,11 +7576,11 @@ msgstr "Virtualios mašinos nustatymai"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:474
 msgid "i686 compatible"
-msgstr ""
+msgstr "i686 suderinamas"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:475
 msgid "amd64 compatible"
-msgstr ""
+msgstr "amd64 suderinamas"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:91
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:95
@@ -7697,11 +7615,12 @@ msgstr ""
 "adresasai bus panaudoti"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:269
-#, fuzzy
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
-msgstr "Nariai kurių vardai yra neteisingo pavadinimo bus nepanaudoti."
+msgstr ""
+"Dalyviai kurių vardai yra neteisingi bus modifikuoti kad taptu galiojančiais "
+"srities vardais."
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -7945,7 +7864,7 @@ msgstr "{pkg} turi būti įdiegtas kad naudoti šią galimybę"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:235
 msgid "DNS module must be enabled to make this feature work."
-msgstr "DNS modulis turi būti įjungtas kad ši galimybė veiktų"
+msgstr "DNS modulis turi būti įjungtas kad ši galimybė veiktų."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:280
 #, perl-brace-format
@@ -8084,9 +8003,9 @@ msgid "{server} configuration file"
 msgstr "{server} konfigūracinis failas"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:123
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
-msgstr "Apparmor profilis bus išjungtas"
+msgstr "AppArmor profilis {server} tarnybai"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:145
 msgid "Trivial File Transfer Protocol"
@@ -8233,9 +8152,9 @@ msgid "This threshold rule will override the current ones"
 msgstr "Ši ribos taisyklė perrašys esančias taisykles"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:217
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "It should be a multiple of {interval}"
-msgstr "Privalo būti viena iš šių reikšmių: {values}"
+msgstr "Turi dalintis iš {interval}"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Failure minimum"
@@ -8318,32 +8237,28 @@ msgid "warning maximum"
 msgstr "perspėjimo maksimumas"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:305
-#, fuzzy
 msgid "Send events"
-msgstr "Kiti įvykiai"
+msgstr "Siųsti įvykius"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:307
-#, fuzzy
 msgid ""
 "If set to Always, an event will be dispatched for each value that is out of "
 "the acceptable range."
 msgstr ""
-"Jeigu nustatytas true, jei bus siunčiamos už kiekvieną reikšmę, kuri yra iš "
-"priimtinų ribų. Jei nustatyta klaidinga, tik pokytis nuo priimtinas vertę "
-"nepriimtina vienas bus siunčiamos"
+"Jei nustatyta Visada, įvykis bus siunčiamas kiekvienai reikšmei kuri nėra "
+"priimamų rėžyje."
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
-#, fuzzy
 msgid "Always"
-msgstr "Visada drausti"
+msgstr "Visada"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
 msgid "After a change in event level"
-msgstr ""
+msgstr "Po pakeitimo įvykio lygyje"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "After"
-msgstr ""
+msgstr "Po"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:331
 msgid "Measure instance"
@@ -8562,11 +8477,13 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" šiuo metu {value}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} within the {severity} region of "
 "{minBound} and {maxBound}."
-msgstr "Tai yra be {severity} regiono iš {minBound} ir {maxBound}. "
+msgstr ""
+"{what} \"{dS}\" buvo {duration} tarpe {severity} rėžiuose {minBound} ir "
+"{maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:296
 #, perl-brace-format
@@ -8574,11 +8491,11 @@ msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr "Tai yra be {severity} regiono iš {minBound} ir {maxBound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:306
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} above the {severity} threshold of "
 "{bound}. "
-msgstr "Tai yra auksčiau {severity} reikšmę {bound}. "
+msgstr "{what} \"{dS}\" buvo {duration} žemiau {severity} slenkčio {bound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:311
 #, perl-brace-format
@@ -8586,11 +8503,13 @@ msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Tai yra auksčiau {severity} reikšmę {bound}. "
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:316
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} below the {severity} threshold of "
 "{bound}. "
-msgstr "Tai yra žemiau {severity} reikšmę {bound}. "
+msgstr ""
+"{what} \"{dS}\" has been {duration} below the {severity} threshold of {bound}. "
+""
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:321
 #, perl-brace-format
@@ -8600,22 +8519,22 @@ msgstr "Tai yra žemiau {severity} reikšmę {bound}. "
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:350
 #, perl-brace-format
 msgid "The following {n} processes are likely causing it:"
-msgstr ""
+msgstr "Greičiausiai sekantis {n} procesas lemia:"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:378
 #, perl-brace-format
 msgid "{h}h {m}m {s}s"
-msgstr ""
+msgstr "{h}h {m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:381
 #, perl-brace-format
 msgid "{m}m {s}s"
-msgstr ""
+msgstr "{m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:384
 #, perl-brace-format
 msgid "{s}s"
-msgstr ""
+msgstr "{s}s"
 
 #: ../../main/monitor/src/EBox/CGI/Index.pm:67
 #, perl-brace-format
@@ -8701,13 +8620,12 @@ msgid "To configure cupsd"
 msgstr "Konfigūruoti cupsd"
 
 #: ../../main/printers/src/EBox/Printers.pm:109
-#, fuzzy
 msgid "Network Printers"
-msgstr "Tinklo sąsajos"
+msgstr "Tinklo Spausdintuvai"
 
 #: ../../main/printers/src/EBox/Printers.pm:110
 msgid "Internet Printing Protocol (CUPS)"
-msgstr ""
+msgstr "Interneto Spausdinimo Protokolas (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:365
 msgid "Job ID"
@@ -8741,11 +8659,11 @@ msgstr "Įkelti Jabber LDAP shemą"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:56
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr "Zentayl bus reikalinga schema saugoti Jabber vartotojams"
+msgstr "Zentayl bus reikalinga schema saugoti Jabber vartotojams."
 
 #: ../../main/jabber/src/EBox/Jabber.pm:72
 msgid "To properly configure ejabberd."
-msgstr "Teisingai sukonfiguruoti ejabberd"
+msgstr "Teisingai sukonfiguruoti ejabberd."
 
 #: ../../main/jabber/src/EBox/Jabber.pm:96
 #: ../../main/jabber/src/EBox/Jabber.pm:267
@@ -8829,16 +8747,15 @@ msgstr "dalyba"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:186
 #, perl-brace-format
 msgid "Path not allowed. It cannot be under {dir}"
-msgstr ""
+msgstr "Kelias neleidžiamas. Gali būti {dir}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:193
 msgid "Samba share absolute path"
-msgstr ""
+msgstr "Samba dalinimosi absoliutus kelias"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:199
-#, fuzzy
 msgid "Samba share directory"
-msgstr "{group} bendras katalogas"
+msgstr "Samba dalinimosi direktorija"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:231
 msgid "The directory is not empty. Are you sure you want to remove it?"
@@ -8902,17 +8819,17 @@ msgstr "Srities vardas"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:147
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
 msgid "NetBIOS computer name"
-msgstr ""
+msgstr "NetBIOS kompiuterio vardas"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:157
 #, perl-brace-format
 msgid "{type} is limited to a maximum of 15 characters."
-msgstr ""
+msgstr "{type} apribotas iki maksimum 15 simbolių."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:168
 #, perl-brace-format
 msgid "{type} cannot contain the reserved name {reserved}"
-msgstr ""
+msgstr "{type} negali turėti rezervuotų vardų {reserved}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:186
 msgid "Enable PDC"
@@ -9090,7 +9007,7 @@ msgid ""
 "read and write any file in the share."
 msgstr ""
 "Bukite atsargūs suteikdami <i>administrator</i>privilegijas.Vartotojas galės "
-"skaityti ir rašyti bet kurį failą dalinimosi kataloguose"
+"skaityti ir rašyti bet kurį failą dalinimosi kataloguose."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
 msgid " (user))"
@@ -9768,14 +9685,12 @@ msgid "Antispam sender policy"
 msgstr "Antispam siuntėjo politika"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:159
-#, fuzzy
 msgid "Virtual Domains specific policies"
-msgstr "Virtualios srities aliasai"
+msgstr "Virtualių Sričių specifinės taisyklės"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:170
-#, fuzzy
 msgid "virtual domain policy"
-msgstr "virtualių sričių aliasas"
+msgstr "virtualių sričių politika"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:188
 #, perl-brace-format
@@ -9798,7 +9713,7 @@ msgstr "ISP spam antraštė"
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
-msgstr "Ši opcija leidžia siųsti ISP kintamąjį jei laiškas atpažitas kaip SPAM"
+msgstr "Ši opcija leidžia siųsti ISP kintamąjį jei laiškas atpažitas kaip SPAM."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:784
@@ -9823,7 +9738,7 @@ msgstr "Siukšlės politika"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:71
 msgid "Bounce policy will be ignored for high-score spam messages"
-msgstr ""
+msgstr "Atmetinimo politika bus ignoruojama aukšto rango spam žinutėms"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:75
 msgid "Banned files policy"
@@ -10041,9 +9956,8 @@ msgstr "Įkelti amavio specifines klases ir laukus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:147
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:148
-#, fuzzy
 msgid "POP Transparent proxy"
-msgstr "POP Transparent Proxy"
+msgstr "POP Transparent proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:157
 msgid "POP3 protocol"
@@ -10054,6 +9968,8 @@ msgid ""
 "Mail server has a custom filter set, unset it before enabling Zentyal Mail "
 "Filter module"
 msgstr ""
+"Pašto serveris turi papildomus filtrus, išjunkite prieš įjungiant Zentyal "
+"Pašto Filtrų modulį"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:415
 msgid "Cannot proceed because the filter is in use"
@@ -10341,7 +10257,7 @@ msgid ""
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Laukas turi neleidžiamų simbolių. Visi ASCII alfabeto simboliai, plius "
-"simboliai: .?&+:-@* bei tarpas yra leidžiami"
+"simboliai: .?&+:-@* bei tarpas yra leidžiami."
 
 #: ../../main/ca/src/EBox/CA.pm:2470
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -10402,7 +10318,7 @@ msgstr "Problemos kuriant Sertifikatų Autorizatorius"
 
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:63
 msgid "The certificate has NOT been revoked."
-msgstr "Sertifikatas nebuvo atnaujintas"
+msgstr "Sertifikatas nebuvo atnaujintas."
 
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:70
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:68
@@ -10437,7 +10353,7 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:178
 msgid "The certificate has been issued."
-msgstr "Sertifikatas buvo idiegtas"
+msgstr "Sertifikatas buvo idiegtas."
 
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:179
 msgid "The new CA certificate has been issued."
@@ -10564,7 +10480,7 @@ msgstr "Zentyal web paštas"
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:49
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
-msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje"
+msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje."
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:89
@@ -10628,12 +10544,11 @@ msgstr "Konfigūruoti Roundcube web pašto įskiepį."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:299
 msgid "To configure the webmail on the webserver."
-msgstr "Konfigūruoti webmail puslapių serveryje"
+msgstr "Konfigūruoti webmail puslapių serveryje."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:315
-#, fuzzy
 msgid "Create MySQL Roundcube webmail database."
-msgstr "Sukurti PosgreSQL Roundcube web pašto duomenų bazę."
+msgstr "Sukurti MySQL Roundcube web pašto duombazę."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:316
 msgid "This database will store the data needed by Roundcube."
@@ -10676,12 +10591,12 @@ msgstr "Naujinimo paleidimo planavimas"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:187
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
-msgstr ""
+msgstr "Papildomas {app} profilis konfigūracija {bin} programai"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:194
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
-msgstr ""
+msgstr "Disable {app} profile for {bin} binary"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:99
 msgid "Signatures"
@@ -10728,41 +10643,38 @@ msgstr "Nežinomas įvykis {event}."
 #: ../../main/ntp/src/EBox/NTP.pm:90
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr ""
+"Pašalinti ntp init scenarijus ir tinklo kabliukus (if-up.d and dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
 msgstr "NTP konfigūracinis failas"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:56
-#, fuzzy
 msgid "NTP Servers"
-msgstr "NTP serveriai"
+msgstr "NTP Serveriai"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:61
 msgid "Here you can add external NTP servers to synchronize with."
-msgstr ""
+msgstr "Čia galite įkelti išorinį NTP serverį sinchronizacijai."
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
-#, fuzzy
 msgid "Enable synchronization with external servers"
-msgstr "Laiko Sinchronizacija su NTP serveriais"
+msgstr "Įjungti sinchronizacija su išoriniais serveriais"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:60
-#, fuzzy
 msgid ""
 "Here you can enable or disable time synchronization with external servers. "
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
-"Jūs turite prisiminti sukonfigūruoti laiko zona kad sinchronizacija veiktų "
-"korektiškai."
+"Čia galite įjungti/išjungti sinchronizaciją su išoriniais serveriais. "
+"Neužmirškite nustatyti laiko zonos kad sinchronizacija būtų teisinga."
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:63
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:64
 #: ../../main/core/src/templates/datetime.mas:26
-#, fuzzy
 msgid "NTP"
-msgstr "NAT"
+msgstr "NTP"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -10787,6 +10699,8 @@ msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
 "{ch} section, otherwise your changes won't have any effect."
 msgstr ""
+"{mod} modulis išjungtas. Nepamirškite įjungti {oh}Modulio Statusas{ch} "
+"sekcijoje, kitu atveju jūsų pakeitimai neturės jokio efekto."
 
 #: ../../main/core/src/EBox/Model/Composite.pm:361
 #, perl-brace-format
@@ -10858,9 +10772,9 @@ msgid "Must be either a positive number or zero"
 msgstr "Turi būti teigiamas skaičius arba nulis"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3004
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "New {name}"
-msgstr "Serveris {name}"
+msgstr "Naujas {name}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3409
 #, perl-brace-format
@@ -11098,7 +11012,7 @@ msgid ""
 "event is triggered."
 msgstr ""
 "Kai laisva disko vieta procentais bet kuriame diske yra žemiau šios reikšmės "
-"įvykis yra paleidžiamas"
+"įvykis yra paleidžiamas."
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
 msgid "Configure disk free space watcher"
@@ -11243,13 +11157,13 @@ msgid "Writing backup file to hard disk"
 msgstr "Rašomas atsarginės kopijos failas į kietąjį diską"
 
 #: ../../main/core/src/EBox/Backup.pm:821
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
 "you must save or discard them"
 msgstr ""
-"Modulis {mod} neišsaugojo nustatymų. Prieš darydamis atsarginę kopiją turite "
-"išsaugoti arba panaikinti pakeitimus."
+"Sekantys moduliai turi neišsaugotų pakeitimų: {mods}. Prieš darant kopiją "
+"išsaugokite arba panaikinkite pakeitimus"
 
 #: ../../main/core/src/EBox/Backup.pm:880
 msgid "Incorrect or corrupt backup file"
@@ -11299,6 +11213,9 @@ msgid ""
 "incompatible Zentyal version. Only backups done in Zentyal >= {v} can be "
 "restored"
 msgstr ""
+"Nerastas debian paketų sarašo failas; greičiausiai kopija daryta su "
+"nesuderinama Zentyal versija. Tik kopijos darytos su Zentyal >= {v} gali "
+"būti atstatytos"
 
 #: ../../main/core/src/EBox/Backup.pm:1015
 #, perl-brace-format
@@ -11307,6 +11224,9 @@ msgid ""
 "the backup was done in a incompatible Zentyal version. Only backups done in "
 "Zentyal >= {v} can be restored"
 msgstr ""
+"Nerastas zentyal-core paketas debian paketų saraše; greičiausiai kopija "
+"daryta su nesuderinama Zentyal versija. Tik kopijos darytos su Zentyal >= "
+"{v} gali būti atstatytos"
 
 #: ../../main/core/src/EBox/Backup.pm:1032
 #, perl-brace-format
@@ -11315,6 +11235,9 @@ msgid ""
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
+"Nepavyko atsatyti kopijos nes nesutamba Zentyal versijos su esama sistema. "
+"Kopija daryta su nesuderinama Zentyal versija. Tik kopijos darytos su "
+"Zentyal >= {wv} gali būti atstatytos"
 
 #: ../../main/core/src/EBox/Backup.pm:1395
 #, perl-brace-format
@@ -11338,7 +11261,7 @@ msgstr "Nėra modulio {m} atsarginėje kopijoje"
 #: ../../main/core/src/EBox/Backup.pm:1466
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
-msgstr ""
+msgstr "Modulis {m} yra abiejuose įtrauktų ir ignoruojamų sarašuose"
 
 #: ../../main/core/src/EBox/Backup.pm:1489
 msgid "No modules to restore"
@@ -11367,7 +11290,7 @@ msgstr "Atsarginės kopijos archyvai"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:37
 msgid "Audit Logging"
-msgstr ""
+msgstr "Audito įrašymas"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:108
 #: ../../main/core/src/EBox/AuditLogging.pm:137
@@ -11376,22 +11299,20 @@ msgstr "Data/Laikas"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:111
 #: ../../main/core/src/templates/finish.mas:120
-#, fuzzy
 msgid "Section"
-msgstr "Veiksmas"
+msgstr "Poskyris"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikatorius"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:114
-#, fuzzy
 msgid "Value"
-msgstr "reikšmė"
+msgstr "Reikšmė"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:115
 msgid "Previous value"
-msgstr ""
+msgstr "Buvusi reikšmė"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:119
 #: ../../main/dns/src/templates/index.mas:37
@@ -11419,23 +11340,20 @@ msgid "Add"
 msgstr "Pridėti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:120
-#, fuzzy
 msgid "Set"
-msgstr "Potinklio"
+msgstr "Nustatyti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:122
-#, fuzzy
 msgid "Move"
-msgstr "Į viršų"
+msgstr "Perkelti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:126
-#, fuzzy
 msgid "Configuration changes"
-msgstr "Tik nustatymai"
+msgstr "Konfigūracijos pasikeitimai"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 msgid "Login"
-msgstr ""
+msgstr "Prisijungti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/core/src/EBox/Html.pm:40
@@ -11446,19 +11364,16 @@ msgid "Logout"
 msgstr "Išsiregistruoti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:146
-#, fuzzy
 msgid "Failed login"
-msgstr "Nepavyko"
+msgstr "Nepavyko prisijungti"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:147
-#, fuzzy
 msgid "Expired session"
-msgstr "pasibaigia"
+msgstr "Negaliojanti sesija"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:151
-#, fuzzy
 msgid "Administrator sessions"
-msgstr "Administratoriaus paskyra"
+msgstr "Administratoriaus sesijos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:54
 msgid "System Information"
@@ -11469,33 +11384,31 @@ msgid "available"
 msgstr "prieinama"
 
 #: ../../main/core/src/EBox/SysInfo.pm:132
-#, fuzzy
 msgid "No updates"
-msgstr "atnaujinti"
+msgstr "Nėra atnaujinimų"
 
 #: ../../main/core/src/EBox/SysInfo.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} security updates"
-msgstr "Saugumo atnaujinimas"
+msgstr "{n} saugumo atnaujinimai"
 
 #: ../../main/core/src/EBox/SysInfo.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} system updates"
-msgstr "Sistemos atnaujinimai"
+msgstr "{n} sistemos atnaujinimai"
 
 #: ../../main/core/src/EBox/SysInfo.pm:151
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} component updates"
-msgstr "Saugumo atnaujinimas"
+msgstr "{n} komponentų atnaujinimai"
 
 #: ../../main/core/src/EBox/SysInfo.pm:174
 msgid "Core version"
 msgstr "Branduolio versija"
 
 #: ../../main/core/src/EBox/SysInfo.pm:175
-#, fuzzy
 msgid "Software"
-msgstr "HTTP programa"
+msgstr "Programos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:178
 msgid "Uptime"
@@ -11527,9 +11440,8 @@ msgid "Process List"
 msgstr "Procesų sąrašas"
 
 #: ../../main/core/src/EBox/SysInfo.pm:252
-#, fuzzy
 msgid "Resources"
-msgstr "Resursas"
+msgstr "Resursai"
 
 #: ../../main/core/src/EBox/SysInfo.pm:353
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:38
@@ -11705,20 +11617,20 @@ msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
 msgstr ""
+"Šis žurnalas priverstinis jo modulio. Jį išjungti galite tik išjungę "
+"{module} modulį"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "never purge"
 msgstr "niekada nevalyti"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:292
-#, fuzzy
 msgid "one year"
-msgstr "1 metai"
+msgstr "vieni metai"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:296
-#, fuzzy
 msgid "two years"
-msgstr "2 metai"
+msgstr "dveji metai"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:400
 msgid "Current configuration"
@@ -11751,12 +11663,11 @@ msgid "Configure Logs"
 msgstr "Konfigūruoti žurnalus"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
-#, fuzzy
 msgid ""
 "Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
-"Žurnalų modulis leidžia registruoti ir užklausti informacijos apie Zentyal "
+"Žurnalų modulis leidžia registruoti ir žiūrėti informaciją apie Zentyal "
 "servisus"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:105
@@ -11768,14 +11679,14 @@ msgstr ""
 "bandyti dar kartą"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:120
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
 "unfrequently so it could be safe to use a older one"
 msgstr ""
 "Nerastas shemos failas šiai kopijai. Pabandykite kitą datą arba priverskite "
-"atstatyti be shemos pakeičiant atitinkamą raktą {cf}, Shemos keičiasi "
+"atstatyti be shemos pakeičiant atitinkamą raktą {cf}. Shemos keičiasi "
 "nedažnai todėl turėtų būti saugu atstatyti senesniąją"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:146
@@ -11797,6 +11708,8 @@ msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
+"Zentyal jau sukonfigūruotas klausytis {p} jungties kito serviso. Pasirinkite "
+"kitą jungtį arba įveskite ir bandykite vėl."
 
 #: ../../main/core/src/EBox/Apache.pm:294
 #, perl-brace-format
@@ -11804,6 +11717,8 @@ msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
+"Jungtis {p} jau naudojama programos '{pr}'. Pasirinkite kita jungtį ir "
+"bandykite dar kartą."
 
 #: ../../main/core/src/EBox/Apache.pm:625
 #: ../../main/services/src/EBox/Services.pm:116
@@ -11922,7 +11837,7 @@ msgstr "Slaptažodį gali sudaryti daugiausiai {maxLength} simboliai"
 
 #: ../../main/core/src/EBox/Types/Password.pm:189
 msgid "Password mismatch, make sure passwords are identical"
-msgstr ""
+msgstr "Slaptažodis nesutampa, įsitikinkite kad slaptažodžiai yra vienodi"
 
 #: ../../main/core/src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
@@ -12235,23 +12150,22 @@ msgstr "atsarginis"
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
-msgstr ""
+msgstr "Yra {nSecUpdates} saugumo atnaujinimų. Paveikti paketai : {packages}."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
-msgstr ""
+msgstr "Papildomai, yra {nUpdates}. Pakeičiami paketai yra: {packages}."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:230
-#, fuzzy
 msgid "Security software updates"
-msgstr "QA programų atnaujinimai"
+msgstr "Programų saugumo atnaujinimai"
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:245
 msgid "Check if there is any security software update."
-msgstr ""
+msgstr "Patikrinti ar yra programų saugumo atnaujinimų."
 
 #: ../../main/core/src/EBox/Event/Watcher/Log.pm:194
 msgid "Log observer"
@@ -12355,7 +12269,7 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 "Įvyko vidinė klaida susieta su šablonu. Tai klaida, atitinkama informacija "
-"gali būti rasta žurnaluose"
+"gali būti rasta žurnaluose."
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:81
 #: ../../main/core/src/EBox/CGI/Progress.pm:106
@@ -12457,11 +12371,11 @@ msgstr "kontinetas"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:57
 msgid "Incorrect password."
-msgstr "Neteisingas slaptažodis"
+msgstr "Neteisingas slaptažodis."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:62
 msgid "New passwords do not match."
-msgstr "Naujas slaptažodis nesutampa"
+msgstr "Naujas slaptažodis nesutampa."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:67
 msgid "The password must be at least 6 characters long"
@@ -12496,31 +12410,31 @@ msgid "row"
 msgstr "eilutė"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:96
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {rowName} \"{r}\" has been deleted"
-msgstr "Sertifikatas buvo atnaujintas"
+msgstr "{rowName} \"{r}\" buvo ištrinta"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:99
 #, perl-brace-format
 msgid "The {rowName} \"{r}\" has been moved from {x} to {y} position"
-msgstr ""
+msgstr "{rowName} \"{r}\" buvo perkelta iš {x} į {y} poziciją"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:103
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The action \"{a}\" has been executed"
-msgstr "Sertifikatas buvo atnaujintas"
+msgstr "Veiksmas \"{a}\" buvo įvykdytas"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:113
 #, perl-brace-format
 msgid "A new {rowName} \"{r}\" has been added with \"{f}\" set to \"{x}\""
-msgstr ""
+msgstr "Naujas {rowName} \"{r}\"  buvo įkeltas su \"{f}\" nustatyta \"{x}\""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:116
 #, perl-brace-format
 msgid ""
 "The field \"{f}\" in the {rowName} \"{r}\" has been changed from \"{x}\" to "
 "\"{y}\""
-msgstr ""
+msgstr "Laukas \"{f}\"  {rowName} \"{r}\" buvo pakeistas iš \"{x}\" į \"{y}\""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:146
 msgid "Saving changes in modules"
@@ -12594,14 +12508,11 @@ msgid ""
 "information can be found in the logs."
 msgstr ""
 "Įvyko netikėta vidinė klaida. Tai kūrėjo klaida (BUG), atitinkama "
-"informacija galima gauti žurnaluose"
+"informacija galima gauti žurnaluose."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:590
-#, fuzzy
 msgid "Sorry, you have just hit a bug in Zentyal."
-msgstr ""
-"Jūs ka tik pataikėte ant Zentyal klaidos (bug). Susiekite su technine "
-"pagalba."
+msgstr "Jūs ka tik pataikėte ant Zentyal klaidos (bug)."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:593
 #, perl-brace-format
@@ -12609,6 +12520,9 @@ msgid ""
 "Please look for the details in the {f} file and take a minute to {oh}submit "
 "a bug report{ch} so we can fix the issue as soon as possible."
 msgstr ""
+"Prašome peržiūrėti informaciją {f} byloje ir sugaišti mintę {oh}išsiųsti "
+"klaidos ataskaitą{ch} kad mes galėtume sutaisyti problemą kaip galima "
+"greičiau."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:679
 msgid ""
@@ -12657,9 +12571,8 @@ msgstr ""
 "Tai padės Zentyal sužinoti ar iš tiesų prieiga jau užimta"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
-#, fuzzy
 msgid "Internal name"
-msgstr "Vidininis"
+msgstr "Vidinis vardas"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:145
 msgid "List of services"
@@ -12674,40 +12587,33 @@ msgstr ""
 "panaudotos kituose moduliuose kaip: ugnesienė, srauto ribojimas..."
 
 #: ../../main/services/src/EBox/Services.pm:92
-#, fuzzy
 msgid "Any protocol and port"
-msgstr "bet kuris protokolas ir portas"
+msgstr "Bet kuris protokolas ir portas"
 
 #: ../../main/services/src/EBox/Services.pm:99
-#, fuzzy
 msgid "Any UDP"
-msgstr "bet kuris UDP"
+msgstr "Bet kuris UDP"
 
 #: ../../main/services/src/EBox/Services.pm:100
-#, fuzzy
 msgid "Any UDP port"
-msgstr "bet kuris UDP portas"
+msgstr "Bet kuris UDP portas"
 
 #: ../../main/services/src/EBox/Services.pm:107
-#, fuzzy
 msgid "Any TCP"
-msgstr "bet kuris TCP"
+msgstr "Bet kuris TCP"
 
 #: ../../main/services/src/EBox/Services.pm:108
-#, fuzzy
 msgid "Any TCP port"
-msgstr "bet kuris TCP portas"
+msgstr "Bet kuris TCP portas"
 
 #: ../../main/services/src/EBox/Services.pm:115
 #: ../../main/services/src/EBox/Services.pm:492
-#, fuzzy
 msgid "Zentyal Administration"
-msgstr "Zentyal Administravimo prieiga"
+msgstr "Zentyal Administravimas"
 
 #: ../../main/services/src/EBox/Services.pm:124
-#, fuzzy
 msgid "Secure Shell"
-msgstr "Apsaugoti pagal nutylėjimą"
+msgstr "Saugi Konsolė"
 
 #: ../../main/services/src/EBox/Services.pm:132
 msgid "HyperText Transport Protocol"
@@ -12782,29 +12688,28 @@ msgid "To configure smart host authentication"
 msgstr "Konfigūruoti smart host autentifikaciją"
 
 #: ../../main/mail/src/EBox/Mail.pm:219
-#, fuzzy
 msgid "To configure mail transports"
-msgstr "Konfigūruoti amavis"
+msgstr "Konfigūruoti pašto transportą"
 
 #: ../../main/mail/src/EBox/Mail.pm:257
 msgid "Outgoing Mail (SMTP protocol)."
-msgstr ""
+msgstr "Išeinantis Paštas (SMTP protokolas)."
 
 #: ../../main/mail/src/EBox/Mail.pm:266
 msgid "Incoming Mail"
-msgstr ""
+msgstr "Įeinantis Paštas"
 
 #: ../../main/mail/src/EBox/Mail.pm:267
 msgid "POP, IMAP and SIEVE protocols"
-msgstr ""
+msgstr "POP, IMAP ir SIEVE protokolai"
 
 #: ../../main/mail/src/EBox/Mail.pm:276
 msgid "Mail Submission"
-msgstr ""
+msgstr "Pašto Pateikimas"
 
 #: ../../main/mail/src/EBox/Mail.pm:277
 msgid "Outgoing Mail (Submission protocol)."
-msgstr ""
+msgstr "Išeinantis Paštas ( pateikimo protokolas)."
 
 #: ../../main/mail/src/EBox/Mail.pm:783
 msgid ""
@@ -13113,7 +13018,7 @@ msgstr "papildomas"
 msgid ""
 "As long mailfilter module is enabled the mail server will use the filter it "
 "provides"
-msgstr ""
+msgstr "Kol įjungtas pašto filtro modulis serveris naudos pateiktus filtrus"
 
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:90
 msgid "Subject"
@@ -13134,7 +13039,7 @@ msgid ""
 "need to enable the mail service on Zentyal."
 msgstr ""
 "Pristatytojas siųs įvykius į pašto dėžutė. Norėdami naudoti jūs turite "
-"įjungti pašto servisą Zentyal serveryje"
+"įjungti pašto servisą Zentyal serveryje."
 
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:115
 msgid "Mail dispatcher configuration updated."
@@ -13254,7 +13159,8 @@ msgid ""
 "settings{chref}."
 msgstr ""
 "Įjungti {service} pašto gavimo servisą turite išjungti {service} vartus "
-"Zarafa. Galite atlikti {ohref}Zarafa vartų konfigūracijos nustatymuose{chref}"
+"Zarafa. Galite atlikti {ohref}Zarafa vartų konfigūracijos "
+"nustatymuose{chref}."
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:64
 msgid "Virtual domain aliases"
@@ -13499,14 +13405,12 @@ msgid "Expiration period for spam mails"
 msgstr "Galiojimo periodas šiukšlių laiškams"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:239
-#, fuzzy
 msgid "Period for polling external mail accounts"
-msgstr "išorinė pašto paskyra"
+msgstr "Laikas tikrinti išorinę pašto dėžutę"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:240
-#, fuzzy
 msgid "minutes"
-msgstr "Minutės"
+msgstr "minutės"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:250
 #: ../../main/core/src/templates/report/diskUsage.mas:31
@@ -13523,12 +13427,9 @@ msgid "Smarthost's port"
 msgstr "Protingo mazgo jungtis"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:451
-#, fuzzy
 msgid ""
 "The mailname is set to the server's hostname and the hostname is incorrect"
-msgstr ""
-"Mailname nustatytas serverio mazgo vardą ir vardas yra nepilnai "
-"kvalifikuotas. "
+msgstr "Mailname nustatyas pagal serverio vardas o serverio vardas neteisingas"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:457
 msgid ""
@@ -13711,14 +13612,15 @@ msgid "Alert Graph"
 msgstr "Įspėjimų grafikas"
 
 #: ../../main/ids/src/EBox/Model/Rules.pm:175
-#, fuzzy
 msgid "Rule Set"
-msgstr "Taisyklė"
+msgstr "Taisyklė Nustatyta"
 
 #: ../../main/ids/src/EBox/Model/Rules.pm:195
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
+"Pasirinkti nuostatas taisyklių kurios bus pritaikytos skanuojant tinklo "
+"srautą"
 
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:139
 msgid "Select in which interfaces IDS system will be enabled"
@@ -13785,13 +13687,15 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:108
 msgid "Allow others to read /var/log/freeradius"
-msgstr ""
+msgstr "Leisti kitiems skaityti /var/log/freeradius"
 
 #: ../../main/radius/src/EBox/Radius.pm:109
 msgid ""
 "Zentyal will change default permissions on RADIUS log directory to allow to "
 "read the logs."
 msgstr ""
+"Zentyal pakeis numatytus leidimus ant RADIUS žuranalo direktorijas leisdamas "
+"skaityti žurnalus."
 
 #: ../../main/radius/src/EBox/Radius.pm:129
 msgid "To configure allowed LDAP group."
@@ -13802,9 +13706,8 @@ msgid "To configure RADIUS LDAP module."
 msgstr "Konfigūruoti RADIUS LDAP mudlį."
 
 #: ../../main/radius/src/EBox/Radius.pm:137
-#, fuzzy
 msgid "To configure RADIUS daemon."
-msgstr "Konfigūruoti RADIUS klientus."
+msgstr "Konfigūruoti RADIUS tarnybą."
 
 #: ../../main/radius/src/EBox/Radius.pm:141
 msgid "To configure RADIUS clients."
@@ -13827,22 +13730,20 @@ msgid "Zentyal RADIUS system"
 msgstr "Zentyal RADIUS sistema"
 
 #: ../../main/radius/src/EBox/Radius.pm:386
-#, fuzzy
 msgid "MAC"
-msgstr "ACL"
+msgstr "MAC"
 
 #: ../../main/radius/src/EBox/Radius.pm:391
 msgid "Login OK"
-msgstr ""
+msgstr "Prisijungimas OK"
 
 #: ../../main/radius/src/EBox/Radius.pm:392
 msgid "Login incorrect"
-msgstr ""
+msgstr "Prisijungimas neteisingas"
 
 #: ../../main/radius/src/EBox/Radius.pm:393
-#, fuzzy
 msgid "User not found"
-msgstr "Puslapis nerastas"
+msgstr "Vartotojas nerastas"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:75
 msgid "Maximum mailbox size"
@@ -14084,10 +13985,11 @@ msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr ""
+"Įdiekite English/United States lokalę į sistemą jei jos dar nėra įdiegtos"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:110
 msgid "Zarafa needs this locale to run."
-msgstr ""
+msgstr "Zarafa reikalauja šios lokalės veikimui."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:129
 msgid "To properly configure Zarafa."
@@ -14126,9 +14028,8 @@ msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "Teisingai suderinti Zarafa dagent LMTP pristatymo serverį."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:236
-#, fuzzy
 msgid "Groupware services (Zarafa)"
-msgstr "Grupė (Zarafa)"
+msgstr "Grupės servisai (Zarafa)"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:808
 msgid "Zarafa Gateway Server"
@@ -14204,9 +14105,8 @@ msgid "Virtual host name"
 msgstr "Virtualaus vardo pavadinimas"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:109
-#, fuzzy
 msgid "You need to enable Listening SSL port."
-msgstr "Nustatyti web serverio klausymo prieigą"
+msgstr "Turite įjungti SSL jungties klausymos."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:114
 #, perl-brace-format
@@ -14214,6 +14114,8 @@ msgid ""
 "You need to enable Web Server on {ohref}Services Certificates{chref} to "
 "enable SSL on a virtal host."
 msgstr ""
+"Turite įjungti Web Serverį {ohref}Servisų Sertifikatai{chref} norint įjungti "
+"SSL ant virtualaus mazgo."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:182
 #, perl-brace-format
@@ -14272,16 +14174,16 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:335
 msgid "Virtual host deleted. The virtual host files will be left in place"
-msgstr ""
+msgstr "Virtualus mazgas ištrintas. Virtualaus mazgo bylos bus paliktos vietoje"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:353
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it."
 msgstr ""
 "{open}DNS modulis išjuntas. Įkelti surišimai ar vardų sritys neturės jokio "
-"veiksnumo kol nebus įjuntas šis modulis"
+"veiksnumo kol nebus įjuntas šis modulis."
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:72
 #: ../../main/webserver/src/EBox/WebServer.pm:72
@@ -14290,12 +14192,11 @@ msgid "Web Server"
 msgstr "Web Serveris"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:74
-#, fuzzy
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
 "different virtual hosts."
 msgstr ""
-"Zentyal web servisas leidžia talpinti web puslapius HTML formate be jokių "
+"Zentyal web servisas leidžia talpinti web puslapius HTML formate be "
 "virtualių vardų."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:90
@@ -14331,14 +14232,12 @@ msgid "To serve pages over HTTPS."
 msgstr "Aptranauti pulspapius per HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Pašalinit ntp init scenarijaus nuorodas"
+msgstr "Pašalinti apache2 init scenarijaus nuorodas"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:167
-#, fuzzy
 msgid "Zentyal Web Server"
-msgstr "Zentyal FTP Serveris"
+msgstr "Zentyal  Web Serveris"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:785
 msgid "Web server hosted files"
@@ -14722,30 +14621,26 @@ msgstr ""
 "Šiame puslapyje galite nustatyti numatytus nustatymus vartotojo paskyroms"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:54
-#, fuzzy
 msgid "DN"
-msgstr "DNS"
+msgstr "DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:64
 #: ../../main/users/src/EBox/UsersAndGroups.pm:905
-#, fuzzy
 msgid "Organizational Units"
-msgstr "Organizacijos pavadinimas"
+msgstr "Organizacijos Pavadinimas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:68
-#, fuzzy
 msgid "organizational unit"
-msgstr "Organizacijos pavadinimas"
+msgstr "Organizacinis vienetas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "OU {ou} removed"
-msgstr "{row} pakelta aukštyn"
+msgstr "OU {ou} pašalintas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:186
-#, fuzzy
 msgid "OU added"
-msgstr "{row} pridėta"
+msgstr "OU įkeltas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -14801,12 +14696,11 @@ msgstr "LDAP DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:69
 msgid "This will be the DN suffix in LDAP tree"
-msgstr ""
+msgstr "Tai bus DN priesaga LDAP medyje"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:76
-#, fuzzy
 msgid "Zentyal Users"
-msgstr "Zentyal Vartotojų būsena"
+msgstr "Zentyal Vartotojai"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
@@ -14853,7 +14747,7 @@ msgstr "LDAP nustatymai"
 
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:221
 msgid "There was an error updating LDAP: "
-msgstr ""
+msgstr "Kalida atnaujinat LDAP: "
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:242
 #, perl-brace-format
@@ -14861,9 +14755,8 @@ msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Grupės pavadinimas negali būti ilgesnis nei {maxGroupLength} simbulių"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:316
-#, fuzzy
 msgid "Maximum number of groups reached"
-msgstr "Maksimalus grupių kiekis pasiektas"
+msgstr "Maksimaliai grupių kiekis pasiektas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:383
 #, perl-brace-format
@@ -14979,15 +14872,15 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:171
 msgid "Lightweight Directory Access Protocol"
-msgstr ""
+msgstr "Lightweight Directory Access Protocol"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:232
 msgid "Error performing users initialization"
-msgstr ""
+msgstr "Klaida vykdant vartotojų inicijavimą"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:270
 msgid "Error while creating users and groups database."
-msgstr ""
+msgstr "Klaida kuriant vartotojus ir grupes duombazėje."
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:979
 #, perl-brace-format
@@ -15044,34 +14937,31 @@ msgstr "Redaguoti grupę"
 #: ../../main/ebackup/src/scripts/restore-tool:116
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
-msgstr ""
+msgstr "Nerasta kopijų šiame serveryje. Norite bandyti kitą?"
 
 #: ../../main/ebackup/src/scripts/restore-tool:129
-#, fuzzy
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
 msgstr ""
-"Konfigūracijos kopija nerasta atsartginėje kopijoje {d}. Gal būt pamėginkite "
-"kitą datą?"
+"Nėra konfigūracijos kopijos nuo šios datos. Ar norite bandyti kitą datą?"
 
 #: ../../main/ebackup/src/scripts/restore-tool:205
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr ""
+msgstr "Galite nustatyti tik vieną užšifravimo opciją: {sy}, {no}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:213
 msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr ""
+msgstr "--force-type turi turėti argumentą arba 'basic' arba 'subscribed'"
 
 #: ../../main/ebackup/src/scripts/restore-tool:228
 msgid "Zenity package not found. Falling back to terminal mode"
-msgstr ""
+msgstr "Zenity paketas nerastas. Gryžtama atgal į terminalo būseną"
 
 #: ../../main/ebackup/src/scripts/restore-tool:242
-#, fuzzy
 msgid "User for the authentication"
-msgstr "Reikalauja autentifikacijos"
+msgstr "Vartotojas autentifikacijai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:244
 msgid ""
@@ -15079,129 +14969,130 @@ msgid ""
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
+"Slaptažodis autentifikacijai. Šis slaptažodis bus rodomas komandinėje "
+"eilutėje ir procesų sąraše tad naudokite šią opciją jei saugumas jums "
+"nesvarbus"
 
 #: ../../main/ebackup/src/scripts/restore-tool:248
 msgid "Server from which its backup date the restore will be done"
-msgstr ""
+msgstr "Serveris iš kurio bus atstatoma kopija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:250
 msgid "Use the last backup done for the restore"
-msgstr ""
+msgstr "Naudokite paskutinė kopija įvykdyta atstatymui"
 
 #: ../../main/ebackup/src/scripts/restore-tool:252
-#, fuzzy
 msgid "Restore all backup domains available"
-msgstr "Atstatyti kopiją iš bylos"
+msgstr "Atstatyti visas galimas sritis"
 
 #: ../../main/ebackup/src/scripts/restore-tool:254
 msgid "Backup domain to restore. It could be repeated several times"
-msgstr ""
+msgstr "Kopijos srities atstatymui. Gali būti atlikta kelis kartus"
 
 #: ../../main/ebackup/src/scripts/restore-tool:256
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
 msgstr ""
+"Patikrinkite ar naudojama nekoduota ar simetrinis užšiframas su slaptažodžiu "
+""
 
 #: ../../main/ebackup/src/scripts/restore-tool:258
-#, fuzzy
 msgid "Do not use graphical interface"
-msgstr "Visos išorinės sąsajos"
+msgstr "Nenaudoti grafinės sąsajos"
 
 #: ../../main/ebackup/src/scripts/restore-tool:264
 msgid "Change parameters used to access the storage server"
-msgstr ""
+msgstr "Pakeisti parametrus naudojamus prieti prie failų serverio"
 
 #: ../../main/ebackup/src/scripts/restore-tool:289
 #, perl-brace-format
 msgid "Module {mod} should be installed"
-msgstr ""
+msgstr "Modulis {mod} turi būti įdiegtas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:295
 #, perl-brace-format
 msgid "Module {mod} should be configured"
-msgstr ""
+msgstr "Modulis {mod} turi būti sukonfigūruotas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:307
 msgid ""
 "Could not automatically update system date and hour. If the system time is "
 "not correct, some restore operations could fail"
 msgstr ""
+"Nepavyko atnaujinti sistemos datos ir valandos. Jei sistemos laikas "
+"neteisingas, kai kurios atstatymo operacijos gali neveikti"
 
 #: ../../main/ebackup/src/scripts/restore-tool:317
-#, fuzzy
 msgid "Choose the server to restore"
-msgstr "Cups spaudininimo serverio jungtis"
+msgstr "Pasirinkite serverį atstatymui"
 
 #: ../../main/ebackup/src/scripts/restore-tool:322
-#, fuzzy
 msgid "Server to restore: "
-msgstr "Servisų atstatymas"
+msgstr "Serverį atstatyti : "
 
 #: ../../main/ebackup/src/scripts/restore-tool:350
 msgid "Select backup domains to restore"
-msgstr ""
+msgstr "Pasirinkite sričių kopijas atstatymui"
 
 #: ../../main/ebackup/src/scripts/restore-tool:360
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Susitikimo kambariai pasiekiami serveryje."
+msgstr "Sričių kopijos serveryje {cn}: {l}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:378
 msgid "No backup domain selected to restore. Doing nothing"
-msgstr ""
+msgstr "Nepasirinkta srities kopija atstatymui. Daro nieko"
 
 #: ../../main/ebackup/src/scripts/restore-tool:390
 msgid "Retrieving registered servers list"
-msgstr ""
+msgstr "Gaunamas registruotų serverių sąrašas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:430
-#, fuzzy
 msgid "No key passphrase"
-msgstr "CA slaptažodis"
+msgstr "Nėra rakto frazės"
 
 #: ../../main/ebackup/src/scripts/restore-tool:437
 msgid "No password in retrieved credentials"
-msgstr ""
+msgstr "Nėra slaptažodžio gautuose duomenyse"
 
 #: ../../main/ebackup/src/scripts/restore-tool:489
 msgid "Retrieving account information"
-msgstr ""
+msgstr "Gaunama paskyros informacija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:538
 msgid "No registered Zentyal Servers"
-msgstr ""
+msgstr "Nėra registruotų Zentyal Serverių"
 
 #: ../../main/ebackup/src/scripts/restore-tool:544
-#, fuzzy
 msgid "Registered Zentyal Servers"
-msgstr "Zentyal FTP Serveris"
+msgstr "Registruoti Zentyal Serveriai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:611
-#, fuzzy
 msgid "Restoring files"
-msgstr "Atsatomi moduliai"
+msgstr "Atstatomi failai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:634
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
+"Nepavyko atstatyti failo {file} užklausto srities kopijos. Priežastis: "
+"{reason}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:688
-#, fuzzy
 msgid "Restoring all backed-up files"
-msgstr "Atsatomi duomenys"
+msgstr "Atsatomi visi kopijuoti failai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:748
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr "Byla egzistuoja ir tai ne direktorija"
+msgstr "Nepavyko atstatyti {dst}, jau egzistuoja ir tai ne direktorija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:786
 #, perl-brace-format
 msgid ""
 "Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr ""
+msgstr "Klaida atstatant byla ar katalogą {dst}. Bandysime tęsti atstatymą"
 
 #: ../../main/ebackup/src/scripts/restore-tool:815
 #, perl-brace-format
@@ -15209,33 +15100,34 @@ msgid ""
 "Error restoring directory {d}. This could make fail some files or domains "
 "restore processes. Error {e}"
 msgstr ""
+"Klaida atstatant katalogą {d}. Tai gali sutrukdyti kai kurių failų ar "
+"srities atstatymo procesą. Klaida {e}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:835
 msgid ""
 "Backup log data not found in the files from the backup, log database will "
 "not be restored"
-msgstr ""
+msgstr "Kopijos žurnalo duomenys nerasti kopijoje, žurnalo bazė nebus atstatyta"
 
 #: ../../main/ebackup/src/scripts/restore-tool:843
-#, fuzzy
 msgid "Restoring log database"
-msgstr "Atstatyti žurnalų duombazę"
+msgstr "Atstatyto žurnalų duombazę"
 
 #: ../../main/ebackup/src/scripts/restore-tool:864
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Paskutinės konfigūracijos kopijos"
+msgstr "Atstato konfigūracijos kopiją"
 
 #: ../../main/ebackup/src/scripts/restore-tool:869
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
 msgstr ""
+"Konfigūracijos atstatymas nepavyko. Tęsime procesą bandydami atstatyti kiek "
+"galima jūsų sistemą, rankinis derinimas gali būti reikalingas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:884
-#, fuzzy
 msgid "Checking configuration compability"
-msgstr "Tik nustatymai"
+msgstr "Tikrinamas konfigūracijos suderinamumas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:936
 #, perl-brace-format
@@ -15243,19 +15135,20 @@ msgid ""
 "Cannot restore backup because there are less interfaces than there are "
 "available. The missing interfaces are: {missing}"
 msgstr ""
+"Nepavyko atstatyti kopijos nes yra mažiau sąsajų nei buvo prieš tai. "
+"Trūkstamos sąsajos : {missing}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:979
-#, fuzzy
 msgid "Updating software package lists"
-msgstr "Atnaujinti visus paketus"
+msgstr "Atnaujina visus paketus"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1006
 msgid "Installing Zentyal components and their dependencies"
-msgstr ""
+msgstr "Diegiama Zentyal komponentus ir jų priklausomuosius"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1022
 msgid "Installing missing modules..."
-msgstr ""
+msgstr "Diegiama trūkstamus modulius..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1028
 #, perl-brace-format
@@ -15263,27 +15156,27 @@ msgid ""
 "Error installing packages: {err}. The backup will continue but it would not "
 "able to recover any configuration  whcih depends on the missing packages"
 msgstr ""
+"Klaida instaliuojant paketus: {err} Kopijavimas tęsis bet nebus galima "
+"atstatyti jokių konfigūracijų  kurios priklauso nuo trūkstamų paketų"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1076
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
-msgstr ""
+msgstr "Atnaujina paketų sąrašą leisiantį prieti prie Zentyal Debesies paketų"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1078
-#, fuzzy
 msgid "Install cloud packages"
-msgstr "Diegiami paketai"
+msgstr "Diegiami debesų paketai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1096
-#, fuzzy
 msgid "Downloading subscription data"
-msgstr "Zentyal prenumeratos duomenys"
+msgstr "Siunčiami prenumeratos duomenys"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1114
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
-msgstr ""
+msgstr "Ryšio klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1119
 msgid ""
@@ -15291,27 +15184,29 @@ msgid ""
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
+"Nepavyko atsiųsti nes zentyal-remoteservices per senas arba per sena "
+"informacija debesyse. Zentyal Debesų paketai nebus įdiegti"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1126
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
 msgstr ""
+"Nežinoma klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1179
-#, fuzzy
 msgid "Configuring modules"
-msgstr "Konfigūruoti taisykles"
+msgstr "Konfiguracijos moduliai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1203
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
-msgstr "Kofigūruoti modulį: {module}"
+msgstr "Kofigūracijos moduliai: Dabartinis modulis {mod}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1207
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "Kofigūruoti modulį: {module}"
+msgstr "Modulių {p} konfigūracija atlikta. Dabartinis modulis {mod}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1226
 #, perl-brace-format
@@ -15319,168 +15214,164 @@ msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "of other modules"
 msgstr ""
+"Nepavyko konfigūruoti modulio {name}: {err}. Tai gali įtakoti atstatymą kitų "
+"modulių"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1249
-#, fuzzy
 msgid "Finishing new modules configuration"
-msgstr "Naudojama numatyta profilio konfigūracija"
+msgstr "Baigiama naujo modulio konfigūracija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1337
 msgid "Downloading backup metadata..."
-msgstr ""
+msgstr "Siunčiami kopijos duomenys..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1423
-#, fuzzy
 msgid "Downloading the backup data"
-msgstr "Pilni duomenys ir atasarginės kopijos nustatymai"
+msgstr "Siunčiama kopija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1441
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Downloading  {src} backup data for {dom}"
-msgstr "Pilni duomenys ir atasarginės kopijos nustatymai"
+msgstr "Siunčiama  {src} kopijos duomenys {dom}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1455
 #, perl-brace-format
 msgid ""
 "Error downloading data for backup domain: {dom}. The domain will not be "
 "fully restored"
-msgstr ""
+msgstr "Klaida siunčiant duomenis kopijos sričiai: {dom} Sritis nebus atstatyta"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1475
-#, fuzzy
 msgid "Downloading the backup configuration"
-msgstr "Pilni duomenys ir atasarginės kopijos nustatymai"
+msgstr "Siunčiama konfigūracijos kopija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1522
-#, fuzzy
 msgid "Downloading configuration"
-msgstr "Kliento konfigūracija"
+msgstr "Siunčiama konfigūracija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1564
 msgid "Looking for a version 2.0.X backup"
-msgstr ""
+msgstr "Ieškoma 2.0.X kopija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1591
 msgid "Retrieving backup collection status ..."
-msgstr ""
+msgstr "Gaunamas kopijos surinkimo statusas..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1620
 #: ../../main/ebackup/src/scripts/restore-tool:1681
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr "- Paskutinis atnaujinimas: {date}"
+msgstr "Paskutinė kopija buvo: {date}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1646
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
-msgstr "Dar nėra konfigūracijos kopijos "
+msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1697
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
-msgstr ""
+msgstr "Pasirinkite datą atstatymui kopijos iš serverio {cn}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1721
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
-msgstr "Dar nėra konfigūracijos kopijos "
+msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui: {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1738
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr "Dar nėra konfigūracijos kopijos "
+msgstr "Nėra konfigūracijos kopijos datai {d} {s} serveryje"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1774
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
+msgstr "Serveris {server} neregistruotas Zentyal Debesyje"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1833
 msgid "Please, enter a value"
-msgstr ""
+msgstr "Prašome įveskite reikšmę"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1858
 msgid "Please answer yes or no"
-msgstr ""
+msgstr "Prašome atsakyti taip arba ne"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1884
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup dates for server {cn}"
-msgstr "Srauto duomenys servisui"
+msgstr "Kopijos datos serveriui {cn}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1895
 msgid "Enter backup date to restore:"
-msgstr ""
+msgstr "Įveskite kopijos datą atstatymui:"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1898
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
-msgstr ""
+msgstr "Neteisinga data: {d}. Bandykite dar kartą"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2004
 msgid "This entry is mandatory to continue the restoring process. Retry"
-msgstr ""
+msgstr "Laukas privalomas tęsti atstatymo procedūrai. Bandyti dar kartą"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2052
-#, fuzzy
 msgid "Selection"
-msgstr "Veiksmas"
+msgstr "Pasirinkimas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2091
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
-msgstr ""
+msgstr "Šis laukas privalomas tęsti atstatymo procesui. Pasirinkite iš sąrašo"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2212
-#, fuzzy
 msgid "Please wait"
-msgstr "Prašome palaukti..."
+msgstr "Prašome palaukti"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2226
-#, fuzzy
 msgid "Finished"
-msgstr "Baigti"
+msgstr "Baigta"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2286
 msgid "Restoring process aborted upon user request"
-msgstr ""
+msgstr "Atstatymo procesas atšauktas pagal vartotojo užklausą"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2315
-#, fuzzy
 msgid "Saving configuration changes"
-msgstr "Tik nustatymai"
+msgstr "Saugomi konfigūracijos pakeitimai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2336
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
+"Klaida saugant konfigūracijso pakeitimus; kai kurie Zentyal moduliai liks "
+"nežinomam statuse"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2350
 msgid "Regenerating file list cache"
-msgstr ""
+msgstr "Perkuriami failų sąrašas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2358
 msgid ""
 "Cannot connect to the Cloud to regenerate backup list. Please try again "
 "later."
 msgstr ""
+"Nepavyko prisijungti prie Debesies sugeneruoti kopijų sąrašo. Bandykite "
+"vėliau."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2430
-#, fuzzy
 msgid "Zentyal Cloud User"
-msgstr "Zentyal Debesys"
+msgstr "Zentyal Debesų vartotojas"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2433
-#, fuzzy
 msgid "Zentyal Cloud Password"
-msgstr "Zentyal Debesys"
+msgstr "Zentyal Debesų Slaptažodis"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2448
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
-msgstr ""
+msgstr "Vartotojas {user} neturi priregistruotų Zentyal serverių"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2480
 msgid ""
@@ -15488,11 +15379,14 @@ msgid ""
 "Enterprise Edition, besides the configuration you are about to recover, you "
 "could have restored the data of the active modules."
 msgstr ""
+"Jei įjungėte Nelaimės atstatymo (DR) servisą Small Business ar Enterprise "
+"Edition, be konfigūracijos kurią ruošiatės atstatyti jūs galite atstatyti "
+"aktyvius modulius."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2507
 #, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
-msgstr ""
+msgstr "Įveskite slaptažodį naudotą užkoduoti kopiją {ser}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2532
 #, perl-brace-format
@@ -15500,6 +15394,8 @@ msgid ""
 "Incorrect password. Please, enter the correct password used for encrypt "
 "{ser}."
 msgstr ""
+"Neteisingas slaptažodis. Prašome įveskite teisingą slaptažodį naudotą "
+"užkoduoti {ser}."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2583
 #, perl-brace-format
@@ -15507,6 +15403,8 @@ msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
+"Sekančios sritys negali būti atstatytos iš praprastos prenumeratos: "
+"{domains}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2686
 msgid ""
@@ -15514,12 +15412,17 @@ msgid ""
 "could have been changed. We reccomend you to logut and login again with a "
 "valid user to avoid user identity problems."
 msgstr ""
+"Lokalus slaptažodžio failas pasiektė, lokalūs vartotojai ir jų slaptažodžiai "
+"gali būti pakeisti. Rekomenduojame atsijungti ir prisijungti iš naujo su "
+"veikiančiu vartotoju norint išvengti vartotojų identifikavimo problemų."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2691
 msgid ""
 "The shadow password file was restored; your local user password could have "
 "been changed"
 msgstr ""
+"Shadow slaptažodžių failas atstatytas; jūsų lokalių vartotojų slaptažodžiai "
+"gali būti pasikeitę"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2701
 msgid ""
@@ -15527,32 +15430,36 @@ msgid ""
 "changed; please fix your hostname manually or with the Zentyal option found "
 "at System -> General."
 msgstr ""
+"Mazgo vardo inforamcija nerasta duomenyse bet vardo konfigūracijos failai "
+"pasiektę; Prašome pataisyti savo vardą rankomis arba Zentyal opcijose "
+"Sistema - Pagrindiniai"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2749
 msgid "Your full backup is now successfully restored!"
-msgstr ""
+msgstr "Jūsų pilna kopija atstatyta sėkmingai!"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2759
 #, perl-brace-format
 msgid "You can now login at {url} to manage your recovered host."
-msgstr ""
+msgstr "Galite prisijugnti {url} tvarkyti jūsų atstatytą mazgą."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2833
 #: ../../main/ebackup/src/scripts/restore-tool:2842
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Warning: {msg}"
-msgstr "Įspėjimas"
+msgstr "Įspėjimas: {msg}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2872
 msgid ""
 "Sorry, an unexpected error has occurred. Please contact support and check "
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
+"Atsiprašome, nežinoma klaida įvyko. Prašome susiekti su pagalba ir "
+"patikrinkite /var/log/zentyal/zentyal.log informacijai."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2893
-#, fuzzy
 msgid "Restore process aborted"
-msgstr "Atstatyti žurnalų duombazę"
+msgstr "Atstatymo procesas atšauktas"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
@@ -15707,9 +15614,8 @@ msgid "Host list for domain {domain}"
 msgstr "vardų sąrašas vardų sričiai {domain}"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:74
-#, fuzzy
 msgid "Welcome to Zentyal FTP service."
-msgstr "Zentyal FTP Serveris"
+msgstr "Sveiki čia Zentyal FTP servisas."
 
 #: ../../main/software/src/templates/ebox.mas:196
 #: ../../main/software/src/templates/ebox.mas:636
@@ -15729,9 +15635,8 @@ msgstr "Įdiegti"
 #: ../../main/software/src/templates/ebox.mas:700
 #: ../../main/software/src/templates/ebox.mas:725
 #: ../../main/software/src/templates/ebox.mas:728
-#, fuzzy
 msgid "Installed Version"
-msgstr "Diegimas"
+msgstr "Įdiegtos versijos"
 
 #: ../../main/software/src/templates/ebox.mas:230
 msgid ""
@@ -15798,9 +15703,8 @@ msgstr "Žymėti viską"
 #: ../../main/software/src/templates/ebox.mas:703
 #: ../../main/software/src/templates/ebox.mas:719
 #: ../../main/software/src/templates/ebox.mas:729
-#, fuzzy
 msgid "Latest Version"
-msgstr "Versija"
+msgstr "Paskutinė versija"
 
 #: ../../main/software/src/templates/ebox.mas:706
 #: ../../main/software/src/templates/ebox.mas:708
@@ -15810,19 +15714,16 @@ msgstr "Versija"
 #: ../../main/software/src/templates/ebox.mas:751
 #: ../../main/software/src/templates/ebox.mas:753
 #: ../../main/software/src/templates/ebox.mas:755
-#, fuzzy
 msgid "Select"
-msgstr "Žymėti viską"
+msgstr "Žymėti"
 
 #: ../../main/software/src/templates/ebox.mas:738
-#, fuzzy
 msgid "Loading"
-msgstr "persiunčiama"
+msgstr "Siunčiama"
 
 #: ../../main/software/src/templates/ebox.mas:739
-#, fuzzy
 msgid "No packages found"
-msgstr "Nerasta"
+msgstr "Paketai nerasti"
 
 #: ../../main/software/src/templates/ebox.mas:742
 #: ../../main/core/src/templates/ajax/tableBody.mas:211
@@ -15838,9 +15739,8 @@ msgid "of"
 msgstr "iš"
 
 #: ../../main/software/src/templates/ebox.mas:745
-#, fuzzy
 msgid "pages"
-msgstr "puslapis"
+msgstr "puslapiai"
 
 #: ../../main/software/src/templates/ebox.mas:920
 #: ../../main/software/src/templates/updates.mas:25
@@ -15850,17 +15750,16 @@ msgstr "Paketų sąrašas atnaujintas sėkmingai"
 #: ../../main/software/src/templates/ebox.mas:926
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Klaida atnaujinant paketų sąrašą <p>{msg}</p>"
 
 #: ../../main/software/src/templates/ebox.mas:928
 #: ../../main/software/src/templates/updates.mas:29
-#, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Klaida atnaujinant paketų sąrašą. Prašome paleisti komandą (sudo apt-get "
-"update) konsolėje kad pamatyti problemą "
+"Klaida atnaujinant paketų sąrašą. <p> Prašome įvykdyti sekančias komandas "
+"konsolėje : sudo apt-get update </p>"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16043,11 +15942,13 @@ msgid ""
 "You have logged in successfully. If your web browser blocked the popup click "
 "{hbeg}here{hend} and allow it."
 msgstr ""
+"Jūs sėkmingai prisijungėte. Jei naršyklė užblokavo išokančius langus, "
+"spauskite {hbeg}čia{hend} praleisti."
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:29
 #, perl-brace-format
 msgid "Created by {href}"
-msgstr ""
+msgstr "Sukurta {href}"
 
 #: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:52
@@ -16056,7 +15957,7 @@ msgstr "Perspėjimas: Caps Lock įjungtas"
 
 #: ../../main/captiveportal/src/templates/login.mas:28
 msgid "Captive portal"
-msgstr ""
+msgstr "Captive vartai"
 
 #: ../../main/captiveportal/src/templates/login.mas:56
 #: ../../main/core/src/templates/login/index.mas:82
@@ -16065,7 +15966,7 @@ msgstr "Įvesti"
 
 #: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
-msgstr ""
+msgstr "Palikite šį langą atvirą kol naršote Internete."
 
 #: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:33
 #: ../../main/core/src/templates/ajax/tableBody.mas:567
@@ -16087,9 +15988,8 @@ msgid "Network interfaces"
 msgstr "Tinklo sąsajos"
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:10
-#, fuzzy
 msgid "Configure interface types"
-msgstr "Tinklo sąsajos"
+msgstr "Konfigūruoti tinklo sąsajų tipus"
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:11
 msgid ""
@@ -16098,6 +15998,10 @@ msgid ""
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
+"Išorinės sąsajos prijungtos prie tinklų kurių jūs nevaldote (dažniausiai "
+"interneto), srautas einantis iš išorinių tinklų nepatikimas pagal "
+"nutylėjimą, todėl negalėsite prisijungti prie Zentyal administravimo "
+"puslapio per tą sąsają"
 
 #: ../../main/network/src/templates/wizard/network.mas:34
 msgid "Configure network for external interfaces"
@@ -16200,16 +16104,15 @@ msgstr "Lookup"
 
 #: ../../main/network/src/templates/diag.mas:43
 msgid "Wake On LAN"
-msgstr ""
+msgstr "Pakelti per Tinklą (WoL)"
 
 #: ../../main/network/src/templates/diag.mas:65
-#, fuzzy
 msgid "Other..."
-msgstr "Kitas"
+msgstr "Kitas..."
 
 #: ../../main/network/src/templates/diag.mas:81
 msgid "Wake"
-msgstr ""
+msgstr "Prikelti"
 
 #: ../../main/network/src/templates/confirm.mas:17
 #: ../../main/network/src/templates/confirmremove.mas:11
@@ -16249,19 +16152,16 @@ msgstr ""
 "nežinote ar to norite."
 
 #: ../../main/virt/src/templates/vmstatus.mas:17
-#, fuzzy
 msgid "The virtual machine is running"
-msgstr "virtuali mašina"
+msgstr "virtuali mašina veikia"
 
 #: ../../main/virt/src/templates/vmstatus.mas:21
-#, fuzzy
 msgid "The virtual machine is not running"
-msgstr "Ši tarnyba įjungta, bet neveikianti"
+msgstr "Virtuali mašina neveikia"
 
 #: ../../main/virt/src/templates/statusViewer.mas:11
-#, fuzzy
 msgid "Paused"
-msgstr "panaudotas"
+msgstr "Pristabdyta"
 
 #: ../../main/jabber/src/templates/jabber.mas:7
 msgid "Jabber account"
@@ -16644,11 +16544,8 @@ msgstr ""
 "dar kartą."
 
 #: ../../main/core/src/templates/finish.mas:113
-#, fuzzy
 msgid "The following changes are pending. You can save or discard them."
-msgstr ""
-"Yra neišsaugotų pakeitimų viename ar daugiau modulių, galite išsaugoti arba "
-"panaikinti pakeitimus."
+msgstr "Sekantys pakeitimai laukia. Galite išsaugoti arba naikinti."
 
 #: ../../main/core/src/templates/finish.mas:138
 msgid "Save"
@@ -16676,7 +16573,7 @@ msgstr "Įvyko klaida Zentyal: "
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Click here to return to the Dashboard"
-msgstr ""
+msgstr "Spauskite čia grįžti į pradžią"
 
 #: ../../main/core/src/templates/progress.mas:155
 msgid "Starting..."
@@ -16688,7 +16585,7 @@ msgstr "iš"
 
 #: ../../main/core/src/templates/progress.mas:172
 msgid "The process produced some warning messages:"
-msgstr ""
+msgstr "Procesas sukūrė kelis įspėjimus:"
 
 #: ../../main/core/src/templates/configureView.mas:12
 msgid ""
@@ -16816,19 +16713,16 @@ msgid "Read-only row: move down  disabled"
 msgstr "Tik skaitymui eilutė: perkėlimas išjungtas"
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:88
-#, fuzzy
 msgid "Add new..."
-msgstr "Įkelti naują"
+msgstr "Įkelti naują..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:143
-#, fuzzy
 msgid "No elements found. "
-msgstr "Nerasta"
+msgstr "Nerasta elementų."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
-#, fuzzy
 msgid "Add a new one"
-msgstr "Įkeliama naujas {row}"
+msgstr "Įkelti naują"
 
 #: ../../main/core/src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
 #: ../../main/core/src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
@@ -16854,15 +16748,16 @@ msgid "Configure module: {module}"
 msgstr "Kofigūruoti modulį: {module}"
 
 #: ../../main/core/src/templates/datetime.mas:11
-#, fuzzy
 msgid "Date and Time"
-msgstr "Pakeisti Data ir laiką"
+msgstr "Data ir laikas"
 
 #: ../../main/core/src/templates/datetime.mas:15
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
 msgstr ""
+"NTP sinchronizacija įjungta su išoriniais serveriais, jūs negalite keisti "
+"datos ir laiko."
 
 #: ../../main/core/src/templates/datetime.mas:19
 msgid ""
@@ -16870,9 +16765,8 @@ msgid ""
 msgstr "Pakeitimas datos ar laiko įtakos visų Zentyal servisų perkrovimą"
 
 #: ../../main/core/src/templates/datetime.mas:27
-#, fuzzy
 msgid "Synchronization enabled"
-msgstr "Nustatymai atsarginės kopijos įjungti"
+msgstr "Sinchronizacija įjungta"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
@@ -16948,7 +16842,7 @@ msgstr "Gruodis"
 
 #: ../../main/core/src/templates/links-widget.mas:17
 msgid "Official documentation in English and Spanish."
-msgstr ""
+msgstr "Oficiali dokumentacija Angliškai ir Ispaniškai."
 
 #: ../../main/core/src/templates/links-widget.mas:18
 msgid "Documentation"
@@ -16956,7 +16850,7 @@ msgstr "Dokumentacija"
 
 #: ../../main/core/src/templates/links-widget.mas:21
 msgid "Community Support Forum to give and get help."
-msgstr ""
+msgstr "Bendruomenės Pagalbos forumas duoti ir gauti pagalbai."
 
 #: ../../main/core/src/templates/links-widget.mas:22
 msgid "Forum"
@@ -16964,7 +16858,7 @@ msgstr "Forumas"
 
 #: ../../main/core/src/templates/links-widget.mas:25
 msgid "Help us to improve by reporting any bug you find!"
-msgstr ""
+msgstr "Padėkite mums tobulėti pranešdami apie rastą klaidą!"
 
 #: ../../main/core/src/templates/links-widget.mas:26
 msgid "Report a bug"
@@ -17114,7 +17008,7 @@ msgstr "Lyginumo algoritmas"
 
 #: ../../main/core/src/templates/report/raid.mas:160
 msgid "Bitmap"
-msgstr ""
+msgstr "Bitmap"
 
 #: ../../main/core/src/templates/report/raid.mas:181
 msgid "Array properties"
@@ -17141,9 +17035,8 @@ msgid "Percentage completed"
 msgstr "Procentaliai baigta"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
-msgstr "Apytikris pabaigos laikas: {time}."
+msgstr "Apytikris pabaigos laikas"
 
 #: ../../main/core/src/templates/report/raid.mas:212
 msgid "Operation speed"
@@ -17334,15 +17227,15 @@ msgid "Now you are ready to save changes and start using your Zentyal server"
 msgstr "Jūs pasiruošę išsaugoti pakeitimus ir pradėti naudoti Zentyal severį"
 
 #: ../../main/core/src/templates/wizard.mas:156
-#, fuzzy
 msgid "Installation finished"
-msgstr "Diegimas"
+msgstr "Diegimas baigtas"
 
 #: ../../main/core/src/templates/wizard.mas:157
-#, fuzzy
 msgid ""
 "Now you are ready to save changes and start using your new installed modules"
-msgstr "Jūs pasiruošę išsaugoti pakeitimus ir pradėti naudoti Zentyal severį"
+msgstr ""
+"Jūs pasiruošę išsaugoti pakeitimus ir pradėti naudoti naujai įdiegtus "
+"modulius"
 
 #: ../../main/core/src/templates/wizard.mas:181
 #: ../../main/core/src/templates/wizard.mas:191
@@ -17355,9 +17248,8 @@ msgid "Next"
 msgstr "Sekantis"
 
 #: ../../main/core/src/templates/input/multiSelect.mas:12
-#, fuzzy
 msgid "No options"
-msgstr "Parinktys"
+msgstr "Nėra parinkčių"
 
 #: ../../main/core/src/templates/language.mas:27
 msgid "Language Selection"
@@ -17368,6 +17260,8 @@ msgid ""
 "You need to save changes in order to apply all the language changes and "
 "probably also reload the page on your browser."
 msgstr ""
+"Turite išsaugoti visus pakeitimus norėdami pritaikyti visų kalbų pakeitimus "
+"ir greičiausiai perkrauti puslapį jūsų naršyklėje."
 
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"
@@ -17569,9 +17463,8 @@ msgid "Add and Edit"
 msgstr "Įkelti ir redaguoti"
 
 #: ../../main/users/src/templates/users.mas:111
-#, fuzzy
 msgid "Organizational Unit"
-msgstr "Organizacijos pavadinimas"
+msgstr "Organizacijos Pavadinimas"
 
 #: ../../main/users/src/templates/wizard/users.mas:9
 msgid "Select the type of the server"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-10-29 19:26+0200\n"
+"PO-Revision-Date: 2012-07-03 20:53+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -1810,9 +1810,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "L'opció de túnel de Zentyal a Zentyal requereix una contrasenya RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "El port {port} ja està sent utilitzat pel mòdul {mod}"
+msgstr "L'adreça VPN {addr} ja està en ús per la interfície {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1821,9 +1821,10 @@ msgstr ""
 "L'adreça de la VPN no pot ser la mateixa que una de les xarxes anunciades"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Altre servidor està a l'escolta en el mateix port"
+msgstr ""
+"Un altre servidor està  utilitzant la mateixa adreça VPN, sis plau esculli "
+"una altra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -3721,9 +3722,8 @@ msgid "Remove bind9 init script link"
 msgstr "Eliminar l'enllaç de l'script d'inici de bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Servidor de Noms de Domini"
+msgstr "Servei de Noms de Domini"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
@@ -4191,9 +4191,8 @@ msgid "Unknown"
 msgstr "Desconegut"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:77
-#, fuzzy
 msgid "Community"
-msgstr "Comentari"
+msgstr "Comunitat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:78
 msgid "Professional"
@@ -4205,9 +4204,8 @@ msgid "Enterprise"
 msgstr "Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:80
-#, fuzzy
 msgid "Small Business"
-msgstr "Tots els serveis"
+msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Zentyal Cloud Client"
@@ -4238,9 +4236,8 @@ msgstr "Suport tècnic"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "Actualització de seguretat"
+msgstr "Actualitzacions de seguretat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
@@ -4248,9 +4245,8 @@ msgid "Disaster Recovery"
 msgstr "Recuperació de desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "Usuari de Zentyal Cloud"
+msgstr "Serveis de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4365,9 +4361,8 @@ msgstr "Nom del servidor extern"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "Creació de servidor"
+msgstr "Edició de servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 msgid "Technical support"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-02-06 23:42+0200\n"
-"Last-Translator: Andreas <zentyaltranslate@andreas-marshall.de>\n"
+"PO-Revision-Date: 2012-06-23 15:47+0200\n"
+"Last-Translator: Bernhard <zentyal@funghis.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -4559,12 +4559,13 @@ msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
 msgstr ""
+"Der ssh Daemon lauscht auf dem nicht-standard Port: {p}. Informieren Sie den "
+"Support über diesen geänderten Port."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
-#, fuzzy
 msgid "QA software updates"
-msgstr "Automatische Softwareaktualisierungen"
+msgstr "Softwareaktualisierungen aufgrund des QA (Quality Assurance) Prozesses"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:93
 #, fuzzy
@@ -4578,7 +4579,7 @@ msgstr "Alle Pakete aktualisieren"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
-msgstr ""
+msgstr "Die Aktualisierung konnte nicht durchgeführt werden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
 #, fuzzy
@@ -4587,7 +4588,7 @@ msgstr "Dateifreigabe-Modul ist nicht aktiviert."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "Während des letzten Monats generierte Alarmmeldungen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
 #, fuzzy
@@ -4596,15 +4597,15 @@ msgstr "Informationen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
-msgstr ""
+msgstr "Alarm Meldung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr ""
+msgstr "Fehler Meldung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
-msgstr ""
+msgstr "Fatale Fehler Meldung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
 #, fuzzy
@@ -4619,6 +4620,8 @@ msgstr "Externe Serververbindung"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
 msgstr ""
+"Benutzen Sie bitte diesen Namen um sich mit dem externen Formular mit "
+"Zentyal zu verbinden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 #, fuzzy
@@ -4627,7 +4630,7 @@ msgstr "Abonnement für Zentyal-Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Central monitoring & management"
-msgstr ""
+msgstr "Monitoring- & Verwaltungszentrale"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
 #, fuzzy
@@ -4636,7 +4639,7 @@ msgstr "Server Erstellung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
 msgid "Not using Zentyal Cloud DynDNS service"
-msgstr ""
+msgstr "Sie benutzen nicht den DynDNS Service der Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #, fuzzy
@@ -4664,9 +4667,12 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
+"Das Aonnement wurde korrekt eingetragen. Speichern Sie die Änderungen und "
+"warten Sie einen Moment, damit das Sytem das Abonement durchführen kann. "
+"Danach können Sie die Dienste zu denen Sie durch Ihr Abonnement berechtigt "
+"sind (remote Backup, Aktualisierungen, Meldungen, etc.) nutzen."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:136
-#, fuzzy
 msgid "Subscription data retrieved correctly."
 msgstr "Abonnement-Daten erfolgreich übertragen"
 
@@ -4704,7 +4710,6 @@ msgid "User Name or Email Address"
 msgstr "Benutzername oder Mailadresse"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:357
-#, fuzzy
 msgid "Server Name"
 msgstr "Name des Servers"
 
@@ -4748,12 +4753,10 @@ msgid "Zentyal subscription details"
 msgstr "Zentyal Abonnements-Details"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:379
-#, fuzzy
 msgid "Unsubscribe"
-msgstr "Anmelden"
+msgstr "Abmelden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:382
-#, fuzzy
 msgid "Subscription to Zentyal Cloud"
 msgstr "Abonnement für Zentyal-Cloud"
 
@@ -4809,7 +4812,7 @@ msgstr "Grund"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:93
 msgid "Latest generated report"
-msgstr ""
+msgstr "Neuester erstellter Bericht"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
 #, fuzzy
@@ -4856,13 +4859,12 @@ msgid "Remote storage space available"
 msgstr "Speicherplatz freigeben"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:148
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Stelle die Zentyal Sicherungskonfiguration wieder her"
+msgstr "Sicherung der letzten Konfiguration"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:152
 msgid "Latest data backup"
-msgstr ""
+msgstr "Letzte Sicherung der Daten"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:156
 #, fuzzy
@@ -4870,53 +4872,51 @@ msgid "Data backed up"
 msgstr "Datenbankfehler"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:160
-#, fuzzy
 msgid "Estimated backup size"
-msgstr "Geschätzte verbleibende Zeit"
+msgstr "Geschätzte Grösse der Sicherung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
-#, fuzzy
 msgid "Estimated time to recover from a disaster"
-msgstr "Geschätzte verbleibende Zeit"
+msgstr "Geschätzte Zeit zur Durchführung der Wiederherstellung "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
-msgstr ""
+msgstr "Disaster Wiederherstellung ermöglichen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:227
 #, perl-brace-format
 msgid "{num} GB, left: {per}"
-msgstr ""
+msgstr "{num} GB, verfügbar: {per}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:254
 #, perl-brace-format
 msgid "{time} hours - Full Disaster Recovery"
-msgstr ""
+msgstr "{time} Stunden - zur kompletten Disaster Wiederherstellung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:256
 #, perl-brace-format
 msgid "{size} MB"
-msgstr ""
+msgstr "{size} MB"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:259
-#, fuzzy
 msgid "No backup done yet"
-msgstr "Sicherung gelöscht"
+msgstr "Es wurde keine Sicherung durchgeführt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:271
 #, perl-brace-format
 msgid "Install {mod} module to start using Disaster Recovery"
 msgstr ""
+"Installieren Sie das Modul {mod} um die Disaster Wiederherstellung "
+"durchzuführen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:276
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{time} minutes - Configuration Backup Only"
-msgstr "Konfiguration sichern"
+msgstr "{time} Minuten um nur die Konfiguration zu sichern"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:283
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr "Sichern der Konfiguration"
+msgstr "Es wurde bis jetzt keine Sicherung der Konfiguration durchgeführt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -5022,6 +5022,9 @@ msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
 msgstr ""
+"Die VPN Einstellungen konnten nicht geholt werden. Überprüfen Sie Ihre "
+"{openurl}{brand} Profil{closeurl} um Ihre VPN Server Einstellungen zu "
+"verifizieren."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:527
 #, perl-brace-format
@@ -5034,6 +5037,8 @@ msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
+"Kann nicht zum Server \"{addr}:{port}/{proto}\" verbinden. Überprüfen Sie "
+"bitte die Namensauflösung und die Firewall in Ihrem Netzwerk."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:952
 #, perl-brace-format
@@ -5041,22 +5046,26 @@ msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr ""
+"Konnte nicht zum VPN Server \"{addr}:{port}/{proto}\" verbinden. Bitte "
+"überprüfen Sie Ihre Netzwerk Firewall."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:57
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
 msgstr ""
+"Sie müssen einen zulässigen Subdomain Namen verwenden. Dieser kann nur "
+"alphanumerische Zeichen und das \"-\" Zeichen beinhalten."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:60
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr "Es kann die Charakter \"{char}\" nicht enthalten."
+msgstr "Es darf das Zeichen {char} nicht beinhalten."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:63
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr "Es kann nicht mehr Charakter als {n} enthalten"
+msgstr "Es darf nicht mehr als {n} Zeichen beinhalten"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
 #, fuzzy

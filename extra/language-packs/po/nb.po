@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-10-10 11:32+0200\n"
+"PO-Revision-Date: 2012-05-21 09:49+0200\n"
 "Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
@@ -4832,27 +4832,20 @@ msgstr "Oppgave"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:67
-#, fuzzy
 msgid "Reason"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Årsak\n"
-"#-#-#-#-#  nb.po (ebox-ca 0.12.99)  #-#-#-#-#\n"
-"Grunn"
+msgstr "Årsak"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:93
 msgid "Latest generated report"
-msgstr ""
+msgstr "Siste genererte rapport"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
-#, fuzzy
 msgid "Download latest report"
-msgstr "Last ned konfigurasjons rapport"
+msgstr "Last ned liste rapport"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:103
-#, fuzzy
 msgid "Reports"
-msgstr "Fulle rapporter"
+msgstr "Rapporter"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:108
 msgid ""
@@ -4866,58 +4859,45 @@ msgid "{oh}Download sample{ch}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Download{ch}"
-msgstr ""
-"#-#-#-#-#  nb.po (libebox 0.12.99)  #-#-#-#-#\n"
-"Last ned\n"
-"#-#-#-#-#  nb.po (ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"Nedlasting\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Last ned"
+msgstr "{oh}Last Ned{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:150
 msgid "No report generated yet"
-msgstr ""
+msgstr "Ingen rapport generert enda"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
-#, fuzzy
 msgid "Disaster recovery"
-msgstr "gjeopprett"
+msgstr "Katastrofe gjenoppretting"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:144
-#, fuzzy
 msgid "Remote storage space available"
-msgstr "Ledig lagrings plass"
+msgstr "Ekstern ledig lagrings plass"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:148
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Gjenopprett Zentyal konfigurasjon fra sikkerhetskopi"
+msgstr "Siste konfigurasjons sikkerhetskopi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:152
 msgid "Latest data backup"
-msgstr ""
+msgstr "Siste data sikkerhetskopi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:156
-#, fuzzy
 msgid "Data backed up"
-msgstr "Database ødelagt"
+msgstr "Data sikkerhestkopiert"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:160
-#, fuzzy
 msgid "Estimated backup size"
-msgstr "Forventet tid igjen"
+msgstr "Forventet sikkerhetskopi størrelse"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
-#, fuzzy
 msgid "Estimated time to recover from a disaster"
-msgstr "Forventet tid igjen"
+msgstr "Forventet tid for gjenoppretting etter katastrofe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
-msgstr ""
+msgstr "Full Katastrofe Gjenoppretting aktivert"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:227
 #, perl-brace-format
@@ -4935,9 +4915,8 @@ msgid "{size} MB"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:259
-#, fuzzy
 msgid "No backup done yet"
-msgstr "Sikkerhetskopi slettet"
+msgstr "Ingen sikkerhetskopi utført enda"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:271
 #, perl-brace-format
@@ -17886,9 +17865,8 @@ msgid "Remove all messages"
 msgstr "Fjern alle meldinger"
 
 #: ../../main/mail/src/templates/qmanager.mas:146
-#, fuzzy
 msgid "There are no messages in queue or the service is stopped"
-msgstr "Det er ingen melinger i køen eller tjenesten har stoppet"
+msgstr "Det er ingen meldinger i køen eller tjenesten har stoppet"
 
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""
@@ -17940,9 +17918,8 @@ msgid "Zarafa takes quota settings from mail account settings."
 msgstr "Zarafa tar kvote instillinger fra epost konto instillinger."
 
 #: ../../main/zarafa/src/templates/zarafa.mas:52
-#, fuzzy
 msgid "Groupware contact"
-msgstr "Gruppevare Konto"
+msgstr "Gruppevare kontakt"
 
 #: ../../main/asterisk/src/templates/group.mas:7
 msgid "Asterisk group queue"
@@ -17993,19 +17970,20 @@ msgid "Add and Edit"
 msgstr "Legg til og Rediger"
 
 #: ../../main/users/src/templates/users.mas:111
-#, fuzzy
 msgid "Organizational Unit"
-msgstr "Organisasjonsnavn"
+msgstr "Organisasjons Enhet"
 
 #: ../../main/users/src/templates/wizard/users.mas:9
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Velg type server"
 
 #: ../../main/users/src/templates/wizard/users.mas:10
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Velg selvstendig med mindre du vil ha LDAP replikering eller synkronisering "
+"med Active Directory."
 
 #: ../../main/users/src/templates/wizard/users.mas:12
 msgid "Standalone server"
@@ -18013,7 +17991,7 @@ msgstr "Frittstående server"
 
 #: ../../main/users/src/templates/wizard/users.mas:13
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Avansert konfigurering (Maser/Slave/AS Sync)"
 
 #: ../../main/users/src/templates/wizard/users.mas:16
 #, perl-brace-format
@@ -18099,9 +18077,8 @@ msgstr ""
 "data som delt mappe, osv."
 
 #: ../../main/users/src/templates/user.mas:67
-#, fuzzy
 msgid "User quota"
-msgstr "Bruker kvote overskredet"
+msgstr "Bruker kvote"
 
 #: ../../main/users/src/templates/user.mas:114
 msgid "User groups"

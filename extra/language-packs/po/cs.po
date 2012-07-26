@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-07-16 00:38+0200\n"
+"PO-Revision-Date: 2012-04-12 21:58+0200\n"
 "Last-Translator: Michal <formanek.michal@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -211,11 +211,13 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
+"Maximální rychlost stahování pro tuto síť. Použijte -1 pro vypnutí této "
+"volby."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 #, fuzzy
@@ -226,7 +228,7 @@ msgstr "Obnovení modulů"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168

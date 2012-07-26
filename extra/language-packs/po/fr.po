@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-08-26 21:59+0200\n"
-"Last-Translator: miquel <miquel@acsat.net>\n"
+"PO-Revision-Date: 2012-06-06 15:01+0200\n"
+"Last-Translator: ButterflyOfFire <ButterflyOfFire@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -210,9 +210,8 @@ msgid "Network object"
 msgstr "Objet réseau"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Taux Réseau"
+msgstr "Taux de téléchargement réseau"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -221,16 +220,14 @@ msgid "KB/s"
 msgstr "KO/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Taux de téléchargement maximum de la bande passante pour ce réseau. Utiliser "
-"-1 pour désactiver cette limite."
+"Taux de téléchargement maximum pour ce réseau. Utiliser -1 pour désactiver "
+"cette limite."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Taille Maximum du Réseau"
+msgstr "Taille du fichier réseau"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -249,21 +246,17 @@ msgstr ""
 "pour désactiver cette option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Adresse client"
+msgstr "Taux téléchargement par le client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
-"Taux de téléchargement de la bande passante maximum par client. Utiliser -1 "
-"pour désactiver cette option."
+"Taux de téléchargement par client. Utiliser -1 pour désactiver cette option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Taille Client Maximum"
+msgstr "Taille du fichier client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 #, fuzzy
@@ -751,9 +744,8 @@ msgstr ""
 "authentification"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Télécharger"
+msgstr "Taux de téléchargement"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
 #, fuzzy
@@ -763,9 +755,8 @@ msgstr ""
 "pour désactiver cette option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Système de fichier"
+msgstr "Taille du fichier"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
@@ -1480,9 +1471,8 @@ msgstr ""
 "modèles personnalisés de Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Supprimer les liens aux scripts d'initialisation ntp"
+msgstr "Supprimer le lien au script d'initialisation de dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:308 ../../main/dns/src/EBox/DNS.pm:606
 #: ../../main/ntp/src/EBox/NTP.pm:91
@@ -1829,9 +1819,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "L'option tunnel de Zentyal à Zentyal requière un mot de passe RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Le port {port} est déjà utilisé par le module {mod}"
+msgstr "L'adresse VPN {addr} est déjà utilisée par l'interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1840,9 +1830,10 @@ msgstr ""
 "L'adresse VPN ne peut pas être la même que l'un de ses réseaux annoncés "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Un autre serveur écoute sur le même port"
+msgstr ""
+"Un autre serveur utilise la même adresse VPN. Veuillez en spécifier une "
+"autre"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -2667,7 +2658,7 @@ msgstr "REDIRIGER"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:686
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Échec du Pare-feu lors du rajout des règles dans modules suivants : "
 
 #: ../../main/firewall/src/EBox/Iptables.pm:689
 msgid ""
@@ -3783,9 +3774,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Laisse le service bind être mis-à-jour automatiquement"
 
 #: ../../main/dns/src/EBox/DNS.pm:605
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Supprimer les liens aux scripts d'initialisation ntp"
+msgstr "Supprimer le lien au script d'initialisation bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
 #, fuzzy
@@ -4805,15 +4795,15 @@ msgstr "Inscription"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:555
 msgid " module"
-msgstr "module"
+msgstr " module"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:561
 msgid " and "
-msgstr "et"
+msgstr " et "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:561
 msgid " modules"
-msgstr "modules"
+msgstr " modules"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:578
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
@@ -9516,11 +9506,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
 msgid " (user))"
-msgstr "(utilisateur))"
+msgstr " (utilisateur))"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:261
 msgid " (group))"
-msgstr "(groupe))"
+msgstr " (groupe))"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
@@ -10352,7 +10342,7 @@ msgstr "Le domaine virtuel de courrier {vd} n'existe pas"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:60
 msgid " To configure spamassassin daemon"
-msgstr "Configurer le service SpamAssassin"
+msgstr " Configurer le service SpamAssassin"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:340
 msgid "It must be a number(decimal point allowed)"
@@ -10388,7 +10378,7 @@ msgstr "Les comptes du domaine {d} ne peuvent pas entraîner le filtre bayésien
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr "Configurer p3scan"
+msgstr " Configurer p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
@@ -10635,9 +10625,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/l7-protocols/src/EBox/Model/Protocols.pm:61
-#, fuzzy
 msgid "Layer 7 protocols"
-msgstr "protocole"
+msgstr "protocoles de la couche d'application 7"
 
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:51
 #, fuzzy
@@ -11164,7 +11153,7 @@ msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:177
 msgid " To configure clamd daemon"
-msgstr "Configurer le service clamd"
+msgstr " Configurer le service clamd"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:182
 msgid "To schedule the launch of the updater"
@@ -14937,9 +14926,8 @@ msgid "To serve pages over HTTPS."
 msgstr "Pour délivrer des pages en HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Supprimer les liens aux scripts d'initialisation ntp"
+msgstr "Supprimer le lien au script d'initialisation d'apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:167
 #, fuzzy
