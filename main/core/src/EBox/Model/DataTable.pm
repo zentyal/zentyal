@@ -4654,24 +4654,22 @@ sub confirmationJS
                     $action,
                     $elementsArrayJS
                     );
+
+    my $goAheadJSEscaped = $goAheadJS;
+    $goAheadJSEscaped =~ s{'}{\\'}g;
+
     my $js =<< "ENDJS";
        this.disable = true;
-       var goAhead = true;
-       var confirmMsg = $call;
-       if (confirmMsg) {
-         if (!confirm(confirmMsg)) {
-              goAhead = false;
-         }
-       }
-       if (goAhead) {
-          $goAheadJS
-       }
-
+       var specs = $call;
        this.disable = false;
+       if (specs.wantDialog) {
+           showConfirmationDialog(specs, '$goAheadJSEscaped');
+       } else {
+          $goAheadJS ;
+       }
        return false;
 ENDJS
 
+    return $js;
 }
-
-
 1;

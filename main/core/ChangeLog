@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in discard changes dialog
+	+ Confirmation dialogs now use styled modalboxes
 	+ Do not reload page after save changes dialog if operation is successful
 	+ Maintenance menu is now kept open when visiting the logs index page
 2.3.18
