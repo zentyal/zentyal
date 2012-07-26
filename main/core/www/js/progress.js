@@ -84,9 +84,9 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
             $('ajax_request_cookie').value = 1337;
         }
         else if (response.state == 'error') {
+            pe.stop();
             Element.hide('progressing');
             $('error-progress').show();
-            pe.stop();
             if ('errorMsg' in response) {
                 $('error-progress-message').update(
                     response.errorMsg);
