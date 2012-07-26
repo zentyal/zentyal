@@ -1,4 +1,5 @@
 HEAD
+	+ Do not reload page after save changes dialog if operation is successful
 	+ Maintenance menu is now kept open when visiting the logs index page
 2.3.18
 	+ Manual clone of row in DataTable::setTypedRow to avoid segfault

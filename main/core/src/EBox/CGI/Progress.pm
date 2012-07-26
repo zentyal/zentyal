@@ -61,7 +61,8 @@ sub _process
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             endNote errorNote reloadInterval currentItemUrl
             nextStepType
-            nextStepUrl nextStepText nextStepTimeout nextStepUrlOnclick
+            nextStepUrl nextStepText nextStepTimeout
+            nextStepUrlOnclick nextStepUrlFailureOnclick
             barWidth );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.

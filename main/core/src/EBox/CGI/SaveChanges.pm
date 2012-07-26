@@ -64,7 +64,7 @@ my @popupProgressParams = (
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').toggleClassName('notchanged'); window.location.reload(); return false",
+        nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
         barWidth => 490,
 );
 
@@ -88,9 +88,9 @@ sub saveAllModulesAction
        );
     if ($self->param('noPopup')) {
         push @params, (title => __('Saving changes'));
-
     } else {
         push @params, @popupProgressParams;
+        push @params, nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
     }
 
     $self->showProgress(@params);
@@ -115,10 +115,11 @@ sub revokeAllModulesAction
         @commonProgressParams
        );
 
-    if (not $self->param('noPopup')) {
+    if ($self->param('noPopup')) {
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
+        push @params, nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false";
     }
 
     $self->showProgress(@params);
