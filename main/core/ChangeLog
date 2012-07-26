@@ -1,4 +1,5 @@
 HEAD
+	+ Changes in styles and sizes of the save/revoke dialog
 	+ Fixed bug in discard changes dialog
 	+ Confirmation dialogs now use styled modalboxes
 	+ Do not reload page after save changes dialog if operation is successful
