@@ -61,6 +61,7 @@ my @commonProgressParams = (
 );
 my @popupProgressParams = (
         raw => 1,
+        inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',

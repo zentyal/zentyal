@@ -77,7 +77,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
             }
 
             Element.hide('progressing');
-            Element.show('done');
+            $('done').show();
 
             // Used to tell selenium we are done
             // with saving changes
@@ -85,7 +85,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
         }
         else if (response.state == 'error') {
             Element.hide('progressing');
-            Element.show('error-progress');
+            $('error-progress').show();
             pe.stop();
             if ('errorMsg' in response) {
                 $('error-progress-message').update(

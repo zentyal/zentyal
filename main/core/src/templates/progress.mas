@@ -14,6 +14,8 @@ $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
 
+$inModalbox => undef
+
 $nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
 $nextStepUrlOnclick => undef
@@ -54,6 +56,10 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
+% if ($inModalbox) {
+<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+% }
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -194,6 +200,16 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </script>
 % }
 
+% if ($inModalbox) {
+<script  type="text/javascript">
+  var section = $("error-progress");
+  section.show = section.show.wrap(function (origFunc) {
+                                       origFunc.apply(Modalbox, arguments);
+                                        Modalbox.resizeToInclude(this);
+                                        Modalbox.resize(0, +20);
+                                   });
+</script>
+% }
 <%def .nextStep>
 <%args>
 $type
