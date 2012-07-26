@@ -27,7 +27,6 @@ use strict;
 use base 'EBox::Reporter::Base';
 
 use EBox::Global;
-use Filesys::Df qw(df);
 
 # Method: module
 #
@@ -109,8 +108,12 @@ sub _log
         $entry->{'type'} = ($share->{'groupShare'} ? 'group' : 'user');
 
         # Calculate and add share size
-        my $info = df($share->{'path'}, 1);
-        $entry->{'size'} = $info->{'used'};
+        my $path = $share->{'path'};
+        my $du = EBox::Sudo::root("sudo du -sb $path");
+        $entry->{'size'} = int($du->[0]);
+
+use Data::Dumper;
+print Dumper($entry);
 
         push (@{$stats}, $entry);
     }
