@@ -1,4 +1,5 @@
-HEAD
+2.3.1
+	+ Translations updated from translate.zentyal.org (Jul/26)
 	+ Fix in parsing mason templates: <% %> can be concatenated in the
 	  same line and it can split in several lines
 2.3
