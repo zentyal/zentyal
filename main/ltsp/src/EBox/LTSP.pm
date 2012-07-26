@@ -669,7 +669,7 @@ sub _ltspWidgetStatus
             return new EBox::Dashboard::Value(__('Status'), __('Some work is being done on an image'));
         }
     } else {
-        return new EBox::Dashboard::Value(__('Status'), __("$num_clients users logged"));
+        return new EBox::Dashboard::Value(__('Status'), __x("{n} users logged", n => $num_clients));
     }
 }
 
