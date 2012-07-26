@@ -2250,14 +2250,6 @@ sub _updatePathsByLen
     my ($self) = @_;
 
     @sharesSortedByPathLen = ();
-# FIXME
-#    my $ldapInfo = EBox::SambaLdapUser->new();
-#    @sharesSortedByPathLen = map {
-#         { path => $_->{path},
-#           share => $_->{sharename} }
-#    } ( @{ $ldapInfo->userShareDirectories },
-#        @{ $ldapInfo->groupShareDirectories }
-#      );
 
     foreach my $sh_r (@{ $self->shares(1) }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
