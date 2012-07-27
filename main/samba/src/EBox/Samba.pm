@@ -38,9 +38,11 @@ use EBox::LDB;
 use EBox::Util::Random qw( generate );
 
 use Perl6::Junction qw( any );
-use Net::Domain qw(hostdomain);
+use Net::DNS;
+use Net::Ping;
 use Error qw(:try);
 use File::Slurp;
+use File::Temp;
 
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
@@ -60,6 +62,9 @@ use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
 use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
+
+use constant MODE_DC              => 'dc';
+use constant MODE_ADC             => 'adc';
 
 sub _create
 {
@@ -507,6 +512,20 @@ sub provision
                                             'will remain disabled.'));
     }
 
+    my $mode = $self->mode();
+    if ($mode eq MODE_DC) {
+        $self->provisionAsDC();
+    } elsif ($mode eq MODE_ADC) {
+        $self->provisionAsADC();
+    } else {
+        throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
+    }
+}
+
+sub provisionAsDC
+{
+    my ($self) = @_;
+
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
@@ -585,6 +604,7 @@ sub setupDNS
 {
     my ($self) = @_;
 
+    EBox::debug('Setting up DNS');
     my $dnsModule = EBox::Global->modInstance('dns');
     my $usersModule = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -598,9 +618,156 @@ sub setupDNS
         # TODO Throw expcetion. It should have been created by the users module
     }
     my $DBPath = '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so'; # TODO Get this value dynamically
-    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
     $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
+    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
     $domainRow->store();
+
+    if ($self->mode() eq MODE_ADC) {
+        unless ($self->isRunning()) {
+            EBox::debug("Starting service");
+            EBox::Sudo::root("service heimdal-kdc stop");
+            sleep (5);
+            $self->_startService();
+        }
+
+        do {
+            # This is inside a loop because we have to wait until
+            # RID Managers are replicated from master DC
+            EBox::debug("Upgrading DNS setup...");
+            EBox::Sudo::silentRoot('samba_upgradedns');
+            sleep (5);
+        } while ($? != 0);
+    }
+
+    my @cmds;
+    push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+    push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+    EBox::Sudo::root(@cmds);
+}
+
+sub provisionAsADC
+{
+    my ($self) = @_;
+
+    my $model = $self->model('GeneralSettings');
+    my $domainToJoin = $model->value('realm');
+    my $dcFQDN = $model->value('dcfqdn');
+    my $domainDNS = $model->value('dnsip');
+    my $adminAccount = $model->value('adminAccount');
+    my $adminAccountPwd = $model->value('password');
+
+    # If the host domain or the users kerberos realm does not
+    # match the domain we are trying to join warn the user and
+    # abort
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    if ($sysinfo->hostDomain() ne $domainToJoin) {
+        throw EBox::Exceptions::External(
+            __('The server domain and kerberos realm must match the domain the ' .
+               'domain you are trying to join.'));
+    }
+
+    my $dnsFile = undef;
+    my $pwdFile = undef;
+    try {
+        EBox::info("Joining to domain '$domainToJoin' as DC");
+
+        # TODO Get the netbios domain name from AD and set model field. Otherwise
+        # setconf writes the wrong name and samba does not run
+
+        my $kdcName = undef;
+        # Query the DNS server to get the domain's KDC server
+        EBox::debug("Querying DNS server '$domainDNS' to get the KDC of the domain");
+        my $resolver = Net::DNS::Resolver->new(nameservers => [ $domainDNS ]);
+        $resolver->searchlist($domainToJoin);
+        my $packet = $resolver->search("_kerberos._tcp.dc._msdcs.$domainToJoin", 'SRV');
+        if ($packet) {
+            foreach my $rr ($packet->additional) {
+                next unless $rr->type eq 'A';
+                $kdcName = $rr->address;
+                EBox::debug("Found domain KDC '$kdcName'");
+                last;
+            }
+        } else {
+            throw EBox::Exceptions::External(
+                __("DNS query to get the domain KDC failed: $resolver->errorstring"));
+        }
+
+        # Check KDC connectivity
+        EBox::debug("Checking KDC connectivity");
+        my $p = Net::Ping->new('syn');
+        my $pingOk = $p->ping($kdcName, 2);
+        $p->close();
+        unless ($pingOk) {
+            throw EBox::Exceptions::External(
+                __("The domain's KDC ($kdcName) is not reachable"));
+        }
+
+        # Set the domain DNS as the primary resolver. This will also let to get
+        # the kerberos ticket for the admin account.
+        EBox::debug("Setting domain DNS server '$domainDNS' as the primary resolver");
+        $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
+                                  DIR      => EBox::Config::tmp());
+        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile");
+        my $array = [];
+        push (@{$array}, searchDomain => $domainToJoin);
+        push (@{$array}, nameservers => [ $domainDNS ]);
+        $self->writeConfFile(EBox::Network::RESOLV_FILE(),
+                             'network/resolv.conf.mas',
+                             $array);
+
+        # Get kerberos ticket for the administrator account
+        EBox::debug("Getting kerberos ticket for admin account from KDC");
+        $pwdFile = new File::Temp(TEMPLATE => 'XXXXXX',
+                                  DIR      => EBox::Config::tmp());
+        unless (write_file($pwdFile, "$adminAccountPwd\n")) {
+            throw EBox::Exceptions::Internal(__("Could not save pwd to file"));
+        }
+        my $cmd = "kinit --windows --password-file=$pwdFile $adminAccount\@$domainToJoin";
+        EBox::Sudo::root($cmd);
+
+        # Purge users and groups
+
+        # Join the domain
+        EBox::debug("Joining to the domain");
+        $self->stopService();
+        my @cmds;
+        push (@cmds, 'rm -f ' . SAMBACONFFILE);
+        push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
+        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC -U $adminAccount --password='$adminAccountPwd' --server=$dcFQDN");
+        my $output = EBox::Sudo::silentRoot(@cmds);
+        if ($? == 0) {
+            $self->set_bool('provisioned', 1);
+            EBox::debug("Provision result: @{$output}");
+        } else {
+            my @error = ();
+            my $stderr = EBox::Config::tmp() . 'stderr';
+            if (-r $stderr) {
+                @error = read_file($stderr);
+            }
+            throw EBox::Exceptions::Internal("Error joining to domain: @error");
+        }
+        # The administrator password is also the password for the 'Zentyal' user,
+        # save it to a file to connect LDB
+        $self->_savePassword($self->administratorPassword(),
+                             EBox::Config->conf() . "ldb.passwd");
+
+        $self->setupDNS();
+    } otherwise {
+        my $error = shift;
+        throw $error;
+    } finally {
+        # Remove admin account pwd file
+        unlink $pwdFile if (defined $pwdFile and -f $pwdFile);
+
+        # Revert primary resolver changes
+        if (defined $dnsFile and -f $dnsFile) {
+            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+            unlink $dnsFile;
+        }
+
+        # Destroy the kerberos ticket
+        EBox::Sudo::silentRoot('kdestroy');
+    };
 }
 
 # Method: sambaInterfaces
@@ -668,7 +835,7 @@ sub _setConf
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
     push (@array, 'ifaces'      => $interfaces);
-    push (@array, 'mode'        => $self->mode());
+    push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
 
@@ -706,22 +873,24 @@ sub _setConf
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
-    $self->model('SambaShares')->createDirs();
+    # TODO $self->model('SambaShares')->createDirs();
 
     # Change group ownership of quarantine_dir to __USERS__
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
     # Set roaming profiles
-    if ($self->roamingProfiles()) {
-        my $path = "\\\\$netbiosName.$realmName\\profiles";
-        $self->ldb()->setRoamingProfiles(1, $path);
-    } else {
-        $self->ldb()->setRoamingProfiles(0);
-    }
+    # TODO
+    #if ($self->roamingProfiles()) {
+    #    my $path = "\\\\$netbiosName.$realmName\\profiles";
+    #    $self->ldb()->setRoamingProfiles(1, $path);
+    #} else {
+    #    $self->ldb()->setRoamingProfiles(0);
+    #}
 
     # Mount user home on network drive
-    $self->ldb()->setHomeDrive($self->drive());
+    # TODO
+    # $self->ldb()->setHomeDrive($self->drive());
 }
 
 sub _shareUsers

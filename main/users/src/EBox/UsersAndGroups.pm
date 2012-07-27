@@ -261,6 +261,24 @@ sub cleanDNS
         } otherwise {
         };
     }
+
+    # Samba sets the domain as type dlz. If samba is disabled
+    # the type have to be changed again to static or dynamic.
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        return if ($sambaModule->isEnabled() and
+                   $sambaModule->isProvisioned());
+    }
+
+    my $domainModel = $dnsMod->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $domain);
+    if ($domainRow) {
+        # TODO Deal with DHCP module to check if the domain is
+        #      static or dynamic
+        EBox::debug("Setting the domain type to static");
+        $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
+        $domainRow->store();
+    }
 }
 
 sub setupKerberos
@@ -273,7 +291,7 @@ sub setupKerberos
 
     # Create the kerberos database
     my @cmds = ();
-    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i');
+    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
@@ -309,6 +327,14 @@ sub setupDNS
         $dnsMod->addDomain($domain);
     } else {
         $self->cleanDNS($hostDomain);
+    }
+
+    # Do not add the records if the samba module is installed, enabled and
+    # provisioned. Samba will load them.
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        return if ($sambaModule->isEnabled() and
+                   $sambaModule->isProvisioned());
     }
 
     # Add the TXT record with the realm name
@@ -535,6 +561,9 @@ sub _setConf
 
     @array = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@array);
+
+    # Set up the required DNS records
+    $self->setupDNS();
 }
 
 sub kerberosRealm
@@ -628,6 +657,46 @@ sub _daemons
           precondition => \&isSambaDisabled },
     ];
 }
+
+# Method: isRunning
+#
+#   Overriden to show the module as running in the dashboard
+#   although the heimdal-kdc daemon is stopped due to samba
+#   running
+#
+# Override:
+#
+#   EBox::Module::Service
+#
+# Returns:
+#
+#   boolean - true if it's running otherwise false
+#
+sub isRunning
+{
+    my ($self) = @_;
+
+    my $daemons = $self->_daemons();
+
+    for my $daemon (@{$daemons}) {
+        # Ignore the heimdal-kdc daemon if samba is running
+        next if ($daemon->{name} eq 'heimdal-kdc' and
+                 not $self->isSambaDisabled());
+
+        my $check = 1;
+        my $pre = $daemon->{'precondition'};
+        if (defined ($pre)) {
+            $check = $pre->($self);
+        }
+        # If precondition does not meet the daemon should not be running.
+        $check or return 0;
+        unless ($self->_isDaemonRunning($daemon->{'name'})) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 
 # Method: _enforceServiceState
 #

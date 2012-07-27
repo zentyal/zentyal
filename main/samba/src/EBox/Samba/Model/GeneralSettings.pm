@@ -228,18 +228,40 @@ sub _table
             populate      => \&_server_roles,
             editable      => 1,
         ),
+        new EBox::Types::DomainName(
+            fieldName          => 'realm',
+            printableName      => __('Domain'),
+            defaultValue       => EBox::Samba::defaultRealm(),
+            editable           => 1,
+        ),
+
+
+        new EBox::Types::DomainName(
+            fieldName     => 'dcfqdn',
+            printableName => __('Domain controller FQDN'),
+            editable      => 1,
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'dnsip',
+            printableName => __('Domain DNS server IP'),
+            editable      => 1,
+        ),
+
+        new EBox::Types::Text(
+            # This is the administrator account used to join the zentyal
+            # server to an existent domain
+            fieldName     => 'adminAccount',
+            printableName => __('Administrator account'),
+            editable      => 1,
+        ),
         new EBox::Types::Text(
             fieldName     => 'password',
             printableName => __('Administrator password'),
             defaultValue  => EBox::Samba::defaultAdministratorPassword(),
             editable      => 1,
         ),
-        new EBox::Types::DomainName(
-            fieldName          => 'realm',
-            printableName      => __('Domain'),
-            defaultValue       => EBox::Samba::defaultRealm(),
-            editable           => 0,
-        ),
+
+
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
             printableName      => __('NetBIOS domain name'),
@@ -353,16 +375,16 @@ sub confirmReprovision
 # Populate the server role select
 sub _server_roles
 {
-    my @roles;
+    my $roles = [];
 
-    push (@roles, { value => 'dc', printableValue => __('Domain controller')});
+    push (@{$roles}, { value => 'dc', printableValue => __('Domain controller')});
+    push (@{$roles}, { value => 'adc', printableValue => __('Additional domain controller')});
 
     # FIXME
     # These roles are disabled until implemented, we should also use better names
-    #push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
     #push (@roles, { value => 'standalone', printableValue => __('Standalone')});
 
-    return \@roles;
+    return $roles;
 }
 
 sub _drive_letters
@@ -384,6 +406,36 @@ sub _drive_letters
 sub headTitle
 {
     return undef;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $actions = {
+        mode => {
+            dc => {
+#                show => ['workgroup'],
+                hide => ['dcfqdn', 'dnsip','adminAccount'],
+            },
+            adc => {
+                show => ['dcfqdn','dnsip','adminAccount'],
+#                hide => ['workgroup'],
+            },
+        },
+    };
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions($actions);
+    $customizer->setHTMLTitle([]);
+    $customizer->setInitHTMLStateOrder(['mode']);
+
+    return $customizer;
 }
 
 1;

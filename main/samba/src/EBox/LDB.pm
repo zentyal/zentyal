@@ -230,11 +230,12 @@ sub safeBind
 {
     my ($self, $ldb, $dn, $password) = @_;
 
+    EBox::debug("binding as $dn, $password");
     my $bind = $ldb->bind($dn, password => $password);
     unless ($bind->{resultCode} == 0) {
         throw EBox::Exceptions::External(
             'Couldn\'t bind to LDB server, result code: ' .
-            $bind->{resultCode});
+            $bind->{resultCode} . ':' .$bind->error);
     }
 
     return $bind;
@@ -251,6 +252,17 @@ sub safeBind
 sub zentyalDn
 {
     my ($self, $base) = @_;
+
+    # TODO Remove when SASL GSSAPI implemented
+    my $samba = EBox::Global->modInstance('samba');
+    my $model = $samba->model('GeneralSettings');
+    if ($model->value('mode') eq EBox::Samba::MODE_ADC()) {
+        my $domain = $model->value('realm');
+        my $admin = $model->value('adminAccount');
+        my $dn = 'CN='. $admin . ',CN=Users,DC=';
+        $dn .= join (',DC=', split (/\./, $domain));
+        return $dn;
+    }
 
     unless (defined ($base)) {
         $base = $self->dn();
@@ -303,23 +315,31 @@ sub dn
     my ($self) = @_;
 
     unless (defined ($self->{dn})) {
-        my $ldb = $self->safeConnect(LDAPI);
+        # TODO When samba is configured as adc the base dn is
+        # CN=Schema,CN=Configuration,DC=kernevil,DC=lan
+        my $samba = EBox::Global->modInstance('samba');
+        my $model = $samba->model('GeneralSettings');
+        my $base = 'DC=' . join(',DC=', split (/\./, $model->value('realm')));
+        EBox::debug("base $base");
+        $self->{dn} = $base;
 
-        $ldb->bind();
+        #my $ldb = $self->safeConnect(LDAPI);
 
-        my %args = ( base   => '',
-                     scope  => 'base',
-                     filter => '(objectclass=*)',
-                     attrs  => ['namingContexts'] );
-        my $result = $ldb->search(%args);
-        if ($result->count() > 0) {
-            my $entry = ($result->entries)[0];
-            my @attributes = $entry->attributes();
-            if (scalar @attributes > 0) {
-                my $attr = $attributes[0];
-                $self->{dn} = $entry->get_value($attr);
-            }
-        }
+        #$ldb->bind();
+
+        #my %args = ( base   => '',
+        #             scope  => 'base',
+        #             filter => '(objectclass=*)',
+        #             attrs  => ['namingContexts'] );
+        #my $result = $ldb->search(%args);
+        #if ($result->count() > 0) {
+        #    my $entry = ($result->entries)[0];
+        #    my @attributes = $entry->attributes();
+        #    if (scalar @attributes > 0) {
+        #        my $attr = $attributes[0];
+        #        $self->{dn} = $entry->get_value($attr);
+        #    }
+        #}
     }
 
     return defined ($self->{dn}) ? $self->{dn} : '';

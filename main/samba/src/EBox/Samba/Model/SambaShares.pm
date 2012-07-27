@@ -261,7 +261,8 @@ sub createDirs
 {
     my ($self) = @_;
 
-    my $administratorSID = $self->parentModule()->ldb()->getSidById('administrator');
+    my $adminAccount = $self->parentModule()->model('GeneralSettings')->value('adminAccount');
+    my $administratorSID = $self->parentModule()->ldb()->getSidById($adminAccount);
     my $domainUsersSID = $self->parentModule()->ldb()->getSidById('Domain Users');
 
     for my $id (@{$self->ids()}) {
