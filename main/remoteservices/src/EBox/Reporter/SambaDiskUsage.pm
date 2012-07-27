@@ -110,7 +110,8 @@ sub _log
         # Calculate and add share size
         my $path = $share->{'path'};
         my $du = EBox::Sudo::root("sudo du -sb $path");
-        $entry->{'size'} = int($du->[0]);
+        my @du_split = split(/\t/, $du->[0]);
+        $entry->{'size'} = int( $du_split[0] );
 
         push (@{$stats}, $entry);
     }
