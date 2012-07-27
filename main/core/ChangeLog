@@ -1,4 +1,5 @@
 HEAD
+	+ In tableBody.mas template: decomposed table topToolbar section in methods
 	+ Fixed bug in discard changes dialog
 	+ Confirmation dialogs now use styled modalboxes
 	+ Do not reload page after save changes dialog if operation is successful
