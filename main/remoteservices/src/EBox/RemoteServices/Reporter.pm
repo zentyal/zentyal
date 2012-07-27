@@ -117,7 +117,6 @@ sub consolidate
 
     # Easily to parallel
     foreach my $helper (@{$self->{helpers}}) {
-EBox::info($helper->name());
         $helper->consolidate();
     }
 }
@@ -146,7 +145,6 @@ sub log
     my $db = EBox::DBEngineFactory::DBEngine();
 
     foreach my $helper (@{$self->{helpers}}) {
-EBox::info($helper->name());
         my $data = $helper->log();
         # Not necessary to add the timestamp (Auto-added by DB)
         foreach my $row ( @{$data} ) {

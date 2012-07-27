@@ -112,9 +112,6 @@ sub _log
         my $du = EBox::Sudo::root("sudo du -sb $path");
         $entry->{'size'} = int($du->[0]);
 
-use Data::Dumper;
-print Dumper($entry);
-
         push (@{$stats}, $entry);
     }
 
