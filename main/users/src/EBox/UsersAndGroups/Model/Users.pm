@@ -84,6 +84,12 @@ sub _table
     return $dataTable;
 }
 
+
+sub controller
+{
+    return 'EBox::CGI::UsersAndGroups::Controller::Users';
+}
+
 # Method: precondition
 #
 # Check if the module is configured
@@ -153,8 +159,18 @@ sub ids
     }
 
     my @list = map { $_->dn() } @{$users->users()};
+    my $filterOU = $self->filterOU();
+    if ($filterOU) {
+        my $filterRe = qr/,$filterOU$/;
+        @list = grep {
+            $_ =~ m/$filterRe/;
+        } @list;
+    }
+
     return \@list;
 }
+
+
 
 # Method: row
 #
@@ -181,6 +197,19 @@ sub row
     } else {
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
+}
+
+
+sub setFilterOU
+{
+    my ($self, $filter) = @_;
+    $self->{filterOU} = $filter;
+}
+
+sub filterOU
+{
+    my ($self) = @_;
+    return $self->{filterOU};
 }
 
 1;

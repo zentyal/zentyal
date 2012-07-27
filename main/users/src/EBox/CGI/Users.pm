@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::UsersAndGroups::Users;
-
 use strict;
 use warnings;
 
+
+package EBox::CGI::UsersAndGroups::Users;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -44,9 +43,23 @@ sub _process($) {
         push(@args, 'groups' => $users->groups());
         push(@args, 'users' => $users->users());
 
-        if (EBox::Config::configkey('multiple_ous')) {
+        if ($users->multipleOusEnabled) {
             push(@args, 'ous' => $users->ous());
         }
+
+
+        my $ou = $self->unsafeParam('filterOU');
+        if ($ou) {
+            if ($ou eq '_all') {
+                $ou = undef;
+            }
+
+            EBox::debug("setOUFilterAction: $ou");
+            my $usersModel =  $users->model('Users');
+            $usersModel->setFilterOU($ou);
+            push @args, (usersModel => $usersModel);
+        }
+
     } else {
         $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));

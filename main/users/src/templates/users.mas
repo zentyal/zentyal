@@ -122,5 +122,5 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 % }
 </%def>
 
+<& '/users/usersTableBody.mas', model => $usersModel &>
 
-<& '/ajax/tableBody.mas', model => $usersModel &>
