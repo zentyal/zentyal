@@ -45,12 +45,9 @@ sub _process($) {
 
         if ($users->multipleOusEnabled) {
             push(@args, 'ous' => $users->ous());
-        }
 
-
-        my $ou = $self->unsafeParam('filterOU');
-        if ($ou) {
-            if ($ou eq '_all') {
+            my $ou = $self->unsafeParam('filterOU');
+            if ((defined $ou) and ($ou eq '_all')) {
                 $ou = undef;
             }
 
@@ -59,7 +56,6 @@ sub _process($) {
             $usersModel->setFilterOU($ou);
             push @args, (usersModel => $usersModel);
         }
-
     } else {
         $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));

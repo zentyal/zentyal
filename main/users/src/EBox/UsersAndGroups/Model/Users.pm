@@ -85,10 +85,6 @@ sub _table
 }
 
 
-sub controller
-{
-    return 'EBox::CGI::UsersAndGroups::Controller::Users';
-}
 
 # Method: precondition
 #
@@ -132,7 +128,7 @@ sub preconditionFailMsg
         my $users = $self->parentModule();
         my $mode = $users->mode();
         if ($mode eq 'master') {
-            return __x('There are no users at the moment');
+            return $self->noUsersMsg();
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
@@ -143,6 +139,23 @@ sub preconditionFailMsg
         }
     }
 }
+
+sub noUsersMsg
+{
+    my ($self) = @_;
+    my $filterOU = $self->filterOU();
+    EBox::debug("noDataMsg $filterOU");
+    if (not $filterOU) {
+        return _x('There are no users at the moment');
+    }
+
+    return __x('There are no users for the organization unit: {ou}<p>{ao}See all users{ac}',
+                ou => $filterOU,
+                ao => q{<a href='/UsersAndGroups/Users'>},
+                ac => q{</a>}
+               );
+}
+
 
 # Method: ids
 #
@@ -209,6 +222,9 @@ sub setFilterOU
 sub filterOU
 {
     my ($self) = @_;
+    if (not $self->parentModule()->multipleOusEnabled()) {
+        return undef;
+    }
     return $self->{filterOU};
 }
 
