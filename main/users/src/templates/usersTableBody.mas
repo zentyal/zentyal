@@ -59,12 +59,12 @@ $filterOU
 <%init>
 my $loadingId =  $tableName  .  '_OUFilterLoading';
 my @options = map { { value => $_->dn()  } } @ous;
-unshift @options, { value => '_all', printableValue => __('All') };
+unshift @options, { value => '_all', printableValue => __('All organizational units') };
 defined $filterOU or $filterOU = '_all';
 my $filterJS = q{var newUrl = '/UsersAndGroups/Users?filterOU=' + this.value;   window.location = newUrl};
 </%init>
 <form action="javascript:void(0)">
-  <% __('Organization unit') %>:
+  <% __('Organizational unit') %>:
   <& /input/select.mas,
       options => \@options,
       name => 'OUFIlter',
