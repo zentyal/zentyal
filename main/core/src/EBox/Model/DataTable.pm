@@ -2584,7 +2584,7 @@ sub AUTOLOAD
 
 # Method: Viewer
 #
-#       Class method to return the viewer from this model. This method
+#       Method to return the viewer from this model. This method
 #       can be overriden
 #
 # Returns:
