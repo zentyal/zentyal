@@ -84,7 +84,10 @@ sub _table
     return $dataTable;
 }
 
-
+sub Viewer
+{
+    return '/users/usersTableBody.mas';
+}
 
 # Method: precondition
 #
@@ -149,7 +152,7 @@ sub noUsersMsg
         return _x('There are no users at the moment');
     }
 
-    return __x('There are no users for the organization unit: {ou}<p>{ao}See all users{ac}',
+    return __x('There are no users for the organization unit: {ou}<p>{ao}See users for all organization units{ac}',
                 ou => $filterOU,
                 ao => q{<a href='/UsersAndGroups/Users'>},
                 ac => q{</a>}
