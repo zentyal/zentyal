@@ -871,6 +871,12 @@ sub groups
     return \@groups;
 }
 
+
+sub multipleOusEnabled
+{
+    return EBox::Config::configkey('multiple_ous');
+}
+
 # Method: ous
 #
 #       Returns an array containing all the OUs
