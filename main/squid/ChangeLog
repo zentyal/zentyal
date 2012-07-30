@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed cache-peer authorization parameters when using a global proxy.
+	  Due to this change squid.conf is no longer readable by all
 	+ Avoid multiple calls to store row in DelayPools::_setUndefinedValues()
 2.3.8
 	+ Fixed group-based authorization
