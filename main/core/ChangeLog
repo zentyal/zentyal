@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in EBox::Model::DataTable::setTypedRow which produced a incorrect 'id' row element
+	in EBox::Model::DataTable::setTypedRow::updateRowNotify
 	+ In tableBody.mas template: decomposed table topToolbar section in methods
 	+ Fixed bug in discard changes dialog
 	+ Confirmation dialogs now use styled modalboxes

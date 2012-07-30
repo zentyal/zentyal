@@ -1384,9 +1384,13 @@ sub setTypedRow
         $self->_checkRowIsUnique($id, $allHashElements);
     }
 
+    # add ids parameters for call to validateTypedRow
     $changedElements->{id} = $id;
     $allHashElements->{id} = $id;
     $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+    # remove ids after call to validateTypedRow
+    delete $changedElements->{id};
+    delete $allHashElements->{id};
 
     # If force != true automaticRemove is enabled it means
     # the model has to automatically check if the row which is
