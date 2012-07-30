@@ -1,3 +1,5 @@
+HEAD
+	+ Call at most one time to store row in EBox::Squid::Model::DelayPools::_setUndefinedValues
 2.3.8
 	+ Fixed group-based authorization
 	+ Fixed wrongly set time period acls in squid configuration in some cases
