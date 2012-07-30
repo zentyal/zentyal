@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
+	  row element in DataTable::updateRowNotify()
 	+ In tableBody.mas template: decomposed table topToolbar section in methods
 	+ Fixed bug in discard changes dialog
 	+ Confirmation dialogs now use styled modalboxes

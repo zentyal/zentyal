@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid multiple calls to store row in DelayPools::_setUndefinedValues()
 2.3.8
 	+ Fixed group-based authorization
 	+ Fixed wrongly set time period acls in squid configuration in some cases

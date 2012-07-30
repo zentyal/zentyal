@@ -634,10 +634,12 @@ sub validateRow
 #   changedFields - hash ref containing the typed parameters
 #                   subclassing from <EBox::Types::Abstract>
 #                   that has changed, the key will be the field's name
+#                   Also a key 'id' with the id of the row
 #
 #   allFields - hash ref containing the typed parameters
 #               subclassing from <EBox::Types::Abstract> including changed,
 #               the key is the field's name
+#               Also a key 'id' with the id of the row
 #
 # Returns:
 #
@@ -1382,9 +1384,13 @@ sub setTypedRow
         $self->_checkRowIsUnique($id, $allHashElements);
     }
 
+    # add ids parameters for call to validateTypedRow
     $changedElements->{id} = $id;
     $allHashElements->{id} = $id;
     $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+    # remove ids after call to validateTypedRow
+    delete $changedElements->{id};
+    delete $allHashElements->{id};
 
     # If force != true automaticRemove is enabled it means
     # the model has to automatically check if the row which is
