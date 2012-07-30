@@ -634,10 +634,12 @@ sub validateRow
 #   changedFields - hash ref containing the typed parameters
 #                   subclassing from <EBox::Types::Abstract>
 #                   that has changed, the key will be the field's name
+#                   Also a key 'id' with the id of the row
 #
 #   allFields - hash ref containing the typed parameters
 #               subclassing from <EBox::Types::Abstract> including changed,
 #               the key is the field's name
+#               Also a key 'id' with the id of the row
 #
 # Returns:
 #
