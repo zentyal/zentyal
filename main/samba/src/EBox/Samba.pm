@@ -53,7 +53,7 @@ use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
-use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
+use constant SAMBA_SECRETS_KEYTAB => PRIVATE_DIR . 'secrets.keytab';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
@@ -531,6 +531,7 @@ sub provisionAsDC
 
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
+    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
@@ -562,12 +563,6 @@ sub provisionAsDC
         throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
 
-    # The administrator password is also the password for the 'Zentyal' user,
-    # save it to a file to connect LDB
-    # TODO Create the zentyal user
-    $self->_savePassword($self->administratorPassword(),
-                         EBox::Config->conf() . "ldb.passwd");
-
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
@@ -583,6 +578,11 @@ sub provisionAsDC
     # Set DNS. The domain should have been created by the users
     # module.
     $self->setupDNS();
+
+    # Grant read access to zentyal group on the secrets keytab
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
+    EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
 
     # Start managed service
     EBox::debug('Starting service');
@@ -746,12 +746,13 @@ sub provisionAsADC
             }
             throw EBox::Exceptions::Internal("Error joining to domain: @error");
         }
-        # The administrator password is also the password for the 'Zentyal' user,
-        # save it to a file to connect LDB
-        $self->_savePassword($self->administratorPassword(),
-                             EBox::Config->conf() . "ldb.passwd");
 
-        $self->setupDNS();
+        # TODO $self->setupDNS();
+
+        # Grant read access to zentyal group on the secrets keytab
+        my $group = EBox::Config::group();
+        EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
+        EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
     } otherwise {
         my $error = shift;
         throw $error;
@@ -873,24 +874,22 @@ sub _setConf
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
-    # TODO $self->model('SambaShares')->createDirs();
+    $self->model('SambaShares')->createDirs();
 
     # Change group ownership of quarantine_dir to __USERS__
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
     # Set roaming profiles
-    # TODO
-    #if ($self->roamingProfiles()) {
-    #    my $path = "\\\\$netbiosName.$realmName\\profiles";
-    #    $self->ldb()->setRoamingProfiles(1, $path);
-    #} else {
-    #    $self->ldb()->setRoamingProfiles(0);
-    #}
+    if ($self->roamingProfiles()) {
+        my $path = "\\\\$netbiosName.$realmName\\profiles";
+        $self->ldb()->setRoamingProfiles(1, $path);
+    } else {
+        $self->ldb()->setRoamingProfiles(0);
+    }
 
     # Mount user home on network drive
-    # TODO
-    # $self->ldb()->setHomeDrive($self->drive());
+    $self->ldb()->setHomeDrive($self->drive());
 }
 
 sub _shareUsers
@@ -2107,18 +2106,6 @@ sub logHelper
 #
 #    return \@shares;
 #}
-
-# Generate, store in the given file and return a password
-sub _savePassword
-{
-    my ($self, $pass, $file) = @_;
-
-    my ($login, $password, $uid, $gid) = getpwnam('ebox');
-    EBox::Module::Base::writeFile($file, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-
-    return $pass;
-}
 
 # Method: ldb
 #

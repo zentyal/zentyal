@@ -261,9 +261,12 @@ sub createDirs
 {
     my ($self) = @_;
 
-    my $adminAccount = $self->parentModule()->model('GeneralSettings')->value('adminAccount');
-    my $administratorSID = $self->parentModule()->ldb()->getSidById($adminAccount);
-    my $domainUsersSID = $self->parentModule()->ldb()->getSidById('Domain Users');
+    my $sambaModule = $self->parentModule();
+    my $ldb = $sambaModule->ldb();
+    my $domainSID = $ldb->domainSID();
+
+    my $administratorSID = $domainSID . '-500';
+    my $domainUsersSID = $domainSID . '-513';
 
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
@@ -315,7 +318,7 @@ sub createDirs
             $aceString .= ';';
             # Account SID
             my $userType = $subRow->elementByName('user_group');
-            $aceString .= $self->parentModule()->ldb()->getSidById($userType->printableValue());
+            $aceString .= $ldb->getSidById($userType->printableValue());
             $aceString .= ')';
             push (@aceStrings, $aceString);
         }
@@ -324,7 +327,7 @@ sub createDirs
         }
         my $fullAce = join ('', @aceStrings);
         $sdString .= "D:$fullAce";
-        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' '$path'";
+        my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$sdString' '$path'";
         try {
             EBox::debug("Executing '$cmd'");
             EBox::Sudo::root($cmd);

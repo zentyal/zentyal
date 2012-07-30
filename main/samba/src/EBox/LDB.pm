@@ -25,6 +25,7 @@ use EBox::Exceptions::DataNotFound;
 use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
+use Authen::SASL qw(Perl);
 use IO::Socket::UNIX;
 
 use Data::Dumper;
@@ -83,10 +84,10 @@ sub idmap
 
 # Method: syncCon
 #
-#   Returns the socket connection used by the module
+#   Returns the socket connection used by the Zentyal
+#   ldb module
 #
 # Returns:
-#
 #
 # Exceptions:
 #
@@ -150,12 +151,8 @@ sub ldbCon
     }
 
     if (not defined $self->{ldb} or $reconnect) {
-        $self->{ldb} = $self->safeConnect(LDAPI);
-
-        my $dn   = $self->zentyalDn();
-        my $pass = $self->getPassword();
-
-        $self->safeBind($self->{ldb}, $dn, $pass);
+        $self->{ldb} = $self->safeConnect();
+        $self->safeBind($self->{ldb});
     }
 
     return $self->{ldb};
@@ -197,7 +194,7 @@ sub safeConnectSync
 
 sub safeConnect
 {
-    my ($self, $uri) = @_;
+    my ($self) = @_;
 
     my $retries = 4;
     my $ldb;
@@ -207,10 +204,17 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to LDB');
     };
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $uri = $sysinfo->fqdn();
     while (not $ldb = Net::LDAP->new($uri) and $retries--) {
         my $samba = EBox::Global->modInstance('samba');
-        $samba->_manageService('start');
-        EBox::error("Couldn't connect to LDB server $uri, retrying");
+        unless ($samba->isRunning()) {
+            EBox::debug("Samba daemon was stopped, starting it");
+            $samba->_manageService('start');
+            sleep (5);
+            next;
+        }
+        EBox::error("Couldn't connect to LDB server $uri: $@, retrying");
         sleep (5);
     }
 
@@ -220,7 +224,7 @@ sub safeConnect
     }
 
     if ($retries < 3) {
-        EBox::info('LDB reconnect successful');
+        EBox::debug("LDB reconnect to $uri successful");
     }
 
     return $ldb;
@@ -228,78 +232,36 @@ sub safeConnect
 
 sub safeBind
 {
-    my ($self, $ldb, $dn, $password) = @_;
+    my ($self, $ldb) = @_;
 
-    EBox::debug("binding as $dn, $password");
-    my $bind = $ldb->bind($dn, password => $password);
+    # Check if the server supports GSSAPI
+    my $dse = $ldb->root_dse();
+    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
+        throw EBox::Exceptions::Internal(
+            "LDAP server does not support GSSAPI");
+    }
+
+    # Get a ticket for LDAP service
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $principal = uc ($sysinfo->hostName() . '$');
+    system ('kdestroy');
+    system ('kinit --keytab=' . EBox::Samba::SAMBA_SECRETS_KEYTAB() .
+            " $principal");
+    unless ($? == 0) {
+        throw EBox::Exceptions::Internal(
+            "Could not get kerberos ticket for principal '$principal'");
+    }
+
+    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
+    my $bind = $ldb->bind(sasl => $sasl, version => 3);
+
     unless ($bind->{resultCode} == 0) {
         throw EBox::Exceptions::External(
-            'Couldn\'t bind to LDB server, result code: ' .
-            $bind->{resultCode} . ':' .$bind->error);
+            'Could not bind to LDB server, result code: ' .
+            $bind->{resultCode} . ':' . $bind->error);
     }
 
     return $bind;
-}
-
-# Method: zentyalDn
-#
-#   Returns the dn of the priviliged user
-#
-# Returns:
-#
-#   string - The zentyal user DN
-#
-sub zentyalDn
-{
-    my ($self, $base) = @_;
-
-    # TODO Remove when SASL GSSAPI implemented
-    my $samba = EBox::Global->modInstance('samba');
-    my $model = $samba->model('GeneralSettings');
-    if ($model->value('mode') eq EBox::Samba::MODE_ADC()) {
-        my $domain = $model->value('realm');
-        my $admin = $model->value('adminAccount');
-        my $dn = 'CN='. $admin . ',CN=Users,DC=';
-        $dn .= join (',DC=', split (/\./, $domain));
-        return $dn;
-    }
-
-    unless (defined ($base)) {
-        $base = $self->dn();
-    }
-
-    return 'cn=zentyal,cn=Users,' . $base;
-}
-
-# Method: getPassword
-#
-#   Returns the password used to connect to the LDB
-#
-# Returns:
-#
-#   string - password
-#
-# Exceptions:
-#
-#   External - If password can't be read
-#
-sub getPassword
-{
-    my ($self) = @_;
-
-    unless (defined ($self->{password})) {
-        my $path = EBox::Config->conf() . "ldb.passwd";
-
-        open (PASSWD, $path) or
-            throw EBox::Exceptions::External('Could not get LDB password');
-        my $pwd = <PASSWD>;
-        close (PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{password} = $pwd;
-    }
-
-    return $self->{password};
 }
 
 # Method: dn
@@ -315,31 +277,17 @@ sub dn
     my ($self) = @_;
 
     unless (defined ($self->{dn})) {
-        # TODO When samba is configured as adc the base dn is
-        # CN=Schema,CN=Configuration,DC=kernevil,DC=lan
-        my $samba = EBox::Global->modInstance('samba');
-        my $model = $samba->model('GeneralSettings');
-        my $base = 'DC=' . join(',DC=', split (/\./, $model->value('realm')));
-        EBox::debug("base $base");
-        $self->{dn} = $base;
-
-        #my $ldb = $self->safeConnect(LDAPI);
-
-        #$ldb->bind();
-
-        #my %args = ( base   => '',
-        #             scope  => 'base',
-        #             filter => '(objectclass=*)',
-        #             attrs  => ['namingContexts'] );
-        #my $result = $ldb->search(%args);
-        #if ($result->count() > 0) {
-        #    my $entry = ($result->entries)[0];
-        #    my @attributes = $entry->attributes();
-        #    if (scalar @attributes > 0) {
-        #        my $attr = $attributes[0];
-        #        $self->{dn} = $entry->get_value($attr);
-        #    }
-        #}
+        my $params = {
+            base => '',
+            scope => 'base',
+            filter => 'cn=*',
+            attrs => ['defaultNamingContext'],
+        };
+        my $msg = $self->search($params);
+        if ($msg->count() == 1) {
+            my $entry = $msg->entry(0);
+            $self->{dn} = $entry->get_value('defaultNamingContext');
+        }
     }
 
     return defined ($self->{dn}) ? $self->{dn} : '';
@@ -360,7 +308,6 @@ sub clearConn
 
     delete $self->{dn};
     delete $self->{ldb};
-    delete $self->{password};
 }
 
 # Method: search
@@ -580,6 +527,35 @@ sub updateUserPassword
         push ($changes, replace => [ pwdLastSet => $val ]);
     }
     $self->modify($dn, { changes => $changes, control => $bypassControl });
+}
+
+# Method domainSID
+#
+#   Get the domain SID
+#
+# Returns:
+#
+#   string - The SID string of the domain
+#
+sub domainSID
+{
+    my ($self) = @_;
+
+    my $base = $self->dn();
+    my $params = {
+        base => $base,
+        scope => 'base',
+        filter => "(distinguishedName=$base)",
+        attrs => ['objectSid'],
+    };
+    my $msg = $self->search($params);
+    if ($msg->count() == 1) {
+        my $entry = $msg->entry(0);
+        my $value = $self->sidToString($entry->get_value('objectSid'));
+        return $value;
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
+    }
 }
 
 # Method getIdByDN
@@ -992,5 +968,6 @@ sub setHomeDrive
         }
     }
 }
+
 
 1;

@@ -1,4 +1,5 @@
 HEAD
+	+ Bind to samba LDAP using kerberos and GSSAPI.
 	+ Provision using bind9 DLZ backend.
 2.3.10
 	+ Fix exception creating shares
