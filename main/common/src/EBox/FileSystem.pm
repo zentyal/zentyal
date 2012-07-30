@@ -144,7 +144,7 @@ sub isSubdir
     return $subDir =~ m/^$parentDir/;
 }
 
-# Function: isSubdir
+# Function: dirIsEmpty
 #
 #    Find if a directory is empty or not
 #
