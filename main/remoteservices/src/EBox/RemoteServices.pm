@@ -214,10 +214,11 @@ sub _setInventoryAgentConf
 {
     my ($self) = @_;
 
-    my $ocs_server = 'https://inventory.' . $self->cloudDomain() . '/ocsinventory';
+    my $cloud_domain = $self->cloudDomain();
+    EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
 
     # Check subscription level
-    if ($self->subscriptionLevel(1) > 0) {
+    if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
         my $cred = $self->cloudCredentials();
 
         # UUID Format for login: Hexadecimal without '0x'
@@ -226,6 +227,9 @@ sub _setInventoryAgentConf
         my $hex_uuid = $ug->to_hexstring($bin_uuid);
         my $user = substr($hex_uuid, 2);      # Remove the '0x'
         my $pass = $cred->{password};
+
+        # OCS Server url
+        my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
 
         # Agent configuration
         my @params = (
