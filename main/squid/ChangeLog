@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed cache-peer authorization parameters when setting up
+	zentyal to use a proxy. Due to this change the squid file is not
+	longer readable by all
 2.3.8
 	+ Fixed group-based authorization
 	+ Fixed wrongly set time period acls in squid configuration in some cases

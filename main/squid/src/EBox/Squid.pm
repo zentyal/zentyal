@@ -522,8 +522,11 @@ sub _writeSquidConf
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
+
     my $cache_host = $network->model('Proxy')->serverValue();
     my $cache_port = $network->model('Proxy')->portValue();
+    my $cache_user = $network->model('Proxy')->usernameValue();
+    my $cache_passwd = $network->model('Proxy')->passwordValue();
 
     my $krbRealm = '';
     my $users = EBox::Global->modInstance('users');
@@ -542,8 +545,12 @@ sub _writeSquidConf
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
     push @writeParam, ('nameservers' => $network->nameservers());
     push @writeParam, ('append_domain' => $append_domain);
+
     push @writeParam, ('cache_host' => $cache_host);
     push @writeParam, ('cache_port' => $cache_port);
+    push @writeParam, ('cache_user' => $cache_user);
+    push @writeParam, ('cache_passwd' => $cache_passwd);
+
     push @writeParam, ('memory' => $self->_cache_mem);
     push @writeParam, ('max_object_size' => $self->_max_object_size);
     push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
@@ -563,7 +570,7 @@ sub _writeSquidConf
         $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
 
-    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam);
+    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
 }
 
 sub _objectsDelayPools
