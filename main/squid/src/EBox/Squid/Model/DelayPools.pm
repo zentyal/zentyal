@@ -85,14 +85,12 @@ sub validateRow
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-
     $self->_setUndefinedValues($row);
 }
 
 sub updatedRowNotify
 {
     my ($self, $row) = @_;
-
     $self->_setUndefinedValues($row);
 }
 
@@ -100,15 +98,20 @@ sub _setUndefinedValues
 {
     my ($self, $row) = @_;
 
+    my $toStore;
     unless ($row->valueByName('global_enabled')) {
         $row->elementByName('size')->setValue(undef);
         $row->elementByName('rate')->setValue(undef);
-        $row->store();
+        $toStore = 1;
     }
 
     unless ($row->valueByName('clt_enabled')) {
         $row->elementByName('clt_size')->setValue(undef);
         $row->elementByName('clt_rate')->setValue(undef);
+        $toStore = 1;
+    }
+
+    if ($toStore) {
         $row->store();
     }
 }
