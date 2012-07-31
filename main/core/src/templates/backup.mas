@@ -91,17 +91,15 @@ ENDJS
 
 <%def .restoreSection>
 <%init>
-# TODO
-my $restoreFileOnClickJs =<< "ENDJS" ;
-     var description= \$('backup_description').value;
-     var title = '';
-     var url = '/SysInfo/Backup?';
-     url += 'mode=configurationBackup';
-     url += '&description='  +  description;
-     url += '&backup=1&popup=1'
+my $title = __('Restore');
+my $onClickJs =<< "ENDJS" ;
+     var url = '/SysInfo/Backup?restoreFromFile=1';
+     url += '&mode=configurationRestore';
+     url += '&backupfile=' + \$('backupfile').value;
+     url += '&popup=1';
 
-     Modalbox.show(url, {title: title, transitions: false});
-     return false
+     Modalbox.show(url, {title: '$title', transitions: false});
+     return false;
 ENDJS
 </%init>
 <h3><% __('Restore Backup from File') %></h3>
@@ -117,7 +115,7 @@ ENDJS
                                 <span class='ftitle'><% __('Backup file') %>:</span>
                         </td>
                         <td>
-                                        <input type='file' name='backupfile' id='file_to_restore'/>
+                                        <input type='file' name='backupfile' id='backupfile'/>
                         </td>
                 </tr>
                 <tr>
@@ -125,7 +123,10 @@ ENDJS
                                                 <span class='ftitle'></span>
                        </td>
                         <td>
-                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
+                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% $title %>"
+                         onclick="<% $onClickJs %>"
+
+                   />
                         </td>
                 </tr>
 
@@ -146,8 +147,8 @@ return if not @backups;
 my $modalTitle = __('Restore backup');
 my $restoreTitle = __('Restore configuration using this file');
 my $restoreAlt = $modalTitle;
-my $downloadTitle = __('Download');
-my $deleteTitle = __('Delete');
+my $downloadTitle = __('Download backup file');
+my $deleteTitle = __('Delete backup');
 
 my %printableTypeById = (
   $EBox::Backup::FULL_BACKUP_ID          => __('Full'),
@@ -184,9 +185,9 @@ my %printableTypeById = (
                                 <td width="%14">
                                 <form method='POST' action='ConfirmBackup'>
                                         <%perl>
-                                           my $url = '/SysInfo/ConfirmBackup?';
-                                           $url .= 'id=' . $backup->{'id'} . '&';
-                                           $url .= 'restoreFromId=1&popup=1';
+                                           my $restoreUrl = '/SysInfo/ConfirmBackup?';
+                                           $restoreUrl .= 'id=' . $backup->{'id'} . '&';
+                                           $restoreUrl .= 'restoreFromId=1&popup=1';
                                         </%perl>
                                         <input type='hidden'
                                                 name='id'
@@ -196,7 +197,7 @@ my %printableTypeById = (
                                                 value="Restore"
                                                 title="<% $restoreTitle %>"
                                                 alt="<% $restoreAlt %>"
-                                                onclick="Modalbox.show('<% $url %>',  {title:'<% $modalTitle %>', transitions: false}); return false"
+                                                onclick="Modalbox.show('<% $restoreUrl %>',  {title:'<% $modalTitle %>', transitions: false}); return false"
                                          />
                                         <img src='/data/images/sep.gif' alt='-'/>
                                         <input type='image' name='download'
@@ -205,11 +206,18 @@ my %printableTypeById = (
                                                 title="<% $downloadTitle %>"
                                                 alt="<% $downloadTitle %>"/>
                                         <img src='/data/images/sep.gif' alt='-'/>
+                                        <%perl>
+                                           my $deleteUrl = '/SysInfo/ConfirmBackup?';
+                                           $deleteUrl .= 'id=' . $backup->{'id'};
+                                           $deleteUrl .= '&delete=1&popup=1';
+                                        </%perl>
                                         <input type='image' name='delete'
                                                 src='/data/images/delete.gif'
                                                 value="Delete"
                                                 title="<% $deleteTitle %>"
-                                                alt="<% $deleteTitle %>"/>
+                                                alt="<% $deleteTitle %>"
+                                                onclick="Modalbox.show('<% $deleteUrl %>',  {title:'<% $deleteTitle %>', transitions: false}); return false"
+                                        />
                 </form>
                                 </td>
 

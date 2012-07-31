@@ -22,7 +22,7 @@ my $onclickCancel = '';
 if ($popup) {
     my $title;
     my $url = '/SysInfo/Backup?';
-    $url .= "$action=1&";
+    $url .= "$action=1";
     if ($restoreAction) {
         $title = __x('Restore backup: {desc}',
                     desc => $backup->{description});
@@ -31,8 +31,14 @@ if ($popup) {
     if (exists $backup->{id}) {
         $url .= '&id=' . $backup->{id};
     }
-    $url .= "&popup=1";
-    $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+    if ($restoreAction) {
+        $url .= "&popup=1";
+        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+    } elsif ($action eq 'delete') {
+        $onclickSubmit = qq(onclick="Modalbox.hide(); window.location='$url'; return false");
+    }
+
+
     $onclickCancel = qq{onclick="Modalbox.hide(); return false"};
 }
 </%init>

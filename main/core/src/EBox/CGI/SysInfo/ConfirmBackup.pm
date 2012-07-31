@@ -45,6 +45,8 @@ sub requiredParameters
     return [qw(id download.x download.y)];
   }  elsif ($self->param('delete.x')) {
     return [qw(id delete.x delete.y)];
+  }  elsif ($self->param('delete')) {
+    return [qw(id delete)];
   }  elsif ($self->param('restoreFromId.x')) {
     return [qw(restoreFromId.x restoreFromId.y id)];
   }  elsif ($self->param('restoreFromId')) {
@@ -83,8 +85,6 @@ sub actuate
       return;
     }
   }
-
-
 
   # otherwise...
   $self->{redirect} = "SysInfo/Backup";
