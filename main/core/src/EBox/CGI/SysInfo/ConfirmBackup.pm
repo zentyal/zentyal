@@ -29,15 +29,14 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Configuration Backup'),
-				      'template' => '/confirm-backup.mas',
-				      @_);
-	bless($self, $class);
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Configuration Backup'),
+                                  'template' => '/confirm-backup.mas',
+                                  @_);
+    $self->{errorchain} = "SysInfo/Backup";
 
-	$self->{errorchain} = "SysInfo/Backup";
-
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 
@@ -150,7 +149,7 @@ sub backupDetailsFromId
   my $id = $self->param('id');
   if ($id =~ m{[./]}) {
     throw EBox::Exceptions::External(
-				     __("The input contains invalid characters"));
+                                     __("The input contains invalid characters"));
   }
 
   my $details =  $backup->backupDetails($id);
