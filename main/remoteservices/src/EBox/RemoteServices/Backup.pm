@@ -374,11 +374,13 @@ sub _pushConfBackup
     my $pwfile = EBox::Config::tmp() . 'pw.file';
     File::Slurp::write_file($pwfile, {perms => 0700},  "$user:$pass");
 
-    my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
-                                     . " -u \$(cat $pwfile) "
-                                     . "'" . $url->as_string() . "'");
-
-    system("rm -f '$pwfile'");
+    try {
+        my $output = EBox::Sudo::command(
+                        CURL . " --insecure --upload-file '$archive' "
+                        . " -u \$(cat $pwfile) '" . $url->as_string() . "'");
+    } finally {
+        unlink($pwfile);
+    };
 
 }
 
