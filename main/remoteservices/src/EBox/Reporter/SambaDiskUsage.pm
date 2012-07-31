@@ -83,6 +83,14 @@ sub _consolidate
     return $res;
 }
 
+sub _shareSize
+{
+    my ($path) = @_;
+    my $du = EBox::Sudo::root("du -sb $path");
+    my @du_split = split(/\t/, $du->[0]);
+    return int( $du_split[0] );
+}
+
 # Method: _log
 #
 # Overrides:
@@ -100,18 +108,26 @@ sub _log
     my $sharesInfo = $sambaMod->shares(1);
     foreach my $share (@{$sharesInfo}) {
         my $entry = {};
-
         $entry->{'share'} = $share->{'share'};
-        #$entry->{'path'} = $share->{'path'};   # FIXME: Use or remove
+        $entry->{'type'} = ($share->{'groupShare'} ? 'Group' : 'Custom');
 
-        # User or group share
-        $entry->{'type'} = ($share->{'groupShare'} ? 'group' : 'user');
+        # Calculate share size
+        $entry->{'size'} = _shareSize($share->{'path'});
 
-        # Calculate and add share size
-        my $path = $share->{'path'};
-        my $du = EBox::Sudo::root("sudo du -sb $path");
-        my @du_split = split(/\t/, $du->[0]);
-        $entry->{'size'} = int( $du_split[0] );
+        push (@{$stats}, $entry);
+    }
+
+    my $userShares = $sambaMod->userShares();
+    foreach my $user (@{$userShares}) {
+        my $entry = {};
+        $entry->{'share'} = $user->{'user'};
+        $entry->{'type'} = 'User';
+
+        # Calculate share size
+        $entry->{'size'} = 0;
+        foreach my $share (@{$user->{'shares'}}) {
+            $entry->{'size'} += _shareSize($share);
+        }
 
         push (@{$stats}, $entry);
     }
