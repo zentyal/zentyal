@@ -8,11 +8,11 @@ use EBox::Gettext;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
-	<% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
+        <% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
   </div>
 % } else {
   <div class='adwarning'>
-	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview of Zentyal Cloud and allows access to some features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+        <% __sx('Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview of Zentyal Cloud and allows access to some features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>
@@ -36,7 +36,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </div>
 <h3><% __('Backup the Current State') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in Zentyal and then you will be able to download them to your hard disk.") %><br/>
+        <% __("Backups will be stored in Zentyal and then you will be able to download them to your hard disk.") %><br/>
         <% __("If you have the file sharing module configured, all users having administration rights will be able to access the backup directory as a shared resource.") %>
 </div>
 % if ($modulesChanged) {
