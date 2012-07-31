@@ -1745,24 +1745,34 @@ sub _getSubscriptionDetails
 
     if ($force or (not exists $state->{subscription}->{level})) {
         unless ($self->eBoxSubscribed()) {
-            use Devel::StackTrace;
-            my $t = new Devel::StackTrace();
-            EBox::error($t->as_string());
+            EBox::trace();
             throw EBox::Exceptions::Internal('Not subscribed');
         }
         my $cap = new EBox::RemoteServices::Capabilities();
-        my $details = $cap->subscriptionDetails();
-
-        $state->{subscription} = {
-            level             => $details->{level},
-            codename          => $details->{codename},
-            technical_support => $details->{technical_support},
-            renovation_date   => $details->{renovation_date},
-            security_updates  => $details->{security_updates},
-            disaster_recovery => $details->{disaster_recovery},
-            sb_mail_add_on    => $details->{sb_mail_add_on},
+        my $details;
+        try {
+            $details = $cap->subscriptionDetails();
+        } catch EBox::Exceptions::Internal with {
+            # Impossible to know the new state
+            # Get cached data
+            my ($exc) = @_;
+            unless (exists $state->{subscription}->{level}) {
+                $exc->throw();
+            }
         };
-        $self->set_state($state);
+
+        if ( defined($details) ) {
+            $state->{subscription} = {
+                level             => $details->{level},
+                codename          => $details->{codename},
+                technical_support => $details->{technical_support},
+                renovation_date   => $details->{renovation_date},
+                security_updates  => $details->{security_updates},
+                disaster_recovery => $details->{disaster_recovery},
+                sb_mail_add_on    => $details->{sb_mail_add_on},
+            };
+            $self->set_state($state);
+        }
     }
 
     return $state->{subscription};
