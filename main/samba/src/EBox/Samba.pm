@@ -36,6 +36,7 @@ use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::Util::Random qw( generate );
+use EBox::UsersAndGroups;
 
 use Perl6::Junction qw( any );
 use Net::Domain qw(hostdomain);
@@ -2200,23 +2201,37 @@ sub sharesPaths
     return $paths;
 }
 
-# Method: userPaths
+# Method: userShares
 #
 #   This function is used to generate disk usage reports. It
-#   returns all the paths where a user store data
+#   returns all the users with their shares
 #
-sub userPaths
+#   Returns:
+#       Array ref with hash refs containing:
+#           - 'user' - String the username
+#           - 'shares' - Array ref with all the shares for this user
+#
+sub userShares
 {
-    my ($self, $user) = @_;
+    my ($self) = @_;
 
-    my $userProfilePath = EBox::SambaLdapUser::PROFILESPATH;
-    $userProfilePath .= "/" . $user->get('uid');
+    my $userProfilesPath = EBox::SambaLdapUser::PROFILESPATH();
 
-    my $paths = [];
-    push (@{$paths}, $user->get('homeDirectory'));
-    push (@{$paths}, $userProfilePath);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $users = $usersMod->users();
 
-    return $paths;
+    my $shares = [];
+    foreach my $user (@{$users}) {
+        my $userProfilePath = $userProfilesPath . "/" . $user->get('uid');
+
+        my $userShareInfo = {
+            'user' => $user->name(),
+            'shares' => [$user->get('homeDirectory'), $userProfilePath],
+        };
+        push (@{$shares}, $userShareInfo);
+    }
+
+    return $shares;
 }
 
 # Method: groupPaths
