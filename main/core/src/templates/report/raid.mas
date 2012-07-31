@@ -232,6 +232,7 @@ my %statePrintableValue = (
 			   up      => __('up'),
 			   failure => __('failure'),
 			   spare   => __('spare'),
+                           failure_spare => __('Failure on spare'),
 		     );
 
 my @rows;

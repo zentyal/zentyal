@@ -1,4 +1,5 @@
 HEAD
+	+ Reworked mdstat parsing, added failure_spare status
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
 	  row element in DataTable::updateRowNotify()
 	+ In tableBody.mas template: decomposed table topToolbar section in methods

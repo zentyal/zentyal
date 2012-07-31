@@ -266,7 +266,7 @@ push @cases,  {
                     raidDevices => {
                         1 => {
                                device => '/dev/sdb1',
-                               state  => 'up',
+                               state  => 'failure',
                              },
                         3 => {
                                device => '/dev/sdc1',
