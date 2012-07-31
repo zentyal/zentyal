@@ -177,28 +177,36 @@ sub _calculateDevicesStatus
     my $activeDevicesNeeded = $info_r->{activeDevicesNeeded};
     my $raidDevices         = $info_r->{raidDevices};
 
+    my $nActiveDevices = 0;
+    my $statusArrayPos = -1; # it has not to coincide with the nummbers bz it can
+                            # be holes!
     my @devNumbers = sort keys  %{ $raidDevices };
     foreach my $number (@devNumbers) {
+        $statusArrayPos += 1;
         my $devAttrs = $raidDevices->{$number};
-        my $up    = 0;
 
         $devAttrs->{state} = '' unless (defined($devAttrs->{state}));
         if ($devAttrs->{state} eq 'failure') {
+            $statusArrayPos -= 1; # bz failures devices dont appear in statusArray
             next;
         } elsif ($devAttrs->{state} eq 'spare') {
             next;
         } elsif (not defined $activeDevicesNeeded or (not @statusArray)) {
             $devAttrs->{state} = 'up';  # XXX need more test..
+            $nActiveDevices += 1;
         }
-        elsif (($number >= $activeDevicesNeeded)  ) {
+        elsif ($nActiveDevices >= $activeDevicesNeeded) {
             $devAttrs->{state} = 'spare';
         } else {
-            my $status =  $statusArray[$number];
+            my $status =  $statusArray[$statusArrayPos];
             defined $status or
                 EBox::warn("Undefined array status item for raid device $number");
 
             if ($status eq 'U') {
                 $devAttrs->{state} = 'up';
+                $nActiveDevices += 1;
+            } elsif ($status eq '_') {
+                $devAttrs->{state} = 'failure';
             }
         }
     }
