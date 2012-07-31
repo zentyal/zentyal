@@ -802,7 +802,9 @@ sub technicalSupport
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
             my $techSupport = $cap->technicalSupport();
-            $self->st_set_int('subscription/technical_support', $techSupport);
+            if ( $techSupport > -2 ) {
+                $self->st_set_int('subscription/technical_support', $techSupport);
+            }
             return $techSupport;
         }
     }
@@ -840,7 +842,9 @@ sub renovationDate
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
             my $date = $cap->renovationDate();
-            $self->st_set_int('subscription/renovation_date', $date);
+            if ( $date >= 0 ) {
+                $self->st_set_int('subscription/renovation_date', $date);
+            }
             return $date;
         }
     }
@@ -859,6 +863,7 @@ sub renovationDate
 # Returns:
 #
 #      Boolean - indicating if it has security updates add-on or not
+#                undef means impossible to know
 #
 sub securityUpdatesAddOn
 {
@@ -874,7 +879,9 @@ sub securityUpdatesAddOn
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
             my $secUpdates = $cap->securityUpdatesAddOn();
-            $self->st_set_bool('subscription/securityUpdates', $secUpdates);
+            if ( defined($secUpdates) ) {
+                $self->st_set_bool('subscription/securityUpdates', $secUpdates);
+            }
             return $secUpdates;
         }
     }
@@ -893,7 +900,8 @@ sub securityUpdatesAddOn
 # Returns:
 #
 #      Boolean - indicating whether the company has disaster recovery
-#      add-on or not
+#                add-on or not
+#                undef means impossible to know
 #
 # Exceptions:
 #
@@ -914,7 +922,9 @@ sub disasterRecoveryAddOn
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
             my $disasterRec = $cap->disasterRecoveryAddOn();
-            $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
+            if ( defined($disasterRec) ) {
+                $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
+            }
             return $disasterRec;
         } else {
             throw EBox::Exceptions::NotConnected();
@@ -935,6 +945,7 @@ sub disasterRecoveryAddOn
 # Returns:
 #
 #      Boolean - indicating whether it has SB mail add-on or not
+#                undef means impossible to know
 #
 sub sbMailAddOn
 {
@@ -950,7 +961,9 @@ sub sbMailAddOn
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
             my $sbMail = $cap->sbMailAddOn();
-            $self->st_set_bool('subscription/sbMail', $sbMail);
+            if ( defined($sbMail) ) {
+                $self->st_set_bool('subscription/sbMail', $sbMail);
+            }
             return $sbMail;
         }
     }
@@ -1796,6 +1809,9 @@ sub _ccConnectionWidget
 sub _setSubscription
 {
     my ($self, $subsLevel) = @_;
+
+    # Unknown level, stick to the current one if available
+    return if ( ($subsLevel->{level} < 0) and $self->st_entry_exists('subscription/level') );
 
     $self->st_set_int('subscription/level', $subsLevel->{level});
     $self->st_set_string('subscription/codename', $subsLevel->{codename});

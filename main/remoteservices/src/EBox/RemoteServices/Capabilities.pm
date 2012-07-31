@@ -88,7 +88,7 @@ sub securityUpdatesAddOn
 {
     my ($self) = @_;
 
-    my $result = '';
+    my $result = undef;
 
     try {
         $result = $self->soapCall('securityUpdatesAddOn');
@@ -108,7 +108,7 @@ sub disasterRecoveryAddOn
 {
     my ($self) = @_;
 
-    my $result = '';
+    my $result = undef;
 
     try {
         $result = $self->soapCall('disasterRecoveryAddOn');
@@ -128,7 +128,7 @@ sub sbMailAddOn
 {
     my ($self) = @_;
 
-    my $result = 0;
+    my $result = undef;
 
     try {
         $result = $self->soapCall('sbMailAddOn');
