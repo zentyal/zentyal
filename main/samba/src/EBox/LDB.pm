@@ -223,7 +223,7 @@ sub safeConnect
             "FATAL: Couldn't connect to LDB server: $uri");
     }
 
-    if ($retries < 3) {
+    if ($retries <= 3) {
         EBox::debug("LDB reconnect to $uri successful");
     }
 

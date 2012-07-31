@@ -52,6 +52,8 @@ use constant SAMBA_DIR            => '/home/ebox/samba';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
+use constant SAMBA_DNS_DLZ_X86    => '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so';
+use constant SAMBA_DNS_DLZ_X64    => '/usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9.so';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_SECRETS_KEYTAB => PRIVATE_DIR . 'secrets.keytab';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -529,7 +531,7 @@ sub provisionAsDC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
-    # This file must be deleted or provision may fail
+    # Delete samba config file and private folder
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
     my $cmd = SAMBAPROVISION .
@@ -543,7 +545,6 @@ sub provisionAsDC
         ' --host-name=' . $sysinfo->hostName();
 
     EBox::debug("Provisioning database '$cmd'");
-
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -586,7 +587,7 @@ sub provisionAsDC
 
     # Start managed service
     EBox::debug('Starting service');
-    $self->_manageService('start');
+    $self->_startService();
 
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
@@ -602,9 +603,9 @@ sub provisionAsDC
 
 sub setupDNS
 {
-    my ($self) = @_;
+    my ($self, $dcfqdn) = @_;
 
-    EBox::debug('Setting up DNS');
+    EBox::debug('Setting up DNS for samba');
     my $dnsModule = EBox::Global->modInstance('dns');
     my $usersModule = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -612,12 +613,22 @@ sub setupDNS
     # Remove the kerberos stuff created by the users module
     $usersModule->cleanDNS($sysinfo->hostDomain());
 
+    # Set the domain as DLZ and set the library path
     my $domainModel = $dnsModule->model('DomainTable');
     my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
     unless (defined $domainRow) {
         # TODO Throw expcetion. It should have been created by the users module
     }
-    my $DBPath = '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so'; # TODO Get this value dynamically
+    my $DBPath = undef;
+    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
+        $DBPath = SAMBA_DNS_DLZ_X86;
+    } elsif (EBox::Sudo::fileTest('-f', '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so')) {
+        $DBPath = SAMBA_DNS_DLZ_X64;
+    }
+    unless (defined $DBPath) {
+        throw EBox::Exceptions::Internal(
+            __("Samba DNS DLZ file for bind can't be found"));
+    }
     $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
     $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
     $domainRow->store();
@@ -626,17 +637,55 @@ sub setupDNS
         unless ($self->isRunning()) {
             EBox::debug("Starting service");
             EBox::Sudo::root("service heimdal-kdc stop");
-            sleep (5);
+            sleep (1);
             $self->_startService();
         }
 
+        my $retries = 10;
         do {
             # This is inside a loop because we have to wait until
             # RID Managers are replicated from master DC
             EBox::debug("Upgrading DNS setup...");
             EBox::Sudo::silentRoot('samba_upgradedns');
-            sleep (5);
-        } while ($? != 0);
+            sleep (5) if ($? != 0);
+        } while ($? != 0 and --$retries >= 0);
+        unless ($retries > 0) {
+            throw EBox::Exceptions::Internal(
+                __("Timeout waiting for RID Managers replication"));
+        }
+
+        # After DNS upgraded restart to load the new DomainDnsZones and
+        # ForestDnsZones naming contexts
+        $self->restartService();
+
+        # Ensure the DomainDnsZones is replicated from master DC
+        my $ldb = $self->ldb();
+        my $params = {
+                base => "DC=DomainDnsZones," . $ldb->dn(),
+                scope => 'sub',
+                filter => '(objectClass=*)',
+                attrs => [],
+            };
+        $retries = 10;
+        my $result;
+        do {
+            $result = $ldb->search($params);
+            EBox::debug("DnsDomainZones has ". $result->count() . " records.");
+            if ($result->count() <= 1) {
+                EBox::Sudo::silentRoot(SAMBATOOL .
+                    ' drs replicate ' .
+                    $sysinfo->fqdn() .
+                    " $dcfqdn " .
+                    ' DC=DomainDnsZones,' . $ldb->dn() .
+                    ' --full-syn');
+                sleep (5);
+            }
+        } while ($result->count() <= 1 and --$retries >= 0);
+        unless ($retries > 0) {
+            # TODO
+            throw EBox::Exceptions::Internal(
+                __("Timeout waiting 'DomainDnsZones' partition replication"));
+        }
     }
 
     my @cmds;
@@ -655,12 +704,13 @@ sub provisionAsADC
     my $domainDNS = $model->value('dnsip');
     my $adminAccount = $model->value('adminAccount');
     my $adminAccountPwd = $model->value('password');
+    my $netbiosDomain = $model->value('workgroup');
 
     # If the host domain or the users kerberos realm does not
     # match the domain we are trying to join warn the user and
     # abort
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if ($sysinfo->hostDomain() ne $domainToJoin) {
+    if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin)) {
         throw EBox::Exceptions::External(
             __('The server domain and kerberos realm must match the domain the ' .
                'domain you are trying to join.'));
@@ -733,7 +783,11 @@ sub provisionAsADC
         my @cmds;
         push (@cmds, 'rm -f ' . SAMBACONFFILE);
         push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
-        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC -U $adminAccount --password='$adminAccountPwd' --server=$dcFQDN");
+        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
+            " -U $adminAccount " .
+            " --workgroup='$netbiosDomain' " .
+            " --password='$adminAccountPwd' " .
+            " --server=$dcFQDN");
         my $output = EBox::Sudo::silentRoot(@cmds);
         if ($? == 0) {
             $self->set_bool('provisioned', 1);
@@ -747,12 +801,12 @@ sub provisionAsADC
             throw EBox::Exceptions::Internal("Error joining to domain: @error");
         }
 
-        # TODO $self->setupDNS();
-
         # Grant read access to zentyal group on the secrets keytab
         my $group = EBox::Config::group();
         EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
         EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
+
+        $self->setupDNS($dcFQDN);
     } otherwise {
         my $error = shift;
         throw $error;
