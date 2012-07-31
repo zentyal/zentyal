@@ -1,7 +1,7 @@
 <%args>
-  @backups
-  $modulesChanged
-  $subscribed
+  @backups => ()
+  $modulesChanged => 1
+  $subscribed => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -90,6 +90,20 @@ ENDJS
 </%def>
 
 <%def .restoreSection>
+<%init>
+# TODO
+my $restoreFileOnClickJs =<< "ENDJS" ;
+     var description= \$('backup_description').value;
+     var title = '';
+     var url = '/SysInfo/Backup?';
+     url += 'mode=configurationBackup';
+     url += '&description='  +  description;
+     url += '&backup=1&popup=1'
+
+     Modalbox.show(url, {title: title, transitions: false});
+     return false
+ENDJS
+</%init>
 <h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
@@ -103,7 +117,7 @@ ENDJS
                                 <span class='ftitle'><% __('Backup file') %>:</span>
                         </td>
                         <td>
-                                        <input type='file' name='backupfile'/>
+                                        <input type='file' name='backupfile' id='file_to_restore'/>
                         </td>
                 </tr>
                 <tr>
@@ -128,6 +142,12 @@ ENDJS
 </%args>
 <%init>
 return if not @backups;
+
+my $modalTitle = __('Restore backup');
+my $restoreTitle = __('Restore configuration using this file');
+my $restoreAlt = $modalTitle;
+my $downloadTitle = __('Download');
+my $deleteTitle = __('Delete');
 
 my %printableTypeById = (
   $EBox::Backup::FULL_BACKUP_ID          => __('Full'),
@@ -163,26 +183,33 @@ my %printableTypeById = (
                                 </td>
                                 <td width="%14">
                                 <form method='POST' action='ConfirmBackup'>
+                                        <%perl>
+                                           my $url = '/SysInfo/ConfirmBackup?';
+                                           $url .= 'id=' . $backup->{'id'} . '&';
+                                           $url .= 'restoreFromId=1&popup=1';
+                                        </%perl>
                                         <input type='hidden'
                                                 name='id'
                                                 value="<% $backup->{'id'} %>"/>
                                         <input type='image' name='restoreFromId'
                                                 src='/data/images/apply.gif'
                                                 value="Restore"
-                                                title="<%__('Restore configuration using this file')%>"
-                                                alt="<%__('Restore from backup')%>"/>
+                                                title="<% $restoreTitle %>"
+                                                alt="<% $restoreAlt %>"
+                                                onclick="Modalbox.show('<% $url %>',  {title:'<% $modalTitle %>', transitions: false}); return false"
+                                         />
                                         <img src='/data/images/sep.gif' alt='-'/>
                                         <input type='image' name='download'
                                                 src='/data/images/down.gif'
                                                 value="Download"
-                                                title="<%__('Download')%>"
-                                                alt="<%__('Download')%>"/>
+                                                title="<% $downloadTitle %>"
+                                                alt="<% $downloadTitle %>"/>
                                         <img src='/data/images/sep.gif' alt='-'/>
                                         <input type='image' name='delete'
                                                 src='/data/images/delete.gif'
                                                 value="Delete"
-                                                title="<%__('Delete')%>"
-                                                alt="<%__('Delete')%>"/>
+                                                title="<% $deleteTitle %>"
+                                                alt="<% $deleteTitle %>"/>
                 </form>
                                 </td>
 

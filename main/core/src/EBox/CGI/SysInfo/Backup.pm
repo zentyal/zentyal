@@ -44,19 +44,41 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub _print
 {
-    my $self = shift;
-    if ($self->{error} || not defined($self->{downfile})) {
-        $self->SUPER::_print;
+    my ($self) = @_;
+
+    if (defined($self->{downfile}) and (not defined $self->{error})) {
+        # file download
+        open(BACKUP,$self->{downfile}) or
+            throw EBox::Exceptions::Internal('Could not open backup file.');
+        print($self->cgi()->header(-type=>'application/octet-stream',
+                                   -attachment=>$self->{downfilename}));
+        while (<BACKUP>) {
+            print $_;
+        }
+        close BACKUP;
         return;
     }
-    open(BACKUP,$self->{downfile}) or
-        throw EBox::Exceptions::Internal('Could not open backup file.');
-    print($self->cgi()->header(-type=>'application/octet-stream',
-                -attachment=>$self->{downfilename}));
-    while (<BACKUP>) {
-        print $_;
+
+
+    if (not $self->param('popup')) {
+        EBox::debug("PEINT NOT POPUP");
+        return $self->SUPER::_print();
     }
-    close BACKUP;
+
+    # to avoid the <div id=content>
+    EBox::debug("PRINY WITH POPUP");
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
 }
 
 sub requiredParameters
@@ -169,16 +191,21 @@ sub _backupAction
     my $description = $self->param('description');
 
     my $progressIndicator;
+    try {
+        my $backup = EBox::Backup->new();
+        $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
+    } otherwise {
+        my ($ex) = @_;
+        $self->setErrorFromException($ex);
+    };
 
-    my $backup = EBox::Backup->new();
-    $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
-
-    $self->_showBackupProgress($progressIndicator);
-
-    $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
+    if ($progressIndicator) {
+        $self->_showBackupProgress($progressIndicator);
+        $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
+    }
 }
 
-sub  _restoreFromFileAction
+sub _restoreFromFileAction
 {
     my ($self) = @_;
 
@@ -213,10 +240,19 @@ sub _restore
 
     my $backup = new EBox::Backup;
 
-    my $progressIndicator =
-        $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+    my $progressIndicator;
+    try {
+        $progressIndicator = $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+    } otherwise {
+        my ($ex) = @_;
+        $self->setErrorFromException($ex);
+    };
 
-    $self->_showRestoreProgress($progressIndicator);
+    if ($progressIndicator) {
+        $self->_showRestoreProgress($progressIndicator);
+    } elsif ($self->param('popup')) {
+        delete $self->{template};
+    }
 }
 
 sub _fullRestoreMode
@@ -227,11 +263,9 @@ sub _fullRestoreMode
     my $mode = $self->param('mode');
     if ($mode eq 'fullRestore') {
         $fullRestore = 1;
-    }
-    elsif ($mode eq 'configurationRestore') {
+    } elsif ($mode eq 'configurationRestore') {
         $fullRestore = 0;
-    }
-    else {
+    } else {
         throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
     }
 
@@ -240,11 +274,11 @@ sub _fullRestoreMode
 
 my @popupProgressParams = (
         raw => 1,
+        inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
-        barWidth => 490,
 );
 
 sub _showBackupProgress
@@ -271,7 +305,7 @@ sub _showRestoreProgress
 {
     my ($self, $progressIndicator) = @_;
 
-    $self->showProgress(
+    my @params = (
             progressIndicator  => $progressIndicator,
 
             title              => __('Restoring backup'),
@@ -281,6 +315,11 @@ sub _showRestoreProgress
             endNote            =>   __('Restore successful'),
             reloadInterval     =>   4,
             );
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub  _downloadAction
@@ -326,26 +365,5 @@ sub  _bugreportAction
 }
 
 
-# to avoid the <div id=content>
-sub _print
-{
-    my ($self) = @_;
-    if (not $self->param('popup')) {
-        return $self->SUPER::_print();
-    }
-
-    my $json = $self->{json};
-    if ($json) {
-        $self->JSONReply($json);
-        return;
-    }
-
-    $self->_header;
-    print '<div id="limewrap"><div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div></div>";
-}
 
 1;

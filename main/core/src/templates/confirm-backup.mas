@@ -4,21 +4,37 @@
     $backup
     $action
     $actiontext
-    $onClickAction
+    $popup => 0
 </%args>
 <%init>
 use EBox::Gettext;
 use Perl6::Junction qw(any);
 use EBox::Backup;
-my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc
-                                      restoreFromFile));
+my $restoreAction = $action eq any(qw(restoreFromId  restoreFromFile));
 
 my $fullRestoreAvailable;
 if ($restoreAction) {
   $fullRestoreAvailable = $backup->{type} eq $EBox::Backup::FULL_BACKUP_ID;
 }
 
-
+my $onclickSubmit = '';
+my $onclickCancel = '';
+if ($popup) {
+    my $title;
+    my $url = '/SysInfo/Backup?';
+    $url .= "$action=1&";
+    if ($restoreAction) {
+        $title = __x('Restore backup: {desc}',
+                    desc => $backup->{description});
+        $url .= '&mode=configurationRestore';
+    }
+    if (exists $backup->{id}) {
+        $url .= '&id=' . $backup->{id};
+    }
+    $url .= "&popup=1";
+    $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+    $onclickCancel = qq{onclick="Modalbox.hide(); return false"};
+}
 </%init>
 
 <br/>
@@ -52,6 +68,7 @@ if ($restoreAction) {
 %                }
 
         <form action='Backup' method='POST'>
+          <& /input/hidden.mas, name => 'popup', value => $popup &>
 %               if ($restoreAction) {
                               <&.restoreRows, fullRestoreAvailable => $fullRestoreAvailable &>
 %               }
@@ -65,16 +82,21 @@ if ($restoreAction) {
                                                         name='<%$action%>'
                                                         value='<%$actiontext%>'
                                                         alt='<%$actiontext%>'
-                                            <% $onClickAction ? "onClick='$onClickAction" : "" %>
+                                          <% $onclickSubmit  %>
                                          />
                                         <input class='inputButton' type='submit'
-                                                        name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+                                                        name='cancel'
+                                                        value="<%__('Cancel')%>"
+                                                        alt="<%__('Cancel')%>"
+                                          <% $onclickCancel %>
+                                        />
                                 </form>
                         </td>
                 </tr>
         </tbody>
 </table>
 <br/>
+
 <%def .backupIdentifier >
 <%args>
 $backup

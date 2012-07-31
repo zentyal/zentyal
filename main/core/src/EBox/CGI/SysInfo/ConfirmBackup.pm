@@ -37,31 +37,28 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
-
 sub requiredParameters
 {
   my ($self) = @_;
 
   if ($self->param('download.x')) {
     return [qw(id download.x download.y)];
-  }
-  elsif ($self->param('delete.x')) {
+  }  elsif ($self->param('delete.x')) {
     return [qw(id delete.x delete.y)];
-  }
-  elsif ($self->param('restoreFromId.x')) {
+  }  elsif ($self->param('restoreFromId.x')) {
     return [qw(restoreFromId.x restoreFromId.y id)];
-  }
-  elsif ($self->param('restoreFromFile')) {
+  }  elsif ($self->param('restoreFromId')) {
+    return [qw(restoreFromId id)];
+  }  elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile)];
   }
 
   return [];
 }
 
-
 sub optionalParameters
 {
-    return ['download', 'delete', 'restoreFromId'];
+    return ['download', 'delete', 'popup'];
 }
 
 
@@ -79,9 +76,14 @@ sub actuate
       my $actionSub = $self->can($actionParam . 'Action');
       my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
       $self->{params} = [action => $backupAction, actiontext => $backupActionText, backup => $backupDetails];
+      if ($self->param('popup')) {
+          push @{ $self->{params} }, (popup => 1);
+      }
+
       return;
     }
   }
+
 
 
   # otherwise...
@@ -190,5 +192,26 @@ sub setPrintabletype
   return $details_r;
 }
 
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
 
 1;
