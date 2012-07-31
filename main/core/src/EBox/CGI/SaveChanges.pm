@@ -61,11 +61,11 @@ my @commonProgressParams = (
 );
 my @popupProgressParams = (
         raw => 1,
+        inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
-        barWidth => 490,
 );
 
 sub saveAllModulesAction
