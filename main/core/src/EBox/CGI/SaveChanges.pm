@@ -119,7 +119,7 @@ sub revokeAllModulesAction
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
     }
 
     $self->showProgress(@params);
