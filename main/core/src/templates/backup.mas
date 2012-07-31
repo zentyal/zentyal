@@ -41,7 +41,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </div>
 % if ($modulesChanged) {
   <div class='warning'>
-	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
+        <% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
   </div>
 % }
 <p>
@@ -49,24 +49,24 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
     <tbody>
        <form action='Backup' method='POST'>
        <& /input/hidden.mas, name => 'mode', value => 'configurationBackup', &>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Description') %>:</span>
-			</td>
-			<td>
-					<input type='text' class='inputText' name='description' size='52' />
-			</td>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Description') %>:</span>
+                        </td>
+                        <td>
+                                        <input type='text' class='inputText' name='description' size='52' />
+                        </td>
                 </tr>
-		<tr>
-			<td class='tright'>
-						<span class='ftitle'></span>
+                <tr>
+                        <td class='tright'>
+                                                <span class='ftitle'></span>
                        </td>
-			<td>
-				<input class='inputButton' type='submit'
-				<% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
-			</td>
+                        <td>
+                                <input class='inputButton' type='submit'
+                                <% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
+                        </td>
                 </tr>
-	</form>
+        </form>
     </tbody>
 </table>
 </p>
@@ -75,28 +75,28 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%def .restoreSection>
 <h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
-	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
+        <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
 
   <table class='formTable'>
     <tbody>
      <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Backup file') %>:</span>
-			</td>
-			<td>
-					<input type='file' name='backupfile'/>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-						<span class='ftitle'></span>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Backup file') %>:</span>
+                        </td>
+                        <td>
+                                        <input type='file' name='backupfile'/>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                                <span class='ftitle'></span>
                        </td>
-			<td>
+                        <td>
                   <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
-			</td>
-		</tr>
+                        </td>
+                </tr>
 
        </form>
    </tbody>
@@ -123,67 +123,67 @@ my %printableTypeById = (
 % if(@backups){
 <h3><% __("Backups' list") %></h3>
 <table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class="tleft"><%__('Description') %>  </th>
-			<th><%__('Date')%> </th>
+        <thead>
+                <tr>
+                        <th class="tleft"><%__('Description') %>  </th>
+                        <th><%__('Date')%> </th>
                         <th><% __('Archive size') %> </th>
-			<th class="thOptions"><%__('Actions') %></th>
-		</tr>
-	</thead>
-	<tbody>
-%		foreach my $backup (@backups) {
-		<tr class='border'>
+                        <th class="thOptions"><%__('Actions') %></th>
+                </tr>
+        </thead>
+        <tbody>
+%               foreach my $backup (@backups) {
+                <tr class='border'>
 
-				<td class="tleft">
-					<% $backup->{'description'} %>
-				</td>
-				<td class='tcenter'>
-					<% $backup->{'date'} %>
-				</td>
+                                <td class="tleft">
+                                        <% $backup->{'description'} %>
+                                </td>
+                                <td class='tcenter'>
+                                        <% $backup->{'date'} %>
+                                </td>
                                 <td>
                                 <% $backup->{'size'} %>
                                 </td>
-				<td width="%14">
-				<form method='POST' action='ConfirmBackup'>
-					<input type='hidden'
-						name='id'
-						value="<% $backup->{'id'} %>"/>
-					<input type='image' name='restoreFromId'
-						src='/data/images/apply.gif'
-						value="Restore"
-						title="<%__('Restore configuration using this file')%>"
-						alt="<%__('Restore from backup')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
-					<input type='image' name='download'
-						src='/data/images/down.gif'
-						value="Download"
-						title="<%__('Download')%>"
-						alt="<%__('Download')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
-					<input type='image' name='delete'
-						src='/data/images/delete.gif'
-						value="Delete"
-						title="<%__('Delete')%>"
-						alt="<%__('Delete')%>"/>
+                                <td width="%14">
+                                <form method='POST' action='ConfirmBackup'>
+                                        <input type='hidden'
+                                                name='id'
+                                                value="<% $backup->{'id'} %>"/>
+                                        <input type='image' name='restoreFromId'
+                                                src='/data/images/apply.gif'
+                                                value="Restore"
+                                                title="<%__('Restore configuration using this file')%>"
+                                                alt="<%__('Restore from backup')%>"/>
+                                        <img src='/data/images/sep.gif' alt='-'/>
+                                        <input type='image' name='download'
+                                                src='/data/images/down.gif'
+                                                value="Download"
+                                                title="<%__('Download')%>"
+                                                alt="<%__('Download')%>"/>
+                                        <img src='/data/images/sep.gif' alt='-'/>
+                                        <input type='image' name='delete'
+                                                src='/data/images/delete.gif'
+                                                value="Delete"
+                                                title="<%__('Delete')%>"
+                                                alt="<%__('Delete')%>"/>
                 </form>
-				</td>
+                                </td>
 
-		</tr>
-%		}
-	</tbody>
+                </tr>
+%               }
+        </tbody>
 </table>
 <br />
 <!-- Put the legend underneath the list -->
 <%perl>
   my @legendElements = (
                         { imgFile => "/data/images/down.gif",
-			  imgName => __('download') },
-			{ imgFile => "/data/images/apply.gif",
-			  imgName => __('restore') },
-			{ imgFile => "/data/images/delete.gif",
-			  imgName => __('delete') }
-		       );
+                          imgName => __('download') },
+                        { imgFile => "/data/images/apply.gif",
+                          imgName => __('restore') },
+                        { imgFile => "/data/images/delete.gif",
+                          imgName => __('delete') }
+                       );
 </%perl>
 <& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
@@ -192,11 +192,11 @@ my %printableTypeById = (
 <%def .reportSection>
 <h3><% __('Configuration Report') %></h3>
 <div class='note'>
-	<% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
+        <% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
 </div>
 
 <form action='Backup' method='POST'>
-		<input class='inputButton' type='submit' name='bugreport'
-			   value="<% __('Generate and Download report file') %>" />
+                <input class='inputButton' type='submit' name='bugreport'
+                           value="<% __('Generate and Download report file') %>" />
 </form>
 </%def>
