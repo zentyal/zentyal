@@ -62,7 +62,11 @@ if ($restoreAction) {
 
 
                                         <input class='inputButton' type='submit'
-                                                        name='<%$action%>' value='<%$actiontext%>' alt='<%$actiontext%>'/>
+                                                        name='<%$action%>'
+                                                        value='<%$actiontext%>'
+                                                        alt='<%$actiontext%>'
+                                            <% $onClickAction ? "onClick='$onClickAction" : "" %>
+                                         />
                                         <input class='inputButton' type='submit'
                                                         name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
                                 </form>

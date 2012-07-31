@@ -97,7 +97,7 @@ sub optionalParameters
         return ['.*'];
     }
 
-    return ['selected', 'download'];
+    return ['selected', 'download', 'popup'];
 }
 
 sub actuate
@@ -238,11 +238,19 @@ sub _fullRestoreMode
     return $fullRestore;
 }
 
+my @popupProgressParams = (
+        raw => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
+        barWidth => 490,
+);
+
 sub _showBackupProgress
 {
     my ($self, $progressIndicator) = @_;
-
-    $self->showProgress(
+    my @params = (
             progressIndicator => $progressIndicator,
 
             title    => __('Backing up'),
@@ -252,6 +260,11 @@ sub _showBackupProgress
             endNote            =>  __('Backup successful'),
             reloadInterval     =>  2,
             );
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub _showRestoreProgress
@@ -310,6 +323,29 @@ sub  _bugreportAction
     $self->{downfilename} = 'zentyal-configuration-report.tar';
 
     $self->{audit}->logAction('System', 'Backup', 'downloadConfigurationReport');
+}
+
+
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
 }
 
 1;

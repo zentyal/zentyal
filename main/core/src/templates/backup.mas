@@ -54,7 +54,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
                                 <span class='ftitle'><% __('Description') %>:</span>
                         </td>
                         <td>
-                                        <input type='text' class='inputText' name='description' size='52' />
+                                        <input type='text' class='inputText' name='description' id='backup_description' size='52' />
                         </td>
                 </tr>
                 <tr>
@@ -62,8 +62,25 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
                                                 <span class='ftitle'></span>
                        </td>
                         <td>
+<%perl>
+my $backupTitle = __('Backup');
+my $backupOnClickJs =<< "ENDJS" ;
+     var description= \$('backup_description').value;
+     var title = '$backupTitle: ' + description;
+     var url = '/SysInfo/Backup?';
+     url += 'mode=configurationBackup';
+     url += '&description='  +  description;
+     url += '&backup=1&popup=1'
+
+     Modalbox.show(url, {title: title, transitions: false});
+     return false
+ENDJS
+</%perl>
                                 <input class='inputButton' type='submit'
-                                <% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
+                                <% $disabledAttr %> name='backup'
+                                value="<% $backupTitle  %>"
+                                onclick="<% $backupOnClickJs %>"
+                                />
                         </td>
                 </tr>
         </form>
