@@ -1,3 +1,5 @@
+HEAD
+	+ Module recovers from missign webserver service
 2.3.4
 	+ Avoid 'port in use' error when setting port for first time to
 	  its default value
