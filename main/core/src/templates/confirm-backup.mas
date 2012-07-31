@@ -1,16 +1,17 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	$backup
-	$action
-	$actiontext
+    $backup
+    $action
+    $actiontext
+    $onClickAction
 </%args>
 <%init>
 use EBox::Gettext;
 use Perl6::Junction qw(any);
 use EBox::Backup;
 my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc
-				      restoreFromFile));
+                                      restoreFromFile));
 
 my $fullRestoreAvailable;
 if ($restoreAction) {
@@ -22,52 +23,52 @@ if ($restoreAction) {
 
 <br/>
 <table class='formTable'>
-	<tbody>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Date') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'date'} %>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Description') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'description'} %>
-			</td>
-		</tr>
-%		if (exists $backup->{'size'}) {
+        <tbody>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Date') %>:</span>
+                        </td>
+                        <td>
+                                <% $backup->{'date'} %>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Description') %>:</span>
+                        </td>
+                        <td>
+                                <% $backup->{'description'} %>
+                        </td>
+                </tr>
+%               if (exists $backup->{'size'}) {
                  <tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Archive size') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'size'} %>
-			</td>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Archive size') %>:</span>
+                        </td>
+                        <td>
+                                <% $backup->{'size'} %>
+                        </td>
                  </tr>
 %                }
 
-	<form action='Backup' method='POST'>
-%		if ($restoreAction) {
+        <form action='Backup' method='POST'>
+%               if ($restoreAction) {
                               <&.restoreRows, fullRestoreAvailable => $fullRestoreAvailable &>
 %               }
-		<tr>
-			<td></td>
-			<td>
+                <tr>
+                        <td></td>
+                        <td>
                                         <& .backupIdentifier, backup => $backup &>
 
 
-					<input class='inputButton' type='submit'
-							name='<%$action%>' value='<%$actiontext%>' alt='<%$actiontext%>'/>
-					<input class='inputButton' type='submit'
-							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
-				</form>
-			</td>
-		</tr>
-	</tbody>
+                                        <input class='inputButton' type='submit'
+                                                        name='<%$action%>' value='<%$actiontext%>' alt='<%$actiontext%>'/>
+                                        <input class='inputButton' type='submit'
+                                                        name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+                                </form>
+                        </td>
+                </tr>
+        </tbody>
 </table>
 <br/>
 <%def .backupIdentifier >
@@ -107,7 +108,7 @@ my $modeOptions = [
 <tr>
     <td>    <span class='ftitle'><% __('Restore mode') %>:</span>   </td>
     <td>
-		<& /input/select.mas, name => 'mode', value => 'fullRestore', options => $modeOptions &>
+                <& /input/select.mas, name => 'mode', value => 'fullRestore', options => $modeOptions &>
     </td>
 </tr>
 % }
