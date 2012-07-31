@@ -2249,6 +2249,7 @@ sub _updatePathsByLen
 {
     my ($self) = @_;
 
+    # FIXME: Complete the implementation
     @sharesSortedByPathLen = ();
 
     foreach my $sh_r (@{ $self->shares(1) }) {
