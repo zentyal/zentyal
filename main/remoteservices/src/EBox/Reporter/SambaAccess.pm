@@ -25,9 +25,6 @@ use strict;
 
 use base 'EBox::Reporter::Base';
 
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
-
 # Method: module
 #
 # Overrides:
