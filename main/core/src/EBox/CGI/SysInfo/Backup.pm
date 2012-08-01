@@ -86,16 +86,16 @@ sub requiredParameters
     my ($self) = @_;
 
     if ($self->param('backup')) {
-        return [qw(backup description mode)];
+        return [qw(backup description)];
     }
     elsif ($self->param('bugreport')) {
         return [qw(bugreport )];
     }
     elsif ($self->param('restoreFromFile')) {
-        return [qw(restoreFromFile backupfile mode)];
+        return [qw(restoreFromFile backupfile)];
     }
     elsif ($self->param('restoreFromId')) {
-        return [qw(restoreFromId id mode)];
+        return [qw(restoreFromId id)];
     }
     elsif ($self->param('download.x')) {
         return [qw(id download.x download.y)];
@@ -176,24 +176,11 @@ sub _backupAction
 {
     my ($self, %params) = @_;
 
-    my $fullBackup;
-    my $mode = $self->param('mode');
-    if ($mode eq 'fullBackup') {
-        $fullBackup = 1;
-    }
-    elsif ($mode eq 'configurationBackup') {
-        $fullBackup = 0;
-    }
-    else {
-        throw EBox::Exceptions::External(__x('Unknown backup mode: {mode}', mode => $mode));
-    }
-
     my $description = $self->param('description');
-
     my $progressIndicator;
     try {
         my $backup = EBox::Backup->new();
-        $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
+        $progressIndicator= $backup->prepareMakeBackup(description => $description);
     } otherwise {
         my ($ex) = @_;
         $self->setErrorFromException($ex);
@@ -236,13 +223,11 @@ sub _restore
 {
     my ($self, $filename) = @_;
 
-    my $fullRestore = $self->_fullRestoreMode;
-
     my $backup = new EBox::Backup;
 
     my $progressIndicator;
     try {
-        $progressIndicator = $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+        $progressIndicator = $backup->prepareRestoreBackup($filename);
     } otherwise {
         my ($ex) = @_;
         $self->setErrorFromException($ex);
@@ -253,23 +238,6 @@ sub _restore
     } elsif ($self->param('popup')) {
         delete $self->{template};
     }
-}
-
-sub _fullRestoreMode
-{
-    my ($self) = @_;
-
-    my $fullRestore;
-    my $mode = $self->param('mode');
-    if ($mode eq 'fullRestore') {
-        $fullRestore = 1;
-    } elsif ($mode eq 'configurationRestore') {
-        $fullRestore = 0;
-    } else {
-        throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
-    }
-
-    return $fullRestore;
 }
 
 my @popupProgressParams = (

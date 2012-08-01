@@ -63,7 +63,6 @@ sub optionalParameters
     return ['download', 'delete', 'popup'];
 }
 
-
 sub actuate
 {
   my ($self) = @_;
@@ -121,9 +120,6 @@ sub  restoreFromIdAction
   return ('restoreFromId', __('Restore'), $self->backupDetailsFromId());
 }
 
-
-
-
 sub  restoreFromFileAction
 {
   my ($self) = @_;
@@ -136,10 +132,6 @@ sub  restoreFromFileAction
 
   return ('restoreFromFile', __('Restore'), $details);
 }
-
-
-
-
 
 sub backupDetailsFromId
 {
@@ -158,7 +150,6 @@ sub backupDetailsFromId
   return $details;
 }
 
-
 sub backupDetailsFromFile
 {
   my ($self, $filename) = @_;
@@ -168,7 +159,6 @@ sub backupDetailsFromFile
 
   return $details;
 }
-
 
 sub setPrintabletype
 {

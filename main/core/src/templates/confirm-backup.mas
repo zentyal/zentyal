@@ -12,11 +12,6 @@ use Perl6::Junction qw(any);
 use EBox::Backup;
 my $restoreAction = $action eq any(qw(restoreFromId  restoreFromFile));
 
-my $fullRestoreAvailable;
-if ($restoreAction) {
-  $fullRestoreAvailable = $backup->{type} eq $EBox::Backup::FULL_BACKUP_ID;
-}
-
 my $onclickSubmit = '';
 my $onclickCancel = '';
 if ($popup) {
@@ -26,7 +21,6 @@ if ($popup) {
     if ($restoreAction) {
         $title = __x('Restore backup: {desc}',
                     desc => $backup->{description});
-        $url .= '&mode=configurationRestore';
     }
     if (exists $backup->{id}) {
         $url .= '&id=' . $backup->{id};
@@ -75,9 +69,6 @@ if ($popup) {
 
         <form action='Backup' method='POST'>
           <& /input/hidden.mas, name => 'popup', value => $popup &>
-%               if ($restoreAction) {
-                              <&.restoreRows, fullRestoreAvailable => $fullRestoreAvailable &>
-%               }
                 <tr>
                         <td></td>
                         <td>
@@ -124,27 +115,4 @@ else {
 }
 </%init>
 <& /input/hidden.mas, name => $name, value => $value &>
-</%def>
-<%def .restoreRows>
-<%args>
-$fullRestoreAvailable
-</%args>
-<%init>
-my $configurationRestoreValue = 'configurationRestore';
-my $modeOptions = [
-     { value => 'fullRestore', printableValue => __('Full Restore') },
-     { value => $configurationRestoreValue , printableValue => __('Configuration Restore') }
-];
-</%init>
-% if ($fullRestoreAvailable) {
-<tr>
-    <td>    <span class='ftitle'><% __('Restore mode') %>:</span>   </td>
-    <td>
-                <& /input/select.mas, name => 'mode', value => 'fullRestore', options => $modeOptions &>
-    </td>
-</tr>
-% }
-% else {
- <& /input/hidden.mas, name => 'mode', value => $configurationRestoreValue &>
-% }
 </%def>

@@ -24,12 +24,7 @@ use EBox::Gettext;
 $modulesChanged
 </%args>
 <%init>
-my $modeOptions = [
-     { value => 'fullBackup', printableValue => __('Full Backup') },
-     { value => 'configurationBackup', printableValue => __('Configuration Backup') }
-];
 my $disabledAttr = $modulesChanged ? 'disabled' : '';
-
 </%init>
 <div class='note'>
     <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
@@ -48,7 +43,6 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <table class='formTable'>
     <tbody>
        <form action='Backup' method='POST'>
-       <& /input/hidden.mas, name => 'mode', value => 'configurationBackup', &>
                 <tr>
                         <td class='tright'>
                                 <span class='ftitle'><% __('Description') %>:</span>
@@ -68,7 +62,6 @@ my $backupOnClickJs =<< "ENDJS" ;
      var description= \$('backup_description').value;
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup?';
-     url += 'mode=configurationBackup';
      url += '&description='  +  description;
      url += '&backup=1&popup=1'
 
@@ -94,7 +87,6 @@ ENDJS
 my $title = __('Restore');
 my $onClickJs =<< "ENDJS" ;
      var url = '/SysInfo/Backup?restoreFromFile=1';
-     url += '&mode=configurationRestore';
      url += '&backupfile=' + \$('backupfile').value;
      url += '&popup=1';
 
