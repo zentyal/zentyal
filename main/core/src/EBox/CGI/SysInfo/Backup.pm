@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::SysInfo::Backup;
-
 use strict;
 use warnings;
 
+
+package EBox::CGI::SysInfo::Backup;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use Error qw(:try);
@@ -61,12 +60,10 @@ sub _print
 
 
     if (not $self->param('popup')) {
-        EBox::debug("PEINT NOT POPUP");
         return $self->SUPER::_print();
     }
 
     # to avoid the <div id=content>
-    EBox::debug("PRINY WITH POPUP");
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
