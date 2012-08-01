@@ -102,19 +102,16 @@ sub row
 {
     my ($self) = @_;
 
+    my $row = $self->_defaultRow();
+
     my $date = `date '+%d/%m/%Y'`;
     my $time = `date '+%H:%M:%S'`;
 
     chomp $date;
     chomp $time;
 
-    my $row = $self->_setValueRow(
-            date => $date,
-            time => $time,
-        );
-
-    $row->setId($self->ids()->[0]);
-
+    $row->elementByName('date')->setValue($date);
+    $row->elementByName('time')->setValue($time);
 
     return $row;
 }
