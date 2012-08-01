@@ -150,7 +150,7 @@ sub _suite
 # Set the QA apt repository public key
 sub _setQAAptPubKey
 {
-    my $keyFile = EBox::Config::conf() . 'remoteservices/zentyal-qa.pub';
+    my $keyFile = '/usr/share/zentyal-remoteservices/zentyal-qa.pub';
     EBox::Sudo::root("apt-key add $keyFile");
 }
 
