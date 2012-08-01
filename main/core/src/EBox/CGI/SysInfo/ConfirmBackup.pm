@@ -60,7 +60,7 @@ sub requiredParameters
 
 sub optionalParameters
 {
-    return ['download', 'delete', 'popup'];
+    return ['download', 'delete', 'popup', 'alreadyUploaded'];
 }
 
 sub actuate
@@ -124,7 +124,13 @@ sub  restoreFromFileAction
 {
   my ($self) = @_;
 
-  my $filename = $self->upload('backupfile');
+  my $filename;
+  if ($self->param('alreadyUploaded')) {
+      $filename = $self->param('backupfile');
+  } else {
+      $filename = $self->upload('backupfile');
+  }
+
 
   my $details = $self->backupDetailsFromFile($filename);
 

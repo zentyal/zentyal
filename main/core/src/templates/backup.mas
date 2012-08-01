@@ -5,6 +5,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Config;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
@@ -62,7 +63,7 @@ my $backupOnClickJs =<< "ENDJS" ;
      var description= \$('backup_description').value;
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup?';
-     url += '&description='  +  description;
+     url += '&description='  +  escape(description);
      url += '&backup=1&popup=1'
 
      Modalbox.show(url, {title: title, transitions: false});
@@ -84,16 +85,35 @@ ENDJS
 
 <%def .restoreSection>
 <%init>
+my $id = 'backupfile';
+my $loadingId = $id . '_loading';
+my $formId    = $id . '_form';
+my $onChange = << "JS_END";
+var fileUpload = new EBox.FileUpload(
+   { formId :   '$formId',
+     onStart :    function() { setLoading('$loadingId'); },
+     onComplete : function()  { setDone('$loadingId') ; },
+   }
+);
+var res = fileUpload.submit();
+\$('restoreFromFile').disabled = false;
+return res;
+JS_END
+
 my $title = __('Restore');
+my $uploadLocation = EBox::Config::tmp() . 'path';
 my $onClickJs =<< "ENDJS" ;
-     var url = '/SysInfo/Backup?restoreFromFile=1';
-     url += '&backupfile=' + \$('backupfile').value;
-     url += '&popup=1';
+     var backupfile = '$uploadLocation';
+     var url = '/SysInfo/ConfirmBackup?restoreFromFile=1';
+     url += '&backupfile=' + escape(backupfile);
+     url += '&alreadyUploaded=1&popup=1';
 
      Modalbox.show(url, {title: '$title', transitions: false});
      return false;
 ENDJS
 </%init>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/fileUpload.js">//</script>
 <h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
@@ -101,22 +121,36 @@ ENDJS
 
   <table class='formTable'>
     <tbody>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
+
                 <tr>
                         <td class='tright'>
                                 <span class='ftitle'><% __('Backup file') %>:</span>
                         </td>
+
                         <td>
-                                        <input type='file' name='backupfile' id='backupfile'/>
+<div id="<% $id %>">
+ <form action="/Controller/Uploader"
+        method="POST"
+        enctype="multipart/form-data"
+        id="<% $id . '_form' %>">
+    <& /input/file.mas,
+       name => $id . '_path',
+       id   => $id . '_path',
+       onchange => $onChange,
+    &>
+    <span id="<% $id . '_loading'%>">
+    </span>
+  </form>
                         </td>
                 </tr>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
                 <tr>
                         <td class='tright'>
                                                 <span class='ftitle'></span>
                        </td>
                         <td>
                   <input class='inputButton' type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>"
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'
 
                    />
                         </td>

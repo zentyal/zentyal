@@ -10,7 +10,7 @@
 use EBox::Gettext;
 use Perl6::Junction qw(any);
 use EBox::Backup;
-my $restoreAction = $action eq any(qw(restoreFromId  restoreFromFile));
+use URI::Escape;
 
 my $onclickSubmit = '';
 my $onclickCancel = '';
@@ -18,17 +18,19 @@ if ($popup) {
     my $title;
     my $url = '/SysInfo/Backup?';
     $url .= "$action=1";
-    if ($restoreAction) {
+
+    if ($action eq any(qw(restoreFromId  restoreFromFile))) {
         $title = __x('Restore backup: {desc}',
                     desc => $backup->{description});
-    }
-    if (exists $backup->{id}) {
-        $url .= '&id=' . $backup->{id};
-    }
-    if ($restoreAction) {
+        if ($action eq 'restoreFromId') {
+            $url .= '&id=' . $backup->{id};
+        } elsif ($action eq 'restoreFromFile') {
+            $url .= '&backupfile=' . uri_escape($backup->{file});
+        }
         $url .= "&popup=1";
         $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
     } elsif ($action eq 'delete') {
+        $url .= '&id=' . $backup->{id};
         $onclickSubmit = qq(onclick="Modalbox.hide(); window.location='$url'; return false");
     }
 
