@@ -1,9 +1,5 @@
-<%args>
-    $enabled => 0
-</%args>
 #!/bin/sh
 
-%if ($enabled) {
 PROG=/usr/bin/ocsinventory-agent
 #RUNDIR=/var/run
 #ENABLED_FILE=$RUNDIR/ocsinventory-client-enabled
@@ -20,7 +16,3 @@ fi
 #fi
 
 $PROG > /dev/null 2>&1
-
-%} else {
-exit 0
-%}

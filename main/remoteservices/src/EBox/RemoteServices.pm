@@ -242,13 +242,12 @@ sub _setInventoryAgentConf
 
         # Enable OCS agent periodic execution
         $self->writeConfFile(OCS_CRON_FILE,
-                             OCS_CRON_MAS_FILE,
-                             [enabled => 1]);
+                             OCS_CRON_MAS_FILE);
     } else {
         # Disable OCS agent periodic execution
-        $self->writeConfFile(OCS_CRON_FILE,
-                             OCS_CRON_MAS_FILE,
-                             [enabled => 0]);
+        if (-e OCS_CRON_FILE) {
+            EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
+        }
     }
 }
 
