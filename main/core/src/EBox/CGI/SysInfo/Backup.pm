@@ -59,7 +59,7 @@ sub _print
     }
 
 
-    if (not $self->param('popup')) {
+    if (not $self->{popup}) {
         return $self->SUPER::_print();
     }
 
@@ -122,6 +122,7 @@ sub optionalParameters
 sub actuate
 {
     my ($self) = @_;
+    $self->{popup} = $self->param('popup');
 
     $self->param('cancel') and return;
 
@@ -171,7 +172,7 @@ sub masonParameters
 
 sub _backupAction
 {
-    my ($self, %params) = @_;
+    my ($self) = @_;
 
     my $description = $self->param('description');
     my $progressIndicator;
@@ -186,6 +187,8 @@ sub _backupAction
     if ($progressIndicator) {
         $self->_showBackupProgress($progressIndicator);
         $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
+    } elsif ($self->{popup}) {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 
@@ -232,8 +235,8 @@ sub _restore
 
     if ($progressIndicator) {
         $self->_showRestoreProgress($progressIndicator);
-    } elsif ($self->param('popup')) {
-        delete $self->{template};
+    } elsif ($self->{popup}) {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 
