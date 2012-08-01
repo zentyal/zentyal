@@ -47,10 +47,11 @@ sub _table
     my ($self) = @_;
 
     my @tableHead = (new EBox::Types::Date( fieldName => 'date',
-                                            editable  => \&_enabled),
+                                            editable  => $self->_enabledSub(),
+                                           ),
 
                      new EBox::Types::Time( fieldName => 'time',
-                                            editable  => \&_enabled,
+                                            editable  => $self->_enabledSub(),
                                             help      => __('A change in the date or time will cause all Zentyal services to be restarted.')));
 
     my $customActions = [
@@ -58,7 +59,7 @@ sub _table
                                  printableValue => __('Change'),
                                  model => $self,
                                  handler => \&_doChangeDateTime,
-                                 enabled => \&_enabled,
+                                 enabled => $self->_enabledSub(),
                                  message => __('The date and time was changed successfully.'))];
 
     my $dataTable =
@@ -83,11 +84,12 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
-    my $custom = $self->SUPER::viewCustomizer();
-    unless (_enabled()) {
+    my $enabledSub = $self->_enabledSub();
+    unless ($enabledSub->()) {
         $self->setMessage(__('As the NTP synchronization with external servers is enabled, you cannot change the date or time.'));
     }
 
+    my $custom = $self->SUPER::viewCustomizer();
     return $custom;
 }
 
@@ -111,7 +113,7 @@ sub row
             time => $time,
         );
 
-    $row->setId('dummy');
+    $row->setId($self->ids()->[0]);
 
 
     return $row;
@@ -162,15 +164,18 @@ sub _setNewDate
 #
 #   Returns 1 if changing the date and time is allowed, 0 otherwise
 #
-sub _enabled
+sub _enabledSub
 {
-    my $ntp = EBox::Global->modInstance('ntp');
-    my $ntpsync = (defined ($ntp) and ($ntp->isEnabled()) and ($ntp->synchronized()));
-    if ($ntpsync) {
-        return 0;
-    } else {
-        return 1;
-    }
+    my ($self) = @_;
+    return sub {
+        my $ntp = $self->global()->modInstance('ntp');
+        my $ntpsync = (defined ($ntp) and ($ntp->isEnabled()) and ($ntp->synchronized()));
+        if ($ntpsync) {
+            return 0;
+        } else {
+            return 1;
+        }
+    };
 }
 
 1;
