@@ -174,7 +174,18 @@ sub privateDirForName
     my ($class, $name) = @_;
 
     my $openVPNConfDir = $class->_openvpnModule->confDir();
-    return $openVPNConfDir . "/$name.d";
+    my $dir =  $openVPNConfDir . "/$name.d";
+    # For compability with older version
+     if (not EBox::Sudo::fileTest('-d', $dir)) {
+         if  ( EBox::Sudo::fileTest('-e', $dir) ) {
+             throw EBox::Exceptions::Internal("$dir exists but is not a directory");
+         }
+         # create dir if it does not exist
+         EBox::Sudo::root("mkdir --mode 0700 '$dir'");
+     }
+    # end compability  block
+
+    return $dir;
 }
 
 sub createDirectories

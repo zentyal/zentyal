@@ -1,3 +1,6 @@
+HEAD
+	+ Reimplemented old behaviour of client configuration direectory
+	creation for compability with other modules.
 2.3.9
 	+ Added redirect gateway option to the server
 2.3.8
