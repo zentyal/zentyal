@@ -595,7 +595,7 @@ sub _table
                 # This field indicates if the domain is static, dynamic or dlz
                 # Not editable from interface
                                 'fieldName'      => 'type',
-                                'printableName'  => __('Domain type'),
+                                'printableName'  => __('Dynamic domain'),
                                 'editable'       => 0,
                                 #'hiddenOnViewer' => 0,
                                 #'hiddenOnSetter' => 1,
