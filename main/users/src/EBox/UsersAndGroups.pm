@@ -285,32 +285,26 @@ sub setupKerberos
 {
     my ($self) = @_;
 
-    # Get the host domain
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostDomain = $sysinfo->hostDomain();
+    my $realm = $self->kerberosRealm();
+    EBox::info("Initializing kerberos realm '$realm'");
 
-    # Create the kerberos database
     my @cmds = ();
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
-    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $hostDomain");
+    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
     push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$hostDomain"); #TODO Only if master
+    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
     push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-    EBox::debug("Initializing kerberos realm '$hostDomain'");
     EBox::Sudo::root(@cmds);
-
-    $self->setupDNS();
 }
 
 sub setupDNS
 {
     my ($self) = @_;
 
-    # TODO Set the domain as static or dynamic if dhcp is
-    # updating the domain
+    EBox::info("Setting up DNS");
 
     # Get the host domain
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -330,12 +324,15 @@ sub setupDNS
     }
 
     # Do not add the records if the samba module is installed, enabled and
-    # provisioned. Samba will load them.
+    # provisioned. The records are included in the DLZ.
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        return if ($sambaModule->isEnabled() and
-                   $sambaModule->isProvisioned());
+        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+            EBox::debug("Skip adding DNS kerberos records because samba is enabled");
+        }
     }
+
+    EBox::debug("Adding DNS records for kerberos");
 
     # Add the TXT record with the realm name
     my $txtRR = { name => '_kerberos',
