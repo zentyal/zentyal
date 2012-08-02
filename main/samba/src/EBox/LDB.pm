@@ -618,6 +618,36 @@ sub getDnById
     }
 }
 
+# Method getDnBySid
+#
+#   Get DN by object's SID
+#
+# Parameters:
+#
+#   sid - The object SID string
+#
+# Returns:
+#
+#   dn - The DN of the object
+#
+sub getDnBySid
+{
+    my ($self, $sid) = @_;
+
+    my $args = { base   => $self->dn(),
+                 scope  => 'sub',
+                 filter => "(objectSid=$sid)",
+                 attrs  => ['distinguishedName'] };
+    my $result = $self->search($args);
+    if ($result->count() == 1) {
+        my $entry = $result->entry(0);
+        my $value = $entry->get_value('distinguishedName');
+        return $value;
+    } else {
+        throw EBox::Exceptions::DataNotFound( data=> 'objectSid', value => $sid);
+    }
+}
+
 # Method getSidById
 #
 #   Get SID by object's sAMAccountName
@@ -968,6 +998,5 @@ sub setHomeDrive
         }
     }
 }
-
 
 1;

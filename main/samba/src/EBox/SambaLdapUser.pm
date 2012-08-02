@@ -27,14 +27,6 @@ use EBox::Samba;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 
-use Data::Dumper; # TODO
-
-# Home path for users and groups
-use constant BASEPATH           => '/home/ebox/samba';
-use constant USERSPATH          => '/home';
-use constant GROUPSPATH         => BASEPATH . '/groups';
-use constant PROFILESPATH       => BASEPATH . '/profiles';
-
 use base qw(EBox::LdapUserBase);
 
 sub new
@@ -172,9 +164,10 @@ sub _delUser
 
     my $uid = $user->get('uid');
 
+    my $profilePath = EBox::Samba::PROFILES_DIR() . "/$uid";
     my @cmds;
-    if (-d PROFILESPATH . "/$uid") {
-        push (@cmds, "rm -rf \'" .  PROFILESPATH . "/$uid\'");
+    if (-d  $profilePath) {
+        push (@cmds, "rm -rf '$profilePath'");
     }
     EBox::Sudo::root(@cmds) if (@cmds);
 

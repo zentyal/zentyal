@@ -46,6 +46,9 @@ use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
 
+use constant MODE_DC              => 'dc';
+use constant MODE_ADC             => 'adc';
+
 # see http://support.microsoft.com/kb/909264
 my @reservedNames = (
 'ANONYMOUS',
@@ -321,7 +324,7 @@ sub updatedRowNotify
     if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
-        $sambaMod->set_bool('provisioned', 0);
+        $sambaMod->setProvisioned(0);
     }
 
     my $newAdminPwd = $row->valueByName('password');
@@ -377,8 +380,8 @@ sub _server_roles
 {
     my $roles = [];
 
-    push (@{$roles}, { value => 'dc', printableValue => __('Domain controller')});
-    push (@{$roles}, { value => 'adc', printableValue => __('Additional domain controller')});
+    push (@{$roles}, { value => MODE_DC, printableValue => __('Domain controller')});
+    push (@{$roles}, { value => MODE_ADC, printableValue => __('Additional domain controller')});
 
     # FIXME
     # These roles are disabled until implemented, we should also use better names

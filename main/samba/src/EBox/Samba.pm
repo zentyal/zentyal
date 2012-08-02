@@ -44,11 +44,12 @@ use Error qw(:try);
 use File::Slurp;
 use File::Temp;
 
+use constant SAMBA_DIR            => '/home/samba/';
+use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
-use constant SAMBA_DIR            => '/home/ebox/samba';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
@@ -64,9 +65,6 @@ use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
 use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
-
-use constant MODE_DC              => 'dc';
-use constant MODE_ADC             => 'adc';
 
 sub _create
 {
@@ -114,7 +112,7 @@ sub actions
         {
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/ebox/samba.'),
+                           'shares and groups under /home/samba.'),
             'module' => 'samba',
         },
     ];
@@ -269,9 +267,15 @@ sub enableActions
 {
     my ($self) = @_;
 
+    my $user = EBox::Config::user();
+    my $group = EBox::Config::group();
     my @cmds = ();
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown $user:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 750 " . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown $user:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 750 " . PROFILES_DIR);
     EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
 
@@ -282,10 +286,22 @@ sub enableActions
 
 sub isProvisioned
 {
-    my $samba = EBox::Global->modInstance('samba');
-    my $isProvisioned = $samba->get_bool('provisioned');
+    my ($self) = @_;
+
+    my $isProvisioned = EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
     EBox::debug("Samba provisioned flag: $isProvisioned");
     return $isProvisioned;
+}
+
+sub setProvisioned
+{
+    my ($self, $provisioned) = @_;
+
+    if ($provisioned) {
+        EBox::Sudo::command("touch " . SAMBA_PROVISION_FILE);
+    } else {
+        EBox::Sudo::command("rm -f " . SAMBA_PROVISION_FILE);
+    }
 }
 
 # Method: enableService
@@ -297,25 +313,8 @@ sub enableService
 {
     my ($self, $status) = @_;
 
-    # TODO If the module is disabled, set the DNS zone to static or dynamic again
-
     $self->SUPER::enableService($status);
-    if ($self->changed() and $status) {
-        my $isProvisioned = isProvisioned();
-        unless ($isProvisioned == 1) {
-            try {
-                $self->provision();
-            } otherwise {
-                my $error = shift;
-                EBox::error($error);
 
-                # Disable the module if not provisioned
-                $self->SUPER::enableService(0);
-
-                throw $error;
-            };
-        }
-    }
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
     foreach my $module (@{$modules}) {
         $module->kerberosCreatePrincipals();
@@ -419,7 +418,7 @@ sub defaultAntivirusSettings
     my ($self) = @_;
 
     my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->row()->valueByName('scan');
+    return $antivirus->value('scan');
 }
 
 sub antivirusExceptions
@@ -515,9 +514,9 @@ sub provision
     }
 
     my $mode = $self->mode();
-    if ($mode eq MODE_DC) {
+    if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
         $self->provisionAsDC();
-    } elsif ($mode eq MODE_ADC) {
+    } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
         $self->provisionAsADC();
     } else {
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
@@ -537,9 +536,10 @@ sub provisionAsDC
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $sysinfo->hostDomain() .
+        ' --realm=' . $usersModule->kerberosRealm() .
         ' --dns-backend=BIND9_DLZ' .
         ' --use-xattrs=yes ' .
+        ' --use-rfc2307 ' .
         ' --server-role=' . $self->mode() .
         ' --users=' . $usersModule->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
@@ -554,7 +554,7 @@ sub provisionAsDC
         EBox::debug("Provision result: @{$output}");
         # Mark the module as provisioned
         EBox::debug('Setting provisioned flag');
-        $self->set_bool('provisioned', 1);
+        $self->setProvisioned(1);
     } else {
         my @error = ();
         my $stderr = EBox::Config::tmp() . 'stderr';
@@ -589,6 +589,10 @@ sub provisionAsDC
     EBox::debug('Starting service');
     $self->_startService();
 
+    # Add the DC computer account to the domain admins. group, needed
+    # because we bind to the samba LDAP with this account to add users
+    $self->addDCAccountToAdmins($sysinfo->hostName());
+
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
@@ -599,6 +603,24 @@ sub provisionAsDC
                "replace: \@LIST\n" .
                "\@LIST: zentyal,samba_dsdb\n";
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+}
+
+sub addDCAccountToAdmins
+{
+    my ($self, $hostName) = @_;
+
+    my $samAccountName = uc ($hostName) . '$';
+    my $accountDN = $self->ldb->getDnById($samAccountName);
+    my $domainAdminsSid = $self->ldb->domainSID() . '-512';
+    my $domainAdminsDN = $self->ldb->getDnBySid($domainAdminsSid);
+    my $ldif = "dn: $domainAdminsDN\n" .
+               "changetype: modify\n" .
+               "add: member\n" .
+               "member: $accountDN";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+
+    # Force LDB to rebind on next request
+    $self->ldb->clearConn();
 }
 
 sub setupDNS
@@ -622,7 +644,7 @@ sub setupDNS
     my $DBPath = undef;
     if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
         $DBPath = SAMBA_DNS_DLZ_X86;
-    } elsif (EBox::Sudo::fileTest('-f', '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so')) {
+    } elsif (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X64)) {
         $DBPath = SAMBA_DNS_DLZ_X64;
     }
     unless (defined $DBPath) {
@@ -633,7 +655,7 @@ sub setupDNS
     $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
     $domainRow->store();
 
-    if ($self->mode() eq MODE_ADC) {
+    if ($self->mode() eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
         unless ($self->isRunning()) {
             EBox::debug("Starting service");
             EBox::Sudo::root("service heimdal-kdc stop");
@@ -790,7 +812,7 @@ sub provisionAsADC
             " --server=$dcFQDN");
         my $output = EBox::Sudo::silentRoot(@cmds);
         if ($? == 0) {
-            $self->set_bool('provisioned', 1);
+            $self->setProvisioned(1);
             EBox::debug("Provision result: @{$output}");
         } else {
             my @error = ();
@@ -893,6 +915,7 @@ sub _setConf
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
+    push (@array, 'profilesPath' => PROFILES_DIR);
 
     #push(@array, 'printers'  => $self->_sambaPrinterConf());
     #push(@array, 'active_printer' => $self->printerService());
@@ -2203,7 +2226,7 @@ sub userPaths
 {
     my ($self, $user) = @_;
 
-    my $userProfilePath = EBox::SambaLdapUser::PROFILESPATH;
+    my $userProfilePath = PROFILES_DIR;
     $userProfilePath .= "/" . $user->get('uid');
 
     my $paths = [];

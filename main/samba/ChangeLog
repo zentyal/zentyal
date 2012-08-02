@@ -1,5 +1,10 @@
 HEAD
-	+ Bind to samba LDAP using kerberos and GSSAPI.
+	+ Increase log level from 1 to 3 to trace problems.
+	+ Provision database only when saving changes, not in module
+	  enable.
+	+ Change samba home to /home/samba instead /home/ebox/samba
+	+ Use the DC account to bind to samba LDAP.
+	+ Use kerberos and GSSAPI to bind to samba LDAP.
 	+ Provision using bind9 DLZ backend.
 2.3.10
 	+ Fix exception creating shares

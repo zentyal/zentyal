@@ -7,6 +7,7 @@
     $realm
     @shares
     $roamingProfiles => 0
+    $profilesPath
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -23,6 +24,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Samba;
 </%init>
 [global]
     netbios name = <% $netbiosName %>
@@ -39,9 +41,10 @@ use EBox::Gettext;
     server role = <% $mode %>
     realm = <% $realm %>
 
-    log level = 1
+    log level = 3
     log file = /var/log/samba/samba.log
 
+    passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
 
 #    load printers = yes
@@ -51,7 +54,7 @@ use EBox::Gettext;
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
 [profiles]
-    path = /home/ebox/samba/profiles
+    path = <% $profilesPath %>
     browseable = no
     read only = no
 %   }
