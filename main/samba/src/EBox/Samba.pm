@@ -655,61 +655,6 @@ sub setupDNS
     $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
     $domainRow->store();
 
-    if ($self->mode() eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
-        unless ($self->isRunning()) {
-            EBox::debug("Starting service");
-            EBox::Sudo::root("service heimdal-kdc stop");
-            sleep (1);
-            $self->_startService();
-        }
-
-        my $retries = 10;
-        do {
-            # This is inside a loop because we have to wait until
-            # RID Managers are replicated from master DC
-            EBox::debug("Upgrading DNS setup...");
-            EBox::Sudo::silentRoot('samba_upgradedns');
-            sleep (5) if ($? != 0);
-        } while ($? != 0 and --$retries >= 0);
-        unless ($retries > 0) {
-            throw EBox::Exceptions::Internal(
-                __("Timeout waiting for RID Managers replication"));
-        }
-
-        # After DNS upgraded restart to load the new DomainDnsZones and
-        # ForestDnsZones naming contexts
-        $self->restartService();
-
-        # Ensure the DomainDnsZones is replicated from master DC
-        my $ldb = $self->ldb();
-        my $params = {
-                base => "DC=DomainDnsZones," . $ldb->dn(),
-                scope => 'sub',
-                filter => '(objectClass=*)',
-                attrs => [],
-            };
-        $retries = 10;
-        my $result;
-        do {
-            $result = $ldb->search($params);
-            EBox::debug("DnsDomainZones has ". $result->count() . " records.");
-            if ($result->count() <= 1) {
-                EBox::Sudo::silentRoot(SAMBATOOL .
-                    ' drs replicate ' .
-                    $sysinfo->fqdn() .
-                    " $dcfqdn " .
-                    ' DC=DomainDnsZones,' . $ldb->dn() .
-                    ' --full-syn');
-                sleep (5);
-            }
-        } while ($result->count() <= 1 and --$retries >= 0);
-        unless ($retries > 0) {
-            # TODO
-            throw EBox::Exceptions::Internal(
-                __("Timeout waiting 'DomainDnsZones' partition replication"));
-        }
-    }
-
     my @cmds;
     push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
     push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
@@ -746,34 +691,6 @@ sub provisionAsADC
         # TODO Get the netbios domain name from AD and set model field. Otherwise
         # setconf writes the wrong name and samba does not run
 
-        my $kdcName = undef;
-        # Query the DNS server to get the domain's KDC server
-        EBox::debug("Querying DNS server '$domainDNS' to get the KDC of the domain");
-        my $resolver = Net::DNS::Resolver->new(nameservers => [ $domainDNS ]);
-        $resolver->searchlist($domainToJoin);
-        my $packet = $resolver->search("_kerberos._tcp.dc._msdcs.$domainToJoin", 'SRV');
-        if ($packet) {
-            foreach my $rr ($packet->additional) {
-                next unless $rr->type eq 'A';
-                $kdcName = $rr->address;
-                EBox::debug("Found domain KDC '$kdcName'");
-                last;
-            }
-        } else {
-            throw EBox::Exceptions::External(
-                __("DNS query to get the domain KDC failed: $resolver->errorstring"));
-        }
-
-        # Check KDC connectivity
-        EBox::debug("Checking KDC connectivity");
-        my $p = Net::Ping->new('syn');
-        my $pingOk = $p->ping($kdcName, 2);
-        $p->close();
-        unless ($pingOk) {
-            throw EBox::Exceptions::External(
-                __("The domain's KDC ($kdcName) is not reachable"));
-        }
-
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
         EBox::debug("Setting domain DNS server '$domainDNS' as the primary resolver");
@@ -786,16 +703,6 @@ sub provisionAsADC
         $self->writeConfFile(EBox::Network::RESOLV_FILE(),
                              'network/resolv.conf.mas',
                              $array);
-
-        # Get kerberos ticket for the administrator account
-        EBox::debug("Getting kerberos ticket for admin account from KDC");
-        $pwdFile = new File::Temp(TEMPLATE => 'XXXXXX',
-                                  DIR      => EBox::Config::tmp());
-        unless (write_file($pwdFile, "$adminAccountPwd\n")) {
-            throw EBox::Exceptions::Internal(__("Could not save pwd to file"));
-        }
-        my $cmd = "kinit --windows --password-file=$pwdFile $adminAccount\@$domainToJoin";
-        EBox::Sudo::root($cmd);
 
         # Purge users and groups
 
@@ -823,12 +730,29 @@ sub provisionAsADC
             throw EBox::Exceptions::Internal("Error joining to domain: @error");
         }
 
-        # Grant read access to zentyal group on the secrets keytab
-        my $group = EBox::Config::group();
-        EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
-        EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
+    # Set DNS. The domain should have been created by the users
+    # module.
+    $self->setupDNS();
 
-        $self->setupDNS($dcFQDN);
+    # Grant read access to zentyal group on the secrets keytab
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
+    EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
+
+    # Start managed service
+    EBox::debug('Starting service');
+    $self->_startService();
+
+    # Add the DC computer account to the domain admins. group, needed
+    # because we bind to the samba LDAP with this account to add users
+    $self->addDCAccountToAdmins($sysinfo->hostName());
+
+    # Add the zentyal module to the LDB modules stack
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: zentyal,samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
     } otherwise {
         my $error = shift;
         throw $error;
