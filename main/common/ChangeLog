@@ -1,3 +1,5 @@
+HEAD
+	+ Add uid function to return the uid of the zentyal user
 2.3.8
 	+ Added new EBox::trace() method to easily log stack traces when debugging
 2.3.7

@@ -176,6 +176,14 @@ sub gids
     return $gids;
 }
 
+sub uid
+{
+    my $user = user();
+    my $uid = `id -u $user`;
+    chomp ($uid);
+    return $uid;
+}
+
 
 sub group
 {
