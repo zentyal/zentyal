@@ -912,7 +912,7 @@ sub createRoamingProfileDirectory
 
     # Create the directory if it does not exists
     my $samba = EBox::Global->modInstance('samba');
-    my $path = EBox::SambaLdapUser::PROFILESPATH() . "/$samAccountName";
+    my $path = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
     my $gid = EBox::UsersAndGroups::DEFAULTGROUP();
 
     my @cmds = ();
