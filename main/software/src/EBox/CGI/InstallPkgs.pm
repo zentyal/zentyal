@@ -74,6 +74,16 @@ sub _process
     }
 }
 
+sub _print
+{
+    my ($self) = @_;
+    if ($self->param('popup')) {
+        $self->_printPopup();
+    } else {
+        $self->SUPER::_print();
+    }
+}
+
 sub _menu
 {
     my ($self) = @_;
@@ -168,11 +178,20 @@ sub showConfirmationPage
     $self->{params} = \@array;
 }
 
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
+);
+
 sub showInstallProgress
 {
     my ($self, $progressIndicator) = @_;
 
-    $self->showProgress(
+    my @params= (
         progressIndicator => $progressIndicator,
         title    => __('Installing'),
         text     => __('Installing packages'),
@@ -191,14 +210,19 @@ sub showInstallProgress
         nextStepUrl => '/Wizard',
         nextStepText => __('Go to save changes'),
         nextStepTimeout => 5
-    );
+       );
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub showRemoveProgress
 {
     my ($self, $progressIndicator) = @_;
 
-    $self->showProgress(
+    my @params =(
         progressIndicator => $progressIndicator,
 
         title    => __('Removing package'),
@@ -215,6 +239,12 @@ sub showRemoveProgress
         reloadInterval  => 2,
         nextStepTimeout => 5
     );
+
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 1;

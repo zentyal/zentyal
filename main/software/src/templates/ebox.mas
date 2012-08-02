@@ -18,13 +18,13 @@ use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 my $first = EBox::Global->first();
- my $popup = $first ? 1 : 0;
+my $popup = $first ? 0 : 1;
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
 <script type="text/javascript">
     document.observe("dom:loaded", function() {
-        if ($('zentyal-remoteservices') {
+        if ($('zentyal-remoteservices')) {
             selectPackage('zentyal-remoteservices');
         }
         switch(location.hash) {
@@ -485,7 +485,7 @@ var pkgTable = new Array(
        </div>
 
        <div style="text-align: right">
-        <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
+        <button onclick="sendFormBasic(<% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if ($first) {
         <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
@@ -531,7 +531,7 @@ var pkgTable = new Array(
         <div id="installBox">
             <div id="installTable"></div>
             <div id="installButtons">
-                <button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+                <button onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
@@ -540,7 +540,7 @@ var pkgTable = new Array(
         <div id="updateBox">
             <div id="updateTable"></div>
             <div id="updateButtons">
-                <button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
+                <button onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Update') %></button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
@@ -552,7 +552,7 @@ var pkgTable = new Array(
         <div id="deleteBox">
             <div id="deleteTable"></div>
             <div id="deleteButtons">
-                <button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
+                <button onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
                 <button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
@@ -675,34 +675,38 @@ var pkgTable = new Array(
             return true;
     }
 
-    function sendForm(action, htmlIds) {
+    function sendForm(action, htmlIds, popup) {
         var send = false;
         if(!isArray(htmlIds))
             return;
 
+        var packages = [];
         for(var i = 0; i < htmlIds.length; i++){
             element = document.getElementById(htmlIds[i]);
             if(element && element.checked){
-                var inputPkg = document.createElement('input');
-                inputPkg.setAttribute('type', 'text');
-                inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
-                inputPkg.setAttribute('value', 'yes');
-                document.formPkg.appendChild(inputPkg);
-                send = true;
+              packages.push('pkg-'+htmlIds[i].substring(4));
+              send = true;
             }
         }
 
+
         if (send) {
-            var inputAct = document.createElement('input');
-            inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', action);
-            inputAct.setAttribute('value', action);
-            document.formPkg.appendChild(inputAct);
-            document.formPkg.submit();
-        }
+          var url= 'InstallPkgs?';
+          for (var i=0; i < packages.length; i++) {
+                url += action + '=1';
+                url += '&' +  packages[i] + '=yes';
+          }
+          url += '&popup=' + popup;
+          if (popup) {
+// XXX put atitle to the modal
+                Modalbox.show(url, {title: '', transitions: false});
+          } else {
+            window.location = url;
+          }
+       }
     }
 
-    function sendFormBasic(){
+    function sendFormBasic(popup){
         var send = false;
         if (document.getElementById('Gateway_check').checked) {
             var inputPkg = document.createElement('input');
@@ -766,29 +770,41 @@ var pkgTable = new Array(
     }
 
     function changeCheck (nameList, id){
-        var indexC = -1;
-        var indexD = -1;
-        var list;
-        eval("list = "+nameList);
-        for (var i = 0; i < list.cache.length; i ++) {
-            if (list.cache[i].Select.indexOf(id) > 0) {
-                indexC = i;
-                break;
-            }
-        }
-        for (var i = 0; i < list.cache.length; i ++) {
-            if (list.data[i].Select.indexOf(id) > 0) {
-                indexD = i;
-                break;
-            }
-        }
-        if (document.getElementById(id).checked) {
-            list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-            list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-        } else {
-            list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-            list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-        }
+        return ;
+// XXX give JS error and i cannot decipher what this is supossed to doing
+//        var indexC = null;
+//        var indexD = null;
+//        eval("list = "+nameList);
+//
+//
+//        for (var i = 0; i < list.cache.length; i ++) {
+//            if (list.cache[i].Select.indexOf(id) > 0) {
+//                indexC = i;
+//                break;
+//            }
+//        }
+//        for (var i = 0; i < list.cache.length; i ++) {
+//            if (list.data[i].Select.indexOf(id) > 0) {
+//                indexD = i;
+//                break;
+//            }
+//        }
+//
+//        if (document.getElementById(id).checked) {
+//            if (indexC != null) {
+//               list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+//            }
+//            if (indexD != null) {
+//               list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+//            }
+//        } else {
+//            if (indexC != null) {
+//               list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+//            }
+//            if (indexD != null) {
+//               list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+//            }
+//        }
     }
 
 </script>
