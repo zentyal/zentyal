@@ -18,12 +18,15 @@ use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 my $first = EBox::Global->first();
+ my $popup = $first ? 1 : 0;
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
 <script type="text/javascript">
     document.observe("dom:loaded", function() {
-        selectPackage('zentyal-remoteservices');
+        if ($('zentyal-remoteservices') {
+            selectPackage('zentyal-remoteservices');
+        }
         switch(location.hash) {
            case "#update":
                 tab2();
