@@ -63,19 +63,7 @@ sub _print
         return $self->SUPER::_print();
     }
 
-    # to avoid the <div id=content>
-    my $json = $self->{json};
-    if ($json) {
-        $self->JSONReply($json);
-        return;
-    }
-
-    $self->_header;
-    print '<div id="limewrap"><div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div></div>";
+    $self->_printPopup();
 }
 
 sub requiredParameters
