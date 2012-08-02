@@ -92,9 +92,10 @@ sub _aclName
 % }
 % my $sslKey = '';
 % if ($https) {
-%   $sslKey = 'ssl-bump';
+%   $sslKey = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem';
 % }
-http_port <% $port %> <% $transKey %> <% $sslKey %>
+http_port <% $port %> <% $transKey %>
+https_port 3130 <% $transKey %> <% $sslKey %>
 # END_TAG #
 
 visible_hostname localhost

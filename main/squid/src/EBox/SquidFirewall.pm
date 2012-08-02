@@ -100,6 +100,8 @@ sub _trans_prerouting
             my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
             push (@rules, $r);
             # TODO: https? will it work with dansguardian?
+            my $r2 = "$input ! -d $addr -p tcp --dport 443 -j REDIRECT --to-ports 3130";
+            push (@rules, $r2);
         }
     }
     return \@rules;
@@ -122,7 +124,9 @@ sub input
 
         my $port = $sq->filterNeeded() ? $dgport : $sqport;
         my $r = "-m state --state NEW $input -p tcp --dport $port -j ACCEPT";
+        my $r2 = "-m state --state NEW $input -p tcp --dport 3130 -j ACCEPT";
         push(@rules, $r);
+        push @rules, $r2;
     }
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
     return \@rules;
