@@ -315,13 +315,16 @@ sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
 
+    my $newMode  = $row->valueByName('mode');
+    my $oldMode  = defined $oldRow ? $oldRow->valueByName('mode') : $newMode;
+
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
 
     my $newDomain = $row->valueByName('workgroup');
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
-    if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
+    if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
         $sambaMod->setProvisioned(0);
