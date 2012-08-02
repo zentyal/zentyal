@@ -1,4 +1,5 @@
 HEAD
+	+ Stop samba daemon if module is disabled to ensure that port 88 is free
 	+ Initialize kerberos realm in lowercase to match the host domain
 2.3.13
 	+ Better password policies for LDAP backend

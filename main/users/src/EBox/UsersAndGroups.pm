@@ -633,6 +633,11 @@ sub isSambaDisabled
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
             $ret = 0;
+        } else {
+            # If samba is disabled, ensure that the daemon is
+            # stopped, otherwise port 88 may be used by it
+            EBox::Sudo::silentRoot("service samba4 stop");
+            sleep (1);
         }
     }
     return $ret;
