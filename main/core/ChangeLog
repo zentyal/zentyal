@@ -1,4 +1,5 @@
 HEAD
+	+ table_ordered.js : more robust trClick event method
 	+ Changed dashboard JS which sometimes halted widget updates
 	+ Added popup dialogs for import/export configuration
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
