@@ -12,17 +12,6 @@ use EBox::Config;
 use EBox::Global;
 
 my $first = EBox::Global->first();
-
-# XXX nto clear if packages_auto it is still used, take in accoutn that it is added  to
-# the packages list also in rmeove mode, i dont know this is intended or a bug
-if ($first) {
-   my $packages_auto = EBox::Config::configkey('auto_select_packages');
-   if ($packages_auto) {
-       my @pkg_auto = split(',', $packages_auto);
-       push @packages, @pkg_auto;
-   }
-}
-
 my $popup = $first ? 0 : 1;
 
 my $okOnClick = '';
