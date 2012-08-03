@@ -32,7 +32,7 @@ if ($popup) {
     if ($action eq 'install') {
         $title = __('Installing packages');
     } elsif ($action eq 'remove') {
-        $title= __('Removal packages');
+        $title= __('Removing packages');
     }
 
     my $url = 'InstallPkgs?';
