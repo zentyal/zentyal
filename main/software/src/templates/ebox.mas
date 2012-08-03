@@ -676,21 +676,51 @@ var pkgTable = new Array(
     }
 
     function sendForm(action, htmlIds, popup) {
-        var send = false;
         if(!isArray(htmlIds))
             return;
 
         var packages = [];
         for(var i = 0; i < htmlIds.length; i++){
-            element = document.getElementById(htmlIds[i]);
+            var element = document.getElementById(htmlIds[i]);
             if(element && element.checked){
               packages.push('pkg-'+htmlIds[i].substring(4));
-              send = true;
             }
         }
 
+        _sendFormPackagesList(action, packages, popup);
+    }
 
-        if (send) {
+    function sendFormBasic(popup){
+        var packages = [];
+        if (document.getElementById('Gateway_check').checked) {
+            packages.push('pkg-zentyal-gateway');
+        }
+        if (document.getElementById('UTM_check').checked) {
+            packages.push('pkg-zentyal-security');
+        }
+        if (document.getElementById('Office_check').checked) {
+            packages.push('pkg-zentyal-office');
+        }
+        if (document.getElementById('Communications_check').checked) {
+            packages.push('pkg-zentyal-communication');
+        }
+        if (document.getElementById('Infrastructure_check').checked) {
+            packages.push('pkg-zentyal-infrastructure');
+        }
+        $$('.package').each(function (e) {
+            var pkg_id = e.readAttribute('id');
+            if (selected(pkg_id)) {
+                packages.push('pkg-' + pkg_id);
+            }
+        });
+
+        _sendFormPackagesList('install', packages, popup);
+    }
+
+
+    function _sendFormPackagesList(action, packages, popup)
+    {
+        if (packages.length > 0) {
           var url= 'InstallPkgs?';
           for (var i=0; i < packages.length; i++) {
                 url += action + '=1';
@@ -710,71 +740,11 @@ var pkgTable = new Array(
           } else {
             window.location = url;
           }
+       } else {
+           alert('<% __('No packages selected') %>');
        }
     }
 
-    function sendFormBasic(popup){
-        var send = false;
-        if (document.getElementById('Gateway_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-gateway');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
-        }
-        if (document.getElementById('UTM_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-security');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
-        }
-        if (document.getElementById('Office_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-office');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
-        }
-        if (document.getElementById('Communications_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-communication');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
-        }
-        if (document.getElementById('Infrastructure_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-infrastructure');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
-        }
-        $$('.package').each(function (e) {
-            pkg_id = e.readAttribute('id');
-            if (selected(pkg_id)) {
-                var inputPkg = document.createElement('input');
-                inputPkg.setAttribute('type', 'text');
-                inputPkg.setAttribute('name', 'pkg-' + pkg_id);
-                inputPkg.setAttribute('value', 'yes');
-                document.formPkg.appendChild(inputPkg);
-                send = true;
-            }
-        });
-        if (send) {
-            var inputAct = document.createElement('input');
-            inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', 'install');
-            inputAct.setAttribute('value', 'install');
-            document.formPkg.appendChild(inputAct);
-            document.formPkg.submit();
-        }
-    }
 
     function changeCheck (nameList, id){
         return ;
