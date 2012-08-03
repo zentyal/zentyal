@@ -14,7 +14,7 @@ use EBox::Global;
 my $first = EBox::Global->first();
 
 # XXX nto clear if packages_auto it is still used, take in accoutn that it is added  to
-# the packages list also in rmeove mode, i dont know this its intended or a bug
+# the packages list also in rmeove mode, i dont know this is intended or a bug
 if ($first) {
    my $packages_auto = EBox::Config::configkey('auto_select_packages');
    if ($packages_auto) {
@@ -27,6 +27,14 @@ my $popup = $first ? 0 : 1;
 
 my $okOnClick = '';
 my $cancelOnClick = '';
+
+my $url = 'InstallPkgs?';
+$url .= '&' . $action . '=1';
+$url .= '&go=yes';
+foreach my $pkg (@packages) {
+    $url .= '&pkg-' . $pkg . '=yes';
+}
+
 if ($popup) {
     my $title = '';
     if ($action eq 'install') {
@@ -35,42 +43,14 @@ if ($popup) {
         $title= __('Removing packages');
     }
 
-    my $url = 'InstallPkgs?';
-    $url .= '&' . $action . '=1';
-    $url .= '&go=yes';
-        foreach my $pkg (@packages) {
-            $url .= '&pkg-' . $pkg . '=yes';
-        }
     $url .= '&popup=1';
 
     $okOnClick = qq|onclick="Modalbox.show('$url', {title: '$title', transitions: false})"|;
     $cancelOnClick = q|onclick="Modalbox.hide(); return false|;
+} else {
+    $okOnClick = qq|onclick="window.location='$url'; return false"|;
 }
 </%init>
-<%doc>
-<script>
-var check = new Array();
-
-    function sendForm(popup) {
-        var url = 'InstallPkgs?';
-        url += <% $action %> =
-        for(var i = 0; i < check.length; i++){
-            if(document.getElementById(check[i]).checked){
-                var pkgs;
-                eval('pkgs = A'+check[i]);
-                for(var p = 0; p < pkgs.length; p++) {
-                    var inputPkg = document.createElement('input');
-                    inputPkg.setAttribute('type', 'hidden');
-                    inputPkg.setAttribute('name', 'pkg-'+pkgs[p]);
-                    inputPkg.setAttribute('value', 'yes');
-                    $('formPkg').appendChild(inputPkg);
-                }
-            }
-        }
-        $('formPkg').submit();
-    }
-</script>
-</%doc>
 
 <style>
 .package {

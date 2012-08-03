@@ -47,7 +47,7 @@ sub _process
     }
 
     if (defined($self->param('cancel'))) {
-        $self->{chain} = 'Software/Updates';
+        $self->{chain} = 'Software/EBox';
         return;
     }
 
@@ -210,15 +210,17 @@ sub showInstallProgress
             . 'the system has been fully configured.'),
     } else {
         my $wizardUrl = '/Wizard';
-        push @params, title    => __('Installing'),
-        push @params, text  => __('Installing packages');
-        push @params, nextStepUrl => $wizardUrl;
-        push @params, nextStepText => __('Go to save changes'),
-        push @params, endNote  =>  __('The packages installation has finished successfully. '
+        push @params, (
+            title    => __('Installing'),
+            text  => __('Installing packages'),
+            nextStepUrl => $wizardUrl,
+            nextStepText => __('Go to save changes'),
+            endNote  =>  __('The packages installation has finished successfully. '
             . 'The administration interface may become unresponsive '
             . 'for a few seconds. Please wait patiently until '
             . 'the system has been fully configured. You will be automatically '
             . 'redirected to the next step'),
+           );
     }
 
     $self->showProgress(@params);
