@@ -531,7 +531,9 @@ var pkgTable = new Array(
         <div id="installBox">
             <div id="installTable"></div>
             <div id="installButtons">
-                <button onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+                <button id="install_button" onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
+                   <% __('Install') %>
+                </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
@@ -540,7 +542,9 @@ var pkgTable = new Array(
         <div id="updateBox">
             <div id="updateTable"></div>
             <div id="updateButtons">
-                <button onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Update') %></button>
+                <button  id="update_button" onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
+                  <% __('Update') %>
+                </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
@@ -552,7 +556,9 @@ var pkgTable = new Array(
         <div id="deleteBox">
             <div id="deleteTable"></div>
             <div id="deleteButtons">
-                <button onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
+                <button id="delete_button" onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif" >
+                  <% __('Delete') %>
+                </button>
                 <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
@@ -586,11 +592,11 @@ var pkgTable = new Array(
             obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
 %   if ($first) {
             if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\"></center>";
             else
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   } else {
-            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   }
             insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
             insTable[insTable.length] = obj;
@@ -600,7 +606,7 @@ var pkgTable = new Array(
                     obj = new Object();
                     obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
                     obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
+                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='updateActionButton(delHtmlId, \"delete_button\")'></center>";
                     delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
                     delTable[delTable.length] = obj;
                 }
@@ -610,7 +616,7 @@ var pkgTable = new Array(
                 obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
                 obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
                 obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='updateActionButton(updHtmlId, \"update_button\")'></center>";
                 updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
                 updTable[updTable.length] = obj;
             }
@@ -646,9 +652,14 @@ var pkgTable = new Array(
 % }
     document.getElementById('updateBox').hide();
     document.getElementById('deleteBox').hide();
-//    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
-//    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
-//    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
+    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
+    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
+    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
+
+   // update button status
+   updateActionButton(insHtmlId, 'install_button');
+   updateActionButton(delHtmlId, 'delete_button');
+   updateActionButton(updHtmlId, 'update_button');
 
     function selectAll(htmlIds){
         for(var i = 0; i < htmlIds.length; i++){
@@ -663,17 +674,7 @@ var pkgTable = new Array(
         }
     }
 
-    function isArray(obj) {
-        if (obj.constructor.toString().indexOf("Array") == -1)
-            return false;
-        else
-            return true;
-    }
-
     function sendForm(action, htmlIds, popup) {
-        if(!isArray(htmlIds))
-            return;
-
         var packages = [];
         for(var i = 0; i < htmlIds.length; i++){
             var element = document.getElementById(htmlIds[i]);
@@ -740,10 +741,21 @@ var pkgTable = new Array(
        }
     }
 
+function updateActionButton(list, buttonId)
+{
+        var allDisabled = true;
+        for (var i = 0; i < list.length; i++) {
+            var element = $(list[i]);
+            if (element.checked) {
+               allDisabled = false;
+               break;
+            }
+        }
 
-    function changeCheck (collection, id){
-        return ;
-    }
+       var element = $(buttonId);
+       element.disabled=  allDisabled;
+}
+
 
 </script>
 
@@ -770,3 +782,5 @@ if ($errorMsg) {
 </div>
 % }
 </%def>
+
+
