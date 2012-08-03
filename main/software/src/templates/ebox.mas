@@ -533,8 +533,8 @@ var pkgTable = new Array(
             <div id="installButtons">
                 <button onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
             </div>
         </div>
         <div id="updateBox">
@@ -542,8 +542,8 @@ var pkgTable = new Array(
             <div id="updateButtons">
                 <button onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif"> <% __('Update') %></button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
                 <form name='updateList' action='EBox' method='post'>
                         <input type='hidden' name='updatePkgs' value="yes"/>
                 </form>
@@ -553,8 +553,8 @@ var pkgTable = new Array(
             <div id="deleteTable"></div>
             <div id="deleteButtons">
                 <button onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
-                <button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
         </div>
         <form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
@@ -646,24 +646,19 @@ var pkgTable = new Array(
 % }
     document.getElementById('updateBox').hide();
     document.getElementById('deleteBox').hide();
-    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
-    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
-    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
+//    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
+//    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
+//    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
 
-    function selectAll(items, htmlIds){
-        if(!isArray(items)||!isArray(htmlIds))
-            return;
-
-        for(var i = 0; i < items.length; i++){
+    function selectAll(htmlIds){
+        for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = true;
         }
     }
 
-    function deselectAll(items, htmlIds){
-        if(!isArray(items))
-            return;
+    function deselectAll(htmlIds){
 
-        for(var i = 0; i < items.length; i++){
+        for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = false;
         }
     }
@@ -746,42 +741,8 @@ var pkgTable = new Array(
     }
 
 
-    function changeCheck (nameList, id){
+    function changeCheck (collection, id){
         return ;
-// XXX give JS error and i cannot decipher what this is supossed to doing
-//        var indexC = null;
-//        var indexD = null;
-//        eval("list = "+nameList);
-//
-//
-//        for (var i = 0; i < list.cache.length; i ++) {
-//            if (list.cache[i].Select.indexOf(id) > 0) {
-//                indexC = i;
-//                break;
-//            }
-//        }
-//        for (var i = 0; i < list.cache.length; i ++) {
-//            if (list.data[i].Select.indexOf(id) > 0) {
-//                indexD = i;
-//                break;
-//            }
-//        }
-//
-//        if (document.getElementById(id).checked) {
-//            if (indexC != null) {
-//               list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-//            }
-//            if (indexD != null) {
-//               list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-//            }
-//        } else {
-//            if (indexC != null) {
-//               list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-//            }
-//            if (indexD != null) {
-//               list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-//            }
-//        }
     }
 
 </script>
