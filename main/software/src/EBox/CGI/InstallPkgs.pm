@@ -193,26 +193,32 @@ sub showInstallProgress
 
     my @params= (
         progressIndicator => $progressIndicator,
-        title    => __('Installing'),
-        text     => __('Installing packages'),
         currentItemCaption =>  __('Current operation'),
         itemsLeftMessage  => __('actions done'),
-        endNote  =>  __('The packages installation has finished successfully. '
-            . 'The administration interface may become unresponsive '
-            . 'for a few seconds. Please wait patiently until '
-            . 'the system has been fully configured. You will be automatically '
-            . 'redirected to the next step'),
         errorNote => __x('The packages installation has not finished correctly '
             . '. More information on the logs in {dir}',
                          dir => EBox::Config->log()
                         ),
         reloadInterval  => 2,
-        nextStepUrl => '/Wizard',
-        nextStepText => __('Go to save changes'),
         nextStepTimeout => 5
        );
     if ($self->param('popup')) {
         push @params, @popupProgressParams;
+        push @params, endNote  =>  __('The packages installation has finished successfully. '
+            . 'The administration interface may become unresponsive '
+            . 'for a few seconds. Please wait patiently until '
+            . 'the system has been fully configured.'),
+    } else {
+        my $wizardUrl = '/Wizard';
+        push @params, title    => __('Installing'),
+        push @params, text  => __('Installing packages');
+        push @params, nextStepUrl => $wizardUrl;
+        push @params, nextStepText => __('Go to save changes'),
+        push @params, endNote  =>  __('The packages installation has finished successfully. '
+            . 'The administration interface may become unresponsive '
+            . 'for a few seconds. Please wait patiently until '
+            . 'the system has been fully configured. You will be automatically '
+            . 'redirected to the next step'),
     }
 
     $self->showProgress(@params);
@@ -224,9 +230,6 @@ sub showRemoveProgress
 
     my @params =(
         progressIndicator => $progressIndicator,
-
-        title    => __('Removing package'),
-        text     => __('Removing the selected package and its dependent packages'),
         currentItemCaption =>  __('Current operation'),
         itemsLeftMessage  => __('packages left to remove'),
         endNote  =>  __('The packages removal has finished successfully. '
@@ -242,6 +245,10 @@ sub showRemoveProgress
 
     if ($self->param('popup')) {
         push @params, @popupProgressParams;
+        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
+    } else {
+        push @params, title    => __('Removing packages'),
+        push @params, text => __('Removing the selected package and its dependent packages');
     }
 
     $self->showProgress(@params);

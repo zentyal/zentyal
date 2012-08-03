@@ -698,8 +698,15 @@ var pkgTable = new Array(
           }
           url += '&popup=' + popup;
           if (popup) {
-// XXX put atitle to the modal
-                Modalbox.show(url, {title: '', transitions: false});
+                var title='';
+                if (action == 'install') {
+                    title = '<% __('Installing packages') %>';
+                } else if (action == 'remove') {
+                    title = '<% __('Removing packages') %>';
+                } else if (action == 'upgrade') {
+                    title = '<% __('Upgrading packages') %>';
+                }
+                Modalbox.show(url, {'title': title, 'transitions': false});
           } else {
             window.location = url;
           }
