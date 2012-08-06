@@ -214,40 +214,47 @@ sub _setInventoryAgentConf
 {
     my ($self) = @_;
 
-    my $cloud_domain = $self->cloudDomain();
-    EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
+    my $toRemove = 0;
+    if ( $self->eBoxSubscribed() ) {
+        my $cloud_domain = $self->cloudDomain();
+        EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
 
-    # Check subscription level
-    if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
-        my $cred = $self->cloudCredentials();
+        # Check subscription level
+        if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
+            my $cred = $self->cloudCredentials();
 
-        # UUID Format for login: Hexadecimal without '0x'
-        my $ug = new Data::UUID;
-        my $bin_uuid = $ug->from_string($cred->{uuid});
-        my $hex_uuid = $ug->to_hexstring($bin_uuid);
-        my $user = substr($hex_uuid, 2);      # Remove the '0x'
-        my $pass = $cred->{password};
+            # UUID Format for login: Hexadecimal without '0x'
+            my $ug = new Data::UUID;
+            my $bin_uuid = $ug->from_string($cred->{uuid});
+            my $hex_uuid = $ug->to_hexstring($bin_uuid);
+            my $user = substr($hex_uuid, 2);      # Remove the '0x'
+            my $pass = $cred->{password};
 
-        # OCS Server url
-        my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
+            # OCS Server url
+            my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
 
-        # Agent configuration
-        my @params = (
-            server    => $ocs_server,
-            user      => $user,
-            password  => $pass,
-        );
+            # Agent configuration
+            my @params = (
+                server    => $ocs_server,
+                user      => $user,
+                password  => $pass,
+               );
 
-        $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
+            $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
 
-        # Enable OCS agent periodic execution
-        $self->writeConfFile(OCS_CRON_FILE,
-                             OCS_CRON_MAS_FILE);
-    } else {
-        # Disable OCS agent periodic execution
-        if (-e OCS_CRON_FILE) {
-            EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
+            # Enable OCS agent periodic execution
+            $self->writeConfFile(OCS_CRON_FILE,
+                                 OCS_CRON_MAS_FILE);
+        } else {
+            $toRemove = 1;
         }
+    } else {
+        $toRemove = 1;
+    }
+
+    if ( $toRemove and (-e OCS_CRON_FILE) ) {
+        # Disable OCS agent periodic execution
+        EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
     }
 }
 
