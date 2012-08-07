@@ -65,10 +65,10 @@ sub retrieveBundle
     my ($self, $remoteServicesVersion, $bundleVersion, $force) = @_;
 
     my $response = $self->RESTClient()->GET('/v1/servers/' . $self->{cred}->{uuid} . '/',
-                                            { version => $bundleVersion,
-                                              client_version => $remoteServicesVersion,
-                                              force => $force
-                                             }
+                                            query => { version => $bundleVersion,
+                                                       client_version => $remoteServicesVersion,
+                                                       force => $force
+                                                      }
                                            );
     return $response->as_string();
 }
