@@ -39,7 +39,7 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-  return [qw(backup name description)];
+    return [qw(backup name description)];
 }
 
 
@@ -47,33 +47,33 @@ sub requiredParameters
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $backup =  new EBox::RemoteServices::Backup;
+    my $backup =  new EBox::RemoteServices::Backup;
 
-  my $name        = $self->param('name');
-  my $description = $self->param('description');
+    my $name        = $self->param('name');
+    my $description = $self->param('description');
 
-  my $progress = $backup->prepareMakeRemoteBackup($name, $description);
+    my $progress = $backup->prepareMakeRemoteBackup($name, $description);
 
 
-  $self->showBackupProgress($progress);
+    $self->showBackupProgress($progress);
 }
 
 
 sub showBackupProgress
 {
-  my ($self, $progressIndicator) = @_;
+    my ($self, $progressIndicator) = @_;
 
-  $self->showProgress(
-                      progressIndicator => $progressIndicator,
-                      title    => __('Making remote backup'),
-                      text               =>  __('Backing up modules '),
-                      currentItemCaption =>  __('Operation') ,
-                      itemsLeftMessage   =>  __('operations left to finish backup'),
-                      endNote            =>  __('Backup successful'),
-                      reloadInterval     =>  2,
-                     );
+    $self->showProgress(
+                    progressIndicator  => $progressIndicator,
+                    title              => __('Making remote backup'),
+                    text               =>  __('Backing up modules '),
+                    currentItemCaption =>  __('Operation') ,
+                    itemsLeftMessage   =>  __('operations left to finish backup'),
+                    endNote            =>  __('Backup successful'),
+                    reloadInterval     =>  2,
+                 );
 }
 
 1;
