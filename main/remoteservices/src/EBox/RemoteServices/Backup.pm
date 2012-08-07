@@ -365,22 +365,12 @@ sub _pushConfBackup
 
     my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, journaling => 0);
 
-    my $user = $self->{restClient}->{credentials}->{username};
-    my $pass = $self->{restClient}->{credentials}->{password};
-
     # Send the file using curl
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
 
-    my $pwfile = EBox::Config::tmp() . 'pw.file';
-    File::Slurp::write_file($pwfile, {perms => 0700},  "$user:$pass");
-
-    try {
-        my $output = EBox::Sudo::command(
+    my $output = EBox::Sudo::command(
                         CURL . " --insecure --upload-file '$archive' "
-                        . " -u \$(cat $pwfile) '" . $url->as_string() . "'");
-    } finally {
-        unlink($pwfile);
-    };
+                        . " --netrc '" . $url->as_string() . "'");
 
 }
 
