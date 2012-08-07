@@ -1,4 +1,6 @@
 HEAD
+	+ Added method to write conf-backups and sec-updates credentials
+	  into /var/lib/zentyal/.netrc file
 	+ Added integration with OCS inventory agent
 	+ QA Updates go outside the VPN
 	+ QA apt configuration files are now generated or removed when
