@@ -259,6 +259,15 @@ sub _setInventoryAgentConf
     }
 }
 
+sub _writeCredentials   # ($fh, $host, $user, $pass)
+{
+    my ($fh, $host, $user, $pass) = @_;
+
+    print $fh "machine $host\n";
+    print $fh "login $user\n";
+    print $fh "password $pass\n\n";
+}
+
 sub _setNETRCFile
 {
     my ($self) = @_;
@@ -269,24 +278,31 @@ sub _setNETRCFile
         my $cloud_domain = $self->cloudDomain();
         my $cred = EBox::RemoteServices::Cred->new()->{cred};
 
-        my @netrc_content;
+        my $file_handle;
+        open($file_handle, ">$file");
+        chmod 0700, $file_handle;
+
+        my $netrc_content;
 
         # Conf backup
-        push(@netrc_content, "machine confbackup.$cloud_domain\n");
-        push(@netrc_content, 'login ' . $cred->{uuid} . "\n");
-        push(@netrc_content, 'password ' . $cred->{password} . "\n");
+        _writeCredentials($file_handle,
+                          "confbackup.$cloud_domain",
+                          $cred->{uuid},
+                          $cred->{password});
 
         # Security updates
-        push(@netrc_content, "machine security-updates.$cloud_domain\n");
-        push(@netrc_content, 'login ' . $cred->{name} . "\n");
+
         # Password: UUID in hexadecimal format (without '0x')
         my $ug = new Data::UUID;
         my $bin_uuid = $ug->from_string($cred->{uuid});
         my $hex_uuid = $ug->to_hexstring($bin_uuid);
-        # Remove the '0x'
-        push(@netrc_content, 'password ' . substr($hex_uuid, 2) . "\n");
 
-        File::Slurp::write_file($file, {perms => 0700},  \@netrc_content);
+        _writeCredentials($file_handle,
+                          "security-updates.$cloud_domain",
+                          $cred->{name},
+                          substr($hex_uuid, 2));
+
+        close($file_handle);
     } else {
         unlink($file);
     }
