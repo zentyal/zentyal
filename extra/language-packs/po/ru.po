@@ -1,3 +1,21 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 18:26+0200\n"
+"PO-Revision-Date: 2012-08-06 10:57+0200\n"
+"Last-Translator: dmitrox <dmitro.ivanov@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
+"X-Poedit-Language: None\n"
+"X-Poedit-Country: None\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
@@ -18,9 +36,8 @@ msgstr "HTTP прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
 #: ../../main/squid/src/EBox/Squid.pm:871
-#, fuzzy
 msgid "Categorized Lists"
-msgstr "Категории"
+msgstr "Списки категорий"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
 #, fuzzy
@@ -32,6 +49,8 @@ msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Вы можете загрузить файл со списком категорий доменов. Вы можете фильтровать "
+"по этим категориям в каждом профиле фильтра."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
@@ -62,9 +81,8 @@ msgid "Network Object"
 msgstr "Сетевой объект"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
-msgstr "Пользователь/Группа"
+msgstr "Группа пользователей"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -152,19 +170,19 @@ msgid ""
 msgstr "Групповая политика не совместима с режимом прозрачного прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:330
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "Объект"
+msgstr "Объект: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:332
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Группа"
+msgstr "Группа: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "Применить профиль '{p}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:35
 msgid "Domain or URL"
@@ -240,14 +258,12 @@ msgid "Domain Name Address"
 msgstr "Адрес доменного имени"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Прозрачный прокси"
+msgstr "Пропустить Прозрачный Прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Прозрачный прокси"
+msgstr "Исключения Прозрачного Прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
@@ -279,9 +295,8 @@ msgid "Transparent Proxy"
 msgstr "Прозрачный прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:49
-#, fuzzy
 msgid "HTTPS Proxy"
-msgstr "HTTP прокси"
+msgstr "HTTPS прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:53
 msgid "FIXME: add help"
@@ -344,8 +359,8 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
-"Замечание, прозрачный прокси не работает с HTTPS. Вам необходимо будет "
-"добавить правила в файрвол чтобы включить этот режим."
+"Внимание: прозрачный прокси не работает с HTTPS. Вам необходимо будет "
+"добавить правила в файрвол, чтобы включить этот режим."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
@@ -549,7 +564,7 @@ msgstr "Фильтр вирусов"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:41
 msgid "Squid traffic size graph"
-msgstr "Размер графика трафика squid"
+msgstr "Объем трафика Squid (график)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:68
 msgid "Traffic size"
@@ -636,7 +651,7 @@ msgstr "Конфигурация"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:145
 msgid "Maximum number of filter groups reached"
-msgstr "Максимальное число фильтров группы достигнуто"
+msgstr "Достигнуто максимальное количество групп фильтрации"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:155
 msgid "No spaces are allowed in profile names"
@@ -699,7 +714,7 @@ msgstr "Сетевой объект"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:140
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Включить глобальное ограничение для объектов"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:147
 #, fuzzy
@@ -931,6 +946,8 @@ msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
+"Категории не определены. Если Вы хотите использовать фильтрацию по "
+"категориям, Вам нужно добавить разбитые на категории списки файлов."
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
@@ -964,8 +981,8 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Разрешать/Запрещать трафик HTTP с файлами содержащих расширения.\n"
-"Расширения не перечисленные в разрешенных.\n"
+"Разрешать/Запрещать трафик HTTP для файлов с данными расширениями.\n"
+"Расширения не перечисленные здесь -  разрешены.\n"
 "Для работы необходимо включить политику 'filter'"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:148
@@ -996,9 +1013,9 @@ msgid "HTTP proxy traffic report"
 msgstr "Отчет HTTP трафика прокси"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:48
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid .tar.gz file: {f}"
-msgstr "Неправильный тип почтового ящика: {type}"
+msgstr "Неправильный .tar.gz файл: {f}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "M"
@@ -1062,7 +1079,7 @@ msgstr "Все время"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:204
 msgid "All week"
-msgstr "Все недели"
+msgstr "Вся неделя"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:212
 msgid "Weekend"
@@ -1221,12 +1238,12 @@ msgstr "Zentyal позаботиться о запуске и остановке
 
 #: ../../main/squid/src/EBox/Squid.pm:274
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
-msgstr "Установите переменную cache_mem конфигурационном файле Zentyal"
+msgstr "Установите переменную cache_mem в конфигурационном файле Zentyal"
 
 #: ../../main/squid/src/EBox/Squid.pm:283
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
-msgstr "Установите переменную max_object_size конфигурационном файле Zentyal"
+msgstr "Установите переменную max_object_size в конфигурационном файле Zentyal"
 
 #: ../../main/squid/src/EBox/Squid.pm:865
 msgid "Bandwidth Throttling"
@@ -1285,7 +1302,7 @@ msgstr "Отфильтровано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:58
 msgid "Deleted daemons"
-msgstr "Удаление демона"
+msgstr "Удаленные демоны"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:64
 msgid "daemon"
@@ -1297,9 +1314,8 @@ msgid "Upload configuration bundle"
 msgstr "Загрузка пакета конфигурации"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Загрузка пакета конфигурации"
+msgstr "Загрузка пакета конфигурации клиента"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
@@ -1403,8 +1419,8 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Невозможно активировать сервер  он не полностью сконфигурирован, пожалуйста "
-"отредактируйте конфигурацию и вернитесь"
+"Невозможно активировать сервер  поскольку он не полностью сконфигурирован, "
+"пожалуйста отредактируйте конфигурацию и попробуйте еще раз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:299
 msgid "Cannot create a server because there is not a CA certificate"
@@ -1448,8 +1464,7 @@ msgstr "VPN адрес"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:76
 msgid "Use a network address which is not used by this machine"
-msgstr ""
-"Используйте сетевой адреса, который не используется на данном компьютере"
+msgstr "Используйте сетевой адрес, который не используется на данном компьютере"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:82
 msgid "Server certificate"
@@ -1465,23 +1480,22 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
-"Если отключено, все клиенты с сертификатами выданными Zentyal смогут "
+"Если отключено, любой клиент с сертификатами выданными Zentyal сможет "
 "подключиться. Если включено, только сертификаты, чьё имя начинается с "
 "выбраного значения смогут подключиться."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:100
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:101
-#, fuzzy
 msgid "TUN interface"
-msgstr "интерфейс"
+msgstr "интерфейс TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:106
 msgid "Network Address Translation"
-msgstr "Трансляция сетевых адресов"
+msgstr "Трансляция сетевых адресов (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:109
 msgid "Enable it if you only have one network interface"
-msgstr "Включите это, если у вас только один сетевой интерфейс"
+msgstr "Включите, если у вас только один сетевой интерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:113
 msgid "Allow client-to-client connections"
@@ -1489,7 +1503,7 @@ msgstr "Разрешить соединения клиент-клиент"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr "Включите это, чтобы клиентские машины этого VPN видели друг друга"
+msgstr "Включите, чтобы клиентские машины этого VPN видели друг друга"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:121
 msgid "Allow Zentyal-to-Zentyal tunnels"
@@ -1497,8 +1511,7 @@ msgstr "Разрешить туннели Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Enable it if this VPN is used to connect to another Zentyal"
-msgstr ""
-"Включите это, если этот VPN используется для подключения к другому Zentyal"
+msgstr "Включите, если этот VPN используется для подключения к другому Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:129
 msgid "Zentyal-to-Zentyal tunnel password"
@@ -1506,7 +1519,7 @@ msgstr "Пароль туннеля Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:137
 msgid "Interface to listen on"
-msgstr "Интерфейс, который нужно слушать"
+msgstr "Прослушиваемый интерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:144
 #, fuzzy
@@ -1515,17 +1528,15 @@ msgstr "Шлюз по умолчанию"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Делает Zentyal шлюзом по умолчанию для клиента"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:151
-#, fuzzy
 msgid "First nameserver"
-msgstr "Имя"
+msgstr "Первый сервер DNS"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:158
-#, fuzzy
 msgid "Secod nameserver"
-msgstr "Вторичный сервер имен"
+msgstr "Второй сервер DNS"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:164
 #: ../../main/dhcp/src/EBox/Model/Options.pm:433
@@ -1563,9 +1574,9 @@ msgid "Other server is listening on the same port"
 msgstr "Другой сервер прослушивает этот же порт"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:416
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Порт {p}/{pro} уже используется"
+msgstr "Порт {p}/{pro} уже используется {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:477
 #, perl-brace-format
@@ -1605,12 +1616,12 @@ msgstr ""
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr "Необходим внешний интерфейс, если NAT включён"
+msgstr "Интерфейс должен быть внешним , если NAT включён"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:604
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "Разрешить туннели Zentyal-Zentyal"
+msgstr "{par} не совместим с туннелем Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:67
 #, fuzzy
@@ -1752,9 +1763,8 @@ msgid "Additional server address (optional)"
 msgstr "Дополнительный адрес сервера (не обязательный)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:92
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "Дополнительный адрес сервера (не обязательный)"
+msgstr "Второй дополнительный адрес сервера (не обязательный)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:101
 msgid "Download Client Bundle"
@@ -1786,8 +1796,8 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
-"Невозможно сделать пакет, сервер  не сконфигурирован; пожалуйста "
-"отредактируйте конфигурацию и попытайтесь заново"
+"Невозможно создать пакет, поскольку сервер  не сконфигурирован; пожалуйста "
+"отредактируйте конфигурацию и повторите попытку"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:201
 msgid "Cannot use for the bundle the server's certificate"
@@ -1806,7 +1816,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:256
 msgid "Installer is only available for Windows clients"
-msgstr "Установщик доступен только для Windows клиентов"
+msgstr "Установщик доступен только для Windows-клиентов"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:317
 msgid ""
@@ -1821,8 +1831,8 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Невозможно сделать пакет, сервер  полностью не сконфигурирован; пожалуйста "
-"завершите конфигурацию и попытайтесь заново"
+"Невозможно создать пакет, поскольку сервер  полностью не сконфигурирован; "
+"пожалуйста завершите конфигурацию и повторите попытку"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -1837,7 +1847,7 @@ msgstr "Несуществующий файл сертификатата кли�
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:60
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Файл сертифакта приватного ключа существует {p}"
+msgstr "Файл приватного ключа сертификата существует {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:83
 msgid "File supplied as CA's certificate is not valid"
@@ -1865,7 +1875,7 @@ msgid ""
 "certificate's private key"
 msgstr ""
 "Файл представленный, как клиентский сертификат не соответствует файлу "
-"представленному, как сертификат приватного ключа"
+"представленному, как приватного ключ сертификата"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:135
 #, perl-brace-format
@@ -2035,7 +2045,7 @@ msgid ""
 "certificate private key file)"
 msgstr ""
 "Этот пакет не является корректным пакетом Zentyal-Zentyal. (Отсутствует файл "
-"сертификата приватного ключа)"
+"приватного ключа сертификата)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -2044,7 +2054,7 @@ msgstr "Адрес сервера"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Вы должны обеспечить хотя бы один адрес для сервера {name}"
+msgstr "Вы должны предоставить хотя бы один адрес для сервера {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:168
 msgid "The client certificate can't be the same than the server's one"
@@ -2083,7 +2093,7 @@ msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
-msgstr "Для настройки Quagga сначала запустите ripd и zebra"
+msgstr "Чтобы настроить Quagga для запуска ripd и zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:124
 msgid "To configure Quagga to listen on the given interfaces"
@@ -2208,7 +2218,7 @@ msgstr "Последовательность инициализации зако
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1635
 msgid "Certificate issuer not authorized"
-msgstr "Сертификат эмитента не авторизован"
+msgstr "Поставщик сертификата не авторизован"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1636
 msgid "Certificate common name not authorized"
@@ -2216,7 +2226,7 @@ msgstr "Сертифкат канонического имени не автор
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1637
 msgid "Certificate verification failed"
-msgstr "Неудачная проверка сертификата"
+msgstr "Сбой проверки сертификата"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1639
 #: ../../main/pptp/src/EBox/PPTP.pm:375
@@ -2226,7 +2236,7 @@ msgstr "Инициализация клиентского соединения"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1640
 #: ../../main/pptp/src/EBox/PPTP.pm:376
 msgid "Client connection terminated"
-msgstr "Окончание клиентского соединения"
+msgstr "Клиентское подключение прервано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1642
 msgid "Connection to server initiated"
@@ -2775,9 +2785,8 @@ msgid "Leaf class identifier"
 msgstr "Список идентификаторов класса"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/ExternalRules.pm:51
-#, fuzzy
 msgid "Rules for external interfaces (upload)"
-msgstr "Все внешние интерфейсы"
+msgstr "Правила для внешних интерфейсов (upload)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:158
 msgid "Guaranteed rate"
@@ -2798,16 +2807,17 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:191
 msgid "If service is any, some source or destination should be provided"
-msgstr "Если любая служба должен быть предоставлен источник или назначение"
+msgstr ""
+"Если служба - любая , то должен быть предоставлен источник или назначение"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:268
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:184
 msgid "Interface connected to this gateway"
-msgstr "Интерфейс подключенный к этому шлюзу"
+msgstr "Интерфейс, подключенный к этому шлюзу"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:277
 msgid "Port based service"
-msgstr "Основной порт службы"
+msgstr "Служба на основе порта"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:346
 #: ../../main/dns/src/EBox/Model/Services.pm:153
@@ -2833,8 +2843,9 @@ msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
-"Замечание, сумма всех скоростей не должна превышать общую скорость "
-"пропускания. 0 неограниченная скорость."
+"Обратите внимание, что сумма всех гарантированных скоростей не должна "
+"превышать общую пропускную способность. \"0\" обозначает негарантированную "
+"скорость."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:366
 msgid "Limited Rate"
@@ -2850,8 +2861,8 @@ msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
-"Заметьте, если интерфейс внешний, трафик из Интернета во внутреннию сеть и "
-"наоборот, если внутрений то во вне"
+"Обратите внимание, что если интерфейс внутренний, то поток трафика приходит "
+"из Интернета во внутреннюю сеть, а если внешней, то в обратном направлении"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:423
 #, perl-brace-format
@@ -2934,9 +2945,8 @@ msgid "You need at least one internal interface and one external interface"
 msgstr "Вам необходим хотя-бы один внешний и один внутренний интерфейс"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InternalRules.pm:51
-#, fuzzy
 msgid "Rules for internal interfaces (download)"
-msgstr "Список правил на интерфейсе"
+msgstr "Правила для внутренних интерфейсов (download)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:63
 #, perl-brace-format
@@ -2967,6 +2977,8 @@ msgid ""
 "Here you can add the traffic shaping rules for your internal and external "
 "interfaces"
 msgstr ""
+"Здесь вы можете добавить правила управления трафиком для внутренних и "
+"внешних интерфейсов"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
@@ -3008,8 +3020,8 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
-"Достигнут максимум правил аккаунта {max} , пожалуйста удалите хотябы один "
-"для добавления нового"
+"Достигнуто максимальное количество правил {max} , пожалуйста удалите хотя бы "
+"одно для добавления нового"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:919
 msgid "type"
@@ -3105,8 +3117,8 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"Наименьшее число имеет самый высокий приоритет  и укажет на первый сервер, "
-"который попробует отдаленный клиент (обычно другой почтовый сервер) при "
+"Наименьшее число имеет самый высокий приоритет  и является первым сервером, "
+"который попробует удаленный клиент (обычно другой почтовый сервер) при "
 "поиске MX для доменного имени. Допустимый значений = ({min}, {max})"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:209
@@ -3115,19 +3127,19 @@ msgstr "Запись почтового обменника"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
 msgid "Forwarder"
-msgstr "Перенаправленные"
+msgstr "Перенаправитель"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
 msgid "Forwarders"
-msgstr "Перенаправленные"
+msgstr "Перенаправители"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
-"Сервер сначала перешлет запросы к переадресовщикам, и при отсутствии ответа "
-"попытается сам ответить на запрос."
+"Сервер сначала будет отправлять запросы к перенаправителям, и при отсутствии "
+"ответа будет пытаться сам ответить на запрос."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
 msgid "forwarder"
@@ -3157,7 +3169,7 @@ msgstr "Почтовый обменник"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:596
 msgid "Name Servers"
-msgstr "Сервера имен"
+msgstr "Серверы имен"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:604
 #: ../../main/dns/src/EBox/Model/Text.pm:183
@@ -5243,13 +5255,15 @@ msgstr "исключения"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:81
 msgid "List of services and network objects which are exempt of captive portal"
-msgstr ""
+msgstr "Список сервисов и сетевых объектов, которые исключены в captive portal"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:102
 #, perl-brace-format
 msgid ""
 "Cannot add service {srv} because it will allow access to all connections"
 msgstr ""
+"Невозможно добавить сервис {srv} , поскольку это позволяет получить доступ "
+"ко всем соединениям"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
@@ -5416,14 +5430,17 @@ msgid "Bandwidth Settings"
 msgstr "Настройка полосы пропускания"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:139
-#, fuzzy
 msgid "Here you can setup bandwidth usage quota for captive portal users."
-msgstr "На этой странице вы можете установить основные настройки."
+msgstr ""
+"Здесь вы можете настроить ограничения трафика для captive portal "
+"пользователей."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:156
 msgid ""
 "All the enabled interfaces have been also enabled in bandwith monitor module"
 msgstr ""
+"Все включенные интерфейсы также были включены в модуле мониторинга "
+"пропускной способности"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
 msgid "Default external bandwidth usage limit"
@@ -5460,18 +5477,17 @@ msgid "Setting default quota to zero is equivalent to disable it"
 msgstr "Установка нуля в квоте по умолчанию, эквивалентно её отключению"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Captive Interfaces"
-msgstr "Интерфейсы"
+msgstr "Captive интерфейсы"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:69
 msgid "List of interfaces where Captive Portal is enabled."
-msgstr ""
+msgstr "Список интерфейсов для которых включен Captive Portal."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:91
 #, perl-brace-format
 msgid "Interface {if} set to {val} in bandwith monitor module"
-msgstr ""
+msgstr "Для интерфейса {if} установлен {val} в модуле пропускной способности"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1480
@@ -5507,9 +5523,9 @@ msgid "HTTPS port"
 msgstr "HTTPS-порт"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:91
-#, fuzzy
 msgid "Here you can define general settings for captive portal."
-msgstr "На этой странице вы можете установить основные настройки Samba."
+msgstr ""
+"На этой странице вы можете установить основные настройки Captive Portal."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:105
 #: ../../main/radius/src/EBox/Model/Auth.pm:105
@@ -5523,11 +5539,11 @@ msgstr "HTTP и HTTPS порты должны отличаться"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Event/Watcher/CaptivePortalQuota.pm:76
 #: ../../main/captiveportal/src/templates/login.mas:28
 msgid "Captive portal"
-msgstr ""
+msgstr "Captive portal"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Event/Watcher/CaptivePortalQuota.pm:91
 msgid "Notify when a user is out of quota"
-msgstr ""
+msgstr "Уведомлять, когда пользователь превысит лимит"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:61
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:62
@@ -5688,6 +5704,7 @@ msgstr "Вы можете указать только один из вариан
 #: ../../main/ebackup/src/scripts/restore-tool:213
 msgid "--force-type should have as argument either 'basic' or 'subscribed'"
 msgstr ""
+"--force-type должен иметь в качестве аргумента или 'basic' или 'subscribed'"
 
 #: ../../main/ebackup/src/scripts/restore-tool:228
 msgid "Zenity package not found. Falling back to terminal mode"
@@ -5709,7 +5726,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:248
 msgid "Server from which its backup date the restore will be done"
-msgstr ""
+msgstr "Сервер для резервирования данных восстановления будет сделан."
 
 #: ../../main/ebackup/src/scripts/restore-tool:250
 msgid "Use the last backup done for the restore"
@@ -5779,9 +5796,8 @@ msgid "Backup domains available in the server {cn}: {l}"
 msgstr "Резервные копии доменов доступные на сервере {cn}: {l}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:378
-#, fuzzy
 msgid "No backup domain selected to restore. Doing nothing"
-msgstr "Не выбран резервный домен для восстановления. Ничего не делать"
+msgstr "Не выбран резервный домен для восстановления. Ничего не сделано."
 
 #: ../../main/ebackup/src/scripts/restore-tool:390
 msgid "Retrieving registered servers list"
@@ -5902,6 +5918,8 @@ msgid ""
 "Error installing packages: {err}. The backup will continue but it would not "
 "able to recover any configuration which depends on the missing packages"
 msgstr ""
+"Ошибка при установке пакета: {err}. Резервное копирование будет совершаться, "
+"но резервная копия будет не полной из-за не включения этого пакета."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1076
 msgid ""
@@ -6003,7 +6021,7 @@ msgstr "Загружаются настройки"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1564
 msgid "Looking for a version 2.0.X backup"
-msgstr ""
+msgstr "Похоже на резервную копию для версий 2.0.X"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1591
 msgid "Retrieving backup collection status ..."
@@ -6262,6 +6280,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded by the regular expression"
 msgstr ""
+"Не может быть выполнено {action}, потому что путь '{path}', добавленый как "
+"резервные домены, исключены в регулярных выражениях"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:308
 #, perl-brace-format
@@ -6269,6 +6289,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded"
 msgstr ""
+"Добавления резервных доменов будет исключено, потому что не может быть "
+"выполнено {action} с путем '{path}', "
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:318
 #, perl-brace-format
@@ -6276,6 +6298,8 @@ msgid ""
 "Cannot {action} because a subdirectory of  '{path}', added by backup "
 "domains, would be excluded"
 msgstr ""
+"Добавления резервных доменов будет исключено, потому что не может быть "
+"выполнено {action} с подкаталогом '{path}'"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:333
 msgid "add row"
@@ -6657,7 +6681,7 @@ msgstr "резервное копирование"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
 msgid "Update file list process running, retry later"
-msgstr ""
+msgstr "Идет обновление списка файлов, повторите попытку позже"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
@@ -6705,10 +6729,14 @@ msgstr "Удаленный URL используемый для ручного в
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
+"Чтобы иметь возможность восстанавливать журналы необходимо установить модуль "
+"журналов и включить его"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
 msgid "To be able to restore logs you need the logs module enabled"
 msgstr ""
+"Чтобы иметь возможность восстанавливать журналы необходимо установить модуль "
+"журналов и включить его"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
 msgid "Restore logs database"
@@ -6745,7 +6773,7 @@ msgstr "Состояние удаленного резервного копир�
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:108
 msgid "Update process running, retry later"
-msgstr ""
+msgstr "Идет обновление, повторите попытку позже"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:161
 msgid "Domains to back up"
@@ -6825,6 +6853,8 @@ msgstr ""
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
+"Другой процесс обновляет состояние системы. Пожалуйста, подождите и "
+"повторите"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1093
 #: ../../main/core/src/EBox/SysInfo.pm:87
@@ -6837,6 +6867,9 @@ msgid ""
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
 "credentials."
 msgstr ""
+"Невозможно использовать метод резервного копирования из Zentyal Cloud. Либо "
+"у вас нет этого дополнения для аварийного восстановления, либо вы не можете "
+"подключиться к Zentyal Cloud  для получения соотвествующих полномочий."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1190
 msgid ""
@@ -6857,9 +6890,8 @@ msgstr ""
 "эту {ohref}настройку{chref}."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1431
-#, fuzzy
 msgid "Backup configuration not complete"
-msgstr "Проверка конфигурации на совместимость"
+msgstr "Конфигурация резервного копирования не завершена"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1450
 #, perl-brace-format
@@ -6867,25 +6899,27 @@ msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
 "size is  {req}"
 msgstr ""
+"Свободного места на  {target} не достаточно. Доступно {free} Mb. Объем "
+"резервной копии ожидается - {req} Mb"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1469
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid " {target} exists and is not longer a directory"
-msgstr "Файл существует и это не каталог"
+msgstr "Файл {target} существует и это не каталог"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1520
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{target} is not mounted"
-msgstr "Страница не найдена"
+msgstr "{target} не подмонтирован"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1526
 #, perl-brace-format
 msgid "{{mp} is not mounted and {target} is inside it"
-msgstr ""
+msgstr "{{mp} не подмонтирован и {target} входит в состав"
 
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Notify the result of scheduled backups."
-msgstr ""
+msgstr "Уведомлять о результатах резервного копирования по графику."
 
 #: ../../main/ebackup/src/EBox/EBackup/DBRestore.pm:50
 #, perl-brace-format
@@ -7013,9 +7047,8 @@ msgid "Connection initiated"
 msgstr "Инициализация соединения"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:248
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Завершение соединения"
+msgstr "Подключение прекращено"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:282
 msgid "IPsec"
@@ -7036,7 +7069,7 @@ msgstr "ESP DH группа"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
 msgid "ESP Keylife"
-msgstr ""
+msgstr "ESP Keylife"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
 msgid "Enable PFS"
@@ -7044,7 +7077,7 @@ msgstr "Включить PFS"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
-msgstr ""
+msgstr "Phase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:80
 msgid "Local IP Address"
@@ -7072,9 +7105,8 @@ msgid "Remote endpoint public IP address."
 msgstr "Удалённый публичный IP-адрес."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:106
-#, fuzzy
 msgid "Any address"
-msgstr "MAC-адрес"
+msgstr "Любой адрес"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:113
 msgid "Remote Subnet"
@@ -7150,11 +7182,11 @@ msgstr "IKE шифрование"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
 msgid "IKE Keylife"
-msgstr ""
+msgstr "IKE Keylife"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:180
 msgid "Phase 1"
-msgstr ""
+msgstr "Phase 1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:114
@@ -7188,6 +7220,8 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
+"Вы должны выбрать провайдера из списка и ввести данные Вашей учетной записи. "
+"Кроме того, необходимо включить его."
 
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:77
@@ -7195,9 +7229,8 @@ msgid "Gateway"
 msgstr "Шлюз"
 
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:77
-#, fuzzy
 msgid "Gateways for Traffic Balance"
-msgstr "балансировка траффика"
+msgstr "Шлюзы для балансировщика траффика"
 
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:84
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:227
@@ -7207,6 +7240,7 @@ msgstr "шлюз"
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:85
 msgid "Here you can choose which gateways are used to balance the traffic"
 msgstr ""
+"Здесь вы можете выбрать, какие шлюзы используются для балансировки трафика"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:145
 msgid "IP or network address"
@@ -7316,13 +7350,15 @@ msgstr "Шлюз {gw} недоступен"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:295
 msgid "Since you have not gateways you should add the first one as default"
-msgstr ""
+msgstr "Поскольку у вас нет шлюзов, Вы должны добавить один как \"по умолчанию\""
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:316
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Вы не можете удалить атрибут по умолчанию, но если вы хотите его изменить, "
+"то назначьте его на другой шлюз"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:324
 msgid "Automatically added gateways can not be manually deleted"
@@ -7335,19 +7371,20 @@ msgstr "Шлюз '{name}' уже используется модулем {mod}"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:564
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:573
-#, fuzzy
 msgid "Gateway name"
-msgstr "Шлюз"
+msgstr "Имя шлюза"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:566
 msgid "Gateways names cannot begin or end with '-'"
-msgstr ""
+msgstr "Имена шлюзов не могут начинаться или заканчиваться '-'"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:575
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
 msgstr ""
+"Имена шлюзов могут состоять только из строчных ASCII английских букв, цифр и "
+"знака '-'"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -7462,14 +7499,13 @@ msgstr ""
 "Имя пользователя и пароль прокси будут видимы всем пользователям системы."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:144
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Введенное имя пользователя содержит недопустимые символы. Все буквенно-"
-"цифровые символы, а так же не буквенно-цифровые символы: \\/.?&+:-@ и "
-"пробелы - разрешены."
+"Введенное имя пользователя содержит недопустимые символы. Разрешены только "
+"все буквенно-цифровые символы, а так же не буквенно-цифровые символы: "
+"\\/.?&+:-@ и пробелы."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
@@ -7590,22 +7626,23 @@ msgid "Netmask"
 msgstr "Маска подсети"
 
 #: ../../main/network/src/EBox/Network.pm:1033
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr "Существует уже интерфейс, который называется {al}"
+msgstr "Интерфейс уже существует, и называется {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1045
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr "Существует уже интерфейс с псевдонимом {al}"
+msgstr "Интерфейс уже существует с псевдонимом {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1362
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
 msgstr ""
-"Не возможно использовать имя {n} пока другой клиент использует такое же имя"
+"Не возможно использовать адрес  {addr}, так как интерфейс  {if}, уже "
+"использует те же адреса в своей сети"
 
 #: ../../main/network/src/EBox/Network.pm:1483
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -7894,7 +7931,7 @@ msgstr "слушать порт"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:135
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "Уголок пользователя не поддерживается на подчиненных серверах."
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:83
 msgid "Migrate configured modules"
@@ -7992,7 +8029,7 @@ msgstr "Разрешено максимум {num} сетевых интерфе�
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:191
 msgid "'None' interface is not allowed in your virtual machine backend"
-msgstr ""
+msgstr "'None' интерфейс не допускается в виртуальной серверной машине"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:56
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:241
@@ -8075,6 +8112,9 @@ msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
+"Виртуальные машины не могут быть запущены, если в модуле Виртуальных Машин "
+"есть несохраненные изменения, пожалуйста сохраните изменения и попробуйте "
+"снова запускать Виртуальные Машины."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:287
 #, perl-brace-format
@@ -8105,9 +8145,8 @@ msgid "Use a existing image file"
 msgstr "Использовать существующий файл образа"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:72
-#, fuzzy
 msgid "Drive Type"
-msgstr "Буква диска"
+msgstr "Тип диска"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:92
 msgid "Path"
@@ -8127,7 +8166,7 @@ msgstr "устройство"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:118
 msgid "Here you can define the storage drives of the virtual machine"
-msgstr ""
+msgstr "Здесь вы можете определить устройства хранения для виртуальной машины"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:173
 msgid "You need to provide the path of a ISO image"
@@ -8139,9 +8178,9 @@ msgid "ISO image '{img}' does not exist"
 msgstr "ISO образ '{img}' не существует"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:180
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The CD disk image {img} should be in ISO format"
-msgstr "Образ жесткого диска {img} должен быть в формате qcow2"
+msgstr "Образ CD-диска {img} должен быть в формате ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:189
 msgid "You need to provide the path of a hard disk image"
@@ -8166,6 +8205,8 @@ msgid ""
 "It already exists a disk file with this name. Save changes to synchronize "
 "disk files status"
 msgstr ""
+"Файл с таким именем уже существует на диске. Сохранить изменения, чтобы "
+"синхронизировать файлы на диске"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:217
 #, fuzzy
@@ -8192,9 +8233,8 @@ msgid "A maximum of {num} Hard Disk drives are allowed"
 msgstr "Доступно макисмум {num} жестких дисков"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:260
-#, fuzzy
 msgid "HardDisk name"
-msgstr "HardDisk имя"
+msgstr "Имя жесткого диска"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:262
 msgid "The name should contain only character, digits and underscores"
@@ -8219,6 +8259,9 @@ msgid ""
 "machine should be directly edited from VirtualBox GUI or using the "
 "vboxmanage command"
 msgstr ""
+"Конфигурацию в будщем не изменить после активации виртуальной машины. "
+"Изменения можно будет внестить только непосредственно в VirtualBox GUI или с "
+"помощью команды VBoxManage"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
@@ -8227,6 +8270,8 @@ msgstr "Параметры настройки системы"
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:117
 msgid "Here you can define the basic hardware configuration of the machine"
 msgstr ""
+"Здесь вы можете определить основную аппаратную конфигурацию виртуальной "
+"машины"
 
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:40
 msgid "Virtual Machine Settings"
@@ -8260,17 +8305,21 @@ msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"Имена пользователей, чьи имена не  соотвествуют допустимым именам, будут "
+"изменены в соотвествии с именем домена."
 
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:78
-#, fuzzy
 msgid "You need at least one static interface to serve DHCP"
-msgstr "Вам необходим хотя-бы один внешний и один внутренний интерфейс"
+msgstr ""
+"Вам нужен по крайней мере один статический интерфейс для обслуживания DHCP"
 
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:149
 msgid ""
 "Here you can configure the DHCP server for each internal interface, and "
 "enable or disable them"
 msgstr ""
+"Здесь вы можете настроить сервер DHCP для каждого внутреннего интерфейса, а "
+"также включить или отключить его"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:78
 #, perl-brace-format
@@ -8345,43 +8394,40 @@ msgid "DHCP ranges"
 msgstr "Диапазоны DHCP"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:323
-#, fuzzy
 msgid "Zentyal LTSP"
-msgstr "Zentyal"
+msgstr "Zentyal LTSP"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:355
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:64
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:55
 msgid "32 bits"
-msgstr ""
+msgstr "32 bits"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:359
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:68
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:59
 msgid "64 bits"
-msgstr ""
+msgstr "64 bits"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:380
 msgid "Next server"
 msgstr "Следующий сервер"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:383
-#, fuzzy
 msgid ""
 "If \"Zentyal LTSP\" is present and selected, Zentyal will be the LTSP "
 "server. You will need to enable and configure the LTSP module."
 msgstr ""
-"Если опция \"Zentyal NTP\" выбрана, Zentyal-сервер будет выступать в "
-"качестве NTP сервера для DHCP-клиентов"
+"Если \"Zentyal LTSP\" присутствует и выбран, то Zentyal будет выступать как "
+"LTSP сервер. Вам необходимо включить и настроить модуль LTSP."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:390
 msgid "Thin Client server as seen by the clients."
-msgstr ""
+msgstr "Сервер тонких клиентов с точки зрения клиентов."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:394
-#, fuzzy
 msgid "File path"
-msgstr "включая путь"
+msgstr "Путь к файлу"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:397
 msgid "File path in next server"
@@ -8391,22 +8437,23 @@ msgstr "Путь к файлу на следующем сервере"
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:81
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:72
 msgid "Architecture"
-msgstr ""
+msgstr "Архитектура"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:429
 msgid ""
 "Architecture of the LTSP clients. The LTSP image for that architecture must "
 "exist in order to boot the clients."
 msgstr ""
+"Архитектура клиентов LTSP. Чтобы загрузить клиентов должен существовать "
+"образ LTSP для этой архитектуры."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:432
-#, fuzzy
 msgid "Fat Client"
-msgstr "Клиент"
+msgstr "Толстый клиент"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:436
 msgid "Whether the clients are fat clients or not."
-msgstr ""
+msgstr "Любой из клиентов, толстый или нет."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:445
 msgid "Thin client"
@@ -8652,9 +8699,8 @@ msgid "Advanced options"
 msgstr "Дополнительные опции"
 
 #: ../../main/dhcp/src/EBox/Composite/InterfaceConfiguration.pm:47
-#, fuzzy
 msgid "DHCP Configuration"
-msgstr "Конфигурация"
+msgstr "Конфигурация DHCP"
 
 #: ../../main/dhcp/src/EBox/Composite/InterfaceConfiguration.pm:49
 msgid ""
@@ -8755,111 +8801,101 @@ msgid "DHCP leases"
 msgstr "Аренда DHCP"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:78
-#, fuzzy
 msgid "Profiles Configuration"
-msgstr "Настройка фильтра"
+msgstr "Профили конфигурации"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:79
-#, fuzzy
 msgid "Profile"
-msgstr "Файл журнала"
+msgstr "Профиль"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:86
 msgid ""
 "Profiles are used to apply a particular configuration to a group of clients."
 msgstr ""
+"Профили конфигурации используются для применения к конкретной группе "
+"клиентов."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:110
-#, fuzzy
 msgid "Limit one session per user"
-msgstr "Закрыть сессию для пользователя {user}."
+msgstr "Ограничение одной сессии на каждого пользователя"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:117
-#, fuzzy
 msgid "Network Compression"
-msgstr "Трансляция сетевых адресов"
+msgstr "Сетевое компрессирование"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:124
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:81
-#, fuzzy
 msgid "Local applications"
-msgstr "Приложение"
+msgstr "Локальные приложения"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:131
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:87
-#, fuzzy
 msgid "Local devices"
-msgstr "Локальный адрес"
+msgstr "Локальные устройства"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:138
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:93
-#, fuzzy
 msgid "AutoLogin"
-msgstr "Логин"
+msgstr "Автоматический вход"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:145
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:99
-#, fuzzy
 msgid "Guest Login"
-msgstr "Логин"
+msgstr "Гостевой вход"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:152
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:105
-#, fuzzy
 msgid "Sound"
-msgstr "Обнаружен спам"
+msgstr "Звук"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:159
 msgid "Keyboard Layout"
-msgstr ""
+msgstr "Раскладка клавиатуры"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:169
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:114
-#, fuzzy
 msgid ""
 "IP address of the server for \"everything\". If not set, it will be Zentyal."
 msgstr ""
-"IP-адрес DNS-сервера, который Zentyal будет использовать для разрешения имен."
+"IP-адрес сервера для всех, если он не установлен, то автоматически будет "
+"назначен Zentyal."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:174
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:119
-#, fuzzy
 msgid "Time Server"
-msgstr "Сервера имен"
+msgstr "Сервер времени"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:177
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:122
-#, fuzzy
 msgid "IP address of the time server. If not set, it will be undef."
-msgstr ""
-"IP-адрес DNS-сервера, который Zentyal будет использовать для разрешения имен."
+msgstr "IP-адрес сервера времени, если не установлен, то будет не определен."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:182
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:127
 msgid "Shutdown Time"
-msgstr ""
+msgstr "Время выключения"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:191
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:136
-#, fuzzy
 msgid "At"
-msgstr "СБ"
+msgstr "С"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:195
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:140
 msgid "Time when clients will be automatically shutdown."
-msgstr ""
+msgstr "Время, когда клиенты будут автоматически выключаться."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:199
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:144
 msgid "Fat Client RAM Threshold (MB)"
-msgstr ""
+msgstr "Минимум памяти для толстого клиента (Мб)"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:202
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:147
 msgid ""
 "Below this amount of RAM memory a Fat Client will behave as a Thin Client."
 msgstr ""
+"Ниже этого значения ОЗУ толстый клиент будет вести себя как тонкий клиент."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:209
 #, fuzzy
@@ -8869,38 +8905,36 @@ msgstr "Общие настройки"
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:88
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:78
 msgid "Fat Image"
-msgstr ""
+msgstr "Образ толстого клиента"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:93
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:77
-#, fuzzy
 msgid "Local Applications"
-msgstr "Приложение"
+msgstr "Локальные приложения"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:102
-#, fuzzy
 msgid "Update Image"
-msgstr "Обновление"
+msgstr "Обновить образ"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:105
 msgid ""
 "Updating image. This process will be shown in the dashboard widget until it "
 "finishes."
 msgstr ""
+"Обновление образа. Прогресс будет показан в панели виджетов вплоть до его "
+"завершения."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:114
-#, fuzzy
 msgid "Available Images"
-msgstr "Доступный диапазон"
+msgstr "Доступные образы"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:115
 msgid "Image"
-msgstr ""
+msgstr "Образ"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:120
-#, fuzzy
 msgid "Images already created."
-msgstr "Сертификат уже отозван"
+msgstr "Образ уже создан."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:136
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:116
@@ -8909,6 +8943,8 @@ msgid ""
 "There is a job already in progress with some image. Please, wait until it is "
 "finished."
 msgstr ""
+"Уже идет выполение задания с некоторыми образами. Пожалуйста, подождите "
+"окончания."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherClientOpts.pm:50
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherClientOpts.pm:66
@@ -8928,18 +8964,16 @@ msgstr "Значение"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherClientOpts.pm:65
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherOpts.pm:67
-#, fuzzy
 msgid "Other Options"
-msgstr "Параметры"
+msgstr "Другие параметры"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherClientOpts.pm:73
 msgid "Each option should be an LTSP option (lts.conf file)."
 msgstr ""
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:54
-#, fuzzy
 msgid "Client MAC"
-msgstr "Клиент"
+msgstr "MAC-адрес клиента"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:67
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
@@ -8948,9 +8982,8 @@ msgid "Confirm Password"
 msgstr "Подтверждение пароля"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:76
-#, fuzzy
 msgid "AutoLogin Configuration"
-msgstr "Конфигурация журналов"
+msgstr "Конфигурация автоматического входа"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:77
 #, fuzzy
@@ -8962,6 +8995,8 @@ msgid ""
 "This configuration is only useful when 'AutoLogin' or 'Guest Login' is "
 "enabled for the client."
 msgstr ""
+"Такая конфигурация имеет смысл только тогда, когда 'Автоматический вход' или "
+"'Гостевой вход' включен для клиента."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherOpts.pm:75
 msgid "Each option should be a LTSP option (lts.conf file)."
@@ -8977,38 +9012,40 @@ msgid ""
 "When an option is set to 'Default' the global value for that option will be "
 "used."
 msgstr ""
+"Будет использоваться глобальное значение для этого параметра , если опция "
+"установлена ​​\"по умолчанию\"."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:87
-#, fuzzy
 msgid "Create Image"
-msgstr "Создать"
+msgstr "Создать образ"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:90
 msgid ""
 "Creating image. This process will be shown in the dashboard widget until it "
 "finishes."
 msgstr ""
+"Создание образа. Прогресс будет показан в панели виджетов вплоть до его "
+"завершения."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:99
-#, fuzzy
 msgid "Image Creation"
-msgstr "Создание цепочки"
+msgstr "Создание образа"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:56
-#, fuzzy
 msgid "Applications"
-msgstr "Приложение"
+msgstr "Приложения"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:66
-#, fuzzy
 msgid "Install Application"
-msgstr "Установка"
+msgstr "Установка приложений"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:69
 msgid ""
 "Installing application into image. This process will be shown in the "
 "dashboard widget until it finishes."
 msgstr ""
+"Установка приложения в состав образа. прогресс будет показан в панели "
+"виджетов вплоть до его завершения."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:78
 #: ../../main/asterisk/src/EBox/Asterisk.pm:737
@@ -9017,23 +9054,24 @@ msgstr "Приложение"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:109
 msgid "The list must contain at least one application."
-msgstr ""
+msgstr "Список должен содержать минимум одно приложение."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:146
 msgid " (Fat Image)"
-msgstr ""
+msgstr "(Образ толстого клиента)"
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/Configuration.pm:46
 msgid ""
 "The image for an architecture must exist so that this configuration is saved "
 "for that architecture."
 msgstr ""
+"Должен существовать образ для этой архитектуры в силу того, что конфигурация "
+"сохранена для этой архитектуры."
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/Composite.pm:53
 #: ../../main/ltsp/src/EBox/LTSP/Composite/Composite.pm:70
-#, fuzzy
 msgid "Thin Clients Configuration"
-msgstr "Конфигурация клиента"
+msgstr "Конфигурация тонкого клиента"
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/Composite.pm:72
 #, perl-brace-format
@@ -9042,6 +9080,10 @@ msgid ""
 "that your Thin Clients can do something useful. To install the default "
 "Ubuntu desktop run the following command: {cmd}"
 msgstr ""
+"Вероятно, Вам потребуется установить некоторое окружение рабочего стола на "
+"сервере, для того чтоб Ваши тонкие клиенты смогли им пользоваться. Для "
+"установки на рабочего стола Ubuntu по умолчанию, выполните следующую "
+"команду:  {cmd}"
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/ClientConfiguration.pm:70
 #, fuzzy
@@ -9050,42 +9092,40 @@ msgstr "Конфигурация клиента"
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/ClientImages.pm:44
 msgid "Thin Clients Image Management"
-msgstr ""
+msgstr "Управление образами тонкого клиента"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:58 ../../main/ltsp/src/EBox/LTSP.pm:81
-#, fuzzy
 msgid "Thin Clients"
-msgstr "Тонкий клиент"
+msgstr "Тонкие клиенты"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:82
 msgid "Thin Clients (NBD protocol)"
-msgstr ""
+msgstr "Тонкие клиенты (NBD протокол)"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:154
-#, fuzzy
 msgid "To configure the Thin Clients."
-msgstr "Для настройки плана набора."
+msgstr "Настройки тонкого клиента."
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:663
 msgid "Building image..."
-msgstr ""
+msgstr "Создание образа ..."
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:665
 msgid "Updating image..."
-msgstr ""
+msgstr "Обновление образа ..."
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:667
 msgid "Installing applications on an image..."
-msgstr ""
+msgstr "Установка приложений в образ ..."
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:669
 msgid "Some work is being done on an image"
-msgstr ""
+msgstr "Обрабатывается образ"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:672
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} users logged"
-msgstr "Предупредить пользователя"
+msgstr "{n} пользователей подключено"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:80
 #: ../../main/monitor/src/EBox/CGI/Index.pm:44
@@ -9312,9 +9352,8 @@ msgid "Last day"
 msgstr "Последний день"
 
 #: ../../main/monitor/src/EBox/Monitor/Configuration.pm:149
-#, fuzzy
 msgid "Last week"
-msgstr "Фамилия"
+msgstr "Последняя неделя"
 
 #: ../../main/monitor/src/EBox/Monitor/Configuration.pm:155
 msgid "Last month"
@@ -9949,9 +9988,8 @@ msgid "Master Zentyal LDAP password"
 msgstr "Пароль LDAP мастера Zentyal"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:115
-#, fuzzy
 msgid "Zentyal Users Mode"
-msgstr "Пользователи Zentyal"
+msgstr "Пользовательский режим в Zentyal"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:42
@@ -10118,6 +10156,8 @@ msgstr "Добавить поддержку квот для раздела /home
 msgid ""
 "To configure LDAP slaves and Active Directory synchronization frequency."
 msgstr ""
+"Частота синхронизации для настройки LDAP подчиненных и каталогов Active "
+"Directory."
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:196
 #: ../../main/users/src/EBox/UsersAndGroups.pm:143
@@ -10198,7 +10238,7 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:353
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
-msgstr ""
+msgstr "Максимальный объем {max} Мб"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1250
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:372
@@ -10207,6 +10247,8 @@ msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
+"Не удается установить квоту для uid {uid} с {userQuota}. Может быть, ваша "
+"файловая система не поддерживает квоты?"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1748
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:311
@@ -10272,12 +10314,12 @@ msgstr ""
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3053
 msgid "It seems that your master has some incompatible modules installed."
-msgstr ""
+msgstr "Возможно Мастер имеет несколько несовместимых модулей."
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3055
 #, perl-brace-format
 msgid "Please refer to {open}master/slave documentation{close}."
-msgstr ""
+msgstr "Пожалуйста обратитесь к {open} ведущий / ведомый документации {close}."
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3076
 #, perl-brace-format
@@ -10480,14 +10522,12 @@ msgid "Jabber domain"
 msgstr "Домен Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
-#, fuzzy
 msgid "Domain used to connect to this server."
-msgstr "VoIP-телефоны подключённые к серверу."
+msgstr "Домен используется для подключения к этому серверу."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-#, fuzzy
 msgid "SSL connection method to this server."
-msgstr "VoIP-телефоны подключённые к серверу."
+msgstr "SSL способ подключения к этому серверу."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:136
 msgid "Connect to other servers"
@@ -10497,51 +10537,49 @@ msgstr "Соединиться с другими серверами"
 msgid ""
 "Users on this server will be able to chat with users in external servers."
 msgstr ""
+"Пользователи этого сервера смогут общаться с пользователями на внешних "
+"серверах."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:143
-#, fuzzy
 msgid "Enable MUC (Multi User Chat) service"
-msgstr "Включить MUC (Multi User Chat)"
+msgstr "Включить MUC (Multi User Chat) службу"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:144
 msgid "Multi User Chat allows to create chat rooms in this server."
-msgstr ""
+msgstr "Multi User Chat позволяет создавать чаты на этом сервере."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:150
-#, fuzzy
 msgid "Enable STUN service"
-msgstr "Включенная служба"
+msgstr "Включить STUN службу"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:151
 msgid "STUN service helps Jingle ICE clients behind NAT."
-msgstr ""
+msgstr "STUN услуга помогает клиентам Jingle ICE за NAT."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:157
-#, fuzzy
 msgid "Enable SOCKS5 proxy service"
-msgstr "Включенная служба"
+msgstr "Включить службу SOCKS5 прокси"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:158
 msgid "SOCKS5 proxy service helps file transfers between clients behind NAT."
-msgstr ""
+msgstr "SOCKS5 прокси-сервис помогает передавать файлы между клиентами за NAT."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:164
-#, fuzzy
 msgid "Enable VCard information"
-msgstr "Общая информация"
+msgstr "Включить информацию VCard"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:165
 msgid "Import users VCard information from LDAP."
-msgstr ""
+msgstr "Импортировать VCard информацию о пользователях из LDAP."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:171
-#, fuzzy
 msgid "Enable shared roster"
-msgstr "Включенная служба"
+msgstr "Включить общий список"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:172
 msgid "Populate users contact list with the other system users."
 msgstr ""
+"Наполнить списка контактов пользователей и иными системными пользователями."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:186
 msgid "General Jabber server configuration settings updated."
@@ -10553,6 +10591,9 @@ msgid ""
 "servers to send messages to your users, make sure they can resolve the same "
 "domain."
 msgstr ""
+"Убедитесь, что клиенты могут получить доступ к Jabber домену. Если вы хотите "
+"использовать другие сервера для отправки сообщений пользователям, "
+"убедитесь, что они используют один и тот же домен."
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:170
 msgid ""
@@ -10602,14 +10643,13 @@ msgid "share"
 msgstr "общий ресурс"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Path not allowed. It cannot be under {dir}"
-msgstr "Недопустимый путь. Он не может быть под {dir}"
+msgstr "Недопустимый путь. Он не может быть ниже {dir}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:190
-#, fuzzy
 msgid "Samba share absolute path"
-msgstr "Абсолютный путь общего каталога Samba"
+msgstr "Абсолютный путь к общему каталогу Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:196
 msgid "Samba share directory"
@@ -10652,14 +10692,16 @@ msgid ""
 "The password does not meet the password policy requirements. It must be at "
 "least eight characters long and contain uppercase, lowercase and numbers"
 msgstr ""
+"Пароль не отвечает требованиям политики паролей. Она должна быть не менее "
+"восьми символов и содержать заглавные и строчные буквы, а также цифры"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:149
 msgid "Domain or workgroup name is too long"
-msgstr ""
+msgstr "Слишком длинное имя домена или рабочей группы "
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:152
 msgid "Domain or workgroup name field is empty"
-msgstr ""
+msgstr "Имя домена или имя рабочей группы пусты"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:155
 msgid "Domain name cannot end in '.local'"
@@ -10678,11 +10720,11 @@ msgstr "Виртуальный домен не может совпадать с 
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:171
 msgid "NetBIOS name field is empty"
-msgstr ""
+msgstr "Поле NetBIOS-имени не заполнено"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:174
 msgid "NetBIOS name is too long"
-msgstr ""
+msgstr "NetBIOS имя слишком большое"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:176
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:251
@@ -10691,11 +10733,11 @@ msgstr "NetBIOS-имя компьютера"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:185
 msgid "Description string is empty"
-msgstr ""
+msgstr "Строка описания не заполнена"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:188
 msgid "Description string is too long"
-msgstr ""
+msgstr "Строка описания слишком большая"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:199
 #, perl-brace-format
@@ -10708,16 +10750,14 @@ msgid "{type} cannot contain the reserved name {reserved}"
 msgstr "{type} не может содержать зарезервированное имя {reserved}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:227
-#, fuzzy
 msgid "Server Role"
-msgstr "Порт сервера"
+msgstr "Роль сервера"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:233
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:53
-#, fuzzy
 msgid "Administrator password"
-msgstr "Сеансы администратора"
+msgstr "Пароль администратора"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:245
 #, fuzzy
@@ -10725,9 +10765,8 @@ msgid "NetBIOS domain name"
 msgstr "NetBIOS-имя компьютера"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:257
-#, fuzzy
 msgid "Server description"
-msgstr "Подписка сервера"
+msgstr "Описание сервера"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:263
 msgid "Enable roaming profiles"
@@ -10752,11 +10791,14 @@ msgid ""
 "The users and groups will be imported from Zentyal LDAP, but you will have "
 "to rejoin all computers to the new domain."
 msgstr ""
+"Изменение имени домена приведет к обновлению базы самбы.\n"
+"\n"
+"Пользователи и группы будут импортированы из Zentyal LDAP, но вам придется "
+"самостоятельно переподключить все компьютеры в новый домен."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:358
-#, fuzzy
 msgid "Domain controller"
-msgstr "Доменное имя"
+msgstr "Контроллер домена"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:81
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:88
@@ -10796,6 +10838,8 @@ msgid ""
 "In order to enable virus scanning on the shares you have to install and "
 "enable the antivirus module"
 msgstr ""
+"Для того чтобы выполнялся поиск вирусов по общим папкам вы должны установить "
+"и включить антивирусный модуль"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:45
 msgid "Recycle default settings"
@@ -10888,13 +10932,12 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Создать домашний каталог для пользователей и групп Samba"
 
 #: ../../main/samba/src/EBox/Samba.pm:109
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "ebox/samba."
 msgstr ""
-"Zentyal создаст домашний каталог для пользователей и групп Самбы в /home/"
-"samba."
+"Zentyal создаст домашний каталог для пользователей и групп Самбы в "
+"/home/ebox/samba."
 
 #: ../../main/samba/src/EBox/Samba.pm:125
 msgid "To set up Samba according to your configuration."
@@ -10902,11 +10945,11 @@ msgstr "Настроить Samba согласно вашей конфигура�
 
 #: ../../main/samba/src/EBox/Samba.pm:130
 msgid "To enable extended attributes and acls."
-msgstr ""
+msgstr "Включить расширенные атрибуты и ACL."
 
 #: ../../main/samba/src/EBox/Samba.pm:135
 msgid "To add microsoft specific services"
-msgstr ""
+msgstr "Добавить Microsoft специфичные сервисы"
 
 #: ../../main/samba/src/EBox/Samba.pm:140
 msgid "To set the antivirus settings for Samba."
@@ -10921,6 +10964,8 @@ msgid ""
 "There are not any interanl IP address configured, cannot continue with "
 "database provision. The module will remain disabled."
 msgstr ""
+"Не настроен ни один внутренний IP адрес, не возможно продолжить работу с "
+"базой данных обеспечения. Модуль будет отключен."
 
 #: ../../main/samba/src/EBox/Samba.pm:1007
 #: ../../main/samba/src/EBox/Samba.pm:1028
@@ -11487,7 +11532,7 @@ msgstr "Политика спам"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:71
 msgid "Bounce policy will be ignored for high-score spam messages"
-msgstr ""
+msgstr "Политики фильтрации будут игнорироваться для спама с высокой оценкой"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:75
 msgid "Banned files policy"
@@ -11628,18 +11673,16 @@ msgid "Pass"
 msgstr "Разрешить"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:27
-#, fuzzy
 msgid "Notify sender server"
-msgstr "доп. сервер"
+msgstr "Уведомлять сервер отправителя "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
-#, fuzzy
 msgid "Notify mail sender account"
-msgstr "почтовый псевдоним учетной записи"
+msgstr "Уведомление учетной записи отправителя электронной почты "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
 msgid "Drop silently"
-msgstr ""
+msgstr "Игнорирование без уведомлений"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:74
 msgid "Mailfilter's policy"
@@ -11932,9 +11975,8 @@ msgstr ""
 "управляемых Zentyal"
 
 #: ../../main/ca/src/EBox/Model/Certificates.pm:320
-#, fuzzy
 msgid "This service does not allow to change the certificate common name"
-msgstr "Эта служба не позволяет изменить  общее имя  сертификата"
+msgstr "Эта служба не позволяет изменить общее имя сертификата"
 
 #: ../../main/ca/src/EBox/CA.pm:118 ../../main/ca/src/EBox/CGI/CreateCA.pm:42
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:42
@@ -12011,9 +12053,8 @@ msgid "Created but not available"
 msgstr "Создан, но недоступен"
 
 #: ../../main/ca/src/EBox/CA.pm:1932
-#, fuzzy
 msgid "String"
-msgstr "Строгий"
+msgstr "Строка"
 
 #: ../../main/ca/src/EBox/CA.pm:1937
 msgid ""
@@ -12350,14 +12391,15 @@ msgid "To schedule the launch of the updater"
 msgstr "Планирование запуска обновлений"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
-msgstr "Пользовательский {app} профиль настроен для {bin} бинарных"
+msgstr ""
+"Конфигурация пользовательского {app} профиля для {bin} бинарных приложений"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
-msgstr "Отключить {app} профиль для {bin} бинарных"
+msgstr "Отключить {app} профиль для {bin} бинарных приложений"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:101
 msgid "Signatures"
@@ -12413,9 +12455,8 @@ msgid "NTP configuration file"
 msgstr "Файл настройки NTP"
 
 #: ../../main/ntp/src/EBox/NTP.pm:111
-#, fuzzy
 msgid "Network Time Protocol"
-msgstr "Средства Диагностики Сети"
+msgstr "Протокол сетевого времени"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:56
 msgid "NTP Servers"
@@ -12430,14 +12471,13 @@ msgid "Enable synchronization with external servers"
 msgstr "Включить синхронизацию с внешними серверами"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:60
-#, fuzzy
 msgid ""
 "Here you can enable or disable time synchronization with external servers. "
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
 "Здесь вы можете включить или отключить синхронизацию времени с внешними "
-"серверами. Вы должны не забыть устанавливать часовой пояс, чтобы "
+"серверами. Будьте внимательны при устанавке часового пояса, чтобы "
 "синхронизация была корректна."
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:40
@@ -12524,9 +12564,9 @@ msgid "Must be either a positive number or zero"
 msgstr "Должно быть положительным числом или 0"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2767
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "New {name}"
-msgstr "Сервер {name}"
+msgstr "Новый {name}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3193
 #, perl-brace-format
@@ -12806,6 +12846,7 @@ msgstr "Только 'tcp' и 'udp' поддерживаются"
 #: ../../main/core/src/EBox/Util/Nmap.pm:106
 msgid "No hosts scanned, maybe you cannot resolve DNS names?"
 msgstr ""
+"Нет хостов сканирования, может быть, вы не можете преобразовать DNS-имена?"
 
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:76
 #, perl-brace-format
@@ -12877,13 +12918,13 @@ msgid "Writing backup file to hard disk"
 msgstr "Запись резервной копии файлов на жесткий диск"
 
 #: ../../main/core/src/EBox/Backup.pm:819
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
 "you must save or discard them"
 msgstr ""
-"В модуль {mod} не сохранены изменения. Перед созданием резервной копии Вы "
-"должны сохранить или отклонить их"
+"В модулях {mods} не сохранены изменения. Перед созданием резервной копии Вы "
+"должны либо сохранить, либо отклонить их"
 
 #: ../../main/core/src/EBox/Backup.pm:878
 msgid "Incorrect or corrupt backup file"
@@ -12957,6 +12998,10 @@ msgid ""
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
+"Не удается восстановить резервную копию, обнаружено несоотвествие между "
+"версиями Zentyal и версией системы. Резервное копирование было сделано в "
+"Zentyal версии {bv}, а эта система может быть восстановлена из резервных "
+"копий Zentyal с версии {wv} и выше"
 
 #: ../../main/core/src/EBox/Backup.pm:1393
 #, perl-brace-format
@@ -12982,7 +13027,7 @@ msgstr "Модуль {m} не найден в резервной копии"
 #: ../../main/core/src/EBox/Backup.pm:1464
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
-msgstr ""
+msgstr "Модуль {m} в одновременно находится в списках исключения и включения"
 
 #: ../../main/core/src/EBox/Backup.pm:1487
 msgid "No modules to restore"
@@ -13010,7 +13055,7 @@ msgstr "Архивы резервных копий"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:37
 msgid "Audit Logging"
-msgstr ""
+msgstr "Контрольное журналирование"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:108
 #: ../../main/core/src/EBox/AuditLogging.pm:137
@@ -13165,6 +13210,8 @@ msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
+"Не удается создать кэш пакетов программного обеспечения. Убедитесь, что "
+"исходные файлы и файлы настроек в /etc/apt доступны для чтения и повторите"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:561
 #, perl-brace-format
@@ -13360,6 +13407,8 @@ msgstr ""
 msgid ""
 "There are {n} log slices not stored; wait or force its storage and retry"
 msgstr ""
+"Не сохранено {n} срезов журнала, необходимо подождать или заставить "
+"сохранить принудительно, затем повторить операцию"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:120
 #, perl-brace-format
@@ -13368,6 +13417,10 @@ msgid ""
 "without schema changing the relevant key in {cf}. Schemas change "
 "unfrequently so it could be safe to use a older one"
 msgstr ""
+"Нет файла схемы в этой резервной копии. Попробуйте использовать другую дату "
+"или восстановить без изменения схемы соответствующего ключа в {cf}. Схемы не "
+"часто меняются, поэтому это может быть безопасным для использования "
+"предыдущих резервных копий"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:146
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:154
@@ -13381,28 +13434,25 @@ msgstr "Части, которые будут заархивированы ср�
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:458
 msgid "Slices timeline"
-msgstr ""
+msgstr "Шкала времени срезов"
 
 #: ../../main/core/src/EBox/Apache.pm:53
-#, fuzzy
 msgid "Zentyal Webadmin"
-msgstr "Домен Zentyal"
+msgstr "Вэб-админка Zentyal"
 
 #: ../../main/core/src/EBox/Apache.pm:283
-#, fuzzy
 msgid "Desktop services port"
-msgstr "Порт службы"
+msgstr "Порт для служб рабочего стола"
 
 #: ../../main/core/src/EBox/Apache.pm:292
 #: ../../main/core/src/EBox/Apache.pm:303
-#, fuzzy
 msgid "Desktop Services"
-msgstr "Список служб"
+msgstr "Службы рабочего стола"
 
 #: ../../main/core/src/EBox/Apache.pm:293
 #: ../../main/core/src/EBox/Apache.pm:304
 msgid "Desktop Services (API for Zentyal Desktop)"
-msgstr ""
+msgstr "Службы рабочего стола (API для Zentyal Desktop)"
 
 #: ../../main/core/src/EBox/Apache.pm:376
 #, perl-brace-format
@@ -13445,12 +13495,11 @@ msgstr ""
 "не-частичном режиме"
 
 #: ../../main/core/src/EBox/MyDBEngine.pm:568
-#, fuzzy
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
 msgstr ""
-"Файл дампа базы данных не найлен. Возможно Вы пытаетесь восстановить "
+"Файл дампа базы данных не найден. Возможно Вы пытаетесь восстановить "
 "резервную копию, которая была сделана в нарезанном режиме?"
 
 #: ../../main/core/src/EBox/Html.pm:39
@@ -13486,6 +13535,8 @@ msgstr "Вы можете потерять соединение с Internet ес
 msgid ""
 "You will probably have to restart some services after changing the time zone."
 msgstr ""
+"Вам, возможно, придется перезапустить некоторые службы после смены часовых "
+"поясов."
 
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:59
 #: ../../main/core/src/EBox/Types/TimeZone.pm:55
@@ -13499,9 +13550,8 @@ msgid ""
 msgstr "Изменение даты или времени приведет к перезапуску всех служб Zentyal."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:62
-#, fuzzy
 msgid "The date and time was changed successfully."
-msgstr "Пароль изменен."
+msgstr "Дата и время изменены успешно."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
 #, fuzzy
@@ -13536,9 +13586,8 @@ msgid "The password was changed successfully."
 msgstr "Пароль изменен."
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:76
-#, fuzzy
 msgid "Change administrator password"
-msgstr "Поменять пароль"
+msgstr "Изменить пароль администратора"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:109
 msgid "New passwords do not match."
@@ -13549,9 +13598,8 @@ msgid "The password must be at least 6 characters long"
 msgstr "Пароль должен содержать не менее 6 символов"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:117
-#, fuzzy
 msgid "Incorrect current password."
-msgstr "Неверный пароль."
+msgstr "Неверный текущий пароль."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:59
 msgid ""
@@ -13562,31 +13610,28 @@ msgstr ""
 "имени компьютера."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:64
-#, fuzzy
 msgid "Hostname and Domain"
-msgstr "Такой же, как динамический домен"
+msgstr "Имя хоста и домена"
 
 # The value for this field actually was "Change password", I changed it to "Changes saved" as it should be.  
 # No fuzzyness anymore.
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
-#, fuzzy
 msgid "Change hostname"
-msgstr "Сменить имя компьютера"
+msgstr "Изменить имя хоста"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Are you sure you want to change the hostname to {new}?. Maybe you would need "
 "to restart all the services or reboot the system to enforce the change"
 msgstr ""
-"Вам необходимо перезапустить все службы или перезагрузить систему для смены "
-"имени компьютера."
+"Вы уверены, что хотите изменить имя хоста {new}? Желаете ли перезапустить "
+"все службы или перезагрузить систему для применения изменений?"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
-#, fuzzy
 msgid "On this page you can set different general system settings"
-msgstr "На этой странице вы можете установить основные настройки Samba"
+msgstr "На этой странице вы можете установить основные настройки"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:159
 msgid "Begin of IP range"
@@ -13632,9 +13677,8 @@ msgid "IP addresses are not allowed"
 msgstr "Не разрешенный IP-адрес"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:235
-#, fuzzy
 msgid "This city does not exists."
-msgstr "Клиент {c} не существует"
+msgstr "Этот город не доступен."
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:241
 #, fuzzy
@@ -13646,11 +13690,13 @@ msgstr "Учетная запись не существует"
 msgid ""
 "{name} empty. You can add and select a new {name} with the 'add new' button"
 msgstr ""
+"Нет имени {name}. Вы можете добавить его с помощью кнопки \"Добавить новое\" и "
+"выберите новое {name}"
 
 #: ../../main/core/src/EBox/Types/Select.pm:335
 #, perl-brace-format
 msgid "{name} has not selectable values"
-msgstr ""
+msgstr "Не возможно выбрать {name}"
 
 #: ../../main/core/src/EBox/Types/Select.pm:347
 #, perl-brace-format
@@ -13669,7 +13715,7 @@ msgstr "Длина пароля не может превышать {maxLength} �
 
 #: ../../main/core/src/EBox/Types/Password.pm:189
 msgid "Password mismatch, make sure passwords are identical"
-msgstr ""
+msgstr "Пароль не совпадает, проверьте, и наберите заново"
 
 #: ../../main/core/src/EBox/Types/Date.pm:243
 msgid "Not a leap year."
@@ -17839,13 +17885,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/notConfigured.mas:8
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable the {module} module on the {openhref} Module Status section "
 "{closehref} in order to use it."
 msgstr ""
-"Необходимо включить модуль Пользователи в секции Статус для того чтобы "
-"использовать это."
+"Для использования модуля {module}, необходимо включить его в секции "
+"{openhref} Статус модуля {closehref}."
 
 #: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
@@ -17879,12 +17925,12 @@ msgstr "Перезапустить"
 
 #: ../../main/core/src/templates/dashboard/index.mas:105
 msgid "Configure widgets"
-msgstr "Настроить виджетов"
+msgstr "Настройка виджетов"
 
 #: ../../main/core/src/templates/dashboard/index.mas:107
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
-msgstr "Следующие пакеты будут установлены"
+msgstr "Следующие пакеты установлены неправильно: {packages}."
 
 #: ../../main/core/src/templates/dashboard/index.mas:111
 #, perl-brace-format
@@ -18156,7 +18202,7 @@ msgstr "Настроить модуль: {module}"
 
 #: ../../main/core/src/templates/links-widget.mas:14
 msgid "Official documentation in English and Spanish."
-msgstr "Официальная документация на английском и испанском языке."
+msgstr "Официальная документация на английском и испанском языках."
 
 #: ../../main/core/src/templates/links-widget.mas:14
 msgid "Documentation"
@@ -18208,9 +18254,8 @@ msgid "Exit"
 msgstr "Выход"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Save changes?"
-msgstr "Сохранить изменения"
+msgstr "Сохранить изменения?"
 
 #: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -18638,9 +18683,8 @@ msgid "Shared store only"
 msgstr "Общий секрет"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:68
-#, fuzzy
 msgid "Auto accept meeting requests"
-msgstr "Принято запросов"
+msgstr "Автоматический прием приглашений на собрания"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:79
 msgid "Decline meetings requests with conflicting times"

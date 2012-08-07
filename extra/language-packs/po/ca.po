@@ -1,3 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 18:25+0200\n"
+"PO-Revision-Date: 2012-07-26 20:32+0200\n"
+"Last-Translator: vramosp <deepbane@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
+"X-Poedit-Language: None\n"
+"X-Poedit-Country: None\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
@@ -32,6 +49,8 @@ msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Puja arxius amb dominis categoritzats per llistes. També podràs filtrar per "
+"aquestes categories a cada perfil de filtre."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
@@ -63,9 +82,8 @@ msgid "Network Object"
 msgstr "Objecte de xarxa"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
-msgstr "Usuari/Grup"
+msgstr "Grup d'usuaris"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -99,26 +117,22 @@ msgstr "Decisió"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:131
-#, fuzzy
 msgid "Allow All"
-msgstr "Permetre"
+msgstr "Permetre tots"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:130
-#, fuzzy
 msgid "Deny All"
-msgstr "Denegar"
+msgstr "Denegar tots"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Filtrat de Perfils"
+msgstr "Aplicar filtre de perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid.pm:862
-#, fuzzy
 msgid "Access Rules"
-msgstr "Peticions d'accés"
+msgstr "Normes d'accés"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
@@ -166,7 +180,7 @@ msgstr "Grup"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "Aplicar '{p}' perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:35
 msgid "Domain or URL"
@@ -287,7 +301,7 @@ msgstr "Servidor intermediari HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:53
 msgid "FIXME: add help"
-msgstr ""
+msgstr "ARREGLAR: afegir ajuda"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 msgid "Ad Blocking"

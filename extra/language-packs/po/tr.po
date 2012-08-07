@@ -1,3 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 18:26+0200\n"
+"PO-Revision-Date: 2012-07-28 22:25+0200\n"
+"Last-Translator: bsener <blntsnr@ymail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.1.4\n"
+"X-Poedit-Language: None\n"
+"X-Poedit-Country: None\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
@@ -19,26 +36,25 @@ msgstr "HTTP vekil sunucusu"
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
 #: ../../main/squid/src/EBox/Squid.pm:871
 msgid "Categorized Lists"
-msgstr ""
+msgstr "Sınıflandırılmış Listeler"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
 msgid "categorized list"
-msgstr ""
+msgstr "sınıflandırılmış liste"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
-msgstr ""
+msgstr "Alan adlarına göre sınıflandırılmış dosyaları yükleyebilirsiniz. "
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
-msgstr ""
+msgstr "Zaman devresi"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
-#, fuzzy
 msgid "Time period when the this rule is applied"
-msgstr "İzin verilen zaman aralığı, engeleme ilkesi tarafından dikkate alınmaz"
+msgstr "Bu kuralın geçerli olacağı zaman devresi"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -54,12 +70,10 @@ msgid "Source"
 msgstr "Kaynak"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:67
-#, fuzzy
 msgid "Network Object"
-msgstr "Ağ Nesneleri"
+msgstr "Ağ Nesnesi"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
 msgstr "Kullanıcı/Grup"
 
@@ -81,15 +95,8 @@ msgstr "Kullanıcı/Grup"
 #: ../../main/core/src/EBox/Types/Service.pm:182
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/services/src/EBox/Services.pm:86
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"herhangi\n"
-"#-#-#-#-#  tr.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"herhangi\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Herhangi bir"
+msgstr "Herhangi bir"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:42
@@ -102,26 +109,22 @@ msgstr "Karar"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:131
-#, fuzzy
 msgid "Allow All"
-msgstr "İzin ver"
+msgstr "Tümünü kabul et"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:130
-#, fuzzy
 msgid "Deny All"
-msgstr "Engelle"
+msgstr "Tümünü Engelle"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Süzgeç Tanımları"
+msgstr "Süzgeç profilini uygula"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid.pm:862
-#, fuzzy
 msgid "Access Rules"
-msgstr "Yasaklanan"
+msgstr "Erişim Kuralları"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
@@ -136,48 +139,41 @@ msgstr "Yasaklanan"
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:183
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
 #: ../../main/ids/src/EBox/Model/Rules.pm:194
-#, fuzzy
 msgid "rule"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Kural\n"
-"#-#-#-#-#  tr.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"kural\n"
-"#-#-#-#-#  tr.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"kural\n"
-"#-#-#-#-#  tr.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"kural"
+msgstr "kural"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:125
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
+"Kullanıcı grupları veya ağ nesnelerine göre süzme,engelleme veya kabul etme "
+"kuralları uygulayabilirsiniz. Kurallar seçili zaman devresi için geçerli "
+"olacaktır."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "Saydam vekil sunucu aktifken kullanıcı bazında işlem yapılamaz."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:330
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "Nesne"
+msgstr "Nesne: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:332
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Grup"
+msgstr "Grup: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "'{p}' profilini uygula"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:35
-#, fuzzy
 msgid "Domain or URL"
-msgstr "Alan ismi"
+msgstr "Alan adı veya adres"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:54
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:64
@@ -192,9 +188,8 @@ msgid "Deny"
 msgstr "Engelle"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or IP address part of URL"
-msgstr "Alan ismi"
+msgstr "Alan adı veya IP adresi parçası"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:93
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:562
@@ -207,56 +202,41 @@ msgstr "Alan ismi"
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
-#, fuzzy
 msgid "Domain"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Alan ismi\n"
-"#-#-#-#-#  tr.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Alan ismi\n"
-"#-#-#-#-#  tr.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Alan\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Alan ismi"
+msgstr "Alan adı"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:95
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "www. önekini alan adı ile birlikte kullanamazsınız."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:99
-#, fuzzy
 msgid "Domain or IP address"
-msgstr "Alan ismi"
+msgstr "Alan adı veya IP adresi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:233
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "Alan ismi"
+msgstr "Alan adı veya adres kuralları"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:241
-#, fuzzy
 msgid "internet domain or URL"
-msgstr "Yasaklı alan isimleri"
+msgstr "Alan adı veya adres"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
-msgstr ""
+msgstr "Listedeki adreslerden/adreslere HTTP trafiğini Kabul et/Engelle"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:244
-#, fuzzy
 msgid "Domain or URL added"
-msgstr "Alan ismi"
+msgstr "Alan adı veya adres eklendi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:245
-#, fuzzy
 msgid "Domain or URL removed"
-msgstr "Alan ismi"
+msgstr "Alan adı veya adres silindi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:246
-#, fuzzy
 msgid "Domain or URL updated"
-msgstr "Alan ismi"
+msgstr "Alan adı veya adres güncellendi"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
@@ -264,12 +244,10 @@ msgid "Domain Name Address"
 msgstr "Alan adı adresi"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Saydam vekil sunucu"
+msgstr "Saydam vekil sunucuyu atla"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
 msgstr "Saydam vekil sunucu"
 
@@ -279,7 +257,6 @@ msgid "domain name address"
 msgstr "Alan adı adresi"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
-#, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
 msgstr "Vekil sunucu kullanmayacak adres ekleyebilirsiniz"
 
@@ -299,26 +276,24 @@ msgid "Address updated"
 msgstr "Adres güncellendi"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:43
-#, fuzzy
 msgid "Transparent Proxy"
 msgstr "Saydam vekil sunucu"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:49
-#, fuzzy
 msgid "HTTPS Proxy"
-msgstr "HTTP vekil sunucusu"
+msgstr "HTTPS vekil sunucusu"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:53
 msgid "FIXME: add help"
-msgstr ""
+msgstr "ÇÖZBENİ: yardım ekle"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklam engelleme"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:60
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "Tüm HTTP trafiğinden reklamları sil"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:920
@@ -341,7 +316,6 @@ msgstr "Cache dosya boyutu (MB)"
 #: ../../main/squid/src/EBox/Squid.pm:859
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:87
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
@@ -351,13 +325,12 @@ msgid "Settings changed"
 msgstr "Ayarlar değiştirildi"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:132
-#, fuzzy
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
-"Bazı objelerde bulunan yetkilendirme ilkeleri saydam tip vekil sunucu ile "
-"uyumlu değildir."
+"Bazı erişim kurallarinda bulunan yetkilendirme ilkeleri saydam tip vekil "
+"sunucu ile uyumlu değildir."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:160
@@ -370,6 +343,8 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"HTTPS saydam vekil sunucu kullanabilmek için güvenlik duvarı kuralı "
+"eklemelisiniz."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
@@ -380,42 +355,29 @@ msgid "MIME Type"
 msgstr "MIME türü"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:147
-#, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr ""
-"Yeni MIME türünü yandaki şekilde ayarlayabilirsiniz: kategori/alt kategori. "
-"Olası kategoriler şunlardır: {types}"
+msgstr "MIME Türü mutlaka şu biçimde olmalıdır :tip/alttip"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr ""
+msgstr "{type} tipi geçerli bir IANA tipi değildir."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "{t} tipi hatalı "
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:184
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
-#, fuzzy
 msgid "MIME types"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME türü\n"
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"MIME türleri"
+msgstr "MIME tipleri"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:191
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
-#, fuzzy
 msgid "MIME type"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME tipi\n"
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"MIME türü"
+msgstr "MIME tipi"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:192
 msgid ""
@@ -425,25 +387,22 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:195
-#, fuzzy
 msgid "MIME type added"
-msgstr "MIME türü"
+msgstr "MIME türü eklendi"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:196
-#, fuzzy
 msgid "MIME type removed"
-msgstr "MIME türü"
+msgstr "MIME türü silindi"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:197
-#, fuzzy
 msgid "MIME type updated"
-msgstr "MIME türü"
+msgstr "MIME türü güncellendi "
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:39
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:49
 msgid "Requests"
-msgstr ""
+msgstr "İstekler"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:61
@@ -466,57 +425,44 @@ msgstr ""
 #: ../../main/radius/src/EBox/Radius.pm:351
 #: ../../main/asterisk/src/EBox/Asterisk.pm:556
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#, fuzzy
 msgid "User"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Kullanıcı\n"
-"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Kullanıcı adı\n"
-"#-#-#-#-#  tr.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Kullanıcı\n"
-"#-#-#-#-#  tr.po (ebox-printers 0.12)  #-#-#-#-#\n"
-"Kullanıcı\n"
-"#-#-#-#-#  tr.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Kullanıcı"
+msgstr "Kullanıcı"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:50
-#, fuzzy
 msgid "Accepted requests"
-msgstr "İzin verilen"
+msgstr "İzin verilen istekler"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:73
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:49
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Kabul edilen trafik boyutu (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:51
 msgid "Denied requests"
-msgstr ""
+msgstr "Engellenen istekler"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:44
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:50
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Engellenen trafik boyutu (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:52
-#, fuzzy
 msgid "Filtered requests"
-msgstr "Süzgeçlenen"
+msgstr "Süzgeçlenen istekler"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:91
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:51
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Süzgeçlenen trafik boyutu (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:57
 #: ../../main/squid/src/EBox/Squid.pm:899
@@ -551,35 +497,12 @@ msgstr ""
 #: ../../main/core/src/templates/confirm-backup.mas:28
 #: ../../main/core/src/templates/backup.mas:120
 #: ../../main/mail/src/templates/qmanager.mas:17
-#, fuzzy
 msgid "Date"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Gün\n"
-"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-antivirus 0.1)  #-#-#-#-#\n"
-"Tarih\n"
-"#-#-#-#-#  tr.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Tarih"
+msgstr "Tarih"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:97
 msgid "Web traffic details"
-msgstr ""
+msgstr "Web trafiği ayrıntıları "
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:104
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:86
@@ -596,6 +519,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Antivirüs modülü etkin olmadıgından antivirüs süzgecini kullanamazsınız. "
+"Öncelikle {openhref}modülü etkinleştirin{closehref} sonra buraya tekrar "
+"gelin."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:70
 #, perl-brace-format
@@ -604,27 +530,26 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Antivirüs modülü kurulmadığından antivirüs süzgecini kullanamazsınız. "
+"Öncelikle kurun, sonra {openhref}modülü etkinleştirin{closehref}, buraya "
+"tekrar gelin."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:83
 msgid "Use antivirus"
-msgstr ""
+msgstr "Antivirüs kullan"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:106
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
-#, fuzzy
 msgid "Filter virus"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Süzgeçlenen"
+msgstr "Virüs süzgeci "
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:41
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Vekil sunucu trafik grafiği "
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:68
 msgid "Traffic size"
-msgstr ""
+msgstr "Trafik boyutu"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:270
@@ -634,21 +559,20 @@ msgid "Filter Profiles"
 msgstr "Süzgeç Tanımları"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:104
-#, fuzzy
 msgid "filter profile"
-msgstr "Süzgeç"
+msgstr "süzgeç profili"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:106
 msgid "Added filter profile"
-msgstr ""
+msgstr "süzgeç profili eklendi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:107
 msgid "Removed filter profile"
-msgstr ""
+msgstr "Süzgeç profili silindi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:108
 msgid "Updated filter profile"
-msgstr ""
+msgstr "Süzgeç profili güncellendi "
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:43
@@ -682,29 +606,8 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
 #: ../../main/network/src/templates/ifaces.mas:32
 #: ../../main/network/src/templates/ifaces.mas:243
-#, fuzzy
 msgid "Name"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"İsmi\n"
-"#-#-#-#-#  tr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Adı\n"
-"#-#-#-#-#  tr.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"İsim\n"
-"#-#-#-#-#  tr.po (ebox-objects 0.12)  #-#-#-#-#\n"
-"İsim"
+msgstr "Adı "
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:126
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:80
@@ -724,24 +627,18 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:42
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:43
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:101
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Ayarlar\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Yapılandırma"
+msgstr "Yapilandirma"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:145
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "Süzgeç grup sayısı limiti aştı "
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:155
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Profil isimlerinde boşluk olamaz"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:51
-#, fuzzy
 msgid "Block not listed domains and URLs"
 msgstr "Listede olmayan alan adları ve URLleri engelle"
 
@@ -758,11 +655,11 @@ msgstr "sadece IP olarak belirtilen siteleri engelle"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Alan adı süzgeç ayarları "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:75
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Süzgeç ayarları değişti "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:55
 #, perl-brace-format
@@ -776,12 +673,13 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:63
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
-msgstr ""
+msgstr "Genel limit etkinse onun boyutuna ve değerine ihtiyacınız olacak"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:69
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Eğer kullanıcı bazlı limit etkin ise boyutuna ve degerine ihtiyacınız olacak"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:78
 #, perl-brace-format
@@ -789,6 +687,8 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Kullanıcı bazlı limit ({clt_rate} Kb/s) genel limitten ({net_rate} KB/s) "
+"büyük olamaz."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:131
 msgid "Network object"
@@ -796,66 +696,61 @@ msgstr "Ağ Nesneleri"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:140
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Genel limiti her nesne için etkinleştir"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:147
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Sınırsız boyut"
+msgstr "Limitsiz boyut"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:148
 msgid "Maximum unthrottled download size for the whole network object."
-msgstr ""
+msgstr "Herbir ağ nesnesi için maximum indirme boyutu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:151
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:175
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
-#, fuzzy
 msgid "MB"
-msgstr "M"
+msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:156
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "İstemci IP adresi"
+msgstr "Maximum indirme aralığı "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:157
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Maximum limit aşıldığında ağ nesneleri için geçerli olacaklar indirme limiti"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:183
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:164
-#, fuzzy
 msgid "Enable per client limit"
-msgstr "Geri Dönüşüm Kutusunu Etkinleştir"
+msgstr "Her kullanıcı için limiti etkinleştir "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:171
-#, fuzzy
 msgid "Maximum unlimited size per client"
-msgstr "İleti boyutu üst sınırı aşıldı"
+msgstr "Her kullanıcı için limitsiz üst sınır "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:172
 msgid "Maximum unthrottled download size for each client."
-msgstr ""
+msgstr "Herbir kullanıcı için maximum indirme boyutu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:179
 msgid "Maximum download rate per client"
-msgstr ""
+msgstr "Herbir kullanıcı için indirme hızı "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:180
 msgid "Limited download rate after maximum size is reached for each client."
-msgstr ""
+msgstr "Maximum seviye asıldıktan sonra herbir kullanıcı için limit"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:189
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
-msgstr "Bandwidth Ayarlama"
+msgstr "Bandwidth Ayarlama Kuralları "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:197
 msgid ""
@@ -969,7 +864,6 @@ msgid "Exempt address from caching"
 msgstr "Vekil sunucu kullanılmayacak adresler"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
-#, fuzzy
 msgid "Cache Exemptions"
 msgstr "Kayıt Muafiyeti"
 
@@ -19414,7 +19308,6 @@ msgid "This will used as the Kerberos authentication realm for your users."
 msgstr ""
 
 #: ../../main/users/src/templates/wizard/users.mas:17
-#, fuzzy
 msgid "Host domain name"
 msgstr "Alan adı"
 

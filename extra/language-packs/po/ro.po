@@ -1,3 +1,21 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 18:26+0200\n"
+"PO-Revision-Date: 2012-08-01 12:41+0200\n"
+"Last-Translator: razvandudu <razvandudu@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 2.1.4\n"
+"X-Poedit-Language: None\n"
+"X-Poedit-Country: None\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
@@ -14,30 +32,32 @@ msgstr "Fisier"
 #: ../../main/squid/src/EBox/Squid.pm:79
 #: ../../main/squid/src/EBox/Squid.pm:914
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
 #: ../../main/squid/src/EBox/Squid.pm:871
 msgid "Categorized Lists"
-msgstr ""
+msgstr "Liste pe Categorii"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
 msgid "categorized list"
-msgstr ""
+msgstr "listă pe categorii"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Puteţi încărca fişiere cu liste pe categorii ale domeniilor. Veţi putea "
+"filtra după aceste categorii în fiecare profil de filtru."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
-msgstr ""
+msgstr "Perioadă de timp"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
 msgid "Time period when the this rule is applied"
-msgstr ""
+msgstr "Perioada de timp când se aplică această regulă"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -67,9 +87,8 @@ msgid "Network Object"
 msgstr "Configurări"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
-msgstr "Utilizatori"
+msgstr "Grupuri Utilizatori"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -215,11 +234,11 @@ msgstr "Domeniu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:95
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "Nu trebuie sa incepeti adresa de domeniu cu www."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:99
 msgid "Domain or IP address"
-msgstr ""
+msgstr "Domeniu sau adresa IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:233
 msgid "Domains and URL rules"
@@ -527,6 +546,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Nu puteti activa filtrul antivirus pentru ca modulul antivirus este "
+"dezactivat. Daca doriti sa filtrati virusii  mai intai activati modulul "
+"antivirus si apoi reveniti."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:70
 #, perl-brace-format
@@ -535,6 +557,9 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Nu puteti activa filtrul antivirus deoarece modulul antivirus nu este "
+"instalat. Daca doriti sa filtrati virusii mai intai instalati si apoi "
+"activati modulul apoi reveniti."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:83
 msgid "Use antivirus"
@@ -543,7 +568,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:106
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
-msgstr ""
+msgstr "Filtreaza virusii"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:41
 msgid "Squid traffic size graph"
@@ -558,7 +583,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:56
 #: ../../main/squid/src/EBox/Squid.pm:868
 msgid "Filter Profiles"
-msgstr ""
+msgstr "Filtreaza profilul"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:104
 msgid "filter profile"

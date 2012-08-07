@@ -1,10 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 18:26+0200\n"
+"PO-Revision-Date: 2012-08-05 10:33+0200\n"
+"Last-Translator: manugoni <manugoniecheve@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
+"X-Poedit-Language: None\n"
+"X-Poedit-Country: None\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
-msgstr "Fichero"
+msgstr "Archivo"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:115
@@ -18,30 +35,28 @@ msgstr "Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
 #: ../../main/squid/src/EBox/Squid.pm:871
-#, fuzzy
 msgid "Categorized Lists"
-msgstr "Categorías"
+msgstr "Listas por categorías"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
-#, fuzzy
 msgid "categorized list"
-msgstr "Categorías"
+msgstr "listas por categorías"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Usted puede subir archivos con listas por categorías de dominios. Usted será "
+"capaz de filtrar por dichas categorías en cada perfil filtrado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
 msgstr "Período de tiempo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
-#, fuzzy
 msgid "Time period when the this rule is applied"
-msgstr ""
-"Periodo de tiempo autorizado. Será ignorado si la política es 'Denegar'"
+msgstr "Periodo de tiempo en el cual se aplicará esta regla"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -57,14 +72,12 @@ msgid "Source"
 msgstr "Origen"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:67
-#, fuzzy
 msgid "Network Object"
 msgstr "Objeto de red"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
-msgstr "Usuario/Grupo"
+msgstr "Grupo de Usuarios"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -98,26 +111,22 @@ msgstr "Decisión"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:131
-#, fuzzy
 msgid "Allow All"
-msgstr "Permitir"
+msgstr "Permitir todo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:130
-#, fuzzy
 msgid "Deny All"
-msgstr "Denegar"
+msgstr "Denegar todo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Perfiles de Filtrado"
+msgstr "Aplicar perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid.pm:862
-#, fuzzy
 msgid "Access Rules"
-msgstr "Peticiones de acceso"
+msgstr "Reglas de acceso"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
@@ -136,37 +145,35 @@ msgid "rule"
 msgstr "regla"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:125
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Aquí se puede denegar o permitir el acceso de forma global por grupo de "
-"usuarios. Las opciones de filtrado se configuran por política global o por "
-"política de objeto."
+"Aquí se puede filtrar, bloquear o permitir el acceso por usuario/grupo o por "
+"objetos de red. Las reglas sólo se aplican durante el periodo de tiempo "
+"seleccionado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
-#, fuzzy
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
-"Las políticas de grupos de usuarios son incompatibles con el modo de proxy "
-"transparente"
+"La política correspondiente al grupo de usuarios es incompatibles con el "
+"modo proxy transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:330
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "Objeto"
+msgstr "Objeto: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:332
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Grupo"
+msgstr "Grupo: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "Aplicar el perfil  '{p}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:35
 msgid "Domain or URL"
@@ -243,14 +250,12 @@ msgid "Domain Name Address"
 msgstr "Dirección del nombre de dominio"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Proxy Transparente"
+msgstr "Omitir Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Proxy Transparente"
+msgstr "Excepciones del Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
@@ -258,9 +263,8 @@ msgid "domain name address"
 msgstr "nombre de dominio"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
-#, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
-msgstr "Puede negar el almacenamiento en caché de algunos dominios"
+msgstr "Se puede omitir algunas direcciones del proxy transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
@@ -282,9 +286,8 @@ msgid "Transparent Proxy"
 msgstr "Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:49
-#, fuzzy
 msgid "HTTPS Proxy"
-msgstr "Proxy HTTP"
+msgstr "Proxy HTTPS"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:53
 msgid "FIXME: add help"
@@ -328,13 +331,12 @@ msgid "Settings changed"
 msgstr "Configuración cambiada"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:132
-#, fuzzy
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
-"Proxy transparente es incompatible con la política de autorización de "
-"algunos de los objetos"
+"El proxy transparente es incompatible con la política de autorización del "
+"grupo de usuarios que  se encuentra en algunas reglas de acceso"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:160
@@ -685,11 +687,15 @@ msgstr ""
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"si el limite global esta habilitado usted necesita especificar el tamaño y "
+"los valores de tasa"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:69
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"si el limite por cliente esta habilitado usted necesita especificar el "
+"tamaño y los valores de tasa"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:78
 #, perl-brace-format
@@ -697,6 +703,8 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Por tipo de cliente tasa ({clt_rate} KB/s) no puede ser mayor que la tasa "
+"global ({net_rate} KB/s)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:131
 msgid "Network object"
@@ -704,12 +712,11 @@ msgstr "Objeto de red"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:140
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Habilitar el límite global para el objeto"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:147
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Tamaño ilimitado"
+msgstr "Tamaño máximo ilimitado"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:148
 #, fuzzy
@@ -725,15 +732,16 @@ msgid "MB"
 msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:156
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Velocidad de descarga del cliente"
+msgstr "Tasa máxima de descarga"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:157
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Velocidad de descarga limitada después de que  el máximo tamaño se alcance "
+"para el objeto en toda la red."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:183
@@ -741,9 +749,8 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:164
-#, fuzzy
 msgid "Enable per client limit"
-msgstr "Habilitar Papelera de Reciclaje"
+msgstr "Habilitar límite por cliente."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:171
 #, fuzzy
@@ -766,6 +773,8 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:180
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
+"Velocidad de descarga limitada después de que se alcance el máximo tamaño "
+"para cada cliente."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:189
 #, fuzzy
@@ -16488,7 +16497,7 @@ msgstr "Teléfonos"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:155
 msgid "phone"
-msgstr "telefono"
+msgstr "teléfono"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:159
 msgid "VoIP phones connected to the server."
@@ -16904,13 +16913,14 @@ msgid "User and groups home directoreies; anything under /home"
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:269
-#, fuzzy
 msgid "Invalid password"
-msgstr "confirmar contraseña"
+msgstr "Contraseña inválida"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:272
 msgid "Connection failed, check host, port and firewall settings"
 msgstr ""
+"Error de conexión, verifique la configuración de servidor, puerto y "
+"configuraciones de seguridad"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:274
 msgid "Couldn't configure Zentyal as slave"
@@ -17727,9 +17737,8 @@ msgstr "Valor opcional"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:13
 #: ../../main/users/src/templates/del.mas:13
-#, fuzzy
 msgid "Deleting user"
-msgstr "Eliminar usuario"
+msgstr "Borrando usuario"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:14
 #: ../../main/users/src/templates/del.mas:14
@@ -17742,9 +17751,8 @@ msgstr ""
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:16
 #: ../../main/users/src/templates/del.mas:16
-#, fuzzy
 msgid "Deleting group"
-msgstr "Eliminar grupo"
+msgstr "Borrando grupo"
 
 #: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:17
 #: ../../main/users/src/templates/del.mas:17
@@ -18430,9 +18438,8 @@ msgid "Exit"
 msgstr "Salir"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Save changes?"
-msgstr "Guardar cambios"
+msgstr "¿Desea guardar los cambios?"
 
 #: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -18744,9 +18751,8 @@ msgstr "Click aquí para crear un nuevo dominio de correo"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
-#, fuzzy
 msgid "Changing maildir size of"
-msgstr "Tamaño del buzón de correo"
+msgstr "Cambiando el tamaño del repositorio de correos de "
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
 msgid ""
@@ -18760,15 +18766,17 @@ msgid "Don't delete retrieved mail from external server"
 msgstr "Recuperación de correo de cuentas externas"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:16
-#, fuzzy
 msgid "Fetch already read messages"
-msgstr "Aprendido de mensajes"
+msgstr "Obteniendo mensajes ya leidos"
 
+# probably it's not "oldest" but "older"
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
+"El tamaño de la carpeta de correo nueva es menor que la anterior \n"
+"\t los siguientes usuarios excederán la nueva limitación"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
@@ -18810,9 +18818,8 @@ msgstr ""
 "habilitado"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
-#, fuzzy
 msgid "Deleting virtual domain"
-msgstr "Dominio virtual de correo"
+msgstr "Borrando dominio virtual de correo"
 
 #: ../../main/mail/src/templates/warnvd.mas:13
 msgid ""
@@ -18857,23 +18864,22 @@ msgid "Enable IMAP access"
 msgstr "Habilitar pasarela IMAP"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:57
-#, fuzzy
 msgid "Shared store only"
-msgstr "Contraseña"
+msgstr "Únicamente almacenamiento compartido"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:68
-#, fuzzy
 msgid "Auto accept meeting requests"
-msgstr "Peticiones aceptadas"
+msgstr "Aceptar peticiones de reunión automáticamente"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:79
 msgid "Decline meetings requests with conflicting times"
-msgstr ""
+msgstr "Declinar peticiones de reuniones con horarios en conflicto"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:88
 msgid "Decline recurring meeting requests"
-msgstr ""
+msgstr "Declinar peticiones de reuniones recurrentes"
 
+# Sugiero el cambio de la palabra cogerá por la palabra obtendrá 
 #: ../../main/zarafa/src/templates/zarafa.mas:99
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr ""

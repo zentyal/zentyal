@@ -1,3 +1,18 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-26 17:04+0200\n"
+"PO-Revision-Date: 2012-08-03 22:35+0200\n"
+"Last-Translator: Lueghi <lueghi@web.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
+
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:643
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
@@ -23,15 +38,16 @@ msgid "Categorized Lists"
 msgstr "Kategorien"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
-#, fuzzy
 msgid "categorized list"
-msgstr "Kategorien"
+msgstr "Kategoriesierte Liste"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Sie können Dateien mit kategorisierten Listen von Domains hochladen. Sie "
+"werden nach diesen Kategorien in jedem Filter-Profil filtern können."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
@@ -19371,7 +19387,7 @@ msgstr ""
 
 #: ../../main/zarafa/src/templates/zarafa.mas:88
 msgid "Decline recurring meeting requests"
-msgstr ""
+msgstr "Sich wiederholende Meetinganfragen ablehnen"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:99
 msgid "Zarafa takes quota settings from mail account settings."
