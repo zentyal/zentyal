@@ -804,4 +804,54 @@ sub kerberosKeys
     return $keys;
 }
 
+sub setKerberosKeys
+{
+    my ($self, $keys) = @_;
+
+    unless (defined $keys) {
+        throw EBox::Exceptions::MissingArgument('keys');
+    }
+
+    my $syntaxFile = EBox::Config::scripts('users') . 'krb5Key.asn';
+    my $asn = Convert::ASN1->new();
+    $asn->prepare_file($syntaxFile) or
+        throw EBox::Exceptions::Internal($asn->error());
+    my $asn_key = $asn->find('Key') or
+        throw EBox::Exceptions::Internal($asn->error());
+
+    my $blobs = [];
+    foreach my $key (@{$keys}) {
+        my $blob = $asn_key->encode(
+            mkvno => {
+                value => 0
+            },
+            salt => {
+                value => {
+                   type => {
+                       value => 3
+                    },
+                    salt => {
+                        value => $key->{salt}
+                    },
+                    opaque => {
+                        value => '',
+                    },
+                },
+            },
+            key => {
+                value => {
+                    keytype => {
+                        value =>  $key->{type}
+                    },
+                    keyvalue => {
+                        value => $key->{value}
+                    }
+                }
+            }) or
+        throw EBox::Exceptions::Internal($asn_key->error());
+        push (@{$blobs}, $blob);
+    }
+        $self->set('krb5Key', $blobs);
+}
+
 1;
