@@ -44,7 +44,7 @@ sub requiredParameters
 
 sub optionalParameters
 {
-    return [qw(ok cancel)];
+    return [qw(ok cancel popup)];
 }
 
 
@@ -63,10 +63,21 @@ sub actuate
 }
 
 
+
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); return false",
+);
+
 sub showRestoreProgress
 {
     my ($self, $progressIndicator) = @_;
-    $self->showProgress(
+
+    my @params = (
             progressIndicator  => $progressIndicator,
             title              => __('Restoring remote backup'),
             text               => __('Restoring modules from remote backup'),
@@ -75,6 +86,22 @@ sub showRestoreProgress
             endNote            => __('Restore successful'),
             reloadInterval     => 4,
         );
+
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
+}
+
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
 }
 
 1;

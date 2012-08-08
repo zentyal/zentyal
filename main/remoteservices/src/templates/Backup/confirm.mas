@@ -14,9 +14,13 @@ my %extraParams = @extraActionParams;
 my $onclickSubmit = '';
 my $onclickCancel = '';
 if ($popup) {
-    my $title;
-
     if ($actionCGI eq 'RestoreRemoteBackup') {
+        my $title = __x('Restore backup: {desc}',
+                        desc => $backup->{Comment});
+        my $url = '/RemoteServices/Backup/RestoreRemoteBackup?';
+        $url .= 'name=' . $backup->{Filename};
+        $url .= '&ok=1&popup=1';
+        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
     } elsif ($actionCGI eq 'DeleteRemoteBackup') {
         my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
         $url .= 'name=' . $backup->{Filename};
