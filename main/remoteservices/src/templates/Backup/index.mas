@@ -143,27 +143,40 @@ my $downloadImg  = "/data/images/down.gif";
 my $applyImg = "/data/images/apply.gif";
 my $deleteImg = "/data/images/delete.gif";
 
+
+my $restoreTitle = __('Restore configuration backup');
+my $downloadTitle = __('Download configuration backup');
+my $deleteTitle = __('Delete configuration backup');
+
 my @rows = map {
              my @row;
              my $name =  $_->{Filename};
              push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
+
+             my $restoreUrl = "Confirm?action=restore&name=$name&popup=1";
+             my $downloadUrl = "DownloadRemoteBackup?name=$name";
+             my $deleteUrl = "Confirm?action=delete&name=$name&popup=1";
+
              # action element
              push @row, [
                          {
                           name => __('Restore'),
                           icon => $applyImg,
-                          url => "Confirm?action=restore&name=$name",
+                          text => $restoreTitle,
+                          onclick => "Modalbox.show('$restoreUrl',  {title:'$restoreTitle', transitions: false}); return false",
                          },
 
                          {
                           name => __('Download'),
                           icon => $downloadImg,
-                          url => "DownloadRemoteBackup?name=$name",
+                          text => $downloadTitle,
+                          url => $downloadUrl,
                          },
                          {
                           name => __('Delete'),
                           icon => $deleteImg,
-                          url  => "Confirm?action=delete&name=$name",
+                          text => $deleteTitle,
+                          onclick => "Modalbox.show('$deleteUrl',  {title:'$deleteTitle', transitions: false}); return false",
                          },
 
                         ];

@@ -64,7 +64,9 @@ sub optionalParameters
 {
     my @optional = @extraParameters;
     push @optional, 'backup';  # needed for backup overwritten confirmation
-        return \@optional;
+    push @optional, 'popup';
+
+    return \@optional;
 }
 
 my %cgiByAction = (
@@ -202,6 +204,17 @@ sub masonParameters
     push @parameters, (extraActionParams => \@extraActionParams);
 
     return \@parameters;
+}
+
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
 }
 
 1;
