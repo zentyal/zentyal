@@ -49,7 +49,9 @@ sub _addUser
 {
     my ($self, $user) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     my $dn = $user->dn();
     $dn =~ s/OU=Users/CN=Users/i;
@@ -126,7 +128,9 @@ sub _modifyUser
 {
     my ($self, $user, $passwords) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     try {
         my $uid = $user->get('uid');
@@ -160,7 +164,9 @@ sub _delUser
 {
     my ($self, $user) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     my $uid = $user->get('uid');
 
@@ -199,7 +205,9 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     # TODO Support multiples OU
     my $dn = $group->dn();
@@ -239,7 +247,9 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     try {
         my $samAccountName = $group->get('cn');
@@ -285,7 +295,9 @@ sub _delGroup
 {
     my ($self, $group) = @_;
 
-    return unless ($self->{samba}->configured());
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
 
     my $samAccountName = $group->get('cn');
 
