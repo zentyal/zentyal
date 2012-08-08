@@ -33,7 +33,7 @@ use Date::Calc;
 use Encode;
 use Error qw( :try );
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldapi";
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
 use constant SOCKET_PATH => '/var/run/ldb';
 
 # Singleton variable
@@ -152,7 +152,6 @@ sub ldbCon
 
     if (not defined $self->{ldb} or $reconnect) {
         $self->{ldb} = $self->safeConnect();
-        $self->safeBind($self->{ldb});
     }
 
     return $self->{ldb};
@@ -201,12 +200,10 @@ sub safeConnect
 
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
-       EBox::warn('SIGPIPE received connecting to LDB');
+       EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $uri = $sysinfo->fqdn();
-    while (not $ldb = Net::LDAP->new($uri) and $retries--) {
+    while (not $ldb = Net::LDAP->new(LDAPI) and $retries--) {
         my $samba = EBox::Global->modInstance('samba');
         unless ($samba->isRunning()) {
             EBox::debug("Samba daemon was stopped, starting it");
@@ -214,54 +211,20 @@ sub safeConnect
             sleep (5);
             next;
         }
-        EBox::error("Couldn't connect to LDB server $uri: $@, retrying");
+        EBox::error("Couldn't connect to samba LDAP server: $@, retrying");
         sleep (5);
     }
 
     unless ($ldb) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to LDB server: $uri");
+            "FATAL: Couldn't connect to samba LDAP server");
     }
 
     if ($retries <= 3) {
-        EBox::debug("LDB reconnect to $uri successful");
+        EBox::debug("Reconnected successfully");
     }
 
     return $ldb;
-}
-
-sub safeBind
-{
-    my ($self, $ldb) = @_;
-
-    # Check if the server supports GSSAPI
-    my $dse = $ldb->root_dse();
-    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
-        throw EBox::Exceptions::Internal(
-            "LDAP server does not support GSSAPI");
-    }
-
-    # Get a ticket for LDAP service
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $principal = uc ($sysinfo->hostName() . '$');
-    system ('kdestroy');
-    system ('kinit --keytab=' . EBox::Samba::SAMBA_SECRETS_KEYTAB() .
-            " $principal");
-    unless ($? == 0) {
-        throw EBox::Exceptions::Internal(
-            "Could not get kerberos ticket for principal '$principal'");
-    }
-
-    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
-    my $bind = $ldb->bind(sasl => $sasl, version => 3);
-
-    unless ($bind->{resultCode} == 0) {
-        throw EBox::Exceptions::External(
-            'Could not bind to LDB server, result code: ' .
-            $bind->{resultCode} . ':' . $bind->error);
-    }
-
-    return $bind;
 }
 
 # Method: dn
@@ -427,7 +390,7 @@ sub _errorOnLdap
 ## LDB related functions                                                   ##
 #############################################################################
 
-# Method: addZentyalModule
+# Method: enableZentyalModule
 #
 #   Adds the zentyal module to LDB
 #
@@ -761,13 +724,6 @@ sub ldapUsersToLdb
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    # This control is defined in the samba header file 'samdb.h'
-    # and allow to write protected attributes like unicodePwd and
-    # supplementalCredentials
-    my $bypassControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.7165.4.3.12',
-        critical => 1 );
-
     try {
         # Disable the Zentyal LDB module, otherwise all operations will be
         # forwarded back to zentyal
@@ -818,7 +774,7 @@ sub ldapUsersToLdb
                     my $val = $secs * 10000000;
                     push ($attrs, pwdLastSet => $val);
                 }
-                $self->add($dn, { attrs => $attrs, control => $bypassControl });
+                $self->add($dn, { attrs => $attrs });
 
                 # Map UID
                 # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
@@ -887,6 +843,141 @@ sub ldapGroupsToLdb
                 my $type = $self->idmap->TYPE_GID();
                 my $sid = $self->getSidById($samAccountName);
                 $self->idmap->setupNameMapping($sid, $type, $gidNumber);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error loading group '$dn': $error");
+            };
+        }
+    } otherwise {
+        my $error = shift;
+        throw EBox::Exceptions::Internal($error);
+    } finally {
+        $self->enableZentyalModule();
+    };
+}
+
+sub users
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=user)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))',
+        attrs => ['samAccountName', 'givenName', 'sn', 'name', 'description', 'uidNumber', 'supplementalCredentials', 'unicodePwd', ],
+    };
+    my $res = $self->search($params);
+    my @entries = $res->entries();
+
+    return \@entries;
+}
+
+sub groups
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=group)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))',
+        attrs => ['samAccountName', 'cn', 'description', 'gidNumber'],
+    };
+    my $res = $self->search($params);
+    my @entries = $res->entries();
+
+    return \@entries;
+}
+
+sub ldbUsersToLdap
+{
+    my ($self) = @_;
+
+    try {
+        EBox::info('Loading Samba users into Zentyal LDAP');
+        my $users = $self->users();
+
+        foreach my $entry (@{$users}) {
+            my $dn = $entry->dn();
+            EBox::info("Adding user '$dn'");
+            $dn =~ s/CN=Users/OU=Users/i;
+            $dn =~ s/CN=/UID=/i;
+            try {
+                unless ($entry->exists('samAccountName')) {
+                    EBox::warn("Required attribute samAccountName not present in $dn object");
+                    next;
+                }
+                my $suppCred    = $entry->get_value('supplementalCredentials');
+                my $unicodePwd  = $entry->get_value('unicodePwd');
+                my $credentials = EBox::LDB::Credentials::decodeSambaCredentials($suppCred, $unicodePwd);
+
+                my $params = {};
+                $params->{user}      = $entry->get_value('samAccountName');
+                $params->{fullname}  = $entry->get_value('name');
+                $params->{givenname} = defined $entry->get_value('givenName') ? $entry->get_value('givenName') : $entry->get_value('samAccountName');
+                $params->{surname}   = defined $entry->get_value('sn') ? $entry->get_value('sn') : $entry->get_value('samAccountName');
+                $params->{comment}   = $entry->get_value('description');
+
+                my %optParams;
+                $optParams{ignoreMods} = ['samba'];
+                my $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+                $user->setKerberosKeys($credentials->{kerberosKeys});
+
+                # Set the uid mapping
+                my $uidNumber = $user->get('uidNumber');
+                my $type = $self->idmap->TYPE_UID();
+                my $sid = $self->getSidById($entry->get_value('samAccountName'));
+                $self->idmap->setupNameMapping($sid, $type, $uidNumber);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error loading user '$dn': $error");
+            };
+        }
+    } otherwise {
+        my $error = shift;
+        throw EBox::Exceptions::Internal($error);
+    } finally {
+        $self->enableZentyalModule();
+    };
+}
+
+sub ldbGroupsToLdap
+{
+    my ($self) = @_;
+
+    try {
+        EBox::info('Loading Samba groups into Zentyal LDAP');
+        my $groups = $self->groups();
+
+        foreach my $entry (@{$groups}) {
+            my $dn = $entry->dn();
+            EBox::info("Adding groups '$dn'");
+            $dn =~ s/CN=Users/OU=Groups/i;
+            try {
+                unless ($entry->exists('samAccountName')) {
+                    EBox::warn("Required attribute samAccountName not present in $dn object");
+                    next;
+                }
+                my $name = $entry->get_value('samAccountName');
+                my $comment = $entry->get_value('description');
+
+                my %optParams;
+                $optParams{ignoreMods} = ['samba'];
+                my $group = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
+
+                # Set the gid mapping
+                my $gidNumber = $group->get('gidNumber');
+                my $type = $self->idmap->TYPE_GID();
+                my $sid = $self->getSidById($entry->get_value('samAccountName'));
+                $self->idmap->setupNameMapping($sid, $type, $gidNumber);
+
+                # Sync group memebers
+                my $usersMod = EBox::Global->modInstance('users');
+                my @members = $entry->get_value('member');
+                foreach my $m (@members) {
+                    my $samAccountName = $self->getIdByDn($m);
+                    my $user = $usersMod->user($samAccountName);
+                    $user->addGroup($group);
+                }
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading group '$dn': $error");

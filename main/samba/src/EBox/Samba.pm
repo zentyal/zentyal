@@ -56,7 +56,7 @@ use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
 use constant SAMBA_DNS_DLZ_X86    => '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so';
 use constant SAMBA_DNS_DLZ_X64    => '/usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9.so';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
-use constant SAMBA_SECRETS_KEYTAB => PRIVATE_DIR . 'secrets.keytab';
+use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
@@ -509,8 +509,7 @@ sub provision
     my $ipaddrs = $network->internalIpAddresses();
     unless (scalar @{$ipaddrs} > 0) {
         throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
-                                            'cannot continue with database provision. The module ' .
-                                            'will remain disabled.'));
+                                            'cannot continue with database provision.'));
     }
 
     my $mode = $self->mode();
@@ -580,18 +579,15 @@ sub provisionAsDC
     # module.
     $self->setupDNS();
 
-    # Grant read access to zentyal group on the secrets keytab
+    # Grant rw access to zentyal group on the privileged socket
     my $group = EBox::Config::group();
-    EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
-    EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
 
-    # Start managed service
+    # Start managed service to let it create the LDAP socket
     EBox::debug('Starting service');
     $self->_startService();
-
-    # Add the DC computer account to the domain admins. group, needed
-    # because we bind to the samba LDAP with this account to add users
-    $self->addDCAccountToAdmins($sysinfo->hostName());
 
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
@@ -603,24 +599,6 @@ sub provisionAsDC
                "replace: \@LIST\n" .
                "\@LIST: zentyal,samba_dsdb\n";
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
-}
-
-sub addDCAccountToAdmins
-{
-    my ($self, $hostName) = @_;
-
-    my $samAccountName = uc ($hostName) . '$';
-    my $accountDN = $self->ldb->getDnById($samAccountName);
-    my $domainAdminsSid = $self->ldb->domainSID() . '-512';
-    my $domainAdminsDN = $self->ldb->getDnBySid($domainAdminsSid);
-    my $ldif = "dn: $domainAdminsDN\n" .
-               "changetype: modify\n" .
-               "add: member\n" .
-               "member: $accountDN";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
-
-    # Force LDB to rebind on next request
-    $self->ldb->clearConn();
 }
 
 sub setupDNS
@@ -684,7 +662,6 @@ sub provisionAsADC
     }
 
     my $dnsFile = undef;
-    my $pwdFile = undef;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
 
@@ -703,8 +680,6 @@ sub provisionAsADC
         $self->writeConfFile(EBox::Network::RESOLV_FILE(),
                              'network/resolv.conf.mas',
                              $array);
-
-        # Purge users and groups
 
         # Join the domain
         EBox::debug("Joining to the domain");
@@ -730,44 +705,48 @@ sub provisionAsADC
             throw EBox::Exceptions::Internal("Error joining to domain: @error");
         }
 
-    # Set DNS. The domain should have been created by the users
-    # module.
-    $self->setupDNS();
+        $self->setupDNS();
 
-    # Grant read access to zentyal group on the secrets keytab
-    my $group = EBox::Config::group();
-    EBox::Sudo::root("chgrp $group " . SAMBA_SECRETS_KEYTAB);
-    EBox::Sudo::root("chmod g+r " . SAMBA_SECRETS_KEYTAB);
+        # Grant rw access to zentyal group on the privileged socket
+        my $group = EBox::Config::group();
+        EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
 
-    # Start managed service
-    EBox::debug('Starting service');
-    $self->_startService();
+        # Start managed service
+        EBox::debug('Starting service');
+        $self->_startService();
 
-    # Add the DC computer account to the domain admins. group, needed
-    # because we bind to the samba LDAP with this account to add users
-    $self->addDCAccountToAdmins($sysinfo->hostName());
+        # Purge users and groups
+        EBox::info("Purging the Zentyal LDAP to import Samba users");
+        my $usersMod = EBox::Global->modInstance('users');
+        my $users = $usersMod->users();
+        my $groups = $usersMod->groups();
+        foreach my $user (@{$users}) {
+            $user->deleteObject();
+        }
+        foreach my $group (@{$groups}) {
+            $group->deleteObject();
+        }
 
-    # Add the zentyal module to the LDB modules stack
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+        $self->ldb->ldbUsersToLdap();
+        $self->ldb->ldbGroupsToLdap();
+
+        # Add the zentyal module to the LDB modules stack
+        my $ldif = "dn: \@MODULES\n" .
+                   "changetype: modify\n" .
+                   "replace: \@LIST\n" .
+                   "\@LIST: zentyal,samba_dsdb\n";
+        EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
     } otherwise {
         my $error = shift;
         throw $error;
     } finally {
-        # Remove admin account pwd file
-        unlink $pwdFile if (defined $pwdFile and -f $pwdFile);
-
         # Revert primary resolver changes
         if (defined $dnsFile and -f $dnsFile) {
             EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
-
-        # Destroy the kerberos ticket
-        EBox::Sudo::silentRoot('kdestroy');
     };
 }
 
