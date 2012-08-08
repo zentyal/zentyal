@@ -203,6 +203,10 @@ sub masonParameters
 
     push @parameters, (extraActionParams => \@extraActionParams);
 
+    if ($self->param('popup')) {
+        push @parameters, (popup => 1);
+    }
+
     return \@parameters;
 }
 

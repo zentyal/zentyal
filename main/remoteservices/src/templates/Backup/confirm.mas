@@ -4,12 +4,28 @@
     @extraActionParams => ()
     $text    => ''
     $okText  => 'OK'
+    $popup => 0
 </%args>
 <%init>
 use EBox::Gettext;
 
 my %extraParams = @extraActionParams;
 
+my $onclickSubmit = '';
+my $onclickCancel = '';
+if ($popup) {
+    my $title;
+
+    if ($actionCGI eq 'RestoreRemoteBackup') {
+    } elsif ($actionCGI eq 'DeleteRemoteBackup') {
+        my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
+        $url .= 'name=' . $backup->{Filename};
+        $url .= '&ok=1';
+        $onclickSubmit = qq(onclick="Modalbox.hide(); window.location='$url'; return false");
+    }
+
+    $onclickCancel = qq{onclick="Modalbox.hide(); return false"};
+}
 </%init>
 <div class='note'>
 <% $text %>
@@ -66,9 +82,11 @@ my %extraParams = @extraActionParams;
 %                   }
 
                     <input class='inputButton' type='submit'
-                            name='ok' value='<%$okText%>' alt='<%$okText%>'/>
+                            name='ok' value='<%$okText%>' alt='<%$okText%>'
+                            <% $onclickSubmit  %> />
                     <input class='inputButton' type='submit'
-                            name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+                            name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"
+                            <% $onclickCancel  %> />
 
                 </td>
             </tr>
