@@ -192,7 +192,7 @@ my @legendElements = (
 <& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
 <br />
 
-<& /legendTable.mas, elements => \@legendElements, nColumns => 2 &>
+<& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
 </%def>
 

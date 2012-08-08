@@ -255,10 +255,10 @@ my %printableTypeById = (
 <!-- Put the legend underneath the list -->
 <%perl>
   my @legendElements = (
-                        { imgFile => "/data/images/down.gif",
-                          imgName => __('download') },
                         { imgFile => "/data/images/apply.gif",
                           imgName => __('restore') },
+                        { imgFile => "/data/images/down.gif",
+                          imgName => __('download') },
                         { imgFile => "/data/images/delete.gif",
                           imgName => __('delete') }
                        );
