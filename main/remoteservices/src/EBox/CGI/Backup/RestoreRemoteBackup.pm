@@ -39,44 +39,42 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-  return [qw(name)];
+    return [qw(name)];
 }
 
 sub optionalParameters
 {
-  return [qw(ok cancel)];
+    return [qw(ok cancel)];
 }
 
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->param('cancel') and return;
+    $self->param('cancel') and return;
 
-  my $backup =  new EBox::RemoteServices::Backup;
-  my $name   = $self->param('name');
+    my $backup =  new EBox::RemoteServices::Backup;
+    my $name   = $self->param('name');
 
-  my $progress = $backup->prepareRestoreRemoteBackup($name);
+    my $progress = $backup->prepareRestoreRemoteBackup($name);
 
-
-  $self->showRestoreProgress($progress);
+    $self->showRestoreProgress($progress);
 }
 
 
 sub showRestoreProgress
 {
-  my ($self, $progressIndicator) = @_;
-  $self->showProgress(
-		      progressIndicator => $progressIndicator,
-		      title              => __('Restoring remote backup'),
-		      text               =>   __('Restoring modules from remote backup'),
-		      currentItemCaption =>   __('Module') ,
-		      itemsLeftMessage   =>   __('modules left to restore'),
-		      endNote            =>   __('Restore successful'),
-
-		      reloadInterval  => 4,
-		     );
+    my ($self, $progressIndicator) = @_;
+    $self->showProgress(
+            progressIndicator  => $progressIndicator,
+            title              => __('Restoring remote backup'),
+            text               => __('Restoring modules from remote backup'),
+            currentItemCaption => __('Module') ,
+            itemsLeftMessage   => __('modules left to restore'),
+            endNote            => __('Restore successful'),
+            reloadInterval     => 4,
+        );
 }
 
 1;
