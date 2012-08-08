@@ -240,4 +240,229 @@ sub encodeSambaCredentials
     return $credentials;
 }
 
+# Method: decodeWDigest
+#
+#   Docode the WDIGEST_CREDENTIALS struct. This struct
+#   contains 29 different hashes produced by combinations
+#   of different elements including the sAMAccountName,
+#   realm, host, etc. The format is documented at:
+#   http://msdn.microsoft.com/en-us/library/cc245502(v=prot.10).aspx
+#   The list of included hashes is documented at:
+#   http://msdn.microsoft.com/en-us/library/cc245680(v=prot.10).aspx
+#
+# Returns:
+#
+#   An array reference containing the hashes
+#
+sub decodeWDigest
+{
+    my ($data) = @_;
+
+    my $hashes = ();
+
+    my $format = 'x4 a2 a2 x24 (a32)29';
+    if (length ($data) == 960) {
+        my ($version, $nHashes, @hashValues) = unpack($format, $data);
+        $version = hex($version);
+        $nHashes = hex($nHashes);
+        if ($version == 1 and $nHashes == 29) {
+            $hashes = \@hashValues;
+        }
+    }
+    return $hashes;
+}
+
+# Method: decodeKerberos
+#
+#   Decode the KERB_STORED_CREDENTIAL struct. This struct
+#   contains the hashes of the kerberos keys. Its format
+#   is documented at:
+#   http://msdn.microsoft.com/en-us/library/cc245503(v=prot.10).aspx
+#
+# Returns:
+#
+#   A hash reference with the kerberos keys
+#
+sub decodeKerberos
+{
+    my ($data) = @_;
+
+    my $kerberosKeys = [];
+
+    $data = pack('H*', $data); # from hex to binary
+    my $format = 's x2 s s s s l a*';
+    if (length ($data) > 16) {
+        my ($revision, $nCredentials, $nOldCredentials, $saltLength, $maxSaltLength, $saltOffset) = unpack($format, $data);
+        if ($revision == 3) {
+            my ($saltValue) = unpack('@' . $saltOffset . 'a' . $maxSaltLength, $data);
+            my $offset = 16;
+            for (my $i=0; $i<$nCredentials; $i++) {
+                my ($keyType, $keyLength, $keyOffset) = unpack('@' . $offset . 'x8 l l l', $data);
+                # From MS-SAMR Security Account Manager (SAM) Remote Protocol Specification (Client-to-Server) (v20110610)
+                # Section 2.2.10.8: When the current domain functional level is DS_BEHAVIOR_WIN2003 or
+                # less, a Windows Server 2008 or Windows Server 2008 R2 DC includes a KeyType of -140 in each of
+                # KERB_STORED_CREDENTIAL and KERB_STORED_CREDENTIAL_NEW, which is not needed and can
+                # be ignored; it is a dummy type in the supplemental credentials that is not present when the domain
+                # functional level is raised to DS_BEHAVIOR_WIN2008 or greater. The key data is the NT hash of the
+                # password.
+                my ($keyValue) = unpack('@' . $keyOffset . 'a' . $keyLength, $data);
+                $offset += 20;
+                my $key = {
+                    type => $keyType,
+                    value => $keyValue,
+                    salt => decode ('UTF-16LE', $saltValue),
+                };
+                push (@{$kerberosKeys}, $key) if ($keyType != -140);
+            }
+        }
+    }
+    return $kerberosKeys;
+}
+
+sub decodeKerberosNewerKeys
+{
+    my ($data) = @_;
+
+    my $kerberosKeys = [];
+
+    $data = pack('H*', $data); # from hex to binary
+    my $format = 's x2 s s s s s s l l a*';
+    if (length ($data) > 24) {
+        my ($revision, $nCredentials, $nServiceCredentials,
+            $nOldCredentials, $nOlderCredentials,
+            $saltLength, $maxSaltLength,
+            $saltOffset, $defaultIterationCount) = unpack ($format, $data);
+        if ($revision == 4) {
+            my ($saltValue) = unpack('@' . $saltOffset . 'a' . $maxSaltLength, $data);
+            my $offset = 24;
+            for(my $i=0; $i<$nCredentials; $i++) {
+                my ($keyType, $keyLength, $keyOffset) = unpack('@' . $offset . 'x12 l l l', $data);
+                my ($keyValue) = unpack('@' . $keyOffset . 'a' . $keyLength, $data);
+                $offset += 24;
+                my $key = {
+                    type => $keyType,
+                    value => $keyValue,
+                    salt => decode ('UTF-16LE', $saltValue),
+                };
+                push (@{$kerberosKeys}, $key) if ($keyType != -140);
+            }
+        }
+    }
+    return $kerberosKeys;
+}
+
+# Method: decodeSupplementalCredentials
+#
+#   this struct is documented at:
+#   http://msdn.microsoft.com/en-us/library/cc245500(v=prot.10).aspx
+#   The USER_PROPERTIES contains various USER_PROPERTY structs,
+#   documented at:
+#   http://msdn.microsoft.com/en-us/library/cc245501(v=prot.10).aspx
+#
+# Returns:
+#
+#   A hash reference containing the different hashes
+#   of the user credentials in different formats
+#
+sub decodeSupplementalCredentials
+{
+    my ($blob) = @_;
+
+    my $credentials = {};
+    my $blobFormat = 'x4 L< x2 x2 x96 S< S< a*';
+    if (length ($blob) > 112) {
+        my ($blobLength, $blobSignature, $nProperties, $properties) = unpack ($blobFormat, $blob);
+        # Check the signature. Its value must be 0x50
+        if ($blobSignature == 0x50) {
+            my $offset = 112;
+            for (my $i=0; $i<$nProperties; $i++) {
+                my ($propertyNameLength) = unpack('@' . $offset . 'S<', $blob);
+                $offset += 2;
+
+                my ($propertyValueLength) = unpack('@' . $offset . 'S<', $blob);
+                $offset += 4; # 2 bytes + 2 bytes reserved
+
+                my ($propertyName) = unpack('@' . $offset . 'a' . $propertyNameLength, $blob);
+                $offset += $propertyNameLength;
+
+                my ($propertyValue) = unpack('@' . $offset . 'a' . $propertyValueLength, $blob);
+                $offset += $propertyValueLength;
+
+                if($propertyName eq encode('UTF-16LE', 'Primary:Kerberos')) {
+                    $credentials->{'Primary:Kerberos'} = decodeKerberos($propertyValue);
+                }
+                elsif($propertyName eq encode('UTF-16LE', 'Primary:Kerberos-Newer-Keys')) {
+                    $credentials->{'Primary:Kerberos-Newer-Keys'} = decodeKerberosNewerKeys($propertyValue);
+                }
+                elsif($propertyName eq encode('UTF-16LE', 'Primary:WDigest')) {
+                    $credentials->{'Primary:WDigest'} = decodeWDigest($propertyValue);
+                }
+                elsif($propertyName eq encode('UTF-16LE', 'Primary:CLEARTEXT')) {
+                    $credentials->{'Primary:CLEARTEXT'} = decode('UTF-16LE', pack ('H*', $propertyValue));
+                }
+            }
+        } else {
+            throw EBox::Exceptions::Internal("Corrupted supplementalCredentials");
+        }
+    } else {
+        throw EBox::Exceptions::Internal("Truncated supplementalCredentials");
+    }
+    return $credentials;
+}
+
+# Method: decodeSambaCredentials
+#
+#   This method gets all the credentials stored in the
+#   LDB for the user
+#
+# Parameters:
+#
+#   supplementalCredentialsBlob
+#   unicodePwdBlob
+#
+# Returns:
+#
+#   A hash reference containing all found credentials
+#
+sub decodeSambaCredentials
+{
+    my ($supplementalCredentialsBlob, $unicodePwdBlob) = @_;
+
+    my $credentials = {};
+
+    if (defined $supplementalCredentialsBlob) {
+        my $properties = decodeSupplementalCredentials($supplementalCredentialsBlob);
+        if (exists $properties->{'Primary:Kerberos-Newer-Keys'}) {
+            $credentials->{kerberosKeys} = $properties->{'Primary:Kerberos-Newer-Keys'};
+        } elsif (exists $properties->{'Primary:Kerberos'}) {
+            $credentials->{kerberosKeys} = $properties->{'Primary:Kerberos'};
+        }
+
+        if (exists $properties->{'Primary:WDigest'}) {
+            $credentials->{WDigest} = $properties->{'Primary:WDigest'};
+        }
+
+        if (exists $properties->{'Primary:CLEARTEXT'}) {
+            $credentials->{clearText} = $properties->{'Primary:CLEARTEXT'};
+        }
+
+        if (defined $unicodePwdBlob) {
+            unless (exists $credentials->{kerberosKeys}) {
+                $credentials->{kerberosKeys} = [];
+            }
+            # Copy salt from previous krb keys
+            if (scalar $credentials->{kerberosKeys} > 0) {
+                my $key = {
+                    type => 23,
+                    salt => @{$credentials->{kerberosKeys}}[0]->{salt},
+                    value => $unicodePwdBlob,
+                };
+                push (@{$credentials->{kerberosKeys}}, $key);
+            }
+        }
+    }
+
+    return $credentials;
+}
+
 1;
