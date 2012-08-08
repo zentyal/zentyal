@@ -33,27 +33,44 @@ my @formElements;
 if ($restricted) {
     push @formElements, [
                          name => 'newName',
+                         id => 'backup_name',
                          printableName => __('Name'),
                         ];
 
 } else {
     push @formElements, [
                          name => 'name',
+                         id => 'backup_name',
                          printableName => __('Name'),
                         ];
 }
 
+my $backupTitle = __('Remote Backup');
+my $backupOnClickJs =<< "ENDJS" ;
+     var name= \$('backup_name').value;
+     var description= \$('backup_description').value;
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/MakeRemoteBackup?';
+     url += 'name=' + name;
+     url += '&description=' + description;
+     url += '&backup=1&popup=1';
+
+     Modalbox.show(url, {title: title, transitions: false});
+     return false
+ENDJS
 
 push @formElements, (
 
                  [
                   name => 'description',
+                  id => 'backup_description',
                   printableName => __('Description'),
                  ],
                  [
                   input => 'submit',
                   name  => 'backup',
                   value => __('Back up'),
+                  onclick => $backupOnClickJs,
                   $modulesChanged ? (disabled => 'disabled') : (),
                  ]
 

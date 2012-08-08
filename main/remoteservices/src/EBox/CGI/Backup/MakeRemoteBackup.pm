@@ -43,6 +43,11 @@ sub requiredParameters
 }
 
 
+sub optionalParameters
+{
+    return ['popup'];
+}
+
 
 
 sub actuate
@@ -60,12 +65,20 @@ sub actuate
     $self->showBackupProgress($progress);
 }
 
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
+);
 
 sub showBackupProgress
 {
     my ($self, $progressIndicator) = @_;
 
-    $self->showProgress(
+    my @params = (
                     progressIndicator  => $progressIndicator,
                     title              => __('Making remote backup'),
                     text               =>  __('Backing up modules '),
@@ -74,6 +87,22 @@ sub showBackupProgress
                     endNote            =>  __('Backup successful'),
                     reloadInterval     =>  2,
                  );
+
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
+}
+
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
 }
 
 1;
