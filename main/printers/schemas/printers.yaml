@@ -12,6 +12,7 @@ bootdepends:
 
 models:
     - CUPS
+    - ACLS
 
 composites:
-    General: [ CUPS ]
+    General: [ CUPS, ACLS ]
