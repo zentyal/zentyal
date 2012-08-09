@@ -17,3 +17,6 @@ models:
 
 composites:
     General: [ CUPS, Printers ]
+
+foreign:
+    Printers: [ PrinterPermissions ]

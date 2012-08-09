@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Types::Union;
 use EBox::Types::Select;
 use EBox::Exceptions::DataExists;
+use EBox::View::Customizer;
 
 # Dependencies
 use Error qw(:try);
