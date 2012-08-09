@@ -12,7 +12,8 @@ bootdepends:
 
 models:
     - CUPS
-    - ACLS
+    - Printers
+    - PrinterPermissions
 
 composites:
-    General: [ CUPS, ACLS ]
+    General: [ CUPS, Printers ]

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Printers::Model::ACLS;
+package EBox::Printers::Model::Printers;
 
 use base 'EBox::Model::DataTable';
 
@@ -23,6 +23,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::View::Customizer;
 use EBox::Types::Text;
+use EBox::Types::HasMany;
 use Net::CUPS;
 
 # Group: Public methods
@@ -86,7 +87,8 @@ sub syncRows
         my $p = $cupsPrinters{$printerName};
         my $desc = $p->getDescription();
         my $loc = $p->getLocation();
-        $self->add(printer => $printerName, description => $desc, location => $loc);
+        $self->add(printer => $printerName, description => $desc,
+                   location => $loc, guest => 0);
         $modified = 1;
     }
 
@@ -163,16 +165,29 @@ sub _table
             editable => 0,
             optional => 1,
         ),
+        new EBox::Types::Boolean(
+            fieldName     => 'guest',
+            printableName => __('Guest access'),
+            editable      => 1,
+            defaultValue  => 0,
+            help          => __('This printer will not require authentication.'),
+        ),
+        new EBox::Types::HasMany(
+            fieldName     => 'access',
+            printableName => __('Access control'),
+            foreignModel => 'PrinterPermissions',
+            view => '/Printers/View/PrinterPermissions'
+        ),
     );
 
     my $dataForm =
     {
-        tableName          => 'ACLS',
+        tableName          => 'Printers',
         printableTableName => __('Printer permissions'),
-        defaultActions     => [ 'changeView' ],
+        defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
         modelDomain        => 'Printers',
-        sortedBy           =>    'printer',
+        sortedBy           => 'printer',
         printableRowName   => __('printer'),
         withoutActions     => 1,
 #FIXME        help               => __(''),
