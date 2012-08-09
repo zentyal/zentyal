@@ -15,11 +15,6 @@
 
 package EBox::Printers::Model::CUPS;
 
-# Class: EBox::Printers::Model::CUPS
-#
-#   Class description
-#
-
 use base 'EBox::Model::DataTable';
 
 use strict;
@@ -46,7 +41,7 @@ sub new
 
     my $self = $class->SUPER::new(@_);
 
-    bless ( $self, $class );
+    bless ($self, $class);
 
     return $self;
 }
