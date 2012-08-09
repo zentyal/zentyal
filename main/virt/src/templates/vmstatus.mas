@@ -29,10 +29,10 @@ if ($item->{running}) {
 <form>
     <span class='sright'>
 % if ($item->{running}) {
-        <input class="inputButtonRestart" type="submit" value="<% __('Stop') %>"
+        <input class="inputButtonRestart" type="submit" name="stop" value="<% __('Stop') %>"
                onclick="<% $model->customActionClickedJS('stop', $id) %>; return false;"/>
 % } else {
-        <input class="inputButtonRestart" type="submit" value="<% __('Start') %>"
+        <input class="inputButtonRestart" type="submit" name="start" value="<% __('Start') %>"
                onclick="<% $model->customActionClickedJS('start', $id) %>; return false;"/>
 % }
     </span>

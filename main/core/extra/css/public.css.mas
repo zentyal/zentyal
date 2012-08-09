@@ -60,14 +60,12 @@
     padding-bottom: 0;
     margin: 2px 0px 0px -5px;
 }
-
 #hmenu {
     position: relative;
     display: block;
     top: -40px;
     float:right;
 }
-
 #hmenu a {
     float:left;
     font-size: 11px;
@@ -75,60 +73,45 @@
     line-height: 16px;
     padding: 25px 15px 5px 15px;
     text-decoration: none;
-            
-    border-top: 1px solid #E6A603;
-    border-left: 1px solid #E6A603;
-    border-right: 2px solid #E6A603;
-    border-bottom: 2px solid #E6A603;
-
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
     border-radius:3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     margin-left:5px;
-
+    background-color: #E9E9E9;
 }
-
-#hmenu a:hover { background-color: #FFC200; }
+#hmenu a:hover { background-color: #DFDFDF; }
 
 #hmenu #remote_services_link{
-    background:url("/data/images/cloud.gif") center 5px no-repeat ;
+    background:url("/data/images/cloud.png") center 5px no-repeat ;
     background-color: <% $remote_svcs_hover_bg_color %>;
     display:block;
-    
     border-top: 1px solid  #A7BE56;
     border-left: 1px solid  #A7BE56;
     border-right: 2px solid  #A7BE56;
     border-bottom: 2px solid  #A7BE56;
-    
 }
-
 #hmenu #remote_services_link:hover {
         background-color: <% $remote_svcs_bg_color %>;
 }
 
 #hmenu #m { 
     background:url("/data/images/logout.gif") center 5px no-repeat ;
-    background-color: #E9E9E9;
-    display:block;
-    
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
 }
 
-#hmenu #change_menu {
+
+#hmenu #changes_menu {
     background:  #FFD600 url("/data/images/save.gif") center 5px no-repeat;
     display:none;
-        
     border-top: 1px solid #E6A603;
     border-left: 1px solid #E6A603;
     border-right: 2px solid #E6A603;
-    border-bottom: 2px solid #E6A603;
+    border-bottom: 2px solid #E6A603;       
 }
-
-#hmenu #m:hover { background-color: #DFDFDF; }
-
-
-
+#hmenu #changes_menu:hover { background-color: #FFC200; }
 
 #top {
     padding:0;
@@ -437,6 +420,8 @@ select {
     font-family: Verdana, sans-serif;
     border:1px solid #A5A5A5;
     border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     background-image: -ms-linear-gradient(top, #f5f5f5, #fff);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#fff));
     background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
@@ -459,6 +444,8 @@ select {
 input[type='password'], input[type='text'] { 
     border:1px solid #A5A5A5;
     border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     background-image: -ms-linear-gradient(top, #f5f5f5, #fff);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#fff));
     background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
@@ -481,14 +468,13 @@ input[type='password'][disabled], input[type='text'][disabled] {
 input[type='submit'], .big {
     color:#666;
     border-radius: 3px;
-        
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     background-color: #E9E9E9;
-    
     border-top: 1px solid #A5A5A5;
     border-left: 1px solid #A5A5A5;
     border-right: 2px solid #A5A5A5;
     border-bottom: 2px solid #A5A5A5;
-
     padding:5px 10px; 
     cursor:pointer;
     text-transform: uppercase;
@@ -531,23 +517,23 @@ input[type='submit'][disabled]{
     font-weight: normal !important;
 }
 
-.inputButtonRestart[value='Restart']{ 
+.inputButtonRestart[name='restart']{ 
     background:#BDEDF7  url("/data/images/restart.gif") 5px center no-repeat; 
     border-color:#8CBBC5; }
 
-    .inputButtonRestart[value='Restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
 
-.inputButtonRestart[value='Start']{ 
+.inputButtonRestart[name='start']{ 
     background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
     border-color:#829E59}
 
-    .inputButtonRestart[value='Start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
 
-.inputButtonRestart[value='Stop']{ 
+.inputButtonRestart[name='stop']{ 
     background:#FAA68B url("/data/images/stop_p.gif") 5px center no-repeat;
     border-color:#DB866B}
 
-    .inputButtonRestart[value='Stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
 
 .inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
     /*font-size: 11px;*/
@@ -558,6 +544,8 @@ input[type='submit'][disabled]{
     border-right: 2px solid #A5A5A5;
     border-bottom: 2px solid #A5A5A5;
     border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     padding: 3px;
 }
 
@@ -873,6 +861,7 @@ pre {
 
 .notchanged {
     background-color: <% $third_color %>;
+    display:none;
 }
 
 a.notchanged:hover {
@@ -965,6 +954,8 @@ a.notchanged:hover {
     border-right: 2px solid #A5A5A5;
     border-bottom: 2px solid #A5A5A5;
     border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     padding-left: 25px;
     height: 30px;
     display: block;
@@ -1122,8 +1113,9 @@ a.notchanged:hover {
         left: 0pt;
         top: 0pt;
         z-index: 1;
-        /*border-radius: 5px 5px 0 0;
-        -moz-border-radius: 5px 5px 0 0;*/
+        border-radius: 5px 5px 0 0;
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
 }
 
 .widgetName {
@@ -1174,8 +1166,9 @@ a.minBox, a.maxBox {
 .widgetBox {
         margin-bottom: 15px;
         background-color:white;
-        /*border-radius: 5px ;
-        -moz-border-radius: 5px;*/
+        border-radius: 5px ;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(200,200,200,1)
 }
 
@@ -1325,6 +1318,8 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     margin:5px 0px;
     float:left;
     border-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     width:100%;
     padding:10px;
     border: 1px solid #ccc;
@@ -1350,20 +1345,17 @@ margin-top:5px;
     float:left;
     margin-top:5px;
     text-decoration:none;
-
     color:#666;
     border-radius: 3px;
-
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     background: #E9E9E9 url(/data/images/conf_rul.gif) 5px center no-repeat;
-    
     border-top: 1px solid #A5A5A5;
     border-left: 1px solid #A5A5A5;
     border-right: 2px solid #A5A5A5;
     border-bottom: 2px solid #A5A5A5;
-
     padding:5px 10px 5px 30px; 
     cursor:pointer;
-        
 }
 
 .big {
@@ -1489,7 +1481,7 @@ float:left;
     font-weight:normal;
 }
 
-/*input[value="Change"]{
+/*input[name="change"]{
 height: 30px;
 display: block;
 width: 60px;
@@ -1503,9 +1495,11 @@ background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.
 color: white;
 font-weight: bold;
 border-radius: 3px;
+-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
 }
 
-input[value="Change"]:hover {
+input[name="change"]:hover {
 border: 1px solid #FF7000;
 background: background-image: linear-gradient(bottom, #FFD500 18% , #FFA200 82%);
 background-image: -o-linear-gradient(bottom, #FFD500 18%, #FFA200 82%);
@@ -1516,6 +1510,8 @@ background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.
 color: white;
 font-weight: bold;
 border-radius: 3px;
+-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
 }*/
 
 
@@ -1620,7 +1616,8 @@ border-radius: 3px;
 }
 
 .MB_dialog #MB_header {
-    border-radius: 7px 7px 0px 0px;
+    border-radius: 7px 7px 0px 0px
+    -moz-border-radius: 7px 7px 0px 0px;
 }
 
 /* end modalbox.js stuff */
