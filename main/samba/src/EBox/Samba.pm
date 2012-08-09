@@ -1160,23 +1160,6 @@ sub menu
                                     'order' => 540));
 }
 
-#   Function: setPrinterService
-#
-#       Sets the printer sharing service through samba and cups
-#
-#   Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setPrinterService # (enabled)
-{
-    my ($self, $active) = @_;
-    ($active and $self->printerService) and return;
-    (not $active and not $self->printerService) and return;
-
-    $self->set_bool('printer_active', $active);
-}
-
 # Method: servicePrinter
 #
 #   Returns if the printer sharing service is enabled
@@ -1189,7 +1172,11 @@ sub printerService
 {
     my ($self) = @_;
 
-    return $self->get_bool('printer_active');
+    if (EBox::Global->modExists('printers')) {
+        my $module = EBox::Global->modInstance('printers');
+        return $module->isEnabled();
+    }
+    return undef;
 }
 
 # Method: defaultAdministratorPassword

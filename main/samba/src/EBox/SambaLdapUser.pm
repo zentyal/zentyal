@@ -535,7 +535,7 @@ sub _userAddOns
         'service'        => $serviceEnabled,
 
         'printers' => [], #$printers,
-        'printerService' => undef, #$samba->printerService(),
+        'printerService' => $self->{samba}->printerService(),
     };
 
     return { path => '/samba/samba.mas', params => $args };
