@@ -122,9 +122,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 .percent{
     float: left;
-    line-height: 20px;
-	height:20px;
-	margin-left: <% $percentMargin ? $percentMargin : '380' %>px;
+    line-height: 30px;
+	height:30px;
+	/*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
 	z-index : 100;
 	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
@@ -147,7 +147,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-    <div class="bar"<% $barWidth ? "style='width: $barWidth'" : ""%> >
+    <div class="bar">
         <div id="progressValue"></div>
     </div>
 </div>

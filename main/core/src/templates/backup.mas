@@ -150,17 +150,15 @@ my %printableTypeById = (
 						name='id'
 						value="<% $backup->{'id'} %>"/>
 					<input type='image' name='restoreFromId'
-						src='/data/images/apply.gif'
+						src='/data/images/restore.gif'
 						value="Restore"
 						title="<%__('Restore configuration using this file')%>"
 						alt="<%__('Restore from backup')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='download'
-						src='/data/images/down.gif'
+						src='/data/images/download.gif'
 						value="Download"
 						title="<%__('Download')%>"
 						alt="<%__('Download')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
 						value="Delete"
@@ -177,9 +175,9 @@ my %printableTypeById = (
 <!-- Put the legend underneath the list -->
 <%perl>
   my @legendElements = (
-                        { imgFile => "/data/images/down.gif",
+                        { imgFile => "/data/images/download.gif",
 			  imgName => __('download') },
-			{ imgFile => "/data/images/apply.gif",
+			{ imgFile => "/data/images/restore.gif",
 			  imgName => __('restore') },
 			{ imgFile => "/data/images/delete.gif",
 			  imgName => __('delete') }

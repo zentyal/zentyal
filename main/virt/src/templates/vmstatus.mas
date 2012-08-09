@@ -24,7 +24,7 @@ if ($item->{running}) {
 </%init>
 <tr>
 <td class='summaryKey'><% $name %></td>
-<td id='<% $namespace . '_' . $i %>' class='summaryValue'>
+<td id='<% $namespace . '_' . $i %>' class='summary_value'>
 <span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 <form>
     <span class='sright'>

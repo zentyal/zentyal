@@ -1,4 +1,4 @@
-<%args>
+/*<%args>
     $main_color
     $secondary_color
     $third_color
@@ -40,11 +40,10 @@
     $data_table_bg_highlight_hover
     $dashboard_thead_bg_color
     $image_note
-</%args>
+</%args>*/
 
 #header {
     height: 46px;
-    background: <% $main_color %> url('/data/images/bkgwhite.png') top left no-repeat;
     padding:0;
     margin: 0;
     color: transparent;
@@ -65,31 +64,70 @@
 #hmenu {
     position: relative;
     display: block;
-    top: -46px;
-    margin-bottom: -46px;
-    margin-right: 0px;
+    top: -40px;
     float:right;
 }
 
 #hmenu a {
-    display: block;
     float:left;
-    color: #fff;
     font-size: 11px;
+    color: #666;
     line-height: 16px;
     padding: 25px 15px 5px 15px;
     text-decoration: none;
+            
+    border-top: 1px solid #E6A603;
+    border-left: 1px solid #E6A603;
+    border-right: 2px solid #E6A603;
+    border-bottom: 2px solid #E6A603;
+
+    border-radius:3px;
+    margin-left:5px;
+
 }
 
-#hmenu #m { background-color: <% $hmenu_bg_color %>; }
-#hmenu #m:hover { background-color: <% $hmenu_hover_bg_color %>; }
+#hmenu a:hover { background-color: #FFC200; }
 
-#hmenu #remote_services_link {
+#hmenu #remote_services_link{
+    background:url("/data/images/cloud.gif") center 5px no-repeat ;
+    background-color: <% $remote_svcs_hover_bg_color %>;
+    display:block;
+    
+    border-top: 1px solid  #A7BE56;
+    border-left: 1px solid  #A7BE56;
+    border-right: 2px solid  #A7BE56;
+    border-bottom: 2px solid  #A7BE56;
+    
+}
+
+#hmenu #remote_services_link:hover {
         background-color: <% $remote_svcs_bg_color %>;
 }
-#hmenu #remote_services_link:hover {
-        background-color: <% $remote_svcs_hover_bg_color %>;
+
+#hmenu #m { 
+    background:url("/data/images/logout.gif") center 5px no-repeat ;
+    background-color: #E9E9E9;
+    display:block;
+    
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
 }
+
+#hmenu #change_menu {
+    background:  #FFD600 url("/data/images/save.gif") center 5px no-repeat;
+    display:none;
+        
+    border-top: 1px solid #E6A603;
+    border-left: 1px solid #E6A603;
+    border-right: 2px solid #E6A603;
+    border-bottom: 2px solid #E6A603;
+}
+
+#hmenu #m:hover { background-color: #DFDFDF; }
+
+
 
 
 #top {
@@ -119,6 +157,8 @@
     margin-top: 20px;
     margin-left: 0px;
     padding: 3px;
+    floar:left;
+   border-top:3px solid #eee;
 }
 
 #footer a {
@@ -140,12 +180,12 @@
 <% $additional_footer_style %>
 
 #menusearch {
-    background: #FFF url("/data/images/magnifying-glass.png") right bottom no-repeat;
+    background: #fff url("/data/images/magnifying-glass.png") right center no-repeat;
     border: 1px solid #DDD;
     padding: 3px;
-    margin-left: -5px;
     width: 150px;
-    margin-bottom: 5px;
+    height:20px;
+    margin: 11px 0px;
 }
 
 #menusearch:hover, #menusearch:focus {
@@ -245,7 +285,7 @@
 .thOptions {
     padding:0;
     margin:0;
-    width: 13%;
+    width: 14%;
 }
 
 .thOptionsFwd {
@@ -265,11 +305,10 @@
 }
 
 .summary_value {
-    padding-left: 15px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 5px 10px 5px 15px;
     font-family: Verdana, sans-serif;
     background-color: #F4F4F4;
+    line-height:25px;
 }
 
 .summary_good, .summary_good a {
@@ -317,17 +356,23 @@
     background: <% $secondary_color %>;
     color: white;
 }
+
+.dataTable thead > tr > th {
+    font-size: 11px;
+    border-right: #fff 1px solid;
+}
+
 .dataTable th {
     font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
     padding: 8px 6px 8px 6px;
     font-weight: bold;
     vertical-align: middle;
-    border: 1px solid <% $data_table_inner_border_color %>;
+    /*border: 1px solid <% $data_table_inner_border_color %>;*/
 }
 .dataTable td {
-    padding: 8px 8px 8px 8px;
-    border-bottom: 1px solid <% $data_table_inner_border_color %>;
-    border-left: 1px solid <% $data_table_color %>;
+    padding: 3px;
+    /*border-bottom: 1px solid <% $data_table_inner_border_color %>;
+    border-left: 1px solid <% $data_table_color %>;*/
     border-right: 1px solid <% $data_table_color %>;
 }
 
@@ -346,8 +391,10 @@
 .dataTable tr.even { background: <% $data_table_bg_even %>; }
 .dataTable tr.odd  { background: #FFF; }
 
-.dataTable tr.highlight { background: <% $data_table_bg_highlight %>; }
-.dataTable tr.highlight:hover { background: <% $data_table_bg_highlight_hover %>; }
+.dataTable tr.highlight { background: <% $data_table_bg_highlight %>; border-color: white; }
+
+.pagination_n{margin: 0px 10px;}
+
 
 .iptable {
     font-size: 11px;
@@ -388,6 +435,17 @@ iptable tr {
 select {
     font-size: 11px;
     font-family: Verdana, sans-serif;
+    border:1px solid #A5A5A5;
+    border-radius: 3px;
+    background-image: -ms-linear-gradient(top, #f5f5f5, #fff);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#fff));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
+    background-image: -o-linear-gradient(top, #f5f5f5, #fff);
+    background-image: linear-gradient(top, #f5f5f5, #fff);
+    background-image: -moz-linear-gradient(top, #f5f5f5, #fff);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#fff', GradientType=0);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+    padding:5px;
 }
 
 .multiselect {
@@ -397,6 +455,56 @@ select {
     overflow: auto;
     border: 2px inset;
 }
+
+input[type='password'], input[type='text'] { 
+    border:1px solid #A5A5A5;
+    border-radius: 3px;
+    background-image: -ms-linear-gradient(top, #f5f5f5, #fff);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#fff));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
+    background-image: -o-linear-gradient(top, #f5f5f5, #fff);
+    background-image: linear-gradient(top, #f5f5f5, #fff);
+    background-image: -moz-linear-gradient(top, #f5f5f5, #fff);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#fff', GradientType=0);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+    padding:5px; 
+    
+}
+
+input[type='password'][disabled], input[type='text'][disabled] { 
+    border-color:#eee;
+    background-color:#f5f5f5;
+    
+}
+
+
+input[type='submit'], .big {
+    color:#666;
+    border-radius: 3px;
+        
+    background-color: #E9E9E9;
+    
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
+
+    padding:5px 10px; 
+    cursor:pointer;
+    text-transform: uppercase;
+    letter-spacing:1px;
+    font-weight:bold;
+}
+
+#installButtons > button > img { margin-bottom:-3px;}
+
+input[type='submit']:hover, {background:#DFDFDF}
+input[type='submit'][disabled]{
+    cursor:default;
+    border-color:#dbdbdb;
+    background-color:#eee;
+    color:#BBB;
+}  
 
 .inputText, .inputTextError {
     color: #000000;
@@ -415,14 +523,49 @@ select {
 }
 
 .inputButtonRestart {
-    font-size: 11px;
+    font-size: 10px;
     font-family: Verdana, sans-serif;
+    margin: 0px;
+    padding: 4px 8px 4px 20px !important;
+    text-transform: none!important;
+    font-weight: normal !important;
 }
 
-.inputButton {
-    font-size: 11px;
+.inputButtonRestart[value='Restart']{ 
+    background:#BDEDF7  url("/data/images/restart.gif") 5px center no-repeat; 
+    border-color:#8CBBC5; }
+
+    .inputButtonRestart[value='Restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
+
+.inputButtonRestart[value='Start']{ 
+    background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
+    border-color:#829E59}
+
+    .inputButtonRestart[value='Start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
+
+.inputButtonRestart[value='Stop']{ 
+    background:#FAA68B url("/data/images/stop_p.gif") 5px center no-repeat;
+    border-color:#DB866B}
+
+    .inputButtonRestart[value='Stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
+
+.inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
+    /*font-size: 11px;*/
     font-family: Verdana, sans-serif;
+    background: whiteSmoke;
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
+    border-radius: 3px;
+    padding: 3px;
 }
+
+.edit_table_B { display: inline-block;}
+.edit_table_B:hover { display: inline-block; background: whiteSmoke !important;}
+
+.inputButton[disabled], input[type='image'][disabled]{cursor:default;}
+
 
 .msg {
     color: #FFFFFF;
@@ -450,7 +593,7 @@ body {
     color: #000000;
     font-size: 11px;
     font-family: Verdana, sans-serif;
-    background-color: #ffffff;
+    background-color: #f5f5f5;
     behavior: url(/data/js/csshover.htc);
 }
 
@@ -458,8 +601,7 @@ body {
     display: inline;
     color: #787878;
     font-weight: bold;
-    font-size: 15px;
-    background-color: #FFFFFF;
+    font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
     float: none;
 }
@@ -468,8 +610,7 @@ body {
     display: inline;
     color: #787878;
     font-weight: bold;
-    font-size: 15px;
-    background-color: #FFFFFF;
+    font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
     float: none;
 }
@@ -478,18 +619,24 @@ body {
     display: inline;
     color: #787878;
     font-weight: bold;
-    font-size: 15px;
-    background-color: #FFFFFF;
+    font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
     float: none;
+
+}
+
+.title_link > a {
+text-decoration: none;
 }
 
 h3 {
-    font-size: 14px;
+    font-size: 20px;
     font-family: Trebuchet MS, Verdana, sans-serif;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: <% $main_color %>;
+    color: <% $secondary_color %>;
+    border-bottom:2px solid;
+    padding:3px 0px;
+    margin:20px 0px 10px 0px;
 }
 
 h4 {
@@ -513,8 +660,7 @@ a:active {
 
 a:hover {
     text-decoration: none;
-    background: #888;
-    color: #ffffff;
+    /*color: #ffffff;*/
 }
 
 a img { border: 0px; }
@@ -609,7 +755,7 @@ input {
     border-top: 1px solid #dddddd;
     border-left: 1px solid #dddddd;
     border-right: 1px solid #dddddd;
-    background: #efefef;
+    background: #eee;
     color: #999;
     padding: 5px 10px 5px 10px;
 }
@@ -647,6 +793,7 @@ input {
     list-style: none;
 }
 
+
 #nav { margin-bottom: 0em; }
 
 #nav li, #nav li li {
@@ -659,33 +806,45 @@ input {
 
 #nav li a {
     display: block;
-    padding: 8px 10px;
+    padding: 10px 10px;
     text-decoration: none;
     padding-left: 4px;
     margin: 0px;
     margin-right: 0px;
     color: <% $nav_li_color %>;
     font-weight: bold;
-    border:0;
-    background-color: #ffffff;
+    /*background-color: #ffffff;
+    border-bottom: 1px solid #e9e9e9;*/
+    border-top: 1px solid #ccc;
 }
 
-#nav li a:hover { color: #99Afb9; }
+#nav li a:hover { 
+    background-color: rgba(220, 220, 220, 1);
+    color: #000; }
 
 #nav li li a {
     display: block;
     padding: 6px 8px 6px 20px;
     margin:0;
-    background: none;
-    border-bottom:0;
-    border-top:0;
-    font-weight: normal;
+    /*background: rgb(247,247,247);*/
+    border-top:1px dashed #ccc;
+    /*border-top:0;*/
+    font-weight: normal;    
 }
 
-#nav {
+
+
+#nav li li a:hover {
+    background-color: rgba(230, 230, 230, 1);
+    color: #000;
+ }
+
+#nav {  
     line-height: 1em;
     width: 160px;
 }
+
+#nav .submenu { margin-left:20px; }
 
 .sleft { float: left; }
 
@@ -721,11 +880,7 @@ a.notchanged:hover {
 }
 
 .changed {
-    background-color: #F60000;
-}
-
-a.changed:hover {
-        background-color: #FF2424;
+    display: block !important;
 }
 
 .comment {
@@ -760,8 +915,8 @@ a.changed:hover {
 .eDataTable, .bDataTable {
     width: 100%;
     font-size: 11px;
-    background: <% $data_table_bg_color %>;
-    border: 1px solid <% $data_table_color %>;
+    /*background: <% $data_table_bg_color %>;
+    border: 1px solid <% $data_table_color %>;*/
     border-collapse: collapse;
 }
 .eDataTable td, .bDataTable td {
@@ -776,8 +931,8 @@ a.changed:hover {
 }
 
 .bDataTable {
-    border-bottom: 1px solid <% $data_table_border_color %>;
-    border-top: 1px solid <% $data_table_border_color %>;
+    /*border-bottom: 1px solid <% $data_table_border_color %>;
+    border-top: 1px solid <% $data_table_border_color %>;*/
 }
 .button {
     cursor: pointer;
@@ -796,18 +951,32 @@ a.changed:hover {
     border-top: none;
     margin: 0px;
     padding: 10px;
+    background: white;
 }
 
 .addNew {
-    background: #fff url('/data/images/add.gif') left no-repeat;
-    padding-left: 18px;
+    background-color: #E9E9E9;
+    background-image: url('/data/images/add.gif');
+    background-position: 6px;
+    background-repeat: no-repeat;
+
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
+    border-radius: 3px;
+    padding-left: 25px;
+    height: 30px;
+    display: block;
+    line-height: 30px;
+    width: 70px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #333;
 }
 
-.addNew:hover { 
-    background: #fff url('/data/images/add.gif') left no-repeat;
-    background: #fff url('/data/images/add.gif') left no-repeat;
-    color: #888;
-    text-decoration: underline;
+.addNew:hover {
+    background-color: #dfdfdf
 }
 
 #field_help {
@@ -946,15 +1115,15 @@ a.changed:hover {
 }
 
 .widgetTopBackground {
-        background: <% $third_color %>;
+        background: <% $secondary_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
         left: 0pt;
         top: 0pt;
         z-index: 1;
-        border-radius: 5px 5px 0 0;
-        -moz-border-radius: 5px 5px 0 0;
+        /*border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;*/
 }
 
 .widgetName {
@@ -971,10 +1140,13 @@ a.changed:hover {
 a.closeBox {
         position: relative;
         float: right;
-        margin-right:3px;
-        margin-top: 3px;
+        margin-right:5px;
+        margin-top: 5px;
         overflow:hidden;
         z-index: 5;
+        background-image:url('/data/images/widget_controls.png');
+        height:12px;
+        width:12px;
 }
 
 a.closeBox {
@@ -983,6 +1155,7 @@ a.closeBox {
 
 a.closeBox:hover {
         background-position: -24px -12px;
+        background-color: transparent;
 }
 
 a.minBox, a.maxBox {
@@ -999,17 +1172,23 @@ a.minBox, a.maxBox {
 }
 
 .widgetBox {
-        margin-bottom: 5px;
+        margin-bottom: 15px;
+        background-color:white;
+        /*border-radius: 5px ;
+        -moz-border-radius: 5px;*/
+        box-shadow: 0px 0px 10px rgba(200,200,200,1)
 }
 
 .widgetBoxIn {
-        border:1px solid <% $third_color %>;
-        border-radius: 0 0 5px 5px;
-        -moz-border-radius: 0 0 5px 5px;
+        /*border:1px solid <% $third_color %>;*/
+        padding:10px 0px;
+        
 }
 
+.widgetBoxIn > .summarySection {margin-bottom:0px;}
+
 .sectionContent {
-    width: 100%;
+    width: 98%;
 }
 
 a.maxBox {
@@ -1028,11 +1207,7 @@ a.minBox:hover {
         background-position: 0px -15px;
 }
 
-a.closeBox, a.closeBox:hover {
-        background-image:url('/data/images/widget_controls.png');
-        height:12px;
-        width:12px;
-}
+
 
 a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
         background-image:url('/data/images/triangles.png');
@@ -1104,12 +1279,13 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 .separator {
     color: white;
     font-weight: bold;
-    font-size: 0.9em;
-    background: <% $third_color %>;
-    padding: 3px 18px 3px 10px;
-    margin-left: -10px;
-    border-radius: 0 5px 5px 0;
-    -moz-border-radius: 0 5px 5px 0;
+    font-size: 12px;
+    /*background: #F3A61D;*/
+    background: #bbb;
+    padding: 10px 18px 10px 10px;
+    margin-top:10px;
+    /*border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;*/
 }
 
 .linksBlock {
@@ -1141,20 +1317,87 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 
+/* packet Filter*/
+
+
+.PackFilter > div {
+    background-color: white;
+    margin:5px 0px;
+    float:left;
+    border-radius:5px;
+    width:100%;
+    padding:10px;
+    border: 1px solid #ccc;
+
+    }
+
+.PackFilter > div > a{
+    float:left;
+
+}
+
+.PackFilter > div > div {
+    float:left;
+    width:65%;
+    margin-left:20px;
+}
+
+.PackFilter > div > div > h3 {
+margin-top:5px;
+    
+}
+.PackFilter > div > div .conf_rul { 
+    float:left;
+    margin-top:5px;
+    text-decoration:none;
+
+    color:#666;
+    border-radius: 3px;
+
+    background: #E9E9E9 url(/data/images/conf_rul.gif) 5px center no-repeat;
+    
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
+
+    padding:5px 10px 5px 30px; 
+    cursor:pointer;
+        
+}
+
+.big {
+text-decoration:none; 
+background-color:#FFD600; border-color:#E6A603;
+padding:15px 20px;
+float:left;
+}
+
 /* Progress bar */
+#progress_bar {
+    width:100%;
+    margin-top:10px;
+}
+
 
 #progress_bar .bar {
-    height: 20px;
-    width: 780px;
+    height: 30px;
     margin: 5px 0;
     background-color: <% $progress_bar_bg_color %>;
     -moz-border-radius: 5px;
     border-radius: 5px
 }
 
+.percent{ 
+    width: 100%;
+    text-align:center;
+    line-height:30px;
+    height:30px
+}
+
 #progressValue {
-    height: 20px;
-    width: 0;
+    height: 30px;
+    width: 0px;
     background-color: <% $progress_bar_fg_color %>;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -1246,6 +1489,37 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     font-weight:normal;
 }
 
+/*input[value="Change"]{
+height: 30px;
+display: block;
+width: 60px;
+border: 1px solid #FF7000;
+background: background-image: linear-gradient(bottom, #FFA200 18%, #FFD500 82%);
+background-image: -o-linear-gradient(bottom, #FFA200 18%, #FFD500 82%);
+background-image: -moz-linear-gradient(bottom, #FFA200 18%, #FFD500 82%);
+background-image: -webkit-linear-gradient(bottom, #FFA200 18%, #FFD500 82%);
+background-image: -ms-linear-gradient(bottom, #FFA200 18%, #FFD500 82%);
+background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.18, #FF8F00), color-stop(0.82, #FFAD00));
+color: white;
+font-weight: bold;
+border-radius: 3px;
+}
+
+input[value="Change"]:hover {
+border: 1px solid #FF7000;
+background: background-image: linear-gradient(bottom, #FFD500 18% , #FFA200 82%);
+background-image: -o-linear-gradient(bottom, #FFD500 18%, #FFA200 82%);
+background-image: -moz-linear-gradient(bottom, #FFD500 18%, #FFA200 82%);
+background-image: -webkit-linear-gradient(bottom, #FFD500 18%, #FFA200 82%);
+background-image: -ms-linear-gradient(bottom, #FFD500 18%, #FFA200 82%);
+background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.18, #FFAD00), color-stop(0.82, #FF8F00));   
+color: white;
+font-weight: bold;
+border-radius: 3px;
+}*/
+
+
+
 /* modalbox.js stuff */
 
 #MB_overlay {
@@ -1312,7 +1586,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 
 /* Color scheme */
 #MB_frame {
-	padding-bottom: 7px;
+	padding-bottom: 20px;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;

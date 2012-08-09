@@ -35,18 +35,18 @@ use EBox::Gettext;
 %		}
           </tr>
           <tr>
-            <td class="labeltd"><% __('Username') %>:</td>
+            <td class="labeltd"><% __('Username') %></td>
             <td><input  class='inputTextLogin' type='text'
                     name='credential_0'
                     id='credential_0'
-                    size='14' /></td>
+                    /></td>
           </tr>
           <tr>
-            <td class="labeltd"><% __('Password') %>:</td>
+            <td class="labeltd"><% __('Password') %></td>
             <td><input class='inputTextLogin' type='password'
                     name='credential_1'
                     id='credential_1'
-                    size='14' /></td>
+                    /></td>
                 <input type='hidden' name='destination'
                     value='<% $destination %>' />
                 <input type='hidden' name='origDestination'
