@@ -384,14 +384,14 @@ sub _pushConfBackup
 
 }
 
-sub _handleResult
+sub _handleResult   # ( HTTP::Response, named params)
 {
     my ($res, %p) = @_;
 
-    unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
+    unless ( $res->code == HTTP::Status::HTTP_OK ) {
         #Throw the proper exception for each error code
 
-        given ( $res->{result}->code ) {
+        given ( $res->code ) {
             when (HTTP::Status::HTTP_NOT_FOUND) {
                 throw EBox::Exceptions::Internal(__('Server not found'));
             } when (HTTP::Status::HTTP_NO_CONTENT) {
@@ -468,7 +468,7 @@ sub _pullAllMetaConfBackup
 
     my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, journaling => 0);
 
-    _handleResult($res, %p);
+    _handleResult($res->{result}, %p);
 
     return $res->as_string();
 }
@@ -479,7 +479,7 @@ sub _pullFootprintMetaConf
 
     my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, journaling => 0);
 
-    _handleResult($res, %p);
+    _handleResult($res->{result}, %p);
 
     return $res->as_string();
 }
@@ -490,7 +490,7 @@ sub _removeConfBackup
 
     my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, journaling => 0);
 
-    _handleResult($res, %p);
+    _handleResult($res->{result}, %p);
 }
 
 1;
