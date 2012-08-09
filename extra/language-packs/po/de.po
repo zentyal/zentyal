@@ -1,11 +1,17 @@
+# #-#-#-#-#  de.po (zentyal 3.0)  #-#-#-#-#
+# German translations for Zentyal
+# Copyright (C) 2008-2012 eBox Technologies S.L.
+# This file is distributed under the same license as the zentyal packages.
+# Automatically generated, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: zentyal 3.0\n"
+"Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
 "PO-Revision-Date: 2012-08-03 22:35+0200\n"
 "Last-Translator: Lueghi <lueghi@web.de>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +30,15 @@ msgstr "Datei"
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:115
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:96
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:196
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:67
 #: ../../main/squid/src/EBox/Squid.pm:79
-#: ../../main/squid/src/EBox/Squid.pm:914
+#: ../../main/squid/src/EBox/Squid.pm:921
 msgid "HTTP Proxy"
 msgstr "HTTP-Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
-#: ../../main/squid/src/EBox/Squid.pm:871
+#: ../../main/squid/src/EBox/Squid.pm:878
 #, fuzzy
 msgid "Categorized Lists"
 msgstr "Kategorien"
@@ -140,13 +146,13 @@ msgid "Apply Filter Profile"
 msgstr "Filter-Profile"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
-#: ../../main/squid/src/EBox/Squid.pm:862
+#: ../../main/squid/src/EBox/Squid.pm:869
 #, fuzzy
 msgid "Access Rules"
 msgstr "Zugriffs-Anforderungen"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:202
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:76
@@ -337,7 +343,6 @@ msgstr "Werbung aus dem gesamten HTTP-Traffic entfernen"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:920
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:325
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:89
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:100
 #: ../../main/radius/src/EBox/Radius.pm:353
@@ -351,7 +356,7 @@ msgid "Cache files size (MB)"
 msgstr "Größe der Cache-Datei (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:80
-#: ../../main/squid/src/EBox/Squid.pm:859
+#: ../../main/squid/src/EBox/Squid.pm:866
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:87
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
@@ -451,7 +456,7 @@ msgstr "Anforderungen"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:61
-#: ../../main/squid/src/EBox/Squid.pm:901
+#: ../../main/squid/src/EBox/Squid.pm:908
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:439
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
@@ -510,7 +515,7 @@ msgid "Filtered traffic size (Kb))"
 msgstr "Gefilterte Traffic-Größe (kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:57
-#: ../../main/squid/src/EBox/Squid.pm:899
+#: ../../main/squid/src/EBox/Squid.pm:906
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1623
 #: ../../main/firewall/src/EBox/Firewall.pm:738
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
@@ -600,7 +605,7 @@ msgstr "Traffic-Größe"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:270
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:56
-#: ../../main/squid/src/EBox/Squid.pm:868
+#: ../../main/squid/src/EBox/Squid.pm:875
 msgid "Filter Profiles"
 msgstr "Filter-Profile"
 
@@ -634,8 +639,6 @@ msgstr "Filter-Profil wurde aktualisiert"
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:85
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:172
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:52
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:59
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:58
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:45
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:212
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:178
@@ -664,7 +667,6 @@ msgstr "Name"
 #: ../../main/network/src/EBox/Model/DynDNS.pm:230
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:132
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:60
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:114
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:228
@@ -736,15 +738,15 @@ msgid ""
 "({net_rate} KB/s)"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:131
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:134
 msgid "Network object"
 msgstr "Netzwerkobjekt"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:140
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:143
 msgid "Enable global limit for the object"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:147
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:150
 #, fuzzy
 msgid "Maximum unlimited size"
 msgstr ""
@@ -753,70 +755,70 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Uneingeschränkt"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:148
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:151
 #, fuzzy
 msgid "Maximum unthrottled download size for the whole network object."
 msgstr ""
 "Maximale Downloadgröße aus diesem Netzwerk bis Begrenzung aktiv wird . -1 "
 "zum deaktivieren der Option."
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:151
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:175
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:178
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
 #, fuzzy
 msgid "MB"
 msgstr "M"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:156
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:159
 #, fuzzy
 msgid "Maximum download rate"
 msgstr "max. Übertragungsrate zum Client bei Begrenzung"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:157
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:183
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "KB/s"
 msgstr "KB/s"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:164
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:167
 #, fuzzy
 msgid "Enable per client limit"
 msgstr "Aktiviere Papierkorb"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:171
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:174
 #, fuzzy
 msgid "Maximum unlimited size per client"
 msgstr "Maximale Nachrichtengrösse überschritten"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:172
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:175
 #, fuzzy
 msgid "Maximum unthrottled download size for each client."
 msgstr ""
 "Maximale Downloadgröße aus diesem Netzwerk bis Begrenzung aktiv wird . -1 "
 "zum deaktivieren der Option."
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:179
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:182
 #, fuzzy
 msgid "Maximum download rate per client"
 msgstr ""
 "Maximale Download-Bandbreite je Client bei Begrenzung. -1 zum deaktivieren "
 "der Option."
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:180
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:183
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:189
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:192
 #, fuzzy
 msgid "Bandwidth Throttling Rules"
 msgstr "Bandbreitenbegrenzung"
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:197
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:200
 #, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
@@ -860,7 +862,6 @@ msgstr "Grenzbereich für Inhaltsfilter geändert"
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:566
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:104
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:70
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:100
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:93
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
@@ -942,7 +943,7 @@ msgid "category"
 msgstr "Kategorie"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:129
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1604
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1269,7 +1270,7 @@ msgstr "Entferne Link auf das dansguardian Init Skript"
 
 #: ../../main/squid/src/EBox/Squid.pm:263 ../../main/dns/src/EBox/DNS.pm:701
 #: ../../main/ntp/src/EBox/NTP.pm:63
-#: ../../main/webserver/src/EBox/WebServer.pm:139
+#: ../../main/webserver/src/EBox/WebServer.pm:138
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal übernimmt das Starten und Beenden des Dienstes."
 
@@ -1285,11 +1286,11 @@ msgstr ""
 "Sie müssen die Variable max_object_size in der Zentyal-Konfigurationsdatei "
 "setzen"
 
-#: ../../main/squid/src/EBox/Squid.pm:865
+#: ../../main/squid/src/EBox/Squid.pm:872
 msgid "Bandwidth Throttling"
 msgstr "Bandbreitenbegrenzung"
 
-#: ../../main/squid/src/EBox/Squid.pm:900
+#: ../../main/squid/src/EBox/Squid.pm:907
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 #: ../../main/network/src/EBox/CGI/Diag.pm:71
@@ -1300,19 +1301,19 @@ msgstr "Bandbreitenbegrenzung"
 msgid "Host"
 msgstr "Host"
 
-#: ../../main/squid/src/EBox/Squid.pm:902
+#: ../../main/squid/src/EBox/Squid.pm:909
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:903
+#: ../../main/squid/src/EBox/Squid.pm:910
 msgid "Bytes"
 msgstr "Bytes"
 
-#: ../../main/squid/src/EBox/Squid.pm:904
+#: ../../main/squid/src/EBox/Squid.pm:911
 msgid "Mime/type"
 msgstr "MIME/Typ"
 
-#: ../../main/squid/src/EBox/Squid.pm:905
+#: ../../main/squid/src/EBox/Squid.pm:912
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1624
 #: ../../main/pptp/src/EBox/PPTP.pm:367 ../../main/ipsec/src/EBox/IPsec.pm:238
 #: ../../main/dhcp/src/EBox/DHCP.pm:1129
@@ -1328,15 +1329,15 @@ msgstr "MIME/Typ"
 msgid "Event"
 msgstr "Ereignis"
 
-#: ../../main/squid/src/EBox/Squid.pm:910
+#: ../../main/squid/src/EBox/Squid.pm:917
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: ../../main/squid/src/EBox/Squid.pm:911
+#: ../../main/squid/src/EBox/Squid.pm:918
 msgid "Denied"
 msgstr "Verweigert"
 
-#: ../../main/squid/src/EBox/Squid.pm:912
+#: ../../main/squid/src/EBox/Squid.pm:919
 msgid "Filtered"
 msgstr "Gefiltert"
 
@@ -1376,7 +1377,8 @@ msgstr "Konfigurations-Dateipaket hochladen"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:505
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1657
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1690
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1734
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1385,7 +1387,7 @@ msgstr "Konfigurations-Dateipaket hochladen"
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
-#: ../../main/core/src/EBox/Model/DataTable.pm:4419
+#: ../../main/core/src/EBox/Model/DataTable.pm:4425
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:374
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
@@ -1713,7 +1715,7 @@ msgstr ""
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:166
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:111
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:67
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:116
 #: ../../main/mail/src/templates/externalAccounts.mas:12
 msgid "Server"
@@ -2014,7 +2016,7 @@ msgstr "Dienst"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:508
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1644
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1677
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
@@ -2526,7 +2528,6 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:146
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:156
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:199
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:63
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:220
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:128
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:196
@@ -2585,7 +2586,7 @@ msgstr "Ausgang-Netzwerkkarte"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:220
 #: ../../main/pptp/src/EBox/Model/Users.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:99
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:85
 #: ../../main/radius/src/EBox/Model/Clients.pm:112
 msgid "IP Address"
 msgstr "IP Adresse"
@@ -3386,7 +3387,7 @@ msgid "Enable transparent DNS cache"
 msgstr "aktiviere den transparenten DNS Zwischenspeicher"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
-#: ../../main/software/src/EBox/Software.pm:637
+#: ../../main/software/src/EBox/Software.pm:639
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/GeneralSettings.pm:38
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:124
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
@@ -3877,11 +3878,11 @@ msgstr ""
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../../main/software/src/EBox/Software.pm:57
+#: ../../main/software/src/EBox/Software.pm:59
 msgid "Software Management"
 msgstr "Softwareverwaltung"
 
-#: ../../main/software/src/EBox/Software.pm:450
+#: ../../main/software/src/EBox/Software.pm:452
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
@@ -3890,13 +3891,13 @@ msgstr ""
 "Zeit von einem anderen Prozess genutzt. Sie können warten oder müssen den "
 "Prozess löschen (kill)."
 
-#: ../../main/software/src/EBox/Software.pm:452
+#: ../../main/software/src/EBox/Software.pm:454
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
 "Der Softwarepaket Manager kann nicht genutzt werden. Fehlermeldung: {err}"
 
-#: ../../main/software/src/EBox/Software.pm:539
+#: ../../main/software/src/EBox/Software.pm:541
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
@@ -3906,15 +3907,15 @@ msgstr ""
 "über die Weboberfläche modifizieren Bearbeiten Sie {conf} und deaktivieren "
 "Sie Schlüssel {key}, um automatische Aktualisierungen zu deaktivieren."
 
-#: ../../main/software/src/EBox/Software.pm:633
+#: ../../main/software/src/EBox/Software.pm:635
 msgid "Zentyal Components"
 msgstr "Zentyal Komponenten"
 
-#: ../../main/software/src/EBox/Software.pm:635
+#: ../../main/software/src/EBox/Software.pm:637
 msgid "System Updates"
 msgstr "Systemaktualisierungen"
 
-#: ../../main/software/src/EBox/Software.pm:870
+#: ../../main/software/src/EBox/Software.pm:877
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -3922,28 +3923,28 @@ msgstr ""
 "Die Softwareverwaltung ist momentan durch {locker} gesperrt. Bitte versuchen "
 "Sie es später nochmals"
 
-#: ../../main/software/src/EBox/Software.pm:1025
+#: ../../main/software/src/EBox/Software.pm:1032
 #, fuzzy
 msgid "Installation steps"
 msgstr "Installation"
 
-#: ../../main/software/src/EBox/Software.pm:1027
+#: ../../main/software/src/EBox/Software.pm:1034
 msgid "Package Selection"
 msgstr "Paketselektion"
 
-#: ../../main/software/src/EBox/Software.pm:1028
+#: ../../main/software/src/EBox/Software.pm:1035
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: ../../main/software/src/EBox/Software.pm:1029
+#: ../../main/software/src/EBox/Software.pm:1036
 msgid "Installation"
 msgstr "Installation"
 
-#: ../../main/software/src/EBox/Software.pm:1030
+#: ../../main/software/src/EBox/Software.pm:1037
 msgid "Initial Configuration"
 msgstr "Anfangseinstellungen"
 
-#: ../../main/software/src/EBox/Software.pm:1031
+#: ../../main/software/src/EBox/Software.pm:1038
 msgid "Save Changes"
 msgstr "Änderungen abspeichern"
 
@@ -4065,8 +4066,8 @@ msgid "Zentyal components"
 msgstr "Zentyal Komponenten"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:81
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1253
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1286
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1669
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -4169,59 +4170,59 @@ msgstr ""
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "Zentyal muss abonniert sein, um das Bündel neu zu laden"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1609
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1639
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1642
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "deaktiviert - {oh}aktiviert{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
 #, fuzzy, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr "Nicht verbunden. Prüfen Sie die VPN-Logs in {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1620
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #, fuzzy
 msgid "In process"
 msgstr "Prozess"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1656
 msgid "Connected"
 msgstr "Verbunden"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1638
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
 msgid "Essential"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1639
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1672
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1673
 msgid "Premium"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1680
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- letzte Aktualisierung: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1660
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1693
 #, perl-brace-format
 msgid "- Latest backup: {date}"
 msgstr "- letzte Sicherung: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1663
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1696
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 msgid "Configuration backup enabled"
 msgstr "Sichern der Konfiguration aktiviert"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1666
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1699
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- letzte Sicherung der Konfiguration: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1682
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
@@ -4230,15 +4231,15 @@ msgstr "- letzte Sicherung der Konfiguration: {date}"
 msgid "Server name"
 msgstr "Servername"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1683
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1718
 msgid "Connection status"
 msgstr "Verbindungsstatus"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1686
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1721
 msgid "External server name"
 msgstr "Externer Servername"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1689
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1724
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4247,11 +4248,11 @@ msgstr "Externer Servername"
 msgid "Server edition"
 msgstr "Server Erstellung"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1691
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1726
 msgid "Technical support"
 msgstr "Technische Unterstützung"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1737
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1786
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr "Es wurde noch kein Datenbackup erzeugt"
@@ -4530,10 +4531,6 @@ msgstr "Wählen Sie einen gültigen Computernamen für ihren Server."
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
 #: ../../main/network/src/EBox/Model/Proxy.pm:83
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:66
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:74
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1048
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2707
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:108
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:101
@@ -4545,15 +4542,13 @@ msgstr "Wählen Sie einen gültigen Computernamen für ihren Server."
 #: ../../main/users/src/EBox/UsersAndGroups/Model/SlavePassword.pm:55
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:73
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:50
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1263
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1269
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:131
 #: ../../main/captiveportal/src/templates/login.mas:41
 #: ../../main/network/src/templates/ifaces.mas:178
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:44
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:70
 #: ../../main/core/src/templates/login/index.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:11
-#: ../../main/users/src/templates/users.mas:45
+#: ../../main/users/src/templates/users.mas:48
 #: ../../main/users/src/templates/user.mas:70
 msgid "Password"
 msgstr "Passwort"
@@ -4611,7 +4606,7 @@ msgstr " Module"
 #: ../../main/core/src/EBox/Model/Composite.pm:466
 #: ../../main/core/src/EBox/Model/Composite.pm:481
 #: ../../main/core/src/EBox/Model/DataMultiTable.pm:155
-#: ../../main/core/src/EBox/Model/DataTable.pm:1914
+#: ../../main/core/src/EBox/Model/DataTable.pm:1920
 #: ../../main/core/src/EBox/AuditLogging.pm:123
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
@@ -4783,7 +4778,7 @@ msgstr "nicht vorhandene Sicherung {n}"
 msgid "Key for proxy backup service not found"
 msgstr "Der Schlüssel für den Backup Proxy Dienst konnte nicht gefunden werden"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:249
+#: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:268
 #, perl-brace-format
 msgid ""
 "User/email address and password do not match. Did you forget your password? "
@@ -4964,7 +4959,6 @@ msgid "Backing up modules "
 msgstr "Module werden gesichert"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:63
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 #, fuzzy
 msgid "Operation"
@@ -5040,9 +5034,8 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/Backup/index.mas:145
 #: ../../main/network/src/templates/ifaces.mas:227
 #: ../../main/network/src/templates/ifaces.mas:303
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:36
 #: ../../main/samba/src/templates/samba.mas:60
-#: ../../main/core/src/templates/ajax/tableBody.mas:672
+#: ../../main/core/src/templates/ajax/tableBody.mas:701
 #: ../../main/core/src/templates/ajax/tableModalView.mas:524
 #: ../../main/core/src/templates/backup.mas:147
 #: ../../main/mail/src/templates/warnvd.mas:25
@@ -5083,17 +5076,13 @@ msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:81
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:23
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:20
-#: ../../main/users/src/templates/users.mas:24
+#: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Vorname"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:30
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:33
-#: ../../main/users/src/templates/users.mas:31
+#: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:33
 msgid "Last name"
 msgstr "Nachname"
@@ -5324,7 +5313,6 @@ msgstr "Berichts-Zeitdauer"
 #: ../../main/network/src/templates/confirm.mas:29
 #: ../../main/network/src/templates/confirmVlanDel.mas:19
 #: ../../main/network/src/templates/confirmremove.mas:21
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:38
 #: ../../main/ca/src/templates/forceRevoke.mas:38
 #: ../../main/ca/src/templates/forceRenew.mas:78
 #: ../../main/core/src/templates/confirm-backup.mas:59
@@ -5521,11 +5509,6 @@ msgstr "Aktuelles Modul"
 #: ../../main/pptp/src/EBox/Model/Users.pm:127
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:84
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddGroupToUser.pm:44
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/DelUserFromGroup.pm:50
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUserToGroup.pm:48
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/DelGroupFromUser.pm:44
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
 #: ../../main/samba/src/EBox/Samba.pm:1622
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
@@ -5665,7 +5648,6 @@ msgid "No limit"
 msgstr "Speicherbegrenzung"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:62
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:56
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:85
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:56
 #: ../../main/captiveportal/src/templates/useraddon.mas:29
@@ -5678,13 +5660,11 @@ msgstr ""
 "begrenzt auf"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:64
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:58
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:58
 msgid "Mb"
 msgstr "MB"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:96
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:94
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
 msgstr ""
@@ -5713,9 +5693,8 @@ msgstr "aktiviert"
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:98
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:214
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:51
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:77
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
-#: ../../main/users/src/templates/users.mas:79
+#: ../../main/users/src/templates/users.mas:82
 msgid "Group"
 msgstr "Gruppe"
 
@@ -7205,8 +7184,8 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
 
-#: ../../main/common/src/EBox/FileSystem.pm:203
-#: ../../main/common/src/EBox/FileSystem.pm:373
+#: ../../main/common/src/EBox/FileSystem.pm:228
+#: ../../main/common/src/EBox/FileSystem.pm:398
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Der Ordner {d} wurde nicht gefunden"
@@ -7274,57 +7253,57 @@ msgstr "PFS aktivieren"
 msgid "Phase 2"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:80
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:66
 msgid "Local IP Address"
 msgstr "Lokale IP Adresse"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:83
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:69
 #, fuzzy
 msgid "Zentyal public IP address."
 msgstr "IP-Adresse der Netzwerkkarte"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:87
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:73
 #, fuzzy
 msgid "Local Subnet"
 msgstr "Lokales Netzwerk"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:90
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:76
 msgid "Local subnet available through the tunnel."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:94
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:80
 #, fuzzy
 msgid "Remote Address"
 msgstr "IP Adresse"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:102
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:88
 msgid "Remote endpoint public IP address."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:106
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:92
 #, fuzzy
 msgid "Any address"
 msgstr "MAC-Adresse"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:113
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:99
 #, fuzzy
 msgid "Remote Subnet"
 msgstr "IP-Adresse des Gegenübers"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:102
 msgid "Remote subnet available through the tunnel."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:120
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:106
 #, fuzzy
 msgid "PSK Shared Secret"
 msgstr "Geteiltes Geheimnis"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:122
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:108
 msgid "Pre-shared key for the IPsec connection."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:130
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:91
 #: ../../main/mail/src/EBox/Mail.pm:1530
@@ -7333,14 +7312,26 @@ msgstr ""
 msgid "General"
 msgstr "Allgemein"
 
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:152
+#, perl-brace-format
+msgid ""
+"Must be the external IP to connect and it was the addresss of local "
+"interface {if}"
+msgstr ""
+
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:176
+msgid ""
+"This is a local network, thus already accessible through local interfaces"
+msgstr ""
+
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:183
+msgid "This network is already reachable through a static route"
+msgstr ""
+
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:37
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:24
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:18
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:46
 #: ../../main/core/src/templates/configurationFiles.mas:24
-#: ../../main/users/src/templates/users.mas:38
+#: ../../main/users/src/templates/users.mas:41
 #: ../../main/users/src/templates/groups.mas:24
 #: ../../main/users/src/templates/group.mas:18
 #: ../../main/users/src/templates/user.mas:46
@@ -8106,18 +8097,6 @@ msgid "ip address"
 msgstr "IP-Adresse"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1006
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1026
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1342
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1407
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1459
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1924
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2002
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2106
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2140
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2211
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUser.pm:44
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:42
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:487
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:520
@@ -8129,7 +8108,6 @@ msgstr "Benutzername"
 # #-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#
 # P
 #: ../../main/network/src/EBox/CGI/Iface.pm:102
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:55
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:58
 msgid "password"
 msgstr "Passwort"
@@ -8171,13 +8149,11 @@ msgstr ""
 "Benutzerbereich"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:91
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:119
 #, fuzzy
 msgid "Create directories for slave journals"
 msgstr "Erstellen von Verzeichnissen für Slave-Journale"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:92
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:120
 #, fuzzy
 msgid "Zentyal needs the directories to record pending slave actions."
 msgstr ""
@@ -8194,9 +8170,7 @@ msgid "User corner is only available in master or standalone servers"
 msgstr "WAN-Failover ist nur für statische Schnittstellen erreichbar"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:227
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:85
 #: ../../main/users/src/EBox/UsersAndGroups.pm:78
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:6
 #: ../../main/users/src/templates/wizard/users.mas:7
 msgid "Users and Groups"
 msgstr "Benutzer und Gruppen"
@@ -9940,817 +9914,6 @@ msgstr ""
 "Sie müssen vorgenommene Änderungen speichern und einpaar Sekunden warten um "
 "Überwachungs-Daten zu sehen."
 
-# I think this doesn't make sense to translate
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:55
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:58
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:72
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:54
-msgid "Slave"
-msgstr "Slave"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:67
-msgid "List of slaves"
-msgstr "Liste der Satellitenrechner (slaves)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
-msgid ""
-"This is a list of those Zentyal slaves which are subscribed to this Zentyal."
-msgstr ""
-"Dies ist eine Liste der Zentyal Satellitenrechner (slaves), die mit dieser "
-"Zentyal verbunden sind."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:75
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:72
-msgid "slave"
-msgstr "Satellitenrechner (slave)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:118
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:128
-msgid "You must enable the module Users in master mode."
-msgstr "Sie müssen das Modul Benutzer im Mastermodus aktivieren."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Slaves.pm:120
-msgid "There are no slaves at the moment."
-msgstr "Derzeit sind keine Benutzer angelegt."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:64
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:62
-msgid "Full name"
-msgstr "Vollständiger Name"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:69
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:68
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:67
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:67
-#: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:670
-#: ../../main/core/src/templates/ajax/tableModalView.mas:522
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:77
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2656
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2664
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Users.pm:31
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Users.pm:55
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Groups.pm:51
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/User.pm:43
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/User.pm:65
-#: ../../main/core/src/EBox/SysInfo.pm:329
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1213
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1222
-#: ../../main/users/src/EBox/CGI/Users.pm:29
-#: ../../main/users/src/EBox/CGI/Users.pm:52
-#: ../../main/users/src/EBox/CGI/Groups.pm:51
-#: ../../main/users/src/EBox/CGI/User.pm:43
-#: ../../main/users/src/EBox/CGI/User.pm:67
-msgid "Users"
-msgstr "Benutzer"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:127
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:129
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:123
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:127
-#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:106
-#: ../../main/users/src/EBox/UsersAndGroups/Composite/Sync.pm:90
-msgid ""
-"You must enable the module Users in the module status section in order to "
-"use it."
-msgstr ""
-"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
-"benutzen zu können."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:133
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:129
-#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
-msgid "There are no users at the moment"
-msgstr "Zurzeit gibt es keine Benutzer"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:136
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:132
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no users at the moment. You may "
-"want to add some in the {openhref}master{closehref}."
-msgstr ""
-"Diese Zentyal ist als Satellitenrechner (slave) konfiguriert und es gibt "
-"zurzeit noch keine Benutzer. Fügen Sie welche im {openhref}master{closehref} "
-"hinzu."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Users.pm:140
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:136
-#, fuzzy
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no users at the "
-"moment. If there are users in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-"Diese Zentyal ist als Windows AD Satellitenrechner (slave) konfiguriert und "
-"derzeit sind keine Benutzer angelegt. Wenn bereits Benutzer im "
-"Domänencontroller existieren, ist die Synchronisation fehlgeschlagen oder "
-"ist noch nicht beendet."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
-#, fuzzy
-msgid "Enable AD sync"
-msgstr "Active Sync aktivieren"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
-#, fuzzy
-msgid "Enable AD syncronization."
-msgstr "Active Sync aktivieren"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
-msgid "AD user"
-msgstr "AD Benutzer"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:76
-msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
-"Benutzername für die Bindung an Windows AD (muss in der AD erstellt werden)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:80
-msgid "AD password"
-msgstr "AD Passwort"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:82
-msgid "Password for the above user"
-msgstr "Passwort für den o.g. Benutzer"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:86
-msgid "AD Secret Key"
-msgstr "AD geheimer Schlüssel"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:89
-#, fuzzy
-msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
-msgstr ""
-"Geheimer Schlüssel, der von Windows und Zentyal gemeinsam genutzt wird (16 "
-"Zeichen)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:95
-msgid "Windows AD Sync Settings"
-msgstr "Windows Active Directory Synchronisationseinstellungen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:118
-msgid "The secret key needs to have 16 characters."
-msgstr "Der geheime Schlüssel muss 16 Zeichen lang sein."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:76
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2658
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2667
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Groups.pm:42
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Group.pm:64
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:75
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1215
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1225
-#: ../../main/users/src/EBox/CGI/Groups.pm:42
-#: ../../main/users/src/EBox/CGI/Group.pm:66
-msgid "Groups"
-msgstr "Gruppen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:84
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddGroupToUser.pm:49
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/DelUserFromGroup.pm:45
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUserToGroup.pm:43
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/DelGroupFromUser.pm:49
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Group.pm:46
-#: ../../main/samba/src/EBox/Samba.pm:1636
-#: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:43
-#: ../../main/l7-protocols/src/EBox/Model/Groups.pm:76
-#: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:41
-#: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:42
-#: ../../main/asterisk/src/EBox/CGI/AsteriskGroupOptions.pm:45
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:81
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:327
-#: ../../main/users/src/EBox/UsersAndGroups.pm:827
-#: ../../main/users/src/EBox/CGI/AddGroupToUser.pm:51
-#: ../../main/users/src/EBox/CGI/DelUserFromGroup.pm:42
-#: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:41
-#: ../../main/users/src/EBox/CGI/DelGroupFromUser.pm:51
-#: ../../main/users/src/EBox/CGI/Group.pm:47
-msgid "group"
-msgstr "Gruppe"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:135
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:133
-msgid "There are no groups at the moment"
-msgstr "Derzeit sind keine Gruppen angelegt."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:138
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal is configured as slave and there are no groups at the moment. You "
-"may want to add some in the {openhref}master{closehref}."
-msgstr ""
-"Diese Zentyal ist als Satellitenrechner (Slave) konfiguriert und derzeit "
-"sind keine Gruppen angelegt. Sie möchten vielleicht einige in der {openhref}"
-"master{closehref} erstellen. "
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Groups.pm:142
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:140
-#, fuzzy
-msgid ""
-"Zentyal is configured as Windows AD slave and there are no groups at the "
-"moment. If there are groups in your Domain Controller, maybe the "
-"synchronization process has failed or has not finished yet."
-msgstr ""
-"Diese Zentyal ist als Windows AD Slave konfiguriert und derzeit sind keine "
-"Gruppen angelegt. Wenn bereits Gruppen in ihrem Domänencontroller "
-"existieren, ist die Synchronisation fehlgeschlagen oder noch nicht beendet."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ForceSync.pm:90
-msgid "Force sync"
-msgstr "Synchronisation erzwingen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ForceSync.pm:92
-msgid "on slaves"
-msgstr "auf Satellitenrechner (Slaves)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ForceSync.pm:98
-msgid "Force sync of pending operations"
-msgstr "Synchronisation für laufende Operationen erzwingen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/ForceSync.pm:101
-msgid "Sync now"
-msgstr "Jetzt synchronisieren"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:52
-#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:52
-#, fuzzy
-msgid "Default user quota"
-msgstr "Voreingestellte Größenbeschränkung "
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:72
-#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:72
-#, fuzzy
-msgid "Default account settings"
-msgstr "Einstellungen des E-Mail Konto"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
-#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
-#, fuzzy
-msgid "On this page you can configure the default settings for user accounts"
-msgstr ""
-"Auf dieser Seite werden verschiedene allgemeine Einstellungen für Samba "
-"festelegt"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:68
-msgid "Parameter"
-msgstr "Parameter"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:77
-msgid "List of pending operations on slaves"
-msgstr "Liste der geplanten Operationen auf Slaves"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:84
-msgid ""
-"This is a list those operations that need to be run by the slaves because "
-"the master failed to contact them."
-msgstr ""
-"Dies ist eine Liste der Operationen, die von den Slaves noch ausgeführt "
-"werden müssen, weil der Master sie nicht kontaktieren konnte."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:86
-msgid "operation"
-msgstr "Aktion"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PendingSync.pm:130
-msgid "There are no pending operations at the moment."
-msgstr "Derzeit gibt es keine geplanten Aktionen."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:48
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
-msgid "Password management"
-msgstr "Passwort-Verwaltung"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:105
-#: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
-msgid "New password"
-msgstr "Neues Passwort"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:65
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:64
-msgid "Re-type new password"
-msgstr "Neues Passwort erneut eingeben"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:97
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUser.pm:72
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:79
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:98
-#: ../../main/users/src/EBox/CGI/AddUser.pm:70
-#: ../../main/users/src/EBox/CGI/ModifyUser.pm:86
-msgid "Passwords do not match."
-msgstr "Die Passwörter stimmen nicht überein."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Password.pm:118
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:106
-msgid "Password successfully updated"
-msgstr "Passwort erfolgreich aktualisiert"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:82
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:82
-#, perl-brace-format
-msgid ""
-"PAM can not be enabled on slave servers while acting as PDC. You can disable "
-"the PDC functionality at {ohref}File sharing options{chref}."
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:125
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:125
-msgid "Enable PAM"
-msgstr "PAM aktivieren"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:128
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:128
-msgid "Make LDAP users have system account."
-msgstr "LDAP Benutzern ein Systemkonto freischalten."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:136
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:136
-msgid "Default login shell"
-msgstr "Defaulr Login-Shell"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:140
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:140
-msgid "This will apply only to new users from now on."
-msgstr "Dies wird zukünftig ausschließlich auf neue Benutzer angewendet."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/PAM.pm:147
-#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:147
-msgid "PAM settings"
-msgstr "PAM Einstellungen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:66
-msgid "Master"
-msgstr "Hauptrechner (Master)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:78
-msgid "Windows AD Slave"
-msgstr "Windows AD Satellitenrechner (Slave)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:84
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2693
-#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:41
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:51
-msgid "Mode"
-msgstr "Modus"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:91
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:192
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:81
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:135
-msgid "LDAP DN"
-msgstr "LDAP Domänenname"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:96
-msgid "Only for master and AD slave configuration"
-msgstr "Nur für die AD Haupt- und Satellitenrechner Konfiguration"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:100
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:99
-#, fuzzy
-msgid "Master host"
-msgstr "Master Host"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:102
-#, fuzzy
-msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
-msgstr ""
-"Nur für die Satellitenrechner(Slave)-Konfiguration: IP vom Zentyal-Server "
-"(Master) oder Windows AD-Server"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:106
-msgid "LDAP password"
-msgstr "LDAP Passwort"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:108
-#, fuzzy
-msgid "Master Zentyal LDAP password"
-msgstr "Master Zentyal LDAP Passwort"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/Mode.pm:115
-#, fuzzy
-msgid "Zentyal Users Mode"
-msgstr "Zentyal Benutzer Modus"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:42
-msgid "Base DN"
-msgstr "Basisdomänenname (Base DN)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:72
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:46
-msgid "Root DN"
-msgstr "Wurzeldomänenname (Root DN)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:84
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:54
-#, fuzzy
-msgid "Users DN"
-msgstr "Benutzer DN"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:90
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:58
-#, fuzzy
-msgid "Groups DN"
-msgstr "Gruppen DN"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:98
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:64
-#, fuzzy
-msgid "LDAP information"
-msgstr "LDAP Information"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Model/LdapInfo.pm:155
-#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:120
-#, fuzzy
-msgid ""
-"You must enable the Users and Groups module to access the LDAP information."
-msgstr ""
-"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es zu "
-"nutzen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2681
-msgid "Slave Status"
-msgstr "Satellitenrechnerstatus (slave Status)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:58
-#: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:44
-msgid ""
-"These configuration options are used when a new user account is created."
-msgstr ""
-"Diese Konfigurationsoptionen werden verwendet, wenn ein neues Benutzerkonto "
-"erstellt wird."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:74
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2660
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2669
-#: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1217
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1227
-msgid "User Template"
-msgstr "Standard Benutzer-Vorlage"
-
-# #-#-#-#-#  de.po (zentyal 2.1)  #-#-#-#-#
-# German translations for Zentyal
-# Copyright (C) 2008-2012 eBox Technologies S.L.
-# This file is distributed under the same license as the zentyal packages.
-# Automatically generated, 2011.
-#
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Composite/Settings.pm:62
-#: ../../main/samba/src/EBox/Samba/Composite/General.pm:61
-#: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:61
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:45
-msgid ""
-msgstr ""
-"Project-Id-Version: zentyal 2.1\n"
-"Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-06-23 15:47+0200\n"
-"Last-Translator: Bernhard <zentyal@funghis.de>\n"
-"Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: de\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2674
-#: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:52
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1242
-msgid "LDAP Settings"
-msgstr "LDAP Einstellungen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:106
-#, fuzzy
-msgid ""
-"Your Zentyal will be registered as a slave in the Zentyal master specified"
-msgstr "Diese Zentyal wird registriert als Slave bei der Master Zentyal"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:107
-#, fuzzy
-msgid ""
-"This Zentyal needs to have remote access to the users in the Zentyal master."
-msgstr ""
-"Diese Zentyal braucht Fernzugriff auf die Benutzerkonten in der Master "
-"Zentyal."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:114
-#: ../../main/users/src/EBox/UsersAndGroups.pm:96
-#, fuzzy
-msgid ""
-"Your LDAP database will be populated with some basic organizational units"
-msgstr ""
-"Deine openLDAP-Datenbank wird mit grundlegenden Organsationseinheiten "
-"angelegt"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:115
-#: ../../main/users/src/EBox/UsersAndGroups.pm:97
-#, fuzzy
-msgid ""
-"Zentyal needs this organizational units to add users and groups into them."
-msgstr ""
-"Zentyal benötigt diese Organsationseinheiten, um darin Benutzer und Gruppen "
-"anzulegen."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:127
-#, fuzzy
-msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr "Installiere /etc/cron.d/ebox-ad-sync."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:128
-#, fuzzy
-msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
-msgstr ""
-"Zentyal wird alle 5 Minuten ein Script ausführen, um mit Windows AD zu "
-"synchronisieren."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:139
-msgid "Apparmor profile will be disabled"
-msgstr "Apparmor-Profil wird deaktiviert"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:140
-#, fuzzy
-msgid "It is not ready to work with more than one slapd."
-msgstr "Funktioniert noch nicht mit mehr als einem LDAP-Server."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:150
-#: ../../main/users/src/EBox/UsersAndGroups.pm:106
-msgid "Configure PAM."
-msgstr "Konfiguriere PAM."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:151
-#: ../../main/users/src/EBox/UsersAndGroups.pm:107
-#, fuzzy
-msgid "Zentyal will give LDAP users system account."
-msgstr "Zentyal wird LDAP Benutzern ein System-Benutzerkonto geben."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:172
-#: ../../main/users/src/EBox/UsersAndGroups.pm:127
-#, fuzzy
-msgid ""
-"To make NSS use LDAP resolution for user and group accounts. Needed for "
-"Samba PDC configuration."
-msgstr ""
-"Erlaubt NSS die LDAP Benutzer- und Gruppen-Accounts zu nutzen. Erforderlich "
-"für Samba-PDC-Konfiguration."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:178
-#: ../../main/users/src/EBox/UsersAndGroups.pm:133
-#, fuzzy
-msgid "To let NSS know how to access LDAP accounts."
-msgstr ""
-"Gibt NSS die erforderlichen Informationen, um auf LDAP-Konten zuzugreifen."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:183
-#: ../../main/users/src/EBox/UsersAndGroups.pm:138
-msgid "To add quota support to /home partition."
-msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:188
-msgid ""
-"To configure LDAP slaves and Active Directory synchronization frequency."
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:196
-#: ../../main/users/src/EBox/UsersAndGroups.pm:143
-#, fuzzy
-msgid "To make LDAP listen on TCP and Unix sockets."
-msgstr "Um openLDAP einzurichten, damit es über TCP und Unix Sockets lauscht."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:201
-#: ../../main/users/src/EBox/UsersAndGroups.pm:148
-#, fuzzy
-msgid ""
-"To copy LDAP admin password generated by Zentyal and allow other modules to "
-"access LDAP."
-msgstr ""
-"Kopiert das von Zentyal generierte LDAP-Administrator-Passwort und erlaubt "
-"anderen Zentyal-Modulen den Zugriff auf LDAP."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1012
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:506
-#, perl-brace-format
-msgid "Username must not be longer than {maxuserlength} characters"
-msgstr "Der Benutzername darf nicht länger als {maxuserlength} Zeichen sein"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1019
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:513
-msgid "Username already exists on the system"
-msgstr "Benutzername existiert bereits auf dem System"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1033
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:527
-#, perl-brace-format
-msgid ""
-"Cannot create user because the home directory {dir} already exists. Please "
-"move or remove it before creating this user"
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1131
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1824
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:706
-msgid "Maximum number of system users reached"
-msgstr "Maximale Anzahl der Benutzer für dieses System ist erreicht"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1148
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:722
-#, perl-brace-format
-msgid ""
-"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
-msgstr ""
-"Unerlaubte UID {uid} für einen Benutzer. UID muss größer oder gleich {min} "
-"sein"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1159
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:732
-#, perl-brace-format
-msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
-msgstr ""
-"Unerlaubte UID {uid} für einen Systembenutzer . UID muss kleiner sein als "
-"{max}"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1219
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1229
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:127
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:341
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:351
-#, fuzzy
-msgid "user quota"
-msgstr "Benutzerdefinierte Größenbeschränkung "
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1222
-#, fuzzy
-msgid ""
-"User quota must be an positive integer. To set an unlimited quota, enter "
-"zero."
-msgstr ""
-"Das Limit kann nur eine positive Zahl sein oder Null für keine Begrenzung"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1231
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:353
-#, perl-brace-format
-msgid "The maximum value is {max} MB"
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1250
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:372
-#, perl-brace-format
-msgid ""
-"Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
-"not support quota?"
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1748
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:311
-#, perl-brace-format
-msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr "Der Gruppenname darf nicht länger als {maxGroupLength} Zeichen sein"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1754
-msgid "The group name is not valid because it is used internally"
-msgstr "Der Gruppenname ist ungültig, weil er intern verwendet wird"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1760
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1765
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1958
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2111
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2145
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2262
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2365
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyGroup.pm:39
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddGroup.pm:45
-#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
-#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
-#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
-msgid "group name"
-msgstr "Gruppenname"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1841
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:446
-#, perl-brace-format
-msgid ""
-"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
-"Unerlaubte GID {gid} für eine Gruppe. GID muss gleich oder größer  {min} sein"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1851
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:456
-#, perl-brace-format
-msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
-msgstr ""
-"Unerlaubte GID {gid} für eine Systemgruppe. GID muss kleiner sein als {max}"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2453
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:752
-#, perl-brace-format
-msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr "Das Passwort darf höchstens {maxPwdLength} Zeichen lang sein"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2687
-msgid "AD Sync Settings"
-msgstr "AD Synchronisationseinstellungen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:2783
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1417
-#, perl-brace-format
-msgid ""
-"Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
-"Delete or rename this user and try again"
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3053
-msgid "It seems that your master has some incompatible modules installed."
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3055
-#, perl-brace-format
-msgid "Please refer to {open}master/slave documentation{close}."
-msgstr ""
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3076
-#, fuzzy, perl-brace-format
-msgid "A host with the name {host} is already registered in this Zentyal"
-msgstr "Ein Rechner mit dem Namen {host} existiert bereits in dieser Zentyal"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:3202
-msgid "Replication failed"
-msgstr "Replikation fehlgeschlagen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/LdapUserImplementation.pm:42
-#: ../../main/users/src/EBox/LdapUserImplementation.pm:39
-msgid "This group contains users"
-msgstr "Diese Gruppe enthält Benutzer"
-
-# verb? = kommentieren
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyGroup.pm:46
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUser.pm:46
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:54
-#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:52
-#: ../../main/users/src/EBox/CGI/AddUser.pm:45
-#: ../../main/users/src/EBox/CGI/ModifyUser.pm:57
-msgid "comment"
-msgstr "Kommentar"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Del.pm:64
-#: ../../main/users/src/EBox/CGI/Del.pm:65
-msgid "object name"
-msgstr "Objektname"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Del.pm:69
-#: ../../main/users/src/EBox/CGI/Del.pm:70
-msgid "object type"
-msgstr "Objekttyp"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Del.pm:89
-#: ../../main/users/src/EBox/CGI/Del.pm:93
-msgid "User removed successfully"
-msgstr "Der Benutzer wurde entfernt"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Del.pm:93
-#: ../../main/users/src/EBox/CGI/Del.pm:98
-msgid "Group removed successfully"
-msgstr "Die Gruppe wurde entfernt"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/AddUser.pm:45
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:53
-#: ../../main/users/src/EBox/CGI/AddUser.pm:44
-#: ../../main/users/src/EBox/CGI/ModifyUser.pm:56
-msgid "last name"
-msgstr "Nachname"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:47
-#: ../../main/users/src/EBox/CGI/ModifyUser.pm:44
-msgid "quota"
-msgstr "Speicherlimit"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/ModifyUser.pm:56
-#: ../../main/users/src/EBox/CGI/ModifyUser.pm:59
-msgid "confirm password"
-msgstr "Passwort bestätigen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/Group.pm:31
-#: ../../main/users/src/EBox/CGI/Group.pm:32
-msgid "Edit group"
-msgstr "Gruppe bearbeiten"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/CGI/User.pm:47
-#: ../../main/users/src/EBox/CGI/User.pm:47
-msgid "username"
-msgstr "Benutzername"
-
 #: ../../main/printers/src/EBox/Model/CUPS.pm:132
 #, perl-brace-format
 msgid ""
@@ -11366,6 +10529,23 @@ msgstr "Freigaben pro Benutzer"
 msgid "Users by share"
 msgstr "Benutzer pro Freigabe"
 
+#: ../../main/samba/src/EBox/Samba.pm:1636
+#: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:43
+#: ../../main/l7-protocols/src/EBox/Model/Groups.pm:76
+#: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:41
+#: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:42
+#: ../../main/asterisk/src/EBox/CGI/AsteriskGroupOptions.pm:45
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:81
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:327
+#: ../../main/users/src/EBox/UsersAndGroups.pm:827
+#: ../../main/users/src/EBox/CGI/AddGroupToUser.pm:51
+#: ../../main/users/src/EBox/CGI/DelUserFromGroup.pm:42
+#: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:41
+#: ../../main/users/src/EBox/CGI/DelGroupFromUser.pm:51
+#: ../../main/users/src/EBox/CGI/Group.pm:47
+msgid "group"
+msgstr "Gruppe"
+
 #: ../../main/samba/src/EBox/Samba.pm:1751
 msgid "Resource"
 msgstr "Ressource"
@@ -11391,8 +10571,6 @@ msgid "Disconnect"
 msgstr "Trennung"
 
 #: ../../main/samba/src/EBox/Samba.pm:1760
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:49
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:123
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
 #: ../../main/users/src/templates/user.mas:123
@@ -11456,6 +10634,13 @@ msgstr "Samba-Quarantäne"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:573
 msgid "A name should be provided for the share."
 msgstr "Für die Freigabe sollte ein Name angegeben werden."
+
+#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
+#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
+#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
+msgid "group name"
+msgstr "Gruppenname"
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:52
 #, fuzzy
@@ -12768,6 +11953,12 @@ msgstr ""
 "Der gelöschte virtuelle Host war für Webmail konfiguriert. Vielleicht "
 "möchten Sie eine neue Host-Adresse auswählen."
 
+#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:41
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:50
+msgid "Mode"
+msgstr "Modus"
+
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:55
 msgid "Operation mode"
 msgstr "Betriebsmodus"
@@ -12941,6 +12132,23 @@ msgstr ""
 msgid "NTP"
 msgstr "FTP"
 
+#: ../../main/core/ModelManager.pm:458
+#: ../../main/core/src/EBox/Model/Manager.pm:492
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+"Die Daten, welche Sie löschen möchten werden von folgenden Bereichen benutzt:"
+
+#: ../../main/core/ModelManager.pm:504
+#: ../../main/core/src/EBox/Model/Manager.pm:538
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+"Die Daten, welche Sie verändern möchten werden von folgenden Tabellen "
+"benutzt:"
+
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
 msgstr "Dienst aktiviert"
@@ -12970,21 +12178,6 @@ msgstr "Es sollte einer der folgenden Werte sein: {values}"
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Erlaubte Aktionen sind: {view} und {cView}"
 
-#: ../../main/core/src/EBox/Model/Manager.pm:492
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-"Die Daten, welche Sie löschen möchten werden von folgenden Bereichen benutzt:"
-
-#: ../../main/core/src/EBox/Model/Manager.pm:538
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-"Die Daten, welche Sie verändern möchten werden von folgenden Tabellen "
-"benutzt:"
-
 #: ../../main/core/src/EBox/Model/DataForm.pm:531
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
@@ -13003,56 +12196,54 @@ msgstr "bei"
 msgid "field"
 msgstr "Feld"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2625
+#: ../../main/core/src/EBox/Model/DataTable.pm:2631
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "{num} Zeilen {rowName} von {model} entfernen{br}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2695
+#: ../../main/core/src/EBox/Model/DataTable.pm:2701
 msgid "Page size"
 msgstr "Seitengröße"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2698
+#: ../../main/core/src/EBox/Model/DataTable.pm:2704
 msgid "Must be either a positive number or zero"
 msgstr "Geben Sie eine positive Zahl oder Null ein"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2767
+#: ../../main/core/src/EBox/Model/DataTable.pm:2773
 #, fuzzy, perl-brace-format
 msgid "New {name}"
 msgstr "Server {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3193
+#: ../../main/core/src/EBox/Model/DataTable.pm:3199
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} hinzugefügt"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3194
+#: ../../main/core/src/EBox/Model/DataTable.pm:3200
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} gelöscht"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3195
+#: ../../main/core/src/EBox/Model/DataTable.pm:3201
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} aktualisiert"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3196
+#: ../../main/core/src/EBox/Model/DataTable.pm:3202
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} nach oben verschoben"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3197
+#: ../../main/core/src/EBox/Model/DataTable.pm:3203
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} nach unten verschoben"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4248
+#: ../../main/core/src/EBox/Model/DataTable.pm:4254
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:58
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:68
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/network/src/templates/ifaces.mas:190
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:20
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:91
 #: ../../main/jabber/src/templates/jabber.mas:40
 #: ../../main/samba/src/templates/samba.mas:37
 #: ../../main/samba/src/templates/samba.mas:59
@@ -13539,10 +12730,8 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:58
 #: ../../main/network/src/templates/ifaces.mas:215
 #: ../../main/network/src/templates/ifaces.mas:285
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:62
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:35
 #: ../../main/samba/src/templates/samba.mas:62
-#: ../../main/users/src/templates/users.mas:66
+#: ../../main/users/src/templates/users.mas:69
 #: ../../main/users/src/templates/groups.mas:35
 msgid "Add"
 msgstr "Hinzufügen"
@@ -13672,6 +12861,18 @@ msgstr "HTTP Software"
 #, fuzzy
 msgid "Uptime"
 msgstr "Zeit"
+
+#: ../../main/core/src/EBox/SysInfo.pm:329
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:74
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1219
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1228
+#: ../../main/users/src/EBox/CGI/Users.pm:28
+#: ../../main/users/src/EBox/CGI/Users.pm:61
+#: ../../main/users/src/EBox/CGI/Groups.pm:51
+#: ../../main/users/src/EBox/CGI/User.pm:43
+#: ../../main/users/src/EBox/CGI/User.pm:67
+msgid "Users"
+msgstr "Benutzer"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:493
 msgid ""
@@ -14028,14 +13229,20 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:49
 #: ../../main/network/src/templates/ifaces.mas:167
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:16
-#: ../../main/users/src/templates/users.mas:17
+#: ../../main/users/src/templates/users.mas:20
 msgid "User name"
 msgstr "Benutzername"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:54
 msgid "Current password"
 msgstr "Aktuelles Passwort"
+
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:58
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:105
+#: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
+msgid "New password"
+msgstr "Neues Passwort"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:64
 msgid "Your password must be at least 6 characters long."
@@ -14085,8 +13292,8 @@ msgstr "Änderungen gespeichert"
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
 #, fuzzy, perl-brace-format
 msgid ""
-"Are you sure you want to change the hostname to {new}?. Maybe you would need "
-"to restart all the services or reboot the system to enforce the change"
+"Are you sure you want to change the hostname to {new}?. You may need to "
+"restart all the services or reboot the system to enforce the change"
 msgstr ""
 "Alle Dienste müssen neu gestartet werden oder ein Neustart des Systems "
 "durchgeführt werden, um die Änderung des Rechnernamens wirksam werden zu "
@@ -15096,7 +14303,7 @@ msgstr ""
 msgid "List of locally attached UPS."
 msgstr ""
 
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:55
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:54
 msgid ""
 "Standalone mode addresses a local only configuration, with one UPS "
 "protecting the local system. If you want to protect more than one server, "
@@ -15105,12 +14312,12 @@ msgid ""
 "the clients."
 msgstr ""
 
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
 #, fuzzy
 msgid "Standalone"
 msgstr "Einzelner (Standalone) Server"
 
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:68
+#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:67
 #: ../../main/radius/src/EBox/Model/Clients.pm:105
 #: ../../main/radius/src/EBox/Radius.pm:352
 msgid "Client"
@@ -16674,14 +15881,14 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:179
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
-#: ../../main/webserver/src/EBox/WebServer.pm:70
-#: ../../main/webserver/src/EBox/WebServer.pm:164
+#: ../../main/webserver/src/EBox/WebServer.pm:69
+#: ../../main/webserver/src/EBox/WebServer.pm:163
 #, fuzzy
 msgid "Web Server"
 msgstr "Webserver"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:180
-#: ../../main/webserver/src/EBox/WebServer.pm:165
+#: ../../main/webserver/src/EBox/WebServer.pm:164
 #, fuzzy
 msgid "Zentyal Web Server"
 msgstr "Zentyal FTP Server"
@@ -16811,55 +16018,55 @@ msgstr ""
 "Der Zentyal Webserver erlaubt Ihnen reine HTML-Webseiten in "
 "unterschiedlichen virtuellen Servern bereitzustellen"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:88
+#: ../../main/webserver/src/EBox/WebServer.pm:87
 #, fuzzy
 msgid "To set webserver listening port."
 msgstr "Um den lauschenden Port des Webservers zu setzen"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:93
+#: ../../main/webserver/src/EBox/WebServer.pm:92
 msgid "To configure default virtual host."
 msgstr "Um den Standart Virtuellen Host zu konfigurieren"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:98
+#: ../../main/webserver/src/EBox/WebServer.pm:97
 msgid "To configure default SSL virtual host."
 msgstr "Um den Standard SSL Virtuellen Server zu konfigurieren"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:103
+#: ../../main/webserver/src/EBox/WebServer.pm:102
 #, fuzzy
 msgid "To configure the per-user public_html directory."
 msgstr ""
 "Um die benutzerbezogenen öffentlichen HTML-Verzeichnisse zu konfigurieren"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:128
+#: ../../main/webserver/src/EBox/WebServer.pm:127
 #, fuzzy
 msgid "Enable Apache LDAP user module"
 msgstr "Aktiviere Apache LDAP Benutzer Modul"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:130
+#: ../../main/webserver/src/EBox/WebServer.pm:129
 #, fuzzy
 msgid "To fetch home directories from LDAP."
 msgstr "Zum Abrufen der Home-Verzeichnisse vom LDAP"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:133
+#: ../../main/webserver/src/EBox/WebServer.pm:132
 #, fuzzy
 msgid "Enable Apache SSL module"
 msgstr "Aktiviere Apache LDAP Benutzer Modul"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:135
+#: ../../main/webserver/src/EBox/WebServer.pm:134
 msgid "To serve pages over HTTPS."
 msgstr "Bediene Seiten via HTTPS."
 
-#: ../../main/webserver/src/EBox/WebServer.pm:138
+#: ../../main/webserver/src/EBox/WebServer.pm:137
 #, fuzzy
 msgid "Remove apache2 init script link"
 msgstr "Entferne ntp-init-Skript-Links"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:721
+#: ../../main/webserver/src/EBox/WebServer.pm:767
 #, fuzzy
 msgid "Web server hosted files"
 msgstr "Status des Webserverdienstes"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:722
+#: ../../main/webserver/src/EBox/WebServer.pm:768
 #, fuzzy
 msgid "Virtual hosts data"
 msgstr "Virtuelle Server"
@@ -17159,6 +16366,11 @@ msgstr ""
 msgid "Sync users from the chosen source"
 msgstr ""
 
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:99
+#, fuzzy
+msgid "Master host"
+msgstr "Master Host"
+
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:101
 msgid "Hostname or IP of the master"
 msgstr ""
@@ -17195,6 +16407,11 @@ msgid "CAUTION: this will delete all defined users and import master ones."
 msgstr ""
 
 # I think this doesn't make sense to translate
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:54
+msgid "Slave"
+msgstr "Slave"
+
+# I think this doesn't make sense to translate
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:67
 #, fuzzy
 msgid "Slaves"
@@ -17202,6 +16419,62 @@ msgstr "Slave"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:71
 msgid "List of slave servers for users and groups synchronization."
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:72
+msgid "slave"
+msgstr "Satellitenrechner (slave)"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:62
+msgid "Full name"
+msgstr "Vollständiger Name"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:67
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:67
+#: ../../main/dns/src/templates/index.mas:41
+#: ../../main/core/src/templates/ajax/tableBody.mas:699
+#: ../../main/core/src/templates/ajax/tableModalView.mas:522
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:128
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:127
+#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:106
+#: ../../main/users/src/EBox/UsersAndGroups/Composite/Sync.pm:90
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
+msgstr ""
+"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
+"benutzen zu können."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:137
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no users at the moment. You may "
+"want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Diese Zentyal ist als Satellitenrechner (slave) konfiguriert und es gibt "
+"zurzeit noch keine Benutzer. Fügen Sie welche im {openhref}master{closehref} "
+"hinzu."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:141
+#, fuzzy
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no users at the "
+"moment. If there are users in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+"Diese Zentyal ist als Windows AD Satellitenrechner (slave) konfiguriert und "
+"derzeit sind keine Benutzer angelegt. Wenn bereits Benutzer im "
+"Domänencontroller existieren, ist die Synchronisation fehlgeschlagen oder "
+"ist noch nicht beendet."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:155
+#, perl-brace-format
+msgid ""
+"There are no users for the organizational unit: {ou}<p>{ao}See users for all "
+"organizational units{ac}"
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/SlavePassword.pm:48
@@ -17213,13 +16486,63 @@ msgstr "Server-Tunnel Passwort"
 msgid "Use this password when connecting a new slave to this server."
 msgstr ""
 
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:75
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1221
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1231
+#: ../../main/users/src/EBox/CGI/Groups.pm:42
+#: ../../main/users/src/EBox/CGI/Group.pm:66
+msgid "Groups"
+msgstr "Gruppen"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:133
+msgid "There are no groups at the moment"
+msgstr "Derzeit sind keine Gruppen angelegt."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:136
+#, fuzzy, perl-brace-format
+msgid ""
+"Zentyal is configured as slave and there are no groups at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Diese Zentyal ist als Satellitenrechner (Slave) konfiguriert und derzeit "
+"sind keine Gruppen angelegt. Sie möchten vielleicht einige in der {openhref}"
+"master{closehref} erstellen. "
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:140
+#, fuzzy
+msgid ""
+"Zentyal is configured as Windows AD slave and there are no groups at the "
+"moment. If there are groups in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
+"Diese Zentyal ist als Windows AD Slave konfiguriert und derzeit sind keine "
+"Gruppen angelegt. Wenn bereits Gruppen in ihrem Domänencontroller "
+"existieren, ist die Synchronisation fehlgeschlagen oder noch nicht beendet."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:52
+#, fuzzy
+msgid "Default user quota"
+msgstr "Voreingestellte Größenbeschränkung "
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:72
+#, fuzzy
+msgid "Default account settings"
+msgstr "Einstellungen des E-Mail Konto"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
+#, fuzzy
+msgid "On this page you can configure the default settings for user accounts"
+msgstr ""
+"Auf dieser Seite werden verschiedene allgemeine Einstellungen für Samba "
+"festelegt"
+
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:54
 #, fuzzy
 msgid "DN"
 msgstr "DNS"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:64
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1233
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1239
 #, fuzzy
 msgid "Organizational Units"
 msgstr "Name der Organisation"
@@ -17228,6 +16551,10 @@ msgstr "Name der Organisation"
 #, fuzzy
 msgid "organizational unit"
 msgstr "Name der Organisation"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
+msgid "There are no users at the moment"
+msgstr "Zurzeit gibt es keine Benutzer"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
 #, fuzzy, perl-brace-format
@@ -17239,6 +16566,56 @@ msgstr "{row} nach oben verschoben"
 msgid "OU added"
 msgstr "{row} hinzugefügt"
 
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
+msgid "Password management"
+msgstr "Passwort-Verwaltung"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:64
+msgid "Re-type new password"
+msgstr "Neues Passwort erneut eingeben"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:98
+#: ../../main/users/src/EBox/CGI/AddUser.pm:70
+#: ../../main/users/src/EBox/CGI/ModifyUser.pm:86
+msgid "Passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:106
+msgid "Password successfully updated"
+msgstr "Passwort erfolgreich aktualisiert"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:82
+#, perl-brace-format
+msgid ""
+"PAM can not be enabled on slave servers while acting as PDC. You can disable "
+"the PDC functionality at {ohref}File sharing options{chref}."
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:125
+msgid "Enable PAM"
+msgstr "PAM aktivieren"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:128
+msgid "Make LDAP users have system account."
+msgstr "LDAP Benutzern ein Systemkonto freischalten."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:136
+msgid "Default login shell"
+msgstr "Defaulr Login-Shell"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:140
+msgid "This will apply only to new users from now on."
+msgstr "Dies wird zukünftig ausschließlich auf neue Benutzer angewendet."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/PAM.pm:147
+msgid "PAM settings"
+msgstr "PAM Einstellungen"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:81
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:135
+msgid "LDAP DN"
+msgstr "LDAP Domänenname"
+
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:86
 msgid "This will be the DN suffix in LDAP tree"
 msgstr ""
@@ -17248,10 +16625,59 @@ msgstr ""
 msgid "Zentyal Users"
 msgstr "Zentyal Benutzer Modus"
 
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:42
+msgid "Base DN"
+msgstr "Basisdomänenname (Base DN)"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:46
+msgid "Root DN"
+msgstr "Wurzeldomänenname (Root DN)"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:54
+#, fuzzy
+msgid "Users DN"
+msgstr "Benutzer DN"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:58
+#, fuzzy
+msgid "Groups DN"
+msgstr "Gruppen DN"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:64
+#, fuzzy
+msgid "LDAP information"
+msgstr "LDAP Information"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:120
+#, fuzzy
+msgid ""
+"You must enable the Users and Groups module to access the LDAP information."
+msgstr ""
+"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es zu "
+"nutzen"
+
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Sync.pm:52
 #, fuzzy
 msgid "Users synchronization"
 msgstr "Benutzergruppen-Konfiguration"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:44
+msgid ""
+"These configuration options are used when a new user account is created."
+msgstr ""
+"Diese Konfigurationsoptionen werden verwendet, wenn ein neues Benutzerkonto "
+"erstellt wird."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1223
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1233
+msgid "User Template"
+msgstr "Standard Benutzer-Vorlage"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:52
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1248
+msgid "LDAP Settings"
+msgstr "LDAP Einstellungen"
 
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:228
 msgid "There was an error updating LDAP: "
@@ -17262,6 +16688,11 @@ msgid ""
 "Invalid realm name. Often, the realm is the uppercase version of the local "
 "DNS domain."
 msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:311
+#, perl-brace-format
+msgid "Groupname must not be longer than {maxGroupLength} characters"
+msgstr "Der Gruppenname darf nicht länger als {maxGroupLength} Zeichen sein"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:316
 msgid ""
@@ -17275,6 +16706,26 @@ msgstr ""
 msgid "Maximum number of groups reached"
 msgstr "Maximale Anzahl an Filtergruppen erreicht"
 
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:446
+#, perl-brace-format
+msgid ""
+"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
+msgstr ""
+"Unerlaubte GID {gid} für eine Gruppe. GID muss gleich oder größer  {min} sein"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:456
+#, perl-brace-format
+msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
+msgstr ""
+"Unerlaubte GID {gid} für eine Systemgruppe. GID muss kleiner sein als {max}"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:127
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:341
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:351
+#, fuzzy
+msgid "user quota"
+msgstr "Benutzerdefinierte Größenbeschränkung "
+
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:129
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
@@ -17286,12 +16737,122 @@ msgid ""
 msgstr ""
 "Das Limit kann nur eine positive Zahl sein oder Null für keine Begrenzung"
 
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:353
+#, perl-brace-format
+msgid "The maximum value is {max} MB"
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:372
+#, perl-brace-format
+msgid ""
+"Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
+"not support quota?"
+msgstr ""
+
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:485
 msgid ""
 "To avoid problems, the username should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
 "dot"
 msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:506
+#, perl-brace-format
+msgid "Username must not be longer than {maxuserlength} characters"
+msgstr "Der Benutzername darf nicht länger als {maxuserlength} Zeichen sein"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:513
+msgid "Username already exists on the system"
+msgstr "Benutzername existiert bereits auf dem System"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:527
+#, perl-brace-format
+msgid ""
+"Cannot create user because the home directory {dir} already exists. Please "
+"move or remove it before creating this user"
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:706
+msgid "Maximum number of system users reached"
+msgstr "Maximale Anzahl der Benutzer für dieses System ist erreicht"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:722
+#, perl-brace-format
+msgid ""
+"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
+msgstr ""
+"Unerlaubte UID {uid} für einen Benutzer. UID muss größer oder gleich {min} "
+"sein"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:732
+#, perl-brace-format
+msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
+msgstr ""
+"Unerlaubte UID {uid} für einen Systembenutzer . UID muss kleiner sein als "
+"{max}"
+
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:752
+#, perl-brace-format
+msgid "Password must not be longer than {maxPwdLength} characters"
+msgstr "Das Passwort darf höchstens {maxPwdLength} Zeichen lang sein"
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:96
+#, fuzzy
+msgid ""
+"Your LDAP database will be populated with some basic organizational units"
+msgstr ""
+"Deine openLDAP-Datenbank wird mit grundlegenden Organsationseinheiten "
+"angelegt"
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:97
+#, fuzzy
+msgid ""
+"Zentyal needs this organizational units to add users and groups into them."
+msgstr ""
+"Zentyal benötigt diese Organsationseinheiten, um darin Benutzer und Gruppen "
+"anzulegen."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:106
+msgid "Configure PAM."
+msgstr "Konfiguriere PAM."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:107
+#, fuzzy
+msgid "Zentyal will give LDAP users system account."
+msgstr "Zentyal wird LDAP Benutzern ein System-Benutzerkonto geben."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:127
+#, fuzzy
+msgid ""
+"To make NSS use LDAP resolution for user and group accounts. Needed for "
+"Samba PDC configuration."
+msgstr ""
+"Erlaubt NSS die LDAP Benutzer- und Gruppen-Accounts zu nutzen. Erforderlich "
+"für Samba-PDC-Konfiguration."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:133
+#, fuzzy
+msgid "To let NSS know how to access LDAP accounts."
+msgstr ""
+"Gibt NSS die erforderlichen Informationen, um auf LDAP-Konten zuzugreifen."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:138
+msgid "To add quota support to /home partition."
+msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:143
+#, fuzzy
+msgid "To make LDAP listen on TCP and Unix sockets."
+msgstr "Um openLDAP einzurichten, damit es über TCP und Unix Sockets lauscht."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:148
+#, fuzzy
+msgid ""
+"To copy LDAP admin password generated by Zentyal and allow other modules to "
+"access LDAP."
+msgstr ""
+"Kopiert das von Zentyal generierte LDAP-Administrator-Passwort und erlaubt "
+"anderen Zentyal-Modulen den Zugriff auf LDAP."
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:154
 #, fuzzy
@@ -17324,23 +16885,30 @@ msgstr ""
 msgid "Error while creating users and groups database."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1238
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1244
 #, fuzzy
 msgid "Synchronization"
 msgstr "Sichern der Konfiguration aktiviert"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1246
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1252
 #, fuzzy
 msgid "Configure mode"
 msgstr "Konfigurierte"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1395
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1401
 #, fuzzy
 msgid "Home directories"
 msgstr "Eigener Ordner"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1396
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1402
 msgid "User and groups home directoreies; anything under /home"
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1423
+#, perl-brace-format
+msgid ""
+"Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
+"Delete or rename this user and try again"
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:269
@@ -17355,6 +16923,54 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersSync/Master.pm:274
 msgid "Couldn't configure Zentyal as slave"
 msgstr ""
+
+#: ../../main/users/src/EBox/LdapUserImplementation.pm:39
+msgid "This group contains users"
+msgstr "Diese Gruppe enthält Benutzer"
+
+# verb? = kommentieren
+#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:52
+#: ../../main/users/src/EBox/CGI/AddUser.pm:45
+#: ../../main/users/src/EBox/CGI/ModifyUser.pm:57
+msgid "comment"
+msgstr "Kommentar"
+
+#: ../../main/users/src/EBox/CGI/Del.pm:65
+msgid "object name"
+msgstr "Objektname"
+
+#: ../../main/users/src/EBox/CGI/Del.pm:70
+msgid "object type"
+msgstr "Objekttyp"
+
+#: ../../main/users/src/EBox/CGI/Del.pm:93
+msgid "User removed successfully"
+msgstr "Der Benutzer wurde entfernt"
+
+#: ../../main/users/src/EBox/CGI/Del.pm:98
+msgid "Group removed successfully"
+msgstr "Die Gruppe wurde entfernt"
+
+#: ../../main/users/src/EBox/CGI/AddUser.pm:44
+#: ../../main/users/src/EBox/CGI/ModifyUser.pm:56
+msgid "last name"
+msgstr "Nachname"
+
+#: ../../main/users/src/EBox/CGI/ModifyUser.pm:44
+msgid "quota"
+msgstr "Speicherlimit"
+
+#: ../../main/users/src/EBox/CGI/ModifyUser.pm:59
+msgid "confirm password"
+msgstr "Passwort bestätigen"
+
+#: ../../main/users/src/EBox/CGI/Group.pm:32
+msgid "Edit group"
+msgstr "Gruppe bearbeiten"
+
+#: ../../main/users/src/EBox/CGI/User.pm:47
+msgid "username"
+msgstr "Benutzername"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
@@ -18126,220 +17742,6 @@ msgstr "Name der virtuellen Domäne"
 msgid "Paused"
 msgstr "Angehalten"
 
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:12
-#: ../../main/users/src/templates/users.mas:13
-msgid "Add User"
-msgstr "Benutzer hinzufügen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:37
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:48
-#: ../../main/core/src/templates/ajax/typeRowLayout.mas:14
-#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
-#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:29
-#: ../../main/users/src/templates/users.mas:38
-#: ../../main/users/src/templates/user.mas:48
-msgid "Optional"
-msgstr "Optional"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:50
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:79
-#: ../../main/users/src/templates/users.mas:51
-#: ../../main/users/src/templates/user.mas:79
-msgid "Retype password"
-msgstr "Passwort erneut eingeben"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/users.mas:64
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:34
-#: ../../main/users/src/templates/users.mas:68
-#: ../../main/users/src/templates/groups.mas:34
-msgid "Add and Edit"
-msgstr "Hinzufügen und bearbeiten"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:8
-msgid "Select the type of the server"
-msgstr "Wählen Sie den Server-Typ aus"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:8
-msgid ""
-"Choose standalone unless you want LDAP replication or synchronization with "
-"Active Directory."
-msgstr ""
-"Wählen Sie Standalone-Server, außer Sie möchten LDAP-Replikation oder "
-"Synchronisation mit Active Directory."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:9
-msgid "Standalone server"
-msgstr "Einzelner (Standalone) Server"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:9
-msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr "Erweiterte Einstellungen (Master/Slave/AD-Synchronisation)"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/Wizard/users.mas:11
-#, perl-brace-format
-msgid ""
-"If you need the advanced features you have to configure them manually. You "
-"can find {open}all the information in our wiki{close}"
-msgstr ""
-"Wenn Sie die aktivierten Advanced-Features benötigen, müssen Sie diese "
-"händisch konfigurieren. Sie finden {open} alle Informationen in unserem Wiki"
-"{close}."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:10
-#: ../../main/users/src/templates/groups.mas:10
-msgid "Add Group"
-msgstr "Gruppe hinzufügen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:15
-#: ../../main/users/src/templates/groups.mas:15
-msgid "Group name"
-msgstr "Gruppenname"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/groups.mas:28
-#: ../../main/users/src/templates/groups.mas:28
-msgid "Optional value"
-msgstr "Optionaler Name"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:13
-#: ../../main/users/src/templates/del.mas:13
-#, fuzzy
-msgid "Deleting user"
-msgstr "Benutzer löschen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:14
-#: ../../main/users/src/templates/del.mas:14
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Der Benutzer den Sie löschen möchten hat Daten in einigen Modulen. Möchten "
-"Sie den Benutzer und alle zugehörigen Daten löschen?"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:16
-#: ../../main/users/src/templates/del.mas:16
-#, fuzzy
-msgid "Deleting group"
-msgstr "Gruppe löschen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/del.mas:17
-#: ../../main/users/src/templates/del.mas:17
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Die Gruppe die Sie löschen möchten hat Daten in folgenden Modulen. Möchten "
-"Sie die Gruppe und alle zugehörigen Daten löschen?"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:11
-#: ../../main/users/src/templates/group.mas:11
-#, fuzzy
-msgid "Administration of group "
-msgstr "Administrationsrechte"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:13
-#: ../../main/users/src/templates/group.mas:13
-msgid ""
-"There are no users at the moment. You need at least one to manage this group "
-"properly."
-msgstr ""
-"Es gibt im Moment noch keine Benutzer. Sie müssen mindestens einen "
-"erstellen, um diese Gruppe verwalten zu können."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:26
-#: ../../main/users/src/templates/group.mas:26
-msgid "Users in group"
-msgstr "Gruppenmitglieder"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:27
-#: ../../main/users/src/templates/group.mas:27
-msgid "Users not in group"
-msgstr "keine Gruppenmitglieder"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:40
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:71
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:116
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:141
-#: ../../main/users/src/templates/group.mas:40
-#: ../../main/users/src/templates/group.mas:70
-#: ../../main/users/src/templates/user.mas:116
-#: ../../main/users/src/templates/user.mas:141
-msgid "Empty list"
-msgstr "Liste leeren"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:50
-#: ../../main/users/src/templates/group.mas:50
-msgid "Remove users from group"
-msgstr "Benutzer aus der Gruppe entfernen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:59
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:60
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:130
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:131
-#: ../../main/users/src/templates/group.mas:58
-#: ../../main/users/src/templates/group.mas:59
-#: ../../main/users/src/templates/user.mas:130
-#: ../../main/users/src/templates/user.mas:131
-msgid "Add users to group"
-msgstr "Benutzer zur Gruppe hinzufügen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:85
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:91
-#: ../../main/users/src/templates/group.mas:84
-#: ../../main/users/src/templates/group.mas:90
-msgid "Delete group"
-msgstr "Gruppe löschen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/group.mas:86
-#: ../../main/users/src/templates/group.mas:85
-msgid ""
-"This operation will cause the removal of the group and all dependent data "
-"such as shared directory, etc."
-msgstr ""
-"Dieser Vorgang löscht die Gruppe und alle zugehörigen Daten wie freigegebene "
-"Verzeichnisse."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:14
-#: ../../main/users/src/templates/user.mas:14
-#, fuzzy
-msgid "Administration of user"
-msgstr "Administrationsrechte"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:61
-#: ../../main/users/src/templates/user.mas:61
-msgid "User quota"
-msgstr "Speicherplatz des Benutzers"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:102
-#: ../../main/users/src/templates/user.mas:102
-msgid "User groups"
-msgstr "Benutzergruppen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:103
-#: ../../main/users/src/templates/user.mas:103
-msgid "Other groups"
-msgstr "Andere Gruppen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:124
-#: ../../main/users/src/templates/user.mas:124
-msgid "Remove groups from user"
-msgstr "Gruppen vom Benutzer entfernen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:157
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:162
-#: ../../main/users/src/templates/user.mas:157
-#: ../../main/users/src/templates/user.mas:162
-msgid "Delete user"
-msgstr "Benutzer löschen"
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/templates/user.mas:158
-#: ../../main/users/src/templates/user.mas:158
-msgid ""
-"This operation will cause the removal of the user and all dependent data "
-"such as mail accounts, user files, etc."
-msgstr ""
-"Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
-"Benutzerdateien, ..."
-
 #: ../../main/jabber/src/templates/jabber.mas:7
 msgid "Jabber account"
 msgstr "Jabber-Konto"
@@ -18751,47 +18153,47 @@ msgstr ""
 msgid "last"
 msgstr "letzter"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:624
+#: ../../main/core/src/templates/ajax/tableBody.mas:653
 msgid "Add new"
 msgstr "neuen Eintrag hinzufügen"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:674
+#: ../../main/core/src/templates/ajax/tableBody.mas:703
 #: ../../main/core/src/templates/ajax/tableModalView.mas:526
 msgid "Clone"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:679
+#: ../../main/core/src/templates/ajax/tableBody.mas:708
 #: ../../main/core/src/templates/ajax/tableModalView.mas:531
 msgid "Read-only row: edit disabled"
 msgstr "Nur-Lese Zeile: Bearbeitung deaktiviert"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:680
+#: ../../main/core/src/templates/ajax/tableBody.mas:709
 #: ../../main/core/src/templates/ajax/tableModalView.mas:532
 msgid "Read-only row: delete disabled"
 msgstr "Nur-Lese Zeile: Löschen deaktiviert"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:682
+#: ../../main/core/src/templates/ajax/tableBody.mas:711
 #: ../../main/core/src/templates/ajax/tableModalView.mas:534
 #, fuzzy
 msgid "Read-only row: clone disabled"
 msgstr "Nur-Lese Zeile: Löschen deaktiviert"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:794
+#: ../../main/core/src/templates/ajax/tableBody.mas:823
 #: ../../main/core/src/templates/ajax/tableModalView.mas:652
 msgid "Read-only row: move up disabled"
 msgstr "Nur-Lese Zeile: Bewegung nach oben deaktiviert"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:798
+#: ../../main/core/src/templates/ajax/tableBody.mas:827
 #: ../../main/core/src/templates/ajax/tableModalView.mas:656
 msgid "Move up"
 msgstr "nach oben bewegen"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:810
+#: ../../main/core/src/templates/ajax/tableBody.mas:839
 #: ../../main/core/src/templates/ajax/tableModalView.mas:668
 msgid "Read-only row: move down  disabled"
 msgstr "Nur-Lese Zeile: Bewegung nach unten deaktiviert"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:814
+#: ../../main/core/src/templates/ajax/tableBody.mas:843
 #: ../../main/core/src/templates/ajax/tableModalView.mas:672
 msgid "Move down"
 msgstr "nach unten bewegen"
@@ -18873,6 +18275,14 @@ msgstr "Eine neue hinzufügen"
 #: ../../main/core/src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 msgid "Inverse match"
 msgstr "Treffer invertieren"
+
+#: ../../main/core/src/templates/ajax/typeRowLayout.mas:14
+#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
+#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:29
+#: ../../main/users/src/templates/users.mas:41
+#: ../../main/users/src/templates/user.mas:48
+msgid "Optional"
+msgstr "Optional"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:57
 msgid "Depends"
@@ -19438,7 +18848,21 @@ msgstr ""
 "Die folgenden Änderungen werden nur übernommen wenn das Asterisk Modul "
 "aktiviert ist."
 
-#: ../../main/users/src/templates/users.mas:97
+#: ../../main/users/src/templates/users.mas:16
+msgid "Add User"
+msgstr "Benutzer hinzufügen"
+
+#: ../../main/users/src/templates/users.mas:54
+#: ../../main/users/src/templates/user.mas:79
+msgid "Retype password"
+msgstr "Passwort erneut eingeben"
+
+#: ../../main/users/src/templates/users.mas:71
+#: ../../main/users/src/templates/groups.mas:34
+msgid "Add and Edit"
+msgstr "Hinzufügen und bearbeiten"
+
+#: ../../main/users/src/templates/users.mas:100
 #, fuzzy
 msgid "Organizational Unit"
 msgstr "Name der Organisation"
@@ -19456,6 +18880,329 @@ msgstr ""
 #, fuzzy
 msgid "Host domain name"
 msgstr "Name der Domäne"
+
+#: ../../main/users/src/templates/usersTableBody.mas:62
+#, fuzzy
+msgid "All organizational units"
+msgstr "Name der Organisation"
+
+#: ../../main/users/src/templates/usersTableBody.mas:67
+#, fuzzy
+msgid "Organizational unit"
+msgstr "Name der Organisation"
+
+#: ../../main/users/src/templates/groups.mas:10
+msgid "Add Group"
+msgstr "Gruppe hinzufügen"
+
+#: ../../main/users/src/templates/groups.mas:15
+msgid "Group name"
+msgstr "Gruppenname"
+
+#: ../../main/users/src/templates/groups.mas:28
+msgid "Optional value"
+msgstr "Optionaler Name"
+
+#: ../../main/users/src/templates/del.mas:13
+#, fuzzy
+msgid "Deleting user"
+msgstr "Benutzer löschen"
+
+#: ../../main/users/src/templates/del.mas:14
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Der Benutzer den Sie löschen möchten hat Daten in einigen Modulen. Möchten "
+"Sie den Benutzer und alle zugehörigen Daten löschen?"
+
+#: ../../main/users/src/templates/del.mas:16
+#, fuzzy
+msgid "Deleting group"
+msgstr "Gruppe löschen"
+
+#: ../../main/users/src/templates/del.mas:17
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Die Gruppe die Sie löschen möchten hat Daten in folgenden Modulen. Möchten "
+"Sie die Gruppe und alle zugehörigen Daten löschen?"
+
+#: ../../main/users/src/templates/group.mas:11
+#, fuzzy
+msgid "Administration of group "
+msgstr "Administrationsrechte"
+
+#: ../../main/users/src/templates/group.mas:13
+msgid ""
+"There are no users at the moment. You need at least one to manage this group "
+"properly."
+msgstr ""
+"Es gibt im Moment noch keine Benutzer. Sie müssen mindestens einen "
+"erstellen, um diese Gruppe verwalten zu können."
+
+#: ../../main/users/src/templates/group.mas:26
+msgid "Users in group"
+msgstr "Gruppenmitglieder"
+
+#: ../../main/users/src/templates/group.mas:27
+msgid "Users not in group"
+msgstr "keine Gruppenmitglieder"
+
+#: ../../main/users/src/templates/group.mas:40
+#: ../../main/users/src/templates/group.mas:70
+#: ../../main/users/src/templates/user.mas:116
+#: ../../main/users/src/templates/user.mas:141
+msgid "Empty list"
+msgstr "Liste leeren"
+
+#: ../../main/users/src/templates/group.mas:50
+msgid "Remove users from group"
+msgstr "Benutzer aus der Gruppe entfernen"
+
+#: ../../main/users/src/templates/group.mas:58
+#: ../../main/users/src/templates/group.mas:59
+#: ../../main/users/src/templates/user.mas:130
+#: ../../main/users/src/templates/user.mas:131
+msgid "Add users to group"
+msgstr "Benutzer zur Gruppe hinzufügen"
+
+#: ../../main/users/src/templates/group.mas:84
+#: ../../main/users/src/templates/group.mas:90
+msgid "Delete group"
+msgstr "Gruppe löschen"
+
+#: ../../main/users/src/templates/group.mas:85
+msgid ""
+"This operation will cause the removal of the group and all dependent data "
+"such as shared directory, etc."
+msgstr ""
+"Dieser Vorgang löscht die Gruppe und alle zugehörigen Daten wie freigegebene "
+"Verzeichnisse."
+
+#: ../../main/users/src/templates/user.mas:14
+#, fuzzy
+msgid "Administration of user"
+msgstr "Administrationsrechte"
+
+#: ../../main/users/src/templates/user.mas:61
+msgid "User quota"
+msgstr "Speicherplatz des Benutzers"
+
+#: ../../main/users/src/templates/user.mas:102
+msgid "User groups"
+msgstr "Benutzergruppen"
+
+#: ../../main/users/src/templates/user.mas:103
+msgid "Other groups"
+msgstr "Andere Gruppen"
+
+#: ../../main/users/src/templates/user.mas:124
+msgid "Remove groups from user"
+msgstr "Gruppen vom Benutzer entfernen"
+
+#: ../../main/users/src/templates/user.mas:157
+#: ../../main/users/src/templates/user.mas:162
+msgid "Delete user"
+msgstr "Benutzer löschen"
+
+#: ../../main/users/src/templates/user.mas:158
+msgid ""
+"This operation will cause the removal of the user and all dependent data "
+"such as mail accounts, user files, etc."
+msgstr ""
+"Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
+"Benutzerdateien, ..."
+
+#~ msgid "List of slaves"
+#~ msgstr "Liste der Satellitenrechner (slaves)"
+
+#, fuzzy
+#~ msgid ""
+#~ "This is a list of those Zentyal slaves which are subscribed to this "
+#~ "Zentyal."
+#~ msgstr ""
+#~ "Dies ist eine Liste der Zentyal Satellitenrechner (slaves), die mit "
+#~ "dieser Zentyal verbunden sind."
+
+#~ msgid "You must enable the module Users in master mode."
+#~ msgstr "Sie müssen das Modul Benutzer im Mastermodus aktivieren."
+
+#~ msgid "There are no slaves at the moment."
+#~ msgstr "Derzeit sind keine Benutzer angelegt."
+
+#, fuzzy
+#~ msgid "Enable AD sync"
+#~ msgstr "Active Sync aktivieren"
+
+#, fuzzy
+#~ msgid "Enable AD syncronization."
+#~ msgstr "Active Sync aktivieren"
+
+#~ msgid "AD user"
+#~ msgstr "AD Benutzer"
+
+#~ msgid "Username for binding to Windows AD (it has to be created in the AD)"
+#~ msgstr ""
+#~ "Benutzername für die Bindung an Windows AD (muss in der AD erstellt "
+#~ "werden)"
+
+#~ msgid "AD password"
+#~ msgstr "AD Passwort"
+
+#~ msgid "Password for the above user"
+#~ msgstr "Passwort für den o.g. Benutzer"
+
+#~ msgid "AD Secret Key"
+#~ msgstr "AD geheimer Schlüssel"
+
+#, fuzzy
+#~ msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
+#~ msgstr ""
+#~ "Geheimer Schlüssel, der von Windows und Zentyal gemeinsam genutzt wird "
+#~ "(16 Zeichen)"
+
+#~ msgid "Windows AD Sync Settings"
+#~ msgstr "Windows Active Directory Synchronisationseinstellungen"
+
+#~ msgid "The secret key needs to have 16 characters."
+#~ msgstr "Der geheime Schlüssel muss 16 Zeichen lang sein."
+
+#~ msgid "Force sync"
+#~ msgstr "Synchronisation erzwingen"
+
+#~ msgid "on slaves"
+#~ msgstr "auf Satellitenrechner (Slaves)"
+
+#~ msgid "Force sync of pending operations"
+#~ msgstr "Synchronisation für laufende Operationen erzwingen"
+
+#~ msgid "Sync now"
+#~ msgstr "Jetzt synchronisieren"
+
+#~ msgid "Parameter"
+#~ msgstr "Parameter"
+
+#~ msgid "List of pending operations on slaves"
+#~ msgstr "Liste der geplanten Operationen auf Slaves"
+
+#~ msgid ""
+#~ "This is a list those operations that need to be run by the slaves because "
+#~ "the master failed to contact them."
+#~ msgstr ""
+#~ "Dies ist eine Liste der Operationen, die von den Slaves noch ausgeführt "
+#~ "werden müssen, weil der Master sie nicht kontaktieren konnte."
+
+#~ msgid "operation"
+#~ msgstr "Aktion"
+
+#~ msgid "There are no pending operations at the moment."
+#~ msgstr "Derzeit gibt es keine geplanten Aktionen."
+
+#~ msgid "Master"
+#~ msgstr "Hauptrechner (Master)"
+
+#~ msgid "Windows AD Slave"
+#~ msgstr "Windows AD Satellitenrechner (Slave)"
+
+#~ msgid "Only for master and AD slave configuration"
+#~ msgstr "Nur für die AD Haupt- und Satellitenrechner Konfiguration"
+
+#, fuzzy
+#~ msgid "Only for slave configuration: IP of the master Zentyal or Windows AD"
+#~ msgstr ""
+#~ "Nur für die Satellitenrechner(Slave)-Konfiguration: IP vom Zentyal-Server "
+#~ "(Master) oder Windows AD-Server"
+
+#~ msgid "LDAP password"
+#~ msgstr "LDAP Passwort"
+
+#, fuzzy
+#~ msgid "Master Zentyal LDAP password"
+#~ msgstr "Master Zentyal LDAP Passwort"
+
+#, fuzzy
+#~ msgid "Zentyal Users Mode"
+#~ msgstr "Zentyal Benutzer Modus"
+
+#~ msgid "Slave Status"
+#~ msgstr "Satellitenrechnerstatus (slave Status)"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your Zentyal will be registered as a slave in the Zentyal master specified"
+#~ msgstr "Diese Zentyal wird registriert als Slave bei der Master Zentyal"
+
+#, fuzzy
+#~ msgid ""
+#~ "This Zentyal needs to have remote access to the users in the Zentyal "
+#~ "master."
+#~ msgstr ""
+#~ "Diese Zentyal braucht Fernzugriff auf die Benutzerkonten in der Master "
+#~ "Zentyal."
+
+#, fuzzy
+#~ msgid "Install /etc/cron.d/ebox-ad-sync."
+#~ msgstr "Installiere /etc/cron.d/ebox-ad-sync."
+
+#, fuzzy
+#~ msgid "Zentyal will run a script every 5 minutes to sync with Windows AD."
+#~ msgstr ""
+#~ "Zentyal wird alle 5 Minuten ein Script ausführen, um mit Windows AD zu "
+#~ "synchronisieren."
+
+#~ msgid "Apparmor profile will be disabled"
+#~ msgstr "Apparmor-Profil wird deaktiviert"
+
+#, fuzzy
+#~ msgid "It is not ready to work with more than one slapd."
+#~ msgstr "Funktioniert noch nicht mit mehr als einem LDAP-Server."
+
+#, fuzzy
+#~ msgid ""
+#~ "User quota must be an positive integer. To set an unlimited quota, enter "
+#~ "zero."
+#~ msgstr ""
+#~ "Das Limit kann nur eine positive Zahl sein oder Null für keine Begrenzung"
+
+#~ msgid "The group name is not valid because it is used internally"
+#~ msgstr "Der Gruppenname ist ungültig, weil er intern verwendet wird"
+
+#~ msgid "AD Sync Settings"
+#~ msgstr "AD Synchronisationseinstellungen"
+
+#, fuzzy
+#~ msgid "A host with the name {host} is already registered in this Zentyal"
+#~ msgstr ""
+#~ "Ein Rechner mit dem Namen {host} existiert bereits in dieser Zentyal"
+
+#~ msgid "Replication failed"
+#~ msgstr "Replikation fehlgeschlagen"
+
+#~ msgid "Select the type of the server"
+#~ msgstr "Wählen Sie den Server-Typ aus"
+
+#~ msgid ""
+#~ "Choose standalone unless you want LDAP replication or synchronization "
+#~ "with Active Directory."
+#~ msgstr ""
+#~ "Wählen Sie Standalone-Server, außer Sie möchten LDAP-Replikation oder "
+#~ "Synchronisation mit Active Directory."
+
+#~ msgid "Standalone server"
+#~ msgstr "Einzelner (Standalone) Server"
+
+#~ msgid "Advanced configuration (Master/Slave/AD Sync)"
+#~ msgstr "Erweiterte Einstellungen (Master/Slave/AD-Synchronisation)"
+
+#~ msgid ""
+#~ "If you need the advanced features you have to configure them manually. "
+#~ "You can find {open}all the information in our wiki{close}"
+#~ msgstr ""
+#~ "Wenn Sie die aktivierten Advanced-Features benötigen, müssen Sie diese "
+#~ "händisch konfigurieren. Sie finden {open} alle Informationen in unserem "
+#~ "Wiki{close}."
 
 #~ msgid "Use default profile configuration"
 #~ msgstr "Benutze die Standard-Profil Konfiguration"
