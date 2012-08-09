@@ -888,8 +888,7 @@ sub _setConf
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
 
-    #push(@array, 'printers'  => $self->_sambaPrinterConf());
-    #push(@array, 'active_printer' => $self->printerService());
+    push (@array, 'printers'  => $self->printersConf());
 
     #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
     #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
@@ -938,6 +937,44 @@ sub _setConf
 
     # Mount user home on network drive
     $self->ldb()->setHomeDrive($self->drive());
+}
+
+sub printersConf
+{
+    my ($self) = @_;
+
+    my $printers = [];
+    if (EBox::Global->modExists('printers')) {
+        my $printersModule = EBox::Global->modInstance('printers');
+        if ($printersModule->isEnabled()) {
+            my $printersModel = $printersModule->model('Printers');
+            my $ids = $printersModel->ids();
+            foreach my $id (@{$ids}) {
+                my $row = $printersModel->row($id);
+                my $printerName = $row->valueByName('printer');
+                my $printerGuest = $row->valueByName('guest');
+                my $printerDescription = $row->valueByName('description');
+                # Get the allowed users and groups for this printer if guest
+                # access is disabled
+                my $printerAcl = [];
+                for my $subId (@{$row->subModel('access')->ids()}) {
+                    my $subRow = $row->subModel('access')->row($subId);
+                    my $userType = $subRow->elementByName('user_group');
+                    my $preCar = $userType->selectedType() eq 'group' ? '@' : '';
+                    my $user =  $preCar . '"' . $userType->printableValue() . '"';
+                    push (@{$printerAcl}, $user);
+                }
+                push (@{$printers}, {
+                    name => $printerName,
+                    description => $printerDescription,
+                    guest => $printerGuest,
+                    acl => $printerAcl,
+                } );
+            }
+        }
+    }
+
+    return $printers;
 }
 
 sub _shareUsers
@@ -1160,25 +1197,6 @@ sub menu
                                     'order' => 540));
 }
 
-# Method: servicePrinter
-#
-#   Returns if the printer sharing service is enabled
-#
-# Returns:
-#
-#   boolean - true if enabled, otherwise undef
-#
-sub printerService
-{
-    my ($self) = @_;
-
-    if (EBox::Global->modExists('printers')) {
-        my $module = EBox::Global->modInstance('printers');
-        return $module->isEnabled();
-    }
-    return undef;
-}
-
 # Method: defaultAdministratorPassword
 #
 #   Generates a default administrator password
@@ -1346,320 +1364,17 @@ sub _ldapModImplementation
     return new EBox::SambaLdapUser();
 }
 
-sub _addPrinter
-{
-    my ($self, $name) = @_;
-
-    my $printers = $self->get_hash('printers');
-    $printers->{$name} = {};
-    $printers->{$name}->{users} = [];
-    $printers->{$name}->{groups} = [];
-    $printers->{$name}->{external} = 1;
-    $self->set('printers', $printers);
-}
-
-sub printers
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my %external;
-    if ($global->modExists('printers')) {
-        my $printers = $global->modInstance('printers');
-        %external = map { $_ => 'new' } @{$printers->fetchExternalCUPSPrinters()};
-    } else {
-        return [];
-    }
-
-    my @printers;
-    my $readOnly = $self->isReadOnly();
-    my $printers = $self->get_hash('printers');
-    foreach my $name (keys %{$printers}) {
-        if (exists $external{$name}) {
-            $external{$name} = 'exists';
-        } else {
-            $self->delPrinter($name) unless ($readOnly);
-            $external{$name} = 'removed';
-        }
-        push (@printers,  $name);
-    }
-
-    unless ($readOnly) {
-        foreach my $newPrinter (grep { $external{$_} eq 'new' } keys %external) {
-            $self->_addPrinter($newPrinter);
-            push (@printers, $newPrinter);
-        }
-    }
-
-    return [sort @printers];
-}
-
-sub ignorePrinterNotFound
-{
-    my ($self) = @_;
-
-    return $self->get_bool('ignorePrinterNotFound');
-}
-
-sub _printerNotFound
-{
-    my ($self, $printer) = @_;
-
-    unless ($self->ignorePrinterNotFound()) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
-    }
-}
-
-sub _setPrinterUsers
-{
-    my ($self, $printer, $users) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return;
-    }
-
-    my $usermod = EBox::Global->modInstance('users');
-    my @okUsers = grep {
-        $usermod->userExists($_)
-    } @{ $users };
-
-    $printers->{$printer}->{users} = \@okUsers;
-    $self->set('printers', $printers);
-}
-
-sub _setPrinterGroups
-{
-    my ($self, $printer, $groups) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return;
-    }
-
-    my $groupmod = EBox::Global->modInstance('users');
-    my @okGroups = grep {
-        $groupmod->groupExists($_)
-    } @{ $groups };
-
-    $printers->{$printer}->{groups} = \@okGroups;
-    $self->set('printers', $printers);
-}
-
-sub _printerUsers
-{
-    my ($self, $printer) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return [];
-    }
-
-    return $printers->{$printer}->{users};
-}
-
-sub _printerGroups
-{
-    my ($self, $printer) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return [];
-    }
-
-    return $printers->{$printer}->{groups};
-}
-
-sub _printersForUser
-{
-    my ($self, $user) = @_;
-
-    my $username = $user->get('uid');
-    my $printPerms = $self->get_hash('printers');
-    my @printers;
-    for my $name (@{$self->printers()}) {
-        my $print = { 'name' => $name, 'allowed' => undef };
-        my $users = $printPerms->{$name}->{users};
-        if (@{$users}) {
-            $print->{'allowed'} = 1 if (grep(/^$username$/, @{$users}));
-        }
-        push (@printers, $print);
-    }
-
-    return \@printers;
-}
-
-sub setPrintersForUser
-{
-    my ($self, $user, $newconf) = @_;
-
-    $self->_checkUserExists($user);
-
-    my %newConf = map {
-        $_->{name} => $_->{allowed}
-    } @{$newconf};
-
-    my @printers = @{$self->printers()};
-    foreach my $printer (@printers) {
-        my @printerUsers = @{$self->_printerUsers($printer)};
-        my $userAllowed = grep { $user eq $_ } @printerUsers;
-        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
-        if ($allowed and (not $userAllowed)) {
-            push @printerUsers, $user;
-            $self->_setPrinterUsers($printer, \@printerUsers)
-        } elsif (not $allowed and $userAllowed) {
-            @printerUsers = grep { $user ne $_ } @printerUsers;
-            $self->_setPrinterUsers($printer, \@printerUsers)
-        }
-    }
-}
-
-sub _printersForGroup
-{
-    my ($self, $group) = @_;
-
-    $self->_checkGroupExists($group);
-
-    my $printPerms = $self->get_hash('printers');
-    my @printers;
-    for my $name (@{$self->printers()}) {
-        my $print = { 'name' => $name, 'allowed' => undef };
-        my $groups = $printPerms->{$name}->{groups};
-        if (@{$groups}) {
-            $print->{'allowed'} = 1 if (grep(/^$group$/, @{$groups}));
-        }
-        push (@printers, $print);
-    }
-
-    return \@printers;
-}
-
-sub setPrintersForGroup
-{
-    my ($self, $group, $newconf) = @_;
-
-    $self->_checkGroupExists($group);
-
-    my %newConf = map {
-        $_->{name} => $_->{allowed}
-    } @{ $newconf };
-
-    my @printers = @{ $self->printers() };
-    foreach my $printer (@printers) {
-        my @printerGroups = @{$self->_printerGroups($printer)};
-        my $groupAllowed = grep { $group eq $_ } @printerGroups;
-        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
-        if ($allowed and (not $groupAllowed)) {
-            push @printerGroups, $group;
-            $self->_setPrinterGroups($printer, \@printerGroups)
-        } elsif (not $allowed and $groupAllowed) {
-            @printerGroups = grep { $group ne $_ } @printerGroups;
-            $self->_setPrinterGroups($printer, \@printerGroups)
-        }
-    }
-}
-
-sub delPrinter # (resource)
-{
-    my ($self, $name) = @_;
-
-    unless ($self->dir_exists("printers/$name")) {
-        throw EBox::Exceptions::DataNotFound(
-            'data' => 'printer',
-            'value' => $name);
-    }
-
-    $self->delete_dir("printers/$name");
-}
-
-#sub existsShareResource # (resource)
-#{
-#    my ($self, $name) = @_;
-#
-#    my $usermod = EBox::Global->modInstance('users');
-#    if ($usermod->configured()) {
-#        if ($usermod->userExists($name)) {
-#            return __('user');
-#        }
-#
-#        if ($usermod->groupExists($name)) {
-#            return __('group');
-#        }
-#    }
-#
-#    for my $printer (@{$self->printers()}) {
-#        return __('printer') if ($name eq $printer);
-#    }
-#
-#    return undef;
-#}
-
-sub _checkUserExists # (user)
-{
-    my ($self, $user) = @_;
-
-    my $usermod = EBox::Global->modInstance('users');
-    unless ($usermod->userExists($user)){
-        throw EBox::Exceptions::DataNotFound(
-                'data'  => __('user'),
-                'value' => $user);
-    }
-
-    return 1;
-}
-
-sub _checkGroupExists # (group)
-{
-    my ($self, $group) = @_;
-
-    my $groupmod = EBox::Global->modInstance('users');
-    unless ($groupmod->groupExists($group)){
-        throw EBox::Exceptions::DataNotFound(
-                'data'  => __('group'),
-                'value' => $group);
-    }
-
-    return 1;
-}
-
-sub _sambaPrinterConf
-{
-    my ($self) = @_;
-
-    my @printers;
-    foreach my $printer (@{$self->printers()}) {
-        my $users = "";
-        for my $user (@{$self->_printerUsers($printer)}) {
-            $users .= "\"$user\" ";
-        }
-        for my $group (@{$self->_printerGroups($printer)}) {
-            $users .= "\@\"$group\" ";
-        }
-        push (@printers, { 'name' => $printer , 'users' => $users});
-    }
-
-    return \@printers;
-}
-
-
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-
-    $self->set_bool('ignorePrinterNotFound', 1);
 
 #    try {
 #       TODO: Provision database and export LDAP to LDB
 #        my $sambaLdapUser = new EBox::SambaLdapUser;
 #        $sambaLdapUser->migrateUsers();
+#    } otherwise {
 #    } finally {
-        $self->set_bool('ignorePrinterNotFound', 0);
-#    }
+#    };
 }
 
 sub restoreDependencies

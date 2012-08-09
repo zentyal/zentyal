@@ -1,7 +1,6 @@
 class: 'EBox::Printers'
 
 depends:
-    - samba
     - network
 
 enabledepends:
