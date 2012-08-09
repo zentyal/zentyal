@@ -100,6 +100,8 @@ sub syncRows
         $modified = 1;
     }
 
+    EBox::Global->modChange('samba') if ($modified);
+
     return $modified;
 }
 
