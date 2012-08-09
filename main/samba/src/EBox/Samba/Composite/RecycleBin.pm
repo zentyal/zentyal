@@ -58,7 +58,7 @@ sub _description
         pageTitle       => undef,
         printableName   => __('Recycle Bin'),
         compositeDomain => 'Samba',
-        help            => __(''), # TODO
+        #help            => __(''), # TODO
     };
 
     return $description;
