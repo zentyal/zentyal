@@ -190,7 +190,7 @@ sub _table
         sortedBy           => 'printer',
         printableRowName   => __('printer'),
         withoutActions     => 1,
-#FIXME        help               => __(''),
+        help               => __('Here you can define the access control list for your printers.'),
     };
     return $dataForm;
 }
