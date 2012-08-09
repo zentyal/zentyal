@@ -1,4 +1,5 @@
 HEAD
+	+ Remote configuration backup operations now run inside a popup
 	+ Added 'journaling' optional parameter to the RESTClient methods to
 	  enable/disable the journaling for that call
 	+ Optional parameters for RESTClient methods are now named

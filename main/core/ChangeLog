@@ -1,4 +1,5 @@
 HEAD
+	+ Added onclick atribute to the link.mas template
 	+ Fix exception raising when no event component is found
 	+ table_ordered.js : more robust trClick event method
 	+ Changed dashboard JS which sometimes halted widget updates
