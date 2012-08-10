@@ -120,7 +120,12 @@ sub setHasFeature
 	    delete $enabled{$feature};
     }
 
-    $user->set('zarafaEnabledFeatures', join (' ', keys %enabled));
+    my @features = keys (%enabled);
+    if (@features) {
+        $user->set('zarafaEnabledFeatures', join (' ', @features));
+    } else {
+        $user->delete('zarafaEnabledFeatures');
+    }
 }
 
 sub isAdmin
@@ -251,6 +256,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaWarn', 1);
         $user->delete('zarafaQuotaSoft', 1);
         $user->delete('zarafaQuotaHard', 1);
+        $user->delete('zarafaEnabledFeatures', 1);
         $user->save();
 
         $self->setHasContact($user, $model->contactValue());
