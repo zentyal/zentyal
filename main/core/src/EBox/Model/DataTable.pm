@@ -936,8 +936,8 @@ sub addTypedRow
     $self->_notifyManager('add', $newRow);
 
     # check if there are files to delete if revoked
-    my $filesToRemove =   $self->filesPathsForRow($newRow);
-    foreach my $file (@{  $filesToRemove }) {
+    my $filesToRemove = $self->filesPathsForRow($id);
+    foreach my $file (@{ $filesToRemove }) {
         $self->{confmodule}->addFileToRemoveIfRevoked($file);
     }
 
@@ -1150,8 +1150,8 @@ sub removeRow
     $self->validateRowRemoval($id, $force);
 
     # check if there are files to delete
-    my $filesToRemove =   $self->filesPathsForRow($row);
-    foreach my $file (@{  $filesToRemove }) {
+    my $filesToRemove = $self->filesPathsForRow($id);
+    foreach my $file (@{ $filesToRemove }) {
         $self->{confmodule}->addFileToRemoveIfCommitted($file);
     }
 
@@ -4504,7 +4504,15 @@ sub filesPaths
 #   we need to do this bz we cannot override row's methods for specific models!
 sub filesPathsForRow
 {
-    my ($self, $row) = @_;
+    my ($self, $id) = @_;
+
+    my $row = undef;
+    try {
+        $row = $self->row($id);
+    } otherwise {};
+
+    return [] unless defined ($row);
+
     return $row->filesPaths();
 }
 
