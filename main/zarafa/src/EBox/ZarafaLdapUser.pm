@@ -102,20 +102,25 @@ sub hasFeature
 {
     my ($self, $user, $feature) = @_;
 
-    my @enabled = split(/ /, $user->get('zarafaEnabledFeatures'));
-    return ($feature eq any @enabled);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+
+    return $enabled{$feature};
 }
 
 sub setHasFeature
 {
     my ($self, $user, $feature, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
 
-    return unless ($self->hasFeature($user, $feature) xor $option);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+    if ($option) {
+	    $enabled{$feature} = 1;
+    } else {
+	    delete $enabled{$feature};
+    }
 
-    my $new = $feature . " " . $user->get('zarafaEnabledFeatures');
-    $new =~ s/\s+$//;
-    $user->set('zarafaEnabledFeatures', $new);
+    $user->set('zarafaEnabledFeatures', join (' ', keys %enabled));
 }
 
 sub isAdmin
