@@ -17,12 +17,8 @@ package EBox::Event::Watcher::Runit;
 
 # Class: EBox::Event::Watcher::Runit
 #
-#   This class is a watcher which checks if a service has been
-#   restarted certain times ($restart_max) within a time interval
-#   ($time_interval).
-#
-#   These two configuration values can be set at: runitfinisher.conf
-#   file
+#   This class is a watcher which checks if a service has been down
+#   for MAX_DOWN_PERIODS in PERIODS and send an event notifying it
 #
 
 use base 'EBox::Event::Watcher::Base';
