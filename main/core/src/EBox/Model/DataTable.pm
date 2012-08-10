@@ -1147,8 +1147,7 @@ sub removeRow
     }
 
     $self->_checkRowExist($id, '');
-    my $row = $self->row($id);
-    $self->validateRowRemoval($row, $force);
+    $self->validateRowRemoval($id, $force);
 
     # check if there are files to delete
     my $filesToRemove =   $self->filesPathsForRow($row);

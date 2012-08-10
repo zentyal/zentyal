@@ -1,4 +1,5 @@
 HEAD
+	+ Pass row id instead of row instance to DataTable::validateRowRemoval()
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
 	  row element in DataTable::updateRowNotify()
 	+ In tableBody.mas template: decomposed table topToolbar section in methods
