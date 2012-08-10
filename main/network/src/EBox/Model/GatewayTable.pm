@@ -319,10 +319,8 @@ sub validateRow
 
 sub validateRowRemoval
 {
-    my ($self, $id, $force) = @_;
-
-    my $row = $self->row($id);
-    if ($row->valueByName('auto') and not $force) {
+    my ($self, $row, $force) = @_;
+    if ( $row->valueByName('auto') and not $force) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
 }

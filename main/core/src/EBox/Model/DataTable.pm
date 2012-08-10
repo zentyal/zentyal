@@ -933,11 +933,11 @@ sub addTypedRow
 
     $self->setMessage($self->message('add'));
     $self->addedRowNotify($newRow);
-    $self->_notifyManager('add', $id);
+    $self->_notifyManager('add', $newRow);
 
     # check if there are files to delete if revoked
-    my $filesToRemove = $self->filesPathsForRow($id);
-    foreach my $file (@{ $filesToRemove }) {
+    my $filesToRemove =   $self->filesPathsForRow($newRow);
+    foreach my $file (@{  $filesToRemove }) {
         $self->{confmodule}->addFileToRemoveIfRevoked($file);
     }
 
@@ -1062,7 +1062,7 @@ sub moveUp
 
     $self->setMessage($self->message('moveUp'));
     $self->movedUpRowNotify($self->row($id));
-    $self->_notifyManager('moveUp', $id);
+    $self->_notifyManager('moveUp', $self->row($id));
 }
 
 sub moveDown
@@ -1081,7 +1081,7 @@ sub moveDown
 
     $self->setMessage($self->message('moveDown'));
     $self->movedDownRowNotify($self->row($id));
-    $self->_notifyManager('moveDown', $id);
+    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 # Method: _removeRow
@@ -1147,11 +1147,12 @@ sub removeRow
     }
 
     $self->_checkRowExist($id, '');
-    $self->validateRowRemoval($id, $force);
+    my $row = $self->row($id);
+    $self->validateRowRemoval($row, $force);
 
     # check if there are files to delete
-    my $filesToRemove = $self->filesPathsForRow($id);
-    foreach my $file (@{ $filesToRemove }) {
+    my $filesToRemove =   $self->filesPathsForRow($row);
+    foreach my $file (@{  $filesToRemove }) {
         $self->{confmodule}->addFileToRemoveIfCommitted($file);
     }
 
@@ -1159,8 +1160,10 @@ sub removeRow
 
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
-    my $depModelMsg = $self->_notifyManager('del', $id);
-    if (defined ($depModelMsg) and $depModelMsg ne '' and $depModelMsg ne '<br><br>') {
+    my $depModelMsg = $self->_notifyManager('del', $row);
+    $self->_notifyManager('del', $row);
+    if ( defined( $depModelMsg ) and $depModelMsg ne ''
+       and $depModelMsg ne '<br><br>') {
         $userMsg .= "<br><br>$depModelMsg";
     }
     # If automaticRemove is enabled then remove all rows using referencing
@@ -1422,12 +1425,12 @@ sub setTypedRow
     if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
-        my $depModelMsg = $self->_notifyManager('update', $id);
+        my $depModelMsg = $self->_notifyManager('update', $row);
         if (defined ($depModelMsg)
                 and ($depModelMsg ne '' and $depModelMsg ne '<br><br>')) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyManager('update', $id);
+        $self->_notifyManager('update', $row);
         $self->updatedRowNotify($row, $oldRow, $force);
     }
 
@@ -3549,20 +3552,7 @@ sub _rowOrder
 #
 sub _notifyManager
 {
-    my ($self, $action, $id) = @_;
-
-    # Workaround needed for when a row contains a reference to a foreign model which no longer exists
-    # for example in ConfigureWatchers table after removing the module containing the watcher
-    my $row = undef;
-    if ($action eq 'del') {
-        try {
-          $row = $self->row($id);
-        } otherwise {};
-
-        return unless defined ($row);
-    } else {
-        $row = $self->row($id);
-    }
+    my ($self, $action, $row) = @_;
 
     my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
@@ -4515,15 +4505,7 @@ sub filesPaths
 #   we need to do this bz we cannot override row's methods for specific models!
 sub filesPathsForRow
 {
-    my ($self, $id) = @_;
-
-    my $row = undef;
-    try {
-        $row = $self->row($id);
-    } otherwise {};
-
-    return [] unless defined ($row);
-
+    my ($self, $row) = @_;
     return $row->filesPaths();
 }
 

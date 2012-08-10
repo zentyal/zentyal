@@ -1,5 +1,3 @@
-HEAD
-	+ Adapted to new validateRowRemoval() API
 2.3.12
 	+ Interface is now auto-detected when adding gateways
 	+ New table to allow disabling of traffic balance for some gateways
