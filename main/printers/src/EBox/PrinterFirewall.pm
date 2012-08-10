@@ -42,11 +42,9 @@ sub output
 	my @rules = ();
 
 	my $printers = EBox::Global->modInstance('printers');
-
-	foreach my $id (@{$printers->networkPrinters()}) {
-		my $conf = $printers->methodConf($id);
-		my $host = $conf->{host};
-		my $port = $conf->{port};
+	foreach my $p (@{$printers->networkPrinters()}) {
+		my $host = $p->{host};
+		my $port = $p->{port};
 		my $r = "-m state --state NEW -p tcp -d $host --dport $port ".
 			"-j ACCEPT";
 		push (@rules, $r);

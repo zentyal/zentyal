@@ -13,11 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba::Model::SambaShareConfiguration
-#
-#  This model is used to configure permissions of each share
-#  created in EBox::Samba::Model::SambaShares
-#
 package EBox::Printers::Model::PrinterPermissions;
 
 use base 'EBox::Model::DataTable';

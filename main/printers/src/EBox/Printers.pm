@@ -300,38 +300,23 @@ sub networkPrinters
 {
     my ($self) = @_;
 
-    my @ids;
-# FIXME: This should be get using Net::CUPS as we are not storing
-# printers in our config anymore
-#    foreach my $printer (@{$self->printers()}) {
-#        my $conf = $self->methodConf($printer->{id});
-#        push (@ids, $printer->{id}) if ($conf->{method} eq 'network');
-#    }
-
-    return \@ids;
-}
-
-# Method: fetchExternalCUPSPrinters
-#
-#   This method returns those printers that haven been configured
-#   by the user using CUPS.
-#
-# Returns:
-#
-#   Array ref - containing the printer names
-#
-sub fetchExternalCUPSPrinters
-{
-    my ($self) = @_;
-
     my $cups = Net::CUPS->new();
-
-    my @printers;
-    foreach my $printer ($cups->getDestinations()) {
-        my $name = $printer->getName();
-        push (@printers, $name);
+    my @printers = $cups->getDestinations();
+    my $netPrinters = [];
+    foreach my $p (@printers) {
+        my $uri = $p->getUri();
+        my ($proto, $host, $port) =
+            ($uri =~ m/(socket|http|ipp|lpd):\/\/([^\/:]+)[^:]*(:[0-9]+)?/);
+        next unless ($proto and $host and $port);
+        $port =~ s/:// if $port;
+        push (@{$netPrinters}, {
+            protocol => $proto,
+            host => $host,
+            port => $port,
+        });
     }
-    return \@printers;
+
+    return $netPrinters;
 }
 
 # Impelment LogHelper interface
