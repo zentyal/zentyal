@@ -1,5 +1,6 @@
 HEAD
-	+ Do not crash in filesPathsForRow if row cannot be instanced
+	+ Do not crash in filesPathsForRow() or _notifyManager() methods of
+	  DataTable if row cannot be instanced
 	+ Pass row id instead of row instance to DataTable::validateRowRemoval()
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
 	  row element in DataTable::updateRowNotify()
