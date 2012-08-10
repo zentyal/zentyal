@@ -1,0 +1,78 @@
+<%flags>
+  inherit => '/ajax/tableBody.mas'
+</%flags>
+<%init>
+exists $ARGS{hasChanged} or $ARGS{hasChanged} = 1;
+exists $ARGS{action} or $ARGS{action} = 'view';
+</%init>
+<& PARENT:view,
+  %ARGS
+&>
+
+
+<%method topToolbar>
+<%args>
+$tableName
+$model
+$filter => undef
+</%args>
+<%init>
+my $userMod =$model->parentModule();
+my $ouEnabled = $userMod->multipleOusEnabled();
+</%init>
+% if (not $ouEnabled) {
+<& PARENT:topToolbar,
+    tableName => $tableName,
+    model => $model,
+    filter => $filter,
+&>
+% return;
+% }
+<table class="bDataTable">
+    <tr>
+        <td>
+         <& SELF:filterForm,
+            tableName => $tableName,
+            model     => $model,
+            filter    => $filter,
+         &>
+        </td>
+        <td>
+         <& SELF:ouFilterForm,
+            tableName => $tableName,
+            model     => $model,
+            ous       => $userMod->ous(),
+            filterOU    => $model->filterOU(),
+         &>
+        </td>
+    </tr>
+</table>
+</%method>
+
+<%method ouFilterForm>
+<%args>
+$tableName
+$model
+@ous
+$filterOU
+</%args>
+<%init>
+my $loadingId =  $tableName  .  '_OUFilterLoading';
+my @options = map { { value => $_->dn()  } } @ous;
+unshift @options, { value => '_all', printableValue => __('All organizational units') };
+defined $filterOU or $filterOU = '_all';
+my $filterJS = q{var newUrl = '/UsersAndGroups/Users?filterOU=' + this.value;   window.location = newUrl};
+</%init>
+<form action="javascript:void(0)">
+  <% __('Organizational unit') %>:
+  <& /input/select.mas,
+      options => \@options,
+      name => 'OUFIlter',
+      value => $filterOU,
+      onChange => "setLoading('$loadingId');
+               $filterJS;
+               return false"
+  &>
+  <span id="<% $loadingId %>" ></span>
+</form>
+</%method>

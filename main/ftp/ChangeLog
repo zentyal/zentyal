@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug which always forced SSL when SSL was enabled
+	+ Removed user chroot options until vsftpd allows it again
 2.3.2
 	+ Adapted to new Model management framework
 2.3.1

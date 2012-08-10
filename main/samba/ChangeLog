@@ -1,3 +1,6 @@
+2.3.10
+	+ Fix exception creating shares
+	+ Sync passwords from LDAP to LDB directly from hashes
 2.3.9
 	+ Fields in General Settings can be edited now, with the exception
 	  of domain and computer names

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+db_user=zentyal
+db_pass=`cat /var/lib/zentyal/conf/zentyal-mysql.passwd`
+db_name=zentyal
+
+mysql --user=$db_user --password=$db_pass $db_name

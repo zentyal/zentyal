@@ -74,9 +74,15 @@ sub _table
                       # only dialog if it is a hostname change
                       return undef;
                   }
-                  return  __x('Are you sure you want to change the hostname to {new}?. Maybe you would need to restart all the services or reboot the system to enforce the change',
+
+                  my $title = __('Change hostname');
+                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
                               new => $new
                              );
+                  return  {
+                      title => $title,
+                      message => $msg,
+                     }
                  }
             }
     };

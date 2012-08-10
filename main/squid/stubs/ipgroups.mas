@@ -17,4 +17,4 @@
 % }
 
 # Deny all if no other filter profiles have applied
-0.0.0.0=filter2
+0.0.0.0/0.0.0.0=filter2

@@ -66,7 +66,6 @@ use EBox::Util::Lock;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
-use Data::UUID;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -2687,11 +2686,8 @@ sub _generateDDClient
                     # Server subscription credentials as user and pass
                     my $cred = $rs->cloudCredentials();
 
-                    # UUID Format for login: Hexadecimal without '0x'
-                    my $ug = new Data::UUID;
-                    my $bin_uuid = $ug->from_string($cred->{uuid});
-                    my $hex_uuid = $ug->to_hexstring($bin_uuid);
-                    $login = substr($hex_uuid, 2);      # Remove the '0x'
+                    # UUID for login
+                    $login = $cred->{uuid};
 
                     # Get DynDNS password
                     $password = substr($cred->{password},0,20);

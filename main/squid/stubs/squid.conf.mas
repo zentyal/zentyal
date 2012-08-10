@@ -15,8 +15,11 @@
     @notCachedDomains
     @nameservers
     $append_domain
+
     $cache_host
     $cache_port
+    $cache_user
+    $cache_passwd
 
     $filter
 
@@ -38,6 +41,8 @@ our %longAclNames = ();
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
+
+   @ids = grep { defined ($_) } @ids;
    my $id = join '_', @ids;
 
    my $acls = '';
@@ -137,8 +142,14 @@ pid_filename /var/run/squid3.pid
 
 cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
 
+
 % if ($cache_host and $cache_port) {
-cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
+%   my $peerAuth = '';
+%   if ($cache_user and $cache_passwd) {
+# WARN: remember that for squid auth % are HTML escapes
+%    $peerAuth = 'login=' . $cache_user . ':' . $cache_passwd;
+%   }
+cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
 % }
 
 # <EBOX> TAG_ACL #
@@ -147,7 +158,7 @@ auth_param basic realm Zentyal HTTP proxy
 auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
-acl authorized proxy_auth required
+acl authorized proxy_auth REQUIRED
 % }
 
 % if ($urlRewriteProgram) {
@@ -260,7 +271,7 @@ always_direct allow localhostdst
 acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %   } else {
 %       # escape user names
-%       my @users = map { $_ =~ s{}{\\ }g; $_ } @{$rule->{users}};
+%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
 <& .timeACLs, rule => $rule, id => $src &>
@@ -293,6 +304,9 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 %   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
 %   my $policy = $rule->{'policy'};
 %   next unless (($policy eq 'allow') or ($policy eq 'deny'));
+% if ($group) {
+http_access allow authorized
+% }
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>

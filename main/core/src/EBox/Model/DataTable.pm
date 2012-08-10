@@ -34,10 +34,8 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
-
 use EBox::Types::Boolean;
 
-# Dependencies
 use Clone::Fast;
 use Encode;
 use Error qw(:try);
@@ -636,10 +634,12 @@ sub validateRow
 #   changedFields - hash ref containing the typed parameters
 #                   subclassing from <EBox::Types::Abstract>
 #                   that has changed, the key will be the field's name
+#                   Also a key 'id' with the id of the row
 #
 #   allFields - hash ref containing the typed parameters
 #               subclassing from <EBox::Types::Abstract> including changed,
 #               the key is the field's name
+#               Also a key 'id' with the id of the row
 #
 # Returns:
 #
@@ -1352,7 +1352,7 @@ sub setTypedRow
     my $checkRowUnique = $self->rowUnique();
 
     my $row = $self->row($id);
-    my $oldRow = Clone::Fast::clone($row);
+    my $oldRow = $self->_cloneRow($row);
     my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
@@ -1384,9 +1384,13 @@ sub setTypedRow
         $self->_checkRowIsUnique($id, $allHashElements);
     }
 
+    # add ids parameters for call to validateTypedRow
     $changedElements->{id} = $id;
     $allHashElements->{id} = $id;
     $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+    # remove ids after call to validateTypedRow
+    delete $changedElements->{id};
+    delete $allHashElements->{id};
 
     # If force != true automaticRemove is enabled it means
     # the model has to automatically check if the row which is
@@ -2586,7 +2590,7 @@ sub AUTOLOAD
 
 # Method: Viewer
 #
-#       Class method to return the viewer from this model. This method
+#       Method to return the viewer from this model. This method
 #       can be overriden
 #
 # Returns:
@@ -3133,6 +3137,26 @@ sub _prepareRow
     return $row;
 }
 
+# Method: _cloneRow
+#
+#     Returns a new row instance with all its elements cloned
+#     from the given row
+#
+sub _cloneRow
+{
+    my ($self, $other) = @_;
+
+    my $row = EBox::Model::Row->new(dir => $self->directory(),
+                                    confmodule => $self->{confmodule});
+    $row->setModel($self);
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $other->elementByName($type->{fieldName});
+        my $newElement = $element->clone();
+        $row->addElement($newElement);
+    }
+    return $row;
+}
+
 # Method: _setValueRow
 #
 #     Returns a new row instance with all its elements cloned
@@ -3278,7 +3302,7 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($eValue eq $value) {
+            if ((defined $eValue) and ($eValue eq $value)) {
                 if ($allMatches) {
                     push (@matched, $id);
                 } else {
@@ -4636,24 +4660,22 @@ sub confirmationJS
                     $action,
                     $elementsArrayJS
                     );
+
+    my $goAheadJSEscaped = $goAheadJS;
+    $goAheadJSEscaped =~ s{'}{\\'}g;
+
     my $js =<< "ENDJS";
        this.disable = true;
-       var goAhead = true;
-       var confirmMsg = $call;
-       if (confirmMsg) {
-         if (!confirm(confirmMsg)) {
-              goAhead = false;
-         }
-       }
-       if (goAhead) {
-          $goAheadJS
-       }
-
+       var specs = $call;
        this.disable = false;
+       if (specs.wantDialog) {
+           showConfirmationDialog(specs, '$goAheadJSEscaped');
+       } else {
+          $goAheadJS ;
+       }
        return false;
 ENDJS
 
+    return $js;
 }
-
-
 1;

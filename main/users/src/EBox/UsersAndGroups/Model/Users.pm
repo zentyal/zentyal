@@ -84,6 +84,11 @@ sub _table
     return $dataTable;
 }
 
+sub Viewer
+{
+    return '/users/usersTableBody.mas';
+}
+
 # Method: precondition
 #
 # Check if the module is configured
@@ -126,7 +131,7 @@ sub preconditionFailMsg
         my $users = $self->parentModule();
         my $mode = $users->mode();
         if ($mode eq 'master') {
-            return __x('There are no users at the moment');
+            return $self->noUsersMsg();
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
@@ -137,6 +142,23 @@ sub preconditionFailMsg
         }
     }
 }
+
+sub noUsersMsg
+{
+    my ($self) = @_;
+    my $filterOU = $self->filterOU();
+    EBox::debug("noDataMsg $filterOU");
+    if (not $filterOU) {
+        return _x('There are no users at the moment');
+    }
+
+    return __x('There are no users for the organizational unit: {ou}<p>{ao}See users for all organizational units{ac}',
+                ou => $filterOU,
+                ao => q{<a href='/UsersAndGroups/Users'>},
+                ac => q{</a>}
+               );
+}
+
 
 # Method: ids
 #
@@ -153,8 +175,18 @@ sub ids
     }
 
     my @list = map { $_->dn() } @{$users->users()};
+    my $filterOU = $self->filterOU();
+    if ($filterOU) {
+        my $filterRe = qr/,$filterOU$/;
+        @list = grep {
+            $_ =~ m/$filterRe/;
+        } @list;
+    }
+
     return \@list;
 }
+
+
 
 # Method: row
 #
@@ -181,6 +213,22 @@ sub row
     } else {
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
+}
+
+
+sub setFilterOU
+{
+    my ($self, $filter) = @_;
+    $self->{filterOU} = $filter;
+}
+
+sub filterOU
+{
+    my ($self) = @_;
+    if (not $self->parentModule()->multipleOusEnabled()) {
+        return undef;
+    }
+    return $self->{filterOU};
 }
 
 1;

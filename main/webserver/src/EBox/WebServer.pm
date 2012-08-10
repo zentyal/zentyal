@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::WebServer;
-
 use strict;
 use warnings;
 
+
+package EBox::WebServer;
 use base qw(EBox::Module::Service);
 
 use EBox::Global;
@@ -712,6 +711,53 @@ sub _checkCertificate
 
     my $global = EBox::Global->getInstance();
     $global->modRestarted('ca');
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    my $sitesBackDir = "$dir/sites-available";
+    mkdir $sitesBackDir;
+
+    my @dirs = keys %{ _availableSites() };
+
+    if (not @dirs) {
+        EBox::error(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
+        return;
+    }
+
+    my $toReplace= SITES_AVAILABLE_DIR . 'ebox-';
+    my $replacement = SITES_AVAILABLE_DIR . 'user-ebox-';
+    foreach my $dir (@dirs) {
+       $dir =~ s/$toReplace/$replacement/;
+        try {
+            EBox::Sudo::root("cp -a $dir $sitesBackDir");
+        } catch EBox::Exceptions::Sudo::Command with {
+            EBox::error("Failed to do backup of the vhost custom configuration dir $dir");
+        };
+    }
+}
+
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+    my $sitesBackDir = "$dir/sites-available";
+    if (EBox::FileSystem::dirIsEmpty($sitesBackDir)) {
+        EBox::warning(
+            'No data in the backup for vhosts custom configuration files (maybe backup done in a previous version?). We left actual files untouched'
+           );
+        return;
+    }
+
+    if (not EBox::FileSystem::dirIsEmpty(SITES_AVAILABLE_DIR)) {
+        #  backup actual sites-available-dir
+        my $backActual = CONF_DIR . '/sites-available.bak';
+        $backActual = EBox::FileSystem::unusedFileName($backActual);
+        EBox::Sudo::root("mkdir $backActual");
+        EBox::Sudo::root('mv ' . SITES_AVAILABLE_DIR .  "/* $backActual");
+    }
+
+    EBox::Sudo::root("cp -a $sitesBackDir/* " . SITES_AVAILABLE_DIR);
 }
 
 sub backupDomains

@@ -252,7 +252,7 @@ sub subscribeServer
 
     # my $conf;
     my $response = $self->{restClient}->POST("/v1/servers/",
-                                             { 'name' => $name, 'bundle' => $option} );
+                                             query => { 'name' => $name, 'bundle' => $option} );
     my $serverInfoRaw = $response->as_string();
     my $serverInfo = $response->data();
 

@@ -26,7 +26,7 @@ my $mboxTitle = __('Save changes?');
 % }
 % if ( $save ne '' ) {
 	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish"
-          onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false}); Modalbox.MBwindow.addClassName('MB_dialog'); return false">
+          onclick="if (this.getAttribute('class') === 'changed') { Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false}); Modalbox.MBwindow.addClassName('MB_dialog');} return false">
               <% $save %>
           </a>
 % }

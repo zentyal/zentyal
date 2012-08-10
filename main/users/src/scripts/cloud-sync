@@ -1,0 +1,167 @@
+#!/usr/bin/perl
+# Copyright (C) 2012 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Config;
+use EBox::Global;
+
+use MIME::Base64;
+use Error qw(:try);
+
+use constant IGNORE => ['zentyal-cloud'];
+
+EBox::init();
+
+my $users = EBox::Global->modInstance('users');
+
+if ($users->master() ne 'cloud') {
+    return;
+}
+
+# Cloud syncing enabled
+EBox::debug("Syncing users with Zentyal Cloud!");
+
+my $rs = EBox::Global->modInstance('remoteservices');
+my $rest = $rs->REST();
+
+EBox::debug("Asking for user list");
+my $res = $rest->GET('/v1/users/users/');
+
+# local and remote user list
+my $lusers = $users->users();
+my $rusers = $res->data();
+my $rusernames;
+
+EBox::debug('Local users:  ' . @$lusers . ' users');
+EBox::debug('Remote users: ' . @$rusers . ' users');
+
+for my $ruser (@{$rusers}) {
+    # add it to rusernames dict
+    $rusernames->{$ruser->{name}} = 1;
+
+    # Convert passwords
+    my @pass = map { decode_base64($_) } @{$ruser->{passwords}};
+    $ruser->{passwords} = \@pass;
+
+    my $luser;
+    try {
+        try {
+            $luser = $users->user($ruser->{name});
+            $luser->setIgnoredSlaves(IGNORE);
+
+            # User exists, update fields:
+            $luser->set('givenname', $ruser->{firstname}, 1);
+            $luser->set('sn', $ruser->{lastname}, 1);
+            $luser->set('gidNumber', $ruser->{gid}, 1);
+            $luser->set('uidNumber', $ruser->{uid}, 1);
+            if ($ruser->{description}) {
+                $luser->set('comment', $ruser->{description}, 1);
+            } else {
+                $luser->delete('comment', 1);
+            }
+
+            $luser->save();
+
+            # Update passwords
+            $luser->setPasswordFromHashes($ruser->{passwords});
+        } catch EBox::Exceptions::DataNotFound with {
+            EBox::info('Local user "' . $ruser->{name} . '" does not exists, creating...');
+            my $user;
+            $user->{user} = $ruser->{name};
+            $user->{name} = $ruser->{firstname};
+            $user->{surname} = $ruser->{lastname};
+            if ($user->{name}) {
+                $user->{fullname} = $user->{name} . ' ' . $user->{surname};
+                $user->{givenname} = $user->{name};
+            } else {
+                $user->{fullname} = $user->{surname};
+                $user->{givenname} = '';
+            }
+            $user->{passwords} = $ruser->{passwords};
+            $user->{comment} = $ruser->{description};
+            EBox::UsersAndGroups::User->create($user, 0, ignoreSlaves => IGNORE);
+        };
+    } otherwise {
+        EBox::error('Failed to sync remote user ' . $ruser->{name});
+    };
+}
+
+
+for my $user (@{$lusers}) {
+    my $name = $user->name();
+    if (not $rusernames->{$name}) {
+        EBox::info("Local user $name not present in remote, removing...");
+        $user->setIgnoredSlaves(IGNORE);
+        $user->deleteObject();
+    }
+}
+
+
+EBox::debug("Asking for group list");
+$res = $rest->GET('/v1/users/groups/');
+
+# local and remote user list
+my $lgroups = $users->groups();
+my $rgroups = $res->data();
+my $rgroupnames;
+
+EBox::debug('Local groups:  ' . @$lgroups . ' groups');
+EBox::debug('Remote groups: ' . @$rgroups . ' groups');
+
+for my $rgroup (@{$rgroups}) {
+    # add it to rgroupames dict
+    $rgroupnames->{$rgroup->{name}} = 1;
+
+    my $lgroup;
+    try {
+        try {
+            $lgroup = $users->group($rgroup->{name});
+        } catch EBox::Exceptions::DataNotFound with {
+            EBox::info('Local group "' . $rgroup->{name} . '" does not exists, creating...');
+            $rgroup->{description} = ($rgroup->{description} or '');
+            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
+        }
+        otherwise {
+            EBox::error('Failed to sync remote group ' . $rgroup->{name});
+        };
+
+        # Update group info
+        $lgroup->setIgnoredSlaves(IGNORE);
+        $lgroup->removeAllMembers(1);
+        foreach my $user (@{$rgroup->{members}}) {
+            $lgroup->addMember($users->user($user), 1);
+        }
+        $lgroup->save();
+    } otherwise {
+        EBox::error('Failed to sync remote group ' . $rgroup->{name});
+    };
+}
+
+
+for my $group (@{$lgroups}) {
+    my $name = $group->name();
+    if (not $rgroupnames->{$name}) {
+        EBox::info("Local group $name not present in remote, removing...");
+        $group->setIgnoredSlaves(IGNORE);
+        $group->deleteObject();
+    }
+}
+
+EBox::info("Synchronization done");
+

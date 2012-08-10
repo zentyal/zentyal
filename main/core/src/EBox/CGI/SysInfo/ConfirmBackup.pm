@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::SysInfo::ConfirmBackup;
-
 use strict;
 use warnings;
 
+package EBox::CGI::SysInfo::ConfirmBackup;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Config;
@@ -29,17 +27,15 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Configuration Backup'),
-				      'template' => '/confirm-backup.mas',
-				      @_);
-	bless($self, $class);
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Configuration Backup'),
+                                  'template' => '/confirm-backup.mas',
+                                  @_);
+    $self->{errorchain} = "SysInfo/Backup";
 
-	$self->{errorchain} = "SysInfo/Backup";
-
-	return $self;
+    bless($self, $class);
+    return $self;
 }
-
 
 sub requiredParameters
 {
@@ -47,26 +43,25 @@ sub requiredParameters
 
   if ($self->param('download.x')) {
     return [qw(id download.x download.y)];
-  }
-  elsif ($self->param('delete.x')) {
+  }  elsif ($self->param('delete.x')) {
     return [qw(id delete.x delete.y)];
-  }
-  elsif ($self->param('restoreFromId.x')) {
+  }  elsif ($self->param('delete')) {
+    return [qw(id delete)];
+  }  elsif ($self->param('restoreFromId.x')) {
     return [qw(restoreFromId.x restoreFromId.y id)];
-  }
-  elsif ($self->param('restoreFromFile')) {
+  }  elsif ($self->param('restoreFromId')) {
+    return [qw(restoreFromId id)];
+  }  elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile)];
   }
 
   return [];
 }
 
-
 sub optionalParameters
 {
-    return ['download', 'delete', 'restoreFromId'];
+    return ['download', 'delete', 'popup', 'alreadyUploaded'];
 }
-
 
 sub actuate
 {
@@ -82,10 +77,13 @@ sub actuate
       my $actionSub = $self->can($actionParam . 'Action');
       my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
       $self->{params} = [action => $backupAction, actiontext => $backupActionText, backup => $backupDetails];
+      if ($self->param('popup')) {
+          push @{ $self->{params} }, (popup => 1);
+      }
+
       return;
     }
   }
-
 
   # otherwise...
   $self->{redirect} = "SysInfo/Backup";
@@ -122,14 +120,17 @@ sub  restoreFromIdAction
   return ('restoreFromId', __('Restore'), $self->backupDetailsFromId());
 }
 
-
-
-
 sub  restoreFromFileAction
 {
   my ($self) = @_;
 
-  my $filename = $self->upload('backupfile');
+  my $filename;
+  if ($self->param('alreadyUploaded')) {
+      $filename = $self->param('backupfile');
+  } else {
+      $filename = $self->upload('backupfile');
+  }
+
 
   my $details = $self->backupDetailsFromFile($filename);
 
@@ -137,10 +138,6 @@ sub  restoreFromFileAction
 
   return ('restoreFromFile', __('Restore'), $details);
 }
-
-
-
-
 
 sub backupDetailsFromId
 {
@@ -150,7 +147,7 @@ sub backupDetailsFromId
   my $id = $self->param('id');
   if ($id =~ m{[./]}) {
     throw EBox::Exceptions::External(
-				     __("The input contains invalid characters"));
+                                     __("The input contains invalid characters"));
   }
 
   my $details =  $backup->backupDetails($id);
@@ -158,7 +155,6 @@ sub backupDetailsFromId
 
   return $details;
 }
-
 
 sub backupDetailsFromFile
 {
@@ -169,7 +165,6 @@ sub backupDetailsFromFile
 
   return $details;
 }
-
 
 sub setPrintabletype
 {
@@ -193,5 +188,15 @@ sub setPrintabletype
   return $details_r;
 }
 
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
+}
 
 1;

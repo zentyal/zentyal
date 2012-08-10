@@ -33,29 +33,46 @@ my @formElements;
 if ($restricted) {
     push @formElements, [
                          name => 'newName',
+                         id => 'backup_name',
                          printableName => __('Name'),
                         ];
 
 } else {
     push @formElements, [
                          name => 'name',
+                         id => 'backup_name',
                          printableName => __('Name'),
                         ];
 }
 
+my $backupTitle = __('Remote Backup');
+my $backupOnClickJs =<< "ENDJS" ;
+     var name= \$('backup_name').value;
+     var description= \$('backup_description').value;
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/MakeRemoteBackup?';
+     url += 'name=' + name;
+     url += '&description=' + description;
+     url += '&backup=1&popup=1';
+
+     Modalbox.show(url, {title: title, transitions: false});
+     return false
+ENDJS
 
 push @formElements, (
 
-		 [
-		  name => 'description',
-		  printableName => __('Description'),
-		 ],
-		 [
-		  input => 'submit',
-		  name  => 'backup',
-		  value => __('Back up'),
-		  $modulesChanged ? (disabled => 'disabled') : (),
-		 ]
+                 [
+                  name => 'description',
+                  id => 'backup_description',
+                  printableName => __('Description'),
+                 ],
+                 [
+                  input => 'submit',
+                  name  => 'backup',
+                  value => __('Back up'),
+                  onclick => $backupOnClickJs,
+                  $modulesChanged ? (disabled => 'disabled') : (),
+                 ]
 
 );
 
@@ -98,9 +115,9 @@ if ($restricted) {
 <p>
 <table class='formTable'>
     <tbody>
-       <form action='<% $formAction %>' method='POST'>
+        <form action='<% $formAction %>' method='POST'>
              <& /formTable.mas, rows => \@formElements &>
-	</form>
+        </form>
     </tbody>
 </table>
 </p>
@@ -115,67 +132,80 @@ if ($restricted) {
 <%init>
 
 my @columnTitles = (
-		    __('Name'),
-		    __('Date'),
-		    __('Description'),
+                    __('Name'),
+                    __('Date'),
+                    __('Description'),
                     __('Archive size'),
-		    __('Actions'),
-		   );
+                    __('Actions'),
+                   );
 
 my $downloadImg  = "/data/images/down.gif";
 my $applyImg = "/data/images/apply.gif";
 my $deleteImg = "/data/images/delete.gif";
 
+
+my $restoreTitle = __('Restore configuration backup');
+my $downloadTitle = __('Download configuration backup');
+my $deleteTitle = __('Delete configuration backup');
+
 my @rows = map {
              my @row;
-	     my $name =  $_->{Filename};
-	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
-	     # action element
-	     push @row, [
-			 {
-			  name => __('Restore'),
-			  icon => $applyImg,
-			  url => "Confirm?action=restore&name=$name",
-			 },
+             my $name =  $_->{Filename};
+             push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
 
-			 {
-			  name => __('Download'),
-			  icon => $downloadImg,
-			  url => "DownloadRemoteBackup?name=$name",
-			 },
-			 {
-			  name => __('Delete'),
-			  icon => $deleteImg,
-			  url  => "Confirm?action=delete&name=$name",
-			 },
+             my $restoreUrl = "Confirm?action=restore&name=$name&popup=1";
+             my $downloadUrl = "DownloadRemoteBackup?name=$name";
+             my $deleteUrl = "Confirm?action=delete&name=$name&popup=1";
 
-			];
+             # action element
+             push @row, [
+                         {
+                          name => __('Restore'),
+                          icon => $applyImg,
+                          text => $restoreTitle,
+                          onclick => "Modalbox.show('$restoreUrl',  {title:'$restoreTitle', transitions: false}); return false",
+                         },
 
-	     [@row]
+                         {
+                          name => __('Download'),
+                          icon => $downloadImg,
+                          text => $downloadTitle,
+                          url => $downloadUrl,
+                         },
+                         {
+                          name => __('Delete'),
+                          icon => $deleteImg,
+                          text => $deleteTitle,
+                          onclick => "Modalbox.show('$deleteUrl',  {title:'$deleteTitle', transitions: false}); return false",
+                         },
+
+                        ];
+
+             [@row]
 
           } sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 
 my @legendElements = (
-		      {
-		       imgFile => $applyImg,
-		       imgName => __('restore') ,
-		      },
-		      {
-		       imgFile => $downloadImg,
-		       imgName => __('download'),
-		      },
-		      {
-		       imgFile => $deleteImg,
-		       imgName => __('delete')
-		      },
-		     );
+                      {
+                       imgFile => $applyImg,
+                       imgName => __('restore') ,
+                      },
+                      {
+                       imgFile => $downloadImg,
+                       imgName => __('download'),
+                      },
+                      {
+                       imgFile => $deleteImg,
+                       imgName => __('delete')
+                      },
+                     );
 </%init>
 % if (keys %backups) {
 <h3><% __("Configuration backups' list") %></h3>
 <& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
 <br />
 
-<& /legendTable.mas, elements => \@legendElements, nColumns => 2 &>
+<& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
 </%def>
 
