@@ -1,5 +1,7 @@
 HEAD
 	+ Removed wrong empty string translations
+	+ Enable printing daemon. Printers ACLs stored in a model within
+	  printers module.
 2.3.10
 	+ Fix exception creating shares
 	+ Sync passwords from LDAP to LDB directly from hashes
