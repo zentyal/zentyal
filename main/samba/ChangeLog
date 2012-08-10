@@ -1,4 +1,5 @@
 HEAD
+	+ Add config key to choose the fileserver to use, 'ntvfs' or 's3fs'
 	+ Removed wrong empty string translations
 	+ Enable printing daemon. Printers ACLs stored in a model within
 	  printers module.

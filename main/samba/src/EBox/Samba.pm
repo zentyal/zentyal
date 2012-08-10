@@ -661,6 +661,7 @@ sub provision
     $self->cleanDNS($domainName);
 
     # This file must be deleted or provision may fail
+    my $fs = EBox::Config::configkey('samba_fs');
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
@@ -671,6 +672,7 @@ sub provision
         ' --server-role=' . $self->mode() .
         ' --users=' . $users->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
+    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
     EBox::debug("Provisioning database '$cmd'");
 
@@ -879,6 +881,7 @@ sub _setConf
     $prefix = 'zentyal' unless $prefix;
 
     my @array = ();
+    push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);

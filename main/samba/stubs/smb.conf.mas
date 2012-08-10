@@ -1,4 +1,5 @@
 <%args>
+    $fs => 'ntvfs'
     $workgroup
     $netbiosName
     $description
@@ -42,7 +43,12 @@ use EBox::Gettext;
     log file = /var/log/samba/samba.log
 
     idmap_ldb:use rfc2307 = yes
+% if ($fs eq 's3fs') {
     rpc_daemon:spoolssd = embedded
+% } else {
+    dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
+    server services = rpc, nbt, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
+% }
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
