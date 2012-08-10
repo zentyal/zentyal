@@ -140,11 +140,15 @@ sub foreignModelInstance
     my $model;
     my $manager = EBox::Model::Manager->instance();
     my $ro = $self->row()->configModule->isReadOnly();
-    if ($self->foreignModelIsComposite()) {
-        $model = $manager->composite($modelName, $ro);
-    } else {
-        $model = $manager->model($modelName, $ro);
-    }
+    try {
+        if ($self->foreignModelIsComposite()) {
+            $model = $manager->composite($modelName, $ro);
+        } else {
+            $model = $manager->model($modelName, $ro);
+        }
+    } catch EBox::Exceptions::MissingArgument with { };
+
+    return undef unless (defined($model));
 
     $model->setDirectory($directory);
 

@@ -1,4 +1,6 @@
 HEAD
+	+ Return undef in HasMany type when a model is not longer
+	  available due to being uninstalled
 	+ Added onclick atribute to the link.mas template
 	+ Fix exception raising when no event component is found
 	+ table_ordered.js : more robust trClick event method
