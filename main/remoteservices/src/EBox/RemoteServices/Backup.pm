@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Backup;
-use base 'EBox::RemoteServices::Auth';
+use base 'EBox::RemoteServices::Cred';
 #
 
 use strict;
@@ -52,20 +52,14 @@ sub new
 
     my $self = $class->SUPER::new(@params);
 
-    my $rs = EBox::Global->modInstance('remoteservices');
-    my $cloud_domain = $rs->cloudDomain();
-    # Check cloud domain is set
-    $cloud_domain or throw EBox::Exceptions::Internal('Cloud Domain is not set');
-
-    # TODO: Do not hardcode
-    $self->{cloud} = 'confbackup.' . $cloud_domain;
-
-    # Personalized RESTClient
-    my $cred = new EBox::RemoteServices::Cred();
-    $self->{restClient} = $cred->RESTClient();
-    $self->{restClient}->setServer($self->{cloud});
 
     bless($self, $class);
+
+    # TODO: Do not hardcode
+    $self->{cbServer} = 'confbackup.' . $self->cloudDomain();
+    # Customise RESTClient
+    $self->{restClient}->setServer($self->{cbServer});
+
     return $self;
 }
 
@@ -369,7 +363,7 @@ sub _pushConfBackup
     my $pass = $self->{restClient}->{credentials}->{password};
 
     # Send the file using curl
-    my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
+    my $url = new URI('https://' . $self->{cbServer} . '/conf-backup/put/' . $p{fileName});
 
     my $pwfile = EBox::Config::tmp() . 'pw.file';
     File::Slurp::write_file($pwfile, {perms => 0700},  "$user:$pass");
@@ -431,7 +425,7 @@ sub _pullConfBackup
 {
     my ($self, %p) = @_;
 
-    my $url = new URI('https://' . $self->{cloud} . '/conf-backup/get/' . $p{fileName});
+    my $url = new URI('https://' . $self->{cbServer} . '/conf-backup/get/' . $p{fileName});
 
     my $ua = new LWP::UserAgent();
     $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
