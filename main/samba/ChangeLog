@@ -1,4 +1,6 @@
 HEAD
+	+ Enable printing daemon. Printers ACLs are now stored in a model within
+	  printers module
 	+ Removed wrong empty string translations
 2.3.10
 	+ Fix exception creating shares
