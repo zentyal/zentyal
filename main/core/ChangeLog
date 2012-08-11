@@ -1,4 +1,5 @@
 HEAD
+	+ Reworked mdstat parsing, added failure_spare status
 	+ Configuration backup implicitly preserves ownership of files
 	+ Changes in styles and sizes of the save/revoke dialog
 	+ New data form row is copied from default row, avoiding letting hidden
