@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed incorrect non-editable warnings in change date and time model
+	+ Fixed parsing value bug in EBox::Types::Date and EBox::Types::Time
 	+ Reworked mdstat parsing, added failure_spare status
 	+ Configuration backup implicitly preserves ownership of files
 	+ Changes in styles and sizes of the save/revoke dialog
