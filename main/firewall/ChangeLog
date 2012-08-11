@@ -1,10 +1,10 @@
-HEA
+HEAD
 	+ Fixed i10n bug in prohibition of inverse match for "any" service
 	+ Adjusted table to existence of inverse match for addresses
 	+ Fixed error which broke rules for inverse address match for
-	single IP address
+	  single IP address
 	+ Fixed error which broke rules for inverse service
-	match for any TCP or any UDP for all ports
+	  match for any TCP or any UDP for all ports
 2.3.8
 	+ Use Clone::Fast instead of Clone
 	+ Added load of custom iptables modules
