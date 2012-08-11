@@ -153,19 +153,13 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
 <br/>
 <div id="progress_bar">
-<<<<<<< HEAD
 	<div class="percent" id="percentValue"></div>
-    <div class="bar">
-        <div id="progressValue"></div>
-=======
-
-         <div class='tcenter'>
-        <div class="percent" id="percentValue"></div>
-        <div class="bar"<% $barStyle %> >
+    <div class="bar" <% $barStyle %> >
         <div id="progressValue" <% $progresValueStyle %> ></div>
-        </div>
-
->>>>>>> master
+<!--
+        <div class='tcenter'>
+        <div class="percent" id="percentValue"></div>
+-->
     </div>
 </div>
 <br/>
