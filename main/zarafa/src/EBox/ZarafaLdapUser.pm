@@ -102,20 +102,30 @@ sub hasFeature
 {
     my ($self, $user, $feature) = @_;
 
-    my @enabled = split(/ /, $user->get('zarafaEnabledFeatures'));
-    return ($feature eq any @enabled);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+
+    return $enabled{$feature};
 }
 
 sub setHasFeature
 {
     my ($self, $user, $feature, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
 
-    return unless ($self->hasFeature($user, $feature) xor $option);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+    if ($option) {
+	    $enabled{$feature} = 1;
+    } else {
+	    delete $enabled{$feature};
+    }
 
-    my $new = $feature . " " . $user->get('zarafaEnabledFeatures');
-    $new =~ s/\s+$//;
-    $user->set('zarafaEnabledFeatures', $new);
+    my @features = keys (%enabled);
+    if (@features) {
+        $user->set('zarafaEnabledFeatures', join (' ', @features));
+    } else {
+        $user->delete('zarafaEnabledFeatures');
+    }
 }
 
 sub isAdmin
@@ -246,6 +256,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaWarn', 1);
         $user->delete('zarafaQuotaSoft', 1);
         $user->delete('zarafaQuotaHard', 1);
+        $user->delete('zarafaEnabledFeatures', 1);
         $user->save();
 
         $self->setHasContact($user, $model->contactValue());
