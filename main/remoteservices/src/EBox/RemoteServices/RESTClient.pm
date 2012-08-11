@@ -24,6 +24,8 @@ package EBox::RemoteServices::RESTClient;
 use warnings;
 use strict;
 
+use v5.10;
+
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -43,7 +45,7 @@ use EBox::RemoteServices::RESTResult;
 use EBox::Validate;
 use Error qw(:try);
 use File::Temp;
-use HTTP::Status qw(HTTP_UNAUTHORIZED);
+use HTTP::Status qw(HTTP_BAD_REQUEST HTTP_UNAUTHORIZED);
 use IO::Socket::SSL;
 use JSON::XS;
 use LWP::UserAgent;
@@ -250,15 +252,32 @@ sub request {
     }
     else {
         $self->{last_error} = new EBox::RemoteServices::RESTResult($res);
-        if ($res->code() == HTTP_UNAUTHORIZED) {
-            throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
+        given ($res->code()) {
+            when (HTTP_UNAUTHORIZED) {
+                throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
+            }
+            when (HTTP_BAD_REQUEST) {
+                my $error = $self->last_error()->data();
+                my $msgError = $error;
+                if (ref($error) eq 'HASH') {
+                    # Flatten the arrays
+                    my @errors;
+                    foreach my $singleErrors (values %{$error}) {
+                        push(@errors, @{$singleErrors});
+                    }
+                    $msgError = join("\n", @errors);
+                }
+                throw EBox::Exceptions::External($msgError);
+            }
+            default {
+                # Add to the journal unless specified not to do so
+                unless (defined($journaling) and not $journaling) {
+                    $self->_storeInJournal($method, $path, $query, $res);
+                }
+                throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
+            }
         }
 
-        # Add to the journal unless specified not to do so
-        unless (defined($journaling) and not $journaling) {
-            $self->_storeInJournal($method, $path, $query, $res);
-        }
-        throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
     }
 }
 

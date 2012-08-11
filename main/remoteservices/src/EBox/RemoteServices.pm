@@ -710,7 +710,7 @@ sub reloadBundle
     my $retVal = 1;
     try {
         if ( $self->eBoxSubscribed() ) {
-            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
+            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
             my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
@@ -945,6 +945,34 @@ sub disasterRecoveryAddOn
         $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
     } otherwise {
         throw EBox::Exceptions::NotConnected();
+    };
+    return $ret;
+}
+
+# Method: sbMailAddOn
+#
+#      Get if server has SB mail add-on
+#
+# Parameters:
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether it has SB mail add-on or not
+#
+sub sbMailAddOn
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{sb_mail_add_on};
+    } otherwise {
+        $ret = 0;
     };
     return $ret;
 }
@@ -1314,8 +1342,13 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
+
     if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
+        my $ret = $i18nLevels{$level};
+        if ( $self->sbMailAddOn() ) {
+            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        }
+        return $ret;
     } else {
         return __('Unknown');
     }
@@ -1667,8 +1700,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', '', 'info', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+      ( __('None'), '', '', 'info', '', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1721,7 +1754,7 @@ sub _ccConnectionWidget
         } catch EBox::Exceptions::NotConnected with { };
 
         if ( $drOn ) {
-            $DRValue = __x('Enabled');
+            $DRValue = __('Enabled');
             my $date = $self->_latestBackup();
             if ( $date ne 'unknown' ) {
                 $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
@@ -1733,6 +1766,8 @@ sub _ccConnectionWidget
                 $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
             }
         }
+
+        $sbMailAddOn = $self->sbMailAddOn();
 
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
@@ -1761,7 +1796,10 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-
+    if ( $sbMailAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+                                                 __('Enabled')));
+    }
 }
 
 # Set the subscription details
@@ -1783,12 +1821,13 @@ sub _getSubscriptionDetails
         my $details = $cap->subscriptionDetails();
 
         $state->{subscription} = {
-            level => $details->{level},
-            codename => $details->{codename},
+            level             => $details->{level},
+            codename          => $details->{codename},
             technical_support => $details->{technical_support},
-            renovation_date => $details->{renovation_date},
-            security_updates => $details->{security_updates},
-            disaster_recovery => $details->{disaster_recovery}
+            renovation_date   => $details->{renovation_date},
+            security_updates  => $details->{security_updates},
+            disaster_recovery => $details->{disaster_recovery},
+            sb_mail_add_on    => $details->{sb_mail_add_on},
         };
         $self->set_state($state);
     }

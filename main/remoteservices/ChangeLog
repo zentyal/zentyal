@@ -15,6 +15,9 @@ HEAD
 	  stats should be sent using the VPN or not
 	+ Added function cloudDomain to get Zentyal Cloud domain name
 	+ Added function subscribedUUID to get server UUID
+	+ Give support for 400 errors in REST Client as external
+	  exceptions
+	+ Added logic for new mail add-on for SB edition
 	+ Added REST client as interface with Zentyal Cloud
 	+ New registration form on subscription wizard
 2.3.1
