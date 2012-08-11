@@ -1,4 +1,7 @@
 HEAD
+	+ InverseMatchSelect and InverseMatchUnion use 'not' instead of '!' to denote
+	  inverse match. This string is configurable with a type argument
+	+ Fixed types EBox::Type::InverseMatchSelect and EBox::Type::InverseMatchUnion
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
 	  row element in DataTable::updateRowNotify()
 	+ In tableBody.mas template: decomposed table topToolbar section in methods
