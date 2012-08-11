@@ -1,4 +1,8 @@
 HEAD
+	+ New data form row is copied from default row, avoiding letting hidden
+	  fields without its default value and causing missing fields errors
+	+ Always fill abstract type with its default value, this avoids
+	  errors with hidden fields with default value
 	+ Different page to show errors when there are broken software packages
 	+ InverseMatchSelect and InverseMatchUnion use 'not' instead of '!' to denote
 	  inverse match. This string is configurable with a type argument
