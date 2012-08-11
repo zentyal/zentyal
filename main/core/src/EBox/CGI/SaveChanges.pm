@@ -61,11 +61,11 @@ my @commonProgressParams = (
 );
 my @popupProgressParams = (
         raw => 1,
+        inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
-        barWidth => 490,
 );
 
 sub saveAllModulesAction
@@ -119,7 +119,7 @@ sub revokeAllModulesAction
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
     }
 
     $self->showProgress(@params);

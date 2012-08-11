@@ -15,11 +15,6 @@
 
 package EBox::Printers::Model::CUPS;
 
-# Class: EBox::Printers::Model::CUPS
-#
-#   Class description
-#
-
 use base 'EBox::Model::DataTable';
 
 use strict;
@@ -46,29 +41,9 @@ sub new
 
     my $self = $class->SUPER::new(@_);
 
-    bless ( $self, $class );
+    bless ($self, $class);
 
     return $self;
-}
-
-# Method: viewCustomizer
-#
-#      Return a custom view customizer to set a permanent message if
-#      the VPN is not enabled or configured
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    $customizer->setPermanentMessage($self->_configureMessage());
-
-    return $customizer;
 }
 
 # Method: syncRows
@@ -168,20 +143,6 @@ sub _table
         help               => __('Select in which interfaces the CUPS webserver will listen on. Take into account that is not probably a good idea to listen on external interfaces. If none are selected, it will be listening only at localhost'),
     };
     return $dataForm;
-}
-
-sub _configureMessage
-{
-    my ($self) = @_;
-
-    my $CUPS_PORT = 631;
-    my $URL = "https://localhost:$CUPS_PORT/admin";
-    my $message = __x('To add or manage printers you have to use the {open_href}CUPS Web Interface{close_href}',
-                      open_href => "<a href='$URL' target='_blank' id='cups_url'>",
-                      close_href => '</a>');
-    $message .= "<script>document.getElementById('cups_url').href='https://' + document.domain + ':$CUPS_PORT/admin';</script>";
-
-    return $message;
 }
 
 1;

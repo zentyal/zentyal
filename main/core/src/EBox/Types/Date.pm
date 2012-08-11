@@ -305,6 +305,9 @@ sub _setValue # (value)
     my ($self, $value) = @_;
 
     my ($day, $month, $year) = split ('/', $value);
+    $day   =~ s/^0+//;
+    $month =~ s/^0+//;
+    $year  =~ s/^0+//;
 
     my $params = {
         $self->fieldName() . '_day'   => $day,

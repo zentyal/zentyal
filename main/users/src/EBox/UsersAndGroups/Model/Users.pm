@@ -149,7 +149,7 @@ sub noUsersMsg
     my $filterOU = $self->filterOU();
     EBox::debug("noDataMsg $filterOU");
     if (not $filterOU) {
-        return _x('There are no users at the moment');
+        return __x('There are no users at the moment');
     }
 
     return __x('There are no users for the organizational unit: {ou}<p>{ao}See users for all organizational units{ac}',
