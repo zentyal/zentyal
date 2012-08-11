@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2012-08-07 12:36+0200\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
+"PO-Revision-Date: 2012-08-08 21:47+0200\n"
+"Last-Translator: makany <makany.gyorgy@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -17731,6 +17731,8 @@ msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
+"Lehet, hogy a Zentyal beállításának vagy a szoftverének megváltozása "
+"elérhetetlenné teszi a kért oldalt"
 
 #: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
@@ -17790,15 +17792,16 @@ msgid "Partition Properties"
 msgstr "Partíció tulajdonságai"
 
 #: ../../main/core/src/templates/report/raid.mas:7
-#, fuzzy
 msgid "Unused devices"
-msgstr "Nincs szabad RAID eszközök"
+msgstr "Nem használt eszközök"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
 "Zentyal detected that some files which need to be overwritten have been\n"
 "modified by you."
 msgstr ""
+"A Zentyal azt észlelte, hogy néhány felülírandó állományt\n"
+" ön megváltoztatott."
 
 #: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
@@ -17880,7 +17883,7 @@ msgstr "Ismeretlen típus"
 
 #: ../../main/core/src/templates/backup.mas:139
 msgid "Restore configuration using this file"
-msgstr "Ez a fájl állítja be a visszaállítás tulajdonságait."
+msgstr "A konfiguráció visszaállítása ebből az állományból"
 
 #: ../../main/core/src/templates/backup.mas:139
 msgid "Restore from backup"
@@ -17932,7 +17935,7 @@ msgstr "Vége"
 
 #: ../../main/core/src/templates/wizard.mas:149
 msgid "Congratulations!"
-msgstr "Gratlálunk!"
+msgstr "Gratulálunk!"
 
 #: ../../main/core/src/templates/wizard.mas:149
 msgid "Now you are ready to save changes and start using your Zentyal server"
@@ -17950,7 +17953,7 @@ msgstr "Készen áll a beállítások mentésére és elkezdheti a Zentyal haszn
 
 #: ../../main/core/src/templates/wizard.mas:161
 msgid "Go to the dashboard"
-msgstr ""
+msgstr "Vissza a kezelőpulthoz"
 
 #: ../../main/core/src/templates/wizard.mas:184
 #: ../../main/core/src/templates/wizard.mas:192
@@ -18013,6 +18016,8 @@ msgid ""
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
+"A levelező fiók elérhetetlen, mert vagy egyáltalán nincs virtuális\n"
+" levelezőtartomány, vagy még nem mentette az új tartomány adatait."
 
 #: ../../main/mail/src/templates/account.mas:27
 msgid "Click here to create a new mail virtual domain"
@@ -18020,31 +18025,32 @@ msgstr "Kattintson ide egy új virtuális levelezőtartomány létrehozásához"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
-#, fuzzy
 msgid "Changing maildir size of"
-msgstr "Maildir mérete"
+msgstr "Postaláda méretváltoztatása"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
 msgid ""
 "The new maildir size is smaller than the oldest one and the actual\n"
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
+"Az új postaláda mérete kisebb, mint a régi, így az aktuális\n"
+" \t felhasználói postaláda méretét érinti a korlátozás."
 
 #: ../../main/mail/src/templates/externalAccounts.mas:14
-#, fuzzy
 msgid "Don't delete retrieved mail from external server"
-msgstr "Levél letöltése külső fiókból"
+msgstr "Ne törölje a leveleket a külső szerverről"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:16
-#, fuzzy
 msgid "Fetch already read messages"
-msgstr "Tanuljon a levelkből"
+msgstr "Illeszkedjen az elolvasott levelekre"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
+"Az új postaláda kisebb, mint a régi, így a következő\n"
+" \t felhasználóknak árthat a korlátozás:"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
@@ -18085,9 +18091,8 @@ msgstr ""
 "Ezek a beállítások akkor lesznek alkalmazva, ha bekapcsolja a levelező modult"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
-#, fuzzy
 msgid "Deleting virtual domain"
-msgstr "Virtuális levelező tartomány"
+msgstr "Virtuális levelező tartomány törlése"
 
 #: ../../main/mail/src/templates/warnvd.mas:13
 msgid ""

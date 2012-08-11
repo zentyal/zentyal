@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2012-08-02 19:30+0200\n"
-"Last-Translator: Jorge <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2012-08-07 20:56+0200\n"
+"Last-Translator: douglasanpa <douglas@ifsp.edu.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -60,9 +60,7 @@ msgstr "Período de tempo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
 msgid "Time period when the this rule is applied"
-msgstr ""
-"Período de tempo quando a esta regra é aplicada, é ignorado com uma política "
-"de negação"
+msgstr "Período de tempo quando esta regra é aplicada"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741

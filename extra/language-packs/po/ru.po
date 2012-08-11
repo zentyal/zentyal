@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-06 10:57+0200\n"
-"Last-Translator: dmitrox <dmitro.ivanov@gmail.com>\n"
+"PO-Revision-Date: 2012-08-10 14:13+0200\n"
+"Last-Translator: DGV <dgv@bigmir.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
@@ -120,15 +120,13 @@ msgstr "Решение"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:131
-#, fuzzy
 msgid "Allow All"
-msgstr "Разрешить"
+msgstr "Разрешить все"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:130
-#, fuzzy
 msgid "Deny All"
-msgstr "Запретить"
+msgstr "Запретить все"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
 #, fuzzy
@@ -137,9 +135,8 @@ msgstr "Профили фильтра"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid.pm:869
-#, fuzzy
 msgid "Access Rules"
-msgstr "Запросы доступа"
+msgstr "Правила доступа"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:202
@@ -735,9 +732,8 @@ msgid "MB"
 msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:159
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Скорость загрузки клиента"
+msgstr "Максимальная скорость загрузки (download rate)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
 msgid ""
@@ -3372,7 +3368,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:129
 msgid "The host name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "Имя узла будет разрешаться в следующий список IP-адресов."
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3391,13 +3387,17 @@ msgstr "В этом домене уже существует узел с эти�
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
-msgstr "Псевдним для {hostname} с таким именем \"{name}\" в этой же домене"
+msgstr ""
+"Псевдоним для {hostname} с таким именем \"{name}\" в этой же домене уже "
+"существует"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:205
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
+"Это список псевдонимов для имени узла. Все они будут разрешаться в список "
+"IP-адресов узла."
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:206
 #: ../../main/dns/src/EBox/DNS.pm:1892
@@ -3514,8 +3514,9 @@ msgid "Override named apparmor profile"
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:707
+#, fuzzy
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "Чтобы разрешить демону samba загружать зоны из Active Directory"
 
 #: ../../main/dns/src/EBox/DNS.pm:732
 msgid "Domain Name Service"
@@ -3700,7 +3701,7 @@ msgstr "член"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:134
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Нулем может оканчиваться только адрес сети"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
 msgid "You can only use MAC addresses with hosts"
@@ -3863,21 +3864,22 @@ msgid ""
 "redirected to the next step"
 msgstr ""
 "Установка пакетов завершена успешно. Интерфейс администрирования может не "
-"отвечать несколько секунд. Пожалуйста, дождитесь полного перезапуска. Вы "
-"автоматически будете перенаправлены на следующий шаг"
+"отвечать несколько секунд. Пожалуйста, дождитесь полной перенастройки "
+"системы. Вы автоматически будете перенаправлены на следующий шаг."
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:186
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs in {dir}"
 msgstr ""
-"Установка пакета прошла не успешна. Дополнительную информацию смотрите в "
-"журналах системы"
+"Установка пакета завершена с ошибкой. Дополнительную информацию смотрите в "
+"журналах системы в {dir}"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:192
+#, fuzzy
 msgid "Go to save changes"
-msgstr "Сохранить изменения"
+msgstr "Перейти к сохранению изменений"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 msgid "Removing package"
@@ -4036,12 +4038,11 @@ msgstr "Отключить - {oh}Включено{ch}"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
 #, fuzzy, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Нет подключения. Проверьте журналы VPN в {path}"
+msgstr "Не подключен. {oh} Проверьте VPN-подключение{ch} и журналы в {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
-#, fuzzy
 msgid "In process"
-msgstr "процесс"
+msgstr "В процессе"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1656
 msgid "Connected"
@@ -4094,7 +4095,7 @@ msgstr "Состояние подключения"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1721
 msgid "External server name"
-msgstr "Имя внешнего сервера"
+msgstr "Внешнее имя сервера"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1724
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
@@ -4111,7 +4112,7 @@ msgstr "Техническая поддержка"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1786
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
-msgstr "Резервная копия данных ещё не производилась"
+msgstr "Резервное копирование данных ещё не производилась"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
 msgid "Support available via"
@@ -4137,8 +4138,8 @@ msgid ""
 msgstr ""
 "По умолчанию доступ предоставляется только доверенным хостам в частной сети "
 "Zentyal Cloud. Если вы включите эту оцию, будет предоставлен доступ с любого "
-"адреса. Используйте эту опцию только если вы несмогли подключиться к Zentyal "
-"Cloud"
+"адреса. Используйте эту опцию только если вы не смогли подключиться к "
+"Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
 msgid "Enable Remote Support Access"
@@ -4152,14 +4153,15 @@ msgstr ""
 "службы удалённой поддержки"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr ""
-"Чтобы разрешить любой адрес для удалённой поддержки, необходимо быть "
-"подключенным к {cloud}"
+"Чтобы разрешить любой адрес для удалённой поддержки, Вы не должны быть "
+"подключены к {cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
+#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
@@ -4281,22 +4283,24 @@ msgstr "Неограниченный"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
 msgid "VPN Connectivity Check"
-msgstr ""
+msgstr "Проверка возможности подключения VPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
 msgid "The VPN server is reachable"
-msgstr ""
+msgstr "VPN-сервер доступен"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
-#, fuzzy
 msgid "Zentyal Cloud VPN Connectivity Check"
-msgstr "Соединение с Zentyal Cloud"
+msgstr "Проверка возможности подключения к Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#, fuzzy
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
 msgstr ""
+"Выполняется необходимая проверка возможности подключения VPN-клиента к "
+"серверу"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 msgid "Latest security update"
@@ -4307,9 +4311,8 @@ msgid "Available IDS rules"
 msgstr "Доступные правила IDS"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:115
-#, fuzzy
 msgid "Select one of the available options"
-msgstr "Выберите доступные полные отчеты"
+msgstr "Выберите один из доступных параметров."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 msgid ""
@@ -4318,6 +4321,10 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
+"Подписка произведена правильно. Сохраните изменения и затем подождите минуту "
+"пока система выполняет процесс подписки. Позже вы можете начать "
+"использовать службы в облаке, на которые вы имеете право с вашей подпиской "
+"(удаленное резервное копирование, обновления, оповещения и т.д.)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:126
 msgid "Subscription data retrieved correctly."
@@ -4362,7 +4369,8 @@ msgstr "Имя сервера"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:377
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr ""
-"Выберите имя для вашего сервера должно быть корректным именем поддомена"
+"Выберите имя для вашего сервера, которое является корректным именем "
+"поддомена"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
@@ -4396,11 +4404,12 @@ msgstr "Пароль"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:395
 #, fuzzy
 msgid "Available Options"
-msgstr "Доступные опции: {ops}"
+msgstr "Доступные параметры"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:397
+#, fuzzy
 msgid "Select one of your purchases"
-msgstr ""
+msgstr "Выберите одну из Ваших покупок"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:405
 msgid "Zentyal subscription details"
@@ -4461,9 +4470,9 @@ msgid "Reason"
 msgstr "Причины"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:669
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Use existing server from {c}"
-msgstr "Использовать существующий файл образа"
+msgstr "Использовать существующий сервер из {c}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:685
 #, fuzzy
@@ -4487,8 +4496,8 @@ msgid ""
 "The download link is for the latest available report for a group where this "
 "zentyal belongs to"
 msgstr ""
-"Ссылка для скачивания последнего доступного отчёта для группы принадлежащей "
-"этому zentyal"
+"Ссылка для скачивания последнего доступного отчёта для группы, которой "
+"принадлежит этот zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:134
 #, perl-brace-format
@@ -4596,7 +4605,7 @@ msgstr "На сервере нет резервной копии host: {h}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:244
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr "Существует резервная копия: {n}"
+msgstr "Несуществующая резервная копия: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:244
 msgid "Key for proxy backup service not found"
@@ -4609,6 +4618,9 @@ msgid ""
 "You can reset it {ohp}here{closehref}. If you need a new account you can "
 "subscribe {openhref}here{closehref}."
 msgstr ""
+"Пользователь/электронный адрес и пароль не совпадают. Вы забыли ваш пароль? "
+"Вы можете сбросить его {ohp} здесь {closehref}. Если необходимо создать "
+"новый аккаунт, вы можете подписаться {openhref} здесь {closehref}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:71
 msgid ""
@@ -4665,20 +4677,22 @@ msgstr "слабая"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:399
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr "У пользователей найдены пароли сложности {level}"
+msgstr "У пользователей не найдены пароли сложности {level}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:404
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr "Следующие пользователи имеют {level} пароли: {users}."
+msgstr "Следующие пользователи имеют пароли уровня  {level}: {users}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:126
 msgid "Key for web subscription service not found"
 msgstr "Ключ для подписки на веб-службы не найден"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:215
+#, fuzzy
 msgid "None of the available bundles are valid for this server"
 msgstr ""
+"Ни одна из имеющихся связок не является действительной для этого сервера"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:587
 #, perl-brace-format
@@ -18187,9 +18201,8 @@ msgid "Organizational Unit"
 msgstr "Подразделение организации"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
-#, fuzzy
 msgid "Select the domain name of the server"
-msgstr "Выберите тип сервера"
+msgstr "Выберите доменное имя сервера"
 
 #: ../../main/users/src/templates/wizard/users.mas:14
 msgid "This will used as the Kerberos authentication realm for your users."
