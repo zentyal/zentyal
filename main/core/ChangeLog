@@ -1,4 +1,5 @@
 HEAD
+	+ Different page to show errors when there are broken software packages
 	+ InverseMatchSelect and InverseMatchUnion use 'not' instead of '!' to denote
 	  inverse match. This string is configurable with a type argument
 	+ Fixed types EBox::Type::InverseMatchSelect and EBox::Type::InverseMatchUnion
