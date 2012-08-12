@@ -122,38 +122,6 @@ sub _table
     return $dataTable;
 }
 
-# TODO: It would be great to have something like this implemented at framework level
-# for all the models
-sub isEqual
-{
-    #my ($self, $other) = @_;
-    my ($self, $vmRow) = @_;
-
-    my $virtRO = EBox::Global->getInstance(1)->modInstance('virt');
-
-    my @thisIds = @{$self->ids()};
-    #my @otherIds = @{$other->ids()};
-    my @otherIds = @{$virtRO->get_list("VirtualMachines/keys/$vmRow/settings/DeviceSettings/order")};
-    return 0 unless (@thisIds == @otherIds);
-
-    foreach my $id (@{$self->ids()}) {
-        my $thisDev = $self->row($id);
-        #my $otherDev = $other->row($id);
-        #return 0 unless defined ($otherDev);
-
-        foreach my $field (qw(enabled type disk_action size path)) {
-            my $thisField = $thisDev->valueByName($field);
-            next unless defined ($thisField);
-            #my $otherField = $otherDev->valueByName($field);
-            my $otherField = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/DeviceSettings/keys/$id/$field");
-            next unless defined ($otherField);
-            return 0 unless ($thisField eq $otherField);
-        }
-    }
-
-    return 1;
-}
-
 # Method: validateTypedRow
 #
 # Overrides:

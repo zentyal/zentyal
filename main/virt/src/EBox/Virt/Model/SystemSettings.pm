@@ -121,35 +121,6 @@ sub _table
     return $dataTable;
 }
 
-# TODO: It would be great to have something like this implemented at framework level
-# for all the models
-sub isEqual
-{
-    #my ($self, $other) = @_;
-    my ($self, $vmRow) = @_;
-
-    my $virtRO = EBox::Global->getInstance(1)->modInstance('virt');
-
-    my $this = $self->row();
-    #$other = $other->row();
-
-    my $thisMemory = $this->valueByName('memory');
-    #my $otherMemory = $other->valueByName('memory');
-    my $otherMemory = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/SystemSettings/keys/memory");
-    if (defined ($thisMemory) and defined ($otherMemory)) {
-        return 0 unless ($thisMemory eq $otherMemory);
-    }
-
-    my $thisOS = $this->valueByName('os');
-    #my $otherOS = $other->valueByName('os');
-    my $otherOS = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/SystemSettings/keys/os");
-    if (defined ($thisOS) and defined ($otherOS)) {
-        return 0 unless ($thisOS eq $otherOS);
-    }
-
-    return 1;
-}
-
 sub viewCustomizer
 {
     my ($self) = @_;

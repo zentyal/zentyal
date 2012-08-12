@@ -388,7 +388,7 @@ sub _saveConfig
                 next;
             }
         }
-        $needRewriteVMs->{$vmId} = $vms->vmChanged($vmId);
+        $needRewriteVMs->{$vmId} = $vms->isChanged($vmId);
     }
 
     $self->SUPER::_saveConfig();
