@@ -38,8 +38,10 @@ modeldepends:
         services/ServiceTable: [service]
         objects/ObjectTable: [source_object, destination_object]
     RedirectsTable:
-        services/ServiceTable: [service]
         objects/ObjectTable: [origDest_object, source_object]
+    SNAT:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [source_object, destination_object]
 
 composites:
     PacketTrafficReport: [PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]
