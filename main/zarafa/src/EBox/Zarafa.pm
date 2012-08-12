@@ -387,7 +387,7 @@ sub _setConf
     my $server_ssl_enabled;
     if ($self->model('GeneralSettings')->soapValue()) {
         $server_bind = '0.0.0.0';
-        $server_ssl_enabled = 'yes';
+        $server_ssl_enabled = 'no';
     } else {
         $server_bind = '127.0.0.1';
         $server_ssl_enabled = 'no';

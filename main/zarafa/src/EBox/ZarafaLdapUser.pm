@@ -177,6 +177,9 @@ sub setMeetingAutoaccept
     return unless ($self->hasMeetingAutoaccept($user) xor $option);
 
     $user->set('zarafaMrAccept', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-accept $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasMeetingDeclineConflict
@@ -194,6 +197,9 @@ sub setMeetingDeclineConflict
     return unless ($self->hasMeetingDeclineConflict($user) xor $option);
 
     $user->set('zarafaMrDeclineConflict', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-decline-conflict $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasMeetingDeclineRecurring
@@ -211,6 +217,9 @@ sub setMeetingDeclineRecurring
     return unless ($self->hasMeetingDeclineRecurring($user) xor $option);
 
     $user->set('zarafaMrDeclineRecurring', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-decline-recurring $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasAccount
@@ -225,6 +234,7 @@ sub setHasAccount
     my ($self, $user, $option) = @_;
 
     my $model = $self->{zarafa}->model('ZarafaUser');
+
     if (not $self->hasAccount($user) and $option) {
         $self->setHasContact($user, 0);
         $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
@@ -244,6 +254,7 @@ sub setHasAccount
         $self->setHasFeature($user, 'imap', $model->imapValue());
 
         $self->{zarafa}->_hook('setacc', $user->name());
+
     } elsif ($self->hasAccount($user) and not $option) {
         $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->delete('zarafaAccount', 1);
