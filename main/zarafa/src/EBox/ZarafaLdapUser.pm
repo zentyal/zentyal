@@ -287,8 +287,8 @@ sub _addUser
    }
    my $model = $self->{zarafa}->model('ZarafaUser');
 
-   $self->setHasAccount($user, $model->enabledValue());
    $self->setHasContact($user, $model->contactValue());
+   $self->setHasAccount($user, $model->enabledValue());
 }
 
 sub hasContact
