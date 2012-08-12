@@ -21,5 +21,25 @@ models:
     - PacketTrafficGraph
     - PacketTrafficReportOptions
 
+modeldepends:
+    ToInternetRuleTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [source_object, destination_object]
+    InternalToEBoxRuleTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [source_object]
+    ExternalToEBoxRuleTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [source_object]
+    EBoxOutputRuleTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [destination_object]
+    ExternalToInternalRuleTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [source_object, destination_object]
+    RedirectsTable:
+        services/ServiceTable: [service]
+        objects/ObjectTable: [origDest_object, source_object]
+
 composites:
     PacketTrafficReport: [PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]
