@@ -697,9 +697,9 @@ sub _setWebServerConf
         push(@cmds, 'a2ensite zarafa-webaccess');
         push(@cmds, 'a2ensite zarafa-webapp');
         if ($activesync) {
-            push(@cmds, 'a2ensite z-push');
+            push(@cmds, 'a2ensite d-push');
         } else {
-            push(@cmds, 'a2dissite z-push');
+            push(@cmds, 'a2dissite d-push');
         }
         if ($jabber) {
             push(@cmds, 'a2ensite zarafa-webapp-xmpp');
@@ -711,7 +711,7 @@ sub _setWebServerConf
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite zarafa-webapp-xmpp');
-        push(@cmds, 'a2dissite z-push');
+        push(@cmds, 'a2dissite d-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
         $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);
