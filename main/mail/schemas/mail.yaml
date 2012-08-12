@@ -27,5 +27,9 @@ composites:
     General: [ServiceConfiguration, ObjectPolicy, ExternalFilter]
     TrafficReport: [TrafficReportOptions, TrafficGraph, TrafficDetails]
 
+modeldepends:
+    ObjectPolicy:
+        objects/ObjectTable: [object]
+
 foreign:
     VDomains: [VDomainAliases, ExternalAliases, VDomainSettings]

@@ -1,4 +1,5 @@
 HEAD
+	+ Added modeldepends to yaml schema
 	+ Reimplemented old behavior of client configuration directory
 	  creation for compability with other modules
 2.3.9

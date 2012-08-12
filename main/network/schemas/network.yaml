@@ -19,3 +19,11 @@ composites:
     MultiGw: [MultiGwRulesOptions, BalanceGateways, MultiGwRulesDataTable]
     WANFailover: [WANFailoverOptions, WANFailoverRules]
     DNS: [DNSResolver, SearchDomain]
+
+modeldepends:
+    MultiGwRulesDataTable:
+        objects/ObjectTable: [source_object, destination_object]
+        services/ServiceTable: [service]
+        network/GatewayTable: [gateway]
+    WANFailoverRules:
+        network/GatewayTable: [gateway]

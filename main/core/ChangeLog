@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed warnings when deleting a row which is referenced in other model
 	+ Disable HTML form autocompletion in admin password change model
 	+ Fixed incorrect non-editable warnings in change date and time model
 	+ Fixed parsing value bug in EBox::Types::Date and EBox::Types::Time

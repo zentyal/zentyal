@@ -24,5 +24,11 @@ composites:
     Antivirus: [AntivirusDefault, AntivirusExceptions]
     General: [GeneralSettings, SambaShares, RecycleBin] # FIXME: Add Antivirus when samba-vscan is ready
 
+modeldepends:
+    AntivirusExceptions:
+        samba/SambaShares: [share]
+    RecycleExceptions:
+        samba/SambaShares: [share]
+
 foreign:
     SambaShares: [SambaSharePermissions]

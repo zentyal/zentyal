@@ -1,4 +1,5 @@
 HEAD
+	+ Added modeldepends to yaml schema
 	+ Enable printing daemon. Printers ACLs are now stored in a model within
 	  printers module
 	+ Removed wrong empty string translations
