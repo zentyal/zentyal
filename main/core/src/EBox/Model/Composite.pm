@@ -822,4 +822,25 @@ sub clone
     };
 }
 
+# Method: isChanged
+#
+#       Return if the any of the components have changed compared to
+#       their readonly versions
+#
+# Returns:
+#
+#       boolean - true if changed, false otherwise
+#
+sub isChanged
+{
+    my ($self) = @_;
+
+    foreach my $comp (@{$self->components()}) {
+        return 1 if ($comp->isChanged());
+    }
+
+    return 0;
+}
+
+
 1;

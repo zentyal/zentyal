@@ -4294,6 +4294,72 @@ sub viewCustomizer
     return $self->{viewCustomizer};
 }
 
+# Method: isChanged
+#
+#       Return if the model data has changed compared to the data stored
+#       on the readonly version of the data
+#
+# Parameters:
+#
+#       rowId - *optional* id of the row to check, if not defined
+#                          all the rows will be checked
+#
+# Returns:
+#
+#       boolean - true if changed, false otherwise
+#
+sub isChanged
+{
+    my ($self, $rowId) = @_;
+
+    my $roModule = EBox::Global->getInstance(1)->modInstance($self->parentModule()->name());
+    my $roModel = $roModule->model($self->name());
+
+    my @roIds = @{$roModel->ids()};
+    my @currentIds;
+
+    if ($rowId) {
+        @currentIds = ($rowId);
+    } else {
+        @currentIds = @{$self->ids()};
+
+        # If we are not looking for a specific row, check first
+        # if RO and RW instances have the same number of rows
+        unless (@currentIds == @roIds) {
+            return 1;
+        }
+    }
+
+    my @fields = @{$self->{table}->{tableDescription}};
+
+    foreach my $id (@currentIds) {
+        my $row = $self->row($id);
+        my $roRow = $roModel->row($id);
+        unless (defined ($roRow)) {
+            return 1;
+        }
+        foreach my $field (@fields) {
+            my $name = $field->{fieldName};
+            if ($field->isa('EBox::Types::HasMany')) {
+                if ($row->subModel($name)->isChanged()) {
+                    return 1;
+                }
+            } else {
+                my $value = $row->valueByName($name);
+                my $roValue = $roRow->valueByName($name);
+                if (defined ($value) xor defined ($roValue)) {
+                    return 1;
+                }
+                if ((defined ($value) and defined ($roValue)) and ($value ne $roValue)) {
+                    return 1;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
 # Method: _autoloadGetId
 #
 #      Get the identifier which will be used to set the directory to

@@ -1,4 +1,5 @@
 HEAD
+	+ Added new isChanged() method to know if the data of a model is modified
 	+ Fixed warnings when deleting a row which is referenced in other model
 	+ Disable HTML form autocompletion in admin password change model
 	+ Fixed incorrect non-editable warnings in change date and time model

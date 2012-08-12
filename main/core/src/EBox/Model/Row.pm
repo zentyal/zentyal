@@ -109,7 +109,7 @@ sub model
 {
     my ($self) = @_;
 
-    return  $self->{'model'};
+    return $self->{'model'};
 }
 
 # Method: setModel
@@ -729,6 +729,22 @@ sub cloneSubModelsFrom
 
         $subModel->clone($otherSubDir, $subDir);
     }
+}
+
+# Method: isChanged
+#
+#       Return if the row data has changed compared to the data stored
+#       on the readonly version
+#
+# Returns:
+#
+#       boolean - true if changed, false otherwise
+#
+sub isChanged
+{
+    my ($self) = @_;
+
+    return $self->model()->isChanged($self->id());
 }
 
 1;
