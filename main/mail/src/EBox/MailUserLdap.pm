@@ -758,6 +758,7 @@ sub setUserZarafaQuotaDefault
 
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
     $user->set('zarafaQuotaOverride', $userMaildirSizeValue, 1);
+    $user->save();
 }
 
 # Method: gidvmail
