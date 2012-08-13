@@ -1,3 +1,6 @@
+HEAD
+	+ Modify low-level redis calls to be compatible with the new
+	  libredis-perl version in quantal
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
