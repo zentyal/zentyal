@@ -1,4 +1,6 @@
 HEAD
+	+ Manually set up models for events to take into account the
+	  dynamic models from the log watcher filtering models
 	+ Return undef in HasMany type when a model is not longer
 	  available due to being uninstalled
 	+ Added onclick atribute to the link.mas template
