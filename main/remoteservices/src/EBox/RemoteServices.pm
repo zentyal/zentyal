@@ -158,6 +158,7 @@ sub _setConf
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
+    $self->_setNETRCFile();
 }
 
 # Method: initialSetup
@@ -255,6 +256,55 @@ sub _setInventoryAgentConf
     if ( $toRemove and (-e OCS_CRON_FILE) ) {
         # Disable OCS agent periodic execution
         EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
+    }
+}
+
+sub _writeCredentials   # ($fh, $host, $user, $pass)
+{
+    my ($fh, $host, $user, $pass) = @_;
+
+    print $fh "machine $host\n";
+    print $fh "login $user\n";
+    print $fh "password $pass\n\n";
+}
+
+sub _setNETRCFile
+{
+    my ($self) = @_;
+
+    my $file = EBox::Config::home() . '/.netrc';
+
+    if ($self->eBoxSubscribed()) {
+        my $cloud_domain = $self->cloudDomain();
+        my $cred = EBox::RemoteServices::Cred->new()->{cred};
+
+        my $file_handle;
+        open($file_handle, ">$file");
+        chmod 0700, $file_handle;
+
+        my $netrc_content;
+
+        # Conf backup
+        _writeCredentials($file_handle,
+                          "confbackup.$cloud_domain",
+                          $cred->{uuid},
+                          $cred->{password});
+
+        # Security updates
+
+        # Password: UUID in hexadecimal format (without '0x')
+        my $ug = new Data::UUID;
+        my $bin_uuid = $ug->from_string($cred->{uuid});
+        my $hex_uuid = $ug->to_hexstring($bin_uuid);
+
+        _writeCredentials($file_handle,
+                          "security-updates.$cloud_domain",
+                          $cred->{name},
+                          substr($hex_uuid, 2));
+
+        close($file_handle);
+    } else {
+        unlink($file);
     }
 }
 
