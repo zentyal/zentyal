@@ -1,6 +1,4 @@
-2.3.19
-	+ Manually set up models for events to take into account the
-	  dynamic models from the log watcher filtering models
+HEAD
 	+ Return undef in HasMany type when a model is not longer
 	  available due to being uninstalled
 	+ Added onclick atribute to the link.mas template
@@ -10,6 +8,9 @@
 	+ Added popup dialogs for import/export configuration
 	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
 	  row element in DataTable::updateRowNotify()
+2.3.19
+	+ Manually set up models for events to take into account the
+	  dynamic models from the log watcher filtering models
 	+ In tableBody.mas template: decomposed table topToolbar section in methods
 	+ Changes in styles and sizes of the save/revoke dialog
 	+ Fixed warnings when deleting a row which is referenced in other model
