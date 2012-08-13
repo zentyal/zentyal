@@ -1,4 +1,4 @@
-HEAD
+2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
 	+ Fixed warnings when deleting a row which is referenced in other model
