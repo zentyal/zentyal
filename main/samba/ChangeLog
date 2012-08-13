@@ -1,4 +1,4 @@
-HEAD
+2.3.11
 	+ Added modeldepends to yaml schema
 	+ Enable printing daemon. Printers ACLs are now stored in a model within
 	  printers module

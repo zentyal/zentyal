@@ -1,4 +1,4 @@
-HEAD
+2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
 	+ Return undef in HasMany type when a model is not longer
