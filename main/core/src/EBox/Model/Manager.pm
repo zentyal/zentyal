@@ -182,7 +182,7 @@ sub component
     } elsif ($self->_compositeExists($path)) {
         return $self->composite($path, $readonly);
     } else {
-        throw EBox::Exceptions::Internal("Component $path does not exists");
+        throw EBox::Exceptions::Internal("Component $path does not exist");
     }
 }
 

@@ -120,7 +120,7 @@ sub _print
 
         close($downFile);
     } else {
-            throw EBox::Exceptions::Internal('File does not exists or is of a special type: ' .
+            throw EBox::Exceptions::Internal('File does not exist or is of a special type: ' .
                                                  $file);
     }
 }
