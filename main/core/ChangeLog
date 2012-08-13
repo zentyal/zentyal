@@ -1,4 +1,6 @@
 HEAD
+	+ Manually set up models for events to take into account the
+	  dynamic models from the log watcher filtering models
 	+ Fixed warnings when deleting a row which is referenced in other model
 	+ Disable HTML form autocompletion in admin password change model
 	+ Fixed incorrect non-editable warnings in change date and time model
