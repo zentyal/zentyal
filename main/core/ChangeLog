@@ -1,4 +1,6 @@
 HEAD
+	+ Set only Remote as option to export/import configuration to a
+	  remote site
 	+ Return undef in HasMany type when a model is not longer
 	  available due to being uninstalled
 	+ Added onclick atribute to the link.mas template

@@ -1,4 +1,5 @@
 HEAD
+	+ Remove no longer used restore backup from proxy
 	+ Added method to write conf-backups and sec-updates credentials
 	  into /var/lib/zentyal/.netrc file
 	+ Remote configuration backup operations now run inside a popup
