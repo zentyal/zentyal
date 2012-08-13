@@ -1131,6 +1131,18 @@ msgstr ""
 "configuración en Zentyal Cloud, crea un subdominio zentyal.me para tu "
 "servidor y mucho más!"
 
+#: ../../main/monitor/src/templates/index.mas:24
+#, fuzzy, perl-brace-format
+msgid ""
+"Want to know how your system performs and manage your server remotely? Get "
+"the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to access to "
+"remote monitoring and management features."
+msgstr ""
+"¿Quieres conocer los datos de rendimiento de tu sistema y gestionar tu "
+"servidor de forma remota? Obtén la edición {ohs}Small Business {ch} o {ohe}"
+"Enterprise{ch} para acceder a las opciones de monitorización y gestión "
+"remota."
+
 #: ../../main/core/src/templates/links-widget.mas:10
 msgid "Community"
 msgstr "Comunidad"
@@ -1309,13 +1321,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Monitoriza y gestiona de forma remota múltiples servidores Zentyal desde "
 #~ "un punto central."
-
-#~ msgid ""
-#~ "Want to know how your system performs and manage your server remotely? "
-#~ "Get the {ohs}Small Business {ch} or {ohe}Enterprise Edition{ch} to access "
-#~ "remote monitoring and management features."
-#~ msgstr ""
-#~ "¿Quieres conocer los datos de rendimiento de tu sistema y gestionar tu "
-#~ "servidor de forma remota? Obtén la edición {ohs}Small Business {ch} o "
-#~ "{ohe}Enterprise{ch} para acceder a las opciones de monitorización y "
-#~ "gestión remota."
