@@ -268,6 +268,7 @@ sub _writeCredentials   # ($fh, $host, $user, $pass)
     print $fh "password $pass\n\n";
 }
 
+# Set up .netrc file in user's $HOME
 sub _setNETRCFile
 {
     my ($self) = @_;
@@ -275,34 +276,33 @@ sub _setNETRCFile
     my $file = EBox::Config::home() . '/.netrc';
 
     if ($self->eBoxSubscribed()) {
-        my $cloud_domain = $self->cloudDomain();
-        my $cred = EBox::RemoteServices::Cred->new()->{cred};
+        my $cred = EBox::RemoteServices::Cred->new();
+        my $cloudDomain = $cred->cloudDomain();
+        my $credentials  = $cred->cloudCredentials();
 
-        my $file_handle;
-        open($file_handle, ">$file");
-        chmod 0700, $file_handle;
-
-        my $netrc_content;
+        my $fileHandle;
+        open($fileHandle, '>', $file);
+        chmod 0700, $fileHandle;
 
         # Conf backup
-        _writeCredentials($file_handle,
-                          "confbackup.$cloud_domain",
-                          $cred->{uuid},
-                          $cred->{password});
+        _writeCredentials($fileHandle,
+                          "confbackup.$cloudDomain",
+                          $credentials->{uuid},
+                          $credentials->{password});
 
         # Security updates
 
         # Password: UUID in hexadecimal format (without '0x')
         my $ug = new Data::UUID;
-        my $bin_uuid = $ug->from_string($cred->{uuid});
+        my $bin_uuid = $ug->from_string($credentials->{uuid});
         my $hex_uuid = $ug->to_hexstring($bin_uuid);
 
-        _writeCredentials($file_handle,
-                          "security-updates.$cloud_domain",
-                          $cred->{name},
+        _writeCredentials($fileHandle,
+                          "security-updates.$cloudDomain",
+                          $cred->serverName(),
                           substr($hex_uuid, 2));
 
-        close($file_handle);
+        close($fileHandle);
     } else {
         unlink($file);
     }

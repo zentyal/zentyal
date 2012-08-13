@@ -362,10 +362,10 @@ sub _pushConfBackup
     # Send the file using curl
     my $url = new URI('https://' . $self->{cbServer} . '/conf-backup/put/' . $p{fileName});
 
-    my $output = EBox::Sudo::command(
-                        CURL . " --insecure --upload-file '$archive' "
-                        . " --netrc '" . $url->as_string() . "'");
-
+    my $curlCmd = CURL;
+    $curlCmd .= ' --insecure' unless ( EBox::Config::boolean('rs_verify_servers') );
+    $curlCmd .= " --upload-file '$archive' --netrc '" . $url->as_string() . "'";
+    EBox::Sudo::command($curlCmd);
 }
 
 sub _handleResult   # ( HTTP::Response, named params)

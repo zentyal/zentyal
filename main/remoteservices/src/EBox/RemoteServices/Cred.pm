@@ -98,6 +98,21 @@ sub subscribedUUID
     return $self->{cred}->{uuid};
 }
 
+# Method: serverName
+#
+#     Get the subscribed server name
+#
+# Returns:
+#
+#     String - the server name
+#
+sub serverName
+{
+    my ($self) = @_;
+
+    return $self->{cred}->{name};
+}
+
 # Method: cloudDomain
 #
 #     Get the Zentyal Cloud Domain
