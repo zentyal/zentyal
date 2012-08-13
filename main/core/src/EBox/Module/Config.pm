@@ -63,6 +63,14 @@ sub composite
     EBox::Model::Manager->instance()->_component('composite', $self, $name);
 }
 
+# Method: models
+#
+#      Get the models from the model manager
+#
+# Returns:
+#
+#      Array ref - containing the model instances for this module
+#
 sub models
 {
     my ($self) = @_;
@@ -70,6 +78,14 @@ sub models
     EBox::Model::Manager->instance()->models($self);
 }
 
+# Method: composites
+#
+#      Get the composites from the model manager
+#
+# Returns:
+#
+#      Array ref - containing the composite instances for this module
+#
 sub composites
 {
     my ($self) = @_;
