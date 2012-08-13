@@ -203,9 +203,9 @@ sub  _createFilesArchive
     defined $removeDir or
         $removeDir =  1;
 
-    if (`umask 0077; tar czf '$filesArchive' -C '$auxDir' .`) {
-        throw EBox::Exceptions::Internal("Could not create archive.");
-    }
+    EBox::Sudo::root("tar czf  '$filesArchive' --preserve-permissions -C '$auxDir' .");
+    EBox::Sudo::root("chmod 0660 '$filesArchive'");
+    EBox::Sudo::root("chown ebox.ebox '$filesArchive'");
     if ($removeDir) {
         system "rm -rf '$auxDir'";
     }
@@ -314,22 +314,14 @@ sub  _createBackupArchive
     }
 
     my $filesArchive = "$archiveContentsDirRelative/files.tgz";
-    my $cmd;
-    my @output;
+    EBox::Sudo::root("tar cf $backupArchive -C $tempdir $archiveContentsDirRelative --preserve-permissions  --exclude $filesArchive 2>&1");
 
-    $cmd = "umask 0077; tar cf $backupArchive -C $tempdir $archiveContentsDirRelative  --exclude $filesArchive 2>&1";
-    @output = `$cmd`;
-    if ($? != 0) {
-        EBox::error("Failed command: $cmd. Output: @output");
-        throw EBox::Exceptions::External(__('Could not create backup archive'));
-    }
+    # append filesArchive
+    EBox::Sudo::root("tar --append -f '$backupArchive'  -C '$tempdir' '$filesArchive' 2>&1");
 
-    $cmd = "tar --append -f '$backupArchive'  -C '$tempdir' '$filesArchive' 2>&1";
-    @output = `$cmd`;
-    if ($? != 0) {
-        EBox::error("Failed command: $cmd. Output: @output");
-        throw EBox::Exceptions::External(__('Could not append data to backup archive'));
-    }
+    # adjust permissions and ownership given to ebox
+    EBox::Sudo::root("chmod 0660 '$backupArchive'");
+    EBox::Sudo::root("chown ebox.ebox '$backupArchive'");
 }
 
 sub _createSizeFile
@@ -517,23 +509,19 @@ sub _unpackArchive
         join ' ', map { q{'eboxbackup/} . $_  . q{'} } @files : '';
 
     try {
-        my $tarCommand = "/bin/tar xf '$archive' -C '$tempDir' $filesWithPath";
-        if (system $tarCommand) {
-            if (@files > 0) {
-                throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
-            }
-            else {
-                throw EBox::Exceptions::External( __("Could not unpack the backup"));
-            }
-        }
-    }
-    otherwise {
+        my $tarCommand = "/bin/tar xf '$archive' --same-owner --same-permissions -C '$tempDir' $filesWithPath";
+        EBox::Sudo::root($tarCommand);
+
+    } otherwise {
         my $ex = shift;
 
-        system("rm -rf '$tempDir'");
-        ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
-
-        $ex->throw();
+        EBox::Sudo::silentRoot("rm -rf '$tempDir'");
+        if (@files > 0) {
+            throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
+        }
+        else {
+            throw EBox::Exceptions::External( __("Could not unpack the backup"));
+        }
     };
 
     return $tempDir;
@@ -888,8 +876,7 @@ sub _unpackAndVerify
         my $ex = shift;
 
         if (defined $tempdir) {
-            system("rm -rf '$tempdir'");
-            ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+            EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         }
 
         $ex->throw();
@@ -971,7 +958,7 @@ sub _checkSize
     finally {
         if (defined $tempDir) {
             system("rm -rf '$tempDir'");
-            ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
+            ($? == 0) or EBox::warn("Unable to remove $tempDir. Please do it manually");
         }
     };
 
@@ -1257,16 +1244,16 @@ sub _unpackModulesRestoreData
 {
     my ($self, $tempdir) = @_;
 
-    my $unpackCmd = "tar xzf '$tempdir/eboxbackup/files.tgz' -C '$tempdir/eboxbackup'";
-
-    system $unpackCmd;
-
-    if ($? != 0) {
-        system "rm -rf '$tempdir'";
+    my $unpackCmd = "tar xzf  '$tempdir/eboxbackup/files.tgz' --same-owner --same-permissions  -C '$tempdir/eboxbackup'";
+    try {
+        EBox::Sudo::root($unpackCmd);
+    } otherwise {
+        EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         throw EBox::Exceptions::External(
                 __('Could not unpack the backup')
                 );
-    }
+
+    };
 }
 
 sub _restoreZentyalConfFiles

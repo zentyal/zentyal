@@ -60,9 +60,11 @@ sub _process
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             endNote errorNote reloadInterval currentItemUrl
+            inModalbox
             nextStepType
-            nextStepUrl nextStepText nextStepTimeout nextStepUrlOnclick
-            barWidth );
+            nextStepUrl nextStepText nextStepTimeout
+            nextStepUrlOnclick nextStepUrlFailureOnclick
+            );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command

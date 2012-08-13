@@ -1,5 +1,6 @@
 HEAD
 	+ Add support for DLZ zones. Samba4 require them.
+	+ Added modeldepends to yaml schema
 2.3.9
 	+ Fixed help strings
 	+ Add method to set the domain's dynamic flag

@@ -460,11 +460,23 @@ sub confirmationDialogAction
 
     my $actionToConfirm = $self->param('actionToConfirm');
     my %confirmParams = $self->getParams();
-    my $msg = $params{model}->_confirmationDialogForAction($actionToConfirm, \%confirmParams);
+    my $res = $params{model}->_confirmationDialogForAction($actionToConfirm, \%confirmParams);
+    my $msg;
+    my $title = '';
+    if (ref $res) {
+        $msg = $res->{message};
+        $title = $res->{title};
+        defined $title or
+            $title = '';
+
+    } else {
+        $msg = $res;
+    }
 
     $self->{json} = {
         wantDialog => $msg ? 1 : 0,
-        message => $msg
+        message => $msg,
+        title => $title
        };
 }
 

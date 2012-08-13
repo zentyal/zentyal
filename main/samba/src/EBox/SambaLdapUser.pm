@@ -531,16 +531,12 @@ sub _userAddOns
     my $serviceEnabled = $self->{samba}->isEnabled();
     my $accountEnabled = $self->accountEnabled($user);
     my $isAdminUser    = $self->isAdminUser($user);
-#    my $printers = $samba->_printersForUser($user);
 
     my $args = {
         'username'       => $user->dn(),
         'accountEnabled' => $accountEnabled,
         'isAdminUser'    => $isAdminUser,
         'service'        => $serviceEnabled,
-
-        'printers' => [], #$printers,
-        'printerService' => undef, #$samba->printerService(),
     };
 
     return { path => '/samba/samba.mas', params => $args };

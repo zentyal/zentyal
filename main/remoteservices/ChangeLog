@@ -1,4 +1,9 @@
 HEAD
+	+ Return current capabilities values if new ones cannot be
+	  obtained
+	+ Give support for 400 errors in REST Client as external
+	  exceptions
+	+ Added logic for new mail add-on for SB edition
 	+ Added REST client as interface with Zentyal Cloud
 	+ New registration form on subscription wizard
 2.3.1

@@ -47,6 +47,31 @@ use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
 
 # Group: Public methods
 
+# Method: setUpModels
+#
+#     Set in model manager the dynamic models for log watcher
+#     configuration per domain
+#
+#     The result of this method is to include in model manager the
+#     dynamic models (one per log domain)
+#
+sub setUpModels
+{
+    my ($self) = @_;
+
+    my $manager = EBox::Model::Manager->instance();
+
+    my $readOnly = $self->parentModule()->isReadOnly();
+    my $logs = EBox::Global->getInstance($readOnly)->modInstance('logs');
+    my $logDomainTables = $logs->getAllTables(1);
+    if (defined ( $logDomainTables)) {
+        while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
+            next if ($domain eq 'events'); # avoid observe recursively itself!
+            $manager->addModel($self->_createFilteringModel($domain, $tableInfo));
+        }
+    }
+}
+
 # Method: syncRows
 #
 # Overrides:
@@ -69,8 +94,8 @@ sub syncRows
     my $anyChange = undef;
     my $logs = EBox::Global->modInstance('logs');
 
-    # Set up every model
-    $self->_setUpModels();
+    # Set up every dynamic model
+    $self->setUpModels();
 
     # Fetch the current log domains stored in conf
     my %storedLogDomains;
@@ -220,23 +245,6 @@ sub acquireFilteringModel
 }
 
 # Group: Private methods
-
-# Set up the already created models
-sub _setUpModels
-{
-    my ($self) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-
-    my $logs = EBox::Global->modInstance('logs');
-    my $logDomainTables = $logs->getAllTables(1);
-    if (defined ( $logDomainTables)) {
-        while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
-            next if ($domain eq 'events'); # avoid observe recursively itself!
-            $manager->addModel($self->_createFilteringModel($domain, $tableInfo));
-        }
-    }
-}
 
 # Create a new filtering model given a
 # log domain and notify this new model to model manager

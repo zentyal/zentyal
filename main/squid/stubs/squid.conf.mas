@@ -15,8 +15,11 @@
     @notCachedDomains
     @nameservers
     $append_domain
+
     $cache_host
     $cache_port
+    $cache_user
+    $cache_passwd
 
     $filter
 
@@ -139,8 +142,14 @@ pid_filename /var/run/squid3.pid
 
 cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
 
+
 % if ($cache_host and $cache_port) {
-cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
+%   my $peerAuth = '';
+%   if ($cache_user and $cache_passwd) {
+# WARN: remember that for squid auth % are HTML escapes
+%    $peerAuth = 'login=' . $cache_user . ':' . $cache_passwd;
+%   }
+cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
 % }
 
 # <EBOX> TAG_ACL #
