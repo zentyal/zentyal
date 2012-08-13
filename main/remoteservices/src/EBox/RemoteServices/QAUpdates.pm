@@ -82,7 +82,7 @@ sub _setQASources
     my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
     my $cred = EBox::RemoteServices::Cred->new()->{cred};
-    my $user = $cred->{name};
+    my $user = $cred->subscribedHostname();
     # Password: UUID in hexadecimal format (without '0x')
     my $ug = new Data::UUID;
     my $bin_uuid = $ug->from_string($cred->{uuid});
