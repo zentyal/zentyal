@@ -320,7 +320,7 @@ sub  _createBackupArchive
     EBox::Sudo::root("tar --append -f '$backupArchive'  -C '$tempdir' '$filesArchive' 2>&1");
 
     # adjust permissions and ownership given to ebox
-    EBox::Sudo::root("chmod 0066 '$backupArchive'");
+    EBox::Sudo::root("chmod 0660 '$backupArchive'");
     EBox::Sudo::root("chown ebox.ebox '$backupArchive'");
 }
 
