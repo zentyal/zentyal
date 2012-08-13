@@ -140,15 +140,6 @@ sub _table
               populate      => \&_protocols,
               editable      => 1,
              ),
-          new EBox::Types::Text(
-                # TODO Remove this field
-              fieldName     => 'subdomain',
-              printableName => __('Subdomain'),
-              editable      => 1,
-              optional      => 1,
-              #TODO hidden        => 1,
-              #TODO hiddenOnViewer => 1,
-              ),
           new EBox::Types::Int(
               fieldName     => 'priority',
               printableName => __('Priority'),

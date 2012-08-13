@@ -926,7 +926,6 @@ sub _domainIpAddresses
 #  array ref with this structure data:
 #
 #  'name': hostname
-#  'subdomain': Host subdomain, can be undefined
 #  'ip': an array ref containing the IP addresses of the host
 #  'aliases': an array ref returned by <EBox::DNS::aliases> method.
 #
@@ -940,7 +939,6 @@ sub _hostnames
         my $hostdata;
 
         $hostdata->{'name'} = $hostname->valueByName('hostname');
-        $hostdata->{'subdomain'} = $hostname->valueByName('subdomain');
         $hostdata->{'ip'} = $self->hostIpAddresses($hostname->subModel('ipAddresses'));
         $hostdata->{'aliases'} = $self->aliases($hostname->subModel('alias'));
 
@@ -963,7 +961,6 @@ sub _hostnames
 #   array ref with this structure data:
 #   name      - Service name
 #   protocol  - Service protocol
-#   subdomain - Service subdomain, can be undefined
 #   priority  - Service priority
 #   weight    - Service weight
 #   port      - Service port
@@ -979,7 +976,6 @@ sub _serviceRecords
         my $data = {};
         $data->{name}      = $service->valueByName('service_name');
         $data->{protocol}  = $service->valueByName('protocol');
-        $data->{subdomain} = $service->valueByName('subdomain');
         $data->{priority}  = $service->valueByName('priority');
         $data->{weight}    = $service->valueByName('weight');
         $data->{port}      = $service->valueByName('port');
@@ -1240,7 +1236,6 @@ sub _formatSRV
         push (@srvRecords, {
                 service_name => $row->valueByName('service_name'),
                 protocol => $row->valueByName('protocol'),
-                subdomain => $row->valueByName('subdomain'),
                 priority => $row->valueByName('priority'),
                 weight => $row->valueByName('weight'),
                 target_port => $row->valueByName('port'),

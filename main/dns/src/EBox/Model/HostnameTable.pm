@@ -205,15 +205,6 @@ sub _table
                                 'unique' => 1,
                                 'editable' => 1,
                              ),
-            new EBox::Types::Text
-                            (
-                                'fieldName' => 'subdomain',
-                                'printableName' => __('Subdomain'),
-                                'size' => '20',
-                                'unique' => 0,
-                                'editable' => 1,
-                                'optional' => 1,
-                             ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'ipAddresses',

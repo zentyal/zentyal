@@ -136,7 +136,6 @@ sub addDomain
 #   domain - The domain where the host will be added
 #   host - A hash ref containing:
 #               name - The name
-#               subdomain - (optional) The host subdomain
 #               ipAddresses - Array ref containing the ips
 #               aliases  - (optional) Array ref containing the aliases
 #               readOnly - (optional)
@@ -161,7 +160,6 @@ sub addHost
     my $domainRow = $self->_getDomainRow($domain);
     my $hostModel = $domainRow->subModel('hostnames');
     my $hostRowId = $hostModel->addRow(hostname => $host->{name},
-                                       subdomain => $host->{subdomain},
                                        readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
@@ -253,7 +251,6 @@ sub addHostAlias
 #   domain  - The domain where the record will be added
 #   service - A hash ref containing:
 #             service  - The name of the service, must match a name in /etc/services
-#             subdomain - The domain name for which this record is valid
 #             protocol - 'tcp' or 'udp'
 #             port     - (port number)
 #             target_type - custom or hostDomain
@@ -282,7 +279,6 @@ sub addService
     my $model = $domainRow->subModel('srv');
     my %params = (service_name => $service->{service},
                   protocol => $service->{protocol},
-                  subdomain => $service->{subdomain},
                   priority => $service->{priority},
                   weight => $service->{weight},
                   port => $service->{port});
@@ -324,7 +320,6 @@ sub addService
 #   domain  - The domain name where lookup the record to delete
 #   service - A hash ref containing the attributes to check for deletion:
 #             service_name
-#             subdomain
 #             protocol
 #             priority
 #             weitht
@@ -345,7 +340,6 @@ sub delService
         my $row = $model->row($id);
 
         my $rowService  = $row->valueByName('service_name');
-        my $rowSubdom   = $row->valueByName('subdomain');
         my $rowProtocol = $row->valueByName('protocol');
         my $rowPriority = $row->valueByName('priority');
         my $rowWeight   = $row->valueByName('weight');
@@ -356,13 +350,8 @@ sub delService
             (not defined ($service->{priority})  or $rowPriority eq $service->{priority})  and
             (not defined ($service->{weight})    or $rowWeight   eq $service->{weight})    and
             (not defined ($service->{port})      or $rowPort     eq $service->{port})) {
-
-            if ((not defined $rowSubdom and not defined $service->{subdomain}) or
-                (defined $rowSubdom and defined $service->{subdomain} and
-                 $rowSubdom =~ m/$service->{subdomain}/)) {
                 $rowId = $id;
                 last;
-            }
         }
     }
 

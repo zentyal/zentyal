@@ -31,5 +31,5 @@ modeldepends:
         dns/HostnameTable: [ownerDomain]
 
 foreign:
-    DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]
     HostnameTable: [HostIpTable, AliasTable]
+    DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]

@@ -1,5 +1,9 @@
 HEAD
-	+ Add support for DLZ zones. Samba4 require them.
+	+ Remove subdomain fields from hostnames and services models after
+	  DLZ zones support. The samba records are no longer created in the
+	  models but loaded from the DLZ zone.
+	+ Add support for DLZ zones to load the Samba4 DNS zones stored in
+	  LDB.
 	+ Added modeldepends to yaml schema
 2.3.9
 	+ Fixed help strings
