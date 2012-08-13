@@ -675,7 +675,7 @@ sub _setConf
     $self->_removeDeletedRR();
 
     # Delete files from no longer used domains
-    # TODO $self->_removeDomainsFiles();
+    $self->_removeDomainsFiles();
 
     # Hash to store the keys indexed by name, storing the secret
     my %keys = ();
@@ -1521,31 +1521,31 @@ sub _isNamedListening
 }
 
 # Remove no longer used domain files to avoid confusing the user
-#sub _removeDomainsFiles
-#{
-#    my ($self) = @_;
-#
-#    return if ($self->isReadOnly());
-#
-#    my $oldList = $self->st_get_list('domain_files');
-#    my $newList = [];
-#
-#    my $domainModel = $self->model('DomainTable');
-#    foreach my $id (@{$domainModel->ids()}) {
-#        my $row = $domainModel->row($id);
-#        my $file;
-#        if ($row->valueByName('dynamic')) {
-#            $file = BIND9_UPDATE_ZONES;
-#        } else {
-#            $file = BIND9CONFDIR;
-#        }
-#        $file .= "/db." . $row->valueByName('domain');
-#        push (@{$newList}, $file);
-#    }
-#
-#    $self->_removeDisjuncFiles($oldList, $newList);
-#    $self->st_set_list('domain_files', 'string', $newList);
-#}
+sub _removeDomainsFiles
+{
+    my ($self) = @_;
+
+    return if ($self->isReadOnly());
+
+    my $oldList = $self->st_get_list('domain_files');
+    my $newList = [];
+
+    my $domainModel = $self->model('DomainTable');
+    foreach my $id (@{$domainModel->ids()}) {
+        my $row = $domainModel->row($id);
+        my $file;
+        if ($row->valueByName('type') ne STATIC_ZONE) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= "/db." . $row->valueByName('domain');
+        push (@{$newList}, $file);
+    }
+
+    $self->_removeDisjuncFiles($oldList, $newList);
+    $self->st_set_list('domain_files', 'string', $newList);
+}
 
 # Remove no longer used reverse zone files
 #sub _removeUnusedReverseFiles
@@ -1572,25 +1572,25 @@ sub _isNamedListening
 #}
 
 # Delete files from disjunction
-#sub _removeDisjuncFiles
-#{
-#    my ($self, $oldList, $newList) = @_;
-#
-#    my %newSet = map { $_ => 1 } @{$newList};
-#
-#    # Show the elements in @oldList which are not in %newSet
-#    my @disjunc = grep { not exists $newSet{$_} } @{$oldList};
-#
-#    foreach my $file (@disjunc) {
-#        if (-f $file) {
-#            EBox::Sudo::root("rm -rf '$file'");
-#        }
-#        # Remove the jnl if exists as well (only applicable for dyn zones)
-#        if (-f "${file}.jnl") {
-#            EBox::Sudo::root("rm -rf '${file}.jnl'");
-#        }
-#    }
-#}
+sub _removeDisjuncFiles
+{
+    my ($self, $oldList, $newList) = @_;
+
+    my %newSet = map { $_ => 1 } @{$newList};
+
+    # Show the elements in @oldList which are not in %newSet
+    my @disjunc = grep { not exists $newSet{$_} } @{$oldList};
+
+    foreach my $file (@disjunc) {
+        if (-f $file) {
+            EBox::Sudo::root("rm -rf '$file'");
+        }
+        # Remove the jnl if exists as well (only applicable for dyn zones)
+        if (-f "${file}.jnl") {
+            EBox::Sudo::root("rm -rf '${file}.jnl'");
+        }
+    }
+}
 
 # Set configuration for transparent DNS cache
 # TODO: Move FirewallHelper to core to avoid this implementation here without
