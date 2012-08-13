@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: subscription 1.5\n"
+"Project-Id-Version: subscription 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-10 02:15+0200\n"
 "PO-Revision-Date: 2010-08-19 15:48+0200\n"
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
 "servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:767
+#: ../../main/squid/src/EBox/Squid.pm:774
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1235
+#: ../../main/squid/src/EBox/Squid.pm:1242
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -50,28 +50,37 @@ msgstr ""
 "servicio de Sistema de Filtrado de Contenidos en las actualizaciones de "
 "seguridad automáticas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1282
+msgid "Zarafa Small Business (25 users)"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1706
 #, perl-brace-format
 msgid "Not subscribed - {oh}Subscribe now!{ch}"
 msgstr "No suscrito - {oh}¡Suscríbete ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1674
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1709
 #, perl-brace-format
 msgid "None - {oh}Get Free Basic Subscription!{ch}"
 msgstr "Ninguna - {oh}¡Consigue una Suscripción Básica gratuita!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1677
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Desactivado - {oh}Activar{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1693
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1728
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1695
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1730
 msgid "Disaster Recovery"
 msgstr "Recuperación de Desastres"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1733
+#, fuzzy
+msgid "Zarafa Small Business"
+msgstr "Edición Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:160
 #, perl-brace-format
@@ -208,12 +217,12 @@ msgstr ""
 "trabajos básicos. Además, te permitirá realizar una copia de seguridad "
 "remota de tu configuración y crear un subdominio zentyal.me para tu servidor."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:163
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:165
 #, perl-brace-format
 msgid "You cannot get Module {mod} enabled with Small Business Edition"
 msgstr "No puedes habilitar el módulo {mod} con la edición Small Business"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:181
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:183
 msgid ""
 "The Small Business Edition can be only used in master mode or Active "
 "Directory slave"
@@ -221,11 +230,11 @@ msgstr ""
 "La edición Small Business se puede usar únicamente en modo maestro o como "
 "esclavo de Active Directory"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:185
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:187
 msgid "The Small Business Edition cannot have got slaves"
 msgstr "La Edición Small Business no puede tener esclavos"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:190
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:192
 #, perl-brace-format
 msgid ""
 "The maximum number of users for Small Business Edition is {max} and you "
@@ -284,15 +293,6 @@ msgstr ""
 "suscrito a Zentyal Cloud, tu proveedor es Zentyal Cloud. Obtén la {ohb}"
 "Suscripción Básica{ch} o una edición {ohs}Small Business {ch} o {ohe}"
 "Enterprise{ch} para conseguir un subdominio zentyal.me para tu servidor."
-
-#: ../../main/debs-ppa/zentyal-users-2.2.8/src/EBox/UsersAndGroups.pm:1000
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1165
-msgid ""
-"You have reached the maximum of users for this subscription level. If you "
-"need to run Zentyal with more users please upgrade."
-msgstr ""
-"Has alcanzado el máximo número de usuarios para este nivel de suscripción. "
-"Si necesitas soporte para más usuarios, por favor actualiza."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:91
 #, perl-brace-format
@@ -405,6 +405,14 @@ msgstr ""
 "al MS Exchange Server y Outlook. ¡Obtén la edición {ohs}Small Business{ch} o "
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1171
+msgid ""
+"You have reached the maximum of users for this subscription level. If you "
+"need to run Zentyal with more users please upgrade."
+msgstr ""
+"Has alcanzado el máximo número de usuarios para este nivel de suscripción. "
+"Si necesitas soporte para más usuarios, por favor actualiza."
 
 #: ../../main/software/src/templates/ebox.mas:270
 msgid "Gateway"

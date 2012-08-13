@@ -40,7 +40,6 @@ sub _description
 {
     my $printableName = __('Printer Sharing');
 
-    # FIXME: does this have any sense? a composite for just one model??
     my $description =
       {
           layout          => 'top-bottom',

@@ -128,7 +128,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 .percent{
     float: left;
-%#    line-height: 20px;
     line-height: 30px;
 
     height:20px;
