@@ -130,7 +130,7 @@ sub _table
                    fieldName => 'event',
                    printableName => __('Event'),
                    editable => 1,
-                                   options  => \@eventOptions,
+                   options  => \@eventOptions,
                    defaultValue => $defaultEventOptionValue,
                   ));
 

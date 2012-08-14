@@ -73,7 +73,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:95
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:74
-#: ../../main/core/src/EBox/Events.pm:415 ../../main/ids/src/EBox/IDS.pm:267
+#: ../../main/core/src/EBox/Events.pm:432 ../../main/ids/src/EBox/IDS.pm:267
 msgid "Source"
 msgstr "Källa"
 
@@ -212,7 +212,7 @@ msgstr "Domän eller IP adress del av URL"
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:239
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:169
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
@@ -436,10 +436,11 @@ msgstr "Förfrågningar"
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:197
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:60
-#: ../../main/printers/src/EBox/Printers.pm:339
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
+#: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1028
-#: ../../main/samba/src/EBox/Samba.pm:1749
+#: ../../main/samba/src/EBox/Samba.pm:1065
+#: ../../main/samba/src/EBox/Samba.pm:1451
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -497,10 +498,10 @@ msgstr "Filtrerad trafikstorlek (Kb)"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:152
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1125
-#: ../../main/printers/src/EBox/Printers.pm:340
-#: ../../main/samba/src/EBox/Samba.pm:1747
-#: ../../main/samba/src/EBox/Samba.pm:1767
-#: ../../main/samba/src/EBox/Samba.pm:1777
+#: ../../main/printers/src/EBox/Printers.pm:331
+#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1469
+#: ../../main/samba/src/EBox/Samba.pm:1479
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
@@ -512,12 +513,13 @@ msgstr "Filtrerad trafikstorlek (Kb)"
 #: ../../main/ids/src/EBox/Model/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:264 ../../main/radius/src/EBox/Radius.pm:349
 #: ../../main/asterisk/src/EBox/Asterisk.pm:731
-#: ../../main/remoteservices/src/templates/Backup/index.mas:117
+#: ../../main/remoteservices/src/templates/Backup/index.mas:115
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:29
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
+#: ../../main/ca/src/templates/index.mas:97
 #: ../../main/core/src/templates/finish.mas:113
 #: ../../main/core/src/templates/confirm-backup.mas:28
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:114
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
 msgstr "Datum"
@@ -621,11 +623,12 @@ msgstr "Uppdaterade filterprofil"
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/remoteservices/src/templates/Backup/index.mas:36
 #: ../../main/remoteservices/src/templates/Backup/index.mas:42
-#: ../../main/remoteservices/src/templates/Backup/index.mas:116
+#: ../../main/remoteservices/src/templates/Backup/index.mas:114
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:23
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:37
 #: ../../main/network/src/templates/ifaces.mas:32
 #: ../../main/network/src/templates/ifaces.mas:243
+#: ../../main/ca/src/templates/index.mas:97
 msgid "Name"
 msgstr "Namn"
 
@@ -817,7 +820,7 @@ msgstr "Innehållsfiltrets tröskelvärde ändrat"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:75
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:505
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:516
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
@@ -834,7 +837,7 @@ msgstr "Innehållsfiltrets tröskelvärde ändrat"
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:248
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
 #: ../../main/jabber/src/templates/jabber.mas:18
@@ -1272,7 +1275,7 @@ msgstr "Mime/typ"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1624
 #: ../../main/pptp/src/EBox/PPTP.pm:367 ../../main/ipsec/src/EBox/IPsec.pm:238
 #: ../../main/dhcp/src/EBox/DHCP.pm:1129
-#: ../../main/printers/src/EBox/Printers.pm:341
+#: ../../main/printers/src/EBox/Printers.pm:332
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:548
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
@@ -1330,7 +1333,7 @@ msgstr "Ladda upp klientinställningar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:505
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:516
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1690
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1734
@@ -1348,7 +1351,7 @@ msgstr "Ladda upp klientinställningar"
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/ids/src/EBox/Model/Rules.pm:180
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:258
 #: ../../main/jabber/src/templates/jabber.mas:18
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
@@ -1776,9 +1779,11 @@ msgstr "Ladda ner klientinställningar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
-#: ../../main/remoteservices/src/templates/Backup/index.mas:140
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:76
-#: ../../main/core/src/templates/backup.mas:143
+#: ../../main/remoteservices/src/templates/Backup/index.mas:138
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:75
+#: ../../main/core/src/templates/ajax/viewer/file.mas:19
+#: ../../main/core/src/templates/ajax/viewer/file.mas:27
+#: ../../main/core/src/templates/backup.mas:137
 msgid "Download"
 msgstr "Ladda ner"
 
@@ -1940,7 +1945,7 @@ msgid "Server {name}"
 msgstr "Server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:506
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:517
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:133
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
@@ -1952,7 +1957,7 @@ msgid "Service"
 msgstr "Tjänst"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:508
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:519
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1677
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
@@ -1962,7 +1967,7 @@ msgid "Running"
 msgstr "Kör"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:508
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:519
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
 #: ../../main/core/src/templates/dashboard/index.mas:25
@@ -1971,7 +1976,7 @@ msgid "Stopped"
 msgstr "Stoppad"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:906
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:509
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:520
 msgid "Daemon status"
 msgstr "Status för demon"
 
@@ -1996,13 +2001,13 @@ msgid "VPN network interface"
 msgstr "VPN nätverksgränssnitt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:929
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:523
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:534
 msgid "No active"
 msgstr "Ingen aktiv"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:930
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:523
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:532
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:534
 msgid "VPN interface address"
 msgstr "VPN gränssnittsadress"
 
@@ -2065,7 +2070,7 @@ msgstr "Du måste ange minst en adress för denna server {name}"
 msgid "The client certificate can't be the same than the server's one"
 msgstr "Klientens certifikat kan inte vara samma som serverns."
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:303
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:314
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
@@ -2074,7 +2079,7 @@ msgstr ""
 "VPN klient bör inte konfigureras att ansluta mot adress {addr} eftersom det "
 "är adressen för den lokala värden själv"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:331
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
@@ -2083,12 +2088,12 @@ msgstr ""
 "VPN klienten bör inte konfigureras att ansluta mot adress {addr} eftersom "
 "det är adressen för ett lokalt nätverksgränssnitt"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:503
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:514
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "Klient {name}"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:517
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:528
 msgid "Connection target"
 msgstr "Mål för anslutning"
 
@@ -2185,8 +2190,8 @@ msgstr "Adress"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1455
 #: ../../main/pptp/src/EBox/PPTP.pm:329
-#: ../../main/samba/src/EBox/Samba.pm:1007
-#: ../../main/samba/src/EBox/Samba.pm:1028
+#: ../../main/samba/src/EBox/Samba.pm:1044
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid "Connected since"
 msgstr "Ansluten sedan"
 
@@ -2204,8 +2209,9 @@ msgstr "OpenVPN demoner"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:148
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1771
+#: ../../main/samba/src/EBox/Samba.pm:1473
 #: ../../main/core/src/templates/report/diskUsage.mas:27
+#: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
 msgstr "Typ"
 
@@ -2291,7 +2297,7 @@ msgstr ""
 "SSH och HTTPS ingående släpps in."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:574
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:206
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:203
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 msgid "Packet Filter"
 msgstr "Paketfilter"
@@ -2456,6 +2462,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:146
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:156
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:199
+#: ../../main/printers/src/EBox/Model/Printers.pm:160
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:220
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:128
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:196
@@ -2468,24 +2475,30 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:230
 #: ../../main/software/src/templates/updates.mas:41
 #: ../../main/remoteservices/src/templates/Backup/index.mas:51
-#: ../../main/remoteservices/src/templates/Backup/index.mas:118
+#: ../../main/remoteservices/src/templates/Backup/index.mas:116
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:35
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:40
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
 #: ../../main/network/src/templates/ifaces.mas:201
 #: ../../main/core/src/templates/finish.mas:113
 #: ../../main/core/src/templates/confirm-backup.mas:34
-#: ../../main/core/src/templates/backup.mas:49
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:47
+#: ../../main/core/src/templates/backup.mas:114
 msgid "Description"
 msgstr "Beskrivning"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:220
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:217
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:197
 msgid "Configure Rules"
 msgstr "Konfigurera regler"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:235
-msgid "'any service' cannot have a inverse march"
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:232
+#, fuzzy, perl-brace-format
+msgid "'Any' {addr} cannot have a inverse march"
+msgstr "\"alla tjänster\" kan inte ha en inverterad träff"
+
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:250
+#, fuzzy
+msgid "'Any' service cannot have a inverse march"
 msgstr "\"alla tjänster\" kan inte ha en inverterad träff"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:66
@@ -2611,7 +2624,7 @@ msgstr "Motsägelsefull regel funnen. Ta bort den först"
 #: ../../main/dhcp/src/EBox/DHCP.pm:520 ../../main/dhcp/src/EBox/DHCP.pm:617
 #: ../../main/dhcp/src/EBox/DHCP.pm:670 ../../main/dhcp/src/EBox/DHCP.pm:731
 #: ../../main/dhcp/src/EBox/DHCP.pm:1126
-#: ../../main/printers/src/EBox/Model/CUPS.pm:148
+#: ../../main/printers/src/EBox/Model/CUPS.pm:123
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 msgid "Interface"
 msgstr "Nätverksgränssnitt"
@@ -3589,7 +3602,7 @@ msgstr "Aktivera FTP SSL-stöd för autentiserade användare."
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:116
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:273
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 #, fuzzy
 msgid "General configuration settings"
 msgstr "Generella inställningar"
@@ -3761,7 +3774,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:142
 #: ../../main/network/src/EBox/Network.pm:77
 #: ../../main/network/src/EBox/Network.pm:3894
-#: ../../main/services/src/EBox/Services.pm:603
+#: ../../main/services/src/EBox/Services.pm:604
 msgid "Network"
 msgstr "Nätverk"
 
@@ -3857,6 +3870,7 @@ msgstr "Installerar paket"
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:206
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
+#: ../../main/core/src/templates/report/raid.mas:210
 #, fuzzy
 msgid "Current operation"
 msgstr ""
@@ -3964,7 +3978,7 @@ msgstr "Komponenter i eBox"
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:77
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:78
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:79
-#: ../../main/core/src/EBox/Backup.pm:471
+#: ../../main/core/src/EBox/Backup.pm:463
 msgid "Unknown"
 msgstr "Okänd"
 
@@ -4382,8 +4396,8 @@ msgid "Please, save changes"
 msgstr "Vänligen spara ändringar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
-#: ../../main/core/src/EBox/Model/DataForm.pm:653
-#: ../../main/core/src/templates/ajax/tableModalView.mas:760
+#: ../../main/core/src/EBox/Model/DataForm.pm:656
+#: ../../main/core/src/templates/progress.mas:32
 msgid "Done"
 msgstr "Färdig"
 
@@ -4428,7 +4442,7 @@ msgstr "Välj ett namn till din eBox som är ett giltigt underdomännamn"
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:66
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:108
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:101
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:93
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:107
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:115
@@ -4438,13 +4452,13 @@ msgstr "Välj ett namn till din eBox som är ett giltigt underdomännamn"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:73
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1269
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:131
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/captiveportal/src/templates/login.mas:41
 #: ../../main/network/src/templates/ifaces.mas:178
 #: ../../main/core/src/templates/login/index.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:11
 #: ../../main/users/src/templates/users.mas:48
-#: ../../main/users/src/templates/user.mas:70
+#: ../../main/users/src/templates/user.mas:67
 msgid "Password"
 msgstr "Lösenord"
 
@@ -4490,7 +4504,7 @@ msgstr "moduler"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:622
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1750
+#: ../../main/samba/src/EBox/Samba.pm:1452
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:547
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4503,7 +4517,9 @@ msgstr "moduler"
 #: ../../main/network/src/templates/ifaces.mas:201
 #: ../../main/network/src/templates/ifaces.mas:243
 #: ../../main/core/src/templates/configureView.mas:20
+#: ../../main/core/src/templates/ajax/tableBody.mas:557
 #: ../../main/mail/src/templates/groupalias.mas:22
+#: ../../main/mail/src/templates/externalAccounts.mas:84
 #: ../../main/mail/src/templates/qmanager.mas:17
 #: ../../main/mail/src/templates/alias.mas:28
 msgid "Action"
@@ -4896,9 +4912,9 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:122
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:138
-#: ../../main/remoteservices/src/templates/Backup/index.mas:134
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:70
-#: ../../main/core/src/templates/backup.mas:89
+#: ../../main/remoteservices/src/templates/Backup/index.mas:132
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:69
+#: ../../main/core/src/templates/backup.mas:85
 #, fuzzy
 msgid "Restore"
 msgstr ""
@@ -4927,13 +4943,15 @@ msgstr "Vänligen bekräfta att du vill radera följande fjärrsäkerhetskopia:"
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/software/src/templates/ebox.mas:513
 #: ../../main/software/src/templates/ebox.mas:533
-#: ../../main/remoteservices/src/templates/Backup/index.mas:145
+#: ../../main/remoteservices/src/templates/Backup/index.mas:143
 #: ../../main/network/src/templates/ifaces.mas:227
 #: ../../main/network/src/templates/ifaces.mas:303
 #: ../../main/samba/src/templates/samba.mas:60
-#: ../../main/core/src/templates/ajax/tableBody.mas:701
-#: ../../main/core/src/templates/ajax/tableModalView.mas:524
-#: ../../main/core/src/templates/backup.mas:147
+#: ../../main/core/src/templates/ajax/tableBody.mas:671
+#: ../../main/core/src/templates/ajax/tableBody.mas:929
+#: ../../main/core/src/templates/ajax/tableModalView.mas:502
+#: ../../main/core/src/templates/backup.mas:141
+#: ../../main/mail/src/templates/groupalias.mas:73
 #: ../../main/mail/src/templates/warnvd.mas:25
 #: ../../main/mail/src/templates/alias.mas:15
 #: ../../main/mail/src/templates/alias.mas:55
@@ -4998,7 +5016,7 @@ msgstr "användarnamn"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:34
-#: ../../main/users/src/templates/user.mas:33
+#: ../../main/users/src/templates/user.mas:32
 #, fuzzy
 msgid "Last name"
 msgstr "användarnamn"
@@ -5047,8 +5065,8 @@ msgid "Bandwidth Monitor"
 msgstr "Bandbreddsbegränsning"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:437
-#: ../../main/samba/src/EBox/Samba.pm:1748
-#: ../../main/samba/src/EBox/Samba.pm:1768
+#: ../../main/samba/src/EBox/Samba.pm:1450
+#: ../../main/samba/src/EBox/Samba.pm:1470
 msgid "Client address"
 msgstr "Klient adress"
 
@@ -5082,7 +5100,7 @@ msgstr "Bandbreddsbegränsning"
 #: ../../main/network/src/EBox/Model/Proxy.pm:75
 #: ../../main/ltsp/src/EBox/LTSP.pm:683
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:102
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:97
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
 #: ../../main/captiveportal/src/templates/login.mas:35
 #: ../../main/core/src/templates/login/index.mas:55
@@ -5111,7 +5129,7 @@ msgstr "Nätverksgränssnitt"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:103
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:150
-#: ../../main/printers/src/EBox/Model/CUPS.pm:167
+#: ../../main/printers/src/EBox/Model/CUPS.pm:142
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:137
 msgid "interface"
 msgstr "gränssnitt"
@@ -5176,9 +5194,10 @@ msgstr ""
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
 #: ../../main/core/src/cgi/ebox.cgi:67
-#: ../../main/remoteservices/src/templates/Backup/index.mas:120
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:42
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/remoteservices/src/templates/Backup/index.mas:118
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:41
+#: ../../main/ca/src/templates/index.mas:97
+#: ../../main/core/src/templates/backup.mas:114
 msgid "Actions"
 msgstr "Åtgärder"
 
@@ -5197,35 +5216,33 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:73
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:73
-#: ../../main/core/src/cgi/ebox.cgi:71
+#: ../../main/core/src/cgi/ebox.cgi:73
 msgid "Please contact support."
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:76
-#: ../../main/core/src/cgi/ebox.cgi:74
+#: ../../main/core/src/cgi/ebox.cgi:81 ../../main/core/src/cgi/ebox.cgi:87
 msgid "Show technical details"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:77
-#: ../../main/core/src/cgi/ebox.cgi:75
+#: ../../main/core/src/cgi/ebox.cgi:88
 #, fuzzy
 msgid "Report the problem"
 msgstr "Tidsperiod för rapport"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:78
-#: ../../main/core/src/cgi/ebox.cgi:76
+#: ../../main/core/src/cgi/ebox.cgi:89
 #: ../../main/software/src/templates/del.mas:87
-#: ../../main/remoteservices/src/templates/Backup/confirm.mas:62
+#: ../../main/remoteservices/src/templates/Backup/confirm.mas:60
 #: ../../main/network/src/templates/confirm.mas:29
 #: ../../main/network/src/templates/confirmVlanDel.mas:19
 #: ../../main/network/src/templates/confirmremove.mas:21
 #: ../../main/ca/src/templates/forceRevoke.mas:38
-#: ../../main/ca/src/templates/forceRenew.mas:78
 #: ../../main/core/src/templates/confirm-backup.mas:59
-#: ../../main/core/src/templates/ajax/tableModalView.mas:768
 #: ../../main/mail/src/templates/warnusermdsize.mas:23
 #: ../../main/mail/src/templates/warnvdmdsize.mas:32
 #: ../../main/mail/src/templates/warnvd.mas:27
@@ -5235,25 +5252,25 @@ msgstr "Avbryt"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:79
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
-#: ../../main/core/src/cgi/ebox.cgi:77
+#: ../../main/core/src/cgi/ebox.cgi:90
 msgid "Email (you will receive updates on the report)"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:80
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:80
-#: ../../main/core/src/cgi/ebox.cgi:78
+#: ../../main/core/src/cgi/ebox.cgi:91
 msgid "Describe in English what you where doing"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
-#: ../../main/core/src/cgi/ebox.cgi:80
+#: ../../main/core/src/cgi/ebox.cgi:93
 msgid "Couldn't send the report"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:83
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:83
-#: ../../main/core/src/cgi/ebox.cgi:81
+#: ../../main/core/src/cgi/ebox.cgi:94
 msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
@@ -5261,13 +5278,13 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
-#: ../../main/core/src/cgi/ebox.cgi:83
+#: ../../main/core/src/cgi/ebox.cgi:96
 msgid "To do a manual report, please follow these instructions:"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
-#: ../../main/core/src/cgi/ebox.cgi:84
+#: ../../main/core/src/cgi/ebox.cgi:97
 msgid "Create a new ticket in the Zentyal trac by clicking "
 msgstr ""
 
@@ -5275,19 +5292,19 @@ msgstr ""
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
-#: ../../main/core/src/cgi/ebox.cgi:84 ../../main/core/src/cgi/ebox.cgi:87
+#: ../../main/core/src/cgi/ebox.cgi:97 ../../main/core/src/cgi/ebox.cgi:100
 msgid "here"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
-#: ../../main/core/src/cgi/ebox.cgi:85
+#: ../../main/core/src/cgi/ebox.cgi:98
 msgid "Write a short description of the problem in the summary field"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
-#: ../../main/core/src/cgi/ebox.cgi:86
+#: ../../main/core/src/cgi/ebox.cgi:99
 msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
@@ -5295,13 +5312,13 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
-#: ../../main/core/src/cgi/ebox.cgi:87
+#: ../../main/core/src/cgi/ebox.cgi:100
 msgid "Download the log file with additional information by clicking"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:90
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:90
-#: ../../main/core/src/cgi/ebox.cgi:88
+#: ../../main/core/src/cgi/ebox.cgi:101
 msgid "Attach the downloaded file in the ticket"
 msgstr ""
 
@@ -5417,7 +5434,6 @@ msgstr "Aktuell modul"
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
-#: ../../main/samba/src/EBox/Samba.pm:1622
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:40
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:42
@@ -5591,6 +5607,7 @@ msgid "enabled"
 msgstr "aktiv"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:55
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:210
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:98
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:214
@@ -6627,7 +6644,7 @@ msgstr "värd"
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
 #: ../../main/core/src/EBox/Apache.pm:353
 #: ../../main/services/src/EBox/Services.pm:440
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:23
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
 msgstr "port"
 
@@ -6855,8 +6872,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Composite/Remote.pm:40
 #: ../../main/ebackup/src/EBox/EBackup.pm:77
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
-#: ../../main/core/src/EBox/Backup.pm:747
-#: ../../main/core/src/templates/backup.mas:60
+#: ../../main/core/src/EBox/Backup.pm:735
+#: ../../main/core/src/templates/backup.mas:58
 #, fuzzy
 msgid "Backup"
 msgstr ""
@@ -7235,7 +7252,7 @@ msgstr ""
 #: ../../main/users/src/templates/users.mas:41
 #: ../../main/users/src/templates/groups.mas:24
 #: ../../main/users/src/templates/group.mas:18
-#: ../../main/users/src/templates/user.mas:46
+#: ../../main/users/src/templates/user.mas:44
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -7776,6 +7793,7 @@ msgid "down"
 msgstr "nere"
 
 #: ../../main/network/src/EBox/Network.pm:3805
+#: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
 msgstr "upp"
 
@@ -7806,6 +7824,7 @@ msgstr "ingen länk"
 #: ../../main/mail/src/EBox/Mail.pm:1482 ../../main/mail/src/EBox/Mail.pm:1601
 #: ../../main/asterisk/src/EBox/Asterisk.pm:556
 #: ../../main/core/src/templates/moduleStatusTable.mas:57
+#: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Status"
@@ -7965,7 +7984,6 @@ msgid "ip address"
 msgstr "ip-adress"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
-#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:487
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:520
 #: ../../main/users/src/EBox/CGI/AddUser.pm:43
@@ -8430,7 +8448,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail.pm:1594
 #: ../../main/asterisk/src/EBox/Asterisk.pm:732
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "Från"
 
@@ -8439,7 +8457,7 @@ msgstr "Från"
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/asterisk/src/EBox/Asterisk.pm:733
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:22
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "Till"
 
@@ -9096,7 +9114,7 @@ msgid "Client MAC"
 msgstr "Klient"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:67
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:60
 #, fuzzy
 msgid "Confirm Password"
 msgstr "Bekräfta lösenord"
@@ -9275,7 +9293,7 @@ msgstr "gränssnitt"
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:171
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:279
 #: ../../main/core/src/EBox/Events/Model/DiskFreeWatcherConfiguration.pm:136
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:280
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:288
 #: ../../main/core/src/EBox/Events/Composite/General.pm:67
 #: ../../main/core/src/EBox/Events/Composite/General.pm:68
 #: ../../main/core/src/EBox/Events.pm:85
@@ -9727,34 +9745,130 @@ msgstr ""
 "{openhref}Save changes{closehref} sektionen. Om det redan är aktiverat måste "
 "du vänta några sekunder för att samla in data."
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:132
+#: ../../main/printers/src/EBox/Model/Printers.pm:138
+#, fuzzy, perl-brace-format
+msgid ""
+"Prior to configure printers ACLs you need to enable the module in the "
+"{openref}Module Status{closeref}  section and save changes after that."
+msgstr ""
+"De moduler som inte har blivit aktiverade för första gången i {openref}"
+"Module status{closeref} sektionen kommer att ignoreras i både "
+"säkerhetskopiering och återställningsåtgärder"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:154
+#, fuzzy
+msgid "Printer name"
+msgstr "Skrivare"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:166
+#, fuzzy
+msgid "Location"
+msgstr "Åtgärd"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:172
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
+msgid "Guest access"
+msgstr "Gäståtkomst"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:175
+#, fuzzy
+msgid "This printer will not require authentication."
+msgstr "Denna utdelning kommer ej kräva inloggning"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:179
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Access control"
+msgstr "Åtkomststyrning"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:188
+#, fuzzy
+msgid "Printer permissions"
+msgstr "Rättigheter"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:193
+msgid "printer"
+msgstr "skrivare"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:195
+#, fuzzy
+msgid "Here you can define the access control list for your printers."
+msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:206
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
+
+#: ../../main/printers/src/EBox/Model/CUPS.pm:107
 #, perl-brace-format
 msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:154
+#: ../../main/printers/src/EBox/Model/CUPS.pm:129
 msgid "Listen"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:162
+#: ../../main/printers/src/EBox/Model/CUPS.pm:137
 msgid "Select CUPS Interfaces"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:168
+#: ../../main/printers/src/EBox/Model/CUPS.pm:143
 msgid ""
 "Select in which interfaces the CUPS webserver will listen on. Take into "
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:179
-#, perl-brace-format
-msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
-msgstr ""
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:91
+#, fuzzy
+msgid "Print"
+msgstr "Skrivare"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:124
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:200
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:128
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:204
+msgid "User/Group"
+msgstr "Användare/Grupp"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:165
+#: ../../main/printers/src/EBox/Printers.pm:342
+msgid "Printers"
+msgstr "Skrivare"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:176
+#, fuzzy
+msgid "Any access control is disabled if guest access is allowed."
+msgstr "All åtkomst är tillåten om gäståtkomst är aktiverad."
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:220
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:223
+msgid "Permissions"
+msgstr "Rättigheter"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:228
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:232
+msgid "Access Control"
+msgstr "Åtkomststyrning"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:235
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:239
+msgid "ACL"
+msgstr "ACL"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:248
+#, fuzzy
+msgid " (user)"
+msgstr "(användare))"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:250
+#, fuzzy
+msgid " (group)"
+msgstr "(grupp))"
 
 #: ../../main/printers/src/EBox/Composite/General.pm:41
 #: ../../main/printers/src/EBox/Printers.pm:40
@@ -9787,39 +9901,34 @@ msgstr ""
 msgid "To configure cupsd"
 msgstr "Skrivaren är inte konfigurerad"
 
-#: ../../main/printers/src/EBox/Printers.pm:107
+#: ../../main/printers/src/EBox/Printers.pm:108
 #, fuzzy
 msgid "Network Printers"
 msgstr "Nätverksgränssnitt"
 
-#: ../../main/printers/src/EBox/Printers.pm:108
+#: ../../main/printers/src/EBox/Printers.pm:109
 msgid "Internet Printing Protocol (CUPS)"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers.pm:337
+#: ../../main/printers/src/EBox/Printers.pm:328
 msgid "Job ID"
 msgstr "Jobb-id"
 
-#: ../../main/printers/src/EBox/Printers.pm:338
+#: ../../main/printers/src/EBox/Printers.pm:329
 msgid "Printer"
 msgstr "Skrivare"
 
-#: ../../main/printers/src/EBox/Printers.pm:345
+#: ../../main/printers/src/EBox/Printers.pm:336
 msgid "Queued"
 msgstr "Kölagd"
 
-#: ../../main/printers/src/EBox/Printers.pm:346
+#: ../../main/printers/src/EBox/Printers.pm:337
 msgid "Completed"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers.pm:347
+#: ../../main/printers/src/EBox/Printers.pm:338
 msgid "Canceled"
 msgstr "Avbruten"
-
-#: ../../main/printers/src/EBox/Printers.pm:351
-#: ../../main/samba/src/templates/samba.mas:68
-msgid "Printers"
-msgstr "Skrivare"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:55
 msgid "Add Jabber LDAP schema"
@@ -9955,17 +10064,9 @@ msgstr "Katalog under eBox"
 msgid "File system path"
 msgstr "Sökväg"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
-msgid "Guest access"
-msgstr "Gäståtkomst"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:128
 msgid "This share will not require authentication."
 msgstr "Denna utdelning kommer ej kräva inloggning"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
-msgid "Access control"
-msgstr "Åtkomststyrning"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:147
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:168
@@ -10148,7 +10249,7 @@ msgstr "Användarens hemkatalog"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:97
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:105
-#: ../../main/samba/src/EBox/Samba.pm:1007
+#: ../../main/samba/src/EBox/Samba.pm:1044
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Utdelning"
@@ -10203,26 +10304,9 @@ msgstr "Läsa och skriva"
 msgid "Administrator"
 msgstr "Administratör"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:128
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:204
-msgid "User/Group"
-msgstr "Användare/Grupp"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:178
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr "All åtkomst är tillåten om gäståtkomst är aktiverad."
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:223
-msgid "Permissions"
-msgstr "Rättigheter"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:232
-msgid "Access Control"
-msgstr "Åtkomststyrning"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:239
-msgid "ACL"
-msgstr "ACL"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:251
 msgid ""
@@ -10300,20 +10384,98 @@ msgid ""
 "database provision. The module will remain disabled."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1007
-#: ../../main/samba/src/EBox/Samba.pm:1028
+#: ../../main/samba/src/EBox/Samba.pm:1044
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid "Source machine"
 msgstr "Källdator"
 
-#: ../../main/samba/src/EBox/Samba.pm:1048
+#: ../../main/samba/src/EBox/Samba.pm:1085
 msgid "Shares by user"
 msgstr "Utdelning efter användare"
 
-#: ../../main/samba/src/EBox/Samba.pm:1054
+#: ../../main/samba/src/EBox/Samba.pm:1091
 msgid "Users by share"
 msgstr "Användare efter utdelning"
 
-#: ../../main/samba/src/EBox/Samba.pm:1636
+#: ../../main/samba/src/EBox/Samba.pm:1453
+msgid "Resource"
+msgstr "Resurs"
+
+#: ../../main/samba/src/EBox/Samba.pm:1457
+msgid "Connect"
+msgstr "Ansluta"
+
+#: ../../main/samba/src/EBox/Samba.pm:1458
+msgid "Access to directory"
+msgstr "Access till katalog"
+
+#: ../../main/samba/src/EBox/Samba.pm:1459
+msgid "Read file"
+msgstr "Läsa fil"
+
+#: ../../main/samba/src/EBox/Samba.pm:1460
+msgid "Write file"
+msgstr "Skriva fil"
+
+#: ../../main/samba/src/EBox/Samba.pm:1461
+msgid "Disconnect"
+msgstr "Koppla bort"
+
+#: ../../main/samba/src/EBox/Samba.pm:1462
+#: ../../main/core/src/templates/ajax/viewer/file.mas:22
+#: ../../main/mail/src/templates/qmanager.mas:37
+#: ../../main/users/src/templates/group.mas:49
+#: ../../main/users/src/templates/user.mas:120
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../../main/samba/src/EBox/Samba.pm:1463
+msgid "Create directory"
+msgstr "Skapa katalog"
+
+#: ../../main/samba/src/EBox/Samba.pm:1464
+msgid "Remove directory"
+msgstr "Ta bort katalog"
+
+#: ../../main/samba/src/EBox/Samba.pm:1465
+msgid "Rename"
+msgstr "Döpa om"
+
+#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1480
+msgid "File name"
+msgstr "Filnamn"
+
+#: ../../main/samba/src/EBox/Samba.pm:1472
+#: ../../main/samba/src/EBox/Samba.pm:1476
+msgid "Virus"
+msgstr "Virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:1481
+msgid "Quarantined file name"
+msgstr "Fil i karantän"
+
+#: ../../main/samba/src/EBox/Samba.pm:1482
+#: ../../main/samba/src/EBox/Samba.pm:1485
+msgid "Quarantine"
+msgstr "Karantän"
+
+#: ../../main/samba/src/EBox/Samba.pm:1488
+msgid "Samba access"
+msgstr "Tillgång till Samba"
+
+#: ../../main/samba/src/EBox/Samba.pm:1499
+msgid "Samba virus"
+msgstr "Samba virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:1510
+msgid "Samba quarantine"
+msgstr "Samba karantän"
+
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:569
+msgid "A name should be provided for the share."
+msgstr "Ett namn bör anges för utdelningen"
+
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:43
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:76
 #: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:41
@@ -10329,91 +10491,6 @@ msgstr "Användare efter utdelning"
 #: ../../main/users/src/EBox/CGI/Group.pm:47
 msgid "group"
 msgstr "grupp"
-
-#: ../../main/samba/src/EBox/Samba.pm:1751
-msgid "Resource"
-msgstr "Resurs"
-
-#: ../../main/samba/src/EBox/Samba.pm:1755
-msgid "Connect"
-msgstr "Ansluta"
-
-#: ../../main/samba/src/EBox/Samba.pm:1756
-msgid "Access to directory"
-msgstr "Access till katalog"
-
-#: ../../main/samba/src/EBox/Samba.pm:1757
-msgid "Read file"
-msgstr "Läsa fil"
-
-#: ../../main/samba/src/EBox/Samba.pm:1758
-msgid "Write file"
-msgstr "Skriva fil"
-
-#: ../../main/samba/src/EBox/Samba.pm:1759
-msgid "Disconnect"
-msgstr "Koppla bort"
-
-#: ../../main/samba/src/EBox/Samba.pm:1760
-#: ../../main/mail/src/templates/qmanager.mas:37
-#: ../../main/users/src/templates/group.mas:49
-#: ../../main/users/src/templates/user.mas:123
-msgid "Remove"
-msgstr "Ta bort"
-
-#: ../../main/samba/src/EBox/Samba.pm:1761
-msgid "Create directory"
-msgstr "Skapa katalog"
-
-#: ../../main/samba/src/EBox/Samba.pm:1762
-msgid "Remove directory"
-msgstr "Ta bort katalog"
-
-#: ../../main/samba/src/EBox/Samba.pm:1763
-msgid "Rename"
-msgstr "Döpa om"
-
-#: ../../main/samba/src/EBox/Samba.pm:1769
-#: ../../main/samba/src/EBox/Samba.pm:1778
-msgid "File name"
-msgstr "Filnamn"
-
-#: ../../main/samba/src/EBox/Samba.pm:1770
-#: ../../main/samba/src/EBox/Samba.pm:1774
-msgid "Virus"
-msgstr "Virus"
-
-#: ../../main/samba/src/EBox/Samba.pm:1779
-msgid "Quarantined file name"
-msgstr "Fil i karantän"
-
-#: ../../main/samba/src/EBox/Samba.pm:1780
-#: ../../main/samba/src/EBox/Samba.pm:1783
-msgid "Quarantine"
-msgstr "Karantän"
-
-#: ../../main/samba/src/EBox/Samba.pm:1786
-msgid "Samba access"
-msgstr "Tillgång till Samba"
-
-#: ../../main/samba/src/EBox/Samba.pm:1797
-msgid "Samba virus"
-msgstr "Samba virus"
-
-#: ../../main/samba/src/EBox/Samba.pm:1808
-msgid "Samba quarantine"
-msgstr "Samba karantän"
-
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:573
-msgid "A name should be provided for the share."
-msgstr "Ett namn bör anges för utdelningen"
-
-#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
-#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
-#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
-msgid "group name"
-msgstr "gruppnamn"
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:52
 #, fuzzy
@@ -11260,6 +11337,7 @@ msgstr "Applikationsdata"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:215
 #: ../../main/ca/src/EBox/CA.pm:500
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
+#: ../../main/ca/src/templates/index.mas:22
 #: ../../main/ca/src/templates/formRevoke.mas:21
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:37
@@ -11286,6 +11364,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:63
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:74
+#: ../../main/ca/src/templates/index.mas:23
 #: ../../main/ca/src/templates/formRevoke.mas:25
 #: ../../main/ca/src/templates/formReissue.mas:32
 #: ../../main/ca/src/templates/formRenew.mas:41
@@ -11551,6 +11630,7 @@ msgid "The certificate has NOT been renewed"
 msgstr "Certifikatet har INTE förnyats"
 
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:69
+#: ../../main/ca/src/templates/index.mas:52
 #: ../../main/ca/src/templates/formReissue.mas:13
 #: ../../main/ca/src/templates/createCA.mas:19
 #: ../../main/ca/src/templates/formRenew.mas:13
@@ -11852,23 +11932,17 @@ msgstr ""
 msgid "NTP"
 msgstr "NAT"
 
-#: ../../main/core/ModelManager.pm:458
-#: ../../main/core/src/EBox/Model/Manager.pm:492
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-"The data you are removing is being used by\n"
-"the following sections:"
+#: ../../main/core/src/cgi/ebox.cgi:76
+#, fuzzy, perl-brace-format
+msgid "The following software packages are not correctly installed: {pack}"
+msgstr "Följande paket kommer att installeras"
 
-#: ../../main/core/ModelManager.pm:504
-#: ../../main/core/src/EBox/Model/Manager.pm:538
+#: ../../main/core/src/cgi/ebox.cgi:82
+#, perl-brace-format
 msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
+"There are some software packages which are not correctly installed: {pack}. "
+"<p>You should reinstall them and retry your operation.</p>"
 msgstr ""
-"Det data du ändrar används av\n"
-"\t\t\tföljande sektioner:"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -11899,7 +11973,23 @@ msgstr "Det borde ha ett av följande värden:{values}"
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Tillåtna åtgärder att utföra är: {view} och {cView}"
 
-#: ../../main/core/src/EBox/Model/DataForm.pm:531
+#: ../../main/core/src/EBox/Model/Manager.pm:492
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+"The data you are removing is being used by\n"
+"the following sections:"
+
+#: ../../main/core/src/EBox/Model/Manager.pm:538
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+"Det data du ändrar används av\n"
+"\t\t\tföljande sektioner:"
+
+#: ../../main/core/src/EBox/Model/DataForm.pm:534
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Radera data från {model}{br}"
@@ -11961,8 +12051,8 @@ msgid "{row} moved down"
 msgstr "{row} nedflyttad"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4254
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:68
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:70
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/network/src/templates/ifaces.mas:190
 #: ../../main/jabber/src/templates/jabber.mas:40
@@ -11977,7 +12067,7 @@ msgstr "{row} nedflyttad"
 #: ../../main/asterisk/src/templates/group.mas:41
 #: ../../main/asterisk/src/templates/user.mas:38
 #: ../../main/users/src/templates/group.mas:20
-#: ../../main/users/src/templates/user.mas:91
+#: ../../main/users/src/templates/user.mas:88
 #, fuzzy
 msgid "Change"
 msgstr ""
@@ -12028,14 +12118,14 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:80
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:51
-#: ../../main/core/src/EBox/Events.pm:422
+#: ../../main/core/src/EBox/Events.pm:439
 msgid "Informative"
 msgstr "Informativ"
 
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:52
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:84
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:52
-#: ../../main/core/src/EBox/Events.pm:423
+#: ../../main/core/src/EBox/Events.pm:440
 #: ../../main/core/src/templates/finish.mas:83
 msgid "Warning"
 msgstr "Varning"
@@ -12043,14 +12133,14 @@ msgstr "Varning"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:53
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:88
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:53
-#: ../../main/core/src/EBox/Events.pm:424
+#: ../../main/core/src/EBox/Events.pm:441
 msgid "Error"
 msgstr "Fel"
 
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:54
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:92
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:54
-#: ../../main/core/src/EBox/Events.pm:425
+#: ../../main/core/src/EBox/Events.pm:442
 msgid "Fatal error"
 msgstr "Allvarligt fel"
 
@@ -12105,7 +12195,7 @@ msgid "filter"
 msgstr "filter"
 
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:175
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:284
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:292
 msgid "Log Observer Watcher"
 msgstr "Logg observatör-övervakare"
 
@@ -12173,8 +12263,8 @@ msgstr "Konfigurera övervakare för fritt diskutrymme"
 msgid "Free Disk Space Watcher"
 msgstr "Övervakare för fritt diskutrymme"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:125
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:147
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:150
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:172
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
@@ -12182,15 +12272,15 @@ msgstr ""
 "Varning! Loggövervakningen är avaktiverad. Aktivera för att bli meddelad när "
 "något händer med loggarna"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:174
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:199
 msgid "Filtering"
 msgstr "Filtrerar"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:182
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:207
 msgid "Configure log watchers"
 msgstr "Konfigurera loggövervakning"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:184
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:209
 msgid "Log watcher"
 msgstr "Logg övervakare"
 
@@ -12290,29 +12380,21 @@ msgstr "Skapar backuparkiv"
 msgid "Dumping configuration of module {m}"
 msgstr "Dumpar konfiguration för modul {m} "
 
-#: ../../main/core/src/EBox/Backup.pm:324
-msgid "Could not create backup archive"
-msgstr "Kunde inte skapa arkiv för säkerhetskopia"
-
-#: ../../main/core/src/EBox/Backup.pm:331
-msgid "Could not append data to backup archive"
-msgstr "Kunde inte lägga till data till arkiv för säkerhetskopia"
-
-#: ../../main/core/src/EBox/Backup.pm:523
+#: ../../main/core/src/EBox/Backup.pm:520
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Kunde inte packa upp de begärda filerna i säkerhetskopian: {files}"
 
-#: ../../main/core/src/EBox/Backup.pm:526
-#: ../../main/core/src/EBox/Backup.pm:1267
+#: ../../main/core/src/EBox/Backup.pm:523
+#: ../../main/core/src/EBox/Backup.pm:1253
 msgid "Could not unpack the backup"
 msgstr "Kunde inte packa upp säkerhetskopian"
 
-#: ../../main/core/src/EBox/Backup.pm:778
+#: ../../main/core/src/EBox/Backup.pm:766
 msgid "Writing backup file to hard disk"
 msgstr "Skriver filen för säkerhetskopia till hårddisk"
 
-#: ../../main/core/src/EBox/Backup.pm:819
+#: ../../main/core/src/EBox/Backup.pm:807
 #, fuzzy, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
@@ -12321,24 +12403,24 @@ msgstr ""
 "Modulen {mod}  har inte sparat ändringarna. Innan du startar "
 "säkerhetskopieringen måste du spara eller förkasta ändringarna"
 
-#: ../../main/core/src/EBox/Backup.pm:878
+#: ../../main/core/src/EBox/Backup.pm:866
 msgid "Incorrect or corrupt backup file"
 msgstr "Felaktig eller skadad säkerhetskopia"
 
-#: ../../main/core/src/EBox/Backup.pm:909
+#: ../../main/core/src/EBox/Backup.pm:896
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Säkerhetskopian är skadad: kunde inte öppna arkivet"
 
-#: ../../main/core/src/EBox/Backup.pm:920
+#: ../../main/core/src/EBox/Backup.pm:907
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr ""
 "Säkerhetskopian är skadad: kunde inte öppna kontrollsumma för säkerhetskopia"
 
-#: ../../main/core/src/EBox/Backup.pm:927
+#: ../../main/core/src/EBox/Backup.pm:914
 msgid "The backup file is corrupt."
 msgstr "Säkerhetskopian är skadad."
 
-#: ../../main/core/src/EBox/Backup.pm:945
+#: ../../main/core/src/EBox/Backup.pm:932
 #, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
@@ -12347,7 +12429,7 @@ msgstr ""
 "Arkivet för säkerhetskopian har en ogiltig typ. Kanske är filen skadad eller "
 "att du använder en inkompatibel version av eBox"
 
-#: ../../main/core/src/EBox/Backup.pm:950
+#: ../../main/core/src/EBox/Backup.pm:937
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -12356,7 +12438,7 @@ msgstr ""
 "fullständig återskapning inte kunde göras. En återskapning av konfiguration "
 "kan dock vara möjlig"
 
-#: ../../main/core/src/EBox/Backup.pm:982
+#: ../../main/core/src/EBox/Backup.pm:969
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -12366,7 +12448,7 @@ msgstr ""
 "färdigställa återskapningsprocessen. {size} Kb krävs. Frigör tillräckligt "
 "mycket utrymme och försök igen"
 
-#: ../../main/core/src/EBox/Backup.pm:993
+#: ../../main/core/src/EBox/Backup.pm:980
 #, perl-brace-format
 msgid ""
 "No debian packages list file found; probably the backup was done in a "
@@ -12374,7 +12456,7 @@ msgid ""
 "restored"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1013
+#: ../../main/core/src/EBox/Backup.pm:1000
 #, perl-brace-format
 msgid ""
 "No zentyal-core found in the debian packages list form the backup; probably "
@@ -12382,7 +12464,7 @@ msgid ""
 "Zentyal >= {v} can be restored"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1030
+#: ../../main/core/src/EBox/Backup.pm:1017
 #, perl-brace-format
 msgid ""
 "Could not restore the backup because a missmatch between its Zentyal version "
@@ -12390,33 +12472,33 @@ msgid ""
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1393
+#: ../../main/core/src/EBox/Backup.pm:1380
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1421
+#: ../../main/core/src/EBox/Backup.pm:1408
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1456
+#: ../../main/core/src/EBox/Backup.pm:1443
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Ingen modul {m} funnen i säkerhetskopia"
 
-#: ../../main/core/src/EBox/Backup.pm:1464
+#: ../../main/core/src/EBox/Backup.pm:1451
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1487
+#: ../../main/core/src/EBox/Backup.pm:1474
 msgid "No modules to restore"
 msgstr "Inga moduler att återställa"
 
-#: ../../main/core/src/EBox/Backup.pm:1539
+#: ../../main/core/src/EBox/Backup.pm:1526
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -12425,7 +12507,7 @@ msgstr ""
 "Oläst återskapningsberoende för modulen {topModule}: {modName} är inte "
 "installerad"
 
-#: ../../main/core/src/EBox/Backup.pm:1560
+#: ../../main/core/src/EBox/Backup.pm:1547
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:200
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:280
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:295
@@ -12433,7 +12515,7 @@ msgstr ""
 msgid "The input contains invalid characters"
 msgstr "Inmatningen innehåller ogiltiga tecken"
 
-#: ../../main/core/src/EBox/Backup.pm:1581
+#: ../../main/core/src/EBox/Backup.pm:1568
 #, fuzzy
 msgid "Backup archives"
 msgstr "Lista över säkerhetskopior"
@@ -12934,7 +13016,7 @@ msgstr ""
 msgid "Time zone"
 msgstr "Tidszon"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:54
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:55
 #, fuzzy
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
@@ -12942,17 +13024,17 @@ msgstr ""
 "En ändring av datum eller tid innebär att alla eBox-tjänster kommer att "
 "startas om."
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:62
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
 #, fuzzy
 msgid "The date and time was changed successfully."
 msgstr "Lösenordet ändrades."
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:68
 #, fuzzy
 msgid "Date and time"
 msgstr "Ändra datum och tid"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:88
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:89
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
@@ -12968,35 +13050,35 @@ msgstr "Användarnamn"
 msgid "Current password"
 msgstr "Aktuellt lösenord"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:105
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:107
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
 msgid "New password"
 msgstr "Nytt lösenord"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:64
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:66
 msgid "Your password must be at least 6 characters long."
 msgstr "Ditt lösenord måste vara minst 6 tecken långt."
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:71
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:73
 msgid "The password was changed successfully."
 msgstr "Lösenordet ändrades."
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:76
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:78
 #, fuzzy
 msgid "Change administrator password"
 msgstr "Byt lösenord"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:109
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:111
 msgid "New passwords do not match."
 msgstr "Nya lösenorden stämmer inte överens."
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:113
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:115
 msgid "The password must be at least 6 characters long"
 msgstr "Lösenordet måste vara minst 6 tecken långt"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:117
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:119
 #, fuzzy
 msgid "Incorrect current password."
 msgstr "Felaktigt lösenord."
@@ -13082,6 +13164,12 @@ msgstr "Klienten {c} existerar inte"
 #, fuzzy
 msgid "This continent does not exists."
 msgstr "Konto existerar ej"
+
+#: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:47
+#: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:47
+#, fuzzy
+msgid "Not"
+msgstr "Nej"
 
 #: ../../main/core/src/EBox/Types/Select.pm:329
 #, perl-brace-format
@@ -13390,30 +13478,37 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:497
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:540
+#: ../../main/core/src/templates/report/raid.mas:107
 msgid "active"
 msgstr "aktiv"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:499
+#: ../../main/core/src/templates/report/raid.mas:109
 msgid "degraded"
 msgstr "sliten"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:501
+#: ../../main/core/src/templates/report/raid.mas:111
 msgid "recovering"
 msgstr "återhämtar sig"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:503
+#: ../../main/core/src/templates/report/raid.mas:113
 msgid "resyncing"
 msgstr "resynkroniserar"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:505
+#: ../../main/core/src/templates/report/raid.mas:117
 msgid "rebuilding"
 msgstr "återskapar"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:507
+#: ../../main/core/src/templates/report/raid.mas:115
 msgid "reshaping"
 msgstr "omformar"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:509
+#: ../../main/core/src/templates/report/raid.mas:119
 msgid "failed"
 msgstr "misslyckad"
 
@@ -13442,6 +13537,7 @@ msgid "faulty"
 msgstr "trasig"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:544
+#: ../../main/core/src/templates/report/raid.mas:230
 msgid "spare"
 msgstr "reserv"
 
@@ -13503,7 +13599,10 @@ msgid "Zentyal UI is critically down"
 msgstr "eBox kritiskt frånvarande"
 
 #: ../../main/core/src/EBox/Event/Watcher/State.pm:138
+#: ../../main/ca/src/templates/index.mas:47
+#: ../../main/ca/src/templates/index.mas:97
 #: ../../main/ca/src/templates/createCA.mas:16
+#: ../../main/core/src/templates/report/raid.mas:223
 #, fuzzy
 msgid "State"
 msgstr ""
@@ -13517,27 +13616,27 @@ msgstr ""
 msgid "Check if Zentyal is currently up or down"
 msgstr "Kontrollera om eBox är uppe eller avslagen"
 
-#: ../../main/core/src/EBox/Events.pm:322
+#: ../../main/core/src/EBox/Events.pm:339
 msgid "The events module is not enabled to send events"
 msgstr "Modulen för händelser är inte aktiverad för att sända händelser"
 
-#: ../../main/core/src/EBox/Events.pm:411
+#: ../../main/core/src/EBox/Events.pm:428
 msgid "Date of first event"
 msgstr "Datum för första händelse"
 
-#: ../../main/core/src/EBox/Events.pm:412
+#: ../../main/core/src/EBox/Events.pm:429
 msgid "Date of last event"
 msgstr "Datum för sista händelse"
 
-#: ../../main/core/src/EBox/Events.pm:413
+#: ../../main/core/src/EBox/Events.pm:430
 msgid "Repetitions"
 msgstr "Återupprepningar"
 
-#: ../../main/core/src/EBox/Events.pm:414
+#: ../../main/core/src/EBox/Events.pm:431
 msgid "Level"
 msgstr "Nivå"
 
-#: ../../main/core/src/EBox/Events.pm:416
+#: ../../main/core/src/EBox/Events.pm:433
 msgid "Message"
 msgstr "Meddelande"
 
@@ -13549,7 +13648,7 @@ msgstr "Inledande konfigurationshjälp"
 msgid "Save configuration"
 msgstr "Spara konfiguration"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:65
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 msgid "OK"
 msgstr ""
 
@@ -13575,8 +13674,8 @@ msgstr ""
 "finns i loggarna i {dir}"
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
-#: ../../main/core/src/EBox/CGI/Progress.pm:83
-#: ../../main/core/src/EBox/CGI/Progress.pm:135
+#: ../../main/core/src/EBox/CGI/Progress.pm:84
+#: ../../main/core/src/EBox/CGI/Progress.pm:136
 #: ../../main/core/src/templates/finish.mas:123
 msgid "Saving changes"
 msgstr "Sparar ändringar"
@@ -13822,6 +13921,13 @@ msgstr ""
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:156
 msgid "service"
 msgstr "tjänst"
+
+#: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:217
+#, perl-brace-format
+msgid ""
+"If you want a service for any connections on this protocol, use the "
+"predefined service {ser}"
+msgstr ""
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:101
 msgid "Internal"
@@ -14221,6 +14327,7 @@ msgid "Queue Management"
 msgstr "Köhantering"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/templates/externalAccounts.mas:21
 msgid "Mail retrieval from external accounts"
 msgstr "Hämta epost från externa konton"
 
@@ -14797,7 +14904,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:166
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:185
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:81
-#: ../../main/mail/src/templates/createaccount.mas:64
+#: ../../main/mail/src/templates/createaccount.mas:62
 msgid "Unlimited size"
 msgstr "Obegränsad storlek"
 
@@ -15489,7 +15596,7 @@ msgid "Zarafa Gateway Server"
 msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:99
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:238
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:243
 msgid "Listening port"
 msgstr "Lyssnande port"
 
@@ -15502,7 +15609,7 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:118
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:130
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:249
 #, fuzzy
 msgid "Listening SSL port"
 msgstr "Lyssningsport"
@@ -15519,7 +15626,7 @@ msgid ""
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:179
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:178
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer.pm:163
@@ -15527,24 +15634,24 @@ msgstr ""
 msgid "Web Server"
 msgstr "Webbtjänst"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:180
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:179
 #: ../../main/webserver/src/EBox/WebServer.pm:164
 #, fuzzy
 msgid "Zentyal Web Server"
 msgstr "Zentyal FTP server"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:261
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:266
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Aktivera per användare {dirName}"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:265
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:270
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:277
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:282
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
@@ -15552,7 +15659,7 @@ msgid ""
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:283
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:288
 #, fuzzy
 msgid "General Web server configuration settings updated."
 msgstr "Allmänna konfigurationsinställningar"
@@ -16051,8 +16158,9 @@ msgstr "Fullständigt namn"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:67
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:67
 #: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:699
-#: ../../main/core/src/templates/ajax/tableModalView.mas:522
+#: ../../main/core/src/templates/ajax/tableBody.mas:669
+#: ../../main/core/src/templates/ajax/tableBody.mas:927
+#: ../../main/core/src/templates/ajax/tableModalView.mas:500
 msgid "Edit"
 msgstr "Redigera"
 
@@ -16084,6 +16192,11 @@ msgstr ""
 "Zentyal är konfigurerad som Windows AD-slave och det finns inga användare "
 "för tillfället. Om det finns användare i din domänkontrollant, kanske "
 "synkroniseringen har misslyckats eller inte klar än."
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:152
+#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
+msgid "There are no users at the moment"
+msgstr "Det finns inga användare för tillfället."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:155
 #, perl-brace-format
@@ -16162,10 +16275,6 @@ msgstr "Organisationsnamn"
 #, fuzzy
 msgid "organizational unit"
 msgstr "Organisationsnamn"
-
-#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
-msgid "There are no users at the moment"
-msgstr "Det finns inga användare för tillfället."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
 #, fuzzy, perl-brace-format
@@ -16310,6 +16419,12 @@ msgid ""
 "underscores, spaces, periods, dashs and not start with a dash. They could "
 "not contain only number, spaces and dots."
 msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
+#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
+#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
+msgid "group name"
+msgstr "gruppnamn"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:391
 #, fuzzy
@@ -16723,8 +16838,8 @@ msgstr "redigera"
 
 #: ../../main/dns/src/templates/index.mas:57
 #: ../../main/dns/src/templates/edit.mas:86
-#: ../../main/remoteservices/src/templates/Backup/index.mas:167
-#: ../../main/core/src/templates/backup.mas:163
+#: ../../main/remoteservices/src/templates/Backup/index.mas:165
+#: ../../main/core/src/templates/backup.mas:157
 msgid "delete"
 msgstr "ta bort"
 
@@ -16863,12 +16978,14 @@ msgid "No packages found"
 msgstr "Ej hittad"
 
 #: ../../main/software/src/templates/ebox.mas:582
-#: ../../main/core/src/templates/ajax/tableModalView.mas:201
+#: ../../main/core/src/templates/ajax/tableBody.mas:316
+#: ../../main/core/src/templates/ajax/tableModalView.mas:191
 msgid "Search"
 msgstr "Sök"
 
 #: ../../main/software/src/templates/ebox.mas:583
-#: ../../main/core/src/templates/ajax/tablePager.mas:46
+#: ../../main/core/src/templates/ajax/tablePager.mas:45
+#: ../../main/core/src/templates/logs/dbtable.mas:74
 #: ../../main/mail/src/templates/qmanager.mas:91
 msgid "of"
 msgstr "av"
@@ -16883,12 +17000,12 @@ msgstr "sida"
 msgid "Package list updated successfully"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:758
+#: ../../main/software/src/templates/ebox.mas:756
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:760
+#: ../../main/software/src/templates/ebox.mas:758
 #: ../../main/software/src/templates/updates.mas:29
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -17018,8 +17135,8 @@ msgstr ""
 msgid "Back up the current configuration state"
 msgstr "Säkerhetskopiera det aktuella tillståndet"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:89
-#: ../../main/core/src/templates/backup.mas:40
+#: ../../main/remoteservices/src/templates/Backup/index.mas:87
+#: ../../main/core/src/templates/backup.mas:38
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -17028,58 +17145,58 @@ msgstr ""
 "konfigurationsändringar. Vänligen spara eller förkasta dem för att kunna "
 "säkerhetskopiera konfigurationen"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:94
+#: ../../main/remoteservices/src/templates/Backup/index.mas:92
 msgid ""
 "Please note that the Basic Subscription allows you to store only one remote "
 "configuration backup. If you make a new configuration backup, the previous "
 "backup will be overwritten."
 msgstr ""
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:119
+#: ../../main/remoteservices/src/templates/Backup/index.mas:117
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:41
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:41
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:40
 #: ../../main/core/src/templates/confirm-backup.mas:41
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:114
 msgid "Archive size"
 msgstr "Arkivstorlek"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:159
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:91
-#: ../../main/core/src/templates/backup.mas:161
+#: ../../main/remoteservices/src/templates/Backup/index.mas:157
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:90
+#: ../../main/core/src/templates/backup.mas:155
 msgid "restore"
 msgstr "återskapa"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:163
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:95
-#: ../../main/core/src/templates/backup.mas:159
+#: ../../main/remoteservices/src/templates/Backup/index.mas:161
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:94
+#: ../../main/core/src/templates/backup.mas:153
 msgid "download"
 msgstr "hämta ner"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:172
+#: ../../main/remoteservices/src/templates/Backup/index.mas:170
 #, fuzzy
 msgid "Configuration backups' list"
 msgstr "Säkerhetskopia av konfiguration"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:37
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
 #, fuzzy
 msgid "Zentyal host"
 msgstr "eBox webbsida"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:101
-#: ../../main/core/src/templates/backup.mas:115
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:100
+#: ../../main/core/src/templates/backup.mas:111
 msgid "Backups' list"
 msgstr "Lista över säkerhetskopior"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:125
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:122
 #, fuzzy
 msgid "User or Email Address"
 msgstr "Användarnamn eller epostadress"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:136
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:133
 msgid "Submit"
 msgstr ""
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:140
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:137
 #, fuzzy
 msgid "Enter user and password"
 msgstr "Användarnamn och lösenord"
@@ -17140,6 +17257,20 @@ msgstr ""
 
 #: ../../main/captiveportal/src/templates/popup.mas:39
 msgid "Keep this window open while using your Internet connection."
+msgstr ""
+
+#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:31
+#: ../../main/core/src/templates/ajax/tableBody.mas:796
+#: ../../main/core/src/templates/ajax/tableBody.mas:953
+#: ../../main/core/src/templates/ajax/tableModalView.mas:633
+msgid "Move up"
+msgstr ""
+
+#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:39
+#: ../../main/core/src/templates/ajax/tableBody.mas:812
+#: ../../main/core/src/templates/ajax/tableBody.mas:955
+#: ../../main/core/src/templates/ajax/tableModalView.mas:649
+msgid "Move down"
 msgstr ""
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:7
@@ -17380,16 +17511,118 @@ msgid "Directory name"
 msgstr "Katalognamn"
 
 #: ../../main/samba/src/templates/samba.mas:71
-msgid "Select the printers this user will have access to."
-msgstr "Välj de skrivare som den här användaren ska ha åtkomst till."
+msgid "file sharing module"
+msgstr "fildelning-modul"
 
-#: ../../main/samba/stubs/smb.conf.mas:63
+#: ../../main/samba/src/templates/samba.mas:83
+#, fuzzy, perl-brace-format
+msgid "The following settings will take effect only when the {mod} is enabled"
+msgstr ""
+"Följande inställningar kommer endast att aktiveras när e-post modulen är "
+"aktiverad"
+
+#: ../../main/samba/stubs/smb.conf.mas:59
 msgid "Home Directories"
 msgstr "Hemkataloger"
 
 #: ../../main/mailfilter/stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] funnet i e-post till dig:"
+
+#: ../../main/ca/src/templates/index.mas:41
+#: ../../main/ca/src/templates/createCA.mas:9
+msgid "Country code"
+msgstr "Landskod"
+
+#: ../../main/ca/src/templates/index.mas:44
+#: ../../main/ca/src/templates/createCA.mas:13
+msgid "City"
+msgstr "Ort"
+
+#: ../../main/ca/src/templates/index.mas:58
+#: ../../main/ca/src/templates/formRevoke.mas:41
+#: ../../main/ca/src/templates/formReissue.mas:15
+#: ../../main/ca/src/templates/formReissue.mas:38
+#: ../../main/ca/src/templates/formRenew.mas:57
+msgid "Subject Alternative Names"
+msgstr "Alternativa subjekt namn"
+
+#: ../../main/ca/src/templates/index.mas:59
+#, perl-brace-format
+msgid ""
+"Multi-value separated by commas, only valid types are: {dns}, {ip} and "
+"{email}. For instance, {example}"
+msgstr ""
+"Flera värden separerade med komma, giltiga typer är: {dns}, {ip} och "
+"{email}. Till exempel, {example}"
+
+#: ../../main/ca/src/templates/index.mas:73
+msgid "Issue"
+msgstr "Utfärda"
+
+#: ../../main/ca/src/templates/index.mas:82
+msgid "Certificate changes will take effect immediately."
+msgstr "Certifikatändringar blir omedelbart aktiverade"
+
+#: ../../main/ca/src/templates/index.mas:83
+msgid "The CA passphrase is optional"
+msgstr "CA-lösenfrasen är valfri"
+
+#: ../../main/ca/src/templates/index.mas:86
+msgid "Issue the Certification Authority Certificate"
+msgstr "Utfärda certifikat för certifikatutfärdare"
+
+#: ../../main/ca/src/templates/index.mas:87
+msgid "Issue a New Certificate"
+msgstr "Utfärda ett nytt certifikat"
+
+#: ../../main/ca/src/templates/index.mas:93
+msgid "Current Certificate List"
+msgstr "Lista över aktuella certifikat"
+
+#: ../../main/ca/src/templates/index.mas:94
+msgid ""
+"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+"Revoked certificates respectively"
+msgstr ""
+"Datum refererar till utgångsdatum i giltiga/utgångna och till spärrdatum i "
+"spärrade certifikat"
+
+#: ../../main/ca/src/templates/index.mas:113
+msgid "from"
+msgstr "från"
+
+#: ../../main/ca/src/templates/index.mas:121
+msgid "Valid"
+msgstr "Giltigt"
+
+#: ../../main/ca/src/templates/index.mas:123
+msgid "Expired"
+msgstr "Utgånget"
+
+#: ../../main/ca/src/templates/index.mas:125
+msgid "Revoked"
+msgstr "Spärrat"
+
+#: ../../main/ca/src/templates/index.mas:130
+#, perl-brace-format
+msgid "Reason: {reason}"
+msgstr "Anledning: {reason}"
+
+#: ../../main/ca/src/templates/index.mas:201
+#: ../../main/ca/src/templates/forceRevoke.mas:36
+#: ../../main/ca/src/templates/formRevoke.mas:74
+msgid "Revoke"
+msgstr "Spärra"
+
+#: ../../main/ca/src/templates/index.mas:203
+msgid "Download Key(s) and Certificate"
+msgstr "Hämta ner nycklar och certifikat"
+
+#: ../../main/ca/src/templates/index.mas:205
+#, fuzzy
+msgid "Renew or reissue"
+msgstr "Utfärda"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -17421,11 +17654,6 @@ msgstr ""
 "någon modul. Bekräfta att du är säker på att du vill spärra det och lämna "
 "tjänst(erna) inaktiverade eller i ett instabilt skick"
 
-#: ../../main/ca/src/templates/forceRevoke.mas:36
-#: ../../main/ca/src/templates/formRevoke.mas:74
-msgid "Revoke"
-msgstr "Spärra"
-
 #: ../../main/ca/src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
 msgstr "Spärra ett certifikat"
@@ -17445,13 +17673,6 @@ msgstr "Spärra det markerade certifikatet"
 msgid "Expiration Date"
 msgstr "Utgångsdatum"
 
-#: ../../main/ca/src/templates/formRevoke.mas:41
-#: ../../main/ca/src/templates/formReissue.mas:15
-#: ../../main/ca/src/templates/formReissue.mas:38
-#: ../../main/ca/src/templates/formRenew.mas:57
-msgid "Subject Alternative Names"
-msgstr "Alternativa subjekt namn"
-
 #: ../../main/ca/src/templates/formRevoke.mas:68
 #: ../../main/ca/src/templates/formReissue.mas:20
 #: ../../main/ca/src/templates/formRenew.mas:17
@@ -17468,15 +17689,8 @@ msgstr "Utfärda"
 msgid "Reissue a certificate"
 msgstr "Förnya ett certifikat"
 
-#: ../../main/ca/src/templates/createCA.mas:9
-msgid "Country code"
-msgstr "Landskod"
-
-#: ../../main/ca/src/templates/createCA.mas:13
-msgid "City"
-msgstr "Ort"
-
 #: ../../main/ca/src/templates/createCA.mas:27
+#: ../../main/mail/src/templates/groupalias.mas:57
 #: ../../main/mail/src/templates/createaccount.mas:37
 #: ../../main/mail/src/templates/alias.mas:47
 msgid "Create"
@@ -17493,7 +17707,31 @@ msgstr ""
 msgid "Create Certification Authority Certificate"
 msgstr "Skapa certifikat för certifikatutfärdare"
 
-#: ../../main/ca/src/templates/forceRenew.mas:54
+#: ../../main/ca/src/templates/forceRenew.mas:26
+#: ../../main/ca/src/templates/formRenew.mas:23
+msgid "Renew"
+msgstr "Förnya"
+
+#: ../../main/ca/src/templates/forceRenew.mas:41
+msgid "Renewing CA certificate"
+msgstr "Förnyar CA-certifikat"
+
+#: ../../main/ca/src/templates/forceRenew.mas:43
+msgid "Renewing certificate"
+msgstr "Förnyar certifikat"
+
+#: ../../main/ca/src/templates/forceRenew.mas:49
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Den här förnyelsen kan påverka funktionaliteten för andra moduler. Bekräfta "
+"att du är mycket säker på att du vill förnya hela certifikatutfärdaren från "
+"{on} och lämna tjänst(erna) inaktiverade eller i ett instabilt skick"
+
+#: ../../main/ca/src/templates/forceRenew.mas:51
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
@@ -17503,10 +17741,6 @@ msgstr ""
 "Certifikatet vars namn är {cn} och som du försökte att förnya, används av "
 "någon modul. Bekräfta att du är säker på att du vill förnya det och lämna "
 "tjänst(erna) inaktiverade eller i ett instabilt skick"
-
-#: ../../main/ca/src/templates/formRenew.mas:23
-msgid "Renew"
-msgstr "Förnya"
 
 #: ../../main/ca/src/templates/formRenew.mas:28
 msgid "Renew a certificate"
@@ -17640,15 +17874,32 @@ msgstr "Förkasta ändringar"
 msgid "There are no unsaved changes."
 msgstr "Det finns inga osparade ändringar."
 
-#: ../../main/core/src/templates/progress.mas:140
+#: ../../main/core/src/templates/progress.mas:30
+msgid "Item"
+msgstr "Sak"
+
+#: ../../main/core/src/templates/progress.mas:31
+msgid "items left"
+msgstr "Saker kvar"
+
+#: ../../main/core/src/templates/progress.mas:33
+#, fuzzy
+msgid "Some error has happened in Zentyal: "
+msgstr "Ett fel har hänt i eBox:"
+
+#: ../../main/core/src/templates/progress.mas:38
+msgid "Click here to go to the Dashboard"
+msgstr ""
+
+#: ../../main/core/src/templates/progress.mas:144
 msgid "Starting..."
 msgstr "Startar..."
 
-#: ../../main/core/src/templates/progress.mas:147
+#: ../../main/core/src/templates/progress.mas:154
 msgid " of "
 msgstr ""
 
-#: ../../main/core/src/templates/progress.mas:155
+#: ../../main/core/src/templates/progress.mas:162
 msgid "The process produced some warning messages:"
 msgstr ""
 
@@ -17677,139 +17928,180 @@ msgstr "Filer att modifiera av eBox"
 msgid "Accept"
 msgstr "Acceptera"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:45
+#: ../../main/core/src/templates/confirm-backup.mas:94
+msgid "Full Restore"
+msgstr "Fullständig återskapning"
+
+#: ../../main/core/src/templates/confirm-backup.mas:95
+msgid "Configuration Restore"
+msgstr "Återskapning av konfiguration"
+
+#: ../../main/core/src/templates/confirm-backup.mas:100
+msgid "Restore mode"
+msgstr "Återskapningsläge"
+
+#: ../../main/core/src/templates/ajax/tablePager.mas:44
+#: ../../main/core/src/templates/logs/dbtable.mas:73
+#: ../../main/core/src/templates/logs/dbtable.mas:74
 #: ../../main/mail/src/templates/qmanager.mas:90
 #: ../../main/mail/src/templates/qmanager.mas:91
 msgid "Page"
 msgstr "Sida"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:56
-#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/core/src/templates/ajax/tablePager.mas:55
+#: ../../main/core/src/templates/ajax/tablePager.mas:57
+#: ../../main/core/src/templates/logs/dbtable.mas:65
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "first"
 msgstr "första"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:56
-#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/core/src/templates/ajax/tablePager.mas:55
+#: ../../main/core/src/templates/ajax/tablePager.mas:57
+#: ../../main/core/src/templates/logs/dbtable.mas:67
 #: ../../main/mail/src/templates/qmanager.mas:84
 msgid "prev"
 msgstr "föreg"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:63
-#: ../../main/core/src/templates/ajax/tablePager.mas:69
+#: ../../main/core/src/templates/ajax/tablePager.mas:62
+#: ../../main/core/src/templates/ajax/tablePager.mas:68
+#: ../../main/core/src/templates/logs/dbtable.mas:83
 #: ../../main/mail/src/templates/qmanager.mas:100
 msgid "next"
 msgstr "nästa"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:66
-#: ../../main/core/src/templates/ajax/tablePager.mas:71
+#: ../../main/core/src/templates/ajax/tablePager.mas:65
+#: ../../main/core/src/templates/ajax/tablePager.mas:70
+#: ../../main/core/src/templates/logs/dbtable.mas:85
 #: ../../main/mail/src/templates/qmanager.mas:102
 msgid "last"
 msgstr "sista"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:653
+#: ../../main/core/src/templates/ajax/tableSelector.mas:13
+msgid "Choose one of the options to show the associated table"
+msgstr "Välj ett av alternativen för att visa associerad tabell"
+
+#: ../../main/core/src/templates/ajax/tableSelector.mas:29
+msgid "Choose one..."
+msgstr "Välj en..."
+
+#: ../../main/core/src/templates/ajax/viewer/file.mas:18
+#, fuzzy
+msgid "Current file"
+msgstr "Aktuell modul"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:345
+#: ../../main/core/src/templates/ajax/tableModal.mas:173
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Lägger till en ny {row}"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:348
+#: ../../main/core/src/templates/ajax/tableModal.mas:179
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "Redigerar {row}"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:351
+#, fuzzy, perl-brace-format
+msgid "Cloning {row}"
+msgstr "Redigerar {row}"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:624
+#: ../../main/core/src/templates/ajax/tableModalView.mas:139
+#: ../../main/core/src/templates/ajax/tableModal.mas:164
+#: ../../main/mail/src/templates/externalAccounts.mas:37
 msgid "Add new"
 msgstr "Lägg till ny"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:703
-#: ../../main/core/src/templates/ajax/tableModalView.mas:526
+#: ../../main/core/src/templates/ajax/tableBody.mas:673
+#: ../../main/core/src/templates/ajax/tableModalView.mas:504
 msgid "Clone"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:708
-#: ../../main/core/src/templates/ajax/tableModalView.mas:531
+#: ../../main/core/src/templates/ajax/tableBody.mas:678
+#: ../../main/core/src/templates/ajax/tableModalView.mas:509
 msgid "Read-only row: edit disabled"
 msgstr "Endast läsbar rad, redigering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:709
-#: ../../main/core/src/templates/ajax/tableModalView.mas:532
+#: ../../main/core/src/templates/ajax/tableBody.mas:679
+#: ../../main/core/src/templates/ajax/tableModalView.mas:510
 msgid "Read-only row: delete disabled"
 msgstr "Endast läsbar rad, radering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:711
-#: ../../main/core/src/templates/ajax/tableModalView.mas:534
+#: ../../main/core/src/templates/ajax/tableBody.mas:681
+#: ../../main/core/src/templates/ajax/tableModalView.mas:512
 #, fuzzy
 msgid "Read-only row: clone disabled"
 msgstr "Endast läsbar rad, radering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:823
-#: ../../main/core/src/templates/ajax/tableModalView.mas:652
+#: ../../main/core/src/templates/ajax/tableBody.mas:792
+#: ../../main/core/src/templates/ajax/tableModalView.mas:629
 #, fuzzy
 msgid "Read-only row: move up disabled"
 msgstr "Endast läsbar rad, redigering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:827
-#: ../../main/core/src/templates/ajax/tableModalView.mas:656
-msgid "Move up"
-msgstr ""
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:839
-#: ../../main/core/src/templates/ajax/tableModalView.mas:668
+#: ../../main/core/src/templates/ajax/tableBody.mas:808
+#: ../../main/core/src/templates/ajax/tableModalView.mas:645
 #, fuzzy
 msgid "Read-only row: move down  disabled"
 msgstr "Endast läsbar rad, redigering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:843
-#: ../../main/core/src/templates/ajax/tableModalView.mas:672
-msgid "Move down"
-msgstr ""
-
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:35
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:34
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "January"
 msgstr "Januari"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:36
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:35
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "February"
 msgstr "Februari"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:37
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:36
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "March"
 msgstr "Mars"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:38
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:37
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "April"
 msgstr "April"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:39
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:38
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "May"
 msgstr "Maj"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:40
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:39
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "June"
 msgstr "Juni"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:41
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:40
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "July"
 msgstr "Juli"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:42
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:41
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "August"
 msgstr "Augusti"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:43
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:42
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "September"
 msgstr "September"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:44
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:43
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "October"
 msgstr "Oktober"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:45
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:44
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "November"
 msgstr "November"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:46
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:45
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "December"
 msgstr "December"
@@ -17819,12 +18111,12 @@ msgstr "December"
 msgid "Add new..."
 msgstr "Lägg till ny"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:145
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "No elements found. "
 msgstr "Ej hittad"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:145
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "Add a new one"
 msgstr "Lägger till en ny {row}"
@@ -17837,8 +18129,9 @@ msgstr "Omvänd matchning"
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:14
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:29
+#: ../../main/core/src/templates/formTable.mas:82
 #: ../../main/users/src/templates/users.mas:41
-#: ../../main/users/src/templates/user.mas:48
+#: ../../main/users/src/templates/user.mas:46
 msgid "Optional"
 msgstr "Valfri"
 
@@ -17846,7 +18139,7 @@ msgstr "Valfri"
 msgid "Depends"
 msgstr "Beror"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:78
+#: ../../main/core/src/templates/moduleStatusTable.mas:77
 #, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Konfigurera modul: {module}"
@@ -17987,10 +18280,112 @@ msgstr "Monterad på"
 msgid "Partition Properties"
 msgstr "Inställningar för partitioner"
 
-#: ../../main/core/src/templates/report/raid.mas:7
+#: ../../main/core/src/templates/report/raid.mas:19
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
+msgstr "Frånvarande RAID array {a}"
+
+#: ../../main/core/src/templates/report/raid.mas:41
+msgid "RAID is not enabled in this system."
+msgstr "RAID är inte aktiverat i detta system"
+
+#: ../../main/core/src/templates/report/raid.mas:90
+msgid "left-asymmetric"
+msgstr "vänster-asymetrisk"
+
+#: ../../main/core/src/templates/report/raid.mas:91
+msgid "right-asymmetric"
+msgstr "höger-asymetrisk"
+
+#: ../../main/core/src/templates/report/raid.mas:92
+msgid "left-symmetric"
+msgstr "vänster-symetrisk"
+
+#: ../../main/core/src/templates/report/raid.mas:93
+msgid "right-symmetric"
+msgstr "höger-symetrisk"
+
+#: ../../main/core/src/templates/report/raid.mas:138
+msgid "Active RAID devices"
+msgstr "Aktiva RAID enheter"
+
+#: ../../main/core/src/templates/report/raid.mas:139
+msgid "Active RAID devices needed"
+msgstr "Aktiva RAID enheter behövs"
+
+#: ../../main/core/src/templates/report/raid.mas:140
+msgid "Size in blocks"
+msgstr "Storlek i block"
+
+#: ../../main/core/src/templates/report/raid.mas:141
+msgid "Chunk size"
+msgstr "Chunk storlek"
+
+#: ../../main/core/src/templates/report/raid.mas:144
+msgid "Parity algorithm"
+msgstr "Paritetsalgoritm"
+
+#: ../../main/core/src/templates/report/raid.mas:156
+msgid "Bitmap"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:177
+msgid "Array properties"
+msgstr "Array inställningar"
+
+#: ../../main/core/src/templates/report/raid.mas:192
+msgid "Resyncing array"
+msgstr "Återsynkar array"
+
+#: ../../main/core/src/templates/report/raid.mas:193
+msgid "Rebuild array"
+msgstr "Bygger om array"
+
+#: ../../main/core/src/templates/report/raid.mas:194
+msgid "Reshape array"
+msgstr "Formar om array"
+
+#: ../../main/core/src/templates/report/raid.mas:202
+msgid "Operation type"
+msgstr "Åtgärdstyp"
+
+#: ../../main/core/src/templates/report/raid.mas:204
+msgid "Percentage completed"
+msgstr "Procent klart"
+
+#: ../../main/core/src/templates/report/raid.mas:206
+msgid "Estimated time left"
+msgstr "Beräknas vara klar: {time}"
+
+#: ../../main/core/src/templates/report/raid.mas:208
+msgid "Operation speed"
+msgstr "Åtgärdshastighet"
+
+#: ../../main/core/src/templates/report/raid.mas:221
+msgid "RAID device number"
+msgstr "RAID enhetsnummer"
+
+#: ../../main/core/src/templates/report/raid.mas:222
+msgid "Device"
+msgstr "Enhet"
+
+#: ../../main/core/src/templates/report/raid.mas:229
+msgid "failure"
+msgstr "misslyckad"
+
+#: ../../main/core/src/templates/report/raid.mas:231
 #, fuzzy
-msgid "Unused devices"
+msgid "Failure on spare"
+msgstr "Fritt utrymme"
+
+#: ../../main/core/src/templates/report/raid.mas:259
+#, fuzzy
+msgid "No unused RAID devices"
 msgstr "Inga oanvända RAID enheter"
+
+#: ../../main/core/src/templates/report/raid.mas:262
+msgid "Unused RAID arrays"
+msgstr "Oanvända RAID arrays"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
@@ -18007,6 +18402,7 @@ msgid "Keep current file"
 msgstr "Behåll aktuell fil"
 
 #: ../../main/core/src/templates/configurationFiles.mas:19
+#: ../../main/mail/src/templates/alias.mas:133
 msgid "Modify"
 msgstr "Ändra"
 
@@ -18025,11 +18421,11 @@ msgstr ""
 "Module status{closeref} sektionen kommer att ignoreras i både "
 "säkerhetskopiering och återställningsåtgärder"
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:34
 msgid "Backup the Current State"
 msgstr "Säkerhetskopiera det aktuella tillståndet"
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 #, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
@@ -18038,7 +18434,7 @@ msgstr ""
 "Säkerhetskopior kommer att lagras i eBox som du sedan kan hämta ner till din "
 "hårddisk. "
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -18048,11 +18444,11 @@ msgstr ""
 "administrationsrättigheter att kunna komma åt biblioteket för "
 "säkerhetskopiering som en delad resurs."
 
-#: ../../main/core/src/templates/backup.mas:69
+#: ../../main/core/src/templates/backup.mas:67
 msgid "Restore Backup from File"
 msgstr "Återskapa säkerhetskopia från fil"
 
-#: ../../main/core/src/templates/backup.mas:72
+#: ../../main/core/src/templates/backup.mas:68
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -18061,35 +18457,35 @@ msgstr ""
 "upp filer bör du vara uppmärksam på att vissa webbläsare inte kan hantera "
 "stora filer (>= 1 GB)"
 
-#: ../../main/core/src/templates/backup.mas:79
+#: ../../main/core/src/templates/backup.mas:75
 msgid "Backup file"
 msgstr "Säkerhetskopia fil"
 
-#: ../../main/core/src/templates/backup.mas:107
+#: ../../main/core/src/templates/backup.mas:103
 msgid "Full"
 msgstr "Fullständig"
 
-#: ../../main/core/src/templates/backup.mas:108
+#: ../../main/core/src/templates/backup.mas:104
 msgid "Configuration only"
 msgstr "Endast konfiguration"
 
-#: ../../main/core/src/templates/backup.mas:109
+#: ../../main/core/src/templates/backup.mas:105
 msgid "Unknown type"
 msgstr "Okänd typ"
 
-#: ../../main/core/src/templates/backup.mas:139
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Återskapa konfiguration med den här filen"
 
-#: ../../main/core/src/templates/backup.mas:139
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore from backup"
 msgstr "Återskapa från säkerhetskopia"
 
-#: ../../main/core/src/templates/backup.mas:171
+#: ../../main/core/src/templates/backup.mas:165
 msgid "Configuration Report"
 msgstr "Rapport över konfiguration"
 
-#: ../../main/core/src/templates/backup.mas:174
+#: ../../main/core/src/templates/backup.mas:166
 #, fuzzy
 msgid ""
 "You can generate a file with information about the state of your system. "
@@ -18099,7 +18495,7 @@ msgstr ""
 "ditt system. Filen är användbar om du vill rapportera ett programfel i eBox "
 "eller uppsöker support."
 
-#: ../../main/core/src/templates/backup.mas:178
+#: ../../main/core/src/templates/backup.mas:170
 msgid "Generate and Download report file"
 msgstr ""
 
@@ -18194,6 +18590,11 @@ msgstr "Skapa e-postkonto"
 msgid "Account name"
 msgstr "Kontonamn"
 
+#: ../../main/mail/src/templates/createaccount.mas:48
+#, fuzzy
+msgid "Maildir size"
+msgstr "Filstorlek"
+
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
 msgstr "Virtuell e-post domän"
@@ -18210,14 +18611,14 @@ msgstr "Detta blir domänen för dina epostkonton"
 msgid "Mail account"
 msgstr "E-postkonto"
 
-#: ../../main/mail/src/templates/account.mas:24
+#: ../../main/mail/src/templates/account.mas:22
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:27
+#: ../../main/mail/src/templates/account.mas:25
 msgid "Click here to create a new mail virtual domain"
 msgstr "Klicka här för att lägga till en ny virtuell e-postdomän"
 
@@ -18242,6 +18643,22 @@ msgstr "Hämta epost från externa konton"
 #, fuzzy
 msgid "Fetch already read messages"
 msgstr "Lärde från meddelanden"
+
+#: ../../main/mail/src/templates/externalAccounts.mas:23
+#, perl-brace-format
+msgid ""
+"Mail retrieval from external accounts service is not enabled; until you {ub}"
+"enable it{ue} your changes won't have any effect."
+msgstr ""
+
+#: ../../main/mail/src/templates/externalAccounts.mas:32
+msgid "The user can change this settings through the user corner"
+msgstr ""
+
+#: ../../main/mail/src/templates/externalAccounts.mas:73
+#, fuzzy
+msgid "Delete external account"
+msgstr "Externt konto"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
@@ -18310,17 +18727,25 @@ msgstr "Inställningar för e-postkonto"
 msgid "Create mail aliases"
 msgstr "Skapa e-postalias"
 
-#: ../../main/mail/src/templates/alias.mas:102
+#: ../../main/mail/src/templates/alias.mas:100
 msgid "No quota"
 msgstr "Ingen kvot"
 
-#: ../../main/mail/src/templates/alias.mas:103
+#: ../../main/mail/src/templates/alias.mas:101
 msgid "Default quota"
 msgstr "Standard kvot"
 
-#: ../../main/mail/src/templates/alias.mas:104
+#: ../../main/mail/src/templates/alias.mas:102
 msgid "Custom quota"
 msgstr "Anpassad kvot"
+
+#: ../../main/mail/src/templates/alias.mas:108
+msgid "Quota type"
+msgstr "Typ av kvot"
+
+#: ../../main/mail/src/templates/alias.mas:119
+msgid "Maximum mailbox size in MB"
+msgstr "Max storlek för epostbibliotek i MB"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:7
 #, fuzzy
@@ -18410,7 +18835,7 @@ msgid "Add User"
 msgstr "Lägg till användare"
 
 #: ../../main/users/src/templates/users.mas:54
-#: ../../main/users/src/templates/user.mas:79
+#: ../../main/users/src/templates/user.mas:76
 msgid "Retype password"
 msgstr "Ange lösenordet igen"
 
@@ -18419,7 +18844,7 @@ msgstr "Ange lösenordet igen"
 msgid "Add and Edit"
 msgstr "Lägg till och ändra"
 
-#: ../../main/users/src/templates/users.mas:100
+#: ../../main/users/src/templates/users.mas:98
 #, fuzzy
 msgid "Organizational Unit"
 msgstr "Organisationsnamn"
@@ -18438,12 +18863,12 @@ msgstr ""
 msgid "Host domain name"
 msgstr "Epostnamn för värden"
 
-#: ../../main/users/src/templates/usersTableBody.mas:62
+#: ../../main/users/src/templates/usersTableBody.mas:57
 #, fuzzy
 msgid "All organizational units"
 msgstr "Organisationsnamn"
 
-#: ../../main/users/src/templates/usersTableBody.mas:67
+#: ../../main/users/src/templates/usersTableBody.mas:62
 #, fuzzy
 msgid "Organizational unit"
 msgstr "Organisationsnamn"
@@ -18510,8 +18935,8 @@ msgstr "Användare inte i grupp"
 
 #: ../../main/users/src/templates/group.mas:40
 #: ../../main/users/src/templates/group.mas:70
-#: ../../main/users/src/templates/user.mas:116
-#: ../../main/users/src/templates/user.mas:141
+#: ../../main/users/src/templates/user.mas:113
+#: ../../main/users/src/templates/user.mas:138
 msgid "Empty list"
 msgstr "Tom lista"
 
@@ -18521,8 +18946,8 @@ msgstr "Ta bort användare från grupp"
 
 #: ../../main/users/src/templates/group.mas:58
 #: ../../main/users/src/templates/group.mas:59
-#: ../../main/users/src/templates/user.mas:130
-#: ../../main/users/src/templates/user.mas:131
+#: ../../main/users/src/templates/user.mas:127
+#: ../../main/users/src/templates/user.mas:128
 msgid "Add users to group"
 msgstr "Lägg till användare till grupp"
 
@@ -18545,32 +18970,32 @@ msgstr ""
 msgid "Administration of user"
 msgstr "Administratörsrättigheter"
 
-#: ../../main/users/src/templates/user.mas:61
+#: ../../main/users/src/templates/user.mas:58
 #, fuzzy
 msgid "User quota"
 msgstr "Användarkvot överstigen"
 
-#: ../../main/users/src/templates/user.mas:102
+#: ../../main/users/src/templates/user.mas:99
 #, fuzzy
 msgid "User groups"
 msgstr "Användare i grupp"
 
-#: ../../main/users/src/templates/user.mas:103
+#: ../../main/users/src/templates/user.mas:100
 #, fuzzy
 msgid "Other groups"
 msgstr "Ta bort grupp"
 
-#: ../../main/users/src/templates/user.mas:124
+#: ../../main/users/src/templates/user.mas:121
 #, fuzzy
 msgid "Remove groups from user"
 msgstr "Ta bort användare från grupp"
 
-#: ../../main/users/src/templates/user.mas:157
-#: ../../main/users/src/templates/user.mas:162
+#: ../../main/users/src/templates/user.mas:154
+#: ../../main/users/src/templates/user.mas:159
 msgid "Delete user"
 msgstr "Ta bort användare"
 
-#: ../../main/users/src/templates/user.mas:158
+#: ../../main/users/src/templates/user.mas:155
 #, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
@@ -18578,6 +19003,15 @@ msgid ""
 msgstr ""
 "Den här åtgärden innebär att användaren och alla beroenden tas bort, såsom e-"
 "postkonton, användardata..."
+
+#~ msgid "Could not create backup archive"
+#~ msgstr "Kunde inte skapa arkiv för säkerhetskopia"
+
+#~ msgid "Could not append data to backup archive"
+#~ msgstr "Kunde inte lägga till data till arkiv för säkerhetskopia"
+
+#~ msgid "Select the printers this user will have access to."
+#~ msgstr "Välj de skrivare som den här användaren ska ha åtkomst till."
 
 #~ msgid "List of slaves"
 #~ msgstr "Lista på slaves"
@@ -18931,9 +19365,6 @@ msgstr ""
 #~ "Maximal nedladdnings-hastighet för detta nätverk. Använd -1 för att "
 #~ "inaktivera denna funktion."
 
-#~ msgid "File size"
-#~ msgstr "Filstorlek"
-
 #~ msgid "Network bandwidth rules (class 1 delay pools)"
 #~ msgstr "Nätverks bandbreddsregler (class 1 delay pools)"
 
@@ -19280,9 +19711,6 @@ msgstr ""
 #~ msgid "To set up smbldap-tools according to your LDAP configuration."
 #~ msgstr "För att ställa in smbldap-tools enligt din konfiguration"
 
-#~ msgid "printer"
-#~ msgstr "skrivare"
-
 #, fuzzy
 #~ msgid "Users files"
 #~ msgstr "Användarens filer"
@@ -19416,9 +19844,6 @@ msgstr ""
 #~ msgid "printers module"
 #~ msgstr "skrivare-modul"
 
-#~ msgid "file sharing module"
-#~ msgstr "fildelning-modul"
-
 #~ msgid ""
 #~ "The group you tried to delete has a directory which contains data, if you "
 #~ "remove it all its data will be removed. Please confirm that you want to "
@@ -19430,172 +19855,6 @@ msgstr ""
 
 #~ msgid "{group} share directory"
 #~ msgstr "{group} delad katalog"
-
-#~ msgid ""
-#~ "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
-#~ "{email}. For instance, {example}"
-#~ msgstr ""
-#~ "Flera värden separerade med komma, giltiga typer är: {dns}, {ip} och "
-#~ "{email}. Till exempel, {example}"
-
-#~ msgid "Issue"
-#~ msgstr "Utfärda"
-
-#~ msgid "Certificate changes will take effect immediately."
-#~ msgstr "Certifikatändringar blir omedelbart aktiverade"
-
-#~ msgid "The CA passphrase is optional"
-#~ msgstr "CA-lösenfrasen är valfri"
-
-#~ msgid "Issue the Certification Authority Certificate"
-#~ msgstr "Utfärda certifikat för certifikatutfärdare"
-
-#~ msgid "Issue a New Certificate"
-#~ msgstr "Utfärda ett nytt certifikat"
-
-#~ msgid "Current Certificate List"
-#~ msgstr "Lista över aktuella certifikat"
-
-#~ msgid ""
-#~ "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
-#~ "Revoked certificates respectively"
-#~ msgstr ""
-#~ "Datum refererar till utgångsdatum i giltiga/utgångna och till spärrdatum "
-#~ "i spärrade certifikat"
-
-#~ msgid "from"
-#~ msgstr "från"
-
-#~ msgid "Valid"
-#~ msgstr "Giltigt"
-
-#~ msgid "Expired"
-#~ msgstr "Utgånget"
-
-#~ msgid "Revoked"
-#~ msgstr "Spärrat"
-
-#~ msgid "Reason: {reason}"
-#~ msgstr "Anledning: {reason}"
-
-#~ msgid "Download Key(s) and Certificate"
-#~ msgstr "Hämta ner nycklar och certifikat"
-
-#~ msgid "Renewing CA certificate"
-#~ msgstr "Förnyar CA-certifikat"
-
-#~ msgid "Renewing certificate"
-#~ msgstr "Förnyar certifikat"
-
-#~ msgid ""
-#~ "This renewal can affect the functionality from other modules, please "
-#~ "confirm you are very sure to renew the whole certification authority from "
-#~ "{on} and leave the service(s) unstable or disabled"
-#~ msgstr ""
-#~ "Den här förnyelsen kan påverka funktionaliteten för andra moduler. "
-#~ "Bekräfta att du är mycket säker på att du vill förnya hela "
-#~ "certifikatutfärdaren från {on} och lämna tjänst(erna) inaktiverade eller "
-#~ "i ett instabilt skick"
-
-#~ msgid "Item"
-#~ msgstr "Sak"
-
-#~ msgid "items left"
-#~ msgstr "Saker kvar"
-
-#, fuzzy
-#~ msgid "Some error has happened in Zentyal: "
-#~ msgstr "Ett fel har hänt i eBox:"
-
-#~ msgid "Full Restore"
-#~ msgstr "Fullständig återskapning"
-
-#~ msgid "Configuration Restore"
-#~ msgstr "Återskapning av konfiguration"
-
-#~ msgid "Restore mode"
-#~ msgstr "Återskapningsläge"
-
-#~ msgid "Choose one of the options to show the associated table"
-#~ msgstr "Välj ett av alternativen för att visa associerad tabell"
-
-#~ msgid "Choose one..."
-#~ msgstr "Välj en..."
-
-#~ msgid "Adding a new {row}"
-#~ msgstr "Lägger till en ny {row}"
-
-#~ msgid "Editing {row}"
-#~ msgstr "Redigerar {row}"
-
-#~ msgid "Inexistent RAID array {a}"
-#~ msgstr "Frånvarande RAID array {a}"
-
-#~ msgid "RAID is not enabled in this system."
-#~ msgstr "RAID är inte aktiverat i detta system"
-
-#~ msgid "left-asymmetric"
-#~ msgstr "vänster-asymetrisk"
-
-#~ msgid "right-asymmetric"
-#~ msgstr "höger-asymetrisk"
-
-#~ msgid "left-symmetric"
-#~ msgstr "vänster-symetrisk"
-
-#~ msgid "right-symmetric"
-#~ msgstr "höger-symetrisk"
-
-#~ msgid "Active RAID devices"
-#~ msgstr "Aktiva RAID enheter"
-
-#~ msgid "Active RAID devices needed"
-#~ msgstr "Aktiva RAID enheter behövs"
-
-#~ msgid "Size in blocks"
-#~ msgstr "Storlek i block"
-
-#~ msgid "Chunk size"
-#~ msgstr "Chunk storlek"
-
-#~ msgid "Parity algorithm"
-#~ msgstr "Paritetsalgoritm"
-
-#~ msgid "Array properties"
-#~ msgstr "Array inställningar"
-
-#~ msgid "Resyncing array"
-#~ msgstr "Återsynkar array"
-
-#~ msgid "Rebuild array"
-#~ msgstr "Bygger om array"
-
-#~ msgid "Reshape array"
-#~ msgstr "Formar om array"
-
-#~ msgid "Operation type"
-#~ msgstr "Åtgärdstyp"
-
-#~ msgid "Percentage completed"
-#~ msgstr "Procent klart"
-
-#~ msgid "Estimated time left"
-#~ msgstr "Beräknas vara klar: {time}"
-
-#~ msgid "Operation speed"
-#~ msgstr "Åtgärdshastighet"
-
-#~ msgid "RAID device number"
-#~ msgstr "RAID enhetsnummer"
-
-#~ msgid "Device"
-#~ msgstr "Enhet"
-
-#~ msgid "failure"
-#~ msgstr "misslyckad"
-
-#~ msgid "Unused RAID arrays"
-#~ msgstr "Oanvända RAID arrays"
 
 #~ msgid "Refresh logs"
 #~ msgstr "Förnya loggar"
@@ -19611,12 +19870,6 @@ msgstr ""
 
 #~ msgid "There are no logs for this domain"
 #~ msgstr "Det finns inga loggar för denna domän"
-
-#~ msgid "Quota type"
-#~ msgstr "Typ av kvot"
-
-#~ msgid "Maximum mailbox size in MB"
-#~ msgstr "Max storlek för epostbibliotek i MB"
 
 #, fuzzy
 #~ msgid "Advanced Security Updates"
@@ -20306,9 +20559,6 @@ msgstr ""
 
 #~ msgid "Key for service URN not found"
 #~ msgstr "Nyckel för tjänst-URN ej funnen"
-
-#~ msgid "Free space"
-#~ msgstr "Fritt utrymme"
 
 #~ msgid "Error dumping the postgresql database {name}"
 #~ msgstr "Fel vid dumpning av postgresql-databasen {name}"

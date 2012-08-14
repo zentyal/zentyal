@@ -39,6 +39,7 @@ BEGIN {
     in_init = 0          # Inside an init tag
     in_perl = 0          # Inside a perl tag
     in_perl_block = 0    # Inside a <%
+    in_mason_block = 0   # Inside a <&, <%doc>, <%flags>
     useStr = "use strict;"
     printf "%s", useStr
 }
@@ -50,7 +51,7 @@ BEGIN {
         print ""
         next
     }
-    if ($0 ~ /^<\/%init>/)
+    if ($0 ~ /^<\/%(init|shared)>/)
     {
         in_init = 0
         print ""
@@ -78,7 +79,7 @@ BEGIN {
         print ""
         next
     }
-    if ($0 ~ /^<%init>/)
+    if ($0 ~ /^<%(init|shared)>/)
     {
         in_init = 1
         print ""
@@ -103,12 +104,24 @@ BEGIN {
             next
         }
     }
-    if (in_args == 0 && in_perl == 0 && in_perl_block == 0)
+    if (in_mason_block == 1 )
     {
-        perlline = ($0 ~ /^%/)
-        if (perlline)
+        if ($0 ~ /&>/ || $0 ~ /<\/%[^%]+>/ ) {
+            in_mason_block = 0
+        } else {
+            print ""
+            next
+        }
+    }
+    if (in_args == 0 && in_perl == 0 && in_perl_block == 0 && in_mason_block == 0)
+    {
+        if ($0 ~ /^%/)
         {
             print substr($0,2)
+            next
+        }
+        if ($0 ~ /^<%(method|def)/ || $0 ~ /^<\/%(method|def)>/ ) {
+            print ""
             next
         }
         if ($0 ~ /<%.*%>/)
@@ -121,6 +134,10 @@ BEGIN {
             for (i=2; i<=n_matches; i+=2) {
                 printf("%s;", matches[i])
             }
+            next
+        }
+        if ($0 ~ /<%[^%]+>/ || $0 ~ /<&[^(&>)]+$/ ) {
+            in_mason_block = 1
             next
         }
         if ($0 ~ /<%.*$/)

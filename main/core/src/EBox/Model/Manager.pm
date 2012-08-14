@@ -665,12 +665,14 @@ sub _setupModelDepends
 
     my $depends = $info->{modeldepends};
     foreach my $model (keys %{$depends}) {
-        # FIXME: this can be a list
-        my $modelDep = $depends->{$model};
-        unless (exists $self->{revModelDeps}->{$modelDep}) {
-            $self->{revModelDeps}->{$modelDep} = [];
+        my $modelDeps = $depends->{$model};
+        foreach my $modelDep (keys %{$modelDeps}) {
+            my $deps = $modelDeps->{$modelDep};
+            unless (exists $self->{revModelDeps}->{$modelDep}) {
+                $self->{revModelDeps}->{$modelDep} = {};
+            }
+            $self->{revModelDeps}->{$modelDep}->{$model} = $deps;
         }
-        push (@{$self->{revModelDeps}->{$modelDep}}, $model);
     }
 }
 
@@ -741,6 +743,9 @@ sub _compositeExists
 sub _oneToOneDependencies
 {
     my ($self, $model) = @_;
+
+    $model =~ s{^/}{};
+    $model =~ s{/$}{};
 
     unless (exists $self->{revModelDeps}->{$model}) {
         return {};

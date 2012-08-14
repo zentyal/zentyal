@@ -22,6 +22,15 @@ composites:
     OptionsTab: [Options, DynamicDNS, AdvancedOptions]
     AdvancedOptions: [LeaseTimes, ThinClientOptions]
 
+modeldepends:
+    DynamicDNS:
+        dns/DomainTable: [dynamic_domain, custom]
+    FixedAddressTable:
+        objects/ObjectTable: [object]
+    Options:
+        dns/DomainTable: [ebox]
+        network/GatewayTable: [name]
+
 foreign:
     Interfaces: [InterfaceConfiguration]
 

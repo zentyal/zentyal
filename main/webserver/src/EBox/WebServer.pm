@@ -155,7 +155,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $firewall = EBox::Global->modInstance('firewall');
+        my $firewall = $self->global()->modInstance('firewall');
 
         my $port = $firewall->requestAvailablePort('tcp', 80, 8080);
         $firewall->addInternalService(
@@ -171,8 +171,8 @@ sub initialSetup
 
         # Set port in the model
         my $settings = $self->model('GeneralSettings');
-        $settings->set(port      => $port,
-                       enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
+        $settings->setValue(port      => $port);
+        $settings->setValue(enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
     }
 }
 
