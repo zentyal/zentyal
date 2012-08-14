@@ -56,7 +56,7 @@ use Text::DHCPLeases;
 use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
 use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
-use constant DHCP_SERVICE => "zentyal.dhcpd";
+use constant DHCP_SERVICE => "isc-dhcp-server";
 
 use constant TFTP_SERVICE => "tftpd-hpa";
 
