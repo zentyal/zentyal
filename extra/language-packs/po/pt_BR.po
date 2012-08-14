@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2012-08-07 20:56+0200\n"
-"Last-Translator: douglasanpa <douglas@ifsp.edu.br>\n"
+"PO-Revision-Date: 2012-08-13 20:05+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -4028,9 +4028,9 @@ msgid "Disabled - {oh}Enable{ch}"
 msgstr "Desabilitado - {oh}Habilitar{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Não conectado. Verifique os logs VPN em {path}"
+msgstr "Não conectado. {oh}Verificar conexões VPN{ch} e os logs em {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #, fuzzy

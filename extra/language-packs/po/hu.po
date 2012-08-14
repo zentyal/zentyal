@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2012-08-08 21:47+0200\n"
-"Last-Translator: makany <makany.gyorgy@gmail.com>\n"
+"PO-Revision-Date: 2012-08-13 10:13+0200\n"
+"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,8 @@ msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Itt feltölthet tartományok kategorizált listáit tartalmazó fájlokat. Az "
+"egyes szűrőprofilokban ezen kategóriák alapján szűrhet."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 msgid "Time period"
@@ -184,7 +186,7 @@ msgstr "Csoport"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "„{p}” profil alkalmazása"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:35
 msgid "Domain or URL"
@@ -698,11 +700,15 @@ msgstr ""
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Ha a globális korlát engedélyezett, akkor meg kell adnia a méretét és a "
+"sebességértékeket"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:69
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Ha a kliensenkénti korlát engedélyezett, akkor meg kell adnia a méretét és a "
+"sebességértékeket"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:78
 #, perl-brace-format
@@ -710,6 +716,8 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"A kliensenkénti sebesség ({clt_rate} KB/s) nem lehet nagyobb a globális "
+"sebességnél ({net_rate} KB/s)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:134
 msgid "Network object"
@@ -717,7 +725,7 @@ msgstr "Hálózati objektum"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:143
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Az objektum globális korlátjának engedélyezése"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:150
 #, fuzzy
@@ -747,6 +755,8 @@ msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Korlátozott letöltési sebesség a legnagyobb méret elérése után a teljes "
+"hálózati objektumon."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
@@ -780,6 +790,8 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:183
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
+"Korlátozott letöltési sebesség a legnagyobb méret elérése után az egyes "
+"klienseken."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:192
 #, fuzzy
@@ -947,6 +959,8 @@ msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
+"Nincsenek megadva kategóriák. A kategóriánkénti szűréshez kategorizált "
+"listafájlokat kell felvennie."
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
@@ -1208,11 +1222,11 @@ msgstr "Adzapper beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:237
 msgid "Set the kerberos keytab path"
-msgstr ""
+msgstr "A Kerberos keytab útvonal beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:242
 msgid "Extract the service principal key"
-msgstr ""
+msgstr "A szolgáltatásrésztvevő kulcsának kinyerése"
 
 #: ../../main/squid/src/EBox/Squid.pm:256
 msgid "Overwrite blocked page templates"
@@ -1536,7 +1550,7 @@ msgstr "Alapértelmezett átjáró"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "A Zentyal legyen a kliens alapértelmezett átjárója"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:151
 #, fuzzy
@@ -1792,7 +1806,7 @@ msgstr "Letöltés"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Véletlenszerű"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 #, fuzzy
@@ -2308,7 +2322,7 @@ msgstr "Port átirányítás"
 #: ../../main/firewall/src/EBox/Firewall.pm:579
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:170
 msgid "SNAT"
-msgstr ""
+msgstr "SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:739
 msgid "Input interface"
@@ -2989,7 +3003,7 @@ msgstr ""
 msgid ""
 "Here you can add the traffic shaping rules for your internal and external "
 "interfaces"
-msgstr ""
+msgstr "Itt felveheti a belső és külső csatolók forgalomszabályozási szabályait"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
@@ -3024,7 +3038,7 @@ msgstr "Csatoló sebességek"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:420
 #, perl-brace-format
 msgid "Iface {if} cannot be traffic shaped"
-msgstr ""
+msgstr "A csatolón ({if}) nem végezhető forgalomszabályozás"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:437
 #, perl-brace-format
@@ -3166,6 +3180,10 @@ msgid ""
 "record. Moreover, the same IP addresses have been assigned to this new "
 "domain. You can always rename it or create alias for it."
 msgstr ""
+"Tartomány felvéve. A(z) {nshost} gépnév fel lett véve ehhez a tartományhoz a "
+"következő IP-címekkel: {ips}. A gépnév be lett állítva névkiszolgáló "
+"rekordként is. Ezen túl ugyanezek az IP-címek hozzá lettek rendelve ehhez az "
+"új tartományhoz. Bármikor átnevezheti, vagy létrehozhat hozzá egy álnevet."
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:570
 #, fuzzy
@@ -3241,7 +3259,7 @@ msgstr "IP"
 
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:80
 msgid "The domain name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "A tartománynév az IP-címek ezen listájára lesz feloldva."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:87
 #, perl-brace-format
@@ -3383,7 +3401,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:129
 msgid "The host name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "A gépnév az IP-címek ezen listájára lesz feloldva."
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3412,6 +3430,8 @@ msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
+"Ez a gépnév álneveinek listája. Mindegyik a gép IP-címeinek listájára lesz "
+"feloldva."
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:206
 #: ../../main/dns/src/EBox/DNS.pm:1892
@@ -3526,11 +3546,11 @@ msgstr "A bind9 init szkript link törlése"
 
 #: ../../main/dns/src/EBox/DNS.pm:706
 msgid "Override named apparmor profile"
-msgstr ""
+msgstr "A megnevezett AppArmor profil felülbírálása"
 
 #: ../../main/dns/src/EBox/DNS.pm:707
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "A Samba démon betölthesse az Active Directory zónát"
 
 #: ../../main/dns/src/EBox/DNS.pm:732
 msgid "Domain Name Service"
@@ -3716,7 +3736,7 @@ msgstr "tag"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:134
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Csak hálózati címek végződhetnek nullára"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
 msgid "You can only use MAC addresses with hosts"
@@ -4302,11 +4322,11 @@ msgstr "Korlátlan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
 msgid "VPN Connectivity Check"
-msgstr ""
+msgstr "VPN kapcsolat-ellenőrzés"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
 msgid "The VPN server is reachable"
-msgstr ""
+msgstr "A VPN-kiszolgáló elérhető"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
 #, fuzzy
@@ -4317,7 +4337,7 @@ msgstr "Zentyal Cloud kapcsolat"
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
-msgstr ""
+msgstr "Teszteli, hogy a VPN-kliens képes-e csatlakozni a kiszolgálóhoz"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 msgid "Latest security update"
@@ -4423,7 +4443,7 @@ msgstr "Elérhető tárhely"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:397
 msgid "Select one of your purchases"
-msgstr ""
+msgstr "Válasszon egy vásárlást"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:405
 msgid "Zentyal subscription details"
@@ -4633,6 +4653,9 @@ msgid ""
 "You can reset it {ohp}here{closehref}. If you need a new account you can "
 "subscribe {openhref}here{closehref}."
 msgstr ""
+"A felhasználó/e-mail és a jelszó nem egyezik. Elfelejtette a jelszót? "
+"Visszaállíthatja {oph}itt{closehref}. Ha új fiókra van szüksége, akkor "
+"feliratkozhat {openhref}itt{closehref}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:71
 msgid ""
@@ -4704,7 +4727,7 @@ msgstr "A webes bejelentkezőszolgáltatás kulcs nem elérhető"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:215
 msgid "None of the available bundles are valid for this server"
-msgstr ""
+msgstr "Az elérhető csomagok egyike sem érvényes ehhez a kiszolgálóhoz"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:587
 #, perl-brace-format
@@ -5038,7 +5061,7 @@ msgstr "Nincsenek megfigyelhető belső csatolók"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:134
 #, perl-brace-format
 msgid "Cannot disable {if}, it is needed by captive portal"
-msgstr ""
+msgstr "Nem tiltható le a(z) {if}, az elfogó portálnak szüksége van rá"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:63
 msgid "External in"
@@ -5076,7 +5099,7 @@ msgstr "Adatok szerzéséhez engedélyeznie kell a sávszélesség-figyelőt."
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:139
 #, perl-brace-format
 msgid "Error when extracting usage data: {err}"
-msgstr ""
+msgstr "Hiba a használati adatok kinyerésekor: {err}"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
@@ -5231,12 +5254,14 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:141
 #, perl-brace-format
 msgid "{user} has logged in captive portal and has quota left"
-msgstr ""
+msgstr "{user} bejelentkezett az elfogó portálra, és még van kvótája"
 
 #: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:168
 #, perl-brace-format
 msgid "{user} is out of quota in captive portal with a usage of {bwusage} Mb"
 msgstr ""
+"{user} kvótája elfogyott az elfogó portálon, a felhasznált adatmennyiség: "
+"{bwusage} Mb"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:50
 #, fuzzy
@@ -5267,12 +5292,15 @@ msgstr "kivétel"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:81
 msgid "List of services and network objects which are exempt of captive portal"
 msgstr ""
+"Az elfogó portál hatálya alól kivett szolgáltatások és hálózati objektumok "
+"listája"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:102
 #, perl-brace-format
 msgid ""
 "Cannot add service {srv} because it will allow access to all connections"
 msgstr ""
+"Nem vehető fel a(z) {srv}, mert hozzáférést biztosítana minden kapcsolathoz"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
@@ -5442,6 +5470,8 @@ msgstr ""
 msgid ""
 "All the enabled interfaces have been also enabled in bandwith monitor module"
 msgstr ""
+"Minden engedélyezett csatoló engedélyezve lett a "
+"hálózatisávszélesség-figyelő modulban is"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
 msgid "Default external bandwidth usage limit"
@@ -5485,7 +5515,7 @@ msgstr "Azon csatolók listája, amelyeken az Elfogó portál engedélyezve van.
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:91
 #, perl-brace-format
 msgid "Interface {if} set to {val} in bandwith monitor module"
-msgstr ""
+msgstr "A(z) {if} beállítva {val} értékre a sávszélesség-figyelő modulban"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1480
@@ -5538,7 +5568,7 @@ msgstr "Elfogó portál"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Event/Watcher/CaptivePortalQuota.pm:91
 msgid "Notify when a user is out of quota"
-msgstr ""
+msgstr "Értesítés, ha a felhasználó kvótája elfogyott"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:61
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:62
@@ -5919,6 +5949,8 @@ msgid ""
 "Error installing packages: {err}. The backup will continue but it would not "
 "able to recover any configuration which depends on the missing packages"
 msgstr ""
+"Hiba a csomagok telepítésekor: {err}. A biztonsági mentés folytatódik, de "
+"nem lesz képes visszaállítani a hiányzó csomagoktól függő beállításokat."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1076
 msgid ""
@@ -6233,7 +6265,7 @@ msgid ""
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
 "Elnézést, váratlan hiba történt. Lépjen kapcsolatba a támogatással, és nézze "
-"meg a /var/log/zentyal.log fájlt a további részletekért."
+"meg a  /var/log/zentyal/zentyal.log fájlt a további részletekért."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2893
 msgid "Restore process aborted"
@@ -6676,7 +6708,7 @@ msgstr "Biztonsági mentés"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
 msgid "Update file list process running, retry later"
-msgstr ""
+msgstr "A fájllista frissítése folyamat fut, próbálja újra később"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
@@ -6725,10 +6757,12 @@ msgstr "A távoli URL a kézi visszaállítást megkettőzve használja itt: {ur
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
+"A naplók visszaállítása érdekében telepíteni és engedélyezni kell a naplózás "
+"modult"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
 msgid "To be able to restore logs you need the logs module enabled"
-msgstr ""
+msgstr "A naplók visszaállítása érdekében engedélyezni kell a naplózás modult"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
 msgid "Restore logs database"
@@ -6767,7 +6801,7 @@ msgstr "A távoli mentés állapota"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:108
 msgid "Update process running, retry later"
-msgstr ""
+msgstr "A frissítési folyamat fut, próbálja újra később"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:161
 msgid "Domains to back up"
@@ -6847,6 +6881,8 @@ msgstr ""
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
+"Egy másik folyamat frissíti az adatgyűjtés állapotát. Várjon egy kicsit, és "
+"próbálja újra"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1093
 #: ../../main/core/src/EBox/SysInfo.pm:87
@@ -6859,11 +6895,16 @@ msgid ""
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
 "credentials."
 msgstr ""
+"Nem használható a felhő biztonsági mentési mód. Vagy nincs jelen a "
+"katasztrófa utáni helyreállítás modul, vagy nem sikerült csatlakozni a "
+"Zentyal Cloudhoz a hitelesítési adatok lekéréséhez."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1190
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
+"Nem sikerült lekérni a biztonsági mentés hitelesítési adatait, ellenőrizze a "
+"kapcsolatot a Zentyal Cloudhoz"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1292
 #, perl-brace-format
@@ -6872,6 +6913,9 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
+"Nem sikerült a leiratkozás, mert a biztonsági mentés modul a Zentyal Cloud "
+"használatára van beállítva. Ha le szeretne iratkozni, akkor módosítania kell "
+"ezt a {ohref}beállítást{chref}."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1431
 #, fuzzy
@@ -6884,6 +6928,8 @@ msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
 "size is  {req}"
 msgstr ""
+"Túl kevés a szabad hely itt: {target}. {free} Mb érhető el, a biztonsági "
+"mentés becsült mérete: {req}"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1469
 #, fuzzy, perl-brace-format
@@ -6893,16 +6939,16 @@ msgstr "A fájl létezik és nem egy mappa"
 #: ../../main/ebackup/src/EBox/EBackup.pm:1520
 #, perl-brace-format
 msgid "{target} is not mounted"
-msgstr ""
+msgstr "{target} nincs csatolva"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1526
 #, perl-brace-format
 msgid "{{mp} is not mounted and {target} is inside it"
-msgstr ""
+msgstr "{{mp} nincs csatolva, és a(z) {target} azon belül van"
 
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Notify the result of scheduled backups."
-msgstr ""
+msgstr "Értesítsen az ütemezett biztonsági mentések eredményéről."
 
 #: ../../main/ebackup/src/EBox/EBackup/DBRestore.pm:50
 #, perl-brace-format
@@ -6921,6 +6967,7 @@ msgstr "Minden adat és beállítás mentése"
 #, perl-brace-format
 msgid "Cannot find metadata for backup date {date} in cloud"
 msgstr ""
+"Nem találhatók a(z) {date} biztonsági mentési dátum metaadatai a felhőben"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -6935,7 +6982,7 @@ msgstr "Üres adat: {data}"
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Hiányzó argumentum: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 #, fuzzy
@@ -7013,7 +7060,7 @@ msgstr "Az engedélyezett és letiltott modulok beállítása."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:111
 msgid "IPsec VPN"
-msgstr ""
+msgstr "IPsec VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:239
 #, fuzzy
@@ -7037,7 +7084,7 @@ msgstr "Kliens kacsolódása megszakítva"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:282
 msgid "IPsec"
-msgstr ""
+msgstr "IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
@@ -7052,11 +7099,11 @@ msgstr "Kódolás"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
-msgstr ""
+msgstr "ESP DH csoport"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
 msgid "ESP Keylife"
-msgstr ""
+msgstr "ESP kulcs élettartama"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
 #, fuzzy
@@ -7065,7 +7112,7 @@ msgstr "PAM engedélyezése"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
-msgstr ""
+msgstr "2. fázis"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:66
 #, fuzzy
@@ -7084,7 +7131,7 @@ msgstr "Helyi hálózat"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:76
 msgid "Local subnet available through the tunnel."
-msgstr ""
+msgstr "Az alagúton át elérhető helyi alhálózat."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:80
 #, fuzzy
@@ -7093,7 +7140,7 @@ msgstr "IP-cím"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:88
 msgid "Remote endpoint public IP address."
-msgstr ""
+msgstr "Távoli végpont nyilvános IP-címe."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:92
 #, fuzzy
@@ -7107,7 +7154,7 @@ msgstr "Távoli IP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:102
 msgid "Remote subnet available through the tunnel."
-msgstr ""
+msgstr "Az alagúton át elérhető távoli alhálózat."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:106
 #, fuzzy
@@ -7116,7 +7163,7 @@ msgstr "Megosztott titkosítás"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:108
 msgid "Pre-shared key for the IPsec connection."
-msgstr ""
+msgstr "Az IPsec kapcsolat előzetesen megosztott kulcsa."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
@@ -7172,6 +7219,9 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
+"Az IPsec kapcsolatok lehetővé teszik biztonságos alagutak létesítését "
+"különböző alhálózatok között. Ez a protokoll szállítófüggetlen, és "
+"összekapcsolja a Zentyalt más biztonsági eszközökkel."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
@@ -7186,11 +7236,11 @@ msgstr "Kódolás"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
 msgid "IKE Keylife"
-msgstr ""
+msgstr "IKE kulcs élettartama"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:180
 msgid "Phase 1"
-msgstr ""
+msgstr "1. fázis"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:114
@@ -7224,6 +7274,8 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
+"Válassza ki a szolgáltatóját a listából, és adja meg fiókadatait. A "
+"működéséhez engedélyeznie is kell."
 
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:77
@@ -7242,7 +7294,7 @@ msgstr "átjáró"
 
 #: ../../main/network/src/EBox/Model/BalanceGateways.pm:85
 msgid "Here you can choose which gateways are used to balance the traffic"
-msgstr ""
+msgstr "Itt kiválaszthatja a forgalom kiegyenlítéséhez használt átjárókat"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:145
 msgid "IP or network address"
@@ -7352,13 +7404,15 @@ msgstr "A következő átjáró nem érhető el: {gw}"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:295
 msgid "Since you have not gateways you should add the first one as default"
-msgstr ""
+msgstr "Mivel nincsenek átjárók, fel kell vennie az elsőt alapértelmezettként"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:316
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Nem távolíthatja el az alapértelmezett attribútumot, ha meg szeretné "
+"változtatni, akkor rendelje másik átjáróhoz"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:324
 msgid "Automatically added gateways can not be manually deleted"
@@ -7377,13 +7431,14 @@ msgstr "Átjáró"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:566
 msgid "Gateways names cannot begin or end with '-'"
-msgstr ""
+msgstr "Az átjárónevek nem kezdődhetnek vagy végződhetnek „-” jellel"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:575
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
 msgstr ""
+"Az átjárónevek csak angol kisbetűket, számokat és „-” jelet tartalmazhatnak"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -8229,6 +8284,9 @@ msgid ""
 "machine should be directly edited from VirtualBox GUI or using the "
 "vboxmanage command"
 msgstr ""
+"A beállítások nem lesznek felülírva ennek aktiválása után, és a gépet "
+"közvetlenül kell szerkeszteni a VirtualBox GUI-ról, vagy a vboxmanage "
+"paranccsal."
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
@@ -8264,12 +8322,17 @@ msgid ""
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Csak azon objektumtagok esetén, amelyek IP-címe gépé (/32), érvényes MAC, az "
+"IP-címet nem használja az elérhető tartomány, és amelyek neve egyedi, "
+"rögzített cím kerül felhasználásra."
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:239
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"Azon tagok, amelyek neve nem érvényes gépnév, módosításra kerülnek, hogy "
+"érvényes tartománynévvé váljanak."
 
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:78
 #, fuzzy
@@ -8281,6 +8344,8 @@ msgid ""
 "Here you can configure the DHCP server for each internal interface, and "
 "enable or disable them"
 msgstr ""
+"Itt beállíthatja a DHCP-kiszolgálót minden belső csatolóhoz, és "
+"engedélyezheti vagy letilthatja azokat"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:78
 #, perl-brace-format
@@ -8362,13 +8427,13 @@ msgstr "Zentyal"
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:64
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:55
 msgid "32 bits"
-msgstr ""
+msgstr "32 bit"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:359
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:68
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:59
 msgid "64 bits"
-msgstr ""
+msgstr "64 bit"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:380
 msgid "Next server"
@@ -8385,7 +8450,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:390
 msgid "Thin Client server as seen by the clients."
-msgstr ""
+msgstr "A kliensek által látott vékonykliens-kiszolgáló."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:394
 #, fuzzy
@@ -8400,13 +8465,15 @@ msgstr "A fájl elérési útvonala a következő kiszolgálón"
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:81
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:72
 msgid "Architecture"
-msgstr ""
+msgstr "Architektúra"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:429
 msgid ""
 "Architecture of the LTSP clients. The LTSP image for that architecture must "
 "exist in order to boot the clients."
 msgstr ""
+"Az LTSP kliensek architektúrája. Ezen architektúra LTSP lemezképének "
+"léteznie kell, hogy a kliensek el tudjanak róla indulni."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:432
 #, fuzzy
@@ -8415,7 +8482,7 @@ msgstr "Kliens"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:436
 msgid "Whether the clients are fat clients or not."
-msgstr ""
+msgstr "A kliensek vastag kliensek-e."
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:445
 msgid "Thin client"
@@ -10128,13 +10195,12 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
 
 #: ../../main/samba/src/EBox/Samba.pm:109
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "ebox/samba."
 msgstr ""
-"A Zentyal létrehozza a home könyvtárat a Samba megosztásoknak és "
-"csoportoknak a /home/samba alatt."
+"A Zentyal létrehozza a Samba megosztások és csoportok könyvtárait a "
+"/home/ebox/samba alatt."
 
 #: ../../main/samba/src/EBox/Samba.pm:125
 msgid "To set up Samba according to your configuration."

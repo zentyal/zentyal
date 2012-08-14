@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-01 12:41+0200\n"
-"Last-Translator: razvandudu <razvandudu@gmail.com>\n"
+"PO-Revision-Date: 2012-08-13 13:57+0200\n"
+"Last-Translator: mircea <popmircea74@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -246,11 +246,11 @@ msgstr "Domeniu sau adresa IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:233
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "Domenii sau reguli URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:241
 msgid "internet domain or URL"
-msgstr ""
+msgstr "URL sau  Domeniu internet "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid ""
@@ -275,9 +275,8 @@ msgid "Domain Name Address"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Proxy-ul transparent POP"
+msgstr "Ocoleste Proxy-ul transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
 #, fuzzy
@@ -343,38 +342,41 @@ msgstr "Port"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Mărimea fişierului cache (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:80
 #: ../../main/squid/src/EBox/Squid.pm:866
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:87
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
-msgstr "Configurări"
+msgstr "Configurări generale"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
 msgid "Settings changed"
-msgstr "Configuraţie modificată"
+msgstr "Configurări modificate"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:132
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
+"Proxy-ul transparent este incompatibil cu politica de autorizare a grupului "
+"de utilizatori găsită în unele reguli de acces"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:160
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "Portul (port) este deja în uz. Alegeţi altul."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:155
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Observaţi că nu se poate face HTTPS prin proxy transparent. Aveţi nevoie ca "
+"să adăugaţi o regulă în firewall ca să permiteţi acest mod."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
@@ -549,9 +551,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
-"Nu puteti activa filtrul antivirus pentru ca modulul antivirus este "
-"dezactivat. Daca doriti sa filtrati virusii  mai intai activati modulul "
-"antivirus si apoi reveniti."
+"Nu puteţi activa filtrul antivirus pentru că modulul antivirus este "
+"dezactivat. Daca doriti să filtraţi viruşii  mai întâi activaţi modulul "
+"antivirus şi apoi întoarceţi-vă aici."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:70
 #, perl-brace-format
@@ -579,7 +581,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:68
 msgid "Traffic size"
-msgstr ""
+msgstr "Mărime trafic"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:270
@@ -674,7 +676,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:155
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Nu sunt permise spaţii in numele de profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:51
 msgid "Block not listed domains and URLs"
@@ -686,10 +688,13 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
+"Dacă este validat, orice someniu sau URL  care nu sunt prezente nici în "
+"secţiunile  <i>Domenii şi reguli URL</i> sau în  <i>Lista fişierelor de "
+"domenii</i> de mai jos , vor fi interzise."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:61
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Blochează site-uri specificând numai adresa IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
 msgid "Domain filter settings"
@@ -710,6 +715,8 @@ msgstr ""
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Daca limita globală este activată este nevoie să îi specificaţi valorile "
+"pentru dimensiune şi rată"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:69
 msgid ""
@@ -722,19 +729,20 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Rata de download per client ({clt_rate} KB/s) nu ppoate fi mai mare decât "
+"rata globală ({net_rate} KB/s)."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:134
 msgid "Network object"
-msgstr ""
+msgstr "Obiect reţea"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:143
 msgid "Enable global limit for the object"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:150
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Timpul maxim de licentiere"
+msgstr "Mărimea maximă nelimitată"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:151
 msgid "Maximum unthrottled download size for the whole network object."
@@ -747,25 +755,25 @@ msgid "MB"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:159
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Adresa client"
+msgstr "Rata maximă de download"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:160
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Limitează rata de download după ce mărimea maximă este atinsă pentru "
+"întregul obiect reţea"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:167
-#, fuzzy
 msgid "Enable per client limit"
-msgstr "Activare {dirName} per utilizator"
+msgstr "Activare limita per utilizator"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:174
 msgid "Maximum unlimited size per client"

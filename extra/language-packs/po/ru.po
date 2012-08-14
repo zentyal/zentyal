@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-10 14:13+0200\n"
+"PO-Revision-Date: 2012-08-14 08:07+0200\n"
 "Last-Translator: DGV <dgv@bigmir.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
@@ -44,9 +44,8 @@ msgid "Categorized Lists"
 msgstr "Списки категорий"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:75
-#, fuzzy
 msgid "categorized list"
-msgstr "Категории"
+msgstr "список по категориям"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid ""
@@ -4788,7 +4787,7 @@ msgstr "Резервная копия удалена"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr "Сделать удаленную резервную копию"
+msgstr "Создание удаленной резервной копии"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
@@ -4872,8 +4871,8 @@ msgid ""
 "Please confirm that you want to overwrite the following remote backup with a "
 "new one"
 msgstr ""
-"Подтвердите, пожалуйста, удаление следующей резервной копии на внешнем "
-"источнике"
+"Подтвердите, пожалуйста, перезапись текущей резервной копии новым "
+"экземпляром"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
