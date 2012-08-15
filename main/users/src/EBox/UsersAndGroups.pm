@@ -329,6 +329,7 @@ sub setupDNS
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
             EBox::debug("Skip adding DNS kerberos records because samba is enabled");
+            return;
         }
     }
 
