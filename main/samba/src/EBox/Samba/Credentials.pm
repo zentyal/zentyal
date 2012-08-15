@@ -13,16 +13,70 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::LDB::Credentials;
+package EBox::Samba::Credentials;
 
 use strict;
 use warnings;
 
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
+
 use Encode;
 
-sub encodeKerberosKeyData
+sub new
 {
-    my ($key, $keyOffset) = @_;
+    my ($class, %params) = @_;
+
+    my $self = {};
+    bless ($self, $class);
+
+    unless ($params{krb5Keys} or $params{unicodePwd} or $params{supplementalCredentials}) {
+        throw EBox::Exceptions::MissingArgument('krb5Keys or unicodePwd or supplementalCredentials');
+    }
+
+    if (exists $params{krb5Keys}) {
+        my $encoded = $self->_encodeSambaCredentials($params{krb5Keys});
+        $self->{krb5Keys} = $params{krb5Keys};
+        $self->{unicodePwd} = $encoded->{unicodePwd};
+        $self->{supplementalCredentials} = $encoded->{supplementalCredentials};
+    } elsif (exists $params{unicodePwd} or exists $params{supplementalCredential}) {
+        my $decoded = $self->_decodeSambaCredentials($params{supplementalCredentials}, $params{unicodePwd});
+        $self->{unicodePwd} = $params{unicodePwd};
+        $self->{supplementalCredentials} = $params{supplementalCredentials};
+        $self->{krb5Keys} = $decoded->{kerberosKeys};
+    }
+
+    return $self;
+}
+
+sub kerberosKeys
+{
+    my ($self) = @_;
+
+    return $self->{krb5Keys};
+}
+
+sub supplementalCredentials
+{
+    my ($self) = @_;
+
+    return $self->{supplementalCredentials};
+}
+
+sub unicodePwd
+{
+    my ($self) = @_;
+
+    return $self->{unicodePwd};
+}
+
+###########################################################
+##              Encoding Section                         ##
+###########################################################
+
+sub _encodeKerberosKeyData
+{
+    my ($self, $key, $keyOffset) = @_;
 
     my $reserved1 = 0;
     my $reserved2 = 0;
@@ -37,9 +91,9 @@ sub encodeKerberosKeyData
     return $blob;
 }
 
-sub encodeKerberosProperty
+sub _encodeKerberosProperty
 {
-    my ($keys, $oldKeys) = @_;
+    my ($self, $keys, $oldKeys) = @_;
 
     my $salt = @{$keys}[0]->{salt}; # FIXME
     $salt = encode('UTF16-LE', $salt);
@@ -52,12 +106,12 @@ sub encodeKerberosProperty
     my $keyValueOffset = 16 + 20 + (scalar @{$keys} * 20) + $defaultSaltLength;
 
     foreach my $key (@{$keys}) {
-        push ($credentials, encodeKerberosKeyData($key, $keyValueOffset));
+        push ($credentials, $self->_encodeKerberosKeyData($key, $keyValueOffset));
         push ($keyValues, $key->{value});
         $keyValueOffset += 8;
     }
     foreach my $key (@{$oldKeys}) {
-        push ($oldCredentials, encodeKerberosKeyData($key, $keyValueOffset));
+        push ($oldCredentials, $self->_encodeKerberosKeyData($key, $keyValueOffset));
         push ($keyValues, $key->{value});
         $keyValueOffset += 8;
     }
@@ -84,9 +138,9 @@ sub encodeKerberosProperty
     return $blob;
 }
 
-sub encodeWDigestProperty
+sub _encodeWDigestProperty
 {
-    my ($sam, $principal, $netbios, $dns, $pwd) = @_;
+    my ($self, $sam, $principal, $netbios, $dns, $pwd) = @_;
 
     $sam       = encode("iso-8859-1", $sam);
     $principal = encode("iso-8859-1", $principal);
@@ -137,9 +191,9 @@ sub encodeWDigestProperty
     return $blob;
 }
 
-sub encodeUserProperty
+sub _encodeUserProperty
 {
-    my ($name, $value) = @_;
+    my ($self, $name, $value) = @_;
 
     my $propertyName  = encode('UTF16-LE', $name);
     my $propertyValue = uc(unpack ('H*', $value));
@@ -154,9 +208,9 @@ sub encodeUserProperty
     return $blob;
 }
 
-sub encodeUserProperties
+sub _encodeUserProperties
 {
-    my ($kerberosKeys, $digest) = @_;
+    my ($self, $kerberosKeys, $digest) = @_;
 
     my @packages = ();
     my $userProperties = '';
@@ -175,24 +229,24 @@ sub encodeUserProperties
     }
 
     if (defined $kerberosKeys) {
-        my $kerberosProperty = encodeKerberosProperty($kerberosKeys);
-        $userProperties .= encodeUserProperty('Primary:Kerberos', $kerberosProperty);
+        my $kerberosProperty = $self->_encodeKerberosProperty($kerberosKeys);
+        $userProperties .= $self->_encodeUserProperty('Primary:Kerberos', $kerberosProperty);
         push (@packages, encode('UTF16-LE', 'Kerberos'));
     }
 
     if (defined $digest) {
-        my $wdigestProperty  = encodeWDigestProperty(
+        my $wdigestProperty  = $self->_encodeWDigestProperty(
             $digest->{sam},
             $digest->{principal},
             $digest->{netbios},
             $digest->{dns},
             $digest->{pwd});
-        $userProperties .= encodeUserProperty('Primary:WDigest', $wdigestProperty);
+        $userProperties .= $self->_encodeUserProperty('Primary:WDigest', $wdigestProperty);
         push (@packages, encode('UTF16-LE', 'WDigest'));
     }
 
     my $packagesStr = join(encode('UTF16-LE', "\0"), @packages);
-    $userProperties .= encodeUserProperty('Packages', $packagesStr);
+    $userProperties .= $self->_encodeUserProperty('Packages', $packagesStr);
 
     my $length = 4 + 96 + length ($userProperties);
 
@@ -206,9 +260,9 @@ sub encodeUserProperties
     return $blob;
 }
 
-sub encodeSambaCredentials
+sub _encodeSambaCredentials
 {
-    my ($krbKeys) = @_;
+    my ($self, $krbKeys) = @_;
 
     unless (defined $krbKeys) {
         throw EBox::Exceptions::MissingArgument('krbKeys');
@@ -234,13 +288,17 @@ sub encodeSambaCredentials
     }
 
     if (scalar @{$krbKeys} >= 2) {
-        $credentials->{supplementalCredentials} = encodeUserProperties($newList);
+        $credentials->{supplementalCredentials} = $self->_encodeUserProperties($newList);
     }
 
     return $credentials;
 }
 
-# Method: decodeWDigest
+###########################################################
+##              Decoding Section                         ##
+###########################################################
+
+# Method: _decodeWDigest
 #
 #   Docode the WDIGEST_CREDENTIALS struct. This struct
 #   contains 29 different hashes produced by combinations
@@ -254,9 +312,9 @@ sub encodeSambaCredentials
 #
 #   An array reference containing the hashes
 #
-sub decodeWDigest
+sub _decodeWDigest
 {
-    my ($data) = @_;
+    my ($self, $data) = @_;
 
     my $hashes = ();
 
@@ -272,7 +330,7 @@ sub decodeWDigest
     return $hashes;
 }
 
-# Method: decodeKerberos
+# Method: _decodeKerberos
 #
 #   Decode the KERB_STORED_CREDENTIAL struct. This struct
 #   contains the hashes of the kerberos keys. Its format
@@ -283,9 +341,9 @@ sub decodeWDigest
 #
 #   A hash reference with the kerberos keys
 #
-sub decodeKerberos
+sub _decodeKerberos
 {
-    my ($data) = @_;
+    my ($self, $data) = @_;
 
     my $kerberosKeys = [];
 
@@ -319,9 +377,9 @@ sub decodeKerberos
     return $kerberosKeys;
 }
 
-sub decodeKerberosNewerKeys
+sub _decodeKerberosNewerKeys
 {
-    my ($data) = @_;
+    my ($self, $data) = @_;
 
     my $kerberosKeys = [];
 
@@ -351,7 +409,7 @@ sub decodeKerberosNewerKeys
     return $kerberosKeys;
 }
 
-# Method: decodeSupplementalCredentials
+# Method: _decodeSupplementalCredentials
 #
 #   this struct is documented at:
 #   http://msdn.microsoft.com/en-us/library/cc245500(v=prot.10).aspx
@@ -364,9 +422,9 @@ sub decodeKerberosNewerKeys
 #   A hash reference containing the different hashes
 #   of the user credentials in different formats
 #
-sub decodeSupplementalCredentials
+sub _decodeSupplementalCredentials
 {
-    my ($blob) = @_;
+    my ($self, $blob) = @_;
 
     my $credentials = {};
     my $blobFormat = 'x4 L< x2 x2 x96 S< S< a*';
@@ -389,13 +447,13 @@ sub decodeSupplementalCredentials
                 $offset += $propertyValueLength;
 
                 if($propertyName eq encode('UTF-16LE', 'Primary:Kerberos')) {
-                    $credentials->{'Primary:Kerberos'} = decodeKerberos($propertyValue);
+                    $credentials->{'Primary:Kerberos'} = $self->_decodeKerberos($propertyValue);
                 }
                 elsif($propertyName eq encode('UTF-16LE', 'Primary:Kerberos-Newer-Keys')) {
-                    $credentials->{'Primary:Kerberos-Newer-Keys'} = decodeKerberosNewerKeys($propertyValue);
+                    $credentials->{'Primary:Kerberos-Newer-Keys'} = $self->_decodeKerberosNewerKeys($propertyValue);
                 }
                 elsif($propertyName eq encode('UTF-16LE', 'Primary:WDigest')) {
-                    $credentials->{'Primary:WDigest'} = decodeWDigest($propertyValue);
+                    $credentials->{'Primary:WDigest'} = $self->_decodeWDigest($propertyValue);
                 }
                 elsif($propertyName eq encode('UTF-16LE', 'Primary:CLEARTEXT')) {
                     $credentials->{'Primary:CLEARTEXT'} = decode('UTF-16LE', pack ('H*', $propertyValue));
@@ -410,7 +468,7 @@ sub decodeSupplementalCredentials
     return $credentials;
 }
 
-# Method: decodeSambaCredentials
+# Method: _decodeSambaCredentials
 #
 #   This method gets all the credentials stored in the
 #   LDB for the user
@@ -424,14 +482,14 @@ sub decodeSupplementalCredentials
 #
 #   A hash reference containing all found credentials
 #
-sub decodeSambaCredentials
+sub _decodeSambaCredentials
 {
-    my ($supplementalCredentialsBlob, $unicodePwdBlob) = @_;
+    my ($self, $supplementalCredentialsBlob, $unicodePwdBlob) = @_;
 
     my $credentials = {};
 
     if (defined $supplementalCredentialsBlob) {
-        my $properties = decodeSupplementalCredentials($supplementalCredentialsBlob);
+        my $properties = $self->_decodeSupplementalCredentials($supplementalCredentialsBlob);
         if (exists $properties->{'Primary:Kerberos-Newer-Keys'}) {
             $credentials->{kerberosKeys} = $properties->{'Primary:Kerberos-Newer-Keys'};
         } elsif (exists $properties->{'Primary:Kerberos'}) {
