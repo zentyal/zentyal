@@ -1,4 +1,6 @@
 HEAD
+	+ Restart apache on first enable to avoid missing model error in
+	  log observer event
 	+ Use always the same string to refer to the NetBIOS computer name
 	+ Validation of maximum length of domain name, validation against
 	  reserved words of netbios and domain names
@@ -210,7 +212,7 @@ HEAD
 	+ Remove deprecated printer admin configuration key in smb.conf.mas
 	+ Enable dns proxy in smb.conf.mas
 0.11.103
-	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid 
+	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid
 	  issues with the options cache
 0.11.102
 	+ Extend functinality to add custom shares and not only one per-group:
@@ -226,7 +228,7 @@ HEAD
 0.11.100
 	+ Change slapd.conf ownership to module users
 	+ Fix typos
-	+ onInstall() functionality moved to migration script 
+	+ onInstall() functionality moved to migration script
 0.11.99
 	+ Allow others to read contents from users home directory to
 	publish HTML
@@ -267,7 +269,7 @@ HEAD
 	+ Unlimited i-node quota
 	+ Various bug-fixes
 	+ Portuguese translation
- 
+
 0.7.1
 	+ Initial support for PDC
 	+ GUI improvements
