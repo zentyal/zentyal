@@ -485,42 +485,6 @@ sub usedFiles
             'reason' => __('Keys configuration file'),
         },
     ];
-
-# TODO Is this really needed???
-#    my @domainIds = @{$self->_domainIds()};
-#
-#    my @domainData;
-#    foreach my $domainId (@domainIds)
-#    {
-#        my $domdata = $self->_completeDomain($domainId);
-#        push(@domainData, $domdata);
-#        my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
-#        push (@{$files},
-#                {
-#                'file' => $file,
-#                'module' => 'dns',
-#                'reason' => __x('configuration file for zone {zone}',
-#                    zone => $file )
-#                });
-#
-#    }
-#
-#    my $reversedData = $self->switchToReverseInfoData(\@domainData);
-#    my @inaddrs;
-#    foreach my $reversedDataItem(@{$reversedData})
-#    {
-#        my $file = BIND9CONFDIR . "/db." . $reversedDataItem->{'groupip'};
-#        push (@{$files},
-#                {
-#                'file' => $file,
-#                'module' => 'dns',
-#                'reason' =>
-#                    __x('configuration file for reverse resolution zone {zone}'
-#                        , zone => $file )
-#                });
-#    }
-#
-#    return $files;
 }
 
 # Method: actions
@@ -699,13 +663,13 @@ sub _setConf
         }
         $file .= '/db.' . $domdata->{'name'};
 
-        @array = ();
-        push (@array, 'domain' => $domdata);
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
         if ($domdata->{'type'} eq DYNAMIC_ZONE and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
         } else {
+            @array = ();
+            push (@array, 'domain' => $domdata);
             $self->writeConfFile($file, "dns/db.mas", \@array);
             EBox::Sudo::root("chown bind:bind '$file'");
         }
@@ -716,34 +680,36 @@ sub _setConf
         }
     }
 
-    #my $reversedData = $self->switchToReverseInfoData(\@domainData);
+    my $reversedData = $self->switchToReverseInfoData(\@domainData);
 
     # Remove the unused reverse files
-    #$self->_removeUnusedReverseFiles($reversedData);
+    $self->_removeUnusedReverseFiles($reversedData);
 
     my @inaddrs = ();
-    #foreach my $reversedDataItem (@{$reversedData}) {
-    #    my $file;
-    #    if ( $reversedDataItem->{'dynamic'} ) {
-    #        $file = BIND9_UPDATE_ZONES;
-    #    } else {
-    #        $file = BIND9CONFDIR;
-    #    }
-    #    $file .= "/db." . $reversedDataItem->{'groupip'};
-    #    @array = ();
-    #    push (@array, 'rdata' => $reversedDataItem);
-    #    if ( $reversedDataItem->{'dynamic'} and -e "${file}.jnl" ) {
-    #        $self->_updateDynReverseZone($reversedDataItem);
-    #    } else {
-    #        $self->writeConfFile($file, "dns/dbrev.mas", \@array);
-    #        EBox::Sudo::root("chown bind:bind '$file'");
-    #    }
-    #    # Store to write the zone in named.conf.local
-    #    push(@inaddrs, { ip      => $reversedDataItem->{'groupip'},
-    #                     dynamic => $reversedDataItem->{'dynamic'},
-    #                     keyNames => $reversedDataItem->{'tsigKeyNames'},
-    #                   } );
-    #}
+    foreach my $group (keys $reversedData) {
+        my $reversedDataItem = $reversedData->{$group};
+        my $file;
+        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= "/db." . $group;
+        if ($reversedDataItem->{'type'} and -e "${file}.jnl" ) {
+            # TODO $self->_updateDynReverseZone($reversedDataItem);
+        } else {
+            @array = ();
+            push (@array, 'groupip' => $group);
+            push (@array, 'rdata' => $reversedDataItem);
+            $self->writeConfFile($file, "dns/dbrev.mas", \@array);
+            EBox::Sudo::root("chown bind:bind '$file'");
+        }
+        # Store to write the zone in named.conf.local
+        push (@inaddrs, { ip       => $group,
+                          file     => $file,
+                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ],
+                       } );
+    }
 
     my @domains = @{$self->domains()};
     my @intnets = @{$self->_intnets()};
@@ -1324,43 +1290,6 @@ sub _domainIds
     return $model->ids();
 }
 
-# Get the ranges for the given domain if used by DHCP module
-sub _getRanges
-{
-    my ($self, $domainData) = @_;
-
-    my @ranges = ();
-
-    my $dhcp = EBox::Global->modInstance('dhcp');
-    my $net  = EBox::Global->modInstance('network');
-
-    return \@ranges unless (defined($dhcp));
-
-    foreach my $iface (grep { $net->ifaceMethod($_) eq 'static'} @{$net->allIfaces()}) {
-        my $dynDNSRow = $dhcp->dynamicDNSDomains($iface);
-        my @domains = ( $dynDNSRow->printableValueByName('dynamic_domain') );
-        if ( $dynDNSRow->valueByName('static_domain') ne 'same' ) {
-            push(@domains, $dynDNSRow->printableValueByName('static_domain'));
-        }
-        if ( $domainData->{'name'} eq any(@domains) ) {
-            my $initRange = $dhcp->initRange($iface);
-            $initRange =~ s/1$/0/;
-            my $endRange  = $dhcp->endRange($iface);
-            my $ip = new Net::IP("$initRange - $endRange");
-            do {
-                my $rev = Net::IP->new($ip->ip())->reverse_ip();
-                if ( defined($rev) ) {
-                    # It returns 0.netaddr.in-addr.arpa so we need to remove it
-                    # to make it compilant with bind zone definition
-                    $rev =~ s/^0\.//;
-                    $rev =~ s:\.in-addr\.arpa\.::;
-                    push(@ranges, $rev);
-                }
-            } while ($ip += 256);
-        }
-    }
-    return \@ranges;
-}
 
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
@@ -1548,28 +1477,29 @@ sub _removeDomainsFiles
 }
 
 # Remove no longer used reverse zone files
-#sub _removeUnusedReverseFiles
-#{
-#    my ($self, $reversedData) = @_;
-#
-#    return if ($self->isReadOnly());
-#
-#    my $oldList = $self->st_get_list('inarpa_files');
-#    my $newList = [];
-#    foreach my $reversedDataItem (@{$reversedData}) {
-#        my $file;
-#        if ($reversedDataItem->{'dynamic'}) {
-#            $file = BIND9_UPDATE_ZONES;
-#        } else {
-#            $file = BIND9CONFDIR;
-#        }
-#        $file .= "/db." . $reversedDataItem->{'groupip'};
-#        push (@{$newList}, $file);
-#    }
-#
-#    $self->_removeDisjuncFiles($oldList, $newList);
-#    $self->st_set_list('inarpa_files', 'string', $newList);
-#}
+sub _removeUnusedReverseFiles
+{
+    my ($self, $reversedData) = @_;
+
+    return if ($self->isReadOnly());
+
+    my $oldList = $self->st_get_list('inarpa_files');
+    my $newList = [];
+    foreach my $group (keys $reversedData) {
+        my $reversedDataItem = $reversedData->{$group};
+        my $file;
+        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= "/db." . $group;
+        push (@{$newList}, $file);
+    }
+
+    $self->_removeDisjuncFiles($oldList, $newList);
+    $self->st_set_list('inarpa_files', 'string', $newList);
+}
 
 # Delete files from disjunction
 sub _removeDisjuncFiles
@@ -1730,76 +1660,43 @@ sub firewallHelper
     return undef;
 }
 
-# Method: updateReversedData
-#  updates or adds new item to the array data passed as parameters
-#
-# Parameters:
-#  array ref that holds reversed info data
-#  groupIDData structure to update or add
-#
-#sub updateReversedData
-#{
-#    my ($self, $reversedData, $groupIPData) = @_;
-#
-#    # Try to find an previously added groupip item (from other domain)
-#    my $pos = -1;
-#    for (my $i = 0; $i < @{$reversedData}; $i++) {
-#        if ($reversedData->[$i]->{'groupip'} eq $groupIPData->{'groupip'}) {
-#            my $jpos = -1;
-#            for (my $j = 0; $j < @{$reversedData->[$i]->{'domain'}}; $j++) {
-#                if($reversedData->[$i]->{'domain'}->[$j]->{'name'}
-#                        eq $groupIPData->{'domain'}->{'name'}) {
-#
-#                    # Ignore the repeated IP address for the same domain
-#                    my @toAdd = ();
-#                    foreach my $host (@{$groupIPData->{'domain'}->{'hosts'}}) {
-#                        my $nMatch = grep { $host->{ip} == $_->{ip} } @{$reversedData->[$i]->{'domain'}->[$j]->{'hosts'}};
-#                        push(@toAdd, $host) if ($nMatch == 0);
-#                    }
-#
-#                    push(@{$reversedData->[$i]->{'domain'}->[$j]->{'hosts'}},
-#                         @toAdd);
-#                    $jpos = $j;
-#                    last;
-#                }
-#            }
-#
-#            if ($jpos < 0) {
-#                # Remove those whose ip is already in the groupip
-#                for (my $idxHost = 0; $idxHost < @{$groupIPData->{'domain'}->{'hosts'}}; $idxHost++) {
-#                    my $host = $groupIPData->{'domain'}->{'hosts'}->[$idxHost];
-#                    my $anyIPMatch = 0;
-#                    foreach my $domain (@{$reversedData->[$i]->{'domain'}}) {
-#                        my $nMatch = grep { $host->{ip} == $_->{ip} } @{$domain->{'hosts'}};
-#                        $anyIPMatch = ($nMatch > 0);
-#                        last if ($anyIPMatch);
-#                    }
-#                    if ( $anyIPMatch ) {
-#                        delete $groupIPData->{'domain'}->{'hosts'}->[$idxHost];
-#                    }
-#                }
-#                push(@{$reversedData->[$i]->{'domain'}}, $groupIPData->{'domain'});
-#                if ( $groupIPData->{'type'} eq DYNAMIC_ZONE ) {
-#                    $reversedData->[$i]->{'type'} = $groupIPData->{'dynamic'};
-#                    push(@{$reversedData->[$i]->{'tsigKeyNames'}},
-#                         $groupIPData->{'tsigKeyName'});
-#                }
-#            }
-#            $pos = $i;
-#            last;
-#        }
-#    }
-#
-#    if ($pos < 0) {
-#        my $item = { 'groupip'      => $groupIPData->{'groupip'},
-#                     'dynamic'      => $groupIPData->{'dynamic'},
-#                     'tsigKeyNames' => [ $groupIPData->{'tsigKeyName'} ],
-#                     'primaryNameServer' => $self->NameserverHost() };
-#        push(@{$item->{'domain'}}, $groupIPData->{'domain'});
-#        push(@{$reversedData}, $item);
-#    }
-#}
+# Get the ranges for the given domain if used by DHCP module
+sub _getRanges
+{
+    my ($self, $domainData) = @_;
 
+    my @ranges = ();
+
+    my $dhcp = EBox::Global->modInstance('dhcp');
+    my $net  = EBox::Global->modInstance('network');
+
+    return \@ranges unless (defined($dhcp));
+
+    foreach my $iface (grep { $net->ifaceMethod($_) eq 'static'} @{$net->allIfaces()}) {
+        my $dynDNSRow = $dhcp->dynamicDNSDomains($iface);
+        my @domains = ( $dynDNSRow->printableValueByName('dynamic_domain') );
+        if ( $dynDNSRow->valueByName('static_domain') ne 'same' ) {
+            push(@domains, $dynDNSRow->printableValueByName('static_domain'));
+        }
+        if ( $domainData->{'name'} eq any(@domains) ) {
+            my $initRange = $dhcp->initRange($iface);
+            $initRange =~ s/1$/0/;
+            my $endRange  = $dhcp->endRange($iface);
+            my $ip = new Net::IP("$initRange - $endRange");
+            do {
+                my $rev = Net::IP->new($ip->ip())->reverse_ip();
+                if ( defined($rev) ) {
+                    # It returns 0.netaddr.in-addr.arpa so we need to remove it
+                    # to make it compilant with bind zone definition
+                    $rev =~ s/^0\.//;
+                    $rev =~ s:\.in-addr\.arpa\.::;
+                    push(@ranges, $rev);
+                }
+            } while ($ip += 256);
+        }
+    }
+    return \@ranges;
+}
 
 # Method: switchToReverseInfoData
 #
@@ -1824,57 +1721,44 @@ sub firewallHelper
 #  'ip': less significant block of an ip address
 #  'name': name of the host in the domain
 #
-#sub switchToReverseInfoData
-#{
-#    my ($self, $info) = @_;
-#
-#    my @reversedData = ();
-#    foreach my $domainData (@{$info}) {
-#        my $domainName = $domainData->{'name'};
-#
-#        # TODO and not samba?
-#        if ($domainData->{'dynamic'}) {
-#            my $groupIPs = $self->_getRanges($domainData);
-#
-#            foreach my $groupIP (@{$groupIPs}) {
-#                my $groupIPData = { 'groupip'     => $groupIP,
-#                                    'dynamic'     => 1,
-#                                    'tsigKeyName' => $domainName,
-#                                    'domain'  => { 'name'  => $domainName,
-#                                                   'hosts' => [] } };
-#                $self->updateReversedData(\@reversedData, $groupIPData);
-#            }
-#        }
-#
-#        foreach my $hostData (@{$domainData->{'hosts'}}) {
-#            # Remove wildcard since it is possible to set a reverse domain
-#            next if ($hostData->{'name'} eq '*');
-#
-#            # Take only the first IP of each host to set the PTR record
-#            my $hostIpAddresses = $hostData->{'ip'};
-#            next if (scalar @{$hostIpAddresses} <= 0);
-#
-#            my @ipblocks = split (/\./, @{$hostIpAddresses}[0]);
-#            # Set group ip bind format (reverse order)
-#            my $groupip = join ('.', $ipblocks[2], $ipblocks[1], $ipblocks[0]);
-#            my $hostip = $ipblocks[3];
-#
-#            my $newDomainData = {};
-#            $newDomainData->{'name'} = $domainName;
-#            $newDomainData->{'hosts'} = [ { ip => $hostip,
-#                                            name => $hostData->{'name'} } ];
-#            $newDomainData->{'nameServers'} = $domainData->{nameServers};
-#
-#            my $groupIPData = {};
-#            $groupIPData->{'groupip'} = $groupip;
-#            $groupIPData->{'domain'}  = $newDomainData;
-#            $groupIPData->{'dynamic'} = 0;
-#
-#            $self->updateReversedData(\@reversedData, $groupIPData);
-#        }
-#    }
-#
-#    return \@reversedData;
-#}
+sub switchToReverseInfoData
+{
+    my ($self, $domains) = @_;
+
+    my $reversedData = {};
+    foreach my $domain (@{$domains}) {
+        foreach my $host (@{$domain->{'hosts'}}) {
+            # Remove wildcard since it is possible to set a reverse domain
+            next if ($host->{'name'} eq '*');
+            foreach my $hostIp (@{$host->{'ip'}}) {
+                my @ipblocks = split (/\./, $hostIp);
+                my $groupip = join ('.', $ipblocks[2], $ipblocks[1], $ipblocks[0]);
+                my $ip = $ipblocks[3];
+
+                if (exists $reversedData->{$groupip}) {
+                    my $d = $reversedData->{$groupip}->{domain};
+                    my $d2 = $domain->{name};
+                    EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
+                } else {
+                    $reversedData->{$groupip} = {
+                        type => $domain->{type},
+                        domain => $domain->{name},
+                        hosts => [],
+                        ns => [],
+                        soa => $domain->{primaryNameServer},
+                        tsigKeyName => $domain->{name},
+                    };
+                    foreach my $ns (@{$domain->{nameServers}}) {
+                        push ($reversedData->{$groupip}->{ns}, $ns);
+                    }
+                    my $hostData = { ip => $ip, name => $host->{'name'}};
+                    push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
+                }
+            }
+        }
+    }
+
+    return $reversedData;
+}
 
 1;

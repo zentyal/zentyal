@@ -44,12 +44,10 @@ zone "<% $dom->{name} %>." IN {
 %   }
 % }
 
-<%doc>
 % foreach my $inaddr (@inaddrs) {
 zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
     type master;
-%   if ( $inaddr->{'dynamic'} ) {
-    file "<% $dynamicConfDir %>/db.<% $inaddr->{'ip'} %>";
+    file "<% $inaddr->{'file'} %>";
     update-policy {
         // The only allowed dynamic updates are PTR records
 %       foreach my $keyName (@{$inaddr->{'keyNames'}}) {
@@ -58,11 +56,7 @@ zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
         // Grant from localhost
         grant local-ddns zonesub any;
     };
-%   } else {
-    file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";
-%   }
 };
 % }
-</%doc>
 
 include "/etc/bind/zones.rfc1918";
