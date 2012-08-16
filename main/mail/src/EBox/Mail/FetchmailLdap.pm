@@ -33,6 +33,7 @@ use EBox::MailVDomainsLdap;
 use EBox::Module::Base;
 use EBox::Service;
 use File::Slurp;
+use Perl6::Junction qw(any);
 
 use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
@@ -153,7 +154,7 @@ sub allExternalAccountsByLocalAccount
 {
     my ($self, %params) = @_;
     my $zarafa = $params{zarafa};
-    my $zarafaDomain = $params{zarafaDomain};
+    my @zarafaDomains = $params{zarafaDomains};
 
     my %attrs = (
             base => EBox::Global->modInstance('users')->usersDn,
@@ -171,7 +172,7 @@ sub allExternalAccountsByLocalAccount
         my $localAccount = $entry->get_value('mail');
         if ($zarafa) {
             my ($left, $accountDomain) = split '@', $localAccount, 2;
-            if ($accountDomain eq $zarafaDomain) {
+            if ($accountDomain eq any @zarafaDomains) {
                 if (not $entry->get_value('zarafaAccount')) {
                     EBox::info("Ignored fetchmail entry for account $localAccount since it is a disabled Zarafa account");
                     next;
@@ -254,7 +255,7 @@ sub writeConf
 {
     my ($self, %params) = @_;
     my $zarafa       = $params{zarafa};
-    my $zarafaDomain = $params{zarafaDomain};
+    my @zarafaDomains = $params{zarafaDomains};
 
     if (not $self->isEnabled()) {
         EBox::Sudo::root('rm -f ' . FETCHMAIL_CRON_FILE);
@@ -267,7 +268,7 @@ sub writeConf
 
     my $usersAccounts = [ values %{
                                     $self->allExternalAccountsByLocalAccount(zarafa => $zarafa,
-                                                                             zarafaDomain => $zarafaDomain
+                                                                             zarafaDomains => @zarafaDomains
                                                                             )
                                   }
                          ];
