@@ -1,4 +1,6 @@
 HEAD
+	+ Do not remove service principals when samba is enabled/disabled. Samba
+	  will import the keys
 	+ Add method to set the user kerberos keys
 	+ Stop samba daemon if module is disabled to ensure that port 88 is free
 	+ Initialize kerberos realm in lowercase to match the host domain

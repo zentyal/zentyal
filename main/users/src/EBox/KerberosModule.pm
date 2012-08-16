@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use Error qw( :try );
+use EBox::Util::Random;
 
 sub new
 {
@@ -67,6 +68,14 @@ sub kerberosCreatePrincipals
         EBox::Sudo::silentRoot("kadmin -l del $principal");
         EBox::debug("Creating service principal $principal");
         EBox::Sudo::root(@cmds);
+    }
+
+    # Import service principals from Zentyal to samba
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+            $sambaModule->ldb->ldapServicePrincipalsToLdb();
+        }
     }
 }
 
