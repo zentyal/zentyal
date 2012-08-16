@@ -41,7 +41,7 @@ sub _description
     {
         layout          => 'top-bottom',
         name            => 'Configuration',
-        printableName   => __('General Configuration'),
+        printableName   => __('General'),
         compositeDomain => 'LTSP',
         help            => __('The image for an architecture must exist so that'
                               . ' this configuration is saved for that architecture.'),

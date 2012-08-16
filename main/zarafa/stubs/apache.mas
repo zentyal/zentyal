@@ -83,7 +83,7 @@ Alias /webapp /usr/share/zarafa-webapp
 </Directory>
 
 % if ($activesync) {
-Alias /Microsoft-Server-ActiveSync /usr/share/z-push/index.php
+Alias /Microsoft-Server-ActiveSync /usr/share/d-push/index.php
 % }
 
 % if ($jabber) {
