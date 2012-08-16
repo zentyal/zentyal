@@ -1,4 +1,5 @@
 HEAD
+	+ samba is not longer a restore dependencie. Fixed some syntax errors
 	+ Added modeldepends to yaml schema
 2.3.9
 	+ Fixed help strings
