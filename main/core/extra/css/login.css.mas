@@ -12,7 +12,7 @@
 </%args>
 
 #login {
-    margin: 0px auto 500px auto;
+    margin: 0px auto;
     min-width: 500px;
     border: 2px solid <% $main_color %>;
     padding: 40px 50px;

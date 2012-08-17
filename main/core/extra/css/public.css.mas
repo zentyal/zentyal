@@ -43,10 +43,11 @@
 </%args>*/
 
 #header {
-    height: 46px;
+    height: 70px;
     padding:0;
     margin: 0;
     color: transparent;
+    border-bottom: 3px solid #EEE;
 }
 
 
@@ -58,12 +59,12 @@
 #header img {
     <% $header_img_padding %>
     padding-bottom: 0;
-    margin: 2px 0px 0px -5px;
+    margin: 5px 0px 0px -5px;
 }
 #hmenu {
     position: relative;
     display: block;
-    top: -40px;
+    top: -60px;
     float:right;
 }
 #hmenu a {
@@ -86,7 +87,7 @@
 #hmenu a:hover { background-color: #DFDFDF; }
 
 #hmenu #remote_services_link{
-    background:url("/data/images/cloud.png") center 5px no-repeat ;
+    background:url("/data/images/remote.png") center 2px no-repeat ;
     background-color: <% $remote_svcs_hover_bg_color %>;
     display:block;
     border-top: 1px solid  #A7BE56;
@@ -102,6 +103,9 @@
     background:url("/data/images/logout.gif") center 5px no-repeat ;
 }
 
+#hmenu #m:hover { 
+    background-color: #DFDFDF;
+}
 
 #hmenu #changes_menu {
     background:  #FFD600 url("/data/images/save.gif") center 5px no-repeat;
@@ -121,14 +125,16 @@
 
 #content {
     z-index: 9;
-    margin-top: 15px;
-    padding-left: 180px;
+    margin-top: 10px;
+    margin-left: 180px;
+    position: relative;
 }
 
 #menu {
     clear: left;
     float: left;
-    padding: 15px 0 0 0;
+    padding: 10px 0 0 0;
+    margin-bottom: 50px;
 }
 
 #footer {
@@ -465,7 +471,26 @@ input[type='password'][disabled], input[type='text'][disabled] {
 }
 
 
-input[type='submit'], .big {
+input[type='submit'], button {
+    color:#666;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    background-color: #E9E9E9;
+    border-top: 1px solid #A5A5A5;
+    border-left: 1px solid #A5A5A5;
+    border-right: 2px solid #A5A5A5;
+    border-bottom: 2px solid #A5A5A5;
+    padding:5px 10px ; 
+    cursor:pointer;
+    text-transform: uppercase;
+    letter-spacing:1px;
+    font-weight:bold;
+}
+
+button > img {margin-bottom:-3px;}
+
+.big {
     color:#666;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -523,7 +548,7 @@ input[type='submit'][disabled]{
 
     .inputButtonRestart[name='restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
 
-.inputButtonRestart[name='start']{ 
+.inputButtonRestart[name='start'], .inputButtonRestart[value='start']{ 
     background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
     border-color:#829E59}
 
@@ -547,6 +572,10 @@ input[type='submit'][disabled]{
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     padding: 3px;
+}
+
+#installButtons > button  {
+   padding: 5px 10px !important;
 }
 
 .edit_table_B { display: inline-block;}
@@ -716,6 +745,9 @@ input {
     border-right: 1px solid #dddddd;
     background: #efefef;
     color: #999;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .tabs li a:hover{
@@ -726,6 +758,10 @@ input {
     font-weight: bold;
     border: 1px solid #989898;
     border-bottom: 1px solid white;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+
 }
 
 .selected {
@@ -758,17 +794,31 @@ input {
 
 #helpbutton {
     font-size: 11px;
-    font-weight: bold;
     font-family: Trebuchet MS, sans-serif;
     text-align: center;
-    clear:right;
-    display:inline;
-    margin-left: 10px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+
 }
 
-#helpbutton a { color: <% $helpbutton_color %>; }
+#helpbutton a { 
+    color: #999;
+    padding: 15px 3px 3px 3px;
+    border-radius: 3px;
+    text-decoration: none;
+    background:url("/data/images/hidehelp.png") top center no-repeat;
+}
 
-#helpbutton a:hover { color: #ffffff; }
+
+#helpbutton a:hover { color: #428592; background:url("/data/images/showhelp.png") top center no-repeat; }
+
+#helpbutton > #hidehelp {
+    background:url("/data/images/showhelp.png") top center no-repeat;
+    color: #428592;
+}
+#helpbutton > #hidehelp:hover {color: #999; background:url("/data/images/hidehelp.png") top center no-repeat;}
+
 
 #titlehelp {
     width: auto;
@@ -791,6 +841,19 @@ input {
 }
 
 #nav li li { display: none; }
+
+#nav .navarrow{
+    background-image: url('/data/images/desc.gif');
+    background-position: center right;
+    background-repeat:no-repeat;
+}
+
+#nav .despleg{
+    background-image: url('/data/images/asc.gif') !important;
+    background-position: center right;
+    background-repeat:no-repeat;
+}
+
 
 #nav li a {
     display: block;
@@ -948,7 +1011,6 @@ a.notchanged:hover {
     background-image: url('/data/images/add.gif');
     background-position: 6px;
     background-repeat: no-repeat;
-
     border-top: 1px solid #A5A5A5;
     border-left: 1px solid #A5A5A5;
     border-right: 2px solid #A5A5A5;
@@ -956,11 +1018,10 @@ a.notchanged:hover {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    padding-left: 25px;
+    padding: 0px 10px 0px 25px;
     height: 30px;
-    display: block;
+    display: inline-block;
     line-height: 30px;
-    width: 70px;
     text-decoration: none;
     font-size: 12px;
     color: #333;

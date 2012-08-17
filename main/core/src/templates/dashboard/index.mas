@@ -309,11 +309,13 @@ function updateWidget(widget) {
                         statusInfo[itemname] = item;
                         var status;
                         var button = restart;
+                        var name = 'restart';
                         if (item.enabled && item.running) {
                             status = 'running';
                         } else if (item.enabled && !item.running) {
                             status = 'stopped';
                             button = start;
+                            name = 'start'
                         } else if (!item.enabled && item.running) {
                             status = 'unmanaged';
                         } else {
@@ -336,7 +338,7 @@ function updateWidget(widget) {
     <form action='/SysInfo/RestartService'>\
         <input type='hidden' name='module' value='" + item.module + "'/>\
         <span class='sright'>\
-            <input class='inputButtonRestart' type='submit' name='restart' value='"
+            <input class='inputButtonRestart' type='submit' name='" + name + "' value='"
     + button + "'/>\
         </span>\
     </form>";

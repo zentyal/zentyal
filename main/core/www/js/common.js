@@ -69,7 +69,7 @@ function showMenu(name){
 			inc++;
 		}
 */
-		shownMenu = name;
+		shownMenu = name; 
 	}
 }
 
