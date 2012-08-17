@@ -591,44 +591,6 @@ sub provisionAsDC
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 }
 
-sub setupDNS
-{
-    my ($self) = @_;
-
-    EBox::debug('Setting up DNS for samba');
-    my $dnsModule = EBox::Global->modInstance('dns');
-    my $usersModule = EBox::Global->modInstance('users');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    # Remove the kerberos stuff created by the users module
-    $usersModule->cleanDNS($sysinfo->hostDomain());
-
-    # Set the domain as DLZ and set the library path
-    my $domainModel = $dnsModule->model('DomainTable');
-    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
-    unless (defined $domainRow) {
-        # TODO Throw expcetion. It should have been created by the users module
-    }
-    my $DBPath = undef;
-    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
-        $DBPath = SAMBA_DNS_DLZ_X86;
-    } elsif (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X64)) {
-        $DBPath = SAMBA_DNS_DLZ_X64;
-    }
-    unless (defined $DBPath) {
-        throw EBox::Exceptions::Internal(
-            __("Samba DNS DLZ file for bind can't be found"));
-    }
-    $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
-    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
-    $domainRow->store();
-
-    my @cmds;
-    push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
-    push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
-    EBox::Sudo::root(@cmds);
-}
-
 sub provisionAsADC
 {
     my ($self) = @_;
@@ -645,7 +607,10 @@ sub provisionAsADC
     # match the domain we are trying to join warn the user and
     # abort
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin)) {
+    my $usersModule = EBox::Global->modInstance('users');
+    my $krbRealm = $usersModule->kerberosRealm();
+    if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
+        lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
         throw EBox::Exceptions::External(
             __('The server domain and kerberos realm must match the domain the ' .
                'domain you are trying to join.'));
@@ -654,9 +619,6 @@ sub provisionAsADC
     my $dnsFile = undef;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
-
-        # TODO Get the netbios domain name from AD and set model field. Otherwise
-        # setconf writes the wrong name and samba does not run
 
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
@@ -696,13 +658,15 @@ sub provisionAsADC
 
         $self->setupDNS();
 
-        # Grant rw access to zentyal group on the privileged socket
+        # Write smb.conf to grant rw access to zentyal group on the
+        # privileged socket
+        $self->writeSambaConfig();
         my $group = EBox::Config::group();
         EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
         EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
         EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
 
-        # Start managed service
+        # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
         $self->_startService();
 
@@ -718,8 +682,12 @@ sub provisionAsADC
             $group->deleteObject();
         }
 
+        # Load samba users and groups into Zentyal ldap
         $self->ldb->ldbUsersToLdap();
         $self->ldb->ldbGroupsToLdap();
+
+        # Load Zentyal service principals into samba
+        $self->ldb->ldapServicePrincipalsToLdb();
 
         # Add the zentyal module to the LDB modules stack
         my $ldif = "dn: \@MODULES\n" .
@@ -737,6 +705,44 @@ sub provisionAsADC
             unlink $dnsFile;
         }
     };
+}
+
+sub setupDNS
+{
+    my ($self) = @_;
+
+    EBox::debug('Setting up DNS for samba');
+    my $dnsModule = EBox::Global->modInstance('dns');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    # Remove the kerberos stuff created by the users module
+    $usersModule->cleanDNS($sysinfo->hostDomain());
+
+    # Set the domain as DLZ and set the library path
+    my $domainModel = $dnsModule->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+    unless (defined $domainRow) {
+        # TODO Throw expcetion. It should have been created by the users module
+    }
+    my $DBPath = undef;
+    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
+        $DBPath = SAMBA_DNS_DLZ_X86;
+    } elsif (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X64)) {
+        $DBPath = SAMBA_DNS_DLZ_X64;
+    }
+    unless (defined $DBPath) {
+        throw EBox::Exceptions::Internal(
+            __("Samba DNS DLZ file for bind can't be found"));
+    }
+    $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
+    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
+    $domainRow->store();
+
+    my @cmds;
+    push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+    push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+    EBox::Sudo::root(@cmds);
 }
 
 # Method: sambaInterfaces
@@ -856,12 +862,12 @@ sub _setConf
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
+    my $netbiosName = $self->netbiosName();
+    my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
     my $users = $self->ldb->users();
     foreach my $user (@{$users}) {
         # Set roaming profiles
         if ($self->roamingProfiles()) {
-            my $netbiosName = $self->netbiosName();
-            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
             my $path = "\\\\$netbiosName.$realmName\\profiles";
             $user->setRoamingProfile(1, $path, 1);
         } else {
@@ -870,10 +876,8 @@ sub _setConf
         }
 
         # Mount user home on network drive
-        EBox::debug("Set home drive in user " . $user->dn());
-        $user->setHomeDrive($self->drive(), 1);
-
-        EBox::debug("Saving user " . $user->dn());
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        $user->setHomeDrive($self->drive(), $drivePath, 1);
         $user->save();
     }
 }

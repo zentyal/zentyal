@@ -310,10 +310,12 @@ sub setRoamingProfile
 
 sub setHomeDrive
 {
-    my ($self, $drive, $lazy) = @_;
+    my ($self, $drive, $path, $lazy) = @_;
 
     my $userName = $self->get('samAccountName');
+    $path .= "\\$userName";
     $self->set('homeDrive', $drive);
+    $self->set('homeDirectory', $path);
     $self->save() unless $lazy;
 }
 

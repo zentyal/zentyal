@@ -69,8 +69,9 @@ use EBox::Samba;
 
 [homes]
     comment = <% __('Home Directories') %>
+    path = /home/%S
     read only = no
-    browseable = yes
+    browseable = no
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
