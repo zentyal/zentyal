@@ -50,23 +50,25 @@ sub new
     my $self = {};
     bless ($self, $class);
 
-    unless ($params{entry} or $params{dn} or $params{ldif} ) {
+    unless ($params{entry} or $params{dn} or $params{ldif} or $params{samAccountName}) {
         throw EBox::Exceptions::MissingArgument('dn');
     }
 
     if ($params{entry}) {
         $self->{entry} = $params{entry};
-        $self->{dn} = $params{entry}->dn();
     } elsif ($params{ldif}) {
         my $ldif = Net::LDAP::LDIF->new($params{ldif}, "r");
         $self->{entry} = $ldif->read_entry();
-        $self->{dn} = $self->{entry}->dn();
-    } else {
+    } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
+    } else {
+        $self->{samAccountName} = $params{samAccountName};
     }
 
     return $self;
 }
+
+
 
 # Method: exists
 #
@@ -79,15 +81,9 @@ sub exists
     # User exists if we already have its entry
     return 1 if ($self->{entry});
 
-    my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
-    my $attrs = {
-        base => $basedn,
-        filter => $filter,
-        scope => 'one',
-    };
+    $self->{entry} = $self->_entry();
 
-    my $result = $self->_ldap->search($attrs);
-    return ($result->count() > 0);
+    return (defined $self->{entry});
 }
 
 # Method: get
@@ -232,7 +228,7 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->{dn};
+    return $self->_entry->dn();
 }
 
 # Method: baseDn
@@ -243,7 +239,7 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my ($trash, $basedn) = split(/,/, $self->{dn}, 2);
+    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
     return $basedn;
 }
 
@@ -256,13 +252,31 @@ sub _entry
     my ($self) = @_;
 
     unless ($self->{entry}) {
-        my $attrs = {
-            base => $self->{dn},
-            filter => 'objectclass=*',
-            scope => 'base',
-        };
+        my $result = undef;
+        if (defined $self->{dn}) {
+            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
+            my $attrs = {
+                base => $basedn,
+                filter => $filter,
+                scope => 'one',
+            };
+            $result = $self->_ldap->search($attrs);
+        } elsif (defined $self->{samAccountName}) {
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(samAccountName=$self->{samAccountName})",
+                scope => 'sub',
+            };
+            $result = $self->_ldap->search($attrs);
+        }
 
-        my $result = $self->_ldap->search($attrs);
+        my $name = defined $self->{dn} ? $self->{dn} : $self->{samAccountName};
+        if ($result->count() > 1) {
+            throw EBox::Exceptions::Internal(
+                __x('Found {count} results for, expected only one.',
+                    count => $result->count(), name => $name));
+        }
+
         $self->{entry} = $result->entry(0);
     }
 
@@ -373,6 +387,40 @@ sub _stringToGuid
            pack("C", hex $4) . pack("C", hex $5) . pack("C", hex $6) .
            pack("C", hex $7) . pack("C", hex $8) . pack("C", hex $9) .
            pack("C", hex $10) . pack("C", hex $11);
+}
+
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+
+    my $advice = undef;
+
+    if ($name =~ m/\.$/) {
+        $advice = __('Windows account names cannot end with a period');
+    }
+
+    if ($name =~ m/^[[:space:]0-9\.]+$/) {
+        $advice = __('Windows account names cannot be only spaces, numbers and dots');
+    }
+
+    unless ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
+        $advice = __('To avoid problems, the account name should ' .
+                'consist only of letters, digits, underscores, ' .
+                'spaces, periods, dashs, not start with a ' .
+                'dash and not end with dot');
+    }
+
+    if (length ($name) > $maxLength) {
+        $advice = __x("Account name must not be longer than {maxLength} characters",
+                       maxLength => $maxLength);
+    }
+
+    if (defined $advice) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('samAccountName'),
+                'value' => $name,
+                'advice' => $advice);
+    }
 }
 
 1;

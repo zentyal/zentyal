@@ -29,7 +29,6 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(any);
@@ -186,11 +185,12 @@ sub _groups
 {
     my ($self, $invert) = @_;
 
+    my $dn = $self->dn();
     my $filter;
     if ($invert) {
-        $filter = "(&(objectclass=group)(!(member=$self->{dn})))";
+        $filter = "(&(objectclass=group)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=group)(member=$self->{dn}))";
+        $filter = "(&(objectclass=group)(member=$dn))";
     }
 
     my $attrs = {
@@ -311,6 +311,25 @@ sub setAccountEnabled
     $self->save() unless $lazy;
 }
 
+# Method: addSpn
+#
+#   Add a service principal name to this account
+#
+sub addSpn
+{
+    my ($self, $spn, $lazy) = @_;
+
+    my @spns = $self->get('servicePrincipalName');
+
+    # return if spn already present
+    foreach my $s (@spns) {
+        return if (lc ($s) eq lc ($spn));
+    }
+    push (@spns, $spn);
+
+    $self->set('servicePrincipalName', \@spns, $lazy);
+}
+
 # Method: create
 #
 #   Adds a new user
@@ -334,11 +353,10 @@ sub create
     my ($self, $samAccountName, $params) = @_;
 
     # TODO Is the user added to the default OU?
-    #my $samAccountName = $user->{samAccountName};
     my $baseDn = $self->_ldap->dn();
     my $dn = "CN=$samAccountName,CN=Users,$baseDn";
 
-    $self->_checkAccountName($samAccountName);
+    $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
     # Verify user exists
     if (new EBox::Samba::User(dn => $dn)->exists()) {
@@ -361,15 +379,15 @@ sub create
     push ($attr, userAccountControl => '514');
     # FIXME push ($attr, sn                => $sn);
     # FIXME push ($attr, givenName         => $givenName);
-    push ($attr, uidNumber         => $params->{uidNumber}) if exists $params->{uidNumber};
-    push ($attr, description       => $params->{description}) if exists $params->{description};
+    push ($attr, uidNumber         => $params->{uidNumber}) if defined $params->{uidNumber};
+    push ($attr, description       => $params->{description}) if defined $params->{description};
 
     # Add the entry
     my $result = $self->_ldap->add($dn, { attr => $attr });
     my $createdUser = new EBox::Samba::User(dn => $dn);
 
     # Setup the uid mapping
-    $createdUser->setupUidMapping($params->{uidNumber}) if exists $params->{uidNumber};
+    $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};
 
     # Set the password
     if (exists $params->{clearPassword}) {
@@ -382,35 +400,6 @@ sub create
 
     # Return the new created user
     return $createdUser;
-}
-
-sub _checkAccountName
-{
-    my ($self, $name) = @_;
-
-    my $advice = undef;
-
-    if ($name =~ m/\.$/) {
-        $advice = __('Windows account names cannot end with a period');
-    }
-
-    unless ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        $advice = __('To avoid problems, the username should ' .
-                'consist only of letters, digits, underscores, ' .
-                'spaces, periods, dashs, not start with a ' .
-                'dash and not end with dot');
-    }
-
-    if (length ($name) > MAXUSERLENGTH) {
-        $advice = __x("Username must not be longer than {maxuserlength} characters",
-                       maxuserlength => MAXUSERLENGTH);
-    }
-
-    if (defined $advice) {
-        throw EBox::Exceptions::InvalidData('data' => __('samAccountName'),
-                'value' => $name,
-                'advice' => $advice);
-    }
 }
 
 sub _checkPwdLength
