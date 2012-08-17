@@ -585,6 +585,8 @@ sub ldapServicePrincipalsToLdb
                     kerberosKeys => $user->kerberosKeys(),
                 };
                 $smbUser = EBox::Samba::User->create($samAccountName, $params);
+                EBox::debug("Set as critical object");
+                $smbUser->setCritical(1);
             }
             foreach my $p (@{$principals->{principals}}) {
                 try {
@@ -610,7 +612,7 @@ sub users
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=user)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))',
+        filter => '(&(objectclass=user)(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
         attrs => ['samAccountName', 'givenName', 'sn', 'name', 'description',
                   'uidNumber', 'supplementalCredentials', 'unicodePwd',
                   'objectSid'],
@@ -631,7 +633,7 @@ sub groups
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))',
+        filter => '(&(objectclass=group)(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
         attrs => ['samAccountName', 'cn', 'description', 'gidNumber'],
     };
     my $result = $self->search($params);

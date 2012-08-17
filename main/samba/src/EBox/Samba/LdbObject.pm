@@ -28,6 +28,7 @@ use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Net::LDAP::Control;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
@@ -428,6 +429,22 @@ sub _checkAccountName
                 'value' => $name,
                 'advice' => $advice);
     }
+}
+
+sub setCritical
+{
+    my ($self, $critical, $lazy) = @_;
+
+    if ($critical) {
+        $self->set('isCriticalSystemObject', 'TRUE', 1);
+    } else {
+        $self->delete('isCriticalSystemObject', 1);
+    }
+
+    my $relaxOidControl = Net::LDAP::Control->new(
+        type => '1.3.6.1.4.1.4203.666.5.12',
+        critical => 0 );
+    $self->save($relaxOidControl) unless $lazy;
 }
 
 1;
