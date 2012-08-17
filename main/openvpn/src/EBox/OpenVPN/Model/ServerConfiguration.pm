@@ -106,7 +106,7 @@ sub _table
                  printableName => __('Network Address Translation'),
                  editable => 1,
                  defaultValue => 0,
-                 help => __('Enable it if you only have one network interface')
+                 help => __('Enable it if this VPN server is not the default gateway')
                  ),
          new EBox::Types::Boolean(
                  fieldName => 'clientToClient',
