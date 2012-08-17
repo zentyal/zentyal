@@ -270,17 +270,19 @@ sub enableActions
     my ($self) = @_;
 
 
-    my $user = EBox::Config::user();
-    my $group = EBox::Config::group();
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my @cmds = ();
     push (@cmds, 'invoke-rc.d samba4 stop');
     push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown $user:$group " . SAMBA_DIR);
-    push (@cmds, "chmod 750 " . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown $user:$group " . PROFILES_DIR);
-    push (@cmds, "chmod 750 " . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
     EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
 
@@ -301,9 +303,9 @@ sub setProvisioned
     my ($self, $provisioned) = @_;
 
     if ($provisioned) {
-        EBox::Sudo::command("touch " . SAMBA_PROVISION_FILE);
+        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
     } else {
-        EBox::Sudo::command("rm -f " . SAMBA_PROVISION_FILE);
+        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
     }
 }
 

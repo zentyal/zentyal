@@ -270,26 +270,28 @@ sub createRoamingProfileDirectory
 
     # Create the directory if it does not exists
     my $samba = EBox::Global->modInstance('samba');
-    my $path = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $gid = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
 
     my @cmds = ();
     # Create the directory if it does not exists
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $uidNumber:$gid \'$path\'");
+    push (@cmds, "chown $uidNumber:$group \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
-    my $sdString = '';
-    $sdString .= "O:$userSID"; # Object's owner
-    $sdString .= "G:$domainUsersSID"; # Object's primary group
-    $sdString .= "D:(A;;0x001f01ff;;;SY)(A;;0x001f01ff;;;$domainAdminsSID)(A;OICI;0x001301BF;;;$userSID)";
-    push (@cmds, "samba-tool ntacl set '$sdString' '$path'");
+    my @perms;
+    push (@perms, 'u:root:rwx');
+    push (@perms, 'g::---');
+    push (@perms, "g:$group:---");
+    push (@perms, "u:$uidNumber:rwx");
+    push (@cmds, "setfacl -b $path");
+    push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " $path");
+    push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." $path");
     EBox::Sudo::root(@cmds);
 }
-
 
 sub setRoamingProfile
 {

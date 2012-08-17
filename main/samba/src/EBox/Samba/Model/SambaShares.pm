@@ -42,7 +42,7 @@ use Error qw(:try);
 # TODO Fix
 use constant DEFAULT_MASK => '0770';
 use constant DEFAULT_USER => 'root';
-use constant DEFAULT_GROUP => '__USERS__';
+use constant DEFAULT_GROUP => EBox::UsersAndGroups::DEFAULTGROUP();
 use constant GUEST_DEFAULT_MASK => '0750';
 use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => 'nogroup';
@@ -275,65 +275,53 @@ sub createDirs
         next unless ( $pathType->selectedType() eq 'zentyal');
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
-        push(@cmds, "mkdir -p '$path'");
+        push (@cmds, "mkdir -p '$path'");
         if ($guestAccess) {
-           push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
-           push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
+           push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
+           push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
         } else {
-           push(@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
-           push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
+           push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
+           push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
+        push (@cmds, "setfacl -b $path");
         EBox::debug("Creating share directory");
         EBox::debug("Executing @cmds");
         EBox::Sudo::root(@cmds);
-        # Set NT ACLs
-        # Build the security descriptor string
-        my $sdString = '';
-        $sdString .= "O:$administratorSID"; # Object's owner
-        $sdString .= "G:$domainUsersSID"; # Object's primary group
-        # Build the ACS strings
-        # http://msdn.microsoft.com/en-us/library/windows/desktop/aa374928(v=vs.85).aspx
-        my @aceStrings = ();
-        push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
-        push (@aceStrings, "(A;;0x001f01ff;;;$administratorSID)"); # Administrator has full access
+        # Set ACLs
+        my @perms;
+        push (@perms, 'u:root:rwx');
+        push (@perms, 'g::---');
+        push (@perms, 'g:' . DEFAULT_GROUP . ':---');
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
             my $permissions = $subRow->elementByName('permissions');
-            my $aceString = '(';
-            # ACE Type
-            $aceString .= 'A;';
-            # ACE Flags
-            $aceString .= 'OICI;';
-            # Rights
-            if ($permissions->value() eq 'readOnly') {
-                $aceString .= '0x001200A9;';
-            } elsif ($permissions->value() eq 'readWrite') {
-                $aceString .= '0x001301BF;';
-            } elsif ($permissions->value() eq 'administrator') {
-                $aceString .= '0x001F01FF;';
-            }
-            # Object Guid
-            $aceString .= ';';
-            # Inherit Object Guid
-            $aceString .= ';';
-            # Account SID
+            next if ($permissions->value() eq 'administrator');
             my $userType = $subRow->elementByName('user_group');
-            $aceString .= $ldb->getSidById($userType->printableValue());
-            $aceString .= ')';
-            push (@aceStrings, $aceString);
+            my $perm;
+            if ($userType->selectedType() eq 'group') {
+                $perm = 'g:';
+            } elsif ($userType->selectedType() eq 'user') {
+                $perm = 'u:';
+            }
+            my $qobject = shell_quote($userType->printableValue());
+            $perm .= $qobject . ':';
+
+            if ($permissions->value() eq 'readOnly') {
+                $perm .= 'rx';
+            } elsif ($permissions->value() eq 'readWrite') {
+                $perm .= 'rwx';
+            }
+            push (@perms, $perm);
         }
-        if ($guestAccess) {
-            push (@aceStrings, '(A;OICI;0x001301BF;;;S-1-1-0)');
-        }
-        my $fullAce = join ('', @aceStrings);
-        $sdString .= "D:$fullAce";
-        my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$sdString' '$path'";
+        next unless @perms;
+        my $cmd = 'setfacl -R -m ' . join(',', @perms) . " $path";
+        my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @perms) ." $path";
+        EBox::debug("$cmd and $defaultCmd");
         try {
-            EBox::debug("Executing '$cmd'");
             EBox::Sudo::root($cmd);
+            EBox::Sudo::root($defaultCmd);
         } otherwise {
-            my $error = shift;
-            EBox::debug("Couldn't write NT ACLs for '$path': $error");
+            EBox::debug("Couldn't enable ACLs for $path")
         };
     }
 }
