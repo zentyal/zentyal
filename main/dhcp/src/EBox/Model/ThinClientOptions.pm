@@ -394,7 +394,7 @@ sub _table
                              printableName => __('File path'),
                              editable      => 1,
                              optional      => 1,
-                             help          => __('File path in next server'),
+                             help          => __('Thin client file path'),
                             ),
 # TODO: Restore this when more than one config per interface is possible
 #         new EBox::Types::Union(
