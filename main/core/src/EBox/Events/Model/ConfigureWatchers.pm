@@ -307,8 +307,12 @@ sub filterName
 sub filterDescription
 {
     my ($instancedType) = @_;
+    my $row =   $instancedType->row();
+    if (not $row) {
+        return undef;
+    }
 
-    my $className = $instancedType->row()->valueByName('watcher');
+    my $className = $row->valueByName('watcher');
 
     eval "use $className";
     if ($@) {
