@@ -49,78 +49,6 @@ sub new
     return $self;
 }
 
-# Catch some of the set ops which need special actions
-#sub set
-#{
-#    my ($self, $attr, $value) = @_;
-#
-#    # remember changes in core attributes (notify LDAP user base modules)
-#    if ($attr eq any CORE_ATTRS) {
-#        $self->{core_changed} = 1;
-#    }
-#    if ($attr eq 'quota') {
-#        if ($self->_checkQuota($value)) {
-#            throw EBox::Exceptions::InvalidData('data' => __('user quota'),
-#                    'value' => $value,
-#                    'advice' => __('User quota must be an integer. To set an unlimited quota, enter zero.'),
-#                    );
-#        }
-#
-#        # set quota on save
-#        $self->{set_quota} = 1;
-#    }
-#
-#    shift @_;
-#    $self->SUPER::set(@_);
-#}
-
-# Catch some of the delete ops which need special actions
-#sub delete
-#{
-#    my ($self, $attr, $value) = @_;
-#
-#    # remember changes in core attributes (notify LDAP user base modules)
-#    if ($attr eq any CORE_ATTRS) {
-#        $self->{core_changed} = 1;
-#    }
-#
-#    shift @_;
-#    $self->SUPER::delete(@_);
-#}
-
-#sub save
-#{
-#    my ($self) = @_;
-#
-#    my $changetype = $self->_entry->changetype();
-#
-#    if ($self->{set_quota}) {
-#        my $quota = $self->get('quota');
-#        $self->_checkQuota($quota);
-#        $self->_setFilesystemQuota($quota);
-#        delete $self->{set_quota};
-#    }
-#
-#    my $passwd = delete $self->{core_changed_password};
-#    if (defined $passwd) {
-#        $self->_ldap->changeUserPassword($self->dn(), $passwd);
-#    }
-#
-#    shift @_;
-#    $self->SUPER::save(@_);
-#
-#    if ($changetype ne 'delete') {
-#        if ($self->{core_changed} or defined $passwd) {
-#            delete $self->{core_changed};
-#
-#            my $users = EBox::Global->modInstance('users');
-#            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
-#
-#            delete $self->{ignoreMods};
-#        }
-#    }
-#}
-
 # Method: addGroup
 #
 #   Add this user to the given group
@@ -328,6 +256,63 @@ sub addSpn
     push (@spns, $spn);
 
     $self->set('servicePrincipalName', \@spns, $lazy);
+}
+
+sub createRoamingProfileDirectory
+{
+    my ($self) = @_;
+
+    my $samAccountName  = $self->get('samAccountName');
+    my $uidNumber       = $self->get('uidNumber');
+    my $userSID         = $self->sid();
+    my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
+    my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
+
+    # Create the directory if it does not exists
+    my $samba = EBox::Global->modInstance('samba');
+    my $path = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
+    my $gid = EBox::UsersAndGroups::DEFAULTGROUP();
+
+    my @cmds = ();
+    # Create the directory if it does not exists
+    push (@cmds, "mkdir -p \'$path\'") unless -d $path;
+
+    # Set unix permissions on directory
+    push (@cmds, "chown $uidNumber:$gid \'$path\'");
+    push (@cmds, "chmod 0700 \'$path\'");
+
+    # Set native NT permissions on directory
+    my $sdString = '';
+    $sdString .= "O:$userSID"; # Object's owner
+    $sdString .= "G:$domainUsersSID"; # Object's primary group
+    $sdString .= "D:(A;;0x001f01ff;;;SY)(A;;0x001f01ff;;;$domainAdminsSID)(A;OICI;0x001301BF;;;$userSID)";
+    push (@cmds, "samba-tool ntacl set '$sdString' '$path'");
+    EBox::Sudo::root(@cmds);
+}
+
+
+sub setRoamingProfile
+{
+    my ($self, $enable, $path, $lazy) = @_;
+
+    my $userName = $self->get('samAccountName');
+    if ($enable) {
+        $self->createRoamingProfileDirectory();
+        $path .= "\\$userName";
+        $self->set('profilePath', $path);
+    } else {
+        $self->delete('profilePath');
+    }
+    $self->save() unless $lazy;
+}
+
+sub setHomeDrive
+{
+    my ($self, $drive, $lazy) = @_;
+
+    my $userName = $self->get('samAccountName');
+    $self->set('homeDrive', $drive);
+    $self->save() unless $lazy;
 }
 
 # Method: create

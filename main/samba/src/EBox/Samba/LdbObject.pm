@@ -30,6 +30,7 @@ use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use Perl6::Junction qw(any);
+use Error qw(:try);
 
 # Method: new
 #
@@ -67,8 +68,6 @@ sub new
 
     return $self;
 }
-
-
 
 # Method: exists
 #
@@ -209,15 +208,22 @@ sub save
     my ($self, $control) = @_;
 
     $control = [] unless $control;
-    my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
-
-    if ($result->is_error()) {
-        if ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-            EBox::warn("Got LDAP error 'No attributes to update', ignoring it");
-            return;
+    try {
+        $self->_ldap->disableZentyalModule();
+        my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
+        if ($result->is_error()) {
+            if ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                EBox::debug("Got LDAP error 'No attributes to update', ignoring it");
+            } else {
+                throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
+            }
         }
-        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
-    }
+    } otherwise {
+        my $error = shift;
+        throw $error;
+    } finally {
+        $self->_ldap->enableZentyalModule();
+    };
 }
 
 # Method: dn
@@ -309,7 +315,8 @@ sub sid
 {
     my ($self) = @_;
 
-    my $sidString = $self->_sidToString($self->get('objectSid'));
+    my $sid = $self->get('objectSid');
+    my $sidString = $self->_sidToString($sid);
     return $sidString;
 }
 

@@ -18,7 +18,9 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule EBox::LogObserver);
+use base qw( EBox::Module::Service
+             EBox::FirewallObserver
+             EBox::LogObserver );
 
 use EBox::Global;
 use EBox::Service;
@@ -267,9 +269,12 @@ sub enableActions
 {
     my ($self) = @_;
 
+
     my $user = EBox::Config::user();
     my $group = EBox::Config::group();
     my @cmds = ();
+    push (@cmds, 'invoke-rc.d samba4 stop');
+    push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown $user:$group " . SAMBA_DIR);
     push (@cmds, "chmod 750 " . SAMBA_DIR);
@@ -288,9 +293,7 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    my $isProvisioned = EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
-    EBox::debug("Samba provisioned flag: $isProvisioned");
-    return $isProvisioned;
+    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
 }
 
 sub setProvisioned
@@ -301,28 +304,6 @@ sub setProvisioned
         EBox::Sudo::command("touch " . SAMBA_PROVISION_FILE);
     } else {
         EBox::Sudo::command("rm -f " . SAMBA_PROVISION_FILE);
-    }
-}
-
-# Method: enableService
-#
-#   Override EBox::Module::Service::enableService to
-#   set DNS and users modules as changed
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-
-    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
-    foreach my $module (@{$modules}) {
-        $module->kerberosCreatePrincipals();
-    }
-
-    if ($self->changed()) {
-        EBox::Global->modChange('dns');
-        EBox::Global->modChange('users');
     }
 }
 
@@ -512,6 +493,13 @@ sub provision
                                             'cannot continue with database provision.'));
     }
 
+    # Stop the service
+    $self->stopService();
+
+    # Delete samba config file and private folder
+    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
+    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
+
     my $mode = $self->mode();
     if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
         $self->provisionAsDC();
@@ -529,9 +517,6 @@ sub provisionAsDC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
-    # Delete samba config file and private folder
-    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
-    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
@@ -579,7 +564,9 @@ sub provisionAsDC
     # module.
     $self->setupDNS();
 
-    # Grant rw access to zentyal group on the privileged socket
+    # Write smb.conf to grant rw access to zentyal group on the
+    # privileged socket
+    $self->writeSambaConfig();
     my $group = EBox::Config::group();
     EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
@@ -592,6 +579,7 @@ sub provisionAsDC
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
+    $self->ldb->ldapServicePrincipalsToLdb();
 
     # Add the zentyal module to the LDB modules stack
     my $ldif = "dn: \@MODULES\n" .
@@ -603,7 +591,7 @@ sub provisionAsDC
 
 sub setupDNS
 {
-    my ($self, $dcfqdn) = @_;
+    my ($self) = @_;
 
     EBox::debug('Setting up DNS for samba');
     my $dnsModule = EBox::Global->modInstance('dns');
@@ -683,7 +671,6 @@ sub provisionAsADC
 
         # Join the domain
         EBox::debug("Joining to the domain");
-        $self->stopService();
         my @cmds;
         push (@cmds, 'rm -f ' . SAMBACONFFILE);
         push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
@@ -793,18 +780,14 @@ sub sambaInterfaces
     return \@ifaces;
 }
 
-sub _setConf
+sub writeSambaConfig
 {
     my ($self) = @_;
-
-    return unless $self->configured() and $self->isEnabled();
-
-    $self->provision() unless $self->isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = $self->realm();
+    my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
 
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
@@ -850,6 +833,18 @@ sub _setConf
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', []);
 
+}
+
+sub _setConf
+{
+    my ($self) = @_;
+
+    return unless $self->configured() and $self->isEnabled();
+
+    $self->provision() unless $self->isProvisioned();
+
+    $self->writeSambaConfig();
+
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
@@ -859,16 +854,26 @@ sub _setConf
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
-    # Set roaming profiles
-    if ($self->roamingProfiles()) {
-        my $path = "\\\\$netbiosName.$realmName\\profiles";
-        $self->ldb()->setRoamingProfiles(1, $path);
-    } else {
-        $self->ldb()->setRoamingProfiles(0);
-    }
+    my $users = $self->ldb->users();
+    foreach my $user (@{$users}) {
+        # Set roaming profiles
+        if ($self->roamingProfiles()) {
+            my $netbiosName = $self->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            $user->setRoamingProfile(1, $path, 1);
+        } else {
+            EBox::debug("Disabling roaming profile in user " . $user->dn());
+            $user->setRoamingProfile(0);
+        }
 
-    # Mount user home on network drive
-    $self->ldb()->setHomeDrive($self->drive());
+        # Mount user home on network drive
+        EBox::debug("Set home drive in user " . $user->dn());
+        $user->setHomeDrive($self->drive(), 1);
+
+        EBox::debug("Saving user " . $user->dn());
+        $user->save();
+    }
 }
 
 sub printersConf
@@ -1187,18 +1192,6 @@ sub defaultRealm
     my $domainName = $sysinfo->hostDomain();
 
     return $domainName;
-}
-
-# Method: realm
-#
-#   Returns the configured realm
-#
-sub realm
-{
-    my ($self) = @_;
-
-    my $model = $self->model('GeneralSettings');
-    return $model->realmValue();
 }
 
 # Method: defaultWorkgroup

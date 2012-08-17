@@ -47,6 +47,8 @@ use EBox::Samba;
     idmap_ldb:use rfc2307 = yes
     rpc_daemon:spoolssd = embedded
 
+    ldap privileged socket mode = 0770
+
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
 [profiles]
