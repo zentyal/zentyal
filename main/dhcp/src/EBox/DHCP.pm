@@ -1278,6 +1278,7 @@ sub _setDHCPConf
     if ( $dynamicDNSEnabled ) {
         push @params, ('dynamicDNSEnabled' => $dynamicDNSEnabled);
         push @params, ('keysFile' => $self->_keysFile());
+        EBox::Sudo::root('adduser dhcpd bind');
     }
     push(@params, ('pidFile' => PIDFILE));
 

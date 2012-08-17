@@ -1,4 +1,5 @@
 HEAD
+	+ Write keys file with read access only to bind group
 	+ Added modeldepends to yaml schema
 2.3.9
 	+ Fixed help strings
