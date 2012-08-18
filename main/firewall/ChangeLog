@@ -1,4 +1,5 @@
 HEAD
+	+ Improved style of packet filtering page
 	+ Added modeldepends to yaml schema
 	+ Fixed i10n bug in prohibition of inverse match for "any" service
 	+ Adjusted table to existence of inverse match for addresses

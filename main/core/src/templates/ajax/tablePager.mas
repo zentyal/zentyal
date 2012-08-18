@@ -42,19 +42,16 @@
        'onchange'    => qq{setLoading('$pageSizeId'); $changeViewJS;return false}
   &>
 
-     <span id="<% $pageSizeId %>"></span>&nbsp;
+     <span id="<% $pageSizeId %>"></span><span class="pagination_n">
 % my $pageStr = __('Page');
 % my $ofStr = __('of');
-
 %   if ($tpages <= 0) {
         <% $pageStr %> <% $page + 1 %>
 %   } else {
         <% $pageStr %> <% $page + 1 %> <% $ofStr %> <%$tpages + 1%>
 %   }
-
-&nbsp;
 %   my $pagerId = $tableName . '_pagerId';
- 	<span id="<% $pagerId %>"></span>
+ 	</span><span id="<% $pagerId %>"></span>
 %   if ($page != 0) {
         <input name='tofirst' type='image'
             src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
