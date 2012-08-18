@@ -152,7 +152,7 @@ sub _table
             printableValue => __('Extend bandwit limit'),
             model => $self,
             handler => \&_extendUser,
-            message => __('Reset nbandwith limit'),
+            message => __('Reset bandwith limit'),
             image => '/data/images/deny-active.gif',
         ),
     );

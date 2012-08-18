@@ -359,7 +359,7 @@ sub enableDispatcher
     my ($self, $dispatcher, $enabled) = @_;
     my $row = $self->findRow(dispatcher => $dispatcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exists");
+        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exist");
     }
 
     $row->elementByName('enabled')->setValue($enabled);
@@ -371,7 +371,7 @@ sub isEnabledDispatcher
     my ($self, $dispatcher) = @_;
     my $row = $self->findRow(dispatcher => $dispatcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exists");
+        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exist");
     }
 
     return $row->valueByName('enabled');

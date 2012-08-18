@@ -107,7 +107,7 @@ sub processDir
     my ($slaves, $journaldir) = @_;
 
     unless (-d $journaldir) {
-        print "Dir does not exists: $journaldir\n";
+        print "Dir does not exist: $journaldir\n";
         return;
     }
 

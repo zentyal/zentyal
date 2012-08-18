@@ -1772,7 +1772,7 @@ msgstr "Aleatorio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr "Tolerancia a fallos"
+msgstr "En orden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:135
 msgid "Zentyal to Zentyal tunnel"
@@ -3284,7 +3284,7 @@ msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr "Habilite el caché de DNS transparente"
+msgstr "Habilitar el caché de DNS transparente"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:639
@@ -15860,7 +15860,7 @@ msgstr "Habilitar extensiones de prueba"
 
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:120
 msgid "Enable outgoing calls"
-msgstr "Llamadas salientes habilitada."
+msgstr "Habilitar llamadas salientes"
 
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:126
 msgid "VoIP domain"
