@@ -73,7 +73,7 @@ h3 {
 var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
-        {"<% __('Component') %>":"<% __($pkg->{description}) %>",
+        {"<% __('Component') %>":"<% $pkg->{description} %>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
 %               $eboxupg = __('Update');
