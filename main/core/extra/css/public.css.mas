@@ -604,9 +604,8 @@ input[type='submit'][disabled]{
 
 body {
     width: 960px;
-    margin: 0px;
+    margin: 0px auto;
     padding:0;
-    margin-left:10px;
     color: #000000;
     font-size: 11px;
     font-family: Verdana, sans-serif;
@@ -616,7 +615,7 @@ body {
 
 .title {
     display: inline;
-    color: #787878;
+    color: #666;
     font-weight: bold;
     font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
@@ -625,7 +624,7 @@ body {
 
 .title_link_sep {
     display: inline;
-    color: #787878;
+    color: #999;
     font-weight: bold;
     font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
@@ -634,7 +633,7 @@ body {
 
 .title_link {
     display: inline;
-    color: #787878;
+    color: #999;
     font-weight: bold;
     font-size: 25px;
     font-family: Trebuchet MS, Verdana, sans-serif;
@@ -642,9 +641,6 @@ body {
 
 }
 
-.title_link > a {
-text-decoration: none;
-}
 
 h3 {
     font-size: 20px;
@@ -773,6 +769,10 @@ input {
     background: #fff;
     color:  #787878;
     font-weight: bold;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+
 }
 
 .ifaces a  {
@@ -782,6 +782,11 @@ input {
     background: #eee;
     color: #999;
     padding: 5px 10px 5px 10px;
+     -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    text-decoration: none;
+
 }
 
 .ifaces a:hover {
@@ -857,11 +862,10 @@ input {
 
 #nav li a {
     display: block;
-    padding: 10px 10px;
+    padding: 10px 20px 10px 4px;
     text-decoration: none;
-    padding-left: 4px;
     margin: 0px;
-    margin-right: 0px;
+    line-height: 120%;
     color: <% $nav_li_color %>;
     font-weight: bold;
     /*background-color: #ffffff;
@@ -875,7 +879,7 @@ input {
 
 #nav li li a {
     display: block;
-    padding: 6px 8px 6px 20px;
+    padding: 6px 6px 6px 4px;
     margin:0;
     /*background: rgb(247,247,247);*/
     border-top:1px dashed #ccc;
