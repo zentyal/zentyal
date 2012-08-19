@@ -33,7 +33,7 @@ use warnings;
 
 use EBox;
 use EBox::Config;
-use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Link;
@@ -359,7 +359,7 @@ sub enableDispatcher
     my ($self, $dispatcher, $enabled) = @_;
     my $row = $self->findRow(dispatcher => $dispatcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exist");
+        throw EBox::Exceptions::DataNotFound(data => 'dispatcher', value => $dispatcher);
     }
 
     $row->elementByName('enabled')->setValue($enabled);
@@ -371,7 +371,7 @@ sub isEnabledDispatcher
     my ($self, $dispatcher) = @_;
     my $row = $self->findRow(dispatcher => $dispatcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exist");
+        throw EBox::Exceptions::DataNotFound(data => 'dispatcher', value => $dispatcher);
     }
 
     return $row->valueByName('enabled');

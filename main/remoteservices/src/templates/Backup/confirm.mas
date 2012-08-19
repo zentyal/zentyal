@@ -1,80 +1,100 @@
 <%args>
-	$backup
-
-	$actionCGI
-        @extraActionParams => ()
-
-        $text    => ''
-	$okText  => 'OK'
+    $backup
+    $actionCGI
+    @extraActionParams => ()
+    $text    => ''
+    $okText  => 'OK'
+    $popup => 0
 </%args>
 <%init>
 use EBox::Gettext;
 
 my %extraParams = @extraActionParams;
 
+my $onclickSubmit = '';
+my $onclickCancel = '';
+if ($popup) {
+    if ($actionCGI eq 'RestoreRemoteBackup') {
+        my $title = __x('Restore backup: {desc}',
+                        desc => $backup->{Comment});
+        my $url = '/RemoteServices/Backup/RestoreRemoteBackup?';
+        $url .= 'name=' . $backup->{Filename};
+        $url .= '&ok=1&popup=1';
+        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+    } elsif ($actionCGI eq 'DeleteRemoteBackup') {
+        my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
+        $url .= 'name=' . $backup->{Filename};
+        $url .= '&ok=1';
+        $onclickSubmit = qq(onclick="Modalbox.hide(); window.location='$url'; return false");
+    }
+
+    $onclickCancel = qq{onclick="Modalbox.hide(); return false"};
+}
 </%init>
 <div class='note'>
 <% $text %>
 </div>
 <br/>
 <table class='formTable'>
-	<tbody>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Name') %>:</span>
-			</td>
-			<td>
-				<% $backup->{Filename} %>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Date') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'Date'} %>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Description') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'Comment'} %>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Archive size') %>:</span>
-			</td>
-			<td>
-				<% $backup->{'printableSize'} %>
-			</td>
-		</tr>
+    <tbody>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'><% __('Name') %>:</span>
+            </td>
+            <td>
+                <% $backup->{Filename} %>
+            </td>
+        </tr>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'><% __('Date') %>:</span>
+            </td>
+            <td>
+                <% $backup->{'Date'} %>
+            </td>
+        </tr>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'><% __('Description') %>:</span>
+            </td>
+            <td>
+                <% $backup->{'Comment'} %>
+            </td>
+        </tr>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'><% __('Archive size') %>:</span>
+            </td>
+            <td>
+                <% $backup->{'printableSize'} %>
+            </td>
+        </tr>
 
-	<form action='<% $actionCGI %>' method='POST'>
-		<tr>
-			<td></td>
-			<td>
-                                        <& /input/hidden.mas,
-                                               name => 'name',
-					       value => $backup->{'Filename'},
-                                        &>
-%                                      while (my ($name, $value) = each %extraParams) {
-                                          <& /input/hidden.mas,
-					      name => $name,
-					      value => $value,
-                                          &>
-%                                      }
+        <form action='<% $actionCGI %>' method='POST'>
+            <tr>
+                <td></td>
+                <td>
+                    <& /input/hidden.mas,
+                        name => 'name',
+                        value => $backup->{'Filename'},
+                    &>
+%                   while (my ($name, $value) = each %extraParams) {
+                        <& /input/hidden.mas,
+                            name => $name,
+                            value => $value,
+                        &>
+%                   }
 
-					<input class='inputButton' type='submit'
-							name='ok' value='<%$okText%>' alt='<%$okText%>'/>
-					<input class='inputButton' type='submit'
-							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+                    <input class='inputButton' type='submit'
+                            name='ok' value='<%$okText%>' alt='<%$okText%>'
+                            <% $onclickSubmit  %> />
+                    <input class='inputButton' type='submit'
+                            name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"
+                            <% $onclickCancel  %> />
 
-				</form>
-			</td>
-		</tr>
-	</tbody>
+                </td>
+            </tr>
+        </form>
+    </tbody>
 </table>
 <br/>

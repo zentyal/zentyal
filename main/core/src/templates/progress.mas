@@ -49,7 +49,7 @@ if ($inModalbox) {
 }
 
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
-        $nextStepUrlOnclick = $nextStepUrlFailureOnclick;
+        $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
 
 }
 </%init>

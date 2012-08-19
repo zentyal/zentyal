@@ -36,6 +36,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;

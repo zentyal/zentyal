@@ -5,17 +5,22 @@ Component for HTML hyperlinks
 $text => ''
 $href
 $image => undef
+$onclick => undef
 </%args>
 <%init>
 if ($text eq '') {
     $text = $href;
 }
 </%init>
-<a href='<% $href  %>'>  
+<a href='<% $href  %>'
+% if (defined $onclick) {
+    onclick="<% $onclick %>"
+% }
+>
 % if (defined $image) {
    <img src=<% $image %>
      title="<% $text %>"
-     alt="<%   $text  %>"/>
+     alt="<% $text %>"/>
 % }
 % else {
      <% $text %>

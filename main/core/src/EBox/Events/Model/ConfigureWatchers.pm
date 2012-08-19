@@ -32,7 +32,7 @@ use warnings;
 
 use EBox;
 use EBox::Config;
-use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Model::Manager;
 use EBox::Types::HasMany;
@@ -416,7 +416,7 @@ sub enableWatcher
     my ($self, $watcher, $enabled) = @_;
     my $row = $self->findRow(watcher => $watcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Watcher $watcher does not exist");
+        throw EBox::Exceptions::DataNotFound(data => 'watcher', value => $watcher);
     }
 
     $row->elementByName('enabled')->setValue($enabled);
@@ -428,7 +428,7 @@ sub isEnabledWatcher
     my ($self, $watcher) = @_;
     my $row = $self->findRow(watcher => $watcher);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Watcher $watcher does not exist");
+        throw EBox::Exceptions::DataNotFound(data => 'watcher', value => $watcher);
     }
 
     return $row->valueByName('enabled');

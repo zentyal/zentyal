@@ -2,6 +2,7 @@ HEAD
 	+ Added modeldepends to yaml schema
 	+ Reimplemented old behavior of client configuration directory
 	  creation for compability with other modules
+	+ Fixed error when backing up servers with no configuration file present
 2.3.9
 	+ Added redirect gateway option to the server
 2.3.8
