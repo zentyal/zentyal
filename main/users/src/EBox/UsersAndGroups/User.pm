@@ -821,14 +821,12 @@ sub setKerberosKeys
 
     my $blobs = [];
     foreach my $key (@{$keys}) {
-        my $blob = $asn_key->encode(
-            mkvno => {
-                value => 0
-            },
-            salt => {
+        my $salt = undef;
+        if (defined $key->{salt}) {
+            $salt = {
                 value => {
-                   type => {
-                       value => 3
+                    type => {
+                        value => 3
                     },
                     salt => {
                         value => $key->{salt}
@@ -837,7 +835,14 @@ sub setKerberosKeys
                         value => '',
                     },
                 },
+            };
+        }
+
+        my $blob = $asn_key->encode(
+            mkvno => {
+                value => 0
             },
+            salt => $salt,
             key => {
                 value => {
                     keytype => {
