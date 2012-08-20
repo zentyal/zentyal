@@ -178,9 +178,7 @@ sub gids
 
 sub uid
 {
-    my $user = user();
-    my $uid = `id -u $user`;
-    chomp ($uid);
+    my $uid = getpwnam(user());
     return $uid;
 }
 
