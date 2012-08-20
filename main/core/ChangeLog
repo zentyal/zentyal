@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed ajax/form.mas to avoid phantom change button
 	+ New look & feel of the web interface
 2.3.19
 	+ Manually set up models for events to take into account the
