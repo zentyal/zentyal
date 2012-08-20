@@ -12,6 +12,8 @@ HEAD
 	+ Changes in styles and sizes of the save/revoke dialog
 	+ Removed redudant code in ConfigureWatchers::syncRows which made module
 	  to have an incorrect modified state
+	+ Dont show in bug report removed packages with configuration
+	  held as broken packages
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
