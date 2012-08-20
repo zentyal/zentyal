@@ -287,9 +287,9 @@ sub createRoamingProfileDirectory
     push (@perms, 'g::---');
     push (@perms, "g:$group:---");
     push (@perms, "u:$uidNumber:rwx");
-    push (@cmds, "setfacl -b $path");
-    push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " $path");
-    push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." $path");
+    push (@cmds, "setfacl -b \'$path\'");
+    push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
+    push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." \'$path\'");
     EBox::Sudo::root(@cmds);
 }
 
