@@ -124,6 +124,8 @@ sub validateTypedRow
                 __('Netbios and workgroup must have different names'));
     }
 
+    # TODO Error provisioning database. Output: ProvisioningError: guess_names: Realm 'SCHL-SERVER' must not be equal to hostname 'schl-server'!
+
     $self->_checkNetbiosName($netbios);
     $self->_checkDomainName($workgroup);
     $self->_checkDomainName($realm);
@@ -233,12 +235,10 @@ sub _table
         ),
         new EBox::Types::DomainName(
             fieldName          => 'realm',
-            printableName      => __('Domain'),
-            defaultValue       => EBox::Samba::defaultRealm(),
-            editable           => 1,
+            printableName      => __('Realm'),
+            defaultValue       => EBox::Global->modInstance('users')->kerberosRealm(),
+            editable           => 0,
         ),
-
-
         new EBox::Types::DomainName(
             fieldName     => 'dcfqdn',
             printableName => __('Domain controller FQDN'),
@@ -249,7 +249,6 @@ sub _table
             printableName => __('Domain DNS server IP'),
             editable      => 1,
         ),
-
         new EBox::Types::Text(
             # This is the administrator account used to join the zentyal
             # server to an existent domain
@@ -263,8 +262,6 @@ sub _table
             defaultValue  => EBox::Samba::defaultAdministratorPassword(),
             editable      => 1,
         ),
-
-
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
             printableName      => __('NetBIOS domain name'),
@@ -372,10 +369,19 @@ sub confirmReprovision
     my $oldRealm = $self->value('realm');
     my $newDomain = $params->{workgroup};
     my $oldDomain = $self->value('workgroup');
-    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain);
-    return  __x("Changing the domain name will cause to reprovision the samba database.\n\n" .
-                'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
-                'rejoin all computers to the new domain.');
+    my $newMode = $params->{mode};
+    my $oldMode = $self->value('mode');
+    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain and $newMode eq $oldMode);
+    if ($newMode eq 'dc') {
+        return  __("Changing the domain name will cause to reprovision the samba database.\n\n" .
+                   'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
+                   'rejoin all computers to the new domain.');
+    } elsif ($newMode eq 'adc') {
+        return __("Joining a domain will delete all your users and groups from Zentyal and import " .
+                  "the domain ones.");
+    }
+
+    return undef;
 }
 
 # Populate the server role select
