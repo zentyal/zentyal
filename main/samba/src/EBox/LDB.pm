@@ -679,10 +679,6 @@ sub ldbUsersToLdap
 
                 # Skip users that do not have kerberos keys
                 my $keys = $credentials->kerberosKeys();
-                unless (defined $keys) {
-                    EBox::warn("User '$dn' skipped, missing kerberos keys.");
-                    next;
-                }
 
                 my $params = {};
                 $params->{user}      = $sambaUser->get('samAccountName');
