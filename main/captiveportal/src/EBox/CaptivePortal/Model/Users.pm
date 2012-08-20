@@ -141,7 +141,7 @@ sub _table
     my @customActions = (
         new EBox::Types::Action(
             name => 'extend',
-            printableValue => __('Extend bandwit quota'),
+            printableValue => __('Extend bandwidth quota'),
             model => $self,
             handler => \&_extendUser,
             message => __('Reset bandwith limit'),
