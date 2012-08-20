@@ -182,6 +182,30 @@ sub initialSetup
     }
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    if ($status and $self->isProvisioned()) {
+        $self->setupDNS();
+    } else {
+        # Reset the domain to static type
+        my $dnsModule = EBox::Global->modInstance('dns');
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+        # Set the domain as static and set the library path
+        my $domainModel = $dnsModule->model('DomainTable');
+        my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+        if (defined $domainRow) {
+            EBox::debug("Setting domain type to static");
+            $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
+            $domainRow->store();
+        }
+    }
+
+    $self->SUPER::enableService($status);
+}
+
 sub _services
 {
     my ($self) = @_;
@@ -579,6 +603,7 @@ sub provisionAsDC
     $self->_startService();
 
     # Load all zentyal users and groups into ldb
+    # TODO Load samba users and groups
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
@@ -637,8 +662,6 @@ sub provisionAsADC
         # Join the domain
         EBox::debug("Joining to the domain");
         my @cmds;
-        push (@cmds, 'rm -f ' . SAMBACONFFILE);
-        push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
         push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
             " -U $adminAccount " .
             " --workgroup='$netbiosDomain' " .
@@ -734,9 +757,6 @@ sub setupDNS
     my $dnsModule = EBox::Global->modInstance('dns');
     my $usersModule = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    # Remove the kerberos stuff created by the users module
-    $usersModule->cleanDNS($sysinfo->hostDomain());
 
     # Set the domain as DLZ and set the library path
     my $domainModel = $dnsModule->model('DomainTable');
