@@ -229,6 +229,10 @@ sub _setValue # (value)
     my ($self, $value) = @_;
 
     my ($hour, $min, $sec) = split (':', $value);
+    $hour =~ s/^0+//;
+    $min =~ s/^0+//;
+    $sec =~ s/^0+//;
+
 
     my $params = {
         $self->fieldName() . '_hour' => $hour,

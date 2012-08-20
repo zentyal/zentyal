@@ -685,7 +685,7 @@ sub backupFiles
 
     EBox::Sudo::root("cp -af $serverConfigDir/* $dst/");
     # dont store config file
-    EBox::Sudo::root("rm  $dst/$name.conf");
+    EBox::Sudo::root("rm -f $dst/$name.conf");
 }
 
 sub restoreFiles

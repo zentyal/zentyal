@@ -232,13 +232,13 @@ sub _paramIsValid
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $countryValue,
-            'advice' => __('This city does not exists.'));
+            'advice' => __('This city does not exist.'));
     }
 
     throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $continentValue,
-            'advice' => __('This continent does not exists.'));
+            'advice' => __('This continent does not exist.'));
 
     return 1;
 }

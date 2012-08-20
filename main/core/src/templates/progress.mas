@@ -14,6 +14,8 @@ $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
 
+$inModalbox => undef
+
 $nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
 $nextStepUrlOnclick => undef
@@ -21,8 +23,6 @@ $nextStepUrlFailureOnclick => undef
 $nextStepText => undef
 
 $nextStepTimeout => 0
-
-$barWidth => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -39,21 +39,27 @@ unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
 }
 
+my $barStyle ='';
+my $progresValueStyle ='';
 my $percentMargin;
-if ($barWidth) {
-    # add px unit
-    $barWidth = $barWidth . 'px';
-    $percentMargin = $barWidth / 2;
+if ($inModalbox) {
+    $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
+    $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
+    $percentMargin = 245;
 }
 
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
-        $nextStepUrlOnclick = $nextStepUrlFailureOnclick;
+        $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
 
 }
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
+% if ($inModalbox) {
+<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+% }
 
 <script type="text/javascript">
 	createPeriodicalExecuter(<% $progressId %>,
@@ -122,9 +128,10 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 .percent{
     float: left;
-    line-height: 20px;
-	height:20px;
-	margin-left: <% $percentMargin ? $percentMargin : '380' %>px;
+    line-height: 30px;
+
+	height:30px;
+	/*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
 	z-index : 100;
 	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
@@ -147,8 +154,12 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-    <div class="bar"<% $barWidth ? "style='width: $barWidth'" : ""%> >
-        <div id="progressValue"></div>
+    <div class="bar" <% $barStyle %> >
+        <div id="progressValue" <% $progresValueStyle %> ></div>
+<!--
+        <div class='tcenter'>
+        <div class="percent" id="percentValue"></div>
+-->
     </div>
 </div>
 <br/>
@@ -194,6 +205,16 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </script>
 % }
 
+% if ($inModalbox) {
+<script  type="text/javascript">
+  var section = $("error-progress");
+  section.show = section.show.wrap(function (origFunc) {
+                                       origFunc.apply(Modalbox, arguments);
+                                        Modalbox.resizeToInclude(this);
+                                        Modalbox.resize(0, +20);
+                                   });
+</script>
+% }
 <%def .nextStep>
 <%args>
 $type

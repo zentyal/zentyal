@@ -1,4 +1,6 @@
-HEAD
+2.3.1
+	+ Switch to d-push (rebranded version of z-push)
+	+ Fix group support with new Users module
 	+ Added support for enabled/disabled features (pop3, imap) per user
 	  with default values from UserTemplate
 	+ Added support for Shared Store Only users and meeting requests

@@ -3,6 +3,11 @@ HEAD
 	+ Removed wrong empty string translations
 	+ Enable printing daemon. Printers ACLs stored in a model within
 	  printers module.
+2.3.11
+	+ Added modeldepends to yaml schema
+	+ Enable printing daemon. Printers ACLs are now stored in a model within
+	  printers module
+	+ Removed wrong empty string translations
 2.3.10
 	+ Fix exception creating shares
 	+ Sync passwords from LDAP to LDB directly from hashes

@@ -197,5 +197,30 @@ sub pageTitle
     return $self->parentRow()->printableValueByName('printableName');
 }
 
+
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $all_r) = @_;
+    if (($all_r->{source}->value() eq 'any') and
+        ($all_r->{destination}->value() eq 'any') )  {
+        my $protocol = $all_r->{protocol}->value();
+        my $serviceTable =  $self->parentModule()->model('ServiceTable');
+        my $anyServiceId = $serviceTable->serviceForAnyConnectionId($protocol);
+        if ($anyServiceId) {
+            # already exists 'any' service for this protocol
+            if ($anyServiceId eq $self->parentRow()->id()) {
+                # the service itself is any service
+                return;
+            }
+            my $anyService = $serviceTable->row($anyServiceId)->valueByName('printableName');
+            throw EBox::Exceptions::External(
+                __x('If you want a service for any connections on this protocol, use the predefined service {ser}',
+                    ser => $anyService
+                   )
+               )
+        }
+    }
+}
+
 1;
 

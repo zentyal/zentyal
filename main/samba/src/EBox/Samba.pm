@@ -646,7 +646,7 @@ sub provision
     my $network = EBox::Global->modInstance('network');
     my $ipaddrs = $network->internalIpAddresses();
     unless (scalar @{$ipaddrs} > 0) {
-        throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
+        throw EBox::Exceptions::External(__('There are not any internal IP address configured, ' .
                                             'cannot continue with database provision. The module ' .
                                             'will remain disabled.'));
     }

@@ -146,7 +146,7 @@ sub _table
         new EBox::Types::Select(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),,
+                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,

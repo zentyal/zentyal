@@ -15,6 +15,5 @@ use EBox::Gettext;
 	<% __('There are no unsaved changes in this session.') %>
 </div>
 % }
-<p>
 <a class="big" href='/Logout/Logout'><% __('Exit') %></a>
-</p>
+

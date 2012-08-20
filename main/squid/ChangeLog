@@ -1,4 +1,6 @@
-HEAD
+2.3.9
+	+ Summarized report works again
+	+ Added modeldepends to yaml schema
 	+ Fixed cache-peer authorization parameters when using a global proxy.
 	  Due to this change squid.conf is no longer readable by all
 	+ Avoid multiple calls to store row in DelayPools::_setUndefinedValues()

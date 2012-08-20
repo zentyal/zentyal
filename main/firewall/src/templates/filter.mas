@@ -6,46 +6,45 @@ use EBox::Gettext;
 </%init>
 <p>
 
-<table>
-  <tr>
-    <td>
+<div class="PackFilter">
+  <div>
+
 % if ($showImages) {
-<a href="/Firewall/View/InternalToEBoxRuleTable"><img src="/data/firewall/internal_to_zentyal.png" /></a>
+<a class="img_a" href="/Firewall/View/InternalToEBoxRuleTable"><img src="/data/firewall/internal_to_zentyal.png" /></a>
 % }
-    </td>
-    <td>
+
+    <div>
 <h3><% __('Filtering rules from internal networks to Zentyal') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from internal networks to services running on your Zentyal machine.') %> </div>
 	<p>
-		<a href="/Firewall/View/InternalToEBoxRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/InternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    </div>
+  </div>
+  <div>
+
 % if ($showImages) {
-<a href="/Firewall/View/ToInternetRuleTable"><img src="/data/firewall/internal_networks.png" /></a>
+<a class="img_a" href="/Firewall/View/ToInternetRuleTable"><img src="/data/firewall/internal_networks.png" /></a>
 % }
-    </td>
-    <td>
+    <div>
 
 <h3><% __('Filtering rules for internal networks') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from internal networks to the Internet and traffic between internal networks. If you wish to provide access to your Zentyal services, you must use the above section.') %>
 </div>
 	<p>
-		<a href="/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    </div>
+  </div>
+  <div>
+
 % if ($showImages) {
-<a href="/Firewall/View/ExternalToEBoxRuleTable"><img src="/data/firewall/external_to_zentyal.png" /></a>
+<a class="img_a" href="/Firewall/View/ExternalToEBoxRuleTable"><img src="/data/firewall/external_to_zentyal.png" /></a>
 % }
-    </td>
-    <td>
+
+    <div>
 
 <h3><% __('Filtering rules from external networks to Zentyal') %></h3>
 <div class=''>
@@ -55,17 +54,15 @@ use EBox::Gettext;
 	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
 </div>
 	<p>
-		<a href="/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    </div>
+  </div>
+  <div>
 % if ($showImages) {
-<a href="/Firewall/View/ExternalToInternalRuleTable"><img src="/data/firewall/external_to_internal.png" /></a>
+<a class="img_a" href="/Firewall/View/ExternalToInternalRuleTable"><img src="/data/firewall/external_to_internal.png" /></a>
 % }
-    </td>
-    <td>
+    <div>
 
 <h3><% __('Filtering rules from external networks to internal networks') %></h3>
 <div class=''>
@@ -75,33 +72,29 @@ use EBox::Gettext;
 	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
 </div>
 	<p>
-		<a href="/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    </div>
+  </div>
+  <div>
 % if ($showImages) {
-<a href="/Firewall/View/EBoxOutputRuleTable"><img src="/data/firewall/outgoing_traffic.png" /></a>
+<a class="img_a" href="/Firewall/View/EBoxOutputRuleTable"><img src="/data/firewall/outgoing_traffic.png" /></a>
 % }
-    </td>
-    <td>
+    <div>
 <h3><% __('Filtering rules for traffic coming out from Zentyal') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from your Zentyal to external services.') %>
 </div>
 	<p>
-		<a href="/Firewall/View/EBoxOutputRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/EBoxOutputRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    </div>
+  </div>
+  <div>
 % if ($showImages) {
-<a href="/Firewall/View/EBoxServicesRuleTable"><img src="/data/firewall/advanced.png" /></a>
+<a class="img_a" href="/Firewall/View/EBoxServicesRuleTable"><img src="/data/firewall/advanced.png" /></a>
 % }
-    </td>
-    <td>
+    <div>
 <h3><% __('Rules added by Zentyal services (Advanced)') %></h3>
 <div class=''>
 	<% __('These rules are automatically added by the Zentyal services.') %>
@@ -110,9 +103,9 @@ use EBox::Gettext;
 	<% __('You can disable these rules, but make sure you know what you are doing or otherwise some services could stop working.') %>
 </div>
 	<p>
-		<a href="/Firewall/View/EBoxServicesRuleTable"><% __('Configure rules') %></a>
+		<a class="conf_rul" href="/Firewall/View/EBoxServicesRuleTable"><% __('Configure rules') %></a>
 	</p>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+</div>
 

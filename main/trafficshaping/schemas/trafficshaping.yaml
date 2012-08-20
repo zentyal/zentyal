@@ -17,5 +17,17 @@ models:
 composites:
     Rules: [InternalRules, ExternalRules]
 
+modeldepends:
+    InternalRules:
+        services/ServiceTable: [service_port]
+        objects/ObjectTable: [source_object, destination_object]
+        l7-protocols/Protocols: [service_l7Protocol]
+        l7-protocols/Groups: [service_l7Group]
+    ExternalRules:
+        services/ServiceTable: [service_port]
+        objects/ObjectTable: [source_object, destination_object]
+        l7-protocols/Protocols: [service_l7Protocol]
+        l7-protocols/Groups: [service_l7Group]
+
 notifyactions:
     ExternalRules: [InterfaceRate]

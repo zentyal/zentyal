@@ -1,0 +1,15 @@
+<%args>
+$buttonText => undef
+</%args>
+<%init>
+use EBox::Gettext;
+if (not defined $buttonText) {
+  $buttonText = __('OK');
+}
+</%init>
+<br/>
+<div class='tcenter'>
+<input type ='button' value=<% $buttonText %>
+       onclick='Modalbox.hide(); return false'
+/>
+</div>

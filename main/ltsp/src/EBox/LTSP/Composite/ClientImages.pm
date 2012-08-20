@@ -41,7 +41,7 @@ sub _description
     {
         layout          => 'top-bottom', # or tabbed
         name            => 'ClientImages',
-        printableName   => __('Thin Clients Image Management'),
+        printableName   => __('Images'),
         compositeDomain => 'LTSP',
         #help            => __(''), # FIXME
     };

@@ -95,6 +95,17 @@ sub appArmorProfiles
            ];
 }
 
+# samba it is in dependecies bz it must be started before than DNS but is not
+# needed for restore and dns can work without it
+sub restoreDependencies
+{
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    my @deps = grep { $_ ne 'samba' } @{ $global->modDepends($self->name) };
+    return \@deps;
+
+}
+
 # Method: addDomain
 #
 #  Add new domain to table model
@@ -252,7 +263,7 @@ sub domains
         my $domaindata = { name    => $row->valueByName('domain'),
                            dynamic => $row->valueByName('dynamic') };
 
-        push ($array, $domaindata);
+        push @{$array}, $domaindata;
     }
 
     return $array;
@@ -311,7 +322,7 @@ sub aliases
     my $array = [];
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        push ($array, $row->valueByName('alias'));
+        push @{$array}, $row->valueByName('alias');
     }
 
     return $array;
@@ -337,7 +348,7 @@ sub hostIpAddresses
     my $array = [];
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        push ($array, $row->valueByName('ip'));
+        push @{$array}, $row->valueByName('ip');
     }
 
     return $array;
@@ -1165,7 +1176,7 @@ sub _serviceRecords
                 ->row($rowId)
                 ->valueByName('hostname');
         }
-        push($array, $data);
+        push @{$array}, $data;
     }
 
     return $array;
@@ -1207,7 +1218,7 @@ sub _textRecords
             $data->{target} = $txt->valueByName('domain');
         }
 
-        push($array, $data);
+        push @{$array}, $data;
     }
 
     return $array;

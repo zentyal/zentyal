@@ -66,6 +66,7 @@ sub _table
            defaultValue  => 60,
            min           => 60,
            max           => 86400,  # one day
+           trailingText  => __('seconds'),
            ),
        new EBox::Types::Port(
            fieldName     => 'http_port',

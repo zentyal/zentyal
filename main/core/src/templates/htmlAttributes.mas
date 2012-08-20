@@ -1,17 +1,18 @@
 <%doc>
-Formats the named parameters list as HTML attributes. 
+Formats the named parameters list as HTML attributes.
 The quoting character used is ["] so don't use it in the value.
 </%doc>
 <%init>
 my $attrString = '';
 while (my ($key, $value) = each %ARGS) {
-   defined $value or die "Attribute $key has not value.\n If $key is a boolean attribute with true value use the form '$key=$key'";
    if ($key eq 'disabled') {
-	$attrString .= 'disabled ' if ($value);
+        $attrString .= 'disabled ' if ($value);
    } else {
-   	$attrString .= qq{$key="$value" };
+        defined $value or
+          die "Attribute $key has not value.\n If $key is a boolean attribute with true value use the form '$key=$key'";
+        $attrString .= qq{$key="$value" };
    }
 }
 $m->print($attrString);
-return 
+return
 </%init>

@@ -220,7 +220,6 @@ sub _table
             printableName => __('Permissions'),
             populate => \&populatePermissions,
             editable => 1,
-#            help => _permissionsHelp()
         ),
     );
 
@@ -239,13 +238,6 @@ sub _table
 
     return $dataTable;
 }
-
-# Private methods
-#sub _permissionsHelp
-#{
-#    return __('Be careful if you grant <i>administrator</i> privileges.' .
-#              'User will be able to read and write any file in the share.');
-#}
 
 sub filterUserGroupPrintableValue
 {

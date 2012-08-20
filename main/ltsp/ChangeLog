@@ -1,4 +1,6 @@
 HEAD
+	+ Shortened some redundant strings
+	+ Added modeldepends to yaml schema
 	+ Fixed wrong variable interpolation in translatable string
 2.3.3
 	+ Added missing zentyal-firewall dependency

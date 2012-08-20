@@ -19,6 +19,11 @@ models:
     - SecondaryLDAP
     - Exceptions
 
+modeldepends:
+    Exceptions:
+        services/ServiceTable: [exception_service]
+        objects/ObjectTable: [exception_object]
+
 composites:
     GeneralSettings: [Settings, BWSettings, Interfaces]
     General: []

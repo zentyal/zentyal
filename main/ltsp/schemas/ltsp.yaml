@@ -18,6 +18,10 @@ composites:
     ClientConfiguration: [GeneralClientOpts, OtherClientOpts]
     Configuration: [GeneralOpts, OtherOpts]
 
+modeldepends:
+    Clients:
+        objects/ObjectTable: [object]
+
 foreign:
     AvailableImages: [LocalApps]
     Profiles: [ClientConfiguration, Clients]

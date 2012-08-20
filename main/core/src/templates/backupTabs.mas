@@ -11,22 +11,17 @@ my %tabs = (
 	    local => {
 		      component =>  'backup.mas',
 		      title     =>  __('Local'),
-              url       => '/SysInfo/Backup?selected=local',
+                      url       => '/SysInfo/Backup?selected=local',
 		     },
 	    remote => {
 		      component =>  '/remoteservices/Backup/index.mas',
-		      title     =>  __('Remote in Zentyal Cloud'),
-              url       => '/RemoteServices/Backup/Index?selected=remote',
-		     },
-	    proxy => {
-		      component =>  '/remoteservices/Backup/proxy.mas',
-		      title     =>  __('Remote in Zentyal Cloud from other subscribed hosts'),
-              url       => '/RemoteServices/Backup/Proxy?selected=proxy',
+		      title     =>  __('Remote'),
+                      url       => '/RemoteServices/Backup/Index?selected=remote',
 		     },
 	   );
 my @tabsOrder;
 if ( EBox::Global->modExists('remoteservices') ) {
-    @tabsOrder = qw(local remote proxy);
+    @tabsOrder = qw(local remote);
 } else {
     @tabsOrder = qw(local);
 }
@@ -43,7 +38,6 @@ if (not exists $tabs{$selected}) {
     <a href='<% $tabs{$tab}->{url} %>'><%  $tabs{$tab}->{title} %></a>
 %    }
 % }
-
 
 </div>
 <& $tabs{$selected}->{component}, %args &>

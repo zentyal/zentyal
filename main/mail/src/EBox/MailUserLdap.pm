@@ -65,7 +65,7 @@ sub mailboxesDir
 #
 # Parameters:
 #
-#               user - username
+#               user - user object
 #               lhs - the left hand side of a mail (the foo on foo@bar.baz account)
 #               rhs - the right hand side of a mail (the bar.baz on previous account)
 
@@ -114,7 +114,7 @@ sub setUserAccount
 #
 # Parameters:
 #
-#               user - username
+#               user - user object
 #               usermail - the user's mail address (optional)
 sub delUserAccount
 {
@@ -758,6 +758,7 @@ sub setUserZarafaQuotaDefault
 
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
     $user->set('zarafaQuotaOverride', $userMaildirSizeValue, 1);
+    $user->save();
 }
 
 # Method: gidvmail
