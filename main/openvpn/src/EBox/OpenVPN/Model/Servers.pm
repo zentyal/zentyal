@@ -352,8 +352,6 @@ sub _configureVPN
 {
     my ($self, $row) = @_;
 
-    my $name = $row->valueByName('name');
-
     # Configure network
     my $networkMod = EBox::Global->modInstance('network');
     my @addresses;
@@ -362,11 +360,11 @@ sub _configureVPN
         push (@addresses, $address) if ($address);
     }
 
+    my $rowId = $row->id();
     for my $id (@{$self->ids()}) {
-        next if ($id eq $row->id());
+        next if ($id eq $rowId);
         my $subModel = $self->row($id)->subModel('configuration');
         my $vpn = $subModel->row()->elementByName('vpn')->printableValue();
-        my $name = $self->row($id)->valueByName('name');
         push (@addresses, $vpn) if ($vpn);
     }
     my $network;
@@ -384,6 +382,7 @@ sub _configureVPN
 
     # Create server certificate
     my $ca = EBox::Global->modInstance('ca');
+    my $name = $row->valueByName('name');
     my $certName = "vpn-$name";
     my @certs = @{$ca->listCertificates()};
     unless (List::Util::first { $_->{dn}->{commonName} eq $certName } @certs ) {
@@ -414,13 +413,13 @@ sub _configureVPN
                                 $ifaceAddress->{netmask},
                              );
             my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
-            my $name = "openVPN-$iface-$netAddress-$mask";
+            my $objName = "openVPN-$iface-$netAddress-$mask";
 
             my $id = undef;
 
             # Check if object already exist
             for my $obj (@{$objects}) {
-                if ($obj->{'name'} eq $name) {
+                if ($obj->{'name'} eq $objName) {
                     $id = $obj->{'id'};
                 }
             }
@@ -428,7 +427,7 @@ sub _configureVPN
             # Add the object if if does not exist
             if ( not defined $id ) {
                 $id = $objMod->addObject(
-                    name     => $name,
+                    name     => $objName,
                     members  => [{
                                     name             => "$netAddress-$mask",
                                     address_selected => 'ipaddr',

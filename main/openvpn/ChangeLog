@@ -1,4 +1,6 @@
 HEAD
+	+ Adapted to changes in DataForm, these changes caused problems
+	  creating new servers
 	+ Added modeldepends to yaml schema
 	+ Reimplemented old behavior of client configuration directory
 	  creation for compability with other modules
