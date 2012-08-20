@@ -507,18 +507,17 @@ sub create
                 maxuserlength => MAXUSERLENGTH));
     }
 
+    # Verify user exists
+    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
+        throw EBox::Exceptions::DataExists('data' => __('user name'),
+                                           'value' => $user->{'user'});
+    }
+
     my @userPwAttrs = getpwnam($user->{'user'});
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(
             __("Username already exists on the system")
         );
-    }
-
-
-    # Verify user exists
-    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
-        throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $user->{'user'});
     }
 
     my $homedir = _homeDirectory($user->{'user'});
