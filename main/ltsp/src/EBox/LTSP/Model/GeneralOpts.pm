@@ -166,8 +166,7 @@ sub _table
             printableName   => __('Time Server'),
             editable        => 1,
             optional        => 1,
-            help            => __('IP address of the time server. ' .
-                                  'If not set, it will be undef.'),
+            help            => __('IP address of the time server (optional).'),
         ),
         new EBox::Types::Union(
             fieldName      => 'shutdown',
