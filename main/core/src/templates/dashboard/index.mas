@@ -113,7 +113,9 @@ function updateGraph(element,value) {
 //]]>
 </script>
 
+<span id="confbutton">
 <a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+</span>
 % if (@brokenPackages) {
 <div class='error'>
     <% __x('The following packages are not properly installed: {packages}.',

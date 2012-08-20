@@ -804,7 +804,6 @@ input {
     position: absolute;
     right: 0px;
     top: 10px;
-
 }
 
 #helpbutton a {
@@ -824,11 +823,36 @@ input {
 }
 #helpbutton > #hidehelp:hover {color: #999; background:url("/data/images/hidehelp.png") top center no-repeat;}
 
-
 #titlehelp {
     width: auto;
     height: 25px;
 }
+
+#confbutton {
+    font-size: 11px;
+    font-family: Trebuchet MS, sans-serif;
+    text-align: center;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+}
+
+#confbutton a {
+    color: #999;
+    padding: 15px 3px 3px 3px;
+    border-radius: 3px;
+    text-decoration: none;
+    background:url("/data/images/edit-table.gif") top center no-repeat;
+}
+
+
+#confbutton a:hover { color: #428592; background:url("/data/images/edit-table.gif") top center no-repeat; }
+
+#confbutton > #hideconf {
+    background:url("/data/images/edit-table.gif") top center no-repeat;
+    color: #428592;
+}
+#confbutton > #hideconf:hover {color: #999; background:url("/data/images/edit-table.gif") top center no-repeat;}
 
 #nav, #nav ul, #nav li ul {
     margin: 0;
