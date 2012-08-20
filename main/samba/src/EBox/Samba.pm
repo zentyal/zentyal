@@ -608,6 +608,7 @@ sub provisionAsADC
     # abort
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
+    my $hostName = $sysinfo->hostName();
     my $krbRealm = $usersModule->kerberosRealm();
     if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
         lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
@@ -669,6 +670,24 @@ sub provisionAsADC
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
         $self->_startService();
+
+        # Wait for RID allocation
+        my $args = {
+            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
+            scope => 'base',
+            filter => '(objectClass=*)',
+            attrs => ['rIDSetReferences'],
+        };
+        for (my $retries=12; $retries>=0; $retries--) {
+            EBox::debug ("Waiting for RID allocation, $retries");
+            my $result = $self->ldb->search($args);
+            if ($result->count() == 1) {
+                my $entry = $result->entry(0);
+                my @val = $entry->get_value('rIDSetReferences');
+                last if @val;
+            }
+            sleep (5);
+        }
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
