@@ -447,4 +447,19 @@ sub setCritical
     $self->save($relaxOidControl) unless $lazy;
 }
 
+sub setViewInAdvancedOnly
+{
+    my ($self, $enable, $lazy) = @_;
+
+    if ($enable) {
+        $self->set('showInAdvancedViewOnly', 'TRUE', 1);
+    } else {
+        $self->delete('showInAdvancedViewOnly', 1);
+    }
+    my $relaxOidControl = Net::LDAP::Control->new(
+        type => '1.3.6.1.4.1.4203.666.5.12',
+        critical => 0 );
+    $self->save($relaxOidControl) unless $lazy;
+}
+
 1;
