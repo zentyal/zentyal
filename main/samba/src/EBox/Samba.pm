@@ -603,7 +603,6 @@ sub provisionAsDC
     $self->_startService();
 
     # Load all zentyal users and groups into ldb
-    # TODO Load samba users and groups
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();

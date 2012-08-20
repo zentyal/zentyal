@@ -25,6 +25,7 @@ use EBox::Samba::Group;
 
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataExists;
 
 use Net::LDAP;
 use Net::LDAP::Control;
@@ -504,10 +505,10 @@ sub ldapUsersToLdb
 {
     my ($self) = @_;
 
-    EBox::info('Loading Zentyal users into samba database');
     try {
-        my $usersMod = EBox::Global->modInstance('users');
-        my $users = $usersMod->users();
+        EBox::info('Loading Zentyal users into samba database');
+        my $usersModule = EBox::Global->modInstance('users');
+        my $users = $usersModule->users();
         foreach my $user (@{$users}) {
             my $dn = $user->dn();
             EBox::debug("Loading user $dn");
@@ -536,10 +537,10 @@ sub ldapGroupsToLdb
 {
     my ($self) = @_;
 
-    EBox::info('Loading Zentyal groups into samba database');
     try {
-        my $usersMod = EBox::Global->modInstance('users');
-        my $groups = $usersMod->groups();
+        EBox::info('Loading Zentyal groups into samba database');
+        my $usersModule = EBox::Global->modInstance('users');
+        my $groups = $usersModule->groups();
         foreach my $group (@{$groups}) {
             my $dn = $group->dn();
             EBox::debug("Loading group $dn");
@@ -650,7 +651,7 @@ sub groups
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
         filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
-        attrs => ['samAccountName', 'cn', 'description', 'gidNumber', 'objectSid'],
+        attrs => ['samAccountName', 'cn', 'description', 'gidNumber', 'objectSid', 'member'],
     };
     my $result = $self->search($params);
     my $list = [];
@@ -667,19 +668,13 @@ sub ldbUsersToLdap
 
     try {
         EBox::info('Loading Samba users into Zentyal LDAP');
+        my $usersModule = EBox::Global->modInstance('users');
         my $users = $self->users();
-
         foreach my $sambaUser (@{$users}) {
             my $dn = $sambaUser->dn();
             EBox::info("Adding user '$dn'");
+            my $user = undef;
             try {
-                my $suppCred    = $sambaUser->get('supplementalCredentials');
-                my $unicodePwd  = $sambaUser->get('unicodePwd');
-                my $credentials = new EBox::Samba::Credentials(supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
-
-                # Skip users that do not have kerberos keys
-                my $keys = $credentials->kerberosKeys();
-
                 my $params = {};
                 $params->{user}      = $sambaUser->get('samAccountName');
                 $params->{fullname}  = $sambaUser->get('name');
@@ -692,9 +687,26 @@ sub ldbUsersToLdap
 
                 my %optParams;
                 $optParams{ignoreMods} = ['samba'];
-                my $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
-                $user->setKerberosKeys($keys);
+                $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+            } catch EBox::Exceptions::DataExists with {
+                $user = $usersModule->user($sambaUser->get('samAccountName'));
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error loading user '$dn': $error");
+                next;
+            };
 
+            try {
+                my $suppCred    = $sambaUser->get('supplementalCredentials');
+                my $unicodePwd  = $sambaUser->get('unicodePwd');
+                my $credentials = new EBox::Samba::Credentials(supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
+                $user->setKerberosKeys($credentials->kerberosKeys());
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error setting kerberos keys: $error");
+            };
+
+            try {
                 # Set the uid mapping
                 my $uidNumber = $user->get('uidNumber');
                 $sambaUser->set('uidNumber', $uidNumber);
@@ -703,7 +715,7 @@ sub ldbUsersToLdap
                 $self->idmap->setupNameMapping($sid, $type, $uidNumber);
             } otherwise {
                 my $error = shift;
-                EBox::error("Error loading user '$dn': $error");
+                EBox::error("Error setting uid mapping: $error");
             };
         }
     } otherwise {
@@ -716,40 +728,52 @@ sub ldbGroupsToLdap
 {
     my ($self) = @_;
 
-    my $usersModule = EBox::Global->modInstance('users');
     try {
         EBox::info('Loading Samba groups into Zentyal LDAP');
+        my $usersModule = EBox::Global->modInstance('users');
         my $groups = $self->groups();
-
         foreach my $sambaGroup (@{$groups}) {
             my $dn = $sambaGroup->dn();
-            EBox::info("Adding group '$dn'");
+            my $name = $sambaGroup->get('samAccountName');
+            my $comment = $sambaGroup->get('description');
+            my $zentyalGroup = undef;
             try {
-                my $name = $sambaGroup->get('samAccountName');
-                my $comment = $sambaGroup->get('description');
-
                 my %optParams;
                 $optParams{ignoreMods} = ['samba'];
-                my $zentyalGroup = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
+                EBox::info("Adding group '$dn'");
+                $zentyalGroup = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
+            } catch EBox::Exceptions::DataExists with {
+                $zentyalGroup = $usersModule->group($name);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error adding group '$dn': $error");
+                next;
+            };
 
+            try {
                 # Set the gid mapping
                 my $gidNumber = $zentyalGroup->get('gidNumber');
                 $sambaGroup->set('gidNumber', $gidNumber);
                 my $type = $self->idmap->TYPE_GID();
                 my $sid = $sambaGroup->sid();
                 $self->idmap->setupNameMapping($sid, $type, $gidNumber);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error setting up gid mapping: $error");
+            };
 
-                # Sync group memebers
-                my @members = $sambaGroup->get('member');
-                foreach my $sambaDN (@members) {
+            # Sync group memebers
+            my @members = $sambaGroup->get('member');
+            foreach my $sambaDN (@members) {
+                try {
                     my $sambaMember = new EBox::Samba::User(dn => $sambaDN);
                     my $zentyalUser = $usersModule->user($sambaMember->get('samAccountName'));
                     $zentyalGroup->addMember($zentyalUser);
-                }
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading group '$dn': $error");
-            };
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding member to group '$dn': $error");
+                };
+            }
         }
     } otherwise {
         my $error = shift;
