@@ -64,22 +64,36 @@
 <& SELF:header,
    model => $model
 &>
+
+
 % if ($model->precondition()) {
-%   my $noDataMsg = $model->noDataMsg();
-%   if ($noDataMsg and not @{$model->ids()}) {
-<div class="note">
-  <% $noDataMsg %>
-</div>
-%   } else {
-<div id="<% $model->modelName() %>">
-  <& SELF:body,
-     model      => $model
-  &>
-</div>
+<%perl>
+     my $showBody = 1;
+     my $noDataMsg;
+     if (@{$model->ids()} == 0) {
+        $noDataMsg = $model->noDataMsg();
+        my $actions = $model->table()->{'actions'};
+        $showBody = exists $actions->{add} ? $actions->{add} : 0;
+        if ($showBody) {
+           unless ($model->message) {
+              $model->setMessage($noDataMsg);
+           }
+        }
+     }
+</%perl>
+%   if ($showBody) {
+       <div id="<% $model->modelName() %>">
+            <& SELF:body,
+               model      => $model,
+
+             &>
+       </div>
+%   } elsif ($noDataMsg) {
+          <div class="note">
+            <% $noDataMsg %>
+          </div>
 %   }
-% }
-% else
-% {
+% } else  {
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
