@@ -503,20 +503,26 @@ sub _decodeSambaCredentials
         if (exists $properties->{'Primary:CLEARTEXT'}) {
             $credentials->{clearText} = $properties->{'Primary:CLEARTEXT'};
         }
+    }
 
-        if (defined $unicodePwdBlob) {
-            unless (exists $credentials->{kerberosKeys}) {
-                $credentials->{kerberosKeys} = [];
-            }
+    if (defined $unicodePwdBlob) {
+        unless (exists $credentials->{kerberosKeys}) {
+            $credentials->{kerberosKeys} = [];
+        }
+        if (scalar @{$credentials->{kerberosKeys}} > 0) {
             # Copy salt from previous krb keys
-            if (scalar $credentials->{kerberosKeys} > 0) {
-                my $key = {
-                    type => 23,
-                    salt => @{$credentials->{kerberosKeys}}[0]->{salt},
-                    value => $unicodePwdBlob,
-                };
-                push (@{$credentials->{kerberosKeys}}, $key);
-            }
+            my $key = {
+                type => 23,
+                salt => @{$credentials->{kerberosKeys}}[0]->{salt},
+                value => $unicodePwdBlob,
+            };
+            push (@{$credentials->{kerberosKeys}}, $key);
+        } else {
+             my $key = {
+                type => 23,
+                value => $unicodePwdBlob,
+            };
+            push (@{$credentials->{kerberosKeys}}, $key);
         }
     }
 
