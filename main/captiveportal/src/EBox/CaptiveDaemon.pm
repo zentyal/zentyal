@@ -90,10 +90,14 @@ sub run
 
     my $exceededEvent = 0;
     my $events = $global->getInstance(1)->modInstance('events');
-    if ((defined $events)  and ($events->isRunning())) {
-        $exceededEvent =
-            $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
-    }
+    try {
+        if ((defined $events)  and ($events->isRunning())) {
+            $exceededEvent =
+                $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
+        }
+    } otherwise {
+        $exceededEvent = 0;
+    };
 
     while (1) {
         my @users = @{$self->{module}->currentUsers()};
