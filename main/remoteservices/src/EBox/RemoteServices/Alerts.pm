@@ -54,7 +54,7 @@ sub pushAlerts
     my ($self, $alerts) = @_;
 
     my $response = $self->RESTClient()->POST("/v1/alerts/servers/",
-                                             $alerts);
+                                             query => $alerts);
 }
 
 1;

@@ -39,7 +39,7 @@ sub _create
     my $self = $class->SUPER::_create(name => 'printers',
                                       printableName => __('Printer Sharing'),
                                       @_);
-    bless($self, $class);
+    bless ($self, $class);
     $self->{'cups'} = new Net::CUPS;
     return $self;
 }
@@ -90,6 +90,7 @@ sub usedFiles
 # Method: initialSetup
 #
 # Overrides:
+#
 #   EBox::Module::Base::initialSetup
 #
 sub initialSetup
@@ -132,22 +133,6 @@ sub enableActions
                          [ addresses => $self->_ifaceAddresses() ]);
 }
 
-# Method: enableService
-#
-# Overrides:
-#
-#  <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-
-    my $samba = EBox::Global->modInstance('samba');
-    $samba->setPrinterService($status);
-}
-
 sub restoreDependencies
 {
     return [ 'network' ];
@@ -169,7 +154,7 @@ sub _preSetConf
 
     try {
         # Stop CUPS in order to force it to dump the conf to disk
-        $self->_stopService();
+        $self->stopService();
     } otherwise {};
 }
 
@@ -224,7 +209,7 @@ sub _mangleConfFile
     }
 
     $newContents .= <<END;
-# Added by Zentyal, don't modify or add more Liste/SSLListen statements
+# Added by Zentyal, don't modify or add more Listen/SSLListen statements
 Listen localhost:631
 Listen /var/run/cups/cups.sock
 END
@@ -234,7 +219,6 @@ END
 
     EBox::Module::Base::writeFile($path, $newContents);
 }
-
 
 sub _daemons
 {
@@ -268,7 +252,7 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    $self->_stopService();
+    $self->stopService();
 
     my @files = ('/etc/cups/printers.conf', '/etc/cups/ppd');
     my $backupFiles = '';
@@ -316,17 +300,24 @@ sub networkPrinters
 {
     my ($self) = @_;
 
-    my @ids;
-# FIXME: This should be get using Net::CUPS as we are not storing
-# printers in our config anymore
-#    foreach my $printer (@{$self->printers()}) {
-#        my $conf = $self->methodConf($printer->{id});
-#        push (@ids, $printer->{id}) if ($conf->{method} eq 'network');
-#    }
+    my $cups = Net::CUPS->new();
+    my @printers = $cups->getDestinations();
+    my $netPrinters = [];
+    foreach my $p (@printers) {
+        my $uri = $p->getUri();
+        my ($proto, $host, $port) =
+            ($uri =~ m/(socket|http|ipp|lpd):\/\/([^\/:]+)[^:]*(:[0-9]+)?/);
+        next unless ($proto and $host and $port);
+        $port =~ s/:// if $port;
+        push (@{$netPrinters}, {
+            protocol => $proto,
+            host => $host,
+            port => $port,
+        });
+    }
 
-    return \@ids;
+    return $netPrinters;
 }
-
 
 # Impelment LogHelper interface
 
@@ -367,27 +358,5 @@ sub logHelper
     return (new EBox::Printers::LogHelper());
 }
 
-# Method: fetchExternalCUPSPrinters
-#
-#   This method returns those printers that haven been configured
-#   by the user using CUPS.
-#
-# Returns:
-#
-#   Array ref - containing the printer names
-#
-sub fetchExternalCUPSPrinters
-{
-    my ($self) = @_;
-
-    my $cups = Net::CUPS->new();
-
-    my @printers;
-    foreach my $printer ($cups->getDestinations()) {
-        my $name = $printer->getName();
-        push (@printers, $name);
-    }
-    return \@printers;
-}
 
 1;

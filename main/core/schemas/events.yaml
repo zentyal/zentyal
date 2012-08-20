@@ -10,3 +10,7 @@ models:
 
 composites:
     General: [ConfigureWatchers, ConfigureDispatchers]
+
+modeldepends:
+    RSSDispatcherConfiguration:
+        objects/ObjectTable: [allowedObject]

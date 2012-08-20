@@ -45,7 +45,9 @@ use constant {
     CRON_FILE      => '/etc/cron.d/zentyal-auto-updater',
     QA_ARCHIVE     => 'zentyal-qa',
 };
-my @RESTRICTED_SB = qw(zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-jabber zentyal-asterisk);
+
+my @RESTRICTED_SB = qw(zentyal-jabber zentyal-asterisk);
+my @MAIL_PKGS = qw(zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-zarafa);
 
 # Group: Public methods
 
@@ -752,6 +754,11 @@ sub _getInfoEBoxPkgs
     my %restricted;
     if (EBox::Global->edition() eq 'sb') {
         %restricted = map { $_ => 1 } @RESTRICTED_SB;
+        my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+        unless ( $rs->sbMailAddOn() ) {
+            my %mailRestricted = map { $_ => 1 } @MAIL_PKGS;
+            @restricted{keys %mailRestricted} = values %mailRestricted;
+        }
     }
 
     my $cache = $self->_cache(1);

@@ -50,7 +50,7 @@ sub _table
                   hidden => \&_sslSupportNotAvailable,
                   editable => 1,
                   defaultValue => 0,
-                  help => __('FIXME: add help'),
+                  #help => __('FIXME: add help'),
               ),
           new EBox::Types::Boolean(
                   fieldName => 'removeAds',

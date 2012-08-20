@@ -9,6 +9,7 @@ my $status_str;
 my $status_tip_str;
 my $status_class;
 my $restart = __('Restart');
+my $name = 'restart';
 
 if ( $item->{statusStr} ) {
     $status_str = $item->{statusStr};
@@ -22,6 +23,7 @@ if ( $item->{statusStr} ) {
         $status_tip_str = __('The service is enabled, but not running');
         $status_class = 'summaryStopped';
         $restart = __('Start');
+        $name = 'start';
     } elsif ((not $item->{enabled}) and $item->{running}) {
         $status_str = __('Running unmanaged');
         $status_tip_str = __('The service is running, but not enabled in Zentyal');
@@ -41,7 +43,7 @@ if ( $item->{statusStr} ) {
 <form action='/SysInfo/RestartService'>
     <input type='hidden' name='module' value='<% $item->{module} %>'/>
     <span class='sright'>
-        <input class='inputButtonRestart' type='submit' name='restart' value='<% $restart %>'/>
+        <input class='inputButtonRestart <% $status_class %>' type='submit' name='<% $name %>' value='<% $restart %>'/>
     </span>
 </form>
 % }

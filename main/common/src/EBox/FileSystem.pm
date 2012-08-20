@@ -38,7 +38,7 @@ use constant MTAB_PATH => '/etc/mtab';
 #
 # Parameters:
 #
-#       path - The path of the directory to be created, if it exists it must
+#       dir - The path of the directory to be created, if it exists it must
 #              already have proper ownership and permissions.
 #
 # Exceptions:
@@ -46,7 +46,7 @@ use constant MTAB_PATH => '/etc/mtab';
 #       Internal & External - The path exists and is not a directory or has wrong
 #                  ownership or permissions. Or it does not exist and
 #                  cannot be created.
-sub makePrivateDir # (path)
+sub makePrivateDir
 {
     my ($dir) = @_;
     validate_pos(@_, 1);
@@ -144,9 +144,9 @@ sub isSubdir
     return $subDir =~ m/^$parentDir/;
 }
 
-# Function: isSubdir
+# Function: dirIsEmpty
 #
-#    Find if a directory is empty or not
+#    Find if a directory is empty or not. Not existent directories are considered empty.
 #
 #  Returns:
 #       - boolean
@@ -160,6 +160,31 @@ sub dirIsEmpty
         $empty = 1;
     };
     return $empty;
+}
+
+# Function: unusedFileName
+#
+# return the first unused fiel name in the form '$file.N' while N are
+# consecutive numbers.
+# If N == 0 the suffix is ignored.
+# Holes in numbers are reused.
+sub unusedFileName
+{
+    my ($file) = @_;
+    defined $file or
+        throw EBox::Exceptions::MissingArgument('file');
+
+    my $name = $file;
+    my $suffix = 0;
+    while (EBox::Sudo::fileTest('-e', $name)) {
+        $suffix += 1;
+        if ($suffix > 100) {
+            throw EBox::Exceptions::Internal("Maximum suffix name reached: $name");
+        }
+        $name = $file . '.' . $suffix;
+    }
+
+    return $name;
 }
 
 # Function: permissionsFromStat

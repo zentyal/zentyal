@@ -116,7 +116,7 @@ sub dumpLog
 
 sub brokenPackagesList
 {
-    my $output = EBox::Sudo::root("dpkg -l | tail -n +6 | grep -v ^ii | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
+    my $output = EBox::Sudo::root("dpkg -l | tail -n +6 | grep -v ^ii | grep -v ^rc | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
     return @{ $output };
 }
 

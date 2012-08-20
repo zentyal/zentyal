@@ -9,33 +9,37 @@
 use EBox::Gettext;
 use EBox::Util::SystemKernel;
 use EBox::Config;
-</%init>
+use EBox::Global;
 
-<script>
-var check = new Array();
+my $first = EBox::Global->first();
+my $popup = $first ? 0 : 1;
 
-% my $packages_auto = '';
-% if (EBox::Global->first()) {
-%   $packages_auto = EBox::Config::configkey('auto_select_packages');
-% }
+my $okOnClick = '';
+my $cancelOnClick = '';
 
-    function sendForm() {
-        for(var i = 0; i < check.length; i++){
-            if(document.getElementById(check[i]).checked){
-                var pkgs;
-                eval('pkgs = A'+check[i]);
-                for(var p = 0; p < pkgs.length; p++) {
-                    var inputPkg = document.createElement('input');
-                    inputPkg.setAttribute('type', 'hidden');
-                    inputPkg.setAttribute('name', 'pkg-'+pkgs[p]);
-                    inputPkg.setAttribute('value', 'yes');
-                    $('formPkg').appendChild(inputPkg);
-                }
-            }
-        }
-        $('formPkg').submit();
+my $url = 'InstallPkgs?';
+$url .= '&' . $action . '=1';
+$url .= '&go=yes';
+foreach my $pkg (@packages) {
+    $url .= '&pkg-' . $pkg . '=yes';
+}
+
+if ($popup) {
+    my $title = '';
+    if ($action eq 'install') {
+        $title = __('Installing packages');
+    } elsif ($action eq 'remove') {
+        $title= __('Removing packages');
     }
-</script>
+
+    $url .= '&popup=1';
+
+    $okOnClick = qq|onclick="Modalbox.show('$url', {title: '$title', transitions: false})"|;
+    $cancelOnClick = q|onclick="Modalbox.hide(); return false|;
+} else {
+    $okOnClick = qq|onclick="window.location='$url'; return false"|;
+}
+</%init>
 
 <style>
 .package {
@@ -84,14 +88,8 @@ var check = new Array();
 %   foreach my $pkg (@packages) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
-%   if ($packages_auto) {
-%       my @pkg_auto = split(',', $packages_auto);
-%       for my $pkg (@pkg_auto) {
-    <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
-%       }
-%   }
     <input type='hidden' name='go' value='yes'/>
     <input type='hidden' name='<% $action %>' value="1" />
-    <input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
-    <input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
+    <input class='inputButton' <% $okOnClick %> type='button' value="<% __('Ok') %>" />
+    <input class='inputButton' type='submit' name='cancel' <% $cancelOnClick %> value="<% __('Cancel') %>" />
 </form>

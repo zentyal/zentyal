@@ -24,15 +24,15 @@ if ($item->{running}) {
 </%init>
 <tr>
 <td class='summaryKey'><% $name %></td>
-<td id='<% $namespace . '_' . $i %>' class='summaryValue'>
+<td id='<% $namespace . '_' . $i %>' class='summary_value'>
 <span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 <form>
     <span class='sright'>
 % if ($item->{running}) {
-        <input class="inputButtonRestart" type="submit" value="<% __('Stop') %>"
+        <input class="inputButtonRestart" type="submit" name="stop" value="<% __('Stop') %>"
                onclick="<% $model->customActionClickedJS('stop', $id) %>; return false;"/>
 % } else {
-        <input class="inputButtonRestart" type="submit" value="<% __('Start') %>"
+        <input class="inputButtonRestart" type="submit" name="start" value="<% __('Start') %>"
                onclick="<% $model->customActionClickedJS('start', $id) %>; return false;"/>
 % }
     </span>

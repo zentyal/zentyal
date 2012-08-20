@@ -2,6 +2,12 @@ HEAD
 	+ Move report code to remoteservices
 	+ Perform the domain processing in log helper, very valuable for
 	  querying and reporting
+2.3.9
+	+ Summarized report works again
+	+ Added modeldepends to yaml schema
+	+ Fixed cache-peer authorization parameters when using a global proxy.
+	  Due to this change squid.conf is no longer readable by all
+	+ Avoid multiple calls to store row in DelayPools::_setUndefinedValues()
 2.3.8
 	+ Fixed group-based authorization
 	+ Fixed wrongly set time period acls in squid configuration in some cases

@@ -664,10 +664,6 @@ function hangTable(successId, errorId, url, formId, loadingId)
       stripe('dataTable', 'even', 'odd');
       completedAjaxRequest();
     },
-        onComplete: function(t) {
-          stripe('dataTable', 'even', 'odd');
-          completedAjaxRequest();
-        },
     onFailure: function(t) {
       restoreHidden(loadingId);
     }
@@ -1167,7 +1163,10 @@ function checkAllControlValue(url, table, directory, controlId, field)
 
 function confirmationDialog(url, table, directory, actionToConfirm, elements)
 {
-  var dialogStr = null;
+  var wantDialog  = true;
+  var dialogTitle = null;
+  var dialogMsg = null;
+
   var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
   pars +='&actionToConfirm=' + actionToConfirm;
   for (var i=0; i < elements.length; i++) {
@@ -1185,17 +1184,35 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
         onSuccess: function (t) {
            var json = t.responseText.evalJSON(true);
            if (json.wantDialog) {
-            dialogStr = json.message;
+             dialogTitle = json.title;
+             dialogMsg = json.message;
+           } else {
+             wantDialog = false;
            }
         },
         onFailure: function(t) {
-          dialogStr = 'Are you sure?';
+          dialogTitle = '';
+          dialogMsg = 'Are you sure?';
         }
 
       }
     );
 
-  return dialogStr;
+  return {
+    'wantDialog' : wantDialog,
+    'title': dialogTitle,
+    'message': dialogMsg
+   };
+}
+
+function showConfirmationDialog(params, acceptJS)
+{
+  var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
+  modalboxHtml += "</p></div><div class='tcenter'>";
+  modalboxHtml += '<input type="button" value="OK" onclick=" Modalbox.hide();' + acceptJS +  '" />';
+  modalboxHtml += "<input type='button' value='Cancel' onclick='Modalbox.hide()' />";
+  modalboxHtml += "</div>";
+  Modalbox.show(modalboxHtml, {'title' : params.title });
 }
 
 // Detect session loss on ajax request:

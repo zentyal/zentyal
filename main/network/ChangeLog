@@ -1,5 +1,5 @@
 HEAD
-	+ Fix redis lock with several commit/begin
+	+ Added modeldepends to yaml schema
 	+ New libossp-uuid-perl dependency
 	+ Zentyal Cloud DynDNS updates are now done outside the VPN and using
 	  the credentials obtained when the server is subscribed

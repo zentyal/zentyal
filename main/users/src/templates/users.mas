@@ -3,12 +3,15 @@
 <%args>
 	@users => ();
 	@groups => ();
-    @ous => ();
+        @ous => ();
+        $usersModel => undef
 </%args>
 <%init>
 use EBox::Gettext;
 use EBox::Global;
-my $usersModel = EBox::Global->modInstance('users')->model('Users');
+if (not $usersModel) {
+ $usersModel = EBox::Global->modInstance('users')->model('Users');
+}
 </%init>
 <h3><% __('Add User') %></h3>
 	<form action='AddUser' method='POST' autocomplete='off'>
@@ -122,5 +125,5 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 % }
 </%def>
 
+<& '/users/usersTableBody.mas', model => $usersModel &>
 
-<& '/ajax/tableBody.mas', model => $usersModel &>

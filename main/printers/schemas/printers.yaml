@@ -1,7 +1,6 @@
 class: 'EBox::Printers'
 
 depends:
-    - samba
     - network
 
 enabledepends:
@@ -12,6 +11,11 @@ bootdepends:
 
 models:
     - CUPS
+    - Printers
+    - PrinterPermissions
 
 composites:
-    General: [ CUPS ]
+    General: [ CUPS, Printers ]
+
+foreign:
+    Printers: [ PrinterPermissions ]

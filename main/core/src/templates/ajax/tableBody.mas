@@ -172,46 +172,12 @@ if ($checkAllProperty) {
 </h3>
 %    }
 %   }
+<& SELF:topToolbar,
+   tableName => $tableName,
+   model     => $model,
+   filter     => $filter,
+&>
 
-<table class="bDataTable">
-    <tr>
-        <td>
-<form action="javascript:void(0)">
-%    my $filterId =  $tableName  .  '_filterLoading';
-  <input type='text'
-      name='<%
-              $tableName
-            %>'
-      id='<%
-            $tableName . "_filter"
-          %>'
-      value="<%
-              $filter
-             %>"
-  />
-  <input type='submit'
-      name='filter'
-      value="<% __('Search') %>"
-      title="Apply"
-      onClick="setLoading('<%
-                             $filterId
-                            %>');
-                <%
-                  $model->changeViewJS( changeType => "changeList",
-                     editId => 'undefined',
-                     page => 0,
-                     isFilter => 1)
-               %>;
-               return false"
-  />
-  <span id="<%
-              $filterId
-            %>"
-  ></span>
-</form>
-        </td>
-    </tr>
-</table>
 <table class='<%
                $model->table()->{'class'}
               %>'>
@@ -317,6 +283,69 @@ if ($checkAllProperty) {
 %  }
 % }
 % # End body method
+</%method>
+
+<%method topToolbar>
+<%args>
+$tableName
+$model
+$filter => undef
+</%args>
+<table class="bDataTable">
+    <tr>
+        <td>
+         <& SELF:filterForm,
+            tableName => $tableName,
+            model     => $model,
+            filter    => $filter,
+         &>
+        </td>
+    </tr>
+</table>
+</%method>
+
+<%method filterForm>
+<%args>
+$tableName
+$model
+$filter
+</%args>
+<%init>
+ my $filterId =  $tableName  .  '_filterLoading';
+</%init>
+<form action="javascript:void(0)">
+
+  <input type='text'
+      name='<%
+              $tableName
+            %>'
+      id='<%
+            $tableName . "_filter"
+          %>'
+      value="<%
+              $filter
+             %>"
+  />
+  <input type='submit'
+      name='filter'
+      value="<% __('Search') %>"
+      title="Apply"
+      onClick="setLoading('<%
+                             $filterId
+                            %>');
+                <%
+                  $model->changeViewJS( changeType => "changeList",
+                     editId => 'undefined',
+                     page => 0,
+                     isFilter => 1)
+               %>;
+               return false"
+  />
+  <span id="<%
+              $filterId
+            %>"
+  ></span>
+</form>
 </%method>
 
 <%method editFormTitle>

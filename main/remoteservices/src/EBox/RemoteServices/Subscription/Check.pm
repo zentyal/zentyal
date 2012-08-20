@@ -32,7 +32,8 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter zarafa);
+use constant BANNED_MODULES => qw(asterisk jabber);
+use constant MAIL_MODULES   => qw(mail mailfilter webmail zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -44,7 +45,7 @@ use constant MAX_SB_USERS   => 25;
 #
 sub new
 {
-    my ($class, %params) = @_;
+    my ($class) = @_;
 
     my $self = {};
 
@@ -88,18 +89,20 @@ sub unsubscribeIsAllowed
 #
 #    edition - String the subscription edition
 #
+#    sbMailAddOn - Boolean SB mail add-on
+#
 # Returns:
 #
 #    True - if it is suitable
 #
 sub check
 {
-    my ($self, $edition) = @_;
+    my ($self, $edition, $sbMailAddOn) = @_;
 
     my $capable = 1;
     if ($edition eq 'sb') {
         try {
-            $self->_performSBChecks();
+            $self->_performSBChecks($sbMailAddOn);
         } catch EBox::RemoteServices::Exceptions::NotCapable with {
             $capable = 0;
         };
@@ -112,10 +115,6 @@ sub check
 #    Check whether the host is able to subscribe this server according
 #    to its capabilities from cloud data
 #
-# Parameters:
-#
-#    serverName - String the server name
-#
 # Returns:
 #
 #    True - if there is no problem in subscribing
@@ -127,7 +126,7 @@ sub check
 #
 sub checkFromCloud
 {
-    my ($self, $serverName) = @_;
+    my ($self) = @_;
 
     my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
     my $det = $capabilitiesGetter->subscriptionDetails();
@@ -143,17 +142,20 @@ sub checkFromCloud
 # Perform the required checks for SB edition
 sub _performSBChecks
 {
-    my ($self) = @_;
+    my ($self, $sbMailAddOn) = @_;
 
     my $gl = EBox::Global->getInstance();
-    $self->_modCheck($gl);
+    $self->_modCheck($gl, $sbMailAddOn);
     $self->_usersCheck($gl);
 }
 
-# Check no communication profile, ids and virt module are enabled
+# Check no communication profile and ids module are enabled
 sub _modCheck
 {
-    my ($self, $gl) = @_;
+    my ($self, $gl, $sbMailAddOn) = @_;
+
+    my @mod = BANNED_MODULES;
+    push(@mod, MAIL_MODULES) unless ( $sbMailAddOn );
 
     foreach my $modName (BANNED_MODULES) {
         if ( $gl->modExists($modName) ) {

@@ -1,3 +1,7 @@
+HEAD
+	+ Do not try to translate package description variable
+	+ Added popups for progress bars
+	+ Added logic for new mail add-on for SB edition
 2.3.6
 	+ Added package icon for the UPS module
 	+ Increased timeout before redirecting to wizards from 1 to 5 seconds

@@ -226,6 +226,23 @@ sub reportOptionsModel
     return $self->{EventsOptionModel};
 }
 
+# Method: models
+#
+#      Override to load in manager the dynamic models for Log Watcher
+#      Filtering
+#
+# Overrides:
+#
+#      <EBox::Module::Config::models>
+#
+sub models
+{
+    my ($self) = @_;
+
+    my $logWatcherConfModel = $self->model('LogWatcherConfiguration');
+    $logWatcherConfModel->setUpModels(); # This loads the log watcher models
+    return $self->SUPER::models();
+}
 
 
 # Method: isRunning

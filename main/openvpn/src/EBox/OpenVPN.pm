@@ -1396,7 +1396,7 @@ sub deleteClient
 
     if (not defined $id) {
         throw EBox::Exceptions::External(__x(
-                                             'Client {c} does not exists',
+                                             'Client {c} does not exist',
                                              c => $name
                                             )
                                         );

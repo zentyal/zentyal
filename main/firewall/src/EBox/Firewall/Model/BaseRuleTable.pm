@@ -180,16 +180,13 @@ sub _fieldDescription
                 'editable' => 1,
                 'optional' => 1,
                 ),
-#        new EBox::Types::Boolean(
-#                 'fieldName' => 'log',
-#                 'printableName' => __('Log'),
-#                 'editable' => 1
-#                 )
-
              );
 
     return \@tableHead;
 }
+
+
+
 
 # Method: viewCustomizer
 #
@@ -224,16 +221,34 @@ sub headTitle
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
+    my @addrsParams = qw(source destination);
+    foreach my $addrParam (@addrsParams) {
+        if ($params_r->{$addrParam}) {
+            my $addrElement = $params_r->{$addrParam};
+            if ($addrElement->inverseMatch()) {
+                my $anyType = $addrParam . '_any';
+                if ($addrElement->selectedType() eq $anyType) {
+                    throw EBox::Exceptions::External(
+                        __x(q{'Any' {addr} cannot have a inverse march},
+                            addr => $addrElement->printableName()
+                           )
+                       );
+                }
+            }
+        }
+    }
+
 
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
-
         if ($service->inverseMatch()) {
-            if ($service->printableValue eq '! any') {
-                throw EBox::Exceptions::External(
-__(q{'any service' cannot have a inverse march})
-                                                );
+            my $serviceTable = $self->global()->modInstance('services')->model('ServiceTable');
+            my $serviceId = $service->value();
+              if ($serviceId eq $serviceTable->serviceForAnyConnectionId('tcp/udp')) {
+                  throw EBox::Exceptions::External(
+                      __(q{'Any' service cannot have a inverse march})
+                     );
             }
         }
     }

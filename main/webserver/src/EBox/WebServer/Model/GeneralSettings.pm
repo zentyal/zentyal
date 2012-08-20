@@ -172,13 +172,18 @@ sub formSubmitted
         push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $sslportNumber });
     }
 
-    my $servMod = EBox::Global->modInstance('services');
-
-    $servMod->setMultipleService(name => 'webserver',
+    my $serviceName = 'webserver';
+    my @serviceParams = (name => $serviceName,
                                  internal => 1,
                                  printableName => __('Web Server'),
                                  description => __('Zentyal Web Server'),
                                  services => \@services);
+    my $servMod = $self->global()->modInstance('services');
+    if ($servMod->serviceExists(name => $serviceName)) {
+        $servMod->setMultipleService(@serviceParams);
+    } else {
+        $servMod->addMultipleService(@serviceParams, readOnly => 1);
+    }
 }
 
 # Method: sslPort

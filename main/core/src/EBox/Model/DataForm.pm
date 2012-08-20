@@ -361,16 +361,18 @@ sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    if ($self->_rowStored()) {
-        $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
-    } else {
-        $optParams{id} = $ROW_ID;
-        $optParams{noOrder} = 1;
-        my $force = $optParams{'force'};
-        $self->SUPER::addTypedRow($paramsRef, %optParams);
-        # since we have used addTypedRow updatedRowNotify has not been called automatically
-        $self->updatedRowNotify($self->row(), undef, $force);
+    if (not $self->_rowStored()) {
+        # first set the default row to be sure we have all the defaults
+        my $row = $self->_defaultRow();
+        $self->SUPER::addTypedRow(
+                                  $row->{'valueHash'},
+                                  id => $ROW_ID,
+                                  noOrder => 1,
+                                  force => $optParams{'force'},
+                                 );
     }
+
+    $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
 }
 
 # Method: set

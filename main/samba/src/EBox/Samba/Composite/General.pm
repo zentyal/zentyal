@@ -58,7 +58,7 @@ sub _description
        pageTitle       => __('File Sharing'),
        printableName   => __('File sharing options'),
        compositeDomain => 'Samba',
-       help            => __(''), # TODO
+       #help            => __(''), # TODO
     };
 
     return $description;

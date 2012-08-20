@@ -68,6 +68,7 @@ use Net::DNS;
 use File::Slurp;
 use JSON::XS;
 use POSIX;
+use Data::UUID;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -78,6 +79,12 @@ use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+
+# OCS conf constants
+use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
+use constant OCS_CONF_MAS_FILE   => 'remoteservices/ocsinventory-agent.cfg.mas';
+use constant OCS_CRON_FILE       => '/etc/cron.daily/ocsinventory-agent';
+use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
@@ -150,6 +157,8 @@ sub _setConf
 
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
+    $self->_setInventoryAgentConf();
+    $self->_setNETRCFile();
 }
 
 # Method: initialSetup
@@ -200,6 +209,103 @@ sub _setRemoteSupportAccessConf
         }
     }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
+}
+
+sub _setInventoryAgentConf
+{
+    my ($self) = @_;
+
+    my $toRemove = 0;
+    if ( $self->eBoxSubscribed() ) {
+        my $cloud_domain = $self->cloudDomain();
+        EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
+
+        # Check subscription level
+        if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
+            my $cred = $self->cloudCredentials();
+
+            # UUID Format for login: Hexadecimal without '0x'
+            my $ug = new Data::UUID;
+            my $bin_uuid = $ug->from_string($cred->{uuid});
+            my $hex_uuid = $ug->to_hexstring($bin_uuid);
+            my $user = substr($hex_uuid, 2);      # Remove the '0x'
+            my $pass = $cred->{password};
+
+            # OCS Server url
+            my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
+
+            # Agent configuration
+            my @params = (
+                server    => $ocs_server,
+                user      => $user,
+                password  => $pass,
+               );
+
+            $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
+
+            # Enable OCS agent periodic execution
+            $self->writeConfFile(OCS_CRON_FILE,
+                                 OCS_CRON_MAS_FILE);
+        } else {
+            $toRemove = 1;
+        }
+    } else {
+        $toRemove = 1;
+    }
+
+    if ( $toRemove and (-e OCS_CRON_FILE) ) {
+        # Disable OCS agent periodic execution
+        EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
+    }
+}
+
+sub _writeCredentials   # ($fh, $host, $user, $pass)
+{
+    my ($fh, $host, $user, $pass) = @_;
+
+    print $fh "machine $host\n";
+    print $fh "login $user\n";
+    print $fh "password $pass\n\n";
+}
+
+# Set up .netrc file in user's $HOME
+sub _setNETRCFile
+{
+    my ($self) = @_;
+
+    my $file = EBox::Config::home() . '/.netrc';
+
+    if ($self->eBoxSubscribed()) {
+        my $cred = EBox::RemoteServices::Cred->new();
+        my $cloudDomain = $cred->cloudDomain();
+        my $credentials  = $cred->cloudCredentials();
+
+        my $fileHandle;
+        open($fileHandle, '>', $file);
+        chmod 0700, $fileHandle;
+
+        # Conf backup
+        _writeCredentials($fileHandle,
+                          "confbackup.$cloudDomain",
+                          $credentials->{uuid},
+                          $credentials->{password});
+
+        # Security updates
+
+        # Password: UUID in hexadecimal format (without '0x')
+        my $ug = new Data::UUID;
+        my $bin_uuid = $ug->from_string($credentials->{uuid});
+        my $hex_uuid = $ug->to_hexstring($bin_uuid);
+
+        _writeCredentials($fileHandle,
+                          "security-updates.$cloudDomain",
+                          $cred->serverName(),
+                          substr($hex_uuid, 2));
+
+        close($fileHandle);
+    } else {
+        unlink($file);
+    }
 }
 
 # Method: _daemons
@@ -654,7 +760,7 @@ sub reloadBundle
     my $retVal = 1;
     try {
         if ( $self->eBoxSubscribed() ) {
-            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
+            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
             my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
@@ -889,6 +995,34 @@ sub disasterRecoveryAddOn
         $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
     } otherwise {
         throw EBox::Exceptions::NotConnected();
+    };
+    return $ret;
+}
+
+# Method: sbMailAddOn
+#
+#      Get if server has SB mail add-on
+#
+# Parameters:
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether it has SB mail add-on or not
+#
+sub sbMailAddOn
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{sb_mail_add_on};
+    } otherwise {
+        $ret = 0;
     };
     return $ret;
 }
@@ -1236,8 +1370,13 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
+
     if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
+        my $ret = $i18nLevels{$level};
+        if ( $self->sbMailAddOn() ) {
+            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        }
+        return $ret;
     } else {
         return __('Unknown');
     }
@@ -1422,8 +1561,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', '', 'info', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+      ( __('None'), '', '', 'info', '', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1476,7 +1615,7 @@ sub _ccConnectionWidget
         } catch EBox::Exceptions::NotConnected with { };
 
         if ( $drOn ) {
-            $DRValue = __x('Enabled');
+            $DRValue = __('Enabled');
             my $date = $self->_latestBackup();
             if ( $date ne 'unknown' ) {
                 $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
@@ -1488,6 +1627,8 @@ sub _ccConnectionWidget
                 $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
             }
         }
+
+        $sbMailAddOn = $self->sbMailAddOn();
 
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
@@ -1516,7 +1657,10 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-
+    if ( $sbMailAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+                                                 __('Enabled')));
+    }
 }
 
 # Set the subscription details
@@ -1529,23 +1673,34 @@ sub _getSubscriptionDetails
 
     if ($force or (not exists $state->{subscription}->{level})) {
         unless ($self->eBoxSubscribed()) {
-            use Devel::StackTrace;
-            my $t = new Devel::StackTrace();
-            EBox::error($t->as_string());
+            EBox::trace();
             throw EBox::Exceptions::Internal('Not subscribed');
         }
         my $cap = new EBox::RemoteServices::Capabilities();
-        my $details = $cap->subscriptionDetails();
-
-        $state->{subscription} = {
-            level => $details->{level},
-            codename => $details->{codename},
-            technical_support => $details->{technical_support},
-            renovation_date => $details->{renovation_date},
-            security_updates => $details->{security_updates},
-            disaster_recovery => $details->{disaster_recovery}
+        my $details;
+        try {
+            $details = $cap->subscriptionDetails();
+        } catch EBox::Exceptions::Internal with {
+            # Impossible to know the new state
+            # Get cached data
+            my ($exc) = @_;
+            unless (exists $state->{subscription}->{level}) {
+                $exc->throw();
+            }
         };
-        $self->set_state($state);
+
+        if ( defined($details) ) {
+            $state->{subscription} = {
+                level             => $details->{level},
+                codename          => $details->{codename},
+                technical_support => $details->{technical_support},
+                renovation_date   => $details->{renovation_date},
+                security_updates  => $details->{security_updates},
+                disaster_recovery => $details->{disaster_recovery},
+                sb_mail_add_on    => $details->{sb_mail_add_on},
+            };
+            $self->set_state($state);
+        }
     }
 
     return $state->{subscription};
