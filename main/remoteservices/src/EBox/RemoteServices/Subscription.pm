@@ -530,6 +530,7 @@ sub deleteData
 
     # Remove subscription levels and disaster recovery if any
     my $rs = EBox::Global->modInstance('remoteservices');
+    $rs->st_unset('admin_port');
     $rs->st_delete_dir('subscription');
     $rs->st_delete_dir('disaster_recovery');
 
@@ -1001,7 +1002,6 @@ sub _checkVPNConnectivity
            );
     }
 }
-
 
 # Check UDP echo service using Net::Ping
 sub _checkUDPEchoService
