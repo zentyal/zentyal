@@ -1,4 +1,6 @@
 HEAD
+	+ Ignore the LDAP error 'no attributes to update' on save
+	+ Instantiate users by uid and groups by gid
 	+ Change kerberos ports from 88/464 to 8888/8464. This avoid conflicts
 	  and management logic of the heimdal daemons. Kerberos records are added
 	  with lower priority over samba ones.

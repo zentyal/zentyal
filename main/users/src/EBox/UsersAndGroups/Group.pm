@@ -49,9 +49,46 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    my $self = {};
+
+    if (defined $opts{gid}) {
+        $self->{gid} = $opts{gid};
+    } else {
+        $self = $class->SUPER::new(@_);
+    }
+
+    bless ($self, $class);
     return $self;
+}
+
+# Method: _entry
+#
+#   Return Net::LDAP::Entry entry for the group
+#
+sub _entry
+{
+    my ($self) = @_;
+
+    unless ($self->{entry}) {
+        if (defined $self->{gid}) {
+            my $result = undef;
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(cn=$self->{gid})",
+                scope => 'sub',
+            };
+            $result = $self->_ldap->search($attrs);
+            if ($result->count() > 1) {
+                throw EBox::Exceptions::Internal(
+                    __x('Found {count} results for, expected only one.',
+                        count => $result->count()));
+            }
+            $self->{entry} = $result->entry(0);
+        } else {
+            $self->SUPER::_entry();
+        }
+    }
+    return $self->{entry};
 }
 
 

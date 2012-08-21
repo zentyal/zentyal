@@ -56,9 +56,46 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    my $self = {};
+
+    if (defined $opts{uid}) {
+        $self->{uid} = $opts{uid};
+    } else {
+        $self = $class->SUPER::new(@_);
+    }
+
+    bless ($self, $class);
     return $self;
+}
+
+# Method: _entry
+#
+#   Return Net::LDAP::Entry entry for the user
+#
+sub _entry
+{
+    my ($self) = @_;
+
+    unless ($self->{entry}) {
+        if (defined $self->{uid}) {
+            my $result = undef;
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(uid=$self->{uid})",
+                scope => 'sub',
+            };
+            $result = $self->_ldap->search($attrs);
+            if ($result->count() > 1) {
+                throw EBox::Exceptions::Internal(
+                    __x('Found {count} results for, expected only one.',
+                        count => $result->count()));
+            }
+            $self->{entry} = $result->entry(0);
+        } else {
+            $self->SUPER::_entry();
+        }
+    }
+    return $self->{entry};
 }
 
 # Method: name
@@ -179,8 +216,6 @@ sub save
 
             my $users = EBox::Global->modInstance('users');
             $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
-
-            delete $self->{ignoreMods};
         }
     }
 }
