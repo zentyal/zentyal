@@ -737,6 +737,15 @@ sub provisionAsADC
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();
 
+        # Load administrator user and domain admins group to zentyal
+        my $domainSid = $self->ldb->domainSID();
+        my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
+        my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
+        $self->ldb->ldbUsersToLdap([$adminUser]);
+        $self->ldb->ldbGroupsToLdap([$adminGroup]);
+
+
+
         # Add the zentyal module to the LDB modules stack
         my $ldif = "dn: \@MODULES\n" .
                    "changetype: modify\n" .

@@ -629,10 +629,9 @@ sub users
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=user)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
-        attrs => ['samAccountName', 'givenName', 'sn', 'name', 'description',
-                  'uidNumber', 'supplementalCredentials', 'unicodePwd',
-                  'objectSid'],
+        filter => '(&(objectclass=user)(!(showInAdvancedViewOnly=*))' .
+            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
     my $list = [];
@@ -650,8 +649,9 @@ sub groups
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
-        attrs => ['samAccountName', 'cn', 'description', 'gidNumber', 'objectSid', 'member'],
+        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))' .
+            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
     my $list = [];
@@ -666,120 +666,107 @@ sub ldbUsersToLdap
 {
     my ($self, $users) = @_;
 
-    try {
-        EBox::info('Loading Samba users into Zentyal LDAP');
-        my $usersModule = EBox::Global->modInstance('users');
-        $users = $self->users() unless defined ($users);
-        foreach my $sambaUser (@{$users}) {
-            my $dn = $sambaUser->dn();
-            EBox::info("Adding user '$dn'");
-            my $user = undef;
-            try {
-                my $params = {};
-                $params->{user}      = $sambaUser->get('samAccountName');
-                $params->{fullname}  = $sambaUser->get('name');
-                $params->{givenname} = defined (scalar ($sambaUser->get('givenName'))) ?
-                    $sambaUser->get('givenName') : $sambaUser->get('samAccountName');
-                $params->{surname}   = defined (scalar ($sambaUser->get('sn'))) ?
-                    $sambaUser->get('sn') : $sambaUser->get('samAccountName');
-                $params->{comment}   = defined (scalar ($sambaUser->get('description'))) ?
-                    $sambaUser->get('description') : undef;
+    EBox::info('Loading Samba users into Zentyal LDAP');
+    my $usersModule = EBox::Global->modInstance('users');
+    $users = $self->users() unless defined ($users);
+    foreach my $sambaUser (@{$users}) {
+        my $dn = $sambaUser->dn();
+        EBox::info("Adding user '$dn'");
+        my $user = undef;
+        try {
+            my $params = {};
+            $params->{user}      = $sambaUser->get('samAccountName');
+            $params->{fullname}  = $sambaUser->get('name');
+            $params->{givenname} = defined (scalar ($sambaUser->get('givenName'))) ?
+                $sambaUser->get('givenName') : $sambaUser->get('samAccountName');
+            $params->{surname}   = defined (scalar ($sambaUser->get('sn'))) ?
+                $sambaUser->get('sn') : $sambaUser->get('samAccountName');
+            $params->{comment}   = defined (scalar ($sambaUser->get('description'))) ?
+                $sambaUser->get('description') : undef;
 
-                my %optParams;
-                $optParams{ignoreMods} = ['samba'];
-                $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
-            } catch EBox::Exceptions::DataExists with {
-                $user = $usersModule->user($sambaUser->get('samAccountName'));
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading user '$dn': $error");
-                next;
-            };
+            my %optParams;
+            $optParams{ignoreMods} = ['samba'];
+            $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+        } catch EBox::Exceptions::DataExists with {
+            $user = $usersModule->user($sambaUser->get('samAccountName'));
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading user '$dn': $error");
+        };
+        next unless defined $user;
 
-            try {
-                my $suppCred    = $sambaUser->get('supplementalCredentials');
-                my $unicodePwd  = $sambaUser->get('unicodePwd');
-                my $credentials = new EBox::Samba::Credentials(
+        try {
+            my $suppCred    = $sambaUser->get('supplementalCredentials');
+            my $unicodePwd  = $sambaUser->get('unicodePwd');
+            my $credentials = new EBox::Samba::Credentials(
                     supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
-                $user->setKerberosKeys($credentials->kerberosKeys());
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error setting kerberos keys: $error");
-            };
+            $user->setKerberosKeys($credentials->kerberosKeys());
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting kerberos keys: $error");
+        };
 
-            try {
-                # Set the uid mapping
-                my $uidNumber = $user->get('uidNumber');
-                $sambaUser->set('uidNumber', $uidNumber);
-                my $type = $self->idmap->TYPE_UID();
-                my $sid = $sambaUser->sid();
-                $self->idmap->setupNameMapping($sid, $type, $uidNumber);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error setting uid mapping: $error");
-            };
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    };
+        try {
+            my $uidNumber = $user->get('uidNumber');
+            $sambaUser->set('uidNumber', $uidNumber);
+            my $type = $self->idmap->TYPE_UID();
+            my $sid = $sambaUser->sid();
+            $self->idmap->setupNameMapping($sid, $type, $uidNumber);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting uid mapping: $error");
+        };
+    }
 }
 
 sub ldbGroupsToLdap
 {
     my ($self, $groups) = @_;
 
-    try {
-        EBox::info('Loading Samba groups into Zentyal LDAP');
-        my $usersModule = EBox::Global->modInstance('users');
-        $groups = $self->groups() unless defined ($groups);
-        foreach my $sambaGroup (@{$groups}) {
-            my $dn = $sambaGroup->dn();
-            my $name = $sambaGroup->get('samAccountName');
-            my $comment = $sambaGroup->get('description');
-            my $zentyalGroup = undef;
+    EBox::info('Loading Samba groups into Zentyal LDAP');
+    my $usersModule = EBox::Global->modInstance('users');
+    $groups = $self->groups() unless defined ($groups);
+    foreach my $sambaGroup (@{$groups}) {
+        my $dn = $sambaGroup->dn();
+        my $name = $sambaGroup->get('samAccountName');
+        my $comment = $sambaGroup->get('description');
+        my $zentyalGroup = undef;
+        try {
+            my %optParams;
+            $optParams{ignoreMods} = ['samba'];
+            EBox::info("Adding group '$dn'");
+            $zentyalGroup = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
+        } catch EBox::Exceptions::DataExists with {
+            $zentyalGroup = $usersModule->group($name);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error adding group '$dn': $error");
+        };
+        next unless defined $group;
+
+        try {
+            my $gidNumber = $zentyalGroup->get('gidNumber');
+            $sambaGroup->set('gidNumber', $gidNumber);
+            my $type = $self->idmap->TYPE_GID();
+            my $sid = $sambaGroup->sid();
+            $self->idmap->setupNameMapping($sid, $type, $gidNumber);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting up gid mapping: $error");
+        };
+
+        my @members = $sambaGroup->get('member');
+        foreach my $sambaDN (@members) {
             try {
-                my %optParams;
-                $optParams{ignoreMods} = ['samba'];
-                EBox::info("Adding group '$dn'");
-                $zentyalGroup = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
-            } catch EBox::Exceptions::DataExists with {
-                $zentyalGroup = $usersModule->group($name);
+                my $sambaMember = new EBox::Samba::User(dn => $sambaDN);
+                my $zentyalUser = $usersModule->user($sambaMember->get('samAccountName'));
+                $zentyalGroup->addMember($zentyalUser);
             } otherwise {
                 my $error = shift;
-                EBox::error("Error adding group '$dn': $error");
-                next;
+                EBox::error("Error adding member to group '$dn': $error");
             };
-
-            try {
-                # Set the gid mapping
-                my $gidNumber = $zentyalGroup->get('gidNumber');
-                $sambaGroup->set('gidNumber', $gidNumber);
-                my $type = $self->idmap->TYPE_GID();
-                my $sid = $sambaGroup->sid();
-                $self->idmap->setupNameMapping($sid, $type, $gidNumber);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error setting up gid mapping: $error");
-            };
-
-            # Sync group memebers
-            my @members = $sambaGroup->get('member');
-            foreach my $sambaDN (@members) {
-                try {
-                    my $sambaMember = new EBox::Samba::User(dn => $sambaDN);
-                    my $zentyalUser = $usersModule->user($sambaMember->get('samAccountName'));
-                    $zentyalGroup->addMember($zentyalUser);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error("Error adding member to group '$dn': $error");
-                };
-            }
         }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    };
+    }
 }
 
 1;
