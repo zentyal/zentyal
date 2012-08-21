@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid division by zero showing DR info
 	+ Use beta values for configuration for now
 	+ Remove no longer used restore backup from proxy
 	+ Added method to write conf-backups and sec-updates credentials
