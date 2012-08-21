@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed CRL generation when the link to the latest CRL is broken
 2.3.5
 	+ Adapted to new Model management framework
 2.3.4
