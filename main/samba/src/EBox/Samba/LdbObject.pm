@@ -44,6 +44,10 @@ use Error qw(:try);
 #      ldif - Net::LDAP::LDIF for the entry
 #  or
 #      entry - Net::LDAP entry
+#  or
+#      samAccountName
+#  or
+#      SID
 #
 sub new
 {
@@ -52,8 +56,10 @@ sub new
     my $self = {};
     bless ($self, $class);
 
-    unless ($params{entry} or $params{dn} or $params{ldif} or $params{samAccountName}) {
-        throw EBox::Exceptions::MissingArgument('dn');
+    unless ($params{entry} or $params{dn} or
+            $params{ldif} or $params{samAccountName} or
+            $params{sid}) {
+        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|samAccountName|sid');
     }
 
     if ($params{entry}) {
@@ -63,8 +69,10 @@ sub new
         $self->{entry} = $ldif->read_entry();
     } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
-    } else {
+    } elsif ($params{samAccountName}) {
         $self->{samAccountName} = $params{samAccountName};
+    } elsif ($params{sid}) {
+        $self->{sid} = $params{sid};
     }
 
     return $self;
@@ -275,13 +283,19 @@ sub _entry
                 scope => 'sub',
             };
             $result = $self->_ldap->search($attrs);
+        } elsif (defined $self->{sid}) {
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(objectSid=$self->{sid})",
+                scope => 'sub',
+            };
+            $result = $self->_ldap->search($attrs);
         }
 
-        my $name = defined $self->{dn} ? $self->{dn} : $self->{samAccountName};
         if ($result->count() > 1) {
             throw EBox::Exceptions::Internal(
                 __x('Found {count} results for, expected only one.',
-                    count => $result->count(), name => $name));
+                    count => $result->count()));
         }
 
         $self->{entry} = $result->entry(0);
