@@ -292,6 +292,7 @@ sub _entry
             };
             $result = $self->_ldap->search($attrs);
         }
+        return undef unless defined $result;
 
         if ($result->count() > 1) {
             throw EBox::Exceptions::Internal(
