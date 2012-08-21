@@ -65,7 +65,12 @@ sub _description
 sub _userModels
 {
     my $users = EBox::Global->modInstance('users');
-    my @models = ('AccountSettings', @{$users->defaultUserModels()});
+    my @models;
+    if ($users->mode() eq 'master') {
+        push @models, 'AccountSettings';
+    }
+
+    push  @models,  @{$users->defaultUserModels()};
     return @models;
 }
 
