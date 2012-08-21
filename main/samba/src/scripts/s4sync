@@ -24,6 +24,9 @@ my $server = openSocket(SOCK_PATH) or die ("Can't create server socket: $!\n");
 EBox::init();
 _info("Samba4 synchronizer daemon started");
 
+# Is debug enabled?
+my $debug = lc (EBox::Config::configkey('s4sync_debug')) eq 'yes' ? 1 : 0;
+
 # This variable is shared by all threads and used to serialize them locking it
 my $enabled = 1;
 share($enabled);
@@ -236,6 +239,8 @@ sub _debug
 {
     my ($msg) = @_;
 
-    EBox::debug($msg);
-    print "DEBUG: $msg\n";
+    if ($debug) {
+        EBox::debug($msg);
+        print "DEBUG: $msg\n";
+    }
 }
