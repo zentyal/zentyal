@@ -390,7 +390,7 @@ sub noDataMsg
     if (not $rowName) {
         $rowName = __('element');
     }
-    return __x('There are not any {element}',
+    return __x('There is not any {element}',
                element => $rowName,
               );
 }
