@@ -20,10 +20,11 @@ ldap_version = 3
 
 deref = never
 
-scope = base
+scope = subtree
 
-base = uid=%n,<% $usersDn %>
+base = <% $usersDn %>
 
-user_attrs = mailquota=quota_rule=*:storage=%$M, quota_rule2=Trash:storage=+110%%
+user_attrs = mailquota=quota_rule=*:storage=%$M,quota_rule2=Trash:storage=+110%%
 
-user_filter = (&(objectClass=CourierMailAccount)(uid=%n))
+user_filter = (&(objectClass=CourierMailAccount)(mail=%u))
+

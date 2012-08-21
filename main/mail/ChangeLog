@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed dovecot-ldap.conf.mas
 2.3.6
 	+ Added modeldepends to yaml schema
 	+ External alias can have address on a vdomain alias
