@@ -664,12 +664,12 @@ sub groups
 
 sub ldbUsersToLdap
 {
-    my ($self) = @_;
+    my ($self, $users) = @_;
 
     try {
         EBox::info('Loading Samba users into Zentyal LDAP');
         my $usersModule = EBox::Global->modInstance('users');
-        my $users = $self->users();
+        $users = $self->users() unless defined ($users);
         foreach my $sambaUser (@{$users}) {
             my $dn = $sambaUser->dn();
             EBox::info("Adding user '$dn'");
@@ -699,7 +699,8 @@ sub ldbUsersToLdap
             try {
                 my $suppCred    = $sambaUser->get('supplementalCredentials');
                 my $unicodePwd  = $sambaUser->get('unicodePwd');
-                my $credentials = new EBox::Samba::Credentials(supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
+                my $credentials = new EBox::Samba::Credentials(
+                    supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
                 $user->setKerberosKeys($credentials->kerberosKeys());
             } otherwise {
                 my $error = shift;
@@ -726,12 +727,12 @@ sub ldbUsersToLdap
 
 sub ldbGroupsToLdap
 {
-    my ($self) = @_;
+    my ($self, $groups) = @_;
 
     try {
         EBox::info('Loading Samba groups into Zentyal LDAP');
         my $usersModule = EBox::Global->modInstance('users');
-        my $groups = $self->groups();
+        $groups = $self->groups() unless defined ($groups);
         foreach my $sambaGroup (@{$groups}) {
             my $dn = $sambaGroup->dn();
             my $name = $sambaGroup->get('samAccountName');
