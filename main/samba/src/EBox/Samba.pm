@@ -640,7 +640,9 @@ sub provisionAsADC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
     my $hostName = $sysinfo->hostName();
+    my $ucHostName = uc ($hostName);
     my $krbRealm = $usersModule->kerberosRealm();
+    my $fqdn = $sysinfo->fqdn();
     if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
         lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
         throw EBox::Exceptions::External(
@@ -744,7 +746,17 @@ sub provisionAsADC
         $self->ldb->ldbUsersToLdap([$adminUser]);
         $self->ldb->ldbGroupsToLdap([$adminGroup]);
 
-
+        # FIXME This should not be necessary, it is a samba bug.
+        @cmds = ();
+        push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
+        push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=$ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=DNS/$fqdn");
+        push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+        push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+        EBox::Sudo::root(@cmds);
 
         # Add the zentyal module to the LDB modules stack
         my $ldif = "dn: \@MODULES\n" .
