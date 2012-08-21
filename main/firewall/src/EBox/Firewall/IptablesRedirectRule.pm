@@ -91,10 +91,12 @@ sub strings
             my ($dst, $toDst) = @{$self->{'destinationNAT'}};
 
             foreach my $service (@{$self->{'service'}}) {
-                my ($natSvc, $filterSvc) = @{$service};
+                my $natSvc = $service->{nat};
+                my $postroutingSvc = $service->{postrouting};
+                my $filterSvc = $service->{filter};
+
                 my $natRule = "-t nat -A PREROUTING $modulesConf " .
                     "-i $iface $src $natSvc $origDst -j DNAT $toDst";
-
                 my $filterRule = "-A fredirects $state $modulesConf " .
                     "-i $iface $src $filterSvc $dst -j ACCEPT";
 
@@ -106,7 +108,7 @@ sub strings
                     my $snatAddress = $self->snatAddress($netModule, $dst);
                     if ($snatAddress) {
                         my $snatRule = "-t nat -A POSTROUTING $modulesConf " .
-                                " $src $dst " .
+                                " $src $dst $postroutingSvc " .
                                 " -j SNAT --to-source $snatAddress";
                         push (@rules, $snatRule);
                     } else {
@@ -247,6 +249,7 @@ sub setCustomService
 
     my $nat = "";
     my $filter = "";
+    my $postrouting = '';
     if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
         if ($extPort ne 'any') {
             $nat .= " --dport $extPort";
@@ -254,18 +257,25 @@ sub setCustomService
         if ($dstPort ne 'any') {
             $filter .= " --dport $dstPortFilter";
         }
-
-        if ($protocol eq 'tcp/udp') {
-            push (@{$self->{'service'}}, ["-p udp $nat", "-p udp $filter"]);
-            push (@{$self->{'service'}}, ["-p tcp $nat", "-p tcp $filter"]);
-        } else {
-            push (@{$self->{'service'}}, [" -p $protocol $nat",
-                                          " -p $protocol $filter"]);
-        }
-    } elsif ($protocol eq any ('gre', 'icmp', 'esp', 'ah', 'all')) {
-        my $iptables = " -p $protocol";
-        push (@{$self->{'service'}}, [$iptables, $iptables]);
     }
+    $postrouting = "$filter -m conntrack --ctstate DNAT";
+
+    my @protocols;
+    if ($protocol eq 'tcp/udp') {
+        push @protocols, 'tcp', 'udp';
+    } else {
+        push @protocols, $protocol;
+    }
+
+    foreach my $pr (@protocols) {
+        push @{$self->{'service'}},
+            {
+                nat => "-p $pr $nat",
+                postrouting => "-p $pr $postrouting",
+                filter => "-p $pr $filter",
+            };
+    }
+
 }
 
 
