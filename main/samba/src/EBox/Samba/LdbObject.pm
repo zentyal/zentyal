@@ -221,9 +221,7 @@ sub save
         $self->_ldap->disableZentyalModule();
         my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
         if ($result->is_error()) {
-            if ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                EBox::debug("Got LDAP error 'No attributes to update', ignoring it");
-            } else {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
             }
         }

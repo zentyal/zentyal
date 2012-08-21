@@ -1,4 +1,8 @@
 HEAD
+	+ Support additional domain controller mode
+	+ Remove user addon to set the user as domain admin. Add it to the
+	  domain admins group instead.
+	+ Sync domain administrator and domain admins accounts to zentyal
 	+ Increase log level from 1 to 3 to trace problems.
 	+ Provision database only when saving changes, not in module
 	  enable.

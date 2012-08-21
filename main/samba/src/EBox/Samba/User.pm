@@ -151,8 +151,7 @@ sub changePassword
     $passwd = encode('UTF16-LE', "\"$passwd\"");
 
     # The password will be changed on save
-    $self->delete('unicodePwd', 1);
-    $self->add('unicodePwd', $passwd, 1);
+    $self->set('unicodePwd', $passwd, 1);
     $self->save() unless $lazy;
 }
 
@@ -210,6 +209,13 @@ sub deleteObject
         $self->removeGroup($group);
     }
 
+    # Remove the roaming profile directory
+    my $samAccountName = $self->get('samAccountName');
+    my $path = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
+    EBox::Sudo::silentRoot("rm -rf '$path'");
+
+    # TODO Remove this user from shares ACLs
+
     # Call super implementation
     shift @_;
     $self->SUPER::deleteObject(@_);
@@ -226,17 +232,42 @@ sub setupUidMapping
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $uidNumber);
 }
 
+# Method: setAccountEnabled
+#
+#   Enables or disables the user account, setting the userAccountControl
+#   attribute. For a description of this attribute check:
+#   http://support.microsoft.com/kb/305144
+#
 sub setAccountEnabled
 {
-    my ($self, $enabled, $lazy) = @_;
+    my ($self, $enable, $lazy) = @_;
 
-    if ($enabled) {
-        $self->set('userAccountControl', 512, 1);
+    my $flags = $self->get('userAccountControl');
+    if ($enable) {
+        $flags = $flags & ~0x0002;
     } else {
-        $self->set('userAccountControl', 514, 1);
+        $flags = $flags | 0x0002;
     }
+    $self->set('userAccountControl', $flags, 1);
 
     $self->save() unless $lazy;
+}
+
+# Method: isAccountEnabled
+#
+#   Check if the account is enabled, reading the userAccountControl
+#   attribute. For a description of this attribute check:
+#   http://support.microsoft.com/kb/305144
+#
+# Returns:
+#
+#   boolean - 1 if enabled, 0 if disabled
+#
+sub isAccountEnabled
+{
+    my ($self) = @_;
+
+    return not ($self->get('userAccountControl') & 0x0002);
 }
 
 # Method: addSpn
@@ -348,8 +379,8 @@ sub create
     $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
     # Verify user exists
-    if (new EBox::Samba::User(dn => $dn)->exists()) {
-        throw EBox::Exceptions::DataExists('data' => __('user name'),
+    if (new EBox::Samba::User(samAccountName => $samAccountName)->exists()) {
+        throw EBox::Exceptions::DataExists('data' => __('account name'),
                                            'value' => $samAccountName);
     }
 
@@ -362,12 +393,13 @@ sub create
     my $usersModule = EBox::Global->modInstance('users');
     my $realm = $usersModule->kerberosRealm();
     my $attr = [];
-    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
+    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson',
+        'user', 'posixAccount' ]);
     push ($attr, sAMAccountName    => "$samAccountName");
     push ($attr, userPrincipalName => "$samAccountName\@$realm");
     push ($attr, userAccountControl => '514');
-    # FIXME push ($attr, sn                => $sn);
-    # FIXME push ($attr, givenName         => $givenName);
+    push ($attr, givenName         => $params->{givenName}) if defined $params->{givenName};
+    push ($attr, sn                => $params->{sn}) if defined $params->{sn};
     push ($attr, uidNumber         => $params->{uidNumber}) if defined $params->{uidNumber};
     push ($attr, description       => $params->{description}) if defined $params->{description};
 
@@ -379,10 +411,10 @@ sub create
     $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};
 
     # Set the password
-    if (exists $params->{clearPassword}) {
+    if (defined $params->{clearPassword}) {
         $createdUser->changePassword($params->{clearPassword});
         $createdUser->setAccountEnabled(1);
-    } elsif (exists $params->{kerberosKeys}) {
+    } elsif (defined $params->{kerberosKeys}) {
         $createdUser->setCredentials($params->{kerberosKeys});
         $createdUser->setAccountEnabled(1);
     }
