@@ -274,6 +274,7 @@ sub _entry
                 base => $basedn,
                 filter => $filter,
                 scope => 'one',
+                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
         } elsif (defined $self->{samAccountName}) {
@@ -281,6 +282,7 @@ sub _entry
                 base => $self->_ldap->dn(),
                 filter => "(samAccountName=$self->{samAccountName})",
                 scope => 'sub',
+                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
         } elsif (defined $self->{sid}) {
@@ -288,6 +290,7 @@ sub _entry
                 base => $self->_ldap->dn(),
                 filter => "(objectSid=$self->{sid})",
                 scope => 'sub',
+                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
         }
