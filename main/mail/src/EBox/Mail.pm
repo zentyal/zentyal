@@ -76,7 +76,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mail',
-                                      printableName => __n('Mail'),
+                                      printableName => __('Mail'),
                                       @_);
 
     $self->{vdomains} = new EBox::MailVDomainsLdap;

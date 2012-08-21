@@ -115,7 +115,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ca',
-                      printableName => __n('Certification Authority'),
+                      printableName => __('Certification Authority'),
                       @_);
 
     bless($self, $class);

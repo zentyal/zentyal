@@ -75,7 +75,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'users',
-                                      printableName => __n('Users and Groups'),
+                                      printableName => __('Users and Groups'),
                                       @_);
     bless($self, $class);
     return $self;

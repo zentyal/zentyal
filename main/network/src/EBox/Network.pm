@@ -74,7 +74,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'network',
-                    printableName => __n('Network'),
+                    printableName => __('Network'),
                     @_);
     $self->{'actions'} = {};
 
