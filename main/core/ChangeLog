@@ -1,4 +1,7 @@
 HEAD
+	+ Dialog windows are centered again after new look and feel
+	changes
+	+ Better default noDataMsg; noDataMsg presence allows to add elements if it makes sense
 	+ New look & feel of the web interface
 	+ Set only Remote as option to export/import configuration to a
 	  remote site

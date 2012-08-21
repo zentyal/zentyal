@@ -1652,16 +1652,7 @@ border-radius: 3px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
-#MB_window {
-	background-color: #FFF;
-	color: #000;
-	-webkit-box-shadow: 0 8px 64px #000;
-	-moz-box-shadow: 0 0 64px #000;
-	box-shadow: 0 0 64px #000;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-}
+
 #MB_header {
   background-color: <% $main_color %>;
   color: #fff;
@@ -1683,6 +1674,27 @@ border-radius: 3px;
 .MB_dialog #MB_header {
     border-radius: 7px 7px 0px 0px
     -moz-border-radius: 7px 7px 0px 0px;
+}
+
+
+
+.MB_dialog #MB_frame {
+    padding-bottom:10px;
+    background-color: #FFF;
+    color: #000;
+    -webkit-box-shadow: 0 8px 64px #000;
+    -moz-box-shadow: 0 0 64px #000;
+    box-shadow: 0 0 64px #000;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    width:500px;
+    margin: 0px auto;
+}
+
+ #MB_window {
+    width:960px !important;
+    margin:0px auto !important;
 }
 
 /* end modalbox.js stuff */
