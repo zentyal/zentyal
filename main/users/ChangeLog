@@ -1,4 +1,5 @@
 HEAD
+	+ User template account default options not longer shown in slave servers
 	+ Added users filter by OU
 2.3.13
 	+ Better password policies for LDAP backend

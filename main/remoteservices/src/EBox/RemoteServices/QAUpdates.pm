@@ -81,11 +81,12 @@ sub _setQASources
     my $interp = new HTML::Mason::Interp(out_method => \$output);
     my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
-    my $cred = EBox::RemoteServices::Cred->new()->{cred};
-    my $user = $cred->{name};
+    my $cred = EBox::RemoteServices::Cred->new();
+    my $credentials = $cred->cloudCredentials();
+    my $user = $cred->subscribedHostname();
     # Password: UUID in hexadecimal format (without '0x')
     my $ug = new Data::UUID;
-    my $bin_uuid = $ug->from_string($cred->{uuid});
+    my $bin_uuid = $ug->from_string($credentials->{uuid});
     my $hex_uuid = $ug->to_hexstring($bin_uuid);
     my $pass = substr($hex_uuid, 2);                # Remove the '0x'
 
@@ -150,7 +151,7 @@ sub _suite
 # Set the QA apt repository public key
 sub _setQAAptPubKey
 {
-    my $keyFile = EBox::Config::conf() . 'remoteservices/zentyal-qa.pub';
+    my $keyFile = EBox::Config::scripts('remoteservices') . '/zentyal-qa.pub';
     EBox::Sudo::root("apt-key add $keyFile");
 }
 
