@@ -96,7 +96,7 @@ sub _consolidate
         { select => $self->_hourSQLStr()
             . q{, COUNT(CASE level WHEN 'weak' THEN 1 ELSE NULL END) AS weak,
                   COUNT(CASE level WHEN 'average' THEN 1 ELSE NULL END) AS average,
-                  nUsers },
+                  nUsers AS nusers },
           from   => $self->name() . qq{ LEFT JOIN $passwordTableName ON DATE_FORMAT(} . $self->timestampField()
                     . q{, '%y-%m-%d %H:00:00')}
                     . " = DATE_FORMAT(${passwordTableName}.$passwordTSF, " . q{'%y-%m-%d %H:00:00')},

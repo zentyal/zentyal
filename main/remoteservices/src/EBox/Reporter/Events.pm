@@ -65,7 +65,7 @@ sub _consolidate
     my ($self, $begin, $end) = @_;
 
     my $res = $self->{db}->query_hash(
-        { select => $self->_hourSQLStr() . ', source, level, SUM(nRepeated) AS nEvents',
+        { select => $self->_hourSQLStr() . ', source, level, SUM(nRepeated) AS nevents',
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
           group  => $self->_groupSQLStr() . ', source, level' }
