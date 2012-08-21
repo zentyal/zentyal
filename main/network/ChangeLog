@@ -1,3 +1,5 @@
+HEAD
+	+ Removed some warnings when external is undefined
 2.3.8
 	+ ifaceExternalChanged() is now called when static or PPP interfaces
 	  changes from external to internal
