@@ -1,4 +1,8 @@
 HEAD
+	+ Add PID file to make compatible with init.d script to check the
+	  current daemon status
+	+ Use MSS fix by configuration file option in order not to affect
+	  all servers
 	+ Consolidate against proper event
 	  (client connected instead of server connection done)
 2.2.3
