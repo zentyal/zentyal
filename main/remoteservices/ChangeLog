@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid division by zero showing DR info
 	+ Remove admin port when unsubscribing
 2.2.11
 	+ Stick to the current subscription capabilities if it is
