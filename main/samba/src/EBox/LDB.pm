@@ -742,7 +742,7 @@ sub ldbGroupsToLdap
             my $error = shift;
             EBox::error("Error adding group '$dn': $error");
         };
-        next unless defined $group;
+        next unless defined $zentyalGroup;
 
         try {
             my $gidNumber = $zentyalGroup->get('gidNumber');
