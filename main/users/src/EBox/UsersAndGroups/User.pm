@@ -326,10 +326,11 @@ sub _groups
     my ($self, $system, $invert) = @_;
 
     my $filter;
+    my $dn = $self->dn();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$self->{dn})))";
+        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$self->{dn}))";
+        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
     }
 
     my %attrs = (
