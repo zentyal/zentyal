@@ -35,7 +35,7 @@ if ($popup) {
     $url .= '&popup=1';
 
     $okOnClick = qq|onclick="Modalbox.show('$url', {title: '$title', transitions: false})"|;
-    $cancelOnClick = q|onclick="Modalbox.hide(); return false|;
+    $cancelOnClick = q|onclick="Modalbox.hide(); return false"|;
 } else {
     $okOnClick = qq|onclick="window.location='$url'; return false"|;
 }
@@ -84,12 +84,12 @@ if ($popup) {
 % }
 </div>
 
-<form name="formPkg" id="formPkg" action='InstallPkgs' method='POST' style="text-align:right; margin-top:10px" >
+<form name='formPkg' id='formPkg' action='InstallPkgs' method='POST' style='text-align:right;margin-top:10px' >
 %   foreach my $pkg (@packages) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
     <input type='hidden' name='go' value='yes'/>
-    <input type='hidden' name='<% $action %>' value="1" />
-    <input class='inputButton' type='submit' name='cancel' <% $cancelOnClick %> value="<% __('Cancel') %>" />
-    <input class='inputButton' <% $okOnClick %> type='button' value="<% __('Ok') %>" />
+    <input type='hidden' name='<% $action %>' value='1' />
+    <input class='inputButton' type='button' name='cancel' <% $cancelOnClick %> value='<% __('Cancel') %>' />
+    <input class='inputButton' <% $okOnClick %> type='button' value='<% __('Ok') %>' />
 </form>
