@@ -707,7 +707,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
                                         'text' => $self->printableName(),
-                                        'separator' => 'UTM',
+                                        'separator' => 'Communications',
                                         'order' =>  350
     );
 

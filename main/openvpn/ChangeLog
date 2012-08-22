@@ -1,4 +1,5 @@
 HEAD
+	+ VPN is now under Infrastructure instead of UTM
 	+ Add PID file to make compatible with init.d script to check the
 	  current daemon status
 	+ Use MSS fix by configuration file option in order not to affect
