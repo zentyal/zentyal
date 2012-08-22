@@ -73,7 +73,7 @@ h3 {
 var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
-        {"<% __('Component') %>":"<% __($pkg->{description}) %>",
+        {"<% __('Component') %>":"<% $pkg->{description} %>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
 %               $eboxupg = __('Update');
@@ -167,27 +167,6 @@ var pkgTable = new Array(
                 <h3><% __s('Gateway') %></h3>
                 <div>
                     <a id="Gateway_down" href="#" onclick="showInfo('Gateway'); return false"><% __s('More info') %></a>
-                </div>
-            </div>
-        </div>
-
-        <div  id="UTM_head" class="head">
-% unless ($isUtm) {
-            <div class="image" id="UTM_image" onclick="tick('UTM'); return false">
-                <img src="/data/software/images/icon_utm.png" alt="Zentyal UTM" />
-            </div>
-            <div class="image" id="UTM_image_tick" style="display: none" onclick="untick('UTM', 1); return false">
-                <img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
-            </div>
-% } else {
-            <div class="image" id="UTM_image_tick">
-                <img src="/data/software/images/icon_utm_tick.png" alt="Zentyal UTM" />
-            </div>
-% }
-            <div class="text">
-                <h3><% __s('UTM') %></h3>
-                <div>
-                    <a id="UTM_down" href="#" onclick="showInfo('UTM'); return false"><% __s('More info') %></a>
                 </div>
             </div>
         </div>
@@ -299,45 +278,6 @@ var pkgTable = new Array(
                     <li><% __s('Advanced HTTP proxy: Internet cache, Content filtering with antivirus, Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker.') %></li>
                     <li><% __s('Captive Portal: Secure authentication, Source, destination and service exceptions, Secure client filtering, Client idle timeout, Maximum no. of connections.') %></li>
                     <li><% __s('RADIUS: Network authentication and authorization.') %></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="UTM" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="hideInfo('UTM'); return false">X</a>
-            <h3><% __s('Zentyal UTM features') %></h3>
-            <div class='feature'>
-                <img src='/data/software/images/filter.png' alt='Content Filtering' />
-                <h4><% __s('Content Filter') %></h4>
-                <p><strong><% __s('Keep malware out!') %></strong><br />
-                <% __s("Internet is filled with great and useful content, but unfortunately it comes with tons of threats like spam, viruses or phishing. The content filter acts on email, web traffic and shared files, giving your users only the content they want.") %></p>
-                </div>
-            <div class='feature'>
-                <img src='/data/software/images/vpn.png' alt='Virtual Private Networks' />
-                <h4><% __s('Virtual Private Networks') %></h4>
-                <p><strong><% __s('Your office everywhere you go!') %></strong><br />
-                <% __s('Allow remote users, teleworkers or sales people, to connect in a secure way to the corporate network via Internet. Or if you have offices in different locations, connect them in the same network to save time and resources.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/firewall.png' alt='Firewall' />
-                <h4><% __s('Firewall') %></h4>
-                <p><strong><% __s('Security starts with a good firewall!.') %></strong><br />
-                <% __s('Zentyal server offers an easy and efficient way of configuring traffic policies. By allowing only the traffic that you need, makes a great first line of defense against unwanted attackers.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/ids.png' alt='Intruder detection' />
-                <h4><% __s('Intrusion Detection') %></h4>
-                <p><strong><% __s('Always one step ahead!') %></strong><br />
-                <% __s('Intrusion detection system (IDS) alerts you of any potential attacks or intrusions to your servers, computers and network. It helps you to prevent attacks, as well as to analyze them in case an attack has already taken place.') %></p>
-            </div>
-            <div class="full-features">
-                <h3><% __s('Full feature list') %></h3>
-                <ul>
-                    <li><% __s('Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT).') %></li>
-                    <li><% __s('Advanced HTTP proxy: Internet cache, Content filtering with antivirus, Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker.') %></li>
-                    <li><% __s('Virtual Private Network: SSL VPN, Branch office connections, Roadwarriors, IPSec, PPTP.') %></li>
-                    <li><% __s('Intrusion Detection System: IDS') %></li>
-                    <li><% __s('Mail filter: Advanced SMTP filter, Antispam capabilities, Antivirus capabilities, Greylisting.') %></li>
                 </ul>
             </div>
         </div>
@@ -494,7 +434,6 @@ var pkgTable = new Array(
     </div>
     <div style="display: none">
         <input type='checkbox' id='Gateway_check'>
-        <input type='checkbox' id='UTM_check'>
         <input type='checkbox' id='Infrastructure_check'>
         <input type='checkbox' id='Office_check'>
         <input type='checkbox' id='Communications_check'>
@@ -690,9 +629,6 @@ var pkgTable = new Array(
         var packages = [];
         if (document.getElementById('Gateway_check').checked) {
             packages.push('pkg-zentyal-gateway');
-        }
-        if (document.getElementById('UTM_check').checked) {
-            packages.push('pkg-zentyal-security');
         }
         if (document.getElementById('Office_check').checked) {
             packages.push('pkg-zentyal-office');

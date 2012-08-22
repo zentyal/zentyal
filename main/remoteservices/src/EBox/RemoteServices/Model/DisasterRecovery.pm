@@ -223,7 +223,7 @@ sub _content
 
                 # Get the available space
                 my $storageUsage = $ebackupMod->storageUsage();
-                if ( defined($storageUsage) ) {
+                if ( defined($storageUsage) and ($storageUsage->{total} > 0) ) {
                     $available = __x('{num} GB, left: {per}',
                                      num => $self->_format($storageUsage->{available} / 1024),
                                      per => $self->_format($storageUsage->{available} / $storageUsage->{total} * 100) . ' %');

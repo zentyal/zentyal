@@ -64,22 +64,36 @@
 <& SELF:header,
    model => $model
 &>
+
+
 % if ($model->precondition()) {
-%   my $noDataMsg = $model->noDataMsg();
-%   if ($noDataMsg and not @{$model->ids()}) {
-<div class="note">
-  <% $noDataMsg %>
-</div>
-%   } else {
-<div id="<% $model->modelName() %>">
-  <& SELF:body,
-     model      => $model
-  &>
-</div>
+<%perl>
+     my $showBody = 1;
+     my $noDataMsg;
+     if (@{$model->ids()} == 0) {
+        $noDataMsg = $model->noDataMsg();
+        my $actions = $model->table()->{'actions'};
+        $showBody = exists $actions->{add} ? $actions->{add} : 0;
+        if ($showBody) {
+           unless ($model->message) {
+              $model->setMessage($noDataMsg);
+           }
+        }
+     }
+</%perl>
+%   if ($showBody) {
+       <div id="<% $model->modelName() %>">
+            <& SELF:body,
+               model      => $model,
+
+             &>
+       </div>
+%   } elsif ($noDataMsg) {
+          <div class="note">
+            <% $noDataMsg %>
+          </div>
 %   }
-% }
-% else
-% {
+% } else  {
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -140,7 +154,7 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
-
+<%doc>
 % unless ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
@@ -158,10 +172,49 @@
 &>
 %      }
 % }
+</%doc>
 <& SELF:_body,
    model => $model,
    @childArgs
 &>
+</%method>
+
+<%method messagesAndHelp>
+<%args>
+$model
+</%args>
+<%init>
+
+my $viewCustomizer = $model->viewCustomizer();
+my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
+my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() :undef;
+</%init>
+% if ($msg) {
+     <& /msg.mas,
+        msg => $msg,
+        class => $type,
+     &>
+% }
+% if ( $model->message() ) {
+     <& /msg.mas,
+        msg => $model->popMessage(),
+       class => $model->messageClass()
+     &>
+% }
+
+% my $help = $model->help();
+% if ($help) {
+     <div class="help">
+       <% $help %>
+     </div>
+% }
+
+% my $disabledModuleWarning = $model->disabledModuleWarning();
+% if ($disabledModuleWarning) {
+     <div class="warning">
+        <% $disabledModuleWarning %>
+      </div>
+% }
 </%method>
 
 <%doc>

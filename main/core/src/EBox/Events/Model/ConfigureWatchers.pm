@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Events::Model::ConfigureWatchers;
-
 # Class:
 #
 #   EBox::Events::Model::ConfigureWatchers
@@ -25,10 +23,11 @@ package EBox::Events::Model::ConfigureWatchers;
 #   It subclasses <EBox::Model::DataTable>
 #
 
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Events::Model::ConfigureWatchers;
+use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Config;
@@ -66,8 +65,6 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 sub syncRows
 {
     my ($self, $currentIds) = @_;
-
-    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
 
     my %storedEventWatchers;
     my %currentEventWatchers;
@@ -128,10 +125,6 @@ sub syncRows
         $modified = 1;
     }
 
-    if ($modified and not $modIsChanged) {
-        $self->{'confmodule'}->_saveConfig();
-        EBox::Global->getInstance()->modRestarted('events');
-    }
     return $modified;
 }
 
@@ -314,8 +307,12 @@ sub filterName
 sub filterDescription
 {
     my ($instancedType) = @_;
+    my $row = $instancedType->row();
+    if (not $row) {
+        return undef;
+    }
 
-    my $className = $instancedType->row()->valueByName('watcher');
+    my $className = $row->valueByName('watcher');
 
     eval "use $className";
     if ($@) {

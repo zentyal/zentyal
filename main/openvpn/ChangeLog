@@ -1,4 +1,12 @@
 HEAD
+	+ VPN is now under Infrastructure instead of UTM
+	+ Add PID file to make compatible with init.d script to check the
+	  current daemon status
+	+ Use MSS fix by configuration file option in order not to affect
+	  all servers
+	+ Added missinng use statement in exposed networks model
+	+ Adapted to changes in DataForm, these changes caused problems
+	  creating new servers
 	+ Added modeldepends to yaml schema
 	+ Reimplemented old behavior of client configuration directory
 	  creation for compability with other modules

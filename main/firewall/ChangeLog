@@ -1,4 +1,7 @@
 HEAD
+	+ Firewall is now under Gateway instead of UTM
+	+ Added priority to redirects
+	+ Fixed bug with SNAT and redirects to the same target
 	+ Improved style of packet filtering page
 	+ Added modeldepends to yaml schema
 	+ Fixed i10n bug in prohibition of inverse match for "any" service

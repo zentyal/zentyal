@@ -19,6 +19,7 @@ $tlsRemote      => undef
 
 $logFile
 $statusLogFile
+$pidFile        => undef
 
 $ippFile
 
@@ -137,6 +138,9 @@ comp-lzo
 # of the privilege downgrade.
 persist-key
 persist-tun
+
+# Write the PID file for compatibility with Ubuntu init.d script
+<& valueEntry, entry => 'writepid', value => $pidFile &>
 
 # Output a short status file showing
 # current connections, truncated

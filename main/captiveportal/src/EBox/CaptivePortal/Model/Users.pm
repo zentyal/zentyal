@@ -140,6 +140,15 @@ sub _table
 
     my @customActions = (
         new EBox::Types::Action(
+            name => 'extend',
+            printableValue => __('Extend bandwidth quota'),
+            model => $self,
+            handler => \&_extendUser,
+            message => __('Reset bandwith limit'),
+            image => '/data/images/reload-plus.png',
+
+        ),
+        new EBox::Types::Action(
             name => 'kick',
             printableValue => __('Kick user'),
             model => $self,
@@ -147,14 +156,7 @@ sub _table
             message => __('Finish user session in Captive Portal'),
             image => '/data/images/deny-active.gif',
         ),
-        new EBox::Types::Action(
-            name => 'extend',
-            printableValue => __('Extend bandwit limit'),
-            model => $self,
-            handler => \&_extendUser,
-            message => __('Reset bandwith limit'),
-            image => '/data/images/deny-active.gif',
-        ),
+
     );
 
     if ($self->_bwmonitorEnabled()) {
@@ -178,6 +180,7 @@ sub _table
         help               => __('List of current logged in users.'),
         modelDomain        => 'CaptivePortal',
         defaultEnabledValue => 0,
+        noDataMsg => __('No users logged in'),
     };
 
     return $dataTable;

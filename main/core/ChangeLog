@@ -1,5 +1,9 @@
 HEAD
-	+ New look & feel of the web interface
+	+ New look & feel for the web interface
+	+ Audit changes table in save changes popup has scroll and better style
+	+ Model messages are printed below model title
+	+ noDataMsg now allows to add elements if it makes sense
+	+ Fixed ajax/form.mas to avoid phantom change button
 	+ Set only Remote as option to export/import configuration to a
 	  remote site
 	+ Return undef in HasMany type when a model is not longer
@@ -10,6 +14,10 @@ HEAD
 	+ Changed dashboard JS which sometimes halted widget updates
 	+ Added popup dialogs for import/export configuration
 	+ Changes in styles and sizes of the save/revoke dialog
+	+ Removed redudant code in ConfigureWatchers::syncRows which made module
+	  to have an incorrect modified state
+	+ Dont show in bug report removed packages with configuration
+	  held as broken packages
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
