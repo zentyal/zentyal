@@ -9,6 +9,10 @@ HEAD
 	+ Change samba home to /home/samba instead /home/ebox/samba
 	+ Use the privileged LDAP socket to connect to samba LDAP.
 	+ Provision using bind9 DLZ backend.
+	+ Add config key to choose the fileserver to use, 'ntvfs' or 's3fs'
+	+ Removed wrong empty string translations
+	+ Enable printing daemon. Printers ACLs stored in a model within
+	  printers module.
 2.3.11
 	+ Added modeldepends to yaml schema
 	+ Enable printing daemon. Printers ACLs are now stored in a model within

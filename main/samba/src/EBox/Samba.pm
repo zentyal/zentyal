@@ -528,8 +528,9 @@ sub provision
     EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
 
     my $mode = $self->mode();
+    my $fs = EBox::Config::configkey('samba_fs');
     if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
-        $self->provisionAsDC();
+        $self->provisionAsDC($fs);
     } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
         $self->provisionAsADC();
     } else {
@@ -539,7 +540,7 @@ sub provision
 
 sub provisionAsDC
 {
-    my ($self) = @_;
+    my ($self, $fs) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
@@ -554,6 +555,7 @@ sub provisionAsDC
         ' --server-role=' . $self->mode() .
         ' --users=' . $usersModule->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
+    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
     EBox::debug("Provisioning database '$cmd'");
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
@@ -847,6 +849,7 @@ sub writeSambaConfig
     $prefix = 'zentyal' unless $prefix;
 
     my @array = ();
+    push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
