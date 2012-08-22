@@ -476,7 +476,7 @@ input[type='password'][disabled], input[type='text'][disabled] {
 
 
 
-input[type='submit'], button {
+input[type='submit'], button, input[type='button'] {
     color:#666;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -516,9 +516,11 @@ button > img {margin-bottom:-3px;}
 
 #installButtons > button > img { margin-bottom:-3px;}
 
-input[type='submit']:hover {background:#DFDFDF}
+input[type='submit']:hover, input[type='button']:hover {background:#DFDFDF}
+
 button:hover {background:#DFDFDF}
-input[type='submit'][disabled]{
+
+input[type='submit'][disabled], input[type='button'][disabled]{
     cursor:default;
     border-color:#dbdbdb;
     background-color:#eee;
@@ -1754,8 +1756,16 @@ border-radius: 3px;
 
 }
 
+.headcontainer > h3, #packages > h3 {
+    font-size: 16px;
+    color: #666;
+    border-bottom: none;
+    padding: 3px 0px;
+    margin: 0px 0px 0px 10px;
+}
+
 .head {
-    margin: 0 12px;
+    margin: 0 30px;
     padding: 5px;
     display: inline-block;
     text-align: center;
