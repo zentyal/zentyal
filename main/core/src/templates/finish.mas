@@ -113,25 +113,29 @@ function sendAcceptedFiles()
 <div class='note'>
 <% __('The following changes are pending. You can save or discard them.') %>
 </div>
-<table class='dataTable' cellspacing='0'>
+<div style='display: block; overflow: auto; height: 70px;'>
+  <table class='dataTable' cellspacing='0'>
     <thead>
-        <tr>
-            <th class='tleft'><% __('Date') %></th>
-            <th class='tleft'><% __('Module') %></th>
-            <th class='tleft'><% __('Section') %></th>
-            <th class='tleft'><% __('Description') %></th>
-        </tr>
+         <th class='tleft'><% __('Date') %></th>
+         <th class='tleft'><% __('Module') %></th>
+         <th class='tleft'><% __('Section') %></th>
+         <th class='tleft'><% __('Description') %></th>
     </thead>
     <tbody>
+%   my $oddRow = 1;
 %   foreach my $action (@actions) {
-    <tr>
-        <td><% $action->{'timestamp'} %></td>
-        <td><% $action->{'modtitle'} %></td>
-        <td><% $action->{'modeltitle'} %></td>
-        <td><% $action->{'message'} %></td>
-    </tr>
+%      my $class = $oddRow ? 'border odd' : 'border even';
+%      $oddRow = not $oddRow;
+       <tr class='<% $class %>'>
+           <td><% $action->{'timestamp'} %></td>
+           <td><% $action->{'modtitle'} %></td>
+           <td><% $action->{'modeltitle'} %></td>
+           <td><% $action->{'message'} %></td>
+       </tr>
 %   }
-</table>
+    </tbody>
+  </table>
+</div>
 % }
 <%perl>
 my $mboxSaveTitle = __('Saving changes');

@@ -382,7 +382,17 @@ sub noDataMsg
     my ($self) = @_;
 
     my $table = $self->{table};
-    return (exists $table->{noDataMsg} ? $table->{noDataMsg} : '');
+    if ((exists $table->{noDataMsg}) and (defined $table->{noDataMsg})) {
+        return $table->{noDataMsg};
+    }
+
+    my $rowName = $self->printableRowName();
+    if (not $rowName) {
+        $rowName = __('element');
+    }
+    return __x('There is not any {element}',
+               element => $rowName,
+              );
 }
 
 # Method: customFilter

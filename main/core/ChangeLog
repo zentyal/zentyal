@@ -1,6 +1,9 @@
 HEAD
+	+ New look & feel for the web interface
+	+ Audit changes table in save changes popup has scroll and better style
+	+ Model messages are printed below model title
+	+ noDataMsg now allows to add elements if it makes sense
 	+ Fixed ajax/form.mas to avoid phantom change button
-	+ New look & feel of the web interface
 	+ Set only Remote as option to export/import configuration to a
 	  remote site
 	+ Return undef in HasMany type when a model is not longer

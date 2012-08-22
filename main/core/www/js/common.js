@@ -37,40 +37,26 @@ function hide(id){
     setDefault();
 }
 
-var shownMenu = "";
+var menuShown = '';
 
-function showMenu(name){
-	var inc;
-	if (shownMenu.length != 0) {
-        $$('.' + shownMenu).each(function(e) {
-            e.style.display = 'none'
-        });
-/*
-		elements=getElementByClass(shownMenu);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="none";
-			inc++;
-		}
-*/
-	}
-
-    if (shownMenu == name) {
-        shownMenu = "";
-	} else {
-        $$('.' + name).each(function(e) {
-            e.style.display = 'inline'
-        });
-/*
-		elements=getElementByClass(name);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="inline";
-			inc++;
-		}
-*/
-		shownMenu = name; 
-	}
+function showMenu(name, menuAnchor){
+    if (menuShown === name) {
+      menuShown = '';
+      $$('.' + name).each(function(e) {
+                                     e.style.display = 'none';
+                                 }
+                               );
+      menuAnchor.addClassName('navarrow');
+      menuAnchor.removeClassName('despleg');
+    } else {
+      menuShown = name;
+      $$('.' + name).each(function(e) {
+                                  e.style.display = 'inline';
+                            }
+                           );
+      menuAnchor.addClassName('despleg');
+      menuAnchor.removeClassName('navarrow');
+   }
 }
 
 
