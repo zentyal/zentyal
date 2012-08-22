@@ -1,4 +1,6 @@
 HEAD
+	+ Default row addition in DataForm does not fires validateTypedRow
+	+ Code typo fix in change administration port model
 	+ New look & feel of the web interface
 	+ Set only Remote as option to export/import configuration to a
 	  remote site

@@ -113,7 +113,7 @@ function sendAcceptedFiles()
 <div class='note'>
 <% __('The following changes are pending. You can save or discard them.') %>
 </div>
-<table class='dataTable' cellspacing='0'>
+<table class='dataTable' cellspacing='0' style='max-height:10px;overflow:scroll'>
     <thead>
         <tr>
             <th class='tleft'><% __('Date') %></th>
