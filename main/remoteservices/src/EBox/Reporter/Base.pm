@@ -49,6 +49,8 @@ sub new
         db     => EBox::DBEngineFactory::DBEngine(),
         sender => new EBox::RemoteServices::Report(),
     };
+    # Use only UTC for date display
+    $self->{db}->setTimezone('+0:00');
     bless($self, $class);
     return $self;
 }
