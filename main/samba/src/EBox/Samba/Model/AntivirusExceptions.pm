@@ -26,7 +26,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Samba::Types::Select;
+use EBox::Types::Select;
 
 # Constructor: new
 #
@@ -48,17 +48,6 @@ sub new
     my $self = $class->SUPER::new(%opts);
     bless ($self, $class);
     return $self;
-}
-
-sub populateGroup
-{
-    my $userMod = EBox::Global->modInstance('users');
-    my @groups = map (
-        { value => $_->get('cn'),
-          printableValue => $_->get('cn') },
-        @{$userMod->groups()}
-    );
-    return \@groups;
 }
 
 sub shareModel
@@ -84,16 +73,10 @@ sub _table
                                 fieldName => 'users',
                                 unique => '1',
                                 printableName => __('User homes')),
-                            new EBox::Samba::Types::Select(
-                                fieldName => 'group',
-                                unique => '1',
-                                printableName => __('Group'),
-                                populate => \&populateGroup,
-                                HTMLViewer => '/samba/ajax/viewer/shareViewer.mas',
-                                editable => 1),
                             new EBox::Types::Select(
                                 fieldName => 'share',
-                                unique => '1',
+                                disableCache => 1,
+                                unique => 1,
                                 printableName => __('Share'),
                                 foreignModel => \&shareModel,
                                 foreignField => 'share',
@@ -121,23 +104,16 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $anyChange = undef;
-    my $userMod = EBox::Global->modInstance('users');
-
+    my $shareModel = $self->parentModule->model('SambaShares');
     for my $id (@{$currentIds}) {
         my $userGroupShare = $self->row($id)->elementByName('user_group_share');
         my $remove;
-        if ($userGroupShare->selectedType() eq 'user') {
-            if (!$userMod->uidExists($userGroupShare->value())) {
-                $remove = 1;
+        if ($userGroupShare->selectedType() eq 'share') {
+            my $share = $shareModel->find(share => $userGroupShare->value());
+            unless (defined $share) {
+                $self->removeRow($id, 1);
+                $anyChange = 1;
             }
-        } elsif ($userGroupShare->selectedType() eq 'group') {
-            if (!$userMod->gidExists($userGroupShare->printableValue())) {
-                $remove = 1;
-            }
-        }
-        if ($remove) {
-            $self->removeRow($id, 1);
-            $anyChange = 1;
         }
     }
     return $anyChange;

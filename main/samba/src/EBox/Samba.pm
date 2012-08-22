@@ -918,7 +918,6 @@ sub _setConf
             my $path = "\\\\$netbiosName.$realmName\\profiles";
             $user->setRoamingProfile(1, $path, 1);
         } else {
-            EBox::debug("Disabling roaming profile in user " . $user->dn());
             $user->setRoamingProfile(0);
         }
 
