@@ -1507,10 +1507,6 @@ float:left;
 }
 
 #software .image:hover {
-    filter: alpha(opacity=50);
-    -moz-opacity: 0.5;
-    KhtmlOpacity: .5;
-    opacity: .5;
     cursor: pointer;
 }
 
@@ -1725,3 +1721,29 @@ border-radius: 3px;
 
 /* end modalbox.js stuff */ 
 
+.headcontainer{
+    border-radius: 15px ;
+    -moz-border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.head {
+    margin: 0 7px;
+    padding: 5px;
+    display: inline-block;
+    text-align: center;
+    width:115px;
+}
+
+.head:hover{background-color: #eee;}
+
+.head h3{
+    font-size:14px;
+    border-bottom:none;
+    color:black;
+    text-align: center;
+    margin-bottom: 2px;
+        margin-top: 0;
+}
