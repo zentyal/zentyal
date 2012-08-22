@@ -55,7 +55,7 @@ sub new
 #
 sub _addUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user) = @_;
 
     return unless ($self->{samba}->configured());
 
@@ -99,7 +99,7 @@ sub _addUser
     try {
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($dn, { attrs => $attrs });
-        $self->{ldb}->changeUserPassword($dn, $password);
+        $self->{ldb}->updateUserPassword($user);
 
         # Get the entry from samba LDAP to read the SID and create the roaming profile dir
         my $args = { base   => $self->{ldb}->dn(),
@@ -132,7 +132,7 @@ sub _addUser
 
 sub _modifyUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user, $passwords) = @_;
 
     return unless ($self->{samba}->configured());
 
@@ -152,8 +152,9 @@ sub _modifyUser
 
         $self->{ldb}->disableZentyalModule();
         $entry->update($self->{ldb}->ldbCon());
-        if (defined $password) {
-            $self->{ldb}->changeUserPassword($entry->dn(), $password);
+
+        if (defined $passwords) {
+            $self->{ldb}->updateUserPassword($user);
         }
     } otherwise {
         my $error = shift;
@@ -525,16 +526,12 @@ sub _userAddOns
     my $serviceEnabled = $self->{samba}->isEnabled();
     my $accountEnabled = $self->accountEnabled($user);
     my $isAdminUser    = $self->isAdminUser($user);
-#    my $printers = $samba->_printersForUser($user);
 
     my $args = {
         'username'       => $user->dn(),
         'accountEnabled' => $accountEnabled,
         'isAdminUser'    => $isAdminUser,
         'service'        => $serviceEnabled,
-
-        'printers' => [], #$printers,
-        'printerService' => undef, #$samba->printerService(),
     };
 
     return { path => '/samba/samba.mas', params => $args };

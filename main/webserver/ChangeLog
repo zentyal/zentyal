@@ -1,3 +1,6 @@
+HEAD
+	+ Module recovers from missign webserver service
+	+ Backup and restore of vhosts custom configuration directories
 2.3.4
 	+ Avoid 'port in use' error when setting port for first time to
 	  its default value

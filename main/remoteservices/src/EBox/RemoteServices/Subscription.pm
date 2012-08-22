@@ -171,7 +171,8 @@ sub soapCall
 #
 #      hash ref - containing the following keys and values:
 #
-#        confFile - the configuration file to be used to connect to#        the infrastructure
+#        confFile - the configuration file to be used to connect to
+#        the infrastructure
 #
 #        new - Boolean indicating if the subscription was done or just
 #        the file getting
@@ -204,7 +205,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}) } @{$availables};
+        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_mail_add_on}) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -251,7 +252,7 @@ sub subscribeServer
 
     # my $conf;
     my $response = $self->{restClient}->POST("/v1/servers/",
-                                             { 'name' => $name, 'bundle' => $option} );
+                                             query => { 'name' => $name, 'bundle' => $option} );
     my $serverInfoRaw = $response->as_string();
     my $serverInfo = $response->data();
 
@@ -345,9 +346,6 @@ sub availableEdition
 #          cert - String the certificate path
 #          key - String the private key path
 #          confFile - String the configuration file path
-#          QASources - String path to the QA source list mason template
-#          QAAptPubKey - String path to the QA apt repository public key
-#          QAAptPreferences - String path to the QA preferences file
 #          installCloudProf - String the install script for Professional add-ons
 #          scripts - Array ref containing the scripts to run after extracting the bundle
 #
@@ -372,7 +370,7 @@ sub extractBundle
     my $dirPath = $class->_createSubscriptionDir($cn);
     chdir($dirPath);
 
-    my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences, $installCloudProf);
+    my ($confFile, $keyFile, $certFile, $installCloudProf);
     my @scripts;
     foreach my $filePath (@files) {
         $tar->extract_file($filePath)
@@ -381,12 +379,6 @@ sub extractBundle
             $confFile = $filePath;
         } elsif ( $filePath =~ m:$cn: ) {
             $keyFile = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.list\.mas$/) {
-            $qaSources = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.pub$/) {
-            $qaGpg = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.preferences/) {
-            $qaPreferences = $filePath;
         } elsif ($filePath =~ m{exec\-\d+\-}) {
             push(@scripts, $filePath);
         } elsif ( $filePath =~ /install-cloud-prof\.pl$/) {
@@ -407,15 +399,6 @@ sub extractBundle
     };
 
 
-    if (defined $qaSources) {
-        $bundle->{QASources} = "$dirPath/$qaSources";
-    }
-    if (defined $qaGpg) {
-        $bundle->{QAAptPubKey} = "$dirPath/$qaGpg";
-    }
-    if (defined $qaPreferences) {
-        $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
-    }
     if (defined $installCloudProf) {
         $bundle->{installCloudProf} = "$dirPath/$installCloudProf";
     }
@@ -438,9 +421,7 @@ sub extractBundle
 #     Current actions:
 #
 #        - Restart remoteservices, firewall and apache modules
-#        - Downgrade, if necessary
 #        - Create John home directory (Security audit)
-#        - Set QA updates (QA repository and its preferences)
 #        - Autoconfigure DynamicDNS service
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
@@ -461,9 +442,8 @@ sub executeBundle
 
     $self->_restartRS($new);
     # Downgrade, if necessary
-    $self->_downgrade($params);
+    $self->_downgrade();
     $self->_setUpAuditEnvironment();
-    $self->_setQAUpdates($params, $confKeys);
     $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
@@ -521,8 +501,6 @@ sub deleteData
 
     my $rs = EBox::Global->modInstance('remoteservices');
     if ( $rs->hasBundle() ) {
-        # Remove QA updates configuration
-        $self->_removeQAUpdates();
         # Remove DDNS autoconfiguration
         $self->_removeDDNSConf();
         # Remove alert autoconfiguration
@@ -644,31 +622,6 @@ sub _setUpAuditEnvironment
     }
 }
 
-sub _setQAUpdates
-{
-    my ($self, $params, $confKeys) = @_;
-
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    foreach my $param (@paramsNeeded) {
-        return unless (exists $params->{$param});
-    }
-
-    $self->_setQASources($params->{QASources}, $confKeys);
-    $self->_setQAAptPubKey($params->{QAAptPubKey});
-    $self->_setQAAptPreferences($params->{QAAptPreferences});
-    $self->_setQARepoConf($confKeys);
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        if ( $softwareMod->can('setQAUpdates') ) {
-            $softwareMod->setQAUpdates(1);
-        }
-    } else {
-        EBox::info('No software module installed QA updates should be done by hand');
-    }
-
-}
-
 # Set the Dynamic DNS configuration only if the service was not
 # enabled before and using other method
 sub _setDDNSConf
@@ -736,165 +689,6 @@ sub _executeBundleScripts
             # ignore script errors
         };
     }
-}
-
-# Set the QA source list
-sub _setQASources
-{
-    my ($self, $qaFile, $confKeys) = @_;
-
-    my $ubuntuVersion = _ubuntuVersion();
-    my $archive = $self->_archive($ubuntuVersion);
-    my $repositoryAddr = $self->_repositoryAddr($confKeys);
-
-    # Perform the mason template manually since it is not stored in stubs directory
-    my $output;
-    my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $comp   = $interp->make_component(comp_file  => $qaFile);
-    $interp->exec($comp, ( (repositoryIPAddr => $repositoryAddr),
-                           (archive          => $archive)) );
-
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    my $tmpFile = $fh->filename();
-    File::Slurp::write_file($tmpFile, $output);
-    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
-}
-
-# Get the ubuntu version
-sub _ubuntuVersion
-{
-    my @releaseInfo = File::Slurp::read_file('/etc/lsb-release');
-    foreach my $line (@releaseInfo) {
-        next unless ($line =~ m/^DISTRIB_CODENAME=/ );
-        chomp $line;
-        my ($key, $version) = split '=', $line;
-        return $version;
-    }
-
-}
-
-# Get the QA archive to look
-sub _archive
-{
-    my ($self, $ubuntuVersion) = @_;
-
-    return "zentyal-qa-$ubuntuVersion";
-
-}
-
-# Get the suite of archives to set preferences
-sub _suite
-{
-    return 'zentyal-qa';
-}
-
-# Set the QA apt repository public key
-sub _setQAAptPubKey
-{
-    my ($self, $keyFile) = @_;
-    EBox::Sudo::root("apt-key add $keyFile");
-}
-
-sub _setQAAptPreferences
-{
-    my ($self, $preferencesTmpl) = @_;
-
-    my $preferences = '/etc/apt/preferences';
-    my $fromCCPreferences = $preferences . '.zentyal.fromzc'; # file to store CC preferences
-
-    # Perform the mason template manually since it is not stored in stubs directory
-    my $output;
-    my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $comp   = $interp->make_component(comp_file  => $preferencesTmpl);
-    $interp->exec($comp, ( (archive => $self->_suite() )));
-
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    my $tmpFile = $fh->filename();
-    File::Slurp::write_file($tmpFile, $output);
-
-    EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
-
-    return unless EBox::Config::boolean('qa_updates_exclusive_source');
-
-    my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
-    EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
-}
-
-# Set not to use HTTP proxy for QA repository
-sub _setQARepoConf
-{
-    my ($self, $confKeys) = @_;
-
-    my $repoAddr = $self->_repositoryAddr($confKeys);
-    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
-                                             '/remoteservices/qa-conf.mas',
-                                             [ repoAddr => $repoAddr ]);
-}
-
-# Get the repository IP address
-sub _repositoryAddr
-{
-    my ($self, $confKeys) = @_;
-
-    my $retVal = '';
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if ( $rs->isConnected() ) {
-        $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
-                                                  [$confKeys->{'dnsServer'}]);
-    } else {
-        $retVal = $confKeys->{repositoryAddress};
-    }
-
-    return $retVal;
-}
-
-# Remove QA updates
-sub _removeQAUpdates
-{
-    my ($self) = @_;
-
-    $self->_removeAptQASources();
-    $self->_removeAptPubKey();
-    $self->_removeAptQAPreferences();
-    $self->_removeAptQAConf();
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        if ( $softwareMod->can('setQAUpdates') ) {
-            $softwareMod->setQAUpdates(0);
-        }
-    }
-}
-
-sub _removeAptQASources
-{
-    my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
-sub _removeAptPubKey
-{
-    my $id = 'ebox-qa';
-    try {
-        EBox::Sudo::root("apt-key del $id");
-    } otherwise {
-        EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
-    };
-}
-
-sub _removeAptQAPreferences
-{
-    my $path = '/etc/apt/preferences.zentyal.fromzc';
-    EBox::Sudo::root("rm -f '$path'");
-    $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
-sub _removeAptQAConf
-{
-    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
-    EBox::Sudo::root("rm -f '$path'");
 }
 
 # Remove the Dynamic DNS configuration only if the service is using
@@ -1057,21 +851,15 @@ sub _restartRS
 
 # Downgrade current subscription, if necessary
 # Things to be done:
-#   * Remove QA updates configuration
 #   * Uninstall zentyal-cloud-prof and zentyal-security-updates packages
 #
 sub _downgrade
 {
-    my ($self, $params) = @_;
+    my ($self) = @_;
 
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    my $nParamsNeeded = grep { exists $params->{$_} } @paramsNeeded;
-    if ( $nParamsNeeded < scalar(@paramsNeeded) ) {
-        if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
-            or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
-            # Requires to downgrade
-            $self->_removeQAUpdates();
-        }
+    my $rs = EBox::Global->modInstance('remoteservices');
+    # Remove packages if basic subscription or no subscription at all
+    if ($rs->subscriptionLevel(1) <= 0) {
         $self->_removePkgs();
     }
 }

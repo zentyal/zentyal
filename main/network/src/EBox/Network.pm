@@ -1132,6 +1132,7 @@ sub ifaceMethod
 sub setIfaceDHCP
 {
     my ($self, $name, $ext, $force) = @_;
+    defined $ext or $ext = 0;
 
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -1215,6 +1216,8 @@ sub setIfaceDHCP
 sub setIfaceStatic
 {
     my ($self, $name, $address, $netmask, $ext, $force) = @_;
+    defined $ext or $ext = 0;
+
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
@@ -1385,6 +1388,7 @@ sub _checkStaticIP
 sub setIfacePPP
 {
     my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
+    defined $ext or $ext = 0;
 
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -1564,6 +1568,7 @@ sub _trunkIfaceIsUsed # (iface)
 sub setIfaceBridged
 {
     my ($self, $name, $ext, $bridge, $force) = @_;
+    defined $ext or $ext = 0;
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
@@ -2682,14 +2687,23 @@ sub _generateDDClient
             my $gl = EBox::Global->getInstance(1);
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
-                if ( $rs->eBoxSubscribed() and $rs->can('DDNSServerIP') ) {
-                    $login = $rs->subscriberUsername();
-                    $password = '123456'; # Password is useless here
+                if ( $rs->eBoxSubscribed() ) {
+                    # Server subscription credentials as user and pass
+                    my $cred = $rs->cloudCredentials();
+
+                    # UUID for login
+                    $login = $cred->{uuid};
+
+                    # Get DynDNS password
+                    $password = substr($cred->{password},0,20);
+
                     $hostname = $rs->dynamicHostname();
-                    $server = $rs->DDNSServerIP();
-                    unless ( $server ) {
+                    my $cloud_domain = $rs->cloudDomain();
+                    if ( $cloud_domain ) {
+                        $server = 'ddns.' . $cloud_domain;
+                    } else {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
-                                   . 'get the DynDNS server');
+                                   . 'get domain name');
                         $enabled = 0;
                     }
                     # Check for multi-output gateways
@@ -3223,9 +3237,9 @@ sub _enforceServiceState
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
-                unless ($self->isReadOnly()) {
-                    $self->_unsetChanged($iface);
-                }
+            unless ($self->isReadOnly()) {
+                $self->_unsetChanged($iface);
+            }
         }
         unlink (IFUP_LOCK_FILE);
     }

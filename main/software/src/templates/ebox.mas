@@ -18,132 +18,15 @@ use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 my $first = EBox::Global->first();
+my $popup = $first ? 0 : 1;
 </%init>
 
+<script type="text/javascript" src="/data/js/software-management.js">//</script>
 <script type="text/javascript">
-    function tab1(){
-        document.getElementById('installTab').className = 'current';
-        document.getElementById('updateTab').className='';
-        document.getElementById('deleteTab').className='';
-        document.getElementById('installBox').show();
-        document.getElementById('updateBox').hide();
-        document.getElementById('deleteBox').hide();
-    }
-
-    function tab2(){
-        document.getElementById('installTab').className = '';
-        document.getElementById('updateTab').className='current';
-        document.getElementById('deleteTab').className='';
-        document.getElementById('installBox').hide();
-        document.getElementById('updateBox').show();
-        document.getElementById('deleteBox').hide();
-    }
-
-    function tab3(){
-        document.getElementById('installTab').className = '';
-        document.getElementById('updateTab').className='';
-        document.getElementById('deleteTab').className='current';
-        document.getElementById('installBox').hide();
-        document.getElementById('updateBox').hide();
-        document.getElementById('deleteBox').show();
-    }
-
-    var suites =  {
-        'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
-                      'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
-        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-firewall', 'zentyal-squid', 'zentyal-ca', 'zentyal-openvpn',
-                  'zentyal-antivirus', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-users' ],
-        'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
-                             'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
-        'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
-                     'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
-        'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
-                             'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
-    };
-
-    function showInfo(id){
-        var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
-        Effect.Appear(id, { duration : 0.2 });
-        for (var i = 0; i < items.length; i++) {
-            if (items[i] != id) {
-                Effect.Fade(items[i], { duration : 0.2 });
-            }
-        }
-    }
-
-    function hideInfo(id) {
-        Effect.Fade(id, { duration : 0.2 });
-        Effect.Appear('Install', { duration : 0.2 });
-    }
-
-    function tick(id){
-        document.getElementById(id+'_image_tick').show();
-        document.getElementById(id+'_image').hide();
-        document.getElementById(id+'_check').checked = true;
-
-        deps = suites[id];
-        for (i=0; i<deps.length; i++) {
-            selectPackage(deps[i]);
-        }
-    }
-
-    function untick(id, update_packages){
-        document.getElementById(id+'_image_tick').hide();
-        document.getElementById(id+'_image').show();
-        document.getElementById(id+'_check').checked = false;
-
-        if (update_packages) {
-            deps = suites[id];
-            for (i=0; i<deps.length; i++) {
-                unselectPackage(deps[i], 1);
-            }
-        }
-
-        for (var suite in suites) {
-            visible = $(suite+'_image_tick').visible();
-            if (visible) tick(suite);
-        }
-    }
-
-    function selected(id) {
-        return $(id).hasClassName('package_selected');
-    }
-
-    function selectPackage(id) {
-        $(id).addClassName('package_selected');
-    }
-
-    function unselectPackage(id, no_update_ticks) {
-        $(id).removeClassName('package_selected');
-        if (!no_update_ticks) updateTicks();
-    }
-
-    function togglePackage(id) {
-        if (selected(id)) {
-            unselectPackage(id);
-        } else {
-            selectPackage(id);
-        }
-        updateTicks();
-    }
-
-    function updateTicks() {
-        // add/remove ticks from suites after package unselection
-        for (var suite in suites) {
-            var isselected = true;
-            for (i=0; i<suites[suite].length; i++) {
-                if (!selected(suites[suite][i])) {
-                    untick(suite);
-                    isselected = false;
-                    break;
-                }
-            }
-            if (isselected) tick(suite);
-        }
-    }
-
     document.observe("dom:loaded", function() {
-        selectPackage('zentyal-remoteservices');
+        if ($('zentyal-remoteservices')) {
+            selectPackage('zentyal-remoteservices');
+        }
         switch(location.hash) {
            case "#update":
                 tab2();
@@ -190,7 +73,7 @@ h3 {
 var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
-        {"<% __('Component') %>":"<% __($pkg->{description}) %>",
+        {"<% __('Component') %>":"<% $pkg->{description} %>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
 %               $eboxupg = __('Update');
@@ -602,7 +485,7 @@ var pkgTable = new Array(
        </div>
 
        <div style="text-align: right">
-        <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
+        <button onclick="sendFormBasic(<% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if ($first) {
         <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
@@ -648,19 +531,23 @@ var pkgTable = new Array(
         <div id="installBox">
             <div id="installTable"></div>
             <div id="installButtons">
-                <button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+                <button id="install_button" onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
+                   <% __('Install') %>
+                </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
             </div>
         </div>
         <div id="updateBox">
             <div id="updateTable"></div>
             <div id="updateButtons">
-                <button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
+                <button  id="update_button" onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
+                  <% __('Update') %>
+                </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
                 <form name='updateList' action='EBox' method='post'>
                         <input type='hidden' name='updatePkgs' value="yes"/>
                 </form>
@@ -669,9 +556,11 @@ var pkgTable = new Array(
         <div id="deleteBox">
             <div id="deleteTable"></div>
             <div id="deleteButtons">
-                <button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
-                <button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
+                <button id="delete_button" onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif" >
+                  <% __('Delete') %>
+                </button>
+                <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
         </div>
         <form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
@@ -703,11 +592,11 @@ var pkgTable = new Array(
             obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
 %   if ($first) {
             if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\"></center>";
             else
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   } else {
-            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   }
             insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
             insTable[insTable.length] = obj;
@@ -717,7 +606,7 @@ var pkgTable = new Array(
                     obj = new Object();
                     obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
                     obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
+                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='updateActionButton(delHtmlId, \"delete_button\")'></center>";
                     delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
                     delTable[delTable.length] = obj;
                 }
@@ -727,7 +616,7 @@ var pkgTable = new Array(
                 obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
                 obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
                 obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='updateActionButton(updHtmlId, \"update_button\")'></center>";
                 updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
                 updTable[updTable.length] = obj;
             }
@@ -767,146 +656,106 @@ var pkgTable = new Array(
     updTableOrderer.orderRow('<% __('Component') %>', 'asc');
     delTableOrderer.orderRow('<% __('Component') %>', 'asc');
 
-    function selectAll(items, htmlIds){
-        if(!isArray(items)||!isArray(htmlIds))
-            return;
+   // update button status
+   updateActionButton(insHtmlId, 'install_button');
+   updateActionButton(delHtmlId, 'delete_button');
+   updateActionButton(updHtmlId, 'update_button');
 
-        for(var i = 0; i < items.length; i++){
+    function selectAll(htmlIds){
+        for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = true;
         }
     }
 
-    function deselectAll(items, htmlIds){
-        if(!isArray(items))
-            return;
+    function deselectAll(htmlIds){
 
-        for(var i = 0; i < items.length; i++){
+        for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = false;
         }
     }
 
-    function isArray(obj) {
-        if (obj.constructor.toString().indexOf("Array") == -1)
-            return false;
-        else
-            return true;
-    }
-
-    function sendForm(action, htmlIds) {
-        var send = false;
-        if(!isArray(htmlIds))
-            return;
-
+    function sendForm(action, htmlIds, popup) {
+        var packages = [];
         for(var i = 0; i < htmlIds.length; i++){
-            element = document.getElementById(htmlIds[i]);
+            var element = document.getElementById(htmlIds[i]);
             if(element && element.checked){
-                var inputPkg = document.createElement('input');
-                inputPkg.setAttribute('type', 'text');
-                inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
-                inputPkg.setAttribute('value', 'yes');
-                document.formPkg.appendChild(inputPkg);
-                send = true;
+              packages.push('pkg-'+htmlIds[i].substring(4));
             }
         }
 
-        if (send) {
-            var inputAct = document.createElement('input');
-            inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', action);
-            inputAct.setAttribute('value', action);
-            document.formPkg.appendChild(inputAct);
-            document.formPkg.submit();
-        }
+        _sendFormPackagesList(action, packages, popup);
     }
 
-    function sendFormBasic(){
-        var send = false;
+    function sendFormBasic(popup){
+        var packages = [];
         if (document.getElementById('Gateway_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-gateway');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
+            packages.push('pkg-zentyal-gateway');
         }
         if (document.getElementById('UTM_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-security');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
+            packages.push('pkg-zentyal-security');
         }
         if (document.getElementById('Office_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-office');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
+            packages.push('pkg-zentyal-office');
         }
         if (document.getElementById('Communications_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-communication');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
+            packages.push('pkg-zentyal-communication');
         }
         if (document.getElementById('Infrastructure_check').checked) {
-            var inputPkg = document.createElement('input');
-            inputPkg.setAttribute('type', 'text');
-            inputPkg.setAttribute('name', 'pkg-zentyal-infrastructure');
-            inputPkg.setAttribute('value', 'yes');
-            document.formPkg.appendChild(inputPkg);
-            send = true;
+            packages.push('pkg-zentyal-infrastructure');
         }
         $$('.package').each(function (e) {
-            pkg_id = e.readAttribute('id');
+            var pkg_id = e.readAttribute('id');
             if (selected(pkg_id)) {
-                var inputPkg = document.createElement('input');
-                inputPkg.setAttribute('type', 'text');
-                inputPkg.setAttribute('name', 'pkg-' + pkg_id);
-                inputPkg.setAttribute('value', 'yes');
-                document.formPkg.appendChild(inputPkg);
-                send = true;
+                packages.push('pkg-' + pkg_id);
             }
         });
-        if (send) {
-            var inputAct = document.createElement('input');
-            inputAct.setAttribute('type', 'text');
-            inputAct.setAttribute('name', 'install');
-            inputAct.setAttribute('value', 'install');
-            document.formPkg.appendChild(inputAct);
-            document.formPkg.submit();
-        }
+
+        _sendFormPackagesList('install', packages, popup);
     }
 
-    function changeCheck (nameList, id){
-        var indexC = -1;
-        var indexD = -1;
-        var list;
-        eval("list = "+nameList);
-        for (var i = 0; i < list.cache.length; i ++) {
-            if (list.cache[i].Select.indexOf(id) > 0) {
-                indexC = i;
-                break;
-            }
-        }
-        for (var i = 0; i < list.cache.length; i ++) {
-            if (list.data[i].Select.indexOf(id) > 0) {
-                indexD = i;
-                break;
-            }
-        }
-        if (document.getElementById(id).checked) {
-            list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-            list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-        } else {
-            list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-            list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
-        }
+
+    function _sendFormPackagesList(action, packages, popup)
+    {
+        if (packages.length > 0) {
+          var url= 'InstallPkgs?';
+          for (var i=0; i < packages.length; i++) {
+                url += action + '=1';
+                url += '&' +  packages[i] + '=yes';
+          }
+          url += '&popup=' + popup;
+          if (popup) {
+                var title='';
+                if (action == 'install') {
+                    title = '<% __('Installing packages') %>';
+                } else if (action == 'remove') {
+                    title = '<% __('Removing packages') %>';
+                } else if (action == 'upgrade') {
+                    title = '<% __('Upgrading packages') %>';
+                }
+                Modalbox.show(url, {'title': title, 'transitions': false});
+          } else {
+            window.location = url;
+          }
+       } else {
+           alert('<% __('No packages selected') %>');
+       }
     }
+
+function updateActionButton(list, buttonId)
+{
+        var allDisabled = true;
+        for (var i = 0; i < list.length; i++) {
+            var element = $(list[i]);
+            if (element.checked) {
+               allDisabled = false;
+               break;
+            }
+        }
+
+       var element = $(buttonId);
+       element.disabled=  allDisabled;
+}
+
 
 </script>
 
@@ -933,3 +782,5 @@ if ($errorMsg) {
 </div>
 % }
 </%def>
+
+

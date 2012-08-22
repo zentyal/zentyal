@@ -1,3 +1,8 @@
+HEAD
+	+ More robust code against errors when getting watcher class
+	+ Improved extend quota icons and some texts
+	+ Improved style of login page
+	+ Added modeldepends to yaml schema
 2.3.3
 	+ Fixed firewall locking problems
 	+ Enable interfaces in bandwith monitor module when needed

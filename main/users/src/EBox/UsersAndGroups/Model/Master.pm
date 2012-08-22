@@ -22,14 +22,23 @@ package EBox::UsersAndGroups::Model::Master;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
+use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
+use EBox::View::Customizer;
 
 use strict;
 use warnings;
+
+
+use constant VIEW_CUSTOMIZER => {
+    none     => { hide => [ 'host', 'port', 'password' ] },
+    zentyal  => { show => [ 'host', 'port', 'password' ] },
+    cloud    => { hide => [ 'host', 'port', 'password' ] },
+};
 
 # Group: Public methods
 
@@ -63,11 +72,26 @@ sub _table
     # TODO make all this elements non-editable after change
     # (add a destroy button, to unregister from the master)
 
+
+    my $master_options = [
+        { value => 'none', printableValue => __('None') },
+        { value => 'zentyal', printableValue => __('Other Zentyal Server') },
+
+    ];
+
+    # TODO - check cloud permissions for this feature
+    if (EBox::Global->modExists('remoteservices')) {
+        push ($master_options,
+            { value => 'cloud', printableValue  => __('Zentyal Cloud') }
+        );
+    }
+
     my @tableDesc = (
-        new EBox::Types::Boolean (
-            fieldName => 'enabled',
-            printableName => __('Enabled'),
-            defaultValue => 0,
+        new EBox::Types::Select (
+            fieldName => 'master',
+            printableName => __('Sync users from'),
+            options => $master_options,
+            help => __('Sync users from the chosen source'),
             editable => 1,
         ),
         new EBox::Types::Host (
@@ -104,11 +128,31 @@ sub _table
     return $dataForm;
 }
 
+# Method: viewCustomizer
+#
+#    Hide/show master options if Zentyal as master is configured
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions( { master => VIEW_CUSTOMIZER } );
+    return $customizer;
+}
+
+
 
 sub _locked
 {
     my $users = EBox::Global->modInstance('users');
-    return $users->get('Master/enabled');
+    my $master = $users->get_hash('Master/keys/form');
+    return (defined($master) and $master->{master} eq 'zentyal');
 }
 
 sub _unlocked
@@ -121,37 +165,37 @@ sub validateTypedRow
     my ($self, $action, $changedParams, $allParams, $force) = @_;
 
 
-    my $enabled = exists $allParams->{enabled} ?
-                         $allParams->{enabled}->value() :
-                         $changedParams->{enabled}->value();
+    my $master = exists $allParams->{master} ?
+                        $allParams->{master}->value() :
+                        $changedParams->{master}->value();
+
+    my $enabled = ($master ne 'none');
 
     # do not check if disabled
     return unless ($enabled);
 
-    my $host = exists $allParams->{host} ?
-                      $allParams->{host}->value() :
-                      $changedParams->{host}->value();
-
-    my $port = exists $allParams->{port} ?
-                      $allParams->{port}->value() :
-                      $changedParams->{port}->value();
-
-    my $password = exists $allParams->{password} ?
-                          $allParams->{password}->value() :
-                          $changedParams->{password}->value();
-
-
-    # Check master is accesible
     my $users = EBox::Global->modInstance('users');
-    $users->master->checkMaster($host, $port, $password);
+
+    if ($master eq 'zentyal') {
+        # Check master is accesible
+        my $host = exists $allParams->{host} ?
+                          $allParams->{host}->value() :
+                          $changedParams->{host}->value();
+
+        my $port = exists $allParams->{port} ?
+                          $allParams->{port}->value() :
+                          $changedParams->{port}->value();
+
+        my $password = exists $allParams->{password} ?
+                              $allParams->{password}->value() :
+                              $changedParams->{password}->value();
+
+        $users->masterConf->checkMaster($host, $port, $password);
+    }
 
     unless ($force) {
-        my $prevEnabled = exists $changedParams->{enabled} ?
-            not $enabled :
-            $enabled;
-
         my $nUsers = scalar @{$users->users()};
-        if ($enabled and not $prevEnabled and $nUsers > 0) {
+        if ($nUsers > 0) {
             throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
         }
     }

@@ -39,41 +39,70 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-  return [qw(backup name description)];
+    return [qw(backup name description)];
 }
 
+
+sub optionalParameters
+{
+    return ['popup'];
+}
 
 
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $backup =  new EBox::RemoteServices::Backup;
+    my $backup =  new EBox::RemoteServices::Backup;
 
-  my $name        = $self->param('name');
-  my $description = $self->param('description');
+    my $name        = $self->param('name');
+    my $description = $self->param('description');
 
-  my $progress = $backup->prepareMakeRemoteBackup($name, $description);
+    my $progress = $backup->prepareMakeRemoteBackup($name, $description);
 
 
-  $self->showBackupProgress($progress);
+    $self->showBackupProgress($progress);
 }
 
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location='/RemoteServices/Backup/Index'; return false",
+);
 
 sub showBackupProgress
 {
-  my ($self, $progressIndicator) = @_;
+    my ($self, $progressIndicator) = @_;
 
-  $self->showProgress(
-                      progressIndicator => $progressIndicator,
-                      title    => __('Making remote backup'),
-                      text               =>  __('Backing up modules '),
-                      currentItemCaption =>  __('Operation') ,
-                      itemsLeftMessage   =>  __('operations left to finish backup'),
-                      endNote            =>  __('Backup successful'),
-                      reloadInterval     =>  2,
-                     );
+    my @params = (
+                    progressIndicator  => $progressIndicator,
+                    title              => __('Making remote backup'),
+                    text               =>  __('Backing up modules '),
+                    currentItemCaption =>  __('Operation') ,
+                    itemsLeftMessage   =>  __('operations left to finish backup'),
+                    endNote            =>  __('Backup successful'),
+                    reloadInterval     =>  2,
+                 );
+
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
+}
+
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
 }
 
 1;

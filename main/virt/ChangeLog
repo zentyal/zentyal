@@ -1,3 +1,7 @@
+HEAD
+	+ Report used ports as FirewallHelper
+	+ Set maximum number of virtual machines via virt.conf
+	+ New icons for the interface
 2.3.3
 	+ Validate that CD images are in ISO format
 	+ MAC addresses can be always set without need of config key and also

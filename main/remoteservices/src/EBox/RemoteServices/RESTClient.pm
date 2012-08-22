@@ -24,16 +24,28 @@ package EBox::RemoteServices::RESTClient;
 use warnings;
 use strict;
 
+use v5.10;
+
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::RemoteServices::RESTResult;
+use URI;
+use LWP::UserAgent;
+use Error qw(:try);
+
+use constant BASE_URL => 'http://192.168.156.1:8000/api/'; #FIXME
+
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::RESTResult;
+use EBox::Validate;
 use Error qw(:try);
 use File::Temp;
-use HTTP::Status qw(HTTP_UNAUTHORIZED);
+use HTTP::Status qw(HTTP_BAD_REQUEST HTTP_UNAUTHORIZED);
 use IO::Socket::SSL;
 use JSON::XS;
 use LWP::UserAgent;
@@ -78,6 +90,26 @@ sub new {
     return $self;
 }
 
+# Method: setServer
+#
+#   Set the server the RESTClient must connect to
+#
+# Parameters:
+#
+#   server - IP or Domain Name the RESTClient must connect to
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidData> - thrown if the server is not a valid.
+#
+sub setServer {
+    my ($self, $server) = @_;
+
+    EBox::Validate::checkHost($server, "RESTClient Server");
+
+    $self->{server} = 'https://' . $server;
+}
+
 # Method: GET
 #
 #   Perform a GET operation
@@ -87,14 +119,18 @@ sub new {
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters
 #            (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub GET {
-    my ($self, $path, $query) = @_;
-    return $self->request('GET', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('GET', $path, $params{query}, $params{journaling});
 }
 
 # Method: PUT
@@ -105,14 +141,18 @@ sub GET {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub PUT {
-    my ($self, $path, $query) = @_;
-    return $self->request('PUT', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('PUT', $path, $params{query}, $params{journaling});
 }
 
 # Method: POST
@@ -123,14 +163,18 @@ sub PUT {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub POST {
-    my ($self, $path, $query) = @_;
-    return $self->request('POST', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('POST', $path, $params{query}, $params{journaling});
 }
 
 # Method: DELETE
@@ -141,19 +185,23 @@ sub POST {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
+#   journaling - Boolean whether the journaling must be used for this call
+#                If not specified, it will be ENABLED
+#                 (Optional)
+#   The optional params are named
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub DELETE {
-    my ($self, $path, $query) = @_;
-    return $self->request('DELETE', $path, $query);
+    my ($self, $path, %params) = @_;
+    return $self->request('DELETE', $path, $params{query}, $params{journaling});
 }
 
 
 sub request {
-    my ($self, $method, $path, $query) = @_;
+    my ($self, $method, $path, $query, $journaling) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
@@ -204,11 +252,32 @@ sub request {
     }
     else {
         $self->{last_error} = new EBox::RemoteServices::RESTResult($res);
-        if ($res->code() == HTTP_UNAUTHORIZED) {
-            throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
+        given ($res->code()) {
+            when (HTTP_UNAUTHORIZED) {
+                throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
+            }
+            when (HTTP_BAD_REQUEST) {
+                my $error = $self->last_error()->data();
+                my $msgError = $error;
+                if (ref($error) eq 'HASH') {
+                    # Flatten the arrays
+                    my @errors;
+                    foreach my $singleErrors (values %{$error}) {
+                        push(@errors, @{$singleErrors});
+                    }
+                    $msgError = join("\n", @errors);
+                }
+                throw EBox::Exceptions::External($msgError);
+            }
+            default {
+                # Add to the journal unless specified not to do so
+                unless (defined($journaling) and not $journaling) {
+                    $self->_storeInJournal($method, $path, $query, $res);
+                }
+                throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
+            }
         }
-        $self->_storeInJournal($method, $path, $query, $res);
-        throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
+
     }
 }
 

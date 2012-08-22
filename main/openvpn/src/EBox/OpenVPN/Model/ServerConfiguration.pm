@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 
 package EBox::OpenVPN::Model::ServerConfiguration;
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -66,7 +64,6 @@ sub _table
 
              fieldName => 'portAndProtocol',
              printableName => __('Server port'),
-             unique => 1,
              editable => 1,
              ),
          new EBox::Types::IPNetwork(
@@ -106,7 +103,7 @@ sub _table
                  printableName => __('Network Address Translation'),
                  editable => 1,
                  defaultValue => 0,
-                 help => __('Enable it if you only have one network interface')
+                 help => __('Enable it if this VPN server is not the default gateway')
                  ),
          new EBox::Types::Boolean(
                  fieldName => 'clientToClient',
@@ -257,6 +254,10 @@ sub _populateLocal
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
+    if ($action eq 'add') {
+        # added defautl row, skipped
+        return;
+    }
 
     $self->_uniqPortAndProtocol($action, $params_r, $actual_r);
 
@@ -337,10 +338,14 @@ sub _checkVPN
 sub _uniqVPNAddress
 {
     my ($self, $vpnAddress) = @_;
-    my $serverList = $self->parentModule()->model('Servers');
-
     my $olddir = $self->directory();
+
+    my $parentId = $self->parentRow()->id();
+    my $serverList = $self->parentModule()->model('Servers');
     foreach my $id ( @{ $serverList->ids()}) {
+        if ($parentId eq $id) {
+            next;
+        }
         my $row = $serverList->row($id);
         my $serverConf = $row->subModel('configuration');
         my $other      = $serverConf->row()->elementByName('vpn');
@@ -351,6 +356,7 @@ sub _uniqVPNAddress
                     );
         }
     }
+
     $self->setDirectory($olddir);
 }
 
@@ -359,14 +365,17 @@ sub _uniqPortAndProtocol
     my ($self, $action, $params_r) = @_;
 
     exists $params_r->{portAndProtocol}
-    or return;
+        or return;
+    my $olddir = $self->directory();
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
+    my $parentId = $self->parentRow()->id();
     my $serverList = $self->parentModule()->model('Servers');
-
-    my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
+        if ($parentId eq $id) {
+            next;
+        }
         my $row = $serverList->row($id);
         my $serverConf = $row->subModel('configuration');
         my $other      = $serverConf->portAndProtocolType();
@@ -377,6 +386,7 @@ sub _uniqPortAndProtocol
                     );
         }
     }
+
     $self->setDirectory($olddir);
 }
 
@@ -516,7 +526,6 @@ sub _checkMasqueradeIsAvailable
 sub _checkIfaceAndMasquerade
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
     my $masquerade = exists $params_r->{masquerade} ?
                                  $params_r->{masquerade}->value() :
                                  $actual_r->{masquerade}->value();
@@ -635,7 +644,8 @@ sub configured
     $self->vpnType()->printableValue ne ''    or return 0;
 
     my $cn = $self->certificate();
-    $cn                                      or return 0;
+    $cn
+        or return 0;
     EBox::OpenVPN::Server->checkCertificate($cn);
 
     return 1;
@@ -647,9 +657,8 @@ sub configured
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
-
-        return $self->parentRow()->printableValueByName('name');
+    my ($self) = @_;
+    return $self->parentRow()->printableValueByName('name');
 }
 
 1;

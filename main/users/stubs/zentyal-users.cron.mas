@@ -1,5 +1,6 @@
 <%args>
     $slave_time
+    $cloudsync_enabled => 0
 </%args>
 # /etc/cron.d/zentyal-users
 
@@ -8,4 +9,9 @@ PATH=/usr/bin:/bin
 
 # sync the slaves every <% $slave_time %> minutes if there are missing changes
 */<% $slave_time %> * * * * root /usr/share/zentyal-users/slave-sync
+
+% if ($cloudsync_enabled) {
+# ask for users changes in cloud
+*/<% $slave_time %> * * * * root /usr/share/zentyal-users/cloud-sync
+% }
 

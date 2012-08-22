@@ -33,7 +33,7 @@ use EBox::Exceptions::External;
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Remote system backups'),
+    my $self = $class->SUPER::new('title' => __('Import/Export Configuration Remotely'),
                                   'template' => '/backupTabs.mas',
                                   @_);
 
@@ -56,7 +56,6 @@ sub actuate
 
     my $subscriptionLevel = $self->_subscriptionLevel();
     if ($subscriptionLevel <  0) {
-        EBox::debug("SL $subscriptionLevel . return ");
         return;
     }
 

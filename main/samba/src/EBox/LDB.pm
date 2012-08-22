@@ -514,6 +514,54 @@ sub changeUserPassword
     }
 }
 
+# Method: updateUserPassword
+#
+#   Copy krb5 credentials from LDAP to LDB
+#
+# Parameters:
+#
+#   user - User object
+#
+sub updateUserPassword
+{
+    my ($self, $user) = @_;
+
+    my $bypassControl = Net::LDAP::Control->new(
+        type => '1.3.6.1.4.1.7165.4.3.12',
+        critical => 1 );
+
+
+    my $dn = $user->dn();
+    $dn =~ s/OU=Users/CN=Users/i;
+    $dn =~ s/uid=/CN=/i;
+    EBox::debug("Updating kerberos keys from LDAP '$dn' to LDB");
+
+    my $kerberosKeys = $user->kerberosKeys();
+    my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
+
+    my $changes = [];
+    if (defined $credentials->{supplementalCredentials}) {
+        push ($changes, replace => [ supplementalCredentials => $credentials->{supplementalCredentials} ]);
+    }
+    if (defined $credentials->{unicodePwd}) {
+        push ($changes, replace => [ unicodePwd => $credentials->{unicodePwd} ]);
+    }
+    if (defined $credentials->{supplementalCredentials} or
+            defined $credentials->{unicodePwd}) {
+        # NOTE If this value is not set samba sigfault
+        # This value is stored as a large integer that represents
+        # the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+        my ($sec, $min, $hour, $day, $mon, $year) = gmtime(time);
+        $year = $year + 1900;
+        $mon += 1;
+        my $days = Date::Calc::Delta_Days(1601, 1, 1, $year, $mon, $day);
+        my $secs = $sec + $min * 60 + $hour * 3600 + $days * 86400;
+        my $val = $secs * 10000000;
+        push ($changes, replace => [ pwdLastSet => $val ]);
+    }
+    $self->modify($dn, { changes => $changes, control => $bypassControl });
+}
+
 # Method getIdByDN
 #
 #   Get samAccountName by object's DN

@@ -25,28 +25,32 @@
 #   We are repeating ourselves, this sucks so freaking much.
 #
 #
-package EBox::Types::InverseMatchUnion;
 
 use strict;
 use warnings;
 
+package EBox::Types::InverseMatchUnion;
 use base 'EBox::Types::Union';
+use EBox::Gettext;
 
 # Group: Public methods
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-	unless (exists $opts{'HTMLSetter'}) {
-		$opts{'HTMLSetter'} ='/ajax/setter/inverseMatchUnionSetter.mas';
-	}
-	$opts{'type'} = 'union';
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/inverseMatchUnionSetter.mas';
+    }
+    unless (exists $opts{'inverseMatchPrintableString'}) {
+        $opts{'inverseMatchPrintableString'} = __('Not');
+    }
+    $opts{'type'} = 'union';
 
-	my $self = $class->SUPER::new(%opts);
-	bless($self, $class);
-	return $self;
+    my $self = $class->SUPER::new(%opts);
+    bless($self, $class);
+    return $self;
 }
 
 sub inverseMatchField
@@ -88,7 +92,7 @@ sub printableValue
     my $printValue = $self->SUPER::printableValue();
 
     if ($self->inverseMatch()) {
-        $printValue = "! $printValue";
+        $printValue =  $self->{inverseMatchPrintableString} .   " $printValue";
     }
 
     return $printValue;
@@ -189,6 +193,18 @@ sub _setValue # (value)
     $self->{'inverseMatch'} = $invMatch;
 
     $self->SUPER::_setValue( $value );
+}
+
+
+sub HTMLSetter
+{
+    my ($self) = @_;
+    my $unionSetter = $self->SUPER::HTMLSetter();
+    if (not $unionSetter) {
+        return undef;
+    }
+
+    return $self->{HTMLSetter};
 }
 
 1;

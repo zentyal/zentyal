@@ -11,6 +11,7 @@
   $quota_hard
   $indexer
   $enable_hosted_zarafa
+  $enable_sso
 </%args>
 ##############################################################
 # SERVER SETTINGS
@@ -50,7 +51,11 @@ allow_local_users	= yes
 # local admin users who can connect to any store (use this for the zarafa-dagent)
 # field is SPACE separated
 # eg: local_admin_users = root vmail
+% if ($enable_sso eq 'yes') {
+local_admin_users	= root vmail www-data
+% } else {
 local_admin_users	= root vmail
+% }
 
 # e-mail address of the Zarafa System user
 system_email_address	= postmaster@<% $hostname %>
@@ -213,7 +218,7 @@ sync_lifetime		= 90
 sync_log_all_changes = yes
 
 # Set to 'yes' if you have Kerberos or NTLM correctly configured for single sign-on
-enable_sso = no
+enable_sso = <% $enable_sso %>
 
 # Set to 'yes' if you want to show the GAB to your users
 enable_gab = yes

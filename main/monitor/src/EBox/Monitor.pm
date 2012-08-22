@@ -566,11 +566,9 @@ sub _setMainConf
     if ( $global->modExists('remoteservices') ) {
         my $rs = $global->modInstance('remoteservices');
         if ( $rs->eBoxSubscribed() ) {
-            $hostname = $rs->subscribedHostname();
+            $hostname = $rs->subscribedUUID();
             @networkServers = @{$rs->monitorGathererIPAddresses()};
             $self->_linkRRDs($hostname);
-        } else {
-            $self->_linkRRDs();
         }
     }
 
@@ -698,21 +696,11 @@ sub _linkRRDs
     pop(@directories);
     my $parentPath = File::Spec->catdir(@directories);
 
-    if ( $subscribedHostname ) {
-        my $subDirPath = "$parentPath/$subscribedHostname";
-        # -e will fail if it is a sym link, we want this
-        if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-            EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
-        } # else, collectd creates the directory
-    } else {
-        opendir(my $dh, $parentPath);
-        while ( defined(my $subdir = readdir($dh)) ) {
-            if ( -l "$parentPath/$subdir" ) {
-                EBox::Sudo::root("rm $parentPath/$subdir");
-            }
-        }
-        closedir($dh);
-    }
+    my $subDirPath = "$parentPath/$subscribedHostname";
+    # -e will fail if it is a sym link, we want this
+    if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
+        EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
+    } # else, collectd creates the directory
 }
 
 # Check if there is threshold configuration and it is enabled or not
@@ -764,6 +752,45 @@ sub _registerRuntimeMeasures
             };
         }
     }
+}
+
+# Method: _enforceServiceState
+#
+#   This method will start or stop collectd
+#   It will also remove the RRD links when no longer needed
+#
+# Overrides:
+#
+#       <Ebox::Module::Service::_enforceServiceState>
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
+    my $rs = EBox::Global->getInstance(1)->modInstance('remoteservices');
+
+    # Remove the link to the RRD directory if not subscribed
+    unless ( $rs->eBoxSubscribed()) {
+        my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirPath();
+
+        # Get the parent path
+        my @directories = File::Spec->splitdir($rrdBaseDirPath);
+        pop(@directories);
+        pop(@directories);
+        my $parentPath = File::Spec->catdir(@directories);
+
+        opendir(my $dh, $parentPath);
+        while ( defined(my $subdir = readdir($dh)) ) {
+            if ( -l "$parentPath/$subdir" ) {
+                # Stop the service before removing to avoid race conditions
+                $self->_stopService();
+                EBox::Sudo::root("rm $parentPath/$subdir");
+            }
+        }
+        closedir($dh);
+    }
+
+    # Restore the service state
+    $self->SUPER::_enforceServiceState(@_);
 }
 
 1;

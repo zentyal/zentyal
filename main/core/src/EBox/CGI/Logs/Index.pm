@@ -345,4 +345,9 @@ sub _process
     $self->addToMasonParameters(@masonParameters);
 }
 
+sub menuFolder
+{
+    return 'Maintenance';
+}
+
 1;

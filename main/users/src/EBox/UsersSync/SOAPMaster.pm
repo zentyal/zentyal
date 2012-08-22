@@ -40,7 +40,7 @@ sub getCertificate
     my ($self) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $master = $users->master();
+    my $master = $users->masterConf();
 
     my $cert = $master->getCertificate();
     return $self->_soapResult($cert);
@@ -48,10 +48,13 @@ sub getCertificate
 
 sub registerSlave
 {
-    my ($self, $host, $port, $cert) = @_;
+    my ($self, $port, $cert) = @_;
+
+    my $req = Apache2::RequestUtil->request();
+    my $host = $req->connection->get_remote_host();
 
     my $users = EBox::Global->modInstance('users');
-    my $master = $users->master();
+    my $master = $users->masterConf();
 
     $master->addSlave($host, $port, $cert);
 

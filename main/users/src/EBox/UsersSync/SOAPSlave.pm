@@ -24,6 +24,7 @@ use EBox::Global;
 
 use Devel::StackTrace;
 use SOAP::Lite;
+use MIME::Base64;
 
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
@@ -33,6 +34,10 @@ use EBox::UsersAndGroups::Group;
 sub addUser
 {
     my ($self, $user) = @_;
+
+    # rencode passwords
+    my @pass = map { decode_base64($_) } @{$user->{passwords}};
+    $user->{passwords} = \@pass;
 
     EBox::UsersAndGroups::User->create($user);
 

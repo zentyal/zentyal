@@ -22,6 +22,8 @@ create_db()
           FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
+
+    mysqladmin -u root password "$PASSWD"
 }
 
 # FIXME: Is all this needed with mysql? As it uses upstart probably it is always alive

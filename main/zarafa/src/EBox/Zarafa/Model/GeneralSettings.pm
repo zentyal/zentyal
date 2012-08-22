@@ -55,6 +55,25 @@ sub new
     return $self;
 }
 
+# Method: validateTypedRow
+#
+#
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    if (exists($params_r->{jabber})) {
+        if (EBox::Global->modExists('jabber')) {
+            EBox::Global->modChange('jabber');
+        }
+    }
+}
+
 # Group: Protected methods
 
 # Method: _table

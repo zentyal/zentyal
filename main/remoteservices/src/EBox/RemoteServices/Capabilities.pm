@@ -60,6 +60,7 @@ sub new
 #          disaster_recovery - Boolean the disaster recovery is on
 #          technical_support - Int the technical support level
 #          renovation_date  - Int the renovation date in seconds from epoch
+#          sb_mail_add_on   - Boolean the SB mail add-on is on
 #
 sub subscriptionDetails
 {

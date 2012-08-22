@@ -279,6 +279,8 @@ sub filterProfiles
                 my $group = $source->value();
                 $profile->{group} = $group;
                 $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            } else {
+                $profile->{address} = '0.0.0.0/0.0.0.0';
             }
             push (@profiles, $profile);
         }

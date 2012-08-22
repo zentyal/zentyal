@@ -7,6 +7,7 @@
     $realm
     @shares
     $roamingProfiles => 0
+    $printers => []
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -18,8 +19,6 @@
     $prefix => 'Zentyal'
     $backup_path => '/tmp'
     $quarantine_path => '/tmp'
-
-    @dirgroup => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -43,10 +42,7 @@ use EBox::Gettext;
     log file = /var/log/samba/samba.log
 
     idmap_ldb:use rfc2307 = yes
-
-#    load printers = yes
-#    printing = cups
-#    printcap name = cups
+    rpc_daemon:spoolssd = embedded
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
@@ -124,15 +120,30 @@ use EBox::Gettext;
 % }
 % }
 
-#[printers]
-#   comment = All Printers
-#   browseable = yes
-#   path = /var/spool/samba
-#   printable = yes
-#   guest ok = yes
-#   read only = yes
-#   create mask = 0700
-#
+% foreach my $printer (@{$printers}) {
+[<% $printer->{name} %>]
+    comment = "<% $printer->{description} %>"
+    path = /var/spool/samba
+    printable = yes
+    read only = yes
+% if ($printer->{guest}) {
+    guest ok = yes
+% } else {
+%   my $acl = join (", ", @{$printer->{acl}});
+    valid users = <% $acl %>
+% }
+
+% }
+
+[print$]
+    comment = "Printer Drivers"
+    path = /var/lib/samba/printers
+    browseable = yes
+    read only = yes
+    guest ok = no
+    write list = @"Domain Admins"
+    valid users = @"Domain Users"
+
 #[<% $prefix %>-internal-backups]
 # path = <% $backup_path %>
 # browseable = yes
@@ -148,13 +159,5 @@ use EBox::Gettext;
 # read only = no
 # valid users = @"Domain Admins"
 # admin users = @"Domain Admins"
-#
-#[print$]
-# comment = "Printer Drivers"
-# path = /var/lib/samba/printers
-# browseable = yes
-# read only = yes
-# guest ok = no
-# write list = @"Domain Admins"
-# valid users = @"Domain Users"
+
 

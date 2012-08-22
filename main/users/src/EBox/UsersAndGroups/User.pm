@@ -118,12 +118,6 @@ sub set
 {
     my ($self, $attr, $value) = @_;
 
-    if ($attr =~ m/^krb5Key$/ or
-        $attr =~ m/^userPassword$/) {
-        throw EBox::Exceptions::Internal(
-            __('The user password and kerberos keys cannot be modified directly. Please use the changePassword method.'));
-    }
-
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any CORE_ATTRS) {
         $self->{core_changed} = 1;
@@ -184,7 +178,7 @@ sub save
             delete $self->{core_changed};
 
             my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
 
             delete $self->{ignoreMods};
         }
@@ -203,10 +197,22 @@ sub save
 sub setIgnoredModules
 {
     my ($self, $mods) = @_;
+    $self->{ignoreMods} = $mods;
+}
 
-    if (defined $mods) {
-        $self->{ignoreMods} = $mods;
-    }
+# Method: setIgnoredSlaves
+#
+#   Set the slaves that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining slave names
+#
+sub setIgnoredSlaves
+{
+    my ($self, $slaves) = @_;
+    $self->{ignoreSlaves} = $slaves;
 }
 
 # Method: addGroup
@@ -387,6 +393,24 @@ sub changePassword
 }
 
 
+# Method: setPasswordFromHashes
+#
+#   Configure user password directly from its kerberos hashes
+#
+# Parameters:
+#
+#   passwords - array ref of krb5keys
+#
+sub setPasswordFromHashes
+{
+    my ($self, $passwords) = @_;
+
+    $self->set('userPassword', '{K5KEY}');
+    $self->set('krb5Key', $passwords);
+    $self->set('krb5KeyVersionNumber', 1);
+}
+
+
 # Method: deleteObject
 #
 #   Delete the user
@@ -402,7 +426,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
+    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Mark as changed to process save
     $self->{core_changed} = 1;
@@ -415,23 +439,16 @@ sub deleteObject
 
 # Method: passwordHashes
 #
-#   Return an array ref to all hashed passwords as:
+#   Return an array ref to all krb hashed passwords as:
 #
-#   [ name => hash, ... ]
+#   [ hash, hash, ... ]
 #
 sub passwordHashes
 {
     my ($self) = @_;
 
-    my @res;
-    foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/Password$/ or
-            $attr =~ m/^krb5Key$/) {
-            push (@res, $attr => $self->get($attr));
-        }
-    }
-
-    return \@res;
+    my @keys = $self->get('krb5Key');
+    return \@keys;
 }
 
 
@@ -452,6 +469,7 @@ sub passwordHashes
 #      uidNumber - user UID numberer
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
+#      ignoreSlaves - slaves that should not be notified about the user creation
 #
 # Returns:
 #
@@ -572,7 +590,11 @@ sub create
 
     # Set the user password and kerberos keys
     if (defined $passwd) {
-        $res->changePassword($passwd, 1);
+        $self->_checkPwdLength($passwd);
+        $res->_ldap->changeUserPassword($res->dn(), $passwd);
+    }
+    elsif (defined($user->{passwords})) {
+        $res->setPasswordFromHashes($user->{passwords});
     }
 
     # Init user
@@ -585,16 +607,12 @@ sub create
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
     }
 
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed
         $res->save();
-    } elsif ($res->{core_changed_password}) {
-        # if only password has been changed we avoid call to save() or it will abort
-        my $passwd = delete $res->{core_changed_password};
-        $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
 
     # Return the new created user

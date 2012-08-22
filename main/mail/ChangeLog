@@ -1,4 +1,10 @@
 HEAD
+	+ Allow syntax to specify smarthost without MX lookup
+	+ Fixed dovecot-ldap.conf.mas
+2.3.6
+	+ Added modeldepends to yaml schema
+	+ External alias can have address on a vdomain alias
+	+ Fixed regression in vdomain aliases
 	+ Added Zarafa multitenancy support
 2.3.5
 	+ Fixed regression in add/remove/list group alias

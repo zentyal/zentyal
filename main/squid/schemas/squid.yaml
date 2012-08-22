@@ -34,6 +34,13 @@ composites:
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
     TrafficReport: [TrafficReportOptions, RequestsGraph, TrafficSizeGraph, TrafficDetails]
 
+modeldepends:
+    AccessRules:
+        objects/ObjectTable: [object]
+        squid/FilterProfiles: [profile]
+    DelayPools:
+        objects/ObjectTable: [acl_object]
+
 foreign:
     FilterProfiles: [ProfileConfiguration]
 

@@ -1,3 +1,13 @@
+2.3.9
+	+ Summarized report works again
+	+ Added modeldepends to yaml schema
+	+ Fixed cache-peer authorization parameters when using a global proxy.
+	  Due to this change squid.conf is no longer readable by all
+	+ Avoid multiple calls to store row in DelayPools::_setUndefinedValues()
+2.3.8
+	+ Fixed group-based authorization
+	+ Fixed wrongly set time period acls in squid configuration in some cases
+	+ Fixed 'any' rules in dansguardian configuration
 2.3.7
 	+ Unify FirewallHelper, removed no longer needed SquidOnlyFirewall
 	+ Support for different filter profiles depending on the time period

@@ -4,7 +4,7 @@ stop_ebox_processes() {
     stop ebox.redis 2>/dev/null || true
     OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
     kill $OLD_APACHE_PID 2>/dev/null || true
-    pkill -u ebox || true
+    pkill -9 -u ebox || true
 }
 
 # This function uses the eBox API to fetch the configured apache port used
