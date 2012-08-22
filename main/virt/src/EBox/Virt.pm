@@ -20,12 +20,8 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver
-          );
+            EBox::FirewallObserver);
 
 use EBox;
 use EBox::Config;
