@@ -607,20 +607,6 @@ sub provisionAsDC
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
-
-    # Load administrator user and domain admins group to zentyal
-    my $domainSid = $self->ldb->domainSID();
-    my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
-    my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
-    $self->ldb->ldbUsersToLdap([$adminUser]);
-    $self->ldb->ldbGroupsToLdap([$adminGroup]);
-
-    # Add the zentyal module to the LDB modules stack
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 }
 
 sub provisionAsADC
@@ -758,13 +744,6 @@ sub provisionAsADC
         push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
         push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
         EBox::Sudo::root(@cmds);
-
-        # Add the zentyal module to the LDB modules stack
-        my $ldif = "dn: \@MODULES\n" .
-                   "changetype: modify\n" .
-                   "replace: \@LIST\n" .
-                   "\@LIST: zentyal,samba_dsdb\n";
-        EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
     } otherwise {
         my $error = shift;
         throw $error;
@@ -1118,10 +1097,11 @@ sub _daemons
             precondition => \&isProvisioned,
             pidfiles => ['/var/run/samba.pid'],
         },
-        {
-            name => 'zentyal.s4sync',
-            precondition => \&isProvisioned,
-        },
+# TODO
+        #{
+        #    name => 'zentyal.s4sync',
+        #    precondition => \&isProvisioned,
+        #},
     ];
 }
 

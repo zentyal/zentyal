@@ -3,244 +3,35 @@
 use strict;
 use warnings;
 
-use IO::Socket::UNIX qw( SOCK_STREAM SOMAXCONN );
-use JSON::XS;
-use MIME::Base64;
-use Error qw(:try);
-use threads;
-use threads::shared;
-
-use Samba4Sync::LDAP;
-
 use EBox;
-use EBox::Exceptions::Internal;
+use EBox::Global;
 
-use constant SOCK_PATH => '/var/run/ldb';
-
-# Open socket to receive the messages from the Zentyal LDB module
-my $server = openSocket(SOCK_PATH) or die ("Can't create server socket: $!\n");
-
-# Init Zentyal framework after create the socket to avoid permission denied
 EBox::init();
-_info("Samba4 synchronizer daemon started");
 
-# Is debug enabled?
-my $debug = lc (EBox::Config::configkey('s4sync_debug')) eq 'yes' ? 1 : 0;
+my $sambaModule = EBox::Global->modInstance('samba');
+my $usersModule = EBox::Global->modInstance('users');
 
-# This variable is shared by all threads and used to serialize them locking it
-my $enabled = 1;
-share($enabled);
-
-# Wait for clients
 while (1) {
-    my $client = $server->accept();
-    unless (defined $client) {
-        _error("Can't accept client connection: $!\n");
-        die $!;
+    my $sambaUserList = $sambaModule->ldb->users();
+    my $sambaGroupList = $sambaModule->ldb->groups();
+    my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$sambaUserList};
+    my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$sambaGroupList};
+
+    my $zentyalUserList = $usersModule->users();
+    my $zentyalGroupList = $usersModule->groups();
+    my %zentyalUsers = map { $_->get('uid') => $_ } @{$zentyalUserList};
+    my %zentyalGroups = map { $_->get('cn') => $_ } @{$zentyalGroupList};
+
+    foreach my $sambaUserName (keys %sambaUsers) {
+        next if exists $zentyalUsers{$sambaUserName};
+        $sambaUsers{$sambaUserName}->addToZentyal();
     }
 
-    # Run a thread to attend the client
-    my $thr = threads->create(\&handler, $client);
-    $thr->detach();
-}
-
-sub handler
-{
-    my ($client) = @_;
-
-    _debug("Client thread enter");
-    while (1) {
-        my $line = <$client>;
-        last unless defined $line;
-
-        # Remove trailing new line
-        chomp $line;
-
-        # Serialize the threads
-        lock ($enabled);
-
-        my $ret = 0;
-        try {
-            if ($line =~ m/DISABLE/) {
-                $enabled = 0;
-                print $client "OK\n";
-                next;
-            } elsif ($line =~ m/ENABLE/) {
-                $enabled = 1;
-                print $client "OK\n";
-                next;
-            } elsif ($line =~ m/PING/) {
-                print $client "PONG\n";
-                next;
-            }
-
-            unless ($enabled) {
-                _debug("Synchronizer disabled so return OK");
-                print $client "OK\n";
-                next;
-            }
-
-            my $parameters = decode_json($line);
-            my $operation = delete $parameters->{operation};
-            if (defined $operation) {
-                if ($operation eq "LDB_ADD") {
-                    my $dn    = delete $parameters->{dn};
-                    my $mods  = delete $parameters->{mods};
-                    debugMessage($operation, $dn, $mods);
-                    $ret = Samba4Sync::LDAP::add($dn, $mods);
-                } elsif ($operation eq "LDB_MODIFY") {
-                    my $dn     = delete $parameters->{dn};
-                    my $mods   = delete $parameters->{mods};
-                    my $object = delete $parameters->{object};
-                    debugMessage($operation, $dn, $mods, $object);
-                    $ret = Samba4Sync::LDAP::modify($dn, $mods, $object);
-                } elsif ($operation eq "LDB_DELETE") {
-                    my $dn     = delete $parameters->{dn};
-                    my $object = delete $parameters->{object};
-                    debugMessage($operation, $dn, $object);
-                    $ret = Samba4Sync::LDAP::del($dn, $object);
-                } else {
-                    _warning("Unknown operation: $operation");
-                }
-            } else {
-                _warning("Undefined operation");
-            }
-        } otherwise {
-            my $error = shift;
-            _error($error);
-            $ret = -1;
-        };
-
-        if ($ret == 0) {
-            _debug("Returning 'OK' to LDB");
-            print $client "OK\n";
-        } else {
-            _debug("Returning 'NOK' to LDB");
-            print $client "NOK\n";
-        }
+    foreach my $sambaGroupName (keys %sambaGroups) {
+        next if exists $zentyalGroups{$sambaGroupName};
+        $sambaGroups{$sambaGroupName}->addToZentyal();
+        $sambaGroups{$sambaGroupName}->membersToZentyal();
     }
 
-    close ($client);
-    _debug("Client thread exit");
-}
-
-_info("Samba4 synchronizer daemon stopped");
-
-exit 0;
-
-# Method: openSocket
-#
-#   Open a unix socket to receive the LDB operations forwarded by
-#   the Zentyal LDB module
-#
-# Parameters:
-#
-#   path - The socket path
-#
-# Returns:
-#
-#   The server instance on success, undef on error
-#
-sub openSocket
-{
-    my ($path) = @_;
-
-    # Open unix socket
-    unlink $path if -e $path;
-    $server = IO::Socket::UNIX->new(Type   => SOCK_STREAM,
-                                    Local  => $path,
-                                    Listen => SOMAXCONN);
-
-    if (defined $server) {
-        $server->autoflush(1);
-
-        # Set permissions to allow Zentyal to write on the socket
-        my $user = EBox::Config::user();
-        my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
-        chown ('0', $gid, $path);
-        chmod (oct('0770'), $path);
-    }
-
-    return $server;
-}
-
-sub debugMessage
-{
-    my ($op, $dn, $msg, $object) = @_;
-
-    _debug("===============================================================");
-    _debug("$op: '$dn'");;
-    _debug("--- MESSAGE ---------------------------------------------------");
-    if (defined $msg) {
-        foreach my $attr (keys $msg) {
-            _debug( "$attr");
-            if (defined $msg->{$attr} and defined $msg->{$attr}->{flags}) {
-                _debug( "    flags => $msg->{$attr}->{flags}");
-            }
-            if (defined $msg->{$attr}->{values}) {
-                my $values = "    values => [";
-                foreach my $val (@{$msg->{$attr}->{values}}) {
-                    my $val2 = decode_base64($val);
-                    chomp $val2;
-                    $values .= "'$val2',";
-                }
-                $values .= "]";
-                _debug($values);
-            }
-        }
-    }
-    _debug("--- OBJECT ----------------------------------------------------");
-    if (defined $object) {
-        foreach my $attr (keys $object) {
-            _debug( "$attr");
-            if (defined $object->{$attr} and defined $object->{$attr}->{flags}) {
-                _debug( "    flags => $object->{$attr}->{flags}");
-            }
-            if (defined $object->{$attr}->{values}) {
-                my $values = "    values => [";
-                foreach my $val (@{$object->{$attr}->{values}}) {
-                    my $val2 = decode_base64($val);
-                    chomp $val2;
-                    $values .= "'$val2',";
-                }
-                $values .= "]";
-                _debug($values);
-            }
-        }
-    }
-    _debug("===============================================================");
-}
-
-sub _error
-{
-    my ($msg) = @_;
-
-    EBox::error($msg);
-    print "ERROR: $msg\n";
-}
-
-sub _warning
-{
-    my ($msg) = @_;
-
-    EBox::warn($msg);
-    print "WARNING: $msg\n";
-}
-
-sub _info
-{
-    my ($msg) = @_;
-
-    EBox::info($msg);
-    print "INFO: $msg\n";
-}
-
-sub _debug
-{
-    my ($msg) = @_;
-
-    if ($debug) {
-        EBox::debug($msg);
-        print "DEBUG: $msg\n";
-    }
+    sleep (3);
 }

@@ -215,4 +215,48 @@ sub create
     return $createdGroup;
 }
 
+sub addToZentyal
+{
+    my ($self) = @_;
+
+    my $gid       = $self->get('samAccountName');
+    my $comment   = $self->get('description');
+
+    my %optParams;
+    $optParams{ignoreMods} = ['samba'];
+    EBox::info("Adding samba group '$gid' to Zentyal");
+    #my $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    my $zentyalGroup = undef;
+    return $zentyalGroup;
+}
+
+sub membersToZentyal
+{
+    my ($self) = @_;
+
+    my $gid = $self->set('samAccountName');
+    my $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
+    return unless $zentyalGroup->exists();
+
+    my $sambaMembersList = $self->users();
+    my $zentyalMembersList = $zentyalGroup->users();
+
+    my %sambaMembers = map { $_->get('samAccountName') => $_ } @{$sambaMembersList};
+    my %zentyalMembers = map { $_->get('uid') => $_ } @{$zentyalMembersList};
+
+    foreach my $memberName (keys %zentyalMembers) {
+        unless (exists $sambaMembers{$memberName}) {
+            EBox::info("Removing member '$memberName' from Zentyal group '$gid'");
+            $zentyalGroup->removeMember($zentyalMembers{$memberName});
+        }
+    }
+
+    foreach my $memberName (keys %sambaMembers) {
+        unless (exists $zentyalMembers{$memberName}) {
+            EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
+            $zentyalGroup->addMember($zentyalMembers{$memberName});
+        }
+    }
+}
+
 1;

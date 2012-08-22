@@ -217,20 +217,12 @@ sub save
     my ($self, $control) = @_;
 
     $control = [] unless $control;
-    try {
-        $self->_ldap->disableZentyalModule();
-        my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
-        if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
-            }
+    my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
+    if ($result->is_error()) {
+        unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+            throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
         }
-    } otherwise {
-        my $error = shift;
-        throw $error;
-    } finally {
-        $self->_ldap->enableZentyalModule();
-    };
+    }
 }
 
 # Method: dn

@@ -87,44 +87,6 @@ sub idmap
     return $self->{idmap};
 }
 
-# Method: syncCon
-#
-#   Returns the socket connection used by the Zentyal
-#   ldb module
-#
-# Returns:
-#
-# Exceptions:
-#
-#   Internal - If connection can't be created
-#
-sub syncCon
-{
-    my ($self) = @_;
-
-    # Workaround to detect if connection is broken and force reconnection
-    my $reconnect = 1;
-    if (defined $self->{sync}) {
-        my $socket = $self->{sync};
-        if (tell ($socket)) {
-            print $socket "PING\n";
-            my $answer = <$socket>;
-            if (defined $answer) {
-                chomp $answer;
-                if ($answer eq 'PONG') {
-                    $reconnect = 0;
-                }
-            }
-        }
-    }
-
-    if ($reconnect) {
-        $self->{sync} = $self->safeConnectSync(SOCKET_PATH);
-    }
-
-    return $self->{sync};
-}
-
 # Method: ldbCon
 #
 #   Returns the Net::LDAP connection used by the module
@@ -160,40 +122,6 @@ sub ldbCon
     }
 
     return $self->{ldb};
-}
-
-sub safeConnectSync
-{
-    my ($self, $uri) = @_;
-
-    my $retries = 4;
-    my $socket = undef;
-
-    local $SIG{PIPE};
-    $SIG{PIPE} = sub {
-       EBox::warn('SIGPIPE received connecting to sync socket');
-    };
-
-    while (not $socket = IO::Socket::UNIX->new(
-                Peer  => SOCKET_PATH,
-                Type  => SOCK_STREAM,
-                Timeout => 5) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba');
-        $samba->_manageService('start');
-        EBox::error("Couldn't connect to synchronizer $uri, retrying");
-        sleep (5);
-    }
-
-    unless ($socket) {
-        throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to synchronizer: $uri");
-    }
-
-    if ($retries < 3) {
-        EBox::info('Synchronizer reconnect successful');
-    }
-
-    return $socket;
 }
 
 sub safeConnect
@@ -318,17 +246,8 @@ sub modify
     my ($self, $dn, $args) = @_;
 
     my $ldb = $self->ldbCon();
-    my $result = undef;
-    try {
-        $self->disableZentyalModule();
-        $result = $ldb->modify($dn, %{$args});
-        $self->_errorOnLdap($result, $args);
-    } otherwise {
-        my $error = shift;
-        throw $error;
-    } finally {
-        $self->enableZentyalModule();
-    };
+    my $result = $ldb->modify($dn, %{$args});
+    $self->_errorOnLdap($result, $args);
 
     return $result;
 }
@@ -350,17 +269,8 @@ sub delete
     my ($self, $dn) = @_;
 
     my $ldb = $self->ldbCon();
-    my $result = undef;
-    try {
-        $self->disableZentyalModule();
-        $result = $ldb->delete($dn);
-        $self->_errorOnLdap($result, $dn);
-    } otherwise {
-        my $error = shift;
-        throw $error;
-    } finally {
-        $self->enableZentyalModule();
-    };
+    my $result = $ldb->delete($dn);
+    $self->_errorOnLdap($result, $dn);
 
     return $result;
 }
@@ -383,17 +293,8 @@ sub add
     my ($self, $dn, $args) = @_;
 
     my $ldb = $self->ldbCon();
-    my $result = undef;
-    try {
-        $self->disableZentyalModule();
-        $result = $ldb->add($dn, %{$args});
-        $self->_errorOnLdap($result, $args);
-    } otherwise {
-        my $error = shift;
-        throw $error;
-    } finally {
-        $self->enableZentyalModule();
-    };
+    my $result = $ldb->add($dn, %{$args});
+    $self->_errorOnLdap($result, $args);
 
     return $result;
 }
@@ -420,37 +321,6 @@ sub _errorOnLdap
 #############################################################################
 ## LDB related functions                                                   ##
 #############################################################################
-
-# Method: enableZentyalModule
-#
-#   Adds the zentyal module to LDB
-#
-sub enableZentyalModule
-{
-    my ($self) = @_;
-
-    my $socket = $self->syncCon();
-    print $socket "ENABLE\n";
-    $socket->flush();
-    # Wait for answer
-    my $r = <$socket>;
-    chomp $r;
-}
-
-# Method: disableZentyalModule
-#
-#   Disable the zentyal module to LDB
-#
-sub disableZentyalModule
-{
-    my ($self) = @_;
-
-    my $socket = $self->syncCon();
-    print $socket "DISABLE\n";
-    $socket->flush();
-    my $r = <$socket>;
-    chomp $r;
-}
 
 # Method domainSID
 #
@@ -505,70 +375,61 @@ sub ldapUsersToLdb
 {
     my ($self) = @_;
 
-    try {
-        EBox::info('Loading Zentyal users into samba database');
-        my $usersModule = EBox::Global->modInstance('users');
-        my $users = $usersModule->users();
-        foreach my $user (@{$users}) {
-            my $dn = $user->dn();
-            EBox::debug("Loading user $dn");
-            try {
-                my $samAccountName = $user->get('uid');
-                my $params = {
-                    uidNumber    => scalar ($user->get('uidNumber')),
-                    sn           => scalar ($user->get('sn')),
-                    givenName    => scalar ($user->get('givenName')),
-                    description  => scalar ($user->get('description')),
-                    kerberosKeys => $user->kerberosKeys(),
-                };
-                EBox::Samba::User->create($samAccountName, $params);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading user '$dn': $error");
+    EBox::info('Loading Zentyal users into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $users = $usersModule->users();
+    foreach my $user (@{$users}) {
+        my $dn = $user->dn();
+        EBox::debug("Loading user $dn");
+        try {
+            my $samAccountName = $user->get('uid');
+            my $params = {
+                uidNumber    => scalar ($user->get('uidNumber')),
+                sn           => scalar ($user->get('sn')),
+                givenName    => scalar ($user->get('givenName')),
+                description  => scalar ($user->get('description')),
+                kerberosKeys => $user->kerberosKeys(),
             };
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    };
+            EBox::Samba::User->create($samAccountName, $params);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading user '$dn': $error");
+        };
+    }
 }
 
 sub ldapGroupsToLdb
 {
     my ($self) = @_;
 
-    try {
-        EBox::info('Loading Zentyal groups into samba database');
-        my $usersModule = EBox::Global->modInstance('users');
-        my $groups = $usersModule->groups();
-        foreach my $group (@{$groups}) {
-            my $dn = $group->dn();
-            EBox::debug("Loading group $dn");
-            try {
-                my $samAccountName = $group->get('cn');
-                my $params = {
-                    gidNumber => scalar ($group->get('gidNumber')),
-                    description => scalar ($group->get('description')),
-                };
-                my $createdGroup = EBox::Samba::Group->create($samAccountName, $params);
-                foreach my $user (@{$group->users()}) {
-                    try {
-                        my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
-                        $createdGroup->addMember($smbUser);
-                    } otherwise {
-                        my $error = shift;
-                        EBox::error("Error adding member: $error");
-                    };
-                }
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading group '$dn': $error");
+    EBox::info('Loading Zentyal groups into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $groups = $usersModule->groups();
+    foreach my $group (@{$groups}) {
+        my $dn = $group->dn();
+        EBox::debug("Loading group $dn");
+        # TODO Remove nested try/catch
+        try {
+            my $samAccountName = $group->get('cn');
+            my $params = {
+                gidNumber => scalar ($group->get('gidNumber')),
+                description => scalar ($group->get('description')),
             };
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    };
+            my $createdGroup = EBox::Samba::Group->create($samAccountName, $params);
+            foreach my $user (@{$group->users()}) {
+                try {
+                    my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
+                    $createdGroup->addMember($smbUser);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding member: $error");
+                };
+            }
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading group '$dn': $error");
+        };
+    }
 }
 
 sub ldapServicePrincipalsToLdb

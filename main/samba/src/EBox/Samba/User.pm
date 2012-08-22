@@ -436,4 +436,30 @@ sub _checkPwdLength
     }
 }
 
+sub addToZentyal
+{
+    my ($self) = @_;
+
+    my $uid       = $self->get('samAccountName');
+    my $fullname  = $self->get('name');
+    my $givenName = $self->get('givenName');
+    my $surName   = $self->get('sn');
+    my $comment   = $self->get('description');
+
+    my $params = {
+        user => $uid,
+        fullname => $fullname,
+        givenname => $givenName,
+        surname => $surName,
+        comment => $comment,
+    };
+
+    my %optParams;
+    $optParams{ignoreMods} = ['samba'];
+    EBox::info("Adding samba user '$uid' to Zentyal");
+    #my $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    my $zentyalUser = undef;
+    return $zentyalUser;
+}
+
 1;
