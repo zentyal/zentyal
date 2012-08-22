@@ -84,16 +84,26 @@
     }
 
     function selected(id) {
-        return $(id).hasClassName('package_selected');
+      var element = $(id);
+      if (element)   {
+        return element.hasClassName('package_selected');
+      }
+      return false;
     }
 
     function selectPackage(id) {
-      $(id).addClassName('package_selected');
+      var element = $(id);
+      if (element) {
+         element.addClassName('package_selected');
+      }
     }
 
     function unselectPackage(id, no_update_ticks) {
-        $(id).removeClassName('package_selected');
-        if (!no_update_ticks) updateTicks();
+        var element = $(id);
+        if (element) {
+           element.removeClassName('package_selected');
+           if (!no_update_ticks) updateTicks();
+       }
     }
 
     function togglePackage(id) {
