@@ -900,7 +900,10 @@ sub addTypedRow
         $row->addElement($param);
     }
 
-    $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    unless ($optParams{noValidateRow}) {
+        $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    }
+
 
     # Check if the new row is unique, only if needed
     if ($checkRowUnique) {

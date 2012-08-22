@@ -254,10 +254,6 @@ sub _populateLocal
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-    if ($action eq 'add') {
-        # added defautl row, skipped
-        return;
-    }
 
     $self->_uniqPortAndProtocol($action, $params_r, $actual_r);
 
