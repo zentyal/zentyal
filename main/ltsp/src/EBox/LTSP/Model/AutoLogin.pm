@@ -73,7 +73,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'AutoLogin',
-        'printableTableName' => __('AutoLogin Configuration'),
+        'printableTableName' => __('AutoLogin'),
         'printableRowName' => __('user and pass'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],

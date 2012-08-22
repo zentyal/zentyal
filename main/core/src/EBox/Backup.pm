@@ -821,7 +821,7 @@ sub _destinationFromTime
     return  $str . '.tar';
 }
 
-sub  _moveToArchives
+sub _moveToArchives
 {
     my ($self, $filename, $backupdir, $dest) = @_;
 

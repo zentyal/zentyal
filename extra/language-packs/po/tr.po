@@ -67,7 +67,7 @@ msgstr "Bu kuralın geçerli olacağı zaman devresi"
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:95
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:74
-#: ../../main/core/src/EBox/Events.pm:415 ../../main/ids/src/EBox/IDS.pm:267
+#: ../../main/core/src/EBox/Events.pm:432 ../../main/ids/src/EBox/IDS.pm:267
 msgid "Source"
 msgstr "Kaynak"
 
@@ -199,7 +199,7 @@ msgstr "Alan adı veya IP adresi parçası"
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:239
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:169
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
@@ -415,10 +415,11 @@ msgstr "İstekler"
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:197
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:60
-#: ../../main/printers/src/EBox/Printers.pm:339
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
+#: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1028
-#: ../../main/samba/src/EBox/Samba.pm:1749
+#: ../../main/samba/src/EBox/Samba.pm:1065
+#: ../../main/samba/src/EBox/Samba.pm:1451
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -476,10 +477,10 @@ msgstr "Süzgeçlenen trafik boyutu (Kb)"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:152
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1125
-#: ../../main/printers/src/EBox/Printers.pm:340
-#: ../../main/samba/src/EBox/Samba.pm:1747
-#: ../../main/samba/src/EBox/Samba.pm:1767
-#: ../../main/samba/src/EBox/Samba.pm:1777
+#: ../../main/printers/src/EBox/Printers.pm:331
+#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1469
+#: ../../main/samba/src/EBox/Samba.pm:1479
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
@@ -491,12 +492,13 @@ msgstr "Süzgeçlenen trafik boyutu (Kb)"
 #: ../../main/ids/src/EBox/Model/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:264 ../../main/radius/src/EBox/Radius.pm:349
 #: ../../main/asterisk/src/EBox/Asterisk.pm:731
-#: ../../main/remoteservices/src/templates/Backup/index.mas:117
+#: ../../main/remoteservices/src/templates/Backup/index.mas:115
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:29
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
+#: ../../main/ca/src/templates/index.mas:97
 #: ../../main/core/src/templates/finish.mas:113
 #: ../../main/core/src/templates/confirm-backup.mas:28
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:114
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
 msgstr "Tarih"
@@ -600,11 +602,12 @@ msgstr "Süzgeç profili güncellendi "
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/remoteservices/src/templates/Backup/index.mas:36
 #: ../../main/remoteservices/src/templates/Backup/index.mas:42
-#: ../../main/remoteservices/src/templates/Backup/index.mas:116
+#: ../../main/remoteservices/src/templates/Backup/index.mas:114
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:23
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:37
 #: ../../main/network/src/templates/ifaces.mas:32
 #: ../../main/network/src/templates/ifaces.mas:243
+#: ../../main/ca/src/templates/index.mas:97
 msgid "Name"
 msgstr "Adı "
 
@@ -776,7 +779,7 @@ msgstr "İçerik süzgeç kapasitesi değişti"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:75
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:505
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:516
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
@@ -793,7 +796,7 @@ msgstr "İçerik süzgeç kapasitesi değişti"
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:248
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
 #: ../../main/jabber/src/templates/jabber.mas:18
@@ -1275,7 +1278,7 @@ msgstr "Mime/type"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1624
 #: ../../main/pptp/src/EBox/PPTP.pm:367 ../../main/ipsec/src/EBox/IPsec.pm:238
 #: ../../main/dhcp/src/EBox/DHCP.pm:1129
-#: ../../main/printers/src/EBox/Printers.pm:341
+#: ../../main/printers/src/EBox/Printers.pm:332
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:548
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
@@ -1334,7 +1337,7 @@ msgstr "{name} istemcisinin ayarlarının güncellendi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:505
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:516
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1690
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1734
@@ -1352,7 +1355,7 @@ msgstr "{name} istemcisinin ayarlarının güncellendi"
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/ids/src/EBox/Model/Rules.pm:180
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:258
 #: ../../main/jabber/src/templates/jabber.mas:18
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
@@ -1797,9 +1800,11 @@ msgstr "İstemcinin dosya paketini indir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
-#: ../../main/remoteservices/src/templates/Backup/index.mas:140
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:76
-#: ../../main/core/src/templates/backup.mas:143
+#: ../../main/remoteservices/src/templates/Backup/index.mas:138
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:75
+#: ../../main/core/src/templates/ajax/viewer/file.mas:19
+#: ../../main/core/src/templates/ajax/viewer/file.mas:27
+#: ../../main/core/src/templates/backup.mas:137
 #, fuzzy
 msgid "Download"
 msgstr ""
@@ -1952,7 +1957,7 @@ msgid "Server {name}"
 msgstr "{name} sunucusu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:506
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:517
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:133
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
@@ -1964,7 +1969,7 @@ msgid "Service"
 msgstr "Servis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:508
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:519
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1677
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
@@ -1974,7 +1979,7 @@ msgid "Running"
 msgstr "Çalışıyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:508
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:519
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
 #: ../../main/core/src/templates/dashboard/index.mas:25
@@ -1988,7 +1993,7 @@ msgstr ""
 "Durduruldu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:906
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:509
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:520
 msgid "Daemon status"
 msgstr "Bekletici program durumu"
 
@@ -2015,14 +2020,14 @@ msgid "VPN network interface"
 msgstr "VPN ağ alt maskesi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:929
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:523
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:534
 #, fuzzy
 msgid "No active"
 msgstr "Aktif"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:930
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:523
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:532
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:534
 #, fuzzy
 msgid "VPN interface address"
 msgstr "VPN ağ adresi"
@@ -2081,26 +2086,26 @@ msgstr "{name} sunucusu için en azından bir adres vermelisiniz"
 msgid "The client certificate can't be the same than the server's one"
 msgstr "İstemci sertifikası sunucununki ile aynı olamaz"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:303
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:314
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:331
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:503
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:514
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "İstemci {name}"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:517
+#: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:528
 msgid "Connection target"
 msgstr "Bağlantı hedefi"
 
@@ -2195,8 +2200,8 @@ msgstr "Adres"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1455
 #: ../../main/pptp/src/EBox/PPTP.pm:329
-#: ../../main/samba/src/EBox/Samba.pm:1007
-#: ../../main/samba/src/EBox/Samba.pm:1028
+#: ../../main/samba/src/EBox/Samba.pm:1044
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid "Connected since"
 msgstr "Bağlı olduğu süre"
 
@@ -2214,8 +2219,9 @@ msgstr "OpenVPN daemonları"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:148
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1771
+#: ../../main/samba/src/EBox/Samba.pm:1473
 #: ../../main/core/src/templates/report/diskUsage.mas:27
+#: ../../main/core/src/templates/report/raid.mas:127
 #, fuzzy
 msgid "Type"
 msgstr ""
@@ -2316,7 +2322,7 @@ msgstr ""
 "HTTPS dışında, öntanımlı olarak reddedilir."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:574
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:206
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:203
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 msgid "Packet Filter"
 msgstr "Paket Süzgeçleri"
@@ -2504,6 +2510,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:146
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:156
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:199
+#: ../../main/printers/src/EBox/Model/Printers.pm:160
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:220
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:128
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:196
@@ -2516,14 +2523,14 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:230
 #: ../../main/software/src/templates/updates.mas:41
 #: ../../main/remoteservices/src/templates/Backup/index.mas:51
-#: ../../main/remoteservices/src/templates/Backup/index.mas:118
+#: ../../main/remoteservices/src/templates/Backup/index.mas:116
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:35
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:40
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
 #: ../../main/network/src/templates/ifaces.mas:201
 #: ../../main/core/src/templates/finish.mas:113
 #: ../../main/core/src/templates/confirm-backup.mas:34
-#: ../../main/core/src/templates/backup.mas:49
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:47
+#: ../../main/core/src/templates/backup.mas:114
 #, fuzzy
 msgid "Description"
 msgstr ""
@@ -2546,13 +2553,18 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "Açıklama"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:220
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:217
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:197
 msgid "Configure Rules"
 msgstr "Kuralları ayarla"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:235
-msgid "'any service' cannot have a inverse march"
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:232
+#, perl-brace-format
+msgid "'Any' {addr} cannot have a inverse march"
+msgstr ""
+
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:250
+msgid "'Any' service cannot have a inverse march"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:66
@@ -2695,7 +2707,7 @@ msgstr "Çelişkili kural bulundu. Öncelikle çelişkili olanları silin"
 #: ../../main/dhcp/src/EBox/DHCP.pm:520 ../../main/dhcp/src/EBox/DHCP.pm:617
 #: ../../main/dhcp/src/EBox/DHCP.pm:670 ../../main/dhcp/src/EBox/DHCP.pm:731
 #: ../../main/dhcp/src/EBox/DHCP.pm:1126
-#: ../../main/printers/src/EBox/Model/CUPS.pm:148
+#: ../../main/printers/src/EBox/Model/CUPS.pm:123
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 #, fuzzy
 msgid "Interface"
@@ -3691,7 +3703,7 @@ msgstr ""
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:116
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:273
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 #, fuzzy
 msgid "General configuration settings"
 msgstr ""
@@ -3869,7 +3881,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:142
 #: ../../main/network/src/EBox/Network.pm:77
 #: ../../main/network/src/EBox/Network.pm:3894
-#: ../../main/services/src/EBox/Services.pm:603
+#: ../../main/services/src/EBox/Services.pm:604
 msgid "Network"
 msgstr "Ağ"
 
@@ -3962,6 +3974,7 @@ msgstr "Güncelleniyor"
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:206
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
+#: ../../main/core/src/templates/report/raid.mas:210
 #, fuzzy
 msgid "Current operation"
 msgstr ""
@@ -4065,7 +4078,7 @@ msgstr "eBox bileşenleri"
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:77
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:78
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:79
-#: ../../main/core/src/EBox/Backup.pm:471
+#: ../../main/core/src/EBox/Backup.pm:463
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -4469,8 +4482,8 @@ msgid "Please, save changes"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
-#: ../../main/core/src/EBox/Model/DataForm.pm:653
-#: ../../main/core/src/templates/ajax/tableModalView.mas:760
+#: ../../main/core/src/EBox/Model/DataForm.pm:656
+#: ../../main/core/src/templates/progress.mas:32
 msgid "Done"
 msgstr "Tamam"
 
@@ -4508,7 +4521,7 @@ msgstr ""
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:66
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:108
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:101
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:93
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:107
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:115
@@ -4518,13 +4531,13 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:73
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1269
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:131
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/captiveportal/src/templates/login.mas:41
 #: ../../main/network/src/templates/ifaces.mas:178
 #: ../../main/core/src/templates/login/index.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:11
 #: ../../main/users/src/templates/users.mas:48
-#: ../../main/users/src/templates/user.mas:70
+#: ../../main/users/src/templates/user.mas:67
 #, fuzzy
 msgid "Password"
 msgstr ""
@@ -4578,7 +4591,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:622
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1750
+#: ../../main/samba/src/EBox/Samba.pm:1452
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:547
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4591,7 +4604,9 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:201
 #: ../../main/network/src/templates/ifaces.mas:243
 #: ../../main/core/src/templates/configureView.mas:20
+#: ../../main/core/src/templates/ajax/tableBody.mas:557
 #: ../../main/mail/src/templates/groupalias.mas:22
+#: ../../main/mail/src/templates/externalAccounts.mas:84
 #: ../../main/mail/src/templates/qmanager.mas:17
 #: ../../main/mail/src/templates/alias.mas:28
 #, fuzzy
@@ -4983,9 +4998,9 @@ msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:122
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:138
-#: ../../main/remoteservices/src/templates/Backup/index.mas:134
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:70
-#: ../../main/core/src/templates/backup.mas:89
+#: ../../main/remoteservices/src/templates/Backup/index.mas:132
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:69
+#: ../../main/core/src/templates/backup.mas:85
 msgid "Restore"
 msgstr "Geri yükleme"
 
@@ -5007,13 +5022,15 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/software/src/templates/ebox.mas:513
 #: ../../main/software/src/templates/ebox.mas:533
-#: ../../main/remoteservices/src/templates/Backup/index.mas:145
+#: ../../main/remoteservices/src/templates/Backup/index.mas:143
 #: ../../main/network/src/templates/ifaces.mas:227
 #: ../../main/network/src/templates/ifaces.mas:303
 #: ../../main/samba/src/templates/samba.mas:60
-#: ../../main/core/src/templates/ajax/tableBody.mas:701
-#: ../../main/core/src/templates/ajax/tableModalView.mas:524
-#: ../../main/core/src/templates/backup.mas:147
+#: ../../main/core/src/templates/ajax/tableBody.mas:671
+#: ../../main/core/src/templates/ajax/tableBody.mas:929
+#: ../../main/core/src/templates/ajax/tableModalView.mas:502
+#: ../../main/core/src/templates/backup.mas:141
+#: ../../main/mail/src/templates/groupalias.mas:73
 #: ../../main/mail/src/templates/warnvd.mas:25
 #: ../../main/mail/src/templates/alias.mas:15
 #: ../../main/mail/src/templates/alias.mas:55
@@ -5059,7 +5076,7 @@ msgstr "Kullanıcı ismi"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:34
-#: ../../main/users/src/templates/user.mas:33
+#: ../../main/users/src/templates/user.mas:32
 #, fuzzy
 msgid "Last name"
 msgstr "Kullanıcı ismi"
@@ -5108,8 +5125,8 @@ msgid "Bandwidth Monitor"
 msgstr "Bandwidth Ayarlama"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:437
-#: ../../main/samba/src/EBox/Samba.pm:1748
-#: ../../main/samba/src/EBox/Samba.pm:1768
+#: ../../main/samba/src/EBox/Samba.pm:1450
+#: ../../main/samba/src/EBox/Samba.pm:1470
 msgid "Client address"
 msgstr "İstemci IP adresi"
 
@@ -5143,7 +5160,7 @@ msgstr "Bandwidth Ayarlama"
 #: ../../main/network/src/EBox/Model/Proxy.pm:75
 #: ../../main/ltsp/src/EBox/LTSP.pm:683
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:102
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:97
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
 #: ../../main/captiveportal/src/templates/login.mas:35
 #: ../../main/core/src/templates/login/index.mas:55
@@ -5172,7 +5189,7 @@ msgstr "Ağ arabirimleri"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:103
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:150
-#: ../../main/printers/src/EBox/Model/CUPS.pm:167
+#: ../../main/printers/src/EBox/Model/CUPS.pm:142
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:137
 msgid "interface"
 msgstr "arabirim"
@@ -5236,9 +5253,10 @@ msgstr ""
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
 #: ../../main/core/src/cgi/ebox.cgi:67
-#: ../../main/remoteservices/src/templates/Backup/index.mas:120
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:42
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/remoteservices/src/templates/Backup/index.mas:118
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:41
+#: ../../main/ca/src/templates/index.mas:97
+#: ../../main/core/src/templates/backup.mas:114
 #, fuzzy
 msgid "Actions"
 msgstr ""
@@ -5262,34 +5280,32 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:73
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:73
-#: ../../main/core/src/cgi/ebox.cgi:71
+#: ../../main/core/src/cgi/ebox.cgi:73
 msgid "Please contact support."
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:76
-#: ../../main/core/src/cgi/ebox.cgi:74
+#: ../../main/core/src/cgi/ebox.cgi:81 ../../main/core/src/cgi/ebox.cgi:87
 msgid "Show technical details"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:77
-#: ../../main/core/src/cgi/ebox.cgi:75
+#: ../../main/core/src/cgi/ebox.cgi:88
 msgid "Report the problem"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:78
-#: ../../main/core/src/cgi/ebox.cgi:76
+#: ../../main/core/src/cgi/ebox.cgi:89
 #: ../../main/software/src/templates/del.mas:87
-#: ../../main/remoteservices/src/templates/Backup/confirm.mas:62
+#: ../../main/remoteservices/src/templates/Backup/confirm.mas:60
 #: ../../main/network/src/templates/confirm.mas:29
 #: ../../main/network/src/templates/confirmVlanDel.mas:19
 #: ../../main/network/src/templates/confirmremove.mas:21
 #: ../../main/ca/src/templates/forceRevoke.mas:38
-#: ../../main/ca/src/templates/forceRenew.mas:78
 #: ../../main/core/src/templates/confirm-backup.mas:59
-#: ../../main/core/src/templates/ajax/tableModalView.mas:768
 #: ../../main/mail/src/templates/warnusermdsize.mas:23
 #: ../../main/mail/src/templates/warnvdmdsize.mas:32
 #: ../../main/mail/src/templates/warnvd.mas:27
@@ -5316,25 +5332,25 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:79
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
-#: ../../main/core/src/cgi/ebox.cgi:77
+#: ../../main/core/src/cgi/ebox.cgi:90
 msgid "Email (you will receive updates on the report)"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:80
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:80
-#: ../../main/core/src/cgi/ebox.cgi:78
+#: ../../main/core/src/cgi/ebox.cgi:91
 msgid "Describe in English what you where doing"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
-#: ../../main/core/src/cgi/ebox.cgi:80
+#: ../../main/core/src/cgi/ebox.cgi:93
 msgid "Couldn't send the report"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:83
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:83
-#: ../../main/core/src/cgi/ebox.cgi:81
+#: ../../main/core/src/cgi/ebox.cgi:94
 msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
@@ -5342,13 +5358,13 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
-#: ../../main/core/src/cgi/ebox.cgi:83
+#: ../../main/core/src/cgi/ebox.cgi:96
 msgid "To do a manual report, please follow these instructions:"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
-#: ../../main/core/src/cgi/ebox.cgi:84
+#: ../../main/core/src/cgi/ebox.cgi:97
 msgid "Create a new ticket in the Zentyal trac by clicking "
 msgstr ""
 
@@ -5356,19 +5372,19 @@ msgstr ""
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
-#: ../../main/core/src/cgi/ebox.cgi:84 ../../main/core/src/cgi/ebox.cgi:87
+#: ../../main/core/src/cgi/ebox.cgi:97 ../../main/core/src/cgi/ebox.cgi:100
 msgid "here"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
-#: ../../main/core/src/cgi/ebox.cgi:85
+#: ../../main/core/src/cgi/ebox.cgi:98
 msgid "Write a short description of the problem in the summary field"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
-#: ../../main/core/src/cgi/ebox.cgi:86
+#: ../../main/core/src/cgi/ebox.cgi:99
 msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
@@ -5376,13 +5392,13 @@ msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
-#: ../../main/core/src/cgi/ebox.cgi:87
+#: ../../main/core/src/cgi/ebox.cgi:100
 msgid "Download the log file with additional information by clicking"
 msgstr ""
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:90
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:90
-#: ../../main/core/src/cgi/ebox.cgi:88
+#: ../../main/core/src/cgi/ebox.cgi:101
 msgid "Attach the downloaded file in the ticket"
 msgstr ""
 
@@ -5499,7 +5515,6 @@ msgstr "Güncel parola"
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
-#: ../../main/samba/src/EBox/Samba.pm:1622
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:40
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:42
@@ -5671,6 +5686,7 @@ msgid "enabled"
 msgstr "Etkinleşti"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:55
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:210
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:98
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:214
@@ -6706,7 +6722,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
 #: ../../main/core/src/EBox/Apache.pm:353
 #: ../../main/services/src/EBox/Services.pm:440
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:23
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 #, fuzzy
 msgid "port"
 msgstr ""
@@ -6928,8 +6944,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Composite/Remote.pm:40
 #: ../../main/ebackup/src/EBox/EBackup.pm:77
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
-#: ../../main/core/src/EBox/Backup.pm:747
-#: ../../main/core/src/templates/backup.mas:60
+#: ../../main/core/src/EBox/Backup.pm:735
+#: ../../main/core/src/templates/backup.mas:58
 msgid "Backup"
 msgstr "Yedekleme"
 
@@ -7296,7 +7312,7 @@ msgstr ""
 #: ../../main/users/src/templates/users.mas:41
 #: ../../main/users/src/templates/groups.mas:24
 #: ../../main/users/src/templates/group.mas:18
-#: ../../main/users/src/templates/user.mas:46
+#: ../../main/users/src/templates/user.mas:44
 msgid "Comment"
 msgstr "Açıklama"
 
@@ -7835,6 +7851,7 @@ msgid "down"
 msgstr "down"
 
 #: ../../main/network/src/EBox/Network.pm:3805
+#: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
 msgstr "up"
 
@@ -7867,6 +7884,7 @@ msgstr "no link"
 #: ../../main/mail/src/EBox/Mail.pm:1482 ../../main/mail/src/EBox/Mail.pm:1601
 #: ../../main/asterisk/src/EBox/Asterisk.pm:556
 #: ../../main/core/src/templates/moduleStatusTable.mas:57
+#: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Durum"
@@ -8023,7 +8041,6 @@ msgid "ip address"
 msgstr "IP adresi"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
-#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:487
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:520
 #: ../../main/users/src/EBox/CGI/AddUser.pm:43
@@ -8519,7 +8536,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail.pm:1594
 #: ../../main/asterisk/src/EBox/Asterisk.pm:732
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #, fuzzy
 msgid "From"
 msgstr ""
@@ -8537,7 +8554,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/asterisk/src/EBox/Asterisk.pm:733
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:22
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #, fuzzy
 msgid "To"
 msgstr ""
@@ -9182,7 +9199,7 @@ msgid "Client MAC"
 msgstr "İstemci"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:67
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:60
 #, fuzzy
 msgid "Confirm Password"
 msgstr "Parolayı tekrarlayın"
@@ -9361,7 +9378,7 @@ msgstr "arabirim"
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:171
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:279
 #: ../../main/core/src/EBox/Events/Model/DiskFreeWatcherConfiguration.pm:136
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:280
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:288
 #: ../../main/core/src/EBox/Events/Composite/General.pm:67
 #: ../../main/core/src/EBox/Events/Composite/General.pm:68
 #: ../../main/core/src/EBox/Events.pm:85
@@ -9784,34 +9801,138 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:132
+#: ../../main/printers/src/EBox/Model/Printers.pm:138
+#, perl-brace-format
+msgid ""
+"Prior to configure printers ACLs you need to enable the module in the "
+"{openref}Module Status{closeref}  section and save changes after that."
+msgstr ""
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:154
+#, fuzzy
+msgid "Printer name"
+msgstr "Yazıcı"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:166
+#, fuzzy
+msgid "Location"
+msgstr ""
+"#-#-#-#-#  tr.po (ebox-network 0.12)  #-#-#-#-#\n"
+"İşlem\n"
+"#-#-#-#-#  tr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
+"İşlem\n"
+"#-#-#-#-#  tr.po (ebox-dns 0.12)  #-#-#-#-#\n"
+"İşlem\n"
+"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
+"İşlem\n"
+"#-#-#-#-#  tr.po (ebox-ca 0.12)  #-#-#-#-#\n"
+"Faaliyet\n"
+"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
+"İşlem"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:172
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
+msgid "Guest access"
+msgstr ""
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:175
+#, fuzzy
+msgid "This printer will not require authentication."
+msgstr "Doğrulama hatası"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:179
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
+msgid "Access control"
+msgstr "Erişim Kontrolü"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:188
+#, fuzzy
+msgid "Printer permissions"
+msgstr "İzinler"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:193
+msgid "printer"
+msgstr "Yazıcı"
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:195
+#, fuzzy
+msgid "Here you can define the access control list for your printers."
+msgstr "Bu sayfada farklı genel samba ayarlarını belirleyebilirsiniz."
+
+#: ../../main/printers/src/EBox/Model/Printers.pm:206
+#, perl-brace-format
+msgid ""
+"To add or manage printers you have to use the {open_href}CUPS Web Interface"
+"{close_href}"
+msgstr ""
+
+#: ../../main/printers/src/EBox/Model/CUPS.pm:107
 #, perl-brace-format
 msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:154
+#: ../../main/printers/src/EBox/Model/CUPS.pm:129
 msgid "Listen"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:162
+#: ../../main/printers/src/EBox/Model/CUPS.pm:137
 msgid "Select CUPS Interfaces"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:168
+#: ../../main/printers/src/EBox/Model/CUPS.pm:143
 msgid ""
 "Select in which interfaces the CUPS webserver will listen on. Take into "
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Model/CUPS.pm:179
-#, perl-brace-format
-msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:91
+#, fuzzy
+msgid "Print"
+msgstr "Yazıcı"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:124
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:200
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:128
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:204
+msgid "User/Group"
+msgstr "Kullanıcı/Grup"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:165
+#: ../../main/printers/src/EBox/Printers.pm:342
+msgid "Printers"
+msgstr "Yazıcılar"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:176
+msgid "Any access control is disabled if guest access is allowed."
 msgstr ""
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:220
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:223
+msgid "Permissions"
+msgstr "İzinler"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:228
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:232
+msgid "Access Control"
+msgstr "Erişim Kontrolü"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:235
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:239
+msgid "ACL"
+msgstr "Erişim Kontrol Listesi"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:248
+#, fuzzy
+msgid " (user)"
+msgstr "Kullanıcı"
+
+#: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:250
+#, fuzzy
+msgid " (group)"
+msgstr "Grup"
 
 #: ../../main/printers/src/EBox/Composite/General.pm:41
 #: ../../main/printers/src/EBox/Printers.pm:40
@@ -9843,39 +9964,34 @@ msgstr ""
 msgid "To configure cupsd"
 msgstr "Yazıcı yapılandırılmadı"
 
-#: ../../main/printers/src/EBox/Printers.pm:107
+#: ../../main/printers/src/EBox/Printers.pm:108
 #, fuzzy
 msgid "Network Printers"
 msgstr "Ağ arabirimleri"
 
-#: ../../main/printers/src/EBox/Printers.pm:108
+#: ../../main/printers/src/EBox/Printers.pm:109
 msgid "Internet Printing Protocol (CUPS)"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers.pm:337
+#: ../../main/printers/src/EBox/Printers.pm:328
 msgid "Job ID"
 msgstr "İş Seri No"
 
-#: ../../main/printers/src/EBox/Printers.pm:338
+#: ../../main/printers/src/EBox/Printers.pm:329
 msgid "Printer"
 msgstr "Yazıcı"
 
-#: ../../main/printers/src/EBox/Printers.pm:345
+#: ../../main/printers/src/EBox/Printers.pm:336
 msgid "Queued"
 msgstr "Sıraya atıldı"
 
-#: ../../main/printers/src/EBox/Printers.pm:346
+#: ../../main/printers/src/EBox/Printers.pm:337
 msgid "Completed"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers.pm:347
+#: ../../main/printers/src/EBox/Printers.pm:338
 msgid "Canceled"
 msgstr "İptal edildi"
-
-#: ../../main/printers/src/EBox/Printers.pm:351
-#: ../../main/samba/src/templates/samba.mas:68
-msgid "Printers"
-msgstr "Yazıcılar"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:55
 msgid "Add Jabber LDAP schema"
@@ -10015,17 +10131,9 @@ msgstr "eBox altındaki dizin ismi"
 msgid "File system path"
 msgstr "Dosya sistemi yolu"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
-msgid "Guest access"
-msgstr ""
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:128
 msgid "This share will not require authentication."
 msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
-msgid "Access control"
-msgstr "Erişim Kontrolü"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:147
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:168
@@ -10203,7 +10311,7 @@ msgstr "Kullanıcı ev dizini"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:97
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:105
-#: ../../main/samba/src/EBox/Samba.pm:1007
+#: ../../main/samba/src/EBox/Samba.pm:1044
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 #, fuzzy
 msgid "Share"
@@ -10264,26 +10372,9 @@ msgstr "Okunabilir ve Yazılabilir"
 msgid "Administrator"
 msgstr "Yönetici hakları"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:128
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:204
-msgid "User/Group"
-msgstr "Kullanıcı/Grup"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:178
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:223
-msgid "Permissions"
-msgstr "İzinler"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:232
-msgid "Access Control"
-msgstr "Erişim Kontrolü"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:239
-msgid "ACL"
-msgstr "Erişim Kontrol Listesi"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:251
 #, fuzzy
@@ -10377,20 +10468,110 @@ msgid ""
 "database provision. The module will remain disabled."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1007
-#: ../../main/samba/src/EBox/Samba.pm:1028
+#: ../../main/samba/src/EBox/Samba.pm:1044
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid "Source machine"
 msgstr "Kaynak Makine"
 
-#: ../../main/samba/src/EBox/Samba.pm:1048
+#: ../../main/samba/src/EBox/Samba.pm:1085
 msgid "Shares by user"
 msgstr "Kullanıcılara göre paylaşımlar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1054
+#: ../../main/samba/src/EBox/Samba.pm:1091
 msgid "Users by share"
 msgstr "Paylaşımlara göre kullanıcılar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1636
+#: ../../main/samba/src/EBox/Samba.pm:1453
+msgid "Resource"
+msgstr "Kaynak"
+
+#: ../../main/samba/src/EBox/Samba.pm:1457
+msgid "Connect"
+msgstr "Bağlan"
+
+#: ../../main/samba/src/EBox/Samba.pm:1458
+msgid "Access to directory"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:1459
+msgid "Read file"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:1460
+msgid "Write file"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:1461
+msgid "Disconnect"
+msgstr "Bağlantıyı kes"
+
+#: ../../main/samba/src/EBox/Samba.pm:1462
+#: ../../main/core/src/templates/ajax/viewer/file.mas:22
+#: ../../main/mail/src/templates/qmanager.mas:37
+#: ../../main/users/src/templates/group.mas:49
+#: ../../main/users/src/templates/user.mas:120
+#, fuzzy
+msgid "Remove"
+msgstr ""
+"#-#-#-#-#  tr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
+"Kaldır\n"
+"#-#-#-#-#  tr.po (libebox 0.12.1)  #-#-#-#-#\n"
+"Silmek\n"
+"#-#-#-#-#  tr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
+"Kaldır\n"
+"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
+"Kaldır"
+
+#: ../../main/samba/src/EBox/Samba.pm:1463
+msgid "Create directory"
+msgstr "Klasör Oluştur"
+
+#: ../../main/samba/src/EBox/Samba.pm:1464
+#, fuzzy
+msgid "Remove directory"
+msgstr "Klasör Sil"
+
+#: ../../main/samba/src/EBox/Samba.pm:1465
+#, fuzzy
+msgid "Rename"
+msgstr "İsmini değiştir"
+
+#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1480
+msgid "File name"
+msgstr "Dosya adı"
+
+#: ../../main/samba/src/EBox/Samba.pm:1472
+#: ../../main/samba/src/EBox/Samba.pm:1476
+msgid "Virus"
+msgstr "Virüs"
+
+#: ../../main/samba/src/EBox/Samba.pm:1481
+msgid "Quarantined file name"
+msgstr "Karantinaya alınan dosya adı"
+
+#: ../../main/samba/src/EBox/Samba.pm:1482
+#: ../../main/samba/src/EBox/Samba.pm:1485
+msgid "Quarantine"
+msgstr "Karantina"
+
+#: ../../main/samba/src/EBox/Samba.pm:1488
+msgid "Samba access"
+msgstr "Samba Erişimi"
+
+#: ../../main/samba/src/EBox/Samba.pm:1499
+msgid "Samba virus"
+msgstr "Samba Virüs"
+
+#: ../../main/samba/src/EBox/Samba.pm:1510
+msgid "Samba quarantine"
+msgstr "Samba Karantina"
+
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:569
+#, fuzzy
+msgid "A name should be provided for the share."
+msgstr "Bu paylaşım için bir isim verilmesi gerekli"
+
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:43
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:76
 #: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:41
@@ -10417,103 +10598,6 @@ msgstr ""
 "grup\n"
 "#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Grup"
-
-#: ../../main/samba/src/EBox/Samba.pm:1751
-msgid "Resource"
-msgstr "Kaynak"
-
-#: ../../main/samba/src/EBox/Samba.pm:1755
-msgid "Connect"
-msgstr "Bağlan"
-
-#: ../../main/samba/src/EBox/Samba.pm:1756
-msgid "Access to directory"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba.pm:1757
-msgid "Read file"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba.pm:1758
-msgid "Write file"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba.pm:1759
-msgid "Disconnect"
-msgstr "Bağlantıyı kes"
-
-#: ../../main/samba/src/EBox/Samba.pm:1760
-#: ../../main/mail/src/templates/qmanager.mas:37
-#: ../../main/users/src/templates/group.mas:49
-#: ../../main/users/src/templates/user.mas:123
-#, fuzzy
-msgid "Remove"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Kaldır\n"
-"#-#-#-#-#  tr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Silmek\n"
-"#-#-#-#-#  tr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Kaldır\n"
-"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Kaldır"
-
-#: ../../main/samba/src/EBox/Samba.pm:1761
-msgid "Create directory"
-msgstr "Klasör Oluştur"
-
-#: ../../main/samba/src/EBox/Samba.pm:1762
-#, fuzzy
-msgid "Remove directory"
-msgstr "Klasör Sil"
-
-#: ../../main/samba/src/EBox/Samba.pm:1763
-#, fuzzy
-msgid "Rename"
-msgstr "İsmini değiştir"
-
-#: ../../main/samba/src/EBox/Samba.pm:1769
-#: ../../main/samba/src/EBox/Samba.pm:1778
-msgid "File name"
-msgstr "Dosya adı"
-
-#: ../../main/samba/src/EBox/Samba.pm:1770
-#: ../../main/samba/src/EBox/Samba.pm:1774
-msgid "Virus"
-msgstr "Virüs"
-
-#: ../../main/samba/src/EBox/Samba.pm:1779
-msgid "Quarantined file name"
-msgstr "Karantinaya alınan dosya adı"
-
-#: ../../main/samba/src/EBox/Samba.pm:1780
-#: ../../main/samba/src/EBox/Samba.pm:1783
-msgid "Quarantine"
-msgstr "Karantina"
-
-#: ../../main/samba/src/EBox/Samba.pm:1786
-msgid "Samba access"
-msgstr "Samba Erişimi"
-
-#: ../../main/samba/src/EBox/Samba.pm:1797
-msgid "Samba virus"
-msgstr "Samba Virüs"
-
-#: ../../main/samba/src/EBox/Samba.pm:1808
-msgid "Samba quarantine"
-msgstr "Samba Karantina"
-
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:573
-#, fuzzy
-msgid "A name should be provided for the share."
-msgstr "Bu paylaşım için bir isim verilmesi gerekli"
-
-#: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
-#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
-#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
-#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
-msgid "group name"
-msgstr "Grup ismi"
 
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:52
 #, fuzzy
@@ -11403,6 +11487,7 @@ msgstr "Uygulama Verisi"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:215
 #: ../../main/ca/src/EBox/CA.pm:500
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
+#: ../../main/ca/src/templates/index.mas:22
 #: ../../main/ca/src/templates/formRevoke.mas:21
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:37
@@ -11429,6 +11514,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:63
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:74
+#: ../../main/ca/src/templates/index.mas:23
 #: ../../main/ca/src/templates/formRevoke.mas:25
 #: ../../main/ca/src/templates/formReissue.mas:32
 #: ../../main/ca/src/templates/formRenew.mas:41
@@ -11690,6 +11776,7 @@ msgid "The certificate has NOT been renewed"
 msgstr "Sertifika yenilenmemiş"
 
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:69
+#: ../../main/ca/src/templates/index.mas:52
 #: ../../main/ca/src/templates/formReissue.mas:13
 #: ../../main/ca/src/templates/createCA.mas:19
 #: ../../main/ca/src/templates/formRenew.mas:13
@@ -12003,25 +12090,17 @@ msgstr ""
 msgid "NTP"
 msgstr "NAT"
 
-#: ../../main/core/ModelManager.pm:458
-#: ../../main/core/src/EBox/Model/Manager.pm:492
-#, fuzzy
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-"Silmek üzere olduğunuz veri aşağıdaki\n"
-"\t\t\ttablolar tarafından kullanılıyor:"
+#: ../../main/core/src/cgi/ebox.cgi:76
+#, fuzzy, perl-brace-format
+msgid "The following software packages are not correctly installed: {pack}"
+msgstr "Aşağıdaki paketler kurulacak"
 
-#: ../../main/core/ModelManager.pm:504
-#: ../../main/core/src/EBox/Model/Manager.pm:538
-#, fuzzy
+#: ../../main/core/src/cgi/ebox.cgi:82
+#, perl-brace-format
 msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
+"There are some software packages which are not correctly installed: {pack}. "
+"<p>You should reinstall them and retry your operation.</p>"
 msgstr ""
-"Değiştirmek üzere olduğunuz veri aşağıdaki\n"
-"\t\t\ttablolar tarafından kullanılıyor:"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -12052,7 +12131,25 @@ msgstr "Şu değerler olmalı: top-bottom veya tabbed"
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Burdaki izin verilen işlemler: {view} ve {cView}"
 
-#: ../../main/core/src/EBox/Model/DataForm.pm:531
+#: ../../main/core/src/EBox/Model/Manager.pm:492
+#, fuzzy
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+"Silmek üzere olduğunuz veri aşağıdaki\n"
+"\t\t\ttablolar tarafından kullanılıyor:"
+
+#: ../../main/core/src/EBox/Model/Manager.pm:538
+#, fuzzy
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+"Değiştirmek üzere olduğunuz veri aşağıdaki\n"
+"\t\t\ttablolar tarafından kullanılıyor:"
+
+#: ../../main/core/src/EBox/Model/DataForm.pm:534
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr ""
@@ -12117,8 +12214,8 @@ msgid "{row} moved down"
 msgstr "{row} alta kaydırıldı"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4254
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:68
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:70
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/network/src/templates/ifaces.mas:190
 #: ../../main/jabber/src/templates/jabber.mas:40
@@ -12133,7 +12230,7 @@ msgstr "{row} alta kaydırıldı"
 #: ../../main/asterisk/src/templates/group.mas:41
 #: ../../main/asterisk/src/templates/user.mas:38
 #: ../../main/users/src/templates/group.mas:20
-#: ../../main/users/src/templates/user.mas:91
+#: ../../main/users/src/templates/user.mas:88
 #, fuzzy
 msgid "Change"
 msgstr ""
@@ -12182,7 +12279,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:80
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:51
-#: ../../main/core/src/EBox/Events.pm:422
+#: ../../main/core/src/EBox/Events.pm:439
 #, fuzzy
 msgid "Informative"
 msgstr "Genel Bilgiler"
@@ -12190,7 +12287,7 @@ msgstr "Genel Bilgiler"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:52
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:84
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:52
-#: ../../main/core/src/EBox/Events.pm:423
+#: ../../main/core/src/EBox/Events.pm:440
 #: ../../main/core/src/templates/finish.mas:83
 msgid "Warning"
 msgstr ""
@@ -12198,14 +12295,14 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:53
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:88
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:53
-#: ../../main/core/src/EBox/Events.pm:424
+#: ../../main/core/src/EBox/Events.pm:441
 msgid "Error"
 msgstr "Hata"
 
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:54
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:92
 #: ../../main/core/src/EBox/Events/Model/EventsGraph.pm:54
-#: ../../main/core/src/EBox/Events.pm:425
+#: ../../main/core/src/EBox/Events.pm:442
 msgid "Fatal error"
 msgstr ""
 
@@ -12259,7 +12356,7 @@ msgid "filter"
 msgstr ""
 
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:175
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:284
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:292
 msgid "Log Observer Watcher"
 msgstr ""
 
@@ -12328,23 +12425,23 @@ msgstr "İşlemci zamanlayıcılarını yapılandır"
 msgid "Free Disk Space Watcher"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:125
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:147
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:150
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:172
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:174
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:199
 msgid "Filtering"
 msgstr ""
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:182
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:207
 #, fuzzy
 msgid "Configure log watchers"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
-#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:184
+#: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:209
 msgid "Log watcher"
 msgstr ""
 
@@ -12448,30 +12545,22 @@ msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
 msgid "Dumping configuration of module {m}"
 msgstr "Hata raporlama ayar bilgisi"
 
-#: ../../main/core/src/EBox/Backup.pm:324
-msgid "Could not create backup archive"
-msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
-
-#: ../../main/core/src/EBox/Backup.pm:331
-msgid "Could not append data to backup archive"
-msgstr "Yedekleme dosyasına ek ilave yapılamıyor."
-
-#: ../../main/core/src/EBox/Backup.pm:523
+#: ../../main/core/src/EBox/Backup.pm:520
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Bu dosyaların yedeklemesi yapılamıyor: {files}"
 
-#: ../../main/core/src/EBox/Backup.pm:526
-#: ../../main/core/src/EBox/Backup.pm:1267
+#: ../../main/core/src/EBox/Backup.pm:523
+#: ../../main/core/src/EBox/Backup.pm:1253
 msgid "Could not unpack the backup"
 msgstr "Yedekleme dosyası açılamıyor"
 
-#: ../../main/core/src/EBox/Backup.pm:778
+#: ../../main/core/src/EBox/Backup.pm:766
 #, fuzzy
 msgid "Writing backup file to hard disk"
 msgstr "Sabit diske kaydet"
 
-#: ../../main/core/src/EBox/Backup.pm:819
+#: ../../main/core/src/EBox/Backup.pm:807
 #, fuzzy, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
@@ -12480,23 +12569,23 @@ msgstr ""
 "Yapılan değişiklikler bazı modullerde henüz kaydedilmedi. Yedekleme yapmadan "
 "önce bunları kaydetmeniz veya kaydetme işlemini iptal etmeniz gereklidir."
 
-#: ../../main/core/src/EBox/Backup.pm:878
+#: ../../main/core/src/EBox/Backup.pm:866
 msgid "Incorrect or corrupt backup file"
 msgstr "Yanlış veya hatalı yedekleme dosyası"
 
-#: ../../main/core/src/EBox/Backup.pm:909
+#: ../../main/core/src/EBox/Backup.pm:896
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Yedekleme dosyası hatalı:Arşiv dosyası açılamıyor."
 
-#: ../../main/core/src/EBox/Backup.pm:920
+#: ../../main/core/src/EBox/Backup.pm:907
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Yedekleme dosyası hatalı: Sağlama sayısı kontrol edilemiyor."
 
-#: ../../main/core/src/EBox/Backup.pm:927
+#: ../../main/core/src/EBox/Backup.pm:914
 msgid "The backup file is corrupt."
 msgstr "Yedekleme dosyası hatalı."
 
-#: ../../main/core/src/EBox/Backup.pm:945
+#: ../../main/core/src/EBox/Backup.pm:932
 #, fuzzy
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
@@ -12505,7 +12594,7 @@ msgstr ""
 "Yedekleme dosyasının türü yanlış. Dosya hatalı olabilir veya yanlış bir ebox "
 "sürümü kullanıyor olabilirsiniz."
 
-#: ../../main/core/src/EBox/Backup.pm:950
+#: ../../main/core/src/EBox/Backup.pm:937
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -12514,7 +12603,7 @@ msgstr ""
 "yedekleme yapılamaz. Ancak ayar dosyalarını kurtarma işlemini "
 "gerçekleitirebilirsiniz."
 
-#: ../../main/core/src/EBox/Backup.pm:982
+#: ../../main/core/src/EBox/Backup.pm:969
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -12523,7 +12612,7 @@ msgstr ""
 "Sabit diskinizde yeterli boş alanınız mevcut değil. {size} Kb boş alana "
 "ihtiyacınız var. Kendinize boş alan yaratıp tekrar deneyin."
 
-#: ../../main/core/src/EBox/Backup.pm:993
+#: ../../main/core/src/EBox/Backup.pm:980
 #, perl-brace-format
 msgid ""
 "No debian packages list file found; probably the backup was done in a "
@@ -12531,7 +12620,7 @@ msgid ""
 "restored"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1013
+#: ../../main/core/src/EBox/Backup.pm:1000
 #, perl-brace-format
 msgid ""
 "No zentyal-core found in the debian packages list form the backup; probably "
@@ -12539,7 +12628,7 @@ msgid ""
 "Zentyal >= {v} can be restored"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1030
+#: ../../main/core/src/EBox/Backup.pm:1017
 #, perl-brace-format
 msgid ""
 "Could not restore the backup because a missmatch between its Zentyal version "
@@ -12547,40 +12636,40 @@ msgid ""
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1393
+#: ../../main/core/src/EBox/Backup.pm:1380
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1421
+#: ../../main/core/src/EBox/Backup.pm:1408
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1456
+#: ../../main/core/src/EBox/Backup.pm:1443
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1464
+#: ../../main/core/src/EBox/Backup.pm:1451
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1487
+#: ../../main/core/src/EBox/Backup.pm:1474
 msgid "No modules to restore"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1539
+#: ../../main/core/src/EBox/Backup.pm:1526
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr "{topModule} modulu için gerekli bulunamıyor: {modName} kurulu değil"
 
-#: ../../main/core/src/EBox/Backup.pm:1560
+#: ../../main/core/src/EBox/Backup.pm:1547
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:200
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:280
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:295
@@ -12588,7 +12677,7 @@ msgstr "{topModule} modulu için gerekli bulunamıyor: {modName} kurulu değil"
 msgid "The input contains invalid characters"
 msgstr "Girilen veri geçersiz karakter içeriyor"
 
-#: ../../main/core/src/EBox/Backup.pm:1581
+#: ../../main/core/src/EBox/Backup.pm:1568
 #, fuzzy
 msgid "Backup archives"
 msgstr "Yedekleme Listesi"
@@ -13116,7 +13205,7 @@ msgstr ""
 msgid "Time zone"
 msgstr "Zaman dilimi"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:54
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:55
 #, fuzzy
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
@@ -13124,17 +13213,17 @@ msgstr ""
 "Tarih ve zamanın değiştirilmesi tüm eBox servislerinin yeniden "
 "başlatılmasına sebep olur"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:62
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
 #, fuzzy
 msgid "The date and time was changed successfully."
 msgstr "Parola başarılı bir şekilde değiştirildi"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:68
 #, fuzzy
 msgid "Date and time"
 msgstr "Tarihi ve zamanı değiştir"
 
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:88
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:89
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
@@ -13150,8 +13239,8 @@ msgstr "Kullanıcı ismi"
 msgid "Current password"
 msgstr "Güncel parola"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:58
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:105
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:107
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
 #, fuzzy
@@ -13162,28 +13251,28 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "Yeni parola"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:64
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:66
 msgid "Your password must be at least 6 characters long."
 msgstr "Parolanız en az 6 karakterden oluşmalıdır."
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:71
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:73
 msgid "The password was changed successfully."
 msgstr "Parola başarılı bir şekilde değiştirildi"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:76
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:78
 #, fuzzy
 msgid "Change administrator password"
 msgstr "Parolayı değiştir"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:109
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:111
 msgid "New passwords do not match."
 msgstr "Yeni parolalar uyum sağlamıyor"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:113
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:115
 msgid "The password must be at least 6 characters long"
 msgstr "Parola en az 6 karakter olmak zorunda"
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:117
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:119
 #, fuzzy
 msgid "Incorrect current password."
 msgstr "Geçersiz parola"
@@ -13271,6 +13360,12 @@ msgstr "{cn} sertifikası mevcut değil"
 #, fuzzy
 msgid "This continent does not exists."
 msgstr "Hesap yok"
+
+#: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:47
+#: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:47
+#, fuzzy
+msgid "Not"
+msgstr "Hayır"
 
 #: ../../main/core/src/EBox/Types/Select.pm:329
 #, perl-brace-format
@@ -13561,31 +13656,38 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:497
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:540
+#: ../../main/core/src/templates/report/raid.mas:107
 msgid "active"
 msgstr "Etkin"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:499
+#: ../../main/core/src/templates/report/raid.mas:109
 msgid "degraded"
 msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:501
+#: ../../main/core/src/templates/report/raid.mas:111
 #, fuzzy
 msgid "recovering"
 msgstr "eBox sürümü"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:503
+#: ../../main/core/src/templates/report/raid.mas:113
 msgid "resyncing"
 msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:505
+#: ../../main/core/src/templates/report/raid.mas:117
 msgid "rebuilding"
 msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:507
+#: ../../main/core/src/templates/report/raid.mas:115
 msgid "reshaping"
 msgstr ""
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:509
+#: ../../main/core/src/templates/report/raid.mas:119
 #, fuzzy
 msgid "failed"
 msgstr "alan"
@@ -13617,6 +13719,7 @@ msgid "faulty"
 msgstr "Temmuz"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:544
+#: ../../main/core/src/templates/report/raid.mas:230
 #, fuzzy
 msgid "spare"
 msgstr "önceki"
@@ -13678,7 +13781,10 @@ msgid "Zentyal UI is critically down"
 msgstr "eBox kritik olarak çalışmıyor"
 
 #: ../../main/core/src/EBox/Event/Watcher/State.pm:138
+#: ../../main/ca/src/templates/index.mas:47
+#: ../../main/ca/src/templates/index.mas:97
 #: ../../main/ca/src/templates/createCA.mas:16
+#: ../../main/core/src/templates/report/raid.mas:223
 msgid "State"
 msgstr "Durum"
 
@@ -13687,30 +13793,30 @@ msgstr "Durum"
 msgid "Check if Zentyal is currently up or down"
 msgstr "eBox'ın çalışıp çalışmadığını kontrol et"
 
-#: ../../main/core/src/EBox/Events.pm:322
+#: ../../main/core/src/EBox/Events.pm:339
 #, fuzzy
 msgid "The events module is not enabled to send events"
 msgstr "{name} işlemci zamanlayıcısı etkinleştirebilmek için yapılandırılmamış"
 
-#: ../../main/core/src/EBox/Events.pm:411
+#: ../../main/core/src/EBox/Events.pm:428
 msgid "Date of first event"
 msgstr ""
 
-#: ../../main/core/src/EBox/Events.pm:412
+#: ../../main/core/src/EBox/Events.pm:429
 msgid "Date of last event"
 msgstr ""
 
-#: ../../main/core/src/EBox/Events.pm:413
+#: ../../main/core/src/EBox/Events.pm:430
 #, fuzzy
 msgid "Repetitions"
 msgstr "Diğer seçenekler"
 
-#: ../../main/core/src/EBox/Events.pm:414
+#: ../../main/core/src/EBox/Events.pm:431
 #, fuzzy
 msgid "Level"
 msgstr "olay"
 
-#: ../../main/core/src/EBox/Events.pm:416
+#: ../../main/core/src/EBox/Events.pm:433
 msgid "Message"
 msgstr "Mesajlar"
 
@@ -13723,7 +13829,7 @@ msgstr "Ayarları kaydet"
 msgid "Save configuration"
 msgstr "Ayarları kaydet"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:65
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 msgid "OK"
 msgstr ""
 
@@ -13750,8 +13856,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
-#: ../../main/core/src/EBox/CGI/Progress.pm:83
-#: ../../main/core/src/EBox/CGI/Progress.pm:135
+#: ../../main/core/src/EBox/CGI/Progress.pm:84
+#: ../../main/core/src/EBox/CGI/Progress.pm:136
 #: ../../main/core/src/templates/finish.mas:123
 #, fuzzy
 msgid "Saving changes"
@@ -14011,6 +14117,13 @@ msgstr ""
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:156
 msgid "service"
 msgstr "Servis"
+
+#: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:217
+#, perl-brace-format
+msgid ""
+"If you want a service for any connections on this protocol, use the "
+"predefined service {ser}"
+msgstr ""
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:101
 msgid "Internal"
@@ -14453,6 +14566,7 @@ msgid "Queue Management"
 msgstr "Kuyruk Yönetimi"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/templates/externalAccounts.mas:21
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "Posta servisleri"
@@ -15051,7 +15165,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:166
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:185
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:81
-#: ../../main/mail/src/templates/createaccount.mas:64
+#: ../../main/mail/src/templates/createaccount.mas:62
 msgid "Unlimited size"
 msgstr "Sınırsız boyut"
 
@@ -15753,7 +15867,7 @@ msgid "Zarafa Gateway Server"
 msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:99
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:238
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:243
 #, fuzzy
 msgid "Listening port"
 msgstr ""
@@ -15771,7 +15885,7 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:118
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:130
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:244
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:249
 #, fuzzy
 msgid "Listening SSL port"
 msgstr "Dinleme portu"
@@ -15788,31 +15902,31 @@ msgid ""
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:179
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:178
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer.pm:163
 msgid "Web Server"
 msgstr "Web Sunucu"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:180
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:179
 #: ../../main/webserver/src/EBox/WebServer.pm:164
 #, fuzzy
 msgid "Zentyal Web Server"
 msgstr "eBox FTP Sunucusu"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:261
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:266
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Her kullanıcı için {dirName}'yi etkinleştir."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:265
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:270
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:277
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:282
 #, fuzzy, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be used by "
@@ -15824,7 +15938,7 @@ msgstr ""
 "Bu sayfalar kullanıcıların samba kök dizinlerinde {dirName} dizininden "
 "yüklenecektir."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:283
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:288
 #, fuzzy
 msgid "General Web server configuration settings updated."
 msgstr "Genel Web sunucu konfigürasyon ayarları güncellendi"
@@ -16330,8 +16444,9 @@ msgstr "Tam ismi"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:67
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:67
 #: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:699
-#: ../../main/core/src/templates/ajax/tableModalView.mas:522
+#: ../../main/core/src/templates/ajax/tableBody.mas:669
+#: ../../main/core/src/templates/ajax/tableBody.mas:927
+#: ../../main/core/src/templates/ajax/tableModalView.mas:500
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -16358,6 +16473,11 @@ msgid ""
 "Zentyal is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:152
+#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
+msgid "There are no users at the moment"
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:155
@@ -16434,10 +16554,6 @@ msgstr "Organizasyon Adı"
 #, fuzzy
 msgid "organizational unit"
 msgstr "Organizasyon Adı"
-
-#: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
-msgid "There are no users at the moment"
-msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
 #, fuzzy, perl-brace-format
@@ -16579,6 +16695,12 @@ msgid ""
 "underscores, spaces, periods, dashs and not start with a dash. They could "
 "not contain only number, spaces and dots."
 msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Group.pm:318
+#: ../../main/users/src/EBox/CGI/ModifyGroup.pm:42
+#: ../../main/users/src/EBox/CGI/AddGroup.pm:44
+msgid "group name"
+msgstr "Grup ismi"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:391
 #, fuzzy
@@ -16988,8 +17110,8 @@ msgstr "Düzenle"
 
 #: ../../main/dns/src/templates/index.mas:57
 #: ../../main/dns/src/templates/edit.mas:86
-#: ../../main/remoteservices/src/templates/Backup/index.mas:167
-#: ../../main/core/src/templates/backup.mas:163
+#: ../../main/remoteservices/src/templates/Backup/index.mas:165
+#: ../../main/core/src/templates/backup.mas:157
 msgid "delete"
 msgstr "Sil"
 
@@ -17128,7 +17250,8 @@ msgid "No packages found"
 msgstr "Sayfa bulunamadı"
 
 #: ../../main/software/src/templates/ebox.mas:582
-#: ../../main/core/src/templates/ajax/tableModalView.mas:201
+#: ../../main/core/src/templates/ajax/tableBody.mas:316
+#: ../../main/core/src/templates/ajax/tableModalView.mas:191
 #, fuzzy
 msgid "Search"
 msgstr ""
@@ -17138,7 +17261,8 @@ msgstr ""
 "Arama"
 
 #: ../../main/software/src/templates/ebox.mas:583
-#: ../../main/core/src/templates/ajax/tablePager.mas:46
+#: ../../main/core/src/templates/ajax/tablePager.mas:45
+#: ../../main/core/src/templates/logs/dbtable.mas:74
 #: ../../main/mail/src/templates/qmanager.mas:91
 msgid "of"
 msgstr "  "
@@ -17153,12 +17277,12 @@ msgstr "sayfa"
 msgid "Package list updated successfully"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:758
+#: ../../main/software/src/templates/ebox.mas:756
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:760
+#: ../../main/software/src/templates/ebox.mas:758
 #: ../../main/software/src/templates/updates.mas:29
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -17302,8 +17426,8 @@ msgstr "Yedekleme"
 msgid "Back up the current configuration state"
 msgstr "Güncel durumu yedekle"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:89
-#: ../../main/core/src/templates/backup.mas:40
+#: ../../main/remoteservices/src/templates/Backup/index.mas:87
+#: ../../main/core/src/templates/backup.mas:38
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -17311,58 +17435,58 @@ msgstr ""
 "Yedekleme kapatıldı çünü bazı kaydedilmemiş yapılandırma ayarları var. "
 "Lütfen yedeklemeyi yapılandırmak için bunları kayıt veya iptal edin"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:94
+#: ../../main/remoteservices/src/templates/Backup/index.mas:92
 msgid ""
 "Please note that the Basic Subscription allows you to store only one remote "
 "configuration backup. If you make a new configuration backup, the previous "
 "backup will be overwritten."
 msgstr ""
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:119
+#: ../../main/remoteservices/src/templates/Backup/index.mas:117
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:41
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:41
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:40
 #: ../../main/core/src/templates/confirm-backup.mas:41
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:114
 msgid "Archive size"
 msgstr ""
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:159
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:91
-#: ../../main/core/src/templates/backup.mas:161
+#: ../../main/remoteservices/src/templates/Backup/index.mas:157
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:90
+#: ../../main/core/src/templates/backup.mas:155
 msgid "restore"
 msgstr "Geri yükle"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:163
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:95
-#: ../../main/core/src/templates/backup.mas:159
+#: ../../main/remoteservices/src/templates/Backup/index.mas:161
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:94
+#: ../../main/core/src/templates/backup.mas:153
 msgid "download"
 msgstr "İndir"
 
-#: ../../main/remoteservices/src/templates/Backup/index.mas:172
+#: ../../main/remoteservices/src/templates/Backup/index.mas:170
 #, fuzzy
 msgid "Configuration backups' list"
 msgstr "Ayarlarımı yedekle"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:37
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
 #, fuzzy
 msgid "Zentyal host"
 msgstr "eBox web sayfası"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:101
-#: ../../main/core/src/templates/backup.mas:115
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:100
+#: ../../main/core/src/templates/backup.mas:111
 msgid "Backups' list"
 msgstr "Yedekleme Listesi"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:125
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:122
 #, fuzzy
 msgid "User or Email Address"
 msgstr "E-posta adresi"
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:136
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:133
 msgid "Submit"
 msgstr ""
 
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:140
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:137
 #, fuzzy
 msgid "Enter user and password"
 msgstr "Kullanıcı adı ve parola"
@@ -17411,6 +17535,20 @@ msgstr "Girin"
 
 #: ../../main/captiveportal/src/templates/popup.mas:39
 msgid "Keep this window open while using your Internet connection."
+msgstr ""
+
+#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:31
+#: ../../main/core/src/templates/ajax/tableBody.mas:796
+#: ../../main/core/src/templates/ajax/tableBody.mas:953
+#: ../../main/core/src/templates/ajax/tableModalView.mas:633
+msgid "Move up"
+msgstr ""
+
+#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:39
+#: ../../main/core/src/templates/ajax/tableBody.mas:812
+#: ../../main/core/src/templates/ajax/tableBody.mas:955
+#: ../../main/core/src/templates/ajax/tableModalView.mas:649
+msgid "Move down"
 msgstr ""
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:7
@@ -17654,16 +17792,117 @@ msgid "Directory name"
 msgstr "Dizin ismi"
 
 #: ../../main/samba/src/templates/samba.mas:71
-msgid "Select the printers this user will have access to."
-msgstr "Kullanıcının hizmetine sunulan yazıcıları seçin."
+#, fuzzy
+msgid "file sharing module"
+msgstr "Dosya paylaşım"
 
-#: ../../main/samba/stubs/smb.conf.mas:63
+#: ../../main/samba/src/templates/samba.mas:83
+#, fuzzy, perl-brace-format
+msgid "The following settings will take effect only when the {mod} is enabled"
+msgstr "Asterix modülü etkin olduğunda aşağıdaki ayarlar uygulanacaktır"
+
+#: ../../main/samba/stubs/smb.conf.mas:59
 msgid "Home Directories"
 msgstr "Ev dizinleri"
 
 #: ../../main/mailfilter/stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr ""
+
+#: ../../main/ca/src/templates/index.mas:41
+#: ../../main/ca/src/templates/createCA.mas:9
+msgid "Country code"
+msgstr "Ülke Kodu"
+
+#: ../../main/ca/src/templates/index.mas:44
+#: ../../main/ca/src/templates/createCA.mas:13
+msgid "City"
+msgstr "Şehir"
+
+#: ../../main/ca/src/templates/index.mas:58
+#: ../../main/ca/src/templates/formRevoke.mas:41
+#: ../../main/ca/src/templates/formReissue.mas:15
+#: ../../main/ca/src/templates/formReissue.mas:38
+#: ../../main/ca/src/templates/formRenew.mas:57
+msgid "Subject Alternative Names"
+msgstr ""
+
+#: ../../main/ca/src/templates/index.mas:59
+#, perl-brace-format
+msgid ""
+"Multi-value separated by commas, only valid types are: {dns}, {ip} and "
+"{email}. For instance, {example}"
+msgstr ""
+
+#: ../../main/ca/src/templates/index.mas:73
+msgid "Issue"
+msgstr "Yayımla"
+
+#: ../../main/ca/src/templates/index.mas:82
+#, fuzzy
+msgid "Certificate changes will take effect immediately."
+msgstr "Sertifika değişikliği derhal uygulanacak"
+
+#: ../../main/ca/src/templates/index.mas:83
+msgid "The CA passphrase is optional"
+msgstr "CA parolası isteğe bağlıdı"
+
+#: ../../main/ca/src/templates/index.mas:86
+msgid "Issue the Certification Authority Certificate"
+msgstr "Sertifikasyon Yetkili Sertifikasını Yayımla"
+
+#: ../../main/ca/src/templates/index.mas:87
+#, fuzzy
+msgid "Issue a New Certificate"
+msgstr "Yeni bir sertifika yayımla"
+
+#: ../../main/ca/src/templates/index.mas:93
+msgid "Current Certificate List"
+msgstr "Mevcut Sertifika Listesi"
+
+#: ../../main/ca/src/templates/index.mas:94
+msgid ""
+"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+"Revoked certificates respectively"
+msgstr ""
+"Geçerli/Süresi Geçen'deki Bitiş Tarihi tarihi ve İptal Edilen "
+"sertifikalardaki İptal Tarihi"
+
+#: ../../main/ca/src/templates/index.mas:113
+msgid "from"
+msgstr "den/dan"
+
+#: ../../main/ca/src/templates/index.mas:121
+msgid "Valid"
+msgstr "Geçerli"
+
+#: ../../main/ca/src/templates/index.mas:123
+msgid "Expired"
+msgstr "Sona Ermiş"
+
+#: ../../main/ca/src/templates/index.mas:125
+msgid "Revoked"
+msgstr "İptal Edilmiş"
+
+#: ../../main/ca/src/templates/index.mas:130
+#, perl-brace-format
+msgid "Reason: {reason}"
+msgstr ""
+
+#: ../../main/ca/src/templates/index.mas:201
+#: ../../main/ca/src/templates/forceRevoke.mas:36
+#: ../../main/ca/src/templates/formRevoke.mas:74
+msgid "Revoke"
+msgstr "İptal"
+
+#: ../../main/ca/src/templates/index.mas:203
+msgid "Download Key(s) and Certificate"
+msgstr "Anahtar(lar)ı ve Sertifikayı indir"
+
+#: ../../main/ca/src/templates/index.mas:205
+#, fuzzy
+msgid "Renew or reissue"
+msgstr "Yayımla"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -17695,11 +17934,6 @@ msgstr ""
 "kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
 "kılmayı istediğinizi onaylayın"
 
-#: ../../main/ca/src/templates/forceRevoke.mas:36
-#: ../../main/ca/src/templates/formRevoke.mas:74
-msgid "Revoke"
-msgstr "İptal"
-
 #: ../../main/ca/src/templates/formRevoke.mas:10
 #, fuzzy
 msgid "Revoke a Certificate"
@@ -17720,13 +17954,6 @@ msgstr "Seçilen sertifikayı iptal et"
 msgid "Expiration Date"
 msgstr "Bitiş Tarihi"
 
-#: ../../main/ca/src/templates/formRevoke.mas:41
-#: ../../main/ca/src/templates/formReissue.mas:15
-#: ../../main/ca/src/templates/formReissue.mas:38
-#: ../../main/ca/src/templates/formRenew.mas:57
-msgid "Subject Alternative Names"
-msgstr ""
-
 #: ../../main/ca/src/templates/formRevoke.mas:68
 #: ../../main/ca/src/templates/formReissue.mas:20
 #: ../../main/ca/src/templates/formRenew.mas:17
@@ -17743,15 +17970,8 @@ msgstr "Yayımla"
 msgid "Reissue a certificate"
 msgstr "Bir sertifika yenileme"
 
-#: ../../main/ca/src/templates/createCA.mas:9
-msgid "Country code"
-msgstr "Ülke Kodu"
-
-#: ../../main/ca/src/templates/createCA.mas:13
-msgid "City"
-msgstr "Şehir"
-
 #: ../../main/ca/src/templates/createCA.mas:27
+#: ../../main/mail/src/templates/groupalias.mas:57
 #: ../../main/mail/src/templates/createaccount.mas:37
 #: ../../main/mail/src/templates/alias.mas:47
 msgid "Create"
@@ -17768,7 +17988,31 @@ msgstr ""
 msgid "Create Certification Authority Certificate"
 msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
 
-#: ../../main/ca/src/templates/forceRenew.mas:54
+#: ../../main/ca/src/templates/forceRenew.mas:26
+#: ../../main/ca/src/templates/formRenew.mas:23
+msgid "Renew"
+msgstr "Yenileme"
+
+#: ../../main/ca/src/templates/forceRenew.mas:41
+msgid "Renewing CA certificate"
+msgstr "CA sertifikası yenilemesi"
+
+#: ../../main/ca/src/templates/forceRenew.mas:43
+msgid "Renewing certificate"
+msgstr "Serifika yenilemesi"
+
+#: ../../main/ca/src/templates/forceRenew.mas:49
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Bu yenileme diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden "
+"lütfen {on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız "
+"veya etkisi kılacağınızdan emin olun."
+
+#: ../../main/ca/src/templates/forceRenew.mas:51
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
@@ -17778,10 +18022,6 @@ msgstr ""
 "Yenilemek istediğiniz {cn} genel isimli sertifika bazı modüller tarafından "
 "kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
 "kılmayı istediğinizi onaylayın"
-
-#: ../../main/ca/src/templates/formRenew.mas:23
-msgid "Renew"
-msgstr "Yenileme"
 
 #: ../../main/ca/src/templates/formRenew.mas:28
 msgid "Renew a certificate"
@@ -17914,16 +18154,34 @@ msgstr "Değişikliklerden vazgeç"
 msgid "There are no unsaved changes."
 msgstr "Kaydolmamış değişiklikler mevcut değil."
 
-#: ../../main/core/src/templates/progress.mas:140
+#: ../../main/core/src/templates/progress.mas:30
+#, fuzzy
+msgid "Item"
+msgstr "Sistem"
+
+#: ../../main/core/src/templates/progress.mas:31
+msgid "items left"
+msgstr ""
+
+#: ../../main/core/src/templates/progress.mas:33
+#, fuzzy
+msgid "Some error has happened in Zentyal: "
+msgstr "eBox etkin ve çalışıyor"
+
+#: ../../main/core/src/templates/progress.mas:38
+msgid "Click here to go to the Dashboard"
+msgstr ""
+
+#: ../../main/core/src/templates/progress.mas:144
 #, fuzzy
 msgid "Starting..."
 msgstr "Başlat"
 
-#: ../../main/core/src/templates/progress.mas:147
+#: ../../main/core/src/templates/progress.mas:154
 msgid " of "
 msgstr ""
 
-#: ../../main/core/src/templates/progress.mas:155
+#: ../../main/core/src/templates/progress.mas:162
 msgid "The process produced some warning messages:"
 msgstr ""
 
@@ -17946,14 +18204,29 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:45
+#: ../../main/core/src/templates/confirm-backup.mas:94
+msgid "Full Restore"
+msgstr "Tüm geri yükleme"
+
+#: ../../main/core/src/templates/confirm-backup.mas:95
+msgid "Configuration Restore"
+msgstr "Ayar dosyaları geri yükleme"
+
+#: ../../main/core/src/templates/confirm-backup.mas:100
+msgid "Restore mode"
+msgstr "Geri yükleme modu"
+
+#: ../../main/core/src/templates/ajax/tablePager.mas:44
+#: ../../main/core/src/templates/logs/dbtable.mas:73
+#: ../../main/core/src/templates/logs/dbtable.mas:74
 #: ../../main/mail/src/templates/qmanager.mas:90
 #: ../../main/mail/src/templates/qmanager.mas:91
 msgid "Page"
 msgstr "Sayfa"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:56
-#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/core/src/templates/ajax/tablePager.mas:55
+#: ../../main/core/src/templates/ajax/tablePager.mas:57
+#: ../../main/core/src/templates/logs/dbtable.mas:65
 #: ../../main/mail/src/templates/qmanager.mas:82
 #, fuzzy
 msgid "first"
@@ -17965,8 +18238,9 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "birinci"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:56
-#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/core/src/templates/ajax/tablePager.mas:55
+#: ../../main/core/src/templates/ajax/tablePager.mas:57
+#: ../../main/core/src/templates/logs/dbtable.mas:67
 #: ../../main/mail/src/templates/qmanager.mas:84
 #, fuzzy
 msgid "prev"
@@ -17978,8 +18252,9 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "önceki"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:63
-#: ../../main/core/src/templates/ajax/tablePager.mas:69
+#: ../../main/core/src/templates/ajax/tablePager.mas:62
+#: ../../main/core/src/templates/ajax/tablePager.mas:68
+#: ../../main/core/src/templates/logs/dbtable.mas:83
 #: ../../main/mail/src/templates/qmanager.mas:100
 #, fuzzy
 msgid "next"
@@ -17991,8 +18266,9 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "sonraki"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:66
-#: ../../main/core/src/templates/ajax/tablePager.mas:71
+#: ../../main/core/src/templates/ajax/tablePager.mas:65
+#: ../../main/core/src/templates/ajax/tablePager.mas:70
+#: ../../main/core/src/templates/logs/dbtable.mas:85
 #: ../../main/mail/src/templates/qmanager.mas:102
 #, fuzzy
 msgid "last"
@@ -18004,109 +18280,132 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "sonuncu"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:653
+#: ../../main/core/src/templates/ajax/tableSelector.mas:13
+msgid "Choose one of the options to show the associated table"
+msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
+
+#: ../../main/core/src/templates/ajax/tableSelector.mas:29
+msgid "Choose one..."
+msgstr "Birtanesini seçin..."
+
+#: ../../main/core/src/templates/ajax/viewer/file.mas:18
+#, fuzzy
+msgid "Current file"
+msgstr "Güncel parola"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:345
+#: ../../main/core/src/templates/ajax/tableModal.mas:173
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Yeni bir {row} ekleniyor"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:348
+#: ../../main/core/src/templates/ajax/tableModal.mas:179
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "{row} düzenleniyor"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:351
+#, fuzzy, perl-brace-format
+msgid "Cloning {row}"
+msgstr "{row} düzenleniyor"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:624
+#: ../../main/core/src/templates/ajax/tableModalView.mas:139
+#: ../../main/core/src/templates/ajax/tableModal.mas:164
+#: ../../main/mail/src/templates/externalAccounts.mas:37
 msgid "Add new"
 msgstr "Yeni ekle"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:703
-#: ../../main/core/src/templates/ajax/tableModalView.mas:526
+#: ../../main/core/src/templates/ajax/tableBody.mas:673
+#: ../../main/core/src/templates/ajax/tableModalView.mas:504
 msgid "Clone"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:708
-#: ../../main/core/src/templates/ajax/tableModalView.mas:531
+#: ../../main/core/src/templates/ajax/tableBody.mas:678
+#: ../../main/core/src/templates/ajax/tableModalView.mas:509
 msgid "Read-only row: edit disabled"
 msgstr "Salt-okunur satır: Düzenleme yapılamaz"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:709
-#: ../../main/core/src/templates/ajax/tableModalView.mas:532
+#: ../../main/core/src/templates/ajax/tableBody.mas:679
+#: ../../main/core/src/templates/ajax/tableModalView.mas:510
 msgid "Read-only row: delete disabled"
 msgstr "Salt-okunur satır: Silinemez."
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:711
-#: ../../main/core/src/templates/ajax/tableModalView.mas:534
+#: ../../main/core/src/templates/ajax/tableBody.mas:681
+#: ../../main/core/src/templates/ajax/tableModalView.mas:512
 #, fuzzy
 msgid "Read-only row: clone disabled"
 msgstr "Salt-okunur satır: Silinemez."
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:823
-#: ../../main/core/src/templates/ajax/tableModalView.mas:652
+#: ../../main/core/src/templates/ajax/tableBody.mas:792
+#: ../../main/core/src/templates/ajax/tableModalView.mas:629
 #, fuzzy
 msgid "Read-only row: move up disabled"
 msgstr "Salt-okunur satır: Düzenleme yapılamaz"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:827
-#: ../../main/core/src/templates/ajax/tableModalView.mas:656
-msgid "Move up"
-msgstr ""
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:839
-#: ../../main/core/src/templates/ajax/tableModalView.mas:668
+#: ../../main/core/src/templates/ajax/tableBody.mas:808
+#: ../../main/core/src/templates/ajax/tableModalView.mas:645
 #, fuzzy
 msgid "Read-only row: move down  disabled"
 msgstr "Salt-okunur satır: Düzenleme yapılamaz"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:843
-#: ../../main/core/src/templates/ajax/tableModalView.mas:672
-msgid "Move down"
-msgstr ""
-
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:35
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:34
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "January"
 msgstr "Ocak"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:36
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:35
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "February"
 msgstr "Şubat"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:37
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:36
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "March"
 msgstr "Mart"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:38
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:37
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "April"
 msgstr "Nisan"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:39
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:38
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "May"
 msgstr "Mayıs"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:40
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:39
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "June"
 msgstr "Haziran"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:41
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:40
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "July"
 msgstr "Temmuz"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:42
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:41
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "August"
 msgstr "Ağustos"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:43
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:42
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "September"
 msgstr "Eylül"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:44
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:43
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "October"
 msgstr "Ekim"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:45
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:44
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "November"
 msgstr "Kasım"
 
-#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:46
+#: ../../main/core/src/templates/ajax/setter/dateSetter.mas:45
 #: ../../main/core/src/templates/logs/index.mas:50
 msgid "December"
 msgstr "Aralık"
@@ -18116,12 +18415,12 @@ msgstr "Aralık"
 msgid "Add new..."
 msgstr "Yeni ekle"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:145
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "No elements found. "
 msgstr "Sayfa bulunamadı"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:145
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "Add a new one"
 msgstr "Yeni bir {row} ekleniyor"
@@ -18134,8 +18433,9 @@ msgstr "Eşleşenleri tersine çevir"
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:14
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:29
+#: ../../main/core/src/templates/formTable.mas:82
 #: ../../main/users/src/templates/users.mas:41
-#: ../../main/users/src/templates/user.mas:48
+#: ../../main/users/src/templates/user.mas:46
 msgid "Optional"
 msgstr "Opsiyonel"
 
@@ -18144,7 +18444,7 @@ msgstr "Opsiyonel"
 msgid "Depends"
 msgstr "olay"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:78
+#: ../../main/core/src/templates/moduleStatusTable.mas:77
 #, fuzzy, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "{mode} modu bilinmeyen bir kurturtma modudur"
@@ -18280,8 +18580,117 @@ msgstr ""
 msgid "Partition Properties"
 msgstr ""
 
-#: ../../main/core/src/templates/report/raid.mas:7
-msgid "Unused devices"
+#: ../../main/core/src/templates/report/raid.mas:19
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:41
+#, fuzzy
+msgid "RAID is not enabled in this system."
+msgstr "PDC etkinleştirilmemiş"
+
+#: ../../main/core/src/templates/report/raid.mas:90
+msgid "left-asymmetric"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:91
+msgid "right-asymmetric"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:92
+msgid "left-symmetric"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:93
+msgid "right-symmetric"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:138
+msgid "Active RAID devices"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:139
+#, fuzzy
+msgid "Active RAID devices needed"
+msgstr "Aralık"
+
+#: ../../main/core/src/templates/report/raid.mas:140
+msgid "Size in blocks"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:141
+msgid "Chunk size"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:144
+msgid "Parity algorithm"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:156
+msgid "Bitmap"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:177
+msgid "Array properties"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:192
+msgid "Resyncing array"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:193
+msgid "Rebuild array"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:194
+msgid "Reshape array"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:202
+#, fuzzy
+msgid "Operation type"
+msgstr "Seçmeli Integer değeri"
+
+#: ../../main/core/src/templates/report/raid.mas:204
+msgid "Percentage completed"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:206
+msgid "Estimated time left"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:208
+#, fuzzy
+msgid "Operation speed"
+msgstr "Seçmeli Integer değeri"
+
+#: ../../main/core/src/templates/report/raid.mas:221
+#, fuzzy
+msgid "RAID device number"
+msgstr "Aralık"
+
+#: ../../main/core/src/templates/report/raid.mas:222
+#, fuzzy
+msgid "Device"
+msgstr "Servis"
+
+#: ../../main/core/src/templates/report/raid.mas:229
+#, fuzzy
+msgid "failure"
+msgstr "alan"
+
+#: ../../main/core/src/templates/report/raid.mas:231
+#, fuzzy
+msgid "Failure on spare"
+msgstr "Boş depolama alanı"
+
+#: ../../main/core/src/templates/report/raid.mas:259
+msgid "No unused RAID devices"
+msgstr ""
+
+#: ../../main/core/src/templates/report/raid.mas:262
+msgid "Unused RAID arrays"
 msgstr ""
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
@@ -18299,6 +18708,7 @@ msgid "Keep current file"
 msgstr ""
 
 #: ../../main/core/src/templates/configurationFiles.mas:19
+#: ../../main/mail/src/templates/alias.mas:133
 msgid "Modify"
 msgstr "Değiştir"
 
@@ -18314,12 +18724,12 @@ msgid ""
 "operations."
 msgstr ""
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:34
 #, fuzzy
 msgid "Backup the Current State"
 msgstr "Güncel durumu yedekle"
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 #, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
@@ -18329,19 +18739,19 @@ msgstr ""
 "kaydedebilirsiniz veya isterseniz CD/DVD aygıtınız ile yazdırabilirsiniz. "
 "İsterseniz kopyalama işlemini daha sonrada yapabilirsiniz."
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
 
-#: ../../main/core/src/templates/backup.mas:69
+#: ../../main/core/src/templates/backup.mas:67
 #, fuzzy
 msgid "Restore Backup from File"
 msgstr "Dosyadan geri yedekle "
 
-#: ../../main/core/src/templates/backup.mas:72
+#: ../../main/core/src/templates/backup.mas:68
 #, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
@@ -18351,36 +18761,36 @@ msgstr ""
 "yaparken bazı gezginler tarafından büyük dosyaları (>= 1GB) "
 "gönderemeyeceğiniz uyarısı gelebilir"
 
-#: ../../main/core/src/templates/backup.mas:79
+#: ../../main/core/src/templates/backup.mas:75
 msgid "Backup file"
 msgstr "Yedekleme dosyası"
 
-#: ../../main/core/src/templates/backup.mas:107
+#: ../../main/core/src/templates/backup.mas:103
 msgid "Full"
 msgstr "Hepsi"
 
-#: ../../main/core/src/templates/backup.mas:108
+#: ../../main/core/src/templates/backup.mas:104
 msgid "Configuration only"
 msgstr "Sadece ayar dosyaları"
 
-#: ../../main/core/src/templates/backup.mas:109
+#: ../../main/core/src/templates/backup.mas:105
 msgid "Unknown type"
 msgstr "Türü bilinmiyor"
 
-#: ../../main/core/src/templates/backup.mas:139
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Bu dosyayı kullanarak geri yükleme işlemi yap"
 
-#: ../../main/core/src/templates/backup.mas:139
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore from backup"
 msgstr "Yedekleme üzerinden geri yükle"
 
-#: ../../main/core/src/templates/backup.mas:171
+#: ../../main/core/src/templates/backup.mas:165
 #, fuzzy
 msgid "Configuration Report"
 msgstr "Ayar dosyaları geri yükleme"
 
-#: ../../main/core/src/templates/backup.mas:174
+#: ../../main/core/src/templates/backup.mas:166
 #, fuzzy
 msgid ""
 "You can generate a file with information about the state of your system. "
@@ -18390,7 +18800,7 @@ msgstr ""
 "sağlar. Oluşan dosya size yararlı bilgiler verecektir. Bu dosya sayesinde "
 "hata geri bildirimi yapabilirsiniz."
 
-#: ../../main/core/src/templates/backup.mas:178
+#: ../../main/core/src/templates/backup.mas:170
 msgid "Generate and Download report file"
 msgstr ""
 
@@ -18487,6 +18897,11 @@ msgstr "Posta hesabı oluştur"
 msgid "Account name"
 msgstr "Hesap ismi"
 
+#: ../../main/mail/src/templates/createaccount.mas:48
+#, fuzzy
+msgid "Maildir size"
+msgstr "sayfa"
+
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 #, fuzzy
 msgid "Virtual mail domain"
@@ -18509,14 +18924,14 @@ msgstr "Bu kullanıcının bir posta hesabı var"
 msgid "Mail account"
 msgstr "Posta hesabı"
 
-#: ../../main/mail/src/templates/account.mas:24
+#: ../../main/mail/src/templates/account.mas:22
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:27
+#: ../../main/mail/src/templates/account.mas:25
 #, fuzzy
 msgid "Click here to create a new mail virtual domain"
 msgstr "Yeni sanal bir alan ekle"
@@ -18542,6 +18957,22 @@ msgstr "Posta servisleri"
 #, fuzzy
 msgid "Fetch already read messages"
 msgstr "Posta kutusu dosyasından öğren"
+
+#: ../../main/mail/src/templates/externalAccounts.mas:23
+#, perl-brace-format
+msgid ""
+"Mail retrieval from external accounts service is not enabled; until you {ub}"
+"enable it{ue} your changes won't have any effect."
+msgstr ""
+
+#: ../../main/mail/src/templates/externalAccounts.mas:32
+msgid "The user can change this settings through the user corner"
+msgstr ""
+
+#: ../../main/mail/src/templates/externalAccounts.mas:73
+#, fuzzy
+msgid "Delete external account"
+msgstr "Posta hesabı"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
@@ -18609,18 +19040,28 @@ msgstr "Posta hesabı ayarları"
 msgid "Create mail aliases"
 msgstr "İleti takma ismi oluştur"
 
-#: ../../main/mail/src/templates/alias.mas:102
+#: ../../main/mail/src/templates/alias.mas:100
 msgid "No quota"
 msgstr ""
 
-#: ../../main/mail/src/templates/alias.mas:103
+#: ../../main/mail/src/templates/alias.mas:101
 msgid "Default quota"
 msgstr ""
 
-#: ../../main/mail/src/templates/alias.mas:104
+#: ../../main/mail/src/templates/alias.mas:102
 #, fuzzy
 msgid "Custom quota"
 msgstr "Özel"
+
+#: ../../main/mail/src/templates/alias.mas:108
+#, fuzzy
+msgid "Quota type"
+msgstr "Süzgeç"
+
+#: ../../main/mail/src/templates/alias.mas:119
+#, fuzzy
+msgid "Maximum mailbox size in MB"
+msgstr "Posta hesap boyutu sınırı"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:7
 #, fuzzy
@@ -18706,7 +19147,7 @@ msgid "Add User"
 msgstr "Kullanıcı ekle"
 
 #: ../../main/users/src/templates/users.mas:54
-#: ../../main/users/src/templates/user.mas:79
+#: ../../main/users/src/templates/user.mas:76
 msgid "Retype password"
 msgstr "Parola (tekrar)"
 
@@ -18715,7 +19156,7 @@ msgstr "Parola (tekrar)"
 msgid "Add and Edit"
 msgstr ""
 
-#: ../../main/users/src/templates/users.mas:100
+#: ../../main/users/src/templates/users.mas:98
 #, fuzzy
 msgid "Organizational Unit"
 msgstr "Organizasyon Adı"
@@ -18733,12 +19174,12 @@ msgstr ""
 msgid "Host domain name"
 msgstr "Alan adı"
 
-#: ../../main/users/src/templates/usersTableBody.mas:62
+#: ../../main/users/src/templates/usersTableBody.mas:57
 #, fuzzy
 msgid "All organizational units"
 msgstr "Organizasyon Adı"
 
-#: ../../main/users/src/templates/usersTableBody.mas:67
+#: ../../main/users/src/templates/usersTableBody.mas:62
 #, fuzzy
 msgid "Organizational unit"
 msgstr "Organizasyon Adı"
@@ -18805,8 +19246,8 @@ msgstr "Grup içinde kullanıcı mevcut değil"
 
 #: ../../main/users/src/templates/group.mas:40
 #: ../../main/users/src/templates/group.mas:70
-#: ../../main/users/src/templates/user.mas:116
-#: ../../main/users/src/templates/user.mas:141
+#: ../../main/users/src/templates/user.mas:113
+#: ../../main/users/src/templates/user.mas:138
 msgid "Empty list"
 msgstr "Liste boş"
 
@@ -18816,8 +19257,8 @@ msgstr "Kullanıcılar grubtan kaldır"
 
 #: ../../main/users/src/templates/group.mas:58
 #: ../../main/users/src/templates/group.mas:59
-#: ../../main/users/src/templates/user.mas:130
-#: ../../main/users/src/templates/user.mas:131
+#: ../../main/users/src/templates/user.mas:127
+#: ../../main/users/src/templates/user.mas:128
 msgid "Add users to group"
 msgstr "Kullanıcılar gruba ekle"
 
@@ -18840,32 +19281,32 @@ msgstr ""
 msgid "Administration of user"
 msgstr "Yönetici hakları"
 
-#: ../../main/users/src/templates/user.mas:61
+#: ../../main/users/src/templates/user.mas:58
 #, fuzzy
 msgid "User quota"
 msgstr "Kullanıcı payı aşıldı"
 
-#: ../../main/users/src/templates/user.mas:102
+#: ../../main/users/src/templates/user.mas:99
 #, fuzzy
 msgid "User groups"
 msgstr "Grubdaki kullanıcılar"
 
-#: ../../main/users/src/templates/user.mas:103
+#: ../../main/users/src/templates/user.mas:100
 #, fuzzy
 msgid "Other groups"
 msgstr "Grubu sil"
 
-#: ../../main/users/src/templates/user.mas:124
+#: ../../main/users/src/templates/user.mas:121
 #, fuzzy
 msgid "Remove groups from user"
 msgstr "Kullanıcılar grubtan kaldır"
 
-#: ../../main/users/src/templates/user.mas:157
-#: ../../main/users/src/templates/user.mas:162
+#: ../../main/users/src/templates/user.mas:154
+#: ../../main/users/src/templates/user.mas:159
 msgid "Delete user"
 msgstr "Kullanıcıyı sil"
 
-#: ../../main/users/src/templates/user.mas:158
+#: ../../main/users/src/templates/user.mas:155
 #, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
@@ -18873,6 +19314,15 @@ msgid ""
 msgstr ""
 "Bu işlem kullanıcıyı siler ve ona ait tüm posta ve kullanıcı verileride "
 "birlikte silinir"
+
+#~ msgid "Could not create backup archive"
+#~ msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
+
+#~ msgid "Could not append data to backup archive"
+#~ msgstr "Yedekleme dosyasına ek ilave yapılamıyor."
+
+#~ msgid "Select the printers this user will have access to."
+#~ msgstr "Kullanıcının hizmetine sunulan yazıcıları seçin."
 
 #, fuzzy
 #~ msgid "List of slaves"
@@ -19037,10 +19487,6 @@ msgstr ""
 #~ "İndirmek\n"
 #~ "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 #~ "İndir"
-
-#, fuzzy
-#~ msgid "File size"
-#~ msgstr "sayfa"
 
 #~ msgid "internet domain list"
 #~ msgstr "internet alan adları listesi"
@@ -19243,9 +19689,6 @@ msgstr ""
 #~ msgid "File sharing module is not enabled."
 #~ msgstr "Dosya paylaşım modülü aktif edilmemiş"
 
-#~ msgid "PDC is not enabled."
-#~ msgstr "PDC etkinleştirilmemiş"
-
 #~ msgid "Minimum password length"
 #~ msgstr "Minimum parola uzunluğu"
 
@@ -19282,9 +19725,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "To set up smbldap-tools according to your LDAP configuration."
 #~ msgstr "smbldap-tools u kendi LDAP konfigürasyonunuza göre ayarlamak için"
-
-#~ msgid "printer"
-#~ msgstr "Yazıcı"
 
 #, fuzzy
 #~ msgid "Users files"
@@ -19397,10 +19837,6 @@ msgstr ""
 #~ msgid "printers module"
 #~ msgstr "Yazıcı"
 
-#, fuzzy
-#~ msgid "file sharing module"
-#~ msgstr "Dosya paylaşım"
-
 #~ msgid ""
 #~ "The group you tried to delete has a directory which contains data, if you "
 #~ "remove it all its data will be removed. Please confirm that you want to "
@@ -19412,108 +19848,6 @@ msgstr ""
 #~ msgid "{group} share directory"
 #~ msgstr "{group} için paylaşım klasörü"
 
-#~ msgid "Issue"
-#~ msgstr "Yayımla"
-
-#, fuzzy
-#~ msgid "Certificate changes will take effect immediately."
-#~ msgstr "Sertifika değişikliği derhal uygulanacak"
-
-#~ msgid "The CA passphrase is optional"
-#~ msgstr "CA parolası isteğe bağlıdı"
-
-#~ msgid "Issue the Certification Authority Certificate"
-#~ msgstr "Sertifikasyon Yetkili Sertifikasını Yayımla"
-
-#, fuzzy
-#~ msgid "Issue a New Certificate"
-#~ msgstr "Yeni bir sertifika yayımla"
-
-#~ msgid "Current Certificate List"
-#~ msgstr "Mevcut Sertifika Listesi"
-
-#~ msgid ""
-#~ "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
-#~ "Revoked certificates respectively"
-#~ msgstr ""
-#~ "Geçerli/Süresi Geçen'deki Bitiş Tarihi tarihi ve İptal Edilen "
-#~ "sertifikalardaki İptal Tarihi"
-
-#~ msgid "from"
-#~ msgstr "den/dan"
-
-#~ msgid "Valid"
-#~ msgstr "Geçerli"
-
-#~ msgid "Expired"
-#~ msgstr "Sona Ermiş"
-
-#~ msgid "Revoked"
-#~ msgstr "İptal Edilmiş"
-
-#~ msgid "Download Key(s) and Certificate"
-#~ msgstr "Anahtar(lar)ı ve Sertifikayı indir"
-
-#~ msgid "Renewing CA certificate"
-#~ msgstr "CA sertifikası yenilemesi"
-
-#~ msgid "Renewing certificate"
-#~ msgstr "Serifika yenilemesi"
-
-#~ msgid ""
-#~ "This renewal can affect the functionality from other modules, please "
-#~ "confirm you are very sure to renew the whole certification authority from "
-#~ "{on} and leave the service(s) unstable or disabled"
-#~ msgstr ""
-#~ "Bu yenileme diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden "
-#~ "lütfen {on} konumundaki tüm sertifikaları iptal etmek ve servisleri "
-#~ "kararsız veya etkisi kılacağınızdan emin olun."
-
-#, fuzzy
-#~ msgid "Item"
-#~ msgstr "Sistem"
-
-#~ msgid "Full Restore"
-#~ msgstr "Tüm geri yükleme"
-
-#~ msgid "Configuration Restore"
-#~ msgstr "Ayar dosyaları geri yükleme"
-
-#~ msgid "Restore mode"
-#~ msgstr "Geri yükleme modu"
-
-#~ msgid "Choose one of the options to show the associated table"
-#~ msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
-
-#~ msgid "Choose one..."
-#~ msgstr "Birtanesini seçin..."
-
-#~ msgid "Adding a new {row}"
-#~ msgstr "Yeni bir {row} ekleniyor"
-
-#~ msgid "Editing {row}"
-#~ msgstr "{row} düzenleniyor"
-
-#, fuzzy
-#~ msgid "Operation type"
-#~ msgstr "Seçmeli Integer değeri"
-
-#, fuzzy
-#~ msgid "Operation speed"
-#~ msgstr "Seçmeli Integer değeri"
-
-#, fuzzy
-#~ msgid "RAID device number"
-#~ msgstr "Aralık"
-
-#, fuzzy
-#~ msgid "Device"
-#~ msgstr "Servis"
-
-#, fuzzy
-#~ msgid "failure"
-#~ msgstr "alan"
-
 #, fuzzy
 #~ msgid "Refresh logs"
 #~ msgstr "Günlük sorgula"
@@ -19523,14 +19857,6 @@ msgstr ""
 
 #~ msgid "No logs matching current criterion"
 #~ msgstr "Verilen kriterlere uyan bir günlük bulunamadı"
-
-#, fuzzy
-#~ msgid "Quota type"
-#~ msgstr "Süzgeç"
-
-#, fuzzy
-#~ msgid "Maximum mailbox size in MB"
-#~ msgstr "Posta hesap boyutu sınırı"
 
 #, fuzzy
 #~ msgid "Advanced Security Updates"
@@ -19960,10 +20286,6 @@ msgstr ""
 
 #~ msgid "help message"
 #~ msgstr "yardım mesajı"
-
-#, fuzzy
-#~ msgid "Free space"
-#~ msgstr "Boş depolama alanı"
 
 #~ msgid "Error dumping the postgresql database {name}"
 #~ msgstr "Postgresql {name} veribankasının yedeğinin alınmasında hata oluştu"

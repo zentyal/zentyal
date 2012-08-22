@@ -22,8 +22,8 @@ my $insideComposite = $m->notes('composite');
     <span class='title'><% $title %></span>
 % }
     <span id='helpbutton'>
-        <a id='showhelp' href="#" onclick="showHelp(); return false; " title="<% __('Display help notes') %>">(<% __('show help')%>)</a>
-        <a style='display:none;' id='hidehelp' href="#" onclick="hideHelp(); return false; " title="<% __('Hide help notes') %>">(<% __('hide help')%>)</a>
+        <a id='showhelp' href="#" onclick="showHelp(); return false; " title="<% __('Display help notes') %>"><% __('show help')%></a>
+        <a style='display:none;' id='hidehelp' href="#" onclick="hideHelp(); return false; " title="<% __('Hide help notes') %>"><% __('hide help')%></a>
     </span>
 % }
 </div>

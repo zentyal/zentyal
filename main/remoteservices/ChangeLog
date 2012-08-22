@@ -1,4 +1,26 @@
 HEAD
+	+ Do not set local address for TCP connections
+	+ Avoid division by zero showing DR info
+	+ Use beta values for configuration for now
+	+ Remove no longer used restore backup from proxy
+	+ Added method to write conf-backups and sec-updates credentials
+	  into /var/lib/zentyal/.netrc file
+	+ Remote configuration backup operations now run inside a popup
+	+ Added 'journaling' optional parameter to the RESTClient methods to
+	  enable/disable the journaling for that call
+	+ Optional parameters for RESTClient methods are now named
+	+ Conf Backup go outside the VPN using the new Cloud RESTful API
+	+ Added method setServer to RESTClient
+	+ Added integration with OCS inventory agent
+	+ QA Updates go outside the VPN
+	+ QA apt configuration files are now generated or removed when
+	  setting the configuration for the module (_setConf method)
+	+ QA repository public key included in the package
+	+ Added function cloudCredentials to get server uuid and pass
+	+ Added confKey monitoring_inside_vpn to configure whether the monitoring
+	  stats should be sent using the VPN or not
+	+ Added function cloudDomain to get Zentyal Cloud domain name
+	+ Added function subscribedUUID to get server UUID
 	+ Return current capabilities values if new ones cannot be
 	  obtained
 	+ Give support for 400 errors in REST Client as external

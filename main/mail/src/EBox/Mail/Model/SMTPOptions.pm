@@ -76,6 +76,7 @@ sub _table
                                editable => 1,
                                help     => __('The format is host[:port] being '
                                               . 'port set to 25 if none is supplied'),
+                               allowUnsafeChars => 1,
                               ),
          new EBox::Types::Union(
                               fieldName => 'smarthostAuth',
@@ -360,17 +361,17 @@ sub _validateSmarthost
         return undef;
     }
 
-
-    if ($smarthost =~ m/:/) {
-        my ($host, $port) = split ':', $smarthost;
-        EBox::Validate::checkHost($host, __(q{Smarthost's address}));
-        EBox::Validate::checkPort($port, __(q{Smarthost's port}));
-
-    }else {
-        EBox::Validate::checkHost($smarthost, __(q{Smarthost's address}));
-
+    my ($host, $port) = split ':', $smarthost;
+    # check for not resolve MX syntax
+    if ($host =~ m/^\[.*\]$/) {
+        $host =~ s/^\[//;
+        $host =~ s/\]$//;
     }
 
+    EBox::Validate::checkHost($host, __(q{Smarthost's address}));
+    if ($port) {
+        EBox::Validate::checkPort($port, __(q{Smarthost's port}));
+    }
 
 }
 
@@ -437,7 +438,7 @@ sub viewCustomizer
     $customizer->setModel($self);
 
     my $mail = EBox::Global->modInstance('mail');
-    
+
     my $mailname;
     try {
         $mailname = $mail->mailname();

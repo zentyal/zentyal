@@ -64,10 +64,10 @@ my $actionColumnTitle = pop @columnTitles;
 </%args>
 <td class='tcenter'>
 % while ( my $action_r = shift @actions)  {
-   <& link.mas, href => $action_r->{url}, text => $action_r->{text}, image => $action_r->{icon}  &>
+   <& link.mas, href => $action_r->{url}, text => $action_r->{text}, image => $action_r->{icon}, onclick => $action_r->{onclick} &>
 %   if (@actions) {
    <img src='/data/images/sep.gif' alt='-'/>
-%   }   
+%   }
 % }
 </td>
 </%method>

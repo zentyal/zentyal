@@ -59,6 +59,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
+use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -67,6 +68,7 @@ use Net::DNS;
 use File::Slurp;
 use JSON::XS;
 use POSIX;
+use Data::UUID;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -77,6 +79,12 @@ use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+
+# OCS conf constants
+use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
+use constant OCS_CONF_MAS_FILE   => 'remoteservices/ocsinventory-agent.cfg.mas';
+use constant OCS_CRON_FILE       => '/etc/cron.daily/ocsinventory-agent';
+use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
@@ -147,7 +155,10 @@ sub _setConf
         $self->_reportAdminPort();
     }
 
+    $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
+    $self->_setInventoryAgentConf();
+    $self->_setNETRCFile();
 }
 
 # Method: initialSetup
@@ -198,6 +209,103 @@ sub _setRemoteSupportAccessConf
         }
     }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
+}
+
+sub _setInventoryAgentConf
+{
+    my ($self) = @_;
+
+    my $toRemove = 0;
+    if ( $self->eBoxSubscribed() ) {
+        my $cloud_domain = $self->cloudDomain();
+        EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
+
+        # Check subscription level
+        if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
+            my $cred = $self->cloudCredentials();
+
+            # UUID Format for login: Hexadecimal without '0x'
+            my $ug = new Data::UUID;
+            my $bin_uuid = $ug->from_string($cred->{uuid});
+            my $hex_uuid = $ug->to_hexstring($bin_uuid);
+            my $user = substr($hex_uuid, 2);      # Remove the '0x'
+            my $pass = $cred->{password};
+
+            # OCS Server url
+            my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
+
+            # Agent configuration
+            my @params = (
+                server    => $ocs_server,
+                user      => $user,
+                password  => $pass,
+               );
+
+            $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
+
+            # Enable OCS agent periodic execution
+            $self->writeConfFile(OCS_CRON_FILE,
+                                 OCS_CRON_MAS_FILE);
+        } else {
+            $toRemove = 1;
+        }
+    } else {
+        $toRemove = 1;
+    }
+
+    if ( $toRemove and (-e OCS_CRON_FILE) ) {
+        # Disable OCS agent periodic execution
+        EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
+    }
+}
+
+sub _writeCredentials   # ($fh, $host, $user, $pass)
+{
+    my ($fh, $host, $user, $pass) = @_;
+
+    print $fh "machine $host\n";
+    print $fh "login $user\n";
+    print $fh "password $pass\n\n";
+}
+
+# Set up .netrc file in user's $HOME
+sub _setNETRCFile
+{
+    my ($self) = @_;
+
+    my $file = EBox::Config::home() . '/.netrc';
+
+    if ($self->eBoxSubscribed()) {
+        my $cred = EBox::RemoteServices::Cred->new();
+        my $cloudDomain = $cred->cloudDomain();
+        my $credentials  = $cred->cloudCredentials();
+
+        my $fileHandle;
+        open($fileHandle, '>', $file);
+        chmod 0700, $fileHandle;
+
+        # Conf backup
+        _writeCredentials($fileHandle,
+                          "confbackup.$cloudDomain",
+                          $credentials->{uuid},
+                          $credentials->{password});
+
+        # Security updates
+
+        # Password: UUID in hexadecimal format (without '0x')
+        my $ug = new Data::UUID;
+        my $bin_uuid = $ug->from_string($credentials->{uuid});
+        my $hex_uuid = $ug->to_hexstring($bin_uuid);
+
+        _writeCredentials($fileHandle,
+                          "security-updates.$cloudDomain",
+                          $cred->subscribedHostname(),
+                          substr($hex_uuid, 2));
+
+        close($fileHandle);
+    } else {
+        unlink($file);
+    }
 }
 
 # Method: _daemons
@@ -484,15 +592,24 @@ sub monitorGathererIPAddresses
             __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
     }
 
-    # FIXME: Use monitor outside VPN
     my $monGatherers = [];
-    try {
-        $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-    } catch EBox::Exceptions::Base with {
-        ;
-    };
-    return $monGatherers;
 
+    # If conf key says so, monitoring goes inside the VPN
+    if (EBox::Config::boolean('monitoring_inside_vpn')) {
+        try {
+            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+        } catch EBox::Exceptions::Base with {
+            ;
+        };
+    } else {
+        try {
+            # TODO: Do not hardcode
+            $monGatherers = ['mon.' . $self->cloudDomain()];
+        } catch EBox::Exceptions::External with {
+            ;
+        };
+    }
+    return $monGatherers;
 }
 
 
@@ -1987,6 +2104,7 @@ sub REST
 #  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
+#  * Rename file ebox-qa.list to zentyal-qa.list
 #
 sub _migrateTo30
 {
@@ -1995,6 +2113,7 @@ sub _migrateTo30
     # Drop old VPN client
     # Create a new one
     # Get credentials again
+    # Rename file ebox-qa.list to zentyal-qa.list
 }
 
 
@@ -2015,6 +2134,96 @@ sub desktopActions
     return {
         'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
     };
+}
+
+
+# Method: subscribedUUID
+#
+#        Return the server UUID if this is subscribed to Zentyal Cloud
+#
+# Returns:
+#
+#        String - the UUID
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The UUID is only available if the host is subscribed to Zentyal Cloud')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->subscribedUUID();
+}
+
+
+# Method: cloudDomain
+#
+#        Return the Zentyal Cloud Domain if the server is subscribed
+#
+# Returns:
+#
+#        String - the Zentyal Cloud Domain
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudDomain
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Domain is only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudDomain();
+}
+
+# Method: cloudCredentials
+#
+#        Return the Zentyal Cloud Credentials if the server is subscribed
+#
+# Returns:
+#
+#        Hash ref - 'uuid' and 'password'
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudCredentials
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudCredentials();
+}
+
+# Method: _setQAUpdates
+#
+#       Turn the QA Updates ON or OFF depending on the subscription level
+#
+sub _setQAUpdates
+{
+    EBox::RemoteServices::QAUpdates::set();
+
 }
 
 1;

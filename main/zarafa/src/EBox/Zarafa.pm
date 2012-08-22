@@ -44,6 +44,8 @@ use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
+use constant KEYTAB_FILE => '/etc/zarafa/http.keytab';
+
 use constant FIRST_RUN_FILE => '/var/lib/zentyal/conf/zentyal-zarafa.first';
 use constant STATS_CMD      => '/usr/bin/zarafa-stats';
 
@@ -165,7 +167,7 @@ sub kerberosServicePrincipals
     my ($self) = @_;
 
     my $data = { service    => 'zarafa',
-                 principals => [ 'http' ],
+                 principals => [ 'zarafa-web' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;
@@ -364,6 +366,7 @@ sub _setConf
 
     my @array = ();
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $users = EBox::Global->modInstance('users');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
@@ -384,7 +387,7 @@ sub _setConf
     my $server_ssl_enabled;
     if ($self->model('GeneralSettings')->soapValue()) {
         $server_bind = '0.0.0.0';
-        $server_ssl_enabled = 'yes';
+        $server_ssl_enabled = 'no';
     } else {
         $server_bind = '127.0.0.1';
         $server_ssl_enabled = 'no';
@@ -393,6 +396,7 @@ sub _setConf
     my $attachment_path = EBox::Config::configkey('zarafa_attachment_path');
     my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
     my $enable_hosted_zarafa = EBox::Config::configkey('zarafa_enable_hosted_zarafa');
+    my $enable_sso = EBox::Config::configkey('zarafa_enable_sso');
     push(@array, 'server_bind' => $server_bind);
     push(@array, 'hostname' => $self->_hostname());
     push(@array, 'mysql_user' => 'zarafa');
@@ -404,6 +408,7 @@ sub _setConf
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
     push(@array, 'enable_hosted_zarafa' => $enable_hosted_zarafa);
+    push(@array, 'enable_sso' => $enable_sso);
     push(@array, 'indexer' => $zarafa_indexer);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
@@ -692,9 +697,9 @@ sub _setWebServerConf
         push(@cmds, 'a2ensite zarafa-webaccess');
         push(@cmds, 'a2ensite zarafa-webapp');
         if ($activesync) {
-            push(@cmds, 'a2ensite z-push');
+            push(@cmds, 'a2ensite d-push');
         } else {
-            push(@cmds, 'a2dissite z-push');
+            push(@cmds, 'a2dissite d-push');
         }
         if ($jabber) {
             push(@cmds, 'a2ensite zarafa-webapp-xmpp');
@@ -706,7 +711,7 @@ sub _setWebServerConf
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite zarafa-webapp-xmpp');
-        push(@cmds, 'a2dissite z-push');
+        push(@cmds, 'a2dissite d-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
         $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);

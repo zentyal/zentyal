@@ -304,7 +304,7 @@ sub unionTest : Test(6)
     ok $row->elementExists($selectedUnionSubtype),
         'checking that selected union-subtype object exists using elementExists';
     ok ( not $row->elementExists($unselectedUnionSubtype) ),
-        'checking that unselected union-subtype object does not exists for elementExists';
+        'checking that unselected union-subtype object does not exist for elementExists';
 
     is_deeply $row->elementByName($unionName), $unionObject,
    'checking that elementByName can return the union object itself if requested';

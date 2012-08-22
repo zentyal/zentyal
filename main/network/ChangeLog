@@ -1,5 +1,9 @@
 HEAD
+	+ Removed some warnings when external is undefined
 	+ Added modeldepends to yaml schema
+	+ New libossp-uuid-perl dependency
+	+ Zentyal Cloud DynDNS updates are now done outside the VPN and using
+	  the credentials obtained when the server is subscribed
 2.3.12
 	+ Interface is now auto-detected when adding gateways
 	+ New table to allow disabling of traffic balance for some gateways

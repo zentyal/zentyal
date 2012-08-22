@@ -28,6 +28,7 @@ use EBox::NetWrappers;
 use EBox::Service;
 
 use constant UPSTART_DIR => '/etc/init';
+use constant RUN_DIR     => '/var/run/';
 
 sub new
 {
@@ -209,7 +210,7 @@ sub ifaceAddress
         return undef;
     }elsif ($nAddresses > 1) {
         EBox::warn(
-"More than one addres for interface $iface. Only one of them will be show" );
+'More than one address for $iface interface. Only one of them will be shown' );
     }
 
     my ($addr, $netmask) = each %addresses;
@@ -347,6 +348,7 @@ sub writeConfFile
       (
         logFile       => $self->logFile(),
         statusLogFile => $self->statusLogFile(),
+        pidFile       => $self->_pidFile(),
       );
 
     my $fileAttrs  = {
@@ -560,14 +562,20 @@ sub limitRespawn
     return 0;
 }
 
+# Method: _pidFile
+#
+#    Get the PID file to write to check the status afterwards
+#
+# Returns:
+#
+#    String - the path to the PID file for this daemon
+#
 sub _pidFile
 {
     my ($self) = @_;
-    return '/var/run/openvpn.' . $self->name . '.pid';
-
+    return RUN_DIR . 'openvpn.' . $self->name() . '.pid';
 }
 
-#
 # Method: pid
 #
 # Returns:
@@ -578,7 +586,7 @@ sub pid
     my $pid;
 
     try {
-        $pid = File::Slurp::read_file($self->_pidFile);
+        $pid = File::Slurp::read_file($self->_pidFile());
 
     }
     otherwise {

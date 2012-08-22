@@ -19,6 +19,8 @@ $routeUpCmd => undef
 $logFile
 $statusLogFile
 %proxySettings => undef
+$pidFile => undef
+$mssFix  => 0
 </%args>
 # Zentyal client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.      #
@@ -93,6 +95,17 @@ group <% $group %>
 persist-key
 persist-tun
 
+# Write the PID file for compatibility with Ubuntu init.d script
+<& valueEntry, entry => 'writepid', value => $pidFile &>
+
+# If you are connecting through an
+# HTTP proxy to reach the actual OpenVPN
+# server, put the proxy server/IP and
+# port number here.  See the man page
+# if your proxy server requires
+# authentication.
+;http-proxy-retry # retry on connection failures
+;http-proxy [proxy server] [proxy port #]
 
 # Wireless networks often produce a lot
 # of duplicate packets.  Set this flag
@@ -164,8 +177,10 @@ verb 3
 # Explicitly notify disconnections
 explicit-exit-notify 3
 
-# Allow shorter MTU for broken MTU discovery
-mssfix 1300
+%    if ( $mssFix > 0 ) {
+mssfix <% $mssFix %>
+%    }
+
 % }
 # Silence repeating messages
 ;mute 20

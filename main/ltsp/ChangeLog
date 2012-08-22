@@ -1,4 +1,6 @@
 HEAD
+	+ Remove server option from the global and the profile configuration
+	+ Shortened some redundant strings
 	+ Added modeldepends to yaml schema
 	+ Fixed wrong variable interpolation in translatable string
 2.3.3

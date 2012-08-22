@@ -1,4 +1,6 @@
 HEAD
+	+ Disabled POP3 Proxy
+	+ Ham/Spam accounts adapted to changes in EBox::MailUserLdap methods
 	+ Added modeldepends to yaml schema
 2.3.4
 	+ Adapted to new Model management framework
@@ -131,7 +133,7 @@ HEAD
 	+ New release
 0.11.100
 	+ Stop daemons in pre-start upstart script
-	+ Create /var/run/* directories in pre-start 
+	+ Create /var/run/* directories in pre-start
 	+ Removed erroneous activation order dependency with module mail
 	+ Added module activation with mail only when mail is not
 	configured (mailfilter depends on ldap data created in

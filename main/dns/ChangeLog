@@ -4,6 +4,8 @@ HEAD
 	  models but loaded from the DLZ zone.
 	+ Add support for DLZ zones to load the Samba4 DNS zones stored in
 	  LDB.
+	+ samba is not longer a restore dependency
+	+ Fixed some errors with array references
 	+ Added modeldepends to yaml schema
 2.3.9
 	+ Fixed help strings
