@@ -408,27 +408,31 @@ sub ldapGroupsToLdb
     foreach my $group (@{$groups}) {
         my $dn = $group->dn();
         EBox::debug("Loading group $dn");
-        # TODO Remove nested try/catch
+        my $sambaGroup = undef;
         try {
             my $samAccountName = $group->get('cn');
             my $params = {
                 gidNumber => scalar ($group->get('gidNumber')),
                 description => scalar ($group->get('description')),
             };
-            my $createdGroup = EBox::Samba::Group->create($samAccountName, $params);
-            foreach my $user (@{$group->users()}) {
-                try {
-                    my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
-                    $createdGroup->addMember($smbUser);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error("Error adding member: $error");
-                };
-            }
+            $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
         } otherwise {
             my $error = shift;
             EBox::error("Error loading group '$dn': $error");
         };
+        next unless defined $sambaGroup;
+
+        foreach my $user (@{$group->users()}) {
+            try {
+                my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
+                next unless defined $smbUser;
+                $sambaGroup->addMember($smbUser, 1);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error adding member: $error");
+            };
+        }
+        $sambaGroup->save();
     }
 }
 
