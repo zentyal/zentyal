@@ -91,7 +91,7 @@ sub menu
     my $item = new EBox::Menu::Item('name' => 'AntiVirus',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
-                                    'order' => 340,
+                                    'order' => 580,
                                     'url' => 'AntiVirus/View/FreshclamStatus',
                                    );
 

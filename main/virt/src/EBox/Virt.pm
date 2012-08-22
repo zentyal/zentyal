@@ -131,7 +131,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
-                                    'order' => 445));
+                                    'order' => 447));
 }
 
 sub _preSetConf

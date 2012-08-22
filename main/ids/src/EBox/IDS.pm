@@ -169,7 +169,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
                                     'text' => __('IDS'),
                                     'separator' => 'Gateway',
-                                    'order' => 320));
+                                    'order' => 228));
 }
 
 # Method: usedFiles

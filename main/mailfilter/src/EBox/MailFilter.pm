@@ -708,7 +708,7 @@ sub menu
                                         'name' => 'MailFilter',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
-                                        'order' =>  350
+                                        'order' =>  615
     );
 
     $folder->add(

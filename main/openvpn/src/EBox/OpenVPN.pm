@@ -1418,7 +1418,7 @@ sub menu
                                         'name' => 'VPN',
                                         'text' => 'VPN',
                                         'separator' => 'Infrastructure',
-                                        'order' => 330
+                                        'order' => 425
                                        );
 
     $folder->add(
