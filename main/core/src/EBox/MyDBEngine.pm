@@ -523,6 +523,25 @@ sub quote
     return $self->{dbh}->quote($string);
 }
 
+# Method: setTimezone
+#
+#   Set the time zone for this connection
+#
+# Parameters:
+#
+#   tz - String in tz from UTC "(+|-)\d{1,2}:\d{2}"
+#
+sub setTimezone
+{
+    my ($self, $tz) = @_;
+
+    if ( $tz !~ m/(\+|-)\d{1,2}:\d{2}/ ) {
+        throw EBox::Exceptions::Internal("$tz is not valid");
+    }
+
+    $self->{dbh}->do(q{SET time_zone = ?}, undef, $tz);
+}
+
 sub backupDB
 {
     my ($self, $dir, $basename, %args) = @_;

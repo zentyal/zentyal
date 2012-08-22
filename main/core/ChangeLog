@@ -1,4 +1,5 @@
 HEAD
+	+ Added setTimezone method to MyDBEngine
 	+ Enable consolidation after reviewing and pruning
 	+ Code typo fix in Events::isEnabledWatcher
 	+ Remove all report code from core
