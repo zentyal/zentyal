@@ -1,4 +1,5 @@
 HEAD
+	+ Improvements in DataForm deprecates the fudge in EBox::OpenVPN::Model::ServerConfiguration::validateTypedRow
 	+ Adapted to changes in DataForm, these changes caused problems
 	  creating new servers
 	+ Added modeldepends to yaml schema
