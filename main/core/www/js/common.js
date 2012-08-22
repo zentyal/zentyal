@@ -40,37 +40,37 @@ function hide(id){
 var shownMenu = "";
 
 function showMenu(name){
-	var inc;
-	if (shownMenu.length != 0) {
+        var inc;
+        if (shownMenu.length != 0) {
         $$('.' + shownMenu).each(function(e) {
-            e.style.display = 'none'
+             e.style.display = 'none';
         });
 /*
-		elements=getElementByClass(shownMenu);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="none";
-			inc++;
-		}
+                elements=getElementByClass(shownMenu);
+                inc=0;
+                while (elements[inc]){
+                        elements[inc].style.display="none";
+                        inc++;
+                }
 */
-	}
+        }
 
     if (shownMenu == name) {
         shownMenu = "";
-	} else {
+        } else {
         $$('.' + name).each(function(e) {
             e.style.display = 'inline'
         });
 /*
-		elements=getElementByClass(name);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="inline";
-			inc++;
-		}
+                elements=getElementByClass(name);
+                inc=0;
+                while (elements[inc]){
+                        elements[inc].style.display="inline";
+                        inc++;
+                }
 */
-		shownMenu = name; 
-	}
+                shownMenu = name;
+        }
 }
 
 
