@@ -18,6 +18,7 @@ HEAD
 	  to have an incorrect modified state
 	+ Dont show in bug report removed packages with configuration
 	  held as broken packages
+	+ DataTable::size() now calls to syncRows()
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models

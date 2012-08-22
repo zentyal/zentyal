@@ -31,6 +31,7 @@ use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
+use Perl6::Junction qw(any);
 
 # Method: syncRows
 #
@@ -47,13 +48,11 @@ sub syncRows
         my @files =  @{ EBox::Sudo::root("find $dir") };
         foreach my $file (@files) {
             chomp $file;
-            $file =~ m{^(.*)/(.*?)/(.*?)$};
-            my $dirname  = $1 .'/' . $2;
-            my $category = $2;
-            my $basename = $3;
+            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*?)/(.*?)$};
+            my $dir = "$dirname/$listname/BL/$category";
 
             if ($basename eq any(qw(domains urls))) {
-                $categories{$category} = $dirname;
+                $categories{$category} = { dir => $dir, listname => $listname };
             }
         }
     }
@@ -65,7 +64,9 @@ sub syncRows
 
     my @toAdd = grep { not exists $current{$_} } keys %categories;
     foreach my $category (@toAdd) {
-        $self->add(category => $category, present => 1, dir => $categories{$category});
+        my $dir = $categories{$category}->{dir};
+        my $listname = $categories{$category}->{listname};
+        $self->add(category => $category, list => $listname, present => 1, dir => $categories{$category}, policy => 'ignore');
         $modified = 1;
     }
 
@@ -92,13 +93,19 @@ sub _table
     my @tableHeader = (
             new EBox::Types::Text(
                 fieldName => 'category',
-                printableName => ('Category'),
-                unique   => 1,
+                printableName => __('Category'),
+                unique   => 0,
+                editable => 0,
+            ),
+            new EBox::Types::Text(
+                fieldName => 'list',
+                printableName => __('List File'),
+                unique   => 0,
                 editable => 0,
             ),
             new EBox::Types::Boolean(
                 fieldName => 'present',
-                printableName => __('List Present'),
+                printableName => __('File Present'),
                 editable => 0,
             ),
             new EBox::Types::Select(
@@ -106,6 +113,12 @@ sub _table
                 printableName => __('Decision'),
                 populate   => \&_populate,
                 editable => 1,
+            ),
+            new EBox::Types::Text(
+                fieldName => 'dir',
+                hidden   => 1,
+                unique   => 1,
+                editable => 0,
             ),
     );
 
@@ -251,7 +264,6 @@ sub _filesByPolicy
     return \@files;
 }
 
-
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -260,25 +272,8 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
-    my $squid = $self->parentModule();
-    my $rowId = [split('/', $self->parentRow()->dir())]->[2];
-    my $profile = $squid->model('FilterProfiles')->row($rowId)->valueByName('name');
-    my $dir = "FilterProfiles/keys/$rowId/filterPolicy";
-    my $custom =  $self->SUPER::viewCustomizer();
-    $custom->setHTMLTitle([
-            {
-                title => __('Filter Profiles'),
-                link  => '/Squid/View/FilterProfiles',
-            },
-            {
-                title => $profile,
-                link  => "/Squid/Composite/ProfileConfiguration?directory=$dir#Domains",
-            },
-            {
-                title => $self->parentRow()->valueByName('description'),
-                link => ''
-            }
-    ]);
+    my $custom = $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
 
     return $custom;
 }
