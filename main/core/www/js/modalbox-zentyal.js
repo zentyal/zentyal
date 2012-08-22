@@ -1,4 +1,4 @@
 // This files modifies Modalbox to force zentyal styles
-Modalbox._setPosition =  Modalbox.show.wrap(function (origFunc) {
+Modalbox._setPosition = function() {
                                      Modalbox.MBwindow.setStyle({'left' : 'auto'});
-                                   });
+                                   };
