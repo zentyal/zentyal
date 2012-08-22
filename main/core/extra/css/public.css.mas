@@ -475,6 +475,7 @@ input[type='password'][disabled], input[type='text'][disabled] {
 }
 
 
+
 input[type='submit'], button {
     color:#666;
     border-radius: 3px;
@@ -492,6 +493,7 @@ input[type='submit'], button {
     font-weight:bold;
     font-size:11px;
 }
+
 
 button > img {margin-bottom:-3px;}
 
@@ -514,13 +516,15 @@ button > img {margin-bottom:-3px;}
 
 #installButtons > button > img { margin-bottom:-3px;}
 
-input[type='submit']:hover, {background:#DFDFDF}
+input[type='submit']:hover {background:#DFDFDF}
+button:hover {background:#DFDFDF}
 input[type='submit'][disabled]{
     cursor:default;
     border-color:#dbdbdb;
     background-color:#eee;
     color:#BBB;
 }
+input[type='submit'][disabled]:hover {background-color:#eee;}
 
 .inputText, .inputTextError {
     color: #000000;
@@ -579,15 +583,17 @@ input[type='submit'][disabled]{
     padding: 3px;
 }
 
+.inputButton:hover, input[type='image']:hover, .edit_table_B:hover, #installButtons > button:hover {background: #E7E7E7;}
+
 #installButtons > button  {
    padding: 5px 10px !important;
 }
 
 .edit_table_B { display: inline-block;}
-.edit_table_B:hover { display: inline-block; background: whiteSmoke !important;}
+.edit_table_B:hover { display: inline-block; background: #E7E7E7 !important;}
 
 .inputButton[disabled], input[type='image'][disabled]{cursor:default;}
-
+.inputButton[disabled]:hover, input[type='image'][disabled]:hover{background-color:whitesmoke;}
 
 .msg {
     color: #FFFFFF;
@@ -1466,6 +1472,8 @@ padding:15px 20px;
 float:left;
 }
 
+.big:hover {background-color:#FFC200;}
+
 /* Progress bar */
 #progress_bar {
     width:100%;
@@ -1725,19 +1733,21 @@ border-radius: 3px;
     border-radius: 15px ;
     -moz-border-radius: 15px;
     border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
+    padding: 10px 0px;
+    width:100%;
+    margin-top:15px;
+    
 }
 
 .head {
-    margin: 0 7px;
+    margin: 0 12px;
     padding: 5px;
     display: inline-block;
     text-align: center;
     width:115px;
 }
 
-.head:hover{background-color: #eee;}
+.head:hover{background-color: #ECF5DA;}
 
 .head h3{
     font-size:14px;
