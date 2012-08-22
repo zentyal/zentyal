@@ -31,6 +31,8 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 
+use EBox::Samba::Credentials;
+
 use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
