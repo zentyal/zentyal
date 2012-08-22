@@ -41,8 +41,6 @@ use EBox::LDB;
 use EBox::Util::Random qw( generate );
 
 use Perl6::Junction qw( any );
-use Net::DNS;
-use Net::Ping;
 use Error qw(:try);
 use File::Slurp;
 use File::Temp;
