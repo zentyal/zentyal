@@ -54,9 +54,9 @@ sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
     my @groups = map (
-        { value => $_->{gid},
-          printableValue => $_->{account} },
-        $userMod->groups()
+        { value => $_->get('cn'),
+          printableValue => $_->get('cn') },
+        @{$userMod->groups()}
     );
     return \@groups;
 }

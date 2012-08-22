@@ -22,7 +22,7 @@ models:
 composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
-    General: [GeneralSettings, SambaShares, RecycleBin] # FIXME: Add Antivirus when samba-vscan is ready
+    General: [GeneralSettings, SambaShares, RecycleBin, Antivirus]
 
 modeldepends:
     AntivirusExceptions:

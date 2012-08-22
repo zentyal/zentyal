@@ -125,7 +125,7 @@ sub precondition
     my ($self) = @_;
 
     my $modEnabled = $self->parentModule()->isEnabled();
-    my $fs = EBox::Config::configkey('samba-fs');
+    my $fs = EBox::Config::configkey('samba_fs');
     my $s3fs = (defined $fs and $fs eq 's3fs');
 
     return ($modEnabled and $s3fs);

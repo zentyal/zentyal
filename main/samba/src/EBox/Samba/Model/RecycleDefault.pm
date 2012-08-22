@@ -52,7 +52,7 @@ sub _table
     (
         new EBox::Types::Boolean(
             'fieldName' => 'enabled',
-            'printableName' => __('Enable Recycle Bin'),
+            'printableName' => __('Enable recycle bin'),
             'editable' => 1,
             'defaultValue' => 0
         ),
@@ -74,7 +74,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $fs = EBox::Config::configkey('samba-fs');
+    my $fs = EBox::Config::configkey('samba_fs');
     my $s3fs = (defined $fs and $fs eq 's3fs');
 
     return ($s3fs);
