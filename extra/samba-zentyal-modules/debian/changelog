@@ -1,3 +1,9 @@
+samba-zentyal-modules (0.5) precise; urgency=low
+
+  * Build against libldb version 1.1.9-1
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 01 Aug 2012 17:24:29 +0200
+
 samba-zentyal-modules (0.4) precise; urgency=low
 
   * Detect broken pipe on socket and reconnect.

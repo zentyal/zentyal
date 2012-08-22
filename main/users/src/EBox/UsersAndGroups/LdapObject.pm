@@ -30,6 +30,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use Net::LDAP::LDIF;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use Perl6::Junction qw(any);
 
@@ -41,6 +42,8 @@ use Perl6::Junction qw(any);
 #
 #      dn - Full dn for the user
 #  or
+#      ldif - Reads the entry from LDIF
+#  or
 #      entry - Net::LDAP entry for the user
 #
 sub new
@@ -48,22 +51,19 @@ sub new
     my ($class, %params) = @_;
 
     my $self = {};
-    bless($self, $class);
+    bless ($self, $class);
 
-    unless ( $params{entry} or $params{dn} or $params{ldif} ) {
-        throw EBox::Exceptions::MissingArgument('dn');
+    unless ($params{entry} or $params{dn} or
+            $params{ldif}) {
+        throw EBox::Exceptions::MissingArgument('entry|dn|ldif');
     }
 
-    if ( $params{entry} ) {
+    if ($params{entry}) {
         $self->{entry} = $params{entry};
-        $self->{dn} = $params{entry}->dn();
-    }
-    elsif ( $params{ldif} ) {
+    } elsif ($params{ldif}) {
         my $ldif = Net::LDAP::LDIF->new($params{ldif}, "r");
         $self->{entry} = $ldif->read_entry();
-        $self->{dn} = $self->{entry}->dn();
-    }
-    else {
+    } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
     }
 
@@ -82,17 +82,10 @@ sub exists
     # User exists if we already have its entry
     return 1 if ($self->{entry});
 
-    my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
-    my %attrs = (
-        base => $basedn,
-        filter => $filter,
-        scope => 'one',
-    );
+    $self->{entry} = $self->_entry();
 
-    my $result = $self->_ldap->search(\%attrs);
-    return ($result->count() > 0);
+    return (defined $self->{entry});
 }
-
 
 
 # Method: get
@@ -190,11 +183,11 @@ sub deleteObject
 #   If an array ref is received as value, all the values will be
 #   deleted at the same time
 #
-#   Parameters:
+# Parameters:
 #
-#       attribute - Attribute name
-#       value(s)   - Value(s) to remove (value or array ref to values)
-#       lazy      - Do not update the entry in LDAP
+#   attribute - Attribute name
+#   value(s)  - Value(s) to remove (value or array ref to values)
+#   lazy      - Do not update the entry in LDAP
 #
 sub remove
 {
@@ -202,7 +195,7 @@ sub remove
 
     # Delete attribute only if it exists
     if ($attr eq any $self->_entry->attributes) {
-        if(ref($value) ne 'ARRAY') {
+        if (ref ($value) ne 'ARRAY') {
             $value = [ $value ];
         }
 
@@ -222,10 +215,12 @@ sub remove
 sub save
 {
     my ($self) = @_;
-    my $result = $self->_entry->update($self->_ldap->{ldap});
 
+    my $result = $self->_entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
-        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
+        unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+            throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
+        }
     }
 }
 
@@ -238,7 +233,7 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->{dn};
+    return $self->_entry->dn();
 }
 
 
@@ -250,25 +245,38 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my ($trash, $basedn) = split(/,/, $self->{dn}, 2);
+    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
     return $basedn;
 }
 
 
-# Return Net::LDAP::Entry entry for the user
+# Method: _entry
+#
+#   Return Net::LDAP::Entry entry for the user
+#
 sub _entry
 {
     my ($self) = @_;
 
-    unless ($self->{entry})
-    {
-        my %attrs = (
-            base => $self->{dn},
-            filter => 'objectclass=*',
-            scope => 'base',
-        );
+    unless ($self->{entry}) {
+        my $result = undef;
+        if (defined $self->{dn}) {
+            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
+            my $attrs = {
+                base => $basedn,
+                filter => $filter,
+                scope => 'one',
+            };
+            $result = $self->_ldap->search($attrs);
+        }
+        return undef unless defined $result;
 
-        my $result = $self->_ldap->search(\%attrs);
+        if ($result->count() > 1) {
+            throw EBox::Exceptions::Internal(
+                __x('Found {count} results for, expected only one.',
+                    count => $result->count()));
+        }
+
         $self->{entry} = $result->entry(0);
     }
 
@@ -284,7 +292,7 @@ sub _ldap
 }
 
 
-# Method: to_ldif
+# Method: as_ldif
 #
 #   Returns a string containing the LDAP entry as LDIF
 #

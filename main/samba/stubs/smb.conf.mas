@@ -7,6 +7,7 @@
     $realm
     @shares
     $roamingProfiles => 0
+    $profilesPath
     $printers => []
 
     $antivirus => 0
@@ -22,6 +23,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Samba;
 </%init>
 [global]
     netbios name = <% $netbiosName %>
@@ -38,16 +40,19 @@ use EBox::Gettext;
     server role = <% $mode %>
     realm = <% $realm %>
 
-    log level = 1
+    log level = 3
     log file = /var/log/samba/samba.log
 
+    passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
     rpc_daemon:spoolssd = embedded
+
+    ldap privileged socket mode = 0770
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
 [profiles]
-    path = /home/ebox/samba/profiles
+    path = <% $profilesPath %>
     browseable = no
     read only = no
 %   }
@@ -64,8 +69,9 @@ use EBox::Gettext;
 
 [homes]
     comment = <% __('Home Directories') %>
+    path = /home/%S
     read only = no
-    browseable = yes
+    browseable = no
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));

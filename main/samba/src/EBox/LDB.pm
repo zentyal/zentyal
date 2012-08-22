@@ -18,13 +18,19 @@ package EBox::LDB;
 use strict;
 use warnings;
 
-use EBox::LDB::Credentials;
+use EBox::Samba::LdbObject;
+use EBox::Samba::Credentials;
+use EBox::Samba::User;
+use EBox::Samba::Group;
+
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataExists;
 
 use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
+use Authen::SASL qw(Perl);
 use IO::Socket::UNIX;
 
 use Data::Dumper;
@@ -32,7 +38,7 @@ use Date::Calc;
 use Encode;
 use Error qw( :try );
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldapi";
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
 use constant SOCKET_PATH => '/var/run/ldb';
 
 # Singleton variable
@@ -81,44 +87,6 @@ sub idmap
     return $self->{idmap};
 }
 
-# Method: syncCon
-#
-#   Returns the socket connection used by the module
-#
-# Returns:
-#
-#
-# Exceptions:
-#
-#   Internal - If connection can't be created
-#
-sub syncCon
-{
-    my ($self) = @_;
-
-    # Workaround to detect if connection is broken and force reconnection
-    my $reconnect = 1;
-    if (defined $self->{sync}) {
-        my $socket = $self->{sync};
-        if (tell ($socket)) {
-            print $socket "PING\n";
-            my $answer = <$socket>;
-            if (defined $answer) {
-                chomp $answer;
-                if ($answer eq 'PONG') {
-                    $reconnect = 0;
-                }
-            }
-        }
-    }
-
-    if ($reconnect) {
-        $self->{sync} = $self->safeConnectSync(SOCKET_PATH);
-    }
-
-    return $self->{sync};
-}
-
 # Method: ldbCon
 #
 #   Returns the Net::LDAP connection used by the module
@@ -150,144 +118,46 @@ sub ldbCon
     }
 
     if (not defined $self->{ldb} or $reconnect) {
-        $self->{ldb} = $self->safeConnect(LDAPI);
-
-        my $dn   = $self->zentyalDn();
-        my $pass = $self->getPassword();
-
-        $self->safeBind($self->{ldb}, $dn, $pass);
+        $self->{ldb} = $self->safeConnect();
     }
 
     return $self->{ldb};
 }
 
-sub safeConnectSync
-{
-    my ($self, $uri) = @_;
-
-    my $retries = 4;
-    my $socket = undef;
-
-    local $SIG{PIPE};
-    $SIG{PIPE} = sub {
-       EBox::warn('SIGPIPE received connecting to sync socket');
-    };
-
-    while (not $socket = IO::Socket::UNIX->new(
-                Peer  => SOCKET_PATH,
-                Type  => SOCK_STREAM,
-                Timeout => 5) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba');
-        $samba->_manageService('start');
-        EBox::error("Couldn't connect to synchronizer $uri, retrying");
-        sleep (5);
-    }
-
-    unless ($socket) {
-        throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to synchronizer: $uri");
-    }
-
-    if ($retries < 3) {
-        EBox::info('Synchronizer reconnect successful');
-    }
-
-    return $socket;
-}
-
 sub safeConnect
 {
-    my ($self, $uri) = @_;
+    my ($self) = @_;
 
     my $retries = 4;
     my $ldb;
 
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
-       EBox::warn('SIGPIPE received connecting to LDB');
+       EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    while (not $ldb = Net::LDAP->new($uri) and $retries--) {
+    while (not $ldb = Net::LDAP->new(LDAPI) and $retries--) {
         my $samba = EBox::Global->modInstance('samba');
-        $samba->_manageService('start');
-        EBox::error("Couldn't connect to LDB server $uri, retrying");
+        unless ($samba->isRunning()) {
+            EBox::debug("Samba daemon was stopped, starting it");
+            $samba->_manageService('start');
+            sleep (5);
+            next;
+        }
+        EBox::error("Couldn't connect to samba LDAP server: $@, retrying");
         sleep (5);
     }
 
     unless ($ldb) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to LDB server: $uri");
+            "FATAL: Couldn't connect to samba LDAP server");
     }
 
-    if ($retries < 3) {
-        EBox::info('LDB reconnect successful');
+    if ($retries <= 3) {
+        EBox::debug("Reconnected successfully");
     }
 
     return $ldb;
-}
-
-sub safeBind
-{
-    my ($self, $ldb, $dn, $password) = @_;
-
-    my $bind = $ldb->bind($dn, password => $password);
-    unless ($bind->{resultCode} == 0) {
-        throw EBox::Exceptions::External(
-            'Couldn\'t bind to LDB server, result code: ' .
-            $bind->{resultCode});
-    }
-
-    return $bind;
-}
-
-# Method: zentyalDn
-#
-#   Returns the dn of the priviliged user
-#
-# Returns:
-#
-#   string - The zentyal user DN
-#
-sub zentyalDn
-{
-    my ($self, $base) = @_;
-
-    unless (defined ($base)) {
-        $base = $self->dn();
-    }
-
-    return 'cn=zentyal,cn=Users,' . $base;
-}
-
-# Method: getPassword
-#
-#   Returns the password used to connect to the LDB
-#
-# Returns:
-#
-#   string - password
-#
-# Exceptions:
-#
-#   External - If password can't be read
-#
-sub getPassword
-{
-    my ($self) = @_;
-
-    unless (defined ($self->{password})) {
-        my $path = EBox::Config->conf() . "ldb.passwd";
-
-        open (PASSWD, $path) or
-            throw EBox::Exceptions::External('Could not get LDB password');
-        my $pwd = <PASSWD>;
-        close (PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{password} = $pwd;
-    }
-
-    return $self->{password};
 }
 
 # Method: dn
@@ -303,22 +173,16 @@ sub dn
     my ($self) = @_;
 
     unless (defined ($self->{dn})) {
-        my $ldb = $self->safeConnect(LDAPI);
-
-        $ldb->bind();
-
-        my %args = ( base   => '',
-                     scope  => 'base',
-                     filter => '(objectclass=*)',
-                     attrs  => ['namingContexts'] );
-        my $result = $ldb->search(%args);
-        if ($result->count() > 0) {
-            my $entry = ($result->entries)[0];
-            my @attributes = $entry->attributes();
-            if (scalar @attributes > 0) {
-                my $attr = $attributes[0];
-                $self->{dn} = $entry->get_value($attr);
-            }
+        my $params = {
+            base => '',
+            scope => 'base',
+            filter => 'cn=*',
+            attrs => ['defaultNamingContext'],
+        };
+        my $msg = $self->search($params);
+        if ($msg->count() == 1) {
+            my $entry = $msg->entry(0);
+            $self->{dn} = $entry->get_value('defaultNamingContext');
         }
     }
 
@@ -334,13 +198,11 @@ sub clearConn
     my ($self) = @_;
 
     if (defined $self->{ldb}) {
-        $self->{ldb}->unbind();
         $self->{ldb}->disconnect();
     }
 
     delete $self->{dn};
     delete $self->{ldb};
-    delete $self->{password};
 }
 
 # Method: search
@@ -460,514 +322,309 @@ sub _errorOnLdap
 ## LDB related functions                                                   ##
 #############################################################################
 
-# Method: addZentyalModule
+# Method domainSID
 #
-#   Adds the zentyal module to LDB
+#   Get the domain SID
 #
-sub enableZentyalModule
+# Returns:
+#
+#   string - The SID string of the domain
+#
+sub domainSID
 {
     my ($self) = @_;
 
-    EBox::debug('Enabling Zentyal LDB module');
-    my $socket = $self->syncCon();
-    print $socket "ENABLE\n";
-    $socket->flush();
-    # Wait for answer
-    my $r = <$socket>;
-    chomp $r;
-    EBox::debug("Response from synchronizer: $r");
+    my $base = $self->dn();
+    my $params = {
+        base => $base,
+        scope => 'base',
+        filter => "(distinguishedName=$base)",
+        attrs => ['objectSid'],
+    };
+    my $msg = $self->search($params);
+    if ($msg->count() == 1) {
+        my $entry = $msg->entry(0);
+        my $object = new EBox::Samba::LdbObject(entry => $entry);
+        return $object->sid();
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
+    }
 }
 
-# Method: disableZentyalModule
-#
-#   Disable the zentyal module to LDB
-#
-sub disableZentyalModule
+sub domainNetBiosName
 {
     my ($self) = @_;
 
-    EBox::debug('Disabling Zentyal LDB module');
-    my $socket = $self->syncCon();
-    print $socket "DISABLE\n";
-    $socket->flush();
-    my $r = <$socket>;
-    chomp $r;
-    EBox::debug("Response from synchronizer: $r");
-}
-
-sub changeUserPassword
-{
-    my ($self, $dn, $newPasswd, $oldPasswd) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $rootdse = $ldb->root_dse();
-    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
-        # Update the password using the LDAP extension
-        require Net::LDAP::Extension::SetPassword;
-        my $mesg = $ldb->set_password(user => $dn,
-                                      oldpasswd => $oldPasswd,
-                                      newpasswd => $newPasswd);
-        $self->_errorOnLdap($mesg);
-    } else {
-        my $unicodePwd = encode('UTF16-LE', "\"$newPasswd\"");
-        my $mesg = $ldb->modify($dn, changes => [ replace => [ unicodePwd => $unicodePwd ] ]);
-    }
-}
-
-# Method: updateUserPassword
-#
-#   Copy krb5 credentials from LDAP to LDB
-#
-# Parameters:
-#
-#   user - User object
-#
-sub updateUserPassword
-{
-    my ($self, $user) = @_;
-
-    my $bypassControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.7165.4.3.12',
-        critical => 1 );
-
-
-    my $dn = $user->dn();
-    $dn =~ s/OU=Users/CN=Users/i;
-    $dn =~ s/uid=/CN=/i;
-    EBox::debug("Updating kerberos keys from LDAP '$dn' to LDB");
-
-    my $kerberosKeys = $user->kerberosKeys();
-    my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
-
-    my $changes = [];
-    if (defined $credentials->{supplementalCredentials}) {
-        push ($changes, replace => [ supplementalCredentials => $credentials->{supplementalCredentials} ]);
-    }
-    if (defined $credentials->{unicodePwd}) {
-        push ($changes, replace => [ unicodePwd => $credentials->{unicodePwd} ]);
-    }
-    if (defined $credentials->{supplementalCredentials} or
-            defined $credentials->{unicodePwd}) {
-        # NOTE If this value is not set samba sigfault
-        # This value is stored as a large integer that represents
-        # the number of 100 nanosecond intervals since January 1, 1601 (UTC)
-        my ($sec, $min, $hour, $day, $mon, $year) = gmtime(time);
-        $year = $year + 1900;
-        $mon += 1;
-        my $days = Date::Calc::Delta_Days(1601, 1, 1, $year, $mon, $day);
-        my $secs = $sec + $min * 60 + $hour * 3600 + $days * 86400;
-        my $val = $secs * 10000000;
-        push ($changes, replace => [ pwdLastSet => $val ]);
-    }
-    $self->modify($dn, { changes => $changes, control => $bypassControl });
-}
-
-# Method getIdByDN
-#
-#   Get samAccountName by object's DN
-#
-# Parameters:
-#
-#   dn - The DN of the object
-#
-# Returns:
-#
-#   The samAccountName of the object
-#
-sub getIdByDN
-{
-    my ($self, $dn) = @_;
-
-    my $args = { base   => $dn,
-                 scope  => 'base',
-                 filter => "(dn=$dn)",
-                 attrs  => ['sAMAccountName'] };
-    my $result = $self->search($args);
+    my $realm = EBox::Global->modInstance('users')->kerberosRealm();
+    my $params = {
+        base => 'CN=Partitions,CN=Configuration,' . $self->dn(),
+        scope => 'sub',
+        filter => "(&(nETBIOSName=*)(dnsRoot=$realm))",
+        attrs => ['nETBIOSName'],
+    };
+    my $result = $self->search($params);
     if ($result->count() == 1) {
         my $entry = $result->entry(0);
-        my $value = $entry->get_value('sAMAccountName');
-        return $value;
-    } else {
-        throw EBox::Exceptions::DataNotFound( data=> 'DN', value => $dn);
+        my $name = $entry->get_value('nETBIOSName');
+        return $name;
     }
-}
-
-# Method getDnById
-#
-#   Get DN by object's samAccountName
-#
-# Parameters:
-#
-#   sam - The samAccountName of the object
-#
-# Returns:
-#
-#   dn - The DN of the object
-#
-sub getDnById
-{
-    my ($self, $sam) = @_;
-
-    my $args = { base   => $self->dn(),
-                 scope  => 'sub',
-                 filter => "(samAccountName=$sam)",
-                 attrs  => ['distinguishedName'] };
-    my $result = $self->search($args);
-    if ($result->count() == 1) {
-        my $entry = $result->entry(0);
-        my $value = $entry->get_value('distinguishedName');
-        return $value;
-    } else {
-        throw EBox::Exceptions::DataNotFound( data=> 'samAccountName', value => $sam);
-    }
-}
-
-# Method getSidById
-#
-#   Get SID by object's sAMAccountName
-#
-# Parameters:
-#
-#   id - The ID of the object
-#
-# Returns:
-#
-#   The SID of the object
-#
-sub getSidById
-{
-    my ($self, $objectId) = @_;
-
-    my $args = { base   => $self->dn(),
-                 scope  => 'sub',
-                 filter => "(sAMAccountName=$objectId)",
-                 attrs  => ['objectSid'] };
-    my $result = $self->search($args);
-    if ($result->count() == 1) {
-        my $entry = $result->entry(0);
-        my $value = $entry->get_value('objectSid');
-        my $string = $self->sidToString($value);
-        return $string;
-    } else {
-        throw EBox::Exceptions::DataNotFound( data =>'sAMAccountName', value => $objectId);
-    }
-}
-
-sub sidToString
-{
-    my ($self, $sid) = @_;
-
-    return undef
-        unless unpack("C", substr($sid, 0, 1)) == 1;
-
-    return undef
-        unless length($sid) == 8 + 4 * unpack("C", substr($sid, 1, 1));
-
-    my $sid_str = "S-1-";
-
-    $sid_str .= (unpack("C", substr($sid, 7, 1)) +
-                (unpack("C", substr($sid, 6, 1)) << 8) +
-                (unpack("C", substr($sid, 5, 1)) << 16) +
-                (unpack("C", substr($sid, 4, 1)) << 24));
-
-    for my $loop (0 .. unpack("C", substr($sid, 1, 1)) - 1) {
-        $sid_str .= "-" . unpack("I", substr($sid, 4 * $loop + 8, 4));
-    }
-
-    return $sid_str;
-}
-
-sub stringToSid
-{
-    my ($self, $sidString) = @_;
-
-    return undef
-        unless uc(substr($sidString, 0, 4)) eq "S-1-";
-
-    my ($auth_id, @sub_auth_id) = split(/-/, substr($sidString, 4));
-
-    my $sid = pack("C4", 1, $#sub_auth_id + 1, 0, 0);
-
-    $sid .= pack("C4", ($auth_id & 0xff000000) >> 24, ($auth_id &0x00ff0000) >> 16,
-            ($auth_id & 0x0000ff00) >> 8, $auth_id &0x000000ff);
-
-    for my $loop (0 .. $#sub_auth_id) {
-        $sid .= pack("I", $sub_auth_id[$loop]);
-    }
-
-    return $sid;
-}
-
-sub guidToString
-{
-    my ($self, $guid) = @_;
-
-    return sprintf "%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X",
-           unpack("I", $guid),
-           unpack("S", substr($guid, 4, 2)),
-           unpack("S", substr($guid, 6, 2)),
-           unpack("C", substr($guid, 8, 1)),
-           unpack("C", substr($guid, 9, 1)),
-           unpack("C", substr($guid, 10, 1)),
-           unpack("C", substr($guid, 11, 1)),
-           unpack("C", substr($guid, 12, 1)),
-           unpack("C", substr($guid, 13, 1)),
-           unpack("C", substr($guid, 14, 1)),
-           unpack("C", substr($guid, 15, 1));
-}
-
-sub stringToGuid
-{
-    my ($self, $guidString) = @_;
-
-    return undef
-        unless $guidString =~ /([0-9,a-z]{8})-([0-9,a-z]{4})-([0-9,a-z]{4})-([0-9,a-z]{2})([0-9,a-z]{2})-([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})/i;
-
-    return pack("I", hex $1) . pack("S", hex $2) . pack("S", hex $3) .
-           pack("C", hex $4) . pack("C", hex $5) . pack("C", hex $6) .
-           pack("C", hex $7) . pack("C", hex $8) . pack("C", hex $9) .
-           pack("C", hex $10) . pack("C", hex $11);
+    return undef;
 }
 
 sub ldapUsersToLdb
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('users');
-
-    # This control is defined in the samba header file 'samdb.h'
-    # and allow to write protected attributes like unicodePwd and
-    # supplementalCredentials
-    my $bypassControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.7165.4.3.12',
-        critical => 1 );
-
-    try {
-        # Disable the Zentyal LDB module, otherwise all operations will be
-        # forwarded back to zentyal
-        $self->disableZentyalModule();
-
-        EBox::info('Loading Zentyal users into samba database');
-        my $users = $usersMod->users();
-        foreach my $user (@{$users}) {
-            my $dn = $user->dn();
-            $dn =~ s/OU=Users/CN=Users/i;
-            $dn =~ s/uid=/CN=/i;
-            EBox::debug("Loading user $dn");
-            try {
-                my $samAccountName = $user->get('uid');
-                my $uidNumber = $user->get('uidNumber');
-                my $sn = $user->get('sn');
-                my $givenName = $user->get('givenName');
-                my $principal = $user->get('krb5PrincipalName');
-                my $description = $user->get('description');
-                my $kerberosKeys = $user->kerberosKeys();
-                my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
-
-                my $attrs = [];
-                push ($attrs, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
-                push ($attrs, sAMAccountName    => $samAccountName);
-                push ($attrs, userAccountControl => '512');
-                push ($attrs, uidNumber         => $uidNumber);
-                push ($attrs, sn                => $sn);
-                push ($attrs, givenName         => $givenName);
-                push ($attrs, userPrincipalName => $principal);
-                push ($attrs, description       => $description) if defined $description;
-                if (defined $credentials->{supplementalCredentials}) {
-                    push ($attrs, supplementalCredentials => $credentials->{supplementalCredentials});
-                }
-                if (defined $credentials->{unicodePwd}) {
-                    push ($attrs, unicodePwd    => $credentials->{unicodePwd});
-                }
-                if (defined $credentials->{supplementalCredentials} or
-                    defined $credentials->{unicodePwd}) {
-                    # NOTE If this value is not set samba sigfault
-                    # This value is stored as a large integer that represents
-                    # the number of 100 nanosecond intervals since January 1, 1601 (UTC)
-                    my ($sec, $min, $hour, $day, $mon, $year) = gmtime(time);
-                    $year = $year + 1900;
-                    $mon += 1;
-                    my $days = Date::Calc::Delta_Days(1601, 1, 1, $year, $mon, $day);
-                    my $secs = $sec + $min * 60 + $hour * 3600 + $days * 86400;
-                    my $val = $secs * 10000000;
-                    push ($attrs, pwdLastSet => $val);
-                }
-                $self->add($dn, { attrs => $attrs, control => $bypassControl });
-
-                # Map UID
-                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
-                # it is not working when the user init session as DOMAIN/user but user@domain.com
-                # remove this when fixed
-                my $type = $self->idmap->TYPE_UID();
-                my $sid = $self->getSidById($samAccountName);
-                $self->idmap->setupNameMapping($sid, $type, $uidNumber);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading user '$dn': $error");
+    EBox::info('Loading Zentyal users into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $users = $usersModule->users();
+    foreach my $user (@{$users}) {
+        my $dn = $user->dn();
+        EBox::debug("Loading user $dn");
+        try {
+            my $samAccountName = $user->get('uid');
+            my $params = {
+                uidNumber    => scalar ($user->get('uidNumber')),
+                sn           => scalar ($user->get('sn')),
+                givenName    => scalar ($user->get('givenName')),
+                description  => scalar ($user->get('description')),
+                kerberosKeys => $user->kerberosKeys(),
             };
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    } finally {
-        $self->enableZentyalModule();
-    };
+            EBox::Samba::User->create($samAccountName, $params);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading user '$dn': $error");
+        };
+    }
 }
 
 sub ldapGroupsToLdb
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('users');
-
-    try {
-        # Disable the Zentyal LDB module, otherwise all operations will be
-        # forwarded back to zentyal
-        $self->disableZentyalModule();
-        EBox::debug('Loading Zentyal groups into samba database');
-
-        my $groups = $usersMod->groups();
-        foreach my $group (@{$groups}) {
-            my $dn = $group->dn();
-            $dn =~ s/OU=Groups/CN=Users/i;
-            my $cn = $group->get('cn');
+    EBox::info('Loading Zentyal groups into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $groups = $usersModule->groups();
+    foreach my $group (@{$groups}) {
+        my $dn = $group->dn();
+        EBox::debug("Loading group $dn");
+        # TODO Remove nested try/catch
+        try {
             my $samAccountName = $group->get('cn');
-            my $gidNumber = $group->get('gidNumber');
-            my $description = $group->get('description');
-            EBox::debug("Loading group $dn");
-            try {
-                my $attrs = [];
-                push ($attrs, objectClass    => ['top', 'group', 'posixGroup']);
-                push ($attrs, sAMAccountName => $cn);
-                push ($attrs, gidNumber      => $gidNumber);
-                push ($attrs, cn             => $cn);
-                push ($attrs, description    => $description) if defined ($description);
-
-                my $groupUsers = [];
-                foreach my $user (@{$group->users()}) {
-                    my $dn = $user->dn();
-                    $dn =~ s/OU=Users/CN=Users/i;
-                    $dn =~ s/uid=/CN=/i;
-                    push ($groupUsers, $dn);
-                }
-                push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
-
-                $self->add($dn, { attrs => $attrs });
-
-                # Map the gid
-                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
-                # it is not working when the user init session as DOMAIN/user but user@domain.com
-                # remove this when fixed
-                my $type = $self->idmap->TYPE_GID();
-                my $sid = $self->getSidById($samAccountName);
-                $self->idmap->setupNameMapping($sid, $type, $gidNumber);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error loading group '$dn': $error");
+            my $params = {
+                gidNumber => scalar ($group->get('gidNumber')),
+                description => scalar ($group->get('description')),
             };
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal($error);
-    } finally {
-        $self->enableZentyalModule();
-    };
-}
-
-sub createRoamingProfileDirectory
-{
-    my ($self, $entry) = @_;
-
-    my $samAccountName  = $entry->get_value('samAccountName');
-    my $uidNumber       = $entry->get_value('uidNumber');
-    my $userSID         = $self->getSidById($samAccountName);
-    my $domainAdminsSID = $self->getSidById('Domain Admins');
-    my $domainUsersSID  = $self->getSidById('Domain Users');
-
-    # Create the directory if it does not exists
-    my $samba = EBox::Global->modInstance('samba');
-    my $path = EBox::SambaLdapUser::PROFILESPATH() . "/$samAccountName";
-    my $gid = EBox::UsersAndGroups::DEFAULTGROUP();
-
-    my @cmds = ();
-    # Create the directory if it does not exists
-    push (@cmds, "mkdir -p \'$path\'") unless -d $path;
-
-    # Set unix permissions on directory
-    push (@cmds, "chown $uidNumber:$gid \'$path\'");
-    push (@cmds, "chmod 0700 \'$path\'");
-
-    # Set native NT permissions on directory
-    my $sdString = '';
-    $sdString .= "O:$userSID"; # Object's owner
-    $sdString .= "G:$domainUsersSID"; # Object's primary group
-    $sdString .= "D:(A;;0x001f01ff;;;SY)(A;;0x001f01ff;;;$domainAdminsSID)(A;OICI;0x001301BF;;;$userSID)";
-    push (@cmds, "samba-tool ntacl set '$sdString' '$path'");
-    EBox::Sudo::root(@cmds);
-}
-
-sub setRoamingProfiles
-{
-    my ($self, $enable, $profilesPath) = @_;
-
-    my $args = { base   => $self->dn(),
-                 scope  => 'sub',
-                 filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
-                 attrs  => [] };
-    my $result = $self->search($args);
-    foreach my $entry ($result->entries) {
-        my $userName = $entry->get_value('samAccountName');
-        if ($enable) {
-            $self->createRoamingProfileDirectory($entry);
-            my $path .= "$profilesPath\\$userName";
-            EBox::debug("Enabling roaming profile for user '$userName'");
-            $entry->replace(profilePath => $path);
-            try {
-                $self->disableZentyalModule();
-                $entry->update($self->ldbCon());
-                $self->enableZentyalModule();
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error updating database: $error");
-            };
-        } else {
-            EBox::debug("Disabling roaming profile for user '$userName'");
-            $entry->delete(profilePath => undef);
-            try {
-                $self->disableZentyalModule();
-                $entry->update($self->ldbCon());
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error updating database: $error");
-            } finally {
-                $self->enableZentyalModule();
-            };
-        }
+            my $createdGroup = EBox::Samba::Group->create($samAccountName, $params);
+            foreach my $user (@{$group->users()}) {
+                try {
+                    my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
+                    $createdGroup->addMember($smbUser);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding member: $error");
+                };
+            }
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading group '$dn': $error");
+        };
     }
 }
 
-sub setHomeDrive
+sub ldapServicePrincipalsToLdb
 {
-    my ($self, $drive) = @_;
+    my ($self) = @_;
 
-    my $args = { base   => $self->dn(),
-                 scope  => 'sub',
-                 filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
-                 attrs  => ['samAccountName', 'homeDrive'] };
-    my $result = $self->search($args);
-    foreach my $entry ($result->entries) {
-        my $sambaMod = EBox::Global->modInstance('samba');
-        my $userName = $entry->get_value('samAccountName');
-        if ($entry->get_value('homeDrive') ne $drive) {
+    EBox::info('Loading Zentyal service principals into samba database');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $fqdn = $sysinfo->fqdn();
+
+    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    foreach my $module (@{$modules}) {
+        my $principals = $module->kerberosServicePrincipals();
+        my $samAccountName = "$principals->{service}-$hostname";
+        try {
+            my $smbUser = new EBox::Samba::User(samAccountName => $samAccountName);
+            unless ($smbUser->exists()) {
+                # Get the heimdal user to extract the kerberos keys. All service
+                # principals for each module should have the same keys, so take
+                # the first one.
+                my $usersModule = EBox::Global->modInstance('users');
+                my $p = @{$principals->{principals}}[0];
+                my $baseDn = $usersModule->ldap->dn();
+                my $realm = $usersModule->kerberosRealm();
+                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
+                my $user = new EBox::UsersAndGroups::User(dn => $dn);
+
+                my $params = {
+                    description  => scalar ($user->get('description')),
+                    kerberosKeys => $user->kerberosKeys(),
+                };
+                $smbUser = EBox::Samba::User->create($samAccountName, $params);
+                $smbUser->setCritical(1);
+                $smbUser->setViewInAdvancedOnly(1);
+            }
+            foreach my $p (@{$principals->{principals}}) {
+                try {
+                    my $spn = "$p/$fqdn";
+                    EBox::debug("Adding SPN '$spn' to user " . $smbUser->dn());
+                    $smbUser->addSpn($spn);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
+                };
+            }
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error adding account '$samAccountName': $error");
+        };
+    }
+}
+
+sub users
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => 'CN=Users,' . $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=user)(!(showInAdvancedViewOnly=*))' .
+            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('samAccountName')) {
+        my $user = new EBox::Samba::User(entry => $entry);
+        push (@{$list}, $user);
+    }
+    return $list;
+}
+
+sub groups
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => 'CN=Users,' . $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))' .
+            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('samAccountName')) {
+        my $group = new EBox::Samba::Group(entry => $entry);
+        push (@{$list}, $group);
+    }
+    return $list;
+}
+
+sub ldbUsersToLdap
+{
+    my ($self, $users) = @_;
+
+    EBox::info('Loading Samba users into Zentyal LDAP');
+    my $usersModule = EBox::Global->modInstance('users');
+    $users = $self->users() unless defined ($users);
+    foreach my $sambaUser (@{$users}) {
+        my $dn = $sambaUser->dn();
+        EBox::info("Adding user '$dn'");
+        my $user = undef;
+        try {
+            my $params = {};
+            $params->{user}      = $sambaUser->get('samAccountName');
+            $params->{fullname}  = $sambaUser->get('name');
+            $params->{givenname} = defined (scalar ($sambaUser->get('givenName'))) ?
+                $sambaUser->get('givenName') : $sambaUser->get('samAccountName');
+            $params->{surname}   = defined (scalar ($sambaUser->get('sn'))) ?
+                $sambaUser->get('sn') : $sambaUser->get('samAccountName');
+            $params->{comment}   = defined (scalar ($sambaUser->get('description'))) ?
+                $sambaUser->get('description') : undef;
+
+            my %optParams;
+            $optParams{ignoreMods} = ['samba'];
+            $user = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+        } catch EBox::Exceptions::DataExists with {
+            $user = $usersModule->user($sambaUser->get('samAccountName'));
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading user '$dn': $error");
+        };
+        next unless defined $user;
+
+        try {
+            my $suppCred    = $sambaUser->get('supplementalCredentials');
+            my $unicodePwd  = $sambaUser->get('unicodePwd');
+            my $credentials = new EBox::Samba::Credentials(
+                    supplementalCredentials => $suppCred, unicodePwd => $unicodePwd);
+            $user->setKerberosKeys($credentials->kerberosKeys());
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting kerberos keys: $error");
+        };
+
+        try {
+            my $uidNumber = $user->get('uidNumber');
+            $sambaUser->set('uidNumber', $uidNumber);
+            my $type = $self->idmap->TYPE_UID();
+            my $sid = $sambaUser->sid();
+            $self->idmap->setupNameMapping($sid, $type, $uidNumber);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting uid mapping: $error");
+        };
+    }
+}
+
+sub ldbGroupsToLdap
+{
+    my ($self, $groups) = @_;
+
+    EBox::info('Loading Samba groups into Zentyal LDAP');
+    my $usersModule = EBox::Global->modInstance('users');
+    $groups = $self->groups() unless defined ($groups);
+    foreach my $sambaGroup (@{$groups}) {
+        my $dn = $sambaGroup->dn();
+        my $name = $sambaGroup->get('samAccountName');
+        my $comment = $sambaGroup->get('description');
+        my $zentyalGroup = undef;
+        try {
+            my %optParams;
+            $optParams{ignoreMods} = ['samba'];
+            EBox::info("Adding group '$dn'");
+            $zentyalGroup = EBox::UsersAndGroups::Group->create($name, $comment, 0, %optParams);
+        } catch EBox::Exceptions::DataExists with {
+            $zentyalGroup = $usersModule->group($name);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error adding group '$dn': $error");
+        };
+        next unless defined $zentyalGroup;
+
+        try {
+            my $gidNumber = $zentyalGroup->get('gidNumber');
+            $sambaGroup->set('gidNumber', $gidNumber);
+            my $type = $self->idmap->TYPE_GID();
+            my $sid = $sambaGroup->sid();
+            $self->idmap->setupNameMapping($sid, $type, $gidNumber);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error setting up gid mapping: $error");
+        };
+
+        my @members = $sambaGroup->get('member');
+        foreach my $sambaDN (@members) {
             try {
-                $entry->replace(homeDrive => $drive);
-                $self->disableZentyalModule();
-                $entry->update($self->ldbCon());
+                my $sambaMember = new EBox::Samba::User(dn => $sambaDN);
+                my $zentyalUser = $usersModule->user($sambaMember->get('samAccountName'));
+                $zentyalGroup->addMember($zentyalUser);
             } otherwise {
                 my $error = shift;
-                EBox::error("Error updating database: $error");
-            } finally {
-                $self->enableZentyalModule();
+                EBox::error("Error adding member to group '$dn': $error");
             };
         }
     }

@@ -2,12 +2,12 @@ class: 'EBox::Samba'
 
 depends:
     - network
-    - users
     - printers
 
 enabledepends:
     - network
     - users
+    - dns
 
 models:
     - GeneralSettings
