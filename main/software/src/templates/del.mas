@@ -65,8 +65,8 @@ if ($popup) {
     color: #333;
 }
 </style>
-
-<div class="warning">
+<span class="title"><% __('Confirm packages to install') %></span>
+<div class="note">
 % if ($action eq 'install') {
 <% __('The following packages will be installed') %>:
 % } else {
@@ -74,7 +74,7 @@ if ($popup) {
 % }
 </div>
 
-<div>
+<div class="headcontainer">
 % foreach my $pkg (@actpkginfo) {
     <div id="<% $pkg->{name} %>" class="package">
        <div><img src="/data/software/images/package-icons/<% $pkg->{name} %>.png"
@@ -84,12 +84,12 @@ if ($popup) {
 % }
 </div>
 
-<form name="formPkg" id="formPkg" action='InstallPkgs' method='POST' >
+<form name="formPkg" id="formPkg" action='InstallPkgs' method='POST' style="text-align:right; margin-top:10px" >
 %   foreach my $pkg (@packages) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
     <input type='hidden' name='go' value='yes'/>
     <input type='hidden' name='<% $action %>' value="1" />
-    <input class='inputButton' <% $okOnClick %> type='button' value="<% __('Ok') %>" />
     <input class='inputButton' type='submit' name='cancel' <% $cancelOnClick %> value="<% __('Cancel') %>" />
+    <input class='inputButton' <% $okOnClick %> type='button' value="<% __('Ok') %>" />
 </form>

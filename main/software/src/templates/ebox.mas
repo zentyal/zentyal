@@ -46,9 +46,9 @@ my $popup = $first ? 0 : 1;
 % } else {
     width: 115px;
 % }
-    margin: 0 15px;
+    /*margin: 0 15px;
     display: inline-block;
-    text-align: center;
+    text-align: center;*/
 }
 
 .head h3 {
@@ -149,7 +149,8 @@ var pkgTable = new Array(
 % unless ($first) {
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
 % }
-    <div style="margin: 10px 0">
+    <div class="headcontainer">
+    <h3><%__('Server roles')%></h3>
         <div id="Gateway_head" class="head">
 % unless ($isGateway) {
             <div class="image" id="Gateway_image" onclick="tick('Gateway'); return false">
@@ -403,6 +404,7 @@ var pkgTable = new Array(
 
     <div id="Install">
       <div id="packages">
+      <h3><% __s('Modules') %></h3>
 %   foreach my $pkg (@eboxpkgs) {
 %        # Hide some packages (objects+services), virtual, no removables
 %        next if ($pkg->{description} =~ /Suite$/);
@@ -425,10 +427,11 @@ var pkgTable = new Array(
        </div>
 
        <div style="text-align: right">
-        <button onclick="sendFormBasic(<% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if ($first) {
-        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip install') %> </button>
 % }
+        <button onclick="sendFormBasic(<% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+
        </div>
 
     </div>
