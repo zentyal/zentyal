@@ -4,6 +4,8 @@ HEAD
 	+ Model messages are printed below model title
 	+ noDataMsg now allows to add elements if it makes sense
 	+ Fixed ajax/form.mas to avoid phantom change button
+	+ EBox::Model::Manager::_setupModelDepends uses full paths so the
+	  dependecies can discriminate between models with the same name
 	+ Set only Remote as option to export/import configuration to a
 	  remote site
 	+ Return undef in HasMany type when a model is not longer
