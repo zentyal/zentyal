@@ -31,6 +31,7 @@ use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
+use Perl6::Junction qw(any);
 
 # Method: syncRows
 #
@@ -41,44 +42,52 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my @dirs = </var/lib/zentyal/files/squid/*>;
-    my %categories;
+
+    my $lists;
 
     foreach my $dir (@dirs) {
         my @files =  @{ EBox::Sudo::root("find $dir") };
         foreach my $file (@files) {
             chomp $file;
-            $file =~ m{^(.*)/(.*?)/(.*?)$};
-            my $dirname  = $1 .'/' . $2;
-            my $category = $2;
-            my $basename = $3;
+            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*)/(.*?)$};
+            my $dir = "$dirname/$listname/BL/$category";
 
             if ($basename eq any(qw(domains urls))) {
-                $categories{$category} = $dirname;
+                unless (exists $lists->{$listname}) {
+                    $lists->{$listname} = {};
+                }
+                $lists->{$listname}->{$category} = $dir;
             }
         }
     }
 
-    my %current =
-        map { $self->row($_)->valueByName('category') => 1 } @{$currentRows};
-
     my $modified = 0;
 
-    my @toAdd = grep { not exists $current{$_} } keys %categories;
-    foreach my $category (@toAdd) {
-        $self->add(category => $category, present => 1, dir => $categories{$category});
-        $modified = 1;
-    }
+    foreach my $list (keys %{$lists}) {
 
-    # FIXME: instead of remove, set present to 0
-    # Remove old rows
-#    foreach my $id (@{$currentRows}) {
-#        my $row = $self->row($id);
-#        my $category = $row->valueByName('category');
-#        unless (exists $new{$category}) {
-#            $self->removeRow($id);
-#            $modified = 1;
-#        }
-#    }
+        my @currentRows = grep { $self->row($_)->valueByName('list') eq $list } @{$currentRows};
+        my %current =
+            map { $self->row($_)->valueByName('category') => 1 } @currentRows;
+
+        my %categories = %{$lists->{$list}};
+        my @toAdd = grep { not exists $current{$_} } keys %categories;
+        foreach my $category (@toAdd) {
+            my $dir = $categories{$category};
+            $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
+            $modified = 1;
+        }
+
+        # FIXME: instead of remove, set present to 0
+        # Remove old rows
+#       foreach my $id (@{$currentRows}) {
+#           my $row = $self->row($id);
+#           my $category = $row->valueByName('category');
+#           unless (exists $new{$category}) {
+#               $self->removeRow($id);
+#               $modified = 1;
+#           }
+#       }
+    }
 
     return $modified;
 }
@@ -92,13 +101,19 @@ sub _table
     my @tableHeader = (
             new EBox::Types::Text(
                 fieldName => 'category',
-                printableName => ('Category'),
-                unique   => 1,
+                printableName => __('Category'),
+                unique   => 0,
+                editable => 0,
+            ),
+            new EBox::Types::Text(
+                fieldName => 'list',
+                printableName => __('List File'),
+                unique   => 0,
                 editable => 0,
             ),
             new EBox::Types::Boolean(
                 fieldName => 'present',
-                printableName => __('List Present'),
+                printableName => __('File Present'),
                 editable => 0,
             ),
             new EBox::Types::Select(
@@ -106,6 +121,12 @@ sub _table
                 printableName => __('Decision'),
                 populate   => \&_populate,
                 editable => 1,
+            ),
+            new EBox::Types::Text(
+                fieldName => 'dir',
+                hidden   => 1,
+                unique   => 1,
+                editable => 0,
             ),
     );
 
@@ -146,37 +167,6 @@ sub preconditionFailMsg
     return __('There are no categories defined. You need to add categorized lists files if you want to filter by category.');
 }
 
-sub filesPerPolicy
-{
-    my ($self, $policy, $scope) = @_;
-
-    my @files = ();
-
-    foreach my $id ( @{ $self->ids() } ) {
-        my $row = $self->row($id);
-        my $catPolicy = $row->valueByName('policy');
-
-        if ($catPolicy ne $policy) {
-            next;
-        }
-
-        my $dir = $row->valueByName('dir');
-        my @dirFiles =  @{ EBox::Sudo::root("find $dir") };
-        foreach my $file (@dirFiles) {
-            chomp $file;
-            my $basename = basename $file;
-
-            if ($basename ne $scope) {
-                next;
-            }
-
-            push @files, $file;
-        }
-    }
-
-    return \@files;
-}
-
 # Function: banned
 #
 #       Fetch the banned domains files
@@ -189,7 +179,6 @@ sub banned
     my ($self) = @_;
     return $self->_filesByPolicy('deny', 'domains');
 }
-
 
 # Function: allowed
 #
@@ -237,20 +226,23 @@ sub _filesByPolicy
 {
     my ($self, $policy, $scope) = @_;
 
-    my @files = ();
+    my @files;
     foreach my $id (@{$self->enabledRows()}) {
         my $row = $self->row($id);
-        my $file = $row->elementByName('fileList');
-        $file->exist() or
-            next;
+        my $present = $row->valueByName('present');
+        next unless $present;
 
-        my $path = $file->path();
-        push @files, @{ $self->_archiveFiles($row, $policy, $scope) };
+        my $thisPolicy = $row->valueByName('policy');
+        if ($thisPolicy eq $policy) {
+            my $dir = $row->valueByName('dir');
+            if (-f "$dir/$scope") {
+                push (@files, "$dir/$scope");
+            }
+        }
     }
 
     return \@files;
 }
-
 
 # Method: viewCustomizer
 #
@@ -260,25 +252,8 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
-    my $squid = $self->parentModule();
-    my $rowId = [split('/', $self->parentRow()->dir())]->[2];
-    my $profile = $squid->model('FilterProfiles')->row($rowId)->valueByName('name');
-    my $dir = "FilterProfiles/keys/$rowId/filterPolicy";
-    my $custom =  $self->SUPER::viewCustomizer();
-    $custom->setHTMLTitle([
-            {
-                title => __('Filter Profiles'),
-                link  => '/Squid/View/FilterProfiles',
-            },
-            {
-                title => $profile,
-                link  => "/Squid/Composite/ProfileConfiguration?directory=$dir#Domains",
-            },
-            {
-                title => $self->parentRow()->valueByName('description'),
-                link => ''
-            }
-    ]);
+    my $custom = $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
 
     return $custom;
 }

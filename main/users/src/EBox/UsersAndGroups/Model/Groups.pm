@@ -104,7 +104,7 @@ sub precondition
         return undef;
     }
 
-    unless ($usersMod->groups()) {
+    unless (@{$usersMod->groups()}) {
         $self->{preconFail} = 'noGroups';
         return undef;
     }

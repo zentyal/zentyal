@@ -25,6 +25,7 @@ use EBox::SambaLdapUser;
 use EBox::UsersAndGroups;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::Samba::User;
 
 sub new
 {
@@ -72,21 +73,13 @@ sub _user
 
     $self->keepParam('user');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
-
+    my $zentyalUser = new EBox::UsersAndGroups::User(dn => $user);
+    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
     my $accountEnabled = $self->param('accountEnabled');
-    my $isAdminUser = $self->param('isAdminUser');
-
     if ($accountEnabled eq 'yes') {
-        $smbldap->setAccountEnabled($user, 1);
+        $sambaUser->setAccountEnabled(1);
     } else {
-        $smbldap->setAccountEnabled($user, 0);
-    }
-
-    if ($isAdminUser eq 'yes') {
-        $smbldap->setAdminUser($user, 1);
-    } else {
-        $smbldap->setAdminUser($user, 0);
+        $sambaUser->setAccountEnabled(0);
     }
 }
 

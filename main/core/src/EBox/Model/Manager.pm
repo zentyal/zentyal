@@ -665,13 +665,14 @@ sub _setupModelDepends
 
     my $depends = $info->{modeldepends};
     foreach my $model (keys %{$depends}) {
+        my $fullPath = $moduleName . '/' . $model;
         my $modelDeps = $depends->{$model};
         foreach my $modelDep (keys %{$modelDeps}) {
             my $deps = $modelDeps->{$modelDep};
             unless (exists $self->{revModelDeps}->{$modelDep}) {
                 $self->{revModelDeps}->{$modelDep} = {};
             }
-            $self->{revModelDeps}->{$modelDep}->{$model} = $deps;
+            $self->{revModelDeps}->{$modelDep}->{$fullPath} = $deps;
         }
     }
 }

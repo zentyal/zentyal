@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::MailFilter::Model::VDomains;
+package EBox::MailFilter::Model::VDomainsFilter;
 use base 'EBox::Model::DataTable';
 
 
@@ -158,12 +158,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Virtual Domains specific policies}),
      modelDomain        => 'mail',
-     'defaultController' => '/MailFilter/Controller/VDomains',
-     'defaultActions' => [
-                          'add', 'del',
-                          'editField',
-                          'changeView'
-                         ],
+     defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
      tableDescription   => \@tableHeader,
      class              => 'dataTable',
      order              => 0,

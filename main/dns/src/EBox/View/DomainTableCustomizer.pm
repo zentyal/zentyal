@@ -32,6 +32,8 @@ use warnings;
 # Method: initHTMLStateField
 #
 #   Given a field, it returns if the field has to be shown. hidden, or disabled
+#   TODO This method should be deleted when the hiddenOnSetter attribute of the
+#        domain field will work ok
 #
 # Parameters:
 #
@@ -52,7 +54,7 @@ sub initHTMLStateField
 {
     my ($self, $fieldName, $fields) = @_;
 
-    if (defined($fieldName) and ($fieldName eq 'dynamic')) {
+    if (defined($fieldName) and ($fieldName eq 'type')) {
         return 'hide';
     } else {
         return $self->SUPER::initHTMLStateField($fieldName, $fields);

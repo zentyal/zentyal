@@ -73,7 +73,7 @@ sub html
         $html .= "<a title='$text' href='/$url' class='navarrow' ";
     } else {
         $html .= "<a title='$text' href='' class='navarrow' ";
-        $html .= "onclick=\"showMenu('menu$name');return false;\"";
+        $html .= "onclick=\"showMenu('menu$name', this);return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";

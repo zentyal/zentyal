@@ -299,7 +299,7 @@ sub _setNETRCFile
 
         _writeCredentials($fileHandle,
                           "security-updates.$cloudDomain",
-                          $cred->serverName(),
+                          $cred->subscribedHostname(),
                           substr($hex_uuid, 2));
 
         close($fileHandle);

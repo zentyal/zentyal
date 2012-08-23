@@ -2,6 +2,10 @@ HEAD
 	+ Move report code to remoteservices
 	+ Perform the domain processing in log helper, very valuable for
 	  querying and reporting
+2.3.10
+	+ Added users as enabledepend
+	+ Add rule to allow web browsing by default on initial setup
+	+ Categorized lists now work
 2.3.9
 	+ Summarized report works again
 	+ Added modeldepends to yaml schema

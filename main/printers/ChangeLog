@@ -1,5 +1,8 @@
 HEAD
 	+ Move report code to remoteservices
+2.3.8
+	+ Add precondition to printers model to check that samba s3fs
+	  fileserver is used.
 2.3.7
 	+ New model to manage printer permissions
 2.3.6

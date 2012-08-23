@@ -96,7 +96,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this hostname and its aliases
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ( $zoneRow->valueByName('dynamic') ) {
+        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
             my @toDelete = ();
             my $zone = $zoneRow->valueByName('domain');
             # Delete all aliases
@@ -205,15 +205,6 @@ sub _table
                                 'unique' => 1,
                                 'editable' => 1,
                              ),
-            new EBox::Types::Text
-                            (
-                                'fieldName' => 'subdomain',
-                                'printableName' => __('Subdomain'),
-                                'size' => '20',
-                                'unique' => 0,
-                                'editable' => 1,
-                                'optional' => 1,
-                             ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'ipAddresses',
@@ -283,7 +274,7 @@ sub deletedRowNotify
 
     # Deleted RRs to account
     my $zoneRow = $row->parentRow();
-    if ( $zoneRow->valueByName('dynamic') ) {
+    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
         my $zone = $zoneRow->valueByName('domain');
         # Delete all aliases
         my $aliasModel = $row->subModel('alias');
@@ -296,7 +287,6 @@ sub deletedRowNotify
         my $fullHostname = $row->valueByName('hostname') . ".$zone";
         $self->_addToDelete($fullHostname);
     }
-
 }
 
 # Method: pageTitle
@@ -318,13 +308,13 @@ sub _addToDelete
     my ($self, $domain) = @_;
 
     my $mod = $self->{confmodule};
-    my $key = $mod->deletedRRsKey();
+    my $key = EBox::DNS::DELETED_RR_KEY();
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
     }
 
-    push(@list, $domain);
+    push (@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
 }
 

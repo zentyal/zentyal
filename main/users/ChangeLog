@@ -1,4 +1,17 @@
-HEAD
+2.3.14
+	+ Ignore the LDAP error 'no attributes to update' on save
+	+ Instantiate users by uid and groups by gid
+	+ Change kerberos ports from 88/464 to 8888/8464. This avoid conflicts
+	  and management logic of the heimdal daemons. Kerberos records are added
+	  with lower priority over samba ones.
+	+ Respect the optionality of the 'salt' field inside the kerberos keys
+	  in the 'setKerberosKeys' funcion of the User class.
+	+ Do not remove service principals when samba is enabled/disabled. Samba
+	  will import the keys
+	+ Add method to set the user kerberos keys
+	+ Stop samba daemon if module is disabled to ensure that port 88 is free
+	+ Initialize kerberos realm in lowercase to match the host domain
+	+ User template account default options not longer shown in slave servers
 	+ Added users filter by OU
 2.3.13
 	+ Better password policies for LDAP backend

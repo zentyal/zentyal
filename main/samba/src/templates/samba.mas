@@ -27,18 +27,6 @@ use EBox::Gettext;
 	</td>
 	</tr>
 	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Administration rights') %>:</span>
-		</td>
-		<td>
-			<input type='checkbox' name='isAdminUser' id='external' value='yes'
-%			if ($params->{'isAdminUser'} == 1) {
-				checked
-%			}
-			>
-		</td>
-	</tr>
-	<tr>
 		<td></td>
 		<td>
 			<input class='inputButton' type='submit' name='change'

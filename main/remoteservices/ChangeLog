@@ -1,7 +1,10 @@
-HEAD
+HEA
+	+ Implement reporting code here
 	+ Password list files are now stored in module conf
 	+ RESTClient now supports raw JSON as query param
-	+ Implement samba_disk_usage report
+2.3.2
+	+ Do not set local address for TCP connections
+	+ Avoid division by zero showing DR info
 	+ Use beta values for configuration for now
 	+ Remove no longer used restore backup from proxy
 	+ Added method to write conf-backups and sec-updates credentials

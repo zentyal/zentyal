@@ -278,6 +278,11 @@ sub confFileParams
         push @templateParams, ($param => $value);
     }
 
+    my $mssFix = EBox::Config::configkey('mss_fix');
+    if ( $mssFix ) {
+        push(@templateParams, ( mssFix => $mssFix) );
+    }
+
     push @templateParams, (servers =>  $self->servers() );
     # We can only have proxy settings with TCP clients
     if ( $self->proto() eq 'tcp' ) {

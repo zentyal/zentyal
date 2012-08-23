@@ -146,7 +146,7 @@ sub foreignModelInstance
         } else {
             $model = $manager->model($modelName, $ro);
         }
-    } catch EBox::Exceptions::MissingArgument with { };
+    } catch EBox::Exceptions::DataNotFound with { };
 
     return undef unless (defined($model));
 
