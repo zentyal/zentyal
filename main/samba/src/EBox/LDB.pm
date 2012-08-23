@@ -499,7 +499,7 @@ sub users
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=user)(!(isDeleted=*)))',
+        filter => '(&(objectclass=user)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
@@ -526,7 +526,7 @@ sub groups
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(isDeleted=*)))',
+        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
