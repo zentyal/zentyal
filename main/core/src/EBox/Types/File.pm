@@ -615,13 +615,13 @@ sub _moveToPath
     my $group = $self->group();
 
     if (($user eq  'root') or ($group eq 'root')) {
-        EBox::Sudo::root("mv $tmpPath $path");
+        EBox::Sudo::root("mv '$tmpPath' '$path'");
         try {
-            EBox::Sudo::root("chown $user.$group $path");
+            EBox::Sudo::root("chown $user.$group '$path'");
         }
         otherwise {
             my $ex = shift;
-            EBox::Sudo::root("rm -f $path");
+            EBox::Sudo::root("rm -f '$path'");
             $ex->throw();
         };
     }
