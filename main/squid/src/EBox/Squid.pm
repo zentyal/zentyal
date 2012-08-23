@@ -94,6 +94,27 @@ sub kerberosServicePrincipals
     return $data;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules only if installing the first time
+    unless ($version) {
+        # Allow clients to browse Internet by default
+        $self->model('AccessRules')->add(
+            source => { any => undef },
+            policy => { allow => undef },
+        );
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
