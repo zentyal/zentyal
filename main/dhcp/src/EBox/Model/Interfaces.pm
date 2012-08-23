@@ -163,8 +163,7 @@ sub viewCustomizer
     my $noRanges = 1;
     foreach my $id (@{ $self->ids() }) {
         my $conf =  $self->row($id)->subModel('configuration');
-        my $ranges = $conf->componentByName('RangeTable');
-        if ($ranges->size() > 0) {
+        if ($conf->hasAddresses()) {
             $noRanges = 0;
             last;
         }

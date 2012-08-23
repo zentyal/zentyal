@@ -70,4 +70,35 @@ sub HTMLTitle
     ]);
 }
 
+
+sub hasAddresses
+{
+    my ($self) = @_;
+
+    my $ranges = $self->componentByName('RangeTable');
+    if ($ranges->size() > 0) {
+        return 1;
+    }
+
+    my $fixedAddresses = $self->componentByName('FixedAddressTable');
+    my $addr = $fixedAddresses->addresses(
+        $self->interface(),
+        $self->parentModule()->isReadOnly()
+       );
+    my $refAddr = ref $addr;
+    if ($refAddr eq 'ARRAY') {
+        return @{ $addr } > 0;
+    } elsif ($refAddr eq 'HASH') {
+        return keys %{ $addr } > 0;
+    }
+
+    return 0;
+}
+
+sub interface
+{
+    my ($self) = @_;
+    return $self->parentRow()->valueByName('iface');
+}
+
 1;

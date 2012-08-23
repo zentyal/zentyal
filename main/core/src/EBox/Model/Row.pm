@@ -597,7 +597,7 @@ sub storeElementByName
 #
 # Returns:
 #
-#   An instance of a class implementing <EBox::Model::DataTable>
+#   An instance of a child class of <EBox::Model::Component>
 #
 # Exceptions:
 #
