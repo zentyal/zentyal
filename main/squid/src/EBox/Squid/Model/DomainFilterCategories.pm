@@ -42,44 +42,52 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my @dirs = </var/lib/zentyal/files/squid/*>;
-    my %categories;
+
+    my $lists;
 
     foreach my $dir (@dirs) {
         my @files =  @{ EBox::Sudo::root("find $dir") };
         foreach my $file (@files) {
             chomp $file;
-            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*?)/(.*?)$};
+            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*)/(.*?)$};
             my $dir = "$dirname/$listname/BL/$category";
 
             if ($basename eq any(qw(domains urls))) {
-                $categories{$category} = { dir => $dir, listname => $listname };
+                unless (exists $lists->{$listname}) {
+                    $lists->{$listname} = {};
+                }
+                $lists->{$listname}->{$category} = $dir;
             }
         }
     }
 
-    my %current =
-        map { $self->row($_)->valueByName('category') => 1 } @{$currentRows};
-
     my $modified = 0;
 
-    my @toAdd = grep { not exists $current{$_} } keys %categories;
-    foreach my $category (@toAdd) {
-        my $dir = $categories{$category}->{dir};
-        my $listname = $categories{$category}->{listname};
-        $self->add(category => $category, list => $listname, present => 1, dir => $categories{$category}, policy => 'ignore');
-        $modified = 1;
-    }
+    foreach my $list (keys %{$lists}) {
 
-    # FIXME: instead of remove, set present to 0
-    # Remove old rows
-#    foreach my $id (@{$currentRows}) {
-#        my $row = $self->row($id);
-#        my $category = $row->valueByName('category');
-#        unless (exists $new{$category}) {
-#            $self->removeRow($id);
-#            $modified = 1;
-#        }
-#    }
+        my @currentRows = grep { $self->row($_)->valueByName('list') eq $list } @{$currentRows};
+        my %current =
+            map { $self->row($_)->valueByName('category') => 1 } @currentRows;
+
+        my %categories = %{$lists->{$list}};
+        my @toAdd = grep { not exists $current{$_} } keys %categories;
+        foreach my $category (@toAdd) {
+            my $dir = $categories{$category};
+            $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
+            $modified = 1;
+        }
+
+        # FIXME: instead of remove, set present to 0
+        # Remove old rows
+#       foreach my $id (@{$currentRows}) {
+#           my $row = $self->row($id);
+#           my $category = $row->valueByName('category');
+#           unless (exists $new{$category}) {
+#               $self->removeRow($id);
+#               $modified = 1;
+#           }
+#       }
+    }
 
     return $modified;
 }
@@ -159,37 +167,6 @@ sub preconditionFailMsg
     return __('There are no categories defined. You need to add categorized lists files if you want to filter by category.');
 }
 
-sub filesPerPolicy
-{
-    my ($self, $policy, $scope) = @_;
-
-    my @files = ();
-
-    foreach my $id ( @{ $self->ids() } ) {
-        my $row = $self->row($id);
-        my $catPolicy = $row->valueByName('policy');
-
-        if ($catPolicy ne $policy) {
-            next;
-        }
-
-        my $dir = $row->valueByName('dir');
-        my @dirFiles =  @{ EBox::Sudo::root("find $dir") };
-        foreach my $file (@dirFiles) {
-            chomp $file;
-            my $basename = basename $file;
-
-            if ($basename ne $scope) {
-                next;
-            }
-
-            push @files, $file;
-        }
-    }
-
-    return \@files;
-}
-
 # Function: banned
 #
 #       Fetch the banned domains files
@@ -202,7 +179,6 @@ sub banned
     my ($self) = @_;
     return $self->_filesByPolicy('deny', 'domains');
 }
-
 
 # Function: allowed
 #
@@ -250,15 +226,19 @@ sub _filesByPolicy
 {
     my ($self, $policy, $scope) = @_;
 
-    my @files = ();
+    my @files;
     foreach my $id (@{$self->enabledRows()}) {
         my $row = $self->row($id);
-        my $file = $row->elementByName('fileList');
-        $file->exist() or
-            next;
+        my $present = $row->valueByName('present');
+        next unless $present;
 
-        my $path = $file->path();
-        push @files, @{ $self->_archiveFiles($row, $policy, $scope) };
+        my $thisPolicy = $row->valueByName('policy');
+        if ($thisPolicy eq $policy) {
+            my $dir = $row->valueByName('dir');
+            if (-f "$dir/$scope") {
+                push (@files, "$dir/$scope");
+            }
+        }
     }
 
     return \@files;
