@@ -6,5 +6,8 @@
 <% $pattern %> dovecot
 % }
 % if ($domain) {
+% # exclude ham/spam account in behalf of mailfilter
+spam@<% $domain %> dovecot
+ham@<% $domain %> dovecot
 <% $domain %>   lmtp:127.0.0.1:2003
 % }
