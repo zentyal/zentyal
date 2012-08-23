@@ -1,4 +1,4 @@
-HEAD
+2.3.12
 	+ Support additional domain controller mode
 	+ Remove user addon to set the user as domain admin. Add it to the
 	  domain admins group instead.
