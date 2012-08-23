@@ -894,7 +894,7 @@ filter: alpha(opacity=100);
 }
 
 #nav .despleg{
-    background-image: url('/data/images/asc.gif') !important;
+    background-image: url('/data/images/r_arrow.gif') !important;
     background-position: center right;
     background-repeat:no-repeat;
 }
