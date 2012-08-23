@@ -1492,7 +1492,7 @@ sub size
 {
     my ($self) = @_;
 
-    return scalar(@{$self->_ids(1)});
+    return scalar(@{$self->ids()});
 }
 
 # Method: syncRows

@@ -67,7 +67,8 @@ sub _extractArchive
 
     EBox::Sudo::root("mkdir -p $dir",
                      "tar xzf $path -C $dir",
-                     "chown -R root:root $dir");
+                     "chown -R root:ebox $dir",
+                     "chmod -R o+r $dir");
 }
 
 # FIXME: what happens with this? when the file is removed?
