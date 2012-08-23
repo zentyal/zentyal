@@ -188,17 +188,18 @@ sub _table
       );
 
     my $dataTable = {
-		     'tableName'          => 'RangeTable',
-		     'printableTableName' => __('Ranges'),
+                     'tableName'          => 'RangeTable',
+                     'printableTableName' => __('Ranges'),
                      'defaultActions'     =>
                            [ 'add', 'del', 'editField', 'changeView' ],
                      'modelDomain'        => 'DHCP',
-		     'tableDescription'   => \@tableDesc,
-		     'class'              => 'dataTable',
-		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('range'),
+                     'tableDescription'   => \@tableDesc,
+                     'class'              => 'dataTable',
+                     'rowUnique'          => 1,  # Set each row is unique
+                     'printableRowName'   => __('range'),
                      'sortedBy'           => 'from',
-		    };
+                     'noDataMsg'          => __('No ranges configured. The DHCP server would not listen on this interface'),
+                    };
 
     return $dataTable;
 }

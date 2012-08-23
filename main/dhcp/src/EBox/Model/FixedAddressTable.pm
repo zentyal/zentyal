@@ -159,7 +159,9 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    $customizer->setPermanentMessage(_message());
+    if ($self->size()) {
+        $customizer->setPermanentMessage(_message());
+    }
 
     $customizer->setHTMLTitle([]);
 
@@ -214,6 +216,7 @@ sub _table
       'printableRowName'   => __('fixed address'),
       'order'              => 0,  # Ordered by tailoredOrder
       'sortedBy'           => 'object',
+      'noDataMsg'         => _message(1),
         };
 
     return $dataTable;
@@ -233,7 +236,13 @@ sub objectModelGetter
 
 sub _message
 {
-    return __('Only those object members whose IP address is a host (/32), a '
+    my ($empty) = @_;
+    my $msg;
+    if ($empty) {
+        $msg = __('Not object added for fixed addresses') . '<p>';
+    }
+
+    $msg .=  __('Only those object members whose IP address is a host (/32), a '
               . 'valid MAC, the IP address is not used by the available range '
               . 'and whose name is unique as fixed address will be used') . '. '
          . __('Members whose name is not a valid hostname will be modified to '

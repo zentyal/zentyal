@@ -153,4 +153,27 @@ sub _table
     return $dataTable;
 }
 
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $noRanges = 1;
+    foreach my $id (@{ $self->ids() }) {
+        my $conf =  $self->row($id)->subModel('configuration');
+        my $ranges = $conf->componentByName('RangeTable');
+        if ($ranges->size() > 0) {
+            $noRanges = 0;
+            last;
+        }
+    }
+
+    if ( $noRanges) {
+        $customizer->setPermanentMessage(__('The DHCP server has not any range configured. You need at least one range configured on one interface to use it'), 'warning');
+    }
+    return $customizer;
+}
+
 1;
