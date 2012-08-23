@@ -169,6 +169,10 @@ sub userAccount
 {
     my ($self, $user) = @_;
 
+    unless ($user->exists()) {
+        EBox::error("User does not exists");
+        return undef;
+    }
     return $user->get('mail');
 }
 
