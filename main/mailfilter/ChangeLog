@@ -1,4 +1,5 @@
 2.3.5
+	+ VDomains model renamed to VDomainsFilter
 	+ Mailfilter is now under Communications instead of UTM
 	+ Disabled POP3 Proxy
 	+ Ham/Spam accounts adapted to changes in EBox::MailUserLdap methods
