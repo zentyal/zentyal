@@ -23,6 +23,8 @@
 	+ Dont show in bug report removed packages with configuration
 	  held as broken packages
 	+ DataTable::size() now calls to syncRows()
+	+ EBox::Module::Config::set_list quivalent now has the same
+	  behaviour than EBox::Module::Config::set
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models
