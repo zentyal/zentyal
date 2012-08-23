@@ -1,4 +1,4 @@
-HEAD
+2.3.3
 	+ FTP moved from Infrastructure to Office
 	+ Fixed bug which always forced SSL when SSL was enabled
 	+ Removed user chroot options until vsftpd allows it again
