@@ -109,7 +109,7 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
         }
     );
     time++;
-    if (time >= 30) {
+    if (time >= 10) {
         time = 0;
         showAds();
     }
