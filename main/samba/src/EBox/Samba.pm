@@ -1097,11 +1097,10 @@ sub _daemons
             precondition => \&isProvisioned,
             pidfiles => ['/var/run/samba.pid'],
         },
-# TODO
-        #{
-        #    name => 'zentyal.s4sync',
-        #    precondition => \&isProvisioned,
-        #},
+        {
+            name => 'zentyal.s4sync',
+            precondition => \&isProvisioned,
+        },
     ];
 }
 

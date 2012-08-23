@@ -124,7 +124,8 @@ sub validateTypedRow
                 __('Netbios and workgroup must have different names'));
     }
 
-    # TODO Error provisioning database. Output: ProvisioningError: guess_names: Realm 'SCHL-SERVER' must not be equal to hostname 'schl-server'!
+    # TODO Error provisioning database. Output: ProvisioningError:
+    # guess_names: Realm 'ASDF' must not be equal to hostname 'asdf'!
 
     $self->_checkNetbiosName($netbios);
     $self->_checkDomainName($workgroup);

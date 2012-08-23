@@ -39,7 +39,6 @@ use EBox::Sudo;
 
 use Error qw(:try);
 
-# TODO Fix
 use constant DEFAULT_MASK => '0700';
 use constant DEFAULT_USER => 'root';
 use constant DEFAULT_GROUP => 'root';

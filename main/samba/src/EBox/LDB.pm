@@ -34,8 +34,7 @@ use Authen::SASL qw(Perl);
 use IO::Socket::UNIX;
 
 use Data::Dumper;
-use Date::Calc;
-use Encode;
+use File::Slurp;
 use Error qw( :try );
 
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
@@ -48,9 +47,15 @@ sub _new_instance
 {
     my $class = shift;
 
+    my $ignoredSidsFile = EBox::Config::scripts('samba') . 'samba-ignore-sids.txt';
+    my @lines = read_file($ignoredSidsFile);
+    my @sidsTmp = grep(/^\s*S-/, @lines);
+    my @sids = map { s/\n//; $_; } @sidsTmp;
+
     my $self = {};
     $self->{ldb} = undef;
     $self->{idamp} = undef;
+    $self->{ignoredSids} = \@sids;
     bless ($self, $class);
     return $self;
 }
@@ -494,14 +499,21 @@ sub users
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=user)(!(showInAdvancedViewOnly=*))' .
-            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=user)(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);
+        my $entrySid = $user->sid();
+
+        my $skip = 0;
+        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
+            $skip = 1 if ($user->sid() =~ m/$ignoredSidMask/);
+        }
+        next if $skip;
+
         push (@{$list}, $user);
     }
     return $list;
@@ -514,14 +526,21 @@ sub groups
     my $params = {
         base => 'CN=Users,' . $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))' .
-            '(!(isCriticalSystemObject=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $group = new EBox::Samba::Group(entry => $entry);
+
+        my $skip = 0;
+        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
+            $skip = 1 if ($group->sid() =~ m/$ignoredSidMask/);
+        }
+        my $entrySid = $group->sid();
+        next if $skip;
+
         push (@{$list}, $group);
     }
     return $list;

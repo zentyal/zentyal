@@ -33,9 +33,13 @@ use EBox::Exceptions::InvalidData;
 
 use EBox::Samba::Credentials;
 
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
+
 use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
+use Error qw(:try);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -445,6 +449,8 @@ sub addToZentyal
     my $givenName = $self->get('givenName');
     my $surName   = $self->get('sn');
     my $comment   = $self->get('description');
+    $givenName = '-' unless defined $givenName;
+    $surName = '-' unless defined $surName;
 
     my $params = {
         user => $uid,
@@ -457,9 +463,47 @@ sub addToZentyal
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba user '$uid' to Zentyal");
-    #my $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    try {
+        EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    } otherwise {
+    };
+}
+
+sub updateZentyal
+{
+    my ($self) = @_;
+
+    my $uid = $self->get('samAccountName');
+    EBox::info("Updating zentyal user '$uid'");
+
     my $zentyalUser = undef;
-    return $zentyalUser;
+    try {
+        my $gn = $self->get('givenName');
+        my $sn = $self->get('sn');
+        my $desc = $self->get('description');
+        $gn = '-' unless defined $gn;
+        $sn = '-' unless defined $sn;
+        my $cn = "$gn $sn";
+
+        my $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
+        $zentyalUser->setIgnoredModules(['samba']);
+        return unless $zentyalUser->exists();
+
+        $zentyalUser->set('givenName', $gn, 1);
+        $zentyalUser->set('sn', $sn, 1);
+        $zentyalUser->set('description', $desc, 1);
+        $zentyalUser->set('cn', $cn, 1);
+        $zentyalUser->save();
+    } otherwise {};
+    return unless defined $zentyalUser;
+
+    try {
+        my $sc = $self->get('supplementalCredentials');
+        my $up = $self->get('unicodePwd');
+        my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+            unicodePwd => $up);
+        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+    } otherwise {};
 }
 
 1;

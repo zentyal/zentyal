@@ -6,14 +6,35 @@ use warnings;
 use EBox;
 use EBox::Global;
 
+use Time::gmtime;
+use File::Slurp;
+
+sub getTimestamp
+{
+    my $time = gmtime();
+    my $timestamp = sprintf("%04d%02d%02d%02d%02d%02d",
+        $time->year + 1900, $time->mon + 1, $time->mday,
+        $time->hour, $time->min, $time->sec);
+    return $timestamp;
+}
+
 EBox::init();
+
+my $sambaTimestampFile = EBox::Config::home() . '.s4sync_ts';
+unless (-f $sambaTimestampFile) {
+    write_file($sambaTimestampFile, '0');
+}
 
 my $sambaModule = EBox::Global->modInstance('samba');
 my $usersModule = EBox::Global->modInstance('users');
 
 while (1) {
+    my $sambaTimestamp = read_file($sambaTimestampFile);
+
     my $sambaUserList = $sambaModule->ldb->users();
     my $sambaGroupList = $sambaModule->ldb->groups();
+    write_file($sambaTimestampFile, getTimestamp());
+
     my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$sambaUserList};
     my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$sambaGroupList};
 
@@ -22,16 +43,50 @@ while (1) {
     my %zentyalUsers = map { $_->get('uid') => $_ } @{$zentyalUserList};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$zentyalGroupList};
 
-    foreach my $sambaUserName (keys %sambaUsers) {
-        next if exists $zentyalUsers{$sambaUserName};
-        $sambaUsers{$sambaUserName}->addToZentyal();
+    #################################################
+    #### Sync users
+    #################################################
+    # Add users that exists in samba but not in Zentyal
+    foreach my $sambaUserName (sort keys %sambaUsers) {
+        if (exists $zentyalUsers{$sambaUserName}) {
+            my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
+            $changed =~ s/\.\d+Z//;
+            if ($changed > $sambaTimestamp) {
+                $sambaUsers{$sambaUserName}->updateZentyal();
+            }
+            delete $zentyalUsers{$sambaUserName};
+        } else {
+            $sambaUsers{$sambaUserName}->addToZentyal();
+        }
     }
 
-    foreach my $sambaGroupName (keys %sambaGroups) {
-        next if exists $zentyalGroups{$sambaGroupName};
-        $sambaGroups{$sambaGroupName}->addToZentyal();
-        $sambaGroups{$sambaGroupName}->membersToZentyal();
+    foreach my $zentyalUserName (sort keys %zentyalUsers) {
+        EBox::debug("Deleting Zentyal user '$zentyalUserName'");
+        $zentyalUsers{$zentyalUserName}->deleteObject();
     }
 
-    sleep (3);
+
+
+    #################################################
+    #### Sync groups
+    #################################################
+    foreach my $sambaGroupName (sort keys %sambaGroups) {
+        if (exists $zentyalGroups{$sambaGroupName}) {
+            my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
+            $changed =~ s/\.\d+Z//;
+            if ($changed > $sambaTimestamp) {
+                $sambaGroups{$sambaGroupName}->updateZentyal();
+            }
+            delete $zentyalGroups{$sambaGroupName};
+        } else {
+            $sambaGroups{$sambaGroupName}->addToZentyal();
+        }
+    }
+
+    foreach my $zentyalGroupName (sort keys %zentyalGroups) {
+        EBox::debug("Deleting Zentyal group '$zentyalGroupName'");
+        $zentyalGroups{$zentyalGroupName}->deleteObject();
+    }
+
+    sleep (30);
 }
