@@ -1576,7 +1576,7 @@ float:left;
     color: #333;
 }
 
-#software .package_installed, #software .package_selected, #software .package_selected:hover {
+#software .package_selected, #software .package_selected:hover {
     background: <% $progress_bar_bg_color %>;
 }
 
@@ -1587,6 +1587,10 @@ float:left;
     padding:5px 10px;
     font-weight:normal;
 }
+
+.package_installed { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+.package_installed:hover { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+
 
 /*input[name="change"]{
 height: 30px;
