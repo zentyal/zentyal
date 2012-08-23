@@ -1,3 +1,18 @@
+HEAD
+	+ Support additional domain controller mode
+	+ Remove user addon to set the user as domain admin. Add it to the
+	  domain admins group instead.
+	+ Sync domain administrator and domain admins accounts to zentyal
+	+ Increase log level from 1 to 3 to trace problems.
+	+ Provision database only when saving changes, not in module
+	  enable.
+	+ Change samba home to /home/samba instead /home/ebox/samba
+	+ Use the privileged LDAP socket to connect to samba LDAP.
+	+ Provision using bind9 DLZ backend.
+	+ Add config key to choose the fileserver to use, 'ntvfs' or 's3fs'
+	+ Removed wrong empty string translations
+	+ Enable printing daemon. Printers ACLs stored in a model within
+	  printers module.
 2.3.11
 	+ Added modeldepends to yaml schema
 	+ Enable printing daemon. Printers ACLs are now stored in a model within
