@@ -61,13 +61,24 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{rfc931 AS username, remotehost AS ip, domain, event, code,
+                    . q{rfc931 AS username, remotehost AS ip, domain, event = 'accepted' AS accepted, code,
                         SUM(bytes) AS bytes, COUNT(event) AS hits},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', username, ip, domain, event, code'
+          group  => $self->_groupSQLStr() . ', username, ip, domain, accepted, code'
          });
     return $res;
+}
+
+# Method: _booleanFields
+#
+# Overrides:
+#
+#     <EBox::Reporter::Base>
+#
+sub _booleanFields
+{
+    return [ 'accepted' ]
 }
 
 1;

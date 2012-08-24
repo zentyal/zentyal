@@ -145,6 +145,8 @@ sub send
 {
     my ($self) = @_;
 
+    # FIXME: Only for processing
+    return;
     my $dir = $self->_subdir();
     my @files = <${dir}rep-*json>;
     foreach my $file ( @files ) {
@@ -298,6 +300,20 @@ sub _groupSQLStr
     return 'hour'
 }
 
+# Method: _booleanFields
+#
+#      Set those fields whose result is boolean type. This is required
+#      for communication purposes
+#
+# Returns:
+#
+#      Array ref - containing the boolean fields
+#
+sub _booleanFields
+{
+    return [];
+}
+
 # Group: Private methods
 
 # The reporter sub dir
@@ -381,10 +397,16 @@ sub _typeResult
 {
     my ($self, $result) = @_;
 
+    my %booleanFields = map { $_ => 1 } @{$self->_booleanFields()};
+
     # Ensure values are stored as numbers in JSON
     foreach my $row (@{$result}) {
         foreach my $k (keys(%{$row})) {
-            $row->{$k} += 0 if (Scalar::Util::looks_like_number($row->{$k}));
+            if ( exists($booleanFields{$k}) ) {
+                $row->{$k} = $row->{$k} ? JSON::XS::true : JSON::XS::false;
+            } elsif ( Scalar::Util::looks_like_number($row->{$k}) ) {
+                $row->{$k} += 0
+            }
         }
     }
 }
