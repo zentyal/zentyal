@@ -33,6 +33,7 @@ use Error qw(:try);
 use File::Slurp;
 use File::Temp;
 use JSON::XS;
+use Scalar::Util;
 use Time::HiRes;
 
 # Constants
@@ -257,7 +258,7 @@ sub _hourSQLStr
 
     my $timestampField = $self->timestampField();
     return "DATE_FORMAT($timestampField,"
-           . q{'%y-%m-%d %H:00:00') AS hour};
+           . q{'%Y-%m-%d %H:00:00') AS hour};
 }
 
 # Method: _rangeSQLStr
@@ -369,7 +370,23 @@ sub _storeResult
     my $time = join("", Time::HiRes::gettimeofday());
     my $tmpFile = new File::Temp(TEMPLATE => "rep-$time-XXXX", DIR => $dirPath,
                                  SUFFIX => '.json', UNLINK => 0);
+    $self->_typeResult($result);
     print $tmpFile encode_json($result);
+}
+
+# Perform required modifications for properly storing of JSON
+# * Ensure numbers are stored as numbers in JSON
+# * Booleans are stored as bool
+sub _typeResult
+{
+    my ($self, $result) = @_;
+
+    # Ensure values are stored as numbers in JSON
+    foreach my $row (@{$result}) {
+        foreach my $k (keys(%{$row})) {
+            $row->{$k} += 0 if (Scalar::Util::looks_like_number($row->{$k}));
+        }
+    }
 }
 
 1;
