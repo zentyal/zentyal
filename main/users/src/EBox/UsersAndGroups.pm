@@ -68,7 +68,7 @@ use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
 
 # Kerberos constants
-use constant KERBEROS_PORT => 8888;
+use constant KERBEROS_PORT => 8880;
 use constant KPASSWD_PORT => 8464;
 use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';

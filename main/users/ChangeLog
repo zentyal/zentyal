@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed password change at user corner
+	+ Change KDC port to 8880 to preserve the classic default for user corner
 2.3.14
 	+ Ignore the LDAP error 'no attributes to update' on save
 	+ Instantiate users by uid and groups by gid
