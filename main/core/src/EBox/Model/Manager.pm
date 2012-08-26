@@ -343,11 +343,10 @@ sub modelsUsingId
 
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
-# XXX cahgne als o this>
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-            if ($observerModel->isUsingId($modelName, $rowId)) {
+             if ($observerModel->isUsingId($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
         }
@@ -393,13 +392,10 @@ sub modelActionTaken
     throw EBox::Exceptions::MissingArgument('row') unless (defined($row));
 
     my $strToRet = '';
-    EBox::debug("notifyActions for $model $action");
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
-        EBox::debug("Notifying $observerName for $model $action");
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
     }
-    EBox::debug("END notifyActions for $model $action");
 
     return $strToRet;
 }
@@ -686,13 +682,9 @@ sub _setupNotifyActions
 
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
-        my $fullPath = $moduleName . '/' . $model;
-        $self->{notifyActions}->{$fullPath} = $notify->{$model};
+        my $contextName = '/' . $moduleName . '/' . $model . '/';
+        $self->{notifyActions}->{$contextName} = $notify->{$model};
     }
-
-    use Data::Dumper;
-    EBox::debug("_setupNotifyActions $moduleName");
-    EBox::debug(Dumper($self->{notifyActions}));
 }
 
 sub _modelExists

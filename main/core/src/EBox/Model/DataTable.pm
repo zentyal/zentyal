@@ -3534,8 +3534,7 @@ sub _notifyManager
     my ($self, $action, $row) = @_;
 
     my $manager = EBox::Model::Manager->instance();
-    my $modelName =  $self->parentModule()->name() . '/' .  $self->name();
-    return $manager->modelActionTaken($modelName, $action, $row);
+    return $manager->modelActionTaken($self->contextName(), $action, $row);
 }
 
 sub _filterRows
