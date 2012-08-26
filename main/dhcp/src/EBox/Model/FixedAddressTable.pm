@@ -322,12 +322,13 @@ sub _allowedMemberInFixedAddress
         return 0;
     }
 
+    my $dhcp     = $self->parentModule();
     my $memberIP = new Net::IP($member->{ip});
     my $gl       = EBox::Global->getInstance($readOnly);
     my $net      = $gl->modInstance('network');
     my $objs     = $gl->modInstance('objects');
-    my $netIP    = new Net::IP($self->initRange($iface)
-                               . '-' . $self->endRange($iface));
+    my $netIP    = new Net::IP($dhcp->initRange($iface)
+                               . '-' . $dhcp->endRange($iface));
 
     # Check if the IP address is within the network
     unless ($memberIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP) {
@@ -347,7 +348,7 @@ sub _allowedMemberInFixedAddress
 
     # Check the member IP address is not within any given range by
     # RangeTable model
-    my $rangeModel = $self->_getModel('RangeTable', $iface);
+    my $rangeModel = $dhcp->_getModel('RangeTable', $iface);
     foreach my $id (@{$rangeModel->ids()}) {
         my $rangeRow = $rangeModel->row($id);
         my $from     = $rangeRow->valueByName('from');
@@ -362,14 +363,14 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check the given member is unique within the object realm
-    my $network = $self->global()->modInstance('network');
+    my $network = $dhcp->global()->modInstance('network');
     my @otherDHCPIfaces = grep {
         my $other = $_;
         ($network->ifaceMethod($other) eq 'static') and
         ($other ne $iface)
     } @{ $network->InternalIfaces()  };
     my @fixedAddressTables = map {
-        $self->_getModel('FixedAddressTable', $_)
+        $dhcp->_getModel('FixedAddressTable', $_)
     } @otherDHCPIfaces;
 
     foreach my $model (@fixedAddressTables) {
@@ -393,7 +394,7 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check for the same MAC address
-    my $fixedAddrModel = $self->_getModel('FixedAddressTable', $iface);
+    my $fixedAddrModel = $dhcp->_getModel('FixedAddressTable', $iface);
     my $ids = $fixedAddrModel->ids();
     foreach my $id ( @{$ids} ) {
         my $row = $fixedAddrModel->row($id);

@@ -160,17 +160,26 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
+    my $noEnabled = 1;
     my $noRanges = 1;
     foreach my $id (@{ $self->ids() }) {
-        my $conf =  $self->row($id)->subModel('configuration');
+        my $row = $self->row($id);
+        if (not $row->valueByName('enabled')) {
+            next;
+        }
+        $noEnabled = 0;
+
+        my $conf =  $row->subModel('configuration');
         if ($conf->hasAddresses()) {
             $noRanges = 0;
             last;
         }
     }
 
-    if ( $noRanges) {
-        $customizer->setPermanentMessage(__('The DHCP server has not any range configured. You need at least one range configured on one interface to use it'), 'warning');
+    if ($noEnabled) {
+          $customizer->setPermanentMessage(__('No interfaces enabled.  The DHCP server  will not serve any address'), 'warning');      
+    } elsif ( $noRanges) {
+        $customizer->setPermanentMessage(__('The enabled interfaces have not any range or fixed address configured.  The DHCP server  will not serve any address'), 'warning');
     }
     return $customizer;
 }

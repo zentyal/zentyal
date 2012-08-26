@@ -81,7 +81,7 @@ sub validateTypedRow
                                                 ));
         }
         # Check the range is within the available range
-        my $dhcp = $self->{confmodule};
+        my $dhcp = $self->parentModule();
         my $net  = EBox::Global->modInstance('network');
         my $interface = $self->parentRow()->valueByName('iface');
         my $availableRange = new Net::IP($dhcp->initRange($interface) . '-'
@@ -198,7 +198,6 @@ sub _table
                      'rowUnique'          => 1,  # Set each row is unique
                      'printableRowName'   => __('range'),
                      'sortedBy'           => 'from',
-                     'noDataMsg'          => __('No ranges configured. The DHCP server would not listen on this interface'),
                     };
 
     return $dataTable;

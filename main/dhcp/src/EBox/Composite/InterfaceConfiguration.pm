@@ -101,4 +101,20 @@ sub interface
     return $self->parentRow()->valueByName('iface');
 }
 
+
+
+sub permanentMessage
+{
+    my ($self) = @_;
+    if (not $self->parentRow()->valueByName('enabled')) {
+        return __('This interface is not enabled. DHCP server will not serve addresses in this interface');
+    }
+    if ($self->hasAddresses()) {
+        return undef;
+    }
+
+    return
+       __('This interface has neither IP ranges or fixed address assigned. DHCP server will not serve addresses in this interface');
+}
+
 1;
