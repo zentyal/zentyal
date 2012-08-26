@@ -34,6 +34,7 @@ use EBox::Asterisk::Extensions;
 use EBox::Model::Manager;
 
 use Perl6::Junction qw(any);
+use Digest::MD5 qw(md5);
 
 # Group: Public methods
 
@@ -98,6 +99,8 @@ sub _addUser
                                    'AsteriskQueueMember',
                                    'AsteriskVoicemail'], 1);
 
+        my $md5secret = md5("$extn:asterisk:$passwd");
+        $user->set('AstMD5secret', $md5secret, 1);
         $user->set('AstAccountType', 'friend', 1);
         $user->set('AstAccountContext', 'users',1);
         $user->set('AstAccountCallerID', $extn, 1);
@@ -201,6 +204,7 @@ sub _delUser
     @objectclasses = grep { $_ ne 'AsteriskVoiceMail' } @objectclasses;
     @objectclasses = grep { $_ ne 'AsteriskQueueMember' } @objectclasses;
     $user->set('objectclass', \@objectclasses, 1);
+    $user->delete('AstMD5secret', 1);
     $user->delete('AstAccountType', 1);
     $user->delete('AstAccountContext', 1);
     $user->delete('AstAccountCallerID', 1);

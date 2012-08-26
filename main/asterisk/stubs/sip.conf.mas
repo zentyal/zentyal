@@ -21,7 +21,7 @@
 [general]
 context=default
 allowoverlap=no
-realm=ebox
+realm=asterisk
 fromdomain=<% $domain %>
 
 udpbindaddr=0.0.0.0

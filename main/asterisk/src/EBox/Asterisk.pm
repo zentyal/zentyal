@@ -269,6 +269,7 @@ sub _setRealTime
 
     my $ldapConf = $self->ldap->ldapConf();
     push (@params, url => $ldapConf->{'ldap'});
+    push (@params, port => $ldapConf->{'port'});
     push (@params, dn => $ldapConf->{'dn'});
     push (@params, rootdn => $ldapConf->{'rootdn'});
     push (@params, password => $self->ldap->getPassword());
