@@ -35,4 +35,4 @@ foreign:
     Interfaces: [InterfaceConfiguration]
 
 notifyactions:
-    ThinClientOptions: [FixedAddressTable, RangeTable]
+    ThinClientOptions: [dhcp/FixedAddressTable, dhcp/RangeTable]
