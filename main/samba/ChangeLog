@@ -1,3 +1,6 @@
+HEAD
+	+ Do not notify samba module when deleting Zentyal users and groups
+	  through the synchronizer script
 2.3.12
 	+ Support additional domain controller mode
 	+ Remove user addon to set the user as domain admin. Add it to the

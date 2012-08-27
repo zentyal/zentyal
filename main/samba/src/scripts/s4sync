@@ -62,6 +62,7 @@ while (1) {
 
     foreach my $zentyalUserName (sort keys %zentyalUsers) {
         EBox::debug("Deleting Zentyal user '$zentyalUserName'");
+        $zentyalUsers{$zentyalUserName}->setIgnoredModules(['samba']);
         $zentyalUsers{$zentyalUserName}->deleteObject();
     }
 
@@ -85,6 +86,7 @@ while (1) {
 
     foreach my $zentyalGroupName (sort keys %zentyalGroups) {
         EBox::debug("Deleting Zentyal group '$zentyalGroupName'");
+        $zentyalGroups{$zentyalGroupName}->setIgnoredModules(['samba']);
         $zentyalGroups{$zentyalGroupName}->deleteObject();
     }
 
