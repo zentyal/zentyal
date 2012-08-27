@@ -31,7 +31,7 @@ models:
 composites:
     General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
     FilterSettings: [ContentFilterThreshold, AntiVirus]
-    Domains: [DomainFilter, DomainFilterSettings]
+    Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
     TrafficReport: [TrafficReportOptions, RequestsGraph, TrafficSizeGraph, TrafficDetails]
 
