@@ -141,7 +141,8 @@ sub name
 #       otherwise
 sub precondition
 {
-    my $global = EBox::Global->getInstance();
+    my ($self) = @_;
+    my $global = $self->global();
     my $ca = $global->modInstance('ca');
     return ($ca->isAvailable());
 }
@@ -183,8 +184,10 @@ sub validateTypedRow
 
     $self->_validateName($action, $params_r, $actual_r);
     if ($action eq 'add') {
+        my $name = $params_r->{name}->value();
         $self->_checkCertificatesAvailable(
-                  __('Server creation')
+            $name,
+            __('Server creation')
                                           );
         return;
     }
@@ -317,7 +320,7 @@ sub _validateName
 
 sub _checkCertificatesAvailable
 {
-    my ($self, $printableAction) = @_;
+    my ($self, $name, $printableAction) = @_;
 
     unless ($self->precondition()) {
         throw EBox::Exceptions::External(
@@ -329,6 +332,34 @@ sub _checkCertificatesAvailable
                        act => $printableAction
                       )
                                         );
+    }
+
+    my $ca = $self->global()->modInstance('ca');
+    my $certName =  "vpn-$name";
+    my $metadata = $ca->getCertificateMetadata(cn => $certName);
+    if (defined $metadata) {
+        my $state = $metadata->{state};
+        if ($state ne 'V') {
+            my $printableState;
+            if ($state eq 'R') {
+                $printableState = __('revoked');
+            } elsif ($state eq 'E') {
+                $printableState = __('expired');
+            } else {
+                $printableState = __('invalid');
+            }
+
+            throw EBox::Exceptions::External(
+                   __x(
+                       'Cannot create a server called {name} because it already' .
+                       'exists a certificate called {certName} with {state} state.<br/>' .
+                       'Choose another name or reissue the {certName} certificate',
+                       name     => $name,
+                       certName => $certName,
+                       state    => $printableState,
+                      )
+                  );
+        }
     }
 }
 

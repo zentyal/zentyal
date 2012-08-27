@@ -100,6 +100,9 @@ persist-key
 persist-tun
 
 # Write the PID file for compatibility with Ubuntu init.d script
+% if ($pidFile ) {
+writepid <% $pidFile %>
+% }
 <& valueEntry, entry => 'writepid', value => $pidFile &>
 
 # If you are connecting through an
