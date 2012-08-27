@@ -37,6 +37,8 @@
 #include <ldb_module.h>
 #include <jansson.h>
 
+#define LDB_CONTROL_BYPASS "1.3.6.1.4.1.31607.2.1.1.3.1"
+
 static char socket_path[] = "/var/run/ldb";
 
 static char encoding_table[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -342,6 +344,12 @@ static int search_entry(struct ldb_context *ldb, struct ldb_dn *dn, struct ldb_r
 static int zentyal_add(struct ldb_module *module, struct ldb_request *req)
 {
     struct ldb_context *ldb = NULL;
+    struct ldb_control *ctrl;
+
+    ctrl = ldb_request_get_control(req, LDB_CONTROL_BYPASS);
+    if (ctrl != NULL) {
+        return ldb_next_request(module, req);
+    }
 
     ldb = ldb_module_get_ctx(module);
 
@@ -374,8 +382,14 @@ static int zentyal_modify(struct ldb_module *module, struct ldb_request *req)
 {
     struct ldb_context *ldb = NULL;
     struct ldb_result *result;
+    struct ldb_control *ctrl;
 
     ldb = ldb_module_get_ctx(module);
+
+    ctrl = ldb_request_get_control(req, LDB_CONTROL_BYPASS);
+    if (ctrl != NULL) {
+        return ldb_next_request(module, req);
+    }
 
     if (req->operation == LDB_MODIFY) {
         struct ldb_dn *dn;
@@ -421,6 +435,12 @@ static int zentyal_delete(struct ldb_module *module, struct ldb_request *req)
 {
     struct ldb_context *ldb;
     struct ldb_result *result;
+    struct ldb_control *ctrl;
+
+    ctrl = ldb_request_get_control(req, LDB_CONTROL_BYPASS);
+    if (ctrl != NULL) {
+        return ldb_next_request(module, req);
+    }
 
     ldb = ldb_module_get_ctx(module);
 
@@ -539,6 +559,8 @@ static int zentyal_init(struct ldb_module *module)
     ldb_module_set_private(module, data);
 
     talloc_set_destructor(module, zentyal_destructor);
+
+    ldb_mod_register_control(module, LDB_CONTROL_BYPASS);
 
     return ldb_next_init(module);
 }
