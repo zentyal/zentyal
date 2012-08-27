@@ -682,8 +682,19 @@ sub _setupNotifyActions
 
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
-        my $contextName = '/' . $moduleName . '/' . $model . '/';
-        $self->{notifyActions}->{$contextName} = $notify->{$model};
+        my $observerPath = '/' . $moduleName . '/' . $model . '/';
+        foreach my $notifier (@{ $notify->{$model}   }) {
+            # XXX change when we change the yaml to the more intuitive notifier
+            # - >wathcer format
+            if (not exists $self->{notifyActions}->{$notifier}) {
+                $self->{notifyActions}->{$notifier} = [];
+            }
+
+            push @{ $self->{notifyActions}->{$notifier} }, $observerPath;
+        }
+
+
+#        $self->{notifyActions}->{$contextName} = $notify->{$model};
     }
 }
 

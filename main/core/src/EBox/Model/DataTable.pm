@@ -3534,7 +3534,12 @@ sub _notifyManager
     my ($self, $action, $row) = @_;
 
     my $manager = EBox::Model::Manager->instance();
-    return $manager->modelActionTaken($self->contextName(), $action, $row);
+
+    my $contextName = $self->contextName();
+    # remove begining and trailing '/' for context name
+    $contextName =~ s{^/}{};
+    $contextName =~ s{/$}{};
+    return $manager->modelActionTaken($contextName, $action, $row);
 }
 
 sub _filterRows
