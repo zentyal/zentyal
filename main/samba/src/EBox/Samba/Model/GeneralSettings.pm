@@ -46,6 +46,9 @@ use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
 
+use constant MODE_DC              => 'dc';
+use constant MODE_ADC             => 'adc';
+
 # see http://support.microsoft.com/kb/909264
 my @reservedNames = (
 'ANONYMOUS',
@@ -120,6 +123,9 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
                 __('Netbios and workgroup must have different names'));
     }
+
+    # TODO Error provisioning database. Output: ProvisioningError:
+    # guess_names: Realm 'ASDF' must not be equal to hostname 'asdf'!
 
     $self->_checkNetbiosName($netbios);
     $self->_checkDomainName($workgroup);
@@ -228,17 +234,34 @@ sub _table
             populate      => \&_server_roles,
             editable      => 1,
         ),
+        new EBox::Types::DomainName(
+            fieldName          => 'realm',
+            printableName      => __('Realm'),
+            defaultValue       => EBox::Global->modInstance('users')->kerberosRealm(),
+            editable           => 0,
+        ),
+        new EBox::Types::DomainName(
+            fieldName     => 'dcfqdn',
+            printableName => __('Domain controller FQDN'),
+            editable      => 1,
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'dnsip',
+            printableName => __('Domain DNS server IP'),
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            # This is the administrator account used to join the zentyal
+            # server to an existent domain
+            fieldName     => 'adminAccount',
+            printableName => __('Administrator account'),
+            editable      => 1,
+        ),
         new EBox::Types::Text(
             fieldName     => 'password',
             printableName => __('Administrator password'),
             defaultValue  => EBox::Samba::defaultAdministratorPassword(),
             editable      => 1,
-        ),
-        new EBox::Types::DomainName(
-            fieldName          => 'realm',
-            printableName      => __('Domain'),
-            defaultValue       => EBox::Samba::defaultRealm(),
-            editable           => 0,
         ),
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
@@ -290,16 +313,19 @@ sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
 
+    my $newMode  = $row->valueByName('mode');
+    my $oldMode  = defined $oldRow ? $oldRow->valueByName('mode') : $newMode;
+
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
 
     my $newDomain = $row->valueByName('workgroup');
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
-    if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
+    if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
-        $sambaMod->set_bool('provisioned', 0);
+        $sambaMod->setProvisioned(0);
     }
 
     my $newAdminPwd = $row->valueByName('password');
@@ -344,25 +370,34 @@ sub confirmReprovision
     my $oldRealm = $self->value('realm');
     my $newDomain = $params->{workgroup};
     my $oldDomain = $self->value('workgroup');
-    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain);
-    return  __x("Changing the domain name will cause to reprovision the samba database.\n\n" .
-                'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
-                'rejoin all computers to the new domain.');
+    my $newMode = $params->{mode};
+    my $oldMode = $self->value('mode');
+    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain and $newMode eq $oldMode);
+    if ($newMode eq 'dc') {
+        return  __("Changing the domain name will cause to reprovision the samba database.\n\n" .
+                   'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
+                   'rejoin all computers to the new domain.');
+    } elsif ($newMode eq 'adc') {
+        return __("Joining a domain will delete all your users and groups from Zentyal and import " .
+                  "the domain ones.");
+    }
+
+    return undef;
 }
 
 # Populate the server role select
 sub _server_roles
 {
-    my @roles;
+    my $roles = [];
 
-    push (@roles, { value => 'dc', printableValue => __('Domain controller')});
+    push (@{$roles}, { value => MODE_DC, printableValue => __('Domain controller')});
+    push (@{$roles}, { value => MODE_ADC, printableValue => __('Additional domain controller')});
 
     # FIXME
     # These roles are disabled until implemented, we should also use better names
-    #push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
     #push (@roles, { value => 'standalone', printableValue => __('Standalone')});
 
-    return \@roles;
+    return $roles;
 }
 
 sub _drive_letters
@@ -384,6 +419,36 @@ sub _drive_letters
 sub headTitle
 {
     return undef;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $actions = {
+        mode => {
+            dc => {
+#                show => ['workgroup'],
+                hide => ['dcfqdn', 'dnsip','adminAccount'],
+            },
+            adc => {
+                show => ['dcfqdn','dnsip','adminAccount'],
+#                hide => ['workgroup'],
+            },
+        },
+    };
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions($actions);
+    $customizer->setHTMLTitle([]);
+    $customizer->setInitHTMLStateOrder(['mode']);
+
+    return $customizer;
 }
 
 1;

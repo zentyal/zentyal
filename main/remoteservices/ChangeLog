@@ -1,4 +1,5 @@
-HEAD
+2.3.2
+	+ Do not set local address for TCP connections
 	+ Avoid division by zero showing DR info
 	+ Use beta values for configuration for now
 	+ Remove no longer used restore backup from proxy

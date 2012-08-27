@@ -14,9 +14,10 @@ Replaces: ebox-samba (<< 2.0.100)
 Breaks: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, ldb-tools,
          zentyal-firewall, zentyal-users, zentyal-dns, acl,
-         samba4 (= 4.0.0~beta2+dfsg1-1+zentyal1),
-         samba-dsdb-modules (= 4.0.0~beta2+dfsg1-1+zentyal1),
-         samba-zentyal-modules (>= 0.4), libdate-calc-perl, ${misc:Depends}
+         samba4 (>= 4.0.0~beta5+dfsg1-1+zentyal1),
+         samba-dsdb-modules (>= 4.0.0~beta5+dfsg1-1+zentyal1),
+         libdate-calc-perl,
+         ${misc:Depends}
 Description: Zentyal - File Sharing and Domain Services
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

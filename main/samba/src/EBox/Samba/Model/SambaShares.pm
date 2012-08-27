@@ -39,11 +39,10 @@ use EBox::Sudo;
 
 use Error qw(:try);
 
-# TODO Fix
-use constant DEFAULT_MASK => '0770';
+use constant DEFAULT_MASK => '0700';
 use constant DEFAULT_USER => 'root';
-use constant DEFAULT_GROUP => '__USERS__';
-use constant GUEST_DEFAULT_MASK => '0750';
+use constant DEFAULT_GROUP => 'root';
+use constant GUEST_DEFAULT_MASK => '0777';
 use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => 'nogroup';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
@@ -256,13 +255,21 @@ sub deletedRowNotify
 #
 #   This method is used to create the necessary directories for those
 #   shares which must live under /home/samba/shares
+#   We must set here both POSIX ACLs and navite NT ACLs. If we only set
+#   POSIX ACLs, a user can change the permissions in the security tab
+#   of the share. To avoid it we set also navive NT ACLs and set the
+#   owner of the share to 'Domain Admins'.
 #
 sub createDirs
 {
     my ($self) = @_;
 
-    my $administratorSID = $self->parentModule()->ldb()->getSidById('administrator');
-    my $domainUsersSID = $self->parentModule()->ldb()->getSidById('Domain Users');
+    my $sambaModule = $self->parentModule();
+    my $ldb = $sambaModule->ldb();
+
+    my $domainSid = $ldb->domainSID();
+    my $domainAdminsSid = $domainSid . '-512';
+    my $domainUsersSid  = $domainSid . '-513';
 
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
@@ -271,66 +278,113 @@ sub createDirs
         next unless ( $pathType->selectedType() eq 'zentyal');
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
-        push(@cmds, "mkdir -p '$path'");
+        push (@cmds, "mkdir -p '$path'");
         if ($guestAccess) {
-           push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
-           push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
+           push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
+           push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
         } else {
-           push(@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
-           push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
+           push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
+           push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
-        EBox::debug("Creating share directory");
-        EBox::debug("Executing @cmds");
+        push (@cmds, "setfacl -b $path"); # Clear POSIX ACLs
         EBox::Sudo::root(@cmds);
-        # Set NT ACLs
+
+        if ($guestAccess) {
+            my $ntACL = '';
+            $ntACL .= "O:$domainAdminsSid"; # Object's owner
+            $ntACL .= "G:$domainUsersSid"; # Object's primary group
+            my $aceString = '(A;OICI;0x001301BF;;;S-1-1-0)';
+            $ntACL .= "D:$aceString";
+            my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
+            try {
+                EBox::Sudo::root($cmd);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Coundn't enable NT ACLs for $path: $error");
+            };
+            next;
+        }
+
         # Build the security descriptor string
-        my $sdString = '';
-        $sdString .= "O:$administratorSID"; # Object's owner
-        $sdString .= "G:$domainUsersSID"; # Object's primary group
+        my $ntACL = '';
+        $ntACL .= "O:$domainAdminsSid"; # Object's owner
+        $ntACL .= "G:$domainUsersSid"; # Object's primary group
+
         # Build the ACS strings
-        # http://msdn.microsoft.com/en-us/library/windows/desktop/aa374928(v=vs.85).aspx
         my @aceStrings = ();
         push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
-        push (@aceStrings, "(A;;0x001f01ff;;;$administratorSID)"); # Administrator has full access
+        push (@aceStrings, "(A;;0x001f01ff;;;$domainAdminsSid)"); # Domain admins have full access
+
+        # Posix ACL
+        my @posixACL;
+        push (@posixACL, 'u:root:rwx');
+        push (@posixACL, 'g::---');
+        push (@posixACL, 'g:' . DEFAULT_GROUP . ':---');
+
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
             my $permissions = $subRow->elementByName('permissions');
-            my $aceString = '(';
-            # ACE Type
-            $aceString .= 'A;';
-            # ACE Flags
-            $aceString .= 'OICI;';
-            # Rights
+
+            my $userType = $subRow->elementByName('user_group');
+            my $perm;
+            if ($userType->selectedType() eq 'group') {
+                $perm = 'g:';
+            } elsif ($userType->selectedType() eq 'user') {
+                $perm = 'u:';
+            }
+            my $account = $userType->printableValue();
+            my $qobject = shell_quote($account);
+            $perm .= $qobject . ':';
+
+            my $aceString = '(A;OICI;';
             if ($permissions->value() eq 'readOnly') {
                 $aceString .= '0x001200A9;';
+                $perm .= 'rx';
             } elsif ($permissions->value() eq 'readWrite') {
                 $aceString .= '0x001301BF;';
+                $perm .= 'rwx';
             } elsif ($permissions->value() eq 'administrator') {
                 $aceString .= '0x001F01FF;';
+                $perm .= 'rwx';
+            } else {
+                my $type = $permissions->value();
+                EBox::error("Unknown share permission type '$type'");
+                next;
             }
-            # Object Guid
-            $aceString .= ';';
-            # Inherit Object Guid
-            $aceString .= ';';
-            # Account SID
-            my $userType = $subRow->elementByName('user_group');
-            $aceString .= $self->parentModule()->ldb()->getSidById($userType->printableValue());
-            $aceString .= ')';
-            push (@aceStrings, $aceString);
+            push (@posixACL, $perm);
+
+            # Account Sid
+            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
+            if ($object->exists()) {
+                $aceString .= ';;' . $object->sid() . ')';
+                push (@aceStrings, $aceString);
+            }
         }
-        if ($guestAccess) {
-            push (@aceStrings, '(A;OICI;0x001301BF;;;S-1-1-0)');
+
+        if (@posixACL) {
+            try {
+                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " $path";
+                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." $path";
+                EBox::Sudo::root($cmd);
+                EBox::Sudo::root($defaultCmd);
+
+            } otherwise {
+                my $error = shift;
+                EBox::debug("Couldn't enable POSIX ACLs for $path: $error")
+            };
         }
-        my $fullAce = join ('', @aceStrings);
-        $sdString .= "D:$fullAce";
-        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' '$path'";
-        try {
-            EBox::debug("Executing '$cmd'");
-            EBox::Sudo::root($cmd);
-        } otherwise {
-            my $error = shift;
-            EBox::debug("Couldn't write NT ACLs for '$path': $error");
-        };
+        if (@aceStrings) {
+            try {
+                my $fullAce = join ('', @aceStrings);
+                $ntACL .= "D:$fullAce";
+                my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
+                EBox::Sudo::root($cmd);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Coundn't enable NT ACLs for $path: $error");
+            };
+        }
+
     }
 }
 

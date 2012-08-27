@@ -139,4 +139,4 @@ input[type='submit'] {
     font-weight:bold;
 }
 
-input[type='submit']:hover, {background:#DFDFDF}
+input[type='submit']:hover {background:#DFDFDF}

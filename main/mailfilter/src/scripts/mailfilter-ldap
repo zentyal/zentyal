@@ -19,34 +19,30 @@ sub update
             givenname => 'Spam',
             surname => 'account',
             surname  => 'spam',
-            password => '',
+            password => undef,
         },
         {
             user => 'ham',
             givenname => 'Ham',
             surname => 'account',
             surname => 'ham',
-            password => '',
+            password => undef,
         },
     );
 
-
     foreach my $user_r (@controlUsers) {
         my $username = $user_r->{user};
-        my $dn = $users->userDn($username);
-
-        my $user = new EBox::UsersAndGroups::User(dn => $dn);
+        my $user = new EBox::UsersAndGroups::User(uid => $username);
         unless ($user->exists()) {
+            EBox::debug("Creating user '$username'");
             EBox::UsersAndGroups::User->create($user_r, 1);
-        }
-        else {
-            my $uid = $user->get('uidNumber');
-            if ($uid > $user->lastUid(1)) {
+        } else {
+            my $uidNumber = $user->get('uidNumber');
+            if ($uidNumber > $user->lastUid(1)) {
                 die "$user->name is not a system user as it has to be";
             }
         }
     }
-
 
     my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
     my @vdomains = _vdomains();

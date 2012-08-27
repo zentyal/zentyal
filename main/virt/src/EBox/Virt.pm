@@ -20,12 +20,8 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver
-          );
+            EBox::FirewallObserver);
 
 use EBox;
 use EBox::Config;
@@ -135,7 +131,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
-                                    'order' => 445));
+                                    'order' => 447));
 }
 
 sub _preSetConf

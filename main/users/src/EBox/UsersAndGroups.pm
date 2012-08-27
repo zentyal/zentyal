@@ -66,7 +66,10 @@ use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
 use constant LDAP_DATADIR    => '/var/lib/ldap/';
 use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
+
 # Kerberos constants
+use constant KERBEROS_PORT => 8880;
+use constant KPASSWD_PORT => 8464;
 use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
 use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
@@ -209,15 +212,13 @@ sub initialSetup
                 'readOnly' => 1,
                 'services' => [ { protocol   => 'tcp/udp',
                                   sourcePort => 'any',
-                                  destinationPort => 88 },
+                                  destinationPort => KERBEROS_PORT },
                                 { protocol   => 'tcp/udp',
                                   sourcePort => 'any',
-                                  destinationPort => 464 } ]
+                                  destinationPort => KPASSWD_PORT } ]
             );
-
             $fw->setInternalService($serviceName, 'accept');
         }
-
         $fw->saveConfigRecursive();
     }
 
@@ -225,58 +226,15 @@ sub initialSetup
     $self->SUPER::initialSetup($version);
 }
 
-sub _cleanDNSRecords
-{
-    my ($self, $domain) = @_;
-
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my $del = [];
-    push ($del, { type     => 'txt',
-                  name     => '_kerberos' });
-    push ($del, { type     => 'srv',
-                  protocol => 'tcp',
-                  service  => 'kerberos' });
-    push ($del, { type     => 'srv',
-                  protocol => 'tcp',
-                  service  => 'kerberos-master' });
-    push ($del, { type     => 'srv',
-                  protocol => 'tcp',
-                  service  => 'kpasswd' });
-    push ($del, { type     => 'srv',
-                  protocol => 'udp',
-                  service  => 'kerberos' });
-    push ($del, { type     => 'srv',
-                  protocol => 'udp',
-                  service  => 'kerberos-master' });
-    push ($del, { type     => 'srv',
-                  protocol => 'udp',
-                  service  => 'kpasswd' });
-    foreach my $rr (@{$del}) {
-        try {
-            if ($rr->{type} eq 'srv') {
-                $dnsMod->delService($domain, $rr);
-            } elsif ($rr->{type} eq 'txt') {
-                $dnsMod->delText($domain, $rr);
-            }
-        } otherwise {
-        };
-    }
-}
-
 sub setupKerberos
 {
     my ($self) = @_;
 
-    # Get the FQDN
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $fqdn = $sysinfo->fqdn();
-    my $hostName = $sysinfo->hostName();
-    my $hostDomain = $sysinfo->hostDomain();
-    my $realm = uc ($hostDomain);
+    my $realm = $self->kerberosRealm();
+    EBox::info("Initializing kerberos realm '$realm'");
 
-    # Create the kerberos database
     my @cmds = ();
-    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i');
+    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
@@ -284,8 +242,21 @@ sub setupKerberos
     push (@cmds, 'rm -f /etc/kpasswdd.keytab');
     push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
     push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-    EBox::debug("Initializing kerberos realm '$realm'");
     EBox::Sudo::root(@cmds);
+
+    $self->setupDNS();
+}
+
+sub setupDNS
+{
+    my ($self) = @_;
+
+    EBox::info("Setting up DNS");
+
+    # Get the host domain
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+    my $hostDomain = $sysinfo->hostDomain();
 
     # Create the domain in the DNS module if it does not exists
     my $dnsMod = EBox::Global->modInstance('dns');
@@ -295,19 +266,20 @@ sub setupKerberos
     my %domains = map {$_->{name} => $_} @{$domains};
     if (not exists $domains{$hostDomain}) {
         $dnsMod->addDomain($domain);
-    } else {
-        $self->_cleanDNSRecords($hostDomain);
     }
+
+    EBox::debug("Adding DNS records for kerberos");
 
     # Add the TXT record with the realm name
     my $txtRR = { name => '_kerberos',
-                  data => $realm };
+                  data => $hostDomain };
     $dnsMod->addText($hostDomain, $txtRR);
 
     # Add the SRV records to the domain
     my $service = { service => 'kerberos',
                     protocol => 'tcp',
-                    port => 88,
+                    port => KERBEROS_PORT,
+                    priority => 100,
                     weight => 100,
                     target_type => 'domainHost',
                     target => $hostName };
@@ -319,7 +291,8 @@ sub setupKerberos
     ##      to the master server
     $service = { service => 'kerberos-master',
                  protocol => 'tcp',
-                 port => 88,
+                 port => KERBEROS_PORT,
+                 priority => 100,
                  weight => 100,
                  target_type => 'domainHost',
                  target => $hostName };
@@ -329,7 +302,8 @@ sub setupKerberos
 
     $service = { service => 'kpasswd',
                  protocol => 'tcp',
-                 port => 464,
+                 port => KPASSWD_PORT,
+                 priority => 100,
                  weight => 100,
                  target_type => 'domainHost',
                  target => $hostName };
@@ -580,26 +554,6 @@ sub editableMode
     return 1;
 }
 
-# Method: isSambaDisabled
-#
-#   Returns true if samba module is not installed or
-#   disabled
-#
-sub isSambaDisabled
-{
-    my ($self) = @_;
-
-    my $ret = 1;
-
-    if (EBox::Global->modExists('samba')) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled()) {
-            $ret = 0;
-        }
-    }
-    return $ret;
-}
-
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -610,10 +564,11 @@ sub _daemons
 
     return [
         { name => 'ebox.slapd' },
-        { name => 'heimdal-kdc',
-          type => 'init.d',
-          pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
-          precondition => \&isSambaDisabled },
+        {
+            name => 'heimdal-kdc',
+            type => 'init.d',
+            pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
+        },
     ];
 }
 

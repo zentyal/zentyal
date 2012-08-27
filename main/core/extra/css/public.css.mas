@@ -475,7 +475,8 @@ input[type='password'][disabled], input[type='text'][disabled] {
 }
 
 
-input[type='submit'], button {
+
+input[type='submit'], button, input[type='button'] {
     color:#666;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -492,6 +493,7 @@ input[type='submit'], button {
     font-weight:bold;
     font-size:11px;
 }
+
 
 button > img {margin-bottom:-3px;}
 
@@ -514,13 +516,17 @@ button > img {margin-bottom:-3px;}
 
 #installButtons > button > img { margin-bottom:-3px;}
 
-input[type='submit']:hover, {background:#DFDFDF}
-input[type='submit'][disabled]{
+input[type='submit']:hover, input[type='button']:hover {background:#DFDFDF}
+
+button:hover {background:#DFDFDF}
+
+input[type='submit'][disabled], input[type='button'][disabled]{
     cursor:default;
     border-color:#dbdbdb;
     background-color:#eee;
     color:#BBB;
 }
+input[type='submit'][disabled]:hover {background-color:#eee;}
 
 .inputText, .inputTextError {
     color: #000000;
@@ -579,15 +585,17 @@ input[type='submit'][disabled]{
     padding: 3px;
 }
 
+.inputButton:hover, input[type='image']:hover, .edit_table_B:hover, #installButtons > button:hover {background: #E7E7E7;}
+
 #installButtons > button  {
    padding: 5px 10px !important;
 }
 
 .edit_table_B { display: inline-block;}
-.edit_table_B:hover { display: inline-block; background: whiteSmoke !important;}
+.edit_table_B:hover { display: inline-block; background: #E7E7E7 !important;}
 
 .inputButton[disabled], input[type='image'][disabled]{cursor:default;}
-
+.inputButton[disabled]:hover, input[type='image'][disabled]:hover{background-color:whitesmoke;}
 
 .msg {
     color: #FFFFFF;
@@ -855,7 +863,7 @@ input {
 }
 
 
-#confbutton a:hover { 
+#confbutton a:hover {
 filter: alpha(opacity=100);
     -moz-opacity: 1;
     KhtmlOpacity: 1;
@@ -1466,6 +1474,8 @@ padding:15px 20px;
 float:left;
 }
 
+.big:hover {background-color:#FFC200;}
+
 /* Progress bar */
 #progress_bar {
     width:100%;
@@ -1507,10 +1517,6 @@ float:left;
 }
 
 #software .image:hover {
-    filter: alpha(opacity=50);
-    -moz-opacity: 0.5;
-    KhtmlOpacity: .5;
-    opacity: .5;
     cursor: pointer;
 }
 
@@ -1570,7 +1576,7 @@ float:left;
     color: #333;
 }
 
-#software .package_installed, #software .package_selected, #software .package_selected:hover {
+#software .package_selected, #software .package_selected:hover {
     background: <% $progress_bar_bg_color %>;
 }
 
@@ -1581,6 +1587,10 @@ float:left;
     padding:5px 10px;
     font-weight:normal;
 }
+
+.package_installed { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+.package_installed:hover { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+
 
 /*input[name="change"]{
 height: 30px;
@@ -1695,11 +1705,7 @@ border-radius: 3px;
     /*width:500px;*/
     margin: 0px auto;
 }
-#MB_window {
-    width:960px !important;
-    margin:0px auto !important;
 
-}
 #MB_header {
   background-color: <% $main_color %>;
   color: #fff;
@@ -1723,5 +1729,60 @@ border-radius: 3px;
     -moz-border-radius: 7px 7px 0px 0px;
 }
 
-/* end modalbox.js stuff */ 
+.MB_dialog #MB_frame {
+    padding-bottom:10px;
+    background-color: #FFF;
+    color: #000;
+    -webkit-box-shadow: 0 8px 64px #000;
+    -moz-box-shadow: 0 0 64px #000;
+    box-shadow: 0 0 64px #000;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    width:500px;
+    margin: 0px auto;
+}
 
+#MB_window {
+    width:960px !important;
+    margin:0px auto !important;
+}
+
+/* end modalbox.js stuff */
+
+.headcontainer{
+    border-radius: 15px ;
+    -moz-border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 10px 0px;
+    width:100%;
+    margin-top:15px;
+
+}
+
+.headcontainer > h3, #packages > h3 {
+    font-size: 16px;
+    color: #666;
+    border-bottom: none;
+    padding: 3px 0px;
+    margin: 0px 0px 0px 10px;
+}
+
+.head {
+    margin: 0 30px;
+    padding: 5px;
+    display: inline-block;
+    text-align: center;
+    width:115px;
+}
+
+.head:hover{background-color: #ECF5DA;}
+
+.head h3{
+    font-size:14px;
+    border-bottom:none;
+    color:black;
+    text-align: center;
+    margin-bottom: 2px;
+        margin-top: 0;
+}

@@ -34,11 +34,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Text;
 use EBox::Sudo;
-#use EBox::SambaLdapUser;
 
 use Error qw(:try);
-
-use constant EBOX_SHARE_DIR => '/home/ebox/samba/shares/';
 
 # Dependencies
 
@@ -77,7 +74,7 @@ sub removeDirs
 
     for my $id ( @{$self->ids()}) {
         my $row = $self->row($id);
-        my $path = EBOX_SHARE_DIR;
+        my $path = EBox::Samba::SHARES_DIR();
         $path .= $row->elementByName('path')->value();
         unless ( -d $path ) {
             $self->removeRow($row->id(), 1);

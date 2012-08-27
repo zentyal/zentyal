@@ -382,7 +382,17 @@ sub noDataMsg
     my ($self) = @_;
 
     my $table = $self->{table};
-    return (exists $table->{noDataMsg} ? $table->{noDataMsg} : '');
+    if ((exists $table->{noDataMsg}) and (defined $table->{noDataMsg})) {
+        return $table->{noDataMsg};
+    }
+
+    my $rowName = $self->printableRowName();
+    if (not $rowName) {
+        $rowName = __('element');
+    }
+    return __x('There is not any {element}',
+               element => $rowName,
+              );
 }
 
 # Method: customFilter
@@ -890,7 +900,10 @@ sub addTypedRow
         $row->addElement($param);
     }
 
-    $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    unless ($optParams{noValidateRow}) {
+        $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    }
+
 
     # Check if the new row is unique, only if needed
     if ($checkRowUnique) {
@@ -1479,7 +1492,7 @@ sub size
 {
     my ($self) = @_;
 
-    return scalar(@{$self->_ids(1)});
+    return scalar(@{$self->ids()});
 }
 
 # Method: syncRows

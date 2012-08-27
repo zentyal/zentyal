@@ -1,4 +1,4 @@
-HEAD
+2.3.13
 	+ Removed some warnings when external is undefined
 	+ Added modeldepends to yaml schema
 	+ New libossp-uuid-perl dependency

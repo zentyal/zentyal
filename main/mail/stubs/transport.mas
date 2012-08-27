@@ -2,5 +2,8 @@
     @domains => ()
 </%args>
 % foreach my $domain (@domains) {
+% # exclude ham/spam account in behalf of mailfilter
+ham@<% $domain %> dovecot
+spam@<% $domain %> dovecot
 <% $domain %>   lmtp:127.0.0.1:2003
 % }

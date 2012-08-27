@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use Error qw( :try );
+use EBox::Util::Random;
 
 sub new
 {
@@ -44,70 +45,36 @@ sub kerberosCreatePrincipals
     my $hostdomain = $sysinfo->hostDomain();
 
     my $data = $self->kerberosServicePrincipals();
+    EBox::Sudo::silentRoot("rm -f $data->{keytab}");
 
-    EBox::Sudo::root("rm -f $data->{keytab}");
+    my $pass = EBox::Util::Random::generate(20);
+    foreach my $service (@{$data->{principals}}) {
+        $service = uc ($service);
+        my $principal = "$service/$hostname.$hostdomain";
 
-    my $sambaEnabled = 0;
-    if (EBox::Global->modExists('samba')) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled()) {
-            $sambaEnabled = 1;
-        }
-    }
-
-    if ($sambaEnabled == 1)
-    {
-        EBox::debug('Creating principals in samba');
-
-        my $sambaModule = EBox::Global->modInstance('samba');
-        my $tool = $sambaModule->SAMBATOOL();
-        my $account = "$data->{service}-$hostname";
-
+        # TODO Generate all principals with the same password to import them into samba
         my @cmds=();
-        push (@cmds, "$tool user create --random-password '$account'");
-
-        foreach my $service (@{$data->{principals}}) {
-            $service = uc ($service);
-            my $principal = "$service/$hostname.$hostdomain";
-            push (@cmds, "$tool spn add $principal $account");
-            push (@cmds, "$tool domain exportkeytab --principal='$principal' '$data->{keytab}'");
-        }
+        push (@cmds, 'kadmin -l add ' .
+                  "--password='$pass' " .
+                  "--max-ticket-life='1 day' " .
+                  "--max-renewable-life='1 week' " .
+                  "--attributes='' " .
+                  "--expiration-time=never " .
+                  "--pw-expiration-time=never " .
+                  "--policy=default '$principal'");
+        push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$principal'");
         push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
         push (@cmds, "chmod 440 '$data->{keytab}'");
+        EBox::Sudo::silentRoot("kadmin -l del $principal");
+        EBox::debug("Creating service principal $principal");
+        EBox::Sudo::root(@cmds);
+    }
 
-        try {
-            $sambaModule->ldb->disableZentyalModule();
-            EBox::Sudo::silentRoot("$tool user delete $account");
-            EBox::debug("Creating account $account");
-            EBox::Sudo::root(@cmds);
-        } otherwise {
-            my $error = shift;
-            throw EBox::Exceptions::Internal($error);
-        } finally {
-            $sambaModule->ldb->enableZentyalModule();
-        };
-    } else {
-        EBox::debug('Creating principals in heimdal');
-
-        foreach my $service (@{$data->{principals}}) {
-            $service = uc ($service);
-            my $principal = "$service/$hostname.$hostdomain";
-
-
-            my @cmds=();
-            push (@cmds, 'kadmin -l add -r ' .
-                      "--max-ticket-life='1 day' " .
-                      "--max-renewable-life='1 week' " .
-                      "--attributes='' " .
-                      "--expiration-time=never " .
-                      "--pw-expiration-time=never " .
-                      "--policy=default '$principal'");
-            push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$principal'");
-            push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
-            push (@cmds, "chmod 440 '$data->{keytab}'");
-            EBox::Sudo::silentRoot("kadmin -l del $principal");
-            EBox::debug("Creating service principal $principal");
-            EBox::Sudo::root(@cmds);
+    # Import service principals from Zentyal to samba
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+            $sambaModule->ldb->ldapServicePrincipalsToLdb();
         }
     }
 }

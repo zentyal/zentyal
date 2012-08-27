@@ -29,8 +29,6 @@
     var suites =  {
         'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
                       'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
-        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-firewall', 'zentyal-squid', 'zentyal-ca', 'zentyal-openvpn',
-                  'zentyal-antivirus', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-users' ],
         'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
                              'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
         'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
@@ -40,7 +38,7 @@
     };
 
     function showInfo(id){
-        var items = ['Gateway', 'UTM', 'Infrastructure', 'Office', 'Communications', 'Install'];
+        var items = ['Gateway', 'Infrastructure', 'Office', 'Communications', 'Install'];
         Effect.Appear(id, { duration : 0.2 });
         for (var i = 0; i < items.length; i++) {
             if (items[i] != id) {
@@ -84,16 +82,26 @@
     }
 
     function selected(id) {
-        return $(id).hasClassName('package_selected');
+      var element = $(id);
+      if (element)   {
+        return element.hasClassName('package_selected');
+      }
+      return false;
     }
 
     function selectPackage(id) {
-      $(id).addClassName('package_selected');
+      var element = $(id);
+      if (element) {
+         element.addClassName('package_selected');
+      }
     }
 
     function unselectPackage(id, no_update_ticks) {
-        $(id).removeClassName('package_selected');
-        if (!no_update_ticks) updateTicks();
+        var element = $(id);
+        if (element) {
+           element.removeClassName('package_selected');
+           if (!no_update_ticks) updateTicks();
+       }
     }
 
     function togglePackage(id) {

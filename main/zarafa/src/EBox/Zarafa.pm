@@ -183,8 +183,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
-    $self->kerberosServicePrincipals();
+    $self->kerberosCreatePrincipals();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -800,14 +799,14 @@ sub menu
                                       'url' => 'Zarafa/Composite/General',
                                       'text' => __('General')
                  )
-    ); 
+    );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Zarafa/View/VMailDomains',
                                       'text' => __('Virtual Mail Domains')
                  )
-    ); 
+    );
 
     $root->add($folder);
 }

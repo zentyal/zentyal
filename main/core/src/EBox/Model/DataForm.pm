@@ -18,13 +18,11 @@
 #       An specialized model from <EBox::Model::DataTable> which
 #       stores just one row. In fact, the viewer and setter is
 #       different.
-
-package EBox::Model::DataForm;
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Model::DataForm;
+use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
@@ -368,7 +366,7 @@ sub setTypedRow
                                   $row->{'valueHash'},
                                   id => $ROW_ID,
                                   noOrder => 1,
-                                  force => $optParams{'force'},
+                                  noValidateRow => 1,
                                  );
     }
 

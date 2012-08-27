@@ -18,7 +18,10 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule EBox::LogObserver);
+use base qw( EBox::Module::Service
+             EBox::FirewallObserver
+             EBox::LdapModule
+             EBox::LogObserver );
 
 use EBox::Global;
 use EBox::Service;
@@ -38,20 +41,23 @@ use EBox::LDB;
 use EBox::Util::Random qw( generate );
 
 use Perl6::Junction qw( any );
-use Net::Domain qw(hostdomain);
 use Error qw(:try);
 use File::Slurp;
+use File::Temp;
 
+use constant SAMBA_DIR            => '/home/samba/';
+use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
-use constant SAMBA_DIR            => '/home/ebox/samba';
-use constant SAMBADNSZONE         => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
-use constant SAMBADNSKEYTAB       => PRIVATE_DIR . 'dns.keytab';
+use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
+use constant SAMBA_DNS_DLZ_X86    => '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so';
+use constant SAMBA_DNS_DLZ_X64    => '/usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9.so';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
-use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
+use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
@@ -107,7 +113,7 @@ sub actions
         {
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/ebox/samba.'),
+                           'shares and groups under /home/samba.'),
             'module' => 'samba',
         },
     ];
@@ -173,6 +179,30 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+}
+
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    if ($status and $self->isProvisioned()) {
+        $self->setupDNS();
+    } else {
+        # Reset the domain to static type
+        my $dnsModule = EBox::Global->modInstance('dns');
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+        # Set the domain as static and set the library path
+        my $domainModel = $dnsModule->model('DomainTable');
+        my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+        if (defined $domainRow) {
+            EBox::debug("Setting domain type to static");
+            $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
+            $domainRow->store();
+        }
+    }
+
+    $self->SUPER::enableService($status);
 }
 
 sub _services
@@ -262,71 +292,42 @@ sub enableActions
 {
     my ($self) = @_;
 
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my @cmds = ();
+    push (@cmds, 'invoke-rc.d samba4 stop');
+    push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
     EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
 
     # Remount filesystem with user_xattr and acl options
     EBox::debug('Setting up filesystem options');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-
-    # Add 'Global catalog' service to /etc/services
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my $srvModel = $dnsMod->model('Services');
-    my $services = $srvModel->services();
-    my %aux = map { $_->{name} => 1 } @{$services};
-    unless (exists $aux{gc}) {
-        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
-        EBox::debug('Adding Microsoft global catalog service to /etc/services');
-        my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
-        EBox::Sudo::root($cmd);
-    }
 }
 
 sub isProvisioned
 {
-    my $samba = EBox::Global->modInstance('samba');
-    my $isProvisioned = $samba->get_bool('provisioned');
-    EBox::debug("Samba provisioned flag: $isProvisioned");
-    return $isProvisioned;
+    my ($self) = @_;
+
+    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
 }
 
-# Method: enableService
-#
-#   Override EBox::Module::Service::enableService to
-#   set DNS and users modules as changed
-#
-sub enableService
+sub setProvisioned
 {
-    my ($self, $status) = @_;
+    my ($self, $provisioned) = @_;
 
-    $self->SUPER::enableService($status);
-    if ($self->changed() and $status) {
-        my $isProvisioned = isProvisioned();
-        unless ($isProvisioned == 1) {
-            try {
-                $self->provision();
-            } otherwise {
-                my $error = shift;
-                EBox::error($error);
-
-                # Disable the module if not provisioned
-                $self->SUPER::enableService(0);
-
-                throw $error;
-            };
-        }
-    }
-    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
-    foreach my $module (@{$modules}) {
-        $module->kerberosCreatePrincipals();
-    }
-
-    if ($self->changed()) {
-        EBox::Global->modChange('dns');
-        EBox::Global->modChange('users');
+    if ($provisioned) {
+        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
+    } else {
+        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
     }
 }
 
@@ -422,7 +423,7 @@ sub defaultAntivirusSettings
     my ($self) = @_;
 
     my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->row()->valueByName('scan');
+    return $antivirus->value('scan');
 }
 
 sub antivirusExceptions
@@ -500,140 +501,6 @@ sub recycleConfig
     return $conf;
 }
 
-sub cleanDNS
-{
-    my ($self, $domain) = @_;
-
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my @records = (
-        {
-            type => 'host',
-            name => 'gc',
-            subdomain => '_msdcs'
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'pdc._msdcs',
-            port      => '389',
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            subdomain => '.+\.domains._msdcs',
-            protocol  => 'tcp',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 88
-        },
-    );
-
-    foreach my $record (@records) {
-        try {
-            if ($record->{type} eq 'host') {
-                $dnsMod->delHost($domain, $record->{name});
-            } elsif ($record->{type} eq 'service') {
-                $dnsMod->delService($domain, $record);
-            }
-        } otherwise {
-            my $error = shift;
-            EBox::debug($error);
-        };
-    }
-
-    # Remove serverGUID._mdscs alias
-    my $hosts = $dnsMod->getHostnames($domain);
-    foreach my $host (@{$hosts}) {
-        my $aliases = $host->{aliases};
-        foreach my $alias (@{$aliases}) {
-            if ($alias =~ m/.+\._msdcs$/) {
-                try {
-                    $dnsMod->removeAlias($domain, $host->{name}, $alias);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error($error);
-                };
-            }
-        }
-    }
-}
-
 # Method: provision
 #
 #   This method provision the database
@@ -642,38 +509,44 @@ sub provision
 {
     my ($self) = @_;
 
-    # Check that there are internal IP addresses configured
-    my $network = EBox::Global->modInstance('network');
-    my $ipaddrs = $network->internalIpAddresses();
-    unless (scalar @{$ipaddrs} > 0) {
-        throw EBox::Exceptions::External(__('There are not any internal IP address configured, ' .
-                                            'cannot continue with database provision. The module ' .
-                                            'will remain disabled.'));
+    # Stop the service
+    $self->stopService();
+
+    # Delete samba config file and private folder
+    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
+    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
+
+    my $mode = $self->mode();
+    my $fs = EBox::Config::configkey('samba_fs');
+    if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
+        $self->provisionAsDC($fs);
+    } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
+        $self->provisionAsADC();
+    } else {
+        throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
+}
+
+sub provisionAsDC
+{
+    my ($self, $fs) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $users   = EBox::Global->modInstance('users');
-    my $hostName   = $sysinfo->hostName();
-    my $domainName = $sysinfo->hostDomain();
-    my $realm      = uc ($domainName); # TODO Create a function realm() in sysinfo
+    my $usersModule = EBox::Global->modInstance('users');
 
-    # Remove previous DNS records
-    $self->cleanDNS($domainName);
-
-    # This file must be deleted or provision may fail
-    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $realm .
-        ' --dns-backend=BIND9_FLATFILE' .
+        ' --realm=' . $usersModule->kerberosRealm() .
+        ' --dns-backend=BIND9_DLZ' .
         ' --use-xattrs=yes ' .
+        ' --use-rfc2307 ' .
         ' --server-role=' . $self->mode() .
-        ' --users=' . $users->DEFAULTGROUP() .
+        ' --users=' . $usersModule->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
+    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
     EBox::debug("Provisioning database '$cmd'");
-
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -683,7 +556,7 @@ sub provision
         EBox::debug("Provision result: @{$output}");
         # Mark the module as provisioned
         EBox::debug('Setting provisioned flag');
-        $self->set_bool('provisioned', 1);
+        $self->setProvisioned(1);
     } else {
         my @error = ();
         my $stderr = EBox::Config::tmp() . 'stderr';
@@ -692,107 +565,6 @@ sub provision
         }
         throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
-
-    # The administrator password is also the password for the 'Zentyal' user,
-    # save it to a file to connect LDB
-    $self->_savePassword($self->administratorPassword(),
-                         EBox::Config->conf() . "ldb.passwd");
-
-    # Once provisioned start the service to make queries
-    EBox::debug('Starting service');
-    $self->_manageService('start');
-
-    # Add the DNS records
-    EBox::debug('Adding domain DNS records');
-    my $dnsMod  = EBox::Global->modInstance('dns');
-
-    # Get the domain GUID
-    my $args = { base   => $self->ldb->dn(),
-                 scope  => 'base',
-                 filter => '(objectClass=*)',
-                 attrs  => ['objectGUID'] };
-    my $result = $self->ldb->search($args);
-    my $entry = $result->entry(0);
-    my $domainGUID = $entry->get_value('objectGUID');
-    $domainGUID = $self->ldb->guidToString($domainGUID);
-    EBox::debug("Domain GUID: $domainGUID"); # TODO remove
-
-    # Get the server GUID
-    $args = { base => "CN=NTDS Settings," .
-                      "CN=" . uc ($hostName) . "," .
-                      "CN=Servers," .
-                      "CN=Default-First-Site-Name," .
-                      "CN=Sites," .
-                      "CN=Configuration," .
-                      $self->ldb->dn(),
-              scope  => 'base',
-              filter => '(objectClass=*)',
-              attrs  => ['objectGUID'] };
-    $result = $self->ldb->search($args);
-    $entry = $result->entry(0);
-    my $serverGUID = $entry->get_value('objectGUID');
-    $serverGUID = $self->ldb->guidToString($serverGUID);
-    EBox::debug("Server GUID: $serverGUID"); # TODO remove
-
-    my $host = { name => 'gc',
-                 subdomain => '_msdcs',
-                 ipAddresses => $ipaddrs };
-    $dnsMod->addHost($domainName, $host);
-
-    my $alias = "$serverGUID._msdcs";
-    $dnsMod->addAlias($domainName, $hostName, $alias);
-
-    my $service = { service => 'gc',
-                    protocol => 'tcp',
-                    port => 3268,
-                    priority => 0,
-                    weight => 100,
-                    target_type => 'domainHost',
-                    target => $hostName };
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'ldap';
-    $service->{subdomain} = 'gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = undef;
-    $service->{port} = 389;
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'pdc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = "$domainGUID.domains._msdcs";
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'kerberos';
-    $service->{port} = 88;
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    # Set the domain as dynamic. Otherwise apparmor deny the updates.
-    $dnsMod->setDynamic($domainName, 1);
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
@@ -806,17 +578,208 @@ sub provision
                        " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
+    # Set DNS. The domain should have been created by the users
+    # module.
+    $self->setupDNS();
+
+    # Write smb.conf to grant rw access to zentyal group on the
+    # privileged socket
+    $self->writeSambaConfig();
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
+
+    # Start managed service to let it create the LDAP socket
+    EBox::debug('Starting service');
+    $self->_startService();
+
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
+    $self->ldb->ldapServicePrincipalsToLdb();
+}
 
-    # Add the zentyal module to the LDB modules stack
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+sub provisionAsADC
+{
+    my ($self) = @_;
 
+    my $model = $self->model('GeneralSettings');
+    my $domainToJoin = $model->value('realm');
+    my $dcFQDN = $model->value('dcfqdn');
+    my $domainDNS = $model->value('dnsip');
+    my $adminAccount = $model->value('adminAccount');
+    my $adminAccountPwd = $model->value('password');
+    my $netbiosDomain = $model->value('workgroup');
+
+    # If the host domain or the users kerberos realm does not
+    # match the domain we are trying to join warn the user and
+    # abort
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $hostName = $sysinfo->hostName();
+    my $ucHostName = uc ($hostName);
+    my $krbRealm = $usersModule->kerberosRealm();
+    my $fqdn = $sysinfo->fqdn();
+    if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
+        lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
+        throw EBox::Exceptions::External(
+            __('The server domain and kerberos realm must match the domain the ' .
+               'domain you are trying to join.'));
+    }
+
+    my $dnsFile = undef;
+    try {
+        EBox::info("Joining to domain '$domainToJoin' as DC");
+
+        # Set the domain DNS as the primary resolver. This will also let to get
+        # the kerberos ticket for the admin account.
+        EBox::debug("Setting domain DNS server '$domainDNS' as the primary resolver");
+        $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
+                                  DIR      => EBox::Config::tmp());
+        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile");
+        my $array = [];
+        push (@{$array}, searchDomain => $domainToJoin);
+        push (@{$array}, nameservers => [ $domainDNS ]);
+        $self->writeConfFile(EBox::Network::RESOLV_FILE(),
+                             'network/resolv.conf.mas',
+                             $array);
+
+        # Join the domain
+        EBox::debug("Joining to the domain");
+        my @cmds;
+        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
+            " -U $adminAccount " .
+            " --workgroup='$netbiosDomain' " .
+            " --password='$adminAccountPwd' " .
+            " --server=$dcFQDN");
+        my $output = EBox::Sudo::silentRoot(@cmds);
+        if ($? == 0) {
+            $self->setProvisioned(1);
+            EBox::debug("Provision result: @{$output}");
+        } else {
+            my @error = ();
+            my $stderr = EBox::Config::tmp() . 'stderr';
+            if (-r $stderr) {
+                @error = read_file($stderr);
+            }
+            throw EBox::Exceptions::Internal("Error joining to domain: @error");
+        }
+
+        $self->setupDNS();
+
+        # Write smb.conf to grant rw access to zentyal group on the
+        # privileged socket
+        $self->writeSambaConfig();
+        my $group = EBox::Config::group();
+        EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
+
+        # Start managed service to let it create the LDAP socket
+        EBox::debug('Starting service');
+        $self->_startService();
+
+        # Wait for RID allocation
+        my $args = {
+            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
+            scope => 'base',
+            filter => '(objectClass=*)',
+            attrs => ['rIDSetReferences'],
+        };
+        for (my $retries=12; $retries>=0; $retries--) {
+            EBox::debug ("Waiting for RID allocation, $retries");
+            my $result = $self->ldb->search($args);
+            if ($result->count() == 1) {
+                my $entry = $result->entry(0);
+                my @val = $entry->get_value('rIDSetReferences');
+                last if @val;
+            }
+            sleep (5);
+        }
+
+        # Purge users and groups
+        EBox::info("Purging the Zentyal LDAP to import Samba users");
+        my $usersMod = EBox::Global->modInstance('users');
+        my $users = $usersMod->users();
+        my $groups = $usersMod->groups();
+        foreach my $user (@{$users}) {
+            $user->deleteObject();
+        }
+        foreach my $group (@{$groups}) {
+            $group->deleteObject();
+        }
+
+        # Load samba users and groups into Zentyal ldap
+        $self->ldb->ldbUsersToLdap();
+        $self->ldb->ldbGroupsToLdap();
+
+        # Load Zentyal service principals into samba
+        $self->ldb->ldapServicePrincipalsToLdb();
+
+        # Load administrator user and domain admins group to zentyal
+        my $domainSid = $self->ldb->domainSID();
+        my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
+        my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
+        $self->ldb->ldbUsersToLdap([$adminUser]);
+        $self->ldb->ldbGroupsToLdap([$adminGroup]);
+
+        # FIXME This should not be necessary, it is a samba bug.
+        @cmds = ();
+        push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
+        push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=$ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=DNS/$fqdn");
+        push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+        push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my $error = shift;
+        throw $error;
+    } finally {
+        # Revert primary resolver changes
+        if (defined $dnsFile and -f $dnsFile) {
+            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+            unlink $dnsFile;
+        }
+    };
+}
+
+sub setupDNS
+{
+    my ($self) = @_;
+
+    EBox::debug('Setting up DNS for samba');
+    my $dnsModule = EBox::Global->modInstance('dns');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    # Set the domain as DLZ and set the library path
+    my $domainModel = $dnsModule->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+    unless (defined $domainRow) {
+        # TODO Throw expcetion. It should have been created by the users module
+    }
+    my $DBPath = undef;
+    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
+        $DBPath = SAMBA_DNS_DLZ_X86;
+    } elsif (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X64)) {
+        $DBPath = SAMBA_DNS_DLZ_X64;
+    }
+    unless (defined $DBPath) {
+        throw EBox::Exceptions::Internal(
+            __("Samba DNS DLZ file for bind can't be found"));
+    }
+    $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
+    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
+    $domainRow->store();
+
+    my @cmds;
+    push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+    push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+    EBox::Sudo::root(@cmds);
 }
 
 # Method: sambaInterfaces
@@ -862,31 +825,29 @@ sub sambaInterfaces
     return \@ifaces;
 }
 
-sub _setConf
+sub writeSambaConfig
 {
     my ($self) = @_;
-
-    return unless $self->configured() and $self->isEnabled();
-
-    $self->provision() unless $self->isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = $self->realm();
+    my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
 
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
     my @array = ();
+    push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
     push (@array, 'ifaces'      => $interfaces);
-    push (@array, 'mode'        => $self->mode());
+    push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
+    push (@array, 'profilesPath' => PROFILES_DIR);
 
     push (@array, 'printers'  => $self->printersConf());
 
@@ -918,6 +879,18 @@ sub _setConf
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', []);
 
+}
+
+sub _setConf
+{
+    my ($self) = @_;
+
+    return unless $self->configured() and $self->isEnabled();
+
+    $self->provision() unless $self->isProvisioned();
+
+    $self->writeSambaConfig();
+
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
@@ -927,16 +900,23 @@ sub _setConf
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
-    # Set roaming profiles
-    if ($self->roamingProfiles()) {
-        my $path = "\\\\$netbiosName.$realmName\\profiles";
-        $self->ldb()->setRoamingProfiles(1, $path);
-    } else {
-        $self->ldb()->setRoamingProfiles(0);
-    }
+    my $netbiosName = $self->netbiosName();
+    my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+    my $users = $self->ldb->users();
+    foreach my $user (@{$users}) {
+        # Set roaming profiles
+        if ($self->roamingProfiles()) {
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            $user->setRoamingProfile(1, $path, 1);
+        } else {
+            $user->setRoamingProfile(0);
+        }
 
-    # Mount user home on network drive
-    $self->ldb()->setHomeDrive($self->drive());
+        # Mount user home on network drive
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        $user->setHomeDrive($self->drive(), $drivePath, 1);
+        $user->save();
+    }
 }
 
 sub printersConf
@@ -1255,18 +1235,6 @@ sub defaultRealm
     my $domainName = $sysinfo->hostDomain();
 
     return $domainName;
-}
-
-# Method: realm
-#
-#   Returns the configured realm
-#
-sub realm
-{
-    my ($self) = @_;
-
-    my $model = $self->model('GeneralSettings');
-    return $model->realmValue();
 }
 
 # Method: defaultWorkgroup
@@ -1857,18 +1825,6 @@ sub logHelper
 #    return \@shares;
 #}
 
-# Generate, store in the given file and return a password
-sub _savePassword
-{
-    my ($self, $pass, $file) = @_;
-
-    my ($login, $password, $uid, $gid) = getpwnam('ebox');
-    EBox::Module::Base::writeFile($file, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-
-    return $pass;
-}
-
 # Method: ldb
 #
 #   Provides an EBox::LDB object with the proper settings
@@ -1911,7 +1867,7 @@ sub userPaths
 {
     my ($self, $user) = @_;
 
-    my $userProfilePath = EBox::SambaLdapUser::PROFILESPATH;
+    my $userProfilePath = PROFILES_DIR;
     $userProfilePath .= "/" . $user->get('uid');
 
     my $paths = [];

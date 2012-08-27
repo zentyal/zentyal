@@ -1,4 +1,5 @@
-HEAD
+2.3.9
+	+ Firewall is now under Gateway instead of UTM
 	+ Added priority to redirects
 	+ Fixed bug with SNAT and redirects to the same target
 	+ Improved style of packet filtering page

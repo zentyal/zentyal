@@ -62,65 +62,65 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % }
 
 <script type="text/javascript">
-	createPeriodicalExecuter(<% $progressId %>,
+        createPeriodicalExecuter(<% $progressId %>,
                              '<% $currentItemUrl %>',
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
                              '<% $nextStepUrl %>');
 
-	function init(){
-		ph = new porcentH('progress');
-	}
+        function init(){
+                ph = new porcentH('progress');
+        }
 
-	if (document.addEventListener) {
-		document.addEventListener("DOMContentLoaded", init, false);
-	}
+        if (document.addEventListener) {
+                document.addEventListener("DOMContentLoaded", init, false);
+        }
 
-	var ads = <% $adsJson %>;
-	var nAds = -1;
+        var ads = <% $adsJson %>;
+        var nAds = -1;
 
-	function showAds(){
+        function showAds(){
 % unless ( $adsJson eq '""' ) {
-		nAds++;
-		if (ads != null) {
-			if (nAds > ads.length)
-				nAds = 1;
-			if (ads[nAds] != null){
-				var html = "<div class='ads'>";
-				if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
-				if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
-				if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
-				if (ads[nAds].items != null) {
-					html += "<ul>";
-					for(var i = 0; i < ads[nAds].items.length; i++)
-						html += "<li>" + ads[nAds].items[i] + "</li>";
-				}
-				html += "</br>";
-				if (ads[nAds].links != null) {
-					for(var i = 0; i < ads[nAds].links.length; i++)
-						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
-				}
-				html += "<div>";
+                nAds++;
+                if (ads != null) {
+                        if (nAds > ads.length)
+                                nAds = 1;
+                        if (ads[nAds] != null){
+                                var html = "<div class='ads'>";
+                                if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
+                                if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
+                                if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
+                                if (ads[nAds].items != null) {
+                                        html += "<ul>";
+                                        for(var i = 0; i < ads[nAds].items.length; i++)
+                                                html += "<li>" + ads[nAds].items[i] + "</li>";
+                                }
+                                html += "</br>";
+                                if (ads[nAds].links != null) {
+                                        for(var i = 0; i < ads[nAds].links.length; i++)
+                                                html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
+                                }
+                                html += "<div>";
 
                 if ( nAds % 2 == 1 ) {
                     $('adsFrame2').hide();
-				    document.getElementById('adsFrame2').innerHTML = html;
+                                    document.getElementById('adsFrame2').innerHTML = html;
                     Effect.DropOut('adsFrame1', { duration: 1 });
                     Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
                 }
                 else {
                     $('adsFrame1').hide();
-				    document.getElementById('adsFrame1').innerHTML = html;
+                                    document.getElementById('adsFrame1').innerHTML = html;
                     Effect.DropOut('adsFrame2', { duration: 1 });
                     Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
                 }
 
-			}
-		}
+                        }
+                }
 % } else {
-		return;
+                return;
 % }
-	}
+        }
 
 </script>
 
@@ -130,13 +130,13 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
     float: left;
     line-height: 30px;
 
-	height:30px;
-	/*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
-	z-index : 100;
-	filter: alpha(opacity=90);
-	-moz-opacity: 0.9;
-	KhtmlOpacity: .9;
-	opacity: .9;
+        height:30px;
+        /*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
+        z-index : 100;
+        filter: alpha(opacity=90);
+        -moz-opacity: 0.9;
+        KhtmlOpacity: .9;
+        opacity: .9;
 }
 
 </style>
@@ -153,7 +153,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
 <br/>
 <div id="progress_bar">
-	<div class="percent" id="percentValue"></div>
+        <div class="percent" id="percentValue"></div>
     <div class="bar" <% $barStyle %> >
         <div id="progressValue" <% $progresValueStyle %> ></div>
 <!--
