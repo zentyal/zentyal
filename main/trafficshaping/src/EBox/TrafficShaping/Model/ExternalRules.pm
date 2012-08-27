@@ -76,6 +76,10 @@ sub allIfacesForRuleTable
 sub notifyForeignModelAction
 {
     my ($self, $modelName, $action, $row) = @_;
+    if ($modelName ne 'trafficshaping/InterfaceRate') {
+        return;
+    }
+
     my $iface = $row->valueByName('interface');
 
     my $userNotes = '';
