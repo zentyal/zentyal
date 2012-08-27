@@ -1,4 +1,6 @@
 HEAD
+	+ Removed duplicated Domain Filter Settings model in tabs
+	+ Swapped order of threshold configuration and antivirus
 	+ Better order for menu items
 2.3.10
 	+ Added users as enabledepend
