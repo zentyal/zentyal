@@ -1,4 +1,5 @@
 HEAD
+	+ Check for isDaemonRunning now compatible with asterisk status
 	+ Fixed warning call in EBox::Types::HasMany
 2.3.20
 	+ New look & feel for the web interface
