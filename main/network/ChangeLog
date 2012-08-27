@@ -1,3 +1,6 @@
+HEAD
+	+ Assign ip address 127.0.1.1/8 to loopback interface in module restart
+	  and remove the post-up hook from /etc/network/interfaces file.
 2.3.13
 	+ Removed some warnings when external is undefined
 	+ Added modeldepends to yaml schema
