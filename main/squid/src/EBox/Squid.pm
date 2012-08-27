@@ -889,14 +889,14 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/AccessRules',
                                       'text' => __(q{Access Rules})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
-                                      'text' => __(q{Bandwidth Throttling})));
-
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/CategorizedLists',
                                       'text' => __(q{Categorized Lists})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
+                                      'text' => __(q{Bandwidth Throttling})));
 
     $root->add($folder);
 }
