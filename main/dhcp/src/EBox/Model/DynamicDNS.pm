@@ -212,6 +212,9 @@ sub viewCustomizer
 sub notifyForeignModelAction
 {
     my ($self, $model, $action, $row) = @_;
+    if ($model ne '[dns/DomainTable') {
+        return;
+    }
 
     # TODO: update action is not yet supported, since we do not have
     # the old row to check the usage of the domain, currently, it is
@@ -288,8 +291,6 @@ sub _table
                                                . 'DNS module in read-only mode'),
                       # The support may be enabled or not
                       enableProperty     => 1,
-                      # Notify when changes in DomainTable
-                      notifyActions      => [ 'DomainTable' ],
                      };
 
       return $dataForm;

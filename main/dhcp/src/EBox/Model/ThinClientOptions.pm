@@ -83,45 +83,6 @@ sub new
     return $self;
 }
 
-# Method: notifyForeignModelAction
-#
-#     Remove rows when a range or fixed address is removed from the
-#     same interface and applies to this model and object.
-#
-#     Do this because of framework limitation.
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::notifyForeignModelAction>
-#
-# TODO: Restore this when more than one config per interface is possible
-# sub notifyForeignModelAction
-# {
-#     my ($self, $model, $action, $row) = @_;
-#
-#     if ( $action eq 'del' ) {
-#         my $idToRemove;
-#         given ( $model ) {
-#             when ( 'FixedAddressTable' ) {
-#                 $idToRemove = $row->valueByName('object');
-#             }
-#             when ( 'RangeTable' ) {
-#                 $idToRemove = $row->valueByName('name');
-#             }
-#             default { return ""; }
-#         }
-#         my $matchedRow = $self->findValue(hosts => $idToRemove);
-#         if ( $matchedRow ) {
-#             $self->removeRow($matchedRow->id(), 1);
-#             return __x('Remove thin client options from {model}{br}',
-#                        model => $self->printableContextName(),
-#                        br    => '<br>');
-#         }
-#     }
-#     return "";
-#
-# }
-
 # Method: nextServerIsZentyal
 #
 #     Finds out whether the next server the next server is Zentyal or not

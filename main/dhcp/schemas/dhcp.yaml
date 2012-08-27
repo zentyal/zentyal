@@ -23,8 +23,6 @@ composites:
     AdvancedOptions: [LeaseTimes, ThinClientOptions]
 
 modeldepends:
-    DynamicDNS:
-        dns/DomainTable: [dynamic_domain, custom]
     FixedAddressTable:
         objects/ObjectTable: [object]
     Options:
@@ -35,4 +33,4 @@ foreign:
     Interfaces: [InterfaceConfiguration]
 
 notifyactions:
-    ThinClientOptions: [dhcp/FixedAddressTable, dhcp/RangeTable]
+    DynamicDNS: [dns/DomainTable]
