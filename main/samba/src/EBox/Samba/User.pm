@@ -383,12 +383,7 @@ sub create
     my $dn = "CN=$samAccountName,CN=Users,$baseDn";
 
     $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
-
-    # Verify user exists
-    if (new EBox::Samba::User(samAccountName => $samAccountName)->exists()) {
-        throw EBox::Exceptions::DataExists('data' => __('account name'),
-                                           'value' => $samAccountName);
-    }
+    $self->_checkAccountNotExists($samAccountName);
 
     # Check the password length if specified
     my $clearPassword = $params->{'clearPassword'};

@@ -1,4 +1,6 @@
 HEAD
+	+ Check that account names does not exists in the whole domain when
+	  adding users and groups from the LdapModuleBase callbacks
 	+ Do not notify samba module when deleting Zentyal users and groups
 	  through the synchronizer script
 2.3.12
