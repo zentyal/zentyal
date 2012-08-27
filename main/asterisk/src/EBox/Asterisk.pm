@@ -55,6 +55,8 @@ use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
 use constant EBOX_VOIP_SRVNAME    => 'zentyal';
 use constant EBOX_SIP_SERVER      => 'sip.zentyal.com';
 
+use constant ASTERISK_REALM       => 'asterisk';
+
 # Constructor: _create
 #
 #      Create a new EBox::Asterisk module object
@@ -452,6 +454,8 @@ sub _setSIP
 
     $model = $self->model('Phones');
     push (@params, phones => $model->getPhones());
+
+    push (@params, realm => ASTERISK_REALM);
 
     my $astuid = (getpwnam('asterisk'))[2];
     my $astgid = (getpwnam('asterisk'))[3];

@@ -34,7 +34,7 @@ use EBox::Asterisk::Extensions;
 use EBox::Model::Manager;
 
 use Perl6::Junction qw(any);
-use Digest::MD5 qw(md5);
+use Digest::MD5 qw(md5_hex);
 
 # Group: Public methods
 
@@ -68,6 +68,16 @@ sub new
 
 # Group: Private methods
 
+sub _genRealmHash
+{
+    my ($self, $user, $passwd) = @_;
+
+    my $realm = $self->{asterisk}->ASTERISK_REALM;
+    my $username = $user->name();
+    my $digest = "$username:$realm:$passwd";
+    return '{MD5}' . Digest::MD5::md5_hex($digest);
+}
+
 # Method: _addUser
 #
 # Implements:
@@ -99,7 +109,7 @@ sub _addUser
                                    'AsteriskQueueMember',
                                    'AsteriskVoicemail'], 1);
 
-        my $md5secret = md5("$extn:asterisk:$passwd");
+        my $md5secret = $self->_genRealmHash($user, $passwd);
         $user->set('AstMD5secret', $md5secret, 1);
         $user->set('AstAccountType', 'friend', 1);
         $user->set('AstAccountContext', 'users',1);
@@ -250,6 +260,20 @@ sub _removeVoicemail
     }
 }
 
+sub _modifyUser
+{
+    my ($self, $user, $passwd) = @_;
+
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
+
+    return unless $self->hasAccount($user);
+    return unless defined $passwd;
+
+    my $md5secret = $self->_genRealmHash($user, $passwd);
+    $user->set('AstMD5secret', $md5secret, 1);
+    $user->save();
+}
 
 sub _delGroup
 {
