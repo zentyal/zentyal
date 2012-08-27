@@ -346,7 +346,7 @@ sub modelsUsingId
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-            if ($observerModel->isUsingId($modelName, $rowId)) {
+             if ($observerModel->isUsingId($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
         }
@@ -368,7 +368,7 @@ sub modelsUsingId
 #
 #   (POSITIONAL)
 #
-#   model - <EBox::Model::DataTable> model name where the action took place
+#   model -  model name, with module path, where the action took place
 #   action - string represting the action:
 #	     [ add, del, edit, moveUp, moveDown ]
 #
@@ -393,7 +393,6 @@ sub modelActionTaken
 
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
-        EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
     }
@@ -683,7 +682,19 @@ sub _setupNotifyActions
 
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
-        $self->{notifyActions}->{$model} = $notify->{$model};
+        my $observerPath = '/' . $moduleName . '/' . $model . '/';
+        foreach my $notifier (@{ $notify->{$model}   }) {
+            # XXX change when we change the yaml to the more intuitive notifier
+            # - >wathcer format
+            if (not exists $self->{notifyActions}->{$notifier}) {
+                $self->{notifyActions}->{$notifier} = [];
+            }
+
+            push @{ $self->{notifyActions}->{$notifier} }, $observerPath;
+        }
+
+
+#        $self->{notifyActions}->{$contextName} = $notify->{$model};
     }
 }
 

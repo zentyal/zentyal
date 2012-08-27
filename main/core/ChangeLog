@@ -1,4 +1,5 @@
 HEAD
+	+ Fixes on notifyActions
 	+ Check for isDaemonRunning now compatible with asterisk status
 	+ Fixed warning call in EBox::Types::HasMany
 2.3.20
