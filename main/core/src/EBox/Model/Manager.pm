@@ -12,19 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: Manager
+use strict;
+use warnings;
 #
 #   This class is used to coordinate all the available models and composites
 #   along Zentyal. It allows us to do things like specifiying relations
 #   amongst different models.
 #
-#
+
 #
 package EBox::Model::Manager;
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Gettext;
@@ -393,7 +390,8 @@ sub modelActionTaken
         foreach my $dir (@confDirs) {
             $observerModel->setDirectory($dir);
             EBox::debug("notifiy $observerName, dir $dir");
-            $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+            my $observerStr = $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+            $strToRet .= $observerStr if $observerStr;
         }
     }
 
@@ -790,23 +788,17 @@ sub _modelHasMultipleInstances
 
     while ($component) {
         if (exists $self->{parentByComponent}->{$module}->{$component}) {
-            EBox::debug("FOUND parent: multiple");
             return 1;
         }
 
         if (exists $self->{models}->{$module}->{$component}->{parent}) {
             $component = $self->{models}->{$module}->{$component}->{parent};
-            EBox::debug("Composite parent : $component");
         } elsif (exists $self->{composites}->{$module}->{$component}->{parent}) {
             $component = $self->{composites}->{$module}->{$component}->{parent};
-            EBox::debug("Composite parent of composite: $component");
         } else {
-            EBox::debug("No multiple $module $component");
             return 0;
         }
     }
-
-
 }
 
 sub configDirsForModel
@@ -823,24 +815,24 @@ sub configDirsForModel
     my $baseKey = $module->_key('');
 
     my $pattern = $baseKey . '/*/'. $modelName .  '/*';
-    EBox::debug("patter $pattern");
-    my @dirs =  $module->{redis}->_redis_call('keys', $pattern) ;
-    if (not @dirs) {
+    my @matched =  $module->{redis}->_redis_call('keys', $pattern) ;
+    if (not @matched) {
         # probably a regular one-directory models
-        @dirs = ($model->directory());
-        EBox::debug("standard model dir @dirs");
-        return \@dirs;
+        @matched = ($model->directory());
+        EBox::debug("standard model dir @matched");
+        return \@matched;
     }
 
-    my $regex = qr{^$baseKey/.*/$modelName/};
-    @dirs = map {
-        my $dir = $_;
-        $dir =~ m{($regex)};
-        $1
-    } @dirs;
-    EBox::debug("configDirsForModel = @dirs");
+    my %dirs;
+    my $regex = qr{(^$baseKey/.*/$modelName)/};
+    foreach my $match (@matched) {
+        $match =~ m{$regex};
+        $dirs{$1} = 1;
+    }
 
-    return \@dirs;
+    EBox::debug("configDirsForModel = " . keys %dirs);
+
+    return [keys %dirs];
 }
 
 
