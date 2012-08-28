@@ -626,6 +626,11 @@ sub _setupCompositeInfo
     foreach my $composite (keys %{$info->{composites}}) {
         my $components = $info->{composites}->{$composite};
         $self->{composites}->{$moduleName}->{$composite} = { instance => undef, components => $components};
+    }
+
+    foreach my $composite (keys %{$info->{composites}}) {
+        my $components = $info->{composites}->{$composite};
+#        $self->{composites}->{$moduleName}->{$composite} = { instance => undef, components => $components};
         foreach my $component (@{$components}) {
             if (exists $self->{models}->{$moduleName}->{$component}) {
                 $self->{models}->{$moduleName}->{$component}->{parent} = $composite;
@@ -638,6 +643,13 @@ sub _setupCompositeInfo
             $self->{modByComposite}->{$composite} = {};
         }
         $self->{modByComposite}->{$composite}->{$moduleName} = 1;
+    }
+
+    # DDD
+    if ($moduleName eq 'dhcp') {
+        use Data::Dumper;
+        EBox::debug(Dumper($self->{models}->{$moduleName}));
+        EBox::debug(Dumper($self->{composites}->{$moduleName}));
     }
 }
 
@@ -771,13 +783,46 @@ sub markAsChanged
 {
 }
 
+
+sub _modelHasMultipleInstances
+{
+    my ($self, $module, $component) = @_;
+
+    while ($component) {
+        if (exists $self->{parentByComponent}->{$module}->{$component}) {
+            EBox::debug("FOUND parent: multiple");
+            return 1;
+        }
+
+        if (exists $self->{models}->{$module}->{$component}->{parent}) {
+            $component = $self->{models}->{$module}->{$component}->{parent};
+            EBox::debug("Composite parent : $component");
+        } elsif (exists $self->{composites}->{$module}->{$component}->{parent}) {
+            $component = $self->{composites}->{$module}->{$component}->{parent};
+            EBox::debug("Composite parent of composite: $component");
+        } else {
+            EBox::debug("No multiple $module $component");
+            return 0;
+        }
+    }
+
+
+}
+
 sub configDirsForModel
 {
     my ($self, $model) = @_;
     my $module = $model->parentModule();
-    my $baseKey = $module->_key('');
     my $modelName = $model->name();
-    my $pattern .= $baseKey . '/*/'. $modelName .  '/*';
+
+    if (not $self->_modelHasMultipleInstances($module->name(), $modelName)) {
+        EBox::debug("not PArenName standard model dir ");
+        return [ $model->directory() ];
+    }
+
+    my $baseKey = $module->_key('');
+
+    my $pattern = $baseKey . '/*/'. $modelName .  '/*';
     EBox::debug("patter $pattern");
     my @dirs =  $module->{redis}->_redis_call('keys', $pattern) ;
     if (not @dirs) {
