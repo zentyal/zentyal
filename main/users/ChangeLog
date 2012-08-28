@@ -1,3 +1,6 @@
+HEAD
+	+ Catch exceptions thrown by notified modules adding LDAP users and groups
+	  to rollback the operation and delete the object added prior to notification.
 2.3.15
 	+ Fixed password change at user corner
 	+ Change KDC port to 8880 to preserve the classic default for user corner

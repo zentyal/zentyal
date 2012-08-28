@@ -193,13 +193,7 @@ sub create
     my $dn = "CN=$samAccountName,CN=Users,$baseDn";
 
     $self->_checkAccountName($samAccountName, MAXGROUPLENGTH);
-
-    # Verify group exists
-    if (new EBox::Samba::Group(dn => $dn)->exists()) {
-        throw EBox::Exceptions::DataExists(
-            'data' => __('group'),
-            'value' => $samAccountName);
-    }
+    $self->_checkAccountNotExists($samAccountName);
 
     my $usersModule = EBox::Global->modInstance('users');
     my $realm = $usersModule->kerberosRealm();

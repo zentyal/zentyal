@@ -1,4 +1,8 @@
 HEAD
+	+ Check that account names does not exists in the whole domain when
+	  adding users and groups from the LdapModuleBase callbacks
+	+ Do not notify samba module when deleting Zentyal users and groups
+	  through the synchronizer script
 	+ Improve netbios name validation (no dots)
 	+ Validate netbios domain name as netbios name
 	+ Force zentyal-dns dependency version
