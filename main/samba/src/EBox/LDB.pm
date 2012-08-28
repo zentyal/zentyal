@@ -133,8 +133,8 @@ sub safeConnect
 {
     my ($self) = @_;
 
-    my $retries = 4;
-    my $ldb;
+    my $retries = 6;
+    my $ldb = undef;
 
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
@@ -145,7 +145,7 @@ sub safeConnect
         my $samba = EBox::Global->modInstance('samba');
         unless ($samba->isRunning()) {
             EBox::debug("Samba daemon was stopped, starting it");
-            $samba->_manageService('start');
+            $samba->_startService();
             sleep (5);
             next;
         }
@@ -156,10 +156,6 @@ sub safeConnect
     unless ($ldb) {
         throw EBox::Exceptions::External(
             "FATAL: Couldn't connect to samba LDAP server");
-    }
-
-    if ($retries <= 3) {
-        EBox::debug("Reconnected successfully");
     }
 
     return $ldb;
