@@ -1,3 +1,5 @@
+HEAD
+	+ Improve host domain validation. Single label domains are not allowed.
 2.3.21
 	+ Fixes on notifyActions
 	+ Check for isDaemonRunning now compatible with asterisk status
