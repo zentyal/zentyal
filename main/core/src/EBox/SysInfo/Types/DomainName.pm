@@ -79,7 +79,7 @@ sub _paramIsValid
         # According to RFC underscores are forbidden in "hostnames" but not "domainnames"
         my $options = {
             domain_allow_underscore => 1,
-            domain_allow_empty_label => 0,
+            domain_allow_single_label => 0,
             domain_private_tld => qr /^[a-zA-Z]+$/,
         };
 
