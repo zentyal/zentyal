@@ -36,8 +36,10 @@ sub addUser
     my ($self, $user) = @_;
 
     # rencode passwords
-    my @pass = map { decode_base64($_) } @{$user->{passwords}};
-    $user->{passwords} = \@pass;
+    if ($user->{passwords}) {
+        my @pass = map { decode_base64($_) } @{$user->{passwords}};
+        $user->{passwords} = \@pass;
+    }
 
     EBox::UsersAndGroups::User->create($user);
 

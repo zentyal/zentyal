@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed addUser operation on slaves
 	+ Catch exceptions thrown by notified modules adding LDAP users and groups
 	  to rollback the operation and delete the object added prior to notification.
 2.3.15
