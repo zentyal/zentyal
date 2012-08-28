@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Firewall::Model::SNAT;
-use base 'EBox::Model::DataTable';
+use base ('EBox::Model::DataTable', 'EBox::Model::Firewall::RulesWithInterface');
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,23 +33,7 @@ use EBox::Types::PortRange;
 use EBox::Types::Union;
 use EBox::Types::HostIP;
 use EBox::Sudo;
-
-sub interfacePopulateSub
-{
-    my ($self) = @_;
-    my $net = $self->global()->modInstance('network');
-    return sub {
-        my $ifaces = $net->allIfaces();
-
-        my @options;
-        foreach my $iface (@{$ifaces}) {
-            push(@options, { 'value' => $iface,
-                             'printableValue' => $net->ifaceAlias($iface) });
-        }
-
-        return \@options;
-    }
-}
+use  EBox::Firewall::Model::RedirectsTable;
 
 # Method: _fieldDescription
 #

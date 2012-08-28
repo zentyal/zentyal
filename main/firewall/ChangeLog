@@ -1,3 +1,6 @@
+HEAD
+	+ SNAT and redirect tables acknowledge that netfilter only knows
+	about physical interfaces
 2.3.9
 	+ Firewall is now under Gateway instead of UTM
 	+ Added priority to redirects
