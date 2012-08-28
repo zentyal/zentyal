@@ -1,4 +1,6 @@
 HEAD
+	+ Improve netbios name validation (no dots)
+	+ Validate netbios domain name as netbios name
 	+ Force zentyal-dns dependency version
 	+ Fix bug managing the dns domain when enabling/disabling the module
 	+ Improvements in daemons management to avoid restarting them twice
