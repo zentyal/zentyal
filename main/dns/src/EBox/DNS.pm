@@ -622,15 +622,11 @@ sub _setConf
     my ($self) = @_;
 
     my $keytabPath = undef;
-    my $sambaZone = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
             if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
-            }
-            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_ZONE())) {
-                $sambaZone = EBox::Samba::SAMBA_DNS_ZONE();
             }
         }
     }

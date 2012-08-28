@@ -1,3 +1,8 @@
+HEAD
+	+ Force zentyal-dns dependency version
+	+ Fix bug managing the dns domain when enabling/disabling the module
+	+ Improvements in daemons management to avoid restarting them twice
+	  while saving changes.
 2.3.12
 	+ Support additional domain controller mode
 	+ Remove user addon to set the user as domain admin. Add it to the
