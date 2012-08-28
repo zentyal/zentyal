@@ -26,8 +26,10 @@ use warnings;
 use Error qw(:try);
 
 use EBox::Gettext;
-use EBox::Types::DomainName;
+use EBox::SysInfo::Types::DomainName;
 use EBox::Types::Host;
+
+use Data::Validate::Domain qw(is_domain);
 
 use base 'EBox::Model::DataForm';
 
@@ -52,11 +54,11 @@ sub _table
                                             defaultValue  => \&_getHostname,
                                             editable      => 1),
 
-                     new EBox::Types::DomainName( fieldName     => 'hostdomain',
-                                                  printableName => __('Domain'),
-                                                  defaultValue  => \&_getHostdomain,
-                                                  editable      => 1,
-                                                  help          => __('You will need to restart all the services or reboot the system to apply the hostname change.')));
+                     new EBox::SysInfo::Types::DomainName( fieldName     => 'hostdomain',
+                                                           printableName => __('Domain'),
+                                                           defaultValue  => \&_getHostdomain,
+                                                           editable      => 1,
+                                                           help          => __('You will need to restart all the services or reboot the system to apply the hostname change.')));
 
     my $dataTable =
     {
@@ -99,12 +101,21 @@ sub _getHostname
 
 sub _getHostdomain
 {
+    my $options = {
+        domain_allow_underscore => 1,
+        domain_allow_single_label => 0,
+        domain_private_tld => qr /^[a-zA-Z]+$/,
+    };
+
     my $hostdomain = `hostname -d`;
     chomp ($hostdomain);
-    unless ($hostdomain) {
-        my ($searchDomain) = @{_readResolv()};
-        $hostdomain = defined ($searchDomain) ? $searchDomain : 'zentyal.lan';
+    unless (is_domain($hostdomain, $options)) {
+        my ($searchdomain) = @{_readResolv()};
+        $hostdomain = $searchdomain if (is_domain($searchdomain, $options));
     }
+
+    $hostdomain = 'zentyal.lan' unless (is_domain($hostdomain, $options));
+
     return $hostdomain;
 }
 
