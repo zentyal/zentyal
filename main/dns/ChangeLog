@@ -1,3 +1,5 @@
+HEAD
+	+ Write keys file with read access only to bind group
 2.3.10
 	+ Remove subdomain fields from hostnames and services models after
 	  DLZ zones support. The samba records are no longer created in the

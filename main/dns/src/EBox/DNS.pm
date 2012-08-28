@@ -737,7 +737,8 @@ sub _setConf
             \@array);
 
     @array = ( 'keys' => \%keys );
-    $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array);
+    $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array,
+                         {'uid' => 'root', 'gid' => 'bind', mode => '640'});
 
     # Set transparent DNS cache
     $self->_setTransparentCache();

@@ -56,7 +56,7 @@ use Text::DHCPLeases;
 use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
 use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
-use constant DHCP_SERVICE => "zentyal.dhcpd";
+use constant DHCP_SERVICE => "isc-dhcp-server";
 
 use constant TFTP_SERVICE => "tftpd-hpa";
 
@@ -1278,6 +1278,7 @@ sub _setDHCPConf
     if ( $dynamicDNSEnabled ) {
         push @params, ('dynamicDNSEnabled' => $dynamicDNSEnabled);
         push @params, ('keysFile' => $self->_keysFile());
+        EBox::Sudo::root('adduser dhcpd bind');
     }
     push(@params, ('pidFile' => PIDFILE));
 

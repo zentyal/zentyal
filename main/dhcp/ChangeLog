@@ -1,3 +1,6 @@
+HEAD
+	+ Add dhcpd to the bind group if DynamicDNS is enabled
+	+ Use isc-dhcp-server upstart script
 2.3.8
 	+ Added modeldepends to yaml schema
 2.3.7
