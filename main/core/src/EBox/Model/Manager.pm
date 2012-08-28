@@ -96,9 +96,6 @@ sub instance
 #          eBox framework and no execution parameters are required to
 #          its creation
 #
-#          '/moduleName/modelName[/index1/index2]' - used in
-#          new calls and common models which requires a name space and
-#          parameters not set on compilation time
 #
 # Returns:
 #
@@ -138,9 +135,6 @@ sub model
 #        'compositeName' - used only if the compositeName is unique
 #        within eBox framework and no execution parameters are
 #        required to its creation
-#
-#        '/moduleName/compositeName[/index1] - used when a name space
-#        is required or parameters are set on runtime.
 #
 # Returns:
 #
@@ -346,7 +340,7 @@ sub modelsUsingId
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-             if ($observerModel->isUsingId($modelName, $rowId)) {
+            if ($observerModel->isUsingId($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
         }
@@ -393,8 +387,14 @@ sub modelActionTaken
 
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
+        EBox::debug("$model -> $observerName");
         my $observerModel = $self->model($observerName);
-        $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+        my @confDirs = @{ $self->configDirsForModel($observerModel) };
+        foreach my $dir (@confDirs) {
+            $observerModel->setDirectory($dir);
+            EBox::debug("notifiy $observerName, dir $dir");
+            $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+        }
     }
 
     return $strToRet;
@@ -770,5 +770,33 @@ sub _oneToOneDependencies
 sub markAsChanged
 {
 }
+
+sub configDirsForModel
+{
+    my ($self, $model) = @_;
+    my $module = $model->parentModule();
+    my $baseKey = $module->_key('');
+    my $modelName = $model->name();
+    my $pattern .= $baseKey . '/*/'. $modelName .  '/*';
+    EBox::debug("patter $pattern");
+    my @dirs =  $module->{redis}->_redis_call('keys', $pattern) ;
+    if (not @dirs) {
+        # probably a regular one-directory models
+        @dirs = ($model->directory());
+        EBox::debug("standard model dir @dirs");
+        return \@dirs;
+    }
+
+    my $regex = qr{^$baseKey/.*/$modelName/};
+    @dirs = map {
+        my $dir = $_;
+        $dir =~ m{($regex)};
+        $1
+    } @dirs;
+    EBox::debug("configDirsForModel = @dirs");
+
+    return \@dirs;
+}
+
 
 1;
