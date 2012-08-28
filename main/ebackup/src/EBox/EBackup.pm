@@ -156,7 +156,7 @@ sub restoreFile
     if ($destinationDir ne '/') {
         if (not EBox::Sudo::fileTest('-e', $destinationDir)) {
             throw EBox::Exceptions::External(
-                __x('Cannot restore to {d}: {dd} does not exists',
+                __x('Cannot restore to {d}: {dd} does not exist',
                     d => $destination,
                     dd => $destinationDir,
                    )
@@ -1523,7 +1523,7 @@ sub _checkFileSystemTargetStatus
            );
     } else {
         throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{{mp} is not mounted and {target} is inside it',
+          __x('{mp} is not mounted and {target} is inside it',
               mp => $mountPoint,
               target => $target
              )

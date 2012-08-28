@@ -8,7 +8,6 @@ Parameters:
       name - String the domain's name
       hosts - Array ref containing hash refs with the following elements:
         name - String the host's name
-        subdomain - String the host subdomain
         ip   - Array ref containing the host ip addresses
         aliases - Array ref containing the host aliases
       mailExchangers - Array ref containing hash refs with the following elements:
@@ -61,9 +60,8 @@ $TTL 3D
 ;
 
 % foreach my $host (@hostRRs) {
-%   my $subdomain = length ($host->{subdomain}) > 0 ? ".$host->{subdomain}" : '';
 %   foreach my $ip (@{$host->{ip}}) {
-<% $host->{name} %><% $subdomain %>     IN      A       <% $ip %>
+<% $host->{name} %>     IN      A       <% $ip %>
 %   }
 %   foreach my $alias (@{$host->{aliases}}) {
 <% $alias %>    IN      CNAME   <% $host->{name} %>
@@ -79,6 +77,5 @@ $TTL 3D
 % }
 
 % foreach my $srvRR (@srvRRs) {
-%   my $name = length ($srvRR->{subdomain}) > 0 ? ".$srvRR->{subdomain}" : '';
-_<% $srvRR->{service_name} %>._<% $srvRR->{protocol} %><% $name %>      IN      SRV     <% $srvRR->{priority} %> <% $srvRR->{weight} %> <% $srvRR->{target_port} %> <% $srvRR->{target_host} %>
+_<% $srvRR->{service_name} %>._<% $srvRR->{protocol} %>    IN      SRV     <% $srvRR->{priority} %> <% $srvRR->{weight} %> <% $srvRR->{target_port} %> <% $srvRR->{target_host} %>
 % }

@@ -18,13 +18,11 @@
 #       An specialized model from <EBox::Model::DataTable> which
 #       stores just one row. In fact, the viewer and setter is
 #       different.
-
-package EBox::Model::DataForm;
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Model::DataForm;
+use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
@@ -362,14 +360,13 @@ sub setTypedRow
     my ($self, $id, $paramsRef, %optParams) = @_;
 
     if (not $self->_rowStored()) {
-        # first set the default row to be sure we et all defaults
-        $optParams{id} = $ROW_ID;
-        $optParams{noOrder} = 1;
-        my $force = $optParams{'force'};
+        # first set the default row to be sure we have all the defaults
         my $row = $self->_defaultRow();
         $self->SUPER::addTypedRow(
                                   $row->{'valueHash'},
-                                  %optParams,
+                                  id => $ROW_ID,
+                                  noOrder => 1,
+                                  noValidateRow => 1,
                                  );
     }
 

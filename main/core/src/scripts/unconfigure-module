@@ -15,7 +15,7 @@ unless (defined($module)) {
 my $global = EBox::Global->getInstance();
 
 unless ($global->modExists($module)) {
-	print "Module $module doesn't exists\n";
+	print "Module $module does not exist\n";
     exit 1;
 }
 

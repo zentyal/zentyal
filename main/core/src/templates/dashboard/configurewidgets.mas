@@ -161,6 +161,6 @@ showModuleWidgets = function(module,start) {
 </div>
 <div id='widget_list'>
     <div class='note'>
-        <% __('Browse the available widgets in the left menu and drag&drop them to the dashboard.') %>
+        <% __('Browse the available widgets in the top menu and drag&drop them to the dashboard.') %>
     </div>
 </div>

@@ -91,7 +91,7 @@ sub _daemon
 sub isEnabled
 {
     my ($self) = @_;
-    return $self->_confAttr('enabled');
+    return 1;
 }
 
 

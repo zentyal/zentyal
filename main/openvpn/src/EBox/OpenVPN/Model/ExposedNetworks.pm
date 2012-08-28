@@ -12,17 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class:
-#
-#
-
-#
-package EBox::OpenVPN::Model::ExposedNetworks;
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Model::ExposedNetworks;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -30,7 +24,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Types::IPAddr;
+use EBox::Types::Select;
 
 # Group: Public methods
 
@@ -50,7 +44,6 @@ sub name
 }
 
 # Group: Protected methods
-
 sub _table
 {
     my ($self) = @_;
@@ -95,12 +88,9 @@ sub _table
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
-
-        return $self->parentRow()->printableValueByName('name');
+    my ($self) = @_;
+    return $self->parentRow()->printableValueByName('name');
 }
-
-
 
 # Return the help message
 sub _help

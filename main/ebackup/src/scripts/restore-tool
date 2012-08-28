@@ -737,7 +737,7 @@ sub _restoreFile
 
     EBox::debug("About to try to restore $dst from $src");
     if (not EBox::Sudo::fileTest('-e', $src)) {
-        EBox::error("Cannot restore $dst. Source path $src does not exists");
+        EBox::error("Cannot restore $dst. Source path $src does not exist");
         return;
     }
 

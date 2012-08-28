@@ -208,7 +208,7 @@ ldap_user_certificate_attribute = userCertificate
 #   (objectCategory=Group)
 # For LDAP with posix groups, use:
 #   no need to set the search filter
-ldap_group_search_filter = (objectclass=mailboxRelatedObject)
+ldap_group_search_filter = (objectClass=zentyalGroup)
 
 # unique group id for find the group
 # Required
@@ -234,12 +234,12 @@ ldap_groupname_attribute = cn
 # Optional, default = member
 # Active directory: member
 # LDAP: memberUid
-ldap_groupmembers_attribute = memberUid
+ldap_groupmembers_attribute = member
 
 # Optional, default = text
 # Active directory: dn
 # LDAP: text
-ldap_groupmembers_attribute_type = text
+ldap_groupmembers_attribute_type = dn
 
 # The attribute of the user which is listed in ldap_groupmember_attribute
 # Active directory: empty, matching dn's

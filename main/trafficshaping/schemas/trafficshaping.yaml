@@ -30,4 +30,4 @@ modeldepends:
         l7-protocols/Groups: [service_l7Group]
 
 notifyactions:
-    ExternalRules: [InterfaceRate]
+    ExternalRules: [trafficshaping/InterfaceRate]

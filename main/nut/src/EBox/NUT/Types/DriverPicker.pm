@@ -275,19 +275,19 @@ sub _paramIsValid
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $manufacturerValue,
-            'advice' => __('This manufacturer does not exists.'));
+            'advice' => __('This manufacturer does not exist.'));
     }
     unless ($upsmodelExists) {
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $upsmodelValue,
-            'advice' => __('This model does not exists.'));
+            'advice' => __('This model does not exist.'));
     }
     unless ($driverExists) {
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $driverValue,
-            'advice' => __('This driver does not exists.'));
+            'advice' => __('This driver does not exist.'));
     }
 
     return 1;

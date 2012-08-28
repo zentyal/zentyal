@@ -6,5 +6,17 @@
 
 /var/lib/samba/private/* rw,
 /var/lib/samba/private/dns/* rw,
+
+# Access to kerberos keytab
 /var/lib/samba/private/dns.keytab kr,
+
+# Access to kerberos ticket
 /var/tmp/** rw,
+
+# Access to samba AD DLZ zone
+/var/lib/samba/private/dns/sam.ldb k,
+/var/lib/samba/private/dns/sam.ldb.d/* krw,
+/usr/lib/i386-linux-gnu/samba/ldb/*.so m,
+/usr/lib/i386-linux-gnu/samba/bind9/*.so m,
+/usr/lib/i386-linux-gnu/samba/gensec/*.so m,
+/usr/lib/i386-linux-gnu/ldb/modules/ldb/*.so m,

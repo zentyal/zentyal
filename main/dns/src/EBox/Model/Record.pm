@@ -113,7 +113,7 @@ sub _addToDelete
     my ($self, $rr) = @_;
 
     my $mod = $self->{confmodule};
-    my $key = $mod->deletedRRsKey();
+    my $key = EBox::DNS::DELETED_RR_KEY();
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};

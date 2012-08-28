@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::SysInfo::Backup;
-
 use strict;
 use warnings;
 
+
+package EBox::CGI::SysInfo::Backup;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use Error qw(:try);
@@ -44,19 +43,27 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub _print
 {
-    my $self = shift;
-    if ($self->{error} || not defined($self->{downfile})) {
-        $self->SUPER::_print;
+    my ($self) = @_;
+
+    if (defined($self->{downfile}) and (not defined $self->{error})) {
+        # file download
+        open(BACKUP,$self->{downfile}) or
+            throw EBox::Exceptions::Internal('Could not open backup file.');
+        print($self->cgi()->header(-type=>'application/octet-stream',
+                                   -attachment=>$self->{downfilename}));
+        while (<BACKUP>) {
+            print $_;
+        }
+        close BACKUP;
         return;
     }
-    open(BACKUP,$self->{downfile}) or
-        throw EBox::Exceptions::Internal('Could not open backup file.');
-    print($self->cgi()->header(-type=>'application/octet-stream',
-                -attachment=>$self->{downfilename}));
-    while (<BACKUP>) {
-        print $_;
+
+
+    if (not $self->{popup}) {
+        return $self->SUPER::_print();
     }
-    close BACKUP;
+
+    $self->_printPopup();
 }
 
 sub requiredParameters
@@ -64,16 +71,16 @@ sub requiredParameters
     my ($self) = @_;
 
     if ($self->param('backup')) {
-        return [qw(backup description mode)];
+        return [qw(backup description)];
     }
     elsif ($self->param('bugreport')) {
         return [qw(bugreport )];
     }
     elsif ($self->param('restoreFromFile')) {
-        return [qw(restoreFromFile backupfile mode)];
+        return [qw(restoreFromFile backupfile)];
     }
     elsif ($self->param('restoreFromId')) {
-        return [qw(restoreFromId id mode)];
+        return [qw(restoreFromId id)];
     }
     elsif ($self->param('download.x')) {
         return [qw(id download.x download.y)];
@@ -97,12 +104,13 @@ sub optionalParameters
         return ['.*'];
     }
 
-    return ['selected', 'download'];
+    return ['selected', 'download', 'popup'];
 }
 
 sub actuate
 {
     my ($self) = @_;
+    $self->{popup} = $self->param('popup');
 
     $self->param('cancel') and return;
 
@@ -152,33 +160,27 @@ sub masonParameters
 
 sub _backupAction
 {
-    my ($self, %params) = @_;
-
-    my $fullBackup;
-    my $mode = $self->param('mode');
-    if ($mode eq 'fullBackup') {
-        $fullBackup = 1;
-    }
-    elsif ($mode eq 'configurationBackup') {
-        $fullBackup = 0;
-    }
-    else {
-        throw EBox::Exceptions::External(__x('Unknown backup mode: {mode}', mode => $mode));
-    }
+    my ($self) = @_;
 
     my $description = $self->param('description');
-
     my $progressIndicator;
+    try {
+        my $backup = EBox::Backup->new();
+        $progressIndicator= $backup->prepareMakeBackup(description => $description);
+    } otherwise {
+        my ($ex) = @_;
+        $self->setErrorFromException($ex);
+    };
 
-    my $backup = EBox::Backup->new();
-    $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
-
-    $self->_showBackupProgress($progressIndicator);
-
-    $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
+    if ($progressIndicator) {
+        $self->_showBackupProgress($progressIndicator);
+        $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
+    } elsif ($self->{popup}) {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
+    }
 }
 
-sub  _restoreFromFileAction
+sub _restoreFromFileAction
 {
     my ($self) = @_;
 
@@ -209,40 +211,36 @@ sub _restore
 {
     my ($self, $filename) = @_;
 
-    my $fullRestore = $self->_fullRestoreMode;
-
     my $backup = new EBox::Backup;
 
-    my $progressIndicator =
-        $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+    my $progressIndicator;
+    try {
+        $progressIndicator = $backup->prepareRestoreBackup($filename);
+    } otherwise {
+        my ($ex) = @_;
+        $self->setErrorFromException($ex);
+    };
 
-    $self->_showRestoreProgress($progressIndicator);
+    if ($progressIndicator) {
+        $self->_showRestoreProgress($progressIndicator);
+    } elsif ($self->{popup}) {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
+    }
 }
 
-sub _fullRestoreMode
-{
-    my ($self) = @_;
-
-    my $fullRestore;
-    my $mode = $self->param('mode');
-    if ($mode eq 'fullRestore') {
-        $fullRestore = 1;
-    }
-    elsif ($mode eq 'configurationRestore') {
-        $fullRestore = 0;
-    }
-    else {
-        throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
-    }
-
-    return $fullRestore;
-}
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location='/SysInfo/Backup?selected=local'; return false",
+);
 
 sub _showBackupProgress
 {
     my ($self, $progressIndicator) = @_;
-
-    $self->showProgress(
+    my @params = (
             progressIndicator => $progressIndicator,
 
             title    => __('Backing up'),
@@ -252,13 +250,18 @@ sub _showBackupProgress
             endNote            =>  __('Backup successful'),
             reloadInterval     =>  2,
             );
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub _showRestoreProgress
 {
     my ($self, $progressIndicator) = @_;
 
-    $self->showProgress(
+    my @params = (
             progressIndicator  => $progressIndicator,
 
             title              => __('Restoring backup'),
@@ -268,6 +271,11 @@ sub _showRestoreProgress
             endNote            =>   __('Restore successful'),
             reloadInterval     =>   4,
             );
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
 }
 
 sub  _downloadAction
@@ -311,5 +319,7 @@ sub  _bugreportAction
 
     $self->{audit}->logAction('System', 'Backup', 'downloadConfigurationReport');
 }
+
+
 
 1;

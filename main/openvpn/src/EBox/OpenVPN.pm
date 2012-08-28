@@ -1396,7 +1396,7 @@ sub deleteClient
 
     if (not defined $id) {
         throw EBox::Exceptions::External(__x(
-                                             'Client {c} does not exists',
+                                             'Client {c} does not exist',
                                              c => $name
                                             )
                                         );
@@ -1417,8 +1417,8 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'VPN',
                                         'text' => 'VPN',
-                                        'separator' => 'UTM',
-                                        'order' => 330
+                                        'separator' => 'Infrastructure',
+                                        'order' => 425
                                        );
 
     $folder->add(

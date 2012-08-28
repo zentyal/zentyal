@@ -162,20 +162,11 @@ sub _table
             defaultValue    => 'us',
         ),
         new EBox::Types::IPAddr(
-            fieldName       => 'server',
-            printableName   => __('Server'),
-            editable        => 1,
-            optional        => 1,
-            help            => __('IP address of the server for "everything". ' .
-                                  'If not set, it will be Zentyal.'),
-        ),
-        new EBox::Types::IPAddr(
             fieldName       => 'time_server',
             printableName   => __('Time Server'),
             editable        => 1,
             optional        => 1,
-            help            => __('IP address of the time server. ' .
-                                  'If not set, it will be undef.'),
+            help            => __('IP address of the time server.'),
         ),
         new EBox::Types::Union(
             fieldName      => 'shutdown',

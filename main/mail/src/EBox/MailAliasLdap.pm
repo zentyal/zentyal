@@ -240,7 +240,7 @@ sub addVDomainAlias
     my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
-                                             'Mail domain {d} does not exists',
+                                             'Mail domain {d} does not exist',
                                               d => $vdomain
                                             )
                                         );
@@ -277,7 +277,7 @@ sub vdomainAliases
     my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
-                                             'Mail domain {d} does not exists',
+                                             'Mail domain {d} does not exist',
                                               d => $vdomain
                                             )
                                         );
@@ -302,7 +302,7 @@ sub externalAccountAliases
     my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
-                                             'Mail domain {d} does not exists',
+                                             'Mail domain {d} does not exist',
                                               d => $vdomain
                                             )
                                         );

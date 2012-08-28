@@ -225,9 +225,9 @@ sub menu
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       text  => $self->printableName(),
-                                      separator => 'Infrastructure',
+                                      separator => 'Office',
                                       url   => 'WebServer/Composite/General',
-                                      order => 430
+                                      order => 570
                                      );
       $root->add($item);
 }
@@ -743,9 +743,7 @@ sub restoreConfig
     my ($self, $dir) = @_;
     my $sitesBackDir = "$dir/sites-available";
     if (EBox::FileSystem::dirIsEmpty($sitesBackDir)) {
-        EBox::warning(
-            'No data in the backup for vhosts custom configuration files (maybe backup done in a previous version?). We left actual files untouched'
-           );
+        EBox::warn('No data in the backup for vhosts custom configuration files (maybe the backup was done in a previous version?). Actual files are left untouched');
         return;
     }
 

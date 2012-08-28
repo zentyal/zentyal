@@ -102,7 +102,6 @@ sub _table
     my @tableHeader = (
        new EBox::Types::Port(
                              fieldName => 'vncport',
-                             hidden => 1,
                              optional => 1,
                              unique => 1,
                              editable => 1,
@@ -210,7 +209,18 @@ sub validateTypedRow
             );
         }
     }
+
+    if ($action eq 'add') {
+        my $max = $self->{gconfmodule}->maxVMs();
+        my $nVms = $self->size();
+        if ($nVms >= $max) {
+            throw EBox::Exceptions::External(
+                __('Cannot add more virtual machines because its maximum allowed number has been reached')
+               );
+        }
+    }
 }
+
 
 sub _acquireRunning
 {
@@ -346,7 +356,7 @@ sub _doResume
 sub freeIface
 {
     my ($self, $iface) = @_;
-    foreach my $id (@{ $self->ids()  }) {
+    foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         my $settings = $row->subModel('settings');
         my $networkSettings = $settings->componentByName('NetworkSettings');
@@ -371,7 +381,7 @@ sub ifaceMethodChanged
     return undef;
 }
 
-# set VPNC port and service
+# set VNC port and service
 sub addedRowNotify
 {
     my ($self, $row) = @_;
@@ -401,5 +411,19 @@ sub deletedRowNotify
     }
 
 }
+
+sub vncPorts
+{
+    my ($self) = @_;
+    my @ports;
+    foreach my $vmId (@{$self->ids()}) {
+        my $vm = $self->row($vmId);
+        my $vncport = $vm->valueByName('vncport');
+        push @ports, $vncport if $vncport;
+    }
+
+    return \@ports;
+}
+
 
 1;

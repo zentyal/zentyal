@@ -94,6 +94,27 @@ sub kerberosServicePrincipals
     return $data;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules only if installing the first time
+    unless ($version) {
+        # Allow clients to browse Internet by default
+        $self->model('AccessRules')->add(
+            source => { any => undef },
+            policy => { allow => undef },
+        );
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -868,14 +889,14 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/AccessRules',
                                       'text' => __(q{Access Rules})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
-                                      'text' => __(q{Bandwidth Throttling})));
-
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/CategorizedLists',
                                       'text' => __(q{Categorized Lists})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
+                                      'text' => __(q{Bandwidth Throttling})));
 
     $root->add($folder);
 }

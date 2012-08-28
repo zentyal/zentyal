@@ -113,7 +113,9 @@ function updateGraph(element,value) {
 //]]>
 </script>
 
+<span id="confbutton">
 <a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+</span>
 % if (@brokenPackages) {
 <div class='error'>
     <% __x('The following packages are not properly installed: {packages}.',
@@ -206,6 +208,10 @@ function equals(a,b)
 {
     for (p in a)
     {
+        if (a[p] == null) {
+           continue;
+        }
+
         switch(typeof(a[p]))
         {
             case 'object':
@@ -219,6 +225,9 @@ function equals(a,b)
 
     for (p in b)
     {
+        if (a[p] == null) {
+           continue;
+        }
         if(typeof(a[p])=='undefined') {return false;}
     }
 
@@ -309,11 +318,13 @@ function updateWidget(widget) {
                         statusInfo[itemname] = item;
                         var status;
                         var button = restart;
+                        var name = 'restart';
                         if (item.enabled && item.running) {
                             status = 'running';
                         } else if (item.enabled && !item.running) {
                             status = 'stopped';
                             button = start;
+                            name = 'start'
                         } else if (!item.enabled && item.running) {
                             status = 'unmanaged';
                         } else {
@@ -336,7 +347,7 @@ function updateWidget(widget) {
     <form action='/SysInfo/RestartService'>\
         <input type='hidden' name='module' value='" + item.module + "'/>\
         <span class='sright'>\
-            <input class='inputButtonRestart' type='submit' name='restart' value='"
+            <input class='inputButtonRestart' type='submit' name='" + name + "' value='"
     + button + "'/>\
         </span>\
     </form>";

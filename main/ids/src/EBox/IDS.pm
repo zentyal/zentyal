@@ -168,8 +168,8 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
                                     'text' => __('IDS'),
-                                    'separator' => 'UTM',
-                                    'order' => 320));
+                                    'separator' => 'Gateway',
+                                    'order' => 228));
 }
 
 # Method: usedFiles

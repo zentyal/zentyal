@@ -473,8 +473,7 @@ sub _setMailConf
     my @zarafaDomains = ();
     @zarafaDomains = $self->zarafaDomains() if $zarafaEnabled;
 
-    # FIXME this is broken with multidomain and needs reviewing
-    #$self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
+    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomains => @zarafaDomains);
 
     $self->_setZarafaConf($zarafaEnabled, @zarafaDomains);
 }

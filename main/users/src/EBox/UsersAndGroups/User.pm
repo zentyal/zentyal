@@ -56,9 +56,46 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    my $self = {};
+
+    if (defined $opts{uid}) {
+        $self->{uid} = $opts{uid};
+    } else {
+        $self = $class->SUPER::new(@_);
+    }
+
+    bless ($self, $class);
     return $self;
+}
+
+# Method: _entry
+#
+#   Return Net::LDAP::Entry entry for the user
+#
+sub _entry
+{
+    my ($self) = @_;
+
+    unless ($self->{entry}) {
+        if (defined $self->{uid}) {
+            my $result = undef;
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(uid=$self->{uid})",
+                scope => 'sub',
+            };
+            $result = $self->_ldap->search($attrs);
+            if ($result->count() > 1) {
+                throw EBox::Exceptions::Internal(
+                    __x('Found {count} results for, expected only one.',
+                        count => $result->count()));
+            }
+            $self->{entry} = $result->entry(0);
+        } else {
+            $self->SUPER::_entry();
+        }
+    }
+    return $self->{entry};
 }
 
 # Method: name
@@ -179,8 +216,6 @@ sub save
 
             my $users = EBox::Global->modInstance('users');
             $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
-
-            delete $self->{ignoreMods};
         }
     }
 }
@@ -291,10 +326,11 @@ sub _groups
     my ($self, $system, $invert) = @_;
 
     my $filter;
+    my $dn = $self->dn();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$self->{dn})))";
+        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$self->{dn}))";
+        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
     }
 
     my %attrs = (
@@ -507,18 +543,17 @@ sub create
                 maxuserlength => MAXUSERLENGTH));
     }
 
+    # Verify user exists
+    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
+        throw EBox::Exceptions::DataExists('data' => __('user name'),
+                                           'value' => $user->{'user'});
+    }
+
     my @userPwAttrs = getpwnam($user->{'user'});
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(
             __("Username already exists on the system")
         );
-    }
-
-
-    # Verify user exists
-    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
-        throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $user->{'user'});
     }
 
     my $homedir = _homeDirectory($user->{'user'});
@@ -802,6 +837,61 @@ sub kerberosKeys
     }
 
     return $keys;
+}
+
+sub setKerberosKeys
+{
+    my ($self, $keys) = @_;
+
+    unless (defined $keys) {
+        throw EBox::Exceptions::MissingArgument('keys');
+    }
+
+    my $syntaxFile = EBox::Config::scripts('users') . 'krb5Key.asn';
+    my $asn = Convert::ASN1->new();
+    $asn->prepare_file($syntaxFile) or
+        throw EBox::Exceptions::Internal($asn->error());
+    my $asn_key = $asn->find('Key') or
+        throw EBox::Exceptions::Internal($asn->error());
+
+    my $blobs = [];
+    foreach my $key (@{$keys}) {
+        my $salt = undef;
+        if (defined $key->{salt}) {
+            $salt = {
+                value => {
+                    type => {
+                        value => 3
+                    },
+                    salt => {
+                        value => $key->{salt}
+                    },
+                    opaque => {
+                        value => '',
+                    },
+                },
+            };
+        }
+
+        my $blob = $asn_key->encode(
+            mkvno => {
+                value => 0
+            },
+            salt => $salt,
+            key => {
+                value => {
+                    keytype => {
+                        value =>  $key->{type}
+                    },
+                    keyvalue => {
+                        value => $key->{value}
+                    }
+                }
+            }) or
+        throw EBox::Exceptions::Internal($asn_key->error());
+        push (@{$blobs}, $blob);
+    }
+        $self->set('krb5Key', $blobs);
 }
 
 1;

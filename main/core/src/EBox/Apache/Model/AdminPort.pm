@@ -17,18 +17,16 @@
 #
 #   This model is used to configure the interface port
 #
-
-package EBox::Apache::Model::AdminPort;
-
 use strict;
 use warnings;
+
+package EBox::Apache::Model::AdminPort;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Types::Port;
-
-use base 'EBox::Model::DataForm';
 
 use constant APACHE_PORT => 443;
 
@@ -65,7 +63,8 @@ sub _table
 sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
-    my $port = $allValues->{port}->value();
+
+    my $port = $changedValues->{port}->value();
     $self->parentModule()->checkAdminPort($port);
 }
 

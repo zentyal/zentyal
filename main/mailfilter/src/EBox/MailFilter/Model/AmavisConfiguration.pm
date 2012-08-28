@@ -59,12 +59,6 @@ sub _table
     my @tableDesc =
         (
          new EBox::Types::Boolean(
-                                  fieldName => 'enabled',
-                                  printableName => __('Enabled'),
-                                  defaultValue => 1,
-                                  editable => 1
-                                 ),
-         new EBox::Types::Boolean(
                                   fieldName => 'antivirus',
                                   printableName => __('Antivirus enabled'),
                                   defaultValue => 1,
@@ -171,34 +165,6 @@ sub headTitle
     return undef;
 }
 
-# Method: viewCustomizer
-#
-#   Implement a custom behaviour to show and hide mailfilter configuration
-#   depending on the filter selected
-#
-# Overrides:
-#
-#    <EBox::Model::DataTable::viewCustomizer>
-#
-#
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    my $fields = [qw(antivirus antispam port notification)];
-    $customizer->setModel($self);
-    $customizer->setOnChangeActions(
-        { enabled =>
-            {
-              on  => { enable  => $fields },
-              off => { disable => $fields },
-            }
-        });
-    return $customizer;
-
-}
 
 1;
 

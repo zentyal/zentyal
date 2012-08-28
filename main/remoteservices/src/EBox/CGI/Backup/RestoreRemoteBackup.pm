@@ -39,44 +39,69 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-  return [qw(name)];
+    return [qw(name)];
 }
 
 sub optionalParameters
 {
-  return [qw(ok cancel)];
+    return [qw(ok cancel popup)];
 }
 
 
 sub actuate
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->param('cancel') and return;
+    $self->param('cancel') and return;
 
-  my $backup =  new EBox::RemoteServices::Backup;
-  my $name   = $self->param('name');
+    my $backup =  new EBox::RemoteServices::Backup;
+    my $name   = $self->param('name');
 
-  my $progress = $backup->prepareRestoreRemoteBackup($name);
+    my $progress = $backup->prepareRestoreRemoteBackup($name);
 
-
-  $self->showRestoreProgress($progress);
+    $self->showRestoreProgress($progress);
 }
 
 
+
+my @popupProgressParams = (
+        raw => 1,
+        inModalbox => 1,
+        nextStepType => 'submit',
+        nextStepText => __('OK'),
+        nextStepUrl  => '#',
+        nextStepUrlOnclick => "Modalbox.hide(); window.location='/RemoteServices/Backup/Index'; return false",
+);
+
 sub showRestoreProgress
 {
-  my ($self, $progressIndicator) = @_;
-  $self->showProgress(
-		      progressIndicator => $progressIndicator,
-		      title              => __('Restoring remote backup'),
-		      text               =>   __('Restoring modules from remote backup'),
-		      currentItemCaption =>   __('Module') ,
-		      itemsLeftMessage   =>   __('modules left to restore'),
-		      endNote            =>   __('Restore successful'),
+    my ($self, $progressIndicator) = @_;
 
-		      reloadInterval  => 4,
-		     );
+    my @params = (
+            progressIndicator  => $progressIndicator,
+            title              => __('Restoring remote backup'),
+            text               => __('Restoring modules from remote backup'),
+            currentItemCaption => __('Module') ,
+            itemsLeftMessage   => __('modules left to restore'),
+            endNote            => __('Restore successful'),
+            reloadInterval     => 4,
+        );
+
+    if ($self->param('popup')) {
+        push @params, @popupProgressParams;
+    }
+
+    $self->showProgress(@params);
+}
+
+sub _print
+{
+    my ($self) = @_;
+    if (not $self->param('popup')) {
+        return $self->SUPER::_print();
+    }
+
+    $self->_printPopup();
 }
 
 1;

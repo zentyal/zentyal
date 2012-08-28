@@ -1,4 +1,7 @@
-HEAD
+2.3.6
+	+ Configuration backup restore no longer crashes
+2.3.5
+	+ Web Server moved from Infrastructure to Office
 	+ Module recovers from missign webserver service
 	+ Backup and restore of vhosts custom configuration directories
 2.3.4
