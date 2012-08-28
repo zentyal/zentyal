@@ -121,14 +121,11 @@ sub validateTypedRow
 
     if (uc ($netbios) eq uc ($workgroup)) {
         throw EBox::Exceptions::External(
-                __('Netbios and workgroup must have different names'));
+            __('NetBIOS computer name and NetBIOS domain name must be different'));
     }
 
-    # TODO Error provisioning database. Output: ProvisioningError:
-    # guess_names: Realm 'ASDF' must not be equal to hostname 'asdf'!
-
     $self->_checkNetbiosName($netbios);
-    $self->_checkDomainName($workgroup);
+    $self->_checkNetbiosName($workgroup);
     $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
 
@@ -177,7 +174,10 @@ sub _checkNetbiosName
         throw EBox::Exceptions::External(__('NetBIOS name field is empty'));
     }
     if (length ($netbios) > MAXNETBIOSLENGTH) {
-        throw EBox::Exceptions::Externam(__('NetBIOS name is too long'));
+        throw EBox::Exceptions::External(__('NetBIOS name is too long'));
+    }
+    if ($netbios =~ m/\./) {
+        throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
     $self->_checkWinName($netbios, __('NetBIOS computer name'));
 
@@ -432,12 +432,10 @@ sub viewCustomizer
     my $actions = {
         mode => {
             dc => {
-#                show => ['workgroup'],
                 hide => ['dcfqdn', 'dnsip','adminAccount'],
             },
             adc => {
                 show => ['dcfqdn','dnsip','adminAccount'],
-#                hide => ['workgroup'],
             },
         },
     };

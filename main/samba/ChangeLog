@@ -1,3 +1,6 @@
+HEAD
+	+ Improve netbios name validation (no dots)
+	+ Validate netbios domain name as netbios name
 2.3.12
 	+ Support additional domain controller mode
 	+ Remove user addon to set the user as domain admin. Add it to the
