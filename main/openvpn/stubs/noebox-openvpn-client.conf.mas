@@ -100,7 +100,9 @@ persist-key
 persist-tun
 
 # Write the PID file for compatibility with Ubuntu init.d script
-<& valueEntry, entry => 'writepid', value => $pidFile &>
+% if ($pidFile ) {
+writepid <% $pidFile %>
+% }
 
 # If you are connecting through an
 # HTTP proxy to reach the actual OpenVPN
