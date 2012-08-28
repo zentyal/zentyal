@@ -212,7 +212,7 @@ sub viewCustomizer
 sub notifyForeignModelAction
 {
     my ($self, $model, $action, $row) = @_;
-    if ($model ne '[dns/DomainTable') {
+    if ($model ne 'dns/DomainTable') {
         return;
     }
 
@@ -220,16 +220,23 @@ sub notifyForeignModelAction
     # the old row to check the usage of the domain, currently, it is
     # not possible to edit a dynamic domain
     if ($action eq 'del') {
-        if ( $row->id() eq $self->row()->valueByName('dynamic_domain')
-             or $row->id() eq $self->row()->valueByName('static_domain') ) {
+        my $domainId = $row->id();
+        my $modelRow = $self->row();
+        my $dynamicDomain =  $modelRow->valueByName('dynamic_domain');
+        my $staticDomain =  $modelRow->valueByName('static_domain');
+        EBox::debug("OWN DIRECTROTRY " . $self->directory());
+        EBox::debug("domain |$domainId| dynamicDomain |$dynamicDomain| staticDomain |$staticDomain|");
+        if ( ($domainId eq $dynamicDomain) or ($domainId eq $staticDomain)  ) {
+            EBox::debug("dusable dyndns");
             # Disable the dynamic DNS feature, in formSubmitted we
             # have to enable again (:-S)
-            my $row = $self->row();
-            if ( $row->valueByName('enabled') ) {
-                $row->elementByName('enabled')->setValue(0);
-                $row->store();
+            if ( $modelRow->valueByName('enabled') ) {
+                $modelRow->elementByName('enabled')->setValue(0);
+                $modelRow->store();
                 return __x('Dynamic DNS feature has been disabled in DHCP module '
-                           . 'in {iface} interface.', iface => $self->index());
+                           . 'in {iface} interface.',
+                           iface => $self->parentRow()->valueByName('iface')
+                         );
             }
         }
     }
