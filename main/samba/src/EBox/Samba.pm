@@ -194,6 +194,28 @@ sub enableService
     $self->SUPER::enableService($status);
 }
 
+# Method: _startService
+#
+#   Overrided to ensure proper permissions of the ldap_priv folder, where the
+#   privileged socket that zentyal uses to connect is. This is a special socket
+#   that samba create that allow r/w restricted attributes.
+#   Samba expects the ldap_priv folder to be owned by root and mode 0750, or the
+#   LDAP service won't run.
+#
+#   Here we set the expected permissions before start the daemon.
+#
+sub _startService
+{
+    my ($self) = @_;
+
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+
+    $self->SUPER::_startService(@_);
+}
+
 # Method: _enforceServiceState
 #
 #   Start the samba daemon is expensive and takes a while. After writing
@@ -597,7 +619,7 @@ sub provisionAsDC
     my $group = EBox::Config::group();
     EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
-    EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
 
     # Start managed service to let it create the LDAP socket
     EBox::debug('Starting service');
@@ -683,7 +705,7 @@ sub provisionAsADC
         my $group = EBox::Config::group();
         EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
         EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
-        EBox::Sudo::root("chmod 0770 " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
 
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
