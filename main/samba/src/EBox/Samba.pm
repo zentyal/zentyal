@@ -607,6 +607,8 @@ sub provisionAsDC
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
+
+    # TODO Add nobody to guest id Mapping
 }
 
 sub provisionAsADC
@@ -882,7 +884,7 @@ sub writeSambaConfig
     #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
-    push(@array, 'shares' => $shares);
+    push (@array, 'shares' => $shares);
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
