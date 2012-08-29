@@ -422,7 +422,12 @@ sub _optionsFromForeignModel
 
     return unless (defined($model) and defined($field));
 
-    return $model->optionsFromForeignModel($field);
+    my @params = ();
+    if ($self->{foreignFilter}) {
+        push @params, filter => $self->{foreignFilter};
+    }
+
+    return $model->optionsFromForeignModel($field, @params);
 }
 
 

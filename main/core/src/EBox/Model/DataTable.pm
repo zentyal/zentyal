@@ -519,15 +519,21 @@ sub fieldHeader
 #    [{ 'value' => 'obj001', 'printableValue' => 'administration'}]
 sub optionsFromForeignModel
 {
-    my ($self, $field) = @_;
-
+    my ($self, $field, %params) = @_;
     unless (defined($field)) {
         throw EBox::Exceptions::MissingArgument("field's name")
     }
 
+    my $filter = $params{filter};
+
     my @options;
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        if ($filter) {
+            if (not $filter->($row)) {
+                next;
+            }
+        }
         push (@options, {
             'value'          => $id,
             'printableValue' => $row->printableValueByName($field)
