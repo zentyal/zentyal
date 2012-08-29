@@ -384,12 +384,10 @@ sub modelActionTaken
 
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
-        EBox::debug("$model -> $observerName");
         my $observerModel = $self->model($observerName);
         my @confDirs = @{ $self->configDirsForModel($observerModel) };
         foreach my $dir (@confDirs) {
             $observerModel->setDirectory($dir);
-            EBox::debug("notifiy $observerName, dir $dir");
             my $observerStr = $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
             $strToRet .= $observerStr if $observerStr;
         }
@@ -628,7 +626,6 @@ sub _setupCompositeInfo
 
     foreach my $composite (keys %{$info->{composites}}) {
         my $components = $info->{composites}->{$composite};
-#        $self->{composites}->{$moduleName}->{$composite} = { instance => undef, components => $components};
         foreach my $component (@{$components}) {
             if (exists $self->{models}->{$moduleName}->{$component}) {
                 $self->{models}->{$moduleName}->{$component}->{parent} = $composite;
@@ -641,13 +638,6 @@ sub _setupCompositeInfo
             $self->{modByComposite}->{$composite} = {};
         }
         $self->{modByComposite}->{$composite}->{$moduleName} = 1;
-    }
-
-    # DDD
-    if ($moduleName eq 'dhcp') {
-        use Data::Dumper;
-        EBox::debug(Dumper($self->{models}->{$moduleName}));
-        EBox::debug(Dumper($self->{composites}->{$moduleName}));
     }
 }
 
@@ -808,7 +798,7 @@ sub configDirsForModel
     my $modelName = $model->name();
 
     if (not $self->_modelHasMultipleInstances($module->name(), $modelName)) {
-        EBox::debug("not PArenName standard model dir ");
+        # no multiple instances, return normal directory
         return [ $model->directory() ];
     }
 
@@ -827,8 +817,6 @@ sub configDirsForModel
         $match =~ m{$regex};
         $dirs{$1} = 1;
     }
-
-    EBox::debug("configDirsForModel = " . keys %dirs);
 
     return [keys %dirs];
 }
