@@ -44,10 +44,6 @@ use EBox::Model::Manager;
 use Crypt::OpenSSL::Random;
 use MIME::Base64;
 
-
-
-
-
 # Group: Public methods
 
 sub new
