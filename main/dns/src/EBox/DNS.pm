@@ -697,7 +697,7 @@ sub _setConf
     $self->_removeUnusedReverseFiles($reversedData);
 
     my @inaddrs = ();
-    foreach my $group (keys $reversedData) {
+    foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
         if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
@@ -914,7 +914,7 @@ sub _hostnames
 
     foreach my $id (@{$model->ids()}) {
         my $hostname = $model->row($id);
-        my $hostdata;
+        my $hostdata = {};
 
         $hostdata->{'name'} = $hostname->valueByName('hostname');
         $hostdata->{'ip'} = $self->hostIpAddresses($hostname->subModel('ipAddresses'));
@@ -1497,7 +1497,7 @@ sub _removeUnusedReverseFiles
 
     my $oldList = $self->st_get_list('inarpa_files');
     my $newList = [];
-    foreach my $group (keys $reversedData) {
+    foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
         if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
@@ -1761,7 +1761,7 @@ sub switchToReverseInfoData
                         tsigKeyName => $domain->{name},
                     };
                     foreach my $ns (@{$domain->{nameServers}}) {
-                        push ($reversedData->{$groupip}->{ns}, $ns);
+                        push (@{ $reversedData->{$groupip}->{ns} }, $ns);
                     }
                     my $hostData = { ip => $ip, name => $host->{'name'}};
                     push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
