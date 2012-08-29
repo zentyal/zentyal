@@ -1,5 +1,3 @@
-HEAD
-	+ Removed deprecated  EBox::DNS::View::DomainTableCustomizer
 2.3.10
 	+ Remove subdomain fields from hostnames and services models after
 	  DLZ zones support. The samba records are no longer created in the
