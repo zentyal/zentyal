@@ -1,3 +1,5 @@
+HEAD
+	+ Disable form autocompletion in Provider username and password
 2.3.4
 	+ Fixed authentication using AstMD5secret attribute
 	+ Fixed LDAP connection to use the proper port
