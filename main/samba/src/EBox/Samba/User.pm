@@ -40,6 +40,7 @@ use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
 use Error qw(:try);
+use Date::Calc;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -479,8 +480,7 @@ sub updateZentyal
         $gn = '-' unless defined $gn;
         $sn = '-' unless defined $sn;
         my $cn = "$gn $sn";
-
-        my $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
+        $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
         $zentyalUser->setIgnoredModules(['samba']);
         return unless $zentyalUser->exists();
 

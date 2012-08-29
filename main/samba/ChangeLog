@@ -1,4 +1,6 @@
 HEAD
+	+ Add missing use statement on EBox::Samba::User
+	+ Fix updating Zentyal LDAP users kerberos keys from samba users
 	+ Ensure proper permissions on the samba privileged socket
 	+ Check that account names does not exists in the whole domain when
 	  adding users and groups from the LdapModuleBase callbacks
