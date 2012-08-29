@@ -36,6 +36,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(any);
+use Error qw(:try);
 use Convert::ASN1;
 
 use constant MAXUSERLENGTH  => 128;
@@ -620,30 +621,46 @@ sub create
 
     my %args = ( attr => \@attr );
 
-    my $r = $self->_ldap->add($dn, \%args);
-    my $res = new EBox::UsersAndGroups::User(dn => $dn);
+    my $res = undef;
+    try {
+        my $r = $self->_ldap->add($dn, \%args);
+        $res = new EBox::UsersAndGroups::User(dn => $dn);
 
-    # Set the user password and kerberos keys
-    if (defined $passwd) {
-        $self->_checkPwdLength($passwd);
-        $res->_ldap->changeUserPassword($res->dn(), $passwd);
-    }
-    elsif (defined($user->{passwords})) {
-        $res->setPasswordFromHashes($user->{passwords});
-    }
-
-    # Init user
-    unless ($system) {
-        # only default OU users are initializated
-        if ($isDefaultOU) {
-            $users->reloadNSCD();
-            $users->initUser($res, $passwd);
-            $res->_setFilesystemQuota($quota);
+        # Set the user password and kerberos keys
+        if (defined $passwd) {
+            $self->_checkPwdLength($passwd);
+            $res->_ldap->changeUserPassword($res->dn(), $passwd);
+        }
+        elsif (defined($user->{passwords})) {
+            $res->setPasswordFromHashes($user->{passwords});
         }
 
-        # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
-    }
+        # Init user
+        unless ($system) {
+            # only default OU users are initializated
+            if ($isDefaultOU) {
+                $users->reloadNSCD();
+                $users->initUser($res, $passwd);
+                $res->_setFilesystemQuota($quota);
+            }
+
+            # Call modules initialization
+            $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
+        }
+    } otherwise {
+        my ($error) = @_;
+        # A notified module has thrown an exception. Delete the object from LDAP
+        # Call to parent implementation to avoid notifying modules about deletion
+        # TODO Ideally we should notify the modules for beginTransaction,
+        #      commitTransaction and rollbackTransaction. This will allow modules to
+        #      make some cleanup if the transaction is aborted
+        if ($res->exists()) {
+            $res->SUPER::deleteObject(@_);
+        }
+        $res = undef;
+        EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
+        throw $error;
+    };
 
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed

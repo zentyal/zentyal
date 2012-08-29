@@ -13,7 +13,7 @@ Architecture: all
 Replaces: ebox-samba (<< 2.0.100)
 Breaks: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, ldb-tools,
-         zentyal-firewall, zentyal-users, zentyal-dns, acl,
+         zentyal-firewall, zentyal-users, zentyal-dns (>= 2.3.10), acl,
          samba4 (>= 4.0.0~beta5+dfsg1-1+zentyal1),
          samba-dsdb-modules (>= 4.0.0~beta5+dfsg1-1+zentyal1),
          libdate-calc-perl,

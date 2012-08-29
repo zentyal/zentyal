@@ -57,19 +57,14 @@ sub _addUser
 
     my $dn = $zentyalUser->dn();
     EBox::debug("Adding user '$dn' to samba");
-    try {
-        my $params = {
-            clearPassword => $zentyalPassword,
-            uidNumber     => scalar ($zentyalUser->get('uidNumber')),
-            description   => scalar ($zentyalUser->get('description')),
-            givenName     => scalar ($zentyalUser->get('givenName')),
-            sn            => scalar ($zentyalUser->get('sn')),
-        };
-        my $sambaUser = EBox::Samba::User->create($zentyalUser->get('uid'), $params);
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Error adding user to samba: $error");
+    my $params = {
+        clearPassword => $zentyalPassword,
+        uidNumber     => scalar ($zentyalUser->get('uidNumber')),
+        description   => scalar ($zentyalUser->get('description')),
+        givenName     => scalar ($zentyalUser->get('givenName')),
+        sn            => scalar ($zentyalUser->get('sn')),
     };
+    EBox::Samba::User->create($zentyalUser->get('uid'), $params);
 }
 
 sub _modifyUser
@@ -135,16 +130,11 @@ sub _addGroup
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Adding group '$dn' to samba");
-    try {
-        my $params = {
-            gidNumber     => scalar ($zentyalGroup->get('gidNumber')),
-            description   => scalar ($zentyalGroup->get('description')),
-        };
-        my $sambaGroup = EBox::Samba::Group->create($zentyalGroup->get('cn'), $params);
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Error adding group to samba: $error");
+    my $params = {
+        gidNumber     => scalar ($zentyalGroup->get('gidNumber')),
+        description   => scalar ($zentyalGroup->get('description')),
     };
+    EBox::Samba::Group->create($zentyalGroup->get('cn'), $params);
 }
 
 sub _modifyGroup

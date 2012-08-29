@@ -1048,6 +1048,12 @@ sub setIfaceAlias
         }
     }
 
+    if ($alias =~ m/:/) {
+        throw EBox::Exceptions::External(
+            __(q{Cannot set an alias with the character ":". This character is reserved for virtual interfaces})
+                                        );
+    }
+
     $ifaces->{$iface}->{alias} = $alias;
     $self->set('interfaces', $ifaces);
 }

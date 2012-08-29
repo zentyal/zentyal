@@ -956,7 +956,9 @@ sub notifyModsLdapUserBase
         # Skip modules not supporting multiple OU if not default OU
         next unless ($mod->multipleOUSupport or $defaultOU);
 
-        # TODO catch errors here?
+        # TODO catch errors here? Not a good idea. The way to go is
+        # to implement full transaction support and rollback if a notified
+        # module throw an exception
         $mod->$method(@{$args});
     }
 

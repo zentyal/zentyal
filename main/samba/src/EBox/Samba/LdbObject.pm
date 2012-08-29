@@ -439,6 +439,19 @@ sub _checkAccountName
     }
 }
 
+sub _checkAccountNotExists
+{
+    my ($self, $samAccountName) = @_;
+
+    my $obj = new EBox::Samba::LdbObject(samAccountName => $samAccountName);
+    if ($obj->exists()) {
+        my $dn = $obj->dn();
+        throw EBox::Exceptions::DataExists(
+            'data' => __('Account name'),
+            'value' => "$samAccountName ($dn)");
+    }
+}
+
 sub setCritical
 {
     my ($self, $critical, $lazy) = @_;

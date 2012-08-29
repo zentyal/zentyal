@@ -1,6 +1,8 @@
 HEAD
 	+ Modify low-level redis calls to be compatible with the new
 	  libredis-perl version in quantal
+	+ Fixed modalboxes style
+	+ Improve host domain validation. Single label domains are not allowed.
 2.3.21
 	+ Fixes on notifyActions
 	+ Check for isDaemonRunning now compatible with asterisk status

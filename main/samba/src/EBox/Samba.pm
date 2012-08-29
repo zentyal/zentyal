@@ -185,24 +185,33 @@ sub enableService
 {
     my ($self, $status) = @_;
 
-    if ($status and $self->isProvisioned()) {
-        $self->setupDNS();
-    } else {
-        # Reset the domain to static type
-        my $dnsModule = EBox::Global->modInstance('dns');
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-        # Set the domain as static and set the library path
-        my $domainModel = $dnsModule->model('DomainTable');
-        my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
-        if (defined $domainRow) {
-            EBox::debug("Setting domain type to static");
-            $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
-            $domainRow->store();
-        }
+    if ($self->isEnabled() and not $status) {
+        $self->setupDNS(0);
+    } elsif (not $self->isEnabled() and $status) {
+        $self->setupDNS(1);
     }
 
     $self->SUPER::enableService($status);
+}
+
+# Method: _enforceServiceState
+#
+#   Start the samba daemon is expensive and takes a while. After writing
+#   smb.conf the daemon is started to make queries to LDB, so it is not
+#   necessary to restart it after that. This method is overrided to avoid
+#   this situation and restart samba twice while saving changes.
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        unless ($self->isRunning()) {
+            $self->_startService();
+        }
+    } else {
+        $self->_stopService();
+    }
 }
 
 sub _services
@@ -580,7 +589,7 @@ sub provisionAsDC
 
     # Set DNS. The domain should have been created by the users
     # module.
-    $self->setupDNS();
+    $self->setupDNS(1);
 
     # Write smb.conf to grant rw access to zentyal group on the
     # privileged socket
@@ -666,7 +675,7 @@ sub provisionAsADC
             throw EBox::Exceptions::Internal("Error joining to domain: @error");
         }
 
-        $self->setupDNS();
+        $self->setupDNS(1);
 
         # Write smb.conf to grant rw access to zentyal group on the
         # privileged socket
@@ -747,20 +756,28 @@ sub provisionAsADC
     };
 }
 
+# Method: setupDNS
+#
+#   Modify the domain setup for samba or for users module
+#
+# Parameters:
+#
+#   dlz - If set to 1, the domain will be set up for samba, else it will be
+#         set up for users module
+#
 sub setupDNS
 {
-    my ($self) = @_;
+    my ($self, $dlz) = @_;
 
-    EBox::debug('Setting up DNS for samba');
     my $dnsModule = EBox::Global->modInstance('dns');
     my $usersModule = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
-    # Set the domain as DLZ and set the library path
     my $domainModel = $dnsModule->model('DomainTable');
     my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
     unless (defined $domainRow) {
-        # TODO Throw expcetion. It should have been created by the users module
+        throw EBox::Exceptions::Internal("Domain named '" . $sysinfo->hostDomain()
+            . "' not found");
     }
     my $DBPath = undef;
     if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
@@ -772,14 +789,24 @@ sub setupDNS
         throw EBox::Exceptions::Internal(
             __("Samba DNS DLZ file for bind can't be found"));
     }
-    $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
-    $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
-    $domainRow->store();
 
-    my @cmds;
-    push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
-    push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
-    EBox::Sudo::root(@cmds);
+    if ($dlz) {
+        EBox::debug('Setting up DNS for samba');
+        $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
+        $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
+        $domainRow->store();
+    } else {
+        EBox::debug('Setting up DNS for users');
+        $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
+        $domainRow->store();
+    }
+
+    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_KEYTAB)) {
+        my @cmds;
+        push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+        push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+        EBox::Sudo::root(@cmds);
+    }
 }
 
 # Method: sambaInterfaces
@@ -879,6 +906,13 @@ sub writeSambaConfig
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', []);
 
+}
+
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    $self->stopService();
 }
 
 sub _setConf

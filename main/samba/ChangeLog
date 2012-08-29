@@ -1,3 +1,14 @@
+HEAD
+	+ Check that account names does not exists in the whole domain when
+	  adding users and groups from the LdapModuleBase callbacks
+	+ Do not notify samba module when deleting Zentyal users and groups
+	  through the synchronizer script
+	+ Improve netbios name validation (no dots)
+	+ Validate netbios domain name as netbios name
+	+ Force zentyal-dns dependency version
+	+ Fix bug managing the dns domain when enabling/disabling the module
+	+ Improvements in daemons management to avoid restarting them twice
+	  while saving changes.
 2.3.12
 	+ Support additional domain controller mode
 	+ Remove user addon to set the user as domain admin. Add it to the

@@ -35,13 +35,14 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
+use Error qw(:try);
+use Perl6::Junction qw(any);
+
 use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');
-
-use Perl6::Junction qw(any);
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -257,7 +258,6 @@ sub deleteObject
 {
     my ($self) = @_;
 
-
     # Notify group deletion to modules
     my $users = EBox::Global->modInstance('users');
     $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
@@ -380,14 +380,27 @@ sub create
     );
     push (@{$args{attr}}, 'description' => $comment) if ($comment);
 
-    my $r = $self->_ldap->add($dn, \%args);
-
-    my $res = new EBox::UsersAndGroups::Group(dn => $dn);
-
-    unless ($system) {
-        # Call modules initialization
-        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
-    }
+    my $res = undef;
+    try {
+        my $r = $self->_ldap->add($dn, \%args);
+        $res = new EBox::UsersAndGroups::Group(dn => $dn);
+        unless ($system) {
+            # Call modules initialization
+            $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
+        }
+    } otherwise {
+        my ($error) = @_;
+        # A notified module has thrown an exception. Delete the object from LDAP
+        # Call to parent implementation to avoid notifying modules about deletion
+        # TODO Ideally we should notify the modules for beginTransaction,
+        #      commitTransaction and rollbackTransaction. This will allow modules to
+        #      make some cleanup if the transaction is aborted
+        if ($res->exists()) {
+            $res->SUPER::deleteObject(@_);
+        }
+        $res = undef;
+        throw $error;
+    };
 
     return $res;
 }
