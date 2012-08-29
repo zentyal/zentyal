@@ -11,8 +11,12 @@ fi
 # If we do a normal installation, without using LVM, cryptsetup or RAID, we should
 # avoid deleting the following packages
 MANDATORY_PACKAGES="
+crda
 grub
+installation-report
+linux-firmware
 lvm
+os-prober
 dmsetup
 devmapper
 crypt
@@ -23,7 +27,10 @@ multipath
 raid
 lilo
 xfs
-jfs"
+jfs
+usbutils
+watershed
+wireless"
 
 CHROOT_INSTALLED_PACKAGES=$(sudo chroot ubuntu-precise-$ARCH/ dpkg -l|awk '{ print $2 }'|tail -n +6)
 PACKAGES_TO_INSTALL=$(cat data/extra-packages.list | xargs)
