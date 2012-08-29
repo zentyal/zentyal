@@ -817,14 +817,12 @@ sub configDirsForModel
     my $pattern = $baseKey . '/*/'. $modelName .  '/*';
     my @matched =  $module->{redis}->_redis_call('keys', $pattern) ;
     if (not @matched) {
-        # probably a regular one-directory models
-        @matched = ($model->directory());
-        EBox::debug("standard model dir @matched");
-        return \@matched;
+        # probably no dirs yet set
+        return [];
     }
 
     my %dirs;
-    my $regex = qr{(^$baseKey/.*/$modelName)/};
+    my $regex = qr{^$baseKey/(.*/$modelName)/};
     foreach my $match (@matched) {
         $match =~ m{$regex};
         $dirs{$1} = 1;
