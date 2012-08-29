@@ -1,3 +1,5 @@
+HEAD
+	+ Blocking captive daemon watcher to avoid cpu consumption
 2.3.4
 	+ More robust code against errors when getting watcher class
 	+ Improved extend quota icons and some texts
