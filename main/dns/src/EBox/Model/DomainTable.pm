@@ -39,6 +39,7 @@ use EBox::Types::HostIP;
 use EBox::Types::Text;
 
 use EBox::Model::Manager;
+use EBox::DNS::View::DomainTableCustomizer;
 
 # Dependencies
 use Crypt::OpenSSL::Random;
@@ -494,6 +495,22 @@ sub addedRowNotify
 
 }
 
+# Method: viewCustomizer
+#
+#   Use our own customizer to hide dynamic field in add form
+#
+# Overrides:
+#
+#   <EBox::Model::Component::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::DNS::View::DomainTableCustomizer();
+    $customizer->setModel($self);
+    return $customizer;
+}
 
 # Group: Protected methods
 
