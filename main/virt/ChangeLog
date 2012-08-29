@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed refetence to inexistent attribute which made machine
+	addition to always fail
 2.3.4
 	+ Report used ports as FirewallHelper
 	+ Set maximum number of virtual machines via virt.conf

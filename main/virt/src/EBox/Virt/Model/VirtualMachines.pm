@@ -211,7 +211,7 @@ sub validateTypedRow
     }
 
     if ($action eq 'add') {
-        my $max = $self->{gconfmodule}->maxVMs();
+        my $max = $self->parentModule()->maxVMs();
         my $nVms = $self->size();
         if ($nVms >= $max) {
             throw EBox::Exceptions::External(
