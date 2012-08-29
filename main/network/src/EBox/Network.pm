@@ -2817,7 +2817,6 @@ sub generateInterfaces
     }
 
     print IFACES "\n\niface lo inet loopback\n";
-    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
@@ -3218,6 +3217,8 @@ sub _enforceServiceState
     my $restart = delete $opts{restart};
 
     my $file = INTERFACES_FILE;
+
+    EBox::Sudo::silentRoot("ip addr add 127.0.1.1/8 dev lo");
 
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();

@@ -1,5 +1,0 @@
-pre-start script
-    invoke-rc.d isc-dhcp-server stop || true
-end script
-exec /usr/sbin/dhcpd -f -q
-respawn

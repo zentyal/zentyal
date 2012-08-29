@@ -292,7 +292,6 @@ sub enableActions
 {
     my ($self) = @_;
 
-
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my @cmds = ();
     push (@cmds, 'invoke-rc.d samba4 stop');
@@ -509,14 +508,6 @@ sub recycleConfig
 sub provision
 {
     my ($self) = @_;
-
-    # Check that there are internal IP addresses configured
-    my $network = EBox::Global->modInstance('network');
-    my $ipaddrs = $network->internalIpAddresses();
-    unless (scalar @{$ipaddrs} > 0) {
-        throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
-                                            'cannot continue with database provision.'));
-    }
 
     # Stop the service
     $self->stopService();

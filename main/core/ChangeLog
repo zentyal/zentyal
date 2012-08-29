@@ -1,7 +1,12 @@
 HEAD
 	+ Added foreignFilter option to EBox::Types::Select
+2.3.21
+	+ Fixes on notifyActions
+	+ Check for isDaemonRunning now compatible with asterisk status
+	+ Fixed warning call in EBox::Types::HasMany
 2.3.20
 	+ New look & feel for the web interface
+	+ Adjust slides transition timeout during installation
 	+ Audit changes table in save changes popup has scroll and better style
 	+ Model messages are printed below model title
 	+ noDataMsg now allows to add elements if it makes sense
@@ -25,6 +30,8 @@ HEAD
 	+ Dont show in bug report removed packages with configuration
 	  held as broken packages
 	+ DataTable::size() now calls to syncRows()
+	+ EBox::Module::Config::set_list quivalent now has the same
+	  behaviour than EBox::Module::Config::set
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models

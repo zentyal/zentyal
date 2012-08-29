@@ -1,3 +1,9 @@
+samba-zentyal-modules (0.6) precise; urgency=low
+
+  * Add LDB control to skip the module
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Mon, 27 Aug 2012 13:48:38 +0200
+
 samba-zentyal-modules (0.5) precise; urgency=low
 
   * Build against libldb version 1.1.9-1

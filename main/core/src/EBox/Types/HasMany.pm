@@ -451,11 +451,7 @@ sub model
 
     my $module =  EBox::Global->modInstance($self->{moduleName});
     if (not $module->can('model')) {
-        EBox::warning(
-        'cannot recreate row for ' .  $self->{fieldName} .
-       ' because moduel has not model method'
-
-                     );
+        EBox::warn('cannot recreate row for ' .  $self->{fieldName} .  ' because module has not model() method');
         return undef;
     }
 

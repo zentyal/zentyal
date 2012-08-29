@@ -2,7 +2,7 @@
 </%args>
 # Do we start the KDC?
 KDC_ENABLED=yes
-KDC_PARAMS="--config-file=/etc/heimdal-kdc/kdc.conf --ports=8888"
+KDC_PARAMS="--config-file=/etc/heimdal-kdc/kdc.conf --ports=8880"
 
 # the kpasswdd?
 KPASSWDD_ENABLED=yes
