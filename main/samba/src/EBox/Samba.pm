@@ -571,7 +571,6 @@ sub provisionAsDC
         ' --realm=' . $usersModule->kerberosRealm() .
         ' --dns-backend=BIND9_DLZ' .
         ' --use-xattrs=yes ' .
-        ' --use-rfc2307 ' .
         ' --server-role=' . $self->mode() .
         ' --users=' . $usersModule->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();

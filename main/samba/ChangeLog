@@ -1,4 +1,8 @@
 HEAD
+	+ Change default fileserver from s3fs to ntvfs to be compatible with
+	  the quantal samba version
+	+ Remove provision parameter --use-rfc2307, not compatible with the
+	  quantal samba version
 	+ Add missing use statement on EBox::Samba::User
 	+ Fix updating Zentyal LDAP users kerberos keys from samba users
 	+ Ensure proper permissions on the samba privileged socket
