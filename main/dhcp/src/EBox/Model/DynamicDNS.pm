@@ -256,6 +256,7 @@ sub _table
                                . 'whose leased IP address comes from a range'),
            foreignModel  => $self->modelGetter('dns', 'DomainTable'),
            foreignField  => 'domain',
+           foreignFilter => \&_domainTypeFilter,
           ),
        new EBox::Types::Union(
            fieldName     => 'static_domain',
@@ -274,6 +275,7 @@ sub _table
                    editable      => 1,
                    foreignModel  => $self->modelGetter('dns', 'DomainTable'),
                    foreignField  => 'domain',
+                   foreignFilter => \&_domainTypeFilter,
                   ),
               ]),
       );
@@ -296,31 +298,6 @@ sub _table
   }
 
 # Group: Private methods
-
-sub validateTypedRow
-{
-    my ($self, $action, $changed, $all) = @_;
-    my $dynamicDomain = exists $changed->{dynamic_domain} ?
-                               $changed->{dynamic_domain} : $all->{dynamic_domain};
-    my $domainTable = $dynamicDomain->foreignModel();
-    my $id = $dynamicDomain->value();
-    my $row = $domainTable->row($id);
-    EBox::debug("ROW ID $id -> $row");
-    if (not $row) {
-        # seccond attempt
-        $row = $domainTable->row($id);
-        EBox::debug("seccond attempt row $row");
-    }
-    my $type = $row->valueByName('type');
-
-    if ($type eq 'dlz') {
-        throw EBox::Exceptions::External(
-            __x('Cannot set domain as dynamic because it has dynamic loadable zones',
-               )
-           );
-    }
-}
-
 
 # Add/remove the zone/domain from DNS
 # Returns a message to inform the user
@@ -404,6 +381,11 @@ sub _manageZone
     return $msg;
 }
 
+sub _domainTypeFilter
+{
+    my ($row) = @_;
+    return  $row->valueByName('type') ne 'dlz';
+}
 
 sub _iface
 {
