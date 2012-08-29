@@ -208,7 +208,7 @@ $bindPasswd
 </%args>
 $enable_ldap = 1;
 $default_ldap = {
-  hostname => 'localhost',
+  hostname => 'localhost:390',
   base     => <% "'$base'" %>,
   query_filter => <% "'$queryFilter'" %>,
   bind_dn   =>    <% "'$bindDn'" %>,
@@ -233,8 +233,8 @@ my @allowedMTAs =  ('127.0.0.1', @allowedExternalMTAs);
 
 # if $relayhost_is_client is true, the IP address in $notify_method and
 # $forward_method is dynamically overridden with SMTP client peer address
-# (if available), which makes it possible for several hosts to share one 
-# daemon.  The static port number is also overridden, and is dynamically 
+# (if available), which makes it possible for several hosts to share one
+# daemon.  The static port number is also overridden, and is dynamically
 # calculated  as being one above the incoming SMTP/LMTP session port number.
 #
 # These are logged at level 3, so enable logging until you know you got it
@@ -275,7 +275,7 @@ $gets_addr_in_quoted_form = 1;   # "Bob \"Funny\" Dude"@example.com
 % }
 
 
-@inet_acl = qw( <% "@allowedMTAs" %>); 
+@inet_acl = qw( <% "@allowedMTAs" %>);
 
 # when MTA (one or more) is on a different host, use the following:
 # @inet_acl = qw(127/8 10.1.0.1 10.1.0.2);  # adjust the list as appropriate
@@ -734,7 +734,7 @@ $banned_filename_re = new_RE(
    qr'[{}]',     # curly braces in names (serve as Class ID extensions - CLSID)
    qr'^message/partial$'i,  # rfc2046. this one is deadly for Outcrook
 % foreach my $banned (@bannedTypes) {
-   qr'<% $banned %>'i, 
+   qr'<% $banned %>'i,
 % }
 );
 # See http://support.microsoft.com/default.aspx?scid=kb;EN-US;q262631
@@ -1041,14 +1041,14 @@ $sa_debug = <%  $debug ? '1' : '0' %>;
 <%def antivirus>
 <%args>
 $active
-$clamdSocket 
+$clamdSocket
 </%args>
 <%init>
 if ($active and (not defined $clamdSocket)) {
    $m->abort("If antivirus is active you need to pass a defined clamdSocket argument");
 }
 </%init>
-% if (not $active) { 
+% if (not $active) {
 # disable antivirus
 @av_scanners = ();
 @av_scanners_backup = ();
@@ -1167,7 +1167,7 @@ $spamSubject
 % }
 
 # anti-spam enabled
- 
+
 
 
 # SpamAssassin settings
@@ -1195,7 +1195,7 @@ $sa_mail_body_size_limit = 150*1024;  # don't waste time on SA is mail is larger
 
 # default values, can be overridden by more specific lookups, e.g. SQL
 
-$sa_tag_level_deflt  = undef; # always add spam info headers 
+$sa_tag_level_deflt  = undef; # always add spam info headers
 
 $sa_tag2_level_deflt = <% $spamThreshold %>; # add 'spam detected' headers at that level
 
@@ -1222,7 +1222,7 @@ $sa_dsn_cutoff_level = undef;  # spam level beyond which a DSN is not sent,
 # tag_level <= tag2_level <= kill_level < $sa_dsn_cutoff_level
 
 # string to prepend to Subject header field when message exceeds tag2 level
-$sa_spam_subject_tag = '<% $spamSubject %>'; 
+$sa_spam_subject_tag = '<% $spamSubject %>';
 
 			     # (only seen when spam is not to be rejected
 			     # and recipient is in local_domains*)

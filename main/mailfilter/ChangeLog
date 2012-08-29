@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed LDAP url in amavisd.conf
 2.3.5
 	+ VDomains model renamed to VDomainsFilter
 	+ Mailfilter is now under Communications instead of UTM
