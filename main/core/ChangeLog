@@ -1,5 +1,5 @@
 HEAD
-	+ Added foreignFilter option to EBox::Types::Select
+	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
 2.3.21
 	+ Fixes on notifyActions
 	+ Check for isDaemonRunning now compatible with asterisk status

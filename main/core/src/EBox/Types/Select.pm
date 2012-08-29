@@ -426,6 +426,9 @@ sub _optionsFromForeignModel
     if ($self->{foreignFilter}) {
         push @params, filter => $self->{foreignFilter};
     }
+    if ($self->{foreignNoSyncRows}) {
+        push @params, noSyncRows => $self->{foreignNoSyncRows};
+    }
 
     return $model->optionsFromForeignModel($field, @params);
 }

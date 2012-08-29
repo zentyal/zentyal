@@ -525,9 +525,10 @@ sub optionsFromForeignModel
     }
 
     my $filter = $params{filter};
+    my $idsMethod = $params{noSyncRows} ? '_ids' : 'ids';
 
     my @options;
-    for my $id (@{$self->ids()}) {
+    for my $id (@{$self->$idsMethod()}) {
         my $row = $self->row($id);
         if ($filter) {
             if (not $filter->($row)) {
