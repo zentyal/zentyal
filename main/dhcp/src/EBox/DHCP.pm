@@ -1823,4 +1823,10 @@ sub gatewayDelete
     return 0;
 }
 
+sub dynamicDomainsIds
+{
+    my ($self) = @_;
+    return $self->model('Interfaces')->dynamicDomainsIds();
+}
+
 1;

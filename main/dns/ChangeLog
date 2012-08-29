@@ -1,4 +1,5 @@
 HEAD
+	+ Get domain dynamic status from DHCP module
 	+ Code typo fixes related to references in DNS.pm
 	+ Write keys file with read access only to bind group
 2.3.10

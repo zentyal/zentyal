@@ -626,6 +626,52 @@ sub _table
     return $dataTable;
 }
 
+
+# Method: syncRows
+#
+#  Needed to mark domains as dynamics
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $global = $self->global();
+    #  only dhcp module can give us the dynamic state to a domain
+    if (not $global->modExists('dhcp')) {
+        return 0;
+    }
+    my $dhcp = $global->modInstance('dhcp');
+
+    my $changed;
+    my %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
+    foreach my $id (@{ $currentIds }) {
+        my $newValue;
+        my $row = $self->row($id);
+        my $typeElement = $row->elementByName('type');
+        my $type = $typeElement->value();
+        if ($type eq 'dynamic') {
+            if (not $dynamicDomainsIds{$id}) {
+                $newValue = 'static';
+            }
+        } elsif ($type eq 'static') {
+            if ($dynamicDomainsIds{$id}) {
+                $newValue = 'dynamic';
+            }
+        }
+
+        if ($newValue) {
+            $typeElement->setValue($newValue);
+            $row->store();
+            $changed = 1;
+        }
+    }
+
+    return $changed;
+}
+
+
 # Group: Private methods
 
 # Generate the secret key using HMAC-MD5 algorithm
