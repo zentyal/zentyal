@@ -48,6 +48,7 @@ sub _table
          new EBox::Types::Union(
                               fieldName => 'exception',
                               printableName => __('Exception'),
+                              filter => \&_filterExceptionPrintableValue,
                               editable => 1,
                               subtypes => [
                                   new EBox::Types::Select(
@@ -140,6 +141,20 @@ sub firewallRules
     return \@rules;
 }
 
+sub _filterExceptionPrintableValue
+{
+    my ($type) = @_;
 
+    my $selected = $type->selectedType();
+    my $value = $type->printableValue();
+
+    if ($selected eq 'exception_object') {
+        return __x('Object: {o}', o => $value);
+    } elsif ($selected eq 'exception_service') {
+        return __x('Service: {s}', s => $value);
+    } else {
+        return $value;
+    }
+}
 
 1;
