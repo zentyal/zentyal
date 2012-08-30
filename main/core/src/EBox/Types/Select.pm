@@ -60,9 +60,6 @@ sub new
     unless (exists $opts{'disableCache'}) {
         $opts{'disableCache'} = 0;
     }
-    unless (exists $opts{'compareContext'}) {
-        $opts{'compareContext'} = 'default';
-    }
 
     $opts{'type'} = 'select';
     my $self = $class->SUPER::new(%opts);
