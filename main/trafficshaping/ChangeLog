@@ -1,3 +1,6 @@
+HEAD
+	+ Use full path for notifier of notifyActions. More restrictive
+	  notifyForeignModelAction(). Moved this method from parent to subclass
 2.3.5
 	+ Added modeldepends to yaml schema
 2.3.4

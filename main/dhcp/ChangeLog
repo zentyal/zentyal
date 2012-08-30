@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problems in DynamicDNS models
 	+ Add dhcpd to the bind group if DynamicDNS is enabled
 	+ Use isc-dhcp-server upstart script
 2.3.8

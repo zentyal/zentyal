@@ -1,4 +1,6 @@
 HEAD
+	+ Get domain dynamic status from DHCP module
+	+ Code typo fixes related to references in DNS.pm
 	+ Add x86_64 samba dlz library paths to apparmor profile
 	+ Removed unused sambaZone check
 	+ Write keys file with read access only to bind group

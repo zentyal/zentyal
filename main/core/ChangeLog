@@ -1,4 +1,5 @@
 HEAD
+	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
 	+ Improved settings icon
 	+ Fixed modalboxes style
 	+ Improve host domain validation. Single label domains are not allowed.

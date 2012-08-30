@@ -99,6 +99,9 @@ sub notifyForeignModelAction
 {
 
     my ($self, $modelName, $action, $row) = @_;
+    if ($modelName ne '/webserver/VHostTable') {
+        return;
+    }
 
     if ($action eq 'del') {
         my $vhost = $row->valueByName('name');

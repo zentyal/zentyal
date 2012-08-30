@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class:
 #
 #   EBox::DNS::Model::DomainTable
@@ -23,6 +24,7 @@
 #   <EBox::DNS::Model::HostnameTable>
 #
 package EBox::DNS::Model::DomainTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -42,11 +44,6 @@ use EBox::DNS::View::DomainTableCustomizer;
 # Dependencies
 use Crypt::OpenSSL::Random;
 use MIME::Base64;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
@@ -628,6 +625,51 @@ sub _table
 
     return $dataTable;
 }
+
+
+# Method: syncRows
+#
+#  Needed to mark domains as dynamics
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my %dynamicDomainsIds = ();
+    my $global = $self->global();
+    if ($global->modExists('dhcp')) {
+        my $dhcp = $global->modInstance('dhcp');
+        %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
+    }
+
+    my $changed;
+    foreach my $id (@{ $currentIds }) {
+        my $newValue;
+        my $row = $self->row($id);
+        my $typeElement = $row->elementByName('type');
+        my $type = $typeElement->value();
+        if ($type eq 'dynamic') {
+            if (not $dynamicDomainsIds{$id}) {
+                $newValue = 'static';
+            }
+        } elsif ($type eq 'static') {
+            if ($dynamicDomainsIds{$id}) {
+                $newValue = 'dynamic';
+            }
+        }
+
+        if ($newValue) {
+            $typeElement->setValue($newValue);
+            $row->store();
+            $changed = 1;
+        }
+    }
+
+    return $changed;
+}
+
 
 # Group: Private methods
 
