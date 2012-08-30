@@ -21,6 +21,9 @@
     $prefix => 'Zentyal'
     $backup_path => '/tmp'
     $quarantine_path => '/tmp'
+
+    $guestAccess => 0
+    $guestAccount => 'nobody'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -54,6 +57,13 @@ use EBox::Samba;
 % }
 
     ldap privileged socket mode = 0770
+
+% if ($guestAccess) {
+     guest ok = yes
+     map to guest = bad user
+     guest account = <% $guestAccount %>
+     auth methods = guest sam_ignoredomain
+% }
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {

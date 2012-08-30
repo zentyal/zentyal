@@ -1,4 +1,6 @@
 HEAD
+	+ Fix guest access to shares (client do not ask for password)
+	+ Map nobody and nogroup to domain guest and guests accounts
 	+ Add missing use statement on EBox::Samba::User
 	+ Fix updating Zentyal LDAP users kerberos keys from samba users
 	+ Ensure proper permissions on the samba privileged socket

@@ -39,6 +39,7 @@ use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::Util::Random qw( generate );
+use EBox::Samba::Model::SambaShares;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -323,25 +324,28 @@ sub enableActions
 {
     my ($self) = @_;
 
+    # Remount filesystem with user_xattr and acl options
+    EBox::debug('Setting up filesystem options');
+    EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
+
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my @cmds = ();
     push (@cmds, 'invoke-rc.d samba4 stop');
     push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
     EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
-
-    # Remount filesystem with user_xattr and acl options
-    EBox::debug('Setting up filesystem options');
-    EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 }
 
 sub isProvisioned
@@ -629,6 +633,17 @@ sub provisionAsDC
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
+
+    # Map domain guest account to nobody user
+    my $guestSID = $self->ldb->domainSID() . '-501';
+    my $guestGroupSID = $self->ldb->domainSID() . '-514';
+    my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
+    my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
+    EBox::debug("Mapping guest account");
+    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
 sub provisionAsADC
@@ -766,6 +781,17 @@ sub provisionAsADC
         push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
         push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
         EBox::Sudo::root(@cmds);
+
+        # Map domain guest account to nobody user
+        my $guestSID = $self->ldb->domainSID() . '-501';
+        my $guestGroupSID = $self->ldb->domainSID() . '-514';
+        my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+        my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+        my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
+        my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
+        EBox::debug("Mapping guest account");
+        $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+        $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
     } otherwise {
         my $error = shift;
         throw $error;
@@ -904,7 +930,14 @@ sub writeSambaConfig
     #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
-    push(@array, 'shares' => $shares);
+    push (@array, 'shares' => $shares);
+    foreach my $share (@{$shares}) {
+        if ($share->{guest}) {
+            push (@array, 'guestAccess' => 1);
+            push (@array, 'guestAccount' => EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+            last;
+        }
+    }
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
