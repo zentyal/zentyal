@@ -188,7 +188,7 @@ sub enableService
 
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
-    } elsif (not $self->isEnabled() and $status) {
+    } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
         $self->setupDNS(1);
     }
 
@@ -842,12 +842,12 @@ sub setupDNS
         EBox::debug('Setting up DNS for samba');
         $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
         $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
-        $domainRow->store();
     } else {
         EBox::debug('Setting up DNS for users');
         $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
-        $domainRow->store();
     }
+    $domainRow->store();
+    $dnsModule->save();
 
     if (EBox::Sudo::fileTest('-f', SAMBA_DNS_KEYTAB)) {
         my @cmds;
