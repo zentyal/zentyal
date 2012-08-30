@@ -50,11 +50,17 @@ do
     ./generate_extras.sh $ARCH || exit 1
     ./build_cd.sh $ARCH || exit 1
 
-    # TODO: fix list-duplicated and change it to remove-duplicated
-    # to allow automatic use
-    # For the list of not installed packages maybe we can also
-    # detect which packages on the installer are not present
-    # on the chroot (excluding the base system / installer ones)
+    for i in `./list-duplicated.sh $ARCH`
+    do
+        rm extras-$ARCH/${i}_*.deb
+    done
+    for i in `./list-not-installed.sh $ARCH`
+    do
+        rm -rf $i
+    done
+
+    # rebuild ISO without the removed packages
+    ./build_cd.sh $ARCH || exit 1
 done
 
 exit 0

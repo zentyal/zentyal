@@ -53,8 +53,7 @@ sub _sendEvent
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ((defined $events)  and ($events->isRunning())) {
-            $enabled = $events
-                ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
+            $enabled = $events->isEnabledWatcher('EBox::Event::Watcher::EBackup');
             if ($enabled) {
                 $events->sendEvent(
                     message => $msg,

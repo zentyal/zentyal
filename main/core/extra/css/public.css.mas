@@ -1646,7 +1646,6 @@ border-radius: 3px;
 	text-align: left;
 	z-index: 10000;
 }
-#MB_window[id] { position: fixed!important; }
 
 #MB_frame {
 	position: relative;
@@ -1721,7 +1720,7 @@ border-radius: 3px;
 }
 
 .MB_dialog {
-    top: 100px !important;
+    top: 50px !important;
 }
 
 .MB_dialog #MB_header {
