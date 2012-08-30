@@ -170,7 +170,7 @@ use EBox::NetWrappers qw(:all);
         </td>
         <td>
             <div>
-            <select name="bridge" onChange="bridgeChanged(this)">
+            <select name="bridge">
 %   foreach my $bridge ( @bridges ) {
 %       if ( $bridge->{id} == $iface->{bridge} ) {
                 <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
@@ -178,7 +178,7 @@ use EBox::NetWrappers qw(:all);
                 <option value='<% $bridge->{id} %>'><% $bridge->{alias} %></option>
 %       }
 %   }
-                <option value='-1'>New bridge</option> 
+                <option value='-1'>New bridge</option>
             </select>
             </div>
         </td>
