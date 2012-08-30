@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed dovecot user password authentication
 	+ Fixed disable_dns_lookups key in master.cf
 2.3.7
 	+ Dont use Zarafa for ham/spam acccounts
