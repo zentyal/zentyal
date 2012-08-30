@@ -637,15 +637,14 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
+    my %dynamicDomainsIds = ();
     my $global = $self->global();
-    #  only dhcp module can give us the dynamic state to a domain
-    if (not $global->modExists('dhcp')) {
-        return 0;
+    if ($global->modExists('dhcp')) {
+        my $dhcp = $global->modInstance('dhcp');
+        %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
     }
-    my $dhcp = $global->modInstance('dhcp');
 
     my $changed;
-    my %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
     foreach my $id (@{ $currentIds }) {
         my $newValue;
         my $row = $self->row($id);
