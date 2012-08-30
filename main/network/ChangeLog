@@ -1,4 +1,6 @@
 HEAD
+	+ Management of CHAP secrets file recovers from removal of
+	Zentyal's marks
 	+ Forbid interfaces alias with ':' character
 	+ Assign ip address 127.0.1.1/8 to loopback interface in module restart
 	  and remove the post-up hook from /etc/network/interfaces file.

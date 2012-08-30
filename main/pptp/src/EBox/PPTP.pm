@@ -12,19 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::PPTP;
-
-# Class: EBox::PPTP
-#
-#
-
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LogObserver);
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -226,8 +220,18 @@ sub _setUsers
         $pptpConf .= "$user->{user} pptpd $user->{passwd} $user->{ipaddr}\n";
     }
     my $file = read_file(CHAPSECRETSFILE);
-    my $mark = '# PPTP_CONFIG #';
-    $file =~ s/$mark.*$mark/$mark\n$pptpConf$mark/sm;
+    my $oldMark = '# PPTP_CONFIG #';
+    my $mark = '# PPTP_CONFIG - managed by Zentyal. Dont edit this section #';
+    my $endMark = '# END of PPTP_CONFIG section #';
+    if ($file =~ m/$oldMark/) {
+        # convert to new format
+        $file =~ s/$oldMark.*$oldMark/$mark\n$pptpConf$endMark/sm;
+    }  elsif ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pptpConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $pptpConf . $endMark . "\n";
+    }
+
     write_file(CHAPSECRETSFILE, $file);
 }
 
