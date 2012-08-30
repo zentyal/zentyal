@@ -1,3 +1,6 @@
+2.3-rc2
+    + Based on Ubuntu 12.04.1
+    + Automatic removal of duplicated and unneeded packages
 2.3-1
     + Ask only for username, not for full name
     + Link packages to cache to avoid downloading them
