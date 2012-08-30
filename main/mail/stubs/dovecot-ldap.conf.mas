@@ -26,5 +26,5 @@ base = <% $usersDn %>
 
 user_attrs = mailquota=quota_rule=*:storage=%$M,quota_rule2=Trash:storage=+110%%
 
-user_filter = (&(objectClass=CourierMailAccount)(mail=%u))
+user_filter = (&(objectClass=CourierMailAccount)(uid=%u))
 
