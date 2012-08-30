@@ -112,7 +112,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'remoteservices',
-                                      printableName => __n('Zentyal Cloud Client'),
+                                      printableName => __('Zentyal Cloud Client'),
                                       @_);
 
     bless ($self, $class);

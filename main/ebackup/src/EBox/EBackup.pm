@@ -74,7 +74,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ebackup',
-            printableName => __n('Backup'),
+            printableName => __('Backup'),
             @_);
 
     bless($self, $class);

@@ -49,7 +49,7 @@ sub _create
 {
     my $class = shift;
     my $self =$class->SUPER::_create(name => 'firewall',
-                                     printableName => __n('Firewall'),
+                                     printableName => __('Firewall'),
                                      @_);
 
     $self->{'ToInternetRuleModel'} = $self->model('ToInternetRuleTable');

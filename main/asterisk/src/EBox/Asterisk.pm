@@ -70,7 +70,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'asterisk',
-            printableName => __n('VoIP'),
+            printableName => __('VoIP'),
             @_);
 
     bless($self, $class);

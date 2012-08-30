@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed translation of Configure rules button
 	+ SNAT and redirect tables acknowledge that netfilter only knows
 	  about physical interfaces
 2.3.9
