@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed network observer calls
 	+ SNAT and redirect tables acknowledge that netfilter only knows
 	  about physical interfaces
 2.3.9

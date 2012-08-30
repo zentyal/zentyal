@@ -188,7 +188,7 @@ sub freeViface
 sub _removeIfaceRules
 {
     my ($self, $iface) = @_;
-    my @idsToRemove = $self->findAll(interface => $iface);
+    my @idsToRemove = @{ $self->findAll(interface => $iface) };
     foreach my $id (@idsToRemove) {
         $self->removeRow($id);
     }
