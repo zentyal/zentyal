@@ -1,4 +1,5 @@
 HEAD
+	+ Progress idicator dont longer calls showAds if it is undefined
 	+ Improved settings icon
 	+ Fixed modalboxes style
 	+ Improve host domain validation. Single label domains are not allowed.

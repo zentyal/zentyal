@@ -111,7 +111,9 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
     time++;
     if (time >= 10) {
         time = 0;
+      if (window.showAds) {
         showAds();
+      }
     }
 
 
@@ -126,7 +128,7 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
                                                 + nextStepTimeout + ", '"
                                                 + nextStepUrl + "')";
 
-    callServerCurried = new Function(callServerCurriedBody );
+    var callServerCurried = new Function(callServerCurriedBody );
 
     pe = new PeriodicalExecuter(callServerCurried, reloadInterval);
 }
