@@ -1,3 +1,5 @@
+HEAD
+	+ Load conntrack iptables_modules defined in firewall.conf
 2.1.7
 	+ Avoid some crashes caused by connectivity issues during save changes
 2.1.6

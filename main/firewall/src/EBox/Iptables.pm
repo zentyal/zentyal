@@ -646,7 +646,14 @@ sub moduleRules
 sub _loadIptModules
 {
     my @commands;
-    foreach my $module (IPT_MODULES) {
+
+    my @toLoad = IPT_MODULES;
+    my $extraModules = EBox::Config::configkey("iptables_modules");
+    if ($extraModules) {
+        push @toLoad, split (',+', $extraModules);
+    }
+
+    foreach my $module (@toLoad) {
         push(@commands, "modprobe $module || true");
     }
     return \@commands;
