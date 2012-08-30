@@ -1,4 +1,5 @@
 HEAD
+	+ Send cache headers on static files to improve browsing speed
 	+ Improved settings icon
 	+ Fixed modalboxes style
 	+ Improve host domain validation. Single label domains are not allowed.

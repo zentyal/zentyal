@@ -199,6 +199,8 @@ ServerTokens Min
     <Directory /usr/share/zentyal/www>
         Options Indexes MultiViews FollowSymLinks
         AllowOverride None
+        ExpiresActive On
+        ExpiresDefault "access plus 5 hours"
         Order allow,deny
         Allow from all
     </Directory>
@@ -206,6 +208,8 @@ ServerTokens Min
     <Directory /var/lib/zentyal/dynamicwww>
         Options Indexes MultiViews
         AllowOverride None
+        ExpiresActive On
+        ExpiresDefault "access plus 5 hours"
         Order allow,deny
         Allow from all
     </Directory>
