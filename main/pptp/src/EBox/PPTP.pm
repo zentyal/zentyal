@@ -223,11 +223,11 @@ sub _setUsers
     my $oldMark = '# PPTP_CONFIG #';
     my $mark = '# PPTP_CONFIG - managed by Zentyal. Dont edit this section #';
     my $endMark = '# END of PPTP_CONFIG section #';
-    if ($file =~ m/$oldMark/) {
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pptpConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
         # convert to new format
         $file =~ s/$oldMark.*$oldMark/$mark\n$pptpConf$endMark/sm;
-    }  elsif ($file =~ m/$mark/sm) {
-        $file =~ s/$mark.*$endMark/$mark\n$pptpConf$endMark/sm;
     } else {
         $file .= $mark . "\n" . $pptpConf . $endMark . "\n";
     }

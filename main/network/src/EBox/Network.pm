@@ -2798,11 +2798,11 @@ sub _generatePPPConfig
     my $mark    =  '# PPPOE_CONFIG - managed by Zentyal. Dont edit this section #';
     my $endMark = '# End of PPPOE_CONFIG section #';
     $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
-    if ($file =~ m/$oldMark/) {
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
         # convert to new format
         $file =~ s/$oldMark.*$oldMark/$mark\n$pppoeConf$endMark/sm;
-    }  elsif ($file =~ m/$mark/sm) {
-        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
     } else {
         $file .= $mark . "\n" . $pppoeConf . $endMark . "\n";
     }
