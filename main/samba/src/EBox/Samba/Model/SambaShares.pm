@@ -42,7 +42,7 @@ use Error qw(:try);
 use constant DEFAULT_MASK => '0700';
 use constant DEFAULT_USER => 'root';
 use constant DEFAULT_GROUP => 'root';
-use constant GUEST_DEFAULT_MASK => '0777';
+use constant GUEST_DEFAULT_MASK => '0700';
 use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => 'nogroup';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
