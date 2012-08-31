@@ -1,4 +1,6 @@
 HEAD
+	+ Implement Network observer to update the kerberos domain when
+	  dhcp addresses are assigned
 	+ Get domain dynamic status from DHCP module
 	+ Code typo fixes related to references in DNS.pm
 	+ Add x86_64 samba dlz library paths to apparmor profile

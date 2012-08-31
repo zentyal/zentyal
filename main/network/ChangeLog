@@ -1,4 +1,6 @@
 HEAD
+	+ Add two methods to NetworkObserver interface to notify observers about
+	  address changes on dhcp interfaces
 	+ Forbid interfaces alias with ':' character
 	+ Assign ip address 127.0.1.1/8 to loopback interface in module restart
 	  and remove the post-up hook from /etc/network/interfaces file.
