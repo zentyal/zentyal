@@ -26,7 +26,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
 use EBox::Types::HostIP;
-use EBox::Sudo;
+use EBox::Types::Text;
 
 use strict;
 use warnings;
@@ -62,11 +62,22 @@ sub pageTitle
 #
 sub _table
 {
-    my @tableHead = (new EBox::Types::HostIP( fieldName => 'ip',
-                                              printableName => __('IP'),
-                                              size => '20',
-                                              unique => 1,
-                                              editable => 1 ));
+    my @tableHead = (
+        new EBox::Types::HostIP(
+            fieldName => 'ip',
+            printableName => __('IP'),
+            size => '20',
+            unique => 1,
+            editable => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName => 'dhcp_iface',
+            printableName => __('DHCP interface'),
+            optional => 1,
+            editable => 0,
+            hidden => 1,
+        ),
+    );
 
     my $dataTable = { tableName => 'DomainIpTable',
                       printableTableName => __('IP'),

@@ -16,7 +16,9 @@ use strict;
 use warnings;
 
 package EBox::DNS;
-use base qw(EBox::Module::Service EBox::FirewallObserver);
+use base qw( EBox::Module::Service
+             EBox::FirewallObserver
+             EBox::NetworkObserver );
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -1765,6 +1767,68 @@ sub switchToReverseInfoData
     }
 
     return $reversedData;
+}
+
+######################################
+##  Network observer implementation ##
+######################################
+
+# Method: _dhcpIfaceAddressChangedDone
+#
+#   Updates the kerberos (or samba) domain ip addresses when dhcp address
+#   is assigned
+#
+sub _dhcpIfaceAddressChangedDone
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $ownDomain = $sysinfo->hostDomain();
+    my $hostname = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+    foreach my $domainId (@{$domainsModel->ids()}) {
+        my $domainRow = $domainsModel->row($domainId);
+        next unless $domainRow->valueByName('domain') eq $ownDomain;
+
+        # Update domain IP addresses
+        my $domainIpModel = $domainRow->subModel('ipAddresses');
+        foreach my $ipId (@{$domainIpModel->ids()}) {
+            my $ipRow = $domainIpModel->row($ipId);
+            my $dhcpIface = $ipRow->valueByName('dhcp_iface');
+            next unless (defined $dhcpIface and $dhcpIface eq $iface);
+            $domainIpModel->removeRow($ipId);
+        }
+        $domainIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
+
+        # Update hostname IP addresses
+        my $hostsModel = $domainRow->subModel('hostnames');
+        foreach my $hostId (@{$hostsModel->ids()}) {
+            my $hostRow = $hostsModel->row($hostId);
+            next unless $hostRow->valueByName('hostname') eq $hostname;
+            my $hostIpModel = $hostRow->subModel('ipAddresses');
+            foreach my $ipId (@{$hostIpModel->ids()}) {
+                my $ipRow = $hostIpModel->row($ipId);
+                my $dhcpIface = $ipRow->valueByName('dhcp_iface');
+                next unless (defined $dhcpIface and $dhcpIface eq $iface);
+                $hostIpModel->removeRow($ipId);
+            }
+            $hostIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
+        }
+    }
+    $self->save();
+}
+
+sub externalDhcpIfaceAddressChangedDone
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
+}
+
+sub internalDhcpIfaceAddressChangedDone
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
 }
 
 1;
