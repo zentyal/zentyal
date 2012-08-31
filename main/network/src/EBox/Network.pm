@@ -3458,9 +3458,24 @@ sub setDHCPAddress # (interface, ip, mask)
     checkIPNetmask($ip, $mask,  __("IP address"), __('Netmask'));
 
     my $state = $self->get_state();
+    my $oldAddr = $state->{dhcp}->{$iface}->{address};
+    my $oldMask = $state->{dhcp}->{$iface}->{mask};
     $state->{dhcp}->{$iface}->{address} = $ip;
     $state->{dhcp}->{$iface}->{mask} = $mask;
     $self->set_state($state);
+
+    # Calling observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    # Tell observers the interface way has changed
+    foreach my $obs (@observers) {
+        if ($self->ifaceIsExternal($iface)) {
+            $obs->externalDhcpIfaceAddressChangedDone($iface, $oldAddr, $oldMask, $ip, $mask);
+        } else {
+            $obs->internalDhcpIfaceAddressChangedDone($iface, $oldAddr, $oldMask, $ip, $mask);
+        }
+    }
 }
 
 # Method: setDHCPGateway
