@@ -697,9 +697,17 @@ sub remoteStatus
 {
     my ($self, $noCacheUrl) = @_;
 
-    my @status;
     my @lines;
+    my $retrieve;
     if ($noCacheUrl) {
+        $retrieve = 1;
+    } elsif (-f tmpCurrentStatus() ) {
+        @lines = File::Slurp::read_file(tmpCurrentStatus());
+    } else {
+        $retrieve = 1;
+    }
+
+    if ($retrieve) {
         my $status = $self->_retrieveRemoteStatus($noCacheUrl);
         if (not $status) {
             throw EBox::Exceptions::External(
@@ -708,12 +716,9 @@ sub remoteStatus
         }
 
         @lines = @{ $status  };
-    } else {
-        if (-f tmpCurrentStatus()) {
-            @lines = File::Slurp::read_file(tmpCurrentStatus());
-        }
     }
 
+    my @status;
     for my $line (@lines) {
         # We are trying to match this:
         #  Full Wed Sep 23 13:30:56 2009 95

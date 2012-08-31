@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression when getting collection status
 	+ Fixed wrong call to value() in backup-tool
 2.3.5
 	+ Implement new EBox::Events::WatcherProvider
