@@ -2777,7 +2777,7 @@ sub _generatePPPConfig
 
     # Do not overwrite the entire chap-secrets file every time
     # to avoid conflicts with the PPTP module
-    my $mark = '# PPPOE_CONFIG #';
+
     my $file;
     try {
         $file = read_file(CHAP_SECRETS_FILE);
@@ -2793,7 +2793,19 @@ sub _generatePPPConfig
     foreach my $user (keys %{$pppSecrets}) {
         $pppoeConf .= "$user * $pppSecrets->{$user}\n";
     }
+
+    my $oldMark = '# PPPOE_CONFIG #';
+    my $mark    =  '# PPPOE_CONFIG - managed by Zentyal. Don not edit this section #';
+    my $endMark = '# End of PPPOE_CONFIG section #';
     $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
+        # convert to new format
+        $file =~ s/$oldMark.*$oldMark/$mark\n$pppoeConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $pppoeConf . $endMark . "\n";
+    }
     write_file(CHAP_SECRETS_FILE, $file);
 }
 
