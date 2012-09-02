@@ -1,4 +1,5 @@
 HEAD
+	+ Progress indicator no longer calls showAds if it is undefined
 	+ Send cache headers on static files to improve browsing speed
 	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
 	+ Improved settings icon
