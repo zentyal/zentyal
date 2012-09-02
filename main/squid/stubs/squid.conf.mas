@@ -33,6 +33,8 @@
 
     $principal
     $realm
+
+    $dn
 </%args>
 <%perl>
 our $maxAclNameLength = 31;
@@ -153,13 +155,15 @@ cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $p
 % }
 
 # <EBOX> TAG_ACL #
-% if ($realm) {
 auth_param basic realm Zentyal HTTP proxy
+% if ($realm) {
 auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
-acl authorized proxy_auth REQUIRED
+% } else {
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
 % }
+acl authorized proxy_auth REQUIRED
 
 % if ($urlRewriteProgram) {
 url_rewrite_program <% $urlRewriteProgram %>

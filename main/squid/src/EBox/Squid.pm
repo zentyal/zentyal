@@ -538,6 +538,7 @@ sub _writeSquidConf
     my $generalSettings = $self->model('GeneralSettings');
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     my $removeAds    = $generalSettings->removeAdsValue();
+    my $kerberos     = $generalSettings->kerberosValue();
 
     my $network = EBox::Global->modInstance('network');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -549,12 +550,15 @@ sub _writeSquidConf
     my $cache_user = $network->model('Proxy')->usernameValue();
     my $cache_passwd = $network->model('Proxy')->passwordValue();
 
-    my $krbRealm = '';
     my $users = EBox::Global->modInstance('users');
-    if ($users->isEnabled()) {
+
+    my $krbRealm = '';
+    if ($kerberos) {
         $krbRealm = $users->kerberosRealm();
     }
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
+
+    my $dn = $users->usersDn();
 
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
@@ -578,6 +582,8 @@ sub _writeSquidConf
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
+
+    push @writeParam, ('dn' => $dn);
 
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('remoteservices')) {

@@ -53,6 +53,12 @@ sub _table
                   #help => __('FIXME: add help'),
               ),
           new EBox::Types::Boolean(
+                  fieldName => 'kerberos',
+                  printableName => __('Enable Single Sign-On (Kerberos)'),
+                  editable => 1,
+                  defaultValue => 0,
+              ),
+          new EBox::Types::Boolean(
                   fieldName => 'removeAds',
                   printableName => __('Ad Blocking'),
                   editable => 1,

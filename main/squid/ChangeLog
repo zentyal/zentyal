@@ -1,3 +1,5 @@
+HEAD
+	+ Kerberos auth is optional and disabled by default
 2.3.11
 	+ Removed duplicated Domain Filter Settings model in tabs
 	+ Better order and names in Filter Profile models
