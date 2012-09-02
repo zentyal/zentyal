@@ -308,9 +308,6 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 %   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
 %   my $policy = $rule->{'policy'};
 %   next unless (($policy eq 'allow') or ($policy eq 'deny'));
-% if ($group) {
-http_access allow authorized
-% }
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>

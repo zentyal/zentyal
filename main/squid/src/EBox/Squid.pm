@@ -558,7 +558,7 @@ sub _writeSquidConf
     }
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $dn = $users->usersDn();
+    my $dn = $users->ldap()->dn();
 
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
