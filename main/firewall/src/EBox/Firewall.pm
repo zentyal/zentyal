@@ -377,7 +377,7 @@ sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
     $self->removePortRedirectionsOnIface($iface);
-    $self->model('snat')->freeIface($iface);
+    $self->model('SNAT')->freeIface($iface);
 }
 
 # Method: freeViface
@@ -389,7 +389,7 @@ sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
     $self->removePortRedirectionsOnIface("$iface:$viface");
-    $self->model('snat')->freeViface($iface, $viface);
+    $self->model('SNAT')->freeViface($iface, $viface);
 }
 
 # Method: setInternalService

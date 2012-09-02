@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Network;
-
 use strict;
 use warnings;
 
+package EBox::Network;
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored
@@ -1801,7 +1800,7 @@ sub vlan
     return $vlans->{$vlan};
 }
 
-# Method: createBridge
+# Method: _createBridge
 #
 #   creates a new bridge interface.
 #
@@ -1823,7 +1822,7 @@ sub _createBridge
     $self->setIfaceAlias($bridge, $bridge);
 }
 
-# Method: removeBridge
+# Method: _removeBridge
 #
 #   Removes a bridge
 #
@@ -1921,7 +1920,7 @@ sub bridgeIfaces
 #
 #   interface - the name of a network interface
 #   force - boolean to indicate if an exception should be raised when
-#   interace is changed or it should be forced
+#   interface is changed or it should be forced
 sub unsetIface # (interface, force)
 {
     my ($self, $name, $force) = @_;
@@ -1934,7 +1933,6 @@ sub unsetIface # (interface, force)
     }
 
     my $oldm = $self->ifaceMethod($name);
-
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
@@ -3581,7 +3579,10 @@ sub BridgedCleanUp # (interface)
         $self->_setChanged("br$bridge");
     }
 
-    $self->unset("interfaces/$iface/bridge_id");
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{bridge_id};
+    $self->set('interfaces', $ifaces);
+
     $self->_removeEmptyBridges();
 }
 
