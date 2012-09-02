@@ -1,4 +1,5 @@
 HEAD
+	+ Do not disable InnoDB in mysql if there are other databases
 	+ Progress indicator no longer calls showAds if it is undefined
 	+ Send cache headers on static files to improve browsing speed
 	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
