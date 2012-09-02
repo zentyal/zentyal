@@ -1,10 +1,10 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
 function getElementByClass(classname) {
-    ccollect=new Array()
+    var ccollect=new Array();
     var inc=0;
     var alltags=document.getElementsByTagName("*");
-    for (i=0; i<alltags.length; i++){
+    for (var i=0; i<alltags.length; i++){
         if (alltags[i].hasClassName(classname))
             ccollect[inc++]=alltags[i];
     }
@@ -12,7 +12,7 @@ function getElementByClass(classname) {
 }
 
 function setDefault(){
-    elements=getElementByClass("hide");
+    var elements=getElementByClass("hide");
     var inc=0;
     while (elements[inc]){
         elements[inc].style.display="none";
@@ -110,9 +110,7 @@ Parameters:
 */
 function hide(elementId)
 {
-
   Element.addClassName(elementId, 'hidden');
-
 }
 
 /*
@@ -127,9 +125,7 @@ Parameters:
 */
 function show(elementId)
 {
-
   Element.removeClassName(elementId, 'hidden');
-
 }
 
 function toggleClass(name, class1, class2)
