@@ -163,9 +163,5 @@ function finalPage(firstInstall) {
   content += '</script>';
 
   $(showed).update(content);
-//  Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
-
- // $('wizard-skip1').hide();
-//  $('wizard-skip2').hide();
 }
 
