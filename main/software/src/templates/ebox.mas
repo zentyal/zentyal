@@ -477,7 +477,7 @@ var pkgTable = new Array(
                    <% __('Install') %>
                 </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
             </div>
         </div>
@@ -488,7 +488,7 @@ var pkgTable = new Array(
                   <% __('Update') %>
                 </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
                 <form name='updateList' action='EBox' method='post'>
                         <input type='hidden' name='updatePkgs' value="yes"/>
@@ -501,7 +501,7 @@ var pkgTable = new Array(
                 <button id="delete_button" onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif" >
                   <% __('Delete') %>
                 </button>
-                <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
         </div>
