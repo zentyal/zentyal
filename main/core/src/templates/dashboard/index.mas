@@ -90,7 +90,6 @@ function configureWidgets()
         beforeHide: function() {
             toggleClose();
         },
-        originalImplementation : true
     });
 
 }
