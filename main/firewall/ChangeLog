@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed log icon
 	+ Fixed network observer calls
 	+ Fixed translation of Configure rules button
 	+ SNAT and redirect tables acknowledge that netfilter only knows

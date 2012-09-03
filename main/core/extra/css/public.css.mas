@@ -1447,9 +1447,9 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 .PackFilter > div > div > h3 {
-margin-top:5px;
-
+    margin-top:5px;
 }
+
 .PackFilter > div > div .conf_rul {
     float:left;
     margin-top:5px;
@@ -1466,6 +1466,8 @@ margin-top:5px;
     padding:5px 10px 5px 30px;
     cursor:pointer;
 }
+
+.PackFilter > div > div .conf_rul:hover { background-color:#DFDFDF }
 
 .big {
 text-decoration:none;
