@@ -183,16 +183,20 @@
 
 #module_list {
     width: 100%;
-    float: left;
+    display: block;
 }
 
-#module_list > div {padding: 5px 10px; float:left; border-right:1px solid #ccc;}
+#module_list > div {
+    padding: 5px 10px;
+    display: inline-block;
+    border-right:1px solid #ccc;
+}
 #module_list > div > a {text-decoration:none;}
 #module_list > div:hover {background-color:#eee;}
 
 #widget_list {
     margin-top: 10px;
-    float: left;
+    display:block;
     width:100%;
 }
 #widget_list > .note{margin:0px;}
@@ -1264,9 +1268,8 @@ a.minBox, a.maxBox {
 }
 
 .widgetBarBox {
-        display: block;
+        display: inline-block;
         min-width: 100px;
-        float: left;
         margin-left: 5px;
         margin-right: 5px;
 }
@@ -1318,7 +1321,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 .widArrow {
-    float: left;
+    display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 2px;

@@ -6,13 +6,6 @@
 use EBox::Gettext;
 </%init>
 
-
-
-
-
-
-
-
 <script type="text/javascript">
 function sendStatus()
 {
@@ -28,12 +21,19 @@ function sendStatus()
 		});
 }
 
-function configureModule(module, title) 
+function configureModule(module, title)
 {
     if ($(module).checked) {
         $(module).checked = false;
-        Modalbox.show('/ServiceModule/ConfigureView?module=' + module, 
-                  {title: title, width: 600, height: 400});
+        Modalbox.show('/ServiceModule/ConfigureView?module=' + module,
+                  {title: title,
+                   width: 600,
+                   height: 400,
+                   afterLoad: function() {
+                        $('accept').focus();
+                    }
+
+                   });
     }
 }
 
@@ -71,29 +71,29 @@ stripe('dataTable', 'even', 'odd');
             <% $printableName %>
         </td>
         <td style="color:#888">
-        <% join(', ', @{$mod->{'printableDepends'}}) %> 
+        <% join(', ', @{$mod->{'printableDepends'}}) %>
         </td>
         <td class='tcenter' id="<% $name %>_status">
 %   if (not $depends) {
-           <& /input/checkbox.mas, 
-                'name' => $name, 
-                'id' => $name,  
+           <& /input/checkbox.mas,
+                'name' => $name,
+                'id' => $name,
                 'value' => undef,
                 'disabled' => 1
             &>
 %   } elsif (not $configured) {
 %       my $title = __x("Configure module: {module}", module => $name );
-           <& /input/checkbox.mas, 
-                'name' => $name, 
-                'id' => $name,  
+           <& /input/checkbox.mas,
+                'name' => $name,
+                'id' => $name,
                 'value' => $status,
                 'onChange' => qq{configureModule('$name', '$title')}
-                
+
             &>
 %   } else {
-           <& /input/checkbox.mas, 
-                'name' => $name, 
-                'id' => $name,  
+           <& /input/checkbox.mas,
+                'name' => $name,
+                'id' => $name,
                 'value' => $status,
                 'onChange' => qq{sendStatus(); setLoading('${name}_status'); }
             &>
