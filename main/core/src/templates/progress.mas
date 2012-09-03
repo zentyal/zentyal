@@ -227,6 +227,9 @@ $onclick
   <div class='tcenter'>
      <input type="submit" value="<% $text %>" <% $onclick ? qq{onclick="$onclick"} : '' %> />
   </div>
+% } elsif ($type eq 'none') {
+       <% $text %>
+  </div>
 % } else {
    <a href="<% $url %>" <% $onclick ? qq{onclick="$onclick"} : '' %> >
         <% $text %>

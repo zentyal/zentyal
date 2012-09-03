@@ -24,7 +24,7 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Initial configuration wizard'),
+    my $self = $class->SUPER::new('title' => __('Installation finished'),
             'template' => 'wizard/software-setup-finish.mas',
             @_);
     bless($self, $class);
