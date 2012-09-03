@@ -10,21 +10,16 @@ use EBox::Gettext;
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
 
 
-<div style="text-align: center; padding: 40px">
- <div><img src="<% $image_title %>" alt="title" /></div>
+<div class="final_installation">
 
   <h4><% __('Congratulations!') %></h4>
-% if ($firstTime) {
-  <h4><% __('Zentyal installation finished') %></h4>
-% } else {
-  <h4><% __('Package installation finished') %></h4>
-% }
+  <h5><% __('Your Zentyal installation has successfully finished!') %></h5>
 
-  <div><% __('Bla, bla, bla') %></div>
+  <p><% __('Now you can go to the dashboard and start using your brand new Zentyal server.') %></p>
 
 
   <form  method="POST">
-    <input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"
+    <input  style="" class="inputButton start_now_boton" type="submit" name="save" value="<% __('Go to the Dashboard') %>"
       " onclick=\"window.location='/Dashboard/Index return false\" ";
   </form>
 </div>
