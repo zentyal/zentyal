@@ -1,5 +1,5 @@
 <%args>
-  $firstTime   => $firstTime
+  $firstTime   => 1
   $image_title => '/data/images/title.png'
 </%args>
 <%init>
@@ -13,18 +13,18 @@ use EBox::Gettext;
 <div style="text-align: center; padding: 40px">
  <div><img src="<% $image_title %>" alt="title" /></div>
 
-   <h4><% __('Congratulations!') %></h4>
+  <h4><% __('Congratulations!') %></h4>
 % if ($firstTime) {
-   <h4><% __(Zentyal installation finished') %></h4>
+  <h4><% __('Zentyal installation finished') %></h4>
 % } else {
-   <h4><% __('Package installation finished') %></h4>
+  <h4><% __('Package installation finished') %></h4>
 % }
 
-   <div><% __('Bla, bla, bla') %></div>
+  <div><% __('Bla, bla, bla') %></div>
 
 
- <form  method="POST">
-   <input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"
-    " onclick=\"window.location='/Dashboard/Index return false\" ";
+  <form  method="POST">
+    <input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"
+      " onclick=\"window.location='/Dashboard/Index return false\" ";
   </form>
 </div>
