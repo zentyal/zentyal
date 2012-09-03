@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Wizard::SoftwareSEtupFinish;
+package EBox::CGI::Wizard::SoftwareSetupFinish;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
