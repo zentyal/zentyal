@@ -1,4 +1,5 @@
 HEAD
+	+ Update the managed domain ip addresses when saving changes
 	+ Implement Network observer to update the kerberos domain when
 	  dhcp addresses are assigned
 	+ Get domain dynamic status from DHCP module

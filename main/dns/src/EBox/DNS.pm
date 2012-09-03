@@ -621,6 +621,8 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_updateManagedDomainAddresses();
+
     my $keytabPath = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
@@ -1769,66 +1771,83 @@ sub switchToReverseInfoData
     return $reversedData;
 }
 
-######################################
-##  Network observer implementation ##
-######################################
-
-# Method: _dhcpIfaceAddressChangedDone
-#
-#   Updates the kerberos (or samba) domain ip addresses when dhcp address
-#   is assigned
-#
-sub _dhcpIfaceAddressChangedDone
+sub _updateManagedDomainIPsModel
 {
-    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+    my ($self, $model) = @_;
+
+    my $networkModule = EBox::Global->modInstance('network');
+    my $ifaces = $networkModule->ifaces();
+
+    # Remove all rows that are managed by us (iface is set)
+    foreach my $ipId (@{$model->ids()}) {
+        my $ipRow = $model->row($ipId);
+        $model->removeRow($ipId) if defined $ipRow->valueByName('iface');
+    }
+
+    # And add the interfaces addresses
+    foreach my $iface (@{$ifaces}) {
+        my $ips = $networkModule->ifaceAddresses($iface);
+        foreach my $ifaceData (@{$ips}) {
+            my $row = $model->find(ip => $ifaceData->{address});
+            $model->removeRow($row->id()) if defined $row;
+
+            if (exists $ifaceData->{name}) {
+                # This is a virtual iface
+                $model->addRow(ip => $ifaceData->{address}, iface => $ifaceData->{name}, readOnly => 1);
+            } else {
+                # This is a real iface
+                $model->addRow(ip => $ifaceData->{address}, iface => $iface, readOnly => 1);
+            }
+        }
+    }
+}
+
+# Method: _updateManagedDomainAddresses
+#
+#   Updates the managed domain (kerberos or samba) ip addresses
+#
+sub _updateManagedDomainAddresses
+{
+    my ($self) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $ownDomain = $sysinfo->hostDomain();
     my $hostname = $sysinfo->hostName();
 
     my $domainsModel = $self->model('DomainTable');
-    foreach my $domainId (@{$domainsModel->ids()}) {
-        my $domainRow = $domainsModel->row($domainId);
-        next unless $domainRow->valueByName('domain') eq $ownDomain;
+    my $domainRow = $domainsModel->find(domain => $ownDomain);
+    return unless defined $domainRow;
 
-        # Update domain IP addresses
-        my $domainIpModel = $domainRow->subModel('ipAddresses');
-        foreach my $ipId (@{$domainIpModel->ids()}) {
-            my $ipRow = $domainIpModel->row($ipId);
-            my $dhcpIface = $ipRow->valueByName('dhcp_iface');
-            next unless (defined $dhcpIface and $dhcpIface eq $iface);
-            $domainIpModel->removeRow($ipId);
-        }
-        $domainIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
+    EBox::debug("Updating managed domain ($ownDomain) IP addresses");
 
-        # Update hostname IP addresses
-        my $hostsModel = $domainRow->subModel('hostnames');
-        foreach my $hostId (@{$hostsModel->ids()}) {
-            my $hostRow = $hostsModel->row($hostId);
-            next unless $hostRow->valueByName('hostname') eq $hostname;
-            my $hostIpModel = $hostRow->subModel('ipAddresses');
-            foreach my $ipId (@{$hostIpModel->ids()}) {
-                my $ipRow = $hostIpModel->row($ipId);
-                my $dhcpIface = $ipRow->valueByName('dhcp_iface');
-                next unless (defined $dhcpIface and $dhcpIface eq $iface);
-                $hostIpModel->removeRow($ipId);
-            }
-            $hostIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
-        }
-    }
-    $self->save();
+    # Update domain IP addresses
+    my $domainIpModel = $domainRow->subModel('ipAddresses');
+    $self->_updateManagedDomainIPsModel($domainIpModel);
+
+    # Update hostname IP addresses
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostname);
+    return unless defined $hostRow;
+    my $hostIpModel = $hostRow->subModel('ipAddresses');
+    $self->_updateManagedDomainIPsModel($hostIpModel);
 }
+
+######################################
+##  Network observer implementation ##
+######################################
 
 sub externalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
-    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
+    $self->_updateManagedDomainAddresses();
+    $self->save();
 }
 
 sub internalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
-    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
+    $self->_updateManagedDomainAddresses();
+    $self->save();
 }
 
 1;
