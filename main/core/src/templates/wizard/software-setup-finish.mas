@@ -19,7 +19,6 @@ use EBox::Gettext;
 
 
   <form  method="POST">
-    <input  style="" class="inputButton start_now_boton" type="submit" name="save" value="<% __('Go to the Dashboard') %>"
-      " onclick=\"window.location='/Dashboard/Index return false\" ";
+    <input style="" class="inputButton start_now_boton" type="submit" name="save" value="<% __('Go to the Dashboard') %>" onclick="window.location='/Dashboard/Index'; return false"/>;
   </form>
 </div>
