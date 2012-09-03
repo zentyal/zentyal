@@ -1,4 +1,5 @@
 HEAD
+	+ Changed first installation workflow and wizard infraestructure
 	+ Improved firewall icons
 	+ Set hover style for configure rules button in firewall
 	+ Do not disable InnoDB in mysql if there are other databases

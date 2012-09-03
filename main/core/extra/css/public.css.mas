@@ -1787,3 +1787,41 @@ border-radius: 3px;
     margin-bottom: 2px;
         margin-top: 0;
 }
+
+.final_installation {
+    height:400px;
+    background: url("/data/software/images/fluffy_ok.png") 250px bottom no-repeat
+}
+
+.final_installation h4 {
+    font-size: 35px;
+    color: #E1721E;
+    width: 400px;
+    letter-spacing: 1px;
+}
+.final_installation h5 {
+    font-size: 20px;
+    color: #E1721E;
+    margin: 15px 0px;
+    width: 400px;
+}
+
+.final_installation p{
+    font-size:14px;
+    width:300px;
+    color:#666;
+    padding-left:5px;
+}
+
+.final_installation .start_now_boton{
+    font-size: 1.4em;
+    margin-top:20px;
+    background-color:#569724;
+    color:white;
+    border-color:#3C601D;
+    padding:15px 20px;
+    }
+
+.final_installation .start_now_boton:hover {
+    background-color:#5FAF21;
+}

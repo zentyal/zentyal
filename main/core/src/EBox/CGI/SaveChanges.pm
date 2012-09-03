@@ -88,6 +88,14 @@ sub saveAllModulesAction
        );
     if ($self->param('noPopup')) {
         push @params, (title => __('Saving changes'));
+        if ($self->param('firstTime')) {
+            push @params, (firstTime => 1);
+            push @params, (nextStepUrl => '/Wizard/SoftwareSetupFinish?firstTime=1');
+            push @params, (nextStepText => __('You will be redirected to next step'));
+            push @params, (nextStepTimeout => 5);
+            push @params, (nextStepType => 'none');
+
+        }
     } else {
         push @params, @popupProgressParams;
         push @params, nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
