@@ -190,8 +190,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <div class="error">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
+%  my $errorNextStepType = $nextStepType ne 'none' ? $nextStepType : 'ahref';
    <& .nextStep,
-      type => $nextStepType,
+      type => $errorNextStepType,
       url => $nextStepUrl,
       text => $nextStepText,
       onclick => $nextStepUrlFailureOnclick,
