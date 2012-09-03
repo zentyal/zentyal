@@ -159,7 +159,7 @@ function finalPage(firstInstall) {
   }
 
   content = '<script type="text/javascript">';
-  content += 'window.location = "' + url + ';"';
+  content += 'window.location = "' + url + '";';
   content += '</script>';
 
   $(showed).update(content);
