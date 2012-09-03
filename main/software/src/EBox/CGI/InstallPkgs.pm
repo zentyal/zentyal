@@ -214,7 +214,7 @@ sub showInstallProgress
             title    => __('Installing'),
             text  => __('Installing packages'),
             nextStepUrl => $wizardUrl,
-            nextStepText => __('Next step'),
+            nextStepText => __('Click here if the redirection fails'),
             endNote  =>  __('The packages installation has finished successfully. '
             . 'The administration interface may become unresponsive '
             . 'for a few seconds. Please wait patiently until '
