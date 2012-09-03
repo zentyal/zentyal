@@ -1,0 +1,44 @@
+<%args>
+  @pages
+  $first => 0
+  $image_title => '/data/images/title.png'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript" src="/data/js/carousel.js">//</script>
+<script type="text/javascript" src="/data/js/software-wizard.js">//</script>
+
+
+<div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
+<div style="text-align: right; clear: right">
+    <img src="/data/images/ajax-loader.gif" id="wizard-loading1" />
+    <input type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-next1" value="<% __('Next') %>" onclick="nextStep()" />
+</div>
+
+<div style="border-bottom: 1px solid #CCC; border-top: 1px solid #CCC; padding: 0 10px 10px 10px; margin: 5px 0">
+    <div id="wizardPage0" style="display: none"></div>
+    <div id="wizardPage1" style="display: none"></div>
+</div>
+
+<div style="text-align: right">
+    <input type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="nextStep()" />
+</div>
+
+<script type="text/javascript">
+Event.observe(window, 'load', function() {
+// initialize pages
+var i=0;
+var newPages = [];
+% for my $page ( @pages ) {
+new[i++] = "./<% $page %>";
+% }
+setPages(newPages);
+setFirstInstall(<% $first ? 'true' : 'false'%>);
+// Load first page
+    loadPage(0);
+});
+
+</script>

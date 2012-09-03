@@ -1,27 +1,22 @@
-<%args>
-  @pages
-  $first => 0
-  $image_title => '/data/images/title.png'
-</%args>
-<%init>
-use EBox::Gettext;
-</%init>
-<script type="text/javascript" src="/data/js/carousel.js">//</script>
-<script type="text/javascript">
-<!--
-
 var DURATION = 0.5;
 var actualPage = 0;
 var visible = 0;
 var firstLoad = true;
+var firstInstall = false;
 var isLoading = false;
-var pages = new Array();
-var i=0;
+var pages = null;
 
-% for my $page ( @pages ) {
-pages[i++] = "./<% $page %>";
-% }
 
+
+function setPages(newPages)
+{
+  pages = newPages;
+}
+
+function setFirstInstall(first)
+{
+  firstInstall = first;
+}
 
 // enable/disable next step buttons
 function setLoading(loading) {
@@ -43,7 +38,7 @@ function setLoading(loading) {
         isLoading = false;
     }
 }
-
+window.setLoading = setLoading;
 
 // Load a wizard page
 function loadPage(index) {
@@ -72,7 +67,7 @@ function loadPage(index) {
         $('wizard-next1').hide();
         $('wizard-next2').hide();
         setLoading(false);
-        finalPage();
+        finalPage(firstInstall);
         return;
     }
 
@@ -87,10 +82,11 @@ function loadPage(index) {
 
         setLoading(false);
         if ( index == pages.length-1 ) {
+          // XXX gettext
             $('wizard-next1').value = "<% __('Finish') %>";
             $('wizard-next2').value = "<% __('Finish') %>";
         }
-    }
+    };
 
     new Ajax.Updater(showed,
                      pages[index],
@@ -134,74 +130,53 @@ function nextStep() {
         // Load next page
         if ( !failed )
             loadPage(actualPage+1);
-    }
+    };
 
     form.request({
         onFailure: onFail,
-        onComplete: onComplete,
+        onComplete: onComplete
     });
 
 }
 
 // Shows final page
-function finalPage() {
-    actualPage = pages.length;
+function finalPage(firstInstall) {
+    var actualPage = pages.length;
     var showed = "wizardPage" + visible;
+    var content;
+  if (firstInstall) {
+    var url = '/EBox/SaveChanges?';
+    url     += 'firstTime=1&noPopup=1';
+    content = '<script type="text/javascript">';
+    content += 'window.location = "' + url + ';"';
+    content += '</script>';
+ } else {
     content = '<div style="text-align: center; padding: 40px">';
     content += '<div><img src="<% $image_title %>" alt="title" /></div>';
-% if ($first) {
-    content += '<h4><% __('Congratulations!') %></h4>';
-    content += '<div><% __('Now you are ready to save changes and start using your Zentyal server') %></div>';
-% } else {
-    content += '<h4><% __('Package installation finished') %></h4>';
-    content += '<div><% __('Now you are ready to enable and configure your new installed modules') %></div>';
-% }
+
+   // XX getext
+//    content += '<h4><% __('Package installation finished') %></h4>';
+//    content += '<div><% __('Now you are ready to enable and configure your new
+//    installed modules') %></div>';
+    content += '<h4>Package installation finished</h4>';
+    content += '<div>Now you are ready to enable and configure your new  installed modules</div>';
 
 
 
-% if ($first) {
-    content += '<form action="SaveChanges" method="POST">';
-    content += '<input type="hidden" name="save" value="1"/>';
-    content += '<input type="hidden" name="noPopup" value="1"/>';
-    content += '<input type="hidden" name="installer" value="1"/>';
-    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />'
-% } else {
     content += '<form  method="POST">';
-    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"';
+   // XXX getext
+//    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"';
+    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="Go to the dashboard"';
     content += " onclick=\"window.location='/Dashboard/Index'; return false\" ";
     content += ' />';
-% }
     content += '</form>';
     content += '</div>';
+
+    }
     $(showed).update(content);
     Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
 
     $('wizard-skip1').hide();
     $('wizard-skip2').hide();
 }
-
-// Load first page
-Event.observe(window, 'load', function() {
-    loadPage(0);
-});
-
-// -->
-</script>
-
-<div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
-<div style="text-align: right; clear: right">
-    <img src="/data/images/ajax-loader.gif" id="wizard-loading1" />
-    <input type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
-    <input type="button" id="wizard-next1" value="<% __('Next') %>" onclick="nextStep()" />
-</div>
-
-<div style="border-bottom: 1px solid #CCC; border-top: 1px solid #CCC; padding: 0 10px 10px 10px; margin: 5px 0">
-    <div id="wizardPage0" style="display: none"></div>
-    <div id="wizardPage1" style="display: none"></div>
-</div>
-
-<div style="text-align: right">
-    <input type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="skipStep()" />
-    <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="nextStep()" />
-</div>
 

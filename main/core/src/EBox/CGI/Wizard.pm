@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Wizard;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Wizard;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -27,7 +25,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Initial configuration wizard'),
-            'template' => 'wizard.mas',
+            'template' => 'wizard/wizard.mas',
             @_);
     bless($self, $class);
     return $self;
@@ -64,6 +62,16 @@ sub _modulesWizardPages
     my @modules = @{$global->modInstancesOfType('EBox::Module::Service')};
 
     foreach my $module ( @modules ) {
+        # DDD
+        if ($module->name() eq 'mail') {
+            push (@pages, @{$module->wizardPages()});
+            next;
+        }
+        if ($module->name() eq 'users') {
+            push (@pages, @{$module->wizardPages()});
+            next;
+        }
+
         if ($module->firstInstall()) {
             push (@pages, @{$module->wizardPages()});
         }
@@ -93,5 +101,7 @@ sub _top
     my ($self)= @_;
     $self->_topNoAction();
 }
+
+
 
 1;
