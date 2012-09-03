@@ -577,31 +577,34 @@ sub _table
                                 'view' => '/DNS/View/Services',
                                 'backView' => '/DNS/View/Services',
                              ),
+
+
+            # This field indicates if the domain is static, dynamic or dlz
+            # Not editable from interface
+            new EBox::Types::Boolean(
+                fieldName      => 'dynamic',
+                printableName  => __('Dynamic domain'),
+                editable       => 0,
+                defaultValue   => 0,
+                hiddenOnSetter => 1,
+                hiddenOnViewer => 0,
+            ),
+            # This field is filled when the zone is dynamic and
+            # indicates the TSIG key for the direct mapping and
+            # the reversed zones for this domain hosts
             new EBox::Types::Text(
-                # This field indicates if the domain is static, dynamic or dlz
-                # Not editable from interface
-                                'fieldName'      => 'type',
-                                'printableName'  => __('Dynamic domain'),
-                                'editable'       => 0,
-                                #'hiddenOnViewer' => 0,
-                                #'hiddenOnSetter' => 1,
-                                defaultValue   => EBox::DNS::STATIC_ZONE(),
-                                'HTMLViewer'     => '/dns/ajax/viewer/domainTypeViewer.mas',
-                                ),
-            new EBox::Types::Text(
-                # This field is filled when the zone is dynamic and
-                # indicates the TSIG key for the direct mapping and
-                # the reversed zones for this domain hosts
-                                'fieldName'    => 'tsigKey',
-                                'editable'     => 0,
-                                'optional'     => 1,
-                                'hidden'       => 1,
-                               ),
-            new EBox::Types::Text(
-                fieldName => 'dlzDbPath',
-                printableName => __('DLZ database path'),
+               fieldName    => 'tsigKey',
+               editable     => 0,
+               optional     => 1,
+               hidden       => 1,
+            ),
+
+
+            new EBox::Types::Boolean(
+                fieldName => 'managed',
                 editable => 0,
-                optional => 1,
+                optional => 0,
+                defaultValue => 0,
                 hidden => 1,
             ),
           );
@@ -645,23 +648,23 @@ sub syncRows
     }
 
     my $changed;
-    foreach my $id (@{ $currentIds }) {
-        my $newValue;
+    foreach my $id (@{$currentIds}) {
+        my $newValue = undef;
         my $row = $self->row($id);
-        my $typeElement = $row->elementByName('type');
-        my $type = $typeElement->value();
-        if ($type eq 'dynamic') {
+        my $dynamicElement = $row->elementByName('dynamic');
+        my $value = $dynamicElement->value();
+        if ($value) {
             if (not $dynamicDomainsIds{$id}) {
-                $newValue = 'static';
+                $newValue = 0;
             }
-        } elsif ($type eq 'static') {
+        } else {
             if ($dynamicDomainsIds{$id}) {
-                $newValue = 'dynamic';
+                $newValue = 1;
             }
         }
 
-        if ($newValue) {
-            $typeElement->setValue($newValue);
+        if (defined $newValue) {
+            $dynamicElement->setValue($newValue);
             $row->store();
             $changed = 1;
         }

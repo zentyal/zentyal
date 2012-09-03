@@ -60,12 +60,6 @@ use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
 use constant DNS_PORT => 53;
 
-# This constants are used to fill the domain type field of the
-# DomainTable model
-use constant STATIC_ZONE  => 'static';
-use constant DYNAMIC_ZONE => 'dynamic';
-use constant DLZ_ZONE     => 'dlz';
-
 sub _create
 {
     my $class = shift;
@@ -239,7 +233,8 @@ sub delHost
 #
 #   Array ref - containing hash refs with the following elements:
 #       name - String the domain's name
-#       type - String indicating the domain type (static, dynamic, dlz)
+#       dynamic - boolean indicating if the domain is dynamic
+#       managed - boolean indicating if the domain is managed by zentyal
 #
 sub domains
 {
@@ -249,10 +244,11 @@ sub domains
     my $model = $self->model('DomainTable');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        my $domaindata = { name  => $row->valueByName('domain'),
-                           type  => $row->valueByName('type'),
-                           dlzDbPath => $row->valueByName('dlzDbPath') };
-
+        my $domaindata = {
+            name  => $row->valueByName('domain'),
+            dynamic => $row->valueByName('dynamic'),
+            managed => $row->valueByName('managed')
+        };
         push @{$array}, $domaindata;
     }
 
@@ -661,11 +657,7 @@ sub _setConf
         push (@domainData, $domdata);
 
         my $file;
-        if ($domdata->{'type'} eq DLZ_ZONE) {
-            # Update the zone but do not write file.
-            # TODO $self->_updateDynDirectZone($domdata);
-            next;
-        } elsif ($domdata->{'type'} eq DYNAMIC_ZONE) {
+        if ($domdata->{'dynamic'}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -674,7 +666,7 @@ sub _setConf
 
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
-        if ($domdata->{'type'} eq DYNAMIC_ZONE and -e "${file}.jnl") {
+        if ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
         } else {
             @array = ();
@@ -684,7 +676,7 @@ sub _setConf
         }
 
         # Add the updater key if the zone is dynamic
-        if ($domdata->{'type'} eq DYNAMIC_ZONE) {
+        if ($domdata->{dynamic}) {
             $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
         }
     }
@@ -698,14 +690,14 @@ sub _setConf
     foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
-        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+        if ($reversedDataItem->{dynamic}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        if ($reversedDataItem->{'type'} and -e "${file}.jnl" ) {
-            # TODO $self->_updateDynReverseZone($reversedDataItem);
+        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -1253,7 +1245,7 @@ sub _completeDomain # (domainId)
 
     my $domdata;
     $domdata->{'name'} = $row->valueByName('domain');
-    $domdata->{'type'} = $row->valueByName('type');
+    $domdata->{dynamic} = $row->valueByName('dynamic');
     $domdata->{'tsigKey'} = $row->valueByName('tsigKey');
 
     $domdata->{'ipAddresses'} = $self->_domainIpAddresses(
@@ -1473,7 +1465,7 @@ sub _removeDomainsFiles
     foreach my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
         my $file;
-        if ($row->valueByName('type') ne STATIC_ZONE) {
+        if ($row->valueByName('dynamic')) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -1498,7 +1490,7 @@ sub _removeUnusedReverseFiles
     foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
-        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+        if ($reversedDataItem->{dynamic}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -1751,7 +1743,7 @@ sub switchToReverseInfoData
                     EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
                 } else {
                     $reversedData->{$groupip} = {
-                        type => $domain->{type},
+                        dynamic => $domain->{dynamic},
                         domain => $domain->{name},
                         hosts => [],
                         ns => [],
@@ -1811,25 +1803,23 @@ sub _updateManagedDomainAddresses
     my ($self) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $ownDomain = $sysinfo->hostDomain();
     my $hostname = $sysinfo->hostName();
 
     my $domainsModel = $self->model('DomainTable');
-    my $domainRow = $domainsModel->find(domain => $ownDomain);
-    return unless defined $domainRow;
+    my $managedRows = $domainsModel->findAllValue(managed => 1);
 
-    EBox::debug("Updating managed domain ($ownDomain) IP addresses");
+    foreach my $domainRow (@{$managedRows}) {
+        # Update domain IP addresses
+        my $domainIpModel = $domainRow->subModel('ipAddresses');
+        $self->_updateManagedDomainIPsModel($domainIpModel);
 
-    # Update domain IP addresses
-    my $domainIpModel = $domainRow->subModel('ipAddresses');
-    $self->_updateManagedDomainIPsModel($domainIpModel);
-
-    # Update hostname IP addresses
-    my $hostsModel = $domainRow->subModel('hostnames');
-    my $hostRow = $hostsModel->find(hostname => $hostname);
-    return unless defined $hostRow;
-    my $hostIpModel = $hostRow->subModel('ipAddresses');
-    $self->_updateManagedDomainIPsModel($hostIpModel);
+        # Update hostname IP addresses
+        my $hostsModel = $domainRow->subModel('hostnames');
+        my $hostRow = $hostsModel->find(hostname => $hostname);
+        return unless defined $hostRow;
+        my $hostIpModel = $hostRow->subModel('ipAddresses');
+        $self->_updateManagedDomainIPsModel($hostIpModel);
+    }
 }
 
 ######################################
@@ -1840,6 +1830,7 @@ sub externalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
     $self->_updateManagedDomainAddresses();
+    # TODO Save only if changes done
     $self->save();
 }
 
@@ -1847,6 +1838,7 @@ sub internalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
     $self->_updateManagedDomainAddresses();
+    # TODO Save only if changes done
     $self->save();
 }
 
