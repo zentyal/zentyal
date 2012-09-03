@@ -41,11 +41,25 @@ sub _process
     my $image = $global->theme()->{'image_title'};
     push (@array, image_title => $image);
 
+    my @pages;
     if ($self->param('page')) {
-        push(@array, 'pages' => [ $self->param('page') ]);
+        @pages = ( $self->param('page') );
     } else {
-        push(@array, 'pages' => $self->_modulesWizardPages);
+        @pages = @{ $self->_modulesWizardPages() };
     }
+
+    if (not @pages) {
+        my $global = EBox::Global->getInstance();
+        if ($global->unsaved()) {
+            $self->{redirect} = '/SaveChanges?firstTime=1&noPopup=1&save=1';
+        } else {
+            $self->{redirect} = '/Wizard/FirstFinish';
+        }
+        return;
+    }
+
+
+    push(@array, 'pages' => \@pages);
     push(@array, 'first' => EBox::Global->first());
     $self->{params} = \@array;
 }
@@ -62,15 +76,15 @@ sub _modulesWizardPages
     my @modules = @{$global->modInstancesOfType('EBox::Module::Service')};
 
     foreach my $module ( @modules ) {
-        # DDD
-        if ($module->name() eq 'mail') {
-            push (@pages, @{$module->wizardPages()});
-            next;
-        }
-        if ($module->name() eq 'users') {
-            push (@pages, @{$module->wizardPages()});
-            next;
-        }
+#         # DDD
+#         if ($module->name() eq 'mail') {
+#             push (@pages, @{$module->wizardPages()});
+#             next;
+#         }
+#         if ($module->name() eq 'users') {
+#             push (@pages, @{$module->wizardPages()});
+#             next;
+#         }
 
         if ($module->firstInstall()) {
             push (@pages, @{$module->wizardPages()});

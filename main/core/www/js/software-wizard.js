@@ -145,7 +145,7 @@ function finalPage(firstInstall) {
     var showed = "wizardPage" + visible;
     var content;
   if (firstInstall) {
-    var url = '/EBox/SaveChanges?';
+    var url = '/SaveChanges?';
     url     += 'firstTime=1&noPopup=1';
     content = '<script type="text/javascript">';
     content += 'window.location = "' + url + ';"';

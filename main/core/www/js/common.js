@@ -1,24 +1,16 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
-function getElementByClass(classname) {
-    var ccollect=new Array();
-    var inc=0;
-    var alltags=document.getElementsByTagName("*");
-    for (var i=0; i<alltags.length; i++){
-        if (alltags[i].hasClassName(classname))
-            ccollect[inc++]=alltags[i];
-    }
-    return ccollect;
-}
-
+/**
 function setDefault(){
-    var elements=getElementByClass("hide");
+//    var elements=getElementByClass("hide");
+    var elements = $$('.hide');
     var inc=0;
     while (elements[inc]){
         elements[inc].style.display="none";
         inc++;
     }
     inc=0;
+//    elements = $$('.show');
     elements=getElementByClass("show");
     while (elements[inc]){
         elements[inc].style.display="inline";
@@ -36,6 +28,8 @@ function show(id){
 function hide(id){
     setDefault();
 }
+
+**/
 
 var menuShown = '';
 
