@@ -76,16 +76,6 @@ sub _modulesWizardPages
     my @modules = @{$global->modInstancesOfType('EBox::Module::Service')};
 
     foreach my $module ( @modules ) {
-#         # DDD
-        if ($module->name() eq 'mail') {
-            push (@pages, @{$module->wizardPages()});
-            next;
-        }
-        if ($module->name() eq 'users') {
-            push (@pages, @{$module->wizardPages()});
-            next;
-        }
-
         if ($module->firstInstall()) {
             push (@pages, @{$module->wizardPages()});
         }
