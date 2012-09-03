@@ -1,4 +1,6 @@
 HEAD
+	+ Hide advanced service rules by default, they can be enabled by
+	  setting the show_service_rules variable in firewall.conf
 	+ Fixed log icon
 	+ Fixed network observer calls
 	+ Fixed translation of Configure rules button
