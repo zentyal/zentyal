@@ -126,7 +126,7 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
                                                 + nextStepTimeout + ", '"
                                                 + nextStepUrl + "')";
 
-    callServerCurried = new Function(callServerCurriedBody );
+    var callServerCurried = new Function(callServerCurriedBody );
 
     pe = new PeriodicalExecuter(callServerCurried, reloadInterval);
 }

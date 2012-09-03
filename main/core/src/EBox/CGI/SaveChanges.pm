@@ -90,7 +90,8 @@ sub saveAllModulesAction
         push @params, (title => __('Saving changes'));
         if ($self->param('firstTime')) {
             push @params, (firstTime => 1);
-            push @params, (nextTimeUrl => '/Wizard/FirstFinish');
+            push @params, (nextTimeUrl => '/Wizard/FirstFinish?firstTime=1');
+            push @params, (nextStepText => __('Next'));
         }
     } else {
         push @params, @popupProgressParams;

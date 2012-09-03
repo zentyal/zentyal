@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Wizard::FirstFinish;
+package EBox::CGI::Wizard::SoftwareSEtupFinish;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -25,7 +25,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Initial configuration wizard'),
-            'template' => 'wizard/first-finish.mas',
+            'template' => 'wizard/software-setup-finish.mas',
             @_);
     bless($self, $class);
     return $self;
@@ -34,7 +34,9 @@ sub new # (error=?, msg=?, cgi=?)
 sub _process
 {
     my $self = shift;
-    $self->{params} = [];
+    $self->{params} = [
+         firstTime => $self->param('firstTime'),
+       ];
 }
 
 sub _menu

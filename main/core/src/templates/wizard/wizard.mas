@@ -27,18 +27,26 @@ use EBox::Gettext;
     <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="nextStep()" />
 </div>
 
+
 <script type="text/javascript">
+var gettext = function (st) {
+  if (st == 'Finish') {
+      return '<% __('Finish') %>'
+  }
+  return st;
+};
+
 Event.observe(window, 'load', function() {
-// initialize pages
-var i=0;
-var newPages = [];
+   // initialize pages
+   var newPages = [];
 % for my $page ( @pages ) {
-new[i++] = "./<% $page %>";
+   newPages.push("./<% $page %>");
 % }
-setPages(newPages);
-setFirstInstall(<% $first ? 'true' : 'false'%>);
-// Load first page
-    loadPage(0);
+   setPages(newPages);
+   setGettext(gettext);
+   setFirstInstall(<% $first ? 'true' : 'false'%>);
+   // Load first page
+   loadPage(0);
 });
 
 </script>

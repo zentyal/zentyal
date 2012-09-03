@@ -5,8 +5,7 @@ var firstLoad = true;
 var firstInstall = false;
 var isLoading = false;
 var pages = null;
-
-
+var gettext = null;
 
 function setPages(newPages)
 {
@@ -16,6 +15,11 @@ function setPages(newPages)
 function setFirstInstall(first)
 {
   firstInstall = first;
+}
+
+function setGettext(gett)
+{
+  gettext = gett;
 }
 
 // enable/disable next step buttons
@@ -63,7 +67,7 @@ function loadPage(index) {
         Effect.SlideUp(hidden, { duration: DURATION } );
 
     // Final stage?
-    if ( index == pages.length ) {
+    if ( index >= pages.length ) {
         $('wizard-next1').hide();
         $('wizard-next2').hide();
         setLoading(false);
@@ -82,9 +86,9 @@ function loadPage(index) {
 
         setLoading(false);
         if ( index == pages.length-1 ) {
-          // XXX gettext
-            $('wizard-next1').value = "<% __('Finish') %>";
-            $('wizard-next2').value = "<% __('Finish') %>";
+          var finishString = gettext('Finish');
+          $('wizard-next1').value = finishString;
+          $('wizard-next2').value = finishString;
         }
     };
 
@@ -141,42 +145,27 @@ function nextStep() {
 
 // Shows final page
 function finalPage(firstInstall) {
-    var actualPage = pages.length;
-    var showed = "wizardPage" + visible;
-    var content;
+  var showed = "wizardPage" + visible;
+  var content;
+  var url;
+
+  actualPage = pages.length; // set to the last page
   if (firstInstall) {
-    var url = '/SaveChanges?';
-    url     += 'firstTime=1&noPopup=1';
-    content = '<script type="text/javascript">';
-    content += 'window.location = "' + url + ';"';
-    content += '</script>';
- } else {
-    content = '<div style="text-align: center; padding: 40px">';
-    content += '<div><img src="<% $image_title %>" alt="title" /></div>';
+     url = '/SaveChanges?';
+     url     += 'noPopup=1&save=1';
+     url += '&firstTime=1';
+  } else {
+     url = '/Wizard/SoftwareSetupFinish?firstTime=0';
+  }
 
-   // XX getext
-//    content += '<h4><% __('Package installation finished') %></h4>';
-//    content += '<div><% __('Now you are ready to enable and configure your new
-//    installed modules') %></div>';
-    content += '<h4>Package installation finished</h4>';
-    content += '<div>Now you are ready to enable and configure your new  installed modules</div>';
+  content = '<script type="text/javascript">';
+  content += 'window.location = "' + url + ';"';
+  content += '</script>';
 
+  $(showed).update(content);
+//  Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
 
-
-    content += '<form  method="POST">';
-   // XXX getext
-//    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Go to the dashboard') %>"';
-    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="Go to the dashboard"';
-    content += " onclick=\"window.location='/Dashboard/Index'; return false\" ";
-    content += ' />';
-    content += '</form>';
-    content += '</div>';
-
-    }
-    $(showed).update(content);
-    Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
-
-    $('wizard-skip1').hide();
-    $('wizard-skip2').hide();
+ // $('wizard-skip1').hide();
+//  $('wizard-skip2').hide();
 }
 
