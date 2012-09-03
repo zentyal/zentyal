@@ -1036,6 +1036,7 @@ sub firstTimeMenu
     $self->_printMenuItem(__('Installation'), 2, $current);
     $self->_printMenuItem(__('Initial Configuration'), 3, $current);
     $self->_printMenuItem(__('Save Changes'), 4, $current);
+    $self->_printMenuItem(__('Finished'), 5, $current);
 
     print "</ul></div>\n";
 }
