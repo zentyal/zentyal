@@ -11,6 +11,7 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <!--[if IE]><script language="javascript" type="text/javascript" src="/data/js/excanvas.js"></script><![endif]-->
@@ -76,7 +77,7 @@ function toggleClose()
 
 function configureWidgets()
 {
-	Modalbox.show('/Dashboard/ConfigureWidgets', {
+   Modalbox.show('/Dashboard/ConfigureWidgets', {
         title: '<% __("Configure Widgets") %>',
         width: 980,
         height: 100,
@@ -84,11 +85,14 @@ function configureWidgets()
         afterLoad: function() {
             $('MB_content').setStyle({overflow: 'visible'});
             toggleClose();
+            Modalbox.MBwindow.removeClassName('MB_dialog');
         },
         beforeHide: function() {
             toggleClose();
-        }
+        },
+        originalImplementation : true
     });
+
 }
 
 var graphInfo = new Array();
