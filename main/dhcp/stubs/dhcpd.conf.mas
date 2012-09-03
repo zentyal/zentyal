@@ -15,14 +15,14 @@ Parameters:
     pidFile - String the path to the file which stores the daemon PID
 </%doc>
 <%args>
-	%ifaces
-	%real_ifaces
-        $thinClientOption => 0
-	$dnsone => ""
-	$dnstwo => ""
-        $dynamicDNSEnabled => 0
-        $keysFile => ""
-        $pidFile
+    %ifaces
+    %real_ifaces
+    $thinClientOption => 0
+    $dnsone => ''
+    $dnstwo => ''
+    $dynamicDNSEnabled => 0
+    $keysFile => undef
+    $pidFile
 </%args>
 # DHCP server is authoritative for all networks
 authoritative;
@@ -60,7 +60,7 @@ allow bootp;
 default-lease-time 1800;
 max-lease-time 7200;
 
-% if ($keysFile) {
+% if (defined $keysFile) {
 include "<% $keysFile %>";
 % }
 

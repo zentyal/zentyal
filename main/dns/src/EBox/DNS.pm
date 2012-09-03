@@ -726,9 +726,16 @@ sub _setConf
             "dns/named.conf.local.mas",
             \@array);
 
-    @array = ( 'keys' => \%keys );
+    @array = ();
+    push (@array, keys => \%keys);
     $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array,
                          {'uid' => 'root', 'gid' => 'bind', mode => '640'});
+    if (EBox::Global->modExists('dhcp')) {
+        my $mod = EBox::Global->modInstance('dhcp');
+        my $file = $mod->KEYS_FILE();
+        $self->writeConfFile($file, 'dns/keys.mas', \@array,
+            {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
+    }
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
@@ -1301,13 +1308,11 @@ sub _updateDynReverseZone
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
 
     my $zone = $rdata->{'groupip'} . ".in-addr.arpa";
-    foreach my $groupItem (@{$rdata->{'domain'}}) {
-        foreach my $host (@{$groupItem->{'hosts'}}) {
-            print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
-            my $prefix = "";
-            $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
-            print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $groupItem->{'name'} . ".\n";
-        }
+    foreach my $host (@{$rdata->{'hosts'}}) {
+        print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
+        my $prefix = "";
+        $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
+        print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $rdata->{'domain'} . ".\n";
     }
     # Send the previous commands in batch
     if ( $fh->tell() > 0 ) {
@@ -1318,7 +1323,6 @@ sub _updateDynReverseZone
         untie(@file);
         $self->_launchNSupdate($fh);
     }
-
 }
 
 # Update the dynamic direct zone
