@@ -1,4 +1,7 @@
 HEAD
+	+ Fix enable/disable the DNS cache checkbox without restarting apache.
+	  The enabled property depends on firewall enabled, now this check is
+	  done at run time.
 	+ Update the managed domain ip addresses when saving changes
 	+ Implement Network observer to update the kerberos domain when
 	  dhcp addresses are assigned
