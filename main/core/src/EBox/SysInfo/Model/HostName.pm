@@ -143,4 +143,20 @@ sub _readResolv
     return [$searchdomain, @dns];
 }
 
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $newHostName   = $self->row->valueByName('hostname');
+    my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;
+    my $newDomainName = $self->row->valueByName('hostdomain');
+    my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newHostDomain;
+
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfoObserver')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChanged() if ($newHostDomain ne $oldHostDomain);
+        $obs->hostNameChanged() if ($newHostName ne $newHostDomain);
+    }
+}
+
 1;
