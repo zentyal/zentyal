@@ -30,8 +30,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Html;
 use Encode;
 use File::Slurp;
+use JSON::XS;
 
 ## arguments:
 ##  title [required]
@@ -82,7 +84,7 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-            push @params, ( adsJson => loadAds() );
+            push @params, (adsJson => loadAds());
         }
     }
 
@@ -169,12 +171,15 @@ sub loadAds
         $file = "$file.custom";
     }
     EBox::debug("Loading ads from: $file");
-    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
-    my $text = '';
-    foreach my $line (@ads) {
-        $text .= $line . "\n";
+    my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
+    my $slides = decode_json($json);
+
+    my @html;
+    foreach my $slide (@{$slides}) {
+        push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
-    return $text;
+
+    return encode_json(\@html);
 }
 
 1;

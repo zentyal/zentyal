@@ -1,0 +1,32 @@
+<%args>
+    $title
+    @images
+    @paragraphs => ()
+    @items => ()
+    @links => ()
+    $endText => ''
+</%args>
+<div class='ads'>
+<h2><% $title %></h2>
+
+% foreach my $img (@images) {
+<img style='padding: 0 15px; float: right' src="<% $img %>">
+% }
+
+% foreach my $text (@paragraphs) {
+<p><% $text %></p>
+% }
+
+% if (@items) {
+<ul>
+%  foreach my $item (@items) {
+    <li><% $item %></li>
+%  }
+</ul>
+% }
+
+% foreach my $link (@links) {
+<div><a onclick="window.open('<% $link %>)'"><% $link %></a></div>
+% }
+
+</div>
