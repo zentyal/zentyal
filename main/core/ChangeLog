@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Model::Component::modelGetter does not die when trying to
+	  get a model for an uninstalled module
 	+ Added previous/next buttons to manually switch installation slides
 	+ New installation slides format
 	+ Added compatibility with MS Internet Explorer >= 8
