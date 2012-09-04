@@ -114,7 +114,7 @@ sub validateTypedRow
     if ( $action eq 'update' ) {
         my $oldRow = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow()->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic')) {
             my $zone = $zoneRow->valueByName('domain');
             my $alias = $oldRow->valueByName('alias');
             $self->{toDelete} = "$alias.$zone";
@@ -155,7 +155,7 @@ sub deletedRowNotify
 
     # Deleted RRs to account
     my $zoneRow = $row->parentRow()->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic')) {
         my $zone = $zoneRow->valueByName('domain');
         # Delete all aliases
         $self->_addToDelete( $row->valueByName('alias') . ".$zone");

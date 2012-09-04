@@ -96,7 +96,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this nameserver
         my $oldRow = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic')) {
             my $zone = $zoneRow->valueByName('domain');
             my $ns   = $oldRow->printableValueByName('hostName');
             if ( $ns !~ m:\.:g ) {
@@ -141,7 +141,7 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic')) {
         my $zone = $zoneRow->valueByName('domain');
         my $ns   = $row->printableValueByName('hostName');
         if ( $ns !~ m:\.:g ) {

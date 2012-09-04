@@ -84,7 +84,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this TXT record
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic')) {
             my $zone = $zoneRow->valueByName('domain');
             my $hostname = $allFields->{hostName};
             my $record = '';
@@ -113,7 +113,7 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic')) {
         my $zone = $zoneRow->valueByName('domain');
         my $hostname = $row->elementByName('hostName');
         my $record = '';

@@ -70,7 +70,6 @@ sub new
 #   ipAddresses - (optional) Array ref with ipAddresses for the domain
 #   hostnames   - (optional) Array ref containing host information with the
 #                            same format than addHost method
-#   type        - (optional) Domain type (static, dynamic or dlz)
 #   readOnly    - (optional)
 #
 # Example:
@@ -92,9 +91,6 @@ sub addDomain
     my $domainName = $params->{domain_name};
     unless (defined ($domainName)) {
         throw EBox::Exceptions::MissingArgument('domain_name');
-    }
-    unless (defined $params->{type}) {
-        $params->{type} = EBox::DNS::STATIC_ZONE();
     }
 
     EBox::debug("Adding DNS domain $domainName");

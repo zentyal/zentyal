@@ -96,7 +96,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this hostname and its aliases
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic')) {
             my @toDelete = ();
             my $zone = $zoneRow->valueByName('domain');
             # Delete all aliases
@@ -246,7 +246,7 @@ sub deletedRowNotify
 
     # Deleted RRs to account
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic')) {
         my $zone = $zoneRow->valueByName('domain');
         # Delete all aliases
         my $aliasModel = $row->subModel('alias');

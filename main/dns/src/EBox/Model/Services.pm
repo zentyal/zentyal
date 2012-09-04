@@ -83,7 +83,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this SRV record
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic')) {
             my $zone = $zoneRow->valueByName('domain');
             my $srvName  = $oldRow->valueByName('service_name');
             my $protocol = $oldRow->valueByName('protocol');
@@ -105,7 +105,7 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic')) {
         # Add toDelete the RRs for this SRV record
         my $zone = $zoneRow->valueByName('domain');
         my $srvName  = $row->valueByName('service_name');
