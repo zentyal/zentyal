@@ -1,5 +1,6 @@
 <%args>
 $showImages => 1
+$showAdvanced => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -90,6 +91,8 @@ use EBox::Gettext;
 	</p>
     </div>
   </div>
+
+% if ($showAdvanced) {
   <div>
 % if ($showImages) {
 <a class="img_a" href="/Firewall/View/EBoxServicesRuleTable"><img src="/data/firewall/advanced.png" /></a>
@@ -107,5 +110,7 @@ use EBox::Gettext;
 	</p>
     </div>
   </div>
+% }
+
 </div>
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,30 +12,51 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Firewall::Filter;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Wizard::SoftwareSetupFinish;
 use base 'EBox::CGI::ClientBase';
 
+use EBox::Global;
 use EBox::Gettext;
-use EBox::Config;
 
-sub new
+sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => ('Packet Filter'),
-				      'template' => '/firewall/filter.mas',
-				      @_);
-
-    my $showImages = not EBox::Config::boolean('hide_firewall_images');
-    my $showAdvanced = EBox::Config::boolean('show_service_rules');
-    $self->{params} = [ showImages => $showImages, showAdvanced => $showAdvanced ];
-
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Installation finished'),
+            'template' => 'wizard/software-setup-finish.mas',
+            @_);
     bless($self, $class);
     return $self;
 }
+
+sub _process
+{
+    my $self = shift;
+    $self->{params} = [
+         firstTime => $self->param('firstTime'),
+       ];
+}
+
+sub _menu
+{
+    my ($self) = @_;
+
+    if (EBox::Global->first() and EBox::Global->modExists('software')) {
+        my $software = EBox::Global->modInstance('software');
+        $software->firstTimeMenu(5);
+    } else {
+        $self->SUPER::_menu(@_);
+    }
+}
+
+sub _top
+{
+    my ($self)= @_;
+    $self->_topNoAction();
+}
+
+
 
 1;

@@ -20,5 +20,6 @@ function timedRefresh(timeoutPeriod) {
 }
 //   -->
 </script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
 <body onload="javascript:timedRefresh(<% $refreshTime*1000 %>);">

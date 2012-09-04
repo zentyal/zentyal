@@ -1,4 +1,4 @@
-HEAD
+2.3.16
 	+ Fixed PAM when kerberos is enabled
 	+ Fixed addUser operation on slaves
 	+ Catch exceptions thrown by notified modules adding LDAP users and groups

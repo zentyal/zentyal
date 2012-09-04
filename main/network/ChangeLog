@@ -1,4 +1,4 @@
-HEAD
+2.3.14
 	+ Fixed bug which made impossible to remove bridged interfaces
 	+ Management of CHAP secrets file recovers from removal of Zentyal marks
 	+ Add two methods to NetworkObserver interface to notify observers about
