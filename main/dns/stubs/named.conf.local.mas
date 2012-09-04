@@ -16,6 +16,10 @@ acl "trusted" {
 };
 
 % foreach my $dom (@domains) {
+%   if ($dom->{samba}) {
+include "/var/lib/samba/private/named.conf";
+%       next;
+%   }
 zone "<% $dom->{name} %>." IN {
     type master;
 %       if ($dom->{dynamic}) {

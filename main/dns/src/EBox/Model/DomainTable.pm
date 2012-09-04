@@ -460,7 +460,7 @@ sub addedRowNotify
     # Add the domain IP addresses
     my @addedAddrs;
     my $network = EBox::Global->modInstance('network');
-    my $ifaces = $network->InternalIfaces();
+    my $ifaces = $network->ifaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
@@ -611,6 +611,13 @@ sub _table
 
             new EBox::Types::Boolean(
                 fieldName => 'managed',
+                editable => 0,
+                optional => 0,
+                defaultValue => 0,
+                hidden => 1,
+            ),
+            new EBox::Types::Boolean(
+                fieldName => 'samba',
                 editable => 0,
                 optional => 0,
                 defaultValue => 0,

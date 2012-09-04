@@ -247,6 +247,7 @@ sub domains
         my $domaindata = {
             name  => $row->valueByName('domain'),
             dynamic => $row->valueByName('dynamic'),
+            samba => $row->valueByName('samba'),
             managed => $row->valueByName('managed')
         };
         push @{$array}, $domaindata;
@@ -656,6 +657,11 @@ sub _setConf
         # Store the domain data to create the reverse zones
         push (@domainData, $domdata);
 
+        # Add the updater key if the zone is dynamic
+        if ($domdata->{dynamic}) {
+            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
+        }
+
         my $file;
         if ($domdata->{'dynamic'}) {
             $file = BIND9_UPDATE_ZONES;
@@ -666,18 +672,15 @@ sub _setConf
 
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
-        if ($domdata->{'dynamic'} and -e "${file}.jnl") {
+        if ($domdata->{samba}) {
+            $self->_updateDynDirectZone($domdata);
+        } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
             $self->writeConfFile($file, "dns/db.mas", \@array);
             EBox::Sudo::root("chown bind:bind '$file'");
-        }
-
-        # Add the updater key if the zone is dynamic
-        if ($domdata->{dynamic}) {
-            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
         }
     }
 
@@ -696,7 +699,9 @@ sub _setConf
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+        if ($reversedDataItem->{samba}) {
+            $self->_updateDynReverseZone($reversedDataItem);
+        } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
             $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
@@ -1235,7 +1240,7 @@ sub _formatSRV
 #
 #  'name': domain name
 #  'ipAddresses': array ref containing domain ip addresses
-#  'type' : the domain type (static, dynamic or dlz)
+#  'dynamic' :
 #  'tsigKey' : the TSIG key if the domain is dynamic
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
 #  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
@@ -1253,6 +1258,7 @@ sub _completeDomain # (domainId)
     my $domdata;
     $domdata->{'name'} = $row->valueByName('domain');
     $domdata->{dynamic} = $row->valueByName('dynamic');
+    $domdata->{samba} = $row->valueByName('samba');
     $domdata->{'tsigKey'} = $row->valueByName('tsigKey');
 
     $domdata->{'ipAddresses'} = $self->_domainIpAddresses(
@@ -1460,8 +1466,6 @@ sub _removeDomainsFiles
 {
     my ($self) = @_;
 
-    return if ($self->isReadOnly());
-
     my $oldList = $self->st_get_list('domain_files');
     my $newList = [];
 
@@ -1475,7 +1479,7 @@ sub _removeDomainsFiles
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $row->valueByName('domain');
-        push (@{$newList}, $file);
+        push (@{$newList}, $file) unless $row->valueByName('samba');
     }
 
     $self->_removeDisjuncFiles($oldList, $newList);
@@ -1486,8 +1490,6 @@ sub _removeDomainsFiles
 sub _removeUnusedReverseFiles
 {
     my ($self, $reversedData) = @_;
-
-    return if ($self->isReadOnly());
 
     my $oldList = $self->st_get_list('inarpa_files');
     my $newList = [];
