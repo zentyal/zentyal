@@ -9,7 +9,7 @@ Parameters:
   ifaces   - array the internal interface name array
 </%doc>
 <%args>
-        @addresses => ()
+    @addresses => ()
 </%args>
 #
 #
@@ -110,6 +110,3 @@ DefaultAuthType Basic
     Order deny,allow
   </Limit>
 </Policy>
-
-#
-#

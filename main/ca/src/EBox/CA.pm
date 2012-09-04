@@ -115,7 +115,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ca',
-                      printableName => __n('Certification Authority'),
+                      printableName => __('Certification Authority'),
                       @_);
 
     bless($self, $class);
@@ -978,7 +978,7 @@ sub generateCRL
       if ($retValue eq "ERROR");
 
     # Set the link to the last
-    unlink (LASTESTCRL) if ( -e LASTESTCRL );
+    unlink (LASTESTCRL) if ( -l LASTESTCRL );
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
 }
 
@@ -1723,7 +1723,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'CA',
                                         'text' => $self->printableName(),
                                         'separator' => 'Infrastructure',
-                                        'order' => 440);
+                                        'order' => 422);
 
     $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                       'text' => __('General')));

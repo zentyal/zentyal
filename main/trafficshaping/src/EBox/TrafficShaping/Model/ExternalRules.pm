@@ -21,12 +21,10 @@
 #   Zentyal. It is a quite complicated model and it is highly coupled to
 #   <EBox::TrafficShaping> module itself.
 #
-
-package EBox::TrafficShaping::Model::ExternalRules;
-
 use strict;
 use warnings;
 
+package EBox::TrafficShaping::Model::ExternalRules;
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 
 use EBox::Gettext;
@@ -65,6 +63,44 @@ sub allIfacesForRuleTable
     my $network = $self->global()->modInstance('network');
     my $ifaces =   $network->ExternalIfaces();
     return $ifaces;
+}
+
+# Method: notifyForeignModelAction
+#
+#      Called whenever an action is performed on the interface rate model
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::notifyForeignModelAction>
+#
+sub notifyForeignModelAction
+{
+    my ($self, $modelName, $action, $row) = @_;
+    if ($modelName ne 'trafficshaping/InterfaceRate') {
+        return;
+    }
+
+    my $iface = $row->valueByName('interface');
+
+    my $userNotes = '';
+    if ($action eq 'update') {
+        my $netMod = $self->global()->modInstance('network');
+            # Check new bandwidth
+            my $limitRate;
+            if ( $netMod->ifaceIsExternal($iface)) {
+                $limitRate = $self->{ts}->uploadRate($iface);
+            } else {
+                # Internal interface
+                $limitRate = $self->{ts}->totalDownloadRate($iface);
+            }
+            if ( $limitRate == 0 or (not $self->{ts}->enoughInterfaces())) {
+                $userNotes = $self->_removeRules($iface);
+            } else {
+                $userNotes = $self->_normalize($iface, $self->_stateRate($iface), $limitRate);
+            }
+            $self->_setStateRate($iface, $limitRate );
+    }
+    return $userNotes;
 }
 
 

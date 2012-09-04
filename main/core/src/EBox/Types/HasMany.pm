@@ -140,11 +140,15 @@ sub foreignModelInstance
     my $model;
     my $manager = EBox::Model::Manager->instance();
     my $ro = $self->row()->configModule->isReadOnly();
-    if ($self->foreignModelIsComposite()) {
-        $model = $manager->composite($modelName, $ro);
-    } else {
-        $model = $manager->model($modelName, $ro);
-    }
+    try {
+        if ($self->foreignModelIsComposite()) {
+            $model = $manager->composite($modelName, $ro);
+        } else {
+            $model = $manager->model($modelName, $ro);
+        }
+    } catch EBox::Exceptions::DataNotFound with { };
+
+    return undef unless (defined($model));
 
     $model->setDirectory($directory);
 
@@ -447,11 +451,7 @@ sub model
 
     my $module =  EBox::Global->modInstance($self->{moduleName});
     if (not $module->can('model')) {
-        EBox::warning(
-        'cannot recreate row for ' .  $self->{fieldName} .
-       ' because moduel has not model method'
-
-                     );
+        EBox::warn('cannot recreate row for ' .  $self->{fieldName} .  ' because module has not model() method');
         return undef;
     }
 

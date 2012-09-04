@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# FIXME: this is currently disabled until samba4 integration implemented
-exit 0
-
 # stop and disable cups
 invoke-rc.d cups stop
 update-rc.d cups disable
@@ -10,11 +7,15 @@ update-rc.d cups disable
 # create spool
 if [ ! -d /var/spool/samba ]; then
     mkdir /var/spool/samba
-    chown nobody:nogroup /var/spool/samba
-    chmod a+rwt /var/spool/samba
 fi
+chown nobody:nogroup /var/spool/samba
+chmod a+rwt /var/spool/samba
 
 # Set permissions for printer drivers
+if [ ! -d /var/lib/samba/printers ]; then
+    mkdir /var/lib/samba/printers
+fi
+
+# TODO Why 512
 chown -R root:512 /var/lib/samba/printers
 chmod -R g+w /var/lib/samba/printers
-

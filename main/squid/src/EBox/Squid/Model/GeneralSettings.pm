@@ -50,7 +50,13 @@ sub _table
                   hidden => \&_sslSupportNotAvailable,
                   editable => 1,
                   defaultValue => 0,
-                  help => __('FIXME: add help'),
+                  #help => __('FIXME: add help'),
+              ),
+          new EBox::Types::Boolean(
+                  fieldName => 'kerberos',
+                  printableName => __('Enable Single Sign-On (Kerberos)'),
+                  editable => 1,
+                  defaultValue => 0,
               ),
           new EBox::Types::Boolean(
                   fieldName => 'removeAds',

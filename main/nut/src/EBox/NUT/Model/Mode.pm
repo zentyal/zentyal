@@ -42,7 +42,6 @@ sub _table
             defaultValue => 'standalone',
             populate => \&_mode,
             editable => 1,
-            help => __(''),
         ),
     );
 

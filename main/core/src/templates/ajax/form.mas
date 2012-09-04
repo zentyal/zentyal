@@ -45,45 +45,13 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
-
 <& /title.mas,
     crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
-
-% if ( $model->pageTitle() ) {
-%      my $viewCustomizer = $model->viewCustomizer();
-%      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
-%      my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() : undef;
-%      if ($msg) {
-<& /msg.mas,
-   msg => $msg,
-   class => $type,
-&>
-%      }
-%      if ( $model->message() ) {
-<& /msg.mas,
-   msg => $model->popMessage(),
-   class => $model->messageClass()
-&>
-%      }
-% }
-
-% my $help = $model->help();
-% if ($help) {
-<div class="help">
-  <% $help %>
-</div>
-% }
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-<div class="warning">
-  <% $disabledModuleWarning %>
-</div>
-% }
-
 <& PARENT:title,
    title => $model->headTitle()
 &>
+<& SELF:messagesAndHelp, model => $model &>
 
 <& SELF:editForm,
    modelName => $model->name(),
@@ -108,12 +76,11 @@
   my $model = $m->caller_args(2)->{model};
   my $id = $model->row()->id();
   my $actions = $model->table()->{actions};
-
   my $onClick = $model->changeRowJS($id, 0) . '; return false';
   $onClick =  $model->confirmationJS('submit', $onClick);
 </%init>
 <td id="<% 'buttons_' . $model->modelName() %>">
-% if ($actions) {
+% if (defined $actions and (keys %{ $actions} > 0)) {
   <& /input/submit.mas,
      name => 'change',
      value => $model->printableActionName(),

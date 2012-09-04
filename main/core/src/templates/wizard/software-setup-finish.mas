@@ -1,0 +1,24 @@
+<%args>
+  $firstTime   => 1
+  $image_title => '/data/images/title.png'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+
+<div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
+
+
+<div class="final_installation">
+
+  <h4><% __('Congratulations!') %></h4>
+  <h5><% __('Your Zentyal installation has successfully finished!') %></h5>
+
+  <p><% __('Now you can go to the dashboard and start using your brand new Zentyal server.') %></p>
+
+
+  <form  method="POST">
+    <input style="" class="inputButton start_now_boton" type="submit" name="save" value="<% __('Go to the Dashboard') %>" onclick="window.location='/Dashboard/Index'; return false"/>;
+  </form>
+</div>

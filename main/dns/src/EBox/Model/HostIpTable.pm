@@ -28,7 +28,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::HostIP;
-use EBox::Sudo;
+use EBox::Types::Text;
 
 use strict;
 use warnings;
@@ -59,43 +59,37 @@ sub new
 #    <EBox::Exceptions::External> - thrown if there is a hostname with
 #    the same ip
 #
-#sub validateTypedRow
-#{
-#    my ($self, $action, $changedFields, $allFields) = @_;
-#
-#    return unless (exists $changedFields->{ip});
-#    my $ip = $changedFields->{ip};
-#
-#    # Check there is no A RR in the same domain with the same ip
-#    my $domain = $ip->row()->parentRow()->parentRow()->valueByName('domain');
-#    my $subdomain = $ip->row()->parentRow()->valueByName('subdomain');
-#    my $id = $ip->row()->id();
-#
-#    my $hostnameIds = $ip->row()->parentRow()->model()->ids();
-#    foreach my $hostId (@{$hostnameIds}) {
-#        next if ($hostId eq $id);
-#
-#        my $hostname = $ip->row()->parentRow()->model()->row($hostId);
-#        my $hostSubdomain = $hostname->valueByName('subdomain');
-# FIXME This line cause a error, once solved uncomment this method
-#       The error is: ModelManager.pm:346 EBox::Model::ModelManager::modelActionTaken - Missing argument: row
-#        my $hostIpModel   = $hostname->subModel('ipAddresses');
-#
-#        foreach my $ipId (@{$hostIpModel->ids()}) {
-#            my $aIp = $hostIpModel->row($ipId);
-#            if ($aIp->elementByName('ip')->isEqualTo($ip) and
-#                defined ($hostSubdomain) and
-#                defined ($subdomain) and
-#                $hostSubdomain eq $subdomain) {
-#                throw EBox::Exceptions::External(
-#                  __x('The IP {ip} is already assigned to host {name}' .
-#                      ' in the same domain',
-#                      name => $aIp->valueByName('hostname'),
-#                      ip   => $hostname->valueByName('ip')));
-#            }
-#        }
-#    }
-#}
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    return unless (exists $changedFields->{ip});
+
+    # Check there is no A RR in the same domain with the same ip
+    my $ip = $changedFields->{ip};
+    my $id = $ip->row()->id();
+
+    my $hostnameRow = $ip->row();
+    my $hostnameParentRow = $hostnameRow->parentRow();
+    my $hostnameModel = $hostnameParentRow->model();
+    my $hostnameIds = $hostnameModel->ids();
+    foreach my $hostId (@{$hostnameIds}) {
+        next if ($hostId eq $id);
+
+        my $hostname = $ip->row()->parentRow()->model()->row($hostId);
+        my $hostIpModel   = $hostname->subModel('ipAddresses');
+        foreach my $ipId (@{$hostIpModel->ids()}) {
+            my $aIp = $hostIpModel->row($ipId);
+            if ($aIp->elementByName('ip')->isEqualTo($ip)) {
+                throw EBox::Exceptions::External(
+                  __x("The IP '{ip}' is already assigned to host '{name}' " .
+                      "in the same domain",
+                      name => $hostname->valueByName('hostname'),
+                      ip   => $ip->value()));
+            }
+        }
+    }
+}
 
 sub pageTitle
 {
@@ -113,11 +107,22 @@ sub pageTitle
 #
 sub _table
 {
-    my @tableHead = (new EBox::Types::HostIP( fieldName => 'ip',
-                                              printableName => __('IP'),
-                                              size => '20',
-                                              unique => 1,
-                                              editable => 1 ));
+    my @tableHead = (
+        new EBox::Types::HostIP(
+            fieldName => 'ip',
+            printableName => __('IP'),
+            size => '20',
+            unique => 1,
+            editable => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName => 'dhcp_iface',
+            printableName => __('DHCP interface'),
+            optional => 1,
+            editable => 0,
+            hidden => 1,
+        ),
+    );
 
     my $dataTable = { tableName => 'HostIpTable',
                       printableTableName => __('IP'),

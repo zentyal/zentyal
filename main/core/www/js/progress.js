@@ -77,16 +77,16 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
             }
 
             Element.hide('progressing');
-            Element.show('done');
+            $('done').show();
 
             // Used to tell selenium we are done
             // with saving changes
             $('ajax_request_cookie').value = 1337;
         }
         else if (response.state == 'error') {
-            Element.hide('progressing');
-            Element.show('error-progress');
             pe.stop();
+            Element.hide('progressing');
+            $('error-progress').show();
             if ('errorMsg' in response) {
                 $('error-progress-message').update(
                     response.errorMsg);
@@ -109,9 +109,11 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
         }
     );
     time++;
-    if (time >= 30) {
+    if (time >= 10) {
         time = 0;
+      if (window.showAds) {
         showAds();
+      }
     }
 
 
@@ -126,7 +128,7 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
                                                 + nextStepTimeout + ", '"
                                                 + nextStepUrl + "')";
 
-    callServerCurried = new Function(callServerCurriedBody );
+    var callServerCurried = new Function(callServerCurriedBody );
 
     pe = new PeriodicalExecuter(callServerCurried, reloadInterval);
 }

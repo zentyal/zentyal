@@ -141,7 +141,8 @@ sub name
 #       otherwise
 sub precondition
 {
-    my $global = EBox::Global->getInstance();
+    my ($self) = @_;
+    my $global = $self->global();
     my $ca = $global->modInstance('ca');
     return ($ca->isAvailable());
 }
@@ -183,8 +184,10 @@ sub validateTypedRow
 
     $self->_validateName($action, $params_r, $actual_r);
     if ($action eq 'add') {
+        my $name = $params_r->{name}->value();
         $self->_checkCertificatesAvailable(
-                  __('Server creation')
+            $name,
+            __('Server creation')
                                           );
         return;
     }
@@ -317,7 +320,7 @@ sub _validateName
 
 sub _checkCertificatesAvailable
 {
-    my ($self, $printableAction) = @_;
+    my ($self, $name, $printableAction) = @_;
 
     unless ($self->precondition()) {
         throw EBox::Exceptions::External(
@@ -329,6 +332,34 @@ sub _checkCertificatesAvailable
                        act => $printableAction
                       )
                                         );
+    }
+
+    my $ca = $self->global()->modInstance('ca');
+    my $certName =  "vpn-$name";
+    my $metadata = $ca->getCertificateMetadata(cn => $certName);
+    if (defined $metadata) {
+        my $state = $metadata->{state};
+        if ($state ne 'V') {
+            my $printableState;
+            if ($state eq 'R') {
+                $printableState = __('revoked');
+            } elsif ($state eq 'E') {
+                $printableState = __('expired');
+            } else {
+                $printableState = __('invalid');
+            }
+
+            throw EBox::Exceptions::External(
+                   __x(
+                       'Cannot create a server called {name} because it already' .
+                       'exists a certificate called {certName} with {state} state.<br/>' .
+                       'Choose another name or reissue the {certName} certificate',
+                       name     => $name,
+                       certName => $certName,
+                       state    => $printableState,
+                      )
+                  );
+        }
     }
 }
 
@@ -352,8 +383,6 @@ sub _configureVPN
 {
     my ($self, $row) = @_;
 
-    my $name = $row->valueByName('name');
-
     # Configure network
     my $networkMod = EBox::Global->modInstance('network');
     my @addresses;
@@ -362,11 +391,11 @@ sub _configureVPN
         push (@addresses, $address) if ($address);
     }
 
+    my $rowId = $row->id();
     for my $id (@{$self->ids()}) {
-        next if ($id eq $row->id());
+        next if ($id eq $rowId);
         my $subModel = $self->row($id)->subModel('configuration');
         my $vpn = $subModel->row()->elementByName('vpn')->printableValue();
-        my $name = $self->row($id)->valueByName('name');
         push (@addresses, $vpn) if ($vpn);
     }
     my $network;
@@ -384,6 +413,7 @@ sub _configureVPN
 
     # Create server certificate
     my $ca = EBox::Global->modInstance('ca');
+    my $name = $row->valueByName('name');
     my $certName = "vpn-$name";
     my @certs = @{$ca->listCertificates()};
     unless (List::Util::first { $_->{dn}->{commonName} eq $certName } @certs ) {
@@ -414,13 +444,13 @@ sub _configureVPN
                                 $ifaceAddress->{netmask},
                              );
             my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
-            my $name = "openVPN-$iface-$netAddress-$mask";
+            my $objName = "openVPN-$iface-$netAddress-$mask";
 
             my $id = undef;
 
             # Check if object already exist
             for my $obj (@{$objects}) {
-                if ($obj->{'name'} eq $name) {
+                if ($obj->{'name'} eq $objName) {
                     $id = $obj->{'id'};
                 }
             }
@@ -428,7 +458,7 @@ sub _configureVPN
             # Add the object if if does not exist
             if ( not defined $id ) {
                 $id = $objMod->addObject(
-                    name     => $name,
+                    name     => $objName,
                     members  => [{
                                     name             => "$netAddress-$mask",
                                     address_selected => 'ipaddr',

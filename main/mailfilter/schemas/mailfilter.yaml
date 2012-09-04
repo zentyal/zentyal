@@ -7,7 +7,7 @@ models:
     - AmavisPolicy
     - ExternalMTA
     - ExternalDomain
-    - VDomains
+    - VDomainsFilter
     - FileExtensionACL
     - MIMETypeACL
     - AntispamConfiguration
@@ -23,12 +23,16 @@ models:
     - POPProxyReportOptions
 
 composites:
-    Amavis: [AmavisConfiguration, AmavisPolicy, VDomains, ExternalConnections]
+    Amavis: [AmavisConfiguration, AmavisPolicy, VDomainsFilter, ExternalConnections]
     ExternalConnections: [ExternalMTA, ExternalDomain]
     FileFilter: [FileExtensionACL, MIMETypeACL]
     Antispam: [AntispamConfiguration, AntispamACL, AntispamTraining]
     FilterReport: [FilterReportOptions, FilterGraph, FilterDetails]
     POPProxyReport: [POPProxyReportOptions, POPProxyGraph, POPProxyDetails]
 
+modeldepends:
+    VDomainsFilter:
+        mail/VDomains: [vdomain]
+
 foreign:
-    VDomains: [AntispamVDomainACL]
+    VDomainsFilter: [AntispamVDomainACL]

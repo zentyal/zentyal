@@ -102,20 +102,30 @@ sub hasFeature
 {
     my ($self, $user, $feature) = @_;
 
-    my @enabled = split(/ /, $user->get('zarafaEnabledFeatures'));
-    return ($feature eq any @enabled);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+
+    return $enabled{$feature};
 }
 
 sub setHasFeature
 {
     my ($self, $user, $feature, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
 
-    return unless ($self->hasFeature($user, $feature) xor $option);
+    my %enabled = map { $_ => 1 }
+        (split (' ', $user->get('zarafaEnabledFeatures')));
+    if ($option) {
+	    $enabled{$feature} = 1;
+    } else {
+	    delete $enabled{$feature};
+    }
 
-    my $new = $feature . " " . $user->get('zarafaEnabledFeatures');
-    $new =~ s/\s+$//;
-    $user->set('zarafaEnabledFeatures', $new);
+    my @features = keys (%enabled);
+    if (@features) {
+        $user->set('zarafaEnabledFeatures', join (' ', @features));
+    } else {
+        $user->delete('zarafaEnabledFeatures');
+    }
 }
 
 sub isAdmin
@@ -167,6 +177,9 @@ sub setMeetingAutoaccept
     return unless ($self->hasMeetingAutoaccept($user) xor $option);
 
     $user->set('zarafaMrAccept', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-accept $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasMeetingDeclineConflict
@@ -184,6 +197,9 @@ sub setMeetingDeclineConflict
     return unless ($self->hasMeetingDeclineConflict($user) xor $option);
 
     $user->set('zarafaMrDeclineConflict', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-decline-conflict $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasMeetingDeclineRecurring
@@ -201,6 +217,9 @@ sub setMeetingDeclineRecurring
     return unless ($self->hasMeetingDeclineRecurring($user) xor $option);
 
     $user->set('zarafaMrDeclineRecurring', $option);
+    my $username = $user->name();
+    my $cmd = "zarafa-admin -u $username --mr-decline-recurring $option";
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub hasAccount
@@ -215,6 +234,7 @@ sub setHasAccount
     my ($self, $user, $option) = @_;
 
     my $model = $self->{zarafa}->model('ZarafaUser');
+
     if (not $self->hasAccount($user) and $option) {
         $self->setHasContact($user, 0);
         $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
@@ -234,6 +254,7 @@ sub setHasAccount
         $self->setHasFeature($user, 'imap', $model->imapValue());
 
         $self->{zarafa}->_hook('setacc', $user->name());
+
     } elsif ($self->hasAccount($user) and not $option) {
         $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->delete('zarafaAccount', 1);
@@ -246,6 +267,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaWarn', 1);
         $user->delete('zarafaQuotaSoft', 1);
         $user->delete('zarafaQuotaHard', 1);
+        $user->delete('zarafaEnabledFeatures', 1);
         $user->save();
 
         $self->setHasContact($user, $model->contactValue());
@@ -265,8 +287,8 @@ sub _addUser
    }
    my $model = $self->{zarafa}->model('ZarafaUser');
 
-   $self->setHasAccount($user, $model->enabledValue());
    $self->setHasContact($user, $model->contactValue());
+   $self->setHasAccount($user, $model->enabledValue());
 }
 
 sub hasContact
@@ -299,7 +321,7 @@ sub _delUserWarning
     $self->hasAccount($user) or
         return;
 
-    my $txt = __('This user has a Zarafa account. If the user is currently connected it will continue connected until Zarafa authorization is again required.');
+    my $txt = __('This user has a Zarafa account (if the user is currently connected it will continue connected until Zarafa authorization is again required).');
 
     return $txt;
 }

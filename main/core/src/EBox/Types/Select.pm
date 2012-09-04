@@ -32,8 +32,20 @@ use Perl6::Junction qw(any);
 
 use constant ADD_NEW_MODAL_VALUE => '_addNew';
 
-# Group: Public methods
-
+# Method: new
+#
+# Parameters:
+#   - parent class parameters
+#   - populate: function pointer which return the options of the select
+#   - foreignModel: model from which it rows the select we get its options  (has priority over populate)
+#   - foreignField : field of the foreign model which will be used as label for
+#       the options
+#   - foreignFilter: filter function for foreign model rows, it will be called with the foreign model row as argument
+#        and if it return true the row wil l be included. If not present all rows will be included
+#   - foreignNoSyncRows: don't call syncRows in the foreginModel when getting its rows
+#   - foreignNextPageField: its presence signals for a 'Add new' popup for add a foreign element. Its value will be the field of the subModel of the
+#                            foreign's row which will be edited after adding the new foreign item.
+#   - disableCache: disable the options cache.
 sub new
 {
     my $class = shift;
@@ -47,9 +59,6 @@ sub new
     }
     unless (exists $opts{'disableCache'}) {
         $opts{'disableCache'} = 0;
-    }
-    unless (exists $opts{'compareContext'}) {
-        $opts{'compareContext'} = 'default';
     }
 
     $opts{'type'} = 'select';
@@ -215,7 +224,11 @@ sub foreignModel
     return $model;
 }
 
-
+# Method: foreignField
+#
+#       Return the field of the foreign model which will be used as label for
+#       the options
+#
 sub foreignField
 {
     my ($self) = @_;
@@ -422,7 +435,15 @@ sub _optionsFromForeignModel
 
     return unless (defined($model) and defined($field));
 
-    return $model->optionsFromForeignModel($field);
+    my @params = ();
+    if ($self->{foreignFilter}) {
+        push @params, filter => $self->{foreignFilter};
+    }
+    if ($self->{foreignNoSyncRows}) {
+        push @params, noSyncRows => $self->{foreignNoSyncRows};
+    }
+
+    return $model->optionsFromForeignModel($field, @params);
 }
 
 

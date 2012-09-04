@@ -476,19 +476,17 @@ sub learnAccountsForDomain
 #   Reimplements the method needed for EBox::Mail::FilterProvider
 sub mailFilter
 {
-  my ($self) = @_;
-  return $self->smtpFilter()->mailFilter();
+    my ($self) = @_;
+    return $self->smtpFilter()->mailFilter();
 }
-
 
 sub dovecotAntispamPluginConf
 {
     my ($self) = @_;
 
-
     my $enabled =  $self->isEnabled();
     if ($enabled) {
-        my $vdomains = $self->model('VDomains');
+        my $vdomains = $self->model('VDomainsFilter');
         if (not $vdomains->anyAllowedToLearnFromIMAPFolder()) {
             $enabled = 0;
         }
@@ -707,8 +705,8 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
                                         'text' => $self->printableName(),
-                                        'separator' => 'UTM',
-                                        'order' =>  350
+                                        'separator' => 'Communications',
+                                        'order' =>  615
     );
 
     $folder->add(

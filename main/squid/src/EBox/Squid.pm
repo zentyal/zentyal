@@ -94,6 +94,27 @@ sub kerberosServicePrincipals
     return $data;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules only if installing the first time
+    unless ($version) {
+        # Allow clients to browse Internet by default
+        $self->model('AccessRules')->add(
+            source => { any => undef },
+            policy => { allow => undef },
+        );
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -517,6 +538,7 @@ sub _writeSquidConf
     my $generalSettings = $self->model('GeneralSettings');
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     my $removeAds    = $generalSettings->removeAdsValue();
+    my $kerberos     = $generalSettings->kerberosValue();
 
     my $network = EBox::Global->modInstance('network');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -528,12 +550,15 @@ sub _writeSquidConf
     my $cache_user = $network->model('Proxy')->usernameValue();
     my $cache_passwd = $network->model('Proxy')->passwordValue();
 
-    my $krbRealm = '';
     my $users = EBox::Global->modInstance('users');
-    if ($users->isEnabled()) {
+
+    my $krbRealm = '';
+    if ($kerberos) {
         $krbRealm = $users->kerberosRealm();
     }
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
+
+    my $dn = $users->ldap()->dn();
 
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
@@ -557,6 +582,8 @@ sub _writeSquidConf
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
+
+    push @writeParam, ('dn' => $dn);
 
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('remoteservices')) {
@@ -868,14 +895,14 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/AccessRules',
                                       'text' => __(q{Access Rules})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
-                                      'text' => __(q{Bandwidth Throttling})));
-
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/CategorizedLists',
                                       'text' => __(q{Categorized Lists})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
+                                      'text' => __(q{Bandwidth Throttling})));
 
     $root->add($folder);
 }

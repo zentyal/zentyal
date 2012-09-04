@@ -89,7 +89,7 @@ sub _table
 
 sub timePeriodModelPath
 {
-    return '/squid/TrafficReportOptions';
+    return 'TrafficReportOptions';
 }
 
 1;

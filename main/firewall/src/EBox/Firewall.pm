@@ -49,7 +49,7 @@ sub _create
 {
     my $class = shift;
     my $self =$class->SUPER::_create(name => 'firewall',
-                                     printableName => __n('Firewall'),
+                                     printableName => __('Firewall'),
                                      @_);
 
     $self->{'ToInternetRuleModel'} = $self->model('ToInternetRuleTable');
@@ -377,7 +377,7 @@ sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
     $self->removePortRedirectionsOnIface($iface);
-    $self->model('snat')->freeIface($iface);
+    $self->model('SNAT')->freeIface($iface);
 }
 
 # Method: freeViface
@@ -389,7 +389,7 @@ sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
     $self->removePortRedirectionsOnIface("$iface:$viface");
-    $self->model('snat')->freeViface($iface, $viface);
+    $self->model('SNAT')->freeViface($iface, $viface);
 }
 
 # Method: setInternalService
@@ -567,7 +567,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
                                         'text' => $self->printableName(),
-                                        'separator' => 'UTM',
+                                        'separator' => 'Gateway',
                                         'order' => 310);
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',

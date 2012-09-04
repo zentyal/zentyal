@@ -61,11 +61,11 @@ my @commonProgressParams = (
 );
 my @popupProgressParams = (
         raw => 1,
+        inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
         nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
-        barWidth => 490,
 );
 
 sub saveAllModulesAction
@@ -88,6 +88,14 @@ sub saveAllModulesAction
        );
     if ($self->param('noPopup')) {
         push @params, (title => __('Saving changes'));
+        if ($self->param('firstTime')) {
+            push @params, (firstTime => 1);
+            push @params, (nextStepUrl => '/Wizard/SoftwareSetupFinish?firstTime=1');
+            push @params, (nextStepText => __('You will be redirected to next step'));
+            push @params, (nextStepTimeout => 5);
+            push @params, (nextStepType => 'none');
+
+        }
     } else {
         push @params, @popupProgressParams;
         push @params, nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
@@ -119,7 +127,7 @@ sub revokeAllModulesAction
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
     }
 
     $self->showProgress(@params);

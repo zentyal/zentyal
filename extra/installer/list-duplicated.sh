@@ -58,13 +58,11 @@ do
     sed -i "/^$i$/d" FINAL_REMOVE_$ARCH
 done
 
+cat FINAL_REMOVE_$ARCH
+
 for dir in main extras
 do
 	rm ${dir}_WITH_VERSIONS_$ARCH
 	rm ${dir}_WITHOUT_VERSIONS_$ARCH
 done
-rm DUPLICATED_PACKAGES_$ARCH
-
-echo "for i in \`cat FINAL_REMOVE_$ARCH\` ; do rm extras-$ARCH/\${i}_*.deb ; done"
-
-rm REMOVE_* NO_REMOVE_*
+rm REMOVE_* NO_REMOVE_* FINAL_REMOVE_$ARCH DUPLICATED_PACKAGES_$ARCH

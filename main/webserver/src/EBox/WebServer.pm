@@ -155,7 +155,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $firewall = EBox::Global->modInstance('firewall');
+        my $firewall = $self->global()->modInstance('firewall');
 
         my $port = $firewall->requestAvailablePort('tcp', 80, 8080);
         $firewall->addInternalService(
@@ -171,8 +171,8 @@ sub initialSetup
 
         # Set port in the model
         my $settings = $self->model('GeneralSettings');
-        $settings->set(port      => $port,
-                       enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
+        $settings->setValue(port      => $port);
+        $settings->setValue(enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
     }
 }
 
@@ -225,9 +225,9 @@ sub menu
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       text  => $self->printableName(),
-                                      separator => 'Infrastructure',
+                                      separator => 'Office',
                                       url   => 'WebServer/Composite/General',
-                                      order => 430
+                                      order => 570
                                      );
       $root->add($item);
 }
@@ -743,9 +743,7 @@ sub restoreConfig
     my ($self, $dir) = @_;
     my $sitesBackDir = "$dir/sites-available";
     if (EBox::FileSystem::dirIsEmpty($sitesBackDir)) {
-        EBox::warning(
-            'No data in the backup for vhosts custom configuration files (maybe backup done in a previous version?). We left actual files untouched'
-           );
+        EBox::warn('No data in the backup for vhosts custom configuration files (maybe the backup was done in a previous version?). Actual files are left untouched');
         return;
     }
 

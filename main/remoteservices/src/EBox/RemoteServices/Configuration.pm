@@ -141,7 +141,7 @@ sub CronJobPrefix
 #
 sub aptQASourcePath
 {
-    return '/etc/apt/sources.list.d/ebox-qa.list';
+    return '/etc/apt/sources.list.d/zentyal-qa.list';
 }
 
 # Method: aptQAPreferencesPath

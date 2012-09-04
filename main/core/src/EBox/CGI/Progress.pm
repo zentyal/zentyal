@@ -60,10 +60,11 @@ sub _process
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             endNote errorNote reloadInterval currentItemUrl
+            inModalbox
             nextStepType
             nextStepUrl nextStepText nextStepTimeout
             nextStepUrlOnclick nextStepUrlFailureOnclick
-            barWidth );
+            );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command
@@ -107,18 +108,7 @@ sub _print
         return $self->SUPER::_print();
     }
 
-    my $json = $self->{json};
-    if ($json) {
-        $self->JSONReply($json);
-        return;
-    }
-
-    $self->_header;
-    print '<div id="limewrap"><div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div></div>";
+    return $self->_printPopup();
 }
 
 sub _menu

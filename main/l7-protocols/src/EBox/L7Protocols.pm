@@ -48,7 +48,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'l7-protocols',
-            printableName => __n('Application Protocols'),
+            printableName => __('Application Protocols'),
             @_);
     bless($self, $class);
     return $self;

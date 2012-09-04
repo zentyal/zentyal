@@ -176,6 +176,12 @@ sub gids
     return $gids;
 }
 
+sub uid
+{
+    my $uid = getpwnam(user());
+    return $uid;
+}
+
 
 sub group
 {

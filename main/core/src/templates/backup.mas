@@ -1,18 +1,19 @@
 <%args>
-  @backups
-  $modulesChanged
-  $subscribed
+  @backups => ()
+  $modulesChanged => 1
+  $subscribed => undef
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Config;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
-	<% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
+        <% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
   </div>
 % } else {
   <div class='adwarning'>
-	<% __sx('Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview of Zentyal Cloud and allows access to some features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+        <% __sx('Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview of Zentyal Cloud and allows access to some features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>
@@ -24,79 +25,136 @@ use EBox::Gettext;
 $modulesChanged
 </%args>
 <%init>
-my $modeOptions = [
-     { value => 'fullBackup', printableValue => __('Full Backup') },
-     { value => 'configurationBackup', printableValue => __('Configuration Backup') }
-];
 my $disabledAttr = $modulesChanged ? 'disabled' : '';
-
 </%init>
 <div class='note'>
     <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
 </div>
 <h3><% __('Backup the Current State') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in Zentyal and then you will be able to download them to your hard disk.") %><br/>
+        <% __("Backups will be stored in Zentyal and then you will be able to download them to your hard disk.") %><br/>
         <% __("If you have the file sharing module configured, all users having administration rights will be able to access the backup directory as a shared resource.") %>
 </div>
 % if ($modulesChanged) {
   <div class='warning'>
-	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
+        <% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
   </div>
 % }
 <p>
 <table class='formTable'>
     <tbody>
        <form action='Backup' method='POST'>
-       <& /input/hidden.mas, name => 'mode', value => 'configurationBackup', &>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Description') %>:</span>
-			</td>
-			<td>
-					<input type='text' class='inputText' name='description' size='52' />
-			</td>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Description') %>:</span>
+                        </td>
+                        <td>
+                                        <input type='text' class='inputText' name='description' id='backup_description' size='52' />
+                        </td>
                 </tr>
-		<tr>
-			<td class='tright'>
-						<span class='ftitle'></span>
+                <tr>
+                        <td class='tright'>
+                                                <span class='ftitle'></span>
                        </td>
-			<td>
-				<input class='inputButton' type='submit'
-				<% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
-			</td>
+                        <td>
+<%perl>
+my $backupTitle = __('Backup');
+my $backupOnClickJs =<< "ENDJS" ;
+     var description= \$('backup_description').value;
+     var title = '$backupTitle: ' + description;
+     var url = '/SysInfo/Backup?';
+     url += '&description='  +  escape(description);
+     url += '&backup=1&popup=1'
+
+     Modalbox.show(url, {title: title, transitions: false});
+     return false
+ENDJS
+</%perl>
+                                <input class='inputButton' type='submit'
+                                <% $disabledAttr %> name='backup'
+                                value="<% $backupTitle  %>"
+                                onclick="<% $backupOnClickJs %>"
+                                />
+                        </td>
                 </tr>
-	</form>
+        </form>
     </tbody>
 </table>
 </p>
 </%def>
 
 <%def .restoreSection>
+<%init>
+my $id = 'backupfile';
+my $loadingId = $id . '_loading';
+my $formId    = $id . '_form';
+my $onChange = << "JS_END";
+var fileUpload = new EBox.FileUpload(
+   { formId :   '$formId',
+     onStart :    function() { setLoading('$loadingId'); },
+     onComplete : function()  { setDone('$loadingId') ; },
+   }
+);
+var res = fileUpload.submit();
+\$('restoreFromFile').disabled = false;
+return res;
+JS_END
+
+my $title = __('Restore');
+my $uploadLocation = EBox::Config::tmp() . 'path';
+my $onClickJs =<< "ENDJS" ;
+     var backupfile = '$uploadLocation';
+     var url = '/SysInfo/ConfirmBackup?restoreFromFile=1';
+     url += '&backupfile=' + escape(backupfile);
+     url += '&alreadyUploaded=1&popup=1';
+
+     Modalbox.show(url, {title: '$title', transitions: false});
+     return false;
+ENDJS
+</%init>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/fileUpload.js">//</script>
 <h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
-	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
+        <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
 
   <table class='formTable'>
     <tbody>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Backup file') %>:</span>
-			</td>
-			<td>
-					<input type='file' name='backupfile'/>
-			</td>
-		</tr>
-		<tr>
-			<td class='tright'>
-						<span class='ftitle'></span>
+
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Backup file') %>:</span>
+                        </td>
+
+                        <td>
+<div id="<% $id %>">
+ <form action="/Controller/Uploader"
+        method="POST"
+        enctype="multipart/form-data"
+        id="<% $id . '_form' %>">
+    <& /input/file.mas,
+       name => $id . '_path',
+       id   => $id . '_path',
+       onchange => $onChange,
+    &>
+    <span id="<% $id . '_loading'%>">
+    </span>
+  </form>
+                        </td>
+                </tr>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
+                <tr>
+                        <td class='tright'>
+                                                <span class='ftitle'></span>
                        </td>
-			<td>
-                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
-			</td>
-		</tr>
+                        <td>
+                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% $title %>"
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'
+
+                   />
+                        </td>
+                </tr>
 
        </form>
    </tbody>
@@ -112,6 +170,12 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%init>
 return if not @backups;
 
+my $modalTitle = __('Restore backup');
+my $restoreTitle = __('Restore configuration using this file');
+my $restoreAlt = $modalTitle;
+my $downloadTitle = __('Download backup file');
+my $deleteTitle = __('Delete backup');
+
 my %printableTypeById = (
   $EBox::Backup::FULL_BACKUP_ID          => __('Full'),
   $EBox::Backup::CONFIGURATION_BACKUP_ID => __('Configuration only'),
@@ -123,67 +187,78 @@ my %printableTypeById = (
 % if(@backups){
 <h3><% __("Backups' list") %></h3>
 <table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class="tleft"><%__('Description') %>  </th>
-			<th><%__('Date')%> </th>
+        <thead>
+                <tr>
+                        <th class="tleft"><%__('Description') %>  </th>
+                        <th><%__('Date')%> </th>
                         <th><% __('Archive size') %> </th>
-			<th class="thOptions"><%__('Actions') %></th>
-		</tr>
-	</thead>
-	<tbody>
-%		foreach my $backup (@backups) {
-		<tr class='border'>
+                        <th class="thOptions"><%__('Actions') %></th>
+                </tr>
+        </thead>
+        <tbody>
+%               foreach my $backup (@backups) {
+                <tr class='border'>
 
-				<td class="tleft">
-					<% $backup->{'description'} %>
-				</td>
-				<td class='tcenter'>
-					<% $backup->{'date'} %>
-				</td>
+                                <td class="tleft">
+                                        <% $backup->{'description'} %>
+                                </td>
+                                <td class='tcenter'>
+                                        <% $backup->{'date'} %>
+                                </td>
                                 <td>
                                 <% $backup->{'size'} %>
                                 </td>
-				<td width="%14">
-				<form method='POST' action='ConfirmBackup'>
-					<input type='hidden'
-						name='id'
-						value="<% $backup->{'id'} %>"/>
-					<input type='image' name='restoreFromId'
-						src='/data/images/apply.gif'
-						value="Restore"
-						title="<%__('Restore configuration using this file')%>"
-						alt="<%__('Restore from backup')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
-					<input type='image' name='download'
-						src='/data/images/down.gif'
-						value="Download"
-						title="<%__('Download')%>"
-						alt="<%__('Download')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
-					<input type='image' name='delete'
-						src='/data/images/delete.gif'
-						value="Delete"
-						title="<%__('Delete')%>"
-						alt="<%__('Delete')%>"/>
+                                <td width="%14">
+                                <form method='POST' action='ConfirmBackup'>
+                                        <%perl>
+                                           my $restoreUrl = '/SysInfo/ConfirmBackup?';
+                                           $restoreUrl .= 'id=' . $backup->{'id'} . '&';
+                                           $restoreUrl .= 'restoreFromId=1&popup=1';
+                                        </%perl>
+                                        <input type='hidden'
+                                                name='id'
+                                                value="<% $backup->{'id'} %>"/>
+                                        <input type='image' name='restoreFromId'
+                                                src='/data/images/restore.gif'
+                                                value="Restore"
+                                                title="<% $restoreTitle %>"
+                                                alt="<% $restoreAlt %>"
+                                                onclick="Modalbox.show('<% $restoreUrl %>',  {title:'<% $modalTitle %>', transitions: false}); return false"
+                                         />
+                                        <img src='/data/images/sep.gif' alt='-'/>
+                                        <input type='image' name='download'
+                                                src='/data/images/download.gif'
+                                                value="Download"
+                                                title="<% $downloadTitle %>"
+                                                alt="<% $downloadTitle %>"/>
+                                        <img src='/data/images/sep.gif' alt='-'/>
+                                        <%perl>
+                                           my $deleteUrl = '/SysInfo/ConfirmBackup?';
+                                           $deleteUrl .= 'id=' . $backup->{'id'};
+                                           $deleteUrl .= '&delete=1&popup=1';
+                                        </%perl>
+                                        <input type='image' name='delete'
+                                                src='/data/images/delete.gif'
+                                                value="Delete"
+                                                title="<% $deleteTitle %>"
+                                                alt="<% $deleteTitle %>"
+                                                onclick="Modalbox.show('<% $deleteUrl %>',  {title:'<% $deleteTitle %>', transitions: false}); return false"
+                                        />
                 </form>
-				</td>
+                                </td>
 
-		</tr>
-%		}
-	</tbody>
+                </tr>
+%               }
+        </tbody>
 </table>
 <br />
 <!-- Put the legend underneath the list -->
 <%perl>
   my @legendElements = (
-                        { imgFile => "/data/images/down.gif",
-			  imgName => __('download') },
-			{ imgFile => "/data/images/apply.gif",
-			  imgName => __('restore') },
-			{ imgFile => "/data/images/delete.gif",
-			  imgName => __('delete') }
-		       );
+    { imgFile => "/data/images/download.gif", imgName => __('download') },
+    { imgFile => "/data/images/restore.gif", imgName => __('restore') },
+    { imgFile => "/data/images/delete.gif", imgName => __('delete') }
+  );
 </%perl>
 <& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
@@ -192,11 +267,11 @@ my %printableTypeById = (
 <%def .reportSection>
 <h3><% __('Configuration Report') %></h3>
 <div class='note'>
-	<% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
+        <% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
 </div>
 
 <form action='Backup' method='POST'>
-		<input class='inputButton' type='submit' name='bugreport'
-			   value="<% __('Generate and Download report file') %>" />
+                <input class='inputButton' type='submit' name='bugreport'
+                           value="<% __('Generate and Download report file') %>" />
 </form>
 </%def>

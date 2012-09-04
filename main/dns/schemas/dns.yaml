@@ -2,6 +2,7 @@ class: 'EBox::DNS'
 depends:
     - network
     - samba
+    - users
 
 models:
     - DomainTable
@@ -19,6 +20,16 @@ models:
 composites:
     Global: [Settings, Forwarder, DomainTable]
 
+modeldepends:
+    MailExchanger:
+        dns/HostnameTable: [ownerDomain]
+    NameServer:
+        dns/HostnameTable: [ownerDomain]
+    Services:
+        dns/HostnameTable: [ownerDomain]
+    Text:
+        dns/HostnameTable: [ownerDomain]
+
 foreign:
-    DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]
     HostnameTable: [HostIpTable, AliasTable]
+    DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]

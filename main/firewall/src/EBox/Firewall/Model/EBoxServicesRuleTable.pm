@@ -194,7 +194,7 @@ sub viewCustomizer
 
 sub headTitle
 {
-    return __d('Configure Rules', 'ebox-firewall');
+    return __('Configure Rules');
 }
 
 1;

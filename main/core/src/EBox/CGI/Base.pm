@@ -194,6 +194,25 @@ sub _print
     $self->_footer;
 }
 
+# alternative print for CGI runs in popup
+# it hs been to explicitly called instead of
+# the regular print. For example, overlaoding print and calling this
+sub _printPopup
+{
+    my ($self) = @_;
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
 
 sub _checkForbiddenChars
 {

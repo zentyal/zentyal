@@ -8,7 +8,7 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 
-<div>
+<div class='note'>
 <% __('Enabling this module will cause Zentyal to perform the actions and file modifications listed below. You must explicitly accept these changes to enable the module.') %>
 </div>
 

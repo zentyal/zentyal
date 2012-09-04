@@ -76,7 +76,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mail',
-                                      printableName => __n('Mail'),
+                                      printableName => __('Mail'),
                                       @_);
 
     $self->{vdomains} = new EBox::MailVDomainsLdap;
@@ -473,8 +473,7 @@ sub _setMailConf
     my @zarafaDomains = ();
     @zarafaDomains = $self->zarafaDomains() if $zarafaEnabled;
 
-    # FIXME this is broken with multidomain and needs reviewing
-    #$self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
+    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomains => @zarafaDomains);
 
     $self->_setZarafaConf($zarafaEnabled, @zarafaDomains);
 }

@@ -1,33 +1,25 @@
 <%args>
-    %rdata
+    $groupip
+    $rdata
 </%args>
 <%init>
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
-my $directDomain = $rdata{'domain'}->[0]->{'name'};
 </%init>
 $TTL 3D
-$ORIGIN <% $rdata{'groupip'} %>.in-addr.arpa.
-@	IN	SOA	<% $rdata{primaryNameServer} %>.<% $directDomain %>.	hostmaster.<% $directDomain %>. (
+$ORIGIN <% $groupip %>.in-addr.arpa.
+@	IN	SOA	<% $rdata->{soa} %>.<% $rdata->{domain} %>.	hostmaster.<% $rdata->{domain} %>. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry
 			4W		;expiration
 			1D )		;
 ;
-% foreach my $groupItem (@{$rdata{'domain'}}) {
-%   my $nameServers = $groupItem->{nameServers};
-%   foreach my $ns (@{$nameServers}) {
-		NS	<% $ns %>.<% $groupItem->{'name'} %>.
-%   }
+% foreach my $ns (@{$rdata->{'ns'}}) {
+		NS	<% $ns %>.<% $rdata->{'domain'} %>.
 % }
 ;
-% foreach my $groupItem(@{$rdata{'domain'}}) {
-% 	foreach my $host(@{$groupItem->{'hosts'}}) {
-%            my $prefix = '';
-% 	     if ( $host->{'name'} ) {
-%                $prefix .= $host->{'name'} . '.';
-%            }
-<% $host->{'ip'} %>	PTR	<% $prefix . $groupItem->{'name'} %>.
-% 	}
+% foreach my $host (@{$rdata->{'hosts'}}) {
+%   my $prefix = $host->{name} ? "$host->{name}." : '';
+<% $host->{'ip'} %>	PTR	<% $prefix . $rdata->{'domain'} %>.
 % }

@@ -458,8 +458,8 @@ sub _addAccount
     my $mailUserLdap = $mail->_ldapModImplementation();
     my $mailAliasLdap = new EBox::MailAliasLdap;
 
+    my $username = $user->name();
     my $account = $mailUserLdap->userAccount($user);
-
     if (defined $account) {
         my ($lh, $accountVdomain) = split ('@', $account);
 
@@ -470,11 +470,11 @@ sub _addAccount
 
         my $alias = $user . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
-            $mailAliasLdap->addAlias($alias, $account, $user);
+            $mailAliasLdap->addAlias($alias, $account, $username);
         }
     }
     else {
-        $mailUserLdap->setUserAccount($user, $user, $vdomain);
+        $mailUserLdap->setUserAccount($user, $username, $vdomain);
     }
 }
 
@@ -636,7 +636,7 @@ sub regenConfig
     my %vdomainsNotConfigured = map {  $_ => 1 } $self->vdomains();
 
     my $mf =  EBox::Global->modInstance('mailfilter');
-    my $vdomainsTable = $mf->model('VDomains');
+    my $vdomainsTable = $mf->model('VDomainsFilter');
 
     foreach my $id (@{ $vdomainsTable->ids() }) {
         my $vdRow = $vdomainsTable->row($id);

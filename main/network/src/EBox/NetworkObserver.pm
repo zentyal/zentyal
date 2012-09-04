@@ -54,6 +54,38 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
         return undef;
 }
 
+# Method: externalDhcpIfaceAddressChangedDone
+#
+#	Invoked when the address of an external network interface has been assigned
+#
+# Parameters:
+#
+#	iface - interface name
+#	oldaddr - old address
+#	oldmask - old mask
+#	newaddr - new address
+#	newmask - new mask
+#
+sub externalDhcpIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
+{
+}
+
+# Method: internalDhcpIfaceAddressChangedDone
+#
+#	Invoked when the address of an internal network interface has been assigned
+#
+# Parameters:
+#
+#	iface - interface name
+#	oldaddr - old address
+#	oldmask - old mask
+#	newaddr - new address
+#	newmask - new mask
+#
+sub internalDhcpIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
+{
+}
+
 # Method: staticIfaceAddressChangedDone
 #
 #   Invoked when the change in the adddress of a static inteface has taken

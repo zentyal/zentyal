@@ -1,4 +1,5 @@
 <%args>
+    $fs => 'ntvfs'
     $workgroup
     $netbiosName
     $description
@@ -7,6 +8,8 @@
     $realm
     @shares
     $roamingProfiles => 0
+    $profilesPath
+    $printers => []
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -19,10 +22,12 @@
     $backup_path => '/tmp'
     $quarantine_path => '/tmp'
 
-    @dirgroup => ()
+    $guestAccess => 0
+    $guestAccount => 'nobody'
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Samba;
 </%init>
 [global]
     netbios name = <% $netbiosName %>
@@ -39,19 +44,31 @@ use EBox::Gettext;
     server role = <% $mode %>
     realm = <% $realm %>
 
-    log level = 1
+    log level = 3
     log file = /var/log/samba/samba.log
 
+    passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
+% if ($fs eq 's3fs') {
+    rpc_daemon:spoolssd = embedded
+% } else {
+    dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
+    server services = rpc, nbt, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
+% }
 
-#    load printers = yes
-#    printing = cups
-#    printcap name = cups
+    ldap privileged socket mode = 0770
+
+% if ($guestAccess) {
+     guest ok = yes
+     map to guest = bad user
+     guest account = <% $guestAccount %>
+     auth methods = guest sam_ignoredomain
+% }
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
 [profiles]
-    path = /home/ebox/samba/profiles
+    path = <% $profilesPath %>
     browseable = no
     read only = no
 %   }
@@ -68,23 +85,23 @@ use EBox::Gettext;
 
 [homes]
     comment = <% __('Home Directories') %>
+    path = /home/%S
     read only = no
-    browseable = yes
+    browseable = no
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' vscan-clamav';
+%   $objects .= ' zavs';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
-% if ($av) {
-    vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% }
+    full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
+    full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -105,7 +122,7 @@ use EBox::Gettext;
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' vscan-clamav';
+%   $objects .= ' zavs';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -113,9 +130,6 @@ use EBox::Gettext;
     vfs objects = <% $objects %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
-% if ($av) {
-    vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% }
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -124,15 +138,30 @@ use EBox::Gettext;
 % }
 % }
 
-#[printers]
-#   comment = All Printers
-#   browseable = yes
-#   path = /var/spool/samba
-#   printable = yes
-#   guest ok = yes
-#   read only = yes
-#   create mask = 0700
-#
+% foreach my $printer (@{$printers}) {
+[<% $printer->{name} %>]
+    comment = "<% $printer->{description} %>"
+    path = /var/spool/samba
+    printable = yes
+    read only = yes
+% if ($printer->{guest}) {
+    guest ok = yes
+% } else {
+%   my $acl = join (", ", @{$printer->{acl}});
+    valid users = <% $acl %>
+% }
+
+% }
+
+[print$]
+    comment = "Printer Drivers"
+    path = /var/lib/samba/printers
+    browseable = yes
+    read only = yes
+    guest ok = no
+    write list = @"Domain Admins"
+    valid users = @"Domain Users"
+
 #[<% $prefix %>-internal-backups]
 # path = <% $backup_path %>
 # browseable = yes
@@ -148,13 +177,5 @@ use EBox::Gettext;
 # read only = no
 # valid users = @"Domain Admins"
 # admin users = @"Domain Admins"
-#
-#[print$]
-# comment = "Printer Drivers"
-# path = /var/lib/samba/printers
-# browseable = yes
-# read only = yes
-# guest ok = no
-# write list = @"Domain Admins"
-# valid users = @"Domain Users"
+
 

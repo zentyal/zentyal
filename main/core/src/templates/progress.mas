@@ -14,6 +14,8 @@ $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
 
+$inModalbox => undef
+
 $nextStepType => 'url',
 $nextStepUrl => '/Dashboard/Index'
 $nextStepUrlOnclick => undef
@@ -21,8 +23,6 @@ $nextStepUrlFailureOnclick => undef
 $nextStepText => undef
 
 $nextStepTimeout => 0
-
-$barWidth => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -39,82 +39,88 @@ unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
 }
 
+my $barStyle ='';
+my $progresValueStyle ='';
 my $percentMargin;
-if ($barWidth) {
-    # add px unit
-    $barWidth = $barWidth . 'px';
-    $percentMargin = $barWidth / 2;
+if ($inModalbox) {
+    $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
+    $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
+    $percentMargin = 245;
 }
 
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
-        $nextStepUrlOnclick = $nextStepUrlFailureOnclick;
+        $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
 
 }
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
+% if ($inModalbox) {
+<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+% }
 
 <script type="text/javascript">
-	createPeriodicalExecuter(<% $progressId %>,
+        createPeriodicalExecuter(<% $progressId %>,
                              '<% $currentItemUrl %>',
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
                              '<% $nextStepUrl %>');
 
-	function init(){
-		ph = new porcentH('progress');
-	}
+        function init(){
+                ph = new porcentH('progress');
+        }
 
-	if (document.addEventListener) {
-		document.addEventListener("DOMContentLoaded", init, false);
-	}
+        if (document.addEventListener) {
+                document.addEventListener("DOMContentLoaded", init, false);
+        }
 
-	var ads = <% $adsJson %>;
-	var nAds = -1;
+        var ads = <% $adsJson %>;
+        var nAds = -1;
 
-	function showAds(){
+        function showAds(){
 % unless ( $adsJson eq '""' ) {
-		nAds++;
-		if (ads != null) {
-			if (nAds > ads.length)
-				nAds = 1;
-			if (ads[nAds] != null){
-				var html = "<div class='ads'>";
-				if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
-				if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
-				if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
-				if (ads[nAds].items != null) {
-					html += "<ul>";
-					for(var i = 0; i < ads[nAds].items.length; i++)
-						html += "<li>" + ads[nAds].items[i] + "</li>";
-				}
-				html += "</br>";
-				if (ads[nAds].links != null) {
-					for(var i = 0; i < ads[nAds].links.length; i++)
-						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
-				}
-				html += "<div>";
+                nAds++;
+                if (ads != null) {
+                        if (nAds > ads.length)
+                                nAds = 1;
+                        if (ads[nAds] != null){
+                                var html = "<div class='ads'>";
+                                if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
+                                if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
+                                if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
+                                if (ads[nAds].items != null) {
+                                        html += "<ul>";
+                                        for(var i = 0; i < ads[nAds].items.length; i++)
+                                                html += "<li>" + ads[nAds].items[i] + "</li>";
+                                }
+                                html += "</br>";
+                                if (ads[nAds].links != null) {
+                                        for(var i = 0; i < ads[nAds].links.length; i++)
+                                                html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
+                                }
+                                html += "<div>";
 
                 if ( nAds % 2 == 1 ) {
                     $('adsFrame2').hide();
-				    document.getElementById('adsFrame2').innerHTML = html;
+                                    document.getElementById('adsFrame2').innerHTML = html;
                     Effect.DropOut('adsFrame1', { duration: 1 });
                     Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
                 }
                 else {
                     $('adsFrame1').hide();
-				    document.getElementById('adsFrame1').innerHTML = html;
+                                    document.getElementById('adsFrame1').innerHTML = html;
                     Effect.DropOut('adsFrame2', { duration: 1 });
                     Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
                 }
 
-			}
-		}
+                        }
+                }
 % } else {
-		return;
+                return;
 % }
-	}
+        }
 
 </script>
 
@@ -122,14 +128,15 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 .percent{
     float: left;
-    line-height: 20px;
-	height:20px;
-	margin-left: <% $percentMargin ? $percentMargin : '380' %>px;
-	z-index : 100;
-	filter: alpha(opacity=90);
-	-moz-opacity: 0.9;
-	KhtmlOpacity: .9;
-	opacity: .9;
+    line-height: 30px;
+
+        height:30px;
+        /*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
+        z-index : 100;
+        filter: alpha(opacity=90);
+        -moz-opacity: 0.9;
+        KhtmlOpacity: .9;
+        opacity: .9;
 }
 
 </style>
@@ -146,9 +153,13 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
 <br/>
 <div id="progress_bar">
-	<div class="percent" id="percentValue"></div>
-    <div class="bar"<% $barWidth ? "style='width: $barWidth'" : ""%> >
-        <div id="progressValue"></div>
+        <div class="percent" id="percentValue"></div>
+    <div class="bar" <% $barStyle %> >
+        <div id="progressValue" <% $progresValueStyle %> ></div>
+<!--
+        <div class='tcenter'>
+        <div class="percent" id="percentValue"></div>
+-->
     </div>
 </div>
 <br/>
@@ -179,8 +190,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <div class="error">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
+%  my $errorNextStepType = $nextStepType ne 'none' ? $nextStepType : 'ahref';
    <& .nextStep,
-      type => $nextStepType,
+      type => $errorNextStepType,
       url => $nextStepUrl,
       text => $nextStepText,
       onclick => $nextStepUrlFailureOnclick,
@@ -194,6 +206,16 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </script>
 % }
 
+% if ($inModalbox) {
+<script  type="text/javascript">
+  var section = $("error-progress");
+  section.show = section.show.wrap(function (origFunc) {
+                                       origFunc.apply(Modalbox, arguments);
+                                        Modalbox.resizeToInclude(this);
+                                        Modalbox.resize(0, +20);
+                                   });
+</script>
+% }
 <%def .nextStep>
 <%args>
 $type
@@ -205,6 +227,9 @@ $onclick
   </div>
   <div class='tcenter'>
      <input type="submit" value="<% $text %>" <% $onclick ? qq{onclick="$onclick"} : '' %> />
+  </div>
+% } elsif ($type eq 'none') {
+       <% $text %>
   </div>
 % } else {
    <a href="<% $url %>" <% $onclick ? qq{onclick="$onclick"} : '' %> >
