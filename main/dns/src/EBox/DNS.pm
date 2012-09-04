@@ -58,6 +58,7 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
+use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
 
 sub _create
@@ -643,6 +644,7 @@ sub _setConf
 
     # Delete the already removed RR from dynamic and dlz zones
     $self->_removeDeletedRR();
+    $self->_removeSambaDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
@@ -673,9 +675,9 @@ sub _setConf
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
         if ($domdata->{samba}) {
-            $self->_updateDynDirectZone($domdata);
+            $self->_updateDynDirectZone($domdata, 1);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
-            $self->_updateDynDirectZone($domdata);
+            $self->_updateDynDirectZone($domdata, 0);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
@@ -700,9 +702,9 @@ sub _setConf
         }
         $file .= "/db." . $group;
         if ($reversedDataItem->{samba}) {
-            $self->_updateDynReverseZone($reversedDataItem);
+            $self->_updateDynReverseZone($reversedDataItem, 1);
         } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem);
+            $self->_updateDynReverseZone($reversedDataItem, 0);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -1309,7 +1311,7 @@ sub _domainIds
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
 {
-    my ($self, $rdata) = @_;
+    my ($self, $rdata, $samba) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
 
@@ -1327,14 +1329,18 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        $self->_launchNSupdate($fh);
+        if ($samba) {
+            $self->_launchSambaNSupdate($fh);
+        } else {
+            $self->_launchNSupdate($fh);
+        }
     }
 }
 
 # Update the dynamic direct zone
 sub _updateDynDirectZone
 {
-    my ($self, $domData) = @_;
+    my ($self, $domData, $samba) = @_;
 
     my $zone = $domData->{'name'};
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
@@ -1401,7 +1407,12 @@ sub _updateDynDirectZone
     }
 
     print $fh "send\n";
-    $self->_launchNSupdate($fh);
+
+    if ($samba) {
+        $self->_launchSambaNSupdate($fh);
+    } else {
+        $self->_launchNSupdate($fh);
+    }
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1422,6 +1433,45 @@ sub _removeDeletedRR
     }
 }
 
+sub _removeSambaDeletedRR
+{
+    my ($self) = @_;
+
+    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY_SAMBA);
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    foreach my $rr (@{$deletedRRs}) {
+        print $fh "update delete $rr\n";
+    }
+
+    if ( $fh->tell() > 0 ) {
+        print $fh "send\n";
+        $self->_launchSambaNSupdate($fh);
+        $self->st_unset(DELETED_RR_KEY_SAMBA);
+    }
+}
+
+sub _launchSambaNSupdate
+{
+    my ($self, $fh) = @_;
+
+    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
+    if ($self->_isNamedListening()) {
+        try {
+            my $sysinfo = EBox::Global->modInstance('sysinfo');
+            my $ucHostname = uc ($sysinfo->hostName());
+            EBox::Sudo::root("kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
+            EBox::Sudo::root($cmd);
+            EBox::Sudo::root('kdestroy');
+        } otherwise {
+            $fh->unlink_on_destroy(0); # For debug purposes
+        };
+    } else {
+        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
+        push(@{$self->{nsupdateCmds}}, $cmd);
+        $fh->unlink_on_destroy(0);
+        EBox::warn('Cannot contact with named, trying in posthook');
+    }
+}
 
 # Send the nsupdate command or defer to the postservice hook
 sub _launchNSupdate
@@ -1441,7 +1491,6 @@ sub _launchNSupdate
         $fh->unlink_on_destroy(0);
         EBox::warn('Cannot contact with named, trying in posthook');
     }
-
 }
 
 # Check if named is listening

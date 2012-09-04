@@ -96,7 +96,7 @@ sub validateTypedRow
         # Add toDelete the RRs for this hostname and its aliases
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('dynamic')) {
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my @toDelete = ();
             my $zone = $zoneRow->valueByName('domain');
             # Delete all aliases
@@ -109,7 +109,11 @@ sub validateTypedRow
 
             my $fullHostname = $oldRow->valueByName('hostname') . ".$zone";
             push(@toDelete, $fullHostname);
-            $self->{toDelete} = \@toDelete;
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSamba} = \@toDelete;
+            } else {
+                $self->{toDelete} = \@toDelete;
+            }
         }
     }
 }
@@ -129,9 +133,15 @@ sub updatedRowNotify
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
         foreach my $rr (@{$self->{toDelete}}) {
-            $self->_addToDelete($rr);
+            $self->_addToDelete($rr, 0);
         }
         delete $self->{toDelete};
+    }
+    if (exists $self->{toDeleteSamba}) {
+        foreach my $rr (@{$self->{toDeleteSamba}}) {
+            $self->_addToDelete($rr, 1);
+        }
+        delete $self->{toDeleteSamba};
     }
 }
 
@@ -246,18 +256,26 @@ sub deletedRowNotify
 
     # Deleted RRs to account
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('dynamic')) {
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
         my $zone = $zoneRow->valueByName('domain');
         # Delete all aliases
         my $aliasModel = $row->subModel('alias');
         my $ids = $aliasModel->ids();
         foreach my $id (@{$ids}) {
             my $aliasRow = $aliasModel->row($id);
-            $self->_addToDelete( $aliasRow->valueByName('alias') . ".$zone");
+            if ($zoneRow->valueByName('samba')) {
+                $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone", 1);
+            } else {
+                $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone", 0);
+            }
         }
 
         my $fullHostname = $row->valueByName('hostname') . ".$zone";
-        $self->_addToDelete($fullHostname);
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete($fullHostname, 1);
+        } else {
+            $self->_addToDelete($fullHostname, 0);
+        }
     }
 }
 
@@ -277,10 +295,13 @@ sub pageTitle
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $domain) = @_;
+    my ($self, $domain, $samba) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
+    if ($samba) {
+        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
+    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
