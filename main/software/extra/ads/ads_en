@@ -6,7 +6,6 @@
               "You are currently working with Zentyal 2.3, a beta release of Zentyal 3.0 that will be the next stable release and will be launched in September 2012. We hope that you'll find Zentyal easy-to-use and useful! However, if you run into trouble, please let us know via the Zentyal Forum!",
               "While the packages you have chosen are being installed, this slideshow will show you what we offer besides the Zentyal server software!"
              ],
-    "images": [ "/data/software/images/01_icon_welcome.png" ],
     "links": [ "http://forum.zentyal.org/" ]
   },
   {
@@ -15,17 +14,16 @@
               "Get your free Basic Subscription!",
               "The Basic Subscription gives you a preview of Zentyal Cloud and gives you access to some limited features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server."
              ],
-    "images": [ "/data/software/images/02_icon_basic_subscription.png" ],
     "links": [ "http://store.zentyal.com/serversubscriptions/subscription-basic.html" ]
   },
   {
     "title": "Small Business Edition",
     "items": [
-            "Are you going to use Zentyal server in production environment?",
-            "Are you going to deploy only one Zentyal server? Does your organization have less than 25 users?",
-            "Get the fully supported Zentyal Small Business Edition!",
-            "Includes: Technical support, Software and security updates, Remote monitoring and management options and Configuration backups"],
-    "images": [ "/data/software/images/02_icon_professional_subscription.png" ],
+              "Are you going to use Zentyal server in production environment?",
+              "Are you going to deploy only one Zentyal server? Does your organization have less than 25 users?",
+              "Get the fully supported Zentyal Small Business Edition!",
+              "Includes: Technical support, Software and security updates, Remote monitoring and management options and Configuration backups"
+             ],
     "links": [ "https://store.zentyal.com/small-business-edition.html/" ]
   },
   {
@@ -36,7 +34,6 @@
               "Get the fully supported Zentyal Enterprise Edition!",
               "Includes: Technical support, Software and security updates, Remote monitoring and management options and Disaster recovery"
              ],
-    "images": [ "/data/software/images/03_icon_enterprise_subscription.png" ],
     "links": ["https://store.zentyal.com/enterprise-edition.html/"]
   },
   {
@@ -46,7 +43,6 @@
               "Get the Small Business or Enterprise Edition!",
               "Enterprise Edition includes the Disaster Recovery service and Small Business Edition users can purchase it as add-on."
              ],
-    "images": [ "/data/software/images/05_icon_disaster_recovery.png" ],
     "links": [ "http://store.zentyal.com/disaster-recovery.html" ]
   },
   {
@@ -56,7 +52,6 @@
               "Zentyal fully integrates Zarafa groupware solution, an alternative to MS Exchange Server and Outlook, with familiar-looking email, calendar, contacts and tasks management environment.",
               "Get the Small Business or Enterprise Edition and purchase the Zarafa Small Business add-on!"
              ],
-    "images": [ "/data/software/images/06_icon_zarafa.png" ],
     "links": [ "http://store.zentyal.com/zarafa-small-business.html" ]
   },
   {
@@ -66,7 +61,6 @@
               "We offer a series of in-person, customized and on-line Zentyal training courses.",
               "Certified Instructors guarantee that you learn the latest computer network management techniques, troubleshooting and best practices based on Zentyal!"
              ],
-    "images": [ "/data/software/images/07_icon_training.png" ],
     "links": [ "http://www.zentyal.com/training/" ]
   },
   {
@@ -77,7 +71,6 @@
               "The book covers all relevant aspects of configuring and managing Zentyal servers in small and medium business (SMB) environments.",
               "Available in English and Spanish!"
             ],
-    "images": [ "/data/software/images/08_icon_book.png" ],
     "links": [ "https://store.zentyal.com/training/book-admin-en.html" ]
   },
   {
@@ -87,7 +80,6 @@
               "Grant your customers vendor-quality Linux server products and services, from quality assured software to certified technical support.",
               "It is easy and affordable to start a partnership with Zentyal: Start by submitting the Partnership Request!"
              ],
-    "images": [ "/data/software/images/09_icon_partner.png" ],
     "links": [ "http://www.zentyal.com/partners/", "http://www.zentyal.com/partners/join" ]
   },
   {
@@ -101,7 +93,6 @@
               "Help testing the latest Zentyal features or file a bug report when you run into one!",
               "And of course we also welcome any contributions to the Zentyal development!"
              ],
-    "images": [ "/data/software/images/01_icon_welcome.png" ],
     "links": [ "http://trac.zentyal.org/wiki/Contribute", "http://forum.zentyal.org/" ]
   }
 ]

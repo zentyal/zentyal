@@ -126,12 +126,14 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 </style>
 
+% unless ($adsJson eq '""') {
 <div style="height: 200px">
     <div id="adsFrame1"></div>
     <div id="adsFrame2"></div>
     <button type="button" id="adsButtonPrev" onclick="showAds(0)">Previous Slide</button>
     <button type="button" id="adsButtonNext" onclick="showAds(1)">Next Slide</button>
 </div>
+% }
 
 <div id='progressing'>
 <p> <% $text %> </p>

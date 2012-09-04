@@ -175,7 +175,9 @@ sub loadAds
     my $slides = decode_json($json);
 
     my @html;
+    my $num = 1;
     foreach my $slide (@{$slides}) {
+        $slide->{num} = $num++;
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 
