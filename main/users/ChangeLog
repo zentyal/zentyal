@@ -1,4 +1,5 @@
 2.3.16
+	+ Set the managed domain as read only as well as records
 	+ Fixed PAM when kerberos is enabled
 	+ Fixed addUser operation on slaves
 	+ Catch exceptions thrown by notified modules adding LDAP users and groups
