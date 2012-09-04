@@ -33,6 +33,7 @@ use EBox::Global;
 use EBox::NetWrappers;
 use EBox::Types::IPAddr;
 use EBox::Types::Text;
+use EBox::Types::HostIP;
 
 # Group: Public methods
 
@@ -58,7 +59,7 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -75,32 +76,31 @@ sub _table
 {
 
     my @tableDesc =
-      (
-       new EBox::Types::HostIP(
-                               fieldName     => 'iface_address',
-                               printableName => __('Interface IP address'),
-                              ),
-       new EBox::Types::IPAddr(
-                               fieldName     => 'subnet',
-                               printableName => __('Subnet'),
-                              ),
-       new EBox::Types::Text(
-                              fieldName     => 'available_range',
-                              printableName => __('Available range'),
-                             ),
-      );
+        (
+         new EBox::Types::HostIP(
+             fieldName     => 'iface_address',
+             printableName => __('Interface IP address'),
+             ),
+         new EBox::Types::IPAddr(
+             fieldName     => 'subnet',
+             printableName => __('Subnet'),
+             ),
+         new EBox::Types::Text(
+             fieldName     => 'available_range',
+             printableName => __('Available range'),
+             ),
+        );
 
-      my $dataForm = {
-                      tableName          => 'RangeInfo',
-                      printableTableName => __('DHCP ranges'),
-                      modelDomain        => 'DHCP',
-                      tableDescription   => \@tableDesc,
-                      class              => 'dataForm',
-                     };
+    my $dataForm = {
+        tableName          => 'RangeInfo',
+        printableTableName => __('DHCP ranges'),
+        modelDomain        => 'DHCP',
+        tableDescription   => \@tableDesc,
+        class              => 'dataForm',
+    };
 
-      return $dataForm;
-
-  }
+    return $dataForm;
+}
 
 # Group: Protected methods
 
@@ -117,7 +117,7 @@ sub _content
     my $dhcp = $self->{confmodule};
     my $net  = EBox::Global->modInstance('network');
 
-    my $interface = $self->parentRow()->valueByName('iface');
+    my $interface = $self->parentRow->valueByName('iface');
     my $ifaceAddr = $net->ifaceAddress($interface);
 
     my $subnet = EBox::NetWrappers::to_network_with_mask(
@@ -147,7 +147,6 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
 
     $customizer->setModel($self);
-
     $customizer->setHTMLTitle([]);
 
     return $customizer;

@@ -1,3 +1,5 @@
+HEAD
+	+ Set the managed domain as read only as well as records
 2.3.16
 	+ Fixed PAM when kerberos is enabled
 	+ Fixed addUser operation on slaves

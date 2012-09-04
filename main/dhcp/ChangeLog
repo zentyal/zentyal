@@ -1,4 +1,5 @@
 HEAD
+	+ Keys shared with bind are now stored under /etc/dhcp/ddns-keys
 	+ Fixed problem in Options model which DNS domain syncRow call
 	+ Fixed problems in DynamicDNS models
 	+ Add dhcpd to the bind group if DynamicDNS is enabled

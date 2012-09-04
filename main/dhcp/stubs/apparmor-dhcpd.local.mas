@@ -1,5 +1,4 @@
 <%args>
-  $keysFile
   $confDir
 </%args>
 
@@ -9,10 +8,8 @@
 # This profile has been modified by Zentyal Server to provide Dynamic
 # DNS feature
 
-% if ( $keysFile ) {
   # For dynamic DNS (Zentyal)
-  <% $keysFile %> r,
-% }
+  /etc/dhcp/ddns-keys/** r,
 
   # For allowing custom tweaking (Zentyal)
   <% $confDir %>* r,

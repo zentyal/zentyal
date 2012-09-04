@@ -58,13 +58,8 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
+use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
-
-# This constants are used to fill the domain type field of the
-# DomainTable model
-use constant STATIC_ZONE  => 'static';
-use constant DYNAMIC_ZONE => 'dynamic';
-use constant DLZ_ZONE     => 'dlz';
 
 sub _create
 {
@@ -239,7 +234,8 @@ sub delHost
 #
 #   Array ref - containing hash refs with the following elements:
 #       name - String the domain's name
-#       type - String indicating the domain type (static, dynamic, dlz)
+#       dynamic - boolean indicating if the domain is dynamic
+#       managed - boolean indicating if the domain is managed by zentyal
 #
 sub domains
 {
@@ -249,10 +245,12 @@ sub domains
     my $model = $self->model('DomainTable');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        my $domaindata = { name  => $row->valueByName('domain'),
-                           type  => $row->valueByName('type'),
-                           dlzDbPath => $row->valueByName('dlzDbPath') };
-
+        my $domaindata = {
+            name  => $row->valueByName('domain'),
+            dynamic => $row->valueByName('dynamic'),
+            samba => $row->valueByName('samba'),
+            managed => $row->valueByName('managed')
+        };
         push @{$array}, $domaindata;
     }
 
@@ -621,6 +619,8 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_updateManagedDomainAddresses();
+
     my $keytabPath = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
@@ -644,6 +644,7 @@ sub _setConf
 
     # Delete the already removed RR from dynamic and dlz zones
     $self->_removeDeletedRR();
+    $self->_removeSambaDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
@@ -658,12 +659,13 @@ sub _setConf
         # Store the domain data to create the reverse zones
         push (@domainData, $domdata);
 
+        # Add the updater key if the zone is dynamic
+        if ($domdata->{dynamic}) {
+            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
+        }
+
         my $file;
-        if ($domdata->{'type'} eq DLZ_ZONE) {
-            # Update the zone but do not write file.
-            # TODO $self->_updateDynDirectZone($domdata);
-            next;
-        } elsif ($domdata->{'type'} eq DYNAMIC_ZONE) {
+        if ($domdata->{'dynamic'}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -672,18 +674,15 @@ sub _setConf
 
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
-        if ($domdata->{'type'} eq DYNAMIC_ZONE and -e "${file}.jnl") {
-            $self->_updateDynDirectZone($domdata);
+        if ($domdata->{samba}) {
+            $self->_updateDynDirectZone($domdata, 1);
+        } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
+            $self->_updateDynDirectZone($domdata, 0);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
             $self->writeConfFile($file, "dns/db.mas", \@array);
             EBox::Sudo::root("chown bind:bind '$file'");
-        }
-
-        # Add the updater key if the zone is dynamic
-        if ($domdata->{'type'} eq DYNAMIC_ZONE) {
-            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
         }
     }
 
@@ -696,14 +695,16 @@ sub _setConf
     foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
-        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+        if ($reversedDataItem->{dynamic}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        if ($reversedDataItem->{'type'} and -e "${file}.jnl" ) {
-            # TODO $self->_updateDynReverseZone($reversedDataItem);
+        if ($reversedDataItem->{samba}) {
+            $self->_updateDynReverseZone($reversedDataItem, 1);
+        } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($reversedDataItem, 0);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -732,9 +733,16 @@ sub _setConf
             "dns/named.conf.local.mas",
             \@array);
 
-    @array = ( 'keys' => \%keys );
+    @array = ();
+    push (@array, keys => \%keys);
     $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array,
                          {'uid' => 'root', 'gid' => 'bind', mode => '640'});
+    if (EBox::Global->modExists('dhcp')) {
+        my $mod = EBox::Global->modInstance('dhcp');
+        my $file = $mod->KEYS_FILE();
+        $self->writeConfFile($file, 'dns/keys.mas', \@array,
+            {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
+    }
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
@@ -1234,7 +1242,7 @@ sub _formatSRV
 #
 #  'name': domain name
 #  'ipAddresses': array ref containing domain ip addresses
-#  'type' : the domain type (static, dynamic or dlz)
+#  'dynamic' :
 #  'tsigKey' : the TSIG key if the domain is dynamic
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
 #  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
@@ -1251,7 +1259,8 @@ sub _completeDomain # (domainId)
 
     my $domdata;
     $domdata->{'name'} = $row->valueByName('domain');
-    $domdata->{'type'} = $row->valueByName('type');
+    $domdata->{dynamic} = $row->valueByName('dynamic');
+    $domdata->{samba} = $row->valueByName('samba');
     $domdata->{'tsigKey'} = $row->valueByName('tsigKey');
 
     $domdata->{'ipAddresses'} = $self->_domainIpAddresses(
@@ -1302,18 +1311,16 @@ sub _domainIds
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
 {
-    my ($self, $rdata) = @_;
+    my ($self, $rdata, $samba) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
 
     my $zone = $rdata->{'groupip'} . ".in-addr.arpa";
-    foreach my $groupItem (@{$rdata->{'domain'}}) {
-        foreach my $host (@{$groupItem->{'hosts'}}) {
-            print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
-            my $prefix = "";
-            $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
-            print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $groupItem->{'name'} . ".\n";
-        }
+    foreach my $host (@{$rdata->{'hosts'}}) {
+        print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
+        my $prefix = "";
+        $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
+        print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $rdata->{'domain'} . ".\n";
     }
     # Send the previous commands in batch
     if ( $fh->tell() > 0 ) {
@@ -1322,15 +1329,18 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        $self->_launchNSupdate($fh);
+        if ($samba) {
+            $self->_launchSambaNSupdate($fh);
+        } else {
+            $self->_launchNSupdate($fh);
+        }
     }
-
 }
 
 # Update the dynamic direct zone
 sub _updateDynDirectZone
 {
-    my ($self, $domData) = @_;
+    my ($self, $domData, $samba) = @_;
 
     my $zone = $domData->{'name'};
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
@@ -1397,7 +1407,12 @@ sub _updateDynDirectZone
     }
 
     print $fh "send\n";
-    $self->_launchNSupdate($fh);
+
+    if ($samba) {
+        $self->_launchSambaNSupdate($fh);
+    } else {
+        $self->_launchNSupdate($fh);
+    }
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1418,6 +1433,45 @@ sub _removeDeletedRR
     }
 }
 
+sub _removeSambaDeletedRR
+{
+    my ($self) = @_;
+
+    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY_SAMBA);
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    foreach my $rr (@{$deletedRRs}) {
+        print $fh "update delete $rr\n";
+    }
+
+    if ( $fh->tell() > 0 ) {
+        print $fh "send\n";
+        $self->_launchSambaNSupdate($fh);
+        $self->st_unset(DELETED_RR_KEY_SAMBA);
+    }
+}
+
+sub _launchSambaNSupdate
+{
+    my ($self, $fh) = @_;
+
+    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
+    if ($self->_isNamedListening()) {
+        try {
+            my $sysinfo = EBox::Global->modInstance('sysinfo');
+            my $ucHostname = uc ($sysinfo->hostName());
+            EBox::Sudo::root("kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
+            EBox::Sudo::root($cmd);
+            EBox::Sudo::root('kdestroy');
+        } otherwise {
+            $fh->unlink_on_destroy(0); # For debug purposes
+        };
+    } else {
+        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
+        push(@{$self->{nsupdateCmds}}, $cmd);
+        $fh->unlink_on_destroy(0);
+        EBox::warn('Cannot contact with named, trying in posthook');
+    }
+}
 
 # Send the nsupdate command or defer to the postservice hook
 sub _launchNSupdate
@@ -1437,7 +1491,6 @@ sub _launchNSupdate
         $fh->unlink_on_destroy(0);
         EBox::warn('Cannot contact with named, trying in posthook');
     }
-
 }
 
 # Check if named is listening
@@ -1462,8 +1515,6 @@ sub _removeDomainsFiles
 {
     my ($self) = @_;
 
-    return if ($self->isReadOnly());
-
     my $oldList = $self->st_get_list('domain_files');
     my $newList = [];
 
@@ -1471,13 +1522,13 @@ sub _removeDomainsFiles
     foreach my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
         my $file;
-        if ($row->valueByName('type') ne STATIC_ZONE) {
+        if ($row->valueByName('dynamic')) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $row->valueByName('domain');
-        push (@{$newList}, $file);
+        push (@{$newList}, $file) unless $row->valueByName('samba');
     }
 
     $self->_removeDisjuncFiles($oldList, $newList);
@@ -1489,14 +1540,12 @@ sub _removeUnusedReverseFiles
 {
     my ($self, $reversedData) = @_;
 
-    return if ($self->isReadOnly());
-
     my $oldList = $self->st_get_list('inarpa_files');
     my $newList = [];
     foreach my $group (keys %{ $reversedData }) {
         my $reversedDataItem = $reversedData->{$group};
         my $file;
-        if ($reversedDataItem->{'type'} ne STATIC_ZONE) {
+        if ($reversedDataItem->{dynamic}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -1749,7 +1798,7 @@ sub switchToReverseInfoData
                     EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
                 } else {
                     $reversedData->{$groupip} = {
-                        type => $domain->{type},
+                        dynamic => $domain->{dynamic},
                         domain => $domain->{name},
                         hosts => [],
                         ns => [],
@@ -1769,66 +1818,75 @@ sub switchToReverseInfoData
     return $reversedData;
 }
 
+sub _updateManagedDomainIPsModel
+{
+    my ($self, $model) = @_;
+
+    my $networkModule = EBox::Global->modInstance('network');
+    my $ifaces = $networkModule->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $networkModule->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            my $ipRow = $model->find(iface => $ifaceName);
+            next unless defined $ipRow;
+
+            my $ipElement = $ipRow->elementByName('ip');
+            $ipElement->setValue($addr->{address});
+            $ipRow->store();
+        }
+    }
+}
+
+# Method: _updateManagedDomainAddresses
+#
+#   Updates the managed domain (kerberos or samba) ip addresses
+#
+sub _updateManagedDomainAddresses
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+    my $managedRows = $domainsModel->findAllValue(managed => 1);
+
+    foreach my $id (@{$managedRows}) {
+        my $domainRow = $domainsModel->row($id);
+
+        # Update domain IP addresses
+        my $domainIpModel = $domainRow->subModel('ipAddresses');
+        $self->_updateManagedDomainIPsModel($domainIpModel);
+
+        # Update hostname IP addresses
+        my $hostsModel = $domainRow->subModel('hostnames');
+        my $hostRow = $hostsModel->find(hostname => $hostname);
+        return unless defined $hostRow;
+        my $hostIpModel = $hostRow->subModel('ipAddresses');
+        $self->_updateManagedDomainIPsModel($hostIpModel);
+    }
+}
+
 ######################################
 ##  Network observer implementation ##
 ######################################
 
-# Method: _dhcpIfaceAddressChangedDone
-#
-#   Updates the kerberos (or samba) domain ip addresses when dhcp address
-#   is assigned
-#
-sub _dhcpIfaceAddressChangedDone
-{
-    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $ownDomain = $sysinfo->hostDomain();
-    my $hostname = $sysinfo->hostName();
-
-    my $domainsModel = $self->model('DomainTable');
-    foreach my $domainId (@{$domainsModel->ids()}) {
-        my $domainRow = $domainsModel->row($domainId);
-        next unless $domainRow->valueByName('domain') eq $ownDomain;
-
-        # Update domain IP addresses
-        my $domainIpModel = $domainRow->subModel('ipAddresses');
-        foreach my $ipId (@{$domainIpModel->ids()}) {
-            my $ipRow = $domainIpModel->row($ipId);
-            my $dhcpIface = $ipRow->valueByName('dhcp_iface');
-            next unless (defined $dhcpIface and $dhcpIface eq $iface);
-            $domainIpModel->removeRow($ipId);
-        }
-        $domainIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
-
-        # Update hostname IP addresses
-        my $hostsModel = $domainRow->subModel('hostnames');
-        foreach my $hostId (@{$hostsModel->ids()}) {
-            my $hostRow = $hostsModel->row($hostId);
-            next unless $hostRow->valueByName('hostname') eq $hostname;
-            my $hostIpModel = $hostRow->subModel('ipAddresses');
-            foreach my $ipId (@{$hostIpModel->ids()}) {
-                my $ipRow = $hostIpModel->row($ipId);
-                my $dhcpIface = $ipRow->valueByName('dhcp_iface');
-                next unless (defined $dhcpIface and $dhcpIface eq $iface);
-                $hostIpModel->removeRow($ipId);
-            }
-            $hostIpModel->addRow(ip => $newaddr, dhcp_iface => $iface);
-        }
-    }
-    $self->save();
-}
-
 sub externalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
-    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
+    $self->_updateManagedDomainAddresses();
+    # TODO Save only if changes done
+    $self->save();
 }
 
 sub internalDhcpIfaceAddressChangedDone
 {
     my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
-    $self->_dhcpIfaceAddressChangedDone($iface, $oldaddr, $oldmask, $newaddr, $newmask);
+    $self->_updateManagedDomainAddresses();
+    # TODO Save only if changes done
+    $self->save();
 }
 
 1;

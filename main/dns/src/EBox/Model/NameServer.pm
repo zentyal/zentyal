@@ -96,13 +96,17 @@ sub validateTypedRow
         # Add toDelete the RRs for this nameserver
         my $oldRow = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my $zone = $zoneRow->valueByName('domain');
             my $ns   = $oldRow->printableValueByName('hostName');
             if ( $ns !~ m:\.:g ) {
                 $ns = "$ns.$zone";
             }
-            $self->{toDelete} = "$zone NS $ns";
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSamba} = "$zone NS $ns";
+            } else {
+                $self->{toDelete} = "$zone NS $ns";
+            }
         }
     }
 
@@ -122,11 +126,14 @@ sub updatedRowNotify
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete});
+        $self->_addToDelete($self->{toDelete}, 0);
         delete $self->{toDelete};
     }
+    if (exists $self->{toDeleteSamba}) {
+        $self->_addToDelete($self->{toDeleteSamba}, 1);
+        delete $self->{toDeleteSamba};
+    }
 }
-
 
 # Method: deletedRowNotify
 #
@@ -141,15 +148,18 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
         my $zone = $zoneRow->valueByName('domain');
         my $ns   = $row->printableValueByName('hostName');
         if ( $ns !~ m:\.:g ) {
             $ns = "$ns.$zone";
         }
-        $self->_addToDelete("$zone NS $ns");
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete("$zone NS $ns", 1);
+        } else {
+            $self->_addToDelete("$zone NS $ns", 0);
+        }
     }
-
 }
 
 # Method: removeRow
@@ -173,34 +183,6 @@ sub removeRow
 
     return $self->SUPER::removeRow($id, $force);
 
-}
-
-# Method: precondition
-#
-# Overrides:
-#
-#     <EBox::Model::Component::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    if ( $self->parentRow()->readOnly() ) {
-        return 0;
-    }
-    return 1;
-
-}
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#     <EBox::Model::Component::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    return __('The domain is set as read only. You cannot add name servers');
 }
 
 # Method: pageTitle
@@ -300,18 +282,20 @@ sub _hostnameModel
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $rr) = @_;
+    my ($self, $domain, $samba) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
+    if ($samba) {
+        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
+    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
     }
 
-    push(@list, $rr);
+    push (@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
-
 }
 
 1;
