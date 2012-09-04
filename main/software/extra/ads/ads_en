@@ -1,98 +1,122 @@
 [
   {
-    "title": "Welcome!",
+    "title": "Thank you for choosing Zentyal Linux small business server!",
     "paragraphs": [
-              "Thank you for choosing Zentyal Linux small business server!",
-              "You are currently working with Zentyal 2.3, a beta release of Zentyal 3.0 that will be the next stable release and will be launched in September 2012. We hope that you'll find Zentyal easy-to-use and useful! However, if you run into trouble, please let us know via the Zentyal Forum!",
-              "While the packages you have chosen are being installed, this slideshow will show you what we offer besides the Zentyal server software!"
+              "Zentyal is a full-featured Linux server that you can use for free without technical support or updates, or you can get it fully supported for an affordable monthly fee.",
+              "For quick help, check out the official documentation and the Zentyal Forum! Find out what is beyond Zentyal server while your installation finishes!"
              ],
-    "links": [ "http://forum.zentyal.org/" ]
+    "links": [ "http://doc.zentyal.org/", "http://forum.zentyal.org" ]
   },
+
   {
-    "title": "Basic Subscription (FREE)",
+    "title": "Register your Zentyal server for free!",
+    "paragraphs": [ "Register your Zentyal server for free and gain access to the following benefits:" ],
     "items": [
-              "Get your free Basic Subscription!",
-              "The Basic Subscription gives you a preview of Zentyal Cloud and gives you access to some limited features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server."
-             ],
-    "links": [ "http://store.zentyal.com/serversubscriptions/subscription-basic.html" ]
+              "Remote configuration backup",
+              "Customized zentyal.me subdomain",
+              "Recorded webinars",
+              "Whitepapers",
+              "Trials"
+             ]
   },
+
   {
     "title": "Small Business Edition",
+    "paragraphs": [ "All-in-one server for businesses with less than 25 users!" ],
     "items": [
-              "Are you going to use Zentyal server in production environment?",
-              "Are you going to deploy only one Zentyal server? Does your organization have less than 25 users?",
-              "Get the fully supported Zentyal Small Business Edition!",
-              "Includes: Technical support, Software and security updates, Remote monitoring and management options and Configuration backups"
+              "Full technical support for Gateway/UTM, Infrastructure and Office",
+              "Officially supported by Ubuntu/Canonical",
+              "Local disaster recovery",
+              "Remote monitoring and management of servers and desktops"
              ],
+    "endText": "Ask for a free trial at www.zentyal.com!",
     "links": [ "https://store.zentyal.com/small-business-edition.html/" ]
   },
+
   {
     "title": "Enterprise Edition",
+    "paragraphs": [ "Full-featured server for businesses with more than 25 users!" ],
     "items": [
-              "Are you going to use Zentyal server in production environment?",
-              "Are you going to deploy multiple Zentyal servers? Does your organization have more than 25 users?",
-              "Get the fully supported Zentyal Enterprise Edition!",
-              "Includes: Technical support, Software and security updates, Remote monitoring and management options and Disaster recovery"
-             ],
-    "links": ["https://store.zentyal.com/enterprise-edition.html/"]
+              "Full technical support for Gateway/UTM, Infrastructure, Office and Communications",
+              "Officially supported by Ubuntu/Canonical",
+              "Full disaster recovery",
+              "Remote monitoring and management of servers and desktops"
+             ]
   },
+
   {
-    "title": "Disaster Recovery",
+    "title": "Compatibility with Outlook clients",
+    "paragraphs": [ "All the advantages of Microsoft Exchange and only 50% of the costs!" ],
     "items": [
-              "Want to ensure the availability of your business critical data at all times?",
-              "Get the Small Business or Enterprise Edition!",
-              "Enterprise Edition includes the Disaster Recovery service and Small Business Edition users can purchase it as add-on."
+              "Your MS Outlook users can continue using their email client",
+              "Synchronization with mobile phones",
+              "Available for commercial Zentyal server editions",
+              "Based on Zarafa groupware solution"
              ],
-    "links": [ "http://store.zentyal.com/disaster-recovery.html" ]
+    "endText": "Purchase the add-on at store.zentyal.com!"
   },
+
   {
-    "title": "Email with Zarafa Small Business",
+    "title": "Zentyal Remote",
+    "paragraphs": [ "Remote monitoring and management platform for servers and desktops!" ],
     "items": [
-              "Get all the advantages of Microsoft Exchange and only 50% of the costs!",
-              "Zentyal fully integrates Zarafa groupware solution, an alternative to MS Exchange Server and Outlook, with familiar-looking email, calendar, contacts and tasks management environment.",
-              "Get the Small Business or Enterprise Edition and purchase the Zarafa Small Business add-on!"
+              "Resolve incidents quickly and before they affect your users",
+              "Easy and automated maintenance",
+              "Provide remote support for both servers and desktops",
+              "Inventory of network devices and software"
              ],
-    "links": [ "http://store.zentyal.com/zarafa-small-business.html" ]
+    "endText": "Ask for a free trial at www.zentyal.com!"
   },
+
   {
-    "title": "Certified Training",
+    "title": "Certified Zentyal Training",
+    "paragraphs": [ "Learn easy and practical Linux server management!" ],
     "items": [
-              "Learn easy and practical Linux server management!",
-              "We offer a series of in-person, customized and on-line Zentyal training courses.",
-              "Certified Instructors guarantee that you learn the latest computer network management techniques, troubleshooting and best practices based on Zentyal!"
+              "Official on-line courses",
+              "Delivered by certified, in-house instructors",
+              "Plenty of hands-on exercises and real world scenarios",
+              "Certification exams to validate your knowledge"
              ],
-    "links": [ "http://www.zentyal.com/training/" ]
+    "endText": "Learn more at www.zentyal.com!"
   },
+
   {
-    "title": "Book \"Zentyal for Network Administrators\"",
+    "title": "Zentyal for Network Administrators Guide",
     "items": [
-              "Full guide to learn Linux-based network management based on Zentyal!",
-              "Official study material for the Zentyal Certification (ZeCA) Exam, with a large number of practical exercises.",
-              "The book covers all relevant aspects of configuring and managing Zentyal servers in small and medium business (SMB) environments.",
-              "Available in English and Spanish!"
+              "Covers all aspects of managing a Zentyal server",
+              "Official course material",
+              "Eminently practical",
+              "Available in both English and Spanish"
             ],
-    "links": [ "https://store.zentyal.com/training/book-admin-en.html" ]
+    "endText": "Get your copy at store.zentyal.com!"
   },
+
   {
     "title": "Zentyal Partner Program",
+    "paragraphs": [ "Deliver Zentyal-based network infrastructure solutions! Gain access to:" ],
     "items": [
-              "Are you interested in providing commercial services based on Zentyal? Take a look to the Zentyal Partner Program!",
-              "Grant your customers vendor-quality Linux server products and services, from quality assured software to certified technical support.",
-              "It is easy and affordable to start a partnership with Zentyal: Start by submitting the Partnership Request!"
+              "Support platform",
+              "Remote monitoring and management of servers and desktops",
+              "Training and certification of technical and sales staff",
+              "Managed services portfolio",
+              "Sales materials",
+              "Lead generation program",
+              "Discounts"
              ],
-    "links": [ "http://www.zentyal.com/partners/", "http://www.zentyal.com/partners/join" ]
+    "endText": "Learn more at www.zentyal.com!"
   },
+
   {
-    "title": "How you can contribute?",
-    "paragraphs": [ "Zentyal is a user-driven open source project. There are number of ways also you can contribute to the project!" ],
+    "title": "How can you contribute?",
+    "paragraphs": [ "Are you a happy Zentyal user? Give back to the project:" ],
     "items": [
-              "Let the world know about Zentyal: write about the project in your blog/news sites, organize a presentation/demo/workshop, etc.",
-              "Write how-tos/tutorials on Zentyal use cases.",
-              "Translate Zentyal to your own language.",
-              "Donate some of your time by helping other Zentyal users via Zentyal Forum.",
-              "Help testing the latest Zentyal features or file a bug report when you run into one!",
-              "And of course we also welcome any contributions to the Zentyal development!"
+              "Spread the word about Zentyal!",
+              "Write Zentyal how-tos and tutorials",
+              "Translate Zentyal to your language",
+              "Help other users through Zentyal Forum",
+              "Test latest versions and report bugs",
+              "Develop your own Zentyal modules"
              ],
-    "links": [ "http://trac.zentyal.org/wiki/Contribute", "http://forum.zentyal.org/" ]
+    "endText": "Learn more at www.zentyal.org!"
   }
 ]
