@@ -22,7 +22,7 @@ use EBox::Gettext;
 function checkBrowser() {
     if (/MSIE/.test(navigator.userAgent)) {
         var ieversion = parseFloat(navigator.appVersion.split("MSIE")[1]);
-        if (ieversion < 9) {
+        if (ieversion < 8) {
             document.getElementById("ieWarning").style.display="block";
             document.getElementById("credential_0").disabled="disabled";
             document.getElementById("loginButton").disabled="disabled";
