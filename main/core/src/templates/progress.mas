@@ -79,47 +79,41 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         var ads = <% $adsJson %>;
         var nAds = -1;
 
-        function showAds(){
-% unless ( $adsJson eq '""' ) {
-                nAds++;
-                if (ads != null) {
-                        if (nAds > ads.length)
-                                nAds = 1;
-                        if (ads[nAds] != null){
-                                var html = "<div class='ads'>";
-                                if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
-                                if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
-                                if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
-                                if (ads[nAds].items != null) {
-                                        html += "<ul>";
-                                        for(var i = 0; i < ads[nAds].items.length; i++)
-                                                html += "<li>" + ads[nAds].items[i] + "</li>";
-                                }
-                                html += "</br>";
-                                if (ads[nAds].links != null) {
-                                        for(var i = 0; i < ads[nAds].links.length; i++)
-                                                html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
-                                }
-                                html += "<div>";
+        function showAds(advance) {
+                if (ads == null || ads == '""') return;
 
-                if ( nAds % 2 == 1 ) {
-                    $('adsFrame2').hide();
-                                    document.getElementById('adsFrame2').innerHTML = html;
-                    Effect.DropOut('adsFrame1', { duration: 1 });
-                    Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
-                }
-                else {
-                    $('adsFrame1').hide();
-                                    document.getElementById('adsFrame1').innerHTML = html;
-                    Effect.DropOut('adsFrame2', { duration: 1 });
-                    Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
+                if (advance) {
+                    nAds++;
+                    if (nAds == ads.length) return;
+                } else {
+                    if (nAds == 0) return;
+                    nAds--;
                 }
 
-                        }
+                if (ads[nAds] != null) {
+                    var html = ads[nAds];
+
+                    if (nAds == 0) {
+                        $('adsButtonPrev').hide();
+                    } else if (nAds == ads.length - 1) {
+                        $('adsButtonNext').hide();
+                    } else {
+                        $('adsButtonPrev').show();
+                        $('adsButtonNext').show();
+                    }
+
+                    if (nAds % 2 == 1) {
+                        $('adsFrame2').hide();
+                        document.getElementById('adsFrame2').innerHTML = html;
+                        Effect.Fade('adsFrame1', { duration: 1 });
+                        Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
+                    } else {
+                        $('adsFrame1').hide();
+                        document.getElementById('adsFrame1').innerHTML = html;
+                        Effect.Fade('adsFrame2', { duration: 1 });
+                        Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
+                    }
                 }
-% } else {
-                return;
-% }
         }
 
 </script>
@@ -141,13 +135,15 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 </style>
 
-
-% unless ( $adsJson eq '""' ) {
-<div style="height: 200px"><div>
+% unless ($adsJson eq '""') {
+<div class="slide_container">
     <div id="adsFrame1"></div>
     <div id="adsFrame2"></div>
-</div></div>
+    <button type="button" id="adsButtonPrev" onclick="showAds(0)"></button>
+    <button type="button" id="adsButtonNext" onclick="showAds(1)"></button>
+</div>
 % }
+
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
@@ -156,10 +152,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         <div class="percent" id="percentValue"></div>
     <div class="bar" <% $barStyle %> >
         <div id="progressValue" <% $progresValueStyle %> ></div>
-<!--
-        <div class='tcenter'>
-        <div class="percent" id="percentValue"></div>
--->
     </div>
 </div>
 <br/>
@@ -200,11 +192,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </div>
 
 
-% unless ($adsJson eq '""')  {
 <script>
-      showAds();
+      showAds(1);
 </script>
-% }
 
 % if ($inModalbox) {
 <script  type="text/javascript">
