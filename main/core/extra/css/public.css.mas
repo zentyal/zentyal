@@ -1828,3 +1828,79 @@ border-radius: 3px;
 .final_installation .start_now_boton:hover {
     background-color:#5FAF21;
 }
+
+
+.slide_container {
+    height:300px;
+    padding-bottom:20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.ads {
+    height:300px;
+    margin: 0px 60px;
+    overflow: hidden;
+    background-positions: right bottom
+}
+
+.ads img {
+    position: absolute;
+    right:0px;
+    top:50px;
+}
+
+.ads h2{
+    font-size: 30px;
+    color:#E1721E;
+}
+
+.ads p{
+    font-size:14px;
+    width:400px;
+    color:#666;
+    padding-left:5px;
+}
+
+.ads li{
+    font-size:14px;
+    width:250px;
+    color:#666;
+    padding-left:5px;
+    margin-top:3px;
+}
+
+
+.ads_link a{
+    padding: 5px 10px;
+    background: #999;
+    color:white;
+    float:right;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.ads_link a:hover{
+    background: #E1721E;
+    cursor: pointer;
+}
+
+#adsButtonPrev {
+    position: absolute;
+    top: 100px;
+    height: 170px;
+    width:50px;
+    background: transparent url(/data/software/images/prevBT.png) no-repeat center center;
+    border: none;
+    z-index:1000;
+
+}
+#adsButtonNext {
+    position: absolute;
+    top: 100px;
+    height: 170px;
+    width:50px;
+    right:0px;
+    background: transparent url(/data/software/images/nextBT.png) no-repeat center center;
+    border: none;
+    z-index:1000;
+}

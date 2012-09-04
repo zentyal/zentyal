@@ -9,7 +9,7 @@
 <div class='ads'>
 <h2><% $title %></h2>
 
-<img style='padding: 0 15px; float: right' src="/data/software/images/slide<% $num %>.png">
+<img src="/data/software/images/slide<% $num %>.png">
 
 % foreach my $text (@paragraphs) {
 <p><% $text %></p>
@@ -24,7 +24,7 @@
 % }
 
 % foreach my $link (@links) {
-<div><a onclick="window.open('<% $link %>)'"><% $link %></a></div>
+<div class="ads_link"><a onclick="window.open('<% $link %>)'"><% $link %></a></div>
 % }
 
 </div>
