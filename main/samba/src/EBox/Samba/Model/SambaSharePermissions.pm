@@ -258,9 +258,9 @@ sub filterUserGroupPrintableValue
     my $selectedType = $element->selectedType();
     my $value = $element->value();
     if ($selectedType eq 'user') {
-        return $value . __(' (user))')
+        return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
-        return $value . __(' (group))')
+        return __x('Group: {g}', g => $value);
     }
 
     return $value;
