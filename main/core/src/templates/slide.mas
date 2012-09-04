@@ -6,10 +6,8 @@
     @links => ()
     $endText => ''
 </%args>
-<div class='ads'>
+<div class='ads' style="background-image: url(/data/software/images/slide<% $num %>.png) ">
 <h2><% $title %></h2>
-
-<img src="/data/software/images/slide<% $num %>.png">
 
 % foreach my $text (@paragraphs) {
 <p><% $text %></p>

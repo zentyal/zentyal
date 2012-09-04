@@ -1831,22 +1831,23 @@ border-radius: 3px;
 
 
 .slide_container {
-    height:300px;
+    height:350px;
     padding-bottom:20px;
     border-bottom: 2px solid #ccc;
 }
 
 .ads {
-    height:300px;
-    margin: 0px 60px;
+    height:350px;
+    margin: 0px 45px;
     overflow: hidden;
-    background-positions: right bottom
+    position:relative;
+    background: no-repeat bottom right;
 }
 
 .ads img {
     position: absolute;
     right:0px;
-    top:50px;
+    bottom:0px;
 }
 
 .ads h2{
@@ -1856,13 +1857,13 @@ border-radius: 3px;
 
 .ads p{
     font-size:14px;
-    width:400px;
+    width:300px;
     color:#666;
     padding-left:5px;
 }
 
 .ads li{
-    font-size:14px;
+    font-size:12px;
     width:250px;
     color:#666;
     padding-left:5px;
@@ -1872,15 +1873,17 @@ border-radius: 3px;
 
 .ads_link a{
     padding: 5px 10px;
-    background: #999;
+    background: #E1721E;
     color:white;
-    float:right;
+    float:left;
+    clear:both;
     text-decoration:none;
     font-size:13px;
+    margin:1px 0px;
 }
 
 .ads_link a:hover{
-    background: #E1721E;
+    background: #E19B1E;
     cursor: pointer;
 }
 
