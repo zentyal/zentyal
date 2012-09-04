@@ -1773,27 +1773,17 @@ sub _updateManagedDomainIPsModel
 
     my $networkModule = EBox::Global->modInstance('network');
     my $ifaces = $networkModule->ifaces();
-
-    # Remove all rows that are managed by us (iface is set)
-    foreach my $ipId (@{$model->ids()}) {
-        my $ipRow = $model->row($ipId);
-        $model->removeRow($ipId) if defined $ipRow->valueByName('iface');
-    }
-
-    # And add the interfaces addresses
     foreach my $iface (@{$ifaces}) {
-        my $ips = $networkModule->ifaceAddresses($iface);
-        foreach my $ifaceData (@{$ips}) {
-            my $row = $model->find(ip => $ifaceData->{address});
-            $model->removeRow($row->id()) if defined $row;
+        my $addrs = $networkModule->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            my $ipRow = $model->find(iface => $ifaceName);
+            next unless defined $ipRow;
 
-            if (exists $ifaceData->{name}) {
-                # This is a virtual iface
-                $model->addRow(ip => $ifaceData->{address}, iface => $ifaceData->{name}, readOnly => 1);
-            } else {
-                # This is a real iface
-                $model->addRow(ip => $ifaceData->{address}, iface => $iface, readOnly => 1);
-            }
+            my $ipElement = $ipRow->elementByName('ip');
+            $ipElement->setValue($addr->{address});
+            $ipRow->store();
         }
     }
 }
@@ -1812,7 +1802,9 @@ sub _updateManagedDomainAddresses
     my $domainsModel = $self->model('DomainTable');
     my $managedRows = $domainsModel->findAllValue(managed => 1);
 
-    foreach my $domainRow (@{$managedRows}) {
+    foreach my $id (@{$managedRows}) {
+        my $domainRow = $domainsModel->row($id);
+
         # Update domain IP addresses
         my $domainIpModel = $domainRow->subModel('ipAddresses');
         $self->_updateManagedDomainIPsModel($domainIpModel);

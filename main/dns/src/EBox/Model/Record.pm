@@ -48,37 +48,6 @@ sub updatedRowNotify
     }
 }
 
-# Method: precondition
-#
-# Overrides:
-#
-#     <EBox::Model::Component::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    if ( $self->parentRow()->readOnly() ) {
-        return 0;
-    }
-    return 1;
-
-}
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#     <EBox::Model::Component::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __x('The domain is set as read only. You cannot add {what}',
-               what => $self->printableName());
-}
-
 # Method: pageTitle
 #
 # Overrides:

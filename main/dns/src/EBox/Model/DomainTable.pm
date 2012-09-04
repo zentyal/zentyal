@@ -459,14 +459,21 @@ sub addedRowNotify
     my $secret = $self->_generateSecret();
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
+    my $ipModel = $newRow->subModel('ipAddresses');
 
     # Add the domain IP addresses
+    my @addedAddrs;
     my $network = EBox::Global->modInstance('network');
-    my $internalIpAddresses = $network->internalIpAddresses();
-    my $ipModel = $newRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding domain IP');
-        $ipModel->addRow(ip => $ip);
+    my $ifaces = $network->InternalIfaces();
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+            push (@addedAddrs, $ip);
+        }
     }
 
     # Generate the NS record and its A record
@@ -477,16 +484,21 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding host IP');
-        $ipModel->addRow(ip => $ip);
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+        }
     }
 
     EBox::debug('Adding name server');
     my $nsModel = $newRow->subModel('nameServers');
     $nsModel->add(hostName => { ownerDomain => $nsHost } );
 
-    my $addrs = join(', ', @{$internalIpAddresses});
+    my $addrs = join(', ', @addedAddrs);
     $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
                           . 'these IP addresses {ips}, this host name has been also set as '
                           . 'nameserver record. Moreover, the same IP addresses have been assigned '

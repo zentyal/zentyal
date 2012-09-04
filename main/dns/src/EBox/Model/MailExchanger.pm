@@ -116,34 +116,6 @@ sub validateTypedRow
 
 }
 
-# Method: precondition
-#
-# Overrides:
-#
-#     <EBox::Model::Component::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    if ( $self->parentRow()->readOnly() ) {
-        return 0;
-    }
-    return 1;
-
-}
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#     <EBox::Model::Component::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    return __('The domain is set as read only. You cannot add mail exchangers');
-}
-
 # Group: Protected methods
 
 # Method: _table

@@ -1,4 +1,5 @@
 HEAD
+	+ Allow modifiying models when domain is read only
 	+ Fix enable/disable the DNS cache checkbox without restarting apache.
 	  The enabled property depends on firewall enabled, now this check is
 	  done at run time.
