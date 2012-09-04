@@ -93,15 +93,24 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
                 if (ads[nAds] != null) {
                     var html = ads[nAds];
 
+                    if (nAds == 0) {
+                        $('adsButtonPrev').hide();
+                    } else if (nAds == ads.length - 1) {
+                        $('adsButtonNext').hide();
+                    } else {
+                        $('adsButtonPrev').show();
+                        $('adsButtonNext').show();
+                    }
+
                     if (nAds % 2 == 1) {
                         $('adsFrame2').hide();
                         document.getElementById('adsFrame2').innerHTML = html;
-                        Effect.DropOut('adsFrame1', { duration: 1 });
+                        Effect.Fade('adsFrame1', { duration: 1 });
                         Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
                     } else {
                         $('adsFrame1').hide();
                         document.getElementById('adsFrame1').innerHTML = html;
-                        Effect.DropOut('adsFrame2', { duration: 1 });
+                        Effect.Fade('adsFrame2', { duration: 1 });
                         Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
                     }
                 }
