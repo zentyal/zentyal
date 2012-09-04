@@ -35,7 +35,8 @@ use Storable;
 
 use constant ZARAFACONFFILE => '/etc/zarafa/server.cfg';
 use constant ZARAFALDAPCONFFILE => '/etc/zarafa/ldap.openldap.cfg';
-use constant ZARAFAWEBACCCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAWEBAPPCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAXMPPCONFFILE => '/usr/share/zarafa-webapp/plugins/xmpp/config.php';
 use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
@@ -121,9 +122,14 @@ sub usedFiles
             'reason' => __('To properly configure Zarafa LDAP connection.')
         },
         {
-            'file' => ZARAFAWEBACCCONFFILE,
+            'file' => ZARAFAWEBAPPCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa webaccess.')
+        },
+        {
+            'file' => ZARAFAXMPPCONFFILE,
+            'module' => 'zarafa',
+            'reason' => __('To properly configure Zarafa XMPP integration.')
         },
         {
             'file' => ZARAFAGATEWAYCONFFILE,
@@ -446,6 +452,16 @@ sub _setConf
     $self->writeConfFile(ZARAFADAGENTCONFFILE,
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+
+    my $jabber = $self->model('GeneralSettings')->jabberValue();
+    if ($jabber and EBox::Global->modExists('jabber')) {
+        @array = ();
+        my $jabberMod = EBox::Global->modInstance('jabber');
+        push(@array, 'domain' => $jabberMod->model('GeneralSettings')->domainValue());
+        $self->writeConfFile(ZARAFAXMPPCONFFILE,
+                     "zarafa/xmpp-config.php.mas",
+                     \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+    }
 
     $self->_setSpellChecking();
     # TODO configure xmpp plugin too once zarafa fixes packaging

@@ -1,4 +1,5 @@
 HEAD
+	+ Fix XMPP integration writing xmpp/config.php file
 	+ Update configuration templates for Zarafa 7.1.0-36420
 2.3.3
 	+ Move report code to remoteservices
