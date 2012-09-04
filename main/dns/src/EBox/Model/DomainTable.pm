@@ -588,6 +588,7 @@ sub _table
                 defaultValue   => 0,
                 hiddenOnSetter => 1,
                 hiddenOnViewer => 0,
+                HTMLViewer     => '/dns/ajax/viewer/dynamicDomainViewer.mas'
             ),
             # This field is filled when the zone is dynamic and
             # indicates the TSIG key for the direct mapping and
