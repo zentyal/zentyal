@@ -21,6 +21,9 @@
 </ul>
 % }
 
+<p><% $endText %></p>
+
+
 % foreach my $link (@links) {
 <div class="ads_link"><a onclick="window.open('<% $link %>)'"><% $link %></a></div>
 % }
