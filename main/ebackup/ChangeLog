@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Fixed RemoteStatus model precondition when setup is not complete
 	+ Fixed regression when getting collection status
 	+ Fixed wrong call to value() in backup-tool
