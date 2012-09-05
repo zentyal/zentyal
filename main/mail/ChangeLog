@@ -1,4 +1,7 @@
 HEAD
+	+ Convert to lowercase the domain part in the user LDAP filter,
+	  required to retrieve the correct mailbox path when using kerberos auth
+	+ Fix gssapi hostname for kerberos authentication
 	+ Fix LDAP filters
 	+ Switch to LDAP bind authentication when kerberos is not used
 	+ Fixed dovecot user password authentication

@@ -598,7 +598,7 @@ sub _setDovecotConf
 
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
-    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
+    my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @params = ();
     push (@params, uid => $uid);
