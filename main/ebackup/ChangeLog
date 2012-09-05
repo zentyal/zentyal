@@ -1,4 +1,5 @@
 2.3.6
+	+ Fixed executable permissions on update-status script
 	+ Fixed RemoteStatus model precondition when setup is not complete
 	+ Fixed regression when getting collection status
 	+ Fixed wrong call to value() in backup-tool
