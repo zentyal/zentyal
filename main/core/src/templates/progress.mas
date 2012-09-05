@@ -14,7 +14,7 @@ $errorNote          => undef
 $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 
-@slides
+@slides => ()
 
 $inModalbox => undef
 
