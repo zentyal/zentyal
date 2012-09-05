@@ -174,7 +174,11 @@ sub ids
         return [];
     }
 
-    my @list = map { $_->dn() } @{$users->users()};
+    my @list = map {
+        my $user = $_;
+        $user->hidden() ? () : $user->dn()
+    } @{$users->users()};
+
     my $filterOU = $self->filterOU();
     if ($filterOU) {
         my $filterRe = qr/,$filterOU$/;
