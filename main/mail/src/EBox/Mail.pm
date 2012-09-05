@@ -40,6 +40,7 @@ use EBox::Service;
 
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 
@@ -598,7 +599,7 @@ sub _setDovecotConf
 
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
-    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
+    my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @params = ();
     push (@params, uid => $uid);
