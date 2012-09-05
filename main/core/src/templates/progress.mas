@@ -12,7 +12,8 @@ $endNote            => undef
 $errorNote          => undef
 $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
-$adsJson => '""'
+
+@slides
 
 $inModalbox => undef
 
@@ -59,66 +60,27 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % if ($inModalbox) {
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+% } else {
+<script type="text/javascript" src="/data/js/carousel.js">//</script>
 % }
 
-<script type="text/javascript">
-        createPeriodicalExecuter(<% $progressId %>,
-                             '<% $currentItemUrl %>',
-                             <% $reloadInterval %>,
-                             <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>');
-
-        function init(){
-                ph = new porcentH('progress');
-        }
-
-        if (document.addEventListener) {
-                document.addEventListener("DOMContentLoaded", init, false);
-        }
-
-        var ads = <% $adsJson %>;
-        var nAds = -1;
-
-        function showAds(advance) {
-                if (ads == null || ads == '""') return;
-
-                if (advance) {
-                    nAds++;
-                    if (nAds == ads.length) return;
-                } else {
-                    if (nAds == 0) return;
-                    nAds--;
-                }
-
-                if (ads[nAds] != null) {
-                    var html = ads[nAds];
-
-                    if (nAds == 0) {
-                        $('adsButtonPrev').hide();
-                    } else if (nAds == ads.length - 1) {
-                        $('adsButtonNext').hide();
-                    } else {
-                        $('adsButtonPrev').show();
-                        $('adsButtonNext').show();
-                    }
-
-                    if (nAds % 2 == 1) {
-                        $('adsFrame2').hide();
-                        document.getElementById('adsFrame2').innerHTML = html;
-                        Effect.Fade('adsFrame1', { duration: 1 });
-                        Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
-                    } else {
-                        $('adsFrame1').hide();
-                        document.getElementById('adsFrame1').innerHTML = html;
-                        Effect.Fade('adsFrame2', { duration: 1 });
-                        Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
-                    }
-                }
-        }
-
-</script>
-
 <style>
+
+#slide_wrapper {
+    width: 690px;
+    height: 350px;
+    overflow: hidden;
+}
+
+#slides {
+    width: 6900px;
+}
+
+#slides .ads {
+    float: left;
+    width: 690px;
+    height: 350px;
+}
 
 .percent{
     float: left;
@@ -135,12 +97,15 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 </style>
 
-% unless ($adsJson eq '""') {
-<div class="slide_container">
-    <div id="adsFrame1"></div>
-    <div id="adsFrame2"></div>
-    <button type="button" id="adsButtonPrev" onclick="showAds(0)"></button>
-    <button type="button" id="adsButtonNext" onclick="showAds(1)"></button>
+% if (@slides) {
+<div id="slide_wrapper" class="slide_container">
+    <div id="slides">
+% foreach my $slide (@slides) {
+<% $slide %>
+% }
+    </div>
+    <a href="javascript:" id="adsButtonPrev" class="carousel-control" rel="prev"></a>
+    <a href="javascript:" id="adsButtonNext" class="carousel-control" rel="next"></a>
 </div>
 % }
 
@@ -191,9 +156,17 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
-
-<script>
-      showAds(1);
+<script type="text/javascript" language="javascript">
+      new Carousel('slide_wrapper',
+                   $$('#slides .ads'),
+                   $$('a.carousel-control', 'a.carousel-jumper'),
+                   {
+                      'auto' : true,
+                      'frequency' : 5,
+                      'circular' : true,
+                      'duration' : 0.6,
+                   }
+      );
 </script>
 
 % if ($inModalbox) {
