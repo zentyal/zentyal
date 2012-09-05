@@ -1,4 +1,6 @@
 HEAD
+	+ Fix LDAP filters
+	+ Switch to LDAP bind authentication when kerberos is not used
 	+ Fixed dovecot user password authentication
 	+ Fixed disable_dns_lookups key in master.cf
 2.3.7

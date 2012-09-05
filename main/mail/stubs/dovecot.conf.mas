@@ -68,7 +68,8 @@ userdb {
 }
 
 passdb {
-    driver = pam
+    driver = ldap
+    args = /etc/dovecot/dovecot-ldap.conf
 }
 
 disable_plaintext_auth = yes
@@ -87,7 +88,7 @@ ssl = yes
 ssl_cert =</etc/dovecot/ssl/dovecot.pem
 ssl_key =</etc/dovecot/ssl/dovecot.pem
 
-verbose_ssl = yes
+verbose_ssl = no
 
 ##
 ## Login processes

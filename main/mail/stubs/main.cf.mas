@@ -137,7 +137,6 @@ valiases_bind_pw = <% $bindPW %>
 dovecot_destination_recipient_limit = 1
 virtual_transport = dovecot
 virtual_mailbox_base = <% $vmaildir %>
-
 virtual_mailbox_maps= ldap:ldapvirtualmap
 ldapvirtualmap_server_host = <% $ldapServer %>
 ldapvirtualmap_version = 3
@@ -189,7 +188,7 @@ senderlogin_server_host = <% $ldapServer %>
 senderlogin_version = 3
 senderlogin_search_base = <% $usersDN %>
 senderlogin_query_filter = (&(mail=%s)(objectClass=CourierMailAccount))
-senderlogin_result_attribute = uid
+senderlogin_result_attribute = mail
 senderlogin_bind = yes
 senderlogin_bind_dn = <% $bindDN %>
 senderlogin_bind_pw = <% $bindPW %>
