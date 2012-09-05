@@ -468,6 +468,49 @@ sub modulesInDependOrder
 
 # Group: Private methods
 
+sub modulesInFirstInstallOrder
+{
+    my ($self) = @_;
+    my @mods;
+    my @rawMods = @{$self->_dependencyTree()};
+
+    # first install samba must go just after users
+    my @modsInHold;
+    my ($usersSeen, $sambaSeen, $firewallSeen, $logsSeen);
+    foreach my $mod (@rawMods) {
+        if ($mod eq 'users') {
+            $usersSeen = 1;
+            push @mods, 'users';
+        } elsif ($mod eq 'samba') {
+            $sambaSeen = 1;
+            push @mods, 'samba';
+            push @mods, @modsInHold;
+            @modsInHold = ();
+        } elsif ($mod eq 'firewall') {
+            $firewallSeen = 1;
+            push @mods, 'firewall';
+        } elsif ($mod eq 'logs') {
+            # we will add the module later
+            $logsSeen = 1;
+        } elsif ($usersSeen and not $sambaSeen) {
+            push @modsInHold, $mod;
+        } else {
+            push @mods, $mod;
+        }
+    }
+
+    push @mods, @modsInHold;
+    if ($firewallSeen) {
+        # added one more time  to receive rules added by enables
+        push @mods, 'firewall';
+    }
+    if ($logsSeen) {
+        # added in the last to receive all new logobservers
+        push @mods, 'logs';
+    }
+    return \@mods;
+}
+
 sub _dependencyTree
 {
     my ($self, $tree, $hash) = @_;
