@@ -1,4 +1,5 @@
 HEAD
+	+ Add missing use statement causing an exception loading the class
 	+ Convert to lowercase the domain part in the user LDAP filter,
 	  required to retrieve the correct mailbox path when using kerberos auth
 	+ Fix gssapi hostname for kerberos authentication

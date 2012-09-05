@@ -40,6 +40,7 @@ use EBox::Service;
 
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 
