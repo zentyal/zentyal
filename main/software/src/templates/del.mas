@@ -38,6 +38,7 @@ if ($popup) {
     $cancelOnClick = q|onclick="Modalbox.hide(); return false"|;
 } else {
     $okOnClick = qq|onclick="window.location='$url'; return false"|;
+    $cancelOnClick = q|onclick="window.history.back(); return false"|;
 }
 </%init>
 

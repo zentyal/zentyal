@@ -61,6 +61,7 @@ sub _process
     }
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+            showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
             inModalbox
             nextStepType

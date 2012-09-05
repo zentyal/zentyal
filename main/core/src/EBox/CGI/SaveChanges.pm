@@ -91,9 +91,8 @@ sub saveAllModulesAction
         if ($self->param('firstTime')) {
             push @params, (firstTime => 1);
             push @params, (nextStepUrl => '/Wizard/SoftwareSetupFinish?firstTime=1');
-            push @params, (nextStepText => __('You will be redirected to next step'));
+            push @params, (showNotesOnFinish => 'no');
             push @params, (nextStepTimeout => 5);
-            push @params, (nextStepType => 'none');
 
         }
     } else {
