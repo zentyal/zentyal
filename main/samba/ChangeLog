@@ -1,10 +1,10 @@
 HEAD
+	+ Depend on samba 4.0 beta 8
 	+ Check provisioned flag and module enabled in s4sync script
 	+ Set the provisioned flag at the end of provision function
 	+ shareByFilename() method is now working with samba4
 	+ Improved DNS management of the Samba internal domain
 	+ Fixed labels on SambaSharePermissions model
-	+ Depend on samba 4.0 beta 7
 	+ Fix guest access to shares (client do not ask for password)
 	+ Map nobody and nogroup to domain guest and guests accounts
 	+ Add missing use statement on EBox::Samba::User
