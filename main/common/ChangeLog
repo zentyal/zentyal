@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed EBox::Config::Version method
 2.3.9
 	+ Add uid function to return the uid of the zentyal user
 	+ Added EBox::FileSystem::unusedFileName() to find free file names
