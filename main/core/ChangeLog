@@ -1,4 +1,5 @@
 HEAD
+	+ Type File now accepts spaces in the file name
 	+ Added setTimezone method to MyDBEngine
 	+ Enable consolidation after reviewing and pruning
 	+ Code typo fix in Events::isEnabledWatcher

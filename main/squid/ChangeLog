@@ -1,4 +1,6 @@
 HEAD
+	+ Archive list can now have spaces in the name
+	+ ListArchive type now accept spaces in the file name
 	+ Move report code to remoteservices
 	+ Perform the domain processing in log helper, very valuable for
 	  querying and reporting

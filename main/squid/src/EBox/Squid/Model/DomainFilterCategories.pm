@@ -46,10 +46,11 @@ sub syncRows
     my $lists;
 
     foreach my $dir (@dirs) {
-        my @files =  @{ EBox::Sudo::root("find $dir") };
+        my @files =  @{ EBox::Sudo::root("find '$dir'") };
         foreach my $file (@files) {
             chomp $file;
             my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*)/(.*?)$};
+            next unless (defined($category)); # This applies for top level directory and first sub-top (BL)
             my $dir = "$dirname/$listname/BL/$category";
 
             if ($basename eq any(qw(domains urls))) {
