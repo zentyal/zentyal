@@ -916,7 +916,7 @@ sub setKerberosKeys
 sub hidden
 {
     my ($self) = @_;
-    if ($self->comment() =~ m/DNS Service Account for/) {
+    if ($self->comment() =~ m/^DNS Service Account for/) {
         return 1;
     }
     return 0;
