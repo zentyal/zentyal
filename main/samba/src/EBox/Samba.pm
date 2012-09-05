@@ -228,9 +228,7 @@ sub _enforceServiceState
     my ($self) = @_;
 
     if ($self->isEnabled() and $self->isProvisioned()) {
-        unless ($self->isRunning()) {
-            $self->_startService();
-        }
+        $self->_startService();
     } else {
         $self->_stopService();
     }
@@ -588,9 +586,6 @@ sub provisionAsDC
     my $output = EBox::Sudo::silentRoot($cmd);
     if ($? == 0) {
         EBox::debug("Provision result: @{$output}");
-        # Mark the module as provisioned
-        EBox::debug('Setting provisioned flag');
-        $self->setProvisioned(1);
     } else {
         my @error = ();
         my $stderr = EBox::Config::tmp() . 'stderr';
@@ -612,26 +607,23 @@ sub provisionAsDC
                        " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
+    # Write smb.conf to grant rw access to zentyal group on the
+    # privileged socket
+    $self->writeSambaConfig();
+
     # Set DNS. The domain should have been created by the users
     # module.
     $self->setupDNS(1);
 
-    # Write smb.conf to grant rw access to zentyal group on the
-    # privileged socket
-    $self->writeSambaConfig();
-    my $group = EBox::Config::group();
-    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
-    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
-    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
-
     # Start managed service to let it create the LDAP socket
-    EBox::debug('Starting service');
     $self->_startService();
 
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
+
+    # TODO Echo the current TS to the .s4_ts
 
     # Map domain guest account to nobody user
     my $guestSID = $self->ldb->domainSID() . '-501';
@@ -643,6 +635,10 @@ sub provisionAsDC
     EBox::debug("Mapping guest account");
     $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+
+    # Mark the module as provisioned
+    EBox::debug('Setting provisioned flag');
+    $self->setProvisioned(1);
 }
 
 sub provisionAsADC
@@ -1165,7 +1161,6 @@ sub _daemons
     return [
         {
             name => 'samba4',
-            precondition => \&isProvisioned,
             pidfiles => ['/var/run/samba.pid'],
         },
         {
