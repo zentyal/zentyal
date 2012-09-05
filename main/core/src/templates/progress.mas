@@ -158,16 +158,29 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </div>
 
 <script type="text/javascript" language="javascript">
-      new Carousel('slide_wrapper',
-                   $$('#slides .ads'),
-                   $$('a.carousel-control'),
-                   {
-                      'auto' : true,
-                      'frequency' : 25,
-                      'circular' : false,
-                      'duration' : 0.8,
-                   }
-      );
+      $(adsButtonPrev).hide();
+
+      var car_options = {
+          'auto' : true,
+          'frequency' : 25,
+          'circular' : false,
+          'duration' : 0.8,
+          'afterMove': null
+      };
+
+      var car_obj = new Carousel('slide_wrapper', $$('#slides .ads'), $$('a.carousel-control'), car_options);
+
+      car_obj.options.afterMove = function () {
+          var slide_num = car_obj.current._index;
+          if (slide_num == 0) {
+              $(adsButtonPrev).hide();
+          } else if (slide_num == <% scalar (@slides) - 1 %>) {
+              $(adsButtonNext).hide();
+          } else {
+              $(adsButtonPrev).show();
+              $(adsButtonNext).show();
+          }
+      };
 </script>
 
 % if ($inModalbox) {
