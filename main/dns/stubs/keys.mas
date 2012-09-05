@@ -7,12 +7,12 @@
     keys - Hash indexed by key name, stores the TSIG secret
 </%doc>
 <%args>
-  %keys
+  $keys
 </%args>
 # Symmetric TSIG keys to update dynamic zones
-% foreach my $keyName (keys(%keys)) {
+% foreach my $keyName (keys %{$keys}) {
 key "<% $keyName %>." {
     algorithm HMAC-MD5;
-    secret "<% $keys{$keyName} %>";
+    secret "<% $keys->{$keyName} %>";
 };
 % }

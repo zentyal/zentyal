@@ -68,18 +68,12 @@ sub _table
 {
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    my $fwEnabled = 0;
-    if ( $gl->modExists('firewall') ) {
-        $fwEnabled = $gl->modInstance('firewall')->isEnabled();
-    }
-
     my @tableDesc =
       (
           new EBox::Types::Boolean(
               fieldName     => 'transparent',
               printableName => __('Enable transparent DNS cache'),
-              editable      => $fwEnabled,
+              editable      => \&isFWEnabled,
               unique        => 1,
              ),
       );
@@ -97,6 +91,18 @@ sub _table
         };
 
     return $dataTable;
+}
+
+sub isFWEnabled
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    my $fwEnabled = 0;
+    if ($gl->modExists('firewall')) {
+        $fwEnabled = $gl->modInstance('firewall')->isEnabled();
+    }
+    return $fwEnabled;
 }
 
 1;

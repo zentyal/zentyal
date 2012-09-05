@@ -75,7 +75,7 @@ sub new
 sub precondition
 {
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
         return $dns->configured();
     }
@@ -91,9 +91,9 @@ sub precondition
 sub preconditionFailMsg
 {
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
-        unless ( $dns->configured() ) {
+        unless ($dns->configured()) {
             return __('DNS module must be configured to work with this feature');
         }
     } else {
@@ -117,7 +117,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
         unless ( $dns->isEnabled() ) {
             my $msg = __('DNS module must be enabled to make this feature work.');
@@ -155,10 +155,10 @@ sub notifyForeignModelAction
         my $modelRow = $self->row();
         my $dynamicDomain =  $modelRow->valueByName('dynamic_domain');
         my $staticDomain =  $modelRow->valueByName('static_domain');
-        if ( ($domainId eq $dynamicDomain) or ($domainId eq $staticDomain)  ) {
+        if (($domainId eq $dynamicDomain) or ($domainId eq $staticDomain)) {
             # Disable the dynamic DNS feature, in formSubmitted we
             # have to enable again (:-S)
-            if ( $modelRow->valueByName('enabled') ) {
+            if ($modelRow->valueByName('enabled')) {
                 $modelRow->elementByName('enabled')->setValue(0);
                 $modelRow->store();
                 return __x('Dynamic DNS feature has been disabled in DHCP module '
@@ -194,7 +194,6 @@ sub _table
            foreignModel  => $self->modelGetter('dns', 'DomainTable'),
            foreignField  => 'domain',
            foreignNoSyncRows => 1,
-           foreignFilter => \&_domainTypeFilter,
           ),
        new EBox::Types::Union(
            fieldName     => 'static_domain',
@@ -214,7 +213,6 @@ sub _table
                    foreignModel  => $self->modelGetter('dns', 'DomainTable'),
                    foreignField  => 'domain',
                    foreignNoSyncRows => 1,
-                   foreignFilter => \&_domainTypeFilter,
                   ),
               ]),
       );
@@ -237,12 +235,6 @@ sub _table
   }
 
 # Group: Private methods
-
-sub _domainTypeFilter
-{
-    my ($row) = @_;
-    return  $row->valueByName('type') ne 'dlz';
-}
 
 sub _iface
 {
@@ -268,6 +260,14 @@ sub dynamicDomainsIds
     return \@domains;
 }
 
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
 
+    if (EBox::Global->modExists('dns')) {
+        my $dnsModule = EBox::Global->modInstance('dns');
+        $dnsModule->setAsChanged();
+    }
+}
 
 1;

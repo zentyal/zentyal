@@ -116,8 +116,8 @@ sub _table
             editable => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'dhcp_iface',
-            printableName => __('DHCP interface'),
+            fieldName => 'iface',
+            printableName => __('Interface'),
             optional => 1,
             editable => 0,
             hidden => 1,

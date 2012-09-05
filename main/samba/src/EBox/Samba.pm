@@ -55,8 +55,6 @@ use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
-use constant SAMBA_DNS_DLZ_X86    => '/usr/lib/i386-linux-gnu/samba/bind9/dlz_bind9.so';
-use constant SAMBA_DNS_DLZ_X64    => '/usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9.so';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -818,35 +816,27 @@ sub setupDNS
     my ($self, $dlz) = @_;
 
     my $dnsModule = EBox::Global->modInstance('dns');
-    my $usersModule = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
+    # Ensure that the managed domain exists
     my $domainModel = $dnsModule->model('DomainTable');
     my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
     unless (defined $domainRow) {
         throw EBox::Exceptions::Internal("Domain named '" . $sysinfo->hostDomain()
             . "' not found");
     }
-    my $DBPath = undef;
-    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X86)) {
-        $DBPath = SAMBA_DNS_DLZ_X86;
-    } elsif (EBox::Sudo::fileTest('-f', SAMBA_DNS_DLZ_X64)) {
-        $DBPath = SAMBA_DNS_DLZ_X64;
-    }
-    unless (defined $DBPath) {
-        throw EBox::Exceptions::Internal(
-            __("Samba DNS DLZ file for bind can't be found"));
-    }
 
+    # Mark the domain as samba
     if ($dlz) {
         EBox::debug('Setting up DNS for samba');
-        $domainRow->elementByName('dlzDbPath')->setValue($DBPath);
-        $domainRow->elementByName('type')->setValue(EBox::DNS::DLZ_ZONE());
+        $domainRow->elementByName('samba')->setValue(1);
     } else {
         EBox::debug('Setting up DNS for users');
-        $domainRow->elementByName('type')->setValue(EBox::DNS::STATIC_ZONE());
+        $domainRow->elementByName('samba')->setValue(0);
     }
     $domainRow->store();
+
+    # And force service restart
     $dnsModule->save();
 
     if (EBox::Sudo::fileTest('-f', SAMBA_DNS_KEYTAB)) {

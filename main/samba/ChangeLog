@@ -1,4 +1,6 @@
 HEAD
+	+ Improved DNS management of the Samba internal domain
+	+ Fixed labels on SambaSharePermissions model
 	+ Depend on samba 4.0 beta 7
 	+ Fix guest access to shares (client do not ask for password)
 	+ Map nobody and nogroup to domain guest and guests accounts
