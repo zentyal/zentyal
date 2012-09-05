@@ -25,7 +25,7 @@
 
 
 % foreach my $link (@links) {
-<div class="ads_link"><a onclick="window.open('<% $link %>)'"><% $link %></a></div>
+<div class="ads_link"><a onclick="window.open('<% $link %>')"><% $link %></a></div>
 % }
 
 </div>

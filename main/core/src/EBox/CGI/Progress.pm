@@ -85,7 +85,7 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-            push @params, (adsJson => loadAds());
+            push @params, (slides => loadSlides());
         }
     }
 
@@ -158,7 +158,7 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub loadAds
+sub loadSlides
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';
     my $file = "$path/ads_" + EBox::locale();
@@ -182,7 +182,7 @@ sub loadAds
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 
-    return encode_json(\@html);
+    return \@html;
 }
 
 1;

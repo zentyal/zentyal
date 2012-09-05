@@ -1,4 +1,5 @@
 HEAD
+	+ New carousel transition for the installation slides
 	+ Added option to not show final notes in progress bar
 	+ EBox::Model::Component::modelGetter does not die when trying to
 	  get a model for an uninstalled module
