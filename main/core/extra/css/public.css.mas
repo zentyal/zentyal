@@ -1666,6 +1666,7 @@ border-radius: 3px;
 #MB_content {
 	padding: 6px .75em;
 	overflow: auto;
+	max-height: 450px;
 }
 
 #MB_caption {
