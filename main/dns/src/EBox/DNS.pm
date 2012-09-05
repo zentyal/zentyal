@@ -1407,6 +1407,11 @@ sub _launchSambaNSupdate
 {
     my ($self, $fh) = @_;
 
+    return unless EBox::Global->modExists('samba');
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    return unless ($sambaModule->isProvisioned() and $sambaModule->isRunning());
+
     my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
     if ($self->_isNamedListening()) {
         try {
