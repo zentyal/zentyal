@@ -203,7 +203,7 @@ sub initialSetup
                                   destinationPort => 390 } ],
             );
 
-            $fw->setInternalService($serviceName, 'accept');
+            $fw->setInternalService($serviceName, 'deny');
         }
 
         $serviceName = 'kerberos';
