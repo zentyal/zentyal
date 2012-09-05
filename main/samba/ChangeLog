@@ -1,4 +1,5 @@
 HEAD
+	+ shareByFilename() method is now working with samba4
 	+ Improved DNS management of the Samba internal domain
 	+ Fixed labels on SambaSharePermissions model
 	+ Depend on samba 4.0 beta 7

@@ -1,4 +1,9 @@
 HEAD
+	+ Added setTimezone method to MyDBEngine
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
 	+ Fixed regression which removed scroll bars from popups
 	+ New carousel transition for the installation slides
 	+ Added option to not show final notes in progress bar

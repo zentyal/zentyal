@@ -1,3 +1,7 @@
+HEAD
+	+ Implement reporting code here
+	+ Password list files are now stored in module conf
+	+ RESTClient now supports raw JSON as query param
 2.3.2
 	+ Do not set local address for TCP connections
 	+ Avoid division by zero showing DR info

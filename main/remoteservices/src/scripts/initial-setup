@@ -6,4 +6,6 @@ if [ -n "$VERSION" ]; then
     /usr/share/zentyal-remoteservices/reload-bundle
 fi
 
+chown -R ebox:adm /var/lib/zentyal/conf/remoteservices
+
 exit 0

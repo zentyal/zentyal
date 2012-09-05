@@ -24,10 +24,7 @@ use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
-use Filesys::Df;
 use File::Slurp qw(read_file);
-use Filesys::Df;
-use List::Util qw(sum);
 use Error qw(:try);
 
 use EBox::Config;
@@ -430,75 +427,6 @@ sub _facilitiesForDiskUsage
     my ($self, @params) = @_;
 
     return EBox::Backup->_facilitiesForDiskUsage(@params);
-}
-
-# TODO Check if the subs below are needed
-sub logReportInfo
-{
-    my ($self) = @_;
-
-    my @data;
-
-    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
-    foreach my $fileSys (keys %{$fileSysS}) {
-        my $entry = {};
-        $entry->{'table'} = 'sysinfo_disk_usage';
-        $entry->{'values'} = {};
-        my $mount = $fileSysS->{$fileSys}->{mountPoint};
-        $entry->{'values'}->{'mountpoint'} = $mount;
-        my $info = df($mount, 1);
-        $entry->{'values'}->{'used'} = $info->{'used'};
-        $entry->{'values'}->{'free'} = $info->{'bavail'};
-        push(@data, $entry)
-    }
-
-    # Add the total disk usage column
-    my $totalEntry = {};
-    $totalEntry->{'table'} = 'sysinfo_disk_usage';
-    $totalEntry->{'values'} = {};
-    $totalEntry->{'values'}->{'mountpoint'} = 'total';
-    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
-    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
-    unshift(@data, $totalEntry);
-
-    return \@data;
-}
-
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'sysinfo_disk_usage_report',
-            'query' => {
-                'select' => 'mountpoint, used, free',
-                'from' => 'sysinfo_disk_usage',
-                'key' => 'mountpoint'
-            }
-        }
-    ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{'disk_usage'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'mountpoint, used, free',
-        'from' => 'sysinfo_disk_usage_report',
-    }, { 'key' => 'mountpoint' });
-
-    if ( keys %{$report->{'disk_usage'}} == 2 ) {
-        # Only total + /, so we return only total
-        delete($report->{'disk_usage'}->{'/'});
-    }
-
-    return $report;
 }
 
 sub _restartAllServices

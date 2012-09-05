@@ -1,4 +1,7 @@
 HEAD
+	+ Move report code to remoteservices
+	+ Perform the domain processing in log helper, very valuable for
+	  querying and reporting
 	+ Fixed auth rules in squid.conf to not allow all authorized users
 	+ Kerberos auth is optional and disabled by default
 2.3.11

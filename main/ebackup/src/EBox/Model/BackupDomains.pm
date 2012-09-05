@@ -92,7 +92,14 @@ sub enabled
     return \%enabled;
 }
 
-
+# Method: report
+#
+#      Return the enabled backup domain names
+#
+# Returns:
+#
+#      Array ref - containing the backup domain names
+#
 sub report
 {
     my ($self) = @_;
@@ -104,7 +111,7 @@ sub report
         }
     }
 
-    return { backupDomains => \@enabled};
+    return \@enabled;
 }
 
 sub precondition

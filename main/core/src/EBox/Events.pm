@@ -30,6 +30,7 @@ use base qw(EBox::Module::Service EBox::LogObserver
 use strict;
 use warnings;
 
+use EBox::DBEngineFactory;
 use EBox::Config;
 use EBox::Event;
 use EBox::Events::Model::EventsDetails;
@@ -486,86 +487,6 @@ sub _consolidateTable
     return { $table => $spec };
 }
 
-
-
-sub consolidateReportQueries
-{
-    return [
-            {
-             'target_table' => 'events_report',
-             'query' => {
-                         'select' => 'source, level, sum(nRepeated) AS nEvents',
-                         'from' => 'events',
-                         'group' => 'source,level',
-                        },
-             'quote' => { source => 1 },
-            },
-           ];
-}
-
-
-
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-#
-# Returns:
-#
-#   hash ref - the events report
-#
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    my $allAlertsRaw  =  $self->runMonthlyQuery($beg, $end, {
-        'select' => 'level, SUM(nEvents)',
-        'from' => 'events_report',
-        'group' => 'level',
-                                                                  },
-    { 'key' => 'level' }
-   );
-
-
-    $report->{'all_alerts'} = {};
-
-    foreach my $key (%{ $allAlertsRaw }) {
-        next if ( ($key eq 'debug') or ($key eq 'info'));
-        my $sum = $allAlertsRaw->{$key}->{sum};
-        defined $sum or
-            next;
-        $report->{'all_alerts'}->{$key} = $sum;
-    }
-
-
-    my $alertsBySource = {};
-    foreach my $level (qw(warn error fatal)) {
-        my $result =  $self->runMonthlyQuery($beg, $end, {
-                'select' => 'source, sum(nEvents)',
-                'from' => 'events_report',
-                'group' => 'source,level',
-                'where' => qq{level='$level'}
-                                                         },
-                { 'key' => 'source' }
-                                            );
-        foreach my $source (keys %{$result}) {
-            if (not exists $alertsBySource->{$source}) {
-                $alertsBySource->{$source} = {};
-            }
-            my $sum = $result->{$source}->{sum};
-            defined($sum) or next;
-            $alertsBySource->{$source}->{$level} = $sum;
-        }
-    }
-
-    $report->{alerts_by_source} = $alertsBySource;
-
-    return $report;
-}
-
 # Method: lastEventsReport
 #
 #     Get the report of current month events report
@@ -584,22 +505,23 @@ sub lastEventsReport
 {
     my ($self) = @_;
 
-    my @time = localtime();
-    my $beg  = sprintf("%d-%d", $time[5]+1900, $time[4]+1);
+    my $db = EBox::DBEngineFactory::DBEngine();
 
-    my $allAlerts = $self->runMonthlyQuery($beg, $beg, {
-        'select' => 'level, SUM(nEvents)',
-        'from'   => 'events_report',
-        'group'  => 'level',
-    }, { 'key' => 'level' });
+    my $allAlerts = $db->query_hash(
+        {
+            select => 'level, SUM(nRepeated) AS nEvents',
+            from   => 'events',
+            where  => 'timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH)',
+            group  => 'level',
+        });
 
     my %result = (info => 0, warn => 0, error => 0, fatal => 0);
 
     my $total = 0;
-    foreach my $key (qw(info warn error fatal)) {
-        if (exists $allAlerts->{$key} ) {
-            $result{$key} = $allAlerts->{$key}->{sum}->[0];
-            $total += $result{$key};
+    foreach my $row (@{$allAlerts}) {
+        if ( exists($result{$row->{level}}) ) {
+            $result{$row->{level}} = $row->{nEvents};
+            $total += $row->{nEvents};
         }
     }
     $result{total} = $total;

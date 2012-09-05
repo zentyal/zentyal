@@ -1658,40 +1658,4 @@ sub gatherReportInfo
     $db->multiInsert();
 }
 
-
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'ebackup_storage_usage_report',
-            'query' => {
-                'select' => 'used, available',
-                'from' => 'ebackup_storage_usage',
-            },
-        }
-    ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-    if (not $self->configurationIsComplete()) {
-        return {};
-    }
-
-    my $report = {};
-    $report->{included} = $self->model('BackupDomains')->report();
-    $report->{settings} = $self->model('RemoteSettings')->report();
-    $report->{'storage_usage'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'used, available',
-        'from' => 'ebackup_storage_usage_report',
-    });
-
-    return $report;
-}
-
 1;
