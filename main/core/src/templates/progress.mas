@@ -5,6 +5,7 @@
 <%args>
 #$currentItemUrl
 $progressId
+$showNotesOnFinish   => 1
 $text   => ''
 $currentItemCaption => undef
 $itemsLeftMessage   => undef
@@ -33,7 +34,11 @@ defined $itemsLeftMessage   or $itemsLeftMessage   = __('items left');
 defined $endNote            or $endNote            = __('Done');
 defined $errorNote          or $errorNote = __('Some error has '
                                                . 'happened in Zentyal: '
-                                               );
+                                              );
+# CGI::Pogress dont allow false values in parameters
+($showNotesOnFinish eq 'no') and
+   $showNotesOnFinish = 0;
+
 my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
@@ -66,7 +71,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
                              '<% $currentItemUrl %>',
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>');
+                             '<% $nextStepUrl %>',
+                             <% $showNotesOnFinish ? 'true' : 'false' %>
+                             );
 
         function init(){
                 ph = new porcentH('progress');
@@ -148,6 +155,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
     <div id="adsFrame2"></div>
 </div></div>
 % }
+
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
