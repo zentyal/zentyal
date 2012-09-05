@@ -257,6 +257,10 @@ sub modChange
     if ($ro) {
         throw EBox::Exceptions::Internal("Cannot mark as changed a readonly instance of $name");
     }
+    if ($name eq 'sysinfo') {
+        EBox::debug("XXX sysinfo change");
+        EBox::trace();
+    }
 
     my $mod = $self->modInstance($ro, $name);
     defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
@@ -433,6 +437,11 @@ sub modifiedModules
         }
     }
 
+    if ((@mods == 1) and $self->modExists('firewall')) {
+        # no module changed, only the previous added, unchanged firewall
+        return [];
+    }
+
     @mods = map { __PACKAGE__->modInstance($ro, $_) } @mods;
 
     my $sorted;
@@ -582,7 +591,11 @@ sub saveAllModules
                 $module->enableService(0);
                 EBox::debug("Failed to enable module $name: $err");
             };
+
         }
+
+        # in first install sysinfo module is in changed state
+        push @mods, 'sysinfo';
     } else {
         # not first ime, getting changed modules
         @mods = @{$self->modifiedModules('save')};
@@ -599,7 +612,6 @@ sub saveAllModules
             $apache = 1;
             next;
         }
-        EBox::info("Saving configuration: $name");
 
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",

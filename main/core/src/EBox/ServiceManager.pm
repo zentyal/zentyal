@@ -500,14 +500,16 @@ sub modulesInFirstInstallOrder
     }
 
     push @mods, @modsInHold;
-    if ($firewallSeen) {
-        # added one more time  to receive rules added by enables
-        push @mods, 'firewall';
-    }
+
     if ($logsSeen) {
         # added in the last to receive all new logobservers
         push @mods, 'logs';
     }
+    if ($firewallSeen) {
+        # added one more time  to receive rules added by enables
+        push @mods, 'firewall';
+    }
+
     return \@mods;
 }
 
