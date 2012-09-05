@@ -22,6 +22,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -106,7 +107,20 @@ sub precondition
         return 0;
     }
 
-    my @status = @{$self->{confmodule}->remoteStatus()};
+    my @status;
+    my $statusFailure;
+    try {
+       @status = @{$self->{confmodule}->remoteStatus()};
+   } catch EBox::Exceptions::External with {
+       my ($ex) = @_;
+       $statusFailure = $ex->text();
+   };
+
+    if ($statusFailure) {
+        $self->{preconditionFailMsg} = $statusFailure;
+        return 0;
+    }
+
     if (not scalar @status) {
         $self->{preconditionFailMsg} =  __('Remote Backup Status : There are not backed up files yet');
         return 0;
