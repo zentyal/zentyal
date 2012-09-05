@@ -1,4 +1,8 @@
 HEAD
+	+ Generate random administrator password instead of having a default
+	  one for security reasons, to join machines to the domain any user
+	  belonging to the Domain Admins group is enough, so there was no
+	  need to show this password on the interface
 	+ Improved DNS management of the Samba internal domain
 	+ Fixed labels on SambaSharePermissions model
 	+ Depend on samba 4.0 beta 7
