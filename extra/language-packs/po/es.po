@@ -14130,7 +14130,7 @@ msgstr "Protocolo de Transporte de hipertexto"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:127
 #: ../../main/nut/src/EBox/NUT/Composite/General.pm:38
 msgid "UPS"
-msgstr "USP"
+msgstr "SAI"
 
 #: ../../main/nut/src/EBox/NUT.pm:85
 msgid "To configure the NUT daemon mode."
@@ -14138,7 +14138,7 @@ msgstr "Para configurar el modo del demonio de NUT."
 
 #: ../../main/nut/src/EBox/NUT.pm:88
 msgid "To configure the UPS's drivers."
-msgstr "Para configurar los drivers de UPS."
+msgstr "Para configurar los drivers de SAI."
 
 #: ../../main/nut/src/EBox/NUT.pm:91
 msgid "To configure the NUT daemon"
@@ -14167,7 +14167,7 @@ msgstr "Variable"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:156
 msgid "UPS Variables"
-msgstr "Variables de UPS"
+msgstr "Variables de SAI"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:161
 msgid "variable"
@@ -14188,7 +14188,7 @@ msgstr "Configuración"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:208
 msgid "UPS Settings"
-msgstr "Configuraciones de UPS"
+msgstr "Configuraciones de SAI"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:213
 msgid "setting"
@@ -14201,12 +14201,12 @@ msgstr "'Etiqueta' no puede contener espacios en blanco"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:82
 msgid "The label to identify this UPS in case you define more than one"
 msgstr ""
-"La etiqueta para identificar a este UPS en caso de que haya más de uno "
+"La etiqueta para identificar a este SAI en caso de que haya más de uno "
 "definido"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:89
 msgid "Optional UPS description"
-msgstr "Descripción opcional del UPS"
+msgstr "Descripción opcional del SAI"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:93
 msgid "Driver"
@@ -14214,28 +14214,28 @@ msgstr "Driver"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:96
 msgid "The manufacturer of your UPS."
-msgstr "El fabricante de tu UPS."
+msgstr "El fabricante de tu SAI."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:104
 msgid ""
 "The port where the UPS is connected to (UPS on serial ports cannot be "
 "autodected)"
 msgstr ""
-"El puerto al que el UPS está conectado (Los UPS en puertos serie no pueden "
+"El puerto al que el SAI está conectado (Los SAI en puertos serie no pueden "
 "ser autodetectados)"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:112
 msgid "The UPS serial number, used to distingish between USB units"
 msgstr ""
-"El número de serie del UPS, necesario para distinguir entre puertos USB"
+"El número de serie del SAI, necesario para distinguir entre puertos USB"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:126
 msgid "Attached UPSs"
-msgstr "USPs conectados"
+msgstr "SAI conectados"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:131
 msgid "List of locally attached UPS."
-msgstr "Lista de UPS conectados localmente."
+msgstr "Lista de SAI conectados localmente."
 
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:54
 msgid ""
@@ -14246,9 +14246,9 @@ msgid ""
 "the clients."
 msgstr ""
 "El modo independiente o 'standalone' se utiliza para una configuración "
-"local, con un UPS protegiendo el sistema local. Si desea proteger más de un "
+"local, con un SAI protegiendo el sistema local. Si desea proteger más de un "
 "servidor, será necesario configurar los modos de cliente/servidor. La "
-"máquina Zentyal que posee el puerto de monitorización UPS conectado actuará "
+"máquina Zentyal que posee el puerto de monitorización SAI conectado actuará "
 "de servidor, el resto de máquinas de clientes."
 
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
@@ -14263,14 +14263,14 @@ msgstr "Cliente"
 
 #: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:38
 msgid "UPS settings and variables"
-msgstr "Configuraciones y variables de UPS"
+msgstr "Configuraciones y variables de SAI"
 
 #: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:40
 msgid ""
 "These are the settings and variables provided by the UPS. The settings are "
 "read-write while the variables are read-only."
 msgstr ""
-"Estos son las configuraciones y variables ofrecidas por el UPS. Las "
+"Estos son las configuraciones y variables ofrecidas por el SAI. Las "
 "configuraciones permiten lectura y escritura, mientras que las variables "
 "permiten sólo lectura."
 
