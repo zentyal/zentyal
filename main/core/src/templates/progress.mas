@@ -69,6 +69,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 #slide_wrapper {
     width: 690px;
     height: 350px;
+    margin-left: 45px;
     overflow: hidden;
 }
 
@@ -159,12 +160,12 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <script type="text/javascript" language="javascript">
       new Carousel('slide_wrapper',
                    $$('#slides .ads'),
-                   $$('a.carousel-control', 'a.carousel-jumper'),
+                   $$('a.carousel-control'),
                    {
                       'auto' : true,
-                      'frequency' : 5,
-                      'circular' : true,
-                      'duration' : 0.6,
+                      'frequency' : 25,
+                      'circular' : false,
+                      'duration' : 0.8,
                    }
       );
 </script>
