@@ -6637,7 +6637,7 @@ msgid "target"
 msgstr "destino"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:745
-msgid "Must be a like 'other.host[:port]/some_dir'"
+msgid "Correct format is: 'other.host[:port]/some_dir'"
 msgstr "Debe ser de la forma 'otra.maquina[:puerto]/directorio'"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:752
