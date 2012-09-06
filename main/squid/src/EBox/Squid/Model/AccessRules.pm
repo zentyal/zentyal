@@ -51,7 +51,7 @@ sub _table
         new EBox::Squid::Types::TimePeriod(
                 fieldName => 'timePeriod',
                 printableName => __('Time period'),
-                help => __('Time period when the this rule is applied'),
+                help => __('Time period when the rule is applied'),
                 editable => 1,
         ),
         new EBox::Types::Union(

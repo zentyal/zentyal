@@ -742,7 +742,7 @@ sub _validateTargetForFtpAndScp
         throw EBox::Exceptions::InvalidData(
              data => __('target'),
              value => $target,
-             advice => __(q{Must be a like 'other.host[:port]/some_dir'})
+             advice => __(q{Correct format is: 'other.host[:port]/some_dir'})
                                            );
     }
 
