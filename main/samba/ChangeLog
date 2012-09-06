@@ -2,9 +2,6 @@ HEAD
 	+ Change default domain netbios to match the left-most part of the
 	  host dns domain
 	+ Check environment is properly configured before provision samba
-2.3.13
-	+ Do not provision and prevent enabling the module if no IP addresses
-	  are assigned. The module will remain disabled in both cases
 	+ Generate random administrator password instead of having a default
 	  one for security reasons, to join machines to the domain any user
 	  belonging to the Domain Admins group is enough, so there was no
