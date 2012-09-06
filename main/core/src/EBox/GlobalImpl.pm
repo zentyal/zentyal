@@ -438,8 +438,13 @@ sub modifiedModules
     }
 
     if ((@mods == 1) and $self->modExists('firewall')) {
-        # no module changed, only the previous added, unchanged firewall
-        return [];
+        # only one module and we have added firewall autoamtically
+        if ($self->modIsChanged('firewall')) {
+            return \@mods;
+        } else {
+            # no module changed,
+            return [];
+        }
     }
 
     @mods = map { __PACKAGE__->modInstance($ro, $_) } @mods;
