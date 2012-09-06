@@ -1,4 +1,5 @@
 HEAD
+	+ Removed dashboard widgets no longer compatible with samba4
 	+ Depend on samba 4.0 beta 8
 	+ Check provisioned flag and module enabled in s4sync script
 	+ Set the provisioned flag at the end of provision function
