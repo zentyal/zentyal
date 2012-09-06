@@ -670,7 +670,7 @@ sub provisionAsADC
     if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
         lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
         throw EBox::Exceptions::External(
-            __('The server domain and kerberos realm must match the domain the ' .
+            __('The server domain and kerberos realm must match the ' .
                'domain you are trying to join.'));
     }
 
