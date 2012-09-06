@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:162
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:168
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
 "servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:795
+#: ../../main/squid/src/EBox/Squid.pm:801
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1263
+#: ../../main/squid/src/EBox/Squid.pm:1129
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -50,34 +50,34 @@ msgstr ""
 "servicio de Sistema de Filtrado de Contenidos en las actualizaciones de "
 "seguridad automáticas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1399
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1377
 msgid "Zarafa Small Business (25 users)"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1823
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1634
 #, perl-brace-format
 msgid "Not subscribed - {oh}Subscribe now!{ch}"
 msgstr "No suscrito - {oh}¡Suscríbete ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1826
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 #, perl-brace-format
 msgid "None - {oh}Get Free Basic Subscription!{ch}"
 msgstr "Ninguna - {oh}¡Consigue una Suscripción Básica gratuita!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1829
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Desactivado - {oh}Activar{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1845
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1656
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1847
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1658
 msgid "Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1850
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1661
 #, fuzzy
 msgid "Zarafa Small Business"
 msgstr "Edición Small Business"
@@ -328,7 +328,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/SysInfo.pm:538
+#: ../../main/core/src/EBox/SysInfo.pm:466
 msgid ""
 "Warning: The updates are community based and there is no guarantee that your "
 "server will work properly after applying them. In production environments "
@@ -340,7 +340,7 @@ msgstr ""
 "producción deberás usar la edición {ohs}Small Business{ch} o {ohe}Enterprise"
 "{ch} que incluyen actualizaciones de software con garantía de calidad."
 
-#: ../../main/core/src/EBox/SysInfo.pm:543
+#: ../../main/core/src/EBox/SysInfo.pm:471
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
@@ -406,7 +406,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1128
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1138
 msgid ""
 "You have reached the maximum of users for this subscription level. If you "
 "need to run Zentyal with more users please upgrade."
