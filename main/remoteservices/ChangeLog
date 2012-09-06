@@ -1,4 +1,4 @@
-HEAD
+2.2.12
 	+ Do not use IP addresses when using public SOAP methods
 	+ Adapt configuration for new cloud infrastructure
 	+ Do not set local address for TCP connections
