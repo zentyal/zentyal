@@ -114,7 +114,7 @@ sub _getHostdomain
         $hostdomain = $searchdomain if (is_domain($searchdomain, $options));
     }
 
-    $hostdomain = 'zentyal.lan' unless (is_domain($hostdomain, $options));
+    $hostdomain = 'zentyal-domain.lan' unless (is_domain($hostdomain, $options));
 
     return $hostdomain;
 }
