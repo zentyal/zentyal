@@ -185,7 +185,7 @@ sub enableService
 
     # Do not enable the module if there aren't IP addresses assigned
     if ($status) {
-        $self->_checkIPAddresses();
+        $self->_checkEnvironment();
     }
 
     if ($self->isEnabled() and not $status) {
