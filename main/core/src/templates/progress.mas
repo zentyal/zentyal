@@ -188,6 +188,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
           'frequency' : 20,
           'circular' : true,
           'duration' : 0.8,
+          'wheel' : false,
           'afterMove': null
       };
 
