@@ -476,7 +476,7 @@ sub modulesInFirstInstallOrder
 
     # first install samba must go just after users
     my @modsInHold;
-    my ($usersSeen, $sambaSeen, $firewallSeen, $logsSeen);
+    my ($usersSeen, $sambaSeen, $firewallSeen, $logsSeen, $bwMonitorSeen);
     foreach my $mod (@rawMods) {
         if ($mod eq 'users') {
             $usersSeen = 1;
@@ -492,6 +492,9 @@ sub modulesInFirstInstallOrder
         } elsif ($mod eq 'logs') {
             # we will add the module later
             $logsSeen = 1;
+        } elsif ($mod eq 'bwmonitor') {
+            # we will add the module later afer logs
+            $bwMonitorSeen = 1;
         } elsif ($usersSeen and not $sambaSeen) {
             push @modsInHold, $mod;
         } else {
@@ -504,6 +507,10 @@ sub modulesInFirstInstallOrder
     if ($logsSeen) {
         # added in the last to receive all new logobservers
         push @mods, 'logs';
+    }
+    if ($bwMonitorSeen) {
+        # after logs, to respect its dependency
+        push @mods, 'bwmonitor';
     }
     if ($firewallSeen) {
         # added one more time  to receive rules added by enables
