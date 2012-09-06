@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2012-08-03 22:35+0200\n"
-"Last-Translator: Lueghi <lueghi@web.de>\n"
+"PO-Revision-Date: 2012-09-04 11:43+0200\n"
+"Last-Translator: sued <sven.parusel@dlr.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1261,7 +1261,7 @@ msgstr "Konfiguration des adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:258
 msgid "Set the kerberos keytab path"
-msgstr ""
+msgstr "Setzen des Pfades zur Kerberos keytab Datei"
 
 #: ../../main/squid/src/EBox/Squid.pm:263
 msgid "Extract the service principal key"
@@ -1622,12 +1622,11 @@ msgstr "Standardgateway"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:144
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Macht Zentyal zum Standardgateway für den Client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#, fuzzy
 msgid "First nameserver"
-msgstr "Vorname"
+msgstr "Erster Nameserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:155
 #, fuzzy
@@ -1883,7 +1882,7 @@ msgstr "Download"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Zufall"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 #, fuzzy

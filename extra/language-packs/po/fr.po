@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-02 20:07+0200\n"
-"Last-Translator: ineiti <ineiti@linusetviviane.ch>\n"
+"PO-Revision-Date: 2012-09-02 14:29+0200\n"
+"Last-Translator: loulou_gpl <gpl845347@gmx.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -153,12 +153,12 @@ msgstr "Décision"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:152
 msgid "Allow All"
-msgstr "Autoriser tout"
+msgstr "Tout autoriser"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
 msgid "Deny All"
-msgstr "Interdire tout"
+msgstr "Tout interdire"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
 msgid "Apply Filter Profile"
@@ -190,8 +190,9 @@ msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Ici vous pouvez bloquer ou autoriser les accès par groupe d'utilisateur ou "
-"objet réseau. Les règles sont appliquées sur la période sélectionnée."
+"Ici vous pouvez filtrer, bloquer ou autoriser les accès par groupe "
+"d'utilisateur ou objet réseau. Les règles sont appliquées sur la période "
+"sélectionnée."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
 #, fuzzy
@@ -352,7 +353,7 @@ msgstr "Port"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 msgid "Cache files size (MB)"
-msgstr "Taille du fichier cache (MB)"
+msgstr "Taille du fichier cache (Mo)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:80
 #: ../../main/squid/src/EBox/Squid.pm:887
@@ -385,8 +386,9 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
-"Noter que vous ne pouvez pas utiliser le mode proxy transparent pour HTTPS. "
-"Vous devrez créer une règle de pare-feu si vous souhaitez activer ce mode."
+"Noter que vous ne pouvez pas utiliser le mode proxy transparent HTTPS. Vous "
+"aurez besoin d'ajouter une règle de pare-feu si vous souhaitez activer ce "
+"mode."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
@@ -398,7 +400,7 @@ msgstr "Type MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:147
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr "Un type MIME doit suivre la syntaxe suivante: type/sous-type"
+msgstr "Un type MIME doit correspondre à la syntaxe suivante: type/sous-type"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:156
 #, perl-brace-format

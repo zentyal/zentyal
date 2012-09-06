@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-09 19:10+0200\n"
+"PO-Revision-Date: 2012-09-05 19:39+0200\n"
 "Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -879,17 +879,14 @@ msgid "Access requests"
 msgstr "Peticiones de acceso"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:104
-#, fuzzy
 msgid "Category"
-msgstr "categoría"
+msgstr "Categoría"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:110
-#, fuzzy
 msgid "List File"
-msgstr "Escuchar"
+msgstr "Fichero de Listas"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:116
-#, fuzzy
 msgid "File Present"
 msgstr "Lista Disponible"
 
@@ -1434,19 +1431,16 @@ msgstr ""
 "vaya al módulo de autoridad de certificación y cree nuevos certificados"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:345
-#, fuzzy
 msgid "revoked"
-msgstr "Revocado"
+msgstr "revocado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
-#, fuzzy
 msgid "expired"
-msgstr "Expirado"
+msgstr "expirado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
-#, fuzzy
 msgid "invalid"
-msgstr "Válido"
+msgstr "inválido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:354
 #, perl-brace-format
@@ -1455,6 +1449,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"No se puede crear un servidor llamado {name} por que ya existe un "
+"certificado llamado {certName} con estado {state}.<br/>Configure otro nombre "
+"o vuelva a expedir el certificado {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:369
 #, perl-brace-format
@@ -1515,9 +1512,9 @@ msgid "Network Address Translation"
 msgstr "Traducción de dirección de red (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:106
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Habilite esto si esta VPN se usa para conectar con otro Zentyal"
+msgstr ""
+"Habilite esto si este servidor VPN no es la puerta de enlace por defecto"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:110
 msgid "Allow client-to-client connections"
@@ -2180,7 +2177,7 @@ msgstr ""
 "con el prefijo {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "El cliente {c} no existe"
 
@@ -2512,14 +2509,13 @@ msgid "Configure Rules"
 msgstr "Configurar reglas"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:232
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "'Any' {addr} cannot have a inverse march"
-msgstr "'cualquier servicio' no puede estar invertido"
+msgstr "'Cualquier' {addr} no puede invertirse"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:250
-#, fuzzy
 msgid "'Any' service cannot have a inverse march"
-msgstr "'cualquier servicio' no puede estar invertido"
+msgstr "El servicio 'Cualquiera' no puede invertirse"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
@@ -3227,9 +3223,8 @@ msgid "Dynamic domain"
 msgstr "Dominio dinámico"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:602
-#, fuzzy
 msgid "DLZ database path"
-msgstr "Estado de actualización de la base de datos de virus"
+msgstr "Ruta de la librería DLZ"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:612
 msgid "Domains"
@@ -3253,9 +3248,8 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:75
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:120
-#, fuzzy
 msgid "DHCP interface"
-msgstr "interfaz"
+msgstr "Interfaz DHCP"
 
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:83
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:89
@@ -3412,10 +3406,9 @@ msgstr ""
 "(FQDN). ¿Quizá debería ser {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
-msgstr ""
-"Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
+msgstr "La IP '{ip}' ya está asignada al host '{name}' en el mismo dominio"
 
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:113
 #: ../../main/dns/src/EBox/Model/HostIpTable.pm:128
@@ -3898,7 +3891,6 @@ msgstr ""
 "información en los logs {dir}"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:207
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -3906,7 +3898,7 @@ msgid ""
 msgstr ""
 "La eliminación de los paquetes se ha completado con éxito. La interfaz de "
 "administración puede no responder durante unos pocos segundos. Por favor, "
-"espere pacientemente hasta que el sistema se haya reiniciado completamente"
+"espere hasta que el sistema se haya reiniciado completamente"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
 msgid "Installing"
@@ -3960,9 +3952,8 @@ msgstr ""
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:252
 #: ../../main/software/src/templates/ebox.mas:516
 #: ../../main/software/src/templates/del.mas:32
-#, fuzzy
 msgid "Removing packages"
-msgstr "Eliminando paquete"
+msgstr "Eliminando paquetes"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:253
 msgid "Removing the selected package and its dependent packages"
@@ -4693,9 +4684,8 @@ msgid "Inexistent backup: {n}"
 msgstr "Backup inexistente: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:380
-#, fuzzy
 msgid "Server not found"
-msgstr "Usuario inexistente"
+msgstr "Servidor no encontrado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:383
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:34
@@ -4705,22 +4695,19 @@ msgstr "Backup de configuración"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:387
 msgid "Some argument is missing"
-msgstr ""
+msgstr "Faltan argumentos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:389
-#, fuzzy
 msgid "Internal Server Error"
-msgstr "Red interna"
+msgstr "Error interno del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:391
-#, fuzzy
 msgid "Forbidden request"
-msgstr "Lista de frases prohibidas"
+msgstr "Petición no autorizada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:393
-#, fuzzy
 msgid "An error has occurred"
-msgstr "Lo sentimos, ha ocurrido un error inesperado"
+msgstr "Ha ocurrido un error"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:309
 #, perl-brace-format
@@ -4979,9 +4966,8 @@ msgid "Inexistent action: {a}"
 msgstr "Acción inexistente: {a}"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Index.pm:36
-#, fuzzy
 msgid "Import/Export Configuration Remotely"
-msgstr "Importar/Exportar configuración"
+msgstr "Importar/Exportar configuración remotamente"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:74
 msgid "Email Address"
@@ -5360,9 +5346,9 @@ msgstr ""
 "las conexiones"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:154
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service: {s}"
-msgstr "Servicios"
+msgstr "Servicio: {s}"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
@@ -5383,14 +5369,12 @@ msgid "Time"
 msgstr "Hora"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:144
-#, fuzzy
 msgid "Extend bandwidth quota"
 msgstr "Ampliar Límite de ancho de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:147
-#, fuzzy
 msgid "Reset bandwith limit"
-msgstr "Reiniciar el límite de nbandwidth"
+msgstr "Reiniciar límite de ancho de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:153
 msgid "Kick user"
@@ -5432,9 +5416,8 @@ msgid "List of current logged in users."
 msgstr "Lista de usuarios registrados en este momento."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:183
-#, fuzzy
 msgid "No users logged in"
-msgstr "{n} usuarios registrados"
+msgstr "No hay usuarios conectados"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:197
 msgid "Captive portal must be enabled in order to see current users list."
@@ -6922,7 +6905,7 @@ msgstr ""
 "Archivo {f} no encontrado en el backup para {d}, prueba una data posterior"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:159
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} does not exist"
 msgstr "No se puede restaurar a {d}: {dd} no existe"
 
@@ -7020,7 +7003,7 @@ msgid "{target} is not mounted"
 msgstr "{target} no está montado"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1526
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr "{mp} no está montado y {target} está en su interior"
 
@@ -7252,10 +7235,11 @@ msgstr ""
 msgid ""
 "This is a local network, thus already accessible through local interfaces"
 msgstr ""
+"Es una red local y por lo tanto ya es accesible desde otras redes locales"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:183
 msgid "This network is already reachable through a static route"
-msgstr ""
+msgstr "Esta red ya es accesible a través de una ruta estática"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
@@ -7768,6 +7752,8 @@ msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
+"No se puede establecer un alias con el carácter \":\". Este carácter está "
+"reservado para las interfaces virtuales"
 
 #: ../../main/network/src/EBox/Network.pm:1371
 #, perl-brace-format
@@ -8224,13 +8210,12 @@ msgstr ""
 "Existen caracteres inválidos o espacios. Los válidos son: '[A-Z][a-z][0-9]-_'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:218
-#, fuzzy
 msgid ""
 "Cannot add more virtual machines because its maximum allowed number has been "
 "reached"
 msgstr ""
-"No se puede añadir el domino virtual {vd} porque ya existe un alias de "
-"dominio virtual con el mismo nombre"
+"No se pueden añadir más máquina virtuales por que se ha llegado al máximo "
+"número permitido"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:281
 #, perl-brace-format
@@ -8565,9 +8550,8 @@ msgid "File path"
 msgstr "Ruta del fichero"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:358
-#, fuzzy
 msgid "Thin client file path"
-msgstr "Cliente ligero"
+msgstr "Ruta del fichero de cliente ligero"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:386
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:81
@@ -8934,9 +8918,8 @@ msgid "DHCP leases"
 msgstr "IPs asignadas con DHCP"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:78
-#, fuzzy
 msgid "Profiles"
-msgstr "Perfil"
+msgstr "Perfiles"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:79
 msgid "Profile"
@@ -8994,9 +8977,8 @@ msgstr "Servidor de hora"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:169
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:114
-#, fuzzy
 msgid "IP address of the time server."
-msgstr "Dirección IP del servidor"
+msgstr "Dirección IP del servidor de hora"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:173
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:118
@@ -9211,9 +9193,8 @@ msgid "Client Configuration"
 msgstr "Configuración del cliente"
 
 #: ../../main/ltsp/src/EBox/LTSP/Composite/ClientImages.pm:44
-#, fuzzy
 msgid "Images"
-msgstr "Imagen"
+msgstr "Imágenes"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:58 ../../main/ltsp/src/EBox/LTSP.pm:81
 msgid "Thin Clients"
@@ -9756,14 +9737,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:174
-#, fuzzy
 msgid "Printer name"
-msgstr "Impresora"
+msgstr "Nombre de la impresora"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:186
-#, fuzzy
 msgid "Location"
-msgstr "Acción"
+msgstr "Ubicación"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:192
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:124
@@ -9771,9 +9750,8 @@ msgid "Guest access"
 msgstr "Acceso de invitado"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:195
-#, fuzzy
 msgid "This printer will not require authentication."
-msgstr "Este directorio compartido no necesita de autenticación."
+msgstr "Esta impresora no requerirá autenticación."
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:199
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:131
@@ -9781,9 +9759,8 @@ msgid "Access control"
 msgstr "Control de acceso"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:208
-#, fuzzy
 msgid "Printer permissions"
-msgstr "Permisos"
+msgstr "Permisos de las impresoras"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:213
 msgid "printer"
@@ -9871,14 +9848,12 @@ msgid "ACL"
 msgstr "ACL"
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:248
-#, fuzzy
 msgid " (user)"
-msgstr "(usuario))"
+msgstr "(usuario)"
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:250
-#, fuzzy
 msgid " (group)"
-msgstr "(grupo))"
+msgstr "(grupo)"
 
 #: ../../main/printers/src/EBox/Composite/General.pm:41
 #: ../../main/printers/src/EBox/Printers.pm:40
