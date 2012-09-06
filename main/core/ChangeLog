@@ -1,4 +1,4 @@
-HEAD
+2.3.23
 	+ Changes in first enable to avoid letting modules unsaved
 	+ Type File now accepts spaces in the file name
 	+ Added setTimezone method to MyDBEngine

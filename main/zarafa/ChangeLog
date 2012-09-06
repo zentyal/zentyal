@@ -1,4 +1,4 @@
-HEAD
+2.3.3
 	+ Move report code to remoteservices
 	+ Use full path for notifier of notifyActions. More restrictive
 	  notifyForeignModelAction()

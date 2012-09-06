@@ -1,4 +1,4 @@
-HEAD
+2.3.13
 	+ Do not provision and prevent enabling the module if no IP addresses
 	  are assigned. The module will remain disabled in both cases
 	+ Generate random administrator password instead of having a default
