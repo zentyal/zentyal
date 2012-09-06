@@ -1,4 +1,6 @@
 HEAD
+	+ Do not provision and prevent enabling the module if no IP addresses
+	  are assigned. The module will remain disabled in both cases.
 	+ Removed dashboard widgets no longer compatible with samba4
 	+ Depend on samba 4.0 beta 8
 	+ Check provisioned flag and module enabled in s4sync script
