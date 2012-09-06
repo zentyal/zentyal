@@ -1876,10 +1876,9 @@ border-radius: 3px;
     background: #E1721E;
     color:white;
     float:left;
-    clear:both;
     text-decoration:none;
     font-size:12px;
-    margin:1px 0px;
+    margin:1px 5px 0px 0px;
 }
 
 .ads_link a:hover{
