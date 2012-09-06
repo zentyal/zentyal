@@ -1,4 +1,6 @@
-2.3.12
+HEAD
+	+ Squid is restarted if groups in use change their members
+	+ Adapted LdapUserImplementation to new users API
 	+ Added kerberos real to auth acls on squid.conf to fix SSO
 	+ Added -i option to squid_kerb_auth to ease debugging
 	+ Archive list can now have spaces in the name
