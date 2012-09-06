@@ -477,7 +477,9 @@ sub prepareSaveAllModules
     my $totalTicks;
     if ($self->first()) {
         # enable + save modules
-        $totalTicks = scalar @{$self->modNames} * 2;
+        my $mgr = EBox::ServiceManager->new();
+        $totalTicks = scalar @{$mgr->modulesInFirstInstallOrder()} * 2;
+        $totalTicks += 1; # we will save sysinfo too
     } else {
         # save changed modules
         $totalTicks = scalar @{$self->modifiedModules('save')};
