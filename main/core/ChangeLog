@@ -1,4 +1,5 @@
 HEAD
+	+ Changes in first enable to avoid letting modules unsaved
 	+ Type File now accepts spaces in the file name
 	+ Added setTimezone method to MyDBEngine
 	+ Enable consolidation after reviewing and pruning

@@ -243,6 +243,7 @@ sub modIsChanged
 #
 # Parameters:
 #
+#       ro     -  rreadonly global
 #       module -  module's name to set
 #
 sub modChange
@@ -432,6 +433,11 @@ sub modifiedModules
         }
     }
 
+    if ((@mods == 1) and $self->modExists('firewall')) {
+        # no module changed, only the previous added, unchanged firewall
+        return [];
+    }
+
     @mods = map { __PACKAGE__->modInstance($ro, $_) } @mods;
 
     my $sorted;
@@ -527,11 +533,9 @@ sub _prepareActionScript
 sub saveAllModules
 {
     my ($self, %options) = @_;
-
+    my @mods;
+    my $modNames;
     my $ro = 0;
-
-    my $log = EBox::logger();
-
     my $failed = '';
 
     # Reset save messages array
@@ -539,24 +543,19 @@ sub saveAllModules
 
     my $progress = $options{progress};
 
-    my @mods = @{$self->modifiedModules('save')};
-    my $modNames = join (' ', @mods);
-
     # TODO: tell events module to stop its watchers
 
-    $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
-
-    my $msg = "Saving config and restarting services: @mods";
-
-    $log->info($msg);
-
-    # First installation modules enable
     if ($self->first()) {
+        # First installation modules enable
         my $mgr = EBox::ServiceManager->new();
-        @mods = @{$mgr->_dependencyTree()};
+        @mods = @{$mgr->modulesInFirstInstallOrder()};
+
         $modNames = join(' ', @mods);
 
+        EBox::info("First installation, enabling modules: $modNames");
+
         foreach my $name (@mods) {
+            EBox::info("Enabling module $name");
             if ($progress) {
                 $progress->setMessage(__x("Enabling {modName} module",
                                           modName => $name));
@@ -588,8 +587,20 @@ sub saveAllModules
                 $module->enableService(0);
                 EBox::debug("Failed to enable module $name: $err");
             };
+
         }
+
+        # in first install sysinfo module is in changed state
+        push @mods, 'sysinfo';
+    } else {
+        # not first ime, getting changed modules
+        @mods = @{$self->modifiedModules('save')};
+        $modNames = join (' ', @mods);
+        EBox::info("Saving config and restarting services: @mods");
     }
+
+    # run presave hooks
+    $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
     my $apache = 0;
     foreach my $name (@mods) {
@@ -605,9 +616,7 @@ sub saveAllModules
         }
 
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        my $class = 'EBox::Module::Service';
-
-        if ($mod->isa($class)) {
+        if ($mod->isa('EBox::Module::Service')) {
             $mod->setInstalled();
 
             if (not $mod->configured()) {
@@ -618,6 +627,7 @@ sub saveAllModules
         }
 
         try {
+
             $mod->save();
         } catch EBox::Exceptions::External with {
             my $ex = shift;
@@ -634,6 +644,7 @@ sub saveAllModules
 
     # FIXME - tell the CGI to inform the user that apache is restarting
     if ($apache) {
+        EBox::info("Saving configuration: apache");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
                                        modName => 'apache'));
@@ -656,6 +667,7 @@ sub saveAllModules
     # TODO: tell events module to resume its watchers
 
     if (not $failed) {
+        # post save hooks
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending
         $self->st_set_int(TIMESTAMP_KEY, time());
