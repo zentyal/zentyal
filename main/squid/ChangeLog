@@ -1,4 +1,4 @@
-HEAD
+2.3.12
 	+ Squid is restarted if groups in use change their members
 	+ Adapted LdapUserImplementation to new users API
 	+ Added kerberos real to auth acls on squid.conf to fix SSO

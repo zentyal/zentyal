@@ -1,4 +1,4 @@
-HEAD
+2.3.13
 	+ Change default domain netbios to match the left-most part of the
 	  host dns domain
 	+ Check environment is properly configured before provision samba
