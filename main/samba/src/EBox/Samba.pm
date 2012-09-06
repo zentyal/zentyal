@@ -536,27 +536,104 @@ sub recycleConfig
     return $conf;
 }
 
-sub _checkIPAddresses
+# Method: _checkEnvironment
+#
+#   This method ensure that the environment is properly configured for
+#   samba provision.
+#
+# Returns:
+#
+#   The IP address to use for provision
+#
+sub _checkEnvironment
 {
     my ($self) = @_;
 
-    # Check if there is any available interface
+    # Get the own doamin
+    my $sysinfo    = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
+
+    # Get the kerberos realm
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+
+    # The own doamin and the kerberos realm must be equal
+    unless (lc $hostDomain eq lc $realm) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(
+            __("The host domain '$hostDomain' must be equal kerberos realm " .
+               "'$realm'"));
+    }
+
+    # Check the domain exists in DNS module
+    my $dns = EBox::Global->modInstance('dns');
+    my $domainModel = $dns->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $hostDomain));
+    unless (defined $domainRow) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(
+            __("The required domain '$hostDomain' could not be found in the " .
+               "dns module"));
+    }
+
+    # Check the hostname exists in the DNS module
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostName);
+    unless (defined $hostRow) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(
+            __("The required host record '$hostName' could not be found " .
+               "in the domain '$hostDomain'"));
+    }
+
+    # Get the IP addresses models (domain and hostname)
+    my $domainIPsModel = $domainRow->subModel('ipAddresses');
+    my $hostIPsModel = $hostRow->subModel('ipAddresses');
+
+    # Get the IP address to use for provision, and check that this IP is assigned
+    # to the domain
     my $network = EBox::Global->modInstance('network');
     my $ifaces = $self->sambaInterfaces();
-    my $hasIP = 0;
+    my $provisionIP = undef;
     foreach my $iface (@{$ifaces}) {
         next if $iface eq 'lo';
         my $ifaceAddrs = $network->ifaceAddresses($iface);
-        if (scalar @{$ifaceAddrs}) {
-            $hasIP = 1;
-            last;
+        foreach my $data (@{$ifaceAddrs}) {
+            # Got one candidate address, check that it is assigned to the DNS domain
+            my $inDomainModel = 0;
+            my $inHostModel = 0;
+            foreach my $rowId (@{$domainIPsModel->ids()}) {
+                my $row = $domainIPsModel->row($rowId);
+                if ($row->valueByName('ip') eq $data->{address}) {
+                    $inDomainModel = 1;
+                    last;
+                }
+            }
+            foreach my $rowId (@{$hostIPsModel->ids()}) {
+                my $row = $hostIPsModel->row($rowId);
+                if ($row->valueByName('ip') eq $data->{address}) {
+                    $inHostModel = 1;
+                    last;
+                }
+            }
+            if ($inDomainModel and $inHostModel) {
+                $provisionIP = $data->{address};
+                last;
+            }
         }
+        last if defined $provisionIP);
     }
-    unless ($hasIP) {
+    unless (defined $provisionIP) {
         $self->enableService(0);
         throw EBox::Exceptions::External(
-                __("Samba can't be provisioned if no IP addresses are set"));
+                __("Samba can't be provisioned if no IP addresses are set and the " .
+                   "DNS domain is properly configured. Ensure that you have at least a " .
+                   "IP address assigned to an internal interface, and this IP has to be " .
+                   "assigned to the domain and to the hostname in the DNS domain."));
     }
+
+    return $provisionIP;
 }
 
 # Method: provision
@@ -570,7 +647,8 @@ sub provision
     # Stop the service
     $self->stopService();
 
-    $self->_checkIPAddresses();
+    # Check environment
+    my $provisionIP = $self->_checkEnvironment();
 
     # Delete samba config file and private folder
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
@@ -579,7 +657,7 @@ sub provision
     my $mode = $self->mode();
     my $fs = EBox::Config::configkey('samba_fs');
     if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
-        $self->provisionAsDC($fs);
+        $self->provisionAsDC($fs, $provisionIP);
     } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
         $self->provisionAsADC();
     } else {
@@ -589,21 +667,22 @@ sub provision
 
 sub provisionAsDC
 {
-    my ($self, $fs) = @_;
+    my ($self, $fs, $provisionIP) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
     my $cmd = SAMBAPROVISION .
-        ' --domain=' . $self->workgroup() .
-        ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $usersModule->kerberosRealm() .
-        ' --dns-backend=BIND9_DLZ' .
-        ' --use-xattrs=yes ' .
-        ' --use-rfc2307 ' .
-        ' --server-role=' . $self->mode() .
-        ' --users=' . $usersModule->DEFAULTGROUP() .
-        ' --host-name=' . $sysinfo->hostName();
+        " --domain='" . $self->workgroup() . "'" .
+        " --workgroup='" . $self->workgroup() . "'" .
+        " --realm='" . $usersModule->kerberosRealm() . "'" .
+        " --dns-backend=BIND9_DLZ" .
+        " --use-xattrs=yes " .
+        " --use-rfc2307 " .
+        " --server-role='" . $self->mode() . "'" .
+        " --users='" . $usersModule->DEFAULTGROUP() . "'" .
+        " --host-name='" . $sysinfo->hostName() . "'" .
+        " --host-ip='" . $provisionIP . "'";
     $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
     EBox::debug("Provisioning database '$cmd'");

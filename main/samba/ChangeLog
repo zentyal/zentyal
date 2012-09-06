@@ -1,3 +1,5 @@
+HEAD
+	+ Check environment is properly configured before provision samba
 2.3.13
 	+ Do not provision and prevent enabling the module if no IP addresses
 	  are assigned. The module will remain disabled in both cases
