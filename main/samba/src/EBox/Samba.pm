@@ -183,6 +183,11 @@ sub enableService
 {
     my ($self, $status) = @_;
 
+    # Do not enable the module if there aren't IP addresses assigned
+    if ($status) {
+        $self->_checkIPAddresses();
+    }
+
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
     } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
@@ -531,6 +536,29 @@ sub recycleConfig
     return $conf;
 }
 
+sub _checkIPAddresses
+{
+    my ($self) = @_;
+
+    # Check if there is any available interface
+    my $network = EBox::Global->modInstance('network');
+    my $ifaces = $self->sambaInterfaces();
+    my $hasIP = 0;
+    foreach my $iface (@{$ifaces}) {
+        next if $iface eq 'lo';
+        my $ifaceAddrs = $network->ifaceAddresses($iface);
+        if (scalar @{$ifaceAddrs}) {
+            $hasIP = 1;
+            last;
+        }
+    }
+    unless ($hasIP) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(
+                __("Samba can't be provisioned if no IP addresses are set"));
+    }
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -541,6 +569,8 @@ sub provision
 
     # Stop the service
     $self->stopService();
+
+    $self->_checkIPAddresses();
 
     # Delete samba config file and private folder
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);

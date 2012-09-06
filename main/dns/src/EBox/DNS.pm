@@ -675,7 +675,22 @@ sub _setConf
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
         if ($domdata->{samba}) {
-            $self->_updateDynDirectZone($domdata, 1);
+            my $sambaDomData = $self->_completeDomain($domainId);
+            delete $sambaDomData->{'nameServers'};
+
+            my $newSRV = [];
+            foreach my $srvRR ( @{$sambaDomData->{'srv'}} ) {
+                push (@{$newSRV}, $srvRR) unless $srvRR->{readOnly};
+            }
+            $sambaDomData->{srv} = $newSRV;
+
+            my $newTXT = [];
+            foreach my $txtRR ( @{$sambaDomData->{'txt'}} ) {
+                push (@{$newTXT}, $txtRR) unless $txtRR->{readOnly};
+            }
+            $sambaDomData->{txt} = $newTXT;
+
+            $self->_updateDynDirectZone($sambaDomData, 1);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata, 0);
         } else {
@@ -1114,7 +1129,8 @@ sub _formatTXT
         }
         push (@txtRecords, {
                 hostName => $hostName,
-                txt_data => $row->valueByName('txt_data')
+                txt_data => $row->valueByName('txt_data'),
+                readOnly => $row->readOnly(),
                });
     }
     return \@txtRecords;
@@ -1175,6 +1191,7 @@ sub _formatSRV
                 weight => $row->valueByName('weight'),
                 target_port => $row->valueByName('port'),
                 target_host => $targetHost,
+                readOnly => $row->readOnly(),
                });
     }
     return \@srvRecords;
