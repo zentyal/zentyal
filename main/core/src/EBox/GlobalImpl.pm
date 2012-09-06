@@ -434,8 +434,13 @@ sub modifiedModules
     }
 
     if ((@mods == 1) and $self->modExists('firewall')) {
-        # no module changed, only the previous added, unchanged firewall
-        return [];
+        # only one module and we have added firewall autoamtically
+        if ($self->modIsChanged('firewall')) {
+            return \@mods;
+        } else {
+            # no module changed,
+            return [];
+        }
     }
 
     @mods = map { __PACKAGE__->modInstance($ro, $_) } @mods;
@@ -468,7 +473,9 @@ sub prepareSaveAllModules
     my $totalTicks;
     if ($self->first()) {
         # enable + save modules
-        $totalTicks = scalar @{$self->modNames} * 2;
+        my $mgr = EBox::ServiceManager->new();
+        $totalTicks = scalar @{$mgr->modulesInFirstInstallOrder()} * 2;
+        $totalTicks += 1; # we will save sysinfo too
     } else {
         # save changed modules
         $totalTicks = scalar @{$self->modifiedModules('save')};
