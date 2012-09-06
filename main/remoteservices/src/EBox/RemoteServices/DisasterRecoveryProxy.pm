@@ -133,6 +133,9 @@ sub soapCall
 
   my $conn = $self->connection();
 
+  # Avoid IP resolution to make it more flexible (Workaround)
+  $conn->proxy('https://' . $self->serviceHostName() . '/soap' . $self->_urlSuffix() );
+
   return $conn->$method(
 			user      => $self->{user},
 			password  => $self->{password},
