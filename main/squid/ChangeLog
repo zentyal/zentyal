@@ -1,4 +1,6 @@
 HEAD
+	+ Added kerberos real to auth acls on squid.conf to fix SSO
+	+ Added -i option to squid_kerb_auth to ease debugging
 	+ Archive list can now have spaces in the name
 	+ ListArchive type now accept spaces in the file name
 	+ Move report code to remoteservices
