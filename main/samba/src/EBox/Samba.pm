@@ -569,7 +569,7 @@ sub _checkEnvironment
     # Check the domain exists in DNS module
     my $dns = EBox::Global->modInstance('dns');
     my $domainModel = $dns->model('DomainTable');
-    my $domainRow = $domainModel->find(domain => $hostDomain));
+    my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
         $self->enableService(0);
         throw EBox::Exceptions::External(
@@ -622,7 +622,7 @@ sub _checkEnvironment
                 last;
             }
         }
-        last if defined $provisionIP);
+        last if defined $provisionIP;
     }
     unless (defined $provisionIP) {
         $self->enableService(0);
@@ -1295,30 +1295,19 @@ sub netbiosName
     return $model->netbiosNameValue();
 }
 
-# Method: defaultRealm
-#
-#   Generates the default realm
-#
-sub defaultRealm
-{
-    my ($self) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $domainName = $sysinfo->hostDomain();
-
-    return $domainName;
-}
-
 # Method: defaultWorkgroup
 #
 #   Generates the default workgroup
 #
 sub defaultWorkgroup
 {
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+    my @parts = split (/\./, $realm);
+    my $value = $parts[0];
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
 
-    return uc($prefix) . '-DOMAIN';
+    return uc($value);
 }
 
 # Method: workgroup
