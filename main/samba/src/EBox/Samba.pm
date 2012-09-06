@@ -561,9 +561,7 @@ sub _checkEnvironment
     # The own doamin and the kerberos realm must be equal
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(
-            __("The host domain '$hostDomain' must be equal kerberos realm " .
-               "'$realm'"));
+        throw EBox::Exceptions::External(__x("The host domain '{d}' must be equal kerberos realm '{r}'", d => $hostDomain, r => $realm));
     }
 
     # Check the domain exists in DNS module
@@ -572,9 +570,7 @@ sub _checkEnvironment
     my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(
-            __("The required domain '$hostDomain' could not be found in the " .
-               "dns module"));
+        throw EBox::Exceptions::External(__x("The required domain '{d}' could not be found in the dns module", d => $hostDomain));
     }
 
     # Check the hostname exists in the DNS module
@@ -582,9 +578,8 @@ sub _checkEnvironment
     my $hostRow = $hostsModel->find(hostname => $hostName);
     unless (defined $hostRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(
-            __("The required host record '$hostName' could not be found " .
-               "in the domain '$hostDomain'"));
+        throw EBox::Exceptions::External(__x("The required host record '{h}' could not be found in the domain '{d}'",
+                                             h => $hostName, d => $hostDomain));
     }
 
     # Get the IP addresses models (domain and hostname)
