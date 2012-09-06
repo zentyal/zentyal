@@ -26,12 +26,12 @@ base = <% $usersDn %>
 
 auth_bind = yes
 
-user_filter = (&(objectClass=posixAccount)(mail=%u))
+user_filter = (&(objectClass=CourierMailAccount)(mail=%u))
 user_attrs = =mail=maildir:<% $mailboxesDir%>/%Ld/%n, \
              =home=<% $mailboxesDir%>/%Ld/%n, \
              mailquota=quota_rule=*:storage=%$M, \
              =quota_rule2=Trash:storage=+110%%
 
 
-pass_filter = (&(objectClass=posixAccount)(mail=%u))
+pass_filter = (&(objectClass=CourierMailAccount)(mail=%u))
 pass_attrs = mail=user,userPassword=password
