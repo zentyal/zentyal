@@ -1,4 +1,8 @@
 HEAD
+	+ Generate random administrator password instead of having a default
+	  one for security reasons, to join machines to the domain any user
+	  belonging to the Domain Admins group is enough, so there was no
+	  need to show this password on the interface
 	+ Removed dashboard widgets no longer compatible with samba4
 	+ Depend on samba 4.0 beta 8
 	+ Check provisioned flag and module enabled in s4sync script
