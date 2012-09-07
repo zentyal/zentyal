@@ -1,6 +1,8 @@
 <%args>
     $activesync
     $jabber
+    $enable_sso
+    $realm
 </%args>
 Alias /webaccess /usr/share/zarafa-webaccess
 
@@ -90,5 +92,30 @@ Alias /Microsoft-Server-ActiveSync /usr/share/d-push/index.php
 <IfModule mod_proxy_http.c>
     ProxyPass /http-bind http://localhost:5280/http-bind/
     ProxyPassReverse /http-bind http://localhost:5280/http-bind/
+</IfModule>
+% }
+
+% if ($enable_sso eq 'yes') {
+<IfModule mod_auth_kerb.c>
+<Directory /usr/share/zarafa-webaccess>
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd On
+  KrbServiceName ZARAFA
+  KrbAuthRealms <% $realm %>
+  Krb5KeyTab /etc/zarafa/zarafa.keytab
+  require valid-user
+</Directory>
+<Directory /usr/share/zarafa-webapp>
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd On
+  KrbServiceName ZARAFA
+  KrbAuthRealms <% $realm %>
+  Krb5KeyTab /etc/zarafa/zarafa.keytab
+  require valid-user
+</Directory>
 </IfModule>
 % }

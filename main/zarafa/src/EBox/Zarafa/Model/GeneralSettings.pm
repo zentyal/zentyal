@@ -117,6 +117,14 @@ sub _table
                                 help =>
 __('Enable Active Sync (Microsoft Exchange syncronization protocol).'),
                                ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'sso',
+                                printableName => __('Enable Single Sign-On (Kerberos)'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                                help =>
+__('Enable Single Sign On on the Webaccess and Webapp interface.'),
+                               ),
        new EBox::Types::Select(
                                 fieldName     => 'vHost',
                                 printableName => __('Virtual host'),
