@@ -174,7 +174,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
 sub precondition
 {
     my ($self) = @_;
-    my $mail = $self->global()->getInstance()->modInstance('mail');
+    my $mail = $self->global()->modInstance('mail');
     $mail->model('VDomains')->ids() > 0;
 }
 
