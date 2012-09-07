@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed code typo fix which broke the vierual domain policies pages
 2.3.6
 	+ Move report code to remoteservices
 	+ Fixed LDAP url in amavisd.conf
