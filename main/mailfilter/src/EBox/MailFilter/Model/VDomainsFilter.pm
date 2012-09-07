@@ -61,13 +61,15 @@ sub new
 #
 sub _table
 {
+  my ($self) = @_;
+
   my @tableHeader =
     (
      new EBox::Types::Select(
                              fieldName     => 'vdomain',
                              printableName => __('Domain'),
 
-                             foreignModel  => \&_vdomainModel,
+                             foreignModel  => $self->modelGetter('mail', 'VDomains'),
                              foreignField  => 'vdomain',
 
                              unique        => 1,
@@ -157,7 +159,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
     {
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Virtual Domains specific policies}),
-     modelDomain        => 'mail',
+     modelDomain        => 'MailFilter',
      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
      tableDescription   => \@tableHeader,
      class              => 'dataTable',
@@ -172,8 +174,8 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
 sub precondition
 {
     my ($self) = @_;
-    my $vdomainModel = $self->_vdomainModel();
-    return @{$vdomainModel->ids() } > 0;
+    my $mail = $self->global()->getInstance()->modInstance('mail');
+    $mail->model('VDomains')->ids() > 0;
 }
 
 
@@ -185,13 +187,6 @@ sub preconditionFailMsg
                closeA => q{</a>},
 
    );
-}
-
-
-sub _vdomainModel
-{
-    my $mail = EBox::Global->getInstance()->modInstance('mail');
-    return $mail->model('VDomains');
 }
 
 
