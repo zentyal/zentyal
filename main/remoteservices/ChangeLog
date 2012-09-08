@@ -1,4 +1,6 @@
 HEAD
+	+ Delete no longer required conf keys: ebox_services_www and
+	  ebox_services_mirror_count
 	+ Remove deprecated Disaster Recovery method
 	+ Cache cred data in module to optimise
 	+ Implement reporting code here
