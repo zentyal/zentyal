@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regression in cache of current collection status
 2.3.6
 	+ Move mostly report code to remoteservices
 	+ Fixed executable permissions on update-status script

@@ -143,7 +143,6 @@ sub _mangleDuplicityErrorMsg
 sub _parseSuccessMsg # (successMsg)
 {
     my ($successMsg) = @_;
-    EBox::debug("Duplicity success message: $successMsg");
 
     my %backupStats;
     foreach my $line (@{$successMsg}) {

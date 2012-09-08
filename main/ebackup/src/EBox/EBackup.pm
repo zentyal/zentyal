@@ -761,9 +761,8 @@ sub remoteGenerateStatusCache
 
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
-    $self->_retrieveRemoteStatus($urlParams);
-
-
+    my $status = $self->_retrieveRemoteStatus($urlParams);
+    $self->_setCurrentStatus($status);
 }
 
 
