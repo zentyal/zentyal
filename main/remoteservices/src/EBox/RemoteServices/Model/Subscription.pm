@@ -193,7 +193,7 @@ sub eBoxSubscribed
 {
     my ($self) = @_;
 
-    my $subs = $self->{confmodule}->st_get_bool('subscribed');
+    my $subs = $self->parentModule()->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
 }
@@ -710,6 +710,7 @@ sub _showSaveChanges
     my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
     my $tableName     = $self->name();
     my $caption       = __('Registering a server');
+    my $subscribed    = $self->eBoxSubscribed() ? 'true' : 'false';
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
@@ -718,7 +719,7 @@ var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
   parameters : '&action=edit&tablename=$tableName&directory=$tableName&id=form&' + encodeFields('$tableName', $fieldsArrayJS ),
   evalScripts : true,
   onSuccess : function(t) { Element.update('$tableName', t.responseText);
-                            if ( document.getElementById('${tableName}_password') == null ) {
+                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
                                Modalbox.show('/RemoteServices/Subscription', { title : '$caption' });
                             }
                           },

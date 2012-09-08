@@ -1,6 +1,6 @@
 HEAD
 	+ Launch save changes immediately after performing the
-	  registration in a modal box
+	  registration or unregistration in a modal box
 	+ Show Wizard link in no active remote configuration backup
 	+ Delete no longer required conf keys: ebox_services_www and
 	  ebox_services_mirror_count
