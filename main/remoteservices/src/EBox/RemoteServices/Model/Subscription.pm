@@ -46,6 +46,7 @@ use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
+use EBox::Types::Action;
 use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Text;
@@ -401,22 +402,34 @@ sub _table
                                      storer        => \&_emptyFunc));
     }
 
+
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal subscription details');
-        $actionName = __('Unsubscribe');
+        $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to Zentyal Cloud');
-        $actionName = __('Subscribe');
+        $printableTableName = __('Subscription to Zentyal Remote');
+        $actionName = __('Register');
     }
 
+    my $customActions = [
+        new EBox::Types::Action(
+            model          => $self,
+            name           => 'subscribe',
+            printableValue => $actionName,
+            onclick        => \&_showSaveChanges,
+           )
+       ];
+
     my $dataForm = {
-                    tableName          => 'Subscription',
-                    printableTableName => $printableTableName,
-                    modelDomain        => 'RemoteServices',
-                    defaultActions     => [ 'editField', 'changeView' ],
-                    tableDescription   => \@tableDesc,
+                    tableName           => 'Subscription',
+                    printableTableName  => $printableTableName,
+                    modelDomain         => 'RemoteServices',
+                    #defaultActions     => [ 'editField', 'changeView' ],
+                    defaultActions      => [],
+                    customActions       => $customActions,
+                    tableDescription    => \@tableDesc,
                     printableActionName => $actionName,
                     disableAutocomplete => 1,
                    };
@@ -472,9 +485,8 @@ sub _tempPasswd
     my $pass = undef;
     my $state = $module->get_state();
     if (exists $state->{'sub_options'}) {
-        # Store the password temporary
-        my $options = $module->{'sub_options'};
-        $pass = $options->{pass};
+        # Get the temporary stored password
+        $pass = $state->{'sub_options'}->{pass};
     }
     return $pass;
 
@@ -685,6 +697,38 @@ sub _populateOptions
     # Option to reload the available options
     push(@options, { value => 'reload', printableValue => __('Reload available options')});
     return \@options;
+}
+
+# Show save changes JS code
+sub _showSaveChanges
+{
+    my ($self, $id) = @_;
+
+    # FIXME: force parameter in DataTable::fields method
+    undef $self->{fields};
+    my $fields        = $self->fields();
+    my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
+    my $tableName     = $self->name();
+    my $caption       = __('Registering a server');
+
+    # Simulate changeRow but showing modal box on success
+    my $jsStr = <<JS;
+var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
+  method : 'post',
+  parameters : '&action=edit&tablename=$tableName&directory=$tableName&id=form&' + encodeFields('$tableName', $fieldsArrayJS ),
+  evalScripts : true,
+  onSuccess : function(t) { Element.update('$tableName', t.responseText);
+                            if ( document.getElementById('${tableName}_password') == null ) {
+                               Modalbox.show('/RemoteServices/Subscription', { title : '$caption' });
+                            }
+                          },
+  onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                            Element.update('error_$tableName', t.responseText); }
+  });
+setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+return false
+JS
+    return $jsStr;
 }
 
 1;
