@@ -534,34 +534,6 @@ sub subscriberUsername
 
 }
 
-# Method: subscribedHostname
-#
-#        Return the hostname within the Zentyal Cloud if
-#        the host is subscribed to it
-#
-# Returns:
-#
-#        String - the subscribed hostname
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub subscribedHostname
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The subscribed hostname is only available if the host is subscribed to Zentyal Cloud')
-           );
-    }
-
-    my $hostName = EBox::RemoteServices::Cred->new()->subscribedHostname();
-    return $hostName;
-}
-
 # Method: monitorGathererIPAddresses
 #
 #        Return the monitor gatherer IP adresses
@@ -816,8 +788,8 @@ sub bundleVersion
 #
 #         -1 - no subscribed or impossible to know
 #          0 - basic
-#          1 - professional
-#          2 - enterprise
+#          5 - sb
+#          10 - enterprise
 #
 sub subscriptionLevel
 {
@@ -1896,6 +1868,35 @@ sub desktopActions
     };
 }
 
+# Method: subscribedHostname
+#
+#        Return the hostname within the Zentyal Cloud if
+#        the host is subscribed to it
+#
+# Returns:
+#
+#        String - the subscribed hostname
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub subscribedHostname
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The subscribed hostname is only available if the host is subscribed to Zentyal Cloud')
+           );
+    }
+
+    unless ( defined($self->{subscribedHostname}) ) {
+        $self->{subscribedHostname} = EBox::RemoteServices::Cred->new()->subscribedHostname();
+    }
+    return $self->{subscribedHostname};
+}
 
 # Method: subscribedUUID
 #

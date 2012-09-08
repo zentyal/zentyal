@@ -92,8 +92,8 @@ sub _table
     my @tableDesc =
       (
        new EBox::Types::HTML(
-           fieldName     => 'download',
-           printableName => __('Download latest report'),
+           fieldName     => 'report_link',
+           printableName => __('Get latest report'),
           ),
        new EBox::Types::Text(
            fieldName     => 'last_consolidation',
@@ -112,8 +112,7 @@ sub _table
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
                     help               =>
-                      __('The download link is for the latest available report for '
-                         . 'a group where this zentyal server belongs to'),
+                      __('Reports are done based on automatically gathered data in hourly basis'),
                    };
 
     return $dataForm;
@@ -129,7 +128,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{confmodule};
+    my $rs = $self->parentModule();
 
     my $sampleReportURL = SAMPLE_REPORT_URL;
     if ( EBox::locale() =~ m:^es: ) {
@@ -137,25 +136,25 @@ sub _content
     }
 
     my ($lastCon, $link, $reportersNum) =
-      ( __('No consolidation done'),
-        __x('{oh}Download sample{ch}',
+      ( __('Not subscribed'),
+        __x('{oh}Take a look on the example{ch}',
             oh => qq{<a href="$sampleReportURL">},
             ch => '</a>'),
         0);
 
-    if ( 1 > 0 ) { # $rs->subscriptionLevel() > 0 ) {
-        if ( EBox::Config::boolean('disable_consolidation') ) {
-            $lastCon = __('The consolidation is disabled. No report data is gathered');
-        } else {
+    if ( EBox::Config::boolean('disable_consolidation') ) {
+        $lastCon = __('The consolidation is disabled. No report data is gathered');
+    } else {
+        if ( $rs->subscriptionLevel() >= 5 ) {
             my $reporter = EBox::RemoteServices::Reporter->instance();
             $lastCon = $reporter->lastConsolidationTime();
             if ( defined( $lastCon ) ) {
                 $lastCon = POSIX::strftime("%c", localtime($lastCon));
                 # Show the link message
-                my $domain   = $rs->confKey('realm');
-                my $subsName = $rs->confKey('subscribedHostname');
+                my $domain   = $rs->cloudDomain();
+                my $subsName = $rs->subscribedHostname();
                 my $reportURL = "https://www.${domain}/services/report/latest/${subsName}/";
-                $link = __x('{oh}Download{ch}',
+                $link = __x('{oh}Take a look{ch}',
                             oh => qq{<a href="$reportURL">},
                             ch => '</a>');
             }
@@ -164,7 +163,7 @@ sub _content
     }
 
     return {
-        download           => $link,
+        report_link        => $link,
         last_consolidation => $lastCon,
         reporters_num      => $reportersNum,
        };
