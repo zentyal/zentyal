@@ -76,7 +76,6 @@ use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
-use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
@@ -629,12 +628,14 @@ sub monitorGathererIPAddresses
 #
 sub controlPanelURL
 {
+    my ($self) = @_;
+
     my $url= 'cloud.zentyal.com';
     try {
-        $url = EBox::RemoteServices::Auth->new()->valueFromBundle(SITE_HOST_KEY);
+        $url = 'www.' . $self->cloudDomain();
     } otherwise {};
 
-    return "https://${url}/"
+    return "https://${url}/";
 }
 
 # Method: ifaceVPN
@@ -1971,9 +1972,11 @@ sub subscribedUUID
            );
     }
 
-    return EBox::RemoteServices::Cred->new()->subscribedUUID();
+    unless ( defined($self->{subscribedUUID}) ) {
+        $self->{subscribedUUID} = EBox::RemoteServices::Cred->new()->subscribedUUID();
+    }
+    return $self->{subscribedUUID};
 }
-
 
 # Method: cloudDomain
 #
@@ -1998,7 +2001,10 @@ sub cloudDomain
            );
     }
 
-    return EBox::RemoteServices::Cred->new()->cloudDomain();
+    unless ( defined($self->{cloudDomain}) ) {
+        $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
+    }
+    return $self->{cloudDomain};
 }
 
 # Method: cloudCredentials
@@ -2023,8 +2029,11 @@ sub cloudCredentials
             __('The Zentyal Cloud Credentials are only available if the host is subscribed')
            );
     }
+    unless ( defined($self->{cloudCredentials}) ) {
+        $self->{cloudCredentials} = EBox::RemoteServices::Cred->new()->cloudCredentials();
+    }
+    return $self->{cloudCredentials};
 
-    return EBox::RemoteServices::Cred->new()->cloudCredentials();
 }
 
 # Method: _setQAUpdates
