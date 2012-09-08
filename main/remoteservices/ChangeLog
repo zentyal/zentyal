@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated Disaster Recovery method
 	+ Cache cred data in module to optimise
 	+ Implement reporting code here
 	+ Password list files are now stored in module conf

@@ -37,7 +37,7 @@ use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server
 # Method: isSubscribed
 #
 # Returns:
-#   bool - wether the disaster recovery addon is available for the server or not
+#   bool - whether the disaster recovery addon is available for the server or not
 #
 sub isSubscribed
 {

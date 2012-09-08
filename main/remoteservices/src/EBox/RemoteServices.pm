@@ -37,6 +37,7 @@ use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -53,8 +54,6 @@ use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
 use EBox::RemoteServices::Desktop::Subscription;
-use EBox::RemoteServices::DisasterRecovery;
-use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
@@ -425,10 +424,6 @@ sub menu
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
         'text' => __('Security Updates'),
-       ));
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'RemoteServices/View/DisasterRecovery',
-        'text' => __('Disaster Recovery'),
        ));
     $root->add($folder);
 }
@@ -1030,6 +1025,8 @@ sub sbMailAddOn
 
 # Method: backupCredentials
 #
+#     This method is *DEPRECATED*
+#
 #     Get the backup credentials if the server is connected to Zentyal
 #     Cloud. If not connected, then the method requires three arguments
 #     to get the information from the public Web Service
@@ -1063,42 +1060,8 @@ sub backupCredentials
 {
     my ($self, %args) = @_;
 
-    my $state = $self->get_state();
-
-    if ($args{force} or not exists $state->{disaster_recovery}->{username}) {
-        my $cred;
-        if ( $self->isConnected() ) {
-            my $disRecAgent = new EBox::RemoteServices::DisasterRecovery();
-            $cred = $disRecAgent->credentials();
-        } else {
-            unless (defined($args{username})) {
-                throw EBox::Exceptions::MissingArgument('username');
-            }
-            unless (defined($args{password})) {
-                throw EBox::Exceptions::MissingArgument('password');
-            }
-            unless (defined($args{commonName})) {
-                throw EBox::Exceptions::MissingArgument('commonName');
-            }
-            my $disRecAgent = new EBox::RemoteServices::DisasterRecoveryProxy(
-                user => $args{username}, password => $args{password}
-               );
-            $cred = $disRecAgent->credentials(commonName => $args{commonName});
-        }
-        if (defined($cred->{username})) {
-            $state->{disaster_recovery}->{username} = $cred->{username};
-            $state->{disaster_recovery}->{password} = $cred->{password};
-            $state->{disaster_recovery}->{server} = $cred->{server};
-            $state->{disaster_recovery}->{quota} = $cred->{quota};
-            $self->set_state($state);
-        } else {
-            $state->{disaster_recovery} = {};
-            $self->set_state($state);
-            return {};
-        }
-    }
-
-    return $state->{disaster_recovery};
+    # Disable DR for now
+    throw EBox::Exceptions::DeprecatedMethod();
 }
 
 # Method: serverList
@@ -1563,7 +1526,7 @@ sub _ccConnectionWidget
     $widget->add($section);
 
     my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
-      ( __('None'), '', '', 'info', '', '', '');
+      ( __('None'), '', '', 'info', '', __('Disabled'), '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1610,23 +1573,11 @@ sub _ccConnectionWidget
             }
         }
 
-        my $drOn = 0;
-        try {
-            $drOn = $self->disasterRecoveryAddOn();
-        } catch EBox::Exceptions::NotConnected with { };
 
-        if ( $drOn ) {
-            $DRValue = __('Enabled');
-            my $date = $self->_latestBackup();
-            if ( $date ne 'unknown' ) {
-                $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
-            }
-        } else {
-            $DRValue = __x('Configuration backup enabled');
-            my $date = $self->latestRemoteConfBackup();
-            if ( $date ne 'unknown' ) {
-                $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
-            }
+        $DRValue = __x('Configuration backup enabled');
+        my $date = $self->latestRemoteConfBackup();
+        if ( $date ne 'unknown' ) {
+            $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
         $sbMailAddOn = $self->sbMailAddOn();
@@ -1637,9 +1588,6 @@ sub _ccConnectionWidget
                                ch => '</a>');
         $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
-        $DRValue        = __sx('Disabled - {oh}Enable{ch}',
-                               oh => '<a href="/RemoteServices/View/DisasterRecovery">',
                                ch => '</a>');
     }
 
@@ -1656,7 +1604,7 @@ sub _ccConnectionWidget
                                              $supportValue));
     $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
                                              $ASUValue));
-    $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
+    $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
     if ( $sbMailAddOn ) {
         $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
