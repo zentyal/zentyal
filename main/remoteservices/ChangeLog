@@ -1,4 +1,5 @@
 HEAD
+	+ Show Wizard link in no active remote configuration backup
 	+ Delete no longer required conf keys: ebox_services_www and
 	  ebox_services_mirror_count
 	+ Remove deprecated Disaster Recovery method

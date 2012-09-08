@@ -2,17 +2,9 @@
 use EBox::Gettext;
 use EBox::Config;
 
-my $text = __x('This feature is only available if you get a Zentyal '
-               . ' Subscription. You can contract them at '
-               . '{url1}. If you are already '
-               . 'registered, then subscribe this server at {url2}',
-               url1 => '<a href="http://'
-                       . EBox::Config::configkey('ebox_services_www')
-                       . '">' . EBox::Config::configkey('ebox_services_www')
-                       . '</a>',
-               url2 => '<a href="/remoteservices/View/Subscription">'
-                       . __('subscription page') . '</a>',
-              );
-
+my $text = __x('This feature is only available if you register your server. '
+               . 'You can register it at {oh}register page{ch}.',
+               oh => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
+               ch => '</a>');
 </%init>
 <& /msg.mas, msg => $text &>
