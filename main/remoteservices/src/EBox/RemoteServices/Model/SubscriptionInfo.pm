@@ -113,10 +113,10 @@ sub _table
            fieldName     => 'renovation_date',
            printableName => __('Renovation date'),
           ),
-       new EBox::Types::Text(
-           fieldName     => 'mm',
-           printableName => __('Central monitoring & management'),
-          ),
+       # new EBox::Types::Text(
+       #     fieldName     => 'mm',
+       #     printableName => __('Central monitoring & management'),
+       #    ),
       );
 
     my $dataForm = {
@@ -176,7 +176,7 @@ sub _content
         external_server_name => $fqdn,
         edition              => $subs,
         renovation_date      => $renovationDate,
-        mm                   => $mm,
+        # mm                   => $mm,
        };
 }
 

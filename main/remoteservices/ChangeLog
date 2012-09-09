@@ -1,4 +1,5 @@
 HEAD
+	+ Some fixes in text in the models
 	+ Start up tasks (cronjobs and bundle reload) is done after save
 	  changes in background
 	+ VPN connection is established once it is needed
