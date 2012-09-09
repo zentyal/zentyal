@@ -1339,6 +1339,21 @@ sub subscriptionDir
     return  SUBS_DIR . $cn;
 }
 
+# Method: reportEnabled
+#
+#     Get if the given server has the report feature enabled
+#
+# Returns:
+#
+#     Boolean
+#
+sub reportEnabled
+{
+    my ($self) = @_;
+
+    return ($self->eBoxSubscribed() and $self->subscriptionLevel() >= 5);
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
@@ -1444,7 +1459,7 @@ sub _writeCronFile
 
     EBox::Module::Base::writeConfFileNoCheck(
         CRON_FILE,
-        'remoteservices/ebox-remoteservices.cron.mas',
+        'remoteservices/zentyal-remoteservices.cron.mas',
         \@tmplParams);
 }
 
