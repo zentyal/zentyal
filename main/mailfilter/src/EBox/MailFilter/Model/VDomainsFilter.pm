@@ -202,7 +202,7 @@ sub _vdomainId
 {
     my ($self, $vdomain) = @_;
 
-    my $vdomainsModel = $self->_vdomainModel();
+    my $vdomainsModel = $self->global()->modInstance('mail')->model('VDomains');
     return $vdomainsModel->findId(vdomain => $vdomain);
 }
 
@@ -282,7 +282,7 @@ sub nameFromRow
 {
     my ($self, $row) = @_;
 
-    my $vdomainsModel = $self->_vdomainModel();
+    my $vdomainsModel = $self->global()->modInstance('mail')->model('VDomains');
     my $vdomainId = $row->elementByName('vdomain')->value();
     my $vdomainRow = $vdomainsModel->row($vdomainId);
 
