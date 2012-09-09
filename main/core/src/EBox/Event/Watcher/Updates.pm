@@ -79,7 +79,8 @@ sub ConfigurationMethod
 
 # Method: Able
 #
-#        Overrides to perform the check only for basic subscriptions
+#        Overrides to perform the check only if community edition is
+#        registered
 #
 # Overrides:
 #
@@ -92,13 +93,15 @@ sub Able
     my $retVal = 0;
     if ( $gl->modExists('remoteservices') ) {
         my $rs = $gl->modInstance('remoteservices');
-        my $subsLevel = $rs->subscriptionLevel();
-        $retVal = ($subsLevel == 0); # Only for basic
-        if ( $rs->eBoxSubscribed() and ($subsLevel == -1) ) {
-            # We don't know yet the subscription level
-            if ( $gl->modExists('software') ) {
-                my $software = $gl->modInstance('software');
-                $retVal = (not $software->QAUpdates());
+        if ( $rs->eBoxSubscribed() ) {
+            my $subsLevel = $rs->subscriptionLevel();
+            $retVal = ($subsLevel == 0); # Only for paid editions
+            if ( $subsLevel == -1) {
+                # We don't know yet the subscription level
+                if ( $gl->modExists('software') ) {
+                    my $software = $gl->modInstance('software');
+                    $retVal = (not $software->QAUpdates());
+                }
             }
         }
     }

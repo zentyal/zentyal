@@ -505,12 +505,14 @@ sub _manageEvents # (subscribing)
 
     }
 
-    # Enable Cloud dispatcher
-    my $model = $eventMod->model('ConfigureDispatchers');
-    my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
-    $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
-    $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
-                                $subscribing);
+    # Enable Cloud dispatcher only if enough subs level is available
+    if ( (not $subscribing) or ($self->parentModule()->subscriptionLevel() >= 5) ) {
+        my $model = $eventMod->model('ConfigureDispatchers');
+        my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
+        $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
+        $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
+                                    $subscribing);
+    }
 
     if ($subscribing) {
         try {
@@ -564,10 +566,12 @@ sub _configureAndEnable
     my ($self, $mod) = @_;
 
     if (not $mod->configured) {
+        EBox::debug('Configuring ' . $mod->name());
         $mod->setConfigured(1);
         $mod->enableActions();
     }
     if (not $mod->isEnabled()) {
+        EBox::debug('Enabling ' . $mod->name());
         $mod->enableService(1);
     }
 }
