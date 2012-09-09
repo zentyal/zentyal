@@ -214,7 +214,7 @@ sub _setInventoryAgentConf
     my ($self) = @_;
 
     my $toRemove = 0;
-    if ( $self->eBoxSubscribed() ) {
+    if ( $self->inventoryEnabled() ) {
         my $cloud_domain = $self->cloudDomain();
         EBox::error('Cannot get Zentyal Remote domain name') unless $cloud_domain;
 
@@ -1365,6 +1365,21 @@ sub reportEnabled
 #     Boolean
 #
 sub monitorEnabled
+{
+    my ($self) = @_;
+
+    return $self->reportEnabled();
+}
+
+# Method: inventoryEnabled
+#
+#     Get if the given server has the inventory feature enabled
+#
+# Returns:
+#
+#     Boolean
+#
+sub inventoryEnabled
 {
     my ($self) = @_;
 
