@@ -12,19 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup::Model::RemoteRestoreLogs;
-
-# Class: EBox::EBackup::Model::RemoteRestoreLogs
-#
-#
-#
-
-use base 'EBox::Model::DataForm::Action';
-
 use strict;
 use warnings;
+
+package EBox::EBackup::Model::RemoteRestoreLogs;
+use base 'EBox::Model::DataForm::Action';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -74,9 +66,15 @@ sub precondition
     my ($self) = @_;
     $self->{_precondition_msg} = undef;
 
-    my @status = @{$self->{confmodule}->remoteStatus()};
+    my @status;
+    try {
+       @status = @{$self->{confmodule}->remoteStatus()};
+   } catch EBox::Exceptions::External with {
+       # ignore error, it will be shown in the same composite by the model
+       # RemoteRestoreConf
+   };
     return 0 if not @status;
-    my $logs = EBox::Global->getInstance()->modInstance('logs');
+    my $logs = $self->global()->modInstance('logs');
     if (not $logs) {
         $self->{_precondition_msg} = __('To be able to restore logs you need the logs module installed and enabled');
         return 0;
