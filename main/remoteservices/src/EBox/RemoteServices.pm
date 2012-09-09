@@ -560,20 +560,22 @@ sub monitorGathererIPAddresses
 
     my $monGatherers = [];
 
-    # If conf key says so, monitoring goes inside the VPN
-    if (EBox::Config::boolean('monitoring_inside_vpn')) {
-        try {
-            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-        } catch EBox::Exceptions::Base with {
-            ;
-        };
-    } else {
-        try {
-            # TODO: Do not hardcode
-            $monGatherers = ['mon.' . $self->cloudDomain()];
-        } catch EBox::Exceptions::External with {
-            ;
-        };
+    if ( $self->monitorEnabled() ) {
+        # If conf key says so, monitoring goes inside the VPN
+        if (EBox::Config::boolean('monitoring_inside_vpn')) {
+            try {
+                $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+            } catch EBox::Exceptions::Base with {
+                ;
+            };
+        } else {
+            try {
+                # TODO: Do not hardcode
+                $monGatherers = ['mon.' . $self->cloudDomain()];
+            } catch EBox::Exceptions::External with {
+                ;
+            };
+        }
     }
     return $monGatherers;
 }
@@ -1351,7 +1353,22 @@ sub reportEnabled
 {
     my ($self) = @_;
 
-    return ($self->eBoxSubscribed() and $self->subscriptionLevel() >= 5);
+    return ($self->eBoxSubscribed() and $self->subscriptionLevel() > 0);
+}
+
+# Method: monitorEnabled
+#
+#     Get if the given server has the monitor feature enabled
+#
+# Returns:
+#
+#     Boolean
+#
+sub monitorEnabled
+{
+    my ($self) = @_;
+
+    return $self->reportEnabled();
 }
 
 # Group: Private methods
