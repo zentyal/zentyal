@@ -1,4 +1,6 @@
 HEAD
+	+ Show VPNConnectivityCheck in Technical composite when the server
+	  has the bundle
 	+ Name change from Cloud to Remote
 	+ Launch save changes immediately after performing the
 	  registration or unregistration in a modal box
