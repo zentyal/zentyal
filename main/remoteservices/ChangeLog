@@ -1,4 +1,8 @@
 HEAD
+	+ Dynamic DNS is enabled during the subscription and not during
+	  the bundle execution
+	+ Dynamic DNS is disabled when deregistering
+	+ Set up audit environment in set conf
 	+ In order to run cron jobs only subscribed is required now
 	+ Adaptations for new registered community servers
 	+ Show VPNConnectivityCheck in Technical composite when the server

@@ -152,6 +152,9 @@ sub setTypedRow
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
 
+    # Set DynDNS configuration
+    $self->_setDDNSConf(not $subs);
+
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
@@ -573,6 +576,26 @@ sub _configureAndEnable
     if (not $mod->isEnabled()) {
         EBox::debug('Enabling ' . $mod->name());
         $mod->enableService(1);
+    }
+}
+
+# Set the Dynamic DNS configuration only if the service was not
+# enabled before and using other method
+sub _setDDNSConf
+{
+    my ($self, $subscribing) = @_;
+
+    my $networkMod = EBox::Global->modInstance('network');
+    my $ddnsModel = $networkMod->model('DynDNS');
+    if ( $subscribing ) {
+        unless ( $networkMod->isDDNSEnabled() ) {
+            $ddnsModel->set(enableDDNS => 1,
+                            service    => 'cloud');
+        } else {
+            EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
+        }
+    } elsif ( $networkMod->DDNSUsingCloud() ) {
+        $ddnsModel->set(enableDDNS => 0);
     }
 }
 

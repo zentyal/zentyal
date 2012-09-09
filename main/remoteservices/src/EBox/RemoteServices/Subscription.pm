@@ -421,8 +421,6 @@ sub extractBundle
 #     Current actions:
 #
 #        - Restart remoteservices, firewall and apache modules
-#        - Create John home directory (Security audit)
-#        - Autoconfigure DynamicDNS service
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
 #
@@ -443,8 +441,6 @@ sub executeBundle
     $self->_restartRS($new);
     # Downgrade, if necessary
     $self->_downgrade();
-    $self->_setUpAuditEnvironment();
-    $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
@@ -590,30 +586,6 @@ sub _openVPNConnection #(ipaddr, port, protocol)
                    )
                  );
         }
-    }
-}
-
-sub _setUpAuditEnvironment
-{
-    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
-    unless ( -d $johnDir ) {
-        mkdir($johnDir);
-    }
-}
-
-# Set the Dynamic DNS configuration only if the service was not
-# enabled before and using other method
-sub _setDDNSConf
-{
-    my ($self) = @_;
-
-    my $networkMod = EBox::Global->modInstance('network');
-    unless ( $networkMod->isDDNSEnabled() ) {
-        my $ddnsModel = $networkMod->model('DynDNS');
-        $ddnsModel->set(enableDDNS => 1,
-                        service    => 'cloud');
-    } else {
-        EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
     }
 }
 

@@ -75,7 +75,7 @@ __END__
 
 =head1 NAME
 
-reload-bundle - Reload bundle sent by Zentyal Cloud
+reload-bundle - Reload bundle sent by Zentyal Remote
 
 =head1 SYNOPSIS
 
@@ -85,7 +85,5 @@ reload-bundle [--usage|help] [--force]
    -- usage|help  Print this help and exit
 
    -- force       Force to reload the bundle although Zentyal may have the latest available version
-
-This script "must" be called only from the post-installation script, crontab or installation process
 
 =cut

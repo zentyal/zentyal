@@ -146,6 +146,7 @@ sub _setConf
 
     $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
+        $self->_setUpAuditEnvironment();
         $self->_establishVPNConnection();
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
@@ -1493,6 +1494,14 @@ sub _writeCronFile
         CRON_FILE,
         'remoteservices/zentyal-remoteservices.cron.mas',
         \@tmplParams);
+}
+
+sub _setUpAuditEnvironment
+{
+    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
+    unless ( -d $johnDir ) {
+        mkdir($johnDir);
+    }
 }
 
 # Return the allowed client CNs regexp
