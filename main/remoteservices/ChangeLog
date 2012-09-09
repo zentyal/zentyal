@@ -1,4 +1,16 @@
 HEAD
+	+ Some fixes in text in the models
+	+ Start up tasks (cronjobs and bundle reload) is done after save
+	  changes in background
+	+ VPN connection is established once it is needed
+	+ Dynamic DNS is enabled during the subscription and not during
+	  the bundle execution
+	+ Dynamic DNS is disabled when deregistering
+	+ Set up audit environment in set conf
+	+ In order to run cron jobs only subscribed is required now
+	+ Adaptations for new registered community servers
+	+ Show VPNConnectivityCheck in Technical composite when the server
+	  has the bundle
 	+ Name change from Cloud to Remote
 	+ Launch save changes immediately after performing the
 	  registration or unregistration in a modal box

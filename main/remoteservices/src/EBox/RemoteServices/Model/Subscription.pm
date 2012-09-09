@@ -16,17 +16,18 @@
 # Class: EBox::RemoteServices::Model::Subscription
 #
 # This class is the model to subscribe a Zentyal to the remote services
-# offered. The following elements are required:
+# offered. The following elements may be present:
 #
 #     - user (volatile)
 #     - password (volatile)
 #     - common name
+#     - options (volatile and optional)
 #
 # The model has itself two states:
 #
-#     - Zentyal not subscribed. Default state. Prior to a Zentyal subscription
+#     - Zentyal not subscribed. Default state. Prior to the registration
 #
-#     - Zentyal subscribed. After a Zentyal subscription
+#     - Zentyal subscribed. After the registration
 #
 
 package EBox::RemoteServices::Model::Subscription;
@@ -91,7 +92,7 @@ sub setTypedRow
     }
 
     if ( $correctParams ) {
-        # Password is not defined or yes
+        # Password is not defined when unsubscribing but it is when subscribing
         my $password = '';
         $password = $paramsRef->{password}->value() if defined($paramsRef->{password});
         my $subsServ = EBox::RemoteServices::Subscription->new(user => $paramsRef->{username}->value(),
@@ -136,21 +137,17 @@ sub setTypedRow
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
-    $self->{confmodule}->setAsChanged();
+    $self->parentModule()->setAsChanged();
 
-    $self->{confmodule}->st_set_bool('subscribed', not $subs);
+    $self->parentModule()->st_set_bool('subscribed', not $subs);
 
-    # Commit current data as valid
-    $self->{confmodule}->redis()->commit();
-    # Start async the bundle retrieval
-    EBox::Sudo::command(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
-
-    # Start a new transaction
-    $self->{confmodule}->redis()->begin();
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
+
+    # Set DynDNS configuration
+    $self->_setDDNSConf(not $subs);
 
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
@@ -169,15 +166,6 @@ sub setTypedRow
     } else {
         $self->setMessage(__('Done'));
     }
-
-    # if ( not $subs ) {
-    #     try {
-    #         # Establish VPN connection after subscribing and store data in backend
-    #         EBox::RemoteServices::Backup->new()->connection();
-    #     } catch EBox::Exceptions::External with {
-    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-    #     };
-    # }
 }
 
 # Method: eBoxSubscribed
@@ -505,12 +493,14 @@ sub _manageEvents # (subscribing)
 
     }
 
-    # Enable Cloud dispatcher
-    my $model = $eventMod->model('ConfigureDispatchers');
-    my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
-    $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
-    $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
-                                $subscribing);
+    # Enable Cloud dispatcher only if enough subs level is available
+    if ( (not $subscribing) or ($self->parentModule()->subscriptionLevel() >= 5) ) {
+        my $model = $eventMod->model('ConfigureDispatchers');
+        my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
+        $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
+        $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
+                                    $subscribing);
+    }
 
     if ($subscribing) {
         try {
@@ -564,11 +554,33 @@ sub _configureAndEnable
     my ($self, $mod) = @_;
 
     if (not $mod->configured) {
+        EBox::debug('Configuring ' . $mod->name());
         $mod->setConfigured(1);
         $mod->enableActions();
     }
     if (not $mod->isEnabled()) {
+        EBox::debug('Enabling ' . $mod->name());
         $mod->enableService(1);
+    }
+}
+
+# Set the Dynamic DNS configuration only if the service was not
+# enabled before and using other method
+sub _setDDNSConf
+{
+    my ($self, $subscribing) = @_;
+
+    my $networkMod = EBox::Global->modInstance('network');
+    my $ddnsModel = $networkMod->model('DynDNS');
+    if ( $subscribing ) {
+        unless ( $networkMod->isDDNSEnabled() ) {
+            $ddnsModel->set(enableDDNS => 1,
+                            service    => 'cloud');
+        } else {
+            EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
+        }
+    } elsif ( $networkMod->DDNSUsingCloud() ) {
+        $ddnsModel->set(enableDDNS => 0);
     }
 }
 
@@ -708,8 +720,8 @@ sub _showSaveChanges
     my $fields        = $self->fields();
     my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
     my $tableName     = $self->name();
-    my $caption       = __('Registering a server');
     my $subscribed    = $self->eBoxSubscribed() ? 'true' : 'false';
+    my $caption       = ($subscribed eq 'true') ? __('Unregistering a server') : __('Registering a server');
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;

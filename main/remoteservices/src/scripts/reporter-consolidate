@@ -5,12 +5,16 @@ use warnings;
 
 use EBox;
 use EBox::Config;
+use EBox::Global;
 use EBox::RemoteServices::Reporter;
 
 EBox::init();
 
 unless ( EBox::Config::boolean('disable_consolidation') ) {
-    my $reporter = EBox::RemoteServices::Reporter->instance();
-    $reporter->consolidate();
-    $reporter->send();
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->reportEnabled() ) {
+        my $reporter = EBox::RemoteServices::Reporter->instance();
+        $reporter->consolidate();
+        $reporter->send();
+    }
 }

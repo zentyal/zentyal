@@ -25,6 +25,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
 use EBox::RemoteServices::Subscription::Action;
 
 # Constructor: new
@@ -69,16 +70,29 @@ sub showSubscriptionProgress
 {
     my ($self, $progressIndicator) = @_;
 
+    my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+    my ($title, $endNote, $errorNote) = ( __('Registering your server'),
+                                          __('Registration finished'),
+                                          __x('There was an error in the registration. '
+                                              . 'There are more information in the logs directory {dir}',
+                                              dir => EBox::Config->log()),
+                                         );
+    unless ( $rs->eBoxSubscribed() ) {
+        $title     = __('Unregistering your server');
+        $endNote   = __('Unregistration finished');
+        $errorNote = __x('There was an error in the registration. '
+                         . 'There are more information in the logs directory {dir}',
+                         dir => EBox::Config->log());
+    }
+
     my @params = (
         progressIndicator  => $progressIndicator,
-        title              => __('Registering your server'),
+        title              => $title,
         text               => __('Making changes in your configuration'),
         currentItemCaption => __('Current operation'),
         itemsLeftMessage   => __('operations performed'),
-        endNote            => __('Registration finished'),
-        errorNote          => __x('There was an error in the registration. '
-                                  . 'There are more information in the logs directory {dir}',
-                                  dir => EBox::Config->log()),
+        endNote            => $endNote,
+        errorNote          => $errorNote,
         reloadInterval     => 2);
 
     my @popupProgressParams = (
