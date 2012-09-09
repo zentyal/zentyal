@@ -111,7 +111,7 @@ sub _table
           ),
        new EBox::Types::Text(
            fieldName     => 'renovation_date',
-           printableName => __('Subscription renovation date'),
+           printableName => __('Renovation date'),
           ),
        new EBox::Types::Text(
            fieldName     => 'mm',
@@ -121,7 +121,7 @@ sub _table
 
     my $dataForm = {
                     tableName          => 'SubscriptionInfo',
-                    printableTableName => __('Server subcription info'),
+                    printableTableName => __('Server info'),
                     defaultActions     => [ 'changeView' ],
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
@@ -143,7 +143,7 @@ sub _content
     my $rs = $self->{confmodule};
 
     my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
-      ( __('None'), __('Not using Zentyal Cloud DynDNS service'),
+      ( __('None'), __('Not using Zentyal Remote DynDNS service'),
         __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
              ohb => '<a href="' . BASIC_URL . '" target="_blank">',
              ch  => '</a>'),

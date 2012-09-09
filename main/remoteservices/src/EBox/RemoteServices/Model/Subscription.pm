@@ -119,15 +119,14 @@ sub setTypedRow
             }
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
-                $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
-                                          . 'wait a minute to guarantee the system carries out '
-                                          . 'the process of subscribing. Later you can start '
+                $self->{returnedMsg} = __('Registration was done correctly. Wait a minute '
+                                          . 'to guarantee the system carries out '
+                                          . 'the process of registration. Later on, you can start '
                                           . 'using the cloud based services you are entitled '
-                                          . 'to with your subscription (remote backup, updates, alerts, etc.)');
+                                          . 'to with your edition (remote backup, updates, alerts, etc.)');
             } else {
-                $self->{returnedMsg} = __('Subscription data retrieved correctly.');
+                $self->{returnedMsg} = __('Registration data retrieved correctly.');
             }
-            $self->{returnedMsg} .= ' ' . __('Please, save changes');
 
             $self->{confmodule}->st_set_bool('just_subscribed', 1);
             $self->{confmodule}->st_unset('sub_options');
@@ -295,7 +294,7 @@ sub help
         #              );
         #}
 
-        $msg .= __('Take into account that subscribing your Zentyal server to the Zentyal Cloud can take a while. Please do not touch anything until the subscription process is correctly finished.');
+        $msg .= __('Take into account that registering your Zentyal server to the Zentyal Remote can take a while. Please do not touch anything until the registration process is correctly finished.');
     }
 
     return $msg;
@@ -336,7 +335,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    return __('Prior to make a subscription on remote services, '
+    return __('Prior to make a registration on remote services, '
               . 'save or discard changes in the OpenVPN module');
 }
 
@@ -405,11 +404,11 @@ sub _table
 
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
-        $printableTableName = __('Zentyal subscription details');
+        $printableTableName = __('Zentyal registration details');
         $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to Zentyal Remote');
+        $printableTableName = __('Registration to Zentyal Remote');
         $actionName = __('Register');
     }
 

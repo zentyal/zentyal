@@ -137,7 +137,7 @@ sub send
 sub _receiver
 {
 
-    return __('Zentyal Cloud');
+    return __('Zentyal Remote');
 
 }
 
@@ -150,7 +150,7 @@ sub _receiver
 sub _name
 {
 
-    return __('Zentyal Cloud');
+    return __('Zentyal Remote');
 
 }
 

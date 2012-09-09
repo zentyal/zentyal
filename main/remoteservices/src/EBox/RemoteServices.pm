@@ -110,7 +110,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'remoteservices',
-                                      printableName => __('Zentyal Cloud Client'),
+                                      printableName => __('Zentyal Remote Client'),
                                       @_);
 
     bless ($self, $class);
@@ -216,7 +216,7 @@ sub _setInventoryAgentConf
     my $toRemove = 0;
     if ( $self->eBoxSubscribed() ) {
         my $cloud_domain = $self->cloudDomain();
-        EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
+        EBox::error('Cannot get Zentyal Remote domain name') unless $cloud_domain;
 
         # Check subscription level
         if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
@@ -409,12 +409,12 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
-                                        text => __('Subscription'),
+                                        text => __('Registration'),
                                         separator => 'Core',
                                         order => 105);
 
     $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
-                                      'text' => __('Server Subscription'),
+                                      'text' => __('Server Registration'),
                                      ));
 
     $folder->add(new EBox::Menu::Item(
@@ -440,7 +440,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Cloud Services'),
+            'title'   => __('Zentyal Remote Services'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -555,7 +555,7 @@ sub monitorGathererIPAddresses
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
+            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Remote'));
     }
 
     my $monGatherers = [];
@@ -1400,7 +1400,7 @@ sub _establishVPNConnection
             $authConnection->connect();
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
-            EBox::error("Cannot contact to Zentyal Cloud: $exc");
+            EBox::error("Cannot contact to Zentyal Remote: $exc");
         };
     }
 }
@@ -1888,7 +1888,7 @@ sub subscribedHostname
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The subscribed hostname is only available if the host is subscribed to Zentyal Cloud')
+            __('The subscribed hostname is only available if the host is subscribed to Zentyal Remote')
            );
     }
 
@@ -1917,7 +1917,7 @@ sub subscribedUUID
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The UUID is only available if the host is subscribed to Zentyal Cloud')
+            __('The UUID is only available if the host is subscribed to Zentyal Remote')
            );
     }
 
@@ -1946,7 +1946,7 @@ sub cloudDomain
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The Zentyal Cloud Domain is only available if the host is subscribed')
+            __('The Zentyal Remote Domain is only available if the host is subscribed')
            );
     }
 
@@ -1975,7 +1975,7 @@ sub cloudCredentials
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+            __('The Zentyal Remote credentials are only available if the host is subscribed')
            );
     }
     unless ( defined($self->{cloudCredentials}) ) {

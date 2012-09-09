@@ -136,7 +136,7 @@ sub _content
     }
 
     my ($lastCon, $link, $reportersNum) =
-      ( __('Not subscribed'),
+      ( __('Not registered'),
         __x('{oh}Take a look on the example{ch}',
             oh => qq{<a href="$sampleReportURL">},
             ch => '</a>'),

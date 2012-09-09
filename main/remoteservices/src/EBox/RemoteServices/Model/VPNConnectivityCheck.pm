@@ -64,7 +64,7 @@ sub _table
     my $form = {
         tableName => __PACKAGE__->nameFromClass(),
         modelDomain => 'RemoteServices',
-        pageTitle => __('Zentyal Cloud VPN Connectivity Check'),
+        pageTitle => __('Zentyal Remote VPN Connectivity Check'),
         defaultActions => [],
         customActions => $customActions,
         tableDescription => [],

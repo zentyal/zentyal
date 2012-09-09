@@ -613,7 +613,7 @@ sub _setDDNSConf
         $ddnsModel->set(enableDDNS => 1,
                         service    => 'cloud');
     } else {
-        EBox::info('DynDNS is already in used, so not using Zentyal Cloud service');
+        EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
     }
 }
 
