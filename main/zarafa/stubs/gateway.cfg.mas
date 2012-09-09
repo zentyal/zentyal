@@ -57,7 +57,7 @@ imap_public_folders	=	yes
 imap_capability_idle = yes
 
 # The maximum size of an email that can be uploaded to the gateway
-imap_max_messagesize = 134217728
+imap_max_messagesize = 128M
 
 # Override the e-mail charset and generate using utf-8 (when imap data is not present on the item)
 imap_generate_utf8 = no

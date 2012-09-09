@@ -35,7 +35,8 @@ use Storable;
 
 use constant ZARAFACONFFILE => '/etc/zarafa/server.cfg';
 use constant ZARAFALDAPCONFFILE => '/etc/zarafa/ldap.openldap.cfg';
-use constant ZARAFAWEBACCCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAWEBAPPCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAXMPPCONFFILE => '/usr/share/zarafa-webapp/plugins/xmpp/config.php';
 use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
@@ -44,7 +45,7 @@ use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
-use constant KEYTAB_FILE => '/etc/zarafa/http.keytab';
+use constant KEYTAB_FILE => '/etc/zarafa/zarafa.keytab';
 
 use constant FIRST_RUN_FILE => '/var/lib/zentyal/conf/zentyal-zarafa.first';
 use constant STATS_CMD      => '/usr/bin/zarafa-stats';
@@ -121,9 +122,14 @@ sub usedFiles
             'reason' => __('To properly configure Zarafa LDAP connection.')
         },
         {
-            'file' => ZARAFAWEBACCCONFFILE,
+            'file' => ZARAFAWEBAPPCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa webaccess.')
+        },
+        {
+            'file' => ZARAFAXMPPCONFFILE,
+            'module' => 'zarafa',
+            'reason' => __('To properly configure Zarafa XMPP integration.')
         },
         {
             'file' => ZARAFAGATEWAYCONFFILE,
@@ -167,7 +173,7 @@ sub kerberosServicePrincipals
     my ($self) = @_;
 
     my $data = { service    => 'zarafa',
-                 principals => [ 'zarafa-web' ],
+                 principals => [ 'ZARAFA' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;
@@ -395,7 +401,7 @@ sub _setConf
     my $attachment_path = EBox::Config::configkey('zarafa_attachment_path');
     my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
     my $enable_hosted_zarafa = EBox::Config::configkey('zarafa_enable_hosted_zarafa');
-    my $enable_sso = EBox::Config::configkey('zarafa_enable_sso');
+    my $enable_sso = $self->model('GeneralSettings')->ssoValue() ? 'yes' : 'no';
     push(@array, 'server_bind' => $server_bind);
     push(@array, 'hostname' => $self->_hostname());
     push(@array, 'mysql_user' => 'zarafa');
@@ -447,8 +453,17 @@ sub _setConf
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
+    my $jabber = $self->model('GeneralSettings')->jabberValue();
+    if ($jabber and EBox::Global->modExists('jabber')) {
+        @array = ();
+        my $jabberMod = EBox::Global->modInstance('jabber');
+        push(@array, 'domain' => $jabberMod->model('GeneralSettings')->domainValue());
+        $self->writeConfFile(ZARAFAXMPPCONFFILE,
+                     "zarafa/xmpp-config.php.mas",
+                     \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+    }
+
     $self->_setSpellChecking();
-    # TODO configure xmpp plugin too once zarafa fixes packaging
     $self->_setWebServerConf();
     $self->_enableInnoDBIfNeeded();
     $self->_createVMailDomainsOUs();
@@ -594,12 +609,26 @@ sub _setWebServerConf
                        EBox::WebServer::VHOST_PREFIX. '*/ebox-zarafa';
     EBox::Sudo::root('rm -f ' . "$vHostPattern");
 
+    my @array = ();
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $activesync = $self->model('GeneralSettings')->activeSyncValue();
     my $jabber = $self->model('GeneralSettings')->jabberValue();
+    my $enable_sso = $self->model('GeneralSettings')->ssoValue();
+    my $realm = EBox::Global->modInstance('users')->kerberosRealm();
+
+    push(@array, 'activesync' => $activesync);
+    push(@array, 'jabber' => $jabber);
+    push(@array, 'enable_sso' => $enable_sso);
+    push(@array, 'realm' => $realm);
+
+    EBox::Sudo::root(EBox::Config::scripts('zarafa') .
+                     'zarafa-sso ' . ($enable_sso ? 'enable' : 'disable'));
 
     my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-webapp-xmpp';
-    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas');
+    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas', \@array);
+
+    $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-web-sso';
+    $self->writeConfFile($destFile, 'zarafa/zarafa-web-sso.mas', \@array);
 
     my @cmds = ();
 
@@ -612,19 +641,38 @@ sub _setWebServerConf
             push(@cmds, 'a2dissite d-push');
         }
         if ($jabber) {
-            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
             push(@cmds, 'a2enmod proxy_http');
+            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
         } else {
             push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+            push(@cmds, 'a2dismod proxy_http');
+        }
+        if ($enable_sso) {
+            push(@cmds, 'a2enmod auth_kerb');
+            push(@cmds, 'a2ensite zarafa-web-sso');
+        } else {
+            push(@cmds, 'a2dissite zarafa-web-sso');
+            push(@cmds, 'a2dismod auth_kerb');
         }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+        push(@cmds, 'a2dissite zarafa-web-sso');
         push(@cmds, 'a2dissite d-push');
+        if ($jabber) {
+            push(@cmds, 'a2enmod proxy_http');
+        } else {
+            push(@cmds, 'a2dismod proxy_http');
+        }
+        if ($enable_sso) {
+            push(@cmds, 'a2enmod auth_kerb');
+        } else {
+            push(@cmds, 'a2dismod auth_kerb');
+        }
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
-        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);
+        $self->writeConfFile($destFile, 'zarafa/apache.mas', \@array);
     }
     try {
         EBox::Sudo::root(@cmds);

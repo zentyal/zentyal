@@ -1,0 +1,17 @@
+#!/bin/sh
+
+CONFIG='/etc/zarafa/webapp/config.php /etc/zarafa/webaccess-ajax/config.php'
+
+# define("LOGINNAME_STRIP_DOMAIN", true);
+
+for CFG in $CONFIG
+do
+    if [ "x$1" = "xenable" ]
+    then
+        sed -i 's/define("LOGINNAME_STRIP_DOMAIN", FALSE);/define("LOGINNAME_STRIP_DOMAIN", TRUE);/g' $CFG
+        sed -i 's/define("LOGINNAME_STRIP_DOMAIN", false);/define("LOGINNAME_STRIP_DOMAIN", TRUE);/g' $CFG
+    else
+        sed -i 's/define("LOGINNAME_STRIP_DOMAIN", TRUE);/define("LOGINNAME_STRIP_DOMAIN", FALSE);/g' $CFG
+        sed -i 's/define("LOGINNAME_STRIP_DOMAIN", true);/define("LOGINNAME_STRIP_DOMAIN", FALSE);/g' $CFG
+    fi
+done
