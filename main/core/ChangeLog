@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to read slides if software module is not installed
 	+ Fixed wrong call in Events::isEnabledDispatcher()
 	+ Updated 'created by' footer
 2.3.23
