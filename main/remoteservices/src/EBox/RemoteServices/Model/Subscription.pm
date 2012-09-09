@@ -712,8 +712,8 @@ sub _showSaveChanges
     my $fields        = $self->fields();
     my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
     my $tableName     = $self->name();
-    my $caption       = __('Registering a server');
     my $subscribed    = $self->eBoxSubscribed() ? 'true' : 'false';
+    my $caption       = ($subscribed eq 'true') ? __('Unregistering a server') : __('Registering a server');
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
