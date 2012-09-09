@@ -1,4 +1,7 @@
 HEAD
+	+ Start up tasks (cronjobs and bundle reload) is done after save
+	  changes in background
+	+ VPN connection is established once it is needed
 	+ Dynamic DNS is enabled during the subscription and not during
 	  the bundle execution
 	+ Dynamic DNS is disabled when deregistering

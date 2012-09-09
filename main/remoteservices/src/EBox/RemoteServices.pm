@@ -150,7 +150,6 @@ sub _setConf
         $self->_establishVPNConnection();
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
-        $self->_startupTasks();
         $self->_reportAdminPort();
     }
 
@@ -158,6 +157,7 @@ sub _setConf
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
     $self->_setNETRCFile();
+    $self->_startupTasks();
 }
 
 # Method: initialSetup
@@ -617,6 +617,7 @@ sub controlPanelURL
 #
 #        String - the interface name
 #
+#        Undef  - If none has been defined yet
 sub ifaceVPN
 {
     my ($self) = @_;
@@ -626,7 +627,8 @@ sub ifaceVPN
     if ($vpnClient) {
         return $vpnClient->iface();
     } else {
-        throw EBox::Exceptions::Internal('No VPN client created');
+        # throw EBox::Exceptions::Internal('No VPN client created');
+        return undef;
     }
 }
 
@@ -732,7 +734,6 @@ sub reloadBundle
     try {
         if ( $self->eBoxSubscribed() ) {
             EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
-            my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
             my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -740,7 +741,7 @@ sub reloadBundle
             if ( $bundleContent ) {
                 my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
                 my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys, $new);
+                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
                 $retVal = 1;
             } else {
                 $retVal = 2;
@@ -1441,7 +1442,7 @@ sub _establishVPNConnection
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() and $self->hasBundle() ) {
+    if ( $self->_VPNEnabled() ) {
         try {
             my $authConnection = new EBox::RemoteServices::Connection();
             $authConnection->create();
@@ -1458,12 +1459,22 @@ sub _startupTasks
 {
     my ($self) = @_;
 
+    my $execFilePath = EBox::Config::etc() . 'post-save/at-start-up-rs';
     if ( $self->st_get_bool('just_subscribed') ) {
-        # Get the cron jobs after subscribing on the background
-        system(EBox::Config::scripts('remoteservices') . 'get-cronjobs &');
-        # Set the subscription level
-        system(EBox::Config::scripts('remoteservices') . 'subs-level &');
+        # Set to reload bundle after 1min after saving changes in
+        # /etc/zentyal/post-save
+        my $fhEtc = new File::Temp(DIR => EBox::Config::tmp());
+        $fhEtc->unlink_on_destroy(0);
+        print $fhEtc "#!/bin/bash\n";
+        print $fhEtc "at -f '" . EBox::Config::scripts('remoteservices') . 'startup-tasks' . "' now+1min\n";
+        close($fhEtc);
+        chmod( 0755, $fhEtc->filename() );
+        EBox::Sudo::root('mv ' . $fhEtc->filename() . " $execFilePath");
+
         $self->st_set_bool('just_subscribed', 0);
+    } else {
+        # Cleaning up the reload bundle at command, if any
+        EBox::Sudo::root("rm -f '$execFilePath'");
     }
 }
 
@@ -1564,18 +1575,21 @@ sub _ccConnectionWidget
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
-        $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
-                         oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
-                         ch   => '</a>',
-                         path => '/var/log/openvpn/');
-        $connValueType = 'error';
-        if ( not $self->hasBundle() ) {
-            $connValue     = __('In process');
-            $connValueType = 'info';
-        } elsif ( $self->isConnected() ) {
-            $connValue     = __('Connected');
-            $connValueType = 'info';
-        }
+        $connValue     = __('Connected');
+        $connValueType = 'info';
+        if ( $self->_VPNRequired() ) {
+            if ( not $self->hasBundle() ) {
+                $connValue     = __('In process');
+                $connValueType = 'info';
+            } elsif ( not $self->isConnected() ) {
+                $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
+                                  oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
+                                  ch   => '</a>',
+                                  path => '/var/log/openvpn/');
+                $connValueType = 'error';
+            }
+        } # else. No VPN required, then always connected
+
 
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
@@ -1842,15 +1856,55 @@ sub freeViface
 sub _vpnClientAdjustLocalAddress
 {
     my ($self) = @_;
-    if ((not $self->eBoxSubscribed()) or (not $self->hasBundle())) {
-        return;
-    }
+
+    return unless $self->_VPNEnabled();
 
     my $conn = new EBox::RemoteServices::Connection();
     my $vpnClient = $conn->vpnClient();
     if ( $vpnClient ) {
         $conn->vpnClientAdjustLocalAddress($vpnClient);
     }
+}
+
+# This method determines if the VPN must be enabled or not
+# Requisites:
+#   - Be subscribed
+#   - Have the cert bundle
+#   - Allow remote access support or be entitled to remote access
+#
+sub _VPNEnabled
+{
+    my ($self, $force) = @_;
+
+    if ( (not $force) and exists($self->{'_vpnEnabled'}) ) {
+        return $self->{'_vpnEnabled'};
+    }
+
+    my $vpnEnabled = ($self->eBoxSubscribed() and $self->hasBundle());
+    if ( $vpnEnabled ) {
+        $vpnEnabled = $self->_VPNRequired('force');
+    }
+    $self->{'_vpnEnabled'} = $vpnEnabled;
+    return $vpnEnabled;
+}
+
+# This method determines if the VPN is required. That is:
+#   - Allow remote access support or be entitled to remote access
+sub _VPNRequired
+{
+    my ($self, $force) = @_;
+
+    if ( (not $force) and exists($self->{'_vpnRequired'}) ) {
+        return $self->{'_vpnRequired'};
+    }
+
+    my $vpnRequired = $self->model('RemoteSupportAccess')->allowRemoteValue();
+    unless ( $vpnRequired ) {
+        $vpnRequired = ($self->subscriptionLevel('force') > 0);
+    }
+
+    $self->{'_vpnRequired'} = $vpnRequired;
+    return $vpnRequired;
 }
 
 sub firewallHelper

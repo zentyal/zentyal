@@ -16,17 +16,18 @@
 # Class: EBox::RemoteServices::Model::Subscription
 #
 # This class is the model to subscribe a Zentyal to the remote services
-# offered. The following elements are required:
+# offered. The following elements may be present:
 #
 #     - user (volatile)
 #     - password (volatile)
 #     - common name
+#     - options (volatile and optional)
 #
 # The model has itself two states:
 #
-#     - Zentyal not subscribed. Default state. Prior to a Zentyal subscription
+#     - Zentyal not subscribed. Default state. Prior to the registration
 #
-#     - Zentyal subscribed. After a Zentyal subscription
+#     - Zentyal subscribed. After the registration
 #
 
 package EBox::RemoteServices::Model::Subscription;
@@ -91,7 +92,7 @@ sub setTypedRow
     }
 
     if ( $correctParams ) {
-        # Password is not defined or yes
+        # Password is not defined when unsubscribing but it is when subscribing
         my $password = '';
         $password = $paramsRef->{password}->value() if defined($paramsRef->{password});
         my $subsServ = EBox::RemoteServices::Subscription->new(user => $paramsRef->{username}->value(),
@@ -136,17 +137,10 @@ sub setTypedRow
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
-    $self->{confmodule}->setAsChanged();
+    $self->parentModule()->setAsChanged();
 
-    $self->{confmodule}->st_set_bool('subscribed', not $subs);
+    $self->parentModule()->st_set_bool('subscribed', not $subs);
 
-    # Commit current data as valid
-    $self->{confmodule}->redis()->commit();
-    # Start async the bundle retrieval
-    EBox::Sudo::command(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
-
-    # Start a new transaction
-    $self->{confmodule}->redis()->begin();
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
@@ -172,15 +166,6 @@ sub setTypedRow
     } else {
         $self->setMessage(__('Done'));
     }
-
-    # if ( not $subs ) {
-    #     try {
-    #         # Establish VPN connection after subscribing and store data in backend
-    #         EBox::RemoteServices::Backup->new()->connection();
-    #     } catch EBox::Exceptions::External with {
-    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-    #     };
-    # }
 }
 
 # Method: eBoxSubscribed

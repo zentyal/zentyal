@@ -421,6 +421,7 @@ sub extractBundle
 #     Current actions:
 #
 #        - Restart remoteservices, firewall and apache modules
+#        - Downgrade if necessary
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
 #
@@ -428,17 +429,16 @@ sub extractBundle
 #
 #     params - Hash ref What is returned from <extractBundle> procedure
 #     confKeys - Hash ref the configuration keys stored in client configuration
-#     new - Boolean indicating if the connection is new or not
 #
 sub executeBundle
 {
-    my ($self, $params, $confKeys, $new) =  @_;
+    my ($self, $params, $confKeys) =  @_;
 
     # Set to have the bundle
     my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
     $rs->st_set_bool('has_bundle', 1);
 
-    $self->_restartRS($new);
+    $self->_restartRS();
     # Downgrade, if necessary
     $self->_downgrade();
     $self->_installCloudProf($params, $confKeys);
@@ -474,8 +474,11 @@ sub deleteData
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
-    # Remove VPN client, if exists
-    EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->hasBundle() ) {
+        # Remove VPN client, if exists
+        EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+    }
 
     my $dirPath = $self->_subscriptionDirPath($cn);
 
@@ -495,7 +498,6 @@ sub deleteData
     closedir($dir);
     rmdir($dirPath);
 
-    my $rs = EBox::Global->modInstance('remoteservices');
     if ( $rs->hasBundle() ) {
         # Remove DDNS autoconfiguration
         $self->_removeDDNSConf();
@@ -773,23 +775,21 @@ sub _checkUDPEchoService
 
 }
 
-# Restart RS once the bundle is created
+# Restart RS once the bundle is reloaded
 sub _restartRS
 {
-    my ($self, $new) = @_;
+    my ($self) = @_;
 
-    if ( $new ) {
-        # This code must be locked and it is critical
-        my $global = EBox::Global->getInstance();
-        my $rs = $global->modInstance('remoteservices');
-        $rs->save();
-        # Required to set the proper iptables rules to ensure connection to Cloud
-        my $fw = $global->modInstance('firewall');
-        $fw->save();
-        # Required to set the CA correctly
-        my $apache = $global->modInstance('apache');
-        $apache-save();
-    }
+    # This code must be locked and it is critical
+    my $global = EBox::Global->getInstance();
+    my $rs = $global->modInstance('remoteservices');
+    $rs->save();
+    # Required to set the proper iptables rules to ensure connection to Cloud
+    my $fw = $global->modInstance('firewall');
+    $fw->save();
+    # Required to set the CA correctly
+    my $apache = $global->modInstance('apache');
+    $apache-save();
 }
 
 # Downgrade current subscription, if necessary

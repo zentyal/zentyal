@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/share/zentyal-remoteservices/reload-bundle
+/usr/share/zentyal-remoteservices/get-cronjobs
