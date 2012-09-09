@@ -8,7 +8,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zenbuntu-desktop
 Architecture: all
-Depends: openssh-server, xorg, firefox, lxdm, lxde, xdg-user-dirs, gksu, libnss3-tools, nano, xscreensaver, evince, policykit-1, plymouth-theme-ubuntu-logo, acpid, ntp
+Depends: openssh-server, xorg, firefox, lxdm, lxde, xdg-user-dirs, gksu, libnss3-tools, nano, xscreensaver, evince, policykit-1, plymouth-theme-ubuntu-text, plymouth-theme-ubuntu-logo, acpid, ntp
 Description: Zentyal Desktop Environment for Ubuntu Server
  This package ships scripts and branding stuff included in
  the Zentyal installer to setup the Zentyal system.
