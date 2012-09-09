@@ -337,9 +337,11 @@ sub _setRemoteServices
         if ( $rsMod->eBoxSubscribed() ) {
             if ( $rsMod->hasBundle() ) {
                 my $vpnIface = $rsMod->ifaceVPN();
-                push(@commands,
-                     pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
-                    );
+                if ( defined($vpnIface) ) {
+                    push(@commands,
+                         pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
+                        );
+                }
             }
             try {
                 if ( $rsMod->hasBundle() ) {
