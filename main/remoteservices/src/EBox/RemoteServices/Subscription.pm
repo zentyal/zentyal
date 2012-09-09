@@ -547,31 +547,27 @@ sub _openHTTPSConnection
         my $fw = $gl->modInstance('firewall');
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
-            my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
             my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-            if ( $matches < $mirrorCount ) {
-                foreach my $no ( 1 .. $mirrorCount ) {
-                    my $site = EBox::RemoteServices::Configuration::PublicWebServer();
-                    $site =~ s:\.:$no.:;
-                    try {
-                        EBox::Sudo::root(
-                            EBox::Iptables::pf(
-                                "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-                               )
-                             );
-                    } catch EBox::Exceptions::Sudo::Command with {
-                        throw EBox::Exceptions::External(
-                            __x('Cannot contact to {host}. Check your connection to the Internet',
-                                host => $site));
-                    };
-                }
+            if ( $matches < 1 ) {
+                my $site = EBox::RemoteServices::Configuration::APIEndPoint();
+                try {
+                    EBox::Sudo::root(
+                        EBox::Iptables::pf(
+                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                           )
+                         );
+                } catch EBox::Exceptions::Sudo::Command with {
+                    throw EBox::Exceptions::External(
+                        __x('Cannot contact to {host}. Check your connection to the Internet',
+                            host => $site));
+                };
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
                         "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
                        )
-                   );
+                    );
             }
         }
     }
@@ -588,28 +584,11 @@ sub _openVPNConnection #(ipaddr, port, protocol)
         my $fw = $gl->modInstance('firewall');
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
-            # Comment out to allow connections
-#             my $output = EBox::Iptables::pf('-L ointernal');
-#             my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-#             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-#             if ( $matches >= $mirrorCount ) {
-#                 foreach my $no ( 1 .. $mirrorCount ) {
-#                     my $site = EBox::RemoteServices::Configuration::PublicWebServer();
-#                     $site =~ s:\.:$no.:;
-#                     EBox::Iptables::pf(
-#                         "-D ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-#                        );
-#                 }
-#                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
-#                 EBox::Iptables::pf(
-#                     "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
-#                    );
-#             }
             EBox::Sudo::root(
                 EBox::Iptables::pf(
                     "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"
                    )
-               );
+                 );
         }
     }
 }
@@ -634,7 +613,7 @@ sub _setDDNSConf
         $ddnsModel->set(enableDDNS => 1,
                         service    => 'cloud');
     } else {
-        EBox::info('DynDNS is already in used, so not using Zentyal Cloud service');
+        EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
     }
 }
 
@@ -728,54 +707,46 @@ sub _checkWSConnectivity
 {
     my ($self) = @_;
 
-    my $host = EBox::RemoteServices::Configuration::PublicWebServer();
-    $host or throw EBox::Exceptions::External('WS key not found');
+    my $host = EBox::RemoteServices::Configuration::APIEndPoint();
+    $host or throw EBox::Exceptions::External('rs_api key not found in remoteservices.conf file');
 
-    my $counter = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-    $counter or
-        throw EBox::Exceptions::Internal('Mirror count not found');
-
-    # TODO: Use the network module API
-    my $network    = EBox::Global->modInstance('network');
-    my $proxyModel = $network->model('Proxy');
-    my $proxy      = $proxyModel->serverValue();
-    my $proxyPort  = $proxyModel->portValue();
-    my $proxyUser  = $proxyModel->usernameValue();
-    my $proxyPass  = $proxyModel->passwordValue();
+    my $network       = EBox::Global->modInstance('network');
+    my $proxySettings = $network->proxySettings();
+    my $proxy      = $proxySettings->{server};
+    my $proxyPort  = $proxySettings->{port};
+    my $proxyUser  = $proxySettings->{username};
+    my $proxyPass  = $proxySettings->{password};
 
     my $proto = 'tcp';
     my $port = 443;
 
     my $ok;
-    foreach my $no (1 .. $counter) {
-        my $url = 'https://' . $host . '/check';
-        my $cmd = "curl --insecure ";
-        if ($proxy) {
-            $cmd .= "--proxy $proxy:$proxyPort ";
-            if ($proxyUser) {
-                $cmd .= " --proxy-user $proxyUser:$proxyPass ";
+    my $url = 'https://' . $host . '/check';
+    my $cmd = "curl --insecure ";
+    if ($proxy) {
+        $cmd .= "--proxy $proxy:$proxyPort ";
+        if ($proxyUser) {
+            $cmd .= " --proxy-user $proxyUser:$proxyPass ";
+        }
+    }
+    $cmd .= $url;
+
+    try {
+        my $output = EBox::Sudo::command($cmd);
+        foreach my $line (@{ $output }) {
+            if ($line =~ m/A prudent question is one-half of wisdom/) {
+                $ok = 1;
+                last;
             }
         }
-        $cmd .= $url;
-
-        try {
-            my $output = EBox::Sudo::command($cmd);
-            foreach my $line (@{ $output }) {
-                if ($line =~ m/A prudent question is one-half of wisdom/) {
-                    $ok =1;
-                    last;
-                }
-            }
-        } catch EBox::Exceptions::Command with {
-            $ok = 0;
-        };
-        last if ($ok);
-    }
+    } catch EBox::Exceptions::Command with {
+        $ok = 0;
+    };
 
     unless ($ok) {
         throw EBox::Exceptions::External(
             __x(
-                'Could not connect to WS server "{addr}:{port}/{proto}". '
+                'Could not connect to API server "{addr}:{port}/{proto}". '
                 . 'Check your name resolution and firewall in your network',
                 addr => $host,
                 port => $port,

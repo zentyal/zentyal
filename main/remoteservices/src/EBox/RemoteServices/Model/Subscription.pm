@@ -46,6 +46,7 @@ use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
+use EBox::Types::Action;
 use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Text;
@@ -118,15 +119,14 @@ sub setTypedRow
             }
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
-                $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
-                                          . 'wait a minute to guarantee the system carries out '
-                                          . 'the process of subscribing. Later you can start '
+                $self->{returnedMsg} = __('Registration was done correctly. Wait a minute '
+                                          . 'to guarantee the system carries out '
+                                          . 'the process of registration. Later on, you can start '
                                           . 'using the cloud based services you are entitled '
-                                          . 'to with your subscription (remote backup, updates, alerts, etc.)');
+                                          . 'to with your edition (remote backup, updates, alerts, etc.)');
             } else {
-                $self->{returnedMsg} = __('Subscription data retrieved correctly.');
+                $self->{returnedMsg} = __('Registration data retrieved correctly.');
             }
-            $self->{returnedMsg} .= ' ' . __('Please, save changes');
 
             $self->{confmodule}->st_set_bool('just_subscribed', 1);
             $self->{confmodule}->st_unset('sub_options');
@@ -192,7 +192,7 @@ sub eBoxSubscribed
 {
     my ($self) = @_;
 
-    my $subs = $self->{confmodule}->st_get_bool('subscribed');
+    my $subs = $self->parentModule()->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
 }
@@ -294,7 +294,7 @@ sub help
         #              );
         #}
 
-        $msg .= __('Take into account that subscribing your Zentyal server to the Zentyal Cloud can take a while. Please do not touch anything until the subscription process is correctly finished.');
+        $msg .= __('Take into account that registering your Zentyal server to the Zentyal Remote can take a while. Please do not touch anything until the registration process is correctly finished.');
     }
 
     return $msg;
@@ -335,7 +335,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    return __('Prior to make a subscription on remote services, '
+    return __('Prior to make a registration on remote services, '
               . 'save or discard changes in the OpenVPN module');
 }
 
@@ -401,22 +401,34 @@ sub _table
                                      storer        => \&_emptyFunc));
     }
 
+
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
-        $printableTableName = __('Zentyal subscription details');
-        $actionName = __('Unsubscribe');
+        $printableTableName = __('Zentyal registration details');
+        $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to Zentyal Cloud');
-        $actionName = __('Subscribe');
+        $printableTableName = __('Registration to Zentyal Remote');
+        $actionName = __('Register');
     }
 
+    my $customActions = [
+        new EBox::Types::Action(
+            model          => $self,
+            name           => 'subscribe',
+            printableValue => $actionName,
+            onclick        => \&_showSaveChanges,
+           )
+       ];
+
     my $dataForm = {
-                    tableName          => 'Subscription',
-                    printableTableName => $printableTableName,
-                    modelDomain        => 'RemoteServices',
-                    defaultActions     => [ 'editField', 'changeView' ],
-                    tableDescription   => \@tableDesc,
+                    tableName           => 'Subscription',
+                    printableTableName  => $printableTableName,
+                    modelDomain         => 'RemoteServices',
+                    #defaultActions     => [ 'editField', 'changeView' ],
+                    defaultActions      => [],
+                    customActions       => $customActions,
+                    tableDescription    => \@tableDesc,
                     printableActionName => $actionName,
                     disableAutocomplete => 1,
                    };
@@ -472,9 +484,8 @@ sub _tempPasswd
     my $pass = undef;
     my $state = $module->get_state();
     if (exists $state->{'sub_options'}) {
-        # Store the password temporary
-        my $options = $module->{'sub_options'};
-        $pass = $options->{pass};
+        # Get the temporary stored password
+        $pass = $state->{'sub_options'}->{pass};
     }
     return $pass;
 
@@ -685,6 +696,39 @@ sub _populateOptions
     # Option to reload the available options
     push(@options, { value => 'reload', printableValue => __('Reload available options')});
     return \@options;
+}
+
+# Show save changes JS code
+sub _showSaveChanges
+{
+    my ($self, $id) = @_;
+
+    # FIXME: force parameter in DataTable::fields method
+    undef $self->{fields};
+    my $fields        = $self->fields();
+    my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
+    my $tableName     = $self->name();
+    my $caption       = __('Registering a server');
+    my $subscribed    = $self->eBoxSubscribed() ? 'true' : 'false';
+
+    # Simulate changeRow but showing modal box on success
+    my $jsStr = <<JS;
+var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
+  method : 'post',
+  parameters : '&action=edit&tablename=$tableName&directory=$tableName&id=form&' + encodeFields('$tableName', $fieldsArrayJS ),
+  evalScripts : true,
+  onSuccess : function(t) { Element.update('$tableName', t.responseText);
+                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
+                               Modalbox.show('/RemoteServices/Subscription', { title : '$caption' });
+                            }
+                          },
+  onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                            Element.update('error_$tableName', t.responseText); }
+  });
+setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+return false
+JS
+    return $jsStr;
 }
 
 1;

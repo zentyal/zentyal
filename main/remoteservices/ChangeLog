@@ -1,4 +1,12 @@
 HEAD
+	+ Name change from Cloud to Remote
+	+ Launch save changes immediately after performing the
+	  registration or unregistration in a modal box
+	+ Show Wizard link in no active remote configuration backup
+	+ Delete no longer required conf keys: ebox_services_www and
+	  ebox_services_mirror_count
+	+ Remove deprecated Disaster Recovery method
+	+ Cache cred data in module to optimise
 	+ Implement reporting code here
 	+ Password list files are now stored in module conf
 	+ RESTClient now supports raw JSON as query param

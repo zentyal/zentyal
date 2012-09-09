@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::CGI::ProgressClient;
+#  FIXME: Lack of proper doc
 #  this class is to provide helper method for any CGI which must
 #
 use strict;
@@ -30,8 +31,8 @@ sub new
 #    Redirect the browser to the progression screen CGI
 #
 #  Parameters:
-#      progressIndicator - a instance of EBox::ProgressIndicator needed
-#                         to drive the progress screen (mandatory)
+#   progressIndicator - an instance of <EBox::ProgressIndicator> needed
+#                       to drive the progress screen (mandatory)
 #
 #   title              - title of the page
 #   currentItemCaption - caption before the actual item value
