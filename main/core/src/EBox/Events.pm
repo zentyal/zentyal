@@ -266,7 +266,7 @@ sub enableDispatcher
 sub isEnabledDispatcher
 {
     my ($self, $dispatcher) = @_;
-    $self->model('ConfigureDispatchers')->enableDispatcher($dispatcher);
+    $self->model('ConfigureDispatchers')->isEnabledDispatcher($dispatcher);
 }
 
 
