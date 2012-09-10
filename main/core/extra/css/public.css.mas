@@ -558,10 +558,10 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
 }
 
 .inputButtonRestart[name='restart']{
-    background:#BDEDF7  url("/data/images/restart.gif") 5px center no-repeat;
-    border-color:#8CBBC5; }
+    background:#cecece  url("/data/images/restart.gif") 5px center no-repeat;
+    border-color:#A8A8A8; }
 
-    .inputButtonRestart[name='restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='restart']:hover{ background:#E0E0E0  url("/data/images/restart.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='start'], .inputButtonRestart[value='start']{
     background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
@@ -570,10 +570,11 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
     .inputButtonRestart[name='start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='stop']{
-    background:#FAA68B url("/data/images/stop_p.gif") 5px center no-repeat;
-    border-color:#DB866B}
+    background: #FACE8B url("/data/images/stop_p.gif") 5px center no-repeat;
+    border-color: #DB8F6B;
+    }
 
-    .inputButtonRestart[name='stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='stop']:hover{background:#F5DB99 url("/data/images/stop_p.gif") 5px center no-repeat;}
 
 .inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
     font-size: 11px;
@@ -1215,7 +1216,7 @@ a.notchanged:hover {
 }
 
 .widgetTopBackground {
-        background: <% $secondary_color %>;
+        background: <% $main_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
