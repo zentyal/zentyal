@@ -1,5 +1,102 @@
 HEAD
 	+ Added EBox::SyncFolders interface
+	+ Do not cache undef values in EBox::Config::Redis::get()
+	+ Code fix on subscription retrieval for Updates event
+	+ Update validate referer to new Remote Services module API
+	+ In-place booleans now properly mark the module as changed
+	+ Do not try to read slides if software module is not installed
+	+ Fixed wrong call in Events::isEnabledDispatcher()
+	+ Updated 'created by' footer
+2.3.23
+	+ Change the default domain name from 'zentyal.lan' to
+	  'zentyal-domain.lan'
+	+ Changes in first enable to avoid letting modules unsaved
+	+ Type File now accepts spaces in the file name
+	+ Added setTimezone method to MyDBEngine
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
+	+ Fixed regression which removed scroll bars from popups
+	+ New carousel transition for the installation slides
+	+ Added option to not show final notes in progress bar
+	+ EBox::Model::Component::modelGetter does not die when trying to
+	  get a model for an uninstalled module
+	+ Added previous/next buttons to manually switch installation slides
+	+ New installation slides format
+	+ Added compatibility with MS Internet Explorer >= 8
+2.3.22
+	+ Changed first installation workflow and wizard infraestructure
+	+ Improved firewall icons
+	+ Set hover style for configure rules button in firewall
+	+ Do not disable InnoDB in mysql if there are other databases
+	+ Progress indicator no longer calls showAds if it is undefined
+	+ Send cache headers on static files to improve browsing speed
+	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
+	+ Improved settings icon
+	+ Fixed modalboxes style
+	+ Improve host domain validation. Single label domains are not allowed.
+2.3.21
+	+ Fixes on notifyActions
+	+ Check for isDaemonRunning now compatible with asterisk status
+	+ Fixed warning call in EBox::Types::HasMany
+2.3.20
+	+ New look & feel for the web interface
+	+ Adjust slides transition timeout during installation
+	+ Audit changes table in save changes popup has scroll and better style
+	+ Model messages are printed below model title
+	+ noDataMsg now allows to add elements if it makes sense
+	+ Fixed ajax/form.mas to avoid phantom change button
+	+ EBox::Model::Manager::_setupModelDepends uses full paths so the
+	  dependecies can discriminate between models with the same name
+	+ Default row addition in DataForm does not fires validateTypedRow
+	+ Code typo fix in change administration port model
+	+ Set only Remote as option to export/import configuration to a
+	  remote site
+	+ Return undef in HasMany type when a model is not longer
+	  available due to being uninstalled
+	+ Added onclick atribute to the link.mas template
+	+ Fix exception raising when no event component is found
+	+ table_ordered.js : more robust trClick event method
+	+ Changed dashboard JS which sometimes halted widget updates
+	+ Added popup dialogs for import/export configuration
+	+ Changes in styles and sizes of the save/revoke dialog
+	+ Removed redudant code in ConfigureWatchers::syncRows which made module
+	  to have an incorrect modified state
+	+ Dont show in bug report removed packages with configuration
+	  held as broken packages
+	+ DataTable::size() now calls to syncRows()
+	+ EBox::Module::Config::set_list quivalent now has the same
+	  behaviour than EBox::Module::Config::set
+2.3.19
+	+ Manually set up models for events to take into account the
+	  dynamic models from the log watcher filtering models
+	+ Fixed warnings when deleting a row which is referenced in other model
+	+ Disable HTML form autocompletion in admin password change model
+	+ Fixed incorrect non-editable warnings in change date and time model
+	+ Fixed parsing value bug in EBox::Types::Date and EBox::Types::Time
+	+ Reworked mdstat parsing, added failure_spare status
+	+ Configuration backup implicitly preserves ownership of files
+	+ Changes in styles and sizes of the save/revoke dialog
+	+ New data form row is copied from default row, avoiding letting hidden
+	  fields without its default value and causing missing fields errors
+	+ Always fill abstract type with its default value, this avoids
+	  errors with hidden fields with default value
+	+ Different page to show errors when there are broken software packages
+	+ InverseMatchSelect and InverseMatchUnion use 'not' instead of '!' to
+	  denote inverse match. This string is configurable with a type argument
+	+ Fixed types EBox::Type::InverseMatchSelect and InverseMatchUnion
+	+ Fixed bug in DataTable::setTypedRow() which produced an incorrect 'id'
+	  row element in DataTable::updateRowNotify()
+	+ In tableBody.mas template: decomposed table topToolbar section in methods
+	+ Fixed bug in discard changes dialog
+	+ Confirmation dialogs now use styled modalboxes
+	+ Do not reload page after save changes dialog if operation is successful
+	+ Maintenance menu is now kept open when visiting the logs index page
+2.3.18
+	+ Manual clone of row in DataTable::setTypedRow to avoid segfault
+	+ Avoid undef warnings in EBox::Model::DataTable::_find when the
+	  element value is undef
 	+ Fixed kill of ebox processes during postrm
 	+ Set MySQL root password in create-db script and added mysql script
 	  to /usr/share/zentyal for easy access to the zentyal database

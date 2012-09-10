@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::PrinterFirewall;
+
 use strict;
 use warnings;
 
@@ -28,11 +29,11 @@ use EBox::Gettext;
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
+    return $self;
 }
 
 sub output
@@ -41,11 +42,9 @@ sub output
 	my @rules = ();
 
 	my $printers = EBox::Global->modInstance('printers');
-
-	foreach my $id (@{$printers->networkPrinters()}){
-		my $conf = $printers->methodConf($id);
-		my $host = $conf->{host};
-		my $port = $conf->{port};
+	foreach my $p (@{$printers->networkPrinters()}) {
+		my $host = $p->{host};
+		my $port = $p->{port};
 		my $r = "-m state --state NEW -p tcp -d $host --dport $port ".
 			"-j ACCEPT";
 		push (@rules, $r);

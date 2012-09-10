@@ -1,4 +1,17 @@
-HEAD
+2.3.9
+	+ Do not show final notes in installation process
+	+ Fixed cancel button in confirm software packages in install process
+	+ New slides format
+2.3.8
+	+ Use delete icon instead of deny for deselect all button
+	+ New installation finished page
+2.3.7
+	+ Improved styles and icons
+	+ UTM is now integrated in Gateway and Infrastructure
+	+ Do not try to translate package description variable
+	+ Added popups for progress bars
+	+ Added logic for new mail add-on for SB edition
+2.3.6
 	+ Added package icon for the UPS module
 	+ Increased timeout before redirecting to wizards from 1 to 5 seconds
 	  to avoid problems on some slow or loaded machines

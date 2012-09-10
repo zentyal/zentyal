@@ -9,4 +9,6 @@
 # Copy this file or create a script with the appropriate name if you want
 # to run some customization script before a module writes its configuration
 
+# Hook scripts need to be executable by root (note that examples are not).
+
 exit 0

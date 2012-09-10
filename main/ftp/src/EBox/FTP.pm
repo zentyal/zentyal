@@ -49,8 +49,8 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'FTP/View/Options',
                                     'text'  => $self->printableName(),
-                                    'separator' => 'Infrastructure',
-                                    'order' => 435));
+                                    'separator' => 'Office',
+                                    'order' => 565));
 }
 
 # Method: initialSetup
@@ -201,7 +201,11 @@ sub _setConf
     my $options = $self->model('Options');
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
-    my $chrootUsers = $options->chrootUsers();
+
+    # disabled until vsftpd allows it, see #4133
+    # my $chrootUsers = $options->chrootUsers();
+    my $chrootUsers = 0;
+
     my $ssl = $options->ssl();
 
     $self->writeConfFile('/etc/pam.d/vsftpd',

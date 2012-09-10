@@ -80,19 +80,17 @@ sub _table
     return $dataTable;
 }
 
-sub _addTypedRow
+sub setTypedRow
 {
-    my ($self, $paramsRef, %optParams) = @_;
+    my ($self, $id, $paramsRef, %optParams) = @_;
 
     my $pass1 = $paramsRef->{'pass1'};
     my $pass2 = $paramsRef->{'pass2'};
 
-    my $users = EBox::Global->modInstance('users');
-
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
-    $user = new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+    $user = new EBox::UsersAndGroups::User(uid => $user);
 
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));

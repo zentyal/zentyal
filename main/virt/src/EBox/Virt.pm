@@ -20,7 +20,9 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
-            EBox::NetworkObserver);
+            EBox::NetworkObserver
+            EBox::FirewallObserver);
+
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -129,7 +131,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
-                                    'order' => 445));
+                                    'order' => 447));
 }
 
 sub _preSetConf
@@ -230,17 +232,14 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
-# TODO: only update service if the ports are different
+
 sub updateFirewallService
 {
     my ($self) = @_;
 
     my @vncservices;
-
     my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $vncport = $vm->valueByName('vncport');
+    foreach my $vncport (@{$vms->vncPorts()}) {
         foreach my $vncport ($vncport, $vncport + 1000) {
             push (@vncservices, { protocol => 'tcp',
                                   sourcePort => 'any',
@@ -595,6 +594,17 @@ sub widgets
     };
 }
 
+# Method: maxVMs
+#
+#   return the maximum number of virtual machines allowed
+sub maxVMs
+{
+    my ($self) = @_;
+
+    my $max = EBox::Config::configkey('vm_max');
+    return $max ? $max : 10;
+}
+
 sub firstVNCPort
 {
     my ($self) = @_;
@@ -645,13 +655,9 @@ sub _importCurrentVNCPorts
 sub firstFreeVNCPort
 {
     my ($self) = @_;
-    my @ports;
+
     my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $vncport = $vm->valueByName('vncport');
-        push @ports, $vncport if $vncport;
-    }
+    my @ports = @{ $vms->vncPorts() };
 
     my $firstPort = $self->firstVNCPort();
     if (@ports == 0) {
@@ -826,6 +832,29 @@ sub ifaceMethodChanged
     }
 
     $vms->ifaceMethodChanged($iface, $oldmethod, $newmethod);
+}
+
+sub usesPort
+{
+    my ($self, $protocol, $port, $iface) = @_;
+    if ($protocol ne 'tcp') {
+        return undef;
+    }
+
+    my $firstPort = $self->firstVNCPort();
+    my $lastPort = $firstPort + $self->maxVMs() - 1;
+    if (($port >= $firstPort) and ($port <= $lastPort)) {
+        return 1;
+    }
+
+    # second required VNC port: + 1000 port
+    $firstPort += 1000;
+    $lastPort  += 1000;
+    if (($port >= $firstPort) and ($port <= $lastPort)) {
+        return 1;
+    }
+
+    return undef;
 }
 
 1;

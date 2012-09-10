@@ -171,7 +171,8 @@ sub soapCall
 #
 #      hash ref - containing the following keys and values:
 #
-#        confFile - the configuration file to be used to connect to#        the infrastructure
+#        confFile - the configuration file to be used to connect to
+#        the infrastructure
 #
 #        new - Boolean indicating if the subscription was done or just
 #        the file getting
@@ -204,7 +205,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}) } @{$availables};
+        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_mail_add_on}) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -251,7 +252,7 @@ sub subscribeServer
 
     # my $conf;
     my $response = $self->{restClient}->POST("/v1/servers/",
-                                             { 'name' => $name, 'bundle' => $option} );
+                                             query => { 'name' => $name, 'bundle' => $option} );
     my $serverInfoRaw = $response->as_string();
     my $serverInfo = $response->data();
 
@@ -345,9 +346,6 @@ sub availableEdition
 #          cert - String the certificate path
 #          key - String the private key path
 #          confFile - String the configuration file path
-#          QASources - String path to the QA source list mason template
-#          QAAptPubKey - String path to the QA apt repository public key
-#          QAAptPreferences - String path to the QA preferences file
 #          installCloudProf - String the install script for Professional add-ons
 #          scripts - Array ref containing the scripts to run after extracting the bundle
 #
@@ -372,7 +370,7 @@ sub extractBundle
     my $dirPath = $class->_createSubscriptionDir($cn);
     chdir($dirPath);
 
-    my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences, $installCloudProf);
+    my ($confFile, $keyFile, $certFile, $installCloudProf);
     my @scripts;
     foreach my $filePath (@files) {
         $tar->extract_file($filePath)
@@ -381,12 +379,6 @@ sub extractBundle
             $confFile = $filePath;
         } elsif ( $filePath =~ m:$cn: ) {
             $keyFile = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.list\.mas$/) {
-            $qaSources = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.pub$/) {
-            $qaGpg = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.preferences/) {
-            $qaPreferences = $filePath;
         } elsif ($filePath =~ m{exec\-\d+\-}) {
             push(@scripts, $filePath);
         } elsif ( $filePath =~ /install-cloud-prof\.pl$/) {
@@ -407,15 +399,6 @@ sub extractBundle
     };
 
 
-    if (defined $qaSources) {
-        $bundle->{QASources} = "$dirPath/$qaSources";
-    }
-    if (defined $qaGpg) {
-        $bundle->{QAAptPubKey} = "$dirPath/$qaGpg";
-    }
-    if (defined $qaPreferences) {
-        $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
-    }
     if (defined $installCloudProf) {
         $bundle->{installCloudProf} = "$dirPath/$installCloudProf";
     }
@@ -438,10 +421,7 @@ sub extractBundle
 #     Current actions:
 #
 #        - Restart remoteservices, firewall and apache modules
-#        - Downgrade, if necessary
-#        - Create John home directory (Security audit)
-#        - Set QA updates (QA repository and its preferences)
-#        - Autoconfigure DynamicDNS service
+#        - Downgrade if necessary
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
 #
@@ -449,22 +429,18 @@ sub extractBundle
 #
 #     params - Hash ref What is returned from <extractBundle> procedure
 #     confKeys - Hash ref the configuration keys stored in client configuration
-#     new - Boolean indicating if the connection is new or not
 #
 sub executeBundle
 {
-    my ($self, $params, $confKeys, $new) =  @_;
+    my ($self, $params, $confKeys) =  @_;
 
     # Set to have the bundle
     my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
     $rs->st_set_bool('has_bundle', 1);
 
-    $self->_restartRS($new);
+    $self->_restartRS();
     # Downgrade, if necessary
-    $self->_downgrade($params);
-    $self->_setUpAuditEnvironment();
-    $self->_setQAUpdates($params, $confKeys);
-    $self->_setDDNSConf();
+    $self->_downgrade();
     $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
@@ -498,8 +474,11 @@ sub deleteData
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
-    # Remove VPN client, if exists
-    EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->hasBundle() ) {
+        # Remove VPN client, if exists
+        EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+    }
 
     my $dirPath = $self->_subscriptionDirPath($cn);
 
@@ -519,10 +498,7 @@ sub deleteData
     closedir($dir);
     rmdir($dirPath);
 
-    my $rs = EBox::Global->modInstance('remoteservices');
     if ( $rs->hasBundle() ) {
-        # Remove QA updates configuration
-        $self->_removeQAUpdates();
         # Remove DDNS autoconfiguration
         $self->_removeDDNSConf();
         # Remove alert autoconfiguration
@@ -569,31 +545,27 @@ sub _openHTTPSConnection
         my $fw = $gl->modInstance('firewall');
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
-            my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
             my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-            if ( $matches < $mirrorCount ) {
-                foreach my $no ( 1 .. $mirrorCount ) {
-                    my $site = EBox::RemoteServices::Configuration::PublicWebServer();
-                    $site =~ s:\.:$no.:;
-                    try {
-                        EBox::Sudo::root(
-                            EBox::Iptables::pf(
-                                "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-                               )
-                             );
-                    } catch EBox::Exceptions::Sudo::Command with {
-                        throw EBox::Exceptions::External(
-                            __x('Cannot contact to {host}. Check your connection to the Internet',
-                                host => $site));
-                    };
-                }
+            if ( $matches < 1 ) {
+                my $site = EBox::RemoteServices::Configuration::APIEndPoint();
+                try {
+                    EBox::Sudo::root(
+                        EBox::Iptables::pf(
+                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                           )
+                         );
+                } catch EBox::Exceptions::Sudo::Command with {
+                    throw EBox::Exceptions::External(
+                        __x('Cannot contact to {host}. Check your connection to the Internet',
+                            host => $site));
+                };
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
                         "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
                        )
-                   );
+                    );
             }
         }
     }
@@ -610,78 +582,12 @@ sub _openVPNConnection #(ipaddr, port, protocol)
         my $fw = $gl->modInstance('firewall');
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
-            # Comment out to allow connections
-#             my $output = EBox::Iptables::pf('-L ointernal');
-#             my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-#             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-#             if ( $matches >= $mirrorCount ) {
-#                 foreach my $no ( 1 .. $mirrorCount ) {
-#                     my $site = EBox::RemoteServices::Configuration::PublicWebServer();
-#                     $site =~ s:\.:$no.:;
-#                     EBox::Iptables::pf(
-#                         "-D ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-#                        );
-#                 }
-#                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
-#                 EBox::Iptables::pf(
-#                     "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
-#                    );
-#             }
             EBox::Sudo::root(
                 EBox::Iptables::pf(
                     "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"
                    )
-               );
+                 );
         }
-    }
-}
-
-sub _setUpAuditEnvironment
-{
-    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
-    unless ( -d $johnDir ) {
-        mkdir($johnDir);
-    }
-}
-
-sub _setQAUpdates
-{
-    my ($self, $params, $confKeys) = @_;
-
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    foreach my $param (@paramsNeeded) {
-        return unless (exists $params->{$param});
-    }
-
-    $self->_setQASources($params->{QASources}, $confKeys);
-    $self->_setQAAptPubKey($params->{QAAptPubKey});
-    $self->_setQAAptPreferences($params->{QAAptPreferences});
-    $self->_setQARepoConf($confKeys);
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        if ( $softwareMod->can('setQAUpdates') ) {
-            $softwareMod->setQAUpdates(1);
-        }
-    } else {
-        EBox::info('No software module installed QA updates should be done by hand');
-    }
-
-}
-
-# Set the Dynamic DNS configuration only if the service was not
-# enabled before and using other method
-sub _setDDNSConf
-{
-    my ($self) = @_;
-
-    my $networkMod = EBox::Global->modInstance('network');
-    unless ( $networkMod->isDDNSEnabled() ) {
-        my $ddnsModel = $networkMod->model('DynDNS');
-        $ddnsModel->set(enableDDNS => 1,
-                        service    => 'cloud');
-    } else {
-        EBox::info('DynDNS is already in used, so not using Zentyal Cloud service');
     }
 }
 
@@ -738,165 +644,6 @@ sub _executeBundleScripts
     }
 }
 
-# Set the QA source list
-sub _setQASources
-{
-    my ($self, $qaFile, $confKeys) = @_;
-
-    my $ubuntuVersion = _ubuntuVersion();
-    my $archive = $self->_archive($ubuntuVersion);
-    my $repositoryAddr = $self->_repositoryAddr($confKeys);
-
-    # Perform the mason template manually since it is not stored in stubs directory
-    my $output;
-    my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $comp   = $interp->make_component(comp_file  => $qaFile);
-    $interp->exec($comp, ( (repositoryIPAddr => $repositoryAddr),
-                           (archive          => $archive)) );
-
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    my $tmpFile = $fh->filename();
-    File::Slurp::write_file($tmpFile, $output);
-    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
-}
-
-# Get the ubuntu version
-sub _ubuntuVersion
-{
-    my @releaseInfo = File::Slurp::read_file('/etc/lsb-release');
-    foreach my $line (@releaseInfo) {
-        next unless ($line =~ m/^DISTRIB_CODENAME=/ );
-        chomp $line;
-        my ($key, $version) = split '=', $line;
-        return $version;
-    }
-
-}
-
-# Get the QA archive to look
-sub _archive
-{
-    my ($self, $ubuntuVersion) = @_;
-
-    return "zentyal-qa-$ubuntuVersion";
-
-}
-
-# Get the suite of archives to set preferences
-sub _suite
-{
-    return 'zentyal-qa';
-}
-
-# Set the QA apt repository public key
-sub _setQAAptPubKey
-{
-    my ($self, $keyFile) = @_;
-    EBox::Sudo::root("apt-key add $keyFile");
-}
-
-sub _setQAAptPreferences
-{
-    my ($self, $preferencesTmpl) = @_;
-
-    my $preferences = '/etc/apt/preferences';
-    my $fromCCPreferences = $preferences . '.zentyal.fromzc'; # file to store CC preferences
-
-    # Perform the mason template manually since it is not stored in stubs directory
-    my $output;
-    my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $comp   = $interp->make_component(comp_file  => $preferencesTmpl);
-    $interp->exec($comp, ( (archive => $self->_suite() )));
-
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    my $tmpFile = $fh->filename();
-    File::Slurp::write_file($tmpFile, $output);
-
-    EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
-
-    return unless EBox::Config::boolean('qa_updates_exclusive_source');
-
-    my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
-    EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
-}
-
-# Set not to use HTTP proxy for QA repository
-sub _setQARepoConf
-{
-    my ($self, $confKeys) = @_;
-
-    my $repoAddr = $self->_repositoryAddr($confKeys);
-    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
-                                             '/remoteservices/qa-conf.mas',
-                                             [ repoAddr => $repoAddr ]);
-}
-
-# Get the repository IP address
-sub _repositoryAddr
-{
-    my ($self, $confKeys) = @_;
-
-    my $retVal = '';
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if ( $rs->isConnected() ) {
-        $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
-                                                  [$confKeys->{'dnsServer'}]);
-    } else {
-        $retVal = $confKeys->{repositoryAddress};
-    }
-
-    return $retVal;
-}
-
-# Remove QA updates
-sub _removeQAUpdates
-{
-    my ($self) = @_;
-
-    $self->_removeAptQASources();
-    $self->_removeAptPubKey();
-    $self->_removeAptQAPreferences();
-    $self->_removeAptQAConf();
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        if ( $softwareMod->can('setQAUpdates') ) {
-            $softwareMod->setQAUpdates(0);
-        }
-    }
-}
-
-sub _removeAptQASources
-{
-    my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
-sub _removeAptPubKey
-{
-    my $id = 'ebox-qa';
-    try {
-        EBox::Sudo::root("apt-key del $id");
-    } otherwise {
-        EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
-    };
-}
-
-sub _removeAptQAPreferences
-{
-    my $path = '/etc/apt/preferences.zentyal.fromzc';
-    EBox::Sudo::root("rm -f '$path'");
-    $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
-sub _removeAptQAConf
-{
-    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
 # Remove the Dynamic DNS configuration only if the service is using
 # cloud service
 sub _removeDDNSConf
@@ -934,54 +681,46 @@ sub _checkWSConnectivity
 {
     my ($self) = @_;
 
-    my $host = EBox::RemoteServices::Configuration::PublicWebServer();
-    $host or throw EBox::Exceptions::External('WS key not found');
+    my $host = EBox::RemoteServices::Configuration::APIEndPoint();
+    $host or throw EBox::Exceptions::External('rs_api key not found in remoteservices.conf file');
 
-    my $counter = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-    $counter or
-        throw EBox::Exceptions::Internal('Mirror count not found');
-
-    # TODO: Use the network module API
-    my $network    = EBox::Global->modInstance('network');
-    my $proxyModel = $network->model('Proxy');
-    my $proxy      = $proxyModel->serverValue();
-    my $proxyPort  = $proxyModel->portValue();
-    my $proxyUser  = $proxyModel->usernameValue();
-    my $proxyPass  = $proxyModel->passwordValue();
+    my $network       = EBox::Global->modInstance('network');
+    my $proxySettings = $network->proxySettings();
+    my $proxy      = $proxySettings->{server};
+    my $proxyPort  = $proxySettings->{port};
+    my $proxyUser  = $proxySettings->{username};
+    my $proxyPass  = $proxySettings->{password};
 
     my $proto = 'tcp';
     my $port = 443;
 
     my $ok;
-    foreach my $no (1 .. $counter) {
-        my $url = 'https://' . $host . '/check';
-        my $cmd = "curl --insecure ";
-        if ($proxy) {
-            $cmd .= "--proxy $proxy:$proxyPort ";
-            if ($proxyUser) {
-                $cmd .= " --proxy-user $proxyUser:$proxyPass ";
+    my $url = 'https://' . $host . '/check';
+    my $cmd = "curl --insecure ";
+    if ($proxy) {
+        $cmd .= "--proxy $proxy:$proxyPort ";
+        if ($proxyUser) {
+            $cmd .= " --proxy-user $proxyUser:$proxyPass ";
+        }
+    }
+    $cmd .= $url;
+
+    try {
+        my $output = EBox::Sudo::command($cmd);
+        foreach my $line (@{ $output }) {
+            if ($line =~ m/A prudent question is one-half of wisdom/) {
+                $ok = 1;
+                last;
             }
         }
-        $cmd .= $url;
-
-        try {
-            my $output = EBox::Sudo::command($cmd);
-            foreach my $line (@{ $output }) {
-                if ($line =~ m/A prudent question is one-half of wisdom/) {
-                    $ok =1;
-                    last;
-                }
-            }
-        } catch EBox::Exceptions::Command with {
-            $ok = 0;
-        };
-        last if ($ok);
-    }
+    } catch EBox::Exceptions::Command with {
+        $ok = 0;
+    };
 
     unless ($ok) {
         throw EBox::Exceptions::External(
             __x(
-                'Could not connect to WS server "{addr}:{port}/{proto}". '
+                'Could not connect to API server "{addr}:{port}/{proto}". '
                 . 'Check your name resolution and firewall in your network',
                 addr => $host,
                 port => $port,
@@ -1036,42 +775,34 @@ sub _checkUDPEchoService
 
 }
 
-# Restart RS once the bundle is created
+# Restart RS once the bundle is reloaded
 sub _restartRS
 {
-    my ($self, $new) = @_;
+    my ($self) = @_;
 
-    if ( $new ) {
-        # This code must be locked and it is critical
-        my $global = EBox::Global->getInstance();
-        my $rs = $global->modInstance('remoteservices');
-        $rs->save();
-        # Required to set the proper iptables rules to ensure connection to Cloud
-        my $fw = $global->modInstance('firewall');
-        $fw->save();
-        # Required to set the CA correctly
-        my $apache = $global->modInstance('apache');
-        $apache-save();
-    }
+    # This code must be locked and it is critical
+    my $global = EBox::Global->getInstance();
+    my $rs = $global->modInstance('remoteservices');
+    $rs->save();
+    # Required to set the proper iptables rules to ensure connection to Cloud
+    my $fw = $global->modInstance('firewall');
+    $fw->save();
+    # Required to set the CA correctly
+    my $apache = $global->modInstance('apache');
+    $apache-save();
 }
 
 # Downgrade current subscription, if necessary
 # Things to be done:
-#   * Remove QA updates configuration
 #   * Uninstall zentyal-cloud-prof and zentyal-security-updates packages
 #
 sub _downgrade
 {
-    my ($self, $params) = @_;
+    my ($self) = @_;
 
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    my $nParamsNeeded = grep { exists $params->{$_} } @paramsNeeded;
-    if ( $nParamsNeeded < scalar(@paramsNeeded) ) {
-        if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
-            or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
-            # Requires to downgrade
-            $self->_removeQAUpdates();
-        }
+    my $rs = EBox::Global->modInstance('remoteservices');
+    # Remove packages if basic subscription or no subscription at all
+    if ($rs->subscriptionLevel(1) <= 0) {
         $self->_removePkgs();
     }
 }

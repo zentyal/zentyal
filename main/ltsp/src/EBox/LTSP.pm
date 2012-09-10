@@ -257,7 +257,6 @@ sub _getGeneralOptions
     my $autologin           = $model->row()->valueByName('autologin');
     my $guestlogin          = $model->row()->valueByName('guestlogin');
     my $kb_layout           = $model->row()->valueByName('kb_layout');
-    my $server              = $model->row()->elementByName('server')->ip();
     my $time_server         = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
@@ -297,10 +296,6 @@ sub _getGeneralOptions
     if (defined $kb_layout) {
         $opts{'XKBLAYOUT'}      = $kb_layout;
         $opts{'CONSOLE_KEYMAP'} = $kb_layout;
-    }
-
-    if (defined $server) {
-        $opts{'SERVER'} = $server;
     }
 
     if (defined $time_server) {
@@ -361,7 +356,6 @@ sub _getGeneralProfileOptions
     my $autologin   = $model->row()->valueByName('autologin');
     my $guestlogin  = $model->row()->valueByName('guestlogin');
 
-    my $server      = $model->row()->elementByName('server')->ip();
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
@@ -397,10 +391,6 @@ sub _getGeneralProfileOptions
 
     if ($sound ne 'default') {
         $opts{'SOUND'} = $sound;
-    }
-
-    if (defined $server) {
-        $opts{'SERVER'} = $server;
     }
 
     if (defined $time_server) {
@@ -669,7 +659,7 @@ sub _ltspWidgetStatus
             return new EBox::Dashboard::Value(__('Status'), __('Some work is being done on an image'));
         }
     } else {
-        return new EBox::Dashboard::Value(__('Status'), __("$num_clients users logged"));
+        return new EBox::Dashboard::Value(__('Status'), __x("{n} users logged", n => $num_clients));
     }
 }
 

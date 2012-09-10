@@ -1,5 +1,56 @@
 HEAD
 	+ Configure file sync daemon
+	+ Some fixes in text in the models
+	+ Start up tasks (cronjobs and bundle reload) is done after save
+	  changes in background
+	+ VPN connection is established once it is needed
+	+ Dynamic DNS is enabled during the subscription and not during
+	  the bundle execution
+	+ Dynamic DNS is disabled when deregistering
+	+ Set up audit environment in set conf
+	+ In order to run cron jobs only subscribed is required now
+	+ Adaptations for new registered community servers
+	+ Show VPNConnectivityCheck in Technical composite when the server
+	  has the bundle
+	+ Name change from Cloud to Remote
+	+ Launch save changes immediately after performing the
+	  registration or unregistration in a modal box
+	+ Show Wizard link in no active remote configuration backup
+	+ Delete no longer required conf keys: ebox_services_www and
+	  ebox_services_mirror_count
+	+ Remove deprecated Disaster Recovery method
+	+ Cache cred data in module to optimise
+	+ Implement reporting code here
+	+ Password list files are now stored in module conf
+	+ RESTClient now supports raw JSON as query param
+2.3.2
+	+ Do not set local address for TCP connections
+	+ Avoid division by zero showing DR info
+	+ Use beta values for configuration for now
+	+ Remove no longer used restore backup from proxy
+	+ Added method to write conf-backups and sec-updates credentials
+	  into /var/lib/zentyal/.netrc file
+	+ Remote configuration backup operations now run inside a popup
+	+ Added 'journaling' optional parameter to the RESTClient methods to
+	  enable/disable the journaling for that call
+	+ Optional parameters for RESTClient methods are now named
+	+ Conf Backup go outside the VPN using the new Cloud RESTful API
+	+ Added method setServer to RESTClient
+	+ Added integration with OCS inventory agent
+	+ QA Updates go outside the VPN
+	+ QA apt configuration files are now generated or removed when
+	  setting the configuration for the module (_setConf method)
+	+ QA repository public key included in the package
+	+ Added function cloudCredentials to get server uuid and pass
+	+ Added confKey monitoring_inside_vpn to configure whether the monitoring
+	  stats should be sent using the VPN or not
+	+ Added function cloudDomain to get Zentyal Cloud domain name
+	+ Added function subscribedUUID to get server UUID
+	+ Return current capabilities values if new ones cannot be
+	  obtained
+	+ Give support for 400 errors in REST Client as external
+	  exceptions
+	+ Added logic for new mail add-on for SB edition
 	+ Added REST client as interface with Zentyal Cloud
 	+ New registration form on subscription wizard
 2.3.1

@@ -75,7 +75,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'Profiles',
-        'printableTableName' => __('Profiles Configuration'),
+        'printableTableName' => __('Profiles'),
         'printableRowName' => __('Profile'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],

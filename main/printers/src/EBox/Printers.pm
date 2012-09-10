@@ -39,7 +39,7 @@ sub _create
     my $self = $class->SUPER::_create(name => 'printers',
                                       printableName => __('Printer Sharing'),
                                       @_);
-    bless($self, $class);
+    bless ($self, $class);
     $self->{'cups'} = new Net::CUPS;
     return $self;
 }
@@ -90,6 +90,7 @@ sub usedFiles
 # Method: initialSetup
 #
 # Overrides:
+#
 #   EBox::Module::Base::initialSetup
 #
 sub initialSetup
@@ -132,22 +133,6 @@ sub enableActions
                          [ addresses => $self->_ifaceAddresses() ]);
 }
 
-# Method: enableService
-#
-# Overrides:
-#
-#  <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-
-    my $samba = EBox::Global->modInstance('samba');
-    $samba->setPrinterService($status);
-}
-
 sub restoreDependencies
 {
     return [ 'network' ];
@@ -169,7 +154,7 @@ sub _preSetConf
 
     try {
         # Stop CUPS in order to force it to dump the conf to disk
-        $self->_stopService();
+        $self->stopService();
     } otherwise {};
 }
 
@@ -224,7 +209,7 @@ sub _mangleConfFile
     }
 
     $newContents .= <<END;
-# Added by Zentyal, don't modify or add more Liste/SSLListen statements
+# Added by Zentyal, don't modify or add more Listen/SSLListen statements
 Listen localhost:631
 Listen /var/run/cups/cups.sock
 END
@@ -234,7 +219,6 @@ END
 
     EBox::Module::Base::writeFile($path, $newContents);
 }
-
 
 sub _daemons
 {
@@ -268,7 +252,7 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    $self->_stopService();
+    $self->stopService();
 
     my @files = ('/etc/cups/printers.conf', '/etc/cups/ppd');
     my $backupFiles = '';
@@ -316,17 +300,24 @@ sub networkPrinters
 {
     my ($self) = @_;
 
-    my @ids;
-# FIXME: This should be get using Net::CUPS as we are not storing
-# printers in our config anymore
-#    foreach my $printer (@{$self->printers()}) {
-#        my $conf = $self->methodConf($printer->{id});
-#        push (@ids, $printer->{id}) if ($conf->{method} eq 'network');
-#    }
+    my $cups = Net::CUPS->new();
+    my @printers = $cups->getDestinations();
+    my $netPrinters = [];
+    foreach my $p (@printers) {
+        my $uri = $p->getUri();
+        my ($proto, $host, $port) =
+            ($uri =~ m/(socket|http|ipp|lpd):\/\/([^\/:]+)[^:]*(:[0-9]+)?/);
+        next unless ($proto and $host and $port);
+        $port =~ s/:// if $port;
+        push (@{$netPrinters}, {
+            protocol => $proto,
+            host => $host,
+            port => $port,
+        });
+    }
 
-    return \@ids;
+    return $netPrinters;
 }
-
 
 # Impelment LogHelper interface
 
@@ -360,116 +351,6 @@ sub tableInfo
             }];
 }
 
-sub consolidateReportQueries
-{
-    return [
-            {
-             'target_table' => 'printers_jobs_report',
-             'query' => {
-                         'select' => 'printer,event,count(*) as nJobs',
-                         'from' => 'printers_jobs',
-                         'group' => 'printer,event',
-                        },
-             'quote' => { printer => 1 },
-            },
-            {
-             'target_table' => 'printers_jobs_by_user_report',
-             'query' => {
-                         'select' => 'username,event,count(*) as nJobs',
-                         'from' => 'printers_jobs',
-                         'group' => 'username,event',
-                        },
-             'quote' => { username => 1 },
-            },
-            {
-             target_table => 'printers_usage_report',
-             'query' => {
-                         'select' => 'printers_jobs.printer, SUM(pages) AS pages, COUNT(DISTINCT printers_jobs.username) AS users',
-                          'from' => 'printers_pages,printers_jobs',
-                          'group' => 'printers_jobs.printer',
-                          'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
-                        },
-             'quote' => { printer => 1 },
-            }
-           ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    my $db = EBox::DBEngineFactory::DBEngine();
-
-    my @events = qw(queued canceled completed);
-
-    my %eventsByPrinter;
-    foreach my $event  (@events) {
-        my $results = $self->runMonthlyQuery($beg, $end, {
-           'select' => q{printer, SUM(nJobs)},
-           'from' => 'printers_jobs_report',
-           'group' => 'printer',
-           'where' => qq{event='$event'},
-                                                         },
-           { 'key' => 'printer' });
-
-        while (my ($printer, $res) = each %{ $results }) {
-            if (not exists $eventsByPrinter{$printer}) {
-                $eventsByPrinter{$printer} = {};
-            }
-            $eventsByPrinter{$printer}->{$event} = $res->{sum};
-        }
-    }
-
-    $report->{eventsByPrinter} = \%eventsByPrinter;
-
-    my %eventsByUsername;
-    foreach my $event  (@events) {
-        my $results = $self->runMonthlyQuery($beg, $end, {
-           'select' => q{username, SUM(nJobs)},
-           'from' => 'printers_jobs_by_user_report',
-           'group' => 'username',
-           'where' => qq{event='$event'},
-                                                         },
-           { 'key' => 'username' });
-
-        while (my ($username, $res) = each %{ $results }) {
-            if (not exists $eventsByUsername{$username}) {
-                $eventsByUsername{$username} = {};
-            }
-            $eventsByUsername{$username}->{$event} = $res->{sum};
-        }
-    }
-
-    $report->{eventsByUser} = \%eventsByUsername;
-
-    my $printerUsage = $self->runMonthlyQuery($beg, $end, {
-           'select' => q{printer, pages, users},
-           'from' => 'printers_usage_report',
-#           'group' => 'printer',
-                                                         },
-           { 'key' => 'printer' }
-                                                    );
-    # add job fields to usage report
-    foreach my $printer (keys %{ $printerUsage} ) {
-        if (not exists $eventsByPrinter{$printer}) {
-            next;
-        }
-
-        my @jobs = @{ $eventsByPrinter{$printer}->{queued} };
-        $printerUsage->{$printer}->{jobs} = \@jobs;
-    }
-
-    $report->{printerUsage} = $printerUsage;
-
-    return $report;
-}
-
 sub logHelper
 {
     my ($self) = @_;
@@ -477,27 +358,5 @@ sub logHelper
     return (new EBox::Printers::LogHelper());
 }
 
-# Method: fetchExternalCUPSPrinters
-#
-#   This method returns those printers that haven been configured
-#   by the user using CUPS.
-#
-# Returns:
-#
-#   Array ref - containing the printer names
-#
-sub fetchExternalCUPSPrinters
-{
-    my ($self) = @_;
-
-    my $cups = Net::CUPS->new();
-
-    my @printers;
-    foreach my $printer ($cups->getDestinations()) {
-        my $name = $printer->getName();
-        push (@printers, $name);
-    }
-    return \@printers;
-}
 
 1;

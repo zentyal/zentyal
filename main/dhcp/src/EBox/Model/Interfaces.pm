@@ -153,4 +153,20 @@ sub _table
     return $dataTable;
 }
 
+sub dynamicDomainsIds
+{
+    my ($self) = @_;
+    my %domains;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $configuration = $row->subModel('configuration');
+        my $dynamicDNS = $configuration->componentByName('DynamicDNS', 1);
+        foreach my $domainId (@{ $dynamicDNS->dynamicDomainsIds() } ) {
+            $domains{$domainId} = 1;
+        }
+    }
+
+    return \%domains;
+}
+
 1;

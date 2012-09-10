@@ -1,0 +1,69 @@
+# Group: Allowed RODC Password Replication Group
+#   Members in this group can have their passwords replicated to all
+#   read-only domain controllers in the domain
+S-1-5-21-\d+-\d+-\d+-571
+
+# Group: Enterprise Read-only Domain Controllers
+#   Members of this group are Read-Only Domain Controllers in the enterprise
+S-1-5-21-\d+-\d+-\d+-498
+
+# Group: Denied RODC Password Replication Group
+#   Members in this group cannot have their passwords replicated to any
+#   read-only domain controllers in the domain
+S-1-5-21-\d+-\d+-\d+-572
+
+# Group: Read-only Domain Controllers
+#   Members of this group are Read-Only Domain Controllers in the domain
+S-1-5-21-\d+-\d+-\d+-521
+
+# Group: Group Policy Creator Owners
+#   Members in this group can modify group policy for the domain
+S-1-5-21-\d+-\d+-\d+-520
+
+# Group: RAS and IAS Servers
+#   Servers in this group can access remote access properties of users
+S-1-5-21-\d+-\d+-\d+-553
+
+# Group: Domain Controllers
+#   All domain controllers in the domain
+S-1-5-21-\d+-\d+-\d+-516
+
+# Group: Enterprise Admins
+#   Designated administrators of the enterprise
+S-1-5-21-\d+-\d+-\d+-519
+
+# Group: Domain Computers
+#   All workstations and servers joined to the domain
+S-1-5-21-\d+-\d+-\d+-515
+
+# Group: Cert Publishers
+#   Members of this group are permitted to publish certificates to the directory
+S-1-5-21-\d+-\d+-\d+-517
+
+# Group: Domain Admins
+#   Designated administrators of the domain
+#S-1-5-21-\d+-\d+-\d+-512
+
+# Group: Domain Guests
+#   All domain guests
+S-1-5-21-\d+-\d+-\d+-514
+
+# Group: Schema Admins
+#   Designated administrators of the schema
+S-1-5-21-\d+-\d+-\d+-518
+
+# Group: Domain Users
+#   All domain users
+S-1-5-21-\d+-\d+-\d+-513
+
+# Group: Administrator
+#   Built-in account for administering the computer/domain
+#S-1-5-21-\d+-\d+-\d+-500
+
+# User: krbtgt
+#   Key Distribution Center Service Account
+S-1-5-21-\d+-\d+-\d+-502
+
+# User: Guest
+#   Built-in account for guest access to the computer/domain
+S-1-5-21-\d+-\d+-\d+-501

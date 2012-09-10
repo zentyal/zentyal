@@ -1,4 +1,31 @@
-HEAD
+2.3.17
+	+ Do not translate the service principal names to upper case
+	+ Set LDAP service as denined by default for internal networks
+	+ Set the managed domain as read only as well as records
+2.3.16
+	+ Fixed PAM when kerberos is enabled
+	+ Fixed addUser operation on slaves
+	+ Catch exceptions thrown by notified modules adding LDAP users and groups
+	  to rollback the operation and delete the object added prior to notification.
+2.3.15
+	+ Fixed password change at user corner
+	+ Change KDC port to 8880 to preserve the classic default for user corner
+2.3.14
+	+ Ignore the LDAP error 'no attributes to update' on save
+	+ Instantiate users by uid and groups by gid
+	+ Change kerberos ports from 88/464 to 8888/8464. This avoid conflicts
+	  and management logic of the heimdal daemons. Kerberos records are added
+	  with lower priority over samba ones.
+	+ Respect the optionality of the 'salt' field inside the kerberos keys
+	  in the 'setKerberosKeys' funcion of the User class.
+	+ Do not remove service principals when samba is enabled/disabled. Samba
+	  will import the keys
+	+ Add method to set the user kerberos keys
+	+ Stop samba daemon if module is disabled to ensure that port 88 is free
+	+ Initialize kerberos realm in lowercase to match the host domain
+	+ User template account default options not longer shown in slave servers
+	+ Added users filter by OU
+2.3.13
 	+ Better password policies for LDAP backend
 	+ Added user synchronization with Zentyal Cloud
 	+ Removed deprecated conf keys (password hashes selection)

@@ -12,19 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: Manager
+use strict;
+use warnings;
 #
 #   This class is used to coordinate all the available models and composites
 #   along Zentyal. It allows us to do things like specifiying relations
 #   amongst different models.
 #
-#
+
 #
 package EBox::Model::Manager;
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Gettext;
@@ -96,9 +93,6 @@ sub instance
 #          eBox framework and no execution parameters are required to
 #          its creation
 #
-#          '/moduleName/modelName[/index1/index2]' - used in
-#          new calls and common models which requires a name space and
-#          parameters not set on compilation time
 #
 # Returns:
 #
@@ -138,9 +132,6 @@ sub model
 #        'compositeName' - used only if the compositeName is unique
 #        within eBox framework and no execution parameters are
 #        required to its creation
-#
-#        '/moduleName/compositeName[/index1] - used when a name space
-#        is required or parameters are set on runtime.
 #
 # Returns:
 #
@@ -182,7 +173,7 @@ sub component
     } elsif ($self->_compositeExists($path)) {
         return $self->composite($path, $readonly);
     } else {
-        throw EBox::Exceptions::Internal("Component $path does not exists");
+        throw EBox::Exceptions::Internal("Component $path does not exist");
     }
 }
 
@@ -368,7 +359,7 @@ sub modelsUsingId
 #
 #   (POSITIONAL)
 #
-#   model - <EBox::Model::DataTable> model name where the action took place
+#   model -  model name, with module path, where the action took place
 #   action - string represting the action:
 #	     [ add, del, edit, moveUp, moveDown ]
 #
@@ -393,9 +384,13 @@ sub modelActionTaken
 
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
-        EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
-        $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+        my @confDirs = @{ $self->configDirsForModel($observerModel) };
+        foreach my $dir (@confDirs) {
+            $observerModel->setDirectory($dir);
+            my $observerStr = $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+            $strToRet .= $observerStr if $observerStr;
+        }
     }
 
     return $strToRet;
@@ -627,6 +622,10 @@ sub _setupCompositeInfo
     foreach my $composite (keys %{$info->{composites}}) {
         my $components = $info->{composites}->{$composite};
         $self->{composites}->{$moduleName}->{$composite} = { instance => undef, components => $components};
+    }
+
+    foreach my $composite (keys %{$info->{composites}}) {
+        my $components = $info->{composites}->{$composite};
         foreach my $component (@{$components}) {
             if (exists $self->{models}->{$moduleName}->{$component}) {
                 $self->{models}->{$moduleName}->{$component}->{parent} = $composite;
@@ -665,12 +664,15 @@ sub _setupModelDepends
 
     my $depends = $info->{modeldepends};
     foreach my $model (keys %{$depends}) {
-        # FIXME: this can be a list
-        my $modelDep = $depends->{$model};
-        unless (exists $self->{revModelDeps}->{$modelDep}) {
-            $self->{revModelDeps}->{$modelDep} = [];
+        my $fullPath = $moduleName . '/' . $model;
+        my $modelDeps = $depends->{$model};
+        foreach my $modelDep (keys %{$modelDeps}) {
+            my $deps = $modelDeps->{$modelDep};
+            unless (exists $self->{revModelDeps}->{$modelDep}) {
+                $self->{revModelDeps}->{$modelDep} = {};
+            }
+            $self->{revModelDeps}->{$modelDep}->{$fullPath} = $deps;
         }
-        push (@{$self->{revModelDeps}->{$modelDep}}, $model);
     }
 }
 
@@ -680,7 +682,19 @@ sub _setupNotifyActions
 
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
-        $self->{notifyActions}->{$model} = $notify->{$model};
+        my $observerPath = '/' . $moduleName . '/' . $model . '/';
+        foreach my $notifier (@{ $notify->{$model}   }) {
+            # XXX change when we change the yaml to the more intuitive notifier
+            # - >wathcer format
+            if (not exists $self->{notifyActions}->{$notifier}) {
+                $self->{notifyActions}->{$notifier} = [];
+            }
+
+            push @{ $self->{notifyActions}->{$notifier} }, $observerPath;
+        }
+
+
+#        $self->{notifyActions}->{$contextName} = $notify->{$model};
     }
 }
 
@@ -742,6 +756,9 @@ sub _oneToOneDependencies
 {
     my ($self, $model) = @_;
 
+    $model =~ s{^/}{};
+    $model =~ s{/$}{};
+
     unless (exists $self->{revModelDeps}->{$model}) {
         return {};
     }
@@ -753,5 +770,56 @@ sub _oneToOneDependencies
 sub markAsChanged
 {
 }
+
+
+sub _modelHasMultipleInstances
+{
+    my ($self, $module, $component) = @_;
+
+    while ($component) {
+        if (exists $self->{parentByComponent}->{$module}->{$component}) {
+            return 1;
+        }
+
+        if (exists $self->{models}->{$module}->{$component}->{parent}) {
+            $component = $self->{models}->{$module}->{$component}->{parent};
+        } elsif (exists $self->{composites}->{$module}->{$component}->{parent}) {
+            $component = $self->{composites}->{$module}->{$component}->{parent};
+        } else {
+            return 0;
+        }
+    }
+}
+
+sub configDirsForModel
+{
+    my ($self, $model) = @_;
+    my $module = $model->parentModule();
+    my $modelName = $model->name();
+
+    if (not $self->_modelHasMultipleInstances($module->name(), $modelName)) {
+        # no multiple instances, return normal directory
+        return [ $model->directory() ];
+    }
+
+    my $baseKey = $module->_key('');
+
+    my $pattern = $baseKey . '/*/'. $modelName .  '/*';
+    my @matched =  $module->{redis}->_redis_call('keys', $pattern) ;
+    if (not @matched) {
+        # probably no dirs yet set
+        return [];
+    }
+
+    my %dirs;
+    my $regex = qr{^$baseKey/(.*/$modelName)/};
+    foreach my $match (@matched) {
+        $match =~ m{$regex};
+        $dirs{$1} = 1;
+    }
+
+    return [keys %dirs];
+}
+
 
 1;

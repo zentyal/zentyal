@@ -36,10 +36,11 @@ then
   locale-gen en_US.UTF-8
 fi
 
-
 FIRST_RUN_FILE='/var/lib/zentyal/conf/zentyal-zarafa.first'
 touch $FIRST_RUN_FILE
 
 chown www-data:www-data /var/lib/zarafa-webapp/tmp
+
+cp /etc/d-push/apache.conf /etc/apache2/sites-available/d-push
 
 exit 0

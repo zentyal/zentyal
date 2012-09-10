@@ -1,3 +1,13 @@
+HEAD
+	+ Updated 'created by' footer
+2.3.5
+	+ Display type of exception in table view
+	+ Blocking captive daemon watcher to avoid cpu consumption
+2.3.4
+	+ More robust code against errors when getting watcher class
+	+ Improved extend quota icons and some texts
+	+ Improved style of login page
+	+ Added modeldepends to yaml schema
 2.3.3
 	+ Fixed firewall locking problems
 	+ Enable interfaces in bandwith monitor module when needed

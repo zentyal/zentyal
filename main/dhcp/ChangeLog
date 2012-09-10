@@ -1,3 +1,11 @@
+2.3.9
+	+ Keys shared with bind are now stored under /etc/dhcp/ddns-keys
+	+ Fixed problem in Options model which DNS domain syncRow call
+	+ Fixed problems in DynamicDNS models
+	+ Add dhcpd to the bind group if DynamicDNS is enabled
+	+ Use isc-dhcp-server upstart script
+2.3.8
+	+ Added modeldepends to yaml schema
 2.3.7
 	+ Adapted reverse zones to reverse ip fix in Net::IP
 	+ Added missing dynamicDNSDomains() method

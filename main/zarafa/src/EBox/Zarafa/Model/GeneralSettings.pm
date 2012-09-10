@@ -55,6 +55,25 @@ sub new
     return $self;
 }
 
+# Method: validateTypedRow
+#
+#
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    if (exists($params_r->{jabber})) {
+        if (EBox::Global->modExists('jabber')) {
+            EBox::Global->modChange('jabber');
+        }
+    }
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -97,6 +116,14 @@ sub _table
                                 defaultValue  => 1,
                                 help =>
 __('Enable Active Sync (Microsoft Exchange syncronization protocol).'),
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'sso',
+                                printableName => __('Enable Single Sign-On (Kerberos)'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                                help =>
+__('Enable Single Sign On on the Webaccess and Webapp interface.'),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'vHost',

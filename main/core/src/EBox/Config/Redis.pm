@@ -126,7 +126,12 @@ sub get
                 $value = decode_json($value);
             }
         } else {
-            $value = $defaultValue;
+            if (defined $defaultValue) {
+                $value = $defaultValue;
+            } else {
+                # do not cache undef values
+                return undef;
+            }
         }
         $cache{$key} = $value;
     }

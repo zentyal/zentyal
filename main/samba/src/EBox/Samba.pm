@@ -31,8 +31,6 @@ use EBox::SambaLdapUser;
 use EBox::Network;
 use EBox::SambaFirewall;
 use EBox::SambaLogHelper;
-use EBox::Dashboard::Widget;
-use EBox::Dashboard::List;
 use EBox::Menu::Item;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
@@ -41,22 +39,25 @@ use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
+use EBox::UsersAndGroups;
+use EBox::Samba::Model::SambaShares;
 
 use Perl6::Junction qw( any );
-use Net::Domain qw(hostdomain);
 use Error qw(:try);
 use File::Slurp;
+use File::Temp;
 
+use constant SAMBA_DIR            => '/home/samba/';
+use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
-use constant SAMBA_DIR            => '/home/ebox/samba';
-use constant SAMBADNSZONE         => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
-use constant SAMBADNSKEYTAB       => PRIVATE_DIR . 'dns.keytab';
+use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
-use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
+use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
@@ -112,7 +113,7 @@ sub actions
         {
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/ebox/samba.'),
+                           'shares and groups under /home/samba.'),
             'module' => 'samba',
         },
     ];
@@ -177,6 +178,64 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
+    }
+}
+
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    # Do not enable the module if there aren't IP addresses assigned
+    if ($status) {
+        $self->_checkEnvironment();
+    }
+
+    if ($self->isEnabled() and not $status) {
+        $self->setupDNS(0);
+    } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
+        $self->setupDNS(1);
+    }
+
+    $self->SUPER::enableService($status);
+}
+
+# Method: _startService
+#
+#   Overrided to ensure proper permissions of the ldap_priv folder, where the
+#   privileged socket that zentyal uses to connect is. This is a special socket
+#   that samba create that allow r/w restricted attributes.
+#   Samba expects the ldap_priv folder to be owned by root and mode 0750, or the
+#   LDAP service won't run.
+#
+#   Here we set the expected permissions before start the daemon.
+#
+sub _startService
+{
+    my ($self) = @_;
+
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+
+    $self->SUPER::_startService(@_);
+}
+
+# Method: _enforceServiceState
+#
+#   Start the samba daemon is expensive and takes a while. After writing
+#   smb.conf the daemon is started to make queries to LDB, so it is not
+#   necessary to restart it after that. This method is overrided to avoid
+#   this situation and restart samba twice while saving changes.
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        $self->_startService();
+    } else {
+        $self->_stopService();
     }
 }
 
@@ -267,71 +326,45 @@ sub enableActions
 {
     my ($self) = @_;
 
-    my @cmds = ();
-    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    EBox::debug('Creating directories');
-    EBox::Sudo::root(@cmds);
-
     # Remount filesystem with user_xattr and acl options
     EBox::debug('Setting up filesystem options');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    # Add 'Global catalog' service to /etc/services
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my $srvModel = $dnsMod->model('Services');
-    my $services = $srvModel->services();
-    my %aux = map { $_->{name} => 1 } @{$services};
-    unless (exists $aux{gc}) {
-        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
-        EBox::debug('Adding Microsoft global catalog service to /etc/services');
-        my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
-        EBox::Sudo::root($cmd);
-    }
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my @cmds = ();
+    push (@cmds, 'invoke-rc.d samba4 stop');
+    push (@cmds, 'update-rc.d samba4 disable');
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    EBox::debug('Creating directories');
+    EBox::Sudo::root(@cmds);
 }
 
 sub isProvisioned
 {
-    my $samba = EBox::Global->modInstance('samba');
-    my $isProvisioned = $samba->get_bool('provisioned');
-    EBox::debug("Samba provisioned flag: $isProvisioned");
-    return $isProvisioned;
+    my ($self) = @_;
+
+    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
 }
 
-# Method: enableService
-#
-#   Override EBox::Module::Service::enableService to
-#   set DNS and users modules as changed
-#
-sub enableService
+sub setProvisioned
 {
-    my ($self, $status) = @_;
+    my ($self, $provisioned) = @_;
 
-    $self->SUPER::enableService($status);
-    if ($self->changed() and $status) {
-        my $isProvisioned = isProvisioned();
-        unless ($isProvisioned == 1) {
-            try {
-                $self->provision();
-            } otherwise {
-                my $error = shift;
-                EBox::error($error);
-
-                # Disable the module if not provisioned
-                $self->SUPER::enableService(0);
-
-                throw $error;
-            };
-        }
-    }
-    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
-    foreach my $module (@{$modules}) {
-        $module->kerberosCreatePrincipals();
-    }
-
-    if ($self->changed()) {
-        EBox::Global->modChange('dns');
-        EBox::Global->modChange('users');
+    if ($provisioned) {
+        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
+    } else {
+        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
     }
 }
 
@@ -457,7 +490,7 @@ sub defaultAntivirusSettings
     my ($self) = @_;
 
     my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->row()->valueByName('scan');
+    return $antivirus->value('scan');
 }
 
 sub antivirusExceptions
@@ -535,138 +568,99 @@ sub recycleConfig
     return $conf;
 }
 
-sub cleanDNS
+# Method: _checkEnvironment
+#
+#   This method ensure that the environment is properly configured for
+#   samba provision.
+#
+# Returns:
+#
+#   The IP address to use for provision
+#
+sub _checkEnvironment
 {
-    my ($self, $domain) = @_;
+    my ($self) = @_;
 
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my @records = (
-        {
-            type => 'host',
-            name => 'gc',
-            subdomain => '_msdcs'
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'gc',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.gc._msdcs',
-            port      => 3268
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => undef,
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'pdc._msdcs',
-            port      => '389',
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            subdomain => '.+\.domains._msdcs',
-            protocol  => 'tcp',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites',
-            port      => 88
-        },
-        {
-            type      => 'service',
-            service   => 'kerberos',
-            protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
-            port      => 88
-        },
-    );
+    # Get the own doamin
+    my $sysinfo    = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
 
-    foreach my $record (@records) {
-        try {
-            if ($record->{type} eq 'host') {
-                $dnsMod->delHost($domain, $record->{name});
-            } elsif ($record->{type} eq 'service') {
-                $dnsMod->delService($domain, $record);
-            }
-        } otherwise {
-            my $error = shift;
-            EBox::debug($error);
-        };
+    # Get the kerberos realm
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+
+    # The own doamin and the kerberos realm must be equal
+    unless (lc $hostDomain eq lc $realm) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(__x("The host domain '{d}' must be equal kerberos realm '{r}'", d => $hostDomain, r => $realm));
     }
 
-    # Remove serverGUID._mdscs alias
-    my $hosts = $dnsMod->getHostnames($domain);
-    foreach my $host (@{$hosts}) {
-        my $aliases = $host->{aliases};
-        foreach my $alias (@{$aliases}) {
-            if ($alias =~ m/.+\._msdcs$/) {
-                try {
-                    $dnsMod->removeAlias($domain, $host->{name}, $alias);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error($error);
-                };
+    # Check the domain exists in DNS module
+    my $dns = EBox::Global->modInstance('dns');
+    my $domainModel = $dns->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $hostDomain);
+    unless (defined $domainRow) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(__x("The required domain '{d}' could not be found in the dns module", d => $hostDomain));
+    }
+
+    # Check the hostname exists in the DNS module
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostName);
+    unless (defined $hostRow) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(__x("The required host record '{h}' could not be found in the domain '{d}'",
+                                             h => $hostName, d => $hostDomain));
+    }
+
+    # Get the IP addresses models (domain and hostname)
+    my $domainIPsModel = $domainRow->subModel('ipAddresses');
+    my $hostIPsModel = $hostRow->subModel('ipAddresses');
+
+    # Get the IP address to use for provision, and check that this IP is assigned
+    # to the domain
+    my $network = EBox::Global->modInstance('network');
+    my $ifaces = $self->sambaInterfaces();
+    my $provisionIP = undef;
+    foreach my $iface (@{$ifaces}) {
+        next if $iface eq 'lo';
+        my $ifaceAddrs = $network->ifaceAddresses($iface);
+        foreach my $data (@{$ifaceAddrs}) {
+            # Got one candidate address, check that it is assigned to the DNS domain
+            my $inDomainModel = 0;
+            my $inHostModel = 0;
+            foreach my $rowId (@{$domainIPsModel->ids()}) {
+                my $row = $domainIPsModel->row($rowId);
+                if ($row->valueByName('ip') eq $data->{address}) {
+                    $inDomainModel = 1;
+                    last;
+                }
+            }
+            foreach my $rowId (@{$hostIPsModel->ids()}) {
+                my $row = $hostIPsModel->row($rowId);
+                if ($row->valueByName('ip') eq $data->{address}) {
+                    $inHostModel = 1;
+                    last;
+                }
+            }
+            if ($inDomainModel and $inHostModel) {
+                $provisionIP = $data->{address};
+                last;
             }
         }
+        last if defined $provisionIP;
     }
+    unless (defined $provisionIP) {
+        $self->enableService(0);
+        throw EBox::Exceptions::External(
+                __("Samba can't be provisioned if no IP addresses are set and the " .
+                   "DNS domain is properly configured. Ensure that you have at least a " .
+                   "IP address assigned to an internal interface, and this IP has to be " .
+                   "assigned to the domain and to the hostname in the DNS domain."));
+    }
+
+    return $provisionIP;
 }
 
 # Method: provision
@@ -677,38 +671,48 @@ sub provision
 {
     my ($self) = @_;
 
-    # Check that there are internal IP addresses configured
-    my $network = EBox::Global->modInstance('network');
-    my $ipaddrs = $network->internalIpAddresses();
-    unless (scalar @{$ipaddrs} > 0) {
-        throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
-                                            'cannot continue with database provision. The module ' .
-                                            'will remain disabled.'));
+    # Stop the service
+    $self->stopService();
+
+    # Check environment
+    my $provisionIP = $self->_checkEnvironment();
+
+    # Delete samba config file and private folder
+    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
+    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
+
+    my $mode = $self->mode();
+    my $fs = EBox::Config::configkey('samba_fs');
+    if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
+        $self->provisionAsDC($fs, $provisionIP);
+    } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
+        $self->provisionAsADC();
+    } else {
+        throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
+}
+
+sub provisionAsDC
+{
+    my ($self, $fs, $provisionIP) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $users   = EBox::Global->modInstance('users');
-    my $hostName   = $sysinfo->hostName();
-    my $domainName = $sysinfo->hostDomain();
-    my $realm      = uc ($domainName); # TODO Create a function realm() in sysinfo
+    my $usersModule = EBox::Global->modInstance('users');
 
-    # Remove previous DNS records
-    $self->cleanDNS($domainName);
-
-    # This file must be deleted or provision may fail
-    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     my $cmd = SAMBAPROVISION .
-        ' --domain=' . $self->workgroup() .
-        ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $realm .
-        ' --dns-backend=BIND9_FLATFILE' .
-        ' --use-xattrs=yes ' .
-        ' --server-role=' . $self->mode() .
-        ' --users=' . $users->DEFAULTGROUP() .
-        ' --host-name=' . $sysinfo->hostName();
+        " --domain='" . $self->workgroup() . "'" .
+        " --workgroup='" . $self->workgroup() . "'" .
+        " --realm='" . $usersModule->kerberosRealm() . "'" .
+        " --dns-backend=BIND9_DLZ" .
+        " --use-xattrs=yes " .
+        " --use-rfc2307 " .
+        " --server-role='" . $self->mode() . "'" .
+        " --users='" . $usersModule->DEFAULTGROUP() . "'" .
+        " --host-name='" . $sysinfo->hostName() . "'" .
+        " --host-ip='" . $provisionIP . "'";
+    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
     EBox::debug("Provisioning database '$cmd'");
-
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -716,9 +720,6 @@ sub provision
     my $output = EBox::Sudo::silentRoot($cmd);
     if ($? == 0) {
         EBox::debug("Provision result: @{$output}");
-        # Mark the module as provisioned
-        EBox::debug('Setting provisioned flag');
-        $self->set_bool('provisioned', 1);
     } else {
         my @error = ();
         my $stderr = EBox::Config::tmp() . 'stderr';
@@ -727,107 +728,6 @@ sub provision
         }
         throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
-
-    # The administrator password is also the password for the 'Zentyal' user,
-    # save it to a file to connect LDB
-    $self->_savePassword($self->administratorPassword(),
-                         EBox::Config->conf() . "ldb.passwd");
-
-    # Once provisioned start the service to make queries
-    EBox::debug('Starting service');
-    $self->_manageService('start');
-
-    # Add the DNS records
-    EBox::debug('Adding domain DNS records');
-    my $dnsMod  = EBox::Global->modInstance('dns');
-
-    # Get the domain GUID
-    my $args = { base   => $self->ldb->dn(),
-                 scope  => 'base',
-                 filter => '(objectClass=*)',
-                 attrs  => ['objectGUID'] };
-    my $result = $self->ldb->search($args);
-    my $entry = $result->entry(0);
-    my $domainGUID = $entry->get_value('objectGUID');
-    $domainGUID = $self->ldb->guidToString($domainGUID);
-    EBox::debug("Domain GUID: $domainGUID"); # TODO remove
-
-    # Get the server GUID
-    $args = { base => "CN=NTDS Settings," .
-                      "CN=" . uc ($hostName) . "," .
-                      "CN=Servers," .
-                      "CN=Default-First-Site-Name," .
-                      "CN=Sites," .
-                      "CN=Configuration," .
-                      $self->ldb->dn(),
-              scope  => 'base',
-              filter => '(objectClass=*)',
-              attrs  => ['objectGUID'] };
-    $result = $self->ldb->search($args);
-    $entry = $result->entry(0);
-    my $serverGUID = $entry->get_value('objectGUID');
-    $serverGUID = $self->ldb->guidToString($serverGUID);
-    EBox::debug("Server GUID: $serverGUID"); # TODO remove
-
-    my $host = { name => 'gc',
-                 subdomain => '_msdcs',
-                 ipAddresses => $ipaddrs };
-    $dnsMod->addHost($domainName, $host);
-
-    my $alias = "$serverGUID._msdcs";
-    $dnsMod->addAlias($domainName, $hostName, $alias);
-
-    my $service = { service => 'gc',
-                    protocol => 'tcp',
-                    port => 3268,
-                    priority => 0,
-                    weight => 100,
-                    target_type => 'domainHost',
-                    target => $hostName };
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'ldap';
-    $service->{subdomain} = 'gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.gc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = undef;
-    $service->{port} = 389;
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'pdc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = "$domainGUID.domains._msdcs";
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{service} = 'kerberos';
-    $service->{port} = 88;
-    $service->{subdomain} = 'dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites';
-    $dnsMod->addService($domainName, $service);
-
-    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
-    $dnsMod->addService($domainName, $service);
-
-    # Set the domain as dynamic. Otherwise apparmor deny the updates.
-    $dnsMod->setDynamic($domainName, 1);
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
@@ -841,17 +741,241 @@ sub provision
                        " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
+    # Write smb.conf to grant rw access to zentyal group on the
+    # privileged socket
+    $self->writeSambaConfig();
+
+    # Set DNS. The domain should have been created by the users
+    # module.
+    $self->setupDNS(1);
+
+    # Start managed service to let it create the LDAP socket
+    $self->_startService();
+
     # Load all zentyal users and groups into ldb
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
+    $self->ldb->ldapServicePrincipalsToLdb();
 
-    # Add the zentyal module to the LDB modules stack
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
+    # TODO Echo the current TS to the .s4_ts
 
+    # Map domain guest account to nobody user
+    my $guestSID = $self->ldb->domainSID() . '-501';
+    my $guestGroupSID = $self->ldb->domainSID() . '-514';
+    my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
+    my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
+    EBox::debug("Mapping guest account");
+    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+
+    # Mark the module as provisioned
+    EBox::debug('Setting provisioned flag');
+    $self->setProvisioned(1);
+}
+
+sub provisionAsADC
+{
+    my ($self) = @_;
+
+    my $model = $self->model('GeneralSettings');
+    my $domainToJoin = $model->value('realm');
+    my $dcFQDN = $model->value('dcfqdn');
+    my $domainDNS = $model->value('dnsip');
+    my $adminAccount = $model->value('adminAccount');
+    my $adminAccountPwd = $model->value('password');
+    my $netbiosDomain = $model->value('workgroup');
+
+    # If the host domain or the users kerberos realm does not
+    # match the domain we are trying to join warn the user and
+    # abort
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $hostName = $sysinfo->hostName();
+    my $ucHostName = uc ($hostName);
+    my $krbRealm = $usersModule->kerberosRealm();
+    my $fqdn = $sysinfo->fqdn();
+    if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
+        lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
+        throw EBox::Exceptions::External(
+            __('The server domain and kerberos realm must match the domain the ' .
+               'domain you are trying to join.'));
+    }
+
+    my $dnsFile = undef;
+    try {
+        EBox::info("Joining to domain '$domainToJoin' as DC");
+
+        # Set the domain DNS as the primary resolver. This will also let to get
+        # the kerberos ticket for the admin account.
+        EBox::debug("Setting domain DNS server '$domainDNS' as the primary resolver");
+        $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
+                                  DIR      => EBox::Config::tmp());
+        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile");
+        my $array = [];
+        push (@{$array}, searchDomain => $domainToJoin);
+        push (@{$array}, nameservers => [ $domainDNS ]);
+        $self->writeConfFile(EBox::Network::RESOLV_FILE(),
+                             'network/resolv.conf.mas',
+                             $array);
+
+        # Join the domain
+        EBox::debug("Joining to the domain");
+        my @cmds;
+        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
+            " -U $adminAccount " .
+            " --workgroup='$netbiosDomain' " .
+            " --password='$adminAccountPwd' " .
+            " --server=$dcFQDN");
+        my $output = EBox::Sudo::silentRoot(@cmds);
+        if ($? == 0) {
+            $self->setProvisioned(1);
+            EBox::debug("Provision result: @{$output}");
+        } else {
+            my @error = ();
+            my $stderr = EBox::Config::tmp() . 'stderr';
+            if (-r $stderr) {
+                @error = read_file($stderr);
+            }
+            throw EBox::Exceptions::Internal("Error joining to domain: @error");
+        }
+
+        $self->setupDNS(1);
+
+        # Write smb.conf to grant rw access to zentyal group on the
+        # privileged socket
+        $self->writeSambaConfig();
+        my $group = EBox::Config::group();
+        EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+        EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+
+        # Start managed service to let it create the LDAP socket
+        EBox::debug('Starting service');
+        $self->_startService();
+
+        # Wait for RID allocation
+        my $args = {
+            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
+            scope => 'base',
+            filter => '(objectClass=*)',
+            attrs => ['rIDSetReferences'],
+        };
+        for (my $retries=12; $retries>=0; $retries--) {
+            EBox::debug ("Waiting for RID allocation, $retries");
+            my $result = $self->ldb->search($args);
+            if ($result->count() == 1) {
+                my $entry = $result->entry(0);
+                my @val = $entry->get_value('rIDSetReferences');
+                last if @val;
+            }
+            sleep (5);
+        }
+
+        # Purge users and groups
+        EBox::info("Purging the Zentyal LDAP to import Samba users");
+        my $usersMod = EBox::Global->modInstance('users');
+        my $users = $usersMod->users();
+        my $groups = $usersMod->groups();
+        foreach my $user (@{$users}) {
+            $user->deleteObject();
+        }
+        foreach my $group (@{$groups}) {
+            $group->deleteObject();
+        }
+
+        # Load samba users and groups into Zentyal ldap
+        $self->ldb->ldbUsersToLdap();
+        $self->ldb->ldbGroupsToLdap();
+
+        # Load Zentyal service principals into samba
+        $self->ldb->ldapServicePrincipalsToLdb();
+
+        # Load administrator user and domain admins group to zentyal
+        my $domainSid = $self->ldb->domainSID();
+        my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
+        my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
+        $self->ldb->ldbUsersToLdap([$adminUser]);
+        $self->ldb->ldbGroupsToLdap([$adminGroup]);
+
+        # FIXME This should not be necessary, it is a samba bug.
+        @cmds = ();
+        push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
+        push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=$ucHostName\$");
+        push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
+            " --principal=DNS/$fqdn");
+        push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+        push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+        EBox::Sudo::root(@cmds);
+
+        # Map domain guest account to nobody user
+        my $guestSID = $self->ldb->domainSID() . '-501';
+        my $guestGroupSID = $self->ldb->domainSID() . '-514';
+        my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+        my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+        my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
+        my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
+        EBox::debug("Mapping guest account");
+        $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+        $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    } otherwise {
+        my $error = shift;
+        throw $error;
+    } finally {
+        # Revert primary resolver changes
+        if (defined $dnsFile and -f $dnsFile) {
+            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+            unlink $dnsFile;
+        }
+    };
+}
+
+# Method: setupDNS
+#
+#   Modify the domain setup for samba or for users module
+#
+# Parameters:
+#
+#   dlz - If set to 1, the domain will be set up for samba, else it will be
+#         set up for users module
+#
+sub setupDNS
+{
+    my ($self, $dlz) = @_;
+
+    my $dnsModule = EBox::Global->modInstance('dns');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    # Ensure that the managed domain exists
+    my $domainModel = $dnsModule->model('DomainTable');
+    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+    unless (defined $domainRow) {
+        throw EBox::Exceptions::Internal("Domain named '" . $sysinfo->hostDomain()
+            . "' not found");
+    }
+
+    # Mark the domain as samba
+    if ($dlz) {
+        EBox::debug('Setting up DNS for samba');
+        $domainRow->elementByName('samba')->setValue(1);
+    } else {
+        EBox::debug('Setting up DNS for users');
+        $domainRow->elementByName('samba')->setValue(0);
+    }
+    $domainRow->store();
+
+    # And force service restart
+    $dnsModule->save();
+
+    if (EBox::Sudo::fileTest('-f', SAMBA_DNS_KEYTAB)) {
+        my @cmds;
+        push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
+        push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
+        EBox::Sudo::root(@cmds);
+    }
 }
 
 # Method: sambaInterfaces
@@ -897,40 +1021,44 @@ sub sambaInterfaces
     return \@ifaces;
 }
 
-sub _setConf
+sub writeSambaConfig
 {
     my ($self) = @_;
-
-    return unless $self->configured() and $self->isEnabled();
-
-    $self->provision() unless $self->isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = $self->realm();
+    my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
 
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
     my @array = ();
+    push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
     push (@array, 'ifaces'      => $interfaces);
-    push (@array, 'mode'        => $self->mode());
+    push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
+    push (@array, 'profilesPath' => PROFILES_DIR);
 
-    #push(@array, 'printers'  => $self->_sambaPrinterConf());
-    #push(@array, 'active_printer' => $self->printerService());
+    push (@array, 'printers'  => $self->printersConf());
 
     #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
     #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
-    push(@array, 'shares' => $shares);
+    push (@array, 'shares' => $shares);
+    foreach my $share (@{$shares}) {
+        if ($share->{guest}) {
+            push (@array, 'guestAccess' => 1);
+            push (@array, 'guestAccount' => EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+            last;
+        }
+    }
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
@@ -954,6 +1082,25 @@ sub _setConf
     $self->writeConfFile(CLAMAVSMBCONFFILE,
                          'samba/vscan-clamav.conf.mas', []);
 
+}
+
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    $self->stopService();
+}
+
+sub _setConf
+{
+    my ($self) = @_;
+
+    return unless $self->configured() and $self->isEnabled();
+
+    $self->provision() unless $self->isProvisioned();
+
+    $self->writeSambaConfig();
+
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
@@ -963,135 +1110,61 @@ sub _setConf
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
-    # Set roaming profiles
-    if ($self->roamingProfiles()) {
-        my $path = "\\\\$netbiosName.$realmName\\profiles";
-        $self->ldb()->setRoamingProfiles(1, $path);
-    } else {
-        $self->ldb()->setRoamingProfiles(0);
-    }
-
-    # Mount user home on network drive
-    $self->ldb()->setHomeDrive($self->drive());
-}
-
-sub _shareUsers
-{
-    my $state = 0;
-    my $pids = {};
-
-#    for my $line (`smbstatus`) {
-#        chomp($line);
-#        if($state == 0) {
-#            if($line =~ '----------------------------') {
-#                $state = 1;
-#            }
-#        } elsif($state == 1) {
-#            if($line eq '') {
-#                $state = 2;
-#            } else {
-#                # 1735  javi   javi     blackops  (192.168.45.48)
-#                $line =~ m/(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+\((\S+)\)/;
-#                my ($pid, $user, $machine) = ($1, $2, $4);
-#                $pids->{$pid} = { 'user' => $user, 'machine' => $machine };
-#            }
-#        } elsif($state == 2) {
-#            if($line =~ '----------------------------') {
-#                $state = 3;
-#            }
-#        } elsif($state == 3) {
-#            if($line eq '') {
-#                last;
-#            } else {
-#            #administracion   1735   blackops      Wed Nov 26 17:27:19 2008
-#                $line =~ m/(\S+)\s+(\d+)\s+(\S+)\s+(\S.+)/;
-#                my($share, $pid, $date) = ($1, $2, $4);
-#                $pids->{$pid}->{'share'} = $share;
-#                $pids->{$pid}->{'date'} = $date;
-#            }
-#        }
-#    }
-    return [values %{$pids}];
-}
-
-sub _sharesGroupedBy
-{
-    my ($group) = @_;
-
-    my $shareUsers = _shareUsers();
-
-    my $groupedInfo = {};
-    foreach my $info (@{$shareUsers}) {
-        if (not defined ($groupedInfo->{$info->{$group}})) {
-            $groupedInfo->{$info->{$group}} = [];
+    my $netbiosName = $self->netbiosName();
+    my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+    my $users = $self->ldb->users();
+    foreach my $user (@{$users}) {
+        # Set roaming profiles
+        if ($self->roamingProfiles()) {
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            $user->setRoamingProfile(1, $path, 1);
+        } else {
+            $user->setRoamingProfile(0);
         }
-        push (@{$groupedInfo->{$info->{$group}}}, $info);
-    }
-    return $groupedInfo;
-}
 
-sub sharesByUserWidget
-{
-    my ($widget) = @_;
-
-    my $sharesByUser = _sharesGroupedBy('user');
-
-    foreach my $user (sort keys %{$sharesByUser}) {
-        my $section = new EBox::Dashboard::Section($user, $user);
-        $widget->add($section);
-        my $titles = [__('Share'), __('Source machine'), __('Connected since')];
-
-        my $rows = {};
-        foreach my $share (@{$sharesByUser->{$user}}) {
-            my $id = $share->{'share'} . '_' . $share->{'machine'};
-            $rows->{$id} = [$share->{'share'}, $share->{'machine'}, $share->{'date'}];
-        }
-        my $ids = [sort keys %{$rows}];
-        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+        # Mount user home on network drive
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        $user->setHomeDrive($self->drive(), $drivePath, 1);
+        $user->save();
     }
 }
 
-sub usersByShareWidget
+sub printersConf
 {
-    my ($widget) = @_;
+    my ($self) = @_;
 
-    my $usersByShare = _sharesGroupedBy('share');
-
-    for my $share (sort keys %{$usersByShare}) {
-        my $section = new EBox::Dashboard::Section($share, $share);
-        $widget->add($section);
-        my $titles = [__('User'), __('Source machine'), __('Connected since')];
-
-        my $rows = {};
-        foreach my $user (@{$usersByShare->{$share}}) {
-            my $id = $user->{'user'} . '_' . $user->{'machine'};
-            $rows->{$id} = [$user->{'user'}, $user->{'machine'}, $user->{'date'}];
+    my $printers = [];
+    if (EBox::Global->modExists('printers')) {
+        my $printersModule = EBox::Global->modInstance('printers');
+        if ($printersModule->isEnabled()) {
+            my $printersModel = $printersModule->model('Printers');
+            my $ids = $printersModel->ids();
+            foreach my $id (@{$ids}) {
+                my $row = $printersModel->row($id);
+                my $printerName = $row->valueByName('printer');
+                my $printerGuest = $row->valueByName('guest');
+                my $printerDescription = $row->valueByName('description');
+                # Get the allowed users and groups for this printer if guest
+                # access is disabled
+                my $printerAcl = [];
+                for my $subId (@{$row->subModel('access')->ids()}) {
+                    my $subRow = $row->subModel('access')->row($subId);
+                    my $userType = $subRow->elementByName('user_group');
+                    my $preCar = $userType->selectedType() eq 'group' ? '@' : '';
+                    my $user =  $preCar . '"' . $userType->printableValue() . '"';
+                    push (@{$printerAcl}, $user);
+                }
+                push (@{$printers}, {
+                    name => $printerName,
+                    description => $printerDescription,
+                    guest => $printerGuest,
+                    acl => $printerAcl,
+                } );
+            }
         }
-        my $ids = [sort keys %{$rows}];
-        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
     }
-}
 
-# Method: widgets
-#
-#   Override EBox::Module::widgets
-#
-sub widgets
-{
-    return {
-        'sharesbyuser' => {
-            'title' => __('Shares by user'),
-            'widget' => \&sharesByUserWidget,
-            'order' => 7,
-            'default' => 1
-        },
-        'usersbyshare' => {
-            'title' => __('Users by share'),
-            'widget' => \&usersByShareWidget,
-            'order' => 9,
-            'default' => 1
-        }
-    };
+    return $printers;
 }
 
 # Method: _daemons
@@ -1103,7 +1176,6 @@ sub _daemons
     return [
         {
             name => 'samba4',
-            precondition => \&isProvisioned,
             pidfiles => ['/var/run/samba.pid'],
         },
         {
@@ -1195,56 +1267,33 @@ sub menu
                                     'order' => 540));
 }
 
-#   Function: setPrinterService
-#
-#       Sets the printer sharing service through samba and cups
-#
-#   Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setPrinterService # (enabled)
-{
-    my ($self, $active) = @_;
-    ($active and $self->printerService) and return;
-    (not $active and not $self->printerService) and return;
-
-    $self->set_bool('printer_active', $active);
-}
-
-# Method: servicePrinter
-#
-#   Returns if the printer sharing service is enabled
-#
-# Returns:
-#
-#   boolean - true if enabled, otherwise undef
-#
-sub printerService
-{
-    my ($self) = @_;
-
-    return $self->get_bool('printer_active');
-}
-
-# Method: defaultAdministratorPassword
-#
-#   Generates a default administrator password
-#
-sub defaultAdministratorPassword
-{
-    return 'Zentyal1234';
-}
-
 # Method: administratorPassword
 #
 #   Returns the administrator password
+#
 sub administratorPassword
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
-    return $model->passwordValue();
+    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
+
+    my $pass;
+    unless (-f $pwdFile) {
+        my $pass;
+
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+
+        my (undef, undef, $uid, $gid) = getpwnam('ebox');
+        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
+        return $pass;
+    }
+
+    return read_file($pwdFile);
 }
 
 # Method: defaultNetbios
@@ -1273,42 +1322,19 @@ sub netbiosName
     return $model->netbiosNameValue();
 }
 
-# Method: defaultRealm
-#
-#   Generates the default realm
-#
-sub defaultRealm
-{
-    my ($self) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $domainName = $sysinfo->hostDomain();
-
-    return $domainName;
-}
-
-# Method: realm
-#
-#   Returns the configured realm
-#
-sub realm
-{
-    my ($self) = @_;
-
-    my $model = $self->model('GeneralSettings');
-    return $model->realmValue();
-}
-
 # Method: defaultWorkgroup
 #
 #   Generates the default workgroup
 #
 sub defaultWorkgroup
 {
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+    my @parts = split (/\./, $realm);
+    my $value = $parts[0];
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
 
-    return uc($prefix) . '-DOMAIN';
+    return uc($value);
 }
 
 # Method: workgroup
@@ -1394,320 +1420,17 @@ sub _ldapModImplementation
     return new EBox::SambaLdapUser();
 }
 
-sub _addPrinter
-{
-    my ($self, $name) = @_;
-
-    my $printers = $self->get_hash('printers');
-    $printers->{$name} = {};
-    $printers->{$name}->{users} = [];
-    $printers->{$name}->{groups} = [];
-    $printers->{$name}->{external} = 1;
-    $self->set('printers', $printers);
-}
-
-sub printers
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my %external;
-    if ($global->modExists('printers')) {
-        my $printers = $global->modInstance('printers');
-        %external = map { $_ => 'new' } @{$printers->fetchExternalCUPSPrinters()};
-    } else {
-        return [];
-    }
-
-    my @printers;
-    my $readOnly = $self->isReadOnly();
-    my $printers = $self->get_hash('printers');
-    foreach my $name (keys %{$printers}) {
-        if (exists $external{$name}) {
-            $external{$name} = 'exists';
-        } else {
-            $self->delPrinter($name) unless ($readOnly);
-            $external{$name} = 'removed';
-        }
-        push (@printers,  $name);
-    }
-
-    unless ($readOnly) {
-        foreach my $newPrinter (grep { $external{$_} eq 'new' } keys %external) {
-            $self->_addPrinter($newPrinter);
-            push (@printers, $newPrinter);
-        }
-    }
-
-    return [sort @printers];
-}
-
-sub ignorePrinterNotFound
-{
-    my ($self) = @_;
-
-    return $self->get_bool('ignorePrinterNotFound');
-}
-
-sub _printerNotFound
-{
-    my ($self, $printer) = @_;
-
-    unless ($self->ignorePrinterNotFound()) {
-        throw EBox::Exceptions::DataNotFound('data' => 'printer',
-                'value' => $printer);
-    }
-}
-
-sub _setPrinterUsers
-{
-    my ($self, $printer, $users) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return;
-    }
-
-    my $usermod = EBox::Global->modInstance('users');
-    my @okUsers = grep {
-        $usermod->userExists($_)
-    } @{ $users };
-
-    $printers->{$printer}->{users} = \@okUsers;
-    $self->set('printers', $printers);
-}
-
-sub _setPrinterGroups
-{
-    my ($self, $printer, $groups) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return;
-    }
-
-    my $groupmod = EBox::Global->modInstance('users');
-    my @okGroups = grep {
-        $groupmod->groupExists($_)
-    } @{ $groups };
-
-    $printers->{$printer}->{groups} = \@okGroups;
-    $self->set('printers', $printers);
-}
-
-sub _printerUsers
-{
-    my ($self, $printer) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return [];
-    }
-
-    return $printers->{$printer}->{users};
-}
-
-sub _printerGroups
-{
-    my ($self, $printer) = @_;
-
-    my $printers = $self->get_hash('printers');
-    unless (exists $printers->{$printer}) {
-        $self->_printerNotFound($printer);
-        return [];
-    }
-
-    return $printers->{$printer}->{groups};
-}
-
-sub _printersForUser
-{
-    my ($self, $user) = @_;
-
-    my $username = $user->get('uid');
-    my $printPerms = $self->get_hash('printers');
-    my @printers;
-    for my $name (@{$self->printers()}) {
-        my $print = { 'name' => $name, 'allowed' => undef };
-        my $users = $printPerms->{$name}->{users};
-        if (@{$users}) {
-            $print->{'allowed'} = 1 if (grep(/^$username$/, @{$users}));
-        }
-        push (@printers, $print);
-    }
-
-    return \@printers;
-}
-
-sub setPrintersForUser
-{
-    my ($self, $user, $newconf) = @_;
-
-    $self->_checkUserExists($user);
-
-    my %newConf = map {
-        $_->{name} => $_->{allowed}
-    } @{$newconf};
-
-    my @printers = @{$self->printers()};
-    foreach my $printer (@printers) {
-        my @printerUsers = @{$self->_printerUsers($printer)};
-        my $userAllowed = grep { $user eq $_ } @printerUsers;
-        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
-        if ($allowed and (not $userAllowed)) {
-            push @printerUsers, $user;
-            $self->_setPrinterUsers($printer, \@printerUsers)
-        } elsif (not $allowed and $userAllowed) {
-            @printerUsers = grep { $user ne $_ } @printerUsers;
-            $self->_setPrinterUsers($printer, \@printerUsers)
-        }
-    }
-}
-
-sub _printersForGroup
-{
-    my ($self, $group) = @_;
-
-    $self->_checkGroupExists($group);
-
-    my $printPerms = $self->get_hash('printers');
-    my @printers;
-    for my $name (@{$self->printers()}) {
-        my $print = { 'name' => $name, 'allowed' => undef };
-        my $groups = $printPerms->{$name}->{groups};
-        if (@{$groups}) {
-            $print->{'allowed'} = 1 if (grep(/^$group$/, @{$groups}));
-        }
-        push (@printers, $print);
-    }
-
-    return \@printers;
-}
-
-sub setPrintersForGroup
-{
-    my ($self, $group, $newconf) = @_;
-
-    $self->_checkGroupExists($group);
-
-    my %newConf = map {
-        $_->{name} => $_->{allowed}
-    } @{ $newconf };
-
-    my @printers = @{ $self->printers() };
-    foreach my $printer (@printers) {
-        my @printerGroups = @{$self->_printerGroups($printer)};
-        my $groupAllowed = grep { $group eq $_ } @printerGroups;
-        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
-        if ($allowed and (not $groupAllowed)) {
-            push @printerGroups, $group;
-            $self->_setPrinterGroups($printer, \@printerGroups)
-        } elsif (not $allowed and $groupAllowed) {
-            @printerGroups = grep { $group ne $_ } @printerGroups;
-            $self->_setPrinterGroups($printer, \@printerGroups)
-        }
-    }
-}
-
-sub delPrinter # (resource)
-{
-    my ($self, $name) = @_;
-
-    unless ($self->dir_exists("printers/$name")) {
-        throw EBox::Exceptions::DataNotFound(
-            'data' => 'printer',
-            'value' => $name);
-    }
-
-    $self->delete_dir("printers/$name");
-}
-
-#sub existsShareResource # (resource)
-#{
-#    my ($self, $name) = @_;
-#
-#    my $usermod = EBox::Global->modInstance('users');
-#    if ($usermod->configured()) {
-#        if ($usermod->userExists($name)) {
-#            return __('user');
-#        }
-#
-#        if ($usermod->groupExists($name)) {
-#            return __('group');
-#        }
-#    }
-#
-#    for my $printer (@{$self->printers()}) {
-#        return __('printer') if ($name eq $printer);
-#    }
-#
-#    return undef;
-#}
-
-sub _checkUserExists # (user)
-{
-    my ($self, $user) = @_;
-
-    my $usermod = EBox::Global->modInstance('users');
-    unless ($usermod->userExists($user)){
-        throw EBox::Exceptions::DataNotFound(
-                'data'  => __('user'),
-                'value' => $user);
-    }
-
-    return 1;
-}
-
-sub _checkGroupExists # (group)
-{
-    my ($self, $group) = @_;
-
-    my $groupmod = EBox::Global->modInstance('users');
-    unless ($groupmod->groupExists($group)){
-        throw EBox::Exceptions::DataNotFound(
-                'data'  => __('group'),
-                'value' => $group);
-    }
-
-    return 1;
-}
-
-sub _sambaPrinterConf
-{
-    my ($self) = @_;
-
-    my @printers;
-    foreach my $printer (@{$self->printers()}) {
-        my $users = "";
-        for my $user (@{$self->_printerUsers($printer)}) {
-            $users .= "\"$user\" ";
-        }
-        for my $group (@{$self->_printerGroups($printer)}) {
-            $users .= "\@\"$group\" ";
-        }
-        push (@printers, { 'name' => $printer , 'users' => $users});
-    }
-
-    return \@printers;
-}
-
-
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-
-    $self->set_bool('ignorePrinterNotFound', 1);
 
 #    try {
 #       TODO: Provision database and export LDAP to LDB
 #        my $sambaLdapUser = new EBox::SambaLdapUser;
 #        $sambaLdapUser->migrateUsers();
+#    } otherwise {
 #    } finally {
-        $self->set_bool('ignorePrinterNotFound', 0);
-#    }
+#    };
 }
 
 sub restoreDependencies
@@ -2190,18 +1913,6 @@ sub logHelper
 #    return \@shares;
 #}
 
-# Generate, store in the given file and return a password
-sub _savePassword
-{
-    my ($self, $pass, $file) = @_;
-
-    my ($login, $password, $uid, $gid) = getpwnam('ebox');
-    EBox::Module::Base::writeFile($file, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-
-    return $pass;
-}
-
 # Method: ldb
 #
 #   Provides an EBox::LDB object with the proper settings
@@ -2235,23 +1946,37 @@ sub sharesPaths
     return $paths;
 }
 
-# Method: userPaths
+# Method: userShares
 #
 #   This function is used to generate disk usage reports. It
-#   returns all the paths where a user store data
+#   returns all the users with their shares
 #
-sub userPaths
+#   Returns:
+#       Array ref with hash refs containing:
+#           - 'user' - String the username
+#           - 'shares' - Array ref with all the shares for this user
+#
+sub userShares
 {
-    my ($self, $user) = @_;
+    my ($self) = @_;
 
-    my $userProfilePath = EBox::SambaLdapUser::PROFILESPATH;
-    $userProfilePath .= "/" . $user->get('uid');
+    my $userProfilesPath = EBox::SambaLdapUser::PROFILESPATH();
 
-    my $paths = [];
-    push (@{$paths}, $user->get('homeDirectory'));
-    push (@{$paths}, $userProfilePath);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $users = $usersMod->users();
 
-    return $paths;
+    my $shares = [];
+    foreach my $user (@{$users}) {
+        my $userProfilePath = $userProfilesPath . "/" . $user->get('uid');
+
+        my $userShareInfo = {
+            'user' => $user->name(),
+            'shares' => [$user->get('homeDirectory'), $userProfilePath],
+        };
+        push (@{$shares}, $userShareInfo);
+    }
+
+    return $shares;
 }
 
 # Method: groupPaths
@@ -2276,6 +2001,49 @@ sub groupPaths
     }
 
     return $paths;
+}
+
+my @sharesSortedByPathLen;
+
+sub _updatePathsByLen
+{
+    my ($self) = @_;
+
+    # FIXME: Complete the implementation
+    @sharesSortedByPathLen = ();
+
+    foreach my $sh_r (@{ $self->shares(1) }) {
+        push @sharesSortedByPathLen, {path => $sh_r->{path},
+                                      share =>  $sh_r->{share} };
+    }
+
+    # add regexes
+    foreach my $share (@sharesSortedByPathLen) {
+        my $path = $share->{path};
+        $share->{pathRegex} = qr{^$path/};
+    }
+
+    @sharesSortedByPathLen = sort {
+        length($b->{path}) <=>  length($a->{path})
+    } @sharesSortedByPathLen;
+}
+
+sub shareByFilename
+{
+    my ($filename) = @_;
+
+    if (not @sharesSortedByPathLen) {
+        my $samba =EBox::Global->modInstance('samba');
+        $samba->_updatePathsByLen();
+    }
+
+    foreach my $shareAndPath (@sharesSortedByPathLen) {
+        if ($filename =~ m/$shareAndPath->{pathRegex}/) {
+            return $shareAndPath->{share};
+        }
+    }
+
+    return undef;
 }
 
 1;

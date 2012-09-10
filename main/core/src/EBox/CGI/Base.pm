@@ -194,6 +194,25 @@ sub _print
     $self->_footer;
 }
 
+# alternative print for CGI runs in popup
+# it hs been to explicitly called instead of
+# the regular print. For example, overlaoding print and calling this
+sub _printPopup
+{
+    my ($self) = @_;
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    $self->_header;
+    print '<div id="limewrap"><div>';
+    $self->_error;
+    $self->_msg;
+    $self->_body;
+    print "</div></div>";
+}
 
 sub _checkForbiddenChars
 {
@@ -701,13 +720,13 @@ sub _validateReferer
     if ( EBox::Global->modExists('remoteservices') ) {
         my $rs = EBox::Global->modInstance('remoteservices');
 
-        if ( $rs->isConnected() ) {
-            $rshostname = $rs->proxyDomain();
+        if ( $rs->eBoxSubscribed() ) {
+            $rshostname = $rs->cloudDomain();
         }
     }
     if ( $referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
          $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\// ) {
-        return; # everithing ok
+        return; # everything ok
     }
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }

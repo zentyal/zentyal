@@ -43,8 +43,8 @@ sub _table
 
     my @tableHeader = (
          new EBox::Types::Text::WriteOnce(
-             fieldName => 'description',
-             printableName => ('Description'),
+             fieldName => 'name',
+             printableName => __('Name'),
              unique   => 1,
              editable => 1,
          ),
@@ -55,7 +55,10 @@ sub _table
              editable      => 1,
              optional      => 1,
              allowDownload => 1,
-             filePath      => '/tmp/FIXME.tar.gz',
+             dynamicPath   => sub {
+                                my ($self) = @_;
+                                return '/tmp/' . $self->row()->valueByName('name');
+                              },
              user          => 'root',
              group         => 'root',
          ),

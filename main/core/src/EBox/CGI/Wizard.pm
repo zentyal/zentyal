@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Wizard;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Wizard;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -27,7 +25,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Initial configuration wizard'),
-            'template' => 'wizard.mas',
+            'template' => 'wizard/wizard.mas',
             @_);
     bless($self, $class);
     return $self;
@@ -40,15 +38,29 @@ sub _process
     my @array = ();
 
     my $global = EBox::Global->getInstance();
+    my $first = EBox::Global->first() ? '1' : '0';
     my $image = $global->theme()->{'image_title'};
     push (@array, image_title => $image);
 
+    my @pages;
     if ($self->param('page')) {
-        push(@array, 'pages' => [ $self->param('page') ]);
+        @pages = ( $self->param('page') );
     } else {
-        push(@array, 'pages' => $self->_modulesWizardPages);
+        @pages = @{ $self->_modulesWizardPages() };
     }
-    push(@array, 'first' => EBox::Global->first());
+
+    if (not @pages) {
+        if ($global->unsaved()) {
+            $self->{redirect} = "/SaveChanges?firstTime=$first&noPopup=1&save=1";
+        } else {
+
+            $self->{redirect} = "/Wizard/SoftwareSetupFinish?firstTime=$first";
+        }
+        return;
+    }
+
+    push(@array, 'pages' => \@pages);
+    push(@array, 'first' => $first);
     $self->{params} = \@array;
 }
 
@@ -93,5 +105,7 @@ sub _top
     my ($self)= @_;
     $self->_topNoAction();
 }
+
+
 
 1;

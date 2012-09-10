@@ -116,30 +116,6 @@ sub cronJobs
     return $response->data();
 }
 
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'jobsServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
-}
-
 # Group: Private methods
 
 # Upload the job result separated in tracks if required
@@ -156,7 +132,7 @@ sub _transmitResult
         $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
         $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
         # Create the job result and get its id
-        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams)->data();
+        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", query => \%wsParams)->data();
         my $jobResultId = $ret->{'job_result_id'};
 
         # Append all the remaining data
@@ -165,12 +141,12 @@ sub _transmitResult
             my $stdout = $startPos > $lengthStdOut ? '' : substr($originalWSParams{stdout}, $startPos, MAX_SIZE);
             my $stderr = $startPos > $lengthStdErr ? '' : substr($originalWSParams{stderr}, $startPos, MAX_SIZE);
             $self->RESTClient()->PUT($url . "$jobResultId/result/",
-                                     {jobInstanceResultId => $jobResultId,
-                                      stdout => $stdout,
-                                      stderr => $stderr});
+                                     query => {jobInstanceResultId => $jobResultId,
+                                               stdout => $stdout,
+                                               stderr => $stderr});
         }
     } else {
-        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams);
+        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", query => \%wsParams);
     }
 
 }

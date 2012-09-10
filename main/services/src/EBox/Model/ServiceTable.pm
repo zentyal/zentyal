@@ -614,4 +614,26 @@ sub _servicesHelp
               'shaping...');
 }
 
+sub serviceForAnyConnectionId
+{
+    my ($self, $protocol) = @_;
+    my $name;
+    if ($protocol eq 'tcp/udp') {
+        $name = 'any';
+    } elsif ($protocol eq 'tcp') {
+        $name = 'any TCP';
+    } elsif ($protocol eq 'udp') {
+        $name = 'any UDP';
+    }  else {
+        return undef;
+    }
+
+    my $row = $self->findRow(name => $name);
+    if ($row) {
+        return $row->id();
+    }
+
+    return undef;
+}
+
 1;

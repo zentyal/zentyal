@@ -337,9 +337,11 @@ sub _setRemoteServices
         if ( $rsMod->eBoxSubscribed() ) {
             if ( $rsMod->hasBundle() ) {
                 my $vpnIface = $rsMod->ifaceVPN();
-                push(@commands,
-                     pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
-                    );
+                if ( defined($vpnIface) ) {
+                    push(@commands,
+                         pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
+                        );
+                }
             }
             try {
                 if ( $rsMod->hasBundle() ) {
@@ -350,29 +352,24 @@ sub _setRemoteServices
                         );
                 }
 
-                # Allow communications between ns and www and API?
+                # Allow communications between ns and API
                 eval "use EBox::RemoteServices::Configuration";
-                my ($dnsServer, $publicWebServer, $mirrorCount) = (
+                my ($dnsServer, $APIEndPoint) = (
                     EBox::RemoteServices::Configuration->DNSServer(),
-                    EBox::RemoteServices::Configuration->PublicWebServer(),
-                    EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
+                    EBox::RemoteServices::Configuration->APIEndPoint(),
                    );
                 # We are assuming just one name server
                 push(@commands,
                     pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT || true"),
                 );
-                # Public WWW servers to connect to
-                for my $no ( 1 .. $mirrorCount ) {
-                    my $site = $publicWebServer;
-                    $site =~ s:\.:$no.:;
-                    push(@commands,
-                        pf("-A ointernal $statenew -p tcp -d $site --dport 443 -j ACCEPT || true")
+                # Public API servers to connect to
+                push(@commands,
+                     pf("-A ointernal $statenew -p tcp -d $APIEndPoint --dport 443 -j ACCEPT || true")
                     );
-                }
             } catch EBox::Exceptions::External with {
                 # Cannot contact eBox CC, no DNS?
                 my ($exc) = @_;
-                my $msg = "Cannot contact Zentyal Cloud: $exc";
+                my $msg = "Cannot contact Zentyal Remote: $exc";
                 EBox::error($msg);
                 $gl->addSaveMessage($msg);
             };

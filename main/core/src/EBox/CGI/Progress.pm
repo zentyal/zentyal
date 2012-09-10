@@ -30,8 +30,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Html;
 use Encode;
 use File::Slurp;
+use JSON::XS;
 
 ## arguments:
 ##  title [required]
@@ -59,10 +61,13 @@ sub _process
     }
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+            showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
+            inModalbox
             nextStepType
-            nextStepUrl nextStepText nextStepTimeout nextStepUrlOnclick
-            barWidth );
+            nextStepUrl nextStepText nextStepTimeout
+            nextStepUrlOnclick nextStepUrlFailureOnclick
+            );
     foreach my $name (@paramsNames) {
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command
@@ -80,7 +85,10 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-            push @params, ( adsJson => loadAds() );
+
+            if (EBox::Global->modExists('software')) {
+                push @params, (slides => _loadSlides());
+            }
         }
     }
 
@@ -106,18 +114,7 @@ sub _print
         return $self->SUPER::_print();
     }
 
-    my $json = $self->{json};
-    if ($json) {
-        $self->JSONReply($json);
-        return;
-    }
-
-    $self->_header;
-    print '<div id="limewrap"><div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div></div>";
+    return $self->_printPopup();
 }
 
 sub _menu
@@ -164,7 +161,7 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub loadAds
+sub _loadSlides
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';
     my $file = "$path/ads_" + EBox::locale();
@@ -178,12 +175,17 @@ sub loadAds
         $file = "$file.custom";
     }
     EBox::debug("Loading ads from: $file");
-    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
-    my $text = '';
-    foreach my $line (@ads) {
-        $text .= $line . "\n";
+    my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
+    my $slides = decode_json($json);
+
+    my @html;
+    my $num = 1;
+    foreach my $slide (@{$slides}) {
+        $slide->{num} = $num++;
+        push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
-    return $text;
+
+    return \@html;
 }
 
 1;

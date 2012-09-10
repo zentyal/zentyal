@@ -35,7 +35,7 @@ use EBox::Gettext;
      </div>
   </center>
 
-  <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>eBox Technologies</a>") %></div>
+  <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %></div>
 </body>
 </html>
 

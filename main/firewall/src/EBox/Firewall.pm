@@ -49,7 +49,7 @@ sub _create
 {
     my $class = shift;
     my $self =$class->SUPER::_create(name => 'firewall',
-                                     printableName => __n('Firewall'),
+                                     printableName => __('Firewall'),
                                      @_);
 
     $self->{'ToInternetRuleModel'} = $self->model('ToInternetRuleTable');
@@ -377,7 +377,7 @@ sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
     $self->removePortRedirectionsOnIface($iface);
-    $self->model('snat')->freeIface($iface);
+    $self->model('SNAT')->freeIface($iface);
 }
 
 # Method: freeViface
@@ -389,7 +389,7 @@ sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
     $self->removePortRedirectionsOnIface("$iface:$viface");
-    $self->model('snat')->freeViface($iface, $viface);
+    $self->model('SNAT')->freeViface($iface, $viface);
 }
 
 # Method: setInternalService
@@ -567,7 +567,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
                                         'text' => $self->printableName(),
-                                        'separator' => 'UTM',
+                                        'separator' => 'Gateway',
                                         'order' => 310);
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
@@ -806,45 +806,45 @@ sub logHelper
     return (new EBox::FirewallLogHelper);
 }
 
-sub consolidateReportQueries
-{
-    return [
-        {
-            'target_table' => 'firewall_report',
-            'query' => {
-                'select' => 'event, fw_src AS source, fw_proto AS proto, fw_dpt AS dport, COUNT(event) AS packets',
-                'from' => 'firewall',
-                'group' => 'event, source, proto, dport'
-            }
-        }
-    ];
-}
+# sub consolidateReportQueries
+# {
+#     return [
+#         {
+#             'target_table' => 'firewall_report',
+#             'query' => {
+#                 'select' => 'event, fw_src AS source, fw_proto AS proto, fw_dpt AS dport, COUNT(event) AS packets',
+#                 'from' => 'firewall',
+#                 'group' => 'event, source, proto, dport'
+#             }
+#         }
+#     ];
+# }
 
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
+# sub report
+# {
+#     my ($self, $beg, $end, $options) = @_;
 
-    my $report = {};
+#     my $report = {};
 
-    my $db = EBox::DBEngineFactory::DBEngine();
+#     my $db = EBox::DBEngineFactory::DBEngine();
 
-    $report->{'dropped_packets'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'event, SUM(packets) AS packets',
-        'from' => 'firewall_report',
-        'where' => "event = 'drop'",
-        'group' => 'event',
-    }, { 'key' => 'event' } );
+#     $report->{'dropped_packets'} = $self->runMonthlyQuery($beg, $end, {
+#         'select' => 'event, SUM(packets) AS packets',
+#         'from' => 'firewall_report',
+#         'where' => "event = 'drop'",
+#         'group' => 'event',
+#     }, { 'key' => 'event' } );
 
-    $report->{'top_dropped_sources'} = $self->runQuery($beg, $end, {
-        'select' => 'source, SUM(packets) AS packets',
-        'from' => 'firewall_report',
-        'where' => "event = 'drop'",
-        'group' => 'source',
-        'limit' => $options->{'max_dropped_sources'},
-        'order' => 'packets DESC'
-    });
+#     $report->{'top_dropped_sources'} = $self->runQuery($beg, $end, {
+#         'select' => 'source, SUM(packets) AS packets',
+#         'from' => 'firewall_report',
+#         'where' => "event = 'drop'",
+#         'group' => 'source',
+#         'limit' => $options->{'max_dropped_sources'},
+#         'order' => 'packets DESC'
+#     });
 
-    return $report;
-}
+#     return $report;
+# }
 
 1;

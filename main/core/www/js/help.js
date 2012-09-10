@@ -39,5 +39,5 @@ function initHelp() {
     }
 }
 
-initHelp()
+initHelp();
 document.body.addEventListener("DOMNodeInserted", initHelp, false);

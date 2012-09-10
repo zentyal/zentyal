@@ -13,9 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Firewall::Model::RedirectsTable
-#
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::RedirectsTable;
+use base qw(EBox::Model::DataTable EBox::Firewall::Model::RulesWithInterface);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -32,11 +34,6 @@ use EBox::Types::Union;
 use EBox::Types::HostIP;
 use EBox::Sudo;
 
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
-
 sub new
 {
     my $class = shift;
@@ -48,19 +45,7 @@ sub new
     return $self;
 }
 
-sub interface
-{
-    my $net = EBox::Global->modInstance('network');
-    my $ifaces = $net->allIfaces();
 
-    my @options;
-    foreach my $iface (@{$ifaces}) {
-        push(@options, { 'value' => $iface,
-                         'printableValue' => $net->ifaceAlias($iface) });
-    }
-
-    return \@options;
-}
 
 sub protocol
 {
@@ -101,11 +86,6 @@ sub protocol
     );
 
     return \@options;
-}
-
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: validateTypedRow
@@ -244,7 +224,7 @@ sub _fieldDescription
     my $iface = new EBox::Types::Select(
              'fieldName' => 'interface',
              'printableName' => __('Interface'),
-             'populate' => \&interface,
+             'populate' => $self->interfacePopulateSub,
              'editable' => 1);
     push (@tableHead, $iface);
 
@@ -263,7 +243,7 @@ sub _fieldDescription
             new EBox::Types::Select(
                 'fieldName' => 'origDest_object',
                 'printableName' => __('Object'),
-                'foreignModel' => \&objectModel,
+                'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                 'foreignField' => 'name',
                 'foreignNextPageField' => 'members',
                 'editable' => 1),
@@ -305,7 +285,7 @@ sub _fieldDescription
             new EBox::Types::Select(
                 'fieldName' => 'source_object',
                 'printableName' => __('Source object'),
-                'foreignModel' => \&objectModel,
+                'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                 'foreignField' => 'name',
                 'foreignNextPageField' => 'members',
                 'editable' => 1),
@@ -377,7 +357,8 @@ sub _table
         'defaultController' =>
             '/Firewall/Controller/RedirectsTable',
         'defaultActions' =>
-            [ 'add', 'del', 'editField', 'changeView', 'clone' ],
+            [ 'add', 'del', 'editField', 'changeView', 'clone', 'move' ],
+        'order' => 1,
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/RedirectsTable',
         'printableRowName' => __('forwarding'),

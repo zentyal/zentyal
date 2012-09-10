@@ -12,19 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup::Model::RemoteRestoreConf;
-
-# Class: EBox::EBackup::Model::RemoteRestoreConf
-#
-#
-#
-
-use base 'EBox::Model::DataForm::Action';
-
 use strict;
 use warnings;
+
+package EBox::EBackup::Model::RemoteRestoreConf;
+use base 'EBox::Model::DataForm::Action';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -58,8 +50,24 @@ sub precondition
 {
     my ($self) = @_;
 
-    my @status = @{$self->{confmodule}->remoteStatus()};
-    return (scalar(@status));
+    my @status;
+    my $statusFailure;
+    try {
+        @status = @{$self->{confmodule}->remoteStatus()};
+    } catch EBox::Exceptions::External with {
+        my ($ex) = @_;
+        $statusFailure = $ex->text();
+    };
+
+    if ($statusFailure) {
+        $self->{preconditionFailMsg} = $statusFailure;
+        return 0;
+    } elsif (@status == 0) {
+        $self->{preconditionFailMsg} = __('There are no backed up files yet');
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -71,8 +79,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    return __('There are not backed up files yet');
+    return $self->{preconditionFailMsg};
 }
 
 # Group: Protected methods

@@ -53,8 +53,7 @@ sub _sendEvent
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ((defined $events)  and ($events->isRunning())) {
-            $enabled = $events
-                ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
+            $enabled = $events->isEnabledWatcher('EBox::Event::Watcher::EBackup');
             if ($enabled) {
                 $events->sendEvent(
                     message => $msg,
@@ -144,7 +143,6 @@ sub _mangleDuplicityErrorMsg
 sub _parseSuccessMsg # (successMsg)
 {
     my ($successMsg) = @_;
-    EBox::debug("Duplicity success message: $successMsg");
 
     my %backupStats;
     foreach my $line (@{$successMsg}) {

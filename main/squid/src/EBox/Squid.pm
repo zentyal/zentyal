@@ -94,6 +94,27 @@ sub kerberosServicePrincipals
     return $data;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    $self->SUPER::initialSetup($version);
+
+    # Create default rules only if installing the first time
+    unless ($version) {
+        # Allow clients to browse Internet by default
+        $self->model('AccessRules')->add(
+            source => { any => undef },
+            policy => { allow => undef },
+        );
+    }
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -517,20 +538,27 @@ sub _writeSquidConf
     my $generalSettings = $self->model('GeneralSettings');
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     my $removeAds    = $generalSettings->removeAdsValue();
+    my $kerberos     = $generalSettings->kerberosValue();
 
     my $network = EBox::Global->modInstance('network');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
+
     my $cache_host = $network->model('Proxy')->serverValue();
     my $cache_port = $network->model('Proxy')->portValue();
+    my $cache_user = $network->model('Proxy')->usernameValue();
+    my $cache_passwd = $network->model('Proxy')->passwordValue();
+
+    my $users = EBox::Global->modInstance('users');
 
     my $krbRealm = '';
-    my $users = EBox::Global->modInstance('users');
-    if ($users->isEnabled()) {
+    if ($kerberos) {
         $krbRealm = $users->kerberosRealm();
     }
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
+
+    my $dn = $users->ldap()->dn();
 
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
@@ -542,14 +570,20 @@ sub _writeSquidConf
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
     push @writeParam, ('nameservers' => $network->nameservers());
     push @writeParam, ('append_domain' => $append_domain);
+
     push @writeParam, ('cache_host' => $cache_host);
     push @writeParam, ('cache_port' => $cache_port);
+    push @writeParam, ('cache_user' => $cache_user);
+    push @writeParam, ('cache_passwd' => $cache_passwd);
+
     push @writeParam, ('memory' => $self->_cache_mem);
     push @writeParam, ('max_object_size' => $self->_max_object_size);
     push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
+
+    push @writeParam, ('dn' => $dn);
 
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('remoteservices')) {
@@ -563,7 +597,7 @@ sub _writeSquidConf
         $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
 
-    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam);
+    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
 }
 
 sub _objectsDelayPools
@@ -861,14 +895,14 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/AccessRules',
                                       'text' => __(q{Access Rules})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
-                                      'text' => __(q{Bandwidth Throttling})));
-
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/CategorizedLists',
                                       'text' => __(q{Categorized Lists})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
+                                      'text' => __(q{Bandwidth Throttling})));
 
     $root->add($folder);
 }
@@ -896,15 +930,16 @@ sub tableInfo
 {
     my ($self) = @_;
 
-    my $titles = { 'timestamp' => __('Date'),
+    my $titles = { 'timestamp'  => __('Date'),
                    'remotehost' => __('Host'),
                    'rfc931'     => __('User'),
-                   'url'   => __('URL'),
-                   'bytes' => __('Bytes'),
-                   'mimetype' => __('Mime/type'),
-                   'event' => __('Event')
+                   'url'        => __('URL'),
+                   'domain'     => __('Domain'),
+                   'bytes'      => __('Bytes'),
+                   'mimetype'   => __('Mime/type'),
+                   'event'      => __('Event')
                  };
-    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url',
+    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url', 'domain',
                   'bytes', 'mimetype', 'event');
 
     my $events = { 'accepted' => __('Accepted'),
@@ -915,7 +950,7 @@ sub tableInfo
             'tablename' => 'squid_access',
             'titles' => $titles,
             'order' => \@order,
-            'filter' => ['url', 'remotehost', 'rfc931'],
+            'filter' => ['url', 'domain', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->_consolidateConfiguration(),
@@ -1018,196 +1053,55 @@ sub _DGLang
     return $lang;
 }
 
-sub report
+# FIXME
+sub aroundDumpConfigDISABLED
 {
-    my ($self, $beg, $end, $options) = @_;
+    my ($self, $dir, %options) = @_;
 
-    my $report = {};
+    my $backupCategorizedDomainLists =
+        EBox::Config::boolean('backup_domain_categorized_lists');
 
-    my $db = EBox::DBEngineFactory::DBEngine();
+    my $bugReport = $options{bug};
+    if (not $bugReport and $backupCategorizedDomainLists) {
+        $self->SUPER::aroundDumpConfig($dir, %options);
+    } else {
+        # we don't save archive files
+        $self->_dump_to_file($dir);
+        $self->dumpConfig($dir, %options);
+    }
+}
 
-    my $traffic = $self->runMonthlyQuery($beg, $end, {
-        'select' => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END" .
-                    " AS main_code, SUM(bytes) AS bytes, SUM(hits) AS hits",
-        'from' => 'squid_access_report',
-        'where' => "event = 'accepted'",
-        'group' => "main_code",
-        'options' => {
 
-                     },
-    }, {
-        key => 'main_code',
-        keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code",
-       }
-    );
+# FIXME
+sub aroundRestoreConfigDISABLED
+{
+    my ($self, $dir, %options) = @_;
+    my $archive = $self->_filesArchive($dir);
+    my $archiveExists = (-r $archive);
+    if ($archiveExists) {
+        # normal procedure with restore files
+        $self->SUPER::aroundRestoreConfig($dir, %options);
+    } else {
+        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
+        $self->_load_from_file($dir);
+        $options{removeCategorizedDomainLists} = 1;
+        $self->restoreConfig($dir, %options);
+    }
+}
 
-    my $newtraffic;
-    for my $fk (keys(%{$traffic})) {
-        for my $sk (keys(%{$traffic->{$fk}})) {
-            if(!defined($newtraffic->{$sk})) {
-                $newtraffic->{$sk} = {};
-            }
-            $newtraffic->{$sk}->{$fk} = $traffic->{$fk}->{$sk};
+# FIXME
+sub restoreConfigDISABLED
+{
+    my ($self, $dir, %options) = @_;
+
+    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
+    if ($removeCategorizedDomainLists) {
+        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
+            $domainFilterFiles->removeAll();
         }
     }
 
-    $report->{'summarized_traffic'} = $newtraffic;
-
-    $report->{'top_domains'} = $self->runQuery($beg, $end, {
-        'select' => 'domain, COALESCE(hit_bytes,0) AS hit_bytes, ' .
-                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
-                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
-                    'AS traffic_bytes, ' .
-                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
-        'from' =>
-            "(SELECT domain, SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
-            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
-            "GROUP BY domain) AS h " .
-            "FULL OUTER JOIN " .
-            "(SELECT domain, SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
-            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
-            "GROUP BY domain) AS m " .
-            "USING (domain)",
-        'limit' => $options->{'max_top_domains'},
-        'order' => 'hits DESC',
-        'options' => {
-            'no_date_in_where' => 1
-        }
-    });
-
-    $report->{'top_blocked_domains'} = $self->runQuery($beg, $end, {
-        'select' => 'domain, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'where' => "event = 'denied' OR event = 'filtered'",
-        'group' => 'domain',
-        'limit' => $options->{'max_top_blocked_domains'},
-        'order' => 'hits DESC'
-    });
-
-    $report->{'top_subnets'} = $self->runQuery($beg, $end, {
-        'select' => 'subnet, COALESCE(hit_bytes,0) AS hit_bytes, ' .
-                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
-                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
-                    'AS traffic_bytes, ' .
-                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
-        'from' =>
-            "(SELECT network(inet(ip || '/24')) AS subnet, " .
-            "SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
-            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
-            "GROUP BY subnet) AS h " .
-            "FULL OUTER JOIN " .
-            "(SELECT network(inet(ip || '/24')) AS subnet, " .
-            "SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
-            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
-            "GROUP BY subnet) AS m " .
-            "USING (subnet)",
-        'limit' => $options->{'max_top_subnets'},
-        'order' => 'traffic_bytes DESC',
-        'options' => {
-            'no_date_in_where' => 1
-        }
-    });
-
-    $report->{'top_blocked_subnets'} = $self->runQuery($beg, $end, {
-        'select' => "network(inet(ip || '/24')) AS subnet, SUM(hits) AS hits",
-        'from' => 'squid_access_report',
-        'where' => "event = 'denied' OR event = 'filtered'",
-        'group' => 'subnet',
-        'limit' => $options->{'max_top_blocked_subnets'},
-        'order' => 'hits DESC'
-    });
-
-    $report->{'top_ips'} = $self->runQuery($beg, $end, {
-        'select' => 'ip, COALESCE(hit_bytes,0) AS hit_bytes, ' .
-                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
-                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
-                    'AS traffic_bytes, ' .
-                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
-        'from' =>
-            "(SELECT ip, " .
-            "SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
-            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
-            "GROUP BY ip) AS h " .
-            "FULL OUTER JOIN " .
-            "(SELECT ip, " .
-            "SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
-            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
-            "GROUP BY ip) AS m " .
-            "USING (ip)",
-        'limit' => $options->{'max_top_ips'},
-        'order' => 'traffic_bytes DESC',
-        'options' => {
-            'no_date_in_where' => 1
-        }
-    });
-
-    $report->{'top_blocked_ips'} = $self->runQuery($beg, $end, {
-        'select' => 'ip, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'where' => "event = 'denied' OR event = 'filtered'",
-        'group' => 'ip',
-        'limit' => $options->{'max_top_blocked_ips'},
-        'order' => 'hits DESC'
-    });
-
-    $report->{'top_users'} = $self->runQuery($beg, $end, {
-        'select' => 'username, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'where' => "event = 'accepted' AND username <> '-'",
-        'group' => 'username',
-        'limit' => $options->{'max_top_users'},
-        'order' => 'traffic_bytes DESC'
-    });
-
-    $report->{'top_blocked_users'} = $self->runQuery($beg, $end, {
-        'select' => 'username, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'where' => "(event = 'denied' OR event = 'filtered') AND username <> '-'",
-        'group' => 'username',
-        'limit' => $options->{'max_top_blocked_users'},
-        'order' => 'hits DESC'
-    });
-
-    $report->{'top_domains_by_user'} = $self->runCompositeQuery($beg, $end,
-    {
-        'select' => 'username, SUM(bytes) AS bytes',
-        'from' => 'squid_access_report',
-        'where' => "event = 'accepted' AND username <> '-'",
-        'group' => 'username',
-        'limit' => $options->{'max_users_top_domains_by_user'},
-        'order' => 'bytes DESC'
-    },
-    'username',
-    {
-        'select' => 'domain, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'where' => "event = 'accepted' AND username = '_username_'",
-        'group' => 'domain',
-        'limit' => $options->{'max_domains_top_domains_by_user'},
-        'order' => 'traffic_bytes DESC'
-    });
-
-    return $report;
-}
-
-sub consolidateReportQueries
-{
-    # FIXME: do the domain_from_url converssion elsewhere if possible
-    # or just reimplement it with a MySQL stored procedure
-    return [
-        {
-            'target_table' => 'squid_access_report',
-            'query' => {
-                'select' => 'rfc931 AS username, remotehost AS ip, domain_from_url(url) AS domain, event, code, SUM(bytes) AS bytes, COUNT(event) AS hits',
-                'from' => 'squid_access',
-                'group' => 'username, ip, domain, event, code'
-            },
-            quote => {
-                      username => 1,
-                      domain => 1,
-                     },
-        }
-    ];
+    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
 }
 
 # LdapModule implementation

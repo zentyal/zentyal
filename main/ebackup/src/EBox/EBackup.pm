@@ -74,7 +74,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ebackup',
-            printableName => __n('Backup'),
+            printableName => __('Backup'),
             @_);
 
     bless($self, $class);
@@ -156,7 +156,7 @@ sub restoreFile
     if ($destinationDir ne '/') {
         if (not EBox::Sudo::fileTest('-e', $destinationDir)) {
             throw EBox::Exceptions::External(
-                __x('Cannot restore to {d}: {dd} does not exists',
+                __x('Cannot restore to {d}: {dd} does not exist',
                     d => $destination,
                     dd => $destinationDir,
                    )
@@ -697,9 +697,17 @@ sub remoteStatus
 {
     my ($self, $noCacheUrl) = @_;
 
-    my @status;
     my @lines;
+    my $retrieve;
     if ($noCacheUrl) {
+        $retrieve = 1;
+    } elsif (-f tmpCurrentStatus()) {
+        @lines = File::Slurp::read_file(tmpCurrentStatus());
+    } else {
+        $retrieve = 1;
+    }
+
+    if ($retrieve) {
         my $status = $self->_retrieveRemoteStatus($noCacheUrl);
         if (not $status) {
             throw EBox::Exceptions::External(
@@ -708,12 +716,9 @@ sub remoteStatus
         }
 
         @lines = @{ $status  };
-    } else {
-        if (-f tmpCurrentStatus()) {
-            @lines = File::Slurp::read_file(tmpCurrentStatus());
-        }
     }
 
+    my @status;
     for my $line (@lines) {
         # We are trying to match this:
         #  Full Wed Sep 23 13:30:56 2009 95
@@ -756,9 +761,8 @@ sub remoteGenerateStatusCache
 
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
-    $self->_retrieveRemoteStatus($urlParams);
-
-
+    my $status = $self->_retrieveRemoteStatus($urlParams);
+    $self->_setCurrentStatus($status);
 }
 
 
@@ -1523,7 +1527,7 @@ sub _checkFileSystemTargetStatus
            );
     } else {
         throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{{mp} is not mounted and {target} is inside it',
+          __x('{mp} is not mounted and {target} is inside it',
               mp => $mountPoint,
               target => $target
              )
@@ -1651,42 +1655,6 @@ sub gatherReportInfo
 
     # Perform the buffered inserts done above
     $db->multiInsert();
-}
-
-
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'ebackup_storage_usage_report',
-            'query' => {
-                'select' => 'used, available',
-                'from' => 'ebackup_storage_usage',
-            },
-        }
-    ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-    if (not $self->configurationIsComplete()) {
-        return {};
-    }
-
-    my $report = {};
-    $report->{included} = $self->model('BackupDomains')->report();
-    $report->{settings} = $self->model('RemoteSettings')->report();
-    $report->{'storage_usage'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'used, available',
-        'from' => 'ebackup_storage_usage_report',
-    });
-
-    return $report;
 }
 
 1;

@@ -33,6 +33,7 @@ use EBox::Types::DomainName;
 use EBox::Types::Text;
 use EBox::Types::Int;
 use EBox::Types::Select;
+use EBox::Types::Password;
 use EBox::Config;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
@@ -45,6 +46,9 @@ use base 'EBox::Model::DataForm';
 use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
+
+use constant MODE_DC              => 'dc';
+use constant MODE_ADC             => 'adc';
 
 # see http://support.microsoft.com/kb/909264
 my @reservedNames = (
@@ -118,27 +122,13 @@ sub validateTypedRow
 
     if (uc ($netbios) eq uc ($workgroup)) {
         throw EBox::Exceptions::External(
-                __('Netbios and workgroup must have different names'));
+            __('NetBIOS computer name and NetBIOS domain name must be different'));
     }
 
     $self->_checkNetbiosName($netbios);
-    $self->_checkDomainName($workgroup);
+    $self->_checkNetbiosName($workgroup);
     $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
-
-    # Check if the password meet the policy requirements
-    if (exists $newParams->{password}) {
-        my $password = $newParams->{password}->value();
-
-        # Check if the password meet the complexity constraints
-        unless ($password =~ /[a-z]+/ and $password =~ /[A-Z]+/ and
-                $password =~ /[0-9]+/ and length ($password) >=8) {
-                throw EBox::Exceptions::External(
-                    __('The password does not meet the password policy requirements. ' .
-                       'It must be at least eight characters long and contain uppercase, ' .
-                       'lowercase and numbers'));
-        }
-    }
 }
 
 sub _checkDomainName
@@ -171,7 +161,10 @@ sub _checkNetbiosName
         throw EBox::Exceptions::External(__('NetBIOS name field is empty'));
     }
     if (length ($netbios) > MAXNETBIOSLENGTH) {
-        throw EBox::Exceptions::Externam(__('NetBIOS name is too long'));
+        throw EBox::Exceptions::External(__('NetBIOS name is too long'));
+    }
+    if ($netbios =~ m/\./) {
+        throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
     $self->_checkWinName($netbios, __('NetBIOS computer name'));
 
@@ -228,17 +221,34 @@ sub _table
             populate      => \&_server_roles,
             editable      => 1,
         ),
-        new EBox::Types::Text(
-            fieldName     => 'password',
-            printableName => __('Administrator password'),
-            defaultValue  => EBox::Samba::defaultAdministratorPassword(),
-            editable      => 1,
-        ),
         new EBox::Types::DomainName(
             fieldName          => 'realm',
-            printableName      => __('Domain'),
-            defaultValue       => EBox::Samba::defaultRealm(),
+            printableName      => __('Realm'),
+            defaultValue       => EBox::Global->modInstance('users')->kerberosRealm(),
             editable           => 0,
+        ),
+        new EBox::Types::DomainName(
+            fieldName     => 'dcfqdn',
+            printableName => __('Domain controller FQDN'),
+            editable      => 1,
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'dnsip',
+            printableName => __('Domain DNS server IP'),
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            # This is the administrator account used to join the zentyal
+            # server to an existent domain
+            fieldName     => 'adminAccount',
+            printableName => __('Administrator account'),
+            editable      => 1,
+        ),
+        new EBox::Types::Password(
+            fieldName     => 'password',
+            printableName => __('Administrator password'),
+            editable      => 1,
+            hidden        => \&_adcProvisioned,
         ),
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
@@ -286,9 +296,18 @@ sub _table
     return $dataTable;
 }
 
+sub _adcProvisioned
+{
+    my $samba = EBox::Global->modInstance('samba');
+    return ($samba->mode() eq MODE_ADC and $samba->isProvisioned());
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+
+    my $newMode  = $row->valueByName('mode');
+    my $oldMode  = defined $oldRow ? $oldRow->valueByName('mode') : $newMode;
 
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
@@ -296,43 +315,10 @@ sub updatedRowNotify
     my $newDomain = $row->valueByName('workgroup');
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
-    if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
+    if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
-        $sambaMod->set_bool('provisioned', 0);
-    }
-
-    my $newAdminPwd = $row->valueByName('password');
-    my $oldAdminPwd = defined $oldRow ? $oldRow->valueByName('password') : $newAdminPwd;
-    if ($newAdminPwd ne $oldAdminPwd) {
-        EBox::debug('Changing samba admin password');
-
-        # The DC expect the pwd quoted and UTF16-LE encoded
-        $newAdminPwd = Encode::encode('UTF16-LE', '"' . $newAdminPwd . '"');
-        $oldAdminPwd = Encode::encode('UTF16-LE', '"' . $oldAdminPwd . '"');
-
-        # Get the DN of the administrator account
-        my $ldb = $self->parentModule()->ldb();
-        my $args = {
-            base   => $ldb->dn(),
-            scope  => 'sub',
-            filter => '(samAccountName=Administrator)',
-            attrs  => [],
-        };
-        my $msg = $ldb->search($args);
-        return unless ($msg->count() == 1);
-        my $entry = $msg->entry(0);
-        my $dn = $entry->dn();
-
-        # And replace the unicodePwd attribute
-        $args = {
-            changes => [
-                delete => [ unicodePwd => $oldAdminPwd ],
-                add    => [ unicodePwd => $newAdminPwd ],
-            ],
-        };
-        $msg = $ldb->modify($dn, $args);
-        EBox::debug('Samba administrator password changed successfully');
+        $sambaMod->setProvisioned(0);
     }
 }
 
@@ -344,25 +330,34 @@ sub confirmReprovision
     my $oldRealm = $self->value('realm');
     my $newDomain = $params->{workgroup};
     my $oldDomain = $self->value('workgroup');
-    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain);
-    return  __x("Changing the domain name will cause to reprovision the samba database.\n\n" .
-                'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
-                'rejoin all computers to the new domain.');
+    my $newMode = $params->{mode};
+    my $oldMode = $self->value('mode');
+    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain and $newMode eq $oldMode);
+    if ($newMode eq 'dc') {
+        return  __("Changing the domain name will cause to reprovision the samba database.\n\n" .
+                   'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
+                   'rejoin all computers to the new domain.');
+    } elsif ($newMode eq 'adc') {
+        return __("Joining a domain will delete all your users and groups from Zentyal and import " .
+                  "the domain ones.");
+    }
+
+    return undef;
 }
 
 # Populate the server role select
 sub _server_roles
 {
-    my @roles;
+    my $roles = [];
 
-    push (@roles, { value => 'dc', printableValue => __('Domain controller')});
+    push (@{$roles}, { value => MODE_DC, printableValue => __('Domain controller')});
+    push (@{$roles}, { value => MODE_ADC, printableValue => __('Additional domain controller')});
 
     # FIXME
     # These roles are disabled until implemented, we should also use better names
-    #push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
     #push (@roles, { value => 'standalone', printableValue => __('Standalone')});
 
-    return \@roles;
+    return $roles;
 }
 
 sub _drive_letters
@@ -384,6 +379,34 @@ sub _drive_letters
 sub headTitle
 {
     return undef;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $actions = {
+        mode => {
+            dc => {
+                hide => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
+            },
+            adc => {
+                show => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
+            },
+        },
+    };
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions($actions);
+    $customizer->setHTMLTitle([]);
+    $customizer->setInitHTMLStateOrder(['mode']);
+
+    return $customizer;
 }
 
 1;

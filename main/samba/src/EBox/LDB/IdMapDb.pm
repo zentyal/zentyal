@@ -29,6 +29,8 @@ sub setupNameMapping
 {
     my ($self, $sid, $type, $uidNumber) = @_;
 
+    $self->deleteMapping($sid, 1);
+
     my $file = EBox::Config::tmp() . 'idmap.ldif';
     my $ldif = "dn: CN=$sid\n" .
                "changetype: add\n" .
@@ -44,13 +46,17 @@ sub setupNameMapping
 
 sub deleteMapping
 {
-    my ($self, $sid) = @_;
+    my ($self, $sid, $silent) = @_;
 
     my $file = EBox::Config::tmp() . 'idmap.ldif';
     my $ldif = "dn: CN=$sid\n" .
                "changetype: delete\n";
-    EBox::debug("Unmapping XID '$sid'");
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
+    if ($silent) {
+        EBox::Sudo::silentRoot("echo '$ldif' | ldbmodify -H $self->{file}");
+    } else {
+        EBox::debug("Unmapping XID '$sid'");
+        EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
+    }
     unlink $file;
 }
 

@@ -34,10 +34,8 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
-
 use EBox::Types::Boolean;
 
-# Dependencies
 use Clone::Fast;
 use Encode;
 use Error qw(:try);
@@ -245,13 +243,12 @@ sub nameFromClass
 # Method: contextName
 #
 #      The context name which is used as a way to know exactly which
-#      module this model belongs to and the runtime parameters from
-#      which was instanciated
+#      module this model belongs to
 #
 # Returns:
 #
 #      String - following this pattern:
-#      '/moduleName/modelName/[param1/param2..]
+#      '/moduleName/modelName
 #
 sub contextName
 {
@@ -259,11 +256,6 @@ sub contextName
 
     my $path = '/' . $self->{'confmodule'}->name() . '/' .
       $self->name() . '/';
-
-    my $index = $self->index();
-    if ($index) {
-        $path .= $index;
-    }
 
     return $path;
 }
@@ -283,50 +275,25 @@ sub printableContextName
     my $printableContextName = __x( '{model} in {module} module',
                                     model  => $self->printableName(),
                                     module => $self->{'confmodule'}->printableName());
-    if ( $self->index() ) {
-        $printableContextName .= ' ' . __('at') . ' ';
-        if ( $self->printableIndex() ) {
-            $printableContextName .= $self->printableIndex();
-        } else {
-            $printableContextName .= $self->index();
-        }
-    }
-
     return $printableContextName;
 }
 
-# Method: index
-#
-#       Get the index from the model instance will be distinguised
-#       from the other ones with the same model template. Compulsory
-#       to be overriden by child classes if the same model template
-#       will be instanciated more than once.
-#
-#       By default, it returns an empty string ''.
-#
-# Returns:
-#
-#       String - the unique index string from this instance within the
-#       model template
-#
+# DEPRECATED
 sub index
 {
+  #EBox::trace();
+  #throw EBox::Exceptions::MethodDeprecated();
     return '';
 }
 
-# Method: printableIndex
-#
-#       Printable version to <EBox::Model::DataTable::index> method to
-#       be printed.
-#
-# Returns:
-#
-#       String - the i18ned string to be used to show index
-#
+# DEPRECATED
 sub printableIndex
 {
-    return '';
+  #EBox::trace();
+  #throw EBox::Exceptions::MethodDeprecated();
+  return '';
 }
+
 
 # Method: precondition
 #
@@ -384,7 +351,17 @@ sub noDataMsg
     my ($self) = @_;
 
     my $table = $self->{table};
-    return (exists $table->{noDataMsg} ? $table->{noDataMsg} : '');
+    if ((exists $table->{noDataMsg}) and (defined $table->{noDataMsg})) {
+        return $table->{noDataMsg};
+    }
+
+    my $rowName = $self->printableRowName();
+    if (not $rowName) {
+        $rowName = __('element');
+    }
+    return __x('There is not any {element}',
+               element => $rowName,
+              );
 }
 
 # Method: customFilter
@@ -542,15 +519,22 @@ sub fieldHeader
 #    [{ 'value' => 'obj001', 'printableValue' => 'administration'}]
 sub optionsFromForeignModel
 {
-    my ($self, $field) = @_;
-
+    my ($self, $field, %params) = @_;
     unless (defined($field)) {
         throw EBox::Exceptions::MissingArgument("field's name")
     }
 
+    my $filter = $params{filter};
+    my $idsMethod = $params{noSyncRows} ? '_ids' : 'ids';
+
     my @options;
-    for my $id (@{$self->ids()}) {
+    for my $id (@{$self->$idsMethod()}) {
         my $row = $self->row($id);
+        if ($filter) {
+            if (not $filter->($row)) {
+                next;
+            }
+        }
         push (@options, {
             'value'          => $id,
             'printableValue' => $row->printableValueByName($field)
@@ -636,10 +620,12 @@ sub validateRow
 #   changedFields - hash ref containing the typed parameters
 #                   subclassing from <EBox::Types::Abstract>
 #                   that has changed, the key will be the field's name
+#                   Also a key 'id' with the id of the row
 #
 #   allFields - hash ref containing the typed parameters
 #               subclassing from <EBox::Types::Abstract> including changed,
 #               the key is the field's name
+#               Also a key 'id' with the id of the row
 #
 # Returns:
 #
@@ -890,7 +876,10 @@ sub addTypedRow
         $row->addElement($param);
     }
 
-    $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    unless ($optParams{noValidateRow}) {
+        $self->validateTypedRow('add', $paramsRef, $paramsRef);
+    }
+
 
     # Check if the new row is unique, only if needed
     if ($checkRowUnique) {
@@ -1352,7 +1341,7 @@ sub setTypedRow
     my $checkRowUnique = $self->rowUnique();
 
     my $row = $self->row($id);
-    my $oldRow = Clone::Fast::clone($row);
+    my $oldRow = $self->_cloneRow($row);
     my $allHashElements = $row->hashElements();
     my $changedElements = {};
     my @changedElements = ();
@@ -1384,9 +1373,13 @@ sub setTypedRow
         $self->_checkRowIsUnique($id, $allHashElements);
     }
 
+    # add ids parameters for call to validateTypedRow
     $changedElements->{id} = $id;
     $allHashElements->{id} = $id;
     $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+    # remove ids after call to validateTypedRow
+    delete $changedElements->{id};
+    delete $allHashElements->{id};
 
     # If force != true automaticRemove is enabled it means
     # the model has to automatically check if the row which is
@@ -1475,7 +1468,7 @@ sub size
 {
     my ($self) = @_;
 
-    return scalar(@{$self->_ids(1)});
+    return scalar(@{$self->ids()});
 }
 
 # Method: syncRows
@@ -1824,11 +1817,8 @@ sub menuNamespace
         # This is autogenerated menuNamespace got from the model
         # domain and the table name
         my $menuNamespace = $self->modelDomain() . '/View/' . $self->tableName();
-        if ($self->index()) {
-            return $menuNamespace . '/' . $self->index();
-        } else {
-            return $menuNamespace;
-        }
+        return $menuNamespace;
+
     } else {
         return undef;
     }
@@ -2586,7 +2576,7 @@ sub AUTOLOAD
 
 # Method: Viewer
 #
-#       Class method to return the viewer from this model. This method
+#       Method to return the viewer from this model. This method
 #       can be overriden
 #
 # Returns:
@@ -3133,6 +3123,26 @@ sub _prepareRow
     return $row;
 }
 
+# Method: _cloneRow
+#
+#     Returns a new row instance with all its elements cloned
+#     from the given row
+#
+sub _cloneRow
+{
+    my ($self, $other) = @_;
+
+    my $row = EBox::Model::Row->new(dir => $self->directory(),
+                                    confmodule => $self->{confmodule});
+    $row->setModel($self);
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $other->elementByName($type->{fieldName});
+        my $newElement = $element->clone();
+        $row->addElement($newElement);
+    }
+    return $row;
+}
+
 # Method: _setValueRow
 #
 #     Returns a new row instance with all its elements cloned
@@ -3278,7 +3288,7 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($eValue eq $value) {
+            if ((defined $eValue) and ($eValue eq $value)) {
                 if ($allMatches) {
                     push (@matched, $id);
                 } else {
@@ -3531,9 +3541,12 @@ sub _notifyManager
     my ($self, $action, $row) = @_;
 
     my $manager = EBox::Model::Manager->instance();
-    my $modelName = $self->modelName();
 
-    return $manager->modelActionTaken($modelName, $action, $row);
+    my $contextName = $self->contextName();
+    # remove begining and trailing '/' for context name
+    $contextName =~ s{^/}{};
+    $contextName =~ s{/$}{};
+    return $manager->modelActionTaken($contextName, $action, $row);
 }
 
 sub _filterRows
@@ -3619,9 +3632,6 @@ sub _mainController
         # the model domain and its name
         $defAction = '/' . $self->modelDomain() . '/Controller/' .
             $self->{'table'}->{'tableName'};
-        if ($self->index()) {
-            $defAction .= '/' . $self->index();
-        }
     }
     return $defAction;
 }
@@ -4636,24 +4646,22 @@ sub confirmationJS
                     $action,
                     $elementsArrayJS
                     );
+
+    my $goAheadJSEscaped = $goAheadJS;
+    $goAheadJSEscaped =~ s{'}{\\'}g;
+
     my $js =<< "ENDJS";
        this.disable = true;
-       var goAhead = true;
-       var confirmMsg = $call;
-       if (confirmMsg) {
-         if (!confirm(confirmMsg)) {
-              goAhead = false;
-         }
-       }
-       if (goAhead) {
-          $goAheadJS
-       }
-
+       var specs = $call;
        this.disable = false;
+       if (specs.wantDialog) {
+           showConfirmationDialog(specs, '$goAheadJSEscaped');
+       } else {
+          $goAheadJS ;
+       }
        return false;
 ENDJS
 
+    return $js;
 }
-
-
 1;

@@ -402,7 +402,7 @@ sub learn
   if ($username =~ m/@/) {
       # XXX and what about alias?
       my ($user, $vdomain) = split '@', $username;
-      my $vdomains = $mailfilterRO->model('VDomains');
+      my $vdomains = $mailfilterRO->model('VDomainsFilter');
       if (not $vdomains->vdomainAllowedToLearnFromIMAPFolder($vdomain)) {
           throw EBox::Exceptions::External(
 __x('Accounts from the domain {d} cannot train the bayesian filter',

@@ -77,7 +77,6 @@ sub run
     EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     # wakeup on new session and logout events
-    $notifier->blocking(0);
     $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
 
@@ -90,10 +89,14 @@ sub run
 
     my $exceededEvent = 0;
     my $events = $global->getInstance(1)->modInstance('events');
-    if ((defined $events)  and ($events->isRunning())) {
-        $exceededEvent =
-            $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
-    }
+    try {
+        if ((defined $events)  and ($events->isRunning())) {
+            $exceededEvent =
+                $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
+        }
+    } otherwise {
+        $exceededEvent = 0;
+    };
 
     while (1) {
         my @users = @{$self->{module}->currentUsers()};

@@ -18,4 +18,4 @@ composites:
     General: [GeneralSettings, Gateways, Quota]
 
 notifyactions:
-    VMailDomains: [VDomains]
+    VMailDomains: [mail/VDomains]

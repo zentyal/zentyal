@@ -1,24 +1,16 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
-function getElementByClass(classname) {
-    ccollect=new Array()
-    var inc=0;
-    var alltags=document.getElementsByTagName("*");
-    for (i=0; i<alltags.length; i++){
-        if (alltags[i].hasClassName(classname))
-            ccollect[inc++]=alltags[i];
-    }
-    return ccollect;
-}
-
+/**
 function setDefault(){
-    elements=getElementByClass("hide");
+//    var elements=getElementByClass("hide");
+    var elements = $$('.hide');
     var inc=0;
     while (elements[inc]){
         elements[inc].style.display="none";
         inc++;
     }
     inc=0;
+//    elements = $$('.show');
     elements=getElementByClass("show");
     while (elements[inc]){
         elements[inc].style.display="inline";
@@ -37,40 +29,28 @@ function hide(id){
     setDefault();
 }
 
-var shownMenu = "";
+**/
 
-function showMenu(name){
-	var inc;
-	if (shownMenu.length != 0) {
-        $$('.' + shownMenu).each(function(e) {
-            e.style.display = 'none'
-        });
-/*
-		elements=getElementByClass(shownMenu);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="none";
-			inc++;
-		}
-*/
-	}
+var menuShown = '';
 
-    if (shownMenu == name) {
-        shownMenu = "";
-	} else {
-        $$('.' + name).each(function(e) {
-            e.style.display = 'inline'
-        });
-/*
-		elements=getElementByClass(name);
-		inc=0;
-		while (elements[inc]){
-			elements[inc].style.display="inline";
-			inc++;
-		}
-*/
-		shownMenu = name;
-	}
+function showMenu(name, menuAnchor){
+    if (menuShown === name) {
+      menuShown = '';
+      $$('.' + name).each(function(e) {
+                                     e.style.display = 'none';
+                                 }
+                               );
+      menuAnchor.addClassName('navarrow');
+      menuAnchor.removeClassName('despleg');
+    } else {
+      menuShown = name;
+      $$('.' + name).each(function(e) {
+                                  e.style.display = 'inline';
+                            }
+                           );
+      menuAnchor.addClassName('despleg');
+      menuAnchor.removeClassName('navarrow');
+   }
 }
 
 
@@ -124,9 +104,7 @@ Parameters:
 */
 function hide(elementId)
 {
-
   Element.addClassName(elementId, 'hidden');
-
 }
 
 /*
@@ -141,9 +119,7 @@ Parameters:
 */
 function show(elementId)
 {
-
   Element.removeClassName(elementId, 'hidden');
-
 }
 
 function toggleClass(name, class1, class2)

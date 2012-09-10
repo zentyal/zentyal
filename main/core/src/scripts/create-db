@@ -7,6 +7,14 @@ create_db()
 {
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
+    # Do not disable innodb if there are other databases previous to the
+    # creation of the Zentyal one
+    lines=$(echo "show databases" | mysql --defaults-file=/etc/mysql/debian.cnf | wc -l)
+    if [ $lines -gt 5 ]
+    then
+        sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf
+    fi
+
     if [ -s $PASSWD_FILE ]
     then
         PASSWD=`cat $PASSWD_FILE`
@@ -25,12 +33,6 @@ create_db()
 
     mysqladmin -u root password "$PASSWD"
 }
-
-# FIXME: Is all this needed with mysql? As it uses upstart probably it is always alive
-# or we even can manage it...
-# Check if we can connect to postgresql (with one retry after restart)
-#su postgres -c 'psql -Alt' >& /dev/null || /etc/init.d/postgresql-8.4 restart
-#su postgres -c 'psql -Alt' >& /dev/null || exit 1
 
 if ! [ -d /var/lib/mysql/$db_name ]; then
     create_db

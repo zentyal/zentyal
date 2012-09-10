@@ -2,11 +2,12 @@ class: 'EBox::Samba'
 
 depends:
     - network
-    - users
+    - printers
 
 enabledepends:
     - network
     - users
+    - dns
 
 models:
     - GeneralSettings
@@ -23,7 +24,13 @@ composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
     Shares: [SyncShares, SambaShares]
-    General: [GeneralSettings, Shares, RecycleBin] # FIXME: Add Antivirus when samba-vscan is ready
+    General: [GeneralSettings, Shares, RecycleBin, Antivirus]
+
+modeldepends:
+    AntivirusExceptions:
+        samba/SambaShares: [share]
+    RecycleExceptions:
+        samba/SambaShares: [share]
 
 foreign:
     SambaShares: [SambaSharePermissions]

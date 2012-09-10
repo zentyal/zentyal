@@ -115,7 +115,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ca',
-                      printableName => __n('Certification Authority'),
+                      printableName => __('Certification Authority'),
                       @_);
 
     bless($self, $class);
@@ -978,7 +978,7 @@ sub generateCRL
       if ($retValue eq "ERROR");
 
     # Set the link to the last
-    unlink (LASTESTCRL) if ( -e LASTESTCRL );
+    unlink (LASTESTCRL) if ( -l LASTESTCRL );
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
 }
 
@@ -1723,7 +1723,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'CA',
                                         'text' => $self->printableName(),
                                         'separator' => 'Infrastructure',
-                                        'order' => 440);
+                                        'order' => 422);
 
     $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                       'text' => __('General')));
@@ -1855,47 +1855,6 @@ sub addModuleStatus
         nobutton      => 1,
         statusStr     => $caStatus));
 }
-
-# Method: report
-#
-# Returns:
-#    ref hash with the following fields:
-#    CAState: state of the CA certificate. It will be ono of this states:
-#       - R - Revoked
-#       - E - Expired
-#       - V - Valid
-#       - ! - Inexistent
-#
-#    nValidCertificates: number of valid active certificates
-#    nRevokedCertificates: number of revoked certificates
-#    nExpiredCertificates: number of expired certifcates
-#
-# Overrides:
-#
-#   <EBox::Module::Base::report>
-#
-sub report
-{
-    my ($self) = @_;
-    my $currentCA = $self->currentCACertificateState();
-
-    my ($nValid, $nRevoked, $nExpired) = (0, 0, 0);
-    if ($currentCA ne '!') {
-        $nValid = @{ $self->listCertificates(state => 'V', excludeCA => 1) };
-        $nRevoked = @{ $self->listCertificates(state => 'R', excludeCA => 1) };
-        $nExpired = @{ $self->listCertificates(state => 'E', excludeCA => 1) };
-
-    }
-
-    return {
-            CAState => $currentCA,
-
-            nValidCertifcates     => $nValid,
-            nRevokedCertificates  => $nRevoked,
-            nExpiredCertificates  => $nExpired,
-           };
-}
-
 
 # Group: Protected methods
 

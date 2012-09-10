@@ -1,5 +1,6 @@
 <%args>
     $url
+    $port
     $dn
     $rootdn
     $password
@@ -10,7 +11,7 @@
 
 [_general]
 protocol=3
-url=<% $url %>
+url=<% $url %>:<% $port %>
 basedn=<% $dn %>
 user=<% $rootdn %>
 pass=<% $password %>
@@ -53,7 +54,7 @@ insecure = AstAccountInsecure
 ipaddr = AstAccountIPAddress
 lastms = AstAccountLastQualifyMilliseconds
 mailbox = AstAccountMailbox
-md5secret = eboxRealmPassword
+md5secret = AstMD5secret
 musiconhold = AstAccountMusicOnHold
 name = uid
 nat = AstAccountNAT
@@ -110,7 +111,7 @@ host = AstAccountHost
 ipaddr = AstAccountIPAddress
 lastms = AstAccountLastQualifyMilliseconds
 mailbox = AstAccountMailbox
-md5secret = eboxRealmPassword
+md5secret = AstMD5secret
 name = uid
 notransfer = AstAccountNoTransfer
 permit = AstAccountPermit

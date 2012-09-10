@@ -95,6 +95,7 @@ Include /etc/apache2/mods-available/ssl.conf
 Include /etc/apache2/mods-available/ssl.load
 Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
+Include /etc/apache2/mods-available/expires.load
 
 Listen <% $port %>
 User <% $user %>
@@ -198,6 +199,8 @@ ServerTokens Min
 
     <Directory /usr/share/zentyal/www>
         Options Indexes MultiViews FollowSymLinks
+        ExpiresActive On
+        ExpiresDefault "access plus 5 hours"
         AllowOverride None
         Order allow,deny
         Allow from all
@@ -205,6 +208,8 @@ ServerTokens Min
 
     <Directory /var/lib/zentyal/dynamicwww>
         Options Indexes MultiViews
+        ExpiresActive On
+        ExpiresDefault "access plus 5 hours"
         AllowOverride None
         Order allow,deny
         Allow from all

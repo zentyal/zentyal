@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class:
 #
 #   EBox::DNS::Model::DomainTable
@@ -23,6 +24,7 @@
 #   <EBox::DNS::Model::HostnameTable>
 #
 package EBox::DNS::Model::DomainTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -43,11 +45,6 @@ use EBox::DNS::View::DomainTableCustomizer;
 use Crypt::OpenSSL::Random;
 use MIME::Base64;
 
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
-
 # Group: Public methods
 
 sub new
@@ -56,7 +53,7 @@ sub new
     my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -98,12 +95,12 @@ sub addDomain
 
     EBox::debug("Adding DNS domain $domainName");
     my $id = $self->addRow(domain => $domainName,
+                           type => $params->{type},
                            readOnly => $params->{readOnly});
 
     unless (defined ($id)) {
         throw EBox::Exceptions::Internal("Couldn't add domain's name: $domainName");
     }
-
 
     if (exists $params->{ipAddresses}) {
         my $domainRow = $self->_getDomainRow($domainName);
@@ -132,7 +129,6 @@ sub addDomain
 #   domain - The domain where the host will be added
 #   host - A hash ref containing:
 #               name - The name
-#               subdomain - (optional) The host subdomain
 #               ipAddresses - Array ref containing the ips
 #               aliases  - (optional) Array ref containing the aliases
 #               readOnly - (optional)
@@ -157,7 +153,6 @@ sub addHost
     my $domainRow = $self->_getDomainRow($domain);
     my $hostModel = $domainRow->subModel('hostnames');
     my $hostRowId = $hostModel->addRow(hostname => $host->{name},
-                                       subdomain => $host->{subdomain},
                                        readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
@@ -240,34 +235,6 @@ sub addHostAlias
     }
 }
 
-# Method: setDynamic
-#
-#   Set the dynamic flag of a domain
-#
-# Parameters:
-#
-#   domain  - The domain name
-#   dynamic - Boolean flag
-#
-sub setDynamic
-{
-    my ($self, $domain, $dynamic) = @_;
-
-    unless (defined $domain) {
-        throw EBox::Exceptions::MissingArgument('domain');
-    }
-
-    unless (defined $dynamic) {
-        throw EBox::Exceptions::MissingArgument('dynamic');
-    }
-
-    my $rowId = undef;
-    my $domainRow = $self->_getDomainRow($domain);
-    EBox::debug("Setting the domain named $domain dynamic flag to $dynamic");
-    $domainRow->elementByName('dynamic')->setValue($dynamic);
-    $domainRow->store();
-}
-
 # Method: addService
 #
 #   Add a new SRV record to the domain
@@ -277,7 +244,6 @@ sub setDynamic
 #   domain  - The domain where the record will be added
 #   service - A hash ref containing:
 #             service  - The name of the service, must match a name in /etc/services
-#             subdomain - The domain name for which this record is valid
 #             protocol - 'tcp' or 'udp'
 #             port     - (port number)
 #             target_type - custom or hostDomain
@@ -306,7 +272,6 @@ sub addService
     my $model = $domainRow->subModel('srv');
     my %params = (service_name => $service->{service},
                   protocol => $service->{protocol},
-                  subdomain => $service->{subdomain},
                   priority => $service->{priority},
                   weight => $service->{weight},
                   port => $service->{port});
@@ -348,7 +313,6 @@ sub addService
 #   domain  - The domain name where lookup the record to delete
 #   service - A hash ref containing the attributes to check for deletion:
 #             service_name
-#             subdomain
 #             protocol
 #             priority
 #             weitht
@@ -369,7 +333,6 @@ sub delService
         my $row = $model->row($id);
 
         my $rowService  = $row->valueByName('service_name');
-        my $rowSubdom   = $row->valueByName('subdomain');
         my $rowProtocol = $row->valueByName('protocol');
         my $rowPriority = $row->valueByName('priority');
         my $rowWeight   = $row->valueByName('weight');
@@ -380,13 +343,8 @@ sub delService
             (not defined ($service->{priority})  or $rowPriority eq $service->{priority})  and
             (not defined ($service->{weight})    or $rowWeight   eq $service->{weight})    and
             (not defined ($service->{port})      or $rowPort     eq $service->{port})) {
-
-            if ((not defined $rowSubdom and not defined $service->{subdomain}) or
-                (defined $rowSubdom and defined $service->{subdomain} and
-                 $rowSubdom =~ m/$service->{subdomain}/)) {
                 $rowId = $id;
                 last;
-            }
         }
     }
 
@@ -482,7 +440,8 @@ sub delText
 #
 #    Override to:
 #    - Add the NS and A records
-#    - Generate the shared key, only used by dynamic zones
+#    - Generate the shared key. It is always generated but
+#      only used by dynamic zones
 #
 # Overrides:
 #
@@ -496,14 +455,21 @@ sub addedRowNotify
     my $secret = $self->_generateSecret();
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
+    my $ipModel = $newRow->subModel('ipAddresses');
 
     # Add the domain IP addresses
+    my @addedAddrs;
     my $network = EBox::Global->modInstance('network');
-    my $internalIpAddresses = $network->internalIpAddresses();
-    my $ipModel = $newRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding domain IP');
-        $ipModel->addRow(ip => $ip);
+    my $ifaces = $network->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+            push (@addedAddrs, $ip);
+        }
     }
 
     # Generate the NS record and its A record
@@ -514,16 +480,21 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding host IP');
-        $ipModel->addRow(ip => $ip);
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+        }
     }
 
     EBox::debug('Adding name server');
     my $nsModel = $newRow->subModel('nameServers');
     $nsModel->add(hostName => { ownerDomain => $nsHost } );
 
-    my $addrs = join(', ', @{$internalIpAddresses});
+    my $addrs = join(', ', @addedAddrs);
     $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
                           . 'these IP addresses {ips}, this host name has been also set as '
                           . 'nameserver record. Moreover, the same IP addresses have been assigned '
@@ -614,27 +585,44 @@ sub _table
                                 'view' => '/DNS/View/Services',
                                 'backView' => '/DNS/View/Services',
                              ),
+
+
+            # This field indicates if the domain is static, dynamic or dlz
+            # Not editable from interface
             new EBox::Types::Boolean(
-                # This field indicates if the domain is dynamic, so not editable from interface
-                                'fieldName'     => 'dynamic',
-                                'printableName' => __('Dynamic'),
-                                'editable'      => 0,
-                                'hidden'        => 0,
-                                'hiddenOnViewer' => 1,
-                                'defaultValue'  => 0,
-                                'help'          => __('A domain is dynamic when the DHCP server '
-                                                      . 'updates the domain'),
-                                'HTMLViewer'    => '/ajax/viewer/booleanViewer.mas',
-                                ),
+                fieldName      => 'dynamic',
+                printableName  => __('Dynamic domain'),
+                editable       => 0,
+                defaultValue   => 0,
+                hiddenOnSetter => 1,
+                hiddenOnViewer => 0,
+                HTMLViewer     => '/dns/ajax/viewer/dynamicDomainViewer.mas'
+            ),
+            # This field is filled when the zone is dynamic and
+            # indicates the TSIG key for the direct mapping and
+            # the reversed zones for this domain hosts
             new EBox::Types::Text(
-                # This field is filled when the zone is dynamic and
-                # indicates the TSIG key for the direct mapping and
-                # the reversed zones for this domain hosts
-                                'fieldName'    => 'tsigKey',
-                                'editable'     => 0,
-                                'optional'     => 1,
-                                'hidden'       => 1,
-                               ),
+               fieldName    => 'tsigKey',
+               editable     => 0,
+               optional     => 1,
+               hidden       => 1,
+            ),
+
+
+            new EBox::Types::Boolean(
+                fieldName => 'managed',
+                editable => 0,
+                optional => 0,
+                defaultValue => 0,
+                hidden => 1,
+            ),
+            new EBox::Types::Boolean(
+                fieldName => 'samba',
+                editable => 0,
+                optional => 0,
+                defaultValue => 0,
+                hidden => 1,
+            ),
           );
 
     my $dataTable =
@@ -656,6 +644,51 @@ sub _table
 
     return $dataTable;
 }
+
+
+# Method: syncRows
+#
+#  Needed to mark domains as dynamics
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my %dynamicDomainsIds = ();
+    my $global = $self->global();
+    if ($global->modExists('dhcp')) {
+        my $dhcp = $global->modInstance('dhcp');
+        %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
+    }
+
+    my $changed;
+    foreach my $id (@{$currentIds}) {
+        my $newValue = undef;
+        my $row = $self->row($id);
+        my $dynamicElement = $row->elementByName('dynamic');
+        my $value = $dynamicElement->value();
+        if ($value) {
+            if (not $dynamicDomainsIds{$id}) {
+                $newValue = 0;
+            }
+        } else {
+            if ($dynamicDomainsIds{$id}) {
+                $newValue = 1;
+            }
+        }
+
+        if (defined $newValue) {
+            $dynamicElement->setValue($newValue);
+            $row->store();
+            $changed = 1;
+        }
+    }
+
+    return $changed;
+}
+
 
 # Group: Private methods
 

@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -e
+
 KEYWORDS="-k__ -k__n -k__x -k__d -k__d"
 SUBS_KEYWORDS="-k__s -k__sx"
 
 SRC=../../main
 
 FILES=`find $SRC -name *.pm -o -name *.cgi -o -name restore-tool`
-rm -f templates/*
+rm -rf templates/*
 for i in `find $SRC -name *.mas`
 do
     dir=`dirname $i | sed 's:../../::'`

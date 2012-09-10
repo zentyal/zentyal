@@ -56,7 +56,7 @@ sub _description
     {
         layout          => 'top-bottom',
         name            => 'FilterSettings',
-        printableName   => __('Filter Settings'),
+        printableName   => __('Settings'),
         compositeDomain => 'Squid',
     };
 

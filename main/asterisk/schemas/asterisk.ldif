@@ -1111,6 +1111,7 @@ olcObjectClasses: ( AsteriskSIPUser
         AstAccountFromUser $
         AstAccountFullContact $
         AstAccountHost $
+        AstMD5secret $
         AstAccountIgnoreSDPVersion $
         AstAccountInsecure $
         AstAccountIPAddress $
