@@ -4,6 +4,9 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Global;
+
+my $first = EBox::Global->getInstance()->first();
 </%init>
 <style type="text/css">
 table {
@@ -260,7 +263,15 @@ th > div {
                 <table style="background: transparent">
                   <tr>
                     <th></th>
-                    <td style="text-align:right;"><input type="button" value="<% __s('Register') %>" onclick="nextStep()" /></td>
+                    <td style="text-align:right;">
+                      <input type="button" value="<% __s('Register') %>"
+% if ( $first ) {                             
+                             onclick="nextStep()"
+% } else {
+                             onclick="register_save()"
+% }
+                             />
+                    </td>
                   </tr>
                 </table>
            </div>
@@ -324,5 +335,24 @@ th > div {
 
         Element.observe($('radio_subscribe'), 'change', update_form);
         Element.observe($('radio_register'), 'change', update_form);
+
+        window.register_save = function() {
+           // Mimetise the nextStep 
+           setLoading(true);
+           var form = $$('#wizardPage0 form')[0];
+           form.request( {
+               onFailure : function (response) {
+                  $('wizard_error').update(response.responseText);
+                  $('wizard_error').appear({
+                         duration: 0.5,
+                         from: 0, to: 1 });
+                  setLoading(false);
+               },
+               onSuccess : function (response) {
+                  Modalbox.show('/RemoteServices/Subscription?wizard=1',
+                                { title : '<% __('Registering a server') %>' });
+               }
+           });
+        }
      </script>
 </form>
