@@ -1,4 +1,5 @@
 HEAD
+	+ Proper new link to Remote Services
 	+ Improved dashboard buttons colors
 2.3.24
 	+ Do not cache undef values in EBox::Config::Redis::get()

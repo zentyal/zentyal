@@ -18,7 +18,7 @@ my $mboxTitle = __('Save changes?');
 	<div id="hmenu">
 % if ( $remoteServicesURL ne '' ) {
           <a id="remote_services_link" href="<% $remoteServicesURL %>">
-            <% __('Zentyal Cloud') %>
+            <% __('Zentyal Remote') %>
           </a>
 % }
 % if ( $logout ne '' ) {
