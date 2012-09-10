@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed some compatibility issues with Internet Explorer 9
 	+ Do not cache undef values in EBox::Config::Redis::get()
 	+ Code fix on subscription retrieval for Updates event
 	+ Update validate referer to new Remote Services module API
