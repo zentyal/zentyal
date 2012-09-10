@@ -119,20 +119,21 @@ sub logger # (caller?)
 sub setLocale # (locale)
 {
     my ($locale) = @_;
-    open(LOCALE, ">" . EBox::Config::conf() . "/locale");
-    print LOCALE $locale;
-    close(LOCALE);
+
+    open (my $fh, ">" . EBox::Config::conf() . '/locale');
+    print $fh $locale;
+    close ($fh);
 }
 
 # returns:
 #   - the locale
 sub locale
 {
-    my $locale="C";
-    if (-f (EBox::Config::conf() . "locale")) {
-        open(LOCALE, EBox::Config::conf() . "locale");
-        $locale = <LOCALE>;
-        close(LOCALE);
+    my $locale= 'C';
+    if (-f (EBox::Config::conf() . 'locale')) {
+        open (my $fh, EBox::Config::conf() . 'locale');
+        $locale = <$fh>;
+        close ($fh);
     }
     return $locale;
 }
