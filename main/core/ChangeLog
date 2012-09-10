@@ -1,4 +1,6 @@
 HEAD
+	+ Members of the 'admin' group can now login again on Zentyal
+	+ Multi-admin management for commercial editions
 	+ Code fix on subscription retrieval for Updates event
 	+ Update validate referer to new Remote Services module API
 	+ In-place booleans now properly mark the module as changed
