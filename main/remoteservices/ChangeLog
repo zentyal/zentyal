@@ -1,4 +1,5 @@
 HEAD
+	+ Set production conf parameters
 	+ New style for registration wizard
 	+ Some fixes in text in the models
 	+ Start up tasks (cronjobs and bundle reload) is done after save
