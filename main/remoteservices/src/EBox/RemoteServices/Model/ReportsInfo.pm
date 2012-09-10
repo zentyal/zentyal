@@ -157,6 +157,8 @@ sub _content
                 $link = __x('{oh}Take a look{ch}',
                             oh => qq{<a href="$reportURL">},
                             ch => '</a>');
+            } else {
+                $lastCon = __('No consolidation done yet');
             }
             $reportersNum = $reporter->helpersNum();
         }
