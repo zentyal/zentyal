@@ -97,6 +97,11 @@ sub set
 
     $self->begin();
 
+    if ($key =~ m/openvpn/) {
+        use Data::Dumper;
+        EBox::debug("set $key = " . Dumper($value));
+    }
+
     $cache{$key} = $value;
     $modified{$key} = 1;
     delete $deleted{$key};
@@ -126,6 +131,10 @@ sub get
                 $value = decode_json($value);
             }
         } else {
+            if (not defined $defaultValue) {
+                # dont cache undef values
+                return undef;
+            }
             $value = $defaultValue;
         }
         $cache{$key} = $value;
@@ -368,6 +377,10 @@ sub _sync
     $self->_redis_call('multi');
 
     foreach my $key (keys %modified) {
+        if (not exists $cache{$key}) {
+            EBox::trace();
+            die 'NOT ESITS MODIFIED KEY';
+        }
         my $value = $cache{$key};
         if (ref $value) {
             $value = encode_json($value);

@@ -1,4 +1,5 @@
 HEAD
+	+ Dont cache undef values in EBox::Config::Redis::get
 	+ In-place booleans now properly mark the module as changed
 	+ Do not try to read slides if software module is not installed
 	+ Fixed wrong call in Events::isEnabledDispatcher()
