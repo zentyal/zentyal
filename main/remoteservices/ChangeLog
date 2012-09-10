@@ -1,4 +1,5 @@
 HEAD
+	+ New style for registration wizard
 	+ Some fixes in text in the models
 	+ Start up tasks (cronjobs and bundle reload) is done after save
 	  changes in background
