@@ -41,7 +41,7 @@ use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription
 #
 sub _description
 {
-    my $printableName = __('Zentyal Remote');
+    my $printableName = __('Your Zentyal Server Account');
 
     my $description = {
           layout          => 'top-bottom',

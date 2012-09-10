@@ -441,7 +441,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Remote Services'),
+            'title'   => __('Your Zentyal Server Account'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,

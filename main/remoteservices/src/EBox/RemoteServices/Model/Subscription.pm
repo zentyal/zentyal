@@ -350,7 +350,7 @@ sub _table
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
-                             printableName => __('User Name or Email Address'),
+                             printableName => __('Registration Email Address'),
                              editable      => (not $subscribed),
                              volatile      => 1,
                              acquirer      => \&_acquireFromState,
@@ -396,7 +396,7 @@ sub _table
         $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Registration to Zentyal Remote');
+        $printableTableName = __('Register your Zentyal Server');
         $actionName = __('Register');
     }
 
