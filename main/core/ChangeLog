@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed some compatibility issues with Internet Explorer 9
+	+ Show warning with Internet Explorer 8 or older
 	+ Improved dashboard buttons colors
 2.3.24
 	+ Do not cache undef values in EBox::Config::Redis::get()

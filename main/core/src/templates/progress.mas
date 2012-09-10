@@ -181,7 +181,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 </div>
 
 <script type="text/javascript" language="javascript">
-      $(adsButtonPrev).hide();
+      if ($('adsButtonPrev')) $('adsButtonPrev').hide();
 
       var car_options = {
           'auto' : true,
@@ -197,12 +197,12 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
       car_obj.options.afterMove = function () {
           var slide_num = car_obj.current._index;
           if (slide_num == 0) {
-              $(adsButtonPrev).hide();
+              $('adsButtonPrev').hide();
           } else if (slide_num == <% scalar (@slides) - 1 %>) {
-              $(adsButtonNext).hide();
+              $('adsButtonNext').hide();
           } else {
-              $(adsButtonPrev).show();
-              $(adsButtonNext).show();
+              $('adsButtonPrev').show();
+              $('adsButtonNext').show();
           }
       };
 </script>
