@@ -9,7 +9,7 @@
 <span class="customActions" id="customActions_<% $model->modelName() . '_' . $type . '_' . $id %>">
 %    foreach my $customAction ( @{$customActions} )
 %    {
-       <& /input/action.mas,
+       <& $customAction->template(),
          action => $customAction,
          id => $id,
          type => $type

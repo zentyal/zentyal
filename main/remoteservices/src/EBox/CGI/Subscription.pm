@@ -52,10 +52,9 @@ sub requiredParameters
     return [];
 }
 
-sub optionalParamaters
+sub optionalParameters
 {
-    # TODO: Is this really neccessary?
-    return ['popup'];
+    return ['wizard'];
 }
 
 sub actuate
@@ -101,10 +100,15 @@ sub showSubscriptionProgress
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
        );
 
+    my $nextStepUrlOnclick = "Modalbox.hide(); window.location.reload(); return false";
+    if ( $self->param('wizard' ) ) {
+        $nextStepUrlOnclick = "Modalbox.hide(); window.location = '/RemoteServices/Composite/General'; return false";
+    }
+
     push(@params, @popupProgressParams);
+    push(@params, (nextStepUrlOnclick => $nextStepUrlOnclick));
 
     $self->showProgress(@params);
 

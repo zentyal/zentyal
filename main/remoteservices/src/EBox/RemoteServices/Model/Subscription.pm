@@ -58,9 +58,7 @@ use EBox::View::Customizer;
 use Error qw(:try);
 use Sys::Hostname;
 
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+my $subsWizardURL = '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
 
@@ -232,27 +230,6 @@ sub unsubscribe
     }
 }
 
-# Method: viewCustomizer
-#
-#      Return a custom view customizer to set a permanent message if
-#      the VPN is not enabled or configured
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    if ( $self->{confmodule}->subscriptionLevel() < 1) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
-    }
-    return $customizer;
-}
-
 # Method: help
 #
 # Overrides:
@@ -350,7 +327,7 @@ sub _table
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
-                             printableName => __('User Name or Email Address'),
+                             printableName => __('Registration Email Address'),
                              editable      => (not $subscribed),
                              volatile      => 1,
                              acquirer      => \&_acquireFromState,
@@ -396,7 +373,7 @@ sub _table
         $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Registration to Zentyal Remote');
+        $printableTableName = __('Register your Zentyal Server');
         $actionName = __('Register');
     }
 
@@ -406,7 +383,8 @@ sub _table
             name           => 'subscribe',
             printableValue => $actionName,
             onclick        => \&_showSaveChanges,
-           )
+            template       => '/remoteservices/register_button.mas',
+           ),
        ];
 
     my $dataForm = {
@@ -670,15 +648,6 @@ sub _filesStr
         }
     }
     return $retStr;
-}
-
-# Return the commercial message
-sub _commercialMsg
-{
-    return __sx('Want to guarantee that your Zentyal server is always up-to-date, secured and supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
 }
 
 # Populate the available options from the cloud

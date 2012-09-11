@@ -106,7 +106,7 @@ sub _table
            ),
        new EBox::Types::Text(
            fieldName     => 'external_server_name',
-           printableName => __('External server name (DynDNS)'),
+           printableName => __('External server name (Dynamic DNS)'),
            help          => __('Use this name to connect to Zentyal externally'),
           ),
        new EBox::Types::Text(
@@ -143,7 +143,7 @@ sub _content
     my $rs = $self->{confmodule};
 
     my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
-      ( __('None'), __('Not using Zentyal Remote DynDNS service'),
+      ( __('None'), __('Not using Zentyal Dynamic DNS service'),
         __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
              ohb => '<a href="' . BASIC_URL . '" target="_blank">',
              ch  => '</a>'),

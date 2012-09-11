@@ -41,7 +41,7 @@ use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription
 #
 sub _description
 {
-    my $printableName = __('Zentyal Remote');
+    my $printableName = __('Your Zentyal Server Account');
 
     my $description = {
           layout          => 'top-bottom',
@@ -64,7 +64,11 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal Remote and allows you access to some basic features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to configure one remote configuration backup and create zentyal.me subdomain for your server).',
+    return __sx('Are you interested in a remote configuration backup of your Zentyal '
+                . 'server? Or do you want to use a subdomain, such as '
+                . 'yourserver.zentyal.me? Get a {ohb}Free Zentyal Account{ch} that gives you '
+                . 'access to these features and much more! Or, if you already have a Small '
+                . 'Business or Enterprise Edition, use your credentials for full access.',
                 ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 

@@ -1,5 +1,7 @@
 HEAD
-	+ Changed icon and name for Zentyal Remote link button
+	+ Added template attribute to MultiStateAction to provide any kind
+	  of HTML to display an action
+	+ Changed icon, name and link for Zentyal Remote
 	+ Fixed some compatibility issues with Internet Explorer 9
 	+ Show warning with Internet Explorer 8 or older
 	+ Improved dashboard buttons colors
