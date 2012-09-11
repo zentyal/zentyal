@@ -1,4 +1,6 @@
 HEAD
+	+ In data tables the move row buttons in firt and last row are
+	shown as disabled insted of being hidden
 	+ Do not cache undef values in EBox::Config::Redis::get()
 	+ Code fix on subscription retrieval for Updates event
 	+ Update validate referer to new Remote Services module API

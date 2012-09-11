@@ -26,7 +26,12 @@ EBox::init();
 
 my $squid = EBox::Global->modInstance('squid');
 if ($squid->filterNeeded()) {
+    EBox::debug("DG update-time-periods"); #DDD
     $squid->writeDgGroups();
     EBox::Sudo::root('dansguardian -g');
+} else {
+    EBox::debug("no DG update-time-periods needed"); # DDD
 }
+
+1;
 

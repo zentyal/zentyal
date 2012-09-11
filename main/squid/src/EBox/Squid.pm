@@ -767,26 +767,34 @@ sub writeDgGroups
 
     foreach my $profile (@profiles) {
         if ($profile->{timePeriod}) {
-            next unless ($profile->{days}->{$day});
+            unless ($profile->{days}->{$day}) {
+                EBox::debug("discard: not week day $day"); # DDD
+                next;
+            }
             my ($beginHour, $beginMin) = split (':', $profile->{begin});
             if ($hour < $beginHour) {
+                EBox::debug("discard $hour < $beginHour"); #DDD
                 next;
             } elsif (($hour == $beginHour) and ($min < $beginMin) ) {
+                EBox::debug("discard ($hour == $beginHour) and ($min < $beginMin)"); #DDD
                 next;
             }
             my ($endHour, $endMin) = split (':', $profile->{end});
             if ($hour > $endHour) {
+                EBox::debug("discard $hour > $endHour"); #DDD
                 next;
             } elsif (($hour == $endHour) and ($min > $endMin) ) {
+                EBox::debug("discard $hour == $endHour) and ($min > $endMin)"); #DDD
                 next;
             }
         }
         if ($profile->{anyAddress}) {
             if ($anyAddressProfileSeen) {
+                EBox::debug("discard: any address already seen"); #DDD
                 next;
             }
-            push @objects, $profile;
             $anyAddressProfileSeen  = 1;
+            push @objects, $profile;
         }  elsif ($profile->{group}) {
             push (@groups, $profile);
         } else {
