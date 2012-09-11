@@ -132,6 +132,7 @@ sub populateGroups
     return [] unless ($userMod->isEnabled());
 
     my @groups;
+    push (@groups, { value => '__USERS__', printableValue => __('All users') });
     foreach my $group (@{$userMod->groups()}) {
         my $name = $group->name();
         push (@groups, { value => $name, printableValue => $name });

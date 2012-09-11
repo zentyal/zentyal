@@ -1,4 +1,5 @@
 HEAD
+	+ Added 'All users' option for Access Rules with group source
 	+ Using again squid ACL when DG is active
 	+ Fixed issues in timed regenration of DG files
 	+ Unallow to mix ip and basic authorization in DG
