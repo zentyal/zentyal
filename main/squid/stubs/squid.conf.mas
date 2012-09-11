@@ -41,15 +41,6 @@ our $anyPrefix = 'any_src_';
 our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
-<%init>
-if ($filter) {
-# only kept rules which will not be implemented in DG
-  @rules = grep {
-    (exists $_->{'group'} ) and
-    (defined $_->{'group'})
-  } @rules;
-}
-</%init>
 <%perl>
 sub _timeAclsInPolicy
 {
@@ -250,15 +241,9 @@ cache deny noCached
 % }
 
 <& .rulesAccess, rules => \@rules &>
-
-% if ($filter) {
-# All allowed here as dansguardian takes care of the access rules
-http_access allow all
-% } else {
-# default policy section
+# default policy
 # All denied by default if no other allow rule matchs
 http_access deny all
-% }
 
 # END_TAG #
 
@@ -325,14 +310,9 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
-   unless (($policy eq 'allow') or ($policy eq 'deny')) {
-       if ($groupAcl) {
-           # need to allow so auth is requested
-           $policy = 'allow';
-       } else {
-           # ignore
-           next;
-       }
+   if ($policy eq 'profile') {
+      # need to allow, to be able to pass it to DG
+        $policy = 'allow';
    }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>

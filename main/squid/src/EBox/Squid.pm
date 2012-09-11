@@ -761,6 +761,7 @@ sub writeDgGroups
     my @profiles = @{$rules->filterProfiles()};
     my @groups;
     my @objects;
+    my $anyAddressProfileSeen;
 
     my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
 
@@ -768,11 +769,25 @@ sub writeDgGroups
         if ($profile->{timePeriod}) {
             next unless ($profile->{days}->{$day});
             my ($beginHour, $beginMin) = split (':', $profile->{begin});
-            next if (($hour < $beginHour) and ($min < $beginMin));
-            my ($endHour, $endMin) = split (':', $profile->{begin});
-            next if (($hour > $endHour) and ($min < $endMin));
+            if ($hour < $beginHour) {
+                next;
+            } elsif (($hour == $beginHour) and ($min < $beginMin) ) {
+                next;
+            }
+            my ($endHour, $endMin) = split (':', $profile->{end});
+            if ($hour > $endHour) {
+                next;
+            } elsif (($hour == $endHour) and ($min > $endMin) ) {
+                next;
+            }
         }
-        if ($profile->{group}) {
+        if ($profile->{anyAddress}) {
+            if ($anyAddressProfileSeen) {
+                next;
+            }
+            push @objects, $profile;
+            $anyAddressProfileSeen  = 1;
+        }  elsif ($profile->{group}) {
             push (@groups, $profile);
         } else {
             push (@objects, $profile);

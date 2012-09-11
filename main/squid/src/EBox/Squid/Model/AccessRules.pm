@@ -145,12 +145,22 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
+    my $policy = exists $params_r->{policy} ?
+                      $params_r->{policy}->value():
+                      $actual_r->{policy}->selectedType();
     my $type = exists $params_r->{source} ?
                       $params_r->{source}->selectedType():
                       $actual_r->{source}->selectedType();
     if ($squid->transproxy() and ($type eq 'group')) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
+
+#     my $groupRules;
+#     my $objectProfile;
+#     if ($type eq 'group') {
+#     } else {
+
+#     }
 }
 
 sub rules
@@ -251,9 +261,9 @@ sub filterProfiles
 
         my $policy = $row->elementByName('policy');
         if ($policy->selectedType() eq 'allow') {
-            $profile->{number} = 1;
-        } elsif ($policy->selectedType() eq 'deny') {
             $profile->{number} = 2;
+        } elsif ($policy->selectedType() eq 'deny') {
+            $profile->{number} = 1;
         } else {
             $profile->{number} = $profileIdByRowId{$policy->value()};
         }
@@ -267,24 +277,28 @@ sub filterProfiles
         }
 
         my $source = $row->elementByName('source');
-        if ($source->selectedType() eq 'object') {
+        my $sourceType = $source->selectedType();
+        if ($sourceType eq 'any') {
+            $profile->{anyAddress} = 1;
+            $profile->{address} = '0.0.0.0/0.0.0.0';
+            push @profiles, $profile;
+        } elsif ($sourceType eq 'object') {
             my $obj       = $source->value();
             my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
             foreach my $cidrAddress (@addresses) {
+                # put a pseudo-profile for each address in the object
                 my ($addr, $netmask) = ($cidrAddress->[0], EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
                 my %profileCopy = %{$profile};
                 $profileCopy{address} = "$addr/$netmask";
-                push (@profiles, \%profileCopy);
+                push @profiles, \%profileCopy;
             }
+        } elsif ($sourceType eq 'group') {
+            my $group = $source->value();
+            $profile->{group} = $group;
+            $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            push @profiles, $profile;
         } else {
-            if ($source->selectedType() eq 'group') {
-                my $group = $source->value();
-                $profile->{group} = $group;
-                $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
-            } else {
-                $profile->{address} = '0.0.0.0/0.0.0.0';
-            }
-            push (@profiles, $profile);
+            throw EBox::Exceptions::Internal("Unknow source type: $sourceType");
         }
     }
 
