@@ -63,8 +63,6 @@ use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
-use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
-
 sub _create
 {
     my $class = shift;
@@ -138,11 +136,6 @@ sub usedFiles
             'file'   => '/etc/services',
             'reason' => __('To add microsoft specific services'),
             'module' => 'samba',
-        },
-        {
-            'file' => CLAMAVSMBCONFFILE,
-            'reason' => __('To set the antivirus settings for Samba.'),
-            'module' => 'samba'
         },
     ];
 }
@@ -484,6 +477,28 @@ sub antivirusExceptions
     }
 
     return $exceptions;
+}
+
+sub antivirusConfig
+{
+    my ($self) = @_;
+
+    my $conf = {};
+    my @keys = ('verbose_file_logging', 'scan_on_open', 'scan_on_close', 'deny_access_on_error',
+                'send_warning_message', 'infected_file_action', 'quarantine_prefix',
+                'quarantine_dir', 'max_lrufiles',
+                'lrufiles_invalidate_time', 'exclude_file_types', 'exclude_file_regexp',
+                'delete_file_on_quarantine_failure', 'max_file_size', 'max_scan_size',
+                'max_files', 'max_recursion_level');
+
+    foreach my $key (@keys) {
+        my $value = EBox::Config::configkey($key);
+        if ($value) {
+            $conf->{$key} = $value;
+        }
+    }
+
+    return $conf;
 }
 
 sub defaultRecycleSettings
@@ -1016,7 +1031,6 @@ sub writeSambaConfig
     push (@array, 'printers'  => $self->printersConf());
 
     #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
-    #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
     push (@array, 'shares' => $shares);
@@ -1030,6 +1044,7 @@ sub writeSambaConfig
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push (@array, 'antivirus_config' => $self->antivirusConfig());
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
@@ -1046,10 +1061,6 @@ sub writeSambaConfig
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
-
-    $self->writeConfFile(CLAMAVSMBCONFFILE,
-                         'samba/vscan-clamav.conf.mas', []);
-
 }
 
 sub _preSetConf
@@ -1057,6 +1068,33 @@ sub _preSetConf
     my ($self) = @_;
 
     $self->stopService();
+}
+
+sub _setupQuarantineDirectory
+{
+    my ($self) = @_;
+
+    my $quarantineDir = EBox::Config::configkey('quarantine_dir');
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my @cmds = ("mkdir -p '$quarantineDir'",
+                "chown root:$group '$quarantineDir'",
+                "chmod 700 '$quarantineDir'",
+                "setfacl -R -m u:$nobody:wx g::wx '$quarantineDir'");
+    # Grant access to domain admins
+    my $domainAdminsSid = $self->ldb->domainSID() . '-512';
+    my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
+    if ($domainAdminsGroup->exists()) {
+        my @domainAdmins = $domainAdminsGroup->get('member');
+        foreach my $memberDN (@domainAdmins) {
+            my $user = new EBox::Samba::User(dn => $memberDN);
+            if ($user->exists()) {
+                my $uid = $user->get('samAccountName');
+                push (@cmds, "setfacl -m u:$uid:rwx '$quarantineDir'");
+            }
+        }
+    }
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 sub _setConf
@@ -1075,8 +1113,9 @@ sub _setConf
     $self->model('SambaShares')->createDirs();
 
     # Change group ownership of quarantine_dir to __USERS__
-    my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
-    EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
+    if ($self->defaultAntivirusSettings()) {
+        $self->_setupQuarantineDirectory();
+    }
 
     my $netbiosName = $self->netbiosName();
     my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
