@@ -749,8 +749,8 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Zarafa',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Office',
-                                        'order' => 560
+                                        'separator' => 'Communications',
+                                        'order' => 605
     );
 
     $folder->add(
