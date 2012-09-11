@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-09-05 19:39+0200\n"
+"PO-Revision-Date: 2012-09-11 15:56+0200\n"
 "Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -332,7 +332,7 @@ msgstr "Proxy HTTPS"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Habilitar Single Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
@@ -3887,9 +3887,8 @@ msgid "Installing packages"
 msgstr "Instalando paquetes"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:218
-#, fuzzy
 msgid "Click here if the redirection fails"
-msgstr "Verificación de certificado fallida"
+msgstr "Click aquí si la redirección falla"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:219
 msgid ""
@@ -4145,26 +4144,21 @@ msgid "No data backup has been done yet"
 msgstr "No se hizo aún un backup de los datos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1970
-#, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Cloud"
 msgstr ""
-"El nombre de suscripción no está disponible si el servidor no está suscrito "
-"a Zentyal Cloud"
+"El UUID solo está disponible si la máquina está suscrita a Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1997
-#, fuzzy
 msgid "The Zentyal Cloud Domain is only available if the host is subscribed"
 msgstr ""
-"El nombre de suscripción no está disponible si el servidor no está suscrito "
-"a Zentyal Cloud"
+"El Dominio de Zentyal Cloud solo está disponible si la máquina está suscrita"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2023
-#, fuzzy
 msgid ""
 "The Zentyal Cloud Credentials are only available if the host is subscribed"
 msgstr ""
-"Las direcciones IP del monitor están disponibles únicamente si el host está "
-"suscrito a Zentyal Cloud"
+"Las credenciales de Zentyal Cloud solo están disponibles si la máquina está "
+"suscrita"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
 msgid "Support available via"
@@ -4543,9 +4537,8 @@ msgid "Download latest report"
 msgstr "Descarga el último informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
-#, fuzzy
 msgid "Last consolidation time"
-msgstr "Fichero de configuración de claves"
+msgstr "Último momento de consolidación"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:104
 #, fuzzy
@@ -6844,15 +6837,15 @@ msgstr ""
 "seguridad del {d}. Podrías probar con otra fecha?"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:101
-#, fuzzy
 msgid "Remote Backup Status : Update process running, retry later"
-msgstr "El proceso de actualización está en ejecución, inténtelo más tarde"
+msgstr ""
+"Estado del Backup Remoto: Proceso de actualización ejecutándose, reintentar "
+"más tarde"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:106
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:125
-#, fuzzy
 msgid "Remote Backup Status : There are not backed up files yet"
-msgstr "No hay ningún fichero de copias de seguridad"
+msgstr "Estado del Backup Remoto: No hay ficheros guardados todavía"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:171
 msgid "Remote Backup Status"
@@ -7223,6 +7216,8 @@ msgid ""
 "Must be the external IP to connect and it was the addresss of local "
 "interface {if}"
 msgstr ""
+"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
+"conectar."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:176
 msgid ""
@@ -9712,14 +9707,14 @@ msgstr ""
 "esperar unos segundos a que se recojan los datos de monitorización"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"Antes de configurar las impresoras se necesita habilitar el módulo en la "
-"sección {openref}Estado del Módulo{closeref} y salvar los cambios "
-"posteriormente."
+"Antes de configurar los permisos para las impresoras se necesita habilitar "
+"el módulo en la sección {openref}Estado del Módulo{closeref} y salvar los "
+"cambios posteriormente."
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:156
 msgid ""
@@ -9728,6 +9723,11 @@ msgid ""
 "PPA to your APT sources.list and install our samba4 package, then change the "
 "samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba.conf"
 msgstr ""
+"Estás usando el nuevo servidor de ficheros 'ntvfs' de samba, que es "
+"incompatible con el servicio de impresoras. Si deseas activar esta "
+"característica, añade el PPA de Zentyal al fichero source.list de tu APT e "
+"instala nuestro paquete de samba4, y después cambia el campo de configuracón "
+"de samba 'samba_fs' al valor 's3fs' en /etc/zentyal/samba.conf"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:174
 msgid "Printer name"
@@ -9760,9 +9760,9 @@ msgid "printer"
 msgstr "impresora"
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:215
-#, fuzzy
 msgid "Here you can define the access control list for your printers."
-msgstr "Aquí se puede definir la configuración general para el portal cautivo."
+msgstr ""
+"Aquí se pueden definir las listas de control de acceso para tus impresoras."
 
 #: ../../main/printers/src/EBox/Model/Printers.pm:226
 #, perl-brace-format
@@ -9802,9 +9802,8 @@ msgstr ""
 "externas. Si no se selecciona ninguna, escuchará únicamente en localhost."
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:91
-#, fuzzy
 msgid "Print"
-msgstr "Impresora"
+msgstr "Imprimir"
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:124
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:200
@@ -9819,10 +9818,9 @@ msgid "Printers"
 msgstr "Impresoras"
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:176
-#, fuzzy
 msgid "Any access control is disabled if guest access is allowed."
 msgstr ""
-"Cualquier control de acceso es desactivado si está permitido el acceso de "
+"No se realizará ningún control de acceso si está permitido el acceso de "
 "invitado."
 
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:220
@@ -10099,6 +10097,8 @@ msgstr "ruta"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:125
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
 msgstr ""
+"El nombre de máquina de NeBIOS y nombre de dominio de NetBIOS deben ser "
+"distintos"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:139
 msgid "Domain or workgroup name is too long"
@@ -10131,9 +10131,8 @@ msgid "NetBIOS name is too long"
 msgstr "El nombre NetBIOS es demasiado largo"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:167
-#, fuzzy
 msgid "NetBIOS names cannot contain dots"
-msgstr "El nombre NetBIOS es demasiado largo"
+msgstr "Los nombres de NetBIOS no pueden contener puntos"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:169
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:261
@@ -10164,20 +10163,17 @@ msgstr "Función del servidor"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:226
 msgid "Realm"
-msgstr ""
+msgstr "Reino"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:232
-#, fuzzy
 msgid "Domain controller FQDN"
-msgstr "Controlador del dominio"
+msgstr "FQDN del controlador del Dominio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:237
-#, fuzzy
 msgid "Domain DNS server IP"
-msgstr "Servidor de nombres de dominio"
+msgstr "IP del servidor DNS del dominio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:244
-#, fuzzy
 msgid "Administrator account"
 msgstr "Cuenta de administrador"
 
@@ -10229,15 +10225,16 @@ msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
 msgstr ""
+"Unirse a un dominio borrará todos los usuarios y grupos de Zentyal e "
+"importará los del dominio."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:353
 msgid "Domain controller"
 msgstr "Controlador del dominio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:354
-#, fuzzy
 msgid "Additional domain controller"
-msgstr "Controlador del dominio"
+msgstr "Controlador de dominio adicional"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
@@ -10265,7 +10262,7 @@ msgstr "Añadir excepciones a las opciones por defecto del antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:46
 msgid "Enable virus scanning"
-msgstr ""
+msgstr "Habilitar antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:54
 msgid "Antivirus default settings"
@@ -10284,7 +10281,6 @@ msgid "Recycle default settings"
 msgstr "Opciones por defecto de la Papelera"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:55
-#, fuzzy
 msgid "Enable recycle bin"
 msgstr "Habilitar Papelera de Reciclaje"
 
@@ -10333,9 +10329,9 @@ msgstr ""
 "leer y escribir cualquier fichero del recurso compartido"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "User: {u}"
-msgstr "Cuota de usuario"
+msgstr "Usuario: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
 #: ../../main/samba/src/EBox/Samba.pm:73
@@ -10372,13 +10368,14 @@ msgid "Found {count} results for, expected only one."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:415
-#, fuzzy
 msgid "Windows account names cannot end with a period"
-msgstr "Sólo las direcciones de red pueden terminar en cero"
+msgstr "Los nombres de cuenta de Windows no pueden acabar con un punto"
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:419
 msgid "Windows account names cannot be only spaces, numbers and dots"
 msgstr ""
+"Los nombres de cuenta en Windows no pueden estar  compuestos de espacios, "
+"números y puntos únicamente."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:423
 #, fuzzy
@@ -10392,15 +10389,13 @@ msgstr ""
 "guión ni terminar con un punto"
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:430
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
-msgstr ""
-"El nombre del grupo no debe ser más largo de {maxGroupLength} caracteres "
+msgstr "El nombre de la cuenta no debe ser más largo de {maxLength} caracteres "
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:436
-#, fuzzy
 msgid "samAccountName"
-msgstr "Nombre de cuenta"
+msgstr "samAccountName"
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:450
 #: ../../main/mail/src/templates/createaccount.mas:20
@@ -10419,13 +10414,12 @@ msgstr ""
 "Crear directorio personal de Samba para directorios compartidos y grupos"
 
 #: ../../main/samba/src/EBox/Samba.pm:113
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"Zentyal creará directorios personales para directorios compartidos y grupos "
-"de Samba bajo /home/samba"
+"Zentyal creará los directorios para directorios compartidos y grupos de "
+"Samba bajo /home/samba."
 
 #: ../../main/samba/src/EBox/Samba.pm:129
 msgid "To set up Samba according to your configuration."
@@ -10449,12 +10443,12 @@ msgstr "Protocolo de compartición de ficheros (Samba)"
 
 #: ../../main/samba/src/EBox/Samba.pm:558
 msgid "Samba can't be provisioned if no IP addresses are set"
-msgstr ""
+msgstr "Samba no puede ser provisionado si no se han configurado direcciones IP"
 
 #: ../../main/samba/src/EBox/Samba.pm:586
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The mode {mode} is not supported"
-msgstr "El modelo no existe."
+msgstr "El modo {mode} no está soportado"
 
 #: ../../main/samba/src/EBox/Samba.pm:696
 msgid ""
@@ -12020,9 +12014,11 @@ msgid "NTP"
 msgstr "NTP"
 
 #: ../../main/core/src/cgi/ebox.cgi:76
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following software packages are not correctly installed: {pack}"
-msgstr "Los siguientes paquetes no están correctamente instalados: {packages}."
+msgstr ""
+"Los siguientes paquetes de software no están correctamente instalados: "
+"{pack}"
 
 #: ../../main/core/src/cgi/ebox.cgi:82
 #, perl-brace-format
@@ -12030,6 +12026,8 @@ msgid ""
 "There are some software packages which are not correctly installed: {pack}. "
 "<p>You should reinstall them and retry your operation.</p>"
 msgstr ""
+"Algunos de los paquetes de software no han sido instalados correctamente: "
+"{pack} <p> Debes reinstalarlos y reintentar esta operación.</p>"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -12089,14 +12087,13 @@ msgid "{model} in {module} module"
 msgstr "{model} en módulo {module}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:360
-#, fuzzy
 msgid "element"
-msgstr "elementos"
+msgstr "elemento"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:362
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There is not any {element}"
-msgstr "El servicio seleccionado no está en {file}"
+msgstr "No hay ningún/a {element}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:489
 msgid "field"
@@ -13178,13 +13175,14 @@ msgid "Change hostname"
 msgstr "Cambiar nombre de la máquina"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:81
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Are you sure you want to change the hostname to {new}?. You may need to "
 "restart all the services or reboot the system to enforce the change"
 msgstr ""
-"Se necesitará reiniciar todos los servicios o reiniciar el sistema para "
-"aplicar el cambio de nombre."
+"¿Estás seguro de querer cambiar el nombre del sistema a {new}?. Puedes "
+"necesitar reiniciar todos los servicios o reiniciar el servidor para que el "
+"cambio sea efectivo"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
@@ -13237,18 +13235,15 @@ msgid "It must be a valid HTML string"
 msgstr "Debe ser una cadena de HTML válida"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:235
-#, fuzzy
 msgid "This city does not exist."
 msgstr "La ciudad no existe."
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:241
-#, fuzzy
 msgid "This continent does not exist."
 msgstr "El continente no existe."
 
 #: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:47
 #: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:47
-#, fuzzy
 msgid "Not"
 msgstr "No"
 
@@ -13801,9 +13796,8 @@ msgid "Full Reports"
 msgstr "Informes completos"
 
 #: ../../main/core/src/EBox/CGI/Wizard/SoftwareSetupFinish.pm:27
-#, fuzzy
 msgid "Installation finished"
-msgstr "Instalación del paquete completada"
+msgstr "Instalación completada"
 
 #: ../../main/core/src/EBox/CGI/ClientRawBase.pm:215
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:151
@@ -14221,17 +14215,14 @@ msgstr ""
 "permiten sólo lectura."
 
 #: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:278
-#, fuzzy
 msgid "This manufacturer does not exist."
 msgstr "El fabricante no existe."
 
 #: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:284
-#, fuzzy
 msgid "This model does not exist."
 msgstr "El modelo no existe."
 
 #: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:290
-#, fuzzy
 msgid "This driver does not exist."
 msgstr "El driver no existe."
 
@@ -15140,7 +15131,7 @@ msgstr "Alias de dominio"
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:243
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:280
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:305
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exist"
 msgstr "El dominio de correo {d} no existe"
 
@@ -15566,7 +15557,6 @@ msgstr ""
 "la versión para móviles en http://zentyal_ip/webaccess-mobile."
 
 #: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:324
-#, fuzzy
 msgid ""
 "This user has a Zarafa account (if the user is currently connected it will "
 "continue connected until Zarafa authorization is again required)."
@@ -16286,6 +16276,8 @@ msgid ""
 "There are no users for the organizational unit: {ou}<p>{ao}See users for all "
 "organizational units{ac}"
 msgstr ""
+"No hay usuarios en la unidad organizativa: {ou}<p>{ao}Ver los usuarios de "
+"todas las unidades organizativas{ac}"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/SlavePassword.pm:48
 msgid "Slave connection password"
@@ -17005,9 +16997,8 @@ msgid "View advanced mode"
 msgstr "Ver modo avanzado"
 
 #: ../../main/software/src/templates/ebox.mas:139
-#, fuzzy
 msgid "Server roles"
-msgstr "Función del servidor"
+msgstr "Roles del servidor"
 
 #: ../../main/software/src/templates/ebox.mas:325
 msgid "Skip install"
@@ -17072,14 +17063,12 @@ msgid "pages"
 msgstr "páginas"
 
 #: ../../main/software/src/templates/ebox.mas:517
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Instalando paquetes"
+msgstr "Actualizando paquetes"
 
 #: ../../main/software/src/templates/ebox.mas:523
-#, fuzzy
 msgid "No packages selected"
-msgstr "No se han encontrado paquetes"
+msgstr "No se han seleccionado paquetes"
 
 #: ../../main/software/src/templates/ebox.mas:551
 #: ../../main/software/src/templates/updates.mas:26
@@ -17115,9 +17104,8 @@ msgid "Automatic operations start time"
 msgstr "Hora de inicio de las operaciones automáticas"
 
 #: ../../main/software/src/templates/del.mas:69
-#, fuzzy
 msgid "Confirm packages to install"
-msgstr "Seleccione los paquetes de Zentyal a instalar"
+msgstr "Seleccione los paquetes a instalar"
 
 #: ../../main/software/src/templates/del.mas:71
 msgid "The following packages will be installed"
@@ -17264,19 +17252,16 @@ msgid "Archive size"
 msgstr "Tamaño del archivo"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:143
-#, fuzzy
 msgid "Restore configuration backup"
-msgstr "Restaurando el backup de la configuración"
+msgstr "Restaurar el backup de la configuración"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:144
-#, fuzzy
 msgid "Download configuration backup"
-msgstr "Descargando la configuración"
+msgstr "Descargando el backup de configuración"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:145
-#, fuzzy
 msgid "Delete configuration backup"
-msgstr "Backup de la última configuración"
+msgstr "Borrar copia de seguridad"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:187
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:90
@@ -17296,9 +17281,9 @@ msgstr "Lista de backups de configuración"
 
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:18
 #: ../../main/core/src/templates/confirm-backup.mas:23
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Restore backup: {desc}"
-msgstr "- El último backup fue: {date}"
+msgstr "Restaurar la copia de seguridad: {desc}"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
 msgid "Zentyal host"
@@ -17355,6 +17340,8 @@ msgid ""
 "The quota limit will only be enforced when <a href={url}>bandwith limit</a> "
 "is enabled"
 msgstr ""
+"El límite de cuota solo se hará efectivo cuando el <a href={url}>límite de "
+"ancho de banda</a> esté activado"
 
 #: ../../main/captiveportal/src/templates/login.mas:20
 #: ../../main/core/src/templates/login/index.mas:51
@@ -17596,9 +17583,8 @@ msgstr ""
 "habilitado."
 
 #: ../../main/samba/src/templates/samba.mas:8
-#, fuzzy
 msgid "Active Directory/File sharing account"
-msgstr "Cuenta de compartición de ficheros o de PDC"
+msgstr "cuenta de Active Directory/Compartición de Ficheros"
 
 #: ../../main/samba/src/templates/samba.mas:33
 msgid "Sharing directory for this group"
@@ -17866,6 +17852,8 @@ msgid ""
 "This operation will resign all the issued user certificates\n"
 "  with the same expiration date"
 msgstr ""
+"Esta operación volverá a firmar todos los certificados expedidos\n"
+"con la misma fecha de expiración"
 
 #: ../../main/core/src/templates/notConfigured.mas:8
 #, perl-brace-format
@@ -17931,13 +17919,12 @@ msgstr ""
 "consola: {cmd}"
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:161
-#, fuzzy
 msgid ""
 "Browse the available widgets in the top menu and drag&drop them to the "
 "dashboard."
 msgstr ""
-"Navegue por los widgets disponibles en el menú de la izquierda y arrástrelos "
-"y suéltelos en el dashboard"
+"Navegue por los widgets disponibles en el menú superior y arrástrelos hasta "
+"el dashboard"
 
 #: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
@@ -18006,7 +17993,6 @@ msgid "Some error has happened in Zentyal: "
 msgstr "Ha ocurrido un error en Zentyal:"
 
 #: ../../main/core/src/templates/progress.mas:44
-#, fuzzy
 msgid "Click here to go to the Dashboard"
 msgstr "Haz click para volver al Dashboard"
 
@@ -18038,21 +18024,19 @@ msgstr "¡Enhorabuena!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:15
 msgid "Your Zentyal installation has successfully finished!"
-msgstr ""
+msgstr "¡Tu instalación de Zentyal se ha completado con éxito!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:16
-#, fuzzy
 msgid ""
 "Now you can go to the dashboard and start using your brand new Zentyal "
 "server."
 msgstr ""
-"Ahora está preparado para guardar cambios y comenzar a usar su servidor "
-"Zentyal"
+"Puedes ir al Dashboard y comenzar a usar tu servidor Zentyal recién "
+"instalado."
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:19
-#, fuzzy
 msgid "Go to the Dashboard"
-msgstr "Haz click para volver al Dashboard"
+msgstr "Ir al Dashboard"
 
 #: ../../main/core/src/templates/configureView.mas:12
 msgid ""
@@ -18121,9 +18105,8 @@ msgid "Choose one..."
 msgstr "Elija una..."
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
-#, fuzzy
 msgid "Current file"
-msgstr "Módulo actual"
+msgstr "Fichero actual"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:320
 #: ../../main/core/src/templates/ajax/tableModal.mas:173
@@ -18138,9 +18121,9 @@ msgid "Editing {row}"
 msgstr "Editando {row}"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:326
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cloning {row}"
-msgstr "Editando {row}"
+msgstr "Clonando {row}"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:599
 #: ../../main/core/src/templates/ajax/tableModalView.mas:139
@@ -18499,9 +18482,8 @@ msgid "Failure on spare"
 msgstr "Espacio libre"
 
 #: ../../main/core/src/templates/report/raid.mas:259
-#, fuzzy
 msgid "No unused RAID devices"
-msgstr "Dispositivos sin usar"
+msgstr "No hay dispositivos RAID sin usar"
 
 #: ../../main/core/src/templates/report/raid.mas:262
 msgid "Unused RAID arrays"
@@ -18580,23 +18562,20 @@ msgid "Backup file"
 msgstr "Fichero de backup"
 
 #: ../../main/core/src/templates/backup.mas:152
-#, fuzzy
 msgid "Restore backup"
-msgstr "Restaurando el backup"
+msgstr "Restaurar el backup"
 
 #: ../../main/core/src/templates/backup.mas:153
 msgid "Restore configuration using this file"
 msgstr "Restaurar la configuración utilizando este fichero"
 
 #: ../../main/core/src/templates/backup.mas:155
-#, fuzzy
 msgid "Download backup file"
-msgstr "Descargando datos del backup"
+msgstr "Descargando fichero de backup"
 
 #: ../../main/core/src/templates/backup.mas:156
-#, fuzzy
 msgid "Delete backup"
-msgstr "Eliminar grupo"
+msgstr "Eliminar copia de seguridad"
 
 #: ../../main/core/src/templates/backup.mas:159
 msgid "Full"
@@ -18677,9 +18656,8 @@ msgid "Create mail account"
 msgstr "Crear cuenta de correo"
 
 #: ../../main/mail/src/templates/createaccount.mas:48
-#, fuzzy
 msgid "Maildir size"
-msgstr "Tamaño de fichero"
+msgstr "Tamaño de la carpeta de correo"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
@@ -18739,15 +18717,17 @@ msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
 msgstr ""
+"Recuperación del servicio de correo de cuentas externas no está habilitada, "
+"hasta que {ub} active esta característica {ue} sus cambios no tendrán efecto "
+"alguno."
 
 #: ../../main/mail/src/templates/externalAccounts.mas:32
 msgid "The user can change this settings through the user corner"
-msgstr ""
+msgstr "El usuario puede cambiar esta configuración desde el rincón de usuario"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:73
-#, fuzzy
 msgid "Delete external account"
-msgstr "Cuenta externa"
+msgstr "Borrar cuenta externa"
 
 # probably it's not "oldest" but "older"
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
@@ -18948,14 +18928,12 @@ msgid "Host domain name"
 msgstr "Nombre del dominio para esta máquina"
 
 #: ../../main/users/src/templates/usersTableBody.mas:57
-#, fuzzy
 msgid "All organizational units"
-msgstr "unidad organizativa"
+msgstr "Todas las unidades organizativas"
 
 #: ../../main/users/src/templates/usersTableBody.mas:62
-#, fuzzy
 msgid "Organizational unit"
-msgstr "unidad organizativa"
+msgstr "Unidad Organizativa"
 
 #: ../../main/users/src/templates/groups.mas:10
 msgid "Add Group"

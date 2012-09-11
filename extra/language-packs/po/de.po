@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2012-09-04 11:43+0200\n"
-"Last-Translator: sued <sven.parusel@dlr.de>\n"
+"PO-Revision-Date: 2012-09-10 10:56+0200\n"
+"Last-Translator: hitti <juergen-kleinert@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -18380,31 +18380,28 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/index.mas:23
 #: ../../main/core/src/templates/dashboard/status.mas:19
-#, fuzzy
 msgid "The service is enabled and running"
-msgstr "Zentyal läuft"
+msgstr "Der Dienst ist aktiviert und läuft"
 
 #: ../../main/core/src/templates/dashboard/index.mas:26
 #: ../../main/core/src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Der Dienst ist aktiviert, aber läuft nicht"
 
 #: ../../main/core/src/templates/dashboard/index.mas:29
 #: ../../main/core/src/templates/dashboard/status.mas:28
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Läuft unkonfiguriert"
 
 #: ../../main/core/src/templates/dashboard/index.mas:29
 #: ../../main/core/src/templates/dashboard/status.mas:29
-#, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
-msgstr "Der Dienst läuft, ist aber in Zentyal nicht eingeschaltet"
+msgstr "Der Dienst läuft, ist aber in Zentyal nicht aktiviert"
 
 #: ../../main/core/src/templates/dashboard/index.mas:32
 #: ../../main/core/src/templates/dashboard/status.mas:33
-#, fuzzy
 msgid "The service is not enabled in Zentyal"
-msgstr "Der Dienst ist in Zentyal nicht eingeschaltet"
+msgstr "Der Dienst ist in Zentyal nicht aktiviert"
 
 #: ../../main/core/src/templates/dashboard/index.mas:36
 #: ../../main/core/src/templates/dashboard/status.mas:11
@@ -18416,9 +18413,9 @@ msgid "Configure widgets"
 msgstr "Widgets konfigurieren"
 
 #: ../../main/core/src/templates/dashboard/index.mas:112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
-msgstr "Die folgenden Pakete werden installiert"
+msgstr "Die folgenden Pakete sind möglicherweise nicht installiert:"
 
 #: ../../main/core/src/templates/dashboard/index.mas:116
 #, perl-brace-format
@@ -18476,7 +18473,6 @@ msgstr ""
 "Sie diese Änderungen speichern oder verwerfen?"
 
 #: ../../main/core/src/templates/finish.mas:127
-#, fuzzy
 msgid "Discarding changes"
 msgstr "Änderungen verwerfen"
 
@@ -18537,20 +18533,19 @@ msgstr "Herzlichen Glückwunsch!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:15
 msgid "Your Zentyal installation has successfully finished!"
-msgstr ""
+msgstr "Ihre Zentyalinstallation wurde erfolgreich abgeschlossen!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:16
-#, fuzzy
 msgid ""
 "Now you can go to the dashboard and start using your brand new Zentyal "
 "server."
 msgstr ""
-"Sie können nun die Änderungen speichern und Ihren Zentyal-Server nutzen"
+"Sie können nun zur Übersichtsseite gehen, und Ihren neuen Zentyalserver "
+"nutzen!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:19
-#, fuzzy
 msgid "Go to the Dashboard"
-msgstr "Übersicht"
+msgstr "Zur Übersichtsseite"
 
 #: ../../main/core/src/templates/configureView.mas:12
 msgid ""
@@ -18633,9 +18628,8 @@ msgid "Choose one..."
 msgstr "Wählen Sie eine..."
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
-#, fuzzy
 msgid "Current file"
-msgstr "Aktuelles Modul"
+msgstr "Aktuelle Datei"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:320
 #: ../../main/core/src/templates/ajax/tableModal.mas:173
@@ -18650,9 +18644,9 @@ msgid "Editing {row}"
 msgstr "{row} wird bearbeitet"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:326
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cloning {row}"
-msgstr "{row} wird bearbeitet"
+msgstr "{row} wird geklont"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:599
 #: ../../main/core/src/templates/ajax/tableModalView.mas:139
@@ -18664,7 +18658,7 @@ msgstr "neuen Eintrag hinzufügen"
 #: ../../main/core/src/templates/ajax/tableBody.mas:648
 #: ../../main/core/src/templates/ajax/tableModalView.mas:504
 msgid "Clone"
-msgstr ""
+msgstr "Klonen"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:653
 #: ../../main/core/src/templates/ajax/tableModalView.mas:509
@@ -18678,9 +18672,8 @@ msgstr "Nur-Lese Zeile: Löschen deaktiviert"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:656
 #: ../../main/core/src/templates/ajax/tableModalView.mas:512
-#, fuzzy
 msgid "Read-only row: clone disabled"
-msgstr "Nur-Lese Zeile: Löschen deaktiviert"
+msgstr "Nur-Lese Zeile: Klonen deaktiviert"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:767
 #: ../../main/core/src/templates/ajax/tableModalView.mas:629
@@ -18757,9 +18750,8 @@ msgid "Add new..."
 msgstr "hinzufügen ..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
-#, fuzzy
 msgid "No elements found. "
-msgstr "nicht gefunden"
+msgstr "Keine Elemente gefunden."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "Add a new one"
@@ -18985,7 +18977,7 @@ msgstr "Array Eigenschaften"
 
 #: ../../main/core/src/templates/report/raid.mas:192
 msgid "Resyncing array"
-msgstr "Array wird synchronisiert"
+msgstr "Array synchronisieren"
 
 #: ../../main/core/src/templates/report/raid.mas:193
 msgid "Rebuild array"
@@ -19035,13 +19027,15 @@ msgstr "Keine unbenutzten RAID-Geräte"
 
 #: ../../main/core/src/templates/report/raid.mas:262
 msgid "Unused RAID arrays"
-msgstr "Unbenutzte RAID-Array"
+msgstr "Unbenutzte RAID-Geräte"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
 "Zentyal detected that some files which need to be overwritten have been\n"
 "modified by you."
 msgstr ""
+"Zentyal entdeckte, das einige Dateien die überschrieben werden sollten, von "
+"Ihnen bearbeitet wurden."
 
 #: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
@@ -19062,7 +19056,7 @@ msgstr ""
 "Bearbeiten"
 
 #: ../../main/core/src/templates/backup.mas:29
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
@@ -19111,23 +19105,20 @@ msgid "Backup file"
 msgstr "Sicherungsdatei"
 
 #: ../../main/core/src/templates/backup.mas:152
-#, fuzzy
 msgid "Restore backup"
-msgstr "Backup wird wiederhergestellt"
+msgstr "Wiederherstellen der Sicherung"
 
 #: ../../main/core/src/templates/backup.mas:153
 msgid "Restore configuration using this file"
 msgstr "Konfiguration aus dieser Datei wiederherstellen"
 
 #: ../../main/core/src/templates/backup.mas:155
-#, fuzzy
 msgid "Download backup file"
-msgstr "Allgemeine Einstellungen"
+msgstr "Herunterladen der Sicherungsdatei"
 
 #: ../../main/core/src/templates/backup.mas:156
-#, fuzzy
 msgid "Delete backup"
-msgstr "Gruppe löschen"
+msgstr "Sicherung löschen"
 
 #: ../../main/core/src/templates/backup.mas:159
 msgid "Full"
@@ -19241,9 +19232,8 @@ msgstr "Eine virtuelle Domäne hinzufügen"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
-#, fuzzy
 msgid "Changing maildir size of"
-msgstr "Postfachgrösse"
+msgstr "Ändern der Postfachgrösse von"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
 msgid ""
@@ -19257,9 +19247,8 @@ msgid "Don't delete retrieved mail from external server"
 msgstr "Mail-Abruf von externen Accounts"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:16
-#, fuzzy
 msgid "Fetch already read messages"
-msgstr "von Nachrichten gelernt"
+msgstr "Nur gelesene Nachrichten holen"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:23
 #, perl-brace-format
@@ -19270,12 +19259,11 @@ msgstr ""
 
 #: ../../main/mail/src/templates/externalAccounts.mas:32
 msgid "The user can change this settings through the user corner"
-msgstr ""
+msgstr "Der Benutzer kann die Einstellungen über die Benutzerseite ändern."
 
 #: ../../main/mail/src/templates/externalAccounts.mas:73
-#, fuzzy
 msgid "Delete external account"
-msgstr "Externes Konto"
+msgstr "Externes Konto löschen"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
@@ -19324,9 +19312,8 @@ msgstr ""
 "aktiviert ist"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
-#, fuzzy
 msgid "Deleting virtual domain"
-msgstr "Virtuelle Mail-Domäne"
+msgstr "Virtuelle Domäne löschen"
 
 #: ../../main/mail/src/templates/warnvd.mas:13
 msgid ""
@@ -19370,12 +19357,10 @@ msgid "Zarafa account"
 msgstr "Zarafa-Konto"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:37
-#, fuzzy
 msgid "Enable POP3 access"
 msgstr "POP3 Gateway aktivieren"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:46
-#, fuzzy
 msgid "Enable IMAP access"
 msgstr "IMAP Gateway aktivieren"
 
@@ -19406,13 +19391,12 @@ msgid "Groupware contact"
 msgstr "Groupware-Kontakt"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:133
-#, fuzzy
 msgid ""
 "The following settings will take effect only when the Zarafa module is "
 "enabled."
 msgstr ""
-"Die folgenden Einstellungen werden nur angewendet, wenn der E-Mail-Dienst "
-"aktiviert ist"
+"Die folgenden Einstellungen werden nur angewendet, wenn das Zarafamodul "
+"aktiviert ist."
 
 #: ../../main/asterisk/src/templates/group.mas:7
 msgid "Asterisk group queue"
@@ -19461,14 +19445,12 @@ msgid "Add and Edit"
 msgstr "Hinzufügen und bearbeiten"
 
 #: ../../main/users/src/templates/users.mas:98
-#, fuzzy
 msgid "Organizational Unit"
-msgstr "Name der Organisation"
+msgstr "Organisationseinheit"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
-#, fuzzy
 msgid "Select the domain name of the server"
-msgstr "Wählen Sie den Server-Typ aus"
+msgstr "Wählen Sie den Domänennamen des Servers aus"
 
 #: ../../main/users/src/templates/wizard/users.mas:14
 msgid "This will used as the Kerberos authentication realm for your users."
@@ -19480,14 +19462,12 @@ msgid "Host domain name"
 msgstr "Name der Domäne"
 
 #: ../../main/users/src/templates/usersTableBody.mas:57
-#, fuzzy
 msgid "All organizational units"
-msgstr "Name der Organisation"
+msgstr "Alle Organisationseinheiten"
 
 #: ../../main/users/src/templates/usersTableBody.mas:62
-#, fuzzy
 msgid "Organizational unit"
-msgstr "Name der Organisation"
+msgstr "Organisationseinheit"
 
 #: ../../main/users/src/templates/groups.mas:10
 msgid "Add Group"
@@ -19499,10 +19479,9 @@ msgstr "Gruppenname"
 
 #: ../../main/users/src/templates/groups.mas:28
 msgid "Optional value"
-msgstr "Optionaler Name"
+msgstr "Zusätzliche Informationen"
 
 #: ../../main/users/src/templates/del.mas:13
-#, fuzzy
 msgid "Deleting user"
 msgstr "Benutzer löschen"
 
@@ -19515,7 +19494,6 @@ msgstr ""
 "Sie den Benutzer und alle zugehörigen Daten löschen?"
 
 #: ../../main/users/src/templates/del.mas:16
-#, fuzzy
 msgid "Deleting group"
 msgstr "Gruppe löschen"
 
@@ -19528,9 +19506,8 @@ msgstr ""
 "Sie die Gruppe und alle zugehörigen Daten löschen?"
 
 #: ../../main/users/src/templates/group.mas:11
-#, fuzzy
 msgid "Administration of group "
-msgstr "Administrationsrechte"
+msgstr "Administration der Gruppe"
 
 #: ../../main/users/src/templates/group.mas:13
 msgid ""
@@ -19580,9 +19557,8 @@ msgstr ""
 "Verzeichnisse."
 
 #: ../../main/users/src/templates/user.mas:14
-#, fuzzy
 msgid "Administration of user"
-msgstr "Administrationsrechte"
+msgstr "Benutzerverwaltung"
 
 #: ../../main/users/src/templates/user.mas:58
 msgid "User quota"
