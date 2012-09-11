@@ -102,8 +102,8 @@ sub hasFeature
 {
     my ($self, $user, $feature) = @_;
 
-    my %enabled = map { $_ => 1 }
-        (split (' ', $user->get('zarafaEnabledFeatures')));
+    my @features = $user->get('zarafaEnabledFeatures');
+    my %enabled = map { $_ => 1 } @features;
 
     return $enabled{$feature};
 }
@@ -112,17 +112,18 @@ sub setHasFeature
 {
     my ($self, $user, $feature, $option) = @_;
 
-    my %enabled = map { $_ => 1 }
-        (split (' ', $user->get('zarafaEnabledFeatures')));
+    my @features = $user->get('zarafaEnabledFeatures');
+    my %enabled = map { $_ => 1 } @features;
+
     if ($option) {
 	    $enabled{$feature} = 1;
     } else {
 	    delete $enabled{$feature};
     }
 
-    my @features = keys (%enabled);
+    @features = keys (%enabled);
     if (@features) {
-        $user->set('zarafaEnabledFeatures', join (' ', @features));
+        $user->set('zarafaEnabledFeatures', \@features);
     } else {
         $user->delete('zarafaEnabledFeatures');
     }
