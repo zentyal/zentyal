@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS squid_access (
        bytes INT,
        method VARCHAR(10),
        url VARCHAR(1024),
+       domain VARCHAR(255),
        rfc931 VARCHAR(255) DEFAULT '-',
        peer VARCHAR(255),
        mimetype VARCHAR(255),

@@ -58,7 +58,7 @@ if ($MODULE_NAME eq 'common' or $MODULE_NAME eq 'core') {
 my %srcs;
 
 # Perl modules
-my @lines = `find . -name *.pm|xargs grep "^package .*;"`;
+my @lines = `find . -name *.pm|xargs grep -H "^package .*;"`;
 foreach my $line (@lines) {
     my ($file, $package) = $line =~ /(.*):package (.*);/;
     $package =~ s/::/\//g;

@@ -1,3 +1,9 @@
+HEAD
+	+ Reviewed registration strings
+2.3.17
+	+ Do not translate the service principal names to upper case
+	+ Set LDAP service as denined by default for internal networks
+	+ Set the managed domain as read only as well as records
 2.3.16
 	+ Fixed PAM when kerberos is enabled
 	+ Fixed addUser operation on slaves

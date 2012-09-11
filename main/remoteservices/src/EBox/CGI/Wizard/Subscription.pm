@@ -35,7 +35,8 @@ use constant PROMO_AVAILABLE => 'https://api.zentyal.com/2.3/promo_available';
 sub new # (cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => 'remoteservices/wizard/subscription.mas', @_);
+    my $self = $class->SUPER::new('template' => 'remoteservices/wizard/subscription.mas',
+                                  @_);
     bless($self, $class);
     return $self;
 }

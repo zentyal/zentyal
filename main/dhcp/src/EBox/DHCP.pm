@@ -18,10 +18,6 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::LogObserver);
-
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -47,6 +43,10 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 
+use base qw( EBox::Module::Service
+             EBox::NetworkObserver
+             EBox::LogObserver );
+
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
 #use constant DHCPCONFFILE => "@DHCPDCONF@";
@@ -61,6 +61,8 @@ use constant DHCP_SERVICE => "isc-dhcp-server";
 use constant TFTP_SERVICE => "tftpd-hpa";
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
+use constant KEYS_DIR => '/etc/dhcp/ddns-keys';
+use constant KEYS_FILE => KEYS_DIR . '/keys';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
@@ -153,6 +155,12 @@ sub initialSetup
         $firewall->saveConfigRecursive();
 
         mkdir (CONF_DIR, 0755);
+        EBox::debug("Creating directory for dynamic DNS keys");
+        my @cmds;
+        push (@cmds, 'mkdir -p ' . KEYS_DIR);
+        push (@cmds, 'chown root:dhcpd ' . KEYS_DIR);
+        push (@cmds, 'chmod 0750 ' . KEYS_DIR);
+        EBox::Sudo::root(@cmds);
     }
 }
 
@@ -169,8 +177,7 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
-    my @params = ( 'keysFile' => $self->_keysFile(),
-                   'confDir'  => $self->IncludeDir() );
+    my @params = ('confDir' => $self->IncludeDir());
 
     return [
         { 'binary' => 'usr.sbin.dhcpd',
@@ -252,8 +259,8 @@ sub depends
     my ($self) = @_;
 
     my $dependsList = $self->SUPER::depends();
-    if ( $self->_dynamicDNSEnabled() ) {
-        push(@{$dependsList}, 'dns');
+    if ($self->_dynamicDNSEnabled()) {
+        push (@{$dependsList}, 'dns');
     }
 
     return $dependsList;
@@ -1275,10 +1282,9 @@ sub _setDHCPConf
     push @params, ('ifaces' => $ifacesInfo);
     push @params, ('real_ifaces' => $self->_realIfaces());
     my $dynamicDNSEnabled = $self->_dynamicDNSEnabled($ifacesInfo);
-    if ( $dynamicDNSEnabled ) {
+    if ($dynamicDNSEnabled) {
         push @params, ('dynamicDNSEnabled' => $dynamicDNSEnabled);
-        push @params, ('keysFile' => $self->_keysFile());
-        EBox::Sudo::root('adduser dhcpd bind');
+        push @params, ('keysFile' => KEYS_FILE);
     }
     push(@params, ('pidFile' => PIDFILE));
 
@@ -1554,21 +1560,6 @@ sub _reverseZones
     } while ( $ip += 256 );
 
     return \@revZones;
-}
-
-# Return the key file to update DNS
-sub _keysFile
-{
-    my ($self) = @_;
-
-    my $gl = $self->global();
-    if ( $gl->modExists('dns') ) {
-        my $dnsMod = $gl->modInstance('dns');
-        if ( $dnsMod->configured() ) {
-            return $dnsMod->keysFile();
-        }
-    }
-    return '';
 }
 
 # Return if the dynamic DNS feature is enabled for this DHCP server or

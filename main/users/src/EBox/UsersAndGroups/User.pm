@@ -829,6 +829,20 @@ sub defaultQuota
     return $value;
 }
 
+# Method: kerberosKeys
+#
+#     Return the Kerberos key hashes for this user
+#
+# Returns:
+#
+#     Array ref - containing three hash refs with the following keys
+#
+#         type  - Int the hash type (18 => DES-CBC-CRC, 16 => DES-CBC-MD5,
+#                                    23 => arcfour-HMAC-MD5 (AKA NTLMv2)
+#         value - Octects containing the hash
+#
+#         salt  - String the salt (only valid for 18 and 16 types)
+#
 sub kerberosKeys
 {
     my ($self) = @_;

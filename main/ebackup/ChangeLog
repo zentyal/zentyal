@@ -1,4 +1,13 @@
 HEAD
+	+ Deleted obsolete Disaster Recovery restore-tool
+2.3.7
+	+ Fixed precondition in bakcup files lists, restore logs and
+	  restore backup models
+	+ Fixed regression in cache of current collection status
+2.3.6
+	+ Move mostly report code to remoteservices
+	+ Fixed executable permissions on update-status script
+	+ Fixed RemoteStatus model precondition when setup is not complete
 	+ Fixed regression when getting collection status
 	+ Fixed wrong call to value() in backup-tool
 2.3.5

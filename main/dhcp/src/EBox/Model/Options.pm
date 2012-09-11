@@ -344,8 +344,9 @@ sub _table
                                       fieldName     => 'ebox',
                                       printableName => __(q{Zentyal domain}),
                                       editable      => 1,
-                                      foreignModel  => \&_domainModel,
+                                      foreignModel  => $self->modelGetter('dns', 'DomainTable'),
                                       foreignField  => 'domain',
+                                      foreignNoSyncRows => 1,
                                      ));
         push ( @primaryNSSubtypes,
                new EBox::Types::Union::Text(
@@ -420,7 +421,7 @@ sub _table
                                                        fieldName     => 'name',
                                                        printableName => __('Configured ones'),
                                                        editable      => 1,
-                                                       foreignModel  => \&_gatewayModel,
+                                                       foreignModel  => $self->modelGetter('network', 'GatewayTable'),
                                                        foreignField  => 'name'
                                                       ),
                               ],
@@ -488,20 +489,6 @@ sub _table
   }
 
 # Group: Private methods
-
-# Get the object model from Objects module
-sub _domainModel
-{
-    # FIXME: when model works with old fashioned
-    return EBox::Global->modInstance('dns')->model('DomainTable');
-}
-
-# Get the object model from Service module
-sub _gatewayModel
-{
-    # FIXME: when model works with old fashioned
-    return EBox::Global->modInstance('network')->model('GatewayTable');
-}
 
 # Fetch ip address from current interface
 sub _fetchIfaceAddress

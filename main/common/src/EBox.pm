@@ -119,20 +119,21 @@ sub logger # (caller?)
 sub setLocale # (locale)
 {
     my ($locale) = @_;
-    open(LOCALE, ">" . EBox::Config::conf() . "/locale");
-    print LOCALE $locale;
-    close(LOCALE);
+
+    open (my $fh, ">" . EBox::Config::conf() . '/locale');
+    print $fh $locale;
+    close ($fh);
 }
 
 # returns:
 #   - the locale
 sub locale
 {
-    my $locale="C";
-    if (-f (EBox::Config::conf() . "locale")) {
-        open(LOCALE, EBox::Config::conf() . "locale");
-        $locale = <LOCALE>;
-        close(LOCALE);
+    my $locale= 'C';
+    if (-f (EBox::Config::conf() . 'locale')) {
+        open (my $fh, EBox::Config::conf() . 'locale');
+        $locale = <$fh>;
+        close ($fh);
     }
     return $locale;
 }
@@ -142,7 +143,9 @@ sub init
     # FIXME: workaround until permission denied warning in GD is fixed
     use GD;
 
-    POSIX::setlocale(LC_ALL, EBox::locale());
+    my $locale = EBox::locale();
+
+    POSIX::setlocale(LC_ALL, $locale);
     POSIX::setlocale(LC_NUMERIC, 'C');
 
     my $gids = EBox::Config::gids();
@@ -157,6 +160,11 @@ sub init
     # Set HOME environment variable to avoid some issues calling
     # external programs
     $ENV{HOME} = EBox::Config::home();
+
+    # Set variables for i18n, this wasn't needed before but appears
+    # to be needed on Ubuntu 12.04
+    $ENV{LANG} = $locale;
+    $ENV{LC_MESSAGES} = $locale;
 
     $debug = EBox::Config::boolean('debug');
 }

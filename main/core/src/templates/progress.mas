@@ -5,6 +5,7 @@
 <%args>
 #$currentItemUrl
 $progressId
+$showNotesOnFinish   => 1
 $text   => ''
 $currentItemCaption => undef
 $itemsLeftMessage   => undef
@@ -12,7 +13,8 @@ $endNote            => undef
 $errorNote          => undef
 $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
-$adsJson => '""'
+
+@slides => ()
 
 $inModalbox => undef
 
@@ -33,7 +35,11 @@ defined $itemsLeftMessage   or $itemsLeftMessage   = __('items left');
 defined $endNote            or $endNote            = __('Done');
 defined $errorNote          or $errorNote = __('Some error has '
                                                . 'happened in Zentyal: '
-                                               );
+                                              );
+# CGI::Pogress dont allow false values in parameters
+($showNotesOnFinish eq 'no') and
+   $showNotesOnFinish = 0;
+
 my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
@@ -59,6 +65,8 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % if ($inModalbox) {
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+% } else {
+<script type="text/javascript" src="/data/js/carousel.js">//</script>
 % }
 
 <script type="text/javascript">
@@ -66,7 +74,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
                              '<% $currentItemUrl %>',
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>');
+                             '<% $nextStepUrl %>',
+                             <% $showNotesOnFinish ? 'true' : 'false' %>
+                             );
 
         function init(){
                 ph = new porcentH('progress');
@@ -75,56 +85,26 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         if (document.addEventListener) {
                 document.addEventListener("DOMContentLoaded", init, false);
         }
-
-        var ads = <% $adsJson %>;
-        var nAds = -1;
-
-        function showAds(){
-% unless ( $adsJson eq '""' ) {
-                nAds++;
-                if (ads != null) {
-                        if (nAds > ads.length)
-                                nAds = 1;
-                        if (ads[nAds] != null){
-                                var html = "<div class='ads'>";
-                                if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
-                                if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
-                                if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
-                                if (ads[nAds].items != null) {
-                                        html += "<ul>";
-                                        for(var i = 0; i < ads[nAds].items.length; i++)
-                                                html += "<li>" + ads[nAds].items[i] + "</li>";
-                                }
-                                html += "</br>";
-                                if (ads[nAds].links != null) {
-                                        for(var i = 0; i < ads[nAds].links.length; i++)
-                                                html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
-                                }
-                                html += "<div>";
-
-                if ( nAds % 2 == 1 ) {
-                    $('adsFrame2').hide();
-                                    document.getElementById('adsFrame2').innerHTML = html;
-                    Effect.DropOut('adsFrame1', { duration: 1 });
-                    Effect.Appear('adsFrame2', { duration: 1, delay: 0.8 });
-                }
-                else {
-                    $('adsFrame1').hide();
-                                    document.getElementById('adsFrame1').innerHTML = html;
-                    Effect.DropOut('adsFrame2', { duration: 1 });
-                    Effect.Appear('adsFrame1', { duration: 1, delay: 0.8 });
-                }
-
-                        }
-                }
-% } else {
-                return;
-% }
-        }
-
 </script>
 
 <style>
+
+#slide_wrapper {
+    width: 690px;
+    height: 350px;
+    margin-left: 45px;
+    overflow: hidden;
+}
+
+#slides {
+    width: 6900px;
+}
+
+#slides .ads {
+    float: left;
+    width: 690px;
+    height: 350px;
+}
 
 .percent{
     float: left;
@@ -141,13 +121,18 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 </style>
 
-
-% unless ( $adsJson eq '""' ) {
-<div style="height: 200px"><div>
-    <div id="adsFrame1"></div>
-    <div id="adsFrame2"></div>
-</div></div>
+% if (@slides) {
+<div id="slide_wrapper" class="slide_container">
+    <div id="slides">
+% foreach my $slide (@slides) {
+<% $slide %>
 % }
+    </div>
+    <a href="javascript:" id="adsButtonPrev" class="carousel-control" rel="prev"></a>
+    <a href="javascript:" id="adsButtonNext" class="carousel-control" rel="next"></a>
+</div>
+% }
+
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
@@ -156,10 +141,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         <div class="percent" id="percentValue"></div>
     <div class="bar" <% $barStyle %> >
         <div id="progressValue" <% $progresValueStyle %> ></div>
-<!--
-        <div class='tcenter'>
-        <div class="percent" id="percentValue"></div>
--->
     </div>
 </div>
 <br/>
@@ -199,12 +180,32 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
+<script type="text/javascript" language="javascript">
+      if ($('adsButtonPrev')) $('adsButtonPrev').hide();
 
-% unless ($adsJson eq '""')  {
-<script>
-      showAds();
+      var car_options = {
+          'auto' : true,
+          'frequency' : 20,
+          'circular' : true,
+          'duration' : 0.8,
+          'wheel' : false,
+          'afterMove': null
+      };
+
+      var car_obj = new Carousel('slide_wrapper', $$('#slides .ads'), $$('a.carousel-control'), car_options);
+
+      car_obj.options.afterMove = function () {
+          var slide_num = car_obj.current._index;
+          if (slide_num == 0) {
+              $('adsButtonPrev').hide();
+          } else if (slide_num == <% scalar (@slides) - 1 %>) {
+              $('adsButtonNext').hide();
+          } else {
+              $('adsButtonPrev').show();
+              $('adsButtonNext').show();
+          }
+      };
 </script>
-% }
 
 % if ($inModalbox) {
 <script  type="text/javascript">

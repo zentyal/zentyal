@@ -236,28 +236,28 @@ pam_service = passwd
 # To see the live cache usage, use 'zarafa-stats --system'.
 
 # Size in bytes of the 'cell' cache (should be set as high as you can afford to set it)
-cache_cell_size				= 268435456 
+cache_cell_size				= 256M
 
 # Size in bytes of the 'object' cache
-cache_object_size			= 5242880
+cache_object_size			= 5M
 
 # Size in bytes of the 'indexed object' cache
-cache_indexedobject_size	= 16777216
+cache_indexedobject_size	= 16M
 
 # Size in bytes of the userquota details
-cache_quota_size			= 1048576
+cache_quota_size			= 1M
 
 # Lifetime for userquota details
 cache_quota_lifetime		= 1
 
 # Size in bytes of the acl cache
-cache_acl_size				= 1048576
+cache_acl_size				= 1M
 
 # Size in bytes of the store id/guid cache
-cache_store_size			= 1048576
+cache_store_size			= 1M
 
 # Size in bytes of the 'user id' cache (this is allocated twice)
-cache_user_size				= 1048576
+cache_user_size				= 1M
 
 # Size in bytes of the 'user details' cache
 cache_userdetails_size		= 26214400
@@ -402,7 +402,7 @@ hide_system = yes
 # Use Indexing service for faster searching.
 # Enabling this option requires the zarafa-search service to
 # be running.
-index_services_enabled = <% $indexer %>
+search_enabled = <% $indexer %>
 
 # Path to the zarafa-search service, this option is only required
 # if the server is going to make use of the indexing service.
@@ -410,11 +410,16 @@ index_services_path = file:///var/run/zarafa-search
 
 # Time (in seconds) to wait for a connection to the zarafa-search service
 # before terminating the indexed search request.
-index_services_search_timeout = 10
+search_timeout = 10
 
 # Allow enhanced ICS operations to speedup synchronization with cached profiles.
 # default: yes
 enable_enhanced_ics = yes
+
+# SQL Procedures allow for some optimized queries when streaming with enhanced ICS.
+# This is default disabled because you must set 'thread_stack = 256k' in your
+# MySQL server config under the [mysqld] tag and restart your MySQL server.
+enable_sql_procedures = no
 
 # Synchronize GAB users on every open of the GAB (otherwise, only on
 # zarafa-admin --sync)

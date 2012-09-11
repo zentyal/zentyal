@@ -35,7 +35,8 @@ use Storable;
 
 use constant ZARAFACONFFILE => '/etc/zarafa/server.cfg';
 use constant ZARAFALDAPCONFFILE => '/etc/zarafa/ldap.openldap.cfg';
-use constant ZARAFAWEBACCCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAWEBAPPCONFFILE => '/etc/zarafa/webaccess-ajax/config.php';
+use constant ZARAFAXMPPCONFFILE => '/usr/share/zarafa-webapp/plugins/xmpp/config.php';
 use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
@@ -44,7 +45,7 @@ use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
-use constant KEYTAB_FILE => '/etc/zarafa/http.keytab';
+use constant KEYTAB_FILE => '/etc/zarafa/zarafa.keytab';
 
 use constant FIRST_RUN_FILE => '/var/lib/zentyal/conf/zentyal-zarafa.first';
 use constant STATS_CMD      => '/usr/bin/zarafa-stats';
@@ -121,9 +122,14 @@ sub usedFiles
             'reason' => __('To properly configure Zarafa LDAP connection.')
         },
         {
-            'file' => ZARAFAWEBACCCONFFILE,
+            'file' => ZARAFAWEBAPPCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa webaccess.')
+        },
+        {
+            'file' => ZARAFAXMPPCONFFILE,
+            'module' => 'zarafa',
+            'reason' => __('To properly configure Zarafa XMPP integration.')
         },
         {
             'file' => ZARAFAGATEWAYCONFFILE,
@@ -167,7 +173,7 @@ sub kerberosServicePrincipals
     my ($self) = @_;
 
     my $data = { service    => 'zarafa',
-                 principals => [ 'zarafa-web' ],
+                 principals => [ 'ZARAFA' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;
@@ -395,7 +401,7 @@ sub _setConf
     my $attachment_path = EBox::Config::configkey('zarafa_attachment_path');
     my $zarafa_indexer = EBox::Config::configkey('zarafa_indexer');
     my $enable_hosted_zarafa = EBox::Config::configkey('zarafa_enable_hosted_zarafa');
-    my $enable_sso = EBox::Config::configkey('zarafa_enable_sso');
+    my $enable_sso = $self->model('GeneralSettings')->ssoValue() ? 'yes' : 'no';
     push(@array, 'server_bind' => $server_bind);
     push(@array, 'hostname' => $self->_hostname());
     push(@array, 'mysql_user' => 'zarafa');
@@ -447,8 +453,17 @@ sub _setConf
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
+    my $jabber = $self->model('GeneralSettings')->jabberValue();
+    if ($jabber and EBox::Global->modExists('jabber')) {
+        @array = ();
+        my $jabberMod = EBox::Global->modInstance('jabber');
+        push(@array, 'domain' => $jabberMod->model('GeneralSettings')->domainValue());
+        $self->writeConfFile(ZARAFAXMPPCONFFILE,
+                     "zarafa/xmpp-config.php.mas",
+                     \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
+    }
+
     $self->_setSpellChecking();
-    # TODO configure xmpp plugin too once zarafa fixes packaging
     $self->_setWebServerConf();
     $self->_enableInnoDBIfNeeded();
     $self->_createVMailDomainsOUs();
@@ -475,105 +490,16 @@ sub _postServiceHook
     return $self->SUPER::_postServiceHook($enabled);
 }
 
-# Group: Report methods
-
-# Method: logReportInfo
+# Method: stats
 #
-# Overrides:
+#     Get the data from zarafa stats command
 #
-#     <EBox::Module::Base::logReportInfo>
+# Returns:
 #
-sub logReportInfo
-{
-    my ($self) = @_;
-
-    return [] unless ($self->isEnabled());
-
-    my $users = $self->_stats();
-
-    my @reportData;
-    foreach my $user (values(%{$users})) {
-        my $entry = {
-            table  => 'zarafa_user_storage',
-            values => $user,
-            };
-        push(@reportData, $entry);
-    }
-
-    return \@reportData;
-}
-
-# Method: consolidateReportInfoQueries
+#     Hash ref - containing the user stats whose key is the username
+#     containing as value a hash ref with user data
 #
-# Overrides:
-#
-#     <EBox::Module::Base::consolidateReportInfoQueries>
-#
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'zarafa_user_storage_report',
-            'query'        => {
-                'select' => 'username, fullname, email, soft_quota, hard_quota, size',
-                'from'   => 'zarafa_user_storage',
-                'key'    => 'username',
-            },
-            'quote' => { username => 1,
-                         fullname => 1,
-                         email    => 1, },
-        },
-     ];
-}
-
-# Method: report
-#
-# Overrides:
-#
-#   <EBox::Module::Base::report>
-#
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{storage_size} = $self->runMonthlyQuery(
-        $beg, $end,
-        {
-            select => 'SUM(size) AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-        },
-       );
-
-    my $maxTop = 5;
-    if (exists $options->{'max_top_user_zarafa_storage'}) {
-        $maxTop = $options->{'max_top_user_zarafa_storage'};
-    }
-
-    $report->{top_storage_usage} = $self->runQuery(
-        $beg, $end,
-        {
-            select => 'username, CAST ( AVG(size) AS BIGINT) AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-            group  => 'username',
-            limit  => $maxTop,
-            order  => 'size DESC',
-        });
-
-    $report->{latest_storage_usage} = $self->runQuery(
-        $end, $end,
-        {
-            select => 'username, fullname, email, soft_quota AS soft_quota_bytes, hard_quota AS hard_quota_bytes, size AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-            order  => 'size DESC'
-        });
-
-    return $report;
-}
-
-# Get the data from zarafa stats command
-sub _stats
+sub stats
 {
     my ($self) = @_;
 
@@ -683,12 +609,26 @@ sub _setWebServerConf
                        EBox::WebServer::VHOST_PREFIX. '*/ebox-zarafa';
     EBox::Sudo::root('rm -f ' . "$vHostPattern");
 
+    my @array = ();
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $activesync = $self->model('GeneralSettings')->activeSyncValue();
     my $jabber = $self->model('GeneralSettings')->jabberValue();
+    my $enable_sso = $self->model('GeneralSettings')->ssoValue();
+    my $realm = EBox::Global->modInstance('users')->kerberosRealm();
+
+    push(@array, 'activesync' => $activesync);
+    push(@array, 'jabber' => $jabber);
+    push(@array, 'enable_sso' => $enable_sso);
+    push(@array, 'realm' => $realm);
+
+    EBox::Sudo::root(EBox::Config::scripts('zarafa') .
+                     'zarafa-sso ' . ($enable_sso ? 'enable' : 'disable'));
 
     my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-webapp-xmpp';
-    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas');
+    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas', \@array);
+
+    $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-web-sso';
+    $self->writeConfFile($destFile, 'zarafa/zarafa-web-sso.mas', \@array);
 
     my @cmds = ();
 
@@ -701,19 +641,38 @@ sub _setWebServerConf
             push(@cmds, 'a2dissite d-push');
         }
         if ($jabber) {
-            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
             push(@cmds, 'a2enmod proxy_http');
+            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
         } else {
             push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+            push(@cmds, 'a2dismod proxy_http');
+        }
+        if ($enable_sso) {
+            push(@cmds, 'a2enmod auth_kerb');
+            push(@cmds, 'a2ensite zarafa-web-sso');
+        } else {
+            push(@cmds, 'a2dissite zarafa-web-sso');
+            push(@cmds, 'a2dismod auth_kerb');
         }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+        push(@cmds, 'a2dissite zarafa-web-sso');
         push(@cmds, 'a2dissite d-push');
+        if ($jabber) {
+            push(@cmds, 'a2enmod proxy_http');
+        } else {
+            push(@cmds, 'a2dismod proxy_http');
+        }
+        if ($enable_sso) {
+            push(@cmds, 'a2enmod auth_kerb');
+        } else {
+            push(@cmds, 'a2dismod auth_kerb');
+        }
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
-        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);
+        $self->writeConfFile($destFile, 'zarafa/apache.mas', \@array);
     }
     try {
         EBox::Sudo::root(@cmds);

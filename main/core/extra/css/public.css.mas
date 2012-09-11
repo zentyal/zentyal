@@ -558,10 +558,10 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
 }
 
 .inputButtonRestart[name='restart']{
-    background:#BDEDF7  url("/data/images/restart.gif") 5px center no-repeat;
-    border-color:#8CBBC5; }
+    background:#cecece  url("/data/images/restart.gif") 5px center no-repeat;
+    border-color:#A8A8A8; }
 
-    .inputButtonRestart[name='restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='restart']:hover{ background:#E0E0E0  url("/data/images/restart.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='start'], .inputButtonRestart[value='start']{
     background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
@@ -570,10 +570,11 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
     .inputButtonRestart[name='start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='stop']{
-    background:#FAA68B url("/data/images/stop_p.gif") 5px center no-repeat;
-    border-color:#DB866B}
+    background: #FACE8B url("/data/images/stop_p.gif") 5px center no-repeat;
+    border-color: #DB8F6B;
+    }
 
-    .inputButtonRestart[name='stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='stop']:hover{background:#F5DB99 url("/data/images/stop_p.gif") 5px center no-repeat;}
 
 .inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
     font-size: 11px;
@@ -1215,7 +1216,7 @@ a.notchanged:hover {
 }
 
 .widgetTopBackground {
-        background: <% $secondary_color %>;
+        background: <% $main_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
@@ -1666,6 +1667,7 @@ border-radius: 3px;
 #MB_content {
 	padding: 6px .75em;
 	overflow: auto;
+	max-height: 450px;
 }
 
 #MB_caption {
@@ -1827,4 +1829,84 @@ border-radius: 3px;
 
 .final_installation .start_now_boton:hover {
     background-color:#5FAF21;
+}
+
+
+.slide_container {
+    height:350px;
+    padding-bottom:20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.ads {
+    height:350px;
+    overflow: hidden;
+    position:relative;
+    background: no-repeat bottom right;
+}
+
+.ads img {
+    position: absolute;
+    right:0px;
+    bottom:0px;
+}
+
+.ads h2{
+    font-size: 30px;
+    color:#E1721E;
+}
+
+.ads p{
+    font-size:14px;
+    width:300px;
+    color:#666;
+    padding-left:5px;
+}
+
+.ads li{
+    font-size:12px;
+    width:250px;
+    color:#666;
+    padding-left:5px;
+    margin-top:3px;
+}
+
+
+.ads_link a{
+    padding: 5px 10px;
+    background: #E1721E;
+    color:white;
+    float:left;
+    text-decoration:none;
+    font-size:12px;
+    margin:1px 5px 0px 0px;
+}
+
+.ads_link a:hover{
+    background: #E19B1E;
+    cursor: pointer;
+}
+
+#adsButtonPrev, #adsButtonNext {
+    position: absolute;
+    top: 100px;
+    height: 170px;
+    left: 0px;
+    width:50px;
+    background: transparent url(/data/software/images/prevBT.png) no-repeat center center;
+    border: none;
+    z-index:1000;
+    opacity:0.7;
+    filter:alpha(opacity=70)
+
+}
+#adsButtonNext {
+    right: 0px;
+    left: inherit;
+    background: transparent url(/data/software/images/nextBT.png) no-repeat center center;
+}
+
+#adsButtonPrev:hover, #adsButtonNext:hover {
+    opacity:1;
+    filter:alpha(opacity=100)
 }

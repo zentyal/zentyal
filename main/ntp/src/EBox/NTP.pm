@@ -114,7 +114,7 @@ sub initialSetup
                                   sourcePort => 'any',
                                   destinationPort => 123 } ] );
 
-            $fw->setInternalService($serviceName, 'deny');
+            $fw->setInternalService($serviceName, 'accept');
         }
         $fw->saveConfigRecursive();
     }

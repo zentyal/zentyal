@@ -116,30 +116,6 @@ sub cronJobs
     return $response->data();
 }
 
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'jobsServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
-}
-
 # Group: Private methods
 
 # Upload the job result separated in tracks if required

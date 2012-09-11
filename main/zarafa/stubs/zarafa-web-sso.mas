@@ -1,0 +1,25 @@
+<%args>
+    $realm
+</%args>
+<IfModule mod_auth_kerb.c>
+<Directory /usr/share/zarafa-webaccess>
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd On
+  KrbServiceName ZARAFA
+  KrbAuthRealms <% $realm %>
+  Krb5KeyTab /etc/zarafa/zarafa.keytab
+  require valid-user
+</Directory>
+<Directory /usr/share/zarafa-webapp>
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd On
+  KrbServiceName ZARAFA
+  KrbAuthRealms <% $realm %>
+  Krb5KeyTab /etc/zarafa/zarafa.keytab
+  require valid-user
+</Directory>
+</IfModule>

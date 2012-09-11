@@ -12,19 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup::Model::RemoteFileList;
-
-# Class: EBox::EBackup::Model::RemoteFileList
-#
-#
-#
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::EBackup::Model::RemoteFileList;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -131,8 +123,24 @@ sub precondition
         return 0;
     }
 
-    my @status = @{$self->{confmodule}->remoteStatus()};
-    if (not scalar @status) {
+    if (not $self->{confmodule}->configurationIsComplete()) {
+        $self->{preconditionFailMsg} =  __('There are no backed up files yet');
+        return 0;
+    }
+
+    my @status;
+    my $statusFailure;
+    try {
+       @status = @{$self->{confmodule}->remoteStatus()};
+   } catch EBox::Exceptions::External with {
+       my ($ex) = @_;
+       $statusFailure = $ex->text();
+   };
+
+    if ($statusFailure) {
+        $self->{preconditionFailMsg} = $statusFailure;
+        return 0;
+    } elsif (not scalar @status) {
         $self->{preconditionFailMsg} =  __('There are not backed up files yet');
         return 0;
     }

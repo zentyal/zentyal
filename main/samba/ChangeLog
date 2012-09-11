@@ -1,5 +1,23 @@
-HEAD
-	+ Depend on samba 4.0 beta 7
+2.3.14
+	+ Fix access for domain users to shares when guest access is enabled
+	  on the share
+	+ Setup quarantine directory for zavs and rant access to domain admins only
+	+ Write zavs settings on smb.conf
+2.3.13
+	+ Change default domain netbios to match the left-most part of the
+	  host dns domain
+	+ Check environment is properly configured before provision samba
+	+ Generate random administrator password instead of having a default
+	  one for security reasons, to join machines to the domain any user
+	  belonging to the Domain Admins group is enough, so there was no
+	  need to show this password on the interface
+	+ Removed dashboard widgets no longer compatible with samba4
+	+ Depend on samba 4.0 beta 8
+	+ Check provisioned flag and module enabled in s4sync script
+	+ Set the provisioned flag at the end of provision function
+	+ shareByFilename() method is now working with samba4
+	+ Improved DNS management of the Samba internal domain
+	+ Fixed labels on SambaSharePermissions model
 	+ Fix guest access to shares (client do not ask for password)
 	+ Map nobody and nogroup to domain guest and guests accounts
 	+ Add missing use statement on EBox::Samba::User

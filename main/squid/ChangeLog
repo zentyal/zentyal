@@ -1,4 +1,15 @@
 HEAD
+	+ Reviewed registration strings
+2.3.12
+	+ Squid is restarted if groups in use change their members
+	+ Adapted LdapUserImplementation to new users API
+	+ Added kerberos real to auth acls on squid.conf to fix SSO
+	+ Added -i option to squid_kerb_auth to ease debugging
+	+ Archive list can now have spaces in the name
+	+ ListArchive type now accept spaces in the file name
+	+ Move report code to remoteservices
+	+ Perform the domain processing in log helper, very valuable for
+	  querying and reporting
 	+ Fixed auth rules in squid.conf to not allow all authorized users
 	+ Kerberos auth is optional and disabled by default
 2.3.11

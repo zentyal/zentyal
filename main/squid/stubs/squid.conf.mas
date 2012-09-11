@@ -157,7 +157,7 @@ cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $p
 # <EBOX> TAG_ACL #
 auth_param basic realm Zentyal HTTP proxy
 % if ($realm) {
-auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -s <% $principal %>@<% $realm %>
+auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
 % } else {
@@ -170,10 +170,10 @@ url_rewrite_program <% $urlRewriteProgram %>
 % }
 
 % unless ($filter) {
-<& .rulesACLs, rules => [ @rules ] &>
+<& .rulesACLs, rules => [ @rules ], realm => $realm &>
 % }
 
-<& .rulesACLs, rules => [ @objectsDelayPools ] &>
+<& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
@@ -264,6 +264,7 @@ always_direct allow localhostdst
 <%def .rulesACLs>
 <%args>
 @rules
+$realm
 </%args>
 % foreach my $rule (@rules) {
 %   next if $rule->{any};
@@ -276,6 +277,9 @@ acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %   } else {
 %       # escape user names
 %       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+%       if ($realm) {
+%           @users = map { $_ . '@' . $realm } @users;
+%       }
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
 <& .timeACLs, rule => $rule, id => $src &>

@@ -28,12 +28,14 @@ use File::Temp;
 use Perl6::Junction qw(any);
 use User::pwent;
 
+use constant RS_SUBDIR => EBox::Config::conf() . 'remoteservices/john/';
+
 use constant {
     JOHN                 => 'nice john',
-    LDAP_USERS_PASS_LIST => EBox::Config::tmp() . 'lupl.jtrf',
-    SYSTEM_USERS_PASS_LIST => EBox::Config::tmp() . 'supl.jtrf',
-    LDAP_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'lsupl.jtrf',
-    SYSTEM_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'ssupl.jtrf',
+    LDAP_USERS_PASS_LIST          => RS_SUBDIR . 'lupl.jtrf',
+    SYSTEM_USERS_PASS_LIST        => RS_SUBDIR . 'supl.jtrf',
+    LDAP_SINGLE_USERS_PASS_LIST   => RS_SUBDIR . 'lsupl.jtrf',
+    SYSTEM_SINGLE_USERS_PASS_LIST => RS_SUBDIR . 'ssupl.jtrf',
     DOING_CRACKING_FILE    => EBox::Config::tmp() . 'jtr.lock',
     JOHN_WRAPPER         => EBox::Config::scripts('remoteservices') . 'john-wrapper',
     HOME_DIR             => EBox::RemoteServices::Configuration::JohnHomeDirPath(),
@@ -243,10 +245,11 @@ sub _ldapUserFiles
                 open(my $fh, '>', $passListFile);
                 open(my $fh2, '>', $singlePassListFile);
                 foreach my $user (@{$usersMod->users()}) {
-                    my %hashes = @{$user->passwordHashes()}; # Returns an array ref...
-                    my $lmPasswd = $hashes{eboxLmPassword};
-                    print $fh $user->name() . ':' . $lmPasswd . "\n";
-                    print $fh2 $user->name() . ':' . $lmPasswd . "\n";
+                    my $kerbKeys = $user->kerberosKeys();
+                    # Get the NTLMv2 key
+                    my $ntlmv2Key = unpack('H*', $kerbKeys->[2]->{value});
+                    print $fh  $user->name() . ':$NT$' . $ntlmv2Key . "\n";
+                    print $fh2 $user->name() . ':$NT$' . $ntlmv2Key . "\n";
                 }
                 close($fh);
                 close($fh2);
@@ -286,7 +289,7 @@ sub _check
 
     my @allUsers;
     foreach my $set (qw(single incremental)) {
-        my $mode = '';
+        my $mode = "";
         my $printableLevel = __('average');
         my $level = 'strong';
         if ($set eq 'single') {
@@ -294,16 +297,18 @@ sub _check
             $printableLevel = __('weak');
             $level = 'weak';
         }
-        # Must run john twice since we crack different hashes (LM and
-        # crypt) LM cracks are case-insensitive but faster than NTLM
-        # ones, if we would want the case passwords then we have to
-        # change to use the NTLM passwords with patches applied
+        # Must run john twice since we crack different hashes (NTLMv2 and
+        # crypt)
         foreach my $fileName (@{$fileSet->{$set}}) {
             my ($baseName) = File::Basename::fileparse($fileName, '.jtrf');
+            my $format = "";
+            if (substr($baseName, 0, 1) eq 'l') {
+                $format = '--format=nt2'; # NTLMv2 format
+            }
             my $sessionOpt = '--session=' . HOME_DIR . $baseName;
             my $shellOpt = '--shells=-' . _shells();
             my $output  = EBox::Sudo::command(
-                JOHN_WRAPPER . " $sessionOpt $mode $fileName"
+                JOHN_WRAPPER . " $sessionOpt $mode $format $fileName"
                );
         }
         foreach my $fileName (@{$fileSet->{$set}}) {

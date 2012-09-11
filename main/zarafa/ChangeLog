@@ -1,4 +1,10 @@
-HEAD
+2.3.4
+	+ Fixed store of zarafaEnabledFeatures as multiple attributes
+	+ Fix Zarafa Webapp/Webaccess SSO
+	+ Fix XMPP integration writing xmpp/config.php file
+	+ Update configuration templates for Zarafa 7.1.0-36420
+2.3.3
+	+ Move report code to remoteservices
 	+ Use full path for notifier of notifyActions. More restrictive
 	  notifyForeignModelAction()
 2.3.2

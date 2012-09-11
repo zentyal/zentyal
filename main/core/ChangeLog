@@ -1,4 +1,39 @@
 HEAD
+	+ Fixed i18n problem in some cases where environment variables
+	  were different than the selected locale on Zentyal UI, now
+	  LANG and LC_MESSAGES are explicitly passed to mod_perl
+	+ Reviewed registration strings
+	+ Added template attribute to MultiStateAction to provide any kind
+	  of HTML to display an action
+	+ Changed icon, name and link for Zentyal Remote
+	+ Fixed some compatibility issues with Internet Explorer 9
+	+ Show warning with Internet Explorer 8 or older
+	+ Improved dashboard buttons colors
+2.3.24
+	+ Do not cache undef values in EBox::Config::Redis::get()
+	+ Code fix on subscription retrieval for Updates event
+	+ Update validate referer to new Remote Services module API
+	+ In-place booleans now properly mark the module as changed
+	+ Do not try to read slides if software module is not installed
+	+ Fixed wrong call in Events::isEnabledDispatcher()
+	+ Updated 'created by' footer
+2.3.23
+	+ Change the default domain name from 'zentyal.lan' to
+	  'zentyal-domain.lan'
+	+ Changes in first enable to avoid letting modules unsaved
+	+ Type File now accepts spaces in the file name
+	+ Added setTimezone method to MyDBEngine
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
+	+ Fixed regression which removed scroll bars from popups
+	+ New carousel transition for the installation slides
+	+ Added option to not show final notes in progress bar
+	+ EBox::Model::Component::modelGetter does not die when trying to
+	  get a model for an uninstalled module
+	+ Added previous/next buttons to manually switch installation slides
+	+ New installation slides format
 	+ Added compatibility with MS Internet Explorer >= 8
 2.3.22
 	+ Changed first installation workflow and wizard infraestructure

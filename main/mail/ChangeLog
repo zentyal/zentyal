@@ -1,4 +1,11 @@
-HEAD
+2.3.8
+	+ Move report code to remoteservices
+	+ Add missing use statement causing an exception loading the class
+	+ Convert to lowercase the domain part in the user LDAP filter,
+	  required to retrieve the correct mailbox path when using kerberos auth
+	+ Fix gssapi hostname for kerberos authentication
+	+ Fix LDAP filters
+	+ Switch to LDAP bind authentication when kerberos is not used
 	+ Fixed dovecot user password authentication
 	+ Fixed disable_dns_lookups key in master.cf
 2.3.7

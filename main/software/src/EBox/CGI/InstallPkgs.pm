@@ -211,6 +211,7 @@ sub showInstallProgress
     } else {
         my $wizardUrl = '/Wizard';
         push @params, (
+            showNotesOnFinish => 'no',
             title    => __('Installing'),
             text  => __('Installing packages'),
             nextStepUrl => $wizardUrl,

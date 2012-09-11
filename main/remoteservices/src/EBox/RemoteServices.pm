@@ -37,6 +37,7 @@ use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -53,8 +54,6 @@ use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
 use EBox::RemoteServices::Desktop::Subscription;
-use EBox::RemoteServices::DisasterRecovery;
-use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
@@ -76,7 +75,6 @@ use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
-use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
@@ -112,7 +110,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'remoteservices',
-                                      printableName => __('Zentyal Cloud Client'),
+                                      printableName => __('Zentyal Remote Client'),
                                       @_);
 
     bless ($self, $class);
@@ -148,10 +146,10 @@ sub _setConf
 
     $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
+        $self->_setUpAuditEnvironment();
         $self->_establishVPNConnection();
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
-        $self->_startupTasks();
         $self->_reportAdminPort();
     }
 
@@ -159,6 +157,7 @@ sub _setConf
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
     $self->_setNETRCFile();
+    $self->_startupTasks();
 }
 
 # Method: initialSetup
@@ -216,9 +215,9 @@ sub _setInventoryAgentConf
     my ($self) = @_;
 
     my $toRemove = 0;
-    if ( $self->eBoxSubscribed() ) {
+    if ( $self->inventoryEnabled() ) {
         my $cloud_domain = $self->cloudDomain();
-        EBox::error('Cannot get Zentyal Cloud domain name') unless $cloud_domain;
+        EBox::error('Cannot get Zentyal Remote domain name') unless $cloud_domain;
 
         # Check subscription level
         if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
@@ -411,12 +410,12 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
-                                        text => __('Subscription'),
+                                        text => __('Registration'),
                                         separator => 'Core',
                                         order => 105);
 
     $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
-                                      'text' => __('Server Subscription'),
+                                      'text' => __('Server Registration'),
                                      ));
 
     $folder->add(new EBox::Menu::Item(
@@ -426,10 +425,6 @@ sub menu
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
         'text' => __('Security Updates'),
-       ));
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'RemoteServices/View/DisasterRecovery',
-        'text' => __('Disaster Recovery'),
        ));
     $root->add($folder);
 }
@@ -446,7 +441,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Cloud Services'),
+            'title'   => __('Your Zentyal Server Account'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -540,34 +535,6 @@ sub subscriberUsername
 
 }
 
-# Method: subscribedHostname
-#
-#        Return the hostname within the Zentyal Cloud if
-#        the host is subscribed to it
-#
-# Returns:
-#
-#        String - the subscribed hostname
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub subscribedHostname
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The subscribed hostname is only available if the host is subscribed to Zentyal Cloud')
-           );
-    }
-
-    my $hostName = EBox::RemoteServices::Cred->new()->subscribedHostname();
-    return $hostName;
-}
-
 # Method: monitorGathererIPAddresses
 #
 #        Return the monitor gatherer IP adresses
@@ -589,25 +556,27 @@ sub monitorGathererIPAddresses
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
+            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Remote'));
     }
 
     my $monGatherers = [];
 
-    # If conf key says so, monitoring goes inside the VPN
-    if (EBox::Config::boolean('monitoring_inside_vpn')) {
-        try {
-            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-        } catch EBox::Exceptions::Base with {
-            ;
-        };
-    } else {
-        try {
-            # TODO: Do not hardcode
-            $monGatherers = ['mon.' . $self->cloudDomain()];
-        } catch EBox::Exceptions::External with {
-            ;
-        };
+    if ( $self->monitorEnabled() ) {
+        # If conf key says so, monitoring goes inside the VPN
+        if (EBox::Config::boolean('monitoring_inside_vpn')) {
+            try {
+                $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+            } catch EBox::Exceptions::Base with {
+                ;
+            };
+        } else {
+            try {
+                # TODO: Do not hardcode
+                $monGatherers = ['mon.' . $self->cloudDomain()];
+            } catch EBox::Exceptions::External with {
+                ;
+            };
+        }
     }
     return $monGatherers;
 }
@@ -629,12 +598,14 @@ sub monitorGathererIPAddresses
 #
 sub controlPanelURL
 {
+    my ($self) = @_;
+
     my $url= 'cloud.zentyal.com';
     try {
-        $url = EBox::RemoteServices::Auth->new()->valueFromBundle(SITE_HOST_KEY);
+        $url = 'www.' . $self->cloudDomain();
     } otherwise {};
 
-    return "https://${url}/"
+    return "https://${url}/";
 }
 
 # Method: ifaceVPN
@@ -646,6 +617,7 @@ sub controlPanelURL
 #
 #        String - the interface name
 #
+#        Undef  - If none has been defined yet
 sub ifaceVPN
 {
     my ($self) = @_;
@@ -655,7 +627,8 @@ sub ifaceVPN
     if ($vpnClient) {
         return $vpnClient->iface();
     } else {
-        throw EBox::Exceptions::Internal('No VPN client created');
+        # throw EBox::Exceptions::Internal('No VPN client created');
+        return undef;
     }
 }
 
@@ -761,7 +734,6 @@ sub reloadBundle
     try {
         if ( $self->eBoxSubscribed() ) {
             EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
-            my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
             my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -769,7 +741,7 @@ sub reloadBundle
             if ( $bundleContent ) {
                 my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
                 my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys, $new);
+                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
                 $retVal = 1;
             } else {
                 $retVal = 2;
@@ -820,8 +792,8 @@ sub bundleVersion
 #
 #         -1 - no subscribed or impossible to know
 #          0 - basic
-#          1 - professional
-#          2 - enterprise
+#          5 - sb
+#          10 - enterprise
 #
 sub subscriptionLevel
 {
@@ -1029,6 +1001,8 @@ sub sbMailAddOn
 
 # Method: backupCredentials
 #
+#     This method is *DEPRECATED*
+#
 #     Get the backup credentials if the server is connected to Zentyal
 #     Cloud. If not connected, then the method requires three arguments
 #     to get the information from the public Web Service
@@ -1062,42 +1036,8 @@ sub backupCredentials
 {
     my ($self, %args) = @_;
 
-    my $state = $self->get_state();
-
-    if ($args{force} or not exists $state->{disaster_recovery}->{username}) {
-        my $cred;
-        if ( $self->isConnected() ) {
-            my $disRecAgent = new EBox::RemoteServices::DisasterRecovery();
-            $cred = $disRecAgent->credentials();
-        } else {
-            unless (defined($args{username})) {
-                throw EBox::Exceptions::MissingArgument('username');
-            }
-            unless (defined($args{password})) {
-                throw EBox::Exceptions::MissingArgument('password');
-            }
-            unless (defined($args{commonName})) {
-                throw EBox::Exceptions::MissingArgument('commonName');
-            }
-            my $disRecAgent = new EBox::RemoteServices::DisasterRecoveryProxy(
-                user => $args{username}, password => $args{password}
-               );
-            $cred = $disRecAgent->credentials(commonName => $args{commonName});
-        }
-        if (defined($cred->{username})) {
-            $state->{disaster_recovery}->{username} = $cred->{username};
-            $state->{disaster_recovery}->{password} = $cred->{password};
-            $state->{disaster_recovery}->{server} = $cred->{server};
-            $state->{disaster_recovery}->{quota} = $cred->{quota};
-            $self->set_state($state);
-        } else {
-            $state->{disaster_recovery} = {};
-            $self->set_state($state);
-            return {};
-        }
-    }
-
-    return $state->{disaster_recovery};
+    # Disable DR for now
+    throw EBox::Exceptions::DeprecatedMethod();
 }
 
 # Method: serverList
@@ -1212,28 +1152,6 @@ sub confKey
         return $keys->{$key};
     }
     return undef;
-}
-
-# Method: lastGeneratedReport
-#
-#      Get the last generated report date if any
-#
-# Returns:
-#
-#      Int - seconds since epoch when last report was generated
-#
-#      undef - if there is no info about it
-#
-sub lastGeneratedReport
-{
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    if (exists $state->{subscription}->{report_generated_at}) {
-        return $state->{subscription}->{report_generated_at};
-    } else {
-        return undef;
-    }
 }
 
 # Method: latestSecurityUpdates
@@ -1425,172 +1343,50 @@ sub subscriptionDir
     return  SUBS_DIR . $cn;
 }
 
-# Group: Public methods related to reporting
-
-# Method: logReportInfo
+# Method: reportEnabled
 #
-# Overrides:
+#     Get if the given server has the report feature enabled
 #
-#     <EBox::Module::Base::logReportInfo>
+# Returns:
 #
-sub logReportInfo
+#     Boolean
+#
+sub reportEnabled
 {
-    my $db = EBox::DBEngineFactory::DBEngine();
-    my $ret = $db->query('SELECT date FROM remoteservices_passwd_report '
-                         . 'ORDER BY date DESC LIMIT 1');
+    my ($self) = @_;
 
-    if ( defined($ret->[0]) and defined($ret->[0]->{date}) ) {
-        my ($year, $month, $day) = $ret->[0]->{date} =~ m:([0-9]+)-([0-9]+)-([0-9]+):g;
-        if ( Date::Calc::Delta_Days($year, $month, $day,
-                                    Date::Calc::Today()) < 7 ) {
-            # Do nothing every week
-            return [];
-        }
-    }
-
-
-    my $weakPasswdUsers = EBox::RemoteServices::Audit::Password::reportUserCheck();
-
-    unless (defined($weakPasswdUsers)) {
-        # This happens when the audit is being done. Wait for next day to report
-        return [];
-    }
-
-    my @data = ();
-    foreach my $user ( @{$weakPasswdUsers} ) {
-        my $entry = {};
-        $entry->{table}  = 'remoteservices_passwd_report';
-        $entry->{values} = {};
-        $entry->{values}->{username} = $user->{username};
-        $entry->{values}->{level} = $user->{level};
-        $entry->{values}->{source} = $user->{from};
-        my @time = localtime(time());
-        $entry->{values}->{date} = ($time[5] + 1900) . '-' . ($time[4] + 1) . "-$time[3]";
-        push(@data, $entry);
-    }
-    # Store the current number of users
-    my $nUsers = EBox::RemoteServices::Audit::Password::nUsers();
-    push(@data, { table  => 'remoteservices_passwd_users',
-                  values => { nusers => $nUsers }});
-
-    return \@data;
+    return ($self->eBoxSubscribed() and $self->subscriptionLevel() > 0);
 }
 
-# Method: consolidateReportInfoQueries
+# Method: monitorEnabled
 #
-# Overrides:
+#     Get if the given server has the monitor feature enabled
 #
-#     <EBox::Module::Base::consolidateReportInfoQueries>
+# Returns:
 #
-sub consolidateReportInfoQueries
+#     Boolean
+#
+sub monitorEnabled
 {
-    return [
-        {
-            target_table => 'remoteservices_passwd_users_report',
-            query        => {
-                select => 'nusers',
-                from   => 'remoteservices_passwd_users',
-               }
-           }
-       ];
+    my ($self) = @_;
+
+    return $self->reportEnabled();
 }
 
-# Method: report
+# Method: inventoryEnabled
 #
-# Overrides:
+#     Get if the given server has the inventory feature enabled
 #
-#   <EBox::Module::Base::report>
-sub report
+# Returns:
+#
+#     Boolean
+#
+sub inventoryEnabled
 {
-    my ($self, $beg, $end, $options) = @_;
+    my ($self) = @_;
 
-    my $report = {};
-
-    $report->{weak_password_number} = $self->runMonthlyQuery(
-        $beg, $end,
-        {
-            select => 'COUNT(DISTINCT username) AS weak_passwords',
-            from   => 'remoteservices_passwd_report',
-            where  => "level = 'weak'",
-            group  => 'level',
-        },
-      );
-    my $averageQuery = $self->runMonthlyQuery(
-        $beg, $end,
-        {
-            select => 'COUNT(DISTINCT username) AS average_passwords',
-            from   => 'remoteservices_passwd_report',
-            where  => "level = 'average'",
-            group  => 'level',
-        },
-      );
-
-    my $nUsersQuery = $self->runMonthlyQuery(
-        $beg, $end,
-        {
-            select => 'nusers',
-            from   => 'remoteservices_passwd_users_report',
-           },
-       );
-
-    # Return if there is no users (first consolidation)
-    return {} unless (defined($nUsersQuery->{nusers}));
-
-    unless (defined( $averageQuery->{average_passwords} )) {
-        $averageQuery->{average_passwords} = [];
-        push(@{$averageQuery->{average_passwords}}, 0) foreach (1 .. @{$nUsersQuery->{nusers}});
-    }
-
-    unless (defined( $report->{weak_password_number}->{weak_passwords} )) {
-        $report->{weak_password_number}->{weak_passwords} = [];
-        push(@{$report->{weak_password_number}->{weak_passwords}}, 0)
-          foreach (1 .. @{$nUsersQuery->{nusers}});
-    }
-
-
-    # Perform the union manually
-    $report->{weak_password_number}->{nusers} = $nUsersQuery->{nusers};
-    $report->{weak_password_number}->{average_passwords} = $averageQuery->{average_passwords};
-
-    # Calculate the percentages on my own
-    my @percentages;
-    for (my $i=0; $i < scalar(@{$report->{weak_password_number}->{nusers}}); $i++) {
-        my $nUsers = $report->{weak_password_number}->{nusers}->[$i];
-        my $weakUsers = $report->{weak_password_number}->{weak_passwords}->[$i];
-        if ( $nUsers == 0 ) {
-            push(@percentages, 0);
-        } else {
-            my $percentage = 100*($weakUsers/$nUsers);
-            push(@percentages, sprintf('%.2f', $percentage));
-        }
-    }
-    $report->{weak_password_number}->{percentage} = \@percentages;
-
-    $report->{weak_password_users} = $self->runQuery(
-        $beg, $end,
-        {
-            select => 'DISTINCT username, level, source',
-            from   => 'remoteservices_passwd_report',
-        },
-       );
-
-
-    if (defined($report->{weak_password_users})) {
-        # Get additional data to report
-        my (@fullNames, @emails);
-        for (my $i=0; $i < scalar(@{$report->{weak_password_users}->{username}}); $i++) {
-            my $username = $report->{weak_password_users}->{username}->[$i];
-            my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($username);
-            push(@fullNames, $additionalInfo->{fullname});
-            push(@emails, $additionalInfo->{email});
-        }
-        $report->{weak_password_users}->{fullname} = \@fullNames;
-        $report->{weak_password_users}->{email} = \@emails;
-    }
-
-    return $report;
+    return $self->reportEnabled();
 }
-
 
 # Group: Private methods
 
@@ -1646,14 +1442,14 @@ sub _establishVPNConnection
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() and $self->hasBundle() ) {
+    if ( $self->_VPNEnabled() ) {
         try {
             my $authConnection = new EBox::RemoteServices::Connection();
             $authConnection->create();
             $authConnection->connect();
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
-            EBox::error("Cannot contact to Zentyal Cloud: $exc");
+            EBox::error("Cannot contact to Zentyal Remote: $exc");
         };
     }
 }
@@ -1663,12 +1459,22 @@ sub _startupTasks
 {
     my ($self) = @_;
 
+    my $execFilePath = EBox::Config::etc() . 'post-save/at-start-up-rs';
     if ( $self->st_get_bool('just_subscribed') ) {
-        # Get the cron jobs after subscribing on the background
-        system(EBox::Config::scripts('remoteservices') . 'get-cronjobs &');
-        # Set the subscription level
-        system(EBox::Config::scripts('remoteservices') . 'subs-level &');
+        # Set to reload bundle after 1min after saving changes in
+        # /etc/zentyal/post-save
+        my $fhEtc = new File::Temp(DIR => EBox::Config::tmp());
+        $fhEtc->unlink_on_destroy(0);
+        print $fhEtc "#!/bin/bash\n";
+        print $fhEtc "at -f '" . EBox::Config::scripts('remoteservices') . 'startup-tasks' . "' now+1min\n";
+        close($fhEtc);
+        chmod( 0755, $fhEtc->filename() );
+        EBox::Sudo::root('mv ' . $fhEtc->filename() . " $execFilePath");
+
         $self->st_set_bool('just_subscribed', 0);
+    } else {
+        # Cleaning up the reload bundle at command, if any
+        EBox::Sudo::root("rm -f '$execFilePath'");
     }
 }
 
@@ -1697,8 +1503,16 @@ sub _writeCronFile
 
     EBox::Module::Base::writeConfFileNoCheck(
         CRON_FILE,
-        'remoteservices/ebox-remoteservices.cron.mas',
+        'remoteservices/zentyal-remoteservices.cron.mas',
         \@tmplParams);
+}
+
+sub _setUpAuditEnvironment
+{
+    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
+    unless ( -d $johnDir ) {
+        mkdir($johnDir);
+    }
 }
 
 # Return the allowed client CNs regexp
@@ -1751,7 +1565,7 @@ sub _ccConnectionWidget
     $widget->add($section);
 
     my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
-      ( __('None'), '', '', 'info', '', '', '');
+      ( __('None'), '', '', 'info', '', __('Disabled'), '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1761,18 +1575,21 @@ sub _ccConnectionWidget
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
-        $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
-                         oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
-                         ch   => '</a>',
-                         path => '/var/log/openvpn/');
-        $connValueType = 'error';
-        if ( not $self->hasBundle() ) {
-            $connValue     = __('In process');
-            $connValueType = 'info';
-        } elsif ( $self->isConnected() ) {
-            $connValue     = __('Connected');
-            $connValueType = 'info';
-        }
+        $connValue     = __('Connected');
+        $connValueType = 'info';
+        if ( $self->_VPNRequired() ) {
+            if ( not $self->hasBundle() ) {
+                $connValue     = __('In process');
+                $connValueType = 'info';
+            } elsif ( not $self->isConnected() ) {
+                $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
+                                  oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
+                                  ch   => '</a>',
+                                  path => '/var/log/openvpn/');
+                $connValueType = 'error';
+            }
+        } # else. No VPN required, then always connected
+
 
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
@@ -1798,36 +1615,21 @@ sub _ccConnectionWidget
             }
         }
 
-        my $drOn = 0;
-        try {
-            $drOn = $self->disasterRecoveryAddOn();
-        } catch EBox::Exceptions::NotConnected with { };
 
-        if ( $drOn ) {
-            $DRValue = __('Enabled');
-            my $date = $self->_latestBackup();
-            if ( $date ne 'unknown' ) {
-                $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
-            }
-        } else {
-            $DRValue = __x('Configuration backup enabled');
-            my $date = $self->latestRemoteConfBackup();
-            if ( $date ne 'unknown' ) {
-                $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
-            }
+        $DRValue = __x('Configuration backup enabled');
+        my $date = $self->latestRemoteConfBackup();
+        if ( $date ne 'unknown' ) {
+            $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
         $sbMailAddOn = $self->sbMailAddOn();
 
     } else {
-        $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
+        $connValue      = __sx('Not registered - {oh}Register now!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
-        $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
+        $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
-        $DRValue        = __sx('Disabled - {oh}Enable{ch}',
-                               oh => '<a href="/RemoteServices/View/DisasterRecovery">',
                                ch => '</a>');
     }
 
@@ -1844,7 +1646,7 @@ sub _ccConnectionWidget
                                              $supportValue));
     $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
                                              $ASUValue));
-    $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
+    $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
     if ( $sbMailAddOn ) {
         $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
@@ -1862,7 +1664,7 @@ sub _getSubscriptionDetails
 
     if ($force or (not exists $state->{subscription}->{level})) {
         unless ($self->eBoxSubscribed()) {
-            EBox::trace();
+            #EBox::trace();
             throw EBox::Exceptions::Internal('Not subscribed');
         }
         my $cap = new EBox::RemoteServices::Capabilities();
@@ -2054,15 +1856,55 @@ sub freeViface
 sub _vpnClientAdjustLocalAddress
 {
     my ($self) = @_;
-    if ((not $self->eBoxSubscribed()) or (not $self->hasBundle())) {
-        return;
-    }
+
+    return unless $self->_VPNEnabled();
 
     my $conn = new EBox::RemoteServices::Connection();
     my $vpnClient = $conn->vpnClient();
     if ( $vpnClient ) {
         $conn->vpnClientAdjustLocalAddress($vpnClient);
     }
+}
+
+# This method determines if the VPN must be enabled or not
+# Requisites:
+#   - Be subscribed
+#   - Have the cert bundle
+#   - Allow remote access support or be entitled to remote access
+#
+sub _VPNEnabled
+{
+    my ($self, $force) = @_;
+
+    if ( (not $force) and exists($self->{'_vpnEnabled'}) ) {
+        return $self->{'_vpnEnabled'};
+    }
+
+    my $vpnEnabled = ($self->eBoxSubscribed() and $self->hasBundle());
+    if ( $vpnEnabled ) {
+        $vpnEnabled = $self->_VPNRequired('force');
+    }
+    $self->{'_vpnEnabled'} = $vpnEnabled;
+    return $vpnEnabled;
+}
+
+# This method determines if the VPN is required. That is:
+#   - Allow remote access support or be entitled to remote access
+sub _VPNRequired
+{
+    my ($self, $force) = @_;
+
+    if ( (not $force) and exists($self->{'_vpnRequired'}) ) {
+        return $self->{'_vpnRequired'};
+    }
+
+    my $vpnRequired = $self->model('RemoteSupportAccess')->allowRemoteValue();
+    unless ( $vpnRequired ) {
+        $vpnRequired = ($self->subscriptionLevel('force') > 0);
+    }
+
+    $self->{'_vpnRequired'} = $vpnRequired;
+    return $vpnRequired;
 }
 
 sub firewallHelper
@@ -2136,6 +1978,35 @@ sub desktopActions
     };
 }
 
+# Method: subscribedHostname
+#
+#        Return the hostname within the Zentyal Cloud if
+#        the host is subscribed to it
+#
+# Returns:
+#
+#        String - the subscribed hostname
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub subscribedHostname
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The subscribed hostname is only available if the host is subscribed to Zentyal Remote')
+           );
+    }
+
+    unless ( defined($self->{subscribedHostname}) ) {
+        $self->{subscribedHostname} = EBox::RemoteServices::Cred->new()->subscribedHostname();
+    }
+    return $self->{subscribedHostname};
+}
 
 # Method: subscribedUUID
 #
@@ -2156,13 +2027,15 @@ sub subscribedUUID
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The UUID is only available if the host is subscribed to Zentyal Cloud')
+            __('The UUID is only available if the host is subscribed to Zentyal Remote')
            );
     }
 
-    return EBox::RemoteServices::Cred->new()->subscribedUUID();
+    unless ( defined($self->{subscribedUUID}) ) {
+        $self->{subscribedUUID} = EBox::RemoteServices::Cred->new()->subscribedUUID();
+    }
+    return $self->{subscribedUUID};
 }
-
 
 # Method: cloudDomain
 #
@@ -2183,11 +2056,14 @@ sub cloudDomain
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The Zentyal Cloud Domain is only available if the host is subscribed')
+            __('The Zentyal Remote Domain is only available if the host is subscribed')
            );
     }
 
-    return EBox::RemoteServices::Cred->new()->cloudDomain();
+    unless ( defined($self->{cloudDomain}) ) {
+        $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
+    }
+    return $self->{cloudDomain};
 }
 
 # Method: cloudCredentials
@@ -2209,11 +2085,14 @@ sub cloudCredentials
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+            __('The Zentyal Remote credentials are only available if the host is subscribed')
            );
     }
+    unless ( defined($self->{cloudCredentials}) ) {
+        $self->{cloudCredentials} = EBox::RemoteServices::Cred->new()->cloudCredentials();
+    }
+    return $self->{cloudCredentials};
 
-    return EBox::RemoteServices::Cred->new()->cloudCredentials();
 }
 
 # Method: _setQAUpdates

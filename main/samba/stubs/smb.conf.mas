@@ -13,6 +13,7 @@
 
     $antivirus => 0
     $antivirus_exceptions => {}
+    $antivirus_config => {}
 
     $recycle => 0
     $recycle_exceptions => {}
@@ -20,7 +21,6 @@
 
     $prefix => 'Zentyal'
     $backup_path => '/tmp'
-    $quarantine_path => '/tmp'
 
     $guestAccess => 0
     $guestAccount => 'nobody'
@@ -102,6 +102,12 @@ use EBox::Samba;
     vfs objects = <% $objects %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
+% if ($av) {
+%   foreach my $key (keys %{$antivirus_config}) {
+%       next unless $key;
+    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+%   }
+% }
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -130,6 +136,12 @@ use EBox::Samba;
     vfs objects = <% $objects %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
+% if ($av) {
+%   foreach my $key (keys %{$antivirus_config}) {
+%       next unless $key;
+    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+%   }
+% }
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -170,12 +182,10 @@ use EBox::Samba;
 # admin users = @"Domain Admins"
 # force group = ebox
 # force user = ebox
-#
-#[<% $prefix %>-quarantine]
-# path = <% $quarantine_path %>
-# browseable = yes
-# read only = no
-# valid users = @"Domain Admins"
-# admin users = @"Domain Admins"
 
+[<% $prefix %>-quarantine]
+    comment = "Quarantine"
+    path = <% $antivirus_config->{quarantine_dir} %>
+    browseable = Yes
+    read only = No
 

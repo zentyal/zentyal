@@ -30,15 +30,19 @@ use EBox::Gettext;
 use EBox::RemoteServices::Connection;
 use EBox::Types::Action;
 
-sub new
+# Method: precondition
+#
+#     Show only if the module has the VPN bundle
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::precondition>
+#
+sub precondition
 {
-    my $class = shift;
+    my ($self) = @_;
 
-    my $self = $class->SUPER::new(@_);
-
-    bless ( $self, $class );
-
-    return $self;
+    return ($self->parentModule()->hasBundle());
 }
 
 # Method: _table
@@ -62,12 +66,12 @@ sub _table
     ];
 
     my $form = {
-        tableName => __PACKAGE__->nameFromClass(),
-        modelDomain => 'RemoteServices',
-        pageTitle => __('Zentyal Cloud VPN Connectivity Check'),
-        defaultActions => [],
-        customActions => $customActions,
-        tableDescription => [],
+        tableName          => __PACKAGE__->nameFromClass(),
+        modelDomain        => 'RemoteServices',
+        printableTableName => __('Zentyal Remote VPN Connectivity Check'),
+        defaultActions     => [],
+        customActions      => $customActions,
+        tableDescription   => [],
         help => __('It performs the required test to know if the VPN client is able to connect to the server'),
     };
     return $form;

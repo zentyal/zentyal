@@ -34,27 +34,6 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#        The constructor for <EBox::Event::Dispatcher::ControlCenter>
-#
-#
-# Returns:
-#
-#        <EBox::Event::Dispatcher::ControlCenter> - the newly created object
-#
-sub new
-{
-
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new('ebox');
-    bless( $self, $class );
-
-    return $self;
-
-}
-
 # Method: configured
 #
 # Overrides:
@@ -90,7 +69,7 @@ sub ConfigurationMethod
 sub ConfigureURL
 {
 
-    return '/RemoteServices/View/Subscription';
+    return '/RemoteServices/Composite/General';
 
 }
 
@@ -137,7 +116,7 @@ sub send
 sub _receiver
 {
 
-    return __('Zentyal Cloud');
+    return __('Zentyal Remote');
 
 }
 
@@ -150,7 +129,7 @@ sub _receiver
 sub _name
 {
 
-    return __('Zentyal Cloud');
+    return __('Zentyal Remote');
 
 }
 

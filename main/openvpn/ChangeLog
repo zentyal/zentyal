@@ -1,3 +1,5 @@
+2.3.12
+	+ Move report code to remoteservices
 2.3.11
 	+ Dont create servers which its name maps to a invalid certificate
 	+ Fixed error in template for server's client bundle
@@ -7,7 +9,7 @@
 	  current daemon status
 	+ Use MSS fix by configuration file option in order not to affect
 	  all servers
-	+ Added missinng use statement in exposed networks model
+	+ Added missing use statement in exposed networks model
 	+ Adapted to changes in DataForm, these changes caused problems
 	  creating new servers
 	+ Added modeldepends to yaml schema

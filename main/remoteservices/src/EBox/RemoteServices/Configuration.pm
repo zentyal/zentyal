@@ -29,19 +29,6 @@ use EBox::Global;
 
 # Group: Public class methods
 
-# Method: eBoxServicesMirrorCount
-#
-#      Get the count of mirror which supports subscription service
-#
-# Returns:
-#
-#      Int - the mirror count
-#
-sub eBoxServicesMirrorCount
-{
-    return EBox::Config::configkey('ebox_services_mirror_count');
-}
-
 # Method: DNSServer
 #
 #      Get the standard DNS server for eBox remote services
@@ -55,17 +42,22 @@ sub DNSServer
     return EBox::Config::configkey('ebox_services_nameserver');
 }
 
-# Method: PublicWebServer
+# Method: APIEndPoint
 #
-#      Get the Web service name
+#      Get the API end point
 #
 # Returns:
 #
-#      String - the Web service name
+#      String - the API end point (host part)
 #
-sub PublicWebServer
+sub APIEndPoint
 {
-    return EBox::Config::configkey('ebox_services_www');
+    my $rsAPIKey = EBox::Config::configkey('rs_api');
+    if ( defined($rsAPIKey) ) {
+        $rsAPIKey =~ s:/.*::g;
+    }
+
+    return $rsAPIKey;
 }
 
 # Method: JobsDir
