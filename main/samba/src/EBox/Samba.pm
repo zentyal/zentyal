@@ -576,7 +576,7 @@ sub _checkEnvironment
     # The own doamin and the kerberos realm must be equal
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The host domain '{d}' must be equal kerberos realm '{r}'", d => $hostDomain, r => $realm));
+        throw EBox::Exceptions::External(__x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm));
     }
 
     # Check the domain exists in DNS module
@@ -782,7 +782,7 @@ sub provisionAsADC
     if (lc ($sysinfo->hostDomain()) ne lc ($domainToJoin) or
         lc ($sysinfo->hostDomain()  ne lc ($krbRealm))) {
         throw EBox::Exceptions::External(
-            __('The server domain and kerberos realm must match the domain the ' .
+            __('The server domain and kerberos realm must match the ' .
                'domain you are trying to join.'));
     }
 
