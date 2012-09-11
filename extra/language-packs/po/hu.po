@@ -55,8 +55,8 @@ msgid "Name"
 msgstr "Név"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:644
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
@@ -250,7 +250,7 @@ msgstr "URL-ben található tartomány vagy IP cím"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:533
 #: ../../main/dns/src/EBox/Model/Text.pm:165
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:68
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
@@ -344,6 +344,7 @@ msgid "HTTPS Proxy"
 msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
 msgstr ""
 
@@ -480,7 +481,7 @@ msgstr "Kérések"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1412
+#: ../../main/samba/src/EBox/Samba.pm:1514
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -534,14 +535,13 @@ msgstr "Szűrt forgalom mérete (Kb)"
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:323
 #: ../../main/pptp/src/EBox/PPTP.pm:370
-#: ../../main/ebackup/src/scripts/restore-tool:1700
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:163
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1410
-#: ../../main/samba/src/EBox/Samba.pm:1430
-#: ../../main/samba/src/EBox/Samba.pm:1440
+#: ../../main/samba/src/EBox/Samba.pm:1512
+#: ../../main/samba/src/EBox/Samba.pm:1532
+#: ../../main/samba/src/EBox/Samba.pm:1542
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
@@ -840,6 +840,7 @@ msgstr "Tartalomszűrő határértékének módosítása"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -853,7 +854,7 @@ msgstr "Tartalomszűrő határértékének módosítása"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:87
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:152
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:160
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
@@ -861,7 +862,7 @@ msgstr "Tartalomszűrő határértékének módosítása"
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
 #: ../../main/samba/src/templates/samba.mas:18
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:32
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
@@ -940,7 +941,7 @@ msgid "category"
 msgstr "kategória"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1565
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1372,8 +1373,7 @@ msgstr "Feltöltés beállításának csomagja"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1662
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1717,7 +1717,6 @@ msgstr ""
 "hozzárendelve itt a hálózati címét{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
-#: ../../main/ebackup/src/scripts/restore-tool:318
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
@@ -2015,10 +2014,10 @@ msgstr "Szolgáltatás"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
 msgid "Running"
 msgstr "Fut"
@@ -2027,7 +2026,7 @@ msgstr "Fut"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:22
 msgid "Stopped"
 msgstr "Leállított"
@@ -2261,7 +2260,7 @@ msgstr "OpenVPN démonok"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1434
+#: ../../main/samba/src/EBox/Samba.pm:1536
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -2415,11 +2414,11 @@ msgstr "LOG"
 msgid "REDIRECT"
 msgstr "REDIRECT"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:655
+#: ../../main/firewall/src/EBox/Iptables.pm:652
 msgid "Firewall failed to add rules for the following modules: "
 msgstr "A tűzfal nem tudta hozzáadni a szabályokat a következő modulokhoz:"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:658
+#: ../../main/firewall/src/EBox/Iptables.pm:655
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
@@ -2427,8 +2426,8 @@ msgstr ""
 "Ezt valószínűleg a kapcsolat hiánya okozza, ellenőrizze a beállításokat, "
 "vagy tiltsa le azokat a modulokat"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:920
-#: ../../main/firewall/src/EBox/Iptables.pm:957
+#: ../../main/firewall/src/EBox/Iptables.pm:917
+#: ../../main/firewall/src/EBox/Iptables.pm:954
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:73
 msgid ""
@@ -2437,8 +2436,8 @@ msgstr ""
 "Be kell állítsa az iptables_log_limit változót az ebox konfigurációs "
 "fájljában"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:926
-#: ../../main/firewall/src/EBox/Iptables.pm:963
+#: ../../main/firewall/src/EBox/Iptables.pm:923
+#: ../../main/firewall/src/EBox/Iptables.pm:960
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:78
 msgid ""
@@ -3651,7 +3650,7 @@ msgstr "FTP SSL támogatás engedélyezése a bejelentkezett felhasználóknak."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:135
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:143
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 msgid "General configuration settings"
 msgstr "Általános beállítások"
@@ -3886,7 +3885,8 @@ msgstr "Nincsenek frissítendő csomagok"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:71
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:101
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:235
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:7
@@ -3895,6 +3895,7 @@ msgstr "OK"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:236
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:91
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
 #: ../../main/core/src/templates/report/raid.mas:210
 msgid "Current operation"
@@ -4009,9 +4010,9 @@ msgstr "Válassza ki a telepítendő Zentyal csomagokat"
 msgid "Zentyal components"
 msgstr "Zentyal komponensek"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1381
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1597
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -4024,154 +4025,142 @@ msgstr "Zentyal komponensek"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
 msgid "Community"
 msgstr "Közösségi"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
 msgid "Professional"
 msgstr "Professzionális"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 msgid "Enterprise"
 msgstr "Vállalati"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 msgid "Small Business"
 msgstr "Kisvállalati"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
-msgid "Zentyal Cloud Client"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#, fuzzy
+msgid "Zentyal Remote Client"
 msgstr "Zentyal Cloud kliens"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
 msgid "Not subscribed"
 msgstr "Nincs előfizetve"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
 msgid "Subscribed"
 msgstr "Előfizetve"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:414
-msgid "Subscription"
-msgstr "Előfizetés"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
+#, fuzzy
+msgid "Registration"
+msgstr "Cél"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:419
-msgid "Server Subscription"
-msgstr "Kiszolgáló-előfizetés"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#, fuzzy
+msgid "Server Registration"
+msgstr "Kiszolgáló változat"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:424
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr "Technikai támogatás"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:428
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 msgid "Security Updates"
 msgstr "Biztonsági frissítések"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:432
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
-msgid "Disaster Recovery"
-msgstr "Katasztrófa utáni helyreállítás"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
+#, fuzzy
+msgid "Your Zentyal Server Account"
+msgstr "Másik Zentyal kiszolgáló"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
-msgid "Zentyal Cloud Services"
-msgstr "Zentyal Cloud szolgáltatások"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:563
-msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
-msgstr ""
-"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
-"Zentyal Cloud szolgáltatásra"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:592
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
+#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
+"subscribed to Zentyal Remote"
 msgstr ""
 "A megfigyelésgyűjtő IP-címek csak akkor érhetők el, ha a gép elő van fizetve "
 "a Zentyal Cloud szolgáltatásra"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:778
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "Az újratöltéshez a Zentyalt elő kell fizetnie"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1567
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Letiltva - {oh}Engedélyezés{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1575
-#, fuzzy, perl-brace-format
-msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Nincs kapcsolat. Ellenőrizze a VPN logokat: {path}"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+msgid "Connected"
+msgstr "Csatlakozva"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1581
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
 #, fuzzy
 msgid "In process"
 msgstr "folyamat"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1584
-msgid "Connected"
-msgstr "Csatlakozva"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
+#, fuzzy, perl-brace-format
+msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
+msgstr "Nincs kapcsolat. Ellenőrizze a VPN logokat: {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1599
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
 msgid "Essential"
 msgstr "Alapvető"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1600
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1601
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
 msgid "Premium"
 msgstr "Prémium"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1608
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- Utolsó frissítés: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1621
-#, perl-brace-format
-msgid "- Latest backup: {date}"
-msgstr "- Utolsó biztonsági mentés: {date}"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 msgid "Configuration backup enabled"
 msgstr "Beállítás biztonsági mentése engedélyezve"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1627
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Utolsó biztonsági mentés a beállításokról: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
 msgid "Server name"
 msgstr "Kiszolgálónév"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 msgid "Connection status"
 msgstr "Kapcsolat állapota"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 msgid "External server name"
 msgstr "Külső kiszolgáló neve"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4179,33 +4168,42 @@ msgstr "Külső kiszolgáló neve"
 msgid "Server edition"
 msgstr "Kiszolgáló változat"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
 msgid "Technical support"
 msgstr "Technikai támogatás"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1714
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr "Még nem készült biztonsági mentés az adatokról"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1970
-#, fuzzy
-msgid "The UUID is only available if the host is subscribed to Zentyal Cloud"
-msgstr ""
-"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
-"Zentyal Cloud szolgáltatásra"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1997
-#, fuzzy
-msgid "The Zentyal Cloud Domain is only available if the host is subscribed"
-msgstr ""
-"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
-"Zentyal Cloud szolgáltatásra"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2023
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
 #, fuzzy
 msgid ""
-"The Zentyal Cloud Credentials are only available if the host is subscribed"
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Remote"
+msgstr ""
+"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
+"Zentyal Cloud szolgáltatásra"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+#, fuzzy
+msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
+msgstr ""
+"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
+"Zentyal Cloud szolgáltatásra"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+#, fuzzy
+msgid "The Zentyal Remote Domain is only available if the host is subscribed"
+msgstr ""
+"Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
+"Zentyal Cloud szolgáltatásra"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+#, fuzzy
+msgid ""
+"The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
 "A megfigyelésgyűjtő IP-címek csak akkor érhetők el, ha a gép elő van fizetve "
 "a Zentyal Cloud szolgáltatásra"
@@ -4219,50 +4217,55 @@ msgid "Service Level Agreement"
 msgstr "Szolgáltatásiszint-megállapodás"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-msgid "Allow remote access to Zentyal staff"
+#, fuzzy
+msgid "Allow remote access to Zentyal support"
 msgstr "Távoli elérés engedélyezése a Zentyalhoz"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
-msgid "Allow access from any internet address"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
+msgid ""
+"Allow Zentyal support engineers to connect to your server from Zentyal "
+"Remote network."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+#, fuzzy
+msgid "Allow access from the Internet"
 msgstr "Hozzáférés engedélyezése minden internetcímről"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
 msgid ""
-"By default, the access is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option, the access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"Allow Zentyal support engineers to connect to your server directly from the "
+"Internet to your public IP address. Only use this option if you could not "
+"connect to Zentyal Remote."
 msgstr ""
-"Alapértelmezetten a hozzáférés csak a Zentyal Cloud hálózatában található "
-"gépekről engedélyezett. Ha ezt beállítja a hozzáférés mindenhonnan "
-"engedélyezve lesz. Csak akkor használja ezt a beállítást ha nem tagja a "
-"Zentyal Cloud szolgáltatásnak"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
 msgstr "Távoli támogatás engedélyezése"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:138
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
 "Annak érdekében hogy a távoli hozzáférést minden címről engedélyezze, előbb "
 "a szolgáltatást kell engedélyeznie"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr "A távoli címelérés engedélyezéséhez csatlakozni kell ide: {cloud}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
+#, fuzzy
 msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
+"To restrict addresses you need that your Zentyal Server is registered to "
+"Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
 "A hozzáférési címek korlátozása érdekében fel kell iratkozzon a Zentyal "
 "Cloud szolgáltatásra. Feliratkozás nélkül a hozzáférés nem korlátozható"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
 #, perl-brace-format
 msgid ""
 "Enabling remote support will allow Zentyal staff to freely access your "
@@ -4281,7 +4284,7 @@ msgstr ""
 "A távoli hozzáféréshez csatlakozáshoz lépjen be a shellbe egy „adm” "
 "csoportba tartozó felhasználóval, és futtassa a következő parancsot: „{cmd}”."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:191
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
@@ -4289,7 +4292,7 @@ msgstr ""
 "Nem található futó ssh démon példány. A támogatási hozzáférés egy futó "
 "példányt igényel a távoli kapcsolatok engedélyezéséhez."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:196
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
@@ -4297,7 +4300,7 @@ msgstr ""
 "Nem található az összes csatolón figyelő ssh démon példány. A támogatási "
 "hozzáférés egy, az összes csatolón figyelő ssh démont igényel."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:201
 #, perl-brace-format
 msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
@@ -4353,7 +4356,8 @@ msgid "Alerts"
 msgstr "Riasztások"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-msgid "External server name (DynDNS)"
+#, fuzzy
+msgid "External server name (Dynamic DNS)"
 msgstr "Külső kiszolgálónév (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
@@ -4361,19 +4365,18 @@ msgid "Use this name to connect to Zentyal externally"
 msgstr "Ezt a nevet használja a Zentyal eléréséhez kívülről"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-msgid "Subscription renovation date"
+#, fuzzy
+msgid "Renovation date"
 msgstr "Előfizetés megújítási dátuma"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
-msgid "Central monitoring & management"
-msgstr "Központi monitorozás és felügyelet"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-msgid "Server subcription info"
-msgstr "Kiszolgáló előfizetési információi"
+#, fuzzy
+msgid "Server info"
+msgstr "A felhasználó nem található"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-msgid "Not using Zentyal Cloud DynDNS service"
+#, fuzzy
+msgid "Not using Zentyal Dynamic DNS service"
 msgstr "Nem használja a Zentyal Cloud DynDNS szolgáltatást"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
@@ -4381,20 +4384,20 @@ msgstr "Nem használja a Zentyal Cloud DynDNS szolgáltatást"
 msgid "Unlimited"
 msgstr "Korlátlan"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
 msgstr "VPN kapcsolat-ellenőrzés"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
 msgstr "A VPN-kiszolgáló elérhető"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
 #, fuzzy
-msgid "Zentyal Cloud VPN Connectivity Check"
+msgid "Zentyal Remote VPN Connectivity Check"
 msgstr "Zentyal Cloud kapcsolat"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
@@ -4408,68 +4411,69 @@ msgstr "Legutóbbi biztonsági frissítés"
 msgid "Available IDS rules"
 msgstr "Elérhető IDS szabályok"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:116
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 #, fuzzy
 msgid "Select one of the available options"
 msgstr "Válasszon a meglévő teljes jelentésekből"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:121
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
+#, fuzzy
 msgid ""
-"Subscription was done correctly. Save changes and then, wait a minute to "
-"guarantee the system carries out the process of subscribing. Later you can "
-"start using the cloud based services you are entitled to with your "
-"subscription (remote backup, updates, alerts, etc.)"
+"Registration was done correctly. Wait a minute to guarantee the system "
+"carries out the process of registration. Later on, you can start using the "
+"cloud based services you are entitled to with your edition (remote backup, "
+"updates, alerts, etc.)"
 msgstr ""
 "A feliratkozás megtörtént. Mentse el a beállításokat, és várjon egy percet "
 "annak érdekében, hogy a rendszer mindent befejezzen a feliratkozási "
 "folyamatban. Később használhatja a felhő alapú szolgáltatásokat amelyeket a "
 "feliratkozással kapott (távoli mentés, frissítések, értesítések, stb.)"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:127
-msgid "Subscription data retrieved correctly."
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
+#, fuzzy
+msgid "Registration data retrieved correctly."
 msgstr "A feliratkozási információk sikeresen betöltve."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:129
-msgid "Please, save changes"
-msgstr "Kérem mentse a változtatásokat"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:653
 #: ../../main/core/src/templates/progress.mas:34
 msgid "Done"
 msgstr "Kész"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:297
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
+#, fuzzy
 msgid ""
-"Take into account that subscribing your Zentyal server to the Zentyal Cloud "
-"can take a while. Please do not touch anything until the subscription "
+"Take into account that registering your Zentyal server to the Zentyal Remote "
+"can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
 "A Zentyal Cloudba való előfizetés végrehajtása egy kis időbe telik. Ne "
 "csináljon semmit, amíg az előfizetési eljárás véget nem ér."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
+#, fuzzy
 msgid ""
-"Prior to make a subscription on remote services, save or discard changes in "
+"Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 "Mielőtt feliratkozna egy távoli szolgáltatásra, mentse vagy vesse el a "
 "OpenVPN modul beállításait"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:365
-msgid "User Name or Email Address"
-msgstr "Felhasználónév vagy email cím"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#, fuzzy
+msgid "Registration Email Address"
+msgstr "Felhasználónév vagy e-mail cím"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
 msgstr "Zentyal név"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:378
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:351
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr "Válasszon egy valós tartománynevet a Zentyalnak"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4497,46 +4501,49 @@ msgstr "Válasszon egy valós tartománynevet a Zentyalnak"
 msgid "Password"
 msgstr "Jelszó"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:396
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:369
 #, fuzzy
 msgid "Available Options"
 msgstr "Elérhető tárhely"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:398
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
 msgid "Select one of your purchases"
 msgstr "Válasszon egy vásárlást"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:406
-msgid "Zentyal subscription details"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#, fuzzy
+msgid "Zentyal registration details"
 msgstr "Zentyal feliratkozás részletei"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:407
-msgid "Unsubscribe"
-msgstr "Leiratkozás"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
+#, fuzzy
+msgid "Unregister"
+msgstr "Greylistre téve"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:410
-msgid "Subscription to Zentyal Cloud"
-msgstr "Feliratkozás a Zentyal Vezérlőközpontra"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
+#, fuzzy
+msgid "Register your Zentyal Server"
+msgstr "Regisztrált Zentyal kiszolgálók"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:411
-msgid "Subscribe"
-msgstr "Előfizetés"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+msgid "Register"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
 msgid " module"
 msgstr " modul"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " and "
 msgstr " és "
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " modules"
 msgstr " modulok"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:623
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1413
+#: ../../main/samba/src/EBox/Samba.pm:1515
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4557,8 +4564,8 @@ msgstr " modulok"
 msgid "Action"
 msgstr "Művelet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:624
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:645
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4576,9 +4583,21 @@ msgstr "Létező lemezkép használata"
 msgid "Reload available options"
 msgstr "Általános beállítások"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#, fuzzy
+msgid "Unregistering a server"
+msgstr "külső levelezőszerver"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#, fuzzy
+msgid "Registering a server"
+msgstr "külső levelezőszerver"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-msgid "Download latest report"
-msgstr "Utolsó jelentés letöltése"
+#, fuzzy
+msgid "Get latest report"
+msgstr "Jelentés kiválasztása"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
 #, fuzzy
@@ -4595,32 +4614,32 @@ msgid "Reports"
 msgstr "Jelentések"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
-#, fuzzy
-msgid ""
-"The download link is for the latest available report for a group where this "
-"zentyal server belongs to"
+msgid "Reports are done based on automatically gathered data in hourly basis"
 msgstr ""
-"A letöltési hivatkozás azon csoport utolsó elérhető jelentéséhez tartozik, "
-"amelybe ez a Zentyal tartozik"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
+#, fuzzy
+msgid "Not registered"
+msgstr "Nincs létrehozva"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
-#, fuzzy
-msgid "No consolidation done"
-msgstr "Műveletek befejezve"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:141
 #, perl-brace-format
-msgid "{oh}Download sample{ch}"
-msgstr "{oh}Minta letöltése{ch}"
+msgid "{oh}Take a look on the example{ch}"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:148
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
-msgid "{oh}Download{ch}"
-msgstr "{oh}Letöltés{ch}"
+msgid "{oh}Take a look{ch}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
+#, fuzzy
+msgid "No consolidation done yet"
+msgstr "Műveletek befejezve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4649,6 +4668,10 @@ msgstr "Biztonsági mentés becsült mérete"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
 msgid "Estimated time to recover from a disaster"
 msgstr "Hátralévő idő a visszaállításig"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
+msgid "Disaster Recovery"
+msgstr "Katasztrófa utáni helyreállítás"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
@@ -4696,15 +4719,6 @@ msgstr "Jelszó nélküli elérés a vezérlőfelületről"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
 msgstr "Hozzáférési beállítások"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:140
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:153
-#: ../../main/network/src/EBox/Model/DynDNS.pm:85
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
-#: ../../main/core/src/templates/headTitle.mas:19
-msgid "Zentyal Cloud"
-msgstr "Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:256
 #, perl-brace-format
@@ -4824,21 +4838,21 @@ msgstr "A webes bejelentkezőszolgáltatás kulcs nem elérhető"
 msgid "None of the available bundles are valid for this server"
 msgstr "Az elérhető csomagok egyike sem érvényes ehhez a kiszolgálóhoz"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:565
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:560
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "A {host} nem elérhető. Ellenőrizze az internetkapcsolatát"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:778
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:723
+#, fuzzy, perl-brace-format
 msgid ""
-"Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
+"Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 "Nem lehet csatlakozni a WS szerverhez: „{addr}:{port}/{proto}”. Ellenőrizze "
 "a névfeloldást és a tűzfalat"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:806
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:751
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:314
 #, perl-brace-format
 msgid ""
@@ -4866,10 +4880,6 @@ msgstr "Nem tartalmazhatja a \"{char}\" karaktert"
 msgid "It cannot be greater than {n} characters"
 msgstr "Nem lehet hosszabb {n} karakternél"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
-msgid "Key for disaster recovery service not found"
-msgstr "A disaster recovery szolgáltatás kulcsai nem léteznek"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:197
 msgid "No ebox-services DNS key found"
 msgstr "Az ebox szolgáltatás DNS kulcsa nem elérhető"
@@ -4886,6 +4896,13 @@ msgstr "A SOAP kapcsolat nem hozható létre"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "No domain key found for this service"
 msgstr "Ennek a szolgáltatásnak a tartománykulcs nem elérhető"
+
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
+#: ../../main/core/src/templates/headTitle.mas:19
+#, fuzzy
+msgid "Zentyal Remote"
+msgstr "Zentyal gép"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -4912,25 +4929,25 @@ msgstr "Sikeres visszaállítás"
 msgid "Backup deleted"
 msgstr "A mentés törölve"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:82
 msgid "Making remote backup"
 msgstr "Távoli mentés készítése"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
 msgid "Backing up modules "
 msgstr "Modulok mentése"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:248
 msgid "Operation"
 msgstr "Művelet"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:249
 msgid "operations left to finish backup"
 msgstr "a mentés befejezéséig hátralévő műveletek"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 msgid "Backup successful"
 msgstr "A biztonsági mentés sikeres"
@@ -4944,7 +4961,7 @@ msgstr ""
 "mentésből:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:85
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:197
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:120
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:139
 #: ../../main/remoteservices/src/templates/Backup/index.mas:159
@@ -5001,35 +5018,35 @@ msgstr "Nem létező művelet: {a}"
 msgid "Import/Export Configuration Remotely"
 msgstr "Import/Export beállítások"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:74
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
 msgid "Email Address"
 msgstr "E-mail cím"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:81
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Utónév"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 msgid "Last name"
 msgstr "Családnév"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
 msgid "Phone number"
 msgstr "Telefonszám"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
 msgid "Repeated password"
 msgstr "Jelszó megerősítése"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
 msgid "Introduced passwords do not match"
 msgstr "Az új jelszavak nem egyeznek"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:132
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
@@ -5037,11 +5054,11 @@ msgstr ""
 "Az előfizetés regisztrálása során hiba történt, ellenőrizze az "
 "internetkapcsolatát."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:140
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
 msgid "An unknown error ocurred registering the subscription"
 msgstr "Az előfizetés regisztrálása során ismeretlen hiba történt"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:145
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
@@ -5049,7 +5066,7 @@ msgstr ""
 "Egy felhasználó már regisztrált ezzel az e-mail címmel. A fiók adatait "
 "megnézheti itt:"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:147
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -5057,14 +5074,54 @@ msgstr ""
 "Elnézést, ismeretlen hiba történt. Próbálja újra később, vagy vegye fel a "
 "kapcsolatot az info@zentyal.com címmel."
 
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
+#, fuzzy
+msgid "Registering your server"
+msgstr "Regisztrált Zentyal kiszolgálók"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
+#, fuzzy
+msgid "Registration finished"
+msgstr "Telepítés befejezve"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
+#, fuzzy, perl-brace-format
+msgid ""
+"There was an error in the registration. There are more information in the "
+"logs directory {dir}"
+msgstr ""
+"Néhány modul hibát jelentett a változások mentésénél. További információ a "
+"hibajegyzésk könyvtárában {dir}"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
+#, fuzzy
+msgid "Unregistering your server"
+msgstr "Kiszolgálók listája"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
+#, fuzzy
+msgid "Unregistration finished"
+msgstr "Telepítés befejezve"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
+#, fuzzy
+msgid "Making changes in your configuration"
+msgstr "Az új modulok beállításának befejezése"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
+msgid "operations performed"
+msgstr "műveletek elvégezve"
+
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
 msgid "Bandwidth Monitor"
 msgstr "Sávszélesség-figyelő"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1411
-#: ../../main/samba/src/EBox/Samba.pm:1431
+#: ../../main/samba/src/EBox/Samba.pm:1513
+#: ../../main/samba/src/EBox/Samba.pm:1533
 msgid "Client address"
 msgstr "Kliens címe"
 
@@ -5797,571 +5854,6 @@ msgstr "Helyi IP-cím"
 msgid "No users connected."
 msgstr "Nincs csatlakozott felhasználó."
 
-#: ../../main/ebackup/src/scripts/restore-tool:116
-#, fuzzy
-msgid ""
-"No backups found in this server. Do you want to retry with a different one?"
-msgstr ""
-"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
-"dátumot."
-
-#: ../../main/ebackup/src/scripts/restore-tool:129
-#, fuzzy
-msgid ""
-"There is not configuration backup from this date. Do you want to retry with "
-"another date?"
-msgstr ""
-"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
-"dátumot."
-
-#: ../../main/ebackup/src/scripts/restore-tool:205
-#, perl-brace-format
-msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr "Csak egy titkosítási beállítás választható: {sy}, {no}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:213
-msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr "A --force-type kapcsoló értéke csak „basic” vagy „subscribed” lehet"
-
-#: ../../main/ebackup/src/scripts/restore-tool:228
-msgid "Zenity package not found. Falling back to terminal mode"
-msgstr "A Zenity csomag nem található. Visszaállás a parancssoros módra"
-
-#: ../../main/ebackup/src/scripts/restore-tool:242
-msgid "User for the authentication"
-msgstr "Felhasználó az azonosításhoz"
-
-#: ../../main/ebackup/src/scripts/restore-tool:244
-msgid ""
-"Password for the authentication. This password will be shown both in the "
-"command line and in the process list so only use this option when security "
-"is not a concern"
-msgstr ""
-"Jelszó az azonosításhoz. Ez a jelszó látható lesz a parancssorban és a "
-"folyamatlistában is, ezért csak akkor használja, ha a biztonság nem szempont."
-
-#: ../../main/ebackup/src/scripts/restore-tool:248
-msgid "Server from which its backup date the restore will be done"
-msgstr ""
-"A kiszolgáló, amelyről a megadott dátumú biztonsági mentés visszaállításra "
-"kerül"
-
-#: ../../main/ebackup/src/scripts/restore-tool:250
-msgid "Use the last backup done for the restore"
-msgstr "Az utolsó biztonsági mentés használata a visszaállításhoz"
-
-#: ../../main/ebackup/src/scripts/restore-tool:252
-msgid "Restore all backup domains available"
-msgstr "Minden elérhető biztonsági mentési tartomány visszaállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:254
-msgid "Backup domain to restore. It could be repeated several times"
-msgstr ""
-"A visszaállítandó biztonsági mentési tartomány. Többször is megismételhető."
-
-#: ../../main/ebackup/src/scripts/restore-tool:256
-msgid ""
-"Check if we use the no encryption or a symmetric encryption with password "
-msgstr ""
-"A titkosítatlan vagy szimmetrikus titkosítás jelszóval módszerek "
-"használatának ellenőrzése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:258
-msgid "Do not use graphical interface"
-msgstr "Grafikus felület használatának mellőzése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:264
-msgid "Change parameters used to access the storage server"
-msgstr "A tároló kiszolgáló elérési paramétereinek módosítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:289
-#, perl-brace-format
-msgid "Module {mod} should be installed"
-msgstr "A(z) {mod} modult telepíteni kell"
-
-#: ../../main/ebackup/src/scripts/restore-tool:295
-#, perl-brace-format
-msgid "Module {mod} should be configured"
-msgstr "A(z) {mod} modult be kell állítani"
-
-#: ../../main/ebackup/src/scripts/restore-tool:307
-msgid ""
-"Could not automatically update system date and hour. If the system time is "
-"not correct, some restore operations could fail"
-msgstr ""
-"Nem lehetett automatikusan frissíteni a rendszerdátumot és -időt. Ha a "
-"rendszeridő helytelen, néhány visszaállítási művelet sikertelen lehet."
-
-#: ../../main/ebackup/src/scripts/restore-tool:317
-msgid "Choose the server to restore"
-msgstr "Válassza ki a visszaállítandó kiszolgálót"
-
-#: ../../main/ebackup/src/scripts/restore-tool:322
-msgid "Server to restore: "
-msgstr "Visszaállítandó kiszolgáló:"
-
-#: ../../main/ebackup/src/scripts/restore-tool:350
-msgid "Select backup domains to restore"
-msgstr "Válassza ki a visszaállítandó biztonsági mentési tartományokat"
-
-#: ../../main/ebackup/src/scripts/restore-tool:351
-#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
-msgid "Backup domain"
-msgstr "Tartomány biztonsági mentése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:360
-#, perl-brace-format
-msgid "Backup domains available in the server {cn}: {l}"
-msgstr "A(z) {cn} kiszolgálón elérhető biztonsági mentési tartományok: {l}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:378
-msgid "No backup domain selected to restore. Doing nothing"
-msgstr ""
-"Nincs kiválasztva visszaállítandó biztonsági mentési tartomány. Nem történik "
-"semmi."
-
-#: ../../main/ebackup/src/scripts/restore-tool:390
-msgid "Retrieving registered servers list"
-msgstr "Regisztrált kiszolgálók listájának lekérdezése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:430
-msgid "No key passphrase"
-msgstr "A kulcsnak nincs jelmondata"
-
-#: ../../main/ebackup/src/scripts/restore-tool:437
-msgid "No password in retrieved credentials"
-msgstr "Nincs jelszó a lekért hitelesítési adatokban"
-
-#: ../../main/ebackup/src/scripts/restore-tool:489
-msgid "Retrieving account information"
-msgstr "Felhasználói fiók információinak lekérése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:538
-msgid "No registered Zentyal Servers"
-msgstr "Nincs regisztrált Zentyal kiszolgáló"
-
-#: ../../main/ebackup/src/scripts/restore-tool:544
-msgid "Registered Zentyal Servers"
-msgstr "Regisztrált Zentyal kiszolgálók"
-
-#: ../../main/ebackup/src/scripts/restore-tool:611
-msgid "Restoring files"
-msgstr "Fájlok visszaállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:634
-#, perl-brace-format
-msgid ""
-"Cannot restore file {file} requested by backup domains. Reason: {reason}"
-msgstr ""
-"Nem lehet visszaállítani a biztonsági mentési tartomány által kért {file} "
-"fájlt. Az ok: {reason}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:688
-msgid "Restoring all backed-up files"
-msgstr "Minden mentett fájl visszaállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:748
-#, perl-brace-format
-msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr ""
-"Nem lehet visszaállítani a(z) {dst} fájlt, mert már létezik és nem egy "
-"könyvtár"
-
-#: ../../main/ebackup/src/scripts/restore-tool:786
-#, perl-brace-format
-msgid ""
-"Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr ""
-"Hiba történt a(z) {dst} fájl vagy könyvtár visszaállítása közben. A "
-"visszaállítás folytatódik, ha lehetséges"
-
-#: ../../main/ebackup/src/scripts/restore-tool:815
-#, perl-brace-format
-msgid ""
-"Error restoring directory {d}. This could make fail some files or domains "
-"restore processes. Error {e}"
-msgstr ""
-"Hiba történt a(z) {d} mappa visszaállítása közben. Ez meghiúsíthatja néhány "
-"fájl vagy tartomány visszaállítási folyamatát. A hiba: {e}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:835
-msgid ""
-"Backup log data not found in the files from the backup, log database will "
-"not be restored"
-msgstr ""
-"Nem találhatók a biztonsági mentés naplóadatai a biztonsági mentés "
-"fájljaiban, a naplóadatbázis nem lesz visszaállítva"
-
-#: ../../main/ebackup/src/scripts/restore-tool:843
-msgid "Restoring log database"
-msgstr "Naplóadatbázis visszaállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:864
-msgid "Restoring configuration backup"
-msgstr "Beállítások biztonsági mentésének visszaállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:869
-msgid ""
-"The configuration restore failed. We will continue the process to try to "
-"restore as much as possible but your system will need manual tweaking"
-msgstr ""
-"Hiba történt a beállítások visszaállítása közben. A visszaállítási folyamat "
-"folytatódik a minél több adat visszaállítása érdekében, de a rendszernek "
-"kézi beállításra lesz szüksége"
-
-#: ../../main/ebackup/src/scripts/restore-tool:884
-msgid "Checking configuration compability"
-msgstr "Beállítások kompatibilitásának ellenőrzése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:936
-#, perl-brace-format
-msgid ""
-"Cannot restore backup because there are less interfaces than there are "
-"available. The missing interfaces are: {missing}"
-msgstr ""
-"Nem lehet visszaállítani a biztonsági mentést, mert kevesebb felület van, "
-"mint amennyi elérhető. A hiányzó felületek: {missing}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:979
-msgid "Updating software package lists"
-msgstr "A csomaglisták frissítése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1006
-msgid "Installing Zentyal components and their dependencies"
-msgstr "Zentyal összetevők és függőségeik telepítése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1022
-msgid "Installing missing modules..."
-msgstr "Hiányzó modulok telepítése…"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1028
-#, perl-brace-format
-msgid ""
-"Error installing packages: {err}. The backup will continue but it would not "
-"able to recover any configuration which depends on the missing packages"
-msgstr ""
-"Hiba a csomagok telepítésekor: {err}. A biztonsági mentés folytatódik, de "
-"nem lesz képes visszaállítani a hiányzó csomagoktól függő beállításokat."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1076
-msgid ""
-"Updating package list to allow access to exclusive Zentyal Cloud packages"
-msgstr ""
-"A csomaglista frissítése a kizárólagos Zentyal Cloud csomagok engedélyezése "
-"érdekében"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1078
-msgid "Install cloud packages"
-msgstr "Cloud csomagok telepítése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1096
-msgid "Downloading subscription data"
-msgstr "Előfizetői adatok letöltése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1114
-msgid ""
-"Connection error when retrieving subscription bundle. Zentyal Cloud "
-"exclusive packages will not be installed"
-msgstr ""
-"Kapcsolódási hiba történt az előfizetői csomag lekérése közben. A "
-"kizárólagos Zentyal Cloud csomagok nem lesznek telepítve"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1119
-msgid ""
-"Cannot retrieve bundle because either installed zentyal-remoteservices is "
-"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
-"exclusive packages will not be installed"
-msgstr ""
-"Nem lehet lekérni az előfizető csomagot, mert a zentyal-remoteservices "
-"elavult, vagy csak egy elavult csomag érhető el a felhőben. A Zentyal Cloud "
-"kizárólagos csomagjai nem lesznek telepítve"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1126
-msgid ""
-"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
-"packages will not be installed"
-msgstr ""
-"Ismeretlen hiba történt az előfizetői csomag lekérése közben. A Zentyal "
-"Cloud kizárólagos csomagjai nem lesznek telepítve"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1179
-msgid "Configuring modules"
-msgstr "Modulok beállítása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1203
-#, perl-brace-format
-msgid "Configuring modules: Current module {mod}"
-msgstr "Modulok beállítása, a jelenlegi modul: {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1207
-#, perl-brace-format
-msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "A(z) {p} modul beállítása kész. A jelenlegi modul: {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1226
-#, perl-brace-format
-msgid ""
-"Failed to configure module {name}: {err}. This could affect to the restore "
-"of other modules"
-msgstr ""
-"Hiba történt a(z) {name} modul beállítása során: {err}. Ez befolyásolhatja a "
-"többi modul visszaállítását is"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1249
-msgid "Finishing new modules configuration"
-msgstr "Az új modulok beállításának befejezése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1337
-msgid "Downloading backup metadata..."
-msgstr "Biztonsági mentés metaadatainak letöltése…"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1423
-msgid "Downloading the backup data"
-msgstr "Biztonsági mentés adatainak letöltése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1441
-#, perl-brace-format
-msgid "Downloading  {src} backup data for {dom}"
-msgstr ""
-"A(z) {src} biztonsági mentés adatainak letöltése a(z) {dom} tartományhoz"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1455
-#, perl-brace-format
-msgid ""
-"Error downloading data for backup domain: {dom}. The domain will not be "
-"fully restored"
-msgstr ""
-"Hiba történt a(z) {dom} biztonsági mentési tartomány adatainak letöltése "
-"közben. A tartomány nem lesz teljesen visszaállítva"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1475
-msgid "Downloading the backup configuration"
-msgstr "A biztonsági mentés beállításainak letöltése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1522
-msgid "Downloading configuration"
-msgstr "Beállítások letöltése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1564
-msgid "Looking for a version 2.0.X backup"
-msgstr "2.0.X verziójú biztonsági mentés keresése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1591
-msgid "Retrieving backup collection status ..."
-msgstr "Biztonsági mentés gyűjtemény állapotának lekérése…"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1620
-#: ../../main/ebackup/src/scripts/restore-tool:1681
-#, perl-brace-format
-msgid "Last backup date was: {date}"
-msgstr "Az utolsó biztonsági mentés dátuma: {date}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1646
-#, perl-brace-format
-msgid "No automatic configuration backups were made for the server {s}"
-msgstr ""
-"Nincs automatikus biztonsági mentés a beállításokról a(z) {s} kiszolgálón"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1697
-#, perl-brace-format
-msgid "Choose date to restore the backup from server {cn}"
-msgstr "Válasszon dátumot a(z) {cn} kiszolgálóról való visszaállításhoz"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1721
-#, perl-brace-format
-msgid "No automatic configuration backups were done for the server {s}"
-msgstr ""
-"Nincs automatikus biztonsági mentés a beállításokról a(z) {s} kiszolgálón"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1738
-#, perl-brace-format
-msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr ""
-"Nincs automatikus biztonsági mentés a beállításokról a(z) {d} dátumhoz a(z) "
-"{s} kiszolgálón"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1774
-#, perl-brace-format
-msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "A(z) {server} kiszolgáló nincs regisztrálva a Zentyal Cloudban."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1833
-msgid "Please, enter a value"
-msgstr "Adjon meg egy értéket"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1858
-msgid "Please answer yes or no"
-msgstr "Válaszoljon igennel vagy nemmel"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1884
-#, perl-brace-format
-msgid "Backup dates for server {cn}"
-msgstr "A(z) {cn} kiszolgáló biztonsági mentéseinek dátumai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1895
-msgid "Enter backup date to restore:"
-msgstr "Adjon meg egy dátumot a visszaállításhoz:"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1898
-#, perl-brace-format
-msgid "Invalid date: {d}. Try again"
-msgstr "Érvénytelen dátum: {d}. Adjon meg egy újat!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2004
-msgid "This entry is mandatory to continue the restoring process. Retry"
-msgstr ""
-"Ez a mező kötelező a visszaállítási folyamat folytatásához. Próbálja meg "
-"újra!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2052
-msgid "Selection"
-msgstr "Kijelölés"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2091
-msgid ""
-"This entry is mandatory to carry on the restoring process. Choose from the "
-"list"
-msgstr ""
-"Ez a mező kötelező a visszaállítási folyamat folytatásához. Válasszon a "
-"listából!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2212
-msgid "Please wait"
-msgstr "Kis türelmet"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2226
-msgid "Finished"
-msgstr "Kész"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2286
-msgid "Restoring process aborted upon user request"
-msgstr "A visszaállítási folyamat felhasználói kérésre megszakítva"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2315
-msgid "Saving configuration changes"
-msgstr "Beállítások változásainak elmentése"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2336
-msgid ""
-"Error saving configuration changes; some Zentyal modules would remain in a "
-"unknown state"
-msgstr ""
-"Hiba történt a beállítások változásainak elmentése közben. Néhány Zentyal "
-"modul ismeretlen állapotban marad."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2350
-msgid "Regenerating file list cache"
-msgstr "A fájllista-gyorsítótár újragenerálása"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2358
-msgid ""
-"Cannot connect to the Cloud to regenerate backup list. Please try again "
-"later."
-msgstr ""
-"Nem lehet csatlakozni a felhőhöz a biztonsági mentés listájának "
-"újragenerálásához. Próbálja meg később!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2430
-msgid "Zentyal Cloud User"
-msgstr "Zentyal Cloud felhasználó"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2433
-msgid "Zentyal Cloud Password"
-msgstr "Zentyal Cloud jelszó"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2448
-#, perl-brace-format
-msgid "The account {user} do not have any registered Zentyal servers"
-msgstr "A(z) {user} felhasználónak nincs regisztrált Zentyal kiszolgálója"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2480
-msgid ""
-"If you had enabled the Disaster Recovery service in Small Business or "
-"Enterprise Edition, besides the configuration you are about to recover, you "
-"could have restored the data of the active modules."
-msgstr ""
-"Ha engedélyezné a katasztrófa utáni helyreállítás szolgáltatást a Small "
-"Business vagy Enterprise Edition kiadásban, akkor a most visszaállítandó "
-"beállításokkal együtt vissza tudná állítani az aktív modulok adatait is."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2507
-#, perl-brace-format
-msgid "Enter password used to encrypt back up {ser}"
-msgstr "Adja meg a(z) {ser} kiszolgáló biztonsági mentését titkosító jelszót"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2532
-#, perl-brace-format
-msgid ""
-"Incorrect password. Please, enter the correct password used for encrypt "
-"{ser}."
-msgstr ""
-"Helytelen jelszó. Adja meg a(z) {ser} kiszolgáló titkosításához használt "
-"helyes jelszót."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2583
-#, perl-brace-format
-msgid ""
-"The following backup domains could not be restored from a basic "
-"subscription: {domains}"
-msgstr ""
-"A következő biztonsági mentési tartományokat nem lehet visszaállítani az "
-"alap előfizetéssel: {domains}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2686
-msgid ""
-"The local password file has changed, the local users and their password "
-"could have been changed. We reccomend you to logut and login again with a "
-"valid user to avoid user identity problems."
-msgstr ""
-"A helyi jelszófájl megváltozott, a helyi felhasználók és jelszavaik "
-"megváltozhattak. Jelentkezzen ki és be egy érvényes felhasználóval az "
-"azonosítási problémák elkerülése érdekében."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2691
-msgid ""
-"The shadow password file was restored; your local user password could have "
-"been changed"
-msgstr ""
-"A shadow jelszófájl vissza lett állítva, a helyi felhasználó jelszava "
-"megváltozhatott"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2701
-msgid ""
-"No hostname infromation found in metadata but hostname configuration files "
-"changed; please fix your hostname manually or with the Zentyal option found "
-"at System -> General."
-msgstr ""
-"Nem találhatók gépnév-információk a metaadatokban, de a gépnév-"
-"beállítófájlok megváltoztak, javítsa a gépnevet kézzel vagy a Zentyal "
-"beállításaiban a Rendszer -> Általános alatt."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2749
-msgid "Your full backup is now successfully restored!"
-msgstr "A teljes biztonsági mentés sikeresen vissza lett állítva!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2759
-#, perl-brace-format
-msgid "You can now login at {url} to manage your recovered host."
-msgstr "Most bejelentkezhet a(z) {url} címen a visszaállított gép kezeléséhez."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2833
-#: ../../main/ebackup/src/scripts/restore-tool:2842
-#, perl-brace-format
-msgid "Warning: {msg}"
-msgstr "Figyelmeztetés: {msg}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2872
-msgid ""
-"Sorry, an unexpected error has occurred. Please contact support and check "
-"the /var/log/zentyal/zentyal.log file for further details."
-msgstr ""
-"Elnézést, váratlan hiba történt. Lépjen kapcsolatba a támogatással, és nézze "
-"meg a  /var/log/zentyal/zentyal.log fájlt a további részletekért."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2893
-msgid "Restore process aborted"
-msgstr "A visszaállítási folyamat megszakadt"
-
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:88
 msgid "Exclude or Include"
 msgstr "Kizárva vagy beleértve"
@@ -6668,7 +6160,7 @@ msgstr "gép"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
-#: ../../main/core/src/EBox/Apache.pm:353
+#: ../../main/core/src/EBox/Apache.pm:355
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
@@ -6797,30 +6289,35 @@ msgstr "Távoli tárhelyhasználat"
 msgid "backup"
 msgstr "Biztonsági mentés"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:122
 msgid "Update file list process running, retry later"
 msgstr "A fájllista frissítése folyamat fut, próbálja újra később"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
+#, fuzzy
+msgid "There are no backed up files yet"
+msgstr "Jelenleg nincsenek mentett fájlok"
+
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
 msgstr "Jelenleg nincsenek mentett fájlok"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:176
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:116
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:92
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:184
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:114
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:99
 msgid "Backup Date"
 msgstr "Biztonsági mentés ideje"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:187
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:195
 msgid "Restore Files"
 msgstr "Fájlok visszaállítása"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:188
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
 msgid "file restore operation"
 msgstr "fájl visszaállítási művelet"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:204
 msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
@@ -6830,51 +6327,51 @@ msgstr ""
 "gombra."
 
 # Mintha az angolt változat hibás lenne.
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:216
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:224
 msgid "File already exists if you continue the current will be deleted"
 msgstr "A fájl már létezik. Ha folytatja, a jelenlegi törlődik."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:232
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:240
 msgid "File restored successfully"
 msgstr "A fájl visszaállítása sikerült."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:282
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:290
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr "A távoli URL a kézi visszaállítást megkettőzve használja itt: {url}"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:81
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:79
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
 "A naplók visszaállítása érdekében telepíteni és engedélyezni kell a naplózás "
 "modult"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:83
 msgid "To be able to restore logs you need the logs module enabled"
 msgstr "A naplók visszaállítása érdekében engedélyezni kell a naplózás modult"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restore logs database"
 msgstr "Naplóadatbázisok visszaállítása"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:134
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:132
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Zentyal naplózások visszaállítása a kiválasztott mentésből"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:103
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
 msgid "Restore Zentyal configuration from backup"
 msgstr "Zentyal beállítások visszaállítása mentésből"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:117
 msgid "Loads the configuration found in the backup"
 msgstr "A mentésben található beállítások betöltése"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:112
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:119
 msgid "Please wait..."
 msgstr "Kis türelmet…"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:175
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:182
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
@@ -6901,6 +6398,10 @@ msgstr "A távoli mentés állapota"
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:168
 msgid "Domains to back up"
 msgstr "Mentendő tartományok"
+
+#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
+msgid "Backup domain"
+msgstr "Tartomány biztonsági mentése"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:174
 msgid "Select the domains you want to back up."
@@ -6972,19 +6473,19 @@ msgstr ""
 "Nem kérhető le a biztonsági mentés gyűjtési állapota, ellenőrizze a "
 "paraméterek és jelszavak helyességét."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:837
+#: ../../main/ebackup/src/EBox/EBackup.pm:836
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
 "Egy másik folyamat frissíti az adatgyűjtés állapotát. Várjon egy kicsit, és "
 "próbálja újra"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1098
+#: ../../main/ebackup/src/EBox/EBackup.pm:1097
 #: ../../main/core/src/EBox/SysInfo.pm:84
 msgid "System"
 msgstr "Rendszer"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1188
+#: ../../main/ebackup/src/EBox/EBackup.pm:1187
 msgid ""
 "Cannot use the Cloud backup method. Either you do not have the disaster "
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
@@ -6994,14 +6495,14 @@ msgstr ""
 "katasztrófa utáni helyreállítás modul, vagy nem sikerült csatlakozni a "
 "Zentyal Cloudhoz a hitelesítési adatok lekéréséhez."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1195
+#: ../../main/ebackup/src/EBox/EBackup.pm:1194
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 "Nem sikerült lekérni a biztonsági mentés hitelesítési adatait, ellenőrizze a "
 "kapcsolatot a Zentyal Cloudhoz"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1297
+#: ../../main/ebackup/src/EBox/EBackup.pm:1296
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -7012,12 +6513,12 @@ msgstr ""
 "használatára van beállítva. Ha le szeretne iratkozni, akkor módosítania kell "
 "ezt a {ohref}beállítást{chref}."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1436
+#: ../../main/ebackup/src/EBox/EBackup.pm:1435
 #, fuzzy
 msgid "Backup configuration not complete"
 msgstr "Csak beállítások"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1455
+#: ../../main/ebackup/src/EBox/EBackup.pm:1454
 #, perl-brace-format
 msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
@@ -7026,17 +6527,17 @@ msgstr ""
 "Túl kevés a szabad hely itt: {target}. {free} Mb érhető el, a biztonsági "
 "mentés becsült mérete: {req}"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1474
+#: ../../main/ebackup/src/EBox/EBackup.pm:1473
 #, fuzzy, perl-brace-format
 msgid " {target} exists and is not longer a directory"
 msgstr "A fájl létezik és nem egy mappa"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1525
+#: ../../main/ebackup/src/EBox/EBackup.pm:1524
 #, perl-brace-format
 msgid "{target} is not mounted"
 msgstr "{target} nincs csatolva"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1531
+#: ../../main/ebackup/src/EBox/EBackup.pm:1530
 #, fuzzy, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr "{{mp} nincs csatolva, és a(z) {target} azon belül van"
@@ -7265,7 +6766,7 @@ msgstr "Az IPsec kapcsolat előzetesen megosztott kulcsa."
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:102
 #: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:88
 #: ../../main/mail/src/EBox/Mail.pm:1530
-#: ../../main/zarafa/src/EBox/Zarafa.pm:711
+#: ../../main/zarafa/src/EBox/Zarafa.pm:759
 #: ../../main/asterisk/src/EBox/Asterisk.pm:528
 msgid "General"
 msgstr "Általános"
@@ -8170,7 +7671,7 @@ msgstr "Konzol megjelenítése"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:66
 #: ../../main/virt/src/templates/vmstatus.mas:30
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:25
 msgid "Start"
 msgstr "Indítás"
@@ -10403,7 +9904,7 @@ msgid "User: {u}"
 msgstr "Felhasználói kvóta"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:73
+#: ../../main/samba/src/EBox/Samba.pm:71
 msgid "File Sharing"
 msgstr "Fájlmegosztás"
 
@@ -10473,11 +9974,11 @@ msgstr "Postafiók neve"
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél!"
 
-#: ../../main/samba/src/EBox/Samba.pm:112
+#: ../../main/samba/src/EBox/Samba.pm:110
 msgid "Create Samba home directory for shares and groups"
 msgstr "Samba home könyvtár létrehozása megosztásoknak és csoportoknak"
 
-#: ../../main/samba/src/EBox/Samba.pm:113
+#: ../../main/samba/src/EBox/Samba.pm:111
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
@@ -10486,66 +9987,81 @@ msgstr ""
 "A Zentyal létrehozza a Samba megosztások és csoportok könyvtárait a /home/"
 "ebox/samba alatt."
 
-#: ../../main/samba/src/EBox/Samba.pm:129
+#: ../../main/samba/src/EBox/Samba.pm:127
 msgid "To set up Samba according to your configuration."
 msgstr "Samba beállításai, amennyiben be szeretné állítani."
 
-#: ../../main/samba/src/EBox/Samba.pm:134
+#: ../../main/samba/src/EBox/Samba.pm:132
 msgid "To enable extended attributes and acls."
 msgstr "Kiterjesztett attribútumok és ACL-ek engedélyezése."
 
-#: ../../main/samba/src/EBox/Samba.pm:139
+#: ../../main/samba/src/EBox/Samba.pm:137
 msgid "To add microsoft specific services"
 msgstr "Microsoft-specifikus szolgáltatások felvétele"
 
-#: ../../main/samba/src/EBox/Samba.pm:144
-msgid "To set the antivirus settings for Samba."
-msgstr "Samba alapértelmezett vírusirtójának beállításai."
-
-#: ../../main/samba/src/EBox/Samba.pm:169
+#: ../../main/samba/src/EBox/Samba.pm:162
 msgid "File sharing (Samba) protocol"
 msgstr "Fájlmegosztó protokoll (Samba)"
 
-#: ../../main/samba/src/EBox/Samba.pm:558
-msgid "Samba can't be provisioned if no IP addresses are set"
+#: ../../main/samba/src/EBox/Samba.pm:579
+#, perl-brace-format
+msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:586
+#: ../../main/samba/src/EBox/Samba.pm:588
+#, perl-brace-format
+msgid "The required domain '{d}' could not be found in the dns module"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:596
+#, perl-brace-format
+msgid "The required host record '{h}' could not be found in the domain '{d}'"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:640
+msgid ""
+"Samba can't be provisioned if no IP addresses are set and the DNS domain is "
+"properly configured. Ensure that you have at least a IP address assigned to "
+"an internal interface, and this IP has to be assigned to the domain and to "
+"the hostname in the DNS domain."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:674
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "A felhasználó {u} nem létezik!"
 
-#: ../../main/samba/src/EBox/Samba.pm:696
+#: ../../main/samba/src/EBox/Samba.pm:785
 msgid ""
 "The server domain and kerberos realm must match the domain the domain you "
 "are trying to join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1414
+#: ../../main/samba/src/EBox/Samba.pm:1516
 msgid "Resource"
 msgstr "Erőforrás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1418
+#: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Connect"
 msgstr "Kapcsolat"
 
-#: ../../main/samba/src/EBox/Samba.pm:1419
+#: ../../main/samba/src/EBox/Samba.pm:1521
 msgid "Access to directory"
 msgstr "Könyvtárhoz való hozzáférés"
 
-#: ../../main/samba/src/EBox/Samba.pm:1420
+#: ../../main/samba/src/EBox/Samba.pm:1522
 msgid "Read file"
 msgstr "Fájl olvasás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1421
+#: ../../main/samba/src/EBox/Samba.pm:1523
 msgid "Write file"
 msgstr "Fájl írás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1422
+#: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Disconnect"
 msgstr "Szétkapcsolódás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1423
+#: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -10553,46 +10069,46 @@ msgstr "Szétkapcsolódás"
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1424
+#: ../../main/samba/src/EBox/Samba.pm:1526
 msgid "Create directory"
 msgstr "Könyvtár létrehozása"
 
-#: ../../main/samba/src/EBox/Samba.pm:1425
+#: ../../main/samba/src/EBox/Samba.pm:1527
 msgid "Remove directory"
 msgstr "Könyvtár törlése"
 
-#: ../../main/samba/src/EBox/Samba.pm:1426
+#: ../../main/samba/src/EBox/Samba.pm:1528
 msgid "Rename"
 msgstr "Átnevez"
 
-#: ../../main/samba/src/EBox/Samba.pm:1432
-#: ../../main/samba/src/EBox/Samba.pm:1441
+#: ../../main/samba/src/EBox/Samba.pm:1534
+#: ../../main/samba/src/EBox/Samba.pm:1543
 msgid "File name"
 msgstr "Fájl neve"
 
-#: ../../main/samba/src/EBox/Samba.pm:1433
-#: ../../main/samba/src/EBox/Samba.pm:1437
+#: ../../main/samba/src/EBox/Samba.pm:1535
+#: ../../main/samba/src/EBox/Samba.pm:1539
 msgid "Virus"
 msgstr "Vírus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1442
+#: ../../main/samba/src/EBox/Samba.pm:1544
 msgid "Quarantined file name"
 msgstr "Karanténba helyezett fájl neve"
 
-#: ../../main/samba/src/EBox/Samba.pm:1443
-#: ../../main/samba/src/EBox/Samba.pm:1446
+#: ../../main/samba/src/EBox/Samba.pm:1545
+#: ../../main/samba/src/EBox/Samba.pm:1548
 msgid "Quarantine"
 msgstr "Karantén"
 
-#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1551
 msgid "Samba access"
 msgstr "Samba hozzáférés"
 
-#: ../../main/samba/src/EBox/Samba.pm:1460
+#: ../../main/samba/src/EBox/Samba.pm:1562
 msgid "Samba virus"
 msgstr "Samba vírus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1573
 msgid "Samba quarantine"
 msgstr "Samba karantén"
 
@@ -10797,33 +10313,33 @@ msgstr "HAM"
 msgid "Invalid mailbox type: {type}"
 msgstr "Érvénytelen postafiók típus: {type}"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
 msgstr "Vírusszűrő használata"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:84
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
 msgid "Use spam filtering"
 msgstr "SPAM szűrő használata"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:90
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:340
 msgid "Spam threshold"
 msgstr "Levélszemét küszöbérték"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
 msgstr "alapértelmezett"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:101
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
 msgstr "egyedi határérték"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:113
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
 msgid "Learn from accounts' Spam IMAP folders"
 msgstr "Tanuljon a felhasználói fiókok IMAP Spam mappáiból"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:117
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
@@ -10831,11 +10347,11 @@ msgstr ""
 "Minden alkalommal amikor egy levél be vagy kikerül az IMAP spam mappájából, "
 "a szűrő tanul ebből"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:124
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:126
 msgid "Learning ham account"
 msgstr "Ham tanulófiók"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:125
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:127
 msgid ""
 "An address (ham@domain) will be created for this domain, ham messages "
 "incorrectly classified as spam may be forwarded to this addres to train the "
@@ -10845,11 +10361,11 @@ msgstr ""
 "lehet erre továbbítani amelyek hibásan lettek levélszemétnek jelölve, evvel "
 "tanítva a szűrőt"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:136
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:138
 msgid "Learning spam account"
 msgstr "Spam tanulófiók"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:137
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:139
 msgid ""
 "An address (spam@domain) will be created for this domain, spam messages "
 "incorrectly classified as ham may be forwarded to this addres to train the "
@@ -10859,19 +10375,19 @@ msgstr ""
 "lehet erre továbbítani amelyek hibásan lettek jó levélnek jelölve, evvel "
 "tanítva a szűrőt"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:148
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
 msgstr "Levélszemétszűrő küldő szabálya"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:159
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 msgid "Virtual Domains specific policies"
 msgstr "Virtuális tartományra jellemző házirendek"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:165
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 msgid "virtual domain policy"
 msgstr "virtuális tartomány házirendje"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:185
 #, perl-brace-format
 msgid ""
 "There are no virtual mail domains managed by this server. You can create "
@@ -11865,7 +11381,7 @@ msgstr ""
 "fejlécében jelenik meg"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:130
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:346
 msgid "Virtual host"
@@ -12812,7 +12328,7 @@ msgstr "Rendszeridő"
 msgid "Users"
 msgstr "Felhasználók"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:499
+#: ../../main/core/src/EBox/GlobalImpl.pm:506
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
@@ -12820,18 +12336,18 @@ msgstr ""
 "Nem hozható létre a szoftvercsomagok gyorsítótára. Győződjön meg róla, hogy "
 "a forrás- és beállításfájlok az /etc/apt alatt olvashatók, és próbálja újra."
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:560
+#: ../../main/core/src/EBox/GlobalImpl.pm:567
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "{modName} modul engedélyezése"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:613
-#: ../../main/core/src/EBox/GlobalImpl.pm:649
+#: ../../main/core/src/EBox/GlobalImpl.pm:620
+#: ../../main/core/src/EBox/GlobalImpl.pm:656
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "{modName} modul mentése"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1181
+#: ../../main/core/src/EBox/GlobalImpl.pm:1188
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "{scriptName} szkript fut"
@@ -13042,28 +12558,28 @@ msgstr "A szeletek egyként lettek archiválva"
 msgid "Slices timeline"
 msgstr "Szeletek idővonala"
 
-#: ../../main/core/src/EBox/Apache.pm:53
+#: ../../main/core/src/EBox/Apache.pm:54
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "Zentyal tartomány"
 
-#: ../../main/core/src/EBox/Apache.pm:283
+#: ../../main/core/src/EBox/Apache.pm:285
 #, fuzzy
 msgid "Desktop services port"
 msgstr "A szolgáltatás portja"
 
-#: ../../main/core/src/EBox/Apache.pm:292
-#: ../../main/core/src/EBox/Apache.pm:303
+#: ../../main/core/src/EBox/Apache.pm:294
+#: ../../main/core/src/EBox/Apache.pm:305
 #, fuzzy
 msgid "Desktop Services"
 msgstr "Szolgáltatások listája"
 
-#: ../../main/core/src/EBox/Apache.pm:293
-#: ../../main/core/src/EBox/Apache.pm:304
+#: ../../main/core/src/EBox/Apache.pm:295
+#: ../../main/core/src/EBox/Apache.pm:306
 msgid "Desktop Services (API for Zentyal Desktop)"
 msgstr "Asztali szolgáltatások (API a Zentyal Desktophoz)"
 
-#: ../../main/core/src/EBox/Apache.pm:376
+#: ../../main/core/src/EBox/Apache.pm:378
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -13072,7 +12588,7 @@ msgstr ""
 "A(z) {p} portot egy másik szolgáltatás használja. Válasszon másik portot, "
 "vagy szabadítsa ezt fel, és próbálja újra."
 
-#: ../../main/core/src/EBox/Apache.pm:389
+#: ../../main/core/src/EBox/Apache.pm:391
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -13081,7 +12597,7 @@ msgstr ""
 "A(z) {p} portot a(z) „{pr}” program használja. Válasszon másik portot, vagy "
 "szabadítsa ezt fel, és próbálja újra."
 
-#: ../../main/core/src/EBox/Apache.pm:774
+#: ../../main/core/src/EBox/Apache.pm:776
 #: ../../main/services/src/EBox/Services.pm:111
 #: ../../main/services/src/EBox/Services.pm:445
 msgid "Zentyal Administration Web Server"
@@ -13679,7 +13195,7 @@ msgstr "hibák"
 msgid "spare"
 msgstr "tartalék"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
@@ -13687,18 +13203,18 @@ msgid ""
 msgstr ""
 "{nSecUpdate} biztonsági frissítés van. Az érintett csomagok: {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr "További {nUpdates} is elérhető. A frissíthető csomagok: {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:242
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:245
 msgid "Security software updates"
 msgstr "Biztonsági szoftverfrissítések"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:257
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:260
 msgid "Check if there is any security software update."
 msgstr "Elérhető biztonsági szoftverfrissítések keresése."
 
@@ -13783,10 +13299,6 @@ msgstr "Beállítások mentése"
 msgid "Saving changes in modules"
 msgstr "Változások mentése a modulokban"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
-msgid "operations performed"
-msgstr "műveletek elvégezve"
-
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
 msgid "Changes saved"
 msgstr "Változások elmentve"
@@ -13802,7 +13314,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
 #: ../../main/core/src/EBox/CGI/Progress.pm:87
-#: ../../main/core/src/EBox/CGI/Progress.pm:128
+#: ../../main/core/src/EBox/CGI/Progress.pm:131
 #: ../../main/core/src/templates/finish.mas:126
 msgid "Saving changes"
 msgstr "Változások mentése"
@@ -13837,7 +13349,7 @@ msgid "Revoking changes"
 msgstr "Változások visszavonása"
 
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: ../../main/core/src/templates/dashboard/index.mas:71
+#: ../../main/core/src/templates/dashboard/index.mas:70
 msgid "Configure Widgets"
 msgstr "Widget-ek beállítása"
 
@@ -14433,7 +13945,7 @@ msgid "Filter type"
 msgstr "Szűrő típusa"
 
 #: ../../main/mail/src/EBox/Mail.pm:1537
-#: ../../main/zarafa/src/EBox/Zarafa.pm:718
+#: ../../main/zarafa/src/EBox/Zarafa.pm:766
 msgid "Virtual Mail Domains"
 msgstr "Virtuális levelező tartomány"
 
@@ -15524,7 +15036,11 @@ msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr ""
 "Active Sync bekapcsolása (Microsoft Exchange szinkronizációs protokoll)."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:128
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
+msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgstr ""
+
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 #, fuzzy
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /webapp."
@@ -15532,11 +15048,11 @@ msgstr ""
 "A Zarafahoz való hozzáférés csak a /webaccess és /webaccess-mobile virtuális "
 "gépen keresztül lehetséges."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:140
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:148
 msgid "General Zarafa server configuration settings updated."
 msgstr "A Zarafa szerver általános beállításai frissítve."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:182
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:190
 msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
@@ -15626,35 +15142,35 @@ msgstr ""
 "Ennek a felhasználónak van Zarafa fiókja. Ha a felhasználó csatlakozik, "
 "csatlakozva marad amíg a Zarafa hitelesítés újra szükséges nem lesz."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:71
+#: ../../main/zarafa/src/EBox/Zarafa.pm:72
 msgid "Add Zarafa LDAP schema"
 msgstr "A Zarafa LDAP séma hozzáadása"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:72
+#: ../../main/zarafa/src/EBox/Zarafa.pm:73
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "A Zentyal a Zarafa felhasználók tárolására használja ezt a sémát."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:76
+#: ../../main/zarafa/src/EBox/Zarafa.pm:77
 msgid "Add vmail system user"
 msgstr "A vmail rendszerfelhasználó hozzáadása"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:77
+#: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "A Zentyal ezt használja a Zarafaval való levelezésre."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:81
+#: ../../main/zarafa/src/EBox/Zarafa.pm:82
 msgid "Create MySQL Zarafa database"
 msgstr "MySQL Zarafa adatbázis létrehozása"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:82
+#: ../../main/zarafa/src/EBox/Zarafa.pm:83
 msgid "This database will store the data needed by Zarafa."
 msgstr "Ez az adatbázis a Zarafa adatait tárolja."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:86
+#: ../../main/zarafa/src/EBox/Zarafa.pm:87
 msgid "Create default SSL key/certificates"
 msgstr "Alapértelmezett SSL kulcs/tanúsítványok létrehozása"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:87
+#: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
@@ -15662,17 +15178,17 @@ msgstr ""
 "Ezt az ön-aláírt alapértelmezett tanúsítványt használja az Zarafa POP3/IMAP "
 "átjáró."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:91
+#: ../../main/zarafa/src/EBox/Zarafa.pm:92
 #, fuzzy
 msgid "Add zarafa link to www data directory"
 msgstr "Zarafa hivatkozás hozzáadása a www adatmappához."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:92
+#: ../../main/zarafa/src/EBox/Zarafa.pm:93
 #, fuzzy
 msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
 msgstr "A Zarafa itt érhető el: http://ip/webaccess/"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:96
+#: ../../main/zarafa/src/EBox/Zarafa.pm:97
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
@@ -15680,47 +15196,52 @@ msgstr ""
 "Telepítse az Angol/Egyesült Államok területi beállítást a rendszeren, ha még "
 "nem telepítette volna"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:97
+#: ../../main/zarafa/src/EBox/Zarafa.pm:98
 msgid "Zarafa needs this locale to run."
 msgstr "A Zarafának szüksége van erre a területi beállításra a futáshoz."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:116
+#: ../../main/zarafa/src/EBox/Zarafa.pm:117
 msgid "To properly configure Zarafa."
 msgstr "A Zarafa helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:121
+#: ../../main/zarafa/src/EBox/Zarafa.pm:122
 msgid "To properly configure Zarafa LDAP connection."
 msgstr "A Zarafa LDAP kapcsolat helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:126
+#: ../../main/zarafa/src/EBox/Zarafa.pm:127
 msgid "To properly configure Zarafa webaccess."
 msgstr "A Zarafa webhozzáférés helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:131
+#: ../../main/zarafa/src/EBox/Zarafa.pm:132
+#, fuzzy
+msgid "To properly configure Zarafa XMPP integration."
+msgstr "A Zarafa LDAP kapcsolat helyes beállítása."
+
+#: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
 msgstr "A Zarafa átjárókiszolgáló helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:136
+#: ../../main/zarafa/src/EBox/Zarafa.pm:142
 msgid "To properly configure Zarafa quota monitoring server."
 msgstr "A Zarafa kvótamonitorozó kiszolgáló helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:141
+#: ../../main/zarafa/src/EBox/Zarafa.pm:147
 msgid "To properly configure Zarafa mail delivering server."
 msgstr "A Zarafa levélkézbesítő kiszolgáló helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:146
+#: ../../main/zarafa/src/EBox/Zarafa.pm:152
 msgid "To properly configure Zarafa ical server."
 msgstr "A Zarafa iCal kiszolgáló helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:151
+#: ../../main/zarafa/src/EBox/Zarafa.pm:157
 msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "A Zarafa dagent LMTP levélkiszolgáló helyes beállítása."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:216
+#: ../../main/zarafa/src/EBox/Zarafa.pm:222
 msgid "Groupware services (Zarafa)"
 msgstr "Csoportmunka-szolgáltatások (Zarafa)"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:761
+#: ../../main/zarafa/src/EBox/Zarafa.pm:809
 msgid "Zarafa Gateway Server"
 msgstr "Zarafa átjárószerver"
 
@@ -16224,6 +15745,10 @@ msgstr "Sikertelen"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:78
 msgid "Other Zentyal Server"
 msgstr "Másik Zentyal kiszolgáló"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
+msgid "Zentyal Cloud"
+msgstr "Zentyal Cloud"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:92
 msgid "Sync users from"
@@ -17252,17 +16777,9 @@ msgstr "Frissítés"
 #: ../../main/remoteservices/src/templates/NoActive.mas:5
 #, perl-brace-format
 msgid ""
-"This feature is only available if you get a Zentyal  Subscription. You can "
-"contract them at {url1}. If you are already registered, then subscribe this "
-"server at {url2}"
+"This feature is only available if you register your server. You can register "
+"it at the {oh}register page{ch}."
 msgstr ""
-"Ez a funkció csak Zentyal előfizetéssel érhető el. A szerződést meg tudja "
-"kötni a(z) {url1} oldalon. Ha már regisztrálva van, fizesse elő ezt a "
-"kiszolgálót az {url2}."
-
-#: ../../main/remoteservices/src/templates/NoActive.mas:14
-msgid "subscription page"
-msgstr "előfizetési oldalon"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -17946,52 +17463,52 @@ msgstr ""
 "A használathoz be kell kapcsolja a Felhasználók modult a modul státus "
 "részben."
 
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
 msgstr "A szolgáltatás bekapcsolva és jelenleg fut."
 
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
 msgstr "A szolgáltatás bekapcsolva és jelenleg NEM fut."
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:28
 msgid "Running unmanaged"
 msgstr "Ellenőrizetlenül fut"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:29
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "A szolgáltatás jelenleg fut, de nincs bekapcsolva a Zentyalban."
 
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:33
 msgid "The service is not enabled in Zentyal"
 msgstr "A szolgáltatás jelenleg nincs bekapcsolva a Zentyalban."
 
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
 msgstr "Újraindítás"
 
-#: ../../main/core/src/templates/dashboard/index.mas:109
+#: ../../main/core/src/templates/dashboard/index.mas:108
 msgid "Configure widgets"
 msgstr "Felületi elemek beállítása"
 
-#: ../../main/core/src/templates/dashboard/index.mas:112
+#: ../../main/core/src/templates/dashboard/index.mas:111
 #, fuzzy, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
 msgstr "A következő csomagok lesznek telepítve"
 
-#: ../../main/core/src/templates/dashboard/index.mas:116
+#: ../../main/core/src/templates/dashboard/index.mas:115
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr ""
 "További információkért nézze meg a {ohref}Szoftverkezelés{chref} oldalt."
 
-#: ../../main/core/src/templates/dashboard/index.mas:120
+#: ../../main/core/src/templates/dashboard/index.mas:119
 #, fuzzy, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
@@ -19143,6 +18660,516 @@ msgid ""
 msgstr ""
 "Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
 "adatát is: postafiók, saját fájlok, stb."
+
+#~ msgid "Subscription"
+#~ msgstr "Előfizetés"
+
+#~ msgid "Server Subscription"
+#~ msgstr "Kiszolgáló-előfizetés"
+
+#~ msgid "Zentyal Cloud Services"
+#~ msgstr "Zentyal Cloud szolgáltatások"
+
+#~ msgid "- Latest backup: {date}"
+#~ msgstr "- Utolsó biztonsági mentés: {date}"
+
+#~ msgid ""
+#~ "By default, the access is only granted to hosts inside the Zentyal Cloud "
+#~ "private network. If you enable this option, the access is granted from "
+#~ "any address. Use this option only if you could not connect to the Zentyal "
+#~ "Cloud"
+#~ msgstr ""
+#~ "Alapértelmezetten a hozzáférés csak a Zentyal Cloud hálózatában található "
+#~ "gépekről engedélyezett. Ha ezt beállítja a hozzáférés mindenhonnan "
+#~ "engedélyezve lesz. Csak akkor használja ezt a beállítást ha nem tagja a "
+#~ "Zentyal Cloud szolgáltatásnak"
+
+#~ msgid "Central monitoring & management"
+#~ msgstr "Központi monitorozás és felügyelet"
+
+#~ msgid "Server subcription info"
+#~ msgstr "Kiszolgáló előfizetési információi"
+
+#~ msgid "Please, save changes"
+#~ msgstr "Kérem mentse a változtatásokat"
+
+#~ msgid "User Name or Email Address"
+#~ msgstr "Felhasználónév vagy email cím"
+
+#~ msgid "Unsubscribe"
+#~ msgstr "Leiratkozás"
+
+#~ msgid "Subscription to Zentyal Cloud"
+#~ msgstr "Feliratkozás a Zentyal Vezérlőközpontra"
+
+#~ msgid "Subscribe"
+#~ msgstr "Előfizetés"
+
+#~ msgid "Download latest report"
+#~ msgstr "Utolsó jelentés letöltése"
+
+#, fuzzy
+#~ msgid ""
+#~ "The download link is for the latest available report for a group where "
+#~ "this zentyal server belongs to"
+#~ msgstr ""
+#~ "A letöltési hivatkozás azon csoport utolsó elérhető jelentéséhez "
+#~ "tartozik, amelybe ez a Zentyal tartozik"
+
+#~ msgid "{oh}Download sample{ch}"
+#~ msgstr "{oh}Minta letöltése{ch}"
+
+#~ msgid "{oh}Download{ch}"
+#~ msgstr "{oh}Letöltés{ch}"
+
+#~ msgid "Key for disaster recovery service not found"
+#~ msgstr "A disaster recovery szolgáltatás kulcsai nem léteznek"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backups found in this server. Do you want to retry with a different "
+#~ "one?"
+#~ msgstr ""
+#~ "A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+#~ "dátumot."
+
+#, fuzzy
+#~ msgid ""
+#~ "There is not configuration backup from this date. Do you want to retry "
+#~ "with another date?"
+#~ msgstr ""
+#~ "A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+#~ "dátumot."
+
+#~ msgid "You can only specify one of the encryption options: {sy}, {no}"
+#~ msgstr "Csak egy titkosítási beállítás választható: {sy}, {no}"
+
+#~ msgid "--force-type should have as argument either 'basic' or 'subscribed'"
+#~ msgstr "A --force-type kapcsoló értéke csak „basic” vagy „subscribed” lehet"
+
+#~ msgid "Zenity package not found. Falling back to terminal mode"
+#~ msgstr "A Zenity csomag nem található. Visszaállás a parancssoros módra"
+
+#~ msgid "User for the authentication"
+#~ msgstr "Felhasználó az azonosításhoz"
+
+#~ msgid ""
+#~ "Password for the authentication. This password will be shown both in the "
+#~ "command line and in the process list so only use this option when "
+#~ "security is not a concern"
+#~ msgstr ""
+#~ "Jelszó az azonosításhoz. Ez a jelszó látható lesz a parancssorban és a "
+#~ "folyamatlistában is, ezért csak akkor használja, ha a biztonság nem "
+#~ "szempont."
+
+#~ msgid "Server from which its backup date the restore will be done"
+#~ msgstr ""
+#~ "A kiszolgáló, amelyről a megadott dátumú biztonsági mentés "
+#~ "visszaállításra kerül"
+
+#~ msgid "Use the last backup done for the restore"
+#~ msgstr "Az utolsó biztonsági mentés használata a visszaállításhoz"
+
+#~ msgid "Restore all backup domains available"
+#~ msgstr "Minden elérhető biztonsági mentési tartomány visszaállítása"
+
+#~ msgid "Backup domain to restore. It could be repeated several times"
+#~ msgstr ""
+#~ "A visszaállítandó biztonsági mentési tartomány. Többször is "
+#~ "megismételhető."
+
+#~ msgid ""
+#~ "Check if we use the no encryption or a symmetric encryption with password "
+#~ msgstr ""
+#~ "A titkosítatlan vagy szimmetrikus titkosítás jelszóval módszerek "
+#~ "használatának ellenőrzése"
+
+#~ msgid "Do not use graphical interface"
+#~ msgstr "Grafikus felület használatának mellőzése"
+
+#~ msgid "Change parameters used to access the storage server"
+#~ msgstr "A tároló kiszolgáló elérési paramétereinek módosítása"
+
+#~ msgid "Module {mod} should be installed"
+#~ msgstr "A(z) {mod} modult telepíteni kell"
+
+#~ msgid "Module {mod} should be configured"
+#~ msgstr "A(z) {mod} modult be kell állítani"
+
+#~ msgid ""
+#~ "Could not automatically update system date and hour. If the system time "
+#~ "is not correct, some restore operations could fail"
+#~ msgstr ""
+#~ "Nem lehetett automatikusan frissíteni a rendszerdátumot és -időt. Ha a "
+#~ "rendszeridő helytelen, néhány visszaállítási művelet sikertelen lehet."
+
+#~ msgid "Choose the server to restore"
+#~ msgstr "Válassza ki a visszaállítandó kiszolgálót"
+
+#~ msgid "Server to restore: "
+#~ msgstr "Visszaállítandó kiszolgáló:"
+
+#~ msgid "Select backup domains to restore"
+#~ msgstr "Válassza ki a visszaállítandó biztonsági mentési tartományokat"
+
+#~ msgid "Backup domains available in the server {cn}: {l}"
+#~ msgstr "A(z) {cn} kiszolgálón elérhető biztonsági mentési tartományok: {l}"
+
+#~ msgid "No backup domain selected to restore. Doing nothing"
+#~ msgstr ""
+#~ "Nincs kiválasztva visszaállítandó biztonsági mentési tartomány. Nem "
+#~ "történik semmi."
+
+#~ msgid "Retrieving registered servers list"
+#~ msgstr "Regisztrált kiszolgálók listájának lekérdezése"
+
+#~ msgid "No key passphrase"
+#~ msgstr "A kulcsnak nincs jelmondata"
+
+#~ msgid "No password in retrieved credentials"
+#~ msgstr "Nincs jelszó a lekért hitelesítési adatokban"
+
+#~ msgid "Retrieving account information"
+#~ msgstr "Felhasználói fiók információinak lekérése"
+
+#~ msgid "No registered Zentyal Servers"
+#~ msgstr "Nincs regisztrált Zentyal kiszolgáló"
+
+#~ msgid "Restoring files"
+#~ msgstr "Fájlok visszaállítása"
+
+#~ msgid ""
+#~ "Cannot restore file {file} requested by backup domains. Reason: {reason}"
+#~ msgstr ""
+#~ "Nem lehet visszaállítani a biztonsági mentési tartomány által kért {file} "
+#~ "fájlt. Az ok: {reason}"
+
+#~ msgid "Restoring all backed-up files"
+#~ msgstr "Minden mentett fájl visszaállítása"
+
+#~ msgid "Could not restore {dst}, it already exists and it is not a directory"
+#~ msgstr ""
+#~ "Nem lehet visszaállítani a(z) {dst} fájlt, mert már létezik és nem egy "
+#~ "könyvtár"
+
+#~ msgid ""
+#~ "Error restoring file or directory {dst}. We will try to continue the "
+#~ "restore"
+#~ msgstr ""
+#~ "Hiba történt a(z) {dst} fájl vagy könyvtár visszaállítása közben. A "
+#~ "visszaállítás folytatódik, ha lehetséges"
+
+#~ msgid ""
+#~ "Error restoring directory {d}. This could make fail some files or domains "
+#~ "restore processes. Error {e}"
+#~ msgstr ""
+#~ "Hiba történt a(z) {d} mappa visszaállítása közben. Ez meghiúsíthatja "
+#~ "néhány fájl vagy tartomány visszaállítási folyamatát. A hiba: {e}"
+
+#~ msgid ""
+#~ "Backup log data not found in the files from the backup, log database will "
+#~ "not be restored"
+#~ msgstr ""
+#~ "Nem találhatók a biztonsági mentés naplóadatai a biztonsági mentés "
+#~ "fájljaiban, a naplóadatbázis nem lesz visszaállítva"
+
+#~ msgid "Restoring log database"
+#~ msgstr "Naplóadatbázis visszaállítása"
+
+#~ msgid "Restoring configuration backup"
+#~ msgstr "Beállítások biztonsági mentésének visszaállítása"
+
+#~ msgid ""
+#~ "The configuration restore failed. We will continue the process to try to "
+#~ "restore as much as possible but your system will need manual tweaking"
+#~ msgstr ""
+#~ "Hiba történt a beállítások visszaállítása közben. A visszaállítási "
+#~ "folyamat folytatódik a minél több adat visszaállítása érdekében, de a "
+#~ "rendszernek kézi beállításra lesz szüksége"
+
+#~ msgid "Checking configuration compability"
+#~ msgstr "Beállítások kompatibilitásának ellenőrzése"
+
+#~ msgid ""
+#~ "Cannot restore backup because there are less interfaces than there are "
+#~ "available. The missing interfaces are: {missing}"
+#~ msgstr ""
+#~ "Nem lehet visszaállítani a biztonsági mentést, mert kevesebb felület van, "
+#~ "mint amennyi elérhető. A hiányzó felületek: {missing}"
+
+#~ msgid "Updating software package lists"
+#~ msgstr "A csomaglisták frissítése"
+
+#~ msgid "Installing Zentyal components and their dependencies"
+#~ msgstr "Zentyal összetevők és függőségeik telepítése"
+
+#~ msgid "Installing missing modules..."
+#~ msgstr "Hiányzó modulok telepítése…"
+
+#~ msgid ""
+#~ "Error installing packages: {err}. The backup will continue but it would "
+#~ "not able to recover any configuration which depends on the missing "
+#~ "packages"
+#~ msgstr ""
+#~ "Hiba a csomagok telepítésekor: {err}. A biztonsági mentés folytatódik, de "
+#~ "nem lesz képes visszaállítani a hiányzó csomagoktól függő beállításokat."
+
+#~ msgid ""
+#~ "Updating package list to allow access to exclusive Zentyal Cloud packages"
+#~ msgstr ""
+#~ "A csomaglista frissítése a kizárólagos Zentyal Cloud csomagok "
+#~ "engedélyezése érdekében"
+
+#~ msgid "Install cloud packages"
+#~ msgstr "Cloud csomagok telepítése"
+
+#~ msgid "Downloading subscription data"
+#~ msgstr "Előfizetői adatok letöltése"
+
+#~ msgid ""
+#~ "Connection error when retrieving subscription bundle. Zentyal Cloud "
+#~ "exclusive packages will not be installed"
+#~ msgstr ""
+#~ "Kapcsolódási hiba történt az előfizetői csomag lekérése közben. A "
+#~ "kizárólagos Zentyal Cloud csomagok nem lesznek telepítve"
+
+#~ msgid ""
+#~ "Cannot retrieve bundle because either installed zentyal-remoteservices is "
+#~ "outdated or only outdated bundle is available in the cloud. Zentyal "
+#~ "Cloud  exclusive packages will not be installed"
+#~ msgstr ""
+#~ "Nem lehet lekérni az előfizető csomagot, mert a zentyal-remoteservices "
+#~ "elavult, vagy csak egy elavult csomag érhető el a felhőben. A Zentyal "
+#~ "Cloud kizárólagos csomagjai nem lesznek telepítve"
+
+#~ msgid ""
+#~ "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+#~ "packages will not be installed"
+#~ msgstr ""
+#~ "Ismeretlen hiba történt az előfizetői csomag lekérése közben. A Zentyal "
+#~ "Cloud kizárólagos csomagjai nem lesznek telepítve"
+
+#~ msgid "Configuring modules"
+#~ msgstr "Modulok beállítása"
+
+#~ msgid "Configuring modules: Current module {mod}"
+#~ msgstr "Modulok beállítása, a jelenlegi modul: {mod}"
+
+#~ msgid "Configuring modules {p} done. Current module {mod}"
+#~ msgstr "A(z) {p} modul beállítása kész. A jelenlegi modul: {mod}"
+
+#~ msgid ""
+#~ "Failed to configure module {name}: {err}. This could affect to the "
+#~ "restore of other modules"
+#~ msgstr ""
+#~ "Hiba történt a(z) {name} modul beállítása során: {err}. Ez "
+#~ "befolyásolhatja a többi modul visszaállítását is"
+
+#~ msgid "Downloading backup metadata..."
+#~ msgstr "Biztonsági mentés metaadatainak letöltése…"
+
+#~ msgid "Downloading the backup data"
+#~ msgstr "Biztonsági mentés adatainak letöltése"
+
+#~ msgid "Downloading  {src} backup data for {dom}"
+#~ msgstr ""
+#~ "A(z) {src} biztonsági mentés adatainak letöltése a(z) {dom} tartományhoz"
+
+#~ msgid ""
+#~ "Error downloading data for backup domain: {dom}. The domain will not be "
+#~ "fully restored"
+#~ msgstr ""
+#~ "Hiba történt a(z) {dom} biztonsági mentési tartomány adatainak letöltése "
+#~ "közben. A tartomány nem lesz teljesen visszaállítva"
+
+#~ msgid "Downloading the backup configuration"
+#~ msgstr "A biztonsági mentés beállításainak letöltése"
+
+#~ msgid "Downloading configuration"
+#~ msgstr "Beállítások letöltése"
+
+#~ msgid "Looking for a version 2.0.X backup"
+#~ msgstr "2.0.X verziójú biztonsági mentés keresése"
+
+#~ msgid "Retrieving backup collection status ..."
+#~ msgstr "Biztonsági mentés gyűjtemény állapotának lekérése…"
+
+#~ msgid "Last backup date was: {date}"
+#~ msgstr "Az utolsó biztonsági mentés dátuma: {date}"
+
+#~ msgid "No automatic configuration backups were made for the server {s}"
+#~ msgstr ""
+#~ "Nincs automatikus biztonsági mentés a beállításokról a(z) {s} kiszolgálón"
+
+#~ msgid "Choose date to restore the backup from server {cn}"
+#~ msgstr "Válasszon dátumot a(z) {cn} kiszolgálóról való visszaállításhoz"
+
+#~ msgid "No automatic configuration backups were done for the server {s}"
+#~ msgstr ""
+#~ "Nincs automatikus biztonsági mentés a beállításokról a(z) {s} kiszolgálón"
+
+#~ msgid "No configuration backups were made for the date {d} in {s} server"
+#~ msgstr ""
+#~ "Nincs automatikus biztonsági mentés a beállításokról a(z) {d} dátumhoz a"
+#~ "(z) {s} kiszolgálón"
+
+#~ msgid "The server {server} is not registered in Zentyal Cloud"
+#~ msgstr "A(z) {server} kiszolgáló nincs regisztrálva a Zentyal Cloudban."
+
+#~ msgid "Please, enter a value"
+#~ msgstr "Adjon meg egy értéket"
+
+#~ msgid "Please answer yes or no"
+#~ msgstr "Válaszoljon igennel vagy nemmel"
+
+#~ msgid "Backup dates for server {cn}"
+#~ msgstr "A(z) {cn} kiszolgáló biztonsági mentéseinek dátumai"
+
+#~ msgid "Enter backup date to restore:"
+#~ msgstr "Adjon meg egy dátumot a visszaállításhoz:"
+
+#~ msgid "Invalid date: {d}. Try again"
+#~ msgstr "Érvénytelen dátum: {d}. Adjon meg egy újat!"
+
+#~ msgid "This entry is mandatory to continue the restoring process. Retry"
+#~ msgstr ""
+#~ "Ez a mező kötelező a visszaállítási folyamat folytatásához. Próbálja meg "
+#~ "újra!"
+
+#~ msgid "Selection"
+#~ msgstr "Kijelölés"
+
+#~ msgid ""
+#~ "This entry is mandatory to carry on the restoring process. Choose from "
+#~ "the list"
+#~ msgstr ""
+#~ "Ez a mező kötelező a visszaállítási folyamat folytatásához. Válasszon a "
+#~ "listából!"
+
+#~ msgid "Please wait"
+#~ msgstr "Kis türelmet"
+
+#~ msgid "Finished"
+#~ msgstr "Kész"
+
+#~ msgid "Restoring process aborted upon user request"
+#~ msgstr "A visszaállítási folyamat felhasználói kérésre megszakítva"
+
+#~ msgid "Saving configuration changes"
+#~ msgstr "Beállítások változásainak elmentése"
+
+#~ msgid ""
+#~ "Error saving configuration changes; some Zentyal modules would remain in "
+#~ "a unknown state"
+#~ msgstr ""
+#~ "Hiba történt a beállítások változásainak elmentése közben. Néhány Zentyal "
+#~ "modul ismeretlen állapotban marad."
+
+#~ msgid "Regenerating file list cache"
+#~ msgstr "A fájllista-gyorsítótár újragenerálása"
+
+#~ msgid ""
+#~ "Cannot connect to the Cloud to regenerate backup list. Please try again "
+#~ "later."
+#~ msgstr ""
+#~ "Nem lehet csatlakozni a felhőhöz a biztonsági mentés listájának "
+#~ "újragenerálásához. Próbálja meg később!"
+
+#~ msgid "Zentyal Cloud User"
+#~ msgstr "Zentyal Cloud felhasználó"
+
+#~ msgid "Zentyal Cloud Password"
+#~ msgstr "Zentyal Cloud jelszó"
+
+#~ msgid "The account {user} do not have any registered Zentyal servers"
+#~ msgstr "A(z) {user} felhasználónak nincs regisztrált Zentyal kiszolgálója"
+
+#~ msgid ""
+#~ "If you had enabled the Disaster Recovery service in Small Business or "
+#~ "Enterprise Edition, besides the configuration you are about to recover, "
+#~ "you could have restored the data of the active modules."
+#~ msgstr ""
+#~ "Ha engedélyezné a katasztrófa utáni helyreállítás szolgáltatást a Small "
+#~ "Business vagy Enterprise Edition kiadásban, akkor a most visszaállítandó "
+#~ "beállításokkal együtt vissza tudná állítani az aktív modulok adatait is."
+
+#~ msgid "Enter password used to encrypt back up {ser}"
+#~ msgstr ""
+#~ "Adja meg a(z) {ser} kiszolgáló biztonsági mentését titkosító jelszót"
+
+#~ msgid ""
+#~ "Incorrect password. Please, enter the correct password used for encrypt "
+#~ "{ser}."
+#~ msgstr ""
+#~ "Helytelen jelszó. Adja meg a(z) {ser} kiszolgáló titkosításához használt "
+#~ "helyes jelszót."
+
+#~ msgid ""
+#~ "The following backup domains could not be restored from a basic "
+#~ "subscription: {domains}"
+#~ msgstr ""
+#~ "A következő biztonsági mentési tartományokat nem lehet visszaállítani az "
+#~ "alap előfizetéssel: {domains}"
+
+#~ msgid ""
+#~ "The local password file has changed, the local users and their password "
+#~ "could have been changed. We reccomend you to logut and login again with a "
+#~ "valid user to avoid user identity problems."
+#~ msgstr ""
+#~ "A helyi jelszófájl megváltozott, a helyi felhasználók és jelszavaik "
+#~ "megváltozhattak. Jelentkezzen ki és be egy érvényes felhasználóval az "
+#~ "azonosítási problémák elkerülése érdekében."
+
+#~ msgid ""
+#~ "The shadow password file was restored; your local user password could "
+#~ "have been changed"
+#~ msgstr ""
+#~ "A shadow jelszófájl vissza lett állítva, a helyi felhasználó jelszava "
+#~ "megváltozhatott"
+
+#~ msgid ""
+#~ "No hostname infromation found in metadata but hostname configuration "
+#~ "files changed; please fix your hostname manually or with the Zentyal "
+#~ "option found at System -> General."
+#~ msgstr ""
+#~ "Nem találhatók gépnév-információk a metaadatokban, de a gépnév-"
+#~ "beállítófájlok megváltoztak, javítsa a gépnevet kézzel vagy a Zentyal "
+#~ "beállításaiban a Rendszer -> Általános alatt."
+
+#~ msgid "Your full backup is now successfully restored!"
+#~ msgstr "A teljes biztonsági mentés sikeresen vissza lett állítva!"
+
+#~ msgid "You can now login at {url} to manage your recovered host."
+#~ msgstr ""
+#~ "Most bejelentkezhet a(z) {url} címen a visszaállított gép kezeléséhez."
+
+#~ msgid "Warning: {msg}"
+#~ msgstr "Figyelmeztetés: {msg}"
+
+#~ msgid ""
+#~ "Sorry, an unexpected error has occurred. Please contact support and check "
+#~ "the /var/log/zentyal/zentyal.log file for further details."
+#~ msgstr ""
+#~ "Elnézést, váratlan hiba történt. Lépjen kapcsolatba a támogatással, és "
+#~ "nézze meg a  /var/log/zentyal/zentyal.log fájlt a további részletekért."
+
+#~ msgid "Restore process aborted"
+#~ msgstr "A visszaállítási folyamat megszakadt"
+
+#~ msgid "To set the antivirus settings for Samba."
+#~ msgstr "Samba alapértelmezett vírusirtójának beállításai."
+
+#~ msgid ""
+#~ "This feature is only available if you get a Zentyal  Subscription. You "
+#~ "can contract them at {url1}. If you are already registered, then "
+#~ "subscribe this server at {url2}"
+#~ msgstr ""
+#~ "Ez a funkció csak Zentyal előfizetéssel érhető el. A szerződést meg tudja "
+#~ "kötni a(z) {url1} oldalon. Ha már regisztrálva van, fizesse elő ezt a "
+#~ "kiszolgálót az {url2}."
+
+#~ msgid "subscription page"
+#~ msgstr "előfizetési oldalon"
 
 #~ msgid "The domain is set as read only. You cannot add mail exchangers"
 #~ msgstr "A tartomány csak olvasható. Nem adhat hozzá levelezőkiszolgálókat."
@@ -20838,9 +20865,6 @@ msgstr ""
 
 #~ msgid "It should follow the pattern 'user@domain[/resource]'"
 #~ msgstr "Kövesse a mintát: 'felhasználó@tartomány[/erőforrás]'"
-
-#~ msgid "Select report"
-#~ msgstr "Jelentés kiválasztása"
 
 #~ msgid "Configuration report"
 #~ msgstr "Jelentés a beállításokról"

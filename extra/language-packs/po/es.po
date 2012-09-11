@@ -55,8 +55,8 @@ msgid "Name"
 msgstr "Nombre"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:644
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
@@ -241,7 +241,7 @@ msgstr "Dominio o dirección IP parte de la URL"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:533
 #: ../../main/dns/src/EBox/Model/Text.pm:165
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:68
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
@@ -331,6 +331,7 @@ msgid "HTTPS Proxy"
 msgstr "Proxy HTTPS"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
 msgstr "Habilitar Single Sign-On (Kerberos)"
 
@@ -467,7 +468,7 @@ msgstr "Peticiones"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1412
+#: ../../main/samba/src/EBox/Samba.pm:1514
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -521,14 +522,13 @@ msgstr "Volumen de tráfico filtrado"
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:323
 #: ../../main/pptp/src/EBox/PPTP.pm:370
-#: ../../main/ebackup/src/scripts/restore-tool:1700
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:163
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1410
-#: ../../main/samba/src/EBox/Samba.pm:1430
-#: ../../main/samba/src/EBox/Samba.pm:1440
+#: ../../main/samba/src/EBox/Samba.pm:1512
+#: ../../main/samba/src/EBox/Samba.pm:1532
+#: ../../main/samba/src/EBox/Samba.pm:1542
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
@@ -809,6 +809,7 @@ msgstr "Umbral de filtrado de contenido cambiado"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -822,7 +823,7 @@ msgstr "Umbral de filtrado de contenido cambiado"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:87
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:152
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:160
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
@@ -830,7 +831,7 @@ msgstr "Umbral de filtrado de contenido cambiado"
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
 #: ../../main/samba/src/templates/samba.mas:18
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:32
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
@@ -904,7 +905,7 @@ msgid "category"
 msgstr "categoría"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1565
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1334,8 +1335,7 @@ msgstr "Subir paquete de configuración para {na}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1662
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1676,7 +1676,6 @@ msgstr ""
 "una red VPN, la red anunciada será ignorada.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
-#: ../../main/ebackup/src/scripts/restore-tool:318
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
@@ -1976,10 +1975,10 @@ msgstr "Servicio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
 msgid "Running"
 msgstr "Ejecutándose"
@@ -1988,7 +1987,7 @@ msgstr "Ejecutándose"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:22
 msgid "Stopped"
 msgstr "Detenido"
@@ -2225,7 +2224,7 @@ msgstr "Demonios OpenVPN"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1434
+#: ../../main/samba/src/EBox/Samba.pm:1536
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -2380,11 +2379,11 @@ msgstr "REGISTRAR"
 msgid "REDIRECT"
 msgstr "REDIRIGIR"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:655
+#: ../../main/firewall/src/EBox/Iptables.pm:652
 msgid "Firewall failed to add rules for the following modules: "
 msgstr "El firewall no ha podido añadir reglas para los siguientes módulos:"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:658
+#: ../../main/firewall/src/EBox/Iptables.pm:655
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
@@ -2392,8 +2391,8 @@ msgstr ""
 "Probablemente esto sea causado por una falta de conectividad, comprueba la "
 "configuración o deshabilita esos módulos."
 
-#: ../../main/firewall/src/EBox/Iptables.pm:920
-#: ../../main/firewall/src/EBox/Iptables.pm:957
+#: ../../main/firewall/src/EBox/Iptables.pm:917
+#: ../../main/firewall/src/EBox/Iptables.pm:954
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:73
 msgid ""
@@ -2402,8 +2401,8 @@ msgstr ""
 "Debe establecer la variable iptables_log_limit en el fichero de "
 "configuración de Zentyal"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:926
-#: ../../main/firewall/src/EBox/Iptables.pm:963
+#: ../../main/firewall/src/EBox/Iptables.pm:923
+#: ../../main/firewall/src/EBox/Iptables.pm:960
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:78
 msgid ""
@@ -3605,7 +3604,7 @@ msgstr "Activa el soporte SSL para los usuarios autenticados en FTP."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:135
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:143
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 msgid "General configuration settings"
 msgstr "Configuración General"
@@ -3839,7 +3838,8 @@ msgstr "No hay paquetes para actualizar"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:71
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:101
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:235
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:7
@@ -3848,6 +3848,7 @@ msgstr "OK"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:236
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:91
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
 #: ../../main/core/src/templates/report/raid.mas:210
 msgid "Current operation"
@@ -3963,9 +3964,9 @@ msgstr "Seleccione los paquetes de Zentyal a instalar"
 msgid "Zentyal components"
 msgstr "Componentes de Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1381
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1597
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -3978,155 +3979,143 @@ msgstr "Componentes de Zentyal"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
 msgid "Community"
 msgstr "Comunidad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
 msgid "Professional"
 msgstr "Profesional"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 msgid "Enterprise"
 msgstr "Empresarial"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 msgid "Small Business"
 msgstr "Small Business"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
-msgid "Zentyal Cloud Client"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#, fuzzy
+msgid "Zentyal Remote Client"
 msgstr "Cliente de Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
 msgid "Not subscribed"
 msgstr "No suscrito"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
 msgid "Subscribed"
 msgstr "Suscrito"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:414
-msgid "Subscription"
-msgstr "Suscripción"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
+#, fuzzy
+msgid "Registration"
+msgstr "Destino"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:419
-msgid "Server Subscription"
-msgstr "Suscripción del Servidor"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#, fuzzy
+msgid "Server Registration"
+msgstr "Edición de servidor"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:424
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr "Soporte Técnico"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:428
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:432
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
-msgid "Disaster Recovery"
-msgstr "Recuperación de Desastres"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
+#, fuzzy
+msgid "Your Zentyal Server Account"
+msgstr "Otros servidores Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
-msgid "Zentyal Cloud Services"
-msgstr "Servicios de Zentyal Cloud"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:563
-msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
-msgstr ""
-"El nombre de suscripción no está disponible si el servidor no está suscrito "
-"a Zentyal Cloud"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:592
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
+#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
+"subscribed to Zentyal Remote"
 msgstr ""
 "Las direcciones IP del monitor están disponibles únicamente si el host está "
 "suscrito a Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:778
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "Zentyal debe estar suscrito para recargar el paquete"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1567
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Deshabilitado - {oh}Habilitar{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1575
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+msgid "Connected"
+msgstr "Conectado"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
+msgid "In process"
+msgstr "En proceso"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr ""
 "No conectado. {oh}Comprueba la conexión de la VPN{ch} y los registros en "
 "{path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1581
-msgid "In process"
-msgstr "En proceso"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1584
-msgid "Connected"
-msgstr "Conectado"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1599
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
 msgid "Essential"
 msgstr "Esencial"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1600
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
 msgid "Standard"
 msgstr "Estándar"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1601
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1608
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- La última actualización: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1621
-#, perl-brace-format
-msgid "- Latest backup: {date}"
-msgstr "- El último backup fue: {date}"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 msgid "Configuration backup enabled"
 msgstr "Backup de configuración habilitado"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1627
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "El último backup de configuración fue: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
 msgid "Server name"
 msgstr "Nombre del Servidor"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 msgid "Connection status"
 msgstr "Estado de la conexión"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 msgid "External server name"
 msgstr "Nombre del Servidor Externo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4134,28 +4123,40 @@ msgstr "Nombre del Servidor Externo"
 msgid "Server edition"
 msgstr "Edición de servidor"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
 msgid "Technical support"
 msgstr "Soporte Técnico"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1714
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr "No se hizo aún un backup de los datos"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1970
-msgid "The UUID is only available if the host is subscribed to Zentyal Cloud"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
+#, fuzzy
+msgid ""
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Remote"
+msgstr ""
+"El nombre de suscripción no está disponible si el servidor no está suscrito "
+"a Zentyal Cloud"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+#, fuzzy
+msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
 "El UUID solo está disponible si la máquina está suscrita a Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1997
-msgid "The Zentyal Cloud Domain is only available if the host is subscribed"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+#, fuzzy
+msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
 "El Dominio de Zentyal Cloud solo está disponible si la máquina está suscrita"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2023
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+#, fuzzy
 msgid ""
-"The Zentyal Cloud Credentials are only available if the host is subscribed"
+"The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
 "Las credenciales de Zentyal Cloud solo están disponibles si la máquina está "
 "suscrita"
@@ -4169,36 +4170,40 @@ msgid "Service Level Agreement"
 msgstr "Acuerdo de Nivel de Servicio"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-msgid "Allow remote access to Zentyal staff"
+#, fuzzy
+msgid "Allow remote access to Zentyal support"
 msgstr "Permite el acceso remoto al personal de Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
-msgid "Allow access from any internet address"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
+msgid ""
+"Allow Zentyal support engineers to connect to your server from Zentyal "
+"Remote network."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+#, fuzzy
+msgid "Allow access from the Internet"
 msgstr "Permite el acceso desde cualquier dirección de internet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
 msgid ""
-"By default, the access is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option, the access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"Allow Zentyal support engineers to connect to your server directly from the "
+"Internet to your public IP address. Only use this option if you could not "
+"connect to Zentyal Remote."
 msgstr ""
-"Por defecto, el acceso está sólo garantizado a máquinas dentro de la red "
-"privada de Zentyal Cloud. Si se activa esta opción está permitido desde "
-"cualquier dirección. Use esta opción sólo si no puede conectarse a Zentyal "
-"Cloud."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
 msgstr "Habilitar el acceso de soporte remoto"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:138
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
 "El acceso remoto desde cualquier dirección requiere que el soporte de acceso "
 "remoto esté activado"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
@@ -4206,16 +4211,17 @@ msgstr ""
 "Para permitir cualquier dirección de soporte remoto, se debe estar conectado "
 "a {cloud}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
+#, fuzzy
 msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
+"To restrict addresses you need that your Zentyal Server is registered to "
+"Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
 "Para restringir direcciones necesita que su servidor Zentyal esté suscrito a "
 "Zentyal Cloud. Puede suscribirlo o permitir el acceso desde cualquier "
 "dirección"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
 #, perl-brace-format
 msgid ""
 "Enabling remote support will allow Zentyal staff to freely access your "
@@ -4234,7 +4240,7 @@ msgstr ""
 "Para unirse a la sesión remota, registrese en el shell como un usuario "
 "perteneciente al grupo 'adm' y utilice el comando: '{cmd}'."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:191
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
@@ -4243,7 +4249,7 @@ msgstr ""
 "acceso para soporte necesita una instancia en ejecución que permita "
 "conexiones remotas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:196
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
@@ -4252,7 +4258,7 @@ msgstr ""
 "interfaces. El acceso para soporte necesita un demonio ssh que escuche en "
 "todas las interfaces."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:201
 #, perl-brace-format
 msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
@@ -4309,7 +4315,8 @@ msgid "Alerts"
 msgstr "Alertas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-msgid "External server name (DynDNS)"
+#, fuzzy
+msgid "External server name (Dynamic DNS)"
 msgstr "Nombre del servidor externo (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
@@ -4317,19 +4324,18 @@ msgid "Use this name to connect to Zentyal externally"
 msgstr "Use este nombre para conectarse a Zentyal de forma externa"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-msgid "Subscription renovation date"
+#, fuzzy
+msgid "Renovation date"
 msgstr "Fecha de renovación de suscripción"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
-msgid "Central monitoring & management"
-msgstr "Central de monitoreo y administración"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-msgid "Server subcription info"
-msgstr "Información de la suscripción del servidor"
+#, fuzzy
+msgid "Server info"
+msgstr "Servidor no encontrado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-msgid "Not using Zentyal Cloud DynDNS service"
+#, fuzzy
+msgid "Not using Zentyal Dynamic DNS service"
 msgstr "No esta usando el servicio de DynDNS de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
@@ -4337,19 +4343,20 @@ msgstr "No esta usando el servicio de DynDNS de Zentyal Cloud"
 msgid "Unlimited"
 msgstr "Ilimitado"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
 msgstr "Comprobación de la conectividad VPN"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
 msgstr "El servidor VPN es alcanzable"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
-msgid "Zentyal Cloud VPN Connectivity Check"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#, fuzzy
+msgid "Zentyal Remote VPN Connectivity Check"
 msgstr "Comprobación de la conectividad a la VPN de Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
@@ -4365,69 +4372,70 @@ msgstr "Ultima actualización de seguridad"
 msgid "Available IDS rules"
 msgstr "Reglas IDS disponibles"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:116
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 msgid "Select one of the available options"
 msgstr "Seleccione una de las opciones disponibles"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:121
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
+#, fuzzy
 msgid ""
-"Subscription was done correctly. Save changes and then, wait a minute to "
-"guarantee the system carries out the process of subscribing. Later you can "
-"start using the cloud based services you are entitled to with your "
-"subscription (remote backup, updates, alerts, etc.)"
+"Registration was done correctly. Wait a minute to guarantee the system "
+"carries out the process of registration. Later on, you can start using the "
+"cloud based services you are entitled to with your edition (remote backup, "
+"updates, alerts, etc.)"
 msgstr ""
 "La subscripción se hizo correctamente. Guarde los cambios y luego, espere un "
 "minuto para garantizar que el sistema realiza el proceso de suscripción. "
 "Posteriormente puede empezar a usar los servicios de la nube que posee con "
 "su suscripción (backup remoto, actualizaciones, alertas, etc.)"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:127
-msgid "Subscription data retrieved correctly."
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
+#, fuzzy
+msgid "Registration data retrieved correctly."
 msgstr "Datos de la suscripción recuperados correctamente"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:129
-msgid "Please, save changes"
-msgstr "Por favor, guardar cambios"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:653
 #: ../../main/core/src/templates/progress.mas:34
 msgid "Done"
 msgstr "Hecho"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:297
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
+#, fuzzy
 msgid ""
-"Take into account that subscribing your Zentyal server to the Zentyal Cloud "
-"can take a while. Please do not touch anything until the subscription "
+"Take into account that registering your Zentyal server to the Zentyal Remote "
+"can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
 "Tenga en cuenta que suscribir su servidor Zentyal podría llevar unos "
 "minutos. Por favor, no toque nada hasta que el proceso de subscripción haya "
 "acabado."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
+#, fuzzy
 msgid ""
-"Prior to make a subscription on remote services, save or discard changes in "
+"Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 "Antes de realizar una suscripción a servicios remotos, habilite el módulo "
 "OpenVPN y guarde o descarte los cambios"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:365
-msgid "User Name or Email Address"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#, fuzzy
+msgid "Registration Email Address"
 msgstr "Nombre de usuario o dirección de correo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
 msgstr "Nombre del servidor"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:378
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:351
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr ""
 "Elija un nombre para su servidor que sea un nombre de subdominio válido"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4455,45 +4463,48 @@ msgstr ""
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:396
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:369
 msgid "Available Options"
 msgstr "Opciones disponibles"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:398
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
 msgid "Select one of your purchases"
 msgstr "Elija uno de sus productos"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:406
-msgid "Zentyal subscription details"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#, fuzzy
+msgid "Zentyal registration details"
 msgstr "Detalles de suscripción de Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:407
-msgid "Unsubscribe"
-msgstr "Desuscribir"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
+#, fuzzy
+msgid "Unregister"
+msgstr "Incorporado a la lista gris"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:410
-msgid "Subscription to Zentyal Cloud"
-msgstr "Suscripción a Zentyal Cloud"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
+#, fuzzy
+msgid "Register your Zentyal Server"
+msgstr "Servidores Zentyal registrados"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:411
-msgid "Subscribe"
-msgstr "Suscribirse"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+msgid "Register"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
 msgid " module"
 msgstr " módulo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " and "
 msgstr " y "
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " modules"
 msgstr " módulos"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:623
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1413
+#: ../../main/samba/src/EBox/Samba.pm:1515
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4514,8 +4525,8 @@ msgstr " módulos"
 msgid "Action"
 msgstr "Acción"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:624
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:645
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4532,9 +4543,21 @@ msgstr "Usar el servidor existente {c}"
 msgid "Reload available options"
 msgstr "Recargar opciones disponibles"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#, fuzzy
+msgid "Unregistering a server"
+msgstr "servidor de correo externo"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#, fuzzy
+msgid "Registering a server"
+msgstr "servidor de correo externo"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-msgid "Download latest report"
-msgstr "Descarga el último informe"
+#, fuzzy
+msgid "Get latest report"
+msgstr "Selecciona informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
 msgid "Last consolidation time"
@@ -4550,32 +4573,32 @@ msgid "Reports"
 msgstr "Informes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
-#, fuzzy
-msgid ""
-"The download link is for the latest available report for a group where this "
-"zentyal server belongs to"
+msgid "Reports are done based on automatically gathered data in hourly basis"
 msgstr ""
-"El enlace de descarga es para el último informe disponible para el grupo al "
-"que este Zentyal pertenece"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
+#, fuzzy
+msgid "Not registered"
+msgstr "No creada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
-#, fuzzy
-msgid "No consolidation done"
-msgstr "operaciones realizadas"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:141
 #, perl-brace-format
-msgid "{oh}Download sample{ch}"
-msgstr "{oh}Descarga la muestra{ch}"
+msgid "{oh}Take a look on the example{ch}"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:148
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
-msgid "{oh}Download{ch}"
-msgstr "{oh}Descarga{ch}"
+msgid "{oh}Take a look{ch}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
+#, fuzzy
+msgid "No consolidation done yet"
+msgstr "operaciones realizadas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4604,6 +4627,10 @@ msgstr "tamaño estimado del backup"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
 msgid "Estimated time to recover from a disaster"
 msgstr "Tiempo estimado de recuperación de un desastre"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
+msgid "Disaster Recovery"
+msgstr "Recuperación de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
@@ -4650,15 +4677,6 @@ msgstr "Acceso al panel de control sin contraseña"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
 msgstr "Opciones de acceso"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:140
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:153
-#: ../../main/network/src/EBox/Model/DynDNS.pm:85
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
-#: ../../main/core/src/templates/headTitle.mas:19
-msgid "Zentyal Cloud"
-msgstr "Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:256
 #, perl-brace-format
@@ -4774,21 +4792,21 @@ msgstr "Clave para el servicio de suscripción web no encontrada"
 msgid "None of the available bundles are valid for this server"
 msgstr "Ninguno de los paquetes disponibles es válido para este servidor"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:565
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:560
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "No se puede contactar con {host}. Compruebe su conexión a Internet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:778
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:723
+#, fuzzy, perl-brace-format
 msgid ""
-"Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
+"Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 "No se pudo conectar al servidor WS \"{addr}:{port}/{proto}\". Revise su "
 "resolución de nombres y el firewall de su red"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:806
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:751
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:314
 #, perl-brace-format
 msgid ""
@@ -4816,10 +4834,6 @@ msgstr "No puede contener el carácter {char}"
 msgid "It cannot be greater than {n} characters"
 msgstr "No puede ser mayor de {n} caracteres"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
-msgid "Key for disaster recovery service not found"
-msgstr "Clave para el servicio Disaster Recovery no encontrada"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:197
 msgid "No ebox-services DNS key found"
 msgstr "Clave para los servicios DNS de Zentyal Cloud no encontrada"
@@ -4836,6 +4850,13 @@ msgstr "No se ha podido crear la conexion SOAP"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "No domain key found for this service"
 msgstr "Clave de dominio para este servicio no encontrada"
+
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
+#: ../../main/core/src/templates/headTitle.mas:19
+#, fuzzy
+msgid "Zentyal Remote"
+msgstr "Máquina Zentyal"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -4862,25 +4883,25 @@ msgstr "Restauración exitosa"
 msgid "Backup deleted"
 msgstr "Backup eliminado"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:82
 msgid "Making remote backup"
 msgstr "Realizando backup remoto"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
 msgid "Backing up modules "
 msgstr "Realizando la copia de seguridad de módulos"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:248
 msgid "Operation"
 msgstr "Operación"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:249
 msgid "operations left to finish backup"
 msgstr "operaciones quedan para acabar el backup"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 msgid "Backup successful"
 msgstr "Backup exitoso"
@@ -4894,7 +4915,7 @@ msgstr ""
 "backup remoto:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:85
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:197
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:120
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:139
 #: ../../main/remoteservices/src/templates/Backup/index.mas:159
@@ -4951,35 +4972,35 @@ msgstr "Acción inexistente: {a}"
 msgid "Import/Export Configuration Remotely"
 msgstr "Importar/Exportar configuración remotamente"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:74
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
 msgid "Email Address"
 msgstr "dirección de correo electrónico"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:81
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Nombre"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 msgid "Last name"
 msgstr "Apellido"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
 msgid "Phone number"
 msgstr "Número de Teléfono"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
 msgid "Repeated password"
 msgstr "Contraseña Repetida"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
 msgid "Introduced passwords do not match"
 msgstr "Las contraseñas introducidas no coinciden."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:132
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
@@ -4987,11 +5008,11 @@ msgstr ""
 "Ha ocurrido un error registrando la suscripción, por favor, comprueba tu "
 "conexión a Internet."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:140
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
 msgid "An unknown error ocurred registering the subscription"
 msgstr "Un error desconocido sucedió registrando la suscripción"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:145
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
@@ -4999,7 +5020,7 @@ msgstr ""
 "Un usuario con esa dirección de correo electrónico ya está registrado. Puede "
 "revisar los datos de la cuenta en"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:147
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -5007,14 +5028,54 @@ msgstr ""
 "Lo siento, una excepción desconocida ocurrió. Intente de nuevo mas tarde o "
 "contáctese con info@zentyal.com"
 
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
+#, fuzzy
+msgid "Registering your server"
+msgstr "Servidores Zentyal registrados"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
+#, fuzzy
+msgid "Registration finished"
+msgstr "Instalación completada"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
+#, fuzzy, perl-brace-format
+msgid ""
+"There was an error in the registration. There are more information in the "
+"logs directory {dir}"
+msgstr ""
+"Algunos módulos informaron de errores al guardar cambios. Hay más "
+"información en los registros en {dir}"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
+#, fuzzy
+msgid "Unregistering your server"
+msgstr "Lista de servidores"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
+#, fuzzy
+msgid "Unregistration finished"
+msgstr "Instalación completada"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
+#, fuzzy
+msgid "Making changes in your configuration"
+msgstr "Finalizando la configuración de nuevos módulos"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
+msgid "operations performed"
+msgstr "operaciones efectuadas"
+
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
 msgid "Bandwidth Monitor"
 msgstr "Monitor de Ancho de Banda"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1411
-#: ../../main/samba/src/EBox/Samba.pm:1431
+#: ../../main/samba/src/EBox/Samba.pm:1513
+#: ../../main/samba/src/EBox/Samba.pm:1533
 msgid "Client address"
 msgstr "Dirección del cliente"
 
@@ -5748,561 +5809,6 @@ msgstr "Dirección IP local"
 msgid "No users connected."
 msgstr "No hay usuarios conectados."
 
-#: ../../main/ebackup/src/scripts/restore-tool:116
-msgid ""
-"No backups found in this server. Do you want to retry with a different one?"
-msgstr ""
-"No se han encontrado copias de seguridad en este servidor. ¿Quieres "
-"intentarlo con otro servidor?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:129
-msgid ""
-"There is not configuration backup from this date. Do you want to retry with "
-"another date?"
-msgstr ""
-"No hay copia de seguridad de la configuración desde esta fecha. ¿Podrías "
-"probar con otra fecha?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:205
-#, perl-brace-format
-msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr ""
-"Sólo puedes especificar una de las siguientes opciones de cifrado: {sy} and "
-"{no}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:213
-msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr "--force-type acepta como argumento 'basic' o 'subscribed'"
-
-#: ../../main/ebackup/src/scripts/restore-tool:228
-msgid "Zenity package not found. Falling back to terminal mode"
-msgstr "Paquete zenity no encontrado. Usando el modo terminal"
-
-#: ../../main/ebackup/src/scripts/restore-tool:242
-msgid "User for the authentication"
-msgstr "Usuario para la autenticación"
-
-#: ../../main/ebackup/src/scripts/restore-tool:244
-msgid ""
-"Password for the authentication. This password will be shown both in the "
-"command line and in the process list so only use this option when security "
-"is not a concern"
-msgstr ""
-"Contraseña para la autenticación. Esta contraseña será mostrada tanto en la "
-"línea de comandos como en la lista de procesos así que usa esta opción "
-"cuando la seguridad no es una preocupación"
-
-#: ../../main/ebackup/src/scripts/restore-tool:248
-msgid "Server from which its backup date the restore will be done"
-msgstr "Servidor desde el que se restaurará la copia"
-
-#: ../../main/ebackup/src/scripts/restore-tool:250
-msgid "Use the last backup done for the restore"
-msgstr "Usar el último backup hecho para la restauración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:252
-msgid "Restore all backup domains available"
-msgstr "Restaurar todos los dominios de backup disponibles"
-
-#: ../../main/ebackup/src/scripts/restore-tool:254
-msgid "Backup domain to restore. It could be repeated several times"
-msgstr "Dominio de backup a restaurar. Se puede repetir varias veces"
-
-#: ../../main/ebackup/src/scripts/restore-tool:256
-msgid ""
-"Check if we use the no encryption or a symmetric encryption with password "
-msgstr ""
-"Comprueba si no usamos cifrado o un esquema simétrico con contraseña .."
-
-#: ../../main/ebackup/src/scripts/restore-tool:258
-msgid "Do not use graphical interface"
-msgstr "No usar la interfaz gráfica"
-
-#: ../../main/ebackup/src/scripts/restore-tool:264
-msgid "Change parameters used to access the storage server"
-msgstr ""
-"Cambia los parámetros usados para acceder el servidor de almacenamiento"
-
-#: ../../main/ebackup/src/scripts/restore-tool:289
-#, perl-brace-format
-msgid "Module {mod} should be installed"
-msgstr "El módulo {mod} debe ser instalado"
-
-#: ../../main/ebackup/src/scripts/restore-tool:295
-#, perl-brace-format
-msgid "Module {mod} should be configured"
-msgstr "El módulo {mod} debe ser configurado"
-
-#: ../../main/ebackup/src/scripts/restore-tool:307
-msgid ""
-"Could not automatically update system date and hour. If the system time is "
-"not correct, some restore operations could fail"
-msgstr ""
-"No se pudo actualizar automáticamente la hora del sistema. Algunas "
-"operaciones de restauración podrían fallar si la fecha no es correcta"
-
-#: ../../main/ebackup/src/scripts/restore-tool:317
-msgid "Choose the server to restore"
-msgstr "Elije el servidor a restaurar"
-
-#: ../../main/ebackup/src/scripts/restore-tool:322
-msgid "Server to restore: "
-msgstr "Servidor a restaurar: "
-
-#: ../../main/ebackup/src/scripts/restore-tool:350
-msgid "Select backup domains to restore"
-msgstr "Selecciona los dominios de backup a restaurar"
-
-#: ../../main/ebackup/src/scripts/restore-tool:351
-#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
-msgid "Backup domain"
-msgstr "Dominio de backup"
-
-#: ../../main/ebackup/src/scripts/restore-tool:360
-#, perl-brace-format
-msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Dominios de backup disponibles en el servidor {cn}: {l} "
-
-#: ../../main/ebackup/src/scripts/restore-tool:378
-msgid "No backup domain selected to restore. Doing nothing"
-msgstr "No se han seleccionado dominios de backup a restaurar. No hacemos nada"
-
-#: ../../main/ebackup/src/scripts/restore-tool:390
-msgid "Retrieving registered servers list"
-msgstr "Obteniendo la lista de servidores registrados"
-
-#: ../../main/ebackup/src/scripts/restore-tool:430
-msgid "No key passphrase"
-msgstr "No hay contraseña para la clave"
-
-#: ../../main/ebackup/src/scripts/restore-tool:437
-msgid "No password in retrieved credentials"
-msgstr "No hay contraseña en los credenciales obtenidos"
-
-#: ../../main/ebackup/src/scripts/restore-tool:489
-msgid "Retrieving account information"
-msgstr "Obteniendo la información de la cuenta"
-
-#: ../../main/ebackup/src/scripts/restore-tool:538
-msgid "No registered Zentyal Servers"
-msgstr "No hay servidores Zentyal registrados"
-
-#: ../../main/ebackup/src/scripts/restore-tool:544
-msgid "Registered Zentyal Servers"
-msgstr "Servidores Zentyal registrados"
-
-#: ../../main/ebackup/src/scripts/restore-tool:611
-msgid "Restoring files"
-msgstr "Restaurando ficheros"
-
-#: ../../main/ebackup/src/scripts/restore-tool:634
-#, perl-brace-format
-msgid ""
-"Cannot restore file {file} requested by backup domains. Reason: {reason}"
-msgstr ""
-"No se puede restaurar el fichero solicitado {file} para los dominios de "
-"backup. Razón: {reason}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:688
-msgid "Restoring all backed-up files"
-msgstr "Restaurando todos los ficheros guardados"
-
-#: ../../main/ebackup/src/scripts/restore-tool:748
-#, perl-brace-format
-msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr "No se puede restaurar {dst}, ya existe y no es un directorio"
-
-#: ../../main/ebackup/src/scripts/restore-tool:786
-#, perl-brace-format
-msgid ""
-"Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr ""
-"Error al restaurar el archivo o directorio {dst}. Se intentará continuar con "
-"la restauración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:815
-#, perl-brace-format
-msgid ""
-"Error restoring directory {d}. This could make fail some files or domains "
-"restore processes. Error {e}"
-msgstr ""
-"Error restaurando el directorio {d}. Esto puede hacer fallar la restauración "
-"de algunos ficheros o dominios. Error: {e}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:835
-msgid ""
-"Backup log data not found in the files from the backup, log database will "
-"not be restored"
-msgstr ""
-"La copia de los registros no se encuentra en el backup, la base de datos de "
-"registros no será restaurada"
-
-#: ../../main/ebackup/src/scripts/restore-tool:843
-msgid "Restoring log database"
-msgstr "Restaurando la base de datos de logs"
-
-#: ../../main/ebackup/src/scripts/restore-tool:864
-msgid "Restoring configuration backup"
-msgstr "Restaurando el backup de la configuración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:869
-msgid ""
-"The configuration restore failed. We will continue the process to try to "
-"restore as much as possible but your system will need manual tweaking"
-msgstr ""
-"La restauración de la configuración falló. Continuaremos el proceso para "
-"intentar restaurar tanto como sea posible pero tu sistema necesitará la "
-"gestión manual"
-
-#: ../../main/ebackup/src/scripts/restore-tool:884
-msgid "Checking configuration compability"
-msgstr "Comprobando la compatibilidad en la configuración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:936
-#, perl-brace-format
-msgid ""
-"Cannot restore backup because there are less interfaces than there are "
-"available. The missing interfaces are: {missing}"
-msgstr ""
-"No se puede restaurar el backup porque hay menos interfaces que los "
-"disponibles. Los interfaces que faltan son: {missing}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:979
-msgid "Updating software package lists"
-msgstr "Actualizando la lista de paquetes software"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1006
-msgid "Installing Zentyal components and their dependencies"
-msgstr "Instalando los componentes Zentyal y sus dependencias"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1022
-msgid "Installing missing modules..."
-msgstr "Instalando los módulos nuevos..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1028
-#, perl-brace-format
-msgid ""
-"Error installing packages: {err}. The backup will continue but it would not "
-"able to recover any configuration which depends on the missing packages"
-msgstr ""
-"Error instalando los paquetes: {err}. El backup continuará pero no podrá "
-"recuperar ninguna configuración que dependa de los paquetes ausentes"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1076
-msgid ""
-"Updating package list to allow access to exclusive Zentyal Cloud packages"
-msgstr ""
-"Actualizando la lista de paquetes para permitir el acceso los paquetes "
-"exclusivos de Zentyal Cloud"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1078
-msgid "Install cloud packages"
-msgstr "Instalar los paquetes de la nube"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1096
-msgid "Downloading subscription data"
-msgstr "Descargando los datos de la suscripción"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1114
-msgid ""
-"Connection error when retrieving subscription bundle. Zentyal Cloud "
-"exclusive packages will not be installed"
-msgstr ""
-"Error de conexión cuando se estaba obteniendo el bundle de suscripción. Los "
-"paquetes exclusivos de Zentyal Cloud no se instalarán."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1119
-msgid ""
-"Cannot retrieve bundle because either installed zentyal-remoteservices is "
-"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
-"exclusive packages will not be installed"
-msgstr ""
-"No se puede obtener el bundle porque o bien zentyal-remoteservices no está "
-"actualizado o sólo hay disponible un bundle no actualizado en la nube. Los "
-"paquetes exclusivos de Zentyal Cloud no se instalarán. "
-
-#: ../../main/ebackup/src/scripts/restore-tool:1126
-msgid ""
-"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
-"packages will not be installed"
-msgstr ""
-"Error desconocido al recoger el bundle de suscripción. Los paquetes "
-"exclusivos de Zentyal Cloud no se instalarán."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1179
-msgid "Configuring modules"
-msgstr "Configurando modulos"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1203
-#, perl-brace-format
-msgid "Configuring modules: Current module {mod}"
-msgstr "Configurando módulos. Módulo actual {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1207
-#, perl-brace-format
-msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "Configurando módulos {p} hecho. Módulo actual {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1226
-#, perl-brace-format
-msgid ""
-"Failed to configure module {name}: {err}. This could affect to the restore "
-"of other modules"
-msgstr ""
-"Fallo al configurar el módulo {name}: {err}. Esto podría afectar a la "
-"restauración de otros módulos"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1249
-msgid "Finishing new modules configuration"
-msgstr "Finalizando la configuración de nuevos módulos"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1337
-msgid "Downloading backup metadata..."
-msgstr "Descargando los metadatos de la copia de seguridad..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1423
-msgid "Downloading the backup data"
-msgstr "Descargando datos del backup"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1441
-#, perl-brace-format
-msgid "Downloading  {src} backup data for {dom}"
-msgstr "Descargando datos {src} para {dom}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1455
-#, perl-brace-format
-msgid ""
-"Error downloading data for backup domain: {dom}. The domain will not be "
-"fully restored"
-msgstr ""
-"Error descargando datos para el dominio: {dom}. El dominio no podrá ser "
-"completamente restaurado"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1475
-msgid "Downloading the backup configuration"
-msgstr "Descargando el backup de la configuración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1522
-msgid "Downloading configuration"
-msgstr "Descargando la configuración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1564
-msgid "Looking for a version 2.0.X backup"
-msgstr "Buscando un backup de la versión 2.0.X"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1591
-msgid "Retrieving backup collection status ..."
-msgstr "Obteniendo el estado del backup..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1620
-#: ../../main/ebackup/src/scripts/restore-tool:1681
-#, perl-brace-format
-msgid "Last backup date was: {date}"
-msgstr "La última copia de seguridad se realizó: {date}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1646
-#, perl-brace-format
-msgid "No automatic configuration backups were made for the server {s}"
-msgstr "No hay backup de configuración para el servidor {s}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1697
-#, perl-brace-format
-msgid "Choose date to restore the backup from server {cn}"
-msgstr "Elije la fecha para restaurar el backup del servidor {cn}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1721
-#, perl-brace-format
-msgid "No automatic configuration backups were done for the server {s}"
-msgstr "No hay backup de configuración para el servidor {s}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1738
-#, perl-brace-format
-msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr "No hay backup de configuración para el servidor {s} en la fecha {d}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1774
-#, perl-brace-format
-msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "El servidor {server} no está registrado en Zentyal Cloud"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1833
-msgid "Please, enter a value"
-msgstr "Por favor, introduce un valor"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1858
-msgid "Please answer yes or no"
-msgstr "Por favor, responde sí o no"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1884
-#, perl-brace-format
-msgid "Backup dates for server {cn}"
-msgstr "Fechas del backup para el servidor {cn}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1895
-msgid "Enter backup date to restore:"
-msgstr "Introduce la fecha del backup a restaurar:"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1898
-#, perl-brace-format
-msgid "Invalid date: {d}. Try again"
-msgstr "Fecha inválida: {d}. Inténtalo de nuevo."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2004
-msgid "This entry is mandatory to continue the restoring process. Retry"
-msgstr ""
-"Esta entrada es obligatoria para continuar el proceso de restauración. "
-"Reintentar"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2052
-msgid "Selection"
-msgstr "Selección"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2091
-msgid ""
-"This entry is mandatory to carry on the restoring process. Choose from the "
-"list"
-msgstr ""
-"Esta entrada es obligatoria para continuar el proceso de restauración. Elije "
-"de la lista"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2212
-msgid "Please wait"
-msgstr "Espere, por favor"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2226
-msgid "Finished"
-msgstr "Finalizado"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2286
-msgid "Restoring process aborted upon user request"
-msgstr "Proceso de restauración abortado por petición del usuario"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2315
-msgid "Saving configuration changes"
-msgstr "Guardando cambios en la configuración"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2336
-msgid ""
-"Error saving configuration changes; some Zentyal modules would remain in a "
-"unknown state"
-msgstr ""
-"Error guardando los cambios de configuración; algunos módulos de Zentyal "
-"permanecerán en un estado desconocido"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2350
-msgid "Regenerating file list cache"
-msgstr "Regeneración de la caché de la lista de ficheros"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2358
-msgid ""
-"Cannot connect to the Cloud to regenerate backup list. Please try again "
-"later."
-msgstr ""
-"No se puede conectar al Cloud para regenerar la lista de copias de "
-"seguridad. Por favor, intenténtelo más tarde."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2430
-msgid "Zentyal Cloud User"
-msgstr "Usuario de Zentyal Cloud"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2433
-msgid "Zentyal Cloud Password"
-msgstr "Contraseña en Zentyal Cloud"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2448
-#, perl-brace-format
-msgid "The account {user} do not have any registered Zentyal servers"
-msgstr "La cuenta {user} no tiene suscrito ningún servidor Zentyal"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2480
-msgid ""
-"If you had enabled the Disaster Recovery service in Small Business or "
-"Enterprise Edition, besides the configuration you are about to recover, you "
-"could have restored the data of the active modules."
-msgstr ""
-"Si tuvieses habilitado el servicio de recuperación de desastres en las "
-"ediciones Small Business o Enterprise, además de la configuración podrías "
-"recuperar los datos de los módulos activados."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2507
-#, perl-brace-format
-msgid "Enter password used to encrypt back up {ser}"
-msgstr "Introduce la contraseña usada para cifrar la copia de seguridad {ser}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2532
-#, perl-brace-format
-msgid ""
-"Incorrect password. Please, enter the correct password used for encrypt "
-"{ser}."
-msgstr ""
-"Contraseña incorrecta. por favor, introduce la contraseña correcta usada "
-"para cifrar {ser}."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2583
-#, perl-brace-format
-msgid ""
-"The following backup domains could not be restored from a basic "
-"subscription: {domains}"
-msgstr ""
-"Los siguientes dominios de backup no podrían ser restaurados desde una "
-"suscripción básica: {domains}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2686
-msgid ""
-"The local password file has changed, the local users and their password "
-"could have been changed. We reccomend you to logut and login again with a "
-"valid user to avoid user identity problems."
-msgstr ""
-"El fichero de contraseñas ha cambiado, los usuarios locales y sus passwords "
-"podrían haber cambiado. Es recomendable cerrar la sesión e iniciarla de "
-"nuevo con un usuario valido para evitar problemas de identidad."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2691
-msgid ""
-"The shadow password file was restored; your local user password could have "
-"been changed"
-msgstr ""
-"El fichero de contraseñas 'shadow' se ha restaurado, la contraseña de tu "
-"usuario local podría haber cambiado"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2701
-msgid ""
-"No hostname infromation found in metadata but hostname configuration files "
-"changed; please fix your hostname manually or with the Zentyal option found "
-"at System -> General."
-msgstr ""
-"No se ha encontrado información del hostname en los metadatos pero los "
-"ficheros de hostname han cambiado; por favor, arregla tu hostname "
-"manualmente o utilizando la opción de Zentyal en Sistema -> General"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2749
-msgid "Your full backup is now successfully restored!"
-msgstr "¡Tu backup completo se ha restaurado con éxito!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2759
-#, perl-brace-format
-msgid "You can now login at {url} to manage your recovered host."
-msgstr ""
-"Ahora puedes iniciar sesión en {url} para gestionar tu máqiuna recuperada."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2833
-#: ../../main/ebackup/src/scripts/restore-tool:2842
-#, perl-brace-format
-msgid "Warning: {msg}"
-msgstr "Advertencia: {msg}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2872
-msgid ""
-"Sorry, an unexpected error has occurred. Please contact support and check "
-"the /var/log/zentyal/zentyal.log file for further details."
-msgstr ""
-"Lo sentimos, ha ocurrido un error inesperado. Por favor, contacte al soporte "
-"y consulte el fichero /var/log/zentyal/zentyal.log para más detalles."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2893
-msgid "Restore process aborted"
-msgstr "Proceso de restauración abortado"
-
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:88
 msgid "Exclude or Include"
 msgstr "Excluir o Incluir"
@@ -6612,7 +6118,7 @@ msgstr "host"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
-#: ../../main/core/src/EBox/Apache.pm:353
+#: ../../main/core/src/EBox/Apache.pm:355
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
@@ -6744,32 +6250,37 @@ msgstr "Uso del almacenamiento remoto"
 msgid "backup"
 msgstr "copia de seguridad"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:122
 msgid "Update file list process running, retry later"
 msgstr ""
 "El proceso de actualización de la lista está en ejecución, inténtelo de "
 "nuevo más tarde"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
+#, fuzzy
+msgid "There are no backed up files yet"
+msgstr "No hay ningún fichero de copias de seguridad"
+
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
 msgstr "No hay ningún fichero de copias de seguridad"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:176
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:116
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:92
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:184
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:114
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:99
 msgid "Backup Date"
 msgstr "Fecha de la copia de seguridad"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:187
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:195
 msgid "Restore Files"
 msgstr "Restaurar ficheros"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:188
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
 msgid "file restore operation"
 msgstr "proceso de restauración de fichero"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:204
 msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
@@ -6778,56 +6289,56 @@ msgstr ""
 "directorio que quiere restaurar, seleccione una fecha de respaldo y haga "
 "click sobre el botón de restaurar"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:216
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:224
 msgid "File already exists if you continue the current will be deleted"
 msgstr "El fichero ya existe. Si continúa, el actual será borrado."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:232
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:240
 msgid "File restored successfully"
 msgstr "Fichero restaurado correctamente"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:282
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:290
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
 "URL usada para ser usada con duplicity para restauraciones manuales: {url}"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:81
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:79
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
 "Para poder resturar los registros es necesario instalar y activar el módulo "
 "de registros"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:83
 msgid "To be able to restore logs you need the logs module enabled"
 msgstr ""
 "Para poder restaurar los registros, es necesario tener el módulo de "
 "registros activado"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restore logs database"
 msgstr "Restaurar la base de datos de logs"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:134
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:132
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr ""
 "Restaura los logs de Zentyal encontrados en la copia de seguridad "
 "seleccionada"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:103
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
 msgid "Restore Zentyal configuration from backup"
 msgstr "Restaurar la configuración Zentyal de la copia de seguridad"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:117
 msgid "Loads the configuration found in the backup"
 msgstr "Carga la configuración encontrada en la copia de seguridad"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:112
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:119
 msgid "Please wait..."
 msgstr "Espere, por favor..."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:175
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:182
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
@@ -6854,6 +6365,10 @@ msgstr "Estado de la copia de seguridad remota"
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:168
 msgid "Domains to back up"
 msgstr "Dominios a guardar copia de seguridad"
+
+#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
+msgid "Backup domain"
+msgstr "Dominio de backup"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:174
 msgid "Select the domains you want to back up."
@@ -6925,19 +6440,19 @@ msgstr ""
 "No se puede obtener el estado de los backup, comprueba si los parámetros y "
 "contraseñas son correctos"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:837
+#: ../../main/ebackup/src/EBox/EBackup.pm:836
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
 "Otro proceso está actualizando el estatus. Por favor, espere e inténtelo de "
 "nuevo"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1098
+#: ../../main/ebackup/src/EBox/EBackup.pm:1097
 #: ../../main/core/src/EBox/SysInfo.pm:84
 msgid "System"
 msgstr "Sistema"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1188
+#: ../../main/ebackup/src/EBox/EBackup.pm:1187
 msgid ""
 "Cannot use the Cloud backup method. Either you do not have the disaster "
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
@@ -6947,14 +6462,14 @@ msgstr ""
 "servicio de 'Recuperación de desastres' o bien no ha sido posible conectar "
 "con Zentyal Cloud para recibir los credenciales."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1195
+#: ../../main/ebackup/src/EBox/EBackup.pm:1194
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 "No se pueden obtener las credenciales del backup, compruebe su conexión a "
 "Zentyal Cloud"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1297
+#: ../../main/ebackup/src/EBox/EBackup.pm:1296
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -6965,11 +6480,11 @@ msgstr ""
 "usar Zentyal Cloud. Si quiere desuscribir, debe cambiar este {ohref}parámetro"
 "{chref}."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1436
+#: ../../main/ebackup/src/EBox/EBackup.pm:1435
 msgid "Backup configuration not complete"
 msgstr "La configuración del respaldo no está completa"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1455
+#: ../../main/ebackup/src/EBox/EBackup.pm:1454
 #, perl-brace-format
 msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
@@ -6978,17 +6493,17 @@ msgstr ""
 "El espacio libre en {target} es demasiado pequeño. {free} Mb disponibles, el "
 "tamaño estimado del respaldo es de {req}"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1474
+#: ../../main/ebackup/src/EBox/EBackup.pm:1473
 #, perl-brace-format
 msgid " {target} exists and is not longer a directory"
 msgstr "{target} existe y ya no es un directorio"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1525
+#: ../../main/ebackup/src/EBox/EBackup.pm:1524
 #, perl-brace-format
 msgid "{target} is not mounted"
 msgstr "{target} no está montado"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1531
+#: ../../main/ebackup/src/EBox/EBackup.pm:1530
 #, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr "{mp} no está montado y {target} está en su interior"
@@ -7205,7 +6720,7 @@ msgstr "Pre-shared key para la conexión IPsec"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:102
 #: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:88
 #: ../../main/mail/src/EBox/Mail.pm:1530
-#: ../../main/zarafa/src/EBox/Zarafa.pm:711
+#: ../../main/zarafa/src/EBox/Zarafa.pm:759
 #: ../../main/asterisk/src/EBox/Asterisk.pm:528
 msgid "General"
 msgstr "General"
@@ -8140,7 +7655,7 @@ msgstr "Ver consola"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:66
 #: ../../main/virt/src/templates/vmstatus.mas:30
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:25
 msgid "Start"
 msgstr "Arrancar"
@@ -10334,7 +9849,7 @@ msgid "User: {u}"
 msgstr "Usuario: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:73
+#: ../../main/samba/src/EBox/Samba.pm:71
 msgid "File Sharing"
 msgstr "Compartir ficheros"
 
@@ -10391,7 +9906,8 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:430
 #, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
-msgstr "El nombre de la cuenta no debe ser más largo de {maxLength} caracteres "
+msgstr ""
+"El nombre de la cuenta no debe ser más largo de {maxLength} caracteres "
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:436
 msgid "samAccountName"
@@ -10408,12 +9924,12 @@ msgstr "Nombre de cuenta"
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La contraseña no debe ser más larga de {maxPwdLength} caracteres"
 
-#: ../../main/samba/src/EBox/Samba.pm:112
+#: ../../main/samba/src/EBox/Samba.pm:110
 msgid "Create Samba home directory for shares and groups"
 msgstr ""
 "Crear directorio personal de Samba para directorios compartidos y grupos"
 
-#: ../../main/samba/src/EBox/Samba.pm:113
+#: ../../main/samba/src/EBox/Samba.pm:111
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
@@ -10421,66 +9937,81 @@ msgstr ""
 "Zentyal creará los directorios para directorios compartidos y grupos de "
 "Samba bajo /home/samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:129
+#: ../../main/samba/src/EBox/Samba.pm:127
 msgid "To set up Samba according to your configuration."
 msgstr "Configurar samba de acuerdo a tu configuración."
 
-#: ../../main/samba/src/EBox/Samba.pm:134
+#: ../../main/samba/src/EBox/Samba.pm:132
 msgid "To enable extended attributes and acls."
 msgstr "Para extender los atributos extendidos y acl's."
 
-#: ../../main/samba/src/EBox/Samba.pm:139
+#: ../../main/samba/src/EBox/Samba.pm:137
 msgid "To add microsoft specific services"
 msgstr "Para añadir servicios específicos de Microsoft"
 
-#: ../../main/samba/src/EBox/Samba.pm:144
-msgid "To set the antivirus settings for Samba."
-msgstr "Modificar las opciones de antivirus para Samba."
-
-#: ../../main/samba/src/EBox/Samba.pm:169
+#: ../../main/samba/src/EBox/Samba.pm:162
 msgid "File sharing (Samba) protocol"
 msgstr "Protocolo de compartición de ficheros (Samba)"
 
-#: ../../main/samba/src/EBox/Samba.pm:558
-msgid "Samba can't be provisioned if no IP addresses are set"
-msgstr "Samba no puede ser provisionado si no se han configurado direcciones IP"
+#: ../../main/samba/src/EBox/Samba.pm:579
+#, perl-brace-format
+msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
+msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:586
+#: ../../main/samba/src/EBox/Samba.pm:588
+#, perl-brace-format
+msgid "The required domain '{d}' could not be found in the dns module"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:596
+#, perl-brace-format
+msgid "The required host record '{h}' could not be found in the domain '{d}'"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:640
+msgid ""
+"Samba can't be provisioned if no IP addresses are set and the DNS domain is "
+"properly configured. Ensure that you have at least a IP address assigned to "
+"an internal interface, and this IP has to be assigned to the domain and to "
+"the hostname in the DNS domain."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:674
 #, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "El modo {mode} no está soportado"
 
-#: ../../main/samba/src/EBox/Samba.pm:696
+#: ../../main/samba/src/EBox/Samba.pm:785
 msgid ""
 "The server domain and kerberos realm must match the domain the domain you "
 "are trying to join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1414
+#: ../../main/samba/src/EBox/Samba.pm:1516
 msgid "Resource"
 msgstr "Recurso"
 
-#: ../../main/samba/src/EBox/Samba.pm:1418
+#: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Connect"
 msgstr "Conexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:1419
+#: ../../main/samba/src/EBox/Samba.pm:1521
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1420
+#: ../../main/samba/src/EBox/Samba.pm:1522
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1421
+#: ../../main/samba/src/EBox/Samba.pm:1523
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1422
+#: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:1423
+#: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -10488,46 +10019,46 @@ msgstr "Desconexión"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1424
+#: ../../main/samba/src/EBox/Samba.pm:1526
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1425
+#: ../../main/samba/src/EBox/Samba.pm:1527
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1426
+#: ../../main/samba/src/EBox/Samba.pm:1528
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1432
-#: ../../main/samba/src/EBox/Samba.pm:1441
+#: ../../main/samba/src/EBox/Samba.pm:1534
+#: ../../main/samba/src/EBox/Samba.pm:1543
 msgid "File name"
 msgstr "Nombre de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1433
-#: ../../main/samba/src/EBox/Samba.pm:1437
+#: ../../main/samba/src/EBox/Samba.pm:1535
+#: ../../main/samba/src/EBox/Samba.pm:1539
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1442
+#: ../../main/samba/src/EBox/Samba.pm:1544
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:1443
-#: ../../main/samba/src/EBox/Samba.pm:1446
+#: ../../main/samba/src/EBox/Samba.pm:1545
+#: ../../main/samba/src/EBox/Samba.pm:1548
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1551
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1460
+#: ../../main/samba/src/EBox/Samba.pm:1562
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1573
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 
@@ -10733,33 +10264,33 @@ msgstr "ham"
 msgid "Invalid mailbox type: {type}"
 msgstr "Tipo de buzón no valido: {type}"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
 msgstr "Utilizar filtrado de virus"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:84
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
 msgid "Use spam filtering"
 msgstr "Utilizar filtrado de spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:90
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:340
 msgid "Spam threshold"
 msgstr "Umbral de Spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
 msgstr "por defecto"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:101
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
 msgstr "umbral personalizado"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:113
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
 msgid "Learn from accounts' Spam IMAP folders"
 msgstr "Aprender de las carpetas IMAP de spam de las cuentas"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:117
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
@@ -10767,11 +10298,11 @@ msgstr ""
 "Cada vez que el correo entre o salga de la carpeta IMAP de spam, el filtro "
 "será entrenado con él"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:124
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:126
 msgid "Learning ham account"
 msgstr "Aprediendo ham"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:125
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:127
 msgid ""
 "An address (ham@domain) will be created for this domain, ham messages "
 "incorrectly classified as spam may be forwarded to this addres to train the "
@@ -10781,11 +10312,11 @@ msgstr ""
 "clasificados de forma incorrecta pueden reenviarse a esta dirección para "
 "entrenar el filtro"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:136
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:138
 msgid "Learning spam account"
 msgstr "Aprendiendo spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:137
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:139
 msgid ""
 "An address (spam@domain) will be created for this domain, spam messages "
 "incorrectly classified as ham may be forwarded to this addres to train the "
@@ -10795,19 +10326,19 @@ msgstr ""
 "spam clasificados de forma incorrecta como ham pueden ser reenviados a esta "
 "dirección para entrenar el filtro"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:148
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
 msgstr "Política antispam para el emisor"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:159
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 msgid "Virtual Domains specific policies"
 msgstr "Políticas específicas de los Dominios Virtuales"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:165
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 msgid "virtual domain policy"
 msgstr "política del dominio virtual"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:185
 #, perl-brace-format
 msgid ""
 "There are no virtual mail domains managed by this server. You can create "
@@ -11806,7 +11337,7 @@ msgstr ""
 "las páginas"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:130
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:346
 msgid "Virtual host"
@@ -12017,8 +11548,7 @@ msgstr "NTP"
 #, perl-brace-format
 msgid "The following software packages are not correctly installed: {pack}"
 msgstr ""
-"Los siguientes paquetes de software no están correctamente instalados: "
-"{pack}"
+"Los siguientes paquetes de software no están correctamente instalados: {pack}"
 
 #: ../../main/core/src/cgi/ebox.cgi:82
 #, perl-brace-format
@@ -12759,7 +12289,7 @@ msgstr "Tiempo de funcionamiento sin interrupciones"
 msgid "Users"
 msgstr "Usuarios"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:499
+#: ../../main/core/src/EBox/GlobalImpl.pm:506
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
@@ -12768,18 +12298,18 @@ msgstr ""
 "fuentes y ficheros de configuración en /etc/apt son legibles e inténtelo de "
 "nuevo"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:560
+#: ../../main/core/src/EBox/GlobalImpl.pm:567
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Habilitando módulo {modName}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:613
-#: ../../main/core/src/EBox/GlobalImpl.pm:649
+#: ../../main/core/src/EBox/GlobalImpl.pm:620
+#: ../../main/core/src/EBox/GlobalImpl.pm:656
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Guardando módulo {modName}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1181
+#: ../../main/core/src/EBox/GlobalImpl.pm:1188
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "ejecutando script {scriptName}"
@@ -12990,25 +12520,25 @@ msgstr "Partes a ser archivadas de vez"
 msgid "Slices timeline"
 msgstr "Línea de tiempo de las partes"
 
-#: ../../main/core/src/EBox/Apache.pm:53
+#: ../../main/core/src/EBox/Apache.pm:54
 msgid "Zentyal Webadmin"
 msgstr "Administración Web de Zentyal"
 
-#: ../../main/core/src/EBox/Apache.pm:283
+#: ../../main/core/src/EBox/Apache.pm:285
 msgid "Desktop services port"
 msgstr "Puerto de los servicios de escritorio"
 
-#: ../../main/core/src/EBox/Apache.pm:292
-#: ../../main/core/src/EBox/Apache.pm:303
+#: ../../main/core/src/EBox/Apache.pm:294
+#: ../../main/core/src/EBox/Apache.pm:305
 msgid "Desktop Services"
 msgstr "Servicios de Escritorio"
 
-#: ../../main/core/src/EBox/Apache.pm:293
-#: ../../main/core/src/EBox/Apache.pm:304
+#: ../../main/core/src/EBox/Apache.pm:295
+#: ../../main/core/src/EBox/Apache.pm:306
 msgid "Desktop Services (API for Zentyal Desktop)"
 msgstr "Servicios de Escritorio (API para Zentyal Desktop)"
 
-#: ../../main/core/src/EBox/Apache.pm:376
+#: ../../main/core/src/EBox/Apache.pm:378
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -13017,7 +12547,7 @@ msgstr ""
 "Zentyal ya está configurado para usar el puerto {p} para otro servicio. "
 "Elige otro puerto o libera este y reintenta."
 
-#: ../../main/core/src/EBox/Apache.pm:389
+#: ../../main/core/src/EBox/Apache.pm:391
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -13026,7 +12556,7 @@ msgstr ""
 "El puerto {p} ya está en uso por el programa '{pr}'. Elige otro puerto o "
 "libera este y reintenta."
 
-#: ../../main/core/src/EBox/Apache.pm:774
+#: ../../main/core/src/EBox/Apache.pm:776
 #: ../../main/services/src/EBox/Services.pm:111
 #: ../../main/services/src/EBox/Services.pm:445
 msgid "Zentyal Administration Web Server"
@@ -13624,7 +13154,7 @@ msgstr "defectuoso"
 msgid "spare"
 msgstr "libre"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
@@ -13633,7 +13163,7 @@ msgstr ""
 "Hay {nSecUpdates} actualizaciones de seguridad. Los paquetes afectados son: "
 "{packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
@@ -13642,11 +13172,11 @@ msgstr ""
 "Adicionalmente, hay {nUpdates} más. Los paquetes actualizables son: "
 "{packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:242
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:245
 msgid "Security software updates"
 msgstr "Actualizaciones de seguridad"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:257
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:260
 msgid "Check if there is any security software update."
 msgstr "Comprueba si hay alguna actualización de seguridad"
 
@@ -13733,10 +13263,6 @@ msgstr "Guardar la configuración"
 msgid "Saving changes in modules"
 msgstr "Guardando cambios en los módulos"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
-msgid "operations performed"
-msgstr "operaciones efectuadas"
-
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
 msgid "Changes saved"
 msgstr "Cambios guardados"
@@ -13752,7 +13278,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
 #: ../../main/core/src/EBox/CGI/Progress.pm:87
-#: ../../main/core/src/EBox/CGI/Progress.pm:128
+#: ../../main/core/src/EBox/CGI/Progress.pm:131
 #: ../../main/core/src/templates/finish.mas:126
 msgid "Saving changes"
 msgstr "Guardando cambios"
@@ -13787,7 +13313,7 @@ msgid "Revoking changes"
 msgstr "Revocando cambios"
 
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: ../../main/core/src/templates/dashboard/index.mas:71
+#: ../../main/core/src/templates/dashboard/index.mas:70
 msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
@@ -14372,7 +13898,7 @@ msgid "Filter type"
 msgstr "Tipo de filtro"
 
 #: ../../main/mail/src/EBox/Mail.pm:1537
-#: ../../main/zarafa/src/EBox/Zarafa.pm:718
+#: ../../main/zarafa/src/EBox/Zarafa.pm:766
 msgid "Virtual Mail Domains"
 msgstr "Dominios virtuales de correo"
 
@@ -15465,18 +14991,22 @@ msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr ""
 "Habilitar Active Sync (Protocolo de sincronización de Microsoft Exchange)"
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:128
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
+msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgstr ""
+
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /webapp."
 msgstr ""
 "Habilitar acceso a Zarafa únicamente en este virtual host bajo /webaccess y /"
 "webaccess-mobile."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:140
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:148
 msgid "General Zarafa server configuration settings updated."
 msgstr "Configuración general del servidor de Zarafa actualizada."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:182
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:190
 msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
@@ -15565,96 +15095,101 @@ msgstr ""
 "conectado, continuará conectado hasta que Zarafa le requiera autenticarse de "
 "nuevo."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:71
+#: ../../main/zarafa/src/EBox/Zarafa.pm:72
 msgid "Add Zarafa LDAP schema"
 msgstr "Añadir esquema LDAP de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:72
+#: ../../main/zarafa/src/EBox/Zarafa.pm:73
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "Zentyal necesitará este esquema para almacenar los usuarios de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:76
+#: ../../main/zarafa/src/EBox/Zarafa.pm:77
 msgid "Add vmail system user"
 msgstr "Añadir usuario del sistema vmail"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:77
+#: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "Zentyal necesitará esto para entegar correo a Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:81
+#: ../../main/zarafa/src/EBox/Zarafa.pm:82
 msgid "Create MySQL Zarafa database"
 msgstr "Crear base de datos MySQL para Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:82
+#: ../../main/zarafa/src/EBox/Zarafa.pm:83
 msgid "This database will store the data needed by Zarafa."
 msgstr "Esta base de datos almacenará los datos necesitados por Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:86
+#: ../../main/zarafa/src/EBox/Zarafa.pm:87
 msgid "Create default SSL key/certificates"
 msgstr "Crear claves y certificados SSL por defecto"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:87
+#: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
 msgstr ""
 "Este certificado auto-firmado se usará para la pasarela POP3/IMAP de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:91
+#: ../../main/zarafa/src/EBox/Zarafa.pm:92
 msgid "Add zarafa link to www data directory"
 msgstr "Añadir enlace de zarafa al directorio de datos www."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:92
+#: ../../main/zarafa/src/EBox/Zarafa.pm:93
 msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
 msgstr "Zarafa estará accesible en http://ip/webaccess/ y http://ip/webapp/."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:96
+#: ../../main/zarafa/src/EBox/Zarafa.pm:97
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr "Instalar locale English/US en el sistema si no se encuentra instalada"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:97
+#: ../../main/zarafa/src/EBox/Zarafa.pm:98
 msgid "Zarafa needs this locale to run."
 msgstr "Zarafa necesita esta locale para funcionar."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:116
+#: ../../main/zarafa/src/EBox/Zarafa.pm:117
 msgid "To properly configure Zarafa."
 msgstr "Configurar adecuadamente Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:121
+#: ../../main/zarafa/src/EBox/Zarafa.pm:122
 msgid "To properly configure Zarafa LDAP connection."
 msgstr "Configurar adecuadamente conexión entre Zarafa y LDAP"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:126
+#: ../../main/zarafa/src/EBox/Zarafa.pm:127
 msgid "To properly configure Zarafa webaccess."
 msgstr "Configurar adecuadamente acceso web de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:131
+#: ../../main/zarafa/src/EBox/Zarafa.pm:132
+#, fuzzy
+msgid "To properly configure Zarafa XMPP integration."
+msgstr "Configurar adecuadamente conexión entre Zarafa y LDAP"
+
+#: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
 msgstr "Configurar adecuadamente servidor de pasarelas de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:136
+#: ../../main/zarafa/src/EBox/Zarafa.pm:142
 msgid "To properly configure Zarafa quota monitoring server."
 msgstr "Configurar adecuadamente monitorizador de quotas de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:141
+#: ../../main/zarafa/src/EBox/Zarafa.pm:147
 msgid "To properly configure Zarafa mail delivering server."
 msgstr "Configurar adecuadamente servidor de entrega de correo de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:146
+#: ../../main/zarafa/src/EBox/Zarafa.pm:152
 msgid "To properly configure Zarafa ical server."
 msgstr "Configurar adecuadamente servidor ical de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:151
+#: ../../main/zarafa/src/EBox/Zarafa.pm:157
 msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "Configurar adecuadamente servidor de entrega LMTP dagent de Zarafa"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:216
+#: ../../main/zarafa/src/EBox/Zarafa.pm:222
 msgid "Groupware services (Zarafa)"
 msgstr "Servicio de Groupware (Zarafa)"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:761
+#: ../../main/zarafa/src/EBox/Zarafa.pm:809
 msgid "Zarafa Gateway Server"
 msgstr "Servidor de pasarelas de Zarafa"
 
@@ -16156,6 +15691,10 @@ msgstr "Fallada"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:78
 msgid "Other Zentyal Server"
 msgstr "Otros servidores Zentyal"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
+msgid "Zentyal Cloud"
+msgstr "Zentyal Cloud"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:92
 msgid "Sync users from"
@@ -17169,17 +16708,9 @@ msgstr "Actualizar"
 #: ../../main/remoteservices/src/templates/NoActive.mas:5
 #, perl-brace-format
 msgid ""
-"This feature is only available if you get a Zentyal  Subscription. You can "
-"contract them at {url1}. If you are already registered, then subscribe this "
-"server at {url2}"
+"This feature is only available if you register your server. You can register "
+"it at the {oh}register page{ch}."
 msgstr ""
-"Esta característica está sólo disponible con una suscripción de Zentyal. "
-"Puede conseguirla en {url1}. Si ya la tiene, puede suscribir este servidor "
-"en {url2}"
-
-#: ../../main/remoteservices/src/templates/NoActive.mas:14
-msgid "subscription page"
-msgstr "página de suscripción"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -17864,52 +17395,52 @@ msgstr ""
 "Debe activar el módulo {module} en la sección {openhref}Estado de los Módulos"
 "{closehref} para poder usarlo."
 
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
 msgstr "El servicio está activo y ejecutándose"
 
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
 msgstr "El servicio está habilitado, pero no está ejecutándose"
 
 # También podría ser ejecutándose sin gestión
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:28
 msgid "Running unmanaged"
 msgstr "Ejecutándose sin ser gestionado"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:29
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "El servicio está ejecutándose, pero no está habilitado en Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:33
 msgid "The service is not enabled in Zentyal"
 msgstr "El servicio no está habilitado en Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../../main/core/src/templates/dashboard/index.mas:109
+#: ../../main/core/src/templates/dashboard/index.mas:108
 msgid "Configure widgets"
 msgstr "Configurar widgets"
 
-#: ../../main/core/src/templates/dashboard/index.mas:112
+#: ../../main/core/src/templates/dashboard/index.mas:111
 #, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
 msgstr "Los siguientes paquetes no están correctamente instalados: {packages}."
 
-#: ../../main/core/src/templates/dashboard/index.mas:116
+#: ../../main/core/src/templates/dashboard/index.mas:115
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr "Ir a {ohref}Gestión de Software{chref} para más información."
 
-#: ../../main/core/src/templates/dashboard/index.mas:120
+#: ../../main/core/src/templates/dashboard/index.mas:119
 #, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
@@ -19054,6 +18585,510 @@ msgid ""
 msgstr ""
 "Esta operación eliminará el usuario y todas sus dependencias, tales como "
 "cuentas de correo, archivos, etc."
+
+#~ msgid "Subscription"
+#~ msgstr "Suscripción"
+
+#~ msgid "Server Subscription"
+#~ msgstr "Suscripción del Servidor"
+
+#~ msgid "Zentyal Cloud Services"
+#~ msgstr "Servicios de Zentyal Cloud"
+
+#~ msgid "- Latest backup: {date}"
+#~ msgstr "- El último backup fue: {date}"
+
+#~ msgid ""
+#~ "By default, the access is only granted to hosts inside the Zentyal Cloud "
+#~ "private network. If you enable this option, the access is granted from "
+#~ "any address. Use this option only if you could not connect to the Zentyal "
+#~ "Cloud"
+#~ msgstr ""
+#~ "Por defecto, el acceso está sólo garantizado a máquinas dentro de la red "
+#~ "privada de Zentyal Cloud. Si se activa esta opción está permitido desde "
+#~ "cualquier dirección. Use esta opción sólo si no puede conectarse a "
+#~ "Zentyal Cloud."
+
+#~ msgid "Central monitoring & management"
+#~ msgstr "Central de monitoreo y administración"
+
+#~ msgid "Server subcription info"
+#~ msgstr "Información de la suscripción del servidor"
+
+#~ msgid "Please, save changes"
+#~ msgstr "Por favor, guardar cambios"
+
+#~ msgid "User Name or Email Address"
+#~ msgstr "Nombre de usuario o dirección de correo"
+
+#~ msgid "Unsubscribe"
+#~ msgstr "Desuscribir"
+
+#~ msgid "Subscription to Zentyal Cloud"
+#~ msgstr "Suscripción a Zentyal Cloud"
+
+#~ msgid "Subscribe"
+#~ msgstr "Suscribirse"
+
+#~ msgid "Download latest report"
+#~ msgstr "Descarga el último informe"
+
+#, fuzzy
+#~ msgid ""
+#~ "The download link is for the latest available report for a group where "
+#~ "this zentyal server belongs to"
+#~ msgstr ""
+#~ "El enlace de descarga es para el último informe disponible para el grupo "
+#~ "al que este Zentyal pertenece"
+
+#~ msgid "{oh}Download sample{ch}"
+#~ msgstr "{oh}Descarga la muestra{ch}"
+
+#~ msgid "{oh}Download{ch}"
+#~ msgstr "{oh}Descarga{ch}"
+
+#~ msgid "Key for disaster recovery service not found"
+#~ msgstr "Clave para el servicio Disaster Recovery no encontrada"
+
+#~ msgid ""
+#~ "No backups found in this server. Do you want to retry with a different "
+#~ "one?"
+#~ msgstr ""
+#~ "No se han encontrado copias de seguridad en este servidor. ¿Quieres "
+#~ "intentarlo con otro servidor?"
+
+#~ msgid ""
+#~ "There is not configuration backup from this date. Do you want to retry "
+#~ "with another date?"
+#~ msgstr ""
+#~ "No hay copia de seguridad de la configuración desde esta fecha. ¿Podrías "
+#~ "probar con otra fecha?"
+
+#~ msgid "You can only specify one of the encryption options: {sy}, {no}"
+#~ msgstr ""
+#~ "Sólo puedes especificar una de las siguientes opciones de cifrado: {sy} "
+#~ "and {no}"
+
+#~ msgid "--force-type should have as argument either 'basic' or 'subscribed'"
+#~ msgstr "--force-type acepta como argumento 'basic' o 'subscribed'"
+
+#~ msgid "Zenity package not found. Falling back to terminal mode"
+#~ msgstr "Paquete zenity no encontrado. Usando el modo terminal"
+
+#~ msgid "User for the authentication"
+#~ msgstr "Usuario para la autenticación"
+
+#~ msgid ""
+#~ "Password for the authentication. This password will be shown both in the "
+#~ "command line and in the process list so only use this option when "
+#~ "security is not a concern"
+#~ msgstr ""
+#~ "Contraseña para la autenticación. Esta contraseña será mostrada tanto en "
+#~ "la línea de comandos como en la lista de procesos así que usa esta opción "
+#~ "cuando la seguridad no es una preocupación"
+
+#~ msgid "Server from which its backup date the restore will be done"
+#~ msgstr "Servidor desde el que se restaurará la copia"
+
+#~ msgid "Use the last backup done for the restore"
+#~ msgstr "Usar el último backup hecho para la restauración"
+
+#~ msgid "Restore all backup domains available"
+#~ msgstr "Restaurar todos los dominios de backup disponibles"
+
+#~ msgid "Backup domain to restore. It could be repeated several times"
+#~ msgstr "Dominio de backup a restaurar. Se puede repetir varias veces"
+
+#~ msgid ""
+#~ "Check if we use the no encryption or a symmetric encryption with password "
+#~ msgstr ""
+#~ "Comprueba si no usamos cifrado o un esquema simétrico con contraseña .."
+
+#~ msgid "Do not use graphical interface"
+#~ msgstr "No usar la interfaz gráfica"
+
+#~ msgid "Change parameters used to access the storage server"
+#~ msgstr ""
+#~ "Cambia los parámetros usados para acceder el servidor de almacenamiento"
+
+#~ msgid "Module {mod} should be installed"
+#~ msgstr "El módulo {mod} debe ser instalado"
+
+#~ msgid "Module {mod} should be configured"
+#~ msgstr "El módulo {mod} debe ser configurado"
+
+#~ msgid ""
+#~ "Could not automatically update system date and hour. If the system time "
+#~ "is not correct, some restore operations could fail"
+#~ msgstr ""
+#~ "No se pudo actualizar automáticamente la hora del sistema. Algunas "
+#~ "operaciones de restauración podrían fallar si la fecha no es correcta"
+
+#~ msgid "Choose the server to restore"
+#~ msgstr "Elije el servidor a restaurar"
+
+#~ msgid "Server to restore: "
+#~ msgstr "Servidor a restaurar: "
+
+#~ msgid "Select backup domains to restore"
+#~ msgstr "Selecciona los dominios de backup a restaurar"
+
+#~ msgid "Backup domains available in the server {cn}: {l}"
+#~ msgstr "Dominios de backup disponibles en el servidor {cn}: {l} "
+
+#~ msgid "No backup domain selected to restore. Doing nothing"
+#~ msgstr ""
+#~ "No se han seleccionado dominios de backup a restaurar. No hacemos nada"
+
+#~ msgid "Retrieving registered servers list"
+#~ msgstr "Obteniendo la lista de servidores registrados"
+
+#~ msgid "No key passphrase"
+#~ msgstr "No hay contraseña para la clave"
+
+#~ msgid "No password in retrieved credentials"
+#~ msgstr "No hay contraseña en los credenciales obtenidos"
+
+#~ msgid "Retrieving account information"
+#~ msgstr "Obteniendo la información de la cuenta"
+
+#~ msgid "No registered Zentyal Servers"
+#~ msgstr "No hay servidores Zentyal registrados"
+
+#~ msgid "Restoring files"
+#~ msgstr "Restaurando ficheros"
+
+#~ msgid ""
+#~ "Cannot restore file {file} requested by backup domains. Reason: {reason}"
+#~ msgstr ""
+#~ "No se puede restaurar el fichero solicitado {file} para los dominios de "
+#~ "backup. Razón: {reason}"
+
+#~ msgid "Restoring all backed-up files"
+#~ msgstr "Restaurando todos los ficheros guardados"
+
+#~ msgid "Could not restore {dst}, it already exists and it is not a directory"
+#~ msgstr "No se puede restaurar {dst}, ya existe y no es un directorio"
+
+#~ msgid ""
+#~ "Error restoring file or directory {dst}. We will try to continue the "
+#~ "restore"
+#~ msgstr ""
+#~ "Error al restaurar el archivo o directorio {dst}. Se intentará continuar "
+#~ "con la restauración"
+
+#~ msgid ""
+#~ "Error restoring directory {d}. This could make fail some files or domains "
+#~ "restore processes. Error {e}"
+#~ msgstr ""
+#~ "Error restaurando el directorio {d}. Esto puede hacer fallar la "
+#~ "restauración de algunos ficheros o dominios. Error: {e}"
+
+#~ msgid ""
+#~ "Backup log data not found in the files from the backup, log database will "
+#~ "not be restored"
+#~ msgstr ""
+#~ "La copia de los registros no se encuentra en el backup, la base de datos "
+#~ "de registros no será restaurada"
+
+#~ msgid "Restoring log database"
+#~ msgstr "Restaurando la base de datos de logs"
+
+#~ msgid "Restoring configuration backup"
+#~ msgstr "Restaurando el backup de la configuración"
+
+#~ msgid ""
+#~ "The configuration restore failed. We will continue the process to try to "
+#~ "restore as much as possible but your system will need manual tweaking"
+#~ msgstr ""
+#~ "La restauración de la configuración falló. Continuaremos el proceso para "
+#~ "intentar restaurar tanto como sea posible pero tu sistema necesitará la "
+#~ "gestión manual"
+
+#~ msgid "Checking configuration compability"
+#~ msgstr "Comprobando la compatibilidad en la configuración"
+
+#~ msgid ""
+#~ "Cannot restore backup because there are less interfaces than there are "
+#~ "available. The missing interfaces are: {missing}"
+#~ msgstr ""
+#~ "No se puede restaurar el backup porque hay menos interfaces que los "
+#~ "disponibles. Los interfaces que faltan son: {missing}"
+
+#~ msgid "Updating software package lists"
+#~ msgstr "Actualizando la lista de paquetes software"
+
+#~ msgid "Installing Zentyal components and their dependencies"
+#~ msgstr "Instalando los componentes Zentyal y sus dependencias"
+
+#~ msgid "Installing missing modules..."
+#~ msgstr "Instalando los módulos nuevos..."
+
+#~ msgid ""
+#~ "Error installing packages: {err}. The backup will continue but it would "
+#~ "not able to recover any configuration which depends on the missing "
+#~ "packages"
+#~ msgstr ""
+#~ "Error instalando los paquetes: {err}. El backup continuará pero no podrá "
+#~ "recuperar ninguna configuración que dependa de los paquetes ausentes"
+
+#~ msgid ""
+#~ "Updating package list to allow access to exclusive Zentyal Cloud packages"
+#~ msgstr ""
+#~ "Actualizando la lista de paquetes para permitir el acceso los paquetes "
+#~ "exclusivos de Zentyal Cloud"
+
+#~ msgid "Install cloud packages"
+#~ msgstr "Instalar los paquetes de la nube"
+
+#~ msgid "Downloading subscription data"
+#~ msgstr "Descargando los datos de la suscripción"
+
+#~ msgid ""
+#~ "Connection error when retrieving subscription bundle. Zentyal Cloud "
+#~ "exclusive packages will not be installed"
+#~ msgstr ""
+#~ "Error de conexión cuando se estaba obteniendo el bundle de suscripción. "
+#~ "Los paquetes exclusivos de Zentyal Cloud no se instalarán."
+
+#~ msgid ""
+#~ "Cannot retrieve bundle because either installed zentyal-remoteservices is "
+#~ "outdated or only outdated bundle is available in the cloud. Zentyal "
+#~ "Cloud  exclusive packages will not be installed"
+#~ msgstr ""
+#~ "No se puede obtener el bundle porque o bien zentyal-remoteservices no "
+#~ "está actualizado o sólo hay disponible un bundle no actualizado en la "
+#~ "nube. Los paquetes exclusivos de Zentyal Cloud no se instalarán. "
+
+#~ msgid ""
+#~ "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+#~ "packages will not be installed"
+#~ msgstr ""
+#~ "Error desconocido al recoger el bundle de suscripción. Los paquetes "
+#~ "exclusivos de Zentyal Cloud no se instalarán."
+
+#~ msgid "Configuring modules"
+#~ msgstr "Configurando modulos"
+
+#~ msgid "Configuring modules: Current module {mod}"
+#~ msgstr "Configurando módulos. Módulo actual {mod}"
+
+#~ msgid "Configuring modules {p} done. Current module {mod}"
+#~ msgstr "Configurando módulos {p} hecho. Módulo actual {mod}"
+
+#~ msgid ""
+#~ "Failed to configure module {name}: {err}. This could affect to the "
+#~ "restore of other modules"
+#~ msgstr ""
+#~ "Fallo al configurar el módulo {name}: {err}. Esto podría afectar a la "
+#~ "restauración de otros módulos"
+
+#~ msgid "Downloading backup metadata..."
+#~ msgstr "Descargando los metadatos de la copia de seguridad..."
+
+#~ msgid "Downloading the backup data"
+#~ msgstr "Descargando datos del backup"
+
+#~ msgid "Downloading  {src} backup data for {dom}"
+#~ msgstr "Descargando datos {src} para {dom}"
+
+#~ msgid ""
+#~ "Error downloading data for backup domain: {dom}. The domain will not be "
+#~ "fully restored"
+#~ msgstr ""
+#~ "Error descargando datos para el dominio: {dom}. El dominio no podrá ser "
+#~ "completamente restaurado"
+
+#~ msgid "Downloading the backup configuration"
+#~ msgstr "Descargando el backup de la configuración"
+
+#~ msgid "Downloading configuration"
+#~ msgstr "Descargando la configuración"
+
+#~ msgid "Looking for a version 2.0.X backup"
+#~ msgstr "Buscando un backup de la versión 2.0.X"
+
+#~ msgid "Retrieving backup collection status ..."
+#~ msgstr "Obteniendo el estado del backup..."
+
+#~ msgid "Last backup date was: {date}"
+#~ msgstr "La última copia de seguridad se realizó: {date}"
+
+#~ msgid "No automatic configuration backups were made for the server {s}"
+#~ msgstr "No hay backup de configuración para el servidor {s}"
+
+#~ msgid "Choose date to restore the backup from server {cn}"
+#~ msgstr "Elije la fecha para restaurar el backup del servidor {cn}"
+
+#~ msgid "No automatic configuration backups were done for the server {s}"
+#~ msgstr "No hay backup de configuración para el servidor {s}"
+
+#~ msgid "No configuration backups were made for the date {d} in {s} server"
+#~ msgstr "No hay backup de configuración para el servidor {s} en la fecha {d}"
+
+#~ msgid "The server {server} is not registered in Zentyal Cloud"
+#~ msgstr "El servidor {server} no está registrado en Zentyal Cloud"
+
+#~ msgid "Please, enter a value"
+#~ msgstr "Por favor, introduce un valor"
+
+#~ msgid "Please answer yes or no"
+#~ msgstr "Por favor, responde sí o no"
+
+#~ msgid "Backup dates for server {cn}"
+#~ msgstr "Fechas del backup para el servidor {cn}"
+
+#~ msgid "Enter backup date to restore:"
+#~ msgstr "Introduce la fecha del backup a restaurar:"
+
+#~ msgid "Invalid date: {d}. Try again"
+#~ msgstr "Fecha inválida: {d}. Inténtalo de nuevo."
+
+#~ msgid "This entry is mandatory to continue the restoring process. Retry"
+#~ msgstr ""
+#~ "Esta entrada es obligatoria para continuar el proceso de restauración. "
+#~ "Reintentar"
+
+#~ msgid "Selection"
+#~ msgstr "Selección"
+
+#~ msgid ""
+#~ "This entry is mandatory to carry on the restoring process. Choose from "
+#~ "the list"
+#~ msgstr ""
+#~ "Esta entrada es obligatoria para continuar el proceso de restauración. "
+#~ "Elije de la lista"
+
+#~ msgid "Please wait"
+#~ msgstr "Espere, por favor"
+
+#~ msgid "Finished"
+#~ msgstr "Finalizado"
+
+#~ msgid "Restoring process aborted upon user request"
+#~ msgstr "Proceso de restauración abortado por petición del usuario"
+
+#~ msgid "Saving configuration changes"
+#~ msgstr "Guardando cambios en la configuración"
+
+#~ msgid ""
+#~ "Error saving configuration changes; some Zentyal modules would remain in "
+#~ "a unknown state"
+#~ msgstr ""
+#~ "Error guardando los cambios de configuración; algunos módulos de Zentyal "
+#~ "permanecerán en un estado desconocido"
+
+#~ msgid "Regenerating file list cache"
+#~ msgstr "Regeneración de la caché de la lista de ficheros"
+
+#~ msgid ""
+#~ "Cannot connect to the Cloud to regenerate backup list. Please try again "
+#~ "later."
+#~ msgstr ""
+#~ "No se puede conectar al Cloud para regenerar la lista de copias de "
+#~ "seguridad. Por favor, intenténtelo más tarde."
+
+#~ msgid "Zentyal Cloud User"
+#~ msgstr "Usuario de Zentyal Cloud"
+
+#~ msgid "Zentyal Cloud Password"
+#~ msgstr "Contraseña en Zentyal Cloud"
+
+#~ msgid "The account {user} do not have any registered Zentyal servers"
+#~ msgstr "La cuenta {user} no tiene suscrito ningún servidor Zentyal"
+
+#~ msgid ""
+#~ "If you had enabled the Disaster Recovery service in Small Business or "
+#~ "Enterprise Edition, besides the configuration you are about to recover, "
+#~ "you could have restored the data of the active modules."
+#~ msgstr ""
+#~ "Si tuvieses habilitado el servicio de recuperación de desastres en las "
+#~ "ediciones Small Business o Enterprise, además de la configuración podrías "
+#~ "recuperar los datos de los módulos activados."
+
+#~ msgid "Enter password used to encrypt back up {ser}"
+#~ msgstr ""
+#~ "Introduce la contraseña usada para cifrar la copia de seguridad {ser}"
+
+#~ msgid ""
+#~ "Incorrect password. Please, enter the correct password used for encrypt "
+#~ "{ser}."
+#~ msgstr ""
+#~ "Contraseña incorrecta. por favor, introduce la contraseña correcta usada "
+#~ "para cifrar {ser}."
+
+#~ msgid ""
+#~ "The following backup domains could not be restored from a basic "
+#~ "subscription: {domains}"
+#~ msgstr ""
+#~ "Los siguientes dominios de backup no podrían ser restaurados desde una "
+#~ "suscripción básica: {domains}"
+
+#~ msgid ""
+#~ "The local password file has changed, the local users and their password "
+#~ "could have been changed. We reccomend you to logut and login again with a "
+#~ "valid user to avoid user identity problems."
+#~ msgstr ""
+#~ "El fichero de contraseñas ha cambiado, los usuarios locales y sus "
+#~ "passwords podrían haber cambiado. Es recomendable cerrar la sesión e "
+#~ "iniciarla de nuevo con un usuario valido para evitar problemas de "
+#~ "identidad."
+
+#~ msgid ""
+#~ "The shadow password file was restored; your local user password could "
+#~ "have been changed"
+#~ msgstr ""
+#~ "El fichero de contraseñas 'shadow' se ha restaurado, la contraseña de tu "
+#~ "usuario local podría haber cambiado"
+
+#~ msgid ""
+#~ "No hostname infromation found in metadata but hostname configuration "
+#~ "files changed; please fix your hostname manually or with the Zentyal "
+#~ "option found at System -> General."
+#~ msgstr ""
+#~ "No se ha encontrado información del hostname en los metadatos pero los "
+#~ "ficheros de hostname han cambiado; por favor, arregla tu hostname "
+#~ "manualmente o utilizando la opción de Zentyal en Sistema -> General"
+
+#~ msgid "Your full backup is now successfully restored!"
+#~ msgstr "¡Tu backup completo se ha restaurado con éxito!"
+
+#~ msgid "You can now login at {url} to manage your recovered host."
+#~ msgstr ""
+#~ "Ahora puedes iniciar sesión en {url} para gestionar tu máqiuna recuperada."
+
+#~ msgid "Warning: {msg}"
+#~ msgstr "Advertencia: {msg}"
+
+#~ msgid ""
+#~ "Sorry, an unexpected error has occurred. Please contact support and check "
+#~ "the /var/log/zentyal/zentyal.log file for further details."
+#~ msgstr ""
+#~ "Lo sentimos, ha ocurrido un error inesperado. Por favor, contacte al "
+#~ "soporte y consulte el fichero /var/log/zentyal/zentyal.log para más "
+#~ "detalles."
+
+#~ msgid "Restore process aborted"
+#~ msgstr "Proceso de restauración abortado"
+
+#~ msgid "To set the antivirus settings for Samba."
+#~ msgstr "Modificar las opciones de antivirus para Samba."
+
+#~ msgid "Samba can't be provisioned if no IP addresses are set"
+#~ msgstr ""
+#~ "Samba no puede ser provisionado si no se han configurado direcciones IP"
+
+#~ msgid ""
+#~ "This feature is only available if you get a Zentyal  Subscription. You "
+#~ "can contract them at {url1}. If you are already registered, then "
+#~ "subscribe this server at {url2}"
+#~ msgstr ""
+#~ "Esta característica está sólo disponible con una suscripción de Zentyal. "
+#~ "Puede conseguirla en {url1}. Si ya la tiene, puede suscribir este "
+#~ "servidor en {url2}"
+
+#~ msgid "subscription page"
+#~ msgstr "página de suscripción"
 
 #~ msgid "The domain is set as read only. You cannot add mail exchangers"
 #~ msgstr ""
@@ -20821,9 +20856,6 @@ msgstr ""
 
 #~ msgid "It should follow the pattern 'user@domain[/resource]'"
 #~ msgstr "Debe seguir el patrón 'usuario@dominio[/recurso]'"
-
-#~ msgid "Select report"
-#~ msgstr "Selecciona informe"
 
 #~ msgid "Configuration report"
 #~ msgstr "Informe de configuración"

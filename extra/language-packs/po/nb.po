@@ -55,8 +55,8 @@ msgid "Name"
 msgstr "Navn"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:644
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
@@ -270,7 +270,7 @@ msgstr "Domene eller IP adresse deler av URL"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:533
 #: ../../main/dns/src/EBox/Model/Text.pm:165
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:68
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
@@ -363,6 +363,7 @@ msgid "HTTPS Proxy"
 msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
 msgstr ""
 
@@ -500,7 +501,7 @@ msgstr "Forespørsler"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1412
+#: ../../main/samba/src/EBox/Samba.pm:1514
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -554,14 +555,13 @@ msgstr "Filtrert trafikk størrelse (Kb)"
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:323
 #: ../../main/pptp/src/EBox/PPTP.pm:370
-#: ../../main/ebackup/src/scripts/restore-tool:1700
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:163
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1410
-#: ../../main/samba/src/EBox/Samba.pm:1430
-#: ../../main/samba/src/EBox/Samba.pm:1440
+#: ../../main/samba/src/EBox/Samba.pm:1512
+#: ../../main/samba/src/EBox/Samba.pm:1532
+#: ../../main/samba/src/EBox/Samba.pm:1542
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
@@ -840,6 +840,7 @@ msgstr "Innholds filter terskel endret"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -853,7 +854,7 @@ msgstr "Innholds filter terskel endret"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:87
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:152
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:160
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
@@ -861,7 +862,7 @@ msgstr "Innholds filter terskel endret"
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
 #: ../../main/samba/src/templates/samba.mas:18
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:32
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
@@ -969,7 +970,7 @@ msgid "category"
 msgstr "kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1565
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1404,8 +1405,7 @@ msgstr "Last opp konfigurasjons pakke"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1662
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1749,7 +1749,6 @@ msgstr ""
 "tillate tilgang til dine LAN ved å opplyse nettverks adressen her{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
-#: ../../main/ebackup/src/scripts/restore-tool:318
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
@@ -2055,10 +2054,10 @@ msgstr "Tjeneste"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
 msgid "Running"
 msgstr "Kjører"
@@ -2067,7 +2066,7 @@ msgstr "Kjører"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:22
 msgid "Stopped"
 msgstr "Stoppet"
@@ -2288,7 +2287,7 @@ msgstr "OpenVPN tjenester"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1434
+#: ../../main/samba/src/EBox/Samba.pm:1536
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 #, fuzzy
@@ -2465,26 +2464,26 @@ msgstr "LOGG"
 msgid "REDIRECT"
 msgstr "VIDEREKOBLE"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:655
+#: ../../main/firewall/src/EBox/Iptables.pm:652
 msgid "Firewall failed to add rules for the following modules: "
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:658
+#: ../../main/firewall/src/EBox/Iptables.pm:655
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:920
-#: ../../main/firewall/src/EBox/Iptables.pm:957
+#: ../../main/firewall/src/EBox/Iptables.pm:917
+#: ../../main/firewall/src/EBox/Iptables.pm:954
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:73
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Du må sette iptables_log_limit variabelen i ebox konfigurasjons filen"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:926
-#: ../../main/firewall/src/EBox/Iptables.pm:963
+#: ../../main/firewall/src/EBox/Iptables.pm:923
+#: ../../main/firewall/src/EBox/Iptables.pm:960
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:78
 msgid ""
@@ -3756,7 +3755,7 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:135
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:143
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 #, fuzzy
 msgid "General configuration settings"
@@ -4000,7 +3999,8 @@ msgstr "Ingen pakker å oppdatere"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:71
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:101
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:235
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:7
@@ -4009,6 +4009,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:236
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:91
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
 #: ../../main/core/src/templates/report/raid.mas:210
 msgid "Current operation"
@@ -4120,9 +4121,9 @@ msgstr "Velg Zentyal pakker å installere"
 msgid "Zentyal components"
 msgstr "Zentyal komponenter"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1381
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1597
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -4135,7 +4136,7 @@ msgstr "Zentyal komponenter"
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
 #, fuzzy
 msgid "Community"
 msgstr ""
@@ -4145,13 +4146,13 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
 "Kommenter"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
 #, fuzzy
 msgid "Professional"
 msgstr "Rettigheter"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 #, fuzzy
 msgid "Enterprise"
 msgstr ""
@@ -4161,115 +4162,110 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "Enter"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 #, fuzzy
 msgid "Small Business"
 msgstr "alle tjenester"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
-msgid "Zentyal Cloud Client"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#, fuzzy
+msgid "Zentyal Remote Client"
 msgstr "Zentyal Sky Klient"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
 msgid "Not subscribed"
 msgstr "Intet abonnement"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
 msgid "Subscribed"
 msgstr "Abonnert"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:414
-msgid "Subscription"
-msgstr "Abonnemang"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:419
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
 #, fuzzy
-msgid "Server Subscription"
-msgstr "Abonnemang"
+msgid "Registration"
+msgstr ""
+"#-#-#-#-#  nb.po (ebox-network 0.12.99)  #-#-#-#-#\n"
+"Destinasjon\n"
+"#-#-#-#-#  nb.po (ebox-ids 1.1)  #-#-#-#-#\n"
+"Mål\n"
+"#-#-#-#-#  nb.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
+"Destinasjon\n"
+"#-#-#-#-#  nb.po (ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
+"developers@zentyal.org)  #-#-#-#-#\n"
+"Destinasjon"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:424
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#, fuzzy
+msgid "Server Registration"
+msgstr "Server opprettelse"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr "Teknisk Brukerstøtte"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:428
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 #, fuzzy
 msgid "Security Updates"
 msgstr "Sikkerhets oppdatering"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:432
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
 #, fuzzy
-msgid "Disaster Recovery"
-msgstr "gjeopprett"
+msgid "Your Zentyal Server Account"
+msgstr "Zentyal FTP Server"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
-#, fuzzy
-msgid "Zentyal Cloud Services"
-msgstr "Zentyal Sky Klient"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:563
-msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:592
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
+"subscribed to Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:778
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1567
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1575
-#, fuzzy, perl-brace-format
-msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Ikke tilkoblet. Kontroller VPN logger i {path}"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+msgid "Connected"
+msgstr "Tilkoblet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1581
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
 #, fuzzy
 msgid "In process"
 msgstr "prosess"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1584
-msgid "Connected"
-msgstr "Tilkoblet"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
+#, fuzzy, perl-brace-format
+msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
+msgstr "Ikke tilkoblet. Kontroller VPN logger i {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1599
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
 msgid "Essential"
 msgstr "Essensiell"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1600
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
 msgid "Standard"
 msgstr "Standar"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1601
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1608
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
 #, fuzzy, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "Siste oppdatering feilet."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1621
-#, fuzzy, perl-brace-format
-msgid "- Latest backup: {date}"
-msgstr "Ikke eksisterende sikkerhetskopi: {n}"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 #, fuzzy
 msgid "Configuration backup enabled"
@@ -4279,32 +4275,32 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "Konfigurasjon sikkerhetskopi"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1627
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
 #, fuzzy, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "Ikke eksisterende sikkerhetskopi: {n}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
 #, fuzzy
 msgid "Server name"
 msgstr "Server {name}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 #, fuzzy
 msgid "Connection status"
 msgstr "Tilkoblings mål"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 #, fuzzy
 msgid "External server name"
 msgstr "Ekstern server tilkobling"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4313,26 +4309,32 @@ msgstr "Ekstern server tilkobling"
 msgid "Server edition"
 msgstr "Server opprettelse"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
 msgid "Technical support"
 msgstr "Teknisk Brukerstøtte"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1714
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1970
-msgid "The UUID is only available if the host is subscribed to Zentyal Cloud"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1997
-msgid "The Zentyal Cloud Domain is only available if the host is subscribed"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2023
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
 msgid ""
-"The Zentyal Cloud Credentials are only available if the host is subscribed"
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Remote"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+msgid "The Zentyal Remote Domain is only available if the host is subscribed"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+msgid ""
+"The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4345,43 +4347,49 @@ msgid "Service Level Agreement"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-msgid "Allow remote access to Zentyal staff"
+msgid "Allow remote access to Zentyal support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
-msgid "Allow access from any internet address"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
 msgid ""
-"By default, the access is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option, the access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"Allow Zentyal support engineers to connect to your server from Zentyal "
+"Remote network."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+msgid "Allow access from the Internet"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
+msgid ""
+"Allow Zentyal support engineers to connect to your server directly from the "
+"Internet to your public IP address. Only use this option if you could not "
+"connect to Zentyal Remote."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 #, fuzzy
 msgid "Enable Remote Support Access"
 msgstr "Fjernhjelp Tilgang"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:138
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
 msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
+"To restrict addresses you need that your Zentyal Server is registered to "
+"Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
 #, perl-brace-format
 msgid ""
 "Enabling remote support will allow Zentyal staff to freely access your "
@@ -4393,19 +4401,19 @@ msgid ""
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:191
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:196
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:201
 #, perl-brace-format
 msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
@@ -4465,7 +4473,7 @@ msgstr "Alarm"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
 #, fuzzy
-msgid "External server name (DynDNS)"
+msgid "External server name (Dynamic DNS)"
 msgstr "Ekstern server tilkobling"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
@@ -4474,21 +4482,18 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 #, fuzzy
-msgid "Subscription renovation date"
+msgid "Renovation date"
 msgstr "Abonnement på Zentyal Sky"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
-msgid "Central monitoring & management"
-msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
 #, fuzzy
-msgid "Server subcription info"
-msgstr "Server opprettelse"
+msgid "Server info"
+msgstr "Side ikke funnet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-msgid "Not using Zentyal Cloud DynDNS service"
-msgstr ""
+#, fuzzy
+msgid "Not using Zentyal Dynamic DNS service"
+msgstr "Zentyal epost tjeneste"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
@@ -4496,20 +4501,20 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Ubegrenset størrelse"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
 #, fuzzy
-msgid "Zentyal Cloud VPN Connectivity Check"
+msgid "Zentyal Remote VPN Connectivity Check"
 msgstr "Zentyal Sky Tilkobling"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
@@ -4525,28 +4530,25 @@ msgstr "Sikkerhets oppdatering"
 msgid "Available IDS rules"
 msgstr "Tilgjengelige rekker"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:116
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 #, fuzzy
 msgid "Select one of the available options"
 msgstr "Velg tilgjengelige fulle rapporter"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:121
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
 msgid ""
-"Subscription was done correctly. Save changes and then, wait a minute to "
-"guarantee the system carries out the process of subscribing. Later you can "
-"start using the cloud based services you are entitled to with your "
-"subscription (remote backup, updates, alerts, etc.)"
+"Registration was done correctly. Wait a minute to guarantee the system "
+"carries out the process of registration. Later on, you can start using the "
+"cloud based services you are entitled to with your edition (remote backup, "
+"updates, alerts, etc.)"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:127
-msgid "Subscription data retrieved correctly."
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
+#, fuzzy
+msgid "Registration data retrieved correctly."
 msgstr "Abonnements data mottatt korrekt."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:129
-msgid "Please, save changes"
-msgstr "Vennligst, lagre endringer"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:653
 #: ../../main/core/src/templates/progress.mas:34
 #, fuzzy
@@ -4557,38 +4559,40 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "Ferdig"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:297
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
 #, fuzzy
 msgid ""
-"Take into account that subscribing your Zentyal server to the Zentyal Cloud "
-"can take a while. Please do not touch anything until the subscription "
+"Take into account that registering your Zentyal server to the Zentyal Remote "
+"can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
 "Vær oppmerksom på at abonnering av en Zentyal kan ta noen minutter. Ikke rør "
 "noe intill abonnerings prosessen er ferdig."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
+#, fuzzy
 msgid ""
-"Prior to make a subscription on remote services, save or discard changes in "
+"Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 "Før man oppretter abonnement på eksterne tjenester, lagre eller forkast "
 "endringer i OpenVPN modulen"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:365
-msgid "User Name or Email Address"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#, fuzzy
+msgid "Registration Email Address"
 msgstr "Bruker Navn eller Epost Adresse"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
 msgstr "Server Navn"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:378
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:351
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr "Velg et navn for din server som er et gyldig domene navn"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4616,52 +4620,49 @@ msgstr "Velg et navn for din server som er et gyldig domene navn"
 msgid "Password"
 msgstr "Passord"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:396
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:369
 #, fuzzy
 msgid "Available Options"
 msgstr "Tilgjengelig lagrings plass"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:398
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
 msgid "Select one of your purchases"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:406
-msgid "Zentyal subscription details"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#, fuzzy
+msgid "Zentyal registration details"
 msgstr "Zentyal abonnement detaljer"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:407
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
 #, fuzzy
-msgid "Unsubscribe"
-msgstr "Abonner"
+msgid "Unregister"
+msgstr "Grå listet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:410
-msgid "Subscription to Zentyal Cloud"
-msgstr "Abonnement på Zentyal Sky"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:411
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
 #, fuzzy
-msgid "Subscribe"
+msgid "Register your Zentyal Server"
+msgstr "Zentyal FTP Server"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+msgid "Register"
 msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Abonner\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Abboner"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
 msgid " module"
 msgstr "modul"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " and "
 msgstr "og"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " modules"
 msgstr "moduler"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:623
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1413
+#: ../../main/samba/src/EBox/Samba.pm:1515
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4682,8 +4683,8 @@ msgstr "moduler"
 msgid "Action"
 msgstr "Oppgave"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:624
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:645
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4701,9 +4702,21 @@ msgstr ""
 msgid "Reload available options"
 msgstr "Globale instillinger"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#, fuzzy
+msgid "Unregistering a server"
+msgstr "ekstern e-post server"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#, fuzzy
+msgid "Registering a server"
+msgstr "ekstern e-post server"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-msgid "Download latest report"
-msgstr "Last ned liste rapport"
+#, fuzzy
+msgid "Get latest report"
+msgstr "Velg rapport"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
 #, fuzzy
@@ -4720,29 +4733,32 @@ msgid "Reports"
 msgstr "Rapporter"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
-msgid ""
-"The download link is for the latest available report for a group where this "
-"zentyal server belongs to"
+msgid "Reports are done based on automatically gathered data in hourly basis"
 msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
+#, fuzzy
+msgid "Not registered"
+msgstr "Ikke opprettet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
-#, fuzzy
-msgid "No consolidation done"
-msgstr "handlinger utført"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:141
 #, perl-brace-format
-msgid "{oh}Download sample{ch}"
+msgid "{oh}Take a look on the example{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:148
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
-msgid "{oh}Download{ch}"
-msgstr "{oh}Last Ned{ch}"
+msgid "{oh}Take a look{ch}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
+#, fuzzy
+msgid "No consolidation done yet"
+msgstr "handlinger utført"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4771,6 +4787,11 @@ msgstr "Forventet sikkerhetskopi størrelse"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
 msgid "Estimated time to recover from a disaster"
 msgstr "Forventet tid for gjenoppretting etter katastrofe"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
+#, fuzzy
+msgid "Disaster Recovery"
+msgstr "gjeopprett"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
@@ -4821,15 +4842,6 @@ msgstr "Tilgang fra kontrollpanel uten passord"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
 msgstr "Tilgangs instillinger"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:140
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:153
-#: ../../main/network/src/EBox/Model/DynDNS.pm:85
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
-#: ../../main/core/src/templates/headTitle.mas:19
-msgid "Zentyal Cloud"
-msgstr "Zentyal Skyen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:256
 #, perl-brace-format
@@ -4944,19 +4956,19 @@ msgstr "Nøkkel for web abonnement tjeneste ble ikke funnet"
 msgid "None of the available bundles are valid for this server"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:565
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:560
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Kan ikke kontakte {host}. Kontroller din tilkobling til Internett"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:778
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:723
 #, perl-brace-format
 msgid ""
-"Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
+"Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:806
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:751
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:314
 #, perl-brace-format
 msgid ""
@@ -4980,11 +4992,6 @@ msgstr "Det kan ikke inneholde \"{char}\" tegn"
 msgid "It cannot be greater than {n} characters"
 msgstr "Det akn ikke være større enn{n} tegn"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
-#, fuzzy
-msgid "Key for disaster recovery service not found"
-msgstr "Nøkkel for proxy sikkerhetskopi tjeneste ikke funnet"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:197
 msgid "No ebox-services DNS key found"
 msgstr "Ingen ebox-tjeneste DNS nøkkel funnet"
@@ -5001,6 +5008,13 @@ msgstr "Kan ikke opprette SOAP forbindelse"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "No domain key found for this service"
 msgstr "Ingen domene nøkkel funnet for denne tjenesten"
+
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
+#: ../../main/core/src/templates/headTitle.mas:19
+#, fuzzy
+msgid "Zentyal Remote"
+msgstr "Zentyal sin hjemmeside"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -5032,15 +5046,15 @@ msgstr ""
 msgid "Backup deleted"
 msgstr "Sikkerhetskopi slettet"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:82
 msgid "Making remote backup"
 msgstr "Oppretter ekstern sikkerhetskopi"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
 msgid "Backing up modules "
 msgstr "Sikkerhetskopierer moduler "
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:248
 #, fuzzy
 msgid "Operation"
@@ -5053,7 +5067,7 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "Operasjon"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:249
 #, fuzzy
 msgid "operations left to finish backup"
@@ -5063,7 +5077,7 @@ msgstr ""
 "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "operasjoner igjen til fullført sikkerhetskopi"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 #, fuzzy
 msgid "Backup successful"
@@ -5083,7 +5097,7 @@ msgstr ""
 "eksterne sikkerhetskopi"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:85
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:197
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:120
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:139
 #: ../../main/remoteservices/src/templates/Backup/index.mas:159
@@ -5140,59 +5154,99 @@ msgstr "Ikkeeksisterende handling: {a}"
 msgid "Import/Export Configuration Remotely"
 msgstr "Gjeldende konfigurasjon"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:74
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
 #, fuzzy
 msgid "Email Address"
 msgstr "e-post adresse"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:81
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Fornavn"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 msgid "Last name"
 msgstr "Etternavn"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
 #, fuzzy
 msgid "Phone number"
 msgstr "en time"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
 #, fuzzy
 msgid "Repeated password"
 msgstr "Tast passord på nytt"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
 #, fuzzy
 msgid "Introduced passwords do not match"
 msgstr "Nye passord matcher ikke."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:132
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:140
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
 msgid "An unknown error ocurred registering the subscription"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:145
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:147
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
 msgstr ""
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
+#, fuzzy
+msgid "Registering your server"
+msgstr "Zentyal FTP Server"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
+#, fuzzy
+msgid "Registration finished"
+msgstr "Installasjon"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
+#, fuzzy, perl-brace-format
+msgid ""
+"There was an error in the registration. There are more information in the "
+"logs directory {dir}"
+msgstr ""
+"Noen moduler rapporterte feil når endriger ble lagret. Mer informasjon i "
+"loggene {dir}"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
+#, fuzzy
+msgid "Unregistering your server"
+msgstr "Liste med servere"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
+#, fuzzy
+msgid "Unregistration finished"
+msgstr "Installasjon"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
+#, fuzzy
+msgid "Making changes in your configuration"
+msgstr "Bruker standard profil konfigurasjon"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
+msgid "operations performed"
+msgstr "oppgaver utført"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
@@ -5200,8 +5254,8 @@ msgid "Bandwidth Monitor"
 msgstr "Båndbredde Monitor"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1411
-#: ../../main/samba/src/EBox/Samba.pm:1431
+#: ../../main/samba/src/EBox/Samba.pm:1513
+#: ../../main/samba/src/EBox/Samba.pm:1533
 msgid "Client address"
 msgstr "Klient adresse"
 
@@ -5999,543 +6053,6 @@ msgstr "Lokal adresse"
 msgid "No users connected."
 msgstr "Ingen brukere tilkoblet."
 
-#: ../../main/ebackup/src/scripts/restore-tool:116
-#, fuzzy
-msgid ""
-"No backups found in this server. Do you want to retry with a different one?"
-msgstr ""
-"Konfigurasjons sikkerhetskopi ikke funnet i sikkerhetskopi for {d}. Kansje "
-"du kan prøve en annen dato?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:129
-#, fuzzy
-msgid ""
-"There is not configuration backup from this date. Do you want to retry with "
-"another date?"
-msgstr ""
-"Konfigurasjons sikkerhetskopi ikke funnet i sikkerhetskopi for {d}. Kansje "
-"du kan prøve en annen dato?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:205
-#, perl-brace-format
-msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:213
-msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:228
-msgid "Zenity package not found. Falling back to terminal mode"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:242
-#, fuzzy
-msgid "User for the authentication"
-msgstr "Påkrevd autentisering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:244
-msgid ""
-"Password for the authentication. This password will be shown both in the "
-"command line and in the process list so only use this option when security "
-"is not a concern"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:248
-msgid "Server from which its backup date the restore will be done"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:250
-msgid "Use the last backup done for the restore"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:252
-#, fuzzy
-msgid "Restore all backup domains available"
-msgstr "Gjenopprett Sikkerhetskopi fra Fil"
-
-#: ../../main/ebackup/src/scripts/restore-tool:254
-msgid "Backup domain to restore. It could be repeated several times"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:256
-msgid ""
-"Check if we use the no encryption or a symmetric encryption with password "
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:258
-#, fuzzy
-msgid "Do not use graphical interface"
-msgstr "Alle eksterne grensesnitt"
-
-#: ../../main/ebackup/src/scripts/restore-tool:264
-msgid "Change parameters used to access the storage server"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:289
-#, perl-brace-format
-msgid "Module {mod} should be installed"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:295
-#, perl-brace-format
-msgid "Module {mod} should be configured"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:307
-msgid ""
-"Could not automatically update system date and hour. If the system time is "
-"not correct, some restore operations could fail"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:317
-#, fuzzy
-msgid "Choose the server to restore"
-msgstr "Tjenester gjenoppretting"
-
-#: ../../main/ebackup/src/scripts/restore-tool:322
-#, fuzzy
-msgid "Server to restore: "
-msgstr "Tjenester gjenoppretting"
-
-#: ../../main/ebackup/src/scripts/restore-tool:350
-msgid "Select backup domains to restore"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:351
-#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
-#, fuzzy
-msgid "Backup domain"
-msgstr "Sikkerhets kopi Dato"
-
-#: ../../main/ebackup/src/scripts/restore-tool:360
-#, perl-brace-format
-msgid "Backup domains available in the server {cn}: {l}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:378
-msgid "No backup domain selected to restore. Doing nothing"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:390
-msgid "Retrieving registered servers list"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:430
-#, fuzzy
-msgid "No key passphrase"
-msgstr "CA Passord"
-
-#: ../../main/ebackup/src/scripts/restore-tool:437
-msgid "No password in retrieved credentials"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:489
-msgid "Retrieving account information"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:538
-msgid "No registered Zentyal Servers"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:544
-#, fuzzy
-msgid "Registered Zentyal Servers"
-msgstr "Zentyal FTP Server"
-
-#: ../../main/ebackup/src/scripts/restore-tool:611
-#, fuzzy
-msgid "Restoring files"
-msgstr "Gjenopprett Filer"
-
-#: ../../main/ebackup/src/scripts/restore-tool:634
-#, perl-brace-format
-msgid ""
-"Cannot restore file {file} requested by backup domains. Reason: {reason}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:688
-#, fuzzy
-msgid "Restoring all backed-up files"
-msgstr "Gjenoppretter sikkerhetskopi"
-
-#: ../../main/ebackup/src/scripts/restore-tool:748
-#, fuzzy, perl-brace-format
-msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr "Filen eksisterer og er ikke en mappe"
-
-#: ../../main/ebackup/src/scripts/restore-tool:786
-#, perl-brace-format
-msgid ""
-"Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:815
-#, perl-brace-format
-msgid ""
-"Error restoring directory {d}. This could make fail some files or domains "
-"restore processes. Error {e}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:835
-msgid ""
-"Backup log data not found in the files from the backup, log database will "
-"not be restored"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:843
-#, fuzzy
-msgid "Restoring log database"
-msgstr "Gjenopprett logg database"
-
-#: ../../main/ebackup/src/scripts/restore-tool:864
-#, fuzzy
-msgid "Restoring configuration backup"
-msgstr "Gjenopprett Zentyal konfigurasjon fra sikkerhetskopi"
-
-#: ../../main/ebackup/src/scripts/restore-tool:869
-msgid ""
-"The configuration restore failed. We will continue the process to try to "
-"restore as much as possible but your system will need manual tweaking"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:884
-#, fuzzy
-msgid "Checking configuration compability"
-msgstr "Kun konfigurasjon"
-
-#: ../../main/ebackup/src/scripts/restore-tool:936
-#, perl-brace-format
-msgid ""
-"Cannot restore backup because there are less interfaces than there are "
-"available. The missing interfaces are: {missing}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:979
-#, fuzzy
-msgid "Updating software package lists"
-msgstr "Oppdater alle pakker"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1006
-#, fuzzy
-msgid "Installing Zentyal components and their dependencies"
-msgstr "Abonnering på Zentyal vil konfigurere {mods} og dens nødvendigheter."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1022
-msgid "Installing missing modules..."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1028
-#, perl-brace-format
-msgid ""
-"Error installing packages: {err}. The backup will continue but it would not "
-"able to recover any configuration which depends on the missing packages"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1076
-msgid ""
-"Updating package list to allow access to exclusive Zentyal Cloud packages"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1078
-#, fuzzy
-msgid "Install cloud packages"
-msgstr "Installerer pakker"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1096
-#, fuzzy
-msgid "Downloading subscription data"
-msgstr "Zentyal abonnement detaljer"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1114
-msgid ""
-"Connection error when retrieving subscription bundle. Zentyal Cloud "
-"exclusive packages will not be installed"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1119
-msgid ""
-"Cannot retrieve bundle because either installed zentyal-remoteservices is "
-"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
-"exclusive packages will not be installed"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1126
-msgid ""
-"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
-"packages will not be installed"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1179
-#, fuzzy
-msgid "Configuring modules"
-msgstr "Konfigurering og Status"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1203
-#, fuzzy, perl-brace-format
-msgid "Configuring modules: Current module {mod}"
-msgstr "Konfigurering og Status"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1207
-#, fuzzy, perl-brace-format
-msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "Konfigurering og Status"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1226
-#, perl-brace-format
-msgid ""
-"Failed to configure module {name}: {err}. This could affect to the restore "
-"of other modules"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1249
-#, fuzzy
-msgid "Finishing new modules configuration"
-msgstr "Bruker standard profil konfigurasjon"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1337
-msgid "Downloading backup metadata..."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1423
-#, fuzzy
-msgid "Downloading the backup data"
-msgstr "Generell Konfigurering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1441
-#, fuzzy, perl-brace-format
-msgid "Downloading  {src} backup data for {dom}"
-msgstr "Generell Konfigurering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1455
-#, perl-brace-format
-msgid ""
-"Error downloading data for backup domain: {dom}. The domain will not be "
-"fully restored"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1475
-#, fuzzy
-msgid "Downloading the backup configuration"
-msgstr "Generell Konfigurering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1522
-#, fuzzy
-msgid "Downloading configuration"
-msgstr "Generell Konfigurering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1564
-msgid "Looking for a version 2.0.X backup"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1591
-msgid "Retrieving backup collection status ..."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1620
-#: ../../main/ebackup/src/scripts/restore-tool:1681
-#, fuzzy, perl-brace-format
-msgid "Last backup date was: {date}"
-msgstr "Siste oppdatering feilet."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1646
-#, fuzzy, perl-brace-format
-msgid "No automatic configuration backups were made for the server {s}"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Konfigurasjons sikkerhetskopi\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Konfigurasjon sikkerhetskopi"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1697
-#, perl-brace-format
-msgid "Choose date to restore the backup from server {cn}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1721
-#, fuzzy, perl-brace-format
-msgid "No automatic configuration backups were done for the server {s}"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Konfigurasjons sikkerhetskopi\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Konfigurasjon sikkerhetskopi"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1738
-#, fuzzy, perl-brace-format
-msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Konfigurasjons sikkerhetskopi\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Konfigurasjon sikkerhetskopi"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1774
-#, fuzzy, perl-brace-format
-msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "Tjenesten er ikke aktivert i Zentyal"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1833
-msgid "Please, enter a value"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1858
-msgid "Please answer yes or no"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:1884
-#, fuzzy, perl-brace-format
-msgid "Backup dates for server {cn}"
-msgstr "Trafikk data for tjeneste"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1895
-#, fuzzy
-msgid "Enter backup date to restore:"
-msgstr "Tjenester gjenoppretting"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1898
-#, perl-brace-format
-msgid "Invalid date: {d}. Try again"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2004
-msgid "This entry is mandatory to continue the restoring process. Retry"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2052
-#, fuzzy
-msgid "Selection"
-msgstr "Kryptering"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2091
-msgid ""
-"This entry is mandatory to carry on the restoring process. Choose from the "
-"list"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2212
-#, fuzzy
-msgid "Please wait"
-msgstr "Vennligst vent..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2226
-#, fuzzy
-msgid "Finished"
-msgstr "Slutt"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2286
-#, fuzzy
-msgid "Restoring process aborted upon user request"
-msgstr "Gjenopprett logg database"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2315
-#, fuzzy
-msgid "Saving configuration changes"
-msgstr "Konfigurering og Status"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2336
-msgid ""
-"Error saving configuration changes; some Zentyal modules would remain in a "
-"unknown state"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2350
-msgid "Regenerating file list cache"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2358
-msgid ""
-"Cannot connect to the Cloud to regenerate backup list. Please try again "
-"later."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2430
-#, fuzzy
-msgid "Zentyal Cloud User"
-msgstr "Zentyal Sky Klient"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2433
-#, fuzzy
-msgid "Zentyal Cloud Password"
-msgstr "Zentyal Sky Klient"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2448
-#, perl-brace-format
-msgid "The account {user} do not have any registered Zentyal servers"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2480
-msgid ""
-"If you had enabled the Disaster Recovery service in Small Business or "
-"Enterprise Edition, besides the configuration you are about to recover, you "
-"could have restored the data of the active modules."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2507
-#, perl-brace-format
-msgid "Enter password used to encrypt back up {ser}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2532
-#, perl-brace-format
-msgid ""
-"Incorrect password. Please, enter the correct password used for encrypt "
-"{ser}."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2583
-#, perl-brace-format
-msgid ""
-"The following backup domains could not be restored from a basic "
-"subscription: {domains}"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2686
-msgid ""
-"The local password file has changed, the local users and their password "
-"could have been changed. We reccomend you to logut and login again with a "
-"valid user to avoid user identity problems."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2691
-msgid ""
-"The shadow password file was restored; your local user password could have "
-"been changed"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2701
-msgid ""
-"No hostname infromation found in metadata but hostname configuration files "
-"changed; please fix your hostname manually or with the Zentyal option found "
-"at System -> General."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2749
-msgid "Your full backup is now successfully restored!"
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2759
-#, perl-brace-format
-msgid "You can now login at {url} to manage your recovered host."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2833
-#: ../../main/ebackup/src/scripts/restore-tool:2842
-#, fuzzy, perl-brace-format
-msgid "Warning: {msg}"
-msgstr "Advarsel"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2872
-msgid ""
-"Sorry, an unexpected error has occurred. Please contact support and check "
-"the /var/log/zentyal/zentyal.log file for further details."
-msgstr ""
-
-#: ../../main/ebackup/src/scripts/restore-tool:2893
-#, fuzzy
-msgid "Restore process aborted"
-msgstr "Gjenopprett logg database"
-
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:88
 msgid "Exclude or Include"
 msgstr "Ekskluder eller Inkluder"
@@ -6841,7 +6358,7 @@ msgstr "Vert"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
-#: ../../main/core/src/EBox/Apache.pm:353
+#: ../../main/core/src/EBox/Apache.pm:355
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
@@ -6965,79 +6482,84 @@ msgstr "Ekstern Lagringsplass Bruk"
 msgid "backup"
 msgstr "sikkerhets kopi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:122
 msgid "Update file list process running, retry later"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
+#, fuzzy
+msgid "There are no backed up files yet"
+msgstr "Det er ingen sikkerhets kopierte filer enda"
+
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
 msgstr "Det er ingen sikkerhets kopierte filer enda"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:176
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:116
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:92
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:184
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:114
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:99
 msgid "Backup Date"
 msgstr "Sikkerhets kopi Dato"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:187
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:195
 msgid "Restore Files"
 msgstr "Gjenopprett Filer"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:188
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
 msgid "file restore operation"
 msgstr "fil gjennoprettings handling"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:204
 msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:216
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:224
 msgid "File already exists if you continue the current will be deleted"
 msgstr "Filen eksisterer allerede hvis du fortsetter vil gjeldende bli slettet"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:232
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:240
 msgid "File restored successfully"
 msgstr "Fil gjennopprettet"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:282
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:290
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
 "Ekstern URL for bruk med duplisering for manuelle gjenopprettinger: {url}"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:81
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:79
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:83
 msgid "To be able to restore logs you need the logs module enabled"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restore logs database"
 msgstr "Gjenopprett logg database"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:134
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:132
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Gjenoppretter Zentyal konfigurasjonen funnet i sikkerhetskopien"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:103
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
 msgid "Restore Zentyal configuration from backup"
 msgstr "Gjenopprett Zentyal konfigurasjon fra sikkerhetskopi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:117
 msgid "Loads the configuration found in the backup"
 msgstr "Laster konfigurasjonen funnet i sikkerhetskopien"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:112
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:119
 msgid "Please wait..."
 msgstr "Vennligst vent..."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:175
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:182
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
@@ -7063,6 +6585,11 @@ msgstr "Ekstern Sikkerhets kopi Status"
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:168
 msgid "Domains to back up"
 msgstr "Domener til sikkerhets kopiering"
+
+#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
+#, fuzzy
+msgid "Backup domain"
+msgstr "Sikkerhets kopi Dato"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:174
 msgid "Select the domains you want to back up."
@@ -7132,29 +6659,29 @@ msgid ""
 "passwords are correct"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:837
+#: ../../main/ebackup/src/EBox/EBackup.pm:836
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1098
+#: ../../main/ebackup/src/EBox/EBackup.pm:1097
 #: ../../main/core/src/EBox/SysInfo.pm:84
 msgid "System"
 msgstr "System"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1188
+#: ../../main/ebackup/src/EBox/EBackup.pm:1187
 msgid ""
 "Cannot use the Cloud backup method. Either you do not have the disaster "
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
 "credentials."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1195
+#: ../../main/ebackup/src/EBox/EBackup.pm:1194
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1297
+#: ../../main/ebackup/src/EBox/EBackup.pm:1296
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -7162,29 +6689,29 @@ msgid ""
 "setting{chref}."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1436
+#: ../../main/ebackup/src/EBox/EBackup.pm:1435
 #, fuzzy
 msgid "Backup configuration not complete"
 msgstr "Kun konfigurasjon"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1455
+#: ../../main/ebackup/src/EBox/EBackup.pm:1454
 #, perl-brace-format
 msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
 "size is  {req}"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1474
+#: ../../main/ebackup/src/EBox/EBackup.pm:1473
 #, fuzzy, perl-brace-format
 msgid " {target} exists and is not longer a directory"
 msgstr "Filen eksisterer og er ikke en mappe"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1525
+#: ../../main/ebackup/src/EBox/EBackup.pm:1524
 #, fuzzy, perl-brace-format
 msgid "{target} is not mounted"
 msgstr "Side ikke funnet"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1531
+#: ../../main/ebackup/src/EBox/EBackup.pm:1530
 #, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr ""
@@ -7419,7 +6946,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:102
 #: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:88
 #: ../../main/mail/src/EBox/Mail.pm:1530
-#: ../../main/zarafa/src/EBox/Zarafa.pm:711
+#: ../../main/zarafa/src/EBox/Zarafa.pm:759
 #: ../../main/asterisk/src/EBox/Asterisk.pm:528
 #, fuzzy
 msgid "General"
@@ -8370,7 +7897,7 @@ msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:66
 #: ../../main/virt/src/templates/vmstatus.mas:30
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:25
 msgid "Start"
 msgstr "Start"
@@ -10587,7 +10114,7 @@ msgid "User: {u}"
 msgstr "Bruker kvote"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:73
+#: ../../main/samba/src/EBox/Samba.pm:71
 msgid "File Sharing"
 msgstr "Fil Deling"
 
@@ -10656,11 +10183,11 @@ msgstr "Kontonavn"
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Passord må ikke være lenger enn {maxPwdLength} tegn"
 
-#: ../../main/samba/src/EBox/Samba.pm:112
+#: ../../main/samba/src/EBox/Samba.pm:110
 msgid "Create Samba home directory for shares and groups"
 msgstr "Opprett Samba hjemme mappe for delte mapper og grupper"
 
-#: ../../main/samba/src/EBox/Samba.pm:113
+#: ../../main/samba/src/EBox/Samba.pm:111
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
@@ -10669,66 +10196,81 @@ msgstr ""
 "Zentyal vil opprette hjemme mappene for Samba brukere og grupper under /home/"
 "samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:129
+#: ../../main/samba/src/EBox/Samba.pm:127
 msgid "To set up Samba according to your configuration."
 msgstr "For å sette opp Samba i henhold til din konfigurasjon."
 
-#: ../../main/samba/src/EBox/Samba.pm:134
+#: ../../main/samba/src/EBox/Samba.pm:132
 msgid "To enable extended attributes and acls."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:139
+#: ../../main/samba/src/EBox/Samba.pm:137
 msgid "To add microsoft specific services"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:144
-msgid "To set the antivirus settings for Samba."
-msgstr "For å sette antivirus innstillinger for Samba."
-
-#: ../../main/samba/src/EBox/Samba.pm:169
+#: ../../main/samba/src/EBox/Samba.pm:162
 msgid "File sharing (Samba) protocol"
 msgstr "Fil deling (Samba) protokoll"
 
-#: ../../main/samba/src/EBox/Samba.pm:558
-msgid "Samba can't be provisioned if no IP addresses are set"
+#: ../../main/samba/src/EBox/Samba.pm:579
+#, perl-brace-format
+msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:586
+#: ../../main/samba/src/EBox/Samba.pm:588
+#, perl-brace-format
+msgid "The required domain '{d}' could not be found in the dns module"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:596
+#, perl-brace-format
+msgid "The required host record '{h}' could not be found in the domain '{d}'"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:640
+msgid ""
+"Samba can't be provisioned if no IP addresses are set and the DNS domain is "
+"properly configured. Ensure that you have at least a IP address assigned to "
+"an internal interface, and this IP has to be assigned to the domain and to "
+"the hostname in the DNS domain."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:674
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Bruker {u} eksisterer ikke"
 
-#: ../../main/samba/src/EBox/Samba.pm:696
+#: ../../main/samba/src/EBox/Samba.pm:785
 msgid ""
 "The server domain and kerberos realm must match the domain the domain you "
 "are trying to join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1414
+#: ../../main/samba/src/EBox/Samba.pm:1516
 msgid "Resource"
 msgstr "Resurs"
 
-#: ../../main/samba/src/EBox/Samba.pm:1418
+#: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Connect"
 msgstr "Koble til"
 
-#: ../../main/samba/src/EBox/Samba.pm:1419
+#: ../../main/samba/src/EBox/Samba.pm:1521
 msgid "Access to directory"
 msgstr "Tilgang til mappe"
 
-#: ../../main/samba/src/EBox/Samba.pm:1420
+#: ../../main/samba/src/EBox/Samba.pm:1522
 msgid "Read file"
 msgstr "Les fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:1421
+#: ../../main/samba/src/EBox/Samba.pm:1523
 msgid "Write file"
 msgstr "Skriv fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:1422
+#: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Disconnect"
 msgstr "Frakoble"
 
-#: ../../main/samba/src/EBox/Samba.pm:1423
+#: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -10736,46 +10278,46 @@ msgstr "Frakoble"
 msgid "Remove"
 msgstr "Fjern"
 
-#: ../../main/samba/src/EBox/Samba.pm:1424
+#: ../../main/samba/src/EBox/Samba.pm:1526
 msgid "Create directory"
 msgstr "Opprett mappe"
 
-#: ../../main/samba/src/EBox/Samba.pm:1425
+#: ../../main/samba/src/EBox/Samba.pm:1527
 msgid "Remove directory"
 msgstr "Fjern mappe"
 
-#: ../../main/samba/src/EBox/Samba.pm:1426
+#: ../../main/samba/src/EBox/Samba.pm:1528
 msgid "Rename"
 msgstr "Gi nytt navn"
 
-#: ../../main/samba/src/EBox/Samba.pm:1432
-#: ../../main/samba/src/EBox/Samba.pm:1441
+#: ../../main/samba/src/EBox/Samba.pm:1534
+#: ../../main/samba/src/EBox/Samba.pm:1543
 msgid "File name"
 msgstr "Fil navn"
 
-#: ../../main/samba/src/EBox/Samba.pm:1433
-#: ../../main/samba/src/EBox/Samba.pm:1437
+#: ../../main/samba/src/EBox/Samba.pm:1535
+#: ../../main/samba/src/EBox/Samba.pm:1539
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1442
+#: ../../main/samba/src/EBox/Samba.pm:1544
 msgid "Quarantined file name"
 msgstr "Karantene filnavn"
 
-#: ../../main/samba/src/EBox/Samba.pm:1443
-#: ../../main/samba/src/EBox/Samba.pm:1446
+#: ../../main/samba/src/EBox/Samba.pm:1545
+#: ../../main/samba/src/EBox/Samba.pm:1548
 msgid "Quarantine"
 msgstr "Karantene"
 
-#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1551
 msgid "Samba access"
 msgstr "Samba tilgang"
 
-#: ../../main/samba/src/EBox/Samba.pm:1460
+#: ../../main/samba/src/EBox/Samba.pm:1562
 msgid "Samba virus"
 msgstr "Samba virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1573
 msgid "Samba quarantine"
 msgstr "Samba karantene"
 
@@ -10980,33 +10522,33 @@ msgstr "ekte"
 msgid "Invalid mailbox type: {type}"
 msgstr "Ugyldig e-post boks type: {type}"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
 msgstr "Bruk virus filtrering"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:84
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
 msgid "Use spam filtering"
 msgstr "Bruk søppel filtrering"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:90
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:340
 msgid "Spam threshold"
 msgstr "Søppel terskel"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
 msgstr "standard"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:101
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
 msgstr "tilpasset terskel"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:113
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
 msgid "Learn from accounts' Spam IMAP folders"
 msgstr "Lær fra kontoers Søppel IMAP mapper"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:117
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
@@ -11014,11 +10556,11 @@ msgstr ""
 "Hver gang en epsot er flytting inn eller ut av IMAP spam mappen vil filteret "
 "bli opplært med den"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:124
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:126
 msgid "Learning ham account"
 msgstr "Lærer ekte konto"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:125
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:127
 msgid ""
 "An address (ham@domain) will be created for this domain, ham messages "
 "incorrectly classified as spam may be forwarded to this addres to train the "
@@ -11028,11 +10570,11 @@ msgstr ""
 "som feil klassifiseres som søppel kan videresendes til denne adressen for "
 "trening av filter"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:136
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:138
 msgid "Learning spam account"
 msgstr "Lære søppel konto"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:137
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:139
 msgid ""
 "An address (spam@domain) will be created for this domain, spam messages "
 "incorrectly classified as ham may be forwarded to this addres to train the "
@@ -11042,21 +10584,21 @@ msgstr ""
 "meldinger som feil klassifiseres som ekte kan videresendes til denne "
 "adressen for trening av filteret"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:148
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
 msgstr "Antisøppel avsender instruks"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:159
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 #, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Virtuelt domenealias"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:165
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 #, fuzzy
 msgid "virtual domain policy"
 msgstr "virtuelt domenealias"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:185
 #, perl-brace-format
 msgid ""
 "There are no virtual mail domains managed by this server. You can create "
@@ -12042,7 +11584,7 @@ msgid ""
 msgstr "Navnet på webmail vil bli bruk i login vinduet og side titler."
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:130
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:346
 msgid "Virtual host"
@@ -12984,24 +12526,24 @@ msgstr "Oppetid"
 msgid "Users"
 msgstr "Brukere"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:499
+#: ../../main/core/src/EBox/GlobalImpl.pm:506
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:560
+#: ../../main/core/src/EBox/GlobalImpl.pm:567
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Aktiverer {modName} modul"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:613
-#: ../../main/core/src/EBox/GlobalImpl.pm:649
+#: ../../main/core/src/EBox/GlobalImpl.pm:620
+#: ../../main/core/src/EBox/GlobalImpl.pm:656
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Lagrer {modName} modul"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1181
+#: ../../main/core/src/EBox/GlobalImpl.pm:1188
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "kjører {scriptName} skript"
@@ -13204,42 +12746,42 @@ msgstr ""
 msgid "Slices timeline"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:53
+#: ../../main/core/src/EBox/Apache.pm:54
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "Zentyal domene"
 
-#: ../../main/core/src/EBox/Apache.pm:283
+#: ../../main/core/src/EBox/Apache.pm:285
 #, fuzzy
 msgid "Desktop services port"
 msgstr "Tjenestes port"
 
-#: ../../main/core/src/EBox/Apache.pm:292
-#: ../../main/core/src/EBox/Apache.pm:303
+#: ../../main/core/src/EBox/Apache.pm:294
+#: ../../main/core/src/EBox/Apache.pm:305
 #, fuzzy
 msgid "Desktop Services"
 msgstr "Liste med tjenester"
 
-#: ../../main/core/src/EBox/Apache.pm:293
-#: ../../main/core/src/EBox/Apache.pm:304
+#: ../../main/core/src/EBox/Apache.pm:295
+#: ../../main/core/src/EBox/Apache.pm:306
 msgid "Desktop Services (API for Zentyal Desktop)"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:376
+#: ../../main/core/src/EBox/Apache.pm:378
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:389
+#: ../../main/core/src/EBox/Apache.pm:391
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:774
+#: ../../main/core/src/EBox/Apache.pm:776
 #: ../../main/services/src/EBox/Services.pm:111
 #: ../../main/services/src/EBox/Services.pm:445
 msgid "Zentyal Administration Web Server"
@@ -13833,26 +13375,26 @@ msgstr "defekt"
 msgid "spare"
 msgstr "reserve"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:242
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:245
 #, fuzzy
 msgid "Security software updates"
 msgstr "Automatiske programmvare oppdateringer"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:257
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:260
 msgid "Check if there is any security software update."
 msgstr ""
 
@@ -13942,10 +13484,6 @@ msgstr "Lagre konfigurasjon"
 msgid "Saving changes in modules"
 msgstr "Lagrer endringer i moduler"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
-msgid "operations performed"
-msgstr "oppgaver utført"
-
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
 msgid "Changes saved"
 msgstr "Endringer lagret"
@@ -13961,7 +13499,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
 #: ../../main/core/src/EBox/CGI/Progress.pm:87
-#: ../../main/core/src/EBox/CGI/Progress.pm:128
+#: ../../main/core/src/EBox/CGI/Progress.pm:131
 #: ../../main/core/src/templates/finish.mas:126
 msgid "Saving changes"
 msgstr "Lagrer endringer"
@@ -13996,7 +13534,7 @@ msgid "Revoking changes"
 msgstr "Tilbakekaller endringer"
 
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: ../../main/core/src/templates/dashboard/index.mas:71
+#: ../../main/core/src/templates/dashboard/index.mas:70
 msgid "Configure Widgets"
 msgstr "Konfigurer Dingser"
 
@@ -14591,7 +14129,7 @@ msgid "Filter type"
 msgstr "Filter type"
 
 #: ../../main/mail/src/EBox/Mail.pm:1537
-#: ../../main/zarafa/src/EBox/Zarafa.pm:718
+#: ../../main/zarafa/src/EBox/Zarafa.pm:766
 msgid "Virtual Mail Domains"
 msgstr "Virtuelle Epostdomener"
 
@@ -15687,7 +15225,11 @@ msgstr "Aktiver Active Sync"
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr "Aktiver Active Sync (Microsoft Exhcange synkroniserings protokoll)."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:128
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
+msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgstr ""
+
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 #, fuzzy
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /webapp."
@@ -15695,11 +15237,11 @@ msgstr ""
 "Aktiver Zarafa tilgang kun på denne virtuelle verten under /webaccess og /"
 "webaccess-mobile."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:140
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:148
 msgid "General Zarafa server configuration settings updated."
 msgstr "Generell Zarafa server konfigurasjons instillinger oppdatert."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:182
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:190
 msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
@@ -15780,37 +15322,37 @@ msgstr ""
 "Denne brukeren har en Zarafa konto. Hvis brukeren er tilkoblet vil den "
 "fortsette tilkoblet inntil Zarafa autoriseringen trengs igjen."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:71
+#: ../../main/zarafa/src/EBox/Zarafa.pm:72
 msgid "Add Zarafa LDAP schema"
 msgstr "Legg til Zarafa LDAP skjema"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:72
+#: ../../main/zarafa/src/EBox/Zarafa.pm:73
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "Zentyal vil trenge dette skjemaet til å lagre Zarafa brukere"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:76
+#: ../../main/zarafa/src/EBox/Zarafa.pm:77
 msgid "Add vmail system user"
 msgstr "Legg til vmail system bruker"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:77
+#: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "Zentyal vil trenge dette for å levere epost til Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:81
+#: ../../main/zarafa/src/EBox/Zarafa.pm:82
 #, fuzzy
 msgid "Create MySQL Zarafa database"
 msgstr "Opprett MySQL Zarafa database."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:82
+#: ../../main/zarafa/src/EBox/Zarafa.pm:83
 msgid "This database will store the data needed by Zarafa."
 msgstr "Denne databasen vil lagere nødvendig data for Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:86
+#: ../../main/zarafa/src/EBox/Zarafa.pm:87
 #, fuzzy
 msgid "Create default SSL key/certificates"
 msgstr "Opprett standard SSL nøkkel/sertifikater."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:87
+#: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
@@ -15818,65 +15360,70 @@ msgstr ""
 "Dette selv-signerte standard sertifikatet vil bli bruk av Zarafa POP3/IMAP "
 "gatewayen."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:91
+#: ../../main/zarafa/src/EBox/Zarafa.pm:92
 #, fuzzy
 msgid "Add zarafa link to www data directory"
 msgstr "Legg til zarafa link til www data mappe."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:92
+#: ../../main/zarafa/src/EBox/Zarafa.pm:93
 #, fuzzy
 msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
 msgstr "Zarafa vil bli tilgjengelig på http://ip/webaccess/."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:96
+#: ../../main/zarafa/src/EBox/Zarafa.pm:97
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr ""
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:97
+#: ../../main/zarafa/src/EBox/Zarafa.pm:98
 msgid "Zarafa needs this locale to run."
 msgstr ""
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:116
+#: ../../main/zarafa/src/EBox/Zarafa.pm:117
 msgid "To properly configure Zarafa."
 msgstr "For å konfigurere Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:121
+#: ../../main/zarafa/src/EBox/Zarafa.pm:122
 msgid "To properly configure Zarafa LDAP connection."
 msgstr "For å konfigurere Zarafa LDAP tilkobling."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:126
+#: ../../main/zarafa/src/EBox/Zarafa.pm:127
 msgid "To properly configure Zarafa webaccess."
 msgstr "For å konfigurere Zarafa webaccess."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:131
+#: ../../main/zarafa/src/EBox/Zarafa.pm:132
+#, fuzzy
+msgid "To properly configure Zarafa XMPP integration."
+msgstr "For å konfigurere Zarafa LDAP tilkobling."
+
+#: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
 msgstr "For å konfigurere Zarafa gateway server."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:136
+#: ../../main/zarafa/src/EBox/Zarafa.pm:142
 msgid "To properly configure Zarafa quota monitoring server."
 msgstr "For å konfigurere Zarafa kvote overvåknings server."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:141
+#: ../../main/zarafa/src/EBox/Zarafa.pm:147
 msgid "To properly configure Zarafa mail delivering server."
 msgstr "For å konfigurere Zarafa epost leverings server."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:146
+#: ../../main/zarafa/src/EBox/Zarafa.pm:152
 msgid "To properly configure Zarafa ical server."
 msgstr "For å konfigurere Zarafa ical server."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:151
+#: ../../main/zarafa/src/EBox/Zarafa.pm:157
 #, fuzzy
 msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "For å konfigurere Zarafa epost leverings server."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:216
+#: ../../main/zarafa/src/EBox/Zarafa.pm:222
 #, fuzzy
 msgid "Groupware services (Zarafa)"
 msgstr "Gruppevare (Zarafa)"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:761
+#: ../../main/zarafa/src/EBox/Zarafa.pm:809
 msgid "Zarafa Gateway Server"
 msgstr "Zarafa Gateway Server"
 
@@ -16383,6 +15930,10 @@ msgstr "Feilet"
 #, fuzzy
 msgid "Other Zentyal Server"
 msgstr "Zentyal FTP Server"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
+msgid "Zentyal Cloud"
+msgstr "Zentyal Skyen"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:92
 msgid "Sync users from"
@@ -17382,15 +16933,9 @@ msgstr "Oppgrader"
 #: ../../main/remoteservices/src/templates/NoActive.mas:5
 #, perl-brace-format
 msgid ""
-"This feature is only available if you get a Zentyal  Subscription. You can "
-"contract them at {url1}. If you are already registered, then subscribe this "
-"server at {url2}"
+"This feature is only available if you register your server. You can register "
+"it at the {oh}register page{ch}."
 msgstr ""
-
-#: ../../main/remoteservices/src/templates/NoActive.mas:14
-#, fuzzy
-msgid "subscription page"
-msgstr "Abonnemang"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -18069,51 +17614,51 @@ msgid ""
 msgstr ""
 "Du må aktivere modulen Brukere i modulstatusseksjonen for å kunne bruke den."
 
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
 msgstr "Tjenesten er aktivert og kjører"
 
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
 msgstr "Tjenesten er aktivert, men kjører ikke"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:28
 msgid "Running unmanaged"
 msgstr "Kjører ubehandlet"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:29
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "Tjenesten kjører, men er ikke aktivert i Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:33
 msgid "The service is not enabled in Zentyal"
 msgstr "Tjenesten er ikke aktivert i Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
 msgstr "Omstart"
 
-#: ../../main/core/src/templates/dashboard/index.mas:109
+#: ../../main/core/src/templates/dashboard/index.mas:108
 msgid "Configure widgets"
 msgstr "Konfigurer dingser"
 
-#: ../../main/core/src/templates/dashboard/index.mas:112
+#: ../../main/core/src/templates/dashboard/index.mas:111
 #, fuzzy, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
 msgstr "Følgende pakker vil bli installert"
 
-#: ../../main/core/src/templates/dashboard/index.mas:116
+#: ../../main/core/src/templates/dashboard/index.mas:115
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/index.mas:120
+#: ../../main/core/src/templates/dashboard/index.mas:119
 #, fuzzy, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
@@ -19297,6 +18842,248 @@ msgid ""
 msgstr ""
 "Denne operasjonen vil forårsake fjerning av brukeren og alle dens avhengige "
 "data som epost kontoer, bruker filer, osv."
+
+#~ msgid "Subscription"
+#~ msgstr "Abonnemang"
+
+#, fuzzy
+#~ msgid "Server Subscription"
+#~ msgstr "Abonnemang"
+
+#, fuzzy
+#~ msgid "Zentyal Cloud Services"
+#~ msgstr "Zentyal Sky Klient"
+
+#, fuzzy
+#~ msgid "- Latest backup: {date}"
+#~ msgstr "Ikke eksisterende sikkerhetskopi: {n}"
+
+#, fuzzy
+#~ msgid "Server subcription info"
+#~ msgstr "Server opprettelse"
+
+#~ msgid "Please, save changes"
+#~ msgstr "Vennligst, lagre endringer"
+
+#~ msgid "User Name or Email Address"
+#~ msgstr "Bruker Navn eller Epost Adresse"
+
+#, fuzzy
+#~ msgid "Unsubscribe"
+#~ msgstr "Abonner"
+
+#~ msgid "Subscription to Zentyal Cloud"
+#~ msgstr "Abonnement på Zentyal Sky"
+
+#, fuzzy
+#~ msgid "Subscribe"
+#~ msgstr ""
+#~ "#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+#~ "Abonner\n"
+#~ "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+#~ "Abboner"
+
+#~ msgid "Download latest report"
+#~ msgstr "Last ned liste rapport"
+
+#~ msgid "{oh}Download{ch}"
+#~ msgstr "{oh}Last Ned{ch}"
+
+#, fuzzy
+#~ msgid "Key for disaster recovery service not found"
+#~ msgstr "Nøkkel for proxy sikkerhetskopi tjeneste ikke funnet"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backups found in this server. Do you want to retry with a different "
+#~ "one?"
+#~ msgstr ""
+#~ "Konfigurasjons sikkerhetskopi ikke funnet i sikkerhetskopi for {d}. "
+#~ "Kansje du kan prøve en annen dato?"
+
+#, fuzzy
+#~ msgid ""
+#~ "There is not configuration backup from this date. Do you want to retry "
+#~ "with another date?"
+#~ msgstr ""
+#~ "Konfigurasjons sikkerhetskopi ikke funnet i sikkerhetskopi for {d}. "
+#~ "Kansje du kan prøve en annen dato?"
+
+#, fuzzy
+#~ msgid "User for the authentication"
+#~ msgstr "Påkrevd autentisering"
+
+#, fuzzy
+#~ msgid "Restore all backup domains available"
+#~ msgstr "Gjenopprett Sikkerhetskopi fra Fil"
+
+#, fuzzy
+#~ msgid "Do not use graphical interface"
+#~ msgstr "Alle eksterne grensesnitt"
+
+#, fuzzy
+#~ msgid "Choose the server to restore"
+#~ msgstr "Tjenester gjenoppretting"
+
+#, fuzzy
+#~ msgid "Server to restore: "
+#~ msgstr "Tjenester gjenoppretting"
+
+#, fuzzy
+#~ msgid "No key passphrase"
+#~ msgstr "CA Passord"
+
+#, fuzzy
+#~ msgid "Restoring files"
+#~ msgstr "Gjenopprett Filer"
+
+#, fuzzy
+#~ msgid "Restoring all backed-up files"
+#~ msgstr "Gjenoppretter sikkerhetskopi"
+
+#, fuzzy
+#~ msgid "Could not restore {dst}, it already exists and it is not a directory"
+#~ msgstr "Filen eksisterer og er ikke en mappe"
+
+#, fuzzy
+#~ msgid "Restoring log database"
+#~ msgstr "Gjenopprett logg database"
+
+#, fuzzy
+#~ msgid "Restoring configuration backup"
+#~ msgstr "Gjenopprett Zentyal konfigurasjon fra sikkerhetskopi"
+
+#, fuzzy
+#~ msgid "Checking configuration compability"
+#~ msgstr "Kun konfigurasjon"
+
+#, fuzzy
+#~ msgid "Updating software package lists"
+#~ msgstr "Oppdater alle pakker"
+
+#, fuzzy
+#~ msgid "Installing Zentyal components and their dependencies"
+#~ msgstr ""
+#~ "Abonnering på Zentyal vil konfigurere {mods} og dens nødvendigheter."
+
+#, fuzzy
+#~ msgid "Install cloud packages"
+#~ msgstr "Installerer pakker"
+
+#, fuzzy
+#~ msgid "Downloading subscription data"
+#~ msgstr "Zentyal abonnement detaljer"
+
+#, fuzzy
+#~ msgid "Configuring modules"
+#~ msgstr "Konfigurering og Status"
+
+#, fuzzy
+#~ msgid "Configuring modules: Current module {mod}"
+#~ msgstr "Konfigurering og Status"
+
+#, fuzzy
+#~ msgid "Configuring modules {p} done. Current module {mod}"
+#~ msgstr "Konfigurering og Status"
+
+#, fuzzy
+#~ msgid "Downloading the backup data"
+#~ msgstr "Generell Konfigurering"
+
+#, fuzzy
+#~ msgid "Downloading  {src} backup data for {dom}"
+#~ msgstr "Generell Konfigurering"
+
+#, fuzzy
+#~ msgid "Downloading the backup configuration"
+#~ msgstr "Generell Konfigurering"
+
+#, fuzzy
+#~ msgid "Downloading configuration"
+#~ msgstr "Generell Konfigurering"
+
+#, fuzzy
+#~ msgid "Last backup date was: {date}"
+#~ msgstr "Siste oppdatering feilet."
+
+#, fuzzy
+#~ msgid "No automatic configuration backups were made for the server {s}"
+#~ msgstr ""
+#~ "#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+#~ "Konfigurasjons sikkerhetskopi\n"
+#~ "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+#~ "Konfigurasjon sikkerhetskopi"
+
+#, fuzzy
+#~ msgid "No automatic configuration backups were done for the server {s}"
+#~ msgstr ""
+#~ "#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+#~ "Konfigurasjons sikkerhetskopi\n"
+#~ "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+#~ "Konfigurasjon sikkerhetskopi"
+
+#, fuzzy
+#~ msgid "No configuration backups were made for the date {d} in {s} server"
+#~ msgstr ""
+#~ "#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+#~ "Konfigurasjons sikkerhetskopi\n"
+#~ "#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+#~ "Konfigurasjon sikkerhetskopi"
+
+#, fuzzy
+#~ msgid "The server {server} is not registered in Zentyal Cloud"
+#~ msgstr "Tjenesten er ikke aktivert i Zentyal"
+
+#, fuzzy
+#~ msgid "Backup dates for server {cn}"
+#~ msgstr "Trafikk data for tjeneste"
+
+#, fuzzy
+#~ msgid "Enter backup date to restore:"
+#~ msgstr "Tjenester gjenoppretting"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Kryptering"
+
+#, fuzzy
+#~ msgid "Please wait"
+#~ msgstr "Vennligst vent..."
+
+#, fuzzy
+#~ msgid "Finished"
+#~ msgstr "Slutt"
+
+#, fuzzy
+#~ msgid "Restoring process aborted upon user request"
+#~ msgstr "Gjenopprett logg database"
+
+#, fuzzy
+#~ msgid "Saving configuration changes"
+#~ msgstr "Konfigurering og Status"
+
+#, fuzzy
+#~ msgid "Zentyal Cloud User"
+#~ msgstr "Zentyal Sky Klient"
+
+#, fuzzy
+#~ msgid "Zentyal Cloud Password"
+#~ msgstr "Zentyal Sky Klient"
+
+#, fuzzy
+#~ msgid "Warning: {msg}"
+#~ msgstr "Advarsel"
+
+#, fuzzy
+#~ msgid "Restore process aborted"
+#~ msgstr "Gjenopprett logg database"
+
+#~ msgid "To set the antivirus settings for Samba."
+#~ msgstr "For å sette antivirus innstillinger for Samba."
+
+#, fuzzy
+#~ msgid "subscription page"
+#~ msgstr "Abonnemang"
 
 #~ msgid "The domain is set as read only. You cannot add mail exchangers"
 #~ msgstr "Domenet er skrivebeskyttet. Du kan ikke legge til epost servere"
@@ -20847,9 +20634,6 @@ msgstr ""
 
 #~ msgid "It should follow the pattern 'user@domain[/resource]'"
 #~ msgstr "Det bør følge dette mønsteret 'bruker@domene[/resurs]'"
-
-#~ msgid "Select report"
-#~ msgstr "Velg rapport"
 
 #~ msgid "Configuration report"
 #~ msgstr "Konfigurasjons rapport"

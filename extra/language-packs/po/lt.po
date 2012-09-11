@@ -56,8 +56,8 @@ msgid "Name"
 msgstr "Vardas"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:644
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:171
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
@@ -249,7 +249,7 @@ msgstr "Sritis ar IP adresas dalis URL"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:533
 #: ../../main/dns/src/EBox/Model/Text.pm:165
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:68
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
@@ -341,6 +341,7 @@ msgid "HTTPS Proxy"
 msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
 msgstr ""
 
@@ -477,7 +478,7 @@ msgstr "Užklausos"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1412
+#: ../../main/samba/src/EBox/Samba.pm:1514
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -531,14 +532,13 @@ msgstr "Filtruoto srauto dydis (Kb))"
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:323
 #: ../../main/pptp/src/EBox/PPTP.pm:370
-#: ../../main/ebackup/src/scripts/restore-tool:1700
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:163
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1410
-#: ../../main/samba/src/EBox/Samba.pm:1430
-#: ../../main/samba/src/EBox/Samba.pm:1440
+#: ../../main/samba/src/EBox/Samba.pm:1512
+#: ../../main/samba/src/EBox/Samba.pm:1532
+#: ../../main/samba/src/EBox/Samba.pm:1542
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
@@ -824,6 +824,7 @@ msgstr "Turinio filtro riba pasikeitė"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -837,7 +838,7 @@ msgstr "Turinio filtro riba pasikeitė"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:87
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:152
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:160
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
@@ -845,7 +846,7 @@ msgstr "Turinio filtro riba pasikeitė"
 #: ../../main/jabber/src/templates/jabber.mas:19
 #: ../../main/samba/src/templates/samba.mas:17
 #: ../../main/samba/src/templates/samba.mas:18
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:32
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
@@ -924,7 +925,7 @@ msgid "category"
 msgstr "grupė"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1565
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1350,8 +1351,7 @@ msgstr "Įkelti konfigūracijos paketą"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1662
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1692,7 +1692,6 @@ msgstr ""
 "jūsų vidinio tinklo aptarnaujant adresus {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
-#: ../../main/ebackup/src/scripts/restore-tool:318
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
@@ -1989,10 +1988,10 @@ msgstr "Tarnyba"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
 msgid "Running"
 msgstr "Veikianti"
@@ -2001,7 +2000,7 @@ msgstr "Veikianti"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
 #: ../../main/virt/src/templates/vmstatus.mas:20
 #: ../../main/virt/src/templates/statusViewer.mas:11
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:22
 msgid "Stopped"
 msgstr "Sustabdyta"
@@ -2233,7 +2232,7 @@ msgstr "OpenVPN tarnybos"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1434
+#: ../../main/samba/src/EBox/Samba.pm:1536
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -2387,11 +2386,11 @@ msgstr "ŽURNALAS"
 msgid "REDIRECT"
 msgstr "NUKREIPTI"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:655
+#: ../../main/firewall/src/EBox/Iptables.pm:652
 msgid "Firewall failed to add rules for the following modules: "
 msgstr "Ugnesienė nesėkningai bandė įkelti taisykles sekantiems moduliams:"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:658
+#: ../../main/firewall/src/EBox/Iptables.pm:655
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
@@ -2399,8 +2398,8 @@ msgstr ""
 "Tikriausiai tai lėmė nebuvimas ryšio, patikrinkite visas konfigūracijas arba "
 "išjunkite šiuos modulius"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:920
-#: ../../main/firewall/src/EBox/Iptables.pm:957
+#: ../../main/firewall/src/EBox/Iptables.pm:917
+#: ../../main/firewall/src/EBox/Iptables.pm:954
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:73
 msgid ""
@@ -2408,8 +2407,8 @@ msgid ""
 msgstr ""
 "Turite nustatyti iptables_log_limit kintamąjį ebox konfigūraciniame faile"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:926
-#: ../../main/firewall/src/EBox/Iptables.pm:963
+#: ../../main/firewall/src/EBox/Iptables.pm:923
+#: ../../main/firewall/src/EBox/Iptables.pm:960
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:78
 msgid ""
@@ -3599,7 +3598,7 @@ msgstr "Įjungti FTP SSL palaikymą autentifikuotiems vartotojams."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:135
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:143
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:278
 msgid "General configuration settings"
 msgstr "Pagrindinių parametrų nustatymai"
@@ -3830,7 +3829,8 @@ msgstr "Nėra paketų atnaujinti"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:71
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:101
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:66
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:235
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:7
@@ -3839,6 +3839,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:196
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:236
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:91
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:81
 #: ../../main/core/src/templates/report/raid.mas:210
 msgid "Current operation"
@@ -3952,9 +3953,9 @@ msgstr "Pasirinkite Zentyal paketus instaliacijai"
 msgid "Zentyal components"
 msgstr "Zentyal komponentai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1381
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1597
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -3967,154 +3968,142 @@ msgstr "Zentyal komponentai"
 msgid "Unknown"
 msgstr "Nežinomas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
 msgid "Community"
 msgstr "Bendruomenė"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
 msgid "Professional"
 msgstr "Profesionalus"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 msgid "Enterprise"
 msgstr "Enterprise"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 msgid "Small Business"
 msgstr "Smulkus verslas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
-msgid "Zentyal Cloud Client"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#, fuzzy
+msgid "Zentyal Remote Client"
 msgstr "Zentyal Debesies klientas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
 msgid "Not subscribed"
 msgstr "Neužprenumeruota"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
 msgid "Subscribed"
 msgstr "Užprenumeruota"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:414
-msgid "Subscription"
-msgstr "Prenumerata"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
+#, fuzzy
+msgid "Registration"
+msgstr "paskirtis"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:419
-msgid "Server Subscription"
-msgstr "Serverio prenumerata"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#, fuzzy
+msgid "Server Registration"
+msgstr "Serverio versija"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:424
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr "Techninė pagalba"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:428
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 msgid "Security Updates"
 msgstr "Saugumo atnaujinimai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:432
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
-msgid "Disaster Recovery"
-msgstr "Nelaimės atstatymas"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
+#, fuzzy
+msgid "Your Zentyal Server Account"
+msgstr "Registruoti Zentyal Serveriai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
-msgid "Zentyal Cloud Services"
-msgstr "Zentyal Debesų servisai"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:563
-msgid ""
-"The subscribed hostname is only available if the host is subscribed to "
-"Zentyal Cloud"
-msgstr ""
-"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
-"Debesyje"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:592
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
+#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
-"subscribed to Zentyal Cloud"
+"subscribed to Zentyal Remote"
 msgstr ""
 "Stebėtojas ip surinkimo yra pasiekiamas tik jei mazgas užprenumeruotas "
 "Zentyal Debesyje"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:778
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "Zentyal turi būti užprenumeruota kad perkrauti"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1567
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Išjungta - {oh}Įjungti{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1575
-#, fuzzy, perl-brace-format
-msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Neprisijungęs. Žiūrėkite VPN žurnalus {path}"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+msgid "Connected"
+msgstr "Prisijungęs"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1581
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
 #, fuzzy
 msgid "In process"
 msgstr "apdoroja"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1584
-msgid "Connected"
-msgstr "Prisijungęs"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
+#, fuzzy, perl-brace-format
+msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
+msgstr "Neprisijungęs. Žiūrėkite VPN žurnalus {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1599
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
 msgid "Essential"
 msgstr "Esminis"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1600
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
 msgid "Standard"
 msgstr "Standartas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1601
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1608
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- Paskutinis atnaujinimas: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1621
-#, perl-brace-format
-msgid "- Latest backup: {date}"
-msgstr "- Paskutinė kopija: {date}"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 msgid "Configuration backup enabled"
 msgstr "Nustatymai atsarginės kopijos įjungti"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1627
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Paskutinė konf kopija: {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
 msgid "Server name"
 msgstr "Serverio vardas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 msgid "Connection status"
 msgstr "Prisijungimo statusas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 msgid "External server name"
 msgstr "Išorinis serverio vardas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4122,33 +4111,42 @@ msgstr "Išorinis serverio vardas"
 msgid "Server edition"
 msgstr "Serverio versija"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
 msgid "Technical support"
 msgstr "Techninė pagalba"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1714
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr "Duomenų kopija nebuvo atlikta"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1970
-#, fuzzy
-msgid "The UUID is only available if the host is subscribed to Zentyal Cloud"
-msgstr ""
-"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
-"Debesyje"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1997
-#, fuzzy
-msgid "The Zentyal Cloud Domain is only available if the host is subscribed"
-msgstr ""
-"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
-"Debesyje"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2023
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
 #, fuzzy
 msgid ""
-"The Zentyal Cloud Credentials are only available if the host is subscribed"
+"The subscribed hostname is only available if the host is subscribed to "
+"Zentyal Remote"
+msgstr ""
+"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
+"Debesyje"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+#, fuzzy
+msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
+msgstr ""
+"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
+"Debesyje"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+#, fuzzy
+msgid "The Zentyal Remote Domain is only available if the host is subscribed"
+msgstr ""
+"Prenumeruotas mazgo vardas galimas tik jei serveris prenumeruotas Zentyal "
+"Debesyje"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+#, fuzzy
+msgid ""
+"The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
 "Stebėtojas ip surinkimo yra pasiekiamas tik jei mazgas užprenumeruotas "
 "Zentyal Debesyje"
@@ -4162,36 +4160,40 @@ msgid "Service Level Agreement"
 msgstr "Aptarnavimo lygis (SLA)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-msgid "Allow remote access to Zentyal staff"
+#, fuzzy
+msgid "Allow remote access to Zentyal support"
 msgstr "Leisti nuotolinę prieigą Zentyal darbuotojams"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
-msgid "Allow access from any internet address"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
+msgid ""
+"Allow Zentyal support engineers to connect to your server from Zentyal "
+"Remote network."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+#, fuzzy
+msgid "Allow access from the Internet"
 msgstr "Leisti priėjimą iš bet kurio interneto adreso"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
 msgid ""
-"By default, the access is only granted to hosts inside the Zentyal Cloud "
-"private network. If you enable this option, the access is granted from any "
-"address. Use this option only if you could not connect to the Zentyal Cloud"
+"Allow Zentyal support engineers to connect to your server directly from the "
+"Internet to your public IP address. Only use this option if you could not "
+"connect to Zentyal Remote."
 msgstr ""
-"Pagal nutylėjimą prieiga suteikiama tik mazgams viduje Zentyal debesies "
-"privataus tinklo. Jei įjungsite šią opciją, priėjimas bus leidžiamas iš bet "
-"kurio adreso. Naudokite šią opciją tik jei nepavyko prisijungti prie Zentyal "
-"debesies"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
 msgstr "Įjungti nuotolinės pagalbos prieigą"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:138
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
 "Nuotolinis priėjimas iš bet kurio adreso reikalauja kad būtų įjungta "
 "nuotolinė pagalba"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
@@ -4199,15 +4201,16 @@ msgstr ""
 "Leisti prisijungimą iš bet kur prie nuotolinės pagalbos jūs turite būti "
 "neprisijungęs prie {cloud} debesies"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
+#, fuzzy
 msgid ""
-"To restrict addresses you need that your Zentyal Server is subscribed to "
-"Zentyal Cloud. Either subscribe it or allow access from any address"
+"To restrict addresses you need that your Zentyal Server is registered to "
+"Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
 "Apribotas adresas reikalingas jūsų Zentyal Serveriui prenumeruoti Zentyal "
 "Debesį. Užprenumeruokite arba leiskite prisijungimą iš bet kokio adreso"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
 #, perl-brace-format
 msgid ""
 "Enabling remote support will allow Zentyal staff to freely access your "
@@ -4226,7 +4229,7 @@ msgstr ""
 "Prisijungti prie nuotolinės sesijos, prisijunkite prie komandinės eilutės su "
 "vartotoju priklausančiu 'adm' grupei ir panaudokite šią komandą: '{cmd}'."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:191
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
@@ -4234,7 +4237,7 @@ msgstr ""
 "Nerasta ssh tarnyba. Pagalbai turi veikti tarnyba leidžianti prisijungimą iš "
 "išorės."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:196
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
@@ -4242,7 +4245,7 @@ msgstr ""
 "Nėrasta ssh tarnybą klausanti ant visų sąsajų. Pagalbai reikalinga ssh "
 "tarnyba klausanti ant visų sąsajų."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:201
 #, perl-brace-format
 msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
@@ -4298,7 +4301,8 @@ msgid "Alerts"
 msgstr "Įspėjimai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-msgid "External server name (DynDNS)"
+#, fuzzy
+msgid "External server name (Dynamic DNS)"
 msgstr "Išorinio serverio vardas (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
@@ -4306,19 +4310,18 @@ msgid "Use this name to connect to Zentyal externally"
 msgstr "Naudoti šį vardą prisijungimui į Zentyal per išorę"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-msgid "Subscription renovation date"
+#, fuzzy
+msgid "Renovation date"
 msgstr "Prenumeratos atnaujinimo data"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
-msgid "Central monitoring & management"
-msgstr "Centrinis stebėjimas ir valdymas"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-msgid "Server subcription info"
-msgstr "Serverio prenumeratos informacija"
+#, fuzzy
+msgid "Server info"
+msgstr "Vartotojas nerastas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-msgid "Not using Zentyal Cloud DynDNS service"
+#, fuzzy
+msgid "Not using Zentyal Dynamic DNS service"
 msgstr "Nenaudojamas Zentyal Debesų DynDNS servisas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
@@ -4326,20 +4329,20 @@ msgstr "Nenaudojamas Zentyal Debesų DynDNS servisas"
 msgid "Unlimited"
 msgstr "Neribota"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:57
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:60
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:67
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
 #, fuzzy
-msgid "Zentyal Cloud VPN Connectivity Check"
+msgid "Zentyal Remote VPN Connectivity Check"
 msgstr "Zentyal Debesies prisijungimas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
@@ -4353,69 +4356,70 @@ msgstr "Saugumo atnaujinimai"
 msgid "Available IDS rules"
 msgstr "Galimos IDS taisyklės"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:116
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 #, fuzzy
 msgid "Select one of the available options"
 msgstr "Pasirinkite galimas pilnas ataskaitas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:121
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
+#, fuzzy
 msgid ""
-"Subscription was done correctly. Save changes and then, wait a minute to "
-"guarantee the system carries out the process of subscribing. Later you can "
-"start using the cloud based services you are entitled to with your "
-"subscription (remote backup, updates, alerts, etc.)"
+"Registration was done correctly. Wait a minute to guarantee the system "
+"carries out the process of registration. Later on, you can start using the "
+"cloud based services you are entitled to with your edition (remote backup, "
+"updates, alerts, etc.)"
 msgstr ""
 "Prenumerata buvo sėkminga. Išsaugokite pakeitimus ir palaukite minutėlę "
 "užgarantuoti kad sistema apdoros prenumeratos užsakymą. Vėliau galėsite "
 "pradėti naudotis debesiu paremtomis paslaugomis kurios priklauso pagal jūsų "
 "prenumeratą ( nuotolinė kopiją, atnaujinimai, perspėjimai, ir panašiai )"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:127
-msgid "Subscription data retrieved correctly."
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
+#, fuzzy
+msgid "Registration data retrieved correctly."
 msgstr "Prenumeratos duomenys gauti teisingai."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:129
-msgid "Please, save changes"
-msgstr "Prašome išsaugoti pakeitimus"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:653
 #: ../../main/core/src/templates/progress.mas:34
 msgid "Done"
 msgstr "Atlikta"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:297
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
+#, fuzzy
 msgid ""
-"Take into account that subscribing your Zentyal server to the Zentyal Cloud "
-"can take a while. Please do not touch anything until the subscription "
+"Take into account that registering your Zentyal server to the Zentyal Remote "
+"can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
 "Turėkite omenyje kad prenumerata Zentyal serverio Zentlyal Debesyje gali "
 "užtrukti. Prašome neliesti nieko iki tol kol prenumeratos procesas "
 "korektiškai pasibais."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
+#, fuzzy
 msgid ""
-"Prior to make a subscription on remote services, save or discard changes in "
+"Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 "Prieš darant prenumeratą nuolonių servisų, išsaugokite arba atšaukite "
 "pakeitimus OpenVPN modulyje"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:365
-msgid "User Name or Email Address"
-msgstr "Vartotojo vardas arba El. pašto adresas"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
+#, fuzzy
+msgid "Registration Email Address"
+msgstr "Vartotojas ir El. paštas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
 msgstr "Serverio vardas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:378
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:351
 msgid "Choose a name for your server which is a valid subdomain name"
 msgstr "Pasirinkite serverio vardą kuris yra galiojantis jūsų srityje"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4443,46 +4447,49 @@ msgstr "Pasirinkite serverio vardą kuris yra galiojantis jūsų srityje"
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:396
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:369
 #, fuzzy
 msgid "Available Options"
 msgstr "Pasiekiama atmintis"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:398
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
 msgid "Select one of your purchases"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:406
-msgid "Zentyal subscription details"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#, fuzzy
+msgid "Zentyal registration details"
 msgstr "Zentyal prenumeratos duomenys"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:407
-msgid "Unsubscribe"
-msgstr "Atšaukti prenumeratą"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
+#, fuzzy
+msgid "Unregister"
+msgstr "Užlaikytas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:410
-msgid "Subscription to Zentyal Cloud"
-msgstr "Prenumerata Zentyal Debesyje"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
+#, fuzzy
+msgid "Register your Zentyal Server"
+msgstr "Registruoti Zentyal Serveriai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:411
-msgid "Subscribe"
-msgstr "Užsisakyti"
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+msgid "Register"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
 msgid " module"
 msgstr "  modulis"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " and "
 msgstr "  ir  "
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
 msgid " modules"
 msgstr "moduliai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:623
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1413
+#: ../../main/samba/src/EBox/Samba.pm:1515
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4503,8 +4510,8 @@ msgstr "moduliai"
 msgid "Action"
 msgstr "Veiksmas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:624
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:645
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4522,9 +4529,21 @@ msgstr "Naudoti egzistuojantį atvaizdo failą"
 msgid "Reload available options"
 msgstr "Globalūs pasirinkimai"
 
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#, fuzzy
+msgid "Unregistering a server"
+msgstr "išorinis pašto serveris"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#, fuzzy
+msgid "Registering a server"
+msgstr "išorinis pašto serveris"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-msgid "Download latest report"
-msgstr "Atsisiųsti naujausią ataskaitą"
+#, fuzzy
+msgid "Get latest report"
+msgstr "Pasirinkti ataskaitą"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
 #, fuzzy
@@ -4541,31 +4560,32 @@ msgid "Reports"
 msgstr "Ataskaitos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
-#, fuzzy
-msgid ""
-"The download link is for the latest available report for a group where this "
-"zentyal server belongs to"
+msgid "Reports are done based on automatically gathered data in hourly basis"
 msgstr ""
-"Parsisiuntimo nuoroda naujausiai ataskaitai grupei kuriai zentyal priklauso"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
+#, fuzzy
+msgid "Not registered"
+msgstr "Nesukurtas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
-#, fuzzy
-msgid "No consolidation done"
-msgstr "įvykdyti veiksmai"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:141
 #, perl-brace-format
-msgid "{oh}Download sample{ch}"
-msgstr "{oh}Parsisiųsti pavyzdį{ch}"
+msgid "{oh}Take a look on the example{ch}"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:148
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:158
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
-msgid "{oh}Download{ch}"
-msgstr "{oh}Parsisiųsti{ch}"
+msgid "{oh}Take a look{ch}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
+#, fuzzy
+msgid "No consolidation done yet"
+msgstr "įvykdyti veiksmai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4594,6 +4614,10 @@ msgstr "Preliminarus kopijos dydis"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:164
 msgid "Estimated time to recover from a disaster"
 msgstr "Preliminarus laikas atstatyti iš kopijos"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
+msgid "Disaster Recovery"
+msgstr "Nelaimės atstatymas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:213
 msgid "Full Disaster Recovery enabled"
@@ -4639,15 +4663,6 @@ msgstr "Prieiga iš valdymo paneles be slaptažodžio"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
 msgstr "Prieigos nustatymai"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:140
-#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:153
-#: ../../main/network/src/EBox/Model/DynDNS.pm:85
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
-#: ../../main/core/src/templates/headTitle.mas:19
-msgid "Zentyal Cloud"
-msgstr "Zentyal Debesys"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:256
 #, perl-brace-format
@@ -4761,21 +4776,21 @@ msgstr "Raktas web prenumeratos servisui nerastas"
 msgid "None of the available bundles are valid for this server"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:565
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:560
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Nepavyko susiekti su {host}. Patikrinkite ryšį ir internetą"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:778
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:723
+#, fuzzy, perl-brace-format
 msgid ""
-"Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
+"Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 "Nepavyko prisijungti prie WS serverio \"{addr}:{port}/{proto}\". "
 "Patikrinkite vardų išrišimą ir ugnesienę jūsų tinkle"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:806
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:751
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:314
 #, perl-brace-format
 msgid ""
@@ -4802,10 +4817,6 @@ msgstr "Simbolis \"{char}\" negalimas"
 msgid "It cannot be greater than {n} characters"
 msgstr "Negali būti ilgesnis nei {n} simbolių"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
-msgid "Key for disaster recovery service not found"
-msgstr "Raktas bėdos kopijos servisui nerastas"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:197
 msgid "No ebox-services DNS key found"
 msgstr "Nėra ebox-serviso DNS rakto"
@@ -4822,6 +4833,13 @@ msgstr "Nepavyko sukurti SOAP ryšio"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "No domain key found for this service"
 msgstr "Nerastas srities raktas šiam servisui"
+
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
+#: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
+#: ../../main/core/src/templates/headTitle.mas:19
+#, fuzzy
+msgid "Zentyal Remote"
+msgstr "Zentyal mazgas"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -4848,25 +4866,25 @@ msgstr "Atsatymas sėkmingas"
 msgid "Backup deleted"
 msgstr "atsarginė kopija pašalinta"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:82
 msgid "Making remote backup"
 msgstr "Vykdo nuotolinę kopiją"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:83
 msgid "Backing up modules "
 msgstr "Kopijuoja modulius"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:84
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:248
 msgid "Operation"
 msgstr "Operacija"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:249
 msgid "operations left to finish backup"
 msgstr "Likusios operacijos pabaigti atsarginei kopijai"
 
-#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:86
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 msgid "Backup successful"
 msgstr "Nukopijuota sėkmingai"
@@ -4880,7 +4898,7 @@ msgstr ""
 "nutolusią kopiją:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:85
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:189
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:197
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:120
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:139
 #: ../../main/remoteservices/src/templates/Backup/index.mas:159
@@ -4938,45 +4956,45 @@ msgstr "Neegzistuojantis veiksmas: {a}"
 msgid "Import/Export Configuration Remotely"
 msgstr "Importuoti/Eksportuoti nustatymus"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:74
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
 msgid "Email Address"
 msgstr "Pašto adresas"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:81
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Vardas"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 msgid "Last name"
 msgstr "Pavardė"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
 msgid "Phone number"
 msgstr "Telefono numeris"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
 msgid "Repeated password"
 msgstr "Pakartokite slaptažodį"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:87
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
 msgid "Introduced passwords do not match"
 msgstr "Pateiktas slaptažodis nesutampa"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:132
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
 msgstr "Klaida registruojant prenumeratą, patikrinkite interneto ryšį."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:140
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
 msgid "An unknown error ocurred registering the subscription"
 msgstr "Įvyko nežinoma klaida registruojant prenumeratą"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:145
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
@@ -4984,7 +5002,7 @@ msgstr ""
 "Vartotojas su tokiu el. adresu jau registruotas. Galite patirkinti savo "
 "paskyros duomenis "
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:147
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -4992,14 +5010,54 @@ msgstr ""
 "Atsiprašome, įvyko nenustatyta klaida. Pabandykite vėliau arba susiekite "
 "info@zentyal.com"
 
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
+#, fuzzy
+msgid "Registering your server"
+msgstr "Registruoti Zentyal Serveriai"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
+#, fuzzy
+msgid "Registration finished"
+msgstr "Diegimas baigtas"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
+#, fuzzy, perl-brace-format
+msgid ""
+"There was an error in the registration. There are more information in the "
+"logs directory {dir}"
+msgstr ""
+"Kai kurie moduliai pranešė apie klaidas saugant pakeitimus. Daugiau "
+"informacijos žurnale {dir}"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
+#, fuzzy
+msgid "Unregistering your server"
+msgstr "Serverių sąrašas"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
+#, fuzzy
+msgid "Unregistration finished"
+msgstr "Diegimas baigtas"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
+#, fuzzy
+msgid "Making changes in your configuration"
+msgstr "Baigiama naujo modulio konfigūracija"
+
+#: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
+#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
+msgid "operations performed"
+msgstr "operacija įvykdyta"
+
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
 msgid "Bandwidth Monitor"
 msgstr "Pralaidumo Stebėjimas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1411
-#: ../../main/samba/src/EBox/Samba.pm:1431
+#: ../../main/samba/src/EBox/Samba.pm:1513
+#: ../../main/samba/src/EBox/Samba.pm:1533
 msgid "Client address"
 msgstr "kliento adresas"
 
@@ -5716,538 +5774,6 @@ msgstr "Vidinis IP adresas"
 msgid "No users connected."
 msgstr "Nėra prisijungusių vartotojų."
 
-#: ../../main/ebackup/src/scripts/restore-tool:116
-msgid ""
-"No backups found in this server. Do you want to retry with a different one?"
-msgstr "Nerasta kopijų šiame serveryje. Norite bandyti kitą?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:129
-msgid ""
-"There is not configuration backup from this date. Do you want to retry with "
-"another date?"
-msgstr ""
-"Nėra konfigūracijos kopijos nuo šios datos. Ar norite bandyti kitą datą?"
-
-#: ../../main/ebackup/src/scripts/restore-tool:205
-#, perl-brace-format
-msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr "Galite nustatyti tik vieną užšifravimo opciją: {sy}, {no}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:213
-msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr "--force-type turi turėti argumentą arba 'basic' arba 'subscribed'"
-
-#: ../../main/ebackup/src/scripts/restore-tool:228
-msgid "Zenity package not found. Falling back to terminal mode"
-msgstr "Zenity paketas nerastas. Gryžtama atgal į terminalo būseną"
-
-#: ../../main/ebackup/src/scripts/restore-tool:242
-msgid "User for the authentication"
-msgstr "Vartotojas autentifikacijai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:244
-msgid ""
-"Password for the authentication. This password will be shown both in the "
-"command line and in the process list so only use this option when security "
-"is not a concern"
-msgstr ""
-"Slaptažodis autentifikacijai. Šis slaptažodis bus rodomas komandinėje "
-"eilutėje ir procesų sąraše tad naudokite šią opciją jei saugumas jums "
-"nesvarbus"
-
-#: ../../main/ebackup/src/scripts/restore-tool:248
-msgid "Server from which its backup date the restore will be done"
-msgstr "Serveris iš kurio bus atstatoma kopija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:250
-msgid "Use the last backup done for the restore"
-msgstr "Naudokite paskutinė kopija įvykdyta atstatymui"
-
-#: ../../main/ebackup/src/scripts/restore-tool:252
-msgid "Restore all backup domains available"
-msgstr "Atstatyti visas galimas sritis"
-
-#: ../../main/ebackup/src/scripts/restore-tool:254
-msgid "Backup domain to restore. It could be repeated several times"
-msgstr "Kopijos srities atstatymui. Gali būti atlikta kelis kartus"
-
-#: ../../main/ebackup/src/scripts/restore-tool:256
-msgid ""
-"Check if we use the no encryption or a symmetric encryption with password "
-msgstr ""
-"Patikrinkite ar naudojama nekoduota ar simetrinis užšiframas su slaptažodžiu "
-
-#: ../../main/ebackup/src/scripts/restore-tool:258
-msgid "Do not use graphical interface"
-msgstr "Nenaudoti grafinės sąsajos"
-
-#: ../../main/ebackup/src/scripts/restore-tool:264
-msgid "Change parameters used to access the storage server"
-msgstr "Pakeisti parametrus naudojamus prieti prie failų serverio"
-
-#: ../../main/ebackup/src/scripts/restore-tool:289
-#, perl-brace-format
-msgid "Module {mod} should be installed"
-msgstr "Modulis {mod} turi būti įdiegtas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:295
-#, perl-brace-format
-msgid "Module {mod} should be configured"
-msgstr "Modulis {mod} turi būti sukonfigūruotas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:307
-msgid ""
-"Could not automatically update system date and hour. If the system time is "
-"not correct, some restore operations could fail"
-msgstr ""
-"Nepavyko atnaujinti sistemos datos ir valandos. Jei sistemos laikas "
-"neteisingas, kai kurios atstatymo operacijos gali neveikti"
-
-#: ../../main/ebackup/src/scripts/restore-tool:317
-msgid "Choose the server to restore"
-msgstr "Pasirinkite serverį atstatymui"
-
-#: ../../main/ebackup/src/scripts/restore-tool:322
-msgid "Server to restore: "
-msgstr "Serverį atstatyti : "
-
-#: ../../main/ebackup/src/scripts/restore-tool:350
-msgid "Select backup domains to restore"
-msgstr "Pasirinkite sričių kopijas atstatymui"
-
-#: ../../main/ebackup/src/scripts/restore-tool:351
-#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
-msgid "Backup domain"
-msgstr "atsarginės kopijos sritis"
-
-#: ../../main/ebackup/src/scripts/restore-tool:360
-#, perl-brace-format
-msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Sričių kopijos serveryje {cn}: {l}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:378
-msgid "No backup domain selected to restore. Doing nothing"
-msgstr "Nepasirinkta srities kopija atstatymui. Daro nieko"
-
-#: ../../main/ebackup/src/scripts/restore-tool:390
-msgid "Retrieving registered servers list"
-msgstr "Gaunamas registruotų serverių sąrašas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:430
-msgid "No key passphrase"
-msgstr "Nėra rakto frazės"
-
-#: ../../main/ebackup/src/scripts/restore-tool:437
-msgid "No password in retrieved credentials"
-msgstr "Nėra slaptažodžio gautuose duomenyse"
-
-#: ../../main/ebackup/src/scripts/restore-tool:489
-msgid "Retrieving account information"
-msgstr "Gaunama paskyros informacija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:538
-msgid "No registered Zentyal Servers"
-msgstr "Nėra registruotų Zentyal Serverių"
-
-#: ../../main/ebackup/src/scripts/restore-tool:544
-msgid "Registered Zentyal Servers"
-msgstr "Registruoti Zentyal Serveriai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:611
-msgid "Restoring files"
-msgstr "Atstatomi failai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:634
-#, perl-brace-format
-msgid ""
-"Cannot restore file {file} requested by backup domains. Reason: {reason}"
-msgstr ""
-"Nepavyko atstatyti failo {file} užklausto srities kopijos. Priežastis: "
-"{reason}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:688
-msgid "Restoring all backed-up files"
-msgstr "Atsatomi visi kopijuoti failai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:748
-#, perl-brace-format
-msgid "Could not restore {dst}, it already exists and it is not a directory"
-msgstr "Nepavyko atstatyti {dst}, jau egzistuoja ir tai ne direktorija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:786
-#, perl-brace-format
-msgid ""
-"Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr "Klaida atstatant byla ar katalogą {dst}. Bandysime tęsti atstatymą"
-
-#: ../../main/ebackup/src/scripts/restore-tool:815
-#, perl-brace-format
-msgid ""
-"Error restoring directory {d}. This could make fail some files or domains "
-"restore processes. Error {e}"
-msgstr ""
-"Klaida atstatant katalogą {d}. Tai gali sutrukdyti kai kurių failų ar "
-"srities atstatymo procesą. Klaida {e}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:835
-msgid ""
-"Backup log data not found in the files from the backup, log database will "
-"not be restored"
-msgstr ""
-"Kopijos žurnalo duomenys nerasti kopijoje, žurnalo bazė nebus atstatyta"
-
-#: ../../main/ebackup/src/scripts/restore-tool:843
-msgid "Restoring log database"
-msgstr "Atstatyto žurnalų duombazę"
-
-#: ../../main/ebackup/src/scripts/restore-tool:864
-msgid "Restoring configuration backup"
-msgstr "Atstato konfigūracijos kopiją"
-
-#: ../../main/ebackup/src/scripts/restore-tool:869
-msgid ""
-"The configuration restore failed. We will continue the process to try to "
-"restore as much as possible but your system will need manual tweaking"
-msgstr ""
-"Konfigūracijos atstatymas nepavyko. Tęsime procesą bandydami atstatyti kiek "
-"galima jūsų sistemą, rankinis derinimas gali būti reikalingas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:884
-msgid "Checking configuration compability"
-msgstr "Tikrinamas konfigūracijos suderinamumas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:936
-#, perl-brace-format
-msgid ""
-"Cannot restore backup because there are less interfaces than there are "
-"available. The missing interfaces are: {missing}"
-msgstr ""
-"Nepavyko atstatyti kopijos nes yra mažiau sąsajų nei buvo prieš tai. "
-"Trūkstamos sąsajos : {missing}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:979
-msgid "Updating software package lists"
-msgstr "Atnaujina visus paketus"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1006
-msgid "Installing Zentyal components and their dependencies"
-msgstr "Diegiama Zentyal komponentus ir jų priklausomuosius"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1022
-msgid "Installing missing modules..."
-msgstr "Diegiama trūkstamus modulius..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1028
-#, fuzzy, perl-brace-format
-msgid ""
-"Error installing packages: {err}. The backup will continue but it would not "
-"able to recover any configuration which depends on the missing packages"
-msgstr ""
-"Klaida instaliuojant paketus: {err} Kopijavimas tęsis bet nebus galima "
-"atstatyti jokių konfigūracijų  kurios priklauso nuo trūkstamų paketų"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1076
-msgid ""
-"Updating package list to allow access to exclusive Zentyal Cloud packages"
-msgstr "Atnaujina paketų sąrašą leisiantį prieti prie Zentyal Debesies paketų"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1078
-msgid "Install cloud packages"
-msgstr "Diegiami debesų paketai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1096
-msgid "Downloading subscription data"
-msgstr "Siunčiami prenumeratos duomenys"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1114
-msgid ""
-"Connection error when retrieving subscription bundle. Zentyal Cloud "
-"exclusive packages will not be installed"
-msgstr "Ryšio klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1119
-msgid ""
-"Cannot retrieve bundle because either installed zentyal-remoteservices is "
-"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
-"exclusive packages will not be installed"
-msgstr ""
-"Nepavyko atsiųsti nes zentyal-remoteservices per senas arba per sena "
-"informacija debesyse. Zentyal Debesų paketai nebus įdiegti"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1126
-msgid ""
-"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
-"packages will not be installed"
-msgstr ""
-"Nežinoma klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1179
-msgid "Configuring modules"
-msgstr "Konfiguracijos moduliai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1203
-#, perl-brace-format
-msgid "Configuring modules: Current module {mod}"
-msgstr "Kofigūracijos moduliai: Dabartinis modulis {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1207
-#, perl-brace-format
-msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "Modulių {p} konfigūracija atlikta. Dabartinis modulis {mod}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1226
-#, perl-brace-format
-msgid ""
-"Failed to configure module {name}: {err}. This could affect to the restore "
-"of other modules"
-msgstr ""
-"Nepavyko konfigūruoti modulio {name}: {err}. Tai gali įtakoti atstatymą kitų "
-"modulių"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1249
-msgid "Finishing new modules configuration"
-msgstr "Baigiama naujo modulio konfigūracija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1337
-msgid "Downloading backup metadata..."
-msgstr "Siunčiami kopijos duomenys..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1423
-msgid "Downloading the backup data"
-msgstr "Siunčiama kopija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1441
-#, perl-brace-format
-msgid "Downloading  {src} backup data for {dom}"
-msgstr "Siunčiama  {src} kopijos duomenys {dom}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1455
-#, perl-brace-format
-msgid ""
-"Error downloading data for backup domain: {dom}. The domain will not be "
-"fully restored"
-msgstr ""
-"Klaida siunčiant duomenis kopijos sričiai: {dom} Sritis nebus atstatyta"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1475
-msgid "Downloading the backup configuration"
-msgstr "Siunčiama konfigūracijos kopija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1522
-msgid "Downloading configuration"
-msgstr "Siunčiama konfigūracija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1564
-msgid "Looking for a version 2.0.X backup"
-msgstr "Ieškoma 2.0.X kopija"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1591
-msgid "Retrieving backup collection status ..."
-msgstr "Gaunamas kopijos surinkimo statusas..."
-
-#: ../../main/ebackup/src/scripts/restore-tool:1620
-#: ../../main/ebackup/src/scripts/restore-tool:1681
-#, perl-brace-format
-msgid "Last backup date was: {date}"
-msgstr "Paskutinė kopija buvo: {date}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1646
-#, perl-brace-format
-msgid "No automatic configuration backups were made for the server {s}"
-msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui {s}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1697
-#, perl-brace-format
-msgid "Choose date to restore the backup from server {cn}"
-msgstr "Pasirinkite datą atstatymui kopijos iš serverio {cn}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1721
-#, perl-brace-format
-msgid "No automatic configuration backups were done for the server {s}"
-msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui: {s}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1738
-#, perl-brace-format
-msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr "Nėra konfigūracijos kopijos datai {d} {s} serveryje"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1774
-#, perl-brace-format
-msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "Serveris {server} neregistruotas Zentyal Debesyje"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1833
-msgid "Please, enter a value"
-msgstr "Prašome įveskite reikšmę"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1858
-msgid "Please answer yes or no"
-msgstr "Prašome atsakyti taip arba ne"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1884
-#, perl-brace-format
-msgid "Backup dates for server {cn}"
-msgstr "Kopijos datos serveriui {cn}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1895
-msgid "Enter backup date to restore:"
-msgstr "Įveskite kopijos datą atstatymui:"
-
-#: ../../main/ebackup/src/scripts/restore-tool:1898
-#, perl-brace-format
-msgid "Invalid date: {d}. Try again"
-msgstr "Neteisinga data: {d}. Bandykite dar kartą"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2004
-msgid "This entry is mandatory to continue the restoring process. Retry"
-msgstr "Laukas privalomas tęsti atstatymo procedūrai. Bandyti dar kartą"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2052
-msgid "Selection"
-msgstr "Pasirinkimas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2091
-msgid ""
-"This entry is mandatory to carry on the restoring process. Choose from the "
-"list"
-msgstr "Šis laukas privalomas tęsti atstatymo procesui. Pasirinkite iš sąrašo"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2212
-msgid "Please wait"
-msgstr "Prašome palaukti"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2226
-msgid "Finished"
-msgstr "Baigta"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2286
-msgid "Restoring process aborted upon user request"
-msgstr "Atstatymo procesas atšauktas pagal vartotojo užklausą"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2315
-msgid "Saving configuration changes"
-msgstr "Saugomi konfigūracijos pakeitimai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2336
-msgid ""
-"Error saving configuration changes; some Zentyal modules would remain in a "
-"unknown state"
-msgstr ""
-"Klaida saugant konfigūracijso pakeitimus; kai kurie Zentyal moduliai liks "
-"nežinomam statuse"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2350
-msgid "Regenerating file list cache"
-msgstr "Perkuriami failų sąrašas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2358
-msgid ""
-"Cannot connect to the Cloud to regenerate backup list. Please try again "
-"later."
-msgstr ""
-"Nepavyko prisijungti prie Debesies sugeneruoti kopijų sąrašo. Bandykite "
-"vėliau."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2430
-msgid "Zentyal Cloud User"
-msgstr "Zentyal Debesų vartotojas"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2433
-msgid "Zentyal Cloud Password"
-msgstr "Zentyal Debesų Slaptažodis"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2448
-#, perl-brace-format
-msgid "The account {user} do not have any registered Zentyal servers"
-msgstr "Vartotojas {user} neturi priregistruotų Zentyal serverių"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2480
-msgid ""
-"If you had enabled the Disaster Recovery service in Small Business or "
-"Enterprise Edition, besides the configuration you are about to recover, you "
-"could have restored the data of the active modules."
-msgstr ""
-"Jei įjungėte Nelaimės atstatymo (DR) servisą Small Business ar Enterprise "
-"Edition, be konfigūracijos kurią ruošiatės atstatyti jūs galite atstatyti "
-"aktyvius modulius."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2507
-#, perl-brace-format
-msgid "Enter password used to encrypt back up {ser}"
-msgstr "Įveskite slaptažodį naudotą užkoduoti kopiją {ser}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2532
-#, perl-brace-format
-msgid ""
-"Incorrect password. Please, enter the correct password used for encrypt "
-"{ser}."
-msgstr ""
-"Neteisingas slaptažodis. Prašome įveskite teisingą slaptažodį naudotą "
-"užkoduoti {ser}."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2583
-#, perl-brace-format
-msgid ""
-"The following backup domains could not be restored from a basic "
-"subscription: {domains}"
-msgstr ""
-"Sekančios sritys negali būti atstatytos iš praprastos prenumeratos: {domains}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2686
-msgid ""
-"The local password file has changed, the local users and their password "
-"could have been changed. We reccomend you to logut and login again with a "
-"valid user to avoid user identity problems."
-msgstr ""
-"Lokalus slaptažodžio failas pasiektė, lokalūs vartotojai ir jų slaptažodžiai "
-"gali būti pakeisti. Rekomenduojame atsijungti ir prisijungti iš naujo su "
-"veikiančiu vartotoju norint išvengti vartotojų identifikavimo problemų."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2691
-msgid ""
-"The shadow password file was restored; your local user password could have "
-"been changed"
-msgstr ""
-"Shadow slaptažodžių failas atstatytas; jūsų lokalių vartotojų slaptažodžiai "
-"gali būti pasikeitę"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2701
-msgid ""
-"No hostname infromation found in metadata but hostname configuration files "
-"changed; please fix your hostname manually or with the Zentyal option found "
-"at System -> General."
-msgstr ""
-"Mazgo vardo inforamcija nerasta duomenyse bet vardo konfigūracijos failai "
-"pasiektę; Prašome pataisyti savo vardą rankomis arba Zentyal opcijose "
-"Sistema - Pagrindiniai"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2749
-msgid "Your full backup is now successfully restored!"
-msgstr "Jūsų pilna kopija atstatyta sėkmingai!"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2759
-#, perl-brace-format
-msgid "You can now login at {url} to manage your recovered host."
-msgstr "Galite prisijugnti {url} tvarkyti jūsų atstatytą mazgą."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2833
-#: ../../main/ebackup/src/scripts/restore-tool:2842
-#, perl-brace-format
-msgid "Warning: {msg}"
-msgstr "Įspėjimas: {msg}"
-
-#: ../../main/ebackup/src/scripts/restore-tool:2872
-msgid ""
-"Sorry, an unexpected error has occurred. Please contact support and check "
-"the /var/log/zentyal/zentyal.log file for further details."
-msgstr ""
-"Atsiprašome, nežinoma klaida įvyko. Prašome susiekti su pagalba ir "
-"patikrinkite /var/log/zentyal/zentyal.log informacijai."
-
-#: ../../main/ebackup/src/scripts/restore-tool:2893
-msgid "Restore process aborted"
-msgstr "Atstatymo procesas atšauktas"
-
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:88
 msgid "Exclude or Include"
 msgstr "Neįtraukti ar įtraukti"
@@ -6553,7 +6079,7 @@ msgstr "vardas"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
-#: ../../main/core/src/EBox/Apache.pm:353
+#: ../../main/core/src/EBox/Apache.pm:355
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
@@ -6680,30 +6206,35 @@ msgstr "Nuotolinės atminties sunaudojimas"
 msgid "backup"
 msgstr "kopija"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:130
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:122
 msgid "Update file list process running, retry later"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:136
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
+#, fuzzy
+msgid "There are no backed up files yet"
+msgstr "Yra iki šiol nenukopijuotų failų"
+
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
 msgstr "Yra iki šiol nenukopijuotų failų"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:176
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:116
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:92
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:184
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:114
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:99
 msgid "Backup Date"
 msgstr "Kopijos Data"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:187
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:195
 msgid "Restore Files"
 msgstr "Atstatyti failus"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:188
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
 msgid "file restore operation"
 msgstr "bylos atstatymo operacija"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:196
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:204
 msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
@@ -6711,49 +6242,49 @@ msgstr ""
 "Atstatyti bylas redaguokite eilutę bylos ar katalogo norimo atsatyti, "
 "pasirinkite kopijos data ir spauskite atstatyti mygtuką"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:216
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:224
 msgid "File already exists if you continue the current will be deleted"
 msgstr "Failas egzistuoja jei tęstite dabartinis bus ištrintas"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:232
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:240
 msgid "File restored successfully"
 msgstr "Failas atstatytas sekmingai"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:282
+#: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:290
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr "Nuotolinis URL panaudotas su dublikavimu rankiniam atstatymui: {url}"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:81
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:79
 msgid ""
 "To be able to restore logs you need the logs module installed and enabled"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:85
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:83
 msgid "To be able to restore logs you need the logs module enabled"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:127
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restore logs database"
 msgstr "Atstatyti žurnalų duombazę"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:134
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:132
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr "Atstatyti Zentyal žurnalus rastus pasirinktoje kopijoje"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:103
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
 msgid "Restore Zentyal configuration from backup"
 msgstr "Atstatyti Zentyal konfigūracija iš kopijos"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:117
 msgid "Loads the configuration found in the backup"
 msgstr "Įkėlimas konfigūracijos rastas kopijoje"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:112
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:119
 msgid "Please wait..."
 msgstr "Prašome palaukti..."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:175
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:182
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
@@ -6779,6 +6310,10 @@ msgstr "Nuotolinės kopijos statusas"
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:168
 msgid "Domains to back up"
 msgstr "Sritys kopijuoti"
+
+#: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:173
+msgid "Backup domain"
+msgstr "atsarginės kopijos sritis"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:174
 msgid "Select the domains you want to back up."
@@ -6848,31 +6383,31 @@ msgstr ""
 "Nepavyko gauti kopijos surinkimo statuso, patikrinkite ar parametrai ar "
 "slaptažodžiai teisingi"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:837
+#: ../../main/ebackup/src/EBox/EBackup.pm:836
 msgid ""
 "Another process is updating the collection status. Please, wait and retry"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1098
+#: ../../main/ebackup/src/EBox/EBackup.pm:1097
 #: ../../main/core/src/EBox/SysInfo.pm:84
 msgid "System"
 msgstr "Sistema"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1188
+#: ../../main/ebackup/src/EBox/EBackup.pm:1187
 msgid ""
 "Cannot use the Cloud backup method. Either you do not have the disaster "
 "recovery add-on or you could not connect to the Zentyal Cloud to get "
 "credentials."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1195
+#: ../../main/ebackup/src/EBox/EBackup.pm:1194
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 "Nepavyko atsiųsti kopijos informacijos, patikrinkite prisijungimą prie "
 "Zentyal debesies"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1297
+#: ../../main/ebackup/src/EBox/EBackup.pm:1296
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -6882,29 +6417,29 @@ msgstr ""
 "Nepavyko atsisakyti nes kopijos modulis sukonfigūruotas naudoti Zentyal "
 "debesį. Jei norite atsisakyti, turite pakeisti šį {ohref}nustatymą{chref}."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1436
+#: ../../main/ebackup/src/EBox/EBackup.pm:1435
 #, fuzzy
 msgid "Backup configuration not complete"
 msgstr "Tikrinamas konfigūracijos suderinamumas"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1455
+#: ../../main/ebackup/src/EBox/EBackup.pm:1454
 #, perl-brace-format
 msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
 "size is  {req}"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1474
+#: ../../main/ebackup/src/EBox/EBackup.pm:1473
 #, fuzzy, perl-brace-format
 msgid " {target} exists and is not longer a directory"
 msgstr "Byla egzistuoja ir tai ne direktorija"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1525
+#: ../../main/ebackup/src/EBox/EBackup.pm:1524
 #, fuzzy, perl-brace-format
 msgid "{target} is not mounted"
 msgstr "Puslapis nerastas"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1531
+#: ../../main/ebackup/src/EBox/EBackup.pm:1530
 #, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr ""
@@ -7119,7 +6654,7 @@ msgstr "Pre-shared raktas IPsec prisijungimui."
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:102
 #: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:88
 #: ../../main/mail/src/EBox/Mail.pm:1530
-#: ../../main/zarafa/src/EBox/Zarafa.pm:711
+#: ../../main/zarafa/src/EBox/Zarafa.pm:759
 #: ../../main/asterisk/src/EBox/Asterisk.pm:528
 msgid "General"
 msgstr "Bendra"
@@ -8006,7 +7541,7 @@ msgstr "Žiūrėti pultą"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:66
 #: ../../main/virt/src/templates/vmstatus.mas:30
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:25
 msgid "Start"
 msgstr "Paleisti"
@@ -10187,7 +9722,7 @@ msgid "User: {u}"
 msgstr "vartotojo kvota"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:73
+#: ../../main/samba/src/EBox/Samba.pm:71
 msgid "File Sharing"
 msgstr "Bylų dalinimasis"
 
@@ -10256,77 +9791,92 @@ msgstr "Paskyros vardas"
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Slaptažodis negali būti ilgesnis nei {maxPwdLength} simbolių"
 
-#: ../../main/samba/src/EBox/Samba.pm:112
+#: ../../main/samba/src/EBox/Samba.pm:110
 msgid "Create Samba home directory for shares and groups"
 msgstr "Sukurti Samba namų direktoriją dalinimuisi ir grupėms"
 
-#: ../../main/samba/src/EBox/Samba.pm:113
+#: ../../main/samba/src/EBox/Samba.pm:111
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr "Zentyal sukurs direktorijas Samba dalyboms ir grupėms po /home/samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:129
+#: ../../main/samba/src/EBox/Samba.pm:127
 msgid "To set up Samba according to your configuration."
 msgstr "Nustatyti Samba pagal jūsų konfigūraciją."
 
-#: ../../main/samba/src/EBox/Samba.pm:134
+#: ../../main/samba/src/EBox/Samba.pm:132
 msgid "To enable extended attributes and acls."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:139
+#: ../../main/samba/src/EBox/Samba.pm:137
 msgid "To add microsoft specific services"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:144
-msgid "To set the antivirus settings for Samba."
-msgstr "Nustatyti antiviruso nustatymus Sambai."
-
-#: ../../main/samba/src/EBox/Samba.pm:169
+#: ../../main/samba/src/EBox/Samba.pm:162
 msgid "File sharing (Samba) protocol"
 msgstr "Failų dalinimosi (Samba) protokolas"
 
-#: ../../main/samba/src/EBox/Samba.pm:558
-msgid "Samba can't be provisioned if no IP addresses are set"
+#: ../../main/samba/src/EBox/Samba.pm:579
+#, perl-brace-format
+msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:586
+#: ../../main/samba/src/EBox/Samba.pm:588
+#, perl-brace-format
+msgid "The required domain '{d}' could not be found in the dns module"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:596
+#, perl-brace-format
+msgid "The required host record '{h}' could not be found in the domain '{d}'"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:640
+msgid ""
+"Samba can't be provisioned if no IP addresses are set and the DNS domain is "
+"properly configured. Ensure that you have at least a IP address assigned to "
+"an internal interface, and this IP has to be assigned to the domain and to "
+"the hostname in the DNS domain."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:674
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Vartotojas {u} neegzistuoja"
 
-#: ../../main/samba/src/EBox/Samba.pm:696
+#: ../../main/samba/src/EBox/Samba.pm:785
 msgid ""
 "The server domain and kerberos realm must match the domain the domain you "
 "are trying to join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1414
+#: ../../main/samba/src/EBox/Samba.pm:1516
 msgid "Resource"
 msgstr "Resursas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1418
+#: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Connect"
 msgstr "Prisijungti"
 
-#: ../../main/samba/src/EBox/Samba.pm:1419
+#: ../../main/samba/src/EBox/Samba.pm:1521
 msgid "Access to directory"
 msgstr "Prieiti prie katalogo"
 
-#: ../../main/samba/src/EBox/Samba.pm:1420
+#: ../../main/samba/src/EBox/Samba.pm:1522
 msgid "Read file"
 msgstr "skaityti failą"
 
-#: ../../main/samba/src/EBox/Samba.pm:1421
+#: ../../main/samba/src/EBox/Samba.pm:1523
 msgid "Write file"
 msgstr "Rašyti failą"
 
-#: ../../main/samba/src/EBox/Samba.pm:1422
+#: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Disconnect"
 msgstr "Atsijungti"
 
-#: ../../main/samba/src/EBox/Samba.pm:1423
+#: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -10334,46 +9884,46 @@ msgstr "Atsijungti"
 msgid "Remove"
 msgstr "Pašalinti"
 
-#: ../../main/samba/src/EBox/Samba.pm:1424
+#: ../../main/samba/src/EBox/Samba.pm:1526
 msgid "Create directory"
 msgstr "sukurti katalogą"
 
-#: ../../main/samba/src/EBox/Samba.pm:1425
+#: ../../main/samba/src/EBox/Samba.pm:1527
 msgid "Remove directory"
 msgstr "Ištrinti katalogą"
 
-#: ../../main/samba/src/EBox/Samba.pm:1426
+#: ../../main/samba/src/EBox/Samba.pm:1528
 msgid "Rename"
 msgstr "Pervadinti"
 
-#: ../../main/samba/src/EBox/Samba.pm:1432
-#: ../../main/samba/src/EBox/Samba.pm:1441
+#: ../../main/samba/src/EBox/Samba.pm:1534
+#: ../../main/samba/src/EBox/Samba.pm:1543
 msgid "File name"
 msgstr "Failo vardas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1433
-#: ../../main/samba/src/EBox/Samba.pm:1437
+#: ../../main/samba/src/EBox/Samba.pm:1535
+#: ../../main/samba/src/EBox/Samba.pm:1539
 msgid "Virus"
 msgstr "Virusas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1442
+#: ../../main/samba/src/EBox/Samba.pm:1544
 msgid "Quarantined file name"
 msgstr "Karantino failo vardas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1443
-#: ../../main/samba/src/EBox/Samba.pm:1446
+#: ../../main/samba/src/EBox/Samba.pm:1545
+#: ../../main/samba/src/EBox/Samba.pm:1548
 msgid "Quarantine"
 msgstr "Karantinas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1449
+#: ../../main/samba/src/EBox/Samba.pm:1551
 msgid "Samba access"
 msgstr "Samba prieiga"
 
-#: ../../main/samba/src/EBox/Samba.pm:1460
+#: ../../main/samba/src/EBox/Samba.pm:1562
 msgid "Samba virus"
 msgstr "Samba virusas"
 
-#: ../../main/samba/src/EBox/Samba.pm:1471
+#: ../../main/samba/src/EBox/Samba.pm:1573
 msgid "Samba quarantine"
 msgstr "Samba karantinas"
 
@@ -10578,33 +10128,33 @@ msgstr "ham"
 msgid "Invalid mailbox type: {type}"
 msgstr "Negalimas pašto dėžutės tipas: {type}"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
 msgstr "Naudoti virusų filtravimą"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:84
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
 msgid "Use spam filtering"
 msgstr "Naudoti šiukšlių filtravimą"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:90
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:340
 msgid "Spam threshold"
 msgstr "Spam riba"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
 msgstr "numatytas"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:101
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
 msgstr "papildoma pabaiga"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:113
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
 msgid "Learn from accounts' Spam IMAP folders"
 msgstr "Mokytis iš IMAP Spam katalogų"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:117
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
@@ -10612,11 +10162,11 @@ msgstr ""
 "Kiekvieną kartą kai laiškas įkeliamas ar ištrinamas is IMAP spam katalogo "
 "filtras bus apmokytas"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:124
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:126
 msgid "Learning ham account"
 msgstr "Mokomoji ham paskyra"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:125
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:127
 msgid ""
 "An address (ham@domain) will be created for this domain, ham messages "
 "incorrectly classified as spam may be forwarded to this addres to train the "
@@ -10626,11 +10176,11 @@ msgstr ""
 "neteisingai atpažintos žinutės kaip šiukšlės ir turi būti persiųstos "
 "apmokyti filtrą"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:136
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:138
 msgid "Learning spam account"
 msgstr "Mokomoji  spam paskyra"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:137
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:139
 msgid ""
 "An address (spam@domain) will be created for this domain, spam messages "
 "incorrectly classified as ham may be forwarded to this addres to train the "
@@ -10640,19 +10190,19 @@ msgstr ""
 "neatpažintos kaip šiukšlės turi būti siunčiamos šiuo adresu, kad apsimokytų "
 "filtras"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:148
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
 msgstr "Antispam siuntėjo politika"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:159
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 msgid "Virtual Domains specific policies"
 msgstr "Virtualių Sričių specifinės taisyklės"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:165
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 msgid "virtual domain policy"
 msgstr "virtualių sričių politika"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:185
 #, perl-brace-format
 msgid ""
 "There are no virtual mail domains managed by this server. You can create "
@@ -11630,7 +11180,7 @@ msgid ""
 msgstr "Web pašto vardas bus panaudotas prisijungimo puslapyje."
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:130
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:346
 msgid "Virtual host"
@@ -12564,24 +12114,24 @@ msgstr "Veikimo laikas"
 msgid "Users"
 msgstr "Vartotojai"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:499
+#: ../../main/core/src/EBox/GlobalImpl.pm:506
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:560
+#: ../../main/core/src/EBox/GlobalImpl.pm:567
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Įjungiamas {modName} modulis"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:613
-#: ../../main/core/src/EBox/GlobalImpl.pm:649
+#: ../../main/core/src/EBox/GlobalImpl.pm:620
+#: ../../main/core/src/EBox/GlobalImpl.pm:656
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Saugomas {modName} modulis"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1181
+#: ../../main/core/src/EBox/GlobalImpl.pm:1188
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "vykdomas {scriptName} screnarijus"
@@ -12791,28 +12341,28 @@ msgstr "Dalys bus archyvuojamos vienu metu"
 msgid "Slices timeline"
 msgstr "Dalių laiko juosta"
 
-#: ../../main/core/src/EBox/Apache.pm:53
+#: ../../main/core/src/EBox/Apache.pm:54
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "Zentyal sritis"
 
-#: ../../main/core/src/EBox/Apache.pm:283
+#: ../../main/core/src/EBox/Apache.pm:285
 #, fuzzy
 msgid "Desktop services port"
 msgstr "Servisų jungtys"
 
-#: ../../main/core/src/EBox/Apache.pm:292
-#: ../../main/core/src/EBox/Apache.pm:303
+#: ../../main/core/src/EBox/Apache.pm:294
+#: ../../main/core/src/EBox/Apache.pm:305
 #, fuzzy
 msgid "Desktop Services"
 msgstr "Sąrašas servisų"
 
-#: ../../main/core/src/EBox/Apache.pm:293
-#: ../../main/core/src/EBox/Apache.pm:304
+#: ../../main/core/src/EBox/Apache.pm:295
+#: ../../main/core/src/EBox/Apache.pm:306
 msgid "Desktop Services (API for Zentyal Desktop)"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:376
+#: ../../main/core/src/EBox/Apache.pm:378
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -12821,7 +12371,7 @@ msgstr ""
 "Zentyal jau sukonfigūruotas klausytis {p} jungties kito serviso. Pasirinkite "
 "kitą jungtį arba įveskite ir bandykite vėl."
 
-#: ../../main/core/src/EBox/Apache.pm:389
+#: ../../main/core/src/EBox/Apache.pm:391
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -12830,7 +12380,7 @@ msgstr ""
 "Jungtis {p} jau naudojama programos '{pr}'. Pasirinkite kita jungtį ir "
 "bandykite dar kartą."
 
-#: ../../main/core/src/EBox/Apache.pm:774
+#: ../../main/core/src/EBox/Apache.pm:776
 #: ../../main/services/src/EBox/Services.pm:111
 #: ../../main/services/src/EBox/Services.pm:445
 msgid "Zentyal Administration Web Server"
@@ -13423,25 +12973,25 @@ msgstr "sugedęs"
 msgid "spare"
 msgstr "atsarginis"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr "Yra {nSecUpdates} saugumo atnaujinimų. Paveikti paketai : {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr "Papildomai, yra {nUpdates}. Pakeičiami paketai yra: {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:242
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:245
 msgid "Security software updates"
 msgstr "Programų saugumo atnaujinimai"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:257
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:260
 msgid "Check if there is any security software update."
 msgstr "Patikrinti ar yra programų saugumo atnaujinimų."
 
@@ -13526,10 +13076,6 @@ msgstr "Išsaugoti nustatymus"
 msgid "Saving changes in modules"
 msgstr "Saugomi pakeitimai moduliuose"
 
-#: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
-msgid "operations performed"
-msgstr "operacija įvykdyta"
-
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
 msgid "Changes saved"
 msgstr "Nustatymai išsaugoti"
@@ -13545,7 +13091,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:90
 #: ../../main/core/src/EBox/CGI/Progress.pm:87
-#: ../../main/core/src/EBox/CGI/Progress.pm:128
+#: ../../main/core/src/EBox/CGI/Progress.pm:131
 #: ../../main/core/src/templates/finish.mas:126
 msgid "Saving changes"
 msgstr "Saugomi pakeitimai"
@@ -13580,7 +13126,7 @@ msgid "Revoking changes"
 msgstr "Atšaukiami pakeitimai"
 
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: ../../main/core/src/templates/dashboard/index.mas:71
+#: ../../main/core/src/templates/dashboard/index.mas:70
 msgid "Configure Widgets"
 msgstr "Konfigūruoti valdiklius"
 
@@ -14159,7 +13705,7 @@ msgid "Filter type"
 msgstr "Filtro tipas"
 
 #: ../../main/mail/src/EBox/Mail.pm:1537
-#: ../../main/zarafa/src/EBox/Zarafa.pm:718
+#: ../../main/zarafa/src/EBox/Zarafa.pm:766
 msgid "Virtual Mail Domains"
 msgstr "Virtualios pašto vardų sritys"
 
@@ -15237,7 +14783,11 @@ msgstr "Įjungti Active Sync"
 msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr "Įjungti Active Sync (Microsoft Exchange sinchronizacijos protokolas)."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:128
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
+msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgstr ""
+
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 #, fuzzy
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /webapp."
@@ -15245,11 +14795,11 @@ msgstr ""
 "Įjungti Zarafa priėjimą tik šioje virtualioje vardų srityje po adresais /"
 "webaccess ir /webaccess-mobile."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:140
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:148
 msgid "General Zarafa server configuration settings updated."
 msgstr "Pagrindiniai Zarada serverio nustatymai atnaujinti."
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:182
+#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:190
 msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
@@ -15337,35 +14887,35 @@ msgstr ""
 "Šis vartotojas turi Zarafa paskyrą. Jei jis jau prisijungęs prisijungimas "
 "išliks kol Zarafa autorizacija nebus pareikalauta."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:71
+#: ../../main/zarafa/src/EBox/Zarafa.pm:72
 msgid "Add Zarafa LDAP schema"
 msgstr "Įkelti Zarafa LDAP schemą"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:72
+#: ../../main/zarafa/src/EBox/Zarafa.pm:73
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "Zentyal reikalinga ši schema saugoti Zarafa vartotojams"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:76
+#: ../../main/zarafa/src/EBox/Zarafa.pm:77
 msgid "Add vmail system user"
 msgstr "Įkelti vmail sisteminį vartotoją"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:77
+#: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "Zentyal reikalauja kad galėtų pristatytį paštą į Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:81
+#: ../../main/zarafa/src/EBox/Zarafa.pm:82
 msgid "Create MySQL Zarafa database"
 msgstr "Sukurti MySQL. Zarafa bazę."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:82
+#: ../../main/zarafa/src/EBox/Zarafa.pm:83
 msgid "This database will store the data needed by Zarafa."
 msgstr "Ši duomenų bazė saugos duomenis reikalingus Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:86
+#: ../../main/zarafa/src/EBox/Zarafa.pm:87
 msgid "Create default SSL key/certificates"
 msgstr "Sukurti SSL raktą/sertifikatą pagal nutylėjimą"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:87
+#: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
@@ -15373,63 +14923,68 @@ msgstr ""
 "Šis pats sau registruotas pagal nutylėjimą sertifikatas bus naudojamas "
 "Zarafa POP3/IMAP vartuose."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:91
+#: ../../main/zarafa/src/EBox/Zarafa.pm:92
 msgid "Add zarafa link to www data directory"
 msgstr "Įkelti zarafa nuorodą į www duomenų katalogą"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:92
+#: ../../main/zarafa/src/EBox/Zarafa.pm:93
 #, fuzzy
 msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
 msgstr "Zarafa bus prieinama http://ip/webaccess/."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:96
+#: ../../main/zarafa/src/EBox/Zarafa.pm:97
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr ""
 "Įdiekite English/United States lokalę į sistemą jei jos dar nėra įdiegtos"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:97
+#: ../../main/zarafa/src/EBox/Zarafa.pm:98
 msgid "Zarafa needs this locale to run."
 msgstr "Zarafa reikalauja šios lokalės veikimui."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:116
+#: ../../main/zarafa/src/EBox/Zarafa.pm:117
 msgid "To properly configure Zarafa."
 msgstr "Teisingai suderinti Zarafa."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:121
+#: ../../main/zarafa/src/EBox/Zarafa.pm:122
 msgid "To properly configure Zarafa LDAP connection."
 msgstr "Teisingai suderinti Zarafa LDAP prisijungimą."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:126
+#: ../../main/zarafa/src/EBox/Zarafa.pm:127
 msgid "To properly configure Zarafa webaccess."
 msgstr "Teisingai suderinti Zarafa webaccess priėjimą."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:131
+#: ../../main/zarafa/src/EBox/Zarafa.pm:132
+#, fuzzy
+msgid "To properly configure Zarafa XMPP integration."
+msgstr "Teisingai suderinti Zarafa LDAP prisijungimą."
+
+#: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
 msgstr "Teisingai suderinti Zarada vartų serverį."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:136
+#: ../../main/zarafa/src/EBox/Zarafa.pm:142
 msgid "To properly configure Zarafa quota monitoring server."
 msgstr "Teisingai suderinti Zarafa kvotos stebėjimo serverį."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:141
+#: ../../main/zarafa/src/EBox/Zarafa.pm:147
 msgid "To properly configure Zarafa mail delivering server."
 msgstr "Teisingai suderinti Zarafa pašto pristatymo serverį."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:146
+#: ../../main/zarafa/src/EBox/Zarafa.pm:152
 msgid "To properly configure Zarafa ical server."
 msgstr "Teisingai suderinti Zarafa ical serverį."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:151
+#: ../../main/zarafa/src/EBox/Zarafa.pm:157
 msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "Teisingai suderinti Zarafa dagent LMTP pristatymo serverį."
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:216
+#: ../../main/zarafa/src/EBox/Zarafa.pm:222
 msgid "Groupware services (Zarafa)"
 msgstr "Grupės servisai (Zarafa)"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:761
+#: ../../main/zarafa/src/EBox/Zarafa.pm:809
 msgid "Zarafa Gateway Server"
 msgstr "Zarafa Vartų Serveris"
 
@@ -15926,6 +15481,10 @@ msgstr "Nepavyko"
 #, fuzzy
 msgid "Other Zentyal Server"
 msgstr "Registruoti Zentyal Serveriai"
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:85
+msgid "Zentyal Cloud"
+msgstr "Zentyal Debesys"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:92
 msgid "Sync users from"
@@ -16912,16 +16471,9 @@ msgstr "Patobulinti"
 #: ../../main/remoteservices/src/templates/NoActive.mas:5
 #, perl-brace-format
 msgid ""
-"This feature is only available if you get a Zentyal  Subscription. You can "
-"contract them at {url1}. If you are already registered, then subscribe this "
-"server at {url2}"
+"This feature is only available if you register your server. You can register "
+"it at the {oh}register page{ch}."
 msgstr ""
-"Ši galimybė galima tik jei esata Zentyal prenumeratorius. Galite susiekti at "
-"{url1}. Jei jau užsiregistravote, tuomet užsiprenumeruokite {url2}"
-
-#: ../../main/remoteservices/src/templates/NoActive.mas:14
-msgid "subscription page"
-msgstr "Aprašymas"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -17586,51 +17138,51 @@ msgid ""
 "{closehref} in order to use it."
 msgstr "Turite įjungti Vartotojų modulį modulių srityje norėdami panaudoti jį."
 
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
 msgstr "Ši tarnyba įjungta ir veikianti"
 
-#: ../../main/core/src/templates/dashboard/index.mas:26
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
 msgstr "Ši tarnyba įjungta, bet neveikianti"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:28
 msgid "Running unmanaged"
 msgstr "Veikianti be valdymo"
 
-#: ../../main/core/src/templates/dashboard/index.mas:29
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:29
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "Ši tarnyba yra veikianti, bet neįjungta Zentyal sistemoje"
 
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:33
 msgid "The service is not enabled in Zentyal"
 msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
 
-#: ../../main/core/src/templates/dashboard/index.mas:36
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
 msgstr "Paleisti iš naujo"
 
-#: ../../main/core/src/templates/dashboard/index.mas:109
+#: ../../main/core/src/templates/dashboard/index.mas:108
 msgid "Configure widgets"
 msgstr "Konfigūruoti valdiklius"
 
-#: ../../main/core/src/templates/dashboard/index.mas:112
+#: ../../main/core/src/templates/dashboard/index.mas:111
 #, fuzzy, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
 msgstr "Sekantys paketai bus įdiegti"
 
-#: ../../main/core/src/templates/dashboard/index.mas:116
+#: ../../main/core/src/templates/dashboard/index.mas:115
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/index.mas:120
+#: ../../main/core/src/templates/dashboard/index.mas:119
 #, fuzzy, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
@@ -18771,6 +18323,485 @@ msgid ""
 msgstr ""
 "Ši operacija ištrins vartotoją ir jo visas priklausomybes pvz kaip pašto "
 "paskyrą, vartotojo failus, ir k.t."
+
+#~ msgid "Subscription"
+#~ msgstr "Prenumerata"
+
+#~ msgid "Server Subscription"
+#~ msgstr "Serverio prenumerata"
+
+#~ msgid "Zentyal Cloud Services"
+#~ msgstr "Zentyal Debesų servisai"
+
+#~ msgid "- Latest backup: {date}"
+#~ msgstr "- Paskutinė kopija: {date}"
+
+#~ msgid ""
+#~ "By default, the access is only granted to hosts inside the Zentyal Cloud "
+#~ "private network. If you enable this option, the access is granted from "
+#~ "any address. Use this option only if you could not connect to the Zentyal "
+#~ "Cloud"
+#~ msgstr ""
+#~ "Pagal nutylėjimą prieiga suteikiama tik mazgams viduje Zentyal debesies "
+#~ "privataus tinklo. Jei įjungsite šią opciją, priėjimas bus leidžiamas iš "
+#~ "bet kurio adreso. Naudokite šią opciją tik jei nepavyko prisijungti prie "
+#~ "Zentyal debesies"
+
+#~ msgid "Central monitoring & management"
+#~ msgstr "Centrinis stebėjimas ir valdymas"
+
+#~ msgid "Server subcription info"
+#~ msgstr "Serverio prenumeratos informacija"
+
+#~ msgid "Please, save changes"
+#~ msgstr "Prašome išsaugoti pakeitimus"
+
+#~ msgid "User Name or Email Address"
+#~ msgstr "Vartotojo vardas arba El. pašto adresas"
+
+#~ msgid "Unsubscribe"
+#~ msgstr "Atšaukti prenumeratą"
+
+#~ msgid "Subscription to Zentyal Cloud"
+#~ msgstr "Prenumerata Zentyal Debesyje"
+
+#~ msgid "Subscribe"
+#~ msgstr "Užsisakyti"
+
+#~ msgid "Download latest report"
+#~ msgstr "Atsisiųsti naujausią ataskaitą"
+
+#, fuzzy
+#~ msgid ""
+#~ "The download link is for the latest available report for a group where "
+#~ "this zentyal server belongs to"
+#~ msgstr ""
+#~ "Parsisiuntimo nuoroda naujausiai ataskaitai grupei kuriai zentyal "
+#~ "priklauso"
+
+#~ msgid "{oh}Download sample{ch}"
+#~ msgstr "{oh}Parsisiųsti pavyzdį{ch}"
+
+#~ msgid "{oh}Download{ch}"
+#~ msgstr "{oh}Parsisiųsti{ch}"
+
+#~ msgid "Key for disaster recovery service not found"
+#~ msgstr "Raktas bėdos kopijos servisui nerastas"
+
+#~ msgid ""
+#~ "No backups found in this server. Do you want to retry with a different "
+#~ "one?"
+#~ msgstr "Nerasta kopijų šiame serveryje. Norite bandyti kitą?"
+
+#~ msgid ""
+#~ "There is not configuration backup from this date. Do you want to retry "
+#~ "with another date?"
+#~ msgstr ""
+#~ "Nėra konfigūracijos kopijos nuo šios datos. Ar norite bandyti kitą datą?"
+
+#~ msgid "You can only specify one of the encryption options: {sy}, {no}"
+#~ msgstr "Galite nustatyti tik vieną užšifravimo opciją: {sy}, {no}"
+
+#~ msgid "--force-type should have as argument either 'basic' or 'subscribed'"
+#~ msgstr "--force-type turi turėti argumentą arba 'basic' arba 'subscribed'"
+
+#~ msgid "Zenity package not found. Falling back to terminal mode"
+#~ msgstr "Zenity paketas nerastas. Gryžtama atgal į terminalo būseną"
+
+#~ msgid "User for the authentication"
+#~ msgstr "Vartotojas autentifikacijai"
+
+#~ msgid ""
+#~ "Password for the authentication. This password will be shown both in the "
+#~ "command line and in the process list so only use this option when "
+#~ "security is not a concern"
+#~ msgstr ""
+#~ "Slaptažodis autentifikacijai. Šis slaptažodis bus rodomas komandinėje "
+#~ "eilutėje ir procesų sąraše tad naudokite šią opciją jei saugumas jums "
+#~ "nesvarbus"
+
+#~ msgid "Server from which its backup date the restore will be done"
+#~ msgstr "Serveris iš kurio bus atstatoma kopija"
+
+#~ msgid "Use the last backup done for the restore"
+#~ msgstr "Naudokite paskutinė kopija įvykdyta atstatymui"
+
+#~ msgid "Restore all backup domains available"
+#~ msgstr "Atstatyti visas galimas sritis"
+
+#~ msgid "Backup domain to restore. It could be repeated several times"
+#~ msgstr "Kopijos srities atstatymui. Gali būti atlikta kelis kartus"
+
+#~ msgid ""
+#~ "Check if we use the no encryption or a symmetric encryption with password "
+#~ msgstr ""
+#~ "Patikrinkite ar naudojama nekoduota ar simetrinis užšiframas su "
+#~ "slaptažodžiu "
+
+#~ msgid "Do not use graphical interface"
+#~ msgstr "Nenaudoti grafinės sąsajos"
+
+#~ msgid "Change parameters used to access the storage server"
+#~ msgstr "Pakeisti parametrus naudojamus prieti prie failų serverio"
+
+#~ msgid "Module {mod} should be installed"
+#~ msgstr "Modulis {mod} turi būti įdiegtas"
+
+#~ msgid "Module {mod} should be configured"
+#~ msgstr "Modulis {mod} turi būti sukonfigūruotas"
+
+#~ msgid ""
+#~ "Could not automatically update system date and hour. If the system time "
+#~ "is not correct, some restore operations could fail"
+#~ msgstr ""
+#~ "Nepavyko atnaujinti sistemos datos ir valandos. Jei sistemos laikas "
+#~ "neteisingas, kai kurios atstatymo operacijos gali neveikti"
+
+#~ msgid "Choose the server to restore"
+#~ msgstr "Pasirinkite serverį atstatymui"
+
+#~ msgid "Server to restore: "
+#~ msgstr "Serverį atstatyti : "
+
+#~ msgid "Select backup domains to restore"
+#~ msgstr "Pasirinkite sričių kopijas atstatymui"
+
+#~ msgid "Backup domains available in the server {cn}: {l}"
+#~ msgstr "Sričių kopijos serveryje {cn}: {l}"
+
+#~ msgid "No backup domain selected to restore. Doing nothing"
+#~ msgstr "Nepasirinkta srities kopija atstatymui. Daro nieko"
+
+#~ msgid "Retrieving registered servers list"
+#~ msgstr "Gaunamas registruotų serverių sąrašas"
+
+#~ msgid "No key passphrase"
+#~ msgstr "Nėra rakto frazės"
+
+#~ msgid "No password in retrieved credentials"
+#~ msgstr "Nėra slaptažodžio gautuose duomenyse"
+
+#~ msgid "Retrieving account information"
+#~ msgstr "Gaunama paskyros informacija"
+
+#~ msgid "No registered Zentyal Servers"
+#~ msgstr "Nėra registruotų Zentyal Serverių"
+
+#~ msgid "Restoring files"
+#~ msgstr "Atstatomi failai"
+
+#~ msgid ""
+#~ "Cannot restore file {file} requested by backup domains. Reason: {reason}"
+#~ msgstr ""
+#~ "Nepavyko atstatyti failo {file} užklausto srities kopijos. Priežastis: "
+#~ "{reason}"
+
+#~ msgid "Restoring all backed-up files"
+#~ msgstr "Atsatomi visi kopijuoti failai"
+
+#~ msgid "Could not restore {dst}, it already exists and it is not a directory"
+#~ msgstr "Nepavyko atstatyti {dst}, jau egzistuoja ir tai ne direktorija"
+
+#~ msgid ""
+#~ "Error restoring file or directory {dst}. We will try to continue the "
+#~ "restore"
+#~ msgstr "Klaida atstatant byla ar katalogą {dst}. Bandysime tęsti atstatymą"
+
+#~ msgid ""
+#~ "Error restoring directory {d}. This could make fail some files or domains "
+#~ "restore processes. Error {e}"
+#~ msgstr ""
+#~ "Klaida atstatant katalogą {d}. Tai gali sutrukdyti kai kurių failų ar "
+#~ "srities atstatymo procesą. Klaida {e}"
+
+#~ msgid ""
+#~ "Backup log data not found in the files from the backup, log database will "
+#~ "not be restored"
+#~ msgstr ""
+#~ "Kopijos žurnalo duomenys nerasti kopijoje, žurnalo bazė nebus atstatyta"
+
+#~ msgid "Restoring log database"
+#~ msgstr "Atstatyto žurnalų duombazę"
+
+#~ msgid "Restoring configuration backup"
+#~ msgstr "Atstato konfigūracijos kopiją"
+
+#~ msgid ""
+#~ "The configuration restore failed. We will continue the process to try to "
+#~ "restore as much as possible but your system will need manual tweaking"
+#~ msgstr ""
+#~ "Konfigūracijos atstatymas nepavyko. Tęsime procesą bandydami atstatyti "
+#~ "kiek galima jūsų sistemą, rankinis derinimas gali būti reikalingas"
+
+#~ msgid "Checking configuration compability"
+#~ msgstr "Tikrinamas konfigūracijos suderinamumas"
+
+#~ msgid ""
+#~ "Cannot restore backup because there are less interfaces than there are "
+#~ "available. The missing interfaces are: {missing}"
+#~ msgstr ""
+#~ "Nepavyko atstatyti kopijos nes yra mažiau sąsajų nei buvo prieš tai. "
+#~ "Trūkstamos sąsajos : {missing}"
+
+#~ msgid "Updating software package lists"
+#~ msgstr "Atnaujina visus paketus"
+
+#~ msgid "Installing Zentyal components and their dependencies"
+#~ msgstr "Diegiama Zentyal komponentus ir jų priklausomuosius"
+
+#~ msgid "Installing missing modules..."
+#~ msgstr "Diegiama trūkstamus modulius..."
+
+#, fuzzy
+#~ msgid ""
+#~ "Error installing packages: {err}. The backup will continue but it would "
+#~ "not able to recover any configuration which depends on the missing "
+#~ "packages"
+#~ msgstr ""
+#~ "Klaida instaliuojant paketus: {err} Kopijavimas tęsis bet nebus galima "
+#~ "atstatyti jokių konfigūracijų  kurios priklauso nuo trūkstamų paketų"
+
+#~ msgid ""
+#~ "Updating package list to allow access to exclusive Zentyal Cloud packages"
+#~ msgstr ""
+#~ "Atnaujina paketų sąrašą leisiantį prieti prie Zentyal Debesies paketų"
+
+#~ msgid "Install cloud packages"
+#~ msgstr "Diegiami debesų paketai"
+
+#~ msgid "Downloading subscription data"
+#~ msgstr "Siunčiami prenumeratos duomenys"
+
+#~ msgid ""
+#~ "Connection error when retrieving subscription bundle. Zentyal Cloud "
+#~ "exclusive packages will not be installed"
+#~ msgstr ""
+#~ "Ryšio klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
+
+#~ msgid ""
+#~ "Cannot retrieve bundle because either installed zentyal-remoteservices is "
+#~ "outdated or only outdated bundle is available in the cloud. Zentyal "
+#~ "Cloud  exclusive packages will not be installed"
+#~ msgstr ""
+#~ "Nepavyko atsiųsti nes zentyal-remoteservices per senas arba per sena "
+#~ "informacija debesyse. Zentyal Debesų paketai nebus įdiegti"
+
+#~ msgid ""
+#~ "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+#~ "packages will not be installed"
+#~ msgstr ""
+#~ "Nežinoma klaida gaunant prenumeratą. Zentyal Debesų paketai nebus įdiegti"
+
+#~ msgid "Configuring modules"
+#~ msgstr "Konfiguracijos moduliai"
+
+#~ msgid "Configuring modules: Current module {mod}"
+#~ msgstr "Kofigūracijos moduliai: Dabartinis modulis {mod}"
+
+#~ msgid "Configuring modules {p} done. Current module {mod}"
+#~ msgstr "Modulių {p} konfigūracija atlikta. Dabartinis modulis {mod}"
+
+#~ msgid ""
+#~ "Failed to configure module {name}: {err}. This could affect to the "
+#~ "restore of other modules"
+#~ msgstr ""
+#~ "Nepavyko konfigūruoti modulio {name}: {err}. Tai gali įtakoti atstatymą "
+#~ "kitų modulių"
+
+#~ msgid "Downloading backup metadata..."
+#~ msgstr "Siunčiami kopijos duomenys..."
+
+#~ msgid "Downloading the backup data"
+#~ msgstr "Siunčiama kopija"
+
+#~ msgid "Downloading  {src} backup data for {dom}"
+#~ msgstr "Siunčiama  {src} kopijos duomenys {dom}"
+
+#~ msgid ""
+#~ "Error downloading data for backup domain: {dom}. The domain will not be "
+#~ "fully restored"
+#~ msgstr ""
+#~ "Klaida siunčiant duomenis kopijos sričiai: {dom} Sritis nebus atstatyta"
+
+#~ msgid "Downloading the backup configuration"
+#~ msgstr "Siunčiama konfigūracijos kopija"
+
+#~ msgid "Downloading configuration"
+#~ msgstr "Siunčiama konfigūracija"
+
+#~ msgid "Looking for a version 2.0.X backup"
+#~ msgstr "Ieškoma 2.0.X kopija"
+
+#~ msgid "Retrieving backup collection status ..."
+#~ msgstr "Gaunamas kopijos surinkimo statusas..."
+
+#~ msgid "Last backup date was: {date}"
+#~ msgstr "Paskutinė kopija buvo: {date}"
+
+#~ msgid "No automatic configuration backups were made for the server {s}"
+#~ msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui {s}"
+
+#~ msgid "Choose date to restore the backup from server {cn}"
+#~ msgstr "Pasirinkite datą atstatymui kopijos iš serverio {cn}"
+
+#~ msgid "No automatic configuration backups were done for the server {s}"
+#~ msgstr "Nėra automatinių konfigūracijos kopijų šiam serveriui: {s}"
+
+#~ msgid "No configuration backups were made for the date {d} in {s} server"
+#~ msgstr "Nėra konfigūracijos kopijos datai {d} {s} serveryje"
+
+#~ msgid "The server {server} is not registered in Zentyal Cloud"
+#~ msgstr "Serveris {server} neregistruotas Zentyal Debesyje"
+
+#~ msgid "Please, enter a value"
+#~ msgstr "Prašome įveskite reikšmę"
+
+#~ msgid "Please answer yes or no"
+#~ msgstr "Prašome atsakyti taip arba ne"
+
+#~ msgid "Backup dates for server {cn}"
+#~ msgstr "Kopijos datos serveriui {cn}"
+
+#~ msgid "Enter backup date to restore:"
+#~ msgstr "Įveskite kopijos datą atstatymui:"
+
+#~ msgid "Invalid date: {d}. Try again"
+#~ msgstr "Neteisinga data: {d}. Bandykite dar kartą"
+
+#~ msgid "This entry is mandatory to continue the restoring process. Retry"
+#~ msgstr "Laukas privalomas tęsti atstatymo procedūrai. Bandyti dar kartą"
+
+#~ msgid "Selection"
+#~ msgstr "Pasirinkimas"
+
+#~ msgid ""
+#~ "This entry is mandatory to carry on the restoring process. Choose from "
+#~ "the list"
+#~ msgstr ""
+#~ "Šis laukas privalomas tęsti atstatymo procesui. Pasirinkite iš sąrašo"
+
+#~ msgid "Please wait"
+#~ msgstr "Prašome palaukti"
+
+#~ msgid "Finished"
+#~ msgstr "Baigta"
+
+#~ msgid "Restoring process aborted upon user request"
+#~ msgstr "Atstatymo procesas atšauktas pagal vartotojo užklausą"
+
+#~ msgid "Saving configuration changes"
+#~ msgstr "Saugomi konfigūracijos pakeitimai"
+
+#~ msgid ""
+#~ "Error saving configuration changes; some Zentyal modules would remain in "
+#~ "a unknown state"
+#~ msgstr ""
+#~ "Klaida saugant konfigūracijso pakeitimus; kai kurie Zentyal moduliai liks "
+#~ "nežinomam statuse"
+
+#~ msgid "Regenerating file list cache"
+#~ msgstr "Perkuriami failų sąrašas"
+
+#~ msgid ""
+#~ "Cannot connect to the Cloud to regenerate backup list. Please try again "
+#~ "later."
+#~ msgstr ""
+#~ "Nepavyko prisijungti prie Debesies sugeneruoti kopijų sąrašo. Bandykite "
+#~ "vėliau."
+
+#~ msgid "Zentyal Cloud User"
+#~ msgstr "Zentyal Debesų vartotojas"
+
+#~ msgid "Zentyal Cloud Password"
+#~ msgstr "Zentyal Debesų Slaptažodis"
+
+#~ msgid "The account {user} do not have any registered Zentyal servers"
+#~ msgstr "Vartotojas {user} neturi priregistruotų Zentyal serverių"
+
+#~ msgid ""
+#~ "If you had enabled the Disaster Recovery service in Small Business or "
+#~ "Enterprise Edition, besides the configuration you are about to recover, "
+#~ "you could have restored the data of the active modules."
+#~ msgstr ""
+#~ "Jei įjungėte Nelaimės atstatymo (DR) servisą Small Business ar Enterprise "
+#~ "Edition, be konfigūracijos kurią ruošiatės atstatyti jūs galite atstatyti "
+#~ "aktyvius modulius."
+
+#~ msgid "Enter password used to encrypt back up {ser}"
+#~ msgstr "Įveskite slaptažodį naudotą užkoduoti kopiją {ser}"
+
+#~ msgid ""
+#~ "Incorrect password. Please, enter the correct password used for encrypt "
+#~ "{ser}."
+#~ msgstr ""
+#~ "Neteisingas slaptažodis. Prašome įveskite teisingą slaptažodį naudotą "
+#~ "užkoduoti {ser}."
+
+#~ msgid ""
+#~ "The following backup domains could not be restored from a basic "
+#~ "subscription: {domains}"
+#~ msgstr ""
+#~ "Sekančios sritys negali būti atstatytos iš praprastos prenumeratos: "
+#~ "{domains}"
+
+#~ msgid ""
+#~ "The local password file has changed, the local users and their password "
+#~ "could have been changed. We reccomend you to logut and login again with a "
+#~ "valid user to avoid user identity problems."
+#~ msgstr ""
+#~ "Lokalus slaptažodžio failas pasiektė, lokalūs vartotojai ir jų "
+#~ "slaptažodžiai gali būti pakeisti. Rekomenduojame atsijungti ir "
+#~ "prisijungti iš naujo su veikiančiu vartotoju norint išvengti vartotojų "
+#~ "identifikavimo problemų."
+
+#~ msgid ""
+#~ "The shadow password file was restored; your local user password could "
+#~ "have been changed"
+#~ msgstr ""
+#~ "Shadow slaptažodžių failas atstatytas; jūsų lokalių vartotojų "
+#~ "slaptažodžiai gali būti pasikeitę"
+
+#~ msgid ""
+#~ "No hostname infromation found in metadata but hostname configuration "
+#~ "files changed; please fix your hostname manually or with the Zentyal "
+#~ "option found at System -> General."
+#~ msgstr ""
+#~ "Mazgo vardo inforamcija nerasta duomenyse bet vardo konfigūracijos failai "
+#~ "pasiektę; Prašome pataisyti savo vardą rankomis arba Zentyal opcijose "
+#~ "Sistema - Pagrindiniai"
+
+#~ msgid "Your full backup is now successfully restored!"
+#~ msgstr "Jūsų pilna kopija atstatyta sėkmingai!"
+
+#~ msgid "You can now login at {url} to manage your recovered host."
+#~ msgstr "Galite prisijugnti {url} tvarkyti jūsų atstatytą mazgą."
+
+#~ msgid "Warning: {msg}"
+#~ msgstr "Įspėjimas: {msg}"
+
+#~ msgid ""
+#~ "Sorry, an unexpected error has occurred. Please contact support and check "
+#~ "the /var/log/zentyal/zentyal.log file for further details."
+#~ msgstr ""
+#~ "Atsiprašome, nežinoma klaida įvyko. Prašome susiekti su pagalba ir "
+#~ "patikrinkite /var/log/zentyal/zentyal.log informacijai."
+
+#~ msgid "Restore process aborted"
+#~ msgstr "Atstatymo procesas atšauktas"
+
+#~ msgid "To set the antivirus settings for Samba."
+#~ msgstr "Nustatyti antiviruso nustatymus Sambai."
+
+#~ msgid ""
+#~ "This feature is only available if you get a Zentyal  Subscription. You "
+#~ "can contract them at {url1}. If you are already registered, then "
+#~ "subscribe this server at {url2}"
+#~ msgstr ""
+#~ "Ši galimybė galima tik jei esata Zentyal prenumeratorius. Galite susiekti "
+#~ "at {url1}. Jei jau užsiregistravote, tuomet užsiprenumeruokite {url2}"
+
+#~ msgid "subscription page"
+#~ msgstr "Aprašymas"
 
 #~ msgid "The domain is set as read only. You cannot add mail exchangers"
 #~ msgstr ""
@@ -20435,9 +20466,6 @@ msgstr ""
 
 #~ msgid "It should follow the pattern 'user@domain[/resource]'"
 #~ msgstr "Turi atitikti 'user@domain[/resource]' šabloną"
-
-#~ msgid "Select report"
-#~ msgstr "Pasirinkti ataskaitą"
 
 #~ msgid "Configuration report"
 #~ msgstr "Pranešimų nustatymai"
