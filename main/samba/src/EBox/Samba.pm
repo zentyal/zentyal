@@ -576,7 +576,7 @@ sub _checkEnvironment
     # The own doamin and the kerberos realm must be equal
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The host domain '{d}' must be equal kerberos realm '{r}'", d => $hostDomain, r => $realm));
+        throw EBox::Exceptions::External(__x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm));
     }
 
     # Check the domain exists in DNS module
