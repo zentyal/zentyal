@@ -1,4 +1,6 @@
 HEAD
+	+ Added template attribute to MultiStateAction to provide any kind
+	  of HTML to display an action
 	+ Proper new link to Remote Services
 	+ Improved dashboard buttons colors
 2.3.24
