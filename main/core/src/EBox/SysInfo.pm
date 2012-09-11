@@ -463,7 +463,7 @@ sub _restartAllServices
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the Small Business or Enterprise Edition that include quality assured software updates.');
+    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
 }
 
 sub _secureMsg

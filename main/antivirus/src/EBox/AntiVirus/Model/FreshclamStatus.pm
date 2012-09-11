@@ -202,7 +202,7 @@ sub _formatDate
 
 sub _commercialMsg
 {
-    return __sx('Want to protect your system against scams, spear phishing, frauds and other junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the Antivirus feature in the automatic security updates.',
+    return __sx('Want to protect your system against scams, spear phishing, frauds and other junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that will keep your Antvirus database always up-to-date.',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');

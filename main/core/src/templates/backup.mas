@@ -9,11 +9,11 @@ use EBox::Config;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
-        <% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
+        <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
   </div>
 % } else {
   <div class='adwarning'>
-        <% __sx('Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview of Zentyal Cloud and allows access to some features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to store one configuration backup remotely and create zentyal.me subdomain for your server.', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+        <% __sx('Register your Zentyal server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>

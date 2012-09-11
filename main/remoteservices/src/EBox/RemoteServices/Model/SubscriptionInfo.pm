@@ -144,8 +144,8 @@ sub _content
 
     my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
       ( __('None'), __('Not using Zentyal Dynamic DNS service'),
-        __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
-             ohb => '<a href="' . BASIC_URL . '" target="_blank">',
+        __sx('<span>None - {oh}Register for Free!{ch}</span>',
+             oh => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
              ch  => '</a>'),
         __('None'), __('Disabled'));
 

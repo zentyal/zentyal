@@ -214,7 +214,7 @@ sub viewCustomizer
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Want to know what is your system status and usage? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to receive regular system reports.',
+    return __sx('Want to know what is your system status and usage? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to create regular system reports.',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');

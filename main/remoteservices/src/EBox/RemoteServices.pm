@@ -1625,10 +1625,10 @@ sub _ccConnectionWidget
         $sbMailAddOn = $self->sbMailAddOn();
 
     } else {
-        $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
+        $connValue      = __sx('Not registered - {oh}Register now!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
-        $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
+        $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
     }

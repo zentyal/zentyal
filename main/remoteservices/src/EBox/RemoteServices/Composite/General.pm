@@ -64,12 +64,8 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Are you interested in a remote configuration backup of your Zentyal '
-                . 'server? Or do you want to use a subdomain, such as '
-                . 'yourserver.zentyal.me? Get a {ohb}Free Zentyal Account{ch} that gives you '
-                . 'access to these features and much more! Or, if you already have a Small '
-                . 'Business or Enterprise Edition, use your credentials for full access.',
-                ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
+    return __sx('{ohf}Register your server for free{ch}! Gain access to one remote configuration backup and zentyal.me subdomains!',
+                ohf => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 
 1;
