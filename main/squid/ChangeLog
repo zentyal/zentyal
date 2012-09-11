@@ -1,3 +1,8 @@
+HEAD
+	+ Using again squid ACL when DG is active
+	+ Fixed issues in timed regenration of DG files
+	+ Unallow to mix ip and basic authorization in DG
+	+ Fixed directory to store archive files
 2.3.12
 	+ Squid is restarted if groups in use change their members
 	+ Adapted LdapUserImplementation to new users API
