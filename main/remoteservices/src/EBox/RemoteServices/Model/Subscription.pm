@@ -58,6 +58,10 @@ use EBox::View::Customizer;
 use Error qw(:try);
 use Sys::Hostname;
 
+use constant STORE_URL => 'http://store.zentyal.com/';
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+
 my $subsWizardURL = '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
