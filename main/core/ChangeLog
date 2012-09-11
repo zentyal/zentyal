@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed i18n problem in some cases where environment variables
+	  were different than the selected locale on Zentyal UI, now
+	  LANG and LC_MESSAGES are explicitly passed to mod_perl
 	+ Reviewed registration strings
 	+ Added template attribute to MultiStateAction to provide any kind
 	  of HTML to display an action

@@ -23,87 +23,41 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA = qw(Exporter);
-    @EXPORT = qw{ __ __n __x __d __dx __s __sx __p __px settextdomain gettextdomain langs };
+    @EXPORT = qw{ __ __x __s __sx __p __px langs __n };
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
     $VERSION = EBox::Config::version;
 }
 
-my $cur_domain = 'zentyal';
-my $old_domain;
-
-use constant SUBS_DOMAIN => 'zentyal-subscription';
-use constant PROF_DOMAIN => 'zentyal-prof';
-
-# Method: settextdomain
-#
-#   Sets the curent message domain
-#
-# Parameters:
-#
-#       domain - The domain name
-#
-sub settextdomain # (domain)
-{
-    my $domain = shift;
-    textdomain($domain);
-    bindtextdomain($domain, EBox::Config::locale());
-    my $old_domain = $cur_domain;
-    $cur_domain = $domain;
-    return $old_domain;
-}
-
-# Method: gettextdomain
-#
-#   Gathers  the curent message domain
-#
-# Returns:
-#
-#      The current message domain
-#
-sub gettextdomain
-{
-    return $cur_domain;
-}
+my $DEFAULT_DOMAIN = 'zentyal';
+my $SUBS_DOMAIN = 'zentyal-subscription';
+my $PROF_DOMAIN = 'zentyal-prof';
 
 sub __ # (text)
 {
     my ($msgid) = @_;
 
-    # FIXME: Probably there is a better way to do this
-    # and avoid setting the domain every time, so this is a
-    # temporary solution
-    my $string = __d($msgid, 'zentyal');
+    my $string = __d($msgid, $DEFAULT_DOMAIN);
     $string =~ s/\'/\&#39\;/g;
     $string =~ s/\"/\&#34\;/g;
-    return $string;
-}
-
-sub __n # (text)
-{
-    my $string = shift;
-    my ($p, $a, $c) = caller;
     return $string;
 }
 
 sub __x # (text, %variables)
 {
     my ($msgid, %vars) = @_;
-    #FIXME: my $string = gettext($msgid);
-    my $string = __d($msgid, 'zentyal');
-    return __expand($string, %vars);
+
+    return __expand(__($msgid), %vars);
 }
 
 sub __d # (text,domain)
 {
     my ($string, $domain) = @_;
 
-    return '' unless ($string);
-
-    bindtextdomain($domain, EBox::Config::locale());
-    textdomain($domain);
+    my $cur_domain = textdomain($domain);
     $string = gettext($string);
     textdomain($cur_domain);
+
     return $string;
 }
 
@@ -111,33 +65,27 @@ sub __dx # (text,domain, %variables)
 {
     my ($string, $domain, %vars) = @_;
 
-    return '' unless ($string);
-
-    bindtextdomain($domain, EBox::Config::locale());
-    textdomain($domain);
-    $string = gettext($string);
-    textdomain($cur_domain);
-    return __expand($string, %vars);
+    return __expand(__d($string, $domain), %vars);
 }
 
 sub __s # (text)
 {
     my ($text) = @_;
-    return __d($text, SUBS_DOMAIN);
 
+    return __d($text, $SUBS_DOMAIN);
 }
 
 sub __sx # (text, %variables)
 {
     my ($text, %vars) = @_;
 
-    return __dx($text, SUBS_DOMAIN, %vars);
+    return __dx($text, $SUBS_DOMAIN, %vars);
 }
 
 sub __p # (text)
 {
     my ($text) = @_;
-    return __d($text, PROF_DOMAIN);
+    return __d($text, $PROF_DOMAIN);
 
 }
 
@@ -145,10 +93,10 @@ sub __px # (text, %variables)
 {
     my ($text, %vars) = @_;
 
-    return __dx($text, PROF_DOMAIN, %vars);
+    return __dx($text, $PROF_DOMAIN, %vars);
 }
 
-sub __expand # (translation, %arguments)
+sub __expand
 {
     my ($translation, %args) = @_;
 
@@ -227,6 +175,12 @@ sub langs
     }
 
     return $langs;
+}
+
+# FIXME: remove this when not used
+sub __n
+{
+    return __(@_);
 }
 
 1;
