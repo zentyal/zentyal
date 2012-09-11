@@ -1,4 +1,4 @@
-HEAD
+2.3.14
 	+ Fix access for domain users to shares when guest access is enabled
 	  on the share
 	+ Setup quarantine directory for zavs and rant access to domain admins only
