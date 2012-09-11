@@ -1,4 +1,4 @@
-HEAD
+2.3.4
 	+ Fixed store of zarafaEnabledFeatures as multiple attributes
 	+ Fix Zarafa Webapp/Webaccess SSO
 	+ Fix XMPP integration writing xmpp/config.php file
