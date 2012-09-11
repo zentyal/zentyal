@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed i18n problem in some cases where environment variables
+	  were different than the selected locale on Zentyal UI, now
+	  LANG and LC_MESSAGES are explicitly passed to mod_perl
 2.3.24
 	+ Do not cache undef values in EBox::Config::Redis::get()
 	+ Code fix on subscription retrieval for Updates event
