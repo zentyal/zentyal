@@ -64,8 +64,8 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal Remote and allows you access to some basic features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to configure one remote configuration backup and create zentyal.me subdomain for your server).',
-                ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
+    return __sx('{ohf}Register your server for free{ch}! Gain access to one remote configuration backup and zentyal.me subdomains!',
+                ohf => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 
 1;

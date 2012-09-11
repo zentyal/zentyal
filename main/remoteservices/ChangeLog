@@ -1,6 +1,6 @@
 HEAD
 	+ New style for registration wizard
-	+ Some fixes in text in the models
+	+ Reviewed strings
 	+ Start up tasks (cronjobs and bundle reload) is done after save
 	  changes in background
 	+ VPN connection is established once it is needed

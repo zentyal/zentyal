@@ -162,8 +162,7 @@ sub _modCheck
             my $mod = $gl->modInstance($modName);
             if ( $mod->isEnabled() ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('You cannot get Module {mod} enabled with Small Business Edition',
-                         mod => $mod->printableName()));
+                    __sx('The module {mod} is not supported in the Small Business Edition.', mod => $mod->printableName()));
             }
         }
     }
@@ -180,16 +179,16 @@ sub _usersCheck
         if ( $usersMod->isEnabled() ) {
             if ( not ( ($usersMod->mode() eq 'master') or ($usersMod->mode() eq 'ad-slave') ) ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('The Small Business Edition can be only used in master mode or Active Directory slave'));
+                    __s('Please note that the Small Business Edition can be only used in master mode.'));
             }
             if ( scalar(@{$usersMod->listSlaves()}) > 0 ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('The Small Business Edition cannot have got slaves'));
+                    __s('Please note that the Small Business Edition cannot have slaves.'));
             }
             my $users = $usersMod->usersList();
             if ( scalar(@{$users}) > MAX_SB_USERS ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The maximum number of users for Small Business Edition is {max} '
+                    __sx('Please note that the maximum number of users for Small Business Edition is {max} '
                          . 'and you currently have {nUsers}',
                          max => MAX_SB_USERS, nUsers => scalar(@{$users})));
             }

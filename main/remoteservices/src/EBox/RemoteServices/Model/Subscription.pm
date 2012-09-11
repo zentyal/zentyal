@@ -265,7 +265,11 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free Basic Subscription, or Small Business, or Enterprise Edition, all available in the Zentyal On-line Store. Once you have obtained one of these services, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg = __sx("Register your Zentyal server to Zentyal's remote monitoring and management platform (Zentyal Remote) here. Get a {ohf}free account{ch} or use the credentials of your {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for full access.",
+            ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
+            ohs => '<a href="' . SB_URL . '" target="_blank">',
+            ohe => '<a href="' . ENT_URL . '" target="_blank">',
+            ch => '</a>');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();

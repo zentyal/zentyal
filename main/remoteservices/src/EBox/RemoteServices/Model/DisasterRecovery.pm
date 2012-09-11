@@ -303,11 +303,11 @@ sub _content
 
 sub _CBmessage
 {
-    return __sx('Want to ensure the availability of your business critical data at all times? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}! Take a look and try out the Free {ohb}Basic Subscription{ch} which allows you to store one configuration backup remotely.',
+    return __sx('Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to ensure the availability of your business critical data at all times! Or start with the {ohf}free registration{ch} that lets you to store one remote configuration backup.',
                 ch => '</a>',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ohb => '<a href="' . SUBS_WIZARD_URL  . '">');
+                ohf => '<a href="' . SUBS_WIZARD_URL  . '">');
 }
 
 sub _DRmessage
