@@ -49,8 +49,8 @@ AddDefaultCharset utf-8
 
 PidFile <% $tmpdir %>/apache.pid
 
-PerlSetEnv LANG $locale
-PerlSetEnv LC_MESSAGES $locale
+PerlSetEnv LANG <% $locale %>
+PerlSetEnv LC_MESSAGES <% $locale %>
 
 <IfModule mpm_prefork_module>
     StartServers             1
