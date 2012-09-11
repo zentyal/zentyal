@@ -452,7 +452,7 @@ recheckreplacedurls = off
 # if on it adds an X-Forwarded-For: <clientip> to the HTTP request
 # header.  This may help solve some problem sites that need to know the
 # source ip. on | off
-forwardedfor = off
+forwardedfor = on
 
 
 # if on it uses the X-Forwarded-For: <clientip> to determine the client
