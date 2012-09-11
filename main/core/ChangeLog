@@ -1,4 +1,5 @@
 HEAD
+	+ In save changes dialog set focus always in the 'save' button
 	+ Fixed i18n problem in some cases where environment variables
 	  were different than the selected locale on Zentyal UI, now
 	  LANG and LC_MESSAGES are explicitly passed to mod_perl
