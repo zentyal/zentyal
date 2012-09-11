@@ -161,13 +161,14 @@ sub rules
     my $userMod = $self->global()->modInstance('users');
     my $usersEnabled = $userMod->isEnabled();
 
+    # we dont use row ids to make rule id shorter bz squid limitations with id length
+    my $number = 0;
     my @rules;
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
 
-        my $rule = {};
-
+        my $rule = { number => $number};
         if ($source->selectedType() eq 'object') {
             my $object = $source->value();
             $rule->{object} = $object;
@@ -196,6 +197,7 @@ sub rules
         }
 
         push (@rules, $rule);
+        $number += 1;
     }
 
     return \@rules;

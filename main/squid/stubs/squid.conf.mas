@@ -36,6 +36,11 @@
 
     $dn
 </%args>
+<%shared>
+our $anyPrefix = 'any_src_';
+our $maxAclNameLength = 31;
+our %longAclNames = ();
+</%shared>
 <%init>
 if ($filter) {
 # only kept rules which will not be implemented in DG
@@ -46,23 +51,21 @@ if ($filter) {
 }
 </%init>
 <%perl>
-our $maxAclNameLength = 31;
-our %longAclNames = ();
-
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
-
    @ids = grep { defined ($_) } @ids;
+   if ($policy->{any}) {
+       unshift @ids, $anyPrefix . $policy->{number};
+   }
+
    my $id = join '_', @ids;
 
    my $acls = '';
-
    if ($policy->{timeDays}) {
       $acls = _aclName('timeDays_' . $id);
       $acls .= ' ';
    }
-
    if ($policy->{timeHours}) {
        $acls .= _aclName('timeHours_' . $id);
    }
@@ -274,7 +277,10 @@ always_direct allow localhostdst
 $realm
 </%args>
 % foreach my $rule (@rules) {
-%   next if $rule->{any};
+%   if ($rule->{any}) {
+       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
+%      next;
+%   }
 %   my $object = $rule->{object};
 %   my $group = $rule->{group};
 %   my $src = $object ? $object : $group;
@@ -289,7 +295,7 @@ acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %       }
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
-<& .timeACLs, rule => $rule, id => $src &>
+   <& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
 
