@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-09-11 15:56+0200\n"
+"PO-Revision-Date: 2012-09-11 19:13+0200\n"
 "Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -3997,9 +3997,8 @@ msgid "Small Business"
 msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
-#, fuzzy
 msgid "Zentyal Remote Client"
-msgstr "Cliente de Zentyal Cloud"
+msgstr "Cliente de Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
 msgid "Not subscribed"
@@ -4010,14 +4009,12 @@ msgid "Subscribed"
 msgstr "Suscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
-#, fuzzy
 msgid "Registration"
-msgstr "Destino"
+msgstr "Registro"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
-#, fuzzy
 msgid "Server Registration"
-msgstr "Edición de servidor"
+msgstr "Registro del Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
@@ -4033,18 +4030,16 @@ msgstr "Actualizaciones de Seguridad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
-#, fuzzy
 msgid "Your Zentyal Server Account"
-msgstr "Otros servidores Zentyal"
+msgstr "Tu cuenta para Zentyal Server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
-#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Remote"
 msgstr ""
 "Las direcciones IP del monitor están disponibles únicamente si el host está "
-"suscrito a Zentyal Cloud"
+"suscrito a Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
 msgid "Zentyal must be subscribed to reload the bundle"
@@ -4133,32 +4128,29 @@ msgid "No data backup has been done yet"
 msgstr "No se hizo aún un backup de los datos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
-#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr ""
 "El nombre de suscripción no está disponible si el servidor no está suscrito "
-"a Zentyal Cloud"
+"a Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
-#, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
-"El UUID solo está disponible si la máquina está suscrita a Zentyal Cloud"
+"El UUID solo está disponible si la máquina está suscrita a Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
-#, fuzzy
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
-"El Dominio de Zentyal Cloud solo está disponible si la máquina está suscrita"
+"El Dominio de Zentyal Remote solo está disponible si la máquina está "
+"suscrita"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
-#, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
-"Las credenciales de Zentyal Cloud solo están disponibles si la máquina está "
+"Las credenciales de Zentyal Remote solo están disponibles si la máquina está "
 "suscrita"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4170,20 +4162,20 @@ msgid "Service Level Agreement"
 msgstr "Acuerdo de Nivel de Servicio"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-#, fuzzy
 msgid "Allow remote access to Zentyal support"
-msgstr "Permite el acceso remoto al personal de Zentyal"
+msgstr "Permite el acceso remoto al personal de soporte de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
 msgid ""
 "Allow Zentyal support engineers to connect to your server from Zentyal "
 "Remote network."
 msgstr ""
+"Permitir a los ingenieros de soporte de Zentyal conectar a tu servidor a "
+"través de la red de Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
-#, fuzzy
 msgid "Allow access from the Internet"
-msgstr "Permite el acceso desde cualquier dirección de internet"
+msgstr "Permitir el acceso desde Internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
 msgid ""
@@ -4191,6 +4183,9 @@ msgid ""
 "Internet to your public IP address. Only use this option if you could not "
 "connect to Zentyal Remote."
 msgstr ""
+"Permitir a los ingenieros de soporte de Zentyal conectar a tu servidor "
+"directamente desde tu IP pública de Internet. Sólo se recomienda usar esta "
+"opción si no puedes conectar a Zentyal Remote."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
@@ -4212,13 +4207,12 @@ msgstr ""
 "a {cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is registered to "
 "Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
 "Para restringir direcciones necesita que su servidor Zentyal esté suscrito a "
-"Zentyal Cloud. Puede suscribirlo o permitir el acceso desde cualquier "
+"Zentyal Remote. Puede suscribirlo o permitir el acceso desde cualquier "
 "dirección"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
@@ -4315,28 +4309,24 @@ msgid "Alerts"
 msgstr "Alertas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (Dynamic DNS)"
-msgstr "Nombre del servidor externo (DynDNS)"
+msgstr "Nombre del servidor externo (DNS Dinámico)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
 msgstr "Use este nombre para conectarse a Zentyal de forma externa"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-#, fuzzy
 msgid "Renovation date"
-msgstr "Fecha de renovación de suscripción"
+msgstr "Fecha de renovación"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-#, fuzzy
 msgid "Server info"
-msgstr "Servidor no encontrado"
+msgstr "información del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-#, fuzzy
 msgid "Not using Zentyal Dynamic DNS service"
-msgstr "No esta usando el servicio de DynDNS de Zentyal Cloud"
+msgstr "No esta usando el servicio de DNS Dinámico de Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
@@ -4352,9 +4342,8 @@ msgid "The VPN server is reachable"
 msgstr "El servidor VPN es alcanzable"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
-#, fuzzy
 msgid "Zentyal Remote VPN Connectivity Check"
-msgstr "Comprobación de la conectividad a la VPN de Zentyal Cloud"
+msgstr "Comprobación de la conectividad a la VPN de Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
@@ -4377,22 +4366,20 @@ msgid "Select one of the available options"
 msgstr "Seleccione una de las opciones disponibles"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
-#, fuzzy
 msgid ""
 "Registration was done correctly. Wait a minute to guarantee the system "
 "carries out the process of registration. Later on, you can start using the "
 "cloud based services you are entitled to with your edition (remote backup, "
 "updates, alerts, etc.)"
 msgstr ""
-"La subscripción se hizo correctamente. Guarde los cambios y luego, espere un "
-"minuto para garantizar que el sistema realiza el proceso de suscripción. "
-"Posteriormente puede empezar a usar los servicios de la nube que posee con "
-"su suscripción (backup remoto, actualizaciones, alertas, etc.)"
+"La subscripción se completó correctamente. Guarde los cambios y luego, "
+"espere un minuto para garantizar que el sistema realice el proceso de "
+"suscripción. Posteriormente, puede empezar a usar los servicios en la nube "
+"asociados a su suscripción (backup remoto, actualizaciones, alertas, etc.)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
-#, fuzzy
 msgid "Registration data retrieved correctly."
-msgstr "Datos de la suscripción recuperados correctamente"
+msgstr "Datos de la suscripción recuperados correctamente."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:653
@@ -4401,29 +4388,26 @@ msgid "Done"
 msgstr "Hecho"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
-#, fuzzy
 msgid ""
 "Take into account that registering your Zentyal server to the Zentyal Remote "
 "can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
-"Tenga en cuenta que suscribir su servidor Zentyal podría llevar unos "
-"minutos. Por favor, no toque nada hasta que el proceso de subscripción haya "
-"acabado."
+"Tenga en cuenta que suscribir su servidor Zentyal a Zentyal Remote podría "
+"llevar unos minutos. Por favor, no toque nada hasta que el proceso de "
+"subscripción haya acabado."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
-#, fuzzy
 msgid ""
 "Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
-"Antes de realizar una suscripción a servicios remotos, habilite el módulo "
-"OpenVPN y guarde o descarte los cambios"
+"Antes de realizar una suscripción a servicios remotos, guarde o descarte los "
+"cambios en el módulo de OpenVPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
-#, fuzzy
 msgid "Registration Email Address"
-msgstr "Nombre de usuario o dirección de correo"
+msgstr "Dirección de correo del registro"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
@@ -4472,23 +4456,20 @@ msgid "Select one of your purchases"
 msgstr "Elija uno de sus productos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
-#, fuzzy
 msgid "Zentyal registration details"
-msgstr "Detalles de suscripción de Zentyal"
+msgstr "Detalles del registro de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
-#, fuzzy
 msgid "Unregister"
-msgstr "Incorporado a la lista gris"
+msgstr "Sin registrar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
-#, fuzzy
 msgid "Register your Zentyal Server"
-msgstr "Servidores Zentyal registrados"
+msgstr "Registra tu servidor Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
 msgid "Register"
-msgstr ""
+msgstr "Registrar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
 msgid " module"
@@ -4544,29 +4525,25 @@ msgid "Reload available options"
 msgstr "Recargar opciones disponibles"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
-#, fuzzy
 msgid "Unregistering a server"
-msgstr "servidor de correo externo"
+msgstr "Desregistrar un servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
-#, fuzzy
 msgid "Registering a server"
-msgstr "servidor de correo externo"
+msgstr "Registrando un servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-#, fuzzy
 msgid "Get latest report"
-msgstr "Selecciona informe"
+msgstr "Obtener el último informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:100
 msgid "Last consolidation time"
 msgstr "Último momento de consolidación"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:104
-#, fuzzy
 msgid "Number of available reporters"
-msgstr "Número de alertas"
+msgstr "Número de máquinas informando"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:110
 msgid "Reports"
@@ -4575,30 +4552,31 @@ msgstr "Informes"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
 msgid "Reports are done based on automatically gathered data in hourly basis"
 msgstr ""
+"Los informes son generados con los datos recogidos automáticamente cada hora"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
-#, fuzzy
 msgid "Not registered"
-msgstr "No creada"
+msgstr "No registrada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
 #, perl-brace-format
 msgid "{oh}Take a look on the example{ch}"
-msgstr ""
+msgstr "{oh}échale un vistazo al ejemplo{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
 msgstr ""
+"La consolidación está desactivada. No se están recogiendo datos para los "
+"informes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
 msgid "{oh}Take a look{ch}"
-msgstr ""
+msgstr "{oh}Echa un vistazo{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
-#, fuzzy
 msgid "No consolidation done yet"
-msgstr "operaciones realizadas"
+msgstr "La consolidación no se ha realizado todavía"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4798,12 +4776,12 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "No se puede contactar con {host}. Compruebe su conexión a Internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:723
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
-"No se pudo conectar al servidor WS \"{addr}:{port}/{proto}\". Revise su "
+"No se pudo conectar al servidor API \"{addr}:{port}/{proto}\". Revise su "
 "resolución de nombres y el firewall de su red"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:751
@@ -4854,9 +4832,8 @@ msgstr "Clave de dominio para este servicio no encontrada"
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
 #: ../../main/core/src/templates/headTitle.mas:19
-#, fuzzy
 msgid "Zentyal Remote"
-msgstr "Máquina Zentyal"
+msgstr "Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -5029,39 +5006,34 @@ msgstr ""
 "contáctese con info@zentyal.com"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
-#, fuzzy
 msgid "Registering your server"
-msgstr "Servidores Zentyal registrados"
+msgstr "Registrando tu servidor"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
-#, fuzzy
 msgid "Registration finished"
-msgstr "Instalación completada"
+msgstr "Registro finalizado"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There was an error in the registration. There are more information in the "
 "logs directory {dir}"
 msgstr ""
-"Algunos módulos informaron de errores al guardar cambios. Hay más "
-"información en los registros en {dir}"
+"Hubo un error en el registro. Hay más información en el directorio de "
+"registros {dir}"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
-#, fuzzy
 msgid "Unregistering your server"
-msgstr "Lista de servidores"
+msgstr "Desregistrando tu servidor"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
-#, fuzzy
 msgid "Unregistration finished"
-msgstr "Instalación completada"
+msgstr "Desregistro completado"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
-#, fuzzy
 msgid "Making changes in your configuration"
-msgstr "Finalizando la configuración de nuevos módulos"
+msgstr "Realizando los cambios en tu configuración"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:82
@@ -6258,9 +6230,8 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
-#, fuzzy
 msgid "There are no backed up files yet"
-msgstr "No hay ningún fichero de copias de seguridad"
+msgstr "No hay ningún fichero respaldado todavía"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
@@ -9585,16 +9556,16 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "El directorio no está vacío. ¿Está seguro que quiere borrarlo?"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:396
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in {sharesPath} {br}{openit}File system path{closeit} will allow "
 "you to share an existing directory within your file system"
 msgstr ""
 "{openit}Directorio bajo Zentyal{closeit} creará automáticamente el "
-"directorio compartido share.directory en /home/samba/shares {br}{openit}File "
-"system path{closeit} permitirá compartir un directorio existente en su "
-"sistema de archivos"
+"directorio compartido share.directory en {sharesPath}{br}{openit}Ruta del "
+"sistema de ficheros{closeit} permitirá compartir un directorio existente en "
+"su sistema de archivos"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:410
 msgid ""
@@ -9790,6 +9761,11 @@ msgid ""
 "Zentyal PPA to your APT sources.list and install our samba4 package, then "
 "change the samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba.conf"
 msgstr ""
+"Estás usando el nuevo servidor de ficheros de samba, 'ntvfs', que es "
+"incompatible con los plugins vfs, tales como el antivirus. Si deseas activar "
+"esta característica, añade el PPA de Zentyal al fichero sources.list de tu "
+"APT e instala el paquete de samba4, despúes cambia la clave de configuración "
+"'samba_fs' al valor 's3fs' en /etc/zentyal/samba.conf"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:45
 msgid "Recycle default settings"
@@ -9811,6 +9787,11 @@ msgid ""
 "then change the samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba."
 "conf"
 msgstr ""
+"Estás usando el nuevo servidor de ficheros de samba, 'ntvfs', que es "
+"incompatible con los plugins vfs, tales como el antivirus. Si deseas activar "
+"esta característica, añade el PPA de Zentyal al fichero sources.list de tu "
+"APT e instala el paquete de samba4, despúes cambia la clave de configuración "
+"'samba_fs' al valor 's3fs' en /etc/zentyal/samba.conf"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:100
 msgid "Samba shares Recycle Bin exceptions"
@@ -9880,7 +9861,7 @@ msgstr "Ocurrió un error actualizando LDAP:"
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:91
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
-msgstr ""
+msgstr "Encontrados {count} resultados, sólo se esperaba uno."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:415
 msgid "Windows account names cannot end with a period"
@@ -9893,7 +9874,6 @@ msgstr ""
 "números y puntos únicamente."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:423
-#, fuzzy
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
@@ -9957,16 +9937,18 @@ msgstr "Protocolo de compartición de ficheros (Samba)"
 #, perl-brace-format
 msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
 msgstr ""
+"El dominio de la máquina '{d}' debe ser igual al dominio de autenticación de "
+"kerberos '{r}'"
 
 #: ../../main/samba/src/EBox/Samba.pm:588
 #, perl-brace-format
 msgid "The required domain '{d}' could not be found in the dns module"
-msgstr ""
+msgstr "El dominio requerido '{d}' no pudo ser encontrado en el módulo DNS"
 
 #: ../../main/samba/src/EBox/Samba.pm:596
 #, perl-brace-format
 msgid "The required host record '{h}' could not be found in the domain '{d}'"
-msgstr ""
+msgstr "El registro de máquina '{h}' no se encuentra en el dominio '{d}'"
 
 #: ../../main/samba/src/EBox/Samba.pm:640
 msgid ""
@@ -9975,6 +9957,11 @@ msgid ""
 "an internal interface, and this IP has to be assigned to the domain and to "
 "the hostname in the DNS domain."
 msgstr ""
+"Samba no puede ser provisionado si no se han asignado direcciones IP o el "
+"dominio de DNS no está correctamente configurado. Asegúrate de que tienes al "
+"menos una dirección IP asignada a una interfaz interna, y que esta IP está "
+"asignada tanto al dominio, como al hostname de esta máquina en tu dominio "
+"local."
 
 #: ../../main/samba/src/EBox/Samba.pm:674
 #, perl-brace-format
@@ -9986,6 +9973,8 @@ msgid ""
 "The server domain and kerberos realm must match the domain the domain you "
 "are trying to join."
 msgstr ""
+"El dominio del servidor y el dominio de autenticación de kerberos deben "
+"coincidir con el dominio al que intentas unirte."
 
 #: ../../main/samba/src/EBox/Samba.pm:1516
 msgid "Resource"
@@ -13528,6 +13517,8 @@ msgid ""
 "If you want a service for any connections on this protocol, use the "
 "predefined service {ser}"
 msgstr ""
+"Si quiere un servicio o la conexión de este protocolo, utilice el servicio "
+"predefinido {ser}"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:101
 msgid "Internal"
@@ -14993,7 +14984,7 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
 msgid "Enable Single Sign On on the Webaccess and Webapp interface."
-msgstr ""
+msgstr "Activar Single Sing On en las interfaces 'Webaccess' y 'Webapp'."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 msgid ""
@@ -15161,9 +15152,8 @@ msgid "To properly configure Zarafa webaccess."
 msgstr "Configurar adecuadamente acceso web de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:132
-#, fuzzy
 msgid "To properly configure Zarafa XMPP integration."
-msgstr "Configurar adecuadamente conexión entre Zarafa y LDAP"
+msgstr "Para configurar adecuadamente conexión entre Zarafa y XMPP."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
@@ -16711,6 +16701,8 @@ msgid ""
 "This feature is only available if you register your server. You can register "
 "it at the {oh}register page{ch}."
 msgstr ""
+"Esta característica sólo está disponible si registras tu servidor. Puedes "
+"registrarlo en la {oh}página de registro{ch}."
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -17144,11 +17136,10 @@ msgid "file sharing module"
 msgstr "módulo de compartición de ficheros"
 
 #: ../../main/samba/src/templates/samba.mas:72
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following settings will take effect only when the {mod} is enabled"
 msgstr ""
-"Las siguientes opciones sólo tendrán efecto cuando el módulo de Jabber esté "
-"habilitado."
+"Las siguientes opciones sólo tendrán efecto cuando el {mod} sea activado"
 
 #: ../../main/samba/stubs/smb.conf.mas:78
 msgid "Home Directories"
@@ -17902,9 +17893,8 @@ msgid "Local"
 msgstr "Local"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote"
-msgstr "Eliminar"
+msgstr "Remote"
 
 #: ../../main/core/src/templates/report/diskUsage.mas:26
 msgid "Mounted on"
@@ -18008,9 +17998,8 @@ msgid "failure"
 msgstr "defectuoso"
 
 #: ../../main/core/src/templates/report/raid.mas:231
-#, fuzzy
 msgid "Failure on spare"
-msgstr "Espacio libre"
+msgstr "Fallo en el disco de respuesto"
 
 #: ../../main/core/src/templates/report/raid.mas:259
 msgid "No unused RAID devices"
