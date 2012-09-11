@@ -1,3 +1,7 @@
+HEAD
+	+ Fix access for domain users to shares when guest access is enabled
+	  on the share
+	+ Write zavs settings on smb.conf
 2.3.13
 	+ Change default domain netbios to match the left-most part of the
 	  host dns domain
