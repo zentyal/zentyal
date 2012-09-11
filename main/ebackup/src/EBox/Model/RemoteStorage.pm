@@ -148,21 +148,13 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    
+
     if ($self->{badConnection}) {
-        if ($self->{badConnection} eq 'cloud') {
-            return _cloudBadConnectionMsg();
-        }
         return _badConnectionMsg();
     }
 
     # nothing to show if not precondition..
     return '';
-}
-
-sub _cloudBadConnectionMsg
-{
-    return __('Error connecting to Zentyal Cloud. Storage status unknown');
 }
 
 sub _badConnectionMsg
