@@ -1179,34 +1179,8 @@ sub _remoteUrl
 
     }  else {
         $method = $model->row()->valueByName('method');
-        if ($method eq 'cloud')  {
-
-            my $drAddOn = EBox::EBackup::Subscribed->isSubscribed();
-            if (not $drAddOn) {
-                throw EBox::Exceptions::External(
-__('Cannot use the Cloud backup method. Either you do not have the disaster recovery add-on or you could not connect to the Zentyal Cloud to get credentials.')
-                                                );
-            }
-
-            my $credentials = EBox::EBackup::Subscribed::credentials();
-            if (not $credentials) {
-                throw EBox::Exceptions::External(
-                                                 __('Could not retrieve backup credentials, check your conexion to Zentyal Cloud')
-                                                );
-            }
-
-            $sshKnownHosts = 1;
-            $method = $credentials->{method};
-            $target = $credentials->{target};
-            $user = $credentials->{username};
-            my $passwd = $credentials->{password};
-            EBox::EBackup::Password::setPasswdFile($passwd);
-
-        } else {
-            # no cloud method!
-            $target = $model->row()->valueByName('target');
-            $user = $model->row()->valueByName('user');
-        }
+        $target = $model->row()->valueByName('target');
+        $user = $model->row()->valueByName('user');
     }
 
     my $url = "$method://";
@@ -1286,21 +1260,6 @@ sub archivedir
     return '/var/cache/zentyal/duplicity';
 }
 
-sub canUnsubscribeFromCloud
-{
-    my ($self) = @_;
-    my $model = $self->model('RemoteSettings');
-    my $method = $model->row()->valueByName('method');
-    if ($method eq 'cloud') {
-        throw EBox::Exceptions::External(
-__x('Could not unsubscribe because the backup module is configured to use the Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}setting{chref}.',
-    ohref => q{<a href='/EBackup/Composite/Remote#RemoteGeneralSettings'>},
-    chref => '</a>'
-  )
-                                        );
-    }
-}
-
 sub configurationIsComplete
 {
     my ($self) = @_;
@@ -1376,14 +1335,7 @@ sub storageUsage
     my $method = $model->row()->valueByName('method');
     my $target = $model->row()->valueByName('target');
 
-    if ($method eq 'cloud') {
-        if (EBox::EBackup::Subscribed->isSubscribed()) {
-            my $quota;
-            ($used, $quota) = EBox::EBackup::Subscribed::quota();
-            $total = $quota;
-            $available = $quota - $used;
-        }
-    } elsif ($method eq 'file') {
+    if ($method eq 'file') {
         my $blockSize = 1024*1024; # 1024*1024 - 1Mb blocks
         my $df = df($target, $blockSize);
         $available = $df->{bfree};
