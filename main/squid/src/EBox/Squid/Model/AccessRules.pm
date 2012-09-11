@@ -145,22 +145,46 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
-    my $policy = exists $params_r->{policy} ?
-                      $params_r->{policy}->value():
-                      $actual_r->{policy}->selectedType();
-    my $type = exists $params_r->{source} ?
+
+    my $sourceType = exists $params_r->{source} ?
                       $params_r->{source}->selectedType():
                       $actual_r->{source}->selectedType();
-    if ($squid->transproxy() and ($type eq 'group')) {
+    if ($squid->transproxy() and ($sourceType eq 'group')) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
 
-#     my $groupRules;
-#     my $objectProfile;
-#     if ($type eq 'group') {
-#     } else {
+    # check if it is a incompatible rule
+     my $groupRules;
+     my $objectProfile;
+     if ($sourceType eq 'group') {
+         $groupRules = 1;
+     } else {
+        my $policy = exists $params_r->{policy} ?  $params_r->{policy}->selectedType
+                                                 :  $actual_r->{policy}->selectedType();
+         if (($policy eq 'allow') or ($policy eq 'profile') ) {
+             $objectProfile = 1;
+         }
+     }
 
-#     }
+    if ((not $groupRules) and (not $objectProfile)) {
+        return;
+    }
+
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source')->selectedType();
+        if ($objectProfile and ($source eq 'group')) {
+            throw EBox::Exceptions::External(
+              __("You cannot add a 'Allow' or 'Profile' rule for an object or any address if you have group rules")
+             );
+        } elsif ($groupRules and ($source ne 'group')) {
+            if ($row->elementByName('policy')->selectedType() ne 'deny') {
+                throw EBox::Exceptions::External(
+                 __("You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule for objects or any address")
+               );
+            }
+        }
+    }
 }
 
 sub rules
@@ -259,14 +283,18 @@ sub filterProfiles
 
         my $profile = {};
 
-        my $policy = $row->elementByName('policy');
-        if ($policy->selectedType() eq 'allow') {
+        my $policy     = $row->elementByName('policy');
+        my $policyType = $policy->selectedType();
+        if ($policyType eq 'allow') {
             $profile->{number} = 2;
-        } elsif ($policy->selectedType() eq 'deny') {
+        } elsif ($policyType eq 'deny') {
             $profile->{number} = 1;
-        } else {
+        } elsif ($policyType eq 'profile') {
             $profile->{number} = $profileIdByRowId{$policy->value()};
+        } else {
+            throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
+        $profile->{policy} = $policyType;
 
         my $timePeriod = $row->elementByName('timePeriod');
         unless ($timePeriod->isAllTime()) {
@@ -278,6 +306,7 @@ sub filterProfiles
 
         my $source = $row->elementByName('source');
         my $sourceType = $source->selectedType();
+        $profile->{source} = $sourceType;
         if ($sourceType eq 'any') {
             $profile->{anyAddress} = 1;
             $profile->{address} = '0.0.0.0/0.0.0.0';

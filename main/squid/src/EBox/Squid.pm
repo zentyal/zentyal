@@ -766,6 +766,11 @@ sub writeDgGroups
     my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
 
     foreach my $profile (@profiles) {
+        if ($profile->{policy} eq 'deny') {
+            # this is stopped in squid, nothing to do
+            EBox::debug("discard: deny action"); # DDD
+            next;
+        }
         if ($profile->{timePeriod}) {
             unless ($profile->{days}->{$day}) {
                 EBox::debug("discard: not week day $day"); # DDD
