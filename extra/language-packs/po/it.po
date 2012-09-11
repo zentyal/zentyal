@@ -833,7 +833,7 @@ msgstr "Soglia filtro contenuti modificata"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:212
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:286
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:566
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:552
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:104
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:70
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:100
@@ -6126,59 +6126,59 @@ msgstr "nell'ultimo giorno"
 msgid "File System"
 msgstr "File System"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:593
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
 msgid "1 week"
 msgstr "1 settimana"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:597
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:582
 msgid "2 weeks"
 msgstr "2 settimane"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:601
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:586
 msgid "3 weeks"
 msgstr "3 settimane"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:605
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:590
 msgid "1 month"
 msgstr "1 mese"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:609
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:594
 msgid "2 months"
 msgstr "2 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:613
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:598
 msgid "3 months"
 msgstr "3 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:617
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:602
 msgid "4 months"
 msgstr "4 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:621
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:606
 msgid "6 months"
 msgstr "6 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:625
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:610
 msgid "9 months"
 msgstr "9 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:629
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:614
 msgid "1 year"
 msgstr "1 anno"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:633
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:618
 msgid "1 year and half"
 msgstr "1 anno e mezzo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:637
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:622
 msgid "2 years"
 msgstr "2 anni"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:641
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:626
 msgid "3 years"
 msgstr "3 anni"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:707
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:689
 msgid ""
 "You cannot switch encryption options when there are existent backups with "
 "the original encryption options. You must remove previous backup to change "
@@ -6188,44 +6188,44 @@ msgstr ""
 "con altra opzioni di cifratura.Devi rimuovere i backup precedenti per "
 "cambiare le opzioni di cifratura."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:732
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:714
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 "La destinazione deve essere nel formato: \"altro.host[:port]/cartella\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:743
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:785
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:725
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:741
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:767
 msgid "target"
 msgstr "Obiettivo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:745
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:727
 #, fuzzy
 msgid "Correct format is: 'other.host[:port]/some_dir'"
 msgstr "Deve essere nel formato: \"altro.host[:port]/cartella\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:752
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:794
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:734
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:776
 msgid "host"
 msgstr "host"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:736
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:778
 #: ../../main/core/src/EBox/Apache.pm:355
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
 msgstr "porta"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:761
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:743
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:765
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:747
 msgid "directory"
 msgstr "percorso"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:774
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:756
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
@@ -6234,7 +6234,7 @@ msgstr ""
 "rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
 "oppure 'altro.host[:porta]/percorso_assoluto'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:770
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
@@ -6242,41 +6242,41 @@ msgstr ""
 "Deve rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
 "oppure 'altro.host[:porta]/percorso_assoluto'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:781
 msgid "absolute directory"
 msgstr "percorso assoluto"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:801
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:783
 msgid "relative directory"
 msgstr "percorso relativo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:812
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:794
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr "Il metodo \"File system\" necessita di un percorso di sistema"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:817
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:821
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:830
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:840
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:803
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:812
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:822
 msgid "Directory for backup"
 msgstr "Percorso per il backup"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:824
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:806
 #, fuzzy
 msgid "Cannot use the / directory as target"
 msgstr "percorso relativo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:833
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
 msgid "File exists and it is not a directory"
 msgstr "Il file esiste e non è una directory"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:843
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:825
 #, fuzzy, perl-brace-format
 msgid "Cannot read parent directory {d}"
 msgstr "percorso relativo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:858
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:840
 msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
@@ -6284,16 +6284,16 @@ msgstr ""
 "Devi abilitare i backp incrementali quando abiliti una frequenza di backup "
 "\"solo la prima volta\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:878
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:860
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "Il backup incrementale deve essere più frequente del backup completo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:891
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:900
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:873
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:882
 msgid "General backup configuration updated."
 msgstr "Configurazione generale di backup aggiornata."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:892
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:874
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
@@ -6301,7 +6301,7 @@ msgstr ""
 "Metodi di backup o file interessati dai backup modificati; devi salvare le "
 "modifiche e aggiornare la lista di backup"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:902
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:884
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
@@ -6309,36 +6309,29 @@ msgstr ""
 "Metodo SCP selezionato. Ricorda di aggiungere l'host di backup nella lista "
 "degli host conosciuti di SSH"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:165
-#, fuzzy
-msgid "Error connecting to Zentyal Cloud. Storage status unknown"
-msgstr ""
-"Errore di connessione al server di backup. Lo status dello storage è "
-"sconosciuto"
-
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:170
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:162
 msgid "Error connecting to backup server. Storage status unknown"
 msgstr ""
 "Errore di connessione al server di backup. Lo status dello storage è "
 "sconosciuto"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:186
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:178
 msgid "Used storage"
 msgstr "Spazio utilizzato"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:190
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:182
 msgid "Available storage"
 msgstr "Spazio disponibile"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:194
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:186
 msgid "Total storage"
 msgstr "Spazio totale"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:201
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:193
 msgid "Remote Storage Usage"
 msgstr "Spazio remoto utilizzato"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:202
+#: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:194
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:172
 msgid "backup"
 msgstr "backup"
@@ -6537,54 +6530,29 @@ msgstr ""
 msgid "System"
 msgstr "Sistema"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1187
-msgid ""
-"Cannot use the Cloud backup method. Either you do not have the disaster "
-"recovery add-on or you could not connect to the Zentyal Cloud to get "
-"credentials."
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1194
-msgid ""
-"Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
-msgstr ""
-"Impossibile ottenere le credenziali di backup.Controlla la tua connessione a "
-"Zentyal Cloud"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1296
-#, perl-brace-format
-msgid ""
-"Could not unsubscribe because the backup module is configured to use the "
-"Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
-"setting{chref}."
-msgstr ""
-"Impossibile completare la de-iscrizione perche' il modulo di backup e' "
-"configurato per utilizzare Zentyal Cloud.Se vuoi completare la de-iscrizione "
-"devi cambiare questa {ohref}impostazione{chref}."
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1435
+#: ../../main/ebackup/src/EBox/EBackup.pm:1387
 #, fuzzy
 msgid "Backup configuration not complete"
 msgstr "Solo configurazione"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1454
+#: ../../main/ebackup/src/EBox/EBackup.pm:1406
 #, perl-brace-format
 msgid ""
 "Free space in {target} too low. {free} Mb available and backup estimated "
 "size is  {req}"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1473
+#: ../../main/ebackup/src/EBox/EBackup.pm:1425
 #, fuzzy, perl-brace-format
 msgid " {target} exists and is not longer a directory"
 msgstr "Il file esiste e non è una directory"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1524
+#: ../../main/ebackup/src/EBox/EBackup.pm:1476
 #, fuzzy, perl-brace-format
 msgid "{target} is not mounted"
 msgstr "Pagina non trovata"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1530
+#: ../../main/ebackup/src/EBox/EBackup.pm:1482
 #, perl-brace-format
 msgid "{mp} is not mounted and {target} is inside it"
 msgstr ""
@@ -10036,7 +10004,7 @@ msgstr "Protocollo (Samba) condivisione file"
 
 #: ../../main/samba/src/EBox/Samba.pm:579
 #, perl-brace-format
-msgid "The host domain '{d}' must be equal kerberos realm '{r}'"
+msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:588
@@ -10064,8 +10032,8 @@ msgstr "L'utente {u} non esiste"
 
 #: ../../main/samba/src/EBox/Samba.pm:785
 msgid ""
-"The server domain and kerberos realm must match the domain the domain you "
-"are trying to join."
+"The server domain and kerberos realm must match the domain you are trying to "
+"join."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:1516
@@ -15173,7 +15141,7 @@ msgstr ""
 "Puoi accedere all'interfaccia web di Zarafa agli indirizzi:http://zentyal_ip/"
 "webaccess ehttp://zentyal_ip/webaccess-mobile per la versione mobile"
 
-#: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:324
+#: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:325
 #, fuzzy
 msgid ""
 "This user has a Zarafa account (if the user is currently connected it will "
@@ -18694,6 +18662,28 @@ msgid ""
 msgstr ""
 "Questa operazione causerà l'eliminazione dell'utente e di tutti i dati "
 "correlati come account di mail, file personali, ecc."
+
+#, fuzzy
+#~ msgid "Error connecting to Zentyal Cloud. Storage status unknown"
+#~ msgstr ""
+#~ "Errore di connessione al server di backup. Lo status dello storage è "
+#~ "sconosciuto"
+
+#~ msgid ""
+#~ "Could not retrieve backup credentials, check your conexion to Zentyal "
+#~ "Cloud"
+#~ msgstr ""
+#~ "Impossibile ottenere le credenziali di backup.Controlla la tua "
+#~ "connessione a Zentyal Cloud"
+
+#~ msgid ""
+#~ "Could not unsubscribe because the backup module is configured to use the "
+#~ "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
+#~ "setting{chref}."
+#~ msgstr ""
+#~ "Impossibile completare la de-iscrizione perche' il modulo di backup e' "
+#~ "configurato per utilizzare Zentyal Cloud.Se vuoi completare la de-"
+#~ "iscrizione devi cambiare questa {ohref}impostazione{chref}."
 
 #~ msgid "Subscription"
 #~ msgstr "Iscrizione"

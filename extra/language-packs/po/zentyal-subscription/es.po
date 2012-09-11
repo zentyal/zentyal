@@ -217,24 +217,6 @@ msgstr ""
 "Por favor, ten en cuenta que el máximo número de usuarios para la edición "
 "Small Business es {max} y tienes {nUsers}."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:581
-#, perl-brace-format
-msgid ""
-"Choosing {brand} method you will use the {ohref}{service} service{ch}.  "
-"Ensure that your business critical data and system configuration is stored "
-"in a safe remote location and can be easily restored in case of a disaster?  "
-"Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable "
-"the service."
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:582
-msgid "Zentyal Cloud"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:582
-msgid "Zentyal Disaster Recovery"
-msgstr ""
-
 #: ../../main/network/src/EBox/Model/DynDNS.pm:280
 #, perl-brace-format
 msgid ""
