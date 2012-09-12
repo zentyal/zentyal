@@ -1,31 +1,9 @@
-<%args>
-    $extra_messages => ''
-</%args>
-<%init>
-use EBox::Gettext;
-</%init>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>
-      Zentyal - <% __('Access Denied') %>
-    </title>
-    <style type="text/css" media="screen">
-    body {background: #fff url(http://static.zentyal.org/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
-    h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
-    a {color: #578427;}
-    #content {border-top: 1px solid #FFE7BA; padding: 0;}
-    #main {border-top: 1px solid #FFF3DF; padding: 10px 25px; font-family: Georgia, serif; font-size: 1.2em;}
-    .blockedurl {font-size: 1.2em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
-    .reason, .categories {background: #eee; margin: 1em; padding: 1em;}
-    .head {padding-bottom: 15px;}
-    .foot {font-size: 0.8em; width: 700px; text-align: right; border-top: 1px solid #eee; padding-top: 5px; color: #666;}
-    table, .foot {margin: 0 auto;}
-    </style>
-    <style type="text/css">
+/*
+ Stylesheet for Squid Error pages
+ http://www.zentyal.org
+*/
 
+/* Page basics */
 * {
     font-family: verdana, sans-serif;
 }
@@ -139,52 +117,6 @@ hr {
 #footer p{
     color: #999 !important
 }
-</style>
-  </head>
-  <body>
-  <body id=ERR_ACCESS_DENIED>
-    <div id="titles">
-        <h1><% __('Access has been Denied') %></h1>
-        <h2><% __x("Access to the page: {page} has been denied for the following reason", page => '<a href="-URL-" class="blockedurl">-URL-</a>') %></h2>
-    </div>
-    <hr>
-    <div id="content">
-        <p>-REASONGIVEN-</p>
-        <blockquote id="error">
-            <p><b>Access Denied.</b></p>
-        </blockquote>
-        <p><% __('Categories') %>:</p>
-        <p>-CATEGORIES-</p>
-        <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
-        <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
-% if ($extra_messages) {
-              <p><% $extra_messages %></p>
-% }
-      </div>
-        <hr>
-        <div id="footer">
-            <% __('Powered by') %> <a href="http://www.zentyal.org/">Zentyal</a>
-        </div>
 
-<!--
-The available variables are as follows:
-- URL- gives the URL the user was trying to get to.
-- REASONGIVEN- gives the nice reason (i.e. not quoting the banned phrase).
-- REASONLOGGED- gives the reason that gets logged including full details.
-- USER- gives the username if known.
-- IP- gives the originating IP.
-- HOST- gives the originating hostname if known.
-- RAWFILTERGROUP- gives the group number.
-- FILTERGROUP- gives the group name.
-- SERVERIP- gives the IP address on which the filter is running (correct for multiple filterip lines, but not if filterip option is blank).
-- BYPASS- gives URL which allows temporary bypass of denied page
-- CATEGORIES- gives the categories assigned to the banned content
+  body :lang(fa) { direction: rtl; font-size: 100%; font-family: Tahoma, Roya, sans-serif; float: right; } :lang(he) { direction: rtl; }
 
-You need to remove the space between the - and the variable to use them
-in your HTML.  They are there above so extra processing is not required.
-
-More example templates are likely to be found on the DansGuardian web site
-on the Extras page.
--->
-  </body>
-</html>

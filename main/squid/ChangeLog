@@ -1,4 +1,5 @@
 HEAD
+	+ Customized "Access Denied" page theme
 	+ Added 'All users' option for Access Rules with group source
 	+ Using again squid ACLs when DG is active
 	+ Fixed issues in timed regeneration of DG files
