@@ -1,6 +1,6 @@
 HEAD
-	+ Links widgets now have appropiate contents when either
-	remoteservices or software is not installed
+	+ Registration link in widget now have appropiate content when either
+	  remoteservices or software are not installed
 	+ Fixed style for disabled buttons
 	+ Composite and DataTable viewers recover from errors in pageTitle method
 	+ Fixed intermitent failure in progress when there are no slides
