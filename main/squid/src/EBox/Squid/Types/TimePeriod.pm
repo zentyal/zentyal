@@ -264,8 +264,7 @@ sub _attrs
 sub from
 {
     my ($self) = @_;
-
-    return $self->{'from'};
+    return $self->{from};
 }
 
 # Method: to
@@ -278,8 +277,7 @@ sub from
 sub to
 {
     my ($self) = @_;
-
-    return $self->{'to'};
+    return $self->{to};
 }
 
 sub monday
@@ -463,10 +461,6 @@ sub _paramIsSet
 
 # Method: _setValue
 #
-#     Set the value defined as a string in the
-#     printableValue. That is, to define a port range, you can choose
-#     one of following:
-
 # Overrides:
 #
 #     <EBox::Types::Abstract::_setValue>
@@ -475,7 +469,7 @@ sub _paramIsSet
 #
 #     value - String as defined above
 #
-sub _setValue # (defaultValue)
+sub _setValue
 {
     my ($self, $value) = @_;
 
@@ -517,6 +511,18 @@ sub _setValue # (defaultValue)
     $self->setMemValue(\%memValueParams);
 }
 
+sub setMemValue
+{
+    my ($self,  $params) = @_;
+    my $name = $self->fieldName();
+    my @timeParams = ($name . '_from', $name . '_to');
+    foreach my $name (@timeParams) {
+        if (exists $params->{$name} and $params->{$name} ) {
+            $params->{$name} = _normalizeTime($params->{$name});
+        }
+    }
+    return $self->SUPER::setMemValue($params);
+}
 
 # return a has with keys the day allowed as number
 # this numbers coincide with perl localtime's $wday
@@ -533,6 +539,16 @@ sub dayNumbers
     }
 
     return $numbers;
+}
+
+sub _normalizeTime
+{
+    my ($time) = @_;
+    my ($hr, $mn) = split ':', $time;
+    my $newTime = sprintf("%02d", $hr);
+    $newTime    .= ':';
+    $newTime    .= sprintf("%02d", $mn);
+    return $newTime;
 }
 
 1;
