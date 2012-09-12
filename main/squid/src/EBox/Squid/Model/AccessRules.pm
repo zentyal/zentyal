@@ -213,7 +213,13 @@ sub rules
             next unless ($usersEnabled);
             my $group = $source->value();
             $rule->{group} = $group;
-            $rule->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            my $users;
+            if ($group eq '__USERS__') {
+                $users = $userMod->users();
+            } else {
+                $users = $userMod->group($group)->users();
+            }
+            $rule->{users} = [ (map { $_->name() } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
