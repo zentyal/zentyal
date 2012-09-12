@@ -739,7 +739,13 @@ sub _writeCronFile
             next;
         }
         foreach my $day (keys %{$profile->{days}}) {
-            foreach my $time ($profile->{begin}, $profile->{end}) {
+            my @times;
+            # if the profile only has days, we change it at new day (00:00)
+            push @times, $profile->{begin} ? $profile->{begin} : '00:00';
+            if ($profile->{end}) {
+                push @times, $profile->{end};
+            }
+            foreach my $time (@times) {
                 unless (exists $times->{$time}) {
                     $times->{$time} = {};
                 }
