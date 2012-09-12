@@ -109,7 +109,7 @@ sub syncRows
         my $userGroupShare = $self->row($id)->elementByName('user_group_share');
         my $remove;
         if ($userGroupShare->selectedType() eq 'share') {
-            my $share = $shareModel->find(share => $userGroupShare->value());
+            my $share = $shareModel->find(share => $userGroupShare->printableValue());
             unless (defined $share) {
                 $self->removeRow($id, 1);
                 $anyChange = 1;

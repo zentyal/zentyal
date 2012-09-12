@@ -1,4 +1,7 @@
 HEAD
+	+ Stop daemon while taking backup to avoid samba daemon modifying files
+	  while being tarred
+	+ Fix share type exceptions on antivirus and recycle bin
 	+ Fix enabling guest access on shares need to save changes twice
 	+ Fix wrong ACL that was denying access to quarantine folder to guest
 	  users
