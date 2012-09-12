@@ -45,6 +45,7 @@ sub _table
                      new EBox::Types::Password(fieldName     => 'password',
                                                printableName => __('Password'),
                                                confirmPrintableName => __('Confirm Password'),
+                                               hiddenOnViewer => 1,
                                                editable      => 1,
                                                disableAutocomplete => 1,
                                                confirm       => 1,
@@ -120,10 +121,14 @@ sub addTypedRow
         $self->_changePassword($user, $password);
     }
 
-    EBox::Sudo::root("adduser $user $ADMIN_GROUP");
+    unless ($self->_userIsAdmin($user)) {
+        EBox::Sudo::root("adduser $user $ADMIN_GROUP");
 
-    my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'addAdmin', $user);
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('System', 'General', 'addAdmin', $user);
+    }
+
+    $self->SUPER::addTypedRow($params);
 }
 
 sub setTypedRow
@@ -138,10 +143,14 @@ sub setTypedRow
     EBox::Sudo::root("usermod -l $user $oldName");
 
     my $password = $params->{password}->value();
-    $self->_changePassword($user, $password);
+    if ($password) {
+        $self->_changePassword($user, $password);
 
-    my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'changePassword', $user);
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('System', 'General', 'changePassword', $user);
+    }
+
+    $self->SUPER::setTypedRow($id, $params);
 }
 
 sub removeRow
@@ -155,6 +164,8 @@ sub removeRow
 
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'delAdmin', $user);
+
+    $self->SUPER::removeRow($id);
 }
 
 sub _changePassword
@@ -176,6 +187,22 @@ sub _changePassword
     EBox::Auth->setPassword($username, $password);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username);
+}
+
+sub _userIsAdmin
+{
+    my ($self, $user) = @_;
+
+    my $groutput = `groups $user`;
+    chomp ($groutput);
+    my (undef, $groupsField) = split (':', $groutput);
+    my @groups = split (' ', $groupsField);
+    foreach my $group (@groups) {
+        if ($group eq $ADMIN_GROUP) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 1;
