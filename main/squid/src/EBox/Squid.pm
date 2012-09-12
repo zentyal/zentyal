@@ -734,6 +734,10 @@ sub _writeCronFile
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
         next unless $profile->{timePeriod};
+        if ($profile->{policy} eq 'deny') {
+            # this is managed in squid, we don't need to rewrite DG files for it
+            next;
+        }
         foreach my $day (keys %{$profile->{days}}) {
             foreach my $time ($profile->{begin}, $profile->{end}) {
                 unless (exists $times->{$time}) {
