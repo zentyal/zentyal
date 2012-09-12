@@ -175,7 +175,8 @@ automatically as scheduled') %>
 	</form>
 	<button class='inputButton' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
 % }
+	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
 	<form name='updateList' action='Updates' method='post'>
 		<input type='hidden' name='updatePkgs' value="yes"/>
 	</form>
-	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
+
