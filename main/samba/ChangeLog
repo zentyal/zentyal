@@ -1,11 +1,15 @@
 HEAD
+	+ Fix enabling guest access on shares need to save changes twice
+	+ Fix wrong ACL that was denying access to quarantine folder to guest
+	  users
+	+ Fix error creating shares with spaces in the path
 	+ Implemented configuration backup and restore
 	+ Fix checking domain name in General Settings Model
 	+ Fixed some strings
 2.3.14
 	+ Fix access for domain users to shares when guest access is enabled
 	  on the share
-	+ Setup quarantine directory for zavs and rant access to domain admins only
+	+ Setup quarantine directory for zavs and grant access to domain admins only
 	+ Write zavs settings on smb.conf
 2.3.13
 	+ Change default domain netbios to match the left-most part of the
