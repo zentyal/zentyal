@@ -1,4 +1,6 @@
 HEAD
+	+ Links widgets now have appropiate contents when either
+	remoteservices or software is not installed
 	+ Fixed style for disabled buttons
 	+ Composite and DataTable viewers recover from errors in pageTitle method
 	+ Fixed intermitent failure in progress when there are no slides

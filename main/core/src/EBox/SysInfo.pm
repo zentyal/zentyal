@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::SysInfo;
-
 use strict;
 use warnings;
 
+package EBox::SysInfo;
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
@@ -353,13 +351,19 @@ sub linksWidget
     $widget->add($section);
 
     # Write the links widget using mason
+    my $global = $self->global();
+    my @params = (
+        rsPackage => $global->modExists('remoteservices'),
+        softwarePackage => $global->modExists('software'),
+    );
+
     my $html;
     my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
                                          out_method => sub { $html .= $_[0] });
     my $component = $interp->make_component(
         comp_file => EBox::Config::templates() . 'links-widget.mas'
        );
-    $interp->exec($component, ());
+    $interp->exec($component, @params);
 
     $section->add(new EBox::Dashboard::HTML($html));
 }
