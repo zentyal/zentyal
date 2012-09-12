@@ -158,9 +158,9 @@ hr {
         <p>-CATEGORIES-</p>
         <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
         <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
-        % if ($extra_messages) {
+% if ($extra_messages) {
               <p><% $extra_messages %></p>
-            % }
+% }
       </div>
         <hr>
         <div id="footer">
