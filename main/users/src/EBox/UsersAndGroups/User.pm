@@ -912,14 +912,4 @@ sub setKerberosKeys
         $self->set('krb5Key', $blobs);
 }
 
-
-sub hidden
-{
-    my ($self) = @_;
-    if ($self->comment() =~ m/^DNS Service Account for/) {
-        return 1;
-    }
-    return 0;
-}
-
 1;

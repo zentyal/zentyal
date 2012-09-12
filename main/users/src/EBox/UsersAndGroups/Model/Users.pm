@@ -147,7 +147,6 @@ sub noUsersMsg
 {
     my ($self) = @_;
     my $filterOU = $self->filterOU();
-    EBox::debug("noDataMsg $filterOU");
     if (not $filterOU) {
         return __x('There are no users at the moment');
     }
@@ -160,6 +159,13 @@ sub noUsersMsg
 }
 
 
+my %kerberosUsers = (
+    dns => 1,
+    mail => 1,
+    proxy => 1,
+    zarafa => 1,
+
+);
 # Method: ids
 #
 #   Override <EBox::Model::DataTable::ids> to return rows identifiers
@@ -168,15 +174,24 @@ sub noUsersMsg
 sub ids
 {
     my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
+    my $global = $self->global();
+    my $users = $global->modInstance('users');
     unless ($users->configured()) {
         return [];
     }
 
+    my $hostname = $global->modInstance('sysinfo')->hostName();
+    my $kerberosRe = qr/^([A-Za-z\d]+)-$hostname$/;
     my @list = map {
         my $user = $_;
-        $user->hidden() ? () : $user->dn()
+        my $name = $user->name;
+        my $isKerberos = 0;
+        if ($name =~ $kerberosRe) {
+            my $debugStr = $1;
+            $isKerberos = exists $kerberosUsers{$1};
+        }
+
+        $isKerberos ? () : $user->dn()
     } @{$users->users()};
 
     my $filterOU = $self->filterOU();

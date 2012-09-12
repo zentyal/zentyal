@@ -1,4 +1,5 @@
 HEAD
+	+ Filter kerberos users out from the users list
 	+ Set LDAP service as denined by default for internal networks
 	+ Set the managed domain as read only as well as records
 2.3.16
