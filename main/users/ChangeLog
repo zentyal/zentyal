@@ -1,4 +1,5 @@
 HEAD
+	+ Filter special kerberos and samba users out from the users list
 	+ Added dns as restore depend
 	+ Reviewed registration strings
 2.3.17
