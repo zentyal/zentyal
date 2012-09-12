@@ -1,4 +1,6 @@
 HEAD
+	+ Write NSS config on enableService, modules depending on users may require
+	  uid/gid numbers from LDAP
 	+ Added dns as restore depend
 	+ Reviewed registration strings
 2.3.17

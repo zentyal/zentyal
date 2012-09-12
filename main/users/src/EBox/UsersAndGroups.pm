@@ -390,6 +390,20 @@ sub enableActions
     EBox::Global->modInstance('apache')->setAsChanged();
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+
+    # Set up NSS, modules depending on users may require to retrieve uid/gid
+    # numbers from LDAP
+    if ($status) {
+        $self->_setConf(1);
+    }
+}
+
+
 # Load LDAP from config + data files
 sub _loadLDAP
 {
