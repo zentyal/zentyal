@@ -1,3 +1,6 @@
+HEAD
+	+ Disabled temporarily dns host record creation until DNS/kerberos
+	  system allows it again
 2.3.6
 	+ Configuration backup restore no longer crashes
 2.3.5
