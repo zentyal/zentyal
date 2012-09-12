@@ -135,17 +135,14 @@ sub _checkDomainName
 {
     my ($self, $domain) = @_;
 
-    if (length ($domain) > MAXWORKGROUPLENGTH) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name is too long'));
-    }
     if (length ($domain) <= 0) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
+        throw EBox::Exceptions::External(__('DNS domain name is empty'));
     }
-    if ($domain =~ m/\.local$/) {
-        throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
+    if ($domain =~ m/\.local$/i) {
+        throw EBox::Exceptions::External(__(q{DNS domain name cannot end in '.local'}));
     }
 
-    $self->_checkWinName($domain, __('Domain name'));
+    $self->_checkWinName($domain, __('DNS domain name'));
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     if (lc ($domain) eq lc ($sysinfo->hostName())) {
@@ -166,7 +163,7 @@ sub _checkNetbiosName
     if ($netbios =~ m/\./) {
         throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
-    $self->_checkWinName($netbios, __('NetBIOS computer name'));
+    $self->_checkWinName($netbios, __('NetBIOS name'));
 
 }
 
@@ -185,14 +182,6 @@ sub _checkDescriptionString
 sub _checkWinName
 {
     my ($self, $name, $type) = @_;
-
-    my $length = length $name;
-    if ($length > MAXNETBIOSLENGTH) {
-        throw EBox::Exceptions::External(
-                __x('{type} is limited to a maximum of 15 characters.',
-                    type => $type)
-        );
-    }
 
     my @parts = split ('\.', $name);
     foreach my $part (@parts) {
