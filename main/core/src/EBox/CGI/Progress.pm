@@ -30,8 +30,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Html;
 use Encode;
 use File::Slurp;
+use JSON::XS;
 
 ## arguments:
 ##  title [required]
@@ -59,6 +61,7 @@ sub _process
     }
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+            showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
             inModalbox
             nextStepType
@@ -82,7 +85,10 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-            push @params, ( adsJson => loadAds() );
+
+            if (EBox::Global->modExists('software')) {
+                push @params, (slides => _loadSlides());
+            }
         }
     }
 
@@ -155,7 +161,7 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub loadAds
+sub _loadSlides
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';
     my $file = "$path/ads_" + EBox::locale();
@@ -169,12 +175,17 @@ sub loadAds
         $file = "$file.custom";
     }
     EBox::debug("Loading ads from: $file");
-    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
-    my $text = '';
-    foreach my $line (@ads) {
-        $text .= $line . "\n";
+    my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
+    my $slides = decode_json($json);
+
+    my @html;
+    my $num = 1;
+    foreach my $slide (@{$slides}) {
+        $slide->{num} = $num++;
+        push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
-    return $text;
+
+    return \@html;
 }
 
 1;

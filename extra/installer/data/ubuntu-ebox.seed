@@ -13,7 +13,7 @@ d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-2.3-archive.asc
 # Ignore error downloading key if not Internet connection available
 d-i apt-setup/local/key-error select Ignore
 
-# linux-generic-pae will replaced by linux-server in the 64bit installer
+# linux-generic-pae will replaced by linux-generic in the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
 
 # support installations from USB

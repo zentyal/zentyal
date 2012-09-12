@@ -53,6 +53,12 @@ sub _table
                   #help => __('FIXME: add help'),
               ),
           new EBox::Types::Boolean(
+                  fieldName => 'kerberos',
+                  printableName => __('Enable Single Sign-On (Kerberos)'),
+                  editable => 1,
+                  defaultValue => 0,
+              ),
+          new EBox::Types::Boolean(
                   fieldName => 'removeAds',
                   printableName => __('Ad Blocking'),
                   editable => 1,
@@ -159,7 +165,7 @@ sub _transparentHelp
 
 sub _commercialMsg
 {
-    return __sx('Want to remove ads from the websites your users browse? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Ad blocking feature in the automatic security updates.',
+    return __sx('Want to remove ads from the websites your users browse? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that will keep your Ad blocking rules always up-to-date.',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');

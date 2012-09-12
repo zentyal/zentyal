@@ -143,7 +143,7 @@ my $mboxDiscardTitle = __('Discarding changes');
 </%perl>
 <form action='Finish' method='POST'>
  <p>
-    <input class='inputButton' type='submit' name='save'
+    <input class='inputButton' type='submit' name='save' id='save'
                    value="<% __('Save') %>"
                    onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false});  Modalbox.MBclose.hide(); return false" />
     <input class='inputButton' type='submit' name='cancel'

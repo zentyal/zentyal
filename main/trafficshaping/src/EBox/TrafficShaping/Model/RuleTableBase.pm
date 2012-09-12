@@ -101,40 +101,6 @@ sub priority
     return \@options;
 }
 
-# Method: notifyForeignModelAction
-#
-#      Called whenever an action is performed on the interface rate model
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::notifyForeignModelAction>
-#
-sub notifyForeignModelAction
-{
-    my ($self, $modelName, $action, $row) = @_;
-    my $iface = $row->valueByName('interface');
-
-    my $userNotes = '';
-    if ($action eq 'update') {
-        my $netMod = $self->global()->modInstance('network');
-            # Check new bandwidth
-            my $limitRate;
-            if ( $netMod->ifaceIsExternal($iface)) {
-                $limitRate = $self->{ts}->uploadRate($iface);
-            } else {
-                # Internal interface
-                $limitRate = $self->{ts}->totalDownloadRate($iface);
-            }
-            if ( $limitRate == 0 or (not $self->{ts}->enoughInterfaces())) {
-                $userNotes = $self->_removeRules($iface);
-            } else {
-                $userNotes = $self->_normalize($iface, $self->_stateRate($iface), $limitRate);
-            }
-            $self->_setStateRate($iface, $limitRate );
-    }
-    return $userNotes;
-}
-
 # Method: validateTypedRow
 #
 # Overrides:
@@ -391,7 +357,6 @@ sub _table
                                    'around'),
         'rowUnique'          => 1,  # Set each row is unique
         'printableRowName'   => __('rule'),
-        'notifyActions'      => [ 'InterfaceRate' ],
         'automaticRemove' => 1,    # Related to objects,
                                    # remove rules with an
                                    # object when that

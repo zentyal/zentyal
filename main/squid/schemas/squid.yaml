@@ -6,6 +6,7 @@ depends:
 
 enabledepends:
     - firewall
+    - users
 
 models:
     - GeneralSettings
@@ -29,8 +30,8 @@ models:
 
 composites:
     General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
-    FilterSettings: [AntiVirus, ContentFilterThreshold, DomainFilterSettings]
-    Domains: [DomainFilter, DomainFilterSettings]
+    FilterSettings: [ContentFilterThreshold, AntiVirus]
+    Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
     TrafficReport: [TrafficReportOptions, RequestsGraph, TrafficSizeGraph, TrafficDetails]
 

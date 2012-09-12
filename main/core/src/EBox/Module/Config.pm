@@ -662,9 +662,7 @@ sub st_unset
 sub set_list
 {
     my ($self, $key, $type, $val) = @_;
-
-    $key = $self->_key($key);
-    $self->redis->set($key, $val);
+    $self->set($key, $val);
 }
 
 sub st_set_list

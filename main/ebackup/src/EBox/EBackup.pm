@@ -74,7 +74,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ebackup',
-            printableName => __n('Backup'),
+            printableName => __('Backup'),
             @_);
 
     bless($self, $class);
@@ -697,9 +697,17 @@ sub remoteStatus
 {
     my ($self, $noCacheUrl) = @_;
 
-    my @status;
     my @lines;
+    my $retrieve;
     if ($noCacheUrl) {
+        $retrieve = 1;
+    } elsif (-f tmpCurrentStatus()) {
+        @lines = File::Slurp::read_file(tmpCurrentStatus());
+    } else {
+        $retrieve = 1;
+    }
+
+    if ($retrieve) {
         my $status = $self->_retrieveRemoteStatus($noCacheUrl);
         if (not $status) {
             throw EBox::Exceptions::External(
@@ -708,12 +716,9 @@ sub remoteStatus
         }
 
         @lines = @{ $status  };
-    } else {
-        if (-f tmpCurrentStatus()) {
-            @lines = File::Slurp::read_file(tmpCurrentStatus());
-        }
     }
 
+    my @status;
     for my $line (@lines) {
         # We are trying to match this:
         #  Full Wed Sep 23 13:30:56 2009 95
@@ -756,9 +761,8 @@ sub remoteGenerateStatusCache
 
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
-    $self->_retrieveRemoteStatus($urlParams);
-
-
+    my $status = $self->_retrieveRemoteStatus($urlParams);
+    $self->_setCurrentStatus($status);
 }
 
 
@@ -1175,34 +1179,8 @@ sub _remoteUrl
 
     }  else {
         $method = $model->row()->valueByName('method');
-        if ($method eq 'cloud')  {
-
-            my $drAddOn = EBox::EBackup::Subscribed->isSubscribed();
-            if (not $drAddOn) {
-                throw EBox::Exceptions::External(
-__('Cannot use the Cloud backup method. Either you do not have the disaster recovery add-on or you could not connect to the Zentyal Cloud to get credentials.')
-                                                );
-            }
-
-            my $credentials = EBox::EBackup::Subscribed::credentials();
-            if (not $credentials) {
-                throw EBox::Exceptions::External(
-                                                 __('Could not retrieve backup credentials, check your conexion to Zentyal Cloud')
-                                                );
-            }
-
-            $sshKnownHosts = 1;
-            $method = $credentials->{method};
-            $target = $credentials->{target};
-            $user = $credentials->{username};
-            my $passwd = $credentials->{password};
-            EBox::EBackup::Password::setPasswdFile($passwd);
-
-        } else {
-            # no cloud method!
-            $target = $model->row()->valueByName('target');
-            $user = $model->row()->valueByName('user');
-        }
+        $target = $model->row()->valueByName('target');
+        $user = $model->row()->valueByName('user');
     }
 
     my $url = "$method://";
@@ -1282,21 +1260,6 @@ sub archivedir
     return '/var/cache/zentyal/duplicity';
 }
 
-sub canUnsubscribeFromCloud
-{
-    my ($self) = @_;
-    my $model = $self->model('RemoteSettings');
-    my $method = $model->row()->valueByName('method');
-    if ($method eq 'cloud') {
-        throw EBox::Exceptions::External(
-__x('Could not unsubscribe because the backup module is configured to use the Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}setting{chref}.',
-    ohref => q{<a href='/EBackup/Composite/Remote#RemoteGeneralSettings'>},
-    chref => '</a>'
-  )
-                                        );
-    }
-}
-
 sub configurationIsComplete
 {
     my ($self) = @_;
@@ -1372,14 +1335,7 @@ sub storageUsage
     my $method = $model->row()->valueByName('method');
     my $target = $model->row()->valueByName('target');
 
-    if ($method eq 'cloud') {
-        if (EBox::EBackup::Subscribed->isSubscribed()) {
-            my $quota;
-            ($used, $quota) = EBox::EBackup::Subscribed::quota();
-            $total = $quota;
-            $available = $quota - $used;
-        }
-    } elsif ($method eq 'file') {
+    if ($method eq 'file') {
         my $blockSize = 1024*1024; # 1024*1024 - 1Mb blocks
         my $df = df($target, $blockSize);
         $available = $df->{bfree};
@@ -1651,42 +1607,6 @@ sub gatherReportInfo
 
     # Perform the buffered inserts done above
     $db->multiInsert();
-}
-
-
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'ebackup_storage_usage_report',
-            'query' => {
-                'select' => 'used, available',
-                'from' => 'ebackup_storage_usage',
-            },
-        }
-    ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-    if (not $self->configurationIsComplete()) {
-        return {};
-    }
-
-    my $report = {};
-    $report->{included} = $self->model('BackupDomains')->report();
-    $report->{settings} = $self->model('RemoteSettings')->report();
-    $report->{'storage_usage'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'used, available',
-        'from' => 'ebackup_storage_usage_report',
-    });
-
-    return $report;
 }
 
 1;

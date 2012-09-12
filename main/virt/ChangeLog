@@ -1,4 +1,6 @@
-HEAD
+2.3.5
+	+ Fixed reference to inexistent attribute when adding a machine
+2.3.4
 	+ Report used ports as FirewallHelper
 	+ Set maximum number of virtual machines via virt.conf
 	+ New icons for the interface

@@ -103,6 +103,7 @@ sub _table
                                 size          => 18,
                                 unique        => 1,
                                 editable      => 1,
+                                disableAutocomplete => 1,
                                ),
        new EBox::Types::Password(
                                 fieldName     => 'password',
@@ -110,6 +111,7 @@ sub _table
                                 size          => 18,
                                 unique        => 1,
                                 editable      => 1,
+                                disableAutocomplete => 1,
                                ),
        new EBox::Types::Host(
                                 fieldName     => 'server',

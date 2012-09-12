@@ -1,5 +1,63 @@
 HEAD
+	+ Rollback redis transaction on otherwise instead finally block
+	+ Members of the 'admin' group can now login again on Zentyal
+	+ Multi-admin management for commercial editions
+	+ First and last move row buttons are now disabled instead of hidden
+	+ In save changes dialog set focus always in the 'save' button
+	+ Fixed i18n problem in some cases where environment variables
+	  were different than the selected locale on Zentyal UI, now
+	  LANG and LC_MESSAGES are explicitly passed to mod_perl
+	+ Reviewed registration strings
+	+ Added template attribute to MultiStateAction to provide any kind
+	  of HTML to display an action
+	+ Changed icon, name and link for Zentyal Remote
+	+ Fixed some compatibility issues with Internet Explorer 9
+	+ Show warning with Internet Explorer 8 or older
+	+ Improved dashboard buttons colors
+2.3.24
+	+ Do not cache undef values in EBox::Config::Redis::get()
+	+ Code fix on subscription retrieval for Updates event
+	+ Update validate referer to new Remote Services module API
+	+ In-place booleans now properly mark the module as changed
+	+ Do not try to read slides if software module is not installed
+	+ Fixed wrong call in Events::isEnabledDispatcher()
+	+ Updated 'created by' footer
+2.3.23
+	+ Change the default domain name from 'zentyal.lan' to
+	  'zentyal-domain.lan'
+	+ Changes in first enable to avoid letting modules unsaved
+	+ Type File now accepts spaces in the file name
+	+ Added setTimezone method to MyDBEngine
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
+	+ Fixed regression which removed scroll bars from popups
+	+ New carousel transition for the installation slides
+	+ Added option to not show final notes in progress bar
+	+ EBox::Model::Component::modelGetter does not die when trying to
+	  get a model for an uninstalled module
+	+ Added previous/next buttons to manually switch installation slides
+	+ New installation slides format
+	+ Added compatibility with MS Internet Explorer >= 8
+2.3.22
+	+ Changed first installation workflow and wizard infraestructure
+	+ Improved firewall icons
+	+ Set hover style for configure rules button in firewall
+	+ Do not disable InnoDB in mysql if there are other databases
+	+ Progress indicator no longer calls showAds if it is undefined
+	+ Send cache headers on static files to improve browsing speed
+	+ Added foreignNoSyncRows and foreignFilter options to EBox::Types::Select
+	+ Improved settings icon
+	+ Fixed modalboxes style
+	+ Improve host domain validation. Single label domains are not allowed.
+2.3.21
+	+ Fixes on notifyActions
+	+ Check for isDaemonRunning now compatible with asterisk status
+	+ Fixed warning call in EBox::Types::HasMany
+2.3.20
 	+ New look & feel for the web interface
+	+ Adjust slides transition timeout during installation
 	+ Audit changes table in save changes popup has scroll and better style
 	+ Model messages are printed below model title
 	+ noDataMsg now allows to add elements if it makes sense
@@ -22,6 +80,9 @@ HEAD
 	  to have an incorrect modified state
 	+ Dont show in bug report removed packages with configuration
 	  held as broken packages
+	+ DataTable::size() now calls to syncRows()
+	+ EBox::Module::Config::set_list quivalent now has the same
+	  behaviour than EBox::Module::Config::set
 2.3.19
 	+ Manually set up models for events to take into account the
 	  dynamic models from the log watcher filtering models

@@ -106,22 +106,22 @@ sub _table
            ),
        new EBox::Types::Text(
            fieldName     => 'external_server_name',
-           printableName => __('External server name (DynDNS)'),
+           printableName => __('External server name (Dynamic DNS)'),
            help          => __('Use this name to connect to Zentyal externally'),
           ),
        new EBox::Types::Text(
            fieldName     => 'renovation_date',
-           printableName => __('Subscription renovation date'),
+           printableName => __('Renovation date'),
           ),
-       new EBox::Types::Text(
-           fieldName     => 'mm',
-           printableName => __('Central monitoring & management'),
-          ),
+       # new EBox::Types::Text(
+       #     fieldName     => 'mm',
+       #     printableName => __('Central monitoring & management'),
+       #    ),
       );
 
     my $dataForm = {
                     tableName          => 'SubscriptionInfo',
-                    printableTableName => __('Server subcription info'),
+                    printableTableName => __('Server info'),
                     defaultActions     => [ 'changeView' ],
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
@@ -143,9 +143,9 @@ sub _content
     my $rs = $self->{confmodule};
 
     my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
-      ( __('None'), __('Not using Zentyal Cloud DynDNS service'),
-        __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
-             ohb => '<a href="' . BASIC_URL . '" target="_blank">',
+      ( __('None'), __('Not using Zentyal Dynamic DNS service'),
+        __sx('<span>None - {oh}Register for Free!{ch}</span>',
+             oh => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
              ch  => '</a>'),
         __('None'), __('Disabled'));
 
@@ -176,7 +176,7 @@ sub _content
         external_server_name => $fqdn,
         edition              => $subs,
         renovation_date      => $renovationDate,
-        mm                   => $mm,
+        # mm                   => $mm,
        };
 }
 

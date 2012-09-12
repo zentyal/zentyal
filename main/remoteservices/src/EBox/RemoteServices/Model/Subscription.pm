@@ -16,17 +16,18 @@
 # Class: EBox::RemoteServices::Model::Subscription
 #
 # This class is the model to subscribe a Zentyal to the remote services
-# offered. The following elements are required:
+# offered. The following elements may be present:
 #
 #     - user (volatile)
 #     - password (volatile)
 #     - common name
+#     - options (volatile and optional)
 #
 # The model has itself two states:
 #
-#     - Zentyal not subscribed. Default state. Prior to a Zentyal subscription
+#     - Zentyal not subscribed. Default state. Prior to the registration
 #
-#     - Zentyal subscribed. After a Zentyal subscription
+#     - Zentyal subscribed. After the registration
 #
 
 package EBox::RemoteServices::Model::Subscription;
@@ -46,6 +47,7 @@ use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
+use EBox::Types::Action;
 use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Text;
@@ -59,6 +61,8 @@ use Sys::Hostname;
 use constant STORE_URL => 'http://store.zentyal.com/';
 use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+
+my $subsWizardURL = '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
 
@@ -90,7 +94,7 @@ sub setTypedRow
     }
 
     if ( $correctParams ) {
-        # Password is not defined or yes
+        # Password is not defined when unsubscribing but it is when subscribing
         my $password = '';
         $password = $paramsRef->{password}->value() if defined($paramsRef->{password});
         my $subsServ = EBox::RemoteServices::Subscription->new(user => $paramsRef->{username}->value(),
@@ -118,15 +122,14 @@ sub setTypedRow
             }
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
-                $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
-                                          . 'wait a minute to guarantee the system carries out '
-                                          . 'the process of subscribing. Later you can start '
+                $self->{returnedMsg} = __('Registration was done correctly. Wait a minute '
+                                          . 'to guarantee the system carries out '
+                                          . 'the process of registration. Later on, you can start '
                                           . 'using the cloud based services you are entitled '
-                                          . 'to with your subscription (remote backup, updates, alerts, etc.)');
+                                          . 'to with your edition (remote backup, updates, alerts, etc.)');
             } else {
-                $self->{returnedMsg} = __('Subscription data retrieved correctly.');
+                $self->{returnedMsg} = __('Registration data retrieved correctly.');
             }
-            $self->{returnedMsg} .= ' ' . __('Please, save changes');
 
             $self->{confmodule}->st_set_bool('just_subscribed', 1);
             $self->{confmodule}->st_unset('sub_options');
@@ -136,21 +139,17 @@ sub setTypedRow
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
-    $self->{confmodule}->setAsChanged();
+    $self->parentModule()->setAsChanged();
 
-    $self->{confmodule}->st_set_bool('subscribed', not $subs);
+    $self->parentModule()->st_set_bool('subscribed', not $subs);
 
-    # Commit current data as valid
-    $self->{confmodule}->redis()->commit();
-    # Start async the bundle retrieval
-    EBox::Sudo::command(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
-
-    # Start a new transaction
-    $self->{confmodule}->redis()->begin();
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
+
+    # Set DynDNS configuration
+    $self->_setDDNSConf(not $subs);
 
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
@@ -169,15 +168,6 @@ sub setTypedRow
     } else {
         $self->setMessage(__('Done'));
     }
-
-    # if ( not $subs ) {
-    #     try {
-    #         # Establish VPN connection after subscribing and store data in backend
-    #         EBox::RemoteServices::Backup->new()->connection();
-    #     } catch EBox::Exceptions::External with {
-    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-    #     };
-    # }
 }
 
 # Method: eBoxSubscribed
@@ -192,7 +182,7 @@ sub eBoxSubscribed
 {
     my ($self) = @_;
 
-    my $subs = $self->{confmodule}->st_get_bool('subscribed');
+    my $subs = $self->parentModule()->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
 }
@@ -244,27 +234,6 @@ sub unsubscribe
     }
 }
 
-# Method: viewCustomizer
-#
-#      Return a custom view customizer to set a permanent message if
-#      the VPN is not enabled or configured
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    if ( $self->{confmodule}->subscriptionLevel() < 1) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
-    }
-    return $customizer;
-}
-
 # Method: help
 #
 # Overrides:
@@ -277,7 +246,11 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free Basic Subscription, or Small Business, or Enterprise Edition, all available in the Zentyal On-line Store. Once you have obtained one of these services, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg = __sx("Register your Zentyal server to Zentyal's remote monitoring and management platform (Zentyal Remote) here. Get a {ohf}free account{ch} or use the credentials of your {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for full access.",
+            ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
+            ohs => '<a href="' . SB_URL . '" target="_blank">',
+            ohe => '<a href="' . ENT_URL . '" target="_blank">',
+            ch => '</a>');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();
@@ -294,7 +267,7 @@ sub help
         #              );
         #}
 
-        $msg .= __('Take into account that subscribing your Zentyal server to the Zentyal Cloud can take a while. Please do not touch anything until the subscription process is correctly finished.');
+        $msg .= __('Take into account that registering your Zentyal server to the Zentyal Remote can take a while. Please do not touch anything until the registration process is correctly finished.');
     }
 
     return $msg;
@@ -335,7 +308,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    return __('Prior to make a subscription on remote services, '
+    return __('Prior to make a registration on remote services, '
               . 'save or discard changes in the OpenVPN module');
 }
 
@@ -362,7 +335,7 @@ sub _table
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
-                             printableName => __('User Name or Email Address'),
+                             printableName => __('Registration Email Address'),
                              editable      => (not $subscribed),
                              volatile      => 1,
                              acquirer      => \&_acquireFromState,
@@ -401,22 +374,35 @@ sub _table
                                      storer        => \&_emptyFunc));
     }
 
+
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
-        $printableTableName = __('Zentyal subscription details');
-        $actionName = __('Unsubscribe');
+        $printableTableName = __('Zentyal registration details');
+        $actionName = __('Unregister');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to Zentyal Cloud');
-        $actionName = __('Subscribe');
+        $printableTableName = __('Register your Zentyal Server');
+        $actionName = __('Register');
     }
 
+    my $customActions = [
+        new EBox::Types::Action(
+            model          => $self,
+            name           => 'subscribe',
+            printableValue => $actionName,
+            onclick        => \&_showSaveChanges,
+            template       => '/remoteservices/register_button.mas',
+           ),
+       ];
+
     my $dataForm = {
-                    tableName          => 'Subscription',
-                    printableTableName => $printableTableName,
-                    modelDomain        => 'RemoteServices',
-                    defaultActions     => [ 'editField', 'changeView' ],
-                    tableDescription   => \@tableDesc,
+                    tableName           => 'Subscription',
+                    printableTableName  => $printableTableName,
+                    modelDomain         => 'RemoteServices',
+                    #defaultActions     => [ 'editField', 'changeView' ],
+                    defaultActions      => [],
+                    customActions       => $customActions,
+                    tableDescription    => \@tableDesc,
                     printableActionName => $actionName,
                     disableAutocomplete => 1,
                    };
@@ -472,9 +458,8 @@ sub _tempPasswd
     my $pass = undef;
     my $state = $module->get_state();
     if (exists $state->{'sub_options'}) {
-        # Store the password temporary
-        my $options = $module->{'sub_options'};
-        $pass = $options->{pass};
+        # Get the temporary stored password
+        $pass = $state->{'sub_options'}->{pass};
     }
     return $pass;
 
@@ -494,12 +479,14 @@ sub _manageEvents # (subscribing)
 
     }
 
-    # Enable Cloud dispatcher
-    my $model = $eventMod->model('ConfigureDispatchers');
-    my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
-    $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
-    $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
-                                $subscribing);
+    # Enable Cloud dispatcher only if enough subs level is available
+    if ( (not $subscribing) or ($self->parentModule()->subscriptionLevel() >= 5) ) {
+        my $model = $eventMod->model('ConfigureDispatchers');
+        my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
+        $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
+        $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
+                                    $subscribing);
+    }
 
     if ($subscribing) {
         try {
@@ -553,11 +540,33 @@ sub _configureAndEnable
     my ($self, $mod) = @_;
 
     if (not $mod->configured) {
+        EBox::debug('Configuring ' . $mod->name());
         $mod->setConfigured(1);
         $mod->enableActions();
     }
     if (not $mod->isEnabled()) {
+        EBox::debug('Enabling ' . $mod->name());
         $mod->enableService(1);
+    }
+}
+
+# Set the Dynamic DNS configuration only if the service was not
+# enabled before and using other method
+sub _setDDNSConf
+{
+    my ($self, $subscribing) = @_;
+
+    my $networkMod = EBox::Global->modInstance('network');
+    my $ddnsModel = $networkMod->model('DynDNS');
+    if ( $subscribing ) {
+        unless ( $networkMod->isDDNSEnabled() ) {
+            $ddnsModel->set(enableDDNS => 1,
+                            service    => 'cloud');
+        } else {
+            EBox::info('DynDNS is already in used, so not using Zentyal Remote service');
+        }
+    } elsif ( $networkMod->DDNSUsingCloud() ) {
+        $ddnsModel->set(enableDDNS => 0);
     }
 }
 
@@ -649,15 +658,6 @@ sub _filesStr
     return $retStr;
 }
 
-# Return the commercial message
-sub _commercialMsg
-{
-    return __sx('Want to guarantee that your Zentyal server is always up-to-date, secured and supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
-}
-
 # Populate the available options from the cloud
 sub _populateOptions
 {
@@ -685,6 +685,39 @@ sub _populateOptions
     # Option to reload the available options
     push(@options, { value => 'reload', printableValue => __('Reload available options')});
     return \@options;
+}
+
+# Show save changes JS code
+sub _showSaveChanges
+{
+    my ($self, $id) = @_;
+
+    # FIXME: force parameter in DataTable::fields method
+    undef $self->{fields};
+    my $fields        = $self->fields();
+    my $fieldsArrayJS = '[' . join(', ', map { "'$_'" } @{$fields}) . ']';
+    my $tableName     = $self->name();
+    my $subscribed    = $self->eBoxSubscribed() ? 'true' : 'false';
+    my $caption       = ($subscribed eq 'true') ? __('Unregistering a server') : __('Registering a server');
+
+    # Simulate changeRow but showing modal box on success
+    my $jsStr = <<JS;
+var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
+  method : 'post',
+  parameters : '&action=edit&tablename=$tableName&directory=$tableName&id=form&' + encodeFields('$tableName', $fieldsArrayJS ),
+  evalScripts : true,
+  onSuccess : function(t) { Element.update('$tableName', t.responseText);
+                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
+                               Modalbox.show('/RemoteServices/Subscription', { title : '$caption' });
+                            }
+                          },
+  onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                            Element.update('error_$tableName', t.responseText); }
+  });
+setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+return false
+JS
+    return $jsStr;
 }
 
 1;

@@ -65,6 +65,8 @@ sub global
 # return a sub which is a getter of the specified model from the specified
 # module. Useful for foreignModel attribute
 #
+#  If the module does not exist the getter will return undef
+#
 #  Parameters:
 #    module
 #    model
@@ -72,7 +74,10 @@ sub modelGetter
 {
     my ($self, $module, $model) = @_;
     my $global = $self->global();
-    my $modelInstance = $global->modInstance($module)->model($model);
+    my $modelInstance = undef;
+    if ($global->modExists($module)) {
+        $modelInstance = $global->modInstance($module)->model($model);
+    }
     return sub{
         return $modelInstance;
     };

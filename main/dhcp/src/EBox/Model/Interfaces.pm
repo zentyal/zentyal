@@ -153,6 +153,7 @@ sub _table
     return $dataTable;
 }
 
+
 sub viewCustomizer
 {
     my ($self) = @_;
@@ -177,11 +178,27 @@ sub viewCustomizer
     }
 
     if ($noEnabled) {
-          $customizer->setPermanentMessage(__('No interfaces enabled.  The DHCP server  will not serve any address'), 'warning');      
+          $customizer->setPermanentMessage(__('No interfaces enabled.  The DHCP server  will not serve any address'), 'warning');
     } elsif ( $noRanges) {
         $customizer->setPermanentMessage(__('The enabled interfaces have not any range or fixed address configured.  The DHCP server  will not serve any address'), 'warning');
     }
     return $customizer;
+}
+
+sub dynamicDomainsIds
+{
+    my ($self) = @_;
+    my %domains;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $configuration = $row->subModel('configuration');
+        my $dynamicDNS = $configuration->componentByName('DynamicDNS', 1);
+        foreach my $domainId (@{ $dynamicDNS->dynamicDomainsIds() } ) {
+            $domains{$domainId} = 1;
+        }
+    }
+
+    return \%domains;
 }
 
 1;

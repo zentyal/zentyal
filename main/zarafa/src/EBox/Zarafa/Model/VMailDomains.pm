@@ -96,6 +96,9 @@ chref => q{</a>},
 sub notifyForeignModelAction
 {
     my ($self, $modelName, $action, $row) = @_;
+    if ($modelName ne 'mail/VDomains') {
+        return;
+    }
 
     if ($action eq 'del') {
         my $vdomain = $row->valueByName('vdomain');

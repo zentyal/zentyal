@@ -1,3 +1,16 @@
+HEAD
+	+ Moved menu entry from Office to Communications
+2.3.4
+	+ Fixed store of zarafaEnabledFeatures as multiple attributes
+	+ Fix Zarafa Webapp/Webaccess SSO
+	+ Fix XMPP integration writing xmpp/config.php file
+	+ Update configuration templates for Zarafa 7.1.0-36420
+2.3.3
+	+ Move report code to remoteservices
+	+ Use full path for notifier of notifyActions. More restrictive
+	  notifyForeignModelAction()
+2.3.2
+	+ Fixed creation of service principal in enableActions
 2.3.1
 	+ Switch to d-push (rebranded version of z-push)
 	+ Fix group support with new Users module

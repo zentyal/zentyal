@@ -14,15 +14,19 @@ use EBox::Gettext;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><TITLE><% __('Zentyal') %></TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="shortcut icon" href="<% $favicon %>" />
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 <script type="text/javascript">
 function checkBrowser() {
     if (/MSIE/.test(navigator.userAgent)) {
-        document.getElementById("ieWarning").style.display="block";
-        document.getElementById("credential_0").disabled="disabled";
-        document.getElementById("loginButton").disabled="disabled";
+        var ieversion = parseFloat(navigator.appVersion.split("MSIE")[1]);
+        if (ieversion < 9) {
+            document.getElementById("ieWarning").style.display="block";
+            document.getElementById("credential_0").disabled="disabled";
+            document.getElementById("loginButton").disabled="disabled";
+        }
     } else if (!/Firefox/.test(navigator.userAgent) &&
                !/Chrome/.test(navigator.userAgent)) {
         document.getElementById("ffWarning").style.display="block";

@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::DHCP::Model::DynamicDNS
 #
 # This class is the model to configurate dynamic DNS options for DHCP
@@ -22,21 +23,16 @@
 #     - dynamic domain
 #     - static domain
 #
-
 package EBox::DHCP::Model::DynamicDNS;
-
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::External;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::View::Customizer;
+use Error qw(try);
 
 # Dependencies
 
@@ -70,71 +66,6 @@ sub new
     return $self;
 }
 
-# Method: formSubmitted
-#
-#       When the form is submitted, do something
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-    my ($self, $oldRow) = @_;
-
-    # We assume the DNS module exists and is configured
-    my $newRow = $self->row();
-    my $dnsMod = EBox::Global->modInstance('dns');
-
-    my $msg = '';
-    if ($newRow->valueByName('enabled')) {
-        # Manage dynamic domain
-        $msg .= $self->_manageZone(newDomain => $newRow->valueByName('dynamic_domain'),
-                                   oldDomain => $oldRow->valueByName('dynamic_domain'),
-                                   dns => $dnsMod);
-
-        # Manage static domain
-        my ($newDomain, $oldDomain) = ($newRow->valueByName('static_domain'),
-                                       $oldRow->valueByName('static_domain'));
-        if ( $newRow->elementByName('static_domain')->selectedType() eq 'same' ) {
-            $newDomain = undef;
-        }
-        if ( $oldRow->elementByName('static_domain')->selectedType() eq 'same' ) {
-            $oldDomain = undef;
-        }
-        if ( $msg ) {
-            $msg .= '. ';
-        }
-        $msg .= $self->_manageZone(newDomain => $newDomain, oldDomain => $oldDomain,
-                                   dns => $dnsMod);
-
-        # Enable again if necessary for notifying other models using
-        # the same previous domain
-        my $currentRow = $self->row();
-        $currentRow->elementByName('enabled')->setValue(1);
-        $currentRow->store();
-
-    } elsif ( $oldRow->valueByName('enabled') ) {
-        # If it was enabled, remove old domains
-        $msg .= $self->_manageZone(newDomain => undef,
-                                   oldDomain => $oldRow->valueByName('dynamic_domain'),
-                                   dns => $dnsMod);
-        # Delete the static if it is different than dynamic
-        if ( $oldRow->elementByName('static_domain')->selectedType() eq 'custom' ) {
-            if ( $msg ) {
-                $msg .= '. ';
-            }
-            $msg .= $self->_manageZone(newDomain => undef,
-                                       oldDomain => $oldRow->valueByName('static_domain'),
-                                       dns => $dnsMod);
-        }
-    }
-
-    EBox::debug("message: $msg");
-    $self->setMessage($msg) if ( $msg );
-
-}
-
 # Method: precondition
 #
 # Overrides:
@@ -144,7 +75,7 @@ sub formSubmitted
 sub precondition
 {
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
         return $dns->configured();
     }
@@ -160,9 +91,9 @@ sub precondition
 sub preconditionFailMsg
 {
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
-        unless ( $dns->configured() ) {
+        unless ($dns->configured()) {
             return __('DNS module must be configured to work with this feature');
         }
     } else {
@@ -186,7 +117,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('dns') ) {
+    if ($gl->modExists('dns')) {
         my $dns = $gl->modInstance('dns');
         unless ( $dns->isEnabled() ) {
             my $msg = __('DNS module must be enabled to make this feature work.');
@@ -212,21 +143,28 @@ sub viewCustomizer
 sub notifyForeignModelAction
 {
     my ($self, $model, $action, $row) = @_;
+    if ($model ne 'dns/DomainTable') {
+        return;
+    }
 
     # TODO: update action is not yet supported, since we do not have
     # the old row to check the usage of the domain, currently, it is
     # not possible to edit a dynamic domain
     if ($action eq 'del') {
-        if ( $row->id() eq $self->row()->valueByName('dynamic_domain')
-             or $row->id() eq $self->row()->valueByName('static_domain') ) {
+        my $domainId = $row->id();
+        my $modelRow = $self->row();
+        my $dynamicDomain =  $modelRow->valueByName('dynamic_domain');
+        my $staticDomain =  $modelRow->valueByName('static_domain');
+        if (($domainId eq $dynamicDomain) or ($domainId eq $staticDomain)) {
             # Disable the dynamic DNS feature, in formSubmitted we
             # have to enable again (:-S)
-            my $row = $self->row();
-            if ( $row->valueByName('enabled') ) {
-                $row->elementByName('enabled')->setValue(0);
-                $row->store();
+            if ($modelRow->valueByName('enabled')) {
+                $modelRow->elementByName('enabled')->setValue(0);
+                $modelRow->store();
                 return __x('Dynamic DNS feature has been disabled in DHCP module '
-                           . 'in {iface} interface.', iface => $self->index());
+                           . 'in {iface} interface.',
+                           iface => $self->_iface()
+                         );
             }
         }
     }
@@ -253,8 +191,9 @@ sub _table
            editable      => 1,
            help          => __('Domain name appended to the hostname from those clients '
                                . 'whose leased IP address comes from a range'),
-           foreignModel  => \&_domainModel,
+           foreignModel  => $self->modelGetter('dns', 'DomainTable'),
            foreignField  => 'domain',
+           foreignNoSyncRows => 1,
           ),
        new EBox::Types::Union(
            fieldName     => 'static_domain',
@@ -271,8 +210,9 @@ sub _table
                    fieldName     => 'custom',
                    printableName => __('Custom'),
                    editable      => 1,
-                   foreignModel  => \&_domainModel,
+                   foreignModel  => $self->modelGetter('dns', 'DomainTable'),
                    foreignField  => 'domain',
+                   foreignNoSyncRows => 1,
                   ),
               ]),
       );
@@ -288,8 +228,6 @@ sub _table
                                                . 'DNS module in read-only mode'),
                       # The support may be enabled or not
                       enableProperty     => 1,
-                      # Notify when changes in DomainTable
-                      notifyActions      => [ 'DomainTable' ],
                      };
 
       return $dataForm;
@@ -298,46 +236,37 @@ sub _table
 
 # Group: Private methods
 
-# Add/remove the zone/domain from DNS
-# Returns a message to inform the user
-sub _manageZone
+sub _iface
 {
-    my ($self, %args) = @_;
-
-    my $msg = "";
-    if ( defined($args{newDomain}) ) {
-        my $domainRow = $args{dns}->model('DomainTable')->row($args{newDomain});
-        if ( defined($domainRow) ) {
-            $domainRow->elementByName('dynamic')->setValue(1);
-            $domainRow->store();
-            $msg = __x('Domain "{domain}" set as dynamic in DNS section',
-                       domain => $domainRow->printableValueByName('domain'));
-        } else {
-            throw EBox::Exceptions::Internal('Trying to modify a not valid domain from dhcp module');
-        }
-    }
-    if (defined($args{oldDomain}) and ($args{oldDomain} ne $args{newDomain})) {
-        my $domainRow = $args{dns}->model('DomainTable')->row($args{oldDomain});
-        if ( defined($domainRow) ) {
-            $domainRow->elementByName('dynamic')->setValue(0);
-            $domainRow->store();
-            if ( $msg ) {
-                $msg .= '. ';
-            }
-            $msg .= __x('Domain "{domain}" set as static in DNS section',
-                        domain => $domainRow->printableValueByName('domain'));
-        } # else already remove by previous caller (delete a domain from DNS)
-    }
-    return $msg;
+    my ($self) = @_;
+    return $self->parentRow()->valueByName('iface')
 }
 
-# Get the domain model
-sub _domainModel
+sub dynamicDomainsIds
 {
-    if ( EBox::Global->modExists('dns') ) {
-        return EBox::Global->modInstance('dns')->model('DomainTable');
-    } else {
-        return undef;
+    my ($self) = @_;
+    my $row = $self->row();
+    if (not $row->valueByName('enabled')) {
+        return [];
+    }
+
+    my @domains;
+    push @domains, $row->valueByName('dynamic_domain');
+    my $static = $row->elementByName('static_domain');
+    if ($static->selectedType() ne 'same') {
+        push @domains, $static->value();
+    }
+
+    return \@domains;
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+
+    if (EBox::Global->modExists('dns')) {
+        my $dnsModule = EBox::Global->modInstance('dns');
+        $dnsModule->setAsChanged();
     }
 }
 

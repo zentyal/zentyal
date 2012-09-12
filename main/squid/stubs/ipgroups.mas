@@ -15,6 +15,3 @@
 % foreach my $obj (@objects) {
 <% $obj->{address} %>=filter<% $obj->{number} %>
 % }
-
-# Deny all if no other filter profiles have applied
-0.0.0.0/0.0.0.0=filter2

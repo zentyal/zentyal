@@ -77,7 +77,6 @@ sub run
     EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     # wakeup on new session and logout events
-    $notifier->blocking(0);
     $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
 

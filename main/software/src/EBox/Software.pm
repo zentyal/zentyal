@@ -56,7 +56,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'software',
-        printableName => __n('Software Management'),
+        printableName => __('Software Management'),
         @_);
     bless($self, $class);
     return $self;
@@ -1036,6 +1036,7 @@ sub firstTimeMenu
     $self->_printMenuItem(__('Installation'), 2, $current);
     $self->_printMenuItem(__('Initial Configuration'), 3, $current);
     $self->_printMenuItem(__('Save Changes'), 4, $current);
+    $self->_printMenuItem(__('Finish'), 5, $current);
 
     print "</ul></div>\n";
 }

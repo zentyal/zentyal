@@ -110,7 +110,14 @@ sub validateTypedRow
             my $firewall = $gl->modInstance('firewall');
             $firewall->setInternalService('usercorner', 'accept');
         } else {
-            $services->updateDestPort('usercorner/0', $portNumber);
+            $services->setService(
+                'name'            => 'usercorner',
+                'printableName'   => __('User Corner'),
+                'description'     => __('User Corner Web Server'),
+                'protocol'        => 'tcp',
+                'sourcePort'      => 'any',
+                'destinationPort' => $portNumber,
+            );
         }
     }
 }

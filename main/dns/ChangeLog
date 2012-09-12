@@ -1,4 +1,26 @@
 HEAD
+	+ Removed invalid restoreDependencies
+2.3.11
+	+ Remove unused report sub
+	+ Fix updating dynamic domains
+	+ Allow modifiying models when domain is read only
+	+ Fix enable/disable the DNS cache checkbox without restarting apache.
+	  The enabled property depends on firewall enabled, now this check is
+	  done at run time.
+	+ Update the managed domain ip addresses when saving changes
+	+ Implement Network observer to update the kerberos domain when
+	  dhcp addresses are assigned
+	+ Get domain dynamic status from DHCP module
+	+ Code typo fixes related to references in DNS.pm
+	+ Add x86_64 samba dlz library paths to apparmor profile
+	+ Removed unused sambaZone check
+	+ Write keys file with read access only to bind group
+2.3.10
+	+ Remove subdomain fields from hostnames and services models after
+	  DLZ zones support. The samba records are no longer created in the
+	  models but loaded from the DLZ zone.
+	+ Add support for DLZ zones to load the Samba4 DNS zones stored in
+	  LDB.
 	+ samba is not longer a restore dependency
 	+ Fixed some errors with array references
 	+ Added modeldepends to yaml schema

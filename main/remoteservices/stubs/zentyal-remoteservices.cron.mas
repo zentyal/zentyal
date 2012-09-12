@@ -1,0 +1,27 @@
+<%args>
+  @hours
+  @mins
+</%args>
+# /etc/cron.d/zentyal-remoteservices: crontab entries for the zentyal-remoteservices package
+
+SHELL=/bin/sh
+PATH=/usr/bin:/bin
+
+# Run the cron jobs sent by Zentyal Cloud
+0-59/10 * * * * root /usr/share/zentyal-remoteservices/cronjob-runner >> /dev/null 2>&1
+# Get the new cron jobs from Zentyal Clod
+<% $mins[0] %> <% $hours[0] %> * * * root /usr/share/zentyal-remoteservices/get-cronjobs >> /dev/null 2>&1
+# Run the automatic backup
+<% $mins[1] %> <% $hours[1] %> * * * root /usr/share/zentyal-remoteservices/automatic-conf-backup > /dev/null 2>&1
+# Get a new bundle if available from Zentyal Cloud each week
+45 4 * * 7 root /usr/share/zentyal-remoteservices/reload-bundle > /dev/null 2>&1
+# Check subscription levels and add-ons once a day
+55 4 * * * root /usr/share/zentyal-remoteservices/subs-level > /dev/null 2>&1
+# Perform the security audit once a week
+<% $mins[2] %> <% $hours[2] %> * * 6 root /usr/share/zentyal-remoteservices/password-checker.pl > /dev/null 2>&1
+# Run unattended operations every X minutes
+*/5 * * * * root /usr/share/zentyal-remoteservices/run-pending-ops > /dev/null 2>&1
+# Log data for report hourly
+@hourly root /usr/share/zentyal-remoteservices/reporter-log > /dev/null 2>&1
+# Consolidate and send data when required
+0-59/15 * * * * root /usr/share/zentyal-remoteservices/report-consolidate > /dev/null 2>&1

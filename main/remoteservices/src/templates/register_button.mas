@@ -1,0 +1,16 @@
+<%args>
+  $action
+  $id => undef,
+  $type => 'submit'
+</%args>
+<%init>
+  use EBox::Gettext;
+  my $SUBS_WIZARD_URL = '/Wizard?page=RemoteServices/Wizard/Subscription';
+</%init>
+<& /input/action.mas,
+   action => $action,
+   id     => $id,
+   type   => $type &>
+<div>
+  <% __sx('Introduce Small Business or Enterprise credentials, or {ohb}register{ch} a FREE account!', ohb => '<a href="' . $SUBS_WIZARD_URL . '">', ch  => '</a>') %>
+</div>

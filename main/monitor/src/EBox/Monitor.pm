@@ -77,7 +77,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'monitor',
-                                      printableName => __n('Monitoring'),
+                                      printableName => __('Monitoring'),
                                       @_);
     bless($self, $class);
 
@@ -769,7 +769,7 @@ sub _enforceServiceState
     my $rs = EBox::Global->getInstance(1)->modInstance('remoteservices');
 
     # Remove the link to the RRD directory if not subscribed
-    unless ( $rs->eBoxSubscribed()) {
+    if (defined ($rs) and not $rs->eBoxSubscribed()) {
         my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirPath();
 
         # Get the parent path

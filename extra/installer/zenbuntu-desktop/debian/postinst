@@ -12,6 +12,7 @@ apt-key add /usr/share/zenbuntu-desktop/zentyal-2.3-archive.asc >> $LOG 2>&1
 cp /usr/share/zenbuntu-desktop/first-boot.sh /etc/rc.local
 
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
+ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
 
 if ! grep -q zentyal-lxdm /etc/init/lxdm.conf

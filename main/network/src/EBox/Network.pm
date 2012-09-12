@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Network;
-
 use strict;
 use warnings;
 
+package EBox::Network;
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored
@@ -74,7 +73,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'network',
-                    printableName => __n('Network'),
+                    printableName => __('Network'),
                     @_);
     $self->{'actions'} = {};
 
@@ -1048,6 +1047,12 @@ sub setIfaceAlias
         }
     }
 
+    if ($alias =~ m/:/) {
+        throw EBox::Exceptions::External(
+            __(q{Cannot set an alias with the character ":". This character is reserved for virtual interfaces})
+                                        );
+    }
+
     $ifaces->{$iface}->{alias} = $alias;
     $self->set('interfaces', $ifaces);
 }
@@ -1795,7 +1800,7 @@ sub vlan
     return $vlans->{$vlan};
 }
 
-# Method: createBridge
+# Method: _createBridge
 #
 #   creates a new bridge interface.
 #
@@ -1817,7 +1822,7 @@ sub _createBridge
     $self->setIfaceAlias($bridge, $bridge);
 }
 
-# Method: removeBridge
+# Method: _removeBridge
 #
 #   Removes a bridge
 #
@@ -1915,7 +1920,7 @@ sub bridgeIfaces
 #
 #   interface - the name of a network interface
 #   force - boolean to indicate if an exception should be raised when
-#   interace is changed or it should be forced
+#   interface is changed or it should be forced
 sub unsetIface # (interface, force)
 {
     my ($self, $name, $force) = @_;
@@ -1928,7 +1933,6 @@ sub unsetIface # (interface, force)
     }
 
     my $oldm = $self->ifaceMethod($name);
-
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
@@ -2771,7 +2775,7 @@ sub _generatePPPConfig
 
     # Do not overwrite the entire chap-secrets file every time
     # to avoid conflicts with the PPTP module
-    my $mark = '# PPPOE_CONFIG #';
+
     my $file;
     try {
         $file = read_file(CHAP_SECRETS_FILE);
@@ -2787,7 +2791,19 @@ sub _generatePPPConfig
     foreach my $user (keys %{$pppSecrets}) {
         $pppoeConf .= "$user * $pppSecrets->{$user}\n";
     }
+
+    my $oldMark = '# PPPOE_CONFIG #';
+    my $mark    =  '# PPPOE_CONFIG - managed by Zentyal. Don not edit this section #';
+    my $endMark = '# End of PPPOE_CONFIG section #';
     $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
+        # convert to new format
+        $file =~ s/$oldMark.*$oldMark/$mark\n$pppoeConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $pppoeConf . $endMark . "\n";
+    }
     write_file(CHAP_SECRETS_FILE, $file);
 }
 
@@ -2817,7 +2833,6 @@ sub generateInterfaces
     }
 
     print IFACES "\n\niface lo inet loopback\n";
-    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
@@ -3219,6 +3234,8 @@ sub _enforceServiceState
 
     my $file = INTERFACES_FILE;
 
+    EBox::Sudo::silentRoot("ip addr add 127.0.1.1/8 dev lo");
+
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
@@ -3451,9 +3468,24 @@ sub setDHCPAddress # (interface, ip, mask)
     checkIPNetmask($ip, $mask,  __("IP address"), __('Netmask'));
 
     my $state = $self->get_state();
+    my $oldAddr = $state->{dhcp}->{$iface}->{address};
+    my $oldMask = $state->{dhcp}->{$iface}->{mask};
     $state->{dhcp}->{$iface}->{address} = $ip;
     $state->{dhcp}->{$iface}->{mask} = $mask;
     $self->set_state($state);
+
+    # Calling observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    # Tell observers the interface way has changed
+    foreach my $obs (@observers) {
+        if ($self->ifaceIsExternal($iface)) {
+            $obs->externalDhcpIfaceAddressChangedDone($iface, $oldAddr, $oldMask, $ip, $mask);
+        } else {
+            $obs->internalDhcpIfaceAddressChangedDone($iface, $oldAddr, $oldMask, $ip, $mask);
+        }
+    }
 }
 
 # Method: setDHCPGateway
@@ -3547,7 +3579,10 @@ sub BridgedCleanUp # (interface)
         $self->_setChanged("br$bridge");
     }
 
-    $self->unset("interfaces/$iface/bridge_id");
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{bridge_id};
+    $self->set('interfaces', $ifaces);
+
     $self->_removeEmptyBridges();
 }
 

@@ -636,7 +636,7 @@ sub regenConfig
     my %vdomainsNotConfigured = map {  $_ => 1 } $self->vdomains();
 
     my $mf =  EBox::Global->modInstance('mailfilter');
-    my $vdomainsTable = $mf->model('VDomains');
+    my $vdomainsTable = $mf->model('VDomainsFilter');
 
     foreach my $id (@{ $vdomainsTable->ids() }) {
         my $vdRow = $vdomainsTable->row($id);
