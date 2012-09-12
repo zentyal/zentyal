@@ -131,7 +131,7 @@ sub run # (url, namespace)
 
         $cgi->run();
         $redis->commit();
-    } finally {
+    } otherwise {
         $redis->rollback();
     };
 }
