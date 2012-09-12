@@ -1,5 +1,6 @@
 HEAD
 	+ Reviewed registration strings
+	+ Set module restore dependencies
 2.3.17
 	+ Do not translate the service principal names to upper case
 	+ Set LDAP service as denined by default for internal networks

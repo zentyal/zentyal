@@ -176,14 +176,10 @@ sub enableService
 {
     my ($self, $status) = @_;
 
-    # Do not enable the module if there aren't IP addresses assigned
-    if ($status) {
-        $self->_checkEnvironment();
-    }
-
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
     } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
+        $self->_checkEnvironment();
         $self->setupDNS(1);
     }
 
@@ -1442,8 +1438,16 @@ sub dumpConfig
     # Backup private. LDB files must be backed up using tdbbackup
     my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
     foreach my $ldbFile (@{$ldbFiles}) {
-        chomp $ldbFile;
+        chomp ($ldbFile);
         EBox::Sudo::root("tdbbackup '$ldbFile'");
+        # Preserve file permissions
+        my $st = EBox::Sudo::stat($ldbFile);
+        my $uid = $st->uid();
+        my $gid = $st->gid();
+        my $mode = sprintf ("%04o", $st->mode() & 07777);
+        EBox::debug("Set uid:$uid gid:$gid mode:$mode on file $ldbFile.bak");
+        EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
+        EBox::Sudo::root("chmod $mode $ldbFile.bak");
     }
     EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
 
@@ -1487,13 +1491,17 @@ sub restoreConfig
     my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
     foreach my $bakFile (@{$bakFiles}) {
         chomp $bakFile;
-        my $destFile = ($bakFile =~ s/\.bak$//);
+        my $destFile = $bakFile;
+        $destFile =~ s/\.bak$//;
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
 
     # Restore stashed password
-    copy("$dir/samba.passwd", EBox::Config::conf());
-    chmod(0600, "$dir/ldap.passwd", "$dir/ldap_ro.passwd");
+    EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
+    EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+
+    # Set provisioned flag
+    $self->setProvisioned(1);
 }
 
 sub restoreDependencies

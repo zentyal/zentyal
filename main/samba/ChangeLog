@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed some strings
+	+ Fix samba backup
 2.3.14
 	+ Fix access for domain users to shares when guest access is enabled
 	  on the share

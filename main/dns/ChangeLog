@@ -1,3 +1,6 @@
+HEAD
+	+ Set the restore module restoreDependencies. DNS module does not depend
+	  on otherones.
 2.3.11
 	+ Remove unused report sub
 	+ Fix updating dynamic domains
