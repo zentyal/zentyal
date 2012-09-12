@@ -13,46 +13,147 @@ use EBox::Gettext;
     <title>
       Zentyal - <% __('Access Denied') %>
     </title>
-    <style type="text/css" media="screen">
-    body {background: #fff url(http://static.zentyal.org/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
-    h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
-    a {color: #578427;}
-    #content {border-top: 1px solid #FFE7BA; padding: 0;}
-    #main {border-top: 1px solid #FFF3DF; padding: 10px 25px; font-family: Georgia, serif; font-size: 1.2em;}
-    .blockedurl {font-size: 1.2em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
-    .reason, .categories {background: #eee; margin: 1em; padding: 1em;}
-    .head {padding-bottom: 15px;}
-    .foot {font-size: 0.8em; width: 700px; text-align: right; border-top: 1px solid #eee; padding-top: 5px; color: #666;}
-    table, .foot {margin: 0 auto;}
-    </style>
+    <style type="text/css">
+
+* {
+    font-family: verdana, sans-serif;
+}
+
+html body {
+    margin: 0;
+    padding: 0;
+    background: #efefef;
+    font-size: 12px;
+    color: #1e1e1e;
+}
+
+/* Page displayed title area */
+#titles {
+    margin: 50px  auto 0px auto;
+    padding: 20px 0px 40px 150px;
+    background: url('zentyal_logo.png') no-repeat 20px 10px;
+    width: 500px;
+    border-bottom: 3px solid white
+
+}
+
+/* initial title */
+#titles h1 {
+    color: #666;
+    font-size: 40px;
+    margin: 0px;
+    padding: 0px
+}
+#titles h2 {
+    color: #CFA136;
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px
+}
+
+/* special event: FTP success page titles */
+#titles ftpsuccess {
+    background-color:#00ff00;
+    width:100%;
+}
+
+/* Page displayed body content area */
+#content {
+    padding: 0px 0px 0px 150px;
+    width: 500px;
+    margin: 0px auto;
+}
+
+hr {
+    border: none;
+}
+
+/* General text */
+p {
+    font-size: 15px;
+    color: #666;
+
+}
+
+a {
+    color: #333
+}
+
+/* error brief description */
+#error p {
+}
+
+/* some data which may have caused the problem */
+#data {
+}
+
+/* the error message received from the system or other software */
+#sysmsg {
+}
+
+pre {
+    font-family:sans-serif;
+}
+
+/* special event: FTP / Gopher directory listing */
+#dirmsg {
+    font-family: courier;
+    color: black;
+    font-size: 10pt;
+}
+#dirlisting {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+#dirlisting tr.entry td.icon,td.filename,td.size,td.date {
+    border-bottom: groove;
+}
+#dirlisting td.size {
+    width: 50px;
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* horizontal lines */
+hr {
+    margin: 0;
+}
+
+/* page displayed footer area */
+#footer {
+    padding: 0px 0px 0px 150px;
+    width: 500px;
+    margin: 0px auto;
+}
+#footer p{
+    color: #999 !important
+}
+</style>
   </head>
   <body>
-      <table border="0" cellspacing="0" cellpadding="2" width="700">
-        <tr>
-          <td align="center" class="head">
-            <img src="http://static.zentyal.org/img/<% $image_name %>" align="left" alt="Zentyal" />
-            <h1>
-              <% __('Access has been Denied') %>
-            </h1>
-          </td>
-        </tr>
-        <tr>
-          <td width="550" bgcolor="#FFFFFF" align="left" valign="top" id="content">
-            <div id="main">
-              <p><% __x("Access to the page: {page} has been denied for the following reason", page => '<a href="-URL-" class="blockedurl">-URL-</a>') %>:</p>
-              <p class="reason">-REASONGIVEN-</p>
-              <p><% __('Categories') %>:</p>
-              <p class="categories">-CATEGORIES-</p>
-              <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
-% if ($extra_messages) {
+  <body id=ERR_ACCESS_DENIED>
+    <div id="titles">
+        <h1><% __('Access has been Denied') %></h1>
+        <h2><% __x("Access to the page: {page} has been denied for the following reason", page => '<a href="-URL-" class="blockedurl">-URL-</a>') %></h2>
+    </div>
+    <hr>
+    <div id="content">
+        <p>-REASONGIVEN-</p>
+        <blockquote id="error">
+            <p><b>Access Denied.</b></p>
+        </blockquote>
+        <p><% __('Categories') %>:</p>
+        <p>-CATEGORIES-</p>
+        <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
+        <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
+        % if ($extra_messages) {
               <p><% $extra_messages %></p>
-% }
-              <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <div class="foot"><% __('Powered by') %> <a href="http://www.zentyal.org/">Zentyal</a></div>
+            % }
+      </div>
+        <hr>
+        <div id="footer">
+            <% __('Powered by') %> <a href="http://www.zentyal.org/">Zentyal</a>
+        </div>
 
 <!--
 The available variables are as follows:
