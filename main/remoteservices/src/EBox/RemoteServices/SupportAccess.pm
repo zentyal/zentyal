@@ -103,10 +103,13 @@ sub remoteAccessUserAddress
     } else {
         # Backwards compatible. Get the data from dnsServer key
         my $dnsServer = $rs->confKey('dnsServer');
-        defined($dnsServer) or return undef;
-
-        $network = $dnsServer;
-        $network =~ s:\.([0-9])+?$:.*:;
+        if ( defined($dnsServer) ) {
+            $network = $dnsServer;
+            $network =~ s:\.([0-9])+?$:.*:;
+        } else {
+            # Finally, returns the default value (any reload bundle will be dynamic value if any)
+            return '10.200.*';
+        }
     }
 
     return $network;
