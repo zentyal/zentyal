@@ -279,6 +279,7 @@ sub createDirs
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
+        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
         if ($guestAccess) {
            push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
@@ -286,7 +287,6 @@ sub createDirs
            push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
-        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
         EBox::Sudo::root(@cmds);
 
         if ($guestAccess) {
