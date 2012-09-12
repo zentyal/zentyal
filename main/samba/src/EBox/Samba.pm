@@ -320,8 +320,6 @@ sub enableActions
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my @cmds = ();
-    push (@cmds, 'invoke-rc.d samba4 stop');
-    push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
@@ -1076,7 +1074,7 @@ sub _setupQuarantineDirectory
     my @cmds = ("mkdir -p '$quarantineDir'",
                 "chown root:$group '$quarantineDir'",
                 "chmod 700 '$quarantineDir'",
-                "setfacl -R -m u:$nobody:wx g::wx '$quarantineDir'");
+                "setfacl -R -m u:$nobody:wx g:$group:wx '$quarantineDir'");
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldb->domainSID() . '-512';
     my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
