@@ -54,6 +54,7 @@ use EBox::NetWrappers qw(to_network_with_mask);
 use constant DGDIR => '/etc/dansguardian';
 use constant {
     SQUIDCONFFILE => '/etc/squid3/squid.conf',
+    SQUIDCSSFILE => '/etc/squid3/errorpage.css',
     MAXDOMAINSIZ => 255,
     SQUIDPORT => '3128',
     DGPORT => '3129',
@@ -600,6 +601,8 @@ sub _writeSquidConf
     }
 
     $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+
+    $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 }
 
 sub _objectsDelayPools
