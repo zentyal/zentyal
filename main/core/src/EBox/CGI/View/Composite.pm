@@ -75,7 +75,14 @@ sub _header
     my ($self) = @_;
 
     print $self->cgi()->header(-charset=>'utf-8');
-    print EBox::Html::header($self->{composite}->pageTitle());
+    my $pageTitle;
+    try {
+        $pageTitle = $self->{tableModel}->pageTitle();
+    } otherwise {
+        EBox::error("Cannot get pageTitle for Composite");
+        $pageTitle = '';
+    };
+    print EBox::Html::header($pageTitle);
 }
 
 sub _process
