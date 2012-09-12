@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::View::DataTable;
-
 use strict;
 use warnings;
 
+package EBox::CGI::View::DataTable;
 use base 'EBox::CGI::ClientBase';
 
+use Error qw(:try);
 use EBox::Gettext;
 use EBox::Global;
 
@@ -52,8 +51,14 @@ sub _header
     my ($self) = @_;
 
     print $self->cgi()->header(-charset=>'utf-8');
-    print EBox::Html::header($self->{tableModel}->pageTitle());
-
+    my $pageTitle;
+    try {
+        $pageTitle = $self->{tableModel}->pageTitle();
+    } otherwise {
+        EBox::error("Cannot get pageTitle");
+        $pageTitle = '';
+    };
+    print EBox::Html::header($pageTitle);
 }
 
 sub _process
