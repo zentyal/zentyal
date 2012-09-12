@@ -502,8 +502,9 @@ sub _antivirusNeeded
 {
     my ($self, $profiles_r) = @_;
 
-    return 0 unless EBox::Global->modExists('antivirus');
-    return 0 unless EBox::Global->modInstance('antivirus')->isEnabled();
+    my $global = $self->global();
+    return 0 unless $global->modExists('antivirus');
+    return 0 unless $global->modInstance('antivirus')->isEnabled();
 
     if (not $profiles_r) {
         my $profiles = $self->model('FilterProfiles');
@@ -540,8 +541,9 @@ sub _writeSquidConf
     my $removeAds    = $generalSettings->removeAdsValue();
     my $kerberos     = $generalSettings->kerberosValue();
 
-    my $network = EBox::Global->modInstance('network');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $global  = $self->global();
+    my $network = $global->modInstance('network');
+    my $sysinfo = $global->modInstance('sysinfo');
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
 
@@ -550,7 +552,7 @@ sub _writeSquidConf
     my $cache_user = $network->model('Proxy')->usernameValue();
     my $cache_passwd = $network->model('Proxy')->passwordValue();
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $global->modInstance('users');
 
     my $krbRealm = '';
     if ($kerberos) {
@@ -585,9 +587,9 @@ sub _writeSquidConf
 
     push @writeParam, ('dn' => $dn);
 
-    my $global = EBox::Global->getInstance(1);
-    if ($global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
+    my $globalRO = EBox::Global->getInstance(1);
+    if ($globalRO->modExists('remoteservices')) {
+        my $rs = $globalRO->modInstance('remoteservices');
         push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed() ));
     }
     if ($removeAds) {
@@ -612,7 +614,7 @@ sub _localnets
 {
     my ($self) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
     my $ifaces = $network->InternalIfaces();
     my @localnets;
     for my $iface (@{$ifaces}) {
@@ -683,7 +685,7 @@ sub _writeDgConf
     $self->writeDgGroups();
 
     if ($antivirus) {
-        my $avMod = EBox::Global->modInstance('antivirus');
+        my $avMod = $self->global()->modInstance('antivirus');
         $self->writeConfFile(CLAMD_SCANNER_CONF_FILE,
                              'squid/clamdscan.conf.mas',
                              [ clamdSocket => $avMod->localSocket() ]);
@@ -759,18 +761,39 @@ sub writeDgGroups
     my @profiles = @{$rules->filterProfiles()};
     my @groups;
     my @objects;
+    my $anyAddressProfileSeen;
 
     my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
 
     foreach my $profile (@profiles) {
-        if ($profile->{timePeriod}) {
-            next unless ($profile->{days}->{$day});
-            my ($beginHour, $beginMin) = split (':', $profile->{begin});
-            next if (($hour < $beginHour) and ($min < $beginMin));
-            my ($endHour, $endMin) = split (':', $profile->{begin});
-            next if (($hour > $endHour) and ($min < $endMin));
+        if ($profile->{policy} eq 'deny') {
+            # this is stopped in squid, nothing to do
+            next;
         }
-        if ($profile->{group}) {
+        if ($profile->{timePeriod}) {
+            unless ($profile->{days}->{$day}) {
+                next;
+            }
+            my ($beginHour, $beginMin) = split (':', $profile->{begin});
+            if ($hour < $beginHour) {
+                next;
+            } elsif (($hour == $beginHour) and ($min < $beginMin) ) {
+                next;
+            }
+            my ($endHour, $endMin) = split (':', $profile->{end});
+            if ($hour > $endHour) {
+                next;
+            } elsif (($hour == $endHour) and ($min > $endMin) ) {
+                next;
+            }
+        }
+        if ($profile->{anyAddress}) {
+            if ($anyAddressProfileSeen) {
+                next;
+            }
+            $anyAddressProfileSeen  = 1;
+            push @objects, $profile;
+        }  elsif ($profile->{group}) {
             push (@groups, $profile);
         } else {
             push (@objects, $profile);
@@ -795,7 +818,7 @@ sub _writeDgTemplates
     my $file = DGDIR . '/languages/' . $lang . '/template.html';
 
     my $extra_messages = '';
-    my $edition = EBox::Global->edition();
+    my $edition = $self->global()->edition();
 
     if (($edition eq 'community') or ($edition eq 'basic')) {
         $extra_messages = __sx('This is an unsupported Community Edition. Get the fully supported {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates.',

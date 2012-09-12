@@ -517,6 +517,9 @@ sub _setValue # (defaultValue)
     $self->setMemValue(\%memValueParams);
 }
 
+
+# return a has with keys the day allowed as number
+# this numbers coincide with perl localtime's $wday
 sub dayNumbers
 {
     my ($self) = @_;

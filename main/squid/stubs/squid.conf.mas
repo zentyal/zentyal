@@ -36,24 +36,27 @@
 
     $dn
 </%args>
-<%perl>
+<%shared>
+our $anyPrefix = 'any_src_';
 our $maxAclNameLength = 31;
 our %longAclNames = ();
-
+</%shared>
+<%perl>
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
-
    @ids = grep { defined ($_) } @ids;
+   if ($policy->{any}) {
+       unshift @ids, $anyPrefix . $policy->{number};
+   }
+
    my $id = join '_', @ids;
 
    my $acls = '';
-
    if ($policy->{timeDays}) {
       $acls = _aclName('timeDays_' . $id);
       $acls .= ' ';
    }
-
    if ($policy->{timeHours}) {
        $acls .= _aclName('timeHours_' . $id);
    }
@@ -169,9 +172,7 @@ acl authorized proxy_auth REQUIRED
 url_rewrite_program <% $urlRewriteProgram %>
 % }
 
-% unless ($filter) {
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
-% }
 
 <& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
 
@@ -239,16 +240,10 @@ acl localnets_zentyal dst <% join ' ', @localnets %>
 cache deny noCached
 % }
 
-% if ($filter) {
-# All allowed here as dansguardian takes care of the access rules
-http_access allow all
-% } else {
 <& .rulesAccess, rules => \@rules &>
-
-# default policy section
+# default policy
 # All denied by default if no other allow rule matchs
 http_access deny all
-% }
 
 # END_TAG #
 
@@ -267,7 +262,10 @@ always_direct allow localhostdst
 $realm
 </%args>
 % foreach my $rule (@rules) {
-%   next if $rule->{any};
+%   if ($rule->{any}) {
+       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
+%      next;
+%   }
 %   my $object = $rule->{object};
 %   my $group = $rule->{group};
 %   my $src = $object ? $object : $group;
@@ -282,7 +280,7 @@ acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %       }
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
-<& .timeACLs, rule => $rule, id => $src &>
+   <& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
 
@@ -304,14 +302,19 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 @rules
 </%args>
 % foreach my $rule (@rules) {
-%   my $object = $rule->{'object'};
-%   my $group = $rule->{'group'};
-%   my $groupAcl = $group ? _aclName($group) : '';
-%   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
-%   my $acl = $groupAcl ? $groupAcl : $objectAcl;
-%   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
-%   my $policy = $rule->{'policy'};
-%   next unless (($policy eq 'allow') or ($policy eq 'deny'));
+<%perl>
+   my $object = $rule->{'object'};
+   my $group = $rule->{'group'};
+   my $groupAcl = $group ? _aclName($group) : '';
+   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+   my $policy = $rule->{'policy'};
+   if ($policy eq 'profile') {
+      # need to allow, to be able to pass it to DG
+        $policy = 'allow';
+   }
+</%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>

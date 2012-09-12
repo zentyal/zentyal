@@ -1,4 +1,9 @@
 HEAD
+	+ Added 'All users' option for Access Rules with group source
+	+ Using again squid ACLs when DG is active
+	+ Fixed issues in timed regeneration of DG files
+	+ Do not allow mix of IP and basic authorization in DG
+	+ Fixed directory to store archive files
 	+ Reviewed registration strings
 2.3.12
 	+ Squid is restarted if groups in use change their members

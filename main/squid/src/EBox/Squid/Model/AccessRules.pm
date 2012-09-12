@@ -132,6 +132,7 @@ sub populateGroups
     return [] unless ($userMod->isEnabled());
 
     my @groups;
+    push (@groups, { value => '__USERS__', printableValue => __('All users') });
     foreach my $group (@{$userMod->groups()}) {
         my $name = $group->name();
         push (@groups, { value => $name, printableValue => $name });
@@ -145,11 +146,45 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
-    my $type = exists $params_r->{source} ?
+
+    my $sourceType = exists $params_r->{source} ?
                       $params_r->{source}->selectedType():
                       $actual_r->{source}->selectedType();
-    if ($squid->transproxy() and ($type eq 'group')) {
+    if ($squid->transproxy() and ($sourceType eq 'group')) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
+    }
+
+    # check if it is a incompatible rule
+     my $groupRules;
+     my $objectProfile;
+     if ($sourceType eq 'group') {
+         $groupRules = 1;
+     } else {
+        my $policy = exists $params_r->{policy} ?  $params_r->{policy}->selectedType
+                                                 :  $actual_r->{policy}->selectedType();
+         if (($policy eq 'allow') or ($policy eq 'profile') ) {
+             $objectProfile = 1;
+         }
+     }
+
+    if ((not $groupRules) and (not $objectProfile)) {
+        return;
+    }
+
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source')->selectedType();
+        if ($objectProfile and ($source eq 'group')) {
+            throw EBox::Exceptions::External(
+              __("You cannot add a 'Allow' or 'Profile' rule for an object or any address if you have group rules")
+             );
+        } elsif ($groupRules and ($source ne 'group')) {
+            if ($row->elementByName('policy')->selectedType() ne 'deny') {
+                throw EBox::Exceptions::External(
+                 __("You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule for objects or any address")
+               );
+            }
+        }
     }
 }
 
@@ -161,13 +196,14 @@ sub rules
     my $userMod = $self->global()->modInstance('users');
     my $usersEnabled = $userMod->isEnabled();
 
+    # we dont use row ids to make rule id shorter bz squid limitations with id length
+    my $number = 0;
     my @rules;
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
 
-        my $rule = {};
-
+        my $rule = { number => $number};
         if ($source->selectedType() eq 'object') {
             my $object = $source->value();
             $rule->{object} = $object;
@@ -177,7 +213,13 @@ sub rules
             next unless ($usersEnabled);
             my $group = $source->value();
             $rule->{group} = $group;
-            $rule->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            my $users;
+            if ($group eq '__USERS__') {
+                $users = $userMod->users();
+            } else {
+                $users = $userMod->group($group)->users();
+            }
+            $rule->{users} = [ (map { $_->name() } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
@@ -196,6 +238,7 @@ sub rules
         }
 
         push (@rules, $rule);
+        $number += 1;
     }
 
     return \@rules;
@@ -247,14 +290,18 @@ sub filterProfiles
 
         my $profile = {};
 
-        my $policy = $row->elementByName('policy');
-        if ($policy->selectedType() eq 'allow') {
-            $profile->{number} = 1;
-        } elsif ($policy->selectedType() eq 'deny') {
+        my $policy     = $row->elementByName('policy');
+        my $policyType = $policy->selectedType();
+        if ($policyType eq 'allow') {
             $profile->{number} = 2;
-        } else {
+        } elsif ($policyType eq 'deny') {
+            $profile->{number} = 1;
+        } elsif ($policyType eq 'profile') {
             $profile->{number} = $profileIdByRowId{$policy->value()};
+        } else {
+            throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
+        $profile->{policy} = $policyType;
 
         my $timePeriod = $row->elementByName('timePeriod');
         unless ($timePeriod->isAllTime()) {
@@ -265,24 +312,29 @@ sub filterProfiles
         }
 
         my $source = $row->elementByName('source');
-        if ($source->selectedType() eq 'object') {
+        my $sourceType = $source->selectedType();
+        $profile->{source} = $sourceType;
+        if ($sourceType eq 'any') {
+            $profile->{anyAddress} = 1;
+            $profile->{address} = '0.0.0.0/0.0.0.0';
+            push @profiles, $profile;
+        } elsif ($sourceType eq 'object') {
             my $obj       = $source->value();
             my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
             foreach my $cidrAddress (@addresses) {
+                # put a pseudo-profile for each address in the object
                 my ($addr, $netmask) = ($cidrAddress->[0], EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
                 my %profileCopy = %{$profile};
                 $profileCopy{address} = "$addr/$netmask";
-                push (@profiles, \%profileCopy);
+                push @profiles, \%profileCopy;
             }
+        } elsif ($sourceType eq 'group') {
+            my $group = $source->value();
+            $profile->{group} = $group;
+            $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            push @profiles, $profile;
         } else {
-            if ($source->selectedType() eq 'group') {
-                my $group = $source->value();
-                $profile->{group} = $group;
-                $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
-            } else {
-                $profile->{address} = '0.0.0.0/0.0.0.0';
-            }
-            push (@profiles, $profile);
+            throw EBox::Exceptions::Internal("Unknow source type: $sourceType");
         }
     }
 

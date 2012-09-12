@@ -57,7 +57,7 @@ sub _table
              allowDownload => 1,
              dynamicPath   => sub {
                                 my ($self) = @_;
-                                return '/tmp/' . $self->row()->valueByName('name');
+                                return LIST_FILE_DIR . '/' . $self->row()->valueByName('name');
                               },
              user          => 'root',
              group         => 'root',
