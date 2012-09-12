@@ -1429,29 +1429,39 @@ sub dumpConfig
     my $privateDir = PRIVATE_DIR;
     my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
     foreach my $bakFile (@{$bakFiles}) {
-        chomp $bakFile;
+        chomp ($bakFile);
         EBox::Sudo::root("rm '$bakFile'");
     }
 
-    # Backup private. LDB files must be backed up using tdbbackup
-    my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-    foreach my $ldbFile (@{$ldbFiles}) {
-        chomp ($ldbFile);
-        EBox::Sudo::root("tdbbackup '$ldbFile'");
-        # Preserve file permissions
-        my $st = EBox::Sudo::stat($ldbFile);
-        my $uid = $st->uid();
-        my $gid = $st->gid();
-        my $mode = sprintf ("%04o", $st->mode() & 07777);
-        EBox::debug("Set uid:$uid gid:$gid mode:$mode on file $ldbFile.bak");
-        EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
-        EBox::Sudo::root("chmod $mode $ldbFile.bak");
-    }
-    EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
+    try {
+        # The service must be stopped or tar may fail with
+        # file changed as we read it
+        $self->stopService();
 
-    # Backup sysvol
-    my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+        # Backup private. LDB files must be backed up using tdbbackup
+        my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
+        foreach my $ldbFile (@{$ldbFiles}) {
+            chomp ($ldbFile);
+            EBox::Sudo::root("tdbbackup '$ldbFile'");
+            # Preserve file permissions
+            my $st = EBox::Sudo::stat($ldbFile);
+            my $uid = $st->uid();
+            my $gid = $st->gid();
+            my $mode = sprintf ("%04o", $st->mode() & 07777);
+            EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
+            EBox::Sudo::root("chmod $mode $ldbFile.bak");
+        }
+        EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
+
+        # Backup sysvol
+        my $sysvolDir = SYSVOL_DIR;
+        EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+    } otherwise {
+        my ($error) = @_;
+        throw $error;
+    } finally {
+        $self->_startService();
+    };
 
     # Backup admin password
     unless ($options{bug}) {
