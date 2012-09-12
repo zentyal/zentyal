@@ -590,7 +590,7 @@ sub _writeSquidConf
     my $globalRO = EBox::Global->getInstance(1);
     if ($globalRO->modExists('remoteservices')) {
         my $rs = $globalRO->modInstance('remoteservices');
-        push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed() ));
+        push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed()));
     }
     if ($removeAds) {
         push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
@@ -784,18 +784,24 @@ sub writeDgGroups
             unless ($profile->{days}->{$day}) {
                 next;
             }
-            my ($beginHour, $beginMin) = split (':', $profile->{begin});
-            if ($hour < $beginHour) {
-                next;
-            } elsif (($hour == $beginHour) and ($min < $beginMin) ) {
-                next;
+            if ($profile->{begin}) {
+                my ($beginHour, $beginMin) = split (':', $profile->{begin});
+                if ($hour < $beginHour) {
+                    next;
+                } elsif (($hour == $beginHour) and ($min < $beginMin)) {
+                    next;
+                }
             }
-            my ($endHour, $endMin) = split (':', $profile->{end});
-            if ($hour > $endHour) {
-                next;
-            } elsif (($hour == $endHour) and ($min > $endMin) ) {
-                next;
+
+            if ($profile->{end}) {
+                my ($endHour, $endMin) = split (':', $profile->{end});
+                if ($hour > $endHour) {
+                    next;
+                } elsif (($hour == $endHour) and ($min > $endMin)) {
+                    next;
+                }
             }
+
         }
         if ($profile->{anyAddress}) {
             if ($anyAddressProfileSeen) {
