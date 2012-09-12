@@ -1,4 +1,5 @@
 HEAD
+	+ Composite and DataTable viewers recover from errors in pageTitle method
 	+ Fixed intermitent failure in progress when there are no slides
 	+ Rollback redis transaction on otherwise instead finally block
 	+ Members of the 'admin' group can now login again on Zentyal

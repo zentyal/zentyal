@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::View::DataTable;
-
 use strict;
 use warnings;
 
+package EBox::CGI::View::DataTable;
 use base 'EBox::CGI::ClientBase';
 
+use Error qw(:try);
 use EBox::Gettext;
 use EBox::Global;
 
@@ -27,14 +26,14 @@ use EBox::Global;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my %params = @_;
-	my $tableModel = delete $params{'tableModel'};
-	my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
-                                      @_);
-	$self->{'tableModel'} = $tableModel;
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my %params = @_;
+    my $tableModel = delete $params{'tableModel'};
+    my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
+                                  @_);
+    $self->{'tableModel'} = $tableModel;
+    bless($self, $class);
+    return $self;
 }
 
 # Group: Protected methods
@@ -52,36 +51,42 @@ sub _header
     my ($self) = @_;
 
     print $self->cgi()->header(-charset=>'utf-8');
-    print EBox::Html::header($self->{tableModel}->pageTitle());
-
+    my $pageTitle;
+    try {
+        $pageTitle = $self->{tableModel}->pageTitle();
+    } otherwise {
+        EBox::error("Cannot get pageTitle");
+        $pageTitle = '';
+    };
+    print EBox::Html::header($pageTitle);
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance();
 
-        my $model = $self->{'tableModel'};
-        $self->setMenuFolder($model->menuFolder());
-        my $directory = $self->param('directory');
-        if ($directory) {
-            $model->setDirectory($directory);
-        }
+    my $model = $self->{'tableModel'};
+    $self->setMenuFolder($model->menuFolder());
+    my $directory = $self->param('directory');
+    if ($directory) {
+        $model->setDirectory($directory);
+    }
 
-        if ( $self->param('action') eq 'presetUpdate' ) {
-            $self->_presetUpdate();
-        } else {
-            my @params;
-            push(@params, 'data' => undef );
-            push(@params, 'dataTable' => $model->table());
-            push(@params, 'model'      => $model);
-            push(@params, 'hasChanged' => $global->unsaved());
-            push(@params, 'tpages' => 0);
-            push(@params, 'page' => 0);
+    if ( $self->param('action') eq 'presetUpdate' ) {
+        $self->_presetUpdate();
+    } else {
+        my @params;
+        push(@params, 'data' => undef );
+        push(@params, 'dataTable' => $model->table());
+        push(@params, 'model'      => $model);
+        push(@params, 'hasChanged' => $global->unsaved());
+        push(@params, 'tpages' => 0);
+        push(@params, 'page' => 0);
 
-            $self->{'params'} = \@params;
-        }
+        $self->{'params'} = \@params;
+    }
 }
 
 # Group: Private methods
@@ -90,57 +95,55 @@ sub _process
 # not and then add
 sub _presetUpdate
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $model = $self->{'tableModel'};
-        my $presetParams = $self->_fillTypes();
+    my $model = $self->{'tableModel'};
+    my $presetParams = $self->_fillTypes();
 
-        my ($editid, $action) = ( '', $self->param('action'));
-        if ( $model->rowUnique() ) {
-            # Then, search for the element in order to edit instead of
-            # adding a new one
-            my $foundId = $self->_findEqualRow($model, $presetParams);
-            if ( $foundId ) {
-                $editid = $foundId;
-            }
+    my ($editid, $action) = ( '', $self->param('action'));
+    if ( $model->rowUnique() ) {
+        # Then, search for the element in order to edit instead of
+        # adding a new one
+        my $foundId = $self->_findEqualRow($model, $presetParams);
+        if ( $foundId ) {
+            $editid = $foundId;
         }
-        # Not unique or just adding a new unique row
-        my $gl = EBox::Global->getInstance();
-        my @params;
-        push(@params, 'model'        => $model);
-        push(@params, 'action'       => $action);
-        push(@params, 'hasChanged'   => $gl->unsaved());
-        push(@params, 'presetParams' => $presetParams);
-        push(@params, 'editid'       => $editid);
-        push(@params, 'page'         => 0);
+    }
+    # Not unique or just adding a new unique row
+    my $gl = EBox::Global->getInstance();
+    my @params;
+    push(@params, 'model'        => $model);
+    push(@params, 'action'       => $action);
+    push(@params, 'hasChanged'   => $gl->unsaved());
+    push(@params, 'presetParams' => $presetParams);
+    push(@params, 'editid'       => $editid);
+    push(@params, 'page'         => 0);
 
-        $self->{'params'} = \@params;
-
+    $self->{'params'} = \@params;
 }
 
 # Method to fill a hash with instanced types from the array of CGI
 # params
 sub _fillTypes
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
+    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
 
-	my %params;
-        my $cgiParams = $self->paramsAsHash();
-	foreach my $field (@{$tableDesc}) {
-            my $instancedType = $field->clone();
-            $instancedType->setValue($cgiParams->{$instancedType->fieldName()});
-            $params{$field->fieldName()} = $instancedType;
-	}
+    my %params;
+    my $cgiParams = $self->paramsAsHash();
+    foreach my $field (@{$tableDesc}) {
+        my $instancedType = $field->clone();
+        $instancedType->setValue($cgiParams->{$instancedType->fieldName()});
+        $params{$field->fieldName()} = $instancedType;
+    }
 
-	return \%params;
+    return \%params;
 }
 
 # Method to search for the same row
 sub _findEqualRow
 {
-
     my ($self, $model, $presetParams) = @_;
 
     my $foundId = 0;
