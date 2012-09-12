@@ -180,6 +180,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
+% if (@slides) {
 <script type="text/javascript" language="javascript">
       if ($('adsButtonPrev')) $('adsButtonPrev').hide();
 
@@ -206,6 +207,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
           }
       };
 </script>
+% }
 
 % if ($inModalbox) {
 <script  type="text/javascript">
