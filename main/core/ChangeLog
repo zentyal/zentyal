@@ -1,4 +1,6 @@
 HEAD
+	+ Members of the 'admin' group can now login again on Zentyal
+	+ Multi-admin management for commercial editions
 	+ First and last move row buttons are now disabled instead of hidden
 	+ In save changes dialog set focus always in the 'save' button
 	+ Fixed i18n problem in some cases where environment variables

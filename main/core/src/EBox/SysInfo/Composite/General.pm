@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
 
 # Group: Public methods
 
@@ -40,6 +41,34 @@ sub new
     my $self = $class->SUPER::new(@params);
 
     return $self;
+}
+
+# Method: componentNames
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::componentNames>
+#
+sub componentNames
+{
+    my ($self) = @_;
+
+    my @components;
+
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if (defined ($rs) and $rs->subscriptionLevel() > 0) {
+        push (@components, 'sysinfo/ManageAdmins');
+    } else {
+        push (@components, 'sysinfo/AdminUser');
+    }
+
+    push (@components, 'apache/Language',
+                       'sysinfo/TimeZone',
+                       'sysinfo/DateTime',
+                       'apache/AdminPort',
+                       'sysinfo/HostName');
+
+    return \@components;
 }
 
 # Group: Protected methods
