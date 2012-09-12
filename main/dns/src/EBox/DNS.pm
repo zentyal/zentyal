@@ -96,16 +96,6 @@ sub appArmorProfiles
            ];
 }
 
-# samba it is in dependecies bz it must be started before than DNS but is not
-# needed for restore and dns can work without it
-sub restoreDependencies
-{
-    my ($self) = @_;
-    my $global = EBox::Global->getInstance();
-    my @deps = grep { $_ ne 'samba' } @{ $global->modDepends($self->name) };
-    return \@deps;
-
-}
 
 # Method: addDomain
 #
@@ -256,7 +246,6 @@ sub domains
 
     return $array;
 }
-
 
 # Method: getHostnames
 #
@@ -1842,6 +1831,11 @@ sub _updateManagedDomainAddresses
         my $hostIpModel = $hostRow->subModel('ipAddresses');
         $self->_updateManagedDomainIPsModel($hostIpModel);
     }
+}
+
+sub restoreDependencies
+{
+    return [];
 }
 
 ######################################

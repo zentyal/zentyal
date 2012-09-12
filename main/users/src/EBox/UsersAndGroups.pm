@@ -1378,6 +1378,11 @@ sub backupDomainsFileSelection
     return { includes => ['/home']   };
 }
 
+sub restoreDependencies
+{
+    return ['dns'];
+}
+
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;

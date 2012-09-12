@@ -1,4 +1,5 @@
 HEAD
+	+ Added dns as restore depend
 	+ Reviewed registration strings
 2.3.17
 	+ Do not translate the service principal names to upper case

@@ -1,4 +1,5 @@
 HEAD
+	+ Rollback redis transaction on otherwise instead finally block
 	+ Members of the 'admin' group can now login again on Zentyal
 	+ Multi-admin management for commercial editions
 	+ First and last move row buttons are now disabled instead of hidden

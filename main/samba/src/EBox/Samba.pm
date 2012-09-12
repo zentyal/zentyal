@@ -176,14 +176,10 @@ sub enableService
 {
     my ($self, $status) = @_;
 
-    # Do not enable the module if there aren't IP addresses assigned
-    if ($status) {
-        $self->_checkEnvironment();
-    }
-
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
     } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
+        $self->_checkEnvironment();
         $self->setupDNS(1);
     }
 
@@ -1427,17 +1423,85 @@ sub _ldapModImplementation
     return new EBox::SambaLdapUser();
 }
 
+sub dumpConfig
+{
+    my ($self, $dir, %options) = @_;
+
+    # Remove previous backup files
+    my $privateDir = PRIVATE_DIR;
+    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+    foreach my $bakFile (@{$bakFiles}) {
+        chomp $bakFile;
+        EBox::Sudo::root("rm '$bakFile'");
+    }
+
+    # Backup private. LDB files must be backed up using tdbbackup
+    my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
+    foreach my $ldbFile (@{$ldbFiles}) {
+        chomp ($ldbFile);
+        EBox::Sudo::root("tdbbackup '$ldbFile'");
+        # Preserve file permissions
+        my $st = EBox::Sudo::stat($ldbFile);
+        my $uid = $st->uid();
+        my $gid = $st->gid();
+        my $mode = sprintf ("%04o", $st->mode() & 07777);
+        EBox::debug("Set uid:$uid gid:$gid mode:$mode on file $ldbFile.bak");
+        EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
+        EBox::Sudo::root("chmod $mode $ldbFile.bak");
+    }
+    EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
+
+    # Backup sysvol
+    my $sysvolDir = SYSVOL_DIR;
+    EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+
+    # Backup admin password
+    unless ($options{bug}) {
+        my $pwdFile = EBox::Config::conf() . 'samba.passwd';
+        EBox::Sudo::root("cp '$pwdFile' $dir");
+    }
+}
+
 sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-#    try {
-#       TODO: Provision database and export LDAP to LDB
-#        my $sambaLdapUser = new EBox::SambaLdapUser;
-#        $sambaLdapUser->migrateUsers();
-#    } otherwise {
-#    } finally {
-#    };
+    my $mode = $self->mode();
+    unless ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
+        # Restoring an ADC will corrupt entire domain as sync data
+        # get out of sync.
+        EBox::info(__("Restore is only possible if the server is the unique " .
+                      "domain controller of the forest"));
+        $self->setProvisioned(0);
+        return;
+    }
+
+    # Remove private and sysvol
+    my $privateDir = PRIVATE_DIR;
+    my $sysvolDir = SYSVOL_DIR;
+    EBox::Sudo::root("rm -rf $privateDir/* $sysvolDir/*");
+
+    # Unpack sysvol
+    EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /");
+
+    # Unpack private folder
+    EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /");
+
+    # Rename ldb files
+    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+    foreach my $bakFile (@{$bakFiles}) {
+        chomp $bakFile;
+        my $destFile = $bakFile;
+        $destFile =~ s/\.bak$//;
+        EBox::Sudo::root("mv '$bakFile' '$destFile'");
+    }
+
+    # Restore stashed password
+    EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
+    EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+
+    # Set provisioned flag
+    $self->setProvisioned(1);
 }
 
 sub restoreDependencies
