@@ -8,4 +8,6 @@ models:
     - ManageAdmins
 
 composites:
-    General: [ sysinfo/ManageAdmins, sysinfo/AdminUser, apache/Language, sysinfo/TimeZone, sysinfo/DateTime, apache/AdminPort, sysinfo/HostName ]
+    General: []
+
+# NOTE: General composite components are dynamic in componentNames()
