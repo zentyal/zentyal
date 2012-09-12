@@ -286,7 +286,7 @@ sub createDirs
            push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
-        push (@cmds, "setfacl -b $path"); # Clear POSIX ACLs
+        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
         EBox::Sudo::root(@cmds);
 
         if ($guestAccess) {
@@ -363,8 +363,8 @@ sub createDirs
 
         if (@posixACL) {
             try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " $path";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." $path";
+                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
+                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
                 EBox::Sudo::root($cmd);
                 EBox::Sudo::root($defaultCmd);
 
