@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Network::Iface;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Network::Iface;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -101,7 +99,7 @@ sub setIface
             $self->_requireParam('if_ppp_user', __('user name'));
             $self->_requireParam('if_ppp_pass', __('password'));
             $ppp_user = $self->param('if_ppp_user');
-            $ppp_pass = $self->param('if_ppp_pass');
+            $ppp_pass = $self->_ppoePasswordParam();
             $net->setIfacePPP($iface, $ppp_user, $ppp_pass,
                     $external, $force);
 
@@ -140,6 +138,18 @@ sub setIface
         push(@array, 'bridge' => $bridge);
         $self->{params} = \@array;
     };
+}
+
+sub _ppoePasswordParam
+{
+    my ($self) = @_;
+    my $ppp_pass = $self->unsafeParam('if_ppp_pass');
+    unless ( $ppp_pass =~ m{^[\w/.?!&+:\-\@^\$%=*-]*$} ) {
+        throw EBox::Exceptions::External(__("The PPPoE password contains invalid " .
+            "characters. All alphanumeric characters, plus these non " .
+                "alphanumeric chars: /.?!&+:-_\@$%=* and spaces are allowed."));
+    }
+    return $ppp_pass
 }
 
 1;
