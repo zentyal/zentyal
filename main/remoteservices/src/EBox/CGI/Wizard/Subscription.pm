@@ -29,8 +29,8 @@ use SOAP::Lite;
 use Error qw(:try);
 
 use constant SOAP_URI => 'http://www.zentyal.com';
-use constant SOAP_PROXY => 'https://api.zentyal.com/2.3/';
-use constant PROMO_AVAILABLE => 'https://api.zentyal.com/2.3/promo_available';
+use constant SOAP_PROXY => 'https://api.zentyal.com/3.0/';
+use constant PROMO_AVAILABLE => 'https://api.zentyal.com/3.0/promo_available';
 
 sub new # (cgi=?)
 {
