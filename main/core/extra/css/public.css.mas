@@ -472,7 +472,7 @@ input[type='password'], input[type='text'] {
 
 }
 
-input[type='password'][disabled], input[type='text'][disabled] {
+input[type='password']:disabled, input[type='text']:disabled {
     border-color:#eee;
     background-color:#f5f5f5;
 
@@ -524,13 +524,17 @@ input[type='submit']:hover, input[type='button']:hover {background:#DFDFDF}
 
 button:hover {background:#DFDFDF}
 
-input[type='submit'][disabled], input[type='button'][disabled]{
+input[type='submit']:disabled, input[type='button']:disabled, input[type='submit']:disabled:hover, #install_button:disabled, #install_button:disabled:hover {
     cursor:default;
     border-color:#dbdbdb;
     background-color:#eee;
     color:#BBB;
 }
-input[type='submit'][disabled]:hover {background-color:#eee;}
+
+#install_button:disabled > img {
+    opacity: 0.5;
+    filter:alpha(opacity=50);
+    }
 
 .inputText, .inputTextError {
     color: #000000;
@@ -599,8 +603,10 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
 .edit_table_B { display: inline-block;}
 .edit_table_B:hover { display: inline-block; background: #E7E7E7 !important;}
 
-.inputButton[disabled], input[type='image'][disabled]{cursor:default;}
-.inputButton[disabled]:hover, input[type='image'][disabled]:hover{background-color:whitesmoke;}
+.inputButton:disabled, input[type='image']:disabled, .inputButton:disabled:hover, input[type='image']:disabled:hover {
+    cursor:default;
+    background-color:whitesmoke;
+}
 
 .msg {
     color: #FFFFFF;

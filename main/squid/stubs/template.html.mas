@@ -12,18 +12,6 @@ use EBox::Gettext;
     <title>
       Zentyal - <% __('Access Denied') %>
     </title>
-    <style type="text/css" media="screen">
-    body {background: #fff url(http://static.zentyal.org/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
-    h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
-    a {color: #578427;}
-    #content {border-top: 1px solid #FFE7BA; padding: 0;}
-    #main {border-top: 1px solid #FFF3DF; padding: 10px 25px; font-family: Georgia, serif; font-size: 1.2em;}
-    .blockedurl {font-size: 1.2em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
-    .reason, .categories {background: #eee; margin: 1em; padding: 1em;}
-    .head {padding-bottom: 15px;}
-    .foot {font-size: 0.8em; width: 700px; text-align: right; border-top: 1px solid #eee; padding-top: 5px; color: #666;}
-    table, .foot {margin: 0 auto;}
-    </style>
     <style type="text/css">
 
 * {
@@ -158,7 +146,7 @@ hr {
         <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
         <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
 % if ($extra_messages) {
-              <p><% $extra_messages %></p>
+        <p><% $extra_messages %></p>
 % }
       </div>
         <hr>

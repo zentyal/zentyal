@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed style for disabled buttons
 	+ Composite and DataTable viewers recover from errors in pageTitle method
 	+ Fixed intermitent failure in progress when there are no slides
 	+ Rollback redis transaction on otherwise instead finally block
