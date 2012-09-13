@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-09-11 19:13+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2012-09-13 04:03+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -210,12 +210,16 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"No se puede añadir una regla de 'Permitir' o 'Perfil' para un objeto o "
+"cualquier dirección si ya existen reglas de grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:184
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"No se puede añadir una regla de grupo si ya existen reglas de 'Permitir' o "
+"'Perfil' para objetos o cualquier dirección"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:382
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:152
@@ -9962,6 +9966,8 @@ msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
+"Solo se puede restaurar si el servidor es el único controlador de dominio "
+"del bosque"
 
 #: ../../main/samba/src/EBox/Samba.pm:1588
 msgid "Resource"
