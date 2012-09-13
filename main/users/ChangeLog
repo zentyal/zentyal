@@ -1,3 +1,6 @@
+HEAD
+	+ Do not notify samba about users created while restoring backup. Samba
+	  will restore its users from its own LDB backup.
 3.0
 	+ Write NSS config on enableService, modules depending on users may require
 	  uid/gid numbers from LDAP
