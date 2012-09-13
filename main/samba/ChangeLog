@@ -1,3 +1,8 @@
+HEAD
+	+ Stop daemon before restoring backup and start when finished
+	+ Throw exceptions in checkEnvironment also during first install,
+	  otherwise the module is not disabled if DNS is not properly
+	  configured.
 3.0
 	+ Add parameter to _checkEnvironment to set the desired error level
 	  (ignore, print on log or throw exception)

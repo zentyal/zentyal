@@ -177,13 +177,11 @@ sub enableService
     my ($self, $status) = @_;
 
     if ($status) {
-        my $errorLevel = 2;
-        if ($self->{firstInstall}) {
-            $errorLevel = 1;
-        } elsif ($self->{restoringBackup}) {
-            $errorLevel = 0;
+        my $throwException = 1;
+        if ($self->{restoringBackup}) {
+            $throwException = 0;
         }
-        $self->_checkEnvironment($errorLevel);
+        $self->_checkEnvironment($throwException);
     }
 
     if ($self->isEnabled() and not $status) {
@@ -561,7 +559,7 @@ sub recycleConfig
 #
 # Arguments:
 #
-#   errorLevel - 0 ignore all, 1 print error on log, 2 throw exception
+#   throwException - 0 print warn on log, 1 throw exception
 #
 # Returns:
 #
@@ -569,10 +567,10 @@ sub recycleConfig
 #
 sub _checkEnvironment
 {
-    my ($self, $errorLevel) = @_;
+    my ($self, $throwException) = @_;
 
-    unless (defined $errorLevel) {
-        throw EBox::Exceptions::MissingArgument('errorLevel');
+    unless (defined $throwException) {
+        throw EBox::Exceptions::MissingArgument('throwException');
     }
 
     # Get the own doamin
@@ -588,10 +586,10 @@ sub _checkEnvironment
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
         my $err = __x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm);
-        if ($errorLevel == 2) {
+        if ($throwException) {
             throw EBox::Exceptions::External($err);
-        } elsif ($errorLevel == 1) {
-            EBox::error($err);
+        } else {
+            EBox::warn($err);
         }
     }
 
@@ -602,10 +600,10 @@ sub _checkEnvironment
     unless (defined $domainRow) {
         $self->enableService(0);
         my $err = __x("The required domain '{d}' could not be found in the dns module", d => $hostDomain);
-        if ($errorLevel == 2) {
+        if ($throwException) {
             throw EBox::Exceptions::External($err);
-        } elsif ($errorLevel == 1) {
-            EBox::error($err);
+        } else {
+            EBox::warn($err);
         }
     }
 
@@ -616,10 +614,10 @@ sub _checkEnvironment
         $self->enableService(0);
         my $err = __x("The required host record '{h}' could not be found in the domain '{d}'",
                       h => $hostName, d => $hostDomain);
-        if ($errorLevel == 2) {
+        if ($throwException) {
             throw EBox::Exceptions::External($err);
-        } elsif ($errorLevel == 1) {
-            EBox::error($err);
+        } else {
+            EBox::warn($err);
         }
     }
 
@@ -666,10 +664,10 @@ sub _checkEnvironment
                    "DNS domain is properly configured. Ensure that you have at least a " .
                    "IP address assigned to an internal interface, and this IP has to be " .
                    "assigned to the domain and to the hostname in the DNS domain.");
-        if ($errorLevel == 2) {
+        if ($throwException) {
             throw EBox::Exceptions::External($err);
-        } elsif ($errorLevel == 1) {
-            EBox::error($err);
+        } else {
+            EBox::warn($err);
         }
     }
 
@@ -775,11 +773,14 @@ sub provisionAsDC
     # Map domain guest account to nobody user
     my $guestSID = $self->ldb->domainSID() . '-501';
     my $guestGroupSID = $self->ldb->domainSID() . '-514';
-    my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    # FIXME Why is this not working during first intall???
+    my $uid = 65534;
+    my $gid = 65534;
     my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
     my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-    EBox::debug("Mapping guest account");
+    EBox::info("Mapping guest account");
     $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 
@@ -931,7 +932,7 @@ sub provisionAsADC
         my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
         my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
         my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-        EBox::debug("Mapping guest account");
+        EBox::info("Mapping guest accounts");
         $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
         $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
     } otherwise {
@@ -1520,6 +1521,8 @@ sub restoreConfig
         return;
     }
 
+    $self->stopService();
+
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
     my $sysvolDir = SYSVOL_DIR;
@@ -1546,6 +1549,8 @@ sub restoreConfig
 
     # Set provisioned flag
     $self->setProvisioned(1);
+
+    $self->_startService();
 }
 
 sub restoreDependencies
