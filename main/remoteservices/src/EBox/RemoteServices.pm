@@ -1284,11 +1284,10 @@ sub dynamicHostname
     my $ret = "";
 
     if ( $self->eBoxSubscribed() ) {
-        my $domain = $self->_confKeys()->{dynamicDomain};
+        my $domain = $self->dynamicDomain();
         $ret = $self->eBoxCommonName() . '.' . $domain;
     }
     return $ret;
-
 }
 
 # Method: i18nServerEdition
@@ -2064,6 +2063,36 @@ sub cloudDomain
         $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
     }
     return $self->{cloudDomain};
+}
+
+# Method: dynamicDomain
+#
+#        Return the Zentyal Cloud Dynamic Domain if the server is
+#        subscribed
+#
+# Returns:
+#
+#        String - the Zentyal Cloud Dynamic Domain
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub dynamicDomain
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Remote Dynamic Domain is only available if the host is subscribed')
+           );
+    }
+
+    unless ( defined($self->{dynamicDomain}) ) {
+        $self->{dynamicDomain} = EBox::RemoteServices::Cred->new()->dynamicDomain();
+    }
+    return $self->{dynamicDomain};
 }
 
 # Method: cloudCredentials
