@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Stop daemon before restoring backup and start when finished
 	+ Throw exceptions in checkEnvironment also during first install,
 	  otherwise the module is not disabled if DNS is not properly
