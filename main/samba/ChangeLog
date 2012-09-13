@@ -1,4 +1,4 @@
-HEAD
+3.0
 	+ Add parameter to _checkEnvironment to set the desired error level
 	  (ignore, print on log or throw exception)
 	+ Stop daemon while taking backup to avoid samba daemon modifying files

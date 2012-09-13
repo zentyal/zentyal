@@ -1,4 +1,4 @@
-HEAD
+3.0
 	+ Write NSS config on enableService, modules depending on users may require
 	  uid/gid numbers from LDAP
 	+ Filter special kerberos and samba users out from the users list
