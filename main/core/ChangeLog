@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed unlimited repetition of 'add' and 'number change' events in RAID watcher
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install
 	+ Set 'restoringBackup' flag on modules when restoring backup
