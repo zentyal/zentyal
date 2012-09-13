@@ -1450,8 +1450,9 @@ sub restoreConfig
             $self->initUser($user);
         }
 
-        # Notify modules
-        $self->notifyModsLdapUserBase('addUser', $user);
+        # Notify modules except samba because its users will be
+        # restored from its own LDB backup
+        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
     }
 }
 
