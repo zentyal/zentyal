@@ -1,4 +1,7 @@
 HEAD
+	+ Set 'firstInstall' flag on modules when installing during initial install
+	+ Set 'restoringBackup' flag on modules when restoring backup
+	+ Call enableService after initialSetup while restoring backup
 	+ Registration link in widget now have appropiate content when either
 	  remoteservices or software are not installed
 	+ Fixed style for disabled buttons
