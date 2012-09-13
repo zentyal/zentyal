@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed tableBody template to fix the incorrect display of a edit button in
+	some tables which don't have the editField action set
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install
 	+ Set 'restoringBackup' flag on modules when restoring backup
