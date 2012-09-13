@@ -176,10 +176,19 @@ sub enableService
 {
     my ($self, $status) = @_;
 
+    if ($status) {
+        my $errorLevel = 2;
+        if ($self->{firstInstall}) {
+            $errorLevel = 1;
+        } elsif ($self->{restoringBackup}) {
+            $errorLevel = 0;
+        }
+        $self->_checkEnvironment($errorLevel);
+    }
+
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
     } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
-        $self->_checkEnvironment();
         $self->setupDNS(1);
     }
 
@@ -550,13 +559,21 @@ sub recycleConfig
 #   This method ensure that the environment is properly configured for
 #   samba provision.
 #
+# Arguments:
+#
+#   errorLevel - 0 ignore all, 1 print error on log, 2 throw exception
+#
 # Returns:
 #
 #   The IP address to use for provision
 #
 sub _checkEnvironment
 {
-    my ($self) = @_;
+    my ($self, $errorLevel) = @_;
+
+    unless (defined $errorLevel) {
+        throw EBox::Exceptions::MissingArgument('errorLevel');
+    }
 
     # Get the own doamin
     my $sysinfo    = EBox::Global->modInstance('sysinfo');
@@ -570,7 +587,12 @@ sub _checkEnvironment
     # The own doamin and the kerberos realm must be equal
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm));
+        my $err = __x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm);
+        if ($errorLevel == 2) {
+            throw EBox::Exceptions::External($err);
+        } elsif ($errorLevel == 1) {
+            EBox::error($err);
+        }
     }
 
     # Check the domain exists in DNS module
@@ -579,7 +601,12 @@ sub _checkEnvironment
     my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The required domain '{d}' could not be found in the dns module", d => $hostDomain));
+        my $err = __x("The required domain '{d}' could not be found in the dns module", d => $hostDomain);
+        if ($errorLevel == 2) {
+            throw EBox::Exceptions::External($err);
+        } elsif ($errorLevel == 1) {
+            EBox::error($err);
+        }
     }
 
     # Check the hostname exists in the DNS module
@@ -587,8 +614,13 @@ sub _checkEnvironment
     my $hostRow = $hostsModel->find(hostname => $hostName);
     unless (defined $hostRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The required host record '{h}' could not be found in the domain '{d}'",
-                                             h => $hostName, d => $hostDomain));
+        my $err = __x("The required host record '{h}' could not be found in the domain '{d}'",
+                      h => $hostName, d => $hostDomain);
+        if ($errorLevel == 2) {
+            throw EBox::Exceptions::External($err);
+        } elsif ($errorLevel == 1) {
+            EBox::error($err);
+        }
     }
 
     # Get the IP addresses models (domain and hostname)
@@ -630,11 +662,15 @@ sub _checkEnvironment
     }
     unless (defined $provisionIP) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(
-                __("Samba can't be provisioned if no IP addresses are set and the " .
+        my $err = __("Samba can't be provisioned if no IP addresses are set and the " .
                    "DNS domain is properly configured. Ensure that you have at least a " .
                    "IP address assigned to an internal interface, and this IP has to be " .
-                   "assigned to the domain and to the hostname in the DNS domain."));
+                   "assigned to the domain and to the hostname in the DNS domain.");
+        if ($errorLevel == 2) {
+            throw EBox::Exceptions::External($err);
+        } elsif ($errorLevel == 1) {
+            EBox::error($err);
+        }
     }
 
     return $provisionIP;
@@ -652,7 +688,7 @@ sub provision
     $self->stopService();
 
     # Check environment
-    my $provisionIP = $self->_checkEnvironment();
+    my $provisionIP = $self->_checkEnvironment(2);
 
     # Delete samba config file and private folder
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
