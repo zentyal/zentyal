@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Do not notify samba about users created while restoring backup. Samba
 	  will restore its users from its own LDB backup.
 3.0
