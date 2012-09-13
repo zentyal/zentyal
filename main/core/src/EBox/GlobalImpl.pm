@@ -584,6 +584,7 @@ sub saveAllModules
 
             $module->setInstalled();
             try {
+                $module->{firstInstall} = 1;
                 $module->enableActions();
                 $module->setConfigured(1);
                 $module->enableService(1);
@@ -593,8 +594,9 @@ sub saveAllModules
                 $module->setConfigured(0);
                 $module->enableService(0);
                 EBox::debug("Failed to enable module $name: $err");
+            } finally {
+                delete $module->{firstInstall};
             };
-
         }
 
         # in first install sysinfo module is in changed state
