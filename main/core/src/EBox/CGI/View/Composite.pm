@@ -29,6 +29,7 @@ package EBox::CGI::View::Composite;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use Error qw(:try);
 
 # Constructor: new
 #
@@ -75,7 +76,7 @@ sub _header
     print $self->cgi()->header(-charset=>'utf-8');
     my $pageTitle;
     try {
-        $pageTitle = $self->{tableModel}->pageTitle();
+        $pageTitle = $self->{composite}->pageTitle();
     } otherwise {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
