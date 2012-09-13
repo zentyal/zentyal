@@ -85,17 +85,14 @@ $rsPackage
 $softwarePackage
 </%args>
 % if ($rsPackage) {
-<a target="_blank" href="/Wizard?page=RemoteServices/Wizard/Subscription"
-               title="<% __s('Gain access to benefits such as free remote configuration backup and zentyal.me subdomains!') %>">
-               <% __s('Register for Free!') %></a>
+<a target="_blank"
+    href="/Wizard?page=RemoteServices/Wizard/Subscription"
 % } elsif ($softwarePackage) {
 <a target="_blank" href="#"
-   onclick="installRS('<% __('Install zentyal cloud client') %>'); return false"
-    title="<% __s('Bla, bla , bla') %>" >
-               <% __s('Install zentyal cloud client') %></a>
+   onclick="installRS('<% __s('Install Zentyal Cloud Client') %>'); return false"
 % } else {
 <%perl>
-my $howtoInstall = __x('{op}To install the software management package, open a console and execute the following command:{br}{opre}sudo apt-get install zentyal-software{cpre}{cp}',
+my $howtoInstall = __sx('{op}You need to install some missing packages to register your server. Please open a console and execute the following command:{br}{opre}sudo apt-get install zentyal-software zentyal-remoteservices{cpre}{cp}',
     op => '<p>',
     cp => '</p>',
     br => '<br>',
@@ -104,8 +101,8 @@ my $howtoInstall = __x('{op}To install the software management package, open a c
   );
 </%perl>
 <a target="_blank" href="#"
-   onclick="installSoftware('<% __('How to install software management') %>', '<% $howtoInstall %>'); return false"
-   title="<% __s('bla bla bla') %>"  >
-               <% __s('Install software management package') %></a>
+   onclick="installSoftware('<% __s('Register your server') %>', '<% $howtoInstall %>'); return false"
 % }
+   title="<% __s('Gain access to benefits such as free remote configuration backup and zentyal.me subdomains!') %>">
+               <% __s('Register for Free!') %></a>
 </%def>
