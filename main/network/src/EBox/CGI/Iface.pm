@@ -145,9 +145,7 @@ sub _ppoePasswordParam
     my ($self) = @_;
     my $ppp_pass = $self->unsafeParam('if_ppp_pass');
     unless ( $ppp_pass =~ m{^[\w/.?!&+:\-\@^\$%=*-]*$} ) {
-        throw EBox::Exceptions::External(__("The PPPoE password contains invalid " .
-            "characters. All alphanumeric characters, plus these non " .
-                "alphanumeric chars: /.?!&+:-_\@$%=* and spaces are allowed."));
+        throw EBox::Exceptions::External(__('The PPPoE password contains invalid characters. All alphanumeric characters, plus these non alphanumeric chars: /.?!&+:-_\@$%=* and spaces are allowed.'));
     }
     return $ppp_pass
 }
