@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:801
+#: ../../main/squid/src/EBox/Squid.pm:843
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1129
+#: ../../main/squid/src/EBox/Squid.pm:1171
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -263,7 +263,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/SysInfo.pm:466
+#: ../../main/core/src/EBox/SysInfo.pm:470
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:206
 #: ../../main/software/src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -279,7 +279,7 @@ msgstr ""
 "del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
 "Ubuntu."
 
-#: ../../main/core/src/EBox/SysInfo.pm:471
+#: ../../main/core/src/EBox/SysInfo.pm:475
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
@@ -332,7 +332,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1138
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1152
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -973,11 +973,68 @@ msgstr ""
 "¿Quieres monitorizar y gestionar tus servidores y escritorios de forma "
 "remota? ¡Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise{ch}!"
 
-#: ../../main/core/src/templates/links-widget.mas:10
+#: ../../main/core/src/templates/links-widget.mas:36
 msgid "Community"
 msgstr "Comunidad"
 
-#: ../../main/core/src/templates/links-widget.mas:12
+#: ../../main/core/src/templates/links-widget.mas:53
+msgid "Business"
+msgstr "Negocio"
+
+#: ../../main/core/src/templates/links-widget.mas:55
+msgid "Fully supported Zentyal server for less than 25 users"
+msgstr "Servidor Zentyal completamente soportado para menos de 25 usuarios"
+
+#: ../../main/core/src/templates/links-widget.mas:55
+msgid "Small Business Edition"
+msgstr "Edición Small Business"
+
+#: ../../main/core/src/templates/links-widget.mas:57
+msgid "Fully supported Zentyal server for an unlimited number of users."
+msgstr ""
+"Servidor Zentyal completamente soportado para un número de usuarios "
+"ilimitado."
+
+#: ../../main/core/src/templates/links-widget.mas:57
+msgid "Enterprise Edition"
+msgstr "Edición Enterprise"
+
+#: ../../main/core/src/templates/links-widget.mas:59
+msgid ""
+"Learn to use all Zentyal based network services in production environments."
+msgstr ""
+"Aprende a usar todos los servicios de red basados en Zentyal en entornos de "
+"producción."
+
+#: ../../main/core/src/templates/links-widget.mas:59
+msgid "Certified Training"
+msgstr "Formación Certificada"
+
+#: ../../main/core/src/templates/links-widget.mas:60
+msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
+msgstr "Libro \"Zentyal para Administradores de Redes\" en Español e Inglés."
+
+#: ../../main/core/src/templates/links-widget.mas:60
+msgid "Official Manual"
+msgstr "Manual Oficial"
+
+#: ../../main/core/src/templates/links-widget.mas:74
+msgid "Install Zentyal Cloud Client"
+msgstr ""
+
+#: ../../main/core/src/templates/links-widget.mas:76
+#, perl-brace-format
+msgid ""
+"{op}You need to install some missing packages to register your server. "
+"Please open a console and execute the following command:{br}{opre}sudo apt-"
+"get install zentyal-software zentyal-remoteservices{cpre}{cp}"
+msgstr ""
+
+#: ../../main/core/src/templates/links-widget.mas:85
+msgid "Register your server"
+msgstr "Registra tu servidor"
+
+#: ../../main/core/src/templates/links-widget.mas:86
 msgid ""
 "Gain access to benefits such as free remote configuration backup and zentyal."
 "me subdomains!"
@@ -985,50 +1042,9 @@ msgstr ""
 "¡Obtén acceso a ventajas como el backup de configuración remoto o "
 "subdominios zentyal.me gratuitos!"
 
-#: ../../main/core/src/templates/links-widget.mas:12
+#: ../../main/core/src/templates/links-widget.mas:86
 msgid "Register for Free!"
 msgstr "¡Regístrate Gratis!"
-
-#: ../../main/core/src/templates/links-widget.mas:24
-msgid "Business"
-msgstr "Negocio"
-
-#: ../../main/core/src/templates/links-widget.mas:26
-msgid "Fully supported Zentyal server for less than 25 users"
-msgstr "Servidor Zentyal completamente soportado para menos de 25 usuarios"
-
-#: ../../main/core/src/templates/links-widget.mas:26
-msgid "Small Business Edition"
-msgstr "Edición Small Business"
-
-#: ../../main/core/src/templates/links-widget.mas:28
-msgid "Fully supported Zentyal server for an unlimited number of users."
-msgstr ""
-"Servidor Zentyal completamente soportado para un número de usuarios "
-"ilimitado."
-
-#: ../../main/core/src/templates/links-widget.mas:28
-msgid "Enterprise Edition"
-msgstr "Edición Enterprise"
-
-#: ../../main/core/src/templates/links-widget.mas:30
-msgid ""
-"Learn to use all Zentyal based network services in production environments."
-msgstr ""
-"Aprende a usar todos los servicios de red basados en Zentyal en entornos de "
-"producción."
-
-#: ../../main/core/src/templates/links-widget.mas:30
-msgid "Certified Training"
-msgstr "Formación Certificada"
-
-#: ../../main/core/src/templates/links-widget.mas:31
-msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
-msgstr "Libro \"Zentyal para Administradores de Redes\" en Español e Inglés."
-
-#: ../../main/core/src/templates/links-widget.mas:31
-msgid "Official Manual"
-msgstr "Manual Oficial"
 
 #: ../../main/core/src/templates/backup.mas:12
 #, perl-brace-format
