@@ -1,3 +1,6 @@
+HEAD
+	+ Don't abort subscription, backup or restore by clicking outside
+	of popup window
 3.0
 	+ Set 3.0 URLs for wizard
 	+ Fix registration when remote access is enabled previously
