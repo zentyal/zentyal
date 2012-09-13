@@ -1,4 +1,6 @@
 HEAD
+	+ Don't abort subscription, backup or restore by clicking outside
+	  of popup window
 	+ Dynamic DNS now works without bundle
 3.0
 	+ Set 3.0 URLs for wizard
