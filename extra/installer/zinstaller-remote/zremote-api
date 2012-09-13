@@ -1,0 +1,100 @@
+curl -u foo:foo2 -k https://ws1.edge.cloud.zentyal.com/api/v1/bundle/available/foo/
+
+wrong password, response is-> "Authorization Required"
+
+correct password, but no bundles, response is -> []
+
+ejemplo respuesta con bundles válidos:
+
+
+[
+    {
+        "susbscription_end": "2015-08-27 13:56:12", 
+        "name": "Enterprise Edition", 
+        "server": null, 
+        "company": "Neodoo", 
+        "zarafa_users": null, 
+        "id": 325, 
+        "sb_mail_add_on": false, 
+        "subscription": "enterprise", 
+        "support": null, 
+        "dr_quota": null
+    }, 
+    {
+        "susbscription_end": "2015-08-27 13:56:12", 
+        "name": "Enterprise Edition", 
+        "server": null, 
+        "company": "Neodoo", 
+        "zarafa_users": null, 
+        "id": 327, 
+        "sb_mail_add_on": false, 
+        "subscription": "enterprise", 
+        "support": null, 
+        "dr_quota": null
+    }, 
+    {
+        "susbscription_end": "2015-08-27 13:56:12", 
+        "name": "Enterprise Edition", 
+        "server": null, 
+        "company": "Neodoo", 
+        "zarafa_users": null, 
+        "id": 323, 
+        "sb_mail_add_on": false, 
+        "subscription": "enterprise", 
+        "support": null, 
+        "dr_quota": null
+    }, 
+    {
+        "susbscription_end": "2015-08-27 13:56:12", 
+        "name": "Enterprise Edition", 
+        "server": null, 
+        "company": "Neodoo", 
+        "zarafa_users": null, 
+        "id": 321, 
+        "sb_mail_add_on": false, 
+        "subscription": "enterprise", 
+        "support": null, 
+        "dr_quota": null
+    }, 
+    {
+        "susbscription_end": "2015-08-27 13:56:12", 
+        "name": "Enterprise Edition", 
+        "server": null, 
+        "company": "Neodoo", 
+        "zarafa_users": null, 
+        "id": 319, 
+        "sb_mail_add_on": false, 
+        "subscription": "enterprise", 
+        "support": null, 
+        "dr_quota": null
+    }, 
+    {
+        "susbscription_end": "2012-09-12 22:00:00", 
+        "name": "Small Business Edition", 
+        "server": null, 
+        "company": "UPTA", 
+        "zarafa_users": null, 
+        "id": 201, 
+        "sb_mail_add_on": false, 
+        "subscription": "sb", 
+        "support": "Next business day", 
+        "dr_quota": null
+    }
+]
+
+mostrar company, name, guardarse el id en plan hidden
+
+para suscribir:
+
+curl -u $USER:$PASS -k --data "name=$SERVERNAME&bundle_id=$ID" https://ws1.edge.cloud.zentyal.com/api/v1/servers/
+
+devuelve: { name:, company:, uuid:, password, created, cloud_domain }
+
+PARA LAS QA UPDATES:
+
+user: company-name
+password: uuid
+host: qa.$cloud_domain
+
+y finalmente en second stage resuscribir reutilizando user, password y servername guardados previamente
+

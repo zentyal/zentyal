@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+URL=cloud.zentyal.com
+
+db_input high zinstaller-remote/user || true
+db_go || true
+db_input high zinstaller-remote/pass || true
+db_go || true
+
+
+db_get zinstaller-remote/user
+USERNAME="$RET"
+db_get zinstaller-remote/pass
+PASSWORD="$RET"
+
+RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/api/v1/bundle/available/foo/)
+
+if [ "$RESPONSE" == "Authorization Required" ]
+then
+    db_input high zinstaller-remote/auth_failed || true
+elif [ "$RESPONSE" == "[]" ]
+then
+    db_input high zinstaller-remote/auth_ok || true
+fi
+db_go || true
+
+exit 0
