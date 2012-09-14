@@ -313,10 +313,13 @@ sub askServerCN
     my ($servers) = @_;
     my $serverCN;
     if ($usesX) {
-        my @serversOrdered = sort @{ $servers  };
+        my @serversOrdered = sort map {
+            $_->{company} . ' : ' . $_->{name}
+        } @{ $servers  };
         $serverCN = _zenityList(__('Choose the server to restore'),
                                 __('Server'),
                                   0, \@serversOrdered);
+        ($serverCN) = $serverCN =~ m/ : ([a-z0-9\-]+)$/;
     } else {
         showServerList($servers);
         $serverCN = terminalPrompt(__("Server to restore: "));
@@ -1768,7 +1771,7 @@ sub _checkServerCN
         return;
     }
 
-    my $serverFound = grep { $serverCN eq $_ } @{ $servers };
+    my $serverFound = grep { $_->{name} eq $serverCN } @{ $servers };
 
     unless ($serverFound) {
         fatal(__x('The server {server} is not registered in Zentyal Cloud',
