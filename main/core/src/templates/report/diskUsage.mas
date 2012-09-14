@@ -1,5 +1,5 @@
 <%args>
-$partition 
+$partition
 $partitionAttr
 @partitions
 $chartUrl
@@ -13,14 +13,19 @@ use EBox::Gettext;
      <span class='selected'><% $_ %></span>
 %   } else {
     <a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a>
-%   } 
+%   }
 % }
 </div>
 
 <br/>
 <& .partitionAttrs, $partitionAttr &>
+% if ($chartUrl) {
 <img src="<% $chartUrl %>" />
-
+% } else {
+<div class='warning'>
+<% __x('Cannot get usage data for partition {p}', p => $partition) %>
+</div>
+% }
 
 <%def .partitionAttrs>
 <%init>
@@ -33,7 +38,7 @@ push @rows, [__('Options')     => $attrs->{options}];
 my @titles = (
      __('Partition Properties'),
      ''
-); 
+);
 </%init>
 <& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
 </%def>

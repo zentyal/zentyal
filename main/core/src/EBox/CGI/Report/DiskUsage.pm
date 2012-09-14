@@ -12,18 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Report::DiskUsage;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Report::DiskUsage;
 use base 'EBox::CGI::ClientBase';
 
 use EBox;
 use EBox::Report::DiskUsage;
 use EBox::FileSystem;
 use EBox::Gettext;
+use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -48,7 +47,12 @@ sub _process
       $partition = $partitions[0];
     }
 
-    my $chartUrl       = EBox::Report::DiskUsage::chart($partition);
+    my $chartUrl;
+    try {
+        $chartUrl = EBox::Report::DiskUsage::chart($partition);
+    } catch EBox::Exceptions::DataMissing with {
+        $chartUrl = undef;
+    };
 
     my @templateParams = (
                   partition     => $partition,

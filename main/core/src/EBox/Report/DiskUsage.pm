@@ -22,7 +22,10 @@ use EBox::Gettext;
 use EBox::CGI::Temp;
 use EBox::Backup;
 use EBox::FileSystem;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
+use Error qw(:try);
 use Chart::Pie;
 use GD;
 use Filesys::Df;
@@ -75,6 +78,9 @@ sub chart
     throw EBox::Exceptions::External(
       __x('No usage data for {d}. Are you sure is a valid disk?', d => $partition)
     );
+  exists $usage->{$partition}->{free} or
+      throw EBox::Exceptions::DataMissing(data => __x('Disk usage data for partition {p}', p => $partition));
+
 
   my $datasets = _chartDatasets($usage->{$partition});
 
@@ -263,15 +269,19 @@ sub usage
 
   }
 
-
   # calculate system usage and free space for each file system
   foreach my $fileSys (keys %usageByFilesys) {
     exists $fileSystems->{$fileSys} or
       throw EBox::Exceptions::Internal("File system not found: $fileSys");
 
+    my $df;
     my $mountPoint = $fileSystems->{$fileSys}->{mountPoint};
-
-    my $df = df($mountPoint, $blockSize );
+    try {
+        $df = df($mountPoint, $blockSize );
+    } otherwise {
+        EBox::error("Cannot get disk full size for mount point $mountPoint");
+    };
+    $df or next;
 
     my $facilitiesUsage = delete $usageByFilesys{$fileSys}->{facilitiesUsage};
     my $totalUsage      = sprintf ("%.2f", $df->{used});
