@@ -81,6 +81,13 @@ sub _masonParameters
 sub _processWizard
 {
     my ($self) = @_;
+
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External('You cannot register a server if you are already registered. '
+                                         . 'Deregister first to go on');
+    }
+
     $self->_requireParam('username', __('Email Address'));
     $self->_requireParam('password', __('Password'));
     $self->_requireParam('servername', __('Server name'));
