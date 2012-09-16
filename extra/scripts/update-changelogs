@@ -10,6 +10,8 @@ version=$1
 shift
 packs=$@
 
+dist="precise"
+
 if [ -z "$version" ]
 then
     echo "Usage: update-changelogs <version>"
@@ -23,20 +25,14 @@ fi
 
 for dir in $packs
 do
-    if [ ! -f $dir/changelog ]
+    if [ ! -f $dir/debian/$dist/changelog ]
     then
-        echo "Unable to find $dir/changelog"
-        exit 1
+        continue
     fi
 
-    module="ebox-$dir"
-    if [ "$dir" = 'libebox' -o "$dir" = 'ebox' ]
-    then
-        module=$dir
-    fi
+    module="zentyal-$dir"
 
-    dist=$(svn info | grep ^URL |grep -o "debian/.*" | cut -d/ -f 2)
-    cat > $dir/changelog.new <<EOF
+    cat > $dir/debian/$dist/changelog.new <<EOF
 $module ($version) $dist; urgency=low
 
   * New upstream release
@@ -45,6 +41,6 @@ $module ($version) $dist; urgency=low
 
 EOF
 
-cat $dir/changelog >> $dir/changelog.new
-mv $dir/changelog.new $dir/changelog
+cat $dir/debian/$dist/changelog >> $dir/debian/$dist/changelog.new
+mv $dir/debian/$dist/changelog.new $dir/debian/$dist/changelog
 done
