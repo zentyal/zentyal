@@ -20,6 +20,8 @@ use warnings;
 
 use base 'EBox::CGI::WizardPage';
 
+use feature qw(switch);
+
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
@@ -88,6 +90,10 @@ sub _processWizard
             throw EBox::Exceptions::External(__('Introduced passwords do not match'));
         }
 
+        unless ( defined($self->param('agree')) and ($self->param('agree') eq 'on') ) {
+            throw EBox::Exceptions::External(__s('You must agree to the privacy policy to continue'));
+        }
+
         $self->_register();
     }
 
@@ -142,10 +148,17 @@ sub _register
     }
 
     if ($result->result > 0) {
-        if ($result->result == 1) {
-            throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+        given ($result->result() ) {
+            when ( 1 ) {
+                throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+            }
+            when ( 2 ) {
+                throw EBox::Exceptions::External(__('Password must have at least 6 characters. Leading or trailing spaces will be ignored.'));
+            }
+            default {
+                throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
+            }
         }
-        throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
     }
 }
 

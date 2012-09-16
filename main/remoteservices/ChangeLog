@@ -1,3 +1,6 @@
+HEAD
+	+ Check the three diferent result api may return in wizard
+	+ Check agreement is done when doing the wizard
 3.0.1
 	+ Don't abort subscription, backup or restore by clicking outside
 	  of popup window
