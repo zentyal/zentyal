@@ -27,8 +27,9 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Validate;
-use SOAP::Lite;
 use Error qw(:try);
+use SOAP::Lite;
+use Sys::Hostname;
 
 use constant SOAP_URI => 'http://www.zentyal.com';
 use constant SOAP_PROXY => 'https://api.zentyal.com/3.0/';
@@ -65,8 +66,14 @@ sub _masonParameters
     my ($lang) = split ('_', EBox::locale());
     $lang = 'en' unless ($lang eq 'es');
 
+    my $hostname = Sys::Hostname::hostname();
+    ($hostname) = split( /\./, $hostname); # Remove the latest part of
+                                           # the hostname to make it a
+                                           # valid subdomain name
+
     push (@params, promo_available => $promo);
     push (@params, lang => $lang);
+    push (@params, hostname => $hostname);
     return \@params;
 }
 
