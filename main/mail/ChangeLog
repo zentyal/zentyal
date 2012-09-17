@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed editing of external accounts
 2.3.8
 	+ Move report code to remoteservices
 	+ Add missing use statement causing an exception loading the class
