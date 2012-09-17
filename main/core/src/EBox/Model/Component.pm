@@ -213,7 +213,7 @@ sub parentRow
 #
 #  Named parameters:
 #      subModelField - field name of the component's subfield in the parent rows (mandatory)
-#      returnFirst   - cut exectuion and return the result on the first true result value  (default: false)
+#      returnFirst   - cut execution and return the result on the first true result value  (default: false)
 sub executeOnBrothers
 {
     my ($self, $toExecuteSub, %options) = @_;
