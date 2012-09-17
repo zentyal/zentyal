@@ -74,7 +74,8 @@ sub _process
         $model->setDirectory($directory);
     }
 
-    if ( $self->param('action') eq 'presetUpdate' ) {
+    my $action = $self->param('action');
+    if ( defined $action and ($action eq 'presetUpdate') ) {
         $self->_presetUpdate();
     } else {
         my @params;

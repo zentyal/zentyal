@@ -1,3 +1,5 @@
+HEAD
+	+ Removed some high-frequency undef warnings
 3.0
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install
