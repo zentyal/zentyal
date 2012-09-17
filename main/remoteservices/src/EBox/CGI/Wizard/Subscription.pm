@@ -20,13 +20,16 @@ use warnings;
 
 use base 'EBox::CGI::WizardPage';
 
+use feature qw(switch);
+
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Validate;
-use SOAP::Lite;
 use Error qw(:try);
+use SOAP::Lite;
+use Sys::Hostname;
 
 use constant SOAP_URI => 'http://www.zentyal.com';
 use constant SOAP_PROXY => 'https://api.zentyal.com/3.0/';
@@ -63,8 +66,14 @@ sub _masonParameters
     my ($lang) = split ('_', EBox::locale());
     $lang = 'en' unless ($lang eq 'es');
 
+    my $hostname = Sys::Hostname::hostname();
+    ($hostname) = split( /\./, $hostname); # Remove the latest part of
+                                           # the hostname to make it a
+                                           # valid subdomain name
+
     push (@params, promo_available => $promo);
     push (@params, lang => $lang);
+    push (@params, hostname => $hostname);
     return \@params;
 }
 
@@ -72,6 +81,13 @@ sub _masonParameters
 sub _processWizard
 {
     my ($self) = @_;
+
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External('You cannot register a server if you are already registered. '
+                                         . 'Deregister first to go on');
+    }
+
     $self->_requireParam('username', __('Email Address'));
     $self->_requireParam('password', __('Password'));
     $self->_requireParam('servername', __('Server name'));
@@ -86,6 +102,10 @@ sub _processWizard
 
         unless ($self->param('password') eq $self->param('password2')) {
             throw EBox::Exceptions::External(__('Introduced passwords do not match'));
+        }
+
+        unless ( defined($self->param('agree')) and ($self->param('agree') eq 'on') ) {
+            throw EBox::Exceptions::External(__s('You must agree to the privacy policy to continue'));
         }
 
         $self->_register();
@@ -142,10 +162,17 @@ sub _register
     }
 
     if ($result->result > 0) {
-        if ($result->result == 1) {
-            throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+        given ($result->result() ) {
+            when ( 1 ) {
+                throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+            }
+            when ( 2 ) {
+                throw EBox::Exceptions::External(__('Password must have at least 6 characters. Leading or trailing spaces will be ignored.'));
+            }
+            default {
+                throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
+            }
         }
-        throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
     }
 }
 
