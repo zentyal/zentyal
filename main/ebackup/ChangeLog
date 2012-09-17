@@ -1,4 +1,4 @@
-HEAD
+2.2.5
 	+ Adapt restore-tool to multitenancy in Zentyal Cloud
 	+ Fixed bug with expiration of file list cache
 	+ Do not show Zentyal Cloud option if custom_prefix is defined
