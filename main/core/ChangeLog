@@ -1,3 +1,5 @@
+HEAD
+	+ Added executeOnBrothers method to EBox::Model::Component
 3.0
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install
