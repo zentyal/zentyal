@@ -12,28 +12,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Mail::Model::VDomainAliases;
-
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataTable';
-
 # Class: EBox::Mail::Model::VDomainAliases
 #
-#       This a class used it as a proxy for the vodmain alaises stored in LDAP.
+#       This a class used it as a proxy for the vodmain aliases stored in LDAP.
 #       It is meant to improve the user experience when managing vdomains,
 #       but it's just a interim solution. An integral approach needs to
 #       be done.
 #
+package EBox::Mail::Model::VDomainAliases;
+use base 'EBox::Model::DataTable';
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 
 use EBox::Mail::Types::WriteOnceDomain;
-#use EBox::Types::Link;
 
 
 sub new
@@ -72,7 +69,6 @@ sub _table
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,
-#                        'menuNamespace' => 'Mail/VDomainAliases',
                         'automaticRemove'  => 1,
                         'help' => '',
                         'printableRowName' => __('virtual domain alias'),
@@ -93,24 +89,28 @@ sub validateTypedRow
     if (not exists $changedFields->{alias}) {
         return;
     }
-
     my $alias = $changedFields->{alias}->value();
-    my $vdomainsModel = EBox::Global->modInstance('mail')->model('VDomains');
-    if ($vdomainsModel->existsVDomain($alias)) {
+
+    my $existsVDomain = $self->parent()->existsVDomain($alias);
+    if ($existsVDomain) {
         throw EBox::Exceptions::External(
-__x('Cannot add {al} alias because there is already a virtual domain with the same name',
-   al => $alias)
-                                        );
+            __x('Cannot add {al} alias because there is already a virtual domain with the same name',
+                al => $alias)
+           );
     }
 
-    if ($vdomainsModel->existsVDomainAlias($alias)) {
+    my $existsAliasSub = sub {
+        my ($brother) = @_;
+        return $brother->existsAlias($alias);
+    };
+    my $existsAlias = $self->executeOnBrothers($existsAliasSub, subModelField => 'aliases', returnFirst => 1);
+    if ($existsAlias) {
         throw EBox::Exceptions::External(
-__x('Cannot add alias {al} because it is already an identical alias for another virtual domain',
-   al => $alias)
-                                        );
+                __x('Cannot add alias {al} because it is already an identical alias for another virtual domain',
+                    al => $alias)
+               );
     }
 }
-
 
 # Method: precondition
 #
@@ -121,8 +121,9 @@ __x('Cannot add alias {al} because it is already an identical alias for another 
 #       <EBox::Model::DataTable::precondition>
 sub precondition
 {
-        my $mail = EBox::Global->modInstance('mail');
-        return $mail->configured();
+    my ($self)= @_;
+    my $mail = $self->global()->modInstance('mail');
+    return $mail->configured();
 }
 
 # Method: preconditionFailMsg
