@@ -12,6 +12,8 @@ for my $line (@fstab) {
     next if ($fields[0] =~ /^#.*/);
     my $modified = 0;
     my @fields = split (/[\t\s]+/, $line);
+
+    # Mount fs with xattr and acl
     if ($fields[2] =~ /^(ext3|ext4)$/) {
         unless ($fields[3] =~ /acl/) {
             $fields[3] .= ',acl';
@@ -22,12 +24,21 @@ for my $line (@fstab) {
             $modified = 1;
         }
     }
+
+    # Delete /run/lock line if exists
+    next if ($fields[1] =~ /^\/run\/lock$/);
+
     my $newLine = join ("\t", @fields) . "\n";
     push (@newFstab, $newLine);
     if ($modified) {
         push (@modifiedLines, $newLine);
     }
 }
+
+# Add /run/lock line
+my $newLine = "none\t/run/lock\ttmpfs\trw,noexec,nosuid,nodev,size=52428800\t0\t0\n";
+push (@newFstab, $newLine);
+push (@modifiedLines, $newLine);
 
 write_file(FSTAB_FILE, @newFstab) or die ('Could not write on ' . FSTAB_FILE . ": $!");
 foreach my $line (@modifiedLines) {

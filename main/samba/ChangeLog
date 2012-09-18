@@ -1,3 +1,7 @@
+HEAD
+	+ Add a line to /etc/fstab to increase the size of /var/lock to 50MB.
+	  Samba stores there some tdb files (for example to track connections), so
+	  if this fs goes out of space connections can be dropped.
 3.0.1
 	+ Stop daemon before restoring backup and start when finished
 	+ Throw exceptions in checkEnvironment also during first install,
