@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed request came from non-root user warnings during boot
 	+ Send info event in Runit watcher only if the service was down
 	  MAX_DOWN_PERIODS
 3.0

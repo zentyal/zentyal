@@ -159,7 +159,7 @@ sub status
 sub _logActionFunction
 {
     my ($action, $success) = @_;
-    system(". /lib/lsb/init-functions; " .
+    EBox::Sudo::root(". /lib/lsb/init-functions; " .
 	       " log_begin_msg \"$action\"; log_end_msg $success");
 }
 
