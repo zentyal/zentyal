@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed DomainFilterCategories models to accept categories from bigblacklist
 3.0
 	+ Customized "Access Denied" page theme
 	+ Added 'All users' option for Access Rules with group source

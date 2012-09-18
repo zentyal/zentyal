@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Squid::Model::DomainFilterCategories;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Global;
@@ -31,7 +30,17 @@ use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
-use Perl6::Junction qw(any);
+
+my $categoriesFileDir = '/var/lib/zentyal/files/squid';
+my %validParentDirs = (
+    BL => 1,
+    blacklists => 1,
+   );
+my %validBasename = (
+    domain => 1,
+    urls   => 1,
+   );
+
 
 # Method: syncRows
 #
@@ -41,24 +50,26 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my @dirs = </var/lib/zentyal/files/squid/*>;
+    my @dirs = glob("$categoriesFileDir/*");
 
     my $lists;
 
     foreach my $dir (@dirs) {
         my @files =  @{ EBox::Sudo::root("find '$dir'") };
+
+        my $filePathRe = qr{^$dir/(.*?)/(.*)/(.*?)$};
+        my $listname = basename($dir);
         foreach my $file (@files) {
             chomp $file;
-            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*)/(.*?)$};
-            next unless (defined($category)); # This applies for top level directory and first sub-top (BL)
-            my $dir = "$dirname/$listname/BL/$category";
-
-            if ($basename eq any(qw(domains urls))) {
-                unless (exists $lists->{$listname}) {
-                    $lists->{$listname} = {};
-                }
-                $lists->{$listname}->{$category} = $dir;
-            }
+            my ($parentDir, $category, $basename) = $file =~ m{$filePathRe};
+            next unless exists $validParentDirs{$parentDir};
+             if (exists $validBasename{$basename}) {
+                 my $dir = "$dir/$parentDir/$category";
+                 unless (exists $lists->{$listname}) {
+                     $lists->{$listname} = {};
+                 }
+                 $lists->{$listname}->{$category} = $dir;
+             }
         }
     }
 
@@ -142,6 +153,7 @@ sub _table
         rowUnique          => 1,
         printableRowName   => __('category'),
         sortedBy           => 'category',
+        noDataMsg          => __('There are no categories defined. You need to add categorized lists files if you want to filter by category.'),
     };
 }
 
@@ -154,18 +166,6 @@ sub _populate
                    );
 
     return \@elements;
-}
-
-sub precondition
-{
-    my ($self) = @_;
-
-    $self->size() > 0;
-}
-
-sub preconditionFailMsg
-{
-    return __('There are no categories defined. You need to add categorized lists files if you want to filter by category.');
 }
 
 # Function: banned
