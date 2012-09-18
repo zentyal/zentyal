@@ -89,9 +89,14 @@ sub _dbuser
 #
 sub _dbpass
 {
-    my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+    my ($self) = @_;
 
-    return $pass;
+    unless ($self->{dbpass}) {
+        my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        $self->{dbpass} = $pass;
+    }
+
+    return $self->{dbpass};
 }
 
 # Method: _dbsuperuser
