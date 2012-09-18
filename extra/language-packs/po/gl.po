@@ -53,7 +53,7 @@ msgid "Name"
 msgstr "Nome"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:651
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
@@ -515,7 +515,7 @@ msgstr "Peticións"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1586
+#: ../../main/samba/src/EBox/Samba.pm:1627
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -575,9 +575,9 @@ msgstr "Tamaño de tráfico filtrado (Kb)"
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1584
-#: ../../main/samba/src/EBox/Samba.pm:1604
-#: ../../main/samba/src/EBox/Samba.pm:1614
+#: ../../main/samba/src/EBox/Samba.pm:1625
+#: ../../main/samba/src/EBox/Samba.pm:1645
+#: ../../main/samba/src/EBox/Samba.pm:1655
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
@@ -847,7 +847,7 @@ msgstr "O umbral do filtro de contido cambiou"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -958,7 +958,7 @@ msgid "category"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1402,7 +1402,7 @@ msgstr "ficheiro de configuración por zona {zone}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1670
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1985,7 +1985,7 @@ msgstr "Servizo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1628
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
@@ -2210,7 +2210,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1608
+#: ../../main/samba/src/EBox/Samba.pm:1649
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -3884,9 +3884,9 @@ msgstr "paquetes a esquerda para instalar"
 msgid "Zentyal components"
 msgstr "Compoñentes eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1338
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1620
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -3899,143 +3899,148 @@ msgstr "Compoñentes eBox"
 msgid "Unknown"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 msgid "Community"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 msgid "Professional"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 msgid "Enterprise"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
 msgid "Small Business"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Compoñentes eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:386
 msgid "Not subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:388
 msgid "Subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:420
 #, fuzzy
 msgid "Registration"
 msgstr "Operación"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:425
 #, fuzzy
 msgid "Server Registration"
 msgstr "Descrición"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:430
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:434
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 #, fuzzy
 msgid "Security Updates"
 msgstr "Actualizacións do sistema"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:451
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
 #, fuzzy
 msgid "Your Zentyal Server Account"
 msgstr "Servidores NTP"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:566
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:757
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:764
+#, perl-brace-format
+msgid "Cannot reload the bundle: {reason}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1587
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1590
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1595
 msgid "Connected"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1599
 msgid "In process"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1602
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
 msgid "Essential"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
 msgid "Standard"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
 msgid "Premium"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1631
 #, fuzzy, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "Estado: {state}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 #, fuzzy
 msgid "Configuration backup enabled"
 msgstr "Configuración da copia de seguridade"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1639
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:93
 #, fuzzy
 msgid "Server name"
 msgstr "Nome do servizo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
 #, fuzzy
 msgid "Connection status"
 msgstr "estados do módulo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1657
 #, fuzzy
 msgid "External server name"
 msgstr "Nome do servidor Jabber"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1660
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4044,30 +4049,35 @@ msgstr "Nome do servidor Jabber"
 msgid "Server edition"
 msgstr "Descrición"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1662
 msgid "Technical support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1722
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2018
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2047
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2076
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2106
+msgid ""
+"The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2135
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
@@ -4310,7 +4320,7 @@ msgid "Choose a name for your server which is a valid subdomain name"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:92
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4349,39 +4359,39 @@ msgstr "Rango dispoñíbel"
 msgid "Select one of your purchases"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
 #, fuzzy
 msgid "Zentyal registration details"
 msgstr "Porto de Administración eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:382
 msgid "Unregister"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
 #, fuzzy
 msgid "Register your Zentyal Server"
 msgstr "Servidores NTP"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:387
 msgid "Register"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:607
 msgid " module"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " and "
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " modules"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:630
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1587
+#: ../../main/samba/src/EBox/Samba.pm:1628
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
@@ -4402,8 +4412,8 @@ msgstr ""
 msgid "Action"
 msgstr "Acción"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:631
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:652
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4411,23 +4421,23 @@ msgstr "Acción"
 msgid "Reason"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:670
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:668
 #, perl-brace-format
 msgid "Use existing server from {c}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:686
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:684
 #, fuzzy
 msgid "Reload available options"
 msgstr "Informe de erros"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
 #, fuzzy
 msgid "Unregistering a server"
 msgstr "servidor terciario"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:316
 #, fuzzy
 msgid "Registering a server"
 msgstr "Servidores NTP"
@@ -4846,55 +4856,62 @@ msgstr ""
 msgid "Import/Export Configuration Remotely"
 msgstr "Configuración actual"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:91
 #, fuzzy
 msgid "Email Address"
 msgstr "enderezo de rede"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:98
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:99
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 msgid "Last name"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:100
 #, fuzzy
 msgid "Phone number"
 msgstr "unha hora"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:101
 #, fuzzy
 msgid "Repeated password"
 msgstr "Contrasinal de usuario"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:104
 #, fuzzy
 msgid "Introduced passwords do not match"
 msgstr "Os novos contrasinais non coinciden."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:153
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:161
 msgid "An unknown error ocurred registering the subscription"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:167
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:170
+#, fuzzy
+msgid ""
+"Password must have at least 6 characters. Leading or trailing spaces will be "
+"ignored."
+msgstr "O contrasinal debe ter polo menos 6 caracteres de lonxitude"
+
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:173
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -4946,8 +4963,8 @@ msgid "Bandwidth Monitor"
 msgstr ""
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1585
-#: ../../main/samba/src/EBox/Samba.pm:1605
+#: ../../main/samba/src/EBox/Samba.pm:1626
+#: ../../main/samba/src/EBox/Samba.pm:1646
 msgid "Client address"
 msgstr ""
 
@@ -9548,22 +9565,22 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:573
+#: ../../main/samba/src/EBox/Samba.pm:588
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:582
+#: ../../main/samba/src/EBox/Samba.pm:602
 #, perl-brace-format
 msgid "The required domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:590
+#: ../../main/samba/src/EBox/Samba.pm:615
 #, perl-brace-format
 msgid "The required host record '{h}' could not be found in the domain '{d}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:634
+#: ../../main/samba/src/EBox/Samba.pm:663
 msgid ""
 "Samba can't be provisioned if no IP addresses are set and the DNS domain is "
 "properly configured. Ensure that you have at least a IP address assigned to "
@@ -9571,48 +9588,48 @@ msgid ""
 "the hostname in the DNS domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:668
+#: ../../main/samba/src/EBox/Samba.pm:702
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Este protocolo non emprega portos"
 
-#: ../../main/samba/src/EBox/Samba.pm:779
+#: ../../main/samba/src/EBox/Samba.pm:816
 msgid ""
 "The server domain and kerberos realm must match the domain you are trying to "
 "join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1481
+#: ../../main/samba/src/EBox/Samba.pm:1518
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1588
+#: ../../main/samba/src/EBox/Samba.pm:1629
 msgid "Resource"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1592
+#: ../../main/samba/src/EBox/Samba.pm:1633
 msgid "Connect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1593
+#: ../../main/samba/src/EBox/Samba.pm:1634
 msgid "Access to directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1594
+#: ../../main/samba/src/EBox/Samba.pm:1635
 msgid "Read file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1595
+#: ../../main/samba/src/EBox/Samba.pm:1636
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1596
+#: ../../main/samba/src/EBox/Samba.pm:1637
 msgid "Disconnect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1597
+#: ../../main/samba/src/EBox/Samba.pm:1638
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -9620,46 +9637,46 @@ msgstr ""
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1598
+#: ../../main/samba/src/EBox/Samba.pm:1639
 msgid "Create directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1599
+#: ../../main/samba/src/EBox/Samba.pm:1640
 msgid "Remove directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1600
+#: ../../main/samba/src/EBox/Samba.pm:1641
 msgid "Rename"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1606
-#: ../../main/samba/src/EBox/Samba.pm:1615
+#: ../../main/samba/src/EBox/Samba.pm:1647
+#: ../../main/samba/src/EBox/Samba.pm:1656
 msgid "File name"
 msgstr "Nome do ficheiro"
 
-#: ../../main/samba/src/EBox/Samba.pm:1607
-#: ../../main/samba/src/EBox/Samba.pm:1611
+#: ../../main/samba/src/EBox/Samba.pm:1648
+#: ../../main/samba/src/EBox/Samba.pm:1652
 msgid "Virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1616
+#: ../../main/samba/src/EBox/Samba.pm:1657
 msgid "Quarantined file name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1617
-#: ../../main/samba/src/EBox/Samba.pm:1620
+#: ../../main/samba/src/EBox/Samba.pm:1658
+#: ../../main/samba/src/EBox/Samba.pm:1661
 msgid "Quarantine"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1623
+#: ../../main/samba/src/EBox/Samba.pm:1664
 msgid "Samba access"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1634
+#: ../../main/samba/src/EBox/Samba.pm:1675
 msgid "Samba virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1645
+#: ../../main/samba/src/EBox/Samba.pm:1686
 msgid "Samba quarantine"
 msgstr ""
 
@@ -11579,33 +11596,33 @@ msgid ""
 "need to install them before restoring."
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1408
+#: ../../main/core/src/EBox/Backup.pm:1409
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1443
+#: ../../main/core/src/EBox/Backup.pm:1446
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1451
+#: ../../main/core/src/EBox/Backup.pm:1454
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1474
+#: ../../main/core/src/EBox/Backup.pm:1477
 msgid "No modules to restore"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1526
+#: ../../main/core/src/EBox/Backup.pm:1529
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1547
+#: ../../main/core/src/EBox/Backup.pm:1550
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:202
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:288
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:303
@@ -11613,7 +11630,7 @@ msgstr ""
 msgid "The input contains invalid characters"
 msgstr "A entrada contén caracteres inválidos"
 
-#: ../../main/core/src/EBox/Backup.pm:1568
+#: ../../main/core/src/EBox/Backup.pm:1571
 #, fuzzy
 msgid "Backup archives"
 msgstr "Copia con éxito"
@@ -11813,13 +11830,13 @@ msgstr ""
 msgid "Enabling {modName} module"
 msgstr "{model} en módulo {module}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:620
-#: ../../main/core/src/EBox/GlobalImpl.pm:656
+#: ../../main/core/src/EBox/GlobalImpl.pm:622
+#: ../../main/core/src/EBox/GlobalImpl.pm:658
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1188
+#: ../../main/core/src/EBox/GlobalImpl.pm:1190
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -12078,12 +12095,12 @@ msgstr ""
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:579
+#: ../../main/core/src/EBox/MyDBEngine.pm:584
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:587
+#: ../../main/core/src/EBox/MyDBEngine.pm:592
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
