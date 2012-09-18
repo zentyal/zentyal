@@ -1,3 +1,5 @@
+HEAD
+	+ Fix s4sync not starting on boot
 3.0.1
 	+ Stop daemon before restoring backup and start when finished
 	+ Throw exceptions in checkEnvironment also during first install,
