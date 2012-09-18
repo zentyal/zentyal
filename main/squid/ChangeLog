@@ -1,4 +1,5 @@
 HEAD
+	+ Added memory cache of seen list directories to DomainFilterCategories
 	+ Fixed DomainFilterCategories models to accept categories from bigblacklist
 3.0
 	+ Customized "Access Denied" page theme

@@ -107,4 +107,30 @@ sub viewCustomizer
     return $customizer;
 }
 
+sub addedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInCategorizedLists();
+}
+
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInCategorizedLists();
+}
+
+sub deletedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInCategorizedLists();
+}
+
+sub _changeInCategorizedLists
+{
+    my ($self) = @_;
+    # clear list directories seen list
+    $self->parentModule()->model('DomainFilterCategories')->cleanSeenListDirectories();
+}
+
+
 1;

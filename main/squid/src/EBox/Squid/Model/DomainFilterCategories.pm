@@ -49,12 +49,25 @@ my %validBasename = (
 sub syncRows
 {
     my ($self, $currentRows) = @_;
+    my $modelConfDir = $self->directory();
 
     my @dirs = glob("$categoriesFileDir/*");
+    if (not exists $self->{seenListDirectories}) {
+        $self->{seenListDirectories} = {};
+    }
+    if (not exists $self->{seenListDirectories}->{$modelConfDir}) {
+        $self->{seenListDirectories}->{$modelConfDir} = {};
+    }
 
     my $lists;
 
     foreach my $dir (@dirs) {
+        if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {
+            next;
+        } else {
+            $self->{seenListDirectories}->{$modelConfDir}->{$dir} = 1;
+        }
+
         my @files =  @{ EBox::Sudo::root("find '$dir'") };
 
         my $filePathRe = qr{^$dir/(.*?)/(.*)/(.*?)$};
@@ -258,5 +271,12 @@ sub viewCustomizer
 
     return $custom;
 }
+
+sub cleanSeenListDirectories
+{
+    my ($self) = @_;
+    $self->{seenListDirectories} = {};
+}
+
 
 1;
