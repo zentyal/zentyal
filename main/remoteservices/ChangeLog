@@ -1,4 +1,5 @@
 HEAD
+	+ Use perl code in initial setup to avoid lock issues
 	+ Do not show help button text when registered
 	+ Check if you are registered in wizard at first
 	+ Add hostname as default value for server name in Wizard
