@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-01 08:26+0200\n"
-"Last-Translator: AverageJoe <skurekj@gmail.com>\n"
+"PO-Revision-Date: 2012-09-16 18:31+0200\n"
+"Last-Translator: Michal <formanek.michal@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.1.4\n"
-"X-Poedit-Language: None\n"
-"X-Poedit-Country: None\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -96,9 +94,8 @@ msgid "Time period"
 msgstr "Časový úsek"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
-#, fuzzy
 msgid "Time period when the rule is applied"
-msgstr "Časový úsek s tímto použitým pravidlem"
+msgstr "Časový úsek, kdy se použije pravidlo"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -352,7 +349,7 @@ msgstr "HTTPS proxy"
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Povolit Single Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
@@ -900,12 +897,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:105
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:111
-#, fuzzy
 msgid "List File"
-msgstr "Naslouchat"
+msgstr "Seznam souborů"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:117
 #, fuzzy
@@ -919,7 +915,7 @@ msgstr "Doménový alias"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
 msgid "category"
-msgstr ""
+msgstr "kategorie"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
@@ -1056,31 +1052,31 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Monday"
-msgstr ""
+msgstr "Pondělí"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Tuesday"
-msgstr ""
+msgstr "Úterý"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Wednesday"
-msgstr ""
+msgstr "Středa"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Thursday"
-msgstr ""
+msgstr "Čtvrtek"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Friday"
-msgstr ""
+msgstr "Pátek"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:58
 msgid "Saturday"
-msgstr ""
+msgstr "Sobota"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:59
 msgid "Sunday"
-msgstr ""
+msgstr "Neděle"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:128
 msgid "All time"
@@ -1088,23 +1084,23 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:204
 msgid "All week"
-msgstr ""
+msgstr "Celý týden"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:212
 msgid "Weekend"
-msgstr ""
+msgstr "Víkend"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:217
 msgid "Work days"
-msgstr ""
+msgstr "Pracovní dny"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:359
 msgid "From hour.."
-msgstr ""
+msgstr "Od hodiny.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:362
 msgid "to hour.."
-msgstr ""
+msgstr "do hodiny.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:366
 msgid "You must specify two diffrent hours to the range"
@@ -1201,7 +1197,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:239
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Nastavení rotace logů Dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:244
 msgid "Dansguardian's antivirus scanner configuration"
@@ -1271,11 +1267,11 @@ msgstr "Host"
 
 #: ../../main/squid/src/EBox/Squid.pm:978
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:980
 msgid "Bytes"
-msgstr ""
+msgstr "Bajtů"
 
 #: ../../main/squid/src/EBox/Squid.pm:981
 msgid "Mime/type"
@@ -1569,7 +1565,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:245
 msgid "All network interfaces"
-msgstr ""
+msgstr "Všechna síťová rozhraní"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:300
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
@@ -1589,37 +1585,43 @@ msgid "Other server is listening on the same port"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:422
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Port {p}/{pro} je již použit"
+msgstr "Port {p}/{pr} je již použit u {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:483
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Rozhraní {iface} neexistuje"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:488
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Rozhraní {iface} není nastaveno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:509
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Nelze použít NAT (překlad síťových adres), protože vyžaduje zapnutý firewall "
+"modul. Modul není nainstalovaný, nebo aktivovaný"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:516
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Nelze použít NAT (překlad síťových adres), protože vyžaduje zapnutý firewall "
+"modul. Prosím, aktivujte ho a zkuste to znovu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:547
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Pokud je povolen NAT (překlad síťových adres), je potřeba připojit nejméně "
+"jedno síťové rozhraní k serveru."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:556
 msgid ""
@@ -1630,7 +1632,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:609
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr ""
+msgstr "{par} není kompatibilní s tunelem Zentyal-to-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 msgid "Advertised Network"
@@ -1660,16 +1662,16 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
 #: ../../main/mail/src/templates/externalAccounts.mas:12
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:71
 msgid "CA's certificate"
-msgstr ""
+msgstr "Certifikát CA (Certifikační autority)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:60
 msgid "Client's certificate"
-msgstr ""
+msgstr "Certifikát klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:91
 msgid "Client's private key"
@@ -1738,7 +1740,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "OpenVPN instalátor pro Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:72
 #, fuzzy
@@ -1747,7 +1749,7 @@ msgstr "Daemon status"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:78
 msgid "Server address"
-msgstr ""
+msgstr "Adresa serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
 msgid ""
@@ -2028,7 +2030,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Adresa serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -2056,7 +2058,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:519
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "Klient {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:533
 msgid "Connection target"
@@ -2064,7 +2066,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:69
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
@@ -2797,22 +2799,24 @@ msgstr "Priorita"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:316
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Nejnižší priorita: 7 Nejvyšší priorita: 0"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:320
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Zaručená rychlost"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:323
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:337
 msgid "Kbit/s"
-msgstr ""
+msgstr "Kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:325
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Všimněte si, že součet všech garantovaných rychlostí nemůže překročit svojí "
+"celkovou šířku pásma. 0 znamená negarantovanou rychlost."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:332
 msgid "Limited Rate"
@@ -3606,9 +3610,8 @@ msgid "You can only use MAC addresses with hosts"
 msgstr "Můžete používat pouze MAC adresy"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:147
-#, fuzzy
 msgid "You cannot use MAC addresses with IP ranges"
-msgstr "Můžete používat pouze MAC adresy"
+msgstr "Nemůžete použít MAC adresy s rozsahy IP adres"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:156
 #, perl-brace-format
@@ -3657,7 +3660,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:3943
 #: ../../main/services/src/EBox/Services.pm:604
 msgid "Network"
-msgstr ""
+msgstr "Síť"
 
 #: ../../main/software/src/EBox/Software.pm:59
 #, fuzzy
@@ -3683,9 +3686,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/EBox/Software.pm:635
-#, fuzzy
 msgid "Zentyal Components"
-msgstr "eBox komponenty"
+msgstr "Zentyal komponenty"
 
 #: ../../main/software/src/EBox/Software.pm:637
 #, fuzzy
@@ -17918,19 +17920,8 @@ msgid "Optional value"
 msgstr ""
 
 #: ../../main/users/src/templates/del.mas:13
-#, fuzzy
 msgid "Deleting user"
-msgstr ""
-"#-#-#-#-#  cs.po (libebox 1.5)  #-#-#-#-#\n"
-"Smazat\n"
-"#-#-#-#-#  cs.po (ebox-dhcp 1.5)  #-#-#-#-#\n"
-"Vymazat\n"
-"#-#-#-#-#  cs.po (ebox-dns 1.5)  #-#-#-#-#\n"
-"Vymazat\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"Vymazat\n"
-"#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
-"Vymazat"
+msgstr "Smazání uživatele"
 
 #: ../../main/users/src/templates/del.mas:14
 msgid ""

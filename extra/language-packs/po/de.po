@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2012-09-10 10:56+0200\n"
-"Last-Translator: hitti <juergen-kleinert@web.de>\n"
+"PO-Revision-Date: 2012-09-14 18:01+0200\n"
+"Last-Translator: dermatze <mattheus.erb@googlemail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -74,9 +74,8 @@ msgstr "HTTP-Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:71
 #: ../../main/squid/src/EBox/Squid.pm:944
-#, fuzzy
 msgid "Categorized Lists"
-msgstr "Kategorien"
+msgstr "Kategoriesierte Listen"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:78
 msgid "categorized list"
@@ -95,11 +94,8 @@ msgid "Time period"
 msgstr "Zeitrahmen"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:54
-#, fuzzy
 msgid "Time period when the rule is applied"
-msgstr ""
-"Zeitfenster, in dem der Zugriff erlaubt ist. Wird ignoriert bei "
-"Verweigerungs-Richtlinien"
+msgstr "Zeitfenster, in dem die Regel angewendet wird"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -115,14 +111,12 @@ msgid "Source"
 msgstr "Quelle"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:67
-#, fuzzy
 msgid "Network Object"
 msgstr "Netzwerkobjekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
-#, fuzzy
 msgid "Users Group"
-msgstr "Benutzer/Gruppe"
+msgstr "Benutzergruppe"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -165,26 +159,22 @@ msgstr "Entscheidung"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:153
-#, fuzzy
 msgid "Allow All"
-msgstr "Erlauben"
+msgstr "Alle Erlauben"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:152
-#, fuzzy
 msgid "Deny All"
-msgstr "Verweigern"
+msgstr "Alle Verweigern"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Filter-Profile"
+msgstr "Filter-Profil anwenden"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid.pm:938
-#, fuzzy
 msgid "Access Rules"
-msgstr "Zugriffs-Anforderungen"
+msgstr "Zugriffs-Regeln"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:202
@@ -203,13 +193,13 @@ msgid "rule"
 msgstr "Regel"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:125
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Hier können sie den Zugriff für Benutzer-Gruppen global verweigern oder "
-"erlauben. Die Filter-Optionen gibt es für globale Regeln oder Objekt-Regeln"
+"Hier können Sie den Zugriff mit Hilfe der Benutzergruppen oder "
+"Netzwerkobjekte filtern, verweigern oder erlauben. Die Regeln werden nur in "
+"dem gewählten Zeitraum angewendet."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:135
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
