@@ -1,4 +1,5 @@
 HEAD
+	+ Use perl code in initial setup to avoid lock issues
 	+ Fixed non-translatable strings in registration wizard
 	+ Do not show help button text when registered
 	+ Check if you are registered in wizard at first
