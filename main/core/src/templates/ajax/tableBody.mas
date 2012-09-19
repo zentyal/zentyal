@@ -699,7 +699,7 @@ $page
           />
 
 %      }
-%      if ($changeView)   {
+%      if ($changeView and $actions->{'editField'})   {
           <input  class='inputButton'
               <%
                 $disabled
