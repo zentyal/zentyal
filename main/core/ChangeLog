@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Properly set default language as the first element of the Select to
 	  avoid its loss on the first apache restart
 	+ Set milestone to 3.0.X when creating tickets in trac.zentyal.org
