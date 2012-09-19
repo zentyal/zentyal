@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed edition of external accounts
 	+ Workaround until postgrey "do not stop" bug is fixed upstream
 	+ Use executeOnBrothers method to resolve error with component
 	  directories on vdomain aliases model
