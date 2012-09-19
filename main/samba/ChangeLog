@@ -1,4 +1,4 @@
-HEAD
+3.0.2
 	+ Fix samba group members not imported to Zentyal in groups added by
 	  the synchronizer
 	+ Fix s4sync not starting on boot
