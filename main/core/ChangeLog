@@ -1,4 +1,6 @@
 HEAD
+	+ Removed forced setting of LANG variables in mod_perl which made progress
+	  indicator fail when using any language different to English
 	+ Removed some frequent undef warnings
 	+ Added executeOnBrothers method to EBox::Model::Component
 	+ Fixed repetition of 'add' and 'number change' events in RAID watcher

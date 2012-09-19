@@ -129,7 +129,7 @@ sub setLocale # (locale)
 #   - the locale
 sub locale
 {
-    my $locale= 'C';
+    my $locale = 'C';
     if (-f (EBox::Config::conf() . 'locale')) {
         open (my $fh, EBox::Config::conf() . 'locale');
         $locale = <$fh>;
@@ -143,9 +143,7 @@ sub init
     # FIXME: workaround until permission denied warning in GD is fixed
     use GD;
 
-    my $locale = EBox::locale();
-
-    POSIX::setlocale(LC_ALL, $locale);
+    POSIX::setlocale(LC_ALL, EBox::locale());
     POSIX::setlocale(LC_NUMERIC, 'C');
 
     my $gids = EBox::Config::gids();
@@ -160,11 +158,6 @@ sub init
     # Set HOME environment variable to avoid some issues calling
     # external programs
     $ENV{HOME} = EBox::Config::home();
-
-    # Set variables for i18n, this wasn't needed before but appears
-    # to be needed on Ubuntu 12.04
-    $ENV{LANG} = $locale;
-    $ENV{LC_MESSAGES} = $locale;
 
     $debug = EBox::Config::boolean('debug');
 }
