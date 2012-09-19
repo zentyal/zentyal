@@ -75,6 +75,8 @@ sub _table
 #                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
+                               optional => 1,
+                               optionalLabel => 0,
                               ),
          new EBox::Types::File(
                                fieldName => 'certificate',
@@ -85,6 +87,8 @@ sub _table
 #                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
+                               optional => 1,
+                               optionalLabel => 0,
                               ),
          new EBox::Types::File(
                                fieldName => 'certificateKey',
@@ -95,6 +99,8 @@ sub _table
 #                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
+                               optional => 1,
+                               optionalLabel => 0,
                               ),
          new EBox::Types::Boolean(
                  fieldName =>  'tunInterface',
@@ -222,7 +228,7 @@ sub _validateCerts
     my @fieldNames = qw(caCertificate certificate certificateKey);
     foreach my $fieldName (@fieldNames) {
         my $certPath;
-        if ( exists $params_r->{$fieldName} ) {
+        if ((exists $params_r->{$fieldName}) and $params_r->{$fieldName}->value()) {
             $noChanges = 0;
             $certPath =  $params_r->{$fieldName}->tmpPath();
         } else {
