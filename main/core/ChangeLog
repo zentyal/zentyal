@@ -1,5 +1,9 @@
 HEAD
 	+ Added executeOnBrothers method to EBox::Model::Component
+	+ Cache MySQL password to avoid reading it all the time
+	+ Fixed request came from non-root user warnings during boot
+	+ Send info event in Runit watcher only if the service was down
+	  MAX_DOWN_PERIODS
 3.0
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install

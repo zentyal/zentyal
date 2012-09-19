@@ -42,6 +42,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
+use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
@@ -54,6 +55,7 @@ use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
 use EBox::RemoteServices::Desktop::Subscription;
+use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
@@ -172,7 +174,12 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    $self->SUPER::initialSetup($version);
+    if ( defined($version) ) {
+        # Reload bundle without forcing
+        $self->reloadBundle(0);
+    }
+
+    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 
     unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
         $self->restartService();
@@ -751,6 +758,17 @@ sub reloadBundle
         }
     } catch EBox::Exceptions::Internal with {
         $retVal = 0;
+    } catch EBox::RemoteServices::Exceptions::NotCapable with {
+        my ($exc) = @_;
+
+        print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+        # Send the event to ZC
+        my $evt = new EBox::Event(message     => $exc->text(),
+                                  source      => 'not-capable',
+                                  level       => 'fatal',
+                                  dispatchTo  => [ 'ControlCenter' ]);
+        my $evts = $self->global()->modInstance('events');
+        $evts->sendEvent(event => $evt);
     };
     return $retVal;
 }

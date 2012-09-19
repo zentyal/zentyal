@@ -1,6 +1,7 @@
 <%args>
    $promo_available
    $lang
+   $hostname
 </%args>
 <%init>
 use EBox::Gettext;
@@ -156,7 +157,7 @@ th > div {
                 <table>
                   <tr id="subs_servername">
                     <th><% __s('Server name') %>* </th>
-                    <td><input type="text" name="servername" id="servername" /></td>
+                    <td><input type="text" name="servername" id="servername" value="<% $hostname %>"/></td>
                   </tr>
                 </table>
                 <h3><% __s('Your Zentyal account') %></h3>
@@ -278,11 +279,11 @@ th > div {
         </div>
      </div>
      <div class="subscription_basic">
-        <h3><% __sx('Register your Zentyal server for FREE and get these benefits') %></h3>
+        <h3><% __s('Register your Zentyal server for FREE and get these benefits') %></h3>
         <ul>
-        <li>Configuration <strong>backup in the cloud</strong>
-        <li><strong>zentyal.me subdomain</strong> for your server</li>
-        <li>And much more coming soon!</li>
+        <li><% __s('Configuration <strong>backup in the cloud</strong>') %></li>
+        <li><% __s('<strong>zentyal.me subdomain</strong> for your server') %></li>
+        <li><% __s('And much more coming soon!') %></li>
         </ul>
 
 
