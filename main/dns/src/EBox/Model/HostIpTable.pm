@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class:
 #
@@ -23,17 +25,13 @@
 #
 #
 package EBox::DNS::Model::HostIpTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::HostIP;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
@@ -67,27 +65,26 @@ sub validateTypedRow
 
     # Check there is no A RR in the same domain with the same ip
     my $ip = $changedFields->{ip};
-    my $id = $ip->row()->id();
-
-    my $hostnameRow = $ip->row();
-    my $hostnameParentRow = $hostnameRow->parentRow();
-    my $hostnameModel = $hostnameParentRow->model();
-    my $hostnameIds = $hostnameModel->ids();
-    foreach my $hostId (@{$hostnameIds}) {
-        next if ($hostId eq $id);
-
-        my $hostname = $ip->row()->parentRow()->model()->row($hostId);
-        my $hostIpModel   = $hostname->subModel('ipAddresses');
-        foreach my $ipId (@{$hostIpModel->ids()}) {
-            my $aIp = $hostIpModel->row($ipId);
-            if ($aIp->elementByName('ip')->isEqualTo($ip)) {
-                throw EBox::Exceptions::External(
-                  __x("The IP '{ip}' is already assigned to host '{name}' " .
-                      "in the same domain",
-                      name => $hostname->valueByName('hostname'),
-                      ip   => $ip->value()));
+    my $hostnameWithIPSub = sub {
+        my ($ipsModel) = @_;
+        foreach my $ipId (@{$ipsModel->ids()}) {
+            my $row = $ipsModel->row($ipId);
+            if ($row->elementByName('ip')->isEqualTo($ip)) {
+                # return hostname with repeated IP
+                return $ipsModel->parentRow()->valueByName('hostname');
             }
         }
+        return undef;
+   };
+
+    my $hostnameWithIP = $self->executeOnBrothers($hostnameWithIPSub, subModelField => 'ipAddresses', returnFirst => 1);
+    if ($hostnameWithIP) {
+        throw EBox::Exceptions::External(
+                  __x("The IP '{ip}' is already assigned to host '{name}' " .
+                      "in the same domain",
+                      name => $hostnameWithIP,
+                      ip   => $ip->value())
+                 );
     }
 }
 

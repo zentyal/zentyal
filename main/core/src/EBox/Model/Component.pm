@@ -203,6 +203,53 @@ sub parentRow
     return $row;
 }
 
+# Method : executeOnBrothers
+#
+#  Execute the given sub in all brothers of the component. The sub receives the
+#  brother as argument and is not executed on the component itself
+#
+#  Parameters:
+#       toExecuteSub - reference to the sub  to execute
+#
+#  Named parameters:
+#      subModelField - field name of the component's subfield in the parent rows (mandatory)
+#      returnFirst   - cut execution and return the result on the first true result value  (default: false)
+sub executeOnBrothers
+{
+    my ($self, $toExecuteSub, %options) = @_;
+    my $returnFirst = $options{returnFirst};
+    my $subModelField = $options{subModelField};
+    $subModelField or
+        throw EBox::Exceptions::MissingArgument('subModelField');
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        throw EBox::Exceptions::Internal('This component is not child of a table');
+    }
+    my $parentRowId = $parentRow->id();
+    my $parent = $self->parent();
+
+    my $res;
+    my $dir  = $self->directory();
+    try {
+        foreach my $id (@{ $parent->ids()}) {
+            if ($id eq $parentRowId) {
+                # dont execute on itself
+                next;
+            }
+            my $row = $parent->row($id);
+            my $brother = $row->subModel($subModelField);
+            $res = $toExecuteSub->($brother);
+            if ($res and $returnFirst) {
+                last;
+            }
+        }
+    } finally {
+        $self->setDirectory($dir);
+    };
+
+    return $res;
+}
 
 # Method: menuFolder
 #
