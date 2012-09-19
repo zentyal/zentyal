@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class:
 #
@@ -26,9 +28,7 @@
 #
 
 package EBox::Logs::Model::ConfigureLogs;
-
-use strict;
-use warnings;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -47,8 +47,6 @@ use EBox::Exceptions::External;
 # Core modules
 use Error qw(:try);
 use List::Util;
-
-use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Removed some frequent undef warnings
 	+ Added executeOnBrothers method to EBox::Model::Component
 	+ Fixed repetition of 'add' and 'number change' events in RAID watcher
 	+ Fixed incorrect display of edit button in tables without editField action
