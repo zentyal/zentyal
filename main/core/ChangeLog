@@ -1,4 +1,5 @@
 HEAD
+	+ Set milestone to 3.0.X when creating tickets in trac.zentyal.org
 	+ Removed forced setting of LANG variables in mod_perl which made progress
 	  indicator fail when using any language different to English
 	+ Removed some frequent undef warnings
