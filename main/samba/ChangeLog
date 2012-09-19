@@ -1,4 +1,6 @@
 HEAD
+	+ Fix samba group members not imported to Zentyal in groups added by
+	  the synchronizer
 	+ Fix s4sync not starting on boot
 	+ Restore DNS setup on domain join failure
 	+ Add a line to /etc/fstab to increase the size of /var/lock to 50MB.
