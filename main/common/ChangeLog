@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Removed forced setting of LANG variables which made progress indicator
 	  fail when using any language different to English
 3.0
