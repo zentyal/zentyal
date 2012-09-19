@@ -321,7 +321,7 @@ sub enableActions
     my ($self) = @_;
 
     # Remount filesystem with user_xattr and acl options
-    EBox::debug('Setting up filesystem options');
+    EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
@@ -338,7 +338,7 @@ sub enableActions
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    EBox::debug('Creating directories');
+    EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
 }
 
