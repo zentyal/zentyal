@@ -106,39 +106,6 @@ sub _help
                'network interface configured via DHCP</p>'));
 }
 
-
-sub syncRowsDisabled
-{
-    my ($self) = @_;
-    my $modified = 0;
-
-    my $global = $self->global();
-    if (not $global->modExists('dns')) {
-        return $modified;
-    }
-    my $dns = $global->modInstance('dns');
-    my $needLocalhost = $dns->isEnabled();
-    my @localhostIds = @{ $self->findAll(nameserver => '127.0.0.1') };
-    if ($needLocalhost and not @localhostIds) {
-        $self->table->{'insertPosition'} = 'front';
-        $self->addRow((nameserver => '127.0.0.1', readOnly => 1));
-        $self->table->{'insertPosition'} = 'back';
-        $modified = 1;
-    } elsif (not $needLocalhost and @localhostIds) {
-        my @removeIds = grep {
-            my $row = $self->row($_);
-            # read only rows has been added by us
-            return $row->readOnly();
-        } @localhostIds;
-        foreach my $id (@removeIds) {
-            $self->removeRow($id, 1);
-            $modified = 1;
-        }
-    }
-
-    return $modified;
-}
-
 sub replace
 {
     my ($self, $pos, $newIP) = @_;
