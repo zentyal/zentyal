@@ -2564,7 +2564,6 @@ sub _generateDNSConfig
         }
     }
 
-
     my $nameservers = $self->nameservers();
     my $request_nameservers = scalar (@{$nameservers}) == 0;
 
