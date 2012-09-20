@@ -1,3 +1,7 @@
+HEAD
+	+ If there are no nameservers configured do not manage resolv.conf
+	and show actual resolv.conf configuration in DNSResolver model
+	+ Don not import nameservers from resolv.conf
 2.3.15
 	+ Expanded allowed character set in interface PPPoE password
 	+ Reviewed registration strings
