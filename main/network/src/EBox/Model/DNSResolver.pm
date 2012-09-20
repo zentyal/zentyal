@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::Network::Model::DNSResolver
 #
@@ -22,16 +24,12 @@
 #    - nameserver
 #
 package EBox::Network::Model::DNSResolver;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
-
+use EBox::Html;
 # Dependencies
 
 # Group: Public methods
@@ -94,6 +92,7 @@ sub _table
                      printableRowName   => __('name server'),
                      order              => 1,
                      insertPosition     => 'back',
+                     noDataMsg          => ''
                     };
 
     return $dataTable;
@@ -105,6 +104,39 @@ sub _help
                'use.</p>' .
                '<p>Note that these settings may be overriden if you have any ' .
                'network interface configured via DHCP</p>'));
+}
+
+
+sub syncRowsDisabled
+{
+    my ($self) = @_;
+    my $modified = 0;
+
+    my $global = $self->global();
+    if (not $global->modExists('dns')) {
+        return $modified;
+    }
+    my $dns = $global->modInstance('dns');
+    my $needLocalhost = $dns->isEnabled();
+    my @localhostIds = @{ $self->findAll(nameserver => '127.0.0.1') };
+    if ($needLocalhost and not @localhostIds) {
+        $self->table->{'insertPosition'} = 'front';
+        $self->addRow((nameserver => '127.0.0.1', readOnly => 1));
+        $self->table->{'insertPosition'} = 'back';
+        $modified = 1;
+    } elsif (not $needLocalhost and @localhostIds) {
+        my @removeIds = grep {
+            my $row = $self->row($_);
+            # read only rows has been added by us
+            return $row->readOnly();
+        } @localhostIds;
+        foreach my $id (@removeIds) {
+            $self->removeRow($id, 1);
+            $modified = 1;
+        }
+    }
+
+    return $modified;
 }
 
 sub replace
@@ -121,6 +153,34 @@ sub replace
     $row->elementByName('namserver')->setValue($newIP);
     $row->store();
 
+}
+
+sub _noResolversMessage
+{
+    my ($self) = @_;
+    my $network = $self->parentModule();
+    my @dhcpIfaces = grep {
+        $network->ifaceMethod($_) eq 'dhcp'
+    } @{ $network->allIfaces() };
+    my ($search, @dns) = @{$network->_readResolv()};
+    my $msg = EBox::Html::makeHtml('network/noDnsResolver.mas',
+                                   dhcpIfaces => \@dhcpIfaces,
+                                   search     => $search,
+                                   dns        => \@dns
+
+                                  );
+    return $msg;
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    unless ( $self->size() > 0) {
+        $customizer->setPermanentMessage($self->_noResolversMessage());
+    }
+    return $customizer;
 }
 
 1;

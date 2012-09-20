@@ -2564,13 +2564,16 @@ sub _generateDNSConfig
         }
     }
 
+
     my $nameservers = $self->nameservers();
     my $request_nameservers = scalar (@{$nameservers}) == 0;
 
-    $self->writeConfFile(RESOLV_FILE,
+    if (@{ $nameservers }) {
+        $self->writeConfFile(RESOLV_FILE,
                          'network/resolv.conf.mas',
                          [ searchDomain => $self->searchdomain(),
                            nameservers  => $nameservers ]);
+    }
 
     $self->writeConfFile(DHCLIENTCONF_FILE,
                          'network/dhclient.conf.mas',
@@ -4247,7 +4250,7 @@ sub importInterfacesFile
     }
 
     my ($searchdomain, @dns) = @{$self->_readResolv()};
-    $self->setNameservers(@dns);
+    # only import searchdomain
     if ($searchdomain) {
         $self->setSearchDomain($searchdomain);
     }

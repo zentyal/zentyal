@@ -1,0 +1,39 @@
+<%args>
+@dhcpIfaces
+$search
+@dns
+</%args>
+<% __('No DNS resolver configured, Zentyal will not overwrite your DNS configuration') %>
+
+% if (@dhcpIfaces == 1) {
+<br/>
+  <%
+     __x('If interface {if} receives via DHCP resolver information, it will be used',
+         if => $dhcpIfaces[0])
+  %>
+
+% } elsif(@dhcpIfaces > 1) {
+<br/>
+  <%
+     __x('If any of your DHCP interfaces {ifs} receive via DHCP resolver information, it will be used',
+         ifs => join __(', '), @dhcpIfaces)
+  %>
+% }
+
+<br/>
+<h5><% __('Actual DNS resolver configuration:') %></h5>
+% if (@dns) {
+<%perl>
+my @rows;
+$search or $search ='-';
+push @rows, [__('Search domain:') => $search];
+my $i =0;
+foreach my $dns (@dns) {
+   $i += 1;
+  push @rows, [__x('Name server {n}', n => $i) => $dns];
+}
+</%perl>
+<& /table.mas, rows => \@rows &>
+% } else {
+<em><% __('No DNS resolver configuration right now in the system') %></em>
+% }
