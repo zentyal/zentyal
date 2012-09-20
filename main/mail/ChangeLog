@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing CGIs for external accounts
 	+ Fixed edition of external accounts
 	+ Workaround until postgrey "do not stop" bug is fixed upstream
 	+ Use executeOnBrothers method to resolve error with component
