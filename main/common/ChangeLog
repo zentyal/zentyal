@@ -1,3 +1,5 @@
+HEAD
+	+ Added EBox::Sudo::system as equivalent to system() with root permissions
 3.0.1
 	+ Removed forced setting of LANG variables which made progress indicator
 	  fail when using any language different to English

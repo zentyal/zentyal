@@ -53,7 +53,24 @@ Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
 
 Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
+
+# Procedure: system
 #
+#	Executes a shell command as root, STDOUT and STDERR won't be redirected to any file
+#
+# Parameters:
+#
+#       command - string with the command to execute
+#
+sub system
+{
+    my ($cmd) = @_;
+
+    my $sudocmd = "$SUDO_PATH /bin/sh -c '$cmd' 2> $STDERR_FILE";
+
+    system ($sudocmd);
+}
+
 # Procedure: command
 #
 #	Executes a command as ebox user

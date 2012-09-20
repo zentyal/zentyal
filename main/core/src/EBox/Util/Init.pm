@@ -160,11 +160,7 @@ sub _logActionFunction
 {
     my ($action, $success) = @_;
 
-    # Avoid to do this during boot due to request came from non-root user warnings
-    if (exists $ENV{'USER'}) {
-        system(". /lib/lsb/init-functions; " .
-               " log_begin_msg \"$action\"; log_end_msg $success");
-    }
+    EBox::Sudo::system(". /lib/lsb/init-functions; log_begin_msg \"$action\"; log_end_msg $success");
 }
 
 sub printModuleMessage
