@@ -1,4 +1,5 @@
 HEAD
+	+ In ConfigureLogs, restored printable names for log domains
 	+ Fixed dashboard update error on modules widget, counter-graph
 	  widget and widget without sections
 	+ Better way to fix non-root warnings during boot without interfering

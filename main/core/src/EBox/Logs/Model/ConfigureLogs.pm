@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -231,17 +232,21 @@ sub updatedRowNotify
 sub filterDomain
 {
     my ($instancedType) = @_;
+    my $global = EBox::Global->getInstance(); # XXX always RW it should be inocuous
+    my $logs = $global->modInstance('logs');
 
-    my $logs = EBox::Global->modInstance('logs');
-
-    my $table = $logs->getTableInfo($instancedType->value());
-
-    my $translation = $table->{'name'};
+    my $translation;
+    my $moduleName = $instancedType->value();
+    my $mod = $global->modInstance($moduleName);
+    if ($mod) {
+        my @tableNames = map { $_->{name} } @{ $logs->getModTableInfos($mod) };
+        $translation = join __(', '), @tableNames;
+    }
 
     if ($translation) {
         return $translation;
     } else {
-        return $instancedType->value();
+        return $moduleName;
     }
 }
 
