@@ -24,14 +24,13 @@ use Error qw(:try);
 
 EBox::init();
 
+my ($iface, @ns) = @ARGV;
+
 my $global = EBox::Global->getInstance(1);
 my $network = $global->modInstance("network");
 
-my $iface = shift;
-
-$iface or exit;
 try {
-	$network->setDHCPNameservers($iface, \@ARGV);
-} finally {
-	exit;
-};
+    $network->setDHCPNameservers($iface, \@ns);
+} otherwise  {};
+
+1;
