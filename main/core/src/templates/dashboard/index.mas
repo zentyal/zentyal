@@ -264,8 +264,10 @@ function updateWidget(widget) {
             });
         }
     }
+
     var prevsect = null;
-    for(var i = 0; i < widget.sections.length; i++) {
+    if (widget.sections) {
+      for(var i = 0; i < widget.sections.length; i++) {
         var s = widget.sections[i];
         var sect = widget.module + ":" + widget.name + '_' + s.name;
         var sectname = widget.module + ":" + widget.name + '_' + s.name + '_section';
@@ -408,6 +410,7 @@ function updateWidget(widget) {
             });
         }
     }
+  }
 }
 
 function updateWidgets() {

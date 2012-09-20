@@ -236,7 +236,10 @@ sub modulesWidget
         $class->addModuleStatus($section);
         $numModules++;
     }
-    $widget->{size} = $numModules * 0.15;
+
+    # must be integer to not break JSON parse
+    my $size = sprintf("%.0f", $numModules*0.15) + 1;
+    $widget->{size} = $size;
 }
 
 sub generalWidget
