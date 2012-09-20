@@ -231,17 +231,21 @@ sub updatedRowNotify
 sub filterDomain
 {
     my ($instancedType) = @_;
+    my $global = EBox::Global->getInstance(); # XXX always RW it should be inocuous
+    my $logs = $global->modInstance('logs');
 
-    my $logs = EBox::Global->modInstance('logs');
-
-    my $table = $logs->getTableInfo($instancedType->value());
-
-    my $translation = $table->{'name'};
+    my $translation;
+    my $moduleName = $instancedType->value();
+    my $mod = $global->modInstance($moduleName);
+    if ($mod) {
+        my @tableNames = map { $_->{name} } @{ $logs->getModTableInfos($mod) };
+        $translation = join ', ', @tableNames;
+    }
 
     if ($translation) {
         return $translation;
     } else {
-        return $instancedType->value();
+        return $moduleName
     }
 }
 
