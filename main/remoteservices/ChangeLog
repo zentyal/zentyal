@@ -1,3 +1,5 @@
+HEAD
+	+ Changed subscription_basic style to avoid overlapping separator line
 3.0.2
 	+ Use perl code in initial setup to avoid lock issues
 	+ Fixed non-translatable strings in registration wizard
