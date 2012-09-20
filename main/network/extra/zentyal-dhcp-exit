@@ -26,7 +26,6 @@ ebox_renew() {
     fi
     if [ "z$new_domain_name_servers" != "z$old_domain_name_servers" ] ; then
         change="yes"
-        $libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
     fi
     if [ "z$ebox_routers" != "z$old_routers" ] ; then
         $libexec/dhcp-gateway.pl $interface $ebox_routers
