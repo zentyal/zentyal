@@ -239,7 +239,7 @@ sub filterDomain
     my $mod = $global->modInstance($moduleName);
     if ($mod) {
         my @tableNames = map { $_->{name} } @{ $logs->getModTableInfos($mod) };
-        $translation = join ', ', @tableNames;
+        $translation = join __(', '), @tableNames;
     }
 
     if ($translation) {
