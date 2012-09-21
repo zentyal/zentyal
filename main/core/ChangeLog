@@ -1,5 +1,5 @@
 HEAD
-	+ DataForm dont check for uniqueness of its field, bwcause there
+	+ DataForm dont check for uniqueness of its field, because there
 	are only one row
 	+ Better way to fix non-root warnings during boot without interfering
 	  on manual restart commands in the shell
