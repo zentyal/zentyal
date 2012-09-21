@@ -460,6 +460,20 @@ sub rowUnique
     return 0;
 }
 
+# Method: _checkFieldIsUnique
+#
+# Since we have only one row we return false to disable
+# field uniqueness tests
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::_checkFieldIsUnique>
+#
+sub _checkFieldIsUnique
+{
+    return 0;
+}
+
 # Method: setFilter
 #
 #       Set the string used to filter the return of rows. It makes no
