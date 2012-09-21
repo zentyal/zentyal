@@ -49,7 +49,6 @@ sub kerberosCreatePrincipals
 
     my $pass = EBox::Util::Random::generate(20);
     foreach my $service (@{$data->{principals}}) {
-        $service = uc ($service);
         my $principal = "$service/$hostname.$hostdomain";
 
         # TODO Generate all principals with the same password to import them into samba

@@ -33,6 +33,7 @@ use EBox::Types::DomainName;
 use EBox::Types::Text;
 use EBox::Types::Int;
 use EBox::Types::Select;
+use EBox::Types::Password;
 use EBox::Config;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
@@ -128,37 +129,20 @@ sub validateTypedRow
     $self->_checkNetbiosName($workgroup);
     $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
-
-    # Check if the password meet the policy requirements
-    if (exists $newParams->{password}) {
-        my $password = $newParams->{password}->value();
-
-        # Check if the password meet the complexity constraints
-        unless ($password =~ /[a-z]+/ and $password =~ /[A-Z]+/ and
-                $password =~ /[0-9]+/ and length ($password) >=8) {
-                throw EBox::Exceptions::External(
-                    __('The password does not meet the password policy requirements. ' .
-                       'It must be at least eight characters long and contain uppercase, ' .
-                       'lowercase and numbers'));
-        }
-    }
 }
 
 sub _checkDomainName
 {
     my ($self, $domain) = @_;
 
-    if (length ($domain) > MAXWORKGROUPLENGTH) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name is too long'));
-    }
     if (length ($domain) <= 0) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
+        throw EBox::Exceptions::External(__('DNS domain name is empty'));
     }
-    if ($domain =~ m/\.local$/) {
-        throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
+    if ($domain =~ m/\.local$/i) {
+        throw EBox::Exceptions::External(__(q{DNS domain name cannot end in '.local'}));
     }
 
-    $self->_checkWinName($domain, __('Domain name'));
+    $self->_checkWinName($domain, __('DNS domain name'));
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     if (lc ($domain) eq lc ($sysinfo->hostName())) {
@@ -179,7 +163,7 @@ sub _checkNetbiosName
     if ($netbios =~ m/\./) {
         throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
-    $self->_checkWinName($netbios, __('NetBIOS computer name'));
+    $self->_checkWinName($netbios, __('NetBIOS name'));
 
 }
 
@@ -198,14 +182,6 @@ sub _checkDescriptionString
 sub _checkWinName
 {
     my ($self, $name, $type) = @_;
-
-    my $length = length $name;
-    if ($length > MAXNETBIOSLENGTH) {
-        throw EBox::Exceptions::External(
-                __x('{type} is limited to a maximum of 15 characters.',
-                    type => $type)
-        );
-    }
 
     my @parts = split ('\.', $name);
     foreach my $part (@parts) {
@@ -257,11 +233,11 @@ sub _table
             printableName => __('Administrator account'),
             editable      => 1,
         ),
-        new EBox::Types::Text(
+        new EBox::Types::Password(
             fieldName     => 'password',
             printableName => __('Administrator password'),
-            defaultValue  => EBox::Samba::defaultAdministratorPassword(),
             editable      => 1,
+            hidden        => \&_adcProvisioned,
         ),
         new EBox::Types::DomainName(
             fieldName          => 'workgroup',
@@ -309,6 +285,12 @@ sub _table
     return $dataTable;
 }
 
+sub _adcProvisioned
+{
+    my $samba = EBox::Global->modInstance('samba');
+    return ($samba->mode() eq MODE_ADC and $samba->isProvisioned());
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
@@ -326,39 +308,6 @@ sub updatedRowNotify
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
         $sambaMod->setProvisioned(0);
-    }
-
-    my $newAdminPwd = $row->valueByName('password');
-    my $oldAdminPwd = defined $oldRow ? $oldRow->valueByName('password') : $newAdminPwd;
-    if ($newAdminPwd ne $oldAdminPwd) {
-        EBox::debug('Changing samba admin password');
-
-        # The DC expect the pwd quoted and UTF16-LE encoded
-        $newAdminPwd = Encode::encode('UTF16-LE', '"' . $newAdminPwd . '"');
-        $oldAdminPwd = Encode::encode('UTF16-LE', '"' . $oldAdminPwd . '"');
-
-        # Get the DN of the administrator account
-        my $ldb = $self->parentModule()->ldb();
-        my $args = {
-            base   => $ldb->dn(),
-            scope  => 'sub',
-            filter => '(samAccountName=Administrator)',
-            attrs  => [],
-        };
-        my $msg = $ldb->search($args);
-        return unless ($msg->count() == 1);
-        my $entry = $msg->entry(0);
-        my $dn = $entry->dn();
-
-        # And replace the unicodePwd attribute
-        $args = {
-            changes => [
-                delete => [ unicodePwd => $oldAdminPwd ],
-                add    => [ unicodePwd => $newAdminPwd ],
-            ],
-        };
-        $msg = $ldb->modify($dn, $args);
-        EBox::debug('Samba administrator password changed successfully');
     }
 }
 
@@ -432,10 +381,10 @@ sub viewCustomizer
     my $actions = {
         mode => {
             dc => {
-                hide => ['dcfqdn', 'dnsip','adminAccount'],
+                hide => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
             },
             adc => {
-                show => ['dcfqdn','dnsip','adminAccount'],
+                show => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
             },
         },
     };

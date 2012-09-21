@@ -89,9 +89,14 @@ sub _dbuser
 #
 sub _dbpass
 {
-    my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+    my ($self) = @_;
 
-    return $pass;
+    unless ($self->{dbpass}) {
+        my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        $self->{dbpass} = $pass;
+    }
+
+    return $self->{dbpass};
 }
 
 # Method: _dbsuperuser
@@ -215,12 +220,12 @@ sub unbufferedInsert
 #
 #   This function do the necessary operations to create and establish an insert
 #   operation to a table form the database. This operation is buffered
-#   and will be executed when calling the multiInsert method.
+#   and will be executed when calling the <multiInsert> method.
 #
 # Parameters:
-#   $table: The table name to insert data.
-#   $values: A hash ref with database fields name and values pairs that do you
-#            want to insert to the table name passed as parameter too.
+#   table: String The table name to insert data.
+#   values: Hash ref with database fields name and values pairs that do you
+#           want to insert to the table name passed as parameter too.
 #
 sub insert
 {
@@ -521,6 +526,25 @@ sub quote
 {
     my ($self, $string) = @_;
     return $self->{dbh}->quote($string);
+}
+
+# Method: setTimezone
+#
+#   Set the time zone for this connection
+#
+# Parameters:
+#
+#   tz - String in tz from UTC "(+|-)\d{1,2}:\d{2}"
+#
+sub setTimezone
+{
+    my ($self, $tz) = @_;
+
+    if ( $tz !~ m/(\+|-)\d{1,2}:\d{2}/ ) {
+        throw EBox::Exceptions::Internal("$tz is not valid");
+    }
+
+    $self->{dbh}->do(q{SET time_zone = ?}, undef, $tz);
 }
 
 sub backupDB

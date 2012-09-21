@@ -390,6 +390,20 @@ sub enableActions
     EBox::Global->modInstance('apache')->setAsChanged();
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+
+    # Set up NSS, modules depending on users may require to retrieve uid/gid
+    # numbers from LDAP
+    if ($status) {
+        $self->_setConf(1);
+    }
+}
+
+
 # Load LDAP from config + data files
 sub _loadLDAP
 {
@@ -1135,7 +1149,7 @@ sub allWarnings
     if (EBox::Global->edition() eq 'sb') {
         if (length(@{$self->users()}) >= MAX_SB_USERS) {
             throw EBox::Exceptions::External(
-                __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
+                __s('Please note that you have reached the maximum of users for this server edition. If you need to run Zentyal with more users please upgrade.'));
 
         }
     }
@@ -1378,6 +1392,11 @@ sub backupDomainsFileSelection
     return { includes => ['/home']   };
 }
 
+sub restoreDependencies
+{
+    return ['dns'];
+}
+
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
@@ -1431,8 +1450,9 @@ sub restoreConfig
             $self->initUser($user);
         }
 
-        # Notify modules
-        $self->notifyModsLdapUserBase('addUser', $user);
+        # Notify modules except samba because its users will be
+        # restored from its own LDB backup
+        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
     }
 }
 

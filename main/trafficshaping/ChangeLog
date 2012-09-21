@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Use full path for notifier of notifyActions. More restrictive
 	  notifyForeignModelAction(). Moved this method from parent to subclass
 2.3.5

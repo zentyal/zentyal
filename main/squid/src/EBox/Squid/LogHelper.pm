@@ -81,6 +81,7 @@ sub processLine # (file, line, logger)
     }
 
     my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
+    my $domain = $self->_domain($fields[6]);
     my $data = {
         'timestamp' => $time,
         'elapsed' => $fields[1],
@@ -90,6 +91,7 @@ sub processLine # (file, line, logger)
         'method' => $fields[5],
         # Trim URL string as DB stores it as a varchar(1024)
         'url' => substr($fields[6], 0, 1023),
+        'domain' => substr($domain, 0, 254),
         'rfc931' => $fields[7],
         'peer' => $fields[8],
         'mimetype' => $fields[9],
@@ -97,6 +99,34 @@ sub processLine # (file, line, logger)
     };
 
     $dbengine->insert('squid_access', $data);
+}
+
+# Group: Private methods
+
+# Perform the required modifications from a URL to obtain the domain
+sub _domain
+{
+    my ($self, $url) = @_;
+
+    my $domain = $url;
+    $domain =~ s{^http(s?)://}{}g;
+    $domain =~ s{(:|/).*}{};
+
+    my $shortDomain = "";
+    my @components = split(/\./, $domain);
+    foreach my $element (reverse @components) {
+        if ( $shortDomain eq "" ) {
+            $shortDomain = $element;
+        } elsif ( length($element) < 3 and length($shortDomain) > 5 ) {
+            # Then, we should stop here ( a subdomain)
+            last;
+        } elsif ((length($shortDomain) < 8) or ($components[0] ne $element)) {
+            $shortDomain = $element . '.' . $shortDomain;
+        } else {
+            last;
+        }
+    }
+    return $shortDomain;
 }
 
 1;

@@ -20,7 +20,7 @@ if ($popup) {
         my $url = '/RemoteServices/Backup/RestoreRemoteBackup?';
         $url .= 'name=' . $backup->{Filename};
         $url .= '&ok=1&popup=1';
-        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', overlayClose: false, transitions: false}); return false"};
     } elsif ($actionCGI eq 'DeleteRemoteBackup') {
         my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
         $url .= 'name=' . $backup->{Filename};

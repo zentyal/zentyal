@@ -194,10 +194,9 @@ sub _content
 
 sub _message
 {
-    return __sx('Want to install and configure your server correctly right from the start and receive maintenance support whenever necessary? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: both include technical support for an unlimited number of Zentyal server related issues.',
-                ch => '</a>',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">');
+    return __sx('Zentyal is full-featured Linux server that you can use for free without technical support or quality assured updates, or you can get it fully supported for an {oh}affordable monthly fee{ch}.',
+                oh => '<a href="http://www.zentyal.com/pricing-editions/" target="_blank">',
+                ch => '</a>');
 }
 
 1;

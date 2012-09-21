@@ -202,7 +202,6 @@ END
 
 <& PARENT:headerScriptSection &>
 
-<!--[if IE]><script language="javascript" type="text/javascript" src="/data/js/excanvas.js"></script>--!>
 <script language="javascript" type="text/javascript" src="/data/js/flotr.js"></script>
 
 </%method>

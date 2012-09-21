@@ -268,9 +268,7 @@ sub editBoolean
     my $oldValue = $currentRow->valueByName($field);
     my $element = $currentRow->elementByName($field);
     $element->setValue($value);
-    $model->setTypedRow( $id, { $field => $element},
-                        force => 1,
-                        readOnly => 0);
+    $model->setTypedRow($id, { $field => $element}, readOnly => 0);
     $model->popMessage();
     my $global = EBox::Global->getInstance();
     # XXX Factor this class to be able to print 'application/json'

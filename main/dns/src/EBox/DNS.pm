@@ -96,16 +96,6 @@ sub appArmorProfiles
            ];
 }
 
-# samba it is in dependecies bz it must be started before than DNS but is not
-# needed for restore and dns can work without it
-sub restoreDependencies
-{
-    my ($self) = @_;
-    my $global = EBox::Global->getInstance();
-    my @deps = grep { $_ ne 'samba' } @{ $global->modDepends($self->name) };
-    return \@deps;
-
-}
 
 # Method: addDomain
 #
@@ -256,7 +246,6 @@ sub domains
 
     return $array;
 }
-
 
 # Method: getHostnames
 #
@@ -675,7 +664,22 @@ sub _setConf
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
         if ($domdata->{samba}) {
-            $self->_updateDynDirectZone($domdata, 1);
+            my $sambaDomData = $self->_completeDomain($domainId);
+            delete $sambaDomData->{'nameServers'};
+
+            my $newSRV = [];
+            foreach my $srvRR ( @{$sambaDomData->{'srv'}} ) {
+                push (@{$newSRV}, $srvRR) unless $srvRR->{readOnly};
+            }
+            $sambaDomData->{srv} = $newSRV;
+
+            my $newTXT = [];
+            foreach my $txtRR ( @{$sambaDomData->{'txt'}} ) {
+                push (@{$newTXT}, $txtRR) unless $txtRR->{readOnly};
+            }
+            $sambaDomData->{txt} = $newTXT;
+
+            $self->_updateDynDirectZone($sambaDomData, 1);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata, 0);
         } else {
@@ -760,53 +764,6 @@ sub menu
                                     'url' => 'DNS/Composite/Global',
                                     'separator' => 'Infrastructure',
                                     'order' => 420));
-}
-
-sub logReportInfo
-{
-    my ($self) = @_;
-
-    my $domains = @{$self->domains()};
-    my $data = [
-        {
-            'table'  => 'dns_domains',
-            'values' => {
-                'domains' => $domains
-            }
-        }
-    ];
-    return $data;
-}
-
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'dns_domains_report',
-            'query' => {
-                'select' => 'domains',
-                'from' => 'dns_domains'
-            }
-        }
-    ];
-}
-
-# Method: report
-#
-# Overrides:
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{'domains'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'domains',
-        'from' => 'dns_domains_report',
-    }, { 'name' => 'domains' });
-
-    return $report;
 }
 
 # Method: keysFile
@@ -1161,7 +1118,8 @@ sub _formatTXT
         }
         push (@txtRecords, {
                 hostName => $hostName,
-                txt_data => $row->valueByName('txt_data')
+                txt_data => $row->valueByName('txt_data'),
+                readOnly => $row->readOnly(),
                });
     }
     return \@txtRecords;
@@ -1222,6 +1180,7 @@ sub _formatSRV
                 weight => $row->valueByName('weight'),
                 target_port => $row->valueByName('port'),
                 target_host => $targetHost,
+                readOnly => $row->readOnly(),
                });
     }
     return \@srvRecords;
@@ -1453,6 +1412,11 @@ sub _removeSambaDeletedRR
 sub _launchSambaNSupdate
 {
     my ($self, $fh) = @_;
+
+    return unless EBox::Global->modExists('samba');
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    return unless ($sambaModule->isProvisioned() and $sambaModule->isRunning());
 
     my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
     if ($self->_isNamedListening()) {
@@ -1867,6 +1831,11 @@ sub _updateManagedDomainAddresses
         my $hostIpModel = $hostRow->subModel('ipAddresses');
         $self->_updateManagedDomainIPsModel($hostIpModel);
     }
+}
+
+sub restoreDependencies
+{
+    return [];
 }
 
 ######################################

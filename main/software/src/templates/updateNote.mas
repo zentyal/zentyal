@@ -10,9 +10,7 @@ if ($qa) {
     $msg = __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
     $class = 'ad';
 } else {
-    $msg =  __sx('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include quality assured software updates.',
-            ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">',
-            ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
+    $msg =  __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.", ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">', ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
             ch    => '</a>',
             );
 	$class = 'adwarning';

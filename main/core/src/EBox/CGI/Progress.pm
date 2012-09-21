@@ -61,6 +61,7 @@ sub _process
     }
 
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+            showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
             inModalbox
             nextStepType
@@ -84,7 +85,10 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-            push @params, (adsJson => loadAds());
+
+            if (EBox::Global->modExists('software')) {
+                push @params, (slides => _loadSlides());
+            }
         }
     }
 
@@ -157,7 +161,7 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub loadAds
+sub _loadSlides
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';
     my $file = "$path/ads_" + EBox::locale();
@@ -181,7 +185,7 @@ sub loadAds
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 
-    return encode_json(\@html);
+    return \@html;
 }
 
 1;

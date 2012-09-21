@@ -18,7 +18,7 @@
 use strict;
 use warnings;
 
-package EBox::Model::Firewall::RulesWithInterface;
+package EBox::Firewall::Model::RulesWithInterface;
 
 
 sub interfacePopulateSub

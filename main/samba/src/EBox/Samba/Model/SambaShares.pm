@@ -42,9 +42,9 @@ use Error qw(:try);
 use constant DEFAULT_MASK => '0700';
 use constant DEFAULT_USER => 'root';
 use constant DEFAULT_GROUP => 'root';
-use constant GUEST_DEFAULT_MASK => '0700';
+use constant GUEST_DEFAULT_MASK => '0770';
 use constant GUEST_DEFAULT_USER => 'nobody';
-use constant GUEST_DEFAULT_GROUP => 'nogroup';
+use constant GUEST_DEFAULT_GROUP => '__USERS__';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
 
@@ -279,6 +279,7 @@ sub createDirs
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
+        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
         if ($guestAccess) {
            push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
@@ -286,7 +287,6 @@ sub createDirs
            push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
-        push (@cmds, "setfacl -b $path"); # Clear POSIX ACLs
         EBox::Sudo::root(@cmds);
 
         if ($guestAccess) {
@@ -363,8 +363,8 @@ sub createDirs
 
         if (@posixACL) {
             try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " $path";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." $path";
+                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
+                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
                 EBox::Sudo::root($cmd);
                 EBox::Sudo::root($defaultCmd);
 

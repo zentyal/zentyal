@@ -1,4 +1,9 @@
-HEAD
+2.3.8
+	+ Fixed wrong retrieval of VDomains model
+2.3.7
+	+ Fixed virtual domain policies tab
+2.3.6
+	+ Move report code to remoteservices
 	+ Fixed LDAP url in amavisd.conf
 2.3.5
 	+ VDomains model renamed to VDomainsFilter

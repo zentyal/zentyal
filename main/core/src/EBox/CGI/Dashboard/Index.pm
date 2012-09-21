@@ -96,6 +96,11 @@ sub masonParameters
         $dashboards[$i - 1] = \@dashboard;
     }
 
+    # put default order values
+    foreach my $widget (values %{$widgets}) {
+        defined $widget->{order} or
+            $widget->{order} = 0;
+    }
     my @orderedWidgets =
         sort { $widgets->{$a}->{order} <=> $widgets->{$b}->{order} }
         keys %{$widgets};

@@ -178,8 +178,8 @@ sub profiles
     my ($self) = @_;
     my @profiles = ();
 
-    push (@profiles, { number => 1, policy => 'allow' });
-    push (@profiles, { number => 2, policy => 'deny' });
+    push (@profiles, { number => 1, policy => 'deny',  groupName => 'defaultDeny' });
+    push (@profiles, { number => 2, policy => 'allow', groupName => 'defaultAllow' });
 
     # groups will have ids greater that this number
     my $id = 3;

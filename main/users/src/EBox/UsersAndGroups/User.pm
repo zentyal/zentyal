@@ -15,15 +15,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 # Class: EBox::UsersAndGroups::User
 #
 #   Zentyal user, stored in LDAP
 #
 
 package EBox::UsersAndGroups::User;
-
-use strict;
-use warnings;
+use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;
 use EBox::Global;
@@ -51,7 +52,7 @@ use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'homeDirectory', 'quota', 'userPassword',
                                  'description');
 
-use base 'EBox::UsersAndGroups::LdapObject';
+
 
 sub new
 {
@@ -829,6 +830,20 @@ sub defaultQuota
     return $value;
 }
 
+# Method: kerberosKeys
+#
+#     Return the Kerberos key hashes for this user
+#
+# Returns:
+#
+#     Array ref - containing three hash refs with the following keys
+#
+#         type  - Int the hash type (18 => DES-CBC-CRC, 16 => DES-CBC-MD5,
+#                                    23 => arcfour-HMAC-MD5 (AKA NTLMv2)
+#         value - Octects containing the hash
+#
+#         salt  - String the salt (only valid for 18 and 16 types)
+#
 sub kerberosKeys
 {
     my ($self) = @_;

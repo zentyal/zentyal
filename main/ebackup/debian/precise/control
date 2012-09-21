@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-ebackup
 Architecture: all
-Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), duplicity, libstring-shellquote-perl, libtimedate-perl, libdate-calc-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, ${misc:Depends}
+Depends: zentyal-core (>= 3.0), zentyal-core (<< 3.0.100), duplicity, libstring-shellquote-perl, libtimedate-perl, libdate-calc-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, ${misc:Depends}
 Description: Zentyal - Backup
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

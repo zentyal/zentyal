@@ -1,4 +1,66 @@
 HEAD
+	+ Better way to fix non-root warnings during boot without interfering
+	  on manual restart commands in the shell
+3.0.1
+	+ Properly set default language as the first element of the Select to
+	  avoid its loss on the first apache restart
+	+ Set milestone to 3.0.X when creating tickets in trac.zentyal.org
+	+ Removed forced setting of LANG variables in mod_perl which made progress
+	  indicator fail when using any language different to English
+	+ Removed some frequent undef warnings
+	+ Added executeOnBrothers method to EBox::Model::Component
+	+ Fixed repetition of 'add' and 'number change' events in RAID watcher
+	+ Fixed incorrect display of edit button in tables without editField action
+	+ Cache MySQL password to avoid reading it all the time
+	+ Fixed request came from non-root user warnings during boot
+	+ Send info event in Runit watcher only if the service was down
+	  MAX_DOWN_PERIODS
+3.0
+	+ Removed beta logo
+	+ Set 'firstInstall' flag on modules when installing during initial install
+	+ Set 'restoringBackup' flag on modules when restoring backup
+	+ Call enableService after initialSetup while restoring backup
+	+ Registration link in widget now have appropiate content when either
+	  remoteservices or software are not installed
+	+ Fixed style for disabled buttons
+	+ Composite and DataTable viewers recover from errors in pageTitle method
+	+ Fixed intermitent failure in progress when there are no slides
+	+ Rollback redis transaction on otherwise instead finally block
+	+ Members of the 'admin' group can now login again on Zentyal
+	+ Multi-admin management for commercial editions
+	+ First and last move row buttons are now disabled instead of hidden
+	+ In save changes dialog set focus always in the 'save' button
+	+ Fixed i18n problem in some cases where environment variables
+	  were different than the selected locale on Zentyal UI, now
+	  LANG and LC_MESSAGES are explicitly passed to mod_perl
+	+ Reviewed registration strings
+	+ Added template attribute to MultiStateAction to provide any kind
+	  of HTML to display an action
+	+ Changed icon, name and link for Zentyal Remote
+	+ Fixed some compatibility issues with Internet Explorer 9
+	+ Show warning with Internet Explorer 8 or older
+	+ Improved dashboard buttons colors
+2.3.24
+	+ Do not cache undef values in EBox::Config::Redis::get()
+	+ Code fix on subscription retrieval for Updates event
+	+ Update validate referer to new Remote Services module API
+	+ In-place booleans now properly mark the module as changed
+	+ Do not try to read slides if software module is not installed
+	+ Fixed wrong call in Events::isEnabledDispatcher()
+	+ Updated 'created by' footer
+2.3.23
+	+ Change the default domain name from 'zentyal.lan' to
+	  'zentyal-domain.lan'
+	+ Changes in first enable to avoid letting modules unsaved
+	+ Type File now accepts spaces in the file name
+	+ Added setTimezone method to MyDBEngine
+	+ Enable consolidation after reviewing and pruning
+	+ Code typo fix in Events::isEnabledWatcher
+	+ Remove all report code from core
+	+ Move SysInfo report related to remoteservices module
+	+ Fixed regression which removed scroll bars from popups
+	+ New carousel transition for the installation slides
+	+ Added option to not show final notes in progress bar
 	+ EBox::Model::Component::modelGetter does not die when trying to
 	  get a model for an uninstalled module
 	+ Added previous/next buttons to manually switch installation slides

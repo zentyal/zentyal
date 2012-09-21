@@ -1,3 +1,8 @@
+2.3.15
+	+ Expanded allowed character set in interface PPPoE password
+	+ Reviewed registration strings
+	+ Fixed treatment for wake on lan objects in template, now there is no
+	  crash in Network Tools when entering an empty host
 2.3.14
 	+ Fixed bug which made impossible to remove bridged interfaces
 	+ Management of CHAP secrets file recovers from removal of Zentyal marks

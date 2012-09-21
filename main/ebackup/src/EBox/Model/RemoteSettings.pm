@@ -147,7 +147,6 @@ sub viewCustomizer
     $customizer->setOnChangeActions(
             { method =>
                 {
-                cloud => { hide => $allFields },
                 file => { hide => $userPass , show => ['target'] },
                 rsync => { show => $allFields },
                 scp => { show => $allFields },
@@ -155,15 +154,16 @@ sub viewCustomizer
                 }
             });
 
-    try {
-        my $disasterAddon = EBox::EBackup::Subscribed->isSubscribed();
-        if (not $disasterAddon ) {
-            $customizer->setPermanentMessage(_message(), 'ad');
-        }
-    } catch EBox::Exceptions::NotConnected with {
-        my ($ex) = @_;
-        $customizer->setPermanentMessage("$ex", 'warning');
-    };
+# Disabled Disaster Recovery message
+#    try {
+#        my $disasterAddon = EBox::EBackup::Subscribed->isSubscribed();
+#        if (not $disasterAddon ) {
+#            $customizer->setPermanentMessage(_message(), 'ad');
+#        }
+#    } catch EBox::Exceptions::NotConnected with {
+#        my ($ex) = @_;
+#        $customizer->setPermanentMessage("$ex", 'warning');
+#    };
 
     return $customizer;
 }
@@ -543,20 +543,6 @@ sub _method
             },
     );
 
-    unless (EBox::Config::configkey('custom_prefix')) {
-        my $cloud = {
-            value => 'cloud',
-            printableValue => 'Zentyal Cloud',
-        };
-
-        if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
-            unshift @methods, $cloud;
-        } else {
-            $cloud->{disabled} = 1;
-            push @methods, $cloud;
-        }
-    }
-
     return \@methods;
 }
 
@@ -576,15 +562,14 @@ sub _gpgKeys
     return \@keys;
 }
 
-sub _message
-{
-    return __sx('Choosing {brand} method you will use the {ohref}{service} service{ch}.  Ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster?  Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable the service.',
-                brand => __s('Zentyal Cloud'), service => __s('Zentyal Disaster Recovery'),
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ohref => '<a href="' . URL . '" target="_blank">', ch => '</a>');
-}
-
+#sub _message
+#{
+#    return __sx('Choosing {brand} method you will use the {ohref}{service} service{ch}.  Ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster?  Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable the service.',
+#                brand => __s('Zentyal Cloud'), service => __s('Zentyal Disaster Recovery'),
+#                ohs => '<a href="' . SB_URL . '" target="_blank">',
+#                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+#                ohref => '<a href="' . URL . '" target="_blank">', ch => '</a>');
+#}
 
 sub _deadline
 {
@@ -677,12 +662,9 @@ sub validateTypedRow
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
 
     my $method = $actualValues->{method}->value();
-    if ($method ne 'cloud') {
-        # all methods except cloud need a target
-        my $checkMethod = '_validateTargetFor' . (ucfirst $method);
-        my $target = $actualValues->{target}->value();
-        $self->$checkMethod($target);
-    }
+    my $checkMethod = '_validateTargetFor' . (ucfirst $method);
+    my $target = $actualValues->{target}->value();
+    $self->$checkMethod($target);
 
     my $incrementalFreq = $actualValues->{incremental}->selectedType();
     my $fullFreq = $actualValues->{full}->selectedType();
@@ -742,7 +724,7 @@ sub _validateTargetForFtpAndScp
         throw EBox::Exceptions::InvalidData(
              data => __('target'),
              value => $target,
-             advice => __(q{Must be a like 'other.host[:port]/some_dir'})
+             advice => __(q{Correct format is: 'other.host[:port]/some_dir'})
                                            );
     }
 
@@ -929,16 +911,12 @@ sub configurationIsComplete
 
     my $row = $self->row();
 
-    my $method = $row->valueByName('method');
-    if ($method eq 'cloud') {
-        return 1;
-    }
-
     my $target = $row->valueByName('target');
     if (not $target) {
         return 0;
     }
 
+    my $method = $row->valueByName('method');
     if ($method eq 'file') {
         # file does not need user or password
         return 1;
@@ -976,19 +954,22 @@ sub usedEncryptionMode
     }
 }
 
-# return hash for reporting
+# Method: report
+#
+#     Return the backup settings
+#
+# Returns:
+#
+#     Hash ref - containing the settings to report
+#
 sub report
 {
     my ($self) = @_;
     my $row = $self->row();
 
-    my @report = ();
+    my %report = ();
 
-    my @attrs = qw(method);
-    if ($row->valueByName('method') ne 'cloud') {
-        push @attrs, 'target';
-    }
-    push @attrs, qw(encryption full incremental);
+    my @attrs = qw(method target encryption full incremental);
 
     foreach my $attr (@attrs) {
         my $element =  $row->elementByName($attr);
@@ -1000,25 +981,17 @@ sub report
             $value =  $element->value();
         }
 
-        my $row = {$attr, $value};
-        push @report, $row;
+        $report{$attr} = $value;
     }
 
     my $start = $row->valueByName('start') . ':00';
-    push @report, {start => $start};
+    $report{start} = $start;
 
     my $fullCopies =  $row->elementByName('full_copies_to_keep');
-    my $retentionPolicy =  {
-                   'retention policy type' =>  $fullCopies->selectedType()
-    };
+    $report{'retention policy type'} = $fullCopies->selectedType();
+    $report{'policy value'} = $fullCopies->value();
 
-    my $retentionCopies = {
-             'retention policy value' =>  $fullCopies->value()
-    };
-
-    push @report, $retentionPolicy, $retentionCopies;
-
-    return \@report;
+    return \%report;
 }
 
 1;

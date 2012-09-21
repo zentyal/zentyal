@@ -19,6 +19,7 @@ use warnings;
 
 use base qw(EBox::Module::Service);
 
+use EBox;
 use EBox::Validate qw( :all );
 use EBox::Sudo;
 use EBox::Global;

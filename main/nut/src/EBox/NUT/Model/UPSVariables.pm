@@ -58,7 +58,12 @@ sub upsVariables
     my $vars = {};
     foreach my $line (@{$allVars}) {
         $line =~ s/\s*//g;
-        my ($var, $value) = split(/:/, $line);
+        not $line and next;
+        my ($var, $value) = split(/:/, $line, 2);
+        unless ($var and $value) {
+            EBox::debug("Unexpected upsc line: $line");
+            next;
+        }
         $vars->{$var} = $value,
     }
 

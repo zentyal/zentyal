@@ -40,6 +40,7 @@ use EBox::Service;
 
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 
@@ -598,7 +599,7 @@ sub _setDovecotConf
 
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
-    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
+    my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @params = ();
     push (@params, uid => $uid);
@@ -1824,157 +1825,6 @@ sub certificates
            ];
 }
 
-
-sub consolidateReportQueries
-{
-    return [
-        {
-            'target_table' => 'mail_message_report',
-            'query' => {
-                'select' => 'client_host_ip, split_part(from_address, \'@\', 1) AS user_from, split_part(from_address, \'@\', 2) AS domain_from, split_part(to_address, \'@\', 1) AS user_to, split_part(to_address, \'@\', 2) AS domain_to, SUM(COALESCE(message_size,0)) as bytes, COUNT(*) as messages, message_type, status, event',
-                'from' => 'mail_message',
-                'group' => 'client_host_ip, user_from, domain_from, user_to, domain_to, message_type, event, status'
-            },
-          'quote' => {  user_from => 1, user_to => 1, domain_to => 1, domain_from => 1 },
-        }
-    ];
-}
-
-
-# Method: report
-#
-# Overrides:
-#
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    my $sentMail = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(messages) AS sent_messages, SUM(bytes) AS sent_bytes',
-        'from'   => 'mail_message_report',
-        'where'  => "(message_type = 'sent' OR message_type = 'internal') "
-                    . "AND event='msgsent'",
-        'group'  => 'event' });
-
-    my $receivedMail = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(messages) AS received_messages, SUM(bytes) AS received_bytes',
-        'from'   => 'mail_message_report',
-        'where'  => "(message_type = 'received' OR message_type = 'internal') "
-                    . "AND event='msgsent'",
-        'group'  => 'event' });
-
-    my $rejectedMail = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(messages) AS rejected_messages',
-        'from'   => 'mail_message_report',
-        'where'  => q{event IN ('noauth', 'norelay', 'noaccount')},
-        });
-
-    my %unionMail = (%{$sentMail}, %{$receivedMail}, %{$rejectedMail});
-
-    $report->{'mail_messages'} = \%unionMail;
-
-    my $db = EBox::DBEngineFactory::DBEngine();
-    my ($endYear, $endMonth) = split('-', $end);
-    my $dayTraffic = $db->query_hash({
-        'select' => 'sum(sent) AS sent_messages, sum(received) AS received_messages, sum(rejected) AS rejected_messages',
-        'from'   => 'mail_message_traffic_daily',
-        'where'  => qq{date >= '$endYear-$endMonth-01'
-                       AND date < TIMESTAMP '$endYear-$endMonth-01' + INTERVAL '1 month'},
-        'group'  => 'date',
-        'order'  => 'date ASC',
-       });
-
-    my %dayTraffic;
-    foreach my $row (@{$dayTraffic}) {
-        for my $key (keys(%{$row})) {
-            if (not defined($dayTraffic{$key}) ) {
-                $dayTraffic{$key} = [];
-            }
-            push(@{$dayTraffic{$key}}, $row->{$key});
-        }
-    }
-
-    $report->{'end_month_traffic_per_day'} = \%dayTraffic;
-
-    $report->{'top_sent_mail_domains_by_domain'} = $self->runCompositeQuery(
-        $beg, $end,
-    {
-        'select' => 'DISTINCT domain_from',
-        'from' => 'mail_message_report',
-        'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal') AND domain_from IS NOT NULL",
-        'order' => 'domain_from'
-    },
-    'domain_from',
-    {
-        'select' => 'domain_to AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
-        'from' => 'mail_message_report',
-        'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal') AND domain_from = '_domain_from_'",
-        'group' => 'domain',
-        'limit' => $options->{'max_domains_top_sent_mail_domains_by_domain'},
-        'order' => 'messages DESC'
-    });
-
-    $report->{'top_received_mail_domains_by_domain'} = $self->runCompositeQuery(
-        $beg, $end,
-    {
-        'select' => 'DISTINCT domain_to',
-        'from' => 'mail_message_report',
-        'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal') AND domain_to IS NOT NULL",
-        'order' => 'domain_to'
-    },
-    'domain_to',
-    {
-        'select' => 'domain_from AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
-        'from' => 'mail_message_report',
-        'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal') AND domain_to = '_domain_to_'",
-        'group' => 'domain',
-        'limit' => $options->{'max_domains_top_received_mail_domains_by_domain'},
-        'order' => 'messages DESC'
-    });
-
-    $report->{'top_user_sender'} = $self->runCompositeQuery($beg, $end,
-        {
-            'select' => 'DISTINCT domain_from',
-            'from'   => 'mail_message_report',
-            'where'  => q{(message_type = 'sent' OR message_type = 'internal')
-                          AND event = 'msgsent' AND domain_from IS NOT NULL},
-            'order'  => 'domain_from'
-        },
-        'domain_from',
-        {
-            'select' => 'user_from, SUM(messages) AS messages',
-            'from'   => 'mail_message_report',
-            'where'  => q{(message_type = 'sent' OR message_type = 'internal')
-                          AND event = 'msgsent' AND domain_from = '_domain_from_'},
-            'group'  => 'user_from',
-            'limit'  => $options->{'max_top_user_sender'},
-            'order'  => 'messages DESC',
-        });
-
-    $report->{'top_user_receiver'} = $self->runCompositeQuery($beg, $end,
-        {
-            'select' => 'DISTINCT domain_to',
-            'from'   => 'mail_message_report',
-            'where'  => q{(message_type = 'received' OR message_type = 'internal')
-                          AND event = 'msgsent' AND domain_to IS NOT NULL},
-            'order'  => 'domain_to'
-        },
-        'domain_to',
-        {
-            'select' => 'user_to, SUM(messages) AS messages',
-            'from'   => 'mail_message_report',
-            'where'  => q{(message_type = 'received' OR message_type = 'internal')
-                          AND event = 'msgsent' AND domain_to = '_domain_to_'},
-            'group'  => 'user_to',
-            'limit'  => $options->{'max_top_user_receiver'},
-            'order'  => 'messages DESC',
-        });
-
-    return $report;
-}
 
 sub fetchmailPollTime
 {
