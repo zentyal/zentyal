@@ -766,7 +766,7 @@ sub _enforceServiceState
 #    file      - file name which will be overwritten with the execution output
 #    component - mason component
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
-#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    defaults  - a reference to hash with keys: mode, uid and gid. Those values will be used when creating a new file. (Spoiler: If the file already exists the existent values of these parameters will be left untouched)
 #
 sub writeConfFile # (file, component, params, defaults)
 {

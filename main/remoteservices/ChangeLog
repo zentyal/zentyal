@@ -1,4 +1,5 @@
 HEAD
+	+ Fix OCS inventory cron file execution permissions
 	+ Changed subscription_basic style to avoid overlapping separator line
 3.0.2
 	+ Use perl code in initial setup to avoid lock issues
