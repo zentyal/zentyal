@@ -1,4 +1,6 @@
 HEAD
+	+ Add pciutils and dmidecode as dependencies to include PCI and
+	  Bios information for inventory
 	+ Fix OCS inventory cron file execution permissions
 	+ Changed subscription_basic style to avoid overlapping separator line
 3.0.2
