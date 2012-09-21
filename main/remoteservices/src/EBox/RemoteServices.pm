@@ -251,7 +251,8 @@ sub _setInventoryAgentConf
 
             # Enable OCS agent periodic execution
             $self->writeConfFile(OCS_CRON_FILE,
-                                 OCS_CRON_MAS_FILE);
+                                 OCS_CRON_MAS_FILE,
+                                 [], { 'mode' => '0755' } );
         } else {
             $toRemove = 1;
         }
