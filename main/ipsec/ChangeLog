@@ -1,3 +1,5 @@
+HEAD
+	+ Removed innecesary unique attrbitues in Configuration General form
 2.3.4
 	+ IPsec is now under Infrastructure instead of UTM
 	+ Added checks to local and remote subnets addresses
