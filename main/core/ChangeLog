@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed template method in MultiStateAction to return the default
+	template when it is not any supplied to the object
 	+ Better way to fix non-root warnings during boot without interfering
 	  on manual restart commands in the shell
 3.0.1
