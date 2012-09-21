@@ -1,0 +1,140 @@
+<%doc>
+    Main configuration file for Squid daemon
+
+  Parameters:
+
+    snmpEnabled - Boolean indicating if SNMP is enabled or not
+</%doc>
+<%args>
+    $port
+    $transparent    => undef
+    $https          => undef
+
+    $memory
+    $cacheDirSize
+    $max_object_size
+
+    @nameservers
+    $append_domain  => undef
+
+    $cache_host
+    $cache_port
+    $cache_user
+    $cache_passwd
+
+    $urlRewriteProgram => undef
+    @notCachedDomains
+</%args>
+# <EBOX> TAG_HTTPORT #
+% my $transKey = '';
+% if ($transparent) {
+%   $transKey = 'transparent';
+% }
+% my $sslKey = '';
+% if ($https) {
+%   $sslKey = 'ssl-bump';
+% }
+http_port <% $port %> <% $transKey %> <% $sslKey %>
+# END_TAG #
+
+visible_hostname localhost-back
+
+coredump_dir /var/spool/squid3
+cache_effective_user proxy
+cache_effective_group proxy
+cache_mem <% $memory %> MB
+cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
+maximum_object_size <% $max_object_size %> MB
+access_log /var/log/squid3/access-back.log squid
+pid_filename /var/run/squid3-back.pid
+
+% if (@nameservers) {
+%   my $dns_nameservers = '';
+%   foreach my $srv (@nameservers) {
+%     $dns_nameservers .= "$srv ";
+%   }
+dns_nameservers <% $dns_nameservers %>
+% }
+% if ($append_domain) {
+append_domain .<% $append_domain %>
+% }
+
+# refresh patterns
+
+# windows updates
+#refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://.*\.download\.windowsupdate\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+#
+## linux updates
+#refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
+#refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
+
+refresh_pattern ^ftp:           1440    20%     10080
+refresh_pattern ^gopher:        1440    0%      1440
+refresh_pattern -i (/cgi-bin/|\?) 0     0%      0
+refresh_pattern .               0       20%     4320
+
+# end refresh patterns
+
+% if ($cache_host and $cache_port) {
+%   my $peerAuth = '';
+%   if ($cache_user and $cache_passwd) {
+# WARN: remember that for squid auth % are HTML escapes
+%    $peerAuth = 'login=' . $cache_user . ':' . $cache_passwd;
+%   }
+cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
+% }
+
+% if ($urlRewriteProgram) {
+url_rewrite_program <% $urlRewriteProgram %>
+% }
+
+# no cache domains acl
+% foreach my $domain (@notCachedDomains) {
+acl noCached dstdomain <% $domain %>
+% }
+
+acl localhost src 127.0.0.1/32 ::1
+acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
+acl manager url_regex -i ^cache_object:// +i ^https?://[^/]+/squid-internal-mgr/
+acl SSL_ports port 443          # https, snews
+acl SSL_ports port 873		    # rsync
+acl Safe_ports port 80          # http
+acl Safe_ports port 21          # ftp
+acl Safe_ports port 443 563	    # https, snews
+acl Safe_ports port 70          # gopher
+acl Safe_ports port 210         # wais
+acl Safe_ports port 1025-65535  # unregistered ports
+acl Safe_ports port 280         # http-mgmt
+acl Safe_ports port 488         # gss-http
+acl Safe_ports port 591         # filemaker
+acl Safe_ports port 631		    # cups
+acl Safe_ports port 777         # multiling http
+acl Safe_ports port 873		    # rsync
+acl Safe_ports port 901		    # SWAT
+acl CONNECT method CONNECT
+acl purge method PURGE
+
+http_access allow manager localhost
+http_access deny manager
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+http_access allow localhost
+http_access deny all
+
+# http_reply_access allow all
+# % if ($cache_host and $cache_port) {
+# never_direct allow all
+# % }
+
+# % if ($https) {
+# # ssl-bump options
+# always_direct allow SSL_ports
+# ssl_bump allow SSL_ports
+# % }

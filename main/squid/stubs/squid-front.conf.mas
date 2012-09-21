@@ -1,0 +1,117 @@
+<%doc>
+    Main configuration file for Squid daemon
+
+  Parameters:
+
+    snmpEnabled - Boolean indicating if SNMP is enabled or not
+</%doc>
+<%args>
+    $port
+
+    $principal
+    $realm
+    $dn
+
+    @rules
+</%args>
+<%shared>
+our $anyPrefix = 'any_src_';
+our $maxAclNameLength = 31;
+our %longAclNames = ();
+</%shared>
+<%perl>
+# needed because space scape doesnt work in acl names
+sub _escapeWS
+{
+    my ($string) = @_;
+    $string =~ s{ }{__}g;
+    return $string;
+}
+# needed to avoid log acl problems
+sub _aclName
+{
+    my ($name) = @_;
+    if (length($name) <= $maxAclNameLength) {
+        return _escapeWS($name);
+    }
+
+    if (not exists $longAclNames{$name}) {
+        my $nextId = 1 + keys %longAclNames;
+        $nextId = 'longAcl' . $nextId;
+        $longAclNames{$name} = $nextId;
+    }
+
+    return _escapeWS($longAclNames{$name});
+}
+</%perl>
+# <ZENTYAL> TAG_HTTPORT
+http_port <% $port %>
+# END_TAG #
+
+visible_hostname localhost-front
+coredump_dir /var/spool/squid3
+cache_effective_user proxy
+cache_effective_group proxy
+access_log /var/log/squid3/access-front.log squid
+pid_filename /var/run/squid3-front.pid
+
+cache_peer 127.0.0.1 parent 3130 0 no-query login=*:nopassword
+
+# <ZENTYAL> TAG_ACL #
+% if ($realm) {
+auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate children 10
+auth_param negotiate keep_alive on
+% } else {
+auth_param basic realm Zentyal HTTP proxy
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+% }
+acl authorized proxy_auth REQUIRED
+
+<& .rulesACLs, rules => [ @rules ], realm => $realm &>
+
+# TODO REMOVE
+http_access allow authorized
+http_access deny all
+
+% #################################################################################################
+<%def .rulesACLs>
+<%args>
+    @rules
+    $realm
+</%args>
+% foreach my $rule (@rules) {
+%   if ($rule->{any}) {
+       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
+%      next;
+%   }
+%   my $object = $rule->{object};
+%   my $group = $rule->{group};
+%   my $src = $object ? $object : $group;
+%   my $aclName = _aclName($src);
+%   if ($object) {
+acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
+%   } else {
+%       # escape user names
+%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+%       if ($realm) {
+%           @users = map { $_ . '@' . $realm } @users;
+%       }
+acl <% $aclName %> proxy_auth <% join (' ', @users) %>
+%   }
+   <& .timeACLs, rule => $rule, id => $src &>
+% }
+</%def>
+
+<%def .timeACLs>
+<%args>
+    $rule
+    $id
+</%args>
+% if ($rule->{timeDays}) {
+acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
+% }
+% if ($rule->{timeHours}) {
+acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+% }
+</%def>

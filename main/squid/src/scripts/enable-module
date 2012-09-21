@@ -7,3 +7,4 @@ invoke-rc.d dansguardian stop || true # if dansguardian has not been configured
 
 # remove startup links
 update-rc.d -f dansguardian remove
+echo "manual" > /etc/init/squid3.override
