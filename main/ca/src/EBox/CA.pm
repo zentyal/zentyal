@@ -212,9 +212,19 @@ sub createCA
 {
     my ($self, %args) = @_;
 
-    throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
-        unless defined($args{orgName});
+    if (not $args{orgName} or ($args{orgName} =~ m/^\s*$/)) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
+    }
     $self->_checkCertificateFieldsCharacters(%args);
+    if ($args{countryName}) {
+        if (length($args{countryName}) > 2) {
+            throw EBox::Exceptions::InvalidData(
+                    data =>  __('Country code'),
+                    value => $args{countryName},
+                    advice => __('The country code must be the ISO <em>two</em> characters code')
+               );
+        }
+    }
 
     if (! -d CATOPDIR) {
         # Create the directory hierchary
@@ -1868,7 +1878,15 @@ sub _checkCertificateFieldsCharacters
 
     foreach my $field (@fieldsToCheck) {
         if (exists $args{$field}) {
-            $self->_checkValidCharacters($args{$field}, $field);
+            my $value = $args{$field};
+            if ($value =~ m/^\s+$/) {
+                throw EBox::Exceptions::InvalidData(
+                    data => $field,
+                    value => $value,
+                    advice => __('The field cannot contain only blank characters')
+                   );
+            }
+            $self->_checkValidCharacters($value, $field);
         }
     }
 
