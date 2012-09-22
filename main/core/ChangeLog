@@ -1,4 +1,6 @@
 HEAD
+	+ DataForm does not check for uniqueness of its fields, as it only
+	  contains a single row
 	+ In ConfigureLogs, restored printable names for log domains
 	+ Fixed dashboard update error on modules widget, counter-graph
 	  widget and widget without sections
