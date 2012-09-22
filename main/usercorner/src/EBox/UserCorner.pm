@@ -75,8 +75,6 @@ sub actions
 {
     my ($self) = @_;
 
-    my $mode = EBox::Global->modInstance('users')->mode();
-
     my @actions;
     push (@actions,
             {
@@ -85,14 +83,12 @@ sub actions
              'module' => 'usercorner'
             });
 
-    if ($mode ne 'slave') {
-        push (@actions,
-                {
-                 'action' => __('Create directories for slave journals'),
-                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
-                 'module' => 'usercorner'
-                });
-    }
+    push (@actions,
+            {
+             'action' => __('Create directories for slave journals'),
+             'reason' => __('Zentyal needs the directories to record pending slave actions.'),
+             'module' => 'usercorner'
+            });
 
     return \@actions;
 }
@@ -137,10 +133,10 @@ sub enableActions
 {
     my ($self) = @_;
 
-    if ($self->_isSlave()) {
-        throw EBox::Exceptions::External(
-            __('User corner is only available in master or standalone servers')
-                                        );
+    my $users = EBox::Global->modInstance('users');
+
+    unless ($users->editableMode()) {
+        throw EBox::Exceptions::External(__('User corner is only available in master or standalone servers'));
     }
 
     (-d (EBox::Config::conf() . 'configured')) and return;
@@ -157,20 +153,17 @@ sub enableActions
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
 
     # Create userjournal dir only in master setup
-    my $users = EBox::Global->modInstance('users');
-    if ($users->mode() ne 'slave') {
-        my @commands;
+    my @commands;
 
-        my $ucUser = USERCORNER_USER;
-        my $ucGroup = USERCORNER_GROUP;
-        my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-        unless (-d $usercornerDir) {
-            push (@commands, "mkdir -p $usercornerDir");
-            push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
-        }
-        if (@commands) {
-            EBox::Sudo::root(@commands);
-        }
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
+    unless (-d $usercornerDir) {
+        push (@commands, "mkdir -p $usercornerDir");
+        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
+    }
+    if (@commands) {
+        EBox::Sudo::root(@commands);
     }
 }
 
@@ -271,13 +264,6 @@ sub certificates
              mode => '0400',
             },
            ];
-}
-
-sub _isSlave
-{
-    my ($self) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    return ($usersMod->mode() eq 'slave') or ($usersMod->adsyncEnabled());
 }
 
 1;
