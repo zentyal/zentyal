@@ -1,3 +1,6 @@
+HEAD
+	+ Remove duplicated disabled module warning on recycle bin and antivirus
+	  modules
 3.0.2
 	+ Fix samba group members not imported to Zentyal in groups added by
 	  the synchronizer

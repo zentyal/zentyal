@@ -40,11 +40,6 @@ sub new
     return $self;
 }
 
-sub pageTitle
-{
-    return __('Recycle default settings');
-}
-
 sub _table
 {
 
@@ -65,6 +60,7 @@ sub _table
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'help' => 'If Recycle Bin is enabled on a share, the deleted files on the share are stored on it instead of being deleted forever. This is the default setting that can be overrided by adding exceptions.',
+        'pageTitle' => undef,
     };
 
     return $dataTable;
