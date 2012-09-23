@@ -1,4 +1,6 @@
 HEAD
+	+ Launch inventory agent just after subscribing to get information
+	  in remote as soon as possible
 	+ Add pciutils and dmidecode as dependencies to include PCI and
 	  Bios information for inventory
 	+ Fix OCS inventory cron file execution permissions
