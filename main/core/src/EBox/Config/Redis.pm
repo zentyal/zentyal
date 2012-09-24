@@ -377,7 +377,11 @@ sub _sync
         if (ref $value) {
             $value = encode_json($value);
         }
-        $self->_redis_call('set', $key, $value);
+        if (defined $value) {
+            $self->_redis_call('set', $key, $value);
+        } else {
+            EBox::error("Tried to sync a undef value for key $key");
+        }
     }
     %modified = ();
 
