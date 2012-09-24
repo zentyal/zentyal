@@ -32,15 +32,14 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-sub new
+sub precondition
 {
-    my $class = shift;
-    my %parms = @_;
+    return EBox::Global->modInstance('users')->editableMode();
+}
 
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    return $self;
+sub preconditionFailMsg
+{
+    return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
 }
 
 sub pageTitle

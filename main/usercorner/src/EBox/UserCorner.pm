@@ -133,12 +133,6 @@ sub enableActions
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
-    unless ($users->editableMode()) {
-        throw EBox::Exceptions::External(__('User corner is only available in master or standalone servers'));
-    }
-
     (-d (EBox::Config::conf() . 'configured')) and return;
 
     my $names = EBox::Global->modNames();
