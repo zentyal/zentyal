@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid;
-
 use strict;
 use warnings;
 
+package EBox::Squid;
 use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
@@ -337,6 +335,12 @@ sub https
     return $self->model('GeneralSettings')->value('https');
 }
 
+sub httpsPort
+{
+    my ($self) = @_;
+    return 3133;
+}
+
 # Method: setPort
 #
 #       Sets the listening port for the proxy
@@ -568,6 +572,7 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('https'  => $self->https());
+    push @writeParam, ('httpsPort'  => $self->httpsPort());
     push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);

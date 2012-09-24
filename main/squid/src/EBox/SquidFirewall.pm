@@ -12,11 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::SquidFirewall;
 use strict;
 use warnings;
 
+
+package EBox::SquidFirewall;
 use base 'EBox::FirewallHelper';
 
 use EBox::Objects;
@@ -92,16 +92,20 @@ sub _trans_prerouting
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
         my $input = $self->_inputIface($ifc);
+        my $port = $sq->filterNeeded() ? $dgport : $sqport;
+        my $httpsPort = $sq->https() ? $sq->httpsPort() : undef;
 
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
-            my $port = $sq->filterNeeded() ? $dgport : $sqport;
+
             my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
             push (@rules, $r);
             # TODO: https? will it work with dansguardian?
-            my $r2 = "$input ! -d $addr -p tcp --dport 443 -j REDIRECT --to-ports 3130";
-            push (@rules, $r2);
+            if ($httpsPort) {
+                my $r2 = "$input ! -d $addr -p tcp --dport 443 -j REDIRECT --to-ports $httpsPort";
+                push (@rules, $r2);
+            }
         }
     }
     return \@rules;
@@ -118,15 +122,20 @@ sub input
     my $dgport = $sq->DGPORT();
     my @rules = ();
 
+    my $port = $sq->filterNeeded() ? $dgport : $sqport;
+    my $httpsPort = $sq->https() ? $sq->httpsPort() : undef;
+
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $input = $self->_inputIface($ifc);
 
-        my $port = $sq->filterNeeded() ? $dgport : $sqport;
+
         my $r = "-m state --state NEW $input -p tcp --dport $port -j ACCEPT";
-        my $r2 = "-m state --state NEW $input -p tcp --dport 3130 -j ACCEPT";
         push(@rules, $r);
-        push @rules, $r2;
+        if ($httpsPort) {
+            my $r2 = "-m state --state NEW $input -p tcp --dport $httpsPort -j ACCEPT";
+            push @rules, $r2;
+        }
     }
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
     return \@rules;
