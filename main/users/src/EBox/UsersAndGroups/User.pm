@@ -631,6 +631,8 @@ sub create
         if (defined $passwd) {
             $self->_checkPwdLength($passwd);
             $res->_ldap->changeUserPassword($res->dn(), $passwd);
+            # Force reload of krb5Keys
+            $res->clearCache();
         }
         elsif (defined($user->{passwords})) {
             $res->setPasswordFromHashes($user->{passwords});
