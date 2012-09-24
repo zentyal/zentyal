@@ -1,3 +1,7 @@
+HEAD
+	+ desktop environment selection for the fat clients in the build script
+	+ Add LTSP_FATCLIENT option to the configuration files
+	+ Some small fixes
 2.3.4
 	+ Remove server option from the global and the profile configuration
 	+ Shortened some redundant strings
