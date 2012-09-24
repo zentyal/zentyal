@@ -1,4 +1,4 @@
-HEAD
+3.0.2
 	+ Added clearCache() to LdapObject and force reload of krb5Keys
 	+ Do not allow user corner password change on slaves
 3.0.1
