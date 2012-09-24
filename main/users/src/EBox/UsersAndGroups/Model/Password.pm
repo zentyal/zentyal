@@ -34,7 +34,7 @@ use base 'EBox::Model::DataForm';
 
 sub precondition
 {
-    return EBox::Global->modInstance('users')->editableMode();
+    return EBox::Global->modInstance('usercorner')->editableMode();
 }
 
 sub preconditionFailMsg

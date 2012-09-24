@@ -196,6 +196,15 @@ sub _setConf
 
     # Write user corner redis file
     $self->{redis}->writeConfigFile(USERCORNER_USER);
+
+    # As $users->editableMode() can't be called from usercorner, it will check
+    # for the existence of this file
+    my $editableFile = '/var/lib/zentyal-usercorner/editable';
+    if (EBox::Global->modInstance('users')->editableMode()) {
+        EBox::Sudo::root("touch $editableFile");
+    } else {
+        EBox::Sudo::root("rm -f $editableFile");
+    }
 }
 
 # Method: menu
@@ -258,6 +267,18 @@ sub certificates
              mode => '0400',
             },
            ];
+}
+
+# Method: editableMode
+#
+#       Reimplementation of EBox::UsersAndGroups::editableMode()
+#       compatible with user corner to workaround lack of redis access
+#
+#       Returns true if mode is editable
+#
+sub editableMode
+{
+    return (-f '/var/lib/zentyal-usercorner/editable');
 }
 
 1;
