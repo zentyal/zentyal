@@ -930,7 +930,7 @@ sub _purgeTable
       $finalThreshold = $thresholdDate;
   }
 
-  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$finalThreshold'";
+  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < STR_TO_DATE('$finalThreshold','%a %b %e %T %Y')";
   $dbengine->do($sqlStatement);
 }
 
