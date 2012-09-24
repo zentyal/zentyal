@@ -1,4 +1,4 @@
-HEAD
+3.0.2
 	+ The synchronization of redis cache refuses with log message to set
 	  undefined values
 	+ Fixed wrong sql statement which cause unwanted logs purge
