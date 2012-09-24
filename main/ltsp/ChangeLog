@@ -1,4 +1,5 @@
 HEAD
+	+ Catch exceptions in the update and install local applications scripts
 	+ desktop environment selection for the fat clients in the build script
 	+ Add LTSP_FATCLIENT option to the configuration files
 	+ Some small fixes
