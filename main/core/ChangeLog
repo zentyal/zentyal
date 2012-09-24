@@ -1,4 +1,6 @@
 HEAD
+	+ The synchronization of redis cache refuses with log message to set
+	  undefined values
 	+ Fixed wrong sql statement which cause unwanted logs purge
 	+ DataForm does not check for uniqueness of its fields, as it only
 	  contains a single row
