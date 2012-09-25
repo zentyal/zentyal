@@ -2969,7 +2969,8 @@ sub _disableReversePath
         $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
-        $seen{$iface} or next;
+        $seen{$iface} and
+            next;
         $seen{$iface} = 1;
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
