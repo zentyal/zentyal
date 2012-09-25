@@ -568,14 +568,12 @@ sub _writeSquidFrontConf
     my $rules = $self->model('AccessRules')->rules();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $removeAds    = $generalSettings->removeAdsValue();
     my $kerberos     = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
     my $network = $global->modInstance('network');
     my $sysinfo = $global->modInstance('sysinfo');
 
-    my $append_domain = $network->model('SearchDomain')->domainValue();
 
     my $users = $global->modInstance('users');
 
@@ -592,27 +590,13 @@ sub _writeSquidFrontConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('https'  => $self->https());
-    push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('rules' => $rules);
-    push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
-    push @writeParam, ('append_domain' => $append_domain);
 
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
     push @writeParam, ('dn' => $dn);
 
-    my $globalRO = EBox::Global->getInstance(1);
-    if ($globalRO->modExists('remoteservices')) {
-        my $rs = $globalRO->modInstance('remoteservices');
-        push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed()));
-    }
-    if ($removeAds) {
-        push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
-        my @adsParams = ();
-        push(@adsParams, ('postMatch' => $self->getAdBlockPostMatch()));
-        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
-    }
 
     $self->writeConfFile(SQUID_FRONT_CONF_FILE, 'squid/squid-front.conf.mas', \@writeParam, { mode => '0640'});
 }
@@ -621,13 +605,29 @@ sub _writeSquidBackConf
 {
     my ($self) = @_;
 
+    my $globalRO = EBox::Global->getInstance(1);
     my $global  = $self->global();
     my $network = $global->modInstance('network');
+    my $users = $global->modInstance('users');
     my $generalSettings = $self->model('GeneralSettings');
 
     my $writeParam = [];
 
     push (@{$writeParam}, port => SQUID_BACK_PORT);
+
+    if ($generalSettings->kerberosValue()) {
+        push (@{$writeParam}, realm => $users->kerberosRealm);
+    }
+
+    if ($generalSettings->removeAdsValue()) {
+        push (@{$writeParam}, urlRewriteProgram => BLOCK_ADS_PROGRAM);
+        my @adsParams = ();
+        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
+        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
+    }
+
+    my $append_domain = $network->model('SearchDomain')->domainValue();
+    push (@{$writeParam}, append_domain => $append_domain);
 
     push (@{$writeParam}, memory => $self->_cache_mem());
     push (@{$writeParam}, max_object_size => $self->_max_object_size());
@@ -646,6 +646,12 @@ sub _writeSquidBackConf
     push (@{$writeParam}, cache_passwd => $cache_passwd);
 
     push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
+    push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
+    push (@{$writeParam}, localnets => $self->_localnets());
+    if ($globalRO->modExists('remoteservices')) {
+        my $rs = $globalRO->modInstance('remoteservices');
+        push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
+    }
 
     $self->writeConfFile(SQUID_BACK_CONF_FILE, 'squid/squid-back.conf.mas',
                          $writeParam, { mode => '0640'});

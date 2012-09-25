@@ -7,6 +7,7 @@
 </%doc>
 <%args>
     $port
+    $filter
 
     $principal
     $realm
@@ -20,6 +21,27 @@ our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
 <%perl>
+sub _timeAclsInPolicy
+{
+   my ($policy, @ids) = @_;
+   @ids = grep { defined ($_) } @ids;
+   if ($policy->{any}) {
+       unshift @ids, $anyPrefix . $policy->{number};
+   }
+
+   my $id = join '_', @ids;
+
+   my $acls = '';
+   if ($policy->{timeDays}) {
+      $acls = _aclName('timeDays_' . $id);
+      $acls .= ' ';
+   }
+   if ($policy->{timeHours}) {
+       $acls .= _aclName('timeHours_' . $id);
+   }
+
+   return $acls;
+}
 # needed because space scape doesnt work in acl names
 sub _escapeWS
 {
@@ -44,37 +66,6 @@ sub _aclName
     return _escapeWS($longAclNames{$name});
 }
 </%perl>
-# <ZENTYAL> TAG_HTTPORT
-http_port <% $port %>
-# END_TAG #
-
-visible_hostname localhost-front
-coredump_dir /var/spool/squid3
-cache_effective_user proxy
-cache_effective_group proxy
-access_log /var/log/squid3/access-front.log squid
-pid_filename /var/run/squid3-front.pid
-
-cache_peer 127.0.0.1 parent 3130 0 no-query login=*:nopassword
-
-# <ZENTYAL> TAG_ACL #
-% if ($realm) {
-auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
-auth_param negotiate children 10
-auth_param negotiate keep_alive on
-% } else {
-auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
-% }
-acl authorized proxy_auth REQUIRED
-
-<& .rulesACLs, rules => [ @rules ], realm => $realm &>
-
-# TODO REMOVE
-http_access allow authorized
-http_access deny all
-
-% #################################################################################################
 <%def .rulesACLs>
 <%args>
     @rules
@@ -103,6 +94,28 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 % }
 </%def>
 
+<%def .rulesAccess>
+<%args>
+@rules
+</%args>
+% foreach my $rule (@rules) {
+<%perl>
+   my $object = $rule->{'object'};
+   my $group = $rule->{'group'};
+   my $groupAcl = $group ? _aclName($group) : '';
+   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+   my $policy = $rule->{'policy'};
+   if ($policy eq 'profile') {
+      # need to allow, to be able to pass it to DG
+        $policy = 'allow';
+   }
+</%perl>
+http_access <% $policy %> <% $timeAcls %> <% $acl %>
+% }
+</%def>
+
 <%def .timeACLs>
 <%args>
     $rule
@@ -115,3 +128,50 @@ acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
 acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
+
+
+###################################################################
+http_port <% $port %>
+
+visible_hostname localhost-front
+coredump_dir /var/spool/squid3
+cache_effective_user proxy
+cache_effective_group proxy
+cache_log /var/log/squid3/cache-front.log
+access_log /var/log/squid3/access-front.log squid
+pid_filename /var/run/squid3-front.pid
+
+% if ($filter) {
+cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+% } else {
+cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+% }
+
+% if ($realm) {
+auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate children 10
+auth_param negotiate keep_alive on
+% } else {
+auth_param basic realm Zentyal HTTP proxy
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+% }
+acl_uses_indirect_client on
+acl authorized proxy_auth REQUIRED
+
+acl from_localhost src 127.0.0.0/8 ::1
+acl to_localhost dst 127.0.0.0/8 ::1
+
+<& .rulesACLs, rules => [ @rules ], realm => $realm &>
+
+forwarded_for on
+follow_x_forwarded_for allow from_localhost
+always_direct allow to_localhost
+http_reply_access allow all
+log_uses_indirect_client on
+
+http_access allow to_localhost
+<& .rulesAccess, rules => \@rules &>
+
+# default policy
+# All denied by default if no other allow rule matchs
+http_access deny all
