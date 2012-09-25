@@ -91,20 +91,16 @@ sub _aclName
 }
 
 </%perl>
-# <EBOX> TAG_HTTPORT #
 % my $transKey = '';
 % if ($transparent) {
 %   $transKey = 'transparent';
 % }
 % my $sslKey = '';
 % if ($https) {
-%   $sslKey = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem';
+%   $sslKey = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
-http_port <% $port %> <% $transKey %>
-% if ($https) {
-https_port <% $httpsPort %> <% $transKey %> <% $sslKey %>
-% }
-# END_TAG #
+http_port <% $port %> <% $transKey %> <% $https ? $sslKey : '' %>
+
 
 visible_hostname localhost
 % if (@nameservers) {
@@ -205,6 +201,13 @@ acl Safe_ports port 777		# multiling http
 acl Safe_ports port 631		# cups
 acl Safe_ports port 873		# rsync
 acl Safe_ports port 901		# SWAT
+% if ($https) {
+# add SSL ports to safe porrs
+acl Safe_ports port 443 563
+acl Safe_ports port 873
+% }
+
+
 acl purge method PURGE
 acl CONNECT method CONNECT
 
@@ -219,13 +222,11 @@ http_access deny purge
 # ssl-bump options and alllow ssl ports
 always_direct allow SSL_ports
 ssl_bump allow SSL_ports
-
-http_access allow SSL_ports
-http_access deny !Safe_ports
+sslproxy_cert_error allow all
 % } else {
-http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 % }
+http_access deny !Safe_ports
 http_reply_access allow all
 
 % if ($cache_host and $cache_port) {
