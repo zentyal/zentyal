@@ -52,15 +52,17 @@
         Effect.Appear('Install', { duration : 0.2 });
     }
 
-    function tick(id){
+function tick(id, update_packages){
         document.getElementById(id+'_image_tick').show();
         document.getElementById(id+'_image').hide();
         document.getElementById(id+'_check').checked = true;
 
-        var deps = suites[id];
-        for (var i=0; i<deps.length; i++) {
-            selectPackage(deps[i]);
-        }
+         if (update_packages) {
+            var deps = suites[id];
+            for (var i=0; i<deps.length; i++) {
+            selectPackage(deps[i], 1);
+            }
+         }
     }
 
     function untick(id, update_packages){
@@ -71,13 +73,8 @@
         if (update_packages) {
             var deps = suites[id];
             for (var i=0; i<deps.length; i++) {
-                unselectPackage(deps[i], 1);
+              unselectPackage(deps[i], 1);
             }
-        }
-
-        for (var suite in suites) {
-            var visible = $(suite+'_image_tick').visible();
-            if (visible) tick(suite);
         }
     }
 
@@ -89,10 +86,13 @@
       return false;
     }
 
-    function selectPackage(id) {
+    function selectPackage(id, no_update_ticks) {
       var element = $(id);
       if (element) {
          element.addClassName('package_selected');
+         if (!no_update_ticks) {
+           updateTicks();
+         }
       }
     }
 
@@ -100,7 +100,9 @@
         var element = $(id);
         if (element) {
            element.removeClassName('package_selected');
-           if (!no_update_ticks) updateTicks();
+           if (!no_update_ticks) {
+             updateTicks();
+           }
        }
     }
 
@@ -116,15 +118,18 @@
     function updateTicks() {
         // add/remove ticks from suites after package unselection
         for (var suite in suites) {
-            var isselected = true;
+            var allSelected = true;
             for (var i=0; i<suites[suite].length; i++) {
                 if (!selected(suites[suite][i])) {
-                    untick(suite);
-                    isselected = false;
+                    allSelected = false;
                     break;
                 }
             }
-            if (isselected) tick(suite);
+            if (allSelected) {
+              tick(suite, 0);
+            } else {
+              untick(suite, 0);
+            }
         }
     }
 
