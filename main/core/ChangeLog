@@ -1,5 +1,5 @@
 HEAD
-	+ Added warning for local domain which ends in .local
+	+ Confirmation dialog when the local doman is changed and with a  warning if local domain which ends in .local
 3.0.2
 	+ The synchronization of redis cache refuses with log message to set
 	  undefined values

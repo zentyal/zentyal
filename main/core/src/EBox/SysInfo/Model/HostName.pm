@@ -68,17 +68,25 @@ sub _table
         'confirmationDialog' => {
               submit => sub {
                   my ($self, $params) = @_;
-                  my $new      = $params->{hostname};
-                  my $old      = $self->value('hostname');
-                  if ($new eq $old) {
-                      # only dialog if it is a hostname change
+                  my $newHostname   = $params->{hostname};
+                  my $oldHostname   = $self->value('hostname');
+                  my $newHostdomain   = $params->{hostdomain};
+                  my $oldHostdomain   = $self->value('hostdomain');
+                  if (($newHostdomain eq $oldHostdomain) and ($newHostname eq $oldHostname))  {
+                      # only dialog if it is a hostname or hostdomain change
                       return undef;
                   }
 
+
                   my $title = __('Change hostname');
                   my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
-                              new => $new
+                              new => $newHostname . '.' . $newHostdomain
                              );
+                  if ($newHostdomain =~ m/\.local$/i) {
+                      $msg .= q{<p>};
+                      $msg .= q{Adittionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is in general discouraged.};
+                      $msg .= q{<p>}
+                  }
                   return  {
                       title => $title,
                       message => $msg,
@@ -141,18 +149,5 @@ sub _readResolv
     return [$searchdomain, @dns];
 }
 
-sub updatedRowNotify
-{
-    my ($self, $row) = @_;
-    my $domain = $row->valueByName('hostdomain');
-    if ($domain =~ m/\.local$/i) {
-        $self->setMessage(
-            __(
-q{Using a domain ending in '.local'  can conflict with other protocols like zeroconf and is in general discouraged.}
-               ),
-            'warning'
-           );
-    }
-}
 
 1;
