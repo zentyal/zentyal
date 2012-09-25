@@ -1,4 +1,5 @@
 HEAD
+	+ Added EBox::SyncFolders interface
 	+ DataForm does not check for uniqueness of its fields, as it only
 	  contains a single row
 	+ In ConfigureLogs, restored printable names for log domains

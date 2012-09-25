@@ -39,7 +39,6 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 
 use constant SYSMINGID      => 1900;
-use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');

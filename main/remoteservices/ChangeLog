@@ -1,4 +1,6 @@
 HEAD
+	+ Configure file sync daemon
+	+ Some fixes in text in the models
 	+ Add pciutils and dmidecode as dependencies to include PCI and
 	  Bios information for inventory
 	+ Fix OCS inventory cron file execution permissions

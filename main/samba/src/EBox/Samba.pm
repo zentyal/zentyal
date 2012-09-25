@@ -18,10 +18,11 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw( EBox::Module::Service
-             EBox::FirewallObserver
-             EBox::LdapModule
-             EBox::LogObserver );
+use base qw(EBox::Module::Service
+            EBox::FirewallObserver
+            EBox::LdapModule
+            EBox::LogObserver
+            EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Service;
@@ -36,6 +37,7 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::LDB;
+use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
@@ -445,6 +447,36 @@ sub shares
     }
 
     return \@shares;
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    # sync all shares
+    my $sshares = $self->model('SyncShares');
+    my $shares = $self->model('SambaShares');
+
+    my $syncAll = $sshares->row()->valueByName('sync');
+    my @folders;
+    for my $id (@{$shares->enabledRows()}) {
+        my $row = $shares->row($id);
+        my $sync = $row->valueByName('sync');
+
+        my $path = $row->elementByName('path');
+        if ($path->selectedType() eq 'zentyal') {
+            $path = SHARES_DIR . '/' . $path->value();
+        } else {
+            $path = $path->value();
+        }
+
+        if ($sync or $syncAll) {
+            push(@folders, new EBox::SyncFolders::Folder($path, 'share'));
+        }
+    }
+
+    return \@folders;
 }
 
 sub defaultAntivirusSettings

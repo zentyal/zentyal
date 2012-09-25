@@ -12,6 +12,7 @@ enabledepends:
 models:
     - GeneralSettings
     - SambaShares
+    - SyncShares
     - SambaSharePermissions
     - SambaDeletedShares
     - AntivirusDefault
@@ -22,7 +23,8 @@ models:
 composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
-    General: [GeneralSettings, SambaShares, RecycleBin, Antivirus]
+    Shares: [SyncShares, SambaShares]
+    General: [GeneralSettings, Shares, RecycleBin, Antivirus]
 
 modeldepends:
     AntivirusExceptions:
