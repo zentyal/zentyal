@@ -1,5 +1,6 @@
 HEAD
-	+ Confirmation dialog when the local doman is changed and with a  warning if local domain which ends in .local
+	+ Update samba hostname-dependent fields when hostname is changed
+	+ Confirmation dialog when the local domain is changed and with a  warning if local domain which ends in .local
 3.0.2
 	+ The synchronization of redis cache refuses with log message to set
 	  undefined values

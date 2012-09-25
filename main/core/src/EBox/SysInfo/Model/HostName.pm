@@ -152,18 +152,10 @@ sub _readResolv
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
-    my $hostdomain   = $row->valueByName('hostdomain');
-    my $oldHostdomain   = $oldRow->valueByName('hostdomain');
-    if ($hostdomain ne $oldHostdomain) {
-        my $global = $self->global();
-        if ($global->modExists('samba')) {
-            # need to change kerberos realm in samba
-            my $newRealm = $global->modInstance('users')->kerberosRealm();
-            $global->modInstance('samba')->model('GeneralSettings')->setValue('realm', $newRealm);
-            EBox::info("Cahnged kerberos realm in samba to $newRealm");
-        }
-
-
+    my $global = $self->global();
+    if ($global->modExists('samba')) {
+        # need to change kerberos realm in samba
+        $global->modInstance('samba')->model('GeneralSettings')->updateHostnameFields();
     }
 }
 
