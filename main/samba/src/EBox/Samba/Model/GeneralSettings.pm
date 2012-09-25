@@ -12,13 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Samba::Model::GeneralSettings
 #
-#   This model is used to configure file sharing eneral settings.
+#   This model is used to configure file sharing general settings.
 #
-
 package EBox::Samba::Model::GeneralSettings;
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -37,11 +38,6 @@ use EBox::Types::Password;
 use EBox::Config;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataForm';
 
 use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
@@ -137,16 +133,6 @@ sub _checkDomainName
 
     if (length ($domain) <= 0) {
         throw EBox::Exceptions::External(__('DNS domain name is empty'));
-    }
-    if ($domain =~ m/\.local$/i) {
-        throw EBox::Exceptions::External(__(q{DNS domain name cannot end in '.local'}));
-    }
-
-    $self->_checkWinName($domain, __('DNS domain name'));
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if (lc ($domain) eq lc ($sysinfo->hostName())) {
-        throw EBox::Exceptions::External(__('Domain name cannot be equal to host name'));
     }
 }
 
@@ -300,8 +286,8 @@ sub updatedRowNotify
 
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
-
     my $newDomain = $row->valueByName('workgroup');
+
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
     if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
