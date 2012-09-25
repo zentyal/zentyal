@@ -17,11 +17,11 @@
 #
 #   This model is used to configure the host name and domain
 #
-
-package EBox::SysInfo::Model::HostName;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::HostName;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
@@ -30,8 +30,6 @@ use EBox::SysInfo::Types::DomainName;
 use EBox::Types::Host;
 
 use Data::Validate::Domain qw(is_domain);
-
-use base 'EBox::Model::DataForm';
 
 use constant RESOLV_FILE => '/etc/resolv.conf';
 
@@ -141,6 +139,20 @@ sub _readResolv
     close ($resolvFH);
 
     return [$searchdomain, @dns];
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+    my $domain = $row->valueByName('hostdomain');
+    if ($domain =~ m/\.local$/i) {
+        $self->setMessage(
+            __(
+q{Using a domain ending in '.local'  can conflict with other protocols like zeroconf and is in general discouraged.}
+               ),
+            'warning'
+           );
+    }
 }
 
 1;
