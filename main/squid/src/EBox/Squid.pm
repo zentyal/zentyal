@@ -335,12 +335,6 @@ sub https
     return $self->model('GeneralSettings')->value('https');
 }
 
-sub httpsPort
-{
-    my ($self) = @_;
-    return 3133;
-}
-
 # Method: setPort
 #
 #       Sets the listening port for the proxy
@@ -572,7 +566,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('https'  => $self->https());
-    push @writeParam, ('httpsPort'  => $self->httpsPort());
     push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);

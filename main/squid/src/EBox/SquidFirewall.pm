@@ -83,9 +83,6 @@ sub _trans_prerouting
         my $row = $exceptions->row($id);
         my $addr = $row->valueByName('domain');
         push (@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
-        if ($sq->https()) {
-            push (@rules, "-p tcp -d $addr --dport 443 -j ACCEPT");
-        }
     }
 
     my @ifaces = @{$net->InternalIfaces()};
@@ -93,19 +90,12 @@ sub _trans_prerouting
         my $addrs = $net->ifaceAddresses($ifc);
         my $input = $self->_inputIface($ifc);
         my $port = $sq->filterNeeded() ? $dgport : $sqport;
-        my $httpsPort = $sq->https() ? $sq->httpsPort() : undef;
 
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
-
-
             my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
             push (@rules, $r);
             # TODO: https? will it work with dansguardian?
-            if ($httpsPort) {
-                my $r2 = "$input ! -d $addr -p tcp --dport 443 -j REDIRECT --to-ports $httpsPort";
-                push (@rules, $r2);
-            }
         }
     }
     return \@rules;
@@ -123,19 +113,12 @@ sub input
     my @rules = ();
 
     my $port = $sq->filterNeeded() ? $dgport : $sqport;
-    my $httpsPort = $sq->https() ? $sq->httpsPort() : undef;
-
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $input = $self->_inputIface($ifc);
 
-
         my $r = "-m state --state NEW $input -p tcp --dport $port -j ACCEPT";
         push(@rules, $r);
-        if ($httpsPort) {
-            my $r2 = "-m state --state NEW $input -p tcp --dport $httpsPort -j ACCEPT";
-            push @rules, $r2;
-        }
     }
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
     return \@rules;

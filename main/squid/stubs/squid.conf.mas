@@ -9,7 +9,7 @@
     $port
     $transparent
     $https
-    $httpsPort
+
     @localnets
     @rules
     @objectsDelayPools
@@ -93,14 +93,13 @@ sub _aclName
 </%perl>
 % my $transKey = '';
 % if ($transparent) {
-%   $transKey = 'transparent';
+%   $transKey = 'intercept';
 % }
-% my $sslKey = '';
+% my $sslBumpOptions = '';
 % if ($https) {
-%   $sslKey = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
+%   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
-http_port <% $port %> <% $transKey %> <% $https ? $sslKey : '' %>
-
+http_port <% $port %> <% $transKey %> <% $https ? $sslBumpOptions : '' %>
 
 visible_hostname localhost
 % if (@nameservers) {

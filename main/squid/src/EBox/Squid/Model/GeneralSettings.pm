@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid::Model::GeneralSettings;
-
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Model::GeneralSettings;
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -133,11 +131,23 @@ sub validateTypedRow
     my $trans = exists $params_r->{transparentProxy} ?
                         $params_r->{transparentProxy}->value() :
                         $actual_r->{transparentProxy}->value() ;
-    if ($trans and $self->parentModule()->authNeeded()) {
-        throw EBox::Exceptions::External(
+    if ($trans) {
+        if ($self->parentModule()->authNeeded()) {
+            throw EBox::Exceptions::External(
                 __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
-        );
+               );
+        }
+        my $https =  exists $params_r->{https} ?
+                         $params_r->{https}->value() :
+                         $actual_r->{https}->value() ;
+        if ($https) {
+            throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with HTTPS proxy')
+               );
+        }
+
     }
+
 }
 
 sub _checkPortAvailable
