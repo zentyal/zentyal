@@ -48,7 +48,6 @@ use File::Temp;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
-use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
@@ -710,7 +709,7 @@ sub provisionAsDC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
-    my $cmd = SAMBAPROVISION .
+    my $cmd = SAMBATOOL . ' domain provision ' .
         " --domain='" . $self->workgroup() . "'" .
         " --workgroup='" . $self->workgroup() . "'" .
         " --realm='" . $usersModule->kerberosRealm() . "'" .
@@ -723,7 +722,7 @@ sub provisionAsDC
         " --host-ip='" . $provisionIP . "'";
     $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
-    EBox::debug("Provisioning database '$cmd'");
+    EBox::info("Provisioning database '$cmd'");
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -744,7 +743,7 @@ sub provisionAsDC
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
     #      ending with different passwords
-    EBox::debug('Setting password policy');
+    EBox::info('Setting password policy');
     $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
                        " --min-pwd-length=0" .
