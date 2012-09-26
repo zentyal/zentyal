@@ -1,0 +1,19 @@
+Template: zinstaller-remote/user
+Type: string
+_Description: E-mail address:
+ If you have a Zentyal account, enter your credentials e-mail address now.
+
+Template: zinstaller-remote/pass
+Type: password
+_Description: Password:
+ Please enter the password for your Zentyal account.
+
+Template: zinstaller-remote/auth_failed
+Type: note
+_Description: Invalid account
+ The provided account is not valid. Zentyal Community edition will be installed.
+
+Template: zinstaller-remote/auth_ok
+Type: note
+_Description: Congratulations!
+ Your account has been validated. Zentyal Community edition is going to be installed and your server will be automatically registered.
