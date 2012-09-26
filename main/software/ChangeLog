@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed in basic mode the untick of boxes, so it holds packages
+	which are selected in another ticked box
 	+ Fixed basic mode boxes behavior when adding/removing individual packages
 	+ Fixed behavior of select/deselect all buttons in Zentyal components
 3.0
