@@ -395,7 +395,7 @@ sub updateHostnameFields
     $row->elementByName('netbiosName')->setValue(EBox::Samba::defaultNetbios());
     $row->store();
 
-    EBox::info("Canhged kerberos realm in samba to $newRealm");
+    EBox::info("Changed kerberos realm in samba to $newRealm");
 }
 
 1;

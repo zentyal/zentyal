@@ -84,8 +84,8 @@ sub _table
                              );
                   if ($newHostdomain =~ m/\.local$/i) {
                       $msg .= q{<p>};
-                      $msg .= q{Adittionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is in general discouraged.};
-                      $msg .= q{<p>}
+                      $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");
+                      $msg .= q{</p>}
                   }
                   return  {
                       title => $title,

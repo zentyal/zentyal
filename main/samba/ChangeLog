@@ -1,6 +1,6 @@
 HEAD
-	+ Added method to generalSettings to update hostname-dependent fields
-	+ Tolerate realm ended in .local
+	+ Added method to GeneralSettings to update hostname-dependent fields
+	+ Tolerate domains ended in .local
 3.0.2
 	+ Fix samba group members not imported to Zentyal in groups added by
 	  the synchronizer
