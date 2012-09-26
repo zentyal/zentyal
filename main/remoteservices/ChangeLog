@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Launch inventory agent just after subscribing to get information
 	  in remote as soon as possible
 	+ Add pciutils and dmidecode as dependencies to include PCI and
