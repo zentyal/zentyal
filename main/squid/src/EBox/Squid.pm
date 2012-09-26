@@ -595,6 +595,7 @@ sub _writeSquidFrontConf
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
     push @writeParam, ('append_domain' => $append_domain);
 
+    push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
@@ -626,6 +627,7 @@ sub _writeSquidBackConf
     my $writeParam = [];
 
     push (@{$writeParam}, port => SQUID_BACK_PORT);
+    push (@{$writeParam}, https => $self->https());
 
     push (@{$writeParam}, memory => $self->_cache_mem());
     push (@{$writeParam}, max_object_size => $self->_max_object_size());

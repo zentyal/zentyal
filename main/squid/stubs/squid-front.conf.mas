@@ -8,6 +8,7 @@
 <%args>
     $port
 
+    $auth
     $principal
     $realm
     $dn
@@ -20,6 +21,35 @@ our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
 <%perl>
+sub _timeAclsInPolicy
+{
+   my ($policy, @ids) = @_;
+   @ids = grep { defined ($_) } @ids;
+   if ($policy->{any}) {
+       unshift @ids, $anyPrefix . $policy->{number};
+   }
+
+   my $id = join '_', @ids;
+
+   my $acls = '';
+   if ($policy->{timeDays}) {
+      $acls = _aclName('timeDays_' . $id);
+      $acls .= ' ';
+   }
+   if ($policy->{timeHours}) {
+       $acls .= _aclName('timeHours_' . $id);
+   }
+
+   return $acls;
+}
+
+# needed because space scape doesnt work in acl names
+sub _escapeWS
+{
+    my ($string) = @_;
+    $string =~ s{ }{__}g;
+    return $string;
+}
 # needed because space scape doesnt work in acl names
 sub _escapeWS
 {
@@ -52,26 +82,34 @@ visible_hostname localhost-front
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy
-access_log /var/log/squid3/access-front.log squid
+access_log /var/log/squid3/front-access.log squid
+cache_log /var/log/squid3/front-cache.log
+cache_store_log /var/log/squid3/front-store.log
+
 pid_filename /var/run/squid3-front.pid
 
 cache_peer 127.0.0.1 parent 3130 0 no-query login=*:nopassword
 
 # <ZENTYAL> TAG_ACL #
-% if ($realm) {
+% if ($auth) {
+%   if ($realm) {
 auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
-% } else {
+%   } else {
 auth_param basic realm Zentyal HTTP proxy
 auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
-% }
+%   }
 acl authorized proxy_auth REQUIRED
+% }
 
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
 
+<& .rulesAccess, rules => \@rules &>
 # TODO REMOVE
+% if ($auth) {
 http_access allow authorized
+% }
 http_access deny all
 
 % #################################################################################################
@@ -113,5 +151,27 @@ acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
 % }
 % if ($rule->{timeHours}) {
 acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+% }
+</%def>
+
+<%def .rulesAccess>
+<%args>
+@rules
+</%args>
+% foreach my $rule (@rules) {
+<%perl>
+   my $object = $rule->{'object'};
+   my $group = $rule->{'group'};
+   my $groupAcl = $group ? _aclName($group) : '';
+   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+   my $policy = $rule->{'policy'};
+   if ($policy eq 'profile') {
+      # need to allow, to be able to pass it to DG
+        $policy = 'allow';
+   }
+</%perl>
+http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
