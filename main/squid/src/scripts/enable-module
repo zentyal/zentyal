@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # stop daemons
-service squid stop
+service squid3 stop
 invoke-rc.d dansguardian stop || true # if dansguardian has not been configured
                                       # it will fail always the first time
 
