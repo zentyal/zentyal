@@ -60,7 +60,7 @@ function tick(id, update_packages){
      if (update_packages) {
         var deps = suites[id];
         for (var i=0; i<deps.length; i++) {
-        selectPackage(deps[i], 1);
+           selectPackage(deps[i], 1);
         }
      }
 }
@@ -71,9 +71,35 @@ function untick(id, update_packages){
     document.getElementById(id+'_check').checked = false;
 
     if (update_packages) {
+        var tickedSuites = [];
+        for (var suite in suites) {
+          if (suite != id) {
+            if ($(suite +'_check').checked) {
+              tickedSuites.push(suite);
+            }
+          }
+        }
         var deps = suites[id];
-        for (var i=0; i<deps.length; i++) {
-          unselectPackage(deps[i], 1);
+        for (var i=0; i< deps.length; i++) {
+          var pkg = deps[i];
+          // check if pkg also is in another enabled suite
+          var multiSuite = false;
+          for (var ts=0; ts < tickedSuites.length; ts++) {
+            var suiteDeps = suites[tickedSuites[ts]];
+            for (var nDep=0; nDep < suiteDeps.length; nDep++) {
+              if (pkg == suiteDeps[nDep]) {
+                multiSuite = true;
+                break;
+              }
+            }
+            if (multiSuite) {
+              break;
+            }
+          }
+
+          if (!multiSuite) {
+             unselectPackage(pkg, 1);
+          }
         }
     }
 }
