@@ -35,6 +35,8 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 sub _table
 {
+    my ($self) = @_;
+
     my @tableDesc = (
           new EBox::Types::Boolean(
                   fieldName => 'transparentProxy',
@@ -67,7 +69,7 @@ sub _table
                   fieldName => 'port',
                   printableName => __('Port'),
                   editable => 1,
-                  defaultValue => 3128,
+                  defaultValue => $self->parentModule->SQUID_FRONT_PORT(),
                ),
           new EBox::Types::Int(
                   fieldName => 'cacheDirSize',
