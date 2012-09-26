@@ -112,7 +112,7 @@ delay_pool_uses_indirect_client on
 delay_pools <% $pools %>
 % }
 <%perl>
- my $id = 1;
+ my $id = 0;
  foreach my $objPool (@objectsDelayPools) {
      $id++;
      my $rate =  $objPool->{rate};
