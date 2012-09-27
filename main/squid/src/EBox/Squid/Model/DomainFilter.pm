@@ -287,7 +287,7 @@ sub squidAcls
         } elsif ($domain =~ m/^\d+\.\d+.\d+\.\d+$/) {
             $type = 'dst';
         } else {
-            $type = 'destdomain';
+            $type = 'dstdomain';
             if (not $domain =~ m/^\./) {
                 $domain = '.' . $domain;
             }
