@@ -464,6 +464,9 @@ sub filterNeeded
 {
     my ($self) = @_;
 
+    # XXX until squid-ruels tests are finished
+    return 0;
+
     unless ($self->isEnabled()) {
         return 0;
     }
