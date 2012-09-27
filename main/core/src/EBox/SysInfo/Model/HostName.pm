@@ -149,6 +149,20 @@ sub _readResolv
     return [$searchdomain, @dns];
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $changed, $all) = @_;
+    my $hostname = exists $changed->{hostname} ?
+                          $changed->{hostname}->value() : $all->{hostname}->value();
+    if ($hostname =~ m/\./) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Hsot name'),
+            value => $hostname,
+            advice => __('It must be a no-qualified host name. Remove any domain component (portions separated by dots)')
+           )
+    }
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
