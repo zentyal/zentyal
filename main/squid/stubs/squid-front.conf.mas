@@ -15,6 +15,7 @@
     $dn
 
     @rules
+    %filterProfiles
 </%args>
 <%shared>
 our $anyPrefix = 'any_src_';
@@ -116,9 +117,13 @@ always_direct allow SSL_ports
 ssl_bump allow SSL_ports
 % }
 
+
+% foreach my $acl (@{ $filterProfiles{acls} }) {
+<% $acl %>
+% }
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
 
-<& .rulesAccess, rules => \@rules &>
+<& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
 # TODO REMOVE
 % if ($auth) {
 http_access allow authorized
@@ -170,6 +175,7 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 <%def .rulesAccess>
 <%args>
 @rules
+%profilesRulesStubs
 </%args>
 % foreach my $rule (@rules) {
 <%perl>
@@ -181,8 +187,27 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
-      # need to allow, to be able to pass it to DG
+      my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
+      if (not $rulesStubs) {
+        $m->print("#no stub for profile " . $rule->{profile}.  "\n"); # DDD
+       # need to allow, to be able to pass it to DG
         $policy = 'allow';
+    }  else {
+        # expand rules stubs
+        my $baseAcls = "$timeAcls $acl" ;
+        $m->print("#stub for profile " . $rule->{profile} . " with base acls $baseAcls\n"); # DDD
+        foreach my $stub (@{$rulesStubs  }) {
+            my $ruleStr = $stub->{type};
+            $ruleStr .= ' ' . $stub->{policy};
+            $ruleStr .= ' ' . $baseAcls . $stub->{acl};
+            $ruleStr .= "\n";
+            # output the rule
+            $m->print($ruleStr);
+        }
+        $m->print("#end of expansion of stub for profile " . $rule->{profile} . " \n"); # DDD
+        # dont produce normal rules in this case
+        next;
+    }
    }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>

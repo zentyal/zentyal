@@ -223,7 +223,13 @@ sub rules
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
-        $rule->{policy} = $row->elementByName('policy')->selectedType();
+
+        my $policyElement = $row->elementByName('policy');
+        my $policyType =  $policyElement->selectedType();
+        $rule->{policy} = $policyType;
+        if ($policyType eq 'profile') {
+            $rule->{profile} = $policyElement->value();
+        }
 
         my $timePeriod = $row->elementByName('timePeriod');
         if (not $timePeriod->isAllTime) {
@@ -242,6 +248,37 @@ sub rules
     }
 
     return \@rules;
+}
+
+
+sub squidFilterProfiles
+{
+    my ($self, $https) = @_;
+    if (not $https) {
+        # profiles managed only by DG
+        return {
+             acls => [],
+             rulesStubs => {},
+           }
+    }
+
+    my %profiles;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        my $policy = $row->elementByName('policy');
+        if ($policy->selectedType eq 'profile') {
+            $profiles{$policy->value()} = 1;
+        }
+    }
+
+    my $enabledProfiles = [keys %profiles];
+    my $filterProfiles = $self->parentModule()->model('FilterProfiles');
+    my $acls = $filterProfiles->squidAcls($enabledProfiles);
+    my $rulesStubs = $filterProfiles->squidRulesStubs($enabledProfiles);
+    return {
+              acls => $acls,
+              rulesStubs => $rulesStubs,
+           };
 }
 
 sub existsPoliciesForGroup

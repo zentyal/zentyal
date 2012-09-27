@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid::Model::DomainFilter;
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Model::DomainFilter;
+use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Gettext;
@@ -262,6 +260,63 @@ sub viewCustomizer
     $custom->setHTMLTitle([]);
 
     return $custom;
+}
+
+
+sub _aclName
+{
+    my ($sef, $profileId, $row) = @_;
+    my $aclName = $profileId . '_df_' . $row->id();
+    return $aclName;
+}
+
+sub squidAcls
+{
+    my ($self, $profileId) = @_;
+    my @acls;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        my $name = $self->_aclName($profileId, $row);
+        $name or
+            next;
+        my $domain = $row->valueByName('domain');
+        my $type;
+        if ($domain =~ m{/}) {
+            $type = 'url_regex';
+            # XXX modify domain for this
+        } elsif ($domain =~ m/^\d+\.\d+.\d+\.\d+$/) {
+            $type = 'dst';
+        } else {
+            $type = 'destdomain';
+            if (not $domain =~ m/^\./) {
+                $domain = '.' . $domain;
+            }
+        }
+
+        push @acls, "acl $name $type $domain";
+    }
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId) = @_;
+    my @rules;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        my $aclName = $self->_aclName($profileId, $row);
+        $aclName or
+            next;
+        my $policy = $row->valueByName('policy');
+        my $rule = {
+                     type => 'http_access',
+                     acl => $aclName,
+                     policy => $policy
+                    };
+        push @rules, $rule;
+    }
+
+    return \@rules;
 }
 
 1;

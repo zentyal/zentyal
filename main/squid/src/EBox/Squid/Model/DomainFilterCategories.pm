@@ -278,5 +278,41 @@ sub cleanSeenListDirectories
     $self->{seenListDirectories} = {};
 }
 
+sub _aclName
+{
+    my ($sef, $profileId, $row) = @_;
+    my $aclName = $profileId . '_dc_' . $row->id();
+    return $aclName;
+}
+
+sub squidAcls
+{
+    my ($self, $profileId) = @_;
+    my @acls;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row();
+        my $name = $self->_aclName($profileId, $row);
+        $name or
+            next;
+        # XXX TODO
+    }
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId) = @_;
+    my @rules;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row();
+        my $aclName = $self->_aclName($profileId, $row);
+        $aclName or
+            next;
+        # XXX TODO
+    }
+
+    return \@rules;
+}
+
 
 1;

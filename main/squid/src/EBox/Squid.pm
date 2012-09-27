@@ -563,7 +563,10 @@ sub _writeSquidFrontConf
 {
     my ($self, $filter) = @_;
 
-    my $rules = $self->model('AccessRules')->rules();
+    my $https = $self->https();
+    my $accesRulesModel =  $self->model('AccessRules');
+    my $rules = $accesRulesModel->rules();
+    my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles($https);
 
     my $generalSettings = $self->model('GeneralSettings');
     my $removeAds    = $generalSettings->removeAdsValue();
@@ -589,9 +592,10 @@ sub _writeSquidFrontConf
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
-    push @writeParam, ('https'  => $self->https());
+    push @writeParam, ('https'  => $https);
     push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('rules' => $rules);
+    push @writeParam, ('filterProfiles' => $squidFilterProfiles);
     push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
     push @writeParam, ('append_domain' => $append_domain);
 

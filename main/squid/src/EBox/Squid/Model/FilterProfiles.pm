@@ -299,4 +299,29 @@ sub restoreConfig
     EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
 }
 
+sub squidAcls
+{
+    my ($self, $enabledProfiles) = @_;
+    my @acls;
+    foreach my $id (@{ $enabledProfiles }) {
+        my $row = $self->row($id);
+        my $profileConf = $row->subModel('filterPolicy');
+        push @acls, @{ $profileConf->squidAcls() };
+    }
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $enabledProfiles) = @_;
+    my %stubs;
+    foreach my $id (@{ $enabledProfiles }) {
+        my $row = $self->row($id);
+        my $profileConf = $row->subModel('filterPolicy');
+        $stubs{$id} = $profileConf->squidRulesStubs();
+    }
+    return \%stubs;
+}
+
+
 1;
