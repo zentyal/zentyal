@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Fixed bad filter error at EBox::Mailfilter::VDomainsLdap::_hasAccount
 2.3.8
 	+ Fixed wrong retrieval of VDomains model
