@@ -194,7 +194,7 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
         $policy = 'allow';
     }  else {
         # expand rules stubs
-        my $baseAcls = "$timeAcls $acl" ;
+        my $baseAcls = "$timeAcls $acl ";
         $m->print("#stub for profile " . $rule->{profile} . " with base acls $baseAcls\n"); # DDD
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
