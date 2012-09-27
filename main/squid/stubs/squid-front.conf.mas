@@ -8,6 +8,7 @@
 <%args>
     $port
     $https
+    $filter
 
     $auth
     $principal
@@ -52,13 +53,6 @@ sub _escapeWS
     $string =~ s{ }{__}g;
     return $string;
 }
-# needed because space scape doesnt work in acl names
-sub _escapeWS
-{
-    my ($string) = @_;
-    $string =~ s{ }{__}g;
-    return $string;
-}
 # needed to avoid log acl problems
 sub _aclName
 {
@@ -94,20 +88,22 @@ cache_store_log /var/log/squid3/front-store.log
 
 pid_filename /var/run/squid3-front.pid
 
-cache_peer 127.0.0.1 parent 3130 0 no-query login=*:nopassword
+% if ($filter) {
+cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+% } else {
+cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+% }
 
-# <ZENTYAL> TAG_ACL #
-% if ($auth) {
-%   if ($realm) {
+% if ($realm) {
 auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
-%   } else {
+% } else {
 auth_param basic realm Zentyal HTTP proxy
 auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
-%   }
-acl authorized proxy_auth REQUIRED
 % }
+acl_uses_indirect_client on
+acl authorized proxy_auth REQUIRED
 
 % if ($https) {
 acl SSL_ports port 443  # https, snews
@@ -117,20 +113,31 @@ always_direct allow SSL_ports
 ssl_bump allow SSL_ports
 % }
 
+acl from_localhost src 127.0.0.0/8 ::1
+acl to_localhost dst 127.0.0.0/8 ::1
 
 % foreach my $acl (@{ $filterProfiles{acls} }) {
 <% $acl %>
 % }
+
+http_access allow to_localhost
+follow_x_forwarded_for allow from_localhost
+forwarded_for on
+log_uses_indirect_client on
+always_direct allow to_localhost
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
 
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
-# TODO REMOVE
-% if ($auth) {
-http_access allow authorized
-% }
+
+# default policy
+# All acces denied by default if no other allow rule matchs
 http_access deny all
+# reply access allowed if not denied before
+http_reply_access allow all
+
 
 % #################################################################################################
+
 <%def .rulesACLs>
 <%args>
     @rules
@@ -156,19 +163,6 @@ acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
    <& .timeACLs, rule => $rule, id => $src &>
-% }
-</%def>
-
-<%def .timeACLs>
-<%args>
-    $rule
-    $id
-</%args>
-% if ($rule->{timeDays}) {
-acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
-% }
-% if ($rule->{timeHours}) {
-acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 
@@ -211,5 +205,20 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
    }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
+% }
+</%def>
+
+</%def>
+
+<%def .timeACLs>
+<%args>
+    $rule
+    $id
+</%args>
+% if ($rule->{timeDays}) {
+acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
+% }
+% if ($rule->{timeHours}) {
+acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
