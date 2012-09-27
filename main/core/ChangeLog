@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed gettext call in general widget
 	+ Forbidden the use of a qualified hostname in change hostname form
 	+ Update samba hostname-dependent fields when hostname is changed
 	+ Confirmation dialog when the local domain is changed and with a
