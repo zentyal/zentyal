@@ -71,6 +71,7 @@ sub squidAcls
     my ($self) = @_;
     my @acls;
     my $profileId = $self->_profileId();
+    push @acls, @{ $self->componentByName('MIME', 1)->squidAcls($profileId) };
     push @acls, @{ $self->componentByName('DomainFilter', 1)->squidAcls($profileId) };
     push @acls, @{ $self->componentByName('DomainFilterCategories', 1)->squidAcls($profileId) };
     return \@acls;
@@ -81,6 +82,7 @@ sub squidRulesStubs
     my ($self) = @_;
     my @rules;
     my $profileId = $self->_profileId();
+    push @rules, @{ $self->componentByName('MIME', 1)->squidRulesStubs($profileId) };
     push @rules, @{ $self->componentByName('DomainFilter', 1)->squidRulesStubs($profileId) };
     push @rules, @{ $self->componentByName('DomainFilterCategories', 1)->squidRulesStubs($profileId) };
     push @rules, @{ $self->componentByName('DomainFilterSettings', 1)->squidRulesStubs($profileId) };

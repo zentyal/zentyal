@@ -254,13 +254,13 @@ sub rules
 sub squidFilterProfiles
 {
     my ($self, $https) = @_;
-    if (not $https) {
-        # profiles managed only by DG
-        return {
-             acls => [],
-             rulesStubs => {},
-           }
-    }
+#     if (not $https) {
+#         # profiles managed only by DG
+#         return {
+#              acls => [],
+#              rulesStubs => {},
+#            }
+#     }
 
     my %profiles;
     foreach my $id (@{ $self->ids()  }) {
