@@ -1,4 +1,6 @@
 HEAD
+	+ Disaster Recovery integration
+	+ Added auto-subscribe script
 	+ Configure file sync daemon
 	+ Some fixes in text in the models
 	+ Add pciutils and dmidecode as dependencies to include PCI and

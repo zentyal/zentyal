@@ -25,6 +25,7 @@ use Apache2::RequestUtil;
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
 Readonly::Scalar my $FIRSTTIME_DESTINATION => '/Software/EBox';
+Readonly::Scalar my $RECOVERY_DESTINATION => '/RemoteServices/DisasterRecovery';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -88,31 +89,33 @@ sub _process
 
 sub _requestDestination
 {
-  my ($r) = @_;
+    my ($r) = @_;
 
-  if ($r->prev) {
-    return _requestDestination($r->prev);
-  }
+    if ($r->prev) {
+        return _requestDestination($r->prev);
+    }
 
-  my $request = $r->the_request;
-  my $method  = $r->method;
-  my $protocol = $r->protocol;
+    my $request = $r->the_request;
+    my $method  = $r->method;
+    my $protocol = $r->protocol;
 
-  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
+    my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/);
 
-  # redirect to config page on first install
-  if (EBox::Global::first() and EBox::Global->modExists('software')) {
-     return $FIRSTTIME_DESTINATION;
-  }
+    # redirect to disaster recovery or software selection on first install
+    if (EBox::Global::disasterRecovery()) {
+        return $RECOVERY_DESTINATION;
+    } elsif (EBox::Global::first() and EBox::Global->modExists('software')) {
+        return $FIRSTTIME_DESTINATION;
+    }
 
-  defined $destination or return $DEFAULT_DESTINATION;
+    defined $destination or return $DEFAULT_DESTINATION;
 
-  if ($destination =~ m{^/*Login/+Index$}) {
-    # /Login/Index is the standard location from login, his destination must be the default destination
-    return $DEFAULT_DESTINATION;
-  }
+    if ($destination =~ m{^/*Login/+Index$}) {
+        # /Login/Index is the standard location from login, his destination must be the default destination
+        return $DEFAULT_DESTINATION;
+    }
 
-  return $destination;
+    return $destination;
 }
 
 sub _top

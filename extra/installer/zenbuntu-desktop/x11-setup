@@ -12,11 +12,6 @@ then
     echo "@/usr/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
 fi
 
-if [ -f /var/tmp/.zentyal-disaster-recovery ]
-then
-    echo "$USER_NAME ALL = NOPASSWD:/usr/share/zentyal-ebackup/restore-tool" >> /etc/sudoers
-fi
-
 echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver
 chown $USER_NAME:$USER_NAME $DIR/.xscreensaver

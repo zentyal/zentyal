@@ -1,0 +1,38 @@
+<%args>
+  %backups
+</%args>
+<%init>
+use EBox::Gettext;
+
+my @columnTitles = (__('Date'), __('Name'), __('Description'));
+
+my @rows = map {
+    [($_->{Date}, $_->{Filename}, $_->{Comment})]
+} sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
+</%init>
+
+<div>
+<div id="software" style="padding: 15px 0">
+<div id="basic">
+       Select backup to restore, FIXME
+
+<!-- FIXME, use something cooler than a regular table -->
+
+% if (keys %backups) {
+<h3><% __("Backups available") %></h3>
+<& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
+<br/>
+% } else {
+<h3><% __("No backups available") %></h3>
+% }
+
+
+       <div style="text-align: right">
+        <!-- FIXME: is this skip button needed here? -->
+        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip recover') %> </button>
+        <!-- FIXME: redirect to auto-install packages CGI passing parameter of selected backup -->
+        <button onclick="document.location.href='/FIXME"><img src="/data/images/install.gif"> <% __('Recover') %></button>
+       </div>
+
+    </div>
+</div>

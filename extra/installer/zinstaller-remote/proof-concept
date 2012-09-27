@@ -2,12 +2,12 @@
 
 USERNAME=foo
 PASSWORD=foo2
-URL=cloud.zentyal.com
+URL=remote.zentyal.com
 
 function parse_bundles () {
 }
 
-RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/api/v1/bundle/available/foo/)
+RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/api/v1/bundle/available/$USERNAME/)
 
 if [ "$RESPONSE" == "Authorization Required" ]
 then
@@ -47,5 +47,10 @@ user: company-name
 password: uuid
 host: qa.$cloud_domain
 
-y finalmente en second stage resuscribir reutilizando user, password y servername guardados previamente
+# check if there are backups: https://confbackup.cloud.zentyal.com/conf-backup/meta/all/
+# it should return 404 if there are not
+# needs /v1/servers/<uuid>|<name>/ JSON?
 
+curl -u $USERNAME:$PASSWORD -k --data "name=$HOSTNAME&bundle_id=$ID" https://$URL/api/v1/servers/
+
+# y finalmente en second stage resuscribir reutilizando user, password, servername y bundle_id (si aplica) guardados previamente

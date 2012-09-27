@@ -93,21 +93,29 @@ fi
 update_if_network # apt-get update if we are connected to the internet
 
 # install zentyal core and software
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
+PACKAGES=zentyal
+
+if [ -f /tmp/AUTO_REGISTER ]
+then
+    PACKAGES="$PACKAGES zentyal-remoteservices"
+fi
+
+if [ -f /tmp/COMMERCIAL_EDITION ]
+then
+    PACKAGES="$PACKAGES zentyal-cloud-prof zentyal-security-updates"
+fi
+
+DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
 
 gen_locales
 
-if [ -f /tmp/RECOVER_MODE ]
-then
-    # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
-    touch $DISASTER_FILE
-    chown :admin $DISASTER_FILE
-    chown g+w $DISASTER_FILE
+# TODO: autosubscribe
 
-    # Clean DR flag for first stage
-    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
+if [ -f /var/tmp/.zentyal-disaster-recovery ]
+then
+    touch /var/lib/zentyal/.disaster-recovery
 fi
+
 
 ### CUSTOM_ACTION ###
 
