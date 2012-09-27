@@ -208,8 +208,6 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
 
-</%def>
-
 <%def .timeACLs>
 <%args>
     $rule
