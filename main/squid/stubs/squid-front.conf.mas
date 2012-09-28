@@ -7,6 +7,7 @@
 </%doc>
 <%args>
     $port
+    $transparent    => undef
     $https
     $filter
 
@@ -153,11 +154,15 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 % #################################################################################################
+% my $transKey = '';
+% if ($transparent) {
+%   $transKey = 'intercept';
+% }
 % my $sslBumpOptions = '';
 % if ($https) {
 %   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
-http_port <% $port %> <% $sslBumpOptions %>
+http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
 visible_hostname localhost-front

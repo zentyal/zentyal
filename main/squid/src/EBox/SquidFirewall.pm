@@ -46,7 +46,6 @@ sub _trans_prerouting
     my $net = $global->modInstance('network');
 
     my $sqport = $sq->port();
-    my $dgport = $sq->DGPORT();
     my @rules = ();
 
     my $exceptions = $sq->model('TransparentExceptions');
@@ -60,13 +59,13 @@ sub _trans_prerouting
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
         my $input = $self->_inputIface($ifc);
-        my $port = $sq->filterNeeded() ? $dgport : $sqport;
 
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
-            my $r = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $port";
-            push (@rules, $r);
-            # TODO: https? will it work with dansguardian?
+            my $rHttp = "$input ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $sqport";
+            push (@rules, $rHttp);
+            # https does not work in transparent mode with squid, so no https
+            # redirect there
         }
     }
     return \@rules;
