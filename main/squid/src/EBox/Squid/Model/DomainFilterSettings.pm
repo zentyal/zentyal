@@ -93,11 +93,17 @@ sub viewCustomizer
     return $custom;
 }
 
+sub usesFilter
+{
+    my ($self) = @_;
+    return $self->value('blockIp');
+}
+
 sub squidRulesStubs
 {
     my ($self, $profileId) = @_;
     my $rule;
-    if ($self->blanketBlockValue()) {
+    if ($self->value('blanketBlock')) {
         $rule = {
                  type => 'http_access',
                  acl => '',
@@ -113,4 +119,6 @@ sub squidRulesStubs
 
     return [ $rule ];
 }
+
+
 1;

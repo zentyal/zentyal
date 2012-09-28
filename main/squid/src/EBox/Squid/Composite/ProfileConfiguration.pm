@@ -97,4 +97,19 @@ sub squidRulesStubs
     return \@rules;
 }
 
+my @filterComponents =('ContentFilterThreshold', 'AntiVirus', 'DomainFilterSettings');
+sub usesFilter
+{
+    my ($self) = @_;
+    foreach my $component (@filterComponents) {
+        if ($self->componentByName($component, 1)->usesFilter()) {
+            EBox::debug($self->_profileId() . " profile $component uses FILTER");
+            return 1;
+        }
+        EBox::debug('NOT FILTER ' . $self->_profileId() . " profile $component ");
+    }
+
+    return 0;
+}
+
 1;

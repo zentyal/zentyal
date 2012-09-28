@@ -388,13 +388,9 @@ sub rulesUseFilter
 {
     my ($self) = @_;
     my $profiles = $self->_enabledProfiles();
-
-
-
-
-    return 0;
+    my $filterProfiles = $self->parentModule()->model('FilterProfiles');
+    return $filterProfiles->usesFilter($profiles);
 }
-
 
 sub _enabledProfiles
 {

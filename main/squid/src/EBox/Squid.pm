@@ -463,10 +463,6 @@ sub setAdBlockExecFile
 sub filterNeeded
 {
     my ($self) = @_;
-
-    # XXX until squid-ruels tests are finished
-    return 0;
-
     unless ($self->isEnabled()) {
         return 0;
     }
@@ -729,6 +725,8 @@ sub _writeDgConf
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
 
+
+
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
 
@@ -770,15 +768,7 @@ sub _writeDgConf
                 'squid/dansguardianfN.conf.mas', \@writeParam);
 
         if ($policy eq 'filter') {
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
-                                                     'squid/bannedextensionlist.mas',
-                                                     [ 'extensions'  => $group->{bannedExtensions} ]);
-
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedmimetypelist$number",
-                                                     'squid/bannedmimetypelist.mas',
-                                                     [ 'mimeTypes' => $group->{bannedMIMETypes} ]);
-
-            $self->_writeDgDomainsConf($group);
+             $self->_writeDgDomainsConf($group);
         }
     }
 
