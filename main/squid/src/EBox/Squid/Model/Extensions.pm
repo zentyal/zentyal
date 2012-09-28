@@ -207,7 +207,7 @@ sub squidRulesStubs
 
     my $aclName = $self->_aclName($profileId);
     my $rule = {
-        type => 'http_reply_access',
+        type => 'http_access',
         acl => $aclName,
         policy => 'deny',
     };
