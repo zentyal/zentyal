@@ -44,14 +44,14 @@ sub _table
                   editable => 1,
                   defaultValue => 0,
               ),
-          new EBox::Types::Boolean(
-                  fieldName => 'https',
-                  printableName => __('HTTPS Proxy'),
-                  hidden => \&_sslSupportNotAvailable,
-                  editable => 1,
-                  defaultValue => 0,
-                  #help => __('FIXME: add help'),
-              ),
+#           new EBox::Types::Boolean(
+#                   fieldName => 'https',
+#                   printableName => __('HTTPS Proxy'),
+#                   hidden => \&_sslSupportNotAvailable,
+#                   editable => 1,
+#                   defaultValue => 0,
+#                   #help => __('FIXME: add help'),
+#               ),
           new EBox::Types::Boolean(
                   fieldName => 'kerberos',
                   printableName => __('Enable Single Sign-On (Kerberos)'),
@@ -139,14 +139,14 @@ sub validateTypedRow
                 __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
                );
         }
-        my $https =  exists $params_r->{https} ?
-                         $params_r->{https}->value() :
-                         $actual_r->{https}->value() ;
-        if ($https) {
-            throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with HTTPS proxy')
-               );
-        }
+#         my $https =  exists $params_r->{https} ?
+#                          $params_r->{https}->value() :
+#                          $actual_r->{https}->value() ;
+#         if ($https) {
+#             throw EBox::Exceptions::External(
+#                 __('Transparent proxy is incompatible with HTTPS proxy')
+#                );
+#         }
 
     }
 

@@ -343,20 +343,20 @@ sub transproxy
     return $self->model('GeneralSettings')->value('transparentProxy');
 }
 
-# Method: https
-#
-#       Returns if the https mode is enabled
-#
-# Returns:
-#
-#       boolean - true if enabled, otherwise undef
-#
-sub https
-{
-    my ($self) = @_;
+# # Method: https
+# #
+# #       Returns if the https mode is enabled
+# #
+# # Returns:
+# #
+# #       boolean - true if enabled, otherwise undef
+# #
+# sub https
+# {
+#     my ($self) = @_;
 
-    return $self->model('GeneralSettings')->value('https');
-}
+#     return $self->model('GeneralSettings')->value('https');
+# }
 
 # Method: setPort
 #
@@ -562,10 +562,9 @@ sub _writeSquidFrontConf
 {
     my ($self, $filter) = @_;
 
-    my $https = $self->https();
     my $accesRulesModel =  $self->model('AccessRules');
     my $rules = $accesRulesModel->rules();
-    my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles($https);
+    my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
     my $kerberos     = $generalSettings->kerberosValue();
@@ -590,7 +589,7 @@ sub _writeSquidFrontConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-    push @writeParam, ('https'  => $https);
+#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
@@ -617,7 +616,6 @@ sub _writeSquidBackConf
     my $writeParam = [];
 
     push (@{$writeParam}, port => SQUID_BACK_PORT);
-    push (@{$writeParam}, https => $self->https());
 
     if ($generalSettings->kerberosValue()) {
         push (@{$writeParam}, realm => $users->kerberosRealm);

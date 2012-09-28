@@ -7,8 +7,8 @@
 </%doc>
 <%args>
     $port
-    $transparent    => undef
-    $https
+    $transparent => undef
+    $https       => undef
     $filter
 
     $auth

@@ -256,7 +256,7 @@ sub rules
 
 sub squidFilterProfiles
 {
-    my ($self, $https) = @_;
+    my ($self) = @_;
 
     my $enabledProfiles = $self->_enabledProfiles();
     my $filterProfiles = $self->parentModule()->model('FilterProfiles');
