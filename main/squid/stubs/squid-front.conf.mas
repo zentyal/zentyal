@@ -116,13 +116,11 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
    if ($policy eq 'profile') {
       my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
       if (not $rulesStubs) {
-        $m->print("#no stub for profile " . $rule->{profile}.  "\n"); # DDD
        # need to allow, to be able to pass it to DG
         $policy = 'allow';
     }  else {
         # expand rules stubs
         my $baseAcls = "$timeAcls $acl ";
-        $m->print("#stub for profile " . $rule->{profile} . " with base acls $baseAcls\n"); # DDD
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
@@ -131,7 +129,6 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
             # output the rule
             $m->print($ruleStr);
         }
-        $m->print("#end of expansion of stub for profile " . $rule->{profile} . " \n"); # DDD
         # dont produce normal rules in this case
         next;
     }
