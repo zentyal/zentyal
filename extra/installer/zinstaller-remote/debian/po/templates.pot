@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: zinstaller-remote\n"
+"Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
+"POT-Creation-Date: 2012-09-29 06:10+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: text
+#. description
+#: ../templates:1001
+msgid "Choose Zentyal edition to install"
+msgstr ""
+
+#. Type: string
+#. description
+#: ../templates:2001
+msgid "E-mail address:"
+msgstr ""
+
+#. Type: string
+#. description
+#: ../templates:2001
+msgid ""
+"If you have a Zentyal account, enter your credentials e-mail address now."
+msgstr ""
+
+#. Type: password
+#. description
+#: ../templates:3001
+msgid "Password:"
+msgstr ""
+
+#. Type: password
+#. description
+#: ../templates:3001
+msgid "Please enter the password for your Zentyal account."
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:4001
+msgid "Invalid account"
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:4001
+msgid ""
+"The provided account is not valid. Zentyal Community edition will be "
+"installed."
+msgstr ""
+
+#. Type: note
+#. description
+#. Type: note
+#. description
+#. Type: note
+#. description
+#: ../templates:5001 ../templates:7001 ../templates:8001
+msgid "Congratulations!"
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:5001
+msgid ""
+"Your account has been validated. Zentyal Community edition is going to be "
+"installed and your server will be automatically registered."
+msgstr ""
+
+#. Type: select
+#. choices
+#: ../templates:6001
+msgid "${CHOICES}"
+msgstr ""
+
+#. Type: select
+#. description
+#: ../templates:6002
+msgid "Select customer and edition:"
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:7001
+msgid ""
+"Your account has been validated. Zentyal Small Business edition is going to "
+"be installed."
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:8001
+msgid ""
+"Your account has been validated. Zentyal Enterprise edition is going to be "
+"installed."
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:9001
+msgid "Disaster Recovery"
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:9001
+msgid ""
+"You can not recover from a disater without a valid Small Business or "
+"Enterprise edition. Installation of Community edition will continue."
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:10001
+msgid "No backups available"
+msgstr ""
+
+#. Type: note
+#. description
+#: ../templates:10001
+msgid ""
+"You cannot recover from a disaster if there are no configuration backups "
+"associated with your account. Regular installation will continue."
+msgstr ""

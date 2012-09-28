@@ -27,6 +27,15 @@ sed -i "s/include string/include string $DISASTER_PACKAGES/" $CD_BUILD_DIR/prese
 cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 
+UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
+if ! grep -q zinstaller-remote $UDEB_INCLUDE
+then
+    echo zinstaller-remote >> $UDEB_INCLUDE
+fi
+
+# Add https apt method to be able to retrieve from QA updates repo
+echo apt-transport-https > $CD_BUILD_DIR/.disk/base_include
+
 sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-ebox.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"

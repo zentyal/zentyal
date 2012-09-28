@@ -1,3 +1,137 @@
-#!/bin/bash
+#!/bin/sh
 
-db_stop
+set -e
+
+. /usr/share/debconf/confmodule
+
+URL=api.cloud.zentyal.com
+
+get_field()
+{
+    INPUT=$1
+    FIELD=$2
+    echo $INPUT | tr ',' "\n" | grep "\"$FIELD\"" | cut -d: -f2 | cut -d\" -f2
+}
+
+get_num_field()
+{
+    get_field $1 $2 | sed 's/^\s+//'
+}
+
+db_input high zinstaller-remote/user || true
+db_go || true
+db_input high zinstaller-remote/pass || true
+db_go || true
+
+db_get zinstaller-remote/user
+USERNAME="$RET"
+db_get zinstaller-remote/pass
+PASSWORD="$RET"
+
+RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/)
+
+if [ "$RESPONSE" = "Authorization Required" ]
+then
+    if [ -f /tmp/RECOVER_MODE ]
+    then
+        db_input high zinstaller-remote/error_dr || true
+        rm -f /tmp/RECOVER_MODE
+    else
+        db_input high zinstaller-remote/auth_failed || true
+    fi
+    db_go || true
+elif [ "$RESPONSE" = "[]" ]
+then
+    if [ -f /tmp/RECOVER_MODE ]
+    then
+        db_input high zinstaller-remote/error_dr || true
+        rm -f /tmp/RECOVER_MODE
+    else
+        db_input high zinstaller-remote/auth_ok_community || true
+    fi
+    db_go || true
+    EDITION="community"
+else
+    rm -f /tmp/BUNDLE_IDS
+
+    # JSON formatting seems to change, so whe remove all new lines
+    RESPONSE=$(echo "$RESPONSE" | tr "\n" ' ')
+
+    echo $RESPONSE | sed "s/},/\n/g" | while read line
+    do
+        BUNDLE="$line"
+
+        company=$(get_field "$line" company)
+        name=$(get_field "$line" name)
+        id=$(get_num_field "$line" id)
+
+        if [ -n "$company" ]
+        then
+            echo "$id:\"$company - $name\"" >> /tmp/BUNDLE_IDS
+        else
+            echo "$id:\"$name\"" >> /tmp/BUNDLE_IDS
+        fi
+    done
+
+    NUM_BUNDLES=$(wc -l /tmp/BUNDLE_IDS | cut -d' ' -f1)
+    if [ $NUM_BUNDLES -eq 1 ]
+    then
+        BUNDLE_ID=$(cut -d: -f1 /tmp/BUNDLE_IDS)
+        if grep "Enterprise" /tmp/BUNDLE_IDS
+        then
+            db_input high zinstaller-remote/auth_ok_enterprise || true
+        else
+            db_input high zinstaller-remote/auth_ok_sb || true
+        fi
+        db_go || true
+    else
+        choices=$(cut -d: -f2 /tmp/BUNDLE_IDS | cut -d\" -f2 | sort | uniq | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
+        db_subst zinstaller-remote/select_bundle CHOICES "$choices"
+        db_input high zinstaller-remote/select_bundle || true
+        db_go || true
+
+        db_get zinstaller-remote/select_bundle
+        BUNDLE="$RET"
+        BUNDLE_ID=$(grep "\"$BUNDLE\"" /tmp/BUNDLE_IDS | cut -d: -f1)
+    fi
+fi
+
+echo $USERNAME > /tmp/REGISTER_USERNAME
+echo $PASSWORD > /tmp/REGISTER_PASSWORD
+
+# Nothing more to do if edition is community
+if [ "$EDITION" = "community" ]
+then
+    exit 0
+fi
+
+echo $BUNDLE_ID > /tmp/REGISTER_BUNDLE_ID
+
+db_get netcfg/get_hostname || true
+SERVERNAME="$RET"
+if [ -z "$SERVERNAME" ]
+then
+    SERVERNAME=$HOSTNAME
+fi
+
+RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID" https://$URL/v1/servers/)
+QA_USERNAME="$USERNAME-$SERVERNAME"
+QA_PASSWORD=$(get_field "$RESPONSE" password)
+
+if [ -f /tmp/RECOVER_MODE ]
+then
+    UUID=$(get_field "$RESPONSE" uuid)
+    RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
+    # FIXME: check this properly
+    db_input high zinstaller-remote/error_backups || true
+    rm -f /tmp/RECOVER_MODE
+fi
+
+echo $QA_USERNAME > /tmp/QA_USERNAME
+echo $QA_PASSWORD > /tmp/QA_PASSWORD
+
+# TODO: is this needed?
+# Bundle for server name $SERVERNAME
+#RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
+
+exit 0

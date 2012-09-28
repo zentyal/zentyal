@@ -19,6 +19,12 @@ pushd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
 popd
 
+# Build zinstaller-remote udeb
+cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
+pushd $TMPDIR/zinstaller-remote
+dpkg-buildpackage
+popd
+
 for ARCH in $ARCHS
 do
     if [ -n "$SELECTED_ARCH" ] && [ "$ARCH" != "$SELECTED_ARCH" ]
@@ -36,6 +42,12 @@ do
     # Replace zenbuntu-desktop package
     rm $EXTRAS_DIR/zenbuntu-desktop_*.deb
     cp $TMPDIR/*.deb $EXTRAS_DIR/
+
+    # Add zinstaller-remote udeb
+    UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
+    mkdir -p $UDEB_DIR
+    rm $UDEB_DIR/*
+    cp $TMPDIR/*.udeb $UDEB_DIR/
 
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1
