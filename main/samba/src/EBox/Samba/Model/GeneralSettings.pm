@@ -226,10 +226,16 @@ sub _table
             hidden        => \&_adcProvisioned,
         ),
         new EBox::Types::DomainName(
-            fieldName          => 'workgroup',
-            printableName      => __('NetBIOS domain name'),
-            defaultValue       => EBox::Samba::defaultWorkgroup(),
-            editable           => 1,
+            fieldName     => 'workgroup',
+            printableName => __('NetBIOS domain name'),
+            defaultValue  => EBox::Samba::defaultWorkgroup(),
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'site',
+            printableName => __('Site'),
+            optional      => 1,
+            editable      => 1,
         ),
         new EBox::Types::Text(
             fieldName     => 'netbiosName',
@@ -374,6 +380,14 @@ sub viewCustomizer
             },
         },
     };
+    my $showSiteBox = EBox::Config::configkey('show_site_box');
+    if (lc ($showSiteBox) eq 'yes') {
+        push (@{$actions->{mode}->{dc}->{hide}}, 'site');
+        push (@{$actions->{mode}->{adc}->{show}}, 'site');
+    } else {
+        push (@{$actions->{mode}->{dc}->{hide}}, 'site');
+        push (@{$actions->{mode}->{adc}->{hide}}, 'site');
+    }
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);

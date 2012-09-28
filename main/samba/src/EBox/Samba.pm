@@ -793,12 +793,13 @@ sub provisionAsADC
     my ($self) = @_;
 
     my $model = $self->model('GeneralSettings');
-    my $domainToJoin = $model->value('realm');
+    my $domainToJoin = lc ($model->value('realm'));
     my $dcFQDN = $model->value('dcfqdn');
     my $domainDNS = $model->value('dnsip');
     my $adminAccount = $model->value('adminAccount');
     my $adminAccountPwd = $model->value('password');
     my $netbiosDomain = $model->value('workgroup');
+    my $site = $model->value('site');
 
     # If the host domain or the users kerberos realm does not
     # match the domain we are trying to join warn the user and
@@ -835,15 +836,19 @@ sub provisionAsADC
 
         # Join the domain
         EBox::debug("Joining to the domain");
-        my @cmds;
-        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
-            " -U $adminAccount " .
+        my $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
+            " --username='$adminAccount' " .
             " --workgroup='$netbiosDomain' " .
             " --password='$adminAccountPwd' " .
-            " --server=$dcFQDN");
-        my $output = EBox::Sudo::silentRoot(@cmds);
+            " --server='$dcFQDN' " .
+            " --dns-backend=BIND9_DLZ " .
+            " --realm='$domainToJoin' ";
+        if (defined $site and length($site) > 0) {
+            $cmd .= " --site='$site' ";
+        }
+
+        my $output = EBox::Sudo::silentRoot($cmd);
         if ($? == 0) {
-            $self->setProvisioned(1);
             EBox::debug("Provision result: @{$output}");
         } else {
             my @error = ();
@@ -864,23 +869,10 @@ sub provisionAsADC
         EBox::debug('Starting service');
         $self->_startService();
 
-        # Wait for RID allocation
-        my $args = {
-            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
-            scope => 'base',
-            filter => '(objectClass=*)',
-            attrs => ['rIDSetReferences'],
-        };
-        for (my $retries=12; $retries>=0; $retries--) {
-            EBox::debug ("Waiting for RID allocation, $retries");
-            my $result = $self->ldb->search($args);
-            if ($result->count() == 1) {
-                my $entry = $result->entry(0);
-                my @val = $entry->get_value('rIDSetReferences');
-                last if @val;
-            }
-            sleep (5);
-        }
+        # Run Knowledge Consistency Checker (KCC) on windows DC
+        EBox::info('Running KCC on windows DC');
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN";
+        EBox::Sudo::root($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
@@ -902,7 +894,7 @@ sub provisionAsADC
         $self->ldb->ldapServicePrincipalsToLdb();
 
         # FIXME This should not be necessary, it is a samba bug.
-        @cmds = ();
+        my @cmds = ();
         push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
         push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
         push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
