@@ -171,7 +171,10 @@ sub validateTypedRow
         return;
     }
 
+    my $ownId = $params_r->{id};
     foreach my $id (@{ $self->ids() }) {
+        next if ($id eq $ownId);
+
         my $row = $self->row($id);
         my $source = $row->elementByName('source')->selectedType();
         if ($objectProfile and ($source eq 'group')) {
@@ -254,13 +257,6 @@ sub rules
 sub squidFilterProfiles
 {
     my ($self, $https) = @_;
-#     if (not $https) {
-#         # profiles managed only by DG
-#         return {
-#              acls => [],
-#              rulesStubs => {},
-#            }
-#     }
 
     my $enabledProfiles = $self->_enabledProfiles();
     my $filterProfiles = $self->parentModule()->model('FilterProfiles');
