@@ -1,3 +1,6 @@
+HEAD
+	+ Unallow certificate fields with only blank characters, specific
+	  error for country codes of more than two characters
 3.0
 	+ Change default organization for the certificates to Zentyal S.L.
 2.3.7
@@ -130,7 +133,7 @@
 	+ Fixed a bug related to renew or revoke currently used
 	certificates by other modules
 	+ Added Cancel buttons where they are necessary
-	
+
 0.9
 	+ Added Polish translation
 	+ Added German translation
@@ -143,6 +146,6 @@
 	+ Fixed names to accept all input valid parameters except for '/'
 	+ Make Organization Name visible at the GUI
 
-0.8.99	
+0.8.99
 	+ Initial release
-      
+

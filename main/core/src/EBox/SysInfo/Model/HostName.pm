@@ -17,11 +17,11 @@
 #
 #   This model is used to configure the host name and domain
 #
-
-package EBox::SysInfo::Model::HostName;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::HostName;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
@@ -30,8 +30,6 @@ use EBox::SysInfo::Types::DomainName;
 use EBox::Types::Host;
 
 use Data::Validate::Domain qw(is_domain);
-
-use base 'EBox::Model::DataForm';
 
 use constant RESOLV_FILE => '/etc/resolv.conf';
 
@@ -70,17 +68,25 @@ sub _table
         'confirmationDialog' => {
               submit => sub {
                   my ($self, $params) = @_;
-                  my $new      = $params->{hostname};
-                  my $old      = $self->value('hostname');
-                  if ($new eq $old) {
-                      # only dialog if it is a hostname change
+                  my $newHostname   = $params->{hostname};
+                  my $oldHostname   = $self->value('hostname');
+                  my $newHostdomain   = $params->{hostdomain};
+                  my $oldHostdomain   = $self->value('hostdomain');
+                  if (($newHostdomain eq $oldHostdomain) and ($newHostname eq $oldHostname))  {
+                      # only dialog if it is a hostname or hostdomain change
                       return undef;
                   }
 
+
                   my $title = __('Change hostname');
                   my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
-                              new => $new
+                              new => $newHostname . '.' . $newHostdomain
                              );
+                  if ($newHostdomain =~ m/\.local$/i) {
+                      $msg .= q{<p>};
+                      $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");
+                      $msg .= q{</p>}
+                  }
                   return  {
                       title => $title,
                       message => $msg,
@@ -141,6 +147,30 @@ sub _readResolv
     close ($resolvFH);
 
     return [$searchdomain, @dns];
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changed, $all) = @_;
+    my $hostname = exists $changed->{hostname} ?
+                          $changed->{hostname}->value() : $all->{hostname}->value();
+    if ($hostname =~ m/\./) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Hsot name'),
+            value => $hostname,
+            advice => __('It must be a no-qualified host name. Remove any domain component (portions separated by dots)')
+           )
+    }
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow) = @_;
+    my $global = $self->global();
+    if ($global->modExists('samba')) {
+        # need to change kerberos realm in samba
+        $global->modInstance('samba')->model('GeneralSettings')->updateHostnameFields();
+    }
 }
 
 1;
