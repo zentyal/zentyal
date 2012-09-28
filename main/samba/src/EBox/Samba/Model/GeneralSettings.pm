@@ -40,47 +40,9 @@ use EBox::View::Customizer;
 use EBox::Exceptions::External;
 
 use constant MAXNETBIOSLENGTH     => 15;
-use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
-
 use constant MODE_DC              => 'dc';
 use constant MODE_ADC             => 'adc';
-
-# see http://support.microsoft.com/kb/909264
-my @reservedNames = (
-'ANONYMOUS',
-'AUTHENTICATED USER',
-'BATCH',
-'BUILTIN',
-'CREATOR GROUP',
-'CREATOR GROUP SERVER',
-'CREATOR OWNER',
-'CREATOR OWNER SERVER',
-'DIALUP',
-'DIGEST AUTH',
-'INTERACTIVE',
-'INTERNET',
-'LOCAL',
-'LOCAL SYSTEM',
-'NETWORK',
-'NETWORK SERVICE',
-'NT AUTHORITY',
-'NT DOMAIN',
-'NTLM AUTH',
-'NULL',
-'PROXY',
-'REMOTE INTERACTIVE',
-'RESTRICTED',
-'SCHANNEL AUTH',
-'SELF',
-'SERVER',
-'SERVICE',
-'SYSTEM',
-'TERMINAL SERVER',
-'THIS ORGANIZATION',
-'USERS',
-'WORLD',
-);
 
 sub new
 {
@@ -109,9 +71,6 @@ sub validateTypedRow
                            $newParams->{'workgroup'}->value() :
                            $oldParams->{'workgroup'}->value();
 
-    my $realm = exists $newParams->{'realm'} ?
-                       $newParams->{'realm'}->value() :
-                       $oldParams->{'realm'}->value();
     my $description = exists $newParams->{'description'} ?
                              $newParams->{'description'}->value() :
                              $oldParams->{'description'}->value();
@@ -120,20 +79,8 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
             __('NetBIOS computer name and NetBIOS domain name must be different'));
     }
-
-    $self->_checkNetbiosName($netbios);
     $self->_checkNetbiosName($workgroup);
-    $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
-}
-
-sub _checkDomainName
-{
-    my ($self, $domain) = @_;
-
-    if (length ($domain) <= 0) {
-        throw EBox::Exceptions::External(__('DNS domain name is empty'));
-    }
 }
 
 sub _checkNetbiosName
@@ -149,8 +96,6 @@ sub _checkNetbiosName
     if ($netbios =~ m/\./) {
         throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
-    $self->_checkWinName($netbios, __('NetBIOS name'));
-
 }
 
 sub _checkDescriptionString
@@ -162,25 +107,6 @@ sub _checkDescriptionString
     }
     if (length ($description) > MAXDESCRIPTIONLENGTH) {
         throw EBox::Exceptions::Externam(__('Description string is too long'));
-    }
-}
-
-sub _checkWinName
-{
-    my ($self, $name, $type) = @_;
-
-    my @parts = split ('\.', $name);
-    foreach my $part (@parts) {
-        $part = uc $part;
-        foreach my $reserved (@reservedNames) {
-            if ($part eq $reserved) {
-                throw EBox::Exceptions::External(
-                    __x(q{{type} cannot contain the reserved name {reserved}},
-                         type => $type,
-                         reserved => $reserved)
-                   );
-            }
-        }
     }
 }
 

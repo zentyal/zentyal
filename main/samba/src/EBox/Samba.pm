@@ -1329,6 +1329,7 @@ sub defaultNetbios
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostName = $sysinfo->hostName();
+    $hostName = substr($hostName, 0, 15);
 
     return $hostName;
 }
@@ -1354,7 +1355,7 @@ sub defaultWorkgroup
     my $users = EBox::Global->modInstance('users');
     my $realm = $users->kerberosRealm();
     my @parts = split (/\./, $realm);
-    my $value = $parts[0];
+    my $value = substr($parts[0], 0, 15);
     $value = 'ZENTYAL-DOMAIN' unless defined $value;
 
     return uc($value);

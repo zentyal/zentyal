@@ -33,6 +33,12 @@ use Data::Validate::Domain qw(is_domain);
 
 use constant RESOLV_FILE => '/etc/resolv.conf';
 
+use constant MIN_HOSTNAME_LENGTH => 1;
+use constant MAX_HOSTNAME_LENGTH => 15;
+
+use constant MIN_HOSTDOMAIN_LENGTH => 2;
+use constant MAX_HOSTDOMAIN_LENGTH => 64 - 1 - MAX_HOSTNAME_LENGTH;
+
 sub new
 {
     my $class = shift;
@@ -154,12 +160,44 @@ sub validateTypedRow
     my ($self, $action, $changed, $all) = @_;
     my $hostname = exists $changed->{hostname} ?
                           $changed->{hostname}->value() : $all->{hostname}->value();
-    if ($hostname =~ m/\./) {
+    my $hostdomain = exists $changed->{hostdomain} ?
+                          $changed->{hostdomain}->value() : $all->{hostdomain}->value();
+
+    $self->_checkDNSName($hostname, 'Host name');
+    unless (length ($hostname) >= MIN_HOSTNAME_LENGTH and
+            length ($hostname) <= MAX_HOSTNAME_LENGTH) {
         throw EBox::Exceptions::InvalidData(
-            data => __('Hsot name'),
+            data => __('Host name'),
             value => $hostname,
-            advice => __('It must be a no-qualified host name. Remove any domain component (portions separated by dots)')
-           )
+            advice => __x('The length must be between {min} and {max} characters',
+                          min => MIN_HOSTNAME_LENGTH,
+                          max => MAX_HOSTNAME_LENGTH));
+    }
+
+    foreach my $label (split (/\./, $hostdomain)) {
+        $self->_checkDNSName($label, 'Host domain');
+    }
+    unless (length ($hostdomain) >= MIN_HOSTDOMAIN_LENGTH and
+            length ($hostdomain) <= MAX_HOSTDOMAIN_LENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Host domain'),
+            value => $hostdomain,
+            advice => __x('The length must be between {min} and {max} characters',
+                          min => MIN_HOSTDOMAIN_LENGTH,
+                          max => MAX_HOSTDOMAIN_LENGTH));
+    }
+}
+
+sub _checkDNSName
+{
+    my ($self, $label, $type) = @_;
+
+    unless ($label =~ m/[a-zA-Z0-9\-]+/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __($type),
+            value => $label,
+            advice => __('DNS names can contain only alphabetical characters (a-z), ' .
+                         'numeric characters (0-9) and the minus sign (-)'));
     }
 }
 
