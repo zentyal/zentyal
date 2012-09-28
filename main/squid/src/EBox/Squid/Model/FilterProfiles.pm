@@ -329,13 +329,19 @@ sub squidRulesStubs
     return \%stubs;
 }
 
+sub usesFilterById
+{
+    my ($self, $rowId) = @_;
+    my $row = $self->row($rowId);
+    my $profileConf = $row->subModel('filterPolicy');
+    return  $profileConf->usesFilter();
+}
+
 sub usesFilter
 {
     my ($self, $enabledProfiles) = @_;
     foreach my $id (@{ $enabledProfiles }) {
-        my $row = $self->row($id);
-        my $profileConf = $row->subModel('filterPolicy');
-        if ($profileConf->usesFilter()) {
+        if ($self->usesFilterById($id)) {
             return 1;
         }
     }

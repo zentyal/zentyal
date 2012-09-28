@@ -307,7 +307,8 @@ sub filterProfiles
 {
     my ($self) = @_;
 
-    my %profileIdByRowId = %{ $self->parentModule()->model('FilterProfiles')->idByRowId() };
+    my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
+    my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
     my $userMod = $self->global()->modInstance('users');
@@ -325,7 +326,9 @@ sub filterProfiles
         } elsif ($policyType eq 'deny') {
             $profile->{number} = 1;
         } elsif ($policyType eq 'profile') {
-            $profile->{number} = $profileIdByRowId{$policy->value()};
+            my $rowId = $policy->value();
+            $profile->{number} = $profileIdByRowId{$rowId};
+            $profile->{usesFilter} = $filterProfilesModel->usesFilterById($rowId);
         } else {
             throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
