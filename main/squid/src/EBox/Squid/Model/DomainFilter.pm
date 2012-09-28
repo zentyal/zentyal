@@ -283,7 +283,7 @@ sub squidAcls
         my $type;
         if ($domain =~ m{/}) {
             $type = 'url_regex';
-            # XXX modify domain for this
+            $domain = "-i $domain";
         } elsif ($domain =~ m/^\d+\.\d+.\d+\.\d+$/) {
             $type = 'dst';
         } else {
