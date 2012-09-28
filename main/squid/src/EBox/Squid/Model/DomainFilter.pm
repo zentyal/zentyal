@@ -231,10 +231,10 @@ sub _table
             printableTableName => __('Domains and URL rules'),
             modelDomain        => 'Squid',
             defaultController  => '/Squid/Controller/DomainFilter',
-            defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+            defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
             tableDescription   => $self->_tableHeader(),
             class              => 'dataTable',
-            order              => 0,
+            order              => 1,
             rowUnique          => 1,
             printableRowName   => __('internet domain or URL'),
             help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains and URLs.'),
@@ -244,7 +244,6 @@ sub _table
                 update => __('Domain or URL updated'),
 
             },
-            sortedBy           => 'domain',
         };
 }
 
