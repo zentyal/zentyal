@@ -1,4 +1,8 @@
 HEAD
+	+ Fix kerberos authentication when filter profile applied. As dansguardian
+	  do not support kerberos auth, now there are two squid instances, one
+	  on the front of dansguardian to perform the authentication and one in
+	  the back to cache contents.
 	+ Added memory cache of seen list directories to DomainFilterCategories
 	+ Categories from bigblacklist are now accepted
 3.0

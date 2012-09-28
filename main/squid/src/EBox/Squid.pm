@@ -869,9 +869,19 @@ sub writeDgGroups
         }
     }
 
+    my $generalSettings = $self->model('GeneralSettings');
+    my $realm = '';
+    if ($generalSettings->kerberosValue()) {
+        my $users = EBox::Global->modInstance('users');
+        $realm = '@' . $users->kerberosRealm();
+    }
+
+    my @writeParams = ();
+    push (@writeParams, groups => \@groups);
+    push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         [ groups => \@groups ]);
+                         \@writeParams);
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
