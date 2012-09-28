@@ -303,25 +303,35 @@ sub squidAcls
 {
     my ($self, $enabledProfiles) = @_;
     my @acls;
+    my %sharedAcls;
     foreach my $id (@{ $enabledProfiles }) {
         my $row = $self->row($id);
         my $profileConf = $row->subModel('filterPolicy');
         push @acls, @{ $profileConf->squidAcls() };
+        foreach my $shared (@{ $profileConf->squidSharedAcls }) {
+            $sharedAcls{$shared->[0]} = $shared->[1];
+        }
     }
-    return \@acls;
+    push @acls, values %sharedAcls;
+
+    return {all => \@acls, shared => \%sharedAcls};
 }
 
 sub squidRulesStubs
 {
-    my ($self, $enabledProfiles) = @_;
+    my ($self, $enabledProfiles, @params) = @_;
     my %stubs;
     foreach my $id (@{ $enabledProfiles }) {
         my $row = $self->row($id);
         my $profileConf = $row->subModel('filterPolicy');
-        $stubs{$id} = $profileConf->squidRulesStubs();
+        $stubs{$id} = $profileConf->squidRulesStubs(@params);
     }
     return \%stubs;
 }
 
+sub profilesUseFilter
+{
+    my ($self, $enabledProfiles) = @_;
+}
 
 1;

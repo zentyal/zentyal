@@ -75,6 +75,7 @@ sub syncRows
         foreach my $file (@files) {
             chomp $file;
             my ($parentDir, $category, $basename) = $file =~ m{$filePathRe};
+            next unless $basename;
             next unless exists $validParentDirs{$parentDir};
              if (exists $validBasename{$basename}) {
                  my $dir = "$dir/$parentDir/$category";
@@ -278,37 +279,72 @@ sub cleanSeenListDirectories
     $self->{seenListDirectories} = {};
 }
 
-sub _aclName
+sub _aclBaseName
 {
-    my ($sef, $profileId, $row) = @_;
-    my $aclName = $profileId . '_dc_' . $row->id();
+    my ($sef, $row) = @_;
+    my $aclName = $row->valueByName('list') . '_dc_' . $row->valueByName('category');
     return $aclName;
 }
 
-sub squidAcls
+
+sub squidSharedAcls
 {
-    my ($self, $profileId) = @_;
+    my ($self) = @_;
     my @acls;
     foreach my $id (@{ $self->ids()}) {
-        my $row = $self->row();
-        my $name = $self->_aclName($profileId, $row);
-        $name or
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
             next;
-        # XXX TODO
+        } elsif ($row->valueByName('policy') eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        my $dir = $row->valueByName('dir');
+
+        my $domainsFile = "$dir/domains";
+        if (-r $domainsFile) {
+            my $name = $basename . '_dom';
+            push @acls, [$name => qq{acl $name dstdom_regex -i "$domainsFile"}];
+        }
+
+        my $urlsFile = "$dir/urls";
+        if (-r $urlsFile) {
+            my $name = $basename . '_urls';
+            push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
+        }
     }
+
     return \@acls;
 }
 
 sub squidRulesStubs
 {
-    my ($self, $profileId) = @_;
+    my ($self, $profileId, %params) = @_;
+    my $acls = $params{sharedAcls};
+    $acls or return []; # no acls nothing to do..
+
     my @rules;
     foreach my $id (@{ $self->ids()}) {
-        my $row = $self->row();
-        my $aclName = $self->_aclName($profileId, $row);
-        $aclName or
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
             next;
-        # XXX TODO
+        }
+        my $policy = $row->valueByName('policy');
+        if ($policy eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        foreach my $type (qw(dom urls)) {
+            my $aclName = $basename . '_' . $type;
+            exists $acls->{$aclName} or
+                next;
+            my $rule =  {
+                     type => 'http_access',
+                     acl => $aclName,
+                     policy => $policy
+                    };
+            push @rules, $rule;
+        }
     }
 
     return \@rules;

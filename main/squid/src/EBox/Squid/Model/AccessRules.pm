@@ -262,21 +262,12 @@ sub squidFilterProfiles
 #            }
 #     }
 
-    my %profiles;
-    foreach my $id (@{ $self->ids()  }) {
-        my $row = $self->row($id);
-        my $policy = $row->elementByName('policy');
-        if ($policy->selectedType eq 'profile') {
-            $profiles{$policy->value()} = 1;
-        }
-    }
-
-    my $enabledProfiles = [keys %profiles];
+    my $enabledProfiles = $self->_enabledProfiles();
     my $filterProfiles = $self->parentModule()->model('FilterProfiles');
     my $acls = $filterProfiles->squidAcls($enabledProfiles);
-    my $rulesStubs = $filterProfiles->squidRulesStubs($enabledProfiles);
+    my $rulesStubs = $filterProfiles->squidRulesStubs($enabledProfiles, sharedAcls => $acls->{shared});
     return {
-              acls => $acls,
+              acls => $acls->{all},
               rulesStubs => $rulesStubs,
            };
 }
@@ -396,16 +387,27 @@ sub rulesUseAuth
 sub rulesUseFilter
 {
     my ($self) = @_;
+    my $profiles = $self->_enabledProfiles();
 
-    foreach my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $policy = $row->elementByName('policy');
-        if ($policy->selectedType() eq 'profile') {
-            return 1;
-        }
-    }
+
+
 
     return 0;
+}
+
+
+sub _enabledProfiles
+{
+    my ($self) = @_;
+    my %profiles;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        my $policy = $row->elementByName('policy');
+        if ($policy->selectedType eq 'profile') {
+            $profiles{$policy->value()} = 1;
+        }
+    }
+    return [keys %profiles];
 }
 
 sub _filterSourcePrintableValue

@@ -204,6 +204,9 @@ sub squidRulesStubs
          }
 
     }
+    if (not $banned) {
+        return [];
+    }
 
     my $aclName = $self->_aclName($profileId);
     my $rule = {

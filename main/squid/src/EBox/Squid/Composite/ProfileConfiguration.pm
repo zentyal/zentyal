@@ -64,6 +64,14 @@ sub _profileId
     return $self->parentRow()->id();
 }
 
+sub squidSharedAcls
+{
+    my ($self) = @_;
+    my @acls;
+    push @acls, @{ $self->componentByName('DomainFilterCategories', 1)->squidSharedAcls() };
+    return \@acls;
+}
+
 sub squidAcls
 {
     my ($self) = @_;
@@ -72,20 +80,20 @@ sub squidAcls
     push @acls, @{ $self->componentByName('Extensions', 1)->squidAcls($profileId) };
     push @acls, @{ $self->componentByName('MIME', 1)->squidAcls($profileId) };
     push @acls, @{ $self->componentByName('DomainFilter', 1)->squidAcls($profileId) };
-    push @acls, @{ $self->componentByName('DomainFilterCategories', 1)->squidAcls($profileId) };
+
     return \@acls;
 }
 
 sub squidRulesStubs
 {
-    my ($self) = @_;
+    my ($self, @params) = @_;
     my @rules;
     my $profileId = $self->_profileId();
-    push @rules, @{ $self->componentByName('Extensions', 1)->squidRulesStubs($profileId) };
-    push @rules, @{ $self->componentByName('MIME', 1)->squidRulesStubs($profileId) };
-    push @rules, @{ $self->componentByName('DomainFilter', 1)->squidRulesStubs($profileId) };
-    push @rules, @{ $self->componentByName('DomainFilterCategories', 1)->squidRulesStubs($profileId) };
-    push @rules, @{ $self->componentByName('DomainFilterSettings', 1)->squidRulesStubs($profileId) };
+    push @rules, @{ $self->componentByName('Extensions', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('MIME', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilter', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilterCategories', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilterSettings', 1)->squidRulesStubs($profileId, @params) };
     return \@rules;
 }
 
