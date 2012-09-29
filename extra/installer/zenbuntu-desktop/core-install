@@ -92,15 +92,17 @@ fi
 
 update_if_network # apt-get update if we are connected to the internet
 
+REGISTER_DATA=/var/lib/zinstaller-remote
+
 # install zentyal core and software
 PACKAGES=zentyal
 
-if [ -f /tmp/AUTO_REGISTER ]
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then
     PACKAGES="$PACKAGES zentyal-remoteservices"
 fi
 
-if [ -f /tmp/COMMERCIAL_EDITION ]
+if [ -f $REGISTER_DATA/COMMERCIAL_EDITION ]
 then
     PACKAGES="$PACKAGES zentyal-cloud-prof zentyal-security-updates"
 fi
@@ -109,7 +111,15 @@ DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --forc
 
 gen_locales
 
-# TODO: autosubscribe
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
+then
+    plymouth message --text="Registering your server... Please wait."
+    USERNAME=`cat $REGISTER_DATA/REGISTER_USERNAME`
+    PASSWORD=`cat $REGISTER_DATA/REGISTER_PASSWORD`
+    SERVERNAME=`cat $REGISTER_DATA/REGISTER_SERVERNAME`
+    BUNDLE_ID=`cat $REGISTER_DATA/REGISTER_BUNDLE_ID`
+    /usr/share/zentyal-remoteservices/auto-subscribe $USERNAME $PASSWORD $SERVERNAME $BUNDLE_ID
+fi
 
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then

@@ -1,16 +1,18 @@
 #!/bin/sh -e
 
-USERNAME=`cat /tmp/QA_USERNAME`
-PASSWORD=`cat /tmp/QA_PASSWORD`
-REPO=qa.cloud.zentyal.com
+DATA_DIR=/tmp/zinstaller-remote
 
-# FIXME: testing purposes only, remove this
-touch /tmp/COMMERCIAL_EDITION
+mkdir -p /target/var/lib/
+cp -r $DATA_DIR /target/var/lib/
 
-if ! [ -f /tmp/COMMERCIAL_EDITION ]
+if ! [ -f $DATA_DIR/QA_USERNAME ]
 then
     exit 0
 fi
+
+USERNAME=`cat $DATA_DIR/QA_USERNAME`
+PASSWORD=`cat $DATA_DIR/QA_PASSWORD`
+REPO=qa.cloud.zentyal.com
 
 SOURCES_DIR=/target/etc/apt/sources.list.d
 mkdir -p $SOURCES_DIR

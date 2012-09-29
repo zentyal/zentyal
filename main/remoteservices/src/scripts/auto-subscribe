@@ -27,9 +27,19 @@ use Sys::Hostname;
 
 my ($username, $password, $name, $bundleId) = @ARGV;
 
+unless ($username and $password) {
+    print "Usage: $0 <username> <password> [servername [bundle_id]]\n";
+    exit 1;
+}
+
+unless ($name) {
+    $name = hostname();
+}
+
 EBox::init();
 
-my $rs = EBox::Global->modInstance('remoteservices');
+my $global = EBox::Global->getInstance();
+my $rs = $global->modInstance('remoteservices');
 my $subscription = $rs->model('Subscription');
 
 my @fields = (username => $username,
@@ -42,6 +52,6 @@ if ($bundleId) {
 
 $subscription->set(@fields);
 
-$rs->save();
+$global->saveAllModules();
 
 1;
