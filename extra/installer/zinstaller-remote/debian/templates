@@ -27,7 +27,7 @@ _Description: Congratulations!
 Template: zinstaller-remote/select_bundle
 Type: select
 Choices: ${CHOICES}
-_Description: Select customer and edition:
+_Description: Choose the server to install:
 
 Template: zinstaller-remote/auth_ok_sb
 Type: note

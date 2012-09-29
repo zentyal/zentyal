@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2012-09-29 06:10+0200\n"
+"POT-Creation-Date: 2012-09-29 11:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: text
-#. description
+#. Description
 #: ../templates:1001
 msgid "Choose Zentyal edition to install"
 msgstr ""
 
 #. Type: string
-#. description
+#. Description
 #: ../templates:2001
 msgid "E-mail address:"
 msgstr ""
 
 #. Type: string
-#. description
+#. Description
 #: ../templates:2001
 msgid ""
 "If you have a Zentyal account, enter your credentials e-mail address now."
 msgstr ""
 
 #. Type: password
-#. description
+#. Description
 #: ../templates:3001
 msgid "Password:"
 msgstr ""
 
 #. Type: password
-#. description
+#. Description
 #: ../templates:3001
 msgid "Please enter the password for your Zentyal account."
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:4001
 msgid "Invalid account"
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:4001
 msgid ""
 "The provided account is not valid. Zentyal Community edition will be "
@@ -63,17 +63,17 @@ msgid ""
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #. Type: note
-#. description
+#. Description
 #. Type: note
-#. description
+#. Description
 #: ../templates:5001 ../templates:7001 ../templates:8001
 msgid "Congratulations!"
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:5001
 msgid ""
 "Your account has been validated. Zentyal Community edition is going to be "
@@ -81,19 +81,13 @@ msgid ""
 msgstr ""
 
 #. Type: select
-#. choices
+#. Description
 #: ../templates:6001
-msgid "${CHOICES}"
-msgstr ""
-
-#. Type: select
-#. description
-#: ../templates:6002
-msgid "Select customer and edition:"
+msgid "Choose the server to install:"
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:7001
 msgid ""
 "Your account has been validated. Zentyal Small Business edition is going to "
@@ -101,7 +95,7 @@ msgid ""
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:8001
 msgid ""
 "Your account has been validated. Zentyal Enterprise edition is going to be "
@@ -109,13 +103,13 @@ msgid ""
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:9001
 msgid "Disaster Recovery"
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:9001
 msgid ""
 "You can not recover from a disater without a valid Small Business or "
@@ -123,13 +117,13 @@ msgid ""
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:10001
 msgid "No backups available"
 msgstr ""
 
 #. Type: note
-#. description
+#. Description
 #: ../templates:10001
 msgid ""
 "You cannot recover from a disaster if there are no configuration backups "
