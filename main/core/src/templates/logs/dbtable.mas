@@ -78,7 +78,7 @@ the table definition
 
 <table width="100%">
 	<tr>
-	<td style="widht: 5%">
+	<td class='tleft' style="widht: 8%">
 
 %	if ($page != 0) {
 		<input name='tofirst' type='image'
@@ -88,12 +88,12 @@ the table definition
 		<input name='toprev' type='image'
 			src="/data/images/r.gif"
 			alt="<% __('prev') %>"
-			value="<% __('prev') %>">
+			value="<% __('back') %>">
 %	}
 
 	</td>
 
-	<td style="width:90%; text-align: center;">
+	<td style="width:84%; text-align: center;">
 %	if ($tpages <= 0) {
 		<% __('Page') %> <% $page+1 %>
 %	} else {
@@ -102,7 +102,7 @@ the table definition
 
 	</td>
 
-	<td class='tright' style="widht: 5%">
+	<td class='tright' style="widht: 8%">
 
 %	if ($page != $tpages) {
 		<input name='tonext' type='image'
