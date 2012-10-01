@@ -78,7 +78,7 @@ the table definition
 
 <table width="100%">
 	<tr>
-	<td class='tleft' style="widht: 8%">
+	<td class='tleft' style="width: 8%">
 
 %	if ($page != 0) {
 		<input name='tofirst' type='image'
