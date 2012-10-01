@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Logs::Consolidate;
-
 use strict;
 use warnings;
+
+package EBox::Logs::Consolidate;
 
 use EBox::Global;
 use EBox::DBEngineFactory;
@@ -24,8 +23,9 @@ use EBox::DBEngineFactory;
 use Time::Piece;
 use Time::Seconds;
 
-
 use constant TIME_PERIODS => qw(hourly daily weekly monthly);
+use constant MIN_TIMESTAMP => 946706400; # ignore timestamp below this
+                                         # (set to year 2000)
 
 # Method: consolidate
 #
@@ -48,9 +48,6 @@ sub consolidate
         }
         @modNames = ( $modName );
     }
-
-
-
 
     foreach my $name (@modNames) {
         my @tableInfos = @{ $self->_tableInfosFromMod($name) };
@@ -186,10 +183,15 @@ sub _consolidateTable
        my %consRow;
        my %accummulator = %accummulateColumns;
 
-
+       my $rowOk = 1;
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
-               $consRow{date} = $self->$consDateSub($value);
+               my $timeStamp =  $self->$consDateSub($value);
+               if ($timeStamp < MIN_TIMESTAMP) {
+                   $rowOk = 0;
+                   last;
+               }
+               $consRow{date} = $timeStamp;
                next;
            }
 
@@ -271,10 +273,15 @@ sub _reconsolidateTable
        my %consRow;
        my %accummulator = %accummulateColumns;
 
-
+       my $rowOk = 1;
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
-               $consRow{date} = $self->$consDateSub($value);
+               my $newDate = $self->$consDateSub($value);
+               if (not $newDate) {
+                   $rowOk = 0;
+                   last;
+               }
+               $consRow{date} = $newDate;
                next;
            }
 
@@ -286,6 +293,9 @@ sub _reconsolidateTable
            }
 
         }
+
+       $rowOk or
+           next;
 
         $self->_addConsolidatedRow($dbengine, $table,
                                    \%consRow,
@@ -447,8 +457,13 @@ sub _weeklyDate
     my ($self, $timeStamp) = @_;
 
     my ($datePart) = split '\s', $timeStamp;
-    my $t = Time::Piece->strptime($datePart, "%Y-%m-%d");
+    # bad date, which makes Time::Piece die
+    if ($timeStamp eq '0000-00-00 00:00:00') {
 
+        return undef;
+    }
+
+    my $t = Time::Piece->strptime($datePart, "%Y-%m-%d");
 
     my $dweek = $t->day_of_week;
 
