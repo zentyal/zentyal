@@ -15,12 +15,19 @@ get_field()
 
 get_num_field()
 {
-    get_field $1 $2 | sed 's/^\s+//'
+    get_field "$1" "$2" | sed 's/^ //'
 }
 
 DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR
+
+db_get netcfg/get_hostname || true
+SERVERNAME="$RET"
+if [ -z "$SERVERNAME" ]
+then
+    SERVERNAME=$HOSTNAME
+fi
 
 while [ -z "$EDITION" ]
 do
@@ -34,7 +41,7 @@ do
     db_get zinstaller-remote/pass
     PASSWORD="$RET"
 
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/)
+    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
 
     if [ "$RESPONSE" != "Authorization Required" ]
     then
@@ -101,13 +108,6 @@ then
         BUNDLE_ID=$(grep "\"$BUNDLE\"" $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
     fi
 
-    db_get netcfg/get_hostname || true
-    SERVERNAME="$RET"
-    if [ -z "$SERVERNAME" ]
-    then
-        SERVERNAME=$HOSTNAME
-    fi
-
     # Get subscription data
     RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID" https://$URL/v1/servers/)
     QA_USERNAME="$USERNAME-$SERVERNAME"
@@ -124,9 +124,11 @@ then
     if [ "$EDITION" = "commercial" ]
     then
         RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
-        # FIXME: check this properly
-        #db_input high zinstaller-remote/error_backups || true
-        #rm -f /tmp/RECOVER_MODE
+        if [ $? = 0 ] && [ -z "$RESPONSE" ]
+        then
+            db_input high zinstaller-remote/error_backups || true
+            rm -f /tmp/RECOVER_MODE
+        fi
     else
         db_input high zinstaller-remote/error_dr || true
         db_go || true
@@ -137,7 +139,8 @@ else
     then
         db_input high zinstaller-remote/auth_ok_community || true
         db_go || true
-    else
+    elif [ -z "$EDITION" ]
+    then
         db_input high zinstaller-remote/no_register || true
         db_go || true
         exit 0
@@ -147,10 +150,10 @@ fi
 echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
 echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
 echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
-echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
 
-# TODO: is this needed?
-# Bundle for server name $SERVERNAME
-#RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
+if [ $NUM_BUNDLES -gt 1 ]
+then
+    echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
+fi
 
 exit 0
