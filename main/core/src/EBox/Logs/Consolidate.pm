@@ -89,7 +89,6 @@ sub consolidate
 
 }
 
-
 # Method: timePeriods
 #
 # Returns:
@@ -107,8 +106,6 @@ sub checkTimePeriod
         throw EBox::Exceptions::Internal( "inexistent time period: $_" );
     }
 }
-
-
 
 sub _allModulesWithConsolidation
 {
@@ -347,7 +344,6 @@ sub _columnsSpec
                    "Bad reference type for accummulate field: $refType"
                                                 );
             }
-
         }
         else {
             $newSpec->{accummulate} = undef;
@@ -360,8 +356,6 @@ sub _columnsSpec
 
     return \%spec;
 }
-
-
 
 my %ttlByTimePeriod = (
                        monthly => 0,
