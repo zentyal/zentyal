@@ -12,18 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Logs::Consolidate;
-
 use strict;
 use warnings;
+
+package EBox::Logs::Consolidate;
 
 use EBox::Global;
 use EBox::DBEngineFactory;
 
 use Time::Piece;
 use Time::Seconds;
-
 
 use constant TIME_PERIODS => qw(hourly daily weekly monthly);
 
@@ -48,9 +46,6 @@ sub consolidate
         }
         @modNames = ( $modName );
     }
-
-
-
 
     foreach my $name (@modNames) {
         my @tableInfos = @{ $self->_tableInfosFromMod($name) };
@@ -94,7 +89,6 @@ sub consolidate
 
 }
 
-
 # Method: timePeriods
 #
 # Returns:
@@ -112,8 +106,6 @@ sub checkTimePeriod
         throw EBox::Exceptions::Internal( "inexistent time period: $_" );
     }
 }
-
-
 
 sub _allModulesWithConsolidation
 {
@@ -186,10 +178,11 @@ sub _consolidateTable
        my %consRow;
        my %accummulator = %accummulateColumns;
 
-
+       my $rowOk = 1;
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
-               $consRow{date} = $self->$consDateSub($value);
+               my $timeStamp =  $self->$consDateSub($value);
+               $consRow{date} = $timeStamp;
                next;
            }
 
@@ -271,10 +264,15 @@ sub _reconsolidateTable
        my %consRow;
        my %accummulator = %accummulateColumns;
 
-
+       my $rowOk = 1;
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
-               $consRow{date} = $self->$consDateSub($value);
+               my $newDate = $self->$consDateSub($value);
+               if (not $newDate) {
+                   $rowOk = 0;
+                   last;
+               }
+               $consRow{date} = $newDate;
                next;
            }
 
@@ -286,6 +284,9 @@ sub _reconsolidateTable
            }
 
         }
+
+       $rowOk or
+           next;
 
         $self->_addConsolidatedRow($dbengine, $table,
                                    \%consRow,
@@ -343,7 +344,6 @@ sub _columnsSpec
                    "Bad reference type for accummulate field: $refType"
                                                 );
             }
-
         }
         else {
             $newSpec->{accummulate} = undef;
@@ -356,8 +356,6 @@ sub _columnsSpec
 
     return \%spec;
 }
-
-
 
 my %ttlByTimePeriod = (
                        monthly => 0,
@@ -447,8 +445,13 @@ sub _weeklyDate
     my ($self, $timeStamp) = @_;
 
     my ($datePart) = split '\s', $timeStamp;
-    my $t = Time::Piece->strptime($datePart, "%Y-%m-%d");
+    # bad date, which makes Time::Piece die
+    if ($timeStamp eq '0000-00-00 00:00:00') {
 
+        return undef;
+    }
+
+    my $t = Time::Piece->strptime($datePart, "%Y-%m-%d");
 
     my $dweek = $t->day_of_week;
 
@@ -545,9 +548,6 @@ sub _addConsolidatedRow
 
 }
 
-
-
-
 sub _sourceRows
 {
     my ($self, $dbengine, $table, $dateCol) = @_;
@@ -571,7 +571,6 @@ sub _sourceRows
     return $res;
 }
 
-
 sub _lastConsolidationDate
 {
     my ($self, $dbengine, $table) = @_;
@@ -590,7 +589,7 @@ sub _lastConsolidationDate
                                         );
     }
 
-    return $rows[0]->{lastdate};
+    return $rows[0]->{lastDate};
 
 }
 
@@ -609,7 +608,7 @@ sub _updateLastConsolidationDate
     my $lastDate = $lastRow->{$dateCol};
 
 
-    my $updateSt = "UPDATE consolidation SET lastdate ='$lastDate' " .
+    my $updateSt = "UPDATE consolidation SET lastDate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
 
 
