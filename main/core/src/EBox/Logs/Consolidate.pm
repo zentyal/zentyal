@@ -24,8 +24,6 @@ use Time::Piece;
 use Time::Seconds;
 
 use constant TIME_PERIODS => qw(hourly daily weekly monthly);
-use constant MIN_TIMESTAMP => 946706400; # ignore timestamp below this
-                                         # (set to year 2000)
 
 # Method: consolidate
 #
@@ -187,10 +185,6 @@ sub _consolidateTable
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
                my $timeStamp =  $self->$consDateSub($value);
-               if ($timeStamp < MIN_TIMESTAMP) {
-                   $rowOk = 0;
-                   last;
-               }
                $consRow{date} = $timeStamp;
                next;
            }
