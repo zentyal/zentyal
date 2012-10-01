@@ -560,9 +560,6 @@ sub _addConsolidatedRow
 
 }
 
-
-
-
 sub _sourceRows
 {
     my ($self, $dbengine, $table, $dateCol) = @_;
@@ -586,7 +583,6 @@ sub _sourceRows
     return $res;
 }
 
-
 sub _lastConsolidationDate
 {
     my ($self, $dbengine, $table) = @_;
@@ -605,7 +601,7 @@ sub _lastConsolidationDate
                                         );
     }
 
-    return $rows[0]->{lastdate};
+    return $rows[0]->{lastDate};
 
 }
 
@@ -624,7 +620,7 @@ sub _updateLastConsolidationDate
     my $lastDate = $lastRow->{$dateCol};
 
 
-    my $updateSt = "UPDATE consolidation SET lastdate ='$lastDate' " .
+    my $updateSt = "UPDATE consolidation SET lastDate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
 
 
