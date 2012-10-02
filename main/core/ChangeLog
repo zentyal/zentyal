@@ -1,6 +1,18 @@
 HEAD
 	+ Redirect to proper CGI after login in disaster recovery mode
 	+ Added EBox::SyncFolders interface
+	+ Fixed need of double-click when closing menu items in some cases
+	+ Fixed logs consolidation to avoid high CPU usage
+	+ In view log table: correctly align previous and first page buttons
+	+ Improve host name and domain validation.
+	+ Forbidden the use of a qualified hostname in change hostname form
+	+ Update samba hostname-dependent fields when hostname is changed
+	+ Confirmation dialog when the local domain is changed and with a
+	  warning if local domain which ends in .local
+3.0.2
+	+ The synchronization of redis cache refuses with log message to set
+	  undefined values
+	+ Fixed wrong sql statement which cause unwanted logs purge
 	+ DataForm does not check for uniqueness of its fields, as it only
 	  contains a single row
 	+ In ConfigureLogs, restored printable names for log domains

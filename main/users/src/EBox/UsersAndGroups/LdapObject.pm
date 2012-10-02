@@ -283,6 +283,17 @@ sub _entry
     return $self->{entry};
 }
 
+# Method: clearCache
+#
+#   Clear cached Net::LDAP::Entry to force reload on next call
+#
+sub clearCache
+{
+    my ($self) = @_;
+
+    $self->{entry} = undef;
+}
+
 
 sub _ldap
 {

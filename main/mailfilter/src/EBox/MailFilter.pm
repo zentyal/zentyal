@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::MailFilter;
-
 use strict;
 use warnings;
 
+package EBox::MailFilter;
 use base (
           'EBox::Module::Service',
           'EBox::VDomainModule',
@@ -531,7 +529,6 @@ sub tableInfo
     my ($self) = @_;
     return [
             $self->_smtpFilterTableInfo(),
-            $self->_popProxyTableInfo(),
            ];
 }
 
@@ -580,43 +577,43 @@ sub _smtpFilterTableInfo
 }
 
 
-sub _popProxyTableInfo
-{
-    my ($self) = @_;
+# sub _popProxyTableInfo
+# {
+#     my ($self) = @_;
 
-    my $titles = {
-                  'timestamp' => __('Date'),
+#     my $titles = {
+#                   'timestamp' => __('Date'),
 
-                  'address' => __('Account'),
-                  clientConn => __(q{Client's address}),
-                  'event' => __('Event'),
+#                   'address' => __('Account'),
+#                   clientConn => __(q{Client's address}),
+#                   'event' => __('Event'),
 
-                  mails  => __('Total messages'),
-                  clean  => __('Clean messages'),
-                  virus  => __('Virus messages'),
-                  spam   => __('Spam messages'),
-                 };
+#                   mails  => __('Total messages'),
+#                   clean  => __('Clean messages'),
+#                   virus  => __('Virus messages'),
+#                   spam   => __('Spam messages'),
+#                  };
 
-    my @order = qw( timestamp event address clientConn mails clean virus spam );
+#     my @order = qw( timestamp event address clientConn mails clean virus spam );
 
-    my $events = {
-                  'pop3_fetch_ok' =>
-                        __('POP3 transmission complete'),
-                  'pop3_fetch_failed' =>
-                        __('POP3 transmission aborted'),
-    };
+#     my $events = {
+#                   'pop3_fetch_ok' =>
+#                         __('POP3 transmission complete'),
+#                   'pop3_fetch_failed' =>
+#                         __('POP3 transmission aborted'),
+#     };
 
-    return {
-            'name' => __('POP3 proxy'),
-            'tablename' => 'mailfilter_pop',
-            'titles' => $titles,
-            'order' => \@order,
-            'filter' => ['timestamp', 'address', 'clientConn'],
-            'events' => $events,
-            'eventcol' => 'event',
-            'consolidate' => $self->_popProxyFilterConsolidationSpec(),
-    };
-}
+#     return {
+#             'name' => __('POP3 proxy'),
+#             'tablename' => 'mailfilter_pop',
+#             'titles' => $titles,
+#             'order' => \@order,
+#             'filter' => ['timestamp', 'address', 'clientConn'],
+#             'events' => $events,
+#             'eventcol' => 'event',
+#             'consolidate' => $self->_popProxyFilterConsolidationSpec(),
+#     };
+# }
 
 
 sub logHelper

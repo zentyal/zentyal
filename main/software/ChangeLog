@@ -1,5 +1,8 @@
 HEAD
 	+ Adapted firstTimeMenu() for Disaster Recovery
+3.0.1
+	+ Fixed basic mode boxes behavior when adding/removing individual packages
+	+ Fixed behavior of select/deselect all buttons in Zentyal components
 3.0
 	+ Changed del.mas template to allow call InstallPkgs url form
 	  other modules

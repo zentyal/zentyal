@@ -94,6 +94,7 @@ sub _table
                       class              => 'dataTable',
                       help               => __('Add exceptions to the default antivirus settings'),
                       printableRowName   => __('exception'),
+                      pageTitle          => undef,
                     };
 
       return $dataTable;

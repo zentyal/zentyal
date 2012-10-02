@@ -1,5 +1,11 @@
 HEAD
 	+ Added syncFolders information method to allow file syncing
+	+ Improve GeneralSettings fields validation
+	+ Update for samba4 RC1
+	+ Remove duplicated disabled module warning on recycle bin and antivirus
+	  modules
+	+ Added method to GeneralSettings to update hostname-dependent fields
+	+ Tolerate domains ended in .local
 3.0.2
 	+ Fix samba group members not imported to Zentyal in groups added by
 	  the synchronizer

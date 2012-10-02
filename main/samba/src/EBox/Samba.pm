@@ -50,7 +50,6 @@ use File::Temp;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
-use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
@@ -742,7 +741,7 @@ sub provisionAsDC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
-    my $cmd = SAMBAPROVISION .
+    my $cmd = SAMBATOOL . ' domain provision ' .
         " --domain='" . $self->workgroup() . "'" .
         " --workgroup='" . $self->workgroup() . "'" .
         " --realm='" . $usersModule->kerberosRealm() . "'" .
@@ -755,7 +754,7 @@ sub provisionAsDC
         " --host-ip='" . $provisionIP . "'";
     $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
-    EBox::debug("Provisioning database '$cmd'");
+    EBox::info("Provisioning database '$cmd'");
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -776,7 +775,7 @@ sub provisionAsDC
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
     #      ending with different passwords
-    EBox::debug('Setting password policy');
+    EBox::info('Setting password policy');
     $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
                        " --min-pwd-length=0" .
@@ -826,12 +825,13 @@ sub provisionAsADC
     my ($self) = @_;
 
     my $model = $self->model('GeneralSettings');
-    my $domainToJoin = $model->value('realm');
+    my $domainToJoin = lc ($model->value('realm'));
     my $dcFQDN = $model->value('dcfqdn');
     my $domainDNS = $model->value('dnsip');
     my $adminAccount = $model->value('adminAccount');
     my $adminAccountPwd = $model->value('password');
     my $netbiosDomain = $model->value('workgroup');
+    my $site = $model->value('site');
 
     # If the host domain or the users kerberos realm does not
     # match the domain we are trying to join warn the user and
@@ -868,15 +868,19 @@ sub provisionAsADC
 
         # Join the domain
         EBox::debug("Joining to the domain");
-        my @cmds;
-        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
-            " -U $adminAccount " .
+        my $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
+            " --username='$adminAccount' " .
             " --workgroup='$netbiosDomain' " .
             " --password='$adminAccountPwd' " .
-            " --server=$dcFQDN");
-        my $output = EBox::Sudo::silentRoot(@cmds);
+            " --server='$dcFQDN' " .
+            " --dns-backend=BIND9_DLZ " .
+            " --realm='$domainToJoin' ";
+        if (defined $site and length($site) > 0) {
+            $cmd .= " --site='$site' ";
+        }
+
+        my $output = EBox::Sudo::silentRoot($cmd);
         if ($? == 0) {
-            $self->setProvisioned(1);
             EBox::debug("Provision result: @{$output}");
         } else {
             my @error = ();
@@ -897,23 +901,10 @@ sub provisionAsADC
         EBox::debug('Starting service');
         $self->_startService();
 
-        # Wait for RID allocation
-        my $args = {
-            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
-            scope => 'base',
-            filter => '(objectClass=*)',
-            attrs => ['rIDSetReferences'],
-        };
-        for (my $retries=12; $retries>=0; $retries--) {
-            EBox::debug ("Waiting for RID allocation, $retries");
-            my $result = $self->ldb->search($args);
-            if ($result->count() == 1) {
-                my $entry = $result->entry(0);
-                my @val = $entry->get_value('rIDSetReferences');
-                last if @val;
-            }
-            sleep (5);
-        }
+        # Run Knowledge Consistency Checker (KCC) on windows DC
+        EBox::info('Running KCC on windows DC');
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN";
+        EBox::Sudo::root($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
@@ -935,7 +926,7 @@ sub provisionAsADC
         $self->ldb->ldapServicePrincipalsToLdb();
 
         # FIXME This should not be necessary, it is a samba bug.
-        @cmds = ();
+        my @cmds = ();
         push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
         push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
         push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
@@ -1370,6 +1361,7 @@ sub defaultNetbios
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostName = $sysinfo->hostName();
+    $hostName = substr($hostName, 0, 15);
 
     return $hostName;
 }
@@ -1395,7 +1387,7 @@ sub defaultWorkgroup
     my $users = EBox::Global->modInstance('users');
     my $realm = $users->kerberosRealm();
     my @parts = split (/\./, $realm);
-    my $value = $parts[0];
+    my $value = substr($parts[0], 0, 15);
     $value = 'ZENTYAL-DOMAIN' unless defined $value;
 
     return uc($value);
