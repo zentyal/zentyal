@@ -23,8 +23,7 @@ models:
 composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
-    Shares: [SyncShares, SambaShares]
-    General: [GeneralSettings, Shares, RecycleBin, Antivirus]
+    General: [GeneralSettings, SambaShares, RecycleBin, Antivirus]
 
 modeldepends:
     AntivirusExceptions:
