@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Fixed bug which prevented highlight of selected item in menu
 	+ Fixed base class of event dispatcher to be compatible with the
 	  changes dispatcher configuration table
