@@ -871,7 +871,9 @@ sub provisionAsADC
 
         # Run Knowledge Consistency Checker (KCC) on windows DC
         EBox::info('Running KCC on windows DC');
-        $cmd = SAMBATOOL . " drs kcc $dcFQDN";
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
+            " --username='$adminAccount' " .
+            " --password='$adminAccountPwd' ";
         EBox::Sudo::root($cmd);
 
         # Purge users and groups
@@ -879,16 +881,14 @@ sub provisionAsADC
         my $usersMod = EBox::Global->modInstance('users');
         my $users = $usersMod->users();
         my $groups = $usersMod->groups();
-        foreach my $user (@{$users}) {
-            $user->deleteObject();
+        foreach my $zentyalUser (@{$users}) {
+            $zentyalUser->setIgnoredModules(['samba']);
+            $zentyalUser->deleteObject();
         }
-        foreach my $group (@{$groups}) {
-            $group->deleteObject();
+        foreach my $zentyalGroup (@{$groups}) {
+            $zentyalGroup->setIgnoredModules(['samba']);
+            $zentyalGroup->deleteObject();
         }
-
-        # Load samba users and groups into Zentyal ldap
-        $self->ldb->ldbUsersToLdap();
-        $self->ldb->ldbGroupsToLdap();
 
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();

@@ -1,6 +1,14 @@
 HEAD
- 	+ Improve GeneralSettings fields validation
-	+ Update for samba4 RC1
+	+ Improvements synchronizing group members.
+	+ The 'users' method of EBox::Samba::Group has been renamed to 'members' and
+	  also returns nested groups
+	+ Do not import users and groups after join a domain. The s4sync script will
+	  do the job
+	+ Search for users and groups to synchronize outside CN=Users
+	+ Add more SID's to the list of users and groups to avoid synchronize from
+	  samba
+	+ Improve GeneralSettings fields validation
+	+ Update smb.conf for samba4 RC2
 	+ Remove duplicated disabled module warning on recycle bin and antivirus
 	  modules
 	+ Added method to GeneralSettings to update hostname-dependent fields

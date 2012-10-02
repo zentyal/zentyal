@@ -668,7 +668,7 @@ sub usersDn
 
 # Method: userDn
 #
-#    Returns the dn for a given user. The user don't have to existst
+#    Returns the dn for a given user. The user don't have to exists
 #
 #   Parameters:
 #       user
