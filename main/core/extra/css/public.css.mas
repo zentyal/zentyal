@@ -1919,3 +1919,31 @@ border-radius: 3px;
     opacity:1;
     filter:alpha(opacity=100)
 }
+
+/* tip */
+
+#popx {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+}
+
+#popx:hover { color: #333; }
+
+.tip {
+    padding: 15px 15px 15px 50px;
+    position: relative;
+    margin-top: 10px;
+    color: #333;
+    font-size: 13px;
+    background: #F8ECAE url("/data/images/tip.png") 10px center no-repeat;
+    border-bottom: 1px solid #E7942A;
+}
+
+.tip a {
+    color: #D37600;
+}

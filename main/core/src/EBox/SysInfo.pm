@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -50,6 +51,24 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Set lastMessageTime only if installing the first time
+    unless ($version) {
+        my $state = $self->get_state();
+        $state->{lastMessageTime} = time();
+        $state->{closedMessages} = {};
+        $self->set_state($state);
+    }
 }
 
 # Method: menu

@@ -4,6 +4,7 @@
     %toggled
     @brokenPackages
     $softwareInstalled => 0
+    $message => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -114,6 +115,19 @@ function updateGraph(element,value) {
 }
 //]]>
 </script>
+% if ($message) {
+<script  type="text/javascript">
+function closeNotification() {
+  $('notification_container').hide();
+  var url = '/SysInfo/CloseNotification';
+  new Ajax.Request(url, { parameters: { message: '<% $message->{name} %>' } });
+}
+</script>
+<div id="notification_container" class='tip'>
+<span id="notification_text"><% $message->{text} %></span>
+<a id="popx" onclick="closeNotification(); return false">×</a>
+</div>
+% }
 
 <span id="confbutton">
 <a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
