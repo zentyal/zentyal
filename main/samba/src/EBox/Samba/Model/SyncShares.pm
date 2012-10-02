@@ -30,17 +30,6 @@ use EBox::Types::Boolean;
 
 use Error qw(:try);
 
-sub new
-{
-    my ($class, %opts) = @_;
-
-    my $self = $class->SUPER::new(%opts);
-    bless ($self, $class);
-
-    return $self;
-}
-
-
 # Method: _table
 #
 # Overrides:
@@ -57,14 +46,13 @@ sub _table
                                printableName => __('Sync all with Zentyal Cloud'),
                                editable      => 1,
                                defaultValue  => 0,
-                               help          => __('All shares and user homes will be syncrhonized using Zentyal Cloud.'),
-                               hidden        => \&_syncNotAvailable,
+                               help          => __('All shares and user homes will be synchronized using Zentyal Cloud.'),
                                ),
-      );
+    );
 
     my $dataTable = {
                      tableName          => 'SyncShares',
-                     printableTableName => __('Zentyal Cloud Sync'),
+                     printableTableName => __('Cloud Sync'),
                      modelDomain        => 'Samba',
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
@@ -72,32 +60,6 @@ sub _table
                     };
 
       return $dataTable;
-}
-
-
-sub _syncAvailable
-{
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        return $rs->filesSyncAvailable();
-    }
-
-    return 0;
-}
-
-sub _syncNotAvailable
-{
-    return not _syncAvailable()
-}
-
-# Method: headTile
-#
-#   Overrides <EBox::Model::DataTable::headTitle>
-#
-#
-sub headTitle
-{
-    return undef;
 }
 
 1;
