@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Menu::Item;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Item;
 use base 'EBox::Menu::TextNode';
+
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
@@ -49,6 +48,7 @@ my $urlsToHide = undef;
 sub html
 {
     my ($self, $current) = @_;
+    my $display;
 
     unless (defined $urlsToHide) {
         $urlsToHide = {

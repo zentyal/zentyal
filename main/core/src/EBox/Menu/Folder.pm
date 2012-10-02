@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Menu::Folder;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Folder;
 use base 'EBox::Menu::TextNode';
+
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
@@ -66,13 +65,11 @@ sub html
         $html .= "<li id='" . $self->{id} . "'>\n";
     }
 
+    my $aClass = ($name eq $current) ? 'despleg' : 'navarrow';
     if (defined($url)) {
-        if ($url eq $current) {
-            $show = 1;
-        }
-        $html .= "<a title='$text' href='/$url' class='navarrow' ";
+        $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
-        $html .= "<a title='$text' href='' class='navarrow' ";
+        $html .= "<a title='$text' href='' class='$aClass' ";
         $html .= "onclick=\"showMenu('menu$name', this);return false;\"";
     }
 
