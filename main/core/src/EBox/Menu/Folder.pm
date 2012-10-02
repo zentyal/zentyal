@@ -56,11 +56,12 @@ sub html
         return '';
     }
 
+    my $id = $self->{id};
     my $html = '';
     if (defined($self->{style})) {
-        $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
+        $html .= "<li id='" . $id . "' class='$self->{style}'>\n";
     } else {
-        $html .= "<li id='" . $self->{id} . "'>\n";
+        $html .= "<li id='" . $id . "'>\n";
     }
 
     my $isCurrentFolder = ($name eq $currentFolder);
@@ -78,15 +79,24 @@ sub html
 
     $html .= "<ul class='submenu'>\n";
 
+    my $menuClass = "menu$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
-
     foreach my $item (@sorted) {
-        $item->{style} = "menu$name";
+        $item->{style} = $menuClass;
         $html .= $item->html($isCurrentFolder, $currentUrl);
     }
 
     $html .= "</ul>\n";
     $html .= "</li>\n";
+
+    if ($isCurrentFolder) {
+      # JS call to set the correct variables
+        $html .= <<"END_JS"
+<script type="text/javascript">
+    showMenu('$menuClass', \$('$id'));
+</script>
+END_JS
+    }
 
     return $html;
 }
