@@ -32,7 +32,7 @@ use EBox::Types::Union::Text;
 use strict;
 use warnings;
 
-use constant DEFAULTQUOTA   => 100;
+use constant DEFAULTQUOTA => 500;
 
 sub new
 {
@@ -54,7 +54,7 @@ sub _table
                 new EBox::Types::Int(
                     'fieldName' => 'defaultQuota_size',
                     'printableName' => __('Limited to'),
-                    'defaultValue' => 100,
+                    'defaultValue' => DEFAULTQUOTA,
                     'trailingText' => __('Mb'),
                     'size' => 7,
                     'editable' => 1,
