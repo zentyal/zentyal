@@ -42,13 +42,13 @@ use EBox::Global;
 use EBox::DBEngineFactory;
 
 # Core modules
-use JSON::XS;
 use File::Slurp;
 use IO::Handle;
 use IO::Select;
 use Error qw(:try);
 use POSIX;
 use Time::Local qw(timelocal);
+use Data::Dumper;
 
 # Constants:
 #
@@ -92,7 +92,6 @@ sub new
         # instance of the method).
         watchers => {},
         dispatchers => {},
-        json => JSON::XS->new()->allow_blessed(1)->convert_blessed(1),
     };
     bless ($self, $class);
 
@@ -225,12 +224,16 @@ sub _mainDispatcherLoop
             }
 
             my $event;
-            try {
-                $event = $self->{json}->decode($data);
-            } otherwise {
-                EBox::error("Skipping event: Error JSON decoding $data");
-            };
-            $event or next;
+            my $VAR1;
+            eval $data;
+            if ($@) {
+                EBox::error("Skipping event: Error decoding $data");
+                next;            } else {
+
+            }
+            $event = $VAR1;
+            EBox::debug(Dumper($event)); # DDD
+
             bless ($event, 'EBox::Event');
 
             # log the event if log is enabled
@@ -472,10 +475,13 @@ sub _addToDispatch
 {
     my ($self, $eventPipe, $event) = @_;
 
-    my $eventStr = $self->{json}->encode($event);
+    my $dumper = new Data::Dumper([$event]);
+    # Set no new lines to dump to communicate with FIFO, the end of
+    # connection is done using newline character
+    $dumper->Indent(0);
 
     # Sending the dumpered event with a null char
-    print $eventPipe ( $eventStr . "\0" );
+    print $eventPipe ( $dumper->Dump() . "\0" );
 }
 
 
