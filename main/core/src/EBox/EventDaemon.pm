@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::EventDaemon;
 
@@ -30,10 +32,6 @@ package EBox::EventDaemon;
 # You may send events (Dumped <EBox::Event> object) to dispatch through a
 # named pipe which is pointed by the file name
 # "/var/lib/zentyal/tmp/events-fifo'.
-
-
-use strict;
-use warnings;
 
 ###################
 # Dependencies
@@ -226,7 +224,13 @@ sub _mainDispatcherLoop
                 $data = readline($fh);
             }
 
-            my $event = $self->{json}->decode($data);
+            my $event;
+            try {
+                $event = $self->{json}->decode($data);
+            } otherwise {
+                EBox::error("Skipping event: Error JSON decoding $data");
+            };
+            $event or next;
             bless ($event, 'EBox::Event');
 
             # log the event if log is enabled
