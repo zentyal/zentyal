@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::EventDaemon;
 
@@ -31,10 +33,6 @@ package EBox::EventDaemon;
 # named pipe which is pointed by the file name
 # "/var/lib/zentyal/tmp/events-fifo'.
 
-
-use strict;
-use warnings;
-
 ###################
 # Dependencies
 ###################
@@ -44,13 +42,13 @@ use EBox::Global;
 use EBox::DBEngineFactory;
 
 # Core modules
-use JSON::XS;
 use File::Slurp;
 use IO::Handle;
 use IO::Select;
 use Error qw(:try);
 use POSIX;
 use Time::Local qw(timelocal);
+use Data::Dumper;
 
 # Constants:
 #
@@ -94,7 +92,6 @@ sub new
         # instance of the method).
         watchers => {},
         dispatchers => {},
-        json => JSON::XS->new()->allow_blessed(1)->convert_blessed(1),
     };
     bless ($self, $class);
 
@@ -226,7 +223,15 @@ sub _mainDispatcherLoop
                 $data = readline($fh);
             }
 
-            my $event = $self->{json}->decode($data);
+            my $event;
+            my $VAR1;
+            eval $data;
+            if ($@) {
+                EBox::error("Skipping event: Error decoding $data");
+                next;
+            }
+            $event = $VAR1;
+
             bless ($event, 'EBox::Event');
 
             # log the event if log is enabled
@@ -468,10 +473,13 @@ sub _addToDispatch
 {
     my ($self, $eventPipe, $event) = @_;
 
-    my $eventStr = $self->{json}->encode($event);
+    my $dumper = new Data::Dumper([$event]);
+    # Set no new lines to dump to communicate with FIFO, the end of
+    # connection is done using newline character
+    $dumper->Indent(0);
 
     # Sending the dumpered event with a null char
-    print $eventPipe ( $eventStr . "\0" );
+    print $eventPipe ( $dumper->Dump() . "\0" );
 }
 
 

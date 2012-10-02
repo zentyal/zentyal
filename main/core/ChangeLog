@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed base class of event dispatcher to be compatible with the
+	  changes dispatcher configuration table
+	+ Fixed event daemon to use dumped variables
 	+ Fixed need of double-click when closing menu items in some cases
 	+ Fixed logs consolidation to avoid high CPU usage
 	+ In view log table: correctly align previous and first page buttons

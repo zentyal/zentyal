@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Event::Dispatcher::Abstract;
+use strict;
+use warnings;
 
 # Class: EBox::Event::Dispatcher::Abstract
 #
@@ -23,9 +23,7 @@ package EBox::Event::Dispatcher::Abstract;
 # event from fixed transport way
 #
 
-use strict;
-use warnings;
-
+package EBox::Event::Dispatcher::Abstract;
 use base 'EBox::Event::Component';
 
 use EBox::Exceptions::NotImplemented;
@@ -173,10 +171,10 @@ sub configurationSubModel
         throw EBox::Exceptions::MissingArgument('package');
 
     my $manager = EBox::Model::Manager->instance();
-    my $watchers = $manager->model('events/ConfigureDispatcherDataTable');
+    my $watchers = $manager->model('events/ConfigureDispatchers');
     for my $id (@{$watchers->ids()}) {
         my $row = $watchers->row($id);
-        next unless ($row->valueByName('eventDispatcher') eq $package);
+        next unless ($row->valueByName('dispatcher') eq $package);
         return $row->subModel('configuration_model');
     }
 }
