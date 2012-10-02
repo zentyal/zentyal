@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Menu::Item;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Item;
 use base 'EBox::Menu::TextNode';
+
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
@@ -48,7 +47,7 @@ my $urlsToHide = undef;
 
 sub html
 {
-    my ($self, $current) = @_;
+    my ($self, $currentFolder, $currentUrl) = @_;
 
     unless (defined $urlsToHide) {
         $urlsToHide = {
@@ -58,31 +57,29 @@ sub html
 
     my $text = $self->{text};
     my $url = $self->{url};
-    my $html = '';
-
     if ($urlsToHide->{$url} or (length($text) == 0)) {
-        return $html;
+        return '';
     }
 
-    my $class = "";
-    if (defined($current) and ($current eq $url)) {
-        $class = "current ";
+    my $liClass = '';
+    if ($self->{style}) {
+        $liClass = q{class='navc } .  $self->{style} . q{'};
+    } else {
+        $liClass = q{class='navc'};
     }
-    if (defined($self->{style})) {
-        $class .= $self->{style};
-    }
-    if($class) {
-        $class = "class='$class'";
+
+    my $aClass = '';
+    if ($currentUrl eq $url) {
+        $aClass = q{class='current'};
     }
 
     my $style = '';
-    if ($current) {
+    if ($currentFolder) {
        $style = qq/style='display:inline;'/;
     }
 
-    $html .= "<li id='" . $self->{id} . "' $style $class>\n";
-
-    $html .= qq{<a title="$text" href="/$url" class="navc" }
+    my $html .= "<li id='" . $self->{id} . "' $style $liClass>\n";
+    $html .= qq{<a title="$text" href="/$url" $aClass }
          . qq{ target="_parent">$text</a>\n};
 
     $html .= "</li>\n";
