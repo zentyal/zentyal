@@ -938,7 +938,11 @@ filter: alpha(opacity=100);
     font-weight: normal;
 }
 
-
+#nav li a.current,#nav li a.current:hover  {
+    background-color: #A3BD5B;
+    color:white;
+    /*border-top:0;*/
+}
 
 #nav li li a:hover {
     background-color: rgba(230, 230, 230, 1);

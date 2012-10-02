@@ -26,14 +26,15 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $name = delete $opts{name};
-    my $url = delete $opts{url};
     unless (defined($name) and ($name ne '')) {
         throw EBox::Exceptions::MissingArgument('name');
     }
+
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
     $self->{name} = $name;
-    $self->{url} = $url;
+    $self->{url}  = delete $opts{url};
+
+    bless($self, $class);
     return $self;
 }
 
@@ -41,7 +42,7 @@ my $foldersToHide = undef;
 
 sub html
 {
-    my ($self, $current) = @_;
+    my ($self, $currentFolder, $currentUrl) = @_;
 
     unless (defined $foldersToHide) {
         $foldersToHide = {
@@ -51,22 +52,22 @@ sub html
 
     my $name = $self->{name};
     my $text = $self->{text};
-    my $url = $self->{url};
-    my $html = '';
-    my $show = 0;
-
     if ($foldersToHide->{$name} or (scalar(@{$self->items()}) == 0)) {
-        return $html;
+        return '';
     }
 
+    my $html = '';
     if (defined($self->{style})) {
         $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
     } else {
         $html .= "<li id='" . $self->{id} . "'>\n";
     }
 
-    my $aClass = ($name eq $current) ? 'despleg' : 'navarrow';
-    if (defined($url)) {
+    my $isCurrentFolder = ($name eq $currentFolder);
+    my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
+
+    my $url = $self->{url};
+    if (defined $url) {
         $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
         $html .= "<a title='$text' href='' class='$aClass' ";
@@ -81,11 +82,7 @@ sub html
 
     foreach my $item (@sorted) {
         $item->{style} = "menu$name";
-        my $display =  undef;
-        if (defined $current) {
-            $display = $name eq  $current;
-        }
-        $html .= $item->html($display);
+        $html .= $item->html($isCurrentFolder, $currentUrl);
     }
 
     $html .= "</ul>\n";

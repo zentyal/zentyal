@@ -47,8 +47,7 @@ my $urlsToHide = undef;
 
 sub html
 {
-    my ($self, $current) = @_;
-    my $display;
+    my ($self, $currentFolder, $currentUrl) = @_;
 
     unless (defined $urlsToHide) {
         $urlsToHide = {
@@ -58,31 +57,29 @@ sub html
 
     my $text = $self->{text};
     my $url = $self->{url};
-    my $html = '';
-
     if ($urlsToHide->{$url} or (length($text) == 0)) {
-        return $html;
+        return '';
     }
 
-    my $class = "";
-    if (defined($current) and ($current eq $url)) {
-        $class = "current ";
+    my $liClass = '';
+    if ($self->{style}) {
+        $liClass = q{class='navc } .  $self->{style} . q{'};
+    } else {
+        $liClass = q{class='navc'};
     }
-    if (defined($self->{style})) {
-        $class .= $self->{style};
-    }
-    if($class) {
-        $class = "class='$class'";
+
+    my $aClass = '';
+    if ($currentUrl eq $url) {
+        $aClass = q{class='current'};
     }
 
     my $style = '';
-    if ($current) {
+    if ($currentFolder) {
        $style = qq/style='display:inline;'/;
     }
 
-    $html .= "<li id='" . $self->{id} . "' $style $class>\n";
-
-    $html .= qq{<a title="$text" href="/$url" class="navc" }
+    my $html .= "<li id='" . $self->{id} . "' $style $liClass>\n";
+    $html .= qq{<a title="$text" href="/$url" $aClass }
          . qq{ target="_parent">$text</a>\n};
 
     $html .= "</li>\n";

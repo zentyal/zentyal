@@ -27,6 +27,7 @@ sub new
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
     $self->{'current'} = delete $opts{'current'};
+    $self->{'currentUrl'} = delete $opts{'currentUrl'};
     $self->{'id'} = 'menu';
     bless($self, $class);
     return $self;
@@ -59,6 +60,7 @@ sub html
     my @params;
     push(@params, 'items' => \@items);
     push(@params, 'current' => $self->{'current'});
+    push(@params, 'currentUrl' => $self->{'currentUrl'});
     $interp->exec($comp, @params);
 
     return $output;
