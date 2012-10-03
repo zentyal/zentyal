@@ -869,12 +869,15 @@ sub provisionAsADC
         EBox::debug('Starting service');
         $self->_startService();
 
+        # Wait some time until samba is ready
+        sleep (5);
+
         # Run Knowledge Consistency Checker (KCC) on windows DC
         EBox::info('Running KCC on windows DC');
         $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
             " --username='$adminAccount' " .
             " --password='$adminAccountPwd' ";
-        EBox::Sudo::root($cmd);
+        EBox::Sudo::rootWithoutException($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
