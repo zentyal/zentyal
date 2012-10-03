@@ -34,6 +34,8 @@ use EBox::Exceptions::InvalidData;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 
+use EBox::Samba::Contact;
+
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
@@ -133,6 +135,10 @@ sub members
         }
         if ('group' eq any @class) {
             push (@{$members}, new EBox::Samba::Group(dn => $memberDN));
+            next;
+        }
+        if ('contact' eq any @class) {
+            push (@{$members}, new EBox::Samba::Contact(dn => $memberDN));
             next;
         }
 
@@ -284,18 +290,32 @@ sub _membersToZentyal
     my %zentyalMembers = map { $_->get('uid') => $_ } @{$zentyalMembersList};
     my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
-        if ($sambaMember->isa('EBox::Samba::User')) {
-            my $samAccountName = $sambaMember->get('samAccountName');
-            unless (defined $samAccountName) {
-                my $dn = $sambaMember->dn();
-                EBox::warn("Member '$dn' does not seem to be a user, skipped");
-                next;
-            }
-            $sambaMembers{$samAccountName} = $sambaMember;
-        } else {
+        if ($sambaMember->isa('EBox::Samba::Group')) {
             my $dn = $sambaMember->dn();
             EBox::warn("Member '$dn' is a nested group, not supported!");
+            next;
         }
+        if ($sambaMember->isa('EBox::Samba::User')) {
+            my $samAccountName = $sambaMember->get('samAccountName');
+            if (defined $samAccountName) {
+                $sambaMembers{$samAccountName} = $sambaMember;
+                next;
+            }
+            my $dn = $sambaMember->dn();
+            EBox::warn("Member '$dn' does not seem to be a user, skipped");
+        }
+        if ($sambaMember->isa('EBox::Samba::Contact') and
+            EBox::Config::boolean('treat_contacts_as_users')) {
+            my $mail = $sambaMember->get('mail');
+            $mail =~ s/@.*$//;
+            my $aUser = new EBox::Samba::User(samAccountName => $mail);
+            if ($aUser->exists()) {
+                $sambaMembers{$mail} = $aUser;
+                next;
+            }
+        }
+        my $dn = $sambaMember->dn();
+        EBox::warn("Unexpected member type ($dn)");
     }
 
     foreach my $memberName (keys %zentyalMembers) {

@@ -1,4 +1,7 @@
 HEAD
+	+ Add configkey 'treat_contacts_as_users' to import distribution groups
+	  containing contacts. The mail account name is used to locate an user with
+	  that name and add it to the group.
 	+ Improvements synchronizing group members.
 	+ The 'users' method of EBox::Samba::Group has been renamed to 'members' and
 	  also returns nested groups
