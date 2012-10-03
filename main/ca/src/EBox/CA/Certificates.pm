@@ -102,10 +102,10 @@ sub certificateExpired
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        my $service = $srvcert->{'service'};
-        my $cn = $model->cnByService($service);
+        my $serviceId = $srvcert->{'serviceId'};
+        my $cn = $model->cnByService($serviceId);
         if ($cn eq $commonName) {
-            $model->disableService($service);
+            $model->disableService($serviceId);
         }
     }
 }
@@ -125,10 +125,10 @@ sub freeCertificate
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        my $service = $srvcert->{'service'};
-        my $cn = $model->cnByService($service);
+        my $serviceId = $srvcert->{'serviceId'};
+        my $cn = $model->cnByService($serviceId);
         if ($cn eq $commonName) {
-            $model->disableService($service);
+            $model->disableService($serviceId);
         }
     }
 }
@@ -176,10 +176,10 @@ sub _genCert
 
     my $model = $ca->model('Certificates');
 
-    my $service = $srvcert->{'serviceId'};
-    return undef unless ($model->isEnabledService($service));
+    my $serviceId = $srvcert->{'serviceId'};
+    return undef unless ($model->isEnabledService($serviceId));
 
-    my $cn = $model->cnByService($service);
+    my $cn = $model->cnByService($serviceId);
     return undef unless (defined($cn));
 
     my $certMD = $ca->getCertificateMetadata(cn => $cn);

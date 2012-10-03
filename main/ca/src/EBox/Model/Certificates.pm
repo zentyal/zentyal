@@ -153,9 +153,9 @@ sub syncRows
 #
 sub disableService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->elementByName('enable')->setValue(0);
         $row->store();
@@ -168,9 +168,9 @@ sub disableService
 #
 sub setServiceRO
 {
-    my ($self, $service, $ro) = @_;
+    my ($self, $serviceId, $ro) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->setReadOnly($ro);
         $row->store();
@@ -183,9 +183,9 @@ sub setServiceRO
 #
 sub updateCN
 {
-    my ($self, $service, $cn) = @_;
+    my ($self, $serviceId, $cn) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->elementByName('cn')->setValue($cn);
         $row->store();
@@ -220,9 +220,9 @@ sub certUsedByService
 #
 sub cnByService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     return $row->valueByName('cn') if ($row);
     return undef;
 }
@@ -237,9 +237,9 @@ sub cnByService
 #
 sub isEnabledService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId=> $serviceId);
     return $row->valueByName('enable') if ($row);
     return undef;
 }
