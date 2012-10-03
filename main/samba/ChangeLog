@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Update smb.conf for samba4 RC2
 	+ During domain join precedure, wait a couple of seconds for samba to start
 	+ Add configkey 'treat_contacts_as_users' to import distribution groups
