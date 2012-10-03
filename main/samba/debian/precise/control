@@ -14,8 +14,8 @@ Replaces: ebox-samba (<< 2.0.100)
 Breaks: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 3.0), zentyal-core (<< 3.0.100), zentyal-network, ldb-tools,
          zentyal-firewall, zentyal-users, zentyal-dns, acl,
-         samba4 (>= 4.0.0~rc1+dfsg1-1+zentyal2),
-         samba-dsdb-modules (>= 4.0.0~rc1+dfsg1-1+zentyal2),
+         samba4 (>= 4.0.0~rc2+dfsg1-1+zentyal1),
+         samba-dsdb-modules (>= 4.0.0~rc2+dfsg1-1+zentyal1),
          libdate-calc-perl,
          ${misc:Depends}
 Description: Zentyal - File Sharing and Domain Services

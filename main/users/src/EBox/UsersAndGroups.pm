@@ -631,7 +631,7 @@ sub groupsDn
 
 # Method: groupDn
 #
-#    Returns the dn for a given group. The group don't have to existst
+#    Returns the dn for a given group. The group doesn't have to exist
 #
 #   Parameters:
 #       group
@@ -668,7 +668,7 @@ sub usersDn
 
 # Method: userDn
 #
-#    Returns the dn for a given user. The user don't have to existst
+#    Returns the dn for a given user. The user doesn't have to exist
 #
 #   Parameters:
 #       user

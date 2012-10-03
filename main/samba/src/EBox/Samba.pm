@@ -869,26 +869,29 @@ sub provisionAsADC
         EBox::debug('Starting service');
         $self->_startService();
 
+        # Wait some time until samba is ready
+        sleep (5);
+
         # Run Knowledge Consistency Checker (KCC) on windows DC
         EBox::info('Running KCC on windows DC');
-        $cmd = SAMBATOOL . " drs kcc $dcFQDN";
-        EBox::Sudo::root($cmd);
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
+            " --username='$adminAccount' " .
+            " --password='$adminAccountPwd' ";
+        EBox::Sudo::rootWithoutException($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $usersMod = EBox::Global->modInstance('users');
         my $users = $usersMod->users();
         my $groups = $usersMod->groups();
-        foreach my $user (@{$users}) {
-            $user->deleteObject();
+        foreach my $zentyalUser (@{$users}) {
+            $zentyalUser->setIgnoredModules(['samba']);
+            $zentyalUser->deleteObject();
         }
-        foreach my $group (@{$groups}) {
-            $group->deleteObject();
+        foreach my $zentyalGroup (@{$groups}) {
+            $zentyalGroup->setIgnoredModules(['samba']);
+            $zentyalGroup->deleteObject();
         }
-
-        # Load samba users and groups into Zentyal ldap
-        $self->ldb->ldbUsersToLdap();
-        $self->ldb->ldbGroupsToLdap();
 
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();
