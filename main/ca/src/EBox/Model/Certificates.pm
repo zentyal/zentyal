@@ -106,7 +106,10 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my @srvs = @{EBox::CA::Certificates->srvsCerts()};
-    my %currentSrvs = map { $self->row($_)->valueByName('serviceId') => 1 } @{$currentRows};
+    my %currentSrvs = map {
+        my $sid = $self->row($_)->valueByName('serviceId');
+        $sid ?  ($sid => 1) : ()
+    } @{$currentRows};
 
     my @srvsToAdd = grep { not exists $currentSrvs{$_->{'serviceId'}} } @srvs;
 
@@ -124,13 +127,18 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsToAdd = map { $_->{service} => 1 } @srvs;
+    my %srvsFromModules = map { $_->{serviceId} => 1 } @srvs;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
-        my $service = $row->valueByName('serviceId');
+        if ($row->valueByName('enable')) {
+            # already created certificates are held
+            next;
+        }
+        my $serviceId = $row->valueByName('serviceId');
         my $module = $row->valueByName('module');
-        if (not exists $srvsToAdd{$service} or
-                not  EBox::Global->modExists($module)) {
+        if ( not $serviceId or
+             not exists $srvsFromModules{$serviceId} or
+             not  EBox::Global->modExists($module)) {
             $self->removeRow($id);
             $modified = 1;
         }
@@ -274,13 +282,6 @@ sub _table
                                 fieldName     => 'service',
                                 printableName => __('Service'),
                                 unique        => 1,
-                                editable      => 0,
-                               ),
-       new EBox::Types::Text(
-                                fieldName     => 'serviceId',
-                                printableName =>  'serviceId',
-                                unique        => 1,
-                                hidden        => 1,
                                 editable      => 0,
                                ),
        new EBox::Types::DomainName(

@@ -12,17 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::CA::Certificates
-#
-#
-
-package EBox::CA::Certificates;
-
-use base qw(EBox::CA::Observer);
-
 use strict;
 use warnings;
+
+package EBox::CA::Certificates;
+use base qw(EBox::CA::Observer);
 
 use EBox::Gettext;
 use EBox::Global;
@@ -159,6 +153,7 @@ sub srvsCerts
         my @modsrvs = @{EBox::Global->modInstance($mod)->certificates()};
         next unless @modsrvs;
         for my $srv (@modsrvs) {
+            $srv->{serviceId} or next;
             $srv->{'module'} = $mod;
             push(@srvscerts, $srv);
         }
