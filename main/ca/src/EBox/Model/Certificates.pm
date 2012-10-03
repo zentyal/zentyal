@@ -283,6 +283,7 @@ sub _table
                                 printableName => __('Service'),
                                 unique        => 1,
                                 editable      => 0,
+                                allowUnsafeChars => 1,
                                ),
        new EBox::Types::DomainName(
                                 fieldName     => 'cn',
