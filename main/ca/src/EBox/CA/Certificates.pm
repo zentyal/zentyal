@@ -181,7 +181,7 @@ sub _genCert
 
     my $model = $ca->model('Certificates');
 
-    my $service = $srvcert->{'service'};
+    my $service = $srvcert->{'serviceId'};
     return undef unless ($model->isEnabledService($service));
 
     my $cn = $model->cnByService($service);
