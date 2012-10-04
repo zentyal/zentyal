@@ -89,29 +89,36 @@ sub syncRows
     my $modified = 0;
 
     foreach my $list (keys %{$lists}) {
-
-        my @currentRows = grep { $self->row($_)->valueByName('list') eq $list } @{$currentRows};
-        my %current =
-            map { $self->row($_)->valueByName('category') => 1 } @currentRows;
-
         my %categories = %{$lists->{$list}};
-        my @toAdd = grep { not exists $current{$_} } keys %categories;
-        foreach my $category (@toAdd) {
-            my $dir = $categories{$category};
-            $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
-            $modified = 1;
+        my %current;
+        foreach my $id (@{ $currentRows }) {
+            my $row =  $self->row($id);
+            next if $row->valueByName('list') ne $list;
+            my $rowCategory = $row->valueByName('category');
+            my $present = $row->valueByName('present');
+            # remove if not file and not present
+            if ($present and (not exists $categories{$rowCategory}) ) {
+               $self->removeRow($id);
+               $modified = 1;
+           } else {
+               $current{$rowCategory} =  $present ? undef : $row;
+           }
         }
 
-        # FIXME: instead of remove, set present to 0
-        # Remove old rows
-#       foreach my $id (@{$currentRows}) {
-#           my $row = $self->row($id);
-#           my $category = $row->valueByName('category');
-#           unless (exists $new{$category}) {
-#               $self->removeRow($id);
-#               $modified = 1;
-#           }
-#       }
+        foreach my $category (keys %categories) {
+            if (not exists $current{$category}) {
+                my $dir = $categories{$category};
+                $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
+                $modified = 1;
+            } else {
+                my $noPresentRow = $current{$category};
+                if ($noPresentRow) {
+                    $noPresentRow->elementByName('present')->setValue(1);
+                    $noPresentRow->store();
+                }
+                $modified = 1;
+            }
+        }
     }
 
     return $modified;
@@ -278,5 +285,17 @@ sub cleanSeenListDirectories
     $self->{seenListDirectories} = {};
 }
 
+sub markCategoriesAsNoPresent
+{
+    my ($self) = @_;
+    # using _ids to not call syncRows
+    # the rows which are really present we will marked as such
+    # i nthe next call of ids()/syncRows()
+    foreach my $id (@{ $self->_ids() }) {
+        my $row = $self->row($id);
+        $row->elementByName('present')->setValue(0);
+        $row->store();
+    }
+}
 
 1;

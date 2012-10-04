@@ -12,15 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::Squid::Types::ListArchive
-#
-
-package EBox::Squid::Types::ListArchive;
-
 use strict;
 use warnings;
 
+package EBox::Squid::Types::ListArchive;
 use base 'EBox::Types::File';
 
 use EBox;
@@ -48,8 +43,7 @@ sub _moveToPath
         throw EBox::Exceptions::External(__x('Invalid .tar.gz file: {f}', f => $path));
     }
 
-    my $name = basename($path);
-    my $dest = "$UNPACK_PATH/$name";
+    my $dest = $self->archiveContentsDir();
     $self->_extractArchive($path, $dest);
 }
 
@@ -71,13 +65,54 @@ sub _extractArchive
                      "chmod -R o+r '$dir'");
 }
 
-# FIXME: what happens with this? when the file is removed?
-sub _cleanArchive
+sub archiveContentsDir
+{
+    my ($self) = @_;
+    my $path = $self->path();
+    my $name = basename($path);
+    return "$UNPACK_PATH/$name";
+}
+
+sub _removalDir
+{
+    my ($self) = @_;
+    my $path = $self->archiveContentsDir();
+    my $dirname = dirname($path);
+    my $basename = 'toremove.' . basename($dirname);
+    return $dirname . '/' . $basename;
+}
+
+
+sub markArchiveContentsForRemoval
 {
     my ($self, $id) = @_;
-
-    my $dir = $self->archiveContentsDir($id);
-    EBox::Sudo::root("rm -rf '$dir'");
+    
+    my $dir        = $self->archiveContentsDir();
+    my $removalDir = $self->_removalDir();
+    EBox::Sudo::root("mv -f '$dir' '$removalDir'");
 }
+
+sub commitAllPendingRemovals
+{
+    my ($self) = @_;
+    my $path = $UNPACK_PATH . '/toremove.*';
+    EBox::Sudo::root("rm -rf $path");
+}
+
+sub revokeAllPendingRemovals
+{
+    my ($self) = @_;
+    my $path = $UNPACK_PATH . '/toremove.*';
+    my @dirs = glob($path);
+    foreach my $dir (@dirs) {
+        my $dirname = dirname($dir);
+        my $basename = basename($dir);
+        $basename =~ s/^toremove\.//;
+        my $newPath = $dirname . '/' . $basename;
+        EBox::Sudo::root("mv -f '$dir' '$newPath'");
+    }
+
+}
+
 
 1;
