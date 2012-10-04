@@ -12,17 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
-# Class:
-#
-#   EBox::DNS::Model::AliasTable
-#
-#   This class inherits from <EBox::Model::DataTable> and represents the
-#   object table which basically contains domains names and a reference
-#   to a member <EBox::DNS::Model::AliasTable>
-#
-#
 package EBox::DNS::Model::AliasTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -34,11 +28,6 @@ use EBox::Types::DomainName;
 use EBox::Sudo;
 
 use Net::IP;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 

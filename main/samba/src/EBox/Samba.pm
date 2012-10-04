@@ -321,7 +321,7 @@ sub enableActions
     my ($self) = @_;
 
     # Remount filesystem with user_xattr and acl options
-    EBox::debug('Setting up filesystem options');
+    EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
@@ -338,7 +338,7 @@ sub enableActions
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    EBox::debug('Creating directories');
+    EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
 }
 
@@ -860,10 +860,6 @@ sub provisionAsADC
         # Write smb.conf to grant rw access to zentyal group on the
         # privileged socket
         $self->writeSambaConfig();
-        my $group = EBox::Config::group();
-        EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
-        EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
-        EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
 
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
@@ -906,13 +902,6 @@ sub provisionAsADC
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();
 
-        # Load administrator user and domain admins group to zentyal
-        my $domainSid = $self->ldb->domainSID();
-        my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
-        my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
-        $self->ldb->ldbUsersToLdap([$adminUser]);
-        $self->ldb->ldbGroupsToLdap([$adminGroup]);
-
         # FIXME This should not be necessary, it is a samba bug.
         @cmds = ();
         push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
@@ -935,8 +924,13 @@ sub provisionAsADC
         EBox::info("Mapping guest accounts");
         $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
         $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+
+        EBox::debug('Setting provisioned flag');
+        $self->setProvisioned(1);
     } otherwise {
         my $error = shift;
+        $self->setProvisioned(0);
+        $self->setupDNS(0);
         throw $error;
     } finally {
         # Revert primary resolver changes

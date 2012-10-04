@@ -1,3 +1,20 @@
+HEAD
+	+ Better way to fix non-root warnings during boot without interfering
+	  on manual restart commands in the shell
+3.0.1
+	+ Properly set default language as the first element of the Select to
+	  avoid its loss on the first apache restart
+	+ Set milestone to 3.0.X when creating tickets in trac.zentyal.org
+	+ Removed forced setting of LANG variables in mod_perl which made progress
+	  indicator fail when using any language different to English
+	+ Removed some frequent undef warnings
+	+ Added executeOnBrothers method to EBox::Model::Component
+	+ Fixed repetition of 'add' and 'number change' events in RAID watcher
+	+ Fixed incorrect display of edit button in tables without editField action
+	+ Cache MySQL password to avoid reading it all the time
+	+ Fixed request came from non-root user warnings during boot
+	+ Send info event in Runit watcher only if the service was down
+	  MAX_DOWN_PERIODS
 3.0
 	+ Removed beta logo
 	+ Set 'firstInstall' flag on modules when installing during initial install

@@ -376,31 +376,29 @@ sub _table
 
 
     my ($actionName, $printableTableName);
+    my ($customActions, $defaultActions) = ([], []);
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal registration details');
         $actionName = __('Unregister');
+        $defaultActions = [ 'editField', 'changeView' ];
     } else {
         splice(@tableDesc, 1, 0, $passType);
         $printableTableName = __('Register your Zentyal Server');
         $actionName = __('Register');
-    }
-
-    my $customActions = [
-        new EBox::Types::Action(
+        push(@{$customActions}, new EBox::Types::Action(
             model          => $self,
             name           => 'subscribe',
             printableValue => $actionName,
             onclick        => \&_showSaveChanges,
             template       => '/remoteservices/register_button.mas',
-           ),
-       ];
+           ));
+    }
 
     my $dataForm = {
                     tableName           => 'Subscription',
                     printableTableName  => $printableTableName,
                     modelDomain         => 'RemoteServices',
-                    #defaultActions     => [ 'editField', 'changeView' ],
-                    defaultActions      => [],
+                    defaultActions      => $defaultActions,
                     customActions       => $customActions,
                     tableDescription    => \@tableDesc,
                     printableActionName => $actionName,

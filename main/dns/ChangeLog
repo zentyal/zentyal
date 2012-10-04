@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed host name ip addition when it was more than one host in
+	  the domain
 3.0
 	+ Removed invalid restoreDependencies
 2.3.11

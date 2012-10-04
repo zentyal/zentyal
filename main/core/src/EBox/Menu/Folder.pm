@@ -84,7 +84,10 @@ sub html
 
     foreach my $item (@sorted) {
         $item->{style} = "menu$name";
-        my $display = ($name eq  $current);
+        my $display =  undef;
+        if (defined $current) {
+            $display = $name eq  $current;
+        }
         $html .= $item->html($display);
     }
 

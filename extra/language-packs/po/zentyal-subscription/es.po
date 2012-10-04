@@ -49,29 +49,29 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1317
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1334
 msgid "Zarafa Small Business (25 users)"
 msgstr "Zarafa Small Business (25 usuarios)"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1628
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1631
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1648
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1664
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1666
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1669
 msgid "Zarafa Small Business"
 msgstr "Zarafa Small Business"
 
@@ -216,6 +216,10 @@ msgid ""
 msgstr ""
 "Por favor, ten en cuenta que el máximo número de usuarios para la edición "
 "Small Business es {max} y tienes {nUsers}."
+
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:108
+msgid "You must agree to the privacy policy to continue"
+msgstr "Debes aceptar la política de privacidad para continuar"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:280
 #, perl-brace-format
@@ -850,11 +854,11 @@ msgstr ""
 "Introduce tus credenciales de Small Business o Enterprise, o {ohb}registra"
 "{ch} una cuenta GRATIS!"
 
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:155
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:156
 msgid "Register this server"
 msgstr "Registra este servidor"
 
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:157
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:158
 msgid "Server name"
 msgstr "Nombre del servidor"
 
@@ -962,7 +966,19 @@ msgstr "Registrar"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:255
 msgid "Register your Zentyal server for FREE and get these benefits"
-msgstr ""
+msgstr "Registra tu servidor Zentyal GRATIS y obtén las siguientes ventajas"
+
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:256
+msgid "Configuration <strong>backup in the cloud</strong>"
+msgstr "Backup de la configuración <strong>en el cloud</strong>"
+
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:256
+msgid "<strong>zentyal.me subdomain</strong> for your server"
+msgstr "<strong>subdominio zentyal.me</strong> para tu servidor"
+
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:256
+msgid "And much more coming soon!"
+msgstr "¡Y mucho más a punto de llegar!"
 
 #: ../../main/monitor/src/templates/index.mas:24
 #, perl-brace-format

@@ -165,7 +165,6 @@ sub _writeHttpdConfFile
     push @confFileParams, ( port => $self->port());
     push @confFileParams, ( user => EBox::Config::user());
     push @confFileParams, ( group => EBox::Config::group());
-    push @confFileParams, ( locale => EBox::locale());
     push @confFileParams, ( serverroot => $self->serverroot());
     push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());

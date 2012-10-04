@@ -223,9 +223,18 @@ sub addToZentyal
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba group '$gid' to Zentyal");
+    my $zentyalGroup = undef;
     try {
-        EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
+        $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     } otherwise {};
+    return unless defined $zentyalGroup;
+
+    try {
+        $self->_membersToZentyal($zentyalGroup);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error adding members: $error");
+    };
 }
 
 sub updateZentyal

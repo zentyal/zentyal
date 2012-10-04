@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Event::Watcher::RAID;
+use strict;
+use warnings;
 
 # Class: EBox::Event::Watcher::RAID
 #
@@ -41,7 +41,7 @@ package EBox::Event::Watcher::RAID;
 #
 #   At first time, the RAID event watcher will supply all its initial
 #   information as new one.
-
+package EBox::Event::Watcher::RAID;
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
@@ -103,26 +103,28 @@ sub run
 
     my @events;
     my $raidInfo = EBox::Report::RAID->info();
+    my $storedRaidInfo = $self->_storedRaidArraysInfo();
     foreach my $raidArray (keys %{$raidInfo}) {
         # Skip unused devices
         next if ( $raidArray eq 'unusedDevices' );
-        my $eventsRaidArray = $self->_checkRaidArray($raidArray, $raidInfo->{$raidArray});
+        my $storedArrayInfo = undef;
+        if (exists $storedRaidInfo->{$raidArray}) {
+            $storedArrayInfo = $storedRaidInfo->{$raidArray};
+        }
+        my $eventsRaidArray = $self->_checkRaidArray($raidArray, $raidInfo->{$raidArray}, $storedArrayInfo);
         if ( defined ($eventsRaidArray) ) {
             push (@events, @{$eventsRaidArray} );
         }
     }
     # Check removed ones
-    my $removedArrayEvents = $self->_checkRemoveArray($raidInfo);
+    my $removedArrayEvents = $self->_checkRemoveArray($raidInfo, $storedRaidInfo);
     if ( @{$removedArrayEvents} > 0 ) {
         push (@events, @{$removedArrayEvents});
     }
 
-    # Store last info in GConf state if changed
     if ( @events > 0 ) {
+        # Store last info in GConf state if changed
         $self->_storeNewRAIDState($raidInfo);
-    }
-
-    if ( @events > 0 ) {
         return \@events;
     } else {
         return undef;
@@ -188,13 +190,10 @@ sub _description
 # Group: Private methods
 
 # Check any event that may occur in the RAID array
-sub _checkRaidArray # (arrayRaidName, raidInfo)
+sub _checkRaidArray
 {
-    my ($self, $arrayRaidName, $raidArrayInfo) = @_;
-
-    my $storedInfo = $self->_storedArrayRaidInfo($arrayRaidName);
-
-    unless ( defined ($storedInfo) ) {
+    my ($self, $arrayRaidName, $raidArrayInfo, $storedInfo) = @_;
+    unless ( defined $storedInfo ) {
         return $self->_createEventArrayRaid($arrayRaidName, $raidArrayInfo);
     }
 
@@ -217,13 +216,16 @@ sub _checkRaidArray # (arrayRaidName, raidInfo)
     return \@updatedEvents;
 }
 
-# Get stored info from the raid array
-sub _storedArrayRaidInfo
-{
-    my ($self, $arrayRaidName) = @_;
 
+sub _storedRaidArraysInfo
+{
+    my ($self) = @_;
     my $state = $self->{events}->get_state();
-    return $state->{raid_arrays}->{$arrayRaidName};
+    if (exists $state->{raid_arrays}) {
+        return $state->{raid_arrays};
+    } else {
+        return undef;
+    }
 }
 
 # Create the event from the raid info
@@ -274,15 +276,17 @@ sub _storeNewRAIDState
 # Check if any of the stored RAID array has dissappeared
 sub _checkRemoveArray
 {
-    my ($self, $raidInfo) = @_;
+    my ($self, $raidInfo, $storedRaidInfo) = @_;
+    if (not $storedRaidInfo) {
+        return [];
+    }
 
     my $evMod = $self->{events};
     my @removeEvents = ();
     my @currentArrays = grep { $_ ne 'unusedDevices' } keys %{$raidInfo};
     my %currentArrays = map { $_ => 1 } @currentArrays;
 
-    my $state = $self->{events}->get_state();
-    foreach my $devName (keys %{$state->{raid_array}}) {
+    foreach my $devName (keys %{$storedRaidInfo}) {
         next if (exists ($currentArrays{$devName}));
         my $evtMsg = __x('RAID device {name} has dissappeared: A RAID array '
                          . 'which previously was configured appears to no '
@@ -326,11 +330,11 @@ sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
 {
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
-    if ( $storedInfo->{deviceNumber} != $arrayInfo->{activeDevices} ) {
+    if ( $storedInfo->{activeDevices} != $arrayInfo->{activeDevices} ) {
         my $evtMsg = __x('RAID device {name} has changed its number '
                          . 'of active components from {oldNum} to {newNum}',
                          name => $arrayName,
-                         oldNum => $storedInfo->{deviceNumber},
+                         oldNum => $storedInfo->{activeDevices},
                          newNum => $arrayInfo->{activeDevices});
 
         return [ new EBox::Event(level   => 'info',
@@ -412,7 +416,7 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my %currentComps = map { $_->{device} => $_->{state} } values %{$arrayInfo->{raidDevices}};
-    my %storedComps  = map { $_->{device} => $_->{state} } @{$storedInfo->{components}};
+    my %storedComps  = map { $_->{device} => $_->{state} } @{$storedInfo->{raidDevices}};
 
     my @compEvents = ();
     my $evtMsg;

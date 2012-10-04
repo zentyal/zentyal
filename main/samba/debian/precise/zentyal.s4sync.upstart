@@ -1,2 +1,5 @@
+start on started samba4
+stop on stopping samba4
+
 exec /usr/share/zentyal-samba/s4sync
 respawn

@@ -1,6 +1,12 @@
 HEAD
+	+ Moved a lot of the filter functionality to squid. In DG remains:
+	filter by text analysys, antivirus and block ip
+	+ Fix kerberos authentication when filter profile applied. As dansguardian
+	  do not support kerberos auth, now there are two squid instances, one
+	  on the front of dansguardian to perform the authentication and one in
+	  the back to cache contents.
 	+ Added memory cache of seen list directories to DomainFilterCategories
-	+ Fixed DomainFilterCategories models to accept categories from bigblacklist
+	+ Categories from bigblacklist are now accepted
 3.0
 	+ Customized "Access Denied" page theme
 	+ Added 'All users' option for Access Rules with group source

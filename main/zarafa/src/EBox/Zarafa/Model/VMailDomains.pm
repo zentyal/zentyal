@@ -12,22 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::Zarafa::Model::VMailDomains
-#
-#   TODO: Document class
-#
+use strict;
+use warnings;
 
 package EBox::Zarafa::Model::VMailDomains;
+use base 'EBox::Model::DataTable';
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Types::DomainName;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 sub vdomains
 {
@@ -102,7 +95,9 @@ sub notifyForeignModelAction
 
     if ($action eq 'del') {
         my $vdomain = $row->valueByName('vdomain');
-        my $myRow = $self->row();
+        my $myRow = $self->findRow(vdomain => $vdomain);
+        $myRow or
+            return;
         my $selected = $myRow->valueByName('vdomain');
         if ($vdomain eq $selected) {
             $myRow->elementByName('vdomain')->setValue('_none_');

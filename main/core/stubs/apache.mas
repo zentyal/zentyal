@@ -30,7 +30,6 @@ Parameters:
     $port
     $group
     $user
-    $locale
     $serverroot
     $tmpdir
     $eboxconfdir
@@ -48,9 +47,6 @@ KeepAliveTimeout 15
 AddDefaultCharset utf-8
 
 PidFile <% $tmpdir %>/apache.pid
-
-PerlSetEnv LANG <% $locale %>
-PerlSetEnv LC_MESSAGES <% $locale %>
 
 <IfModule mpm_prefork_module>
     StartServers             1

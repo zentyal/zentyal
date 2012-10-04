@@ -25,20 +25,11 @@ use warnings;
 
 use Error qw(:try);
 
+use EBox;
 use EBox::Gettext;
 use EBox::Types::Select;
 
 use base 'EBox::Model::DataForm';
-
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
 
 # Method: validateTypedRow
 #
@@ -96,12 +87,18 @@ sub _populateLanguages
 {
     my $langs = EBox::Gettext::langs();
 
-    my $array = [];
+    my $default = EBox::locale();
+
+    my @array;
+    push (@array, { value => $default, printableValue => $langs->{$default} });
+
     foreach my $l (sort keys %{$langs}) {
-        push ($array, { value => $l, printableValue => $langs->{$l} });
+        unless ($l eq $default) {
+            push (@array, { value => $l, printableValue => $langs->{$l} });
+        }
     }
 
-    return $array;
+    return \@array;
 }
 
 1;
