@@ -299,6 +299,17 @@ sub markCategoriesAsNoPresent
     }
 }
 
+sub removeNoPresentCategories
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            $self->removeRow($id, 1);
+        }
+    }
+}
+
 sub _aclBaseName
 {
     my ($sef, $row) = @_;
