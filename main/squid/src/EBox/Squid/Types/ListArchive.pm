@@ -23,6 +23,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Sudo;
+use EBox::FileSystem;
 
 use Error qw(:try);
 use File::Basename;
@@ -89,6 +90,11 @@ sub markArchiveContentsForRemoval
     
     my $dir        = $self->archiveContentsDir();
     my $removalDir = $self->_removalDir();
+    if (EBox::Sudo::fileTest('-e', $removalDir)) {
+        my $fallbackPath = EBox::FileSystem::unusedFileName("$removalDir.old");
+        EBox::error("When moving $dir to temporal pre removal directory $removalDir , we found that it exists. We will move it to $fallbackPath to be able to continue");
+        EBox::Sudo::root("mv -f '$removalDir' '$fallbackPath'");
+    }
     EBox::Sudo::root("mv -f '$dir' '$removalDir'");
 }
 
@@ -109,6 +115,11 @@ sub revokeAllPendingRemovals
         my $basename = basename($dir);
         $basename =~ s/^toremove\.//;
         my $newPath = $dirname . '/' . $basename;
+        if (EBox::Sudo::fileTest('-e', $newPath)) {
+            my $replacePath = EBox::FileSystem::unusedFileName("$dir.old");
+            EBox::error("Cannot restore $newPath from $dir because it already exists. $dir will be moved to $fallbackPath");
+            $newPath = $replacePath;
+        }
         EBox::Sudo::root("mv -f '$dir' '$newPath'");
     }
 

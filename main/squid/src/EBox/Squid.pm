@@ -516,15 +516,11 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
-<<<<<<< HEAD
-    $self->_writeSquidConf($filter);
-=======
     $self->_writeSquidFrontConf($filter);
     $self->_writeSquidBackConf();
 
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
->>>>>>> squid-https-sandwich
     if ($filter) {
         $self->_writeDgConf();
     }
