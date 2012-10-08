@@ -294,11 +294,11 @@ sub antivirusNeeded
 
 sub markCategoriesAsNoPresent
 {
-    my ($self) = @_;
+    my ($self, $list) = @_;
     foreach my $id (@{ $self->ids() }) {
         my $filterPolicy = $self->row($id)->subModel('filterPolicy');
         my $domainFilterCategories = $filterPolicy->componentByName('DomainFilterCategories', 1);
-        $domainFilterCategories->markCategoriesAsNoPresent();
+        $domainFilterCategories->markCategoriesAsNoPresent($list);
     }
 }
 
