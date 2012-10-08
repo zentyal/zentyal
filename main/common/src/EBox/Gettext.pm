@@ -170,6 +170,7 @@ sub langs
         $langs->{'th_TH.UTF-8'} = 'ภาษาไทย';
         $langs->{'tr_TR.UTF-8'} = 'Türkçe';
         $langs->{'uk_UA.UTF-8'} = 'украї́нська';
+        $langs->{'yo_NG.UTF-8'} = 'Yoruba';
         $langs->{'zh_CN.UTF-8'} = '汉字';
         $langs->{'zh_TW.UTF-8'} = '繁體中文';
     }
