@@ -49,29 +49,29 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1334
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1335
 msgid "Zarafa Small Business (25 users)"
 msgstr "Zarafa Small Business (25 usuarios)"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1648
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1649
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1664
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1665
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1666
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1667
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1669
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1670
 msgid "Zarafa Small Business"
 msgstr "Zarafa Small Business"
 
@@ -267,7 +267,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/SysInfo.pm:470
+#: ../../main/core/src/EBox/SysInfo.pm:473
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:206
 #: ../../main/software/src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -283,7 +283,7 @@ msgstr ""
 "del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
 "Ubuntu."
 
-#: ../../main/core/src/EBox/SysInfo.pm:475
+#: ../../main/core/src/EBox/SysInfo.pm:478
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
