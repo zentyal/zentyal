@@ -155,7 +155,7 @@ sub isRunning
     $running = (EBox::Service::running('zentyal.squid3-front') and
                 EBox::Service::running('zentyal.squid3-back'));
     if ($self->filterNeeded()) {
-        $running = $running and EBox::Service::running('zentyal.dansguardian');
+        $running = $running and EBox::Service::running('ebox.dansguardian');
     }
 
     return $running;
