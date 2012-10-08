@@ -121,6 +121,7 @@ sub deletedRowNotify
 {
     my ($self, $row) = @_;
     $row->elementByName('fileList')->markArchiveContentsForRemoval();
+    $self->parentModule()->model('DomainFilterCategories')->markCategoriesAsNoPresent();
     $self->_changeInCategorizedLists();
 }
 

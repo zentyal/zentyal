@@ -33,6 +33,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -146,6 +147,7 @@ sub enableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
+
 
 # Method: usedFiles
 #
@@ -510,14 +512,14 @@ sub _setConf
         $self->_writeDgConf();
     }
 
-    $self->model('ListArchive')->commitAllPendingRemovals();
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
 }
 
 sub revokeConfig
 {
    my ($self) = @_;
    $self->SUPER::revokeConfig();
-   $self->model('ListArchive')->revokeAllPendingRemovals();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded

@@ -28,6 +28,7 @@ use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::Sudo;
 use EBox::Config;
+use EBox::Squid::Types::ListArchive;
 
 use Error qw(:try);
 use File::Basename;
@@ -52,7 +53,7 @@ sub syncRows
     my ($self, $currentRows) = @_;
     my $modelConfDir = $self->directory();
 
-    my @dirs = glob("$categoriesFileDir/*");
+    my @dirs = glob(EBox::Squid::Types::ListArchive::unpackPath() .  "/*");
     if (not exists $self->{seenListDirectories}) {
         $self->{seenListDirectories} = {};
     }
@@ -61,8 +62,15 @@ sub syncRows
     }
 
     my $lists;
-
+    my $removeDirPrefix = EBox::Squid::Types::ListArchive::unpackPath() . '/' .  EBox::Squid::Types::ListArchive::toRemovePrefix();
+    EBox::debug("removeDirPRefix $removeDirPrefix");
+    my $removeDirRe = qr/^$removeDirPrefix/;
     foreach my $dir (@dirs) {
+        if ($dir =~ m/$removeDirRe/) {
+            EBox::debug("$dir matched as removal dir");
+            next;
+        }
+            EBox::debug("$dir NOT removal dir");
         if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {
             next;
         } else {
@@ -115,7 +123,7 @@ sub syncRows
             } else {
                 my $noPresentRow = $current{$category};
                 if ($noPresentRow) {
-                    $noPresentRow->elementByName('present')->setValue(1);
+                    $noPresentRow->elementByName('present')->setValue(0);
                     $noPresentRow->store();
                 }
                 $modified = 1;
@@ -149,6 +157,7 @@ sub _table
                 fieldName => 'present',
                 printableName => __('File Present'),
                 editable => 0,
+                'HTMLViewer' => '/ajax/viewer/booleanViewer.mas',
             ),
             new EBox::Types::Select(
                 fieldName     => 'policy',
