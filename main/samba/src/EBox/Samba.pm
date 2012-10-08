@@ -673,6 +673,48 @@ sub _checkEnvironment
     return $provisionIP;
 }
 
+sub resetSysvolACL
+{
+    my ($self) = @_;
+
+    # Reset the sysvol permissions
+    EBox::info("Reseting sysvol ACLs to defaults")
+    $cmd = SAMBATOOL . " ntacl sysvolreset";
+    EBox::Sudo::root($cmd);
+}
+
+sub mapAccounts
+{
+    my ($self) = @_;
+
+    my $domainSID = $self->ldb->domainSID();
+
+    # Map unix root account to domain administrator
+    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
+    my $typeGID = EBox::LDB::IdMapDb::TYPE_GID();
+    my $domainAdminSID = "$domainSID-500";
+    my $domainAdminsSID = "$domainSID-512";
+    my $rootUID = 0;
+    my $rootGID = 0;
+    EBox::info("Mapping domain administrator account");
+    $self->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    EBox::info("Mapping domain administrators group account");
+    $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeGID, $rootGID);
+
+    # Map domain guest account to nobody user
+    my $guestSID = "$domainSID-501";
+    my $guestGroupSID = "$domainSID-514";
+    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    # FIXME Why is this not working during first intall???
+    my $uid = 65534;
+    my $gid = 65534;
+    EBox::info("Mapping domain guest account");
+    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    EBox::info("Mapping domain guests group account");
+    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -769,19 +811,11 @@ sub provisionAsDC
 
     # TODO Echo the current TS to the .s4_ts
 
-    # Map domain guest account to nobody user
-    my $guestSID = $self->ldb->domainSID() . '-501';
-    my $guestGroupSID = $self->ldb->domainSID() . '-514';
-    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
-    # FIXME Why is this not working during first intall???
-    my $uid = 65534;
-    my $gid = 65534;
-    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
-    my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-    EBox::info("Mapping guest account");
-    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    # Map accounts
+    $self->mapAccounts();
+
+    # Reset sysvol
+    $self->resetSysvolACL();
 
     # Mark the module as provisioned
     EBox::debug('Setting provisioned flag');
@@ -908,16 +942,11 @@ sub provisionAsADC
         push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
         EBox::Sudo::root(@cmds);
 
-        # Map domain guest account to nobody user
-        my $guestSID = $self->ldb->domainSID() . '-501';
-        my $guestGroupSID = $self->ldb->domainSID() . '-514';
-        my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-        my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
-        my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
-        my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-        EBox::info("Mapping guest accounts");
-        $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-        $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+        # Map accounts
+        $self->mapAccounts();
+
+        # Reset sysvol
+        $self->resetSysvolACL();
 
         EBox::debug('Setting provisioned flag');
         $self->setProvisioned(1);
