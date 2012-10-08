@@ -23,5 +23,6 @@ EBox::init();
 my $squid = EBox::Global->modInstance('squid');
 $squid or die "No HTTP Proxy module installed";
 $squid->model('FilterProfiles')->removeNoPresentCategories();
+$squid->save();
 
 1;
