@@ -296,6 +296,21 @@ sub cleanSeenListDirectories
     $self->{seenListDirectories} = {};
 }
 
+sub markCategoriesAsNoPresent
+{
+    my ($self, $list) = @_;
+    # using _ids to not call syncRows
+    # the rows which are really present we will marked as such
+    # i nthe next call of ids()/syncRows()
+    foreach my $id (@{ $self->_ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('list') ne $list) {
+            next;
+        }
+        $row->elementByName('present')->setValue(0);
+        $row->store();
+    }
+}
 
 sub removeNoPresentCategories
 {
@@ -391,19 +406,6 @@ sub squidRulesStubs
 sub _loadUrlLists
 {
     return  EBox::Config::boolean('load_url_lists');
-}
-
-sub markCategoriesAsNoPresent
-{
-    my ($self) = @_;
-    # using _ids to not call syncRows
-    # the rows which are really present we will marked as such
-    # i nthe next call of ids()/syncRows()
-    foreach my $id (@{ $self->_ids() }) {
-        my $row = $self->row($id);
-        $row->elementByName('present')->setValue(0);
-        $row->store();
-    }
 }
 
 1;

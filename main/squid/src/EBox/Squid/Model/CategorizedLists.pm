@@ -120,8 +120,9 @@ sub updatedRowNotify
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
+    my $name = $row->valueByName('name');
     $row->elementByName('fileList')->markArchiveContentsForRemoval();
-    $self->parentModule()->model('DomainFilterCategories')->markCategoriesAsNoPresent();
+    $self->parentModule()->model('FilterProfiles')->markCategoriesAsNoPresent($name);
     $self->_changeInCategorizedLists();
 }
 
