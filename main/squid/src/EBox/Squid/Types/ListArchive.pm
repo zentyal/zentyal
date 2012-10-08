@@ -115,12 +115,34 @@ sub markArchiveContentsForRemoval
         EBox::Sudo::root("mv -f '$removalDir' '$fallbackPath'");
     }
     EBox::Sudo::root("mv -f '$dir' '$removalDir'");
+
+    # XXX work around until framework again support removal and commits of the
+    # files themselves. This code is repititive  but since it is
+    # temporal i dont extract it to a method
+    my $path = $self->path();
+    my $dirname = dirname($path);
+    my $basename = basename($path);
+    my $removalPath = $dirname . '/' . $REMOVE_PREFIX . $basename;
+    if (EBox::Sudo::fileTest('-e', $removalPath)) {
+        my $fallbackPath = EBox::FileSystem::unusedFileName("$removalPath.old");
+        EBox::error("When moving $dir to temporal pre removal file $removalDir , we found that it exists. We will move it to $fallbackPath to be able to continue");
+        EBox::Sudo::root("mv -f '$removalPath' '$fallbackPath'");
+    }
+    EBox::Sudo::root("mv -f '$path' '$removalPath'");
 }
 
 sub commitAllPendingRemovals
 {
     my ($self) = @_;
     my $path = $UNPACK_PATH . "/$REMOVE_PREFIX*";
+    EBox::Sudo::root("rm -rf $path");
+
+    # XXX work around until framework again support removal and commits of the
+    # files themselves. This code is repititive  but since it is
+    # temporal i dont extract it to a method
+    my $LIST_FILE_DIR = '/etc/dansguardian/extralists'; # from CategorizedLists
+                                                        # model
+    $path = $LIST_FILE_DIR . "/$REMOVE_PREFIX*";
     EBox::Sudo::root("rm -rf $path");
 }
 
@@ -129,11 +151,9 @@ sub revokeAllPendingRemovals
     my ($self) = @_;
     my $path = $UNPACK_PATH . "/$REMOVE_PREFIX*";
     my @dirs = glob($path);
-    EBox::debug("revoke dirs @dirs ffor glob $path");
     foreach my $dir (@dirs) {
         my $dirname = dirname($dir);
         my $basename = basename($dir);
-        EBox::debug("basenameFefor $basename");
         $basename =~ s/^$REMOVE_PREFIX//;
         EBox::debug("basenameAfter $basename");
         my $newPath = $dirname . '/' . $basename;
@@ -146,6 +166,27 @@ sub revokeAllPendingRemovals
         EBox::Sudo::root("mv -f '$dir' '$newPath'");
     }
 
+    # XXX work around until framework again support removal and commits of the
+    # files themselves. This code is repititive  but since it is
+    # temporal i dont extract it to a method
+    my $LIST_FILE_DIR = '/etc/dansguardian/extralists'; # from CategorizedLists
+                                                        # model
+    $path = $LIST_FILE_DIR . "/$REMOVE_PREFIX*";
+    @dirs = glob($path);
+    foreach my $dir (@dirs) {
+        my $dirname = dirname($dir);
+        my $basename = basename($dir);
+        $basename =~ s/^$REMOVE_PREFIX//;
+        EBox::debug("basenameAfter $basename");
+        my $newPath = $dirname . '/' . $basename;
+        EBox::debug("$dir -> $newPath");
+        if (EBox::Sudo::fileTest('-e', $newPath)) {
+            my $replacePath = EBox::FileSystem::unusedFileName("$dir.old");
+            EBox::error("Cannot restore $newPath from $dir because it already exists. $dir will be moved to $replacePath");
+            $newPath = $replacePath;
+        }
+        EBox::Sudo::root("mv -f '$dir' '$newPath'");
+    }
 }
 
 sub unpackPath
