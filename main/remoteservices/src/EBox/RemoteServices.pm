@@ -91,6 +91,7 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '1'  => __('Professional'),
                    '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
+                   '8'  => __('Enterprise Trial'),
                    '10' => __('Enterprise'));
 
 # Group: Protected methods
@@ -812,6 +813,7 @@ sub bundleVersion
 #         -1 - no subscribed or impossible to know
 #          0 - basic
 #          5 - sb
+#          8 - trial
 #          10 - enterprise
 #
 sub subscriptionLevel
@@ -846,6 +848,7 @@ sub subscriptionLevel
 #         basic
 #         professional
 #         enterprise
+#         trial
 #
 sub subscriptionCodename
 {
