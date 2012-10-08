@@ -98,7 +98,7 @@ sub _removalDir
     my ($self) = @_;
     my $path = $self->archiveContentsDir();
     my $dirname = dirname($path);
-    my $basename = $REMOVE_PREFIX . basename($dirname);
+    my $basename = $REMOVE_PREFIX . basename($path);
     return $dirname . '/' . $basename;
 }
 
@@ -129,11 +129,15 @@ sub revokeAllPendingRemovals
     my ($self) = @_;
     my $path = $UNPACK_PATH . "/$REMOVE_PREFIX*";
     my @dirs = glob($path);
+    EBox::debug("revoke dirs @dirs ffor glob $path");
     foreach my $dir (@dirs) {
         my $dirname = dirname($dir);
         my $basename = basename($dir);
-        $basename =~ s/^$REMOVE_PREFIX\.//;
+        EBox::debug("basenameFefor $basename");
+        $basename =~ s/^$REMOVE_PREFIX//;
+        EBox::debug("basenameAfter $basename");
         my $newPath = $dirname . '/' . $basename;
+        EBox::debug("$dir -> $newPath");
         if (EBox::Sudo::fileTest('-e', $newPath)) {
             my $replacePath = EBox::FileSystem::unusedFileName("$dir.old");
             EBox::error("Cannot restore $newPath from $dir because it already exists. $dir will be moved to $replacePath");
