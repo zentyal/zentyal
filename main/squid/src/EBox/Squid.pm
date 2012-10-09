@@ -88,7 +88,7 @@ sub kerberosServicePrincipals
 {
     my ($self) = @_;
 
-    my $data = { service    => 'proxy',
+    my $data = { service    => 'http',
                  principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'proxy' };

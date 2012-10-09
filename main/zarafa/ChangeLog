@@ -1,4 +1,6 @@
 HEAD
+	+ Change the kerberos service from zarafa to http. Zarafa and Squid must
+	  share the service principal.
 	+ Fixed notifyForeignModelAction on removal of mail virtual domains
 3.0
 	+ Moved menu entry from Office to Communications

@@ -1,4 +1,6 @@
 HEAD
+	+ Change the kerberos service from squid to http. Zarafa and Squid must
+	  share the service principal.
 	+ Added memory cache of seen list directories to DomainFilterCategories
 	+ Categories from bigblacklist are now accepted
 3.0

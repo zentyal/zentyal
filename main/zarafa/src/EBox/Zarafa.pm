@@ -172,8 +172,8 @@ sub kerberosServicePrincipals
 {
     my ($self) = @_;
 
-    my $data = { service    => 'zarafa',
-                 principals => [ 'ZARAFA' ],
+    my $data = { service    => 'http',
+                 principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;

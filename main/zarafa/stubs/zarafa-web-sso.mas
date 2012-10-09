@@ -6,8 +6,8 @@
   AuthType Kerberos
   AuthName "Kerberos Login"
   KrbMethodNegotiate On
-  KrbMethodK5Passwd On
-  KrbServiceName ZARAFA
+  KrbMethodK5Passwd Off
+  KrbServiceName HTTP
   KrbAuthRealms <% $realm %>
   Krb5KeyTab /etc/zarafa/zarafa.keytab
   require valid-user
@@ -16,8 +16,8 @@
   AuthType Kerberos
   AuthName "Kerberos Login"
   KrbMethodNegotiate On
-  KrbMethodK5Passwd On
-  KrbServiceName ZARAFA
+  KrbMethodK5Passwd Off
+  KrbServiceName HTTP
   KrbAuthRealms <% $realm %>
   Krb5KeyTab /etc/zarafa/zarafa.keytab
   require valid-user

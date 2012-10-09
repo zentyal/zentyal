@@ -1,4 +1,6 @@
 HEAD
+	+ Check for already existant service principals before create them.
+	  Required because squid and zarafa share the HTTP SPN
 	+ Increase default quota value to 500MB
 3.0.2
 	+ Added clearCache() to LdapObject and force reload of krb5Keys
