@@ -58,23 +58,26 @@ system("/etc/init.d/zentyal jabber restart");
 sub killProcesses
 {
     my ($force) = @_;
-    # look for remaining processes
-    my @ps = `ps -uejabberd`;
-    shift @ps; # header line
-    foreach my $line (@ps) {
-        my ($pid) = split '\s+', $line;
-        $pid or next;
-        my $cmd = "kill ";
-        $cmd .= ' -9 ' if $force;
-        $cmd .= $pid;
-        $cmd .= ' 2> /dev/null';
-        system $cmd;
+    my @kill;
+    foreach my $process (qw(beam epms)) {
+        `pgrep $process`;
+        if ($? == 0) {
+            push @kill, $process;
+        }
+
+    }
+    @kill or return;
+
+    if ($force) {
+        system 'killall -9 @kill';
+    } else {
+        system 'killall  @kill';
     }
 }
 
 sub usage
 {
-    print "$0 [-f|--force]=n";
+    print "$0 [-f|--force]\n";
     exit 0;
 }
 
