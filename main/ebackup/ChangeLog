@@ -1,3 +1,5 @@
+HEAD
+	+ Added python-paramiko dependency which is needed for ssh backend
 2.3.8
 	+ Removed Zentyal Cloud method
 	+ Deleted obsolete Disaster Recovery restore-tool
