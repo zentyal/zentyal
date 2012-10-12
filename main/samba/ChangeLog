@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Fix netlogon share wrong path
 	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
 	  browsing support
