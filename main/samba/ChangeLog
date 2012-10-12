@@ -1,3 +1,7 @@
+HEAD
+	+ Fix netlogon share wrong path
+	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
+	  browsing support
 3.0.3
 	+ Update smb.conf for samba4 RC2
 	+ During domain join precedure, wait a couple of seconds for samba to start
