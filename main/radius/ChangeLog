@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed log helper after migration to MySQL
 	+ Added and used serviceId field for service certificates
 2.3.4
 	+ Adapted group membership checking to changes in users
