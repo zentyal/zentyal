@@ -349,22 +349,18 @@ sub _columnsSpec
             $newSpec->{accummulate} = undef;
         }
 
-
         $spec{$column} =  $newSpec;
     }
-
 
     return \%spec;
 }
 
+# _clearRows disabled with 0 values
 my %ttlByTimePeriod = (
                        monthly => 0,
                        weekly => 0,
                        daily => 0,
-
-                       # XXX DEBUG!
                        hourly => 0,
-#                       hourly => 3600*48,
                       );
 
 sub _clearRows
@@ -430,7 +426,6 @@ sub _tableInfosFromMod
     return \@tableInfos;
 }
 
-
 sub _monthlyDate
 {
     my ($self, $timeStamp) = @_;
@@ -438,7 +433,6 @@ sub _monthlyDate
     $timeStamp =~ s/\-\d\d?\s\d\d?:\d\d?:\d\d?$/-01 00:00:00/;
     return $timeStamp;
 }
-
 
 sub _weeklyDate
 {
@@ -471,7 +465,6 @@ sub _weeklyDate
     return  $t->year() .'-'. $t->mon() . '-' . $t->mday() . ' 00:00:00';
 }
 
-
 sub _dailyDate
 {
     my ($self, $timeStamp) = @_;
@@ -479,7 +472,6 @@ sub _dailyDate
     $timeStamp =~ s/\d\d?:\d\d?:\d\d?$/00:00:00/;
     return $timeStamp;
 }
-
 
 sub _hourlyDate
 {
@@ -497,6 +489,7 @@ sub _addConsolidatedRow
 
     my $setPortion = '';
     while (my ($column, $amount) = each %{ $accummulator_r }) {
+        $column = $dbengine->quoteColumnName($column);
         if ($amount == 0) {
             next;
         }
@@ -513,6 +506,7 @@ sub _addConsolidatedRow
 
     my $wherePortion = '(';
     while (my ($col, $value) = each %{ $row }) {
+        $col = $dbengine->quoteColumnName($col);
         if ($quote->{$col}) {
             $value = $dbengine->quote($value);
         }  else {
@@ -524,12 +518,8 @@ sub _addConsolidatedRow
     $wherePortion =~ s/ AND $//; # remove last AND
     $wherePortion .= ')';
 
-
     my $updateStatement = "UPDATE $table SET $setPortion WHERE $wherePortion";
-
-
     my $res = $dbengine->do($updateStatement);
-
 
     # if there is not a line for the consolidate values the update statement will
     # return 0 and we must do the insert
@@ -541,7 +531,6 @@ sub _addConsolidatedRow
 
         $row->{$column} = $amount;
     }
-
 
         $dbengine->unbufferedInsert($table, $row);
     }

@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
 3.0.3
 	+ Fixed bug which prevented highlight of selected item in menu
 	+ Fixed base class of event dispatcher to be compatible with the
