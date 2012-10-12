@@ -175,6 +175,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'FTP',
              service =>  __('FTP'),
              path    =>  '/etc/vsftpd/ssl/ssl.pem',
              user => 'ftp',

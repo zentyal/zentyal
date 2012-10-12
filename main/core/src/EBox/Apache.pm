@@ -772,6 +772,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',

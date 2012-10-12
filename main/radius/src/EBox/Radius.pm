@@ -326,6 +326,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'RADIUS',
              service =>  __('RADIUS'),
              path    =>  '/etc/freeradius/certs/freeradius.pem',
              user => 'root',

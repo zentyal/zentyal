@@ -12,17 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::CA::Certificates
-#
-#
-
-package EBox::CA::Certificates;
-
-use base qw(EBox::CA::Observer);
-
 use strict;
 use warnings;
+
+package EBox::CA::Certificates;
+use base qw(EBox::CA::Observer);
 
 use EBox::Gettext;
 use EBox::Global;
@@ -108,10 +102,10 @@ sub certificateExpired
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        my $service = $srvcert->{'service'};
-        my $cn = $model->cnByService($service);
+        my $serviceId = $srvcert->{'serviceId'};
+        my $cn = $model->cnByService($serviceId);
         if ($cn eq $commonName) {
-            $model->disableService($service);
+            $model->disableService($serviceId);
         }
     }
 }
@@ -131,10 +125,10 @@ sub freeCertificate
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        my $service = $srvcert->{'service'};
-        my $cn = $model->cnByService($service);
+        my $serviceId = $srvcert->{'serviceId'};
+        my $cn = $model->cnByService($serviceId);
         if ($cn eq $commonName) {
-            $model->disableService($service);
+            $model->disableService($serviceId);
         }
     }
 }
@@ -159,6 +153,7 @@ sub srvsCerts
         my @modsrvs = @{EBox::Global->modInstance($mod)->certificates()};
         next unless @modsrvs;
         for my $srv (@modsrvs) {
+            $srv->{serviceId} or next;
             $srv->{'module'} = $mod;
             push(@srvscerts, $srv);
         }
@@ -181,10 +176,10 @@ sub _genCert
 
     my $model = $ca->model('Certificates');
 
-    my $service = $srvcert->{'service'};
-    return undef unless ($model->isEnabledService($service));
+    my $serviceId = $srvcert->{'serviceId'};
+    return undef unless ($model->isEnabledService($serviceId));
 
-    my $cn = $model->cnByService($service);
+    my $cn = $model->cnByService($serviceId);
     return undef unless (defined($cn));
 
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
