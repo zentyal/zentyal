@@ -459,7 +459,7 @@ forwardedfor = on
 # IP. This is for when you have squid between the clients and DansGuardian.
 # Warning - headers are easily spoofed. on | off
 
-usexforwardedfor = off
+usexforwardedfor = on
 
 # if on it logs some debug info regarding fork()ing and accept()ing which
 # can usually be ignored.  These are logged by syslog.  It is safe to leave
