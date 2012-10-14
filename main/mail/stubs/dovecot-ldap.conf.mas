@@ -34,4 +34,4 @@ user_attrs = =mail=maildir:<% $mailboxesDir%>/%Ld/%n, \
 
 
 pass_filter = (&(objectClass=CourierMailAccount)(mail=%u))
-pass_attrs = mail=user,userPassword=password
+pass_attrs = mail=user

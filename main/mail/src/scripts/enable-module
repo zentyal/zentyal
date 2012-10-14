@@ -64,3 +64,5 @@ newaliases
 # set a valid shell for fetchmail user
 chsh -s /bin/sh fetchmail
 
+# to allow use dovecot 2 different LDAP connections for faster login
+ln -sf /etc/dovecot/dovecot-ldap.conf /etc/dovecot/dovecot-ldap-userdb.conf

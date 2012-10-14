@@ -1,4 +1,6 @@
 HEAD
+	+ Do not retrieve unnecessary password attribute in dovecot auth
+	+ Faster login to dovecot using 2 different LDAP connection
 	+ Added and used serviceId field for service certificates
 	+ Fixed bread crumbs in mail dispatcher configuration model
 3.0.1
