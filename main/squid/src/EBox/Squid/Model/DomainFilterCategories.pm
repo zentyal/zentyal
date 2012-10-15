@@ -321,7 +321,7 @@ sub removeNoPresentCategories
 sub _aclBaseName
 {
     my ($sef, $row) = @_;
-    my $aclName = $row->valueByName('list') . '_dc_' . $row->valueByName('category');
+    my $aclName = $row->valueByName('list') . '~dc~' . $row->valueByName('category');
     return $aclName;
 }
 
@@ -341,13 +341,13 @@ sub squidSharedAcls
 
         my $domainsFile = "$dir/domains";
         if (-r $domainsFile) {
-            my $name = $basename . '_dom';
+            my $name = $basename . '~dom';
             push @acls, [$name => qq{acl $name dstdom_regex -i "$domainsFile"}];
         }
 
         my $urlsFile = "$dir/urls";
         if (-r $urlsFile) {
-            my $name = $basename . '_urls';
+            my $name = $basename . '~urls';
             push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
         }
     }
@@ -373,7 +373,7 @@ sub squidRulesStubs
         }
         my $basename = $self->_aclBaseName($row);
         foreach my $type (qw(dom urls)) {
-            my $aclName = $basename . '_' . $type;
+            my $aclName = $basename . '~' . $type;
             exists $acls->{$aclName} or
                 next;
             my $rule =  {
