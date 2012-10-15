@@ -1,4 +1,5 @@
 HEAD
+	+ Protection for ACL from profiles with too long names
 	+ Added validation of categorized list structure
 	+ Changed paths for categorized lists files so they are all under /varlib/zentyal/files/squid
 	+ Work arounded the removal of archive files until the framework

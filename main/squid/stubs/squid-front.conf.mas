@@ -124,7 +124,7 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
-            $ruleStr .= ' ' . $baseAcls . $stub->{acl};
+            $ruleStr .= ' ' . $baseAcls . _aclName($stub->{acl});
             $ruleStr .= "\n";
             # output the rule
             $m->print($ruleStr);
@@ -201,7 +201,9 @@ acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
 
 % foreach my $acl (@{ $filterProfiles{acls} }) {
-<% $acl %>
+%   my ($declaration, $name, $params) = split '\s+', $acl, 3;
+%   $name = _aclName($name);
+acl <% "$name $params" %>
 % }
 
 http_access allow to_localhost
