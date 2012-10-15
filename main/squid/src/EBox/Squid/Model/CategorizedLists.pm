@@ -30,7 +30,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Basename;
 
-use constant LIST_FILE_DIR => '/etc/dansguardian/extralists';
+use constant LIST_FILE_DIR => '/var/lib/zentyal/files/squid/archives';
 
 # Method: _table
 #

@@ -28,8 +28,9 @@ use EBox::FileSystem;
 use Error qw(:try);
 use File::Basename;
 
-my $UNPACK_PATH = '/var/lib/zentyal/files/squid';
+my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
 my $REMOVE_PREFIX = 'toremove.';
+
 # Group: Private methods
 
 sub _moveToPath
