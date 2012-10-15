@@ -31,7 +31,53 @@ use File::Basename;
 my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
 my $REMOVE_PREFIX = 'toremove.';
 
-# Group: Private methods
+# validation for catogory directories
+my %validParentDirs = (
+    BL => 1,
+    blacklists => 1,
+);
+my %validBasename = (
+    domain => 1,
+    urls   => 1,
+   );
+
+sub validParentDirs
+{
+    return \%validParentDirs;
+}
+
+sub validBasename
+{
+    return \%validBasename;
+}
+
+sub _paramIsValid
+{
+    my ($self) = @_;
+    my $tmpPath = $self->tmpPath();
+    if (not $self->_fileIsArchive($tmpPath)) {
+        throw EBox::Exceptions::External(
+            __('Supplied file is not a archive file')
+           );
+    }
+
+    my $validContents;
+    my $contents = EBox::Sudo::root("tar tzf '$tmpPath'");
+    foreach my $line (@{ $contents  }) {
+        chomp $line;
+        my ($parentDir, $category, $basename) = split '/', $line, 3;
+        if (exists $validParentDirs{$parentDir} and exists $validBasename{$basename}) {
+            $validContents = 1;
+            next;
+        }
+    }
+
+    if (not $validContents) {
+        throw EBox::Exceptions::External(
+            __('Supplied archive file has not correct list structure')
+           );
+    }
+}
 
 sub _moveToPath
 {
