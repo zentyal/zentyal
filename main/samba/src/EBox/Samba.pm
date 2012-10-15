@@ -337,6 +337,9 @@ sub enableActions
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, 'mkdir -p ' . SYSVOL_DIR);
+    push (@cmds, 'chown -R root.adm ' . SYSVOL_DIR);
+    push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
     EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
 }
@@ -678,8 +681,8 @@ sub resetSysvolACL
     my ($self) = @_;
 
     # Reset the sysvol permissions
-    EBox::info("Reseting sysvol ACLs to defaults")
-    $cmd = SAMBATOOL . " ntacl sysvolreset";
+    EBox::info("Reseting sysvol ACLs to defaults");
+    my $cmd = SAMBATOOL . " ntacl sysvolreset";
     EBox::Sudo::root($cmd);
 }
 
@@ -690,16 +693,17 @@ sub mapAccounts
     my $domainSID = $self->ldb->domainSID();
 
     # Map unix root account to domain administrator
-    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
-    my $typeGID = EBox::LDB::IdMapDb::TYPE_GID();
+    my $typeUID  = EBox::LDB::IdMapDb::TYPE_UID();
+    my $typeGID  = EBox::LDB::IdMapDb::TYPE_GID();
+    my $typeBOTH = EBox::LDB::IdMapDb::TYPE_BOTH();
     my $domainAdminSID = "$domainSID-500";
     my $domainAdminsSID = "$domainSID-512";
     my $rootUID = 0;
-    my $rootGID = 0;
+    my $admGID = 4;
     EBox::info("Mapping domain administrator account");
     $self->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
     EBox::info("Mapping domain administrators group account");
-    $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeGID, $rootGID);
+    $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
