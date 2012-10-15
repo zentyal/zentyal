@@ -36,6 +36,11 @@ my $REMOVE_PREFIX = 'toremove.';
 sub _moveToPath
 {
     my ($self) = @_;
+    # assure that base dest dir exists
+    my $dir = dirname($self->path());
+    if (not EBox::Sudo::fileTest('-e', $dir)) {
+        EBox::Sudo::root("mkdir -p '$dir'");
+    }
 
     $self->SUPER::_moveToPath();
 
