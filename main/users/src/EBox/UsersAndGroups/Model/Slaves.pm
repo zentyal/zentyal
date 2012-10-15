@@ -12,13 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups::Model::Slaves;
+use strict;
+use warnings;
 
 # Class: EBox::UsersAndGroups::Model::Slaves
 #
 #   This a class holds the list of registered slave machines
 #
+package EBox::UsersAndGroups::Model::Slaves;
+use base 'EBox::Model::DataTable';
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -28,11 +31,6 @@ use EBox::UsersAndGroups::Group;
 
 use EBox::Types::Host;
 use EBox::Types::Port;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 sub new
 {

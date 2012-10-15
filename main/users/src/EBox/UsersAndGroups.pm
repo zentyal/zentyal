@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups;
-
 use strict;
 use warnings;
 
+package EBox::UsersAndGroups;
 use base qw( EBox::Module::Service
              EBox::LdapModule
              EBox::UserCorner::Provider
@@ -495,11 +493,10 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-
     if ($self->master() eq 'cloud') {
         push(@array, 'cloudsync_enabled' => 1);
-        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
     }
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
