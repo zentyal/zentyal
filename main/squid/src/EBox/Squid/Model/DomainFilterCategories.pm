@@ -16,7 +16,6 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::DomainFilterCategories;
-
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -33,20 +32,19 @@ use Error qw(:try);
 use File::Basename;
 
 my $categoriesFileDir = '/var/lib/zentyal/files/squid';
-my %validParentDirs = (
-    BL => 1,
-    blacklists => 1,
-   );
-my %validBasename = (
-    domain => 1,
-    urls   => 1,
-   );
-
+my %validParentDirs = %{ EBox::Squid::Types::ListArchive::validParentDirs() };
+my %validBasename = %{ EBox::Squid::Types::ListArchive::validBasename() };
 
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
 #
+#   If a category directory is present:
+#    - adds its row if it is not already in the table
+#    - turn the present flag to on if it was off
+#
+#   If a category directory is not present:
+#     - removes its from table UNLESS its present flag is off
 sub syncRows
 {
     my ($self, $currentRows) = @_;
