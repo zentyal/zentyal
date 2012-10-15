@@ -216,7 +216,7 @@ sub viewCustomizer
 sub _aclName
 {
     my ($sef, $profileId) = @_;
-    my $aclName = $profileId . '_mime';
+    my $aclName = $profileId . '~mime';
     return $aclName;
 }
 
