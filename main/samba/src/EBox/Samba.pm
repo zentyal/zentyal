@@ -43,7 +43,7 @@ use EBox::Samba::Model::SambaShares;
 use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
-use File::Temp;
+use File::Temp qw( tempfile tempdir );
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -719,6 +719,27 @@ sub mapAccounts
     $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
+sub importSysvolFromDC
+{
+    my ($self, $dc, $user, $pwd) = @_;
+
+    EBox::info("Syncing sysvol from '$dc'");
+    my $dir = tempdir('/tmp/sysvolXXXX', CLEANUP => 1);
+    try {
+        my @cmds;
+        push (@cmds, "mount -t cifs -oro,username='$user',password='$pwd' //$dc/sysvol $dir");
+        push (@cmds, "mount --make-unbindable $dir");
+        push (@cmds, "rsync -av --delete $dir/ " . SYSVOL_DIR . "/");
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my ($error) = @_;
+        EBox::Error("Could not sync sysvol from $dc: $error");
+    } finally {
+        EBox::Sudo::rootWithoutException("umount '$dir'");
+        EBox::Sudo::rootWithoutException("rm -r '$dir'");
+    };
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -734,8 +755,11 @@ sub provision
     my $provisionIP = $self->_checkEnvironment(2);
 
     # Delete samba config file and private folder
-    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
-    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
+    my @cmds;
+    push (@cmds, 'rm -f ' . SAMBACONFFILE);
+    push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
+    push (@cmds, 'rm -rf ' . SYSVOL_DIR . '/*');
+    EBox::Sudo::root(@cmds);
 
     my $mode = $self->mode();
     my $fs = EBox::Config::configkey('samba_fs');
@@ -949,7 +973,8 @@ sub provisionAsADC
         # Map accounts
         $self->mapAccounts();
 
-        # Reset sysvol
+        # Import sysvol and reset acl
+        $self->importSysvolFromDC($dcFQDN, $adminAccount, $adminAccountPwd);
         $self->resetSysvolACL();
 
         EBox::debug('Setting provisioned flag');
