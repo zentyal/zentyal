@@ -78,6 +78,26 @@ sub _table
     };
 }
 
+sub syncRows
+{
+    my ($self, $currentRows) = @_;
+    my $changed = 0;
+    # removes row if the archive  files in not longer present
+    foreach my $id (@{$currentRows}) {
+        my $row = $self->row($id);
+        my $fileList = $row->elementByName('fileList');
+        if (not $fileList->exist()) {
+            my $path = $fileList->path();
+            my $name = $row->valueByName('name');
+            EBox::error("File $path for categorized list $name not longer exits. Removing its row");
+            $changed = 1;
+            $self->removeRow($id, 1);
+        }
+    }
+
+    return $changed;
+}
+
 # Method: viewCustomizer
 #
 #      To display a permanent message
@@ -119,9 +139,12 @@ sub updatedRowNotify
 
 sub deletedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $force) = @_;
     my $name = $row->valueByName('name');
-    $row->elementByName('fileList')->markArchiveContentsForRemoval();
+    if (not $force) {
+        $row->elementByName('fileList')->markArchiveContentsForRemoval();
+    }
+
     $self->parentModule()->model('FilterProfiles')->markCategoriesAsNoPresent($name);
     $self->_changeInCategorizedLists();
 }
