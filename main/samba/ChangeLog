@@ -1,6 +1,11 @@
 HEAD
 	+ Map root account to domain administrator account
 	+ Reset sysvol ACLs after provision
+3.0.4
+	+ Fix netlogon share wrong path
+	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
+	  browsing support
+3.0.3
 	+ Update smb.conf for samba4 RC2
 	+ During domain join precedure, wait a couple of seconds for samba to start
 	+ Add configkey 'treat_contacts_as_users' to import distribution groups

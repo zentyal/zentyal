@@ -1,3 +1,5 @@
+HEAD
+	+ Added and used serviceId field for service certificates
 3.0.1
 	+ User corner is now allowed on slaves, except for password change
 	+ Updated deprecated master/slave API calls

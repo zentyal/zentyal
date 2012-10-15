@@ -1064,6 +1064,9 @@ sub writeSambaConfig
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+
     my @array = ();
     push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
@@ -1073,6 +1076,7 @@ sub writeSambaConfig
     push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
+    push (@array, 'domain'      => $hostDomain);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
 
@@ -1232,6 +1236,9 @@ sub _daemons
         {
             name => 'samba4',
             pidfiles => ['/var/run/samba.pid'],
+        },
+        {
+            name => 'zentyal.nmbd',
         },
         {
             name => 'zentyal.s4sync',

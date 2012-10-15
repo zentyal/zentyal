@@ -1,4 +1,5 @@
 HEAD
+	+ Added and used serviceId field for service certificates
 	+ Fixed notifyForeignModelAction on removal of mail virtual domains
 3.0
 	+ Moved menu entry from Office to Communications
