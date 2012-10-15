@@ -21,6 +21,8 @@
 </%args>
 <%shared>
 our $anyPrefix = 'any~src~';
+our $objectPrefix = 'obj~';
+our $groupPrefix = 'grp~';
 our $timeDaysPrefix = 'timeDays~';
 our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
@@ -83,10 +85,19 @@ sub _aclName
        <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
 %      next;
 %   }
-%   my $object = $rule->{object};
-%   my $group = $rule->{group};
-%   my $src = $object ? $object : $group;
-%   my $aclName = _aclName($src);
+<%perl>
+   my $object = $rule->{object};
+   my $group = $rule->{group};
+   my ($src, $aclName);
+   if ($object) {
+       $src = $object;
+       $aclName = $objectPrefix . $object;
+   } else {
+       $src = $group;
+       $aclName = $groupPrefix . $group;
+   }
+   $aclName = _aclName($aclName);
+</%perl>
 %   if ($object) {
 acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %   } else {
@@ -109,9 +120,23 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 % foreach my $rule (@rules) {
 <%perl>
    my $object = $rule->{'object'};
+   my $objectAcl;
+   if ($rule->{any}) {
+       $objectAcl = 'all';
+   } elsif ($object) {
+       $objectAcl = _aclName($objectPrefix . $object);
+   } else {
+       $objectAcl = '';
+   }
+
    my $group = $rule->{'group'};
-   my $groupAcl = $group ? _aclName($group) : '';
-   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $groupAcl;
+   if ($group) {
+      $groupAcl = _aclName($groupPrefix . $group);
+  } else {
+      $groupAcl = '';
+  }
+
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};

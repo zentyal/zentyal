@@ -154,6 +154,10 @@ sub validateTypedRow
     if ($name =~ m/\s/) {
         throw EBox::Exceptions::External(__('No spaces are allowed in profile names'));
     }
+    # reserved character for acl names
+    if ($name =~ m/~/) {
+        throw EBox::Exceptions::External(__(q|The '~' character is reserved and cannot be used in profile names|));
+    }
 }
 
 # Method: idByRowId
