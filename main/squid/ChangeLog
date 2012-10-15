@@ -1,5 +1,8 @@
 HEAD
 	+ Changed paths for categorized lists files so they are all under /varlib/zentyal/files/squid
+	+ Work arounded the removal of archive files until the framework
+	takes care again of them
+	+ Fixed categories list removal of extracted files
 	+ Moved a lot of the filter functionality to squid. In DG remains:
 	filter by text analysys, antivirus and block ip
 	+ Fix kerberos authentication when filter profile applied. As dansguardian

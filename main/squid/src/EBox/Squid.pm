@@ -33,6 +33,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -155,7 +156,7 @@ sub isRunning
     $running = (EBox::Service::running('zentyal.squid3-front') and
                 EBox::Service::running('zentyal.squid3-back'));
     if ($self->filterNeeded()) {
-        $running = $running and EBox::Service::running('zentyal.dansguardian');
+        $running = $running and EBox::Service::running('ebox.dansguardian');
     }
 
     return $running;
@@ -525,14 +526,14 @@ sub _setConf
         $self->_writeDgConf();
     }
 
-    $self->model('ListArchive')->commitAllPendingRemovals();
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
 }
 
 sub revokeConfig
 {
    my ($self) = @_;
    $self->SUPER::revokeConfig();
-   $self->model('ListArchive')->revokeAllPendingRemovals();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -1190,7 +1191,7 @@ sub aroundRestoreConfig
     my ($self, $dir, %options) = @_;
     $self->restoreConfig($dir, %options);
     # mark as domain categories as not present
-    
+
 }
 
 
