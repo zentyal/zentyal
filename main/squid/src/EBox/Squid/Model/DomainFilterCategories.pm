@@ -63,14 +63,11 @@ sub syncRows
 
     my $lists;
     my $removeDirPrefix = EBox::Squid::Types::ListArchive::unpackPath() . '/' .  EBox::Squid::Types::ListArchive::toRemovePrefix();
-    EBox::debug("removeDirPRefix $removeDirPrefix");
     my $removeDirRe = qr/^$removeDirPrefix/;
     foreach my $dir (@dirs) {
         if ($dir =~ m/$removeDirRe/) {
-            EBox::debug("$dir matched as removal dir");
             next;
         }
-            EBox::debug("$dir NOT removal dir");
         if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {
             next;
         } else {
@@ -106,7 +103,8 @@ sub syncRows
             next if $row->valueByName('list') ne $list;
             my $rowCategory = $row->valueByName('category');
             my $present = $row->valueByName('present');
-            # remove if not file and not present
+            # remove if not file and present == true (present ==false we assume
+            # thre is not file)
             if ($present and (not exists $categories{$rowCategory}) ) {
                $self->removeRow($id);
                $modified = 1;
@@ -123,7 +121,7 @@ sub syncRows
             } else {
                 my $noPresentRow = $current{$category};
                 if ($noPresentRow) {
-                    $noPresentRow->elementByName('present')->setValue(0);
+                    $noPresentRow->elementByName('present')->setValue(1);
                     $noPresentRow->store();
                 }
                 $modified = 1;
