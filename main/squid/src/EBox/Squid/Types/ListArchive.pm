@@ -28,7 +28,7 @@ use EBox::FileSystem;
 use Error qw(:try);
 use File::Basename;
 
-my $UNPACK_PATH = '/var/lib/zentyal/files/squid';
+my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
 
 # Group: Private methods
 
@@ -87,7 +87,7 @@ sub _removalDir
 sub markArchiveContentsForRemoval
 {
     my ($self, $id) = @_;
-    
+
     my $dir        = $self->archiveContentsDir();
     my $removalDir = $self->_removalDir();
     if (EBox::Sudo::fileTest('-e', $removalDir)) {
@@ -117,7 +117,7 @@ sub revokeAllPendingRemovals
         my $newPath = $dirname . '/' . $basename;
         if (EBox::Sudo::fileTest('-e', $newPath)) {
             my $replacePath = EBox::FileSystem::unusedFileName("$dir.old");
-            EBox::error("Cannot restore $newPath from $dir because it already exists. $dir will be moved to $fallbackPath");
+            EBox::error("Cannot restore $newPath from $dir because it already exists. $dir will be moved to $replacePath");
             $newPath = $replacePath;
         }
         EBox::Sudo::root("mv -f '$dir' '$newPath'");
