@@ -140,7 +140,7 @@ sub status
 
     my $msg = "EBox: status module $modname:\t\t\t";
     my $enabled = $mod->isEnabled();
-    my $running = $mod->isRunning();
+    my $running = $mod->isRunning(1);
     if ($enabled and $running) {
         print STDOUT $msg . "[ RUNNING ]\n";
         exit 0;

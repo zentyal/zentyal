@@ -406,17 +406,23 @@ sub _isDaemonRunning
 #   boolean - true if it's running otherwise false
 sub isRunning
 {
-    my ($self) = @_;
+    my ($self, $skipPreconditionFail) = @_;
 
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
-        my $check = 1;
         my $pre = $daemon->{'precondition'};
         if (defined ($pre)) {
-            $check = $pre->($self);
+            my $check = $pre->($self);
+            if (not $check) {
+                if ($skipPreconditionFail) {
+                    next;
+                } else {
+                    # If precondition does not meet the daemon should not be running.
+                    return 0;
+                }
+            }
         }
-        # If precondition does not meet the daemon should not be running.
-        $check or return 0;
+
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
@@ -439,7 +445,7 @@ sub addModuleStatus
     my ($self, $section) = @_;
 
     my $enabled = $self->isEnabled();
-    my $running = $self->isRunning();
+    my $running = $self->isRunning(1); # skip daemons which should not run
     my $name = $self->name();
     my $modPrintName = ucfirst($self->printableName());
     my $nobutton;
