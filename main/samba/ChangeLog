@@ -1,4 +1,6 @@
 HEAD
+	+ Import sysvol after joining a domain, and add an upstart job to sync it
+	  each 5 to 10 minutes (one way).
 	+ Map root account to domain administrator account
 	+ Reset sysvol ACLs after provision
 3.0.4

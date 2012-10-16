@@ -53,6 +53,7 @@ use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
+use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -61,6 +62,7 @@ use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
+use constant KEY_UTILS            => '/etc/request-key.conf';
 
 sub _create
 {
@@ -132,8 +134,8 @@ sub usedFiles
             'module' => 'samba',
         },
         {
-            'file'   => '/etc/services',
-            'reason' => __('To add microsoft specific services'),
+            'file'   => KEY_UTILS,
+            'reason' => __('To allow mount.cifs to use kerberos authentication'),
             'module' => 'samba',
         },
     ];
@@ -342,6 +344,19 @@ sub enableActions
     push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
     EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
+
+    # Enable kerberos auth for mount.cifs
+    my @newLines;
+    my @lines = read_file(KEY_UTILS);
+    foreach my $line (@lines) {
+        next if ($line =~ m/cifs\.upcall/);
+        push (@newLines, $line);
+    }
+    push (@newLines, "create\tcifs.spnego\t*\t*\t/usr/sbin/cifs.upcall\t%k\t%d");
+    push (@newLines, "create\tdns_resolver\t*\t*\t/usr/sbin/cifs.upcall\t%k");
+    my $buffer = join ('', @newLines);
+    EBox::Module::Base::writeFile(KEY_UTILS, $buffer,
+        { mode => '0644', uid => 0, gid => 0 });
 }
 
 sub isProvisioned
@@ -683,7 +698,7 @@ sub resetSysvolACL
     # Reset the sysvol permissions
     EBox::info("Reseting sysvol ACLs to defaults");
     my $cmd = SAMBATOOL . " ntacl sysvolreset";
-    EBox::Sudo::root($cmd);
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub mapAccounts
@@ -721,19 +736,30 @@ sub mapAccounts
 
 sub importSysvolFromDC
 {
-    my ($self, $dc, $user, $pwd) = @_;
+    my ($self, $dc) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $ucHostname = uc ($hostname);
 
     EBox::info("Syncing sysvol from '$dc'");
+    unless (EBox::Sudo::fileTest('-f', SECRETS_KEYTAB)) {
+        EBox::error("Required keytab not found");
+        return;
+    }
+
     my $dir = tempdir('/tmp/sysvolXXXX', CLEANUP => 1);
     try {
         my @cmds;
-        push (@cmds, "mount -t cifs -oro,username='$user',password='$pwd' //$dc/sysvol $dir");
+        push (@cmds, "kinit --keytab=" . SECRETS_KEYTAB . " $ucHostname\$");
+        push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
         push (@cmds, "mount --make-unbindable $dir");
-        push (@cmds, "rsync -av --delete $dir/ " . SYSVOL_DIR . "/");
+        push (@cmds, "rsync -av --delete --exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' $dir/ " . SYSVOL_DIR . "/");
+        push (@cmds, "kdestroy");
         EBox::Sudo::root(@cmds);
     } otherwise {
         my ($error) = @_;
-        EBox::Error("Could not sync sysvol from $dc: $error");
+        EBox::error("Could not sync sysvol from $dc: $error");
     } finally {
         EBox::Sudo::rootWithoutException("umount '$dir'");
         EBox::Sudo::rootWithoutException("rm -r '$dir'");
@@ -974,7 +1000,7 @@ sub provisionAsADC
         $self->mapAccounts();
 
         # Import sysvol and reset acl
-        $self->importSysvolFromDC($dcFQDN, $adminAccount, $adminAccountPwd);
+        $self->importSysvolFromDC($dcFQDN);
         $self->resetSysvolACL();
 
         EBox::debug('Setting provisioned flag');
@@ -1255,6 +1281,17 @@ sub printersConf
     return $printers;
 }
 
+sub _sysvolSyncCond
+{
+    my ($self) = @_;
+
+    my $sambaSettings = $self->model('GeneralSettings');
+    my $mode = $sambaSettings->modeValue();
+    my $adc = $sambaSettings->MODE_ADC();
+
+    return ($self->isEnabled() and $self->isProvisioned() and $mode eq $adc);
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -1272,6 +1309,10 @@ sub _daemons
         {
             name => 'zentyal.s4sync',
             precondition => \&isProvisioned,
+        },
+        {
+            name => 'zentyal.sysvol-sync',
+            precondition => \&_sysvolSyncCond,
         },
     ];
 }
