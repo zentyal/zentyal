@@ -38,6 +38,10 @@ if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
 }
 
 EBox::init();
+
+use Data::Dumper;
+print Dumper(\%ENV);
+
 my $users = EBox::Global->modInstance('users');
 $users->configured() or exit 0;
 
@@ -163,4 +167,5 @@ sub processUserCornerFile
         print " * $name\n";
     }
 }
+
 1;

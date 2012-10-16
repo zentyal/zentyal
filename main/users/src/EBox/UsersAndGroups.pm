@@ -1227,7 +1227,7 @@ sub menu
 
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                          'text' => __('Configure mode'),
+                                          'text' => __('Configuration'),
                                           'separator' => $separator,
                                           'order' => 0));
     }
