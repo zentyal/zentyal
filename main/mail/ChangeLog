@@ -1,4 +1,5 @@
 HEAD
+	+ Added LDAP indexes for mail and dc attributes
 	+ Added and used serviceId field for service certificates
 	+ Fixed bread crumbs in mail dispatcher configuration model
 3.0.1

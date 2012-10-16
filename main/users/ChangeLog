@@ -1,4 +1,5 @@
 HEAD
+	+ Added LDAP index for ou attribute
 	+ Always write slave-sync script
 	+ Increase default quota value to 500MB
 3.0.2
