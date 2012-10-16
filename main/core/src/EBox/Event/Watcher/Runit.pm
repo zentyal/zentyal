@@ -197,7 +197,8 @@ sub _runningAlertServices
 
             EBox::debug("Module $name is not running (" .
                 $self->{downPeriods}->{$name} . ')');
-        } elsif (exists $self->{downPeriods}->{$name}) {
+        } elsif (exists $self->{downPeriods}->{$name}
+                 and $self->{downPeriods}->{$name} >= MAX_DOWN_PERIODS) {
             EBox::debug("Module $name is running again");
             delete $self->{downPeriods}->{$name};
             push (@{$ret{runningAgain}->{printableNames}}, $mod->printableName());

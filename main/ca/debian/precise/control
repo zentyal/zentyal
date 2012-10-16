@@ -13,7 +13,7 @@ Package: zentyal-ca
 Architecture: all
 Replaces: ebox-ca (<< 2.0.100)
 Breaks: ebox-ca (<< 2.0.100)
-Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), libdate-calc-perl, libfile-copy-recursive-perl, ${misc:Depends}
+Depends: zentyal-core (>= 3.0), zentyal-core (<< 3.0.100), libdate-calc-perl, libfile-copy-recursive-perl, ${misc:Depends}
 Description: Zentyal - Certification Authority
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

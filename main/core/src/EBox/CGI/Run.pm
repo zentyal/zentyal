@@ -129,6 +129,7 @@ sub run # (url, namespace)
             $cgi = new $classname();
         }
 
+        $cgi->{originalUrl} = $url;
         $cgi->run();
         $redis->commit();
     } otherwise {

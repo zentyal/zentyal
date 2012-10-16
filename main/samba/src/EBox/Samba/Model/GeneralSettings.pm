@@ -12,13 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Samba::Model::GeneralSettings
 #
-#   This model is used to configure file sharing eneral settings.
+#   This model is used to configure file sharing general settings.
 #
-
 package EBox::Samba::Model::GeneralSettings;
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -38,53 +39,10 @@ use EBox::Config;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
 
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataForm';
-
 use constant MAXNETBIOSLENGTH     => 15;
-use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
-
 use constant MODE_DC              => 'dc';
 use constant MODE_ADC             => 'adc';
-
-# see http://support.microsoft.com/kb/909264
-my @reservedNames = (
-'ANONYMOUS',
-'AUTHENTICATED USER',
-'BATCH',
-'BUILTIN',
-'CREATOR GROUP',
-'CREATOR GROUP SERVER',
-'CREATOR OWNER',
-'CREATOR OWNER SERVER',
-'DIALUP',
-'DIGEST AUTH',
-'INTERACTIVE',
-'INTERNET',
-'LOCAL',
-'LOCAL SYSTEM',
-'NETWORK',
-'NETWORK SERVICE',
-'NT AUTHORITY',
-'NT DOMAIN',
-'NTLM AUTH',
-'NULL',
-'PROXY',
-'REMOTE INTERACTIVE',
-'RESTRICTED',
-'SCHANNEL AUTH',
-'SELF',
-'SERVER',
-'SERVICE',
-'SYSTEM',
-'TERMINAL SERVER',
-'THIS ORGANIZATION',
-'USERS',
-'WORLD',
-);
 
 sub new
 {
@@ -113,9 +71,6 @@ sub validateTypedRow
                            $newParams->{'workgroup'}->value() :
                            $oldParams->{'workgroup'}->value();
 
-    my $realm = exists $newParams->{'realm'} ?
-                       $newParams->{'realm'}->value() :
-                       $oldParams->{'realm'}->value();
     my $description = exists $newParams->{'description'} ?
                              $newParams->{'description'}->value() :
                              $oldParams->{'description'}->value();
@@ -124,30 +79,8 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
             __('NetBIOS computer name and NetBIOS domain name must be different'));
     }
-
-    $self->_checkNetbiosName($netbios);
     $self->_checkNetbiosName($workgroup);
-    $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
-}
-
-sub _checkDomainName
-{
-    my ($self, $domain) = @_;
-
-    if (length ($domain) <= 0) {
-        throw EBox::Exceptions::External(__('DNS domain name is empty'));
-    }
-    if ($domain =~ m/\.local$/i) {
-        throw EBox::Exceptions::External(__(q{DNS domain name cannot end in '.local'}));
-    }
-
-    $self->_checkWinName($domain, __('DNS domain name'));
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if (lc ($domain) eq lc ($sysinfo->hostName())) {
-        throw EBox::Exceptions::External(__('Domain name cannot be equal to host name'));
-    }
 }
 
 sub _checkNetbiosName
@@ -163,8 +96,6 @@ sub _checkNetbiosName
     if ($netbios =~ m/\./) {
         throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
-    $self->_checkWinName($netbios, __('NetBIOS name'));
-
 }
 
 sub _checkDescriptionString
@@ -176,25 +107,6 @@ sub _checkDescriptionString
     }
     if (length ($description) > MAXDESCRIPTIONLENGTH) {
         throw EBox::Exceptions::Externam(__('Description string is too long'));
-    }
-}
-
-sub _checkWinName
-{
-    my ($self, $name, $type) = @_;
-
-    my @parts = split ('\.', $name);
-    foreach my $part (@parts) {
-        $part = uc $part;
-        foreach my $reserved (@reservedNames) {
-            if ($part eq $reserved) {
-                throw EBox::Exceptions::External(
-                    __x(q{{type} cannot contain the reserved name {reserved}},
-                         type => $type,
-                         reserved => $reserved)
-                   );
-            }
-        }
     }
 }
 
@@ -240,10 +152,16 @@ sub _table
             hidden        => \&_adcProvisioned,
         ),
         new EBox::Types::DomainName(
-            fieldName          => 'workgroup',
-            printableName      => __('NetBIOS domain name'),
-            defaultValue       => EBox::Samba::defaultWorkgroup(),
-            editable           => 1,
+            fieldName     => 'workgroup',
+            printableName => __('NetBIOS domain name'),
+            defaultValue  => EBox::Samba::defaultWorkgroup(),
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'site',
+            printableName => __('Site'),
+            optional      => 1,
+            editable      => 1,
         ),
         new EBox::Types::Text(
             fieldName     => 'netbiosName',
@@ -300,8 +218,8 @@ sub updatedRowNotify
 
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
-
     my $newDomain = $row->valueByName('workgroup');
+
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
     if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
@@ -389,6 +307,14 @@ sub viewCustomizer
         },
     };
 
+    push (@{$actions->{mode}->{dc}->{hide}}, 'site');
+
+    if (EBox::Config::boolean('show_site_box')) {
+        push (@{$actions->{mode}->{adc}->{show}}, 'site');
+    } else {
+        push (@{$actions->{mode}->{adc}->{hide}}, 'site');
+    }
+
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     $customizer->setOnChangeActions($actions);
@@ -396,6 +322,20 @@ sub viewCustomizer
     $customizer->setInitHTMLStateOrder(['mode']);
 
     return $customizer;
+}
+
+sub updateHostnameFields
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my $newRealm = $global->modInstance('users')->kerberosRealm();
+
+    my $row = $self->row();
+    $row->elementByName('realm')->setValue($newRealm);
+    $row->elementByName('netbiosName')->setValue(EBox::Samba::defaultNetbios());
+    $row->store();
+
+    EBox::info("Changed kerberos realm in samba to $newRealm");
 }
 
 1;

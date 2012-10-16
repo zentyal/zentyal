@@ -376,31 +376,29 @@ sub _table
 
 
     my ($actionName, $printableTableName);
+    my ($customActions, $defaultActions) = ([], []);
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal registration details');
         $actionName = __('Unregister');
+        $defaultActions = [ 'editField', 'changeView' ];
     } else {
         splice(@tableDesc, 1, 0, $passType);
         $printableTableName = __('Register your Zentyal Server');
         $actionName = __('Register');
-    }
-
-    my $customActions = [
-        new EBox::Types::Action(
+        push(@{$customActions}, new EBox::Types::Action(
             model          => $self,
             name           => 'subscribe',
             printableValue => $actionName,
             onclick        => \&_showSaveChanges,
             template       => '/remoteservices/register_button.mas',
-           ),
-       ];
+           ));
+    }
 
     my $dataForm = {
                     tableName           => 'Subscription',
                     printableTableName  => $printableTableName,
                     modelDomain         => 'RemoteServices',
-                    #defaultActions     => [ 'editField', 'changeView' ],
-                    defaultActions      => [],
+                    defaultActions      => $defaultActions,
                     customActions       => $customActions,
                     tableDescription    => \@tableDesc,
                     printableActionName => $actionName,
@@ -708,7 +706,7 @@ var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
   evalScripts : true,
   onSuccess : function(t) { Element.update('$tableName', t.responseText);
                             if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
-                               Modalbox.show('/RemoteServices/Subscription', { title : '$caption' });
+                               Modalbox.show('/RemoteServices/Subscription', {  title : '$caption',   overlayClose: false });
                             }
                           },
   onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');

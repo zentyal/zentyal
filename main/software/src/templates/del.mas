@@ -17,7 +17,7 @@ my $popup = $first ? 0 : 1;
 my $okOnClick = '';
 my $cancelOnClick = '';
 
-my $url = 'InstallPkgs?';
+my $url = '/Software/InstallPkgs?';
 $url .= '&' . $action . '=1';
 $url .= '&go=yes';
 foreach my $pkg (@packages) {

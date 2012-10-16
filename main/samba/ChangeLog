@@ -1,11 +1,56 @@
-HEAD
+3.0.4
+	+ Fix netlogon share wrong path
+	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
+	  browsing support
+3.0.3
+	+ Update smb.conf for samba4 RC2
+	+ During domain join precedure, wait a couple of seconds for samba to start
+	+ Add configkey 'treat_contacts_as_users' to import distribution groups
+	  containing contacts. The mail account name is used to locate an user with
+	  that name and add it to the group.
+	+ Improvements synchronizing group members.
+	+ The 'users' method of EBox::Samba::Group has been renamed to 'members' and
+	  also returns nested groups
+	+ Do not import users and groups after join a domain. The s4sync script will
+	  do the job
+	+ Search for users and groups to synchronize outside CN=Users
+	+ Add more SID's to the list of users and groups to avoid synchronize from
+	  samba
+	+ Improve GeneralSettings fields validation
+	+ Remove duplicated disabled module warning on recycle bin and antivirus
+	  modules
+	+ Added method to GeneralSettings to update hostname-dependent fields
+	+ Tolerate domains ended in .local
+3.0.2
+	+ Fix samba group members not imported to Zentyal in groups added by
+	  the synchronizer
+	+ Fix s4sync not starting on boot
+	+ Restore DNS setup on domain join failure
+	+ Add a line to /etc/fstab to increase the size of /var/lock to 50MB.
+	  Samba stores there some tdb files (for example to track connections), so
+	  if this fs goes out of space connections can be dropped.
+3.0.1
+	+ Stop daemon before restoring backup and start when finished
+	+ Throw exceptions in checkEnvironment also during first install,
+	  otherwise the module is not disabled if DNS is not properly
+	  configured.
+3.0
+	+ Add parameter to _checkEnvironment to set the desired error level
+	  (ignore, print on log or throw exception)
+	+ Stop daemon while taking backup to avoid samba daemon modifying files
+	  while being tarred
+	+ Fix share type exceptions on antivirus and recycle bin
+	+ Fix enabling guest access on shares need to save changes twice
+	+ Fix wrong ACL that was denying access to quarantine folder to guest
+	  users
+	+ Fix error creating shares with spaces in the path
 	+ Implemented configuration backup and restore
 	+ Fix checking domain name in General Settings Model
 	+ Fixed some strings
 2.3.14
 	+ Fix access for domain users to shares when guest access is enabled
 	  on the share
-	+ Setup quarantine directory for zavs and rant access to domain admins only
+	+ Setup quarantine directory for zavs and grant access to domain admins only
 	+ Write zavs settings on smb.conf
 2.3.13
 	+ Change default domain netbios to match the left-most part of the

@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups;
-
 use strict;
 use warnings;
 
+package EBox::UsersAndGroups;
 use base qw( EBox::Module::Service
              EBox::LdapModule
              EBox::UserCorner::Provider
@@ -390,6 +388,20 @@ sub enableActions
     EBox::Global->modInstance('apache')->setAsChanged();
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+
+    # Set up NSS, modules depending on users may require to retrieve uid/gid
+    # numbers from LDAP
+    if ($status) {
+        $self->_setConf(1);
+    }
+}
+
+
 # Load LDAP from config + data files
 sub _loadLDAP
 {
@@ -481,11 +493,10 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-
     if ($self->master() eq 'cloud') {
         push(@array, 'cloudsync_enabled' => 1);
-        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
     }
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -617,7 +628,7 @@ sub groupsDn
 
 # Method: groupDn
 #
-#    Returns the dn for a given group. The group don't have to existst
+#    Returns the dn for a given group. The group doesn't have to exist
 #
 #   Parameters:
 #       group
@@ -654,7 +665,7 @@ sub usersDn
 
 # Method: userDn
 #
-#    Returns the dn for a given user. The user don't have to existst
+#    Returns the dn for a given user. The user doesn't have to exist
 #
 #   Parameters:
 #       user
@@ -1436,8 +1447,9 @@ sub restoreConfig
             $self->initUser($user);
         }
 
-        # Notify modules
-        $self->notifyModsLdapUserBase('addUser', $user);
+        # Notify modules except samba because its users will be
+        # restored from its own LDB backup
+        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
     }
 }
 

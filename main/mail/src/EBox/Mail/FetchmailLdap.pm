@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Mail::FetchmailLdap;
-
 use strict;
 use warnings;
+
+package EBox::Mail::FetchmailLdap;
 
 use EBox::Sudo;
 use EBox::Global;
@@ -216,7 +215,7 @@ sub removeExternalAccount
 
     my %attrs = (
         base => EBox::Global->modInstance('users')->usersDn,
-        filter => "&(objectclass=fetchmailUser)(uid=$user)",
+        filter => '&(objectclass=fetchmailUser)(uid=' . $user->name() . ')',
         scope => 'one'
     );
 

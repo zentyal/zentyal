@@ -1,4 +1,55 @@
 HEAD
+	+ Fixed undefined reference in DataTable controller for log audit
+	+ Added and used serviceId field for service certificates
+	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
+3.0.3
+	+ Fixed bug which prevented highlight of selected item in menu
+	+ Fixed base class of event dispatcher to be compatible with the
+	  changes dispatcher configuration table
+	+ Fixed event daemon to use dumped variables
+	+ Fixed need of double-click when closing menu items in some cases
+	+ Fixed logs consolidation to avoid high CPU usage
+	+ In view log table: correctly align previous and first page buttons
+	+ Improve host name and domain validation.
+	+ Forbidden the use of a qualified hostname in change hostname form
+	+ Update samba hostname-dependent fields when hostname is changed
+	+ Confirmation dialog when the local domain is changed and with a
+	  warning if local domain which ends in .local
+3.0.2
+	+ The synchronization of redis cache refuses with log message to set
+	  undefined values
+	+ Fixed wrong sql statement which cause unwanted logs purge
+	+ DataForm does not check for uniqueness of its fields, as it only
+	  contains a single row
+	+ In ConfigureLogs, restored printable names for log domains
+	+ Fixed dashboard update error on modules widget, counter-graph
+	  widget and widget without sections
+	+ Better way to fix non-root warnings during boot without interfering
+	  on manual restart commands in the shell
+3.0.1
+	+ Properly set default language as the first element of the Select to
+	  avoid its loss on the first apache restart
+	+ Set milestone to 3.0.X when creating tickets in trac.zentyal.org
+	+ Removed forced setting of LANG variables in mod_perl which made progress
+	  indicator fail when using any language different to English
+	+ Removed some frequent undef warnings
+	+ Added executeOnBrothers method to EBox::Model::Component
+	+ Fixed repetition of 'add' and 'number change' events in RAID watcher
+	+ Fixed incorrect display of edit button in tables without editField action
+	+ Cache MySQL password to avoid reading it all the time
+	+ Fixed request came from non-root user warnings during boot
+	+ Send info event in Runit watcher only if the service was down
+	  MAX_DOWN_PERIODS
+3.0
+	+ Removed beta logo
+	+ Set 'firstInstall' flag on modules when installing during initial install
+	+ Set 'restoringBackup' flag on modules when restoring backup
+	+ Call enableService after initialSetup while restoring backup
+	+ Registration link in widget now have appropiate content when either
+	  remoteservices or software are not installed
+	+ Fixed style for disabled buttons
+	+ Composite and DataTable viewers recover from errors in pageTitle method
+	+ Fixed intermitent failure in progress when there are no slides
 	+ Rollback redis transaction on otherwise instead finally block
 	+ Members of the 'admin' group can now login again on Zentyal
 	+ Multi-admin management for commercial editions

@@ -48,7 +48,6 @@ use File::Temp;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
-use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
@@ -176,10 +175,17 @@ sub enableService
 {
     my ($self, $status) = @_;
 
+    if ($status) {
+        my $throwException = 1;
+        if ($self->{restoringBackup}) {
+            $throwException = 0;
+        }
+        $self->_checkEnvironment($throwException);
+    }
+
     if ($self->isEnabled() and not $status) {
         $self->setupDNS(0);
     } elsif (not $self->isEnabled() and $status and $self->isProvisioned()) {
-        $self->_checkEnvironment();
         $self->setupDNS(1);
     }
 
@@ -314,14 +320,12 @@ sub enableActions
     my ($self) = @_;
 
     # Remount filesystem with user_xattr and acl options
-    EBox::debug('Setting up filesystem options');
+    EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my @cmds = ();
-    push (@cmds, 'invoke-rc.d samba4 stop');
-    push (@cmds, 'update-rc.d samba4 disable');
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
@@ -333,7 +337,7 @@ sub enableActions
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    EBox::debug('Creating directories');
+    EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
 }
 
@@ -552,13 +556,21 @@ sub recycleConfig
 #   This method ensure that the environment is properly configured for
 #   samba provision.
 #
+# Arguments:
+#
+#   throwException - 0 print warn on log, 1 throw exception
+#
 # Returns:
 #
 #   The IP address to use for provision
 #
 sub _checkEnvironment
 {
-    my ($self) = @_;
+    my ($self, $throwException) = @_;
+
+    unless (defined $throwException) {
+        throw EBox::Exceptions::MissingArgument('throwException');
+    }
 
     # Get the own doamin
     my $sysinfo    = EBox::Global->modInstance('sysinfo');
@@ -572,7 +584,12 @@ sub _checkEnvironment
     # The own doamin and the kerberos realm must be equal
     unless (lc $hostDomain eq lc $realm) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm));
+        my $err = __x("The host domain '{d}' has to be the same than the kerberos realm '{r}'", d => $hostDomain, r => $realm);
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
     }
 
     # Check the domain exists in DNS module
@@ -581,7 +598,12 @@ sub _checkEnvironment
     my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The required domain '{d}' could not be found in the dns module", d => $hostDomain));
+        my $err = __x("The required domain '{d}' could not be found in the dns module", d => $hostDomain);
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
     }
 
     # Check the hostname exists in the DNS module
@@ -589,8 +611,13 @@ sub _checkEnvironment
     my $hostRow = $hostsModel->find(hostname => $hostName);
     unless (defined $hostRow) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(__x("The required host record '{h}' could not be found in the domain '{d}'",
-                                             h => $hostName, d => $hostDomain));
+        my $err = __x("The required host record '{h}' could not be found in the domain '{d}'",
+                      h => $hostName, d => $hostDomain);
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
     }
 
     # Get the IP addresses models (domain and hostname)
@@ -632,11 +659,15 @@ sub _checkEnvironment
     }
     unless (defined $provisionIP) {
         $self->enableService(0);
-        throw EBox::Exceptions::External(
-                __("Samba can't be provisioned if no IP addresses are set and the " .
+        my $err = __("Samba can't be provisioned if no IP addresses are set and the " .
                    "DNS domain is properly configured. Ensure that you have at least a " .
                    "IP address assigned to an internal interface, and this IP has to be " .
-                   "assigned to the domain and to the hostname in the DNS domain."));
+                   "assigned to the domain and to the hostname in the DNS domain.");
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
     }
 
     return $provisionIP;
@@ -654,7 +685,7 @@ sub provision
     $self->stopService();
 
     # Check environment
-    my $provisionIP = $self->_checkEnvironment();
+    my $provisionIP = $self->_checkEnvironment(2);
 
     # Delete samba config file and private folder
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
@@ -678,7 +709,7 @@ sub provisionAsDC
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $usersModule = EBox::Global->modInstance('users');
 
-    my $cmd = SAMBAPROVISION .
+    my $cmd = SAMBATOOL . ' domain provision ' .
         " --domain='" . $self->workgroup() . "'" .
         " --workgroup='" . $self->workgroup() . "'" .
         " --realm='" . $usersModule->kerberosRealm() . "'" .
@@ -691,7 +722,7 @@ sub provisionAsDC
         " --host-ip='" . $provisionIP . "'";
     $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
-    EBox::debug("Provisioning database '$cmd'");
+    EBox::info("Provisioning database '$cmd'");
     $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
     # Use silent root to avoid showing the admin pass in the logs if
@@ -712,7 +743,7 @@ sub provisionAsDC
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
     #      ending with different passwords
-    EBox::debug('Setting password policy');
+    EBox::info('Setting password policy');
     $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
                        " --min-pwd-length=0" .
@@ -741,11 +772,14 @@ sub provisionAsDC
     # Map domain guest account to nobody user
     my $guestSID = $self->ldb->domainSID() . '-501';
     my $guestGroupSID = $self->ldb->domainSID() . '-514';
-    my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    # FIXME Why is this not working during first intall???
+    my $uid = 65534;
+    my $gid = 65534;
     my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
     my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-    EBox::debug("Mapping guest account");
+    EBox::info("Mapping guest account");
     $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 
@@ -759,12 +793,13 @@ sub provisionAsADC
     my ($self) = @_;
 
     my $model = $self->model('GeneralSettings');
-    my $domainToJoin = $model->value('realm');
+    my $domainToJoin = lc ($model->value('realm'));
     my $dcFQDN = $model->value('dcfqdn');
     my $domainDNS = $model->value('dnsip');
     my $adminAccount = $model->value('adminAccount');
     my $adminAccountPwd = $model->value('password');
     my $netbiosDomain = $model->value('workgroup');
+    my $site = $model->value('site');
 
     # If the host domain or the users kerberos realm does not
     # match the domain we are trying to join warn the user and
@@ -801,15 +836,19 @@ sub provisionAsADC
 
         # Join the domain
         EBox::debug("Joining to the domain");
-        my @cmds;
-        push (@cmds, SAMBATOOL . " domain join $domainToJoin DC " .
-            " -U $adminAccount " .
+        my $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
+            " --username='$adminAccount' " .
             " --workgroup='$netbiosDomain' " .
             " --password='$adminAccountPwd' " .
-            " --server=$dcFQDN");
-        my $output = EBox::Sudo::silentRoot(@cmds);
+            " --server='$dcFQDN' " .
+            " --dns-backend=BIND9_DLZ " .
+            " --realm='$domainToJoin' ";
+        if (defined $site and length($site) > 0) {
+            $cmd .= " --site='$site' ";
+        }
+
+        my $output = EBox::Sudo::silentRoot($cmd);
         if ($? == 0) {
-            $self->setProvisioned(1);
             EBox::debug("Provision result: @{$output}");
         } else {
             my @error = ();
@@ -825,61 +864,40 @@ sub provisionAsADC
         # Write smb.conf to grant rw access to zentyal group on the
         # privileged socket
         $self->writeSambaConfig();
-        my $group = EBox::Config::group();
-        EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
-        EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
-        EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
 
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
         $self->_startService();
 
-        # Wait for RID allocation
-        my $args = {
-            base => "CN=$hostName,OU=Domain Controllers," . $self->ldb->dn,
-            scope => 'base',
-            filter => '(objectClass=*)',
-            attrs => ['rIDSetReferences'],
-        };
-        for (my $retries=12; $retries>=0; $retries--) {
-            EBox::debug ("Waiting for RID allocation, $retries");
-            my $result = $self->ldb->search($args);
-            if ($result->count() == 1) {
-                my $entry = $result->entry(0);
-                my @val = $entry->get_value('rIDSetReferences');
-                last if @val;
-            }
-            sleep (5);
-        }
+        # Wait some time until samba is ready
+        sleep (5);
+
+        # Run Knowledge Consistency Checker (KCC) on windows DC
+        EBox::info('Running KCC on windows DC');
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
+            " --username='$adminAccount' " .
+            " --password='$adminAccountPwd' ";
+        EBox::Sudo::rootWithoutException($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $usersMod = EBox::Global->modInstance('users');
         my $users = $usersMod->users();
         my $groups = $usersMod->groups();
-        foreach my $user (@{$users}) {
-            $user->deleteObject();
+        foreach my $zentyalUser (@{$users}) {
+            $zentyalUser->setIgnoredModules(['samba']);
+            $zentyalUser->deleteObject();
         }
-        foreach my $group (@{$groups}) {
-            $group->deleteObject();
+        foreach my $zentyalGroup (@{$groups}) {
+            $zentyalGroup->setIgnoredModules(['samba']);
+            $zentyalGroup->deleteObject();
         }
-
-        # Load samba users and groups into Zentyal ldap
-        $self->ldb->ldbUsersToLdap();
-        $self->ldb->ldbGroupsToLdap();
 
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();
 
-        # Load administrator user and domain admins group to zentyal
-        my $domainSid = $self->ldb->domainSID();
-        my $adminUser = new EBox::Samba::User(sid => $domainSid . '-500');
-        my $adminGroup = new EBox::Samba::Group(sid => $domainSid . '-512');
-        $self->ldb->ldbUsersToLdap([$adminUser]);
-        $self->ldb->ldbGroupsToLdap([$adminGroup]);
-
         # FIXME This should not be necessary, it is a samba bug.
-        @cmds = ();
+        my @cmds = ();
         push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
         push (@cmds, SAMBATOOL . " spn add DNS/$fqdn $ucHostName\$");
         push (@cmds, SAMBATOOL . " domain exportkeytab " . SAMBA_DNS_KEYTAB .
@@ -897,11 +915,16 @@ sub provisionAsADC
         my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
         my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
         my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-        EBox::debug("Mapping guest account");
+        EBox::info("Mapping guest accounts");
         $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
         $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+
+        EBox::debug('Setting provisioned flag');
+        $self->setProvisioned(1);
     } otherwise {
         my $error = shift;
+        $self->setProvisioned(0);
+        $self->setupDNS(0);
         throw $error;
     } finally {
         # Revert primary resolver changes
@@ -1012,6 +1035,9 @@ sub writeSambaConfig
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+
     my @array = ();
     push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
@@ -1021,6 +1047,7 @@ sub writeSambaConfig
     push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
+    push (@array, 'domain'      => $hostDomain);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
 
@@ -1076,7 +1103,7 @@ sub _setupQuarantineDirectory
     my @cmds = ("mkdir -p '$quarantineDir'",
                 "chown root:$group '$quarantineDir'",
                 "chmod 700 '$quarantineDir'",
-                "setfacl -R -m u:$nobody:wx g::wx '$quarantineDir'");
+                "setfacl -R -m u:$nobody:wx g:$group:wx '$quarantineDir'");
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldb->domainSID() . '-512';
     my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
@@ -1180,6 +1207,9 @@ sub _daemons
         {
             name => 'samba4',
             pidfiles => ['/var/run/samba.pid'],
+        },
+        {
+            name => 'zentyal.nmbd',
         },
         {
             name => 'zentyal.s4sync',
@@ -1309,6 +1339,7 @@ sub defaultNetbios
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostName = $sysinfo->hostName();
+    $hostName = substr($hostName, 0, 15);
 
     return $hostName;
 }
@@ -1334,7 +1365,7 @@ sub defaultWorkgroup
     my $users = EBox::Global->modInstance('users');
     my $realm = $users->kerberosRealm();
     my @parts = split (/\./, $realm);
-    my $value = $parts[0];
+    my $value = substr($parts[0], 0, 15);
     $value = 'ZENTYAL-DOMAIN' unless defined $value;
 
     return uc($value);
@@ -1431,29 +1462,39 @@ sub dumpConfig
     my $privateDir = PRIVATE_DIR;
     my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
     foreach my $bakFile (@{$bakFiles}) {
-        chomp $bakFile;
+        chomp ($bakFile);
         EBox::Sudo::root("rm '$bakFile'");
     }
 
-    # Backup private. LDB files must be backed up using tdbbackup
-    my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-    foreach my $ldbFile (@{$ldbFiles}) {
-        chomp ($ldbFile);
-        EBox::Sudo::root("tdbbackup '$ldbFile'");
-        # Preserve file permissions
-        my $st = EBox::Sudo::stat($ldbFile);
-        my $uid = $st->uid();
-        my $gid = $st->gid();
-        my $mode = sprintf ("%04o", $st->mode() & 07777);
-        EBox::debug("Set uid:$uid gid:$gid mode:$mode on file $ldbFile.bak");
-        EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
-        EBox::Sudo::root("chmod $mode $ldbFile.bak");
-    }
-    EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
+    try {
+        # The service must be stopped or tar may fail with
+        # file changed as we read it
+        $self->stopService();
 
-    # Backup sysvol
-    my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+        # Backup private. LDB files must be backed up using tdbbackup
+        my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
+        foreach my $ldbFile (@{$ldbFiles}) {
+            chomp ($ldbFile);
+            EBox::Sudo::root("tdbbackup '$ldbFile'");
+            # Preserve file permissions
+            my $st = EBox::Sudo::stat($ldbFile);
+            my $uid = $st->uid();
+            my $gid = $st->gid();
+            my $mode = sprintf ("%04o", $st->mode() & 07777);
+            EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
+            EBox::Sudo::root("chmod $mode $ldbFile.bak");
+        }
+        EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
+
+        # Backup sysvol
+        my $sysvolDir = SYSVOL_DIR;
+        EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+    } otherwise {
+        my ($error) = @_;
+        throw $error;
+    } finally {
+        $self->_startService();
+    };
 
     # Backup admin password
     unless ($options{bug}) {
@@ -1475,6 +1516,8 @@ sub restoreConfig
         $self->setProvisioned(0);
         return;
     }
+
+    $self->stopService();
 
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
@@ -1502,6 +1545,8 @@ sub restoreConfig
 
     # Set provisioned flag
     $self->setProvisioned(1);
+
+    $self->_startService();
 }
 
 sub restoreDependencies

@@ -1809,6 +1809,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'Mail SMTP server',
              service =>  __('Mail SMTP server'),
              path    =>  '/etc/postfix/sasl/postfix.pem',
              user => 'root',
@@ -1816,6 +1817,7 @@ sub certificates
              mode => '0400',
             },
             {
+             serviceId => 'Mail POP/IMAP server',
              service =>  __('Mail POP/IMAP server'),
              path    =>  '/etc/dovecot/ssl/dovecot.pem',
              user => 'root',

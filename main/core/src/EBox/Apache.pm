@@ -165,7 +165,6 @@ sub _writeHttpdConfFile
     push @confFileParams, ( port => $self->port());
     push @confFileParams, ( user => EBox::Config::user());
     push @confFileParams, ( group => EBox::Config::group());
-    push @confFileParams, ( locale => EBox::locale());
     push @confFileParams, ( serverroot => $self->serverroot());
     push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
@@ -773,6 +772,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',

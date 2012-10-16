@@ -42,6 +42,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
+use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
@@ -54,6 +55,7 @@ use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
 use EBox::RemoteServices::Desktop::Subscription;
+use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
@@ -89,6 +91,7 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '1'  => __('Professional'),
                    '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
+                   '8'  => __('Enterprise Trial'),
                    '10' => __('Enterprise'));
 
 # Group: Protected methods
@@ -172,7 +175,12 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    $self->SUPER::initialSetup($version);
+    if ( defined($version) ) {
+        # Reload bundle without forcing
+        $self->reloadBundle(0);
+    }
+
+    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 
     unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
         $self->restartService();
@@ -244,7 +252,8 @@ sub _setInventoryAgentConf
 
             # Enable OCS agent periodic execution
             $self->writeConfFile(OCS_CRON_FILE,
-                                 OCS_CRON_MAS_FILE);
+                                 OCS_CRON_MAS_FILE,
+                                 [], { 'mode' => '0755' } );
         } else {
             $toRemove = 1;
         }
@@ -751,6 +760,17 @@ sub reloadBundle
         }
     } catch EBox::Exceptions::Internal with {
         $retVal = 0;
+    } catch EBox::RemoteServices::Exceptions::NotCapable with {
+        my ($exc) = @_;
+
+        print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+        # Send the event to ZC
+        my $evt = new EBox::Event(message     => $exc->text(),
+                                  source      => 'not-capable',
+                                  level       => 'fatal',
+                                  dispatchTo  => [ 'ControlCenter' ]);
+        my $evts = $self->global()->modInstance('events');
+        $evts->sendEvent(event => $evt);
     };
     return $retVal;
 }
@@ -793,6 +813,7 @@ sub bundleVersion
 #         -1 - no subscribed or impossible to know
 #          0 - basic
 #          5 - sb
+#          8 - trial
 #          10 - enterprise
 #
 sub subscriptionLevel
@@ -827,6 +848,7 @@ sub subscriptionLevel
 #         basic
 #         professional
 #         enterprise
+#         trial
 #
 sub subscriptionCodename
 {
@@ -1284,11 +1306,10 @@ sub dynamicHostname
     my $ret = "";
 
     if ( $self->eBoxSubscribed() ) {
-        my $domain = $self->_confKeys()->{dynamicDomain};
+        my $domain = $self->dynamicDomain();
         $ret = $self->eBoxCommonName() . '.' . $domain;
     }
     return $ret;
-
 }
 
 # Method: i18nServerEdition
@@ -2064,6 +2085,36 @@ sub cloudDomain
         $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
     }
     return $self->{cloudDomain};
+}
+
+# Method: dynamicDomain
+#
+#        Return the Zentyal Cloud Dynamic Domain if the server is
+#        subscribed
+#
+# Returns:
+#
+#        String - the Zentyal Cloud Dynamic Domain
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub dynamicDomain
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Remote Dynamic Domain is only available if the host is subscribed')
+           );
+    }
+
+    unless ( defined($self->{dynamicDomain}) ) {
+        $self->{dynamicDomain} = EBox::RemoteServices::Cred->new()->dynamicDomain();
+    }
+    return $self->{dynamicDomain};
 }
 
 # Method: cloudCredentials

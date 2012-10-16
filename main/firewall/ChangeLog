@@ -1,4 +1,4 @@
-HEAD
+3.0
 	+ Set RS VPN rule only if the VPN connection is done
 	+ Check connectivity against new API end point for Remote instead
 	  of WS server

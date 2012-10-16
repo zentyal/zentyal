@@ -27,7 +27,7 @@ msgstr ""
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:66
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:63
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:147
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:113
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:106
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:166
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:116
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:206
@@ -38,7 +38,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:205
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:178
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:44
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:322
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:325
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:57
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:57
@@ -55,7 +55,7 @@ msgid "Name"
 msgstr "Namn"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:653
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:651
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:179
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
@@ -67,13 +67,13 @@ msgstr "Fil"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:199
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:67
-#: ../../main/squid/src/EBox/Squid.pm:79
-#: ../../main/squid/src/EBox/Squid.pm:949
+#: ../../main/squid/src/EBox/Squid.pm:80
+#: ../../main/squid/src/EBox/Squid.pm:991
 msgid "HTTP Proxy"
 msgstr "HTTP-proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:71
-#: ../../main/squid/src/EBox/Squid.pm:902
+#: ../../main/squid/src/EBox/Squid.pm:944
 #, fuzzy
 msgid "Categorized Lists"
 msgstr "Kategorier"
@@ -130,10 +130,10 @@ msgstr "Användare/Grupp"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:280
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:262
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:293
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:130
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:139
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:130
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:139
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:123
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:132
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:124
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:133
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:128
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:113
@@ -145,7 +145,7 @@ msgstr "Alla"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:42
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:122
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:146
 #: ../../main/firewall/src/EBox/Firewall.pm:746
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:147
@@ -153,13 +153,13 @@ msgid "Decision"
 msgstr "Beslut"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:153
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:178
 #, fuzzy
 msgid "Allow All"
 msgstr "Tillåt"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:99
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:152
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:177
 #, fuzzy
 msgid "Deny All"
 msgstr "Neka"
@@ -170,7 +170,7 @@ msgid "Apply Filter Profile"
 msgstr "Filterprofiler"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
-#: ../../main/squid/src/EBox/Squid.pm:896
+#: ../../main/squid/src/EBox/Squid.pm:938
 #, fuzzy
 msgid "Access Rules"
 msgstr "Access förfrågningar"
@@ -200,25 +200,43 @@ msgstr ""
 "Här kan du globalt blockera eller tillåta access av användare eller grupp. "
 "Filterval sker med global eller objektpolicy"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:135
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
+#: ../../main/radius/src/EBox/Model/Auth.pm:105
+msgid "All users"
+msgstr "Alla användare"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:154
 #, fuzzy
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr "Användar grupppolicies är inte kompatibla med transparent proxy"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:330
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:179
+msgid ""
+"You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
+"you have group rules"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:184
+msgid ""
+"You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
+"for objects or any address"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:382
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:152
 #, fuzzy, perl-brace-format
 msgid "Object: {o}"
 msgstr "Objekt"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:332
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:384
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:263
 #, fuzzy, perl-brace-format
 msgid "Group: {g}"
 msgstr "Grupp"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:343
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:395
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr ""
@@ -244,15 +262,15 @@ msgid "Domain or IP address part of URL"
 msgstr "Domän eller IP adress del av URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:93
-#: ../../main/squid/src/EBox/Squid.pm:937
+#: ../../main/squid/src/EBox/Squid.pm:979
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:533
 #: ../../main/dns/src/EBox/Model/Text.pm:165
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:194
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:145
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:366
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:58
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:369
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:62
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domän"
@@ -358,6 +376,7 @@ msgstr "Ta bort reklam från all HTTP trafik"
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:89
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:100
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:46
 #: ../../main/radius/src/EBox/Radius.pm:353
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:59
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -369,7 +388,7 @@ msgid "Cache files size (MB)"
 msgstr "Storlek på cache filer (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:86
-#: ../../main/squid/src/EBox/Squid.pm:893
+#: ../../main/squid/src/EBox/Squid.pm:935
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:88
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
@@ -466,7 +485,7 @@ msgstr "Förfrågningar"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:61
-#: ../../main/squid/src/EBox/Squid.pm:935
+#: ../../main/squid/src/EBox/Squid.pm:977
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:326
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
@@ -477,7 +496,7 @@ msgstr "Förfrågningar"
 #: ../../main/printers/src/EBox/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:330
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:209
-#: ../../main/samba/src/EBox/Samba.pm:1514
+#: ../../main/samba/src/EBox/Samba.pm:1616
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:138
@@ -525,7 +544,7 @@ msgid "Filtered traffic size (Kb))"
 msgstr "Filtrerad trafikstorlek (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:57
-#: ../../main/squid/src/EBox/Squid.pm:933
+#: ../../main/squid/src/EBox/Squid.pm:975
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1623
 #: ../../main/firewall/src/EBox/Firewall.pm:738
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:60
@@ -535,13 +554,12 @@ msgstr "Filtrerad trafikstorlek (Kb)"
 #: ../../main/ipsec/src/EBox/IPsec.pm:237
 #: ../../main/dhcp/src/EBox/DHCP.pm:1132
 #: ../../main/printers/src/EBox/Printers.pm:331
-#: ../../main/samba/src/EBox/Samba.pm:1512
-#: ../../main/samba/src/EBox/Samba.pm:1532
-#: ../../main/samba/src/EBox/Samba.pm:1542
+#: ../../main/samba/src/EBox/Samba.pm:1614
+#: ../../main/samba/src/EBox/Samba.pm:1634
+#: ../../main/samba/src/EBox/Samba.pm:1644
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:69
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:588
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:540
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:97
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:68
 #: ../../main/mail/src/EBox/Mail.pm:1592
@@ -613,7 +631,7 @@ msgstr "Trafikstorlek"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:56
-#: ../../main/squid/src/EBox/Squid.pm:899
+#: ../../main/squid/src/EBox/Squid.pm:941
 msgid "Filter Profiles"
 msgstr "Filterprofiler"
 
@@ -638,7 +656,7 @@ msgstr "Uppdaterade filterprofil"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:70
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:268
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:269
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:120
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:113
 #: ../../main/network/src/EBox/Model/DynDNS.pm:230
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:132
 #: ../../main/ltsp/src/EBox/LTSP/Model/Profiles.pm:60
@@ -824,7 +842,7 @@ msgstr "Innehållsfiltrets tröskelvärde ändrat"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/Model/Options.pm:118
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1586
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
@@ -840,7 +858,7 @@ msgstr "Innehållsfiltrets tröskelvärde ändrat"
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:62
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:160
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:253
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:288
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:291
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
 #: ../../main/jabber/src/templates/jabber.mas:18
 #: ../../main/jabber/src/templates/jabber.mas:19
@@ -900,32 +918,38 @@ msgstr "Squid trafikförfågningar diagram"
 msgid "Access requests"
 msgstr "Access förfrågningar"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:105
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:129
 #, fuzzy
 msgid "Category"
 msgstr "kategori"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:111
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:135
 #, fuzzy
 msgid "List File"
 msgstr "Lista över profiler"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:117
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:141
 #, fuzzy
 msgid "File Present"
 msgstr "Lista över objekt"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:136
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:160
 #, fuzzy
 msgid "Domain categories"
 msgstr "Kategorier av domänlistor"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:167
 msgid "category"
 msgstr "kategori"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:151
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1568
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:169
+msgid ""
+"There are no categories defined. You need to add categorized lists files if "
+"you want to filter by category."
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:176
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1586
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:151
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -951,12 +975,6 @@ msgstr "kategori"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:77
 msgid "None"
 msgstr "Ingen"
-
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:168
-msgid ""
-"There are no categories defined. You need to add categorized lists files if "
-"you want to filter by category."
-msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
@@ -1104,136 +1122,136 @@ msgstr "Helg"
 msgid "Work days"
 msgstr "Arbetsdagar"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:361
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:359
 msgid "From hour.."
 msgstr "Från timme..."
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:364
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:362
 msgid "to hour.."
 msgstr "till timme..."
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:368
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:366
 msgid "You must specify two diffrent hours to the range"
 msgstr "Du måste specificera två olika timmar till omfånget."
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:385
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:383
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
 msgstr "Felaktigt värde på timme: {h}"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:391
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:389
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
 msgstr "Felaktigt format på timme: {h}"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:398
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:396
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
 msgstr "Felaktigt värde på minuter: {mi}"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:404
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:402
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
 msgstr "Felaktigt format på minuter: {mi}"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:417
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:423
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:415
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:421
 msgid "The end of the range is greater than the begin"
 msgstr "Slutet på tidsomfånget är större än början"
 
-#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:446
+#: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:444
 msgid "The time period must be at least active on one day"
 msgstr "Tidsperioden måste vara aktiv åtminstone en dag"
 
-#: ../../main/squid/src/EBox/Squid.pm:163
+#: ../../main/squid/src/EBox/Squid.pm:164
 msgid "HTTP Proxy configuration file"
 msgstr "Konfigurationsfil för HTTP-proxy"
 
-#: ../../main/squid/src/EBox/Squid.pm:168
+#: ../../main/squid/src/EBox/Squid.pm:169
 msgid "Content filter configuration file"
 msgstr "Konfigurationsfil för innehållsfilter"
 
-#: ../../main/squid/src/EBox/Squid.pm:173
+#: ../../main/squid/src/EBox/Squid.pm:174
 msgid "Default filter group configuration"
 msgstr "Konfiguration av standard filtergrupp"
 
-#: ../../main/squid/src/EBox/Squid.pm:178
+#: ../../main/squid/src/EBox/Squid.pm:179
 msgid "Filter groups membership"
 msgstr "Medlemskap filtergrupp"
 
-#: ../../main/squid/src/EBox/Squid.pm:183
+#: ../../main/squid/src/EBox/Squid.pm:184
 msgid "Content filter banned extension list"
 msgstr "Innehållsfilter förbjudna filändelser"
 
-#: ../../main/squid/src/EBox/Squid.pm:188
+#: ../../main/squid/src/EBox/Squid.pm:189
 msgid "Content filter banned mime type list"
 msgstr "Innehållsfilter förbjudna mime typer"
 
-#: ../../main/squid/src/EBox/Squid.pm:193
+#: ../../main/squid/src/EBox/Squid.pm:194
 msgid "Content filter exception site list"
 msgstr "Innehållsfilter undantagna siter"
 
-#: ../../main/squid/src/EBox/Squid.pm:198
+#: ../../main/squid/src/EBox/Squid.pm:199
 msgid "Content filter grey site list"
 msgstr "Innehållsfilter grålistade siter"
 
-#: ../../main/squid/src/EBox/Squid.pm:203
+#: ../../main/squid/src/EBox/Squid.pm:204
 msgid "Content filter banned site list"
 msgstr "Innehållsfilter förbjudna siter"
 
-#: ../../main/squid/src/EBox/Squid.pm:208
+#: ../../main/squid/src/EBox/Squid.pm:209
 msgid "Content filter exception URL list"
 msgstr "Innehållsfilter undantagna URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:213
+#: ../../main/squid/src/EBox/Squid.pm:214
 msgid "Content filter grey URL list"
 msgstr "Innehållsfilter grålistade URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:218
+#: ../../main/squid/src/EBox/Squid.pm:219
 msgid "Content filter banned URL list"
 msgstr "Innehållsfilter förbjudna URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:223
+#: ../../main/squid/src/EBox/Squid.pm:224
 msgid "Forbidden phrases list"
 msgstr "Förbjudna fraser"
 
-#: ../../main/squid/src/EBox/Squid.pm:228
+#: ../../main/squid/src/EBox/Squid.pm:229
 msgid "Exception phrases list"
 msgstr "Undantagna fraser"
 
-#: ../../main/squid/src/EBox/Squid.pm:233
+#: ../../main/squid/src/EBox/Squid.pm:234
 msgid "PICS ratings configuration"
 msgstr "Konfiguration PICS bedömning"
 
-#: ../../main/squid/src/EBox/Squid.pm:238
+#: ../../main/squid/src/EBox/Squid.pm:239
 msgid "Dansguardian's log rotation configuration"
 msgstr "Konfiguration av Dansguardians log rotation"
 
-#: ../../main/squid/src/EBox/Squid.pm:243
+#: ../../main/squid/src/EBox/Squid.pm:244
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Konfiguration av Dansguardians antivirusskanner"
 
-#: ../../main/squid/src/EBox/Squid.pm:248
+#: ../../main/squid/src/EBox/Squid.pm:249
 msgid "Filter groups per IP"
 msgstr "Filtergrupper per IP"
 
-#: ../../main/squid/src/EBox/Squid.pm:253
+#: ../../main/squid/src/EBox/Squid.pm:254
 msgid "Configuration of adzapper"
 msgstr "Konfiguration av adzapper"
 
-#: ../../main/squid/src/EBox/Squid.pm:258
+#: ../../main/squid/src/EBox/Squid.pm:259
 msgid "Set the kerberos keytab path"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:263
+#: ../../main/squid/src/EBox/Squid.pm:264
 msgid "Extract the service principal key"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:277
+#: ../../main/squid/src/EBox/Squid.pm:278
 msgid "Overwrite blocked page templates"
 msgstr "Skriv över templates för blockerade sidor"
 
-#: ../../main/squid/src/EBox/Squid.pm:278
+#: ../../main/squid/src/EBox/Squid.pm:279
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
@@ -1241,31 +1259,31 @@ msgstr ""
 "Dansguardians mallar för blockerade sidor kommer att skrivas över med "
 "skräddarsydda Zentyal mallar."
 
-#: ../../main/squid/src/EBox/Squid.pm:283
+#: ../../main/squid/src/EBox/Squid.pm:284
 msgid "Remove dansguardian init script link"
 msgstr "Ta bort länkar för dansguardian startscript"
 
-#: ../../main/squid/src/EBox/Squid.pm:284 ../../main/dns/src/EBox/DNS.pm:516
+#: ../../main/squid/src/EBox/Squid.pm:285 ../../main/dns/src/EBox/DNS.pm:505
 #: ../../main/ntp/src/EBox/NTP.pm:63
 #: ../../main/webserver/src/EBox/WebServer.pm:138
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal kommer att ta hand om att starta och stoppa tjänsterna."
 
-#: ../../main/squid/src/EBox/Squid.pm:295
+#: ../../main/squid/src/EBox/Squid.pm:296
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "Du måste ställa in cache_mem variabeln i Zentyal konfigurationsfil"
 
-#: ../../main/squid/src/EBox/Squid.pm:304
+#: ../../main/squid/src/EBox/Squid.pm:305
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
 "Du måste ställa in max_object_size variabeln i Zentyals konfigurationsfil"
 
-#: ../../main/squid/src/EBox/Squid.pm:905
+#: ../../main/squid/src/EBox/Squid.pm:947
 msgid "Bandwidth Throttling"
 msgstr "Bandbreddsbegränsning"
 
-#: ../../main/squid/src/EBox/Squid.pm:934
+#: ../../main/squid/src/EBox/Squid.pm:976
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 #: ../../main/network/src/EBox/CGI/Diag.pm:71
@@ -1276,25 +1294,24 @@ msgstr "Bandbreddsbegränsning"
 msgid "Host"
 msgstr "Värd"
 
-#: ../../main/squid/src/EBox/Squid.pm:936
+#: ../../main/squid/src/EBox/Squid.pm:978
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:938
+#: ../../main/squid/src/EBox/Squid.pm:980
 msgid "Bytes"
 msgstr "Byte"
 
-#: ../../main/squid/src/EBox/Squid.pm:939
+#: ../../main/squid/src/EBox/Squid.pm:981
 msgid "Mime/type"
 msgstr "Mime/typ"
 
-#: ../../main/squid/src/EBox/Squid.pm:940
+#: ../../main/squid/src/EBox/Squid.pm:982
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1624
 #: ../../main/pptp/src/EBox/PPTP.pm:371 ../../main/ipsec/src/EBox/IPsec.pm:238
 #: ../../main/dhcp/src/EBox/DHCP.pm:1136
 #: ../../main/printers/src/EBox/Printers.pm:332
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:546
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:592
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:140
@@ -1304,15 +1321,15 @@ msgstr "Mime/typ"
 msgid "Event"
 msgstr "Händelse"
 
-#: ../../main/squid/src/EBox/Squid.pm:945
+#: ../../main/squid/src/EBox/Squid.pm:987
 msgid "Accepted"
 msgstr "Accepterad"
 
-#: ../../main/squid/src/EBox/Squid.pm:946
+#: ../../main/squid/src/EBox/Squid.pm:988
 msgid "Denied"
 msgstr "Nekad"
 
-#: ../../main/squid/src/EBox/Squid.pm:947
+#: ../../main/squid/src/EBox/Squid.pm:989
 msgid "Filtered"
 msgstr "Filtrerad"
 
@@ -1335,7 +1352,7 @@ msgid "Upload client configuration bundle"
 msgstr "Ladda upp klientinställningar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:106
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:87
 #: ../../main/ltsp/src/EBox/LTSP/Model/Clients.pm:64
@@ -1352,7 +1369,7 @@ msgstr "Ladda upp klientinställningar"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:521
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:126
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:170
@@ -1362,7 +1379,7 @@ msgstr "Ladda upp klientinställningar"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 #: ../../main/core/src/EBox/Model/DataTable.pm:4411
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:374
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:377
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/ids/src/EBox/Model/Rules.pm:180
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:122
@@ -1523,7 +1540,7 @@ msgstr ""
 "börjar på detta värde ansluta."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:97
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:101
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:107
 #, fuzzy
 msgid "TUN interface"
 msgstr "gränssnitt"
@@ -1696,8 +1713,9 @@ msgstr ""
 "tillgång till ditt LAN genom att annonsera dess nätverksadress här{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
-#: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
+#: ../../main/restore-tool:117 ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:44
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:118
 #: ../../main/mail/src/templates/externalAccounts.mas:12
 msgid "Server"
@@ -1707,36 +1725,36 @@ msgstr "Server"
 msgid "CA's certificate"
 msgstr "CA certifikat"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:83
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:60
 msgid "Client's certificate"
 msgstr "Klientens certifikat"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:91
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:95
 msgid "Client's private key"
 msgstr "Klients privata nyckel"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:107
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:113
 msgid "Server tunnel password"
 msgstr "Serverns tunnel-lösenord"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:113
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:119
 msgid "Bind port for client"
 msgstr "Lyssningsport för klient"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:127
 msgid "Bind address for client"
 msgstr "Bind address för klient"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:128
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:134
 msgid "Command to execute after routes are set"
 msgstr "Kommando att exekvera efter att rutterna är satta"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:138
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
 msgid "Client configuration"
 msgstr "Klientkonfiguration"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:233
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:239
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr "Ingen angiven fil eller redan satt för {f}"
@@ -1994,7 +2012,7 @@ msgstr "Tjänst"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:524
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1611
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1629
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
@@ -2243,7 +2261,7 @@ msgstr "OpenVPN demoner"
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:159
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:71
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/samba/src/EBox/Samba.pm:1536
+#: ../../main/samba/src/EBox/Samba.pm:1638
 #: ../../main/core/src/templates/report/diskUsage.mas:27
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -2369,6 +2387,7 @@ msgstr "Mål"
 #: ../../main/l7-protocols/src/EBox/Model/GroupProtocols.pm:64
 #: ../../main/l7-protocols/src/EBox/Model/Protocols.pm:50
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:144
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:45
 #: ../../main/ids/src/EBox/IDS.pm:269
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Protocol"
@@ -2507,7 +2526,7 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:116
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:62
 #: ../../main/software/src/templates/ebox.mas:113
-#: ../../main/software/src/templates/updates.mas:41
+#: ../../main/software/src/templates/updates.mas:111
 #: ../../main/remoteservices/src/templates/Backup/index.mas:67
 #: ../../main/remoteservices/src/templates/Backup/index.mas:133
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:53
@@ -2562,7 +2581,7 @@ msgstr "Gränssnitt för utgående data"
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:68
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:193
 #: ../../main/pptp/src/EBox/Model/Users.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:85
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:83
 #: ../../main/radius/src/EBox/Model/Clients.pm:112
 msgid "IP Address"
 msgstr "IP-adress"
@@ -2616,7 +2635,7 @@ msgstr "Motsägelsefull regel funnen. Ta bort den först"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:416
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:857
 #: ../../main/dns/src/EBox/Model/DomainIpTable.pm:75
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:120
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:117
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:325
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:57
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:57
@@ -2645,16 +2664,16 @@ msgstr "Motsägelsefull regel funnen. Ta bort den först"
 #: ../../main/network/src/EBox/Network.pm:2179
 #: ../../main/network/src/EBox/Network.pm:2219
 #: ../../main/network/src/EBox/Network.pm:2252
-#: ../../main/network/src/EBox/Network.pm:3466
-#: ../../main/network/src/EBox/Network.pm:3504
-#: ../../main/network/src/EBox/Network.pm:3526
-#: ../../main/network/src/EBox/Network.pm:3551
-#: ../../main/network/src/EBox/Network.pm:3572
-#: ../../main/network/src/EBox/Network.pm:3631
-#: ../../main/network/src/EBox/Network.pm:3654
-#: ../../main/network/src/EBox/Network.pm:3677
-#: ../../main/network/src/EBox/Network.pm:3701
-#: ../../main/network/src/EBox/Network.pm:3729
+#: ../../main/network/src/EBox/Network.pm:3473
+#: ../../main/network/src/EBox/Network.pm:3511
+#: ../../main/network/src/EBox/Network.pm:3533
+#: ../../main/network/src/EBox/Network.pm:3558
+#: ../../main/network/src/EBox/Network.pm:3579
+#: ../../main/network/src/EBox/Network.pm:3638
+#: ../../main/network/src/EBox/Network.pm:3661
+#: ../../main/network/src/EBox/Network.pm:3684
+#: ../../main/network/src/EBox/Network.pm:3708
+#: ../../main/network/src/EBox/Network.pm:3736
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:126
 #: ../../main/dhcp/src/EBox/DHCP.pm:350 ../../main/dhcp/src/EBox/DHCP.pm:386
 #: ../../main/dhcp/src/EBox/DHCP.pm:436 ../../main/dhcp/src/EBox/DHCP.pm:482
@@ -3117,9 +3136,10 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:185
 #: ../../main/dns/src/EBox/Model/NameServer.pm:217
 #: ../../main/dns/src/EBox/Model/Text.pm:150
-#: ../../main/network/src/EBox/Network.pm:3752
-#: ../../main/network/src/EBox/Network.pm:3773
+#: ../../main/network/src/EBox/Network.pm:3759
+#: ../../main/network/src/EBox/Network.pm:3780
 #: ../../main/dhcp/src/EBox/DHCP.pm:1226
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:170
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "Värdnamn"
@@ -3241,8 +3261,8 @@ msgid "Domains"
 msgstr "Domäner"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:638
-#: ../../main/dns/src/EBox/DNS.pm:286 ../../main/dns/src/EBox/DNS.pm:366
-#: ../../main/dns/src/EBox/DNS.pm:394 ../../main/dns/src/EBox/DNS.pm:1647
+#: ../../main/dns/src/EBox/DNS.pm:275 ../../main/dns/src/EBox/DNS.pm:355
+#: ../../main/dns/src/EBox/DNS.pm:383 ../../main/dns/src/EBox/DNS.pm:1636
 msgid "domain"
 msgstr "domän"
 
@@ -3266,11 +3286,11 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:868
 #: ../../main/network/src/EBox/Network.pm:1230
 #: ../../main/network/src/EBox/Network.pm:1253
-#: ../../main/network/src/EBox/Network.pm:3468
-#: ../../main/network/src/EBox/Network.pm:3502
-#: ../../main/network/src/EBox/Network.pm:3533
-#: ../../main/network/src/EBox/Network.pm:3704
-#: ../../main/network/src/EBox/Network.pm:3889
+#: ../../main/network/src/EBox/Network.pm:3475
+#: ../../main/network/src/EBox/Network.pm:3509
+#: ../../main/network/src/EBox/Network.pm:3540
+#: ../../main/network/src/EBox/Network.pm:3711
+#: ../../main/network/src/EBox/Network.pm:3896
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
 #: ../../main/dhcp/src/EBox/DHCP.pm:1226 ../../main/ltsp/src/EBox/LTSP.pm:673
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:133
@@ -3294,8 +3314,8 @@ msgstr ""
 "domän"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:202
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:202
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:212
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:191
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:201
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
 #: ../../main/dns/src/templates/edit.mas:51
 #: ../../main/dns/src/templates/edit.mas:66
@@ -3317,7 +3337,7 @@ msgstr ""
 "namnuppslagning. Dynamiska zoner kan radera manuella reverserade namnuppslag."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:224
-#: ../../main/network/src/EBox/Network.pm:3793
+#: ../../main/network/src/EBox/Network.pm:3800
 #: ../../main/network/src/EBox/CGI/Diag.pm:78
 msgid "host name"
 msgstr "värdnamn"
@@ -3393,14 +3413,14 @@ msgstr ""
 "Det angivna värdnamnet är inte ett fullständigt kvalificerat domännamn "
 "(FQDN). Menar du {srv}.{name}?"
 
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:85
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:83
 #, fuzzy, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr "Det finns ett värdnamn med samma namn i samma domän, \"{name}\""
 
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:113
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:128
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:135
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:110
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:125
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:132
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:58
 #: ../../main/dhcp/src/EBox/DHCP.pm:1135
@@ -3409,11 +3429,11 @@ msgstr "Det finns ett värdnamn med samma namn i samma domän, \"{name}\""
 msgid "IP"
 msgstr "IP"
 
-#: ../../main/dns/src/EBox/Model/HostIpTable.pm:134
+#: ../../main/dns/src/EBox/Model/HostIpTable.pm:131
 msgid "The host name will be resolved to this list of IP addresses."
 msgstr ""
 
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:80
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:69
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -3421,12 +3441,12 @@ msgstr ""
 "Ett alias kan inte be namnserverns värdnamn \"{ns}\". Använd ett annat "
 "värdnamn istället."
 
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:93
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:82
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Det finns ett värdnamn med samma namn i samma domän, \"{name}\""
 
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:103
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -3435,14 +3455,14 @@ msgstr ""
 "Det finns ett alias för värdnamn  {hostname} med samma namn\"{name}\"  i "
 "samma domän."
 
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:218
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:207
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
 
-#: ../../main/dns/src/EBox/Model/AliasTable.pm:219
-#: ../../main/dns/src/EBox/DNS.pm:1678
+#: ../../main/dns/src/EBox/Model/AliasTable.pm:208
+#: ../../main/dns/src/EBox/DNS.pm:1667
 msgid "alias"
 msgstr "alias"
 
@@ -3506,51 +3526,51 @@ msgstr ""
 msgid "{txt} record"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:479
+#: ../../main/dns/src/EBox/DNS.pm:468
 msgid "main bind9 configuration file"
 msgstr "central bind9 konfigurationsfil"
 
-#: ../../main/dns/src/EBox/DNS.pm:484
+#: ../../main/dns/src/EBox/DNS.pm:473
 msgid "bind9 options configuration file"
 msgstr "bind9 konfigurationsfil för alternativ"
 
-#: ../../main/dns/src/EBox/DNS.pm:489
+#: ../../main/dns/src/EBox/DNS.pm:478
 msgid "local bind9 configuration file"
 msgstr "lokal bind9 konfigurationsfil"
 
-#: ../../main/dns/src/EBox/DNS.pm:494
+#: ../../main/dns/src/EBox/DNS.pm:483
 msgid "Keys configuration file"
 msgstr "Konfigurationsfil för nycklar"
 
-#: ../../main/dns/src/EBox/DNS.pm:509
+#: ../../main/dns/src/EBox/DNS.pm:498
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "Ändra rättigheterna för {dir} så att gruppen bind har rätt att skriva där."
 
-#: ../../main/dns/src/EBox/DNS.pm:511
+#: ../../main/dns/src/EBox/DNS.pm:500
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Tillåt bind servicen att bli dynamiskt uppdaterad"
 
-#: ../../main/dns/src/EBox/DNS.pm:515
+#: ../../main/dns/src/EBox/DNS.pm:504
 #, fuzzy
 msgid "Remove bind9 init script link"
 msgstr "Ta bort länkar för ntp startscript"
 
-#: ../../main/dns/src/EBox/DNS.pm:521
+#: ../../main/dns/src/EBox/DNS.pm:510
 msgid "Override named apparmor profile"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:522
+#: ../../main/dns/src/EBox/DNS.pm:511
 msgid "To allow samba daemon load Active Directory zone"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:547
+#: ../../main/dns/src/EBox/DNS.pm:536
 #, fuzzy
 msgid "Domain Name Service"
 msgstr "DNS-server"
 
-#: ../../main/dns/src/EBox/DNS.pm:1673
+#: ../../main/dns/src/EBox/DNS.pm:1662
 #, fuzzy
 msgid "hostname"
 msgstr "Värdnamn"
@@ -3576,13 +3596,13 @@ msgstr "Läs/Skriv"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:119
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:289
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:292
 msgid "Allow SSL"
 msgstr "Tillåt SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:120
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:290
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:293
 msgid "Force SSL"
 msgstr "Tvinga SSL"
 
@@ -3604,7 +3624,7 @@ msgstr "Aktivera FTP åtkomst för varje användare till dennes /home mapp."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:154
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:128
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:315
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:318
 msgid "SSL support"
 msgstr "SSL-stöd"
 
@@ -3683,7 +3703,7 @@ msgstr "Intervall"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:89
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:127
-#: ../../main/network/src/EBox/Network.pm:3883
+#: ../../main/network/src/EBox/Network.pm:3890
 #: ../../main/network/src/EBox/CGI/Diag.pm:88
 #: ../../main/network/src/EBox/CGI/Diag.pm:98
 #: ../../main/dhcp/src/EBox/DHCP.pm:1134 ../../main/dhcp/src/EBox/DHCP.pm:1226
@@ -3764,10 +3784,81 @@ msgstr ""
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:60
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:142
 #: ../../main/network/src/EBox/Network.pm:76
-#: ../../main/network/src/EBox/Network.pm:3943
+#: ../../main/network/src/EBox/Network.pm:3950
 #: ../../main/services/src/EBox/Services.pm:604
 msgid "Network"
 msgstr "Nätverk"
+
+#: ../../main/restore-tool:48
+#, fuzzy
+msgid ""
+"No backups found in this server. Do you want to retry with a different one?"
+msgstr ""
+"Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
+"Kanske kan du prova ett annat datum?"
+
+#: ../../main/restore-tool:61
+#, fuzzy
+msgid ""
+"There is not configuration backup from this date. Do you want to retry with "
+"another date?"
+msgstr ""
+"Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
+"Kanske kan du prova ett annat datum?"
+
+#: ../../main/restore-tool:116
+#, fuzzy
+msgid "Choose the server to restore"
+msgstr "Återställ tjänster"
+
+#: ../../main/restore-tool:122
+#, fuzzy
+msgid "Server to restore: "
+msgstr "Återställ tjänster"
+
+#: ../../main/restore-tool:141
+msgid ""
+"Backup log data not found in the files from the backup, log database will "
+"not be restored"
+msgstr ""
+
+#: ../../main/restore-tool:149
+#, fuzzy
+msgid "Restoring log database"
+msgstr "Återställ databas för loggar"
+
+#: ../../main/restore-tool:170
+#, fuzzy
+msgid "Restoring configuration backup"
+msgstr "Återställ eBox konfiguration från säkerhetskopia."
+
+#: ../../main/restore-tool:175
+msgid ""
+"The configuration restore failed. We will continue the process to try to "
+"restore as much as possible but your system will need manual tweaking"
+msgstr ""
+
+#: ../../main/restore-tool:190
+#, fuzzy
+msgid "Checking configuration compability"
+msgstr "Endast konfiguration"
+
+#: ../../main/restore-tool:242
+#, perl-brace-format
+msgid ""
+"Cannot restore backup because there are less interfaces than there are "
+"available. The missing interfaces are: {missing}"
+msgstr ""
+
+#: ../../main/restore-tool:290
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were done for the server {s}"
+msgstr "Säkerhetskopia av konfiguration"
+
+#: ../../main/restore-tool:307
+#, fuzzy, perl-brace-format
+msgid "No configuration backups were made for the date {d} in {s} server"
+msgstr "Säkerhetskopia av konfiguration"
 
 #: ../../main/software/src/EBox/Software.pm:59
 msgid "Software Management"
@@ -3906,7 +3997,7 @@ msgid "Installing"
 msgstr "Installerar"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:216
-#: ../../main/software/src/templates/ebox.mas:515
+#: ../../main/software/src/templates/ebox.mas:516
 #: ../../main/software/src/templates/del.mas:30
 msgid "Installing packages"
 msgstr "Installerar paket"
@@ -3950,7 +4041,7 @@ msgid ""
 msgstr "Paketen avinstallerades inte korrekt. Mer information i loggarna"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:253
-#: ../../main/software/src/templates/ebox.mas:516
+#: ../../main/software/src/templates/ebox.mas:517
 #: ../../main/software/src/templates/del.mas:32
 #, fuzzy
 msgid "Removing packages"
@@ -3990,9 +4081,9 @@ msgstr "Välj eBox-paket att installera"
 msgid "Zentyal components"
 msgstr "Komponenter i eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:87
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1321
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1339
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1621
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:173
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:195
@@ -4005,18 +4096,18 @@ msgstr "Komponenter i eBox"
 msgid "Unknown"
 msgstr "Okänd"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:88
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #, fuzzy
 msgid "Community"
 msgstr "Kommentar"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:89
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
 #, fuzzy
 msgid "Professional"
 msgstr "Rättigheter"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:90
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 #, fuzzy
 msgid "Enterprise"
 msgstr ""
@@ -4025,54 +4116,54 @@ msgstr ""
 "#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
 "Ange"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:91
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:93
 #, fuzzy
 msgid "Small Business"
 msgstr "alla tjänster"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:113
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:115
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Komponenter i eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:379
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:387
 msgid "Not subscribed"
 msgstr "Prenumererar ej"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:381
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:389
 msgid "Subscribed"
 msgstr "Prenumererar"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:413
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:421
 #, fuzzy
 msgid "Registration"
 msgstr "Mål"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:426
 #, fuzzy
 msgid "Server Registration"
 msgstr "Skapa server"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:423
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:431
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:427
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:435
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 #, fuzzy
 msgid "Security Updates"
 msgstr "Säkerhetsuppdateringar"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:444
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:452
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:44
 #, fuzzy
 msgid "Your Zentyal Server Account"
 msgstr "Zentyal FTP server"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:559
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:567
 #, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
@@ -4081,80 +4172,85 @@ msgstr ""
 "Övervakaren som samlar ip adresser är bara tillgänglig om värden "
 "prenumererar på eBox Control Center."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:750
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:758
 #, fuzzy
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "eBox måste prenumerera för att ladda om klientinställningarna"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1570
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1573
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:765
+#, perl-brace-format
+msgid "Cannot reload the bundle: {reason}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1588
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1591
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1578
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1596
 msgid "Connected"
 msgstr "Ansluten"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1582
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1600
 #, fuzzy
 msgid "In process"
 msgstr "process"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1585
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1603
 #, fuzzy, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr "Inte ansluten. Undersök VPN loggarna i sökvägen: {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1605
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
 msgid "Essential"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1606
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1624
 msgid "Standard"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1607
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1625
 msgid "Premium"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1614
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1632
 #, fuzzy, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "Den senaste uppdateringen misslyckades"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1619
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
 #, fuzzy
 msgid "Configuration backup enabled"
 msgstr "Säkerhetskopia av konfiguration"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1622
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 #, fuzzy, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "Frånvarande säkerhetskopia: {n}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:77
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:93
 #, fuzzy
 msgid "Server name"
 msgstr "Server {name}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1637
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1655
 #, fuzzy
 msgid "Connection status"
 msgstr "Mål för anslutning"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1658
 #, fuzzy
 msgid "External server name"
 msgstr "Extern e-postserver"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1643
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1661
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
@@ -4163,16 +4259,16 @@ msgstr "Extern e-postserver"
 msgid "Server edition"
 msgstr "Skapa server"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1663
 msgid "Technical support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1705
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1723
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2001
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2019
 #, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
@@ -4181,21 +4277,29 @@ msgstr ""
 "Det prenumererade värdnamnet är bara tillgängligt om värden prenumererar på "
 "eBox Control Center."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2030
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2048
 #, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
 "Det prenumererade värdnamnet är bara tillgängligt om värden prenumererar på "
 "eBox Control Center."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2059
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2077
 #, fuzzy
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
 "Det prenumererade värdnamnet är bara tillgängligt om värden prenumererar på "
 "eBox Control Center."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2107
+#, fuzzy
+msgid ""
+"The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
+msgstr ""
+"Det prenumererade värdnamnet är bara tillgängligt om värden prenumererar på "
+"eBox Control Center."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2136
 #, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
@@ -4427,7 +4531,7 @@ msgid "Registration data retrieved correctly."
 msgstr "Data för prenumeration mottogs korrekt."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
-#: ../../main/core/src/EBox/Model/DataForm.pm:653
+#: ../../main/core/src/EBox/Model/DataForm.pm:667
 #: ../../main/core/src/templates/progress.mas:34
 msgid "Done"
 msgstr "Färdig"
@@ -4467,7 +4571,7 @@ msgid "Choose a name for your server which is a valid subdomain name"
 msgstr "Välj ett namn till din eBox som är ett giltigt underdomännamn"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:359
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:76
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:92
 #: ../../main/pptp/src/EBox/Model/Users.pm:111
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:202
 #: ../../main/network/src/EBox/Model/DynDNS.pm:214
@@ -4476,15 +4580,18 @@ msgstr "Välj ett namn till din eBox som är ett giltigt underdomännamn"
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:121
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:108
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:46
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:180
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:93
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:108
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:43
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:115
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:110
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
 #: ../../main/users/src/EBox/UsersAndGroups/Model/SlavePassword.pm:55
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:73
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:72
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:50
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1236
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1250
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/captiveportal/src/templates/login.mas:41
 #: ../../main/network/src/templates/ifaces.mas:178
@@ -4504,41 +4611,41 @@ msgstr "Tillgänglig"
 msgid "Select one of your purchases"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
 #, fuzzy
 msgid "Zentyal registration details"
 msgstr "Prenumerationsdetaljer för eBox"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:382
 #, fuzzy
 msgid "Unregister"
 msgstr "Grålistad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:384
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
 #, fuzzy
 msgid "Register your Zentyal Server"
 msgstr "Zentyal FTP server"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:385
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:387
 msgid "Register"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:609
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:607
 msgid " module"
 msgstr "modul"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " and "
 msgstr "och"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:615
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " modules"
 msgstr "moduler"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:632
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:630
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:78
-#: ../../main/samba/src/EBox/Samba.pm:1515
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:545
+#: ../../main/samba/src/EBox/Samba.pm:1617
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:542
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:466
 #: ../../main/core/src/EBox/Model/Composite.pm:481
@@ -4558,8 +4665,8 @@ msgstr "moduler"
 msgid "Action"
 msgstr "Åtgärd"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:633
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:654
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:631
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:652
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:60
 #: ../../main/core/src/templates/configureView.mas:22
@@ -4567,23 +4674,23 @@ msgstr "Åtgärd"
 msgid "Reason"
 msgstr "Anledning"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:670
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:668
 #, perl-brace-format
 msgid "Use existing server from {c}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:686
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:684
 #, fuzzy
 msgid "Reload available options"
 msgstr "Globala alternativ"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
 #, fuzzy
 msgid "Unregistering a server"
 msgstr "extern e-postserver"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:701
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:319
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:316
 #, fuzzy
 msgid "Registering a server"
 msgstr "extern e-postserver"
@@ -4771,7 +4878,7 @@ msgid ""
 "details"
 msgstr "Kan inte hämta de skyddade adresserna för fjärrsupport"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:137
+#: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:140
 #, fuzzy, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by Zentyal. "
@@ -5005,7 +5112,7 @@ msgstr "Vänligen bekräfta att du vill radera följande fjärrsäkerhetskopia:"
 #: ../../main/network/src/templates/ifaces.mas:303
 #: ../../main/samba/src/templates/samba.mas:49
 #: ../../main/core/src/templates/ajax/tableBody.mas:646
-#: ../../main/core/src/templates/ajax/tableBody.mas:904
+#: ../../main/core/src/templates/ajax/tableBody.mas:901
 #: ../../main/core/src/templates/ajax/tableModalView.mas:502
 #: ../../main/mail/src/templates/groupalias.mas:73
 #: ../../main/mail/src/templates/warnvd.mas:25
@@ -5055,57 +5162,64 @@ msgstr "obefintlig åtgärd: {a}"
 msgid "Import/Export Configuration Remotely"
 msgstr "Aktuell konfiguration"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:75
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:91
 #, fuzzy
 msgid "Email Address"
 msgstr "e-post adress"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:82
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:98
 #: ../../main/users/src/templates/users.mas:27
 #: ../../main/users/src/templates/user.mas:20
 #, fuzzy
 msgid "First name"
 msgstr "användarnamn"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:83
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:99
 #: ../../main/users/src/templates/users.mas:34
 #: ../../main/users/src/templates/user.mas:32
 #, fuzzy
 msgid "Last name"
 msgstr "användarnamn"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:84
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:100
 #, fuzzy
 msgid "Phone number"
 msgstr "en timme"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:85
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:101
 #, fuzzy
 msgid "Repeated password"
 msgstr "Ange lösenordet igen"
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:88
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:104
 #, fuzzy
 msgid "Introduced passwords do not match"
 msgstr "Nya lösenorden stämmer inte överens."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:133
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:153
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:141
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:161
 msgid "An unknown error ocurred registering the subscription"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:146
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:167
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:148
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:170
+#, fuzzy
+msgid ""
+"Password must have at least 6 characters. Leading or trailing spaces will be "
+"ignored."
+msgstr "Ditt lösenord måste vara minst 6 tecken långt."
+
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:173
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -5158,8 +5272,8 @@ msgid "Bandwidth Monitor"
 msgstr "Bandbreddsbegränsning"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:324
-#: ../../main/samba/src/EBox/Samba.pm:1513
-#: ../../main/samba/src/EBox/Samba.pm:1533
+#: ../../main/samba/src/EBox/Samba.pm:1615
+#: ../../main/samba/src/EBox/Samba.pm:1635
 msgid "Client address"
 msgstr "Klient adress"
 
@@ -5194,6 +5308,7 @@ msgstr "Bandbreddsbegränsning"
 #: ../../main/ltsp/src/EBox/LTSP.pm:673
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:102
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:176
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
 #: ../../main/captiveportal/src/templates/login.mas:35
 #: ../../main/core/src/templates/login/index.mas:59
@@ -5500,7 +5615,7 @@ msgid "Month bandwidth usage (MB)"
 msgstr "Bandbreddsbegränsning"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
-#: ../../main/core/src/EBox/SysInfo.pm:319
+#: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Time"
 msgstr "Tid"
 
@@ -5535,6 +5650,8 @@ msgstr "Aktuell modul"
 #: ../../main/jabber/src/EBox/CGI/JabberUserOptions.pm:42
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:69
 #: ../../main/mail/src/EBox/CGI/CreateAlias.pm:40
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:56
+#: ../../main/mail/src/EBox/CGI/DelExternalAccount.pm:40
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:42
 #: ../../main/mail/src/EBox/CGI/DelAccount.pm:43
 #: ../../main/mail/src/EBox/CGI/DelAlias.pm:40
@@ -5542,7 +5659,7 @@ msgstr "Aktuell modul"
 #: ../../main/zarafa/src/EBox/CGI/ZarafaUserOptions.pm:45
 #: ../../main/asterisk/src/EBox/CGI/AsteriskUserOptions.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:79
-#: ../../main/users/src/EBox/UsersAndGroups.pm:730
+#: ../../main/users/src/EBox/UsersAndGroups.pm:744
 #: ../../main/users/src/EBox/CGI/AddGroupToUser.pm:44
 #: ../../main/users/src/EBox/CGI/DelUserFromGroup.pm:47
 #: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:46
@@ -5750,11 +5867,6 @@ msgstr "någon TCP-port"
 msgid "Here you can define general settings for captive portal."
 msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
-#: ../../main/radius/src/EBox/Model/Auth.pm:105
-msgid "All users"
-msgstr "Alla användare"
-
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:142
 msgid "HTTP and HTTPS ports should be different"
 msgstr ""
@@ -5859,8 +5971,8 @@ msgstr "Sekundär server"
 #: ../../main/pptp/src/EBox/Model/Config.pm:115
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:87
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:88
 #: ../../main/radius/src/EBox/Model/Auth.pm:143
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:135
 msgid "General configuration"
@@ -6224,7 +6336,7 @@ msgstr "värd"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:736
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:778
-#: ../../main/core/src/EBox/Apache.pm:355
+#: ../../main/core/src/EBox/Apache.pm:354
 #: ../../main/services/src/EBox/Services.pm:440
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
 msgid "port"
@@ -6539,7 +6651,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1097
-#: ../../main/core/src/EBox/SysInfo.pm:84
+#: ../../main/core/src/EBox/SysInfo.pm:82
 msgid "System"
 msgstr "System"
 
@@ -6632,7 +6744,7 @@ msgstr "Kunde inte öppna konfigurationsfilen {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 
-#: ../../main/common/src/EBox/Sudo.pm:269
+#: ../../main/common/src/EBox/Sudo.pm:286
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Körning av kommandot \"{cmd}\" som {user} misslyckades"
@@ -6713,31 +6825,31 @@ msgstr "Klientanslutning avbruten"
 msgid "IPsec"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:110
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:165
 #, fuzzy
 msgid "ESP Authentication"
 msgstr "Autentisering"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:166
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:159
 #, fuzzy
 msgid "ESP Encryption"
 msgstr "Kryptering"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:171
 msgid "ESP DH Group"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:177
 msgid "ESP Keylife"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:185
 #, fuzzy
 msgid "Enable PFS"
 msgstr "Aktivera PAM"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:194
 msgid "Phase 2"
 msgstr ""
 
@@ -6746,79 +6858,79 @@ msgstr ""
 msgid "Local IP Address"
 msgstr "Lokal adress"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:69
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:68
 #, fuzzy
 msgid "Zentyal public IP address."
 msgstr "IP-adress för gränssnittet"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:73
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:72
 #, fuzzy
 msgid "Local Subnet"
 msgstr "Lokalt nätverk"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:76
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:74
 msgid "Local subnet available through the tunnel."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:80
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:78
 #, fuzzy
 msgid "Remote Address"
 msgstr "IP-adress"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:88
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:85
 msgid "Remote endpoint public IP address."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:92
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:89
 #, fuzzy
 msgid "Any address"
 msgstr "MAC-adress"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:99
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:96
 #, fuzzy
 msgid "Remote Subnet"
 msgstr "Fjärr IP"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:102
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:98
 msgid "Remote subnet available through the tunnel."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:106
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:102
 #, fuzzy
 msgid "PSK Shared Secret"
 msgstr "Delad hemlighet (shared secret)"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:108
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:104
 msgid "Pre-shared key for the IPsec connection."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:112
 #: ../../main/ltsp/src/EBox/LTSP/Composite/Configuration.pm:44
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:102
-#: ../../main/ca/src/EBox/CA.pm:1729 ../../main/core/src/EBox/SysInfo.pm:88
+#: ../../main/ca/src/EBox/CA.pm:1739 ../../main/core/src/EBox/SysInfo.pm:86
 #: ../../main/mail/src/EBox/Mail.pm:1530
 #: ../../main/zarafa/src/EBox/Zarafa.pm:759
 #: ../../main/asterisk/src/EBox/Asterisk.pm:528
 msgid "General"
 msgstr "Allmänt"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:152
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:148
 #, perl-brace-format
 msgid ""
 "Must be the external IP to connect and it was the addresss of local "
 "interface {if}"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:176
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:172
 msgid ""
 "This is a local network, thus already accessible through local interfaces"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:183
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:179
 msgid "This network is already reachable through a static route"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:122
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
 #: ../../main/core/src/templates/configurationFiles.mas:24
 #: ../../main/users/src/templates/users.mas:41
@@ -6828,42 +6940,42 @@ msgstr ""
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:141
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:133
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:134
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:58
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:68
 #, fuzzy
 msgid "IPsec Connections"
 msgstr "Externa anslutningar"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:142
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
 #, fuzzy
 msgid "IPsec connection"
 msgstr "Tillåt kommunikation"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:149
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:142
 msgid ""
 "IPsec connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:111
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:157
 #, fuzzy
 msgid "IKE Authentication"
 msgstr "Autentisering"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:157
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:151
 #, fuzzy
 msgid "IKE Encryption"
 msgstr "Kryptering"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
 msgid "IKE Keylife"
 msgstr ""
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:180
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:174
 msgid "Phase 1"
 msgstr ""
 
@@ -6889,8 +7001,8 @@ msgid "Enable Dynamic DNS"
 msgstr "Aktivera dynamisk DNS"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:220
-#: ../../main/core/src/EBox/SysInfo.pm:320
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
+#: ../../main/core/src/EBox/SysInfo.pm:321
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:57
 msgid "Hostname"
 msgstr "Värdnamn"
 
@@ -6936,7 +7048,7 @@ msgid "Static Routes List"
 msgstr "Lista över statiska rutter"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:166
-#: ../../main/network/src/EBox/Network.pm:3960
+#: ../../main/network/src/EBox/Network.pm:3967
 msgid "Static Routes"
 msgstr "Statiska rutter"
 
@@ -7005,7 +7117,7 @@ msgstr ""
 "Du kan inte manuellt lägga till gateway för DHCP eller PPPoE gränssnitt"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:284
-#: ../../main/network/src/EBox/Network.pm:3442
+#: ../../main/network/src/EBox/Network.pm:3449
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -7015,7 +7127,7 @@ msgstr ""
 "{iface} som inte är statiskt"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:290
-#: ../../main/network/src/EBox/Network.pm:3439
+#: ../../main/network/src/EBox/Network.pm:3446
 #: ../../main/network/src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
@@ -7291,7 +7403,7 @@ msgstr "Namn på virtuellt gränssnitt"
 
 #: ../../main/network/src/EBox/Network.pm:863
 #: ../../main/network/src/EBox/Network.pm:1230
-#: ../../main/network/src/EBox/Network.pm:3468
+#: ../../main/network/src/EBox/Network.pm:3475
 #: ../../main/network/src/templates/wizard/network.mas:54
 #: ../../main/network/src/templates/ifaces.mas:115
 #: ../../main/network/src/templates/ifaces.mas:243
@@ -7349,7 +7461,7 @@ msgstr ""
 "Nätverksgränssnitten behöver vara i trunkläge innan du lägger till vlan till "
 "dem."
 
-#: ../../main/network/src/EBox/Network.pm:3374
+#: ../../main/network/src/EBox/Network.pm:3381
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways or static "
@@ -7360,32 +7472,32 @@ msgstr ""
 "oåtkomlig. Vänligen ta bort den först om du verkligen vill göra denna "
 "ändring."
 
-#: ../../main/network/src/EBox/Network.pm:3849
+#: ../../main/network/src/EBox/Network.pm:3856
 msgid "down"
 msgstr "nere"
 
-#: ../../main/network/src/EBox/Network.pm:3854
+#: ../../main/network/src/EBox/Network.pm:3861
 #: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
 msgstr "upp"
 
-#: ../../main/network/src/EBox/Network.pm:3859
+#: ../../main/network/src/EBox/Network.pm:3866
 msgid "external"
 msgstr "extern"
 
-#: ../../main/network/src/EBox/Network.pm:3861
+#: ../../main/network/src/EBox/Network.pm:3868
 msgid "internal"
 msgstr "intern"
 
-#: ../../main/network/src/EBox/Network.pm:3867
+#: ../../main/network/src/EBox/Network.pm:3874
 msgid "link ok"
 msgstr "länk ok"
 
-#: ../../main/network/src/EBox/Network.pm:3869
+#: ../../main/network/src/EBox/Network.pm:3876
 msgid "no link"
 msgstr "ingen länk"
 
-#: ../../main/network/src/EBox/Network.pm:3878
+#: ../../main/network/src/EBox/Network.pm:3885
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:112
 #: ../../main/ltsp/src/EBox/LTSP.pm:648 ../../main/ltsp/src/EBox/LTSP.pm:653
 #: ../../main/ltsp/src/EBox/LTSP.pm:655 ../../main/ltsp/src/EBox/LTSP.pm:657
@@ -7401,35 +7513,35 @@ msgstr "ingen länk"
 msgid "Status"
 msgstr "Status"
 
-#: ../../main/network/src/EBox/Network.pm:3904
+#: ../../main/network/src/EBox/Network.pm:3911
 msgid "Tx bytes"
 msgstr "Tx bytes"
 
-#: ../../main/network/src/EBox/Network.pm:3914
+#: ../../main/network/src/EBox/Network.pm:3921
 msgid "Rx bytes"
 msgstr "Rx bytes"
 
-#: ../../main/network/src/EBox/Network.pm:3925
+#: ../../main/network/src/EBox/Network.pm:3932
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
 msgstr "Nätverksgränssnitt"
 
-#: ../../main/network/src/EBox/Network.pm:3948
+#: ../../main/network/src/EBox/Network.pm:3955
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:144
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
 msgstr "Gränssnitt"
 
-#: ../../main/network/src/EBox/Network.pm:3952
+#: ../../main/network/src/EBox/Network.pm:3959
 msgid "Gateways"
 msgstr "Gateways"
 
-#: ../../main/network/src/EBox/Network.pm:3964
+#: ../../main/network/src/EBox/Network.pm:3971
 #, fuzzy
 msgid "Dynamic DNS"
 msgstr "Dynamisk"
 
-#: ../../main/network/src/EBox/Network.pm:3968
+#: ../../main/network/src/EBox/Network.pm:3975
 msgid "Tools"
 msgstr ""
 
@@ -7523,8 +7635,8 @@ msgstr "Kontrollera om gateways är anslutna eller frånkopplade"
 
 #: ../../main/network/src/EBox/CGI/VIface.pm:42
 #: ../../main/network/src/EBox/CGI/Vlan.pm:40
-#: ../../main/network/src/EBox/CGI/Iface.pm:41
-#: ../../main/network/src/EBox/CGI/Iface.pm:58
+#: ../../main/network/src/EBox/CGI/Iface.pm:39
+#: ../../main/network/src/EBox/CGI/Iface.pm:56
 msgid "network interface"
 msgstr "nätverksgränssnitt"
 
@@ -7533,7 +7645,7 @@ msgid "virtual interface action"
 msgstr "åtgärd för virtuellt gränssnitt"
 
 #: ../../main/network/src/EBox/CGI/VIface.pm:64
-#: ../../main/network/src/EBox/CGI/Iface.pm:93
+#: ../../main/network/src/EBox/CGI/Iface.pm:91
 msgid "netmask"
 msgstr "nätmask"
 
@@ -7547,36 +7659,45 @@ msgstr "namn på virtuellt gränssnitt"
 msgid "Network Diagnostic Tools"
 msgstr "Nätverksdiagnos"
 
-#: ../../main/network/src/EBox/CGI/Iface.pm:57
+#: ../../main/network/src/EBox/CGI/Iface.pm:55
 msgid "method"
 msgstr "metod"
 
-#: ../../main/network/src/EBox/CGI/Iface.pm:92
+#: ../../main/network/src/EBox/CGI/Iface.pm:90
 msgid "ip address"
 msgstr "ip-adress"
 
-#: ../../main/network/src/EBox/CGI/Iface.pm:101
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:524
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:549
+#: ../../main/network/src/EBox/CGI/Iface.pm:99
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:525
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:550
 #: ../../main/users/src/EBox/CGI/AddUser.pm:43
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:43
 msgid "user name"
 msgstr "användarnamn"
 
-#: ../../main/network/src/EBox/CGI/Iface.pm:102
+#: ../../main/network/src/EBox/CGI/Iface.pm:100
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:58
 msgid "password"
 msgstr "lösenord"
 
-#: ../../main/network/src/EBox/CGI/Iface.pm:119
+#: ../../main/network/src/EBox/CGI/Iface.pm:117
 msgid "bridge"
 msgstr "brygga"
+
+#: ../../main/network/src/EBox/CGI/Iface.pm:148
+#, fuzzy
+msgid ""
+"The PPPoE password contains invalid characters. All alphanumeric characters, "
+"plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
+msgstr ""
+"Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
+"icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:45
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:115
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:81
 #: ../../main/usercorner/src/EBox/UserCorner.pm:39
-#: ../../main/usercorner/src/EBox/UserCorner.pm:117
+#: ../../main/usercorner/src/EBox/UserCorner.pm:113
 #, fuzzy
 msgid "User Corner"
 msgstr "Användarnamn"
@@ -7593,43 +7714,34 @@ msgid "listening port"
 msgstr "port"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:116
-#: ../../main/usercorner/src/EBox/UserCorner.pm:118
+#: ../../main/usercorner/src/EBox/UserCorner.pm:114
 msgid "User Corner Web Server"
 msgstr "Användaravdelningen Webb Server"
 
-#: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:142
-msgid "User Corner is not supported on slave servers."
-msgstr ""
-
-#: ../../main/usercorner/src/EBox/UserCorner.pm:83
+#: ../../main/usercorner/src/EBox/UserCorner.pm:81
 msgid "Migrate configured modules"
 msgstr "Migrera konfigurerade moduler"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:84
+#: ../../main/usercorner/src/EBox/UserCorner.pm:82
 msgid "Required for usercorner access to configured modules"
 msgstr ""
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:91
+#: ../../main/usercorner/src/EBox/UserCorner.pm:88
 msgid "Create directories for slave journals"
 msgstr "Skapa Mappar för slave journals"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:92
+#: ../../main/usercorner/src/EBox/UserCorner.pm:89
 msgid "Zentyal needs the directories to record pending slave actions."
 msgstr "Zentyal behöver kataloger för att spela in avvaktande slave åtgärder."
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:142
-#, fuzzy
-msgid "User corner is only available in master or standalone servers"
-msgstr "Wan failover är bara tillgänglig för statiska gränssnitt"
-
-#: ../../main/usercorner/src/EBox/UserCorner.pm:227
+#: ../../main/usercorner/src/EBox/UserCorner.pm:223
 #: ../../main/users/src/EBox/UsersAndGroups.pm:84
 #: ../../main/users/src/templates/wizard/users.mas:7
 #, fuzzy
 msgid "Users and Groups"
 msgstr "Användare i grupp"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:267
+#: ../../main/usercorner/src/EBox/UserCorner.pm:263
 #, fuzzy
 msgid "User Corner web server"
 msgstr "Användarnamn"
@@ -8646,7 +8758,7 @@ msgstr ""
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherClientOpts.pm:57
 #: ../../main/ltsp/src/EBox/LTSP/Model/OtherOpts.pm:59
 #: ../../main/core/src/EBox/AuditLogging.pm:114
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:150
+#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:155
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:201
 #, fuzzy
 msgid "Value"
@@ -8675,6 +8787,7 @@ msgstr "Klient"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:67
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:60
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
 #, fuzzy
 msgid "Confirm Password"
 msgstr "Bekräfta lösenord"
@@ -8836,8 +8949,7 @@ msgid "{daemon} default configuration file"
 msgstr "{daemon} huvud konfigurationsfil"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:151
-#: ../../main/core/src/EBox/Logs.pm:708
-#: ../../main/core/src/EBox/SysInfo.pm:101
+#: ../../main/core/src/EBox/Logs.pm:708 ../../main/core/src/EBox/SysInfo.pm:99
 #: ../../main/core/src/EBox/Events.pm:127 ../../main/nut/src/EBox/NUT.pm:48
 #, fuzzy
 msgid "Maintenance"
@@ -9156,7 +9268,7 @@ msgid "used"
 msgstr "använt"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
-#: ../../main/core/src/EBox/SysInfo.pm:324
+#: ../../main/core/src/EBox/SysInfo.pm:325
 msgid "System load"
 msgstr "Systembelastning"
 
@@ -9686,126 +9798,96 @@ msgstr ""
 msgid "path"
 msgstr "sökväg"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:125
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:80
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:139
-msgid "Domain or workgroup name is too long"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:142
-msgid "Domain or workgroup name field is empty"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:145
-msgid "Domain name cannot end in '.local'"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:148
-#: ../../main/network/src/templates/diag.mas:24
-#: ../../main/mail/src/templates/createaccount.mas:23
-msgid "Domain name"
-msgstr "Domännamn"
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:152
-#, fuzzy
-msgid "Domain name cannot be equal to host name"
-msgstr "Det virtuella domän namnet kan inte vara samma som epostnamnet"
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:161
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:91
 msgid "NetBIOS name field is empty"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:164
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "NetBIOS name is too long"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:167
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:97
 msgid "NetBIOS names cannot contain dots"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:169
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:261
-msgid "NetBIOS computer name"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:178
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:106
 msgid "Description string is empty"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:181
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:109
 msgid "Description string is too long"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:192
-#, perl-brace-format
-msgid "{type} is limited to a maximum of 15 characters."
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:203
-#, perl-brace-format
-msgid "{type} cannot contain the reserved name {reserved}"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:220
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:121
 #, fuzzy
 msgid "Server Role"
 msgstr "Server port"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:226
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:127
 msgid "Realm"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:232
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:133
 #, fuzzy
 msgid "Domain controller FQDN"
 msgstr "Domännamn"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:237
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:138
 #, fuzzy
 msgid "Domain DNS server IP"
 msgstr "DNS-server"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:244
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:145
 #, fuzzy
 msgid "Administrator account"
 msgstr "Administratör"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:249
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:150
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:53
 #, fuzzy
 msgid "Administrator password"
 msgstr "Administratör"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:255
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:156
 #, fuzzy
 msgid "NetBIOS domain name"
 msgstr "domännamn"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:267
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:162
+msgid "Site"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:168
+msgid "NetBIOS computer name"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:174
 #, fuzzy
 msgid "Server description"
 msgstr "Prenumerera"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:273
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:180
 msgid "Enable roaming profiles"
 msgstr "Aktivera roaming profiles"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:279
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:186
 msgid "Drive letter"
 msgstr "Enhetsbokstav"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:288
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:195
 msgid "General settings"
 msgstr "Allmänna inställningar"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:293
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:200
 msgid "On this page you can set different general settings for Samba"
 msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:337
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:244
 msgid ""
 "Changing the domain name will cause to reprovision the samba database.\n"
 "\n"
@@ -9813,18 +9895,18 @@ msgid ""
 "to rejoin all computers to the new domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:341
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:248
 msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:353
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:260
 #, fuzzy
 msgid "Domain controller"
 msgstr "Domännamn"
 
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:354
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:261
 #, fuzzy
 msgid "Additional domain controller"
 msgstr "Domännamn"
@@ -9869,20 +9951,16 @@ msgid ""
 "change the samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba.conf"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:45
-msgid "Recycle default settings"
-msgstr "Papperskorgens allmänna inställningar"
-
-#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:55
+#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 #, fuzzy
 msgid "Enable recycle bin"
 msgstr "Aktivera papperskorgen"
 
-#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:63
+#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:58
 msgid "Recycle Bin default settings"
 msgstr "Papperskorgens allmänna inställningar"
 
-#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:87
+#: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:83
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "vfs plugins such the recycle bin. If you wish to enable this feature, add "
@@ -9925,7 +10003,7 @@ msgid "User: {u}"
 msgstr "Användarkvot överstigen"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:71
+#: ../../main/samba/src/EBox/Samba.pm:70
 msgid "File Sharing"
 msgstr "Fildelning"
 
@@ -9953,7 +10031,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:291
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:276
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:84
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:91
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:92
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr ""
@@ -9989,16 +10067,16 @@ msgid "Account name"
 msgstr "Kontonamn"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:434
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:804
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:807
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Lösenord får inte vara längre än {maxPwdLength} tecken"
 
-#: ../../main/samba/src/EBox/Samba.pm:110
+#: ../../main/samba/src/EBox/Samba.pm:109
 msgid "Create Samba home directory for shares and groups"
 msgstr "Skapa Samba hemkatalog för utdelningar och grupper"
 
-#: ../../main/samba/src/EBox/Samba.pm:111
+#: ../../main/samba/src/EBox/Samba.pm:110
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
@@ -10007,38 +10085,38 @@ msgstr ""
 "eBox kommer att skapa katalogerna för Samba utdelningar och grupper under /"
 "home/samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:127
+#: ../../main/samba/src/EBox/Samba.pm:126
 msgid "To set up Samba according to your configuration."
 msgstr "För att ställa in Samba enligt din konfiguration"
 
-#: ../../main/samba/src/EBox/Samba.pm:132
+#: ../../main/samba/src/EBox/Samba.pm:131
 msgid "To enable extended attributes and acls."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:137
+#: ../../main/samba/src/EBox/Samba.pm:136
 msgid "To add microsoft specific services"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:162
+#: ../../main/samba/src/EBox/Samba.pm:161
 msgid "File sharing (Samba) protocol"
 msgstr "Fildelning (Samba) protokoll"
 
-#: ../../main/samba/src/EBox/Samba.pm:579
+#: ../../main/samba/src/EBox/Samba.pm:587
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:588
+#: ../../main/samba/src/EBox/Samba.pm:601
 #, perl-brace-format
 msgid "The required domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:596
+#: ../../main/samba/src/EBox/Samba.pm:614
 #, perl-brace-format
 msgid "The required host record '{h}' could not be found in the domain '{d}'"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:640
+#: ../../main/samba/src/EBox/Samba.pm:662
 msgid ""
 "Samba can't be provisioned if no IP addresses are set and the DNS domain is "
 "properly configured. Ensure that you have at least a IP address assigned to "
@@ -10046,42 +10124,48 @@ msgid ""
 "the hostname in the DNS domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:674
+#: ../../main/samba/src/EBox/Samba.pm:701
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Användare {u} finns ej"
 
-#: ../../main/samba/src/EBox/Samba.pm:785
+#: ../../main/samba/src/EBox/Samba.pm:816
 msgid ""
 "The server domain and kerberos realm must match the domain you are trying to "
 "join."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1516
+#: ../../main/samba/src/EBox/Samba.pm:1507
+msgid ""
+"Restore is only possible if the server is the unique domain controller of "
+"the forest"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:1618
 msgid "Resource"
 msgstr "Resurs"
 
-#: ../../main/samba/src/EBox/Samba.pm:1520
+#: ../../main/samba/src/EBox/Samba.pm:1622
 msgid "Connect"
 msgstr "Ansluta"
 
-#: ../../main/samba/src/EBox/Samba.pm:1521
+#: ../../main/samba/src/EBox/Samba.pm:1623
 msgid "Access to directory"
 msgstr "Access till katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:1522
+#: ../../main/samba/src/EBox/Samba.pm:1624
 msgid "Read file"
 msgstr "Läsa fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:1523
+#: ../../main/samba/src/EBox/Samba.pm:1625
 msgid "Write file"
 msgstr "Skriva fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:1524
+#: ../../main/samba/src/EBox/Samba.pm:1626
 msgid "Disconnect"
 msgstr "Koppla bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:1525
+#: ../../main/samba/src/EBox/Samba.pm:1627
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/users/src/templates/group.mas:49
@@ -10089,46 +10173,46 @@ msgstr "Koppla bort"
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:1526
+#: ../../main/samba/src/EBox/Samba.pm:1628
 msgid "Create directory"
 msgstr "Skapa katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:1527
+#: ../../main/samba/src/EBox/Samba.pm:1629
 msgid "Remove directory"
 msgstr "Ta bort katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:1528
+#: ../../main/samba/src/EBox/Samba.pm:1630
 msgid "Rename"
 msgstr "Döpa om"
 
-#: ../../main/samba/src/EBox/Samba.pm:1534
-#: ../../main/samba/src/EBox/Samba.pm:1543
+#: ../../main/samba/src/EBox/Samba.pm:1636
+#: ../../main/samba/src/EBox/Samba.pm:1645
 msgid "File name"
 msgstr "Filnamn"
 
-#: ../../main/samba/src/EBox/Samba.pm:1535
-#: ../../main/samba/src/EBox/Samba.pm:1539
+#: ../../main/samba/src/EBox/Samba.pm:1637
+#: ../../main/samba/src/EBox/Samba.pm:1641
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1544
+#: ../../main/samba/src/EBox/Samba.pm:1646
 msgid "Quarantined file name"
 msgstr "Fil i karantän"
 
-#: ../../main/samba/src/EBox/Samba.pm:1545
-#: ../../main/samba/src/EBox/Samba.pm:1548
+#: ../../main/samba/src/EBox/Samba.pm:1647
+#: ../../main/samba/src/EBox/Samba.pm:1650
 msgid "Quarantine"
 msgstr "Karantän"
 
-#: ../../main/samba/src/EBox/Samba.pm:1551
+#: ../../main/samba/src/EBox/Samba.pm:1653
 msgid "Samba access"
 msgstr "Tillgång till Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1562
+#: ../../main/samba/src/EBox/Samba.pm:1664
 msgid "Samba virus"
 msgstr "Samba virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1573
+#: ../../main/samba/src/EBox/Samba.pm:1675
 msgid "Samba quarantine"
 msgstr "Samba karantän"
 
@@ -10143,7 +10227,7 @@ msgstr "Ett namn bör anges för utdelningen"
 #: ../../main/asterisk/src/EBox/CGI/AsteriskGroupOptions.pm:45
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:81
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:364
-#: ../../main/users/src/EBox/UsersAndGroups.pm:792
+#: ../../main/users/src/EBox/UsersAndGroups.pm:806
 #: ../../main/users/src/EBox/CGI/AddGroupToUser.pm:51
 #: ../../main/users/src/EBox/CGI/DelUserFromGroup.pm:42
 #: ../../main/users/src/EBox/CGI/AddUserToGroup.pm:41
@@ -10647,12 +10731,12 @@ msgstr "Filterpolicy"
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:79
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:350
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:731
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:728
 msgid "Antispam"
 msgstr "Skräppostfilter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:715
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:712
 msgid "SMTP Mail Filter"
 msgstr "SMTP e-postfilter"
 
@@ -10807,151 +10891,115 @@ msgid ""
 msgstr ""
 "Avsändaren borde vara endera en e-postadress eller ett domännamn med @ före"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:59
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:57
 msgid "Mail Filter"
 msgstr "E-postfilter"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:76
 msgid "Add clamav user to amavis group"
 msgstr "Lägg till clamav användare till amavis gruppen"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:77
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:83
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:81
 msgid "Add clamav user to p3scan group"
 msgstr "Lägg till clamav användare till p3scan gruppen"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:82
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 "Clamav behöver access till p3scan gruppen för att kunna skanna i POP proxyn"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:86
 msgid "Add spam and ham system users"
 msgstr "Lägg till spam och ham systemanvändare"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:90
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 "Användarna för detta epostkonto används för att träna det bayesiska filtret"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:95
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:93
 msgid "Update LDAP"
 msgstr "Uppdatera LDAP"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:94
 msgid "Add amavis specific classes and fields"
 msgstr "Lägg till amavis specifika klasser och fält"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:145
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:146
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:143
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:144
 #, fuzzy
 msgid "POP Transparent proxy"
 msgstr "Transparent POP proxy"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:155
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:153
 msgid "POP3 protocol"
 msgstr "POP3 protokoll"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:176
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:174
 msgid ""
 "Mail server has a custom filter set, unset it before enabling Zentyal Mail "
 "Filter module"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:354
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:352
 msgid "Cannot proceed because the filter is in use"
 msgstr "Kan inte fortsätta eftersom filtret används"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:521
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:519
 msgid "Mail filter"
 msgstr "E-postfilter"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:548
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:545
 msgid "Sender address"
 msgstr "Sändares adress"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:549
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:546
 msgid "Recipient address"
 msgstr "Mottagares adress"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:551
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:548
 msgid "Spam hits"
 msgstr "Skräppost träffar"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:556
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:553
 msgid "Bad header found"
 msgstr "Dåligt e-post huvud funnet"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:557
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:554
 msgid "Spam found"
 msgstr "Skräppost funnet"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:558
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:555
 msgid "Forbidden attached file found"
 msgstr "Förbjuden bifogad fil funnen"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:559
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:556
 msgid "Address in blacklist found"
 msgstr "Adress från svartlista funnen"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:560
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:557
 msgid "Virus found"
 msgstr "Virus upptäckt"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:561
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Clean message"
 msgstr "Rent meddelande"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:562
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:559
 #, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Kan inte ansluta till mailserver {smtp}"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:571
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:568
 msgid "SMTP filter"
 msgstr "SMTP filter"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:590
-msgid "Account"
-msgstr "Konto"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:591
-msgid "Client's address"
-msgstr "Klients adress"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:594
-msgid "Total messages"
-msgstr "Totalt meddelanden"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:595
-msgid "Clean messages"
-msgstr "Rena meddelanden"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:596
-msgid "Virus messages"
-msgstr "Virus meddelanden"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:597
-msgid "Spam messages"
-msgstr "Skräppostmeddelanden"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:604
-msgid "POP3 transmission complete"
-msgstr "POP3 överföring färdig"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:606
-msgid "POP3 transmission aborted"
-msgstr "POP3 överföring avbruten"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:610
-msgid "POP3 proxy"
-msgstr "POP3 proxy"
-
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:738
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:735
 msgid "Files ACL"
 msgstr "Fil ACL"
 
@@ -10995,8 +11043,8 @@ msgid "Application Protocols"
 msgstr "Applikationsdata"
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:154
-#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:215
-#: ../../main/ca/src/EBox/CA.pm:500
+#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:216
+#: ../../main/ca/src/EBox/CA.pm:510
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
 #: ../../main/ca/src/templates/index.mas:22
 #: ../../main/ca/src/templates/formRevoke.mas:21
@@ -11005,7 +11053,7 @@ msgstr "Applikationsdata"
 msgid "Organization Name"
 msgstr "Organisationsnamn"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:515
+#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:525
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -11017,9 +11065,9 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/TestStub.pm:516
 #: ../../main/ca/src/EBox/CA/TestStub.pm:642
 #: ../../main/ca/src/EBox/Model/Certificates.pm:276
-#: ../../main/ca/src/EBox/CA.pm:714 ../../main/ca/src/EBox/CA.pm:882
-#: ../../main/ca/src/EBox/CA.pm:1220 ../../main/ca/src/EBox/CA.pm:1290
-#: ../../main/ca/src/EBox/CA.pm:1384
+#: ../../main/ca/src/EBox/CA.pm:724 ../../main/ca/src/EBox/CA.pm:892
+#: ../../main/ca/src/EBox/CA.pm:1230 ../../main/ca/src/EBox/CA.pm:1300
+#: ../../main/ca/src/EBox/CA.pm:1394
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:76
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:103
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
@@ -11041,7 +11089,7 @@ msgstr "Användaren {commonName} finns INTE"
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Dagar inställt till maximalt tillåtet: År 2038-problemet"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2494
+#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2512
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Utgångsdatumet är senare än CA-certifikatets utgångsdatum"
 
@@ -11059,7 +11107,7 @@ msgid "Generate the certificate using CA with the common name set above"
 msgstr "Generera certifikatet genom CA med common name satt ovan."
 
 #: ../../main/ca/src/EBox/Model/Certificates.pm:299
-#: ../../main/ca/src/EBox/CA.pm:1732
+#: ../../main/ca/src/EBox/CA.pm:1742
 msgid "Services Certificates"
 msgstr "Certifikat för services"
 
@@ -11091,23 +11139,33 @@ msgstr "Servern {name} har inte certifikat tilldelat"
 msgid "Certification Authority"
 msgstr "Certifikatutfärdare"
 
-#: ../../main/ca/src/EBox/CA.pm:258 ../../main/ca/src/EBox/CA.pm:732
-#: ../../main/ca/src/EBox/CA.pm:1363
+#: ../../main/ca/src/EBox/CA.pm:222 ../../main/ca/src/templates/index.mas:41
+#: ../../main/ca/src/templates/createCA.mas:9
+msgid "Country code"
+msgstr "Landskod"
+
+#: ../../main/ca/src/EBox/CA.pm:224
+#, fuzzy
+msgid "The country code must be the 2-characters ISO code"
+msgstr "Lösenordet måste vara minst 6 tecken långt"
+
+#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:742
+#: ../../main/ca/src/EBox/CA.pm:1373
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr ""
 "Antal dagar är inställt till maximalt tillåtna {days}: År 2038-problemet"
 
-#: ../../main/ca/src/EBox/CA.pm:349
+#: ../../main/ca/src/EBox/CA.pm:359
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Borttagningsåtgärden kan inte färdigställas. Anledning:"
 
-#: ../../main/ca/src/EBox/CA.pm:895 ../../main/ca/src/EBox/CA.pm:1231
+#: ../../main/ca/src/EBox/CA.pm:905 ../../main/ca/src/EBox/CA.pm:1241
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certifikat med namnet {cn} finns INTE"
 
-#: ../../main/ca/src/EBox/CA.pm:899
+#: ../../main/ca/src/EBox/CA.pm:909
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -11116,52 +11174,57 @@ msgstr ""
 "Anledningen {reason} är INTE en genomförbar anledning.\n"
 "Alternativ:"
 
-#: ../../main/ca/src/EBox/CA.pm:1042
+#: ../../main/ca/src/EBox/CA.pm:1052
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "Infrastrukturen för Certifikatsutfärdaren (CA) är inte färdig än, skapa "
 "denna först."
 
-#: ../../main/ca/src/EBox/CA.pm:1139
+#: ../../main/ca/src/EBox/CA.pm:1149
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Varken namn eller serienummer har angivits"
 
-#: ../../main/ca/src/EBox/CA.pm:1385
+#: ../../main/ca/src/EBox/CA.pm:1395
 msgid "or"
 msgstr "eller"
 
-#: ../../main/ca/src/EBox/CA.pm:1386
+#: ../../main/ca/src/EBox/CA.pm:1396
 msgid "Certificate file"
 msgstr "Certifikatfil"
 
-#: ../../main/ca/src/EBox/CA.pm:1408
+#: ../../main/ca/src/EBox/CA.pm:1418
 msgid "The certificate to renew does NOT exist"
 msgstr "Certifikatet att förnya finns INTE"
 
-#: ../../main/ca/src/EBox/CA.pm:1448
+#: ../../main/ca/src/EBox/CA.pm:1458
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Certifikatet med det här namnet {cn} finns INTE i detta CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1845
+#: ../../main/ca/src/EBox/CA.pm:1855
 msgid "Not created"
 msgstr "Inte skapad"
 
-#: ../../main/ca/src/EBox/CA.pm:1847
+#: ../../main/ca/src/EBox/CA.pm:1857
 msgid "Available"
 msgstr "Tillgänglig"
 
-#: ../../main/ca/src/EBox/CA.pm:1849
+#: ../../main/ca/src/EBox/CA.pm:1859
 msgid "Created but not available"
 msgstr "Skapad men ej tillgänglig"
 
-#: ../../main/ca/src/EBox/CA.pm:1891
+#: ../../main/ca/src/EBox/CA.pm:1886
+#, fuzzy
+msgid "The field cannot contain only blank characters"
+msgstr "Inmatningen innehåller ogiltiga tecken"
+
+#: ../../main/ca/src/EBox/CA.pm:1909
 #, fuzzy
 msgid "String"
 msgstr "Sträng"
 
-#: ../../main/ca/src/EBox/CA.pm:1896
+#: ../../main/ca/src/EBox/CA.pm:1914
 #, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
@@ -11170,38 +11233,38 @@ msgstr ""
 "Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
 "icke-alfanumeriska tecknen: .?&+:\\@ och blanksteg tillåts."
 
-#: ../../main/ca/src/EBox/CA.pm:2416
+#: ../../main/ca/src/EBox/CA.pm:2434
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Kunde inte signera. Fel CA-lösenfras eller har den privata CA-nyckeln "
 "försvunnit?"
 
-#: ../../main/ca/src/EBox/CA.pm:2418
+#: ../../main/ca/src/EBox/CA.pm:2436
 msgid "Database corruption"
 msgstr "Skadad databas"
 
-#: ../../main/ca/src/EBox/CA.pm:2420
+#: ../../main/ca/src/EBox/CA.pm:2438
 msgid "Identifier duplicated in Database"
 msgstr "Dubblett av identifierare i databasen"
 
-#: ../../main/ca/src/EBox/CA.pm:2422
+#: ../../main/ca/src/EBox/CA.pm:2440
 msgid "Certificate already revoked"
 msgstr "Certifikatet är redan spärrat"
 
-#: ../../main/ca/src/EBox/CA.pm:2425
+#: ../../main/ca/src/EBox/CA.pm:2443
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1-fältets längd är för långt. Maximal storlek:"
 
-#: ../../main/ca/src/EBox/CA.pm:2427
+#: ../../main/ca/src/EBox/CA.pm:2445
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Okänt fel. Utdata från OpenSSL:"
 
-#: ../../main/ca/src/EBox/CA.pm:2524
+#: ../../main/ca/src/EBox/CA.pm:2542
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr "Endast {dns}, {ip} och {email} är giltiga namntyper för subjektet."
 
-#: ../../main/ca/src/EBox/CA.pm:2567
+#: ../../main/ca/src/EBox/CA.pm:2585
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan inte starta OpenSSL-skal. ({errval})"
@@ -11396,7 +11459,7 @@ msgstr ""
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:130
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:97
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:346
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:349
 #, fuzzy
 msgid "Virtual host"
 msgstr ""
@@ -11617,7 +11680,7 @@ msgstr "Tjänst inaktiverad"
 msgid "Enable service"
 msgstr "Aktivera tjänst"
 
-#: ../../main/core/src/EBox/Model/Component.pm:256
+#: ../../main/core/src/EBox/Model/Component.pm:303
 #, perl-brace-format
 msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
@@ -11650,7 +11713,7 @@ msgstr ""
 "Det data du ändrar används av\n"
 "\t\t\tföljande sektioner:"
 
-#: ../../main/core/src/EBox/Model/DataForm.pm:531
+#: ../../main/core/src/EBox/Model/DataForm.pm:545
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Radera data från {model}{br}"
@@ -12146,26 +12209,26 @@ msgid ""
 "need to install them before restoring."
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1408
+#: ../../main/core/src/EBox/Backup.pm:1409
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1443
+#: ../../main/core/src/EBox/Backup.pm:1446
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Ingen modul {m} funnen i säkerhetskopia"
 
-#: ../../main/core/src/EBox/Backup.pm:1451
+#: ../../main/core/src/EBox/Backup.pm:1454
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1474
+#: ../../main/core/src/EBox/Backup.pm:1477
 msgid "No modules to restore"
 msgstr "Inga moduler att återställa"
 
-#: ../../main/core/src/EBox/Backup.pm:1526
+#: ../../main/core/src/EBox/Backup.pm:1529
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -12174,7 +12237,7 @@ msgstr ""
 "Oläst återskapningsberoende för modulen {topModule}: {modName} är inte "
 "installerad"
 
-#: ../../main/core/src/EBox/Backup.pm:1547
+#: ../../main/core/src/EBox/Backup.pm:1550
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:202
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:288
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:303
@@ -12182,7 +12245,7 @@ msgstr ""
 msgid "The input contains invalid characters"
 msgstr "Inmatningen innehåller ogiltiga tecken"
 
-#: ../../main/core/src/EBox/Backup.pm:1568
+#: ../../main/core/src/EBox/Backup.pm:1571
 #, fuzzy
 msgid "Backup archives"
 msgstr "Lista över säkerhetskopior"
@@ -12263,93 +12326,93 @@ msgstr "utgår om"
 msgid "Administrator sessions"
 msgstr "Administratör"
 
-#: ../../main/core/src/EBox/SysInfo.pm:51
+#: ../../main/core/src/EBox/SysInfo.pm:49
 msgid "System Information"
 msgstr "Systeminformation"
 
-#: ../../main/core/src/EBox/SysInfo.pm:73
+#: ../../main/core/src/EBox/SysInfo.pm:71
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:38
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
-#: ../../main/core/src/EBox/SysInfo.pm:78
-#: ../../main/core/src/EBox/SysInfo.pm:197
+#: ../../main/core/src/EBox/SysInfo.pm:76
+#: ../../main/core/src/EBox/SysInfo.pm:195
 msgid "Module Status"
 msgstr "Modulstatus"
 
-#: ../../main/core/src/EBox/SysInfo.pm:92
+#: ../../main/core/src/EBox/SysInfo.pm:90
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:33
 #, fuzzy
 msgid "Import/Export Configuration"
 msgstr "Aktuell konfiguration"
 
-#: ../../main/core/src/EBox/SysInfo.pm:96
+#: ../../main/core/src/EBox/SysInfo.pm:94
 msgid "Halt/Reboot"
 msgstr "Stäng av/Starta om"
 
-#: ../../main/core/src/EBox/SysInfo.pm:107
+#: ../../main/core/src/EBox/SysInfo.pm:105
 #: ../../main/core/src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Diskanvändning"
 
-#: ../../main/core/src/EBox/SysInfo.pm:111
+#: ../../main/core/src/EBox/SysInfo.pm:109
 msgid "RAID"
 msgstr "RAID"
 
-#: ../../main/core/src/EBox/SysInfo.pm:203
+#: ../../main/core/src/EBox/SysInfo.pm:201
 msgid "General Information"
 msgstr "Allmän information"
 
-#: ../../main/core/src/EBox/SysInfo.pm:209
+#: ../../main/core/src/EBox/SysInfo.pm:207
 msgid "Process List"
 msgstr "Lista över processer"
 
-#: ../../main/core/src/EBox/SysInfo.pm:216
+#: ../../main/core/src/EBox/SysInfo.pm:214
 #, fuzzy
 msgid "Resources"
 msgstr "Resurs"
 
-#: ../../main/core/src/EBox/SysInfo.pm:272
+#: ../../main/core/src/EBox/SysInfo.pm:273
 msgid "available"
 msgstr "tillgänglig"
 
-#: ../../main/core/src/EBox/SysInfo.pm:279
+#: ../../main/core/src/EBox/SysInfo.pm:280
 #, fuzzy
 msgid "No updates"
 msgstr "uppdatera"
 
-#: ../../main/core/src/EBox/SysInfo.pm:290
+#: ../../main/core/src/EBox/SysInfo.pm:291
 #, fuzzy, perl-brace-format
 msgid "{n} security updates"
 msgstr "Säkerhetsuppdateringar"
 
-#: ../../main/core/src/EBox/SysInfo.pm:293
+#: ../../main/core/src/EBox/SysInfo.pm:294
 #, fuzzy, perl-brace-format
 msgid "{n} system updates"
 msgstr "Systemuppdateringar"
 
-#: ../../main/core/src/EBox/SysInfo.pm:298
+#: ../../main/core/src/EBox/SysInfo.pm:299
 #, fuzzy, perl-brace-format
 msgid "{n} component updates"
 msgstr "Säkerhetsuppdateringar"
 
-#: ../../main/core/src/EBox/SysInfo.pm:321
+#: ../../main/core/src/EBox/SysInfo.pm:322
 msgid "Core version"
 msgstr "Grundversion"
 
-#: ../../main/core/src/EBox/SysInfo.pm:322
+#: ../../main/core/src/EBox/SysInfo.pm:323
 #, fuzzy
 msgid "Software"
 msgstr "HTTP-mjukvara"
 
-#: ../../main/core/src/EBox/SysInfo.pm:325
+#: ../../main/core/src/EBox/SysInfo.pm:326
 msgid "Uptime"
 msgstr "Upptid"
 
-#: ../../main/core/src/EBox/SysInfo.pm:326
+#: ../../main/core/src/EBox/SysInfo.pm:327
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1186
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1195
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1200
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1209
 #: ../../main/users/src/EBox/CGI/Users.pm:28
 #: ../../main/users/src/EBox/CGI/Users.pm:61
 #: ../../main/users/src/EBox/CGI/Groups.pm:51
@@ -12369,13 +12432,13 @@ msgstr ""
 msgid "Enabling {modName} module"
 msgstr "Aktiverar {modName} modul"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:620
-#: ../../main/core/src/EBox/GlobalImpl.pm:656
+#: ../../main/core/src/EBox/GlobalImpl.pm:622
+#: ../../main/core/src/EBox/GlobalImpl.pm:658
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sparar {modName} modul"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1188
+#: ../../main/core/src/EBox/GlobalImpl.pm:1190
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "kör {scriptName} skript"
@@ -12418,7 +12481,7 @@ msgid "The executable has already finished"
 msgstr "Den körbara filen har redan kört klart"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:99
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:381
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:384
 msgid "Purge logs older than"
 msgstr "Rensa loggar äldre än"
 
@@ -12431,42 +12494,42 @@ msgid "Purge"
 msgstr "Rensa"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:124
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:259
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:262
 msgid "one hour"
 msgstr "en timme"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:128
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:263
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:266
 msgid "twelve hours"
 msgstr "tolv timmar"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:132
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:267
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:270
 msgid "one day"
 msgstr "en dag"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:136
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:271
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:274
 msgid "three days"
 msgstr "tre dagar"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:140
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:275
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:278
 msgid "one week"
 msgstr "en vecka"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:144
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:279
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:282
 msgid "fifteeen days"
 msgstr "femton dagar"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:148
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:283
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:286
 msgid "thirty days"
 msgstr "trettio dagar"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:152
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:287
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:290
 msgid "ninety days"
 msgstr "nittio dagar"
 
@@ -12484,36 +12547,40 @@ msgid "Query Logs"
 msgstr "Sök i loggar"
 
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:176
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:399
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:402
 msgid "logs"
 msgstr "loggar"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:190
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:189
 #, perl-brace-format
 msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
 msgstr ""
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:255
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:243
+msgid ", "
+msgstr ""
+
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:258
 msgid "never purge"
 msgstr "rensa aldrig"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:291
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:294
 #, fuzzy
 msgid "one year"
 msgstr "1 år"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:295
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:298
 #, fuzzy
 msgid "two years"
 msgstr "2 år"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:391
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:394
 msgid "Current configuration"
 msgstr "Aktuell konfiguration"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:397
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:400
 msgid "Enable/disable logging per-module basis"
 msgstr "Aktivera/inaktivera loggning per modul"
 
@@ -12583,37 +12650,37 @@ msgstr ""
 msgid "Zentyal Webadmin"
 msgstr "Statisk domän"
 
-#: ../../main/core/src/EBox/Apache.pm:285
+#: ../../main/core/src/EBox/Apache.pm:284
 #, fuzzy
 msgid "Desktop services port"
 msgstr "Tjänstens port"
 
-#: ../../main/core/src/EBox/Apache.pm:294
-#: ../../main/core/src/EBox/Apache.pm:305
+#: ../../main/core/src/EBox/Apache.pm:293
+#: ../../main/core/src/EBox/Apache.pm:304
 #, fuzzy
 msgid "Desktop Services"
 msgstr "Lista över tjänster"
 
-#: ../../main/core/src/EBox/Apache.pm:295
-#: ../../main/core/src/EBox/Apache.pm:306
+#: ../../main/core/src/EBox/Apache.pm:294
+#: ../../main/core/src/EBox/Apache.pm:305
 msgid "Desktop Services (API for Zentyal Desktop)"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:378
+#: ../../main/core/src/EBox/Apache.pm:377
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:391
+#: ../../main/core/src/EBox/Apache.pm:390
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:776
+#: ../../main/core/src/EBox/Apache.pm:775
 #: ../../main/services/src/EBox/Services.pm:111
 #: ../../main/services/src/EBox/Services.pm:445
 #, fuzzy
@@ -12630,12 +12697,12 @@ msgstr ""
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Du måste ställa in variabeln {variable} i ebox konfigurationsfil"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:579
+#: ../../main/core/src/EBox/MyDBEngine.pm:584
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:587
+#: ../../main/core/src/EBox/MyDBEngine.pm:592
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
@@ -12707,6 +12774,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:49
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:41
 #: ../../main/network/src/templates/ifaces.mas:167
 #: ../../main/users/src/templates/users.mas:20
 msgid "User name"
@@ -12719,11 +12787,12 @@ msgstr "Aktuellt lösenord"
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:107
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:57
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:56
 msgid "New password"
 msgstr "Nytt lösenord"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:66
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:56
 msgid "Your password must be at least 6 characters long."
 msgstr "Ditt lösenord måste vara minst 6 tecken långt."
 
@@ -12741,6 +12810,7 @@ msgid "New passwords do not match."
 msgstr "Nya lösenorden stämmer inte överens."
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:115
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:184
 msgid "The password must be at least 6 characters long"
 msgstr "Lösenordet måste vara minst 6 tecken långt"
 
@@ -12749,34 +12819,67 @@ msgstr "Lösenordet måste vara minst 6 tecken långt"
 msgid "Incorrect current password."
 msgstr "Felaktigt lösenord."
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:61
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:65
 msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:66
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:70
 #, fuzzy
 msgid "Hostname and Domain"
 msgstr "Samma som dynamisk domän"
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:80
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:87
 #, fuzzy
 msgid "Change hostname"
 msgstr "Sparade ändringar"
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:81
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:88
 #, perl-brace-format
 msgid ""
 "Are you sure you want to change the hostname to {new}?. You may need to "
 "restart all the services or reboot the system to enforce the change"
 msgstr ""
 
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:93
+msgid ""
+"Additionally, using a domain ending in '.local' can conflict with other "
+"protocols like zeroconf and is, in general, discouraged."
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:172
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:185
+#, fuzzy, perl-brace-format
+msgid "The length must be between {min} and {max} characters"
+msgstr "Ett nummer mellan {min} och {max}"
+
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:183
+#, fuzzy
+msgid "Host domain"
+msgstr "Epostnamn för värden"
+
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:199
+msgid ""
+"DNS names can contain only alphabetical characters (a-z), numeric characters "
+"(0-9) and the minus sign (-)"
+msgstr ""
+
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:90
 #, fuzzy
 msgid "On this page you can set different general system settings"
 msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
+
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:62
+#, fuzzy
+msgid "Administrator Accounts"
+msgstr "Administratör"
+
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
+#, fuzzy
+msgid "administrator"
+msgstr "Administratör"
 
 #: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:95
 #: ../../main/core/src/EBox/Types/DomainName.pm:116
@@ -12894,14 +12997,14 @@ msgstr "Portintervall"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Från\" {from} måste vara större än \"Till\" {to}"
 
-#: ../../main/core/src/EBox/Apache/Model/Language.pm:71
+#: ../../main/core/src/EBox/Apache/Model/Language.pm:62
 #, perl-brace-format
 msgid ""
 "The language pack for {l} is missing, you can install it by running the "
 "following command: {c}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache/Model/Language.pm:86
+#: ../../main/core/src/EBox/Apache/Model/Language.pm:77
 #, fuzzy
 msgid "Language selection"
 msgstr "Språkval"
@@ -12923,7 +13026,7 @@ msgstr ""
 msgid "Authorization failed: {result} - {message}"
 msgstr "Autentiseringen misslyckades: {result} - {message}"
 
-#: ../../main/core/src/EBox/Event/Dispatcher/Abstract.pm:121
+#: ../../main/core/src/EBox/Event/Dispatcher/Abstract.pm:119
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "Förmedlare {name} är inte konfigurerad att vara aktiverad"
@@ -12993,57 +13096,57 @@ msgstr "Tillgängligt lagringsutrymme"
 msgid "Check if any disk partition has no storage space left"
 msgstr "Kontrollera om en disk partition inte har något utrymme kvar"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:185
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:187
 msgid "Check if any event has happened in RAID subsystem"
 msgstr "Kontrollera om något har hänt i RAID systemet"
 
 # Förbannat svårt att översätta array till något som någon alls förstår vad det är, vare sig tekniker eller noob. Vem förstår om man skriver rad, vektor eller tabell? / daniel@solle.se
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:234
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:236
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
 msgstr "Ny RAID array enhet {devName} information:"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:236
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:238
 #, perl-brace-format
 msgid "State: {state}"
 msgstr "Tillstånd: {state}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:237
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:239
 #, perl-brace-format
 msgid "Type: {type}"
 msgstr "Typ: {type}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:238
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:240
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
 msgstr "Aktiva enheter som behövs: {nb}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:239
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:241
 #, perl-brace-format
 msgid "Active devices: {nb}"
 msgstr "Aktiva enheter: {nb}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:241
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:243
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
 msgstr "Ingrepp under åtgärd: {operation}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:243
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:245
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
 msgstr "Färdigt ingrepp i procent: {per}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:245
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:247
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
 msgstr "Ingreppet beräknas vara klart: {time}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:249
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:251
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
 msgstr "Raid komponent {nb}: enhet {device} läge {state}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:287
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:291
 #, perl-brace-format
 msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
@@ -13052,12 +13155,12 @@ msgstr ""
 "RAID enhet {name} har försvunnit: En RAID array som var konfigurerad "
 "tidigare verkar inte längre vara det."
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:311
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:315
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr "RAID enhet {name} har ändrat status från {oldState} till {newState}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:330
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:334
 #, perl-brace-format
 msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
@@ -13066,19 +13169,19 @@ msgstr ""
 "RAID enhet {name} har ändrat antal aktiva komponenter från {oldNum} till "
 "{newNum}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:357
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:361
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "RAID enheten {name} har påbörjat ingreppet {opName}."
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:363
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:367
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
 "RAID enheten {name} har färdigställt ingreppet {opName} eller så blev det "
 "avbrutet."
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:369
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:373
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
@@ -13087,17 +13190,17 @@ msgstr ""
 "RAID enheten {name} har färdigställt ingreppet {oldOpName} och påbörjat "
 "{newOpName}."
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:394
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:398
 #, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "Status: {percentage} färdigt"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:397
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:401
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "Beräknas vara klar: {time}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:427
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:431
 #, perl-brace-format
 msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
@@ -13106,7 +13209,7 @@ msgstr ""
 "Den aktiv enheten {compName} i RAID-array {arrayName} har blivit markerad "
 "som felaktig"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:436
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:440
 #, perl-brace-format
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
@@ -13115,7 +13218,7 @@ msgstr ""
 "Reservenheten {compName} från RAID-array {arrayName} som blev återskapad för "
 "att ersätta en trasig enhet har misslyckats"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:446
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:450
 #, perl-brace-format
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
@@ -13125,7 +13228,7 @@ msgstr ""
 "Reservkomponenten {compName} från RAID array {arrayName} som blev återskapad "
 "för att ersätta en trasig enhet har lyckats och aktiverats"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:459
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
 msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
@@ -13134,7 +13237,7 @@ msgstr ""
 "En ny komponent {compName} har lagts till RAID enhet {arrayName} med status "
 "{status}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:472
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:476
 #, perl-brace-format
 msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
@@ -13143,67 +13246,67 @@ msgstr ""
 "En komponent {compName} har tagits bort från RAID enhet {arrayName} när dess "
 "status var {status}"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:497
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:540
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:501
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:544
 #: ../../main/core/src/templates/report/raid.mas:107
 msgid "active"
 msgstr "aktiv"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:499
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:503
 #: ../../main/core/src/templates/report/raid.mas:109
 msgid "degraded"
 msgstr "sliten"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:501
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:505
 #: ../../main/core/src/templates/report/raid.mas:111
 msgid "recovering"
 msgstr "återhämtar sig"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:503
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:507
 #: ../../main/core/src/templates/report/raid.mas:113
 msgid "resyncing"
 msgstr "resynkroniserar"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:505
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:509
 #: ../../main/core/src/templates/report/raid.mas:117
 msgid "rebuilding"
 msgstr "återskapar"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:507
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:511
 #: ../../main/core/src/templates/report/raid.mas:115
 msgid "reshaping"
 msgstr "omformar"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:509
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:513
 #: ../../main/core/src/templates/report/raid.mas:119
 msgid "failed"
 msgstr "misslyckad"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:520
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:524
 msgid "resync"
 msgstr "återsynkronisera"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:522
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:526
 msgid "rebuild"
 msgstr "återskapa"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:524
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:528
 msgid "reshape"
 msgstr "omforma"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:526
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:530
 msgid "recovery"
 msgstr "återhämta"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:528
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:532
 msgid "check"
 msgstr "kontrollera"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:542
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:546
 msgid "faulty"
 msgstr "trasig"
 
-#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:544
+#: ../../main/core/src/EBox/Event/Watcher/RAID.pm:548
 #: ../../main/core/src/templates/report/raid.mas:230
 msgid "spare"
 msgstr "reserv"
@@ -13685,23 +13788,23 @@ msgstr "För att konfigurera SIP och IAX användare."
 msgid "To configure the NUT client"
 msgstr "För att konfigurera RADIUS klienter."
 
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:138
+#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:143
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:184
 msgid ""
 "The UPS service is not running. Ensure that changes are saved and the module "
 "enabled."
 msgstr ""
 
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:146
+#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:151
 #, fuzzy
 msgid "Variable"
 msgstr "Tillgänglig"
 
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:156
+#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:161
 msgid "UPS Variables"
 msgstr ""
 
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:161
+#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:166
 #, fuzzy
 msgid "variable"
 msgstr "Tillgänglig"
@@ -14093,7 +14196,8 @@ msgstr "Externa epost konton"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:86
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:421
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:420
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:42
 #: ../../main/mail/src/templates/externalAccounts.mas:10
 msgid "External account"
 msgstr "Externt konto"
@@ -14138,7 +14242,7 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:68
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:160
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:155
 msgid "Virtual domain"
 msgstr "Virtuell domän"
 
@@ -14272,7 +14376,7 @@ msgstr "{ac} är inte ett externt konto"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:282
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:116
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:137
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:138
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
@@ -14349,7 +14453,7 @@ msgid "External accounts aliases"
 msgstr "Externa konto-alias"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:75
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:167
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:162
 msgid "List of Domains"
 msgstr "Lista över domäner"
 
@@ -14357,7 +14461,7 @@ msgstr "Lista över domäner"
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:64
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:117
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:49
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:173
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:168
 msgid "virtual domain"
 msgstr "virtuell domän"
 
@@ -14446,25 +14550,25 @@ msgstr "Tid innan osedda inlägg raderas"
 msgid "Greylist configuration"
 msgstr "Konfiguration av grålistor"
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:57
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:54
 msgid "Aliases"
 msgstr "Alias"
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:69
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:66
 msgid "List of Aliases"
 msgstr "Alias"
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:78
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:74
 msgid "virtual domain alias"
 msgstr "virtuell domän-alias"
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:80
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:76
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
 "Virtuell domän alias tillagdt. Du måste spara ändringarna för att använda "
 "denna domän."
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:101
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:97
 #, perl-brace-format
 msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
@@ -14473,7 +14577,7 @@ msgstr ""
 "Kan inte lägga till {al} alias eftersom det redan finns en virtuell domän "
 "med samma namn"
 
-#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:108
+#: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:109
 #, perl-brace-format
 msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
@@ -14663,20 +14767,20 @@ msgstr "Rapporter över epost-trafiken"
 msgid "Mail traffic report"
 msgstr "Rapport över epost-trafiken"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:356
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:355
 msgid "External retrieval service"
 msgstr "E-post hämtningstjänst"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:427
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:434
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:426
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:433
 msgid "External account username"
 msgstr "Externt användarnamn"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:429
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:428
 msgid "No spaces allowed"
 msgstr "Inga mellanslag tillåtna"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:445
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:444
 msgid "Character \"'\" is forbidden for external"
 msgstr ""
 
@@ -14774,6 +14878,16 @@ msgstr "maildrop"
 #: ../../main/mail/src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "account name"
 msgstr "kontonamn"
+
+#: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:77
+#, fuzzy
+msgid "Mail protocol"
+msgstr "protokoll"
+
+#: ../../main/mail/src/EBox/CGI/DelExternalAccount.pm:45
+#, fuzzy
+msgid "External mail account"
+msgstr "Externa epost konton"
 
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:62
 msgid "Quota must be a amount of MB greter than zero"
@@ -14951,20 +15065,20 @@ msgstr ""
 msgid "User not found"
 msgstr "Sidan kunde inte hittas"
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:80
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:73
 #, perl-brace-format
 msgid ""
 "To configure Zarafa you must have at least one virtual mail domain. You can "
 "define one at {ohref}Virtual Domains{chref}."
 msgstr ""
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:110
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:105
 msgid ""
 "The deleted virtual domain was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
 
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:171
+#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:166
 msgid "Select the virtual mail domain to be used for Zarafa."
 msgstr ""
 
@@ -15342,44 +15456,11 @@ msgid ""
 "enable SSL on a virtal host."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip}. {noDnsWarning} "
-msgstr ""
-"Virtuella värden {vhost} lades till. Domänen {domain} har skapats med "
-"bindande namnet {name} - IP-adress {ip} "
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:193
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain."
-msgstr ""
-"Virtuella värden {vhost} lades till. Domänen {domain} har skapats med "
-"bindande namnet {name} - IP-adress {ip} "
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:208
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:214
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:219
-#, fuzzy, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Namn på virtuell värd"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:224
-msgid "There is no static internal interface to set the Web server IP address."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:332
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:335
 msgid "Virtual hosts"
 msgstr "Virtuella värdar"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:336
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:339
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -15390,11 +15471,11 @@ msgid ""
 "directory."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:352
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:355
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:370
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:373
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -15824,7 +15905,7 @@ msgstr "Fullständigt namn"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:67
 #: ../../main/dns/src/templates/index.mas:41
 #: ../../main/core/src/templates/ajax/tableBody.mas:644
-#: ../../main/core/src/templates/ajax/tableBody.mas:902
+#: ../../main/core/src/templates/ajax/tableBody.mas:899
 #: ../../main/core/src/templates/ajax/tableModalView.mas:500
 msgid "Edit"
 msgstr "Redigera"
@@ -15858,12 +15939,12 @@ msgstr ""
 "för tillfället. Om det finns användare i din domänkontrollant, kanske "
 "synkroniseringen har misslyckats eller inte klar än."
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:152
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:151
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:112
 msgid "There are no users at the moment"
 msgstr "Det finns inga användare för tillfället."
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:155
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:154
 #, perl-brace-format
 msgid ""
 "There are no users for the organizational unit: {ou}<p>{ao}See users for all "
@@ -15880,8 +15961,8 @@ msgid "Use this password when connecting a new slave to this server."
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:75
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1188
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1198
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1202
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1212
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:66
 msgid "Groups"
@@ -15931,7 +16012,7 @@ msgid "DN"
 msgstr "DNS"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:64
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1206
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1220
 #, fuzzy
 msgid "Organizational Units"
 msgstr "Organisationsnamn"
@@ -15951,22 +16032,28 @@ msgstr "{row} uppflyttad"
 msgid "OU added"
 msgstr "{row} tillagd"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:42
+msgid ""
+"Password change is only available in master or standalone servers. You need "
+"to change your password from the user corner of your master server."
+msgstr ""
+
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:47
 msgid "Password management"
 msgstr "Lösenordshantering"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:64
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:63
 #, fuzzy
 msgid "Re-type new password"
 msgstr "Ange lösenordet igen"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:96
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:95
 #: ../../main/users/src/EBox/CGI/AddUser.pm:70
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:86
 msgid "Passwords do not match."
 msgstr "Lösenorden stämde inte överens."
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:104
+#: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:103
 msgid "Password successfully updated"
 msgstr "Lösenord har uppdaterats"
 
@@ -16052,14 +16139,14 @@ msgstr ""
 "Dessa konfigurationsalternativ används när ett nytt användarkonto skapas."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:73
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1190
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1200
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1204
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1214
 #, fuzzy
 msgid "User Template"
 msgstr "Användarnamn"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:52
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1215
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1229
 msgid "LDAP Settings"
 msgstr "LDAP inställningar"
 
@@ -16105,63 +16192,63 @@ msgstr ""
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "Felaktig GID {gid} för en system grupp. GID måste vara mindre än {max}"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:165
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:378
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:388
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:166
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:379
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:389
 #, fuzzy
 msgid "user quota"
 msgstr "Anpassad kvot"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:167
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:168
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:381
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:382
 #, fuzzy
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr "Kvot kan bara vara ett positivt nummer eller noll för oändlig kvot"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:390
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:391
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:409
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:410
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:522
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:523
 msgid ""
 "To avoid problems, the username should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
 "dot"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:543
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:544
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Användarnamnet får inte vara längre än {maxuserlength} tecken"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:556
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:557
 msgid "Username already exists on the system"
 msgstr "Användarnamnet finns redan i systemet"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:563
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:564
 #, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
 "move or remove it before creating this user"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:758
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:761
 msgid "Maximum number of system users reached"
 msgstr "Maximalt antal systemanvändare har uppnåtts"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:774
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:777
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -16169,7 +16256,7 @@ msgstr ""
 "Felaktig UID {uid} för en användare. UID måste vara lika med eller större än "
 "{min}"
 
-#: ../../main/users/src/EBox/UsersAndGroups/User.pm:784
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:787
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -16252,30 +16339,30 @@ msgstr "Smarthost autentisering"
 msgid "Error performing users initialization"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:418
+#: ../../main/users/src/EBox/UsersAndGroups.pm:432
 msgid "Error while creating users and groups database."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1211
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1225
 #, fuzzy
 msgid "Synchronization"
 msgstr "Säkerhetskopia av konfiguration"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1219
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1233
 #, fuzzy
 msgid "Configure mode"
 msgstr "Konfigurerade"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1368
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1382
 #, fuzzy
 msgid "Home directories"
 msgstr "Hemkataloger"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1369
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1383
 msgid "User and groups home directoreies; anything under /home"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1390
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1409
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -16347,24 +16434,24 @@ msgstr "användarnamn"
 msgid "Days of the week"
 msgstr "Dagar av vecka"
 
-#: ../../main/squid/stubs/template.html.mas:14
+#: ../../main/squid/stubs/template.html.mas:13
 msgid "Access Denied"
 msgstr "Access nekad"
 
-#: ../../main/squid/stubs/template.html.mas:33
+#: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
 msgstr "Access har blivit nekad"
 
-#: ../../main/squid/stubs/template.html.mas:39
+#: ../../main/squid/stubs/template.html.mas:134
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
 msgstr "Access till sidan: {page} har blivit stoppad av följande anledning"
 
-#: ../../main/squid/stubs/template.html.mas:40
+#: ../../main/squid/stubs/template.html.mas:141
 msgid "Categories"
 msgstr "Kategorier"
 
-#: ../../main/squid/stubs/template.html.mas:41
+#: ../../main/squid/stubs/template.html.mas:142
 msgid ""
 "You are seeing this error because what you attempted to access appears to "
 "contain, or is labeled as containing, material that has been deemed "
@@ -16373,13 +16460,13 @@ msgstr ""
 "Du ser detta meddelande eftersom du försökte nå något som innehåller eller "
 "ser ut att innehålla material som bedömts som ej lämpligt."
 
-#: ../../main/squid/stubs/template.html.mas:43
+#: ../../main/squid/stubs/template.html.mas:142
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
 "Om du har några frågor, kontakta din it-ansvarige eller nätverkstekniker"
 
-#: ../../main/squid/stubs/template.html.mas:47
+#: ../../main/squid/stubs/template.html.mas:147
 msgid "Powered by"
 msgstr "Byggd på"
 
@@ -16517,14 +16604,14 @@ msgstr "Zentyal FTP server"
 #: ../../main/software/src/templates/ebox.mas:415
 #: ../../main/software/src/templates/ebox.mas:420
 #: ../../main/software/src/templates/ebox.mas:447
-#: ../../main/software/src/templates/updates.mas:41
+#: ../../main/software/src/templates/updates.mas:111
 msgid "Component"
 msgstr "Komponent"
 
 #: ../../main/software/src/templates/ebox.mas:78
 #: ../../main/software/src/templates/ebox.mas:351
 #: ../../main/software/src/templates/ebox.mas:370
-#: ../../main/software/src/templates/updates.mas:41
+#: ../../main/software/src/templates/updates.mas:111
 msgid "Update"
 msgstr "Uppdatera"
 
@@ -16561,7 +16648,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:113
-#: ../../main/software/src/templates/updates.mas:41
+#: ../../main/software/src/templates/updates.mas:111
 msgid "Version"
 msgstr "Version"
 
@@ -16599,7 +16686,7 @@ msgstr "Se enkelt läge"
 
 #: ../../main/software/src/templates/ebox.mas:365
 #: ../../main/software/src/templates/ebox.mas:371
-#: ../../main/software/src/templates/updates.mas:88
+#: ../../main/software/src/templates/updates.mas:157
 #, fuzzy
 msgid "Update list"
 msgstr "Uppdatera"
@@ -16656,28 +16743,28 @@ msgstr "av"
 msgid "pages"
 msgstr "sida"
 
-#: ../../main/software/src/templates/ebox.mas:517
+#: ../../main/software/src/templates/ebox.mas:518
 #, fuzzy
 msgid "Upgrading packages"
 msgstr "Installerar paket"
 
-#: ../../main/software/src/templates/ebox.mas:523
+#: ../../main/software/src/templates/ebox.mas:524
 #, fuzzy
 msgid "No packages selected"
 msgstr "Ej hittad"
 
-#: ../../main/software/src/templates/ebox.mas:551
-#: ../../main/software/src/templates/updates.mas:26
+#: ../../main/software/src/templates/ebox.mas:552
+#: ../../main/software/src/templates/updates.mas:96
 msgid "Package list updated successfully"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:556
+#: ../../main/software/src/templates/ebox.mas:557
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:558
-#: ../../main/software/src/templates/updates.mas:29
+#: ../../main/software/src/templates/ebox.mas:559
+#: ../../main/software/src/templates/updates.mas:99
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
@@ -16717,34 +16804,34 @@ msgstr "Följande paket kommer att tas bort"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../../main/software/src/templates/updates.mas:18
+#: ../../main/software/src/templates/updates.mas:88
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:35
+#: ../../main/software/src/templates/updates.mas:105
 msgid "Updates are available for the following system components"
 msgstr "Uppdateringar finns tillgängliga för följande systemkomponenter"
 
-#: ../../main/software/src/templates/updates.mas:36
+#: ../../main/software/src/templates/updates.mas:106
 msgid "Community updates are available for the following system components"
 msgstr "Uppdateringar finns tillgängliga för följande systemkomponenter"
 
-#: ../../main/software/src/templates/updates.mas:49
+#: ../../main/software/src/templates/updates.mas:119
 msgid "Security update"
 msgstr "Säkerhetsuppdateringar"
 
-#: ../../main/software/src/templates/updates.mas:51
+#: ../../main/software/src/templates/updates.mas:121
 #, fuzzy
 msgid "Zentyal QA update"
 msgstr "eBox QA uppdatering"
 
-#: ../../main/software/src/templates/updates.mas:71
+#: ../../main/software/src/templates/updates.mas:143
 msgid "Update all packages"
 msgstr "Uppdatera alla paket"
 
-#: ../../main/software/src/templates/updates.mas:81
+#: ../../main/software/src/templates/updates.mas:153
 #, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
@@ -16753,7 +16840,12 @@ msgstr ""
 "Den här åtgärden kan ta lite tid. Bli inte orolig om eBox ser ut att inte "
 "svara efter att du tryckt på knappen Uppgradera."
 
-#: ../../main/software/src/templates/updates.mas:84
+#: ../../main/software/src/templates/updates.mas:156
+#, fuzzy
+msgid "Upgrading system packages"
+msgstr "Installerar paket"
+
+#: ../../main/software/src/templates/updates.mas:156
 msgid "Upgrade"
 msgstr "Uppgradera"
 
@@ -16955,15 +17047,15 @@ msgid "Keep this window open while using your Internet connection."
 msgstr ""
 
 #: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:31
-#: ../../main/core/src/templates/ajax/tableBody.mas:771
-#: ../../main/core/src/templates/ajax/tableBody.mas:928
+#: ../../main/core/src/templates/ajax/tableBody.mas:774
+#: ../../main/core/src/templates/ajax/tableBody.mas:925
 #: ../../main/core/src/templates/ajax/tableModalView.mas:633
 msgid "Move up"
 msgstr ""
 
 #: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:39
-#: ../../main/core/src/templates/ajax/tableBody.mas:787
-#: ../../main/core/src/templates/ajax/tableBody.mas:930
+#: ../../main/core/src/templates/ajax/tableBody.mas:790
+#: ../../main/core/src/templates/ajax/tableBody.mas:927
 #: ../../main/core/src/templates/ajax/tableModalView.mas:649
 msgid "Move down"
 msgstr ""
@@ -17081,6 +17173,11 @@ msgstr "Spåra"
 #: ../../main/network/src/templates/diag.mas:24
 msgid "Domain Name Resolution"
 msgstr "Namnuppslag via DNS"
+
+#: ../../main/network/src/templates/diag.mas:24
+#: ../../main/mail/src/templates/createaccount.mas:23
+msgid "Domain name"
+msgstr "Domännamn"
 
 #: ../../main/network/src/templates/diag.mas:26
 msgid "Lookup"
@@ -17215,18 +17312,13 @@ msgstr ""
 "Följande inställningar kommer endast att aktiveras när e-post modulen är "
 "aktiverad"
 
-#: ../../main/samba/stubs/smb.conf.mas:78
+#: ../../main/samba/stubs/smb.conf.mas:76
 msgid "Home Directories"
 msgstr "Hemkataloger"
 
 #: ../../main/mailfilter/stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] funnet i e-post till dig:"
-
-#: ../../main/ca/src/templates/index.mas:41
-#: ../../main/ca/src/templates/createCA.mas:9
-msgid "Country code"
-msgstr "Landskod"
 
 #: ../../main/ca/src/templates/index.mas:44
 #: ../../main/ca/src/templates/createCA.mas:13
@@ -17746,13 +17838,23 @@ msgstr "Endast läsbar rad, radering inaktiverad"
 msgid "Read-only row: clone disabled"
 msgstr "Endast läsbar rad, radering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:767
+#: ../../main/core/src/templates/ajax/tableBody.mas:769
+#, fuzzy
+msgid "Cannot move up"
+msgstr "{row} uppflyttad"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:770
 #: ../../main/core/src/templates/ajax/tableModalView.mas:629
 #, fuzzy
 msgid "Read-only row: move up disabled"
 msgstr "Endast läsbar rad, redigering inaktiverad"
 
-#: ../../main/core/src/templates/ajax/tableBody.mas:783
+#: ../../main/core/src/templates/ajax/tableBody.mas:785
+#, fuzzy
+msgid "Cannot move down"
+msgstr "{row} nedflyttad"
+
+#: ../../main/core/src/templates/ajax/tableBody.mas:786
 #: ../../main/core/src/templates/ajax/tableModalView.mas:645
 #, fuzzy
 msgid "Read-only row: move down  disabled"
@@ -17856,28 +17958,28 @@ msgstr "Beror"
 msgid "Configure module: {module}"
 msgstr "Konfigurera modul: {module}"
 
-#: ../../main/core/src/templates/links-widget.mas:14
+#: ../../main/core/src/templates/links-widget.mas:43
 msgid "Official documentation in English and Spanish."
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:14
+#: ../../main/core/src/templates/links-widget.mas:43
 #, fuzzy
 msgid "Documentation"
 msgstr "Domän"
 
-#: ../../main/core/src/templates/links-widget.mas:16
+#: ../../main/core/src/templates/links-widget.mas:45
 msgid "Community Support Forum to give and get help."
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:16
+#: ../../main/core/src/templates/links-widget.mas:45
 msgid "Forum"
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:18
+#: ../../main/core/src/templates/links-widget.mas:47
 msgid "Help us to improve by reporting any bug you find!"
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:18
+#: ../../main/core/src/templates/links-widget.mas:47
 msgid "Report a bug"
 msgstr ""
 
@@ -18679,6 +18781,80 @@ msgstr ""
 "postkonton, användardata..."
 
 #, fuzzy
+#~ msgid "User corner is only available in master or standalone servers"
+#~ msgstr "Wan failover är bara tillgänglig för statiska gränssnitt"
+
+#, fuzzy
+#~ msgid "DNS domain name is empty"
+#~ msgstr "domännamn"
+
+#, fuzzy
+#~ msgid "DNS domain name cannot end in '.local'"
+#~ msgstr "Det virtuella domän namnet kan inte vara samma som epostnamnet"
+
+#, fuzzy
+#~ msgid "DNS domain name"
+#~ msgstr "domännamn"
+
+#, fuzzy
+#~ msgid "Domain name cannot be equal to host name"
+#~ msgstr "Det virtuella domän namnet kan inte vara samma som epostnamnet"
+
+#, fuzzy
+#~ msgid "NetBIOS name"
+#~ msgstr "domännamn"
+
+#~ msgid "Recycle default settings"
+#~ msgstr "Papperskorgens allmänna inställningar"
+
+#~ msgid "Account"
+#~ msgstr "Konto"
+
+#~ msgid "Client's address"
+#~ msgstr "Klients adress"
+
+#~ msgid "Total messages"
+#~ msgstr "Totalt meddelanden"
+
+#~ msgid "Clean messages"
+#~ msgstr "Rena meddelanden"
+
+#~ msgid "Virus messages"
+#~ msgstr "Virus meddelanden"
+
+#~ msgid "Spam messages"
+#~ msgstr "Skräppostmeddelanden"
+
+#~ msgid "POP3 transmission complete"
+#~ msgstr "POP3 överföring färdig"
+
+#~ msgid "POP3 transmission aborted"
+#~ msgstr "POP3 överföring avbruten"
+
+#~ msgid "POP3 proxy"
+#~ msgstr "POP3 proxy"
+
+#, fuzzy
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been created with the "
+#~ "mapping name {name} - IP address {ip}. {noDnsWarning} "
+#~ msgstr ""
+#~ "Virtuella värden {vhost} lades till. Domänen {domain} har skapats med "
+#~ "bindande namnet {name} - IP-adress {ip} "
+
+#, fuzzy
+#~ msgid ""
+#~ "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has "
+#~ "been added to {domain} domain."
+#~ msgstr ""
+#~ "Virtuella värden {vhost} lades till. Domänen {domain} har skapats med "
+#~ "bindande namnet {name} - IP-adress {ip} "
+
+#, fuzzy
+#~ msgid "Virtual host {vhost} added."
+#~ msgstr "Namn på virtuell värd"
+
+#, fuzzy
 #~ msgid "Subscription"
 #~ msgstr "Prenumerera"
 
@@ -18736,22 +18912,6 @@ msgstr ""
 #~ msgstr "Proxynyckel för säkerhetskopietjänst ej hittad"
 
 #, fuzzy
-#~ msgid ""
-#~ "No backups found in this server. Do you want to retry with a different "
-#~ "one?"
-#~ msgstr ""
-#~ "Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
-#~ "Kanske kan du prova ett annat datum?"
-
-#, fuzzy
-#~ msgid ""
-#~ "There is not configuration backup from this date. Do you want to retry "
-#~ "with another date?"
-#~ msgstr ""
-#~ "Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
-#~ "Kanske kan du prova ett annat datum?"
-
-#, fuzzy
 #~ msgid "User for the authentication"
 #~ msgstr "Kräv autentisering"
 
@@ -18762,14 +18922,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Do not use graphical interface"
 #~ msgstr "Alla externa gränssnitt"
-
-#, fuzzy
-#~ msgid "Choose the server to restore"
-#~ msgstr "Återställ tjänster"
-
-#, fuzzy
-#~ msgid "Server to restore: "
-#~ msgstr "Återställ tjänster"
 
 #, fuzzy
 #~ msgid "No key passphrase"
@@ -18786,18 +18938,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Could not restore {dst}, it already exists and it is not a directory"
 #~ msgstr "Filen finns och är inte en sökväg"
-
-#, fuzzy
-#~ msgid "Restoring log database"
-#~ msgstr "Återställ databas för loggar"
-
-#, fuzzy
-#~ msgid "Restoring configuration backup"
-#~ msgstr "Återställ eBox konfiguration från säkerhetskopia."
-
-#, fuzzy
-#~ msgid "Checking configuration compability"
-#~ msgstr "Endast konfiguration"
 
 #, fuzzy
 #~ msgid "Updating software package lists"
@@ -18851,14 +18991,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "No automatic configuration backups were made for the server {s}"
-#~ msgstr "Säkerhetskopia av konfiguration"
-
-#, fuzzy
-#~ msgid "No automatic configuration backups were done for the server {s}"
-#~ msgstr "Säkerhetskopia av konfiguration"
-
-#, fuzzy
-#~ msgid "No configuration backups were made for the date {d} in {s} server"
 #~ msgstr "Säkerhetskopia av konfiguration"
 
 #, fuzzy

@@ -1,6 +1,7 @@
 <%args>
 @items
 $current => 'none'
+$currentUrl => ''
 </%args>
 <script type="text/javascript">
 //<![CDATA[
@@ -98,6 +99,6 @@ document.onkeyup = filterMenu;
             <input id='menusearch' type='text'/>
         </li>
 % foreach my $item (@items) {
-        <% $item->html($current) %>
+        <% $item->html($current, $currentUrl) %>
 % }
 </ul></div>

@@ -89,9 +89,14 @@ sub _dbuser
 #
 sub _dbpass
 {
-    my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+    my ($self) = @_;
 
-    return $pass;
+    unless ($self->{dbpass}) {
+        my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        $self->{dbpass} = $pass;
+    }
+
+    return $self->{dbpass};
 }
 
 # Method: _dbsuperuser
@@ -183,7 +188,7 @@ sub unbufferedInsert
                 $value = EBox::Util::SQLTypes::storer($type, $value);
             }
         }
-        push(@keys, $key);
+        push(@keys, $self->quoteColumnName($key));
         push(@vals, $value);
     }
 
@@ -516,11 +521,23 @@ sub tables
 #
 # Warning:
 #  it only can quote string values used in SQL statement,
-#   it can not quote the SQL statement itself
+#   it can not quote column names or the SQL statement itself
 sub quote
 {
     my ($self, $string) = @_;
     return $self->{dbh}->quote($string);
+}
+
+# Method: quoteColumnName
+#
+#   returns a quoted version of a colunmName
+#
+# Warning:
+#  it only can quote column names
+sub quoteColumnName
+{
+    my ($self, $name) = @_;
+    return "`$name`";
 }
 
 # Method: setTimezone

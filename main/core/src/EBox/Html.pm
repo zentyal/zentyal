@@ -102,11 +102,11 @@ sub titleNoAction
 #
 sub menu
 {
-    my $current = shift;
+    my ($currentMenu, $currentUrl) = @_;
 
     my $global = EBox::Global->getInstance();
 
-    my $root = new EBox::Menu::Root('current' => $current);
+    my $root = new EBox::Menu::Root('current' => $currentMenu, 'currentUrl' => $currentUrl);
     foreach (@{$global->modNames}) {
         my $mod = $global->modInstance($_);
         $mod->menu($root);

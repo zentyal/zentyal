@@ -806,6 +806,7 @@ sub certificates
 
     return [
         {
+             serviceId => 'Zarafa Gateway Server',
              service =>  __('Zarafa Gateway Server'),
              path    =>  '/etc/zarafa/ssl/ssl.pem',
              user => 'root',

@@ -766,7 +766,7 @@ sub _enforceServiceState
 #    file      - file name which will be overwritten with the execution output
 #    component - mason component
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
-#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    defaults  - a reference to hash with keys: mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
 #
 sub writeConfFile # (file, component, params, defaults)
 {
@@ -799,7 +799,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #   An array ref of hashes containing the following:
 #
-#       service - name of the service using the certificate
+#       serviceId - name of the servicr
+#       service - printable name of the service using the certificate
 #       path    - full path to store this certificate
 #       user    - user owner for this certificate file
 #       group   - group owner for this certificate file
@@ -809,7 +810,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #       [
 #           {
-#             'service' => 'jabberd2',
+#             'serviceId' => 'jabberd2',
+#             'service' => __('Jabber daemon)',
 #             'path' => '/etc/jabberd2/ebox.pem',
 #             'user' => 'jabber',
 #             'group' => 'jabber',
