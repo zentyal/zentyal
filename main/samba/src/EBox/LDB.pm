@@ -47,7 +47,7 @@ sub _new_instance
 {
     my $class = shift;
 
-    my $ignoredSidsFile = EBox::Config::scripts('samba') . 'samba-ignore-sids.txt';
+    my $ignoredSidsFile = EBox::Config::etc() . 's4sync-sids.ignore';
     my @lines = read_file($ignoredSidsFile);
     my @sidsTmp = grep(/^\s*S-/, @lines);
     my @sids = map { s/\n//; $_; } @sidsTmp;

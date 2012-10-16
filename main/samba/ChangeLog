@@ -1,3 +1,8 @@
+HEAD
+	+ Import sysvol after joining a domain, and add an upstart job to sync it
+	  each 5 to 10 minutes (one way).
+	+ Map root account to domain administrator account
+	+ Reset sysvol ACLs after provision
 3.0.4
 	+ Fix netlogon share wrong path
 	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
