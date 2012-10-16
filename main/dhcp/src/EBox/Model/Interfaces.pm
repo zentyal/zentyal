@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::DHCP::Model::Interfaces
 #
@@ -23,11 +25,7 @@
 #
 
 package EBox::DHCP::Model::Interfaces;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
@@ -161,28 +159,38 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
-    my $noEnabled = 1;
-    my $noRanges = 1;
-    foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-        if (not $row->valueByName('enabled')) {
-            next;
-        }
-        $noEnabled = 0;
+    my $daemonNeeded = $self->daemonNeeded();
 
-        my $conf =  $row->subModel('configuration');
-        if ($conf->hasAddresses()) {
-            $noRanges = 0;
-            last;
-        }
-    }
-
-    if ($noEnabled) {
+    if (not $daemonNeeded->{enabled}) {
           $customizer->setPermanentMessage(__('No interfaces enabled.  The DHCP server  will not serve any address'), 'warning');
-    } elsif ( $noRanges) {
+    } elsif (not $daemonNeeded->{addresses}) {
         $customizer->setPermanentMessage(__('The enabled interfaces have not any range or fixed address configured.  The DHCP server  will not serve any address'), 'warning');
     }
     return $customizer;
+}
+
+sub daemonNeeded
+{
+    my ($self) = @_;
+
+    my $enabled = 0;
+    my $addresses = 0;
+    foreach my $id (@{ $self->ids() })  {
+        my $row = $self->row($id);
+        if ($row->valueByName('enabled')) {
+            $enabled = 1;
+            my $conf =  $row->subModel('configuration');
+            if ($conf->hasAddresses()) {
+                $addresses = 1;
+                last;
+            }
+        }
+    }
+
+    return {
+        enabled => $enabled,
+        addresses => $addresses,
+    };
 }
 
 sub dynamicDomainsIds

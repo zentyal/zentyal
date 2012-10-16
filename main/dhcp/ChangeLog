@@ -1,5 +1,5 @@
 HEAD
-	+ Added messages when configuration does not provides addreses for interfaces
+	+ Dont run daemon and show message when configuration does not provides addreses for interfaces
 2.3.9
 	+ Keys shared with bind are now stored under /etc/dhcp/ddns-keys
 	+ Fixed problem in Options model which DNS domain syncRow call

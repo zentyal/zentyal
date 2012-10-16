@@ -12,11 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::DHCP;
-
 use strict;
 use warnings;
+
+package EBox::DHCP;
+use base qw( EBox::Module::Service
+             EBox::NetworkObserver
+             EBox::LogObserver );
+
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -43,9 +46,6 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 
-use base qw( EBox::Module::Service
-             EBox::NetworkObserver
-             EBox::LogObserver );
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
@@ -211,7 +211,20 @@ sub actions
 #
 sub _daemons
 {
-    return [ { 'name' => DHCP_SERVICE } ];
+    my ($self) = @_;
+    my $preSub = sub { return $self->_dhcpDaemonNeeded()  };
+    return [
+        { 'name' => DHCP_SERVICE,
+          'precondition' => $preSub
+         }
+       ];
+}
+
+sub _dhcpDaemonNeeded
+{
+    my ($self) = @_;
+    my $daemonNeeded = $self->model('Interfaces')->daemonNeeded();
+    return $daemonNeeded->{addresses};
 }
 
 # Method: _setConf
