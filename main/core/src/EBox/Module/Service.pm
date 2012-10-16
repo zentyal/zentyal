@@ -12,9 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Module::Service;
-
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -25,9 +26,6 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 
 use Error qw(:try);
-
-use strict;
-use warnings;
 
 use constant INITDPATH => '/etc/init.d/';
 
@@ -406,7 +404,7 @@ sub _isDaemonRunning
 #   boolean - true if it's running otherwise false
 sub isRunning
 {
-    my ($self, $skipPreconditionFail) = @_;
+    my ($self) = @_;
 
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
@@ -414,12 +412,8 @@ sub isRunning
         if (defined ($pre)) {
             my $check = $pre->($self);
             if (not $check) {
-                if ($skipPreconditionFail) {
-                    next;
-                } else {
-                    # If precondition does not meet the daemon should not be running.
-                    return 0;
-                }
+                # this daemon shoudl not be running, so we dont check it
+                next;
             }
         }
 
@@ -445,7 +439,7 @@ sub addModuleStatus
     my ($self, $section) = @_;
 
     my $enabled = $self->isEnabled();
-    my $running = $self->isRunning(1); # skip daemons which should not run
+    my $running = $self->isRunning();
     my $name = $self->name();
     my $modPrintName = ucfirst($self->printableName());
     my $nobutton;

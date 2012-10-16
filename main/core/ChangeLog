@@ -1,6 +1,5 @@
 HEAD
-	+ When used for module status widget or module status cli query,
-	isRunning skips daemons whose precondition fail. This avoid false negatives
+	+ Method EBox::Module::Service::isRunning skips daemons whose precondition fail. This avoid false negatives
 	+ Fixed undefined reference in DataTable controller for log audit
 	+ Added and used serviceId field for service certificates
 	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation

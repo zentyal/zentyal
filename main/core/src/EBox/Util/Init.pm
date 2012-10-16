@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Util::Init;
-
 use strict;
 use warnings;
+
+package EBox::Util::Init;
 
 use EBox;
 use EBox::Global;
@@ -140,7 +139,7 @@ sub status
 
     my $msg = "EBox: status module $modname:\t\t\t";
     my $enabled = $mod->isEnabled();
-    my $running = $mod->isRunning(1);
+    my $running = $mod->isRunning();
     if ($enabled and $running) {
         print STDOUT $msg . "[ RUNNING ]\n";
         exit 0;
