@@ -1,4 +1,5 @@
 HEAD
+	+ Apache hard restart after language change
 	+ Reload page after language change
 	+ Fixed undefined reference in DataTable controller for log audit
 	+ Added and used serviceId field for service certificates

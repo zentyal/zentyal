@@ -105,8 +105,11 @@ sub _populateLanguages
 sub updatedRowNotify
 {
     my ($self) = @_;
-    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my $global = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
     $sysinfo->setReloadPageAfterSavingChanges(1);
+    my $apache = $global->modInstance('apache');
+    $apache->setHardRestart(1);
 }
 
 1;
