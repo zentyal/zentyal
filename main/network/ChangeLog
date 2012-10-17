@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in Gateways watcher which inhibited the call to regen
+	  failover notifier method in modules which are network observers
 	+ Vlanes and vifaces are now ordered by name in interface page
 	+ Fixed error disabling reverse path for virtual interfaces
 2.3.15
