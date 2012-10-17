@@ -20,6 +20,7 @@ use warnings;
 
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
+             EBox::SysInfoObserver
              EBox::LdapModule
              EBox::LogObserver );
 
@@ -352,8 +353,8 @@ sub enableActions
         next if ($line =~ m/cifs\.upcall/);
         push (@newLines, $line);
     }
-    push (@newLines, "create\tcifs.spnego\t*\t*\t/usr/sbin/cifs.upcall\t%k\t%d");
-    push (@newLines, "create\tdns_resolver\t*\t*\t/usr/sbin/cifs.upcall\t%k");
+    push (@newLines, "create\tcifs.spnego\t*\t*\t/usr/sbin/cifs.upcall\t%k\t%d\n");
+    push (@newLines, "create\tdns_resolver\t*\t*\t/usr/sbin/cifs.upcall\t%k\n");
     my $buffer = join ('', @newLines);
     EBox::Module::Base::writeFile(KEY_UTILS, $buffer,
         { mode => '0644', uid => 0, gid => 0 });
@@ -2259,6 +2260,78 @@ sub shareByFilename
     }
 
     return undef;
+}
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostNameChanged
+#
+#   Disallow domainname changes if module is configured
+#
+sub hostNameChanged
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The samba database has already been provisioned. ' .
+                         'Changing the host name will cause domain services to ' .
+                         'stop working.'));
+    }
+}
+
+# Method: hostNameChangedDone
+#
+#   This method updates the computer netbios name if the module has not
+#   been configured yet
+#
+sub hostNameChangedDone
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    unless ($self->configured()) {
+        my $settings = $self->model('GeneralSettings');
+        $settings->setValue('netbiosName', $newHostName);
+    }
+}
+
+# Method: hostDomainChanged
+#
+#   Disallow hostname changes if module is configured
+#
+sub hostDomainChanged
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The samba database has already been provisioned. ' .
+                         'Changing the host domain will cause domain services to ' .
+                         'stop working.'));
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the samba domain if the module has not been
+#   configured yet
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    unless ($self->configured()) {
+        my $settings = $self->model('GeneralSettings');
+        $settings->setValue('realm', uc ($newDomainName));
+
+        my @parts = split (/\./, $newDomainName);
+        my $value = substr($parts[0], 0, 15);
+        $value = 'ZENTYAL-DOMAIN' unless defined $value;
+        $value = uc ($value);
+        $settings->setValue('workgroup', $value);
+    }
 }
 
 1;
