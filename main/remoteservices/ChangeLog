@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed error in check connection button moving _checkUDPEchoService()
+	  to EBox::RemoteSevices::Base
 3.0.4
 	+ Give support to trial edition in info boxes
 3.0.3
