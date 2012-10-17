@@ -1549,4 +1549,17 @@ sub checkNameLimitations
      }
 }
 
+#  Nethod: newUserUidNumber
+#
+#  return the uid for a new user
+#
+#   Parameters:
+#     system - true if we want the uid for a system user, defualt false
+sub newUserUidNumber
+{
+    my ($self, $system) = @_;
+    return EBox::UsersAndGroups::User->_newUserUidNumber($system);
+
+}
+
 1;

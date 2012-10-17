@@ -1,4 +1,5 @@
 HEAD
+	+ Added facade method EBox::UsersAndGroups::newUserUidNumber
 	+ Added check to assure that a no-ldap user has the same uid than
 	a new user
 	+ Added LDAP index for ou attribute

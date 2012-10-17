@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::SupportAccess;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::SupportAccess;
 
 use EBox::Config;
 use EBox::Sudo;
@@ -53,8 +52,15 @@ sub setEnabled
         if (not $enable) {
             return;
         } else {
+            my $uid;
+            if (EBox::Global->modExists('users')) {
+                $uid = EBox::Global->modInstance('users')->newUserUidNumber(1);
+            }
             my $cmd = "useradd $user --create-home " .
                       q{--comment '} . USER_COMMENT . q{'};
+            if ($uid) {
+                $cmd .= " --uid $uid";
+            }
             EBox::Sudo::root($cmd);
 
         }
