@@ -12,9 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Module::Service;
-
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -25,9 +26,6 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 
 use Error qw(:try);
-
-use strict;
-use warnings;
 
 use constant INITDPATH => '/etc/init.d/';
 
@@ -408,20 +406,26 @@ sub isRunning
 {
     my ($self) = @_;
 
+    my $activeDaemons = 0;
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
-        my $check = 1;
         my $pre = $daemon->{'precondition'};
         if (defined ($pre)) {
-            $check = $pre->($self);
+            # don't check if daemon should not be running
+            next unless $pre->($self);
         }
-        # If precondition does not meet the daemon should not be running.
-        $check or return 0;
+
+        $activeDaemons = 1;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
     }
-    return 1;
+
+    if ($activeDaemons) {
+        return 1;
+    } else {
+        return $self->isEnabled();
+    }
 }
 
 # Method: addModuleStatus

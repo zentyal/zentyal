@@ -147,20 +147,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-sub isRunning
-{
-    my ($self) = @_;
-
-    my $running = 0;
-    $running = (EBox::Service::running('zentyal.squid3-front') and
-                EBox::Service::running('zentyal.squid3-back'));
-    if ($self->filterNeeded()) {
-        $running = $running and EBox::Service::running('ebox.dansguardian');
-    }
-
-    return $running;
-}
-
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::usedFiles

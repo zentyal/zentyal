@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to improvement of EBox::Module::Service::isRunning method
 	+ Moved most of the filter functionality to squid. In DG remains:
 	  filter by text content analysys, antivirus and IP block
 	+ Fix kerberos authentication when filter profile applied. As dansguardian
