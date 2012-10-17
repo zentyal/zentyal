@@ -1,4 +1,6 @@
 HEAD
+	+ Added check to assure that a no-ldap user has the same uid than
+	a new user
 	+ Added LDAP index for ou attribute
 	+ Always write slave-sync script
 	+ Increase default quota value to 500MB
