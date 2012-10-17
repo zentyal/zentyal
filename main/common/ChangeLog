@@ -1,4 +1,6 @@
 HEAD
+	+ New UnwillingToPerform exception. Throwed when the user request an action
+	  that can not be performed for any reason
 	+ Added Yoruba language
 3.0.2
 	+ Added EBox::Sudo::system as equivalent to system() with root permissions

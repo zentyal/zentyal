@@ -1,4 +1,7 @@
 HEAD
+	+ Implement SysInfoObserver to disallow host domain changes after the
+	  kerberos realm has been initialized, and to update the LDAP base DN
+	  if module is not yet configured
 	+ Added LDAP index for ou attribute
 	+ Always write slave-sync script
 	+ Increase default quota value to 500MB

@@ -30,6 +30,9 @@ sub new
 
 # Method: hostNameChanged
 #
+#   Invoked before the change takes place. Any module implementing this
+#   method can abort the change throwing an exception.
+#
 # Parameters:
 #
 #   oldHostName
@@ -38,11 +41,11 @@ sub new
 sub hostNameChanged
 {
     my ($self, $oldHostName, $newHostName) = @_;
-
-    return undef;
 }
 
 # Method: hostNameChangedDone
+#
+#   Invoked after the change takes place
 #
 # Parameters:
 #
@@ -52,11 +55,12 @@ sub hostNameChanged
 sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
-
-    return undef;
 }
 
 # Method: hostDomainChanged
+#
+#   Invoked before the change takes place. Any module implementing this
+#   method can abort the change throwing an exception.
 #
 # Parameters:
 #
@@ -66,11 +70,11 @@ sub hostNameChangedDone
 sub hostDomainChanged
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
-
-    return undef;
 }
 
 # Method: hostDomainChangedDone
+#
+#   Invoked after the change takes place
 #
 # Parameters:
 #
@@ -80,8 +84,6 @@ sub hostDomainChanged
 sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
-
-    return undef;
 }
 
 1;

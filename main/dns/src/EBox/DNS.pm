@@ -18,12 +18,12 @@ use warnings;
 package EBox::DNS;
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
+             EBox::SysInfoObserver
              EBox::NetworkObserver );
 
 use EBox::Objects;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Exceptions::Sudo::Command;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Sudo;
@@ -34,6 +34,9 @@ use EBox::DNS::Model::AliasTable;
 use EBox::Model::Manager;
 use EBox::Sudo;
 use EBox::DNS::FirewallHelper;
+
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Error qw(:try);
 use File::Temp;
@@ -1856,6 +1859,62 @@ sub internalDhcpIfaceAddressChangedDone
     $self->_updateManagedDomainAddresses();
     # TODO Save only if changes done
     $self->save();
+}
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostNameChanged
+#
+#   This method check that the introduced new hostname is not already
+#   defined in any of the user created domains
+#
+sub hostNameChanged
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $row = $hostnamesModel->row($hostnameRowId);
+            my $field = $row->elementByName('hostname');
+            if (lc ($field->value('hostname')) eq lc ($newHostName)) {
+                my $domainRow = $row->parentRow();
+                my $domain = $domainRow->valueByName('domain');
+                throw EBox::Exceptions::UnwillingToPerform(
+                    reason => __x('The host name {x} is already defined in the domain {y}',
+                                  x => $newHostName,
+                                  y => $domain ));
+            }
+        }
+    }
+}
+
+# Method: hostNameChangedDone
+#
+#   This method update the hostname in all existant  domains
+#
+sub hostNameChangedDone
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $row = $hostnamesModel->row($hostnameRowId);
+            my $field = $row->elementByName('hostname');
+            if (lc ($field->value('hostname')) eq lc ($oldHostName)) {
+                $field->setValue($newHostName);
+                $row->store();
+                last;
+            }
+        }
+    }
 }
 
 1;

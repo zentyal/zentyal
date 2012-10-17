@@ -1,4 +1,7 @@
 HEAD
+	+ New observer for sysinfo model. Notify modules implementing the
+	  SysInfoObserver interface when the host name or host domain is
+	  changed by the user, before and after the change take effect.
 	+ Fixed undefined reference in DataTable controller for log audit
 	+ Added and used serviceId field for service certificates
 	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
