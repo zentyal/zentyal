@@ -16,12 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::Event::Watcher::Gateways;
-
 # Class: EBox::Event::Watcher::Gateways;
 #
 # This class is a watcher which checks connection/disconnection of gateways
 #
+package EBox::Event::Watcher::Gateways;
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Network;
@@ -229,7 +228,7 @@ sub run
         EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
 
-        foreach my $module ($global->modInstancesOfType('EBox::NetworkObserver')) {
+        foreach my $module (@{ $global->modInstancesOfType('EBox::NetworkObserver')}) {
             my $timeout = 60;
             while ($timeout) {
                 try {
