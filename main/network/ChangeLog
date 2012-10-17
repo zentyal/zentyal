@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed gateways setup in wizard
 	+ Fixed bug in Gateways watcher which inhibited the call to regen
 	  failover notifier method in modules which are network observers
 	+ Vlanes and vifaces are now ordered by name in interface page

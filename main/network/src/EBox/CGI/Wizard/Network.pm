@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Network::Wizard::Network;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Network::Wizard::Network;
 use base 'EBox::CGI::WizardPage';
 
 use EBox::Global;
@@ -92,12 +90,13 @@ sub _processWizard
 
             if ($gw ne '') {
                 try {
-
-                    $gwModel->add(name      => $gw,
-                            ip        => $gw,
-                            interface => $iface,
-                            weight    => 1,
-                            default   => 1);
+                    my $name      = "gw-$iface";
+                    my $defaultGw = $gwModel->size() == 0;
+                    $gwModel->add(name      => $name,
+                                  ip        => $gw,
+                                  interface => $iface,
+                                  weight    => 1,
+                                  default   => $defaultGw);
                 }
                 # ignore errors (probably gateway already exists)
                 otherwise {};
