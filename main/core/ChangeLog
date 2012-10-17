@@ -1,4 +1,7 @@
 HEAD
+	+ New observer for sysinfo module to notify modules implementing the
+	  SysInfo::Observer interface when the host name or host domain is
+	  changed by the user, before and after the change takes effect
 	+ Stop and start apache after language change to force environment reload
 	+ Reload page after language change
 	+ EBox::Module::Service::isRunning() skips daemons whose precondition fail

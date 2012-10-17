@@ -18,6 +18,7 @@ use warnings;
 package EBox::UsersAndGroups;
 use base qw( EBox::Module::Service
              EBox::LdapModule
+             EBox::SysInfo::Observer
              EBox::UserCorner::Provider
              EBox::UsersAndGroups::SyncProvider );
 
@@ -1547,6 +1548,41 @@ sub checkNameLimitations
      } else {
          return undef;
      }
+}
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostDomainChanged
+#
+#   This method disallow the change of the host domain if the module is
+#   configured (implies that the kerberos realm has been initialized)
+#
+sub hostDomainChanged
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the base DN for LDAP if the module has not
+#   been configured yet
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    unless ($self->configured()) {
+        my $mode = $self->model('Mode');
+        my $newDN = $mode->getDnFromDomainName($newDomainName);
+        $mode->setValue('dn', $newDN);
+    }
 }
 
 1;
