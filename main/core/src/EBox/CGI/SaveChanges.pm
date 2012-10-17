@@ -59,13 +59,15 @@ my @commonProgressParams = (
         reloadInterval  => 2,
 
 );
+
+my $jsCloseModalboxAndReload =  'Modalbox.hide(); window.location.reload(); return false';
 my @popupProgressParams = (
         raw => 1,
         inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlFailureOnclick => "Modalbox.hide(); window.location.reload(); return false",
+        nextStepUrlFailureOnclick => $jsCloseModalboxAndReload,
 );
 
 sub saveAllModulesAction
@@ -97,7 +99,18 @@ sub saveAllModulesAction
         }
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlOnclick => "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
+
+        my $sysinfo = $global->modInstance('sysinfo');
+        my $needReload = $sysinfo->reloadPageAfterSavingChanges();
+        my $nextStepUrlOnClick;
+        if ($needReload) {
+            $nextStepUrlOnClick = $jsCloseModalboxAndReload;
+            $sysinfo->setReloadPageAfterSavingChanges(0);
+        } else {
+            $nextStepUrlOnClick = "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
+        }
+
+        push @params, nextStepUrlOnclick => $nextStepUrlOnClick;
     }
 
     $self->showProgress(@params);

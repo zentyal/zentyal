@@ -12,24 +12,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Apache::Model::Language
 #
 #   This model is used to configure the interface languaje
 #
 
 package EBox::Apache::Model::Language;
-
-use strict;
-use warnings;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
 use EBox;
 use EBox::Gettext;
 use EBox::Types::Select;
-
-use base 'EBox::Model::DataForm';
+use EBox::Global;
 
 # Method: validateTypedRow
 #
@@ -99,6 +97,13 @@ sub _populateLanguages
     }
 
     return \@array;
+}
+
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    $sysinfo->setReloadPageAfterSavingChanges(1);
 }
 
 1;

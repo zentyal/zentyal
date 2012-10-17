@@ -1,4 +1,5 @@
 HEAD
+	+ Reload page after language change
 	+ Fixed undefined reference in DataTable controller for log audit
 	+ Added and used serviceId field for service certificates
 	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
