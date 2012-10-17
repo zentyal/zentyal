@@ -1,4 +1,6 @@
 HEAD
+	+ Supersede dhcp offered nameservers, domain name and search domain if
+	  these values are configured in Zentyal
 	+ Vlanes and vifaces are now ordered by name in interface page
 	+ Fixed error disabling reverse path for virtual interfaces
 2.3.15

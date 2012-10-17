@@ -1,5 +1,7 @@
 <%args>
-    $request_nameservers
+    $domainName => undef
+    $domainSearch => undef
+    $domainNameServers => []
 </%args>
 # Configuration file for /sbin/dhclient, which is included in Debian's
 #	dhcp3-client package.
@@ -17,12 +19,19 @@
 send host-name "<hostname>";
 #send dhcp-client-identifier 1:0:a0:24:ab:fb:9c;
 #send dhcp-lease-time 3600;
-#supersede domain-name "fugue.com home.vix.com";
+% if (length ($domainName) > 0) {
+supersede domain-name "<% $domainName %>";
+% }
+% if (length ($domainSearch) > 0) {
+supersede domain-search "<% $domainSearch %>.";
+% }
+% if (scalar (@{$domainNameServers}) > 0) {
+% my $servers = join (',', @{$domainNameServers});
+supersede domain-name-servers <% $servers %>;
+% }
 #prepend domain-name-servers 127.0.0.1;
 request subnet-mask, broadcast-address, time-offset, routers,
-% if ($request_nameservers) {
 	domain-name, domain-name-servers,
-% }
 	host-name, netbios-name-servers, netbios-scope;
 #require subnet-mask, domain-name-servers;
 timeout 30;
