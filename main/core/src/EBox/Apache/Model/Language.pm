@@ -75,6 +75,9 @@ sub _table
         'printableTableName' => __('Language selection'),
         'modelDomain' => 'Apache',
         'defaultActions' => [ 'editField' ],
+        'messages' => {
+            'update' => __('New language selected, save changes to commit'),
+           },
         'tableDescription' => \@tableHead,
     };
 
