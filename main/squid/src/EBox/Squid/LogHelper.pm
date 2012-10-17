@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Squid::LogHelper;
 use base 'EBox::LogHelper';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Config;
@@ -25,7 +24,7 @@ use EBox::Gettext;
 use POSIX qw(strftime);
 
 use constant SQUIDLOGFILE => '/var/log/squid3/access.log';
-use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
+use constant DANSGUARDIANLOGFILE => 'var/log/squid3/front-access.log';
 
 sub new
 {
