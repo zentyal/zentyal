@@ -1,4 +1,6 @@
 HEAD
+	+ Stop and start apache after language change to force environment reload
+	+ Reload page after language change
 	+ EBox::Module::Service::isRunning() skips daemons whose precondition fail
 	+ Fixed undefined reference in DataTable controller for log audit
 	+ Added and used serviceId field for service certificates
