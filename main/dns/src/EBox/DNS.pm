@@ -18,7 +18,7 @@ use warnings;
 package EBox::DNS;
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
-             EBox::SysInfoObserver
+             EBox::SysInfo::Observer
              EBox::NetworkObserver );
 
 use EBox::Objects;

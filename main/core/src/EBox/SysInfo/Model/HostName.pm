@@ -192,7 +192,7 @@ sub validateTypedRow
 
     # After our validation, notify observers that this value is about to change
     my $global = EBox::Global->getInstance();
-    my @observers = @{$global->modInstancesOfType('EBox::SysInfoObserver')};
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
     foreach my $obs (@observers) {
         $obs->hostDomainChanged($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
         $obs->hostNameChanged($oldHostName, $newHostName) if ($newHostName ne $oldHostName);
@@ -222,7 +222,7 @@ sub updatedRowNotify
     my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newDomainName;
 
     my $global = EBox::Global->getInstance();
-    my @observers = @{$global->modInstancesOfType('EBox::SysInfoObserver')};
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
     foreach my $obs (@observers) {
         $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
         $obs->hostNameChangedDone($oldHostName, $newHostName) if ($newHostName ne $oldHostName);

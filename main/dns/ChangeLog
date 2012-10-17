@@ -1,6 +1,6 @@
 HEAD
-	+ Implement SysInfoObserver to check that the new host name is not defined
-	  in any domain, and update the hostname in the defined domains
+	+ Implement SysInfo::Observer to check that the new host name is not
+	  defined in any domain, and update the hostname in the defined domains
 3.0.1
 	+ Fixed host name ip addition when it was more than one host in
 	  the domain

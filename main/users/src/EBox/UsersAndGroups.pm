@@ -18,7 +18,7 @@ use warnings;
 package EBox::UsersAndGroups;
 use base qw( EBox::Module::Service
              EBox::LdapModule
-             EBox::SysInfoObserver
+             EBox::SysInfo::Observer
              EBox::UserCorner::Provider
              EBox::UsersAndGroups::SyncProvider );
 

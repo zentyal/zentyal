@@ -20,7 +20,7 @@ use warnings;
 
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
-             EBox::SysInfoObserver
+             EBox::SysInfo::Observer
              EBox::LdapModule
              EBox::LogObserver );
 
