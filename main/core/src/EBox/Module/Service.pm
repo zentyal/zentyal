@@ -406,22 +406,29 @@ sub isRunning
 {
     my ($self) = @_;
 
+    my $activeDaemons = 0;
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
         my $pre = $daemon->{'precondition'};
         if (defined ($pre)) {
             my $check = $pre->($self);
             if (not $check) {
-                # this daemon shoudl not be running, so we dont check it
+                # this daemon should not be running, so we dont check it
                 next;
             }
         }
 
+        $activeDaemons = 1;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
     }
-    return 1;
+
+    if ($activeDaemons) {
+        return 1;
+    } else {
+        return $self->isEnabled();
+    }
 }
 
 # Method: addModuleStatus
