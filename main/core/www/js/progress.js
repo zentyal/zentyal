@@ -35,7 +35,7 @@ function porcentH(i){
 var ph = new porcentH('progress');
 
 // Update the page
-function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
+function updatePage (xmlHttp, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var rawResponse = xmlHttp.responseText.replace(/\n/g, "<br />");
     var response = eval("(" + rawResponse + ")");
 
@@ -66,6 +66,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
               loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
+          if (showNotesOnFinish) {
             if (('errorMsg' in response) && (response.errorMsg)) {
                 $('warning-progress-messages').update(
                     response.errorMsg);
@@ -78,6 +79,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
 
             Element.hide('progressing');
             $('done').show();
+          }
 
             // Used to tell selenium we are done
             // with saving changes
@@ -85,7 +87,10 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
         }
         else if (response.state == 'error') {
             pe.stop();
-            Element.hide('progressing');
+            if (showNotesOnFinish) {
+               Element.hide('progressing');
+            }
+
             $('error-progress').show();
             if ('errorMsg' in response) {
                 $('error-progress-message').update(
@@ -96,7 +101,7 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
 }
 
 // Generate an Ajax request to fetch the current package
-function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
+function callServer(progressId, url, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
 
     // Build the URL to connect to
     var par = "progress=" + progressId ;
@@ -105,14 +110,14 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
         method: 'post',
         parameters: par,
         asynchronous: true,
-        onSuccess: function (t) { updatePage(t, nextStepTimeout, nextStepUrl); }
+                       onSuccess: function (t) { updatePage(t, nextStepTimeout, nextStepUrl, showNotesOnFinish); }
         }
     );
     time++;
     if (time >= 10) {
         time = 0;
       if (window.showAds) {
-        showAds();
+        showAds(1);
       }
     }
 
@@ -121,12 +126,13 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
 
 
 var pe;
-function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl)
+function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish)
 {
     var callServerCurriedBody = "callServer(" + progressId + ", '"
                                                 + currentItemUrl  + "', "
                                                 + nextStepTimeout + ", '"
-                                                + nextStepUrl + "')";
+                                                + nextStepUrl + "', " +
+                                                + showNotesOnFinish +  ")";
 
     var callServerCurried = new Function(callServerCurriedBody );
 

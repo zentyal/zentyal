@@ -113,37 +113,68 @@ sub validateTypedRow
         }
     }
 
-
-}
-
-# Method: precondition
-#
-# Overrides:
-#
-#     <EBox::Model::Component::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    if ( $self->parentRow()->readOnly() ) {
-        return 0;
+    if ($action eq 'update') {
+        my $oldRow = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow();
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $name = $oldRow->valueByName('hostName');
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSambe} = "$name.$zone";
+            } else {
+                $self->{toDelete} = "$name.$zone";
+            }
+        }
     }
-    return 1;
-
 }
 
-# Method: preconditionFailMsg
+# Method: updatedRowNotify
+#
+#   Override to add to the list of removed of RRs
 #
 # Overrides:
 #
-#     <EBox::Model::Component::preconditionFailMsg>
+#   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
-sub preconditionFailMsg
+sub updatedRowNotify
 {
-    return __('The domain is set as read only. You cannot add mail exchangers');
+    my ($self, $row, $oldRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if (exists $self->{toDelete}) {
+        $self->_addToDelete($self->{toDelete}, 0);
+        delete $self->{toDelete};
+    }
+    if (exists $self->{toDeleteSamba}) {
+        $self->_addToDelete($self->{toDeleteSamba}, 1);
+        delete $self->{toDeleteSamba};
+    }
 }
 
+# Method: deletedRowNotify
+#
+# 	Overrides to add to the list of deleted RR in dynamic zones
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+
+    # Deleted RRs to account
+    my $zoneRow = $row->parentRow();
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+        my $zone = $zoneRow->valueByName('domain');
+        my $fullHostname = $row->valueByName('hostName') . ".$zone";
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete($fullHostname, 1);
+        } else {
+            $self->_addToDelete($fullHostname, 0);
+        }
+    }
+}
 # Group: Protected methods
 
 # Method: _table
@@ -243,6 +274,25 @@ sub _hostnameModel
         $model->setDirectory($dir);
         return $model;
     # }
+}
+
+# Add the RR to the deleted list
+sub _addToDelete
+{
+    my ($self, $domain, $samba) = @_;
+
+    my $mod = $self->{confmodule};
+    my $key = EBox::DNS::DELETED_RR_KEY();
+    if ($samba) {
+        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
+    }
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+    }
+
+    push (@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
 }
 
 1;

@@ -75,8 +75,6 @@ sub actions
 {
     my ($self) = @_;
 
-    my $mode = EBox::Global->modInstance('users')->mode();
-
     my @actions;
     push (@actions,
             {
@@ -85,14 +83,12 @@ sub actions
              'module' => 'usercorner'
             });
 
-    if ($mode ne 'slave') {
-        push (@actions,
-                {
-                 'action' => __('Create directories for slave journals'),
-                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
-                 'module' => 'usercorner'
-                });
-    }
+    push (@actions,
+            {
+             'action' => __('Create directories for slave journals'),
+             'reason' => __('Zentyal needs the directories to record pending slave actions.'),
+             'module' => 'usercorner'
+            });
 
     return \@actions;
 }
@@ -137,12 +133,6 @@ sub enableActions
 {
     my ($self) = @_;
 
-    if ($self->_isSlave()) {
-        throw EBox::Exceptions::External(
-            __('User corner is only available in master or standalone servers')
-                                        );
-    }
-
     (-d (EBox::Config::conf() . 'configured')) and return;
 
     my $names = EBox::Global->modNames();
@@ -157,20 +147,17 @@ sub enableActions
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
 
     # Create userjournal dir only in master setup
-    my $users = EBox::Global->modInstance('users');
-    if ($users->mode() ne 'slave') {
-        my @commands;
+    my @commands;
 
-        my $ucUser = USERCORNER_USER;
-        my $ucGroup = USERCORNER_GROUP;
-        my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-        unless (-d $usercornerDir) {
-            push (@commands, "mkdir -p $usercornerDir");
-            push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
-        }
-        if (@commands) {
-            EBox::Sudo::root(@commands);
-        }
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
+    unless (-d $usercornerDir) {
+        push (@commands, "mkdir -p $usercornerDir");
+        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
+    }
+    if (@commands) {
+        EBox::Sudo::root(@commands);
     }
 }
 
@@ -209,6 +196,15 @@ sub _setConf
 
     # Write user corner redis file
     $self->{redis}->writeConfigFile(USERCORNER_USER);
+
+    # As $users->editableMode() can't be called from usercorner, it will check
+    # for the existence of this file
+    my $editableFile = '/var/lib/zentyal-usercorner/editable';
+    if (EBox::Global->modInstance('users')->editableMode()) {
+        EBox::Sudo::root("touch $editableFile");
+    } else {
+        EBox::Sudo::root("rm -f $editableFile");
+    }
 }
 
 # Method: menu
@@ -264,6 +260,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  q{User Corner web server},
              service =>  __(q{User Corner web server}),
              path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
              user => USERCORNER_USER,
@@ -273,11 +270,16 @@ sub certificates
            ];
 }
 
-sub _isSlave
+# Method: editableMode
+#
+#       Reimplementation of EBox::UsersAndGroups::editableMode()
+#       compatible with user corner to workaround lack of redis access
+#
+#       Returns true if mode is editable
+#
+sub editableMode
 {
-    my ($self) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    return ($usersMod->mode() eq 'slave') or ($usersMod->adsyncEnabled());
+    return (-f '/var/lib/zentyal-usercorner/editable');
 }
 
 1;

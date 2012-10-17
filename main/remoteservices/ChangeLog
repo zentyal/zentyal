@@ -1,3 +1,52 @@
+3.0.4
+	+ Give support to trial edition in info boxes
+3.0.3
+	+ Launch inventory agent just after subscribing to get information
+	  in remote as soon as possible
+	+ Add pciutils and dmidecode as dependencies to include PCI and
+	  Bios information for inventory
+	+ Fix OCS inventory cron file execution permissions
+	+ Changed subscription_basic style to avoid overlapping separator line
+3.0.2
+	+ Use perl code in initial setup to avoid lock issues
+	+ Fixed non-translatable strings in registration wizard
+	+ Do not show help button text when registered
+	+ Check if you are registered in wizard at first
+	+ Add hostname as default value for server name in Wizard
+	+ Check the three diferent result api may return in wizard
+	+ Check agreement is done when doing the wizard
+3.0.1
+	+ Don't abort subscription, backup or restore by clicking outside
+	  of popup window
+	+ Dynamic DNS now works without bundle
+3.0
+	+ Set 3.0 URLs for wizard
+	+ Fix registration when remote access is enabled previously
+	+ Set production conf parameters
+	+ New style for registration wizard
+	+ Reviewed strings
+	+ Start up tasks (cronjobs and bundle reload) is done after save
+	  changes in background
+	+ VPN connection is established once it is needed
+	+ Dynamic DNS is enabled during the subscription and not during
+	  the bundle execution
+	+ Dynamic DNS is disabled when deregistering
+	+ Set up audit environment in set conf
+	+ In order to run cron jobs only subscribed is required now
+	+ Adaptations for new registered community servers
+	+ Show VPNConnectivityCheck in Technical composite when the server
+	  has the bundle
+	+ Name change from Cloud to Remote
+	+ Launch save changes immediately after performing the
+	  registration or unregistration in a modal box
+	+ Show Wizard link in no active remote configuration backup
+	+ Delete no longer required conf keys: ebox_services_www and
+	  ebox_services_mirror_count
+	+ Remove deprecated Disaster Recovery method
+	+ Cache cred data in module to optimise
+	+ Implement reporting code here
+	+ Password list files are now stored in module conf
+	+ RESTClient now supports raw JSON as query param
 2.3.2
 	+ Do not set local address for TCP connections
 	+ Avoid division by zero showing DR info

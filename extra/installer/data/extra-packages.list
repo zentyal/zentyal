@@ -4,6 +4,7 @@ zentyal-gateway
 zentyal-infrastructure
 zentyal-office
 zentyal-communication
+zentyal-remoteservices
 language-packs-zentyal-all
 dahdi
 linux-headers-generic-pae
@@ -20,5 +21,7 @@ xscreensaver
 evince
 policykit-1
 plymouth-theme-ubuntu-logo
+plymouth-theme-ubuntu-text
 acpid
 zenity
+xfsprogs

@@ -82,7 +82,7 @@ our %SERVICES = (
         require_info => 1,
     },
     cloud => {
-        printableValue => __('Zentyal Cloud'),
+        printableValue => 'Zentyal',
         protocol => 'dyndns2',
         use => 'web',
         web => 'svc.joker.com/nic/checkip',
@@ -277,7 +277,8 @@ sub _isSubscribed
 
 sub _message
 {
-    return __sx('You can configure your Dynamic DNS provider here. If yor server is already subscribed to Zentyal Cloud, your provider is Zentyal Cloud. Get the Free {ohb}Basic Subscription{ch}, or {ohs}Small Business{ch} or {ohe}Enterprise{ch} to obtain zentyal.me subdomain for your server.',
+    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to obtain zentyal.me subdomain for your server.",
+                ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
                 ohb => '<a href="' . BASIC_URL . '" target="_blank">',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',

@@ -452,14 +452,14 @@ recheckreplacedurls = off
 # if on it adds an X-Forwarded-For: <clientip> to the HTTP request
 # header.  This may help solve some problem sites that need to know the
 # source ip. on | off
-forwardedfor = off
+forwardedfor = on
 
 
 # if on it uses the X-Forwarded-For: <clientip> to determine the client
 # IP. This is for when you have squid between the clients and DansGuardian.
 # Warning - headers are easily spoofed. on | off
 
-usexforwardedfor = off
+usexforwardedfor = on
 
 # if on it logs some debug info regarding fork()ing and accept()ing which
 # can usually be ignored.  These are logged by syslog.  It is safe to leave

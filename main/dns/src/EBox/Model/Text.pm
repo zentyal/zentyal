@@ -80,21 +80,21 @@ sub validateTypedRow
         }
     }
 
-    if ( $action eq 'update' ) {
+    if ($action eq 'update') {
         # Add toDelete the RRs for this TXT record
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my $zone = $zoneRow->valueByName('domain');
-            my $hostname = $allFields->{hostName};
-            my $record = '';
-            if ( $hostname->selectedType() eq 'domain' ) {
-                $record = $zone;
-            } else {
-                $record = $hostname->printableValueByName('hostName');
+            my $record   = $oldRow->printableValueByName('hostName');
+            if ($record !~ m:\.:g) {
                 $record = "$record.$zone";
             }
-            $self->{toDelete} = "$record TXT";
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSamba} = "$record TXT";
+            } else {
+                $self->{toDelete} = "$record TXT";
+            }
         }
     }
 
@@ -113,19 +113,22 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
         my $zone = $zoneRow->valueByName('domain');
         my $hostname = $row->elementByName('hostName');
         my $record = '';
-        if ( $hostname->selectedType() eq 'domain' ) {
+        if ($hostname->selectedType() eq 'domain') {
             $record = $zone;
         } else {
             $record = $hostname->printableValue('hostName');
             $record = "$record.$zone";
         }
-        $self->_addToDelete("$record TXT");
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete("$record TXT", 1);
+        } else {
+            $self->_addToDelete("$record TXT", 0);
+        }
     }
-
 }
 
 # Group: Protected methods

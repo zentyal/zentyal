@@ -12,17 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
-# Class:
-#
-#   EBox::DNS::Model::AliasTable
-#
-#   This class inherits from <EBox::Model::DataTable> and represents the
-#   object table which basically contains domains names and a reference
-#   to a member <EBox::DNS::Model::AliasTable>
-#
-#
 package EBox::DNS::Model::AliasTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -34,11 +28,6 @@ use EBox::Types::DomainName;
 use EBox::Sudo;
 
 use Net::IP;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
@@ -111,13 +100,17 @@ sub validateTypedRow
 
     $self->setDirectory($olddir);
 
-    if ( $action eq 'update' ) {
+    if ($action eq 'update') {
         my $oldRow = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow()->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my $zone = $zoneRow->valueByName('domain');
             my $alias = $oldRow->valueByName('alias');
-            $self->{toDelete} = "$alias.$zone";
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSamba} = "$alias.$zone";
+            } else {
+                $self->{toDelete} = "$alias.$zone";
+            }
         }
     }
 }
@@ -136,8 +129,12 @@ sub updatedRowNotify
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete});
+        $self->_addToDelete($self->{toDelete}, 0);
         delete $self->{toDelete};
+    }
+    if (exists $self->{toDeleteSamba}) {
+        $self->_addToDelete($self->{toDeleteSamba}, 1);
+        delete $self->{toDeleteSamba};
     }
 }
 
@@ -155,19 +152,24 @@ sub deletedRowNotify
 
     # Deleted RRs to account
     my $zoneRow = $row->parentRow()->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
         my $zone = $zoneRow->valueByName('domain');
+        my $alias = $row->valueByName('alias');
+        my $fullName = "$alias.$zone";
         # Delete all aliases
-        $self->_addToDelete( $row->valueByName('alias') . ".$zone");
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete($fullName, 1);
+        } else {
+            $self->_addToDelete($fullName, 0);
+        }
     }
-
 }
 
 sub pageTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->parentRow()->printableValueByName('hostname');
+    return $self->parentRow()->printableValueByName('hostname');
 }
 
 # Group: Protected methods
@@ -199,7 +201,7 @@ sub _table
             'printableTableName' => __('Alias'),
             'automaticRemove' => 1,
             'defaultController' => '/Dns/Controller/AliasTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+            'defaultActions' => ['add', 'del', 'editField',  'changeView'],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => __("This is the list of host name aliases. All of them will be resolved to the host's IP addresses list."),
@@ -212,21 +214,23 @@ sub _table
 
 # Group: Private methods
 
-# Add to the list of deleted RRs
+# Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $domain) = @_;
+    my ($self, $domain, $samba) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
+    if ($samba) {
+        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
+    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
     }
 
-    push(@list, $domain);
+    push (@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
-
 }
 
 1;

@@ -1,3 +1,8 @@
+HEAD
+	+ Added and used serviceId field for service certificates
+2.3.7
+	+ Disabled temporarily dns host record creation until DNS/kerberos
+	  system allows it again
 2.3.6
 	+ Configuration backup restore no longer crashes
 2.3.5

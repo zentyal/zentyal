@@ -30,6 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
+use constant TRIAL_URL       => 'https://remote.zentyal.com/trial/';
 
 # Group: Protected methods
 
@@ -41,7 +42,7 @@ use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription
 #
 sub _description
 {
-    my $printableName = __('Zentyal Cloud');
+    my $printableName = __('Your Zentyal Server Account');
 
     my $description = {
           layout          => 'top-bottom',
@@ -52,7 +53,10 @@ sub _description
     };
 
     my $rs = EBox::Global->modInstance('remoteservices');
-    unless ( $rs->eBoxSubscribed() ) {
+    if ( $rs->eBoxSubscribed() and $rs->subscriptionLevel() <= 0) {
+        $description->{permanentMessage} = _commercialTrialMsg();
+        $description->{permanentMessageType} = 'ad';
+    } elsif ( not $rs->eBoxSubscribed() ) {
         $description->{permanentMessage} = _commercialMsg();
         $description->{permanentMessageType} = 'ad';
     }
@@ -64,8 +68,19 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal Cloud and allows you access to some basic features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to configure one remote configuration backup and create zentyal.me subdomain for your server).',
+    return __sx('Are you interested in a remote configuration backup of your Zentyal '
+                . 'server? Or do you want to use a subdomain, such as '
+                . 'yourserver.zentyal.me? Get a {ohb}Free Zentyal Account{ch} that gives you '
+                . 'access to these features and much more! Or, if you already have a Small '
+                . 'Business or Enterprise Edition, use your credentials for full access.',
                 ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
+}
+
+sub _commercialTrialMsg
+{
+    return __sx('Are you interested in upgrading to one of commercial editions? Get '
+                . 'a {ohb}free 30-day trial{ch}.',
+                ohb => '<a href="' . TRIAL_URL . '">', ch  => '</a>');
 }
 
 1;

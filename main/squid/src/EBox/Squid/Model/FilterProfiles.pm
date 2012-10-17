@@ -178,8 +178,8 @@ sub profiles
     my ($self) = @_;
     my @profiles = ();
 
-    push (@profiles, { number => 1, policy => 'allow' });
-    push (@profiles, { number => 2, policy => 'deny' });
+    push (@profiles, { number => 1, policy => 'deny',  groupName => 'defaultDeny' });
+    push (@profiles, { number => 2, policy => 'allow', groupName => 'defaultAllow' });
 
     # groups will have ids greater that this number
     my $id = 3;
@@ -297,6 +297,55 @@ sub restoreConfig
 {
     my ($class, $dir)  = @_;
     EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
+}
+
+sub squidAcls
+{
+    my ($self, $enabledProfiles) = @_;
+    my @acls;
+    my %sharedAcls;
+    foreach my $id (@{ $enabledProfiles }) {
+        my $row = $self->row($id);
+        my $profileConf = $row->subModel('filterPolicy');
+        push @acls, @{ $profileConf->squidAcls() };
+        foreach my $shared (@{ $profileConf->squidSharedAcls }) {
+            $sharedAcls{$shared->[0]} = $shared->[1];
+        }
+    }
+    push @acls, values %sharedAcls;
+
+    return {all => \@acls, shared => \%sharedAcls};
+}
+
+sub squidRulesStubs
+{
+    my ($self, $enabledProfiles, @params) = @_;
+    my %stubs;
+    foreach my $id (@{ $enabledProfiles }) {
+        my $row = $self->row($id);
+        my $profileConf = $row->subModel('filterPolicy');
+        $stubs{$id} = $profileConf->squidRulesStubs(@params);
+    }
+    return \%stubs;
+}
+
+sub usesFilterById
+{
+    my ($self, $rowId) = @_;
+    my $row = $self->row($rowId);
+    my $profileConf = $row->subModel('filterPolicy');
+    return  $profileConf->usesFilter();
+}
+
+sub usesFilter
+{
+    my ($self, $enabledProfiles) = @_;
+    foreach my $id (@{ $enabledProfiles }) {
+        if ($self->usesFilterById($id)) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 1;

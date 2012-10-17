@@ -1,3 +1,5 @@
+2.3.9
+	+ Move report code to remoteservices
 2.3.8
 	+ Add precondition to printers model to check that samba s3fs
 	  fileserver is used.

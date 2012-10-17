@@ -126,7 +126,12 @@ sub get
                 $value = decode_json($value);
             }
         } else {
-            $value = $defaultValue;
+            if (defined $defaultValue) {
+                $value = $defaultValue;
+            } else {
+                # do not cache undef values
+                return undef;
+            }
         }
         $cache{$key} = $value;
     }
@@ -372,7 +377,11 @@ sub _sync
         if (ref $value) {
             $value = encode_json($value);
         }
-        $self->_redis_call('set', $key, $value);
+        if (defined $value) {
+            $self->_redis_call('set', $key, $value);
+        } else {
+            EBox::error("Tried to set an undefined value for key: $key");
+        }
     }
     %modified = ();
 

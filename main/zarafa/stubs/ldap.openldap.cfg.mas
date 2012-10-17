@@ -26,6 +26,12 @@ ldap_port = <% $ldapport %>
 # configured correctly with TLS_CACERT
 ldap_protocol = ldap
 
+# LDAP URI
+# Optional, override ldap_host, ldap_port and ldap_protocol if set
+# e.g. ldaps://servername:port. You may also specify multiple space-separated
+# URI's
+ldap_uri =
+
 # The charset that strings are stored in on the LDAP server. Normally this
 # is utf-8, but this can differ according to your setup. The charset specified
 # here must be supported by your iconv(1) setup. See iconv -l for all charset
@@ -49,6 +55,10 @@ ldap_network_timeout = 30
 # Active directory: uSNChanged
 # LDAP: modifyTimestamp
 ldap_last_modification_attribute = modifyTimestamp
+
+# ldap_page_size limits the number of results from a query that will be downloaded at a time.
+# Default ADS MaxPageSize is 1000.
+ldap_page_size = 1000
 
 ##########
 # Object settings
@@ -130,7 +140,7 @@ ldap_password_attribute = userPassword
 # Optional, default = bind
 # Choices: bind, password
 # Active directory: bind
-# LDAP: password
+# LDAP: bind
 ldap_authentication_method = bind
 
 # Optional, default = mail
@@ -154,7 +164,7 @@ ldap_isadmin_attribute = zarafaAdmin
 # Whether a user is a non-active user. This means that the user will
 # not count towards your user count, but the user will also not be
 # able to log in
-# Optional, default = empty
+# Optional, default = zarafaSharedStoreOnly
 # Active directory: zarafaSharedStoreOnly
 # LDAP: zarafaSharedStoreOnly
 ldap_nonactive_attribute = zarafaSharedStoreOnly
@@ -243,7 +253,7 @@ ldap_groupmembers_attribute_type = dn
 
 # The attribute of the user which is listed in ldap_groupmember_attribute
 # Active directory: empty, matching dn's
-# LDAP: uidNumber, matching users in ldap_user_unique_attribute
+# LDAP: uid, matching users in ldap_loginname_attribute
 ldap_groupmembers_relation_attribute = uid
 
 # A group can also be used for security, eg. setting permissions on folders.

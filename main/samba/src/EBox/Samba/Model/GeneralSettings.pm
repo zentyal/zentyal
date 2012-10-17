@@ -12,13 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Samba::Model::GeneralSettings
 #
-#   This model is used to configure file sharing eneral settings.
+#   This model is used to configure file sharing general settings.
 #
-
 package EBox::Samba::Model::GeneralSettings;
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -33,57 +34,15 @@ use EBox::Types::DomainName;
 use EBox::Types::Text;
 use EBox::Types::Int;
 use EBox::Types::Select;
+use EBox::Types::Password;
 use EBox::Config;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
 
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataForm';
-
 use constant MAXNETBIOSLENGTH     => 15;
-use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
-
 use constant MODE_DC              => 'dc';
 use constant MODE_ADC             => 'adc';
-
-# see http://support.microsoft.com/kb/909264
-my @reservedNames = (
-'ANONYMOUS',
-'AUTHENTICATED USER',
-'BATCH',
-'BUILTIN',
-'CREATOR GROUP',
-'CREATOR GROUP SERVER',
-'CREATOR OWNER',
-'CREATOR OWNER SERVER',
-'DIALUP',
-'DIGEST AUTH',
-'INTERACTIVE',
-'INTERNET',
-'LOCAL',
-'LOCAL SYSTEM',
-'NETWORK',
-'NETWORK SERVICE',
-'NT AUTHORITY',
-'NT DOMAIN',
-'NTLM AUTH',
-'NULL',
-'PROXY',
-'REMOTE INTERACTIVE',
-'RESTRICTED',
-'SCHANNEL AUTH',
-'SELF',
-'SERVER',
-'SERVICE',
-'SYSTEM',
-'TERMINAL SERVER',
-'THIS ORGANIZATION',
-'USERS',
-'WORLD',
-);
 
 sub new
 {
@@ -112,9 +71,6 @@ sub validateTypedRow
                            $newParams->{'workgroup'}->value() :
                            $oldParams->{'workgroup'}->value();
 
-    my $realm = exists $newParams->{'realm'} ?
-                       $newParams->{'realm'}->value() :
-                       $oldParams->{'realm'}->value();
     my $description = exists $newParams->{'description'} ?
                              $newParams->{'description'}->value() :
                              $oldParams->{'description'}->value();
@@ -123,47 +79,8 @@ sub validateTypedRow
         throw EBox::Exceptions::External(
             __('NetBIOS computer name and NetBIOS domain name must be different'));
     }
-
-    $self->_checkNetbiosName($netbios);
     $self->_checkNetbiosName($workgroup);
-    $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
-
-    # Check if the password meet the policy requirements
-    if (exists $newParams->{password}) {
-        my $password = $newParams->{password}->value();
-
-        # Check if the password meet the complexity constraints
-        unless ($password =~ /[a-z]+/ and $password =~ /[A-Z]+/ and
-                $password =~ /[0-9]+/ and length ($password) >=8) {
-                throw EBox::Exceptions::External(
-                    __('The password does not meet the password policy requirements. ' .
-                       'It must be at least eight characters long and contain uppercase, ' .
-                       'lowercase and numbers'));
-        }
-    }
-}
-
-sub _checkDomainName
-{
-    my ($self, $domain) = @_;
-
-    if (length ($domain) > MAXWORKGROUPLENGTH) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name is too long'));
-    }
-    if (length ($domain) <= 0) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
-    }
-    if ($domain =~ m/\.local$/) {
-        throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
-    }
-
-    $self->_checkWinName($domain, __('Domain name'));
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if (lc ($domain) eq lc ($sysinfo->hostName())) {
-        throw EBox::Exceptions::External(__('Domain name cannot be equal to host name'));
-    }
 }
 
 sub _checkNetbiosName
@@ -179,8 +96,6 @@ sub _checkNetbiosName
     if ($netbios =~ m/\./) {
         throw EBox::Exceptions::External(__('NetBIOS names cannot contain dots'));
     }
-    $self->_checkWinName($netbios, __('NetBIOS computer name'));
-
 }
 
 sub _checkDescriptionString
@@ -192,33 +107,6 @@ sub _checkDescriptionString
     }
     if (length ($description) > MAXDESCRIPTIONLENGTH) {
         throw EBox::Exceptions::Externam(__('Description string is too long'));
-    }
-}
-
-sub _checkWinName
-{
-    my ($self, $name, $type) = @_;
-
-    my $length = length $name;
-    if ($length > MAXNETBIOSLENGTH) {
-        throw EBox::Exceptions::External(
-                __x('{type} is limited to a maximum of 15 characters.',
-                    type => $type)
-        );
-    }
-
-    my @parts = split ('\.', $name);
-    foreach my $part (@parts) {
-        $part = uc $part;
-        foreach my $reserved (@reservedNames) {
-            if ($part eq $reserved) {
-                throw EBox::Exceptions::External(
-                    __x(q{{type} cannot contain the reserved name {reserved}},
-                         type => $type,
-                         reserved => $reserved)
-                   );
-            }
-        }
     }
 }
 
@@ -257,17 +145,23 @@ sub _table
             printableName => __('Administrator account'),
             editable      => 1,
         ),
-        new EBox::Types::Text(
+        new EBox::Types::Password(
             fieldName     => 'password',
             printableName => __('Administrator password'),
-            defaultValue  => EBox::Samba::defaultAdministratorPassword(),
             editable      => 1,
+            hidden        => \&_adcProvisioned,
         ),
         new EBox::Types::DomainName(
-            fieldName          => 'workgroup',
-            printableName      => __('NetBIOS domain name'),
-            defaultValue       => EBox::Samba::defaultWorkgroup(),
-            editable           => 1,
+            fieldName     => 'workgroup',
+            printableName => __('NetBIOS domain name'),
+            defaultValue  => EBox::Samba::defaultWorkgroup(),
+            editable      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'site',
+            printableName => __('Site'),
+            optional      => 1,
+            editable      => 1,
         ),
         new EBox::Types::Text(
             fieldName     => 'netbiosName',
@@ -309,6 +203,12 @@ sub _table
     return $dataTable;
 }
 
+sub _adcProvisioned
+{
+    my $samba = EBox::Global->modInstance('samba');
+    return ($samba->mode() eq MODE_ADC and $samba->isProvisioned());
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
@@ -318,47 +218,14 @@ sub updatedRowNotify
 
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
-
     my $newDomain = $row->valueByName('workgroup');
+
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
 
     if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
         $sambaMod->setProvisioned(0);
-    }
-
-    my $newAdminPwd = $row->valueByName('password');
-    my $oldAdminPwd = defined $oldRow ? $oldRow->valueByName('password') : $newAdminPwd;
-    if ($newAdminPwd ne $oldAdminPwd) {
-        EBox::debug('Changing samba admin password');
-
-        # The DC expect the pwd quoted and UTF16-LE encoded
-        $newAdminPwd = Encode::encode('UTF16-LE', '"' . $newAdminPwd . '"');
-        $oldAdminPwd = Encode::encode('UTF16-LE', '"' . $oldAdminPwd . '"');
-
-        # Get the DN of the administrator account
-        my $ldb = $self->parentModule()->ldb();
-        my $args = {
-            base   => $ldb->dn(),
-            scope  => 'sub',
-            filter => '(samAccountName=Administrator)',
-            attrs  => [],
-        };
-        my $msg = $ldb->search($args);
-        return unless ($msg->count() == 1);
-        my $entry = $msg->entry(0);
-        my $dn = $entry->dn();
-
-        # And replace the unicodePwd attribute
-        $args = {
-            changes => [
-                delete => [ unicodePwd => $oldAdminPwd ],
-                add    => [ unicodePwd => $newAdminPwd ],
-            ],
-        };
-        $msg = $ldb->modify($dn, $args);
-        EBox::debug('Samba administrator password changed successfully');
     }
 }
 
@@ -432,13 +299,21 @@ sub viewCustomizer
     my $actions = {
         mode => {
             dc => {
-                hide => ['dcfqdn', 'dnsip','adminAccount'],
+                hide => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
             },
             adc => {
-                show => ['dcfqdn','dnsip','adminAccount'],
+                show => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
             },
         },
     };
+
+    push (@{$actions->{mode}->{dc}->{hide}}, 'site');
+
+    if (EBox::Config::boolean('show_site_box')) {
+        push (@{$actions->{mode}->{adc}->{show}}, 'site');
+    } else {
+        push (@{$actions->{mode}->{adc}->{hide}}, 'site');
+    }
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
@@ -447,6 +322,20 @@ sub viewCustomizer
     $customizer->setInitHTMLStateOrder(['mode']);
 
     return $customizer;
+}
+
+sub updateHostnameFields
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my $newRealm = $global->modInstance('users')->kerberosRealm();
+
+    my $row = $self->row();
+    $row->elementByName('realm')->setValue($newRealm);
+    $row->elementByName('netbiosName')->setValue(EBox::Samba::defaultNetbios());
+    $row->store();
+
+    EBox::info("Changed kerberos realm in samba to $newRealm");
 }
 
 1;

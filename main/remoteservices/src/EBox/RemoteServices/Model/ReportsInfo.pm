@@ -15,10 +15,11 @@
 
 # Class: EBox::RemoteServices::Model::ReportsInfo
 #
-# This class is the model to show information about the server subscriptions
+# This class is the model to show information about the reports
 #
-#     - QA updates enabled
-#     - Latest QA update
+#     - Download latest PDF report
+#     - Last consolidation time
+#     - Number of available reporters
 #
 
 package EBox::RemoteServices::Model::ReportsInfo;
@@ -29,10 +30,12 @@ use warnings;
 use base 'EBox::Model::DataForm::ReadOnly';
 
 use EBox;
+use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Text;
 use EBox::Types::HTML;
+use EBox::RemoteServices::Reporter;
 use POSIX;
 
 # Constants
@@ -88,13 +91,17 @@ sub _table
 
     my @tableDesc =
       (
-       new EBox::Types::Text(
-           fieldName     => 'latest',
-           printableName => __('Latest generated report'),
-           ),
        new EBox::Types::HTML(
-           fieldName     => 'download',
-           printableName => __('Download latest report'),
+           fieldName     => 'report_link',
+           printableName => __('Get latest report'),
+          ),
+       new EBox::Types::Text(
+           fieldName     => 'last_consolidation',
+           printableName => __('Last consolidation time'),
+          ),
+       new EBox::Types::Text(
+           fieldName     => 'reporters_num',
+           printableName => __('Number of available reporters'),
           ),
       );
 
@@ -105,8 +112,7 @@ sub _table
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
                     help               =>
-                      __('The download link is for the latest available report for '
-                         . 'a group where this zentyal belongs to'),
+                      __('Reports are done based on automatically gathered data in hourly basis'),
                    };
 
     return $dataForm;
@@ -122,38 +128,46 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{confmodule};
+    my $rs = $self->parentModule();
 
     my $sampleReportURL = SAMPLE_REPORT_URL;
     if ( EBox::locale() =~ m:^es: ) {
         $sampleReportURL = SAMPLE_ES_REPORT_URL;
     }
 
-    my ($latest, $link) =
-      ( __('None'),
-        __x('{oh}Download sample{ch}',
+    my ($lastCon, $link, $reportersNum) =
+      ( __('Not registered'),
+        __x('{oh}Take a look on the example{ch}',
             oh => qq{<a href="$sampleReportURL">},
-            ch => '</a>') );
+            ch => '</a>'),
+        0);
 
-    if ( $rs->subscriptionLevel() > 0 ) {
-        my $lastGen = $rs->lastGeneratedReport();
-        if ( defined( $lastGen ) ) {
-            $latest = POSIX::strftime("%c", localtime($lastGen));
-            # Show the link message
-            my $domain   = $rs->confKey('realm');
-            my $subsName = $rs->confKey('subscribedHostname');
-            my $reportURL = "https://www.${domain}/services/report/latest/${subsName}/";
-            $link = __x('{oh}Download{ch}',
-                        oh => qq{<a href="$reportURL">},
-                        ch => '</a>');
-        } else {
-            $latest = __('No report generated yet');
+    if ( EBox::Config::boolean('disable_consolidation') ) {
+        $lastCon = __('The consolidation is disabled. No report data is gathered');
+    } else {
+        if ( $rs->subscriptionLevel() >= 5 ) {
+            my $reporter = EBox::RemoteServices::Reporter->instance();
+            $lastCon = $reporter->lastConsolidationTime();
+            if ( defined( $lastCon ) ) {
+                $lastCon = POSIX::strftime("%c", localtime($lastCon));
+                # Show the link message
+                my $domain   = $rs->cloudDomain();
+                my $subsName = $rs->subscribedHostname();
+                my $reportURL = "https://www.${domain}/services/report/latest/${subsName}/";
+                $link = __x('{oh}Take a look{ch}',
+                            oh => qq{<a href="$reportURL">},
+                            ch => '</a>');
+            } else {
+                $lastCon = __('No consolidation done yet');
+            }
+            $reportersNum = $reporter->helpersNum();
         }
     }
 
     return {
-        latest   => $latest,
-        download => $link,
+        report_link        => $link,
+        last_consolidation => $lastCon,
+        reporters_num      => $reportersNum,
        };
 }
 

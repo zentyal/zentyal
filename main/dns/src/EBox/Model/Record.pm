@@ -43,40 +43,13 @@ sub updatedRowNotify
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete});
+        $self->_addToDelete($self->{toDelete}, 0);
         delete $self->{toDelete};
     }
-}
-
-# Method: precondition
-#
-# Overrides:
-#
-#     <EBox::Model::Component::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    if ( $self->parentRow()->readOnly() ) {
-        return 0;
+    if (exists $self->{toDeleteSamba}) {
+        $self->_addToDelete($self->{toDeleteSamba}, 1);
+        delete $self->{toDeleteSamba};
     }
-    return 1;
-
-}
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#     <EBox::Model::Component::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __x('The domain is set as read only. You cannot add {what}',
-               what => $self->printableName());
 }
 
 # Method: pageTitle
@@ -110,18 +83,20 @@ sub _table
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $rr) = @_;
+    my ($self, $domain, $samba) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
+    if ($samba) {
+        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
+    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
     }
 
-    push(@list, $rr);
+    push (@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
-
 }
 
 1;

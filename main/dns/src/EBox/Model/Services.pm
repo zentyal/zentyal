@@ -83,11 +83,15 @@ sub validateTypedRow
         # Add toDelete the RRs for this SRV record
         my $oldRow  = $self->row($changedFields->{id});
         my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my $zone = $zoneRow->valueByName('domain');
             my $srvName  = $oldRow->valueByName('service_name');
             my $protocol = $oldRow->valueByName('protocol');
-            $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
+            if ($zoneRow->valueByName('samba')) {
+                $self->{toDeleteSamba} = "_${srvName}._${protocol}.${zone}. SRV";
+            } else {
+                $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
+            }
         }
     }
 }
@@ -105,14 +109,16 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('type') ne EBox::DNS::STATIC_ZONE()) {
-        # Add toDelete the RRs for this SRV record
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
         my $zone = $zoneRow->valueByName('domain');
         my $srvName  = $row->valueByName('service_name');
         my $protocol = $row->valueByName('protocol');
-        $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
+        if ($zoneRow->valueByName('samba')) {
+            $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV", 1);
+        } else {
+            $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV", 0);
+        }
     }
-
 }
 
 # Group: Protected methods

@@ -80,7 +80,7 @@ if ( $usage or (not $correct)) {
 EBox::init();
 
 my $rs = EBox::Global->modInstance('remoteservices');
-if ( $rs->isConnected() ) {
+if ( $rs->eBoxSubscribed() ) {
     _runCronJobs();
 }
 

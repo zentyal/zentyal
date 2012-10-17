@@ -70,17 +70,21 @@ sub _table
       (
        new EBox::Types::Boolean(
                                 fieldName     => 'allowRemote',
-                                printableName => __('Allow remote access to Zentyal staff'),
+                                printableName => __('Allow remote access to Zentyal support'),
                                 editable      => 1,
                                 default       => 0,
+                                help          => __('Allow Zentyal support engineers to connect '
+                                                    . 'to your server from Zentyal Remote network.'),
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'fromAnyAddress',
-                                printableName => __('Allow access from any internet address'),
+                                printableName => __('Allow access from the Internet'),
                                 editable      => 1,
                                 default       => 0,
-                                help =>
-__('By default, the access is only granted to hosts inside the Zentyal Cloud private network. If you enable this option, the access is granted from any address. Use this option only if you could not connect to the Zentyal Cloud')
+                                help          => __('Allow Zentyal support engineers to connect '
+                                                    . 'to your server directly from the Internet '
+                                                    . 'to your public IP address. Only use this '
+                                                    . 'option if you could not connect to Zentyal Remote.'),
                                ),
       );
 
@@ -96,7 +100,7 @@ __('By default, the access is only granted to hosts inside the Zentyal Cloud pri
 
       return $dataForm;
 
-  }
+}
 
 # Method: validateTypedRow
 #
@@ -137,14 +141,14 @@ __('Remote access from any address requires that remote access support is enable
         if ( $rs->isConnected() ) {
             throw EBox::Exceptions::External(
                 __x('To allow any address remote support, you must not be connected '
-                   . 'to {cloud}', cloud => 'Zentyal Cloud')
+                   . 'to {cloud}', cloud => 'Zentyal Remote')
                );
         }
     } else {
         if ($access) {
             if (not $rs->eBoxSubscribed()) {
             throw EBox::Exceptions::External(
-__('To restrict addresses you need that your Zentyal Server is subscribed to Zentyal Cloud. Either subscribe it or allow access from any address')
+__('To restrict addresses you need that your Zentyal Server is registered to Zentyal Remote. Either register it or allow access from any address')
                                             );
             }
         }

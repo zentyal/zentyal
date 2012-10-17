@@ -57,7 +57,7 @@ sub _fileIsArchive
 {
     my ($self, $path) = @_;
 
-    my $output = EBox::Sudo::root("/usr/bin/file -b $path");
+    my $output = EBox::Sudo::root("/usr/bin/file -b '$path'");
     return ($output->[0] =~ m/^gzip compressed/);
 }
 
@@ -65,10 +65,10 @@ sub _extractArchive
 {
     my ($self, $path, $dir) = @_;
 
-    EBox::Sudo::root("mkdir -p $dir",
-                     "tar xzf $path -C $dir",
-                     "chown -R root:ebox $dir",
-                     "chmod -R o+r $dir");
+    EBox::Sudo::root("mkdir -p '$dir'",
+                     "tar xzf '$path' -C '$dir'",
+                     "chown -R root:ebox '$dir'",
+                     "chmod -R o+r '$dir'");
 }
 
 # FIXME: what happens with this? when the file is removed?
@@ -77,7 +77,7 @@ sub _cleanArchive
     my ($self, $id) = @_;
 
     my $dir = $self->archiveContentsDir($id);
-    EBox::Sudo::root("rm -rf $dir");
+    EBox::Sudo::root("rm -rf '$dir'");
 }
 
 1;

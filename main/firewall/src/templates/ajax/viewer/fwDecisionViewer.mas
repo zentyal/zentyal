@@ -1,19 +1,17 @@
 <%args>
 $data
 </%args>
-%   if ( (defined ( $data->value())) and
+%   if ((defined ($data->value())) and
 %        ($data->value() eq 'accept')) {
-		<img src="/data/images/allow-active.gif" 
+		<img src="/data/images/allow-active.gif"
 			alt="<% $data->printableValue() %>"
 			title="<% $data->printableValue() %>"/>
 %   } elsif ($data->value() eq 'deny') {
-		<img src="/data/images/deny-active.gif" 
+		<img src="/data/images/deny-active.gif"
 			alt="<% $data->printableValue() %>"
 			title="<% $data->printableValue() %>"/>
 %   } elsif ($data->value() eq 'log') {
-		<img src="/data/images/edit-table.gif" 
+		<img src="/data/images/log.gif"
 			alt="<% $data->printableValue() %>"
 			title="<% $data->printableValue() %>"/>
-
 %   }
-

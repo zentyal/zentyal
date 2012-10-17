@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Squid::Model::DomainFilterCategories;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Global;
@@ -31,7 +30,17 @@ use EBox::Sudo;
 
 use Error qw(:try);
 use File::Basename;
-use Perl6::Junction qw(any);
+
+my $categoriesFileDir = '/var/lib/zentyal/files/squid';
+my %validParentDirs = (
+    BL => 1,
+    blacklists => 1,
+   );
+my %validBasename = (
+    domain => 1,
+    urls   => 1,
+   );
+
 
 # Method: syncRows
 #
@@ -40,24 +49,41 @@ use Perl6::Junction qw(any);
 sub syncRows
 {
     my ($self, $currentRows) = @_;
+    my $modelConfDir = $self->directory();
 
-    my @dirs = </var/lib/zentyal/files/squid/*>;
+    my @dirs = glob("$categoriesFileDir/*");
+    if (not exists $self->{seenListDirectories}) {
+        $self->{seenListDirectories} = {};
+    }
+    if (not exists $self->{seenListDirectories}->{$modelConfDir}) {
+        $self->{seenListDirectories}->{$modelConfDir} = {};
+    }
 
     my $lists;
 
     foreach my $dir (@dirs) {
-        my @files =  @{ EBox::Sudo::root("find $dir") };
+        if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {
+            next;
+        } else {
+            $self->{seenListDirectories}->{$modelConfDir}->{$dir} = 1;
+        }
+
+        my @files =  @{ EBox::Sudo::root("find '$dir'") };
+
+        my $filePathRe = qr{^$dir/(.*?)/(.*)/(.*?)$};
+        my $listname = basename($dir);
         foreach my $file (@files) {
             chomp $file;
-            my ($dirname, $listname, $category, $basename) = $file =~ m{^(.*)/(.*?)/BL/(.*)/(.*?)$};
-            my $dir = "$dirname/$listname/BL/$category";
-
-            if ($basename eq any(qw(domains urls))) {
-                unless (exists $lists->{$listname}) {
-                    $lists->{$listname} = {};
-                }
-                $lists->{$listname}->{$category} = $dir;
-            }
+            my ($parentDir, $category, $basename) = $file =~ m{$filePathRe};
+            next unless $basename;
+            next unless exists $validParentDirs{$parentDir};
+             if (exists $validBasename{$basename}) {
+                 my $dir = "$dir/$parentDir/$category";
+                 unless (exists $lists->{$listname}) {
+                     $lists->{$listname} = {};
+                 }
+                 $lists->{$listname}->{$category} = $dir;
+             }
         }
     }
 
@@ -141,6 +167,7 @@ sub _table
         rowUnique          => 1,
         printableRowName   => __('category'),
         sortedBy           => 'category',
+        noDataMsg          => __('There are no categories defined. You need to add categorized lists files if you want to filter by category.'),
     };
 }
 
@@ -153,18 +180,6 @@ sub _populate
                    );
 
     return \@elements;
-}
-
-sub precondition
-{
-    my ($self) = @_;
-
-    $self->size() > 0;
-}
-
-sub preconditionFailMsg
-{
-    return __('There are no categories defined. You need to add categorized lists files if you want to filter by category.');
 }
 
 # Function: banned
@@ -257,5 +272,83 @@ sub viewCustomizer
 
     return $custom;
 }
+
+sub cleanSeenListDirectories
+{
+    my ($self) = @_;
+    $self->{seenListDirectories} = {};
+}
+
+sub _aclBaseName
+{
+    my ($sef, $row) = @_;
+    my $aclName = $row->valueByName('list') . '_dc_' . $row->valueByName('category');
+    return $aclName;
+}
+
+
+sub squidSharedAcls
+{
+    my ($self) = @_;
+    my @acls;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            next;
+        } elsif ($row->valueByName('policy') eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        my $dir = $row->valueByName('dir');
+
+        my $domainsFile = "$dir/domains";
+        if (-r $domainsFile) {
+            my $name = $basename . '_dom';
+            push @acls, [$name => qq{acl $name dstdom_regex -i "$domainsFile"}];
+        }
+
+        my $urlsFile = "$dir/urls";
+        if (-r $urlsFile) {
+            my $name = $basename . '_urls';
+            push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
+        }
+    }
+
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId, %params) = @_;
+    my $acls = $params{sharedAcls};
+    $acls or return []; # no acls nothing to do..
+
+    my @rules;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            next;
+        }
+        my $policy = $row->valueByName('policy');
+        if ($policy eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        foreach my $type (qw(dom urls)) {
+            my $aclName = $basename . '_' . $type;
+            exists $acls->{$aclName} or
+                next;
+            my $rule =  {
+                     type => 'http_access',
+                     acl => $aclName,
+                     policy => $policy
+                    };
+            push @rules, $rule;
+        }
+    }
+
+    return \@rules;
+}
+
 
 1;

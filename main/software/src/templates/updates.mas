@@ -8,6 +8,76 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<script  type="text/javascript">
+function doUpdates(title) {
+    var packages = [];
+    var checkboxes = $$('.pkg-checkbox');
+    for (var i=0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          packages.push(checkboxes[i].name);
+        }
+    }
+    if (packages.length > 0) {
+       var url= 'InstallPkgs?';
+       for (var i=0; i < packages.length; i++) {
+            url += 'upgrade=yes';
+            url += '&' +  packages[i] + '=yes';
+       }
+      url += '&popup=1';
+
+      Modalbox.show(url, {
+                           'title': title,
+                           'transitions': false,
+                            'afterHide': function() { window.location.reload();  }
+                         });
+   } else {
+     alert('No packages selected for upgrade');
+   }
+}
+
+function checkAllPackages(checkAll)
+{
+  var check = checkAll.checked;
+  var checkboxes = $$('.pkg-checkbox');
+  for (var i=0; i < checkboxes.length; i++) {
+       checkboxes[i].checked = check;
+  }
+  $('upgradeButton').disabled = !check;
+}
+
+function checkboxChange()
+{
+    var existsUnchecked = false;
+    var existsChecked = false;
+    var checkboxes = $$('.pkg-checkbox');
+    for (var i=0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+           existsChecked = true;
+        } else {
+          existsUnchecked = true;
+        }
+        if (existsChecked && existsUnchecked) {
+           break;
+        }
+    }
+    if (existsChecked) {
+       $('upgradeButton').disabled = false;
+       if (!existsUnchecked) {
+        $('allbox').checked = true;
+       }
+
+    }
+    if (existsUnchecked) {
+        $('allbox').checked = false;
+        if (! existsChecked) {
+           $('upgradeButton').disabled = true;
+        }
+    }
+}
+
+// to sync state in page load
+checkboxChange();
+</script>
 
 % if (defined $updateStatus ) {
   <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
@@ -71,8 +141,10 @@ automatically as scheduled') %>
 				<td><%$pkg->{description}%></td>
 				<td><%$pkg->{version}%></td>
 				<td class='tcenter'>
-					<input type='checkbox' value='yes'
-						name='pkg-<%$pkg->{name}%>'/>
+					<input type='checkbox' value='yes' class='pkg-checkbox'
+					       name='pkg-<%$pkg->{name}%>'
+                                               onclick="checkboxChange(); return true"
+                                                />
 				</td>
 			</tr>
 %         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and $pkg->{changelog}) {
@@ -90,8 +162,8 @@ automatically as scheduled') %>
 				</td>
 				<td class='tcenter'>
 					<input type='checkbox' value='on'
-						onclick="checkAll('updates', 'allbox');"
-						name='allbox'/>
+						onclick="checkAllPackages(this); return true"
+						name='allbox' id='allbox'/>
 				</td>
 			</tr>
 		</tbody>
@@ -101,9 +173,10 @@ automatically as scheduled') %>
 		</div>
 		<input type='hidden' name='upgrade' value="yes"/>
 	</form>
-	<button class='inputButton' onclick='document.updates.submit()'><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
+	<button class='inputButton' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
 % }
+	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
 	<form name='updateList' action='Updates' method='post'>
 		<input type='hidden' name='updatePkgs' value="yes"/>
 	</form>
-	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
+

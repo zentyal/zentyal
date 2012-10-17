@@ -61,7 +61,6 @@ sub actuate
 
     my $progress = $backup->prepareMakeRemoteBackup($name, $description);
 
-
     $self->showBackupProgress($progress);
 }
 

@@ -285,6 +285,7 @@ sub certificates
 
     return [
         {
+             serviceId => 'Jabber Server',
              service =>  __('Jabber Server'),
              path    =>  '/etc/ejabberd/ejabberd.pem',
              user => 'root',

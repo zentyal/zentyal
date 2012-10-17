@@ -30,3 +30,5 @@ if ($squid->filterNeeded()) {
     EBox::Sudo::root('dansguardian -g');
 }
 
+1;
+

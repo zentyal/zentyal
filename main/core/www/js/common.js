@@ -1,24 +1,16 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
-function getElementByClass(classname) {
-    ccollect=new Array()
-    var inc=0;
-    var alltags=document.getElementsByTagName("*");
-    for (i=0; i<alltags.length; i++){
-        if (alltags[i].hasClassName(classname))
-            ccollect[inc++]=alltags[i];
-    }
-    return ccollect;
-}
-
+/**
 function setDefault(){
-    elements=getElementByClass("hide");
+//    var elements=getElementByClass("hide");
+    var elements = $$('.hide');
     var inc=0;
     while (elements[inc]){
         elements[inc].style.display="none";
         inc++;
     }
     inc=0;
+//    elements = $$('.show');
     elements=getElementByClass("show");
     while (elements[inc]){
         elements[inc].style.display="inline";
@@ -37,28 +29,56 @@ function hide(id){
     setDefault();
 }
 
+**/
+
 var menuShown = '';
+var menuShownAnchor = null;
 
 function showMenu(name, menuAnchor){
-    if (menuShown === name) {
+  var open = false;
+  if (menuShown === name) {
       menuShown = '';
-      $$('.' + name).each(function(e) {
-                                     e.style.display = 'none';
-                                 }
-                               );
-      menuAnchor.addClassName('navarrow');
-      menuAnchor.removeClassName('despleg');
+      menuShownAnchor = null;
+      _closeLeftMenu(name, menuAnchor);
+
+  } else if (menuShown === '') {
+    if (menuAnchor.hasClassName('despleg')) {
+      _closeLeftMenu(name, menuAnchor);
     } else {
+      open = true;
+    }
+  } else {
+     open = true;
+     _closeLeftMenu(menuShown, menuShownAnchor);
+  }
+
+  if (open){
       menuShown = name;
-      $$('.' + name).each(function(e) {
-                                  e.style.display = 'inline';
-                            }
-                           );
-      menuAnchor.addClassName('despleg');
-      menuAnchor.removeClassName('navarrow');
-   }
+      menuShownAnchor = menuAnchor;
+      _openLeftMenu(name, menuAnchor);
+  }
 }
 
+function _openLeftMenu(name, menuAnchor)
+{
+  $$('.' + name).each(function(e) {
+                                  e.style.display = 'inline';
+                            }
+                      );
+  menuAnchor.addClassName('despleg');
+  menuAnchor.removeClassName('navarrow');
+}
+
+
+function _closeLeftMenu(name, menuAnchor)
+{
+  $$('.' + name).each(function(e) {
+                                     e.style.display = 'none';
+                                 }
+                     );
+  menuAnchor.addClassName('navarrow');
+  menuAnchor.removeClassName('despleg');
+}
 
 /*
  */
@@ -110,9 +130,7 @@ Parameters:
 */
 function hide(elementId)
 {
-
   Element.addClassName(elementId, 'hidden');
-
 }
 
 /*
@@ -127,9 +145,7 @@ Parameters:
 */
 function show(elementId)
 {
-
   Element.removeClassName(elementId, 'hidden');
-
 }
 
 function toggleClass(name, class1, class2)

@@ -5,6 +5,9 @@ models:
     - TimeZone
     - DateTime
     - HostName
+    - ManageAdmins
 
 composites:
-    General: [ sysinfo/AdminUser, apache/Language, sysinfo/TimeZone, sysinfo/DateTime, apache/AdminPort, sysinfo/HostName ]
+    General: []
+
+# NOTE: General composite components are dynamic in componentNames()

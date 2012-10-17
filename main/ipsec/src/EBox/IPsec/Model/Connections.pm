@@ -12,18 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::IPsec::Model::Connections;
-
-# Class: EBox::IPsec::Model::Connections
-#
-#   TODO: Document class
-#
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::IPsec::Model::Connections;
+use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;

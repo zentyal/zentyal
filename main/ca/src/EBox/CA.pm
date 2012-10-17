@@ -212,9 +212,19 @@ sub createCA
 {
     my ($self, %args) = @_;
 
-    throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
-        unless defined($args{orgName});
+    if (not $args{orgName} or ($args{orgName} =~ m/^\s*$/)) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
     $self->_checkCertificateFieldsCharacters(%args);
+    if ($args{countryName}) {
+        if (length($args{countryName}) > 2) {
+            throw EBox::Exceptions::InvalidData(
+                    data =>  __('Country code'),
+                    value => $args{countryName},
+                    advice => __('The country code must be the 2-characters ISO code')
+               );
+        }
+    }
 
     if (! -d CATOPDIR) {
         # Create the directory hierchary
@@ -1856,47 +1866,6 @@ sub addModuleStatus
         statusStr     => $caStatus));
 }
 
-# Method: report
-#
-# Returns:
-#    ref hash with the following fields:
-#    CAState: state of the CA certificate. It will be ono of this states:
-#       - R - Revoked
-#       - E - Expired
-#       - V - Valid
-#       - ! - Inexistent
-#
-#    nValidCertificates: number of valid active certificates
-#    nRevokedCertificates: number of revoked certificates
-#    nExpiredCertificates: number of expired certifcates
-#
-# Overrides:
-#
-#   <EBox::Module::Base::report>
-#
-sub report
-{
-    my ($self) = @_;
-    my $currentCA = $self->currentCACertificateState();
-
-    my ($nValid, $nRevoked, $nExpired) = (0, 0, 0);
-    if ($currentCA ne '!') {
-        $nValid = @{ $self->listCertificates(state => 'V', excludeCA => 1) };
-        $nRevoked = @{ $self->listCertificates(state => 'R', excludeCA => 1) };
-        $nExpired = @{ $self->listCertificates(state => 'E', excludeCA => 1) };
-
-    }
-
-    return {
-            CAState => $currentCA,
-
-            nValidCertifcates     => $nValid,
-            nRevokedCertificates  => $nRevoked,
-            nExpiredCertificates  => $nExpired,
-           };
-}
-
-
 # Group: Protected methods
 
 sub _checkCertificateFieldsCharacters
@@ -1909,7 +1878,15 @@ sub _checkCertificateFieldsCharacters
 
     foreach my $field (@fieldsToCheck) {
         if (exists $args{$field}) {
-            $self->_checkValidCharacters($args{$field}, $field);
+            my $value = $args{$field};
+            if ($value =~ m/^\s+$/) {
+                throw EBox::Exceptions::InvalidData(
+                    data => $field,
+                    value => $value,
+                    advice => __('The field cannot contain only blank characters')
+                   );
+            }
+            $self->_checkValidCharacters($value, $field);
         }
     }
 

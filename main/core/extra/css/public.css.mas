@@ -183,16 +183,20 @@
 
 #module_list {
     width: 100%;
-    float: left;
+    display: block;
 }
 
-#module_list > div {padding: 5px 10px; float:left; border-right:1px solid #ccc;}
+#module_list > div {
+    padding: 5px 10px;
+    display: inline-block;
+    border-right:1px solid #ccc;
+}
 #module_list > div > a {text-decoration:none;}
 #module_list > div:hover {background-color:#eee;}
 
 #widget_list {
     margin-top: 10px;
-    float: left;
+    display:block;
     width:100%;
 }
 #widget_list > .note{margin:0px;}
@@ -468,7 +472,7 @@ input[type='password'], input[type='text'] {
 
 }
 
-input[type='password'][disabled], input[type='text'][disabled] {
+input[type='password']:disabled, input[type='text']:disabled {
     border-color:#eee;
     background-color:#f5f5f5;
 
@@ -520,13 +524,17 @@ input[type='submit']:hover, input[type='button']:hover {background:#DFDFDF}
 
 button:hover {background:#DFDFDF}
 
-input[type='submit'][disabled], input[type='button'][disabled]{
+input[type='submit']:disabled, input[type='button']:disabled, input[type='submit']:disabled:hover, #install_button:disabled, #install_button:disabled:hover {
     cursor:default;
     border-color:#dbdbdb;
     background-color:#eee;
     color:#BBB;
 }
-input[type='submit'][disabled]:hover {background-color:#eee;}
+
+#install_button:disabled > img {
+    opacity: 0.5;
+    filter:alpha(opacity=50);
+    }
 
 .inputText, .inputTextError {
     color: #000000;
@@ -554,10 +562,10 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
 }
 
 .inputButtonRestart[name='restart']{
-    background:#BDEDF7  url("/data/images/restart.gif") 5px center no-repeat;
-    border-color:#8CBBC5; }
+    background:#cecece  url("/data/images/restart.gif") 5px center no-repeat;
+    border-color:#A8A8A8; }
 
-    .inputButtonRestart[name='restart']:hover{ background:#D4EFF5  url("/data/images/restart.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='restart']:hover{ background:#E0E0E0  url("/data/images/restart.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='start'], .inputButtonRestart[value='start']{
     background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
@@ -566,10 +574,11 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
     .inputButtonRestart[name='start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
 
 .inputButtonRestart[name='stop']{
-    background:#FAA68B url("/data/images/stop_p.gif") 5px center no-repeat;
-    border-color:#DB866B}
+    background: #FACE8B url("/data/images/stop_p.gif") 5px center no-repeat;
+    border-color: #DB8F6B;
+    }
 
-    .inputButtonRestart[name='stop']:hover{background:#F5B099 url("/data/images/stop_p.gif") 5px center no-repeat;}
+    .inputButtonRestart[name='stop']:hover{background:#F5DB99 url("/data/images/stop_p.gif") 5px center no-repeat;}
 
 .inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
     font-size: 11px;
@@ -594,8 +603,10 @@ input[type='submit'][disabled]:hover {background-color:#eee;}
 .edit_table_B { display: inline-block;}
 .edit_table_B:hover { display: inline-block; background: #E7E7E7 !important;}
 
-.inputButton[disabled], input[type='image'][disabled]{cursor:default;}
-.inputButton[disabled]:hover, input[type='image'][disabled]:hover{background-color:whitesmoke;}
+.inputButton:disabled, input[type='image']:disabled, .inputButton:disabled:hover, input[type='image']:disabled:hover {
+    cursor:default;
+    background-color:whitesmoke;
+}
 
 .msg {
     color: #FFFFFF;
@@ -927,7 +938,10 @@ filter: alpha(opacity=100);
     font-weight: normal;
 }
 
-
+#nav li a.current, #nav li a.current:hover {
+    background-color: #A3BD5B;
+    color:white;
+}
 
 #nav li li a:hover {
     background-color: rgba(230, 230, 230, 1);
@@ -1211,7 +1225,7 @@ a.notchanged:hover {
 }
 
 .widgetTopBackground {
-        background: <% $secondary_color %>;
+        background: <% $main_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
@@ -1264,9 +1278,8 @@ a.minBox, a.maxBox {
 }
 
 .widgetBarBox {
-        display: block;
+        display: inline-block;
         min-width: 100px;
-        float: left;
         margin-left: 5px;
         margin-right: 5px;
 }
@@ -1318,7 +1331,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 .widArrow {
-    float: left;
+    display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 2px;
@@ -1447,9 +1460,9 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 .PackFilter > div > div > h3 {
-margin-top:5px;
-
+    margin-top:5px;
 }
+
 .PackFilter > div > div .conf_rul {
     float:left;
     margin-top:5px;
@@ -1466,6 +1479,8 @@ margin-top:5px;
     padding:5px 10px 5px 30px;
     cursor:pointer;
 }
+
+.PackFilter > div > div .conf_rul:hover { background-color:#DFDFDF }
 
 .big {
 text-decoration:none;
@@ -1661,6 +1676,7 @@ border-radius: 3px;
 #MB_content {
 	padding: 6px .75em;
 	overflow: auto;
+	max-height: 450px;
 }
 
 #MB_caption {
@@ -1784,4 +1800,122 @@ border-radius: 3px;
     text-align: center;
     margin-bottom: 2px;
         margin-top: 0;
+}
+
+.final_installation {
+    height:400px;
+    background: url("/data/software/images/fluffy_ok.png") 250px bottom no-repeat
+}
+
+.final_installation h4 {
+    font-size: 35px;
+    color: #E1721E;
+    width: 400px;
+    letter-spacing: 1px;
+}
+.final_installation h5 {
+    font-size: 20px;
+    color: #E1721E;
+    margin: 15px 0px;
+    width: 400px;
+}
+
+.final_installation p{
+    font-size:14px;
+    width:300px;
+    color:#666;
+    padding-left:5px;
+}
+
+.final_installation .start_now_boton{
+    font-size: 1.4em;
+    margin-top:20px;
+    background-color:#569724;
+    color:white;
+    border-color:#3C601D;
+    padding:15px 20px;
+    }
+
+.final_installation .start_now_boton:hover {
+    background-color:#5FAF21;
+}
+
+
+.slide_container {
+    height:350px;
+    padding-bottom:20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.ads {
+    height:350px;
+    overflow: hidden;
+    position:relative;
+    background: no-repeat bottom right;
+}
+
+.ads img {
+    position: absolute;
+    right:0px;
+    bottom:0px;
+}
+
+.ads h2{
+    font-size: 30px;
+    color:#E1721E;
+}
+
+.ads p{
+    font-size:14px;
+    width:300px;
+    color:#666;
+    padding-left:5px;
+}
+
+.ads li{
+    font-size:12px;
+    width:250px;
+    color:#666;
+    padding-left:5px;
+    margin-top:3px;
+}
+
+
+.ads_link a{
+    padding: 5px 10px;
+    background: #E1721E;
+    color:white;
+    float:left;
+    text-decoration:none;
+    font-size:12px;
+    margin:1px 5px 0px 0px;
+}
+
+.ads_link a:hover{
+    background: #E19B1E;
+    cursor: pointer;
+}
+
+#adsButtonPrev, #adsButtonNext {
+    position: absolute;
+    top: 100px;
+    height: 170px;
+    left: 0px;
+    width:50px;
+    background: transparent url(/data/software/images/prevBT.png) no-repeat center center;
+    border: none;
+    z-index:1000;
+    opacity:0.7;
+    filter:alpha(opacity=70)
+
+}
+#adsButtonNext {
+    right: 0px;
+    left: inherit;
+    background: transparent url(/data/software/images/nextBT.png) no-repeat center center;
+}
+
+#adsButtonPrev:hover, #adsButtonNext:hover {
+    opacity:1;
+    filter:alpha(opacity=100)
 }

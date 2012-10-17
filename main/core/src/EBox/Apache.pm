@@ -19,6 +19,7 @@ use warnings;
 
 use base qw(EBox::Module::Service);
 
+use EBox;
 use EBox::Validate qw( :all );
 use EBox::Sudo;
 use EBox::Global;
@@ -771,6 +772,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',

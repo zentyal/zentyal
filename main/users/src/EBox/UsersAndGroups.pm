@@ -12,13 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups;
-
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::UserCorner::Provider EBox::UsersAndGroups::SyncProvider);
+package EBox::UsersAndGroups;
+use base qw( EBox::Module::Service
+             EBox::LdapModule
+             EBox::UserCorner::Provider
+             EBox::UsersAndGroups::SyncProvider );
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -200,7 +201,7 @@ sub initialSetup
                                   destinationPort => 390 } ],
             );
 
-            $fw->setInternalService($serviceName, 'accept');
+            $fw->setInternalService($serviceName, 'deny');
         }
 
         $serviceName = 'kerberos';
@@ -255,25 +256,29 @@ sub setupDNS
 
     # Get the host domain
     my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $ownDomain = $sysinfo->hostDomain();
     my $hostName = $sysinfo->hostName();
-    my $hostDomain = $sysinfo->hostDomain();
 
     # Create the domain in the DNS module if it does not exists
     my $dnsMod = EBox::Global->modInstance('dns');
-    my $domain = { domain_name => $hostDomain,
-                   hostnames   => [] };
-    my $domains = $dnsMod->domains();
-    my %domains = map {$_->{name} => $_} @{$domains};
-    if (not exists $domains{$hostDomain}) {
-        $dnsMod->addDomain($domain);
+    my $domainModel = $dnsMod->model('DomainTable');
+    my $row = $domainModel->find(domain => $ownDomain);
+    if (defined $row) {
+        # Set the domain as managed and readonly
+        $row->setReadOnly(1);
+        $row->elementByName('managed')->setValue(1);
+        $row->store();
+    } else {
+        $domainModel->addRow(domain => $ownDomain, managed => 1, readOnly => 1);
     }
 
     EBox::debug("Adding DNS records for kerberos");
 
     # Add the TXT record with the realm name
     my $txtRR = { name => '_kerberos',
-                  data => $hostDomain };
-    $dnsMod->addText($hostDomain, $txtRR);
+                  data => $ownDomain,
+                  readOnly => 1 };
+    $dnsMod->addText($ownDomain, $txtRR);
 
     # Add the SRV records to the domain
     my $service = { service => 'kerberos',
@@ -282,10 +287,11 @@ sub setupDNS
                     priority => 100,
                     weight => 100,
                     target_type => 'domainHost',
-                    target => $hostName };
-    $dnsMod->addService($hostDomain, $service);
+                    target => $hostName,
+                    readOnly => 1 };
+    $dnsMod->addService($ownDomain, $service);
     $service->{protocol} = 'udp';
-    $dnsMod->addService($hostDomain, $service);
+    $dnsMod->addService($ownDomain, $service);
 
     ## TODO Check if the server is a master or slave and adjust the target
     ##      to the master server
@@ -295,10 +301,11 @@ sub setupDNS
                  priority => 100,
                  weight => 100,
                  target_type => 'domainHost',
-                 target => $hostName };
-    $dnsMod->addService($hostDomain, $service);
+                 target => $hostName,
+                 readOnly => 1 };
+    $dnsMod->addService($ownDomain, $service);
     $service->{protocol} = 'udp';
-    $dnsMod->addService($hostDomain, $service);
+    $dnsMod->addService($ownDomain, $service);
 
     $service = { service => 'kpasswd',
                  protocol => 'tcp',
@@ -306,10 +313,11 @@ sub setupDNS
                  priority => 100,
                  weight => 100,
                  target_type => 'domainHost',
-                 target => $hostName };
-    $dnsMod->addService($hostDomain, $service);
+                 target => $hostName,
+                 readOnly => 1 };
+    $dnsMod->addService($ownDomain, $service);
     $service->{protocol} = 'udp';
-    $dnsMod->addService($hostDomain, $service);
+    $dnsMod->addService($ownDomain, $service);
 }
 
 # Method: enableActions
@@ -379,6 +387,20 @@ sub enableActions
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('apache')->setAsChanged();
 }
+
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+
+    # Set up NSS, modules depending on users may require to retrieve uid/gid
+    # numbers from LDAP
+    if ($status) {
+        $self->_setConf(1);
+    }
+}
+
 
 # Load LDAP from config + data files
 sub _loadLDAP
@@ -471,11 +493,10 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-
     if ($self->master() eq 'cloud') {
         push(@array, 'cloudsync_enabled' => 1);
-        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
     }
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -607,7 +628,7 @@ sub groupsDn
 
 # Method: groupDn
 #
-#    Returns the dn for a given group. The group don't have to existst
+#    Returns the dn for a given group. The group doesn't have to exist
 #
 #   Parameters:
 #       group
@@ -644,7 +665,7 @@ sub usersDn
 
 # Method: userDn
 #
-#    Returns the dn for a given user. The user don't have to existst
+#    Returns the dn for a given user. The user doesn't have to exist
 #
 #   Parameters:
 #       user
@@ -1125,7 +1146,7 @@ sub allWarnings
     if (EBox::Global->edition() eq 'sb') {
         if (length(@{$self->users()}) >= MAX_SB_USERS) {
             throw EBox::Exceptions::External(
-                __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
+                __s('Please note that you have reached the maximum of users for this server edition. If you need to run Zentyal with more users please upgrade.'));
 
         }
     }
@@ -1368,6 +1389,11 @@ sub backupDomainsFileSelection
     return { includes => ['/home']   };
 }
 
+sub restoreDependencies
+{
+    return ['dns'];
+}
+
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
@@ -1421,8 +1447,9 @@ sub restoreConfig
             $self->initUser($user);
         }
 
-        # Notify modules
-        $self->notifyModsLdapUserBase('addUser', $user);
+        # Notify modules except samba because its users will be
+        # restored from its own LDB backup
+        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
     }
 }
 

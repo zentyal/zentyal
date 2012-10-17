@@ -12,24 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup::Model::RemoteStatus;
-
-# Class: EBox::EBackup::Model::RemoteStatus
-#
-#
-#
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::EBackup::Model::RemoteStatus;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -105,13 +98,31 @@ sub precondition
     my ($self) = @_;
 
     if ($self->{confmodule}->updateStatusInBackgroundRunning()) {
-        $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('Update process running, retry later');
+        $self->{preconditionFailMsg} =  __('Remote Backup Status : Update process running, retry later');
         return 0;
     }
 
-    my @status = @{$self->{confmodule}->remoteStatus()};
+    if (not $self->{confmodule}->configurationIsComplete()) {
+        $self->{preconditionFailMsg} =  __('Remote Backup Status : There are not backed up files yet');
+        return 0;
+    }
+
+    my @status;
+    my $statusFailure;
+    try {
+       @status = @{$self->{confmodule}->remoteStatus()};
+   } catch EBox::Exceptions::External with {
+       my ($ex) = @_;
+       $statusFailure = $ex->text();
+   };
+
+    if ($statusFailure) {
+        $self->{preconditionFailMsg} = $statusFailure;
+        return 0;
+    }
+
     if (not scalar @status) {
-        $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('There are not backed up files yet');
+        $self->{preconditionFailMsg} =  __('Remote Backup Status : There are not backed up files yet');
         return 0;
     }
 

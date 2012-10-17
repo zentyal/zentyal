@@ -68,8 +68,8 @@ sub titleNoAction
 #
 sub menu
 {
-    my ($self, $current) = @_;
-    return EBox::Html::menu($current);
+    my ($self, $currentMenu, $currentUrl) = @_;
+    return EBox::Html::menu($currentMenu, $currentUrl);
 }
 
 # Method: footer

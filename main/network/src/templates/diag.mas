@@ -4,7 +4,7 @@
     $action => ""
     $target => ""
     $output => ""
-    $objects => ""
+    @objects => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -46,9 +46,9 @@ use EBox::Gettext;
 
 %   my $target_found = 0;
 %# Do not show the select if there are no objects
-%   if (@{$objects}) {
+%   if (@objects) {
 <select name="object_id" id="object_id" onchange="showSelected(this);" >
-%       for my $object (@{$objects}) {
+%       for my $object (@objects) {
             <option value="<% $object->{id} %>"
 %           if ($target eq $object->{id}) {
                 selected="selected"

@@ -128,6 +128,21 @@ sub cloudDomain
     return $self->{cred}->{cloud_domain};
 }
 
+# Method: dynamicDomain
+#
+#     Get the Zentyal Cloud Dynamic Domain for Dynamic DNS
+#
+# Returns:
+#
+#     String - the Zentyal Cloud Dynamic Domain
+#
+sub dynamicDomain
+{
+    my ($self) = @_;
+
+    return $self->{cred}->{dynamic_domain};
+}
+
 # Method: cloudCredentials
 #
 #     Get the Zentyal Cloud Credentials

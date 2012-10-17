@@ -70,7 +70,6 @@ sub new
 #   ipAddresses - (optional) Array ref with ipAddresses for the domain
 #   hostnames   - (optional) Array ref containing host information with the
 #                            same format than addHost method
-#   type        - (optional) Domain type (static, dynamic or dlz)
 #   readOnly    - (optional)
 #
 # Example:
@@ -92,9 +91,6 @@ sub addDomain
     my $domainName = $params->{domain_name};
     unless (defined ($domainName)) {
         throw EBox::Exceptions::MissingArgument('domain_name');
-    }
-    unless (defined $params->{type}) {
-        $params->{type} = EBox::DNS::STATIC_ZONE();
     }
 
     EBox::debug("Adding DNS domain $domainName");
@@ -459,14 +455,21 @@ sub addedRowNotify
     my $secret = $self->_generateSecret();
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
+    my $ipModel = $newRow->subModel('ipAddresses');
 
     # Add the domain IP addresses
+    my @addedAddrs;
     my $network = EBox::Global->modInstance('network');
-    my $internalIpAddresses = $network->internalIpAddresses();
-    my $ipModel = $newRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding domain IP');
-        $ipModel->addRow(ip => $ip);
+    my $ifaces = $network->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+            push (@addedAddrs, $ip);
+        }
     }
 
     # Generate the NS record and its A record
@@ -477,16 +480,21 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
-    foreach my $ip (@{$internalIpAddresses}) {
-        EBox::debug('Adding host IP');
-        $ipModel->addRow(ip => $ip);
+    foreach my $iface (@{$ifaces}) {
+        my $addrs = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$addrs}) {
+            my $ifaceName = $iface;
+            my $ip = $addr->{address};
+            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+            $ipModel->addRow(ip => $ip, iface => $ifaceName);
+        }
     }
 
     EBox::debug('Adding name server');
     my $nsModel = $newRow->subModel('nameServers');
     $nsModel->add(hostName => { ownerDomain => $nsHost } );
 
-    my $addrs = join(', ', @{$internalIpAddresses});
+    my $addrs = join(', ', @addedAddrs);
     $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
                           . 'these IP addresses {ips}, this host name has been also set as '
                           . 'nameserver record. Moreover, the same IP addresses have been assigned '
@@ -577,31 +585,42 @@ sub _table
                                 'view' => '/DNS/View/Services',
                                 'backView' => '/DNS/View/Services',
                              ),
+
+
+            # This field indicates if the domain is static, dynamic or dlz
+            # Not editable from interface
+            new EBox::Types::Boolean(
+                fieldName      => 'dynamic',
+                printableName  => __('Dynamic domain'),
+                editable       => 0,
+                defaultValue   => 0,
+                hiddenOnSetter => 1,
+                hiddenOnViewer => 0,
+                HTMLViewer     => '/dns/ajax/viewer/dynamicDomainViewer.mas'
+            ),
+            # This field is filled when the zone is dynamic and
+            # indicates the TSIG key for the direct mapping and
+            # the reversed zones for this domain hosts
             new EBox::Types::Text(
-                # This field indicates if the domain is static, dynamic or dlz
-                # Not editable from interface
-                                'fieldName'      => 'type',
-                                'printableName'  => __('Dynamic domain'),
-                                'editable'       => 0,
-                                #'hiddenOnViewer' => 0,
-                                #'hiddenOnSetter' => 1,
-                                defaultValue   => EBox::DNS::STATIC_ZONE(),
-                                'HTMLViewer'     => '/dns/ajax/viewer/domainTypeViewer.mas',
-                                ),
-            new EBox::Types::Text(
-                # This field is filled when the zone is dynamic and
-                # indicates the TSIG key for the direct mapping and
-                # the reversed zones for this domain hosts
-                                'fieldName'    => 'tsigKey',
-                                'editable'     => 0,
-                                'optional'     => 1,
-                                'hidden'       => 1,
-                               ),
-            new EBox::Types::Text(
-                fieldName => 'dlzDbPath',
-                printableName => __('DLZ database path'),
+               fieldName    => 'tsigKey',
+               editable     => 0,
+               optional     => 1,
+               hidden       => 1,
+            ),
+
+
+            new EBox::Types::Boolean(
+                fieldName => 'managed',
                 editable => 0,
-                optional => 1,
+                optional => 0,
+                defaultValue => 0,
+                hidden => 1,
+            ),
+            new EBox::Types::Boolean(
+                fieldName => 'samba',
+                editable => 0,
+                optional => 0,
+                defaultValue => 0,
                 hidden => 1,
             ),
           );
@@ -645,23 +664,23 @@ sub syncRows
     }
 
     my $changed;
-    foreach my $id (@{ $currentIds }) {
-        my $newValue;
+    foreach my $id (@{$currentIds}) {
+        my $newValue = undef;
         my $row = $self->row($id);
-        my $typeElement = $row->elementByName('type');
-        my $type = $typeElement->value();
-        if ($type eq 'dynamic') {
+        my $dynamicElement = $row->elementByName('dynamic');
+        my $value = $dynamicElement->value();
+        if ($value) {
             if (not $dynamicDomainsIds{$id}) {
-                $newValue = 'static';
+                $newValue = 0;
             }
-        } elsif ($type eq 'static') {
+        } else {
             if ($dynamicDomainsIds{$id}) {
-                $newValue = 'dynamic';
+                $newValue = 1;
             }
         }
 
-        if ($newValue) {
-            $typeElement->setValue($newValue);
+        if (defined $newValue) {
+            $dynamicElement->setValue($newValue);
             $row->store();
             $changed = 1;
         }

@@ -55,7 +55,7 @@ my $backupOnClickJs =<< "ENDJS" ;
      url += '&description=' + description;
      url += '&backup=1&popup=1';
 
-     Modalbox.show(url, {title: title, transitions: false});
+     Modalbox.show(url, {title: title, overlayClose: false,});
      return false
 ENDJS
 

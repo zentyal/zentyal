@@ -12,30 +12,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Menu::Root;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Root;
 use base 'EBox::Menu::Node';
+
 use EBox::Gettext;
 use HTML::Mason::Interp;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = $class->SUPER::new(@_);
-	$self->{'current'} = delete $opts{'current'};
-	$self->{'id'} = 'menu';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    $self->{'current'} = delete $opts{'current'};
+    $self->{'currentUrl'} = delete $opts{'currentUrl'};
+    $self->{'id'} = 'menu';
+    bless($self, $class);
+    return $self;
 }
 
 sub html
 {
-	my $self = shift;
+    my $self = shift;
 
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
@@ -60,9 +60,10 @@ sub html
     my @params;
     push(@params, 'items' => \@items);
     push(@params, 'current' => $self->{'current'});
+    push(@params, 'currentUrl' => $self->{'currentUrl'});
     $interp->exec($comp, @params);
 
-	return $output;
+    return $output;
 }
 
 1;

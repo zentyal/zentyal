@@ -135,4 +135,12 @@ sub onclick
     return $onclick;
 }
 
+sub template
+{
+    my ($self) = @_;
+
+    return $self->{template} if exists($self->{template});
+    return '/input/action.mas';
+}
+
 1;

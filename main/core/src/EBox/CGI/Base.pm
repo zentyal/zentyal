@@ -720,13 +720,13 @@ sub _validateReferer
     if ( EBox::Global->modExists('remoteservices') ) {
         my $rs = EBox::Global->modInstance('remoteservices');
 
-        if ( $rs->isConnected() ) {
-            $rshostname = $rs->proxyDomain();
+        if ( $rs->eBoxSubscribed() ) {
+            $rshostname = $rs->cloudDomain();
         }
     }
     if ( $referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
          $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\// ) {
-        return; # everithing ok
+        return; # everything ok
     }
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }

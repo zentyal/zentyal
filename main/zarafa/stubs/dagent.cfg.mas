@@ -105,3 +105,10 @@ plugin_manager_path = /usr/share/zarafa-dagent/python
 #  $ ln -s /usr/share/zarafa-dagent/python/plugins/BMP2PNG.py /var/lib/zarafa/dagent/plugins/BMP2PNG.py
 plugin_path = /var/lib/zarafa/dagent/plugins
 
+##############################################################
+# DAGENT RULE SETTINGS
+
+# Enable the addition of X-Zarafa-Rule-Action headers on messages
+# that have been forwarded or replied by a rule.
+# Default: yes
+set_rule_headers = yes

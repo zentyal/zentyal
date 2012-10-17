@@ -10,14 +10,8 @@ driftfile /var/lib/ntp/ntp.drift
 statsdir /var/log/ntpstats/
 
 % if ($synchronized eq 'yes') {
-%	if ($servers[0]) {
-server <% $servers[0] %>
-%	}
-%	if ($servers[1]) {
-server <% $servers[1] %>
-%	}
-%	if ($servers[2]) {
-server <% $servers[2] %>
+%   foreach my $server (@servers) {
+server <% $server %>
 %	}
 % }
 % if ($active eq 'yes') {

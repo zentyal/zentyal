@@ -28,8 +28,12 @@ if ($privacy) {
 }
 </%init>
 pre-start script
-    invoke-rc.d postgrey stop || true
-
+# XXX commented out and prelaced until
+#     https://bugs.launchpad.net/ubuntu/+source/postgrey/+bug/981789
+#     is fixed
+#    invoke-rc.d postgrey stop || true
+    start-stop-daemon --stop --oknodo --pidfile /var/run/postgrey.pid  || true
+    rm -f /var/run/postgrey.pid
 end script
 
 exec /usr/sbin/postgrey --inet <% $address %>:<% $port %>  <% $params %>

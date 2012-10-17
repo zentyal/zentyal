@@ -1,9 +1,0 @@
-#!/bin/bash
-
-VERSION=$1
-
-if [ -n "$VERSION" ]; then
-    /usr/share/zentyal-remoteservices/reload-bundle
-fi
-
-exit 0

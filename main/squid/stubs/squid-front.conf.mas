@@ -1,0 +1,220 @@
+<%doc>
+    Main configuration file for Squid daemon
+
+  Parameters:
+
+    snmpEnabled - Boolean indicating if SNMP is enabled or not
+</%doc>
+<%args>
+    $port
+    $transparent => undef
+    $https       => undef
+    $filter
+
+    $auth
+    $principal
+    $realm
+    $dn
+
+    @rules
+    %filterProfiles
+</%args>
+<%shared>
+our $anyPrefix = 'any_src_';
+our $maxAclNameLength = 31;
+our %longAclNames = ();
+</%shared>
+<%perl>
+sub _timeAclsInPolicy
+{
+   my ($policy, @ids) = @_;
+   @ids = grep { defined ($_) } @ids;
+   if ($policy->{any}) {
+       unshift @ids, $anyPrefix . $policy->{number};
+   }
+
+   my $id = join '_', @ids;
+
+   my $acls = '';
+   if ($policy->{timeDays}) {
+      $acls = _aclName('timeDays_' . $id);
+      $acls .= ' ';
+   }
+   if ($policy->{timeHours}) {
+       $acls .= _aclName('timeHours_' . $id);
+   }
+
+   return $acls;
+}
+
+# needed because space scape doesnt work in acl names
+sub _escapeWS
+{
+    my ($string) = @_;
+    $string =~ s{ }{__}g;
+    return $string;
+}
+# needed to avoid log acl problems
+sub _aclName
+{
+    my ($name) = @_;
+    if (length($name) <= $maxAclNameLength) {
+        return _escapeWS($name);
+    }
+
+    if (not exists $longAclNames{$name}) {
+        my $nextId = 1 + keys %longAclNames;
+        $nextId = 'longAcl' . $nextId;
+        $longAclNames{$name} = $nextId;
+    }
+
+    return _escapeWS($longAclNames{$name});
+}
+</%perl>
+<%def .rulesACLs>
+<%args>
+    @rules
+    $realm
+</%args>
+% foreach my $rule (@rules) {
+%   if ($rule->{any}) {
+       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
+%      next;
+%   }
+%   my $object = $rule->{object};
+%   my $group = $rule->{group};
+%   my $src = $object ? $object : $group;
+%   my $aclName = _aclName($src);
+%   if ($object) {
+acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
+%   } else {
+%       # escape user names
+%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+%       if ($realm) {
+%           @users = map { $_ . '@' . $realm } @users;
+%       }
+acl <% $aclName %> proxy_auth <% join (' ', @users) %>
+%   }
+   <& .timeACLs, rule => $rule, id => $src &>
+% }
+</%def>
+
+<%def .rulesAccess>
+<%args>
+@rules
+%profilesRulesStubs
+</%args>
+% foreach my $rule (@rules) {
+<%perl>
+   my $object = $rule->{'object'};
+   my $group = $rule->{'group'};
+   my $groupAcl = $group ? _aclName($group) : '';
+   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+   my $policy = $rule->{'policy'};
+   if ($policy eq 'profile') {
+      my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
+      if (not $rulesStubs) {
+       # need to allow, to be able to pass it to DG
+        $policy = 'allow';
+    }  else {
+        # expand rules stubs
+        my $baseAcls = "$timeAcls $acl ";
+        foreach my $stub (@{$rulesStubs  }) {
+            my $ruleStr = $stub->{type};
+            $ruleStr .= ' ' . $stub->{policy};
+            $ruleStr .= ' ' . $baseAcls . $stub->{acl};
+            $ruleStr .= "\n";
+            # output the rule
+            $m->print($ruleStr);
+        }
+        # dont produce normal rules in this case
+        next;
+    }
+   }
+</%perl>
+http_access <% $policy %> <% $timeAcls %> <% $acl %>
+% }
+</%def>
+
+<%def .timeACLs>
+<%args>
+    $rule
+    $id
+</%args>
+% if ($rule->{timeDays}) {
+acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
+% }
+% if ($rule->{timeHours}) {
+acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+% }
+</%def>
+% #################################################################################################
+% my $transKey = '';
+% if ($transparent) {
+%   $transKey = 'intercept';
+% }
+% my $sslBumpOptions = '';
+% if ($https) {
+%   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
+% }
+http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
+# END_TAG #
+
+visible_hostname localhost-front
+coredump_dir /var/spool/squid3
+cache_effective_user proxy
+cache_effective_group proxy
+access_log /var/log/squid3/front-access.log squid
+cache_log /var/log/squid3/front-cache.log
+cache_store_log /var/log/squid3/front-store.log
+
+pid_filename /var/run/squid3-front.pid
+
+% if ($filter) {
+cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+% } else {
+cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+% }
+
+% if ($realm) {
+auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate children 10
+auth_param negotiate keep_alive on
+% } else {
+auth_param basic realm Zentyal HTTP proxy
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+% }
+acl_uses_indirect_client on
+acl authorized proxy_auth REQUIRED
+
+% if ($https) {
+acl SSL_ports port 443  # https, snews
+acl SSL_ports port 873  # rsync
+# ssl-bump options and alllow ssl ports
+always_direct allow SSL_ports
+ssl_bump allow SSL_ports
+% }
+
+acl from_localhost src 127.0.0.0/8 ::1
+acl to_localhost dst 127.0.0.0/8 ::1
+
+% foreach my $acl (@{ $filterProfiles{acls} }) {
+<% $acl %>
+% }
+
+http_access allow to_localhost
+follow_x_forwarded_for allow from_localhost
+forwarded_for on
+log_uses_indirect_client on
+always_direct allow to_localhost
+<& .rulesACLs, rules => [ @rules ], realm => $realm &>
+
+<& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
+
+# default policy
+# All acces denied by default if no other allow rule matchs
+http_access deny all
+# reply access allowed if not denied before
+http_reply_access allow all

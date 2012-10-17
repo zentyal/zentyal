@@ -1,3 +1,8 @@
+HEAD
+	+ Added and used serviceId field for service certificates
+3.0.1
+	+ User corner is now allowed on slaves, except for password change
+	+ Updated deprecated master/slave API calls
 2.3.4
 	+ Modification of listen port from the UI works again
 2.3.3

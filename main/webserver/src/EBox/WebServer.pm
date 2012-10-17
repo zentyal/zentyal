@@ -586,7 +586,8 @@ sub certificates
 
     return [
             {
-             service =>  'Web Server',
+             serviceId =>  'Web Server',
+             service =>  __('Web Server'),
              path    =>  '/etc/apache2/ssl/ssl.pem',
              user => 'root',
              group => 'root',

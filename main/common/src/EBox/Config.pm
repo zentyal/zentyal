@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Config;
 
@@ -33,7 +35,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-$ref->{version} = "@VERSION@";
+$ref->{version} = '3.0';
 $ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
