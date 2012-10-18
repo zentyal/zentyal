@@ -10,7 +10,11 @@ auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succ
 # Standard pam includes.
 @include common-account
 @include common-session
-@include common-auth
+
+#@include common-auth
+auth sufficient pam_krb5.so
+auth required pam_deny.so
+
 
 # Zentyal users do not have a valid shell by default.
 #auth	required	pam_shells.so
