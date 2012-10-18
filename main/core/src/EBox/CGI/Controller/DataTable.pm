@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Controller::DataTable;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Controller::DataTable;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
@@ -96,7 +94,12 @@ sub _auditLog
     $elementId = $rowId unless defined ($elementId);
     my $row = $model->row($rowId);
     if (defined ($row)) {
-        my $element = $row->hashElements()->{$elementId};
+        my $element;
+        my $hash = $row->hashElements();
+        if ($hash and exists $hash->{$elementId}) {
+            $element = $hash->{$elementId};
+        }
+
         my $type;
         if (defined ($element)) {
             $type = $element->type();

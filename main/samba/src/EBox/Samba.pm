@@ -20,6 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
+            EBox::SysInfo::Observer
             EBox::LdapModule
             EBox::LogObserver
             EBox::SyncFolders::Provider);
@@ -45,7 +46,7 @@ use EBox::Samba::Model::SambaShares;
 use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
-use File::Temp;
+use File::Temp qw( tempfile tempdir );
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -55,6 +56,7 @@ use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
+use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -63,6 +65,7 @@ use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
+use constant KEY_UTILS            => '/etc/request-key.conf';
 
 sub _create
 {
@@ -134,8 +137,8 @@ sub usedFiles
             'module' => 'samba',
         },
         {
-            'file'   => '/etc/services',
-            'reason' => __('To add microsoft specific services'),
+            'file'   => KEY_UTILS,
+            'reason' => __('To allow mount.cifs to use kerberos authentication'),
             'module' => 'samba',
         },
     ];
@@ -339,8 +342,24 @@ sub enableActions
     push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, 'mkdir -p ' . SYSVOL_DIR);
+    push (@cmds, 'chown -R root.adm ' . SYSVOL_DIR);
+    push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
     EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
+
+    # Enable kerberos auth for mount.cifs
+    my @newLines;
+    my @lines = read_file(KEY_UTILS);
+    foreach my $line (@lines) {
+        next if ($line =~ m/cifs\.upcall/);
+        push (@newLines, $line);
+    }
+    push (@newLines, "create\tcifs.spnego\t*\t*\t/usr/sbin/cifs.upcall\t%k\t%d\n");
+    push (@newLines, "create\tdns_resolver\t*\t*\t/usr/sbin/cifs.upcall\t%k\n");
+    my $buffer = join ('', @newLines);
+    EBox::Module::Base::writeFile(KEY_UTILS, $buffer,
+        { mode => '0644', uid => 0, gid => 0 });
 }
 
 sub isProvisioned
@@ -705,6 +724,81 @@ sub _checkEnvironment
     return $provisionIP;
 }
 
+sub resetSysvolACL
+{
+    my ($self) = @_;
+
+    # Reset the sysvol permissions
+    EBox::info("Reseting sysvol ACLs to defaults");
+    my $cmd = SAMBATOOL . " ntacl sysvolreset";
+    EBox::Sudo::rootWithoutException($cmd);
+}
+
+sub mapAccounts
+{
+    my ($self) = @_;
+
+    my $domainSID = $self->ldb->domainSID();
+
+    # Map unix root account to domain administrator
+    my $typeUID  = EBox::LDB::IdMapDb::TYPE_UID();
+    my $typeGID  = EBox::LDB::IdMapDb::TYPE_GID();
+    my $typeBOTH = EBox::LDB::IdMapDb::TYPE_BOTH();
+    my $domainAdminSID = "$domainSID-500";
+    my $domainAdminsSID = "$domainSID-512";
+    my $rootUID = 0;
+    my $admGID = 4;
+    EBox::info("Mapping domain administrator account");
+    $self->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    EBox::info("Mapping domain administrators group account");
+    $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
+
+    # Map domain guest account to nobody user
+    my $guestSID = "$domainSID-501";
+    my $guestGroupSID = "$domainSID-514";
+    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
+    # FIXME Why is this not working during first intall???
+    my $uid = 65534;
+    my $gid = 65534;
+    EBox::info("Mapping domain guest account");
+    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    EBox::info("Mapping domain guests group account");
+    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+}
+
+sub importSysvolFromDC
+{
+    my ($self, $dc) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $ucHostname = uc ($hostname);
+
+    EBox::info("Syncing sysvol from '$dc'");
+    unless (EBox::Sudo::fileTest('-f', SECRETS_KEYTAB)) {
+        EBox::error("Required keytab not found");
+        return;
+    }
+
+    my $dir = tempdir('/tmp/sysvolXXXX', CLEANUP => 1);
+    try {
+        my @cmds;
+        push (@cmds, "kinit --keytab=" . SECRETS_KEYTAB . " $ucHostname\$");
+        push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
+        push (@cmds, "mount --make-unbindable $dir");
+        push (@cmds, "rsync -av --delete --exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' $dir/ " . SYSVOL_DIR . "/");
+        push (@cmds, "kdestroy");
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Could not sync sysvol from $dc: $error");
+    } finally {
+        EBox::Sudo::rootWithoutException("umount '$dir'");
+        EBox::Sudo::rootWithoutException("rm -r '$dir'");
+    };
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -720,8 +814,11 @@ sub provision
     my $provisionIP = $self->_checkEnvironment(2);
 
     # Delete samba config file and private folder
-    EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
-    EBox::Sudo::root('rm -rf ' . PRIVATE_DIR . '/*');
+    my @cmds;
+    push (@cmds, 'rm -f ' . SAMBACONFFILE);
+    push (@cmds, 'rm -rf ' . PRIVATE_DIR . '/*');
+    push (@cmds, 'rm -rf ' . SYSVOL_DIR . '/*');
+    EBox::Sudo::root(@cmds);
 
     my $mode = $self->mode();
     my $fs = EBox::Config::configkey('samba_fs');
@@ -801,19 +898,11 @@ sub provisionAsDC
 
     # TODO Echo the current TS to the .s4_ts
 
-    # Map domain guest account to nobody user
-    my $guestSID = $self->ldb->domainSID() . '-501';
-    my $guestGroupSID = $self->ldb->domainSID() . '-514';
-    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
-    # FIXME Why is this not working during first intall???
-    my $uid = 65534;
-    my $gid = 65534;
-    my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
-    my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-    EBox::info("Mapping guest account");
-    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    # Map accounts
+    $self->mapAccounts();
+
+    # Reset sysvol
+    $self->resetSysvolACL();
 
     # Mark the module as provisioned
     EBox::debug('Setting provisioned flag');
@@ -901,26 +990,29 @@ sub provisionAsADC
         EBox::debug('Starting service');
         $self->_startService();
 
+        # Wait some time until samba is ready
+        sleep (5);
+
         # Run Knowledge Consistency Checker (KCC) on windows DC
         EBox::info('Running KCC on windows DC');
-        $cmd = SAMBATOOL . " drs kcc $dcFQDN";
-        EBox::Sudo::root($cmd);
+        $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
+            " --username='$adminAccount' " .
+            " --password='$adminAccountPwd' ";
+        EBox::Sudo::rootWithoutException($cmd);
 
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $usersMod = EBox::Global->modInstance('users');
         my $users = $usersMod->users();
         my $groups = $usersMod->groups();
-        foreach my $user (@{$users}) {
-            $user->deleteObject();
+        foreach my $zentyalUser (@{$users}) {
+            $zentyalUser->setIgnoredModules(['samba']);
+            $zentyalUser->deleteObject();
         }
-        foreach my $group (@{$groups}) {
-            $group->deleteObject();
+        foreach my $zentyalGroup (@{$groups}) {
+            $zentyalGroup->setIgnoredModules(['samba']);
+            $zentyalGroup->deleteObject();
         }
-
-        # Load samba users and groups into Zentyal ldap
-        $self->ldb->ldbUsersToLdap();
-        $self->ldb->ldbGroupsToLdap();
 
         # Load Zentyal service principals into samba
         $self->ldb->ldapServicePrincipalsToLdb();
@@ -937,16 +1029,12 @@ sub provisionAsADC
         push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
         EBox::Sudo::root(@cmds);
 
-        # Map domain guest account to nobody user
-        my $guestSID = $self->ldb->domainSID() . '-501';
-        my $guestGroupSID = $self->ldb->domainSID() . '-514';
-        my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-        my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
-        my $typeUID = EBox::LDB::IdMapDb::TYPE_UID();
-        my $typeGID = EBox::LDB::IdMapDb::TYPE_UID();
-        EBox::info("Mapping guest accounts");
-        $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-        $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+        # Map accounts
+        $self->mapAccounts();
+
+        # Import sysvol and reset acl
+        $self->importSysvolFromDC($dcFQDN);
+        $self->resetSysvolACL();
 
         EBox::debug('Setting provisioned flag');
         $self->setProvisioned(1);
@@ -1064,6 +1152,9 @@ sub writeSambaConfig
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+
     my @array = ();
     push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
@@ -1073,6 +1164,7 @@ sub writeSambaConfig
     push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
+    push (@array, 'domain'      => $hostDomain);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
 
@@ -1222,6 +1314,17 @@ sub printersConf
     return $printers;
 }
 
+sub _sysvolSyncCond
+{
+    my ($self) = @_;
+
+    my $sambaSettings = $self->model('GeneralSettings');
+    my $mode = $sambaSettings->modeValue();
+    my $adc = $sambaSettings->MODE_ADC();
+
+    return ($self->isEnabled() and $self->isProvisioned() and $mode eq $adc);
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -1234,8 +1337,15 @@ sub _daemons
             pidfiles => ['/var/run/samba.pid'],
         },
         {
+            name => 'zentyal.nmbd',
+        },
+        {
             name => 'zentyal.s4sync',
             precondition => \&isProvisioned,
+        },
+        {
+            name => 'zentyal.sysvol-sync',
+            precondition => \&_sysvolSyncCond,
         },
     ];
 }
@@ -2182,6 +2292,78 @@ sub shareByFilename
     }
 
     return undef;
+}
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostNameChanged
+#
+#   Disallow domainname changes if module is configured
+#
+sub hostNameChanged
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The samba database has already been provisioned. ' .
+                         'Changing the host name will cause domain services to ' .
+                         'stop working.'));
+    }
+}
+
+# Method: hostNameChangedDone
+#
+#   This method updates the computer netbios name if the module has not
+#   been configured yet
+#
+sub hostNameChangedDone
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    unless ($self->configured()) {
+        my $settings = $self->model('GeneralSettings');
+        $settings->setValue('netbiosName', $newHostName);
+    }
+}
+
+# Method: hostDomainChanged
+#
+#   Disallow hostname changes if module is configured
+#
+sub hostDomainChanged
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The samba database has already been provisioned. ' .
+                         'Changing the host domain will cause domain services to ' .
+                         'stop working.'));
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the samba domain if the module has not been
+#   configured yet
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    unless ($self->configured()) {
+        my $settings = $self->model('GeneralSettings');
+        $settings->setValue('realm', uc ($newDomainName));
+
+        my @parts = split (/\./, $newDomainName);
+        my $value = substr($parts[0], 0, 15);
+        $value = 'ZENTYAL-DOMAIN' unless defined $value;
+        $value = uc ($value);
+        $settings->setValue('workgroup', $value);
+    }
 }
 
 1;

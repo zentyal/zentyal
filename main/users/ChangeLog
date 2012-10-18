@@ -1,4 +1,13 @@
 HEAD
+	+ Do not show unavailable options in master select
+	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
+	+ Added check to assure that a no-ldap user has the same uid than
+	  a new user
+	+ Implement SysInfo::Observer to disallow host domain changes after the
+	  kerberos realm has been initialized, and to update the LDAP base DN
+	  if module is not yet configured
+	+ Added LDAP index for ou attribute
+	+ Always write slave-sync script
 	+ Increase default quota value to 500MB
 3.0.2
 	+ Added clearCache() to LdapObject and force reload of krb5Keys

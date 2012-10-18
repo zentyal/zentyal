@@ -171,7 +171,10 @@ sub validateTypedRow
         return;
     }
 
+    my $ownId = $params_r->{id};
     foreach my $id (@{ $self->ids() }) {
+        next if ($id eq $ownId);
+
         my $row = $self->row($id);
         my $source = $row->elementByName('source')->selectedType();
         if ($objectProfile and ($source eq 'group')) {
@@ -223,7 +226,13 @@ sub rules
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
-        $rule->{policy} = $row->elementByName('policy')->selectedType();
+
+        my $policyElement = $row->elementByName('policy');
+        my $policyType =  $policyElement->selectedType();
+        $rule->{policy} = $policyType;
+        if ($policyType eq 'profile') {
+            $rule->{profile} = $policyElement->value();
+        }
 
         my $timePeriod = $row->elementByName('timePeriod');
         if (not $timePeriod->isAllTime) {
@@ -242,6 +251,21 @@ sub rules
     }
 
     return \@rules;
+}
+
+
+sub squidFilterProfiles
+{
+    my ($self) = @_;
+
+    my $enabledProfiles = $self->_enabledProfiles();
+    my $filterProfiles = $self->parentModule()->model('FilterProfiles');
+    my $acls = $filterProfiles->squidAcls($enabledProfiles);
+    my $rulesStubs = $filterProfiles->squidRulesStubs($enabledProfiles, sharedAcls => $acls->{shared});
+    return {
+              acls => $acls->{all},
+              rulesStubs => $rulesStubs,
+           };
 }
 
 sub existsPoliciesForGroup
@@ -279,7 +303,8 @@ sub filterProfiles
 {
     my ($self) = @_;
 
-    my %profileIdByRowId = %{ $self->parentModule()->model('FilterProfiles')->idByRowId() };
+    my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
+    my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
     my $userMod = $self->global()->modInstance('users');
@@ -297,7 +322,9 @@ sub filterProfiles
         } elsif ($policyType eq 'deny') {
             $profile->{number} = 1;
         } elsif ($policyType eq 'profile') {
-            $profile->{number} = $profileIdByRowId{$policy->value()};
+            my $rowId = $policy->value();
+            $profile->{number} = $profileIdByRowId{$rowId};
+            $profile->{usesFilter} = $filterProfilesModel->usesFilterById($rowId);
         } else {
             throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
@@ -359,16 +386,23 @@ sub rulesUseAuth
 sub rulesUseFilter
 {
     my ($self) = @_;
+    my $profiles = $self->_enabledProfiles();
+    my $filterProfiles = $self->parentModule()->model('FilterProfiles');
+    return $filterProfiles->usesFilter($profiles);
+}
 
-    foreach my $id (@{$self->ids()}) {
+sub _enabledProfiles
+{
+    my ($self) = @_;
+    my %profiles;
+    foreach my $id (@{ $self->ids()  }) {
         my $row = $self->row($id);
         my $policy = $row->elementByName('policy');
-        if ($policy->selectedType() eq 'profile') {
-            return 1;
+        if ($policy->selectedType eq 'profile') {
+            $profiles{$policy->value()} = 1;
         }
     }
-
-    return 0;
+    return [keys %profiles];
 }
 
 sub _filterSourcePrintableValue

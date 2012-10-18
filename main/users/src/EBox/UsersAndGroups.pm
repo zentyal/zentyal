@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups;
-
 use strict;
 use warnings;
 
+package EBox::UsersAndGroups;
 use base qw( EBox::Module::Service
              EBox::LdapModule
+             EBox::SysInfo::Observer
              EBox::UserCorner::Provider
              EBox::UsersAndGroups::SyncProvider );
 
@@ -495,11 +494,10 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-
     if ($self->master() eq 'cloud') {
         push(@array, 'cloudsync_enabled' => 1);
-        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
     }
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -631,7 +629,7 @@ sub groupsDn
 
 # Method: groupDn
 #
-#    Returns the dn for a given group. The group don't have to existst
+#    Returns the dn for a given group. The group doesn't have to exist
 #
 #   Parameters:
 #       group
@@ -668,7 +666,7 @@ sub usersDn
 
 # Method: userDn
 #
-#    Returns the dn for a given user. The user don't have to existst
+#    Returns the dn for a given user. The user doesn't have to exist
 #
 #   Parameters:
 #       user
@@ -1550,6 +1548,56 @@ sub checkNameLimitations
      } else {
          return undef;
      }
+}
+
+#  Nethod: newUserUidNumber
+#
+#  return the uid for a new user
+#
+#   Parameters:
+#     system - true if we want the uid for a system user, defualt false
+#
+sub newUserUidNumber
+{
+    my ($self, $system) = @_;
+
+    return EBox::UsersAndGroups::User->_newUserUidNumber($system);
+}
+
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostDomainChanged
+#
+#   This method disallow the change of the host domain if the module is
+#   configured (implies that the kerberos realm has been initialized)
+#
+sub hostDomainChanged
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    if ($self->configured()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the base DN for LDAP if the module has not
+#   been configured yet
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    unless ($self->configured()) {
+        my $mode = $self->model('Mode');
+        my $newDN = $mode->getDnFromDomainName($newDomainName);
+        $mode->setValue('dn', $newDN);
+    }
 }
 
 1;

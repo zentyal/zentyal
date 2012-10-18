@@ -1,4 +1,11 @@
 HEAD
+	+ Added domain option to /etc/resolv.conf
+	+ Supersede DHCP offered nameservers, domain name and search domain if
+	  these values are already configured in Zentyal
+	+ Fixed gateways setup in wizard
+	+ Fixed bug in Gateways watcher which inhibited the call to regen
+	  failover notifier method in modules which are network observers
+	+ Vlanes and vifaces are now ordered by name in interface page
 	+ Fixed error disabling reverse path for virtual interfaces
 2.3.15
 	+ Expanded allowed character set in interface PPPoE password

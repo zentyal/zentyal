@@ -158,33 +158,44 @@ sub _readResolv
 sub validateTypedRow
 {
     my ($self, $action, $changed, $all) = @_;
-    my $hostname = exists $changed->{hostname} ?
-                          $changed->{hostname}->value() : $all->{hostname}->value();
-    my $hostdomain = exists $changed->{hostdomain} ?
-                          $changed->{hostdomain}->value() : $all->{hostdomain}->value();
 
-    $self->_checkDNSName($hostname, 'Host name');
-    unless (length ($hostname) >= MIN_HOSTNAME_LENGTH and
-            length ($hostname) <= MAX_HOSTNAME_LENGTH) {
+    my $oldHostName = $self->hostnameValue();
+    my $newHostName = defined $changed->{hostname} ? $changed->{hostname}->value() : $all->{hostname}->value();
+
+    my $oldDomainName = $self->hostdomainValue();
+    my $newDomainName = defined $changed->{hostdomain} ? $changed->{hostdomain}->value() : $all->{hostdomain}->value();
+
+
+    $self->_checkDNSName($newHostName, 'Host name');
+    unless (length ($newHostName) >= MIN_HOSTNAME_LENGTH and
+            length ($newHostName) <= MAX_HOSTNAME_LENGTH) {
         throw EBox::Exceptions::InvalidData(
             data => __('Host name'),
-            value => $hostname,
+            value => $newHostName,
             advice => __x('The length must be between {min} and {max} characters',
                           min => MIN_HOSTNAME_LENGTH,
                           max => MAX_HOSTNAME_LENGTH));
     }
 
-    foreach my $label (split (/\./, $hostdomain)) {
+    foreach my $label (split (/\./, $newDomainName)) {
         $self->_checkDNSName($label, 'Host domain');
     }
-    unless (length ($hostdomain) >= MIN_HOSTDOMAIN_LENGTH and
-            length ($hostdomain) <= MAX_HOSTDOMAIN_LENGTH) {
+    unless (length ($newDomainName) >= MIN_HOSTDOMAIN_LENGTH and
+            length ($newDomainName) <= MAX_HOSTDOMAIN_LENGTH) {
         throw EBox::Exceptions::InvalidData(
             data => __('Host domain'),
-            value => $hostdomain,
+            value => $newDomainName,
             advice => __x('The length must be between {min} and {max} characters',
                           min => MIN_HOSTDOMAIN_LENGTH,
                           max => MAX_HOSTDOMAIN_LENGTH));
+    }
+
+    # After our validation, notify observers that this value is about to change
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChanged($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
+        $obs->hostNameChanged($oldHostName, $newHostName) if ($newHostName ne $oldHostName);
     }
 }
 
@@ -203,11 +214,18 @@ sub _checkDNSName
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow) = @_;
-    my $global = $self->global();
-    if ($global->modExists('samba')) {
-        # need to change kerberos realm in samba
-        $global->modInstance('samba')->model('GeneralSettings')->updateHostnameFields();
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $newHostName   = $self->row->valueByName('hostname');
+    my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;
+    my $newDomainName = $self->row->valueByName('hostdomain');
+    my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newDomainName;
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
+        $obs->hostNameChangedDone($oldHostName, $newHostName) if ($newHostName ne $oldHostName);
     }
 }
 

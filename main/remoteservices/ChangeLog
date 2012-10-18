@@ -3,6 +3,12 @@ HEAD
 	+ Added auto-subscribe script
 	+ Configure file sync daemon
 	+ Some fixes in text in the models
+	+ Added check for users sync service
+	+ Get remote support user uid from users module if it is installed
+	+ Fixed error in check connection button moving _checkUDPEchoService()
+	  to EBox::RemoteSevices::Base
+3.0.4
+	+ Give support to trial edition in info boxes
 3.0.3
 	+ Launch inventory agent just after subscribing to get information
 	  in remote as soon as possible

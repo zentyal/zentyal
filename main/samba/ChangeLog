@@ -1,7 +1,30 @@
 HEAD
 	+ Added syncFolders information method to allow file syncing
+	+ Implement SysInfo::Observer to disallow host or domain name changes if
+	  module is configured and update the required fields if it is not
+	+ Import sysvol after joining a domain, and add an upstart job to sync it
+	  each 5 to 10 minutes (one way).
+	+ Map root account to domain administrator account
+	+ Reset sysvol ACLs after provision
+3.0.4
+	+ Fix netlogon share wrong path
+	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
+	  browsing support
+3.0.3
+	+ Update smb.conf for samba4 RC2
+	+ During domain join precedure, wait a couple of seconds for samba to start
+	+ Add configkey 'treat_contacts_as_users' to import distribution groups
+	  containing contacts. The mail account name is used to locate an user with
+	  that name and add it to the group.
+	+ Improvements synchronizing group members.
+	+ The 'users' method of EBox::Samba::Group has been renamed to 'members' and
+	  also returns nested groups
+	+ Do not import users and groups after join a domain. The s4sync script will
+	  do the job
+	+ Search for users and groups to synchronize outside CN=Users
+	+ Add more SID's to the list of users and groups to avoid synchronize from
+	  samba
 	+ Improve GeneralSettings fields validation
-	+ Update for samba4 RC1
 	+ Remove duplicated disabled module warning on recycle bin and antivirus
 	  modules
 	+ Added method to GeneralSettings to update hostname-dependent fields

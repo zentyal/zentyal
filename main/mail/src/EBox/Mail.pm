@@ -924,50 +924,6 @@ sub fetchmailMustRun
     return $self->{fetchmail}->daemonMustRun();
 }
 
-
-# Method: isRunning
-#
-#  This method returns if the service is running
-#
-# Parameter:
-#
-#               service - a string with a service name. It could be:
-#                       active for smtp service
-#                       pop for pop service
-#                       imap for imap service
-#
-# Returns
-#
-#               bool - true if the service is running, false otherwise
-sub isRunning
-{
-    my ($self, $service) = @_;
-
-    if (not defined($service)) {
-        if ($self->_dovecotService()) {
-            if ($self->_dovecotIsRunning()) {
-                return 1;
-            } elsif ($self->greylist()->isRunning()) {
-                return 1;
-            }
-
-            return undef;
-        }
-
-        return $self->_postfixIsRunning();
-    } elsif ($service eq 'active') {
-        return $self->_postfixIsRunning();
-    } elsif ($service eq 'pop') {
-        return $self->_dovecotIsRunning();
-    } elsif ($service eq 'imap') {
-        return $self->_dovecotIsRunning();
-    }
-}
-
-
-
-
-
 sub _dovecotIsRunning
 {
     my ($self, $subService) = @_;
@@ -1409,7 +1365,7 @@ sub mailServicesWidget
     my $smtp = new EBox::Dashboard::ModuleStatus(
                                           module => 'mail',
                                           printableName => __('SMTP service'),
-                                          running => $self->isRunning('active'),
+                                          running => self->_postfixIsRunning(),
                                           enabled => $self->service(),
                                         );
 
@@ -1809,6 +1765,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'Mail SMTP server',
              service =>  __('Mail SMTP server'),
              path    =>  '/etc/postfix/sasl/postfix.pem',
              user => 'root',
@@ -1816,6 +1773,7 @@ sub certificates
              mode => '0400',
             },
             {
+             serviceId => 'Mail POP/IMAP server',
              service =>  __('Mail POP/IMAP server'),
              path    =>  '/etc/dovecot/ssl/dovecot.pem',
              user => 'root',

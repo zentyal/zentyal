@@ -1,0 +1,9 @@
+description "NetBIOS name server"
+author      "Samuel Cabrero <scabrero@zentyal.com>"
+
+stop on stopping samba4
+
+expect fork
+normal exit 0
+
+exec nmbd -D

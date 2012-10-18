@@ -8,14 +8,9 @@
 </%args>
 <%init>
 my @groupConfigFiles = (
-      'bannedsitelist',
-      'bannedurllist',
-      'greysitelist',
-      'greyurllist',
-      'exceptionsitelist',
-      'exceptionurllist',
-      'bannedextensionlist',
-      'bannedmimetypelist',
+    'bannedsitelist', # only for blockip
+    'exceptionsitelist',
+    'exceptionurllist',
 );
 
 defined $groupName or
@@ -57,7 +52,16 @@ bannedphraselist = '/etc/dansguardian/lists/bannedphraselist'
 weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
 exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 
+# empty lists, this ACLs are completly managed by squid
+bannedsitelist='/dev/null'
+bannedurllist='/dev/null'
+greysitelist='/dev/null'
+greyurllist='/dev/null'
+bannedextensionlist='/dev/null'
+bannedmimetypelist='/dev/null'
 
+
+#
 % if ($policy eq 'filter') {
 %   foreach my $configFile (@groupConfigFiles) {
 <% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $group %>'

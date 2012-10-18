@@ -1,3 +1,5 @@
+HEAD
+	+ Added and used serviceId field for service certificates
 2.3.3
 	+ FTP moved from Infrastructure to Office
 	+ Fixed bug which always forced SSL when SSL was enabled

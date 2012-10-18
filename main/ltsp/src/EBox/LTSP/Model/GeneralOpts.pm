@@ -28,6 +28,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
+use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Text;
 use EBox::Types::Union;

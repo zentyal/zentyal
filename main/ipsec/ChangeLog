@@ -1,4 +1,5 @@
 HEAD
+	+ Added lsof as dependency as it is needed for 'ipsec verify'
 	+ Removed unnecesary unique attributes in ConfGeneral form
 2.3.4
 	+ IPsec is now under Infrastructure instead of UTM

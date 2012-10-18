@@ -260,6 +260,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  q{User Corner web server},
              service =>  __(q{User Corner web server}),
              path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
              user => USERCORNER_USER,

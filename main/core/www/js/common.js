@@ -42,7 +42,11 @@ function showMenu(name, menuAnchor){
       _closeLeftMenu(name, menuAnchor);
 
   } else if (menuShown === '') {
+    if (menuAnchor.hasClassName('despleg')) {
+      _closeLeftMenu(name, menuAnchor);
+    } else {
       open = true;
+    }
   } else {
      open = true;
      _closeLeftMenu(menuShown, menuShownAnchor);

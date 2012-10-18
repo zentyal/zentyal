@@ -43,7 +43,7 @@ Test::MockObject->fake_module('EBox::Network',
                               ifaceNetwork => \&_ifaceNetwork,
                               ifaceNetmask => \&_ifaceNetmask,
                               ifaceAddress => \&_ifaceAddress,
-                              allIfaces    => \&_allIfaces,
+                              ifaces    => \&_ifaces,
                               ifaceMethod  => \&_ifaceMethod,
                              );
 }
@@ -73,7 +73,7 @@ sub _ifaceAddress
     }
 }
 
-sub _allIfaces
+sub _ifaces
 {
     return [ 'eth0', 'eth1' ];
 }

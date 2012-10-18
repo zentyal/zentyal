@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-package EBox::Apache;
-
 use strict;
 use warnings;
 
+package EBox::Apache;
 use base qw(EBox::Module::Service);
 
 use EBox;
@@ -83,7 +82,6 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-
 # restarting apache from inside apache could be problematic, so we fork()
 sub _daemon
 {
@@ -101,11 +99,19 @@ sub _daemon
         write_file($pidfile, $pid) if $pid;
     }
 
+    my $hardRestart = $self->hardRestart();
+
     if ($action eq 'stop') {
         EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
         EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
+        if ($hardRestart) {
+            EBox::info("Apache hard restart requested");
+            $self->_daemon('stop');
+            $self->_daemon('start');
+            return;
+        }
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
@@ -120,7 +126,24 @@ sub _daemon
     if ($action eq 'stop') {
         # Stop redis server
         $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $hardRestart;
     }
+}
+
+sub setHardRestart
+{
+    my ($self, $reload) = @_;
+    my $state = $self->get_state;
+    $state->{hardRestart} = $reload;
+    $self->set_state($state);
+}
+
+# return wether we should reload the page after saving changes
+sub hardRestart
+{
+    my ($self) = @_;
+    my $state = $self->get_state;
+    return $state->{hardRestart};
 }
 
 sub _stopService
@@ -772,6 +795,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',

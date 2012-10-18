@@ -1,6 +1,21 @@
 HEAD
 	+ Redirect to proper CGI after login in disaster recovery mode
 	+ Added EBox::SyncFolders interface
+	+ Fixed invokation of tar for backup of model files
+	+ New observer for sysinfo module to notify modules implementing the
+	  SysInfo::Observer interface when the host name or host domain is
+	  changed by the user, before and after the change takes effect
+	+ Stop and start apache after language change to force environment reload
+	+ Reload page after language change
+	+ EBox::Module::Service::isRunning() skips daemons whose precondition fail
+	+ Fixed undefined reference in DataTable controller for log audit
+	+ Added and used serviceId field for service certificates
+	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
+3.0.3
+	+ Fixed bug which prevented highlight of selected item in menu
+	+ Fixed base class of event dispatcher to be compatible with the
+	  changes dispatcher configuration table
+	+ Fixed event daemon to use dumped variables
 	+ Fixed need of double-click when closing menu items in some cases
 	+ Fixed logs consolidation to avoid high CPU usage
 	+ In view log table: correctly align previous and first page buttons
