@@ -71,9 +71,9 @@ for my $ruser (@{$rusers}) {
             $luser->set('gidNumber', $ruser->{gid}, 1);
             $luser->set('uidNumber', $ruser->{uid}, 1);
             if ($ruser->{description}) {
-                $luser->set('comment', $ruser->{description}, 1);
+                $luser->set('description', $ruser->{description}, 1);
             } else {
-                $luser->delete('comment', 1);
+                $luser->delete('description', 1);
             }
 
             $luser->save();
@@ -135,7 +135,8 @@ for my $rgroup (@{$rgroups}) {
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local group "' . $rgroup->{name} . '" does not exist, creating...');
             $rgroup->{description} = ($rgroup->{description} or '');
-            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
+            $lgroup->{gidNumber} = $rgroup->{gid};
+            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
         }
         otherwise {
             EBox::error('Failed to sync remote group ' . $rgroup->{name});
@@ -143,6 +144,7 @@ for my $rgroup (@{$rgroups}) {
 
         # Update group info
         $lgroup->setIgnoredSlaves(IGNORE);
+        $lgroup->set('gidNumber', $rgroup->{gid}, 1);
         $lgroup->removeAllMembers(1);
         foreach my $user (@{$rgroup->{members}}) {
             $lgroup->addMember($users->user($user), 1);

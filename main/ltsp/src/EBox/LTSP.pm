@@ -127,8 +127,8 @@ sub _confDirs
     my @conf_dirs;
 
     for my $arch (@{$self->architectures}) {
-        push (@conf_dirs, CONF_DIR . "/$arch/");
-        push (@conf_dirs, CONF_DIR . "/fat-$arch/");
+        push (@conf_dirs, {'dir' => CONF_DIR . "/$arch/", 'fat' => 0});
+        push (@conf_dirs, {'dir' => CONF_DIR . "/fat-$arch/", 'fat' => 1});
     }
 
     return \@conf_dirs;
@@ -519,8 +519,10 @@ sub _writeConfiguration
     );
 
     for my $dir (@{$self->_confDirs}) {
-        if (-d $dir) {
-            $self->writeConfFile($dir . CONF_FILE, "ltsp/lts.conf.mas", \@params);
+        my $dirPath = $dir->{dir};
+        if (-d $dirPath) {
+            $global->{'LTSP_FATCLIENT'} = ($dir->{fat} ? 'TRUE' : 'FALSE');
+            $self->writeConfFile($dirPath . CONF_FILE, "ltsp/lts.conf.mas", \@params);
         }
     }
 }

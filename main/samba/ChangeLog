@@ -1,4 +1,5 @@
 HEAD
+	+ Added syncFolders information method to allow file syncing
 	+ Implement SysInfo::Observer to disallow host or domain name changes if
 	  module is configured and update the required fields if it is not
 	+ Import sysvol after joining a domain, and add an upstart job to sync it
