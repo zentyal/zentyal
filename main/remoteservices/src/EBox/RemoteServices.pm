@@ -944,7 +944,7 @@ sub renovationDate
 sub usersSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 0;
+    return 1;
 }
 
 
