@@ -1207,7 +1207,7 @@ sub _ifacesInfo
 
     my $roGlobal = EBox::Global->getInstance('readonly');
     my $net = $roGlobal->modInstance('network');
-    my $ifaces = $net->allIfaces();
+    my $ifaces = $net->ifaces();
 
     my %iflist;
     foreach my $iface (@{$ifaces}) {
@@ -1302,7 +1302,7 @@ sub _realIfaces
     my %realifs;
     foreach my $iface (@{$real_ifaces}) {
         if ($net->ifaceMethod($iface) eq 'static') {
-            $realifs{$iface} = $net->vifaceNames($iface);
+            $realifs{$iface} = 1;
         }
 
     }
@@ -1460,7 +1460,7 @@ sub _dynamicDNSEnabled # (ifacesInfo)
         return ($nDynamicOptionsOn > 0);
     } else {
         my $net = $self->global()->modInstance('network');
-        my $ifaces = $net->allIfaces();
+        my $ifaces = $net->ifaces();
         foreach my $iface (@{$ifaces}) {
             if ( $net->ifaceMethod($iface) eq 'static' ) {
                 my $mod = $self->_getModel('DynamicDNS', $iface);
@@ -1551,7 +1551,7 @@ sub _nStaticIfaces
     my ($self) = @_;
 
     my $net = $self->global()->modInstance('network');
-    my $ifaces = $net->allIfaces();
+    my $ifaces = $net->ifaces();
     my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
 
     return $staticIfaces;
@@ -1687,7 +1687,7 @@ sub gatewayDelete
 
     my $global = EBox::Global->getInstance($self->{ro});
     my $network = $global->modInstance('network');
-    foreach my $iface (@{$network->allIfaces()}) {
+    foreach my $iface (@{$network->ifaces()}) {
         next unless ($network->ifaceMethod($iface) eq 'static');
         my $options = $self->_getModel('Options', $iface);
         my $optionsGwName = $options->gatewayName();

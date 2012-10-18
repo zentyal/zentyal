@@ -62,7 +62,7 @@ sub precondition
     my ($self) = @_;
     my $global = EBox::Global->getInstance($self->parentModule->isReadOnly());
     my $net = $global->modInstance('network');
-    my @ifaces = @{$net->allIfaces()};
+    my @ifaces = @{$net->ifaces()};
     foreach my $iface (@ifaces) {
         if ($net->ifaceMethod($iface) eq 'static') {
             return 1;
