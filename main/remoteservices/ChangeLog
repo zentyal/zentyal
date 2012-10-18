@@ -1,4 +1,6 @@
 HEAD
+	+ Return the cloud domain along with the credentials to the desktops
+	  upon subscription
 	+ Configure file sync daemon
 	+ Some fixes in text in the models
 	+ Added check for users sync service

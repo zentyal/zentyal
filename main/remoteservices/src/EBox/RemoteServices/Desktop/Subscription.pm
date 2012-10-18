@@ -37,6 +37,7 @@ sub subscribe
     return {
         'uuid'      => $ret->{'uuid'},
         'password'  => $ret->{'secret'},
+        'cloud_domain' => $cred->{cred}->{cloud_domain},
     };
 }
 
