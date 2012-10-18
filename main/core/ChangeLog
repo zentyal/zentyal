@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed invokation of tar for backup of model files
 	+ New observer for sysinfo module to notify modules implementing the
 	  SysInfo::Observer interface when the host name or host domain is
 	  changed by the user, before and after the change takes effect
