@@ -23,8 +23,8 @@ use EBox::Config;
 use EBox::Gettext;
 use POSIX qw(strftime);
 
-use constant SQUIDLOGFILE => '/var/log/squid3/access.log';
-use constant DANSGUARDIANLOGFILE => '/var/log/squid3/front-access.log';
+use constant SQUIDLOGFILE => '/var/log/squid3/front-access.log';
+use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
 sub new
 {
