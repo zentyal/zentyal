@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
@@ -44,6 +43,7 @@ use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
+use constant MAXUID         => 65535;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
@@ -51,8 +51,6 @@ use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
                                  'description');
-
-
 
 sub new
 {
@@ -267,7 +265,6 @@ sub addGroup
     $group->addMember($self);
 }
 
-
 # Method: removeGroup
 #
 #   Removes this user from the given group
@@ -282,7 +279,6 @@ sub removeGroup
 
     $group->removeMember($self);
 }
-
 
 # Method: groups
 #
@@ -302,7 +298,6 @@ sub groups
 
     return $self->_groups($system);
 }
-
 
 # Method: groupsNotIn
 #
@@ -430,7 +425,6 @@ sub changePassword
     $self->save() unless $lazy;
 }
 
-
 # Method: setPasswordFromHashes
 #
 #   Configure user password directly from its kerberos hashes
@@ -447,7 +441,6 @@ sub setPasswordFromHashes
     $self->set('krb5Key', $passwords);
     $self->set('krb5KeyVersionNumber', 1);
 }
-
 
 # Method: deleteObject
 #
@@ -474,7 +467,6 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-
 # Method: passwordHashes
 #
 #   Return an array ref to all krb hashed passwords as:
@@ -489,9 +481,7 @@ sub passwordHashes
     return \@keys;
 }
 
-
 # USER CREATION:
-
 
 # Method: create
 #
@@ -674,9 +664,6 @@ sub create
     return $res;
 }
 
-
-
-
 sub _checkName
 {
     my ($name) = @_;
@@ -742,6 +729,7 @@ sub lastUid
             $lastUid = $uid;
         }
     }
+
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
@@ -753,16 +741,25 @@ sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
 
-    my $uid;
-    if ($systemUser) {
-        $uid = $self->lastUid(1) + 1;
-        if ($uid == MINUID) {
-            throw EBox::Exceptions::Internal(
-                __('Maximum number of system users reached'));
+    my $uid = $self->lastUid($systemUser);
+    do {
+        # try next uid in order
+        $uid++;
+
+        if ($systemUser) {
+            if ($uid >= MINUID) {
+                throw EBox::Exceptions::Internal(
+                    __('Maximum number of system users reached'));
+            }
+        } else {
+            if ($uid >= MAXUID) {
+                throw EBox::Exceptions::Internal(
+                        __('Maximum number of users reached'));
+            }
         }
-    } else {
-        $uid = $self->lastUid + 1;
-    }
+
+        # check if uid is already used
+    } while (defined getpwuid($uid));
 
     return $uid;
 }
