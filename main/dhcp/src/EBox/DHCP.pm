@@ -922,98 +922,6 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
     return 0;
 }
 
-# Method: vifaceAdded
-#
-#
-# Implements:
-#
-#   <EBox::NetworkObserver::vifaceAdded>
-#
-# Exceptions:
-#
-#  <EBox::Exceptions::External> - thrown *if*:
-#
-#   - New Virtual interface IP overlaps any configured range
-#   - New Virtual interface IP is a fixed IP address
-#
-sub vifaceAdded # (iface, viface, address, netmask)
-{
-    my ( $self, $iface, $viface, $address, $netmask) = @_;
-
-    my $net = $self->global()->modInstance('network');
-    my $ip = new Net::IP($address);
-
-    my @rangeModels = @{$self->_getAllModelInstances('RangeTable')};
-    # Check that the new IP for the virtual interface isn't in any range
-    foreach my $rangeModel (@rangeModels) {
-        foreach my $id (@{$rangeModel->ids()}) {
-            my $rangeRow = $rangeModel->row($id);
-            my $from = $rangeRow->valueByName('from');
-            my $to   = $rangeRow->valueByName('to');
-            my $range = new Net::IP($from . ' - ' . $to);
-            unless ( $ip->overlaps($range) == $IP_NO_OVERLAP ) {
-                throw EBox::Exceptions::External(
-                __x('The IP address of the virtual interface '
-                        . 'you are trying to add is already used by the '
-                        . "DHCP range '{range}' in the interface "
-                        . "'{iface}'. Please, remove it before trying "
-                        . 'to add a virtual interface using it.',
-                        range => $rangeRow->valueByName('name'),
-                        iface => $rangeModel->index()));
-            }
-        }
-
-        my @fixedAddrModels = @{$self->_getAllModelInstances('FixedAddressTable')};
-        # Check the new IP for the virtual interface is not a fixed address
-        foreach my $model (@fixedAddrModels) {
-            next unless ($model->size() > 0);
-            my $iface = $model->index();
-            foreach my $fixedAddr ( @{$self->fixedAddresses($iface, 0)} ) {
-                my $fixedIP = new Net::IP($fixedAddr->{'ip'});
-                unless ( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP ) {
-                    throw EBox::Exceptions::External(
-                           __x('The IP address of the virtual interface '
-                               . 'you are trying to add is already used by a '
-                               . "DHCP fixed address from object member "
-                               . "'{fixed}' in the "
-                               . "interface '{iface}'. Please, remove it "
-                               . 'before trying to add a virtual interface '
-                               . 'using it.',
-                               fixed => $fixedAddr->{'name'},
-                               iface => $iface));
-
-                }
-            }
-        }
-    }
-}
-
-# Method:  vifaceDelete
-#
-# Implements:
-#
-#    <EBox::NetworkObserver::vifaceDelete>
-#
-# Returns:
-#
-#    true - if there are any configured range or fixed address for
-#    this interface
-#    false - otherwise
-#
-sub vifaceDelete # (iface, viface)
-{
-    my ($self, $iface, $viface) = @_;
-
-    foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
-        my $model = $self->_getModel($modelName, "$iface:$viface");
-        my $nr = $model->size();
-        if ( $nr > 0 ) {
-            return 1;
-        }
-    }
-
-    return 0;
-}
 
 # Method: staticIfaceAddressChanged
 #
@@ -1096,29 +1004,6 @@ sub freeIface #( self, iface )
     if ($net->ifaceMethod($iface) eq 'static') {
         $self->_checkStaticIfaces(-1);
     }
-}
-
-# Method: freeViface
-#
-#    Delete every single row from the models attached to this virtual
-#    interface
-#
-# Implements:
-#
-#    <EBox::NetworkObserver::freeViface>
-#
-#
-sub freeViface #( self, iface, viface )
-{
-    my ( $self, $iface, $viface ) = @_;
-#   $self->delete_dir("$iface:$viface");
-    $self->_removeDataModelsAttached("$iface:$viface");
-
-
-#   my $net = $self->global()->modInstance('network');
-#   if ($net->ifaceMethod($viface) eq 'static') {
-    $self->_checkStaticIfaces(-1);
-#   }
 }
 
 # Group: Private methods
