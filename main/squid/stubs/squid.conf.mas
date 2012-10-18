@@ -162,15 +162,15 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
-visible_hostname localhost-front
+visible_hostname localhost
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy
-access_log /var/log/squid3/front-access.log squid
-cache_log /var/log/squid3/front-cache.log
-cache_store_log /var/log/squid3/front-store.log
+access_log /var/log/squid3/access.log squid
+cache_log /var/log/squid3/cache.log
+cache_store_log /var/log/squid3/store.log
 
-pid_filename /var/run/squid3-front.pid
+pid_filename /var/run/squid3.pid
 
 % if ($filter) {
 cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword

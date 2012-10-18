@@ -49,14 +49,14 @@ use File::Basename;
 use EBox::NetWrappers qw(to_network_with_mask);
 
 # Module local conf stuff
-use constant SQUID_FRONT_CONF_FILE => '/etc/squid3/squid-front.conf';
-use constant SQUID_FRONT_PORT => '3128';
+use constant SQUID_CONF_FILE => '/etc/squid3/squid.conf';
+use constant SQUID_PORT => '3128';
 
 use constant DGDIR => '/etc/dansguardian';
 use constant DGPORT => '3129';
 
-use constant SQUID_BACK_CONF_FILE  => '/etc/squid3/squid-back.conf';
-use constant SQUID_BACK_PORT => '3130';
+use constant SQUID_EXTERNAL_CONF_FILE  => '/etc/squid3/squid-external.conf';
+use constant SQUID_EXTERNAL_PORT => '3130';
 
 use constant SQUIDCSSFILE => '/etc/squid3/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
@@ -155,12 +155,12 @@ sub usedFiles
 {
     return [
             {
-             'file' => SQUID_FRONT_CONF_FILE,
+             'file' => SQUID_CONF_FILE,
              'module' => 'squid',
              'reason' => __('Front HTTP Proxy configuration file')
             },
             {
-             'file' => SQUID_BACK_CONF_FILE,
+             'file' => SQUID_EXTERNAL_CONF_FILE,
              'module' => 'squid',
              'reason' => __('Back HTTP Proxy configuration file')
             },
@@ -375,7 +375,7 @@ sub port
     my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
-        return SQUID_FRONT_PORT;
+        return SQUID_PORT;
     }
 
     return $port;
@@ -483,12 +483,12 @@ sub usesPort
 
     ($protocol eq 'tcp') or return undef;
 
-    # DGPORT and SQUID_BACK_PORT are hard-coded, they are reported as used even
+    # DGPORT and SQUID_EXTERNAL_PORT are hard-coded, they are reported as used even
     # if the services are disabled.
     ($port eq DGPORT) and return 1;
-    ($port eq SQUID_BACK_PORT) and return 1;
+    ($port eq SQUID_EXTERNAL_PORT) and return 1;
 
-    # the port selected by the user (by default SQUID_FRONT_PORT) is only reported
+    # the port selected by the user (by default SQUID_PORT) is only reported
     # if the service is enabled
     ($self->isEnabled()) or return undef;
     ($port eq $self->port()) and return 1;
@@ -586,7 +586,7 @@ sub _writeSquidFrontConf
     push @writeParam, ('dn' => $dn);
 
 
-    $self->writeConfFile(SQUID_FRONT_CONF_FILE, 'squid/squid-front.conf.mas', \@writeParam, { mode => '0640'});
+    $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
 }
 
 sub _writeSquidBackConf
@@ -601,7 +601,7 @@ sub _writeSquidBackConf
 
     my $writeParam = [];
 
-    push (@{$writeParam}, port => SQUID_BACK_PORT);
+    push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
 
     if ($generalSettings->kerberosValue()) {
         push (@{$writeParam}, realm => $users->kerberosRealm);
@@ -641,7 +641,7 @@ sub _writeSquidBackConf
         push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
     }
 
-    $self->writeConfFile(SQUID_BACK_CONF_FILE, 'squid/squid-back.conf.mas',
+    $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});
 }
 
@@ -684,7 +684,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => DGPORT);
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => SQUID_BACK_PORT);
+    push(@writeParam, 'squidport' => SQUID_EXTERNAL_PORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -1002,14 +1002,14 @@ sub _daemons
 {
     return [
         {
-            name => 'zentyal.squid3-back'
+            name => 'zentyal.squid3-external'
         },
         {
             name => 'ebox.dansguardian',
             precondition => \&filterNeeded
         },
         {
-            name => 'zentyal.squid3-front'
+            name => 'squid3'
         }
     ];
 }
