@@ -1,4 +1,5 @@
 HEAD
+	+ Added check for users sync service
 	+ Get remote support user uid from users module if it is installed
 	+ Fixed error in check connection button moving _checkUDPEchoService()
 	  to EBox::RemoteSevices::Base

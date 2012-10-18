@@ -931,6 +931,23 @@ sub renovationDate
     return $ret;
 }
 
+
+# Method: usersSyncAvailable
+#
+#   Returns 1 if users syncrhonization is available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub usersSyncAvailable
+{
+    # TODO implement this in capabilities (+convert that to REST?)
+    return 0;
+}
+
+
 # Method: securityUpdatesAddOn
 #
 #      Get if server has security updates add-on

@@ -79,11 +79,13 @@ sub _table
 
     ];
 
-    # TODO - check cloud permissions for this feature
     if (EBox::Global->modExists('remoteservices')) {
-        push ($master_options,
-            { value => 'cloud', printableValue  => __('Zentyal Cloud') }
-        );
+        my $rs = EBox::Global->modInstance('remoteservices');
+        if ($rs->usersSyncAvailable()) {
+            push ($master_options,
+                { value => 'cloud', printableValue  => __('Zentyal Cloud') }
+            );
+        }
     }
 
     my @tableDesc = (
