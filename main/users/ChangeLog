@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show unavailable options in master select
 	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
 	+ Added check to assure that a no-ldap user has the same uid than
 	  a new user
