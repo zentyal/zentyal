@@ -222,7 +222,16 @@ sub rules
             } else {
                 $users = $userMod->group($group)->users();
             }
-            $rule->{users} = [ (map { lc $_->name() } @{$users}) ];
+            $rule->{users} = [ (map {
+                                      my $name =  $_->name();
+                                      my ($username, $domain) = split '@', $name, 2;
+                                      if ($domain) {
+                                          $name = lc($username) . '@' . $domain;
+                                      } else {
+                                          $name = lc $username;
+                                      }
+                                      $name;
+                                  } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
