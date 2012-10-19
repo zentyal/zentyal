@@ -35,8 +35,6 @@ use URI;
 use LWP::UserAgent;
 use Error qw(:try);
 
-use constant BASE_URL => 'http://192.168.156.1:8000/api/'; #FIXME
-
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -53,7 +51,6 @@ use Time::HiRes;
 use URI;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -86,7 +83,6 @@ sub new {
     my $key = 'rs_api';
     # TODO: Use cloudDomain when available
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-    # $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -121,7 +117,7 @@ sub setServer {
 #   query - ref containing query parameters
 #            (Optional)
 #   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -143,7 +139,7 @@ sub GET {
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
 #   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -165,7 +161,7 @@ sub PUT {
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
 #   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -187,7 +183,7 @@ sub POST {
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
 #   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -283,7 +279,7 @@ sub request {
             }
             default {
                 # Add to the journal unless specified not to do so
-                unless (defined($journaling) and not $journaling) {
+                if ($journaling) {
                     $self->_storeInJournal($method, $path, $query, $res);
                 }
                 throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
