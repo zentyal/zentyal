@@ -1,4 +1,5 @@
 HEAD
+	+ Added incoming directory for anonymous user uploads
 	+ Adapted FTP authorization to changes in users authorization
 2.3.3
 	+ FTP moved from Infrastructure to Office
