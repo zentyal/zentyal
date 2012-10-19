@@ -58,7 +58,7 @@ sub _addUser
     };
 
     my $uid = $user->get('uid');
-    $self->RESTClient->POST("/v1/users/users/$uid", $userinfo, retry => 1);
+    $self->RESTClient->POST("/v1/users/users/$uid", query => $userinfo, retry => 1);
 
     return 0;
 }
@@ -82,7 +82,7 @@ sub _modifyUser
     };
 
     my $uid = $user->get('uid');
-    $self->RESTClient->PUT("/v1/users/users/$uid", $userinfo, retry => 1);
+    $self->RESTClient->PUT("/v1/users/users/$uid", query => $userinfo, retry => 1);
 
     return 0;
 }
@@ -113,7 +113,7 @@ sub _addGroup
     };
 
     my $name = $group->name();
-    $self->RESTClient->POST("/v1/users/groups/$name", $groupinfo, retry => 1);
+    $self->RESTClient->POST("/v1/users/groups/$name", query => $groupinfo, retry => 1);
 
     return 0;
 }
@@ -134,7 +134,7 @@ sub _modifyGroup
     };
 
     my $name = $group->get('cn');
-    $self->RESTClient->PUT("/v1/users/groups/$name", $groupinfo, retry => 1);
+    $self->RESTClient->PUT("/v1/users/groups/$name", query => $groupinfo, retry => 1);
 
     return 0;
 }
