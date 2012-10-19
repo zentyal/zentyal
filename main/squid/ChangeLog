@@ -1,4 +1,6 @@
 HEAD
+	+ Use lowercase user names in configuration file, otherwise
+	authorization fails
 	+ Use of reserved character in generated ACl names to avoid name clashes
 	+ Protection for ACL from profiles with too long names
 	+ Added validation of categorized list structure
