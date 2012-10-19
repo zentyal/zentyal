@@ -1,4 +1,6 @@
 HEAD
+	+ When creating user ACLs put only ten users per line to avoid
+	reaching maximun configuration file line length
 	+ Use lowercase user names in configuration file, otherwise
 	authorization fails
 	+ Use of reserved character in generated ACl names to avoid name clashes
