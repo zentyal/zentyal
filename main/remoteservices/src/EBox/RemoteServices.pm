@@ -1014,7 +1014,7 @@ sub commAddOn
 
     my $ret;
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{comm_add_on};
+        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
     } otherwise {
         $ret = 0;
     };
@@ -1709,7 +1709,7 @@ sub _getSubscriptionDetails
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
                 disaster_recovery => $details->{disaster_recovery},
-                sb_mail_add_on    => $details->{sb_mail_add_on},
+                sb_comm_add_on    => $details->{sb_comm_add_on},
             };
             $self->set_state($state);
         }
