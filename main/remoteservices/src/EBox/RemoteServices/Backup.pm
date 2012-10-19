@@ -357,7 +357,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, %p) = @_;
 
-    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, journaling => 0);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, retry => 0);
 
     # Send the file using curl
     my $url = new URI('https://' . $self->{cbServer} . '/conf-backup/put/' . $p{fileName});
@@ -450,7 +450,7 @@ sub _pullAllMetaConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, journaling => 0);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, retry => 0);
 
     _handleResult($res->{result}, %p);
 
@@ -461,7 +461,7 @@ sub _pullFootprintMetaConf
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, journaling => 0);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, retry => 0);
 
     _handleResult($res->{result}, %p);
 
@@ -472,7 +472,7 @@ sub _removeConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, journaling => 0);
+    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, retry => 0);
 
     _handleResult($res->{result}, %p);
 }
