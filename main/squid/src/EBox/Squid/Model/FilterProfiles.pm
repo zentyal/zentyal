@@ -154,6 +154,10 @@ sub validateTypedRow
     if ($name =~ m/\s/) {
         throw EBox::Exceptions::External(__('No spaces are allowed in profile names'));
     }
+    # reserved character for acl names
+    if ($name =~ m/~/) {
+        throw EBox::Exceptions::External(__(q|The '~' character is reserved and cannot be used in profile names|));
+    }
 }
 
 # Method: idByRowId
@@ -292,11 +296,24 @@ sub antivirusNeeded
     return 0;
 }
 
-# this must be only called one time
-sub restoreConfig
+sub markCategoriesAsNoPresent
 {
-    my ($class, $dir)  = @_;
-    EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
+    my ($self, $list) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $filterPolicy = $self->row($id)->subModel('filterPolicy');
+        my $domainFilterCategories = $filterPolicy->componentByName('DomainFilterCategories', 1);
+        $domainFilterCategories->markCategoriesAsNoPresent($list);
+    }
+}
+
+sub removeNoPresentCategories
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $filterPolicy = $self->row($id)->subModel('filterPolicy');
+        my $domainFilterCategories = $filterPolicy->componentByName('DomainFilterCategories', 1);
+        $domainFilterCategories->removeNoPresentCategories();
+    }
 }
 
 sub squidAcls

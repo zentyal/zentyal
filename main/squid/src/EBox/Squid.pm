@@ -33,6 +33,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -510,6 +511,15 @@ sub _setConf
     if ($filter) {
         $self->_writeDgConf();
     }
+
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
+}
+
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -1161,22 +1171,16 @@ sub aroundDumpConfigDISABLED
 }
 
 
-# FIXME
-sub aroundRestoreConfigDISABLED
+
+sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
+    $self->restoreConfig($dir, %options);
+    # mark as domain categories as not present
+
 }
+
+
 
 # FIXME
 sub restoreConfigDISABLED

@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::Squid::Model::CategorizedLists;
-
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -32,7 +30,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Basename;
 
-use constant LIST_FILE_DIR => '/etc/dansguardian/extralists';
+use constant LIST_FILE_DIR => '/var/lib/zentyal/files/squid/archives';
 
 # Method: _table
 #
@@ -80,6 +78,26 @@ sub _table
     };
 }
 
+sub syncRows
+{
+    my ($self, $currentRows) = @_;
+    my $changed = 0;
+    # removes row if the archive  files in not longer present
+    foreach my $id (@{$currentRows}) {
+        my $row = $self->row($id);
+        my $fileList = $row->elementByName('fileList');
+        if (not $fileList->exist()) {
+            my $path = $fileList->path();
+            my $name = $row->valueByName('name');
+            EBox::error("File $path for categorized list $name not longer exits. Removing its row");
+            $changed = 1;
+            $self->removeRow($id, 1);
+        }
+    }
+
+    return $changed;
+}
+
 # Method: viewCustomizer
 #
 #      To display a permanent message
@@ -121,7 +139,13 @@ sub updatedRowNotify
 
 sub deletedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $force) = @_;
+    my $name = $row->valueByName('name');
+    if (not $force) {
+        $row->elementByName('fileList')->markArchiveContentsForRemoval();
+    }
+
+    $self->parentModule()->model('FilterProfiles')->markCategoriesAsNoPresent($name);
     $self->_changeInCategorizedLists();
 }
 
@@ -129,8 +153,22 @@ sub _changeInCategorizedLists
 {
     my ($self) = @_;
     # clear list directories seen list
-    $self->parentModule()->model('DomainFilterCategories')->cleanSeenListDirectories();
+    my $filterProfiles =  $self->parentModule()->model('FilterProfiles');
+    my @ids = @{ $filterProfiles->ids() };
+    if (not @ids) {
+        # no profiles to notify
+        return
+    }
+
+    my $profileId = $ids[0];
+    my $profileConf =  $filterProfiles->row($profileId)->subModel('filterPolicy');
+    my $modelCategories = $profileConf->componentByName('DomainFilterCategories', 1);
+    $modelCategories->cleanSeenListDirectories();
+
+    # XXX workaround ids() called to avoid the 'no change button' bug
+    $modelCategories->ids();
 }
+
 
 
 1;
