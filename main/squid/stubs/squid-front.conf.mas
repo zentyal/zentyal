@@ -106,7 +106,11 @@ acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
 %       if ($realm) {
 %           @users = map { $_ . '@' . $realm } @users;
 %       }
-acl <% $aclName %> proxy_auth <% join (' ', @users) %>
+%       # max 10 users per ACL to avoid long acl lines
+%       while (@users) {
+%           my @usersInAcl = splice(@users, 0, 10);
+acl <% $aclName %> proxy_auth <% join (' ', @usersInAcl) %>
+%       }
 %   }
    <& .timeACLs, rule => $rule, id => $src &>
 % }
