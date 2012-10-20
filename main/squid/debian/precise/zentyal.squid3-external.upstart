@@ -12,7 +12,7 @@ manual
 respawn
 normal exit 0
 
-env CONFIG="/etc/squid3/squid-front.conf"
+env CONFIG="/etc/squid3/squid-external.conf"
 env SQUID_ARGS="-YC"
 
 pre-start script

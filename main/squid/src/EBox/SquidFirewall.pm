@@ -80,7 +80,7 @@ sub input
 
     my $squidFrontPort = $sq->port();
     my $dansguardianPort = $sq->DGPORT();
-    my $squidBackPort = $sq->SQUID_BACK_PORT();
+    my $squidBackPort = $sq->SQUID_EXTERNAL_PORT();
     my @rules = ();
 
     my @ifaces = @{$net->InternalIfaces()};
