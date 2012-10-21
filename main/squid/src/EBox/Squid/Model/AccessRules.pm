@@ -224,13 +224,7 @@ sub rules
             }
             $rule->{users} = [ (map {
                                       my $name =  $_->name();
-                                      my ($username, $domain) = split '@', $name, 2;
-                                      if ($domain) {
-                                          $name = lc($username) . '@' . $domain;
-                                      } else {
-                                          $name = lc $username;
-                                      }
-                                      $name;
+                                      lc $name;
                                   } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
