@@ -1,3 +1,5 @@
+HEAD
+	+ Set default niceness of backup process to 10
 3.0.1
 	+ Added python-paramiko dependency which is needed for ssh backend
 2.3.8
