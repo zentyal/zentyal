@@ -17,6 +17,9 @@
 
 # This script is intended to make a configuration backup automatically daily
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Base;
@@ -38,12 +41,12 @@ sub _makeConfBackup
         my $lastBackupStamp = 0;
         if ( -r LAST_BACKUP_TIMESTAMP_FILE ) {
             $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
-            chomp($lastBackupstamp);
+            chomp($lastBackupStamp);
         }
         # Make the conf backup if any change has been done to Zentyal
         if ( $gl->lastModificationTime() > $lastBackupStamp ) {
             my $backupService = new EBox::RemoteServices::Backup();
-            my ($automatic, $level, $msg, $additional) = (1, 'info', '', {});
+            my ($automatic, $level, $msg, $additional, $dispatchTo) = (1, 'info', '', {}, undef);
             try {
                 $backupService->makeRemoteBackup('automatic-backup-' . time(),
                                                  __('Automatic backup'),
@@ -54,7 +57,7 @@ sub _makeConfBackup
             } catch EBox::Exceptions::Base with {
                 my ($exc) = @_;
                 # Cannot make the backup, inform the user with an event
-                $reason = $exc->stringify();
+                my $reason = $exc->stringify();
                 $msg = __x('Cannot make the automatic backup. {reason}',
                            reason => $reason);
                 $level = 'error';
