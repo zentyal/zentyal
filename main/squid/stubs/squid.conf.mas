@@ -74,6 +74,17 @@ sub _aclName
 
     return _escapeWS($longAclNames{$name});
 }
+
+sub _printSplitAcl
+{
+   my ($acl, $members_r, $membersPerLine) = @_;
+   $membersPerLine or $membersPerLine = 10;
+   my @members = @{ $members_r };
+   while (@members > 0) {
+        my @membersInAcl = splice(@members, 0, $membersPerLine);
+        $m->print("$acl @membersInAcl\n")
+   }
+}
 </%perl>
 <%def .rulesACLs>
 <%args>
@@ -97,21 +108,20 @@ sub _aclName
        $aclName = $groupPrefix . $group;
    }
    $aclName = _aclName($aclName);
+
+   if ($object) {
+       my $acl = "$acl $aclName src";
+       _printSplitAcl($acl, $rule->{addresses});
+   } else {
+       # escape user names
+       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+       if ($realm) {
+           @users = map { $_ . '@' . $realm } @users;
+       }
+       my $acl = "$aclName proxy_auth";
+       _printSplitAcl($acl, \@users);
+   }
 </%perl>
-%   if ($object) {
-acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
-%   } else {
-%       # escape user names
-%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-%       if ($realm) {
-%           @users = map { $_ . '@' . $realm } @users;
-%       }
-%       # max 10 users per ACL to avoid long acl lines
-%       while (@users) {
-%           my @usersInAcl = splice(@users, 0, 10);
-acl <% $aclName %> proxy_auth <% join (' ', @usersInAcl) %>
-%       }
-%   }
    <& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
