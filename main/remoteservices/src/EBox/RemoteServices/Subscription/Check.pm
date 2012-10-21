@@ -32,8 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk jabber);
-use constant MAIL_MODULES   => qw(mail mailfilter webmail zarafa);
+use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -89,7 +88,7 @@ sub unsubscribeIsAllowed
 #
 #    edition - String the subscription edition
 #
-#    sbMailAddOn - Boolean SB mail add-on
+#    commAddOn - Boolean Communications add-on
 #
 # Returns:
 #
@@ -97,12 +96,12 @@ sub unsubscribeIsAllowed
 #
 sub check
 {
-    my ($self, $edition, $sbMailAddOn) = @_;
+    my ($self, $edition, $commAddOn) = @_;
 
     my $capable = 1;
     if ($edition eq 'sb') {
         try {
-            $self->_performSBChecks($sbMailAddOn);
+            $self->_performSBChecks($commAddOn);
         } catch EBox::RemoteServices::Exceptions::NotCapable with {
             $capable = 0;
         };
@@ -151,27 +150,28 @@ sub subscribe
 # Perform the required checks for SB edition
 sub _performSBChecks
 {
-    my ($self, $sbMailAddOn) = @_;
+    my ($self, $commAddOn) = @_;
 
     my $gl = EBox::Global->getInstance();
-    $self->_modCheck($gl, $sbMailAddOn);
+    $self->_modCheck($gl, $commAddOn);
     $self->_usersCheck($gl);
 }
 
-# Check no communication profile and ids module are enabled
+# Check no communication profile is enabled
 sub _modCheck
 {
-    my ($self, $gl, $sbMailAddOn) = @_;
+    my ($self, $gl, $commAddOn) = @_;
 
-    my @mod = BANNED_MODULES;
-    push(@mod, MAIL_MODULES) unless ( $sbMailAddOn );
+    my @mod = ();
+    push(@mod, COMM_MODULES) unless ( $commAddOn );
 
-    foreach my $modName (BANNED_MODULES) {
+    foreach my $modName (@mod) {
         if ( $gl->modExists($modName) ) {
             my $mod = $gl->modInstance($modName);
             if ( $mod->isEnabled() ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('You cannot get Module {mod} enabled with Small Business Edition',
+                    __sx('Communications add-on is required in order to enable '
+                         . '{mod} in the Small Business Edition.',
                          mod => $mod->printableName()));
             }
         }

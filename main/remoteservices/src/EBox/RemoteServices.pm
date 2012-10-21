@@ -933,9 +933,9 @@ sub disasterRecoveryAddOn
     return '';
 }
 
-# Method: sbMailAddOn
+# Method: commAddOn
 #
-#      Get if server has SB mail add-on
+#      Get whether server has communications add-on or not
 #
 # Parameters:
 #
@@ -947,24 +947,24 @@ sub disasterRecoveryAddOn
 #      Boolean - indicating whether it has SB mail add-on or not
 #                undef means impossible to know
 #
-sub sbMailAddOn
+sub commAddOn
 {
     my ($self, $force) = @_;
 
     $force = 0 unless defined($force);
 
     if ( (not $force)
-         and ($self->st_entry_exists('subscription/sbMail')) ) {
-        return $self->st_get_bool('subscription/sbMail');
+         and ($self->st_entry_exists('subscription/sb_comm_add_on')) ) {
+        return $self->st_get_bool('subscription/sb_comm_add_on');
     } else {
         # Ask to the cloud if connected
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
-            my $sbMail = $cap->sbMailAddOn();
-            if ( defined($sbMail) ) {
-                $self->st_set_bool('subscription/sbMail', $sbMail);
+            my $sbCommAddOn = $cap->sbCommAddOn();
+            if ( defined($sbCommAddOn) ) {
+                $self->st_set_bool('subscription/sb_comm_add_on', $sbCommAddOn);
             }
-            return $sbMail;
+            return $sbCommAddOn;
         }
     }
     return '';
@@ -1333,8 +1333,8 @@ sub i18nServerEdition
 
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
-        if ( $self->sbMailAddOn() ) {
-            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        if ( $self->commAddOn() ) {
+            $ret .= ' + ' . __s('Communications Add-on');
         }
         return $ret;
     } else {
@@ -1708,7 +1708,7 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
       ( __('None'), '', '', 'info', '', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
@@ -1770,7 +1770,7 @@ sub _ccConnectionWidget
             }
         }
 
-        $sbMailAddOn = $self->sbMailAddOn();
+        $commAddOn = $self->commAddOn();
 
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
@@ -1799,8 +1799,8 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-    if ( $sbMailAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+    if ( $commAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
                                                  __('Enabled')));
     }
 }
