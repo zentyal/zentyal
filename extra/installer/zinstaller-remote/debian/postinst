@@ -109,7 +109,7 @@ then
     fi
 
     # Get subscription data
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID" https://$URL/v1/servers/)
+    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
     QA_USERNAME="$USERNAME-$SERVERNAME"
     QA_PASSWORD=$(get_field "$RESPONSE" password)
     UUID=$(get_field "$RESPONSE" uuid)
