@@ -597,6 +597,7 @@ sub _writeSquidFrontConf
 
 
     $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    $self->_checkSquidFile(SQUID_CONF_FILE);
 }
 
 sub _writeSquidBackConf
@@ -653,6 +654,20 @@ sub _writeSquidBackConf
 
     $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});
+    $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+}
+
+sub _checkSquidFile
+{
+    my ($self, $confFile) = @_;
+
+    try {
+        EBox::Sudo::root("squid3 -k parse $confFile");
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $error = join ' ', @{ $ex->error() };
+        throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
+    };
 }
 
 sub _objectsDelayPools

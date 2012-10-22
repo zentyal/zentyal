@@ -1,4 +1,5 @@
 HEAD
+	+ Added explicit error when a squid configuration file is invalid
 	+ Limited object ACLs to ten addresses per line
 	+ When creating user ACLs put only ten users per line to avoid
 	  reaching maximun configuration file line length
