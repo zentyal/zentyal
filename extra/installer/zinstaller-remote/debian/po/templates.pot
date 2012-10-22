@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2012-09-29 14:36+0200\n"
+"POT-Creation-Date: 2012-10-22 17:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgstr ""
 #. Description
 #. Type: note
 #. Description
-#: ../templates:5001 ../templates:8001 ../templates:9001
+#: ../templates:5001 ../templates:9001 ../templates:10001
 msgid "Congratulations!"
 msgstr ""
 
@@ -99,9 +99,15 @@ msgstr ""
 msgid "Choose the server to install:"
 msgstr ""
 
-#. Type: note
+#. Type: select
 #. Description
 #: ../templates:8001
+msgid "Choose the server to recover:"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../templates:9001
 msgid ""
 "Your account has been validated. Zentyal Small Business edition is going to "
 "be installed."
@@ -109,7 +115,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:9001
+#: ../templates:10001
 msgid ""
 "Your account has been validated. Zentyal Enterprise edition is going to be "
 "installed."
@@ -117,13 +123,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:10001
+#: ../templates:11001
 msgid "Disaster Recovery"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:10001
+#: ../templates:11001
 msgid ""
 "You can not recover from a disater without a valid Small Business or "
 "Enterprise edition. Installation of Community edition will continue."
@@ -131,13 +137,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:11001
+#: ../templates:12001
 msgid "No backups available"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:11001
+#: ../templates:12001
 msgid ""
 "You cannot recover from a disaster if there are no configuration backups "
 "associated with your account. Regular installation will continue."
