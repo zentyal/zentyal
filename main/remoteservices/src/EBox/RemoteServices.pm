@@ -984,7 +984,8 @@ sub renovationDate
 sub usersSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 0;
+    return EBox::Config::configkey('users_sync_available');
+
 }
 
 # Method: filesSyncAvailable
@@ -994,7 +995,7 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 1;
+    return EBox::Config::configkey('files_sync_available');
 }
 
 # Method: securityUpdatesAddOn
