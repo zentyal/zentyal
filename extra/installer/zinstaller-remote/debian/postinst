@@ -65,6 +65,20 @@ done
 
 if [ "$EDITION" = "commercial" ]
 then
+
+    if [ -f /tmp/RECOVER_MODE ]
+    then
+        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
+
+        choices=$(echo $RESPONSE | grep : | cut -d\" -f2 | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
+        db_subst zinstaller-remote/select_hostname_recover CHOICES "$choices"
+        db_input high zinstaller-remote/select_hostname_recover || true
+        db_go || true
+
+        db_get zinstaller-remote/select_hostname_recover
+        SERVERNAME=$(echo $RET | cut -d' ' -f1)
+    fi
+
     rm -f $DATA_DIR/BUNDLE_IDS
 
     # JSON formatting seems to change, so whe remove all new lines
