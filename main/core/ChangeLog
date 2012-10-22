@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files
 	+ New observer for sysinfo module to notify modules implementing the
