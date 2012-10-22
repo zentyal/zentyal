@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Use default 'C' locale when locale configuration file is empty
 	+ New UnwillingToPerform exception. Throwed when the user request an action
 	  that can not be performed for any reason
