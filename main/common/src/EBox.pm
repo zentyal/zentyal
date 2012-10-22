@@ -129,12 +129,16 @@ sub setLocale # (locale)
 #   - the locale
 sub locale
 {
-    my $locale = 'C';
+    my $locale;
     if (-f (EBox::Config::conf() . 'locale')) {
         open (my $fh, EBox::Config::conf() . 'locale');
         $locale = <$fh>;
         close ($fh);
     }
+    if (not $locale) {
+        $locale = 'C';
+    }
+
     return $locale;
 }
 
