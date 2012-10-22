@@ -1,4 +1,6 @@
 HEAD
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
 	+ Fixed some errors on RESTClient after API change
 	+ Updated REST journaling behavior
 	+ Do not show unavailable options in master select
