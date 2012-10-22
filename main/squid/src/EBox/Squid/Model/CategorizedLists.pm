@@ -129,7 +129,20 @@ sub _changeInCategorizedLists
 {
     my ($self) = @_;
     # clear list directories seen list
-    $self->parentModule()->model('DomainFilterCategories')->cleanSeenListDirectories();
+    my $filterProfiles =  $self->parentModule()->model('FilterProfiles');
+    my @ids = @{ $filterProfiles->ids() };
+    if (not @ids) {
+        # no profiles to notify
+        return
+    }
+
+    my $profileId = $ids[0];
+    my $profileConf =  $filterProfiles->row($profileId)->subModel('filterPolicy');
+    my $modelCategories = $profileConf->componentByName('DomainFilterCategories', 1);
+    $modelCategories->cleanSeenListDirectories();
+
+    # XXX workaround ids() called to avoid the 'no change button' bug
+    $modelCategories->ids();
 }
 
 
