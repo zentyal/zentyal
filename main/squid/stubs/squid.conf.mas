@@ -110,7 +110,7 @@ sub _printSplitAcl
    $aclName = _aclName($aclName);
 
    if ($object) {
-       my $acl = "$acl $aclName src";
+       my $acl = "acl $aclName src";
        _printSplitAcl($acl, $rule->{addresses});
    } else {
        # escape user names
@@ -118,7 +118,7 @@ sub _printSplitAcl
        if ($realm) {
            @users = map { $_ . '@' . $realm } @users;
        }
-       my $acl = "$aclName proxy_auth";
+       my $acl = "acl $aclName proxy_auth";
        _printSplitAcl($acl, \@users);
    }
 </%perl>
