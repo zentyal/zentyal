@@ -68,20 +68,22 @@ then
 
     if [ -f /tmp/RECOVER_MODE ]
     then
-        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
+        servers=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
 
-        choices=$(echo $RESPONSE | grep : | cut -d\" -f2 | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
+        choices=$(echo $servers | grep : | cut -d\" -f2 | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
         db_subst zinstaller-remote/select_hostname_recover CHOICES "$choices"
         db_input high zinstaller-remote/select_hostname_recover || true
         db_go || true
 
         db_get zinstaller-remote/select_hostname_recover
         SERVERNAME=$(echo $RET | cut -d' ' -f1)
+
+        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
     fi
 
     rm -f $DATA_DIR/BUNDLE_IDS
 
-    # JSON formatting seems to change, so whe remove all new lines
+    # JSON formatting seems to change, so we remove all new lines
     RESPONSE=$(echo "$RESPONSE" | tr "\n" ' ')
 
     echo $RESPONSE | sed "s/},/\n/g" | while read line
@@ -124,7 +126,8 @@ then
 
     # Get subscription data
     RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-    QA_USERNAME="$USERNAME-$SERVERNAME"
+    COMPANY=$(get_field "$RESPONSE" company)
+    QA_USERNAME="$COMPANY-$SERVERNAME"
     QA_PASSWORD=$(get_field "$RESPONSE" password)
     UUID=$(get_field "$RESPONSE" uuid)
 
