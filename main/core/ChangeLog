@@ -1,3 +1,5 @@
+HEAD
+	+ Removed cron daily invocation of deprecated report scripts
 3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files
