@@ -86,4 +86,10 @@ sub hostDomainChangedDone
     my ($self, $oldDomainName, $newDomainName) = @_;
 }
 
+sub fqdnChanged
+    {}
+
+sub fqdnChangedDone
+    {}
+
 1;

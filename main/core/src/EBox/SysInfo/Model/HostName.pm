@@ -165,7 +165,6 @@ sub validateTypedRow
     my $oldDomainName = $self->hostdomainValue();
     my $newDomainName = defined $changed->{hostdomain} ? $changed->{hostdomain}->value() : $all->{hostdomain}->value();
 
-
     $self->_checkDNSName($newHostName, 'Host name');
     unless (length ($newHostName) >= MIN_HOSTNAME_LENGTH and
             length ($newHostName) <= MAX_HOSTNAME_LENGTH) {
@@ -191,11 +190,17 @@ sub validateTypedRow
     }
 
     # After our validation, notify observers that this value is about to change
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
+
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
     foreach my $obs (@observers) {
-        $obs->hostDomainChanged($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
-        $obs->hostNameChanged($oldHostName, $newHostName) if ($newHostName ne $oldHostName);
+        $obs->hostDomainChanged($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChanged($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fdqnChanged($oldFqdn, $newFqdn) if ($hostNameChanged or $domainChanged);
     }
 }
 
@@ -220,12 +225,17 @@ sub updatedRowNotify
     my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;
     my $newDomainName = $self->row->valueByName('hostdomain');
     my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newDomainName;
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
 
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
     foreach my $obs (@observers) {
-        $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if ($newDomainName ne $oldDomainName);
-        $obs->hostNameChangedDone($oldHostName, $newHostName) if ($newHostName ne $oldHostName);
+        $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fqdnChangedDone($oldFqdn, $newFqdn);
     }
 }
 
