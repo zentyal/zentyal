@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::Monitor
 #
@@ -27,18 +29,13 @@
 #
 
 package EBox::Monitor;
-
-use strict;
-use warnings;
-
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider EBox::SysInfo::Observer);
 
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
-use Sys::Hostname;
 use EBox::Validate qw( :all );
 
 use EBox::Exceptions::InvalidData;
@@ -536,29 +533,16 @@ sub _setMainConf
 {
     my ($self) = @_;
 
-    my $hostname       = hostname();
+    my $hostname      = $self->global()->modInstance('sysinfo')->fqdn();
     my @networkServers = ();
 
-    my $oldHostname = $self->get_string('old_hostname');
-    if (not $oldHostname) {
+    my $oldFqdn = $self->get_string('old_hostname');
+    if (not $oldFqdn) {
         unless ($self->{ro}) {
             $self->set_string('old_hostname', $hostname);
         }
-    } elsif ($oldHostname ne $hostname) {
-        my $oldPath = EBox::Monitor::Configuration::RRDBaseDirPath($oldHostname);
-        my $newPath = EBox::Monitor::Configuration::RRDBaseDirPath($hostname);
-        if (($oldPath ne $newPath) and EBox::Sudo::fileTest('-e', $oldPath)) {
-            if (not EBox::Sudo::fileTest('-e', $newPath)) {
-                $oldPath =~ s{/$}{};
-                $newPath =~ s{/$}{};
-                EBox::Sudo::root("mv '$oldPath' '$newPath'");
-            } else {
-                EBox::error("Found orphan RRD directory: $oldPath");
-            }
-        }
-        unless ($self->{ro}) {
-            $self->set_string('old_hostname', $hostname);
-        }
+    } elsif ($oldFqdn ne $hostname) {
+        $self->_changeRRDDirs($oldFqdn, $hostname);
     }
 
     # Send stats to Zentyal Cloud with the server name if the host is subscribed
@@ -791,6 +775,44 @@ sub _enforceServiceState
 
     # Restore the service state
     $self->SUPER::_enforceServiceState(@_);
+}
+
+
+# mark as change so it is restarted in next save
+sub fqdnChangedDone
+{
+    my ($self, $old , $new) = @_;
+    unless ($self->{ro}) {
+        $self->set_string('old_hostname', $new);
+    }
+}
+
+
+sub _changeRRDDirs
+{
+    my ($self, $old, $new) = @_;
+    my $newDir = EBox::Monitor::Configuration::RRD_BASE_DIR . $new;
+    my $oldDir = EBox::Monitor::Configuration::RRDBaseDirPath($old);
+
+    my $existsOld = EBox::Sudo::fileTest('-d', $oldDir);
+    if (not $existsOld) {
+        EBox::info("Old collectd directory $existsOld, don't exists. Nothing to do");
+        return
+    }
+    my $existsNew = EBox::Sudo::fileTest('-d', $newDir);
+    if (not $existsNew) {
+        EBox::info("A collectd directory with the mew hostname($newDir) already exists, letting $oldDir untouched");
+        return;
+    }
+
+    $oldDir =~ s{/$}{};
+    $newDir =~ s{/$}{};
+    EBox::Sudo::root("mv '$oldDir' '$newDir'");
+    EBox::info("A collectd directory $oldDir moved to $newDir ");
+    unless ($self->{ro}) {
+        $self->set_string('old_hostname', $new);
+    }
+
 }
 
 1;
