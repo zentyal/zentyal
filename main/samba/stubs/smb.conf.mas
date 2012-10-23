@@ -57,6 +57,7 @@ use EBox::Samba;
     server services = rpc, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
     dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
 % }
+    server signing = auto
 
 % if ($guestAccess) {
     guest ok = yes
