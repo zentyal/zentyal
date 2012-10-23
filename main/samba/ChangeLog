@@ -1,4 +1,7 @@
-HEAD
+3.0.5
+	+ Enabled optional signed SMB protocol in smb.conf
+	+ Delete users and groups from shares ACL when these are deleted
+	+ Refuse to delete system critical objects
 	+ Added syncFolders information method to allow file syncing
 	+ Implement SysInfo::Observer to disallow host or domain name changes if
 	  module is configured and update the required fields if it is not

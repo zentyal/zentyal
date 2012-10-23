@@ -106,9 +106,27 @@ sub _delUser
     my $dn = $zentyalUser->dn();
     EBox::debug("Deleting user '$dn' from samba");
     try {
-        my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
+        my $samAccountName = $zentyalUser->get('uid');
+        my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
         return unless $sambaUser->exists();
         $sambaUser->deleteObject();
+
+        # Remove user from share ACL's
+        my $shares = $self->{samba}->model('SambaShares');
+        my $sharesIds = $shares->ids();
+        foreach my $shareId (@{$sharesIds}) {
+            my $shareRow = $shares->row($shareId);
+            my $acls = $shareRow->subModel('access');
+            my $aclsIds = $acls->ids();
+            foreach my $aclId (@{$aclsIds}) {
+                my $aclRow = $acls->row($aclId);
+                my $type = $aclRow->elementByName('user_group');
+                if ($type->selectedType() eq 'user' and
+                    $type->printableValue() eq $samAccountName) {
+                    $acls->removeRow($aclId);
+                }
+            }
+        }
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting user: $error");
@@ -177,12 +195,30 @@ sub _delGroup
     my $dn = $zentyalGroup->dn();
     EBox::debug("Deleting group '$dn' from samba");
     try {
-        my $sambaGroup = new EBox::Samba::Group(samAccountName => $zentyalGroup->get('cn'));
+        my $samAccountName = $zentyalGroup->get('cn');
+        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         $sambaGroup->deleteObject();
+
+        # Remove group from shares ACLs
+        my $shares = $self->{samba}->model('SambaShares');
+        my $sharesIds = $shares->ids();
+        foreach my $shareId (@{$sharesIds}) {
+            my $shareRow = $shares->row($shareId);
+            my $acls = $shareRow->subModel('access');
+            my $aclsIds = $acls->ids();
+            foreach my $aclId (@{$aclsIds}) {
+                my $aclRow = $acls->row($aclId);
+                my $type = $aclRow->elementByName('user_group');
+                if ($type->selectedType() eq 'group' and
+                    $type->printableValue() eq $samAccountName) {
+                    $acls->removeRow($aclId);
+                }
+            }
+        }
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting user: $error");
+        EBox::error("Error deleting group: $error");
     };
 }
 

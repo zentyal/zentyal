@@ -24,8 +24,6 @@ use Net::Ping;
 EBox::init();
 EBox::info("Samba sysvol synchronizer script started");
 
-$ENV{KRB5CCNAME}="/tmp/sync.$$";
-
 my $samba = EBox::Global->modInstance('samba');
 my $sambaSettings = $samba->model('GeneralSettings');
 my $sourceDC = $sambaSettings->dcfqdnValue();

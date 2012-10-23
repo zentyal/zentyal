@@ -64,9 +64,9 @@ max-lease-time 7200;
 include "<% $keysFile %>";
 % }
 
+% foreach my $iface (keys(%real_ifaces)) {
 <%perl>
-	foreach my $iface (keys(%real_ifaces)) {
-           # Write configuration if there are any range or fixed addresses
+            # Write configuration if there are any range or fixed addresses
             my $ifaceToWrite = 0;
             if (exists $ifaces{$iface}) {
                 if (@{$ifaces{$iface}->{ranges}} > 0) {
@@ -75,9 +75,8 @@ include "<% $keysFile %>";
                     $ifaceToWrite = 1;
                 }
             }
-
-           if ( $ifaceToWrite ) {
 </%perl>
-<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
-%          }
-%	}
+%           if ( $ifaceToWrite ) {
+        <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
+%           }
+% }

@@ -172,6 +172,14 @@ sub deleteObject
 {
     my ($self, $attr, $lazy) = @_;
 
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    if ($isCritical and lc ($isCritical) eq 'true') {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $self->dn()));
+    }
+
     $self->_entry->delete();
     $self->save();
 }

@@ -65,7 +65,6 @@ use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
-use constant KEY_UTILS            => '/etc/request-key.conf';
 
 sub _create
 {
@@ -134,11 +133,6 @@ sub usedFiles
         {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
-            'module' => 'samba',
-        },
-        {
-            'file'   => KEY_UTILS,
-            'reason' => __('To allow mount.cifs to use kerberos authentication'),
             'module' => 'samba',
         },
     ];
@@ -347,19 +341,6 @@ sub enableActions
     push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
     EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
-
-    # Enable kerberos auth for mount.cifs
-    my @newLines;
-    my @lines = read_file(KEY_UTILS);
-    foreach my $line (@lines) {
-        next if ($line =~ m/cifs\.upcall/);
-        push (@newLines, $line);
-    }
-    push (@newLines, "create\tcifs.spnego\t*\t*\t/usr/sbin/cifs.upcall\t%k\t%d\n");
-    push (@newLines, "create\tdns_resolver\t*\t*\t/usr/sbin/cifs.upcall\t%k\n");
-    my $buffer = join ('', @newLines);
-    EBox::Module::Base::writeFile(KEY_UTILS, $buffer,
-        { mode => '0644', uid => 0, gid => 0 });
 }
 
 sub isProvisioned
@@ -740,7 +721,9 @@ sub mapAccounts
 
     my $domainSID = $self->ldb->domainSID();
 
-    # Map unix root account to domain administrator
+    # Map unix root account to domain administrator. The accounts are
+    # imported to Zentyal here to avoid s4sync overwrite the uid/gid
+    # mapping
     my $typeUID  = EBox::LDB::IdMapDb::TYPE_UID();
     my $typeGID  = EBox::LDB::IdMapDb::TYPE_GID();
     my $typeBOTH = EBox::LDB::IdMapDb::TYPE_BOTH();
@@ -748,17 +731,29 @@ sub mapAccounts
     my $domainAdminsSID = "$domainSID-512";
     my $rootUID = 0;
     my $admGID = 4;
+
     EBox::info("Mapping domain administrator account");
+    my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
+    $domainAdmin->addToZentyal() if ($domainAdmin->exists());
     $self->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
     EBox::info("Mapping domain administrators group account");
+    my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
+    $domainAdmins->addToZentyal() if ($domainAdmins->exists());
     $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
+
+    # Map domain users group
+    # FIXME Why is this not working during first intall???
+    #my $usersModule = EBox::Global->modInstance('users');
+    #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
+    my $usersGID = 1901;
+    my $domainUsersSID = "$domainSID-513";
+    $self->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
     my $guestGroupSID = "$domainSID-514";
     #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
     #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
-    # FIXME Why is this not working during first intall???
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
@@ -769,7 +764,7 @@ sub mapAccounts
 
 sub importSysvolFromDC
 {
-    my ($self, $dc) = @_;
+    my ($self, $dc, $user, $pwd) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
@@ -784,11 +779,17 @@ sub importSysvolFromDC
     my $dir = tempdir('/tmp/sysvolXXXX', CLEANUP => 1);
     try {
         my @cmds;
-        push (@cmds, "kinit --keytab=" . SECRETS_KEYTAB . " $ucHostname\$");
-        push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
+        if (defined $user and defined $pwd) {
+            push (@cmds, "mount.cifs //$dc/sysvol $dir -o user=$user,pass=$pwd,ro");
+        } else {
+            push (@cmds, "kinit --keytab=" . SECRETS_KEYTAB . " $ucHostname\$");
+            push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
+        }
         push (@cmds, "mount --make-unbindable $dir");
         push (@cmds, "rsync -av --delete --exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' $dir/ " . SYSVOL_DIR . "/");
-        push (@cmds, "kdestroy");
+        if (defined $user and defined $pwd) {
+            push (@cmds, "kdestroy");
+        }
         EBox::Sudo::root(@cmds);
     } otherwise {
         my ($error) = @_;
@@ -895,8 +896,6 @@ sub provisionAsDC
     $self->ldb->ldapUsersToLdb();
     $self->ldb->ldapGroupsToLdb();
     $self->ldb->ldapServicePrincipalsToLdb();
-
-    # TODO Echo the current TS to the .s4_ts
 
     # Map accounts
     $self->mapAccounts();
@@ -1033,7 +1032,7 @@ sub provisionAsADC
         $self->mapAccounts();
 
         # Import sysvol and reset acl
-        $self->importSysvolFromDC($dcFQDN);
+        $self->importSysvolFromDC($dcFQDN, $adminAccount, $adminAccountPwd);
         $self->resetSysvolACL();
 
         EBox::debug('Setting provisioned flag');
