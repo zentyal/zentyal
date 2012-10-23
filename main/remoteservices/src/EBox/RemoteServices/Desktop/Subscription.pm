@@ -35,25 +35,10 @@ sub subscribe
 {
     my $cred = new EBox::RemoteServices::Cred();
 
-    my $limit = 0;
-    my $ret;
-    try {
-        $ret = $cred->RESTClient()->POST('/v1/desktops/', journaling => 0)->data();
-    } otherwise {
-        my $ex = shift;
+    my $ret = $cred->RESTClient()->POST('/v1/desktops/', journaling => 0)->data();
 
-        my @parts = split(':', $ex->text);
-        my $status = $parts[0];
-        if ($status == 402) {                   # Payment required
-            # Desktop subscription limit reached
-            $limit = 1;
-        } else {
-            $ex->throw();
-        }
-    };
-
-    if ($limit) {
-        return {'limit' => 5};              # TODO: Do not hardcode
+    if ($ret->{'limit'}) {
+        return $ret;
     } else {
         return {
             'uuid'      => $ret->{'uuid'},
