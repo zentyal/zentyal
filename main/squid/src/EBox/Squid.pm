@@ -587,7 +587,9 @@ sub _writeSquidFrontConf
 
 
     $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
-    $self->_checkSquidFile(SQUID_CONF_FILE);
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_CONF_FILE);
+    }
 }
 
 sub _writeSquidBackConf
@@ -644,7 +646,9 @@ sub _writeSquidBackConf
 
     $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});
-    $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+    }
 }
 
 sub _checkSquidFile
