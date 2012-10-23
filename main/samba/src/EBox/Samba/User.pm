@@ -35,6 +35,7 @@ use EBox::Samba::Credentials;
 
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
 use Encode;
@@ -211,6 +212,14 @@ sub deleteObject
 {
     my ($self) = @_;
 
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    if ($isCritical and lc ($isCritical) eq 'true') {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $self->dn()));
+    }
+
     # remove this user from all its grups
     foreach my $group (@{$self->groups()}) {
         $self->removeGroup($group);
@@ -301,7 +310,6 @@ sub createRoamingProfileDirectory
     my ($self) = @_;
 
     my $samAccountName  = $self->get('samAccountName');
-    my $uidNumber       = $self->get('uidNumber');
     my $userSID         = $self->sid();
     my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
     my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
@@ -316,7 +324,7 @@ sub createRoamingProfileDirectory
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $uidNumber:$group \'$path\'");
+    push (@cmds, "chown $samAccountName:$group \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
@@ -324,7 +332,7 @@ sub createRoamingProfileDirectory
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
     push (@perms, "g:$group:---");
-    push (@perms, "u:$uidNumber:rwx");
+    push (@perms, "u:$samAccountName:rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
     push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." \'$path\'");
