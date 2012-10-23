@@ -29,6 +29,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 
+use EBox::CalendarResourceLdapUser;
+
 use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
