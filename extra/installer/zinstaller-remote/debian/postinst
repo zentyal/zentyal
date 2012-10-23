@@ -121,7 +121,7 @@ then
 
         db_get zinstaller-remote/select_bundle
         BUNDLE="$RET"
-        BUNDLE_ID=$(grep "\"$BUNDLE\"" $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
+        BUNDLE_ID=$(grep "\"$BUNDLE\"" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f1)
     fi
 
     # Get subscription data
