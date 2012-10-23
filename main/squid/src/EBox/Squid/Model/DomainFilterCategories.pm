@@ -37,7 +37,7 @@ my %validParentDirs = (
     blacklists => 1,
    );
 my %validBasename = (
-    domain => 1,
+    'domains.squid' => 1,
     urls   => 1,
    );
 
@@ -192,7 +192,7 @@ sub _populate
 sub banned
 {
     my ($self) = @_;
-    return $self->_filesByPolicy('deny', 'domains');
+    return $self->_filesByPolicy('deny', 'domains.squid');
 }
 
 # Function: allowed
@@ -205,7 +205,7 @@ sub banned
 sub allowed
 {
     my ($self) = @_;
-    return $self->_filesByPolicy('allow', 'domains');
+    return $self->_filesByPolicy('allow', 'domains.squid');
 }
 
 
@@ -301,10 +301,10 @@ sub squidSharedAcls
         my $basename = $self->_aclBaseName($row);
         my $dir = $row->valueByName('dir');
 
-        my $domainsFile = "$dir/domains";
+        my $domainsFile = "$dir/domains.squid";
         if (-r $domainsFile) {
             my $name = $basename . '_dom';
-            push @acls, [$name => qq{acl $name dstdom_regex -i "$domainsFile"}];
+            push @acls, [$name => qq{acl $name dstdomain "$domainsFile"}];
         }
 
         my $urlsFile = "$dir/urls";

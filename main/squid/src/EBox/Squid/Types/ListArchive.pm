@@ -51,6 +51,7 @@ sub _moveToPath
     my $name = basename($path);
     my $dest = "$UNPACK_PATH/$name";
     $self->_extractArchive($path, $dest);
+    $self->_makeSquidDomainFiles($dest);
 }
 
 sub _fileIsArchive
@@ -69,6 +70,21 @@ sub _extractArchive
                      "tar xzf '$path' -C '$dir'",
                      "chown -R root:ebox '$dir'",
                      "chmod -R o+r '$dir'");
+}
+
+
+sub _makeSquidDomainFiles
+{
+    my ($self, $dir) = @_;
+    my @files = @{ EBox::Sudo::root("find '$dir' -name domains") };
+    foreach my $file (@files) {
+        chomp $file;
+        my $dstFile = dirname($file) . '/domains.squid';
+        EBox::Sudo::root(
+            qq{cat '$file' | awk '{ print length, \$0 }' | sort -n | awk '{\$1=""; print \$0}' > '$dstFile'},
+            "sed -e s/^././ -i '$dstFile'" # the first chracter is a blank character
+           );
+    }
 }
 
 # FIXME: what happens with this? when the file is removed?
