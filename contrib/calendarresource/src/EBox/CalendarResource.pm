@@ -20,7 +20,7 @@
 
 package EBox::CalendarResource;
 
-use base qw(EBox::Module::Service EBox::Model::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use strict;
 use warnings;
