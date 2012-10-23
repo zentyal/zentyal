@@ -1,4 +1,5 @@
 HEAD
+	+ Handle desktop subscription limit error status
 	+ Return the cloud domain along with the credentials to the desktops
 	  upon subscription
 	+ Configure file sync daemon
