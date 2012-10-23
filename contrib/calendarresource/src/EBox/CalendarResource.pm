@@ -27,16 +27,8 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Sudo;
 
 use EBox::CalendarResourceLdapUser;
-
-use EBox::Validate qw( :all );
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataMissing;
-use EBox::Exceptions::DataNotFound;
 
 
 # Method: _create
