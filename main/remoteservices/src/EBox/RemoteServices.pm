@@ -972,16 +972,6 @@ sub renovationDate
     return $ret;
 }
 
-# Method: filesSyncAvailable
-#
-#   Returns 1 if file syncrhonization is available
-#
-sub filesSyncAvailable
-{
-    # TODO implement this in capabilities (+convert that to REST?)
-    return 1;
-}
-
 # Method: usersSyncAvailable
 #
 #   Returns 1 if users syncrhonization is available
@@ -994,7 +984,18 @@ sub filesSyncAvailable
 sub usersSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 0;
+    return EBox::Config::configkey('users_sync_available');
+
+}
+
+# Method: filesSyncAvailable
+#
+#   Returns 1 if file syncrhonization is available
+#
+sub filesSyncAvailable
+{
+    # TODO implement this in capabilities (+convert that to REST?)
+    return EBox::Config::configkey('files_sync_available');
 }
 
 # Method: securityUpdatesAddOn
@@ -1059,9 +1060,9 @@ sub disasterRecoveryAddOn
     return $ret;
 }
 
-# Method: sbMailAddOn
+# Method: commAddOn
 #
-#      Get if server has SB mail add-on
+#      Get whether server has communications add-on or not
 #
 # Parameters:
 #
@@ -1072,7 +1073,7 @@ sub disasterRecoveryAddOn
 #
 #      Boolean - indicating whether it has SB mail add-on or not
 #
-sub sbMailAddOn
+sub commAddOn
 {
     my ($self, $force) = @_;
 
@@ -1080,7 +1081,7 @@ sub sbMailAddOn
 
     my $ret;
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{sb_mail_add_on};
+        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
     } otherwise {
         $ret = 0;
     };
@@ -1400,8 +1401,8 @@ sub i18nServerEdition
 
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
-        if ( $self->sbMailAddOn() ) {
-            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        if ( $self->commAddOn() ) {
+            $ret .= ' + ' . __s('Communications Add-on');
         }
         return $ret;
     } else {
@@ -1651,7 +1652,7 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
       ( __('None'), '', '', 'info', '', __('Disabled'), '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
@@ -1709,7 +1710,7 @@ sub _ccConnectionWidget
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
-        $sbMailAddOn = $self->sbMailAddOn();
+        $commAddOn = $self->commAddOn();
 
     } else {
         $connValue      = __sx('Not registered - {oh}Register now!{ch}',
@@ -1735,8 +1736,8 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
-    if ( $sbMailAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+    if ( $commAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
                                                  __('Enabled')));
     }
 }
@@ -1775,7 +1776,7 @@ sub _getSubscriptionDetails
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
                 disaster_recovery => $details->{disaster_recovery},
-                sb_mail_add_on    => $details->{sb_mail_add_on},
+                sb_comm_add_on    => $details->{sb_comm_add_on},
             };
             $self->set_state($state);
         }

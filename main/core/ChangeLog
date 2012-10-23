@@ -1,5 +1,7 @@
 HEAD
 	+ Redirect to proper CGI after login in disaster recovery mode
+	+ Removed cron daily invocation of deprecated report scripts
+3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files
 	+ New observer for sysinfo module to notify modules implementing the

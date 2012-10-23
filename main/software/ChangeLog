@@ -1,5 +1,8 @@
 HEAD
 	+ Adapted firstTimeMenu() for Disaster Recovery
+3.0.2
+	+ Make required changes for new communications add-on
+	  (mailfilter in community + jabber and asterisk in comm add-on)
 3.0.1
 	+ Fixed basic mode boxes behavior when adding/removing individual packages
 	+ Fixed behavior of select/deselect all buttons in Zentyal components

@@ -1,4 +1,20 @@
 HEAD
+	+ Added explicit error when a squid configuration file is invalid
+	+ Limited object ACLs to ten addresses per line
+	+ When creating user ACLs put only ten users per line to avoid
+	  reaching maximun configuration file line length
+	+ Use lowercase user names in configuration file, otherwise
+	  authorization fails
+	+ Use of reserved character in generated ACl names to avoid name clashes
+	+ Protection for ACL from profiles with too long names
+	+ Added validation of categorized list structure
+	+ Changed paths for categorized lists files so they are all under
+	  /var/lib/zentyal/files/squid
+	+ Work arounded the removal of archive files until the framework
+	  takes care again of them
+	+ Fixed categories list removal of extracted files
+	+ Moved a lot of the filter functionality to squid. In DG remains:
+	  filter by text analysys, antivirus and block ip
 	+ Adapted to improvement of EBox::Module::Service::isRunning method
 	+ Moved most of the filter functionality to squid. In DG remains:
 	  filter by text content analysys, antivirus and IP block

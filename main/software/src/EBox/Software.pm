@@ -46,8 +46,7 @@ use constant {
     QA_ARCHIVE     => 'zentyal-qa',
 };
 
-my @RESTRICTED_SB = qw(zentyal-jabber zentyal-asterisk);
-my @MAIL_PKGS = qw(zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-zarafa);
+my @COMM_PKGS = qw(zentyal-jabber zentyal-asterisk zentyal-mail zentyal-webmail zentyal-zarafa);
 
 # Group: Public methods
 
@@ -753,12 +752,8 @@ sub _getInfoEBoxPkgs
 
     my %restricted;
     if (EBox::Global->edition() eq 'sb') {
-        %restricted = map { $_ => 1 } @RESTRICTED_SB;
         my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-        unless ( $rs->sbMailAddOn() ) {
-            my %mailRestricted = map { $_ => 1 } @MAIL_PKGS;
-            @restricted{keys %mailRestricted} = values %mailRestricted;
-        }
+        %restricted = map { $_ => 1 } @COMM_PKGS unless ( $rs->commAddOn() );
     }
 
     my $cache = $self->_cache(1);

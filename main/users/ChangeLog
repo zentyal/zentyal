@@ -1,4 +1,9 @@
-HEAD
+3.0.3
+	+ Setup Cloud slave on first save changes
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
+	+ Fixed some errors on RESTClient after API change
+	+ Updated REST journaling behavior
 	+ Do not show unavailable options in master select
 	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
 	+ Added check to assure that a no-ldap user has the same uid than

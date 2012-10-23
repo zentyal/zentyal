@@ -30,8 +30,8 @@ use constant TYPE_OPTIONS => ('share', 'user', 'group', 'recovery');
 # Folder constructor
 #
 # Params:
-#   path - Full local path
-#   type - Share type. Should be one of:
+#       path     - Full local path
+#       type     - Share type. Should be one of:
 #       share    - Shared folder
 #       user     - User's home
 #       group    - Group's folder

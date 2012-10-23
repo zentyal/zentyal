@@ -162,6 +162,7 @@ sub checkMaster
     my ($self, $host, $port, $password) = @_;
 
     my $apache = EBox::Global->modInstance('apache');
+    my $users = EBox::Global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $master = EBox::SOAPClient->instance(
@@ -176,6 +177,9 @@ sub checkMaster
         my $ex = shift;
         $self->_analyzeException($ex);
     };
+
+    # Check that master's REALM is correct
+    $self->_checkRealm($users, $master);
 }
 
 
@@ -240,6 +244,19 @@ sub setupSlave
 
         # disable master access
         unlink (MASTER_CERT);
+    }
+}
+
+
+sub _checkRealm
+{
+    my ($self, $users, $client) = @_;
+
+    my $mrealm = $client->getRealm();
+    my $srealm = $users->kerberosRealm();
+
+    unless ($srealm eq $mrealm) {
+        throw EBox::Exceptions::External(__x("Master server has a different REALM, check hostnames. Master is {master} and slave {slave}.", master => $mrealm, slave => $srealm));
     }
 }
 

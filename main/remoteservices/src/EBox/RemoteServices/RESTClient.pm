@@ -35,8 +35,6 @@ use URI;
 use LWP::UserAgent;
 use Error qw(:try);
 
-use constant BASE_URL => 'http://192.168.156.1:8000/api/'; #FIXME
-
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -53,7 +51,6 @@ use Time::HiRes;
 use URI;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -86,7 +83,6 @@ sub new {
     my $key = 'rs_api';
     # TODO: Use cloudDomain when available
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-    # $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -120,8 +116,8 @@ sub setServer {
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters
 #            (Optional)
-#   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#   retry - Boolean whether the journaling must be used for this call
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -131,7 +127,7 @@ sub setServer {
 #
 sub GET {
     my ($self, $path, %params) = @_;
-    return $self->request('GET', $path, $params{query}, $params{journaling});
+    return $self->request('GET', $path, $params{query}, $params{retry});
 }
 
 # Method: PUT
@@ -142,8 +138,8 @@ sub GET {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
-#   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#   retry - Boolean whether the journaling must be used for this call
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -153,7 +149,7 @@ sub GET {
 #
 sub PUT {
     my ($self, $path, %params) = @_;
-    return $self->request('PUT', $path, $params{query}, $params{journaling});
+    return $self->request('PUT', $path, $params{query}, $params{retry});
 }
 
 # Method: POST
@@ -164,8 +160,8 @@ sub PUT {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
-#   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#   retry - Boolean whether the journaling must be used for this call
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -175,7 +171,7 @@ sub PUT {
 #
 sub POST {
     my ($self, $path, %params) = @_;
-    return $self->request('POST', $path, $params{query}, $params{journaling});
+    return $self->request('POST', $path, $params{query}, $params{retry});
 }
 
 # Method: DELETE
@@ -186,8 +182,8 @@ sub POST {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - ref containing query parameters (Optional)
-#   journaling - Boolean whether the journaling must be used for this call
-#                If not specified, it will be ENABLED
+#   retry - Boolean whether the journaling must be used for this call
+#                If not specified, it will be DISABLED
 #                 (Optional)
 #   The optional params are named
 #
@@ -197,12 +193,12 @@ sub POST {
 #
 sub DELETE {
     my ($self, $path, %params) = @_;
-    return $self->request('DELETE', $path, $params{query}, $params{journaling});
+    return $self->request('DELETE', $path, $params{query}, $params{retry});
 }
 
 
 sub request {
-    my ($self, $method, $path, $query, $journaling) = @_;
+    my ($self, $method, $path, $query, $retry) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
@@ -283,7 +279,7 @@ sub request {
             }
             default {
                 # Add to the journal unless specified not to do so
-                unless (defined($journaling) and not $journaling) {
+                if ($retry) {
                     $self->_storeInJournal($method, $path, $query, $res);
                 }
                 throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());

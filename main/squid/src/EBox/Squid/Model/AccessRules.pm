@@ -222,7 +222,10 @@ sub rules
             } else {
                 $users = $userMod->group($group)->users();
             }
-            $rule->{users} = [ (map { $_->name() } @{$users}) ];
+            $rule->{users} = [ (map {
+                                      my $name =  $_->name();
+                                      lc $name;
+                                  } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }

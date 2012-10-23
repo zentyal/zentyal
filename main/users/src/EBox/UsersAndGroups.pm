@@ -495,6 +495,19 @@ sub _setConf
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
     if ($self->master() eq 'cloud') {
+        my $rs = new EBox::Global->modInstance('remoteservices');
+        my $rest = $rs->REST();
+        my $res = $rest->GET("/v1/users/realm/")->data();
+        my $realm = $res->{realm};
+
+        # Initial sync, set the realm (definitive) and upload current users
+        if (not $realm) {
+            $rest->PUT("/v1/users/realm/", query => { realm => $self->kerberosRealm() });
+
+            # Send current users and groups
+            $self->initialSlaveSync(new EBox::CloudSync::Slave(), 1);
+        }
+
         push(@array, 'cloudsync_enabled' => 1);
     }
     $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
@@ -1014,17 +1027,30 @@ sub notifyModsLdapUserBase
 #   stored user and group.
 #   It should be called on a slave registering
 #
+#   If sync parameter is given, the operation will
+#   be sent instantly, if not, it will be saved for
+#   slave-sync daemon
+#
 sub initialSlaveSync
 {
-    my ($self, $slave) = @_;
+    my ($self, $slave, $sync) = @_;
 
     foreach my $user (@{$self->users()}) {
-        $slave->savePendingSync('addUser', [ $user ]);
+        if ($sync) {
+            $slave->sync('addUser', [ $user ]);
+        } else {
+            $slave->savePendingSync('addUser', [ $user ]);
+        }
     }
 
     foreach my $group (@{$self->groups()}) {
-        $slave->savePendingSync('addGroup', [ $group ]);
-        $slave->savePendingSync('modifyGroup', [ $group ]);
+        if ($sync) {
+            $slave->sync('addGroup', [ $group ]);
+            $slave->sync('modifyGroup', [ $group ]);
+        } else {
+            $slave->savePendingSync('addGroup', [ $group ]);
+            $slave->savePendingSync('modifyGroup', [ $group ]);
+        }
     }
 }
 
