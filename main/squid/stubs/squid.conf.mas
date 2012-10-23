@@ -20,7 +20,11 @@
     %filterProfiles
 </%args>
 <%shared>
-our $anyPrefix = 'any_src_';
+our $anyPrefix = 'any~src~';
+our $objectPrefix = 'obj~';
+our $groupPrefix = 'grp~';
+our $timeDaysPrefix = 'timeDays~';
+our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
@@ -33,15 +37,15 @@ sub _timeAclsInPolicy
        unshift @ids, $anyPrefix . $policy->{number};
    }
 
-   my $id = join '_', @ids;
+   my $id = join '~', @ids;
 
    my $acls = '';
    if ($policy->{timeDays}) {
-      $acls = _aclName('timeDays_' . $id);
+      $acls = _aclName($timeDaysPrefix . $id);
       $acls .= ' ';
    }
    if ($policy->{timeHours}) {
-       $acls .= _aclName('timeHours_' . $id);
+       $acls .= _aclName($timeHoursPrefix . $id);
    }
 
    return $acls;
@@ -51,7 +55,7 @@ sub _timeAclsInPolicy
 sub _escapeWS
 {
     my ($string) = @_;
-    $string =~ s{ }{__}g;
+    $string =~ s{ }{~~}g;
     return $string;
 }
 # needed to avoid log acl problems
@@ -64,7 +68,7 @@ sub _aclName
 
     if (not exists $longAclNames{$name}) {
         my $nextId = 1 + keys %longAclNames;
-        $nextId = 'longAcl' . $nextId;
+        $nextId = 'longAcl~' . $nextId;
         $longAclNames{$name} = $nextId;
     }
 
@@ -130,9 +134,23 @@ sub _printSplitAcl
 % foreach my $rule (@rules) {
 <%perl>
    my $object = $rule->{'object'};
+   my $objectAcl;
+   if ($rule->{any}) {
+       $objectAcl = 'all';
+   } elsif ($object) {
+       $objectAcl = _aclName($objectPrefix . $object);
+   } else {
+       $objectAcl = '';
+   }
+
    my $group = $rule->{'group'};
-   my $groupAcl = $group ? _aclName($group) : '';
-   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $groupAcl;
+   if ($group) {
+      $groupAcl = _aclName($groupPrefix . $group);
+  } else {
+      $groupAcl = '';
+  }
+
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
@@ -147,7 +165,7 @@ sub _printSplitAcl
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
-            $ruleStr .= ' ' . $baseAcls . $stub->{acl};
+            $ruleStr .= ' ' . $baseAcls . _aclName($stub->{acl});
             $ruleStr .= "\n";
             # output the rule
             $m->print($ruleStr);
@@ -167,10 +185,10 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
     $id
 </%args>
 % if ($rule->{timeDays}) {
-acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
+acl <% _aclName($timeDaysPrefix . $id) %> time <% $rule->{timeDays} %>
 % }
 % if ($rule->{timeHours}) {
-acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 % #################################################################################################
@@ -224,7 +242,9 @@ acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
 
 % foreach my $acl (@{ $filterProfiles{acls} }) {
-<% $acl %>
+%   my ($declaration, $name, $params) = split '\s+', $acl, 3;
+%   $name = _aclName($name);
+acl <% "$name $params" %>
 % }
 
 http_access allow to_localhost
