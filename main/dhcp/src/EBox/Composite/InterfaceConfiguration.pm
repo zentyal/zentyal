@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::DHCP::Composite::InterfaceConfiguration
 #
 #   This class is used to manage dhcp server configuration on a given
@@ -20,11 +21,7 @@
 #   composite does
 #
 package EBox::DHCP::Composite::InterfaceConfiguration;
-
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -68,6 +65,48 @@ sub HTMLTitle
               link => '',
              },
     ]);
+}
+
+
+sub hasAddresses
+{
+    my ($self) = @_;
+
+    my $ranges = $self->componentByName('RangeTable');
+    if ($ranges->size() > 0) {
+        return 1;
+    }
+
+    my $fixedAddresses = $self->componentByName('FixedAddressTable');
+    my $addr = $fixedAddresses->addresses(
+        $self->interface(),
+        $self->parentModule()->isReadOnly()
+       );
+    my $refAddr = ref $addr;
+    if ($refAddr eq 'ARRAY') {
+        return @{ $addr } > 0;
+    } elsif ($refAddr eq 'HASH') {
+        return keys %{ $addr } > 0;
+    }
+
+    return 0;
+}
+
+sub interface
+{
+    my ($self) = @_;
+    return $self->parentRow()->valueByName('iface');
+}
+
+
+
+sub permanentMessage
+{
+    my ($self) = @_;
+    if (not $self->parentRow()->valueByName('enabled')) {
+        return __('This interface is not enabled. DHCP server will not serve addresses in this interface');
+    }
+    return undef;
 }
 
 1;
