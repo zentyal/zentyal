@@ -1,3 +1,13 @@
+zentyal-calendarresource (0.2) precise; urgency=low
+
+  * Fix distribution in debian/changelog.
+  * Remove imports of unused modules.
+  * Add missing import.
+  * Correct placement of the CGI script.
+  * Fix base package for EBox::CalendarResource.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Tue, 23 Oct 2012 15:11:02 -0400
+
 zentyal-calendarresource (0.1) precise; urgency=low
 
   * Initial release
