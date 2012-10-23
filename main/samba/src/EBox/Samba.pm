@@ -135,11 +135,6 @@ sub usedFiles
             'reason' => __('To enable extended attributes and acls.'),
             'module' => 'samba',
         },
-        {
-            'file'   => KEY_UTILS,
-            'reason' => __('To allow mount.cifs to use kerberos authentication'),
-            'module' => 'samba',
-        },
     ];
 }
 
