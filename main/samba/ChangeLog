@@ -1,4 +1,4 @@
-HEAD
+3.0.5
 	+ Enabled optional signed SMB protocol in smb.conf
 	+ Delete users and groups from shares ACL when these are deleted
 	+ Refuse to delete system critical objects
