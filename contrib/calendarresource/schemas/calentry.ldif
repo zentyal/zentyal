@@ -26,9 +26,9 @@
 #
 #
 # This file was converted manually following the instruction in openldap.ldif.
-dn: cn=openldap,cn=schema,cn=config
+dn: cn=calentry,cn=schema,cn=config
 objectClass: olcSchemaConfig
-cn: openldap
+cn: calentry
 #
 #
 # 2.4.4.1 calCalURI
