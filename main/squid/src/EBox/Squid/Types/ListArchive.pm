@@ -165,7 +165,6 @@ sub commitAllPendingRemovals
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
     foreach my $path (@{ $squid->pathsToRemove('save') }) {
         my $rmCmd = "rm -rf '$path'";
-        EBox::debug("REMOVe $rmCmd");
         EBox::Sudo::root($rmCmd);
     }
 
@@ -179,7 +178,6 @@ sub revokeAllPendingRemovals
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
     foreach my $path (@{ $squid->pathsToRemove('revoke') }) {
         my $rmCmd = "rm -rf '$path'";
-        EBox::debug("REMOVe $rmCmd");
         EBox::Sudo::root($rmCmd);
     }
     $squid->clearPathsToRemove('save');
