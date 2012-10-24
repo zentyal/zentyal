@@ -1219,9 +1219,10 @@ sub restoreFilesFromArchive
 sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-    $self->model('CategorizedLists')->beforeRestoreConfig();
+    my $categorizedLists =  $self->model('CategorizedLists');
+    $categorizedLists->beforeRestoreConfig();
     $self->SUPER::aroundRestoreConfig($dir, %options);
-    $self->model('CategorizedLists')->afterRestoreConfig();
+    $categorizedLists->afterRestoreConfig();
 }
 
 # LdapModule implementation

@@ -186,22 +186,58 @@ sub _changeInCategorizedLists
     $modelCategories->ids();
 }
 
-# to mark al las to be deleted
+# to mark files and categories that shoudl be deleted/marked a no present after
+# saving the new configuration
 sub beforeRestoreConfig
 {
     my ($self) = @_;
+    my @names;
+    my @paths;
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
+        push @names, $row->valueByName('name');
+        my $fileList = $row->elementByName('fileList');
+        push @paths, $fileList->path();
+        push @paths, $fileList->archiveContentsDir();
+
     }
+
+    $self->parentModule()->addPathsToRemove('restoreConfig', @paths);
+    $self->parentModule()->addPathsToRemove('restoreConfigNoPresent', @names);
 }
 
 sub afterRestoreConfig
 {
     my ($self) = @_;
-    $self->_changeInCategorizedLists();
+    my $squid = $self->parentModule();
+    my %toRemove = map {
+        $_ => 1
+    } @{  $squid->pathsToRemove('restoreConfig') };
+    my %noPresent =  map {
+        $_ => 1
+    } @{  $squid->pathsToRemove('restoreConfigNoPresent') };
+
+
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
+        delete $noPresent{$row->valueByName('name')};
+        my $fileList = $row->elementByName('fileList');
+        my $path = $fileList->path();
+        my $archiveDir = $fileList->archiveContentsDir();
+        delete $toRemove{$path};
+        delete $toRemove{$archiveDir};
+        $self->parentModule()->addPathsToRemove('revoke', $path, $archiveDir);
     }
+
+    my $filterProfiles = $squid->model('FilterProfiles');
+    foreach my $name (keys %noPresent) {
+        $filterProfiles->markCategoriesAsNoPresent($name);
+    }
+    $self->parentModule()->addPathsToRemove('save', keys %toRemove);
+
+    $squid->clearPathsToRemove('restoreConfig');
+    $squid->clearPathsToRemove('restoreConfigNoPresent');
+    $self->_changeInCategorizedLists();
 }
 
 1;
