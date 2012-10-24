@@ -45,7 +45,9 @@
             <span class="ftitle"><% __('Maximum multiple bookings') %>:</span>
         </td>
         <td>
-            <input type="checkbox" name="multiplebookings" id="external"
+            <input type="text" pattern="\d+"
+	        title="Numeric value describing the maximum bookings this resource admits."
+	        name="multiplebookings" id="external"
                 value="<% $params->{'multiplebookings'} %>"
 		/>
         </td>
