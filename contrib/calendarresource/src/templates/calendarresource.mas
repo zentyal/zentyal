@@ -16,7 +16,7 @@
         <label for="" class="ftitle"><% __('Is calendaring resource') %>:</label>
     </td>
     <td>
-        <select name="active" enabled>
+        <select name="is_resource" enabled>
 %    if ($params->{'is_resource'} eq 'yes') {
         <option value="no" ><% __('No') %></option>
         <option selected value="yes" ><% __('Yes') %></option>
