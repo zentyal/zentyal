@@ -99,6 +99,9 @@ sub _moveToPath
     my $dest = $self->archiveContentsDir();
     $self->_extractArchive($path, $dest);
     $self->_makeSquidDomainFiles($dest);
+
+    my $squid = EBox::Global->getInstance(1)->modInstance('squid');
+    $squid->addPathsToRemove('revoke', $path, $dest);
 }
 
 sub _fileIsArchive
@@ -117,6 +120,7 @@ sub _extractArchive
                      "tar xzf '$path' -C '$dir'",
                      "chown -R root:ebox '$dir'",
                      "chmod -R o+r '$dir'");
+
 }
 
 sub _makeSquidDomainFiles
@@ -152,27 +156,34 @@ sub markArchiveContentsForRemoval
     my $dir   = $self->archiveContentsDir();
 
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    $squid->addPathsToRemove($path, $dir);
+    $squid->addPathsToRemove('save', $path, $dir);
 }
 
 sub commitAllPendingRemovals
 {
     my ($self) = @_;
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    foreach my $path (@{ $squid->pathsToRemove() }) {
+    foreach my $path (@{ $squid->pathsToRemove('save') }) {
         my $rmCmd = "rm -rf '$path'";
         EBox::debug("REMOVe $rmCmd");
         EBox::Sudo::root($rmCmd);
     }
 
-    $squid->clearPathsToRemove();
+    $squid->clearPathsToRemove('save');
+    $squid->clearPathsToRemove('revoke');
 }
 
 sub revokeAllPendingRemovals
 {
     my ($self) = @_;
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    $squid->clearPathsToRemove();
+    foreach my $path (@{ $squid->pathsToRemove('revoke') }) {
+        my $rmCmd = "rm -rf '$path'";
+        EBox::debug("REMOVe $rmCmd");
+        EBox::Sudo::root($rmCmd);
+    }
+    $squid->clearPathsToRemove('save');
+    $squid->clearPathsToRemove('revoke');
 }
 
 sub unpackPath

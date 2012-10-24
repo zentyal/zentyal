@@ -61,7 +61,7 @@ sub syncRows
         $self->{seenListDirectories}->{$modelConfDir} = {};
     }
 
-    my %pathsToRemove = map { $_ => 1} @{ $self->parentModule()->pathsToRemove()  };
+    my %pathsToRemove = map { $_ => 1} @{ $self->parentModule()->pathsToRemove('save')  };
     my $lists;
     foreach my $dir (@dirs) {
         if (exists $pathsToRemove{$dir}) {

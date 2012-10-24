@@ -1174,29 +1174,32 @@ sub _DGLang
 
 sub addPathsToRemove
 {
-    my ($self, @files) = @_;
+    my ($self, $when, @files) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
     my $state = $self->get_state();
-    my $toRemove = $state->{'paths_to_remove'};
+    my $toRemove = $state->{$when};
     $toRemove or $toRemove = [];
 
     push @{$toRemove }, @files;
-    $state->{'paths_to_remove'} = $toRemove;
+    $state->{$key} = $toRemove;
     $self->set_state($state);
 }
 
 sub clearPathsToRemove
 {
-    my ($self) = @_;
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
     my $state = $self->get_state();
-    delete $state->{'paths_to_remove'};
+    delete $state->{$key};
     $self->set_state($state);
 }
 
 sub pathsToRemove
 {
-    my ($self) = @_;
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
     my $state = $self->get_state();
-    my $toRemove = $state->{'paths_to_remove'};
+    my $toRemove = $state->{$key};
     $toRemove or $toRemove = [];
     return $toRemove;
 }
@@ -1216,6 +1219,7 @@ sub restoreFilesFromArchive
 sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
+    $self->model('CategorizedLists')->beforeRestoreConfig();
     $self->SUPER::aroundRestoreConfig($dir, %options);
     $self->model('CategorizedLists')->afterRestoreConfig();
 }

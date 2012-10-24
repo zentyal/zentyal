@@ -186,17 +186,22 @@ sub _changeInCategorizedLists
     $modelCategories->ids();
 }
 
+# to mark al las to be deleted
+sub beforeRestoreConfig
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+    }
+}
+
 sub afterRestoreConfig
 {
     my ($self) = @_;
-
+    $self->_changeInCategorizedLists();
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
-        my $name = $row->valueByName('name');
-        $self->parentModule()->model('FilterProfiles')->markCategoriesAsNoPresent($name);
     }
-
-    $self->_changeInCategorizedLists();
 }
 
 1;
