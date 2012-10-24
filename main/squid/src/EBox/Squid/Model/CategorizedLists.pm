@@ -121,7 +121,8 @@ sub updatedRowNotify
 
 sub deletedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row) = @_;
+    $row->elementByName()->markArchiveContentsForRemoval();
     $self->_changeInCategorizedLists();
 }
 

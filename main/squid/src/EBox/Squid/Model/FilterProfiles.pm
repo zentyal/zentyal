@@ -292,11 +292,14 @@ sub antivirusNeeded
     return 0;
 }
 
-# this must be only called one time
-sub restoreConfig
+sub markCategoriesAsNoPresent
 {
-    my ($class, $dir)  = @_;
-    EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $filterPolicy = $self->row($id)->subModel('filterPolicy');
+        my $domainFilterCategories = $filterPolicy->componentByName('domainFilterCategories', 1);
+        $domainFilterCategories->markCategoriesAsNoPresent();
+    }
 }
 
 sub squidAcls

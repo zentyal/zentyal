@@ -502,14 +502,23 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
+
     $self->_writeSquidFrontConf($filter);
     $self->_writeSquidBackConf();
-
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
         $self->_writeDgConf();
     }
+
+    $self->model('ListArchive')->commitAllPendingRemovals();
+}
+
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   $self->model('ListArchive')->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -1180,22 +1189,16 @@ sub aroundDumpConfigDISABLED
 }
 
 
-# FIXME
-sub aroundRestoreConfigDISABLED
+
+sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
+    $self->restoreConfig($dir, %options);
+    # mark as domain categories as not present
+
 }
+
+
 
 # FIXME
 sub restoreConfigDISABLED
