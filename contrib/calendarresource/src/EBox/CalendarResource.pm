@@ -41,9 +41,9 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'calendarresource',
-            printableName => __('CalendarResource'),
-            domain => 'calendarresource',
-            @_);
+				      printableName => __('Calendar Resource'),
+				      domain => 'calendarresource',
+				      @_);
     bless ($self, $class);
     return $self;
 }
