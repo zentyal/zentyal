@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 REGISTER_DATA=/var/lib/zinstaller-remote
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
@@ -14,6 +12,7 @@ then
 
     if [ -f $REGISTER_DATA/COMMERCIAL_EDITION ]
     then
+        apt-get update
         DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal-cloud-prof zentyal-security-updates
     fi
 fi
