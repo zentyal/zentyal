@@ -124,7 +124,7 @@ sub setIsCalendarResource
 
     if ($self->isCalendarResource($user) and not $option) {
         my @objectclasses = $user->get('objectClass');
-        @objectclasses = grep { ! /CalendarResource|calEntry/ } @objectclasses;
+        @objectclasses = grep { ! /SchedApprovalInfo|CalendarResource|calEntry/ } @objectclasses;
 
         $user->delete('Kind', 1);
         $user->delete('Multiplebookings', 1);
@@ -136,6 +136,7 @@ sub setIsCalendarResource
         my @objectclasses = $user->get('objectClass');
         push (@objectclasses, 'calEntry');
         push (@objectclasses, 'CalendarResource');
+        push (@objectclasses, 'SchedApprovalInfo');
 
         $user->set('Kind', 'location', 1);
         $user->set('Multiplebookings', 0, 1);
