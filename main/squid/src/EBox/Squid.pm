@@ -1171,49 +1171,53 @@ sub _DGLang
     return $lang;
 }
 
-# FIXME
-sub aroundDumpConfigDISABLED
+
+sub addPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, @files) = @_;
+    my $state = $self->get_state();
+    my $toRemove = $state->{'paths_to_remove'};
+    $toRemove or $toRemove = [];
 
-    my $backupCategorizedDomainLists =
-        EBox::Config::boolean('backup_domain_categorized_lists');
-
-    my $bugReport = $options{bug};
-    if (not $bugReport and $backupCategorizedDomainLists) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-    } else {
-        # we don't save archive files
-        $self->_dump_to_file($dir);
-        $self->dumpConfig($dir, %options);
-    }
+    push @{$toRemove }, @files;
+    $state->{'paths_to_remove'} = $toRemove;
+    $self->set_state($state);
 }
 
+sub clearPathsToRemove
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    delete $state->{'paths_to_remove'};
+    $self->set_state($state);
+}
 
+sub pathsToRemove
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    my $toRemove = $state->{'paths_to_remove'};
+    $toRemove or $toRemove = [];
+    return $toRemove;
+}
+
+sub backupFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+}
+sub restoreFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+
+}
 
 sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-    $self->restoreConfig($dir, %options);
-    # mark as domain categories as not present
-
-}
-
-
-
-# FIXME
-sub restoreConfigDISABLED
-{
-    my ($self, $dir, %options) = @_;
-
-    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
-    if ($removeCategorizedDomainLists) {
-        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-            $domainFilterFiles->removeAll();
-        }
-    }
-
-    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
+    $self->SUPER::aroundRestoreConfig($dir, %options);
+    $self->model('CategorizedLists')->afterRestoreConfig();
 }
 
 # LdapModule implementation

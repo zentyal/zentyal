@@ -30,8 +30,6 @@ use File::Basename;
 
 
 my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
-my $REMOVE_LIST  = '/var/lib/zentyal/files/squid/removeList';
-my $REMOVE_PREFIX = 'toremove.';
 
 # validation for catogory directories
 my %validParentDirs = (
@@ -147,67 +145,39 @@ sub archiveContentsDir
     return "$UNPACK_PATH/$name";
 }
 
-sub _removalDir
-{
-    my ($self) = @_;
-    my $path = $self->archiveContentsDir();
-    my $dirname = dirname($path);
-    my $basename = $REMOVE_PREFIX . basename($path);
-    return $dirname . '/' . $basename;
-}
-
-
 sub markArchiveContentsForRemoval
 {
     my ($self, $id) = @_;
-    my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    my $state = $squid->get_state();
-
     my $path = $self->path();
     my $dir   = $self->archiveContentsDir();
-    my $toRemove = $state->{'files_to_remove'};
-    $toRemove or $toRemove = [];
 
-    push @{$toRemove }, ($path , $dir);
-    $state->{'files_to_remove'} = $toRemove;
-    $squid->set_state($state);
+    my $squid = EBox::Global->getInstance(1)->modInstance('squid');
+    $squid->addPathsToRemove($path, $dir);
 }
 
 sub commitAllPendingRemovals
 {
     my ($self) = @_;
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    my $state = $squid->get_state();
-
-    my $toRemove = delete $state->{'files_to_remove'};
-    $toRemove or return;
-    foreach my $path (@{ $toRemove }) {
+    foreach my $path (@{ $squid->pathsToRemove() }) {
         my $rmCmd = "rm -rf '$path'";
         EBox::debug("REMOVe $rmCmd");
         EBox::Sudo::root($rmCmd);
     }
 
-    $squid->set_state($state);
+    $squid->clearPathsToRemove();
 }
 
 sub revokeAllPendingRemovals
 {
     my ($self) = @_;
     my $squid = EBox::Global->getInstance(1)->modInstance('squid');
-    my $state = $squid->get_state();
-    delete $state->{'files_to_remove'};
-    $squid->set_state($state);
+    $squid->clearPathsToRemove();
 }
 
 sub unpackPath
 {
     return $UNPACK_PATH;
 }
-
-sub toRemovePrefix
-{
-    return $REMOVE_PREFIX;
-}
-
 
 1;

@@ -61,11 +61,10 @@ sub syncRows
         $self->{seenListDirectories}->{$modelConfDir} = {};
     }
 
+    my %pathsToRemove = map { $_ => 1} @{ $self->parentModule()->pathsToRemove()  };
     my $lists;
-    my $removeDirPrefix = EBox::Squid::Types::ListArchive::unpackPath() . '/' .  EBox::Squid::Types::ListArchive::toRemovePrefix();
-    my $removeDirRe = qr/^$removeDirPrefix/;
     foreach my $dir (@dirs) {
-        if ($dir =~ m/$removeDirRe/) {
+        if (exists $pathsToRemove{$dir}) {
             next;
         }
         if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {

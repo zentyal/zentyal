@@ -125,6 +125,23 @@ sub viewCustomizer
     return $customizer;
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $params, $actual) = @_;
+    if (($action eq 'add') or ($action eq 'update')) {
+        my $name = exists $params->{name} ? $params->{name}->value() : $actual->{name}->value();
+        my $dir = LIST_FILE_DIR . '/' . $name;
+        if (EBox::Sudo::fileTest('-e', $dir)) {
+            throw EBox::Exceptions::External(__x(
+                "Cannot use name {name} because there arready a directory for this name: {dir}.\n Maybe a uncommited removal?.",
+                name => $name,
+                dir => $dir
+               )
+            );
+        }
+    }
+}
+
 sub addedRowNotify
 {
     my ($self) = @_;
@@ -169,6 +186,17 @@ sub _changeInCategorizedLists
     $modelCategories->ids();
 }
 
+sub afterRestoreConfig
+{
+    my ($self) = @_;
 
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $name = $row->valueByName('name');
+        $self->parentModule()->model('FilterProfiles')->markCategoriesAsNoPresent($name);
+    }
+
+    $self->_changeInCategorizedLists();
+}
 
 1;
