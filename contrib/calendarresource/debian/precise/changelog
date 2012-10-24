@@ -1,3 +1,18 @@
+zentyal-calendarresource (0.4) unstable; urgency=low
+
+  * Minor code style fix for the parameters of a constructor.
+  * A more fitting user visible name for 'user' parameter.
+  * Redirect back to edit user details screen.
+  * Fix edit form element name.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Wed, 24 Oct 2012 09:26:30 -0400
+
+zentyal-calendarresource (0.3) precise; urgency=low
+
+  * Give separate, meaninful DNs to LDAP schemas.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Tue, 23 Oct 2012 17:23:00 -0400
+
 zentyal-calendarresource (0.2) precise; urgency=low
 
   * Fix distribution in debian/changelog.
