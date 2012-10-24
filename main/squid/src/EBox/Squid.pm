@@ -502,7 +502,6 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
-
     $self->_writeSquidFrontConf($filter);
     $self->_writeSquidBackConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
