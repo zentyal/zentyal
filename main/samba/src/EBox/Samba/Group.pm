@@ -241,12 +241,21 @@ sub addToZentyal
 
     my $gid       = $self->get('samAccountName');
     my $comment   = $self->get('description');
+    my $gidNumber = $self->get('gidNumber');
 
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba group '$gid' to Zentyal");
     my $zentyalGroup = undef;
     try {
+        if ($gidNumber) {
+            $optParams{gidNumber} = $gidNumber;
+        } else {
+            $gidNumber = $self->getXidNumberFromRID();
+            $optParams{gidNumber} = $gidNumber;
+            $self->set('gidNumber', $gidNumber);
+            $self->setupGidMapping($gidNumber);
+        }
         $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     } otherwise {};
     return unless defined $zentyalGroup;

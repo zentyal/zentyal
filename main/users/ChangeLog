@@ -1,3 +1,6 @@
+HEAD
+	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
+	  and preAddGroupFailed) to notify observers
 3.0.3
 	+ Setup Cloud slave on first save changes
 	+ Synchronize uidNumber in master-slave
