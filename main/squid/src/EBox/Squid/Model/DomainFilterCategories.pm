@@ -27,6 +27,7 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::Sudo;
+use EBox::Config;
 
 use Error qw(:try);
 use File::Basename;
@@ -291,6 +292,8 @@ sub squidSharedAcls
 {
     my ($self) = @_;
     my @acls;
+
+    my $loadUrlLists =  $self->_loadUrlLists();
     foreach my $id (@{ $self->ids()}) {
         my $row = $self->row($id);
         if (not $row->valueByName('present')) {
@@ -307,10 +310,12 @@ sub squidSharedAcls
             push @acls, [$name => qq{acl $name dstdomain "$domainsFile"}];
         }
 
-        my $urlsFile = "$dir/urls";
-        if (-r $urlsFile) {
-            my $name = $basename . '_urls';
-            push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
+        if ($loadUrlLists) {
+            my $urlsFile = "$dir/urls";
+            if (-r $urlsFile) {
+                my $name = $basename . '_urls';
+                push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
+            }
         }
     }
 
@@ -323,6 +328,11 @@ sub squidRulesStubs
     my $acls = $params{sharedAcls};
     $acls or return []; # no acls nothing to do..
 
+    my @types = qw(dom);
+    if ($self->_loadUrlLists) {
+        push @types, 'urls';
+    }
+
     my @rules;
     foreach my $id (@{ $self->ids()}) {
         my $row = $self->row($id);
@@ -334,7 +344,7 @@ sub squidRulesStubs
             next;
         }
         my $basename = $self->_aclBaseName($row);
-        foreach my $type (qw(dom urls)) {
+        foreach my $type (@types) {
             my $aclName = $basename . '_' . $type;
             exists $acls->{$aclName} or
                 next;
@@ -350,5 +360,9 @@ sub squidRulesStubs
     return \@rules;
 }
 
+sub _loadUrlLists
+{
+    return  EBox::Config::boolean('load_url_lists');
+}
 
 1;
