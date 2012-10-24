@@ -79,10 +79,14 @@ sub _makeSquidDomainFiles
     my @files = @{ EBox::Sudo::root("find '$dir' -name domains") };
     foreach my $file (@files) {
         chomp $file;
-        my $dstFile = dirname($file) . '/domains.squid';
+        my $dirname = dirname($file);
+        my $dstFile = $dirname . '/domains.squid';
+        my $tmpFile = $dirname . '/tmp';
         EBox::Sudo::root(
-            qq{cat '$file' | awk '{ print length, \$0 }' | sort -n | awk '{\$1=""; print \$0}' > '$dstFile'},
-            "sed -e s/^././ -i '$dstFile'" # the first chracter is a blank character
+            qq{cat '$file' | awk '{ print length, \$0 }' | sort -n | awk '{\$1=""; print \$0}' > '$tmpFile'},
+            "cat '$tmpFile' | uniq -i > $dstFile",  # to remove duplicates
+            "sed -e s/^././ -i '$dstFile'", # the first chracter is a blank
+                                            # character
            );
     }
 }
