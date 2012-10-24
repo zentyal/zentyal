@@ -39,7 +39,7 @@ sub _process
     my ($self) = @_;
     my $calendarresource = new EBox::CalendarResourceLdapUser;
 
-    $self->_requireParam("user", __('username'));
+    $self->_requireParam('user', __('user'));
     my $dn = $self->unsafeParam('user');
     $self->{redirect} = "UsersAndGroups/User?user=$dn";
     $self->keepParam('user');
