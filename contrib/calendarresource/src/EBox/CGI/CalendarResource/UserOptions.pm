@@ -41,6 +41,9 @@ sub _process
 
     $self->_requireParam("user", __('username'));
     my $dn = $self->unsafeParam('user');
+    $self->{redirect} = "UsersAndGroups/User?user=$dn";
+    $self->keepParam('user');
+
     my $user = new EBox::UsersAndGroups::User(dn => $dn);
 
     if ($self->param('is_resource') eq 'yes') {
