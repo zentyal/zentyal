@@ -670,7 +670,7 @@ sub create
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if (defined $res and $res->exists()) {
             $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
