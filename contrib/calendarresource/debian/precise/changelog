@@ -1,3 +1,10 @@
+zentyal-calendarresource (0.6) unstable; urgency=low
+
+  * Flag correct module as changed.
+  * Don't access global instance in read-only mode.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Thu, 25 Oct 2012 13:44:59 -0400
+
 zentyal-calendarresource (0.5) unstable; urgency=low
 
   * Use the corrent HTML input type for multiplebookings.
