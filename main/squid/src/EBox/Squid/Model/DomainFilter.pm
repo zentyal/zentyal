@@ -265,7 +265,7 @@ sub viewCustomizer
 sub _aclName
 {
     my ($sef, $profileId, $row) = @_;
-    my $aclName = $profileId . '_df_' . $row->id();
+    my $aclName = $profileId . '~df~' . $row->id();
     return $aclName;
 }
 

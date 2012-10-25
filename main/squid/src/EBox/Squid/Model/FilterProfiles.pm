@@ -154,6 +154,10 @@ sub validateTypedRow
     if ($name =~ m/\s/) {
         throw EBox::Exceptions::External(__('No spaces are allowed in profile names'));
     }
+    # reserved character for acl names
+    if ($name =~ m/~/) {
+        throw EBox::Exceptions::External(__(q|The '~' character is reserved and cannot be used in profile names|));
+    }
 }
 
 # Method: idByRowId
@@ -173,7 +177,7 @@ sub idByRowId
     return \%idByRowId;
 }
 
-sub profiles
+sub dgProfiles
 {
     my ($self) = @_;
     my @profiles = ();
@@ -226,35 +230,20 @@ sub _setProfileDomainsPolicy
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),
-                                   includes => $domainFilterFiles->allowed(),
+                                   includes => $domainFilterFiles->dgAllowed(),
                                   ];
 
     $group->{exceptionurllist} = [
                                   urls =>  $domainFilter->allowedUrls(),
-                                  includes => $domainFilterFiles->allowedUrls(),
+                                  includes => $domainFilterFiles->dgAllowedUrls(),
                                  ];
-
-    $group->{greysitelist} = [
-                              domains => [],
-                              includes => [],
-                             ];
-
-    $group->{greyurllist} = [
-                             urls => [],
-                             includes => [],
-                            ];
-
-    $group->{bannedurllist} = [
-                               urls =>  => $domainFilter->bannedUrls(),
-                               includes => $domainFilterFiles->bannedUrls(),
-                              ];
 
     my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
     $group->{bannedsitelist} = [
                                 blockIp       => $domainFilterSettings->blockIpValue,
                                 blanketBlock  => $domainFilterSettings->blanketBlockValue,
-                                domains       => $domainFilter->banned(),
-                                includes      => $domainFilterFiles->banned(),
+                                domains       => [],
+                                includes      => [],
                                ];
 }
 
@@ -292,11 +281,24 @@ sub antivirusNeeded
     return 0;
 }
 
-# this must be only called one time
-sub restoreConfig
+sub markCategoriesAsNoPresent
 {
-    my ($class, $dir)  = @_;
-    EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
+    my ($self, $list) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $filterPolicy = $self->row($id)->subModel('filterPolicy');
+        my $domainFilterCategories = $filterPolicy->componentByName('DomainFilterCategories', 1);
+        $domainFilterCategories->markCategoriesAsNoPresent($list);
+    }
+}
+
+sub removeNoPresentCategories
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $filterPolicy = $self->row($id)->subModel('filterPolicy');
+        my $domainFilterCategories = $filterPolicy->componentByName('DomainFilterCategories', 1);
+        $domainFilterCategories->removeNoPresentCategories();
+    }
 }
 
 sub squidAcls
