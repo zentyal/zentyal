@@ -1,3 +1,14 @@
+HEAD
+	+ Use the new LdapUserBase interface methods preAddUser and preAddGroup
+	  to create the user in samba before in zentyal LDAP. The uidNumber or
+	  gidNumber of the Zentyal user is infered from the RID to guarantee
+	  unique value in the domain
+	+ Infer user's uidNumber and group's gidNumber from RID when this is
+	  attribute is not present while synchronizing users. This guarantees
+	  the same value for users and groups in all domain controllers
+	+ Implement new preAdd(User|Group)Failed and add(User|Group)Failed to
+	  remove the object from samba database if something goes wrong
+	+ Do not add disabled accounts to Zentyal in s4sync
 3.0.5
 	+ Enabled optional signed SMB protocol in smb.conf
 	+ Delete users and groups from shares ACL when these are deleted

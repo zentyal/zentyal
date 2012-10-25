@@ -375,9 +375,9 @@ sub setHomeDrive
 #       'samAccountName'
 #
 #   params hash ref (all optional):
-#      clearPassword - Clear text password
-#      uidNumber - user UID numberer
-#      ou - OU where the user will be created
+#       clearPassword - Clear text password
+#       kerberosKeys - Set of kerberos keys
+#       uidNumber - user UID numberer
 #
 # Returns:
 #
@@ -403,8 +403,7 @@ sub create
     my $usersModule = EBox::Global->modInstance('users');
     my $realm = $usersModule->kerberosRealm();
     my $attr = [];
-    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson',
-        'user', 'posixAccount' ]);
+    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
     push ($attr, sAMAccountName    => "$samAccountName");
     push ($attr, userPrincipalName => "$samAccountName\@$realm");
     push ($attr, userAccountControl => '514');
@@ -453,6 +452,7 @@ sub addToZentyal
     my $givenName = $self->get('givenName');
     my $surName   = $self->get('sn');
     my $comment   = $self->get('description');
+    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
@@ -468,6 +468,14 @@ sub addToZentyal
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba user '$uid' to Zentyal");
     try {
+        if ($uidNumber) {
+            $optParams{uidNumber} = $uidNumber;
+        } else {
+            $uidNumber = $self->getXidNumberFromRID();
+            $optParams{uidNumber} = $uidNumber;
+            $self->set('uidNumber', $uidNumber);
+            $self->setupUidMapping($uidNumber);
+        }
         EBox::UsersAndGroups::User->create($params, 0, %optParams);
     } otherwise {
     };

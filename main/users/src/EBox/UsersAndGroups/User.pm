@@ -38,6 +38,8 @@ use EBox::Exceptions::InvalidData;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 use Convert::ASN1;
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -489,12 +491,17 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
-#                               'surname' and 'comment'
+#   user - hash ref containing:
+#       user - user name
+#       fullname
+#       givenname
+#       surname
+#       comment
+#       ou (optional) # TODO param conflict, wrong doc
 #   system - boolean: if true it adds the user as system user, otherwise as
 #                     normal user
 #   params hash (all optional):
-#      uidNumber - user UID numberer
+#      uidNumber - user UID number
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
 #      ignoreSlaves - slaves that should not be notified about the user creation
@@ -510,7 +517,9 @@ sub create
     my $users = EBox::Global->modInstance('users');
 
     unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+        my $advice = __('To avoid problems, the username should consist only ' .
+                        'of letters, digits, underscores, spaces, periods, ' .
+                        'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
                                             'value' => $user->{'user'},
@@ -583,7 +592,7 @@ sub create
 
     my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
-    my @attr =  (
+    my @attr = (
         'cn'            => $user->{fullname},
         'uid'           => $user->{user},
         'sn'            => $user->{surname},
@@ -610,11 +619,22 @@ sub create
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
 
-    my %args = ( attr => \@attr );
-
     my $res = undef;
+    my $entry = undef;
     try {
-        my $r = $self->_ldap->add($dn, \%args);
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attr);
+        $users->notifyModsPreLdapUserBase('preAddUser', $entry,
+            $params{ignoreMods}, $params{ignoreSlaves});
+
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());
+            }
+        }
+
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 
         # Set the user password and kerberos keys
@@ -642,15 +662,22 @@ sub create
         }
     } otherwise {
         my ($error) = @_;
+
+        EBox::error($error);
+
         # A notified module has thrown an exception. Delete the object from LDAP
         # Call to parent implementation to avoid notifying modules about deletion
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if (defined $res and $res->exists()) {
+            $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
         }
         $res = undef;
+        $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
     };

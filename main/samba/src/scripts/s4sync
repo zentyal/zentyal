@@ -60,7 +60,9 @@ while (1) {
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
-            $sambaUsers{$sambaUserName}->addToZentyal();
+            if ($sambaUsers{$sambaUserName}->isAccountEnabled()) {
+                $sambaUsers{$sambaUserName}->addToZentyal();
+            }
         }
     }
 
