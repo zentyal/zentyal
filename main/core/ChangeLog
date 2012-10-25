@@ -1,3 +1,6 @@
+HEAD
+	+ EBox::Type::File now allows ebox user to own files in directories
+	which are not writable by him
 3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files

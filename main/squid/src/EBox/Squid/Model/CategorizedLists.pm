@@ -57,8 +57,8 @@ sub _table
                                 my ($self) = @_;
                                 return LIST_FILE_DIR . '/' . $self->row()->valueByName('name');
                               },
-             user          => 'root',
-             group         => 'root',
+             user          => 'ebox',
+             group         => 'ebox',
          ),
     );
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Changed ownership of categorized list files to ebox to allow download
 	+ Removed no-configured files when saving changes after restoring
 	a backup
 	+ Added configuration key to load regexes url lists from
