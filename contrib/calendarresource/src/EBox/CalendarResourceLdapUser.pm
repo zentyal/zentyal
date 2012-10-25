@@ -88,7 +88,7 @@ sub setAutoschedule
     } else {
 	$user->set('autoschedule', 'FALSE');
     }
-    $global->modChange('jabber');
+    $global->modChange('calendarresource');
     return 0;
 }
 
@@ -107,7 +107,7 @@ sub setMultipleBookings
     return unless ($self->getMultipleBookings($user) ne $option);
 
     $user->set('multiplebookings', $option);
-    $global->modChange('jabber');
+    $global->modChange('calendarresource');
     return 0;
 }
 
