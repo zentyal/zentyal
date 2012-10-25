@@ -79,7 +79,7 @@ sub hasAutoschedule
 sub setAutoschedule
 {
     my ($self, $user, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
+    my $global = EBox::Global->getInstance();
 
     return unless ($self->hasAutoschedule($user) xor $option);
 
@@ -102,7 +102,7 @@ sub getMultipleBookings
 sub setMultipleBookings
 {
     my ($self, $user, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
+    my $global = EBox::Global->getInstance();
 
     return unless ($self->getMultipleBookings($user) ne $option);
 
