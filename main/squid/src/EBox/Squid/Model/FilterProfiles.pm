@@ -177,7 +177,7 @@ sub idByRowId
     return \%idByRowId;
 }
 
-sub profiles
+sub dgProfiles
 {
     my ($self) = @_;
     my @profiles = ();
@@ -230,35 +230,20 @@ sub _setProfileDomainsPolicy
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),
-                                   includes => $domainFilterFiles->allowed(),
+                                   includes => $domainFilterFiles->dgAllowed(),
                                   ];
 
     $group->{exceptionurllist} = [
                                   urls =>  $domainFilter->allowedUrls(),
-                                  includes => $domainFilterFiles->allowedUrls(),
+                                  includes => $domainFilterFiles->dgAllowedUrls(),
                                  ];
-
-    $group->{greysitelist} = [
-                              domains => [],
-                              includes => [],
-                             ];
-
-    $group->{greyurllist} = [
-                             urls => [],
-                             includes => [],
-                            ];
-
-    $group->{bannedurllist} = [
-                               urls =>  => $domainFilter->bannedUrls(),
-                               includes => $domainFilterFiles->bannedUrls(),
-                              ];
 
     my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
     $group->{bannedsitelist} = [
                                 blockIp       => $domainFilterSettings->blockIpValue,
                                 blanketBlock  => $domainFilterSettings->blanketBlockValue,
-                                domains       => $domainFilter->banned(),
-                                includes      => $domainFilterFiles->banned(),
+                                domains       => [],
+                                includes      => [],
                                ];
 }
 

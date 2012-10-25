@@ -196,56 +196,29 @@ sub _populate
     return \@elements;
 }
 
-# Function: banned
+
+# Function: dgAllowed
 #
-#       Fetch the banned domains files
+#       Fetch the allowed domains files for dansguardian
 #
 # Returns:
 #
 #       Array ref - containing the files
-sub banned
+sub dgAllowed
 {
     my ($self) = @_;
-    return $self->_filesByPolicy('deny', 'domains.squid');
+    return $self->_filesByPolicy('allow', 'domains');
 }
 
-# Function: allowed
+# Function: dgAllowedUrls
 #
-#       Fetch the allowed domains files
-#
-# Returns:
-#
-#       Array ref - containing the files
-sub allowed
-{
-    my ($self) = @_;
-    return $self->_filesByPolicy('allow', 'domains.squid');
-}
-
-
-# Function: bannedUrls
-#
-#       Fetch the banned urls files
+#       Fetch the allowed urls files for dansguardian
 #
 # Returns:
 #
 #       Array ref - containing the files
 #
-sub bannedUrls
-{
-    my ($self) = @_;
-    return $self->_filesByPolicy('deny', 'urls');
-}
-
-# Function: allowedUrls
-#
-#       Fetch the allowed urls files
-#
-# Returns:
-#
-#       Array ref - containing the files
-#
-sub allowedUrls
+sub dgAllowedUrls
 {
     my ($self) = @_;
     return $self->_filesByPolicy('allow', 'urls');

@@ -954,7 +954,7 @@ sub _dgProfiles
     my ($self) = @_;
 
     my $profileModel = $self->model('FilterProfiles');
-    return $profileModel->profiles();
+    return $profileModel->dgProfiles();
 }
 
 sub _writeDgDomainsConf
@@ -963,8 +963,7 @@ sub _writeDgDomainsConf
 
     my $number = $group->{number};
 
-    my @domainsFiles = ('bannedsitelist', 'bannedurllist',
-                        'greysitelist', 'greyurllist',
+    my @domainsFiles = ('bannedsitelist',
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {
