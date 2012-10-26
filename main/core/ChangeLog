@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to new EBox::setLocaleEnvironment method
 	+ EBox::Type::File now allows ebox user to own files in directories
 	  which are not writable by him
 	+ Removed cron daily invocation of deprecated report scripts
