@@ -625,8 +625,10 @@ sub create
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
-        $users->notifyModsPreLdapUserBase('preAddUser', $entry,
-            $params{ignoreMods}, $params{ignoreSlaves});
+        unless ($system) {
+            $users->notifyModsPreLdapUserBase('preAddUser', $entry,
+                $params{ignoreMods}, $params{ignoreSlaves});
+        }
 
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
