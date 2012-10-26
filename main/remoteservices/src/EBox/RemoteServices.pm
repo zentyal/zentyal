@@ -1919,6 +1919,7 @@ sub _statusKeysAndValuesString
         my @entries = @{   $self->st_all_entries($dir) };
         foreach my $entry (@entries) {
             my $value = $self->st_get_string($entry);
+            $value = "" unless (defined($value));
             $stringConf .= "$entry,$type,$value\n";
         }
     }
