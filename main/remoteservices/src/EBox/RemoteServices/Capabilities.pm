@@ -119,18 +119,19 @@ sub disasterRecoveryAddOn
     return $result;
 }
 
-# Method: sbMailAddOn
+# Method: commAddOn
 #
-#     Check whether the SB mail add-on is available for this server or
-#     not
+#     Check whether the SB communications add-on is available for this
+#     server or not
 #
-sub sbMailAddOn
+sub commAddOn
 {
     my ($self) = @_;
 
     my $result = undef;
 
     try {
+        # Remote procedure name is kept for old compatibility reasons
         $result = $self->soapCall('sbMailAddOn');
     } otherwise {
         EBox::warn("SOAP call sbMailAddOn failed: $@");

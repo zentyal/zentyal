@@ -17,6 +17,9 @@
 
 # This script is intended to make a configuration backup automatically daily
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Base;
@@ -38,7 +41,7 @@ sub _makeConfBackup
         my $lastBackupStamp = 0;
         if ( -r LAST_BACKUP_TIMESTAMP_FILE ) {
             $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
-            chomp($lastBackupstamp);
+            chomp($lastBackupStamp);
         }
         # Make the conf backup if any change has been done to Zentyal
         if ( $gl->lastModificationTime() > $lastBackupStamp ) {
