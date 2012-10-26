@@ -960,7 +960,7 @@ sub commAddOn
         # Ask to the cloud if connected
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
-            my $sbCommAddOn = $cap->sbCommAddOn();
+            my $sbCommAddOn = $cap->commAddOn();
             if ( defined($sbCommAddOn) ) {
                 $self->st_set_bool('subscription/sb_comm_add_on', $sbCommAddOn);
             }

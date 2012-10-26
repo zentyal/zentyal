@@ -129,11 +129,11 @@ sub subscribe
 
     my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
     my $availableEditions  = $capabilitiesGetter->availableEdition();
-    my $sbMailAddOn        = $capabilitiesGetter->sbMailAddOn();
+    my $commAddOn          = $capabilitiesGetter->commAddOn();
     foreach my $edition (@{$availableEditions}) {
         if ( $edition eq 'sb' ) {
             try {
-                $self->_performSBChecks($sbMailAddOn);
+                $self->_performSBChecks($commAddOn);
             } catch EBox::RemoteServices::Exceptions::NotCapable with {
                 my ($exc) = @_;
                 if ( $availableEditions->[-1] eq 'sb' ) {
