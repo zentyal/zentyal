@@ -42,6 +42,7 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
