@@ -1,4 +1,6 @@
 HEAD
+	+ Roaming profiles and drive letter options cannot be set when joining
+	  to an existing domain to avoid overwritting per-user settings
 	+ Use the new LdapUserBase interface methods preAddUser and preAddGroup
 	  to create the user in samba before in zentyal LDAP. The uidNumber or
 	  gidNumber of the Zentyal user is infered from the RID to guarantee
