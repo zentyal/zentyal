@@ -1,4 +1,6 @@
 HEAD
+	+ Used poweroff instead of halt to assure that system is powered
+	off after halt
 	+ Fixed log audit database insert error when halting or rebooting
 	the system
 	+ Added time-based closable notification messages

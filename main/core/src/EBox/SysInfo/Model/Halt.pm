@@ -85,7 +85,7 @@ sub _doHalt
 {
     my ($self, $action, %params) = @_;
     $self->_prepareSystemForHalt($action);
-    EBox::Sudo::root('/sbin/halt');
+    EBox::Sudo::root('/sbin/halt -p');
 
 }
 
