@@ -69,7 +69,7 @@ sub _table
                   fieldName => 'port',
                   printableName => __('Port'),
                   editable => 1,
-                  defaultValue => $self->parentModule->SQUID_FRONT_PORT(),
+                  defaultValue => $self->parentModule->SQUID_PORT(),
                ),
           new EBox::Types::Int(
                   fieldName => 'cacheDirSize',

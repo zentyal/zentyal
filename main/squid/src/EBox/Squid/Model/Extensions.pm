@@ -170,7 +170,7 @@ sub viewCustomizer
 sub _aclName
 {
     my ($sef, $profileId) = @_;
-    my $aclName = $profileId . '_ext';
+    my $aclName = $profileId . '~ext';
     return $aclName;
 }
 

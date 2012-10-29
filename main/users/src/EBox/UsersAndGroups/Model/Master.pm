@@ -178,6 +178,9 @@ sub validateTypedRow
 
     my $users = EBox::Global->modInstance('users');
 
+    # will the operation destroy current users?
+    my $destroy = 1;
+
     if ($master eq 'zentyal') {
         # Check master is accesible
         my $host = exists $allParams->{host} ?
@@ -195,9 +198,26 @@ sub validateTypedRow
         $users->masterConf->checkMaster($host, $port, $password);
     }
 
+    if ($master eq 'cloud') {
+        my $rs = new EBox::Global->modInstance('remoteservices');
+        my $rest = $rs->REST();
+        my $res = $rest->GET("/v1/users/realm/")->data();
+        my $realm = $res->{realm};
+
+        # If cloud is already provisoned destroy local users before sync
+        $destroy = 0 if (not $realm);
+
+        if ($realm and ($users->kerberosRealm() ne $realm)) {
+            throw EBox::Exceptions::External(__x('Master server has a different REALM, check hostnames. Master is {master} and this server {slave}.',
+                master => $realm,
+                slave => $users->kerberosRealm()
+            ));
+        }
+    }
+
     unless ($force) {
         my $nUsers = scalar @{$users->users()};
-        if ($nUsers > 0) {
+        if ($nUsers > 0 and $destroy) {
             throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
         }
     }

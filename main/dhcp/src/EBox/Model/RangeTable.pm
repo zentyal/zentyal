@@ -81,7 +81,7 @@ sub validateTypedRow
                                                 ));
         }
         # Check the range is within the available range
-        my $dhcp = $self->{confmodule};
+        my $dhcp = $self->parentModule();
         my $net  = EBox::Global->modInstance('network');
         my $interface = $self->parentRow()->valueByName('iface');
         my $availableRange = new Net::IP($dhcp->initRange($interface) . '-'
@@ -188,17 +188,17 @@ sub _table
       );
 
     my $dataTable = {
-		     'tableName'          => 'RangeTable',
-		     'printableTableName' => __('Ranges'),
+                     'tableName'          => 'RangeTable',
+                     'printableTableName' => __('Ranges'),
                      'defaultActions'     =>
                            [ 'add', 'del', 'editField', 'changeView' ],
                      'modelDomain'        => 'DHCP',
-		     'tableDescription'   => \@tableDesc,
-		     'class'              => 'dataTable',
-		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('range'),
+                     'tableDescription'   => \@tableDesc,
+                     'class'              => 'dataTable',
+                     'rowUnique'          => 1,  # Set each row is unique
+                     'printableRowName'   => __('range'),
                      'sortedBy'           => 'from',
-		    };
+                    };
 
     return $dataTable;
 }

@@ -2,6 +2,15 @@ HEAD
 	+ Handle desktop subscription limit error status
 	+ Return the cloud domain along with the credentials to the desktops
 	  upon subscription
+3.0.6
+	+ Remove QA updates if not subscribed
+	+ Set file sync conf only if subscribed
+	+ Fixed remote cloud sync hostname
+3.0.5
+	+ Added automatic-conf-backup strict
+	+ Make required changes for new communications add-on
+	  (mailfilter in community + jabber and asterisk in comm add-on)
+	+ Updated REST journaling behavior
 	+ Configure file sync daemon
 	+ Some fixes in text in the models
 	+ Added check for users sync service

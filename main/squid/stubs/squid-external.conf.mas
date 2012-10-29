@@ -158,19 +158,19 @@ snmp_access deny all
 http_port <% $port %>
 
 
-visible_hostname localhost-back
+visible_hostname localhost-external
 
 coredump_dir /var/spool/squid3
-cache_log /var/log/squid3/cache-back.log
+cache_log /var/log/squid3/cache-external.log
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
 cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
 maximum_object_size <% $max_object_size %> MB
-access_log /var/log/squid3/back-access.log squid
-cache_log /var/log/squid3/back-cache.log
-cache_store_log /var/log/squid3/back-store.log
-pid_filename /var/run/squid3-back.pid
+access_log /var/log/squid3/external-access.log squid
+cache_log /var/log/squid3/external-cache.log
+cache_store_log /var/log/squid3/external-store.log
+pid_filename /var/run/squid3-external.pid
 
 % if (@nameservers) {
 %   my $dns_nameservers = '';

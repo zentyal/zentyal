@@ -14,12 +14,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::FTP
-
-package EBox::FTP;
-
 use strict;
 use warnings;
 
+
+package EBox::FTP;
 use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Global;

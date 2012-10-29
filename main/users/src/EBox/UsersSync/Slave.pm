@@ -61,6 +61,7 @@ sub _addUser
         fullname   => $user->get('cn'),
         surname    => $user->get('sn'),
         givenname  => $user->get('givenName'),
+        uidNumber  => $user->get('uidNumber'),
         passwords  => \@passwords
     };
 
@@ -99,6 +100,7 @@ sub _modifyUser
         fullname   => $user->get('cn'),
         surname    => $user->get('sn'),
         givenname  => $user->get('givenName'),
+        uidNumber  => $user->get('uidNumber'),
     };
 
     $userinfo->{password} = $pass if ($pass);

@@ -1,4 +1,10 @@
 HEAD
+	+ Added time-based closable notification messages
+	+ Adapted to new EBox::setLocaleEnvironment method
+	+ EBox::Type::File now allows ebox user to own files in directories
+	  which are not writable by him
+	+ Removed cron daily invocation of deprecated report scripts
+3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files
 	+ New observer for sysinfo module to notify modules implementing the

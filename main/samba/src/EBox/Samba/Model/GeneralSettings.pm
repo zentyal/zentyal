@@ -300,9 +300,11 @@ sub viewCustomizer
         mode => {
             dc => {
                 hide => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
+                show => ['roaming', 'drive'],
             },
             adc => {
                 show => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
+                hide => ['roaming', 'drive'],
             },
         },
     };
