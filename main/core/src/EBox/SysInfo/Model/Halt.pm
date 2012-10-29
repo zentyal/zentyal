@@ -110,7 +110,6 @@ sub _prepareSystemForHalt
 
     EBox::info($actionMsg);
     $self->setMessage($actionMsg, 'note');
-    $self->{customActions} = [];
 }
 
 1;
