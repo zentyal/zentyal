@@ -367,7 +367,7 @@ sub _daemons
         },
         {
             'name'         => FILES_SYNC_UPSTART,
-            'precondition' => \&eBoxSubscribed,
+            'precondition' => \&filesSyncAvailable,
         }
        ];
 }

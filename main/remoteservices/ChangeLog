@@ -1,3 +1,5 @@
+HEAD
+	+ Launch filesync only if available
 3.0.6
 	+ Remove QA updates if not subscribed
 	+ Set file sync conf only if subscribed
