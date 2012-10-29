@@ -18,7 +18,7 @@
         {
             "local_path" : "<% $folder->path() %>",
             "remote_path" : "<% $folder->type() %>s/<% $folder->name() %>/"
-% # add a coma after the dict
+% # add a comma after the dict
 %   if (\$folder == \$folders[-1]) {
         }
 %   } else {
@@ -27,4 +27,3 @@
 % }
     ]
 }
-

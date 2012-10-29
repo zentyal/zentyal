@@ -42,6 +42,7 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -1256,22 +1257,27 @@ sub _setConf
         $self->_setupQuarantineDirectory();
     }
 
-    my $netbiosName = $self->netbiosName();
-    my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
-    my $users = $self->ldb->users();
-    foreach my $user (@{$users}) {
-        # Set roaming profiles
-        if ($self->roamingProfiles()) {
-            my $path = "\\\\$netbiosName.$realmName\\profiles";
-            $user->setRoamingProfile(1, $path, 1);
-        } else {
-            $user->setRoamingProfile(0);
-        }
+    # Only set global roaming profiles and drive letter options
+    # if we are not replicating to another Windows Server to avoid
+    # overwritting already existing per-user settings
+    unless ($self->mode() eq 'adc') {
+        my $netbiosName = $self->netbiosName();
+        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+        my $users = $self->ldb->users();
+        foreach my $user (@{$users}) {
+            # Set roaming profiles
+            if ($self->roamingProfiles()) {
+                my $path = "\\\\$netbiosName.$realmName\\profiles";
+                $user->setRoamingProfile(1, $path, 1);
+            } else {
+                $user->setRoamingProfile(0);
+            }
 
-        # Mount user home on network drive
-        my $drivePath = "\\\\$netbiosName.$realmName";
-        $user->setHomeDrive($self->drive(), $drivePath, 1);
-        $user->save();
+            # Mount user home on network drive
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            $user->setHomeDrive($self->drive(), $drivePath, 1);
+            $user->save();
+        }
     }
 }
 

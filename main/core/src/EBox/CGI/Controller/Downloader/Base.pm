@@ -12,16 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::CGI::Controller::Downloader::Base
 #
 #   This is the base cgi to implement controllers to download files
 #
 package EBox::CGI::Controller::Downloader::Base;
-
-use strict;
-use warnings;
-
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
@@ -120,7 +117,7 @@ sub _print
 
         close($downFile);
     } else {
-            throw EBox::Exceptions::Internal('File does not exist or is of a special type: ' .
+            throw EBox::Exceptions::Internal('File does not exist, is not readable or is of a special type: ' .
                                                  $file);
     }
 }

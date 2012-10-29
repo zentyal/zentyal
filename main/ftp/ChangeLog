@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Added incoming directory for anonymous user uploads
 	+ Adapted FTP authorization to changes in users authorization
 	+ Added and used serviceId field for service certificates

@@ -156,9 +156,8 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
+        $self->_setFilesSyncConf();
     }
-
-    $self->_setFilesSyncConf();
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
@@ -234,7 +233,7 @@ sub _setFilesSyncConf
 
     # get credentials
     my $cred = new EBox::RemoteServices::Cred();
-    my $access_id = $cred->{cred}->{uuid};
+    my $access_id = $cred->subscribedUUID();
     my $access_key = $cred->{cred}->{password};
 
     my @params;

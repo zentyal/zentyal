@@ -462,7 +462,10 @@ sub ldapServicePrincipalsToLdb
                 my $realm = $usersModule->kerberosRealm();
                 my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
                 my $user = new EBox::UsersAndGroups::User(dn => $dn);
+                # If the user does not exists the module has not been enabled yet
+                next unless ($user->exists());
 
+                EBox::info("Importing service principal $dn");
                 my $params = {
                     description  => scalar ($user->get('description')),
                     kerberosKeys => $user->kerberosKeys(),
@@ -474,7 +477,7 @@ sub ldapServicePrincipalsToLdb
             foreach my $p (@{$principals->{principals}}) {
                 try {
                     my $spn = "$p/$fqdn";
-                    EBox::debug("Adding SPN '$spn' to user " . $smbUser->dn());
+                    EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
                     $smbUser->addSpn($spn);
                 } otherwise {
                     my $error = shift;

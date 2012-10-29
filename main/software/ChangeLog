@@ -1,5 +1,7 @@
 HEAD
 	+ Adapted firstTimeMenu() for Disaster Recovery
+	+ Errors when getting packages dependencies are displayed, this
+	  fixes the empty dialog on error problem
 3.0.2
 	+ Make required changes for new communications add-on
 	  (mailfilter in community + jabber and asterisk in comm add-on)

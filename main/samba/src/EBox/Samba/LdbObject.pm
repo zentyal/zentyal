@@ -25,6 +25,7 @@ use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -489,6 +490,16 @@ sub setViewInAdvancedOnly
         type => '1.3.6.1.4.1.4203.666.5.12',
         critical => 0 );
     $self->save($relaxOidControl) unless $lazy;
+}
+
+sub getXidNumberFromRID
+{
+    my ($self) = @_;
+
+    my $sid = $self->sid();
+    my $rid = (split (/-/, $sid))[7];
+
+    return $rid + 50000;
 }
 
 1;

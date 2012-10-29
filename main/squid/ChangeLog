@@ -1,5 +1,13 @@
-HEAD
+3.0.1
+	+ Changed ownership of categorized list files to ebox to allow download
+	+ Removed no-configured files when saving changes after restoring
+	  a backup
+	+ Added configuration key to load regexes url lists from
+	  categorized lists or not
+	+ Adapted domains files to squid object to be able to use
+	  dstdomain ACLs with thems
 	+ Added explicit error when a squid configuration file is invalid
+	  when debug is enabled
 	+ Limited object ACLs to ten addresses per line
 	+ When creating user ACLs put only ten users per line to avoid
 	  reaching maximun configuration file line length

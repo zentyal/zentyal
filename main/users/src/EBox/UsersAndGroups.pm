@@ -39,6 +39,7 @@ use EBox::UsersAndGroups::OU;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -958,6 +959,35 @@ sub allSlaves
     }
 
     return \@modules;
+}
+
+
+# Method: notifyModsPreLdapUserBase
+#
+#   Notify all modules implementing LDAP user base interface about
+#   a change in users or groups before it happen.
+#
+# Parameters:
+#
+#   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
+#   args - single value or array ref containing signal parameters
+#   ignored_modules - array ref of modnames to ignore (won't be notified)
+#
+sub notifyModsPreLdapUserBase
+{
+    my ($self, $signal, $args, $ignored_modules) = @_;
+
+    # convert signal to method name
+    my $method = '_' . $signal;
+
+    # convert args to array if it is a single value
+    unless (ref ($args) eq 'ARRAY') {
+        $args = [ $args ];
+    }
+
+    foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
+        $mod->$method(@{$args});
+    }
 }
 
 

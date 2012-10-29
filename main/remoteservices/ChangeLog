@@ -1,6 +1,9 @@
 HEAD
 	+ Disaster Recovery integration
 	+ Added auto-subscribe script
+3.0.6
+	+ Remove QA updates if not subscribed
+	+ Set file sync conf only if subscribed
 	+ Fixed remote cloud sync hostname
 3.0.5
 	+ Added automatic-conf-backup strict

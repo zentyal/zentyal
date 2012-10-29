@@ -224,7 +224,7 @@ sub _setLanguage
     # TODO: do this only if language has changed?
     my $lang = $languageModel->value('language');
     EBox::setLocale($lang);
-    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::setLocaleEnvironment($lang);
     EBox::Menu::regenCache();
 }
 

@@ -24,8 +24,25 @@ sub new
 {
     my $class = shift;
     my $self = {};
-    bless($self, $class);
+    bless ($self, $class);
     return $self;
+}
+
+# Method: _preAddUser
+#
+#   When a new user is going to be created this method is called,
+#   just before ldap add
+#
+# Parameters:
+#
+#   attrs - The user attributes of LDAP add operation
+#
+sub _preAddUser
+{
+}
+
+sub _preAddUserFailed
+{
 }
 
 # Method: _addUser
@@ -37,8 +54,20 @@ sub new
 #   user - created user
 sub _addUser
 {
-
 }
+
+sub _addUserFailed
+{
+}
+
+# Method: _preDelUser
+#
+#   When a new user is going to be deleted
+#   TODO
+#
+#sub _preDelUser
+#{
+#}
 
 # Method: _delUser
 #
@@ -49,19 +78,27 @@ sub _addUser
 #   user - deleted user
 sub _delUser
 {
-
 }
+
+# Method: _preModifyUser
+#
+#   When a user is going to be modified
+#   TODO
+#
+#sub _preModifyUser
+#{
+#}
 
 # Method: _modifyUser
 #
-#     When a user is modified this method is called
+#   When a user is modified this method is called
 #
 # Parameters:
 #
 #   user - modified user
+#
 sub _modifyUser
 {
-
 }
 
 # Method: _delUserWarning
@@ -78,34 +115,70 @@ sub _modifyUser
 #   array - Each element must be a string describing the sort of data
 #   is going to be removed if the user is deleted. If nothing is going to
 #   removed you must not return anything
+#
 sub _delUserWarning
 {
+}
 
+# Method: _preAddGroup
+#
+#   When a new group is going to be added
+#
+sub _preAddGroup
+{
+}
+
+sub _preAddGroupFailed
+{
 }
 
 # Method: _addGroup
 #
-#   When a new user is created this method is called
+#   When a new group is created this method is called
 #
 # Parameters:
 #
-#   user - created group
+#   group - created group
+#
 sub _addGroup
 {
-
 }
+
+sub _addGroupFailed
+{
+}
+
+# Method: _preModifyGroup
+#
+#   When a group is going to be modified this method is
+#   called
+#   TODO
+#
+#sub _preModifyGroup
+#{
+#}
 
 # Method: _modifyGroup
 #
-#     When a group is modified this method is called
+#   When a group is modified this method is called
 #
 # Parameters:
 #
 #   group - modified group
+#
 sub _modifyGroup
 {
-
 }
+
+# Method: _preDelGroup
+#
+#   When a group is going to be deleted this method is
+#   called
+#   TODO
+#
+#sub _preDelGroup
+#{
+#}
 
 # Method: _delGroup
 #
@@ -114,10 +187,9 @@ sub _modifyGroup
 # Parameters:
 #
 #   group - deleted group
-
+#
 sub _delGroup
 {
-
 }
 
 # Method: _delGroupWarning
@@ -134,9 +206,9 @@ sub _delGroup
 #   array  - Each element must be a string describing the sort of data
 #   is going to be removed if the group is deleted. If nothing is going to
 #   removed you must not return anything
+#
 sub _delGroupWarning
 {
-
 }
 
 # Method: _userAddOns
