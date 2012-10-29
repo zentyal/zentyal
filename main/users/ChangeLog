@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Added missing use of UnwillingToPerform exception
 	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
 	  and preAddGroupFailed) to notify observers
