@@ -35,7 +35,7 @@ sub subscribe
 {
     my $cred = new EBox::RemoteServices::Cred();
 
-    my $ret = $cred->RESTClient()->POST('/v1/desktops/', journaling => 0)->data();
+    my $ret = $cred->RESTClient()->POST('/v1/desktops/')->data();
 
     if ($ret->{'limit'}) {
         return $ret;
