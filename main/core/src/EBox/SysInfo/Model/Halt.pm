@@ -86,7 +86,6 @@ sub _doHalt
     my ($self, $action, %params) = @_;
     $self->_prepareSystemForHalt($action);
     EBox::Sudo::root('/sbin/poweroff');
-
 }
 
 sub _doReboot
@@ -108,7 +107,6 @@ sub _prepareSystemForHalt
     # flush db
     my $dbEngine = EBox::DBEngineFactory::DBEngine();
     $dbEngine->multiInsert();
-
 
     EBox::info($actionMsg);
     $self->setMessage($actionMsg, 'note');
