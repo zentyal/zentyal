@@ -12,17 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::SysInfo::Model::Halt;
-
 use strict;
 use warnings;
 
+package EBox::SysInfo::Model::Halt;
 use base 'EBox::Model::DataForm';
 
-use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Action;
+use EBox::DBEngineFactory;
 
 sub new
 {
@@ -86,17 +84,32 @@ sub popMessage
 sub _doHalt
 {
     my ($self, $action, %params) = @_;
-    EBox::Sudo::root('/sbin/halt');
-    $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
+    $self->_prepareSystemForHalt($action);
+    EBox::Sudo::root('/sbin/poweroff');
 }
 
 sub _doReboot
 {
     my ($self, $action, %params) = @_;
+    $self->_prepareSystemForHalt($action);
     EBox::Sudo::root("/sbin/reboot");
-    $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
+}
+
+sub _prepareSystemForHalt
+{
+    my ($self, $action) = @_;
+    my $actionName = $action->name();
+    my $actionMsg  = $action->message();
+
+    my $audit = $self->global()->modInstance('audit');
+    $audit->logShutdown($actionName);
+
+    # flush db
+    my $dbEngine = EBox::DBEngineFactory::DBEngine();
+    $dbEngine->multiInsert();
+
+    EBox::info($actionMsg);
+    $self->setMessage($actionMsg, 'note');
 }
 
 1;
