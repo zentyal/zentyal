@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed log audit database insert error when halting or rebooting
+	the system
 	+ Added time-based closable notification messages
 	+ Adapted to new EBox::setLocaleEnvironment method
 	+ EBox::Type::File now allows ebox user to own files in directories
