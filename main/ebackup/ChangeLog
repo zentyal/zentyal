@@ -1,6 +1,5 @@
 HEAD
 	+ Fixed code error when checking mount points of file target
-	+ Use mounted filesystems for checkTarget
 	+ Fixed 'inexistent watcher' error in backup-tool
 	+ Set default niceness of backup process to 10
 3.0.1
