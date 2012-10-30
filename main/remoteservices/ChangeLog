@@ -1,4 +1,5 @@
 HEAD
+	+ Read REST responses with a correct encoding
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
 3.0.7
 	+ Launch filesync only if available
