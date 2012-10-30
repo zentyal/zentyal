@@ -1,4 +1,5 @@
 HEAD
+	+ Read REST responses with a correct encoding
 	+ Launch filesync only if available
 3.0.6
 	+ Remove QA updates if not subscribed
