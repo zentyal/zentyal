@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
 3.0.7
 	+ Launch filesync only if available
 3.0.6
