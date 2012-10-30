@@ -1,4 +1,5 @@
 HEAD
+	+ Logrotate preserves interface log file
 	+ Adapted to improvement of EBox::Module::Service::isRunning method
 2.3.6
 	+ Move report code to remoteservices
