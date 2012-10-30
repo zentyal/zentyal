@@ -1343,6 +1343,7 @@ sub _daemons
         },
         {
             name => 'zentyal.nmbd',
+            pidfiles => ['/var/run/nmbd.pid'],
         },
         {
             name => 'zentyal.s4sync',
