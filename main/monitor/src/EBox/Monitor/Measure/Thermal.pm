@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Monitor::Measure::Thermal
 #
 #     This measure collects the thermal information which is CPU
@@ -20,10 +21,6 @@
 #
 
 package EBox::Monitor::Measure::Thermal;
-
-use strict;
-use warnings;
-
 use base qw(EBox::Monitor::Measure::Base);
 
 use EBox::Gettext;
@@ -116,7 +113,7 @@ sub _description
         $dir = DIRNAME_PROCFS;
         @printableLabels = ( __('temperature') );
     }
-    my $baseDir = EBox::Monitor::Configuration::RRDBaseDirPath();
+    my $baseDir = $self->baseDir();
     foreach my $subDir (<${baseDir}thermal-*>) {
         # XXX ignore cooling devices
         if ($subDir =~ m/cooling.device/) {

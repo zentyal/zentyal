@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::SysInfo::Observer;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Observer;
 
 use EBox::Gettext;
 
@@ -84,6 +83,37 @@ sub hostDomainChanged
 sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
+}
+
+# Method: fqdnChanged
+#
+#   Invoked before the change takes place. Any module implementing this
+#   method can abort the change throwing an exception.
+#   This is called after the methods hostNameChanged and hostDomainChanged.
+#
+# Parameters:
+#
+#   oldDomainName
+#   newDomainName
+#
+sub fqdnChanged
+{
+    my ($self, $oldFqdn, $newFqdn) = @_;
+}
+
+# Method: fqdnChangedDone
+#
+#   Invoked after the change takes place
+#   This is called after the methods hostnameChangedDone and hostDomainChangedDone.
+#
+# Parameters:
+#
+#   oldDomainName
+#   newDomainName
+#
+sub fqdnChangedDone
+{
+    my ($self, $oldFqdn, $newFqdn) = @_;
 }
 
 1;
