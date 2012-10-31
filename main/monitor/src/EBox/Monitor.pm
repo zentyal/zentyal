@@ -455,7 +455,6 @@ sub _setConf
 
     $self->_setDirs();
     $self->_setMonitorConf();
-
 }
 
 # Method: _daemons
@@ -536,13 +535,12 @@ sub _setMainConf
     my $hostname      = $self->global()->modInstance('sysinfo')->fqdn();
     my @networkServers = ();
 
-    my $oldFqdn = $self->get_string('old_hostname');
+    my $oldFqdn = $self->_oldHostname();
     if (not $oldFqdn) {
-        unless ($self->{ro}) {
-            $self->set_string('old_hostname', $hostname);
-        }
+        $self->_setOldHostname($hostname);
     } elsif ($oldFqdn ne $hostname) {
         $self->_changeRRDDirs($oldFqdn, $hostname);
+        $self->_setOldHostname($hostname);
     }
 
     # Send stats to Zentyal Cloud with the server name if the host is subscribed
@@ -671,8 +669,7 @@ sub _setThresholdConf
 sub _linkRRDs
 {
     my ($self, $subscribedHostname) = @_;
-
-    my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirPath();
+    my $rrdBaseDirPath = self->rrdBaseDirPath();
 
     # Get the parent path
     my @directories = File::Spec->splitdir($rrdBaseDirPath);
@@ -753,8 +750,9 @@ sub _enforceServiceState
     my $rs = EBox::Global->getInstance(1)->modInstance('remoteservices');
 
     # Remove the link to the RRD directory if not subscribed
+
     if (defined ($rs) and not $rs->eBoxSubscribed()) {
-        my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirPath();
+        my $rrdBaseDirPath = $self->rrdBaseDirPath();
 
         # Get the parent path
         my @directories = File::Spec->splitdir($rrdBaseDirPath);
@@ -777,31 +775,38 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState(@_);
 }
 
+sub rrdBaseDirPath
+{
+    my ($self) = @_;
+    my $fqdn     = $self->global()->modInstance('sysinfo')->fqdn();
+    my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirForFqdn($fqdn);
+    return $rrdBaseDirPath;
+}
 
 # mark as change so it is restarted in next save
 sub fqdnChangedDone
 {
     my ($self, $old , $new) = @_;
-    unless ($self->{ro}) {
-        $self->set_string('old_hostname', $new);
-    }
+    $self->_setOldHostname($old);
+    $self->setAsChanged(1);
 }
 
 
 sub _changeRRDDirs
 {
     my ($self, $old, $new) = @_;
-    my $newDir = EBox::Monitor::Configuration::RRD_BASE_DIR . $new;
-    my $oldDir = EBox::Monitor::Configuration::RRDBaseDirPath($old);
+    my $newDir = EBox::Monitor::Configuration::RRDBaseDirForFqdn($new);
+    my $oldDir = EBox::Monitor::Configuration::RRDBaseDirForFqdn($old);
 
-    my $existsOld = EBox::Sudo::fileTest('-d', $oldDir);
+    my $existsOld = EBox::Sudo::fileTest('-e', $oldDir);
     if (not $existsOld) {
         EBox::info("Old collectd directory $existsOld, don't exists. Nothing to do");
         return
     }
-    my $existsNew = EBox::Sudo::fileTest('-d', $newDir);
-    if (not $existsNew) {
-        EBox::info("A collectd directory with the mew hostname($newDir) already exists, letting $oldDir untouched");
+    my $existsNew = EBox::Sudo::fileTest('-e', $newDir);
+    if ($existsNew) {
+        EBox::info("A collectd directory with the new hostname($newDir) already exists, letting $oldDir untouched");
+        $self->_setOldHostname($new);
         return;
     }
 
@@ -809,10 +814,22 @@ sub _changeRRDDirs
     $newDir =~ s{/$}{};
     EBox::Sudo::root("mv '$oldDir' '$newDir'");
     EBox::info("A collectd directory $oldDir moved to $newDir ");
-    unless ($self->{ro}) {
-        $self->set_string('old_hostname', $new);
-    }
+    $self->_setOldHostname($new);
+}
 
+
+sub _oldHostname
+{
+    my ($self) = @_;
+    return $self->get_state()->{old_hostname};
+}
+
+sub _setOldHostname
+{
+    my ($self, $hostname) = @_;
+    my $state = $self->get_state();
+    $state->{old_hostname} = $hostname;
+    $self->set_state($state);
 }
 
 1;

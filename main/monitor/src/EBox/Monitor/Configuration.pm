@@ -90,7 +90,7 @@ sub QueryInterval
 
 # Method: RRDBaseDirPath
 #
-#      Return the RRD base directory path
+#      Return the RRD base directory path.
 #
 # Returns:
 #
@@ -116,6 +116,13 @@ sub RRDBaseDirPath
         }
     }
 }
+
+sub RRDBaseDirForFqdn
+{
+    my ($fqdn) = @_;
+    return RRD_BASE_DIR . $fqdn . '/';
+}
+
 
 # Method: TimePeriods
 #
