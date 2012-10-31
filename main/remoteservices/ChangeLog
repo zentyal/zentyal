@@ -1,4 +1,13 @@
 HEAD
+	+ Read REST responses with a correct encoding
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
+3.0.7
+	+ Launch filesync only if available
+3.0.6
+	+ Remove QA updates if not subscribed
+	+ Set file sync conf only if subscribed
+	+ Fixed remote cloud sync hostname
+3.0.5
 	+ Added automatic-conf-backup strict
 	+ Make required changes for new communications add-on
 	  (mailfilter in community + jabber and asterisk in comm add-on)

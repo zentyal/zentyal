@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Software::InstallPkgs;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Software::InstallPkgs;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Gettext;
+use Error qw(:try);
 
 ## arguments:
 ##  title [required]
@@ -152,15 +151,32 @@ sub showConfirmationPage
 
     my $actpackages;
     my $descactpackages;
-    if ($action eq 'install') {
-        $actpackages = $software->listPackageInstallDepends($packages_r);
-        $descactpackages = $software->listPackageDescription($actpackages);
-    } elsif ($action eq 'remove') {
-        $actpackages = $software->listPackageRemoveDepends($packages_r);
-        $descactpackages = $software->listPackageDescription($actpackages);
-    }  else {
-        throw EBox::Exceptions::Internal("Bad action: $action");
+    my $error;
+
+    try {
+        if ($action eq 'install') {
+            $actpackages = $software->listPackageInstallDepends($packages_r);
+            $descactpackages = $software->listPackageDescription($actpackages);
+        } elsif ($action eq 'remove') {
+            $actpackages = $software->listPackageRemoveDepends($packages_r);
+            $descactpackages = $software->listPackageDescription($actpackages);
+        }  else {
+            throw EBox::Exceptions::Internal("Bad action: $action");
+        }
+    } otherwise {
+        my ($ex) = @_;
+        $error = "$ex";
+    };
+
+    if ($error) {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
+        $self->{params} = [
+            text  => $error,
+            textClass => 'error',
+           ];
+        return;
     }
+
     my @actPkgInfo;
     my $i = 0;
     for my $name (@{$actpackages}) {

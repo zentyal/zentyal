@@ -91,6 +91,9 @@ sub enableLog
 sub isEnabled
 {
     my ($self) = @_;
+    if ($self->{dontLog}) {
+        return 0;
+    }
 
     # Get readonly value to avoid disable of logging before saving changes
     my $globalRO = EBox::Global->getInstance(1);
@@ -287,5 +290,15 @@ sub logSessionEvent
 
     $self->_db()->unbufferedInsert(TABLE_SESSIONS, \%data);
 }
+
+sub logShutdown
+{
+    my ($self, $type) = @_;
+    $self->logAction('System', 'General', 'shutdown' ,$type);
+    # disable audit to avoid trying to log when resources are shutted down
+    $self->{dontLog} = 1;
+
+}
+
 
 1;

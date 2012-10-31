@@ -1,4 +1,16 @@
 HEAD
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
+3.0.5
+	+ Template ajax/simpleModalDialog.mas can now accept text
+	+ Used poweroff instead of halt to assure that system is powered
+	  off after halt
+	+ Fixed log audit database insert error when halting or rebooting
+	+ Added time-based closable notification messages
+	+ Adapted to new EBox::setLocaleEnvironment method
+	+ EBox::Type::File now allows ebox user to own files in directories
+	  which are not writable by him
+	+ Removed cron daily invocation of deprecated report scripts
+3.0.4
 	+ Added EBox::SyncFolders interface
 	+ Fixed invokation of tar for backup of model files
 	+ New observer for sysinfo module to notify modules implementing the

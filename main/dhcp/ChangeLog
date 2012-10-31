@@ -1,4 +1,6 @@
-HEAD
+3.0.1
+	+ Do not run daemon and show message when configuration does not
+	  provide addresses for interfaces
 	+ Ignore virtual interfaces
 2.3.9
 	+ Keys shared with bind are now stored under /etc/dhcp/ddns-keys

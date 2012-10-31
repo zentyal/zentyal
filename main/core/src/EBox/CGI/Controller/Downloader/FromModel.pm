@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::CGI::Controller::Downloader::FromModel
 #
@@ -26,10 +28,6 @@
 #   field - the name of a <EBox::Types::File> type
 #
 package EBox::CGI::Controller::Downloader::FromModel;
-
-use strict;
-use warnings;
-
 use base 'EBox::CGI::Controller::Downloader::Base';
 
 use EBox::Gettext;
@@ -38,8 +36,6 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Model::Manager;
 
-
-# Core modules
 use Error qw(:try);
 
 # Group: Public methods
@@ -47,10 +43,6 @@ use Error qw(:try);
 # Constructor: new
 #
 #      Create a <EBox::CGI::Controller::Downloader:FromTempDir>
-#
-# Exceptions:
-#
-
 #
 sub new # (cgi=?)
 {
@@ -86,7 +78,7 @@ sub _path
 #      <EBox::CGI::Controller::Downloader::Base::_process>
 #
 # Exceptions:
-
+#
 #   <EBox::Exceptions::Internal> - If file can't be read or is an invalid path
 #   <EBox::Exceptions::Internal> - thrown if the field name is not
 #      contained in the given model

@@ -156,9 +156,8 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
+        $self->_setFilesSyncConf();
     }
-
-    $self->_setFilesSyncConf();
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
@@ -234,7 +233,7 @@ sub _setFilesSyncConf
 
     # get credentials
     my $cred = new EBox::RemoteServices::Cred();
-    my $access_id = $cred->{cred}->{uuid};
+    my $access_id = $cred->subscribedUUID();
     my $access_key = $cred->{cred}->{password};
 
     my @params;
@@ -368,7 +367,7 @@ sub _daemons
         },
         {
             'name'         => FILES_SYNC_UPSTART,
-            'precondition' => \&eBoxSubscribed,
+            'precondition' => \&filesSyncAvailable,
         }
        ];
 }
@@ -984,7 +983,8 @@ sub renovationDate
 sub usersSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 0;
+    return EBox::Config::configkey('users_sync_available');
+
 }
 
 # Method: filesSyncAvailable
@@ -994,7 +994,7 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return 1;
+    return EBox::Config::configkey('files_sync_available');
 }
 
 # Method: securityUpdatesAddOn

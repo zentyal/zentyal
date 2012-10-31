@@ -20,7 +20,11 @@
     %filterProfiles
 </%args>
 <%shared>
-our $anyPrefix = 'any_src_';
+our $anyPrefix = 'any~src~';
+our $objectPrefix = 'obj~';
+our $groupPrefix = 'grp~';
+our $timeDaysPrefix = 'timeDays~';
+our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
@@ -33,15 +37,15 @@ sub _timeAclsInPolicy
        unshift @ids, $anyPrefix . $policy->{number};
    }
 
-   my $id = join '_', @ids;
+   my $id = join '~', @ids;
 
    my $acls = '';
    if ($policy->{timeDays}) {
-      $acls = _aclName('timeDays_' . $id);
+      $acls = _aclName($timeDaysPrefix . $id);
       $acls .= ' ';
    }
    if ($policy->{timeHours}) {
-       $acls .= _aclName('timeHours_' . $id);
+       $acls .= _aclName($timeHoursPrefix . $id);
    }
 
    return $acls;
@@ -51,7 +55,7 @@ sub _timeAclsInPolicy
 sub _escapeWS
 {
     my ($string) = @_;
-    $string =~ s{ }{__}g;
+    $string =~ s{ }{~~}g;
     return $string;
 }
 # needed to avoid log acl problems
@@ -64,11 +68,22 @@ sub _aclName
 
     if (not exists $longAclNames{$name}) {
         my $nextId = 1 + keys %longAclNames;
-        $nextId = 'longAcl' . $nextId;
+        $nextId = 'longAcl~' . $nextId;
         $longAclNames{$name} = $nextId;
     }
 
     return _escapeWS($longAclNames{$name});
+}
+
+sub _printSplitAcl
+{
+   my ($acl, $members_r, $membersPerLine) = @_;
+   $membersPerLine or $membersPerLine = 10;
+   my @members = @{ $members_r };
+   while (@members > 0) {
+        my @membersInAcl = splice(@members, 0, $membersPerLine);
+        $m->print("$acl @membersInAcl\n")
+   }
 }
 </%perl>
 <%def .rulesACLs>
@@ -81,20 +96,32 @@ sub _aclName
        <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
 %      next;
 %   }
-%   my $object = $rule->{object};
-%   my $group = $rule->{group};
-%   my $src = $object ? $object : $group;
-%   my $aclName = _aclName($src);
-%   if ($object) {
-acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
-%   } else {
-%       # escape user names
-%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-%       if ($realm) {
-%           @users = map { $_ . '@' . $realm } @users;
-%       }
-acl <% $aclName %> proxy_auth <% join (' ', @users) %>
-%   }
+<%perl>
+   my $object = $rule->{object};
+   my $group = $rule->{group};
+   my ($src, $aclName);
+   if ($object) {
+       $src = $object;
+       $aclName = $objectPrefix . $object;
+   } else {
+       $src = $group;
+       $aclName = $groupPrefix . $group;
+   }
+   $aclName = _aclName($aclName);
+
+   if ($object) {
+       my $acl = "acl $aclName src";
+       _printSplitAcl($acl, $rule->{addresses});
+   } else {
+       # escape user names
+       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+       if ($realm) {
+           @users = map { $_ . '@' . $realm } @users;
+       }
+       my $acl = "acl $aclName proxy_auth";
+       _printSplitAcl($acl, \@users);
+   }
+</%perl>
    <& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
@@ -107,9 +134,23 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 % foreach my $rule (@rules) {
 <%perl>
    my $object = $rule->{'object'};
+   my $objectAcl;
+   if ($rule->{any}) {
+       $objectAcl = 'all';
+   } elsif ($object) {
+       $objectAcl = _aclName($objectPrefix . $object);
+   } else {
+       $objectAcl = '';
+   }
+
    my $group = $rule->{'group'};
-   my $groupAcl = $group ? _aclName($group) : '';
-   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
+   my $groupAcl;
+   if ($group) {
+      $groupAcl = _aclName($groupPrefix . $group);
+  } else {
+      $groupAcl = '';
+  }
+
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
@@ -124,7 +165,7 @@ acl <% $aclName %> proxy_auth <% join (' ', @users) %>
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
-            $ruleStr .= ' ' . $baseAcls . $stub->{acl};
+            $ruleStr .= ' ' . $baseAcls . _aclName($stub->{acl});
             $ruleStr .= "\n";
             # output the rule
             $m->print($ruleStr);
@@ -144,10 +185,10 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
     $id
 </%args>
 % if ($rule->{timeDays}) {
-acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
+acl <% _aclName($timeDaysPrefix . $id) %> time <% $rule->{timeDays} %>
 % }
 % if ($rule->{timeHours}) {
-acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 % #################################################################################################
@@ -162,15 +203,15 @@ acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
-visible_hostname localhost-front
+visible_hostname localhost
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy
-access_log /var/log/squid3/front-access.log squid
-cache_log /var/log/squid3/front-cache.log
-cache_store_log /var/log/squid3/front-store.log
+access_log /var/log/squid3/access.log squid
+cache_log /var/log/squid3/cache.log
+cache_store_log /var/log/squid3/store.log
 
-pid_filename /var/run/squid3-front.pid
+pid_filename /var/run/squid3.pid
 
 % if ($filter) {
 cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
@@ -201,7 +242,9 @@ acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
 
 % foreach my $acl (@{ $filterProfiles{acls} }) {
-<% $acl %>
+%   my ($declaration, $name, $params) = split '\s+', $acl, 3;
+%   $name = _aclName($name);
+acl <% "$name $params" %>
 % }
 
 http_access allow to_localhost

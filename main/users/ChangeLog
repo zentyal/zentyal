@@ -1,4 +1,13 @@
 HEAD
+	+ When syncing, do not update ldap of unchanged entries
+3.0.4
+	+ Added missing use of UnwillingToPerform exception
+	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
+	  and preAddGroupFailed) to notify observers
+3.0.3
+	+ Setup Cloud slave on first save changes
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
 	+ Fixed some errors on RESTClient after API change
 	+ Updated REST journaling behavior
 	+ Do not show unavailable options in master select

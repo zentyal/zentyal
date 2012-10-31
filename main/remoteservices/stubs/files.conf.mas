@@ -8,8 +8,8 @@
     @folders => ()
 </%args>
 {
-    "remote_host" : "ec2-54-247-155-61.eu-west-1.compute.amazonaws.com",
-    "remote_port" : "4433",
+    "remote_host" : "sync.cloud.zentyal.com",
+    "remote_port" : "4443",
     "store_dir" : "<% $store_dir %>",
     "access_id" : "<% $access_id %>",
     "access_key" : "<% $access_key %>",
@@ -18,7 +18,7 @@
         {
             "local_path" : "<% $folder->path() %>",
             "remote_path" : "<% $folder->type() %>s/<% $folder->name() %>/"
-% # add a coma after the dict
+% # add a comma after the dict
 %   if (\$folder == \$folders[-1]) {
         }
 %   } else {
@@ -27,4 +27,3 @@
 % }
     ]
 }
-

@@ -67,7 +67,7 @@ sub data
     my ($self) = @_;
 
     unless ($self->{result_json}) {
-        $self->{result_json} = decode_json($self->{result}->decoded_content());
+        $self->{result_json} = JSON->new->decode($self->{result}->decoded_content());
     }
     return $self->{result_json};
 }

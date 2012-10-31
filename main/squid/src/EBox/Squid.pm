@@ -33,6 +33,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -49,14 +50,14 @@ use File::Basename;
 use EBox::NetWrappers qw(to_network_with_mask);
 
 # Module local conf stuff
-use constant SQUID_FRONT_CONF_FILE => '/etc/squid3/squid-front.conf';
-use constant SQUID_FRONT_PORT => '3128';
+use constant SQUID_CONF_FILE => '/etc/squid3/squid.conf';
+use constant SQUID_PORT => '3128';
 
 use constant DGDIR => '/etc/dansguardian';
 use constant DGPORT => '3129';
 
-use constant SQUID_BACK_CONF_FILE  => '/etc/squid3/squid-back.conf';
-use constant SQUID_BACK_PORT => '3130';
+use constant SQUID_EXTERNAL_CONF_FILE  => '/etc/squid3/squid-external.conf';
+use constant SQUID_EXTERNAL_PORT => '3130';
 
 use constant SQUIDCSSFILE => '/etc/squid3/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
@@ -147,6 +148,7 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::usedFiles
@@ -155,12 +157,12 @@ sub usedFiles
 {
     return [
             {
-             'file' => SQUID_FRONT_CONF_FILE,
+             'file' => SQUID_CONF_FILE,
              'module' => 'squid',
              'reason' => __('Front HTTP Proxy configuration file')
             },
             {
-             'file' => SQUID_BACK_CONF_FILE,
+             'file' => SQUID_EXTERNAL_CONF_FILE,
              'module' => 'squid',
              'reason' => __('Back HTTP Proxy configuration file')
             },
@@ -375,7 +377,7 @@ sub port
     my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
-        return SQUID_FRONT_PORT;
+        return SQUID_PORT;
     }
 
     return $port;
@@ -483,12 +485,12 @@ sub usesPort
 
     ($protocol eq 'tcp') or return undef;
 
-    # DGPORT and SQUID_BACK_PORT are hard-coded, they are reported as used even
+    # DGPORT and SQUID_EXTERNAL_PORT are hard-coded, they are reported as used even
     # if the services are disabled.
     ($port eq DGPORT) and return 1;
-    ($port eq SQUID_BACK_PORT) and return 1;
+    ($port eq SQUID_EXTERNAL_PORT) and return 1;
 
-    # the port selected by the user (by default SQUID_FRONT_PORT) is only reported
+    # the port selected by the user (by default SQUID_PORT) is only reported
     # if the service is enabled
     ($self->isEnabled()) or return undef;
     ($port eq $self->port()) and return 1;
@@ -504,12 +506,20 @@ sub _setConf
 
     $self->_writeSquidFrontConf($filter);
     $self->_writeSquidBackConf();
-
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
         $self->_writeDgConf();
     }
+
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
+}
+
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -586,7 +596,10 @@ sub _writeSquidFrontConf
     push @writeParam, ('dn' => $dn);
 
 
-    $self->writeConfFile(SQUID_FRONT_CONF_FILE, 'squid/squid-front.conf.mas', \@writeParam, { mode => '0640'});
+    $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_CONF_FILE);
+    }
 }
 
 sub _writeSquidBackConf
@@ -601,7 +614,7 @@ sub _writeSquidBackConf
 
     my $writeParam = [];
 
-    push (@{$writeParam}, port => SQUID_BACK_PORT);
+    push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
 
     if ($generalSettings->kerberosValue()) {
         push (@{$writeParam}, realm => $users->kerberosRealm);
@@ -641,8 +654,24 @@ sub _writeSquidBackConf
         push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
     }
 
-    $self->writeConfFile(SQUID_BACK_CONF_FILE, 'squid/squid-back.conf.mas',
+    $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+    }
+}
+
+sub _checkSquidFile
+{
+    my ($self, $confFile) = @_;
+
+    try {
+        EBox::Sudo::root("squid3 -k parse $confFile");
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $error = join ' ', @{ $ex->error() };
+        throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
+    };
 }
 
 sub _objectsDelayPools
@@ -684,7 +713,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => DGPORT);
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => SQUID_BACK_PORT);
+    push(@writeParam, 'squidport' => SQUID_EXTERNAL_PORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -925,7 +954,7 @@ sub _dgProfiles
     my ($self) = @_;
 
     my $profileModel = $self->model('FilterProfiles');
-    return $profileModel->profiles();
+    return $profileModel->dgProfiles();
 }
 
 sub _writeDgDomainsConf
@@ -934,8 +963,7 @@ sub _writeDgDomainsConf
 
     my $number = $group->{number};
 
-    my @domainsFiles = ('bannedsitelist', 'bannedurllist',
-                        'greysitelist', 'greyurllist',
+    my @domainsFiles = ('bannedsitelist',
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {
@@ -1002,14 +1030,14 @@ sub _daemons
 {
     return [
         {
-            name => 'zentyal.squid3-back'
+            name => 'zentyal.squid3-external'
         },
         {
             name => 'ebox.dansguardian',
             precondition => \&filterNeeded
         },
         {
-            name => 'zentyal.squid3-front'
+            name => 'squid3'
         }
     ];
 }
@@ -1142,55 +1170,58 @@ sub _DGLang
     return $lang;
 }
 
-# FIXME
-sub aroundDumpConfigDISABLED
+
+sub addPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, $when, @files) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$when};
+    $toRemove or $toRemove = [];
 
-    my $backupCategorizedDomainLists =
-        EBox::Config::boolean('backup_domain_categorized_lists');
-
-    my $bugReport = $options{bug};
-    if (not $bugReport and $backupCategorizedDomainLists) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-    } else {
-        # we don't save archive files
-        $self->_dump_to_file($dir);
-        $self->dumpConfig($dir, %options);
-    }
+    push @{$toRemove }, @files;
+    $state->{$key} = $toRemove;
+    $self->set_state($state);
 }
 
-
-# FIXME
-sub aroundRestoreConfigDISABLED
+sub clearPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    delete $state->{$key};
+    $self->set_state($state);
 }
 
-# FIXME
-sub restoreConfigDISABLED
+sub pathsToRemove
+{
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$key};
+    $toRemove or $toRemove = [];
+    return $toRemove;
+}
+
+sub backupFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+}
+sub restoreFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+
+}
+
+sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-
-    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
-    if ($removeCategorizedDomainLists) {
-        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-            $domainFilterFiles->removeAll();
-        }
-    }
-
-    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
+    my $categorizedLists =  $self->model('CategorizedLists');
+    $categorizedLists->beforeRestoreConfig();
+    $self->SUPER::aroundRestoreConfig($dir, %options);
+    $categorizedLists->afterRestoreConfig();
 }
 
 # LdapModule implementation
