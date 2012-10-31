@@ -540,6 +540,8 @@ sub _setMainConf
         $self->_setOldHostname($hostname);
     } elsif ($oldFqdn ne $hostname) {
         $self->_changeRRDDirs($oldFqdn, $hostname);
+        $self->_removeSubscriptionLink(); # to assure we have al inkpointing to
+                                         # the good directory
         $self->_setOldHostname($hostname);
     }
 
@@ -550,7 +552,9 @@ sub _setMainConf
         if ( $rs->eBoxSubscribed() ) {
             $hostname = $rs->subscribedUUID();
             @networkServers = @{$rs->monitorGathererIPAddresses()};
-            $self->_linkRRDs($hostname);
+            $self->_makeSubscriptionLink($hostname);
+        } else {
+            $self->_removeSubscriptionLink();
         }
     }
 
@@ -666,7 +670,7 @@ sub _setThresholdConf
 # Link to RRDs subscribed hostname to the real one created if Zentyal is
 # subscribed to the Cloud in order to preserve the monitoring data prior to
 # subscribe
-sub _linkRRDs
+sub _makeSubscriptionLink
 {
     my ($self, $subscribedHostname) = @_;
     my $rrdBaseDirPath = $self->rrdBaseDirPath();
@@ -677,8 +681,27 @@ sub _linkRRDs
     # -e will fail if it is a sym link, we want this
     EBox::debug("_linkRRDS $rrdBaseDirPath -> $subDirPath");
     if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-        EBox::Sudo::root("ln -f $rrdBaseDirPath $subDirPath");
+        EBox::info("creating subs linl $rrdBaseDirPath -> $subDirPath");
+        EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
     } # else, collectd creates the directory
+}
+
+
+sub _removeSubscriptionLink
+{
+    my ($self, $stopService) = @_;
+    my $parentPath = EBox::Monitor::Configuration::RRD_BASE_DIR;
+    opendir(my $dh, $parentPath);
+    while ( defined(my $subdir = readdir($dh)) ) {
+        if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
+            # seems a subscription directory
+            # Stop the service before removing to avoid race conditions
+            $self->_stopService() if $stopService;
+            EBox::debug("REMOVE subscription linl $parentPath/$subdir");
+            EBox::Sudo::root("rm $parentPath/$subdir");
+        }
+    }
+    closedir($dh);
 }
 
 # Check if there is threshold configuration and it is enabled or not
@@ -730,40 +753,6 @@ sub _registerRuntimeMeasures
             };
         }
     }
-}
-
-# Method: _enforceServiceState
-#
-#   This method will start or stop collectd
-#   It will also remove the RRD links when no longer needed
-#
-# Overrides:
-#
-#       <Ebox::Module::Service::_enforceServiceState>
-#
-sub _enforceServiceState
-{
-    my ($self) = @_;
-    my $rs = EBox::Global->getInstance(1)->modInstance('remoteservices');
-
-    # Remove the link to the RRD directory if not subscribed
-
-    if (defined ($rs) and not $rs->eBoxSubscribed()) {
-        my $parentPath = EBox::Monitor::Configuration::RRD_BASE_DIR;
-        opendir(my $dh, $parentPath);
-        while ( defined(my $subdir = readdir($dh)) ) {
-            if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
-                # seems a subscription directory
-                # Stop the service before removing to avoid race conditions
-                $self->_stopService();
-                EBox::Sudo::root("rm $parentPath/$subdir");
-            }
-        }
-        closedir($dh);
-    }
-
-    # Restore the service state
-    $self->SUPER::_enforceServiceState(@_);
 }
 
 sub rrdBaseDirPath
