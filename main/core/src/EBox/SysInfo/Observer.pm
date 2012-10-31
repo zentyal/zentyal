@@ -85,11 +85,32 @@ sub hostDomainChangedDone
     my ($self, $oldDomainName, $newDomainName) = @_;
 }
 
+# Method: fqdnChanged
+#
+#   Invoked before the change takes place. Any module implementing this
+#   method can abort the change throwing an exception.
+#   This is called after the methods hostNameChanged and hostDomainChanged.
+#
+# Parameters:
+#
+#   oldDomainName
+#   newDomainName
+#
 sub fqdnChanged
 {
     my ($self, $oldFqdn, $newFqdn) = @_;
 }
 
+# Method: fqdnChangedDone
+#
+#   Invoked after the change takes place
+#   This is called after the methods hostnameChangedDone and hostDomainChangedDone.
+#
+# Parameters:
+#
+#   oldDomainName
+#   newDomainName
+#
 sub fqdnChangedDone
 {
     my ($self, $oldFqdn, $newFqdn) = @_;
