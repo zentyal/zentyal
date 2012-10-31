@@ -669,16 +669,13 @@ sub _setThresholdConf
 sub _linkRRDs
 {
     my ($self, $subscribedHostname) = @_;
-    my $rrdBaseDirPath = self->rrdBaseDirPath();
+    my $rrdBaseDirPath = $self->rrdBaseDirPath();
 
-    # Get the parent path
-    my @directories = File::Spec->splitdir($rrdBaseDirPath);
-    pop(@directories);
-    pop(@directories);
-    my $parentPath = File::Spec->catdir(@directories);
+    my $subDirPath =  EBox::Monitor::Configuration::RRDBaseDirForFqdn($subscribedHostname);
+    $subDirPath =~ s{/+$}{};
 
-    my $subDirPath = "$parentPath/$subscribedHostname";
     # -e will fail if it is a sym link, we want this
+    EBox::debug("_linkRRDS $rrdBaseDirPath -> $subDirPath");
     if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
         EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
     } # else, collectd creates the directory
