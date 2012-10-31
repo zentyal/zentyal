@@ -97,7 +97,6 @@ sub QueryInterval
 #
 #      String - the RRD base directory Path
 #
-
 sub RRDBaseDirForFqdn
 {
     my ($fqdn) = @_;

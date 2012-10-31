@@ -677,7 +677,7 @@ sub _linkRRDs
     # -e will fail if it is a sym link, we want this
     EBox::debug("_linkRRDS $rrdBaseDirPath -> $subDirPath");
     if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-        EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
+        EBox::Sudo::root("ln -f $rrdBaseDirPath $subDirPath");
     } # else, collectd creates the directory
 }
 
@@ -749,17 +749,11 @@ sub _enforceServiceState
     # Remove the link to the RRD directory if not subscribed
 
     if (defined ($rs) and not $rs->eBoxSubscribed()) {
-        my $rrdBaseDirPath = $self->rrdBaseDirPath();
-
-        # Get the parent path
-        my @directories = File::Spec->splitdir($rrdBaseDirPath);
-        pop(@directories);
-        pop(@directories);
-        my $parentPath = File::Spec->catdir(@directories);
-
+        my $parentPath = EBox::Monitor::Configuration::RRD_BASE_DIR;
         opendir(my $dh, $parentPath);
         while ( defined(my $subdir = readdir($dh)) ) {
-            if ( -l "$parentPath/$subdir" ) {
+            if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
+                # seems a subscription directory
                 # Stop the service before removing to avoid race conditions
                 $self->_stopService();
                 EBox::Sudo::root("rm $parentPath/$subdir");
