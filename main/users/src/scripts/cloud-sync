@@ -99,7 +99,7 @@ for my $ruser (@{$rusers}) {
             # Update passwords
             my @passwords = $luser->get('krb5Key');
             unless (@{$ruser->{passwords}} ~~ @passwords) {
-                $luser->setPasswordFromHashes($ruser->{passwords});
+                $luser->setPasswordFromHashes($ruser->{passwords}, 1);
                 $changed = 1;
             }
 
