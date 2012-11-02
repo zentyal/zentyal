@@ -552,12 +552,8 @@ sub _setMainConf
         if ( $rs->eBoxSubscribed() ) {
             $hostname = $rs->subscribedUUID();
             @networkServers = @{$rs->monitorGathererIPAddresses()};
-            # Stop collectd before adding link to avoid race conditions
-            $self->_stopService();
             $self->_makeSubscriptionLink($hostname);
         } else {
-            # Stop collectd before removing link to avoid race conditions
-            $self->_stopService();
             $self->_removeSubscriptionLink();
         }
     }
@@ -684,7 +680,10 @@ sub _makeSubscriptionLink
 
     # -e will fail if it is a sym link, we want this
     if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-        EBox::info("creating subs linl $rrdBaseDirPath -> $subDirPath");
+        # Stop collectd before adding link to avoid race conditions
+        $self->_stopService();
+
+        EBox::info("Creating collectd link for subscription name  $subDirPath -> $rrdBaseDirPath");
         EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
     } # else, collectd creates the directory
 }
@@ -696,9 +695,12 @@ sub _removeSubscriptionLink
     my $parentPath = EBox::Monitor::Configuration::RRD_BASE_DIR;
     opendir(my $dh, $parentPath);
     while ( defined(my $subdir = readdir($dh)) ) {
+        # check if it seems a subscription directory link
         if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
-            # seems a subscription directory
-            EBox::Sudo::root("rm $parentPath/$subdir");
+            # Stop collectd before removing link to avoid race conditions
+            $self->_stopService();
+            # this will fail if its a directory and not a link, this is intended
+            EBox::Sudo::root("rm -f $parentPath/$subdir");
         }
     }
     closedir($dh);
