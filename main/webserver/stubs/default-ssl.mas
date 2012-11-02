@@ -1,8 +1,19 @@
 <%args>
   $hostname
   $sslportNumber
+  $hostnameVhost
 </%args>
 <IfModule mod_ssl.c>
+% if ($hostnameVhost) {
+  <& /webserver/vhostHttps.mas,
+       hostname => $hostname,
+       vHostName => $hostname,
+       sslportNumber => $sslportNumber,
+       sslSupport => $hostnameVhost->{ssl},
+   &>
+% }
+
+
 NameVirtualHost *:<% $sslportNumber %>
 <VirtualHost *:<% $sslportNumber %>>
 	ServerAdmin webmaster@<% $hostname %>
