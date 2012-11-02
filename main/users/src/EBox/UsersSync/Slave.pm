@@ -103,7 +103,12 @@ sub _modifyUser
         uidNumber  => $user->get('uidNumber'),
     };
 
-    $userinfo->{password} = $pass if ($pass);
+    if ($pass) {
+        $userinfo->{password} = $pass;
+    } else {
+        my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
+        $userinfo->{passwords} = \@passwords;
+    }
 
     if ($user->get('description')) {
         $userinfo->{description} = $user->get('description');
