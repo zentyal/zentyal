@@ -129,7 +129,6 @@ sub send
 {
     my ($self) = @_;
 
-    return; # FIXME: Only for current dev
     foreach my $helper (@{$self->{helpers}}) {
         $helper->send();
     }
