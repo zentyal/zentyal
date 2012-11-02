@@ -1,4 +1,5 @@
 HEAD
+	+ Do not calculate share size whose directory does not exist
 	+ Read REST responses with a correct encoding
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
 3.0.7
