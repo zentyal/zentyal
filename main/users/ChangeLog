@@ -1,4 +1,5 @@
 HEAD
+	+ Sync password changes made from cloud to any slave
 	+ When syncing, do not update ldap of unchanged entries
 3.0.4
 	+ Added missing use of UnwillingToPerform exception
