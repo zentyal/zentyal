@@ -1,4 +1,4 @@
-HEAD
+3.0.2
 	+ Fixed code error when checking mount points of file target
 	+ Fixed 'inexistent watcher' error in backup-tool
 	+ Set default niceness of backup process to 10
