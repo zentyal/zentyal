@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class:
 #
 #   EBox::WebServer::Model::VHostTable
@@ -21,11 +22,7 @@
 #   virtual host table which basically contains virtual hosts information.
 #
 package EBox::WebServer::Model::VHostTable;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -404,6 +401,25 @@ sub _guessWebIPAddr
     my @extIfaces = grep { $netMod->ifaceIsExternal($_) } @ifaces;
 
     return $netMod->ifaceAddress($extIfaces[0]);
+}
+
+sub virtualHosts
+{
+    my ($self) = @_;
+    my %vhosts;
+    foreach my $id (@{  $self->ids() }) {
+        my $row = $self->row($id);
+        my $enabled    = $row->valueByName('enabled');
+        my $vHostName  = $row->valueByName('name');
+        my $sslSupport = $row->valueByName('ssl');
+        $vhosts{$vHostName} = {
+            enabled => $enabled,
+            name  => $vHostName,
+            ssl => $sslSupport,
+        };
+    }
+
+    return \%vhosts;
 }
 
 1;
