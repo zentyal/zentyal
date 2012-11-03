@@ -1422,7 +1422,7 @@ sub _checkFileSystemTargetStatus
     }
 
     my $mountPoint;
-    my %staticFs = %{ EBox::FileSystem::staticFileSystems() };
+    my %staticFs = %{ EBox::FileSystem::fileSystems() };
     foreach my $fsAttr (values %staticFs) {
         my $fsMountPoint = $fsAttr->{mountPoint};
         if ($fsMountPoint eq 'none') {
@@ -1438,7 +1438,7 @@ sub _checkFileSystemTargetStatus
             # check if the mount point is more specific
             my $mpComponents = split '/+', $mountPoint;
             my $fsMpComponents = split '/+', $fsMountPoint;
-            ($fsMountPoint > $mpComponents) or
+            ($fsMpComponents > $mpComponents) or
                 next;
         }
         $mountPoint = $fsMountPoint;
