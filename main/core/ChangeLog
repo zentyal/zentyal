@@ -1,3 +1,6 @@
+HEAD
+	+ Add new EBox::Module::Service::Observer to notify modules about
+	  changes in the service status
 3.0.5
 	+ Template ajax/simpleModalDialog.mas can now accept text
 	+ Used poweroff instead of halt to assure that system is powered

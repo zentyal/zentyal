@@ -18,8 +18,6 @@ package EBox::SysInfo::Observer;
 use strict;
 use warnings;
 
-use EBox::Gettext;
-
 sub new
 {
     my $class = shift;

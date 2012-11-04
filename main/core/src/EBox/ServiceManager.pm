@@ -21,10 +21,10 @@
 #   It uses MD5 digests to track the changes
 #
 #
-package EBox::ServiceManager;
-
 use strict;
 use warnings;
+
+package EBox::ServiceManager;
 
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
