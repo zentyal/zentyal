@@ -1,5 +1,6 @@
 HEAD
 	+ Set pid file path for nmbd daemon
+	+ Set bootDepends in yaml file
 3.0.6
 	+ Added missing use of UnwillingToPerform exception
 	+ Fix bug importing service principals when it is not yet created in
