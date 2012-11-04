@@ -1,3 +1,5 @@
+HEAD
+	+ Always up interfaces in enforceServiceState
 3.0.1
 	+ Added domain option to /etc/resolv.conf
 	+ Supersede DHCP offered nameservers, domain name and search domain if
