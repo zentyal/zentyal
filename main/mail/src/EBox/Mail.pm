@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Mail;
-
 use strict;
 use warnings;
 
+package EBox::Mail;
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
@@ -950,9 +948,6 @@ sub _postfixIsRunning
     return undef;
 }
 
-
-
-
 #  Method : externalFilter
 #
 #  return ther name of the external filter used or the name 'custom' in case
@@ -1365,7 +1360,7 @@ sub mailServicesWidget
     my $smtp = new EBox::Dashboard::ModuleStatus(
                                           module => 'mail',
                                           printableName => __('SMTP service'),
-                                          running => self->_postfixIsRunning(),
+                                          running => $self->_postfixIsRunning(),
                                           enabled => $self->service(),
                                         );
 
