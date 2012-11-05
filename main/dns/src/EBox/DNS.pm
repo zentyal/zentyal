@@ -17,6 +17,7 @@ use warnings;
 
 package EBox::DNS;
 use base qw( EBox::Module::Service
+             EBox::Module::Service::Observer
              EBox::FirewallObserver
              EBox::SysInfo::Observer
              EBox::NetworkObserver );
@@ -807,7 +808,7 @@ sub _postServiceHook
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;
-                unlink($filename); # Remove the temporary file
+                unlink($filename) if -f $filename; # Remove the temporary file
             }
             delete $self->{nsupdateCmds};
         }
@@ -1424,19 +1425,17 @@ sub _launchSambaNSupdate
     my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
     if ($self->_isNamedListening()) {
         try {
+            my @cmds;
             my $sysinfo = EBox::Global->modInstance('sysinfo');
             my $ucHostname = uc ($sysinfo->hostName());
-            EBox::Sudo::root("kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
-            EBox::Sudo::root($cmd);
-            EBox::Sudo::root('kdestroy');
+
+            push (@cmds, "kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
+            push (@cmds, $cmd);
+            push (@cmds, 'kdestroy');
+            EBox::Sudo::root(@cmds);
         } otherwise {
             $fh->unlink_on_destroy(0); # For debug purposes
         };
-    } else {
-        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-        push(@{$self->{nsupdateCmds}}, $cmd);
-        $fh->unlink_on_destroy(0);
-        EBox::warn('Cannot contact with named, trying in posthook');
     }
 }
 
@@ -1474,7 +1473,6 @@ sub _isNamedListening
     } else {
         return 0;
     }
-
 }
 
 # Remove no longer used domain files to avoid confusing the user
@@ -1914,6 +1912,24 @@ sub hostNameChangedDone
                 last;
             }
         }
+    }
+}
+
+# Method: serviceStarted
+#
+#   Launchs domain dynamic update. We have to wait until samba boot up
+#   to get the required kerberos ticket to perform dynamic updates.
+#
+# Overrides:
+#
+#   EBox::Module::Service::Observer::serviceStarted
+#
+sub serviceStarted
+{
+    my ($self, $module) = @_;
+
+    if ($module->isa('EBox::Samba')) {
+        $self->save();
     }
 }
 

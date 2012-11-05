@@ -1,4 +1,6 @@
 HEAD
+	+ Implement EBox::Module::Service::Observer to launch dynamic dns
+	  update after samba boot up
 	+ Add config key to disable automatic reverse zone generation. Useful
 	  when samba4 is installed and reverse zones are managed by other DC,
 	  replicated and loaded by DLZ plugin.
