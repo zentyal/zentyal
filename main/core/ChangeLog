@@ -1,4 +1,5 @@
 HEAD
+	+ Better logging of exceptions in EBox::CGI::Run
 	+ Scroll up when showing modal dialog
 	+ Added fqdnChanged methods to SysInfo::Observer
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
