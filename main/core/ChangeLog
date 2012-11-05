@@ -1,4 +1,5 @@
 HEAD
+	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
 	+ Template ajax/simpleModalDialog.mas can now accept text
 	+ Used poweroff instead of halt to assure that system is powered
