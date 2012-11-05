@@ -201,7 +201,7 @@ sub _enforceServiceState
     my ($self) = @_;
 
     if ($self->isEnabled() and $self->isProvisioned()) {
-        $self->_startService();
+        $self->_startService() unless $self->isRunning();
     } else {
         $self->_stopService();
     }

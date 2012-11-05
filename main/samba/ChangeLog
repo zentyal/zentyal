@@ -1,4 +1,6 @@
 HEAD
+	+ Fix bug in enforceServiceState causing samba to restart twice while
+	  saving changes
 	+ Set pid file path for nmbd daemon
 	+ Set bootDepends in yaml file
 3.0.6
