@@ -151,6 +151,7 @@ sub log
             $db->insert( $helper->name(), $row);
         }
     }
+    $db->do('SET NAMES UTF8'); # I'm assuming correctly, everything is UTF8
     # Perform the buffered inserts done above
     $db->multiInsert();
 }
