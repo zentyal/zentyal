@@ -25,68 +25,68 @@ use constant TS_FORMAT        => '%b %e %H:%M:%S %Y';
 
 sub new
 {
-        my $class = shift;
-        my $self = {};
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: logFiles
 #
-#	This function must return the file or files to be read from.
+#       This function must return the file or files to be read from.
 #
 # Returns:
 #
-#	array ref - containing the whole paths
+#       array ref - containing the whole paths
 #
 sub logFiles
 {
-	return [FIREWALL_LOGFILE];
+    return [FIREWALL_LOGFILE];
 }
 
 # Method: processLine
 #
-#	This fucntion will be run every time a new line is recieved in
-#	the associated file. You must parse the line, and generate
-#	the messages which will be logged to ebox through an object
-#	implementing EBox::AbstractLogger interface.
+#       This fucntion will be run every time a new line is recieved in
+#       the associated file. You must parse the line, and generate
+#       the messages which will be logged to ebox through an object
+#       implementing EBox::AbstractLogger interface.
 #
 # Parameters:
 #
-#	file - file name
-#	line - string containing the log line
-#	dbengine- An instance of class implemeting AbstractDBEngineinterface
+#       file - file name
+#       line - string containing the log line
+#       dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
 sub processLine # (file, line, logger)
 {
-	my ($self, $file, $line, $dbengine) = @_;
+    my ($self, $file, $line, $dbengine) = @_;
 
-	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
-	    return;
-	}
-	my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
-	my $type = $2;
-	my $rule = $3;
+    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
+        return;
+    }
+    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
+    my $type = $2;
+    my $rule = $3;
 
-	my @pairs = grep (/=./, split(' ', $rule));
-	my %fields = map { split('='); } @pairs;
+    my @pairs = grep (/=./, split(' ', $rule));
+    my %fields = map { split('='); } @pairs;
 
-	my %dataToInsert;
-	my $timestamp = $self->_convertTimestamp($date, TS_FORMAT);
-	$dataToInsert{timestamp} = $timestamp;
-	$dataToInsert{event} = $type;
+    my %dataToInsert;
+    my $timestamp = $self->_convertTimestamp($date, TS_FORMAT);
+    $dataToInsert{timestamp} = $timestamp;
+    $dataToInsert{event} = $type;
 
-	my @fieldNames = qw(in out src dst proto spt dpt);
-	for my $name (@fieldNames) {
-		my $uName = uc ($name);
-		if (exists $fields{$uName}) {
-			$dataToInsert{'fw_' . $name} = $fields{$uName};
-		} else {
-			$dataToInsert{'fw_' . $name} = undef;
-		}
-	}
+    my @fieldNames = qw(in out src dst proto spt dpt);
+    for my $name (@fieldNames) {
+        my $uName = uc ($name);
+        if (exists $fields{$uName}) {
+            $dataToInsert{'fw_' . $name} = $fields{$uName};
+        } else {
+            $dataToInsert{'fw_' . $name} = undef;
+        }
+    }
 
-	$dbengine->insert('firewall', \%dataToInsert);
+    $dbengine->insert('firewall', \%dataToInsert);
 }
 
 1;
