@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed 'element not exists' error when enabling a log watcher
 	+ Scroll up when showing modal dialog
 	+ Added fqdnChanged methods to SysInfo::Observer
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
