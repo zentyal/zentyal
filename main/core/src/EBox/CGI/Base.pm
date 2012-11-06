@@ -12,10 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Base;
 use strict;
 use warnings;
+
+package EBox::CGI::Base;
 
 use HTML::Mason;
 use HTML::Mason::Exceptions;
@@ -147,8 +147,6 @@ sub _body
     my $comp = $interp->make_component(comp_file => $filename);
     $interp->exec($comp, @{$self->{params}});
 }
-
-
 
 MASON_INTERP: {
     my $masonInterp;
@@ -361,15 +359,13 @@ sub run
         return;
     }
 
-
     try  {
       $self->_print
     } catch EBox::Exceptions::Internal with {
-      my $ex = shift;
-      $self->setErrorFromException($ex);
-      $self->_print_error($self->{error});
-    }
-    otherwise {
+        my $ex = shift;
+        $self->setErrorFromException($ex);
+        $self->_print_error($self->{error});
+    } otherwise {
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
@@ -380,12 +376,7 @@ sub run
                  "be found in the logs.");
           $self->_print_error($error);
         } else {
-          if ($ex->can('text')) {
-        $logger->error('Exception: ' . $ex->text());
-          } else {
-        $logger->error("Unknown exception");
-          }
-
+          # will be logged in EBox::CGI::Run
           throw $ex;
         }
       };
@@ -818,9 +809,6 @@ sub requiredParameters
     return [];
 }
 
-
-
-
 # Method:  actuate
 #
 #  This method is the workhouse of the CGI it must be overriden by the different CGIs to achieve their objectives
@@ -989,6 +977,5 @@ sub JSONReply
     }
     print encode_json($data_r);
 }
-
 
 1;
