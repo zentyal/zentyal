@@ -28,6 +28,11 @@ sub new
     my %params = @_;
 
     my $self = {};
+
+    my $mail = EBox::Global->getInstance(1)->modInstance('mail');
+    my $mailname = $mail->mailname();
+    $self->{mailname} = $mailname;
+
     bless($self, $class);
     return $self;
 }
@@ -52,17 +57,18 @@ sub _getDate
 
     my $year = $date[5] + 1900;
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..)/;
-
-    return "$year-$month-$day $hour:$min:$sec";
+    my $ts = "$year-$month-$day $hour:$min:$sec";
+    return $self->_convertTimestamp($ts, '%Y-%b-%d %T');
 }
 
+#Nov  6 16:53:35 cz3 amavis[27701]: (27701-01) Passed CLEAN, <test@gmail.com> -> <user1@vdomain1.org>, Hits: 0.202, tag=0, tag2=5, kill=5, queued_as: 262662952C, L/Y/0/0
 my $amavisLineRe = qr{^\s\(.*?\)\s
                (\w+)\s([\w\-]+).*?, # action (Passed or Blocked) and event type
                \s<(.*?)>\s->\s<(.*?)>,  # mail sender and receiver
                \sHits:\s([\d\.\-]+), # Spam hits ('-' for none)
               }x;
 
-sub _processLine
+sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
     if ($file ne MAIL_LOG) {
@@ -73,6 +79,7 @@ sub _processLine
 
     my $header;
     ($header, $line) = split 'amavis.*?:' , $line, 2;
+    $line or next;
 
     if (not $line =~ $amavisLineRe) {
         return;
@@ -80,9 +87,7 @@ sub _processLine
 
     my ($action, $event, $from, $to, $hits) = ($1, $2, $3, $4, $5);
 
-    my $mail = EBox::Global->modInstance('mail');
-    my $mailname = $mail->mailname();
-
+    my $mailname = $self->{mailname};
     if (($from =~ m/@\Q$mailname\E$/) and ($to =~ m/@\Q$mailname\E$/)) {
         return;
     }

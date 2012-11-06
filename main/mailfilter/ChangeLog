@@ -1,4 +1,6 @@
 HEAD
+	+ Reworked log helper to remove POP proxy and adapt to changes in
+	base class
 	+ Removed POP proxy logs from log table, fixed bug which make
 	  summarized smtp filter report page to be blank
 3.0.1
