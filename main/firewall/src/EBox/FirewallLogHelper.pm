@@ -12,19 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::FirewallLogHelper;
-
-use base 'EBox::LogHelper';
-
 use strict;
 use warnings;
 
-use EBox;
-use EBox::Config;
+package EBox::FirewallLogHelper;
+use base 'EBox::LogHelper';
+
 use EBox::Gettext;
 
 use constant FIREWALL_LOGFILE => '/var/log/syslog';
+use constant TS_FORMAT        => '%b %e %H:%M:%S %Y';
 
 sub new
 {
@@ -75,7 +72,7 @@ sub processLine # (file, line, logger)
 	my %fields = map { split('='); } @pairs;
 
 	my %dataToInsert;
-	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
+	my $timestamp = $self->_convertTimestamp($date, TS_FORMAT);
 	$dataToInsert{timestamp} = $timestamp;
 	$dataToInsert{event} = $type;
 
