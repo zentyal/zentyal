@@ -12,10 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Bundle;
-
-use base 'EBox::RemoteServices::Cred';
+use strict;
+use warnings;
 
 # Class: EBox::RemoteServices::Bundle
 #
@@ -25,9 +23,8 @@ use base 'EBox::RemoteServices::Cred';
 #      This bundle can be obtained only when the server is subscribed
 #      and has the credentials
 #
-
-use strict;
-use warnings;
+package EBox::RemoteServices::Bundle;
+use base 'EBox::RemoteServices::Cred';
 
 use Error qw(:try);
 
