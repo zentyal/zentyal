@@ -9,12 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-07-14 21:02+0200\n"
+"PO-Revision-Date: 2012-10-09 22:09+0200\n"
+"Last-Translator: Olugbenga77 <gb7to7@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: yo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -49,7 +52,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:243
 #: ../../main/ca/src/templates/index.mas:97
 msgid "Name"
-msgstr ""
+msgstr "Oruko"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:651
