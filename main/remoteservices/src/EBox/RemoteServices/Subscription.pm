@@ -539,7 +539,7 @@ sub _openHTTPSConnection
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() and not $fw->firstInstall()) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
@@ -576,7 +576,7 @@ sub _openVPNConnection #(ipaddr, port, protocol)
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() and not $fw->firstInstall()) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             EBox::Sudo::root(
                 EBox::Iptables::pf(
