@@ -585,14 +585,10 @@ sub saveAllModules
             $module->setInstalled();
             try {
                 $module->{firstInstall} = 1;
-                $module->enableActions();
-                $module->setConfigured(1);
-                $module->enableService(1);
+                $module->configureModule();
             } otherwise {
                 my ($ex) = @_;
                 my $err = $ex->text();
-                $module->setConfigured(0);
-                $module->enableService(0);
                 EBox::debug("Failed to enable module $name: $err");
             } finally {
                 delete $module->{firstInstall};

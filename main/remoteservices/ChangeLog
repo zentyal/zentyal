@@ -1,4 +1,5 @@
 HEAD
+	+ Fix subscription process when firewall has been enabled but not saved
 	+ Read REST responses with a correct encoding
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
 3.0.7
