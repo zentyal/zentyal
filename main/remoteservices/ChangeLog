@@ -1,4 +1,5 @@
 HEAD
+	+ Remove unnecessary field for mail reporting
 	+ Send data to db when reporting is logging only in UTF8
 	+ Decode JSON only if data is defined in REST Result
 	+ Enable report sending
