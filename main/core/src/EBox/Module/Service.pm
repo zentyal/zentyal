@@ -293,9 +293,9 @@ sub configureModule
     my $needsSaveAfterConfig = $self->needsSaveAfterConfig();
     try {
         $self->setConfigured(1);
-        $self->enableService(1);
         #$self->updateModuleDigests($modName);
         $self->enableActions();
+        $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
     } otherwise {
         my ($ex) = @_;
