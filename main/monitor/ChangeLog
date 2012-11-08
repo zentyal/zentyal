@@ -1,5 +1,4 @@
 HEAD
-	+ Removed dependency on events module
 	+ Fixed RRD direcotries on changes of hostname. More resilient
 	  subscription links to RRDs
 3.0

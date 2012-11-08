@@ -149,6 +149,9 @@ sub depends
         my $name = $mod->name();
         if ($name eq 'events') {
             next;
+        } elsif ($name eq 'monitor') {
+            # monitor is a exception it has to depend on events
+            next;
         } elsif ($mod->isa('EBox::Events::WatcherProvider') or $mod->isa('EBox::Events::DispatcherProvider')) {
             push @names, $name;
         }
