@@ -25,19 +25,22 @@ use EBox::Config;
 use EBox::Global;
 use File::stat;
 use File::Temp;
-use LWP::Simple;
+use LWP::UserAgent;
 use Time::HiRes;
 
 EBox::init();
 
 my $url = 'http://download.thinkbroadband.com/5MB.zip';
 
+my $ua = new LWP::UserAgent();
+$ua->agent("Mozilla/5.0");
 my $tmpFile = new File::Temp();
 my $start = Time::HiRes::gettimeofday();
-my $resp  = LWP::Simple::getstore($url, $tmpFile->filename());
+my $resp  = $ua->request(new HTTP::Request(GET => $url),
+                         $tmpFile->filename());
 my $end   = Time::HiRes::gettimeofday();
 
-if (LWP::Simple::is_success($resp)) {
+if ($resp->is_success()) {
     my $size = stat($tmpFile->filename())->size();
     my $sizeInBit = $size * 8;
     my $time = $end - $start;

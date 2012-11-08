@@ -1,3 +1,5 @@
+HEAD
+	+ Fix bandwidth test by faking user agent
 2.2.8
 	+ Do not try to add routes if they are already up
 	+ Log when adding or deleting a route fails, but do not crash
