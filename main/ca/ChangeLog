@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Added and used serviceId field for service certificates
 	+ Unallow certificate fields with only blank characters, specific
 	  error for country codes of more than two characters
