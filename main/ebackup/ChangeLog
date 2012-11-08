@@ -1,3 +1,5 @@
+HEAD
+	+ Removed dependency on events module
 3.0.2
 	+ Fixed code error when checking mount points of file target
 	+ Fixed 'inexistent watcher' error in backup-tool
