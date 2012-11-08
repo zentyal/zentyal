@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed events modules dependencies to depend on any module which
+	provides watchers or dispatchers
 	+ Added needsSaveAfterConfig state to service modules
 	+ Better logging of exceptions in EBox::CGI::Run
 	+ Fixed 'element not exists' error when enabling a log watcher
