@@ -301,16 +301,16 @@ sub configureModule
         my ($ex) = @_;
         $self->setConfigured(0);
         $self->enableService(0);
-        $self->savedAfterConfig(undef);
+        $self->setNeedsSaveAfterConfig(undef);
         $ex->throw();
     };
 }
 
 sub setNeedsSaveAfterConfig
 {
-    my ($self, $savedAfterConfig) = @_;
+    my ($self, $needsSave) = @_;
     my $state = $self->get_state();
-    $state->{_needsSaveAfterConfig} = $savedAfterConfig;
+    $state->{_needsSaveAfterConfig} = $needsSave;
     $self->set_state($state);
 }
 
