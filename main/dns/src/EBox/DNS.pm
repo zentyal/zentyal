@@ -753,6 +753,13 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
+
+    # Add 'zentyal' to /etc/services
+    EBox::Sudo::root("if [ `grep -c zentyal /etc/services` -gt 0 ]; then " .
+                     "  sed -i 's/.*6895.*/zentyal\t\t6895\\\/tcp/' /etc/services; " .
+                     "else " .
+                     "  echo 'zentyal\t\t6895/tcp' >> /etc/services; " .
+                     "fi");
 }
 
 # Method: menu
