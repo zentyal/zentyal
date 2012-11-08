@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed events modules dependencies to depend on any module which
+	  provides watchers or dispatchers
 	+ Always call enableActions before enableService when configuring modules
 	+ Added needsSaveAfterConfig state to service modules
 	+ Better logging of exceptions in EBox::CGI::Run
