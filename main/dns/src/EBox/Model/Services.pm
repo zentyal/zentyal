@@ -99,8 +99,10 @@ sub syncRows
         }
     }
 
+    if($alreadyExist) {
+        return 0;
+    } else {
     # Service is not present => Add it
-    unless($alreadyExist) {
         my %service = ( service_name => 'zentyal',
                         protocol => 'tcp',
                         port => DESKTOP_SERVICE_PORT,
