@@ -40,6 +40,7 @@ use EBox::CA::Certificates;
 use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
+use EBox::Util::Version;
 
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
@@ -376,6 +377,8 @@ sub destroyCA
 #
 sub initialSetup
 {
+    my ($self, $version) = @_;
+
     my @cmds;
     my @dirs = (CATOPDIR, CERTSDIR, CRLDIR, NEWCERTSDIR, KEYSDIR, REQDIR);
 
@@ -392,6 +395,14 @@ sub initialSetup
 
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
+    }
+
+    # migration from zentyal-ca 3.0 to 3.0.1
+    # force regeneration of service certificates
+    if (EBox::Util::Version::compare($version, '3.0.1') < 0) {
+        $self->{redis}->commit(); # flush cache FIXME
+        $self->{redis}->delete_dir('ca/ro/Certificates');
+        $self->{redis}->delete_dir('ca/conf/Certificates');
     }
 }
 
