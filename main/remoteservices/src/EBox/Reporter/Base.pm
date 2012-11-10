@@ -145,8 +145,6 @@ sub send
 {
     my ($self) = @_;
 
-    # FIXME: Only for processing
-    return;
     my $dir = $self->_subdir();
     my @files = <${dir}rep-*json>;
     foreach my $file ( @files ) {

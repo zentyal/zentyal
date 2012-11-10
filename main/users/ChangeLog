@@ -1,3 +1,8 @@
+3.0.5
+	+ Fixed reinstall script to stop samba module, otherwise new slapd
+	  cannot start because the port is taken
+	+ Sync password changes made from cloud to any slave
+	+ When syncing, do not update ldap of unchanged entries
 3.0.4
 	+ Added missing use of UnwillingToPerform exception
 	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup

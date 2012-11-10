@@ -226,7 +226,8 @@ sub _keys
 {
     my ($self, $pattern) = @_;
 
-    my @keys = $self->_redis_call('keys', $pattern);
+    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
             push (@keys, $name);

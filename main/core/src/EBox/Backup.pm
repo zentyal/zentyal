@@ -1397,14 +1397,10 @@ sub _preRestoreActions
                 try {
                     EBox::info("Configuring previously unconfigured module $name present in the backup to restore");
                     $mod->{restoringBackup} = 1;
-                    $mod->enableActions();
-                    $mod->setConfigured(1);
-                    $mod->enableService(1);
+                    $mod->configureModule();
                 } otherwise {
                     my ($ex) = @_;
                     my $err = $ex->text();
-                    $mod->setConfigured(0);
-                    $mod->enableService(0);
                     throw EBox::Exceptions::Internal(
                         __x('Cannot restore backup, error enabling module {m}: {err}',
                             'm' => $name, 'err' => $err)

@@ -315,7 +315,7 @@ sub regenConfig
         $aliasLdap->_syncVDomainAliasTable($vdomain, $vdAliasTable);
 
         my $externalAliasTable = $vdRow->elementByName('externalAliases')->foreignModelInstance();
-       $aliasLdap->_syncExternalAliasTable($vdomain, $externalAliasTable);
+        $aliasLdap->_syncExternalAliasTable($vdomain, $externalAliasTable);
 
         delete $vdomainsToDelete{$vdomain};
     }
