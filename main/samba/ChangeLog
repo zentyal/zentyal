@@ -1,3 +1,5 @@
+HEAD
+	+ Use proper constant in userShares method used by remoteservices module
 3.0.7
 	+ Sync passwords to samba also when using kerberos keys
 3.0.6

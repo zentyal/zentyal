@@ -43,7 +43,7 @@ sub report
 
     # We're assumming a JSON-encoded string has been received
     my $response = $self->RESTClient()->POST("/v1/reports/$name/",
-                                             $result,
+                                             query => $result,
                                              retry => 1);
 }
 

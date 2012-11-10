@@ -1,4 +1,9 @@
 HEAD
+	+ Remove unnecessary field for mail reporting
+	+ Send data to db when reporting is logging only in UTF8
+	+ Decode JSON only if data is defined in REST Result
+	+ Enable report sending
+	+ Do not calculate share size whose directory does not exist
 	+ Fix subscription process when firewall has been enabled but not saved
 	+ Read REST responses with a correct encoding
 	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
