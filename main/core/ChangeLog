@@ -1,4 +1,4 @@
-HEAD
+3.0.6
 	+ Skip keys deleted in cache in Redis::_keys()
 	+ Fixed events modules dependencies to depend on any module which
 	  provides watchers or dispatchers
