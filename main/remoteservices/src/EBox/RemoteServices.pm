@@ -45,6 +45,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::AdminPort;
@@ -1011,7 +1012,7 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::Config::configkey('files_sync_available');
+    return EBox::GlobalImpl::_packageInstalled('zentyal-files-sync');
 }
 
 # Method: disasterRecoveryAvailable

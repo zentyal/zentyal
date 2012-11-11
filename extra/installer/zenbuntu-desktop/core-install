@@ -90,12 +90,19 @@ then
     echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
 fi
 
+# install zentyal core and software
+PACKAGES=zentyal
+
+if [ -f /var/tmp/.zentyal-disaster-recovery ]
+then
+    echo "deb http://fixme.zentyal.org/ ./" > /etc/apt/sources.list.d/cloud-beta.list
+    PACKAGES="$PACKAGES zentyal-files-sync"
+    touch /var/lib/zentyal/.disaster-recovery
+fi
+
 update_if_network # apt-get update if we are connected to the internet
 
 REGISTER_DATA=/var/lib/zinstaller-remote
-
-# install zentyal core and software
-PACKAGES=zentyal
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then
@@ -111,12 +118,6 @@ then
     plymouth message --text="Registering your server... Please wait."
     /usr/share/zenbuntu-desktop/remote-register
 fi
-
-if [ -f /var/tmp/.zentyal-disaster-recovery ]
-then
-    touch /var/lib/zentyal/.disaster-recovery
-fi
-
 
 ### CUSTOM_ACTION ###
 
