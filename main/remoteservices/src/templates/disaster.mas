@@ -1,14 +1,12 @@
 <%args>
-  %backups
+  %backups => ()
 </%args>
 <%init>
 use EBox::Gettext;
 
 my @columnTitles = (__('Date'), __('Name'), __('Description'));
 
-my @rows = map {
-    [($_->{Date}, $_->{Filename}, $_->{Comment})]
-} sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
+my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 </%init>
 
 <div>
@@ -20,19 +18,33 @@ my @rows = map {
 
 % if (keys %backups) {
 <h3><% __("Backups available") %></h3>
-<& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
+<table>
+<thead>
+%   foreach my $title (@columnTitles) {
+        <td><% $title %></td>
+%   }
+<td>&nbsp;</td>
+</thead>
+%   foreach my $row (@rows) {
+<tr>
+<td><% $row->{Date} %></td>
+<td><% $row->{Filename} %></td>
+<td><% $row->{Comment} %></td>
+<td>
+<!-- FIXME: use radio buttons to select and have only one big restore button -->
+<button onclick="document.location.href='/RemoteServices/Backup/RestoreRemoteBackup?name=<% $row->{Filename} %>&dr=1"><img src="/data/images/install.gif"> <% __('Recover') %></button>
+</td>
+</tr>
+%   }
+</table>
 <br/>
 % } else {
 <h3><% __("No backups available") %></h3>
 % }
 
-
        <div style="text-align: right">
         <!-- FIXME: is this skip button needed here? -->
         <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip recover') %> </button>
-        <!-- FIXME: redirect to auto-install packages CGI passing parameter of selected backup -->
-        <button onclick="document.location.href='/FIXME"><img src="/data/images/install.gif"> <% __('Recover') %></button>
        </div>
-
     </div>
 </div>

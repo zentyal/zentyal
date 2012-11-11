@@ -15,7 +15,6 @@
 
 package EBox::RemoteServices::Backup;
 use base 'EBox::RemoteServices::Cred';
-#
 
 use strict;
 use warnings;
@@ -51,7 +50,6 @@ sub new
     my ($class, @params) = @_;
 
     my $self = $class->SUPER::new(@params);
-
 
     bless($self, $class);
 
@@ -155,7 +153,7 @@ sub restoreRemoteBackup
     try {
         EBox::Backup->restoreBackup($archiveFile);
     } finally {
-        if ( -e $archiveFile ) {
+        if (-e $archiveFile) {
             unlink($archiveFile);
         }
     };
@@ -164,7 +162,7 @@ sub restoreRemoteBackup
 
 sub prepareRestoreRemoteBackup
 {
-    my ($self, $name) = @_;
+    my ($self, $name, $dr) = @_;
     $name or throw EBox::Exceptions::MissingArgument('name');
 
     my $archiveFile = $self->downloadRemoteBackup($name);
@@ -175,13 +173,13 @@ sub prepareRestoreRemoteBackup
             $archiveFile,
             fullRestore => 0,
             deleteBackup => 1,
-           );
-    }
-      otherwise {
-          my ($ex) = @_;
-          unlink($archiveFile);
-          $ex->throw();
-      };
+            dr => $dr,
+        );
+    } otherwise {
+        my ($ex) = @_;
+        unlink($archiveFile);
+        $ex->throw();
+    };
 
     return $progress;
 }
@@ -196,7 +194,6 @@ sub downloadRemoteBackup
                                          fh => $fh);
     return $archive;
 }
-
 
 sub removeRemoteBackup
 {

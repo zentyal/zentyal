@@ -1,4 +1,5 @@
 HEAD
+	+ Restore backup can now install missing modules in Disaster Recovery
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
 3.0.6

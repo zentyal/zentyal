@@ -1037,6 +1037,8 @@ sub _checkZentyalVersion
 #                              when a module restoration fails
 #       continueOnModuleFail - wether continue when a module fails to restore
 #                              (default: false)
+#       dr          - restore in disaster recovery mode, installing needed packages
+#
 #  Returns:
 #    the progress indicator object which represents the progress of the restauration
 #
@@ -1092,9 +1094,17 @@ sub prepareRestoreBackup
         }
     }
 
-    $restoreBackupScript    .= " $execOptions $file";
-
     my $totalTicks = scalar @{ $self->_modInstancesForRestore($file) };
+
+    if (exists $options{dr}) {
+        if ($options{dr}) {
+            $execOptions .= '--install-missing ';
+            # FIXME: increase at least one tick per module to install
+            $totalTicks++;
+        }
+    }
+
+    $restoreBackupScript .= " $execOptions $file";
 
     my $progressIndicator =  EBox::ProgressIndicator->create(
             executable => $restoreBackupScript,
@@ -1116,11 +1126,11 @@ sub prepareRestoreBackup
 #       file - backup's file (as positional parameter)
 #       progressIndicator - Progress indicator associated
 #                       with htis operation (optional )
-# fullRestore - wether do a full restore or restore only configuration (default: false)
+#       fullRestore - wether do a full restore or restore only configuration (default: false)
 #       dataRestore - wether do a data-only restore
 #       forceDependencies - wether ignore dependency errors between modules
-#        forceZentyalVersion
-#        deleteBackup      - deletes the backup after resroting it or if the process is aborted
+#       forceZentyalVersion - ignore zentyal version check
+#       deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
 #                              when a module restoration fail
 #       continueOnModuleFail - wether continue when a module fails to restore
@@ -1155,6 +1165,12 @@ sub restoreBackup
         $self->_checkSize($file);
 
         $tempdir = $self->_unpackAndVerify($file, $options{fullRestore}, %options);
+
+        if ($options{installMissing}) {
+            $progress->setMessage(__('Installing Zentyal packages in backup...')) if ($progress);
+            $self->_installMissingModules($file);
+            $progress->notifyTick() if ($progress);
+        }
 
         $self->_unpackModulesRestoreData($tempdir);
 
@@ -1536,7 +1552,115 @@ sub _checkModDeps
     }
 }
 
+sub _installMissingModules
+{
+    my ($self, $configBackup) = @_;
 
+    my %modulesInBackup = map { $_ => 1 } @{ $self->_modulesInBackup($configBackup) };
+    my %modulesToConfigure  = %modulesInBackup;
+
+    foreach my $modName (@{EBox::Global->modNames()}) {
+        delete $modulesInBackup{$modName};
+        my $mod = EBox::Global->modInstance($modName);
+        if ((not $mod->isa('EBox::Module::Service')) or
+             $mod->configured()) {
+            delete $modulesToConfigure{$modName};
+        }
+    }
+
+    my @missingModules = keys %modulesInBackup;
+    if (@missingModules) {
+        EBox::Sudo::root('apt-get update -q');
+        EBox::info("Missing modules to recover the configuration: @missingModules");
+        $self->_installDebPackages(@missingModules);
+    }
+
+    my @unconfModules = keys %modulesToConfigure;
+    if (@unconfModules) {
+        EBox::info("Modules to configure: @unconfModules");
+        $self->_configureModules(@unconfModules);
+    }
+}
+
+sub _installDebPackages
+{
+    my ($self) = @_;
+
+    my @modules = @_;
+
+    my @packages;
+    foreach my $mod (@modules) {
+        next if EBox::Global->modExists($mod);
+
+        # cloud-prof is a special case
+        next if ($mod eq 'cloud-prof');
+
+        push (@packages, "zentyal-$mod");
+    }
+
+    if (@packages) {
+        $self->_aptInstall(\@packages);
+    }
+}
+
+sub _aptInstall
+{
+    my ($self, $packages_r) = @_;
+
+    my @packages = @{ $packages_r };
+
+    my $software = EBox::Global->modInstance('software');
+    my $progressIndicator = $software->installPkgs(@packages);
+    my $retValue = progress($progressIndicator, __('Installing modules in backup...'));
+    if ($retValue != 0) {
+        my $errorMsg = $progressIndicator->errorMsg();
+        my $msg;
+
+        if ($errorMsg) {
+            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration  whcih depends on the missing packages',
+                          err => "\n$errorMsg\n");
+            error($msg, noBlocking => 1);
+            return;
+        } else {
+            EBox::warn("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
+        }
+    }
+}
+
+sub _configureModules
+{
+    my ($self, @modulesToConfigure) = @_;
+
+    unless (@modulesToConfigure) {
+        return;
+    }
+
+    my %toConfigure = map { $_ => 1 } @modulesToConfigure;
+
+    my $mgr = EBox::ServiceManager->new();
+    my @orderedMods = @{$mgr->_dependencyTree()};
+
+    my $i = 0;
+    my $percent;
+    foreach my $name (@orderedMods) {
+        $i += 1;
+        next unless (exists $toConfigure{$name});
+
+        EBox::info("Configuring module: $name");
+
+        my $module = EBox::Global->modInstance($name);
+        try {
+            $module->configureModule();
+        } otherwise {
+            my ($ex) = @_;
+            my $err = $ex->text();
+            EBox::error("Failed to enable module $name: $err");
+        };
+    }
+
+    # FIXME: is this save changes needed? I suppose it is, much better to use saveAllModules here, because it already saves changes
+    #saveChanges($saveChangesMsg);
+}
 
 sub _checkId
 {

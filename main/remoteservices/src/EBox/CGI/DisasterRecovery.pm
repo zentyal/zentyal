@@ -41,13 +41,11 @@ sub _process
     my @array;
 
     try {
-        # FIXME: uncomment this when being able to test it
-        #my $backups = EBox::RemoteServices::Backup->new()->listRemoteBackups();
-        my $backups = {
-            1 => { Date => '27-09-12', Filename => 'backup1', Description => 'Bla bla', sortableDate => 1 },
-            2 => { Date => '27-09-11', Filename => 'backup2', Description => 'Ble ble', sortableDate => 2 }
-        };
-        push (@array, 'backups' => $backups);
+        my $backups = EBox::RemoteServices::Backup->new()->listRemoteBackups();
+        use Data::Dumper;
+        if ($backups) {
+            push (@array, 'backups' => $backups);
+        }
     } otherwise {
         my $ex = shift;
         $self->setErrorFromException($ex);
