@@ -1,3 +1,6 @@
+HEAD
+	+ Use sudo to remove temporal files/diectories in backup, avoiding
+	permissions errors
 3.0.6
 	+ Skip keys deleted in cache in Redis::_keys()
 	+ Fixed events modules dependencies to depend on any module which
