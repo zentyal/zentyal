@@ -32,7 +32,7 @@ my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 <td><% $row->{Comment} %></td>
 <td>
 <!-- FIXME: use radio buttons to select and have only one big restore button -->
-<button onclick="document.location.href='/RemoteServices/Backup/RestoreRemoteBackup?name=<% $row->{Filename} %>&dr=1"><img src="/data/images/install.gif"> <% __('Recover') %></button>
+<button onclick="document.location.href='/RemoteServices/Backup/RestoreRemoteBackup?name=<% $row->{Filename} %>&dr=1'"><img src="/data/images/install.gif"> <% __('Recover') %></button>
 </td>
 </tr>
 %   }
