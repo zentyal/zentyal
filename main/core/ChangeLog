@@ -1,4 +1,6 @@
 HEAD
+	+ Added new recoveryEnabled() helper method to Module::Base
+	+ Added recoveryDomainName() method to SyncProvider interface
 	+ Restore backup can now install missing modules in Disaster Recovery
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode

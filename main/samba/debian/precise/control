@@ -12,7 +12,7 @@ Package: zentyal-samba
 Architecture: all
 Replaces: ebox-samba (<< 2.0.100)
 Breaks: ebox-samba (<< 2.0.100)
-Depends: zentyal-core (>= 3.0), zentyal-core (<< 3.0.100), zentyal-network, ldb-tools,
+Depends: zentyal-core (>= 3.0.7), zentyal-core (<< 3.0.100), zentyal-network, ldb-tools,
          zentyal-firewall, zentyal-users (>= 3.0.4), zentyal-dns, acl,
          samba4 (>= 4.0.0~rc2+dfsg1-1+zentyal2),
          samba-dsdb-modules (>= 4.0.0~rc2+dfsg1-1+zentyal2),

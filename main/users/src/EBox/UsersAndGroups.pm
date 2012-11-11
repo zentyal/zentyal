@@ -16,11 +16,12 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups;
-use base qw( EBox::Module::Service
-             EBox::LdapModule
-             EBox::SysInfo::Observer
-             EBox::UserCorner::Provider
-             EBox::UsersAndGroups::SyncProvider );
+use base qw(EBox::Module::Service
+            EBox::LdapModule
+            EBox::SysInfo::Observer
+            EBox::UserCorner::Provider
+            EBox::SyncFolders::Provider
+            EBox::UsersAndGroups::SyncProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -1654,6 +1655,25 @@ sub hostDomainChangedDone
         my $newDN = $mode->getDnFromDomainName($newDomainName);
         $mode->setValue('dn', $newDN);
     }
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        push (@folders, new EBox::SyncFolders::Folder('/home', 'recovery'));
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Users data');
 }
 
 1;

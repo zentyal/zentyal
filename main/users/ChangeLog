@@ -1,3 +1,5 @@
+HEAD
+	+ Integration with Disaster Recovery service
 3.0.5
 	+ Fixed reinstall script to stop samba module, otherwise new slapd
 	  cannot start because the port is taken

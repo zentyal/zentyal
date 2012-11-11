@@ -472,11 +472,22 @@ sub syncFolders
         }
 
         if ($sync or $syncAll) {
-            push(@folders, new EBox::SyncFolders::Folder($path, 'share'));
+            push (@folders, new EBox::SyncFolders::Folder($path, 'share'));
         }
     }
 
+    if ($self->recoveryEnabled()) {
+        # TODO: push filesystem shares (old backupDomains functionality needs to be fixed)
+    }
+
     return \@folders;
+}
+
+sub recoveryDomainName
+{
+    # FIXME: uncomment when syncFolders properly implemented
+    # return __('Filesystem shares');
+    return undef;
 }
 
 sub defaultAntivirusSettings
@@ -1701,6 +1712,8 @@ sub restoreDependencies
 
 
 # backup domains
+
+# FIXME: this needs to be fixed/uncommented!!
 
 #sub backupDomains
 #{

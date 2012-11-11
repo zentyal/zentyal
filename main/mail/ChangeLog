@@ -1,3 +1,5 @@
+HEAD
+	+ Integration with Disaster Recovery service
 3.0.2
 	+ Fixed error in dashboard widget
 	+ Fixed log helper time stamp parsing, transition to MySql broke it

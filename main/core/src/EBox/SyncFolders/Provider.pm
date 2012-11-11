@@ -49,4 +49,18 @@ sub syncFolders
     throw EBox::Exceptions::NotImplemented('syncFolders', ref($self));
 }
 
+# Method: recoveryDomainName
+#
+#   Printable name for the disaster recovery domain, to be implemented
+#   in providers with 'recovery' sync folders
+#
+# Returns:
+#
+#   string with the name
+#
+sub recoveryDomainName
+{
+    return undef;
+}
+
 1;
