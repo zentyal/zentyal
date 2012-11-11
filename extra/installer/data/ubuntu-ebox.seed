@@ -91,6 +91,9 @@ zentyal-core zentyal-core/dr_install boolean false
 
 d-i pkgsel/language-packs string
 
+d-i preseed/early_command string \
+    touch /tmp/INSTALL_MODE
+
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
     cp -r /target/media/cdrom/zentyal /target/tmp/ && \
