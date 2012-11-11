@@ -1391,7 +1391,7 @@ sub _preRestoreActions
             push (@missing, $modName);
         }
     }
-    if (@missing and not $options{forceDependencies}) {
+    if (@missing and not $options{forceDependencies} and not $options{installMissing}) {
         throw EBox::Exceptions::External(
                 __x('The following modules present in the backup are not installed: {mods}. You need to install them before restoring.',
                     'mods' => join (' ', @missing))
@@ -1568,12 +1568,7 @@ sub _installMissingModules
         }
     }
 
-    my @missingModules = keys %modulesInBackup;
-    if (@missingModules) {
-        EBox::Sudo::root('apt-get update -q');
-        EBox::info("Missing modules to recover the configuration: @missingModules");
-        $self->_installDebPackages(@missingModules);
-    }
+    $self->_installMissingPackages(keys %modulesInBackup);
 
     my @unconfModules = keys %modulesToConfigure;
     if (@unconfModules) {
@@ -1582,23 +1577,15 @@ sub _installMissingModules
     }
 }
 
-sub _installDebPackages
+sub _installMissingPackages
 {
-    my ($self) = @_;
+    my ($self, @modules) = @_;
 
-    my @modules = @_;
-
-    my @packages;
-    foreach my $mod (@modules) {
-        next if EBox::Global->modExists($mod);
-
-        # cloud-prof is a special case
-        next if ($mod eq 'cloud-prof');
-
-        push (@packages, "zentyal-$mod");
-    }
+    my @packages = map { "zentyal-$_" } grep { not EBox::Global->modExists($_) } @modules;
 
     if (@packages) {
+        EBox::Sudo::root('apt-get update -q');
+        EBox::info("Missing packages to recover the configuration: @packages");
         $self->_aptInstall(\@packages);
     }
 }
@@ -1611,18 +1598,15 @@ sub _aptInstall
 
     my $software = EBox::Global->modInstance('software');
     my $progressIndicator = $software->installPkgs(@packages);
-    my $retValue = progress($progressIndicator, __('Installing modules in backup...'));
+    my $retValue = $progressIndicator->retValue();
     if ($retValue != 0) {
         my $errorMsg = $progressIndicator->errorMsg();
         my $msg;
 
         if ($errorMsg) {
-            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration  whcih depends on the missing packages',
-                          err => "\n$errorMsg\n");
-            error($msg, noBlocking => 1);
-            return;
+            EBox::error("Error installing packages:\n$errorMsg\nThe backup will continue but it would not able to recover any configuration  which depends on the missing packages");
         } else {
-            EBox::warn("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
+            EBox::error("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
         }
     }
 }
