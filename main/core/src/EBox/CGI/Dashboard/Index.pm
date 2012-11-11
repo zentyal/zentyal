@@ -53,8 +53,9 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    # Delete first install file if it exists
+    # Delete first install and DR files if they exist
     EBox::Global->deleteFirst();
+    EBox::Global->deleteDisasterRecovery();
 
     unless (defined $widgetsToHide) {
         $widgetsToHide = {
