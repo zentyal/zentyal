@@ -2,6 +2,7 @@ HEAD
 	+ Restore backup can now install missing modules in Disaster Recovery
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
+	+ Added exception for cloud-prof to events dependencies
 3.0.6
 	+ Skip keys deleted in cache in Redis::_keys()
 	+ Fixed events modules dependencies to depend on any module which
