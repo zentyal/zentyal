@@ -1,4 +1,6 @@
 HEAD
+	+ Allow to add host without IP addresses in addHost method from
+	domain table
 	+ Implement SysInfo::Observer to check that the new host name is not
 	  defined in any domain, and update the hostname in the defined domains
 3.0.1
