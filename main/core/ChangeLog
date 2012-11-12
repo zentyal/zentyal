@@ -1,4 +1,6 @@
 HEAD
+	+ Some fixes in the function to add the rule for desktops services
+	  to the firewall
 	+ Added needsSaveAfterConfig state to service modules
 	+ Better logging of exceptions in EBox::CGI::Run
 	+ Fixed 'element not exists' error when enabling a log watcher
