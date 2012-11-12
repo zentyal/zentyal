@@ -92,7 +92,7 @@ sub processLine # (file, line, logger)
     $dataToInsert{dstchannel} = $columns[6];
     $dataToInsert{lastapp} = $columns[7];
     $dataToInsert{lastdata} = $columns[8];
-    $dataToInsert{timestamp} = $columns[9]; # this in format '%Y-%m-%d %H'
+    $dataToInsert{timestamp} = $columns[9]; # this in format '%Y-%m-%d %H:%M:%S'
                                             # 3 fields on logs with dates
     $dataToInsert{duration} = $columns[12];
     $dataToInsert{billsec} = $columns[13];
