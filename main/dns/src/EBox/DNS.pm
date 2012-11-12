@@ -63,6 +63,7 @@ use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
 use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
+use constant DESKTOP_SERVICE_PORT => 6895;
 
 sub _create
 {
@@ -601,6 +602,80 @@ sub enableService
     }
 }
 
+# Method: _preSetConf
+#
+#   Makes sure DNS has the SRV record so that desktops can automatically
+#   detect the server
+#
+# Overrides:
+#
+#  <EBox::Module::Base::_preSetConf>
+#
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    # Add 'zentyal' to /etc/services
+    EBox::Sudo::root("if [ `grep -c zentyal /etc/services` -gt 0 ]; then " .
+                     "  sed -i 's/.*6895.*/zentyal\t\t6895\\\/tcp/' /etc/services; " .
+                     "else " .
+                     "  echo 'zentyal\t\t6895/tcp' >> /etc/services; " .
+                     "fi");
+
+    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+    my $managedRows = $domainsModel->findAllValue(managed => 1);
+
+    foreach my $id (@{$managedRows}) {
+        my $domainRow = $domainsModel->row($id);
+
+        # Only add the record to the zone which match the domain of the host
+        my $servicesDomain = $domainRow->printableValueByName('domain');
+        if ($servicesDomain eq $hostDomain) {
+            my $alreadyExist = undef;
+            my $srvModel = $domainRow->subModel('srv');
+            my $ids = $srvModel->ids();
+            for my $id (@{$ids}) {
+                my $service = $srvModel->row($id);
+                my $service_name = $service->valueByName('service_name');
+
+                # Service present => Update it
+                if ($service_name eq 'zentyal'){
+                    $alreadyExist = 1;
+                }
+            }
+
+            unless($alreadyExist) {
+            # Service is not present => Add it
+                my %service = ( service_name => 'zentyal',
+                                protocol => 'tcp',
+                                port => DESKTOP_SERVICE_PORT,
+                                priority => 0,
+                                weight => 0,
+                                hostName_selected => 'ownerDomain',
+                                readOnly => 1 );
+
+                # Set the hostname id
+                my $hostsModel = $domainRow->subModel('hostnames');
+                my $ids = $hostsModel->ids();
+                foreach my $id (@{$ids}) {
+                    my $row = $hostsModel->row($id);
+                    my $rowHostName = $row->valueByName('hostname');
+                    if ($rowHostName eq $hostName) {
+                        $service{ownerDomain} = $id;
+                        last;
+                    }
+                }
+
+                $srvModel->addRow(%service);
+            }
+        }
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
@@ -753,13 +828,6 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
-
-    # Add 'zentyal' to /etc/services
-    EBox::Sudo::root("if [ `grep -c zentyal /etc/services` -gt 0 ]; then " .
-                     "  sed -i 's/.*6895.*/zentyal\t\t6895\\\/tcp/' /etc/services; " .
-                     "else " .
-                     "  echo 'zentyal\t\t6895/tcp' >> /etc/services; " .
-                     "fi");
 }
 
 # Method: menu

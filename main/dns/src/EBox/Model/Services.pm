@@ -42,7 +42,6 @@ use File::Slurp;
 
 # Constants
 use constant SERVICE_FILE => '/etc/services';
-use constant DESKTOP_SERVICE_PORT => 6895;
 
 # Group: Public methods
 
@@ -63,70 +62,6 @@ sub new
     bless ($self, $class);
 
     return $self;
-}
-
-# Method: syncRows
-#
-#   Makes sure DNS has the SRV record so that desktops can automatically
-#   detect the server
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::syncRows>
-#
-sub syncRows
-{
-    my ($self, $currentIds) = @_;
-
-    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
-
-    # Only add the record to the zone which match the domain of the host
-    my $servicesDomain = $self->parentRow()->printableValueByName('domain');
-    my $hostDomain = $sysinfo->hostDomain();
-    if ($servicesDomain ne $hostDomain) {
-        # No changes
-        return 0;
-    }
-
-    my $alreadyExist = undef;
-    for my $id (@{$currentIds}) {
-        my $service = $self->row($id);
-        my $service_name = $service->valueByName('service_name');
-
-        # Service present => Update it
-        if ($service_name eq 'zentyal'){
-            $alreadyExist = 1;
-        }
-    }
-
-    if($alreadyExist) {
-        return 0;
-    } else {
-    # Service is not present => Add it
-        my %service = ( service_name => 'zentyal',
-                        protocol => 'tcp',
-                        port => DESKTOP_SERVICE_PORT,
-                        priority => 0,
-                        weight => 0,
-                        hostName_selected => 'ownerDomain',
-                        readOnly => 1 );
-
-        # Set the hostname id
-        my $hostName = $sysinfo->hostName();
-        my $hostsModel = $self->parentRow()->subModel('hostnames');
-        my $ids = $hostsModel->ids();
-        foreach my $id (@{$ids}) {
-            my $row = $hostsModel->row($id);
-            my $rowHostName = $row->valueByName('hostname');
-            if ($rowHostName eq $hostName) {
-                $service{ownerDomain} = $id;
-                last;
-            }
-        }
-
-        $self->addRow(%service);
-        return 1;
-    }
 }
 
 # Method: validateTypedRow
