@@ -17,7 +17,6 @@ use warnings;
 
 package EBox::DNS;
 use base qw( EBox::Module::Service
-             EBox::Module::Service::Observer
              EBox::FirewallObserver
              EBox::SysInfo::Observer
              EBox::NetworkObserver );
@@ -62,7 +61,6 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
-use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
 
 sub _create
@@ -637,7 +635,6 @@ sub _setConf
 
     # Delete the already removed RR from dynamic and dlz zones
     $self->_removeDeletedRR();
-    $self->_removeSambaDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
@@ -683,9 +680,9 @@ sub _setConf
             }
             $sambaDomData->{txt} = $newTXT;
 
-            $self->_updateDynDirectZone($sambaDomData, 1);
+            $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
-            $self->_updateDynDirectZone($domdata, 0);
+            $self->_updateDynDirectZone($domdata);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
@@ -710,9 +707,9 @@ sub _setConf
         }
         $file .= "/db." . $group;
         if ($reversedDataItem->{samba}) {
-            $self->_updateDynReverseZone($reversedDataItem, 1);
+            $self->_updateDynReverseZone($reversedDataItem);
         } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem, 0);
+            $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -1274,7 +1271,7 @@ sub _domainIds
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
 {
-    my ($self, $rdata, $samba) = @_;
+    my ($self, $rdata) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
 
@@ -1292,18 +1289,14 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        if ($samba) {
-            $self->_launchSambaNSupdate($fh);
-        } else {
-            $self->_launchNSupdate($fh);
-        }
+        $self->_launchNSupdate($fh);
     }
 }
 
 # Update the dynamic direct zone
 sub _updateDynDirectZone
 {
-    my ($self, $domData, $samba) = @_;
+    my ($self, $domData) = @_;
 
     my $zone = $domData->{'name'};
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
@@ -1371,11 +1364,7 @@ sub _updateDynDirectZone
 
     print $fh "send\n";
 
-    if ($samba) {
-        $self->_launchSambaNSupdate($fh);
-    } else {
-        $self->_launchNSupdate($fh);
-    }
+    $self->_launchNSupdate($fh);
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1393,49 +1382,6 @@ sub _removeDeletedRR
         print $fh "send\n";
         $self->_launchNSupdate($fh);
         $self->st_unset(DELETED_RR_KEY);
-    }
-}
-
-sub _removeSambaDeletedRR
-{
-    my ($self) = @_;
-
-    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY_SAMBA);
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    foreach my $rr (@{$deletedRRs}) {
-        print $fh "update delete $rr\n";
-    }
-
-    if ( $fh->tell() > 0 ) {
-        print $fh "send\n";
-        $self->_launchSambaNSupdate($fh);
-        $self->st_unset(DELETED_RR_KEY_SAMBA);
-    }
-}
-
-sub _launchSambaNSupdate
-{
-    my ($self, $fh) = @_;
-
-    return unless EBox::Global->modExists('samba');
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    return unless ($sambaModule->isProvisioned() and $sambaModule->isRunning());
-
-    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
-    if ($self->_isNamedListening()) {
-        try {
-            my @cmds;
-            my $sysinfo = EBox::Global->modInstance('sysinfo');
-            my $ucHostname = uc ($sysinfo->hostName());
-
-            push (@cmds, "kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
-            push (@cmds, $cmd);
-            push (@cmds, 'kdestroy');
-            EBox::Sudo::root(@cmds);
-        } otherwise {
-            $fh->unlink_on_destroy(0); # For debug purposes
-        };
     }
 }
 
@@ -1912,24 +1858,6 @@ sub hostNameChangedDone
                 last;
             }
         }
-    }
-}
-
-# Method: serviceStarted
-#
-#   Launchs domain dynamic update. We have to wait until samba boot up
-#   to get the required kerberos ticket to perform dynamic updates.
-#
-# Overrides:
-#
-#   EBox::Module::Service::Observer::serviceStarted
-#
-sub serviceStarted
-{
-    my ($self, $module) = @_;
-
-    if ($module->isa('EBox::Samba')) {
-        $self->save();
     }
 }
 

@@ -90,11 +90,7 @@ sub validateTypedRow
             if ($record !~ m:\.:g) {
                 $record = "$record.$zone";
             }
-            if ($zoneRow->valueByName('samba')) {
-                $self->{toDeleteSamba} = "$record TXT";
-            } else {
-                $self->{toDelete} = "$record TXT";
-            }
+            $self->{toDelete} = "$record TXT";
         }
     }
 
@@ -123,11 +119,7 @@ sub deletedRowNotify
             $record = $hostname->printableValue('hostName');
             $record = "$record.$zone";
         }
-        if ($zoneRow->valueByName('samba')) {
-            $self->_addToDelete("$record TXT", 1);
-        } else {
-            $self->_addToDelete("$record TXT", 0);
-        }
+        $self->_addToDelete("$record TXT");
     }
 }
 
