@@ -1,4 +1,5 @@
 HEAD
+	+ Bump samba4 dependency to version rc4+zentyal1
 	+ Fix bug in enforceServiceState causing samba to restart twice while
 	  saving changes
 	+ Set pid file path for nmbd daemon
