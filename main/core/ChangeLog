@@ -1,4 +1,6 @@
 HEAD
+	+ Use sudo to remove temporal files/diectories in backup, avoiding
+	  permissions errors
 	+ Added exception for cloud-prof to events dependencies
 3.0.6
 	+ Skip keys deleted in cache in Redis::_keys()
