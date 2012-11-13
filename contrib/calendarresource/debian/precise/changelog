@@ -1,0 +1,44 @@
+zentyal-calendarresource (0.6) unstable; urgency=low
+
+  * Flag correct module as changed.
+  * Don't access global instance in read-only mode.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Thu, 25 Oct 2012 13:44:59 -0400
+
+zentyal-calendarresource (0.5) unstable; urgency=low
+
+  * Use the corrent HTML input type for multiplebookings.
+  * Add missing objectClass needed for the autoschedule attribute.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Wed, 24 Oct 2012 12:27:53 -0400
+
+zentyal-calendarresource (0.4) unstable; urgency=low
+
+  * Minor code style fix for the parameters of a constructor.
+  * A more fitting user visible name for 'user' parameter.
+  * Redirect back to edit user details screen.
+  * Fix edit form element name.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Wed, 24 Oct 2012 09:26:30 -0400
+
+zentyal-calendarresource (0.3) precise; urgency=low
+
+  * Give separate, meaninful DNs to LDAP schemas.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Tue, 23 Oct 2012 17:23:00 -0400
+
+zentyal-calendarresource (0.2) precise; urgency=low
+
+  * Fix distribution in debian/changelog.
+  * Remove imports of unused modules.
+  * Add missing import.
+  * Correct placement of the CGI script.
+  * Fix base package for EBox::CalendarResource.
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Tue, 23 Oct 2012 15:11:02 -0400
+
+zentyal-calendarresource (0.1) precise; urgency=low
+
+  * Initial release
+
+ -- Servilio Afre Puentes <afrepues@mcmaster.ca>  Fri, 19 Oct 2012 16:20:09 -0400
