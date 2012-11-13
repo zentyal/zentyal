@@ -1,3 +1,5 @@
+HEAD
+	+ Don't allow to set kerberos and transparent proxy at the same time
 3.0.1
 	+ Changed ownership of categorized list files to ebox to allow download
 	+ Removed no-configured files when saving changes after restoring
