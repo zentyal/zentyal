@@ -1,4 +1,5 @@
 HEAD
+	+ Added additional info to events from RAID watcher
 	+ Use sudo to remove temporal files/diectories in backup, avoiding
 	  permissions errors
 	+ Added exception for cloud-prof to events dependencies
