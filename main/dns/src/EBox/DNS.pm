@@ -526,6 +526,28 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    # TODO Remove this when branching for Zentyal 3.1
+    if ($version eq '3.0.2') {
+        unless ($self->st_get_bool('tsigKeysUpdated')) {
+            EBox::info("Updating domain keys");
+            # Update domain TSIG keys to proper format
+            my $domainModel = $self->model('DomainTable');
+            foreach my $id (@{$domainModel->ids()}) {
+                my $row = $domainModel->row($id);
+                my $key = $row->elementByName('tsigKey');
+                $key->setValue($domainModel->_generateSecret());
+                $row->store();
+            }
+            $self->st_set_bool('tsigKeysUpdated', 1);
+
+            # Save and restart DHCP to reload new TSIG keys
+            if (EBox::Global->modExists('dhcp')) {
+                my $dhcp = EBox::Global->modInstance('dhcp');
+                $dhcp->save();
+            }
+        }
+    }
+
     # Create default rules and services only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
