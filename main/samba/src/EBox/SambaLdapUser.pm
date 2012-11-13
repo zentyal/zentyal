@@ -161,7 +161,12 @@ sub _modifyUser
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
         $sambaUser->set('description', $desc, 1);
-        $sambaUser->changePassword($zentyalPwd, 1) if defined $zentyalPwd;
+        if (defined($zentyalPwd)) {
+            $sambaUser->changePassword($zentyalPwd, 1);
+        } else {
+            my $keys = $zentyalUser->kerberosKeys();
+            $sambaUser->setCredentials($keys);
+        }
         $sambaUser->save();
     } otherwise {
         my ($error) = @_;

@@ -2189,7 +2189,7 @@ sub userShares
 {
     my ($self) = @_;
 
-    my $userProfilesPath = EBox::SambaLdapUser::PROFILESPATH();
+    my $userProfilesPath = PROFILES_DIR;
 
     my $usersMod = EBox::Global->modInstance('users');
     my $users = $usersMod->users();

@@ -1,6 +1,20 @@
 HEAD
 	+ Add new EBox::Module::Service::Observer to notify modules about
 	  changes in the service status
+	+ Use sudo to remove temporal files/diectories in backup, avoiding
+	  permissions errors
+	+ Added exception for cloud-prof to events dependencies
+3.0.6
+	+ Skip keys deleted in cache in Redis::_keys()
+	+ Fixed events modules dependencies to depend on any module which
+	  provides watchers or dispatchers
+	+ Always call enableActions before enableService when configuring modules
+	+ Added needsSaveAfterConfig state to service modules
+	+ Better logging of exceptions in EBox::CGI::Run
+	+ Fixed 'element not exists' error when enabling a log watcher
+	+ Scroll up when showing modal dialog
+	+ Added fqdnChanged methods to SysInfo::Observer
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
 3.0.5
 	+ Template ajax/simpleModalDialog.mas can now accept text
 	+ Used poweroff instead of halt to assure that system is powered

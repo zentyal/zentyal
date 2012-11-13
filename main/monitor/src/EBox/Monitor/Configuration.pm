@@ -12,17 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Monitor::Configuration;
+use strict;
+use warnings;
 
 # Class: EBox::Monitor::Configuration
 #
 #   This class is a configuration variable holder shared between
 #   several objects in monitor module
 #
-
-use strict;
-use warnings;
+package EBox::Monitor::Configuration;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -90,32 +88,21 @@ sub QueryInterval
 
 # Method: RRDBaseDirPath
 #
-#      Return the RRD base directory path
+#      Return the RRD base directory path for the given fqdn
+#
+#  Parameters:
+#    fqdn
 #
 # Returns:
 #
 #      String - the RRD base directory Path
 #
-sub RRDBaseDirPath
+sub RRDBaseDirForFqdn
 {
-    my ($hostname) = @_;
-    defined $hostname or
-        $hostname = hostname();
-
-    my $baseDir = RRD_BASE_DIR;
-    my $firstAttempt = $baseDir . $hostname . '/';
-    if ( -d $firstAttempt ) {
-        return $firstAttempt;
-    } else {
-        my $secondAttempt = $baseDir . Net::Domain::hostfqdn() . '/';
-        if ( -d $secondAttempt ) {
-            return $secondAttempt;
-        } else {
-            EBox::warn("Neither $firstAttempt and $secondAttempt still exists. Did Collectd never run?");
-            return $firstAttempt;
-        }
-    }
+    my ($fqdn) = @_;
+    return RRD_BASE_DIR . $fqdn . '/';
 }
+
 
 # Method: TimePeriods
 #

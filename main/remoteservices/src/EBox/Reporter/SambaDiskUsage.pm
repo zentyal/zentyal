@@ -83,14 +83,6 @@ sub _consolidate
     return $res;
 }
 
-sub _shareSize
-{
-    my ($path) = @_;
-    my $du = EBox::Sudo::root("du -sb $path");
-    my @du_split = split(/\t/, $du->[0]);
-    return int( $du_split[0] );
-}
-
 # Method: _log
 #
 # Overrides:
@@ -135,5 +127,18 @@ sub _log
     return $stats;
 }
 
+# Group: Private methods
+
+sub _shareSize
+{
+    my ($path) = @_;
+    if ( EBox::Sudo::fileTest('-d', $path) ) {
+        my $du = EBox::Sudo::root("du -sb $path");
+        my @du_split = split(/\t/, $du->[0]);
+        return int( $du_split[0] );
+    } else {
+        return 0; # The path does not exist
+    }
+}
 
 1;

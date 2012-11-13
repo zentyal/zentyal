@@ -1,4 +1,7 @@
-HEAD
+3.0.3
+	+ Removed dependency on events module
+3.0.2
+	+ Fixed code error when checking mount points of file target
 	+ Fixed 'inexistent watcher' error in backup-tool
 	+ Set default niceness of backup process to 10
 3.0.1

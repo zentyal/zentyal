@@ -140,13 +140,8 @@ sub addHost
     unless (defined $domain) {
         throw EBox::Exceptions::MissingArgument('domain');
     }
-
     unless ($host->{name}) {
         throw EBox::Exceptions::MissingArgument('name');
-    }
-
-    unless (defined $host->{ipAddresses} and scalar @{$host->{ipAddresses}} > 0) {
-        throw EBox::Exceptions::MissingArgument('ipAddresses');
     }
 
     EBox::debug('Adding host record');
@@ -156,10 +151,14 @@ sub addHost
                                        readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
-    my $ipModel = $hostRow->subModel('ipAddresses');
-    foreach my $ip (@{$host->{ipAddresses}}) {
-        EBox::debug('Adding host ip');
-        $ipModel->addRow(ip => $ip);
+    my @ipAddresses;
+    @ipAddresses = @{ $host->{ipAddresses} } if  defined  $host->{ipAddresses};
+    if (@ipAddresses) {
+        my $ipModel = $hostRow->subModel('ipAddresses');
+        foreach my $ip (@ipAddresses) {
+            EBox::debug('Adding host ip');
+            $ipModel->addRow(ip => $ip);
+        }
     }
     my $aliasModel = $hostRow->subModel('alias');
     foreach my $alias (@{$host->{aliases}}) {

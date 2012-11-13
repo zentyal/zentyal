@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed RRD direcotries on changes of hostname. More resilient
+	  subscription links to RRDs
 3.0
 	+ Reviewed registration strings
 2.3.5

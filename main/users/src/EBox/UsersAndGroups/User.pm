@@ -52,7 +52,7 @@ use constant QUOTA_LIMIT    => 2097151;
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
-                                 'description');
+                                 'description', 'krb5Key');
 
 sub new
 {
@@ -437,11 +437,11 @@ sub changePassword
 #
 sub setPasswordFromHashes
 {
-    my ($self, $passwords) = @_;
+    my ($self, $passwords, $lazy) = @_;
 
-    $self->set('userPassword', '{K5KEY}');
-    $self->set('krb5Key', $passwords);
-    $self->set('krb5KeyVersionNumber', 1);
+    $self->set('userPassword', '{K5KEY}', $lazy);
+    $self->set('krb5Key', $passwords, $lazy);
+    $self->set('krb5KeyVersionNumber', 1, $lazy);
 }
 
 # Method: deleteObject

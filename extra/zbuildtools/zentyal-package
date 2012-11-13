@@ -100,9 +100,14 @@ sub add_changelog_entry
     my $version = `head -1 ChangeLog`;
     chomp ($version);
 
-    if ($version ne 'HEAD') {
-        system("dch -b -v '$version${appendDebianVersion}' -D 'precise' --force-distribution 'New upstream release'");
+    if ($version eq 'HEAD') {
+        my $previousVersion = `grep '^[0-9]' ChangeLog | head -1`;
+        my ($major, $minor) = $previousVersion =~ /(.*)\.(\d+)/;
+        $minor++;
+        $version = "$major.$minor";
     }
+
+    system("dch -b -v '$version${appendDebianVersion}' -D 'precise' --force-distribution 'New upstream release'");
 }
 
 sub build_package

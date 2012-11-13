@@ -420,20 +420,13 @@ sub enableAllModules
     my $global = EBox::Global->getInstance();
     for my $modName (@{$self->_dependencyTree()}) {
         my $module = $global->modInstance($modName);
-        $module->setConfigured(1);
-        $module->enableService(1);
-        #$self->updateModuleDigests($modName);
         try {
-            $module->enableActions();
+            $module->configureModule();
         } otherwise {
             my ($ex) = @_;
-            $module->setConfigured(0);
-            $module->enableService(0);
-            EBox::warn("Falied to enable module $modName: "  . $ex->text());
+            EBox::warn("Failed to enable module $modName: "  . $ex->text());
         };
-        #$self->updateModuleDigests($modName);
     }
-
 }
 
 # Method: checkUserModifications

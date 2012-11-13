@@ -1,4 +1,6 @@
 HEAD
+	+ Fix stats method for Zarafa 7.1
+3.0.1
 	+ Added and used serviceId field for service certificates
 	+ Fixed notifyForeignModelAction on removal of mail virtual domains
 3.0

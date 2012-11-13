@@ -12,18 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Subscription;
+use strict;
+use warnings;
 
 # Class: EBox::RemoteServices::Subscription
 #
 #       Class to manage the Zentyal subscription to Zentyal Cloud
 #
-
+package EBox::RemoteServices::Subscription;
 use base 'EBox::RemoteServices::Base';
-
-use strict;
-use warnings;
 
 use feature qw(switch);
 
@@ -542,7 +539,7 @@ sub _openHTTPSConnection
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() ) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
@@ -579,7 +576,7 @@ sub _openVPNConnection #(ipaddr, port, protocol)
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() ) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             EBox::Sudo::root(
                 EBox::Iptables::pf(

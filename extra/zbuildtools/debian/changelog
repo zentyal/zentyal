@@ -1,3 +1,9 @@
+zbuildtools (7) precise; urgency=low
+
+  * zentyal-package now increases package version when last one is HEAD
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 07 Nov 2012 17:48:20 +0100
+
 zbuildtools (6) precise; urgency=low
 
   * zentyal-install-module called with the main module as argument so we don't

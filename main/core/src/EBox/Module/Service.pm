@@ -259,6 +259,7 @@ sub setConfigured
             EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured/" . $self->name());
         } else {
             EBox::Sudo::command('rm -f ' . EBox::Config::conf() . "configured/" . $self->name());
+            $self->setNeedsSaveAfterConfig(undef);
         }
     }
     return $self->st_set_bool('_serviceConfigured', $status);
@@ -283,6 +284,45 @@ sub firstInstall
     }
 
     return 1;
+}
+
+
+sub configureModule
+{
+    my ($self) = @_;
+    my $needsSaveAfterConfig = $self->needsSaveAfterConfig();
+    try {
+        $self->setConfigured(1);
+        #$self->updateModuleDigests($modName);
+        $self->enableActions();
+        $self->enableService(1);
+        $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
+    } otherwise {
+        my ($ex) = @_;
+        $self->setConfigured(0);
+        $self->enableService(0);
+        $self->setNeedsSaveAfterConfig(undef);
+        $ex->throw();
+    };
+}
+
+sub setNeedsSaveAfterConfig
+{
+    my ($self, $needsSave) = @_;
+    my $state = $self->get_state();
+    $state->{_needsSaveAfterConfig} = $needsSave;
+    $self->set_state($state);
+}
+
+sub needsSaveAfterConfig
+{
+    my ($self) = @_;
+    if (not $self->configured()) {
+        return undef;
+    }
+
+    my $state = $self->get_state();
+    return  $state->{_needsSaveAfterConfig};
 }
 
 # Method: setInstalled
@@ -695,7 +735,7 @@ sub _postServiceHook
 
 # Method: _regenConfig
 #
-#	Base method to regenerate configuration. It should NOT be overriden
+#       Base method to regenerate configuration. It should NOT be overriden
 #
 sub _regenConfig
 {
@@ -705,6 +745,10 @@ sub _regenConfig
 
     $self->SUPER::_regenConfig(@_);
     my $enabled = ($self->isEnabled() or 0);
+    if ($enabled) {
+        $self->setNeedsSaveAfterConfig(0);
+    }
+
     $self->_preServiceHook($enabled);
     $self->_enforceServiceState(@_);
     $self->_postServiceHook($enabled);
