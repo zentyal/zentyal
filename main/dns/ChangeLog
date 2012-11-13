@@ -1,4 +1,9 @@
 HEAD
+	+ Do not add trailing dot to key names
+	+ Update samba domain using TSIG keys, avoiding TSIG GSSAPI. Allow
+	  updates even if samba daemon is stopped
+	+ Depend on Zentyal patched version of bind to allow samba DLZ domain
+	  to be updated using TSIG keys
 	+ Remove dependence on libcrypt-openssl-random-perl and add on
 	  libdigest-hmac-perl
 	+ Change TSIG key generation algorithm to be compatible with bind
