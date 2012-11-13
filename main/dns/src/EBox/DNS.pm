@@ -1709,6 +1709,7 @@ sub switchToReverseInfoData
                     EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
                 } else {
                     $reversedData->{$groupip} = {
+                        groupip => $groupip,
                         dynamic => $domain->{dynamic},
                         domain => $domain->{name},
                         hosts => [],
