@@ -1,4 +1,5 @@
 HEAD
+	+ Some fixes in the RAID event watcher
 	+ loggerd shows loaded LogHelpers when in debug mode
 	+ Added additional info to events from RAID watcher
 	+ Use sudo to remove temporal files/diectories in backup, avoiding
