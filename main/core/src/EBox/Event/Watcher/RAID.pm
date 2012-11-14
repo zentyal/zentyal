@@ -460,7 +460,7 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my %currentComps = map { $_->{device} => $_->{state} } values %{$arrayInfo->{raidDevices}};
-    my %storedComps  = map { $_->{device} => $_->{state} } @{$storedInfo->{raidDevices}};
+    my %storedComps  = map { $_->{device} => $_->{state} } values %{$storedInfo->{raidDevices}};
 
     my @compEvents = ();
     my $evtMsg;
