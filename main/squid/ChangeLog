@@ -1,5 +1,5 @@
 HEAD
-	+ Force all connection to pass through squid-external or deny access
+	+ Force all connections to pass through squid-external or deny access
 	+ Allow access to the proxy for clients which are not in local networks
 	+ Don't allow to set kerberos and transparent proxy at the same time
 3.0.1

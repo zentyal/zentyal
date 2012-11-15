@@ -154,7 +154,7 @@ snmp_access allow snmppublic to_localhost
 snmp_access deny all
 </%def>
 ###################################################################################
-http_port <% $port %>
+http_port localhost:<% $port %>
 
 
 visible_hostname localhost-external
@@ -262,12 +262,8 @@ http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 http_access allow from_localhost
 
-acl local_port myport <% $port %>
-
-http_access allow local_port
-http_access deny all
-
-http_reply_access allow all
+# we use firewall to deny clients from the outside
+http_access allow all
 % if ($cache_host and $cache_port) {
 never_direct allow all
 % }
