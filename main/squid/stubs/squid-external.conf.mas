@@ -26,7 +26,6 @@
     $urlRewriteProgram => undef
     @objectsDelayPools
     @notCachedDomains
-    @localnets
 
     $snmpEnabled => 0
 </%args>
@@ -227,10 +226,6 @@ acl_uses_indirect_client on
 acl noCached dstdomain <% $domain %>
 % }
 
-% if (@localnets) {
-acl to_localnets_zentyal dst <% join ' ', @localnets %>
-acl from_localnets_zentyal src <% join ' ', @localnets %>
-% }
 
 acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
@@ -266,7 +261,10 @@ http_access deny !Safe_ports
 
 http_access deny CONNECT !SSL_ports
 http_access allow from_localhost
-http_access allow from_localnets_zentyal
+
+acl local_port myport <% $port %>
+
+http_access allow local_port
 http_access deny all
 
 http_reply_access allow all
