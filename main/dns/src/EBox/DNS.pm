@@ -1787,11 +1787,6 @@ sub switchToReverseInfoData
         }
     }
 
-    use Data::Dumper;
-    print " DOMAIN " . Dumper($domains);
-    print " REVERSE " . Dumper($reversedData);
-
-
     return $reversedData;
 }
 
