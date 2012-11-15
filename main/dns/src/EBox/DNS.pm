@@ -1762,7 +1762,10 @@ sub switchToReverseInfoData
                 if (exists $reversedData->{$groupip}) {
                     my $d = $reversedData->{$groupip}->{domain};
                     my $d2 = $domain->{name};
-                    EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
+                    if ($d ne $d2) {
+                        EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 ignored");
+                        next;
+                    }
                 } else {
                     $reversedData->{$groupip} = {
                         dynamic => $domain->{dynamic},
@@ -1775,12 +1778,19 @@ sub switchToReverseInfoData
                     foreach my $ns (@{$domain->{nameServers}}) {
                         push (@{ $reversedData->{$groupip}->{ns} }, $ns);
                     }
-                    my $hostData = { ip => $ip, name => $host->{'name'}};
-                    push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
                 }
+
+                # add host data
+                my $hostData = { ip => $ip, name => $host->{'name'}};
+                push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
             }
         }
     }
+
+    use Data::Dumper;
+    print " DOMAIN " . Dumper($domains);
+    print " REVERSE " . Dumper($reversedData);
+
 
     return $reversedData;
 }
