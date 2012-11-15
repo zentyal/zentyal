@@ -274,10 +274,6 @@ never_direct allow all
 
 <& .delayPools, objectsDelayPools => \@objectsDelayPools &>
 
-# default policy
-# All denied by default if no other allow rule matchs
-http_access deny all
-
 % if ( $snmpEnabled ) {
 <& .snmp &>
 % }
