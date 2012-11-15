@@ -1,6 +1,7 @@
 HEAD
 	+ Always write ddns keys file when saving changes
 	+ Do not append trailing dot to key names
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 3.0.1
 	+ Do not run daemon and show message when configuration does not
 	  provide addresses for interfaces

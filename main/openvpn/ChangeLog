@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to changes in EBox::LogObserver::_convertTimestamp
 3.0.1
 	+ Fixed client configuration model to allow its edition without
 	  changing certificate files

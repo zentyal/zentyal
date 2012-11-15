@@ -1,6 +1,7 @@
 HEAD
 	+ Add new EBox::Module::Service::Observer to notify modules about
 	  changes in the service status
+	+ loggerd shows loaded LogHelpers when in debug mode
 	+ Added additional info to events from RAID watcher
 	+ Use sudo to remove temporal files/diectories in backup, avoiding
 	  permissions errors
