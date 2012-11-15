@@ -1,4 +1,5 @@
 HEAD
+	+ Always write ddns keys file when saving changes
 	+ Do not append trailing dot to key names
 3.0.1
 	+ Do not run daemon and show message when configuration does not

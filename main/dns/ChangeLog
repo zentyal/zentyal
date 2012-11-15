@@ -1,4 +1,5 @@
 HEAD
+	+ Add method getTsigKeys to allow DHCP module write the ddns keys
 	+ Do not add trailing dot to key names
 	+ Update samba domain using TSIG keys, avoiding TSIG GSSAPI. Allow
 	  updates even if samba daemon is stopped

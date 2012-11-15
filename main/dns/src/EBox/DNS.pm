@@ -389,6 +389,25 @@ sub getTexts
     return $self->_textRecords($domainRow->subModel('txt'));
 }
 
+# Method: getTsigKeys
+#
+#   Returns the TSIG keys for the configured domains
+#
+sub getTsigKeys
+{
+    my ($self) = @_;
+
+    my $keys = {};
+    my $model = $self->model('DomainTable');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $keyName = $row->valueByName('domain');
+        my $keySecret = $row->valueByName('tsigKey');
+        $keys->{$keyName} = $keySecret;
+    }
+    return $keys;
+}
+
 # Method: findAlias
 #
 #       Return the hostname which the alias refers to given a domain
@@ -526,25 +545,25 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # TODO Remove this when branching for Zentyal 3.1
-    if ($version eq '3.0.2') {
-        unless ($self->st_get_bool('tsigKeysUpdated')) {
-            EBox::info("Updating domain keys");
-            # Update domain TSIG keys to proper format
-            my $domainModel = $self->model('DomainTable');
-            foreach my $id (@{$domainModel->ids()}) {
-                my $row = $domainModel->row($id);
-                my $key = $row->elementByName('tsigKey');
-                $key->setValue($domainModel->_generateSecret());
-                $row->store();
-            }
-            $self->st_set_bool('tsigKeysUpdated', 1);
+    # TODO Remove this code after branching for Zentyal 3.1
+    my $state = $self->get_state();
+    unless ($state->{tsigKeysUpdated}) {
+        EBox::info("Updating domain keys");
+        # Update domain TSIG keys to proper format
+        my $domainModel = $self->model('DomainTable');
+        foreach my $id (@{$domainModel->ids()}) {
+            my $row = $domainModel->row($id);
+            my $key = $row->elementByName('tsigKey');
+            $key->setValue($domainModel->_generateSecret());
+            $row->store();
+        }
+        $state->{tsigKeysUpdated} = 1;
+        $self->set_state($state);
 
-            # Save and restart DHCP to reload new TSIG keys
-            if (EBox::Global->modExists('dhcp')) {
-                my $dhcp = EBox::Global->modInstance('dhcp');
-                $dhcp->save();
-            }
+        # Save and restart DHCP to reload new TSIG keys
+        if (EBox::Global->modExists('dhcp')) {
+            my $dhcp = EBox::Global->modInstance('dhcp');
+            $dhcp->save();
         }
     }
 
