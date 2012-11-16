@@ -54,6 +54,7 @@ sub _setQAUpdates
 {
     # Set the QA Updates if the subscription level is greater than basic
     my $rs = EBox::Global->modInstance('remoteservices');
+    return unless ($rs->eBoxSubscribed());
     return unless ($rs->subscriptionLevel(1) > 0);
 
     _setQASources();
@@ -251,7 +252,7 @@ sub _downgrade
 {
     my $rs = EBox::Global->modInstance('remoteservices');
     # If Basic subscription or no subscription at all
-    if ($rs->subscriptionLevel(1) <= 0) {
+    if (not $rs->eBoxSubscribed() or $rs->subscriptionLevel(1) <= 0) {
         if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
             or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
             # Requires to downgrade

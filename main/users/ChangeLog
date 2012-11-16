@@ -1,3 +1,33 @@
+HEAD
+	+ Delete syncjournal files when slave is removed
+3.0.5
+	+ Fixed reinstall script to stop samba module, otherwise new slapd
+	  cannot start because the port is taken
+	+ Sync password changes made from cloud to any slave
+	+ When syncing, do not update ldap of unchanged entries
+3.0.4
+	+ Added missing use of UnwillingToPerform exception
+	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
+	  and preAddGroupFailed) to notify observers
+3.0.3
+	+ Setup Cloud slave on first save changes
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
+	+ Fixed some errors on RESTClient after API change
+	+ Updated REST journaling behavior
+	+ Do not show unavailable options in master select
+	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
+	+ Added check to assure that a no-ldap user has the same uid than
+	  a new user
+	+ Implement SysInfo::Observer to disallow host domain changes after the
+	  kerberos realm has been initialized, and to update the LDAP base DN
+	  if module is not yet configured
+	+ Added LDAP index for ou attribute
+	+ Always write slave-sync script
+	+ Increase default quota value to 500MB
+3.0.2
+	+ Added clearCache() to LdapObject and force reload of krb5Keys
+	+ Do not allow user corner password change on slaves
 3.0.1
 	+ Do not notify samba about users created while restoring backup. Samba
 	  will restore its users from its own LDB backup.

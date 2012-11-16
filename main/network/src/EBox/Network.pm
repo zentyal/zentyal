@@ -2564,17 +2564,18 @@ sub _generateDNSConfig
         }
     }
 
-    my $nameservers = $self->nameservers();
-    my $request_nameservers = scalar (@{$nameservers}) == 0;
-
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
     $self->writeConfFile(RESOLV_FILE,
                          'network/resolv.conf.mas',
                          [ searchDomain => $self->searchdomain(),
-                           nameservers  => $nameservers ]);
+                           domainName => $sysinfo->hostDomain(),
+                           nameservers  => $self->nameservers() ]);
 
     $self->writeConfFile(DHCLIENTCONF_FILE,
                          'network/dhclient.conf.mas',
-                         [ request_nameservers => $request_nameservers ]);
+                         [ domainNameServers => $self->nameservers(),
+                           domainName => $sysinfo->hostDomain(),
+                           domainSearch => $self->searchdomain() ]);
 }
 
 sub _generateProxyConfig
@@ -2962,9 +2963,16 @@ sub _disableReversePath
 
     my @cmds;
     push (@cmds, '/sbin/sysctl -q -w net.ipv4.conf.all.rp_filter=0');
+
+    my %seen;
     for my $router ( reverse @{$routers} ) {
         my $iface = $router->{'interface'};
         $iface = $self->realIface($iface);
+        # remove viface portion
+        $iface =~ s/:.*$//;
+        $seen{$iface} and
+            next;
+        $seen{$iface} = 1;
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
 

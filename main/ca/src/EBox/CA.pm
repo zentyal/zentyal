@@ -40,6 +40,7 @@ use EBox::CA::Certificates;
 use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
+use EBox::Util::Version;
 
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
@@ -212,9 +213,19 @@ sub createCA
 {
     my ($self, %args) = @_;
 
-    throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
-        unless defined($args{orgName});
+    if (not $args{orgName} or ($args{orgName} =~ m/^\s*$/)) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
     $self->_checkCertificateFieldsCharacters(%args);
+    if ($args{countryName}) {
+        if (length($args{countryName}) > 2) {
+            throw EBox::Exceptions::InvalidData(
+                    data =>  __('Country code'),
+                    value => $args{countryName},
+                    advice => __('The country code must be the 2-characters ISO code')
+               );
+        }
+    }
 
     if (! -d CATOPDIR) {
         # Create the directory hierchary
@@ -366,6 +377,8 @@ sub destroyCA
 #
 sub initialSetup
 {
+    my ($self, $version) = @_;
+
     my @cmds;
     my @dirs = (CATOPDIR, CERTSDIR, CRLDIR, NEWCERTSDIR, KEYSDIR, REQDIR);
 
@@ -382,6 +395,13 @@ sub initialSetup
 
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
+    }
+
+    # migration from zentyal-ca 3.0 to 3.0.1
+    # force regeneration of service certificates
+    if (EBox::Util::Version::compare($version, '3.0.1') < 0) {
+        $self->{redis}->delete_dir('ca/ro/Certificates');
+        $self->{redis}->delete_dir('ca/conf/Certificates');
     }
 }
 
@@ -1868,7 +1888,15 @@ sub _checkCertificateFieldsCharacters
 
     foreach my $field (@fieldsToCheck) {
         if (exists $args{$field}) {
-            $self->_checkValidCharacters($args{$field}, $field);
+            my $value = $args{$field};
+            if ($value =~ m/^\s+$/) {
+                throw EBox::Exceptions::InvalidData(
+                    data => $field,
+                    value => $value,
+                    advice => __('The field cannot contain only blank characters')
+                   );
+            }
+            $self->_checkValidCharacters($value, $field);
         }
     }
 

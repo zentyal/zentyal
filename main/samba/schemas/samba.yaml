@@ -12,6 +12,7 @@ enabledepends:
 models:
     - GeneralSettings
     - SambaShares
+    - SyncShares
     - SambaSharePermissions
     - SambaDeletedShares
     - AntivirusDefault

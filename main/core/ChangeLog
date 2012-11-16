@@ -1,6 +1,67 @@
 HEAD
 	+ Fixed template method in MultiStateAction to return the default
 	template when it is not any supplied to the object
+	+ loggerd shows loaded LogHelpers when in debug mode
+	+ Added additional info to events from RAID watcher
+	+ Use sudo to remove temporal files/diectories in backup, avoiding
+	  permissions errors
+	+ Added exception for cloud-prof to events dependencies
+3.0.6
+	+ Skip keys deleted in cache in Redis::_keys()
+	+ Fixed events modules dependencies to depend on any module which
+	  provides watchers or dispatchers
+	+ Always call enableActions before enableService when configuring modules
+	+ Added needsSaveAfterConfig state to service modules
+	+ Better logging of exceptions in EBox::CGI::Run
+	+ Fixed 'element not exists' error when enabling a log watcher
+	+ Scroll up when showing modal dialog
+	+ Added fqdnChanged methods to SysInfo::Observer
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
+3.0.5
+	+ Template ajax/simpleModalDialog.mas can now accept text
+	+ Used poweroff instead of halt to assure that system is powered
+	  off after halt
+	+ Fixed log audit database insert error when halting or rebooting
+	+ Added time-based closable notification messages
+	+ Adapted to new EBox::setLocaleEnvironment method
+	+ EBox::Type::File now allows ebox user to own files in directories
+	  which are not writable by him
+	+ Removed cron daily invocation of deprecated report scripts
+3.0.4
+	+ Added EBox::SyncFolders interface
+	+ Fixed invokation of tar for backup of model files
+	+ New observer for sysinfo module to notify modules implementing the
+	  SysInfo::Observer interface when the host name or host domain is
+	  changed by the user, before and after the change takes effect
+	+ Stop and start apache after language change to force environment reload
+	+ Reload page after language change
+	+ EBox::Module::Service::isRunning() skips daemons whose precondition fail
+	+ Fixed undefined reference in DataTable controller for log audit
+	+ Added and used serviceId field for service certificates
+	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
+3.0.3
+	+ Fixed bug which prevented highlight of selected item in menu
+	+ Fixed base class of event dispatcher to be compatible with the
+	  changes dispatcher configuration table
+	+ Fixed event daemon to use dumped variables
+	+ Fixed need of double-click when closing menu items in some cases
+	+ Fixed logs consolidation to avoid high CPU usage
+	+ In view log table: correctly align previous and first page buttons
+	+ Improve host name and domain validation.
+	+ Forbidden the use of a qualified hostname in change hostname form
+	+ Update samba hostname-dependent fields when hostname is changed
+	+ Confirmation dialog when the local domain is changed and with a
+	  warning if local domain which ends in .local
+3.0.2
+	+ The synchronization of redis cache refuses with log message to set
+	  undefined values
+	+ Fixed wrong sql statement which cause unwanted logs purge
+	+ DataForm does not check for uniqueness of its fields, as it only
+	  contains a single row
+	+ In ConfigureLogs, restored printable names for log domains
+	+ Fixed dashboard update error on modules widget, counter-graph
+	  widget and widget without sections
+>>>>>>> master
 	+ Better way to fix non-root warnings during boot without interfering
 	  on manual restart commands in the shell
 3.0.1

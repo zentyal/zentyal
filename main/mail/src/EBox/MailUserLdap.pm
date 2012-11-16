@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::MailUserLdap;
 use base qw(EBox::LdapUserBase);
-
-use strict;
-use warnings;
 
 use EBox::Sudo;
 use EBox::Global;
@@ -801,6 +800,11 @@ sub acls
     return [ "to attrs=fetchmailAccount " .
             "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
             "by * none" ];
+}
+
+sub indexes
+{
+    return ['mail', 'dc'];
 }
 
 # Method: defaultUserModel

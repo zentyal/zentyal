@@ -1,3 +1,11 @@
+HEAD
+	+ Reworked log helper to remove POP proxy and adapt to changes in
+	  base class
+3.0.2
+	+ Removed POP proxy logs from log table, fixed bug which make
+	  summarized smtp filter report page to be blank
+3.0.1
+	+ Fixed bad filter error at EBox::Mailfilter::VDomainsLdap::_hasAccount
 2.3.8
 	+ Fixed wrong retrieval of VDomains model
 2.3.7

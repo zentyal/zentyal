@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Events;
+use strict;
+use warnings;
 
 # Class: EBox::Events
 #
@@ -23,12 +23,10 @@ package EBox::Events;
 #      module is currently integrated within the eBox main package
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
-
+package EBox::Events;
 use base qw(EBox::Module::Service EBox::LogObserver
             EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 
-use strict;
-use warnings;
 
 use EBox::DBEngineFactory;
 use EBox::Config;
@@ -139,19 +137,28 @@ sub menu
     $root->add($folder);
 }
 
-# Method: restoreDependencies
+# Method: depends
 #
-#   Override EBox::Module::Base::restoreDependencies
+#       Override EBox::Module::Base::depends
 #
-sub restoreDependencies
+sub depends
 {
-    my @depends = ();
-
-    if (EBox::Global->modExists('mail'))  {
-        push(@depends, 'mail');
+    my $modules = EBox::Global->modInstances();
+    my @names;
+    foreach my $mod (@{ $modules }) {
+        my $name = $mod->name();
+        if ($name eq 'events') {
+            next;
+        } elsif ($name eq 'monitor') {
+            # monitor is a exception it has to depend on events
+            next;
+        } elsif ($name eq 'cloud-prof') {
+            next;
+        } elsif ($mod->isa('EBox::Events::WatcherProvider') or $mod->isa('EBox::Events::DispatcherProvider')) {
+            push @names, $name;
+        }
     }
-
-    return \@depends;
+    return \@names;
 }
 
 # Method: eventWatchers

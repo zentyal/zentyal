@@ -132,7 +132,7 @@ sub viewCustomizer
     $custom->setHTMLTitle([
         {
             title => __('Events'),
-            link  => '/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+            link  => '/Maintenance/Events#ConfigureDispatchers',
         },
         {
             title => __('Mail Dispatcher'),

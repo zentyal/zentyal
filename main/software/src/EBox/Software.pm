@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Software;
-
 use strict;
 use warnings;
 
+package EBox::Software;
 use base qw(EBox::Module::Config);
 
 use EBox;
@@ -46,8 +44,7 @@ use constant {
     QA_ARCHIVE     => 'zentyal-qa',
 };
 
-my @RESTRICTED_SB = qw(zentyal-jabber zentyal-asterisk);
-my @MAIL_PKGS = qw(zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-zarafa);
+my @COMM_PKGS = qw(zentyal-jabber zentyal-asterisk zentyal-mail zentyal-webmail zentyal-zarafa);
 
 # Group: Public methods
 
@@ -307,15 +304,12 @@ sub listUpgradablePkgs
     return $upgrade;
 }
 
-
 sub _excludeEBoxPackages
 {
     my ($self, $list) = @_;
     my @withoutEBox = grep { $_->{'name'} !~ /^zentyal.*/ } @{ $list };
     return \@withoutEBox;
 }
-
-
 
 # Method: listPackageInstallDepends
 #
@@ -397,7 +391,6 @@ sub listPackageRemoveDepends
     return $self->_packageDepends('remove', $packages);
 }
 
-
 sub _packageDepends
 {
     my ($self, $action, $packages) = @_;
@@ -408,9 +401,8 @@ sub _packageDepends
     $self->_isAptReady();
     $self->_isModLocked();
 
-    my $aptCmd = "apt-get -qq --no-install-recommends --simulate $action " .
-
-    join ' ',  @{ $packages };
+    my $aptCmd = "apt-get --no-install-recommends --simulate $action " .
+      join ' ',  @{ $packages };
 
     my $header;
     if ($action eq 'install') {
@@ -420,7 +412,31 @@ sub _packageDepends
         $header = 'Remv'
     }
 
-    my $output = EBox::Sudo::root($aptCmd);
+    my $output;
+    try {
+        $output = EBox::Sudo::root($aptCmd);
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $aptError;
+        foreach my $line (@{ $ex->error() }) {
+            if ($line =~ m/^E: (.*)$/) {
+                # was an apt error, reformatting
+                foreach my $line (@{ $ex->output() }) {
+                    if ($line =~ m/\.\.\.$/) {
+                        # current action line, ignoring
+                        next;
+                    }
+                    chomp $line;
+                    $aptError .= $line . '<br/>';
+                }
+            }
+        }
+        if ($aptError) {
+            throw EBox::Exceptions::External($aptError);
+        } else {
+            $ex->throw();
+        }
+    };
 
     my @packages = grep {
     $_ =~ m/
@@ -753,12 +769,8 @@ sub _getInfoEBoxPkgs
 
     my %restricted;
     if (EBox::Global->edition() eq 'sb') {
-        %restricted = map { $_ => 1 } @RESTRICTED_SB;
         my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-        unless ( $rs->sbMailAddOn() ) {
-            my %mailRestricted = map { $_ => 1 } @MAIL_PKGS;
-            @restricted{keys %mailRestricted} = values %mailRestricted;
-        }
+        %restricted = map { $_ => 1 } @COMM_PKGS unless ( $rs->commAddOn() );
     }
 
     my $cache = $self->_cache(1);

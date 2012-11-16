@@ -6,6 +6,7 @@
     $ifaces
     $mode
     $realm
+    $domain
     @shares
     $roamingProfiles => 0
     $profilesPath
@@ -42,6 +43,7 @@ use EBox::Samba;
     bind interfaces only = yes
 
     server role = <% $mode %>
+    server role check:inhibit = yes
     realm = <% $realm %>
 
     log level = 3
@@ -50,19 +52,18 @@ use EBox::Samba;
     passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
 % if ($fs eq 's3fs') {
-    rpc_daemon:spoolssd = embedded
+    server services = -dns -nbt -wrepl
 % } else {
+    server services = rpc, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
     dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
-    server services = rpc, nbt, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
 % }
-
-    ldap privileged socket mode = 0770
+    server signing = auto
 
 % if ($guestAccess) {
-     guest ok = yes
-     map to guest = bad user
-     guest account = <% $guestAccount %>
-     auth methods = guest sam_ignoredomain
+    guest ok = yes
+    map to guest = bad user
+    guest account = <% $guestAccount %>
+    auth methods = guest sam_ignoredomain
 % }
 
 % if ($mode eq 'dc') {
@@ -74,7 +75,7 @@ use EBox::Samba;
 %   }
 
 [netlogon]
-    path = /var/lib/samba/sysvol/<% $realm %>/scripts
+    path = /var/lib/samba/sysvol/<% $domain %>/scripts
     browseable = no
     read only = yes
 

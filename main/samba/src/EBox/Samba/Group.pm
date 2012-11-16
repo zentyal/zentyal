@@ -34,6 +34,8 @@ use EBox::Exceptions::InvalidData;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 
+use EBox::Samba::Contact;
+
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
@@ -110,22 +112,42 @@ sub removeMember
 }
 
 
-# Method: users
+# Method: members
 #
 #   Return the list of members for this group
 #
 # Returns:
 #
-#   arrary ref of members (EBox::Samba::User)
+#   arrary ref of members (EBox::Samba::User or EBox::Samba::Group)
 #
-sub users
+sub members
 {
     my ($self) = @_;
 
-    my @members = $self->get('member');
-    @members = map { new EBox::Samba::User(dn => $_) } @members;
+    my $members = [];
+    my @membersDN = $self->get('member');
+    foreach my $memberDN (@membersDN) {
+        my $obj = new EBox::Samba::LdbObject(dn => $memberDN);
+        my @class = $obj->get('objectClass');
+        if ('user' eq any @class) {
+            push (@{$members}, new EBox::Samba::User(dn => $memberDN));
+            next;
+        }
+        if ('group' eq any @class) {
+            push (@{$members}, new EBox::Samba::Group(dn => $memberDN));
+            next;
+        }
+        if ('contact' eq any @class) {
+            push (@{$members}, new EBox::Samba::Contact(dn => $memberDN));
+            next;
+        }
 
-    return \@members;
+        # Unknown member type
+        my $dn = $self->dn();
+        EBox::warn("Unknown group member type ($memberDN) found on group $dn");
+    }
+
+    return $members;
 }
 
 
@@ -219,22 +241,26 @@ sub addToZentyal
 
     my $gid       = $self->get('samAccountName');
     my $comment   = $self->get('description');
+    my $gidNumber = $self->get('gidNumber');
 
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba group '$gid' to Zentyal");
     my $zentyalGroup = undef;
     try {
+        if ($gidNumber) {
+            $optParams{gidNumber} = $gidNumber;
+        } else {
+            $gidNumber = $self->getXidNumberFromRID();
+            $optParams{gidNumber} = $gidNumber;
+            $self->set('gidNumber', $gidNumber);
+            $self->setupGidMapping($gidNumber);
+        }
         $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     } otherwise {};
     return unless defined $zentyalGroup;
 
-    try {
-        $self->_membersToZentyal($zentyalGroup);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error adding members: $error");
-    };
+    $self->_membersToZentyal($zentyalGroup);
 }
 
 sub updateZentyal
@@ -257,12 +283,7 @@ sub updateZentyal
     } otherwise {};
     return unless defined $zentyalGroup;
 
-    try {
-        $self->_membersToZentyal($zentyalGroup);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error: $error");
-    };
+    $self->_membersToZentyal($zentyalGroup);
 }
 
 sub _membersToZentyal
@@ -272,16 +293,49 @@ sub _membersToZentyal
     return unless (defined $zentyalGroup and $zentyalGroup->exists());
 
     my $gid = $self->get('samAccountName');
-    my $sambaMembersList = $self->users();
+    my $sambaMembersList = $self->members();
     my $zentyalMembersList = $zentyalGroup->users();
 
-    my %sambaMembers = map { $_->get('samAccountName') => $_ } @{$sambaMembersList};
     my %zentyalMembers = map { $_->get('uid') => $_ } @{$zentyalMembersList};
+    my %sambaMembers;
+    foreach my $sambaMember (@{$sambaMembersList}) {
+        if ($sambaMember->isa('EBox::Samba::Group')) {
+            my $dn = $sambaMember->dn();
+            EBox::warn("Member '$dn' is a nested group, not supported!");
+            next;
+        }
+        if ($sambaMember->isa('EBox::Samba::User')) {
+            my $samAccountName = $sambaMember->get('samAccountName');
+            if (defined $samAccountName) {
+                $sambaMembers{$samAccountName} = $sambaMember;
+                next;
+            }
+            my $dn = $sambaMember->dn();
+            EBox::warn("Member '$dn' does not seem to be a user, skipped");
+        }
+        if ($sambaMember->isa('EBox::Samba::Contact') and
+            EBox::Config::boolean('treat_contacts_as_users')) {
+            my $mail = $sambaMember->get('mail');
+            $mail =~ s/@.*$//;
+            my $aUser = new EBox::Samba::User(samAccountName => $mail);
+            if ($aUser->exists()) {
+                $sambaMembers{$mail} = $aUser;
+                next;
+            }
+        }
+        my $dn = $sambaMember->dn();
+        EBox::warn("Unexpected member type ($dn)");
+    }
 
     foreach my $memberName (keys %zentyalMembers) {
         unless (exists $sambaMembers{$memberName}) {
             EBox::info("Removing member '$memberName' from Zentyal group '$gid'");
-            $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
+            try {
+                $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error removing member: $error");
+            };
         }
     }
 
@@ -290,7 +344,12 @@ sub _membersToZentyal
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
             my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
             next unless $zentyalUser->exists();
-            $zentyalGroup->addMember($zentyalUser, 1);
+            try {
+                $zentyalGroup->addMember($zentyalUser, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding member: $error");
+            };
         }
     }
     $zentyalGroup->setIgnoredModules(['samba']);

@@ -12,9 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Module::Service;
-
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -25,9 +26,6 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 
 use Error qw(:try);
-
-use strict;
-use warnings;
 
 use constant INITDPATH => '/etc/init.d/';
 
@@ -261,6 +259,7 @@ sub setConfigured
             EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured/" . $self->name());
         } else {
             EBox::Sudo::command('rm -f ' . EBox::Config::conf() . "configured/" . $self->name());
+            $self->setNeedsSaveAfterConfig(undef);
         }
     }
     return $self->st_set_bool('_serviceConfigured', $status);
@@ -285,6 +284,45 @@ sub firstInstall
     }
 
     return 1;
+}
+
+
+sub configureModule
+{
+    my ($self) = @_;
+    my $needsSaveAfterConfig = $self->needsSaveAfterConfig();
+    try {
+        $self->setConfigured(1);
+        #$self->updateModuleDigests($modName);
+        $self->enableActions();
+        $self->enableService(1);
+        $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
+    } otherwise {
+        my ($ex) = @_;
+        $self->setConfigured(0);
+        $self->enableService(0);
+        $self->setNeedsSaveAfterConfig(undef);
+        $ex->throw();
+    };
+}
+
+sub setNeedsSaveAfterConfig
+{
+    my ($self, $needsSave) = @_;
+    my $state = $self->get_state();
+    $state->{_needsSaveAfterConfig} = $needsSave;
+    $self->set_state($state);
+}
+
+sub needsSaveAfterConfig
+{
+    my ($self) = @_;
+    if (not $self->configured()) {
+        return undef;
+    }
+
+    my $state = $self->get_state();
+    return  $state->{_needsSaveAfterConfig};
 }
 
 # Method: setInstalled
@@ -408,20 +446,26 @@ sub isRunning
 {
     my ($self) = @_;
 
+    my $activeDaemons = 0;
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
-        my $check = 1;
         my $pre = $daemon->{'precondition'};
         if (defined ($pre)) {
-            $check = $pre->($self);
+            # don't check if daemon should not be running
+            next unless $pre->($self);
         }
-        # If precondition does not meet the daemon should not be running.
-        $check or return 0;
+
+        $activeDaemons = 1;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
     }
-    return 1;
+
+    if ($activeDaemons) {
+        return 1;
+    } else {
+        return $self->isEnabled();
+    }
 }
 
 # Method: addModuleStatus
@@ -684,7 +728,7 @@ sub _postServiceHook
 
 # Method: _regenConfig
 #
-#	Base method to regenerate configuration. It should NOT be overriden
+#       Base method to regenerate configuration. It should NOT be overriden
 #
 sub _regenConfig
 {
@@ -694,6 +738,10 @@ sub _regenConfig
 
     $self->SUPER::_regenConfig(@_);
     my $enabled = ($self->isEnabled() or 0);
+    if ($enabled) {
+        $self->setNeedsSaveAfterConfig(0);
+    }
+
     $self->_preServiceHook($enabled);
     $self->_enforceServiceState(@_);
     $self->_postServiceHook($enabled);
@@ -766,7 +814,7 @@ sub _enforceServiceState
 #    file      - file name which will be overwritten with the execution output
 #    component - mason component
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
-#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    defaults  - a reference to hash with keys: mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
 #
 sub writeConfFile # (file, component, params, defaults)
 {
@@ -799,7 +847,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #   An array ref of hashes containing the following:
 #
-#       service - name of the service using the certificate
+#       serviceId - name of the servicr
+#       service - printable name of the service using the certificate
 #       path    - full path to store this certificate
 #       user    - user owner for this certificate file
 #       group   - group owner for this certificate file
@@ -809,7 +858,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #       [
 #           {
-#             'service' => 'jabberd2',
+#             'serviceId' => 'jabberd2',
+#             'service' => __('Jabber daemon)',
 #             'path' => '/etc/jabberd2/ebox.pem',
 #             'user' => 'jabber',
 #             'group' => 'jabber',

@@ -52,7 +52,7 @@ sub _process
     my $mail = EBox::Global->modInstance('mail');
 
 	my @array = ();
-	if ($mail->isRunning('active')) {
+	if ($mail->_postfixIsRunning()) {
 
 		my @mqlist = @{mailQueueList()};
 		$page = 1;

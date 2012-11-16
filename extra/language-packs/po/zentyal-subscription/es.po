@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:168
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:180
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:843
+#: ../../main/squid/src/EBox/Squid.pm:916
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1171
+#: ../../main/squid/src/EBox/Squid.pm:1249
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -49,31 +49,31 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1334
-msgid "Zarafa Small Business (25 users)"
-msgstr "Zarafa Small Business (25 usuarios)"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1404
+msgid "Communications Add-on"
+msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1645
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1715
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1648
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1718
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1664
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1734
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1666
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1736
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1669
-msgid "Zarafa Small Business"
-msgstr "Zarafa Small Business"
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1739
+msgid "Communications add-on"
+msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:160
 #, perl-brace-format
@@ -180,7 +180,7 @@ msgstr ""
 "puedan ser fácilmente recuperados en caso de desastre? ¡Obtén la edición "
 "{ohs}Small Business{ch} o {ohe}Enterprise{ch}!"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:67
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:71
 #, perl-brace-format
 msgid ""
 "Are you interested in a remote configuration backup of your Zentyal server? "
@@ -190,25 +190,34 @@ msgid ""
 "your credentials for full access."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:165
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:81
 #, perl-brace-format
-msgid "The module {mod} is not supported in the Small Business Edition."
+msgid ""
+"Are you interested in upgrading to one of commercial editions? Get a {ohb}"
+"free 30-day trial{ch}."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:164
+#, fuzzy, perl-brace-format
+msgid ""
+"Communications add-on is required in order to enable {mod} in the Small "
+"Business Edition."
 msgstr "El módulo {mod} no está soportado en la edición Small Business."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:182
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:183
 msgid ""
 "Please note that the Small Business Edition can be only used in master mode."
 msgstr ""
 "Por favor, ten en cuenta que la edición Small Business se puede usar "
 "únicamente en modo maestro."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:186
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:187
 msgid "Please note that the Small Business Edition cannot have slaves."
 msgstr ""
 "Por favor, ten en cuenta que la edición Small Business no puede tener "
 "esclavos."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:191
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:192
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for Small Business Edition is "
@@ -267,7 +276,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/SysInfo.pm:470
+#: ../../main/core/src/EBox/SysInfo.pm:509
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:206
 #: ../../main/software/src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -283,7 +292,7 @@ msgstr ""
 "del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
 "Ubuntu."
 
-#: ../../main/core/src/EBox/SysInfo.pm:475
+#: ../../main/core/src/EBox/SysInfo.pm:514
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
@@ -301,6 +310,34 @@ msgstr ""
 "¿Quieres conocer el estado de tu sistema y el uso que se le está dando? "
 "Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para generar "
 "informes frequentes del sistema."
+
+#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:189
+#, perl-brace-format
+msgid ""
+"Do you want a remote configuration backup of your Zentyal server? Set it up "
+"{oh}here{ch} for FREE!"
+msgstr ""
+
+#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:194
+#, perl-brace-format
+msgid ""
+"Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
+"up {oh}here{ch} for FREE!"
+msgstr ""
+
+#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:199
+#, perl-brace-format
+msgid ""
+"Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a "
+"FREE 30-day trial!"
+msgstr ""
+
+#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:204
+#, perl-brace-format
+msgid ""
+"Are you a happy Zentyal user? Do you want to help the project? Get involved "
+"in the {oh}community{ch}!"
+msgstr ""
 
 #: ../../main/ids/src/EBox/Model/Rules.pm:206
 #, perl-brace-format
@@ -336,7 +373,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1152
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1206
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -1082,6 +1119,12 @@ msgstr ""
 "¡Registra tu servidor Zentyal de forma gratuita! Y gana acceso a los "
 "siguientes servicios: Configuración de backup remota, subdominio zentyal.me "
 "personalizado, webinarios, whitepapers, trials gratuitos y mucho más!"
+
+#~ msgid "Zarafa Small Business (25 users)"
+#~ msgstr "Zarafa Small Business (25 usuarios)"
+
+#~ msgid "Zarafa Small Business"
+#~ msgstr "Zarafa Small Business"
 
 #~ msgid "Disabled - {oh}Enable{ch}"
 #~ msgstr "Desactivado - {oh}Activar{ch}"

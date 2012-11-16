@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Squid::Model::Extensions;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Exceptions::Internal;
@@ -167,6 +166,57 @@ sub viewCustomizer
 
     return $custom;
 }
+
+sub _aclName
+{
+    my ($sef, $profileId) = @_;
+    my $aclName = $profileId . '~ext';
+    return $aclName;
+}
+
+sub squidAcls
+{
+    my ($self, $profileId) = @_;
+    my @acls;
+
+    my $name = $self->_aclName($profileId);
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('allowed')) {
+            next;
+        }
+
+        my $ext = $row->valueByName('extension');
+        push @acls, "acl $name urlpath_regex -i \.$ext\$";
+    }
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId) = @_;
+    my $banned;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+         if (not $row->valueByName('allowed')) {
+             $banned = 1;
+             last;
+         }
+
+    }
+    if (not $banned) {
+        return [];
+    }
+
+    my $aclName = $self->_aclName($profileId);
+    my $rule = {
+        type => 'http_access',
+        acl => $aclName,
+        policy => 'deny',
+    };
+    return [$rule];
+}
+
 
 1;
 

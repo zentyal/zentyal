@@ -153,7 +153,7 @@ var pkgTable = new Array(
     <h3><%__('Server roles')%></h3>
         <div id="Gateway_head" class="head">
 % unless ($isGateway) {
-            <div class="image" id="Gateway_image" onclick="tick('Gateway'); return false">
+            <div class="image" id="Gateway_image" onclick="tick('Gateway', 1); return false">
                 <img src="/data/software/images/icon_gw.png" alt="Zentyal Gateway"/>
             </div>
             <div class="image" id="Gateway_image_tick" style="display: none" onclick="untick('Gateway', 1); return false">
@@ -174,7 +174,7 @@ var pkgTable = new Array(
 
         <div id="Infrastructure_head" class="head">
 % unless ($isInfrastructure) {
-            <div class="image" id="Infrastructure_image" onclick="tick('Infrastructure'); return false">
+            <div class="image" id="Infrastructure_image" onclick="tick('Infrastructure', 1); return false">
                 <img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
             </div>
             <div class="image" id="Infrastructure_image_tick" style="display: none" onclick="untick('Infrastructure', 1); return false">
@@ -195,7 +195,7 @@ var pkgTable = new Array(
 
         <div id="Office_head" class="head">
 % unless (  $isOffice) {
-            <div class="image" id="Office_image" onclick="tick('Office'); return false">
+            <div class="image" id="Office_image" onclick="tick('Office', 1); return false">
                 <img src="/data/software/images/icon_office.png" alt="Zentyal Office" />
             </div>
             <div class="image" id="Office_image_tick" style="display: none" onclick="untick('Office', 1); return false">
@@ -220,7 +220,7 @@ var pkgTable = new Array(
         <div id="Communications_head" class="head">
 % }
 % unless ($isCommunication) {
-            <div class="image" id="Communications_image" onclick="tick('Communications'); return false">
+            <div class="image" id="Communications_image" onclick="tick('Communications', 1); return false">
                 <img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
             </div>
             <div class="image" id="Communications_image_tick" style="display: none" onclick="untick('Communications', 1); return false">
@@ -477,8 +477,8 @@ var pkgTable = new Array(
                    <% __('Install') %>
                 </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(insHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(insHtmlId, 'install_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(insHtmlId, 'install_button')"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
             </div>
         </div>
         <div id="updateBox">
@@ -488,8 +488,8 @@ var pkgTable = new Array(
                   <% __('Update') %>
                 </button>
                 <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(updHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(updHtmlId, 'update_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(updHtmlId, 'update_button')"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
                 <form name='updateList' action='EBox' method='post'>
                         <input type='hidden' name='updatePkgs' value="yes"/>
                 </form>
@@ -501,8 +501,8 @@ var pkgTable = new Array(
                 <button id="delete_button" onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif" >
                   <% __('Delete') %>
                 </button>
-                <button style="float:right" onclick="deselectAll(delHtmlId)"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
+                <button style="float:right" onclick="deselectAll(delHtmlId, 'delete_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
+                <button style="float:right" onclick="selectAll(delHtmlId, 'delete_button')"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
             </div>
         </div>
         <form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
@@ -603,17 +603,18 @@ var pkgTable = new Array(
    updateActionButton(delHtmlId, 'delete_button');
    updateActionButton(updHtmlId, 'update_button');
 
-    function selectAll(htmlIds){
+    function selectAll(htmlIds, actionButton){
         for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = true;
         }
+        $(actionButton).disabled = false;
     }
 
-    function deselectAll(htmlIds){
-
+    function deselectAll(htmlIds, actionButton){
         for(var i = 0; i < htmlIds.length; i++){
             document.getElementById(htmlIds[i]).checked = false;
         }
+        $(actionButton).disabled = true;
     }
 
     function sendForm(action, htmlIds, popup) {

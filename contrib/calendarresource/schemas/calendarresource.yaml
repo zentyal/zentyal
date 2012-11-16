@@ -1,0 +1,16 @@
+class: EBox::CalendarResource
+
+depends:
+    - mail
+    - users
+
+enabledepends:
+    - mail
+    - users
+
+models:
+    - GeneralSettings
+    - CalendarResourceLdapUser
+
+composites:
+    General: [calendarresource/GeneralSettings]

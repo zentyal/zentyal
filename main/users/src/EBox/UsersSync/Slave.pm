@@ -61,6 +61,7 @@ sub _addUser
         fullname   => $user->get('cn'),
         surname    => $user->get('sn'),
         givenname  => $user->get('givenName'),
+        uidNumber  => $user->get('uidNumber'),
         passwords  => \@passwords
     };
 
@@ -99,9 +100,15 @@ sub _modifyUser
         fullname   => $user->get('cn'),
         surname    => $user->get('sn'),
         givenname  => $user->get('givenName'),
+        uidNumber  => $user->get('uidNumber'),
     };
 
-    $userinfo->{password} = $pass if ($pass);
+    if ($pass) {
+        $userinfo->{password} = $pass;
+    } else {
+        my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
+        $userinfo->{passwords} = \@passwords;
+    }
 
     if ($user->get('description')) {
         $userinfo->{description} = $user->get('description');

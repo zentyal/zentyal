@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Util::Init;
-
 use strict;
 use warnings;
+
+package EBox::Util::Init;
 
 use EBox;
 use EBox::Global;
@@ -160,11 +159,7 @@ sub _logActionFunction
 {
     my ($action, $success) = @_;
 
-    # Avoid to do this during boot due to request came from non-root user warnings
-    if (exists $ENV{'USER'}) {
-        system(". /lib/lsb/init-functions; " .
-               " log_begin_msg \"$action\"; log_end_msg $success");
-    }
+    EBox::Sudo::system(". /lib/lsb/init-functions; log_begin_msg \"$action\"; log_end_msg $success");
 }
 
 sub printModuleMessage

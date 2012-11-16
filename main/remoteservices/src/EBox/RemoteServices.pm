@@ -74,6 +74,8 @@ use Data::UUID;
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
 use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
+use constant FILES_SYNC_DIR      => EBox::Config::conf() . 'filesync/';
+use constant FILES_SYNC_UPSTART  => 'zentyal.filesync';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -91,6 +93,7 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '1'  => __('Professional'),
                    '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
+                   '8'  => __('Enterprise Trial'),
                    '10' => __('Enterprise'));
 
 # Group: Protected methods
@@ -153,8 +156,8 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
+        $self->_setFilesSyncConf();
     }
-
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
@@ -217,6 +220,40 @@ sub _setRemoteSupportAccessConf
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
+sub _setFilesSyncConf
+{
+    my ($self) = @_;
+
+    # Retrieve folders for each provider module
+    my @folders;
+    my @fmods = @{EBox::Global->modInstancesOfType('EBox::SyncFolders::Provider')};
+    for my $mod (@fmods) {
+        push(@folders, @{$mod->syncFolders()});
+    }
+
+    # get credentials
+    my $cred = new EBox::RemoteServices::Cred();
+    my $access_id = $cred->subscribedUUID();
+    my $access_key = $cred->{cred}->{password};
+
+    my @params;
+    push (@params, store_dir => FILES_SYNC_DIR);
+    push (@params, access_id => $access_id);
+    push (@params, access_key => $access_key);
+    push (@params, folders => \@folders);
+
+    unless (-d FILES_SYNC_DIR) {
+        mkdir(FILES_SYNC_DIR);
+    }
+
+    $self->writeConfFile(
+            FILES_SYNC_DIR . 'sync.conf',
+            'remoteservices/files.conf.mas',
+            \@params,
+            { 'uid' => 0, 'gid' => 0, mode => '500' });
+}
+
+
 sub _setInventoryAgentConf
 {
     my ($self) = @_;
@@ -251,7 +288,8 @@ sub _setInventoryAgentConf
 
             # Enable OCS agent periodic execution
             $self->writeConfFile(OCS_CRON_FILE,
-                                 OCS_CRON_MAS_FILE);
+                                 OCS_CRON_MAS_FILE,
+                                 [], { 'mode' => '0755' } );
         } else {
             $toRemove = 1;
         }
@@ -326,6 +364,10 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
+        },
+        {
+            'name'         => FILES_SYNC_UPSTART,
+            'precondition' => \&filesSyncAvailable,
         }
        ];
 }
@@ -811,6 +853,7 @@ sub bundleVersion
 #         -1 - no subscribed or impossible to know
 #          0 - basic
 #          5 - sb
+#          8 - trial
 #          10 - enterprise
 #
 sub subscriptionLevel
@@ -845,6 +888,7 @@ sub subscriptionLevel
 #         basic
 #         professional
 #         enterprise
+#         trial
 #
 sub subscriptionCodename
 {
@@ -927,6 +971,32 @@ sub renovationDate
     return $ret;
 }
 
+# Method: usersSyncAvailable
+#
+#   Returns 1 if users syncrhonization is available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub usersSyncAvailable
+{
+    # TODO implement this in capabilities (+convert that to REST?)
+    return EBox::Config::configkey('users_sync_available');
+
+}
+
+# Method: filesSyncAvailable
+#
+#   Returns 1 if file syncrhonization is available
+#
+sub filesSyncAvailable
+{
+    # TODO implement this in capabilities (+convert that to REST?)
+    return EBox::Config::configkey('files_sync_available');
+}
+
 # Method: securityUpdatesAddOn
 #
 #      Get if server has security updates add-on
@@ -989,9 +1059,9 @@ sub disasterRecoveryAddOn
     return $ret;
 }
 
-# Method: sbMailAddOn
+# Method: commAddOn
 #
-#      Get if server has SB mail add-on
+#      Get whether server has communications add-on or not
 #
 # Parameters:
 #
@@ -1002,7 +1072,7 @@ sub disasterRecoveryAddOn
 #
 #      Boolean - indicating whether it has SB mail add-on or not
 #
-sub sbMailAddOn
+sub commAddOn
 {
     my ($self, $force) = @_;
 
@@ -1010,7 +1080,7 @@ sub sbMailAddOn
 
     my $ret;
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{sb_mail_add_on};
+        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
     } otherwise {
         $ret = 0;
     };
@@ -1330,8 +1400,8 @@ sub i18nServerEdition
 
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
-        if ( $self->sbMailAddOn() ) {
-            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        if ( $self->commAddOn() ) {
+            $ret .= ' + ' . __s('Communications Add-on');
         }
         return $ret;
     } else {
@@ -1581,7 +1651,7 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
       ( __('None'), '', '', 'info', '', __('Disabled'), '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
@@ -1639,7 +1709,7 @@ sub _ccConnectionWidget
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
-        $sbMailAddOn = $self->sbMailAddOn();
+        $commAddOn = $self->commAddOn();
 
     } else {
         $connValue      = __sx('Not registered - {oh}Register now!{ch}',
@@ -1665,8 +1735,8 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
-    if ( $sbMailAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+    if ( $commAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
                                                  __('Enabled')));
     }
 }
@@ -1705,7 +1775,7 @@ sub _getSubscriptionDetails
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
                 disaster_recovery => $details->{disaster_recovery},
-                sb_mail_add_on    => $details->{sb_mail_add_on},
+                sb_comm_add_on    => $details->{sb_comm_add_on},
             };
             $self->set_state($state);
         }

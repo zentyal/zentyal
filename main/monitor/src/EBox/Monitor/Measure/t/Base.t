@@ -46,11 +46,15 @@ my $greatDescription = {
    typeInstances   => [ $basename ]
   };
 
-my $mock_conf = new Test::MockModule('EBox::Monitor::Configuration');
-$mock_conf->mock('RRDBaseDirPath' => sub { '/tmp/'; });
-
 require_ok( 'EBox::Monitor::Measure::Base' )
   or die;
+
+# dont know if this fixes totally the removal
+# EBox::Monitor::Configuration::RRDBaseDir
+#  .. there are other problems with this test
+my $mock_conf = new Test::MockModule('EBox::Monitor::Measure::Base');
+$mock_conf->mock('baseDir' => sub { '/tmp/'; });
+
 
 isa_ok( EBox::Monitor::Measure::Base->new(), 'EBox::Monitor::Measure::Base',
         'Creating an empty base measure with default values');

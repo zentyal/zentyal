@@ -37,9 +37,10 @@ use EBox::Exceptions::InvalidData;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant SYSMINGID      => 1900;
-use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');
@@ -343,14 +344,17 @@ sub create
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->groupDn($group);
 
-    if (length($group) > MAXGROUPLENGTH) {
+    if (length ($group) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters",
                 maxGroupLength => MAXGROUPLENGTH));
     }
 
     unless (_checkGroupName($group)) {
-        my $advice = __('To avoid problems, the group name should consist only of letters, digits, underscores, spaces, periods, dashs and not start with a dash. They could not contain only number, spaces and dots.');
+        my $advice = __('To avoid problems, the group name should consist ' .
+                        'only of letters, digits, underscores, spaces, ' .
+                        'periods, dashs and not start with a dash. They ' .
+                        'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
             'value' => $group,
@@ -368,21 +372,31 @@ sub create
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :
                      $self->_gidForNewGroup($system);
-
     $self->_checkGid($gid, $system);
 
-    my %args = (
-        attr => [
-            'cn'          => $group,
-            'gidNumber'   => $gid,
-            'objectclass' => ['posixGroup', 'zentyalGroup'],
-        ]
+    my @attr = (
+        'cn'          => $group,
+        'gidNumber'   => $gid,
+        'objectclass' => ['posixGroup', 'zentyalGroup'],
     );
-    push (@{$args{attr}}, 'description' => $comment) if ($comment);
+    push (@attr, 'description' => $comment) if ($comment);
 
     my $res = undef;
+    my $entry = undef;
     try {
-        my $r = $self->_ldap->add($dn, \%args);
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attr);
+        $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
+            $params{ignoreMods}, $params{ignoreSlaves});
+
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+        unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());
+            }
+        }
+
         $res = new EBox::UsersAndGroups::Group(dn => $dn);
         unless ($system) {
             # Call modules initialization
@@ -390,15 +404,22 @@ sub create
         }
     } otherwise {
         my ($error) = @_;
+
+        EBox::error($error);
+
         # A notified module has thrown an exception. Delete the object from LDAP
         # Call to parent implementation to avoid notifying modules about deletion
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res->exists()) {
+            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
         }
         $res = undef;
+        $entry = undef;
         throw $error;
     };
 

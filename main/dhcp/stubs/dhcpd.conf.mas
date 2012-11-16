@@ -4,7 +4,7 @@
 Parameters:
 
     ifaces - Hash
-    real_ifaces - Hash containing the interface name as key and an 
+    real_ifaces - Hash containing the interface name as key and an
                   array ref containing the virtual interface names as value
     thinClientOption - Boolean indicating whether the thin client
                        options have been used or not
@@ -64,14 +64,19 @@ max-lease-time 7200;
 include "<% $keysFile %>";
 % }
 
+% foreach my $iface (keys(%real_ifaces)) {
 <%perl>
-	foreach my $iface (keys(%real_ifaces)) {
-           # Write configuration if there are any range or fixed addresses
-           my @ifacesToCheck = @{$real_ifaces{$iface}};
-           push(@ifacesToCheck, $iface);
-           my $nIfaceToWrite = grep { @{$ifaces{$_}->{ranges}} > 0 or values(%{$ifaces{$_}->{fixed}}) > 0 } @ifacesToCheck;
-           if ( $nIfaceToWrite > 0) {
+            # Write configuration if there are any range or fixed addresses
+            my $ifaceToWrite = 0;
+            if (exists $ifaces{$iface}) {
+                if (@{$ifaces{$iface}->{ranges}} > 0) {
+                    $ifaceToWrite = 1;
+                } elsif  (values %{$ifaces{$iface}->{fixed}} > 0 ) {
+                    $ifaceToWrite = 1;
+                }
+            }
 </%perl>
-<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
-%          }
-%	}
+%           if ( $ifaceToWrite ) {
+        <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
+%           }
+% }

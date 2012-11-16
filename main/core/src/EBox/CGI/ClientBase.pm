@@ -12,21 +12,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::ClientBase;
 use strict;
 use warnings;
 
+package EBox::CGI::ClientBase;
 use base 'EBox::CGI::Base';
+
 use EBox::Gettext;
 use EBox::Html;
 
 ## arguments
-##		title [optional]
-##		error [optional]
-##		msg [optional]
-##		cgi   [optional]
-##		template [optional]
+##              title [optional]
+##              error [optional]
+##              msg [optional]
+##              cgi   [optional]
+##              template [optional]
 sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
     my $class = shift;
@@ -99,33 +99,33 @@ sub menuFolder
 
 sub _header
 {
-	my $self = shift;
-	print($self->cgi()->header(-charset=>'utf-8'));
-	print(EBox::Html::header($self->{title}));
+    my $self = shift;
+    print($self->cgi()->header(-charset=>'utf-8'));
+    print(EBox::Html::header($self->{title}));
 }
 
 sub _top
 {
-	my $self = shift;
-	print($self->{htmlblocks}->title());
+    my $self = shift;
+    print($self->{htmlblocks}->title());
 }
 
 sub _topNoAction
 {
-	my $self = shift;
-	print($self->{htmlblocks}->titleNoAction());
+    my $self = shift;
+    print($self->{htmlblocks}->titleNoAction());
 }
 
 sub _menu
 {
-	my $self = shift;
-	print($self->{htmlblocks}->menu($self->menuFolder()));
+    my $self = shift;
+    print($self->{htmlblocks}->menu($self->menuFolder(), $self->{originalUrl}));
 }
 
 sub _footer
 {
-	my $self = shift;
-	print($self->{htmlblocks}->footer());
+    my $self = shift;
+    print($self->{htmlblocks}->footer());
 }
 
 1;

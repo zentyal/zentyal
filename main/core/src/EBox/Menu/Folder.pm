@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Menu::Folder;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Folder;
 use base 'EBox::Menu::TextNode';
+
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
@@ -27,14 +26,15 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $name = delete $opts{name};
-    my $url = delete $opts{url};
     unless (defined($name) and ($name ne '')) {
         throw EBox::Exceptions::MissingArgument('name');
     }
+
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
     $self->{name} = $name;
-    $self->{url} = $url;
+    $self->{url}  = delete $opts{url};
+
+    bless($self, $class);
     return $self;
 }
 
@@ -42,7 +42,7 @@ my $foldersToHide = undef;
 
 sub html
 {
-    my ($self, $current) = @_;
+    my ($self, $currentFolder, $currentUrl) = @_;
 
     unless (defined $foldersToHide) {
         $foldersToHide = {
@@ -52,27 +52,26 @@ sub html
 
     my $name = $self->{name};
     my $text = $self->{text};
-    my $url = $self->{url};
-    my $html = '';
-    my $show = 0;
-
     if ($foldersToHide->{$name} or (scalar(@{$self->items()}) == 0)) {
-        return $html;
+        return '';
     }
 
+    my $id = $self->{id};
+    my $html = '';
     if (defined($self->{style})) {
-        $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
+        $html .= "<li id='" . $id . "' class='$self->{style}'>\n";
     } else {
-        $html .= "<li id='" . $self->{id} . "'>\n";
+        $html .= "<li id='" . $id . "'>\n";
     }
 
-    if (defined($url)) {
-        if ($url eq $current) {
-            $show = 1;
-        }
-        $html .= "<a title='$text' href='/$url' class='navarrow' ";
+    my $isCurrentFolder = ($name eq $currentFolder);
+    my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
+
+    my $url = $self->{url};
+    if (defined $url) {
+        $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
-        $html .= "<a title='$text' href='' class='navarrow' ";
+        $html .= "<a title='$text' href='' class='$aClass' ";
         $html .= "onclick=\"showMenu('menu$name', this);return false;\"";
     }
 
@@ -80,19 +79,24 @@ sub html
 
     $html .= "<ul class='submenu'>\n";
 
+    my $menuClass = "menu$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
-
     foreach my $item (@sorted) {
-        $item->{style} = "menu$name";
-        my $display =  undef;
-        if (defined $current) {
-            $display = $name eq  $current;
-        }
-        $html .= $item->html($display);
+        $item->{style} = $menuClass;
+        $html .= $item->html($isCurrentFolder, $currentUrl);
     }
 
     $html .= "</ul>\n";
     $html .= "</li>\n";
+
+    if ($isCurrentFolder) {
+      # JS call to set the correct variables
+        $html .= <<"END_JS"
+<script type="text/javascript">
+    showMenu('$menuClass', \$('$id'));
+</script>
+END_JS
+    }
 
     return $html;
 }

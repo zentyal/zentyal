@@ -1,4 +1,14 @@
 HEAD
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+3.0.2
+	+ Fixed error in dashboard widget
+	+ Fixed log helper time stamp parsing, transition to MySql broke it
+	+ Adapted to improvement of EBox::Module::Service::isRunning method
+	+ Added LDAP indexes for mail and dc attributes
+	+ Added and used serviceId field for service certificates
+	+ Fixed bread crumbs in mail dispatcher configuration model
+3.0.1
+	+ Added missing CGIs for external accounts
 	+ Fixed edition of external accounts
 	+ Workaround until postgrey "do not stop" bug is fixed upstream
 	+ Use executeOnBrothers method to resolve error with component

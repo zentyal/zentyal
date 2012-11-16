@@ -12,18 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup;
-
-# Class: EBox::EBackup
-#
-#
-
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
-
 use strict;
 use warnings;
+
+package EBox::EBackup;
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox;
 use EBox::Config;
@@ -1429,7 +1422,7 @@ sub _checkFileSystemTargetStatus
     }
 
     my $mountPoint;
-    my %staticFs = %{ EBox::FileSystem::staticFileSystems() };
+    my %staticFs = %{ EBox::FileSystem::fileSystems() };
     foreach my $fsAttr (values %staticFs) {
         my $fsMountPoint = $fsAttr->{mountPoint};
         if ($fsMountPoint eq 'none') {
@@ -1445,7 +1438,7 @@ sub _checkFileSystemTargetStatus
             # check if the mount point is more specific
             my $mpComponents = split '/+', $mountPoint;
             my $fsMpComponents = split '/+', $fsMountPoint;
-            ($fsMountPoint > $mpComponents) or
+            ($fsMpComponents > $mpComponents) or
                 next;
         }
         $mountPoint = $fsMountPoint;

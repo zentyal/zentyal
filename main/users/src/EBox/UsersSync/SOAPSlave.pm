@@ -54,9 +54,15 @@ sub modifyUser
     $user->set('cn', $userinfo->{fullname}, 1);
     $user->set('sn', $userinfo->{surname}, 1);
     $user->set('givenname', $userinfo->{givenname}, 1);
+    $user->set('uidNumber', $userinfo->{uidNumber}, 1);
 
     if ($userinfo->{password}) {
         $user->changePassword($userinfo->{password}, 1);
+    }
+    if ($userinfo->{passwords}) {
+        # rencode passwords
+        my @pass = map { decode_base64($_) } @{$userinfo->{passwords}};
+        $user->setPasswordFromHashes(\@pass, 1);
     }
 
     $user->save();

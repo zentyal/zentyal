@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::SysInfo::Model::HostName
 #
 #   This model is used to configure the host name and domain
 #
-
 package EBox::SysInfo::Model::HostName;
-
-use strict;
-use warnings;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
@@ -31,9 +30,13 @@ use EBox::Types::Host;
 
 use Data::Validate::Domain qw(is_domain);
 
-use base 'EBox::Model::DataForm';
-
 use constant RESOLV_FILE => '/etc/resolv.conf';
+
+use constant MIN_HOSTNAME_LENGTH => 1;
+use constant MAX_HOSTNAME_LENGTH => 15;
+
+use constant MIN_HOSTDOMAIN_LENGTH => 2;
+use constant MAX_HOSTDOMAIN_LENGTH => 64 - 1 - MAX_HOSTNAME_LENGTH;
 
 sub new
 {
@@ -70,17 +73,25 @@ sub _table
         'confirmationDialog' => {
               submit => sub {
                   my ($self, $params) = @_;
-                  my $new      = $params->{hostname};
-                  my $old      = $self->value('hostname');
-                  if ($new eq $old) {
-                      # only dialog if it is a hostname change
+                  my $newHostname   = $params->{hostname};
+                  my $oldHostname   = $self->value('hostname');
+                  my $newHostdomain   = $params->{hostdomain};
+                  my $oldHostdomain   = $self->value('hostdomain');
+                  if (($newHostdomain eq $oldHostdomain) and ($newHostname eq $oldHostname))  {
+                      # only dialog if it is a hostname or hostdomain change
                       return undef;
                   }
 
+
                   my $title = __('Change hostname');
                   my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
-                              new => $new
+                              new => $newHostname . '.' . $newHostdomain
                              );
+                  if ($newHostdomain =~ m/\.local$/i) {
+                      $msg .= q{<p>};
+                      $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");
+                      $msg .= q{</p>}
+                  }
                   return  {
                       title => $title,
                       message => $msg,
@@ -141,6 +152,90 @@ sub _readResolv
     close ($resolvFH);
 
     return [$searchdomain, @dns];
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changed, $all) = @_;
+
+    my $oldHostName = $self->hostnameValue();
+    my $newHostName = defined $changed->{hostname} ? $changed->{hostname}->value() : $all->{hostname}->value();
+
+    my $oldDomainName = $self->hostdomainValue();
+    my $newDomainName = defined $changed->{hostdomain} ? $changed->{hostdomain}->value() : $all->{hostdomain}->value();
+
+    $self->_checkDNSName($newHostName, 'Host name');
+    unless (length ($newHostName) >= MIN_HOSTNAME_LENGTH and
+            length ($newHostName) <= MAX_HOSTNAME_LENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Host name'),
+            value => $newHostName,
+            advice => __x('The length must be between {min} and {max} characters',
+                          min => MIN_HOSTNAME_LENGTH,
+                          max => MAX_HOSTNAME_LENGTH));
+    }
+
+    foreach my $label (split (/\./, $newDomainName)) {
+        $self->_checkDNSName($label, 'Host domain');
+    }
+    unless (length ($newDomainName) >= MIN_HOSTDOMAIN_LENGTH and
+            length ($newDomainName) <= MAX_HOSTDOMAIN_LENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Host domain'),
+            value => $newDomainName,
+            advice => __x('The length must be between {min} and {max} characters',
+                          min => MIN_HOSTDOMAIN_LENGTH,
+                          max => MAX_HOSTDOMAIN_LENGTH));
+    }
+
+    # After our validation, notify observers that this value is about to change
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
+
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChanged($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChanged($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fqdnChanged($oldFqdn, $newFqdn) if ($hostNameChanged or $domainChanged);
+    }
+}
+
+sub _checkDNSName
+{
+    my ($self, $label, $type) = @_;
+
+    unless ($label =~ m/[a-zA-Z0-9\-]+/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __($type),
+            value => $label,
+            advice => __('DNS names can contain only alphabetical characters (a-z), ' .
+                         'numeric characters (0-9) and the minus sign (-)'));
+    }
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $newHostName   = $self->row->valueByName('hostname');
+    my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;
+    my $newDomainName = $self->row->valueByName('hostdomain');
+    my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newDomainName;
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
+
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fqdnChangedDone($oldFqdn, $newFqdn);
+    }
 }
 
 1;

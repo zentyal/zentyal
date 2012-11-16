@@ -15,7 +15,6 @@
 use strict;
 use warnings;
 
-
 package EBox::WebServer;
 use base qw(EBox::Module::Service);
 
@@ -118,7 +117,7 @@ sub usedFiles
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -309,12 +308,17 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $vHostModel = $self->model('VHostTable');
+    my $vhosts    = $vHostModel->virtualHosts();
+    my $hostname      = $self->_fqdn();
+    my $hostnameVhost = delete $vhosts->{$hostname};
+
     $self->_setPort();
     $self->_setUserDir();
-    $self->_setDfltVhost();
-    $self->_setDfltSSLVhost();
+    $self->_setDfltVhost($hostname, $hostnameVhost);
+    $self->_setDfltSSLVhost($hostname, $hostnameVhost);
     $self->_checkCertificate();
-    $self->_setVHosts();
+    $self->_setVHosts($vhosts);
 }
 
 # Set up the listening port
@@ -335,15 +339,17 @@ sub _setPort
 # Set up default vhost
 sub _setDfltVhost
 {
-    my ($self) = @_;
+    my ($self, $hostname, $hostnameVhost) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
 
     # Overwrite the default vhost file
     $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas",
                          [
+                           hostname => $hostname,
                            portNumber => $generalConf->portValue(),
-                           hostname => $self->_fqdn(),
+                           sslportNumber =>  $generalConf->sslPort(),
+                           hostnameVhost => $hostnameVhost,
                          ],
                         );
 }
@@ -351,7 +357,7 @@ sub _setDfltVhost
 # Set up default-ssl vhost
 sub _setDfltSSLVhost
 {
-    my ($self) = @_;
+    my ($self, $hostname, $hostnameVhost) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
 
@@ -369,8 +375,9 @@ sub _setDfltSSLVhost
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas",
                              [
-                               sslportNumber => $generalConf->sslPort(),
-                               hostname => $self->_fqdn(),
+                                 hostname      => $hostname,
+                                 sslportNumber =>  $generalConf->sslPort(),
+                                 hostnameVhost  => $hostnameVhost,
                              ],
                             );
         # Enable default-ssl vhost
@@ -482,10 +489,9 @@ sub _setUserDir
 # Set up the virtual hosts
 sub _setVHosts
 {
-    my ($self) = @_;
+    my ($self, $vhosts) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
-    my $vHostModel = $self->model('VHostTable');
 
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
@@ -493,11 +499,9 @@ sub _setVHosts
 
     my %sitesToRemove = %{_availableSites()};
 
-    foreach my $id (@{$vHostModel->ids()}) {
-        my $vHost = $vHostModel->row($id);
-
-        my $vHostName  = $vHost->valueByName('name');
-        my $sslSupport = $vHost->valueByName('ssl');
+    foreach my $vHost (values %{$vhosts}) {
+        my $vHostName  = $vHost->{'name'};
+        my $sslSupport = $vHost->{'ssl'};
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
         delete $sitesToRemove{$destFile};
@@ -519,7 +523,7 @@ sub _setVHosts
             EBox::Sudo::root("mkdir -m 755 $userConfDir");
         }
 
-        if ( $vHost->valueByName('enabled') ) {
+        if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
             try {
                 EBox::Sudo::root("a2ensite $vhostfile");
@@ -586,7 +590,8 @@ sub certificates
 
     return [
             {
-             service =>  'Web Server',
+             serviceId =>  'Web Server',
+             service =>  __('Web Server'),
              path    =>  '/etc/apache2/ssl/ssl.pem',
              user => 'root',
              group => 'root',

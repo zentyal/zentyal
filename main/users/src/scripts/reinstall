@@ -6,6 +6,7 @@ echo "Press Control-C now if you are not sure of what you are doing."
 read
 
 invoke-rc.d zentyal users stop
+invoke-rc.d zentyal samba stop || true
 
 INSTALLED_MODULES=`dpkg -l | grep 'zentyal-' | grep ^ii | cut -d' ' -f3| xargs`
 

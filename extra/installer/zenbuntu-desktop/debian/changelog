@@ -1,3 +1,9 @@
+zenbuntu-desktop (3.0.1) precise; urgency=low
+
+  * Set section to metapackages instead of x11
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 21 Sep 2012 16:28:43 +0200
+
 zenbuntu-desktop (3.0) precise; urgency=low
 
   * Switched to final 3.0 repository

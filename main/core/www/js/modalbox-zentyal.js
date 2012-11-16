@@ -3,8 +3,10 @@ Modalbox.show = Modalbox.show.wrap(function (origFunc) {
 //                                     var original = arguments[2].original;
                                      var args = Array.prototype.slice.call(arguments, 1);
                                      origFunc.apply(Modalbox, args);
+
                                      if (!this.options.original) {
                                            Modalbox.MBwindow.addClassName('MB_dialog');
+                                         window.scrollTo(0, 0);
                                      }
                                    });
 Modalbox._setPosition = function() {

@@ -1,3 +1,12 @@
+3.0.4
+	+ Added EBox::setLocaleEnvironment method
+3.0.3
+	+ Use default 'C' locale when locale configuration file is empty
+	+ New UnwillingToPerform exception. Throwed when the user request an action
+	  that can not be performed for any reason
+	+ Added Yoruba language
+3.0.2
+	+ Added EBox::Sudo::system as equivalent to system() with root permissions
 3.0.1
 	+ Removed forced setting of LANG variables which made progress indicator
 	  fail when using any language different to English

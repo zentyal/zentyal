@@ -64,14 +64,12 @@ sub _table
          new EBox::Types::Host(
                                    fieldName => 'left_ipaddr',
                                    printableName => __('Local IP Address'),
-                                   unique => 1,
                                    editable => 1,
                                    help => __('Zentyal public IP address.'),
                                 ),
          new EBox::Types::IPAddr(
                                    fieldName => 'left_subnet',
                                    printableName => __('Local Subnet'),
-                                   unique => 1,
                                    editable => 1,
                                    help => __('Local subnet available through the tunnel.'),
                                 ),
@@ -83,7 +81,6 @@ sub _table
                                   new EBox::Types::Host(
                                       fieldName => 'right_ipaddr',
                                       printableName => __('IP Address'),
-                                      unique => 1,
                                       editable => 1,
                                       help => __('Remote endpoint public IP address.'),
                                      ),
@@ -97,7 +94,6 @@ sub _table
          new EBox::Types::IPAddr(
                                    fieldName => 'right_subnet',
                                    printableName => __('Remote Subnet'),
-                                   unique => 1,
                                    editable => 1,
                                    help => __('Remote subnet available through the tunnel.'),
                                 ),

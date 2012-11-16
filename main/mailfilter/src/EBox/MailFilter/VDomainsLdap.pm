@@ -409,7 +409,7 @@ sub _hasAccount
         return $account;
     }
 
-    my $alias = $user . '@' . $vdomain;
+    my $alias = $user->name() . '@' . $vdomain;
     if ($mailAliasLdap->aliasExists($alias)) {
         return $alias;
     }

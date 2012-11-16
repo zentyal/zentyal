@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Logs;
-
 use strict;
 use warnings;
 
+package EBox::Logs;
 use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -930,7 +928,7 @@ sub _purgeTable
       $finalThreshold = $thresholdDate;
   }
 
-  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$finalThreshold'";
+  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < STR_TO_DATE('$finalThreshold','%a %b %e %T %Y')";
   $dbengine->do($sqlStatement);
 }
 

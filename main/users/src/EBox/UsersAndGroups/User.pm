@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
@@ -39,20 +38,21 @@ use EBox::Exceptions::InvalidData;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 use Convert::ASN1;
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
+use constant MAXUID         => 65535;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
-                                 'description');
-
-
+                                 'description', 'krb5Key');
 
 sub new
 {
@@ -267,7 +267,6 @@ sub addGroup
     $group->addMember($self);
 }
 
-
 # Method: removeGroup
 #
 #   Removes this user from the given group
@@ -282,7 +281,6 @@ sub removeGroup
 
     $group->removeMember($self);
 }
-
 
 # Method: groups
 #
@@ -302,7 +300,6 @@ sub groups
 
     return $self->_groups($system);
 }
-
 
 # Method: groupsNotIn
 #
@@ -430,7 +427,6 @@ sub changePassword
     $self->save() unless $lazy;
 }
 
-
 # Method: setPasswordFromHashes
 #
 #   Configure user password directly from its kerberos hashes
@@ -441,13 +437,12 @@ sub changePassword
 #
 sub setPasswordFromHashes
 {
-    my ($self, $passwords) = @_;
+    my ($self, $passwords, $lazy) = @_;
 
-    $self->set('userPassword', '{K5KEY}');
-    $self->set('krb5Key', $passwords);
-    $self->set('krb5KeyVersionNumber', 1);
+    $self->set('userPassword', '{K5KEY}', $lazy);
+    $self->set('krb5Key', $passwords, $lazy);
+    $self->set('krb5KeyVersionNumber', 1, $lazy);
 }
-
 
 # Method: deleteObject
 #
@@ -474,7 +469,6 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-
 # Method: passwordHashes
 #
 #   Return an array ref to all krb hashed passwords as:
@@ -489,9 +483,7 @@ sub passwordHashes
     return \@keys;
 }
 
-
 # USER CREATION:
-
 
 # Method: create
 #
@@ -499,12 +491,17 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
-#                               'surname' and 'comment'
+#   user - hash ref containing:
+#       user - user name
+#       fullname
+#       givenname
+#       surname
+#       comment
+#       ou (optional) # TODO param conflict, wrong doc
 #   system - boolean: if true it adds the user as system user, otherwise as
 #                     normal user
 #   params hash (all optional):
-#      uidNumber - user UID numberer
+#      uidNumber - user UID number
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
 #      ignoreSlaves - slaves that should not be notified about the user creation
@@ -520,7 +517,9 @@ sub create
     my $users = EBox::Global->modInstance('users');
 
     unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+        my $advice = __('To avoid problems, the username should consist only ' .
+                        'of letters, digits, underscores, spaces, periods, ' .
+                        'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
                                             'value' => $user->{'user'},
@@ -593,7 +592,7 @@ sub create
 
     my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
-    my @attr =  (
+    my @attr = (
         'cn'            => $user->{fullname},
         'uid'           => $user->{user},
         'sn'            => $user->{surname},
@@ -620,17 +619,32 @@ sub create
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
 
-    my %args = ( attr => \@attr );
-
     my $res = undef;
+    my $entry = undef;
     try {
-        my $r = $self->_ldap->add($dn, \%args);
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attr);
+        unless ($system) {
+            $users->notifyModsPreLdapUserBase('preAddUser', $entry,
+                $params{ignoreMods}, $params{ignoreSlaves});
+        }
+
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());
+            }
+        }
+
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 
         # Set the user password and kerberos keys
         if (defined $passwd) {
             $self->_checkPwdLength($passwd);
             $res->_ldap->changeUserPassword($res->dn(), $passwd);
+            # Force reload of krb5Keys
+            $res->clearCache();
         }
         elsif (defined($user->{passwords})) {
             $res->setPasswordFromHashes($user->{passwords});
@@ -650,15 +664,22 @@ sub create
         }
     } otherwise {
         my ($error) = @_;
+
+        EBox::error($error);
+
         # A notified module has thrown an exception. Delete the object from LDAP
         # Call to parent implementation to avoid notifying modules about deletion
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if (defined $res and $res->exists()) {
+            $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
         }
         $res = undef;
+        $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
     };
@@ -671,9 +692,6 @@ sub create
     # Return the new created user
     return $res;
 }
-
-
-
 
 sub _checkName
 {
@@ -740,6 +758,7 @@ sub lastUid
             $lastUid = $uid;
         }
     }
+
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
@@ -751,16 +770,25 @@ sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
 
-    my $uid;
-    if ($systemUser) {
-        $uid = $self->lastUid(1) + 1;
-        if ($uid == MINUID) {
-            throw EBox::Exceptions::Internal(
-                __('Maximum number of system users reached'));
+    my $uid = $self->lastUid($systemUser);
+    do {
+        # try next uid in order
+        $uid++;
+
+        if ($systemUser) {
+            if ($uid >= MINUID) {
+                throw EBox::Exceptions::Internal(
+                    __('Maximum number of system users reached'));
+            }
+        } else {
+            if ($uid >= MAXUID) {
+                throw EBox::Exceptions::Internal(
+                        __('Maximum number of users reached'));
+            }
         }
-    } else {
-        $uid = $self->lastUid + 1;
-    }
+
+        # check if uid is already used
+    } while (defined getpwuid($uid));
 
     return $uid;
 }

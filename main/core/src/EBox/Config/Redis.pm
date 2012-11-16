@@ -226,7 +226,8 @@ sub _keys
 {
     my ($self, $pattern) = @_;
 
-    my @keys = $self->_redis_call('keys', $pattern);
+    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
             push (@keys, $name);
@@ -377,7 +378,11 @@ sub _sync
         if (ref $value) {
             $value = encode_json($value);
         }
-        $self->_redis_call('set', $key, $value);
+        if (defined $value) {
+            $self->_redis_call('set', $key, $value);
+        } else {
+            EBox::error("Tried to set an undefined value for key: $key");
+        }
     }
     %modified = ();
 

@@ -1,5 +1,5 @@
 Source: zenbuntu-desktop
-Section: x11
+Section: metapackages
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: debhelper (>= 7.0.0), cdbs

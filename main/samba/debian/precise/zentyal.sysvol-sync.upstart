@@ -1,0 +1,8 @@
+description "Zentyal samba4 sysvol share synchronizer"
+author      "Samuel Cabrero <scabrero@zentyal.com>"
+
+stop on stopping samba4
+normal exit 0
+
+exec /usr/share/zentyal-samba/sysvol-sync.pl
+respawn

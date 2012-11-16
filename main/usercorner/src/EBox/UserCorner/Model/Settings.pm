@@ -122,24 +122,4 @@ sub validateTypedRow
     }
 }
 
-# Method: precondition
-#
-#   Overrides  <EBox::Model::DataTable::precondition>
-#
-sub precondition
-{
-    my $users = EBox::Global->modInstance('users');
-
-    return $users->editableMode();
-}
-
-# Method: preconditionFailMsg
-#
-#   Overrides  <EBox::Model::DataTable::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    return __('User Corner is not supported on slave servers.');
-}
-
 1;

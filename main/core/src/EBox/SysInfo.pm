@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -50,6 +51,24 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Set lastMessageTime only if installing the first time
+    unless ($version) {
+        my $state = $self->get_state();
+        $state->{lastMessageTime} = time();
+        $state->{closedMessages} = {};
+        $self->set_state($state);
+    }
 }
 
 # Method: menu
@@ -176,8 +195,25 @@ sub aroundRestoreConfig
     my ($self, $dir, @extraOptions) = @_;
     $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
     $self->_load_state_from_file($dir);
+    $self->setReloadPageAfterSavingChanges(0);
 }
 
+
+sub setReloadPageAfterSavingChanges
+{
+    my ($self, $reload) = @_;
+    my $state = $self->get_state;
+    $state->{reloadPageAfterSavingChanges} = $reload;
+    $self->set_state($state);
+}
+
+# return wether we should reload the page after saving changes
+sub reloadPageAfterSavingChanges
+{
+    my ($self) = @_;
+    my $state = $self->get_state;
+    return $state->{reloadPageAfterSavingChanges};
+}
 
 #
 # Method: widgets
@@ -236,7 +272,10 @@ sub modulesWidget
         $class->addModuleStatus($section);
         $numModules++;
     }
-    $widget->{size} = $numModules * 0.15;
+
+    # must be integer to not break JSON parse
+    my $size = sprintf("%.0f", $numModules*0.15) + 1;
+    $widget->{size} = $size;
 }
 
 sub generalWidget

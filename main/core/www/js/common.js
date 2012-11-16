@@ -32,27 +32,53 @@ function hide(id){
 **/
 
 var menuShown = '';
+var menuShownAnchor = null;
 
 function showMenu(name, menuAnchor){
-    if (menuShown === name) {
+  var open = false;
+  if (menuShown === name) {
       menuShown = '';
-      $$('.' + name).each(function(e) {
-                                     e.style.display = 'none';
-                                 }
-                               );
-      menuAnchor.addClassName('navarrow');
-      menuAnchor.removeClassName('despleg');
+      menuShownAnchor = null;
+      _closeLeftMenu(name, menuAnchor);
+
+  } else if (menuShown === '') {
+    if (menuAnchor.hasClassName('despleg')) {
+      _closeLeftMenu(name, menuAnchor);
     } else {
+      open = true;
+    }
+  } else {
+     open = true;
+     _closeLeftMenu(menuShown, menuShownAnchor);
+  }
+
+  if (open){
       menuShown = name;
-      $$('.' + name).each(function(e) {
-                                  e.style.display = 'inline';
-                            }
-                           );
-      menuAnchor.addClassName('despleg');
-      menuAnchor.removeClassName('navarrow');
-   }
+      menuShownAnchor = menuAnchor;
+      _openLeftMenu(name, menuAnchor);
+  }
 }
 
+function _openLeftMenu(name, menuAnchor)
+{
+  $$('.' + name).each(function(e) {
+                                  e.style.display = 'inline';
+                            }
+                      );
+  menuAnchor.addClassName('despleg');
+  menuAnchor.removeClassName('navarrow');
+}
+
+
+function _closeLeftMenu(name, menuAnchor)
+{
+  $$('.' + name).each(function(e) {
+                                     e.style.display = 'none';
+                                 }
+                     );
+  menuAnchor.addClassName('navarrow');
+  menuAnchor.removeClassName('despleg');
+}
 
 /*
  */

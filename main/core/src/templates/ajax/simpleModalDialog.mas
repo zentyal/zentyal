@@ -1,4 +1,6 @@
 <%args>
+$textClass => undef
+$text      => undef
 $buttonText => undef
 </%args>
 <%init>
@@ -7,6 +9,11 @@ if (not defined $buttonText) {
   $buttonText = __('OK');
 }
 </%init>
+% if ($text) {
+<div <% $textClass ? qq{class='$textClass'} : '' %> >
+<% $text %>
+</div>
+% }
 <br/>
 <div class='tcenter'>
 <input type ='button' value=<% $buttonText %>

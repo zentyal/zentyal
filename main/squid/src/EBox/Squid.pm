@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid;
-
 use strict;
 use warnings;
 
+package EBox::Squid;
 use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
@@ -35,6 +33,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -50,25 +49,28 @@ use File::Basename;
 
 use EBox::NetWrappers qw(to_network_with_mask);
 
-#Module local conf stuff
+# Module local conf stuff
+use constant SQUID_CONF_FILE => '/etc/squid3/squid.conf';
+use constant SQUID_PORT => '3128';
+
 use constant DGDIR => '/etc/dansguardian';
-use constant {
-    SQUIDCONFFILE => '/etc/squid3/squid.conf',
-    SQUIDCSSFILE => '/etc/squid3/errorpage.css',
-    MAXDOMAINSIZ => 255,
-    SQUIDPORT => '3128',
-    DGPORT => '3129',
-    DGLISTSDIR => DGDIR . '/lists',
-    DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian',
-    SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3',
-    CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf',
-    BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
-    BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
-    ADZAPPER_CONF => '/etc/adzapper.conf',
-    KEYTAB_FILE => '/etc/squid3/HTTP.keytab',
-    SQUID3_DEFAULT_FILE => '/etc/default/squid3',
-    CRONFILE => '/etc/cron.d/zentyal-squid',
-};
+use constant DGPORT => '3129';
+
+use constant SQUID_EXTERNAL_CONF_FILE  => '/etc/squid3/squid-external.conf';
+use constant SQUID_EXTERNAL_PORT => '3130';
+
+use constant SQUIDCSSFILE => '/etc/squid3/errorpage.css';
+use constant MAXDOMAINSIZ => 255;
+use constant DGLISTSDIR => DGDIR . '/lists';
+use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
+use constant SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3';
+use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
+use constant BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper';
+use constant BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper';
+use constant ADZAPPER_CONF => '/etc/adzapper.conf';
+use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
+use constant SQUID3_DEFAULT_FILE => '/etc/default/squid3';
+use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
@@ -146,10 +148,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-sub isRunning
-{
-    return EBox::Service::running('squid3');
-}
 
 # Method: usedFiles
 #
@@ -159,9 +157,14 @@ sub usedFiles
 {
     return [
             {
-             'file' => '/etc/squid3/squid.conf',
+             'file' => SQUID_CONF_FILE,
              'module' => 'squid',
-             'reason' => __('HTTP Proxy configuration file')
+             'reason' => __('Front HTTP Proxy configuration file')
+            },
+            {
+             'file' => SQUID_EXTERNAL_CONF_FILE,
+             'module' => 'squid',
+             'reason' => __('Back HTTP Proxy configuration file')
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -281,9 +284,15 @@ sub actions
              'module' => 'squid'
             },
             {
+             'action' => __('Override squid upstart job'),
+             'reason' => __('Zentyal will take care of starting and stopping ' .
+                            'the services.'),
+             'module' => 'squid'
+            },
+            {
              'action' => __('Remove dansguardian init script link'),
              'reason' => __('Zentyal will take care of starting and stopping ' .
-                        'the services.'),
+                            'the services.'),
              'module' => 'squid'
             }
            ];
@@ -322,20 +331,20 @@ sub transproxy
     return $self->model('GeneralSettings')->value('transparentProxy');
 }
 
-# Method: https
-#
-#       Returns if the https mode is enabled
-#
-# Returns:
-#
-#       boolean - true if enabled, otherwise undef
-#
-sub https
-{
-    my ($self) = @_;
+# # Method: https
+# #
+# #       Returns if the https mode is enabled
+# #
+# # Returns:
+# #
+# #       boolean - true if enabled, otherwise undef
+# #
+# sub https
+# {
+#     my ($self) = @_;
 
-    return $self->model('GeneralSettings')->value('https');
-}
+#     return $self->model('GeneralSettings')->value('https');
+# }
 
 # Method: setPort
 #
@@ -368,7 +377,7 @@ sub port
     my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
-        return SQUIDPORT;
+        return SQUID_PORT;
     }
 
     return $port;
@@ -442,7 +451,6 @@ sub setAdBlockExecFile
 sub filterNeeded
 {
     my ($self) = @_;
-
     unless ($self->isEnabled()) {
         return 0;
     }
@@ -476,13 +484,17 @@ sub usesPort
     my ($self, $protocol, $port, $iface) = @_;
 
     ($protocol eq 'tcp') or return undef;
-    # DGPORT is hard-coded, it is reported as used even if
-    # the service is disabled.
+
+    # DGPORT and SQUID_EXTERNAL_PORT are hard-coded, they are reported as used even
+    # if the services are disabled.
     ($port eq DGPORT) and return 1;
-    # the port selected by the user (by default SQUIDPORT) is only reported
+    ($port eq SQUID_EXTERNAL_PORT) and return 1;
+
+    # the port selected by the user (by default SQUID_PORT) is only reported
     # if the service is enabled
     ($self->isEnabled()) or return undef;
-    ($port eq $self->port) and return 1;
+    ($port eq $self->port()) and return 1;
+
     return undef;
 }
 
@@ -492,11 +504,22 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
-    $self->_writeSquidConf($filter);
+    $self->_writeSquidFrontConf($filter);
+    $self->_writeSquidBackConf();
+    $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
         $self->_writeDgConf();
     }
+
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
+}
+
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -531,27 +554,21 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
-sub _writeSquidConf
+sub _writeSquidFrontConf
 {
     my ($self, $filter) = @_;
 
-    my $rules = $self->model('AccessRules')->rules();
+    my $accesRulesModel =  $self->model('AccessRules');
+    my $rules = $accesRulesModel->rules();
+    my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
-    my $removeAds    = $generalSettings->removeAdsValue();
     my $kerberos     = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
     my $network = $global->modInstance('network');
     my $sysinfo = $global->modInstance('sysinfo');
 
-    my $append_domain = $network->model('SearchDomain')->domainValue();
-
-    my $cache_host = $network->model('Proxy')->serverValue();
-    my $cache_port = $network->model('Proxy')->portValue();
-    my $cache_user = $network->model('Proxy')->usernameValue();
-    my $cache_passwd = $network->model('Proxy')->passwordValue();
 
     my $users = $global->modInstance('users');
 
@@ -567,42 +584,94 @@ sub _writeSquidConf
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
-    push @writeParam, ('https'  => $self->https());
-    push @writeParam, ('localnets' => $self->_localnets());
+
+#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
-    push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
-    push @writeParam, ('nameservers' => $network->nameservers());
-    push @writeParam, ('append_domain' => $append_domain);
+    push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
-    push @writeParam, ('cache_host' => $cache_host);
-    push @writeParam, ('cache_port' => $cache_port);
-    push @writeParam, ('cache_user' => $cache_user);
-    push @writeParam, ('cache_passwd' => $cache_passwd);
-
-    push @writeParam, ('memory' => $self->_cache_mem);
-    push @writeParam, ('max_object_size' => $self->_max_object_size);
-    push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
-    push @writeParam, ('cacheDirSize'     => $cacheDirSize);
+    push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
     push @writeParam, ('dn' => $dn);
 
-    my $globalRO = EBox::Global->getInstance(1);
-    if ($globalRO->modExists('remoteservices')) {
-        my $rs = $globalRO->modInstance('remoteservices');
-        push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed()));
+
+    $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_CONF_FILE);
     }
-    if ($removeAds) {
-        push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
+}
+
+sub _writeSquidBackConf
+{
+    my ($self) = @_;
+
+    my $globalRO = EBox::Global->getInstance(1);
+    my $global  = $self->global();
+    my $network = $global->modInstance('network');
+    my $users = $global->modInstance('users');
+    my $generalSettings = $self->model('GeneralSettings');
+
+    my $writeParam = [];
+
+    push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
+
+    if ($generalSettings->kerberosValue()) {
+        push (@{$writeParam}, realm => $users->kerberosRealm);
+    }
+
+    if ($generalSettings->removeAdsValue()) {
+        push (@{$writeParam}, urlRewriteProgram => BLOCK_ADS_PROGRAM);
         my @adsParams = ();
-        push(@adsParams, ('postMatch' => $self->getAdBlockPostMatch()));
+        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
         $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
 
-    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    my $append_domain = $network->model('SearchDomain')->domainValue();
+    push (@{$writeParam}, append_domain => $append_domain);
 
-    $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
+    push (@{$writeParam}, memory => $self->_cache_mem());
+    push (@{$writeParam}, max_object_size => $self->_max_object_size());
+
+    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
+    push (@{$writeParam}, cacheDirSize => $cacheDirSize);
+    push (@{$writeParam}, nameservers => $network->nameservers());
+
+    my $cache_host   = $network->model('Proxy')->serverValue();
+    my $cache_port   = $network->model('Proxy')->portValue();
+    my $cache_user   = $network->model('Proxy')->usernameValue();
+    my $cache_passwd = $network->model('Proxy')->passwordValue();
+    push (@{$writeParam}, cache_host   => $cache_host);
+    push (@{$writeParam}, cache_port   => $cache_port);
+    push (@{$writeParam}, cache_user   => $cache_user);
+    push (@{$writeParam}, cache_passwd => $cache_passwd);
+
+    push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
+    push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
+    push (@{$writeParam}, localnets => $self->_localnets());
+    if ($globalRO->modExists('remoteservices')) {
+        my $rs = $globalRO->modInstance('remoteservices');
+        push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
+    }
+
+    $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
+                         $writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+    }
+}
+
+sub _checkSquidFile
+{
+    my ($self, $confFile) = @_;
+
+    try {
+        EBox::Sudo::root("squid3 -k parse $confFile");
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $error = join ' ', @{ $ex->error() };
+        throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
+    };
 }
 
 sub _objectsDelayPools
@@ -644,7 +713,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => DGPORT);
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => $self->port);
+    push(@writeParam, 'squidport' => SQUID_EXTERNAL_PORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -668,6 +737,8 @@ sub _writeDgConf
 
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
+
+
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
@@ -710,15 +781,7 @@ sub _writeDgConf
                 'squid/dansguardianfN.conf.mas', \@writeParam);
 
         if ($policy eq 'filter') {
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
-                                                     'squid/bannedextensionlist.mas',
-                                                     [ 'extensions'  => $group->{bannedExtensions} ]);
-
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedmimetypelist$number",
-                                                     'squid/bannedmimetypelist.mas',
-                                                     [ 'mimeTypes' => $group->{bannedMIMETypes} ]);
-
-            $self->_writeDgDomainsConf($group);
+             $self->_writeDgDomainsConf($group);
         }
     }
 
@@ -736,7 +799,7 @@ sub _writeCronFile
 
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
-        next unless $profile->{timePeriod};
+        next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
             next;
@@ -819,9 +882,19 @@ sub writeDgGroups
         }
     }
 
+    my $generalSettings = $self->model('GeneralSettings');
+    my $realm = '';
+    if ($generalSettings->kerberosValue()) {
+        my $users = EBox::Global->modInstance('users');
+        $realm = '@' . $users->kerberosRealm();
+    }
+
+    my @writeParams = ();
+    push (@writeParams, groups => \@groups);
+    push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         [ groups => \@groups ]);
+                         \@writeParams);
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
@@ -881,7 +954,7 @@ sub _dgProfiles
     my ($self) = @_;
 
     my $profileModel = $self->model('FilterProfiles');
-    return $profileModel->profiles();
+    return $profileModel->dgProfiles();
 }
 
 sub _writeDgDomainsConf
@@ -890,8 +963,7 @@ sub _writeDgDomainsConf
 
     my $number = $group->{number};
 
-    my @domainsFiles = ('bannedsitelist', 'bannedurllist',
-                        'greysitelist', 'greyurllist',
+    my @domainsFiles = ('bannedsitelist',
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {
@@ -958,11 +1030,14 @@ sub _daemons
 {
     return [
         {
-            'name' => 'squid3'
+            name => 'zentyal.squid3-external'
         },
         {
-            'name' => 'ebox.dansguardian',
-            'precondition' => \&filterNeeded
+            name => 'ebox.dansguardian',
+            precondition => \&filterNeeded
+        },
+        {
+            name => 'squid3'
         }
     ];
 }
@@ -1095,55 +1170,58 @@ sub _DGLang
     return $lang;
 }
 
-# FIXME
-sub aroundDumpConfigDISABLED
+
+sub addPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, $when, @files) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$when};
+    $toRemove or $toRemove = [];
 
-    my $backupCategorizedDomainLists =
-        EBox::Config::boolean('backup_domain_categorized_lists');
-
-    my $bugReport = $options{bug};
-    if (not $bugReport and $backupCategorizedDomainLists) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-    } else {
-        # we don't save archive files
-        $self->_dump_to_file($dir);
-        $self->dumpConfig($dir, %options);
-    }
+    push @{$toRemove }, @files;
+    $state->{$key} = $toRemove;
+    $self->set_state($state);
 }
 
-
-# FIXME
-sub aroundRestoreConfigDISABLED
+sub clearPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    delete $state->{$key};
+    $self->set_state($state);
 }
 
-# FIXME
-sub restoreConfigDISABLED
+sub pathsToRemove
+{
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$key};
+    $toRemove or $toRemove = [];
+    return $toRemove;
+}
+
+sub backupFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+}
+sub restoreFilesFromArchive
+{
+    # XXX disabled, current framework does not support it and when it does we
+    # shoudl change other things
+
+}
+
+sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-
-    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
-    if ($removeCategorizedDomainLists) {
-        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-            $domainFilterFiles->removeAll();
-        }
-    }
-
-    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
+    my $categorizedLists =  $self->model('CategorizedLists');
+    $categorizedLists->beforeRestoreConfig();
+    $self->SUPER::aroundRestoreConfig($dir, %options);
+    $categorizedLists->afterRestoreConfig();
 }
 
 # LdapModule implementation

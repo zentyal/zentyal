@@ -35,6 +35,16 @@ sub getDN
     return $self->_soapResult($dn);
 }
 
+sub getRealm
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+
+    return $self->_soapResult($realm);
+}
+
 sub getCertificate
 {
     my ($self) = @_;
