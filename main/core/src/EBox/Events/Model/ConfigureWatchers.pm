@@ -55,7 +55,7 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 #      - The data is already available from the Zentyal installation
 #
 #      - The adding/removal of event watchers is done dynamically
-#      reading the directories where the event watchers are placed
+#        by fetching them from the WatcherProvider modules
 #
 #
 # Overrides:

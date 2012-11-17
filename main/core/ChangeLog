@@ -1,4 +1,7 @@
 HEAD
+	+ foreignModelInstance returns undef if foreignModel is
+	  undef. This happens when a module has been uninstalled and it is
+	  referenced in other installed module (events)
 	+ loggerd shows loaded LogHelpers when in debug mode
 	+ Added additional info to events from RAID watcher
 	+ Use sudo to remove temporal files/diectories in backup, avoiding
