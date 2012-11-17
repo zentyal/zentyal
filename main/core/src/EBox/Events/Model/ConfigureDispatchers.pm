@@ -63,12 +63,10 @@ sub headTitle
 #      This method is overridden since the showed data is managed
 #      differently.
 #
-#      - The data is already available from the eBox installation
+#      - The data is already available from the Zentyal installation
 #
 #      - The adding/removal of event dispatchers is done dynamically
-#      reading the directories where the event dispatcher are. The
-#      adding/removal is done installing or deinstalling ebox modules
-#      with dispatchers.
+#        by fetching them from the DispatcherProvider modules
 #
 #
 # Overrides:
