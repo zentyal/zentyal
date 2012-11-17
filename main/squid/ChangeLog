@@ -1,4 +1,6 @@
 HEAD
+	+ Force all connections to pass through squid-external or deny access
+	+ Allow access to the proxy for clients which are not in local networks
 	+ Don't allow to set kerberos and transparent proxy at the same time
 3.0.1
 	+ Changed ownership of categorized list files to ebox to allow download

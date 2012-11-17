@@ -237,7 +237,6 @@ acl SSL_ports port 873  # rsync
 always_direct allow SSL_ports
 ssl_bump allow SSL_ports
 % }
-
 acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
 
@@ -252,6 +251,10 @@ follow_x_forwarded_for allow from_localhost
 forwarded_for on
 log_uses_indirect_client on
 always_direct allow to_localhost
+
+# force clients to use squid-external
+never_direct allow all
+
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
 
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
