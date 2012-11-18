@@ -61,10 +61,11 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     }
     $self->{paramsKept} = ();
 
-    # XXX workaround for utf8 hell
-    if (Encode::is_utf8($self->{title})) {
-        Encode::_utf8_off($self->{title});
-    }
+    # EEE disabled
+#     # XXX workaround for utf8 hell
+#     if (Encode::is_utf8($self->{title})) {
+#         Encode::_utf8_off($self->{title});
+#     }
 
     bless($self, $class);
     return $self;
@@ -411,12 +412,14 @@ sub unsafeParam # (param)
     if (wantarray) {
         @array = $cgi->param($param);
         (@array) or return undef;
-        my @ret = ();
-        foreach my $v (@array) {
-            _utf8_on($v);
-            push(@ret, $v);
-        }
-        return @ret;
+        return @array;
+# EEE disabled
+#         my @ret = ();
+#         foreach my $v (@array) {
+#             _utf8_on($v);
+#             push(@ret, $v);
+#         }
+#         return @ret;
     } else {
         $scalar = $cgi->param($param);
         #check if $param.x exists for input type=image
@@ -424,7 +427,8 @@ sub unsafeParam # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
-        _utf8_on($scalar);
+# EEE
+#        _utf8_on($scalar);
         return $scalar;
     }
 }
@@ -444,7 +448,8 @@ sub param # (param)
             $v =~ s/^ +//;
             $v =~ s/ +$//;
             $self->_checkForbiddenChars($v);
-            _utf8_on($v);
+# EEE
+#            _utf8_on($v);
             push(@ret, $v);
         }
         return @ret;
@@ -459,7 +464,8 @@ sub param # (param)
         $scalar =~ s/^ +//;
         $scalar =~ s/ +$//;
         $self->_checkForbiddenChars($scalar);
-        _utf8_on($scalar);
+# EEE
+#        _utf8_on($scalar);
         return $scalar;
     }
 }
