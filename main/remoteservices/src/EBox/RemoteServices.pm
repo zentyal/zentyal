@@ -73,6 +73,7 @@ use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
@@ -144,6 +145,7 @@ sub _setConf
     }
 
     $self->_setRemoteSupportAccessConf();
+    $self->_updateMotd();
 }
 
 
@@ -1848,6 +1850,25 @@ sub _reportAdminPort
     my $apache = $gl->modInstance('apache');
 
     $self->reportAdminPort($apache->port());
+}
+
+# Update MOTD scripts depending on the subscription status
+sub _updateMotd
+{
+    my ($self) = @_;
+
+    my @tmplParams = (
+        (subscribed => $self->eBoxSubscribed())
+       );
+    if ($self->eBoxSubscribed() ) {
+        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
+                                              edition => $self->i18nServerEdition())));
+    }
+    EBox::Module::Base::writeConfFileNoCheck(
+        RELEASE_UPGRADE_MOTD,
+        'remoteservices/release-upgrade-motd.mas',
+        \@tmplParams);
+
 }
 
 # Method: extraSudoerUsers
