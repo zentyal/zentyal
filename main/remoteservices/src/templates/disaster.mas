@@ -12,39 +12,48 @@ my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 <div>
 <div id="software" style="padding: 15px 0">
 <div id="basic">
-       Select backup to restore, FIXME
-
-<!-- FIXME, use something cooler than a regular table -->
 
 % if (keys %backups) {
-<h3><% __("Backups available") %></h3>
-<table>
+<form action="/RemoteServices/Backup/RestoreRemoteBackup">
+<h3><% __("Choose configuration backup to restore") %></h2>
+<table class="dataTable">
 <thead>
-%   foreach my $title (@columnTitles) {
-        <td><% $title %></td>
-%   }
-<td>&nbsp;</td>
-</thead>
-%   foreach my $row (@rows) {
 <tr>
-<td><% $row->{Date} %></td>
-<td><% $row->{Filename} %></td>
-<td><% $row->{Comment} %></td>
-<td>
-<!-- FIXME: use radio buttons to select and have only one big restore button -->
-<button onclick="document.location.href='/RemoteServices/Backup/RestoreRemoteBackup?name=<% $row->{Filename} %>&dr=1'"><img src="/data/images/install.gif"> <% __('Recover') %></button>
-</td>
+    <th>&nbsp;</th>
+%   foreach my $title (@columnTitles) {
+        <th><% $title %></th>
+%   }
+</tr>
+</thead>
+<tbody>
+%   my $counter = 0;
+%   foreach my $row (@rows) {
+%     my $type = ($counter++ % 2 == 0) ? 'odd' : 'even';
+<tr class="border <% $type %>">
+<td class="tcenter"><input type="radio" name="name" value="<% $row->{Filename} %>"/></td>
+<td class="tcenter"><% $row->{Date} %></td>
+<td class="tcenter"><% $row->{Filename} %></td>
+<td class="tcenter"><% $row->{Comment} %></td>
 </tr>
 %   }
+</tbody>
 </table>
 <br/>
 % } else {
-<h3><% __("No backups available") %></h3>
+<div class="warning"><% __("No backups available") %></div>
 % }
+<br/>
+<br/>
 
-       <div style="text-align: right">
-        <!-- FIXME: is this skip button needed here? -->
-        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip recover') %> </button>
-       </div>
-    </div>
+<div style="text-align: right">
+    <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip recover') %></button>
+    <input type="hidden" name="dr" value="1"/>
+% if (keys %backups) {
+    <button type="submit"><img src="/data/images/install.gif"> <% __('Recover') %></button>
+% }
+</div>
+% if (keys %backups) {
+</form>
+% }
+</div>
 </div>
