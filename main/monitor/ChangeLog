@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed measure display when multiple type instances are shown in
+	  the same graph (for instance, Df).
 	+ Fixed RRD direcotries on changes of hostname. More resilient
 	  subscription links to RRDs
 3.0
