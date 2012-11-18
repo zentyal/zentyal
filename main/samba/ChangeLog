@@ -1,4 +1,4 @@
-3.0.8
+HEAD
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 	+ Use proper constant in userShares method used by remoteservices module
 3.0.7
