@@ -238,7 +238,7 @@ sub fetchData
             }
             $time += $step;
         }
-        $rrdIdx++;
+        $rrdIdx += scalar(@{$data->[0]}); # Put new RRDs files without overwritting
     }
     # Truncating for testing purposes
     foreach my $data (@returnData) {
