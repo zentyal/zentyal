@@ -520,6 +520,9 @@ sub _setConf
     # Configure soap service
     $self->masterConf->confSOAPService();
 
+    # commit slaves removal
+    EBox::UsersAndGroups::Slave->commitRemovals($self->global());
+
     # Get the FQDN
     my $realm = $self->kerberosRealm();
     @array = ();
@@ -534,6 +537,14 @@ sub _setConf
 
     @array = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@array);
+}
+
+# overriden to revoke slave removals
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::UsersAndGroups::Slave->revokeRemovals($self->global());
 }
 
 sub kerberosRealm
@@ -1314,18 +1325,20 @@ sub userMenu
 #
 sub syncJournalDir
 {
-    my ($self, $slave) = @_;
+    my ($self, $slave, $notCreate) = @_;
 
     my $dir = JOURNAL_DIR . $slave->name();
     my $journalsDir = JOURNAL_DIR;
 
-    # Create if the dir does not exists
-    unless (-d $dir) {
-        EBox::Sudo::root(
-            "mkdir -p $dir",
-            "chown -R ebox:ebox $journalsDir",
-            "chmod 0700 $journalsDir",
-        );
+    unless ($notCreate) {
+        # Create if the dir does not exists
+        unless (-d $dir) {
+            EBox::Sudo::root(
+                "mkdir -p $dir",
+                "chown -R ebox:ebox $journalsDir",
+                "chmod 0700 $journalsDir",
+               );
+        }
     }
 
     return $dir;

@@ -28,6 +28,7 @@ use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
 use EBox::UsersAndGroups::Group;
+use EBox::UsersAndGroups::Slave;
 
 use EBox::Types::Host;
 use EBox::Types::Port;
@@ -71,6 +72,12 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    EBox::UsersAndGroups::Slave->addRemoval($row->id());
 }
 
 1;

@@ -162,23 +162,19 @@ sub validateTypedRow
         ($net => 1)
     } @{ $networkMod->routes()  };
 
-    my @vpnParams = qw(left_subnet right_subnet);
-    foreach my $param (@vpnParams) {
-        my $subnet = $all_r->{$param}->ip();
-        if ($localNets{$subnet}) {
-            throw EBox::Exceptions::InvalidData(
-                data => => $all_r->{$param}->printableName(),
-                value => $subnet,
-                advice => __('This is a local network, thus already accessible through local interfaces')
-               );
-        }
-        if ($localRoutes{$subnet}) {
-            throw EBox::Exceptions::InvalidData(
-                data => $all_r->{$param}->printableName(),
-                value => $subnet,
-                advice => __('This network is already reachable through a static route')
-               );
-        }
+    my $externalSubnet = $all_r->{right_subnet}->ip();
+    if ($localNets{$externalSubnet}) {
+        throw EBox::Exceptions::InvalidData(
+            data => => $all_r->{right_subnet}->printableName(),
+            value => $externalSubnet,
+            advice => __('This is a local network, thus already accessible through local interfaces')
+           );
+    } elsif ($localRoutes{$externalSubnet}) {
+        throw EBox::Exceptions::InvalidData(
+            data => $all_r->{right_subnet}->printableName(),
+            value => $externalSubnet,
+            advice => __('This network is already reachable through a static route')
+           );
     }
 }
 

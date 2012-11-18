@@ -59,7 +59,6 @@ sub logFiles
 # Returns:
 #
 #               string - yyyy-mm-dd hh:mm:ss format.
-my $tsFormat = '%F %T';
 sub _getDate
 {
     my ($self, $line) = @_;
@@ -70,7 +69,7 @@ sub _getDate
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..).*$/;
 
     my $ts = "$year-$month-$day $hour:$min:$sec";
-    return $self->_convertTimestamp($ts, $tsFormat);
+    return $self->_convertTimestamp($ts, '%Y-%b-%d %T');
 }
 
 # I need go deeper in postfix logs to get this stuff work better

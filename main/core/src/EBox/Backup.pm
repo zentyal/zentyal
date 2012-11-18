@@ -114,10 +114,7 @@ sub _makeBackup
         $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
     }
     finally {
-        system "rm -rf '$tempdir'";
-        if ($? != 0) {
-            EBox::error("$auxDir cannot be deleted: $!. Please do it manually");
-        }
+        EBox::Sudo::silentRoot("rm -rf '$tempdir'");
     };
 
     return $backupArchive;
@@ -207,7 +204,7 @@ sub  _createFilesArchive
     EBox::Sudo::root("chmod 0660 '$filesArchive'");
     EBox::Sudo::root("chown ebox.ebox '$filesArchive'");
     if ($removeDir) {
-        system "rm -rf '$auxDir'";
+        EBox::Sudo::silentRoot("rm -rf '$auxDir'");
     }
 }
 
@@ -473,7 +470,7 @@ sub backupDetailsFromArchive
     $backupDetails->{file} = $archive;
     $backupDetails->{size} = $self->_printableSize($archive);
 
-    system "rm -rf '$tempDir'";
+    EBox::Sudo::silentRoot("rm -rf '$tempDir'");
     return $backupDetails;
 }
 
@@ -957,8 +954,7 @@ sub _checkSize
     }
     finally {
         if (defined $tempDir) {
-            system("rm -rf '$tempDir'");
-            ($? == 0) or EBox::warn("Unable to remove $tempDir. Please do it manually");
+            EBox::Sudo::silentRoot("rm -rf '$tempDir'");
         }
     };
 
@@ -1247,7 +1243,7 @@ sub restoreBackup
     }
     finally {
         if ($tempdir) {
-            system "rm -rf '$tempdir'";
+            EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         }
         if ($options{deleteBackup}) {
             unlink $file;

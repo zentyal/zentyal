@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Printers;
-
 use strict;
 use warnings;
 
+package EBox::Printers;
 use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
@@ -112,6 +110,9 @@ sub initialSetup
                             'destinationPort' => 631,
                            );
         $firewall->saveConfigRecursive();
+    } elsif ($version le '3.0') {
+        my $path = EBox::Config::share() . 'zentyal-' . $self->name() . '/migrate-sql';
+        EBox::Sudo::root("$path $version");
     }
 }
 

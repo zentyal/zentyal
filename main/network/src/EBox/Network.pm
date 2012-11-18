@@ -3813,17 +3813,20 @@ sub resolv # (host)
 #
 # Parameters:
 #
+#   broadcast - IP broadcast address to be used
 #   macs - Array of MAC addresses of the computers to wake
 #
 # Returns:
 #
 #   string - output of the wakeonlan command
 #
-sub wakeonlan # (macs)
+sub wakeonlan
 {
-    my ($self, @macs) = @_;
-
-    my $param = join (' ' , @macs);
+    my ($self, $broadcast, @macs) = @_;
+    my $param = "-i '$broadcast'";
+    foreach my $mac (@macs) {
+        $param .= " '$mac'";
+    }
 
     return `wakeonlan $param 2>&1`;
 }

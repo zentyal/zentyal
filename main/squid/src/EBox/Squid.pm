@@ -504,8 +504,8 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
-    $self->_writeSquidFrontConf($filter);
-    $self->_writeSquidBackConf();
+    $self->_writeSquidConf($filter);
+    $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
@@ -554,7 +554,7 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
-sub _writeSquidFrontConf
+sub _writeSquidConf
 {
     my ($self, $filter) = @_;
 
@@ -602,7 +602,7 @@ sub _writeSquidFrontConf
     }
 }
 
-sub _writeSquidBackConf
+sub _writeSquidExternalConf
 {
     my ($self) = @_;
 
@@ -648,7 +648,6 @@ sub _writeSquidBackConf
 
     push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
     push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
-    push (@{$writeParam}, localnets => $self->_localnets());
     if ($globalRO->modExists('remoteservices')) {
         my $rs = $globalRO->modInstance('remoteservices');
         push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
@@ -680,24 +679,6 @@ sub _objectsDelayPools
 
     my @delayPools = @{$self->model('DelayPools')->delayPools()};
     return \@delayPools;
-}
-
-sub _localnets
-{
-    my ($self) = @_;
-
-    my $network = $self->global()->modInstance('network');
-    my $ifaces = $network->InternalIfaces();
-    my @localnets;
-    for my $iface (@{$ifaces}) {
-        my $ifaceNet = $network->ifaceNetwork($iface);
-        my $ifaceMask = $network->ifaceNetmask($iface);
-        next unless ($ifaceNet and $ifaceMask);
-        my $net = to_network_with_mask($ifaceNet, $ifaceMask);
-        push (@localnets, $net);
-    }
-
-    return \@localnets;
 }
 
 sub _writeDgConf
