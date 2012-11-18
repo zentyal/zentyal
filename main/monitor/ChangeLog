@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed measure display when multiple type instances are shown in
+	  the same graph (for instance, Df).
 	+ Do not monitorize NFS mounts disk spaces
 2.2.3
 	+ Added message about remote monitoring services
