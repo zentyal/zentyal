@@ -209,8 +209,8 @@ sub subscribeServer
                     # There were some available options but the server is not suitable
                     # for the available options
                     throw EBox::RemoteServices::Exceptions::NotCapable(
-                        __x('None of the available editions are valid for this server. Reason: {reason}',
-                            reason => $checker->lastError() )
+                        __('None of the available bundles are valid for this server')
+                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError() )
                        );
                 }
             }
