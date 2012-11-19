@@ -129,8 +129,6 @@ try {
         my $value = $params->{$key};
         $html =~ s/\Q{{ $key }}\E/$value/g;
     }
-# EEE
-#    utf8::decode($html);
     print $html;
 };
 

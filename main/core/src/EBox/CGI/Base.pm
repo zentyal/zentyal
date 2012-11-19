@@ -61,12 +61,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     }
     $self->{paramsKept} = ();
 
-    # EEE disabled
-#     # XXX workaround for utf8 hell
-#     if (Encode::is_utf8($self->{title})) {
-#         Encode::_utf8_off($self->{title});
-#     }
-
     bless($self, $class);
     return $self;
 }
@@ -218,7 +212,6 @@ sub _checkForbiddenChars
     my ($self, $value) = @_;
     POSIX::setlocale(LC_ALL, EBox::locale());
 
-    _utf8_on($value);
     unless ( $value =~ m{^[\w /.?&+:\-\@]*$} ) {
         my $logger = EBox::logger;
         $logger->info("Invalid characters in param value $value.");
@@ -413,13 +406,6 @@ sub unsafeParam # (param)
         @array = $cgi->param($param);
         (@array) or return undef;
         return @array;
-# EEE disabled
-#         my @ret = ();
-#         foreach my $v (@array) {
-#             _utf8_on($v);
-#             push(@ret, $v);
-#         }
-#         return @ret;
     } else {
         $scalar = $cgi->param($param);
         #check if $param.x exists for input type=image
@@ -427,8 +413,6 @@ sub unsafeParam # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
-# EEE
-#        _utf8_on($scalar);
         return $scalar;
     }
 }
@@ -448,8 +432,6 @@ sub param # (param)
             $v =~ s/^ +//;
             $v =~ s/ +$//;
             $self->_checkForbiddenChars($v);
-# EEE
-#            _utf8_on($v);
             push(@ret, $v);
         }
         return @ret;
@@ -464,8 +446,6 @@ sub param # (param)
         $scalar =~ s/^ +//;
         $scalar =~ s/ +$//;
         $self->_checkForbiddenChars($scalar);
-# EEE
-#        _utf8_on($scalar);
         return $scalar;
     }
 }

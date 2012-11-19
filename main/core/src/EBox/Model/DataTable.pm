@@ -4432,8 +4432,6 @@ sub _parse_words
 
     my @w = ();
     if(defined($str)) {
-# EEE
-#        Encode::_utf8_on($str);
         @w = split('\W+', lc($str));
     }
     return @w;

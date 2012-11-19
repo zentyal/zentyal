@@ -426,12 +426,8 @@ sub _redis_call
                 $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
-# EEEE
-#                    map { utf8::encode($_) if defined ($_) } @response;
                 } else {
                     $response = $self->{redis}->__read_response();
-# EEE
-#                    utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
             };

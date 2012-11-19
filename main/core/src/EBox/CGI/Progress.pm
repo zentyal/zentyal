@@ -56,11 +56,6 @@ sub _process
     push @params, (progressId => $self->_progressId);
 
     my $title = ($self->param('title'));
-    # EEE
-#     if ($title) {
-#         $self->{title} = encode (utf8 => $title);
-#     }
-
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
@@ -73,10 +68,6 @@ sub _process
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command
         # or so is run.
-# EEE
-#        use Encode;
-#        my $value = encode (utf8 => $self->unsafeParam($name));
-
         my $value = $self->unsafeParam($name);
         $value or
             next;
@@ -89,13 +80,9 @@ sub _process
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
                ( __('Saving changes') eq $self->{title} )) {
-# EEE
-#         unless ( $self->{title} and
-#                 encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-
-            if (EBox::Global->modExists('software')) {
-                push @params, (slides => _loadSlides());
-            }
+                  if (EBox::Global->modExists('software')) {
+                      push @params, (slides => _loadSlides());
+                  }
         }
     }
 
@@ -135,7 +122,7 @@ sub _menu
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and
-             encode(utf8 => __('Saving changes')) eq $self->{title} ) {
+             ( __('Saving changes') eq $self->{title}) ) {
             $software->firstTimeMenu(4);
         } else {
             $software->firstTimeMenu(2);
