@@ -26,7 +26,6 @@
     $urlRewriteProgram => undef
     @objectsDelayPools
     @notCachedDomains
-    @localnets
 
     $snmpEnabled => 0
 </%args>
@@ -155,7 +154,7 @@ snmp_access allow snmppublic to_localhost
 snmp_access deny all
 </%def>
 ###################################################################################
-http_port <% $port %>
+http_port localhost:<% $port %>
 
 
 visible_hostname localhost-external
@@ -227,10 +226,6 @@ acl_uses_indirect_client on
 acl noCached dstdomain <% $domain %>
 % }
 
-% if (@localnets) {
-acl to_localnets_zentyal dst <% join ' ', @localnets %>
-acl from_localnets_zentyal src <% join ' ', @localnets %>
-% }
 
 acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1
@@ -266,19 +261,14 @@ http_access deny !Safe_ports
 
 http_access deny CONNECT !SSL_ports
 http_access allow from_localhost
-http_access allow from_localnets_zentyal
-http_access deny all
 
-http_reply_access allow all
+# we use firewall to deny clients from the outside
+http_access allow all
 % if ($cache_host and $cache_port) {
 never_direct allow all
 % }
 
 <& .delayPools, objectsDelayPools => \@objectsDelayPools &>
-
-# default policy
-# All denied by default if no other allow rule matchs
-http_access deny all
 
 % if ( $snmpEnabled ) {
 <& .snmp &>

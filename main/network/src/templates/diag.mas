@@ -41,6 +41,8 @@ use EBox::Gettext;
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="wakeonlan"/>
 <h3><% __('Wake On LAN') %></h3>
+<% __('Broadcast address') %>:
+<input class='inputText' type='text' name='broadcast' value='255.255.255.255' />
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 <% __('MAC address') %>:
 

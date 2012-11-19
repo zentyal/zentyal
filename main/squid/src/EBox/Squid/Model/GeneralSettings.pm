@@ -139,6 +139,15 @@ sub validateTypedRow
                 __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
                );
         }
+
+        my $kerberos =  exists $params_r->{kerberos} ?
+                         $params_r->{kerberos}->value() :
+                         $actual_r->{kerberos}->value() ;
+        if ($kerberos) {
+            throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with Kerberos authentication')
+               );
+        }
 #         my $https =  exists $params_r->{https} ?
 #                          $params_r->{https}->value() :
 #                          $actual_r->{https}->value() ;
@@ -149,7 +158,6 @@ sub validateTypedRow
 #         }
 
     }
-
 }
 
 sub _checkPortAvailable

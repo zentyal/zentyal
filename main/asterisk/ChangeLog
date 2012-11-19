@@ -1,3 +1,6 @@
+HEAD
+	+ Create call log file when installing module
+	+ Make sure that timestamps are compatible with MySQL
 2.3.5
 	+ Disable form autocompletion in Provider username and password
 2.3.4
