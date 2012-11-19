@@ -627,9 +627,8 @@ sub _preSetConf
     my $hostName = $sysinfo->hostName();
 
     my $domainsModel = $self->model('DomainTable');
-    my $managedRows = $domainsModel->findAllValue(managed => 1);
 
-    foreach my $id (@{$managedRows}) {
+    foreach my $id (@{$domainsModel->ids()}) {
         my $domainRow = $domainsModel->row($id);
 
         # Only add the record to the zone which match the domain of the host
