@@ -118,7 +118,7 @@ try {
         my $value = $params->{$key};
         $html =~ s/{{ $key }}/$value/g;
     }
-    utf8::decode($html);
+#EEE    utf8::decode($html);
     print $html;
 
     print end_html;
