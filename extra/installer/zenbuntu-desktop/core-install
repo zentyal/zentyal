@@ -15,6 +15,10 @@ create_repository()
     # for some reason this worked flawlessly in lucid but not now in precise
     ulimit -n 30000
 
+    if ! [ -d $PKG_DIR ]; then
+        # temporal package directory does not exists, cannot create local repository
+        return
+    fi
     pushd $PKG_DIR
     apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
     popd
@@ -34,6 +38,8 @@ create_repository()
     apt-get update >> $LOG 2>&1
     # Restore the original sources.list
     mv /tmp/sources.list.orig ${SOURCES_LIST}
+
+    echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 }
 
 update_if_network()
@@ -77,8 +83,6 @@ gen_locales()
 }
 
 create_repository # Set up local package repository
-
-echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 
 if ! grep -q ${PPA_URL} ${SOURCES_LIST}
 then
