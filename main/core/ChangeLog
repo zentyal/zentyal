@@ -1,4 +1,6 @@
 HEAD
+	+ Add new EBox::Module::Service::Observer to notify modules about
+	  changes in the service status
 	+ Administration accounts management reflects the changes in
 	  system accounts in ids() or row() method call
 	+ Some fixes in the RAID event watcher

@@ -78,31 +78,6 @@ sub _create
     return $self;
 }
 
-# Method: bootDepends
-#
-#   Samba depends on CUPS only if printers module enabled.
-#
-# Overrides:
-#
-#   <EBox::Module::Base::depends>
-#
-sub bootDepends
-{
-    my ($self) = @_;
-
-    my $dependsList = $self->depends();
-
-    my $module = 'printers';
-    if (EBox::Global->modExists($module)) {
-        my $printers = EBox::Global->modInstance($module);
-        if ($printers->isEnabled()) {
-            push (@{$dependsList}, $module);
-        }
-    }
-
-    return $dependsList;
-}
-
 # Method: actions
 #
 #   Override EBox::Module::Service::actions
@@ -226,7 +201,7 @@ sub _enforceServiceState
     my ($self) = @_;
 
     if ($self->isEnabled() and $self->isProvisioned()) {
-        $self->_startService();
+        $self->_startService() unless $self->isRunning();
     } else {
         $self->_stopService();
     }
@@ -1086,6 +1061,9 @@ sub setupDNS
     }
     $domainRow->store();
 
+    # Stop service to avoid nsupdate failure
+    $dnsModule->stopService();
+
     # And force service restart
     $dnsModule->save();
 
@@ -1343,6 +1321,7 @@ sub _daemons
         },
         {
             name => 'zentyal.nmbd',
+            pidfiles => ['/var/run/nmbd.pid'],
         },
         {
             name => 'zentyal.s4sync',

@@ -102,11 +102,7 @@ sub validateTypedRow
             if ( $ns !~ m:\.:g ) {
                 $ns = "$ns.$zone";
             }
-            if ($zoneRow->valueByName('samba')) {
-                $self->{toDeleteSamba} = "$zone NS $ns";
-            } else {
-                $self->{toDelete} = "$zone NS $ns";
-            }
+            $self->{toDelete} = "$zone NS $ns";
         }
     }
 
@@ -126,12 +122,8 @@ sub updatedRowNotify
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete}, 0);
+        $self->_addToDelete($self->{toDelete});
         delete $self->{toDelete};
-    }
-    if (exists $self->{toDeleteSamba}) {
-        $self->_addToDelete($self->{toDeleteSamba}, 1);
-        delete $self->{toDeleteSamba};
     }
 }
 
@@ -154,11 +146,7 @@ sub deletedRowNotify
         if ( $ns !~ m:\.:g ) {
             $ns = "$ns.$zone";
         }
-        if ($zoneRow->valueByName('samba')) {
-            $self->_addToDelete("$zone NS $ns", 1);
-        } else {
-            $self->_addToDelete("$zone NS $ns", 0);
-        }
+        $self->_addToDelete("$zone NS $ns");
     }
 }
 
@@ -282,13 +270,10 @@ sub _hostnameModel
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $domain, $samba) = @_;
+    my ($self, $domain) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
-    if ($samba) {
-        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
-    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};

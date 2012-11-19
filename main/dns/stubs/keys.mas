@@ -11,7 +11,7 @@
 </%args>
 # Symmetric TSIG keys to update dynamic zones
 % foreach my $keyName (keys %{$keys}) {
-key "<% $keyName %>." {
+key "<% $keyName %>" {
     algorithm HMAC-MD5;
     secret "<% $keys->{$keyName} %>";
 };
