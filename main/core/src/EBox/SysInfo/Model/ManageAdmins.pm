@@ -12,24 +12,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::SysInfo::Model::ManageAdmins
 #
 #   This model is used to configure the administrator user account
 #
-
 package EBox::SysInfo::Model::ManageAdmins;
-
-use strict;
-use warnings;
+use base 'EBox::Model::DataTable';
 
 use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::Action;
-
-use base 'EBox::Model::DataTable';
 
 my $ADMIN_GROUP = 'sudo';
 
@@ -70,40 +66,44 @@ sub _table
     return $dataTable;
 }
 
-# Method: syncRows
-#
-#   Overrides <EBox::Model::DataTable::syncRows>
-#
-sub syncRows
+
+sub ids
 {
-    my ($self, $currentRows) = @_;
+    my ($self) = @_;
+    my (undef, undef, undef, $usersField) = getgrnam($ADMIN_GROUP);
+    my @users = split ('\s', $usersField);
+    my @ids = map {
+        my $id = getpwnam($_);
+        ($id)
+    } @users;
+    return \@ids;
+}
 
-    my $grent = `getent group $ADMIN_GROUP`;
-    chomp ($grent);
-    my (undef, undef, undef, $usersField) = split (':', $grent);
-    my @users = split (',', $usersField);
+sub row
+{
+    my ($self, $id) = @_;
+    my $username = getpwuid($id);
+    $username or throw
+        EBox::Exceptions::Internal("Inexistent user id: $id");
+    # we dont check again membership for sudo group
+    my $row = $self->_setValueRow(
+        username => $username
+    );
 
-    my %newUsers = map { $_ => 1 } @users;
+    $row->setId($id);
+    $row->setReadOnly(0);
+    return $row;
+}
 
-    my %currentUsers = map { $self->row($_)->valueByName('username') => $_ } @{$currentRows};
-
-    my $modified = 0;
-
-    my @usersToAdd = grep { not exists $currentUsers{$_} } keys %newUsers;
-    my @usersToDel = grep { not exists $newUsers{$_} } keys %currentUsers;
-
-    foreach my $user (@usersToAdd) {
-        $self->add(username => $user);
-        $modified = 1;
+sub _checkRowExist
+{
+    my ($self, $id, $text) = @_;
+    my $user = getpwuid($id);
+    if (not $user) {
+        throw EBox::Exceptions::DataNotFound(
+            data => 'UserId',
+            value => $id);
     }
-
-    foreach my $user (@usersToDel) {
-        my $id = $currentUsers{$user};
-        $self->removeRow($id, 1);
-        $modified = 1;
-    }
-
-    return $modified;
 }
 
 sub addTypedRow
@@ -125,7 +125,7 @@ sub addTypedRow
         EBox::Sudo::root("adduser $user $ADMIN_GROUP");
 
         my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('System', 'General', 'addAdmin', $user);
+        $audit->logAction('System', 'General', 'addAdmin', $user, 0);
     }
 
     $self->SUPER::addTypedRow($params);
@@ -140,14 +140,15 @@ sub setTypedRow
     my $user = $params->{username}->value();
     my $oldName = $oldRow->valueByName('username');
 
-    EBox::Sudo::root("usermod -l $user $oldName");
+    if ($user ne $oldName) {
+        EBox::Sudo::root("usermod -l $user $oldName");
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
+    }
 
     my $password = $params->{password}->value();
     if ($password) {
         $self->_changePassword($user, $password);
-
-        my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('System', 'General', 'changePassword', $user);
     }
 
     $self->SUPER::setTypedRow($id, $params);
@@ -163,7 +164,7 @@ sub removeRow
     EBox::Sudo::root("deluser $user $ADMIN_GROUP");
 
     my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'delAdmin', $user);
+    $audit->logAction('System', 'General', 'delAdmin', $user, 0);
 
     $self->SUPER::removeRow($id);
 }
@@ -186,7 +187,7 @@ sub _changePassword
 
     EBox::Auth->setPassword($username, $password);
     my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'changePassword', $username);
+    $audit->logAction('System', 'General', 'changePassword', $username, 0);
 }
 
 sub _userIsAdmin
