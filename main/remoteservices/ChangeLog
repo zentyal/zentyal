@@ -1,4 +1,7 @@
 HEAD
+	+ Handle desktop subscription limit error status
+	+ Return the cloud domain along with the credentials to the desktops
+	  upon subscription
 	+ Clearer message is shown when your server is not capable for any
 	  available edition
 	+ Remove unnecessary field for mail reporting
