@@ -1,4 +1,4 @@
-HEAD
+3.0.8
 	+ Depend on Samba4 RC5
 	+ Fix bug in enforceServiceState causing samba to restart twice while
 	  saving changes
