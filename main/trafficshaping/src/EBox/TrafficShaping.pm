@@ -446,7 +446,11 @@ sub checkRule
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-    $self->_createBuilders(regenConfig => 0);
+    my @createBuildersParams = (regenConfig => 0);
+    if ($ruleParams{enabled}) {
+        push @createBuildersParams, activeIface => $ruleParams{interface};
+    }
+    $self->_createBuilders(@createBuildersParams);
 
     if (defined ($ruleParams{ruleId})) {
       # Try to update the rule
@@ -1005,7 +1009,13 @@ sub _createBuilders
     my @ifaces = @{$self->_realIfaces()};
     foreach my $iface (@ifaces) {
         $self->{builders}->{$iface} = {};
-        if ( $self->_areRulesActive($iface, not $regenConfig) ) {
+        my $active;
+        if ($params{activeIface} and ($params{activeIface} eq $iface)) {
+            $active = 1;
+        } else {
+            $active = $self->_areRulesActive($iface, not $regenConfig);
+        }
+        if ( $active  ) {
             # If there's any rule, for now use an HTBTreeBuilder
             $self->_createTree($iface, "HTB", $regenConfig);
 
