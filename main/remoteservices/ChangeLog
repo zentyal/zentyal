@@ -1,4 +1,4 @@
-HEAD
+3.0.8
 	+ Handle desktop subscription limit error status
 	+ Return the cloud domain along with the credentials to the desktops
 	  upon subscription
