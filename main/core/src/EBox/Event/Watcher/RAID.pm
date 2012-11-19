@@ -293,10 +293,11 @@ sub _checkRemoveArray
 
     my $evMod = $self->{events};
     my @removeEvents = ();
-    my @currentArrays = grep { $_ ne 'unusedDevices' } keys %{$raidInfo};
-    my %currentArrays = map { $_ => 1 } @currentArrays;
+    my %currentArrays = map { $_ => 1 } keys %{$raidInfo};
 
     foreach my $arrayName (keys %{$storedRaidInfo}) {
+        # Skip unused devices
+        next if ( $arrayName eq 'unusedDevices' );
         next if (exists ($currentArrays{$arrayName}));
         my $evtMsg = __x('RAID device {name} has dissappeared: A RAID array '
                          . 'which previously was configured appears to no '
@@ -460,7 +461,7 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my %currentComps = map { $_->{device} => $_->{state} } values %{$arrayInfo->{raidDevices}};
-    my %storedComps  = map { $_->{device} => $_->{state} } @{$storedInfo->{raidDevices}};
+    my %storedComps  = map { $_->{device} => $_->{state} } values %{$storedInfo->{raidDevices}};
 
     my @compEvents = ();
     my $evtMsg;

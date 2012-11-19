@@ -1,4 +1,5 @@
 HEAD
+	+ Some fixes in the RAID event watcher
 	+ foreignModelInstance returns undef if foreignModel is
 	  undef. This happens when a module has been uninstalled and it is
 	  referenced in other installed module (events)
