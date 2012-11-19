@@ -31,7 +31,8 @@ sub new # (data=>string)
 
 
     my $data = delete $opts{data};
-    utf8::decode($data);
+# EEE
+#    utf8::decode($data);
 
     my $error = __x("{data} is empty.", data => $data);
 

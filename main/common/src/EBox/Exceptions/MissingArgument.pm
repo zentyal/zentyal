@@ -37,7 +37,8 @@ sub new
 {
     my $class = shift;
     my $arg = shift;
-    utf8::decode($arg);
+# EEE
+#    utf8::decode($arg);
 
     my $error = __x('Missing argument: {data}', data => $arg);
 
