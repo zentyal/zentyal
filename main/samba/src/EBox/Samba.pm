@@ -1061,6 +1061,9 @@ sub setupDNS
     }
     $domainRow->store();
 
+    # Stop service to avoid nsupdate failure
+    $dnsModule->stopService();
+
     # And force service restart
     $dnsModule->save();
 
