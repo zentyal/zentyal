@@ -1,4 +1,5 @@
 HEAD
+	+ Removed unused method _utf8Attrs
 	+ Delete syncjournal files when slave is removed
 3.0.5
 	+ Fixed reinstall script to stop samba module, otherwise new slapd
