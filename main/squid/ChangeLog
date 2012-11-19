@@ -1,4 +1,4 @@
-HEAD
+3.0.2
 	+ Fix escaping in categorised list uploading. This is a regression
 	  from 3.0.1 release.
 	+ Force all connections to pass through squid-external or deny access
