@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 3.0.1
 	+ Do not run daemon and show message when configuration does not
 	  provide addresses for interfaces

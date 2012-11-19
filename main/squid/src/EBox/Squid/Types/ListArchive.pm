@@ -63,9 +63,10 @@ sub _paramIsValid
 
     my $validContents;
     my $contents = EBox::Sudo::root("tar tzf '$tmpPath'");
-    foreach my $line (@{ $contents  }) {
+    foreach my $line (@{ $contents }) {
         chomp $line;
         my ($parentDir, $category, $basename) = split '/', $line, 3;
+        next unless (defined($basename));
         if (exists $validParentDirs{$parentDir} and exists $validBasename{$basename}) {
             $validContents = 1;
             next;
@@ -134,7 +135,7 @@ sub _makeSquidDomainFiles
         my $tmpFile = $dirname . '/tmp';
         EBox::Sudo::root(
             qq{cat '$file' | awk '{ print length, \$0 }' | sort -n | awk '{\$1=""; print \$0}' > '$tmpFile'},
-            "cat '$tmpFile' | uniq -i > $dstFile",  # to remove duplicates
+            "cat '$tmpFile' | uniq -i > '$dstFile'",  # to remove duplicates
             "sed -e s/^././ -i '$dstFile'", # the first chracter is a blank
                                             # character
            );

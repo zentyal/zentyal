@@ -86,7 +86,7 @@ sub processLine # (file, line, logger)
 
     # date is like 'Mon Nov 8 19:03:14 2004'. rmeove first day
     my $format = '%a %b %e %H:%M:%S %Y';
-    my $timestamp = $self->_convertTimestamp($format, $date);
+    my $timestamp = $self->_convertTimestamp($date, $format);
 
     if ($event =~ /User not found/) {
         $event = 'User not found';

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# change owner
-if [ -f /var/log/asterisk/cdr-csv/Master.csv ] ; then
-    chown asterisk:asterisk /var/log/asterisk/cdr-csv/Master.csv
-fi
+# create log file change owner
+touch /var/log/asterisk/cdr-csv/Master.csv
+chown asterisk:asterisk /var/log/asterisk/cdr-csv/Master.csv
+
 if [ -d /var/spool/asterisk/ ] ; then
     chown asterisk:asterisk /var/spool/asterisk/
 fi
