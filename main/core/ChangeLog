@@ -1,4 +1,6 @@
 HEAD
+	+ Administration accounts management reflects the changes in
+	  system accounts in ids() or row() method call
 	+ Some fixes in the RAID event watcher
 	+ foreignModelInstance returns undef if foreignModel is
 	  undef. This happens when a module has been uninstalled and it is
