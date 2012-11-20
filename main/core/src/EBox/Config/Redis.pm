@@ -57,6 +57,7 @@ sub _new
 
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty;
+    $self->{json} = JSON::XS->new;
 
     unless ($lock) {
         my $path = undef;
@@ -375,8 +376,12 @@ sub _sync
 
     foreach my $key (keys %modified) {
         my $value = $cache{$key};
+        use Data::Dumper;
+#        EBox::debug("bef value " . Dumper($value));
         if (ref $value) {
             $value = encode_json($value);
+#            $value = $self->{json}->encode($value);
+#            EBox::debug("after encode value " . Dumper($value));
         }
         if (defined $value) {
             $self->_redis_call('set', $key, $value);
@@ -486,7 +491,7 @@ sub _respawn
     my $home = $self->_home();
     my $filepasswd = $self->_passwd();
 
-    my $redis = Redis->new(sock => "$home/redis.$user.sock");
+    my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
