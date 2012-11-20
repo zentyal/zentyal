@@ -1,3 +1,6 @@
+HEAD
+	+ Avoided infinite recursion incidents when instantiating new
+	  measure objects
 3.0.1
 	+ Fixed measure display when multiple type instances are shown in
 	  the same graph (for instance, Df).
