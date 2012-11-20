@@ -1,16 +1,33 @@
 #!/usr/bin/perl
 
+use strict;
+use warnings;
+
+use Sys::Filesystem;
+
+# Umount fuse filesystems to enable quota
+my $fs = Sys::Filesystem->new();
+my @filesystems = $fs->filesystems();
+foreach my $f (@filesystems) {
+    my $mountPoint = $fs->mount_point($f);
+    my $format = $fs->format($f);
+    if ($format =~ m/fuse\.gvfs-fuse-daemon/) {
+        system ("fusermount -u $mountPoint");
+    }
+}
+
+
 # Add quota support to fstab. It's set up for "/home" if exists,
 # otherwise we fall back to "/". Remount partition and turn quotas on
 
-open(FD, "/etc/fstab") or die "Could not open /etc/fstab";
+open (FD, "/etc/fstab") or die "Could not open /etc/fstab";
 my @fstab = <FD>;
-close(FD);
+close (FD);
 
 my $home = undef;
 my $root = undef;
 my $num = -1;
-for $line (@fstab) {
+for my $line (@fstab) {
     $num++;
     my @fields = split(/[\t\s]+/, $line);
     next if ($fields[0] =~ /^#.*/);
@@ -43,8 +60,13 @@ if ($line) {
     exit 1;
 }
 
-open(FD, ">/etc/fstab") or die "Could not write on /etc/fstab";
+open (FD, ">/etc/fstab") or die "Could not write on /etc/fstab";
 print FD @fstab;
-close(FD);
-system("/bin/mount -o remount $mount");
+close (FD);
+
+system ("/bin/mount -o remount $mount");
+
+# Enable quota
+system ("/etc/init.d/quota restart");
+
 exit 0;
