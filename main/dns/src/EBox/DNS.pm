@@ -64,6 +64,7 @@ use constant DELETED_RR_KEY => 'deleted_rr';
 use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
 use constant DESKTOP_SERVICE_PORT => 6895;
+use constant DESKTOP_SERVICE_NAME => 'zentyal-desktop-api';
 
 sub _create
 {
@@ -616,11 +617,9 @@ sub _preSetConf
     my ($self) = @_;
 
     # Add 'zentyal' to /etc/services
-    EBox::Sudo::root("if [ `grep -c zentyal /etc/services` -gt 0 ]; then " .
-                     "  sed -i 's/.*6895.*/zentyal\t\t6895\\\/tcp/' /etc/services; " .
-                     "else " .
-                     "  echo 'zentyal\t\t6895/tcp' >> /etc/services; " .
-                     "fi");
+    my $cmd = EBox::Config::scripts('dns') . '/add-zentyal-desktop-service';
+    my $args = DESKTOP_SERVICE_NAME . ' ' . DESKTOP_SERVICE_PORT;
+    EBox::Sudo::root("$cmd $args");
 
     my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
@@ -628,49 +627,25 @@ sub _preSetConf
 
     my $domainsModel = $self->model('DomainTable');
 
-    foreach my $id (@{$domainsModel->ids()}) {
-        my $domainRow = $domainsModel->row($id);
-
-        # Only add the record to the zone which match the domain of the host
-        my $servicesDomain = $domainRow->printableValueByName('domain');
-        if ($servicesDomain eq $hostDomain) {
-            my $alreadyExist = undef;
-            my $srvModel = $domainRow->subModel('srv');
-            my $ids = $srvModel->ids();
-            for my $id (@{$ids}) {
-                my $service = $srvModel->row($id);
-                my $service_name = $service->valueByName('service_name');
-
-                # Service present => Update it
-                if ($service_name eq 'zentyal'){
-                    $alreadyExist = 1;
-                }
-            }
-
-            unless($alreadyExist) {
+    my $domainRow = $domainsModel->find(domain => $hostDomain);
+    if ($domainRow) {
+        my $srvModel = $domainRow->subModel('srv');
+        my $srvRow = $srvModel->find(service_name => DESKTOP_SERVICE_NAME);
+        if ($srvRow) {
+            # TODO: Update the port
+        } else {
             # Service is not present => Add it
-                my %service = ( service_name => 'zentyal',
-                                protocol => 'tcp',
-                                port => DESKTOP_SERVICE_PORT,
-                                priority => 0,
-                                weight => 0,
-                                hostName_selected => 'ownerDomain',
-                                readOnly => 1 );
-
-                # Set the hostname id
-                my $hostsModel = $domainRow->subModel('hostnames');
-                my $ids = $hostsModel->ids();
-                foreach my $id (@{$ids}) {
-                    my $row = $hostsModel->row($id);
-                    my $rowHostName = $row->valueByName('hostname');
-                    if ($rowHostName eq $hostName) {
-                        $service{ownerDomain} = $id;
-                        last;
-                    }
-                }
-
-                $srvModel->addRow(%service);
-            }
+            my $service = {
+                service => DESKTOP_SERVICE_NAME,
+                protocol => 'tcp',
+                port => DESKTOP_SERVICE_PORT,
+                priority => 0,
+                weight => 0,
+                target_type => 'domainHost',
+                target => $hostName,
+                readOnly => 1
+                };
+            $self->addService($hostDomain, $service);
         }
     }
 }
