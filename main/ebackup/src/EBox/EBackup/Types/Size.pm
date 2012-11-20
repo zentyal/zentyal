@@ -57,7 +57,7 @@ sub value
     my $row = $self->row();
     return undef unless ($row);
 
-    my $name = $row->valueByName(’module’);
+    my $name = $row->valueByName('module');
 
     return ( -f "/etc/apache2/mods-enabled/$name.load" );
 }
