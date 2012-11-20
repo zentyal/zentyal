@@ -4,13 +4,12 @@
 <%init>
 use EBox::Gettext;
 
-my @columnTitles = (__('Date'), __('Name'), __('Description'));
+my @columnTitles = (__('Name'), __('Description'),__('Date'));
 
 my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 </%init>
 
-<div>
-<div id="software" style="padding: 15px 0">
+<div id="software">
 <div id="basic">
 
 % if (keys %backups) {
@@ -30,10 +29,10 @@ my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 %   foreach my $row (@rows) {
 %     my $type = ($counter++ % 2 == 0) ? 'odd' : 'even';
 <tr class="border <% $type %>">
-<td class="tcenter"><input type="radio" name="name" value="<% $row->{Filename} %>"/></td>
+<td><input type="radio" name="name" value="<% $row->{Filename} %>"/></td>
+<td><% $row->{Filename} %></td>
+<td><% $row->{Comment} %></td>
 <td class="tcenter"><% $row->{Date} %></td>
-<td class="tcenter"><% $row->{Filename} %></td>
-<td class="tcenter"><% $row->{Comment} %></td>
 </tr>
 %   }
 </tbody>
@@ -55,5 +54,4 @@ my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 % if (keys %backups) {
 </form>
 % }
-</div>
 </div>
