@@ -1,3 +1,6 @@
+HEAD
+	+ Some fixes in the function to add the rule for desktops services
+	  to the firewall
 3.0.7
 	+ Add new EBox::Module::Service::Observer to notify modules about
 	  changes in the service status

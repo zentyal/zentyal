@@ -1,3 +1,6 @@
+HEAD
+	+ Add the 'zentyal-desktop-api' SRV entry to the domain of the host
+	+ Add 'zentyal-desktop-api' to /etc/services in the _setConf
 3.0.2
 	+ Add method getTsigKeys to allow DHCP module write the ddns keys
 	+ Do not add trailing dot to key names
