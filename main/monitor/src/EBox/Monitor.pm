@@ -694,11 +694,23 @@ sub _removeSubscriptionLink
     opendir(my $dh, $parentPath);
     while ( defined(my $subdir = readdir($dh)) ) {
         if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
-            # seems a subscription directory
             # Stop the service before removing to avoid race conditions
             $self->_stopService() if $stopService;
-            EBox::debug("REMOVE subscription linl $parentPath/$subdir");
-            EBox::Sudo::root("rm $parentPath/$subdir");
+            # seems a subscription directory link, check if is a symbolink link
+            if (EBox::Sudo::fileTest('-L', $subdir)) {
+                EBox::Sudo::root("rm $parentPath/$subdir");
+            } else {
+                # to avoid lose data we will move it to rrd path based in
+                # hostname (it overwrites rrd base path if exists but the
+                # subscription dir has mode updated data)
+                my $rrdBaseDirPath = $self->rrdBaseDirPath();
+                EBox::Sudo::root(
+                                  "rm -rf '$rrdBaseDirPath'",
+                                  "mv -f  '$parentPath/$subdir' '$rrdBaseDirPath'"
+                                 );
+            }
+
+            last;
         }
     }
     closedir($dh);

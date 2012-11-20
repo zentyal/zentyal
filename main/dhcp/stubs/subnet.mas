@@ -86,12 +86,12 @@
                 ddns-domainname      "<% $info{'staticDomain'} %>.";
                 zone <% $info{'staticDomain'} %>. {
                     primary 127.0.0.1;
-                    key <% $info{'staticDomain'} %>.;
+                    key <% $info{'staticDomain'} %>;
                 }
 %         foreach my $revZone (@{$info{'reverseZones'}}) {
                 zone <% $revZone %>                       {
                     primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>.;
+                    key <% $info{'dynamicDomain'} %>;
                 }
 %         }
 %     } else {
@@ -105,12 +105,12 @@
                 ddns-domainname      "<% $info{'dynamicDomain'} %>.";
                 zone <% $info{'dynamicDomain'} %>. {
                     primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>.;
+                    key <% $info{'dynamicDomain'} %>;
                 }
 %         foreach my $revZone (@{$info{'reverseZones'}}) {
                 zone <% $revZone %> {
                     primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>.;
+                    key <% $info{'dynamicDomain'} %>;
                 }
 %         }
 %     }

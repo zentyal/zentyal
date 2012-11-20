@@ -5,6 +5,14 @@ HEAD
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
 	+ Added exception for cloud-prof to events dependencies
+	+ Some fixes in the function to add the rule for desktops services
+	  to the firewall
+3.0.7
+	+ Add new EBox::Module::Service::Observer to notify modules about
+	  changes in the service status
+	+ Administration accounts management reflects the changes in
+	  system accounts in ids() or row() method call
+	+ Some fixes in the RAID event watcher
 	+ foreignModelInstance returns undef if foreignModel is
 	  undef. This happens when a module has been uninstalled and it is
 	  referenced in other installed module (events)

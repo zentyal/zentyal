@@ -684,6 +684,13 @@ sub _startService
 {
     my ($self) = @_;
     $self->_manageService('start');
+
+    # Notify observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::Module::Service::Observer')};
+    foreach my $obs (@observers) {
+        $obs->serviceStarted($self);
+    }
 }
 
 # Method: stopService

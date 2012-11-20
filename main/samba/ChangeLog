@@ -1,5 +1,12 @@
 HEAD
 	+ Integration with Disaster Recovery service
+	+ Fix ACLs for system type shares
+3.0.8
+	+ Depend on Samba4 RC5
+	+ Fix bug in enforceServiceState causing samba to restart twice while
+	  saving changes
+	+ Set pid file path for nmbd daemon
+	+ Set bootDepends in yaml file
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 	+ Use proper constant in userShares method used by remoteservices module
 3.0.7
