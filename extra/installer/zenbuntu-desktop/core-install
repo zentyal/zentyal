@@ -99,7 +99,6 @@ PACKAGES=zentyal
 
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then
-    echo "deb http://fixme.zentyal.org/ ./" > /etc/apt/sources.list.d/cloud-beta.list
     PACKAGES="$PACKAGES zentyal-files-sync"
     touch /var/lib/zentyal/.disaster-recovery
 fi
