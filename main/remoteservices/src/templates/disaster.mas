@@ -9,7 +9,9 @@ my @columnTitles = (__('Name'), __('Description'),__('Date'));
 my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 </%init>
 
-<div id="software">
+<img src="/data/images/restore-backup.png" style="position: absolute; top: -10px; right: 0px;"/>
+
+<div id="software" style="margin-top: 55px">
 <div id="basic">
 
 % if (keys %backups) {
