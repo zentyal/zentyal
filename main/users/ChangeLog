@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed delGroup operation on cloud slave
 	+ Fix enable quotas without rebooting when module is enabled.
 	+ Delete syncjournal files when slave is removed
 3.0.5
