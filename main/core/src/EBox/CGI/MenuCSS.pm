@@ -17,6 +17,7 @@ package EBox::CGI::MenuCSS;
 
 use strict;
 use warnings;
+use CGI;
 
 sub new
 {
