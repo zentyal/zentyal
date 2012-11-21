@@ -57,7 +57,6 @@ sub _new
 
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty;
-    $self->{json} = JSON::XS->new;
 
     unless ($lock) {
         my $path = undef;
@@ -376,12 +375,8 @@ sub _sync
 
     foreach my $key (keys %modified) {
         my $value = $cache{$key};
-        use Data::Dumper;
-#        EBox::debug("bef value " . Dumper($value));
         if (ref $value) {
             $value = encode_json($value);
-#            $value = $self->{json}->encode($value);
-#            EBox::debug("after encode value " . Dumper($value));
         }
         if (defined $value) {
             $self->_redis_call('set', $key, $value);
