@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed delGroup operation on cloud slave
 	+ Include exception message when there is an error notifying a slave
 	+ Fix enable quotas without rebooting when module is enabled
 	+ Delete syncjournal files when slave is removed
