@@ -20,8 +20,7 @@ package EBox::CaptivePortal;
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LdapModule
-            EBox::Events::WatcherProvider
-          );
+            EBox::Events::WatcherProvider);
 
 use EBox;
 use EBox::Global;

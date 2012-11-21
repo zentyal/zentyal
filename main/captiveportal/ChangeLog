@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in authorization restricted by group
 	+ Added missing EBox::Exceptions uses
 3.2
 	+ Set version to 3.2
