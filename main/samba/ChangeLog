@@ -1,4 +1,5 @@
 HEAD
+	+ Set kerberos keys when importing users from samba to zentyal
 	+ Fix ACLs for system type shares
 3.0.8
 	+ Depend on Samba4 RC5

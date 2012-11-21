@@ -465,6 +465,7 @@ sub addToZentyal
         comment => $comment,
     };
 
+    my $zentyalUser = undef;
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba user '$uid' to Zentyal");
@@ -477,9 +478,20 @@ sub addToZentyal
             $self->set('uidNumber', $uidNumber);
             $self->setupUidMapping($uidNumber);
         }
-        EBox::UsersAndGroups::User->create($params, 0, %optParams);
+        $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+        $zentyalUser->setIgnoredModules(['samba']);
     } otherwise {
     };
+
+    if (defined $zentyalUser) {
+        try {
+            my $sc = $self->get('supplementalCredentials');
+            my $up = $self->get('unicodePwd');
+            my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+                unicodePwd => $up);
+            $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+        } otherwise {};
+    }
 }
 
 sub updateZentyal

@@ -951,7 +951,8 @@ sub setKerberosKeys
         throw EBox::Exceptions::Internal($asn_key->error());
         push (@{$blobs}, $blob);
     }
-        $self->set('krb5Key', $blobs);
+    $self->set('krb5Key', $blobs);
+    $self->set('userPassword', '{K5KEY}');
 }
 
 1;
