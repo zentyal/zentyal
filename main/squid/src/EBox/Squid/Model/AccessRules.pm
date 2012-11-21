@@ -213,6 +213,11 @@ sub rules
             } else {
                 $users = $userMod->group($group)->users();
             }
+
+            if (not @{ $users }) {
+                # ignore rules for empty groups
+                next;
+            }
             $rule->{users} = [ (map {
                                       my $name =  $_->name();
                                       lc $name;

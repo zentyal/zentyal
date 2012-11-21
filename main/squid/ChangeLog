@@ -1,4 +1,5 @@
 HEAD
+	+ Ignore access rule for empty groups
 	+ Mark module as changed if addition/removal of users modify ACLs
 3.0.2
 	+ Fix escaping in categorised list uploading. This is a regression
