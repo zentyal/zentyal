@@ -988,13 +988,13 @@ sub provisionAsADC
         # Wait some time until samba is ready
         sleep (5);
 
-        # Run samba_dnsupdate to add required records to the windows DC
-        EBox::info('Running DNS update on windows DC');
+        # Run samba_dnsupdate to add required records to the remote DC
+        EBox::info('Running DNS update on remote DC');
         $cmd = 'samba_dnsupdate --no-credentials';
         EBox::Sudo::rootWithoutException($cmd);
 
-        # Run Knowledge Consistency Checker (KCC) on windows DC
-        EBox::info('Running KCC on windows DC');
+        # Run Knowledge Consistency Checker (KCC) on remote DC
+        EBox::info('Running KCC on remote DC');
         $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
             " --username='$adminAccount' " .
             " --password='$adminAccountPwd' ";
