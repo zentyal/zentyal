@@ -48,6 +48,7 @@ use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
+use Net::Ping;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -914,6 +915,7 @@ sub provisionAsADC
     }
 
     my $dnsFile = undef;
+    my $adminAccountPwdFile = undef;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
 
@@ -930,9 +932,27 @@ sub provisionAsADC
                              'network/resolv.conf.mas',
                              $array);
 
+        # Try to contact the DC
+        EBox::info("Trying to contact '$dcFQDN'");
+        my $pinger = Net::Ping->new('tcp', 2);
+        $pinger->port_number(445);
+        unless ($pinger->ping($dcFQDN)) {
+            throw EBox::Exceptions::External(
+                __x('The specified domain controller {x} is unreachable.',
+                    x => $dcFQDN));
+        }
+
+        # Get a ticket for admin User
+        my $principal = "$adminAccount\@$krbRealm";
+        (undef, $adminAccountPwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
+        EBox::info("Trying to get a kerberos ticket for principal '$principal'");
+        write_file($adminAccountPwdFile, $adminAccountPwd);
+        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' $principal";
+        EBox::Sudo::root($cmd);
+
         # Join the domain
-        EBox::debug("Joining to the domain");
-        my $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
+        EBox::info("Executing domain join");
+        $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
             " --username='$adminAccount' " .
             " --workgroup='$netbiosDomain' " .
             " --password='$adminAccountPwd' " .
@@ -952,7 +972,7 @@ sub provisionAsADC
             if (-r $stderr) {
                 @error = read_file($stderr);
             }
-            throw EBox::Exceptions::Internal("Error joining to domain: @error");
+            throw EBox::Exceptions::External("Error joining to domain: @error");
         }
 
         $self->setupDNS(1);
@@ -968,8 +988,13 @@ sub provisionAsADC
         # Wait some time until samba is ready
         sleep (5);
 
-        # Run Knowledge Consistency Checker (KCC) on windows DC
-        EBox::info('Running KCC on windows DC');
+        # Run samba_dnsupdate to add required records to the remote DC
+        EBox::info('Running DNS update on remote DC');
+        $cmd = 'samba_dnsupdate --no-credentials';
+        EBox::Sudo::rootWithoutException($cmd);
+
+        # Run Knowledge Consistency Checker (KCC) on remote DC
+        EBox::info('Running KCC on remote DC');
         $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
             " --username='$adminAccount' " .
             " --password='$adminAccountPwd' ";
@@ -1024,6 +1049,12 @@ sub provisionAsADC
             EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
+        # Remote stashed password
+        if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+            unlink $adminAccountPwdFile;
+        }
+        # Destroy cached tickets
+        EBox::Sudo::rootWithoutException('kdestroy');
     };
 }
 
