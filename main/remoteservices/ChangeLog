@@ -1,4 +1,5 @@
 HEAD
+	+ More resilient reporting operations to reporter errors
 	+ Fix stupid bug in desktop subscription service
 3.0.8
 	+ Handle desktop subscription limit error status
