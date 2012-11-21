@@ -72,7 +72,7 @@ sub _delGroupWarning
     my $squid = EBox::Global->modInstance('squid');
     my $rules = $squid->model('AccessRules');
     if ($rules->existsPoliciesForGroup($group)) {
-        return (q{HTTP proxy access rules});
+        return (__('HTTP proxy access rules'));
     }
     return ();
 }
