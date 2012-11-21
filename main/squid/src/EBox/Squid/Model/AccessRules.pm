@@ -269,7 +269,7 @@ sub existsPoliciesForGroup
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
         next unless $source->selectedType() eq 'group';
-        my $userGroup = $source->printableValue();
+        my $userGroup = $source->value();
         if ($group eq $userGroup) {
             return 1;
         }
