@@ -1,3 +1,5 @@
+HEAD
+	+ Ignore access rule for empty groups
 3.0.2
 	+ Fix escaping in categorised list uploading. This is a regression
 	  from 3.0.1 release.
