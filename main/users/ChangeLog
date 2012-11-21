@@ -1,5 +1,6 @@
 HEAD
-	+ Fix enable quotas without rebooting when module is enabled.
+	+ Include exception message when there is an error notifying a slave
+	+ Fix enable quotas without rebooting when module is enabled
 	+ Delete syncjournal files when slave is removed
 3.0.5
 	+ Fixed reinstall script to stop samba module, otherwise new slapd
