@@ -36,12 +36,12 @@ use EBox::MailFirewall;
 use EBox::Mail::Greylist;
 use EBox::Mail::FetchmailLdap;
 use EBox::Service;
-
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
+use EBox::SyncFolders::Folder;
 
 use Error qw( :try );
 use Proc::ProcessTable;

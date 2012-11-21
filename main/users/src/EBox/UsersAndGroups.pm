@@ -41,6 +41,7 @@ use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::SyncFolders::Folder;
 
 use Digest::SHA;
 use Digest::MD5;

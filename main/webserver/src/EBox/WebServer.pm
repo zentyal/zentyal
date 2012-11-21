@@ -20,7 +20,7 @@ use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::SyncFolders::Folder;
 use EBox::Service;
 
 use EBox::Exceptions::External;
