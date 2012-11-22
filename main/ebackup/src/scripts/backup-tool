@@ -492,7 +492,7 @@ if ($mustExit) {
 
 
 try {
-   $ebackup->lock() ;
+   $ebackup->_lock() ;
 } otherwise {
     $ebackup->backupProcessUnlock();
     my $busyMsg = __('The backup module is busy, retry later');
@@ -577,7 +577,7 @@ try {
     } finally {
         # This code must be run always
         $ebackup->backupProcessUnlock();
-        $ebackup->unlock();
+        $ebackup->_unlock();
     }
 };
 
