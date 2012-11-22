@@ -22,24 +22,35 @@ use EBox::Config;
 
 use Fcntl qw(:flock);
 
+
+my %LOCKS;
+
 sub lock
 {
-    my ($modulename) = @_;
-    my $file = EBox::Config::tmp . "/" . $modulename . ".lock";
-    open(LOCKFILE, ">$file") or
+    my ($owner) = @_;
+    my $file = _lockFile($owner);
+
+    open($LOCKS{$owner}, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");
-    flock(LOCKFILE, LOCK_EX | LOCK_NB) or
-        throw EBox::Exceptions::Lock($modulename);
+    flock($LOCKS{$owner}, LOCK_EX | LOCK_NB) or
+        throw EBox::Exceptions::Lock($owner);
 }
 
 sub unlock
 {
-    my ($modulename) = @_;
-    my $file = EBox::Config::tmp . "/" . $modulename . ".lock";
-    open(LOCKFILE, ">$file") or
+    my ($owner) = @_;
+    my $file = _lockFile($owner);
+    open($LOCKS{$owner}, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
-    flock(LOCKFILE, LOCK_UN);
-    close(LOCKFILE);
+    flock($LOCKS{$owner}, LOCK_UN);
+    close($LOCKS{$owner});
+    delete $LOCKS{$owner};
+}
+
+sub _lockFile
+{
+    my ($owner) = @_;
+    return EBox::Config::tmp .  $owner . ".lock";
 }
 
 1;
