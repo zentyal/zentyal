@@ -213,6 +213,11 @@ sub rules
             } else {
                 $users = $userMod->group($group)->users();
             }
+
+            if (not @{ $users }) {
+                # ignore rules for empty groups
+                next;
+            }
             $rule->{users} = [ (map {
                                       my $name =  $_->name();
                                       lc $name;
@@ -269,7 +274,7 @@ sub existsPoliciesForGroup
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
         next unless $source->selectedType() eq 'group';
-        my $userGroup = $source->printableValue();
+        my $userGroup = $source->value();
         if ($group eq $userGroup) {
             return 1;
         }

@@ -1,6 +1,8 @@
-3.0.9
+HEAD
 	+ Disaster Recovery integration
 	+ Added auto-subscribe script
+	+ More resilient reporting operations to reporter errors
+	+ Fix stupid bug in desktop subscription service
 3.0.8
 	+ Handle desktop subscription limit error status
 	+ Return the cloud domain along with the credentials to the desktops
