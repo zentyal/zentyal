@@ -20,4 +20,5 @@ then
     fi
 fi
 
-rm -rf $REGISTER_DATA
+# TODO: remove this when not debugging
+#rm -rf $REGISTER_DATA
