@@ -130,10 +130,9 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
-    my $groupinfo = {
-        name     => $group->name(),
-        comment  => $group->get('description'),
-    };
+    my $groupinfo = {};
+    $groupinfo->{name} = $group->name();
+    $groupinfo->{comment } = $group->get('description');
 
     $self->soapClient->addGroup($groupinfo);
 
