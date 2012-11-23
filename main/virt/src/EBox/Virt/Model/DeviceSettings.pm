@@ -12,19 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::Virt::Model::DeviceSettings;
-
+use strict;
+use warnings;
 # Class: EBox::Virt::Model::DeviceSettings
 #
 #      Table with the network interfaces of the Virtual Machine
 #
-
+package EBox::Virt::Model::DeviceSettings;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -191,7 +186,11 @@ sub validateTypedRow
             unless (-e $path) {
                 throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", img => $path));
             }
-            unless (_checkFileOutput($path, qr/Format:\s+Qcow\s+,\s+Version:\s+2/)) {
+            my @qcow2Re = (
+                qr/Format:\s+Qcow\s+,\s+Version:\s+2/,
+                qr/QEMU\s+QCOW\s+Image\s+\(v2\)/
+               );
+            unless (_checkFileOutput($path, @qcow2Re)) {
                 throw EBox::Exceptions::External(
                     __x('The hard disk image {img} should be in qcow2 format',
                         img => $path)
@@ -247,9 +246,15 @@ sub validateTypedRow
 
 sub _checkFileOutput
 {
-    my ($path, $wantedRe) = @_;
+    my ($path, @wantedRes) = @_;
     my $fileOutput = EBox::Sudo::root("file $path");
-    return $fileOutput->[0] =~ m/$wantedRe/
+    foreach my $wantedRe (@wantedRes) {
+        if ($fileOutput->[0] =~ m/$wantedRe/) {
+            return 1;
+        }
+    }
+
+    return undef;
 }
 
 sub _checkHdName
@@ -317,5 +322,6 @@ sub viewCustomizer
 
     return $customizer;
 }
+
 
 1;
