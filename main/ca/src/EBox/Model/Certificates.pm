@@ -347,4 +347,25 @@ sub updatedRowNotify
     $mod->setAsChanged();
 }
 
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    my $global = $self->global();
+    if (not $global->modExists('users')) {
+        return $customizer;
+    }
+
+    my $users = $global->modInstance('users');
+    my $hasSlaves = $users->model('Slaves')->size() > 0;
+    if ($hasSlaves) {
+        my $msg = __('This server has slaves attached to it for user and groups replication. If you change the Administration Web Server certificate, they will not be able to synchronize. Then you should remove and re-join them');
+        $customizer->setPermanentMessage($msg, 'warning');
+    }
+
+    return $customizer;
+}
+
 1;
