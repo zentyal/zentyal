@@ -37,7 +37,6 @@ use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
-use Fcntl qw(:flock);
 use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
@@ -52,7 +51,6 @@ use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
 use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
-
 
 # Constructor: _create
 #
@@ -592,7 +590,6 @@ sub _autoExcludesArguments
     return $args;
 }
 
-
 # Method: remoteDelOldArguments
 #
 #   Return the arguments to be used by duplicty to delete old files
@@ -731,7 +728,6 @@ sub remoteStatus
     return \@status;
 }
 
-
 # Method: tmpCurrentStatus
 #
 #   Return the patch to store the temporary current status cache
@@ -758,7 +754,6 @@ sub remoteGenerateStatusCache
     $self->_setCurrentStatus($status);
 }
 
-
 sub _setCurrentStatus
 {
     my ($self, $status) = @_;
@@ -770,7 +765,6 @@ sub _setCurrentStatus
             unlink $file;
     }
 }
-
 
 sub _retrieveRemoteStatusInBackground
 {
@@ -815,7 +809,6 @@ sub _retrieveRemoteStatus
 
     return $status;
 }
-
 
 sub updateStatusInBackgroundLock
 {
@@ -874,7 +867,7 @@ sub waitForUpdateStatusInBackground
 
 sub _updateStatusInBackgroundLockFile
 {
-    return EBox::Config::tmp() .'/' . UPDATE_STATUS_IN_BACKGROUND_LOCK . '.lock';
+    return EBox::Util::Lock::_lockFile(UPDATE_STATUS_IN_BACKGROUND_LOCK);
 }
 
 
@@ -1098,36 +1091,6 @@ sub menu
 
     $root->add($system);
 }
-
-# Method: lock
-#
-#      Lock backup process to avoid overlapping of two processes
-#
-#
-sub lock
-{
-    my ($self) = @_;
-
-    open( $self->{lock}, '>', LOCK_FILE);
-    my $ret = flock( $self->{lock}, LOCK_EX | LOCK_NB );
-    return $ret;
-}
-
-# Method: unlock
-#
-#      Unlock backup process to avoid overlapping of two processes
-#
-#
-sub unlock
-{
-    my ($self) = @_;
-
-    flock( $self->{lock}, LOCK_UN );
-    close($self->{lock});
-}
-
-
-
 
 # XXX TODO: refactor parameters from model and/or subscription its own method
 sub _remoteUrl
