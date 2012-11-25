@@ -38,18 +38,18 @@ sub usage
 sub info
 {
     my ($ebackup) = @_;
-    $ebackup->lock() ;
+    $ebackup->_lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup');
     } finally {
-        $ebackup->unlock();
+        $ebackup->_unlock();
     };
 }
 
 sub clean
 {
     my ($ebackup) = @_;
-    $ebackup->lock() ;
+    $ebackup->_lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup --force');
         # Delete orphaned metadata
@@ -59,7 +59,7 @@ sub clean
             EBox::EBackup::Subscribed::deleteOrphanMetadata($ebackup->remoteStatus());
         }
     } finally {
-        $ebackup->unlock();
+        $ebackup->_unlock();
     };
 }
 
@@ -72,7 +72,7 @@ sub deleteAll
         die __('This option is only available when cloud method is enabled');
     }
 
-    $ebackup->lock() ;
+    $ebackup->_lock() ;
     try {
         EBox::EBackup::Subscribed::deleteAll();
         # regenerate collection status so we don't get false information in the
@@ -81,7 +81,7 @@ sub deleteAll
         $ebackup->remoteGenerateStatusCache();
         $ebackup->remoteGenerateListFile();
     } finally {
-        $ebackup->unlock();
+        $ebackup->_unlock();
     };
 }
 
