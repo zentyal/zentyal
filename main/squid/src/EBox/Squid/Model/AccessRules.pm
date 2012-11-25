@@ -202,7 +202,10 @@ sub rules
             my $object = $source->value();
             $rule->{object} = $object;
             $rule->{members} = $objectMod->objectMembers($object);
-            $rule->{addresses} = $objectMod->objectAddresses($object);
+            my $addresses = $objectMod->objectAddresses($object);
+            # ignore empty objects
+            next unless @{$addresses};
+            $rule->{addresses} = $addresses;
         } elsif ($source->selectedType() eq 'group') {
             next unless ($usersEnabled);
             my $group = $source->value();
