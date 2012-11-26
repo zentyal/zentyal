@@ -103,9 +103,30 @@ sub _table
     return $dataTable;
 }
 
+sub badHostname
+{
+    my $shortHostname = _getHostname();
+    my $longHostname = `hostname`;
+    chomp $longHostname;
+
+    my $msg;
+    if ($shortHostname ne $longHostname) {
+        if ($longHostname =~ m{\.}) {
+            $msg = __x("Your hostname '{hn}' contain dots. This can cause problems with some services. Please, change your hostname",
+                       hn => $longHostname);
+        } else {
+            $msg = __x("Your hostname has different short ('{sn}') and long  ('{ln}') names. This can cause problems with some services. Please, change your hostname",
+                     sn => $shortHostname,
+                     ln => $longHostname
+             );
+        }
+    }
+    return $msg;
+}
+
 sub _getHostname
 {
-    my $hostname = `hostname`;
+    my $hostname = `hostname --short`;
     chomp ($hostname);
     return $hostname;
 }
@@ -118,7 +139,7 @@ sub _getHostdomain
         domain_private_tld => qr /^[a-zA-Z]+$/,
     };
 
-    my $hostdomain = `hostname -d`;
+    my $hostdomain = `hostname --domain`;
     chomp ($hostdomain);
     unless (is_domain($hostdomain, $options)) {
         my ($searchdomain) = @{_readResolv()};
@@ -236,6 +257,34 @@ sub updatedRowNotify
         $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
         $obs->fqdnChangedDone($oldFqdn, $newFqdn);
     }
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    my $msg = $self->badHostname();
+    my $type;
+    if ($msg) {
+        $type = 'error';
+    } else {
+        my $hostname = $self->value('hostname');
+        if ( length ($hostname) > MAX_HOSTNAME_LENGTH) {
+            if (EBox::Global->modExists('samba')) {
+                $msg = __x("Your hostname '{hn}' has more than 15 characters. Its netbios name will be truncated.",
+                           hn => $hostname);
+                $type = 'warning';
+            }
+        }
+    }
+
+    if ($msg) {
+        $customizer->setPermanentMessage($msg, $type);
+    }
+
+    return $customizer;
 }
 
 1;

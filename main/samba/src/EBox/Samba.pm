@@ -581,8 +581,20 @@ sub _checkEnvironment
         throw EBox::Exceptions::MissingArgument('throwException');
     }
 
-    # Get the own doamin
+    # Get the own domain
     my $sysinfo    = EBox::Global->modInstance('sysinfo');
+
+    my $badHostname = $sysinfo->model('HostName')->badHostname();
+    if ($badHostname) {
+        $self->enableService(0);
+        if ($throwException) {
+            throw EBox::Exceptions::External($badHostname);
+        } else {
+            EBox::warn($badHostname);
+            return;
+        }
+    }
+
     my $hostDomain = $sysinfo->hostDomain();
     my $hostName   = $sysinfo->hostName();
 
