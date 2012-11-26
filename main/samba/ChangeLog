@@ -1,5 +1,6 @@
 HEAD
 	+ Integration with Disaster Recovery service
+	+ Explicit set of folder name as default value implementation has changed
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
 	+ Fix ACLs for system type shares

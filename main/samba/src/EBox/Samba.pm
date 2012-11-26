@@ -48,6 +48,7 @@ use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
+use File::Basename;
 use Net::Ping;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -448,7 +449,7 @@ sub syncFolders
         }
 
         if ($sync or $syncAll) {
-            push (@folders, new EBox::SyncFolders::Folder($path, 'share'));
+            push (@folders, new EBox::SyncFolders::Folder($path, 'share', name => basename($path)));
         }
     }
 

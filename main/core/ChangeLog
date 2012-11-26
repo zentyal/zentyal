@@ -1,4 +1,5 @@
 HEAD
+	+ Default name of SyncFolders::Folder is set to path
 	+ Added new recoveryEnabled() helper method to Module::Base
 	+ Added recoveryDomainName() method to SyncProvider interface
 	+ Restore backup can now install missing modules in Disaster Recovery
