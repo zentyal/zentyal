@@ -1078,9 +1078,16 @@ sub commAddOn
 
     $force = 0 unless defined($force);
 
-    my $ret;
+    my $ret = 0;
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
+        my $subsDetails = $self->_getSubscriptionDetails($force);
+        if ( not exists $subsDetails->{cap} ) {
+            $subsDetails = $self->_getSubscriptionDetails(1); # Forcing
+        }
+        if (exists $subsDetails->{cap}->{zarafa}) {
+            my $detail = $self->_getCapabilityDetail('zarafa', $force);
+            $ret = $detail->{sb};
+        }
     } otherwise {
         $ret = 0;
     };
@@ -1774,14 +1781,45 @@ sub _getSubscriptionDetails
                 technical_support => $details->{technical_support},
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
-                disaster_recovery => $details->{disaster_recovery},
-                sb_comm_add_on    => $details->{sb_comm_add_on},
+                # disaster_recovery => $details->{disaster_recovery},
+                # sb_comm_add_on    => $details->{sb_comm_add_on},
             };
+            my $capList;
+            try {
+                $capList = $cap->list();
+                my %capList = map { $_ => 1 } @{$capList};
+                $state->{subscription}->{cap} = \%capList;
+            } catch EBox::Exceptions::Internal with { ; };
             $self->set_state($state);
         }
     }
 
     return $state->{subscription};
+}
+
+# Get and cache the cap details
+sub _getCapabilityDetail
+{
+    my ($self, $capName, $force) = @_;
+
+    my $state = $self->get_state();
+    if ( $force or (not exists $state->{subscription}->{cap_detail}->{$capName}) ) {
+        my $cap = new EBox::RemoteServices::Capabilities();
+        my $detail;
+        try {
+            $detail = $cap->detail($capName);
+        } catch EBox::Exceptions::Internal with {
+            # Impossible to know the current state
+            # Get cached data if any, if there is not, then raise the exception
+            my ($exc) = @_;
+            unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
+                $exc->throw();
+            }
+        };
+        $state->{subscription}->{cap_detail}->{$capName} = $detail;
+        $self->set_state($state);
+    }
+    return $state->{subscription}->{cap_detail}->{$capName};
 }
 
 # Get the latest backup date
