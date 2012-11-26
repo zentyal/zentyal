@@ -251,7 +251,7 @@ sub setupSlave
             $ca = $client->getCA();
         } otherwise {
             my ($ex) = @_;
-            EBox::warning('Master did not provide CA, probably zentyal-users is outdated');
+            EBox::warn('Master did not provide CA, probably zentyal-users is outdated');
         };
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');

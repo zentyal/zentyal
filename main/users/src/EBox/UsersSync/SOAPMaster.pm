@@ -56,6 +56,17 @@ sub getCertificate
     return $self->_soapResult($cert);
 }
 
+sub getCA
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $master = $users->masterConf();
+
+    my $cert = $master->getCA();
+    return $self->_soapResult($cert);
+}
+
 sub registerSlave
 {
     my ($self, $port, $cert) = @_;
