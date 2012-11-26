@@ -103,27 +103,6 @@ sub _table
     return $dataTable;
 }
 
-sub permanentMessage
-{
-    my ($self) = @_;
-    my $msg;
-
-    $msg = $self->badHostname();
-    if (not $msg) {
-        my $hostname = $self->value('hostname');
-        if ( length ($hostname) <= MAX_HOSTNAME_LENGTH) {
-            if (EBox::Global->modExists('samba')) {
-                $msg = __('Your hostname has more than 15 characters. Its netbios name will be truncated.');
-            }
-        }
-    }
-
-    if ($msg) {
-        $self->{permanentMessageType} = 'warning';
-    }
-    return $msg;
-}
-
 sub badHostname
 {
     my $shortHostname = _getHostname();
@@ -133,9 +112,13 @@ sub badHostname
     my $msg;
     if ($shortHostname ne $longHostname) {
         if ($longHostname =~ m{\.}) {
-            $msg = __('Your hostname contain dots. This can cause problems with some services. Please, change your hostname');
+            $msg = __x("Your hostname '{hn}' contain dots. This can cause problems with some services. Please, change your hostname",
+                       hn => $longHostname);
         } else {
-            $msg = __('Your hostname has different short and long names. This can cause problems with some services. Please, change your hostname');
+            $msg = __x("Your hostname has different short ('{sn}') and long  ('{ln}') names. This can cause problems with some services. Please, change your hostname",
+                     sn => $shortHostname,
+                     ln => $longHostname
+             );
         }
     }
     return $msg;
@@ -274,6 +257,33 @@ sub updatedRowNotify
         $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
         $obs->fqdnChangedDone($oldFqdn, $newFqdn);
     }
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    my $msg = $self->badHostname();
+    my $type;
+    if ($msg) {
+        $type = 'error';
+    } else {
+        my $hostname = $self->value('hostname');
+        if ( length ($hostname) <= MAX_HOSTNAME_LENGTH) {
+            if (EBox::Global->modExists('samba')) {
+                $msg = __('Your hostname has more than 15 characters. Its netbios name will be truncated.');
+                $type = 'warning';
+            }
+        }
+    }
+
+    if ($msg) {
+        $customizer->setPermanentMessage($msg, $type);
+    }
+
+    return $customizer;
 }
 
 1;
