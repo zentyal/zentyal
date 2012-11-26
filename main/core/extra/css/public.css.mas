@@ -1762,6 +1762,10 @@ border-radius: 3px;
     top: 50px !important;
 }
 
+.MB_widedialog  #MB_content {
+    max-height: none !important;
+}
+
 #MB_window {
     width:960px !important;
     margin:0px auto !important;
