@@ -223,6 +223,15 @@ sub _genCert
     push (@commands, "mv -f $tempfile $path");
 
     EBox::Sudo::root(@commands);
+
+    if ($srvcert->{certPath}) {
+        my $certPath = $srvcert->{certPath};
+        EBox::Sudo::root("openssl x509 -in '$path' -out '$certPath'");
+    }
+    if ($srvcert->{pkeyPath}) {
+        my $privPath = $srvcert->{pkeyPath};
+        EBox::Sudo::root("openssl pkey -in '$path' -out '$privPath'");
+    }
 }
 
 # Method: _modsService

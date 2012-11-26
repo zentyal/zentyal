@@ -786,6 +786,8 @@ sub certificates
              user => 'ebox',
              group => 'ebox',
              mode => '0600',
+             certPath => '/var/lib/zentyal/conf/ssl/ssl.cert',
+             pkeyPath => '/var/lib/zentyal/conf/ssl/ssl.key',
             },
            ];
 }

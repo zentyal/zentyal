@@ -1,3 +1,6 @@
+HEAD
+	+ Added to service certificates certPath and pkeyPath options to
+	  generate  standalone certificate and private key files
 3.0.1
 	+ Delete service certificates with old format on initialSetup()
 	+ Added and used serviceId field for service certificates

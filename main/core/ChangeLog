@@ -1,4 +1,6 @@
 HEAD
+	+ Generate standalone certificate and private key for
+	  administration interface webserver when its certficate changes
 	+ Fixed bug that made that the lock was shared between owners
 	+ Some fixes in the function to add the rule for desktops services
 	  to the firewall
