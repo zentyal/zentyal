@@ -103,9 +103,47 @@ sub _table
     return $dataTable;
 }
 
+sub permanentMessage
+{
+    my ($self) = @_;
+    my $msg;
+
+    $msg = $self->badHostname();
+    if (not $msg) {
+        my $hostname = $self->value('hostname');
+        if ( length ($hostname) <= MAX_HOSTNAME_LENGTH) {
+            if (EBox::Global->modExists('samba')) {
+                $msg = __('Your hostname has more than 15 characters. Its netbios name will be truncated.');
+            }
+        }
+    }
+
+    if ($msg) {
+        $self->{permanentMessageType} = 'warning';
+    }
+    return $msg;
+}
+
+sub badHostname
+{
+    my $shortHostname = _getHostname();
+    my $longHostname = `hostname`;
+    chomp $longHostname;
+
+    my $msg;
+    if ($shortHostname ne $longHostname) {
+        if ($longHostname =~ m{\.}) {
+            $msg = __('Your hostname contain dots. This can cause problems with some services. Please, change your hostname');
+        } else {
+            $msg = __('Your hostname has different short and long names. This can cause problems with some services. Please, change your hostname');
+        }
+    }
+    return $msg;
+}
+
 sub _getHostname
 {
-    my $hostname = `hostname`;
+    my $hostname = `hostname --short`;
     chomp ($hostname);
     return $hostname;
 }
@@ -118,7 +156,7 @@ sub _getHostdomain
         domain_private_tld => qr /^[a-zA-Z]+$/,
     };
 
-    my $hostdomain = `hostname -d`;
+    my $hostdomain = `hostname --domain`;
     chomp ($hostdomain);
     unless (is_domain($hostdomain, $options)) {
         my ($searchdomain) = @{_readResolv()};
