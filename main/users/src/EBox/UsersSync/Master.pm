@@ -37,6 +37,7 @@ use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
 
 # Certificate of the authorized master
 use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
+use constant MASTER_CA => '/var/lib/zentyal/conf/users/master.ca';
 
 sub new
 {
@@ -59,12 +60,20 @@ sub confSOAPService
     my @params;
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
 
+    # If we use CA validation, get master cn
+    if (-f MASTER_CA) {
+        my $master_file = MASTER_CERT;
+        my $cn = `openssl x509 -noout -in $master_file -subject`;
+        $cn =~ /subject= (.*)/;
+        push (@params, cn => $cn);
+    }
+
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
 
     my $apache = EBox::Global->modInstance('apache');
     $apache->addInclude($confFile);
 
-    $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
+    $apache->addCA(MASTER_CA) if (-f MASTER_CA);
 }
 
 
@@ -74,7 +83,18 @@ sub confSOAPService
 #
 #   Return Master certificate (to be used when connecting to the slave's SOAP)
 #
-sub getCertificate()
+sub getCertificate
+{
+    my ($self) = @_;
+
+    return read_file(SSL_DIR . 'ssl.cert');
+}
+
+# Method: getCA
+#
+#   Return Master CA (to verify Master certificate)
+#
+sub getCA
 {
     my ($self) = @_;
 
@@ -226,6 +246,13 @@ sub setupSlave
 
         # get master's certificate
         my $cert = $client->getCertificate();
+        my $ca;
+        try {
+            $ca = $client->getCA();
+        } otherwise {
+            my ($ex) = @_;
+            EBox::warning('Master did not provide CA, probably zentyal-users is outdated');
+        };
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
@@ -238,6 +265,7 @@ sub setupSlave
         # Write master certificate
         # (after registering slave, this means everything went well)
         write_file(MASTER_CERT, $cert);
+        write_file(MASTER_CA, $ca) if ($ca);
     }
     else {
         # return if already disabled
@@ -245,6 +273,7 @@ sub setupSlave
 
         # disable master access
         unlink (MASTER_CERT);
+        unlink (MASTER_CA) if -f (MASTER_CA);
     }
 }
 

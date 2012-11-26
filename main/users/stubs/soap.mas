@@ -1,5 +1,6 @@
 <%args>
   $passwords_file
+  $cn => undef
 </%args>
 
 <Location /slave>
@@ -9,6 +10,9 @@
         SSLRequireSSL
         SSLVerifyClient require
         SSLVerifyDepth 1
+% if ($cn) {
+        SSLRequire (%{SSL_CLIENT_S_DN} eq "<% $cn %>")
+% }
     </IfModule>
     Order allow,deny
     Allow from all
