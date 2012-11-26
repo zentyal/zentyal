@@ -47,7 +47,7 @@ my @rows = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 <br/>
 
 <div style="text-align: right">
-    <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip recover') %></button>
+    <button onclick="document.location.href='/Dashboard/Index'; return false"><img src="/data/images/skip.gif"> <% __('Skip recover') %></button>
     <input type="hidden" name="dr" value="1"/>
 % if (keys %backups) {
     <button type="submit"><img src="/data/images/install.gif"> <% __('Recover') %></button>
