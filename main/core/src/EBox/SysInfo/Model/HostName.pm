@@ -271,9 +271,10 @@ sub viewCustomizer
         $type = 'error';
     } else {
         my $hostname = $self->value('hostname');
-        if ( length ($hostname) <= MAX_HOSTNAME_LENGTH) {
+        if ( length ($hostname) > MAX_HOSTNAME_LENGTH) {
             if (EBox::Global->modExists('samba')) {
-                $msg = __('Your hostname has more than 15 characters. Its netbios name will be truncated.');
+                $msg = __x("Your hostname '{hn}' has more than 15 characters. Its netbios name will be truncated.",
+                           hn => $hostname);
                 $type = 'warning';
             }
         }
