@@ -1,4 +1,5 @@
 HEAD
+	+ Modified modalbox-znetyal.js to accept wideDialog parameter
 	+ Fixed template method in MultiStateAction to return the default
 	template when it is not any supplied to the object
 	+ loggerd shows loaded LogHelpers when in debug mode
