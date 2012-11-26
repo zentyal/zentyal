@@ -1758,6 +1758,10 @@ border-radius: 3px;
     margin: 0px auto;
 }
 
+.MB_widedialog {
+    top: 50px !important;
+}
+
 #MB_window {
     width:960px !important;
     margin:0px auto !important;
