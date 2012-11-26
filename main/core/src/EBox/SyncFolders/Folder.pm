@@ -56,8 +56,7 @@ sub new
     if ($args{name}) {
         $self->{name} = $args{name};
     } else {
-        my @dirs = split('/', $self->{path});
-        $self->{name} = pop @dirs;
+        $self->{name} = $path;
     }
     bless($self, $class);
     return $self;
