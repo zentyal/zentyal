@@ -1,5 +1,6 @@
 // This files modifies Modalbox to force zentyal styles
 Modalbox.show = Modalbox.show.wrap(function (origFunc) {
+                                     "use strict";
                                      var args = Array.prototype.slice.call(arguments, 1);
                                      origFunc.apply(Modalbox, args);
 
@@ -38,8 +39,9 @@ Modalbox._setWidth = Modalbox._setWidth.wrap(function (origFunc) {
                                    });
 
 
-Modalbox._hide =  Modalbox._hide(function (origFunc) {
-                                     var args = Array.prototype.slice.call(arguments, 1);
-                                     origFunc.apply(Modalbox, args);
-                                     this.options.wideWindow = false;
+Modalbox._hide =  Modalbox._hide.wrap(function (origFunc) {
+                                   "use strict";
+                                   var args = Array.prototype.slice.call(arguments, 1);
+                                   origFunc.apply(Modalbox, args);
+                                   this.options.wideWindow = false;
                                  });
