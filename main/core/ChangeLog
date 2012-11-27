@@ -1,7 +1,7 @@
 HEAD
-	+ Modified modalbox-znetyal.js to accept wideDialog parameter
+	+ Modified modalbox-zentyal.js to accept wideDialog parameter
 	+ Fixed template method in MultiStateAction to return the default
-	template when it is not any supplied to the object
+	  template when it is not any supplied to the object
 	+ loggerd shows loaded LogHelpers when in debug mode
 	+ Added additional info to events from RAID watcher
 	+ Use sudo to remove temporal files/diectories in backup, avoiding
@@ -62,7 +62,6 @@ HEAD
 	+ In ConfigureLogs, restored printable names for log domains
 	+ Fixed dashboard update error on modules widget, counter-graph
 	  widget and widget without sections
->>>>>>> master
 	+ Better way to fix non-root warnings during boot without interfering
 	  on manual restart commands in the shell
 3.0.1
