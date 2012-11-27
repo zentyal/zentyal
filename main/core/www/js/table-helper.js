@@ -1046,15 +1046,13 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
     hide(element.id);
     setLoading(element.id + '_loading');
 
-    var MyAjax = new Ajax.Updater(
-                {
-                        failure: 'error_' + model
-                },
+    var MyAjax = new Ajax.Request(
         controller,
         {
             method: 'post',
             parameters: parameters,
             onFailure: function(t) {
+              $('error_' + model).innerHTML = t.responseText;
               completedAjaxRequest();
               show(element.id);
               $(element.id + '_loading').innerHTML = '';
@@ -1068,7 +1066,6 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
 
             }
         });
-
 
 }
 /*
