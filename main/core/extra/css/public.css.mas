@@ -1961,3 +1961,7 @@ border-radius: 3px;
 .tip a {
     color: #D37600;
 }
+
+.disabledCustomAction {
+    opacity: 0.5;
+}
