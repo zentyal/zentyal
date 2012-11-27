@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Util::Version;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -145,6 +146,11 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
+    }
+
+    # Migration from 3.0.8, force users resync
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
+        EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
     }
 }
 
