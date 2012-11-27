@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed refresh of the table and temporal control states
+	  in customActionClicked callback
 	+ Fixed bug that made that the lock was shared between owners
 	+ Some fixes in the function to add the rule for desktops services
 	  to the firewall

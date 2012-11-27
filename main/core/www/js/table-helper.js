@@ -421,24 +421,19 @@ function customActionClicked(action, url, table, fields, directory, id, page)
         {
             method: 'post',
             parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-                highlightRow(id, false);
-                stripe('dataTable', 'even', 'odd');
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            },
-            onFailure: function(t) {
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            }
+            evalScripts: true
         }
     );
 
-    $$('.customActions').each(function(e) {
-            setLoading(e.identify(), table, true);
+    /* while the jax udpater is running the active row is showed as laoding
+     and the other table rows input are disabled to avoid to run two custom
+     actions at the same time */
+    $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
+        e.disabled = true;
+        e.addClassName('disabledCustomAction');
+    });
+    $$('#' + id + ' .customActions').each(function(e) {
+        setLoading(e.identify(), table, true);
     });
 }
 
