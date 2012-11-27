@@ -421,24 +421,16 @@ function customActionClicked(action, url, table, fields, directory, id, page)
         {
             method: 'post',
             parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-                highlightRow(id, false);
-                stripe('dataTable', 'even', 'odd');
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            },
-            onFailure: function(t) {
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            }
+            evalScripts: true
         }
     );
 
-    $$('.customActions').each(function(e) {
-            setLoading(e.identify(), table, true);
+
+    $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
+        e.disabled = true;
+    });
+    $$('#' + id + ' .customActions').each(function(e) {
+        setLoading(e.identify(), table, true);
     });
 }
 
