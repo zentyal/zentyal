@@ -425,7 +425,9 @@ function customActionClicked(action, url, table, fields, directory, id, page)
         }
     );
 
-
+    /* while the jax udpater is running the active row is showed as laoding
+     and the other table rows input are disabled to avoid to run two custom
+     actions at the same time */
     $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
         e.disabled = true;
         e.addClassName('disabledCustomAction');
