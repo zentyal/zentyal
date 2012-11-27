@@ -1,4 +1,7 @@
 HEAD
+	+ Modified modalbox-zentyal.js to accept wideDialog parameter
+	+ Fixed template method in MultiStateAction to return the default
+	  template when it is not any supplied to the object
 	+ Fixed sendInPlaceBooleanValue method from table-helper.js; it
 	  aborted because bad parameters of Ajax.Updater
 	+ Fixed bug that made that the lock was shared between owners
