@@ -1410,22 +1410,23 @@ sub _reverseZones
 {
     my ($self, $iface) = @_;
 
-    my $initRange = $self->initRange($iface);
-    $initRange =~ s/1$/0/; # To make a network interface
-    my $endRange  = $self->endRange($iface);
+    my @ranges = @{ $self->ranges($iface) };
 
     my @revZones;
-    my $ip = new Net::IP("$initRange - $endRange");
-    do {
-        my $rev = Net::IP->new($ip->ip())->reverse_ip();
-        if ( defined($rev) ) {
-            # It returns 0.netaddr.in-addr.arpa so we need to remove it
-            # to make it compilant with bind zone definition
-            $rev =~ s/^0\.//;
-            push(@revZones, $rev);
-        }
-    } while ( $ip += 256 );
-
+    foreach my $range (@ranges) {
+        my $initRange = $range->{from};
+        my $endRange  = $range->{to};
+        my $ip = new Net::IP("$initRange - $endRange");
+        do {
+            my $rev = Net::IP->new($ip->ip())->reverse_ip();
+            if ( defined($rev) ) {
+                # It returns 0.netaddr.in-addr.arpa so we need to remove it
+                # to make it compilant with bind zone definition
+                $rev =~ s/^0\.//;
+                push(@revZones, $rev);
+            }
+        } while ( $ip += 256 );
+    }
     return \@revZones;
 }
 
