@@ -428,6 +428,7 @@ function customActionClicked(action, url, table, fields, directory, id, page)
 
     $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
         e.disabled = true;
+        e.addClassName('disabledCustomAction');
     });
     $$('#' + id + ' .customActions').each(function(e) {
         setLoading(e.identify(), table, true);
