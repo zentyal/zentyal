@@ -134,7 +134,7 @@ sub validateRow
 {
     my ($self, $action, %params) = @_;
 
-    if ($params{acl_object} and $params{acl_object} ne '_addNew') {
+    if ($params{acl_object} and ($params{acl_object} ne '_addNew')) {
         # check objects have members
         my $srcObjId = $params{acl_object};
         my $objects = EBox::Global->modInstance('objects');
