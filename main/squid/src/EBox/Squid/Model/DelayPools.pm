@@ -12,17 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid::Model::DelayPools;
+use strict;
+use warnings;
 
 # Class: EBox::Squid::Model::DelayPools
 #
 #      Rules to set the configuration for the delay pools
 #
+package EBox::Squid::Model::DelayPools;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use integer;
 
@@ -34,89 +32,6 @@ use EBox::Squid::Types::UnlimitedInt;
 
 use Math::BigInt;
 
-# Group: Public methods
-
-# Method: validateRow
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::validateRow>
-#
-sub validateRow
-{
-    my ($self, $action, %params) = @_;
-
-    if ($params{acl_object}) {
-        # check objects have members
-        my $srcObjId = $params{acl_object};
-        my $objects = EBox::Global->modInstance('objects');
-        unless (@{$objects->objectAddresses($srcObjId)} > 0) {
-            throw EBox::Exceptions::External(
-                    __x('Object {object} has no members. Please add at ' .
-                        'least one to add rules using this object.',
-                        object => $params{acl_object}));
-        }
-    }
-
-    if ($params{global_enabled}) {
-        unless ($params{size} and $params{rate}) {
-            throw EBox::Exceptions::External(__('If global limit is enabled you need to specifiy its size and rate values'));
-        }
-    }
-
-    if ($params{clt_enabled}) {
-        unless ($params{clt_size} and $params{clt_rate}) {
-            throw EBox::Exceptions::External(__('If per-client limit is enabled you need to specifiy its size and rate values'));
-        }
-    }
-
-    # Check the clt_rate is always lower than rate (network)
-    if ($params{global_enabled} and $params{clt_enabled}) {
-        my $netRate = defined ($params{rate}) ? $params{rate} : Math::BigInt->binf();
-        my $cltRate = defined ($params{clt_rate}) ? $params{clt_rate} : Math::BigInt->binf();
-        if ($cltRate > $netRate) {
-            throw EBox::Exceptions::External(__x('Per-client rate ({clt_rate} KB/s) cannot be greater than global rate ({net_rate} KB/s)',
-                                                 clt_rate => $cltRate,
-                                                 net_rate => $netRate));
-        }
-    }
-}
-
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-    $self->_setUndefinedValues($row);
-}
-
-sub updatedRowNotify
-{
-    my ($self, $row) = @_;
-    $self->_setUndefinedValues($row);
-}
-
-sub _setUndefinedValues
-{
-    my ($self, $row) = @_;
-
-    my $toStore;
-    unless ($row->valueByName('global_enabled')) {
-        $row->elementByName('size')->setValue(undef);
-        $row->elementByName('rate')->setValue(undef);
-        $toStore = 1;
-    }
-
-    unless ($row->valueByName('clt_enabled')) {
-        $row->elementByName('clt_size')->setValue(undef);
-        $row->elementByName('clt_rate')->setValue(undef);
-        $toStore = 1;
-    }
-
-    if ($toStore) {
-        $row->store();
-    }
-}
-
-# Group: Protected methods
 
 # Method: _table
 #
@@ -208,6 +123,87 @@ sub _table
 
     return $dataTable;
 }
+
+# Method: validateRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateRow>
+#
+sub validateRow
+{
+    my ($self, $action, %params) = @_;
+
+    if ($params{acl_object} and $params{acl_object} ne '_addNew') {
+        # check objects have members
+        my $srcObjId = $params{acl_object};
+        my $objects = EBox::Global->modInstance('objects');
+        unless (@{$objects->objectAddresses($srcObjId)} > 0) {
+            throw EBox::Exceptions::External(
+                    __x('Object {object} has no members. Please add at ' .
+                        'least one to use this object.',
+                        object => $params{acl_object}));
+        }
+    }
+
+    if ($params{global_enabled}) {
+        unless ($params{size} and $params{rate}) {
+            throw EBox::Exceptions::External(__('If global limit is enabled you need to specifiy its size and rate values'));
+        }
+    }
+
+    if ($params{clt_enabled}) {
+        unless ($params{clt_size} and $params{clt_rate}) {
+            throw EBox::Exceptions::External(__('If per-client limit is enabled you need to specifiy its size and rate values'));
+        }
+    }
+
+    # Check the clt_rate is always lower than rate (network)
+    if ($params{global_enabled} and $params{clt_enabled}) {
+        my $netRate = defined ($params{rate}) ? $params{rate} : Math::BigInt->binf();
+        my $cltRate = defined ($params{clt_rate}) ? $params{clt_rate} : Math::BigInt->binf();
+        if ($cltRate > $netRate) {
+            throw EBox::Exceptions::External(__x('Per-client rate ({clt_rate} KB/s) cannot be greater than global rate ({net_rate} KB/s)',
+                                                 clt_rate => $cltRate,
+                                                 net_rate => $netRate));
+        }
+    }
+}
+
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+    $self->_setUndefinedValues($row);
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+    $self->_setUndefinedValues($row);
+}
+
+sub _setUndefinedValues
+{
+    my ($self, $row) = @_;
+
+    my $toStore;
+    unless ($row->valueByName('global_enabled')) {
+        $row->elementByName('size')->setValue(undef);
+        $row->elementByName('rate')->setValue(undef);
+        $toStore = 1;
+    }
+
+    unless ($row->valueByName('clt_enabled')) {
+        $row->elementByName('clt_size')->setValue(undef);
+        $row->elementByName('clt_rate')->setValue(undef);
+        $toStore = 1;
+    }
+
+    if ($toStore) {
+        $row->store();
+    }
+}
+
 
 sub delayPools
 {

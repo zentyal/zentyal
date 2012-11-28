@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error triggered when creating a delay pool without an object
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
 	+ Mark module as changed if addition/removal of users modify ACLs
