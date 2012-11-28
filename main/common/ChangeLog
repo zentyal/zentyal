@@ -1,5 +1,6 @@
 HEAD
-	+ Removed superfluos utf8::decode calls
+	+ Decode utf8 strings from gettext
+	+ Removed unnecessary utf8::decode calls in exceptions
 3.0.4
 	+ Added EBox::setLocaleEnvironment method
 3.0.3
