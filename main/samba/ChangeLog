@@ -1,4 +1,4 @@
-HEAD
+3.0.9
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
 	+ Fix ACLs for system type shares

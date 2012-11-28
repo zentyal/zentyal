@@ -1,4 +1,6 @@
 HEAD
+	+ Removed superfluous module lock in backup-tool
+	+ Removed independent implementation of lock and unlock methods
 	+ Fix small syntax error
 3.0.3
 	+ Removed dependency on events module

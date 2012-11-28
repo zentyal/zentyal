@@ -1758,6 +1758,20 @@ border-radius: 3px;
     margin: 0px auto;
 }
 
+.MB_widedialog {
+    top: 50px !important;
+}
+
+.MB_widedialog  #MB_content {
+    max-height: none !important;
+    text-align: center;
+}
+
+.MB_widedialog  #vnc_frame {
+   margin-left: auto;
+   margin-right: auto;
+}
+
 #MB_window {
     width:960px !important;
     margin:0px auto !important;
@@ -1946,4 +1960,8 @@ border-radius: 3px;
 
 .tip a {
     color: #D37600;
+}
+
+.disabledCustomAction {
+    opacity: 0.5;
 }

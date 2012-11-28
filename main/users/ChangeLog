@@ -1,4 +1,4 @@
-HEAD
+3.0.6
 	+ Set userPassword attribute when setting kerberos keys for user
 	+ Fixed delGroup operation on cloud slave
 	+ Include exception message when there is an error notifying a slave

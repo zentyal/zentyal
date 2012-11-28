@@ -1,3 +1,6 @@
+HEAD
+	+ Remove bad links as well while unregistering
+	+ Fix keep of monitor history after unregistering
 3.0.2
 	+ Avoided infinite recursion incidents when instantiating new
 	  measure objects
