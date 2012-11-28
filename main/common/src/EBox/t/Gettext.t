@@ -24,7 +24,7 @@ if ($? != 0) {
 diag "Switching to locale $locale";
 EBox::setLocaleEnvironment($locale);
 
-diag "This test assumes that the transaltion of digit 0 to locale $locale is the same digit '0'";
+diag "This test assumes that the translation of digit 0 to locale $locale is the same digit '0'";
 my $notTranslatedString = 'we bet this string is not transated in any po. no traducida por favor. foobar zabar';
 my @tests = (
            ['' => ''],
