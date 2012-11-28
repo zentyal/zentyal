@@ -1076,20 +1076,42 @@ sub commAddOn
 {
     my ($self, $force) = @_;
 
+    my $ret = $self->zarafaAddOn($force);
+    return ( $ret->{sb} == 1 );
+}
+
+# Method: zarafaAddOn
+#
+#      Get the zarafa add-on details
+#
+# Parameters:
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Hash ref - indicating the zarafa add-on details
+#                 Empty hash if no zarafa add-on is there
+#
+sub zarafaAddOn
+{
+    my ($self, $force) = @_;
+
     $force = 0 unless defined($force);
 
-    my $ret = 0;
+    my $ret = {};
     try {
         my $subsDetails = $self->_getSubscriptionDetails($force);
         if ( not exists $subsDetails->{cap} ) {
-            $subsDetails = $self->_getSubscriptionDetails(1); # Forcing
+            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
         }
         if (exists $subsDetails->{cap}->{zarafa}) {
             my $detail = $self->_getCapabilityDetail('zarafa', $force);
-            $ret = $detail->{sb};
+            $ret = $detail;
         }
     } otherwise {
-        $ret = 0;
+        $ret = {};
     };
     return $ret;
 }

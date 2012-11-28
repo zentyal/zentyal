@@ -1,4 +1,5 @@
 HEAD
+	+ Implement zarafaAddOn method for getting zarafa details
 	+ Implement client-side of new add-on framework
 3.0.9
 	+ More resilient reporting operations to reporter errors
