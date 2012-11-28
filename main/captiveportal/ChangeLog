@@ -1,5 +1,8 @@
 HEAD
-	+ Removed suprefluos calls to utf8::decode
+	+ Removed superfluos calls to utf8::decode
+	+ Restart module on package install
+	+ Warning and disable action if authotization group is removed
+	+ Fixed regression in authorization restricted by group
 3.0
 	+ Updated 'created by' footer
 2.3.5

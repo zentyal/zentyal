@@ -43,11 +43,13 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Util::Version;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
+use Net::Ping;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -76,31 +78,6 @@ sub _create
         @_);
     bless ($self, $class);
     return $self;
-}
-
-# Method: bootDepends
-#
-#   Samba depends on CUPS only if printers module enabled.
-#
-# Overrides:
-#
-#   <EBox::Module::Base::depends>
-#
-sub bootDepends
-{
-    my ($self) = @_;
-
-    my $dependsList = $self->depends();
-
-    my $module = 'printers';
-    if (EBox::Global->modExists($module)) {
-        my $printers = EBox::Global->modInstance($module);
-        if ($printers->isEnabled()) {
-            push (@{$dependsList}, $module);
-        }
-    }
-
-    return $dependsList;
 }
 
 # Method: actions
@@ -169,6 +146,11 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    # Migration from 3.0.8, force users resync
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
+        EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
+    }
 }
 
 sub enableService
@@ -226,7 +208,7 @@ sub _enforceServiceState
     my ($self) = @_;
 
     if ($self->isEnabled() and $self->isProvisioned()) {
-        $self->_startService();
+        $self->_startService() unless $self->isRunning();
     } else {
         $self->_stopService();
     }
@@ -939,6 +921,7 @@ sub provisionAsADC
     }
 
     my $dnsFile = undef;
+    my $adminAccountPwdFile = undef;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
 
@@ -955,9 +938,27 @@ sub provisionAsADC
                              'network/resolv.conf.mas',
                              $array);
 
+        # Try to contact the DC
+        EBox::info("Trying to contact '$dcFQDN'");
+        my $pinger = Net::Ping->new('tcp', 2);
+        $pinger->port_number(445);
+        unless ($pinger->ping($dcFQDN)) {
+            throw EBox::Exceptions::External(
+                __x('The specified domain controller {x} is unreachable.',
+                    x => $dcFQDN));
+        }
+
+        # Get a ticket for admin User
+        my $principal = "$adminAccount\@$krbRealm";
+        (undef, $adminAccountPwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
+        EBox::info("Trying to get a kerberos ticket for principal '$principal'");
+        write_file($adminAccountPwdFile, $adminAccountPwd);
+        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' $principal";
+        EBox::Sudo::root($cmd);
+
         # Join the domain
-        EBox::debug("Joining to the domain");
-        my $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
+        EBox::info("Executing domain join");
+        $cmd = SAMBATOOL . " domain join $domainToJoin DC " .
             " --username='$adminAccount' " .
             " --workgroup='$netbiosDomain' " .
             " --password='$adminAccountPwd' " .
@@ -977,7 +978,7 @@ sub provisionAsADC
             if (-r $stderr) {
                 @error = read_file($stderr);
             }
-            throw EBox::Exceptions::Internal("Error joining to domain: @error");
+            throw EBox::Exceptions::External("Error joining to domain: @error");
         }
 
         $self->setupDNS(1);
@@ -993,8 +994,13 @@ sub provisionAsADC
         # Wait some time until samba is ready
         sleep (5);
 
-        # Run Knowledge Consistency Checker (KCC) on windows DC
-        EBox::info('Running KCC on windows DC');
+        # Run samba_dnsupdate to add required records to the remote DC
+        EBox::info('Running DNS update on remote DC');
+        $cmd = 'samba_dnsupdate --no-credentials';
+        EBox::Sudo::rootWithoutException($cmd);
+
+        # Run Knowledge Consistency Checker (KCC) on remote DC
+        EBox::info('Running KCC on remote DC');
         $cmd = SAMBATOOL . " drs kcc $dcFQDN " .
             " --username='$adminAccount' " .
             " --password='$adminAccountPwd' ";
@@ -1049,6 +1055,12 @@ sub provisionAsADC
             EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
+        # Remote stashed password
+        if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+            unlink $adminAccountPwdFile;
+        }
+        # Destroy cached tickets
+        EBox::Sudo::rootWithoutException('kdestroy');
     };
 }
 
@@ -1085,6 +1097,9 @@ sub setupDNS
         $domainRow->elementByName('samba')->setValue(0);
     }
     $domainRow->store();
+
+    # Stop service to avoid nsupdate failure
+    $dnsModule->stopService();
 
     # And force service restart
     $dnsModule->save();
@@ -1343,6 +1358,7 @@ sub _daemons
         },
         {
             name => 'zentyal.nmbd',
+            pidfiles => ['/var/run/nmbd.pid'],
         },
         {
             name => 'zentyal.s4sync',

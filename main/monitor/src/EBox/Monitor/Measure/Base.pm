@@ -101,8 +101,9 @@ sub plugin
 sub baseDir
 {
    # using readonly global to not fail with hostname changes not commited
-    my $monitor = EBox::Global->getInstance(1)->modInstance('monitor');
-    return $monitor->rrdBaseDirPath();
+    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
+    my $fqdn = $sysinfo->fqdn();
+    return EBox::Monitor::Configuration::RRDBaseDirForFqdn($fqdn);
 }
 
 # Method: fetchData
@@ -238,7 +239,7 @@ sub fetchData
             }
             $time += $step;
         }
-        $rrdIdx++;
+        $rrdIdx += scalar(@{$data->[0]}); # Put new RRDs files without overwritting
     }
     # Truncating for testing purposes
     foreach my $data (@returnData) {

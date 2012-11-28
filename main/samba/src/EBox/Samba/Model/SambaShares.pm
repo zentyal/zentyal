@@ -281,10 +281,20 @@ sub createDirs
 
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
-        my $pathType =  $row->elementByName('path');
+        my $shareName   = $row->valueByName('share');
+        my $pathType    = $row->elementByName('path');
         my $guestAccess = $row->valueByName('guest');
-        next unless ( $pathType->selectedType() eq 'zentyal');
-        my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
+
+        my $path = undef;
+        if ($pathType->selectedType() eq 'zentyal') {
+            $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
+        } elsif ($pathType->selectedType() eq 'system') {
+            $path = $pathType->value();
+        } else {
+            EBox::error("Unknown share type on share '$shareName'");
+        }
+        next unless defined $path;
+
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
         push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs

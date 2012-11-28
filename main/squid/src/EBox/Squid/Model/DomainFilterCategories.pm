@@ -296,7 +296,12 @@ sub removeNoPresentCategories
 sub _aclBaseName
 {
     my ($sef, $row) = @_;
-    my $aclName = $row->valueByName('list') . '~dc~' . $row->valueByName('category');
+
+    my $list = $row->valueByName('list');
+    $list =~ tr/ /~/;
+    my $category = $row->valueByName('category');
+    $category =~ tr/ /~/;
+    my $aclName = "$list~dc~$category";
     return $aclName;
 }
 

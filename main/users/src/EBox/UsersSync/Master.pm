@@ -18,15 +18,7 @@ package EBox::UsersSync::Master;
 use strict;
 use warnings;
 
-# File containing password for master's web service (to register a new slave)
-use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
-
-# Dir containing certificates for this master
-use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
-
-# Certificate of the authorized master
-use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
-
+use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Util::Random;
 use EBox::Sudo;
@@ -36,6 +28,15 @@ use URI::Escape;
 use File::Slurp;
 use EBox::UsersSync::Slave;
 use Error qw(:try);
+
+# File containing password for master's web service (to register a new slave)
+use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
+
+# Dir containing certificates for this master
+use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
+
+# Certificate of the authorized master
+use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
 
 sub new
 {

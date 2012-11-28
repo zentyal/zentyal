@@ -202,7 +202,10 @@ sub rules
             my $object = $source->value();
             $rule->{object} = $object;
             $rule->{members} = $objectMod->objectMembers($object);
-            $rule->{addresses} = $objectMod->objectAddresses($object);
+            my $addresses = $objectMod->objectAddresses($object);
+            # ignore empty objects
+            next unless @{$addresses};
+            $rule->{addresses} = $addresses;
         } elsif ($source->selectedType() eq 'group') {
             next unless ($usersEnabled);
             my $group = $source->value();
@@ -212,6 +215,11 @@ sub rules
                 $users = $userMod->users();
             } else {
                 $users = $userMod->group($group)->users();
+            }
+
+            if (not @{ $users }) {
+                # ignore rules for empty groups
+                next;
             }
             $rule->{users} = [ (map {
                                       my $name =  $_->name();
@@ -269,7 +277,7 @@ sub existsPoliciesForGroup
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
         next unless $source->selectedType() eq 'group';
-        my $userGroup = $source->printableValue();
+        my $userGroup = $source->value();
         if ($group eq $userGroup) {
             return 1;
         }

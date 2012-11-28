@@ -12,40 +12,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Desktop::Subscription;
-
 use strict;
 use warnings;
-use Error qw(:try);
 
-use EBox::RemoteServices::Cred;
+package EBox::Module::Service::Observer;
 
-# Method: subscribe
-#
-#   Perform a subscription
-#
-# Returns:
-#
-#   Hash ref containing:
-#       uuid - uuid assigned to the subscribed desktop
-#       password - password for that desktop
-#
-sub subscribe
+sub new
 {
-    my $cred = new EBox::RemoteServices::Cred();
-
-    my $ret = $cred->RESTClient()->POST('/v1/desktops/')->data();
-
-    if ($ret->{'limit'}) {
-        return $ret;
-    } else {
-        return {
-            'uuid'      => $ret->{'uuid'},
-            'password'  => $ret->{'secret'},
-            'cloud_domain' => $cred->cloudDomain(),
-        };
-    }
+    my $class = shift;
+    my $self  = {};
+    bless ($self, $class);
+    return $self;
 }
 
+sub serviceStarted
+{
+    my ($self, $module) = @_;
+}
 1;

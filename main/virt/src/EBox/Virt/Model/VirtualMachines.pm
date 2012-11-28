@@ -12,18 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Virt::Model::VirtualMachines;
+use strict;
+use warnings;
 
 # Class: EBox::Virt::Model::VirtualMachines
 #
 #      Table of Virtual Machines
 #
-
+package EBox::Virt::Model::VirtualMachines;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -244,13 +241,13 @@ sub _viewConsoleClicked
         return "return false";
     }
 
-    my $width = $virt->consoleWidth() + 30;
-    my $height = $virt->consoleHeight() + 65;
+    my $width = $virt->consoleWidth() . 'px';
+    my $height = $virt->consoleHeight() . 'px';
 
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false",
+    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true,}); return false",
 }
 
 sub _acquirePaused

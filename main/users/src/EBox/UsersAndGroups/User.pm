@@ -400,7 +400,7 @@ sub _setFilesystemQuota
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
 
     # check if quota has been really set
-    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my $output = EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
         EBox::error(
@@ -951,7 +951,8 @@ sub setKerberosKeys
         throw EBox::Exceptions::Internal($asn_key->error());
         push (@{$blobs}, $blob);
     }
-        $self->set('krb5Key', $blobs);
+    $self->set('krb5Key', $blobs);
+    $self->set('userPassword', '{K5KEY}');
 }
 
 1;

@@ -1144,6 +1144,14 @@ sub _setDHCPConf
     if ($dynamicDNSEnabled) {
         push @params, ('dynamicDNSEnabled' => $dynamicDNSEnabled);
         push @params, ('keysFile' => KEYS_FILE);
+
+        # Write keys file
+        if (EBox::Global->modExists('dns')) {
+            my $dns = EBox::Global->modInstance('dns');
+            my $keys = $dns->getTsigKeys();
+            $self->writeConfFile(KEYS_FILE, 'dns/keys.mas', [ keys => $keys ],
+                {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
+        }
     }
     push(@params, ('pidFile' => PIDFILE));
 

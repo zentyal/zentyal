@@ -12,18 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortal::Model::Settings;
-
+use strict;
+use warnings;
 # Class: EBox::CaptivePortal::Model::Settings
 #
 #   Form to set the Captive Portal general settings.
 #
-
+package EBox::CaptivePortal::Model::Settings;
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Select;
@@ -163,6 +159,11 @@ sub _checkPortAvailable
     }
 }
 
+sub setAuthGroupToAll
+{
+    my ($self) = @_;
+    $self->setValue('group', '__all__');
+}
 
 
 1;

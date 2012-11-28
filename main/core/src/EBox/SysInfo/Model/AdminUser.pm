@@ -12,24 +12,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::SysInfo::Model::AdminUser
 #
 #   This model is used to configure the administrator user account
 #
-
 package EBox::SysInfo::Model::AdminUser;
-
-use strict;
-use warnings;
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::Action;
-
-use base 'EBox::Model::DataForm';
 
 sub new
 {
