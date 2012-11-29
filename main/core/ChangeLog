@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted file downloads to the new utf8 fixes
 	+ Write backup files in raw mode to avoid utf8 problems
 	+ Print always utf8 in STDOUT on all CGIs
 	+ Decode CGI params of values entered at the interface as utf8

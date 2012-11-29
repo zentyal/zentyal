@@ -108,7 +108,8 @@ sub _print
         my $size = -s $file;
         $self->_printHeader($mimeType, $size);
 
-        open( my $downFile, '<', $file) or
+        binmode(STDOUT, ':raw');
+        open (my $downFile, '<', $file) or
             throw EBox::Exceptions::Internal('Could open file ' .
                                                  $self->{downfile} . " $!");
 
@@ -116,6 +117,7 @@ sub _print
         print do { local $/; <$downFile> };
 
         close($downFile);
+        binmode(STDOUT, ':utf8');
     } else {
             throw EBox::Exceptions::Internal('File does not exist, is not readable or is of a special type: ' .
                                                  $file);
