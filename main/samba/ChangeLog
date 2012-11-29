@@ -1,3 +1,5 @@
+HEAD
+	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
 3.0.9
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
