@@ -524,13 +524,18 @@ sub getAutomaticUpdates
     my ($self) = @_;
 
     if ($self->QAUpdates()) {
-        if (EBox::Config::boolean('qa_updates_always_automatic')) {
+        if ($self->qaUpdatesAlwaysAutomatic()) {
             return 1;
         }
     }
 
     my $auto = $self->get_bool('automatic');
     return $auto;
+}
+
+sub qaUpdatesAlwaysAutomatic
+{
+    return EBox::Config::boolean('qa_updates_always_automatic');
 }
 
 # Method: setAutomaticUpdates
