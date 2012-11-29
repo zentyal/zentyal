@@ -33,6 +33,7 @@ try {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
+    binmode(STDOUT, ':utf8');
     EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
 } otherwise  {
     my $ex = shift;
