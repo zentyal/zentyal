@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed EBox::Gettext for undef and empty strings
 3.0.4
 	+ Added EBox::setLocaleEnvironment method
 3.0.3
