@@ -31,6 +31,7 @@ try {
     sigprocmask(SIG_UNBLOCK, $sigset);
 
     EBox::init();
+    binmode(STDOUT, ':utf8');
     EBox::CGI::Run->run($ENV{'script'}, 'EBox');
 } otherwise  {
     my $ex = shift;
