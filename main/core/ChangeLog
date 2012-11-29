@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed utf8 decoding in date shown at dashboard
 	+ Removed old workarounds for utf8 problems
 	+ Fixed refresh of the table and temporal control states
 	  in customActionClicked callback
