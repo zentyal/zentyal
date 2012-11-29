@@ -1,5 +1,5 @@
 3.0.3
-	+ Proper escape of espaces in _aclBaseName
+	+ Do not allow blank characters in names of categorized lists
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
 	+ Mark module as changed if addition/removal of users modify ACLs
