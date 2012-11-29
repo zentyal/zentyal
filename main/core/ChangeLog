@@ -1,4 +1,5 @@
 HEAD
+	+ Decode CGI params of values entered at the interface as utf8
 	+ Proper encode/decode of utf8 with also pretty JSON
 	+ Fixed utf8 decoding in date shown at dashboard
 	+ Removed old workarounds for utf8 problems

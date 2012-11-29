@@ -428,6 +428,7 @@ sub param # (param)
         (@array) or return undef;
         my @ret = ();
         foreach my $v (@array) {
+            utf8::decode($v);
             $v =~ s/\t/ /g;
             $v =~ s/^ +//;
             $v =~ s/ +$//;
@@ -442,6 +443,7 @@ sub param # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
+        utf8::decode($scalar);
         $scalar =~ s/\t/ /g;
         $scalar =~ s/^ +//;
         $scalar =~ s/ +$//;
