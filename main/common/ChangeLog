@@ -1,4 +1,5 @@
 HEAD
+	+ Added "use utf8" to Gettext needed for the language string literals
 	+ Decode utf8 strings from gettext
 	+ Removed unnecessary utf8::decode calls in exceptions
 3.0.4

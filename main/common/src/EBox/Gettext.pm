@@ -15,6 +15,7 @@
 
 package EBox::Gettext;
 
+use utf8;
 use Locale::gettext;
 use EBox::Config;
 
