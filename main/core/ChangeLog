@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed automatic bug report regression
 	+ Fixed refresh of the table and temporal control states
 	  in customActionClicked callback
 	+ Modified modalbox-zentyal.js to accept wideDialog parameter
