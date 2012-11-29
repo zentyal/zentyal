@@ -1,4 +1,4 @@
-3.0.3
+HEAD
 	+ Proper escape of espaces in _aclBaseName
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
