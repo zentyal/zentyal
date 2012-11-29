@@ -97,11 +97,14 @@ sub _prepare
 {
     my ($self) = @_;
 
-    my $mail         = EBox::Global->modInstance('mail');
+    my $globalRO       = EBox::Global->getInstance(1);
+    my $mail           = $globalRO->modInstance('mail');
+    my $usersMod       = $globalRO->modInstance('users');
     my $mailUserLdap = $mail->_ldapModImplementation();
 
     my @users = qw(spam ham);
-    foreach my $user (@users) {
+    foreach my $username (@users) {
+        my $user    = $usersMod->user($username)     ;
         my $account = $mailUserLdap->userAccount($user);
         defined $account or
             next;
