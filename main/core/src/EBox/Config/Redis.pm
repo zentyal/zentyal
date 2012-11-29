@@ -56,7 +56,7 @@ sub _new
     $self->_respawn;
 
     $self->{pid} = $$;
-    $self->{json_pretty} = JSON::XS->new->pretty;
+    $self->{json_pretty} = JSON::XS->new->pretty->utf8;
 
     unless ($lock) {
         my $path = undef;
