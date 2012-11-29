@@ -298,13 +298,10 @@ sub _aclBaseName
     my ($sef, $row) = @_;
 
     my $list = $row->valueByName('list');
-    $list =~ tr/ /~/;
     my $category = $row->valueByName('category');
-    $category =~ tr/ /~/;
     my $aclName = "$list~dc~$category";
     return $aclName;
 }
-
 
 sub squidSharedAcls
 {

@@ -25,6 +25,7 @@ use EBox::Validate;
 use EBox::Sudo;
 use EBox::Types::Text::WriteOnce;
 use EBox::Squid::Types::ListArchive;
+use EBox::Exceptions::InvalidData;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
@@ -127,9 +128,17 @@ sub viewCustomizer
 
 sub validateTypedRow
 {
-    my ($self, $action, $params, $actual) = @_;
+    my ($self, $action, $params, $all) = @_;
+    my $name =  $all->{name}->value();
     if (($action eq 'add') or ($action eq 'update')) {
-        my $name = exists $params->{name} ? $params->{name}->value() : $actual->{name}->value();
+        if ($name =~ m/\s/) {
+            throw EBox::Exceptions::InvalidData(
+                data => __('List name'),
+                value => $name,
+                advice => __('Spaces and blank characters not allowed')
+           );
+        }
+
         my $dir = LIST_FILE_DIR . '/' . $name;
         if (EBox::Sudo::fileTest('-e', $dir)) {
             throw EBox::Exceptions::External(__x(
