@@ -54,7 +54,9 @@ sub new
 sub as_string
 {
     my ($self) = @_;
-    return $self->{result}->decoded_content();
+    my $value = $self->{result}->decoded_content();
+    utf8::decode($value);
+    return $value;
 }
 
 
@@ -67,7 +69,7 @@ sub data
     my ($self) = @_;
 
     unless ($self->{result_json}) {
-        $self->{result_json} = JSON->new->decode($self->{result}->decoded_content());
+        $self->{result_json} = decode_json($self->{result}->decoded_content());
     }
     return $self->{result_json};
 }
