@@ -100,7 +100,9 @@ sub get
 {
     my ($self, $attr) = @_;
 
-    return $self->_entry->get_value($attr);
+    my $value = $self->_entry->get_value($attr);
+    utf8::decode($value);
+    return $value;
 }
 
 

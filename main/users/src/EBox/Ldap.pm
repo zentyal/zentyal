@@ -34,7 +34,6 @@ use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
 use Data::Dumper;
-use Encode qw( :all );
 use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;

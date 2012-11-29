@@ -1,4 +1,5 @@
 HEAD
+	+ Decode utf8 attributes from LDAP at LdapObject::get()
 	+ Removed unused method _utf8Attrs
 3.0.6
 	+ Set userPassword attribute when setting kerberos keys for user
