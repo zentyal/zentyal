@@ -216,7 +216,7 @@ sub export_dir_to_file
     );
     my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
-        write_file($file, @lines);
+        write_file($file, { binmode => ':raw' }, @lines);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to $file");
     };

@@ -1,4 +1,5 @@
 HEAD
+	+ Write backup files in raw mode to avoid utf8 problems
 	+ Print always utf8 in STDOUT on all CGIs
 	+ Decode CGI params of values entered at the interface as utf8
 	+ Proper encode/decode of utf8 with also pretty JSON
