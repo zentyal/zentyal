@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 
 use Perl6::Junction qw( any );
@@ -1622,7 +1623,15 @@ sub dumpConfig
     try {
         # The service must be stopped or tar may fail with
         # file changed as we read it
-        $self->stopService();
+        # Ensure service is stopped.
+        my $count = 10;
+        while ((my $run = $self->isRunning()) and (--$count > 0)) {
+            EBox::info("Stopping service");
+            $self->stopService();
+        }
+        if ($self->isRunnig()) {
+            throw new EBox::Exceptions::Internal("Could not stop service");
+        }
 
         # Backup private. LDB files must be backed up using tdbbackup
         my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
@@ -1646,7 +1655,7 @@ sub dumpConfig
         my ($error) = @_;
         throw $error;
     } finally {
-        $self->_startService();
+        $self->restartService();
     };
 
     # Backup admin password
