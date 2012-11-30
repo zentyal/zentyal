@@ -1,4 +1,6 @@
 HEAD
+	+ Set visible_hostname to host '(instance)FQDN'. The standard value
+	  'localhost' causes access denied under certain circumstances
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
 	+ Mark module as changed if addition/removal of users modify ACLs
