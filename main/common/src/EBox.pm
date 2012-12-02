@@ -139,7 +139,6 @@ sub locale
         close ($fh);
     }
     unless ($locale) {
-        EBox::error("Locale configuration file '$localeFile does not exist or is empty. Fallback to 'C' locale");
         $locale = 'C';
     }
 
