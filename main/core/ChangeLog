@@ -1,11 +1,20 @@
 HEAD
-	+ Default name of SyncFolders::Folder is set to path
 	+ Added new recoveryEnabled() helper method to Module::Base
 	+ Added recoveryDomainName() method to SyncProvider interface
 	+ Restore backup can now install missing modules in Disaster Recovery
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
 	+ Added exception for cloud-prof to events dependencies
+	+ Use path for default name in SyncFolders::Folder
+	+ Do not restrict characters in data table searchs
+	+ Fixed automatic bug report regression
+	+ Fixed refresh of the table and temporal control states
+	  in customActionClicked callback
+	+ Modified modalbox-zentyal.js to accept wideDialog parameter
+	+ Fixed template method in MultiStateAction to return the default
+	  template when it is not any supplied to the object
+	+ Fixed sendInPlaceBooleanValue method from table-helper.js; it
+	  aborted because bad parameters of Ajax.Updater
 	+ Fixed bug that made that the lock was shared between owners
 	+ Some fixes in the function to add the rule for desktops services
 	  to the firewall

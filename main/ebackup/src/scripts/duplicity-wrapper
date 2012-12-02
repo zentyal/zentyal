@@ -94,6 +94,6 @@ if ($debug) {
     system "echo $cmdMsg >> $cmdLogFile";
 }
 
-$ENV{LANG} ='en_US.UTF-8';
+EBox::setLocaleEnvironment('C.UTF-8');
 exec $duplicityCommand or
     exit 2;

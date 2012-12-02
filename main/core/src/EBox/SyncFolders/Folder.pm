@@ -56,7 +56,16 @@ sub new
     if ($args{name}) {
         $self->{name} = $args{name};
     } else {
-        $self->{name} = $path;
+        my $name = $self->{path};
+        # Remove the first slash if exists
+        if (substr ($name, 0, 1) eq '/') {
+            $name = substr ($name, 1);
+        }
+        # Remove trailing slash if exists
+        if (substr ($name, -1, 1) eq '/') {
+            chop ($name);
+        }
+        $self->{name} = $name;
     }
     bless($self, $class);
     return $self;
