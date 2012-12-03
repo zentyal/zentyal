@@ -192,6 +192,14 @@ sub _startService
     EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
+
+    # User corner needs access to update the user password
+    if (EBox::Global->modExists('usercorner')) {
+        my $usercorner = EBox::Global->modInstance('usercorner');
+        my $userCornerGroup = $usercorner->USERCORNER_GROUP();
+        EBox::Sudo::root("setfacl -m \"g:$userCornerGroup:rx\" " . SAMBA_PRIVILEGED_SOCKET);
+    }
 
     $self->SUPER::_startService(@_);
 }
