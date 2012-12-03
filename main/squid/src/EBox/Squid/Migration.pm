@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # Copyright (C) 2012 EBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,7 +16,7 @@
 use strict;
 use warnings;
 
-# Migrate categorized lists paths and content directories with blanks
+package EBox::Squid::Migration;
 
 use EBox;
 use EBox::Global;
@@ -26,55 +25,52 @@ use EBox::Squid::Model::CategorizedLists;
 use File::Basename;
 use String::ShellQuote;
 
-EBox::init();
+# Migrate categorized lists paths and content directories with blanks
+sub migrateWhitespaceCategorizedLists
+{
+    my $squid = EBox::Global->getInstance(0)->modInstance('squid');
+    my $categorizedLists = $squid->model('CategorizedLists');
+    my $changedConf = 0;
 
-my $squid = EBox::Global->getInstance(0)->modInstance('squid');
-my $categorizedLists = $squid->model('CategorizedLists');
-my $changedConf = 0;
+    foreach my $id (@{ $categorizedLists->_ids() }) {
+        my $row = $categorizedLists->row($id);
+        my $name = $row->valueByName('name');
+        my $file = $row->elementByName('fileList');
 
+        my $unpackPath =  $file->unpackPath();
+        # create unpack path if not exists
+        if (not EBox::Sudo::fileTest('-d', $unpackPath)) {
+            EBox::Sudo::root("mkdir -p '$unpackPath'");
+        }
 
-foreach my $id (@{ $categorizedLists->ids() }) {
-    my $row = $categorizedLists->row($id);
-    my $name = $row->valueByName('name');
-    my $file = $row->elementByName('fileList');
+        my $newPath = $file->path();
+        my $oldPath =  EBox::Squid::Model::CategorizedLists::LIST_FILE_DIR;
+        $oldPath .= '/'  . $name;
+        _fixPath($newPath, $oldPath, 'archive file');
 
-    my $unpackPath =  $file->unpackPath();
-    # create unpack path if not exists
-    if (not EBox::Sudo::fileTest('-d', $unpackPath)) {
-        EBox::Sudo::root("mkdir -p '$unpackPath'");
-    }
-
-    my $newPath = $file->path();
-    my $oldPath =  EBox::Squid::Model::CategorizedLists::LIST_FILE_DIR;
-    $oldPath .= '/'  . $name;
-    _fixPath($newPath, $oldPath, 'archive file');
-
-    my $changedDirs = 0;
-    my $newDir = $file->archiveContentsDir();
-    my $oldDir =  $unpackPath . '/' . basename($oldPath);
-    $changedDirs = _fixPath($newDir, $oldDir, 'contents directory');
-
-    if (not $changedDirs) {
-        # older versions are not under categories
-        $oldDir =~ s{squid/categories/}{squid/};
+        my $changedDirs = 0;
+        my $newDir = $file->archiveContentsDir();
+        my $oldDir =  $unpackPath . '/' . basename($oldPath);
         $changedDirs = _fixPath($newDir, $oldDir, 'contents directory');
-    }
 
-    if ($changedDirs) {
-        print "\ndirChange\n";
-        if (_dirChange($squid, $oldDir, $newDir)) {
+        if (not $changedDirs) {
+            # older versions are not under categories
+            $oldDir =~ s{squid/categories/}{squid/};
+            $changedDirs = _fixPath($newDir, $oldDir, 'contents directory');
+        }
 
-            $changedConf = 1;
+        if ($changedDirs) {
+            if (_dirChange($squid, $oldDir, $newDir)) {
+
+                $changedConf = 1;
+            }
         }
     }
-}
 
-if ($changedConf) {
-    print "saveConfig\n";
-    $categorizedLists->_changeInCategorizedLists();
-    $squid->saveConfig();
+    if ($changedConf) {
+        $squid->saveConfig();
+    }
 }
-
 
 sub _fixPath
 {
@@ -107,6 +103,7 @@ sub _dirChange
     my ($squid, $old, $new) = @_;
     my $changed = 0;
     my $filterProfiles = $squid->model('FilterProfiles');
+
     foreach my $profileId (@{ $filterProfiles->ids() }) {
         my $profileRow = $filterProfiles->row($profileId);
         my $profileConf = $profileRow->subModel('filterPolicy');
@@ -121,18 +118,11 @@ sub _dirChange
                 $row->elementByName('dir')->setValue($dir);
                 $row->store();
                 $changed = 1;
-                EBox::debug("$old => $dir");
-                print "CHANge $old  => $dir\n";
-            } else {
-                print("$old != $baseDir\n");
             }
-
         }
-
     }
 
     return $changed;
 }
-
 
 1;

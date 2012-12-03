@@ -1,6 +1,9 @@
 HEAD
+	+ Migrate old directories with blank names and their asociated
+	  configuration values
+	+ Better escape of whitespace in ACL names
 	+ Replace blanks for categorized lists directories to workaround
-	  squid bug
+	  squid bug.
 	+ Fixed bug which allowed bad long names for ACL for 'all' object
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
