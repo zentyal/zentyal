@@ -108,7 +108,7 @@ then
         fi
     done
 
-    NUM_BUNDLES=$(wc -l $DATA_DIR/BUNDLE_IDS | cut -d: -f2 | sort | uniq)
+    NUM_BUNDLES=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | sort | uniq | wc -l)
     if [ $NUM_BUNDLES -eq 1 ]
     then
         BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
