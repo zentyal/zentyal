@@ -563,12 +563,11 @@ sub _writeSquidConf
     my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $kerberos     = $generalSettings->kerberosValue();
+    my $kerberos = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
     my $network = $global->modInstance('network');
     my $sysinfo = $global->modInstance('sysinfo');
-
 
     my $users = $global->modInstance('users');
 
@@ -589,6 +588,7 @@ sub _writeSquidConf
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
+    push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
     push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
@@ -609,12 +609,14 @@ sub _writeSquidExternalConf
     my $globalRO = EBox::Global->getInstance(1);
     my $global  = $self->global();
     my $network = $global->modInstance('network');
-    my $users = $global->modInstance('users');
+    my $users   = $global->modInstance('users');
+    my $sysinfo = $global->modInstance('sysinfo');
     my $generalSettings = $self->model('GeneralSettings');
 
     my $writeParam = [];
 
     push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
+    push (@{$writeParam}, hostfqdn => $sysinfo->fqdn());
 
     if ($generalSettings->kerberosValue()) {
         push (@{$writeParam}, realm => $users->kerberosRealm);

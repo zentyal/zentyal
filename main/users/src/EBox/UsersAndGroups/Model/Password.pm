@@ -97,6 +97,14 @@ sub setTypedRow
 
     $user->changePassword($pass1->value());
 
+    if (EBox::Global->modExists('samba')) {
+        my $samAccountName = $user->get('uid');
+        my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+        if ($sambaUser->exists()) {
+            $sambaUser->changePassword($pass1->value());
+        }
+    }
+
     eval 'use EBox::UserCorner::Auth';
     EBox::UserCorner::Auth->updatePassword($user, $pass1->value());
 

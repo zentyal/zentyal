@@ -4,7 +4,7 @@ HEAD
 	+ Restore backup can now install missing modules in Disaster Recovery
 	+ Show specific slides when installing a commercial edition
 	+ Redirect to proper CGI after login in disaster recovery mode
-	+ Added exception for cloud-prof to events dependencies
+3.0.8
 	+ Use path for default name in SyncFolders::Folder
 	+ Do not restrict characters in data table searchs
 	+ Fixed automatic bug report regression

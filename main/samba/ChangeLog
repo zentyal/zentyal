@@ -1,6 +1,8 @@
 HEAD
 	+ Integration with Disaster Recovery service
 	+ Explicit set of folder name as default value implementation has changed
+	+ Grant rx access on privileged ldap socket to allow user corner to
+	  update user passwords
 3.0.9
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
