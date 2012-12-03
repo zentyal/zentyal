@@ -212,17 +212,18 @@ sub externalAccountsForUser
 sub removeExternalAccount
 {
     my ($self, $user, $account) = @_;
+    my $username = $user->name();
 
     my %attrs = (
         base => EBox::Global->modInstance('users')->usersDn,
-        filter => '&(objectclass=fetchmailUser)(uid=' . $user->name() . ')',
+        filter => '&(objectclass=fetchmailUser)(uid=' . $username . ')',
         scope => 'one'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
     my ($entry) = $result->entries();
     if (not $result->count() > 0) {
-        throw EBox::Exceptions::Internal( "Cannot find user $user" );
+        throw EBox::Exceptions::Internal( "Cannot find user $username" );
     }
 
 
@@ -237,7 +238,7 @@ sub removeExternalAccount
     }
 
     throw EBox::Exceptions::Internal(
-          "Cannot find external account $account for user $user"
+          "Cannot find external account $account for user $username"
                                     );
 }
 
