@@ -11,6 +11,7 @@
     $https       => undef
     $filter
 
+    $hostfqdn
     $auth
     $principal
     $realm
@@ -203,7 +204,7 @@ acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
-visible_hostname localhost
+visible_hostname (frontal)<% $hostfqdn %>
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy
