@@ -1629,7 +1629,7 @@ sub dumpConfig
             EBox::info("Stopping service");
             $self->stopService();
         }
-        if ($self->isRunnig()) {
+        if ($self->isRunning()) {
             throw new EBox::Exceptions::Internal("Could not stop service");
         }
 
