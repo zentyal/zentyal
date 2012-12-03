@@ -84,7 +84,6 @@ snort    snort/interface   string
 
 # Zentyal
 zentyal-core zentyal-core/port string 443
-zentyal-core zentyal-core/dr_install boolean false
 
 # No boot splash screen.
 #d-i debian-installer/splash boolean false

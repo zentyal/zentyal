@@ -22,7 +22,6 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Sudo;
 use EBox::Util::SQL;
-use EBox::Util::Debconf;
 use Error qw(:try);
 
 my $restart = 1;
@@ -33,16 +32,9 @@ if ($ARGV[0] eq '--no-restart') {
 
 my ($modname, $version) = @ARGV;
 
-# We need to get this as root to avoid warning on console
-my $drInstall = EBox::Util::Debconf::value('zentyal-core/dr_install');
-
 EBox::init();
 
-# Do not create tables if we are on the first stage of the DR installer
-# they will be created later before launching restore-tool
-unless (defined ($drInstall) and ($drInstall eq 'true')) {
-    EBox::Util::SQL::createModuleTables($modname);
-}
+EBox::Util::SQL::createModuleTables($modname);
 
 # Copy purge-module script if exists
 my $purgeSrc = "/usr/share/zentyal-$modname/purge-module";

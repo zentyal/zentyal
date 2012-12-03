@@ -19,9 +19,6 @@ then
     touch $DISASTER_FILE
     chown :admin $DISASTER_FILE
     chown g+w $DISASTER_FILE
-
-    # Clean DR flag for first stage
-    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
 fi
 
 ### CUSTOM_ACTION ###
