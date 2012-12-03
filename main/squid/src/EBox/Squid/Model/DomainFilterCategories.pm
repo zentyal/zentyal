@@ -297,9 +297,9 @@ sub _aclBaseName
 {
     my ($sef, $row) = @_;
     my $aclName = $row->valueByName('list') . '~dc~' . $row->valueByName('category');
+    $aclName =~ s/\s/~~/g;
     return $aclName;
 }
-
 
 sub squidSharedAcls
 {
