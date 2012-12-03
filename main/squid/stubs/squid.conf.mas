@@ -139,7 +139,7 @@ sub _printSplitAcl
    if ($rule->{any}) {
        $objectAcl = 'all';
    } elsif ($object) {
-       $objectAcl = _aclName($objectPrefix . $object);
+       $objectAcl = $objectPrefix . $object;
    } else {
        $objectAcl = '';
    }
@@ -147,12 +147,13 @@ sub _printSplitAcl
    my $group = $rule->{'group'};
    my $groupAcl;
    if ($group) {
-      $groupAcl = _aclName($groupPrefix . $group);
+      $groupAcl = $groupPrefix . $group;
   } else {
       $groupAcl = '';
   }
 
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   $acl = _aclName($acl);
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {

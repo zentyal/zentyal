@@ -1,4 +1,7 @@
 HEAD
+	+ Replace blanks for categorized lists directories to workaround
+	  squid bug
+	+ Fixed bug which allowed bad long names for ACL for 'all' object
 	+ Set visible_hostname to host '(instance)FQDN'. The standard value
 	  'localhost' causes access denied under certain circumstances
 	+ Ignore access rules for empty objects
