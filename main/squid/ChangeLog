@@ -1,4 +1,7 @@
 HEAD
+	+ Replace blanks for categorized lists directories to workaround
+	  squid bug
+	+ Fixed bug which allowed bad long names for ACL for 'all' object
 	+ Ignore access rules for empty objects
 	+ Ignore access rules for empty groups
 	+ Mark module as changed if addition/removal of users modify ACLs
