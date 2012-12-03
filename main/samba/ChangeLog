@@ -1,6 +1,5 @@
 HEAD
-	+ Improve daemon management while backing up database. Ensure daemon
-	  is stopped and restarted
+	+ Improve backup, stopping the daemon is no longer needed
 3.0.9
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
