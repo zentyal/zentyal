@@ -117,7 +117,7 @@ sub initialSetup
             source => { any => undef },
             policy => { allow => undef },
         );
-    } elsif (EBox::Util::Version::compare($version, '3.0.2') < 0) {
+    } elsif (EBox::Util::Version::compare($version, '3.0.3') < 0) {
         eval "use EBox::Squid::Migration";
         EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
     }
