@@ -1839,18 +1839,21 @@ sub extraSudoerUsers
     return @users;
 }
 
-sub _backupSubscritionConf
-{
-    my ($self, $dir) = @_;
-    return "$dir/subscription.conf";
-}
-
-sub _backupSubscritionTar
+# Get the path for subscription data in the backup
+sub _backupSubsDataTarFileName
 {
     my ($self, $dir) = @_;
     return "$dir/subscription.tar.gz";
 }
 
+# Method: dumpConfig
+#
+#     Override to store the subscription conf path
+#
+# Overrides:
+#
+#     <EBox::Module::Base::dumpConfig>
+#
 sub dumpConfig
 {
     my ($self, $dir) = @_;
@@ -1860,40 +1863,35 @@ sub dumpConfig
         return;
     }
 
-    # file with subscription and cache conf parameters
-    my $subscriptionConfFile = $self->_backupSubscritionConf($dir);
-    my $stringConf = encode_json($self->get_state());
-    File::Slurp::write_file($subscriptionConfFile, $stringConf);
-
     # tar with subscription files directory
-    my $tarPath = $self->_backupSubscritionTar($dir);
+    my $tarPath = $self->_backupSubsDataTarFileName($dir);
     my $subscriptionDir =  SUBS_DIR;
-    my $tarCmd = 'tar  cf ' . $tarPath . ' ' . $subscriptionDir;
+    my $tarCmd = "tar cf '$tarPath' '$subscriptionDir'";
     EBox::Sudo::root($tarCmd);
 }
 
+# Method: restoreConfig
+#
+#     Override to restore the subscription conf path and state
+#
+# Overrides:
+#
+#     <EBox::Module::Base::restoreConfig>
+#
 sub restoreConfig
 {
     my ($self, $dir) = @_;
 
     $self->clearCache();
 
-    my $subscriptionConf = $self->_backupSubscritionConf($dir);
-    if (not -r $subscriptionConf) {
-        # no subscribed
-        $self->st_set_bool('subscribed', 0);
-        return;
-    }
-
     # restore state conf
-    my $state = decode_json(File::Slurp::read_file($subscriptionConf));
-    $self->set_state($state);
+    $self->_load_state_from_file($dir);
 
     # restore subscription files and ownerhsip
     my $subscriptionDir = SUBS_DIR;
     try {
-        my $tarPath = $self->_backupSubscritionTar($dir);
-        my $tarCmd = 'tar x --file ' . $tarPath . ' -C /';
+        my $tarPath = $self->_backupSubsDataTarFileName($dir);
+        my $tarCmd = "tar x --file '$tarPath' -C /";
         EBox::Sudo::root($tarCmd);
         EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
         EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir/*");

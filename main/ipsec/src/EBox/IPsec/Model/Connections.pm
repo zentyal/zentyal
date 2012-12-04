@@ -147,7 +147,18 @@ sub _table
     return $dataTable;
 }
 
-
+sub validateTypedRow
+{
+    my ($self, $action, $params_r) = @_;
+    my $name = $params_r->{name}->value();
+    if ($name =~ m/\s/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Connection name'),
+            value => $name,
+            advice => __('Blank characters are not allowed')
+           );
+    }
+}
 
 
 1;
