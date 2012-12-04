@@ -1,4 +1,6 @@
 HEAD
+	+ Make sure in categorized lists model that list archives are not
+	  backed up
 	+ Migrate old directories with blank names and their asociated
 	  configuration values
 	+ Better escape of whitespace in ACL names
