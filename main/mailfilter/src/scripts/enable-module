@@ -8,15 +8,15 @@ done
 
 # move out old amavis conf files
 mv /etc/amavis/conf.d /etc/amavis/conf.d.old
-mkdir /etc/amavis/conf.d
+mkdir -p /etc/amavis/conf.d
 chmod --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
 chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
 
-# add clamav user to group amavis. Because it need access to amavis stuff
-addgroup clamav amavis
-
-# add clamav user to group p3scan
-addgroup clamav p3scan
+groups clamav | grep -q amavis
+if [ $? != 0 ]; then
+  # add clamav user to group amavis. Because it need access to amavis stuff
+  addgroup clamav amavis
+fi
 
 ## copy LDAP schemas
 #cp /usr/share/zentyal-mailfilter/*.schema /etc/ldap/schema
