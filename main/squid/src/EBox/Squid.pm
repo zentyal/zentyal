@@ -1186,18 +1186,6 @@ sub pathsToRemove
     return $toRemove;
 }
 
-sub backupFilesFromArchive
-{
-    # XXX disabled, current framework does not support it and when it does we
-    # shoudl change other things
-}
-sub restoreFilesFromArchive
-{
-    # XXX disabled, current framework does not support it and when it does we
-    # shoudl change other things
-
-}
-
 sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;

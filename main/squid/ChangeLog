@@ -1,4 +1,6 @@
 HEAD
+	+ Make sure in categorized lists model that list archives are not
+	  backed up
 	+ Replace blanks for categorized lists directories to workaround
 	  squid bug
 	+ Fixed bug which allowed bad long names for ACL for 'all' object
