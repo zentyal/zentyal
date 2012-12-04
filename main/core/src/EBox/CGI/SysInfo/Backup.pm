@@ -67,22 +67,6 @@ sub _print
     $self->_printPopup();
 }
 
-# sub _body
-# {
-#     my ($self) = @_;
-#     if (not $self->{popup}) {
-#         return $self->SUPER::_body();
-#     }
-
-#     my $hasError = (defined($self->{error})) or (defined ($self->{olderror}));
-#     if ($hasError) {
-#         $self->{tem}
-#     } else {
-#         $self->SUPER::_body();
-#     }
-# }
-
-
 sub requiredParameters
 {
     my ($self) = @_;
