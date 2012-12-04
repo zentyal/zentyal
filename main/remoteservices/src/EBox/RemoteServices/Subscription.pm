@@ -201,7 +201,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}, $_->{comm_mail_add_on}) } @{$availables};
+        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_comm_add_on}) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
