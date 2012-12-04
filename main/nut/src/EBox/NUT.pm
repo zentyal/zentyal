@@ -47,7 +47,7 @@ sub menu
                                         'separator' => 'Core',
                                         'order' => 70);
 
-    my $item = new EBox::Menu::Item('url' => 'NUT/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'Maintenance/NUT',
                                     'text' => $self->printableName(),
                                     'order' => 55);
     $folder->add($item);
