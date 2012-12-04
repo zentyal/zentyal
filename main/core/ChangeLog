@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Module::Service does not raise exception and logs
+	  nothing when using init.d status
 	+ Fixed glitch in backup CGI which sometimes showed
 	  the modal dialog with a incorrect template
 3.0.8
