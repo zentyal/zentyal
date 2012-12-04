@@ -56,7 +56,7 @@ sub _timeAclsInPolicy
 sub _escapeWS
 {
     my ($string) = @_;
-    $string =~ s{ }{~~}g;
+    $string =~ s{\s}{~~}g;
     return $string;
 }
 # needed to avoid log acl problems

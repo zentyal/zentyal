@@ -42,6 +42,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
 use EBox::Gettext;
+use EBox::Util::Version;
 use EBox;
 use Error qw(:try);
 use HTML::Mason;
@@ -108,13 +109,17 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-    # Create default rules only if installing the first time
-    unless ($version) {
+
+   if (not $version) {
+       # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(
             source => { any => undef },
             policy => { allow => undef },
         );
+    } elsif (EBox::Util::Version::compare($version, '3.0.3') < 0) {
+        eval "use EBox::Squid::Migration";
+        EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
     }
 }
 
