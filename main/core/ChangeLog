@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed glitch in backup CGI which sometimes showed
+	  the modal dialog with a incorrect template
 3.0.8
 	+ Use path for default name in SyncFolders::Folder
 	+ Do not restrict characters in data table searchs
