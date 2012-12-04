@@ -1,3 +1,6 @@
+HEAD
+	+ EBox::Module::Service does not raise exception and logs
+	  nothing when using init.d status
 3.0.8
 	+ Use path for default name in SyncFolders::Folder
 	+ Do not restrict characters in data table searchs
