@@ -218,34 +218,32 @@ sub _validateNoCertParams
 
 sub _validateCerts
 {
-    my ($self, $action, $params_r, $actual_r) = @_;
-
+    my ($self, $action, $params_r, $all_r) = @_;
     my %path;
-
-    my $path;
     my $noChanges = 1;
 
     my @fieldNames = qw(caCertificate certificate certificateKey);
     foreach my $fieldName (@fieldNames) {
         my $certPath;
-        if ((exists $params_r->{$fieldName}) and $params_r->{$fieldName}->value()) {
+        if ((exists $params_r->{$fieldName})) {
             $noChanges = 0;
             $certPath =  $params_r->{$fieldName}->tmpPath();
         } else {
-                my $file =  $actual_r->{$fieldName};
-                if (not $file->exist()) {
-                    throw EBox::Exceptions::External(
+            my $file =  $all_r->{$fieldName};
+            if ($file->exist())  {
+                $certPath = $file->path();
+            } else {
+                throw EBox::Exceptions::External(
                         __x(
                             'No file supplied or already set for {f}',
                             f => $file->printableName
                            )
                        );
-                }
-                $certPath = $file->path();
             }
+
+        }
         $path{$fieldName} = $certPath;
     }
-
 
     return if ($noChanges);
 
