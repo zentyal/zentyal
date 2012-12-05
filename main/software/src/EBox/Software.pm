@@ -533,6 +533,11 @@ sub getAutomaticUpdates
     return $auto;
 }
 
+# Method: qaUpdatesAlwaysAutomatic
+#
+#  Returns:
+#   boolean - whether if the system is configured to install autmatically
+#             the qa updates packages
 sub qaUpdatesAlwaysAutomatic
 {
     return EBox::Config::boolean('qa_updates_always_automatic');
