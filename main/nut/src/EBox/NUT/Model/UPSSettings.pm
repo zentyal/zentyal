@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::NUT::Model::UPSSettings;
-
 use strict;
 use warnings;
 
+package EBox::NUT::Model::UPSSettings;
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
@@ -71,14 +69,19 @@ sub upsVariables
 
         next if $line =~ /^Type:/;
 
-        if ($var and $line =~ /Value:\s+(.*)$/) {
-            $vars->{$var}->{value} = $1;
-            next;
-        }
-
         if ($var) {
-            chomp $line;
-            $vars->{$var}->{description} = $line;
+            if ($line =~ /Value:\s+(.*)$/) {
+                $vars->{$var}->{value} = $1;
+                next;
+            } elsif ($line =~ m/Option:\s+"?(.*?)"?\s+SELECTED/) {
+                $vars->{$var}->{value} = $1;
+                next;
+            } elsif ($line =~ m/:/) {
+                next;
+            } else {
+                chomp $line;
+                $vars->{$var}->{description} = $line;
+            }
         }
     }
 
@@ -96,8 +99,12 @@ sub ids
 
     my $ids = [];
     foreach my $key (sort keys %{$variables}) {
+        if (not defined $variables->{$key}->{value}) {
+            next;
+        }
         push (@{$ids}, $key);
     }
+
     return $ids;
 }
 
