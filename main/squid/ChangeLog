@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error triggered when creating a delay pool without an object
 	+ Make sure in categorized lists model that list archives are not
 	  backed up
 	+ Migrate old directories with blank names and their asociated

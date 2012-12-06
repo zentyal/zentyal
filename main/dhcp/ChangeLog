@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug which used all addresses available in a interface to
+	  generate DNS reverse zone instead of the configured ranges
 3.0.2
 	+ Always write ddns keys file when saving changes
 	+ Do not append trailing dot to key names

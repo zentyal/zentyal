@@ -1854,7 +1854,7 @@ sub dumpConfig
     my ($self, $dir) = @_;
 
     if (not $self->eBoxSubscribed()) {
-        # no subscription to backup
+        # no subscription to back up
         return;
     }
 
@@ -1882,20 +1882,52 @@ sub restoreConfig
     # restore state conf
     $self->_load_state_from_file($dir);
 
-    # restore subscription files and ownerhsip
-    my $subscriptionDir = SUBS_DIR;
-    try {
-        my $tarPath = $self->_backupSubsDataTarFileName($dir);
-        my $tarCmd = "tar x --file '$tarPath' -C /";
-        EBox::Sudo::root($tarCmd);
-        EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
-        EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir/*");
-    } otherwise {
-        my ($ex) = shift;
-        EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-        $self->clearCache();
-        $self->st_set_bool('subscribed', 0);
-    };
+    my $tarPath = $self->_backupSubsDataTarFileName($dir);
+    # Parse backed up server-info.json to know if we are restoring a
+    # first installed server or a disaster recovery one. In those
+    # cases, the server password has been modified and the backed one
+    # is not valid anymore
+    my ($backupSubscribed, $excludeServerInfo) = (1, 0);
+    if ( $self->eBoxSubscribed() ) {
+        try {
+            # For hackers!
+            EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
+            my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
+            # If matches, then skip to restore the server-info.json
+            $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
+        } otherwise {
+            my ($ex) = shift;
+            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
+            EBox::error($ex);
+            $self->clearCache();
+            $self->st_set_bool('subscribed', 0);
+            $backupSubscribed = 0;
+        } finally {
+            EBox::Sudo::root('rm -f /tmp/server-info.json');
+        };
+    }
+
+    if ($backupSubscribed) {
+        # Restore subscription files and ownership
+        my $subscriptionDir = SUBS_DIR;
+        try {
+            my $tarCmd = "tar --extract --file '$tarPath' --directory /";
+            $tarCmd .= " --exclude=server-info.json" if ($excludeServerInfo);
+            my @cmds = ($tarCmd,
+                        "chown ebox.adm '$subscriptionDir'",
+                        "chown -R ebox.ebox $subscriptionDir/*");
+            EBox::Sudo::root(@cmds);
+        } otherwise {
+            my ($ex) = shift;
+            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
+            EBox::error($ex);
+            $self->clearCache();
+            $self->st_set_bool('subscribed', 0);
+        };
+    }
+
+    # Mark as changed to make all things work again
+    $self->setAsChanged();
 }
 
 # Method: clearCache
