@@ -275,7 +275,26 @@ sub _recreateLDAP
     # Enable actions (without slave setup to avoid recursion)
     $users->enableActions();
 
-    # TODO: reenable all LDAP modules
+    my $global = EBox::Global->modInstance('global');
+    my @ldapModules = @{$global->modInstancesOfType('EBox::LdapModule')};
+    foreach my $mod (@ldapModules) {
+        try {
+            $mod->self->performLDAPActions() if $mod->configured();
+        } otherwise {
+            my ($ex) = @_;
+            EBox::error($ex);
+        };
+    }
+
+    my @krbModules = @{$global->modInstancesOfType('EBox::KerberosModule')};
+    foreach my $mod (@krbModules) {
+        try {
+            $mod->kerberosCreatePrincipals() if $mod->configured();
+        } otherwise {
+            my ($ex) = @_;
+            EBox::error($ex);
+        };
+    }
 }
 
 sub _analyzeException

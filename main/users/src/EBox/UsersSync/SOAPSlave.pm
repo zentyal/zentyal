@@ -25,6 +25,7 @@ use EBox::Global;
 use Devel::StackTrace;
 use SOAP::Lite;
 use MIME::Base64;
+use Error qw(:try);
 
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
@@ -107,6 +108,24 @@ sub delGroup
     $group->deleteObject();
 
     return $self->_soapResult(0);
+}
+
+sub pollServicePrincipals
+{
+    my ($self) = @_;
+
+    my $principals = [];
+    my $global = EBox::Global->getInstance();
+    my @krbModules = @{$global->modInstancesOfType('EBox::KerberosModule')};
+    foreach my $mod (@krbModules) {
+        try {
+            push (@{$principals}, $mod->kerberosServicePrincipals()) if $mod->configured();
+        } otherwise {
+            my ($ex) = @_;
+            EBox::error($ex);
+        };
+    }
+    return $self->_soapResult($principals);
 }
 
 # Method: URI

@@ -162,7 +162,16 @@ sub _delGroup
     return 0;
 }
 
+sub _addServicePrincipal
+{
+}
 
+sub pollServicePrincipals
+{
+    my ($self) = @_;
+
+    return $self->soapClient->pollServicePrincipals();
+}
 
 # CLIENT METHODS
 
@@ -186,6 +195,5 @@ sub soapClient
     }
     return $self->{client};
 }
-
 
 1;
