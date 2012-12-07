@@ -1,4 +1,5 @@
 HEAD
+	+ Fix reload bundle checks with communication add-on
 	+ Restore process can skip backed up credentials when it is sure
 	  the current credentials are up to date for the same server
 	+ Fix regression to register a server with communication add-on
