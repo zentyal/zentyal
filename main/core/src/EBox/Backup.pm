@@ -1637,9 +1637,6 @@ sub _configureModules
             EBox::error("Failed to enable module $name: $err");
         };
     }
-
-    # FIXME: is this save changes needed? I suppose it is, much better to use saveAllModules here, because it already saves changes
-    #saveChanges($saveChangesMsg);
 }
 
 sub _checkId

@@ -87,7 +87,10 @@ sub showRestoreProgress
         );
 
     if ($self->param('popup')) {
-        push @params, @popupProgressParams;
+        push (@params, @popupProgressParams);
+    } elsif ($self->param('dr')) {
+        push (@params, 'nextStepUrl' => '/SaveChanges?noPopup=1&save=1');
+        push (@params, 'nextStepText' => __('Click here to finish'));
     }
 
     $self->showProgress(@params);
