@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Bump bind9 deps to new upstream version
 	+ Add the 'zentyal-desktop-api' SRV entry to the domain of the host
 	+ Add 'zentyal-desktop-api' to /etc/services in the _setConf
