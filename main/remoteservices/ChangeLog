@@ -1,4 +1,4 @@
-HEAD
+3.0.10
 	+ Fix reload bundle checks with communication add-on
 	+ Restore process can skip backed up credentials when it is sure
 	  the current credentials are up to date for the same server
