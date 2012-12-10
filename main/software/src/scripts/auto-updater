@@ -45,7 +45,7 @@ try {
     $software->lock(by => 'ebox-software');
     my @pkgnames = ();
     foreach my $pkg (@pkgs) {
-	    push(@pkgnames, $pkg->{name});
+        push(@pkgnames, $pkg->{name});
     }
 
     if (@pkgnames) {
