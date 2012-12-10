@@ -22,12 +22,27 @@ package EBox::RemoteServices::Run::Pending;
 use EBox;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
+use English '-no_match_vars';
 use Error qw(:try);
 use File::Slurp;
 use Getopt::Long;
 use JSON::XS qw(decode_json);
 use Pod::Usage;
+use Proc::ProcessTable;
 
+# Only one process
+sub _onlyOne
+{
+    my $cmd = $PROGRAM_NAME;
+    $cmd .= join(" ", @ARGV);
+    my $t   = new Proc::ProcessTable();
+    foreach my $proc (@{$t->table()}) {
+        return 0 if ( ($proc->cmndline() =~ m:$cmd:) and ($proc->pid() != $PID) and ($proc->uid() == $UID) );
+    }
+    return 1;
+}
+
+# Run pending jobs
 sub _runPendingOps
 {
     my $journalDirPath = EBox::RemoteServices::Configuration::JournalOpsDirPath();
@@ -78,7 +93,9 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
-_runPendingOps();
+if ( _onlyOne() ) {
+    _runPendingOps();
+}
 
 1;
 
