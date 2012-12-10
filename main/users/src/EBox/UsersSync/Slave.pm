@@ -49,6 +49,13 @@ sub new
     return $self;
 }
 
+sub _addPrincipal
+{
+    my ($self, $principal) = @_;
+
+    my $principalData = $principal->as_ldif();
+    return $self->soapClient->addPrincipal($principalData);
+}
 
 sub _addUser
 {
@@ -160,10 +167,6 @@ sub _delGroup
     my ($self, $group) = @_;
     $self->soapClient->delGroup($group->dn());
     return 0;
-}
-
-sub _addServicePrincipal
-{
 }
 
 sub pollServicePrincipals

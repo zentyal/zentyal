@@ -1,4 +1,5 @@
 HEAD
+	+ Sync kerberos OU from master to slaves
 	+ Fixed user quota edition in slave server
 	+ Update user password also in samba ldap when changed from user corner
 	+ Update 'cn' attribute in cloud-sync

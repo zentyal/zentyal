@@ -96,7 +96,7 @@ sub _soapResult
     my ($class, $retData) = @_;
 
     my $trace = new Devel::StackTrace();
-    if ($trace->frame(2)->package() eq 'SOAP::Server' ) {
+    if ($trace->frame(2)->package() eq 'SOAP::Server') {
         $SOAP::Constants::NS_SL_PERLTYPE = $class->URI();
         return SOAP::Data->name('return', $retData);
     } else {

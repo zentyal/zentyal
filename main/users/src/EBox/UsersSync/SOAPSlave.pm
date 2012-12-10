@@ -26,11 +26,28 @@ use Devel::StackTrace;
 use SOAP::Lite;
 use MIME::Base64;
 use Error qw(:try);
+use File::Temp;
+use File::Slurp;
 
+use EBox::UsersAndGroups::Principal;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 
 # Group: Public class methods
+
+sub addPrincipal
+{
+    my ($self, $principalData) = @_;
+
+    my $dirPath = EBox::Config::tmp();
+    my $fh = new File::Temp(TEMPLATE => "sync-XXXX", DIR => $dirPath,
+                            SUFFIX => '.ldif', UNLINK => 1);
+    my $tmpFile = $fh->filename();
+    write_file($tmpFile, $principalData);
+    my $principal = new EBox::UsersAndGroups::Principal(ldif => $tmpFile);
+    $principal->save();
+    return $self->_soapResult(0);
+}
 
 sub addUser
 {
@@ -157,7 +174,6 @@ sub _soapResult
     } else {
         return $retData;
     }
-
 }
 
 1;

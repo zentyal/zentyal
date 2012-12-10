@@ -28,6 +28,14 @@ sub new
     return $self;
 }
 
+# Method: _addPrincipal
+#
+#   This method adds a kerberos principal
+#
+sub _addPrincipal
+{
+}
+
 # Method: _preAddUser
 #
 #   When a new user is going to be created this method is called,

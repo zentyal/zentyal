@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::UsersAndGroups;
 use EBox::Gettext;
 
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
@@ -61,8 +62,16 @@ sub new
     if ($params{entry}) {
         $self->{entry} = $params{entry};
     } elsif ($params{ldif}) {
-        my $ldif = Net::LDAP::LDIF->new($params{ldif}, "r");
-        $self->{entry} = $ldif->read_entry();
+        my $ldif = new Net::LDAP::LDIF($params{ldif}, 'r', onerror => 'undef');
+        if ($ldif->eof()) {
+            throw EBox::Exceptions::Internal("Empty LDIF");
+        } else {
+            $self->{entry} = $ldif->read_entry();
+            if ($ldif->error()) {
+                throw EBox::Exceptions::Internal("Error reading entry from " .
+                    "LDIF: " . $ldif->error());
+            }
+        }
     } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
     }
@@ -216,7 +225,10 @@ sub save
 {
     my ($self) = @_;
 
-    my $result = $self->_entry->update($self->_ldap->{ldap});
+    my $result = $self->_entry->update($self->_ldap->ldapCon());
+    unless (defined $result) {
+        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . 'Undefined result');
+    }
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
             throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());

@@ -33,6 +33,7 @@ use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::UsersAndGroups::Slave;
+use EBox::UsersAndGroups::Principal;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
@@ -234,17 +235,23 @@ sub setupKerberos
     my ($self) = @_;
 
     my $realm = $self->kerberosRealm();
-    EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
-    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
     push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
-    push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
+
+    my $master = $self->master();
+    if ($master eq 'none') {
+        EBox::info("Initializing kerberos realm '$realm'");
+        push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
+    }
+    if ($master eq 'none' or $master eq 'cloud') {
+        push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm");
+        push (@cmds, 'chmod 600 /etc/kpasswdd.keytab');
+    }
     EBox::Sudo::root(@cmds);
 
     $self->setupDNS();
@@ -873,6 +880,33 @@ sub groups
     return \@groups;
 }
 
+# Method: krbPrincipals
+#
+#   Query LDAP and returns kerberos principals
+#
+sub krbPrincipals
+{
+    my ($self) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my %args = (
+        base => 'OU=kerberos,' . $self->ldap->dn(),
+        filter => 'objectclass=krb5Principal',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my $principals = [];
+    foreach my $entry ($result->sorted('krb5PrincipalName')) {
+        my $principal = new EBox::UsersAndGroups::Principal(entry => $entry);
+        push (@{$principals}, $principal);
+    }
+
+    return $principals;
+}
+
 
 sub multipleOusEnabled
 {
@@ -1075,6 +1109,14 @@ sub notifyModsLdapUserBase
 sub initialSlaveSync
 {
     my ($self, $slave, $sync) = @_;
+
+    foreach my $p (@{$self->krbPrincipals()}) {
+        if ($sync) {
+            $slave->sync('addPrincipal', [ $p ]);
+        } else {
+            $slave->savePendingSync('addPrincipal', [ $p ]);
+        }
+    }
 
     foreach my $user (@{$self->users()}) {
         if ($sync) {
@@ -1380,7 +1422,7 @@ sub slaves
 #
 #   Return configured master as string, undef in none
 #
-#   Options: 'zentyal', 'cloud' or None
+#   Options: 'zentyal', 'cloud' or 'none'
 #
 sub master
 {
