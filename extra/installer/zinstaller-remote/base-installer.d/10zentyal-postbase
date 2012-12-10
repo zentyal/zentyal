@@ -34,4 +34,12 @@ Pin: release *
 Pin-Priority: 50
 EOF
 
+CONF_DIR=/target/etc/apt/apt.conf.d/
+mkdir -p $CONF_DIR
+cat >> $CONF_DIR/99zentyal <<EOF
+Acquire::https::$REPO {
+   Verify-Peer "false";
+};
+EOF
+
 exit 0
