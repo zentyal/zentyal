@@ -94,14 +94,14 @@ sub validateTypedRow
             }
             if ($addr eq $targetIP) {
                 throw EBox::Exceptions::External(
-                    __x('Network {addr} is the address if the interface {if}',
+                    __x('Network {addr} is invalid because it is the address of the interface {if}',
                         addr => $addr,
                         if   => $iface,
                    )
                 );
             } elsif ($addr eq $gwIp) {
                throw EBox::Exceptions::External(
-                    __x('Gateway {addr} is the address if the interface {if}',
+                    __x('Gateway {addr} is invalid because it is the address of the interface {if}',
                         addr => $addr,
                         if   => $iface,
                    )
