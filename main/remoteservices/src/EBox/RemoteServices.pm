@@ -1012,7 +1012,7 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::GlobalImpl::_packageInstalled('zentyal-files-sync');
+    return EBox::GlobalImpl::_packageInstalled('zfilesync');
 }
 
 # Method: disasterRecoveryAvailable

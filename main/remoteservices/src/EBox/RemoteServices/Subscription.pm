@@ -55,7 +55,7 @@ use constant {
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
     SEC_UPD_PKG    => 'zentyal-security-updates',
-    SYNC_PKG       => 'zentyal-files-sync',
+    SYNC_PKG       => 'zfilesync',
     REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
 };
 
