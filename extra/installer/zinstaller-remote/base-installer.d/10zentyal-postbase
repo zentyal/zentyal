@@ -5,9 +5,6 @@ DATA_DIR=/tmp/zinstaller-remote
 mkdir -p /target/var/lib/
 cp -r $DATA_DIR /target/var/lib/
 
-# FIXME: remove this when packages from jacalvo/new-dr are available in QA repo
-exit 0
-
 if ! [ -f $DATA_DIR/QA_USERNAME ]
 then
     exit 0

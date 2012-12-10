@@ -159,10 +159,7 @@ sub _setConf
         $self->_reportAdminPort();
         $self->_setFilesSyncConf();
     }
-
-    # FIXME: uncomment this when everything from this DR branch is going to be available in the QA repo
-    #$self->_setQAUpdates();
-
+    $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
     $self->_setNETRCFile();
