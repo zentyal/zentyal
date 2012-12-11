@@ -362,6 +362,9 @@ sub create
            );
     }
 
+    # Verify is dont exists as builtin
+    $self->_checkWindowsBuiltin($group);
+
     # Verify group exists
     if (new EBox::UsersAndGroups::Group(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists(
@@ -441,6 +444,32 @@ sub _checkGroupName
     return 1;
 }
 
+sub _checkWindowsBuiltin
+{
+    my ($self, $name) = @_;
+
+    my $global = EBox::Global->getInstance();
+    if (not $global->modExists('samba')) {
+        # without samba we cannot check this
+        return;
+    }
+
+    my $samba = $global->modInstance('samba');
+    if (not $samba->configured()) {
+        # without  provision we cannot check builtin exists
+        return;
+    }
+
+    my $ldb = $samba->ldb();
+    my $dn = "CN=$name,CN=Builtin";
+    if ($ldb->existsDN($dn, 1)) {
+        throw EBox::Exceptions::External(
+            __x('{name} already exists as windows bult-in group',
+                name => $name
+               )
+           );
+    }
+}
 
 sub system
 {

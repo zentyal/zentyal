@@ -1,4 +1,6 @@
 HEAD
+	+ Check in group creation if is not a windows built-in group. This
+	  only works if samba is provisioned
 	+ Generate kerberos AES keys to be compatible with active directory in
 	  W2k8 or higher functional levels
 	+ Fixed user quota edition in slave server
