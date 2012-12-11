@@ -1,3 +1,5 @@
+HEAD
+	+ Fix apparmor profile to allow SDLZ driver to read session key
 3.0.3
 	+ Bump bind9 deps to new upstream version
 	+ Add the 'zentyal-desktop-api' SRV entry to the domain of the host
