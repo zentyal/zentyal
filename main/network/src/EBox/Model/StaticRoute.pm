@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Network::Model::StaticRoute
 #
 # This model configures the static route table for the server
@@ -23,18 +24,15 @@
 #    - description (optional)
 
 package EBox::Network::Model::StaticRoute;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::IPAddr;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use EBox::NetWrappers;
+use EBox::Exceptions::External;
 
-# Dependencies
 
 # Group: Public methods
 
@@ -68,13 +66,60 @@ sub new
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
+    my $netMod = $self->parentModule();
+    my $gw = $allFields->{gateway};
+    my $gwIp = $gw->value();
 
-    # Validate the gateway is reachable
-    if ( exists $changedFields->{gateway} ) {
-        my $netMod = $self->parentModule();
-        $netMod->gatewayReachable($changedFields->{gateway}->value(),
-                                  $changedFields->{gateway}->printableName());
+    if ($netMod->model('GatewayTable')->findValue(ip => $gwIp)) {
+        throw EBox::Exceptions::External(
+            __x('Gateway {gw} is already defined in the gateway table. Use a multi gateway rule instead',
+                gw => $gwIp
+               )
+           );
     }
+    $netMod->gatewayReachable($gwIp,
+                              $gw->printableName());
+
+    my $targetIP = $allFields->{network}->ip();
+    my $targetMaskBits = $allFields->{network}->mask();
+    my $targetNetwork = EBox::NetWrappers::ip_network($targetIP,
+                                                      EBox::NetWrappers::mask_from_bits($targetMaskBits));
+     foreach my $iface (@{ $netMod->allIfaces() }) {
+         my @addrs = @{ $netMod->ifaceAddresses($iface) };
+         foreach my $addr_r (@addrs) {
+            my $addr = $addr_r->{address};
+            my $mask = $addr_r->{netmask};
+            if ($targetMaskBits == 32) {
+                $targetNetwork = EBox::NetWrappers::ip_network($targetIP, $mask);
+            }
+            if ($addr eq $targetIP) {
+                throw EBox::Exceptions::External(
+                    __x('Network {addr} is invalid because it is the address of the interface {if}',
+                        addr => $addr,
+                        if   => $iface,
+                   )
+                );
+            } elsif ($addr eq $gwIp) {
+               throw EBox::Exceptions::External(
+                    __x('Gateway {addr} is invalid because it is the address of the interface {if}',
+                        addr => $addr,
+                        if   => $iface,
+                   )
+                );
+            }
+
+            my $addrNetwork =  EBox::NetWrappers::ip_network($addr, $mask);
+            if ($addrNetwork eq $targetNetwork) {
+                throw EBox::Exceptions::External(
+                    __x(
+                        'Not needed to add a route to {ip} because is reacheable directly by interface {if}',
+                         ip => "$targetIP/$targetMaskBits",
+                        if => $iface
+                  ) );
+            }
+         }
+     }
+
     # As we cannot clone the oldRow, we just keep the old params here
     if ( $action eq 'update' ) {
         my $oldRow = $self->row($changedFields->{id});
