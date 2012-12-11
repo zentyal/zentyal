@@ -785,9 +785,17 @@ sub _getInfoEBoxPkgs
 
     my $cache = $self->_cache(1);
     my @list;
+
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
             next if $restricted{$pack};
+
+            if ($seen{$pack}) {
+                next;
+            } else {
+                $seen{$pack} = 1;
+            }
 
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
@@ -825,7 +833,14 @@ sub _getUpgradablePkgs
 
     my $cache = $self->_cache(1);
     my @list;
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
+        if ($seen{$pack}) {
+            next;
+        } else {
+            $seen{$pack} = 1;
+        }
+
         my $pkgCache = $cache->packages()->lookup($pack) or next;
 
         my $currentVerObj = $cache->{$pack}{CurrentVer};
