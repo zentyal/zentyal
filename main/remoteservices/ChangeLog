@@ -1,4 +1,8 @@
 HEAD
+	+ Make sure only one run-pending-ops process is launched at the
+	  same time
+3.0.10
+	+ Fix reload bundle checks with communication add-on
 	+ Restore process can skip backed up credentials when it is sure
 	  the current credentials are up to date for the same server
 	+ Fix regression to register a server with communication add-on

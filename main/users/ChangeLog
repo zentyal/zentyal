@@ -1,5 +1,7 @@
 HEAD
 	+ Sync kerberos OU from master to slaves
+	+ Generate kerberos AES keys to be compatible with active directory in
+	  W2k8 or higher functional levels
 	+ Fixed user quota edition in slave server
 	+ Update user password also in samba ldap when changed from user corner
 	+ Update 'cn' attribute in cloud-sync
