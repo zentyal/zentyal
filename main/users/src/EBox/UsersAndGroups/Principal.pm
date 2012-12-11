@@ -27,6 +27,12 @@ package EBox::UsersAndGroups::Principal;
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
+use EBox::Config;
+
+use Error qw(:try);
+use File::Temp;
+use File::Slurp;
+
 sub new
 {
     my $class = shift;
@@ -34,6 +40,32 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
     return $self;
+}
+
+sub createFromLDIF
+{
+    my ($self, $ldif) = @_;
+
+    my $dirPath = EBox::Config::tmp();
+    my $fh = new File::Temp(TEMPLATE => "sync-XXXX", DIR => $dirPath,
+                            SUFFIX => '.ldif', UNLINK => 1);
+    my $tmpFile = $fh->filename();
+    write_file($tmpFile, $ldif);
+
+    my $res = undef;
+    try {
+        $res = new EBox::UsersAndGroups::Principal(ldif => $tmpFile);
+        $res->save();
+
+        # TODO Call modules initialization
+        # $users->notifyModsLdapUserBase('addPrincipal', $res, $params{ignoreMods}, $params{ignoreSlaves});
+    } otherwise {
+        my ($error) = @_;
+        EBox::error($error);
+        $res = undef;
+        throw $error;
+    };
+    return $res;
 }
 
 1;

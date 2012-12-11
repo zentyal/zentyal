@@ -390,7 +390,7 @@ sub create
         $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
             $params{ignoreMods}, $params{ignoreSlaves});
 
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($self->_ldap->ldapCon());
         if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());

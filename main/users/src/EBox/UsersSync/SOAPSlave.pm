@@ -39,13 +39,7 @@ sub addPrincipal
 {
     my ($self, $principalData) = @_;
 
-    my $dirPath = EBox::Config::tmp();
-    my $fh = new File::Temp(TEMPLATE => "sync-XXXX", DIR => $dirPath,
-                            SUFFIX => '.ldif', UNLINK => 1);
-    my $tmpFile = $fh->filename();
-    write_file($tmpFile, $principalData);
-    my $principal = new EBox::UsersAndGroups::Principal(ldif => $tmpFile);
-    $principal->save();
+    EBox::UsersAndGroups::Principal->createFromLDIF($principalData);
     return $self->_soapResult(0);
 }
 
@@ -131,17 +125,9 @@ sub pollServicePrincipals
 {
     my ($self) = @_;
 
-    my $principals = [];
     my $global = EBox::Global->getInstance();
-    my @krbModules = @{$global->modInstancesOfType('EBox::KerberosModule')};
-    foreach my $mod (@krbModules) {
-        try {
-            push (@{$principals}, $mod->kerberosServicePrincipals()) if $mod->configured();
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error($ex);
-        };
-    }
+    my $users = $global->modInstance('users');
+    my $principals = $users->krbPrincipals();
     return $self->_soapResult($principals);
 }
 
