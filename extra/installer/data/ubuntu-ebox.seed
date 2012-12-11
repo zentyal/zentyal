@@ -56,35 +56,6 @@ d-i user-setup/encrypt-home boolean false
 # finish
 #d-i finish-install/reboot_in_progress note
 
-##
-## packages configuration preseeding
-##
-
-# postfix answers
-postfix postfix/main_mailer_type select No configuration
-
-# ddclient answers
-ddclient    ddclient/fetchhosts select  Manually
-ddclient    ddclient/blankhostslist error   
-ddclient    ddclient/run_daemon boolean false
-ddclient    ddclient/hostslist  multiselect 
-ddclient    ddclient/names  string  
-ddclient    ddclient/interface  string  
-ddclient    ddclient/modifiedconfig error   
-ddclient    ddclient/checkip    boolean false
-ddclient    ddclient/server string  members.dyndns.org
-ddclient    ddclient/protocol   select  dyndns2
-ddclient    ddclient/run_ipup   boolean true
-ddclient    ddclient/username   string  
-ddclient    ddclient/password   password  
-ddclient    ddclient/daemon_interval    string  300
-ddclient    ddclient/service    select  www.dyndns.com
-
-snort    snort/interface   string  
-
-# Zentyal
-zentyal-core zentyal-core/port string 443
-
 # No boot splash screen.
 #d-i debian-installer/splash boolean false
 
