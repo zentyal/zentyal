@@ -21,7 +21,8 @@ use base qw(EBox::Module::Service
             EBox::SysInfo::Observer
             EBox::UserCorner::Provider
             EBox::SyncFolders::Provider
-            EBox::UsersAndGroups::SyncProvider);
+            EBox::UsersAndGroups::SyncProvider
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -1689,5 +1690,20 @@ sub recoveryDomainName
 {
     return __('Users data');
 }
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+    my ($self) = @_;
+
+    my $usersPrintableName  = __(q{Users data});
+    my $usersPath           = '/home';
+
+    return {
+        $usersPrintableName   => [ $usersPath ],
+    };
+}
+
 
 1;

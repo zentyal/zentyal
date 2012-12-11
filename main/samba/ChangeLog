@@ -1,5 +1,6 @@
 HEAD
 	+ Integration with Disaster Recovery service
+	+ Restored backupDomains implementation
 	+ Explicit set of folder name as default value implementation has changed
 	+ Grant rx access on privileged ldap socket to allow user corner to
 	  update user passwords

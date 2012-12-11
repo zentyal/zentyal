@@ -1735,57 +1735,37 @@ sub restoreDependencies
     return \@depends;
 }
 
+sub backupDomains
+{
+    my $name = 'shares';
+    my %attrs  = (
+                  printableName => __('File Sharing'),
+                  description   => __(q{Shares, users and groups homes and profiles}),
+                 );
 
-# backup domains
+    return ($name, \%attrs);
+}
 
-# FIXME: this needs to be fixed/uncommented!!
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{shares}) {
+        my $sambaLdapUser = new EBox::SambaLdapUser();
 
-#sub backupDomains
-#{
-#    my $name = 'shares';
-#    my %attrs  = (
-#                  printableName => __('File Sharing'),
-#                  description   => __(q{Shares, users and groups homes and profiles}),
-#                 );
-#
-#    return ($name, \%attrs);
-#}
+        my @dirs = ('/home');
 
-#sub backupDomainsFileSelection
-#{
-#    my ($self, %enabled) = @_;
-#    if ($enabled{shares}) {
-#        my $sambaLdapUser = new EBox::SambaLdapUser();
-#        my @dirs = @{ $sambaLdapUser->sharedDirectories() };
-#        push @dirs, map {
-#            $_->{path}
-#        } @{ $self->shares(1) };
-#
-#        my $selection = {
-#                          includes => \@dirs,
-#                         };
-#        return $selection;
-#    }
-#
-#    return {};
-#}
+        push @dirs, map {
+            $_->{path}
+        } @{ $self->shares(1) };
 
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-#sub _facilitiesForDiskUsage
-#{
-#    my ($self) = @_;
-#
-#    my $usersPrintableName  = __(q{Users files});
-#    my $usersPath           = EBox::SambaLdapUser::usersPath();
-#    my $groupsPrintableName = __(q{Groups files});
-#    my $groupsPath          = EBox::SambaLdapUser::groupsPath();
-#
-#    return {
-#        $usersPrintableName   => [ $usersPath ],
-#        $groupsPrintableName  => [ $groupsPath ],
-#    };
-#}
+        my $selection = {
+                          includes => \@dirs,
+                         };
+        return $selection;
+    }
+
+    return {};
+}
 
 # Implement LogHelper interface
 sub tableInfo
