@@ -44,6 +44,7 @@ use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Util::Version;
+use EBox::DBEngineFactory;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -150,6 +151,16 @@ sub initialSetup
     # Migration from 3.0.8, force users resync
     if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
+    }
+
+    # Migration from 3.0.9, add fields to the LogHelper tables
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.10') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_virus
+                       ADD username VARCHAR(24)");
+        $dbengine->do("ALTER TABLE samba_quarantine
+                       ADD username VARCHAR(24),
+                       ADD client INT UNSIGNED");
     }
 }
 
@@ -1801,20 +1812,23 @@ sub tableInfo
     my $virus_titles = {
         'timestamp' => __('Date'),
         'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'virus' => __('Virus'),
         'event' => __('Type'),
     };
-    my @virus_order = qw(timestamp client filename virus event);;
+    my @virus_order = qw(timestamp client username filename virus event);;
     my $virus_events = { 'virus' => __('Virus') };
 
     my $quarantine_titles = {
         'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'qfilename' => __('Quarantined file name'),
         'event' => __('Quarantine'),
     };
-    my @quarantine_order = qw(timestamp filename qfilename event);
+    my @quarantine_order = qw(timestamp client username filename qfilename event);
     my $quarantine_events = { 'quarantine' => __('Quarantine') };
 
     return [{
@@ -1846,6 +1860,7 @@ sub tableInfo
         'order' => \@quarantine_order,
         'timecol' => 'timestamp',
         'filter' => ['filename'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
