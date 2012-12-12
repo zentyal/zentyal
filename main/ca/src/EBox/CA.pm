@@ -246,8 +246,8 @@ sub createCA
         open ( $OUT, ">" . CRLNOFILE);
 #        print $OUT "01\n";
         # III
+        binmode($OUT, ':utf8');
         my $clrContents = "01\n";
-        utf8::encode($clrContents);
         print $OUT $clrContents;
         close ($OUT);
     }
@@ -2244,7 +2244,7 @@ sub _commonArgs # (cmd, args)
 
     if ( $cmd eq "ca" or $cmd eq "req" ) {
         ${$args} .= " -config " . SSLCONFFILE . " -batch ";
-        ${$args} .= ' -utf8 ';
+#        ${$args} .= ' -utf8 ';
     } elsif ($cmd eq 'x509') {
         ${$args}  .= ' -nameopt RFC2253 ';
     }
@@ -2296,6 +2296,8 @@ sub _obtain # (certFile, attribute)
     $output =~ s/^$arg=( )*//g;
 
     chomp($output);
+
+    #XX decode utf8 by hand here ?
 
     if ($attribute eq 'DN') {
         return EBox::CA::DN->parseDN($output);
@@ -2413,9 +2415,8 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     $subject =~ s/\/$//g;
     $row .= $subject . "\n";
     # III
-    utf8::encode($row);
-
     open (my $index, ">>" . INDEXFILE);
+    binmode($index, ':utf8');
     print $index $row;
     close($index);
 }
@@ -2457,7 +2458,7 @@ sub _writeDownIndexAttr # (attrFile)
 #    print $fh "unique_subject = yes" . $/;
     # III
     my $attrContents = "unique_subject = yes\n";
-    utf8::encode($attrContents);
+    binmode($fh, ':utf8');
     print $fh $attrContents;
     close($fh);
 }
@@ -2656,7 +2657,6 @@ sub _executeCommand # (command, input, hide_output)
 
     # Send the command
     # III
-    utf8::encode($command);
     if (not print {$self->{shell}} $command) {
         my $errVal = $!;
         throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
@@ -2667,7 +2667,6 @@ sub _executeCommand # (command, input, hide_output)
     # Send the input
     # III
     if ($input) {
-        utf8::encode($input);
         if (not print {$self->{shell}} $input . "\x00") {
             my $errVal = $!;
             throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
