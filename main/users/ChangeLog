@@ -2,6 +2,7 @@ HEAD
 	+ Integration with Disaster Recovery service
 	+ Include /home as disk usage facility
 	+ Fix enable quotas without rebooting when module is enabled.
+	+ Dont stop openldap daemon when dumping database
 	+ Generate kerberos AES keys to be compatible with active directory in
 	  W2k8 or higher functional levels
 	+ Fixed user quota edition in slave server

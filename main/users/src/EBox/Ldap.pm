@@ -773,9 +773,10 @@ sub _dumpLdap
 
     my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
     my $chownCommand = "/bin/chown $user:$group $ldifFile";
-
-    $self->_execute(1, # With pause
-        cmds => [$slapcatCommand, $chownCommand]);
+    EBox::Sudo::root(
+                       $slapcatCommand,
+                       $chownCommand
+                    );
 }
 
 sub dumpLdapData
@@ -836,34 +837,6 @@ sub _slapcatCmd
         $base = $self->dn();
     }
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
-}
-
-sub _execute
-{
-    my ($self, $pause, %params) = @_;
-    my @cmds = @{ $params{cmds} };
-    my $onError = $params{onError};
-
-    if ($pause) {
-        $self->stop();
-    }
-    try {
-        EBox::Sudo::root(@cmds);
-    }
-    otherwise {
-        my $ex = shift;
-
-        if ($onError) {
-            $onError->($self);
-        }
-
-        throw $ex;
-    }
-    finally {
-        if ($pause) {
-            $self->start();
-        }
-    };
 }
 
 sub safeConnect
