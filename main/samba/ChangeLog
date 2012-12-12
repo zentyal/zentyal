@@ -1,4 +1,5 @@
 HEAD
+	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
 	+ Grant rx access on privileged ldap socket to allow user corner to

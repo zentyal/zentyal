@@ -2301,12 +2301,24 @@ sub _updatePathsByLen
 {
     my ($self) = @_;
 
-    # FIXME: Complete the implementation
     @sharesSortedByPathLen = ();
 
+    # Group and custom shares
     foreach my $sh_r (@{ $self->shares(1) }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
-                                      share =>  $sh_r->{share} };
+                                      share =>  $sh_r->{share},
+                                      type => ($sh_r->{'groupShare'} ? 'Group' : 'Custom')};
+    }
+
+    # User shares
+    foreach my $user (@{ $self->userShares() }) {
+        foreach my $share (@{$user->{'shares'}}) {
+            my $entry = {};
+            $entry->{'share'} = $user->{'user'};
+            $entry->{'type'} = 'User';
+            $entry->{'path'} = $share;
+            push (@sharesSortedByPathLen, $entry);
+        }
     }
 
     # add regexes
@@ -2322,6 +2334,10 @@ sub _updatePathsByLen
     } @sharesSortedByPathLen;
 }
 
+#   Returns a hash with:
+#       share - The name of the share
+#       path  - The path of the share
+#       type  - The type of the share (User, Group, Custom)
 sub shareByFilename
 {
     my ($self, $filename) = @_;
@@ -2333,7 +2349,7 @@ sub shareByFilename
 
     foreach my $shareAndPath (@sharesSortedByPathLen) {
         if ($filename =~ m/$shareAndPath->{pathRegex}/) {
-            return $shareAndPath->{share};
+            return $shareAndPath;
         }
     }
 
