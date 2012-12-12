@@ -1,4 +1,5 @@
 HEAD
+	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
 	+ Grant rx access on privileged ldap socket to allow user corner to
 	  update user passwords

@@ -2312,6 +2312,8 @@ sub _updatePathsByLen
     # add regexes
     foreach my $share (@sharesSortedByPathLen) {
         my $path = $share->{path};
+        # Remove duplicate '/'
+        $path =~ s/\/+/\//g;
         $share->{pathRegex} = qr{^$path/};
     }
 
@@ -2322,7 +2324,7 @@ sub _updatePathsByLen
 
 sub shareByFilename
 {
-    my ($filename) = @_;
+    my ($self, $filename) = @_;
 
     if (not @sharesSortedByPathLen) {
         my $samba =EBox::Global->modInstance('samba');
