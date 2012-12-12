@@ -14,5 +14,3 @@ PATH=/usr/bin:/bin
 % } else {
 */<% $slave_time %> * * * * root /usr/share/zentyal-users/slave-sync
 % }
-*/<% $slave_time %> * * * * root /usr/share/zentyal-users/slave-sync-sp
-

@@ -51,6 +51,7 @@ try {
 };
 
 processDir($slaves, EBox::Config::home() . 'syncjournal/');
+pollSlavesForServicePrincipals($slaves);
 
 if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
@@ -163,4 +164,21 @@ sub processUserCornerFile
         print " * $name\n";
     }
 }
+
+sub pollSlavesForServicePrincipals
+{
+    my ($slaves) = @_;
+
+    foreach my $slave (@{$slaves}) {
+        my @principals = @{$slave->pollServicePrincipals()};
+        foreach my $p (@principals) {
+            my $local = new EBox::UsersAndGroups::Principal(dn => $p->dn());
+            unless ($local->exists()) {
+                my $ldif = $p->as_ldif();
+                $local = EBox::UsersAndGroups::Principal->createFromLDIF($ldif);
+            }
+        }
+    }
+}
+
 1;
