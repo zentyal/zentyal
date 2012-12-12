@@ -89,7 +89,15 @@ sub processLine # (file, line, logger)
         $dataToInsert{filename} = $1;
         $dataToInsert{qfilename} = $2;
     } else {
-        #TODO $fields[3] ok / fail (msg)
+        unless (@fields > 3) {
+            return;
+        }
+
+        unless ($fields[3] eq 'ok') {
+            # TODO: Log failures (fail (msg))
+            return;
+        }
+
         my $type = $fields[2];
         $dataToInsert{event} = $type;
         if (
