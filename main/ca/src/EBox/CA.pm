@@ -41,6 +41,7 @@ use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
 use EBox::Util::Version;
+use utf8;
 
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
@@ -239,10 +240,15 @@ sub createCA
         mkdir (REQDIR, DIRMODE);
         mkdir (P12DIR, PRIVATEDIRMODE);
         # Create index and crl number
-        open ( my $OUT, ">" . INDEXFILE);
+        my $OUT;
+        open ( $OUT, ">" . INDEXFILE);
         close ($OUT);
         open ( $OUT, ">" . CRLNOFILE);
-        print $OUT "01\n";
+#        print $OUT "01\n";
+        # III
+        my $clrContents = "01\n";
+        utf8::encode($clrContents);
+        print $OUT $clrContents;
         close ($OUT);
     }
 
@@ -306,7 +312,10 @@ sub createCA
             serialNumber => $serialNumber);
     # Create the serial file
     if ( ! -f SERIALNOFILE ) {
+        EBox::debug("WRITE SERIAL");
         $self->_writeDownNextSerial(CACERT);
+    } else {
+        EBox::debug("NOT WRITE SERAIL");
     }
     # Create the serial attribute file
     if ( ! (-f INDEXFILE . ".attr") ) {
@@ -1063,7 +1072,7 @@ sub listCertificates
                 );
     }
 
-    my @lines = read_file( INDEXFILE );
+    my @lines = read_file( INDEXFILE,  binmode => ':raw' ); # III
     my @out = ();
 
     foreach ( @lines ) {
@@ -1916,7 +1925,11 @@ sub _checkValidCharacters
     $stringName or
         $stringName = __('String');
 
-    if (not $string =~ qr/^[\w .?&+:\-\@\*]*$/) {
+# DDD
+return;
+    # III
+#    if (not $string =~ qr/^[\w .?&+:\-\@\*]*$/) {
+    if (not $string =~ qr/^[[:alnum:]] .?&+:_\-\@\*]*$/) {
         throw EBox::Exceptions::InvalidData(
             data => $stringName,
             value => $string,
@@ -1988,6 +2001,8 @@ sub _generateP12Store
 {
     my ($self, $privKeyFile, $certMetadata, $password) = @_;
 
+    use Data::Dumper;  # DDD
+    EBox::debug(Dumper($certMetadata->{path}));
     my $certFile = $certMetadata->{path};
     my $cn       = $certMetadata->{dn}->attribute('commonName');
     my $target   = P12DIR . "${cn}.p12";
@@ -2033,7 +2048,10 @@ sub _findCertFile # (commonName)
     my $found = '0';
     my $certFile = undef;
     while(defined(my $line = <$fh>) and not $found) {
+        # III
+        utf8::decode($line);
         my @fields = split ('\t', $line);
+
 
         if ( $fields[STATE_IDX] eq 'V') {
             # Extract cn from subject
@@ -2226,8 +2244,10 @@ sub _commonArgs # (cmd, args)
 
     if ( $cmd eq "ca" or $cmd eq "req" ) {
         ${$args} .= " -config " . SSLCONFFILE . " -batch ";
+        ${$args} .= ' -utf8 ';
+    } elsif ($cmd eq 'x509') {
+        ${$args}  .= ' -nameopt RFC2253 ';
     }
-    ${$args} .= ' -utf8 ';
 }
 
 # Given a certification file Obtain an attribute from the file
@@ -2257,9 +2277,13 @@ sub _obtain # (certFile, attribute)
     } elsif ($attribute eq 'subjAltNames' ) {
         $arg = '-text -certopt -no_header,no_version,no_serial,no_signame,no_validity,no_subject';
     }
-    my $cmd = "x509 " . $arg . " -in \'$certFile\' -noout";
+    my $cmd = 'x509 ';
+    $self->_commonArgs('x509', \$cmd);
+    $cmd .=    $arg . " -in \'$certFile\' -noout";
 
+    EBox::debug("OBTAIN CMD $cmd");
     my ($retVal, $output) = $self->_executeCommand(command => $cmd);
+    EBox::debug("OBTAIN OUTPUT $retVal : $output");
 
     return undef if ($retVal ne "OK");
 
@@ -2388,6 +2412,8 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     my $subject = $args{dn}->stringOpenSSLStyle();
     $subject =~ s/\/$//g;
     $row .= $subject . "\n";
+    # III
+    utf8::encode($row);
 
     open (my $index, ">>" . INDEXFILE);
     print $index $row;
@@ -2427,7 +2453,12 @@ sub _writeDownIndexAttr # (attrFile)
     my ($self, $attrFile) = @_;
 
     open(my $fh, ">" . $attrFile);
-    print $fh "unique_subject = yes" . $/;
+
+#    print $fh "unique_subject = yes" . $/;
+    # III
+    my $attrContents = "unique_subject = yes\n";
+    utf8::encode($attrContents);
+    print $fh $attrContents;
     close($fh);
 }
 
@@ -2618,12 +2649,14 @@ sub _executeCommand # (command, input, hide_output)
     $self->_startShell();
 
     my $command = $params{command};
-    # EBox::debug("OpenSSL command: $command");
+    EBox::debug("OpenSSL command: $command");
 
     $command =~ s/\n*$//;
     $command .= "\n";
 
     # Send the command
+    # III
+    utf8::encode($command);
     if (not print {$self->{shell}} $command) {
         my $errVal = $!;
         throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
@@ -2632,10 +2665,19 @@ sub _executeCommand # (command, input, hide_output)
     my $input;
     $input = $params{input} if (exists $params{input});
     # Send the input
-    if ($input and not print {$self->{shell}} $input . "\x00") {
-        my $errVal = $!;
-        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
+    # III
+    if ($input) {
+        utf8::encode($input);
+        if (not print {$self->{shell}} $input . "\x00") {
+            my $errVal = $!;
+            throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
+        }
     }
+# III
+#     if ($input and not print {$self->{shell}} $input . "\x00") {
+#         my $errVal = $!;
+#         throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
+#     }
 
     # Close the shell
     $self->_stopShell();
@@ -2643,7 +2685,8 @@ sub _executeCommand # (command, input, hide_output)
     # check for errors
     if (-e $error_shell) {
         # There was an error
-        my $ret = File::Slurp::read_file($error_shell);
+        my $ret = File::Slurp::read_file($error_shell, binmode => ':raw'); # III
+        utf8::decode($ret); #III
         unlink($error_shell);
         if ( $ret =~ /error/i ) {
             unlink($output_shell);
@@ -2655,7 +2698,10 @@ sub _executeCommand # (command, input, hide_output)
     # Load the output
     my $ret = 1;
     if ( -e $output_shell ) {
-        $ret = File::Slurp::read_file($output_shell);
+#        $ret = File::Slurp::read_file($output_shell);
+        # III
+        $ret = File::Slurp::read_file($output_shell, binmode => ':raw');
+        utf8::decode($ret);
         # $ret =~ s/^(OpenSSL>\s)*//s;
         $ret =~ s/^OpenSSL>\s*//gm;
         $ret = 1 if ($ret eq "");
