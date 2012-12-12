@@ -467,6 +467,7 @@ sub _groupAddOns
     return { path => '/samba/samba.mas', params => $args };
 }
 
+
 # Method: _checkWindowsBuiltin
 #
 # check whether the group already exists in the Builtin branch
@@ -475,7 +476,6 @@ sub _checkWindowsBuiltin
     my ($self, $name) = @_;
 
     my $dn = "CN=$name,CN=Builtin";
-    EBox::debug("_checkWindowsBuiltin $name");
     if ($self->{ldb}->existsDN($dn, 1)) {
         throw EBox::Exceptions::External(
             __x('{name} already exists as windows bult-in group',
