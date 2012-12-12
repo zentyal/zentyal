@@ -1,4 +1,5 @@
 HEAD
+	+ Decode CGI unsafeParams as utf8
 	+ Avoid double encoding when printing JSON response in EBox::CGI::Base
 	+ Remove warning in EBox::Menu::Folder when currentfolder is not defined
 	+ Removed unnecesary and misleading method new from EBox::Auth package
