@@ -750,14 +750,14 @@ sub reloadNSCD
 
 # Method: user
 #
-# Returns the object which represents a give user. Raises a excpetion if
+# Returns the object which represents a give user. Raises a exception if
 # the user does not exists
 #
 #  Parameters:
 #      username
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::User .
+#    the instance of EBox::UsersAndGroups::User for the given user
 sub user
 {
     my ($self, $username) = @_;
@@ -812,14 +812,14 @@ sub users
 
 # Method: group
 #
-# Returns the object which represents a give group. Raises a excpetion if
+# Returns the object which represents a give group. Raises a exception if
 # the group does not exists
 #
 #  Parameters:
 #      groupname
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::Group .
+#    the instance of EBox::UsersAndGroups::Group for the group
 sub group
 {
     my ($self, $groupname) = @_;
