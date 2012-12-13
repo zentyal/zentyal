@@ -750,7 +750,7 @@ sub reloadNSCD
 
 # Method: user
 #
-# Returns the object which represents a give user. Raises a excpetion if
+# Returns the object which represents a give user. Raises a exception if
 # the user does not exists
 #
 #  Parameters:
