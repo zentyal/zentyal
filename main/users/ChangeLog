@@ -1,4 +1,6 @@
 HEAD
+	+ Point kerberos-master and kpasswd DNS records to master on slave
+	  servers
 	+ Sync kerberos OU from master to slaves
 	+ Generate kerberos AES keys to be compatible with active directory in
 	  W2k8 or higher functional levels

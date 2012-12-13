@@ -212,9 +212,10 @@ sub validateTypedRow
                     next unless $rr->type() eq 'PTR';
                     if (defined $krbMaster) {
                         throw EBox::Exceptions::External(
-                            __x('Zentyal has tried to reverse resolve the {x} IP address and ' .
-                                'multiple host names have been found. Please correct your DNS ' .
-                                'setup before proceed.', x => $host));
+                            __x('Zentyal has tried a reverse lookup of {x} and ' .
+                                'multiple names have been found. Please ensure that this '.
+                                'IP address is not assigned to more than one host before proceed.',
+                                x => $host));
                     }
                     $krbMaster = $rr->rdatastr();
                     $krbMaster =~ s/\.$//;
@@ -225,10 +226,10 @@ sub validateTypedRow
         }
         unless (defined $krbMaster) {
             throw EBox::Exceptions::External(
-                    __x('Could not determine master host FQDN from its IP address ({x}). ' .
+                    __x('Zentyal has tried a reverse lookup of {x} without success. ' .
                         'This is necessary because the kerberos DNS records must point to ' .
-                        'the master on a slave server. Please correct your DNS setup before ' .
-                        'proceed.', x => $host));
+                        'the master on a slave server. Please add to the DNS domain the master ' .
+                        'host name with its IP addess.', x => $host));
         }
         ($krbMaster, $krbDomain) = split (/\./, $krbMaster, 2);
         unless (defined $krbDomain) {
@@ -239,8 +240,10 @@ sub validateTypedRow
                         'and your DNS setup before proceed.', x => $krbMaster));
         }
 
-        # Check local DNS setup
-        $self->checkLocalDNS($krbMaster, $krbDomain);
+        # Setup DNS
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $hostName = $sysinfo->hostName();
+        $self->parentModule->setupDNS($krbDomain, $hostName, $krbMaster);
     }
 
     if ($master eq 'cloud') {
@@ -270,64 +273,6 @@ sub validateTypedRow
     # set apache as changed
     my $apache = EBox::Global->modInstance('apache');
     $apache->setAsChanged();
-}
-
-# Method: checkLocalDNS
-#
-#   This method checks that the local DNS module has the master hostname
-#   and all its IP addresses present
-#
-sub checkLocalDNS
-{
-    my ($self, $krbMaster, $krbDomain) = @_;
-
-    my $masterFQDN = "$krbMaster.$krbDomain";
-    my @masterIpAddresses;
-
-    # First, retrieve the all IPs of the master host
-    my $resolver = new Net::DNS::Resolver();
-    my $query = $resolver->search($masterFQDN);
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            push (@masterIpAddresses, $rr->address());
-        }
-    }
-    unless (scalar @masterIpAddresses > 0) {
-        throw EBox::Exceptions::External(
-            __x('Could not resolve the name {x} to its IP addresses. Check your ' .
-                'DNS setup before proceed.', x => $masterFQDN));
-    }
-
-    my $dnsModule = EBox::Global->modInstance('dns');
-    my $domainModel = $dnsModule->model('DomainTable');
-    my $domainRow = $domainModel->find(domain => $krbDomain);
-    unless (defined $domainRow) {
-        throw EBox::Exceptions::External(
-            __x('The determined master host domain {x} could not be found in the ' .
-                'local DNS module. Check your local DNS setup before proceed.', x => $krbDomain));
-    }
-    my $hostModel = $domainRow->subModel('hostnames');
-    my $hostRow = $hostModel->find(hostname => $krbMaster);
-    unless (defined $hostRow) {
-        throw EBox::Exceptions::External(
-            __x('The host name {x} specified as the master host could not be found ' .
-                'in the DNS domain {y}. Please add it together with its ' .
-                'IP addresses ({z}) before proceed.', x => $krbMaster, y => $krbDomain,
-                z => join (',', @masterIpAddresses)));
-    }
-
-    my $ipModel = $hostRow->subModel('ipAddresses');
-    my @addedIpAddresses;
-    foreach my $ip (@masterIpAddresses) {
-        my $row = $ipModel->find(ip => $ip);
-        unless (defined $row) {
-            throw EBox::Exceptions::External(
-                __x('The master host IP address {x} is not assigned in the DNS module. ' .
-                    'Ensure all master host IP addresses ({y}) are assigned before proceed. ',
-                    x => $ip, y => join (',', @masterIpAddresses)));
-        }
-    }
 }
 
 1;

@@ -234,6 +234,10 @@ sub setupKerberos
 {
     my ($self) = @_;
 
+    # Get the host name and domain
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $ownDomain = $sysinfo->hostDomain();
+    my $hostName = $sysinfo->hostName();
     my $realm = $self->kerberosRealm();
 
     my @cmds = ();
@@ -251,82 +255,129 @@ sub setupKerberos
     if ($master eq 'none' or $master eq 'cloud') {
         push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm");
         push (@cmds, 'chmod 600 /etc/kpasswdd.keytab');
+        $self->setupDNS($ownDomain, $hostName, $hostName);
     }
     EBox::Sudo::root(@cmds);
-
-    $self->setupDNS();
 }
 
 sub setupDNS
 {
-    my ($self) = @_;
+    my ($self, $krbDomain, $hostName, $krbMaster) = @_;
 
     EBox::info("Setting up DNS");
-
-    # Get the host domain
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $ownDomain = $sysinfo->hostDomain();
-    my $hostName = $sysinfo->hostName();
 
     # Create the domain in the DNS module if it does not exists
     my $dnsMod = EBox::Global->modInstance('dns');
     my $domainModel = $dnsMod->model('DomainTable');
-    my $row = $domainModel->find(domain => $ownDomain);
-    if (defined $row) {
+    my $domainRow = $domainModel->findValue(domain => $krbDomain);
+    if (defined $domainRow) {
         # Set the domain as managed and readonly
-        $row->setReadOnly(1);
-        $row->elementByName('managed')->setValue(1);
-        $row->store();
+        $domainRow->setReadOnly(1);
+        $domainRow->elementByName('managed')->setValue(1);
+        $domainRow->store();
     } else {
-        $domainModel->addRow(domain => $ownDomain, managed => 1, readOnly => 1);
+        my $id = $domainModel->addRow(domain => $krbDomain, managed => 1, readOnly => 1);
+        $domainRow = $domainModel->row($id);
     }
 
-    EBox::debug("Adding DNS records for kerberos");
+    # Add the krbMaster host and IPs to the domain
+    my $hostModel = $domainRow->subModel('hostnames');
+    my $hostNameRow = $hostModel->findValue(hostname => $hostName);
+    unless (defined $hostNameRow) {
+        throw EBox::Exceptions::External(
+            __x('The hostname {x} could not be found in the domain {y}. ' .
+                'This entry is required to setup kerberos DNS records ' .
+                'automatically.', x => $hostName, y => $krbDomain));
+    }
+    my $krbMasterRow = $hostModel->findValue(hostname => $krbMaster);
+    unless (defined $krbMasterRow) {
+        throw EBox::Exceptions::External(
+            __x('The hostname {x} could not be found in the domain {y}. ' .
+                'This entry is required to setup kerberos DNS records ' .
+                'automatically.', x => $krbMaster, y => $krbDomain));
+    }
 
     # Add the TXT record with the realm name
-    my $txtRR = { name => '_kerberos',
-                  data => $ownDomain,
-                  readOnly => 1 };
-    $dnsMod->addText($ownDomain, $txtRR);
+    my $txtModel = $domainRow->subModel('txt');
+    my $ids = $txtModel->findAll(custom => '_kerberos');
+    foreach my $id (@{$ids}) {
+        $txtModel->removeRow($id);
+    }
+    $txtModel->addRow(
+            hostName_selected => 'custom',
+            custom => '_kerberos',
+            txt_data=> $self->kerberosRealm(),
+            readOnly => 1);
 
-    # Add the SRV records to the domain
-    my $service = { service => 'kerberos',
-                    protocol => 'tcp',
-                    port => KERBEROS_PORT,
-                    priority => 100,
-                    weight => 100,
-                    target_type => 'domainHost',
-                    target => $hostName,
-                    readOnly => 1 };
-    $dnsMod->addService($ownDomain, $service);
-    $service->{protocol} = 'udp';
-    $dnsMod->addService($ownDomain, $service);
-
-    ## TODO Check if the server is a master or slave and adjust the target
-    ##      to the master server
-    $service = { service => 'kerberos-master',
-                 protocol => 'tcp',
-                 port => KERBEROS_PORT,
-                 priority => 100,
-                 weight => 100,
-                 target_type => 'domainHost',
-                 target => $hostName,
-                 readOnly => 1 };
-    $dnsMod->addService($ownDomain, $service);
-    $service->{protocol} = 'udp';
-    $dnsMod->addService($ownDomain, $service);
-
-    $service = { service => 'kpasswd',
-                 protocol => 'tcp',
-                 port => KPASSWD_PORT,
-                 priority => 100,
-                 weight => 100,
-                 target_type => 'domainHost',
-                 target => $hostName,
-                 readOnly => 1 };
-    $dnsMod->addService($ownDomain, $service);
-    $service->{protocol} = 'udp';
-    $dnsMod->addService($ownDomain, $service);
+    # Remove previous SRV records
+    my $srvModel = $domainRow->subModel('srv');
+    $ids = $srvModel->findAllValue(service_name => 'kerberos');
+    foreach my $id (@{$ids}) {
+        $srvModel->removeRow($id);
+    }
+    $ids = $srvModel->findAllValue(service_name => 'kerberos-master');
+    foreach my $id (@{$ids}) {
+        $srvModel->removeRow($id);
+    }
+    $ids = $srvModel->findAllValue(service_name => 'kpasswd');
+    foreach my $id (@{$ids}) {
+        $srvModel->removeRow($id);
+    }
+    # Add new SRV records to the domain
+    $srvModel->addRow(
+            service_name => 'kerberos',
+            protocol => 'tcp',
+            port => KERBEROS_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $hostNameRow->id(),
+            readOnly => 1);
+    $srvModel->addRow(
+            service_name => 'kerberos',
+            protocol => 'udp',
+            port => KERBEROS_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $hostNameRow->id(),
+            readOnly => 1);
+    $srvModel->addRow(
+            service_name => 'kerberos-master',
+            protocol => 'tcp',
+            port => KERBEROS_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $krbMasterRow->id(),
+            readOnly => 1);
+    $srvModel->addRow(
+            service_name => 'kerberos-master',
+            protocol => 'udp',
+            port => KERBEROS_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $krbMasterRow->id(),
+            readOnly => 1);
+    $srvModel->addRow(
+            service_name => 'kpasswd',
+            protocol => 'tcp',
+            port => KPASSWD_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $krbMasterRow->id(),
+            readOnly => 1);
+    $srvModel->addRow(
+            service_name => 'kpasswd',
+            protocol => 'udp',
+            port => KPASSWD_PORT,
+            priority => 100,
+            weight => 100,
+            hostName_selected => 'ownerDomain',
+            ownerDomain => $krbMasterRow->id(),
+            readOnly => 1);
 }
 
 # Method: enableActions
