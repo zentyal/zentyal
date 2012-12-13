@@ -84,9 +84,9 @@ sub _consolidate
         # Convert result to the expected format
         foreach my $hour (keys %byShare) {
             foreach my $share (keys %{$byShare{$hour}}) {
-                push(@res, { hour => $hour,
-                             share => $share,
-                             share_type => $byShare{$hour}->{$share}->{type},
+                push(@res, { hour      => $hour,
+                             share     => $share,
+                             type      => $byShare{$hour}->{$share}->{type},
                              virus_num => $byShare{$hour}->{$share}->{virus_num} });
             }
         }
