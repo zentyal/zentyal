@@ -368,6 +368,13 @@ sub create
             'data' => __('group'),
             'value' => $group);
     }
+    # Verify than a user with the same name does not exists
+    if ($users->userExists($group)) {
+        throw EBox::Exceptions::External(
+            __x(q{There already exist a user account with the name '{name}'. Users and groups cannot share names},
+               name => $group)
+           );
+    }
 
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :

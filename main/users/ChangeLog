@@ -1,4 +1,6 @@
 HEAD
+	+ Users and groups cannot longer share names because is incompatible
+	  with AD accounts
 	+ Dont stop openldap daemon when dumping database
 	+ Generate kerberos AES keys to be compatible with active directory in
 	  W2k8 or higher functional levels
