@@ -369,11 +369,7 @@ sub create
             'value' => $group);
     }
     # Verify than a user with the same name does not exists
-    my $sameNameUser;
-    try {
-        $sameNameUser = $users->user($group);
-    } otherwise {};
-    if ($sameNameUser) {
+    if ($users->userExists($group)) {
         throw EBox::Exceptions::External(
             __x(q{There already exist a user account with the name '{name}'. Users and groups cannot share names},
                name => $group)

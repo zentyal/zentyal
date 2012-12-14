@@ -737,7 +737,6 @@ sub initUser
     }
 }
 
-
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
@@ -769,6 +768,19 @@ sub user
     return $user;
 }
 
+# Method: userExists
+#
+# Returns:
+#
+#   bool - whether the user exists or not
+#
+sub userExists
+{
+    my ($self, $username) = @_;
+    my $dn = $self->userDn($username);
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    return $user->exists();
+}
 
 # Method: users
 #
@@ -831,8 +843,19 @@ sub group
     return $group;
 }
 
-
-
+# Method: groupExists
+#
+#  Returns:
+#
+#      bool - whether the group exists or not
+#
+sub groupExists
+{
+    my ($self, $groupname) = @_;
+    my $dn = $self->groupDn($groupname);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    return $group->exists();
+}
 
 # Method: groups
 #
