@@ -7,18 +7,10 @@ end script
 script
   PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
   KDC_DAEMON=/usr/lib/heimdal-servers/kdc
-  KDC_NAME=heimdal-kdc
-  KDC_DESC="Heimdal KDC"
 
   if [ -f "/etc/default/heimdal-kdc" ] ; then
           . /etc/default/heimdal-kdc
   fi
 
-  test -f $KDC_DAEMON || exit 0
-
-  echo -n "Starting $KDC_DESC: "
-  start-stop-daemon --start --quiet  \
-                    --make-pidfile --pidfile /var/run/$KDC_NAME.pid \
-                     --exec $KDC_DAEMON -- $KDC_PARAMS
-  echo "$KDC_NAME."
+  $KDC_DAEMON $KDC_PARAMS
 end script
