@@ -147,14 +147,19 @@ sub actuate
     my @subjAltNamesParam;
     if ( $subjAltName ) {
         my @subjAltNames = split(/,/, $subjAltName);
-        if ( @subjAltNames > 0) {
-            foreach my $subAlt (@subjAltNames) {
-                my ($type, $value) = split(/:/, $subAlt);
-                push(@subjAltNamesParam, { type => $type, value => $value });
-            }
-        } else {
-            throw EBox::Exceptions::External(__('The Subject Alternative Name parameter '
+        foreach my $subAlt (@subjAltNames) {
+            my ($type, $value) = split(/:/, $subAlt);
+            if (not $value) {
+                throw EBox::Exceptions::External(__('The Subject Alternative Name parameter '
                                                 . 'must follow this pattern: type:value, type:value'));
+            }
+            # autocorrect bad case typess
+            if (($type eq 'dns') or ($type eq 'ip')) {
+                $type = uc $type;
+            } elsif ($type eq 'EMAIL') {
+                $type =  lc $type;
+            }
+            push(@subjAltNamesParam, { type => $type, value => $value });
         }
     }
 
