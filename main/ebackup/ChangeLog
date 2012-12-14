@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated code for DR using ebackup
 	+ Removed superfluous module lock in backup-tool
 	+ Removed independent implementation of lock and unlock methods
 	+ Fix small syntax error
