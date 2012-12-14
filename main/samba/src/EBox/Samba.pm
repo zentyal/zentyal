@@ -1087,13 +1087,16 @@ sub setupDNS
 
     my $dnsModule = EBox::Global->modInstance('dns');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
 
     # Ensure that the managed domain exists
     my $domainModel = $dnsModule->model('DomainTable');
-    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
+
+    my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
-        throw EBox::Exceptions::Internal("Domain named '" . $sysinfo->hostDomain()
-            . "' not found");
+        EBox::info("Adding $hostDomain to DNS managed domains");
+        my $newId = $domainModel->addRow(domain => $hostDomain);
+        $domainModel = $domainModel->row($newId);
     }
 
     # Mark the domain as samba
