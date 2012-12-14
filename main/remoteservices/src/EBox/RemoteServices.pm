@@ -1029,6 +1029,8 @@ sub securityUpdatesAddOn
 #
 #      Get whether the company has disaster recovery add-on or not
 #
+#      *(DEPRECATED)*
+#
 # Parameters:
 #
 #      force - Boolean check against server
@@ -1046,17 +1048,29 @@ sub securityUpdatesAddOn
 #
 sub disasterRecoveryAddOn
 {
+    throw EBox::Exceptions::DeprecatedMethod();
+}
+
+# Method: disasterRecoveryAvailable
+#
+#      Get whether the server has disaster recovery available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether the server has disaster recovery
+#                available or not
+#
+sub disasterRecoveryAvailable
+{
     my ($self, $force) = @_;
 
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
-    } otherwise {
-        throw EBox::Exceptions::NotConnected();
-    };
-    return $ret;
+    my $ret = $self->addOnDetails('disaster-recovery', $force);
+    return ( scalar(keys(%{$ret})) > 0);
 }
 
 # Method: commAddOn
