@@ -10,19 +10,19 @@ CD_EBOX_DIR=$CD_BUILD_DIR/zentyal
 test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
 test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
 
-cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
+cp $DATA_DIR/zentyal.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
 if [ "$ARCH" == "amd64" ]
 then
     sed -i 's/linux-generic-pae/linux-generic/g' $CD_BUILD_DIR/preseed/ubuntu-server.seed
 fi
 
 cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
-cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
+cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 
 cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/disaster-recovery.seed
 sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery.seed
 cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
-cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
+cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 
 UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
 if ! grep -q zinstaller-remote $UDEB_INCLUDE
@@ -33,7 +33,17 @@ fi
 # Add https apt method to be able to retrieve from QA updates repo
 echo apt-transport-https > $CD_BUILD_DIR/.disk/base_include
 
-sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-ebox.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
+if [ -f $BASE_DIR/DEBUG_MODE ]
+then
+    cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
+    cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
+
+    # TODO: auto mode also for DR
+
+    cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
+else
+    sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
+fi
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"
 sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg

@@ -16,6 +16,8 @@ d-i apt-setup/local/key-error select Ignore
 # linux-generic-pae will replaced by linux-generic in the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
 
+d-i base-installer/install-recommends boolean false
+
 # support installations from USB
 d-i cdrom-detect/try-usb boolean true
 
@@ -29,35 +31,11 @@ d-i pkgsel/include string zenbuntu-desktop
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
-##
-## automatic install (for testing purposes)
-##
 
-# locale sets language and country
-# this preseeding needs to be done in initrd
-#d-i debian-installer/locale string en_US
-d-i console-setup/ask_detect boolean false
-#d-i console-setup/layoutcode string us
-#d-i console-setup/variant select USA
-
-# network
-#d-i netcfg/choose_interface select auto
-#d-i netcfg/get_hostname string ebox
-#d-i netcfg/get_domain string unassigned-domain
-
-# to create a normal user account
+# do not ask for fullname
 d-i passwd/user-fullname string  
-#d-i passwd/username string eboxadmin
-#d-i passwd/user-password password eboxadmin
-#d-i passwd/user-password-again password eboxadmin
 
 d-i user-setup/encrypt-home boolean false
-
-# finish
-#d-i finish-install/reboot_in_progress note
-
-# No boot splash screen.
-#d-i debian-installer/splash boolean false
 
 d-i pkgsel/language-packs string
 

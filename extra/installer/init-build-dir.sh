@@ -8,7 +8,7 @@ BUILD_DIR="$cwd/../build-installer/$ZENTYAL_ISO_NAME"
 
 mkdir -p $BUILD_DIR
 
-for i in build_cd.conf sources.list
+for i in build_cd.conf sources.list debug.vars
 do
     cp $i $BUILD_DIR
 done
@@ -23,7 +23,7 @@ mkdir $BUILD_DIR/indices
 
 for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh extract-core-deps.sh \
          regen_iso.sh list-duplicated.sh list-not-installed.sh replace-debs-ppa.sh \
-         zenbuntu-desktop zinstaller-remote data images
+         set-debug.sh zenbuntu-desktop zinstaller-remote data images
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done
