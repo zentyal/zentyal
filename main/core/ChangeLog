@@ -1,4 +1,5 @@
 HEAD
+	+ Use unsafeParam in EBox::CGI::Base::paramsAsHash
 	+ EBox::Module::Service does not raise exception and logs
 	  nothing when using init.d status
 	+ Fixed glitch in backup CGI which sometimes showed
