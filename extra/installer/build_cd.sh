@@ -3,6 +3,11 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
+if [ -f $BASE_DIR/DEBUG_MODE ]
+then
+    $BASE_DIR/set-debug.sh
+fi
+
 SELECTED_ARCH=$1
 
 TMPDIR=/tmp/zentyal-installer-build-$$
