@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 . /usr/share/debconf/confmodule
 
 URL=api.cloud.zentyal.com
@@ -22,7 +20,7 @@ DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR
 
-db_get netcfg/get_hostname || true
+db_get netcfg/get_hostname
 SERVERNAME="$RET"
 if [ -z "$SERVERNAME" ]
 then
@@ -31,13 +29,13 @@ fi
 
 while [ -z "$EDITION" ]
 do
-    db_input high zinstaller-remote/user || true
-    db_go || true
+    db_input high zinstaller-remote/user
+    db_go
     db_get zinstaller-remote/user
     USERNAME="$RET"
 
-    db_input high zinstaller-remote/pass || true
-    db_go || true
+    db_input high zinstaller-remote/pass
+    db_go
     db_get zinstaller-remote/pass
     PASSWORD="$RET"
 
@@ -54,8 +52,8 @@ do
         break
     fi
 
-    db_input high zinstaller-remote/auth_failed || true
-    db_go || true
+    db_input high zinstaller-remote/auth_failed
+    db_go
     db_get zinstaller-remote/auth_failed
     if [ "$RET" = "false" ]
     then
@@ -78,8 +76,8 @@ then
         then
             db_set zinstaller-remote/select_hostname_recover "$default"
         fi
-        db_input high zinstaller-remote/select_hostname_recover || true
-        db_go || true
+        db_input high zinstaller-remote/select_hostname_recover
+        db_go
 
         db_get zinstaller-remote/select_hostname_recover
         SERVERNAME=$(echo $RET | cut -d' ' -f1)
@@ -114,16 +112,16 @@ then
         BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
         if grep "Enterprise" $DATA_DIR/BUNDLE_IDS
         then
-            db_input high zinstaller-remote/auth_ok_enterprise || true
+            db_input high zinstaller-remote/auth_ok_enterprise
         else
-            db_input high zinstaller-remote/auth_ok_sb || true
+            db_input high zinstaller-remote/auth_ok_sb
         fi
-        db_go || true
+        db_go
     else
         choices=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | cut -d\" -f2 | sort | uniq | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
         db_subst zinstaller-remote/select_bundle CHOICES "$choices"
-        db_input high zinstaller-remote/select_bundle || true
-        db_go || true
+        db_input high zinstaller-remote/select_bundle
+        db_go
 
         db_get zinstaller-remote/select_bundle
         BUNDLE="$RET"
@@ -149,23 +147,23 @@ then
         RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
         if [ $? = 0 ] && [ -z "$RESPONSE" ]
         then
-            db_input high zinstaller-remote/error_backups || true
+            db_input high zinstaller-remote/error_backups
             rm -f /tmp/RECOVER_MODE
         fi
     else
-        db_input high zinstaller-remote/error_dr || true
-        db_go || true
+        db_input high zinstaller-remote/error_dr
+        db_go
         rm -f /tmp/RECOVER_MODE
     fi
 else
     if [ "$EDITION" = "community" ]
     then
-        db_input high zinstaller-remote/auth_ok_community || true
-        db_go || true
+        db_input high zinstaller-remote/auth_ok_community
+        db_go
     elif [ -z "$EDITION" ]
     then
-        db_input high zinstaller-remote/no_register || true
-        db_go || true
+        db_input high zinstaller-remote/no_register
+        db_go
         exit 0
     fi
 fi

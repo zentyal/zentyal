@@ -38,7 +38,8 @@ then
     cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
     cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
 
-    # TODO: auto mode also for DR
+    cp $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
+    sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
 
     cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
 else

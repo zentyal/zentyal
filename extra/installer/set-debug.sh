@@ -26,10 +26,12 @@ set_var DISABLE_AUTOCONFIG
 set_var STATIC_IP
 set_var STATIC_DNS
 set_var STATIC_GW
+set_var HOSTNAME_INSTALL
 set_var ADMIN_USER
 set_var ADMIN_PASS
 set_var REMOTE_USER
 set_var REMOTE_PASS
+set_var HOSTNAME_RECOVER
 
 if [ "$DEFINED_VARS" == "yes" ]
 then
