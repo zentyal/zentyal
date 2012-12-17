@@ -1,4 +1,6 @@
 HEAD
+	+ Check in group pre-addition whether it already exists as built-in
+	+ Added existsDN method to EBox::LDB
 	+ Grant rx access on privileged ldap socket to allow user corner to
 	  update user passwords
 3.0.9
