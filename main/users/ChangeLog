@@ -1,4 +1,5 @@
 HEAD
+	+ Increase the maximum UID number to avoid problems with samba integration
 	+ Fixed bug in group creation which on error could call a method
 	  in a undefined value
 	+ Do not stop openldap daemon when dumping database

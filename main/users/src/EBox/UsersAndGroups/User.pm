@@ -45,7 +45,7 @@ use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
-use constant MAXUID         => 65535;
+use constant MAXUID         => 2**31;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
@@ -493,7 +493,8 @@ sub passwordHashes
 #
 #   user - hash ref containing:
 #       user - user name
-#       fullname
+#       password
+#       fullname (optional)
 #       givenname
 #       surname
 #       comment
