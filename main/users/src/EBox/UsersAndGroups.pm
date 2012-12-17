@@ -611,11 +611,8 @@ sub _daemons
 
     return [
         { name => 'ebox.slapd' },
-        {
-            name => 'heimdal-kdc',
-            type => 'init.d',
-            pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
-        },
+        { name => 'zentyal.heimdal-kdc'  },
+        { name => 'zentyal.heimdal-kpasswd'  },
     ];
 }
 
