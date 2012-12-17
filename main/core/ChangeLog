@@ -1,4 +1,11 @@
 HEAD
+	+ Adapted file downloads to the new utf8 fixes
+	+ Write backup files in raw mode to avoid utf8 problems
+	+ Print always utf8 in STDOUT on all CGIs
+	+ Decode CGI params of values entered at the interface as utf8
+	+ Proper encode/decode of utf8 with also pretty JSON
+	+ Fixed utf8 decoding in date shown at dashboard
+	+ Removed old workarounds for utf8 problems
 	+ Added new recoveryEnabled() helper method to Module::Base
 	+ Added recoveryDomainName() method to SyncProvider interface
 	+ Restore backup can now install missing modules in Disaster Recovery
@@ -25,6 +32,7 @@ HEAD
 	+ Fixed bug that made that the lock was shared between owners
 	+ Some fixes in the function to add the rule for desktops services
 	  to the firewall
+	+ Delete obsolete EBox::CGI::MenuCSS package
 3.0.7
 	+ Add new EBox::Module::Service::Observer to notify modules about
 	  changes in the service status

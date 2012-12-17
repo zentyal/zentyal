@@ -34,7 +34,6 @@ use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
 use Data::Dumper;
-use Encode qw( :all );
 use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
@@ -702,26 +701,6 @@ sub _errorOnLdap
                                          $frames[3] . " " .
                                          $result->error);
     }
-}
-
-# Workaround to mark strings returned from ldap as utf8 strings
-sub _utf8Attrs # (result)
-{
-    my ($result) = @_;
-
-    my @entries = $result->entries;
-    foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
-        my @vals = @{$attr->{vals}};
-        next unless (@vals);
-        my @utfvals;
-        foreach my $val (@vals) {
-            _utf8_on($val);
-            push @utfvals, $val;
-        }
-        $attr->{vals} = \@utfvals;
-    }
-
-    return $result;
 }
 
 sub stop

@@ -143,7 +143,6 @@ sub keywords
     my ($self) = @_;
 
     my $help = $self->help();
-    Encode::_utf8_on($help);
     return [split('\W+', lc($help))];
 }
 

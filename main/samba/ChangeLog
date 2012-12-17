@@ -1,4 +1,5 @@
 HEAD
+	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
 	+ Integration with Disaster Recovery service
 	+ Restored backupDomains implementation
 	+ Explicit set of folder name as default value implementation has changed
