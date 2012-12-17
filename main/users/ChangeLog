@@ -1,4 +1,7 @@
 HEAD
+	+ Integration with Disaster Recovery service
+	+ Include /home as disk usage facility
+	+ Fix enable quotas without rebooting when module is enabled.
 	+ Users and groups cannot longer share names because it is incompatible
 	  with AD accounts
 	+ Use upstart to manage heimdal daemons

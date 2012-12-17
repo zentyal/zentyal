@@ -94,23 +94,32 @@ then
     echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
 fi
 
+# install zentyal core and software
+PACKAGES=zentyal
+
+if [ -f /var/tmp/.zentyal-disaster-recovery ]
+then
+    PACKAGES="$PACKAGES zentyal-files-sync"
+    touch /var/lib/zentyal/.disaster-recovery
+fi
+
 update_if_network # apt-get update if we are connected to the internet
 
-# install zentyal core and software
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
+REGISTER_DATA=/var/lib/zinstaller-remote
+
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
+then
+    PACKAGES="$PACKAGES zentyal-remoteservices"
+fi
+
+DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
 
 gen_locales
 
-if [ -f /tmp/RECOVER_MODE ]
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then
-    # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
-    touch $DISASTER_FILE
-    chown :admin $DISASTER_FILE
-    chown g+w $DISASTER_FILE
-
-    # Clean DR flag for first stage
-    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
+    plymouth message --text="Registering your server... Please wait."
+    /usr/share/zenbuntu-desktop/remote-register
 fi
 
 ### CUSTOM_ACTION ###

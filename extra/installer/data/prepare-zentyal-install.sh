@@ -19,17 +19,6 @@ then
     touch $DISASTER_FILE
     chown :admin $DISASTER_FILE
     chown g+w $DISASTER_FILE
-
-    # Clean DR flag for first stage
-    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
-fi
-
-if -f /etc/default/grub
-then
-    if ! grep -q splash /etc/default/grub
-    then
-        sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
-    fi
 fi
 
 ### CUSTOM_ACTION ###

@@ -45,6 +45,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::AdminPort;
@@ -476,6 +477,23 @@ sub menu
         'text' => __('Security Updates'),
        ));
     $root->add($folder);
+
+    if ($self->disasterRecoveryAvailable()) {
+        my $system = new EBox::Menu::Folder(
+            'name' => 'SysInfo',
+            'text' => __('System'),
+            'order' => 30
+        );
+
+        $system->add(new EBox::Menu::Item(
+            'url' => 'SysInfo/DisasterRecovery',
+            'separator' => 'Core',
+            'order' => 45,
+            'text' => __('Disaster Recovery')
+        ));
+
+        $root->add($system);
+    }
 }
 
 # Method: widgets
@@ -994,7 +1012,25 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::Config::configkey('files_sync_available');
+    return EBox::GlobalImpl::_packageInstalled('zfilesync');
+}
+
+# Method: disasterRecoveryAvailable
+#
+#   Returns 1 if disaster reocvery is available
+#
+sub disasterRecoveryAvailable
+{
+    my ($self) = @_;
+
+    # TODO implement this in capabilities (+convert that to REST?)
+    return ($self->filesSyncAvailable() and $self->subscriptionLevel() > 0);
+}
+
+# FIXME: this has been kept because it's still called in some places, but should be deprecated
+sub disasterRecoveryAddOn
+{
+    return 0;
 }
 
 # Method: securityUpdatesAddOn
@@ -1021,40 +1057,6 @@ sub securityUpdatesAddOn
         $ret = $self->_getSubscriptionDetails($force)->{security_updates};
     } otherwise {
         $ret = 0;
-    };
-    return $ret;
-}
-
-# Method: disasterRecoveryAddOn
-#
-#      Get whether the company has disaster recovery add-on or not
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether the company has disaster recovery
-#      add-on or not
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::NotConnected> - thrown if the server cannot
-#      connect to Zentyal Cloud to know the answer
-#
-sub disasterRecoveryAddOn
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
-    } otherwise {
-        throw EBox::Exceptions::NotConnected();
     };
     return $ret;
 }

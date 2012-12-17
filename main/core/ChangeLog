@@ -1,4 +1,10 @@
 HEAD
+	+ Added new recoveryEnabled() helper method to Module::Base
+	+ Added recoveryDomainName() method to SyncProvider interface
+	+ Restore backup can now install missing modules in Disaster Recovery
+	+ Show specific slides when installing a commercial edition
+	+ Redirect to proper CGI after login in disaster recovery mode
+	+ Removed old debconf workaround for first stage installation
 	+ Log redis start message as debug instead of info to avoid flood
 	+ Use unsafeParam in EBox::CGI::Base::paramsAsHash
 	+ EBox::Module::Service does not raise exception and logs

@@ -1,4 +1,6 @@
 HEAD
+	+ Disaster Recovery integration
+	+ Added auto-subscribe script
 	+ Fix reporter-consolidate cron entry
 	+ Change QA archive to the new one
 	+ Make sure only one run-pending-ops process is launched at the

@@ -16,11 +16,13 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups;
-use base qw( EBox::Module::Service
-             EBox::LdapModule
-             EBox::SysInfo::Observer
-             EBox::UserCorner::Provider
-             EBox::UsersAndGroups::SyncProvider );
+use base qw(EBox::Module::Service
+            EBox::LdapModule
+            EBox::SysInfo::Observer
+            EBox::UserCorner::Provider
+            EBox::SyncFolders::Provider
+            EBox::UsersAndGroups::SyncProvider
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -40,6 +42,7 @@ use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::SyncFolders::Folder;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -1688,5 +1691,39 @@ sub hostDomainChangedDone
         $mode->setValue('dn', $newDN);
     }
 }
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        push (@folders, new EBox::SyncFolders::Folder('/home', 'recovery'));
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Users data');
+}
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+    my ($self) = @_;
+
+    my $usersPrintableName  = __(q{Users data});
+    my $usersPath           = '/home';
+
+    return {
+        $usersPrintableName   => [ $usersPath ],
+    };
+}
+
 
 1;

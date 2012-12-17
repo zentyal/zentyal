@@ -1,4 +1,7 @@
 HEAD
+	+ Integration with Disaster Recovery service
+	+ Restored backupDomains implementation
+	+ Explicit set of folder name as default value implementation has changed
 	+ Check in group pre-addition whether it already exists as built-in
 	+ Added existsDN method to EBox::LDB
 	+ Grant rx access on privileged ldap socket to allow user corner to

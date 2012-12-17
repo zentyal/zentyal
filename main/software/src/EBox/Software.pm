@@ -1064,14 +1064,24 @@ sub firstTimeMenu
 {
     my ($self, $current) = @_;
 
+    my $dr = EBox::Global::disasterRecovery();
+
     print "<div id='menu'><ul id='nav'>\n";
 
     print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
-    $self->_printMenuItem(__('Package Selection'), 0, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Choose Backup'), 0, $current);
+    } else {
+        $self->_printMenuItem(__('Package Selection'), 0, $current);
+    }
     $self->_printMenuItem(__('Confirmation'), 1, $current);
     $self->_printMenuItem(__('Installation'), 2, $current);
-    $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Restore Configuration'), 3, $current);
+    } else {
+        $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    }
     $self->_printMenuItem(__('Save Changes'), 4, $current);
     $self->_printMenuItem(__('Finish'), 5, $current);
 
