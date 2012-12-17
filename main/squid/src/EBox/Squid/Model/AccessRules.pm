@@ -360,7 +360,15 @@ sub filterProfiles
         } elsif ($sourceType eq 'group') {
             my $group = $source->value();
             $profile->{group} = $group;
-            $profile->{users} = [ (map { $_->name() } @{$userMod->group($group)->users()}) ];
+            my $users;
+            if ($group eq '__USERS__') {
+                $users = $userMod->users();
+            } else {
+                $users = $userMod->group($group)->users();
+            }
+            my @users = @{ $users };
+            @users or next;
+            $profile->{users} = [ map { $_->name() }  @users ];
             push @profiles, $profile;
         } else {
             throw EBox::Exceptions::Internal("Unknow source type: $sourceType");

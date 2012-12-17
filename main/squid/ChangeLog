@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug which did not include users from __USERS__ group in
+	  dansguardian filter group file
 3.0.3
 	+ Fixed error triggered when creating a delay pool without an object
 	+ Make sure in categorized lists model that list archives are not
