@@ -1910,13 +1910,14 @@ sub _checkCertificateFieldsCharacters
 
 }
 
+# openssl does not support UTF-8 a
+my $validRe = qr/^[A-Za-z0-9 .?&+:\-\@\*]*$/;
 sub _checkValidCharacters
 {
     my ($self, $string, $stringName) = @_;
     $stringName or
         $stringName = __('String');
-
-    if (not $string =~ qr/^[\w .?&+:\-\@\*]*$/) {
+    if (not $string =~ $validRe) {
         throw EBox::Exceptions::InvalidData(
             data => $stringName,
             value => $string,
@@ -2227,7 +2228,6 @@ sub _commonArgs # (cmd, args)
     if ( $cmd eq "ca" or $cmd eq "req" ) {
         ${$args} .= " -config " . SSLCONFFILE . " -batch ";
     }
-    ${$args} .= ' -utf8 ';
 }
 
 # Given a certification file Obtain an attribute from the file
@@ -2585,16 +2585,15 @@ sub _startShell
 {
     my ($self) = @_;
 
-    return if ($self->{shell});
+    return if ( $self->{shell} );
 
     my $open = '| ' . OPENSSLPATH
                . " 1>$output_shell"
                . " 2>$error_shell";
 
-    if (not open($self->{shell}, $open)) {
+    if ( not open($self->{shell}, $open) ) {
         throw EBox::Exceptions::Internal(__x("Cannot start OpenSSL shell. ({errval})", errval => $!));
     }
-    binmode($self->{shell}, ':utf8');
 }
 
 sub _stopShell

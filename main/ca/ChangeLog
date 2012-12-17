@@ -1,5 +1,4 @@
 HEAD
-	+ Allow to use UTF-8 in CA and certificate fields
 	+ Adapted keys and cert downloader to the new utf8 fixes
 3.0.1
 	+ Delete service certificates with old format on initialSetup()
