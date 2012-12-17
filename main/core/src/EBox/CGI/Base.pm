@@ -650,13 +650,16 @@ sub setErrorchain
 #
 # Possible implentation improvements:
 #  maybe it will be good idea cache this in some field of the instance
+#
+# Warning:
+#   there is not unsafe parameters check there, do it by hand if you need it
 sub paramsAsHash
 {
     my ($self) = @_;
 
     my @names = @{ $self->params() };
     my %params = map {
-      my $value = $self->param($_) ;
+      my $value =  $self->unsafeParam($_);
       $_ => $value
     } @names;
 

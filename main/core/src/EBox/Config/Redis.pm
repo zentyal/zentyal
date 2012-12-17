@@ -504,7 +504,7 @@ sub _initRedis
     return if ( $self->_user eq 'ebox-usercorner' );
 
     unless (EBox::Service::running('ebox.redis')) {
-        EBox::info('Starting redis server');
+        EBox::debug("[$$] Starting redis server");
 
         # Write redis daemon conf file
         $self->writeConfigFile();

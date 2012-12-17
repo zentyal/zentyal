@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Software::Config;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Software::Config;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -35,7 +33,8 @@ sub new {
     return $self;
 }
 
-sub _process($) {
+sub _process
+{
     my $self = shift;
     $self->{title} = __('Automatic software updates');
     my $software = EBox::Global->modInstance('software');
@@ -45,12 +44,17 @@ sub _process($) {
         $auto = 'yes';
     }
     my $QAUpdates = $software->QAUpdates();
+    my $alwaysAutomatic = undef;
+    if ($QAUpdates) {
+        $alwaysAutomatic = $software->qaUpdatesAlwaysAutomatic();
+    }
 
     my $time = $software->automaticUpdatesTime();
 
     push(@array, 'automatic' => $auto);
     push(@array, 'automaticTime' => $time);
     push(@array, 'QAUpdates' => $QAUpdates);
+    push(@array, 'alwaysAutomatic' => $alwaysAutomatic);
     $self->{params} = \@array;
 }
 

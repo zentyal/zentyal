@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::NUT::Model::UPSVariables;
-
 use strict;
 use warnings;
 
+package EBox::NUT::Model::UPSVariables;
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
@@ -60,7 +58,8 @@ sub upsVariables
         $line =~ s/\s*//g;
         not $line and next;
         my ($var, $value) = split(/:/, $line, 2);
-        unless ($var and $value) {
+        unless ( $var and
+                (defined $value) and ($value ne '')) {
             EBox::debug("Unexpected upsc line: $line");
             next;
         }
@@ -88,6 +87,8 @@ sub ids
 
     my $ids = [];
     foreach my $key (sort keys %{$variables}) {
+        $variables->{$key} or
+            next;
         push (@{$ids}, $key);
     }
     return $ids;
@@ -104,6 +105,8 @@ sub row
     if ($variables) {
         $var = $id;
         $value = $variables->{$id};
+    } else {
+        throw EBox::Exceptions::Internal('Not UPS variables loaded');
     }
 
     my $row = $self->_setValueRow(

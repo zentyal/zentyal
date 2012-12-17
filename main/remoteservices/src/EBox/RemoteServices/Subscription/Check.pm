@@ -155,7 +155,7 @@ sub checkFromCloud
     my $det = $capabilitiesGetter->subscriptionDetails();
 
     if ( $det->{codename} eq 'sb' ) {
-        $self->_performSBChecks();
+        $self->_performSBChecks($det->{sb_comm_add_on});
     }
     return 1;
 }

@@ -1,6 +1,21 @@
 HEAD
 	+ Decode utf8 attributes from LDAP at LdapObject::get()
 	+ Removed unused method _utf8Attrs
+	+ Integration with Disaster Recovery service
+	+ Include /home as disk usage facility
+	+ Fix enable quotas without rebooting when module is enabled.
+	+ Users and groups cannot longer share names because it is incompatible
+	  with AD accounts
+	+ Use upstart to manage heimdal daemons
+	+ Increase the maximum UID number to avoid problems with samba integration
+	+ Fixed bug in group creation which on error could call a method
+	  in a undefined value
+	+ Do not stop openldap daemon when dumping database
+	+ Generate kerberos AES keys to be compatible with active directory in
+	  W2k8 or higher functional levels
+	+ Fixed user quota edition in slave server
+	+ Update user password also in samba ldap when changed from user corner
+	+ Update 'cn' attribute in cloud-sync
 3.0.6
 	+ Set userPassword attribute when setting kerberos keys for user
 	+ Fixed delGroup operation on cloud slave

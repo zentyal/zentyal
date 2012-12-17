@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::CGI::RemoteServices::Backup::RestoreRemoteBackup;
-use base qw(EBox::CGI::ClientBase  EBox::CGI::ProgressClient);
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use strict;
 use warnings;
@@ -44,7 +44,7 @@ sub requiredParameters
 
 sub optionalParameters
 {
-    return [qw(ok cancel popup)];
+    return [qw(ok cancel popup dr)];
 }
 
 
@@ -56,13 +56,12 @@ sub actuate
 
     my $backup =  new EBox::RemoteServices::Backup;
     my $name   = $self->param('name');
+    my $dr = $self->param('dr');
 
-    my $progress = $backup->prepareRestoreRemoteBackup($name);
+    my $progress = $backup->prepareRestoreRemoteBackup($name, $dr);
 
     $self->showRestoreProgress($progress);
 }
-
-
 
 my @popupProgressParams = (
         raw => 1,
@@ -88,7 +87,10 @@ sub showRestoreProgress
         );
 
     if ($self->param('popup')) {
-        push @params, @popupProgressParams;
+        push (@params, @popupProgressParams);
+    } elsif ($self->param('dr')) {
+        push (@params, 'nextStepUrl' => '/SaveChanges?noPopup=1&save=1');
+        push (@params, 'nextStepText' => __('Click here to finish'));
     }
 
     $self->showProgress(@params);

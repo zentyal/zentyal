@@ -28,6 +28,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Html;
@@ -155,9 +156,11 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub _loadSlides
+sub _slidesFilePath
 {
-    my $path = EBox::Config::share() . 'zentyal-software/ads';
+    my ($pkg) = @_;
+
+    my $path = EBox::Config::share() . "$pkg/ads";
     my $file = "$path/ads_" + EBox::locale();
     unless (-f $file) {
         $file =  "$path/ads_" . substr (EBox::locale(), 0, 2);
@@ -168,6 +171,21 @@ sub _loadSlides
     if (-f "$file.custom") {
         $file = "$file.custom";
     }
+
+    return $file;
+}
+
+sub _loadSlides
+{
+
+    my $slidesPkg = 'zentyal-software';
+    my $imgPkg = 'software';
+    if (EBox::GlobalImpl::_packageInstalled('zentyal-cloud-prof')) {
+        $slidesPkg = 'zentyal-cloud-prof';
+        $imgPkg = 'cloud-prof';
+    }
+
+    my $file = _slidesFilePath($slidesPkg);
     EBox::debug("Loading ads from: $file");
     my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
     my $slides = decode_json($json);
@@ -176,6 +194,7 @@ sub _loadSlides
     my $num = 1;
     foreach my $slide (@{$slides}) {
         $slide->{num} = $num++;
+        $slide->{pkg} = $imgPkg;
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 

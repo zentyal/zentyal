@@ -24,4 +24,4 @@ PATH=/usr/bin:/bin
 # Log data for report hourly
 @hourly root /usr/share/zentyal-remoteservices/reporter-log > /dev/null 2>&1
 # Consolidate and send data when required
-0-59/15 * * * * root /usr/share/zentyal-remoteservices/report-consolidate > /dev/null 2>&1
+0-59/15 * * * * root /usr/share/zentyal-remoteservices/reporter-consolidate > /dev/null 2>&1

@@ -1,4 +1,5 @@
 HEAD
+	+ Added more coherence checks to static routes table
 	+ Allow to set broadcast address in wakeonlan tool
 	+ Fixed unproper use of last inside try
 3.0.1

@@ -1,3 +1,5 @@
+HEAD
+	+ Disabled connection names with spaces
 3.0.1
 	+ Removed inappropiate local subnet checks
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp

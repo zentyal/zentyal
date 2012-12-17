@@ -66,6 +66,7 @@ sub _print
         return $self->SUPER::_print();
     }
 
+    $self->{template} = '/ajax/simpleModalDialog.mas';
     $self->_printPopup();
 }
 
@@ -178,8 +179,6 @@ sub _backupAction
     if ($progressIndicator) {
         $self->_showBackupProgress($progressIndicator);
         $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
-    } elsif ($self->{popup}) {
-        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 
@@ -226,8 +225,6 @@ sub _restore
 
     if ($progressIndicator) {
         $self->_showRestoreProgress($progressIndicator);
-    } elsif ($self->{popup}) {
-        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 

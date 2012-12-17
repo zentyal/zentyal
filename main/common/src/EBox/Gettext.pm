@@ -54,6 +54,9 @@ sub __x # (text, %variables)
 sub __d # (text,domain)
 {
     my ($string, $domain) = @_;
+    if ((not defined $string) or ($string eq '')) {
+        return '';
+    }
 
     my $cur_domain = textdomain($domain);
     $string = gettext($string);

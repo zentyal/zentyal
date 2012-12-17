@@ -25,17 +25,17 @@ use warnings;
 use EBox::Exceptions::NotImplemented;
 use Perl6::Junction qw(any);
 
-use constant TYPE_OPTIONS => ('share', 'user', 'group', 'hidden');
+use constant TYPE_OPTIONS => ('share', 'user', 'group', 'recovery');
 
 # Folder constructor
 #
 # Params:
-#   path - Full local path
-#   type - Share type. Should be one of:
-#       share  - Shared folder
-#       user   - User's home
-#       group  - Group's folder
-#       hidden - general purpose, never visible by the user folders
+#       path     - Full local path
+#       type     - Share type. Should be one of:
+#       share    - Shared folder
+#       user     - User's home
+#       group    - Group's folder
+#       recovery - Disaster Recovery data backup
 #
 # Optional named params:
 #
@@ -56,8 +56,16 @@ sub new
     if ($args{name}) {
         $self->{name} = $args{name};
     } else {
-        my @dirs = split('/', $self->{path});
-        $self->{name} = pop @dirs;
+        my $name = $self->{path};
+        # Remove the first slash if exists
+        if (substr ($name, 0, 1) eq '/') {
+            $name = substr ($name, 1);
+        }
+        # Remove trailing slash if exists
+        if (substr ($name, -1, 1) eq '/') {
+            chop ($name);
+        }
+        $self->{name} = $name;
     }
     bless($self, $class);
     return $self;

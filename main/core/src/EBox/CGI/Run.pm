@@ -141,6 +141,7 @@ sub run # (url, namespace)
         }
 
         $redis->rollback();
+        $ex->throw();
     };
 }
 

@@ -524,13 +524,23 @@ sub getAutomaticUpdates
     my ($self) = @_;
 
     if ($self->QAUpdates()) {
-        if (EBox::Config::boolean('qa_updates_always_automatic')) {
+        if ($self->qaUpdatesAlwaysAutomatic()) {
             return 1;
         }
     }
 
     my $auto = $self->get_bool('automatic');
     return $auto;
+}
+
+# Method: qaUpdatesAlwaysAutomatic
+#
+#  Returns:
+#   boolean - whether if the system is configured to install autmatically
+#             the qa updates packages
+sub qaUpdatesAlwaysAutomatic
+{
+    return EBox::Config::boolean('qa_updates_always_automatic');
 }
 
 # Method: setAutomaticUpdates
@@ -775,9 +785,17 @@ sub _getInfoEBoxPkgs
 
     my $cache = $self->_cache(1);
     my @list;
+
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
             next if $restricted{$pack};
+
+            if ($seen{$pack}) {
+                next;
+            } else {
+                $seen{$pack} = 1;
+            }
 
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
@@ -815,7 +833,14 @@ sub _getUpgradablePkgs
 
     my $cache = $self->_cache(1);
     my @list;
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
+        if ($seen{$pack}) {
+            next;
+        } else {
+            $seen{$pack} = 1;
+        }
+
         my $pkgCache = $cache->packages()->lookup($pack) or next;
 
         my $currentVerObj = $cache->{$pack}{CurrentVer};
@@ -1039,14 +1064,24 @@ sub firstTimeMenu
 {
     my ($self, $current) = @_;
 
+    my $dr = EBox::Global::disasterRecovery();
+
     print "<div id='menu'><ul id='nav'>\n";
 
     print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
-    $self->_printMenuItem(__('Package Selection'), 0, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Choose Backup'), 0, $current);
+    } else {
+        $self->_printMenuItem(__('Package Selection'), 0, $current);
+    }
     $self->_printMenuItem(__('Confirmation'), 1, $current);
     $self->_printMenuItem(__('Installation'), 2, $current);
-    $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Restore Configuration'), 3, $current);
+    } else {
+        $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    }
     $self->_printMenuItem(__('Save Changes'), 4, $current);
     $self->_printMenuItem(__('Finish'), 5, $current);
 
