@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted keys and cert downloader to the new utf8 fixes
 	+ Better error control in subject alternatives, correct subject
 	  alternative type case in the CGI
 3.0.1

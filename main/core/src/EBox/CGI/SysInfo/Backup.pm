@@ -47,6 +47,7 @@ sub _print
 
     if (defined($self->{downfile}) and (not defined $self->{error})) {
         # file download
+        binmode(STDOUT, ':raw');
         open(BACKUP,$self->{downfile}) or
             throw EBox::Exceptions::Internal('Could not open backup file.');
         print($self->cgi()->header(-type=>'application/octet-stream',
@@ -54,7 +55,9 @@ sub _print
         while (<BACKUP>) {
             print $_;
         }
-        close BACKUP;
+        close(BACKUP);
+        binmode(STDOUT, ':utf8');
+
         return;
     }
 

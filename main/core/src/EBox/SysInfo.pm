@@ -286,6 +286,7 @@ sub generalWidget
     $widget->add($section);
     my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
     my $time = `$time_command`;
+    utf8::decode($time);
 
     my $version = $self->version();
 

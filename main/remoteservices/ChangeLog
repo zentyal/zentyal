@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed utf8 problems in RESTClient
 	+ Disaster Recovery integration
 	+ Added auto-subscribe script
 	+ Fix reporter-consolidate cron entry

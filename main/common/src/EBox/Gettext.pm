@@ -15,6 +15,7 @@
 
 package EBox::Gettext;
 
+use utf8;
 use Locale::gettext;
 use EBox::Config;
 
@@ -23,7 +24,7 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA = qw(Exporter);
-    @EXPORT = qw{ __ __x __s __sx __p __px langs __n };
+    @EXPORT = qw{ __ __x __s __sx __p __px langs};
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
     $VERSION = EBox::Config::version;
@@ -59,6 +60,7 @@ sub __d # (text,domain)
 
     my $cur_domain = textdomain($domain);
     $string = gettext($string);
+    utf8::decode($string);
     textdomain($cur_domain);
 
     return $string;
@@ -179,12 +181,6 @@ sub langs
     }
 
     return $langs;
-}
-
-# FIXME: remove this when not used
-sub __n
-{
-    return __(@_);
 }
 
 1;
