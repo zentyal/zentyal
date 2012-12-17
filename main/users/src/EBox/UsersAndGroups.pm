@@ -734,7 +734,6 @@ sub initUser
     }
 }
 
-
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
@@ -754,7 +753,7 @@ sub reloadNSCD
 #      username
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::User .
+#    the instance of EBox::UsersAndGroups::User for the given user
 sub user
 {
     my ($self, $username) = @_;
@@ -766,6 +765,19 @@ sub user
     return $user;
 }
 
+# Method: userExists
+#
+# Returns:
+#
+#   bool - whether the user exists or not
+#
+sub userExists
+{
+    my ($self, $username) = @_;
+    my $dn = $self->userDn($username);
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    return $user->exists();
+}
 
 # Method: users
 #
@@ -809,14 +821,14 @@ sub users
 
 # Method: group
 #
-# Returns the object which represents a give group. Raises a excpetion if
+# Returns the object which represents a give group. Raises a exception if
 # the group does not exists
 #
 #  Parameters:
 #      groupname
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::Group .
+#    the instance of EBox::UsersAndGroups::Group for the group
 sub group
 {
     my ($self, $groupname) = @_;
@@ -828,8 +840,19 @@ sub group
     return $group;
 }
 
-
-
+# Method: groupExists
+#
+#  Returns:
+#
+#      bool - whether the group exists or not
+#
+sub groupExists
+{
+    my ($self, $groupname) = @_;
+    my $dn = $self->groupDn($groupname);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    return $group->exists();
+}
 
 # Method: groups
 #

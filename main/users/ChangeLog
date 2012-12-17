@@ -1,4 +1,6 @@
 HEAD
+	+ Users and groups cannot longer share names because it is incompatible
+	  with AD accounts
 	+ Use upstart to manage heimdal daemons
 	+ Increase the maximum UID number to avoid problems with samba integration
 	+ Fixed bug in group creation which on error could call a method

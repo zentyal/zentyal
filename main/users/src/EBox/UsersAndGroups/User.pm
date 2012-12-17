@@ -550,6 +550,13 @@ sub create
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
     }
+    # Verify than a group with the same name does not exists
+    if ($users->groupExists($user->{user})) {
+        throw EBox::Exceptions::External(
+            __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $user->{user})
+           );
+    }
 
     my @userPwAttrs = getpwnam($user->{'user'});
     if (@userPwAttrs) {
