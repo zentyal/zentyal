@@ -397,6 +397,7 @@ sub shares
         } else {
             $shareConf->{'path'} = $path->value();
         }
+        $shareConf->{'type'} = $path->selectedType();
         $shareConf->{'share'} = $row->valueByName('share');
         $shareConf->{'comment'} = $row->valueByName('comment');
         $shareConf->{'guest'} = $row->valueByName('guest');
@@ -468,7 +469,9 @@ sub syncFolders
     }
 
     if ($self->recoveryEnabled()) {
-        # TODO: push filesystem shares (old backupDomains functionality needs to be fixed)
+        foreach my $share ($self->filesystemShares()) {
+            push (@folders, new EBox::SyncFolders::Folder($share, 'recovery'));
+        }
     }
 
     return \@folders;
@@ -476,9 +479,7 @@ sub syncFolders
 
 sub recoveryDomainName
 {
-    # FIXME: uncomment when syncFolders properly implemented
-    # return __('Filesystem shares');
-    return undef;
+    return __('Filesystem shares');
 }
 
 sub defaultAntivirusSettings
@@ -2198,12 +2199,12 @@ sub ldb
     return $self->{ldb};
 }
 
-# Method: sharesPaths
+# Method: filesystemShares
 #
-#   This function is used to generate disk usage reports. It
-#   returns the shares paths, excluding the group shares.
+#   This function is used for Disaster Recovery, to get
+#   the paths of the filesystem shares.
 #
-sub sharesPaths
+sub filesystemShares
 {
     my ($self) = @_;
 
@@ -2211,7 +2212,9 @@ sub sharesPaths
     my $paths = [];
 
     foreach my $share (@{$shares}) {
-        push (@{$paths}, $share->{path}) unless defined $share->{groupShare};
+        if ($share->{type} eq 'system') {
+            push (@{$paths}, $share->{path});
+        }
     }
 
     return $paths;
