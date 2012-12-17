@@ -136,7 +136,6 @@ sub _print_warning
                         out_method => \$output);
 
     my $comp = $interp->make_component(comp_file => $filename);
-
     my @params = ();
     push(@params, 'warning' => $text);
     push(@params, 'url' => _requestURL());
