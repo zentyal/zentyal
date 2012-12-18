@@ -103,7 +103,6 @@ PACKAGES=zentyal
 
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then
-    PACKAGES="$PACKAGES zentyal-files-sync"
     touch /var/lib/zentyal/.disaster-recovery
 fi
 
