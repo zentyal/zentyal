@@ -1,0 +1,319 @@
+# Copyright (C) 2012 EBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+use Error qw(:try);
+use YAML::XS;
+use File::Slurp;
+
+EBox::init();
+
+my ($bakDir) = @ARGV;
+my %oldConf;
+
+
+_importServices($bakDir, \%oldConf);
+# _importObjects($bakDir,  \%oldConf);
+# _importNetwork($bakDir,  \%oldConf);
+# _importFirewall($bakDir, \%oldConf);
+
+
+sub _importServices
+{
+    my ($bakDir, $oldConf) = @_;
+    my $modName = 'services';
+
+    my $bakData = _parseBakfile($bakDir, $modName);
+    if (not $bakData) {
+        return;
+    }
+
+    use Data::Dumper;
+    print Dumper ($bakData);
+
+    my $tree = _moduleComponentTree($modName);
+    print Dumper($tree);
+
+    my $servicesMod = EBox::Global->getInstance(0)->modInstance($modName);
+    my $filled = _fillModuleTree($servicesMod, $tree, $bakData);
+    print Dumper($filled);
+}
+
+sub _moduleComponentTree
+{
+    my ($modName) = @_;
+    my $global = EBox::Global->getInstance();
+    my $modInfo = $global->readModInfo($modName);
+
+    my $models       = $modInfo->{models};
+    my $sonsByParent = $modInfo->{foreign};
+    my $composites =  $modInfo->{composites};
+
+    # assumed that composite and model cannot have the same name
+    my %rootComponents;
+    foreach my $component (@{ $models }, keys %{ $composites }) {
+        $rootComponents{$component} = 1;
+    }
+    foreach my $sons (values %{ $sonsByParent}, values %{ $composites }  ) {
+        foreach my $child (@{ $sons }) {
+            delete $rootComponents{$child};
+        }
+    }
+
+    my $modelsByName = {
+                             map { ($_ => $_ )  } @{ $models }
+                       };
+    my @tree;
+    foreach my $name (keys %rootComponents) {
+        push @tree, _componentForTree($name, $modelsByName, $sonsByParent, $composites);
+    }
+    return \@tree;
+}
+
+sub _componentForTree
+{
+    my ($componentName, $models, $sonByParent, $composites) = @_;
+    my $component = { name => $componentName};
+    my $sonNames;
+    if (exists $models->{$componentName}) {
+        $component->{type} = 'model';
+        $sonNames = $sonByParent->{$componentName};
+    } elsif (exists $composites->{$componentName}) {
+        $component->{type} = 'composite';
+        $sonNames = $composites->{$componentName};
+    } else {
+        EBox::error("Unknown component type " . $component->{type} . '. Skip');
+        return undef;
+    }
+
+    if (not $sonNames) {
+        $sonNames = [];
+    }
+
+    my @sons;
+    foreach my $sonName (@{ $sonNames }) {
+        my $componentSon = _componentForTree($sonName, $models, $sonByParent, $composites);
+        push @sons, $componentSon if $componentSon;
+    }
+    $component->{sons} = \@sons;
+    return $component;
+}
+
+sub _parseBakfile
+{
+    my ($dir, $module) = @_;
+    my $path = "$dir/$module.bak/$module.bak";
+    if (not EBox::Sudo::fileTest('-r', $path)) {
+        EBox::info("No backup file for $path for module $module, not restoring it");
+        return undef;
+    }
+
+    my @keys;
+    try {
+        my $lines = EBox::Sudo::root("cat $path");
+        my $text = join '', @{$lines};
+        @keys = YAML::XS::Load($text);
+    } otherwise {
+        throw EBox::Exceptions::External("Error parsing YAML:$path");
+    };
+    my %keys = map {
+        $_->{key} => $_
+    } @keys;
+
+
+    return \%keys;
+}
+
+sub _fillModuleTree
+{
+    my ($module, $tree, $allKeys) = @_;
+
+    foreach my $root (@{  $tree }) {
+        if ($root->{type} eq 'composite') {
+            die 'TO IMPLEMENT';
+        } elsif ($root->{type} eq 'model') {
+            if (@{ $root->{sons} }) {
+                _fillModelWithSons($module, $root, $allKeys);
+            } else {
+                _fillModelRows($module, $root, $allKeys);
+            }
+        } else {
+            # composite without sons
+            EBox::info('No sons for ' . $root->{type} . ' ' . $root->{name});
+        }
+    }
+
+    return $tree;
+}
+
+sub _fillModelWithSons
+{
+    my ($module, $modelSpec, $allKeys) = @_;
+    my $moduleName = $module->name();
+    my $modelName  = $modelSpec->{name};
+
+    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
+    my $dir = $keyPrefix . '/keys';
+    my $idxKeys = _matchKeys($allKeys, $dir, '.*.idx', 'hash');
+    print Dumper($idxKeys); # XXX
+    if (@{ $idxKeys } == 0) {
+        $modelSpec->{rows} = [];
+        return;
+    } elsif (@{ $idxKeys } > 1){
+        EBox::error("More than one idx key found in $dir/*.idx. Not suppored. Skipped");
+        next;
+    }
+
+    # XXX asummed only one idx param
+    my $idxParam;
+    if ($idxKeys->[0]->{key} =~ m{/(.*)\.idx$}) {
+        $idxParam = $1;
+    }  else {
+        EBox::error('Cannot get idx param name from ' .$idxKeys->[0]->{key} . ' Skipping' );
+        return;
+    }
+    my %idxInfo;
+    while (my ($value, $rowIdString) = each %{ $idxKeys->[0]->{value}}) {
+        $rowIdString =~ m/"(.*?)"/;
+        my $rowId = $1;
+        if (not $rowId) {
+            EBox::error("Cannot get row id from key $rowIdString. Skipping");
+            next;
+        }
+        $idxInfo{$rowId} = $value;
+    }
+
+    my @rows;
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $allKeys)  };
+    foreach my $rowId (@order) {
+        my $value = $idxInfo{$rowId};
+        if (not $value) {
+            EBox::error("No row idx for $rowId. Skipping");
+            next;
+        }
+        my %elements = ($idxParam => $value);
+        # TDO childs here
+        my $row = {
+            id => $rowId,
+            elements => \%elements,
+            sons => 'XXX TODO',
+        };
+        push @rows, $row;
+    }
+
+    $modelSpec->{rows} = \@rows;
+}
+
+sub _fillModelRows
+{
+    my ($module, $modelSpec, $allKeys) = @_;
+    my $moduleName = $module->name();
+    my $modelName  = $modelSpec->{name};
+
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $allKeys)  };
+
+    my @rows;
+    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
+    my $dir = $keyPrefix . '/keys';
+    # assumed that row keys are always of string type
+    foreach my $rowId (@order) {
+        my $rowDir = "$dir/$rowId";
+        my $keysForRow = _matchKeys($allKeys, $rowDir. '.*', 'string');
+        if (not @{ $keysForRow }) {
+            EBox::info("Not found data for row with old id $rowId. Skipping" );
+                next;
+        }
+
+        my %elements;
+        foreach my $key (@{ $keysForRow }) {
+            my $name = $allKeys->{key};
+            $name =~ s{^$rowDir/}{};
+            $elements{$name} = $key->{value}->[0];
+        }
+        my $row = {
+            id => $rowId,
+            elements => \%elements,
+        };
+        push @rows, $row;
+    }
+
+    $modelSpec->{rows} = \@rows;
+}
+
+sub _modelKeyPrefix
+{
+    my ($moduleName, $modelName) = @_;
+
+    my $modelDir = $modelName;
+    # 2.2 exceptions
+    # TODO change for a hash
+    if ($moduleName eq 'services') {
+        if ($modelName eq 'ServiceTable') {
+            $modelDir = 'serviceTable';
+        } elsif ($modelName eq 'ServiceConfigurationTable') {
+            $modelDir = 'serviceConfigurationTable';
+        }
+    }
+    return  "/ebox/modules/$moduleName/$modelDir";
+}
+
+sub _getModelOrderValue
+{
+    my ($moduleName, $modelName, $allKeys) = @_;
+    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
+    my $orderKey = $keyPrefix . '/order';
+    if (not exists $allKeys->{$orderKey}) {
+        EBox::error("No order key for $modelName ($orderKey). Not rows to import");
+        return [];
+    }
+
+   my @order = @{ $allKeys->{$orderKey}->{value}  };
+    if (not @order) {
+        EBox::error("No order values for $modelName ($orderKey). Not rows to import");
+        return [];
+    }
+    return \@order;
+}
+
+sub _matchKeys
+{
+    my ($allKeys, $dir, $basenameRe, $type) = @_;
+    my @matched;
+    my $rexp = qr{^$dir/(.*?)[^/]$};
+    foreach my $key (keys %{ $allKeys }) {
+        if ($key =~ m/$rexp/) {
+            my @parts = split '/', $key;
+            if (not $parts[-1] =~ m/$basenameRe/) {
+                next;
+            }
+            my $selected = $allKeys->{$key};
+            if ($type) {
+                ($selected->{type} eq $type) or
+                    next;
+            }
+            push @matched, $selected;
+        }
+    }
+    return \@matched;
+}
+
+
+
+1;
