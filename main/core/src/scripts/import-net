@@ -66,7 +66,7 @@ sub _moduleComponentTree
     my $modInfo = $global->readModInfo($modName);
 
     my $models       = $modInfo->{models};
-    my $sonsByParent = $modInfo->{foreign};
+    my $childsByParent = $modInfo->{foreign};
     my $composites =  $modInfo->{composites};
 
     # assumed that composite and model cannot have the same name
@@ -74,8 +74,8 @@ sub _moduleComponentTree
     foreach my $component (@{ $models }, keys %{ $composites }) {
         $rootComponents{$component} = 1;
     }
-    foreach my $sons (values %{ $sonsByParent}, values %{ $composites }  ) {
-        foreach my $child (@{ $sons }) {
+    foreach my $childs (values %{ $childsByParent}, values %{ $composites }  ) {
+        foreach my $child (@{ $childs }) {
             delete $rootComponents{$child};
         }
     }
@@ -85,37 +85,37 @@ sub _moduleComponentTree
                        };
     my @tree;
     foreach my $name (keys %rootComponents) {
-        push @tree, _componentForTree($name, $modelsByName, $sonsByParent, $composites);
+        push @tree, _componentForTree($name, $modelsByName, $childsByParent, $composites);
     }
     return \@tree;
 }
 
 sub _componentForTree
 {
-    my ($componentName, $models, $sonByParent, $composites) = @_;
+    my ($componentName, $models, $childByParent, $composites) = @_;
     my $component = { name => $componentName};
-    my $sonNames;
+    my $childNames;
     if (exists $models->{$componentName}) {
         $component->{type} = 'model';
-        $sonNames = $sonByParent->{$componentName};
+        $childNames = $childByParent->{$componentName};
     } elsif (exists $composites->{$componentName}) {
         $component->{type} = 'composite';
-        $sonNames = $composites->{$componentName};
+        $childNames = $composites->{$componentName};
     } else {
         EBox::error("Unknown component type " . $component->{type} . '. Skip');
         return undef;
     }
 
-    if (not $sonNames) {
-        $sonNames = [];
+    if (not $childNames) {
+        $childNames = [];
     }
 
-    my @sons;
-    foreach my $sonName (@{ $sonNames }) {
-        my $componentSon = _componentForTree($sonName, $models, $sonByParent, $composites);
-        push @sons, $componentSon if $componentSon;
+    my @childs;
+    foreach my $childName (@{ $childNames }) {
+        my $componentChild = _componentForTree($childName, $models, $childByParent, $composites);
+        push @childs, $componentChild if $componentChild;
     }
-    $component->{sons} = \@sons;
+    $component->{childs} = \@childs;
     return $component;
 }
 
@@ -169,7 +169,7 @@ sub _fillComponent
     } elsif ($compSpec->{type} eq 'model') {
         _fillModel($module, $compSpec, $dir, $allKeys);
     } else {
-        # composite without sons
+        # composite without childs
         EBox::info('Unknown componet type ' . $compSpec->{type} . ' Name ' . $compSpec->{name});
     }
 }
@@ -177,14 +177,14 @@ sub _fillComponent
 sub _fillModel
 {
     my ($module, $modelSpec, $dir, $allKeys) = @_;
-    if (@{ $modelSpec->{sons} }) {
-        _fillModelWithSons($module, $modelSpec, $dir, $allKeys);
+    if (@{ $modelSpec->{childs} }) {
+        _fillModelWithChilds($module, $modelSpec, $dir, $allKeys);
     } else {
         _fillModelRows($module, $modelSpec, $dir, $allKeys);
     }
 }
 
-sub _fillModelWithSons
+sub _fillModelWithChilds
 {
     my ($module, $modelSpec, $baseDir, $allKeys) = @_;
     my $dir = $baseDir . '/keys';
@@ -236,9 +236,9 @@ sub _fillModelWithSons
             my $subModelDir = $dir . "/$rowId/$fieldName";
             my $foreignModel = $subModel->foreignModel();
             my $spec;
-            foreach my $son (@{ $modelSpec->{sons} }) {
-                if ($son->{name} eq $foreignModel) {
-                    $spec = Clone::Fast::clone($son);
+            foreach my $child (@{ $modelSpec->{childs} }) {
+                if ($child->{name} eq $foreignModel) {
+                    $spec = Clone::Fast::clone($child);
                 }
             }
             if (not $spec) {
@@ -255,7 +255,7 @@ sub _fillModelWithSons
         my $row = {
             id => $rowId,
             elements => \%elements,
-            sons => \@childRows,
+            childs => \@childRows,
         };
         push @rows, $row;
     }
@@ -312,7 +312,7 @@ sub _subModelsByModelName
     my $model = $module->model($modelName);
     my $submodelsFields =  $model->_subModelFields();
     if (not @{ $submodelsFields }) {
-        EBox::error("Not submodels for model $module/$modelName which has sons!");
+        EBox::error("Not submodels for model $module/$modelName which has childs!");
     }
 
     my @submodels = map {
