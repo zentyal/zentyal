@@ -24,6 +24,8 @@ use YAML::XS;
 use File::Slurp;
 use File::Basename qw(basename);
 
+
+# XXX discriminte between datatable and dataforn?
 EBox::init();
 
 my ($bakDir) = @ARGV;
@@ -228,28 +230,32 @@ sub _fillModelWithSons
         }
         my %elements = ($idxParam => $value);
         my @subModels = @{ _subModelsByModelName($module, $modelName) };
-        my @sonRows;
+        my @childRows;
         foreach my $subModel(@subModels) {
             my $fieldName = $subModel->fieldName();
-            my $subModelDir = $dir . "/$rowId/$fieldName/keys";
-            my $foreignModel = $subModel->foreignModelName();
+            my $subModelDir = $dir . "/$rowId/$fieldName";
+            my $foreignModel = $subModel->foreignModel();
             my $spec;
             foreach my $son (@{ $modelSpec->{sons} }) {
                 if ($son->{name} eq $foreignModel) {
-                    $spec = $son;
+                    $spec = $son; # must deep coy there??
                 }
             }
             if (not $spec) {
                 EBox::error("Spec not found for $foreignModel");
                 next;
             }
+
+            _fillComponent($module, $spec, $subModelDir, $allKeys);
+#            print 'row child ' . " directory $subModelDir" .  Dumper($spec); #DDD
+            push @childRows, $spec;
         }
 
         # TODO childs here
         my $row = {
             id => $rowId,
             elements => \%elements,
-            sons => 'XXX TODO',
+            sons => \@childRows,
         };
         push @rows, $row;
     }
@@ -259,27 +265,36 @@ sub _fillModelWithSons
 
 sub _fillModelRows
 {
-    my ($module, $modelSpec, $dir, $allKeys) = @_;
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $dir = $baseDir . '/keys';
     my $moduleName = $module->name();
     my $modelName  = $modelSpec->{name};
 
-    my @order = @{  _getModelOrderValue($moduleName, $modelName, $dir, $allKeys)  };
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
+    if (not @order) {
+        # must be with only one ID, try to found it
+        @order = ( _onlyRowIdForModel($dir, $allKeys) );
+    }
+    if (not @order) {
+        EBox::info("cannot found order rows on lone row id for $modelName it must be empty");
+    }
 
     my @rows;
     # assumed that row keys are always of string type
     foreach my $rowId (@order) {
         my $rowDir = "$dir/$rowId";
-        my $keysForRow = _matchKeys($allKeys, $rowDir. '.*', 'string');
+        my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
         if (not @{ $keysForRow }) {
             EBox::info("Not found data for row with old id $rowId. Skipping" );
-                next;
+            next;
         }
 
+#        print "KEYS FOR ROW $rowId : " . Dumper($keysForRow) . "\n"; # DDD
         my %elements;
         foreach my $key (@{ $keysForRow }) {
-            my $name = $allKeys->{key};
+            my $name = $key->{key};
             $name =~ s{^$rowDir/}{};
-            $elements{$name} = $key->{value}->[0];
+            $elements{$name} = $key->{value};
         }
         my $row = {
             id => $rowId,
@@ -334,22 +349,40 @@ sub _getModelOrderValue
     my ($moduleName, $modelName, $dir, $allKeys) = @_;
     my $orderKey = $dir . '/order';
     if (not exists $allKeys->{$orderKey}) {
-        EBox::error("No order key for $moduleName/$modelName ($orderKey). Not rows to import");
         return [];
     }
 
-   my @order = @{ $allKeys->{$orderKey}->{value}  };
-    if (not @order) {
-        EBox::error("No order values for $moduleName/$modelName ($orderKey). Not rows to import");
-        return [];
-    }
+    my @order = @{ $allKeys->{$orderKey}->{value}  };
     return \@order;
 }
+
+sub _onlyRowIdForModel
+{
+    my ($dir, $allKeys) = @_;
+    # try to match something like
+    # /ebox/modules/services/serviceTable/keys/serv9837/configuration/keys/serv7815/source_range_type
+    my $id;
+    my $regex = qr{^$dir/(.*?)/(.*?)$};
+    foreach my $key (keys %{ $allKeys }) {
+        if ($key =~ m/$regex/) {
+            $id = $1;
+            last;
+        }
+    }
+
+    if (not $id) {
+        EBox::error("Cannot find only row id for model. Directory $dir")
+    }
+
+#    print "ONLY ROW $id\n"; # DDD
+    return $id;
+}
+
 
 sub _matchKeys
 {
     my ($allKeys, $dir, $basenameRe, $type) = @_;
-    print "_matchKeys $dir \n"; # DDD
+#    print "_matchKeys $dir \n"; # DDD
     my @matched;
     my $rexp = qr{^$dir/(.*?)[^/]$};
     foreach my $key (keys %{ $allKeys }) {
