@@ -80,6 +80,10 @@ gen_locales()
     /usr/sbin/locale-gen
 
     /usr/share/zentyal/set-locale $LANG > /dev/null 2>&1
+
+    # force reload of locale by apache
+    service zentyal apache stop
+    service zentyal apache start
 }
 
 create_repository # Set up local package repository
