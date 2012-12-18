@@ -1,4 +1,5 @@
 HEAD
+	+ Service zentyal-desktop-api is now added in initial-setup
 	+ Better exception message when service not exists in /etc/services
 	+ Fix apparmor profile to allow SDLZ driver to read session key
 3.0.3

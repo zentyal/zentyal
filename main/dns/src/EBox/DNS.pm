@@ -656,11 +656,6 @@ sub _preSetConf
 {
     my ($self) = @_;
 
-    # Add 'zentyal' to /etc/services
-    my $cmd = EBox::Config::scripts('dns') . '/add-zentyal-desktop-service';
-    my $args = DESKTOP_SERVICE_NAME . ' ' . DESKTOP_SERVICE_PORT;
-    EBox::Sudo::root("$cmd $args");
-
     my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
     my $hostName = $sysinfo->hostName();
