@@ -145,35 +145,52 @@ sub _parseBakfile
 sub _fillModuleTree
 {
     my ($module, $tree, $allKeys) = @_;
-
+    my $moduleName = $module->name();
+    my $moduleDir = _moduleDir($moduleName);
     foreach my $root (@{  $tree }) {
-        if ($root->{type} eq 'composite') {
-            die 'TO IMPLEMENT';
-        } elsif ($root->{type} eq 'model') {
-            if (@{ $root->{sons} }) {
-                _fillModelWithSons($module, $root, $allKeys);
-            } else {
-                _fillModelRows($module, $root, $allKeys);
-            }
-        } else {
-            # composite without sons
-            EBox::info('No sons for ' . $root->{type} . ' ' . $root->{name});
+        my $dir = $moduleDir;
+        if ($root->{type} eq 'model') {
+            my $modelName  = $root->{name};
+            $dir = _modelDir($moduleName, $modelName, $dir);
         }
+        _fillComponent($module, $root, $dir, $allKeys);
     }
 
     return $tree;
 }
 
+sub _fillComponent
+{
+    my ($module, $compSpec, $dir, $allKeys) = @_;
+    if ($compSpec->{type} eq 'composite') {
+        die 'TO IMPLEMENT';
+    } elsif ($compSpec->{type} eq 'model') {
+        _fillModel($module, $compSpec, $dir, $allKeys);
+    } else {
+        # composite without sons
+        EBox::info('Unknown componet type ' . $compSpec->{type} . ' Name ' . $compSpec->{name});
+    }
+}
+
+sub _fillModel
+{
+    my ($module, $modelSpec, $dir, $allKeys) = @_;
+    if (@{ $modelSpec->{sons} }) {
+        _fillModelWithSons($module, $modelSpec, $dir, $allKeys);
+    } else {
+        _fillModelRows($module, $modelSpec, $dir, $allKeys);
+    }
+}
+
 sub _fillModelWithSons
 {
-    my ($module, $modelSpec, $allKeys) = @_;
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $dir = $baseDir . '/keys';
     my $moduleName = $module->name();
     my $modelName  = $modelSpec->{name};
 
-    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
-    my $dir = $keyPrefix . '/keys';
     my $idxKeys = _matchKeys($allKeys, $dir, '.*.idx', 'hash');
-    print Dumper($idxKeys); # XXX
+    print Dumper($idxKeys);
     if (@{ $idxKeys } == 0) {
         $modelSpec->{rows} = [];
         return;
@@ -201,7 +218,8 @@ sub _fillModelWithSons
     }
 
     my @rows;
-    my @order = @{  _getModelOrderValue($moduleName, $modelName, $allKeys)  };
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
+    print "oirder " . Dumper(\@order);
     foreach my $rowId (@order) {
         my $value = $idxInfo{$rowId};
         if (not $value) {
@@ -209,7 +227,25 @@ sub _fillModelWithSons
             next;
         }
         my %elements = ($idxParam => $value);
-        # TDO childs here
+        my @subModels = @{ _subModelsByModelName($module, $modelName) };
+        my @sonRows;
+        foreach my $subModel(@subModels) {
+            my $fieldName = $subModel->fieldName();
+            my $subModelDir = $dir . "/$rowId/$fieldName/keys";
+            my $foreignModel = $subModel->foreignModelName();
+            my $spec;
+            foreach my $son (@{ $modelSpec->{sons} }) {
+                if ($son->{name} eq $foreignModel) {
+                    $spec = $son;
+                }
+            }
+            if (not $spec) {
+                EBox::error("Spec not found for $foreignModel");
+                next;
+            }
+        }
+
+        # TODO childs here
         my $row = {
             id => $rowId,
             elements => \%elements,
@@ -223,15 +259,13 @@ sub _fillModelWithSons
 
 sub _fillModelRows
 {
-    my ($module, $modelSpec, $allKeys) = @_;
+    my ($module, $modelSpec, $dir, $allKeys) = @_;
     my $moduleName = $module->name();
     my $modelName  = $modelSpec->{name};
 
-    my @order = @{  _getModelOrderValue($moduleName, $modelName, $allKeys)  };
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $dir, $allKeys)  };
 
     my @rows;
-    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
-    my $dir = $keyPrefix . '/keys';
     # assumed that row keys are always of string type
     foreach my $rowId (@order) {
         my $rowDir = "$dir/$rowId";
@@ -257,9 +291,30 @@ sub _fillModelRows
     $modelSpec->{rows} = \@rows;
 }
 
-sub _modelKeyPrefix
+sub _subModelsByModelName
 {
-    my ($moduleName, $modelName) = @_;
+    my ($module, $modelName) = @_;
+    my $model = $module->model($modelName);
+    my $submodelsFields =  $model->_subModelFields();
+    if (not @{ $submodelsFields }) {
+        EBox::error("Not submodels for model $module/$modelName which has sons!");
+    }
+
+    my @submodels = map {
+        $model->fieldHeader($_);
+    } @{ $submodelsFields };
+    return \@submodels;
+}
+
+sub _moduleDir
+{
+    my ($moduleName) = @_;
+    return  "/ebox/modules/$moduleName";
+}
+
+sub _modelDir
+{
+    my ($moduleName, $modelName, $dir) = @_;
 
     my $modelDir = $modelName;
     # 2.2 exceptions
@@ -271,22 +326,21 @@ sub _modelKeyPrefix
             $modelDir = 'serviceConfigurationTable';
         }
     }
-    return  "/ebox/modules/$moduleName/$modelDir";
+    return  "$dir/$modelDir";
 }
 
 sub _getModelOrderValue
 {
-    my ($moduleName, $modelName, $allKeys) = @_;
-    my $keyPrefix = _modelKeyPrefix($moduleName, $modelName);
-    my $orderKey = $keyPrefix . '/order';
+    my ($moduleName, $modelName, $dir, $allKeys) = @_;
+    my $orderKey = $dir . '/order';
     if (not exists $allKeys->{$orderKey}) {
-        EBox::error("No order key for $modelName ($orderKey). Not rows to import");
+        EBox::error("No order key for $moduleName/$modelName ($orderKey). Not rows to import");
         return [];
     }
 
    my @order = @{ $allKeys->{$orderKey}->{value}  };
     if (not @order) {
-        EBox::error("No order values for $modelName ($orderKey). Not rows to import");
+        EBox::error("No order values for $moduleName/$modelName ($orderKey). Not rows to import");
         return [];
     }
     return \@order;
@@ -295,6 +349,7 @@ sub _getModelOrderValue
 sub _matchKeys
 {
     my ($allKeys, $dir, $basenameRe, $type) = @_;
+    print "_matchKeys $dir \n"; # DDD
     my @matched;
     my $rexp = qr{^$dir/(.*?)[^/]$};
     foreach my $key (keys %{ $allKeys }) {
