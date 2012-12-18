@@ -22,6 +22,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use YAML::XS;
 use File::Slurp;
+use File::Basename qw(basename);
 
 EBox::init();
 
@@ -46,7 +47,7 @@ sub _importServices
     }
 
     use Data::Dumper;
-    print Dumper ($bakData);
+#    print Dumper ($bakData);
 
     my $tree = _moduleComponentTree($modName);
     print Dumper($tree);
@@ -182,10 +183,9 @@ sub _fillModelWithSons
     }
 
     # XXX asummed only one idx param
-    my $idxParam;
-    if ($idxKeys->[0]->{key} =~ m{/(.*)\.idx$}) {
-        $idxParam = $1;
-    }  else {
+    my $idxParam = basename($idxKeys->[0]->{key});
+    $idxParam =~ s/\.idx$//;
+     if (not $idxParam) {
         EBox::error('Cannot get idx param name from ' .$idxKeys->[0]->{key} . ' Skipping' );
         return;
     }
@@ -299,8 +299,7 @@ sub _matchKeys
     my $rexp = qr{^$dir/(.*?)[^/]$};
     foreach my $key (keys %{ $allKeys }) {
         if ($key =~ m/$rexp/) {
-            my @parts = split '/', $key;
-            if (not $parts[-1] =~ m/$basenameRe/) {
+            if (not (basename($key) =~ m/$basenameRe/)) {
                 next;
             }
             my $selected = $allKeys->{$key};
