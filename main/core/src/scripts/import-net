@@ -57,7 +57,11 @@ sub _importServices
     my $servicesMod = EBox::Global->getInstance(0)->modInstance($modName);
     my $filled = _fillModuleTree($servicesMod, $tree, $bakData);
     print Dumper($filled);
+
+    _insertFilledTreeIntoModule($servicesMod, $filled);
 }
+
+
 
 sub _moduleComponentTree
 {
@@ -223,12 +227,14 @@ sub _fillModelWithChilds
     my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
 #    print "oirder " . Dumper(\@order); #DDD
     foreach my $rowId (@order) {
-        my $value = $idxInfo{$rowId};
-        if (not $value) {
+        my $idxValue = $idxInfo{$rowId};
+        if (not $idxValue) {
             EBox::error("No row idx for $rowId. Skipping");
             next;
         }
-        my %elements = ($idxParam => $value);
+        my %elements = %{ _elementsForRow($dir, $rowId, $allKeys) };
+        # add idxparam to elements
+        $elements{$idxParam} = $idxValue;
         my @subModels = @{ _subModelsByModelName($module, $modelName) };
         my @childRows;
         foreach my $subModel(@subModels) {
@@ -239,6 +245,7 @@ sub _fillModelWithChilds
             foreach my $child (@{ $modelSpec->{childsPrototypes} }) {
                 if ($child->{name} eq $foreignModel) {
                     $spec = Clone::Fast::clone($child);
+                    $spec->{subModelField} = $fieldName;
                 }
             }
             if (not $spec) {
@@ -280,21 +287,11 @@ sub _fillModelRows
     }
 
     my @rows;
-    # assumed that row keys are always of string type
     foreach my $rowId (@order) {
-        my $rowDir = "$dir/$rowId";
-        my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
-        if (not @{ $keysForRow }) {
+        my %elements = %{ _elementsForRow($dir, $rowId, $allKeys) };
+        if (not %elements) {
             EBox::info("Not found data for row with old id $rowId. Skipping" );
             next;
-        }
-
-#        print "KEYS FOR ROW $rowId : " . Dumper($keysForRow) . "\n"; # DDD
-        my %elements;
-        foreach my $key (@{ $keysForRow }) {
-            my $name = $key->{key};
-            $name =~ s{^$rowDir/}{};
-            $elements{$name} = $key->{value};
         }
         my $row = {
             id => $rowId,
@@ -304,6 +301,28 @@ sub _fillModelRows
     }
 
     $modelSpec->{rows} = \@rows;
+}
+
+sub _elementsForRow
+{
+    my ($dir, $rowId, $allKeys) = @_;
+    # assumed that no-idx row keys are always of string type
+    my $rowDir = "$dir/$rowId";
+    my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
+    if (not @{ $keysForRow }) {
+        EBox::info("Not found data for row with old id $rowId. Skipping" );
+            next;
+        }
+
+    #        print "KEYS FOR ROW $rowId : " . Dumper($keysForRow) . "\n"; # DDD
+    my %elements;
+    foreach my $key (@{ $keysForRow }) {
+        my $name = basename($key->{key});
+ #       my $name = $key->{key};
+#        $name =~ s{^$rowDir/}{};
+        $elements{$name} = $key->{value};
+    }
+    return \%elements
 }
 
 sub _subModelsByModelName
@@ -401,6 +420,36 @@ sub _matchKeys
     return \@matched;
 }
 
+my $clearConf = 1;
+sub _insertFilledTreeIntoModule
+{
+    my ($module, $tree) = @_;
+    foreach my $root (@{ $tree }) {
+        if ($root->{type}  eq 'model') {
+            my $model = $module->model($root->{name});
+
+            _insertRowsInModel($model, $root->{rows});
+        }
+    }
+
+}
+
+sub _insertRowsInModel
+{
+    my ($model, $rows) = @_;
+    $model->removeAll(1) if $clearConf;
+    foreach my $row (@{ $rows }) {
+        my $newRowId = $model->addRow(%{ $row->{elements}});
+        my $newRow   = $model->row($newRowId);
+        # add childrens
+        foreach my $child (@{ $row->{childs}}) {
+            my $subModelField = $child->{subModelField};
+            my $subModel =  $newRow->subModel($subModelField);
+            _insertRowsInModel($subModel, $child->{rows});
+        }
+
+    }
+}
 
 
 1;
