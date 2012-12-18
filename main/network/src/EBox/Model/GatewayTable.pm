@@ -12,8 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Network::Model::GatewayTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -30,12 +33,6 @@ use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
 
 use Net::ARP;
-
-use strict;
-use warnings;
-
-
-use base 'EBox::Model::DataTable';
 
 use constant MAC_FETCH_TRIES => 3;
 

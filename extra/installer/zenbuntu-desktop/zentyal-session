@@ -1,13 +1,5 @@
 #!/bin/bash
 
-if [ -f /var/tmp/.zentyal-disaster-recovery ]
-then
-    sudo perl -MEBox -MEBox::Util::SQL -MEBox::Global -e'EBox::init(); map { EBox::Util::SQL::createModuleTables($_) } @{EBox::Global->modNames()}; 1';
-    sudo invoke-rc.d ntp stop
-    sudo /usr/share/zentyal-ebackup/restore-tool
-    rm /var/tmp/.zentyal-disaster-recovery
-fi
-
 firefox https://localhost &
 
 xset s off

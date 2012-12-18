@@ -47,6 +47,7 @@ sub _print
 
     if (defined($self->{downfile}) and (not defined $self->{error})) {
         # file download
+        binmode(STDOUT, ':raw');
         open(BACKUP,$self->{downfile}) or
             throw EBox::Exceptions::Internal('Could not open backup file.');
         print($self->cgi()->header(-type=>'application/octet-stream',
@@ -54,7 +55,9 @@ sub _print
         while (<BACKUP>) {
             print $_;
         }
-        close BACKUP;
+        close(BACKUP);
+        binmode(STDOUT, ':utf8');
+
         return;
     }
 
@@ -63,6 +66,7 @@ sub _print
         return $self->SUPER::_print();
     }
 
+    $self->{template} = '/ajax/simpleModalDialog.mas';
     $self->_printPopup();
 }
 
@@ -175,8 +179,6 @@ sub _backupAction
     if ($progressIndicator) {
         $self->_showBackupProgress($progressIndicator);
         $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
-    } elsif ($self->{popup}) {
-        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 
@@ -223,8 +225,6 @@ sub _restore
 
     if ($progressIndicator) {
         $self->_showRestoreProgress($progressIndicator);
-    } elsif ($self->{popup}) {
-        $self->{template} = '/ajax/simpleModalDialog.mas';
     }
 }
 

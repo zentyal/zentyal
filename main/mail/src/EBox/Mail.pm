@@ -19,7 +19,8 @@ package EBox::Mail;
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
-            EBox::KerberosModule EBox::Events::DispatcherProvider);
+            EBox::KerberosModule EBox::SyncFolders::Provider
+            EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -35,12 +36,12 @@ use EBox::MailFirewall;
 use EBox::Mail::Greylist;
 use EBox::Mail::FetchmailLdap;
 use EBox::Service;
-
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
+use EBox::SyncFolders::Folder;
 
 use Error qw( :try );
 use Proc::ProcessTable;
@@ -1822,6 +1823,27 @@ sub postmasterAddress
     my $mailname = $self->mailname();
 
     return $address . '@' .  $mailname;
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir ($self->_storageMailDirs()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Mailboxes');
 }
 
 1;

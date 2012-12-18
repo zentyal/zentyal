@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::NUT;
-
 use strict;
 use warnings;
 
+package EBox::NUT;
 use base qw(EBox::Module::Service);
 
 use EBox::Gettext;
@@ -49,7 +47,7 @@ sub menu
                                         'separator' => 'Core',
                                         'order' => 70);
 
-    my $item = new EBox::Menu::Item('url' => 'NUT/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'Maintenance/NUT',
                                     'text' => $self->printableName(),
                                     'order' => 55);
     $folder->add($item);

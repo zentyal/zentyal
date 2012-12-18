@@ -42,6 +42,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
 use EBox::Gettext;
+use EBox::Util::Version;
 use EBox;
 use Error qw(:try);
 use HTML::Mason;
@@ -108,13 +109,17 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-    # Create default rules only if installing the first time
-    unless ($version) {
+
+   if (not $version) {
+       # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(
             source => { any => undef },
             policy => { allow => undef },
         );
+    } elsif (EBox::Util::Version::compare($version, '3.0.3') < 0) {
+        eval "use EBox::Squid::Migration";
+        EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
     }
 }
 
@@ -563,12 +568,11 @@ sub _writeSquidConf
     my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $kerberos     = $generalSettings->kerberosValue();
+    my $kerberos = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
     my $network = $global->modInstance('network');
     my $sysinfo = $global->modInstance('sysinfo');
-
 
     my $users = $global->modInstance('users');
 
@@ -589,6 +593,7 @@ sub _writeSquidConf
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
+    push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
     push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
@@ -609,12 +614,14 @@ sub _writeSquidExternalConf
     my $globalRO = EBox::Global->getInstance(1);
     my $global  = $self->global();
     my $network = $global->modInstance('network');
-    my $users = $global->modInstance('users');
+    my $users   = $global->modInstance('users');
+    my $sysinfo = $global->modInstance('sysinfo');
     my $generalSettings = $self->model('GeneralSettings');
 
     my $writeParam = [];
 
     push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
+    push (@{$writeParam}, hostfqdn => $sysinfo->fqdn());
 
     if ($generalSettings->kerberosValue()) {
         push (@{$writeParam}, realm => $users->kerberosRealm);
@@ -1182,18 +1189,6 @@ sub pathsToRemove
     my $toRemove = $state->{$key};
     $toRemove or $toRemove = [];
     return $toRemove;
-}
-
-sub backupFilesFromArchive
-{
-    # XXX disabled, current framework does not support it and when it does we
-    # shoudl change other things
-}
-sub restoreFilesFromArchive
-{
-    # XXX disabled, current framework does not support it and when it does we
-    # shoudl change other things
-
 }
 
 sub aroundRestoreConfig

@@ -28,6 +28,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Html;
@@ -56,10 +57,6 @@ sub _process
     push @params, (progressId => $self->_progressId);
 
     my $title = ($self->param('title'));
-    if ($title) {
-        $self->{title} = encode (utf8 => $title);
-    }
-
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
@@ -72,8 +69,7 @@ sub _process
         # We use unsafeParam because these paramaters can be i18'ed.
         # Also, these parameters are only used to generate html, no command
         # or so is run.
-        use Encode;
-        my $value = encode (utf8 => $self->unsafeParam($name));
+        my $value = $self->unsafeParam($name);
         $value or
             next;
 
@@ -84,11 +80,10 @@ sub _process
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show ads only during installation
         unless ( $self->{title} and
-                encode(utf8 => __('Saving changes')) eq $self->{title} ) {
-
-            if (EBox::Global->modExists('software')) {
-                push @params, (slides => _loadSlides());
-            }
+               ( __('Saving changes') eq $self->{title} )) {
+                  if (EBox::Global->modExists('software')) {
+                      push @params, (slides => _loadSlides());
+                  }
         }
     }
 
@@ -128,7 +123,7 @@ sub _menu
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and
-             encode(utf8 => __('Saving changes')) eq $self->{title} ) {
+             ( __('Saving changes') eq $self->{title}) ) {
             $software->firstTimeMenu(4);
         } else {
             $software->firstTimeMenu(2);
@@ -161,9 +156,11 @@ sub _footer
     return $self->SUPER::_footer();
 }
 
-sub _loadSlides
+sub _slidesFilePath
 {
-    my $path = EBox::Config::share() . 'zentyal-software/ads';
+    my ($pkg) = @_;
+
+    my $path = EBox::Config::share() . "$pkg/ads";
     my $file = "$path/ads_" + EBox::locale();
     unless (-f $file) {
         $file =  "$path/ads_" . substr (EBox::locale(), 0, 2);
@@ -174,6 +171,21 @@ sub _loadSlides
     if (-f "$file.custom") {
         $file = "$file.custom";
     }
+
+    return $file;
+}
+
+sub _loadSlides
+{
+
+    my $slidesPkg = 'zentyal-software';
+    my $imgPkg = 'software';
+    if (EBox::GlobalImpl::_packageInstalled('zentyal-cloud-prof')) {
+        $slidesPkg = 'zentyal-cloud-prof';
+        $imgPkg = 'cloud-prof';
+    }
+
+    my $file = _slidesFilePath($slidesPkg);
     EBox::debug("Loading ads from: $file");
     my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
     my $slides = decode_json($json);
@@ -182,6 +194,7 @@ sub _loadSlides
     my $num = 1;
     foreach my $slide (@{$slides}) {
         $slide->{num} = $num++;
+        $slide->{pkg} = $imgPkg;
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 

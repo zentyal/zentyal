@@ -1,3 +1,7 @@
+HEAD
+	+ Adapted keys and cert downloader to the new utf8 fixes
+	+ Better error control in subject alternatives, correct subject
+	  alternative type case in the CGI
 3.0.1
 	+ Delete service certificates with old format on initialSetup()
 	+ Added and used serviceId field for service certificates

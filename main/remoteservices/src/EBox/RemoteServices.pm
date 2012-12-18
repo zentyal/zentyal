@@ -45,6 +45,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::AdminPort;
@@ -476,6 +477,23 @@ sub menu
         'text' => __('Security Updates'),
        ));
     $root->add($folder);
+
+    if ($self->disasterRecoveryAvailable()) {
+        my $system = new EBox::Menu::Folder(
+            'name' => 'SysInfo',
+            'text' => __('System'),
+            'order' => 30
+        );
+
+        $system->add(new EBox::Menu::Item(
+            'url' => 'SysInfo/DisasterRecovery',
+            'separator' => 'Core',
+            'order' => 45,
+            'text' => __('Disaster Recovery')
+        ));
+
+        $root->add($system);
+    }
 }
 
 # Method: widgets
@@ -994,12 +1012,14 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::Config::configkey('files_sync_available');
+    return EBox::GlobalImpl::_packageInstalled('zfilesync');
 }
 
 # Method: securityUpdatesAddOn
 #
 #      Get if server has security updates add-on
+#
+#      *(DEPRECATED)*
 #
 # Parameters:
 #
@@ -1011,42 +1031,6 @@ sub filesSyncAvailable
 #      Boolean - indicating if it has security updates add-on or not
 #
 sub securityUpdatesAddOn
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{security_updates};
-    } otherwise {
-        $ret = 0;
-    };
-    return $ret;
-}
-
-# Method: disasterRecoveryAddOn
-#
-#      Get whether the company has disaster recovery add-on or not
-#
-#      *(DEPRECATED)*
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether the company has disaster recovery
-#      add-on or not
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::NotConnected> - thrown if the server cannot
-#      connect to Zentyal Cloud to know the answer
-#
-sub disasterRecoveryAddOn
 {
     throw EBox::Exceptions::DeprecatedMethod();
 }
@@ -1910,70 +1894,100 @@ sub extraSudoerUsers
     return @users;
 }
 
-sub _backupSubscritionConf
-{
-    my ($self, $dir) = @_;
-    return "$dir/subscription.conf";
-}
-
-sub _backupSubscritionTar
+# Get the path for subscription data in the backup
+sub _backupSubsDataTarFileName
 {
     my ($self, $dir) = @_;
     return "$dir/subscription.tar.gz";
 }
 
+# Method: dumpConfig
+#
+#     Override to store the subscription conf path
+#
+# Overrides:
+#
+#     <EBox::Module::Base::dumpConfig>
+#
 sub dumpConfig
 {
     my ($self, $dir) = @_;
 
     if (not $self->eBoxSubscribed()) {
-        # no subscription to backup
+        # no subscription to back up
         return;
     }
 
-    # file with subscription and cache conf parameters
-    my $subscriptionConfFile = $self->_backupSubscritionConf($dir);
-    my $stringConf = encode_json($self->get_state());
-    File::Slurp::write_file($subscriptionConfFile, $stringConf);
-
     # tar with subscription files directory
-    my $tarPath = $self->_backupSubscritionTar($dir);
+    my $tarPath = $self->_backupSubsDataTarFileName($dir);
     my $subscriptionDir =  SUBS_DIR;
-    my $tarCmd = 'tar  cf ' . $tarPath . ' ' . $subscriptionDir;
+    my $tarCmd = "tar cf '$tarPath' '$subscriptionDir'";
     EBox::Sudo::root($tarCmd);
 }
 
+# Method: restoreConfig
+#
+#     Override to restore the subscription conf path and state
+#
+# Overrides:
+#
+#     <EBox::Module::Base::restoreConfig>
+#
 sub restoreConfig
 {
     my ($self, $dir) = @_;
 
     $self->clearCache();
 
-    my $subscriptionConf = $self->_backupSubscritionConf($dir);
-    if (not -r $subscriptionConf) {
-        # no subscribed
-        $self->st_set_bool('subscribed', 0);
-        return;
+    # restore state conf
+    $self->_load_state_from_file($dir);
+
+    my $tarPath = $self->_backupSubsDataTarFileName($dir);
+    # Parse backed up server-info.json to know if we are restoring a
+    # first installed server or a disaster recovery one. In those
+    # cases, the server password has been modified and the backed one
+    # is not valid anymore
+    my ($backupSubscribed, $excludeServerInfo) = (1, 0);
+    if ( $self->eBoxSubscribed() ) {
+        try {
+            # For hackers!
+            EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
+            my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
+            # If matches, then skip to restore the server-info.json
+            $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
+        } otherwise {
+            my ($ex) = shift;
+            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
+            EBox::error($ex);
+            $self->clearCache();
+            $self->st_set_bool('subscribed', 0);
+            $backupSubscribed = 0;
+        } finally {
+            EBox::Sudo::root('rm -f /tmp/server-info.json');
+        };
     }
 
-    # restore state conf
-    my $state = decode_json(File::Slurp::read_file($subscriptionConf));
-    $self->set_state($state);
+    if ($backupSubscribed) {
+        # Restore subscription files and ownership
+        my $subscriptionDir = SUBS_DIR;
+        try {
+            my $tarCmd = "tar --extract --file '$tarPath' --directory /";
+            $tarCmd .= " --exclude=server-info.json" if ($excludeServerInfo);
+            my @cmds = ($tarCmd,
+                        "chown ebox.adm '$subscriptionDir'",
+                        "chown -R ebox.ebox $subscriptionDir/*");
+            EBox::Sudo::root(@cmds);
+        } otherwise {
+            my ($ex) = shift;
+            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
+            EBox::error($ex);
+            $self->clearCache();
+            $self->st_set_bool('subscribed', 0);
+        };
+    }
 
-    # restore subscription files and ownerhsip
-    my $subscriptionDir = SUBS_DIR;
-    try {
-        my $tarPath = $self->_backupSubscritionTar($dir);
-        my $tarCmd = 'tar x --file ' . $tarPath . ' -C /';
-        EBox::Sudo::root($tarCmd);
-        EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
-        EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir/*");
-    } otherwise {
-        my ($ex) = shift;
-        EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-        $self->clearCache();
-        $self->st_set_bool('subscribed', 0);
-    };
+    # Mark as changed to make all things work again
+    $self->setAsChanged();
 }
 
 # Method: clearCache

@@ -1,3 +1,6 @@
+HEAD
+	+ Integration with Disaster Recovery service
+	+ Fixed user object misuse in EBox::Mail::FetchmailLdap::removeExternalAccount
 3.0.3
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 3.0.2
