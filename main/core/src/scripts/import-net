@@ -52,7 +52,7 @@ sub _importServices
 #    print Dumper ($bakData);
 
     my $tree = _moduleComponentTree($modName);
-    print Dumper($tree);
+ #   print Dumper($tree);
 
     my $servicesMod = EBox::Global->getInstance(0)->modInstance($modName);
     my $filled = _fillModuleTree($servicesMod, $tree, $bakData);
@@ -192,7 +192,7 @@ sub _fillModelWithSons
     my $modelName  = $modelSpec->{name};
 
     my $idxKeys = _matchKeys($allKeys, $dir, '.*.idx', 'hash');
-    print Dumper($idxKeys);
+#    print Dumper($idxKeys); # DDD
     if (@{ $idxKeys } == 0) {
         $modelSpec->{rows} = [];
         return;
@@ -221,7 +221,7 @@ sub _fillModelWithSons
 
     my @rows;
     my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
-    print "oirder " . Dumper(\@order);
+#    print "oirder " . Dumper(\@order); #DDD
     foreach my $rowId (@order) {
         my $value = $idxInfo{$rowId};
         if (not $value) {
@@ -238,7 +238,7 @@ sub _fillModelWithSons
             my $spec;
             foreach my $son (@{ $modelSpec->{sons} }) {
                 if ($son->{name} eq $foreignModel) {
-                    $spec = $son; # must deep coy there??
+                    $spec = Clone::Fast::clone($son);
                 }
             }
             if (not $spec) {
