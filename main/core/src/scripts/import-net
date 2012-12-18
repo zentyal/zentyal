@@ -115,7 +115,7 @@ sub _componentForTree
         my $componentChild = _componentForTree($childName, $models, $childByParent, $composites);
         push @childs, $componentChild if $componentChild;
     }
-    $component->{childs} = \@childs;
+    $component->{childsPrototypes} = \@childs;
     return $component;
 }
 
@@ -177,7 +177,7 @@ sub _fillComponent
 sub _fillModel
 {
     my ($module, $modelSpec, $dir, $allKeys) = @_;
-    if (@{ $modelSpec->{childs} }) {
+    if (@{ $modelSpec->{childsPrototypes} }) {
         _fillModelWithChilds($module, $modelSpec, $dir, $allKeys);
     } else {
         _fillModelRows($module, $modelSpec, $dir, $allKeys);
@@ -236,7 +236,7 @@ sub _fillModelWithChilds
             my $subModelDir = $dir . "/$rowId/$fieldName";
             my $foreignModel = $subModel->foreignModel();
             my $spec;
-            foreach my $child (@{ $modelSpec->{childs} }) {
+            foreach my $child (@{ $modelSpec->{childsPrototypes} }) {
                 if ($child->{name} eq $foreignModel) {
                     $spec = Clone::Fast::clone($child);
                 }
