@@ -1019,8 +1019,6 @@ sub filesSyncAvailable
 #
 #      Get if server has security updates add-on
 #
-#      *(DEPRECATED)*
-#
 # Parameters:
 #
 #      force - Boolean check against server
@@ -1032,7 +1030,17 @@ sub filesSyncAvailable
 #
 sub securityUpdatesAddOn
 {
-    throw EBox::Exceptions::DeprecatedMethod();
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{security_updates};
+    } otherwise {
+        $ret = 0;
+    };
+    return $ret;
 }
 
 # Method: disasterRecoveryAvailable
