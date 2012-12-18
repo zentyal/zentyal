@@ -1,4 +1,6 @@
 HEAD
+	+ Checks for connected users info in the dashboard widget adepted to
+	  the current DHCP module
 	+ Avoid overwriting an existing image
 	+ Allow image removal from the image list
 3.0.1

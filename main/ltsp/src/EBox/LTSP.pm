@@ -596,6 +596,20 @@ sub _ipIsLtspClient
         my $ifacesInfo = $dhcp->_ifacesInfo($staticRoutes_r);
 
         foreach my $ifaceInfo (values %{$ifacesInfo}) {
+            # FIXME: Until thin clients are served to a given range or fixed ip
+            if ( values %{$ifaceInfo->{options}} > 0 ) {    # Has thin clients
+                foreach my $range (@{$ifaceInfo->{ranges}}) {
+                    if (_ipInRange($ip, $range->{from}, $range->{to})) {
+                        return 1;
+                    }
+                }
+                foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+                    if (_ipInObject($ip, $objFixed->{members})) {
+                        return 1;
+                    }
+                }
+            }
+
             foreach my $range (@{$ifaceInfo->{ranges}}) {
                 if ( ( values %{$range->{options}} > 0 ) and  # Has thin clients
                      (_ipInRange($ip, $range->{from}, $range->{to})) ) {
