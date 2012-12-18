@@ -1,4 +1,5 @@
 HEAD
+	+ Configure Log4perl to use utf8
 	+ Do not try to log default locale message when logger is not initialized
 	+ Added "use utf8" to Gettext needed for the language string literals
 	+ Decode utf8 strings from gettext
