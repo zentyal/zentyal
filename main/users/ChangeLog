@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed LdapObject::get() for list context
 	+ Decode utf8 attributes from LDAP at LdapObject::get()
 	+ Removed unused method _utf8Attrs
 	+ Integration with Disaster Recovery service
