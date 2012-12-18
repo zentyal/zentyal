@@ -24,7 +24,7 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA = qw(Exporter);
-    @EXPORT = qw{ __ __x __s __sx __p __px langs};
+    @EXPORT = qw{ __ __x __s __sx __p __px langs __n};
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
     $VERSION = EBox::Config::version;
@@ -181,6 +181,13 @@ sub langs
     }
 
     return $langs;
+}
+
+# FIXME: this is kept for compatibility with zentyal-cloud-prof
+# but should be removed at some point
+sub __n
+{
+    return __(@_);
 }
 
 1;
