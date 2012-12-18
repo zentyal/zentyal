@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Adapted to the new utf8 fixes
 	+ Removed superfluos calls to utf8::decode
 	+ Restart module on package install
