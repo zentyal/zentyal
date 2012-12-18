@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid overwriting an existing image
 	+ Allow image removal from the image list
 3.0.1
 	+ Catch exceptions in the update and install local applications scripts
