@@ -1113,9 +1113,10 @@ sub notifyModsLdapUserBase
     my $basedn = $args->[0]->baseDn();
     my $defaultOU = ($basedn eq $self->usersDn() or $basedn eq $self->groupsDn());
     foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
-
-        # Skip modules not supporting multiple OU if not default OU
-        next unless ($mod->multipleOUSupport or $defaultOU);
+        unless ($args->[0]->isa('EBox::UsersAndGroups::Principal')) {
+            # Skip modules not supporting multiple OU if not default OU
+            next unless ($mod->multipleOUSupport or $defaultOU);
+        }
 
         # TODO catch errors here? Not a good idea. The way to go is
         # to implement full transaction support and rollback if a notified

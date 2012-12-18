@@ -32,7 +32,25 @@ sub new
 #
 #   This method adds a kerberos principal
 #
+sub _preAddPrincipal
+{
+}
+sub _preAddPrincipalFailed
+{
+}
+
+# Method: _addPrincipal
+#
+#   This method adds a kerberos principal
+#
 sub _addPrincipal
+{
+}
+sub _addPrincipalFailed
+{
+}
+
+sub _modifyPrincipal
 {
 }
 

@@ -53,8 +53,26 @@ sub _addPrincipal
 {
     my ($self, $principal) = @_;
 
-    my $principalData = $principal->as_ldif();
-    return $self->soapClient->addPrincipal($principalData);
+    my @keys = $principal->get('krb5Key');
+    my $data = {
+        krb5PrincipalName => $principal->get('krb5PrincipalName'),
+        keys => \@keys,
+    };
+    $self->soapClient->addPrincipal($data);
+    return 0;
+}
+
+sub _modifyPrincipal
+{
+    my ($self, $principal) = @_;
+
+    my @keys = $principal->get('krb5Key');
+    my $data = {
+        krb5PrincipalName => $principal->get('krb5PrincipalName'),
+        keys => \@keys,
+    };
+    $self->soapClient->modifyPrincipal($data);
+    return 0;
 }
 
 sub _addUser

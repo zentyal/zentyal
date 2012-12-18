@@ -170,12 +170,11 @@ sub pollSlavesForServicePrincipals
     my ($slaves) = @_;
 
     foreach my $slave (@{$slaves}) {
-        my @principals = @{$slave->pollServicePrincipals()};
-        foreach my $p (@principals) {
-            my $local = new EBox::UsersAndGroups::Principal(dn => $p->dn());
-            unless ($local->exists()) {
-                my $ldif = $p->as_ldif();
-                $local = EBox::UsersAndGroups::Principal->createFromLDIF($ldif);
+        my $modsPrincipals = $slave->pollServicePrincipals();
+        foreach my $princ (@{$modsPrincipals}) {
+            my $p = new EBox::UsersAndGroups::Principal(krb5PrincipalName => $princ->{krb5PrincipalName});
+            unless ($p->exists()) {
+                EBox::UsersAndGroups::Principal->create($princ);
             }
         }
     }

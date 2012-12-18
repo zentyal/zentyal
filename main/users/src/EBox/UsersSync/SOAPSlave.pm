@@ -37,10 +37,21 @@ use EBox::UsersAndGroups::Group;
 
 sub addPrincipal
 {
-    my ($self, $principalData) = @_;
+    my ($self, $data) = @_;
 
-    EBox::UsersAndGroups::Principal->createFromLDIF($principalData);
+    EBox::UsersAndGroups::Principal->create($data);
     return $self->_soapResult(0);
+}
+
+sub modifyPrincipal
+{
+    my ($self, $data) = @_;
+
+    my $principal = new EBox::UsersAndGroups::Principal(
+        krb5PrincipalName => $data->{krb5PrincipalName});
+    if (defined $data->{keys}) {
+        $principal->set('krb5Key', @{$data->{keys}});
+    }
 }
 
 sub addUser
@@ -126,9 +137,18 @@ sub pollServicePrincipals
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $principals = $users->krbPrincipals();
-    return $self->_soapResult($principals);
+    my @krbModules = @{$global->modInstancesOfType('EBox::KerberosModule')};
+    my $spns = [];
+
+    foreach my $mod (@krbModules) {
+        next unless $mod->configured();
+        foreach my $princ (@{$mod->kerberosServicePrincipals()}) {
+            push (@{$spns}, $princ);
+        }
+    }
+    # TODO Poll our slaves for chained slaves and add to hash
+
+    return $self->_soapResult($spns);
 }
 
 # Method: URI

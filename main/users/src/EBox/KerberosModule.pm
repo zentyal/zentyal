@@ -36,46 +36,62 @@ sub kerberosServicePrincipals
     return [];
 }
 
-sub kerberosCreatePrincipals
+sub kerberosKeytab
 {
     my ($self) = @_;
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
-    my $hostdomain = $sysinfo->hostDomain();
+    return undef;
+}
 
-    my $data = $self->kerberosServicePrincipals();
-    EBox::Sudo::silentRoot("rm -f $data->{keytab}");
+sub kerberosCreatePrincipals
+{
+    my ($self, $data) = @_;
 
-    my $pass = EBox::Util::Random::generate(20);
-    foreach my $service (@{$data->{principals}}) {
-        my $principal = "$service/$hostname.$hostdomain";
-
-        # TODO Generate all principals with the same password to import them into samba
-        my @cmds=();
-        push (@cmds, 'kadmin -l add ' .
-                  "--password='$pass' " .
-                  "--max-ticket-life='1 day' " .
-                  "--max-renewable-life='1 week' " .
-                  "--attributes='' " .
-                  "--expiration-time=never " .
-                  "--pw-expiration-time=never " .
-                  "--policy=default '$principal'");
-        push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$principal'");
-        push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
-        push (@cmds, "chmod 440 '$data->{keytab}'");
-        EBox::Sudo::silentRoot("kadmin -l del $principal");
-        EBox::debug("Creating service principal $principal");
-        EBox::Sudo::root(@cmds);
-    }
-
-    # Import service principals from Zentyal to samba
-    if (EBox::Global->modExists('samba')) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
-            $sambaModule->ldb->ldapServicePrincipalsToLdb();
+    my $users = EBox::Global->modInstance('users');
+    if ($users->master() ne 'zentyal') {
+        my $principals = $self->kerberosServicePrincipals();
+        foreach my $princ (@{$principals}) {
+            EBox::UsersAndGroups::Principal->create($princ);
         }
     }
+
+#    unless (defined $data) {
+#        $data = $self->kerberosServicePrincipals();
+#    }
+#
+#    if (defined $data->{keytab}) {
+#        EBox::Sudo::silentRoot("rm -f $data->{keytab}");
+#    }
+#
+#    my $pass = EBox::Util::Random::generate(20);
+#    foreach my $p (@{$data->{principals}}) {
+#        my @cmds=();
+#        push (@cmds, 'kadmin -l add ' .
+#                  "--password='$pass' " .
+#                  "--max-ticket-life='1 day' " .
+#                  "--max-renewable-life='1 week' " .
+#                  "--attributes='' " .
+#                  "--expiration-time=never " .
+#                  "--pw-expiration-time=never " .
+#                  "--policy=default '$p'");
+#        if (defined $data->{keytab}) {
+#            push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$p'");
+#            push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
+#            push (@cmds, "chmod 440 '$data->{keytab}'");
+#        }
+#
+#        EBox::Sudo::silentRoot("kadmin -l del $p");
+#        EBox::debug("Creating service principal $p");
+#        EBox::Sudo::root(@cmds);
+#    }
+#
+#    # Import service principals from Zentyal to samba
+#    if (EBox::Global->modExists('samba')) {
+#        my $sambaModule = EBox::Global->modInstance('samba');
+#        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+#            $sambaModule->ldb->ldapServicePrincipalsToLdb();
+#        }
+#    }
 }
 
 1;

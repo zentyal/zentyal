@@ -1,4 +1,6 @@
 HEAD
+	+ Master polls slaves to create the service principals
+	+ New classes Principal and Keytab
 	+ Point kerberos-master and kpasswd DNS records to master on slave
 	  servers
 	+ Sync kerberos OU from master to slaves
