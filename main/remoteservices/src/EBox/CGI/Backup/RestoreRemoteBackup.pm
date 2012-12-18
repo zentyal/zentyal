@@ -92,7 +92,7 @@ sub showRestoreProgress
     } elsif ($self->param('dr')) {
         push (@params, 'nextStepUrl' => '/SaveChanges?noPopup=1&save=1');
         push (@params, 'nextStepText' => __('Click here to save changes'));
-        $endNote .= '. ' . __('Please note that you may need to accept the new certificate restored from the backup.');
+        $endNote .= '<br/><br/>' . __('Please note that you may need to reload the page and accept the new certificate restored from the backup.');
     }
 
     push (@params, 'endNote' => $endNote);
