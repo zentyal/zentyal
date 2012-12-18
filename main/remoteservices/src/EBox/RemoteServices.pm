@@ -1015,24 +1015,6 @@ sub filesSyncAvailable
     return EBox::GlobalImpl::_packageInstalled('zfilesync');
 }
 
-# Method: disasterRecoveryAvailable
-#
-#   Returns 1 if disaster reocvery is available
-#
-sub disasterRecoveryAvailable
-{
-    my ($self) = @_;
-
-    # TODO implement this in capabilities (+convert that to REST?)
-    return ($self->filesSyncAvailable() and $self->subscriptionLevel() > 0);
-}
-
-# FIXME: this has been kept because it's still called in some places, but should be deprecated
-sub disasterRecoveryAddOn
-{
-    return 0;
-}
-
 # Method: securityUpdatesAddOn
 #
 #      Get if server has security updates add-on
@@ -1061,6 +1043,28 @@ sub securityUpdatesAddOn
     return $ret;
 }
 
+# Method: disasterRecoveryAvailable
+#
+#      Get whether the server has disaster recovery available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether the server has disaster recovery
+#                available or not
+#
+sub disasterRecoveryAvailable
+{
+    my ($self, $force) = @_;
+
+    my $ret = $self->addOnDetails('disaster-recovery', $force);
+    return ( scalar(keys(%{$ret})) > 0);
+}
+
 # Method: commAddOn
 #
 #      Get whether server has communications add-on or not
@@ -1078,13 +1082,44 @@ sub commAddOn
 {
     my ($self, $force) = @_;
 
+    my $ret = $self->addOnDetails('zarafa', $force);
+    return ( $ret->{sb} == 1 );
+}
+
+# Method: addOnDetails
+#
+#      Get the add-on details for a given add-on
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Hash ref - indicating the add-on details
+#                 Empty hash if no add-on is there for this server
+#
+sub addOnDetails
+{
+    my ($self, $addOn, $force) = @_;
+
     $force = 0 unless defined($force);
 
-    my $ret;
+    my $ret = {};
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
+        my $subsDetails = $self->_getSubscriptionDetails($force);
+        if ( not exists $subsDetails->{cap} ) {
+            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
+        }
+        if (exists $subsDetails->{cap}->{$addOn}) {
+            my $detail = $self->_getCapabilityDetail($addOn, $force);
+            $ret = $detail;
+        }
     } otherwise {
-        $ret = 0;
+        $ret = {};
     };
     return $ret;
 }
@@ -1776,14 +1811,45 @@ sub _getSubscriptionDetails
                 technical_support => $details->{technical_support},
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
-                disaster_recovery => $details->{disaster_recovery},
-                sb_comm_add_on    => $details->{sb_comm_add_on},
+                # disaster_recovery => $details->{disaster_recovery},
+                # sb_comm_add_on    => $details->{sb_comm_add_on},
             };
+            my $capList;
+            try {
+                $capList = $cap->list();
+                my %capList = map { $_ => 1 } @{$capList};
+                $state->{subscription}->{cap} = \%capList;
+            } catch EBox::Exceptions::Internal with { ; };
             $self->set_state($state);
         }
     }
 
     return $state->{subscription};
+}
+
+# Get and cache the cap details
+sub _getCapabilityDetail
+{
+    my ($self, $capName, $force) = @_;
+
+    my $state = $self->get_state();
+    if ( $force or (not exists $state->{subscription}->{cap_detail}->{$capName}) ) {
+        my $cap = new EBox::RemoteServices::Capabilities();
+        my $detail;
+        try {
+            $detail = $cap->detail($capName);
+        } catch EBox::Exceptions::Internal with {
+            # Impossible to know the current state
+            # Get cached data if any, if there is not, then raise the exception
+            my ($exc) = @_;
+            unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
+                $exc->throw();
+            }
+        };
+        $state->{subscription}->{cap_detail}->{$capName} = $detail;
+        $self->set_state($state);
+    }
+    return $state->{subscription}->{cap_detail}->{$capName};
 }
 
 # Get the latest backup date
