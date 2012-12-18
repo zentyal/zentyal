@@ -82,17 +82,20 @@ sub showRestoreProgress
             text               => __('Restoring modules from remote backup'),
             currentItemCaption => __('Module') ,
             itemsLeftMessage   => __('modules left to restore'),
-            endNote            => __('Restore successful'),
             reloadInterval     => 4,
     );
+
+    my $endNote = __('Restore successful');
 
     if ($self->param('popup')) {
         push (@params, @popupProgressParams);
     } elsif ($self->param('dr')) {
         push (@params, 'nextStepUrl' => '/SaveChanges?noPopup=1&save=1');
         push (@params, 'nextStepText' => __('Click here to save changes'));
-        $params{endNote} .= '. ' . __('Please note that you may need to accept the new certificate restored from the backup.');
+        $endNote .= '. ' . __('Please note that you may need to accept the new certificate restored from the backup.');
     }
+
+    push (@params, 'endNote' => $endNote);
 
     $self->showProgress(@params);
 }
