@@ -428,9 +428,6 @@ sub _moduleParameters
 sub _modelDir
 {
     my ($moduleName, $modelName, $dir) = @_;
-    if (not $modelName) { # DDD
-        _die();
-    }
     my $modelDir;
     my $params = _moduleParameters($moduleName);
     if ( (exists $params->{modelDirs}->{$modelName}) and
@@ -501,6 +498,21 @@ sub _matchKeys
 }
 
 
+sub _keysFromDirRecursive
+{
+    my ($dir, $allKeys) = @_;
+    my @matched;
+    ($dir =~  m{/$}) or $dir .= '/';
+    my $matchRe = qr{^$dir};
+    foreach my $key (keys %{ $allKeys }) {
+        my $keyDir = dirname($key);
+        if ($keyDir =~ m/$matchRe/) {
+            push @matched, $key;
+        }
+    }
+    return \@matched;
+}
+
 sub _insertDataIntoModule
 {
     my ($module, $tree) = @_;
@@ -538,10 +550,11 @@ sub _insertRowsInModel
             }
             $newRowId = $model->addRow(@addParams);
         } otherwise {
-            EBox::error("Cannot add row in model " . $model->name() .
+            my ($ex) = @_;
+            EBox::error("$ex\nCannot add row in model " . $model->name() .
                          ' elements ' . Dumper($row->{elements})
                        );
-            _die(); #DDD
+            _die($ex); #DDD
         };
         $newRowId or
             next;
@@ -596,7 +609,7 @@ sub _cleanModule
     $global->{redis}->unset("$module/state");
 }
 
-# XXX not yet works for directory interfaces/
+
 sub _importKeys
 {
     my ($modName, $keys_r, $allKeys) = @_;
@@ -605,9 +618,8 @@ sub _importKeys
     foreach my $key (@{ $keys_r }) {
         my @individualKeys;
         if ($key =~ m{/$}) {
-            # directory
-            $key =~ s{/$}{};
-            @individualKeys = @{ _matchKeys($allKeys, "$modDir/$key", '.*') };
+            @individualKeys = @{ _keysFromDirRecursive("$modDir/$key", $allKeys) };
+            @individualKeys = map { $_ =~ s{^$modDir/}{}; $_ } @individualKeys;
         } else {
             @individualKeys = ($key);
         }
@@ -627,9 +639,11 @@ sub _importKeys
 
 sub _die
 {
+    my ($msg) = @_;
+    $msg or $msg = 'debug';
     use Devel::StackTrace;
     my $st = Devel::StackTrace->new();
-    die $st->as_string();
+    die $msg . "\n" . $st->as_string();
 }
 
 1;
