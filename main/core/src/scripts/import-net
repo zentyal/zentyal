@@ -43,6 +43,7 @@ my %moduleParameters = (
             ServiceTable => 'serviceTable',
             ServiceConfigurationTable => 'serviceConfigurationTable',
            },
+        preInsertModelsData => \&_setDefaultServices,
         rowAdapter => {
                'ServiceTable' => \&_serviceTableRowAdapter,
            },
@@ -582,34 +583,6 @@ sub _insertRowsInModel
 
     }
 }
-
-sub _serviceTableRowAdapter
-{
-    my ($elements) = @_;
-    my $serviceParameters = _moduleParameters('services');
-    if (not $serviceParameters->{servicesPrintableNames}) {
-        $serviceParameters->{servicesPrintableNames} = {};
-        my $servicesMod = EBox::Global->getInstance()->modInstance('services');
-        my $defaultServices = $servicesMod->_defaultServices();
-        foreach my $serv (@{ $defaultServices }) {
-            $serviceParameters->{servicesPrintableNames}->{$serv->{name}} = $serv->{printableName}
-        }
-    }
-
-    # printableName attribute didnt exists in 2.2.X
-    if (not $elements->{printableName}) {
-        my $name = $elements->{name};
-        if ($serviceParameters->{servicesPrintableNames}->{$name}) {
-            $elements->{printableName} = $serviceParameters->{servicesPrintableNames}->{$name};
-        } else {
-            # set printable name same then name
-            $elements->{printableName} = $name;
-        }
-    }
-
-    return $elements;
-}
-
 sub _cleanModule
 {
     my ($module) = @_;
@@ -648,6 +621,76 @@ sub _importKeys
         }
 
     }
+}
+
+
+# we can extend this for lookup other things if needed
+sub _lookupComponentInConfigTree
+{
+    my ($configTree, $name) = @_;
+    foreach my $root (@{ $configTree }) {
+        my $found = _lookupComponent($root, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+sub _lookupComponent
+{
+    my ($component, $name) = @_;
+    if ($component->{name} eq $name) {
+        return $component;
+    }
+
+    my @toLook;
+    if ($component->{type} eq 'composite') {
+        @toLook = @{ $component->{components} }
+    } elsif (exists $component->{rows}) {
+        foreach my $row (@{ $component->{rows}  }) {
+            if (exists $row->{childs}) {
+                push @toLook, @{ $row->{childs} };
+            }
+        }
+    }
+
+    foreach my $comp (@toLook) {
+        my $found = _lookupComponent($comp, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+sub _serviceTableRowAdapter
+{
+    my ($elements) = @_;
+    my $serviceParameters = _moduleParameters('services');
+    if (not $serviceParameters->{servicesPrintableNames}) {
+        $serviceParameters->{servicesPrintableNames} = {};
+        my $servicesMod = EBox::Global->getInstance()->modInstance('services');
+        my $defaultServices = $servicesMod->_defaultServices();
+        foreach my $serv (@{ $defaultServices }) {
+            $serviceParameters->{servicesPrintableNames}->{$serv->{name}} = $serv->{printableName}
+        }
+    }
+
+    # printableName attribute didnt exists in 2.2.X
+    if (not $elements->{printableName}) {
+        my $name = $elements->{name};
+        if ($serviceParameters->{servicesPrintableNames}->{$name}) {
+            $elements->{printableName} = $serviceParameters->{servicesPrintableNames}->{$name};
+        } else {
+            # set printable name same then name
+            $elements->{printableName} = $name;
+        }
+    }
+
+    return $elements;
 }
 
 sub _networkPreInsert
@@ -698,49 +741,6 @@ sub _mangleGatewayTable
 
     $model->{rows}  = \@newRows;
 }
-
-# we can extend this for lookup other things if needed
-sub _lookupComponentInConfigTree
-{
-    my ($configTree, $name) = @_;
-    foreach my $root (@{ $configTree }) {
-        my $found = _lookupComponent($root, $name);
-        if ($found) {
-            return $found;
-        }
-    }
-
-    return undef;
-}
-
-sub _lookupComponent
-{
-    my ($component, $name) = @_;
-    if ($component->{name} eq $name) {
-        return $component;
-    }
-
-    my @toLook;
-    if ($component->{type} eq 'composite') {
-        @toLook = @{ $component->{components} }
-    } elsif (exists $component->{rows}) {
-        foreach my $row (@{ $component->{rows}  }) {
-            if (exists $row->{childs}) {
-                push @toLook, @{ $row->{childs} };
-            }
-        }
-    }
-
-    foreach my $comp (@toLook) {
-        my $found = _lookupComponent($comp, $name);
-        if ($found) {
-            return $found;
-        }
-    }
-
-    return undef;
-}
-
 
 sub _networkImportInterfaces
 {
