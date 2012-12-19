@@ -25,10 +25,12 @@ use File::Basename qw(dirname basename);
 use Data::Dumper;
 use EBox::Backup;
 
-# known issues: - if your default gateway is dhcp and you have more gateways,
+# known issues:
+#
+# 1- if your default gateway is dhcp and you have more gateways,
 #  one of the static interfaces gateways will set as default
 #
-#  protocols which incldue any tcp/udp or any connection are not imported
+# 2- protocols which incldue any tcp/udp or any connection are not imported
 
 # XXX EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
 # converted in public method
@@ -60,7 +62,6 @@ my %moduleParameters = (
    },
 );
 
-# XXX discriminte between datatable and dataforn?
 EBox::init();
 
 my ($bakFile) = @ARGV;
@@ -73,7 +74,7 @@ try {
     _importModule('network', $bakDir);
     _importModule('firewall', $bakDir);
 } finally {
-#    EBox::Sudo::root("rm -rf $bakDir")
+    EBox::Sudo::root("rm -rf $bakDir")
 };
 
 sub _importModule
@@ -88,7 +89,7 @@ sub _importModule
 
     my $module = EBox::Global->getInstance(0)->modInstance($modName);
     my $filled = _fillModuleTree($module, $tree, $bakData);
-    print Dumper($filled);
+#    print Dumper($filled);
 
     _cleanModule($modName);
 
@@ -243,7 +244,14 @@ sub _fillModel
     if (@{ $modelSpec->{childsPrototypes} }) {
         _fillModelWithChilds($module, $modelSpec, $dir, $allKeys);
     } else {
-        _fillModelRows($module, $modelSpec, $dir, $allKeys);
+        my $modelName = $modelSpec->{name};
+        my $isForm  = $module->model($modelName)->isa('EBox::Model::DataForm');
+        $modelSpec->{form} = $isForm;
+        if ($isForm) {
+            _fillModelForm($module, $modelSpec, $dir, $allKeys);
+        } else {
+            _fillModelRows($module, $modelSpec, $dir, $allKeys);
+        }
     }
 }
 
@@ -283,7 +291,6 @@ sub _fillModelWithChilds
 
     my @rows;
     my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
-#    print "oirder " . Dumper(\@order); #DDD
     foreach my $rowId (@order) {
         my $idxValue = $idxInfo{$rowId};
         if (not $idxValue) {
@@ -312,7 +319,6 @@ sub _fillModelWithChilds
             }
 
             _fillComponent($module, $spec, $subModelDir, $allKeys);
-#            print 'row child ' . " directory $subModelDir" .  Dumper($spec); #DDD
             push @childRows, $spec;
         }
 
@@ -364,15 +370,46 @@ sub _fillModelRows
     $modelSpec->{rows} = \@rows;
 }
 
+sub _fillModelForm
+{
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $moduleName = $module->{name};
+    my $modelName = $modelSpec->{name};
+    my $keysForRow = _matchKeys($allKeys, $baseDir, '.*', 'string');
+    if (not @{ $keysForRow }) {
+        EBox::info("Not found data for form $modelName. Skipping" );
+        return;
+    }
+
+    my %elements;
+    foreach my $key (@{ $keysForRow }) {
+        my $name = basename($key->{key});
+        if ($name eq 'version') {
+            # ignore this key bz is a metadata
+            next;
+        }
+        $elements{$name} = $key->{value};
+    }
+
+    my $modParams = _moduleParameters($moduleName);
+    if ((exists $modParams->{rowAdapter}->{$modelName}) and
+        ($modParams->{rowAdapter}->{$modelName})
+       ) {
+        my $adapter = $modParams->{rowAdapter}->{$modelName};
+        %elements =  %{ $adapter->(\%elements)};
+    }
+
+    $modelSpec->{elements} = \%elements;
+}
+
+
 sub _elementsForRow
 {
     my ($moduleName, $modelName, $dir, $rowId, $allKeys) = @_;
     # assumed that no-idx row keys are always of string type
     if (not $rowId) {
-        # DDD
-        use Devel::StackTrace;
-        my $tr = Devel::StackTrace->new();
-        die $tr->as_string();
+        EBox::error("Not rowId for model $modelName");
+        return;
     }
     my $rowDir = "$dir/$rowId";
     my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
@@ -381,12 +418,10 @@ sub _elementsForRow
             next;
         }
 
-    #        print "KEYS FOR ROW $rowId : " . Dumper($keysForRow) . "\n"; # DDD
+
     my %elements;
     foreach my $key (@{ $keysForRow }) {
         my $name = basename($key->{key});
- #       my $name = $key->{key};
-#        $name =~ s{^$rowDir/}{};
         $elements{$name} = $key->{value};
     }
 
@@ -488,15 +523,12 @@ sub _onlyRowIdForModel
         EBox::error("Cannot find only row id for model. Directory $dir");
     }
 
-#    print "ONLY ROW $id\n"; # DDD
     return $id;
 }
-
 
 sub _matchKeys
 {
     my ($allKeys, $dir, $basenameRe, $type) = @_;
-#    print "_matchKeys $dir \n"; # DDD
     my @matched;
     foreach my $key (keys %{ $allKeys }) {
         if (dirname($key) eq $dir) {
@@ -513,7 +545,6 @@ sub _matchKeys
     }
     return \@matched;
 }
-
 
 sub _keysFromDirRecursive
 {
@@ -548,10 +579,40 @@ sub _insertData
         }
     } elsif ($type eq 'model') {
         my $model = $module->model($component->{name});
-        _insertRowsInModel($model, $component->{rows});
+        if ($component->{form}) {
+            _insertElementsInForm($model, $component->{elements})
+        } else {
+            _insertRowsInModel($model, $component->{rows});
+        }
     } else {
         EBox::error("Bad type: $type. full component: " . Dumper($component) );
     }
+}
+
+sub _insertElementsInForm
+{
+    my ($model, $elements) = @_;
+    if (not $elements) {
+        # nothing to add
+        return;
+    }
+    my %elements = %{ $elements};
+    my $nElements = keys %elements;
+    if (exists $elements{readOnly}) {
+        $nElements -= 1;
+    }
+    if ($nElements == 0) {
+        # no data to add
+        return;
+    }
+    try {
+        $model->set(%elements , force => 1);
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("$ex\nCannot set data in form " . $model->name() .
+                        ' elements ' . Dumper(\%elements)
+                   );
+    };
 }
 
 sub _insertRowsInModel
@@ -584,6 +645,7 @@ sub _insertRowsInModel
 
     }
 }
+
 sub _cleanModule
 {
     my ($module) = @_;
@@ -623,7 +685,6 @@ sub _importKeys
 
     }
 }
-
 
 # we can extend this for lookup other things if needed
 sub _lookupComponentInConfigTree
@@ -685,13 +746,9 @@ sub _setDefaultServices
     }
 
     my @rows = @{ $model->{rows} };
-    print Dumper(\@rows);
     @rows = grep {
         not $default{$_->{elements}->{name}}
     } @rows;
-
-    print "After rows\n";
-    print Dumper(\@rows);
 
     $model->{rows} = \@rows;
 }
@@ -699,25 +756,11 @@ sub _setDefaultServices
 sub _serviceTableRowAdapter
 {
     my ($elements) = @_;
-    my $serviceParameters = _moduleParameters('services');
-    if (not $serviceParameters->{servicesPrintableNames}) {
-        $serviceParameters->{servicesPrintableNames} = {};
-        my $servicesMod = EBox::Global->getInstance()->modInstance('services');
-        my $defaultServices = $servicesMod->_defaultServices();
-        foreach my $serv (@{ $defaultServices }) {
-            $serviceParameters->{servicesPrintableNames}->{$serv->{name}} = $serv->{printableName}
-        }
-    }
 
     # printableName attribute didnt exists in 2.2.X
     if (not $elements->{printableName}) {
-        my $name = $elements->{name};
-        if ($serviceParameters->{servicesPrintableNames}->{$name}) {
-            $elements->{printableName} = $serviceParameters->{servicesPrintableNames}->{$name};
-        } else {
             # set printable name same then name
-            $elements->{printableName} = $name;
-        }
+            $elements->{printableName} = $elements->{name};
     }
 
     return $elements;
@@ -771,7 +814,6 @@ sub _mangleGatewayTable
 
     $model->{rows}  = \@newRows;
 }
-
 sub _networkImportInterfaces
 {
     my ($mod, $allKeys)= @_;
@@ -793,34 +835,6 @@ sub _networkImportInterfaces
     }
 
     $mod->set('interfaces', \%interfaces);
-
-    # vlan ids?
-    # static alias?
-
-    # while (my ($iface, $params) = each %interfaces) {
-    #     my $method =  $interfaces{method};
-    #     if ($method eq 'notset') {
-    #         $mod
-    #     } elsif ($method eq 'dhcp') {
-    #     } elsif ($method eq 'static') {
-    #     } elsif ($method eq 'ppp') {
-    #     } elsif ($method eq 'trunk') {
-    #     } elsif ($method eq 'bridged') {
-    #         # we configure bridged the last ones
-    #     } else {
-    #         EBox::error("Unknown interface method $method");
-    #         next;
-    #     }
-    # }
-
-    # # configure bridged
-    # while (my ($iface, $params) = each %interfaces) {
-    #     my $method =  $interfaces{method};
-    #     if ($method ne 'bridged') {
-    #         next;
-    #     }
-    # }
 }
-
 
 1;
