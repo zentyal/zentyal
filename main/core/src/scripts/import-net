@@ -80,14 +80,21 @@ try {
 sub _importModule
 {
     my ($modName, $bakDir) = @_;
+
     my $bakData = _parseBakfile($bakDir, $modName);
     if (not $bakData) {
         return;
     }
+
+    my $module = EBox::Global->getInstance(0)->modInstance($modName);
+    if (not $module) {
+        EBox::error("$modName has impot data but it is not installed, not importing");
+        return;
+    }
+
     my $tree = _moduleComponentTree($modName);
 #   print Dumper($tree);
 
-    my $module = EBox::Global->getInstance(0)->modInstance($modName);
     my $filled = _fillModuleTree($module, $tree, $bakData);
 #    print Dumper($filled);
 
