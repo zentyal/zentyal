@@ -19,6 +19,8 @@ if (scalar @ARGV == 3) {
         my $ltsp = EBox::Global->modInstance('ltsp');
 
         $ltsp->st_set_string('work', 'install');
+        $ltsp->st_set_string('error', '');
+
         print "Installing applications into $chroot image: $apps\n";
 
         my $CHROOT_DIR = "/opt/ltsp/$chroot";

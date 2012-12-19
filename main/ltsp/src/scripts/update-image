@@ -18,6 +18,8 @@ if (scalar @ARGV == 2) {
         my $ltsp = EBox::Global->modInstance('ltsp');
 
         $ltsp->st_set_string('work', 'update');
+        $ltsp->st_set_string('error', '');
+
         print "Updating $chroot image...\n";
 
         my $CHROOT_DIR = "/opt/ltsp/$chroot";
