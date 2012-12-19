@@ -36,7 +36,10 @@ my %moduleParameters = (
             ServiceTable => 'serviceTable',
             ServiceConfigurationTable => 'serviceConfigurationTable',
            },
-       }
+        rowAdapter => {
+               'ServiceTable' => \&_serviceTableRowAdapter,
+           },
+       },
 );
 
 # XXX accomadete changes i nservices fields
@@ -49,7 +52,7 @@ my ($bakDir) = @ARGV;
 my %oldConf;
 
 
-#_importServices($bakDir, \%oldConf);
+_importServices($bakDir, \%oldConf);
 _importSimpleModule('objects', $bakDir);
 # _importNetwork($bakDir,  \%oldConf);
 # _importFirewall($bakDir, \%oldConf);
@@ -264,7 +267,7 @@ sub _fillModelWithChilds
             EBox::error("No row idx for $rowId. Skipping");
             next;
         }
-        my %elements = %{ _elementsForRow($dir, $rowId, $allKeys) };
+        my %elements = %{ _elementsForRow($moduleName, $modelName, $dir, $rowId, $allKeys) };
         # add idxparam to elements
         $elements{$idxParam} = $idxValue;
         my @subModels = @{ _subModelsByModelName($module, $modelName) };
@@ -323,7 +326,7 @@ sub _fillModelRows
 
     my @rows;
     foreach my $rowId (@order) {
-        my %elements = %{ _elementsForRow($dir, $rowId, $allKeys) };
+        my %elements = %{ _elementsForRow($moduleName, $modelName, $dir, $rowId, $allKeys) };
         if (not %elements) {
             EBox::info("Not found data for row with old id $rowId. Skipping" );
             next;
@@ -340,7 +343,7 @@ sub _fillModelRows
 
 sub _elementsForRow
 {
-    my ($dir, $rowId, $allKeys) = @_;
+    my ($moduleName, $modelName, $dir, $rowId, $allKeys) = @_;
     # assumed that no-idx row keys are always of string type
     if (not $rowId) {
         # DDD
@@ -363,6 +366,14 @@ sub _elementsForRow
 #        $name =~ s{^$rowDir/}{};
         $elements{$name} = $key->{value};
     }
+
+    my $modParams = _moduleParameters($moduleName);
+    if ((exists $modParams->{rowAdapter}->{$modelName}) and
+        ($modParams->{rowAdapter}->{$modelName})
+       ) {
+        return $modParams->{rowAdapter}->{$modelName}->(\%elements);
+    }
+
     return \%elements
 }
 
@@ -397,16 +408,20 @@ sub _moduleParameters
         $params = {};
     }
 
-    if (not exists $params->{modelDirs}) {
-        $params->{modelDirs} = {};
+    my @hashParams = qw(modelDirs rowAdapter);
+    foreach my $param (@hashParams) {
+        if (not exists $params->{$param}) {
+            $params->{$param} = {};
+        }
     }
+
     return $params;
 }
 
+# in 2.2 not all model has directory equal to its name
 sub _modelDir
 {
     my ($moduleName, $modelName, $dir) = @_;
-    # 2.2 exceptions
     my $modelDir;
     my $params = _moduleParameters($moduleName);
     if ( (exists $params->{modelDirs}->{$modelName}) and
@@ -517,6 +532,17 @@ sub _insertRowsInModel
         }
 
     }
+}
+
+sub _serviceTableRowAdapter
+{
+    my ($elements) = @_;
+    # pritnableName attribute didnt exists in 2.2.X
+    if (not $elements->{printableName}) {
+        $elements->{printableName} = $elements->{name}
+    }
+
+    return $elements;
 }
 
 sub _die
