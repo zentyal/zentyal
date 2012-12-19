@@ -1,3 +1,7 @@
+HEAD
+	+ shareByFilename method now also returns the path and type of the share
+	+ Fix shareByFilename method
+	+ Update Loghelper to the new log formats
 3.0.10
 	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
 	+ Integration with Disaster Recovery service

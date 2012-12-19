@@ -44,6 +44,7 @@ use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Util::Version;
+use EBox::DBEngineFactory;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -151,6 +152,16 @@ sub initialSetup
     # Migration from 3.0.8, force users resync
     if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
+    }
+
+    # Migration from 3.0.10, add fields to the LogHelper tables
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.11') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_virus
+                       ADD username VARCHAR(24)");
+        $dbengine->do("ALTER TABLE samba_quarantine
+                       ADD username VARCHAR(24),
+                       ADD client INT UNSIGNED");
     }
 }
 
@@ -1796,20 +1807,23 @@ sub tableInfo
     my $virus_titles = {
         'timestamp' => __('Date'),
         'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'virus' => __('Virus'),
         'event' => __('Type'),
     };
-    my @virus_order = qw(timestamp client filename virus event);;
+    my @virus_order = qw(timestamp client username filename virus event);;
     my $virus_events = { 'virus' => __('Virus') };
 
     my $quarantine_titles = {
         'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'qfilename' => __('Quarantined file name'),
         'event' => __('Quarantine'),
     };
-    my @quarantine_order = qw(timestamp filename qfilename event);
+    my @quarantine_order = qw(timestamp client username filename qfilename event);
     my $quarantine_events = { 'quarantine' => __('Quarantine') };
 
     return [{
@@ -1841,6 +1855,7 @@ sub tableInfo
         'order' => \@quarantine_order,
         'timecol' => 'timestamp',
         'filter' => ['filename'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
@@ -2283,17 +2298,31 @@ sub _updatePathsByLen
 {
     my ($self) = @_;
 
-    # FIXME: Complete the implementation
     @sharesSortedByPathLen = ();
 
+    # Group and custom shares
     foreach my $sh_r (@{ $self->shares(1) }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
-                                      share =>  $sh_r->{share} };
+                                      share =>  $sh_r->{share},
+                                      type => ($sh_r->{'groupShare'} ? 'Group' : 'Custom')};
+    }
+
+    # User shares
+    foreach my $user (@{ $self->userShares() }) {
+        foreach my $share (@{$user->{'shares'}}) {
+            my $entry = {};
+            $entry->{'share'} = $user->{'user'};
+            $entry->{'type'} = 'User';
+            $entry->{'path'} = $share;
+            push (@sharesSortedByPathLen, $entry);
+        }
     }
 
     # add regexes
     foreach my $share (@sharesSortedByPathLen) {
         my $path = $share->{path};
+        # Remove duplicate '/'
+        $path =~ s/\/+/\//g;
         $share->{pathRegex} = qr{^$path/};
     }
 
@@ -2302,9 +2331,13 @@ sub _updatePathsByLen
     } @sharesSortedByPathLen;
 }
 
+#   Returns a hash with:
+#       share - The name of the share
+#       path  - The path of the share
+#       type  - The type of the share (User, Group, Custom)
 sub shareByFilename
 {
-    my ($filename) = @_;
+    my ($self, $filename) = @_;
 
     if (not @sharesSortedByPathLen) {
         my $samba =EBox::Global->modInstance('samba');
@@ -2313,7 +2346,7 @@ sub shareByFilename
 
     foreach my $shareAndPath (@sharesSortedByPathLen) {
         if ($filename =~ m/$shareAndPath->{pathRegex}/) {
-            return $shareAndPath->{share};
+            return $shareAndPath;
         }
     }
 
