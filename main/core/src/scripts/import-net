@@ -31,6 +31,7 @@ my %moduleParameters = (
             MemberTable => 'members',
            },
        },
+
     services => {
         modelDirs => {
             ServiceTable => 'serviceTable',
@@ -40,16 +41,25 @@ my %moduleParameters = (
                'ServiceTable' => \&_serviceTableRowAdapter,
            },
        },
+
+    network => {
+        # XXX llok all network models
+        modelDirs => {
+            GatewayTable => 'gatewaytable',
+            MultiGwRulesDataTable => 'multigwrulestable',
+           },
+        importKeys => ['interfaces/']
+   },
 );
 
 # XXX discriminte between datatable and dataforn?
-# XX clean all conf before importing, seems to rmeoveALL odes not cut it
 EBox::init();
 
 my ($bakDir) = @ARGV;
 
-_importModule('services', $bakDir);
-_importModule('objects', $bakDir);
+#_importModule('services', $bakDir);
+#_importModule('objects', $bakDir);
+_importModule('network', $bakDir);
 
 sub _importModule
 {
@@ -59,14 +69,19 @@ sub _importModule
         return;
     }
     my $tree = _moduleComponentTree($modName);
- #   print Dumper($tree);
+#   print Dumper($tree);
 
     my $module = EBox::Global->getInstance(0)->modInstance($modName);
     my $filled = _fillModuleTree($module, $tree, $bakData);
     print Dumper($filled);
 
     _cleanModule($modName);
-    _insertFilledTreeIntoModule($module, $filled);
+
+    my $modParams = _moduleParameters($modName);
+    if ((exists $modParams->{importKeys}) and $modParams->{importKeys} ) {
+        _importKeys($modName, $modParams->{importKeys}, $bakData);
+    }
+    _insertDataIntoModule($module, $filled);
 }
 
 sub _moduleComponentTree
@@ -175,12 +190,32 @@ sub _fillComponent
 {
     my ($module, $compSpec, $dir, $allKeys) = @_;
     if ($compSpec->{type} eq 'composite') {
-        die 'TO IMPLEMENT';
+        _fillComposite($module, $compSpec, $dir, $allKeys);
     } elsif ($compSpec->{type} eq 'model') {
         _fillModel($module, $compSpec, $dir, $allKeys);
     } else {
         # composite without childs
         EBox::info('Unknown componet type ' . $compSpec->{type} . ' Name ' . $compSpec->{name});
+    }
+}
+
+sub _fillComposite
+{
+    my ($module, $composite, $dir, $allKeys) = @_;
+    my $moduleName = $module->name();
+    $composite->{components} = [];
+    foreach my $child (@{ $composite->{childsPrototypes} }) {
+        my $component =  Clone::Fast::clone($child);
+        # XXX this shoudl be fixed for components which have a parentRow!
+        my $componentDir;
+        if ($component->{type} eq 'model') {
+            $componentDir = _modelDir($moduleName, $component->{name}, $dir);
+        } else {
+            $componentDir = $dir;
+        }
+
+        _fillComponent($module, $component, $componentDir, $allKeys);
+        push @{ $composite->{components} }, $component;
     }
 }
 
@@ -393,6 +428,9 @@ sub _moduleParameters
 sub _modelDir
 {
     my ($moduleName, $modelName, $dir) = @_;
+    if (not $modelName) { # DDD
+        _die();
+    }
     my $modelDir;
     my $params = _moduleParameters($moduleName);
     if ( (exists $params->{modelDirs}->{$modelName}) and
@@ -446,9 +484,7 @@ sub _matchKeys
     my ($allKeys, $dir, $basenameRe, $type) = @_;
 #    print "_matchKeys $dir \n"; # DDD
     my @matched;
-#    my $rexp = qr{^$dir/(.*?)[^/]$};
     foreach my $key (keys %{ $allKeys }) {
-#        if ($key =~ m/$rexp/) {
         if (dirname($key) eq $dir) {
             if (not (basename($key) =~ m/$basenameRe/)) {
                 next;
@@ -464,24 +500,34 @@ sub _matchKeys
     return \@matched;
 }
 
-my $clearConf = 1;
-sub _insertFilledTreeIntoModule
+
+sub _insertDataIntoModule
 {
     my ($module, $tree) = @_;
     foreach my $root (@{ $tree }) {
-        if ($root->{type}  eq 'model') {
-            my $model = $module->model($root->{name});
-
-            _insertRowsInModel($model, $root->{rows});
-        }
+        _insertData($module, $root)
     }
+}
 
+sub _insertData
+{
+    my ($module, $component) = @_;
+    my $type = $component->{type};
+    if ($type eq 'composite') {
+        foreach my $child (@{ $component->{components} }) {
+            _insertData($module, $child);
+        }
+    } elsif ($type eq 'model') {
+        my $model = $module->model($component->{name});
+        _insertRowsInModel($model, $component->{rows});
+    } else {
+        EBox::error("Bad type: $type. full component: " . Dumper($component) );
+    }
 }
 
 sub _insertRowsInModel
 {
     my ($model, $rows) = @_;
-    $model->removeAll(1) if $clearConf;
     foreach my $row (@{ $rows }) {
         my $newRowId;
         try {
@@ -540,7 +586,7 @@ sub _serviceTableRowAdapter
 sub _cleanModule
 {
     my ($module) = @_;
-
+    # XXX try to remove by row to mantain more integrity?
     my $global = EBox::GlobalImpl->instance();
 
     $global->delete_dir("global/conf/modules/$module");
@@ -549,6 +595,35 @@ sub _cleanModule
     $global->{redis}->delete_dir("$module/ro");
     $global->{redis}->unset("$module/state");
 }
+
+# XXX not yet works for directory interfaces/
+sub _importKeys
+{
+    my ($modName, $keys_r, $allKeys) = @_;
+    my $modDir = _moduleDir($modName);
+    my $mod = EBox::Global->getInstance()->modInstance($modName);
+    foreach my $key (@{ $keys_r }) {
+        my @individualKeys;
+        if ($key =~ m{/$}) {
+            # directory
+            $key =~ s{/$}{};
+            @individualKeys = @{ _matchKeys($allKeys, "$modDir/$key", '.*') };
+        } else {
+            @individualKeys = ($key);
+        }
+        foreach my $iKey (@individualKeys) {
+            my $oldKey = "$modDir/$iKey";
+            if (not exists $allKeys->{$oldKey}) {
+                EBox::debug("Not exists $iKey in old conf ($oldKey)");
+                next;
+            }
+            my $value = $allKeys->{$oldKey}->{value};
+            $mod->set($iKey, $value);
+        }
+
+    }
+}
+
 
 sub _die
 {
