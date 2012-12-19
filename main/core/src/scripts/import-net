@@ -23,10 +23,13 @@ use Error qw(:try);
 use YAML::XS;
 use File::Basename qw(dirname basename);
 use Data::Dumper;
+use EBox::Backup;
 
 # known issues: - if your default gateway is dhcp and you have more gateways,
 #  one of the static interfaces gateways will set as default
 
+# XXX EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
+# converted in public method
 my %moduleParameters = (
     objects => {
         modelDirs => {
@@ -57,12 +60,18 @@ my %moduleParameters = (
 # XXX discriminte between datatable and dataforn?
 EBox::init();
 
-my ($bakDir) = @ARGV;
+my ($bakFile) = @ARGV;
 
-_importModule('services', $bakDir);
-_importModule('objects', $bakDir);
-_importModule('network', $bakDir);
-_importModule('firewall', $bakDir);
+my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
+try {
+    EBox::Backup->_unpackModulesRestoreData($bakDir);
+    _importModule('services', $bakDir);
+    _importModule('objects', $bakDir);
+    _importModule('network', $bakDir);
+    _importModule('firewall', $bakDir);
+} finally {
+#    EBox::Sudo::root("rm -rf $bakDir")
+};
 
 sub _importModule
 {
@@ -153,7 +162,7 @@ sub _componentForTree
 sub _parseBakfile
 {
     my ($dir, $module) = @_;
-    my $path = "$dir/$module.bak/$module.bak";
+    my $path = "$dir/eboxbackup/$module.bak/$module.bak";
     if (not EBox::Sudo::fileTest('-r', $path)) {
         EBox::info("No backup file for $path for module $module, not restoring it");
         return undef;
