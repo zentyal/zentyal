@@ -34,6 +34,8 @@ if (scalar @ARGV == 2) {
         } otherwise {
             $ltsp->st_set_string('error', __('Update image failed'));
             print "Update image failed. Check /var/log/zentyal/ltsp.log for details.\n";
+            # In case the command failed before the umount
+            EBox::Sudo::root("umount /opt/ltsp/$chroot/proc > /dev/null");
         } finally {
             $ltsp->st_set_string('work', 'none');
         };
