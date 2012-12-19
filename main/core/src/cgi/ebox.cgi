@@ -31,6 +31,7 @@ try {
     sigprocmask(SIG_UNBLOCK, $sigset);
 
     EBox::init();
+    binmode(STDOUT, ':utf8');
     EBox::CGI::Run->run($ENV{'script'}, 'EBox');
 } otherwise  {
     my $ex = shift;
@@ -129,7 +130,6 @@ try {
         my $value = $params->{$key};
         $html =~ s/\Q{{ $key }}\E/$value/g;
     }
-    utf8::decode($html);
     print $html;
 };
 

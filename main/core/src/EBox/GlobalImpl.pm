@@ -51,6 +51,7 @@ use constant {
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
     FIRST_FILE => '/var/lib/zentyal/.first',
+    DISASTER_RECOVERY_FILE => '/var/lib/zentyal/.disaster-recovery',
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
@@ -1084,6 +1085,30 @@ sub deleteFirst
 {
     if (-f FIRST_FILE) {
         unlink (FIRST_FILE);
+    }
+}
+
+# Method: disasterRecovery
+#
+#      Check if the file for disaster recovery exists
+#
+# Returns:
+#
+#       boolean - True if the file exists, false if not
+#
+sub disasterRecovery
+{
+    return (-f DISASTER_RECOVERY_FILE);
+}
+
+# Method: deleteDisasterRecovery
+#
+#      Delete the file for disaster recovery, if exists
+#
+sub deleteDisasterRecovery
+{
+    if (-f DISASTER_RECOVERY_FILE) {
+        unlink (DISASTER_RECOVERY_FILE);
     }
 }
 

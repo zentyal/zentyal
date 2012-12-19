@@ -1,4 +1,5 @@
-HEAD
+3.0.3
+	+ Adapted firstTimeMenu() for Disaster Recovery
 	+ Added workaround for launchpad bug 994509, which manifests
 	  showing duplicate packages in the updates list
 	+ Hide enable automatic updates form when it cannot be used

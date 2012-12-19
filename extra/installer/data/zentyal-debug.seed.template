@@ -1,0 +1,40 @@
+##
+## automatic install (for testing purposes)
+##
+
+# network
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string HOSTNAME_INSTALL
+d-i netcfg/get_domain string unassigned-domain
+
+# static configuration
+d-i netcfg/disable_autoconfig boolean DISABLE_AUTOCONFIG
+d-i netcfg/get_nameservers string STATIC_DNS
+d-i netcfg/get_ipaddress string STATIC_IP
+d-i netcfg/get_netmask string 255.255.255.0
+d-i netcfg/get_gateway string STATIC_GW
+d-i netcfg/confirm_static boolean true
+
+# to create a normal user account
+d-i passwd/username string ADMIN_USER
+d-i passwd/user-password password ADMIN_PASS
+d-i passwd/user-password-again password ADMIN_PASS
+d-i user-setup/allow-password-weak boolean true
+
+# clock
+d-i clock-setup/ntp boolean true
+d-i time/zone string Europe/Madrid
+
+# finish
+d-i finish-install/reboot_in_progress note
+
+zinstaller-remote zinstaller-remote/user string REMOTE_USER
+zinstaller-remote zinstaller-remote/pass password REMOTE_PASS
+zinstaller-remote zinstaller-remote/auth_ok_community note
+zinstaller-remote zinstaller-remote/auth_ok_sb note
+zinstaller-remote zinstaller-remote/auth_ok_enterprise note
+zinstaller-remote zinstaller-remote/select_bundle select
+zinstaller-remote zinstaller-remote/select_hostname_recover select HOSTNAME_RECOVER
+#zinstaller-remote zinstaller-remote/no_register note
+
+d-i debian-installer/allow-unauthenticated string true

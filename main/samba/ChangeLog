@@ -2,6 +2,13 @@ HEAD
 	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
+3.0.10
+	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
+	+ Integration with Disaster Recovery service
+	+ Restored backupDomains implementation
+	+ Explicit set of folder name as default value implementation has changed
+	+ Check in group pre-addition whether it already exists as built-in
+	+ Added existsDN method to EBox::LDB
 	+ Grant rx access on privileged ldap socket to allow user corner to
 	  update user passwords
 3.0.9

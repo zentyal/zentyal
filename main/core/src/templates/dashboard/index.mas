@@ -7,6 +7,7 @@
     $message => undef
 </%args>
 <%init>
+use utf8;
 use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>

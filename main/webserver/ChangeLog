@@ -1,4 +1,5 @@
-HEAD
+3.0.2
+	+ Integration with Disaster Recovery service
 	+ Fixed error when creating directories for virtual host for hostname
 	+ Add DNS records for virtual hosts but without IP addresses
 3.0.1

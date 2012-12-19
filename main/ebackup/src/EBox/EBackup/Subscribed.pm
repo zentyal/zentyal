@@ -43,27 +43,7 @@ sub isSubscribed
 {
     my ($self, %params) = @_;
 
-    if (EBox::Global->modExists('remoteservices')) {
-        my $remoteServices = EBox::Global->modInstance('remoteservices');
-        if (not $remoteServices->eBoxSubscribed) {
-            return 0;
-        }
-
-        my $disasterAddOn = 0;
-        try {
-            $disasterAddOn = $remoteServices->disasterRecoveryAddOn();
-        } catch EBox::Exceptions::NotConnected with {
-            my ($ex) = @_;
-            unless ($params{ignoreConnectionError}) {
-                $ex->throw();
-            }
-
-        };
-
-        return $disasterAddOn;
-    } else {
-        return 0;
-    }
+    return 0;
 }
 
 # Method: credentials
@@ -99,7 +79,7 @@ sub credentials
     try {
         $credentials = $remoteServices->backupCredentials();
     } catch EBox::Exceptions::DataNotFound with {
-        # this means that it does not have a disasterRecoveryAddOn
+        # this means that it does not have disaster recovery
         $credentials = undef;
     };
 

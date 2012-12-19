@@ -1,0 +1,65 @@
+Template: debian-installer/zinstaller-remote/title
+Type: text
+_Description: Choose Zentyal edition to install
+
+Template: zinstaller-remote/user
+Type: string
+_Description: E-mail address:
+ If you have a Zentyal account, enter your e-mail address now.
+
+Template: zinstaller-remote/pass
+Type: password
+_Description: Password:
+ Please enter the password for your Zentyal account.
+
+Template: zinstaller-remote/auth_failed
+Type: boolean
+_Description: Authentication failed
+ The provided account is not valid. Do you want to try to enter your
+ credentials again? If not, Zentyal Community edition will be installed.
+
+Template: zinstaller-remote/auth_ok_community
+Type: note
+_Description: Congratulations!
+ Your account has been validated. Zentyal Community edition is going to be
+ installed and your server will be automatically registered.
+
+Template: zinstaller-remote/no_register
+Type: note
+_Description: Continue installation
+ As your provided credentials were not valid, Zentyal Community edition will be
+ installed.
+
+Template: zinstaller-remote/select_bundle
+Type: select
+Choices: ${CHOICES}
+_Description: Choose the server to install:
+
+Template: zinstaller-remote/select_hostname_recover
+Type: select
+Choices: ${CHOICES}
+_Description: Choose the server to recover:
+
+Template: zinstaller-remote/auth_ok_sb
+Type: note
+_Description: Congratulations!
+ Your account has been validated. Zentyal Small Business edition is going
+ to be installed.
+
+Template: zinstaller-remote/auth_ok_enterprise
+Type: note
+_Description: Congratulations!
+ Your account has been validated. Zentyal Enterprise edition is going to be
+ installed.
+
+Template: zinstaller-remote/error_dr
+Type: note
+_Description: Disaster Recovery
+ You can not recover from a disater without a valid Small Business or
+ Enterprise edition. Installation of Community edition will continue.
+
+Template: zinstaller-remote/error_backups
+Type: note
+_Description: No backups available
+ You cannot recover from a disaster if there are no configuration backups
+ associated with your account. Regular installation will continue.

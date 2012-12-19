@@ -50,6 +50,7 @@ use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
+use File::Basename;
 use Net::Ping;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -153,8 +154,8 @@ sub initialSetup
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
     }
 
-    # Migration from 3.0.9, add fields to the LogHelper tables
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.10') < 0) {
+    # Migration from 3.0.10, add fields to the LogHelper tables
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.11') < 0) {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do("ALTER TABLE samba_virus
                        ADD username VARCHAR(24)");
@@ -407,6 +408,7 @@ sub shares
         } else {
             $shareConf->{'path'} = $path->value();
         }
+        $shareConf->{'type'} = $path->selectedType();
         $shareConf->{'share'} = $row->valueByName('share');
         $shareConf->{'comment'} = $row->valueByName('comment');
         $shareConf->{'guest'} = $row->valueByName('guest');
@@ -473,11 +475,22 @@ sub syncFolders
         }
 
         if ($sync or $syncAll) {
-            push(@folders, new EBox::SyncFolders::Folder($path, 'share'));
+            push (@folders, new EBox::SyncFolders::Folder($path, 'share', name => basename($path)));
+        }
+    }
+
+    if ($self->recoveryEnabled()) {
+        foreach my $share ($self->filesystemShares()) {
+            push (@folders, new EBox::SyncFolders::Folder($share, 'recovery'));
         }
     }
 
     return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Filesystem shares');
 }
 
 sub defaultAntivirusSettings
@@ -1734,55 +1747,37 @@ sub restoreDependencies
     return \@depends;
 }
 
+sub backupDomains
+{
+    my $name = 'shares';
+    my %attrs  = (
+                  printableName => __('File Sharing'),
+                  description   => __(q{Shares, users and groups homes and profiles}),
+                 );
 
-# backup domains
+    return ($name, \%attrs);
+}
 
-#sub backupDomains
-#{
-#    my $name = 'shares';
-#    my %attrs  = (
-#                  printableName => __('File Sharing'),
-#                  description   => __(q{Shares, users and groups homes and profiles}),
-#                 );
-#
-#    return ($name, \%attrs);
-#}
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{shares}) {
+        my $sambaLdapUser = new EBox::SambaLdapUser();
 
-#sub backupDomainsFileSelection
-#{
-#    my ($self, %enabled) = @_;
-#    if ($enabled{shares}) {
-#        my $sambaLdapUser = new EBox::SambaLdapUser();
-#        my @dirs = @{ $sambaLdapUser->sharedDirectories() };
-#        push @dirs, map {
-#            $_->{path}
-#        } @{ $self->shares(1) };
-#
-#        my $selection = {
-#                          includes => \@dirs,
-#                         };
-#        return $selection;
-#    }
-#
-#    return {};
-#}
+        my @dirs = ('/home');
 
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-#sub _facilitiesForDiskUsage
-#{
-#    my ($self) = @_;
-#
-#    my $usersPrintableName  = __(q{Users files});
-#    my $usersPath           = EBox::SambaLdapUser::usersPath();
-#    my $groupsPrintableName = __(q{Groups files});
-#    my $groupsPath          = EBox::SambaLdapUser::groupsPath();
-#
-#    return {
-#        $usersPrintableName   => [ $usersPath ],
-#        $groupsPrintableName  => [ $groupsPath ],
-#    };
-#}
+        push @dirs, map {
+            $_->{path}
+        } @{ $self->shares(1) };
+
+        my $selection = {
+                          includes => \@dirs,
+                         };
+        return $selection;
+    }
+
+    return {};
+}
 
 # Implement LogHelper interface
 sub tableInfo
@@ -2219,12 +2214,12 @@ sub ldb
     return $self->{ldb};
 }
 
-# Method: sharesPaths
+# Method: filesystemShares
 #
-#   This function is used to generate disk usage reports. It
-#   returns the shares paths, excluding the group shares.
+#   This function is used for Disaster Recovery, to get
+#   the paths of the filesystem shares.
 #
-sub sharesPaths
+sub filesystemShares
 {
     my ($self) = @_;
 
@@ -2232,7 +2227,9 @@ sub sharesPaths
     my $paths = [];
 
     foreach my $share (@{$shares}) {
-        push (@{$paths}, $share->{path}) unless defined $share->{groupShare};
+        if ($share->{type} eq 'system') {
+            push (@{$paths}, $share->{path});
+        }
     }
 
     return $paths;
