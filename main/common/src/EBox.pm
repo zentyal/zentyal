@@ -137,6 +137,11 @@ sub locale
         open (my $fh, $localeFile);
         $locale = <$fh>;
         close ($fh);
+    } elsif (-f '/etc/default/locale') {
+        open (my $fh, '/etc/default/locale');
+        $locale = <$fh>;
+        close ($fh);
+        ($locale) = $locale =~ /LANG="(.+)"/;
     }
     unless ($locale) {
         $locale = 'C';

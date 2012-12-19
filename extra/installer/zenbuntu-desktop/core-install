@@ -78,12 +78,6 @@ gen_locales()
 
     # Regenerate locales to update the new messages from Zentyal
     /usr/sbin/locale-gen
-
-    /usr/share/zentyal/set-locale $LANG > /dev/null 2>&1
-
-    # force reload of locale by apache
-    service zentyal apache stop
-    service zentyal apache start
 }
 
 create_repository # Set up local package repository
@@ -108,6 +102,8 @@ fi
 
 update_if_network # apt-get update if we are connected to the internet
 
+gen_locales
+
 REGISTER_DATA=/var/lib/zinstaller-remote
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
@@ -116,8 +112,6 @@ then
 fi
 
 DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
-
-gen_locales
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then
