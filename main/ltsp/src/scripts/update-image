@@ -29,11 +29,11 @@ if (scalar @ARGV == 2) {
                   . "&& ltsp-update-image --arch $chroot";
 
         try {
-            # TODO: log
-            EBox::Sudo::root($cmd);
+            # TODO: add more messages to ltsp.log (with timestamps)
+            EBox::Sudo::root("$cmd >> /var/log/zentyal/ltsp.log");
         } otherwise {
             $ltsp->st_set_string('error', __('Update image failed'));
-            print "Update image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+            print "Update image failed. Check /var/log/zentyal/ltsp.log for details.\n";
         } finally {
             $ltsp->st_set_string('work', 'none');
         };

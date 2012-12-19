@@ -1,4 +1,5 @@
 HEAD
+	+ All the scripts log to ltsp.log
 	+ Checks for connected users info in the dashboard widget adapted to
 	  the current DHCP module
 	+ Avoid overwriting an existing image
