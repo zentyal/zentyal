@@ -157,7 +157,9 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
-        $self->_setFilesSyncConf();
+        if ($self->_filesSyncNeeded()) {
+            $self->_setFilesSyncConf();
+        }
     }
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
@@ -370,7 +372,7 @@ sub _daemons
         },
         {
             'name'         => FILES_SYNC_UPSTART,
-            'precondition' => \&filesSyncAvailable,
+            'precondition' => \&_filesSyncNeeded,
         }
        ];
 }
@@ -1014,7 +1016,7 @@ sub usersSyncAvailable
 sub filesSyncAvailable
 {
     # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::GlobalImpl::_packageInstalled('zfilesync');
+    return EBox::Config::configkey('files_sync_available');
 }
 
 # Method: securityUpdatesAddOn
@@ -2320,6 +2322,13 @@ sub _setQAUpdates
 {
     EBox::RemoteServices::QAUpdates::set();
 
+}
+
+sub _filesSyncNeeded
+{
+    my ($self) = @_;
+
+    return ($self->filesSyncAvailable() or $self->disasterRecoveryAvailable());
 }
 
 1;
