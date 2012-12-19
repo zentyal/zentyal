@@ -27,6 +27,8 @@ use EBox::Backup;
 
 # known issues: - if your default gateway is dhcp and you have more gateways,
 #  one of the static interfaces gateways will set as default
+#
+#  protocols which incldue any tcp/udp or any connection are not imported
 
 # XXX EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
 # converted in public method
@@ -92,7 +94,7 @@ sub _importModule
 
     my $modParams = _moduleParameters($modName);
     if ((exists $modParams->{preInsertModelsData}) and $modParams->{preInsertModelsData} ) {
-        $modParams->{preInsertModelsData}->($module, $bakData, $filled);
+        $modParams->{preInsertModelsData}->($module, $filled, $bakData);
     }
     if ((exists $modParams->{importKeys}) and $modParams->{importKeys} ) {
         _importKeys($modName, $modParams->{importKeys}, $bakData);
@@ -569,7 +571,6 @@ sub _insertRowsInModel
             EBox::error("$ex\nCannot add row in model " . $model->name() .
                          ' elements ' . Dumper($row->{elements})
                        );
-            _die($ex); #DDD
         };
         $newRowId or
             next;
@@ -666,6 +667,35 @@ sub _lookupComponent
     return undef;
 }
 
+sub _setDefaultServices
+{
+    my ($mod, $configTree, $allKeys)= @_;
+    # to set default services
+    $mod->initialSetup();
+    # remove arlready added default services for services table
+    my $model = _lookupComponentInConfigTree($configTree, 'ServiceTable');
+    if (not $model) {
+        return;
+    }
+
+    my %default;
+    my $defaultServices = $mod->_defaultServices();
+    foreach my $serv (@{ $defaultServices }) {
+        $default{$serv->{name}} = 1;
+    }
+
+    my @rows = @{ $model->{rows} };
+    print Dumper(\@rows);
+    @rows = grep {
+        not $default{$_->{elements}->{name}}
+    } @rows;
+
+    print "After rows\n";
+    print Dumper(\@rows);
+
+    $model->{rows} = \@rows;
+}
+
 sub _serviceTableRowAdapter
 {
     my ($elements) = @_;
@@ -695,7 +725,7 @@ sub _serviceTableRowAdapter
 
 sub _networkPreInsert
 {
-    my ($mod, $allKeys, $configToInsert)= @_;
+    my ($mod, $configToInsert, $allKeys)= @_;
     _networkImportInterfaces($mod, $allKeys);
     _mangleGatewayTable($configToInsert);
 }
@@ -762,8 +792,6 @@ sub _networkImportInterfaces
         $interfaces{$iface}->{$paramName} = $paramValue;
     }
 
-    print "interfaceKeys @interfacesKeys\n";
-    print Dumper(\%interfaces);
     $mod->set('interfaces', \%interfaces);
 
     # vlan ids?
@@ -794,13 +822,5 @@ sub _networkImportInterfaces
     # }
 }
 
-sub _die
-{
-    my ($msg) = @_;
-    $msg or $msg = 'debug';
-    use Devel::StackTrace;
-    my $st = Devel::StackTrace->new();
-    die $msg . "\n" . $st->as_string();
-}
 
 1;
