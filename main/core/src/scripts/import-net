@@ -22,18 +22,35 @@ use EBox::Sudo;
 use Error qw(:try);
 use YAML::XS;
 use File::Slurp;
-use File::Basename qw(basename);
+use File::Basename qw(dirname basename);
 
+my %moduleParameters = (
+    objects => {
+        modelDirs => {
+            ObjectTable => 'objectTable',
+            MemberTable => 'members',
+           },
+       },
+    services => {
+        modelDirs => {
+            ServiceTable => 'serviceTable',
+            ServiceConfigurationTable => 'serviceConfigurationTable',
+           },
+       }
+);
 
+# XXX accomadete changes i nservices fields
 # XXX discriminte between datatable and dataforn?
+# XXX remember initlaSetup for services module
+# XX clean all conf before importing, seems to rmeoveALL odes not cut it
 EBox::init();
 
 my ($bakDir) = @ARGV;
 my %oldConf;
 
 
-_importServices($bakDir, \%oldConf);
-# _importObjects($bakDir,  \%oldConf);
+#_importServices($bakDir, \%oldConf);
+_importSimpleModule('objects', $bakDir);
 # _importNetwork($bakDir,  \%oldConf);
 # _importFirewall($bakDir, \%oldConf);
 
@@ -61,7 +78,22 @@ sub _importServices
     _insertFilledTreeIntoModule($servicesMod, $filled);
 }
 
+sub _importSimpleModule
+{
+    my ($modName, $bakDir) = @_;
+    my $bakData = _parseBakfile($bakDir, $modName);
+    if (not $bakData) {
+        return;
+    }
+    my $tree = _moduleComponentTree($modName);
+ #   print Dumper($tree);
 
+    my $module = EBox::Global->getInstance(0)->modInstance($modName);
+    my $filled = _fillModuleTree($module, $tree, $bakData);
+    print Dumper($filled);
+
+    _insertFilledTreeIntoModule($module, $filled);
+}
 
 sub _moduleComponentTree
 {
@@ -202,7 +234,7 @@ sub _fillModelWithChilds
         return;
     } elsif (@{ $idxKeys } > 1){
         EBox::error("More than one idx key found in $dir/*.idx. Not suppored. Skipped");
-        next;
+        return;
     }
 
     # XXX asummed only one idx param
@@ -280,7 +312,10 @@ sub _fillModelRows
     my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
     if (not @order) {
         # must be with only one ID, try to found it
-        @order = ( _onlyRowIdForModel($dir, $allKeys) );
+        my $onlyRowId = _onlyRowIdForModel($dir, $allKeys);
+        if ($onlyRowId) {
+            @order = ( $onlyRowId  );
+        }
     }
     if (not @order) {
         EBox::info("cannot found order rows on lone row id for $modelName it must be empty");
@@ -307,6 +342,12 @@ sub _elementsForRow
 {
     my ($dir, $rowId, $allKeys) = @_;
     # assumed that no-idx row keys are always of string type
+    if (not $rowId) {
+        # DDD
+        use Devel::StackTrace;
+        my $tr = Devel::StackTrace->new();
+        die $tr->as_string();
+    }
     my $rowDir = "$dir/$rowId";
     my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
     if (not @{ $keysForRow }) {
@@ -346,21 +387,37 @@ sub _moduleDir
     return  "/ebox/modules/$moduleName";
 }
 
+sub _moduleParameters
+{
+    my ($moduleName) = @_;
+    my $params;
+    if (exists $moduleParameters{$moduleName}) {
+        $params = $moduleParameters{$moduleName}
+    } else {
+        $params = {};
+    }
+
+    if (not exists $params->{modelDirs}) {
+        $params->{modelDirs} = {};
+    }
+    return $params;
+}
+
 sub _modelDir
 {
     my ($moduleName, $modelName, $dir) = @_;
-
-    my $modelDir = $modelName;
     # 2.2 exceptions
-    # TODO change for a hash
-    if ($moduleName eq 'services') {
-        if ($modelName eq 'ServiceTable') {
-            $modelDir = 'serviceTable';
-        } elsif ($modelName eq 'ServiceConfigurationTable') {
-            $modelDir = 'serviceConfigurationTable';
-        }
+    my $modelDir;
+    my $params = _moduleParameters($moduleName);
+    if ( (exists $params->{modelDirs}->{$modelName}) and
+         ($params->{modelDirs}->{$modelName})
+        ) {
+        $modelDir =  $params->{modelDirs}->{$modelName};
+    } else {
+        $modelDir = $modelName;
     }
-    return  "$dir/$modelDir";
+
+    return  "$dir/$modelDir"
 }
 
 sub _getModelOrderValue
@@ -390,7 +447,7 @@ sub _onlyRowIdForModel
     }
 
     if (not $id) {
-        EBox::error("Cannot find only row id for model. Directory $dir")
+        EBox::error("Cannot find only row id for model. Directory $dir");
     }
 
 #    print "ONLY ROW $id\n"; # DDD
@@ -403,9 +460,10 @@ sub _matchKeys
     my ($allKeys, $dir, $basenameRe, $type) = @_;
 #    print "_matchKeys $dir \n"; # DDD
     my @matched;
-    my $rexp = qr{^$dir/(.*?)[^/]$};
+#    my $rexp = qr{^$dir/(.*?)[^/]$};
     foreach my $key (keys %{ $allKeys }) {
-        if ($key =~ m/$rexp/) {
+#        if ($key =~ m/$rexp/) {
+        if (dirname($key) eq $dir) {
             if (not (basename($key) =~ m/$basenameRe/)) {
                 next;
             }
@@ -439,7 +497,17 @@ sub _insertRowsInModel
     my ($model, $rows) = @_;
     $model->removeAll(1) if $clearConf;
     foreach my $row (@{ $rows }) {
-        my $newRowId = $model->addRow(%{ $row->{elements}});
+        my $newRowId;
+        try {
+            $newRowId = $model->addRow(%{ $row->{elements}});
+        } otherwise {
+            EBox::error("Cannot add row in model " . $model->name() .
+                         ' elements ' . Dumper($row->{elements})
+                       );
+            _die(); #DDD
+        };
+        $newRowId or
+            next;
         my $newRow   = $model->row($newRowId);
         # add childrens
         foreach my $child (@{ $row->{childs}}) {
@@ -451,5 +519,11 @@ sub _insertRowsInModel
     }
 }
 
+sub _die
+{
+    use Devel::StackTrace;
+    my $st = Devel::StackTrace->new();
+    die $st->as_string();
+}
 
 1;
