@@ -24,7 +24,7 @@ if (scalar @ARGV == 3) {
         my $CHROOT_DIR = "/opt/ltsp/$chroot";
         my $cmd = "chroot $CHROOT_DIR mount -t proc none /proc "
                   . "&& chroot $CHROOT_DIR apt-get update "
-                  . "&& sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
+                  . "&& chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
                   . "&& umount /opt/ltsp/$chroot/proc "
                   . "&& ltsp-update-image --arch $chroot";
 
