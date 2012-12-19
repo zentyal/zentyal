@@ -1,3 +1,5 @@
+HEAD
+	+ Added use utf8 to dashboard template to fix look of closable messages
 3.0.9
 	+ Adapted file downloads to the new utf8 fixes
 	+ Write backup files in raw mode to avoid utf8 problems
