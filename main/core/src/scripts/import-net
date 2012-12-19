@@ -62,6 +62,7 @@ my ($bakDir) = @ARGV;
 _importModule('services', $bakDir);
 _importModule('objects', $bakDir);
 _importModule('network', $bakDir);
+_importModule('firewall', $bakDir);
 
 sub _importModule
 {
