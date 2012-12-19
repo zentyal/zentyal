@@ -42,9 +42,7 @@ my %moduleParameters = (
        },
 );
 
-# XXX accomadete changes i nservices fields
 # XXX discriminte between datatable and dataforn?
-# XXX remember initlaSetup for services module
 # XX clean all conf before importing, seems to rmeoveALL odes not cut it
 EBox::init();
 
@@ -514,7 +512,12 @@ sub _insertRowsInModel
     foreach my $row (@{ $rows }) {
         my $newRowId;
         try {
-            $newRowId = $model->addRow(%{ $row->{elements}});
+            my @addParams = %{ $row->{elements}};
+            # try to use oldId to rpeserve refencies
+            if (exists $row->{id} and $row->{id}) {
+                push @addParams, id => $row->{id};
+            }
+            $newRowId = $model->addRow(@addParams);
         } otherwise {
             EBox::error("Cannot add row in model " . $model->name() .
                          ' elements ' . Dumper($row->{elements})
@@ -537,9 +540,25 @@ sub _insertRowsInModel
 sub _serviceTableRowAdapter
 {
     my ($elements) = @_;
-    # pritnableName attribute didnt exists in 2.2.X
+    my $serviceParameters = _moduleParameters('services');
+    if (not $serviceParameters->{servicesPrintableNames}) {
+        $serviceParameters->{servicesPrintableNames} = {};
+        my $servicesMod = EBox::Global->getInstance()->modInstance('services');
+        my $defaultServices = $servicesMod->_defaultServices();
+        foreach my $serv (@{ $defaultServices }) {
+            $serviceParameters->{servicesPrintableNames}->{$serv->{name}} = $serv->{printableName}
+        }
+    }
+
+    # printableName attribute didnt exists in 2.2.X
     if (not $elements->{printableName}) {
-        $elements->{printableName} = $elements->{name}
+        my $name = $elements->{name};
+        if ($serviceParameters->{servicesPrintableNames}->{$name}) {
+            $elements->{printableName} = $serviceParameters->{servicesPrintableNames}->{$name};
+        } else {
+            # set printable name same then name
+            $elements->{printableName} = $name;
+        }
     }
 
     return $elements;
