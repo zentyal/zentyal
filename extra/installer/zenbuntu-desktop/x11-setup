@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 
 USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
 DIR=/home/$USER_NAME

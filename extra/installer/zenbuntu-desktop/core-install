@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/bash -x
 
-export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/3.0/ubuntu"
 ZENTYAL_SOURCES="deb $PPA_URL precise main"
@@ -20,7 +19,7 @@ create_repository()
         return
     fi
     pushd $PKG_DIR
-    apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
+    apt-ftparchive packages . | gzip > Packages.gz
     popd
 
     # Link .deb files to cache to avoid downloading them
@@ -35,7 +34,7 @@ create_repository()
     # just in case we are installing without internet connection
     mv ${SOURCES_LIST} /tmp/sources.list.orig
     echo ${LOCAL_SOURCES} > ${SOURCES_LIST}
-    apt-get update >> $LOG 2>&1
+    apt-get update
     # Restore the original sources.list
     mv /tmp/sources.list.orig ${SOURCES_LIST}
 
@@ -45,11 +44,11 @@ create_repository()
 update_if_network()
 {
     # Check if we can connect to the PPA url
-    if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
-        echo "Updating package database from the network..." >> $LOG
-        apt-get update >> $LOG 2>&1
+    if $(wget -T 10 -t 1 $PPA_URL); then
+        echo "Updating package database from the network..."
+        apt-get update
     else
-        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed." >> $LOG
+        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed."
     fi
 }
 
