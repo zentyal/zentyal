@@ -24,6 +24,9 @@ use YAML::XS;
 use File::Basename qw(dirname basename);
 use Data::Dumper;
 
+# known issues: - if your default gateway is dhcp and you have more gateways,
+#  one of the static interfaces gateways will set as default
+
 my %moduleParameters = (
     objects => {
         modelDirs => {
@@ -43,12 +46,11 @@ my %moduleParameters = (
        },
 
     network => {
-        # XXX llok all network models
         modelDirs => {
             GatewayTable => 'gatewaytable',
             MultiGwRulesDataTable => 'multigwrulestable',
            },
-        importKeys => ['interfaces/']
+        preInsertModelsData => \&_networkPreInsert,
    },
 );
 
@@ -57,8 +59,8 @@ EBox::init();
 
 my ($bakDir) = @ARGV;
 
-#_importModule('services', $bakDir);
-#_importModule('objects', $bakDir);
+_importModule('services', $bakDir);
+_importModule('objects', $bakDir);
 _importModule('network', $bakDir);
 
 sub _importModule
@@ -78,6 +80,9 @@ sub _importModule
     _cleanModule($modName);
 
     my $modParams = _moduleParameters($modName);
+    if ((exists $modParams->{preInsertModelsData}) and $modParams->{preInsertModelsData} ) {
+        $modParams->{preInsertModelsData}->($module, $bakData, $filled);
+    }
     if ((exists $modParams->{importKeys}) and $modParams->{importKeys} ) {
         _importKeys($modName, $modParams->{importKeys}, $bakData);
     }
@@ -237,7 +242,6 @@ sub _fillModelWithChilds
     my $modelName  = $modelSpec->{name};
 
     my $idxKeys = _matchKeys($allKeys, $dir, '.*.idx', 'hash');
-#    print Dumper($idxKeys); # DDD
     if (@{ $idxKeys } == 0) {
         $modelSpec->{rows} = [];
         return;
@@ -636,6 +640,149 @@ sub _importKeys
     }
 }
 
+sub _networkPreInsert
+{
+    my ($mod, $allKeys, $configToInsert)= @_;
+    _networkImportInterfaces($mod, $allKeys);
+    _mangleGatewayTable($configToInsert);
+}
+
+# default row msut b the first to be inserted
+sub _mangleGatewayTable
+{
+    my ($configTree) = @_;
+
+    # look up for GatewayTable model
+    my $model = _lookupComponentInConfigTree($configTree, 'GatewayTable');
+    if (not $model) {
+        print "Not found GW table\n";
+        return;
+    }
+    my @rows = @{ $model->{rows} };
+    my $seenDefault;
+    my @newRows;
+    foreach my $row (@rows) {
+        if ($row->{elements}->{auto}) {
+            # DHCP gw, skipped
+            next;
+        }
+        my $isDefault = $row->{elements}->{default};
+
+        if ($isDefault and not $seenDefault) {
+            unshift @newRows, $row;
+            $seenDefault = 1;
+        } elsif ($isDefault and $seenDefault) {
+            my $id = $row->{id};
+            EBox::warn("Additional default gateway seen in row $id, disabled its default property");
+            $row->{elements}->{default} = 0;
+            push @newRows, $row;
+        } else {
+            push @newRows, $row;
+        }
+    }
+
+    if (@newRows and not $seenDefault) {
+        EBox::warn("No default gateway seen in gateway table,s ettign first row as default");
+        $newRows[0]->{elements}->{default} = 1;
+    }
+
+    $model->{rows}  = \@newRows;
+}
+
+# we can extend this for lookup other things if needed
+sub _lookupComponentInConfigTree
+{
+    my ($configTree, $name) = @_;
+    foreach my $root (@{ $configTree }) {
+        my $found = _lookupComponent($root, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+sub _lookupComponent
+{
+    my ($component, $name) = @_;
+    if ($component->{name} eq $name) {
+        return $component;
+    }
+
+    my @toLook;
+    if ($component->{type} eq 'composite') {
+        @toLook = @{ $component->{components} }
+    } elsif (exists $component->{rows}) {
+        foreach my $row (@{ $component->{rows}  }) {
+            if (exists $row->{childs}) {
+                push @toLook, @{ $row->{childs} };
+            }
+        }
+    }
+
+    foreach my $comp (@toLook) {
+        my $found = _lookupComponent($comp, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+
+sub _networkImportInterfaces
+{
+    my ($mod, $allKeys)= @_;
+    my $modName = $mod->name();
+    my $interfacesDir = _moduleDir($modName) . '/interfaces';
+    my @interfacesKeys = @{ _keysFromDirRecursive($interfacesDir, $allKeys) };
+    my %interfaces;
+    foreach my $key (@interfacesKeys) {
+        $key =~ m{^$interfacesDir/(.*?)/(.*?)$};
+        my ($iface, $paramName) = ($1, $2);
+        if (not $iface or not $paramName) {
+            next;
+        }
+        if (not exists $interfaces{$iface}) {
+            $interfaces{$iface} = {};
+        }
+        my $paramValue = $allKeys->{$key}->{value};
+        $interfaces{$iface}->{$paramName} = $paramValue;
+    }
+
+    print "interfaceKeys @interfacesKeys\n";
+    print Dumper(\%interfaces);
+    $mod->set('interfaces', \%interfaces);
+
+    # vlan ids?
+    # static alias?
+
+    # while (my ($iface, $params) = each %interfaces) {
+    #     my $method =  $interfaces{method};
+    #     if ($method eq 'notset') {
+    #         $mod
+    #     } elsif ($method eq 'dhcp') {
+    #     } elsif ($method eq 'static') {
+    #     } elsif ($method eq 'ppp') {
+    #     } elsif ($method eq 'trunk') {
+    #     } elsif ($method eq 'bridged') {
+    #         # we configure bridged the last ones
+    #     } else {
+    #         EBox::error("Unknown interface method $method");
+    #         next;
+    #     }
+    # }
+
+    # # configure bridged
+    # while (my ($iface, $params) = each %interfaces) {
+    #     my $method =  $interfaces{method};
+    #     if ($method ne 'bridged') {
+    #         next;
+    #     }
+    # }
+}
 
 sub _die
 {
