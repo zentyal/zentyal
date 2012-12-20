@@ -69,10 +69,13 @@ my ($bakFile) = @ARGV;
 my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
 try {
     EBox::Backup->_unpackModulesRestoreData($bakDir);
-    _importModule('services', $bakDir);
-    _importModule('objects', $bakDir);
-    _importModule('network', $bakDir);
-    _importModule('firewall', $bakDir);
+    my @modulesToImport = qw(services objects network firewall);
+    foreach my $module (@modulesToImport) {
+        _cleanModule($module);
+    }
+    foreach my $module (@modulesToImport) {
+        _importModule($module, $bakDir);
+    }
 } finally {
     EBox::Sudo::root("rm -rf $bakDir")
 };
@@ -97,8 +100,6 @@ sub _importModule
 
     my $filled = _fillModuleTree($module, $tree, $bakData);
 #    print Dumper($filled);
-
-    _cleanModule($modName);
 
     my $modParams = _moduleParameters($modName);
     if ((exists $modParams->{preInsertModelsData}) and $modParams->{preInsertModelsData} ) {
