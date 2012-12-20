@@ -31,9 +31,16 @@ use EBox::Backup;
 #  one of the static interfaces gateways will set as default
 #
 # 2- protocols which incldue any tcp/udp or any connection are not imported
+# 3- this is assummed to be a clean machine: foreign existent references
+#     to elements which were in the imported modules will be broken
+# 4- Services added by modules not imported which aren't in
+#    the imported data will be lost
 
-# XXX EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
+# TODO
+#  - EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
 # converted in public method
+#  - Try (and make it work) with composites which are children of a row
+#  - Add autoamtic save changes?
 my %moduleParameters = (
     objects => {
         modelDirs => {
