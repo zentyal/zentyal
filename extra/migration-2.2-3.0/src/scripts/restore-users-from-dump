@@ -100,7 +100,6 @@ sub _addUser
         $surName,
         $givenName,
         $description,
-        $home,
         $quota) = @_;
 
     my $password = EBox::Util::Random::generate(PASSWD_LEN);
@@ -124,11 +123,7 @@ sub _addUser
         $userObj->set(quota => $quota);
         $changed = 1;
     }
-    # uncomment to set home directory, take in accoutn that nothing creates it
-    # if ($userObj->get('homeDirectory') ne $home) {
-    #     $userObj->set(homedDirectory => $home);
-    #     $changed = 1;
-    # }
+
     if ($changed) {
         $userObj->save();
     }
@@ -143,7 +138,10 @@ sub _addGroup
     my $groupObj = EBox::UsersAndGroups::Group->create($group, $description);
     print "Group $group added\n" if $verbose;
 
-    my @userNames = split ':', $usersStr;
+    my @userNames;
+    if ($usersStr) {
+        @userNames = split ':', $usersStr if $usersStr;
+    }
     if (@userNames) {
         foreach my $userName (@userNames) {
             my $user = EBox::UsersAndGroups::User->new(uid => $userName);

@@ -122,7 +122,6 @@ sub _userString
     my $givenName    = $entry->get_value('givenName');
     my $description    = $entry->get_value('description');
 
-    my $homeDirectory    = $entry->get_value('homeDirectory');
     my $quota    = $entry->get_value('quota');
 
     return join(',',
@@ -132,8 +131,7 @@ sub _userString
                 $surname,
                 $givenName,
                 $description,
-                $homeDirectory,
-                $quota
+                 $quota
                );
 }
 
