@@ -1,0 +1,126 @@
+# Copyright (C) 2012 EBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+
+use File::Slurp;
+
+
+
+my ($csvFile, $verbose);
+my $passwdFile = '/tmp/passwords';
+foreach my $arg (@ARGV) {
+    if ($arg eq '-v') {
+        $verbose = 1;
+    } else {
+        if ($csvFile) {
+            die "Unknown argument supplied $arg";
+        }
+        $csvFile = $arg;
+    }
+}
+
+EBox::init();
+
+if (not defined $csvFile) {
+    die "Not dump file supplied";
+} elsif (not -e $csvFile) {
+    die "File $csvFile does not exists";
+} elsif (not -r $csvFile) {
+    die "File $csvFile is not readable";
+}
+
+my $usersMod = EBox::Global->getInstance()->modInstance('users');
+if (not $usersMod) {
+    die "User and group  module is not installed";
+} elsif (not $usersMod->isEnabled()) {
+    die "Users and group module not enabled. Enable it and try again";
+}
+
+my %passwords;
+my @lines  = File::Slurp::read_file($csvFile);
+foreach my $line (@lines) {
+    chomp $line;
+    if ($line =~ m/^\s*$/) {
+        next;
+    }
+    my @fields = split ',', $line;
+    my $type = shift @fields;
+    if ($type eq 'users') {
+        _addUser($usersMod, @fields);
+    } elsif ($type eq 'groups') {
+        _addGroup($usersMod, @fields);
+    } else {
+        print "Line of unknown type\n";
+    }
+}
+_writePasswordsFile($passwdFile, \%passwords);
+
+
+sub _addUser
+{
+    my ($mod,
+        $user,
+        $fullName,
+        $surName,
+        $givenName,
+        $description,
+        $homeDirectory,
+        $quota) = @_;
+
+    my $password = _genPasswd();
+    my $userHash = {
+        user => $user,
+        password => $password,
+        fullname => $fullName,
+        givenname => $givenName,
+       surname   => $surName,
+        comment => $description,
+
+    };
+
+    $mod->addUser($userHash);
+    $passwords{$user} = $password;
+}
+
+sub _addGroup
+{
+    my ($mod, $group, $description, $users) = @_;
+    $mod->addGroup($group, $description);
+    my @users = split ':', $users;
+    @users or return;
+    my $groupObject = $mod->group($group)
+}
+
+sub _genPasswd
+{
+    return 'a';
+}
+
+sub _writePasswordsFile
+{
+    my ($file, $passwd_r) = @_;
+    my $contents = '';
+    while (my ($user, $pass) = each %{ $passwd_r }) {
+        $contents .= "$user,$pass\n";
+    }
+    File::Slurp::write_file($file, $contents);
+}
+
+1;
