@@ -151,7 +151,7 @@ sub _addGroup
         }
 
         $groupObj->save();
-        print "Users added to group @userNames\t" if $verbose;
+        print "Users added to group @userNames\n" if $verbose;
     }
 
 }
@@ -161,7 +161,7 @@ sub _writePasswordsFile
     my ($file, $passwd_r) = @_;
     my $contents = '';
     while (my ($user, $pass) = each %{ $passwd_r }) {
-        $contents .= "$user,$pass\n";
+        $contents .= "$user:$pass\n";
     }
     File::Slurp::write_file($file, $contents);
 }
