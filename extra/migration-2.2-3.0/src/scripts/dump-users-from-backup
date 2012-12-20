@@ -164,4 +164,4 @@ sub _getBaseDN
     return $entry->dn();
 }
 
-;
+1;
