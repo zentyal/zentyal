@@ -23,6 +23,9 @@ use EBox::Backup;
 use File::Slurp;
 use Net::LDAP::LDIF;
 use Error qw(:try);
+use EBox::Util::Random;
+
+use constant PASSWD_LEN => 10;
 
 # Limitations:
 #  1- only works whith backups from master servers
@@ -122,10 +125,12 @@ sub _userString
     my $description    = $entry->get_value('description');
 
     my $quota    = $entry->get_value('quota');
-
+    my $password = EBox::Util::Random::generate(PASSWD_LEN); # guaranteed to not
+                                                             # be ','
     return join(',',
                 'user',
                 $user,
+                $password,
                 $fullName,
                 $surname,
                 $givenName,
