@@ -121,7 +121,7 @@ sub _addUser
 
     my $changed;
     if ($userObj->get('quota') != $quota) {
-        $userObj->{set_quota} = $quota;
+        $userObj->set(quota => $quota);
         $changed = 1;
     }
     # uncomment to set home directory, take in accoutn that nothing creates it
