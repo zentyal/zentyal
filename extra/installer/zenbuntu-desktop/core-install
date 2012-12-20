@@ -94,11 +94,6 @@ fi
 # install zentyal core and software
 PACKAGES=zentyal
 
-if [ -f /var/tmp/.zentyal-disaster-recovery ]
-then
-    touch /var/lib/zentyal/.disaster-recovery
-fi
-
 update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
@@ -111,6 +106,11 @@ then
 fi
 
 DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
+
+if [ -f /var/tmp/.zentyal-disaster-recovery ]
+then
+    touch /var/lib/zentyal/.disaster-recovery
+fi
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then

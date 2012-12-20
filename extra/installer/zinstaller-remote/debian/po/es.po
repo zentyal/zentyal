@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2012-10-22 17:11+0200\n"
+"POT-Creation-Date: 2012-12-20 03:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,9 +32,13 @@ msgstr "Dirección e-mail:"
 #. Type: string
 #. Description
 #: ../templates:2001
-msgid "If you have a Zentyal account, enter your e-mail address now."
+msgid ""
+"If you have a Zentyal account, you can enter your e-mail address now. If "
+"not, you can continue the installation leaving this blank."
 msgstr ""
-"Si tienes una cuenta de Zentyal, introduce tu dirección de correo ahora."
+"Si tienes una cuenta de Zentyal, puedes introducir tu dirección de correo "
+"ahora. Si no, puedes continuar igualmente la instalación dejando esto en "
+"blanco."
 
 #. Type: password
 #. Description
@@ -134,13 +138,40 @@ msgstr ""
 
 #. Type: note
 #. Description
+#. Type: note
+#. Description
+#: ../templates:11001 ../templates:12001
+msgid "Error"
+msgstr ""
+
+#. Type: note
+#. Description
 #: ../templates:11001
+msgid ""
+"Currently there are no available editions for your account. Installation of "
+"Community edition will continue."
+msgstr ""
+"No hay ediciones disponibles para instalar en tu cuenta. Se instalará la "
+"edición Community."
+
+#. Type: note
+#. Description
+#: ../templates:12001
+msgid ""
+"A problem ocurred while trying to register your server. Please contact "
+"support. Community edition will be installed if you want to continue."
+msgstr ""
+"Ha ocurrido un problema registrando el servidor. Por favor, contacta con soporte. Se puede continuar con la instalación de la edición Community."
+
+#. Type: note
+#. Description
+#: ../templates:13001
 msgid "Disaster Recovery"
 msgstr "Recuperación de Desastre"
 
 #. Type: note
 #. Description
-#: ../templates:11001
+#: ../templates:13001
 msgid ""
 "You can not recover from a disater without a valid Small Business or "
 "Enterprise edition. Installation of Community edition will continue."
@@ -150,13 +181,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:12001
+#: ../templates:14001
 msgid "No backups available"
 msgstr "No hay backups disponibles"
 
 #. Type: note
 #. Description
-#: ../templates:12001
+#: ../templates:14001
 msgid ""
 "You cannot recover from a disaster if there are no configuration backups "
 "associated with your account. Regular installation will continue."

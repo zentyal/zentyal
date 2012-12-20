@@ -5,7 +5,8 @@ _Description: Choose Zentyal edition to install
 Template: zinstaller-remote/user
 Type: string
 _Description: E-mail address:
- If you have a Zentyal account, enter your e-mail address now.
+ If you have a Zentyal account, you can enter your e-mail address now.
+ If not, you can continue the installation leaving this blank.
 
 Template: zinstaller-remote/pass
 Type: password
@@ -51,6 +52,18 @@ Type: note
 _Description: Congratulations!
  Your account has been validated. Zentyal Enterprise edition is going to be
  installed.
+
+Template: zinstaller-remote/no_bundles
+Type: note
+_Description: Error
+ Currently there are no available editions for your account.
+ Installation of Community edition will continue.
+
+Template: zinstaller-remote/error_register
+Type: note
+_Description: Error
+ A problem ocurred while trying to register your server. Please contact support.
+ Community edition will be installed if you want to continue.
 
 Template: zinstaller-remote/error_dr
 Type: note

@@ -33,6 +33,10 @@ do
     db_go
     db_get zinstaller-remote/user
     USERNAME="$RET"
+    if [ -z "$USERNAME" ]
+    then
+        exit 0
+    fi
 
     db_input high zinstaller-remote/pass
     db_go
@@ -41,7 +45,7 @@ do
 
     RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
 
-    if [ "$RESPONSE" != "Authorization Required" ]
+    if [ $? -eq 0 ] && [ "$RESPONSE" != "Authorization Required" ]
     then
         if [ "$RESPONSE" = "[]" ]
         then
@@ -92,22 +96,29 @@ then
 
     echo $RESPONSE | sed "s/},/\n/g" | while read line
     do
-        BUNDLE="$line"
-
         company=$(get_field "$line" company)
         name=$(get_field "$line" name)
         id=$(get_num_field "$line" id)
 
-        if [ -n "$company" ]
+        if [ -n "$id" ] && [ -n "$name" ]
         then
-            echo "$id:\"$company - $name\"" >> $DATA_DIR/BUNDLE_IDS
-        else
-            echo "$id:\"$name\"" >> $DATA_DIR/BUNDLE_IDS
+            if [ -n "$company" ]
+            then
+                echo "$id:\"$company - $name\"" >> $DATA_DIR/BUNDLE_IDS
+            else
+                echo "$id:\"$name\"" >> $DATA_DIR/BUNDLE_IDS
+            fi
         fi
     done
 
     NUM_BUNDLES=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | sort | uniq | wc -l)
-    if [ $NUM_BUNDLES -eq 1 ]
+    if [ $NUM_BUNDLES -eq 0 ]
+    then
+        db_input high zinstaller-remote/no_bundles
+        db_go
+
+        exit 0
+    elif [ $NUM_BUNDLES -eq 1 ]
     then
         BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
         if grep "Enterprise" $DATA_DIR/BUNDLE_IDS
@@ -130,14 +141,22 @@ then
 
     # Get subscription data
     RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-    COMPANY=$(get_field "$RESPONSE" company)
-    QA_USERNAME="$COMPANY-$SERVERNAME"
-    UUID=$(get_field "$RESPONSE" uuid)
-    QA_PASSWORD=$(echo $UUID | sed 's/-//g')
+    if [ $? -eq 0 ] && ! echo "$RESPONSE" | grep -q "__all__"
+    then
+        COMPANY=$(get_field "$RESPONSE" company)
+        QA_USERNAME="$COMPANY-$SERVERNAME"
+        UUID=$(get_field "$RESPONSE" uuid)
+        QA_PASSWORD=$(echo $UUID | sed 's/-//g')
 
-    echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
-    echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
-    touch $DATA_DIR/COMMERCIAL_EDITION
+        echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
+        echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
+        touch $DATA_DIR/COMMERCIAL_EDITION
+    else
+        echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
+        db_input high zinstaller-remote/error_register
+        db_go
+        exit 0
+    fi
 fi
 
 if [ -f /tmp/RECOVER_MODE ]
@@ -145,7 +164,7 @@ then
     if [ "$EDITION" = "commercial" ]
     then
         RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
-        if [ $? = 0 ] && [ -z "$RESPONSE" ]
+        if [ $? -eq 0 ] && [ -z "$RESPONSE" ]
         then
             db_input high zinstaller-remote/error_backups
             rm -f /tmp/RECOVER_MODE
