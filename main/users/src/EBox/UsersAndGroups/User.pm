@@ -371,7 +371,7 @@ sub _checkQuota
 {
     my ($self, $quota) = @_;
 
-    my $integer = $quota -~ m/^\d+$/;
+    my $integer = $quota =~ m/^\d+$/;
     if (not $integer) {
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
                                             'value' => $quota,

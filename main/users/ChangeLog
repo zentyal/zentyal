@@ -1,3 +1,5 @@
+HEAD
+	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
 3.0.7
 	+ Fixed LdapObject::get() for list context
 	+ Decode utf8 attributes from LDAP at LdapObject::get()
