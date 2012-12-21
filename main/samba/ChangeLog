@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed EBox::Samba::LdbObject::get in list context
 3.0.10
 	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
 	+ Integration with Disaster Recovery service
