@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed unsafe characters error when getting title of progress
+	  indicator in progress dialog
 	+ Added use utf8 to dashboard template to fix look of closable messages
 3.0.9
 	+ Adapted file downloads to the new utf8 fixes

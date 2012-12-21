@@ -56,7 +56,7 @@ sub _process
     my @params = ();
     push @params, (progressId => $self->_progressId);
 
-    my $title = ($self->param('title'));
+    my $title = $self->unsafeParam('title');
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl
