@@ -1,3 +1,5 @@
+HEAD
+	+ Remove duplicated slash in samba shares and profiles paths
 3.0.11
 	+ Fixed EBox::Samba::LdbObject::get in list context
 3.0.10

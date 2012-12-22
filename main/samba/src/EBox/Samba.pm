@@ -65,8 +65,8 @@ use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
-use constant SHARES_DIR           => SAMBA_DIR . '/shares';
-use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
+use constant SHARES_DIR           => SAMBA_DIR . 'shares';
+use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
