@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed share sync regression after directory existance check
 3.0.12
 	+ Write zfilesync conf only when needed
 	+ Start zfilesync also when disaster recovery is available

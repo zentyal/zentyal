@@ -234,7 +234,7 @@ sub _setFilesSyncConf
         push(@folders, @{$mod->syncFolders()});
     }
     # skip non-existent folders
-    @folders = grep { -d $_->{path} } @folders;
+    @folders = grep { EBox::Sudo::fileTest('-d', $_->{path}) } @folders;
 
     # get credentials
     my $cred = new EBox::RemoteServices::Cred();
