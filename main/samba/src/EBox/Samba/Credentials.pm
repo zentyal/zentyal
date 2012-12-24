@@ -91,6 +91,25 @@ sub _encodeKerberosKeyData
     return $blob;
 }
 
+sub _encodeKerberosKeyDataNew
+{
+    my ($self, $key, $keyOffset) = @_;
+
+    my $reserved1 = 0;
+    my $reserved2 = 0;
+    my $reserved3 = 0;
+    my $iterationCount = 1;
+    my $keyType   = $key->{type};
+    my $keyLength = length ($key->{value});
+
+    my $blob = pack ('s s l l L L l',
+                     $reserved1, $reserved2, $reserved3,
+                     $iterationCount,
+                     $keyType, $keyLength, $keyOffset);
+
+    return $blob;
+}
+
 sub _encodeKerberosProperty
 {
     my ($self, $keys, $oldKeys) = @_;
@@ -133,6 +152,67 @@ sub _encodeKerberosProperty
                      $defaultSaltOffset,
                      $credentialsString,
                      $oldCredentialsString,
+                     $salt, $valuesString);
+
+    return $blob;
+}
+
+sub _encodeKerberosNewerKeysProperty
+{
+    my ($self, $keys, $oldKeys) = @_;
+
+    my $salt = @{$keys}[0]->{salt}; # FIXME
+    $salt = encode('UTF16-LE', $salt);
+    my $defaultSaltLength    = length ($salt);
+    my $defaultSaltMaxLength = length ($salt);
+
+    my $credentials    = [];
+    my $serviceCredentials = [];
+    my $oldCredentials = [];
+    my $olderCredentials = [];
+    my $keyValues      = [];
+    my $keyValueOffset = 16 + 8 + (scalar @{$keys} * 24) + $defaultSaltLength;
+    $keyValueOffset += (scalar @{$oldKeys} * 24) if defined $oldKeys;
+
+    foreach my $key (@{$keys}) {
+        push ($credentials, $self->_encodeKerberosKeyDataNew($key, $keyValueOffset));
+        push ($keyValues, $key->{value});
+        $keyValueOffset += length ($key->{value});
+    }
+    if (defined $oldKeys) {
+        foreach my $key (@{$oldKeys}) {
+            push ($oldCredentials, $self->_encodeKerberosKeyDataNew($key, $keyValueOffset));
+            push ($keyValues, $key->{value});
+            $keyValueOffset += length ($key->{value});
+        }
+    }
+
+    my $revision = 4;
+    my $flags = 0;
+    my $credentialCount = scalar @{$credentials};
+    my $serviceCredentialCount = scalar @{$serviceCredentials};
+    my $oldCredentialCount = scalar @{$oldCredentials};
+    my $olderCredentialCount = scalar @{$olderCredentials};
+    my $defaultIterationCount = 1;
+    my $credentialsString = join ('', @{$credentials});
+    my $serviceCredentialsString = join ('', @{$serviceCredentials});
+    my $oldCredentialsString = join ('', @{$oldCredentials});
+    my $olderCredentialsString = join ('', @{$olderCredentials});
+    my $defaultSaltOffset = 16 + 8 + length ($credentialsString) +
+        length ($serviceCredentialsString) + length ($oldCredentialsString) +
+        length ($olderCredentialsString);
+    my $valuesString = join ('', @{$keyValues});
+    my $blob = pack ('s s s s s s s s L L a* a* a* a* a* a*',
+                     $revision, $flags,
+                     $credentialCount, $serviceCredentialCount,
+                     $oldCredentialCount, $olderCredentialCount,
+                     $defaultSaltLength, $defaultSaltMaxLength,
+                     $defaultSaltOffset,
+                     $defaultIterationCount,
+                     $credentialsString,
+                     $serviceCredentialsString,
+                     $oldCredentialsString,
+                     $olderCredentialsString,
                      $salt, $valuesString);
 
     return $blob;
@@ -210,7 +290,7 @@ sub _encodeUserProperty
 
 sub _encodeUserProperties
 {
-    my ($self, $kerberosKeys, $digest) = @_;
+    my ($self, $kerberosKeys, $kerberosNewerKeys, $digest) = @_;
 
     my @packages = ();
     my $userProperties = '';
@@ -221,14 +301,24 @@ sub _encodeUserProperties
     my $reserved4 = '';
     my $reserved5 = 0;
     my $signature = 0x50;
-    my $propertyCount = (defined $kerberosKeys) + (defined $digest) + 1;
+    my $propertyCount = 0;
+    $propertyCount += 1 if (scalar @{$kerberosNewerKeys} > 0);
+    $propertyCount += 1 if (scalar @{$kerberosKeys} > 0);
+    $propertyCount += 1 if (defined $digest);
+    $propertyCount += 1; # Packages property
 
     # Samba4 expects reserved4 to be an array of '0x2000'
     for (my $i=0; $i<48; $i++) {
         $reserved4 .= pack('H*', 2000);
     }
 
-    if (defined $kerberosKeys) {
+    if (scalar @{$kerberosNewerKeys} > 0) {
+        my $kerberosNewerKeysProperty = $self->_encodeKerberosNewerKeysProperty($kerberosNewerKeys);
+        $userProperties .= $self->_encodeUserProperty('Primary:Kerberos-Newer-Keys', $kerberosNewerKeysProperty);
+        push (@packages, encode('UTF16-LE', 'Kerberos-Newer-Keys'));
+    }
+
+    if (scalar @{$kerberosKeys} > 0) {
         my $kerberosProperty = $self->_encodeKerberosProperty($kerberosKeys);
         $userProperties .= $self->_encodeUserProperty('Primary:Kerberos', $kerberosProperty);
         push (@packages, encode('UTF16-LE', 'Kerberos'));
@@ -271,25 +361,41 @@ sub _encodeSambaCredentials
     my $credentials = {};
 
     # Remove the type 23 from keys because it is the unicodePwd attribute
-    # and make sure type 3 is the first in the array, it must be the first
-    # key or samba will fail to write the supplementalCredentials attribute
+    # NOTE The order of the keys in the blob is important. In Primary:Kerberos,
+    # first key must be type 3, then type 1. In Primary:Kerberos-Newer-Keys,
+    # the order is type 18. type 17, type 3 and type 1
     my $newList = [];
+    my $newerList = [];
     foreach my $key (@{$krbKeys}) {
         if ($key->{type} == 23) {
             $credentials->{unicodePwd} = $key->{value};
             next;
         } elsif ($key->{type} == 3) {
             @{$newList}[0] = $key;
+            @{$newerList}[2] = $key;
             next;
         } elsif ($key->{type} == 1) {
             @{$newList}[1] = $key;
+            @{$newerList}[3] = $key;
+            next;
+        } elsif ($key->{type} == 17) {
+            @{$newerList}[1] = $key;
+            next;
+        } elsif ($key->{type} == 18) {
+            @{$newerList}[0] = $key;
             next;
         }
     }
 
-    if (scalar @{$krbKeys} >= 2) {
-        $credentials->{supplementalCredentials} = $self->_encodeUserProperties($newList);
+    # newerKeys must contain 4 keys, newList must contain 2
+    unless (defined @{$newerList}[0] and defined @{$newerList}[1] and
+            defined @{$newerList}[2] and defined @{$newerList}[3]) {
+        $newerList = [];
     }
+    unless (defined @{$newList}[0] and defined @{$newList}[1]) {
+        $newList = [];
+    }
+    $credentials->{supplementalCredentials} = $self->_encodeUserProperties($newList, $newerList);
 
     return $credentials;
 }
