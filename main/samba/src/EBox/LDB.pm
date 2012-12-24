@@ -18,6 +18,8 @@ package EBox::LDB;
 use strict;
 use warnings;
 
+use EBox::UsersAndGroups::Principal;
+
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
 use EBox::Samba::User;
@@ -442,52 +444,50 @@ sub ldapServicePrincipalsToLdb
     my ($self) = @_;
 
     EBox::info('Loading Zentyal service principals into samba database');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    my $global = EBox::Global->getInstance();
+    my $sysinfo = $global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
-    my $fqdn = $sysinfo->fqdn();
 
-    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    my $modules = $global->modInstancesOfType('EBox::KerberosModule');
     foreach my $module (@{$modules}) {
-        my $principals = $module->kerberosServicePrincipals();
-        my $samAccountName = "$principals->{service}-$hostname";
-        try {
+        my $modulePrincipals = $module->kerberosServicePrincipals();
+        foreach my $modulePrincipal (@{$modulePrincipals}) {
+            my $samAccountName = "$modulePrincipal->{service}-$hostname";
             my $smbUser = new EBox::Samba::User(samAccountName => $samAccountName);
-            unless ($smbUser->exists()) {
-                # Get the heimdal user to extract the kerberos keys. All service
-                # principals for each module should have the same keys, so take
-                # the first one.
-                my $usersModule = EBox::Global->modInstance('users');
-                my $p = @{$principals->{principals}}[0];
-                my $baseDn = $usersModule->ldap->dn();
-                my $realm = $usersModule->kerberosRealm();
-                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
-                my $user = new EBox::UsersAndGroups::User(dn => $dn);
-                # If the user does not exists the module has not been enabled yet
-                next unless ($user->exists());
 
-                EBox::info("Importing service principal $dn");
-                my $params = {
-                    description  => scalar ($user->get('description')),
-                    kerberosKeys => $user->kerberosKeys(),
-                };
-                $smbUser = EBox::Samba::User->create($samAccountName, $params);
-                $smbUser->setCritical(1);
-                $smbUser->setViewInAdvancedOnly(1);
-            }
-            foreach my $p (@{$principals->{principals}}) {
+            # Get the zentyal principal to extract the kerberos keys
+            my $zentyalPrincipal = new EBox::UsersAndGroups::Principal(
+                krb5PrincipalName => $modulePrincipal->{krb5PrincipalName});
+
+            # If the principal does not exists the module has not been enabled yet
+            next unless ($zentyalPrincipal->exists());
+
+            if ($smbUser->exists()) {
+                # Update keys
+                $smbUser->setCredentials($zentyalPrincipal->kerberosKeys());
+            } else {
                 try {
-                    my $spn = "$p/$fqdn";
+                    my $params = { kerberosKeys => $zentyalPrincipal->kerberosKeys() };
+                    $smbUser = EBox::Samba::User->create($samAccountName, $params);
+                    $smbUser->setCritical(1);
+                    $smbUser->setViewInAdvancedOnly(1);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding account '$samAccountName': $error");
+                    next;
+                };
+                # Add SPN for the user
+                my ($spn, undef) = split (/@/, $modulePrincipal->{krb5PrincipalName});
+                try {
                     EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
                     $smbUser->addSpn($spn);
                 } otherwise {
                     my $error = shift;
-                    EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
+                    EBox::error("Error adding SPN '$spn' to account '$samAccountName': $error");
                 };
             }
-        } otherwise {
-            my $error = shift;
-            EBox::error("Error adding account '$samAccountName': $error");
-        };
+        }
     }
 }
 

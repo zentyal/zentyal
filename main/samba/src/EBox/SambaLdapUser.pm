@@ -42,6 +42,34 @@ sub new
     return $self;
 }
 
+# Method: _addPrincipal
+#
+#   This will catch principals creations and add them to samba
+#
+sub _addPrincipal
+{
+    my ($self, $principal) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+    $self->{ldb}->ldapServicePrincipalsToLdb();
+}
+
+# Method: _modifyPrincipal
+#
+#   This will catch principals modifications and update them in samba
+#
+sub _modifyPrincipal
+{
+    my ($self, $principal) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+    $self->{ldb}->ldapServicePrincipalsToLdb();
+}
+
 # Method: _preAddUser
 #
 #   This method add the user to samba LDAP. The account will be

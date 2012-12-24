@@ -21,6 +21,21 @@ use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::UsersAndGroups::Keytab;
+
+sub _addPrincipal
+{
+    my ($self, $principal) = @_;
+
+    my $squid = EBox::Global->modInstance('squid');
+    my $k = $squid->kerberosKeytab();
+    my $keytab = new EBox::UsersAndGroups::Keytab(file => $k->{file}, user => $k->{user});
+    foreach my $spn (@{$squid->kerberosServicePrincipals()}) {
+        if ($principal->get('krb5PrincipalName') eq $spn->{krb5PrincipalName}) {
+            $keytab->update($principal);
+        }
+    }
+}
 
 sub _addUser
 {

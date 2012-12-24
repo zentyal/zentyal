@@ -91,10 +91,27 @@ sub kerberosServicePrincipals
 {
     my ($self) = @_;
 
-    my $data = { service    => 'proxy',
-                 principals => [ 'HTTP' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy' };
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $fqdn = $sysinfo->fqdn();
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+    my $data = [
+        {
+            service => 'proxy',
+            krb5PrincipalName => "HTTP/$fqdn\@$realm",
+        }
+    ];
+    return $data;
+}
+
+sub kerberosKeytab
+{
+    my ($self) = @_;
+
+    my $data = {
+        file => KEYTAB_FILE,
+        user => 'proxy',
+    };
     return $data;
 }
 
@@ -109,8 +126,7 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-
-   if (not $version) {
+    if (not $version) {
        # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(
@@ -131,8 +147,7 @@ sub enableActions
 {
     my ($self) = @_;
 
-    # Create the kerberos service princiapl in kerberos,
-    # export the keytab and set the permissions
+    # Create the kerberos service princiapl in kerberos
     $self->kerberosCreatePrincipals();
 
     try {
