@@ -29,7 +29,7 @@ my ($username, $password, $name, $bundleId) = @ARGV;
 
 unless ($username and $password) {
     print "Usage: $0 <username> <password> [servername [bundle_id]]\n";
-    exit 1;
+    exit(1);
 }
 
 unless ($name) {
@@ -46,11 +46,19 @@ my @fields = (username => $username,
               password => $password,
               eboxCommonName => $name);
 
-if ($bundleId) {
-    push (@fields, options => $bundleId);
-}
-
 $subscription->set(@fields);
+
+if ($subscription->showAvailable()) {
+    if ($bundleId) {
+        push( @fields, options => $bundleId );
+        $subscription->reloadTable(); # To notice the change of field
+        undef $subscription->{'fields'};
+        $subscription->set(@fields);
+    } else {
+        print "You must provide bundle_id as you have more than one option available\n";
+        exit(2);
+    }
+}
 
 $global->saveAllModules();
 

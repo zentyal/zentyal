@@ -1087,7 +1087,7 @@ sub commAddOn
     my ($self, $force) = @_;
 
     my $ret = $self->addOnDetails('zarafa', $force);
-    return ( $ret->{sb} == 1 );
+    return ( defined($ret->{sb}) and $ret->{sb} == 1 );
 }
 
 # Method: addOnDetails
