@@ -1,4 +1,8 @@
 HEAD
+	+ auto-subscribe now works when multiple bundles are available
+	+ Avoid usage of private attributes in Subscription model parent
+	  class
+	+ Avoid warning when checking commAddOn
 	+ Fixed share sync regression after directory existance check
 3.0.12
 	+ Write zfilesync conf only when needed

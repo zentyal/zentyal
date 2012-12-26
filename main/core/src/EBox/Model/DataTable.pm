@@ -3099,6 +3099,7 @@ sub reloadTable
     my ($self) = @_;
 
     undef $self->{'table'};
+    undef $self->{'fields'};
     return $self->table();
 }
 
