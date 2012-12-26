@@ -46,18 +46,18 @@ $csvFile or argError('No dump file specified');
 EBox::init();
 
 if (not defined $csvFile) {
-    die "Not dump file supplied";
+    _error("Not dump file supplied");
 } elsif (not -e $csvFile) {
-    die "File $csvFile does not exists";
+    _error("File $csvFile does not exists");
 } elsif (not -r $csvFile) {
-    die "File $csvFile is not readable";
+    _error("File $csvFile is not readable");
 }
 
 my $usersMod = EBox::Global->getInstance()->modInstance('users');
 if (not $usersMod) {
-    die "User and group  module is not installed";
+    _error("User and group  module is not installed");
 } elsif (not $usersMod->isEnabled()) {
-    die "Users and group module not enabled. Enable it and try again";
+    _error("Users and groups module not enabled. Enable it and try again");
 }
 
 my %passwords;
@@ -151,10 +151,19 @@ sub _addGroup
 sub argError
 {
     my ($err) = @_;
+
     print "$err\n" if $err;
     print "Usage:\n";
-    print "\t$0 [-v] ] DUMP_FILE";
-    die;
+    print "\t$0 [-v] DUMP_FILE\n";
+    exit 1;
+}
+
+sub _error
+{
+    my ($err) = @_;
+
+    print "$err\n";
+    exit 1;
 }
 
 1;

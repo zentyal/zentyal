@@ -35,7 +35,7 @@ EBox::init();
 
 my ($bakFile, $output) = @ARGV;
 defined $bakFile or
-    die "Usage:\n\t$0 BACKUP_FILE [OUTPUT_FILE]\n";
+    _error("Usage:\n\t$0 BACKUP_FILE [OUTPUT_FILE]\n");
 
 my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
 try {
@@ -51,7 +51,7 @@ sub _ldif
     my ($bakDir) = @_;
     my $path = "$bakDir/eboxbackup/users.bak/master-data.ldif";
     if (not EBox::Sudo::fileTest('-r', $path)) {
-        die "Cannot read file LDIF file $path\n Are yo usure users module is in the backup?";
+        _error("Cannot read file LDIF file $path\n Are yo usure users module is in the backup?");
     }
     my $pathCopy = "$bakDir/tmp.lidf";
     EBox::Sudo::root("cp '$path' '$pathCopy'");
@@ -67,7 +67,7 @@ sub _dumpUsers
 
     my $baseDN = _getBaseDN($ldif);
     if (not $baseDN) {
-        die "Cannot found base DN in the LDIF from the backup";
+        _error("Cannot found base DN in the LDIF from the backup");
     }
     my $userClass = 'posixAccount';
     my $userDN = "ou=Users,$baseDN";;
@@ -165,6 +165,14 @@ sub _getBaseDN
     $entry or return undef;
 
     return $entry->dn();
+}
+
+sub _error
+{
+    my ($err) = @_;
+
+    print "$err\n";
+    exit 1;
 }
 
 1;
