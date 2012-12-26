@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid usage of private attributes in Subscription model parent
+	  class
 	+ Avoid warning when checking commAddOn
 	+ Fixed share sync regression after directory existance check
 3.0.12
