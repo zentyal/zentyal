@@ -1,4 +1,5 @@
 HEAD
+	+ auto-subscribe now works when multiple bundles are available
 	+ Avoid usage of private attributes in Subscription model parent
 	  class
 	+ Avoid warning when checking commAddOn
