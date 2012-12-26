@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2012 EBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,45 +29,43 @@ use EBox::Backup;
 # known issues:
 #
 # 1- if your default gateway is dhcp and you have more gateways,
-#  one of the static interfaces gateways will set as default
+#    one of the static interfaces gateways will be set as default
 #
-# 2- protocols which incldue any tcp/udp or any connection are not imported
-# 3- this is assummed to be a clean machine: foreign existent references
+# 2- protocols which include any tcp/udp or any connection are not imported
+#
+# 3- this is assumed to be run in a clean machine: foreign existent references
 #     to elements which were in the imported modules will be broken
-# 4- Services added by modules not imported which aren't in
-#    the imported data will be lost
+#
+# 4- data in imported modules not present in the backup will be lost
+#    this affects to objects, services, network and firewall
 
-# TODO
-#  - EBox::Backup::_unpackAndVery an _unpackModulesRestoreData must be
-# converted in public method
-#  - Try (and make it work) with composites which are children of a row
-#  - Add autoamtic save changes?
+# TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
     objects => {
         modelDirs => {
             ObjectTable => 'objectTable',
             MemberTable => 'members',
-           },
-       },
+        },
+    },
 
     services => {
         modelDirs => {
             ServiceTable => 'serviceTable',
             ServiceConfigurationTable => 'serviceConfigurationTable',
-           },
+        },
         preInsertModelsData => \&_setDefaultServices,
         rowAdapter => {
                'ServiceTable' => \&_serviceTableRowAdapter,
-           },
-       },
+        },
+    },
 
     network => {
         modelDirs => {
             GatewayTable => 'gatewaytable',
             MultiGwRulesDataTable => 'multigwrulestable',
-           },
+        },
         preInsertModelsData => \&_networkPreInsert,
-   },
+    },
 );
 
 EBox::init();
@@ -104,10 +102,8 @@ sub _importModule
     }
 
     my $tree = _moduleComponentTree($modName);
-#   print Dumper($tree);
 
     my $filled = _fillModuleTree($module, $tree, $bakData);
-#    print Dumper($filled);
 
     my $modParams = _moduleParameters($modName);
     if ((exists $modParams->{preInsertModelsData}) and $modParams->{preInsertModelsData} ) {
@@ -140,9 +136,7 @@ sub _moduleComponentTree
         }
     }
 
-    my $modelsByName = {
-                             map { ($_ => $_ )  } @{ $models }
-                       };
+    my $modelsByName = { map { ($_ => $_ ) } @{ $models } };
     my @tree;
     foreach my $name (keys %rootComponents) {
         push @tree, _componentForTree($name, $modelsByName, $childsByParent, $composites);
@@ -241,7 +235,7 @@ sub _fillComposite
     $composite->{components} = [];
     foreach my $child (@{ $composite->{childsPrototypes} }) {
         my $component =  Clone::Fast::clone($child);
-        # XXX this shoudl be fixed for components which have a parentRow!
+        # XXX: this should be fixed for components which have a parentRow!
         my $componentDir;
         if ($component->{type} eq 'model') {
             $componentDir = _modelDir($moduleName, $component->{name}, $dir);
@@ -287,7 +281,7 @@ sub _fillModelWithChilds
         return;
     }
 
-    # XXX asummed only one idx param
+    # XXX: asummed only one idx param
     my $idxParam = basename($idxKeys->[0]->{key});
     $idxParam =~ s/\.idx$//;
      if (not $idxParam) {
@@ -306,7 +300,7 @@ sub _fillModelWithChilds
     }
 
     my @rows;
-    my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
+    my @order = @{ _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys) };
     foreach my $rowId (@order) {
         my $idxValue = $idxInfo{$rowId};
         if (not $idxValue) {
@@ -338,7 +332,7 @@ sub _fillModelWithChilds
             push @childRows, $spec;
         }
 
-        # TODO childs here
+        # TODO: childs here
         my $row = {
             id => $rowId,
             elements => \%elements,
@@ -430,10 +424,9 @@ sub _elementsForRow
     my $rowDir = "$dir/$rowId";
     my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
     if (not @{ $keysForRow }) {
-        EBox::info("Not found data for row with old id $rowId. Skipping" );
-            next;
-        }
-
+        EBox::info("Not found data for row with old id $rowId. Skipping");
+        return {};
+    }
 
     my %elements;
     foreach my $key (@{ $keysForRow }) {
@@ -443,8 +436,7 @@ sub _elementsForRow
 
     my $modParams = _moduleParameters($moduleName);
     if ((exists $modParams->{rowAdapter}->{$modelName}) and
-        ($modParams->{rowAdapter}->{$modelName})
-       ) {
+        ($modParams->{rowAdapter}->{$modelName})) {
         return $modParams->{rowAdapter}->{$modelName}->(\%elements);
     }
 
@@ -492,7 +484,7 @@ sub _moduleParameters
     return $params;
 }
 
-# in 2.2 not all model has directory equal to its name
+# in 2.2 not all models have directory equal to its name
 sub _modelDir
 {
     my ($moduleName, $modelName, $dir) = @_;
@@ -506,7 +498,7 @@ sub _modelDir
         $modelDir = $modelName;
     }
 
-    return  "$dir/$modelDir"
+    return "$dir/$modelDir"
 }
 
 sub _getModelOrderValue
@@ -601,7 +593,7 @@ sub _insertData
             _insertRowsInModel($model, $component->{rows});
         }
     } else {
-        EBox::error("Bad type: $type. full component: " . Dumper($component) );
+        EBox::error("Bad type: $type. full component: " . Dumper($component));
     }
 }
 
@@ -625,9 +617,7 @@ sub _insertElementsInForm
         $model->set(%elements , force => 1);
     } otherwise {
         my ($ex) = @_;
-        EBox::error("$ex\nCannot set data in form " . $model->name() .
-                        ' elements ' . Dumper(\%elements)
-                   );
+        EBox::error("$ex\nCannot set data in form " . $model->name() . ' elements ' . Dumper(\%elements));
     };
 }
 
@@ -638,7 +628,7 @@ sub _insertRowsInModel
         my $newRowId;
         try {
             my @addParams = %{ $row->{elements}};
-            # try to use oldId to rpeserve refencies
+            # try to use oldId to preserve referencies
             if (exists $row->{id} and $row->{id}) {
                 push @addParams, id => $row->{id};
             }
@@ -658,14 +648,14 @@ sub _insertRowsInModel
             my $subModel =  $newRow->subModel($subModelField);
             _insertRowsInModel($subModel, $child->{rows});
         }
-
     }
 }
 
 sub _cleanModule
 {
     my ($module) = @_;
-    # XXX try to remove by row to mantain more integrity?
+
+    # TODO: try to remove by row to mantain more integrity?
     my $global = EBox::GlobalImpl->instance();
 
     $global->delete_dir("global/conf/modules/$module");
@@ -674,7 +664,6 @@ sub _cleanModule
     $global->{redis}->delete_dir("$module/ro");
     $global->{redis}->unset("$module/state");
 }
-
 
 sub _importKeys
 {
@@ -698,7 +687,6 @@ sub _importKeys
             my $value = $allKeys->{$oldKey}->{value};
             $mod->set($iKey, $value);
         }
-
     }
 }
 
@@ -773,7 +761,7 @@ sub _serviceTableRowAdapter
 {
     my ($elements) = @_;
 
-    # printableName attribute didnt exists in 2.2.X
+    # printableName attribute didn't exists in 2.2.X
     if (not $elements->{printableName}) {
             # set printable name same then name
             $elements->{printableName} = $elements->{name};
@@ -830,6 +818,7 @@ sub _mangleGatewayTable
 
     $model->{rows}  = \@newRows;
 }
+
 sub _networkImportInterfaces
 {
     my ($mod, $allKeys)= @_;

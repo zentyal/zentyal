@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2012 EBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -28,7 +29,7 @@ use EBox::Util::Random;
 use constant PASSWD_LEN => 10;
 
 # Limitations:
-#  1- only works whith backups from master servers
+#  1- only works with backups from master servers, not from slaves
 
 EBox::init();
 
@@ -159,7 +160,7 @@ sub _groupString
 sub _getBaseDN
 {
     my ($ldif) = @_;
-    # get DN from first entry, not elegant but seems to work with us ldifs
+    # get DN from first entry, not elegant but seems to work with our ldifs
     my $entry = $ldif->read_entry();
     $entry or return undef;
 
