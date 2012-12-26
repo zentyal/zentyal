@@ -1,3 +1,5 @@
+HEAD
+	+ reloadTable from DataTable now remove cached fields as well
 3.0.10
 	+ Fixed unsafe characters error when getting title of progress
 	  indicator in progress dialog
