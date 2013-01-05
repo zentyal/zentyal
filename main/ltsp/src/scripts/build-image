@@ -41,7 +41,7 @@ if (scalar @ARGV >= 2) {
         EBox::Sudo::root('service nbd-server restart');
     } otherwise {
         $ltsp->st_set_string('error', __('Build image failed'));
-        print "Build image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+        print "Build image failed. Check /var/log/zentyal/ltsp.log for details.\n";
     } finally {
         $ltsp->st_set_string('work', 'none');
     };

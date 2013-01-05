@@ -18,6 +18,8 @@ if (scalar @ARGV == 2) {
         my $ltsp = EBox::Global->modInstance('ltsp');
 
         $ltsp->st_set_string('work', 'update');
+        $ltsp->st_set_string('error', '');
+
         print "Updating $chroot image...\n";
 
         my $CHROOT_DIR = "/opt/ltsp/$chroot";
@@ -29,11 +31,13 @@ if (scalar @ARGV == 2) {
                   . "&& ltsp-update-image --arch $chroot";
 
         try {
-            # TODO: log
-            EBox::Sudo::root($cmd);
+            # TODO: add more messages to ltsp.log (with timestamps)
+            EBox::Sudo::root("$cmd >> /var/log/zentyal/ltsp.log");
         } otherwise {
             $ltsp->st_set_string('error', __('Update image failed'));
-            print "Update image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+            print "Update image failed. Check /var/log/zentyal/ltsp.log for details.\n";
+            # In case the command failed before the umount
+            EBox::Sudo::root("umount /opt/ltsp/$chroot/proc > /dev/null");
         } finally {
             $ltsp->st_set_string('work', 'none');
         };
