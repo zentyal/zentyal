@@ -34,8 +34,9 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::IPSLogHelper;
 use List::Util;
 
-use constant SURICATA_CONF_FILE => "/etc/suricata/suricata-debian.yaml";
-use constant SURICATA_DEFAULT_FILE => "/etc/default/suricata";
+use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
+use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
+use constant SURICATA_INIT_FILE => '/etc/init/zentyal.suricata.conf';
 use constant SNORT_RULES_DIR => '/etc/snort/rules';
 
 # Group: Protected methods
@@ -72,10 +73,8 @@ sub _daemons
 {
     return [
         {
-         'name' => 'suricata',
-         'type' => 'init.d',
-         'precondition' => \&_suricataNeeded,
-         'pidfiles' => ['/var/run/suricata.pid']
+         'name' => 'zentyal.suricata',
+#         'precondition' => \&_suricataNeeded,
         }
     ];
 }
@@ -140,6 +139,9 @@ sub _setConf
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled() ]);
+
+    $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
+                         [ ]);
 }
 
 # Group: Public methods
