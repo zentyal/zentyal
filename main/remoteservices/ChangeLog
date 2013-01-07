@@ -1,4 +1,6 @@
 HEAD
+	+ Update SambaVirusShare reporter
+	+ Update SambaVirus reporter
 	+ auto-subscribe now works when multiple bundles are available
 	+ Avoid usage of private attributes in Subscription model parent
 	  class

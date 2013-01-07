@@ -1,4 +1,7 @@
 HEAD
+	+ shareByFilename method now also returns the path and type of the share
+	+ Fix shareByFilename method
+	+ Update Loghelper to the new log formats
 	+ Remove duplicated slash in samba shares and profiles paths
 3.0.11
 	+ Fixed EBox::Samba::LdbObject::get in list context
