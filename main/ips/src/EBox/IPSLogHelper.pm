@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IDSLogHelper;
+package EBox::IPSLogHelper;
 
 use base 'EBox::LogHelper';
 
@@ -99,7 +99,7 @@ sub processLine # (file, line, logger)
     $dataToInsert{protocol} = $protocol;
     $dataToInsert{event} = 'alert';
 
-    $dbengine->insert('ids_event', \%dataToInsert);
+    $dbengine->insert('ips_event', \%dataToInsert);
 }
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::IDS::Composite::General
+# Class: EBox::IPS::Composite::General
 #
 #   Class description
 #
 
-package EBox::IDS::Composite::General;
+package EBox::IPS::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -29,8 +29,8 @@ use EBox::Gettext;
 use EBox::Global;
 
 # Constants
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=IDS&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=IDS&utm_campaign=enterprise_edition';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=enterprise_edition';
 
 
 # Group: Public methods
@@ -82,8 +82,8 @@ sub _description
     {
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
-        pageTitle       => __('Intrusion Detection System'),
-        compositeDomain => 'IDS',
+        pageTitle       => __('Intrusion Detection/Prevention System'),
+        compositeDomain => 'IPS',
     };
 
     return $description;
@@ -94,7 +94,7 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the IDS feature in the automatic security updates.',
+    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the IPS feature in the automatic security updates.',
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');

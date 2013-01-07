@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-package EBox::IDS::Model::AlertGraph;
+package EBox::IPS::Model::AlertGraph;
 
 use base 'EBox::Logs::Model::Graph';
 
@@ -37,7 +37,7 @@ sub new
 
 sub dbTableName
 {
-    return 'ids_alert';
+    return 'ips_alert';
 }
 
 sub dbFields
@@ -67,7 +67,7 @@ sub _table
         tableName          => 'AlertGraph',
         printableTableName => __('Alert Graph'),
 
-        modelDomain        => 'IDS',
+        modelDomain        => 'IPS',
         #help              => __(''),
 
         defaultActions => [ 'editField', 'changeView' ],

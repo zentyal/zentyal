@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::IDS
+# Class: EBox::IPS
 #
 #      Class description
 #
 
-package EBox::IDS;
+package EBox::IPS;
 
 use strict;
 use warnings;
@@ -31,7 +31,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
-use EBox::IDSLogHelper;
+use EBox::IPSLogHelper;
 use List::Util;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
@@ -50,13 +50,13 @@ use constant SNORT_RULES_DIR => '/etc/snort/rules';
 #
 # Returns:
 #
-#        <EBox::IDS> - the recently created module
+#        <EBox::IPS> - the recently created module
 #
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'ids',
-                                      printableName => 'IDS',
+    my $self = $class->SUPER::_create(name => 'ips',
+                                      printableName => __('IDS/IPS'),
                                       @_);
     bless($self, $class);
     return $self;
@@ -146,10 +146,10 @@ sub _setConf
         @rules = map { "emerging-$_" } @rules;
     }
 
-    $self->writeConfFile(SNORT_CONF_FILE, 'ids/snort.conf.mas',
+    $self->writeConfFile(SNORT_CONF_FILE, 'ips/snort.conf.mas',
                          [ rules => \@rules ]);
 
-    $self->writeConfFile(SNORT_DEBIAN_CONF_FILE, 'ids/snort.debian.conf.mas',
+    $self->writeConfFile(SNORT_DEBIAN_CONF_FILE, 'ips/snort.debian.conf.mas',
                          [ ifaces => $self->_validIfaces() ]);
 }
 
@@ -166,8 +166,8 @@ sub _setConf
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
-                                    'text' => __('IDS'),
+    $root->add(new EBox::Menu::Item('url' => 'IPS/Composite/General',
+                                    'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 228));
 }
@@ -186,12 +186,12 @@ sub usedFiles
     return [
         {
             'file' => SNORT_CONF_FILE,
-            'module' => 'ids',
+            'module' => 'ips',
             'reason' => 'Add rules to snort configuration'
         },
         {
             'file' => SNORT_DEBIAN_CONF_FILE,
-            'module' => 'ids',
+            'module' => 'ips',
             'reason' => 'Add interfaces to snort configuration'
         }
     ];
@@ -247,7 +247,7 @@ sub logHelper
 {
     my ($self) = @_;
 
-    return (new EBox::IDSLogHelper);
+    return (new EBox::IPSLogHelper);
 }
 
 # Method: tableInfo
@@ -273,8 +273,8 @@ sub tableInfo
     my @order = qw(timestamp priority description source dest protocol event);
 
     return [{
-            'name' => __('IDS'),
-            'tablename' => 'ids_event',
+            'name' => __('IPS'),
+            'tablename' => 'ips_event',
             'titles' => $titles,
             'order' => \@order,
             'timecol' => 'timestamp',
@@ -289,7 +289,7 @@ sub _consolidate
 {
     my ($self) = @_;
 
-    my $table = 'ids_alert';
+    my $table = 'ips_alert';
 
     my $spec = {
         accummulateColumns  => { alert => 0 },
@@ -340,7 +340,7 @@ sub usingASU
 
 # Method: rulesNum
 #
-#     Get the number of available IDS rules
+#     Get the number of available IPS rules
 #
 # Parameters:
 #
@@ -348,7 +348,7 @@ sub usingASU
 #
 # Returns:
 #
-#     Int - the number of available IDS rules
+#     Int - the number of available IPS rules
 #
 sub rulesNum
 {

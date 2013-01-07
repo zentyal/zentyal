@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IDS::Model::Rules;
+package EBox::IPS::Model::Rules;
 
-# Class: EBox::IDS::Model::Rules
+# Class: EBox::IPS::Model::Rules
 #
 #   Class description
 #
@@ -51,7 +51,7 @@ use constant DEFAULT_RULES => qw(local bad-traffic exploit community-exploit
 #
 # Returns:
 #
-#       <EBox::IDS::Model::Model> - the recently
+#       <EBox::IPS::Model::Model> - the recently
 #       created model
 #
 sub new
@@ -190,7 +190,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
-        modelDomain        => 'IDS',
+        modelDomain        => 'IPS',
         printableRowName   => __('rule'),
         help               => __('Select the sets of rules you want apply when scanning the network traffic'),
     };

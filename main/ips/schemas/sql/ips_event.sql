@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ids_event(
+CREATE TABLE IF NOT EXISTS ips_event(
     priority INT,
     description VARCHAR(128),
     source VARCHAR(32),

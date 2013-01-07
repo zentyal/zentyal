@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IDS::Composite::AlertReport;
+package EBox::IPS::Composite::AlertReport;
 
 use base 'EBox::Model::Composite';
 
@@ -50,8 +50,8 @@ sub _description
     my $description = {
         layout          => 'top-bottom',
         name            => 'AlertReport',
-        printableName   => __('IDS Alerts report'),
-        compositeDomain => 'IDS',
+        printableName   => __('IPS Alerts report'),
+        compositeDomain => 'IPS',
     };
 
     return $description;

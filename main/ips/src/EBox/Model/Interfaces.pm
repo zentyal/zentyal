@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IDS::Model::Interfaces;
+package EBox::IPS::Model::Interfaces;
 
-# Class: EBox::IDS::Model::Interfaces
+# Class: EBox::IPS::Model::Interfaces
 #
 #   Class description
 #
@@ -41,7 +41,7 @@ use EBox::Types::Text;
 #
 # Returns:
 #
-#       <EBox::IDS::Model::Model> - the recently
+#       <EBox::IPS::Model::Model> - the recently
 #       created model
 #
 sub new
@@ -132,11 +132,11 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
-        modelDomain        => 'IDS',
+        modelDomain        => 'IPS',
         sortedBy           =>    'iface',
         printableRowName   => __('interface'),
         help               =>
-     __('Select in which interfaces IDS system will be enabled'),
+     __('Select in which interfaces IPS system will be enabled'),
     };
     return $dataTable;
 }

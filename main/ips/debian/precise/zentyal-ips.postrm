@@ -5,7 +5,7 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
         ;;
     purge)
-        /usr/share/zentyal/purge-module ids
+        /usr/share/zentyal/purge-module ips
         ;;
 esac
 
