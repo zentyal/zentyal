@@ -24,7 +24,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 
-use constant SNORT_LOGFILE => '/var/log/snort/alert';
+use constant SURICATA_LOGFILE => '/var/log/suricata/FIXME';
 
 sub new
 {
@@ -44,7 +44,7 @@ sub new
 #
 sub logFiles
 {
-    return [SNORT_LOGFILE];
+    return [SURICATA_LOGFILE];
 }
 
 # Method: processLine

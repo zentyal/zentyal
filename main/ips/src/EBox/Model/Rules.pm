@@ -27,17 +27,15 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
+use EBox::Types::Text;
 use EBox::Types::Select;
 
 use constant DEFAULT_RULES => qw(local bad-traffic exploit community-exploit
-    scan finger ftp telnet rpc rservices dos community-dos ddos dns tftp
-    web-cgi web-coldfusion web-iis web-frontpage web-misc web-client web-php
-    community-sql-injection community-web-client community-web-dos
-    community-web-iis community-web-misc community-web-php sql
-    x11 icmp netbios misc attack-responses oracle community-oracle mysql
-    snmp community-ftp smtp community-smtp imap community-imap pop2
-    pop3 nntp community-nntp community-sip other-ids web-attacks backdoor
-    community-bot community-virus);
+    shellcode virus scan finger ftp telnet rpc rservices dos community-dos ddos
+    dns tftp web-cgi web-misc web-client community-sql-injection community-web-client
+    community-web-dos community-web-misc sql x11 icmp netbios misc attack-responses
+    mysql snmp community-ftp smtp community-smtp imap community-imap pop2 pop3
+    other-ids web-attacks backdoor community-bot community-virus);
 
 # Group: Public methods
 

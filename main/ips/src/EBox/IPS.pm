@@ -34,8 +34,8 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::IPSLogHelper;
 use List::Util;
 
-use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
-use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
+use constant SURICATA_CONF_FILE => "/etc/suricata/suricata-debian.yaml";
+use constant SURICATA_DEFAULT_FILE => "/etc/default/suricata";
 use constant SNORT_RULES_DIR => '/etc/snort/rules';
 
 # Group: Protected methods
@@ -71,19 +71,20 @@ sub _create
 sub _daemons
 {
     return [
-            {
-             'name' => 'snort',
-             'type' => 'init.d',
-             'precondition' => \&_snortNeeded
-            }
-           ];
+        {
+         'name' => 'suricata',
+         'type' => 'init.d',
+         'precondition' => \&_suricataNeeded,
+         'pidfiles' => ['/var/run/suricata.pid']
+        }
+    ];
 }
 
-# Method: _snortNeeded
+# Method: _suricataNeeded
 #
 #     Returns true if there are interfaces to listen, false otherwise.
 #
-sub _snortNeeded
+sub _suricataNeeded
 {
     my ($self) = @_;
 
@@ -114,18 +115,6 @@ sub _validIfaces
     return \@ifaces;
 }
 
-# Method: _preSetConf
-#
-#       Stops snort before writing the configuration
-#       (necessary to avoid problems when interfaces have changed)
-#
-sub _preSetConf
-{
-    my ($self) = @_;
-
-    $self->_stopService();
-}
-
 # Method: _setConf
 #
 #        Regenerate the configuration
@@ -146,11 +135,11 @@ sub _setConf
         @rules = map { "emerging-$_" } @rules;
     }
 
-    $self->writeConfFile(SNORT_CONF_FILE, 'ips/snort.conf.mas',
+    $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
                          [ rules => \@rules ]);
 
-    $self->writeConfFile(SNORT_DEBIAN_CONF_FILE, 'ips/snort.debian.conf.mas',
-                         [ ifaces => $self->_validIfaces() ]);
+    $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
+                         [ enabled => $self->isEnabled() ]);
 }
 
 # Group: Public methods
@@ -185,56 +174,16 @@ sub usedFiles
 {
     return [
         {
-            'file' => SNORT_CONF_FILE,
+            'file' => SURICATA_CONF_FILE,
             'module' => 'ips',
-            'reason' => 'Add rules to snort configuration'
+            'reason' => __('Add rules to suricata configuration')
         },
         {
-            'file' => SNORT_DEBIAN_CONF_FILE,
+            'file' => SURICATA_DEFAULT_FILE,
             'module' => 'ips',
-            'reason' => 'Add interfaces to snort configuration'
+            'reason' => __('Enable start of suricata daemon')
         }
     ];
-}
-
-# Method: actions
-#
-#        Explain the actions the module must make to configure the
-#        system. Check overriden method for details
-#
-# Overrides:
-#
-#        <EBox::Module::Service::actions>
-sub actions
-{
-    return [];
-}
-
-# Method: enableActions
-#
-#        Run those actions explain by <actions> to enable the module
-#
-# Overrides:
-#
-#        <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-
-}
-
-# Method: disableActions
-#
-#        Rollback those actions performed by <enableActions> to
-#        disable the module
-#
-# Overrides:
-#
-#        <EBox::Module::Service::disableActions>
-#
-sub disableActions
-{
-
 }
 
 # Method: logHelper
@@ -375,7 +324,5 @@ sub rulesNum
     }
     return $rulesNum;
 }
-
-# Group: Private methods
 
 1;
