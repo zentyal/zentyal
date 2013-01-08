@@ -40,6 +40,33 @@ use Error qw( :try );
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
 use constant SOCKET_PATH => '/var/run/ldb';
 
+# NOTE: The list of attributes available in the different Windows Server versions
+#       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
+use constant ROOT_DSE_ATTRS => [
+    'configurationNamingContext',
+    'currentTime',
+    'defaultNamingContext',
+    'dnsHostName',
+    'domainControllerFunctionality',
+    'domainFunctionality',
+    'dsServiceName',
+    'forestFunctionality',
+    'highestCommittedUSN',
+    'isGlobalCatalogReady',
+    'isSynchronized',
+    'ldapServiceName',
+    'namingContexts',
+    'rootDomainNamingContext',
+    'schemaNamingContext',
+    'serverName',
+    'subschemaSubentry',
+    'supportedCapabilities',
+    'supportedControl',
+    'supportedLDAPPolicies',
+    'supportedLDAPVersion',
+    'supportedSASLMechanisms',
+];
+
 # Singleton variable
 my $_instance = undef;
 

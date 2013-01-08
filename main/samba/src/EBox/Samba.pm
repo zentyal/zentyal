@@ -801,7 +801,9 @@ sub importSysvolFromDC
             push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
         }
         push (@cmds, "mount --make-unbindable $dir");
-        push (@cmds, "rsync -av --delete --exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' $dir/ " . SYSVOL_DIR . "/");
+        push (@cmds, "rsync -av --delete " .
+                     "--exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' " .
+                     "--exlcude 'DfsrPrivate' $dir/ " . SYSVOL_DIR . "/");
         if (defined $user and defined $pwd) {
             push (@cmds, "kdestroy");
         }
