@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to execute run-pending-ops if already running
 	+ Update SambaVirusShare reporter
 	+ Update SambaVirus reporter
 	+ auto-subscribe now works when multiple bundles are available
