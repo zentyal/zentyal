@@ -1,0 +1,155 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use threads;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+
+use Thread::Queue;
+use IO::Socket::UNIX;
+use ClamAV::Client;
+use Error qw(:try);
+use File::Temp qw(tempfile);
+
+
+EBox::initLogger('zavsd-log.conf');
+EBox::init();
+
+EBox::info("Zentyal Antivirus for samba started");
+
+unless (EBox::Global->modExists('samba') and
+        EBox::Global->modExists('antivirus')) {
+    EBox::error('The required modules (samba and antivirus) are not installed. Exiting now.');
+    exit 1;
+}
+
+my $sambaModule   = EBox::Global->modInstance('samba');
+my $avModel       = $sambaModule->model('AntivirusDefault');
+my $quarantineDir = $avModel->QUARANTINE_DIR();
+my $zavsSocket    = $avModel->ZAVS_SOCKET();
+
+my $avModule      = EBox::Global->modInstance('antivirus');
+my $clamavSocket  = $avModule->CLAMD_SOCKET();
+
+
+# Create the queue and launch threads
+my $q = Thread::Queue->new();
+my $nThreadsConf = EBox::Config::configkey('scanning_threads');
+my $nThreads = defined $nThreadsConf ? $nThreadsConf : 4;
+threads->create(\&work) for (1 .. $nThreads);
+threads->create(\&control);
+
+#  Create socket for scannedonly VFS plugin
+my $socket = undef;
+try {
+    unlink $zavsSocket if (-S $zavsSocket);
+    $socket = new IO::Socket::UNIX(Local  => $zavsSocket,
+                                   Type   => SOCK_DGRAM,
+                                   ReuseAddr => 1,
+                                   Listen => SOMAXCONN)
+        or throw EBox::Exceptions::Internal("socket: $!");
+    $socket->setsockopt(SOL_SOCKET, SO_RCVBUF, 524288)
+        or throw EBox::Exceptions::Internal("setsockopt: $!");
+    $socket->setsockopt(SOL_SOCKET, SO_SNDBUF, 524288)
+        or throw EBox::Exceptions::Internal("setsockopt: $!");
+    $socket->setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+        or throw EBox::Exceptions::Internal("setsockopt: $!");
+} otherwise {
+    my ($error) = @_;
+    exit 1;
+};
+
+
+##
+## Main loop
+##
+while (my $line = <$socket>) {
+    chomp $line;
+    # Fields are delimited by the non-printable ASCII char 0x1E:
+    # user | ip address | path
+    my ($user, $addr, $dir, $name) = $line =~ /^([^\x{1E}]*)\x{1E}([^\x{1E}]*)\x{1E}(.*\/)(.*?)$/;
+    my $data = {
+        user => $user,
+        addr => $addr,
+        path => $dir,
+        name => $name,
+    };
+    $q->enqueue($data);
+}
+
+# Control thread: Check for died threads and relaunch
+sub control
+{
+    while (1) {
+        foreach my $thr (threads->list()) {
+            if ($thr->tid() > 0 and $thr->is_joinable() and not threads::equal($thr, threads->self)) {
+                EBox::warn("Detected dead thread " . $thr->tid());
+                $thr->join();
+                threads->create(\&work);
+            }
+        }
+        sleep (5);
+    }
+}
+
+sub work
+{
+    my $tid = threads->self->tid();
+    EBox::info("Scanner thread $tid started");
+
+    # Instance scanner
+    my $scanner = new ClamAV::Client(socket_name => $clamavSocket);
+    unless (defined $scanner) {
+        EBox::error("Could not create scanner, thread dying!");
+        threads->exit();
+    }
+    while (not $scanner->ping()) {
+        EBox::warn("clamAV daemon not responding, will try again in 10 seconds...");
+        sleep (10);
+    }
+
+    my $FD = undef;
+    while (my $data = $q->dequeue()) {
+        try {
+            my $path = $data->{path};
+            my $name = $data->{name};
+            my $addr = $data->{addr};
+            my $user = $data->{user};
+            next unless (defined $path and defined $name);
+
+            my $file = "$path/$name";
+            my (undef, $result) = $scanner->scan_path($file);
+            if (defined $result) {
+                EBox::info("VIRUS|$user|$addr|$file|$result");
+
+                # Create an empty file to inform the user that a virus has been found
+                open ($FD,">>$path"."VIRUS_found_in_$name.txt") && close ($FD);
+
+                # Quarantine the infected file
+                my (undef, $newFile) = tempfile("$name.XXXXX", DIR => $quarantineDir);
+                unless (rename ($file, $newFile)) {
+                    EBox::error("Could not rename file $file to $newFile: $!");
+                    next;
+                }
+                EBox::info("QUARANTINE|$file|$newFile");
+            } else {
+                # File is clean, create the scanned file
+                open ($FD,">>$path.scanned:$name") && close ($FD);
+            }
+        } catch ClamAV::Client::Error with {
+            my ($error) = @_;
+            EBox::error("Error scanning: $error");
+
+            my $path = $data->{path};
+            my $name = $data->{name};
+            open ($FD,">>$path.failed:$name") && close ($FD);
+        } otherwise {
+            my ($error) = @_;
+            EBox::error("Unexpected error, thread ends now: $error");
+            threads->exit();
+        };
+    }
+}

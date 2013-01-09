@@ -338,6 +338,7 @@ sub createDirs
         push (@posixACL, 'u:root:rwx');
         push (@posixACL, 'g::---');
         push (@posixACL, 'g:' . DEFAULT_GROUP . ':---');
+        push (@posixACL, 'g:adm:rwx');
 
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
@@ -379,18 +380,7 @@ sub createDirs
             }
         }
 
-        if (@posixACL) {
-            try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
-                EBox::Sudo::root($cmd);
-                EBox::Sudo::root($defaultCmd);
-
-            } otherwise {
-                my $error = shift;
-                EBox::debug("Couldn't enable POSIX ACLs for $path: $error")
-            };
-        }
+        # Setting NT ACLs seems to reset posix ACLs, so do it first
         if (@aceStrings) {
             try {
                 my $fullAce = join ('', @aceStrings);
@@ -402,7 +392,17 @@ sub createDirs
                 EBox::error("Coundn't enable NT ACLs for $path: $error");
             };
         }
-
+        if (@posixACL) {
+            try {
+                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
+                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
+                EBox::Sudo::root($defaultCmd);
+                EBox::Sudo::root($cmd);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
+            };
+        }
     }
 }
 

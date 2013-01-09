@@ -150,18 +150,20 @@ sub initialSetup
     }
 
     # Migration from 3.0.8, force users resync
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
+    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
     }
 
-    # Migration from 3.0.11, add fields to the LogHelper tables
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
+    # Migration from 3.0.11, add fields to the LogHelper tables and set
+    # AV quarantine dir
+    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do("ALTER TABLE samba_virus
-                       ADD username VARCHAR(24)");
+                       ADD COLUMN username VARCHAR(24)");
         $dbengine->do("ALTER TABLE samba_quarantine
-                       ADD username VARCHAR(24),
-                       ADD client INT UNSIGNED");
+                       ADD COLUMN username VARCHAR(24),
+                       ADD COLUMN client INT UNSIGNED");
+
     }
 }
 
@@ -325,6 +327,10 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
+    my $avModel = $self->model('AntivirusDefault');
+    my $quarantine = $avModel->QUARANTINE_DIR();
+
+    my $zentyalUser = EBox::Config::user();
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my @cmds = ();
@@ -342,6 +348,10 @@ sub enableActions
     push (@cmds, 'mkdir -p ' . SYSVOL_DIR);
     push (@cmds, 'chown -R root.adm ' . SYSVOL_DIR);
     push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+
     EBox::info('Creating directories');
     EBox::Sudo::root(@cmds);
 }
@@ -530,19 +540,25 @@ sub antivirusConfig
 {
     my ($self) = @_;
 
-    my $conf = {};
-    my @keys = ('verbose_file_logging', 'scan_on_open', 'scan_on_close', 'deny_access_on_error',
-                'send_warning_message', 'infected_file_action', 'quarantine_prefix',
-                'quarantine_dir', 'max_lrufiles',
-                'lrufiles_invalidate_time', 'exclude_file_types', 'exclude_file_regexp',
-                'delete_file_on_quarantine_failure', 'max_file_size', 'max_scan_size',
-                'max_files', 'max_recursion_level');
+    # Provide a default config and override with the conf file if exists
+    my $avModel = $self->model('AntivirusDefault');
+    my $conf = {
+        domain_socket            => 'True',
+        socketname               => $avModel->ZAVS_SOCKET(),
+        show_special_files       => 'True',
+        rm_hidden_files_on_rmdir => 'True',
+        hide_nonscanned_files    => 'False',
+        scanning_message         => 'is being scanned for viruses',
+        recheck_time_open        => '50',
+        recheck_tries_open       => '100',
+        recheck_time_readdir     => '50',
+        recheck_tries_readdir    => '20',
+        allow_nonscanned_files   => 'False',
+    };
 
-    foreach my $key (@keys) {
+    foreach my $key (keys %{$conf}) {
         my $value = EBox::Config::configkey($key);
-        if ($value) {
-            $conf->{$key} = $value;
-        }
+        $conf->{$key} = $value if $value;
     }
 
     return $conf;
@@ -1261,13 +1277,16 @@ sub _setupQuarantineDirectory
 {
     my ($self) = @_;
 
-    my $quarantineDir = EBox::Config::configkey('quarantine_dir');
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
-    my @cmds = ("mkdir -p '$quarantineDir'",
-                "chown root:$group '$quarantineDir'",
-                "chmod 700 '$quarantineDir'",
-                "setfacl -R -m u:$nobody:wx g:$group:wx '$quarantineDir'");
+    my $zentyalUser = EBox::Config::user();
+    my $nobodyUser  = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $avModel     = $self->model('AntivirusDefault');
+    my $quarantine  = $avModel->QUARANTINE_DIR();
+    my @cmds;
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$nobodyUser:rwx g:adm:rwx '$quarantine'");
+
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldb->domainSID() . '-512';
     my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
@@ -1277,7 +1296,7 @@ sub _setupQuarantineDirectory
             my $user = new EBox::Samba::User(dn => $memberDN);
             if ($user->exists()) {
                 my $uid = $user->get('samAccountName');
-                push (@cmds, "setfacl -m u:$uid:rwx '$quarantineDir'");
+                push (@cmds, "setfacl -m u:$uid:rwx '$quarantine'");
             }
         }
     }
@@ -1377,6 +1396,16 @@ sub _sysvolSyncCond
     return ($self->isEnabled() and $self->isProvisioned() and $mode eq $adc);
 }
 
+sub _antivirusEnabled
+{
+    my ($self) = @_;
+
+    my $avModel = $self->model('AntivirusDefault');
+    my $enabled = $avModel->value('scan');
+
+    return $enabled;
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -1399,6 +1428,10 @@ sub _daemons
         {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
+        },
+        {
+            name => 'zentyal.zavsd',
+            precondition => \&_antivirusEnabled,
         },
     ];
 }
