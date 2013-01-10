@@ -1,3 +1,5 @@
+HEAD
+	+ Added EBox::FileSystem::mountPointIsMounted function
 3.0.5
 	+ Get default language from /etc/default/locale
 	+ Configure Log4perl to use utf8
