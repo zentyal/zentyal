@@ -1,3 +1,5 @@
+HEAD
+	+ Make status and file cache work with utf8 characters
 3.0.4
 	+ Remove deprecated code for DR using ebackup
 	+ duplicity-wrapper uses C locale to avoid locale problems
