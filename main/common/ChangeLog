@@ -1,3 +1,5 @@
+HEAD
+	+ EBox::Sudo now writes correctly commands file with utf8 characters
 3.0.5
 	+ Get default language from /etc/default/locale
 	+ Configure Log4perl to use utf8

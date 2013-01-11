@@ -183,6 +183,7 @@ sub _root
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
+    binmode( $fhCmdFile, ':utf8' );
     print $fhCmdFile $commands;
     close ($fhCmdFile);
     chmod (0700, $cmdFile);
