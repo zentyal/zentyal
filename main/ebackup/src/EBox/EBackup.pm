@@ -231,7 +231,6 @@ sub _escapeFile
     my ($self, $file) = @_;
     $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $file = shell_quote($file);
-    utf8::encode($file);
     return $file;
 }
 
@@ -253,8 +252,6 @@ sub lastBackupDate
 
     return $status->[-1]->{date};
 }
-
-
 
 # Method: remoteArguments
 #
@@ -691,8 +688,8 @@ sub remoteStatus
     my $retrieve;
     if ($noCacheUrl) {
         $retrieve = 1;
-    } elsif (-f tmpCurrentStatus()) {
-        @lines = File::Slurp::read_file(tmpCurrentStatus());
+    } elsif (_currentStatusIsCached()) {
+        @lines = @{ _currentStatusFromCache() };
     } else {
         $retrieve = 1;
     }
@@ -740,6 +737,23 @@ sub tmpCurrentStatus
     return EBox::Config::tmp() . "backupstatus-cache";
 }
 
+sub _currentStatusIsCached
+{
+    return (-f tmpCurrentStatus());
+}
+
+sub _currentStatusFromCache
+{
+    if (not _currentStatusIsCached()) {
+        throw EBox::Exceptions::Internal("No cache for current status");
+    }
+    my @lines = File::Slurp::read_file(tmpCurrentStatus());
+    foreach my $line (@lines) {
+        utf8::decode($line);
+    }
+    return \@lines;
+}
+
 # Method: remoteGenerateStatusCache
 #
 #   Generate a current status cache. This is to be called
@@ -747,7 +761,6 @@ sub tmpCurrentStatus
 #
 sub remoteGenerateStatusCache
 {
-
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
     my $status = $self->_retrieveRemoteStatus($urlParams);
@@ -759,7 +772,7 @@ sub _setCurrentStatus
     my ($self, $status) = @_;
     my $file = tmpCurrentStatus();
     if (defined $status) {
-        File::Slurp::write_file($file, $status);
+        File::Slurp::write_file($file, { binmode => ':raw' }, $status);
     } else {
         ( -e $file) and
             unlink $file;
@@ -803,9 +816,13 @@ sub _retrieveRemoteStatus
         if ($error =~ m/gpg: decryption failed: bad key/) {
             throw EBox::Exceptions::EBackup::BadSymmetricKey();
         }elsif ($error =~ m/No signature chains found/) {
-            $status = '';
+            $status = [];
         }
     };
+
+    foreach my $line (@{ $status  }) {
+        utf8::decode($line);
+    }
 
     return $status;
 }
@@ -911,7 +928,8 @@ sub remoteListFiles
     if ($updateCache) {
         $self->{files_mtime} = $mtime;
         my @files;
-        for my $line (File::Slurp::read_file($file)) {
+        foreach my $line (File::Slurp::read_file($file)) {
+            utf8::decode($line);
             my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
                 . '\d\d:\d\d:\d\d \d{4} )(.*)';
             if ($line =~ /$regexp/ ) {
@@ -1241,7 +1259,6 @@ sub backupProcessUnlock
     EBox::Util::Lock::unlock($name);
 }
 
-
 # Method: storageUsage
 #
 #   get the available and used space in the storage place used to save the
@@ -1320,8 +1337,6 @@ sub storageUsage
 
     return $result;
 }
-
-
 
 sub _storageUsageCacheFile
 {
