@@ -911,7 +911,8 @@ sub remoteListFiles
     if ($updateCache) {
         $self->{files_mtime} = $mtime;
         my @files;
-        for my $line (File::Slurp::read_file($file)) {
+        foreach my $line (File::Slurp::read_file($file)) {
+            utf8::decode($line);
             my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
                 . '\d\d:\d\d:\d\d \d{4} )(.*)';
             if ($line =~ /$regexp/ ) {
