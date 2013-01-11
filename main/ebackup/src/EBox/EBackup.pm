@@ -231,7 +231,6 @@ sub _escapeFile
     my ($self, $file) = @_;
     $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $file = shell_quote($file);
-    utf8::encode($file);
     return $file;
 }
 
@@ -253,8 +252,6 @@ sub lastBackupDate
 
     return $status->[-1]->{date};
 }
-
-
 
 # Method: remoteArguments
 #
@@ -1262,7 +1259,6 @@ sub backupProcessUnlock
     EBox::Util::Lock::unlock($name);
 }
 
-
 # Method: storageUsage
 #
 #   get the available and used space in the storage place used to save the
@@ -1341,8 +1337,6 @@ sub storageUsage
 
     return $result;
 }
-
-
 
 sub _storageUsageCacheFile
 {

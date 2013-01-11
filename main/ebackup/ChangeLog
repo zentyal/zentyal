@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid double utf8 encode when escaping file for commands, this
+	  is neccesary after improved utf8 support in EBox::Sudo
 	+ Make status and file cache work with utf8 characters
 3.0.4
 	+ Remove deprecated code for DR using ebackup
