@@ -58,8 +58,6 @@ try {
     $ebackup->updateStatusInBackgroundUnlock;
 };
 
-
-
 sub _oldStatus
 {
     my ($ebackup) = @_;
@@ -68,10 +66,8 @@ sub _oldStatus
         return [];
     }
 
-
     my @oldStatus = @{ $ebackup->remoteStatus() };
     return \@oldStatus;
 }
-
 
 1;
