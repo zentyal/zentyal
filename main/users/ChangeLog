@@ -1,4 +1,6 @@
 HEAD
+	+ Don't allow empty first name in CGIs for user
+	  creation/modification. Otherwise you can get LDAP errors.
 	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
 3.0.7
 	+ Fixed LdapObject::get() for list context
