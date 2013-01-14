@@ -1,3 +1,6 @@
+HEAD
+	+ Added libsasl2-modules dependency because it seems that is not
+	  always installed
 3.0.4
 	+ Integration with Disaster Recovery service
 	+ Fixed user object misuse in EBox::Mail::FetchmailLdap::removeExternalAccount
