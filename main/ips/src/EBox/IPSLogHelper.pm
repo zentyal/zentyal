@@ -24,7 +24,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 
-use constant SURICATA_LOGFILE => '/var/log/suricata/FIXME';
+use constant SURICATA_LOGFILE => '/var/log/suricata/fast.log';
 
 sub new
 {
@@ -65,30 +65,28 @@ sub processLine # (file, line, logger)
     my ($self, $file, $line, $dbengine) = @_;
 
     # Example lines to parse:
-    # 04/23-21:49:17.163791  [**] [116:150:1] (snort decoder) Bad Traffic Loopback IP [**] [Priority: 3] {TCP} 127.0.1.1:5100 -> 69.89.31.56:640
-    # 04/24-11:45:18.441639  [**] [122:1:0] (portscan) TCP Portscan [**] [Priority: 3] {PROTO:255} 10.6.7.1 -> 10.6.7.10
-    # 05/31-20:23:27.212634  [**] [1:1390:5] SHELLCODE x86 inc ebx NOOP [**] [Classification: Executable code was detected] [Priority: 1] {UDP} 192.168.122.1:41190 -> 192.168.122.177:41111
+    # 10/05/10-10:08:59.667372  [**] [1:2009187:4] ET WEB_CLIENT ACTIVEX iDefense COMRaider ActiveX Control Arbitrary File Deletion [**] [Classification: Web Application Attack] [Priority: 3] {TCP} xx.xx.232.144:80 -> 192.168.1.4:56068
 
-    unless ($line =~ /^(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] ?(?:\((.+)\))?:? (.+) \[\*\*\] ?(?:\[Classification: (.+)\])? \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
+    unless ($line =~ /^(\d\d)\/(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] ?(?:\((.+)\))?:? (.+) \[\*\*\] ?(?:\[Classification: (.+)\])? \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
         return;
     }
-    my $month = $1;
-    my $day = $2;
-    my $time = $3;
-    my $id = $4;
-    my $detector = $5;
-    my $description = $6;
-    my $classification = $7;
+    my $year = $1;
+    my $month = $2;
+    my $day = $3;
+    my $time = $4;
+    my $id = $5;
+    my $detector = $6;
+    my $description = $7;
+    my $classification = $8;
     if (defined $classification) {
         $description .= " ($classification)";
     }
-    my $prio = $8;
-    my $protocol = $9;
-    my $source = $10;
-    my $dest = $11;
+    my $prio = $9;
+    my $protocol = $10;
+    my $source = $11;
+    my $dest = $12;
 
-    my $year = (${[localtime(time)]}[5] + 1900);
-    my $timestamp = $self->_convertTimestamp("$year-$month-$day $time", '%F %T');
+    my $timestamp = $self->_convertTimestamp("$year-$month-$day $time", '%Y-%m-%d %T');
 
     my %dataToInsert;
     $dataToInsert{timestamp} = $timestamp;
