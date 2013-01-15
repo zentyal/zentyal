@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed LogHelper Client connection initiated regexp
 	+ Fixed certificates check in client configuration form
 3.0.2
 	+ Adapted to changes in EBox::LogObserver::_convertTimestamp
