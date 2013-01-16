@@ -163,7 +163,6 @@ sub initialSetup
         $dbengine->do("ALTER TABLE samba_quarantine
                        ADD COLUMN username VARCHAR(24),
                        ADD COLUMN client INT UNSIGNED");
-
     }
 }
 
@@ -543,6 +542,7 @@ sub antivirusConfig
     # Provide a default config and override with the conf file if exists
     my $avModel = $self->model('AntivirusDefault');
     my $conf = {
+        quarantine_dir           => $avModel->QUARANTINE_DIR(),
         domain_socket            => 'True',
         socketname               => $avModel->ZAVS_SOCKET(),
         show_special_files       => 'True',
