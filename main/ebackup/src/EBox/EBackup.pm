@@ -1386,7 +1386,6 @@ sub checkTargetStatus
     return 1;
 }
 
-
 sub _checkFileSystemTargetStatus
 {
     my ($self, $target) = @_;
@@ -1407,13 +1406,14 @@ sub _checkFileSystemTargetStatus
             next;
         }
         if ($fsMountPoint eq $target) {
+            # exact match
             $mountPoint = $fsMountPoint;
             last;
         }
         EBox::FileSystem::isSubdir($target, $fsMountPoint) or
               next;
         if ($mountPoint) {
-            # check if the mount point is more specific
+            # check if the mount point is more specific than the stored one
             my $mpComponents = split '/+', $mountPoint;
             my $fsMpComponents = split '/+', $fsMountPoint;
             ($fsMpComponents > $mpComponents) or
@@ -1433,33 +1433,26 @@ sub _checkFileSystemTargetStatus
     }
 
     # check if the mount poitn is mounted
-    my %partitionFs = %{ EBox::FileSystem::partitionsFileSystems(1) };
-    foreach my $fsAttr (values %partitionFs) {
-        if ($mountPoint eq $fsAttr->{mountPoint}) {
-            return;
+    if (EBox::FileSystem::mountPointIsMounted($mountPoint)) {
+        return;
+    } else {
+        # no mounted
+        if ($mountPoint eq $target) {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+                __x('{target} is not mounted',
+                    target => $target
+                   )
+               );
+        } else {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+                __x('{mp} is not mounted and {target} is inside it',
+                    mp => $mountPoint,
+                    target => $target
+                   )
+               );
         }
     }
-
-    # no mounted
-    my $msg;
-    if ($mountPoint eq $target) {
-        throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{target} is not mounted',
-              target => $target
-             )
-           );
-    } else {
-        throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{mp} is not mounted and {target} is inside it',
-              mp => $mountPoint,
-              target => $target
-             )
-           );
-    }
-
-    throw EBox::Exceptions::EBackup::TargetNotReady($msg);
 }
-
 
 sub _estimateBackupSize
 {
@@ -1491,7 +1484,6 @@ sub _estimateBackupSize
     EBox::debug("Estimated backup size: $average");
     return $average;
 }
-
 
 ## Report methods
 
