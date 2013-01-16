@@ -144,7 +144,7 @@ my %callbackByRe = (
        ^[\d\.]+:\d+\s    # client ip and port
        \[(.*?)\]\s       # client certificate CN
        Peer\sConnection\sInitiated\swith\s
-       \[AF_.*\]([\d\.]+?):\d+$    # client ip and port (we will use this instead of the first)
+       \[AF_.*\]([\d\.]+?):\d+(\s\(.*\))?$    # client ip and port (we will use this instead of the first)
       }x => \&_peerConnectionEvent,
 
     qr{
