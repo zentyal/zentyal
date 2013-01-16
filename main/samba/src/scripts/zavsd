@@ -38,7 +38,7 @@ my $clamavSocket  = $avModule->CLAMD_SOCKET();
 # Create the queue and launch threads
 my $q = Thread::Queue->new();
 my $nThreadsConf = EBox::Config::configkey('scanning_threads');
-my $nThreads = defined $nThreadsConf ? $nThreadsConf : 4;
+my $nThreads = (defined $nThreadsConf and length $nThreadsConf) ? $nThreadsConf : 4;
 threads->create(\&work) for (1 .. $nThreads);
 threads->create(\&control);
 

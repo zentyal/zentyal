@@ -326,33 +326,9 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    my $avModel = $self->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
-
-    my $zentyalUser = EBox::Config::user();
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
-    my @cmds = ();
-    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
-    push (@cmds, "chmod 770 " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
-    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
-    push (@cmds, "chmod 770 " . PROFILES_DIR);
-    push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
-    push (@cmds, "chmod 770 " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    push (@cmds, 'mkdir -p ' . SYSVOL_DIR);
-    push (@cmds, 'chown -R root.adm ' . SYSVOL_DIR);
-    push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
+    # Create directories
     EBox::info('Creating directories');
-    EBox::Sudo::root(@cmds);
+    $self->_createDirectories();
 }
 
 sub isProvisioned
@@ -542,9 +518,6 @@ sub antivirusConfig
     # Provide a default config and override with the conf file if exists
     my $avModel = $self->model('AntivirusDefault');
     my $conf = {
-        quarantine_dir           => $avModel->QUARANTINE_DIR(),
-        domain_socket            => 'True',
-        socketname               => $avModel->ZAVS_SOCKET(),
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
         hide_nonscanned_files    => 'False',
@@ -560,6 +533,11 @@ sub antivirusConfig
         my $value = EBox::Config::configkey($key);
         $conf->{$key} = $value if $value;
     }
+
+    # Hard coded settings
+    $conf->{quarantine_dir} = $avModel->QUARANTINE_DIR();
+    $conf->{domain_socket}  = 'True';
+    $conf->{socketname}     = $avModel->ZAVS_SOCKET();
 
     return $conf;
 }
@@ -1303,6 +1281,42 @@ sub _setupQuarantineDirectory
     EBox::Sudo::silentRoot(@cmds);
 }
 
+sub _createDirectories
+{
+    my ($self) = @_;
+
+    my $zentyalUser = EBox::Config::user();
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $avModel = $self->model('AntivirusDefault');
+    my $quarantine = $avModel->QUARANTINE_DIR();
+
+    my @cmds;
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -b " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
+
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, "setfacl -b " . PROFILES_DIR);
+
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -b " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
+
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+    EBox::Sudo::root(@cmds);
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -1312,6 +1326,10 @@ sub _setConf
     $self->provision() unless $self->isProvisioned();
 
     $self->writeSambaConfig();
+
+    # Fix permissions on samba dirs. Zentyal user needs access because
+    # the antivirus daemon runs as 'ebox'
+    $self->_createDirectories();
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
