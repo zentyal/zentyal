@@ -1,4 +1,6 @@
 HEAD
+	+ Notify cloud-prof when installed when changes happen in
+	  SyncShares and SambaShares models
 	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
