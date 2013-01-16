@@ -120,7 +120,7 @@ sub work
             my $user = $data->{user};
             next unless (defined $path and defined $name);
 
-            my $file = "$path/$name";
+            my $file = "$path" . "$name";
             my (undef, $result) = $scanner->scan_path($file);
             if (defined $result) {
                 EBox::info("VIRUS|$user|$addr|$file|$result");
