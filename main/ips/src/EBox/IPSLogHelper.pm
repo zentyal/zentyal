@@ -67,12 +67,12 @@ sub processLine # (file, line, logger)
     # Example lines to parse:
     # 10/05/10-10:08:59.667372  [**] [1:2009187:4] ET WEB_CLIENT ACTIVEX iDefense COMRaider ActiveX Control Arbitrary File Deletion [**] [Classification: Web Application Attack] [Priority: 3] {TCP} xx.xx.232.144:80 -> 192.168.1.4:56068
 
-    unless ($line =~ /^(\d\d)\/(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] ?(?:\((.+)\))?:? (.+) \[\*\*\] ?(?:\[Classification: (.+)\])? \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
+    unless ($line =~ /^(\d\d)\/(\d\d)\/(\d\d\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] ?(?:\((.+)\))?:? (.+) \[\*\*\] ?(?:\[Classification: (.+)\])? \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
         return;
     }
-    my $year = $1;
-    my $month = $2;
-    my $day = $3;
+    my $month = $1;
+    my $day = $2;
+    my $year = $3;
     my $time = $4;
     my $id = $5;
     my $detector = $6;

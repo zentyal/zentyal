@@ -23,7 +23,7 @@ package EBox::IPS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 
 use Error qw(:try);
 
@@ -32,6 +32,7 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
 use EBox::IPSLogHelper;
+use EBox::IPS::FirewallHelper;
 use List::Util;
 
 use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
@@ -325,6 +326,18 @@ sub rulesNum
         $rulesNum = $self->st_get_int($key);
     }
     return $rulesNum;
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+
+    # TODO: check also if IPS mode is enabled
+    if ($self->isEnabled()) {
+        return EBox::IPS::FirewallHelper->new();
+    }
+
+    return undef;
 }
 
 1;
