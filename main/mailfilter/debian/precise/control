@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-mailfilter
 Architecture: all
 Replaces: ebox-mailfilter (<< 2.0.100)
-Depends: zentyal-core (>= 3.0.7), zentyal-core (<< 3.0.100), zentyal-firewall, zentyal-users, zentyal-mail, zentyal-antivirus, amavisd-new (>= 2.4.2), spamassassin, spamc, dovecot-antispam, libnet-dns-perl, arj, unrar-free, p7zip, pyzor, ${misc:Depends}
+Depends: zentyal-core (>= 3.0.7), zentyal-core (<< 3.0.100), zentyal-firewall, zentyal-users, zentyal-mail, zentyal-antivirus, amavisd-new (>= 2.4.2), spamassassin, spamc, dovecot-antispam, libnet-dns-perl, arj, unrar-free, p7zip, razor, pyzor, ${misc:Depends}
 Description: Zentyal - Mail Filter
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

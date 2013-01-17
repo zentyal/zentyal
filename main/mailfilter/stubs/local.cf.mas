@@ -132,10 +132,7 @@ whitelist_from <% $addr %>
 blacklist_from <% $addr %>
 % }
 
-
-
 ok_locales <% "@okLocales" %>
-
 
 loadplugin Mail::SpamAssassin::Plugin::DKIM
 full DKIM_VALID     eval:check_dkim_valid()

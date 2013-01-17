@@ -49,7 +49,7 @@ sub new
     $self->{vdomains} = new EBox::MailFilter::VDomainsLdap();
 
     bless $self, $class;
-    return $self;
+   return $self;
 }
 
 sub usedFiles
@@ -89,7 +89,6 @@ sub _confAttr
 sub _manageServices
 {
     my ($self, $action) = @_;
-    EBox::Service::manage(SA_SERVICE, $action);
 
     my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
     my $saLearnService = $vdomainsLdap->learnAccountsExists;
@@ -122,9 +121,6 @@ sub stopService
         $self->_manageServices('stop');
     }
 }
-
-
-
 
 #
 # Method: isEnabled
