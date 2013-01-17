@@ -1867,7 +1867,7 @@ sub _updateMotd
     EBox::Module::Base::writeConfFileNoCheck(
         RELEASE_UPGRADE_MOTD,
         'remoteservices/release-upgrade-motd.mas',
-        \@tmplParams);
+        \@tmplParams, { mode => '0755' });
 
 }
 
