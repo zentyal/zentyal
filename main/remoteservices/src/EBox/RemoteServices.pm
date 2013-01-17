@@ -82,6 +82,7 @@ use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 # OCS conf constants
 use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
@@ -166,6 +167,7 @@ sub _setConf
     $self->_setInventoryAgentConf();
     $self->_setNETRCFile();
     $self->_startupTasks();
+    $self->_updateMotd();
 }
 
 # Method: initialSetup
@@ -2329,6 +2331,25 @@ sub _filesSyncNeeded
     my ($self) = @_;
 
     return ($self->filesSyncAvailable() or $self->disasterRecoveryAvailable());
+}
+
+# Update MOTD scripts depending on the subscription status
+sub _updateMotd
+{
+    my ($self) = @_;
+
+    my @tmplParams = (
+         (subscribed => $self->eBoxSubscribed())
+        );
+    if ($self->eBoxSubscribed() ) {
+        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
+                                                edition => $self->i18nServerEdition())));
+    }
+    EBox::Module::Base::writeConfFileNoCheck(
+        RELEASE_UPGRADE_MOTD,
+        'remoteservices/release-upgrade-motd.mas',
+        \@tmplParams, { mode => '0755' });
+
 }
 
 1;
