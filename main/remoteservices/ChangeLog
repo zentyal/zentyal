@@ -1,4 +1,7 @@
 HEAD
+	+ Notify cloud-prof when installed when changes happen in
+	  DisasterRecoveryDomains model
+	+ Move zfilesync daemon management to cloud-prof package
 	+ Adding extra component to the qa sources list
 	+ Do not try to execute periodic cron jobs if already running
 	+ Update SambaVirusShare reporter
