@@ -31,7 +31,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
-use EBox::IPSLogHelper;
+use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
 use List::Util;
 
@@ -199,7 +199,7 @@ sub logHelper
 {
     my ($self) = @_;
 
-    return (new EBox::IPSLogHelper);
+    return (new EBox::IPS::LogHelper);
 }
 
 # Method: tableInfo
