@@ -20,17 +20,21 @@ use warnings;
 
 use base 'EBox::FirewallHelper';
 
-sub input
+sub externalInput
 {
     my ($self) = @_;
-    my @rules;
 
-    # FIXME: unhardcode this
-    my $iface = 'eth2';
-
-    push (@rules, "-i $iface -j NFQUEUE");
-
-    return \@rules;
+    return [];
+#    my @rules;
+#
+#    my $ips = EBox::Global->modInstance('ips');
+#
+#    # FIXME: discriminate between internal and external interfaces
+#    foreach my $iface (@{$ips->enabledIfaces()}) {
+#        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE");
+#    }
+#
+#    return \@rules;
 }
 
 1;

@@ -150,9 +150,9 @@ outputs:
 # If you want packet to be sent to another queue after an ACCEPT decision
 # set mode to 'route' and set next_queue value.
 nfq:
-#  mode: accept
-#  repeat_mark: 1
-#  repeat_mask: 1
+  mode: repeat
+  repeat_mark: 65536
+  repeat_mask: 65536
 #  route_queue: 2
 
 # af-packet support
