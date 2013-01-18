@@ -1,4 +1,6 @@
 HEAD
+	+ New advanced 'unmanaged_acls' option in /etc/zentyal/samba.conf to
+	  disable overwriting of ACLs when saving changes
 	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
