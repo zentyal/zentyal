@@ -144,8 +144,6 @@ sub _setConf
     $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
                          [ ]);
 
-    # FIXME: this is a dirty hack, do it properly in FirewallHelper when possible
-    $self->_setIptablesRules();
 }
 
 # Group: Public methods
@@ -341,20 +339,6 @@ sub firewallHelper
     }
 
     return undef;
-}
-
-sub _setIptablesRules
-{
-    my ($self) = @_;
-
-    my @rules;
-
-    # FIXME: discriminate between internal and external interfaces
-    foreach my $iface (@{$self->enabledIfaces()}) {
-        push (@rules, "iptables -I INPUT -i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE");
-    }
-
-    EBox::Sudo::root(@rules);
 }
 
 1;
