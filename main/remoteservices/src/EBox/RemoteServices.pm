@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -75,8 +75,6 @@ use Data::UUID;
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
 use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
-use constant FILES_SYNC_DIR      => EBox::Config::conf() . 'filesync/';
-use constant FILES_SYNC_UPSTART  => 'zentyal.filesync';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -158,9 +156,6 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
-        if ($self->_filesSyncNeeded()) {
-            $self->_setFilesSyncConf();
-        }
     }
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
@@ -224,42 +219,6 @@ sub _setRemoteSupportAccessConf
     }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
-
-sub _setFilesSyncConf
-{
-    my ($self) = @_;
-
-    # Retrieve folders for each provider module
-    my @folders;
-    my @fmods = @{EBox::Global->modInstancesOfType('EBox::SyncFolders::Provider')};
-    for my $mod (@fmods) {
-        push(@folders, @{$mod->syncFolders()});
-    }
-    # skip non-existent folders
-    @folders = grep { EBox::Sudo::fileTest('-d', $_->{path}) } @folders;
-
-    # get credentials
-    my $cred = new EBox::RemoteServices::Cred();
-    my $access_id = $cred->subscribedUUID();
-    my $access_key = $cred->{cred}->{password};
-
-    my @params;
-    push (@params, store_dir => FILES_SYNC_DIR);
-    push (@params, access_id => $access_id);
-    push (@params, access_key => $access_key);
-    push (@params, folders => \@folders);
-
-    unless (-d FILES_SYNC_DIR) {
-        mkdir(FILES_SYNC_DIR);
-    }
-
-    $self->writeConfFile(
-            FILES_SYNC_DIR . 'sync.conf',
-            'remoteservices/files.conf.mas',
-            \@params,
-            { 'uid' => 0, 'gid' => 0, mode => '500' });
-}
-
 
 sub _setInventoryAgentConf
 {
@@ -371,10 +330,6 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
-        },
-        {
-            'name'         => FILES_SYNC_UPSTART,
-            'precondition' => \&_filesSyncNeeded,
         }
        ];
 }
@@ -1013,7 +968,7 @@ sub usersSyncAvailable
 
 # Method: filesSyncAvailable
 #
-#   Returns 1 if file syncrhonization is available
+#   Returns 1 if file synchronisation is available
 #
 sub filesSyncAvailable
 {
@@ -2326,12 +2281,6 @@ sub _setQAUpdates
 
 }
 
-sub _filesSyncNeeded
-{
-    my ($self) = @_;
-
-    return ($self->filesSyncAvailable() or $self->disasterRecoveryAvailable());
-}
 
 # Update MOTD scripts depending on the subscription status
 sub _updateMotd

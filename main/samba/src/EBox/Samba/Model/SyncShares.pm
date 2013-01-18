@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,6 +29,28 @@ use EBox::Global;
 use EBox::Types::Boolean;
 
 use Error qw(:try);
+
+# Group: Public methods
+
+# Method: updatedRowNotify
+#
+#      Notify cloud-prof if installed to be restarted
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $global = EBox::Global->getInstance();
+    if ( $global->modExists('cloud-prof') ) {
+        $global->modChange('cloud-prof');
+    }
+}
+
+# Group: Protected methods
 
 # Method: _table
 #
