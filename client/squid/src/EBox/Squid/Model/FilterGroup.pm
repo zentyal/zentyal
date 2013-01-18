@@ -97,7 +97,7 @@ sub _table
         printableTableName => __('List of profiles'),
         modelDomain        => 'Squid',
         'defaultController' => '/ebox/Squid/Controller/FilterGroup',
-        'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
+        'defaultActions' => [ 'add', 'del', 'changeView' ],
         tableDescription   => $self->tableHeader(),
         class              => 'dataTable',
         rowUnique          => 1,
