@@ -1,4 +1,7 @@
 HEAD
+	+ Removed edit option for filter profiles names, because paths
+	  in Type::File element does tno change thus breaking categorized
+	  lists
 	+ Fixed order of refresh patterns
 2.0.8
 	+ HTTPS works both for banned domains and block blanket options
@@ -80,7 +83,7 @@ HEAD
 	updates
 	+ Removed dead code in dumpConfig/restoreConfig methods
 	+ In configuration report mode the module does not longe include
-	  the domain lists archives 
+	  the domain lists archives
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons
@@ -176,7 +179,7 @@ O.9.1
 	+ New release
 0.9
 	+ Added Polish translation.00
-	+ Added German Translation	
+	+ Added German Translation
 
 0.8.99
 	+ New release
@@ -197,7 +200,7 @@ O.9.1
 	+ Add support to configure banned extension list in dansguardian
 	+ GUI consitency
 	+ Use of ebox-sudoers-friendly
-	
+
 0.7
 	+ First public release
 0.6
@@ -227,7 +230,7 @@ O.9.1
 	+ Supports banned domains
 	+ API name consistency
 	+ Use Mason for templates
-	+ added tips to GUI 
+	+ added tips to GUI
 	+ Fixed bugs to IE compliant
 	+ Several bugfixes
 
