@@ -4,7 +4,7 @@
 </%args>
 #!/bin/sh
 % if ( $subscribed ) {
-echo -e <% $editionMsg %> "\n"
+echo "<% $editionMsg %>\n"
 % } elsif ( -x '/usr/lib/update-manager/release-upgrade-motd' ) {
 exec /usr/lib/update-manager/release-upgrade-motd
 % }

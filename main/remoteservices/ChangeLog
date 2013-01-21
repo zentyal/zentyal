@@ -1,4 +1,5 @@
 HEAD
+	+ Small fix to echo in MOTD
 	+ Notify cloud-prof when installed when changes happen in
 	  DisasterRecoveryDomains model
 	+ Move zfilesync daemon management to cloud-prof package
