@@ -1,4 +1,5 @@
 HEAD
+	+ Added float option to clients to allow server IP/port changes
 	+ Fixed LogHelper Client connection initiated regexp
 	+ Fixed certificates check in client configuration form
 3.0.2
