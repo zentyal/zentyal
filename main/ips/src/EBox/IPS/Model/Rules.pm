@@ -129,7 +129,7 @@ sub syncRows
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
     foreach my $name (@namesToAdd) {
         my $enabled = $self->{enableDefault}->{$name} or 0;
-        $self->add(name => $name, enabled => $enabled);
+        $self->add(name => $name, enabled => $enabled, decision => 'log');
         $modified = 1;
     }
 
@@ -179,6 +179,12 @@ sub _table
             'defaultValue' => 0,
             'editable' => 1
         ),
+        new EBox::Types::Select (
+            'fieldName' => 'decision',
+            'printableName' => __('Action'),
+            'populate' => \&_populateActions,
+            'editable' => 1
+        ),
     );
 
     my $dataTable =
@@ -196,6 +202,15 @@ sub _table
 }
 
 # Group: Private methods
+
+sub _populateActions
+{
+    return [
+        { value => 'log', printableValue => __('Log') },
+        { value => 'block', printableValue => __('Block') },
+        { value => 'logblock', printableValue => __('Log & Block') },
+    ];
+}
 
 sub _commercialMsg
 {

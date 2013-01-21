@@ -39,6 +39,7 @@ use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
 use constant SURICATA_INIT_FILE => '/etc/init/zentyal.suricata.conf';
 use constant SNORT_RULES_DIR => '/etc/snort/rules';
+use constant SURICATA_RULES_DIR => '/etc/suricata/rules';
 
 # Group: Protected methods
 
@@ -113,6 +114,40 @@ sub enabledIfaces
     return \@ifaces;
 }
 
+sub _setRules
+{
+    my ($self) = @_;
+
+    my $snortDir = SNORT_RULES_DIR;
+    my $suricataDir = SURICATA_RULES_DIR;
+    my @cmds = ("mkdir -p $suricataDir", "rm -f $suricataDir/*");
+
+    my $rulesModel = $self->model('Rules');
+    my @rules;
+
+    foreach my $id (@{$rulesModel->enabledRows()}) {
+        my $row = $rulesModel->row($id);
+        my $name = $row->valueByName('name');
+        if ($self->usingASU()) {
+            $name = "emerging-$name";
+        }
+        my $decision = $row->valueByName('decision');
+        if ($decision =~ /log/) {
+            push (@cmds, "cp $snortDir/$name.rules $suricataDir/");
+            push (@rules, $name);
+        }
+        if ($decision =~ /block/) {
+            push (@cmds, "cp $snortDir/$name.rules $suricataDir/$name-block.rules");
+            push (@cmds, "sed -i 's/^alert /drop /g' $suricataDir/$name-block.rules");
+            push (@rules, "$name-block");
+        }
+    }
+
+    EBox::Sudo::root(@cmds);
+
+    return \@rules;
+}
+
 # Method: _setConf
 #
 #        Regenerate the configuration
@@ -125,16 +160,10 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $rulesModel = $self->model('Rules');
-    my @rules = map ($rulesModel->row($_)->valueByName('name'),
-                   @{$rulesModel->enabledRows()});
-
-    if ( $self->usingASU() ) {
-        @rules = map { "emerging-$_" } @rules;
-    }
+    my $rules = $self->_setRules();
 
     $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
-                         [ rules => \@rules ]);
+                         [ rules => $rules ]);
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled() ]);

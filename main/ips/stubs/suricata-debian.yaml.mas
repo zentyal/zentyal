@@ -33,10 +33,9 @@
 # The default order is pass, drop, reject, alert
 action-order:
   - pass
+  - alert
   - drop
   - reject
-  - alert
-
 
 # The default logging directory.  Any log or output file will be
 # placed here if its not specified with a full path name.  This can be
@@ -584,7 +583,7 @@ ipfw:
 
 # Set the default rule path here to search for the files.
 # if not set, it will look at the current working dir
-default-rule-path: /etc/snort/rules
+default-rule-path: /etc/suricata/rules
 rule-files:
 % foreach my $rule (@rules) {
  - <% $rule %>.rules
