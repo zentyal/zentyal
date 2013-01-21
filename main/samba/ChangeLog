@@ -1,4 +1,4 @@
-HEAD
+3.0.12
 	+ New advanced 'unmanaged_acls' option in /etc/zentyal/samba.conf to
 	  disable overwriting of ACLs when saving changes
 	+ Notify cloud-prof when installed when changes happen in
