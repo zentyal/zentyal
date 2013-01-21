@@ -75,7 +75,7 @@ sub _daemons
     return [
         {
          'name' => 'zentyal.suricata',
-#         'precondition' => \&_suricataNeeded,
+         'precondition' => \&_suricataNeeded,
         }
     ];
 }
@@ -88,9 +88,7 @@ sub _suricataNeeded
 {
     my ($self) = @_;
 
-    my @validIfaces = @{$self->enabledIfaces()};
-
-    return (scalar(@validIfaces) > 0);
+    return (@{$self->enabledIfaces()} > 0);
 }
 
 # Method: enabledIfaces
