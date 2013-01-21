@@ -313,6 +313,10 @@ sub createDirs
         }
         next unless defined $path;
 
+        # Don't do anything if the directory already exists and the option to manage ACLs
+        # only from Windows is set
+        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
+
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
         push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
