@@ -65,6 +65,9 @@ proto <% $proto %>
 remote  <% "$addr $port" %>
 % }
 
+# Allow remote peer to change its IP address and/or port number
+float
+
 % if ($connStrategy eq 'random') {
 # Choose a random host from the remote
 # list for load-balancing.  Otherwise
