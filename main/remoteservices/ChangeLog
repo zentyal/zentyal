@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: subs-level does not fail if no backup credentials found
 	+ Fix file permissions when copying the MOTD template
 2.2.14
 	+ Include edition in MOTD and remove upgrade precise announcement

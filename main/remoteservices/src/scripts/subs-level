@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,8 +24,10 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Global;
+use Error qw(:try);
 use Getopt::Long;
 use Pod::Usage;
 
@@ -46,8 +48,10 @@ $rs->securityUpdatesAddOn('force');
 $rs->commAddOn('force');
 my $disRecOn = $rs->disasterRecoveryAddOn('force');
 if ( $disRecOn ) {
-    # Reload backup credentials
-    $rs->backupCredentials(force => 1);
+    try {
+        # Reload backup credentials
+        $rs->backupCredentials(force => 1);
+    } catch EBox::Exceptions::DataNotFound with { };
 }
 $rs->subscriptionLevel('force');
 $rs->technicalSupport('force');
