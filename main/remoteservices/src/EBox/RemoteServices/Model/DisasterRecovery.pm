@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -40,6 +40,7 @@ use v5.10;
 use Date::Calc::Object;
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::NotConnected;
 use EBox::Gettext;
 use EBox::Global;
@@ -204,72 +205,83 @@ sub _content
         # I guess 45min is enough to install Zentyal
         my $instTime = 45 * 60;
 
-        my $drEnabled = 0;
+        my $drOn = 0;
         try {
-            $drEnabled = $rs->disasterRecoveryAddOn();
+            $drOn = $rs->disasterRecoveryAddOn();
         } catch EBox::Exceptions::NotConnected with { };
 
-        if ( $drEnabled ) {
-            $dr = __('Full Disaster Recovery enabled');
+        my $drEnabled = 0;
+        if ( $drOn ) {
+            try {
+                my $credentials = $rs->backupCredentials();
+                $drEnabled = (keys(%{$credentials}) > 0);
+            } catch EBox::Exceptions::DataNotFound with {
+            } catch EBox::Exceptions::NotConnected with {
+            };
+            if ( $drEnabled ) {
+                $dr = __('Full Disaster Recovery enabled');
 
-            my $gl = EBox::Global->getInstance();
-            if ( $gl->modExists('ebackup') ) {
-                my $ebackupMod = $gl->modInstance('ebackup');
+                my $gl = EBox::Global->getInstance();
+                if ( $gl->modExists('ebackup') ) {
+                    my $ebackupMod = $gl->modInstance('ebackup');
 
-                $dataBackup = $ebackupMod->lastBackupDate();
-                unless ( defined($dataBackup) ) {
-                    $dataBackup = __('No data backup has been done yet');
-                }
+                    $dataBackup = $ebackupMod->lastBackupDate();
+                    unless ( defined($dataBackup) ) {
+                        $dataBackup = __('No data backup has been done yet');
+                    }
 
-                # Get the available space
-                my $storageUsage = $ebackupMod->storageUsage();
-                if ( defined($storageUsage) and ($storageUsage->{total} > 0) ) {
-                    $available = __x('{num} GB, left: {per}',
-                                     num => $self->_format($storageUsage->{available} / 1024),
-                                     per => $self->_format($storageUsage->{available} / $storageUsage->{total} * 100) . ' %');
-                } else {
-                    $available = __('Unknown');
-                }
+                    # Get the available space
+                    my $storageUsage = $ebackupMod->storageUsage();
+                    if ( defined($storageUsage) and ($storageUsage->{total} > 0) ) {
+                        $available = __x('{num} GB, left: {per}',
+                                         num => $self->_format($storageUsage->{available} / 1024),
+                                         per => $self->_format($storageUsage->{available} / $storageUsage->{total} * 100) . ' %');
+                    } else {
+                        $available = __('Unknown');
+                    }
 
-                # Get the domains
-                my $availDomains = $ebackupMod->availableBackupDomains();
-                my @enabledDomains =
-                  grep { $availDomains->{$_}->{enabled} } keys %{$availDomains};
-                my @printableDomains =
-                  map { $availDomains->{$_}->{printableName} } @enabledDomains;
+                    # Get the domains
+                    my $availDomains = $ebackupMod->availableBackupDomains();
+                    my @enabledDomains =
+                      grep { $availDomains->{$_}->{enabled} } keys %{$availDomains};
+                    my @printableDomains =
+                      map { $availDomains->{$_}->{printableName} } @enabledDomains;
 
-                $domains = join(', ', @printableDomains);
+                    $domains = join(', ', @printableDomains);
 
-                # Calculated the ETA
-                my $net = EBox::Global->modInstance('network');
-                if ( $net->can('averageBWDay') ) {
-                    my $date = Date::Calc->gmtime();
-                    foreach my $try (1 .. 5) {
-                        my ($year, $month, $day) = $date->date();
-                        my $downAvg = $net->averageBWDay("$year-$month-$day");
-                        if ( defined($downAvg) ) {
-                            $size = $self->_estimatedBackupSize($ebackupMod);
-                            if ( defined($size) ) {
-                                my $downTime = $size / $downAvg;
-                                $eta = __x('{time} hours - Full Disaster Recovery',
-                                           time => $self->_format(($downTime + $instTime)/3600, 2));
-                                $size = __x('{size} MB',
-                                            size => $self->_format($size / (1 << 20), 3));
+                    # Calculated the ETA
+                    my $net = EBox::Global->modInstance('network');
+                    if ( $net->can('averageBWDay') ) {
+                        my $date = Date::Calc->gmtime();
+                        foreach my $try (1 .. 5) {
+                            my ($year, $month, $day) = $date->date();
+                            my $downAvg = $net->averageBWDay("$year-$month-$day");
+                            if ( defined($downAvg) ) {
+                                $size = $self->_estimatedBackupSize($ebackupMod);
+                                if ( defined($size) ) {
+                                    my $downTime = $size / $downAvg;
+                                    $eta = __x('{time} hours - Full Disaster Recovery',
+                                               time => $self->_format(($downTime + $instTime)/3600, 2));
+                                    $size = __x('{size} MB',
+                                                size => $self->_format($size / (1 << 20), 3));
+                                } else {
+                                    $size = __('No backup done yet');
+                                }
+                                last;
                             } else {
-                                $size = __('No backup done yet');
+                                $date = $date + [0,0,-1]; # Minus one day
                             }
-                            last;
-                        } else {
-                            $date = $date + [0,0,-1]; # Minus one day
                         }
                     }
-                }
 
+                } else {
+                    # It has DR but the ebackup mod is not installed
+                    $available = __('Unknown');
+                    $dataBackup = __x('Install {mod} module to start using '
+                                      . 'Disaster Recovery', mod => 'ebackup');
+                }
             } else {
-                # It has DR but the ebackup mod is not installed
-                $available = __('Unknown');
-                $dataBackup = __x('Install {mod} module to start using '
-                                  . 'Disaster Recovery', mod => 'ebackup');
+                $dr = __('Not provisioned. Contact sales if you want to enable Disaster Recovery');
             }
         } else {
             # Basic suscriptor

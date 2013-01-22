@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1002,6 +1002,11 @@ sub commAddOn
 #           password - String the password for that user in that server
 #           server   - String the backup server host name
 #           quota    - Int the allowed quota
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the credentials are
+#                                        not available for this user
 #
 sub backupCredentials
 {
