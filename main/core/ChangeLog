@@ -1,6 +1,6 @@
 HEAD
-	+ Incorrect regular expression in logs search page are
-	  correctly handled
+	+ Avoid flickering loading pages when switching between menu entries
+	+ Incorrect regular expression in logs search page are correctly handled
 	+ Fix input badly hidden in the logs screen
 	+ reloadTable from DataTable now remove cached fields as well
 3.0.10
