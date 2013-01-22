@@ -1,4 +1,4 @@
-HEAD
+3.0.11
 	+ Avoid flickering loading pages when switching between menu entries
 	+ Incorrect regular expression in logs search page are correctly handled
 	+ Fix input badly hidden in the logs screen
