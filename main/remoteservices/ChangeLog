@@ -1,3 +1,6 @@
+HEAD
+	+ Fix typo in execute bundle which avoids correct installation of
+	  cloud-prof when registration is done
 3.0.13
 	+ Notify cloud-prof when installed when changes happen in
 	  DisasterRecoveryDomains model
