@@ -193,15 +193,15 @@ sub _verifyEvent
     my $cert   = undef;
 
     my $event;
-    if ($status eq 'OK') {
+    if (($status eq 'OK') or ($status eq 'X509NAME OK')) {
         # we ignore the verification ok event for now
         return undef;
-    }elsif ($status eq 'X509NAME ERROR' ) {
+    } elsif ($status eq 'X509NAME ERROR' ) {
         $event = 'verificationNameError';
         ($cert) = split ',', $extraInfo,
           2; # in this case extraInfo contains: [certificate],
         # [advice]
-    }elsif ($status =~ /ERROR/) {
+    } elsif ($status =~ /ERROR/) {
         if ($extraInfo =~
             m/error=unable to get local issuer certificate: (.*)$/)
         {
@@ -215,7 +215,7 @@ sub _verifyEvent
                 $cert = $1;
             }
         }
-    }else {
+    } else {
         EBox::error("unknown openvpn verification status: $status");
         return undef;
     }
