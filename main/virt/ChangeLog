@@ -1,3 +1,5 @@
+HEAD
+	+Changed default use_ide_disks key value in order to bypass MBR issues with scsi module
 3.0.1
 	+ Support for another output of file program for qcow2 format
 	+ Make use of the wideDialog parameter for VNC windows
