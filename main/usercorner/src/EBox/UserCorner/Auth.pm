@@ -44,14 +44,8 @@ use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
-sub new
-{
-        my $class = shift;
-        my $self = {};
-        bless($self, $class);
-        return $self;
-}
-
+# Method: _savesession
+#
 # Parameters:
 #
 #   - user name
