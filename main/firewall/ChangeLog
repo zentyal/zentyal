@@ -1,4 +1,5 @@
 HEAD
+	+ Added FirewallLogHelper.t
 	+ Added preInput(), preOutput() and preForward() to FirewallHelper
 3.0.1
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
