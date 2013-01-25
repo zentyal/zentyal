@@ -24,7 +24,6 @@ sub preInput
 {
     my ($self) = @_;
 
-    return [];
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
