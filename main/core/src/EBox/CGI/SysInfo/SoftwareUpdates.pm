@@ -24,6 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::SysInfo;
 
 use Error qw(:try);
 
@@ -44,7 +45,6 @@ sub _process
     my $qaUpdates = 0;
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
 
-    my $url = 'http://update.zentyal.org/updates';
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $qaUpdates = $rs->subscriptionLevel() > 0;
@@ -73,7 +73,7 @@ sub _process
                 $onlyComp = 1;
             }
         }
-        my $href = $url;
+        my $href = EBox::SysInfo->UPDATES_URL();
         if (EBox::Global->modExists('software')) {
             if ($onlyComp) {
                 $href = '/Software/EBox#update';

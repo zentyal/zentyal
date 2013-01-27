@@ -42,6 +42,7 @@ use EBox::Util::Version;
 use EBox::Util::Software;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
+use constant UPDATES_URL => 'http://update.zentyal.org/updates';
 
 sub _create
 {
@@ -288,9 +289,7 @@ sub generalWidget
     my $time = `$time_command`;
     utf8::decode($time);
 
-    # FIXME
     my $qaUpdates = 0;
-    my $url = 'http://update.zentyal.org/updates';
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $qaUpdates = $rs->subscriptionLevel() > 0;
@@ -299,6 +298,7 @@ sub generalWidget
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
     unless ($ignore) {
+        my $url = UPDATES_URL;
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
         read ($fh, $lastVersion, 16);
