@@ -1,4 +1,5 @@
 HEAD
+	+ Faster dashboard loading with asynchronous check of software updates
 	+ Removed unnecesary and misleading method new from EBox::Auth package
 3.0.11
 	+ Avoid flickering loading pages when switching between menu entries
