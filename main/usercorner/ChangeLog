@@ -1,4 +1,5 @@
 HEAD
+	+ Write to usercorner log with ut8f encoding
 	+ Log correctly request authorization IP, init logger on loading
 	  of user-corner
 	+ Restricted permissions in log directories
