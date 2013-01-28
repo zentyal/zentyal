@@ -2,7 +2,7 @@ HEAD
 	+ Log correctly request authorization IP, init logger on loading
 	  of user-corner
 	+ Restricted permissions in log directories
-	+ Removed unnecesary and misleading method 'new' from EBox::UserCorner::Auth package
+	+ Removed unnecesary and misleading method 'new' from UserCorner::Auth
 3.0.3
 	+ Adapted to the new utf8 fixes
 	+ Removed suprefluos calls to utf8::decode
