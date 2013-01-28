@@ -1,4 +1,5 @@
 HEAD
+	+ Remove warning in EBox::Menu::Folder when currentfolder is not defined
 	+ Removed unnecesary and misleading method new from EBox::Auth package
 3.0.11
 	+ Avoid flickering loading pages when switching between menu entries
