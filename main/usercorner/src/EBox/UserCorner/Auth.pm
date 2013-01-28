@@ -44,6 +44,9 @@ use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
+# Init logger at the loading of this class
+EBox::initLogger('usercorner-log.conf');
+
 # Method: _savesession
 #
 # Parameters:
@@ -185,9 +188,9 @@ sub authen_cred  # (request, user, password)
     my ($self, $r, $user, $passwd) = @_;
 
     unless ($self->checkPassword($user, $passwd)) {
-        EBox::initLogger('usercorner-log.conf');
         my $log = EBox->logger();
-        my $ip  = $r->connection->remote_host();
+        my $ip = $r->hostname();
+        $ip or $ ip ='unknown';
         $log->warn("Failed login from: $ip");
         return;
     }
