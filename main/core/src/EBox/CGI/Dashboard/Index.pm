@@ -88,7 +88,7 @@ sub masonParameters
                 my $mod = $global->modInstance($module);
                 next unless defined ($mod);
 
-                my $widget = $mod->widget($name);
+                my $widget = $mod->widget($name, 1);
                 next unless defined ($widget);
 
                 push (@dashboard, $widget);
@@ -119,7 +119,7 @@ sub masonParameters
         my $mod = EBox::Global->modInstance($module);
         next unless defined ($mod);
 
-        my $widget = $mod->widget($name);
+        my $widget = $mod->widget($name, 1);
         next unless defined ($widget);
 
         # Find the dashboard with less items and add the widget to it

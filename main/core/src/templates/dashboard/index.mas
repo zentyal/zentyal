@@ -443,6 +443,8 @@ function updateWidgets() {
     });
 }
 
+updateWidgets();
+
 Event.observe(window, 'load', function() {
   // Update widgets every 30s
   new PeriodicalExecuter(updateWidgets, 30);

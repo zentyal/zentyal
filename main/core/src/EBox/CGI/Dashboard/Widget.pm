@@ -59,7 +59,7 @@ sub masonParameters
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
     my $module = $global->modInstance($modname);
-    my $widget = $module->widget($widgetname);
+    my $widget = $module->widget($widgetname, 1);
 
     my @params = ();
     push(@params, 'widget' => $widget);

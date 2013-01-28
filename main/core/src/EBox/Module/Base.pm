@@ -692,7 +692,7 @@ sub widgets
 #
 sub widget
 {
-    my ($self, $name) = @_;
+    my ($self, $name, $firstLoad) = @_;
     my $widgets = $self->widgets();
     my $winfo = $widgets->{$name};
     if(defined($winfo)) {
@@ -701,8 +701,10 @@ sub widget
         $widget->{'module'} = $self->{'name'};
         $widget->{'default'} = $winfo->{'default'};
         $widget->{'order'} = $winfo->{'order'};
-        my $wfunc = $winfo->{'widget'};
-        &$wfunc($self, $widget, $winfo->{'parameter'});
+        unless ($firstLoad) {
+            my $wfunc = $winfo->{'widget'};
+            &$wfunc($self, $widget, $winfo->{'parameter'});
+        }
         return $widget;
     } else {
         return undef;

@@ -1,4 +1,5 @@
 HEAD
+	+ Load dashboard widgets asynchronously
 	+ Removed unnecesary and misleading method new from EBox::Auth package
 3.0.11
 	+ Avoid flickering loading pages when switching between menu entries
