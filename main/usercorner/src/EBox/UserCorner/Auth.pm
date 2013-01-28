@@ -187,7 +187,8 @@ sub authen_cred  # (request, user, password)
     unless ($self->checkPassword($user, $passwd)) {
         EBox::initLogger('usercorner-log.conf');
         my $log = EBox->logger();
-        my $ip  = $r->connection->remote_host();
+        my $ip = $r->hostname();
+        $ip or $ ip ='unknown';
         $log->warn("Failed login from: $ip");
         return;
     }
