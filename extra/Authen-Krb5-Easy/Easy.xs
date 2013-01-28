@@ -44,10 +44,14 @@ kinit(keytab_name, principle)
 		krb5_error_code code = 0;
 		krb5_context context;
 		krb5_ccache ccache;
+		krb5_ccache tempccache;
 		krb5_principal princ;
 		krb5_keytab keytab = NULL;
-		krb5_get_init_creds_opt options;
+		krb5_get_init_creds_opt *options;
+		krb5_init_creds_context ctx;
 		krb5_creds creds;
+		int parseflags = 0;
+		krb5_deltat start_time = 0;
 
 		krb_error_while_doing = NULL;
 		krb_error_string = NULL;
@@ -61,6 +65,16 @@ kinit(keytab_name, principle)
 			krb_error_code = code;
 			XSRETURN_UNDEF;
 		}
+
+		code = krb5_parse_name_flags(context, principle, parseflags, &princ);
+		if(code)
+		{
+			krb_error_while_doing = "could not parse principal name";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+		}
+
 		code = krb5_cc_default(context, &ccache);
 		if(code)
 		{
@@ -69,19 +83,32 @@ kinit(keytab_name, principle)
 			krb_error_code = code;
 			XSRETURN_UNDEF;
 		}
-		code = krb5_parse_name(context, principle, &princ);
+
+		code = krb5_get_init_creds_opt_alloc(context, &options);
 		if(code)
 		{
-			krb_error_while_doing = "could not parse principle name";
+			krb_error_while_doing =
+				"could not allocate credential options structure";
 			krb_error_string = (char *)error_message(code);
 			krb_error_code = code;
 			XSRETURN_UNDEF;
 		}
+		krb5_get_init_creds_opt_set_forwardable(options, 0);
+		krb5_get_init_creds_opt_set_proxiable(options, 0);
 
-		krb5_get_init_creds_opt_init(&options);
-		memset(&creds, 0, sizeof(creds));
-		krb5_get_init_creds_opt_set_forwardable(&options, 0);
-		krb5_get_init_creds_opt_set_proxiable(&options, 0);
+		krb5_get_init_creds_opt_set_default_flags(context, "Authen::Krb5::Easy",
+			krb5_principal_get_realm(context, princ), options);
+
+		code = krb5_init_creds_init(context, princ, krb5_prompter_posix,
+			NULL, start_time, options, &ctx);
+    	if(code)
+    	{
+			krb_error_while_doing =
+				"could not create a context for acquiring initial credentials";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+    	}
 
 		code = krb5_kt_resolve(context, keytab_name, &keytab);
 		if(code != 0)
@@ -92,10 +119,33 @@ kinit(keytab_name, principle)
 			XSRETURN_UNDEF;
 		}
 
-		code = krb5_get_init_creds_keytab(context, &creds, princ, keytab, 0, NULL, &options);
-		if(code)
+		code = krb5_init_creds_set_keytab(context, ctx, keytab);
+		if(code != 0)
 		{
-			krb_error_while_doing = "could not get initial credentials";
+			krb_error_while_doing =	"could not set the keytab to "
+				"use for acquiring initial credentials";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+		}
+
+		code = krb5_init_creds_get(context, ctx);
+    	if(code != 0)
+		{
+			krb_error_while_doing =	"could not acquire credentials using"
+				" an initial credentials context";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+		}
+
+		krb5_process_last_request(context, options, ctx);
+
+		code = krb5_init_creds_get_creds(context, ctx, &creds);
+    	if(code != 0)
+		{
+			krb_error_while_doing =	"could not retrieve acquired credentials"
+				" from an initial credentials context";
 			krb_error_string = (char *)error_message(code);
 			krb_error_code = code;
 			XSRETURN_UNDEF;
@@ -103,30 +153,43 @@ kinit(keytab_name, principle)
 
 		krb_expires = creds.times.endtime;
 
-		code = krb5_cc_initialize(context, ccache, princ);
-		if(code)
+		code = krb5_cc_new_unique(context, krb5_cc_get_type(context, ccache),
+			NULL, &tempccache);
+    	if(code != 0)
 		{
-			krb_error_while_doing = "could not initialize cache";
-			krb_error_string = (char *)error_message(code);
-			krb_error_code = code;
-			XSRETURN_UNDEF;
-		}
-		code = krb5_cc_store_cred(context, ccache, &creds);
-		if(code)
-		{
-			krb_error_while_doing = "could not store credentials";
+			krb_error_while_doing =	"could not create a new credential cache";
 			krb_error_string = (char *)error_message(code);
 			krb_error_code = code;
 			XSRETURN_UNDEF;
 		}
 
-		krb5_free_cred_contents(context, &creds);
-		krb5_kt_close(context, keytab);
+		code = krb5_init_creds_store(context, ctx, tempccache);
+    	if(code != 0)
+		{
+			krb_error_while_doing =	"could not store credentials";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+		}
 
-#		/* clean up*/
-		krb5_free_principal(context, princ);
-		krb5_cc_close(context, ccache);
-		krb5_free_context(context);
+		krb5_init_creds_free(context, ctx);
+
+		code = krb5_cc_move(context, tempccache, ccache);
+		if(code != 0)
+		{
+			krb_error_while_doing =	"could not store credentials";
+			krb_error_string = (char *)error_message(code);
+			krb_error_code = code;
+			XSRETURN_UNDEF;
+		}
+
+
+		krb5_get_init_creds_opt_free(context, options);
+
+    	krb5_kt_close(context, keytab);
+
+    	krb5_free_principal(context, princ);
+    	krb5_free_context (context);
 
 #		/*atexit(kdestroy_atexit);*/
 		RETVAL=1;
