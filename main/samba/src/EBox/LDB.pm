@@ -31,14 +31,12 @@ use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
 use Authen::SASL qw(Perl);
-use IO::Socket::UNIX;
 
 use Data::Dumper;
 use File::Slurp;
 use Error qw( :try );
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
-use constant SOCKET_PATH => '/var/run/ldb';
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -176,7 +174,7 @@ sub safeConnect
             sleep (5);
             next;
         }
-        EBox::error("Couldn't connect to samba LDAP server: $@, retrying");
+        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
         sleep (5);
     }
 

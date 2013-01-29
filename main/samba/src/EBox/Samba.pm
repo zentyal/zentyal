@@ -57,7 +57,7 @@ use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant PRIVATE_DIR          => '/var/lib/samba/private/';
+use constant PRIVATE_DIR          => '/opt/samba4/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
@@ -65,11 +65,9 @@ use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
+use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant LOGON_SCRIPT         => 'logon.bat';
-use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
 sub _create
 {
@@ -777,46 +775,6 @@ sub mapAccounts
     $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
-sub importSysvolFromDC
-{
-    my ($self, $dc, $user, $pwd) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
-    my $ucHostname = uc ($hostname);
-
-    EBox::info("Syncing sysvol from '$dc'");
-    unless (EBox::Sudo::fileTest('-f', SECRETS_KEYTAB)) {
-        EBox::error("Required keytab not found");
-        return;
-    }
-
-    my $dir = tempdir('/tmp/sysvolXXXX', CLEANUP => 1);
-    try {
-        my @cmds;
-        if (defined $user and defined $pwd) {
-            push (@cmds, "mount.cifs //$dc/sysvol $dir -o user=$user,pass=$pwd,ro");
-        } else {
-            push (@cmds, "kinit --keytab=" . SECRETS_KEYTAB . " $ucHostname\$");
-            push (@cmds, "mount.cifs //$dc/sysvol $dir -o sec=krb5i,ro");
-        }
-        push (@cmds, "mount --make-unbindable $dir");
-        push (@cmds, "rsync -av --delete " .
-                     "--exclude 'DO_NOT_REMOVE_NtFrs_PreInstall_Directory' " .
-                     "--exlcude 'DfsrPrivate' $dir/ " . SYSVOL_DIR . "/");
-        if (defined $user and defined $pwd) {
-            push (@cmds, "kdestroy");
-        }
-        EBox::Sudo::root(@cmds);
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Could not sync sysvol from $dc: $error");
-    } finally {
-        EBox::Sudo::rootWithoutException("umount '$dir'");
-        EBox::Sudo::rootWithoutException("rm -r '$dir'");
-    };
-}
-
 # Method: provision
 #
 #   This method provision the database
@@ -1072,10 +1030,6 @@ sub provisionAsADC
         # Map accounts
         $self->mapAccounts();
 
-        # Import sysvol and reset acl
-        $self->importSysvolFromDC($dcFQDN, $adminAccount, $adminAccountPwd);
-        $self->resetSysvolACL();
-
         EBox::debug('Setting provisioned flag');
         $self->setProvisioned(1);
     } otherwise {
@@ -1216,6 +1170,7 @@ sub writeSambaConfig
     push (@array, 'domain'      => $hostDomain);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
+    push (@array, 'sysvolPath'  => SYSVOL_DIR);
 
     push (@array, 'printers'  => $self->printersConf());
 
@@ -1237,16 +1192,6 @@ sub writeSambaConfig
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
-
-    #my $netlogonDir = "/var/lib/samba/sysvol/" . $self->realm() . "/scripts";
-    #if ($self->mode() eq 'dc') {
-    #    #my $logonScript = join('/', $netlogonDir, LOGON_SCRIPT);
-    #    #if (EBox::Sudo::fileTest('-f', $logonScript)) {
-    #    #    push(@array, 'logon_script', LOGON_SCRIPT);
-    #    #}
-    #    $self->writeConfFile(join('/', $netlogonDir, LOGON_DEFAULT_SCRIPT),
-    #        'samba/logon.bat.mas', \@array);
-    #}
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
@@ -1388,11 +1333,11 @@ sub _daemons
     return [
         {
             name => 'samba4',
-            pidfiles => ['/var/run/samba.pid'],
+            pidfiles => ['/opt/samba4/var/run/samba.pid'],
         },
         {
             name => 'zentyal.nmbd',
-            pidfiles => ['/var/run/nmbd.pid'],
+            pidfiles => ['/opt/samba4/var/run/nmbd.pid'],
         },
         {
             name => 'zentyal.s4sync',

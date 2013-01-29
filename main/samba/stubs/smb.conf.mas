@@ -10,6 +10,7 @@
     @shares
     $roamingProfiles => 0
     $profilesPath
+    $sysvolPath
     $printers => []
 
     $antivirus => 0
@@ -31,33 +32,26 @@ use EBox::Gettext;
 use EBox::Samba;
 </%init>
 [global]
-    netbios name = <% $netbiosName %>
     workgroup = <% $workgroup %>
+    realm = <% $realm %>
+    netbios name = <% $netbiosName %>
     server string = <% $description %>
-
-    wins support = yes
-    dns proxy = yes
-    name resolve order = wins bcast host
+    server role = <% $mode %>
+    server role check:inhibit = yes
+% if ($fs eq 's3fs') {
+    server services = s3fs, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
+% } else {
+    server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
+% }
+    server signing = auto
 
     interfaces = <% $ifaces %>
     bind interfaces only = yes
 
-    server role = <% $mode %>
-    server role check:inhibit = yes
-    realm = <% $realm %>
-
     log level = 3
     log file = /var/log/samba/samba.log
 
-    passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
-% if ($fs eq 's3fs') {
-    server services = -dns -nbt -wrepl
-% } else {
-    server services = rpc, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
-    dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
-% }
-    server signing = auto
 
 % if ($guestAccess) {
     guest ok = yes
@@ -75,12 +69,12 @@ use EBox::Samba;
 %   }
 
 [netlogon]
-    path = /var/lib/samba/sysvol/<% $domain %>/scripts
+    path = <% $sysvolPath %>/<% $domain %>/scripts
     browseable = no
     read only = yes
 
 [sysvol]
-    path = /var/lib/samba/sysvol
+    path = <% $sysvolPath %>
     read only = no
 % }
 
@@ -175,18 +169,10 @@ use EBox::Samba;
     write list = @"Domain Admins"
     valid users = @"Domain Users"
 
-#[<% $prefix %>-internal-backups]
-# path = <% $backup_path %>
-# browseable = yes
-# read only = yes
-# valid users = @"Domain Admins"
-# admin users = @"Domain Admins"
-# force group = ebox
-# force user = ebox
-
+% if ($antivirus) {
 [<% $prefix %>-quarantine]
     comment = "Quarantine"
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
-
+% }

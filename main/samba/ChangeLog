@@ -1,4 +1,8 @@
 HEAD
+	+ Switch to samba4 bundled version
+	+ Change paths for bundled samba4 version
+	+ Import sysvol maintaining ACLs
+	+ Do not create quarantine share if antivirus is disabled
 	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats
