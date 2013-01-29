@@ -1,3 +1,7 @@
+HEAD
+	+ Changes required by the bundled version of samba4.
+	  Add paths to apparmor profile
+	  Change DLZ library path
 3.0.4
 	+ Service zentyal-desktop-api is now added in initial-setup
 	+ Better exception message when service not exists in /etc/services

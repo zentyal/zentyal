@@ -22,7 +22,9 @@ acl "trusted" {
 
 % foreach my $dom (@domains) {
 %   if ($dom->{samba}) {
-include "/var/lib/samba/private/named.conf";
+dlz "AD DNS Zone - <% $dom->{name} %>" {
+    database "dlopen /opt/samba4/lib/bind9/dlz_bind9.so";
+};
 %       next;
 %   }
 zone "<% $dom->{name} %>." IN {
