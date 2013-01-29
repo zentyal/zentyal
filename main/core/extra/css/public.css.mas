@@ -627,6 +627,7 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 }
 
 body {
+    overflow-y: scroll;
     width: 960px;
     margin: 0px auto;
     padding:0;

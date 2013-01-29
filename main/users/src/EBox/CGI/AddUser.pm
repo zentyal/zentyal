@@ -39,6 +39,7 @@ sub _process
     my @args = ();
 
     $self->_requireParam('username', __('user name'));
+    $self->_requireParam('name', __('first name'));
     $self->_requireParam('surname', __('last name'));
     $self->_requireParamAllowEmpty('comment', __('comment'));
 
@@ -46,13 +47,9 @@ sub _process
     $user->{'user'} = $self->param('username');
     $user->{'name'} = $self->param('name');
     $user->{'surname'} = $self->param('surname');
-    if ($user->{'name'}) {
-        $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
-        $user->{'givenname'} = $user->{'name'};
-    } else {
-        $user->{'fullname'} = $user->{'surname'};
-        $user->{'givenname'} = '';
-    }
+    $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
+    $user->{'givenname'} = $user->{'name'};
+
     $user->{'password'} = $self->unsafeParam('password');
     $user->{'repassword'} = $self->unsafeParam('repassword');
     $user->{'group'} = $self->unsafeParam('group');

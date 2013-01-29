@@ -418,4 +418,29 @@ sub dirFileSystem
     return $fs;
 }
 
+# Method: mountPointIsMounted
+#
+#  Check if something is mounted in a path, it does not
+#  discriminate between filesys types ( partitionsFileSystems ignores
+#  no-device file systems)
+#
+#  Returns:
+#
+#    bool - whether something is mounted in the mount point
+#
+# Limitations:
+#   -it ignores bind mounts
+sub mountPointIsMounted
+{
+    my ($mp) = @_;
+    my %fileSys = %{  fileSystems() };
+    foreach my $fsAttr (values %fileSys) {
+        if ($mp eq $fsAttr->{mountPoint}) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 1;

@@ -161,6 +161,16 @@ sub initialSetup
                        ADD username VARCHAR(24),
                        ADD client INT UNSIGNED");
     }
+
+    # Migration from 3.0.12, support sizes greater than 2 GiB
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.13') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_disk_usage
+                       MODIFY size BIGINT DEFAULT 0");
+        $dbengine->do("ALTER TABLE samba_disk_usage_report
+                       MODIFY size BIGINT DEFAULT 0");
+
+    }
 }
 
 sub enableService

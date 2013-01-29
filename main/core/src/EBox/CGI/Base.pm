@@ -966,7 +966,7 @@ sub JSONReply
     if ($error and not $data_r->{error}) {
         $data_r->{error} = $error;
     }
-    print encode_json($data_r);
+    print JSON::XS->new->encode($data_r);
 }
 
 1;

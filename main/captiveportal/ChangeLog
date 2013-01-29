@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed Log4perl configuration and initialization. Log directory
+	  permissions made more restrictive.
+	+ Removed unnecesary and misleading method 'new' from EBox::CaptivePortal::Auth package
 3.0.1
 	+ Adapted to the new utf8 fixes
 	+ Removed superfluos calls to utf8::decode

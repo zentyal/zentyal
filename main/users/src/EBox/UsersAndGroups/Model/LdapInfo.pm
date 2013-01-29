@@ -50,6 +50,14 @@ sub _table
             printableName => __('Password'),
         ),
         new EBox::Types::Text (
+            fieldName => 'roRootDn',
+            printableName => __('Read-only root DN'),
+        ),
+        new EBox::Types::Text (
+            fieldName => 'roPassword',
+            printableName => __('Read-only password'),
+        ),
+        new EBox::Types::Text (
             fieldName => 'usersDn',
             printableName => __('Users DN'),
         ),
@@ -86,11 +94,15 @@ sub _content
     my ($self) = @_;
 
     my $users = $self->parentModule();
-
+    my $ldap = $users->ldap();
     return {
-        dn => $users->ldap()->dn(),
-        rootDn => $users->ldap()->rootDn(),
-        password => $users->ldap()->getPassword(),
+        dn => $ldap->dn(),
+        rootDn => $ldap->rootDn(),
+        password => $ldap->getPassword(),
+
+        roRootDn   => $ldap->roRootDn(),
+        roPassword => $ldap->getRoPassword(),
+
         usersDn => $users->usersDn(),
         groupsDn => $users->groupsDn(),
     }
