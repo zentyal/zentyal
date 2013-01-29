@@ -227,6 +227,10 @@ sub addUserExtension
         throw EBox::Exceptions::InvalidData(
               data => __(q{User extension}),
               value => $extn,
+              advice => __x('Must be a number between {min} and {max}',
+                            min => MINEXTN,
+                            max => MAXEXTN,
+                           )
            )
     }
 
@@ -307,6 +311,16 @@ sub delUserExtension
 sub modifyUserExtension
 {
     my ($self, $user, $newextn) = @_;
+    if (($newextn < MINEXTN) or ($newextn > MAXEXTN)) {
+        throw EBox::Exceptions::InvalidData(
+              data => __(q{User extension}),
+              value => $newextn,
+              advice => __x('Must be a number between {min} and {max}',
+                            min => MINEXTN,
+                            max => MAXEXTN,
+                           )
+           )
+    }
 
     my $username = $user->name();
     if ($self->extensionExists($newextn) and ($username ne $newextn)) {
