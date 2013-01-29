@@ -1,4 +1,5 @@
 HEAD
+	+ Improve change-hostname script, delete all references to current name
 	+ reloadTable from DataTable now remove cached fields as well
 3.0.10
 	+ Fixed unsafe characters error when getting title of progress
