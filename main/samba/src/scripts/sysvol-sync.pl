@@ -26,7 +26,7 @@ use Net::Ping;
 use Net::DNS;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
 
-use constant DEBUG => 1;
+use constant DEBUG => 0;
 
 sub extractKeytab
 {
@@ -42,7 +42,10 @@ sub extractKeytab
     push (@cmds, "chmod 400 '$keytab'");
 
     try {
-        kdestroy();
+        my $ret = kdestroy();
+        unless (defined $ret and $ret == 1) {
+            EBox::error("kdestroy: " . kerror());
+        }
         EBox::debug("Extracting keytab");
         EBox::Sudo::root(@cmds);
         $ok = kinit($keytab, $adminUser);
@@ -104,6 +107,9 @@ my $ccache = EBox::Config::tmp() . 'sysvol-sync.ccache';
 my $keytab = EBox::Config::conf() . 'sysvol-sync.keytab';
 $ENV{KRB5CCNAME} = $ccache;
 
+# Remove old cache
+unlink $ccache if (-f $ccache);
+
 while (1) {
     # The script will be executed each 300 to 600 seconds, or 5 seconds if
     # debug is enabled
@@ -138,7 +144,7 @@ while (1) {
     my $cmd = "net rpc share migrate files sysvol " .
         "-k --destination=$hostFQDN -S $sourceDC --acls";
     if (DEBUG) {
-        $cmd .= " >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
+        $cmd .= " -v -d6 >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
     }
 
     EBox::info("Synchronizing sysvol share from $sourceDC");
