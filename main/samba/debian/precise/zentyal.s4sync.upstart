@@ -1,3 +1,6 @@
+description "Zentyal samba4 to openldap synchronizer"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
 start on started samba4
 stop on stopping samba4
 
