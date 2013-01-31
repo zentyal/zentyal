@@ -1182,7 +1182,10 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
 
-    push (@array, 'printers'  => $self->printersConf());
+    if (EBox::Global->modExists('printers')) {
+        my $printersModule = EBox::Global->modInstance('printers');
+        push (@array, 'print' => 1) if ($printersModule->isEnabled());
+    }
 
     #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
 
@@ -1283,44 +1286,6 @@ sub _setConf
             $user->save();
         }
     }
-}
-
-sub printersConf
-{
-    my ($self) = @_;
-
-    my $printers = [];
-    if (EBox::Global->modExists('printers')) {
-        my $printersModule = EBox::Global->modInstance('printers');
-        if ($printersModule->isEnabled()) {
-            my $printersModel = $printersModule->model('Printers');
-            my $ids = $printersModel->ids();
-            foreach my $id (@{$ids}) {
-                my $row = $printersModel->row($id);
-                my $printerName = $row->valueByName('printer');
-                my $printerGuest = $row->valueByName('guest');
-                my $printerDescription = $row->valueByName('description');
-                # Get the allowed users and groups for this printer if guest
-                # access is disabled
-                my $printerAcl = [];
-                for my $subId (@{$row->subModel('access')->ids()}) {
-                    my $subRow = $row->subModel('access')->row($subId);
-                    my $userType = $subRow->elementByName('user_group');
-                    my $preCar = $userType->selectedType() eq 'group' ? '@' : '';
-                    my $user =  $preCar . '"' . $userType->printableValue() . '"';
-                    push (@{$printerAcl}, $user);
-                }
-                push (@{$printers}, {
-                    name => $printerName,
-                    description => $printerDescription,
-                    guest => $printerGuest,
-                    acl => $printerAcl,
-                } );
-            }
-        }
-    }
-
-    return $printers;
 }
 
 sub _sysvolSyncCond

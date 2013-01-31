@@ -62,7 +62,7 @@ sub actions
         'module' => 'printers'
     },
     {
-        'action' => __x('Disable {server} init script', server => 'cups'),
+        'action' => __x('Disable {server} upstart job', server => 'cups'),
         'reason' => __('Zentyal will take care of start and stop ' .
                        'the service'),
         'module' => 'printers',
@@ -226,7 +226,6 @@ sub _daemons
     return [
         {
             'name' => 'cups',
-            'type' => 'init.d',
             'pidfiles' => ['/var/run/cups/cupsd.pid'],
         }
     ];
