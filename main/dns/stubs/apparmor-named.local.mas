@@ -51,5 +51,7 @@
 /opt/samba4/lib/private/ r,
 /opt/samba4/lib/private/* rm,
 
+/opt/samba4/share/codepages/* r,
+
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,
