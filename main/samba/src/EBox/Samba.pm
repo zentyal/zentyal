@@ -1346,10 +1346,6 @@ sub _daemons
             pidfiles => ['/opt/samba4/var/run/samba.pid'],
         },
         {
-            name => 'zentyal.nmbd',
-            pidfiles => ['/opt/samba4/var/run/nmbd.pid'],
-        },
-        {
             name => 'zentyal.s4sync',
             precondition => \&isProvisioned,
         },
