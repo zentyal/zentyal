@@ -1,3 +1,15 @@
+zenbuntu-desktop (3.0.3) precise; urgency=low
+
+  * Fixed touch of .disaster-recovery file
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 19 Dec 2012 17:15:49 +0100
+
+zenbuntu-desktop (3.0.2) precise; urgency=low
+
+  * Depend on gtk2-engines for better look
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 17 Dec 2012 17:42:41 +0100
+
 zenbuntu-desktop (3.0.1) precise; urgency=low
 
   * Set section to metapackages instead of x11

@@ -806,4 +806,36 @@ sub checkAbsoluteFilePath
     return 1;
 }
 
+# Function: checkRegex
+#
+#  checks if a given regular expression is sintaxically correct
+#
+# Parameters:
+#       $regex - regular expression to check, as string
+#       $name - if this parameter is present we will throw a exception when given a non-correct path using this as name of the data
+#
+# Returns:
+#  true if the parameter is sintaxically correct and an absolute path, undef otherwise.
+sub checkRegex
+{
+    my ($regex, $name) = @_;
+
+    eval { qr/$regex/ } ;
+    if ($@) {
+        my $error = $@;
+        if ($name) {
+            throw EBox::Exceptions::InvalidData (
+                'data' => $name,
+                'value' => $regex,
+                'advice' => __x('Error on regular expression: {err}', err => $error)
+               );
+
+        } else {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 1;

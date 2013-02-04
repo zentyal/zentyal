@@ -27,9 +27,6 @@ use base 'EBox::Reporter::Base';
 
 use EBox::Global;
 
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
-
 # Method: module
 #
 # Overrides:
@@ -79,14 +76,18 @@ sub _consolidate
         my %byShare;
         foreach my $row (@{$resFiles}) {
             my $share = $sambaMod->shareByFilename($row->{filename});
-            $byShare{$row->{hour}}->{$share} += $row->{virus_num};
+            if ($share) {
+                $byShare{$row->{hour}}->{$share->{'share'}}->{virus_num} += $row->{virus_num};
+                $byShare{$row->{hour}}->{$share->{'share'}}->{type} = $share->{type};
+            }
         }
         # Convert result to the expected format
         foreach my $hour (keys %byShare) {
             foreach my $share (keys %{$byShare{$hour}}) {
-                push(@res, { hour => $hour,
-                             share => $share,
-                             virus_num => $byShare{$hour}->{$share} });
+                push(@res, { hour      => $hour,
+                             share     => $share,
+                             type      => $byShare{$hour}->{$share}->{type},
+                             virus_num => $byShare{$hour}->{$share}->{virus_num} });
             }
         }
     }

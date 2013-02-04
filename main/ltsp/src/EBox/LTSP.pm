@@ -596,6 +596,20 @@ sub _ipIsLtspClient
         my $ifacesInfo = $dhcp->_ifacesInfo($staticRoutes_r);
 
         foreach my $ifaceInfo (values %{$ifacesInfo}) {
+            # FIXME: Until thin clients are served to a given range or fixed ip
+            if ( values %{$ifaceInfo->{options}} > 0 ) {    # Has thin clients
+                foreach my $range (@{$ifaceInfo->{ranges}}) {
+                    if (_ipInRange($ip, $range->{from}, $range->{to})) {
+                        return 1;
+                    }
+                }
+                foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+                    if (_ipInObject($ip, $objFixed->{members})) {
+                        return 1;
+                    }
+                }
+            }
+
             foreach my $range (@{$ifaceInfo->{ranges}}) {
                 if ( ( values %{$range->{options}} > 0 ) and  # Has thin clients
                      (_ipInRange($ip, $range->{from}, $range->{to})) ) {
@@ -661,7 +675,11 @@ sub _ltspWidgetStatus
             return new EBox::Dashboard::Value(__('Status'), __('Some work is being done on an image'));
         }
     } else {
-        return new EBox::Dashboard::Value(__('Status'), __x("{n} users logged", n => $num_clients));
+        if ($num_clients) {
+            return new EBox::Dashboard::Value(__('Status'), __x("{n} users logged", n => $num_clients));
+        } else {
+            return new EBox::Dashboard::Value(__('Status'), __('Idle'));
+        }
     }
 }
 
@@ -669,26 +687,33 @@ sub ltspClientsWidget
 {
     my ($self, $widget) = @_;
 
-    my $section = new EBox::Dashboard::Section('ltspclients');
     my $section_status = new EBox::Dashboard::Section('ltspstatus');
 
-    my $titles = [__('Username'), __('IP address')];
+    # Only show connected users info if DHCP module is enabled
+    my $gl = EBox::Global->getInstance();
+    if ($gl->modEnabled('dhcp')) {
+        my $section = new EBox::Dashboard::Section('ltspclients');
+        my $titles = [__('Username'), __('IP address')];
 
-    my $clients = $self->_lstpClients();
+        my $clients = $self->_lstpClients();
 
-    my $ids = [];
-    my $rows = {};
-    foreach my $id (sort keys %{$clients}) {
-        my $client = $clients->{$id};
-        push(@{$ids}, $id);
-        $rows->{$id} = [$client->{user}, $client->{ip}];
+        my $ids = [];
+        my $rows = {};
+        foreach my $id (sort keys %{$clients}) {
+            my $client = $clients->{$id};
+            push(@{$ids}, $id);
+            $rows->{$id} = [$client->{user}, $client->{ip}];
+        }
+
+        $section_status->add($self->_ltspWidgetStatus(scalar(keys %{$clients})));
+        $widget->add($section_status);
+
+        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No users connected.'));
+        $widget->add($section);
+    } else {
+        $section_status->add($self->_ltspWidgetStatus());
+        $widget->add($section_status);
     }
-
-    $section_status->add($self->_ltspWidgetStatus(scalar(keys %{$clients})));
-    $widget->add($section_status);
-
-    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No users connected.'));
-    $widget->add($section);
 }
 
 ### Method: widgets

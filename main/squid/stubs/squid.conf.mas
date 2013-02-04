@@ -11,6 +11,7 @@
     $https       => undef
     $filter
 
+    $hostfqdn
     $auth
     $principal
     $realm
@@ -55,7 +56,7 @@ sub _timeAclsInPolicy
 sub _escapeWS
 {
     my ($string) = @_;
-    $string =~ s{ }{~~}g;
+    $string =~ s{\s}{~~}g;
     return $string;
 }
 # needed to avoid log acl problems
@@ -138,7 +139,7 @@ sub _printSplitAcl
    if ($rule->{any}) {
        $objectAcl = 'all';
    } elsif ($object) {
-       $objectAcl = _aclName($objectPrefix . $object);
+       $objectAcl = $objectPrefix . $object;
    } else {
        $objectAcl = '';
    }
@@ -146,12 +147,13 @@ sub _printSplitAcl
    my $group = $rule->{'group'};
    my $groupAcl;
    if ($group) {
-      $groupAcl = _aclName($groupPrefix . $group);
+      $groupAcl = $groupPrefix . $group;
   } else {
       $groupAcl = '';
   }
 
    my $acl = $groupAcl ? $groupAcl : $objectAcl;
+   $acl = _aclName($acl);
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
@@ -203,7 +205,7 @@ acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
-visible_hostname localhost
+visible_hostname (frontal)<% $hostfqdn %>
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy

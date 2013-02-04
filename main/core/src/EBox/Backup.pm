@@ -1033,6 +1033,8 @@ sub _checkZentyalVersion
 #                              when a module restoration fails
 #       continueOnModuleFail - wether continue when a module fails to restore
 #                              (default: false)
+#       dr          - restore in disaster recovery mode, installing needed packages
+#
 #  Returns:
 #    the progress indicator object which represents the progress of the restauration
 #
@@ -1088,9 +1090,17 @@ sub prepareRestoreBackup
         }
     }
 
-    $restoreBackupScript    .= " $execOptions $file";
-
     my $totalTicks = scalar @{ $self->_modInstancesForRestore($file) };
+
+    if (exists $options{dr}) {
+        if ($options{dr}) {
+            $execOptions .= '--install-missing ';
+            # FIXME: increase at least one tick per module to install
+            $totalTicks++;
+        }
+    }
+
+    $restoreBackupScript .= " $execOptions $file";
 
     my $progressIndicator =  EBox::ProgressIndicator->create(
             executable => $restoreBackupScript,
@@ -1112,11 +1122,11 @@ sub prepareRestoreBackup
 #       file - backup's file (as positional parameter)
 #       progressIndicator - Progress indicator associated
 #                       with htis operation (optional )
-# fullRestore - wether do a full restore or restore only configuration (default: false)
+#       fullRestore - wether do a full restore or restore only configuration (default: false)
 #       dataRestore - wether do a data-only restore
 #       forceDependencies - wether ignore dependency errors between modules
-#        forceZentyalVersion
-#        deleteBackup      - deletes the backup after restoring it or if the process is aborted
+#       forceZentyalVersion - ignore zentyal version check
+#       deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
 #                              when a module restoration fail
 #       continueOnModuleFail - wether continue when a module fails to restore
@@ -1151,6 +1161,12 @@ sub restoreBackup
         $self->_checkSize($file);
 
         $tempdir = $self->_unpackAndVerify($file, $options{fullRestore}, %options);
+
+        if ($options{installMissing}) {
+            $progress->setMessage(__('Installing Zentyal packages in backup...')) if ($progress);
+            $self->_installMissingModules($file);
+            $progress->notifyTick() if ($progress);
+        }
 
         $self->_unpackModulesRestoreData($tempdir);
 
@@ -1371,7 +1387,7 @@ sub _preRestoreActions
             push (@missing, $modName);
         }
     }
-    if (@missing and not $options{forceDependencies}) {
+    if (@missing and not $options{forceDependencies} and not $options{installMissing}) {
         throw EBox::Exceptions::External(
                 __x('The following modules present in the backup are not installed: {mods}. You need to install them before restoring.',
                     'mods' => join (' ', @missing))
@@ -1532,7 +1548,96 @@ sub _checkModDeps
     }
 }
 
+sub _installMissingModules
+{
+    my ($self, $configBackup) = @_;
 
+    my %modulesInBackup = map { $_ => 1 } @{ $self->_modulesInBackup($configBackup) };
+    my %modulesToConfigure  = %modulesInBackup;
+
+    foreach my $modName (@{EBox::Global->modNames()}) {
+        delete $modulesInBackup{$modName};
+        my $mod = EBox::Global->modInstance($modName);
+        if ((not $mod->isa('EBox::Module::Service')) or
+             $mod->configured()) {
+            delete $modulesToConfigure{$modName};
+        }
+    }
+
+    $self->_installMissingPackages(keys %modulesInBackup);
+
+    my @unconfModules = keys %modulesToConfigure;
+    if (@unconfModules) {
+        EBox::info("Modules to configure: @unconfModules");
+        $self->_configureModules(@unconfModules);
+    }
+}
+
+sub _installMissingPackages
+{
+    my ($self, @modules) = @_;
+
+    my @packages = map { "zentyal-$_" } grep { not EBox::Global->modExists($_) } @modules;
+
+    if (@packages) {
+        EBox::Sudo::root('apt-get update -q');
+        EBox::info("Missing packages to recover the configuration: @packages");
+        $self->_aptInstall(\@packages);
+    }
+}
+
+sub _aptInstall
+{
+    my ($self, $packages_r) = @_;
+
+    my @packages = @{ $packages_r };
+
+    my $software = EBox::Global->modInstance('software');
+    my $progressIndicator = $software->installPkgs(@packages);
+    my $retValue = $progressIndicator->retValue();
+    if ($retValue != 0) {
+        my $errorMsg = $progressIndicator->errorMsg();
+        my $msg;
+
+        if ($errorMsg) {
+            EBox::error("Error installing packages:\n$errorMsg\nThe backup will continue but it would not able to recover any configuration  which depends on the missing packages");
+        } else {
+            EBox::error("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
+        }
+    }
+}
+
+sub _configureModules
+{
+    my ($self, @modulesToConfigure) = @_;
+
+    unless (@modulesToConfigure) {
+        return;
+    }
+
+    my %toConfigure = map { $_ => 1 } @modulesToConfigure;
+
+    my $mgr = EBox::ServiceManager->new();
+    my @orderedMods = @{$mgr->_dependencyTree()};
+
+    my $i = 0;
+    my $percent;
+    foreach my $name (@orderedMods) {
+        $i += 1;
+        next unless (exists $toConfigure{$name});
+
+        EBox::info("Configuring module: $name");
+
+        my $module = EBox::Global->modInstance($name);
+        try {
+            $module->configureModule();
+        } otherwise {
+            my ($ex) = @_;
+            my $err = $ex->text();
+            EBox::error("Failed to enable module $name: $err");
+        };
+    }
+}
 
 sub _checkId
 {

@@ -45,11 +45,13 @@ use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
+use EBox::DBEngineFactory;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
+use File::Basename;
 use Net::Ping;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -65,8 +67,8 @@ use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
-use constant SHARES_DIR           => SAMBA_DIR . '/shares';
-use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
+use constant SHARES_DIR           => SAMBA_DIR . 'shares';
+use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
@@ -152,6 +154,26 @@ sub initialSetup
     if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
     }
+
+    # Migration from 3.0.11, add fields to the LogHelper tables
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_virus
+                       ADD username VARCHAR(24)");
+        $dbengine->do("ALTER TABLE samba_quarantine
+                       ADD username VARCHAR(24),
+                       ADD client INT UNSIGNED");
+    }
+
+    # Migration from 3.0.12, support sizes greater than 2 GiB
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.13') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_disk_usage
+                       MODIFY size BIGINT DEFAULT 0");
+        $dbengine->do("ALTER TABLE samba_disk_usage_report
+                       MODIFY size BIGINT DEFAULT 0");
+
+    }
 }
 
 sub enableService
@@ -193,6 +215,14 @@ sub _startService
     EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
+
+    # User corner needs access to update the user password
+    if (EBox::Global->modExists('usercorner')) {
+        my $usercorner = EBox::Global->modInstance('usercorner');
+        my $userCornerGroup = $usercorner->USERCORNER_GROUP();
+        EBox::Sudo::root("setfacl -m \"g:$userCornerGroup:rx\" " . SAMBA_PRIVILEGED_SOCKET);
+    }
 
     $self->SUPER::_startService(@_);
 }
@@ -389,6 +419,7 @@ sub shares
         } else {
             $shareConf->{'path'} = $path->value();
         }
+        $shareConf->{'type'} = $path->selectedType();
         $shareConf->{'share'} = $row->valueByName('share');
         $shareConf->{'comment'} = $row->valueByName('comment');
         $shareConf->{'guest'} = $row->valueByName('guest');
@@ -455,11 +486,22 @@ sub syncFolders
         }
 
         if ($sync or $syncAll) {
-            push(@folders, new EBox::SyncFolders::Folder($path, 'share'));
+            push (@folders, new EBox::SyncFolders::Folder($path, 'share', name => basename($path)));
+        }
+    }
+
+    if ($self->recoveryEnabled()) {
+        foreach my $share ($self->filesystemShares()) {
+            push (@folders, new EBox::SyncFolders::Folder($share, 'recovery'));
         }
     }
 
     return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Filesystem shares');
 }
 
 sub defaultAntivirusSettings
@@ -1732,55 +1774,37 @@ sub restoreDependencies
     return \@depends;
 }
 
+sub backupDomains
+{
+    my $name = 'shares';
+    my %attrs  = (
+                  printableName => __('File Sharing'),
+                  description   => __(q{Shares, users and groups homes and profiles}),
+                 );
 
-# backup domains
+    return ($name, \%attrs);
+}
 
-#sub backupDomains
-#{
-#    my $name = 'shares';
-#    my %attrs  = (
-#                  printableName => __('File Sharing'),
-#                  description   => __(q{Shares, users and groups homes and profiles}),
-#                 );
-#
-#    return ($name, \%attrs);
-#}
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+    if ($enabled{shares}) {
+        my $sambaLdapUser = new EBox::SambaLdapUser();
 
-#sub backupDomainsFileSelection
-#{
-#    my ($self, %enabled) = @_;
-#    if ($enabled{shares}) {
-#        my $sambaLdapUser = new EBox::SambaLdapUser();
-#        my @dirs = @{ $sambaLdapUser->sharedDirectories() };
-#        push @dirs, map {
-#            $_->{path}
-#        } @{ $self->shares(1) };
-#
-#        my $selection = {
-#                          includes => \@dirs,
-#                         };
-#        return $selection;
-#    }
-#
-#    return {};
-#}
+        my @dirs = ('/home');
 
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-#sub _facilitiesForDiskUsage
-#{
-#    my ($self) = @_;
-#
-#    my $usersPrintableName  = __(q{Users files});
-#    my $usersPath           = EBox::SambaLdapUser::usersPath();
-#    my $groupsPrintableName = __(q{Groups files});
-#    my $groupsPath          = EBox::SambaLdapUser::groupsPath();
-#
-#    return {
-#        $usersPrintableName   => [ $usersPath ],
-#        $groupsPrintableName  => [ $groupsPath ],
-#    };
-#}
+        push @dirs, map {
+            $_->{path}
+        } @{ $self->shares(1) };
+
+        my $selection = {
+                          includes => \@dirs,
+                         };
+        return $selection;
+    }
+
+    return {};
+}
 
 # Implement LogHelper interface
 sub tableInfo
@@ -1810,20 +1834,23 @@ sub tableInfo
     my $virus_titles = {
         'timestamp' => __('Date'),
         'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'virus' => __('Virus'),
         'event' => __('Type'),
     };
-    my @virus_order = qw(timestamp client filename virus event);;
+    my @virus_order = qw(timestamp client username filename virus event);;
     my $virus_events = { 'virus' => __('Virus') };
 
     my $quarantine_titles = {
         'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
         'filename' => __('File name'),
         'qfilename' => __('Quarantined file name'),
         'event' => __('Quarantine'),
     };
-    my @quarantine_order = qw(timestamp filename qfilename event);
+    my @quarantine_order = qw(timestamp client username filename qfilename event);
     my $quarantine_events = { 'quarantine' => __('Quarantine') };
 
     return [{
@@ -1855,6 +1882,7 @@ sub tableInfo
         'order' => \@quarantine_order,
         'timecol' => 'timestamp',
         'filter' => ['filename'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
@@ -2213,12 +2241,12 @@ sub ldb
     return $self->{ldb};
 }
 
-# Method: sharesPaths
+# Method: filesystemShares
 #
-#   This function is used to generate disk usage reports. It
-#   returns the shares paths, excluding the group shares.
+#   This function is used for Disaster Recovery, to get
+#   the paths of the filesystem shares.
 #
-sub sharesPaths
+sub filesystemShares
 {
     my ($self) = @_;
 
@@ -2226,7 +2254,9 @@ sub sharesPaths
     my $paths = [];
 
     foreach my $share (@{$shares}) {
-        push (@{$paths}, $share->{path}) unless defined $share->{groupShare};
+        if ($share->{type} eq 'system') {
+            push (@{$paths}, $share->{path});
+        }
     }
 
     return $paths;
@@ -2295,17 +2325,31 @@ sub _updatePathsByLen
 {
     my ($self) = @_;
 
-    # FIXME: Complete the implementation
     @sharesSortedByPathLen = ();
 
+    # Group and custom shares
     foreach my $sh_r (@{ $self->shares(1) }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
-                                      share =>  $sh_r->{share} };
+                                      share =>  $sh_r->{share},
+                                      type => ($sh_r->{'groupShare'} ? 'Group' : 'Custom')};
+    }
+
+    # User shares
+    foreach my $user (@{ $self->userShares() }) {
+        foreach my $share (@{$user->{'shares'}}) {
+            my $entry = {};
+            $entry->{'share'} = $user->{'user'};
+            $entry->{'type'} = 'User';
+            $entry->{'path'} = $share;
+            push (@sharesSortedByPathLen, $entry);
+        }
     }
 
     # add regexes
     foreach my $share (@sharesSortedByPathLen) {
         my $path = $share->{path};
+        # Remove duplicate '/'
+        $path =~ s/\/+/\//g;
         $share->{pathRegex} = qr{^$path/};
     }
 
@@ -2314,9 +2358,13 @@ sub _updatePathsByLen
     } @sharesSortedByPathLen;
 }
 
+#   Returns a hash with:
+#       share - The name of the share
+#       path  - The path of the share
+#       type  - The type of the share (User, Group, Custom)
 sub shareByFilename
 {
-    my ($filename) = @_;
+    my ($self, $filename) = @_;
 
     if (not @sharesSortedByPathLen) {
         my $samba =EBox::Global->modInstance('samba');
@@ -2325,7 +2373,7 @@ sub shareByFilename
 
     foreach my $shareAndPath (@sharesSortedByPathLen) {
         if ($filename =~ m/$shareAndPath->{pathRegex}/) {
-            return $shareAndPath->{share};
+            return $shareAndPath;
         }
     }
 

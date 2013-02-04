@@ -46,7 +46,7 @@ sub _process
     my $account = $self->unsafeParam('account');
 
     my $user = new EBox::UsersAndGroups::User(dn => $userDN);
-    $mail->{fetchmail}->removeExternalAccount($user->name(), $account);
+    $mail->{fetchmail}->removeExternalAccount($user, $account);
 }
 
 1;

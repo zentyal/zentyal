@@ -128,9 +128,7 @@ sub _ubuntuVersion
 # Get the Zentyal version to use in the archive
 sub _zentyalVersion
 {
-    # Comment out when stable is launched
-    # return substr(EBox::Config::version(),0,3);
-    return '3.0';
+    return substr(EBox::Config::version(),0,3);
 }
 
 # Get the QA archive to look
@@ -139,7 +137,7 @@ sub _archive
     my $ubuntuVersion = _ubuntuVersion();
     my $zentyalVersion = _zentyalVersion();
 
-    return "zentyal-qa-$zentyalVersion-$ubuntuVersion";
+    return "zentyal-qa-$zentyalVersion";
 
 }
 

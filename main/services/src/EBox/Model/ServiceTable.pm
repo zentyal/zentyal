@@ -120,7 +120,9 @@ sub _table
             'printableName' => __('Service name'),
             'localizable' => 1,
             'size' => '20',
-            'unique' => 1,
+            # FIXME: Commented for problems with i18n, maybe it can be restored
+            # after fixing utf8 problems?
+            #'unique' => 1,
             'editable' => 1
         ),
         new EBox::Types::Text(

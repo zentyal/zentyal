@@ -55,7 +55,9 @@ sub _table
              allowDownload => 1,
              dynamicPath   => sub {
                                 my ($self) = @_;
-                                return LIST_FILE_DIR . '/' . $self->row()->valueByName('name');
+                                my $name = $self->row()->valueByName('name');
+                                $name =~ s/\s/_/g;
+                                return LIST_FILE_DIR . '/' .$name;
                               },
              user          => 'ebox',
              group         => 'ebox',
@@ -238,6 +240,13 @@ sub afterRestoreConfig
     $squid->clearPathsToRemove('restoreConfig');
     $squid->clearPathsToRemove('restoreConfigNoPresent');
     $self->_changeInCategorizedLists();
+}
+
+# Overriden because we don't want the framework to backup, restore or manage the
+#  categorized lsit archives. They can be too big and we will manage them specially
+sub filesPaths
+{
+    return [];
 }
 
 1;

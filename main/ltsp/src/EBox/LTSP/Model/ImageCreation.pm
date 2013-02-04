@@ -121,6 +121,17 @@ sub _doCreate
     my $arch = $params{'architecture'};
     my $fat  = ($params{'fat'} ? 1 : 0);
 
+    # Check we are not overwriting an already existing image
+    my $name;
+    if ($fat) {
+        $name = "fat-$arch";
+    } else {
+        $name = $arch;
+    }
+    if (-f "/opt/ltsp/images/$name.img") {
+        throw EBox::Exceptions::External(__('The image already exists.'));
+    }
+
     my $pid = fork();
     unless (defined $pid) {
         throw EBox::Exceptions::Internal("Cannot fork().");

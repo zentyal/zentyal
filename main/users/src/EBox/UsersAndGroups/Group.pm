@@ -368,6 +368,13 @@ sub create
             'data' => __('group'),
             'value' => $group);
     }
+    # Verify than a user with the same name does not exists
+    if ($users->userExists($group)) {
+        throw EBox::Exceptions::External(
+            __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $group)
+           );
+    }
 
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :
@@ -412,7 +419,7 @@ sub create
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if ($res and $res->exists()) {
             $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {

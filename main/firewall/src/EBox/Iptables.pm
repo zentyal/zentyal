@@ -154,7 +154,7 @@ sub _clearTables # (policy)
             pf("-t nat -F"),
             pf("-t nat -X"),
         );
-# Allow loopback
+    # Allow loopback
     if (($policy eq 'DROP') or ($policy eq 'REJECT')) {
         push(@commands,
                 pf('-A INPUT -i lo -j ACCEPT'),
@@ -184,6 +184,13 @@ sub _setStructure
 
     # state rules
     push(@commands,
+            pf('-N preinput'),
+            pf('-A INPUT -j preinput'),
+            pf('-N preforward'),
+            pf('-A FORWARD -j preforward'),
+            pf('-N preoutput'),
+            pf('-A OUTPUT -j preoutput'),
+
             pf('-N odrop'),
             pf('-A OUTPUT -m state --state INVALID -j odrop'),
             pf('-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
@@ -666,34 +673,20 @@ sub _modRules
 
     push(@modRules, @{$self->_createChains($mod, $helper)});
 
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'nat', 'postmodules', $helper->postrouting())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'fnospoofmodules', $helper->forwardNoSpoof())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'inospoofmodules', $helper->inputNoSpoof())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'iexternalmodules', $helper->externalInput())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'imodules', $helper->input())}
-        );
-    push(@modRules,
-            @{$self->_doRuleset($mod, 'filter', 'omodules', $helper->output())}
-        );
+    push(@modRules, @{$self->_doRuleset($mod, 'nat',    'premodules', $helper->prerouting())});
+    push(@modRules, @{$self->_doRuleset($mod, 'nat',    'postmodules', $helper->postrouting())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'preinput', $helper->preInput())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'preoutput', $helper->preOutput())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'preforward', $helper->preForward())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'fnospoofmodules', $helper->forwardNoSpoof())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'inospoofmodules', $helper->inputNoSpoof())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'iexternalmodules', $helper->externalInput())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'imodules', $helper->input())});
+    push(@modRules, @{$self->_doRuleset($mod, 'filter', 'omodules', $helper->output())});
 
     return \@modRules;
 }
-
 
 sub _createChains
 {

@@ -229,6 +229,45 @@ sub search
     return $result;
 }
 
+# Method: existsDN
+#
+#   Finds whether a DN exists on the database
+#
+# Parameters:
+#
+#   dn   - dn to lookup
+#   relativeToBaseDN - whether the given DN is relative to the baseDN (default: false)
+#
+# Returns:
+#
+#  boolean - whether the DN exists or not
+#
+# Exceptions:
+#
+#   Internal - If there is an error during the LDAP search
+#
+sub existsDN
+{
+    my ($self, $dn, $relativeToBaseDN) = @_;
+    if ($relativeToBaseDN) {
+        $dn = $dn . ','  . $self->dn();
+    }
+
+    my $ldb = $self->ldbCon();
+    my %args = (base => $dn, scope=>'base', filter => '(objectclass=*)');
+    my $result = $ldb->search(%args);
+
+    if (ldap_error_name($result) eq 'LDAP_NO_SUCH_OBJECT') {
+        # then it does not exists
+        return 0;
+    } else {
+        # check if there is no other error
+        $self->_errorOnLdap($result, \%args);
+    }
+
+    return $result->count() > 0;
+}
+
 # Method: modify
 #
 #   Performs a modification in the LDB database using Net::LDAP.

@@ -45,7 +45,7 @@ use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
-use constant MAXUID         => 65535;
+use constant MAXUID         => 2**31;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
@@ -371,7 +371,7 @@ sub _checkQuota
 {
     my ($self, $quota) = @_;
 
-    my $integer = $quota -~ m/^\d+$/;
+    my $integer = $quota =~ m/^\d+$/;
     if (not $integer) {
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
                                             'value' => $quota,
@@ -493,7 +493,8 @@ sub passwordHashes
 #
 #   user - hash ref containing:
 #       user - user name
-#       fullname
+#       password
+#       fullname (optional)
 #       givenname
 #       surname
 #       comment
@@ -548,6 +549,13 @@ sub create
     if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
+    }
+    # Verify than a group with the same name does not exists
+    if ($users->groupExists($user->{user})) {
+        throw EBox::Exceptions::External(
+            __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $user->{user})
+           );
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});

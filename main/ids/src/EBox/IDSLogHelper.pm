@@ -88,7 +88,7 @@ sub processLine # (file, line, logger)
     my $dest = $11;
 
     my $year = (${[localtime(time)]}[5] + 1900);
-    my $timestamp = $self->_convertTimestamp("$year-$month-$day $time", '%F %T');
+    my $timestamp = $self->_convertTimestamp("$year-$month-$day $time", '%Y-%m-%d %T');
 
     my %dataToInsert;
     $dataToInsert{timestamp} = $timestamp;

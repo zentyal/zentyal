@@ -1,4 +1,11 @@
 HEAD
+	+ Using EBox::FileSystem::mountPointIsMounted when checking if
+	  file system backup target is mounted
+	+ Avoid double utf8 encode when escaping file for commands, this
+	  is neccesary after improved utf8 support in EBox::Sudo
+	+ Make status and file cache work with utf8 characters
+3.0.4
+	+ Remove deprecated code for DR using ebackup
 	+ duplicity-wrapper uses C locale to avoid locale problems
 	+ Removed superfluous module lock in backup-tool
 	+ Removed independent implementation of lock and unlock methods

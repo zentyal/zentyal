@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Exceptions::DataExists
 #
 #       External exception raised when a user wants to add an element
@@ -30,7 +31,6 @@ sub new # (data=>string,  value=>string)
 
 
     my $data = delete $opts{data};
-    utf8::decode($data);
     my $value = delete $opts{value};
 
     my $error = __x("{data} {value} already exists.", data => $data,
@@ -40,7 +40,7 @@ sub new # (data=>string,  value=>string)
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;
-    $self = $class->SUPER::new($error, @_);
+    my $self = $class->SUPER::new($error, @_);
     $Log::Log4perl::caller_depth--;
     bless ($self, $class);
     return $self;

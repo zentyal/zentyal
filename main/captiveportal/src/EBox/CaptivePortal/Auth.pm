@@ -41,14 +41,11 @@ use YAML::XS;
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007; # (Bond, James Bond)
 
-sub new
-{
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
-    return $self;
-}
+# Init logger
+EBox::initLogger('captiveportal-log.conf');
 
+# Method: _savesession
+#
 # Parameters:
 #
 #   - user name

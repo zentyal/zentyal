@@ -63,33 +63,41 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd.*?: (.+)/) {
+    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*(smbd|zavs).*?: (.+)/) {
         return;
     }
     my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
-    my $message = $2;
+    my $message = $3;
 
     my %dataToInsert;
 
     my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
     $dataToInsert{timestamp} = $timestamp;
 
-    if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^0-9]*(.*?)'$/) {
+    my @fields = split(/\|/, $message);
+    unless (@fields > 2) {
+        return;
+    }
+    $dataToInsert{username} = $fields[0];
+    $dataToInsert{client} = $fields[1];
+    if ($fields[2] =~ /^VIRUS DETECTED! virus '(.*?)' detected in file '(.*?)'.*$/) {
         $dataToInsert{event} = 'virus';
-        $dataToInsert{filename} = $1;
-        $dataToInsert{virus} = $2;
-        $dataToInsert{client} = $3;
-    } elsif ($message =~ /^INFO: quarantining file '(.*?)' to '(.*?)' was successful$/) {
+        $dataToInsert{virus} = $1;
+        $dataToInsert{filename} = $2;
+    } elsif ($fields[2] =~ /^Quarantining file '(.*?)' to '(.*?)' was successful$/) {
         $dataToInsert{event} = 'quarantine';
         $dataToInsert{filename} = $1;
         $dataToInsert{qfilename} = $2;
     } else {
-        my @fields = split(/\|/, $message);
-        unless (@fields > 2) {
+        unless (@fields > 3) {
             return;
         }
-        $dataToInsert{username} = $fields[0];
-        $dataToInsert{client} = $fields[1];
+
+        unless ($fields[3] eq 'ok') {
+            # TODO: Log failures (fail (msg))
+            return;
+        }
+
         my $type = $fields[2];
         $dataToInsert{event} = $type;
         if (
@@ -114,6 +122,9 @@ sub processLine # (file, line, logger)
             $orig =~ s/\s+$//;
             $dest =~ s/\s+$//;
             $dataToInsert{resource} = $orig . " -> " . $dest;
+        } else {
+            # Not implemented
+            return;
         }
     }
 

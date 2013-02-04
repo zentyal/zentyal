@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed regression in creation of ham/spam mail aliases due to changes
+	  in the users API
+	+ Adapted learnspamd to changes in user module API
 3.0.3
 	+ Reworked log helper to remove POP proxy and adapt to changes in
 	  base class

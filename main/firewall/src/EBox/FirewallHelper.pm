@@ -57,6 +57,19 @@ sub postrouting
     return [];
 }
 
+# Method: preForward
+#
+#   Rules returned by this method are added to the FORWARD chain
+#   before any others.
+#
+# Returns:
+#
+#   array ref - containing preForward rules
+sub preForward
+{
+    return [];
+}
+
 # Method: forward
 #
 #   Rules returned by this method are added to the FORWARD chain in
@@ -86,6 +99,19 @@ sub forwardNoSpoof
     return [];
 }
 
+# Method: preInput
+#
+#   Rules returned by this method are added to the INPUT chain
+#   before any others.
+#
+# Returns:
+#
+#   array ref - containing preInput rules
+sub preInput
+{
+    return [];
+}
+
 # Method: input
 #
 #   Rules returned by this method are added to the INPUT chain for INTERNAL ifaces in
@@ -111,6 +137,19 @@ sub input
 #
 #   array ref - containing input no spoof rules
 sub inputNoSpoof
+{
+    return [];
+}
+
+# Method: preOutput
+#
+#   Rules returned by this method are added to the OUTPUT chain
+#   before any others.
+#
+# Returns:
+#
+#   array ref - containing preOutput rules
+sub preOutput
 {
     return [];
 }

@@ -1,3 +1,40 @@
+HEAD
+	+ Fix typo in execute bundle which avoids correct installation of
+	  cloud-prof when registration is done
+3.0.13
+	+ Notify cloud-prof when installed when changes happen in
+	  DisasterRecoveryDomains model
+	+ Move zfilesync daemon management to cloud-prof package
+	+ Include edition in MOTD and remove upgrade announcement
+	+ Adding extra component to the qa sources list
+	+ Do not try to execute periodic cron jobs if already running
+	+ Update SambaVirusShare reporter
+	+ Update SambaVirus reporter
+	+ auto-subscribe now works when multiple bundles are available
+	+ Avoid usage of private attributes in Subscription model parent
+	  class
+	+ Avoid warning when checking commAddOn
+	+ Fixed share sync regression after directory existance check
+3.0.12
+	+ Write zfilesync conf only when needed
+	+ Start zfilesync also when disaster recovery is available
+3.0.11
+	+ Rename from disasterRecoveryAddOn to disasterRecoveryAvailable
+	+ Implement zarafaAddOn method for getting zarafa details
+	+ Implement client-side of new add-on framework
+	+ Fixed utf8 problems in RESTClient
+	+ Disaster Recovery integration
+	+ Added auto-subscribe script
+	+ Fix reporter-consolidate cron entry
+	+ Change QA archive to the new one
+	+ Make sure only one run-pending-ops process is launched at the
+	  same time
+3.0.10
+	+ Fix reload bundle checks with communication add-on
+	+ Restore process can skip backed up credentials when it is sure
+	  the current credentials are up to date for the same server
+	+ Fix regression to register a server with communication add-on
+	+ Fix restore/backup procedure for the module
 3.0.9
 	+ More resilient reporting operations to reporter errors
 	+ Fix stupid bug in desktop subscription service

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG=/tmp/zentyal-installer.log
+LOG=/var/tmp/zentyal-installer.log
 
 # replace motd
 cp /usr/share/zenbuntu-desktop/motd /etc/motd.tail

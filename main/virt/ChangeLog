@@ -1,4 +1,5 @@
-HEAD
+3.0.1
+	+ Support for another output of file program for qcow2 format
 	+ Make use of the wideDialog parameter for VNC windows
 2.3.5
 	+ Fixed reference to inexistent attribute when adding a machine

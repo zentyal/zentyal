@@ -1,3 +1,9 @@
+zentyal-metapackages (3.0.1) precise; urgency=low
+
+  * Added missing zentyal-remoteservices dependency
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 19 Dec 2012 13:07:03 +0100
+
 zentyal-metapackages (3.0) precise; urgency=low
 
   * New upstream release

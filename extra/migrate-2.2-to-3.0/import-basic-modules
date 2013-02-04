@@ -1,0 +1,845 @@
+#!/usr/bin/perl
+# Copyright (C) 2012 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+use Error qw(:try);
+use YAML::XS;
+use File::Basename qw(dirname basename);
+use Data::Dumper;
+use EBox::Backup;
+
+# known issues:
+#
+# 1- if your default gateway is dhcp and you have more gateways,
+#    one of the static interfaces gateways will be set as default
+#
+# 2- protocols which include any tcp/udp or any connection are not imported
+#
+# 3- this is assumed to be run in a clean machine: foreign existent references
+#     to elements which were in the imported modules will be broken
+#
+# 4- data in imported modules not present in the backup will be lost
+#    this affects to objects, services, network and firewall
+
+# TODO: Try (and make it work) with composites which are children of a row
+my %moduleParameters = (
+    objects => {
+        modelDirs => {
+            ObjectTable => 'objectTable',
+            MemberTable => 'members',
+        },
+    },
+
+    services => {
+        modelDirs => {
+            ServiceTable => 'serviceTable',
+            ServiceConfigurationTable => 'serviceConfigurationTable',
+        },
+        preInsertModelsData => \&_setDefaultServices,
+        rowAdapter => {
+               'ServiceTable' => \&_serviceTableRowAdapter,
+        },
+    },
+
+    network => {
+        modelDirs => {
+            GatewayTable => 'gatewaytable',
+            MultiGwRulesDataTable => 'multigwrulestable',
+        },
+        preInsertModelsData => \&_networkPreInsert,
+    },
+);
+
+EBox::init();
+
+my ($bakFile) = @ARGV;
+
+my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
+try {
+    EBox::Backup->_unpackModulesRestoreData($bakDir);
+    my @modulesToImport = qw(services objects network firewall);
+    foreach my $module (@modulesToImport) {
+        _cleanModule($module);
+    }
+    foreach my $module (@modulesToImport) {
+        _importModule($module, $bakDir);
+    }
+} finally {
+    EBox::Sudo::root("rm -rf $bakDir")
+};
+
+sub _importModule
+{
+    my ($modName, $bakDir) = @_;
+
+    my $bakData = _parseBakfile($bakDir, $modName);
+    if (not $bakData) {
+        return;
+    }
+
+    my $module = EBox::Global->getInstance(0)->modInstance($modName);
+    if (not $module) {
+        EBox::error("$modName has impot data but it is not installed, not importing");
+        return;
+    }
+
+    my $tree = _moduleComponentTree($modName);
+
+    my $filled = _fillModuleTree($module, $tree, $bakData);
+
+    my $modParams = _moduleParameters($modName);
+    if ((exists $modParams->{preInsertModelsData}) and $modParams->{preInsertModelsData} ) {
+        $modParams->{preInsertModelsData}->($module, $filled, $bakData);
+    }
+    if ((exists $modParams->{importKeys}) and $modParams->{importKeys} ) {
+        _importKeys($modName, $modParams->{importKeys}, $bakData);
+    }
+    _insertDataIntoModule($module, $filled);
+}
+
+sub _moduleComponentTree
+{
+    my ($modName) = @_;
+    my $global = EBox::Global->getInstance();
+    my $modInfo = $global->readModInfo($modName);
+
+    my $models       = $modInfo->{models};
+    my $childsByParent = $modInfo->{foreign};
+    my $composites =  $modInfo->{composites};
+
+    # assumed that composite and model cannot have the same name
+    my %rootComponents;
+    foreach my $component (@{ $models }, keys %{ $composites }) {
+        $rootComponents{$component} = 1;
+    }
+    foreach my $childs (values %{ $childsByParent}, values %{ $composites }  ) {
+        foreach my $child (@{ $childs }) {
+            delete $rootComponents{$child};
+        }
+    }
+
+    my $modelsByName = { map { ($_ => $_ ) } @{ $models } };
+    my @tree;
+    foreach my $name (keys %rootComponents) {
+        push @tree, _componentForTree($name, $modelsByName, $childsByParent, $composites);
+    }
+    return \@tree;
+}
+
+sub _componentForTree
+{
+    my ($componentName, $models, $childByParent, $composites) = @_;
+    my $component = { name => $componentName};
+    my $childNames;
+    if (exists $models->{$componentName}) {
+        $component->{type} = 'model';
+        $childNames = $childByParent->{$componentName};
+    } elsif (exists $composites->{$componentName}) {
+        $component->{type} = 'composite';
+        $childNames = $composites->{$componentName};
+    } else {
+        EBox::error("Unknown component type " . $component->{type} . '. Skip');
+        return undef;
+    }
+
+    if (not $childNames) {
+        $childNames = [];
+    }
+
+    my @childs;
+    foreach my $childName (@{ $childNames }) {
+        my $componentChild = _componentForTree($childName, $models, $childByParent, $composites);
+        push @childs, $componentChild if $componentChild;
+    }
+    $component->{childsPrototypes} = \@childs;
+    return $component;
+}
+
+sub _parseBakfile
+{
+    my ($dir, $module) = @_;
+    my $path = "$dir/eboxbackup/$module.bak/$module.bak";
+    if (not EBox::Sudo::fileTest('-r', $path)) {
+        EBox::info("No backup file for $path for module $module, not restoring it");
+        return undef;
+    }
+
+    my @keys;
+    try {
+        my $lines = EBox::Sudo::root("cat $path");
+        my $text = join '', @{$lines};
+        @keys = YAML::XS::Load($text);
+    } otherwise {
+        throw EBox::Exceptions::External("Error parsing YAML:$path");
+    };
+    my %keys = map {
+        $_->{key} => $_
+    } @keys;
+
+
+    return \%keys;
+}
+
+sub _fillModuleTree
+{
+    my ($module, $tree, $allKeys) = @_;
+    my $moduleName = $module->name();
+    my $moduleDir = _moduleDir($moduleName);
+    foreach my $root (@{  $tree }) {
+        my $dir = $moduleDir;
+        if ($root->{type} eq 'model') {
+            my $modelName  = $root->{name};
+            $dir = _modelDir($moduleName, $modelName, $dir);
+        }
+        _fillComponent($module, $root, $dir, $allKeys);
+    }
+
+    return $tree;
+}
+
+sub _fillComponent
+{
+    my ($module, $compSpec, $dir, $allKeys) = @_;
+    if ($compSpec->{type} eq 'composite') {
+        _fillComposite($module, $compSpec, $dir, $allKeys);
+    } elsif ($compSpec->{type} eq 'model') {
+        _fillModel($module, $compSpec, $dir, $allKeys);
+    } else {
+        # composite without childs
+        EBox::info('Unknown componet type ' . $compSpec->{type} . ' Name ' . $compSpec->{name});
+    }
+}
+
+sub _fillComposite
+{
+    my ($module, $composite, $dir, $allKeys) = @_;
+    my $moduleName = $module->name();
+    $composite->{components} = [];
+    foreach my $child (@{ $composite->{childsPrototypes} }) {
+        my $component =  Clone::Fast::clone($child);
+        # XXX: this should be fixed for components which have a parentRow!
+        my $componentDir;
+        if ($component->{type} eq 'model') {
+            $componentDir = _modelDir($moduleName, $component->{name}, $dir);
+        } else {
+            $componentDir = $dir;
+        }
+
+        _fillComponent($module, $component, $componentDir, $allKeys);
+        push @{ $composite->{components} }, $component;
+    }
+}
+
+sub _fillModel
+{
+    my ($module, $modelSpec, $dir, $allKeys) = @_;
+    if (@{ $modelSpec->{childsPrototypes} }) {
+        _fillModelWithChilds($module, $modelSpec, $dir, $allKeys);
+    } else {
+        my $modelName = $modelSpec->{name};
+        my $isForm  = $module->model($modelName)->isa('EBox::Model::DataForm');
+        $modelSpec->{form} = $isForm;
+        if ($isForm) {
+            _fillModelForm($module, $modelSpec, $dir, $allKeys);
+        } else {
+            _fillModelRows($module, $modelSpec, $dir, $allKeys);
+        }
+    }
+}
+
+sub _fillModelWithChilds
+{
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $dir = $baseDir . '/keys';
+    my $moduleName = $module->name();
+    my $modelName  = $modelSpec->{name};
+
+    my $idxKeys = _matchKeys($allKeys, $dir, '.*.idx', 'hash');
+    if (@{ $idxKeys } == 0) {
+        $modelSpec->{rows} = [];
+        return;
+    } elsif (@{ $idxKeys } > 1){
+        EBox::error("More than one idx key found in $dir/*.idx. Not suppored. Skipped");
+        return;
+    }
+
+    # XXX: asummed only one idx param
+    my $idxParam = basename($idxKeys->[0]->{key});
+    $idxParam =~ s/\.idx$//;
+     if (not $idxParam) {
+        EBox::error('Cannot get idx param name from ' .$idxKeys->[0]->{key} . ' Skipping' );
+        return;
+    }
+    my %idxInfo;
+    while (my ($value, $rowIdString) = each %{ $idxKeys->[0]->{value}}) {
+        $rowIdString =~ m/"(.*?)"/;
+        my $rowId = $1;
+        if (not $rowId) {
+            EBox::error("Cannot get row id from key $rowIdString. Skipping");
+            next;
+        }
+        $idxInfo{$rowId} = $value;
+    }
+
+    my @rows;
+    my @order = @{ _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys) };
+    foreach my $rowId (@order) {
+        my $idxValue = $idxInfo{$rowId};
+        if (not $idxValue) {
+            EBox::error("No row idx for $rowId. Skipping");
+            next;
+        }
+        my %elements = %{ _elementsForRow($moduleName, $modelName, $dir, $rowId, $allKeys) };
+        # add idxparam to elements
+        $elements{$idxParam} = $idxValue;
+        my @subModels = @{ _subModelsByModelName($module, $modelName) };
+        my @childRows;
+        foreach my $subModel(@subModels) {
+            my $fieldName = $subModel->fieldName();
+            my $subModelDir = $dir . "/$rowId/$fieldName";
+            my $foreignModel = $subModel->foreignModel();
+            my $spec;
+            foreach my $child (@{ $modelSpec->{childsPrototypes} }) {
+                if ($child->{name} eq $foreignModel) {
+                    $spec = Clone::Fast::clone($child);
+                    $spec->{subModelField} = $fieldName;
+                }
+            }
+            if (not $spec) {
+                EBox::error("Spec not found for $foreignModel");
+                next;
+            }
+
+            _fillComponent($module, $spec, $subModelDir, $allKeys);
+            push @childRows, $spec;
+        }
+
+        # TODO: childs here
+        my $row = {
+            id => $rowId,
+            elements => \%elements,
+            childs => \@childRows,
+        };
+        push @rows, $row;
+    }
+
+    $modelSpec->{rows} = \@rows;
+}
+
+sub _fillModelRows
+{
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $dir = $baseDir . '/keys';
+    my $moduleName = $module->name();
+    my $modelName  = $modelSpec->{name};
+
+    my @order = @{  _getModelOrderValue($moduleName, $modelName, $baseDir, $allKeys)  };
+    if (not @order) {
+        # must be with only one ID, try to found it
+        my $onlyRowId = _onlyRowIdForModel($dir, $allKeys);
+        if ($onlyRowId) {
+            @order = ( $onlyRowId  );
+        }
+    }
+    if (not @order) {
+        EBox::info("cannot found order rows on lone row id for $modelName it must be empty");
+    }
+
+    my @rows;
+    foreach my $rowId (@order) {
+        my %elements = %{ _elementsForRow($moduleName, $modelName, $dir, $rowId, $allKeys) };
+        if (not %elements) {
+            EBox::info("Not found data for row with old id $rowId. Skipping" );
+            next;
+        }
+        my $row = {
+            id => $rowId,
+            elements => \%elements,
+        };
+        push @rows, $row;
+    }
+
+    $modelSpec->{rows} = \@rows;
+}
+
+sub _fillModelForm
+{
+    my ($module, $modelSpec, $baseDir, $allKeys) = @_;
+    my $moduleName = $module->{name};
+    my $modelName = $modelSpec->{name};
+    my $keysForRow = _matchKeys($allKeys, $baseDir, '.*', 'string');
+    if (not @{ $keysForRow }) {
+        EBox::info("Not found data for form $modelName. Skipping" );
+        return;
+    }
+
+    my %elements;
+    foreach my $key (@{ $keysForRow }) {
+        my $name = basename($key->{key});
+        if ($name eq 'version') {
+            # ignore this key bz is a metadata
+            next;
+        }
+        $elements{$name} = $key->{value};
+    }
+
+    my $modParams = _moduleParameters($moduleName);
+    if ((exists $modParams->{rowAdapter}->{$modelName}) and
+        ($modParams->{rowAdapter}->{$modelName})
+       ) {
+        my $adapter = $modParams->{rowAdapter}->{$modelName};
+        %elements =  %{ $adapter->(\%elements)};
+    }
+
+    $modelSpec->{elements} = \%elements;
+}
+
+
+sub _elementsForRow
+{
+    my ($moduleName, $modelName, $dir, $rowId, $allKeys) = @_;
+    # assumed that no-idx row keys are always of string type
+    if (not $rowId) {
+        EBox::error("Not rowId for model $modelName");
+        return;
+    }
+    my $rowDir = "$dir/$rowId";
+    my $keysForRow = _matchKeys($allKeys, $rowDir, '.*', 'string');
+    if (not @{ $keysForRow }) {
+        EBox::info("Not found data for row with old id $rowId. Skipping");
+        return {};
+    }
+
+    my %elements;
+    foreach my $key (@{ $keysForRow }) {
+        my $name = basename($key->{key});
+        $elements{$name} = $key->{value};
+    }
+
+    my $modParams = _moduleParameters($moduleName);
+    if ((exists $modParams->{rowAdapter}->{$modelName}) and
+        ($modParams->{rowAdapter}->{$modelName})) {
+        return $modParams->{rowAdapter}->{$modelName}->(\%elements);
+    }
+
+    return \%elements
+}
+
+sub _subModelsByModelName
+{
+    my ($module, $modelName) = @_;
+    my $model = $module->model($modelName);
+    my $submodelsFields =  $model->_subModelFields();
+    if (not @{ $submodelsFields }) {
+        EBox::error("Not submodels for model $module/$modelName which has childs!");
+    }
+
+    my @submodels = map {
+        $model->fieldHeader($_);
+    } @{ $submodelsFields };
+    return \@submodels;
+}
+
+sub _moduleDir
+{
+    my ($moduleName) = @_;
+    return  "/ebox/modules/$moduleName";
+}
+
+sub _moduleParameters
+{
+    my ($moduleName) = @_;
+    my $params;
+    if (exists $moduleParameters{$moduleName}) {
+        $params = $moduleParameters{$moduleName}
+    } else {
+        $params = {};
+    }
+
+    my @hashParams = qw(modelDirs rowAdapter);
+    foreach my $param (@hashParams) {
+        if (not exists $params->{$param}) {
+            $params->{$param} = {};
+        }
+    }
+
+    return $params;
+}
+
+# in 2.2 not all models have directory equal to its name
+sub _modelDir
+{
+    my ($moduleName, $modelName, $dir) = @_;
+    my $modelDir;
+    my $params = _moduleParameters($moduleName);
+    if ( (exists $params->{modelDirs}->{$modelName}) and
+         ($params->{modelDirs}->{$modelName})
+        ) {
+        $modelDir =  $params->{modelDirs}->{$modelName};
+    } else {
+        $modelDir = $modelName;
+    }
+
+    return "$dir/$modelDir"
+}
+
+sub _getModelOrderValue
+{
+    my ($moduleName, $modelName, $dir, $allKeys) = @_;
+    my $orderKey = $dir . '/order';
+    if (not exists $allKeys->{$orderKey}) {
+        return [];
+    }
+
+    my @order = @{ $allKeys->{$orderKey}->{value}  };
+    return \@order;
+}
+
+sub _onlyRowIdForModel
+{
+    my ($dir, $allKeys) = @_;
+    # try to match something like
+    # /ebox/modules/services/serviceTable/keys/serv9837/configuration/keys/serv7815/source_range_type
+    my $id;
+    my $regex = qr{^$dir/(.*?)/(.*?)$};
+    foreach my $key (keys %{ $allKeys }) {
+        if ($key =~ m/$regex/) {
+            $id = $1;
+            last;
+        }
+    }
+
+    if (not $id) {
+        EBox::error("Cannot find only row id for model. Directory $dir");
+    }
+
+    return $id;
+}
+
+sub _matchKeys
+{
+    my ($allKeys, $dir, $basenameRe, $type) = @_;
+    my @matched;
+    foreach my $key (keys %{ $allKeys }) {
+        if (dirname($key) eq $dir) {
+            if (not (basename($key) =~ m/$basenameRe/)) {
+                next;
+            }
+            my $selected = $allKeys->{$key};
+            if ($type) {
+                ($selected->{type} eq $type) or
+                    next;
+            }
+            push @matched, $selected;
+        }
+    }
+    return \@matched;
+}
+
+sub _keysFromDirRecursive
+{
+    my ($dir, $allKeys) = @_;
+    my @matched;
+    ($dir =~  m{/$}) or $dir .= '/';
+    my $matchRe = qr{^$dir};
+    foreach my $key (keys %{ $allKeys }) {
+        my $keyDir = dirname($key);
+        if ($keyDir =~ m/$matchRe/) {
+            push @matched, $key;
+        }
+    }
+    return \@matched;
+}
+
+sub _insertDataIntoModule
+{
+    my ($module, $tree) = @_;
+    foreach my $root (@{ $tree }) {
+        _insertData($module, $root)
+    }
+}
+
+sub _insertData
+{
+    my ($module, $component) = @_;
+    my $type = $component->{type};
+    if ($type eq 'composite') {
+        foreach my $child (@{ $component->{components} }) {
+            _insertData($module, $child);
+        }
+    } elsif ($type eq 'model') {
+        my $model = $module->model($component->{name});
+        if ($component->{form}) {
+            _insertElementsInForm($model, $component->{elements})
+        } else {
+            _insertRowsInModel($model, $component->{rows});
+        }
+    } else {
+        EBox::error("Bad type: $type. full component: " . Dumper($component));
+    }
+}
+
+sub _insertElementsInForm
+{
+    my ($model, $elements) = @_;
+    if (not $elements) {
+        # nothing to add
+        return;
+    }
+    my %elements = %{ $elements};
+    my $nElements = keys %elements;
+    if (exists $elements{readOnly}) {
+        $nElements -= 1;
+    }
+    if ($nElements == 0) {
+        # no data to add
+        return;
+    }
+    try {
+        $model->set(%elements , force => 1);
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("$ex\nCannot set data in form " . $model->name() . ' elements ' . Dumper(\%elements));
+    };
+}
+
+sub _insertRowsInModel
+{
+    my ($model, $rows) = @_;
+    foreach my $row (@{ $rows }) {
+        my $newRowId;
+        try {
+            my @addParams = %{ $row->{elements}};
+            # try to use oldId to preserve referencies
+            if (exists $row->{id} and $row->{id}) {
+                push @addParams, id => $row->{id};
+            }
+            $newRowId = $model->addRow(@addParams);
+        } otherwise {
+            my ($ex) = @_;
+            EBox::error("$ex\nCannot add row in model " . $model->name() .
+                         ' elements ' . Dumper($row->{elements})
+                       );
+        };
+        $newRowId or
+            next;
+        my $newRow   = $model->row($newRowId);
+        # add childrens
+        foreach my $child (@{ $row->{childs}}) {
+            my $subModelField = $child->{subModelField};
+            my $subModel =  $newRow->subModel($subModelField);
+            _insertRowsInModel($subModel, $child->{rows});
+        }
+    }
+}
+
+sub _cleanModule
+{
+    my ($module) = @_;
+
+    # TODO: try to remove by row to mantain more integrity?
+    my $global = EBox::GlobalImpl->instance();
+
+    $global->delete_dir("global/conf/modules/$module");
+    $global->{redis}->delete_dir("global/state/ServiceModule/$module");
+    $global->{redis}->delete_dir("$module/conf");
+    $global->{redis}->delete_dir("$module/ro");
+    $global->{redis}->unset("$module/state");
+}
+
+sub _importKeys
+{
+    my ($modName, $keys_r, $allKeys) = @_;
+    my $modDir = _moduleDir($modName);
+    my $mod = EBox::Global->getInstance()->modInstance($modName);
+    foreach my $key (@{ $keys_r }) {
+        my @individualKeys;
+        if ($key =~ m{/$}) {
+            @individualKeys = @{ _keysFromDirRecursive("$modDir/$key", $allKeys) };
+            @individualKeys = map { $_ =~ s{^$modDir/}{}; $_ } @individualKeys;
+        } else {
+            @individualKeys = ($key);
+        }
+        foreach my $iKey (@individualKeys) {
+            my $oldKey = "$modDir/$iKey";
+            if (not exists $allKeys->{$oldKey}) {
+                EBox::debug("Not exists $iKey in old conf ($oldKey)");
+                next;
+            }
+            my $value = $allKeys->{$oldKey}->{value};
+            $mod->set($iKey, $value);
+        }
+    }
+}
+
+# we can extend this for lookup other things if needed
+sub _lookupComponentInConfigTree
+{
+    my ($configTree, $name) = @_;
+    foreach my $root (@{ $configTree }) {
+        my $found = _lookupComponent($root, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+sub _lookupComponent
+{
+    my ($component, $name) = @_;
+    if ($component->{name} eq $name) {
+        return $component;
+    }
+
+    my @toLook;
+    if ($component->{type} eq 'composite') {
+        @toLook = @{ $component->{components} }
+    } elsif (exists $component->{rows}) {
+        foreach my $row (@{ $component->{rows}  }) {
+            if (exists $row->{childs}) {
+                push @toLook, @{ $row->{childs} };
+            }
+        }
+    }
+
+    foreach my $comp (@toLook) {
+        my $found = _lookupComponent($comp, $name);
+        if ($found) {
+            return $found;
+        }
+    }
+
+    return undef;
+}
+
+sub _setDefaultServices
+{
+    my ($mod, $configTree, $allKeys)= @_;
+    # to set default services
+    $mod->initialSetup();
+    # remove arlready added default services for services table
+    my $model = _lookupComponentInConfigTree($configTree, 'ServiceTable');
+    if (not $model) {
+        return;
+    }
+
+    my %default;
+    my $defaultServices = $mod->_defaultServices();
+    foreach my $serv (@{ $defaultServices }) {
+        $default{$serv->{name}} = 1;
+    }
+
+    my @rows = @{ $model->{rows} };
+    @rows = grep {
+        not $default{$_->{elements}->{name}}
+    } @rows;
+
+    $model->{rows} = \@rows;
+}
+
+sub _serviceTableRowAdapter
+{
+    my ($elements) = @_;
+
+    # printableName attribute didn't exists in 2.2.X
+    if (not $elements->{printableName}) {
+            # set printable name same then name
+            $elements->{printableName} = $elements->{name};
+    }
+
+    return $elements;
+}
+
+sub _networkPreInsert
+{
+    my ($mod, $configToInsert, $allKeys)= @_;
+    _networkImportInterfaces($mod, $allKeys);
+    _mangleGatewayTable($configToInsert);
+}
+
+# default row msut b the first to be inserted
+sub _mangleGatewayTable
+{
+    my ($configTree) = @_;
+
+    # look up for GatewayTable model
+    my $model = _lookupComponentInConfigTree($configTree, 'GatewayTable');
+    if (not $model) {
+        print "Not found GW table\n";
+        return;
+    }
+    my @rows = @{ $model->{rows} };
+    my $seenDefault;
+    my @newRows;
+    foreach my $row (@rows) {
+        if ($row->{elements}->{auto}) {
+            # DHCP gw, skipped
+            next;
+        }
+        my $isDefault = $row->{elements}->{default};
+
+        if ($isDefault and not $seenDefault) {
+            unshift @newRows, $row;
+            $seenDefault = 1;
+        } elsif ($isDefault and $seenDefault) {
+            my $id = $row->{id};
+            EBox::warn("Additional default gateway seen in row $id, disabled its default property");
+            $row->{elements}->{default} = 0;
+            push @newRows, $row;
+        } else {
+            push @newRows, $row;
+        }
+    }
+
+    if (@newRows and not $seenDefault) {
+        EBox::warn("No default gateway seen in gateway table,s ettign first row as default");
+        $newRows[0]->{elements}->{default} = 1;
+    }
+
+    $model->{rows}  = \@newRows;
+}
+
+sub _networkImportInterfaces
+{
+    my ($mod, $allKeys)= @_;
+    my $modName = $mod->name();
+    my $interfacesDir = _moduleDir($modName) . '/interfaces';
+    my @interfacesKeys = @{ _keysFromDirRecursive($interfacesDir, $allKeys) };
+    my %interfaces;
+    foreach my $key (@interfacesKeys) {
+        $key =~ m{^$interfacesDir/(.*?)/(.*?)$};
+        my ($iface, $paramName) = ($1, $2);
+        if (not $iface or not $paramName) {
+            next;
+        }
+        if (not exists $interfaces{$iface}) {
+            $interfaces{$iface} = {};
+        }
+        my $paramValue = $allKeys->{$key}->{value};
+        $interfaces{$iface}->{$paramName} = $paramValue;
+    }
+
+    $mod->set('interfaces', \%interfaces);
+}
+
+1;
