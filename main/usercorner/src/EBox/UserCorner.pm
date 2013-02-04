@@ -74,7 +74,7 @@ sub usersessiondir
 # Returns:
 #
 #      String - the path to that directory
-sub usercornerJournalDir
+sub journalDir
 {
  return EBox::UserCorner::usercornerdir() . 'syncjournal';
 }
