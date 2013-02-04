@@ -35,6 +35,7 @@ use Authen::SASL qw(Perl);
 use Data::Dumper;
 use File::Slurp;
 use Error qw( :try );
+use Perl6::Junction qw(any);
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
 
@@ -608,6 +609,39 @@ sub groups
         push (@{$list}, $group);
     }
     return $list;
+}
+
+# Method: dnsZones
+#
+#   Returns the DNS zones stored in the samba LDB
+#
+sub dnsZones
+{
+    my ($self) = @_;
+
+    my @zonePrefixes = (
+        "CN=MicrosoftDNS,DC=DomainDnsZones," . $self->dn(),
+        "CN=MicrosoftDNS,DC=ForestDnsZones," . $self->dn(),
+        "CN=MicrosoftDNS,CN=System," . $self->dn());
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my $zones = [];
+
+    for my $prefix (@zonePrefixes) {
+        my $params = {
+            base => $prefix,
+            scope => 'sub',
+            filter => '(objectClass=dnsZone)',
+            attrs => ['name'],
+        };
+        my $result = $self->search($params);
+        foreach my $entry ($result->entries()) {
+            my $name = $entry->get_value('name');
+            next unless defined $name;
+            next if $name eq any @ignoreZones;
+            push (@{$zones}, lc ($name));
+        }
+    }
+    return $zones;
 }
 
 1;

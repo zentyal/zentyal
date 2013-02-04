@@ -1,4 +1,6 @@
 HEAD
+	+ Query samba module for zones stored in LDB. Those ones will override
+	  the zones defined in the UI.
 	+ Changes required by the bundled version of samba4.
 	  Add paths to apparmor profile
 	  Change DLZ library path
