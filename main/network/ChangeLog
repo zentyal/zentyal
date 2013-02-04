@@ -1,5 +1,5 @@
 HEAD
-	+ Disable IPV6
+	+ Disable IPv6 on enable actions to avoid problems with samba4
 	+ Added more coherence checks to static routes table
 	+ Allow to set broadcast address in wakeonlan tool
 	+ Fixed unproper use of last inside try
