@@ -67,6 +67,18 @@ sub usersessiondir
     return usercornerdir() . 'sids/';
 }
 
+# Method: journalDir
+#
+#      Get the path where operation files are stored for master/slave sync
+#
+# Returns:
+#
+#      String - the path to that directory
+sub usercornerJournalDir
+{
+ return EBox::UserCorner::usercornerdir() . 'syncjournal';
+}
+
 # Method: actions
 #
 #       Override EBox::Module::Service::actions
@@ -133,6 +145,18 @@ sub enableActions
 {
     my ($self) = @_;
 
+    # Create userjournal dir if it not exists
+    my @commands;
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $usercornerDir = EBox::UserCorner::journalDir();
+    unless (-d $usercornerDir) {
+        push (@commands, "mkdir -p $usercornerDir");
+        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
+        EBox::Sudo::root(@commands);
+    }
+
+    # migrate modules to usercorner
     (-d (EBox::Config::conf() . 'configured')) and return;
 
     my $names = EBox::Global->modNames();
@@ -145,20 +169,6 @@ sub enableActions
         }
     }
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
-
-    # Create userjournal dir only in master setup
-    my @commands;
-
-    my $ucUser = USERCORNER_USER;
-    my $ucGroup = USERCORNER_GROUP;
-    my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-    unless (-d $usercornerDir) {
-        push (@commands, "mkdir -p $usercornerDir");
-        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
-    }
-    if (@commands) {
-        EBox::Sudo::root(@commands);
-    }
 }
 
 # Method: _daemons
