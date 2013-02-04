@@ -12,19 +12,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::UserCorner;
+use base qw(EBox::Module::Service);
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
 use EBox::UserCorner;
-
-use strict;
-use warnings;
-
-use base qw(EBox::Module::Service);
+use EBox::Util::Version;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
@@ -131,6 +130,15 @@ sub initialSetup
         $fw->saveConfigRecursive();
 
         $self->setPort($port);
+    }
+
+    if (EBox::Util::Version::compare($version, '3.0.5') < 0) {
+        my $journalDir = journalDir();
+        my $oldJournalDir = EBox::UserCorner::usercornerdir() . 'userjournal';
+        if ((-d $oldJournalDir) and not (-d $journalDir)) {
+            # fix wrong path
+            EBox::Sudo::root("mv '$oldJournalDir' '$journalDir'");
+        }
     }
 
     # Execute initial-setup script
