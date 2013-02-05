@@ -1,4 +1,7 @@
 HEAD
+	+ Use clamd socket instead of shared library for antivirus, this is
+	  faster and reduces memory consumption
+	+ Empty text files are created now when a virus is found on a share
 	+ Modified 'size' field in samba_disk_usage and samba_disk_usage_report
 	  tables from INT to BIGINT
 3.0.12
