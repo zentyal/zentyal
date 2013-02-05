@@ -467,7 +467,7 @@ sub _addAccount
             return;
         }
 
-        my $alias = $user . '@' . $vdomain;
+        my $alias = $username . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
             $mailAliasLdap->addAlias($alias, $account, $username);
         }

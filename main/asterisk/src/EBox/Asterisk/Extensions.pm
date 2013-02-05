@@ -223,12 +223,7 @@ sub addUserExtension
         return;
     }
 
-    if (($extn < MINEXTN) or ($extn > MAXEXTN)) {
-        throw EBox::Exceptions::InvalidData(
-              data => __(q{User extension}),
-              value => $extn,
-           )
-    }
+    $self->_checkUserExtensionNumber($extn);
 
     my $username = $user->name();
     if ($username ne $extn) {
@@ -307,6 +302,7 @@ sub delUserExtension
 sub modifyUserExtension
 {
     my ($self, $user, $newextn) = @_;
+    $self->_checkUserExtensionNumber($newextn);
 
     my $username = $user->name();
     if ($self->extensionExists($newextn) and ($username ne $newextn)) {
@@ -333,6 +329,21 @@ sub modifyUserExtension
     }
 
     $user->save();
+}
+
+sub _checkUserExtensionNumber
+{
+    my ($self, $extn) = @_;
+    if (($extn < MINEXTN) or ($extn > MAXEXTN)) {
+        throw EBox::Exceptions::InvalidData(
+              data => __(q{User extension}),
+              value => $extn,
+              advice => __x('Must be a number between {min} and {max}',
+                            min => MINEXTN,
+                            max => MAXEXTN,
+                           )
+           )
+    }
 }
 
 # Method: addExtension

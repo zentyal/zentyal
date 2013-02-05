@@ -1,4 +1,11 @@
 HEAD
+	+ Modified 'size' field in samba_disk_usage and samba_disk_usage_report
+	  tables from INT to BIGINT
+3.0.12
+	+ New advanced 'unmanaged_acls' option in /etc/zentyal/samba.conf to
+	  disable overwriting of ACLs when saving changes
+	+ Notify cloud-prof when installed when changes happen in
+	  SyncShares and SambaShares models
 	+ shareByFilename method now also returns the path and type of the share
 	+ Fix shareByFilename method
 	+ Update Loghelper to the new log formats

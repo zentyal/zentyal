@@ -1,4 +1,8 @@
 HEAD
+	+ Recover better of no-usercorner journal error in slave-sync
+	+ Added read-only rootDn and password to LDAP settings screen
+	+ Don't allow empty first name in CGIs for user
+	  creation/modification. Otherwise you can get LDAP errors.
 	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
 3.0.7
 	+ Fixed LdapObject::get() for list context

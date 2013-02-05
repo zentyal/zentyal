@@ -15,6 +15,9 @@ adduser ebox zentyal-captiveportal
 
 CPORTAL_LOG="/var/log/zentyal-captiveportal/"
 test -d $CPORTAL_LOG || mkdir $CPORTAL_LOG
+LOG_FILES="$CPORTAL_LOG/zentyal.log $CPORTAL_LOG/access.log $CPORTAL_LOG/error.log"
+touch -a $LOG_FILES
+chmod -R 750 $CPORTAL_LOG
 chown -R zentyal-captiveportal:zentyal-captiveportal $CPORTAL_LOG
 
 # create user session dirs

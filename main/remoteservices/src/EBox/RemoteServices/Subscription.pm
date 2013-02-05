@@ -770,7 +770,7 @@ sub _restartRS
     $fw->save();
     # Required to set the CA correctly
     my $apache = $global->modInstance('apache');
-    $apache-save();
+    $apache->save();
 }
 
 # Downgrade current subscription, if necessary
