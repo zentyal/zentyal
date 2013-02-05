@@ -1655,16 +1655,18 @@ sub dumpConfig
     my ($self, $dir, %options) = @_;
 
     my @cmds;
-    # Remove previous backup files
-    my $privateDir = PRIVATE_DIR;
-    my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
-    foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
-        chomp ($bakFile);
-        push (@cmds, "rm '$bakFile'");
-    }
 
-    try {
+    my $mirror = EBox::Config::tmp() . "/samba.backup";
+    my $privateDir = PRIVATE_DIR;
+    if (EBox::Sudo::fileTest('-d', $privateDir)) {
+        # Remove previous backup files
+        my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+        my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+        foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
+            chomp ($bakFile);
+            push (@cmds, "rm '$bakFile'");
+        }
+
         # Backup private. TDB and LDB files must be backed up using tdbbackup
         my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
         my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
@@ -1679,23 +1681,26 @@ sub dumpConfig
             push (@cmds, "chown $uid:$gid $dbFile.bak");
             push (@cmds, "chmod $mode $dbFile.bak");
         }
-        my $mirror = EBox::Config::tmp() . "/samba.backup";
-        push (@cmds, "rm -rf $mirror");
-        push (@cmds, "mkdir -p $mirror");
-        push (@cmds, "rsync -avz $privateDir/* --exclude=*.tdb --exclude=*.ldb --exclude=ldap_priv --exclude=smbd.tmp --exclude=ldapi $mirror");
-        push (@cmds, "cd $mirror");
-        push (@cmds, "tar cjf $dir/private.tar.bz2 *");
-        push (@cmds, "cd");
 
-        # Backup sysvol
-        my $sysvolDir = SYSVOL_DIR;
         push (@cmds, "rm -rf $mirror");
-        push (@cmds, "mkdir -p $mirror");
-        push (@cmds, "rsync -avz $sysvolDir/* $mirror");
-        push (@cmds, "cd $mirror");
-        push (@cmds, "tar cjf $dir/sysvol.tar.bz2 -C $mirror *");
-        push (@cmds, "cd");
+        push (@cmds, "mkdir -p $mirror/private");
+        push (@cmds, "rsync -HAXavz $privateDir/ " .
+                     "--exclude=*.tdb --exclude=*.ldb " .
+                     "--exclude=ldap_priv --exclude=smbd.tmp " .
+                     "--exclude=ldapi $mirror/private");
+        push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
+    }
 
+    # Backup sysvol
+    my $sysvolDir = SYSVOL_DIR;
+    if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/sysvol");
+        push (@cmds, "rsync -HAXavz $sysvolDir/ $mirror/sysvol");
+        push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
+    }
+
+    try {
         EBox::Sudo::root(@cmds);
     } otherwise {
         my ($error) = @_;
@@ -1731,13 +1736,17 @@ sub restoreConfig
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
     my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("rm -rf $privateDir/* $sysvolDir/*");
+    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
     # Unpack sysvol
-    EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C $sysvolDir");
+    if (EBox::Sudo::fileTest('-f', "$dir/sysvol.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Unpack private folder
-    EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C $privateDir");
+    if (EBox::Sudo::fileTest('-f', "$dir/private.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Rename ldb files
     my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
@@ -1748,6 +1757,15 @@ sub restoreConfig
         $destFile =~ s/\.bak$//;
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
+    # Hard-link DomainDnsZones and ForestDnsZones partitions
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
+    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
 
     # Restore stashed password
     if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
@@ -1759,6 +1777,8 @@ sub restoreConfig
     $self->setProvisioned(1);
 
     $self->restartService();
+
+    $self->resetSysvolACL();
 }
 
 sub restoreDependencies
