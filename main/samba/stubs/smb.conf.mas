@@ -95,7 +95,7 @@ use EBox::Samba;
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' zavs';
+%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -106,7 +106,7 @@ use EBox::Samba;
 % if ($av) {
 %   foreach my $key (keys %{$antivirus_config}) {
 %       next unless $key;
-    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
 %   }
 % }
 % if ($rb) {
@@ -129,7 +129,7 @@ use EBox::Samba;
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' zavs';
+%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -140,7 +140,7 @@ use EBox::Samba;
 % if ($av) {
 %   foreach my $key (keys %{$antivirus_config}) {
 %       next unless $key;
-    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
 %   }
 % }
 % if ($rb) {
