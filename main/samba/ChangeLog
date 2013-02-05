@@ -27,7 +27,6 @@ HEAD
 	+ Added existsDN method to EBox::LDB
 	+ Grant rx access on privileged ldap socket to allow user corner to
 	  update user passwords
->>>>>>> master
 3.0.9
 	+ Improve domain join process updating the joined domain DNS server
 	+ Set kerberos keys when importing users from samba to zentyal
