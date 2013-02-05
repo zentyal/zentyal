@@ -162,23 +162,6 @@ sub _table
     return $dataTable;
 }
 
-# Method: _tailoredOrder
-#
-#        Overrides <EBox::Model::DataTable::_tailoredOrder>
-#
-sub _tailoredOrder # (rows)
-{
-    my ($self, $rows_ref) = @_;
-
-    # Order rules per priority
-    my @orderedRows = sort {
-                            $a->valueByName('name') cmp $b->valueByName('name')
-                            }
-                            @{$rows_ref};
-
-    return \@orderedRows;
-}
-
 # Method: availablePort
 #
 #	Check if a given port for a given protocol is available. That is,

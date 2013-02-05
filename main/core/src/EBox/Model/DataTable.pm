@@ -1626,41 +1626,6 @@ sub _rows
     return \@rows;
 }
 
-# Method: _tailoredOrder
-#
-#       Function to be overriden by the subclasses in order to do
-#       ordering in a different way as normal order is done.  It's
-#       functional if only if <EBox::Model::DataTable::order> is set
-#       to 0.
-#
-# Parameters:
-#
-#       rows - an array ref with the hashes with the rows to order
-#
-# Returns:
-#
-#       an array ref with the order from the current model with a
-#       hash ref of every row
-#
-sub _tailoredOrder # (rows)
-{
-    my ($self, $rows) = @_;
-
-    # Sorted by sortedBy field element if it's given
-    my $fieldName = $self->sortedBy();
-    if ( $fieldName ) {
-        if ( $self->fieldHeader($fieldName) ) {
-            my @sortedRows =
-              sort {
-                  $a->elementByName($fieldName)->cmp($b->elementByName($fieldName))
-              } @{$rows};
-            return \@sortedRows;
-        }
-    }
-    return $_[1];
-}
-
-
 # Method: setTableName
 #
 #    Use this method to set the current table name. This method
