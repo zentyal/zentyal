@@ -1,4 +1,7 @@
 HEAD
+	+ Improve backup. Stopping the daemon is no longer needed for taking a
+	  backup and ACLs and dns partitions hard links are recreated when
+	  restoring.
 	+ Use clamd socket instead of shared library for antivirus, this is
 	  faster and reduces memory consumption
 	+ Empty text files are created now when a virus is found on a share
