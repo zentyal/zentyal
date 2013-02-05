@@ -1750,7 +1750,7 @@ sub _getSubscriptionDetails
     if ($force or (not exists $state->{subscription}->{level})) {
         unless ($self->eBoxSubscribed()) {
             #EBox::trace();
-            throw EBox::Exceptions::Internal('Not subscribed');
+            throw EBox::Exceptions::Internal('Not subscribed', silent => 1);
         }
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details;
