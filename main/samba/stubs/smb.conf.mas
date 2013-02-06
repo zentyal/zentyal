@@ -184,9 +184,10 @@ use EBox::Samba;
 # force group = ebox
 # force user = ebox
 
+% if ($antivirus) {
 [<% $prefix %>-quarantine]
     comment = "Quarantine"
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
-
+% }
