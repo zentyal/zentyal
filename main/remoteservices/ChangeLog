@@ -1,4 +1,5 @@
-HEAD
+3.0.14
+	+ Silenting _getSubscriptionDetails internal exception
 	+ Fix typo in execute bundle which avoids correct installation of
 	  cloud-prof when registration is done
 3.0.13

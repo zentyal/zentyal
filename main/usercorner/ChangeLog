@@ -1,4 +1,7 @@
 HEAD
+	+ Create user journal directory in correct path. Migrate old
+	  versions with incorrect path.
+3.0.4
 	+ Write to usercorner log with ut8f encoding
 	+ Log correctly request authorization IP, init logger on loading
 	  of user-corner

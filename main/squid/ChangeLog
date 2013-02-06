@@ -1,4 +1,5 @@
 HEAD
+	+ Removed redundant cache_log line from squid-external configuration
 	+ Fixed bug which did not include users from __USERS__ group in
 	  dansguardian filter group file
 3.0.3

@@ -55,7 +55,7 @@ processDir($slaves, EBox::Config::home() . 'syncjournal/');
 if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
 
-    processUserCornerDir(EBox::UserCorner::usercornerdir() . 'syncjournal/');
+    processUserCornerDir(EBox::UserCorner::journalDir());
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
@@ -107,7 +107,7 @@ sub processDir
     my ($slaves, $journaldir) = @_;
 
     unless (-d $journaldir) {
-        print "Dir does not exist: $journaldir\n";
+        print "Slave journal dir does not exist: $journaldir\n";
         return;
     }
 
@@ -127,19 +127,24 @@ sub processUserCornerDir
 {
     my ($dir) = @_;
 
+    unless (-d $dir) {
+        print "User corner journal dir does not exist: $dir\n";
+        return;
+    }
+
     my $dh;
     opendir($dh, $dir) or
-        die "Can't open the journal dir: $dir\n";
+        die "Can't open the usercorner journal dir: $dir\n";
 
     my @files;
     while (defined(my $file = readdir($dh))) {
-        (-d "$dir$file" and next);
+        (-d "$dir/$file" and next);
         push (@files, $file);
     }
     closedir($dh);
 
     foreach my $file (sort(@files)) {
-        processUserCornerFile("$dir$file");
+        processUserCornerFile("$dir/$file");
     }
 }
 
