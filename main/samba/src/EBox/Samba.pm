@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
 
@@ -1704,48 +1705,66 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    # Remove previous backup files
+    my @cmds;
+
+    my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
-    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    foreach my $bakFile (@{$bakFiles}) {
-        chomp ($bakFile);
-        EBox::Sudo::root("rm '$bakFile'");
-    }
+    if (EBox::Sudo::fileTest('-d', $privateDir)) {
+        # Remove previous backup files
+        my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+        my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+        foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
+            chomp ($bakFile);
+            push (@cmds, "rm '$bakFile'");
+        }
 
-    try {
-        # The service must be stopped or tar may fail with
-        # file changed as we read it
-        $self->stopService();
-
-        # Backup private. LDB files must be backed up using tdbbackup
+        # Backup private. TDB and LDB files must be backed up using tdbbackup
         my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-        foreach my $ldbFile (@{$ldbFiles}) {
-            chomp ($ldbFile);
-            EBox::Sudo::root("tdbbackup '$ldbFile'");
+        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
+        foreach my $dbFile ((@{$ldbFiles}, @{$tdbFiles})) {
+            chomp ($dbFile);
+            push (@cmds, "tdbbackup '$dbFile'");
             # Preserve file permissions
-            my $st = EBox::Sudo::stat($ldbFile);
+            my $st = EBox::Sudo::stat($dbFile);
             my $uid = $st->uid();
             my $gid = $st->gid();
             my $mode = sprintf ("%04o", $st->mode() & 07777);
-            EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
-            EBox::Sudo::root("chmod $mode $ldbFile.bak");
+            push (@cmds, "chown $uid:$gid $dbFile.bak");
+            push (@cmds, "chmod $mode $dbFile.bak");
         }
-        EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
 
-        # Backup sysvol
-        my $sysvolDir = SYSVOL_DIR;
-        EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/private");
+        push (@cmds, "rsync -HAXavz $privateDir/ " .
+                     "--exclude=*.tdb --exclude=*.ldb " .
+                     "--exclude=ldap_priv --exclude=smbd.tmp " .
+                     "--exclude=ldapi $mirror/private");
+        push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
+    }
+
+    # Backup sysvol
+    my $sysvolDir = SYSVOL_DIR;
+    if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/sysvol");
+        push (@cmds, "rsync -HAXavz $sysvolDir/ $mirror/sysvol");
+        push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
+    }
+
+    try {
+        EBox::Sudo::root(@cmds);
     } otherwise {
         my ($error) = @_;
         throw $error;
-    } finally {
-        $self->_startService();
     };
 
     # Backup admin password
     unless ($options{bug}) {
         my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-        EBox::Sudo::root("cp '$pwdFile' $dir");
+        # Additional domain controllers does not have stashed pwd
+        if (EBox::Sudo::fileTest('-f', $pwdFile)) {
+            EBox::Sudo::root("cp '$pwdFile' $dir");
+        }
     }
 }
 
@@ -1768,31 +1787,49 @@ sub restoreConfig
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
     my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("rm -rf $privateDir/* $sysvolDir/*");
+    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
     # Unpack sysvol
-    EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /");
+    if (EBox::Sudo::fileTest('-f', "$dir/sysvol.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Unpack private folder
-    EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /");
+    if (EBox::Sudo::fileTest('-f', "$dir/private.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Rename ldb files
-    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    foreach my $bakFile (@{$bakFiles}) {
+    my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+    my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+    foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
         chomp $bakFile;
         my $destFile = $bakFile;
         $destFile =~ s/\.bak$//;
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
+    # Hard-link DomainDnsZones and ForestDnsZones partitions
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
+    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
 
     # Restore stashed password
-    EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
-    EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
+        EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
+        EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    }
 
     # Set provisioned flag
     $self->setProvisioned(1);
 
-    $self->_startService();
+    $self->restartService();
+
+    $self->resetSysvolACL();
 }
 
 sub restoreDependencies
