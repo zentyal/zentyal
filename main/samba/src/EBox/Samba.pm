@@ -53,6 +53,7 @@ use File::Slurp;
 use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
+use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -71,6 +72,7 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
+use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 sub _create
 {
@@ -1253,6 +1255,26 @@ sub writeSambaConfig
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
+
+    $self->_writeAntivirusConfig();
+}
+
+sub _writeAntivirusConfig
+{
+    my ($self) = @_;
+
+    return unless EBox::Global->modExists('antivirus');
+
+    my $avModule = EBox::Global->modInstance('antivirus');
+    my $avModel = $self->model('AntivirusDefault');
+
+    my $conf = {};
+    $conf->{clamavSocket} = $avModule->CLAMD_SOCKET();
+    $conf->{quarantineDir} = $avModel->QUARANTINE_DIR();
+    $conf->{zavsSocket}  = $avModel->ZAVS_SOCKET();
+    $conf->{nThreadsConf} = EBox::Config::configkey('scanning_threads');
+
+    write_file(ANTIVIRUS_CONF, encode_json($conf));
 }
 
 sub _preSetConf
@@ -1428,6 +1450,11 @@ sub _sysvolSyncCond
 sub _antivirusEnabled
 {
     my ($self) = @_;
+
+    my $avModule = EBox::Global->modInstance('antivirus');
+    unless (defined ($avModule) and $avModule->isEnabled()) {
+        return 0;
+    }
 
     my $avModel = $self->model('AntivirusDefault');
     my $enabled = $avModel->value('scan');
