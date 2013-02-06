@@ -1,4 +1,5 @@
 HEAD
+	+ Do not create quarantine share if antivirus is not enabled
 	+ Improve backup. Stopping the daemon is no longer needed for taking a
 	  backup and ACLs and dns partitions hard links are recreated when
 	  restoring.
