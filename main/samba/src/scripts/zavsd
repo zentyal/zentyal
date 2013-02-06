@@ -19,43 +19,38 @@ use strict;
 use warnings;
 use threads;
 
-use EBox;
-use EBox::Global;
-use EBox::Config;
-
 use Thread::Queue;
 use IO::Socket::UNIX;
 use ClamAV::Client;
+use JSON::XS;
 use Error qw(:try);
 use File::Temp qw(tempfile);
+use File::Slurp;
+use POSIX;
 
+my $LOGFILE = '/var/log/zentyal/samba-antivirus.log';
+my $CONFFILE = '/var/lib/zentyal/conf/samba-antivirus.conf';
 
-EBox::initLogger('zavsd-log.conf');
-EBox::init();
+my $CONF;
 
-EBox::info("Zentyal Antivirus for samba started");
+open (my $log, '>>', $LOGFILE);
+logevent('INFO', 'Zentyal Antivirus for samba started');
 
-unless (EBox::Global->modExists('samba') and
-        EBox::Global->modExists('antivirus')) {
-    EBox::error('The required modules (samba and antivirus) are not installed. Exiting now.');
+try {
+    $CONF = decode_json(read_file($CONFFILE));
+} otherwise {
+    logevent('ERROR', "Cannot read $CONFFILE. Exiting now...");
     exit 1;
-}
-
-my $sambaModule   = EBox::Global->modInstance('samba');
-my $avModel       = $sambaModule->model('AntivirusDefault');
-my $quarantineDir = $avModel->QUARANTINE_DIR();
-my $zavsSocket    = $avModel->ZAVS_SOCKET();
-
-my $avModule      = EBox::Global->modInstance('antivirus');
-my $clamavSocket  = $avModule->CLAMD_SOCKET();
-
+};
 
 # Create the queue and launch threads
 my $q = Thread::Queue->new();
-my $nThreadsConf = EBox::Config::configkey('scanning_threads');
+my $nThreadsConf = $CONF->{nThreadsConf};
 my $nThreads = (defined $nThreadsConf and length $nThreadsConf) ? $nThreadsConf : 4;
 threads->create(\&work) for (1 .. $nThreads);
 threads->create(\&control);
+
+my $zavsSocket = $CONF->{zavsSocket};
 
 #  Create socket for scannedonly VFS plugin
 my $socket = undef;
@@ -65,13 +60,13 @@ try {
                                    Type   => SOCK_DGRAM,
                                    ReuseAddr => 1,
                                    Listen => SOMAXCONN)
-        or throw EBox::Exceptions::Internal("socket: $!");
+        or fatal("socket: $!");
     $socket->setsockopt(SOL_SOCKET, SO_RCVBUF, 524288)
-        or throw EBox::Exceptions::Internal("setsockopt: $!");
+        or fatal("setsockopt: $!");
     $socket->setsockopt(SOL_SOCKET, SO_SNDBUF, 524288)
-        or throw EBox::Exceptions::Internal("setsockopt: $!");
+        or fatal("setsockopt: $!");
     $socket->setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-        or throw EBox::Exceptions::Internal("setsockopt: $!");
+        or fatal("setsockopt: $!");
 } otherwise {
     my ($error) = @_;
     exit 1;
@@ -101,7 +96,7 @@ sub control
     while (1) {
         foreach my $thr (threads->list()) {
             if ($thr->tid() > 0 and $thr->is_joinable() and not threads::equal($thr, threads->self)) {
-                EBox::warn("Detected dead thread " . $thr->tid());
+                logevent('WARN', 'Detected dead thread ' . $thr->tid());
                 $thr->join();
                 threads->create(\&work);
             }
@@ -113,17 +108,25 @@ sub control
 sub work
 {
     my $tid = threads->self->tid();
-    EBox::info("Scanner thread $tid started");
+    logevent('INFO', "Scanner thread $tid started");
 
     # Instance scanner
-    my $scanner = new ClamAV::Client(socket_name => $clamavSocket);
+    my $scanner = new ClamAV::Client(socket_name => $CONF->{clamavSocket});
     unless (defined $scanner) {
-        EBox::error("Could not create scanner, thread dying!");
+        logevent('ERROR', 'Could not create scanner, thread dying!');
         threads->exit();
     }
-    while (not $scanner->ping()) {
-        EBox::warn("clamAV daemon not responding, will try again in 10 seconds...");
-        sleep (10);
+
+    my $pingOK = 0;
+    while (not $pingOK) {
+        try {
+            $pingOK = $scanner->ping();
+        } otherwise {};
+
+        unless ($pingOK) {
+            logevent('WARN', 'clamAV daemon not responding, will try again in 10 seconds...');
+            sleep (10);
+        }
     }
 
     my $FD = undef;
@@ -138,33 +141,49 @@ sub work
             my $file = "$path" . "$name";
             my (undef, $result) = $scanner->scan_path($file);
             if (defined $result) {
-                EBox::info("VIRUS|$user|$addr|$file|$result");
+                logevent('INFO', "VIRUS|$user|$addr|$file|$result");
 
                 # Create an empty file to inform the user that a virus has been found
                 open ($FD,">>$path"."VIRUS_found_in_$name.txt") && close ($FD);
 
                 # Quarantine the infected file
-                my (undef, $newFile) = tempfile("$name.XXXXX", DIR => $quarantineDir);
+                my (undef, $newFile) = tempfile("$name.XXXXX", DIR => $CONF->{quarantineDir});
                 unless (rename ($file, $newFile)) {
-                    EBox::error("Could not rename file $file to $newFile: $!");
+                    logevent('ERROR', "Could not rename file $file to $newFile: $!");
                     next;
                 }
-                EBox::info("QUARANTINE|$file|$newFile");
+                logevent('INFO', "QUARANTINE|$user|$addr|$file|$newFile");
             } else {
                 # File is clean, create the scanned file
                 open ($FD,">>$path.scanned:$name") && close ($FD);
             }
         } catch ClamAV::Client::Error with {
             my ($error) = @_;
-            EBox::error("Error scanning: $error");
+            logevent('ERROR', "Error scanning: $error");
 
             my $path = $data->{path};
             my $name = $data->{name};
             open ($FD,">>$path.failed:$name") && close ($FD);
         } otherwise {
             my ($error) = @_;
-            EBox::error("Unexpected error, thread ends now: $error");
+            logevent('ERROR', "Unexpected error, thread ends now: $error");
             threads->exit();
         };
     }
+}
+
+sub logevent
+{
+    my ($type, $msg) = @_;
+
+    my $timestamp = POSIX::strftime("%d/%m/%Y %H:%M:%S", localtime(time()));
+    print $log "$timestamp $type> $msg\n";
+}
+
+sub fatal
+{
+    my ($error) = @_;
+
+    logevent('ERROR', $error);
+    die;
 }
