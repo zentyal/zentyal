@@ -405,6 +405,9 @@ sub unsafeParam # (param)
     if (wantarray) {
         @array = $cgi->param($param);
         (@array) or return undef;
+        foreach my $v (@array) {
+            utf8::decode($v);
+        }
         return @array;
     } else {
         $scalar = $cgi->param($param);
@@ -413,6 +416,7 @@ sub unsafeParam # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
+        utf8::decode($scalar);
         return $scalar;
     }
 }
@@ -966,7 +970,7 @@ sub JSONReply
     if ($error and not $data_r->{error}) {
         $data_r->{error} = $error;
     }
-    print encode_json($data_r);
+    print JSON::XS->new->encode($data_r);
 }
 
 1;

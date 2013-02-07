@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
 
@@ -52,6 +53,7 @@ use File::Slurp;
 use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
+use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBA_PROVISION_FILE => SAMBA_DIR . '.provisioned';
@@ -70,6 +72,7 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
+use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 sub _create
 {
@@ -150,18 +153,29 @@ sub initialSetup
     }
 
     # Migration from 3.0.8, force users resync
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
+    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
         EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
     }
 
-    # Migration from 3.0.11, add fields to the LogHelper tables
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
+    # Migration from 3.0.11, add fields to the LogHelper tables and set
+    # AV quarantine dir
+    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do("ALTER TABLE samba_virus
-                       ADD username VARCHAR(24)");
+                       ADD COLUMN username VARCHAR(24)");
         $dbengine->do("ALTER TABLE samba_quarantine
-                       ADD username VARCHAR(24),
-                       ADD client INT UNSIGNED");
+                       ADD COLUMN username VARCHAR(24),
+                       ADD COLUMN client INT UNSIGNED");
+    }
+
+    # Migration from 3.0.12, support sizes greater than 2 GiB
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.13') < 0) {
+        my $dbengine = EBox::DBEngineFactory::DBEngine();
+        $dbengine->do("ALTER TABLE samba_disk_usage
+                       MODIFY size BIGINT DEFAULT 0");
+        $dbengine->do("ALTER TABLE samba_disk_usage_report
+                       MODIFY size BIGINT DEFAULT 0");
+
     }
 }
 
@@ -325,25 +339,9 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
-    my @cmds = ();
-    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
-    push (@cmds, "chmod 770 " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
-    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
-    push (@cmds, "chmod 770 " . PROFILES_DIR);
-    push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
-    push (@cmds, "chmod 770 " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    push (@cmds, 'mkdir -p ' . SYSVOL_DIR);
-    push (@cmds, 'chown -R root.adm ' . SYSVOL_DIR);
-    push (@cmds, 'chmod 755 ' . SYSVOL_DIR);
+    # Create directories
     EBox::info('Creating directories');
-    EBox::Sudo::root(@cmds);
+    $self->_createDirectories();
 }
 
 sub isProvisioned
@@ -530,20 +528,29 @@ sub antivirusConfig
 {
     my ($self) = @_;
 
-    my $conf = {};
-    my @keys = ('verbose_file_logging', 'scan_on_open', 'scan_on_close', 'deny_access_on_error',
-                'send_warning_message', 'infected_file_action', 'quarantine_prefix',
-                'quarantine_dir', 'max_lrufiles',
-                'lrufiles_invalidate_time', 'exclude_file_types', 'exclude_file_regexp',
-                'delete_file_on_quarantine_failure', 'max_file_size', 'max_scan_size',
-                'max_files', 'max_recursion_level');
+    # Provide a default config and override with the conf file if exists
+    my $avModel = $self->model('AntivirusDefault');
+    my $conf = {
+        show_special_files       => 'True',
+        rm_hidden_files_on_rmdir => 'True',
+        hide_nonscanned_files    => 'False',
+        scanning_message         => 'is being scanned for viruses',
+        recheck_time_open        => '50',
+        recheck_tries_open       => '100',
+        recheck_time_readdir     => '50',
+        recheck_tries_readdir    => '20',
+        allow_nonscanned_files   => 'False',
+    };
 
-    foreach my $key (@keys) {
+    foreach my $key (keys %{$conf}) {
         my $value = EBox::Config::configkey($key);
-        if ($value) {
-            $conf->{$key} = $value;
-        }
+        $conf->{$key} = $value if $value;
     }
+
+    # Hard coded settings
+    $conf->{quarantine_dir} = $avModel->QUARANTINE_DIR();
+    $conf->{domain_socket}  = 'True';
+    $conf->{socketname}     = $avModel->ZAVS_SOCKET();
 
     return $conf;
 }
@@ -1248,6 +1255,26 @@ sub writeSambaConfig
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
+
+    $self->_writeAntivirusConfig();
+}
+
+sub _writeAntivirusConfig
+{
+    my ($self) = @_;
+
+    return unless EBox::Global->modExists('antivirus');
+
+    my $avModule = EBox::Global->modInstance('antivirus');
+    my $avModel = $self->model('AntivirusDefault');
+
+    my $conf = {};
+    $conf->{clamavSocket} = $avModule->CLAMD_SOCKET();
+    $conf->{quarantineDir} = $avModel->QUARANTINE_DIR();
+    $conf->{zavsSocket}  = $avModel->ZAVS_SOCKET();
+    $conf->{nThreadsConf} = EBox::Config::configkey('scanning_threads');
+
+    write_file(ANTIVIRUS_CONF, encode_json($conf));
 }
 
 sub _preSetConf
@@ -1261,13 +1288,16 @@ sub _setupQuarantineDirectory
 {
     my ($self) = @_;
 
-    my $quarantineDir = EBox::Config::configkey('quarantine_dir');
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
-    my @cmds = ("mkdir -p '$quarantineDir'",
-                "chown root:$group '$quarantineDir'",
-                "chmod 700 '$quarantineDir'",
-                "setfacl -R -m u:$nobody:wx g:$group:wx '$quarantineDir'");
+    my $zentyalUser = EBox::Config::user();
+    my $nobodyUser  = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $avModel     = $self->model('AntivirusDefault');
+    my $quarantine  = $avModel->QUARANTINE_DIR();
+    my @cmds;
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$nobodyUser:rwx g:adm:rwx '$quarantine'");
+
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldb->domainSID() . '-512';
     my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
@@ -1277,11 +1307,47 @@ sub _setupQuarantineDirectory
             my $user = new EBox::Samba::User(dn => $memberDN);
             if ($user->exists()) {
                 my $uid = $user->get('samAccountName');
-                push (@cmds, "setfacl -m u:$uid:rwx '$quarantineDir'");
+                push (@cmds, "setfacl -m u:$uid:rwx '$quarantine'");
             }
         }
     }
     EBox::Sudo::silentRoot(@cmds);
+}
+
+sub _createDirectories
+{
+    my ($self) = @_;
+
+    my $zentyalUser = EBox::Config::user();
+    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $avModel = $self->model('AntivirusDefault');
+    my $quarantine = $avModel->QUARANTINE_DIR();
+
+    my @cmds;
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -b " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
+
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, "setfacl -b " . PROFILES_DIR);
+
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -b " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
+
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+    EBox::Sudo::root(@cmds);
 }
 
 sub _setConf
@@ -1293,6 +1359,10 @@ sub _setConf
     $self->provision() unless $self->isProvisioned();
 
     $self->writeSambaConfig();
+
+    # Fix permissions on samba dirs. Zentyal user needs access because
+    # the antivirus daemon runs as 'ebox'
+    $self->_createDirectories();
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
@@ -1377,6 +1447,21 @@ sub _sysvolSyncCond
     return ($self->isEnabled() and $self->isProvisioned() and $mode eq $adc);
 }
 
+sub _antivirusEnabled
+{
+    my ($self) = @_;
+
+    my $avModule = EBox::Global->modInstance('antivirus');
+    unless (defined ($avModule) and $avModule->isEnabled()) {
+        return 0;
+    }
+
+    my $avModel = $self->model('AntivirusDefault');
+    my $enabled = $avModel->value('scan');
+
+    return $enabled;
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -1399,6 +1484,10 @@ sub _daemons
         {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
+        },
+        {
+            name => 'zentyal.zavsd',
+            precondition => \&_antivirusEnabled,
         },
     ];
 }
@@ -1643,48 +1732,66 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    # Remove previous backup files
+    my @cmds;
+
+    my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
-    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    foreach my $bakFile (@{$bakFiles}) {
-        chomp ($bakFile);
-        EBox::Sudo::root("rm '$bakFile'");
-    }
+    if (EBox::Sudo::fileTest('-d', $privateDir)) {
+        # Remove previous backup files
+        my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+        my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+        foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
+            chomp ($bakFile);
+            push (@cmds, "rm '$bakFile'");
+        }
 
-    try {
-        # The service must be stopped or tar may fail with
-        # file changed as we read it
-        $self->stopService();
-
-        # Backup private. LDB files must be backed up using tdbbackup
+        # Backup private. TDB and LDB files must be backed up using tdbbackup
         my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-        foreach my $ldbFile (@{$ldbFiles}) {
-            chomp ($ldbFile);
-            EBox::Sudo::root("tdbbackup '$ldbFile'");
+        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
+        foreach my $dbFile ((@{$ldbFiles}, @{$tdbFiles})) {
+            chomp ($dbFile);
+            push (@cmds, "tdbbackup '$dbFile'");
             # Preserve file permissions
-            my $st = EBox::Sudo::stat($ldbFile);
+            my $st = EBox::Sudo::stat($dbFile);
             my $uid = $st->uid();
             my $gid = $st->gid();
             my $mode = sprintf ("%04o", $st->mode() & 07777);
-            EBox::Sudo::root("chown $uid:$gid $ldbFile.bak");
-            EBox::Sudo::root("chmod $mode $ldbFile.bak");
+            push (@cmds, "chown $uid:$gid $dbFile.bak");
+            push (@cmds, "chmod $mode $dbFile.bak");
         }
-        EBox::Sudo::root("tar cjf $dir/private.tar.bz2 $privateDir --exclude=*.ldb");
 
-        # Backup sysvol
-        my $sysvolDir = SYSVOL_DIR;
-        EBox::Sudo::root("tar cjf $dir/sysvol.tar.bz2 $sysvolDir");
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/private");
+        push (@cmds, "rsync -HAXavz $privateDir/ " .
+                     "--exclude=*.tdb --exclude=*.ldb " .
+                     "--exclude=ldap_priv --exclude=smbd.tmp " .
+                     "--exclude=ldapi $mirror/private");
+        push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
+    }
+
+    # Backup sysvol
+    my $sysvolDir = SYSVOL_DIR;
+    if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/sysvol");
+        push (@cmds, "rsync -HAXavz $sysvolDir/ $mirror/sysvol");
+        push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
+    }
+
+    try {
+        EBox::Sudo::root(@cmds);
     } otherwise {
         my ($error) = @_;
         throw $error;
-    } finally {
-        $self->_startService();
     };
 
     # Backup admin password
     unless ($options{bug}) {
         my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-        EBox::Sudo::root("cp '$pwdFile' $dir");
+        # Additional domain controllers does not have stashed pwd
+        if (EBox::Sudo::fileTest('-f', $pwdFile)) {
+            EBox::Sudo::root("cp '$pwdFile' $dir");
+        }
     }
 }
 
@@ -1707,31 +1814,49 @@ sub restoreConfig
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
     my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("rm -rf $privateDir/* $sysvolDir/*");
+    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
     # Unpack sysvol
-    EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /");
+    if (EBox::Sudo::fileTest('-f', "$dir/sysvol.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Unpack private folder
-    EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /");
+    if (EBox::Sudo::fileTest('-f', "$dir/private.tar.bz2")) {
+        EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /var/lib/samba/");
+    }
 
     # Rename ldb files
-    my $bakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    foreach my $bakFile (@{$bakFiles}) {
+    my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+    my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+    foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
         chomp $bakFile;
         my $destFile = $bakFile;
         $destFile =~ s/\.bak$//;
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
+    # Hard-link DomainDnsZones and ForestDnsZones partitions
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
+    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
 
     # Restore stashed password
-    EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
-    EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
+        EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
+        EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    }
 
     # Set provisioned flag
     $self->setProvisioned(1);
 
-    $self->_startService();
+    $self->restartService();
+
+    $self->resetSysvolACL();
 }
 
 sub restoreDependencies

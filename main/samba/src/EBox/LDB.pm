@@ -149,7 +149,7 @@ sub safeConnect
             sleep (5);
             next;
         }
-        EBox::error("Couldn't connect to samba LDAP server: $@, retrying");
+        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
         sleep (5);
     }
 
