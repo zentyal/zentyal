@@ -35,6 +35,7 @@ use EBox::Html;
 use Encode;
 use File::Slurp;
 use JSON::XS;
+use EBox::ProgressIndicator;
 
 ## arguments:
 ##  title [required]
@@ -90,11 +91,18 @@ sub _process
     $self->{params} = \@params;
 }
 
-
 sub _progressId
 {
     my ($self) = @_;
     my $pId = $self->param('progress');
+    if (not $pId) {
+        # try to get last progress-id as fallback
+        $pId = EBox::ProgressIndicator->_lastId();
+        if (not $pId) {
+            # in this case was likely PID 1 the lost
+            $pId = 1;
+        }
+    }
 
     $pId or throw EBox::Exceptions::Internal('No progress indicator id supplied');
     return $pId;
