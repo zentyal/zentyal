@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed encoding of language select list
 	+ Clean error messages on install-local-applications and update-image
 	+ Cleanup after an exception in the scripts
 	+ Remove unnecessary call to sudo in install-local-applications script
