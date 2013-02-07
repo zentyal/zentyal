@@ -319,6 +319,16 @@ function updateWidget(widget) {
                 var itemname = sect + '_' + i;
                 var element = $(itemname);
                 if(item.type == 'value') {
+                    if (item.value_type == 'ajax') {
+                        new Ajax.Request(item.ajax_url, {
+                            asynchronous: false,
+                            onSuccess: function(response) {
+                                item.value = response.responseJSON.value;
+                                element.className = 'summary_value';
+                                element.addClassName('summary_' + response.responseJSON.type);
+                            }
+                        });
+                    }
                     if (element.innerHTML != item.value) {
                         element.update(item.value);
                         element.visualEffect('highlight');
