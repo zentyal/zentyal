@@ -22,17 +22,17 @@ use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
 
 sub new
 {
-	my ($class, %params) = @_;
-	my $self = {};
+    my ($class, %params) = @_;
+    my $self = {};
     bless ($self, $class);
     return $class;
 }
 
 sub isProvisioned
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
- 	return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
+    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
 }
 
 sub setProvisioned
