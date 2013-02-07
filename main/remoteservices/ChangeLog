@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid exception in subscription info table when a
+	  no subscribed server use no-ascii character set
 	+ Fix typo in execute bundle which avoids correct installation of
 	  cloud-prof when registration is done
 3.0.13
