@@ -33,7 +33,6 @@ my $CONFFILE = '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 my $CONF;
 
-open (my $log, '>>', $LOGFILE);
 logevent('INFO', 'Zentyal Antivirus for samba started');
 
 try {
@@ -176,8 +175,10 @@ sub logevent
 {
     my ($type, $msg) = @_;
 
+    open (my $log, '>>', $LOGFILE);
     my $timestamp = POSIX::strftime("%d/%m/%Y %H:%M:%S", localtime(time()));
     print $log "$timestamp $type> $msg\n";
+    close ($LOGFILE);
 }
 
 sub fatal

@@ -7,7 +7,4 @@
         missingok
         delaycompress
         notifempty
-        postrotate
-                /sbin/restart zentyal.avsd || true > /dev/null
-        endscript
 }
