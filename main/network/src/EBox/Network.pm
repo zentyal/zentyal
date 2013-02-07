@@ -3838,7 +3838,7 @@ sub interfacesWidget
     my @ifaces = @{$self->ifacesWithRemoved()};
     my $size = scalar (@ifaces) * 1.25;
     $size = 0.1 unless defined ($size);
-    $widget->{size} = $size;
+    $widget->{size} = "'$size'";
 
     my $linkstatus = {};
     EBox::Sudo::silentRoot('/sbin/mii-tool > ' . EBox::Config::tmp . 'linkstatus');

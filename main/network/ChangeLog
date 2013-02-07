@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error in json response trigered by widget size
 	+ Added more coherence checks to static routes table
 	+ Allow to set broadcast address in wakeonlan tool
 	+ Fixed unproper use of last inside try
