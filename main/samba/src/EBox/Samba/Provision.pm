@@ -258,7 +258,7 @@ sub resetSysvolACL
 
     # Reset the sysvol permissions
     EBox::info("Reseting sysvol ACLs to defaults");
-    my $cmd = SAMBATOOL . " ntacl sysvolreset";
+    my $cmd = "samba-tool ntacl sysvolreset";
     EBox::Sudo::rootWithoutException($cmd);
 }
 
