@@ -118,7 +118,7 @@ while (1) {
     sleep ($randomSleep);
 
     # Do nothing if server not provisioned and module enabled
-    next unless ($samba->isEnabled() and $samba->isProvisioned());
+    next unless ($samba->isEnabled() and $samba->getProvision->isProvisioned());
 
     # Do nothing if server is not an additional DC
     next unless ($mode eq $adc);

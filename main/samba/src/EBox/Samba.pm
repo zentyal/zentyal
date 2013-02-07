@@ -352,6 +352,13 @@ sub getProvision
     return $self->{provision};
 }
 
+sub isProvisioned
+{
+    my ($self) = @_;
+
+    return $self->getProvision->isProvisioned();
+}
+
 # Method: shares
 #
 #   It returns the custom shares
@@ -1200,7 +1207,7 @@ sub restoreConfig
         # get out of sync.
         EBox::info(__("Restore is only possible if the server is the unique " .
                       "domain controller of the forest"));
-        $self->setProvisioned(0);
+        $self->getProvision->setProvisioned(0);
         return;
     }
 
@@ -1247,7 +1254,7 @@ sub restoreConfig
     }
 
     # Set provisioned flag
-    $self->setProvisioned(1);
+    $self->getProvision->setProvisioned(1);
 
     $self->restartService();
 

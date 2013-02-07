@@ -206,7 +206,7 @@ sub _table
 sub _adcProvisioned
 {
     my $samba = EBox::Global->modInstance('samba');
-    return ($samba->mode() eq MODE_ADC and $samba->isProvisioned());
+    return ($samba->mode() eq MODE_ADC and $samba->getProvision->isProvisioned());
 }
 
 sub updatedRowNotify
@@ -225,7 +225,7 @@ sub updatedRowNotify
     if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
-        $sambaMod->setProvisioned(0);
+        $sambaMod->getProvision->setProvisioned(0);
     }
 }
 
