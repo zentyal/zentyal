@@ -1,4 +1,5 @@
 HEAD
+	+ Workaround for when the progress id parameter has been lost
 	+ Fixed problems calling upstart coomands from cron jobs with wrong PATH
 	+ Decode CGI unsafeParams as utf8
 	+ Avoid double encoding when printing JSON response in EBox::CGI::Base
