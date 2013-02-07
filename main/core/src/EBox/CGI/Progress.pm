@@ -96,10 +96,10 @@ sub _progressId
     my ($self) = @_;
     my $pId = $self->param('progress');
     if (not $pId) {
-        # try to get last progress-id as fallback
+        EBox::warn("Progress indicator parameter lost, trying to get last one as fallback");
         $pId = EBox::ProgressIndicator->_lastId();
         if (not $pId) {
-            # in this case was likely PID 1 the lost
+            EBox::warn("Using progress indicator 1 as fallback");
             $pId = 1;
         }
     }
