@@ -633,6 +633,8 @@ sub checkAddress
     } else {
         EBox::info("Resolving $adServerFQDN to an IP address");
         my $resolver = new Net::DNS::Resolver(nameservers => [$adDnsServerIp]);
+        $resolver->tcp_timeout(5);
+        $resolver->udp_timeout(5);
         my $answer = '';
         my $query = $resolver->query($adServerFQDN, 'A');
         if ($query) {
@@ -749,28 +751,30 @@ sub checkClockSkew
     throw EBox::Exceptions::MissingArgument('adServerIp')
         unless (defined $adServerIp and length $adServerIp);
 
+    my %h;
     try {
         EBox::info("Checking clock skew with AD server...");
-        my $t0 = time;
-        my %h = get_ntp_response($adServerIp);
-        my $T1 = $t0; # $h{'Originate Timestamp'};
-        my $T2 = $h{'Receive Timestamp'};
-        my $T3 = $h{'Transmit Timestamp'};
-        my $T4 = time; # From Time::HiRes
-        my $d = ($T4 - $T1) - ($T2 - $T3);
-        my $t = (($T2 - $T1) + ($T3 - $T4)) / 2;
-        unless (abs($t) < 120) {
-            throw EBox::Exceptions::External(
-                __('The clock skew with the AD server is higher than two minutes. ' .
-                   'This can cause problems with kerberos authentication, please ' .
-                   'sync both clocks with an external NTP source and try again.'));
-        }
-        EBox::info("Clock skew below two minutes, should be enought.");
+        %h = get_ntp_response($adServerIp);
     } otherwise {
         throw EBox::Exceptions::External(
             __x('Could not retrive time from AD server {x} via NTP.',
                 x => $adServerIp));
     };
+
+    my $t0 = time;
+    my $T1 = $t0; # $h{'Originate Timestamp'};
+    my $T2 = $h{'Receive Timestamp'};
+    my $T3 = $h{'Transmit Timestamp'};
+    my $T4 = time; # From Time::HiRes
+    my $d = ($T4 - $T1) - ($T2 - $T3);
+    my $t = (($T2 - $T1) + ($T3 - $T4)) / 2;
+    unless (abs($t) < 120) {
+        throw EBox::Exceptions::External(
+            __('The clock skew with the AD server is higher than two minutes. ' .
+               'This can cause problems with kerberos authentication, please ' .
+               'sync both clocks with an external NTP source and try again.'));
+    }
+    EBox::info("Clock skew below two minutes, should be enought.");
 }
 
 sub checkADServerSite
@@ -855,8 +859,8 @@ sub checkADNebiosName
     }
     unless (uc ($adNetbiosDomain) eq uc ($netbios)) {
         throw EBox::Exceptions::External(
-            __('The netBIOS name {x} could not be found. Please check ' .
-               'the specified value.', x => $netbios));
+            __x('The netBIOS name {x} could not be found. Please check ' .
+                'the specified value.', x => $netbios));
     }
     return $adNetbiosDomain;
 }
