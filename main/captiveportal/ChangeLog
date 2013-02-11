@@ -1,4 +1,5 @@
 HEAD
+	+ More frequent polling for more responsive captive daemon
 	+ Fixed Log4perl configuration and initialization. Log directory
 	  permissions made more restrictive.
 	+ Removed unnecesary and misleading method 'new' from EBox::CaptivePortal::Auth package
