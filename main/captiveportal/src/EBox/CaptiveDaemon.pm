@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptiveDaemon;
+use strict;
+use warnings;
 
 # Class: EBox::CaptiveDaemon
 #
@@ -23,9 +23,7 @@ package EBox::CaptiveDaemon;
 #
 # Already logged users rules are created at EBox::CaptivePortalFirewall so
 # this daemons is only in charge of new logins and logouts / expired sessions
-
-use strict;
-use warnings;
+package EBox::CaptiveDaemon;
 
 use EBox::Config;
 use EBox::Global;
@@ -36,6 +34,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Util::Lock;
 use Linux::Inotify2;
 use EBox::Gettext;
+use Time::HiRes qw(usleep);
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -68,10 +67,11 @@ sub run
 
     # Setup iNotify to detect logins
     my $notifier = Linux::Inotify2->new();
-
     unless (defined($notifier)) {
         throw EBox::Exceptions::External('Unable to create inotify listener');
     }
+
+    $notifier->blocking (0); # set non-block mode
 
     # Create logout file
     EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
@@ -79,9 +79,6 @@ sub run
     # wakeup on new session and logout events
     $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
-
-    # Don't die on ALARM signal
-    local $SIG{ALRM} = sub {};
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
@@ -98,13 +95,19 @@ sub run
         $exceededEvent = 0;
     };
 
+    my $timeLeft;
     while (1) {
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
 
-        # Sleep expiration interval
-        alarm($expirationTime);
-        $notifier->poll; # execution stalls here until alarm or login/out event
+        my $endTime = time() + $expirationTime;
+        while (time() < $endTime) {
+            my $eventsFound = $notifier->poll();
+            if ($eventsFound) {
+                last;
+            }
+            usleep(80);
+        }
     }
 }
 
