@@ -214,6 +214,7 @@ sub _table
             printableRowName => __('host name'),
             order => 1,
             insertPosition => 'back',
+            'HTTPUrlView'=> 'DNS/View/HostnameTable',
         };
 
     return $dataTable;
