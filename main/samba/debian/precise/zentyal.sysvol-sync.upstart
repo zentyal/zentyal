@@ -5,5 +5,5 @@ start on started samba4
 stop on stopping samba4
 normal exit 0
 
-exec su -s /bin/bash -c '/usr/share/zentyal-samba/sysvol-sync.pl'
+exec su -s /bin/bash -c '/usr/bin/perl /usr/share/perl5/EBox/Samba/SysvolSync.pm'
 respawn

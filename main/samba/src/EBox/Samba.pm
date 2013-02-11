@@ -850,7 +850,11 @@ sub _s4syncCond
 {
     my ($self) = @_;
 
-    return ($self->isEnabled() and $self->getProvision->isProvisioned());
+    my $sambaSettings = $self->model('GeneralSettings');
+    my $mode = $sambaSettings->modeValue();
+    my $adc  = $sambaSettings->MODE_ADC();
+    return ($self->isEnabled() and $self->getProvision->isProvisioned() and
+            $mode eq $adc);
 }
 
 sub _antivirusEnabled
