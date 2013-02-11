@@ -3,9 +3,12 @@
     $item
     $i
 </%args>
+<%init>
+    my $container_id = $namespace . '_' . $i;
+</%init>
 <tr>
   <td class='summaryKey'><% $item->{key} %></td>
-  <td id='<% $namespace . '_' . $i %>'
+  <td id='<% $container_id %>'
 % if ($item->{value_type} ne 'info') {
       class='summary_value summary_<% $item->{value_type} %>'
 % } else {
@@ -13,5 +16,18 @@
 % }
      >
       <% $item->{value} %>
-  </td> 
+  </td>
+
+% if ($item->{value_type} eq 'ajax') {
+  <script>
+    new Ajax.Request('<% $item->{ajax_url} %>', {
+        onSuccess: function(response) {
+            var container = $('<% $container_id %>');
+            container.className = 'summary_value';
+            container.addClassName('summary_' + response.responseJSON.type);
+            container.innerHTML = response.responseJSON.value;
+        }
+    });
+  </script>
+% }
 </tr>
