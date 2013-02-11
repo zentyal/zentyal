@@ -883,6 +883,7 @@ sub _fqdn
 sub isGreylistEnabled
 {
     my ($self) = @_;
+    $self->configured() or return undef;
     return $self->greylist()->isEnabled();
 }
 
