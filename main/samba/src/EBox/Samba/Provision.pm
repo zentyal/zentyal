@@ -29,6 +29,8 @@ use Net::NTP qw(get_ntp_response);
 use Net::Ping;
 use Net::LDAP;
 use Net::LDAP::Util qw(ldap_explode_dn);
+use File::Temp qw( tempfile tempdir );
+use File::Slurp;
 use Error qw(:try);
 
 use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
@@ -197,6 +199,7 @@ sub setupDNS
 {
     my ($self, $dlz) = @_;
 
+    my $samba = EBox::Global->modInstance('samba');
     my $dnsModule = EBox::Global->modInstance('dns');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
@@ -218,19 +221,18 @@ sub setupDNS
     }
     $domainRow->store();
 
-    # Stop service to avoid nsupdate failure
-    $dnsModule->stopService();
-
-    # And force service restart
-    $dnsModule->save();
-
-    my $samba = EBox::Global->modInstance('samba');
     if (EBox::Sudo::fileTest('-f', $samba->SAMBA_DNS_KEYTAB())) {
         my @cmds;
         push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
         push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
         EBox::Sudo::root(@cmds);
     }
+
+    # Stop service to avoid nsupdate failure
+    $dnsModule->stopService();
+
+    # And force service restart
+    $dnsModule->save();
 }
 
 # Method: provision
@@ -279,7 +281,8 @@ sub mapAccounts
 {
     my ($self) = @_;
 
-    my $domainSID = $self->ldb->domainSID();
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $domainSID = $sambaModule->ldb->domainSID();
 
     # Map unix root account to domain administrator. The accounts are
     # imported to Zentyal here to avoid s4sync overwrite the uid/gid
@@ -295,11 +298,11 @@ sub mapAccounts
     EBox::info("Mapping domain administrator account");
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     $domainAdmin->addToZentyal() if ($domainAdmin->exists());
-    $self->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     $domainAdmins->addToZentyal() if ($domainAdmins->exists());
-    $self->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
+    $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     # Map domain users group
     # FIXME Why is this not working during first intall???
@@ -307,7 +310,7 @@ sub mapAccounts
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    $self->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
+    $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
@@ -317,9 +320,9 @@ sub mapAccounts
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
-    $self->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    $sambaModule->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     EBox::info("Mapping domain guests group account");
-    $self->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    $sambaModule->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
 sub provisionDC
@@ -865,6 +868,30 @@ sub checkADNebiosName
     return $adNetbiosDomain;
 }
 
+# FIXME This should not be necessary, it is a samba bug.
+sub fixDnsSPN
+{
+    my ($self) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $fqdn = $sysinfo->fqdn();
+    my $ucHostname = uc ($sysinfo->hostName());
+
+    my @cmds = ();
+    push (@cmds, "rm -f " . $samba->SAMBA_DNS_KEYTAB());
+    push (@cmds, "samba-tool spn add DNS/$fqdn $ucHostname\$");
+    push (@cmds, "samba-tool domain exportkeytab " .
+                 $samba->SAMBA_DNS_KEYTAB() .
+                 " --principal=$ucHostname\$");
+    push (@cmds, "samba-tool domain exportkeytab " .
+                 $samba->SAMBA_DNS_KEYTAB() .
+                 " --principal=DNS/$fqdn");
+    push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
+    push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
+    EBox::Sudo::root(@cmds);
+}
+
 sub provisionADC
 {
     my ($self) = @_;
@@ -913,6 +940,7 @@ sub provisionADC
     my $adNetbiosDomain = $self->checkADNebiosName($adServerIp, $adUser, $adPwd, $netbiosDomain);
 
     my $dnsFile = undef;
+    my $adminAccountPwdFile = undef;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
@@ -924,36 +952,46 @@ sub provisionADC
         my $array = [];
         push (@{$array}, searchDomain => $domainToJoin);
         push (@{$array}, nameservers => [ $adDnsServer ]);
-        $self->writeConfFile(EBox::Network::RESOLV_FILE(),
-                             'network/resolv.conf.mas',
-                             $array);
+        $sambaModule->writeConfFile(EBox::Network::RESOLV_FILE(),
+                                    'network/resolv.conf.mas',
+                                    $array);
+
+        # Get a ticket for admin User
+        my $principal = "$adUser\@$realm";
+        (undef, $adminAccountPwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
+        EBox::info("Trying to get a kerberos ticket for principal '$principal'");
+        write_file($adminAccountPwdFile, $adPwd);
+        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' $principal";
+        EBox::Sudo::root($cmd);
 
         # Write config
         $sambaModule->writeSambaConfig();
 
         # Join the domain
         EBox::info("Executing domain join");
-        my $cmd = "samba-tool domain join $domainToJoin DC " .
-                  " --username='$adUser' " .
-                  " --workgroup='$netbiosDomain' " .
-                  " --password='$adPwd' " .
-                  " --server='$adServerIp' " .
-                  " --dns-backend=BIND9_DLZ " .
-                  " --realm='$realm' " .
-                  " --site='$adServerSite' ";
+        my $cmd2 = "samba-tool domain join $domainToJoin DC " .
+                   " --username='$adUser' " .
+                   " --workgroup='$netbiosDomain' " .
+                   " --password='$adPwd' " .
+                   " --server='$adServerIp' " .
+                   " --dns-backend=BIND9_DLZ " .
+                   " --realm='$realm' " .
+                   " --site='$adServerSite' ";
 
-        my $output = EBox::Sudo::silentRoot($cmd);
+        my $output = EBox::Sudo::silentRoot($cmd2);
         if ($? == 0) {
             EBox::debug("Provision result: @{$output}");
         } else {
-            my @error = ();
+            my @error;
             my $stderr = EBox::Config::tmp() . 'stderr';
             if (-r $stderr) {
                 @error = read_file($stderr);
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
+        $self->fixDnsSPN();
 
+        $self->setProvisioned(1);
         $self->setupDNS(1);
 
         # Start managed service to let it create the LDAP socket
@@ -991,18 +1029,6 @@ sub provisionADC
         # Load Zentyal service principals into samba
         $sambaModule->ldb->ldapServicePrincipalsToLdb();
 
-        # FIXME This should not be necessary, it is a samba bug.
-        #my @cmds = ();
-        #push (@cmds, "rm -f " . SAMBA_DNS_KEYTAB);
-        #push (@cmds, "samba-tool spn add DNS/$fqdn $ucHostName\$");
-        #push (@cmds, "samba-tool domain exportkeytab " . SAMBA_DNS_KEYTAB .
-        #    " --principal=$ucHostName\$");
-        #push (@cmds, "samba-tool domain exportkeytab " . SAMBA_DNS_KEYTAB .
-        #    " --principal=DNS/$fqdn");
-        #push (@cmds, "chgrp bind " . SAMBA_DNS_KEYTAB);
-        #push (@cmds, "chmod g+r " . SAMBA_DNS_KEYTAB);
-        #EBox::Sudo::root(@cmds);
-
         # Map accounts
         $self->mapAccounts();
 
@@ -1019,6 +1045,12 @@ sub provisionADC
             EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
+        # Remote stashed password
+        if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+            unlink $adminAccountPwdFile;
+        }
+        # Destroy cached tickets
+        EBox::Sudo::rootWithoutException('kdestroy');
     };
 }
 
