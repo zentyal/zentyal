@@ -881,7 +881,6 @@ sub _daemons
     return [
         {
             name => 'samba4',
-            pidfiles => ['/opt/samba4/var/run/samba.pid'],
         },
         {
             name => 'zentyal.s4sync',
