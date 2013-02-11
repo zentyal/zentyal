@@ -83,6 +83,11 @@ sub isEnabled
 sub isRunning
 {
     my ($self) = @_;
+
+    unless ($self->configured()) {
+        return undef;
+    }
+
     my $upstartFile = $self->upstartFile();
     if (not -e $upstartFile) {
         return undef;
