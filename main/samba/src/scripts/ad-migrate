@@ -33,466 +33,73 @@ use Error qw(:try);
 
 use Data::Dumper;
 
-# Method: checkStageI_serverReachable
-#
-#   Check that the server is alive and is reachable
-#
-sub checkStageI_serverReachable
+sub serverReachable
 {
     my ($adServerIp) = @_;
 
-    EBox::info("Checking if AD server '$adServerIp' is online...");
+    print "Checking if server '$adServerIp' is online...\n";
     my $pinger = new Net::Ping('tcp');
     $pinger->port_number(389);
     $pinger->service_check(1);
-    unless ($pinger->ping($adServerIp)) {
-        EBox::error("The AD server is not reachable");
-		exit 1;
-    }
+    my $reachable = $pinger->ping($adServerIp);
     $pinger->close();
+    return $reachable;
 }
 
-# Method: checkStageI_reverseLookup
-#
-#   If the IP address can be reverse resolved by the local DNS server,
-#   it must differ from local host name
-#
-sub checkStageI_reverseLookup
+sub resolve
 {
-    my ($adServerIp) = @_;
+    my ($adServerName) = @_;
 
-    EBox::info("Checking reverse DNS resolution of '$adServerIp'...");
+    print "Resolving '$adServerName'...\n");
+    my $addresses = [];
     my $resolver = new Net::DNS::Resolver(nameservers => ['127.0.0.1']);
-    my $target = join('.', reverse split(/\./, $adServerIp)).".in-addr.arpa";
-    my $answer = '';
-    my $query = $resolver->query($target, 'PTR');
+    my $query = $resolver->query($adServerName, 'A');
     if ($query) {
         foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'PTR';
-            $answer = $rr->ptrdname();
-            last;
+            next unless $rr->type() eq 'A';
+            push (@{$addresses}, $rr->address());
         }
     }
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    if (lc ($answer) eq lc ($sysinfo->fqdn())) {
-        EBox::error("The given AD server IP address is registered on the " .
-                    "local DNS as '$answer', which matches local host name");
-        exit 1;
-    }
-}
-
-# Method: checkStageI_forestDomains
-#
-#   Check that the forest only contains one domain
-#   TODO Check that the forest and domain functional levels are >= W2K3
-#
-sub checkStageI_forestDomains
-{
-    my ($adServerIp, $adUser, $adPwd) = @_;
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $rootDSEAttributes = $sambaModule->ldb->ROOT_DSE_ATTRS();
-
-    # Check if the given AD credentials works
-    my $ldap = new Net::LDAP($adServerIp);
-    my $dse = $ldap->root_dse(attrs => $rootDSEAttributes);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    my $configurationNC = $dse->get_value('configurationNamingContext');
-
-    my $adDomain = $defaultNC;
-    $adDomain =~ s/DC=//g;
-    $adDomain =~ s/,/./g;
-
-    # Check forest only contain one domain
-    $ldap->bind("$adUser\@$adDomain", password => $adPwd);
-    my $result = $ldap->search(base => "CN=Partitions,$configurationNC",
-                               scope => 'sub',
-                               filter => '(objectClass=crossRef)',
-                               attrs => ['systemFlags']);
-    if ($result->code()) {
-        EBox::error("Could not retrieve the domain information. Check username and password.");
-        exit 1;
-    }
-    my $domainCount = 0;
-    foreach my $entry ($result->entries()) {
-        my $flags = $entry->get_value('systemFlags');
-        $domainCount++ if ($flags & 0x00000002);
-    }
-    if ($domainCount > 1) {
-        EBox::error("The AD forest contains more than one domain. Samba " .
-                    "only support one domain per forest.");
-        exit 1;
-    }
-    $ldap->unbind();
-}
-
-# Method: checkStageI_serverInstallation
-#
-#   Check the local host domain matches AD domain
-#
-sub checkStageI_serverInstallation
-{
-    my ($adServerIp) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostDomain = $sysinfo->hostDomain();
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $rootDSEAttributes = $sambaModule->ldb->ROOT_DSE_ATTRS();
-
-    my $ldap = new Net::LDAP($adServerIp);
-    my $dse = $ldap->root_dse(attrs => $rootDSEAttributes);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    my $adServerFQDN = $dse->get_value('dnsHostName');
-    $ldap->unbind();
-
-    my @parts = split (/\./, $adServerFQDN, 2);
-    if (scalar @parts == 1) {
-        EBox::error("The AD server did not return FQDN server name for IP '$adServerIp'");
-        exit 1;
-    }
-    if (lc $parts[1] ne lc $hostDomain) {
-        EBox::error("Local DNS domain $hostDomain does not match AD server domain");
-        EBox::error("    Local: $hostDomain");
-        EBox::error("       AD: $parts[1]");
-        exit 1;
-    }
-
-    my $adDomain = $defaultNC;
-    $adDomain =~ s/DC=//g;
-    $adDomain =~ s/,/./g;
-
-    if (lc $hostDomain ne lc $adDomain) {
-        EBox::error("The local host domain does not match AD domain");
-        EBox::error("    Local: $hostDomain");
-        EBox::error("       AD: $adDomain");
-        exit 1;
-    }
-}
-
-# Method: checkStageI_credentials
-#
-#   Check given AD credentials are valid to join domain
-#   Check given AD credentials are valid to copy sysvol
-#
-sub checkStageI_credentials
-{
-    my ($adServerIp, $adUser, $adPwd) = @_;
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $rootDSEAttributes = $sambaModule->ldb->ROOT_DSE_ATTRS();
-
-    # Check if the given AD credentials works
-    my $ldap = new Net::LDAP($adServerIp);
-    my $dse = $ldap->root_dse(attrs => $rootDSEAttributes);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-
-    my $adDomain = $defaultNC;
-    $adDomain =~ s/DC=//g;
-    $adDomain =~ s/,/./g;
-
-    EBox::info("Checking given credentials are valid to join domain...");
-    my $result = $ldap->bind("$adUser\@$adDomain", password => $adPwd);
-    if ($result->code()) {
-        EBox::error("Cannot bind to '$adServerIp' LDAP. Please check given credentials.");
-        exit 1;
-    }
-    $ldap->unbind();
-
-    EBox::info("Checking given credentials are valid to copy sysvol...");
-    my $sysvol = "smb://$adServerIp/sysvol";
-    my $smb = new Filesys::SmbClient(username => $adUser, password => $adPwd);
-    my $fd = $smb->opendir($sysvol);
-    unless (defined $fd) {
-        EBox::error("Cannot connect to '$sysvol'. Please check given credentials.");
-        exit 1;
-    }
-    $smb->closedir($fd);
-}
-
-# Determine the site of the AD server
-sub checkStageI_getInfo
-{
-    my ($adServerIp, $adUser, $adPwd) = @_;
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $rootDSEAttributes = $sambaModule->ldb->ROOT_DSE_ATTRS();
-
-    my $ldap = new Net::LDAP($adServerIp);
-    my $dse = $ldap->root_dse(attrs => $rootDSEAttributes);
-    my $adServerFQDN = $dse->get_value('dnsHostName');
-    my $serverNameDn = $dse->get_value('serverName');
-    my $adDefaultNC  = $dse->get_value('defaultNamingContext');
-
-    my $adDomain = $adDefaultNC;
-    $adDomain =~ s/DC=//g;
-    $adDomain =~ s/,/./g;
-
-    $ldap->bind("$adUser\@$adDomain", password => $adPwd);
-
-    my @parts = split (/\./, $adServerFQDN, 2);
-    my $adServerName = $parts[0];
-
-    my $dnParts = ldap_explode_dn($serverNameDn, reverse => 0);
-    my $adServerSite = @{$dnParts}[2]->{CN};
-    unless (defined $adServerSite) {
-       EBox::error("Cannot determine the site of the given server $adServerIp");
-        exit 1;
-    }
-
-    # Get NETBios domain name
-    my $adNetbiosDomain = undef;
-    my $configurationNC = $dse->get_value('configurationNamingContext');
-    my $result = $ldap->search(base => "CN=Partitions,$configurationNC",
-                               scope => 'sub',
-                               filter => '(nETBIOSName=*)',
-                               attrs => ['nETBIOSName']);
-    if ($result->count() == 1) {
-        my $entry = $result->entry(0);
-        $adNetbiosDomain = $entry->get_value('nETBIOSName');
-    }
-    unless (defined $adNetbiosDomain) {
-        EBox::error("Could not get the netbios domain name");
-        exit 1;
-    }
-    $ldap->unbind();
-
-    my $data = {
-        adServerIp  => $adServerIp,
-        adServerName => $adServerName,
-        adServerFQDN => $adServerFQDN,
-        adServerSite => $adServerSite,
-        adDomain => $adDomain,
-        adNetbiosDomain => $adNetbiosDomain,
-        adDefaultNC => $adDefaultNC,
-        adUsername => $adUser,
-        adPassword => $adPwd,
-    };
-
-    EBox::info("");
-    EBox::info("Before proceed, please verify that this information is correct:");
-    EBox::info("    AD netbios domain name: " . $data->{adNetbiosDomain});
-    EBox::info("            AD domain name: " . $data->{adDomain});
-    EBox::info("            AD server name: " . $data->{adServerName});
-    EBox::info("            AD server FQDN: " . $data->{adServerFQDN});
-    EBox::info("            AD server site: " . $data->{adServerSite});
-    EBox::info("");
-    EBox::info("Proceed? (y/n)");
-    my $ok =  <STDIN>;
-    chomp $ok;
-    unless (lc $ok eq 'y' or lc $ok eq 'yes') {
-        EBox::info("Aborted");
-        exit 0;
-    }
-
-    return $data;
-}
-
-# Method: syncClock
-#
-#   Sync the local clock with the remote AD server if the offset is above
-#   three minutes. If the local time is over AD server time, it is not
-#   synced back to avoid SSL certificates problems.
-#
-#   Maths:
-#       Originate Timestamp     T1 - time request sent by client
-#       Receive Timestamp       T2 - time request received by server
-#       Transmit Timestamp      T3 - time reply sent by server
-#       Destination Timestamp   T4 - time reply received by client
-#
-#       The roundtrip delay d and local clock offset t are defined as:
-#       d = (T4 - T1) - (T2 - T3)
-#       t = ((T2 - T1) + (T3 - T4)) / 2
-#
-sub syncClock
-{
-    my ($adServerIp) = @_;
-
-    try {
-        EBox::info("Synchronizing system clock with AD server...");
-        my $t0 = time;
-        my %h = get_ntp_response($adServerIp);
-        my $T1 = $t0; # $h{'Originate Timestamp'};
-        my $T2 = $h{'Receive Timestamp'};
-        my $T3 = $h{'Transmit Timestamp'};
-        my $T4 = time; # From Time::HiRes
-        my $d = ($T4 - $T1) - ($T2 - $T3);
-        my $t = (($T2 - $T1) + ($T3 - $T4)) / 2;
-        if (abs($t) < 120) {
-		    # Clock offest is less than two minutes, that should be good enough for Kerberos
-            return;
-		} else {
-            try {
-                my $newTime = $t0 + $t;
-                my $cmd = "date -s \@$newTime";
-                EBox::info("Setting local time");
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Cannot set system time: $error");
-                exit 1;
-            };
-        }
-    } otherwise {
-		EBox::error("Could not retrive time from $adServerIp via NTP.");
-		EBox::error("It is required that the system clocks of both systems agree (consider also differing time zones).");
-        exit 1;
-    };
+    return $addresses;
 }
 
 
-# Comprobaciones:
-#
-sub checkStageI
-{
-    my ($adServerIp, $adUsername, $adPassword) = @_;
-
-    checkStageI_serverReachable($adServerIp);
-
-    checkStageI_reverseLookup($adServerIp);
-
-    checkStageI_forestDomains($adServerIp, $adUsername, $adPassword);
-
-    checkStageI_credentials($adServerIp, $adUsername, $adPassword);
-
-    checkStageI_serverInstallation($adServerIp);
-
-    return checkStageI_getInfo($adServerIp, $adUsername, $adPassword);
-}
-
-sub checkStageI_Zentyal
-{
-    my ($adData) = @_;
-
-    my $usersModule = EBox::Global->modInstance('users');
-    my $sambaModule = EBox::Global->modInstance('samba');
-
-    # Users module enabled
-    unless ($usersModule->isEnabled()) {
-        EBox::error("Users module is not enabled");
-        exit 1;
-    }
-
-    # Check LDAP base DN
-    my $usersBaseDN = $usersModule->ldap->dn();
-    my $adDefaultNC = $adData->{adDefaultNC};
-    unless (lc $usersBaseDN eq lc $adDefaultNC) {
-        EBox::error("The users module LDAP base DN does not match AD default NC:");
-        EBox::error("   Users module base DN: $usersBaseDN");
-        EBox::error("          AD default NC: $adDefaultNC");
-        exit 1;
-    }
-
-    # Check users homes, abort if exists and tell to delete
-    my @homes;
-    my $zentyalUsers = $usersModule->users();
-    foreach my $user (@{$zentyalUsers}) {
-        my $home = '/home/' . $user->get('uid');
-        if (EBox::Sudo::fileTest('-d', $home)) {
-            push (@homes, $home);
-        }
-    }
-    my $ldap = new Net::LDAP($adData->{adServerIp});
-    my $ldapUser = $adData->{adUsername} . '@' . $adData->{adDomain};
-    my $ldapPwd  = $adData->{adPassword};
-    $ldap->bind($ldapUser, password => $ldapPwd);
-    my $adUsers = $ldap->search(base => $adData->{adDefaultNC},
-                                scope => 'sub',
-                                filter => '(objectClass=user)',
-                                attrs => ['samAccountName']);
-    foreach my $adUser ($adUsers->entries()) {
-        my $home = '/home/' . $adUser->get_value('samAccountName');
-        if (EBox::Sudo::fileTest('-d', $home)) {
-            push (@homes, $home);
-        }
-    }
-    if (scalar @homes) {
-        EBox::error("The following user's home directories exists. Please remove them before proceed.");
-        foreach my $home (@homes) {
-            EBox::error("    $home");
-        }
-        exit 1;
-    }
-
-    # Remove the s4sync TS
-    my $s4syncTS = EBox::Config::home() . '.s4sync_ts';
-    EBox::Sudo::root("rm -f $s4syncTS");
-}
-
-sub performStageI
-{
-    my ($adData) = @_;
-
-    my $sysinfo     = EBox::Global->modInstance('sysinfo');
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $usersModule = EBox::Global->modInstance('users');
-
-    # Configure Zentyal
-    my $gs = $sambaModule->model('GeneralSettings');
-    $gs->setValue('mode', 'adc');
-    $gs->setValue('realm', uc $adData->{adDomain});
-    $gs->setValue('dcfqdn', $adData->{adServerFQDN});
-    $gs->setValue('dnsip', $adData->{adServerIp});
-    $gs->setValue('adminAccount', $adData->{adUsername});
-    $gs->setValue('password', $adData->{adPassword});
-    $gs->setValue('workgroup', $adData->{adNetbiosDomain});
-    $gs->setValue('site', $adData->{adServerSite});
-    $gs->setValue('netbiosName', uc $sysinfo->hostName());
-
-    # Enable samba module if it is not enabled
-    unless ($sambaModule->configured()) {
-        EBox::info("Enabling File Sharing module...");
-        $sambaModule->configureModule();
-    }
-
-    # Join domain
-    try {
-        syncClock($adData->{adServerIp});
-        $sambaModule->provision();
-    } otherwise {
-        exit 1;
-    };
-
-    EBox::info("Stage I completed.");
-    EBox::info("");
-}
-
-sub performStageII
-{
-    my ($adData) = @_;
-
-    # Ensure sysvol is transferred
-
-    # Shutdown all DCs
-}
+#    # Check users homes, abort if exists and tell to delete
+#    my @homes;
+#    my $zentyalUsers = $usersModule->users();
+#    foreach my $user (@{$zentyalUsers}) {
+#        my $home = '/home/' . $user->get('uid');
+#        if (EBox::Sudo::fileTest('-d', $home)) {
+#            push (@homes, $home);
+#        }
+#    }
+#    my $ldap = new Net::LDAP($adData->{adServerIp});
+#    my $ldapUser = $adData->{adUsername} . '@' . $adData->{adDomain};
+#    my $ldapPwd  = $adData->{adPassword};
+#    $ldap->bind($ldapUser, password => $ldapPwd);
+#    my $adUsers = $ldap->search(base => $adData->{adDefaultNC},
+#                                scope => 'sub',
+#                                filter => '(objectClass=user)',
+#                                attrs => ['samAccountName']);
+#    foreach my $adUser ($adUsers->entries()) {
+#        my $home = '/home/' . $adUser->get_value('samAccountName');
+#        if (EBox::Sudo::fileTest('-d', $home)) {
+#            push (@homes, $home);
+#        }
+#    }
+#    if (scalar @homes) {
+#        EBox::error("The following user's home directories exists. Please remove them before proceed.");
+#        foreach my $home (@homes) {
+#            EBox::error("    $home");
+#        }
+#        exit 1;
+#    }
 
 ##
-## Global variables
-##
-my $debug      = 0;
-my $adServerIp = '';
-my $adUsername = '';
-my $adPassword = '';
-
-##
-##  Check root
-##
-unless ($> == 0) {
-    print "This script must be run as root\n";
-    exit 0;
-}
-
-##
-## Read command line arguments
+##  Add help option
 ##
 my $parser = new Getopt::Long::Parser();
 $parser->configure('auto_help');
-$parser->getoptions(
-    'debug!' => \$debug,
-    'ad-server-ip=s' => \$adServerIp,
-    'ad-username=s'  => \$adUsername,
-    'ad-password=s'  => \$adPassword) or pod2usage(2);
 
 ##
 ##  Init Zentyal framework
@@ -501,20 +108,67 @@ EBox::initLogger('ad-migrate-log.conf');
 EBox::init();
 
 ##
-##  Validate arguments
+##  Warn and ask for confirmation
 ##
-if (length $adServerIp and length $adUsername and length $adPassword) {
-    EBox::info("Zentyal AD migration started (AD server IP '$adServerIp')");
-    # TODO If debug enabled black magic to set EBox::debug to 1
-} else {
-    pod2usage(2);
+print "WARNING: This script will seize all domain roles from the current owners.\n";
+print "         When required, shutdown all domain controllers except this one and never\n";
+print "         turn them on again.\n\n";
+print "Continue? (Y/n)\n";
+my $answer = <STDIN>;
+unless ($answer eq 'Y') {
+    print "Aborted.\n";
+    exit 0;
 }
 
 ##
-##  Get migration status
+##  Instance modules
 ##
 my $sambaModule = EBox::Global->modInstance('samba');
-my $status = $sambaModule->get_state->{ad_migrate};
+
+##
+##  Check mode is ADC
+##
+my $mode = $sambaModule->mode();
+unless ($mode eq 'adc') {
+    print "ERROR: This server is not an additional domain controller.\n"
+    exit 1;
+}
+
+##
+##  Check server is joined to the domain
+##
+my $provision = $sambaModule->getProvision();
+unless ($provision->isProvisioned()) {
+    print "ERROR: Before running this script, the server must be joined to the domain.\n";
+    print "       Configure the server as an 'Additional domain controller' in the Zentyal\n";
+    print "       control panel, then run again.\n";
+    exit 1;
+}
+
+##
+##  Get the list of domain controllers running on this domain
+##
+my @domainControllers;
+my $ldb = $sambaModule->ldb();
+my $params = {
+    base => 'OU=Domain Controllers,' . $ldb->dn(),
+    scope => 'one',
+    filter => '(objectClass=computer)',
+    attrs => ['dnsHostName'],
+
+};
+my $result = $ldb->search($params);
+foreach my $entry ($result->entries) {
+    my $name = $entry->get_value('dnsHostName');
+    my $addrs = resolve($name);
+    my $dc = {
+        dn   => $entry->dn(),
+        name => $name,
+        addr => $addrs,
+    };
+    push (@domainControllers, $dc);
+}
+print Dumper \@domainControllers;
 
 ##
 ##  Stop daemons
@@ -522,45 +176,31 @@ my $status = $sambaModule->get_state->{ad_migrate};
 $sambaModule->stopService();
 
 ##
-##  Confirm for data destruction
+##  Transfer sysvol share
 ##
+my $synchronizer = new EBox::Samba::SysvolSync();
+$synchronizer->sync() or die $@;
 
 ##
-##  STAGE I: Join to the domain
+##  Shutdown all domain controllers
 ##
-if (not defined $sambaModule->get_state->{adMigrate_stageI_completed}) {
-    my $adData = checkStageI($adServerIp, $adUsername, $adPassword);
-    checkStageI_Zentyal($adData);
-    performStageI($adData);
-    my $state = $sambaModule->get_state();
-    $state->{adMigrate_stageI_completed} = 1;
-    $sambaModule->set_state($state);
-} else {
-    EBox::info("Seems that stage I has been completed, proceeding to stage II.");
-}
-
-##
-##  STAGE II: Transfer sysvol share and shutdown AD servers
-##
-if (not defined $sambaModule->get_state->{adMigrate_stageII_completed}) {
-    my $adData = checkStageI($adServerIp, $adUsername, $adPassword);
-    performStageII($adData);
-    my $state = $sambaModule->get_state();
-    $state->{adMigrate_stageII_completed} = 1;
-    # TODO $sambaModule->set_state($state);
-} else {
-    EBox::info("Seems that stage II has been completed, proceeding to stage III.");
+my $allShutdown = 0;
+while (not $allShutdown) {
+    my $anyAlive = 0;
+    foreach my $dc (@domainControllers) {
+        if (reachable($dc->{name})) {
+            $anyAlive = 1;
+            next;
+        }
+    }
+    $allShutdown = not $anyAlive;
 }
 
 ##
 ##  STAGE III: Seize FSMO roles
 ##
 
-##
-##  STAGE IV: Change mode to AD instead ADC
-##
-
-EBox::info("AD migrated successfully!");
+print "Migrated successfully!\n";
 
 =head1 NAME
 
