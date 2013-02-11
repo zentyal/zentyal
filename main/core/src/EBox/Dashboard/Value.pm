@@ -31,24 +31,30 @@ use EBox::Gettext;
 #      value - String the value related to that key
 #
 #      value_type - String the value type to display in the UI accordingly,
-#                   it could one of the following values: good, info, warning, error
+#                   it could one of the following values:
+#                       good, info, warning, error, ajax
 #                   *(Optional)* Default value: info
+#
+#      ajax_url   - URL of the CGI if value_type == ajax,
+#                   the CGI will return a json hash with value and type keys
+#                   *(Optional)* (But mandatory if value_type == ajax)
 #
 # Returns:
 #
 #      <EBox::Dashboard::Value> - the newly created object instance
 #
-sub new  # (key, prettykey, value)
+sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new();
-	$self->{key} = shift;
-	$self->{value} = shift;
+    my $class = shift;
+    my $self = $class->SUPER::new();
+    $self->{key} = shift;
+    $self->{value} = shift;
     $self->{value_type} = shift;
+    $self->{ajax_url} = shift;
     $self->{value_type} = 'info' unless defined($self->{value_type});
-	$self->{type} = 'value';
-	bless($self, $class);
-	return $self;
+    $self->{type} = 'value';
+    bless ($self, $class);
+    return $self;
 }
 
 sub HTMLViewer()

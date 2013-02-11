@@ -79,9 +79,29 @@ sub _table
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
         'withoutActions' => 1,
+        'customFilter' => 1,
     };
 
     return $dataTable;
+}
+
+sub customFilterIds
+{
+    my ($self, $filter) = @_;
+
+    unless ($filter) {
+        return $self->ids();
+    }
+
+    my @filtered;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('name') =~ /$filter/ or
+            $row->valueByName('fullname') =~ /$filter/) {
+            push (@filtered, $id);
+        }
+    }
+    return \@filtered;
 }
 
 sub Viewer

@@ -42,6 +42,7 @@ use EBox::Util::Version;
 use EBox::Util::Software;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
+use constant UPDATES_URL => 'http://update.zentyal.org/updates';
 
 sub _create
 {
@@ -288,17 +289,16 @@ sub generalWidget
     my $time = `$time_command`;
     utf8::decode($time);
 
-    my $version = $self->version();
-
     my $qaUpdates = 0;
-    my $url = 'http://update.zentyal.org/updates';
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
+    my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
     unless ($ignore) {
+        my $url = UPDATES_URL;
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
         read ($fh, $lastVersion, 16);
@@ -314,52 +314,14 @@ sub generalWidget
         }
     }
 
-    my $updatesStr  = __('No updates');
-    my $updatesType = 'good';
-    if ($qaUpdates) {
-        my $msg = $self->_secureMsg();
-        $updatesStr = qq{<a title="$msg">$updatesStr</a>};
-    } else {
-        my $onlyComp = 0;
-        # [ updates, sec_updates]
-        my $updates = EBox::Util::Software::upgradablePkgsNum();
-        if ( $updates->[1] > 0 ) {
-            $updatesType = 'error';
-            $updatesStr = __x('{n} security updates', n => $updates->[1]);
-        } elsif ( $updates->[0] > 0 ) {
-            $updatesType = 'warning';
-            $updatesStr = __x('{n} system updates', n => $updates->[0]);
-            my $pkgsToUpgrade = EBox::Util::Software::upgradablePkgs();
-            my $nonCompNum = grep { $_ !~ /^zentyal-/ } @{$pkgsToUpgrade};
-            if ( $nonCompNum == 0 ) {
-                # Only components, then show components
-                $updatesStr = __x('{n} component updates', n => $updates->[0]);
-                $onlyComp = 1;
-            }
-        }
-        my $href = $url;
-        if (EBox::Global->modExists('software')) {
-            if ( $onlyComp ) {
-                $href = '/Software/EBox#update';
-            } else {
-                $href = '/Software/Updates';
-            }
-        }
-        unless ($ignore) {
-            my $msg = $self->_commercialMsg();
-            $updatesStr = qq{<a href="$href" title="$msg">$updatesStr</a>};
-        }
-    }
-
     my $uptime_output=`uptime`;
     my ($uptime, $users, $la1, $la2, $la3) = $uptime_output =~ /.*up  *(.*),  (.*)users?,  load average: (.*), (.*), (.*)/;
 
     $section->add(new EBox::Dashboard::Value(__('Time'), $time));
     $section->add(new EBox::Dashboard::Value(__('Hostname'), hostname));
     $section->add(new EBox::Dashboard::Value(__('Core version'), $version));
-    $section->add(new EBox::Dashboard::Value(__('Software'), $updatesStr, $updatesType));
-    $section->add(new EBox::Dashboard::Value(
-        __("System load"), join(', ', Sys::CpuLoad::load)));
+    $section->add(new EBox::Dashboard::Value(__('Software'), __('Checking updates...'), 'ajax', '/SysInfo/SoftwareUpdates'));
+    $section->add(new EBox::Dashboard::Value(__("System load"), join(', ', Sys::CpuLoad::load)));
     $section->add(new EBox::Dashboard::Value(__("Uptime"), $uptime));
     $section->add(new EBox::Dashboard::Value(__("Users"), $users));
 }
@@ -502,17 +464,6 @@ sub _restartAllServices
                          'service cron restart');
     } catch EBox::Exceptions::Internal with {
     };
-}
-
-# Return commercial message for QA updates
-sub _commercialMsg
-{
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
-}
-
-sub _secureMsg
-{
-    return __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
 }
 
 1;

@@ -1,4 +1,5 @@
-HEAD
+3.0.8
+	+ Filter in users table no longer matches LDAP dn
 	+ Recover better of no-usercorner journal error in slave-sync
 	+ Added read-only rootDn and password to LDAP settings screen
 	+ Don't allow empty first name in CGIs for user
