@@ -75,16 +75,15 @@ sub daemon
 
 sub isEnabled
 {
-  my ($self) = @_;
-  return $self->_confAttr('service');
+    my ($self) = @_;
+    return $self->_confAttr('service');
 }
-
 
 sub isRunning
 {
     my ($self) = @_;
 
-    unless ($self->configured()) {
+    unless (EBox::Global->modInstance('mail')->configured()) {
         return undef;
     }
 
