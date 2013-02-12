@@ -24,6 +24,20 @@ sub preInput
 {
     my ($self) = @_;
 
+    return $self->_ifaceRules();
+}
+
+sub preForward
+{
+    my ($self) = @_;
+
+    return $self->_ifaceRules();
+}
+
+sub _ifaceRules
+{
+    my ($self) = @_;
+
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
