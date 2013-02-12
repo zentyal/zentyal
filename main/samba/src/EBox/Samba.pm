@@ -1222,14 +1222,12 @@ sub restoreConfig
     my $sysvolDir = SYSVOL_DIR;
     EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
-    # Unpack sysvol
-    if (EBox::Sudo::fileTest('-f', "$dir/sysvol.tar.bz2")) {
-        EBox::Sudo::root("tar jxfp $dir/sysvol.tar.bz2 -C /var/lib/samba/");
-    }
-
-    # Unpack private folder
-    if (EBox::Sudo::fileTest('-f', "$dir/private.tar.bz2")) {
-        EBox::Sudo::root("tar jxfp $dir/private.tar.bz2 -C /var/lib/samba/");
+    # Unpack sysvol and private
+    my $sambaPrefix = 'var/lib/samba/';
+    foreach my $archive ('sysvol', 'private') {
+        if (EBox::Sudo::fileTest('-f', "$dir/$archive.tar.bz2")) {
+            EBox::Sudo::root("tar jxfp $dir/$archive.tar.bz2 --transform 's!^$sambaPrefix!!' -C /$sambaPrefix");
+        }
     }
 
     # Rename ldb files
@@ -1242,11 +1240,11 @@ sub restoreConfig
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
     # Hard-link DomainDnsZones and ForestDnsZones partitions
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=FORESTDNSZONES*");
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC=DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*DOMAINDNSZONES*");
     EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC=DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
     EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
     EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
     EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");

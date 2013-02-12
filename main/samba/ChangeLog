@@ -3,12 +3,12 @@ HEAD
 	+ Switch to samba4 bundled version
 	+ Change paths for bundled samba4 version
 	+ Import sysvol maintaining ACLs
+	+ Fixed configuration backup problems, stopping the daemon is no longer
+	  needed when backing up and ACLs and dns partitions hard links are
+	  recreated when restoring.
 	+ Use clamd socket instead of shared library for antivirus, this is
 	  faster and reduces memory consumption
 	+ Do not create quarantine share if antivirus is not enabled
-	+ Improve backup. Stopping the daemon is no longer needed for taking a
-	  backup and ACLs and dns partitions hard links are recreated when
-	  restoring.
 	+ Empty text files are created now when a virus is found on a share
 	+ Modified 'size' field in samba_disk_usage and samba_disk_usage_report
 	  tables from INT to BIGINT
