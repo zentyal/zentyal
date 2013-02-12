@@ -698,10 +698,17 @@ sub _setConf
     $self->_updateManagedDomainAddresses();
 
     my $keytabPath = undef;
+    my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled()) {
-            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_KEYTAB())) {
+        if ($sambaModule->isEnabled() and
+            $sambaModule->getProvision->isProvisioned()) {
+            # Get the zones stored in the samba LDB
+            my $ldb = $sambaModule->ldb();
+            $sambaZones = $ldb->dnsZones();
+
+            # Get the DNS keytab path used for GSSTSIG zone updates
+            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
         }
@@ -818,6 +825,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'sambaZones' => $sambaZones);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",

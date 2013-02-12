@@ -31,14 +31,40 @@ use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
 use Authen::SASL qw(Perl);
-use IO::Socket::UNIX;
 
 use Data::Dumper;
 use File::Slurp;
 use Error qw( :try );
+use Perl6::Junction qw(any);
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
-use constant SOCKET_PATH => '/var/run/ldb';
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
+
+# NOTE: The list of attributes available in the different Windows Server versions
+#       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
+use constant ROOT_DSE_ATTRS => [
+    'configurationNamingContext',
+    'currentTime',
+    'defaultNamingContext',
+    'dnsHostName',
+    'domainControllerFunctionality',
+    'domainFunctionality',
+    'dsServiceName',
+    'forestFunctionality',
+    'highestCommittedUSN',
+    'isGlobalCatalogReady',
+    'isSynchronized',
+    'ldapServiceName',
+    'namingContexts',
+    'rootDomainNamingContext',
+    'schemaNamingContext',
+    'serverName',
+    'subschemaSubentry',
+    'supportedCapabilities',
+    'supportedControl',
+    'supportedLDAPPolicies',
+    'supportedLDAPVersion',
+    'supportedSASLMechanisms',
+];
 
 # Singleton variable
 my $_instance = undef;
@@ -583,6 +609,39 @@ sub groups
         push (@{$list}, $group);
     }
     return $list;
+}
+
+# Method: dnsZones
+#
+#   Returns the DNS zones stored in the samba LDB
+#
+sub dnsZones
+{
+    my ($self) = @_;
+
+    my @zonePrefixes = (
+        "CN=MicrosoftDNS,DC=DomainDnsZones," . $self->dn(),
+        "CN=MicrosoftDNS,DC=ForestDnsZones," . $self->dn(),
+        "CN=MicrosoftDNS,CN=System," . $self->dn());
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my $zones = [];
+
+    for my $prefix (@zonePrefixes) {
+        my $params = {
+            base => $prefix,
+            scope => 'sub',
+            filter => '(objectClass=dnsZone)',
+            attrs => ['name'],
+        };
+        my $result = $self->search($params);
+        foreach my $entry ($result->entries()) {
+            my $name = $entry->get_value('name');
+            next unless defined $name;
+            next if $name eq any @ignoreZones;
+            push (@{$zones}, lc ($name));
+        }
+    }
+    return $zones;
 }
 
 1;

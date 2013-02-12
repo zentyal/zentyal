@@ -1,6 +1,7 @@
 description "NetBIOS name server"
-author      "Samuel Cabrero <scabrero@zentyal.com>"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
 
+start on started samba4
 stop on stopping samba4
 
 expect fork

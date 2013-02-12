@@ -1,0 +1,7 @@
+Revision history for Perl extension Authen::Krb5::Easy.
+
+0.01  Fri Apr 12 13:44:05 2002
+	- original version; created by h2xs 1.20 with options
+		-A -n Authen::Krb5::Easy krb.h -L/usr/kerberos/lib -lkrb5
+0.02  Tue Apr 16 17:20:54 2002
+       - Everything ready for distro. Need to check with cpan folks before 1.0

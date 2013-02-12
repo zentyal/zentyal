@@ -1,21 +1,23 @@
 #!/bin/bash
 
 # stop and disable cups
-invoke-rc.d cups stop
-update-rc.d cups disable
+if [ -f /etc/init/cups.conf ]; then
+    service cups stop
+    echo "manual" >> /etc/init/cups.override
+fi
 
 # create spool
-if [ ! -d /var/spool/samba ]; then
-    mkdir /var/spool/samba
-fi
-chown nobody:nogroup /var/spool/samba
-chmod a+rwt /var/spool/samba
-
-# Set permissions for printer drivers
-if [ ! -d /var/lib/samba/printers ]; then
-    mkdir /var/lib/samba/printers
+if [ ! -d /opt/samba4/var/spool ]; then
+    mkdir /opt/samba4/var/spool
+    chmod 1777 /opt/samba4/var/spool
+#   chown nobody:nogroup /var/spool/samba
+#   chmod a+rwt /var/spool/samba
 fi
 
-# TODO Why 512
-chown -R root:512 /var/lib/samba/printers
-chmod -R g+w /var/lib/samba/printers
+# create drivers folders
+if [ ! -d /opt/samba4/var/print ]; then
+    mkdir -p /opt/samba4/var/print/{COLOR,IA64,W32ALPHA,W32MIPS,W32PPC,W32X86,WIN40,x64}
+#   chown -R root:512 /var/lib/samba/printers
+#   chmod -R g+w /var/lib/samba/printers
+fi
+
