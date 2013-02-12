@@ -20,101 +20,28 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Samba::SysvolSync;
+use EBox::Samba::FSMO;
 
-use Pod::Usage;
-use Getopt::Long;
-use Filesys::SmbClient;
 use Net::Ping;
 use Net::DNS;
-use Net::NTP;
-use Net::LDAP;
-use Net::LDAP::Util qw(ldap_explode_dn);
 use Error qw(:try);
-
-use Data::Dumper;
-
-sub serverReachable
-{
-    my ($adServerIp) = @_;
-
-    print "Checking if server '$adServerIp' is online...\n";
-    my $pinger = new Net::Ping('tcp');
-    $pinger->port_number(389);
-    $pinger->service_check(1);
-    my $reachable = $pinger->ping($adServerIp);
-    $pinger->close();
-    return $reachable;
-}
-
-sub resolve
-{
-    my ($adServerName) = @_;
-
-    print "Resolving '$adServerName'...\n");
-    my $addresses = [];
-    my $resolver = new Net::DNS::Resolver(nameservers => ['127.0.0.1']);
-    my $query = $resolver->query($adServerName, 'A');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            push (@{$addresses}, $rr->address());
-        }
-    }
-    return $addresses;
-}
-
-
-#    # Check users homes, abort if exists and tell to delete
-#    my @homes;
-#    my $zentyalUsers = $usersModule->users();
-#    foreach my $user (@{$zentyalUsers}) {
-#        my $home = '/home/' . $user->get('uid');
-#        if (EBox::Sudo::fileTest('-d', $home)) {
-#            push (@homes, $home);
-#        }
-#    }
-#    my $ldap = new Net::LDAP($adData->{adServerIp});
-#    my $ldapUser = $adData->{adUsername} . '@' . $adData->{adDomain};
-#    my $ldapPwd  = $adData->{adPassword};
-#    $ldap->bind($ldapUser, password => $ldapPwd);
-#    my $adUsers = $ldap->search(base => $adData->{adDefaultNC},
-#                                scope => 'sub',
-#                                filter => '(objectClass=user)',
-#                                attrs => ['samAccountName']);
-#    foreach my $adUser ($adUsers->entries()) {
-#        my $home = '/home/' . $adUser->get_value('samAccountName');
-#        if (EBox::Sudo::fileTest('-d', $home)) {
-#            push (@homes, $home);
-#        }
-#    }
-#    if (scalar @homes) {
-#        EBox::error("The following user's home directories exists. Please remove them before proceed.");
-#        foreach my $home (@homes) {
-#            EBox::error("    $home");
-#        }
-#        exit 1;
-#    }
-
-##
-##  Add help option
-##
-my $parser = new Getopt::Long::Parser();
-$parser->configure('auto_help');
 
 ##
 ##  Init Zentyal framework
 ##
-EBox::initLogger('ad-migrate-log.conf');
 EBox::init();
 
 ##
 ##  Warn and ask for confirmation
 ##
-print "WARNING: This script will seize all domain roles from the current owners.\n";
-print "         When required, shutdown all domain controllers except this one and never\n";
-print "         turn them on again.\n\n";
-print "Continue? (Y/n)\n";
+print "WARNING: This script will transfer all FSMO roles from the current owners to\n";
+print "         the local server.\n";
+print "         After all roles has been successfully transferred, you can shutdown\n";
+print "         the other domain controllers.\n";
+print "Do you want to continue [Y/n]? ";
 my $answer = <STDIN>;
+chomp $answer;
 unless ($answer eq 'Y') {
     print "Aborted.\n";
     exit 0;
@@ -123,20 +50,23 @@ unless ($answer eq 'Y') {
 ##
 ##  Instance modules
 ##
+my $sysinfo = EBox::Global->modInstance('sysinfo');
 my $sambaModule = EBox::Global->modInstance('samba');
 
 ##
 ##  Check mode is ADC
 ##
+print "\nChecking server mode...\n";
 my $mode = $sambaModule->mode();
 unless ($mode eq 'adc') {
-    print "ERROR: This server is not an additional domain controller.\n"
+    print "ERROR: This server is not an additional domain controller.\n";
     exit 1;
 }
 
 ##
 ##  Check server is joined to the domain
 ##
+print "\nChecking if server is provisioned...\n";
 my $provision = $sambaModule->getProvision();
 unless ($provision->isProvisioned()) {
     print "ERROR: Before running this script, the server must be joined to the domain.\n";
@@ -146,65 +76,87 @@ unless ($provision->isProvisioned()) {
 }
 
 ##
-##  Get the list of domain controllers running on this domain
-##
-my @domainControllers;
-my $ldb = $sambaModule->ldb();
-my $params = {
-    base => 'OU=Domain Controllers,' . $ldb->dn(),
-    scope => 'one',
-    filter => '(objectClass=computer)',
-    attrs => ['dnsHostName'],
-
-};
-my $result = $ldb->search($params);
-foreach my $entry ($result->entries) {
-    my $name = $entry->get_value('dnsHostName');
-    my $addrs = resolve($name);
-    my $dc = {
-        dn   => $entry->dn(),
-        name => $name,
-        addr => $addrs,
-    };
-    push (@domainControllers, $dc);
-}
-print Dumper \@domainControllers;
-
-##
-##  Stop daemons
-##
-$sambaModule->stopService();
-
-##
 ##  Transfer sysvol share
 ##
+print "\nSynchronizing sysvol share...\n";
 my $synchronizer = new EBox::Samba::SysvolSync();
-$synchronizer->sync() or die $@;
-
-##
-##  Shutdown all domain controllers
-##
-my $allShutdown = 0;
-while (not $allShutdown) {
-    my $anyAlive = 0;
-    foreach my $dc (@domainControllers) {
-        if (reachable($dc->{name})) {
-            $anyAlive = 1;
-            next;
-        }
-    }
-    $allShutdown = not $anyAlive;
+my $syncRet = $synchronizer->sync();
+if ($syncRet) {
+    print "ERROR: The sysvol share could not be synchronized. Check Zentyal log for details.\n";
+    exit 1;
 }
 
 ##
-##  STAGE III: Seize FSMO roles
+##  Transfer FSMO roles
 ##
+my $ldb = $sambaModule->ldb();
+my $rootDse = $ldb->rootDse();
+my $dsServiceName = $rootDse->get_value('dsServiceName');
+my $fsmo = new EBox::Samba::FSMO();
+
+print "\nTransferring FSMO roles...\n";
+
+my $schemaMaster = $fsmo->getSchemaMaster();
+unless ($dsServiceName =~/$schemaMaster/i) {
+    try {
+        print "Transferring Schema Master role from owner: $schemaMaster\n";
+        $fsmo->transferSchemaMaster();
+    } otherwise {
+        my ($error) = @_;
+        print "ERROR: $error\n";
+    };
+}
+
+my $domainNamingMaster = $fsmo->getDomainNamingMaster();
+unless ($dsServiceName =~/$domainNamingMaster/i) {
+    try {
+        print "Transferring Domain Naming Master role from owner: $domainNamingMaster\n";
+        $fsmo->transferDomainNamingMaster();
+    } otherwise {
+        my ($error) = @_;
+        print "ERROR: $error\n";
+    };
+}
+
+my $pdcEmulationMaster = $fsmo->getPdcEmulationMaster();
+unless ($dsServiceName =~/$pdcEmulationMaster/i) {
+    try {
+        print "Transferring PDC Emulation Master role from owner: $pdcEmulationMaster\n";
+        $fsmo->transferPdcEmulationMaster();
+    } otherwise {
+        my ($error) = @_;
+        print "ERROR: $error\n";
+    };
+}
+
+
+my $ridAllocationMaster = $fsmo->getRidAllocationMaster();
+unless ($dsServiceName =~/$ridAllocationMaster/i) {
+    try {
+        print "Transferring RID Allocation Master role from owner: $ridAllocationMaster\n";
+        $fsmo->transferRidAllocationMaster();
+    } otherwise {
+        my ($error) = @_;
+        print "ERROR: $error\n";
+    };
+}
+
+my $infrastructureMaster = $fsmo->getInfrastructureMaster();
+unless ($dsServiceName =~/$infrastructureMaster/i) {
+    try {
+        print "Transferring Infrastructure Master role from owner: $infrastructureMaster\n";
+        $fsmo->transferInfrastructureMaster();
+    } otherwise {
+        my ($error) = @_;
+        print "ERROR: $error\n";
+    };
+}
 
 print "Migrated successfully!\n";
 
 =head1 NAME
 
-ad-migrate - Take over AD domain and migrate it to Zentyal Server
+ad-migrate - Take over AD domain.
 
 =head1 SYNOPSIS
 
@@ -213,9 +165,6 @@ ad-migrate [options]
 Options:
 
     --help              brief help message
-    --ad-server-ip      IP address of the AD domain controller
-    --ad-username       Domain administration account
-    --ad-password       Password
 
 =head1 OPTIONS
 

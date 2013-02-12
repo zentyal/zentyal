@@ -1,4 +1,6 @@
 HEAD
+	+ Add script to transfer FSMO roles to local server, usefull to
+	  migrate from Windows to Zentyal
 	+ New FSMO management module
 	+ Improve provision prodecure
 	+ Switch to samba4 bundled version
