@@ -644,4 +644,15 @@ sub dnsZones
     return $zones;
 }
 
+# Method: rootDse
+#
+#   Returns the root DSE
+#
+sub rootDse
+{
+    my ($self) = @_;
+
+    return $self->ldbCon()->root_dse(attrs => ROOT_DSE_ATTRS);
+}
+
 1;
