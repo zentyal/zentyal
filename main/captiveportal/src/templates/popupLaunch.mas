@@ -1,5 +1,5 @@
 <%args>
-  $origDestination => ''
+  $dst => ''
 </%args>
 <%init>
 use EBox::Gettext;
@@ -23,10 +23,10 @@ use EBox::Gettext;
        <div style="padding: 15px">
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </div>
-%      if ($origDestination) {
+%      if ($dst) {
        <div style="padding: 15px">
          <% __x('{hb}Continue to your destination{he}',
-                hb => "<a href='$origDestination'>",
+                hb => "<a href='$dst'>",
                 he  =>'</a>')
 
           %>
