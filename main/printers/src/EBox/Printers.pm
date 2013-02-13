@@ -223,12 +223,7 @@ END
 
 sub _daemons
 {
-    return [
-        {
-            'name' => 'cups',
-            'pidfiles' => ['/var/run/cups/cupsd.pid'],
-        }
-    ];
+    return [ { 'name' => 'cups' } ];
 }
 
 sub menu
