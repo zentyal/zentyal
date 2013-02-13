@@ -127,18 +127,26 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsFromModules = map { $_->{serviceId} => 1 } @srvs;
+    my %srvsFromModules = map { $_->{serviceId} => $_ } @srvs;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
+
+        my $module = $row->valueByName('module');
+        if (not EBox::Global->modExists($module)) {
+            $self->removeRow($id);
+            $modified = 1;
+            next;
+        }
+
         if ($row->valueByName('enable')) {
             # already created certificates are held
             next;
         }
+
         my $serviceId = $row->valueByName('serviceId');
-        my $module = $row->valueByName('module');
         if ( not $serviceId or
-             not exists $srvsFromModules{$serviceId} or
-             not  EBox::Global->modExists($module)) {
+             not exists $srvsFromModules{$serviceId}
+            ) {
             $self->removeRow($id);
             $modified = 1;
         }

@@ -1,3 +1,5 @@
+HEAD
+	+ Dont show service certificates for removed modules
 3.0.2
 	+ Adapted keys and cert downloader to the new utf8 fixes
 	+ Better error control in subject alternatives, correct subject
