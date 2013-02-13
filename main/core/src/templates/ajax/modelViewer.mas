@@ -76,7 +76,6 @@
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
         if ($showBody) {
            unless ($model->message) {
-               # XXX ?
               $model->setMessage($noDataMsg);
            }
         }
@@ -90,9 +89,11 @@
              &>
        </div>
 %   } elsif ($noDataMsg) {
-          <div class="note">
+        <& SELF:permanentMessage, model => $model &>
+        <& SELF:regularMessage, model => $model &>
+        <div class="note">
             <% $noDataMsg %>
-          </div>
+        </div>
 %   }
 % } else  {
 %   my $failMsg =  $model->preconditionFailMsg();
