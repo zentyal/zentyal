@@ -270,7 +270,7 @@ kexpires()
             krb_error_while_doing = "unable to initialize context";
             krb_error_string = (char *)error_message(code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         code = krb5_cc_default(context, &ccache);
         if(code)
@@ -278,7 +278,7 @@ kexpires()
             krb_error_while_doing = "could not get default ccache";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         flags = 0;
         code = krb5_cc_set_flags(context, ccache, flags);
@@ -287,7 +287,7 @@ kexpires()
             krb_error_while_doing = "could not set ccache flags";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         code = krb5_cc_get_principal(context, ccache, &princ);
         if(code)
@@ -295,7 +295,7 @@ kexpires()
             krb_error_while_doing = "could not get principle";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         code = krb5_cc_start_seq_get(context, ccache, &current);
         if(code)
@@ -303,7 +303,7 @@ kexpires()
             krb_error_while_doing = "could not start sequential get";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         code = krb5_cc_next_cred(context, ccache, &current, &creds);
         while(!code && expired)
@@ -322,7 +322,7 @@ kexpires()
             krb_error_while_doing = "could not read next credential";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         code = krb5_cc_end_seq_get(context, ccache, &current);
         if(code)
@@ -330,7 +330,7 @@ kexpires()
             krb_error_while_doing = "could not finish reading credentials";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         flags = KRB5_TC_OPENCLOSE;
         code = krb5_cc_set_flags(context, ccache, flags);
@@ -339,7 +339,7 @@ kexpires()
             krb_error_while_doing = "could not set ccache flags";
             krb_error_string = krb5_get_error_message(context, code);
             krb_error_code = code;
-            XSRETURN_UNDEF;
+            XSRETURN_IV(0);
         }
         krb5_cc_close(context, ccache);
         krb5_free_context(context);
