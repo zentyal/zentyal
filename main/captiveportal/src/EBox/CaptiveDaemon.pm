@@ -240,6 +240,11 @@ sub _addRule
     push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
     push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
     push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
+    # conntrack remove redirect conntrack (this will remove
+    # conntack state for other redirects from the same source but it is not
+    # important)
+    push (@rules, "conntrack -D -p tcp --src $ip --dport 4443");
+
     return \@rules;
 }
 
@@ -256,6 +261,9 @@ sub _removeRule
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");
     push (@rules, IPTABLES . " -D icaptive $rule");
+    # remove conntrack (this will remove conntack state for other connections
+    # from the same source but it is not important)
+    push (@rules, "conntrack -D --src $ip");
 
     return \@rules;
 }
