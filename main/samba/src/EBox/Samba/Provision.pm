@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -365,39 +365,43 @@ sub provisionDC
         throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
 
-    # Disable password policy
-    # NOTE complexity is disabled because when changing password in
-    #      zentyal the command may fail if it do not meet requirements,
-    #      ending with different passwords
-    EBox::info('Setting password policy');
-    $cmd = "samba-tool domain passwordsettings set " .
-                       " --complexity=off "  .
-                       " --min-pwd-length=0" .
-                       " --min-pwd-age=0" .
-                       " --max-pwd-age=365";
-    EBox::Sudo::root($cmd);
-
-    # Set DNS. The domain should have been created by the users
-    # module.
-    $self->setupDNS(1);
-
-    # Start managed service to let it create the LDAP socket
-    $samba->_startService();
-
-    # Load all zentyal users and groups into ldb
-    $samba->ldb->ldapUsersToLdb();
-    $samba->ldb->ldapGroupsToLdb();
-    $samba->ldb->ldapServicePrincipalsToLdb();
-
-    # Map accounts
-    $self->mapAccounts();
-
-    # Reset sysvol
-    $self->resetSysvolACL();
-
-    # Mark the module as provisioned
-    EBox::debug('Setting provisioned flag');
     $self->setProvisioned(1);
+
+    try {
+        # Setup DNS. The domain should have been created by the users module.
+        $self->setupDNS(1);
+
+        # Disable password policy
+        # NOTE complexity is disabled because when changing password in
+        #      zentyal the command may fail if it do not meet requirements,
+        #      ending with different passwords
+        EBox::info('Setting password policy');
+        $cmd = "samba-tool domain passwordsettings set " .
+                           " --complexity=off "  .
+                           " --min-pwd-length=0" .
+                           " --min-pwd-age=0" .
+                           " --max-pwd-age=365";
+        EBox::Sudo::root($cmd);
+
+        # Start managed service to let it create the LDAP socket
+        $samba->_startService();
+
+        # Load all zentyal users and groups into ldb
+        $samba->ldb->ldapUsersToLdb();
+        $samba->ldb->ldapGroupsToLdb();
+        $samba->ldb->ldapServicePrincipalsToLdb();
+
+        # Map accounts
+        $self->mapAccounts();
+
+        # Reset sysvol
+        $self->resetSysvolACL();
+    } otherwise {
+        my ($error) = @_;
+        $self->setProvisioned(0);
+        $self->setupDNS(0);
+        throw EBox::Exceptions::External($error);
+    };
 }
 
 sub rootDseAttributes
