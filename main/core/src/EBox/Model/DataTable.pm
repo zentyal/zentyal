@@ -1606,7 +1606,13 @@ sub _ids
             for my $id (@{$ids}) {
                 $idsToOrder{$id} = $self->row($id)->printableValueByName($sortedBy);
             }
-            $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
+            $ids = [
+                sort {
+                    (lc $idsToOrder{$a} cmp lc $idsToOrder{$b}) or
+                     ($idsToOrder{$a} cmp $idsToOrder{$b})
+                } keys %idsToOrder
+
+               ];
 
             my $global = EBox::Global->getInstance();
             my $modChanged = $global->modIsChanged($confmod->name());

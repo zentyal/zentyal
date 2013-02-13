@@ -343,13 +343,20 @@ sub _groups
     my @groups;
     if ($result->count > 0)
     {
-        foreach my $entry ($result->sorted('cn'))
+        foreach my $entry ($result->entries())
         {
             if (not $system) {
                 next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
             }
             push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
         }
+        # sort grups by name
+        @groups = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+        } @groups;
     }
     return \@groups;
 }

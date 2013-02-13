@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed alphabetical order in listing of users and groups
 3.0.8
 	+ Filter in users table no longer matches LDAP dn
 	+ Recover better of no-usercorner journal error in slave-sync

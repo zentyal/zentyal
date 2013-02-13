@@ -1,3 +1,6 @@
+HEAD
+	+ DataTables with sortedBy are now orderer alphabetically with
+	  proper case treatment
 3.0.12
 	+ Improve change-hostname script, delete all references to current name
 	+ Faster dashboard loading with asynchronous check of software updates
