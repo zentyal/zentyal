@@ -241,7 +241,7 @@ sub _addRule
     push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
     push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
     # conntrack remove redirect conntrack (this will remove
-    # conntack state for other redirects from the same source but it is not
+    # conntrack state for other redirects from the same source but it is not
     # important)
     push (@rules, "conntrack -D -p tcp --src $ip --dport 4443");
 
