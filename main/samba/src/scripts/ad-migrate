@@ -154,35 +154,3 @@ unless ($dsServiceName =~/$infrastructureMaster/i) {
 
 print "Migrated successfully!\n";
 
-=head1 NAME
-
-ad-migrate - Take over AD domain.
-
-=head1 SYNOPSIS
-
-ad-migrate [options]
-
-Options:
-
-    --help              brief help message
-
-=head1 OPTIONS
-
-=over 8
-
-=item B<-help>
-
-Print a brief help message and exits.
-
-=item B<-man>
-
-Prints the manual page and exits.
-
-=back
-
-=head1 DESCRIPTION
-
-B<This program> will read the given input file(s) and do something
-useful with the contents thereof.
-
-=cut
