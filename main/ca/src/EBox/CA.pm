@@ -2549,6 +2549,8 @@ sub _checkSubjAltNames
         }
 
         if ( $type eq 'DNS' ) {
+            # remove wildcard to do the check
+            $value =~ s/^\*.//;
             EBox::Validate::checkDomainName($value, 'DNS value');
         } elsif ( $type eq 'IP' ) {
             EBox::Validate::checkIP($value, 'IP value');
