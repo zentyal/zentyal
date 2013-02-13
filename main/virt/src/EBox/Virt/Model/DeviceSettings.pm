@@ -268,11 +268,11 @@ sub _checkDevicePath
                                              name => lcfirst $name
                                             ));
     }
-    unless ($path =~ m{^[\d\w/.]+$}) {
+    unless ($path =~ m{^[\d\w/.\\]+$}) {
         throw EBox::Exceptions::InvalidData(
             data => $path,
             value => $name,
-            advice => __(q{The path should contain only characters, digits, dots, directory separators  and underscores}),
+            advice => __(q{The path should contain only characters, digits, dots, dashes, directory separators  and underscores}),
            );
     }
 
