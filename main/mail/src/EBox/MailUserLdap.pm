@@ -224,9 +224,11 @@ sub delAccountsFromVDomain   #vdomain
     my %accs = %{$self->allAccountsFromVDomain($vdomain)};
 
     my $mail = "";
-    foreach my $uid (keys %accs) {
+    while (my ($uid, $mail) = each %accs) {
+        my $user = new EBox::UsersAndGroups::User(uid => $uid);
         $mail = $accs{$uid};
-        $self->delUserAccount($uid, $accs{$uid});
+
+        $self->delUserAccount($user, $accs{$uid});
     }
 }
 

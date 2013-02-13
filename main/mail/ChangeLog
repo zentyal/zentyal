@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug triggered when removing all users from a virtual domain
 	+ Do not try to manage postgrey daemon if module is unconfigured
 	+ Fixed error in json response trigered by widget size
 	+ Added libsasl2-modules dependency because it seems that is not
