@@ -638,7 +638,7 @@ sub dnsZones
                                   UNLINK => 1,
                                   SUFFIX => '.ldif');
 
-        my $cmd = "ldbsearch -H $sam -d0 -s base -b '' defaultNamingContext";
+        my $cmd = "ldbsearch -H $samdb -d0 -s base -b '' defaultNamingContext";
         my $out = EBox::Sudo::root($cmd);
         $tmp->seek(0, SEEK_SET);
         write_file($tmp->filename(), $out);
