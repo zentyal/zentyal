@@ -1,12 +1,15 @@
 HEAD
 	+ Integration of new samba 4.0.3 bundled version
+	+ Add script to transfer FSMO roles to local server, useful to
+	  migrate from Windows to Zentyal
+	+ New FSMO management module
+	+ Import sysvol maintaining ACLs
 	+ Fixed configuration backup problems, stopping the daemon is no longer
 	  needed when backing up and ACLs and dns partitions hard links are
 	  recreated when restoring.
 	+ Remove deprecated code related to printers module
 	+ Remove unnecessary pidfiles declarations for upstart daemons
 	+ Improve provision procedure
-	+ Import sysvol maintaining ACLs
 	+ Use clamd socket instead of shared library for antivirus, this is
 	  faster and reduces memory consumption
 	+ Do not create quarantine share if antivirus is not enabled

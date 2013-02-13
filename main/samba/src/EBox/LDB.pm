@@ -34,6 +34,7 @@ use Authen::SASL qw(Perl);
 
 use Data::Dumper;
 use File::Slurp;
+use File::Temp qw(:seekable);
 use Error qw( :try );
 use Perl6::Junction qw(any);
 
@@ -613,35 +614,67 @@ sub groups
 
 # Method: dnsZones
 #
-#   Returns the DNS zones stored in the samba LDB
+#   Returns the DNS zones stored in the samba LDB. As this is called
+#   from DNS module it should be able to read the zones even when samba
+#   daemon is stopped, so we use ldbsearch to read the ldb files directly.
 #
 sub dnsZones
 {
     my ($self) = @_;
 
     my @zonePrefixes = (
-        "CN=MicrosoftDNS,DC=DomainDnsZones," . $self->dn(),
-        "CN=MicrosoftDNS,DC=ForestDnsZones," . $self->dn(),
-        "CN=MicrosoftDNS,CN=System," . $self->dn());
+        "CN=MicrosoftDNS,DC=DomainDnsZones",
+        "CN=MicrosoftDNS,DC=ForestDnsZones",
+        "CN=MicrosoftDNS,CN=System");
     my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
     my $zones = [];
 
-    for my $prefix (@zonePrefixes) {
-        my $params = {
-            base => $prefix,
-            scope => 'sub',
-            filter => '(objectClass=dnsZone)',
-            attrs => ['name'],
-        };
-        my $result = $self->search($params);
-        foreach my $entry ($result->entries()) {
-            my $name = $entry->get_value('name');
-            next unless defined $name;
-            next if $name eq any @ignoreZones;
-            push (@{$zones}, lc ($name));
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $private = $sambaModule->PRIVATE_DIR();
+    my $samdb = "$private/sam.ldb";
+    if (EBox::Sudo::fileTest('-f', $samdb)) {
+        my $tmp = File::Temp->new(TEMPLATE => 'ldbsearch.XXXXX',
+                                  DIR => EBox::Config::tmp(),
+                                  UNLINK => 1,
+                                  SUFFIX => '.ldif');
+
+        my $cmd = "ldbsearch -H $sam -d0 -s base -b '' defaultNamingContext";
+        my $out = EBox::Sudo::root($cmd);
+        $tmp->seek(0, SEEK_SET);
+        write_file($tmp->filename(), $out);
+        my $ldif = new Net::LDAP::LDIF($tmp->filename());
+        my $entry = $ldif->read_entry();
+        my $base = $entry->get_value('defaultNamingContext');
+
+        for my $prefix (@zonePrefixes) {
+            $cmd = "ldbsearch -H $samdb -d0 -s sub -b '$prefix,$base' '(objectClass=dnsZone)' name";
+            $out = EBox::Sudo::root($cmd);
+            $tmp->seek(0, SEEK_SET);
+            write_file($tmp->filename(), $out);
+            $ldif = new Net::LDAP::LDIF($tmp->filename());
+            while (not $ldif->eof()) {
+                $entry = $ldif->read_entry();
+                my $name = $entry->get_value('name');
+                next unless defined $name;
+                next if $name eq any @ignoreZones;
+                push (@{$zones}, lc ($name));
+            }
         }
     }
+    use Data::Dumper;
+    EBox::info(Dumper($zones));
     return $zones;
+}
+
+# Method: rootDse
+#
+#   Returns the root DSE
+#
+sub rootDse
+{
+    my ($self) = @_;
+
+    return $self->ldbCon()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
 1;

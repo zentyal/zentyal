@@ -156,7 +156,7 @@ sub sync
     return unless ($self->sourceReachable());
 
     # Check if ticket is expired
-    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adminUser});
+    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adUser});
 
     # Get ticket
     while (not $self->{hasTicket}) {
@@ -176,9 +176,11 @@ sub sync
     system ($cmd);
     if ($? == -1) {
         EBox::error("failed to execute: $!");
+        return -1;
     } elsif ($? & 127) {
         my $signal = ($? & 127);
         EBox::error("child died with signal $signal");
+        return $signal;
     } else {
         my $code = ($? >> 8);
         unless ($code == 0) {
@@ -186,7 +188,9 @@ sub sync
             # Maybe user pwd has changed an we need to export keytab again
             $self->{hasTicket} = 0;
         }
+        return $code;
     }
+    return 0;
 }
 
 # Method: run
@@ -210,8 +214,12 @@ sub run
     EBox::info("Samba sysvol synchronizer script stopped");
 }
 
-EBox::init();
+if ($0 eq __FILE__) {
+    EBox::init();
 
-# Run each 300 sec + random between (0,100) seconds
-my $synchronizer = new EBox::Samba::SysvolSync();
-$synchronizer->run(300, 100);
+    # Run each 300 sec + random between (0,100) seconds
+    my $synchronizer = new EBox::Samba::SysvolSync();
+    $synchronizer->run(300, 100);
+}
+
+1;
