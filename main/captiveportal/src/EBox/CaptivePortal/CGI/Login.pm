@@ -95,9 +95,9 @@ sub _requestDestination
   my $request = $r->the_request;
   my $method  = $r->method;
   my $protocol = $r->protocol;
+  EBox::info("REQUESt $request METHOD $method PROT $protocol"); # DDD
 
   my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
-
   defined $destination or return DEFAULT_DESTINATION;
 
   if ($destination =~ m{^/*zentyal/+Login$}) {
@@ -105,8 +105,18 @@ sub _requestDestination
     return DEFAULT_DESTINATION;
   }
   elsif (not $destination =~ m{^/*zentyal}) {
-    # url wich does not follow the normal zentyal pattern must use the default destination
-    return DEFAULT_DESTINATION;
+    # url wich does not follow the normal zentyal pattern must use the default
+    #  destination
+      my $dstUrl = $destination;
+      $dstUrl =~ s{^.*redirect=}{};
+      $dstUrl =~ s{%3f}{?};
+      if ($protocol =~ m/HTTPS/i) {
+          $dstUrl = 'https://' . $dstUrl;
+      } else {
+          $dstUrl = 'http://' . $dstUrl;
+      }
+
+    return DEFAULT_DESTINATION . "?dst=$dstUrl";
   }
 
   return $destination;
