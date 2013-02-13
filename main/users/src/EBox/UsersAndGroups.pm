@@ -809,7 +809,7 @@ sub users
     my $result = $self->ldap->search(\%args);
 
     my @users = ();
-    foreach my $entry ($result->sorted('uid'))
+    foreach my $entry ($result->entries)
     {
         my $user = new EBox::UsersAndGroups::User(entry => $entry);
 
@@ -818,6 +818,14 @@ sub users
 
         push (@users, $user);
     }
+
+    # sort by name
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
 
     return \@users;
 }
@@ -883,7 +891,7 @@ sub groups
     my $result = $self->ldap->search(\%args);
 
     my @groups = ();
-    foreach my $entry ($result->sorted('cn'))
+    foreach my $entry ($result->entries())
     {
         my $group = new EBox::UsersAndGroups::Group(entry => $entry);
 
@@ -892,6 +900,13 @@ sub groups
 
         push (@groups, $group);
     }
+    # sort grups by name
+    @groups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @groups;
 
     return \@groups;
 }

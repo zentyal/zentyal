@@ -182,10 +182,16 @@ sub users
     unless ($system) {
         @members = grep { not $_->system() } @members;
     }
+    # sort by uid
+    @members = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @members;
 
     return \@members;
 }
-
 
 # Method: usersNotIn
 #
@@ -207,17 +213,21 @@ sub usersNotIn
 
     my $result = $self->_ldap->search(\%attrs);
 
-    my @users;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->sorted('uid'))
-        {
-            push (@users, new EBox::UsersAndGroups::User(entry => $entry));
-        }
-    }
+    my @users = map {
+            EBox::UsersAndGroups::User->new(entry => $_)
+        } $result->entries();
+
     unless ($system) {
         @users = grep { not $_->system() } @users;
     }
+
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
+
     return \@users;
 }
 
