@@ -76,6 +76,7 @@
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
         if ($showBody) {
            unless ($model->message) {
+               # XXX ?
               $model->setMessage($noDataMsg);
            }
         }
@@ -156,21 +157,8 @@
 </%init>
 <%doc>
 % unless ( $model->pageTitle() ) {
-%      my $viewCustomizer = $model->viewCustomizer();
-%      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
-%      my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() : undef;
-%      if ($msg) {
-<& /msg.mas,
-   msg => $msg,
-   class => $type,
-&>
-%      }
-%      if ( $model->message() ) {
-<& /msg.mas,
-   msg => $model->popMessage(),
-   class => $model->messageClass()
-&>
-%      }
+   <& SELF:permanentMessage, model => $model &>
+   <& SELF:regularMessage, model => $model &>
 % }
 </%doc>
 <& SELF:_body,
@@ -183,24 +171,8 @@
 <%args>
 $model
 </%args>
-<%init>
-
-my $viewCustomizer = $model->viewCustomizer();
-my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
-my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() :undef;
-</%init>
-% if ($msg) {
-     <& /msg.mas,
-        msg => $msg,
-        class => $type,
-     &>
-% }
-% if ( $model->message() ) {
-     <& /msg.mas,
-        msg => $model->popMessage(),
-       class => $model->messageClass()
-     &>
-% }
+<& SELF:permanentMessage, model => $model &>
+<& SELF:regularMessage, model => $model &>
 
 % my $help = $model->help();
 % if ($help) {
@@ -445,4 +417,31 @@ $('changes_menu').className = '<% $className %>';
 <%method _body>
 % # Default empty implementation
 % $m->call_next();
+</%method>
+
+<%method permanentMessage>
+<%args>
+$model
+</%args>
+% my $viewCustomizer = $model->viewCustomizer();
+% my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
+% my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() : undef;
+% if ($msg) {
+<& /msg.mas,
+   msg => $msg,
+   class => $type,
+&>
+%  }
+</%method>
+
+<%method regularMessage>
+<%args>
+$model
+</%args>
+% if ( $model->message() ) {
+     <& /msg.mas,
+        msg => $model->popMessage(),
+       class => $model->messageClass()
+     &>
+% }
 </%method>
