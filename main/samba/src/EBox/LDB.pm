@@ -661,8 +661,6 @@ sub dnsZones
             }
         }
     }
-    use Data::Dumper;
-    EBox::info(Dumper($zones));
     return $zones;
 }
 
