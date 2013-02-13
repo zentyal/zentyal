@@ -1,4 +1,4 @@
-3.0.13
+HEAD
 	+ Integration of new samba 4.0.3 bundled version
 	+ Fixed configuration backup problems, stopping the daemon is no longer
 	  needed when backing up and ACLs and dns partitions hard links are
