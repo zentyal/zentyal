@@ -1,5 +1,5 @@
 <%args>
-  $origDestination => ''
+  $dst => ''
 </%args>
 <%init>
 use EBox::Gettext;
@@ -11,8 +11,20 @@ use EBox::Gettext;
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
   <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript">
+    window.zentyal_timestamp = (new Date).getTime()
     function launch() {
         window.open("/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");
+    }
+    function continueToDst(dst)
+    {
+       var now = (new Date).getTime();
+
+       while (now < (window.zentyal_timestamp + 90)) {
+          alert ('sleep 10');
+          sleep(10);
+          now = now + 10;
+       }
+       window.location = dst;
     }
   </script>
 </head>
@@ -23,13 +35,11 @@ use EBox::Gettext;
        <div style="padding: 15px">
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </div>
-%      if ($origDestination) {
+%      if ($dst) {
        <div style="padding: 15px">
-         <% __x('{hb}Continue to your destination{he}',
-                hb => "<a href='$origDestination'>",
-                he  =>'</a>')
-
-          %>
+         <a href="#" onclick="continueToDst('<% $dst %>'); return false">
+           <% __('Continue to your destination')  %>
+         </a>
        </div>
 %      }
      </div>
