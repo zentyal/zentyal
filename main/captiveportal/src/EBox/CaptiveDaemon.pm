@@ -53,6 +53,8 @@ sub new
         $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
     }
 
+    $self->{pendingRules} = undef;
+
     bless ($self, $class);
     return $self;
 }
@@ -188,7 +190,6 @@ sub _updateSessions
             next;
         }
 
-
         # Check for IP change
         unless ($new) {
             my $oldip = $self->{sessions}->{$sid}->{ip};
@@ -208,23 +209,31 @@ sub _updateSessions
         }
     }
 
-    EBox::Util::Lock::lock('firewall');
-    try {
-        EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
-        # remove again to be sure that we don't have left any duplicate rule
-        foreach my $remove (@removeRules) {
-            my $failed = 0;
-            while (not $failed) {
-                try {
-                    EBox::Sudo::root($remove);
-                } otherwise {
-                $failed = 1;
+    if (@rules or @removeRules or $self->{pendingRules}) {
+        # try to get firewall lock
+        my $lockedFw = 0;
+        try {
+            EBox::Util::Lock::lock('firewall');
+            $lockedFw = 1;
+        } otherwise {};
+
+        if ($lockedFw) {
+            try {
+                my @pending;
+                if ($self->{pendingRules}) {
+                    @pending = @{ $self->{pendingRules} };
+                    $self->{pendingRules} = undef;
+                }
+                EBox::Sudo::root(@pending, @rules, @removeRules) ;
+            } finally {
+                EBox::Util::Lock::unlock('firewall');
             };
-            }
+        } else {
+            $self->{pendingRules} or $self->{pendingRules} = [];
+            push @{ $self->{pendingRules} }, @rules, @removeRules;
+            EBox::error("Captive portal cannot lock firewall, we will try to add pending firewall rules later. Users access could be inconsistent until rules are added");
         }
-    } finally {
-        EBox::Util::Lock::unlock('firewall');
-    };
+    }
 }
 
 sub _addRule
@@ -281,7 +290,6 @@ sub _matchUser
     }
 }
 
-
 # Unmatch the user in bwmonitor module
 sub _unmatchUser
 {
@@ -292,7 +300,6 @@ sub _unmatchUser
     }
 }
 
-
 ###############
 # Main program
 ###############
@@ -302,4 +309,5 @@ EBox::init();
 EBox::info('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
+
 
