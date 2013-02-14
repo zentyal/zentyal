@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
+	  parameter names
 3.0.12
 	+ Improve change-hostname script, delete all references to current name
 	+ Faster dashboard loading with asynchronous check of software updates
