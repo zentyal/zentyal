@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug when checking hostname aliases on creation of a
+	  virtual host
 3.0.2
 	+ Integration with Disaster Recovery service
 	+ Fixed error when creating directories for virtual host for hostname
