@@ -1,4 +1,6 @@
 HEAD
+	+ Removed superfluos firewall rules removal, better management of
+	  firewall lock
 	+ Added 'Continue to destination' link
 	+ Remove conntrac kstate when adding/removing user rules
 	+ More frequent polling for more responsive captive daemon
