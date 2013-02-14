@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show service certificates for removed modules
 	+ Allow wildcard domain in DNS alternative name
 3.0.2
 	+ Adapted keys and cert downloader to the new utf8 fixes
