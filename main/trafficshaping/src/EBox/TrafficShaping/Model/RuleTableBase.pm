@@ -126,6 +126,7 @@ sub validateTypedRow
     }
     my $reactivated = 0;
     if (exists $changedParams->{enabled}) {
+        # new rules are also marked as reactivated but we can live with it
         $reactivated = $changedParams->{enabled}->value();
     }
 
