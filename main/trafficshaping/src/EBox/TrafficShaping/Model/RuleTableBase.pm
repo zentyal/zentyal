@@ -116,15 +116,17 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
-
     if ( defined ( $params->{guaranteed_rate} )) {
         $self->_checkRate( $params->{guaranteed_rate},
                 __('Guaranteed rate'));
     }
-
     if ( defined ( $params->{limited_rate} )) {
         $self->_checkRate( $params->{limited_rate},
                 __('Limited rate'));
+    }
+    my $reactivated = 0;
+    if (exists $changedParams->{enabled}) {
+        $reactivated = $changedParams->{enabled}->value();
     }
 
     # Check objects have members
@@ -188,6 +190,7 @@ sub validateTypedRow
             limitedRate    => $params->{limited_rate}->value(),
             ruleId         => $params->{id}, # undef on addition
             enabled        => $params->{enabled},
+            reactivated    => $reactivated,
             );
     }
 }

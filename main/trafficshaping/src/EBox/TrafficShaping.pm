@@ -428,7 +428,6 @@ sub checkRule
     # Check rule availability
     my $nRules =  $self->model('InternalRules')->size();
     $nRules    += $self->model('ExternalRules')->size();
-
     if ($nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(
             __x('The maximum rule account {max} is reached, ' .
@@ -449,7 +448,7 @@ sub checkRule
     }
     $self->_createBuilders(@createBuildersParams);
 
-    if (defined ($ruleParams{ruleId})) {
+    if (defined ($ruleParams{ruleId}) and not $ruleParams{reactivated}) {
       # Try to update the rule
       $self->_updateRule( $ruleParams{interface}, $ruleParams{ruleId}, \%ruleParams, 'test' );
     } else {
