@@ -1,4 +1,6 @@
 HEAD
+	+ DataTables with sortedBy are now orderer alphabetically with
+	  proper case treatment
 	+ Display messages in model even when there are not elements and
 	  table body is not shown
 3.0.12
