@@ -1,3 +1,6 @@
+HEAD
+	+ Display messages in model even when there are not elements and
+	  table body is not shown
 3.0.12
 	+ Improve change-hostname script, delete all references to current name
 	+ Faster dashboard loading with asynchronous check of software updates
