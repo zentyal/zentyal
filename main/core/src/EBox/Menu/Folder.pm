@@ -43,6 +43,7 @@ my $foldersToHide = undef;
 sub html
 {
     my ($self, $currentFolder, $currentUrl) = @_;
+    defined $currentFolder or $currentFolder = '';
 
     unless (defined $foldersToHide) {
         $foldersToHide = {

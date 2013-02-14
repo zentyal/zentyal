@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Types::MultiStateAction;
-
 use strict;
 use warnings;
+
+package EBox::Types::MultiStateAction;
 
 sub new
 {
@@ -139,7 +138,7 @@ sub template
 {
     my ($self) = @_;
 
-    return $self->{template} if exists($self->{template});
+    return $self->{template} if ($self->{template});
     return '/input/action.mas';
 }
 

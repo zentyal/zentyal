@@ -33,7 +33,7 @@ use EBox::Gettext;
 
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
     my $class = shift;
@@ -52,6 +52,7 @@ sub _process
 
     my $manager = new EBox::ServiceManager();
     #my $files = $manager->checkFiles();
+    my $files = [];
     my @params;
     push @params, (files => $files);
 

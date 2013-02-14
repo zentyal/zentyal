@@ -28,6 +28,7 @@ use Getopt::Long;
 use JSON::XS qw(decode_json);
 use Pod::Usage;
 
+# Run pending jobs
 sub _runPendingOps
 {
     my $journalDirPath = EBox::RemoteServices::Configuration::JournalOpsDirPath();

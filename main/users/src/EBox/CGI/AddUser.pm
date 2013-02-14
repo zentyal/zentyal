@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::UsersAndGroups::AddUser;
-
 use strict;
 use warnings;
 
+package EBox::CGI::UsersAndGroups::AddUser;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -41,6 +39,7 @@ sub _process
     my @args = ();
 
     $self->_requireParam('username', __('user name'));
+    $self->_requireParam('name', __('first name'));
     $self->_requireParam('surname', __('last name'));
     $self->_requireParamAllowEmpty('comment', __('comment'));
 
@@ -48,13 +47,9 @@ sub _process
     $user->{'user'} = $self->param('username');
     $user->{'name'} = $self->param('name');
     $user->{'surname'} = $self->param('surname');
-    if ($user->{'name'}) {
-        $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
-        $user->{'givenname'} = $user->{'name'};
-    } else {
-        $user->{'fullname'} = $user->{'surname'};
-        $user->{'givenname'} = '';
-    }
+    $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
+    $user->{'givenname'} = $user->{'name'};
+
     $user->{'password'} = $self->unsafeParam('password');
     $user->{'repassword'} = $self->unsafeParam('repassword');
     $user->{'group'} = $self->unsafeParam('group');

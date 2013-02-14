@@ -1,3 +1,8 @@
+3.0-1
+    + Possibility to install a commercial edition providing credentials
+    + New set-debug.sh for fully automated installation with custom
+      preseeding from debug.vars file
+    + Do not install recommends for coherency with zentyal-software
 2.3-rc2
     + Based on Ubuntu 12.04.1
     + Automatic removal of duplicated and unneeded packages

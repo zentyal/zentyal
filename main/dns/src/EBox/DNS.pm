@@ -61,8 +61,9 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
-use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
+use constant DESKTOP_SERVICE_PORT => 6895;
+use constant DESKTOP_SERVICE_NAME => 'zentyal-desktop-api';
 
 sub _create
 {
@@ -390,6 +391,25 @@ sub getTexts
     return $self->_textRecords($domainRow->subModel('txt'));
 }
 
+# Method: getTsigKeys
+#
+#   Returns the TSIG keys for the configured domains
+#
+sub getTsigKeys
+{
+    my ($self) = @_;
+
+    my $keys = {};
+    my $model = $self->model('DomainTable');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $keyName = $row->valueByName('domain');
+        my $keySecret = $row->valueByName('tsigKey');
+        $keys->{$keyName} = $keySecret;
+    }
+    return $keys;
+}
+
 # Method: findAlias
 #
 #       Return the hostname which the alias refers to given a domain
@@ -527,6 +547,28 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    # TODO Remove this code after branching for Zentyal 3.1
+    my $state = $self->get_state();
+    unless ($state->{tsigKeysUpdated}) {
+        EBox::info("Updating domain keys");
+        # Update domain TSIG keys to proper format
+        my $domainModel = $self->model('DomainTable');
+        foreach my $id (@{$domainModel->ids()}) {
+            my $row = $domainModel->row($id);
+            my $key = $row->elementByName('tsigKey');
+            $key->setValue($domainModel->_generateSecret());
+            $row->store();
+        }
+        $state->{tsigKeysUpdated} = 1;
+        $self->set_state($state);
+
+        # Save and restart DHCP to reload new TSIG keys
+        if (EBox::Global->modExists('dhcp')) {
+            my $dhcp = EBox::Global->modInstance('dhcp');
+            $dhcp->save();
+        }
+    }
+
     # Create default rules and services only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
@@ -601,6 +643,48 @@ sub enableService
     }
 }
 
+# Method: _preSetConf
+#
+#   Makes sure DNS has the SRV record so that desktops can automatically
+#   detect the server
+#
+# Overrides:
+#
+#  <EBox::Module::Base::_preSetConf>
+#
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+
+    my $domainRow = $domainsModel->find(domain => $hostDomain);
+    if ($domainRow) {
+        my $srvModel = $domainRow->subModel('srv');
+        my $srvRow = $srvModel->find(service_name => DESKTOP_SERVICE_NAME);
+        if ($srvRow) {
+            # TODO: Update the port
+        } else {
+            # Service is not present => Add it
+            my $service = {
+                service => DESKTOP_SERVICE_NAME,
+                protocol => 'tcp',
+                port => DESKTOP_SERVICE_PORT,
+                priority => 0,
+                weight => 0,
+                target_type => 'domainHost',
+                target => $hostName,
+                readOnly => 1
+                };
+            $self->addService($hostDomain, $service);
+        }
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
@@ -614,10 +698,17 @@ sub _setConf
     $self->_updateManagedDomainAddresses();
 
     my $keytabPath = undef;
+    my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled()) {
-            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_KEYTAB())) {
+        if ($sambaModule->isEnabled() and
+            $sambaModule->getProvision->isProvisioned()) {
+            # Get the zones stored in the samba LDB
+            my $ldb = $sambaModule->ldb();
+            $sambaZones = $ldb->dnsZones();
+
+            # Get the DNS keytab path used for GSSTSIG zone updates
+            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
         }
@@ -636,7 +727,6 @@ sub _setConf
 
     # Delete the already removed RR from dynamic and dlz zones
     $self->_removeDeletedRR();
-    $self->_removeSambaDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
@@ -682,9 +772,9 @@ sub _setConf
             }
             $sambaDomData->{txt} = $newTXT;
 
-            $self->_updateDynDirectZone($sambaDomData, 1);
+            $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
-            $self->_updateDynDirectZone($domdata, 0);
+            $self->_updateDynDirectZone($domdata);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
@@ -709,9 +799,9 @@ sub _setConf
         }
         $file .= "/db." . $group;
         if ($reversedDataItem->{samba}) {
-            $self->_updateDynReverseZone($reversedDataItem, 1);
+            $self->_updateDynReverseZone($reversedDataItem);
         } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem, 0);
+            $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -735,6 +825,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'sambaZones' => $sambaZones);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
@@ -807,7 +898,7 @@ sub _postServiceHook
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;
-                unlink($filename); # Remove the temporary file
+                unlink($filename) if -f $filename; # Remove the temporary file
             }
             delete $self->{nsupdateCmds};
         }
@@ -1273,7 +1364,7 @@ sub _domainIds
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
 {
-    my ($self, $rdata, $samba) = @_;
+    my ($self, $rdata) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
 
@@ -1291,18 +1382,14 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        if ($samba) {
-            $self->_launchSambaNSupdate($fh);
-        } else {
-            $self->_launchNSupdate($fh);
-        }
+        $self->_launchNSupdate($fh);
     }
 }
 
 # Update the dynamic direct zone
 sub _updateDynDirectZone
 {
-    my ($self, $domData, $samba) = @_;
+    my ($self, $domData) = @_;
 
     my $zone = $domData->{'name'};
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
@@ -1370,11 +1457,7 @@ sub _updateDynDirectZone
 
     print $fh "send\n";
 
-    if ($samba) {
-        $self->_launchSambaNSupdate($fh);
-    } else {
-        $self->_launchNSupdate($fh);
-    }
+    $self->_launchNSupdate($fh);
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1392,51 +1475,6 @@ sub _removeDeletedRR
         print $fh "send\n";
         $self->_launchNSupdate($fh);
         $self->st_unset(DELETED_RR_KEY);
-    }
-}
-
-sub _removeSambaDeletedRR
-{
-    my ($self) = @_;
-
-    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY_SAMBA);
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    foreach my $rr (@{$deletedRRs}) {
-        print $fh "update delete $rr\n";
-    }
-
-    if ( $fh->tell() > 0 ) {
-        print $fh "send\n";
-        $self->_launchSambaNSupdate($fh);
-        $self->st_unset(DELETED_RR_KEY_SAMBA);
-    }
-}
-
-sub _launchSambaNSupdate
-{
-    my ($self, $fh) = @_;
-
-    return unless EBox::Global->modExists('samba');
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    return unless ($sambaModule->isProvisioned() and $sambaModule->isRunning());
-
-    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
-    if ($self->_isNamedListening()) {
-        try {
-            my $sysinfo = EBox::Global->modInstance('sysinfo');
-            my $ucHostname = uc ($sysinfo->hostName());
-            EBox::Sudo::root("kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
-            EBox::Sudo::root($cmd);
-            EBox::Sudo::root('kdestroy');
-        } otherwise {
-            $fh->unlink_on_destroy(0); # For debug purposes
-        };
-    } else {
-        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-        push(@{$self->{nsupdateCmds}}, $cmd);
-        $fh->unlink_on_destroy(0);
-        EBox::warn('Cannot contact with named, trying in posthook');
     }
 }
 
@@ -1474,7 +1512,6 @@ sub _isNamedListening
     } else {
         return 0;
     }
-
 }
 
 # Remove no longer used domain files to avoid confusing the user
@@ -1768,6 +1805,7 @@ sub switchToReverseInfoData
                     }
                 } else {
                     $reversedData->{$groupip} = {
+                        groupip => $groupip,
                         dynamic => $domain->{dynamic},
                         domain => $domain->{name},
                         hosts => [],

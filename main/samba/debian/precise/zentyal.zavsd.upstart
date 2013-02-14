@@ -1,0 +1,4 @@
+stop on stopping samba4
+
+exec /usr/share/zentyal-samba/zavsd
+respawn

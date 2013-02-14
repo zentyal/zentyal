@@ -34,7 +34,6 @@ use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
 use Data::Dumper;
-use Encode qw( :all );
 use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
@@ -704,26 +703,6 @@ sub _errorOnLdap
     }
 }
 
-# Workaround to mark strings returned from ldap as utf8 strings
-sub _utf8Attrs # (result)
-{
-    my ($result) = @_;
-
-    my @entries = $result->entries;
-    foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
-        my @vals = @{$attr->{vals}};
-        next unless (@vals);
-        my @utfvals;
-        foreach my $val (@vals) {
-            _utf8_on($val);
-            push @utfvals, $val;
-        }
-        $attr->{vals} = \@utfvals;
-    }
-
-    return $result;
-}
-
 sub stop
 {
     my ($self) = @_;
@@ -773,9 +752,10 @@ sub _dumpLdap
 
     my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
     my $chownCommand = "/bin/chown $user:$group $ldifFile";
-
-    $self->_execute(1, # With pause
-        cmds => [$slapcatCommand, $chownCommand]);
+    EBox::Sudo::root(
+                       $slapcatCommand,
+                       $chownCommand
+                    );
 }
 
 sub dumpLdapData
@@ -836,34 +816,6 @@ sub _slapcatCmd
         $base = $self->dn();
     }
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
-}
-
-sub _execute
-{
-    my ($self, $pause, %params) = @_;
-    my @cmds = @{ $params{cmds} };
-    my $onError = $params{onError};
-
-    if ($pause) {
-        $self->stop();
-    }
-    try {
-        EBox::Sudo::root(@cmds);
-    }
-    otherwise {
-        my $ex = shift;
-
-        if ($onError) {
-            $onError->($self);
-        }
-
-        throw $ex;
-    }
-    finally {
-        if ($pause) {
-            $self->start();
-        }
-    };
 }
 
 sub safeConnect

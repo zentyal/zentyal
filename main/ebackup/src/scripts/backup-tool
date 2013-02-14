@@ -490,22 +490,6 @@ if ($mustExit) {
     exit $mustExit;
 }
 
-
-try {
-   $ebackup->lock() ;
-} otherwise {
-    $ebackup->backupProcessUnlock();
-    my $busyMsg = __('The backup module is busy, retry later');
-    print $busyMsg;
-    print "\n";
-    _prepareAndSendEvent(0, $type, $busyMsg);
-    $mustExit =  1;
-};
-
-if ($mustExit) {
-    exit $mustExit;
-}
-
 my ($success, $successMsg, $errorMsg) = (1, '', '');
 my @extraDataDumped;
 my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
@@ -577,7 +561,6 @@ try {
     } finally {
         # This code must be run always
         $ebackup->backupProcessUnlock();
-        $ebackup->unlock();
     }
 };
 

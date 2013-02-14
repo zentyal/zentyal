@@ -96,7 +96,7 @@ sub actuate
 
 sub _print
 {
-	my ($self) = @_;
+    my ($self) = @_;
     print($self->cgi()->header(-charset=>'utf-8',-type=>'application/json'));
 
     my $js = objToJson($self->{sections});

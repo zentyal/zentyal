@@ -14,11 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Samba::LdbObject;
-
 use strict;
 use warnings;
+
+package EBox::Samba::LdbObject;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -106,8 +105,17 @@ sub exists
 sub get
 {
     my ($self, $attr) = @_;
-
-    return $self->_entry->get_value($attr);
+    if (wantarray()) {
+        my @value = $self->_entry->get_value($attr);
+        foreach my $el (@value) {
+            utf8::decode($el);
+        }
+        return @value;
+    } else {
+        my $value = $self->_entry->get_value($attr);
+        utf8::decode($value);
+        return $value;
+    }
 }
 
 # Method: set

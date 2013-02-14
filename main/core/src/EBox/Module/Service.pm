@@ -398,16 +398,9 @@ sub _isDaemonRunning
         };
         return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output;
-        my $notOk;
-        try {
-            $output = EBox::Sudo::root(INITDPATH .
+        my $output = EBox::Sudo::silentRoot(INITDPATH .
                 $dname . ' ' . 'status');
-        } catch EBox::Exceptions::Sudo::Command with {
-            # Command returned != 0
-            $notOk = 1;
-        };
-        if ($notOk) {
+        if ($? != 0) {
             return 0;
         }
         my $status = join ("\n", @{$output});
@@ -684,6 +677,13 @@ sub _startService
 {
     my ($self) = @_;
     $self->_manageService('start');
+
+    # Notify observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::Module::Service::Observer')};
+    foreach my $obs (@observers) {
+        $obs->serviceStarted($self);
+    }
 }
 
 # Method: stopService

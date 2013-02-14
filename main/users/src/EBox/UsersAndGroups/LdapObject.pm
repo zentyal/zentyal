@@ -100,9 +100,18 @@ sub get
 {
     my ($self, $attr) = @_;
 
-    return $self->_entry->get_value($attr);
+    if (wantarray()) {
+        my @value = $self->_entry->get_value($attr);
+        foreach my $el (@value) {
+            utf8::decode($el);
+        }
+        return @value;
+    } else {
+        my $value = $self->_entry->get_value($attr);
+        utf8::decode($value);
+        return $value;
+    }
 }
-
 
 # Method: set
 #

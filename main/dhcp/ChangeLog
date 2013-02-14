@@ -1,4 +1,9 @@
 HEAD
+	+ Fixed bug which used all addresses available in a interface to
+	  generate DNS reverse zone instead of the configured ranges
+3.0.2
+	+ Always write ddns keys file when saving changes
+	+ Do not append trailing dot to key names
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 3.0.1
 	+ Do not run daemon and show message when configuration does not

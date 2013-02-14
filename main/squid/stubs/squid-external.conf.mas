@@ -9,6 +9,7 @@
     $port
     $transparent    => undef
 
+    $hostfqdn
     $realm => ''
 
     $memory
@@ -157,10 +158,9 @@ snmp_access deny all
 http_port localhost:<% $port %>
 
 
-visible_hostname localhost-external
+visible_hostname (external)<% $hostfqdn %>
 
 coredump_dir /var/spool/squid3
-cache_log /var/log/squid3/cache-external.log
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB

@@ -82,7 +82,10 @@ sub unsubscribeIsAllowed
 
 # Method: check
 #
-#    Check if a server is suitable for the given edition codename
+#    Check if a server is suitable for the given edition codename.
+#
+#    Call <lastError> if you want to know why the server is not
+#    suitable for the given edition.
 #
 # Parameters:
 #
@@ -102,11 +105,32 @@ sub check
     if ($edition eq 'sb') {
         try {
             $self->_performSBChecks($commAddOn);
+            delete $self->{lastError};
         } catch EBox::RemoteServices::Exceptions::NotCapable with {
+            my ($exc) = @_;
+            $self->{lastError} = $exc->text();
             $capable = 0;
         };
     }
     return $capable;
+}
+
+# Method: lastError
+#
+#    Get the last error from last <check> method call
+#
+# Returns:
+#
+#    String - i18ned string with the error
+#
+sub lastError
+{
+    my ($self) = @_;
+
+    if ( exists($self->{lastError}) ) {
+        return $self->{lastError};
+    }
+    return undef;
 }
 
 # Method: checkFromCloud
@@ -131,7 +155,7 @@ sub checkFromCloud
     my $det = $capabilitiesGetter->subscriptionDetails();
 
     if ( $det->{codename} eq 'sb' ) {
-        $self->_performSBChecks();
+        $self->_performSBChecks($det->{sb_comm_add_on});
     }
     return 1;
 }

@@ -12,17 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid::Model::DelayPools;
+use strict;
+use warnings;
 
 # Class: EBox::Squid::Model::DelayPools
 #
 #      Rules to set the configuration for the delay pools
 #
+package EBox::Squid::Model::DelayPools;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use integer;
 
@@ -34,8 +32,6 @@ use EBox::Squid::Types::UnlimitedInt;
 
 use Math::BigInt;
 
-# Group: Public methods
-
 # Method: validateRow
 #
 # Overrides:
@@ -46,14 +42,14 @@ sub validateRow
 {
     my ($self, $action, %params) = @_;
 
-    if ($params{acl_object}) {
+    if ($params{acl_object} and ($params{acl_object} ne '_addNew')) {
         # check objects have members
         my $srcObjId = $params{acl_object};
         my $objects = EBox::Global->modInstance('objects');
         unless (@{$objects->objectAddresses($srcObjId)} > 0) {
             throw EBox::Exceptions::External(
                     __x('Object {object} has no members. Please add at ' .
-                        'least one to add rules using this object.',
+                        'least one to use this object.',
                         object => $params{acl_object}));
         }
     }
@@ -115,8 +111,6 @@ sub _setUndefinedValues
         $row->store();
     }
 }
-
-# Group: Protected methods
 
 # Method: _table
 #

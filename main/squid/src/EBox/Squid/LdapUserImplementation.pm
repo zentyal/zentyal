@@ -22,11 +22,30 @@ use base qw(EBox::LdapUserBase);
 use EBox::Gettext;
 use EBox::Global;
 
+sub _addUser
+{
+    my ($self, $user) = @_;
+    $self->_groupUsersChanged('__USERS__');
+}
+
+sub _delUser
+{
+    my ($self, $user) = @_;
+    $self->_groupUsersChanged('__USERS__');
+}
+
 sub _modifyGroup
 {
     my ($self, $group) = @_;
 
     $group = $group->name();
+    $self->_groupUsersChanged($group);
+}
+
+sub _groupUsersChanged
+{
+    my ($self, $group) = @_;
+
     my $squid = EBox::Global->modInstance('squid');
     my $rules = $squid->model('AccessRules');
 
@@ -53,7 +72,7 @@ sub _delGroupWarning
     my $squid = EBox::Global->modInstance('squid');
     my $rules = $squid->model('AccessRules');
     if ($rules->existsPoliciesForGroup($group)) {
-        return (q{HTTP proxy access rules});
+        return (__('HTTP proxy access rules'));
     }
     return ();
 }

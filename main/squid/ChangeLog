@@ -1,4 +1,23 @@
 HEAD
+	+ Removed redundant cache_log line from squid-external configuration
+	+ Fixed bug which did not include users from __USERS__ group in
+	  dansguardian filter group file
+3.0.3
+	+ Fixed error triggered when creating a delay pool without an object
+	+ Make sure in categorized lists model that list archives are not
+	  backed up
+	+ Migrate old directories with blank names and their asociated
+	  configuration values
+	+ Better escape of whitespace in ACL names
+	+ Replace blanks for categorized lists directories to workaround
+	  squid bug.
+	+ Fixed bug which allowed bad long names for ACL for 'all' object
+	+ Set visible_hostname to host '(instance)FQDN'. The standard value
+	  'localhost' causes access denied under certain circumstances
+	+ Ignore access rules for empty objects
+	+ Ignore access rules for empty groups
+	+ Mark module as changed if addition/removal of users modify ACLs
+3.0.2
 	+ Fix escaping in categorised list uploading. This is a regression
 	  from 3.0.1 release.
 	+ Force all connections to pass through squid-external or deny access

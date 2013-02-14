@@ -540,8 +540,8 @@ sub _setMainConf
         $self->_setOldHostname($hostname);
     } elsif ($oldFqdn ne $hostname) {
         $self->_changeRRDDirs($oldFqdn, $hostname);
-        $self->_removeSubscriptionLink(); # to assure we have al inkpointing to
-                                         # the good directory
+        $self->_removeSubscriptionLink(1); # to assure we have a link pointing to
+                                           # the good directory
         $self->_setOldHostname($hostname);
     }
 
@@ -554,7 +554,7 @@ sub _setMainConf
             @networkServers = @{$rs->monitorGathererIPAddresses()};
             $self->_makeSubscriptionLink($hostname);
         } else {
-            $self->_removeSubscriptionLink();
+            $self->_removeSubscriptionLink(1);
         }
     }
 
@@ -693,12 +693,24 @@ sub _removeSubscriptionLink
     my $parentPath = EBox::Monitor::Configuration::RRD_BASE_DIR;
     opendir(my $dh, $parentPath);
     while ( defined(my $subdir = readdir($dh)) ) {
-        if ($subdir =~ m{^[0-9a-zA-Z-]+$}) {
-            # seems a subscription directory
+        if ($subdir =~ m{^[0-9a-zA-Z-]+$} and length($subdir) == 36) {
             # Stop the service before removing to avoid race conditions
             $self->_stopService() if $stopService;
-            EBox::debug("REMOVE subscription linl $parentPath/$subdir");
-            EBox::Sudo::root("rm $parentPath/$subdir");
+            my $path = "$parentPath/$subdir";
+            # seems a subscription directory link, check if is a symbolink link
+            if (EBox::Sudo::fileTest('-L', $path) or (not EBox::Sudo::fileTest('-e', $path)) ) {
+                EBox::Sudo::root("rm '$path'");
+            } else {
+                # to avoid lose data we will move it to rrd path based in
+                # hostname (it overwrites rrd base path if exists but the
+                # subscription dir has mode updated data)
+                my $rrdBaseDirPath = $self->rrdBaseDirPath();
+                EBox::Sudo::root(
+                                  "rm -rf '$rrdBaseDirPath'",
+                                  "mv -f  '$path' '$rrdBaseDirPath'"
+                                 );
+            }
+            last;
         }
     }
     closedir($dh);

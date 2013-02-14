@@ -397,6 +397,10 @@ sub initialSetup
         mkdir (P12DIR, PRIVATEDIRMODE)
     }
 
+    if (not $version) {
+        # no migration neeeded
+        return;
+    }
     # migration from zentyal-ca 3.0 to 3.0.1
     # force regeneration of service certificates
     if (EBox::Util::Version::compare($version, '3.0.1') < 0) {
@@ -2536,21 +2540,32 @@ sub _checkSubjAltNames
     my ($self, $subjAltNames) = @_;
 
     foreach my $subjAlt (@{$subjAltNames}) {
-        if ( $subjAlt->{type} eq 'DNS' ) {
-            EBox::Validate::checkDomainName($subjAlt->{value}, 'DNS value');
-        } elsif ( $subjAlt->{type} eq 'IP' ) {
-            EBox::Validate::checkIP($subjAlt->{value}, 'IP value');
-        } elsif ( $subjAlt->{type} eq 'email' ) {
+        my $type = $subjAlt->{type};
+        my $value = $subjAlt->{value};
+        if (not $value) {
+            throw EBox::Exceptions::DataMissing(
+                data => __x('Value for subject alternative of type {type}', type => $type ),
+               );
+        }
+
+        if ( $type eq 'DNS' ) {
+            # remove wildcard to do the check
+            $value =~ s/^\*.//;
+            EBox::Validate::checkDomainName($value, 'DNS value');
+        } elsif ( $type eq 'IP' ) {
+            EBox::Validate::checkIP($value, 'IP value');
+        } elsif ( $type eq 'email' ) {
             # copy is an special value to get the email value from CN subject
-            if ( $subjAlt->{value} ne 'copy' ) {
-                EBox::Validate::checkEmailAddress($subjAlt->{value}, 'email value');
+            if ( $type ne 'copy' ) {
+                EBox::Validate::checkEmailAddress($value, 'email value');
             }
         } else {
             throw EBox::Exceptions::InvalidData(
-                data   => 'type',
-                value  => $subjAlt->{type},
-                advice => __x('Only {dns}, {ip} and {email} are valid subject alternative '
-                                . 'name types', dns => 'DNS', ip => 'IP', email => 'email'),
+                data   => __('Subject alternative type'),
+                value  => $type,
+                advice => __x('Only {dns}, {ip} and {email} are valid subject alternatives '
+                                . 'name types',
+                              dns => 'DNS', ip => 'IP', email => 'email'),
                );
         }
     }

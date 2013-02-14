@@ -28,6 +28,7 @@ use EBox::Samba::User;
 use EBox::Samba::Group;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::Gettext;
 
 use base qw(EBox::LdapUserBase);
 
@@ -228,6 +229,7 @@ sub _preAddGroup
     my $dn = $entry->dn();
     my $description = $entry->get_value('description');
     my $gid         = $entry->get_value('cn');
+    $self->_checkWindowsBuiltin($gid);
 
     my $params = {
         description   => $description,
@@ -463,6 +465,24 @@ sub _groupAddOns
     };
 
     return { path => '/samba/samba.mas', params => $args };
+}
+
+
+# Method: _checkWindowsBuiltin
+#
+# check whether the group already exists in the Builtin branch
+sub _checkWindowsBuiltin
+{
+    my ($self, $name) = @_;
+
+    my $dn = "CN=$name,CN=Builtin";
+    if ($self->{ldb}->existsDN($dn, 1)) {
+        throw EBox::Exceptions::External(
+            __x('{name} already exists as windows bult-in group',
+                name => $name
+               )
+           );
+    }
 }
 
 1;

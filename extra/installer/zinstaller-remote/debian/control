@@ -1,0 +1,14 @@
+Source: zinstaller-remote
+Section: debian-installer
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 7.0.0), cdbs, po-debconf
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+
+Package: zinstaller-remote
+XC-Package-Type: udeb
+Architecture: all
+Depends: ${misc:Depends}, configured-network, curl-udeb
+XB-Installer-Menu-Item: 1866
+Description: Choose Zentyal edition to install

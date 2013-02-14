@@ -24,8 +24,10 @@ use EBox;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
+use EBox::Validate;
 use EBox::Html;
 use POSIX qw(ceil);
+use Error qw(:try);
 
 use constant PAGESIZE => 15;
 
@@ -80,9 +82,6 @@ sub addToMasonParameters
     if (defined $oldParams_r) {
         push @masonParams, @{ $oldParams_r };
     }
-
-
-
 
     $self->{params}  = \@masonParams;
 }
@@ -167,7 +166,13 @@ sub _searchLogs
     my @fromdate = @{ $self->_fromDate() };
     my @todate   = @{ $self->_toDate() };
 
-    $hfilters = $self->_paramFilters();
+    try {
+        $hfilters = $self->_paramFilters();
+    } otherwise {
+        my ($ex) = @_;
+        $self->setErrorFromException($ex);
+        $hfilters = {};
+    };
     %hret = %{$logs->search($fromdate[2].'-'.$fromdate[1].'-'.$fromdate[0].' '.$fromdate[3].':'.$fromdate[4].':0',
                             $todate[2].'-'.$todate[1].'-'.$todate[0].' '.$todate[3].':'.$todate[4].':0',
                             $selected,
@@ -243,8 +248,12 @@ sub _paramFilters
 
     my $hfilters = {};
     foreach my $filter (grep(s/^filter-//, @{$self->params()})) {
-        $hfilters->{$filter} =
-          $self->unsafeParam("filter-$filter");
+        my $value = $self->unsafeParam("filter-$filter");
+        if (defined $value and ($filter ne 'event')) {
+            # no regex for 'event'
+            EBox::Validate::checkRegex($value, $filter);
+        }
+        $hfilters->{$filter} = $value;
     }
     return $hfilters;
 
@@ -290,8 +299,6 @@ sub _header
     print $html;
 }
 
-
-
 sub refresh
 {
     my ($self) = @_;
@@ -299,10 +306,8 @@ sub refresh
     return 1 if $self->param('refresh');
     return 1 if $self->param('View');
 
-
     return 0;
 }
-
 
 sub _process
 {
@@ -333,14 +338,11 @@ sub _process
         },
     ];
 
-
     my @masonParameters;
     push(@masonParameters, 'logdomains' => $logs->getLogDomains());
     push(@masonParameters, 'selected' => $selected);
 
-
     push(@masonParameters, refresh => $self->refresh);
-
 
     $self->addToMasonParameters(@masonParameters);
 }

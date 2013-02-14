@@ -12,9 +12,16 @@ then
         --disabled-password --ingroup ebox-usercorner ebox-usercorner
 fi
 
-CORNER_LOG="/var/log/zentyal-usercorner/"
-test -d $CORNER_LOG || mkdir $CORNER_LOG
-chown -R ebox-usercorner:ebox-usercorner $CORNER_LOG
+# setup logs directory
+USER=ebox-usercorner
+GROUP=ebox-usercorner
+LOGS_DIR=/var/log/zentyal-usercorner
+test -d $LOGS_DIR || mkdir $LOGS_DIR
+chmod 750 $LOGS_DIR
+LOG_FILES="$LOGS_DIR/zentyal.log $LOGS_DIR/access.log $LOGS_DIR/error.log"
+touch -a $LOG_FILES
+chmod 750 $LOG_FILES
+chown -R $USER.$GROUP $LOGS_DIR
 
 # create user session ids and conf directories
 test -d /var/lib/zentyal-usercorner/conf/ || mkdir -p /var/lib/zentyal-usercorner/conf/

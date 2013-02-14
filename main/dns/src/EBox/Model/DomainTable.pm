@@ -42,7 +42,8 @@ use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
 
 # Dependencies
-use Crypt::OpenSSL::Random;
+use EBox::Util::Random;
+use Digest::HMAC_MD5;
 use MIME::Base64;
 
 # Group: Public methods
@@ -696,11 +697,12 @@ sub _generateSecret
 {
     my ($self) = @_;
 
-    Crypt::OpenSSL::Random::random_seed(time() . rand(2**512));
-    Crypt::OpenSSL::Random::random_egd('/dev/urandom');
-
-    # Generate a key of 512 bits = 64Bytes
-    return MIME::Base64::encode(Crypt::OpenSSL::Random::random_bytes(64), '');
+    my $secret = EBox::Util::Random::generate(64);
+    my $hasher = Digest::HMAC_MD5->new($secret);
+    my $digest = $hasher->digest();
+    my $b64digest = encode_base64($digest);
+    chomp ($b64digest);
+    return $b64digest;
 }
 
 # Method: _getDomainRow

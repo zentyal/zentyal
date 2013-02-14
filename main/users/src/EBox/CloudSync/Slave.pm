@@ -144,7 +144,7 @@ sub _delGroup
     my ($self, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    return if ($users->baseDn() ne $users->groupsDn());
+    return if ($group->baseDn() ne $users->groupsDn());
 
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);

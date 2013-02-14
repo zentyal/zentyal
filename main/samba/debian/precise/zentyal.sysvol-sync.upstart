@@ -1,8 +1,8 @@
 description "Zentyal samba4 sysvol share synchronizer"
-author      "Samuel Cabrero <scabrero@zentyal.com>"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
 
 stop on stopping samba4
 normal exit 0
 
-exec /usr/share/zentyal-samba/sysvol-sync.pl
+exec su -s /bin/bash -c '/usr/bin/perl /usr/share/perl5/EBox/Samba/SysvolSync.pm'
 respawn

@@ -1,7 +1,15 @@
 HEAD
+	+ Remove bad links as well while unregistering
+	+ Fix keep of monitor history after unregistering
+3.0.2
+	+ Avoided infinite recursion incidents when instantiating new
+	  measure objects
+3.0.1
 	+ Fixed measure display when multiple type instances are shown in
 	  the same graph (for instance, Df).
-	+ Fixed RRD direcotries on changes of hostname. More resilient
+	+ Fixed RRD links also when RRD link on subscription fails and you
+	  have an extra directory
+	+ Fixed RRD directories on changes of hostname. More resilient
 	  subscription links to RRDs
 3.0
 	+ Reviewed registration strings

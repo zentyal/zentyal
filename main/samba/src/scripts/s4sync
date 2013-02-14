@@ -31,7 +31,7 @@ my $usersModule = EBox::Global->modInstance('users');
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
-    next unless ($sambaModule->isEnabled() and $sambaModule->isProvisioned());
+    next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 

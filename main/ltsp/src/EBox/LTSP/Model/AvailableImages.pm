@@ -35,6 +35,7 @@ use EBox::Types::HasMany;
 
 use EBox::Exceptions::Internal;
 use EBox::Apache;
+use EBox::Sudo;
 
 sub new
 {
@@ -104,7 +105,15 @@ sub _table
             handler => \&_doUpdate,
             message => __('Updating image. This process will be shown in the '
                           . 'dashboard widget until it finishes.'),
-            image => '/data/images/reload.png',     # FIXME: Use another image
+            image => '/data/images/reload.png',
+        ),
+        new EBox::Types::Action(
+            name => 'remove',
+            printableValue => __('Remove Image'),
+            model => $self,
+            handler => \&_doRemove,
+            message => __('The image and its configuration have been removed.'),
+            image => '/data/images/delete.gif',
         ),
     ];
 
@@ -157,6 +166,39 @@ sub _doUpdate
     $self->{customActions} = {};
 }
 
+sub _doRemove
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $ltsp = $self->parentModule();
+    my $work = $ltsp->st_get_string('work');
+
+    if ((defined $work) and ($work ne 'none')) {
+        throw EBox::Exceptions::External(
+            __('There is a job already in progress with some image. '
+               . 'Please, wait until it is finished.')
+        );
+    }
+
+    my $arch = $self->row($id)->valueByName('architecture');
+    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
+
+    my $name;
+    if ($fat) {
+        $name = "fat-$arch";
+    } else {
+        $name = $arch;
+    }
+
+    # TODO: Use constants
+    EBox::Sudo::root("rm -r /opt/ltsp/$name >> /var/log/zentyal/ltsp.log");
+    EBox::Sudo::root("rm /opt/ltsp/images/$name.img >> /var/log/zentyal/ltsp.log");
+    EBox::Sudo::root("rm -r /var/lib/tftpboot/ltsp/$name >> /var/log/zentyal/ltsp.log");
+
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
+}
+
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -172,12 +214,26 @@ sub syncRows
     foreach my $id (@{$currentRows}) {
         $architecture = $self->row($id)->valueByName('architecture');
         if ($self->row($id)->valueByName('fat')) {
-            $rows{"fat-$architecture"} = 1;
+            if (not -f "/opt/ltsp/images/fat-$architecture.img") {
+                # Image removal
+                $self->removeRow($id);
+                $rval = 1;
+            } else {
+                $rows{"fat-$architecture"} = 1;
+            }
         } else {
+            if (not -f "/opt/ltsp/images/$architecture.img") {
+                # Image removal
+                $self->removeRow($id);
+                $rval = 1;
+            } else {
+                $rows{$architecture} = 1;
+            }
             $rows{$architecture} = 1;
         }
     }
 
+    # New images
     for my $arch (('i386', 'amd64')) {
         if ((-f "/opt/ltsp/images/$arch.img") and
             (not defined $rows{$arch}) ) {

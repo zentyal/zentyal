@@ -42,7 +42,6 @@ sub getKeywords
     my ($keywords, $item) = @_;
     if(defined($item->{'text'})) {
         my $text = $item->{'text'};
-        Encode::_utf8_on($text);
         $text = lc($text);
         my @words = split('\W+', $text);
         for my $word (@words) {

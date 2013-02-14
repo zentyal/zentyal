@@ -16,11 +16,11 @@ use strict;
 use warnings;
 
 package EBox::WebServer;
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::SyncFolders::Folder;
 use EBox::Service;
 
 use EBox::Exceptions::External;
@@ -318,7 +318,7 @@ sub _setConf
     $self->_setDfltVhost($hostname, $hostnameVhost);
     $self->_setDfltSSLVhost($hostname, $hostnameVhost);
     $self->_checkCertificate();
-    $self->_setVHosts($vhosts);
+    $self->_setVHosts($vhosts, $hostnameVhost);
 }
 
 # Set up the listening port
@@ -489,7 +489,7 @@ sub _setUserDir
 # Set up the virtual hosts
 sub _setVHosts
 {
-    my ($self, $vhosts) = @_;
+    my ($self, $vhosts, $vHostDefault) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
 
@@ -498,6 +498,11 @@ sub _setVHosts
     EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . "$vHostPattern");
 
     my %sitesToRemove = %{_availableSites()};
+    if ($vHostDefault) {
+        my $vHostDefaultSite = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostDefault->{name};
+        delete $sitesToRemove{$vHostDefaultSite};
+        $self->_createSiteDirs($vHostDefault);
+    }
 
     foreach my $vHost (values %{$vhosts}) {
         my $vHostName  = $vHost->{'name'};
@@ -515,13 +520,7 @@ sub _setVHosts
                                sslSupport => $sslSupport,
                               ],
                             );
-
-        # Create the subdir if required
-        my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
-                          . $vHostName;
-        unless ( -d $userConfDir ) {
-            EBox::Sudo::root("mkdir -m 755 $userConfDir");
-        }
+        $self->_createSiteDirs($vHost);
 
         if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
@@ -534,13 +533,9 @@ sub _setVHosts
                     throw $exc;
                 }
             };
-            # Create the directory content if it is not already
-            my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
-              . '/' . $vHostName;
-            unless ( -d $dir ) {
-                EBox::Sudo::root("mkdir -p -m 755 $dir");
-            }
         }
+
+
     }
 
     # Remove not used old dirs
@@ -548,6 +543,27 @@ sub _setVHosts
         EBox::Sudo::root("rm -f $dir");
     }
 }
+
+sub _createSiteDirs
+{
+    my ($self, $vHost) = @_;
+    my $vHostName  = $vHost->{'name'};
+
+    # Create the user-conf subdir if required
+    my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
+        . $vHostName;
+    unless ( -d $userConfDir ) {
+        EBox::Sudo::root("mkdir -m 755 $userConfDir");
+    }
+
+    # Create the directory content if it is not already
+    my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
+        . '/' . $vHostName;
+    unless ( -d $dir ) {
+        EBox::Sudo::root("mkdir -p -m 755 $dir");
+    }
+}
+
 
 # Return current Zentyal available sites from actual dir
 sub _availableSites
@@ -789,6 +805,28 @@ sub backupDomainsFileSelection
     }
 
     return {};
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir (EBox::WebServer::PlatformPath::DocumentRoot(),
+                         EBox::WebServer::PlatformPath::VDocumentRoot()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Web server data');
 }
 
 1;

@@ -48,6 +48,9 @@ client
 # to load balance between the servers.
 <& .remote, servers => \@servers &>
 
+# Allow remote peer to change its IP address and/or port number
+float
+
 % if ( keys(%proxySettings) > 1  ) {
 # If you are connecting through an
 # HTTP proxy to reach the actual OpenVPN

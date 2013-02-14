@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::MailFilter::VDomainsLdap;
 use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
-
-use strict;
-use warnings;
 
 use EBox::Sudo;
 use EBox::Global;
@@ -468,7 +467,7 @@ sub _addAccount
             return;
         }
 
-        my $alias = $user . '@' . $vdomain;
+        my $alias = $username . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
             $mailAliasLdap->addAlias($alias, $account, $username);
         }

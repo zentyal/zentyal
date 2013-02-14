@@ -3099,6 +3099,7 @@ sub reloadTable
     my ($self) = @_;
 
     undef $self->{'table'};
+    undef $self->{'fields'};
     return $self->table();
 }
 
@@ -4432,7 +4433,6 @@ sub _parse_words
 
     my @w = ();
     if(defined($str)) {
-        Encode::_utf8_on($str);
         @w = split('\W+', lc($str));
     }
     return @w;

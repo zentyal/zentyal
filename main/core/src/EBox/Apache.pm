@@ -310,29 +310,14 @@ sub _setDesktopServicesPort
     my $services = EBox::Global->modInstance('services');
     if (defined($fw)) {
         my $serviceName = 'desktop-services';
-        unless ( $services->serviceExists(name => $serviceName) ) {
-            $fw->addInternalService(
-                'name'              => $serviceName,
-                'printableName'     => __('Desktop Services'),
-                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
-                'protocol'          => 'tcp',
-                'sourcePort'        => 'any',
-                'destinationPort'   => $desktop_services_port,
-               );
-            $fw->saveConfigRecursive();
-        } else {
-            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
-            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
-                $services->setService(name          => $serviceName,
-                                      printableName => __('Desktop Services'),
-                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
-                                      protocol      => 'tcp',
-                                      sourcePort    => 'any',
-                                      destinationPort => $desktop_services_port,
-                                      internal => 1, readOnly => 1);
-                $services->saveConfigRecursive();
-            }
-        }
+        $fw->addInternalService(
+            'name'              => $serviceName,
+            'printableName'     => __('Desktop Services'),
+            'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+            'protocol'          => 'tcp',
+            'sourcePort'        => 'any',
+            'destinationPort'   => $desktop_services_port,
+        );
     }
 }
 

@@ -421,24 +421,19 @@ function customActionClicked(action, url, table, fields, directory, id, page)
         {
             method: 'post',
             parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-                highlightRow(id, false);
-                stripe('dataTable', 'even', 'odd');
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            },
-            onFailure: function(t) {
-                $$('.customActions').each(function(e) {
-                        restoreHidden(e.identify(), table);
-                });
-            }
+            evalScripts: true
         }
     );
 
-    $$('.customActions').each(function(e) {
-            setLoading(e.identify(), table, true);
+    /* while the ajax udpater is running the active row is shown as loading
+     and the other table rows input are disabled to avoid running two custom
+     actions at the same time */
+    $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
+        e.disabled = true;
+        e.addClassName('disabledCustomAction');
+    });
+    $$('#' + id + ' .customActions').each(function(e) {
+        setLoading(e.identify(), table, true);
     });
 }
 
@@ -1046,15 +1041,13 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
     hide(element.id);
     setLoading(element.id + '_loading');
 
-    var MyAjax = new Ajax.Updater(
-                {
-                        failure: 'error_' + model
-                },
+    var MyAjax = new Ajax.Request(
         controller,
         {
             method: 'post',
             parameters: parameters,
             onFailure: function(t) {
+              $('error_' + model).innerHTML = t.responseText;
               completedAjaxRequest();
               show(element.id);
               $(element.id + '_loading').innerHTML = '';
@@ -1068,7 +1061,6 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
 
             }
         });
-
 
 }
 /*

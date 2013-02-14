@@ -40,26 +40,28 @@ my $forceDependencies = 0;
 my $forceZentyalVersion = 0;
 my $revokeAllOnModuleFail = 1;
 my $continueOnModuleFail = 0;
+my $installMissing = 0;
 
 my $help = 0;;
 my $info = 0;
 
 my $optionsOk = GetOptions(
-               'module:s' => \@modsToRestore,
-               'exclude:s' => \@modsToExclude,
-               'progress-id:i' => \$progressId,
-               'config-restore' => \$configRestore,
-               'full-restore'  => \$fullRestore,
-               'data-restore'  => \$dataRestore,
-               'force-dependencies' => \$forceDependencies,
-               'force-zentyal-version' => \$forceZentyalVersion,
-               'delete-backup'      => \$deleteBackup,
-               'revoke-all-on-module-fail!' => \$revokeAllOnModuleFail,
-               'continue-on-module-fail!' => \$continueOnModuleFail,
+    'module:s' => \@modsToRestore,
+    'exclude:s' => \@modsToExclude,
+    'progress-id:i' => \$progressId,
+    'config-restore' => \$configRestore,
+    'full-restore'  => \$fullRestore,
+    'data-restore'  => \$dataRestore,
+    'force-dependencies' => \$forceDependencies,
+    'force-zentyal-version' => \$forceZentyalVersion,
+    'delete-backup'      => \$deleteBackup,
+    'revoke-all-on-module-fail!' => \$revokeAllOnModuleFail,
+    'continue-on-module-fail!' => \$continueOnModuleFail,
+    'install-missing' => \$installMissing,
 
-               'info'       => \$info,
-               'help'       => \$help,
-              );
+    'info'       => \$info,
+    'help'       => \$help,
+);
 
 if (not $optionsOk) {
   usage();
@@ -82,7 +84,6 @@ elsif ($info) {
   exit 0;
 }
 
-
 # operation mode: restore backup
 
 # see if we have incompatible operation modes
@@ -92,19 +93,18 @@ if ($incompatibleModes > 1) {
   die "You can only choose one restore mode from --config-restore, --data-restore or --full-restore. (--config-restore is the default restore mode)";
 }
 
-
 # prepare restoreBackup execution
 my %restoreParams;
 if ($progressId) {
-  my $progress = EBox::ProgressIndicator->retrieve($progressId);
-  $restoreParams{progress} = $progress;
+    my $progress = EBox::ProgressIndicator->retrieve($progressId);
+    $restoreParams{progress} = $progress;
 }
 
 if (@modsToRestore) {
-  $restoreParams{modsToRestore} = \@modsToRestore;
+    $restoreParams{modsToRestore} = \@modsToRestore;
 }
 if (@modsToExclude) {
-  $restoreParams{modsToExclude} = \@modsToExclude;
+    $restoreParams{modsToExclude} = \@modsToExclude;
 }
 
 $restoreParams{fullRestore}       = $fullRestore;
@@ -114,42 +114,37 @@ $restoreParams{forceZentyalVersion} = $forceZentyalVersion,
 $restoreParams{deleteBackup}      = $deleteBackup;
 $restoreParams{revokeAllOnModuleFail} = $revokeAllOnModuleFail;
 $restoreParams{continueOnModuleFail}  = $continueOnModuleFail;
+$restoreParams{installMissing}    = $installMissing;
 
 try {
-  EBox::Backup->restoreBackup($file, %restoreParams);
-}
-otherwise {
-  my $ex = shift @_;
+    EBox::Backup->restoreBackup($file, %restoreParams);
+} otherwise {
+    my $ex = shift @_;
 
-  if (exists $restoreParams{progress}) {
-    my $progress = $restoreParams{progress};
-    $progress->setAsFinished(1, $ex->text);
-  }
-
-
-  $ex->throw();
+    if (exists $restoreParams{progress}) {
+        my $progress = $restoreParams{progress};
+        $progress->setAsFinished(1, $ex->text);
+    }
+    $ex->throw();
 };
-
-
 
 sub info
 {
-  my ($archive) = @_;
+    my ($archive) = @_;
 
-  my $details_r = EBox::Backup->backupDetailsFromArchive($archive);
-  my $desc = $details_r->{description};
-  my $date = $details_r->{date};
-  my $type = $details_r->{type};
+    my $details_r = EBox::Backup->backupDetailsFromArchive($archive);
+    my $desc = $details_r->{description};
+    my $date = $details_r->{date};
+    my $type = $details_r->{type};
 
-  my @modulesInBackup = @{  EBox::Backup->_modulesInBackup($archive)   };
+    my @modulesInBackup = @{ EBox::Backup->_modulesInBackup($archive) };
 
-  print <<END;
+    print <<END;
       $desc
       Date: $date
       Backup type: $type
       Modules in backup: @modulesInBackup
 END
-
 }
 
 sub usage

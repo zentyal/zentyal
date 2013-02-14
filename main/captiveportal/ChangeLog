@@ -1,3 +1,16 @@
+HEAD
+	+ Added 'Continue to destination' link
+	+ Remove conntrac kstate when adding/removing user rules
+	+ More frequent polling for more responsive captive daemon
+	+ Fixed Log4perl configuration and initialization. Log directory
+	  permissions made more restrictive.
+	+ Removed unnecesary and misleading method 'new' from EBox::CaptivePortal::Auth package
+3.0.1
+	+ Adapted to the new utf8 fixes
+	+ Removed superfluos calls to utf8::decode
+	+ Restart module on package install
+	+ Warning and disable action if authotization group is removed
+	+ Fixed regression in authorization restricted by group
 3.0
 	+ Updated 'created by' footer
 2.3.5

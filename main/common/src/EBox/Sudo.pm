@@ -49,10 +49,10 @@ BEGIN {
 
 use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
-Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
+Readonly::Scalar our $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
 
 Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
-Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
+Readonly::Scalar my $TEST_PATH   => '/usr/bin/test';
 
 # Procedure: system
 #
@@ -183,6 +183,7 @@ sub _root
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
+    binmode( $fhCmdFile, ':utf8' );
     print $fhCmdFile $commands;
     close ($fhCmdFile);
     chmod (0700, $cmdFile);

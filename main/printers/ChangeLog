@@ -1,4 +1,7 @@
-HEAD
+3.0.2
+	+ Change cups daemon type from init.d to upstart
+	+ Changes required by new samba4 bundled package
+3.0.1
 	+ Fixed LogHelper, log events with unknown printer or user
 2.3.9
 	+ Move report code to remoteservices

@@ -1,3 +1,15 @@
+3.0.6
+	+ Added EBox::Validate::checkRegex function
+	+ Added EBox::FileSystem::mountPointIsMounted function
+	+ EBox::Sudo now writes correctly commands file with utf8 characters
+3.0.5
+	+ Get default language from /etc/default/locale
+	+ Configure Log4perl to use utf8
+	+ Do not try to log default locale message when logger is not initialized
+	+ Added "use utf8" to Gettext needed for the language string literals
+	+ Decode utf8 strings from gettext
+	+ Removed unnecessary utf8::decode calls in exceptions
+	+ Fixed EBox::Gettext for undef and empty strings
 3.0.4
 	+ Added EBox::setLocaleEnvironment method
 3.0.3

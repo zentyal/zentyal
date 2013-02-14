@@ -31,14 +31,41 @@ use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
 use Authen::SASL qw(Perl);
-use IO::Socket::UNIX;
 
 use Data::Dumper;
 use File::Slurp;
+use File::Temp qw(:seekable);
 use Error qw( :try );
+use Perl6::Junction qw(any);
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi";
-use constant SOCKET_PATH => '/var/run/ldb';
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
+
+# NOTE: The list of attributes available in the different Windows Server versions
+#       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
+use constant ROOT_DSE_ATTRS => [
+    'configurationNamingContext',
+    'currentTime',
+    'defaultNamingContext',
+    'dnsHostName',
+    'domainControllerFunctionality',
+    'domainFunctionality',
+    'dsServiceName',
+    'forestFunctionality',
+    'highestCommittedUSN',
+    'isGlobalCatalogReady',
+    'isSynchronized',
+    'ldapServiceName',
+    'namingContexts',
+    'rootDomainNamingContext',
+    'schemaNamingContext',
+    'serverName',
+    'subschemaSubentry',
+    'supportedCapabilities',
+    'supportedControl',
+    'supportedLDAPPolicies',
+    'supportedLDAPVersion',
+    'supportedSASLMechanisms',
+];
 
 # Singleton variable
 my $_instance = undef;
@@ -149,7 +176,7 @@ sub safeConnect
             sleep (5);
             next;
         }
-        EBox::error("Couldn't connect to samba LDAP server: $@, retrying");
+        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
         sleep (5);
     }
 
@@ -227,6 +254,45 @@ sub search
     $self->_errorOnLdap($result, $args);
 
     return $result;
+}
+
+# Method: existsDN
+#
+#   Finds whether a DN exists on the database
+#
+# Parameters:
+#
+#   dn   - dn to lookup
+#   relativeToBaseDN - whether the given DN is relative to the baseDN (default: false)
+#
+# Returns:
+#
+#  boolean - whether the DN exists or not
+#
+# Exceptions:
+#
+#   Internal - If there is an error during the LDAP search
+#
+sub existsDN
+{
+    my ($self, $dn, $relativeToBaseDN) = @_;
+    if ($relativeToBaseDN) {
+        $dn = $dn . ','  . $self->dn();
+    }
+
+    my $ldb = $self->ldbCon();
+    my %args = (base => $dn, scope=>'base', filter => '(objectclass=*)');
+    my $result = $ldb->search(%args);
+
+    if (ldap_error_name($result) eq 'LDAP_NO_SUCH_OBJECT') {
+        # then it does not exists
+        return 0;
+    } else {
+        # check if there is no other error
+        $self->_errorOnLdap($result, \%args);
+    }
+
+    return $result->count() > 0;
 }
 
 # Method: modify
@@ -544,6 +610,69 @@ sub groups
         push (@{$list}, $group);
     }
     return $list;
+}
+
+# Method: dnsZones
+#
+#   Returns the DNS zones stored in the samba LDB. As this is called
+#   from DNS module it should be able to read the zones even when samba
+#   daemon is stopped, so we use ldbsearch to read the ldb files directly.
+#
+sub dnsZones
+{
+    my ($self) = @_;
+
+    my @zonePrefixes = (
+        "CN=MicrosoftDNS,DC=DomainDnsZones",
+        "CN=MicrosoftDNS,DC=ForestDnsZones",
+        "CN=MicrosoftDNS,CN=System");
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my $zones = [];
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $private = $sambaModule->PRIVATE_DIR();
+    my $samdb = "$private/sam.ldb";
+    if (EBox::Sudo::fileTest('-f', $samdb)) {
+        my $tmp = File::Temp->new(TEMPLATE => 'ldbsearch.XXXXX',
+                                  DIR => EBox::Config::tmp(),
+                                  UNLINK => 1,
+                                  SUFFIX => '.ldif');
+
+        my $cmd = "ldbsearch -H $samdb -d0 -s base -b '' defaultNamingContext";
+        my $out = EBox::Sudo::root($cmd);
+        $tmp->seek(0, SEEK_SET);
+        write_file($tmp->filename(), $out);
+        my $ldif = new Net::LDAP::LDIF($tmp->filename());
+        my $entry = $ldif->read_entry();
+        my $base = $entry->get_value('defaultNamingContext');
+
+        for my $prefix (@zonePrefixes) {
+            $cmd = "ldbsearch -H $samdb -d0 -s sub -b '$prefix,$base' '(objectClass=dnsZone)' name";
+            $out = EBox::Sudo::root($cmd);
+            $tmp->seek(0, SEEK_SET);
+            write_file($tmp->filename(), $out);
+            $ldif = new Net::LDAP::LDIF($tmp->filename());
+            while (not $ldif->eof()) {
+                $entry = $ldif->read_entry();
+                my $name = $entry->get_value('name');
+                next unless defined $name;
+                next if $name eq any @ignoreZones;
+                push (@{$zones}, lc ($name));
+            }
+        }
+    }
+    return $zones;
+}
+
+# Method: rootDse
+#
+#   Returns the root DSE
+#
+sub rootDse
+{
+    my ($self) = @_;
+
+    return $self->ldbCon()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
 1;

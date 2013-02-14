@@ -1,0 +1,17 @@
+Readme for Authen::Krb5::Easy
+
+Allows easy aquisition and minor manipulation of ticket granting tickets
+from a keytab file.
+
+You will need kerberos 5 libraries and headers to build.
+
+Install as a normal perl module:
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+Copyright (c) 2002 Ed Schaller. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same
+terms as Perl itself.

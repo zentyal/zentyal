@@ -6,8 +6,15 @@ depends:
 
 enabledepends:
     - network
-    - users
+    - ntp
     - dns
+    - users
+
+bootdepends:
+    - network
+    - ntp
+    - dns
+    - users
 
 models:
     - GeneralSettings

@@ -1,4 +1,10 @@
 HEAD
+	+ LogHelper does not sees longer 'X509NAME OK' verification status
+	  as unknown
+	+ Added float option to clients to allow server IP/port changes
+	+ Fixed LogHelper Client connection initiated regexp
+	+ Fixed certificates check in client configuration form
+3.0.2
 	+ Adapted to changes in EBox::LogObserver::_convertTimestamp
 3.0.1
 	+ Fixed client configuration model to allow its edition without

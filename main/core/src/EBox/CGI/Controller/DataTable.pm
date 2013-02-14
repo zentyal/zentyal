@@ -66,7 +66,7 @@ sub getParams
     }
 
     $params{'id'} = $self->unsafeParam('id');
-    $params{'filter'} = $self->param('filter');
+    $params{'filter'} = $self->unsafeParam('filter');
 
     my $cloneId = $self->unsafeParam('cloneId');
     if ($cloneId) {
@@ -334,7 +334,7 @@ sub refreshTable
     my $global = EBox::Global->getInstance();
 
     my $action =  $self->{'action'};
-    my $filter = $self->param('filter');
+    my $filter = $self->unsafeParam('filter');
     my $page = $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {

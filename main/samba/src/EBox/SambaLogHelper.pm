@@ -21,6 +21,7 @@ use base 'EBox::LogHelper';
 use EBox::Gettext;
 
 use constant SAMBA_LOGFILE => '/var/log/syslog';
+use constant SAMBA_ANTIVIRUS => '/var/log/zentyal/samba-antivirus.log';
 use constant RESOURCE_FIELD_MAX_LENGTH => 240; # this must be the same length of
                                                # the db samba_Access.resource
                                                # field
@@ -43,7 +44,7 @@ sub new
 #
 sub logFiles
 {
-    return [SAMBA_LOGFILE];
+    return [SAMBA_LOGFILE, SAMBA_ANTIVIRUS];
 }
 
 # Method: processLine
@@ -63,33 +64,66 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd.*?: (.+)/) {
-        return;
-    }
-    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
-    my $message = $2;
-
     my %dataToInsert;
 
-    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
-    $dataToInsert{timestamp} = $timestamp;
+    if ($file eq SAMBA_ANTIVIRUS) {
 
-    if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^0-9]*(.*?)'$/) {
-        $dataToInsert{event} = 'virus';
-        $dataToInsert{filename} = $1;
-        $dataToInsert{virus} = $2;
-        $dataToInsert{client} = $3;
-    } elsif ($message =~ /^INFO: quarantining file '(.*?)' to '(.*?)' was successful$/) {
-        $dataToInsert{event} = 'quarantine';
-        $dataToInsert{filename} = $1;
-        $dataToInsert{qfilename} = $2;
+        my ($date_virus) = $line =~ m{^(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d) .* .*VIRUS.*$};
+        my ($date_quarantine) = $line =~ m{^(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d) .* .*QUARANTINE.*$};
+
+        if ($date_virus or $date_quarantine) {
+            my $raw_date;
+            if ($date_virus) {
+                $raw_date = $date_virus;
+            } else {
+                $raw_date = $date_quarantine;
+            }
+            my $date = $raw_date . ' ' . (${[localtime(time)]}[5] + 1900);
+            my $timestamp = $self->_convertTimestamp($date, '%d/%m/%Y %H:%M:%S');
+            $dataToInsert{timestamp} = $timestamp;
+
+            my @fields = split(/\|/, $line);
+            unless (@fields > 4) {
+                return;
+            }
+
+            $dataToInsert{username} = $fields[1];
+            $dataToInsert{client} = $fields[2];
+            $dataToInsert{filename} = $fields[3];
+
+            if ($date_virus) {
+                $dataToInsert{event} = 'virus';
+                $dataToInsert{virus} = $fields[4];
+            } else {
+                $dataToInsert{event} = 'quarantine';
+                $dataToInsert{qfilename} = $fields[4];
+            }
+        }
     } else {
+        unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*(smbd|zavs).*?: (.+)/) {
+            return;
+        }
+        my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
+        my $message = $3;
+
+        my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
+        $dataToInsert{timestamp} = $timestamp;
+
         my @fields = split(/\|/, $message);
         unless (@fields > 2) {
             return;
         }
         $dataToInsert{username} = $fields[0];
         $dataToInsert{client} = $fields[1];
+        unless (@fields > 3) {
+            return;
+        }
+
+        unless ($fields[3] eq 'ok') {
+            # TODO: Log failures (fail (msg))
+            return;
+        }
+
         my $type = $fields[2];
         $dataToInsert{event} = $type;
         if (
@@ -114,6 +148,9 @@ sub processLine # (file, line, logger)
             $orig =~ s/\s+$//;
             $dest =~ s/\s+$//;
             $dataToInsert{resource} = $orig . " -> " . $dest;
+        } else {
+            # Not implemented
+            return;
         }
     }
 

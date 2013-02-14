@@ -55,6 +55,7 @@ use constant {
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
     SEC_UPD_PKG    => 'zentyal-security-updates',
+    SYNC_PKG       => 'zfilesync',
     REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
 };
 
@@ -201,7 +202,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}, $_->{comm_mail_add_on}) } @{$availables};
+        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_comm_add_on}) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -210,6 +211,7 @@ sub subscribeServer
                     # for the available options
                     throw EBox::RemoteServices::Exceptions::NotCapable(
                         __('None of the available bundles are valid for this server')
+                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError() )
                        );
                 }
             }
@@ -768,7 +770,7 @@ sub _restartRS
     $fw->save();
     # Required to set the CA correctly
     my $apache = $global->modInstance('apache');
-    $apache-save();
+    $apache->save();
 }
 
 # Downgrade current subscription, if necessary
@@ -792,7 +794,7 @@ sub _removePkgs
     my ($self) = @_;
 
     # Remove pkgs using at to avoid problems when doing so from Zentyal UI
-    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
+    my @pkgs = (PROF_PKG, SEC_UPD_PKG, SYNC_PKG);
     @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
 
     return unless ( @pkgs > 0 );
