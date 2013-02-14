@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed bug in checking rules when re-enabled
+	+ Fixed bug in checking rules when they are re-enabled
 2.3.6
 	+ Use full path for notifier of notifyActions. More restrictive
 	  notifyForeignModelAction(). Moved this method from parent to subclass
