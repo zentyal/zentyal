@@ -1,4 +1,5 @@
 HEAD
+	+ Stop heimdal daemons on enableActions
 	+ Fixed alphabetical order in listing of users and groups
 3.0.8
 	+ Filter in users table no longer matches LDAP dn

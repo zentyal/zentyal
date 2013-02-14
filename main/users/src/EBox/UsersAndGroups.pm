@@ -240,6 +240,10 @@ sub setupKerberos
     EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
+    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kdc || true');
+    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
