@@ -308,6 +308,12 @@ sub getModTableInfos
     return \@tableInfos;
 }
 
+sub clearTableInfoCache
+{
+    my ($self) = @_;
+    $self->{tables} = undef;
+}
+
 sub getLogDomains
 {
     my ($self) = @_;
