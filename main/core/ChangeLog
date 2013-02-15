@@ -1,4 +1,6 @@
 HEAD
+	+ Added force default mode and permission to writeConfFileNoCheck(),
+	  writeFile() and derivatives
 	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
 	  parameter names
 	+ DataTables with sortedBy are now orderer alphabetically with
