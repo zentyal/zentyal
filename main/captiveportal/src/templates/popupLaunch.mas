@@ -13,7 +13,7 @@ use EBox::Gettext;
   <script type="text/javascript">
     window.zentyal_timestamp = (new Date).getTime()
     function launch() {
-        window.open("/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");
+        window.open("/Popup", "Zentyal Captive Portal", "resizable=1,width=350,height=250,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no");
     }
     function continueToDst(dst)
     {

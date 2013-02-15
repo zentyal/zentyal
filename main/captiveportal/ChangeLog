@@ -1,4 +1,5 @@
 HEAD
+	+ Client popup made more compatible with different browsers
 	+ Added 'Continue to destination' link
 	+ Remove conntrac kstate when adding/removing user rules
 	+ More frequent polling for more responsive captive daemon
