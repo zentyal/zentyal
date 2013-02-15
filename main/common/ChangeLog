@@ -1,4 +1,6 @@
 HEAD
+	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
+	  exception error
 	+ EBox::NetWrappers::_ifaceShowAddress now works for peer-to-peer addresses
 3.0.6
 	+ Added EBox::Validate::checkRegex function
