@@ -185,7 +185,14 @@ sub _setQARepoConf
     my $repoHostname = _repositoryHostname();
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
                                              '/remoteservices/qa-conf.mas',
-                                             [ repoHostname => $repoHostname ]);
+                                             [ repoHostname => $repoHostname ],
+                                             {
+                                                 force => 1,
+                                                 mode  => '0644',
+                                                 uid   => 0,
+                                                 gid   => 0,
+                                             }
+                                            );
 }
 
 # Get the repository hostname

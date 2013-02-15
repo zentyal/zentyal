@@ -1,4 +1,5 @@
 HEAD
+	+ Force mode when writing QA apt ocnfiguration file
 	+ Avoid exception in subscription info table when a
 	  no subscribed server use no-ascii character set
 3.0.14

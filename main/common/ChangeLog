@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed EBox::Config::TestStub
 	+ EBox::NetWrappers::_ifaceShowAddress now works for peer-to-peer addresses
 3.0.6
 	+ Added EBox::Validate::checkRegex function

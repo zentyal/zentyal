@@ -1029,8 +1029,10 @@ sub _writeFileSave # (tmpfile, file, defaults)
     my $mode;
     my $uid;
     my $gid;
-    if ((not defined($defaults)) and (-e $file) and
-            (my $st = EBox::Sudo::stat($file))) {
+
+    if ((not defined($defaults)) and (not $defaults->{force}) and
+            (-e $file) and (my $st = EBox::Sudo::stat($file))
+      ) {
         $mode= sprintf("%04o", $st->mode & 07777);
         $uid = $st->uid;
         $gid = $st->gid;
@@ -1063,7 +1065,7 @@ sub _writeFileSave # (tmpfile, file, defaults)
 #    file      - file name which will be overwritten with the execution output
 #    component - mason component
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
-#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    defaults  - a reference to hash with keys mode, uid, gid and force. Those values will be used when creating a new file. (If the file already exists and the force parameter is not set the existent values of these parameters will be left untouched)
 #
 sub writeConfFileNoCheck # (file, component, params, defaults)
 {
@@ -1120,7 +1122,7 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
 #
 #    file      - file name which will be overwritten with the execution output
 #    data      - data to write in the file
-#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    defaults  - a reference to hash with keys mode, uid, gid and force. Those values will be used when creating a new file. (If the file already exists and the force parameter is not set the existent values of these parameters will be left untouched)
 #
 sub writeFile # (file, data, defaults)
 {
