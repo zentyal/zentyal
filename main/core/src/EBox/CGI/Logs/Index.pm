@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Logs::Index;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Logs::Index;
 use base 'EBox::CGI::ClientBase';
 
 use EBox;
@@ -350,6 +348,22 @@ sub _process
 sub menuFolder
 {
     return 'Maintenance';
+}
+
+# Overrides: EBox::CGI::Base::params
+#
+# We need to override this because the name of a parameter could be
+# internaltionalized and thus contian unexpecteed characters
+sub params
+{
+    my ($self) = @_;
+    my $cgi = $self->cgi;
+    my @names = $cgi->param;
+
+    # Prototype adds a '_' empty param to Ajax POST requests when the agent is
+    # webkit based
+    @names = grep { !/^_$/ } @names;
+    return \@names;
 }
 
 1;

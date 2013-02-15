@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
+	  parameter names
 	+ DataTables with sortedBy are now orderer alphabetically with
 	  proper case treatment
 	+ Display messages in model even when there are not elements and
