@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 10;
 use Test::Exception;
 use Test::File;
 use Test::MockObject;
@@ -18,8 +18,6 @@ use EBox::Sudo::TestStub;
 
 EBox::Sudo::TestStub::fake();
 writeConfFileTest();
-
-
 
 sub writeConfFileTest
 {
@@ -48,6 +46,13 @@ sub writeConfFileTest
     unlink $testFile or die "Cannot unlink test file $testFile";
     my @gids =  split '\s', $GID ;
     my $defaults = { mode => $wantedMode, uid => $UID, gid => $gids[0] };
+    lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck execution upon a inexistent file';
+    file_exists_ok $testFile;
+    file_mode_is ($testFile, oct $wantedMode);
+
+    # force test
+    system "chmod 0312 $testFile";
+    $defaults->{force} = 1;
     lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck execution upon a inexistent file';
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);

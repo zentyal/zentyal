@@ -1,4 +1,6 @@
 HEAD
+	+ Added force default mode and permission to EBox::Module::Base::writeConfFileNoCheck,
+	  EBox::Module::Base::writeFile and derivatives
 	+ DataTables with sortedBy are now orderer alphabetically with
 	  proper case treatment
 	+ Display messages in model even when there are not elements and
