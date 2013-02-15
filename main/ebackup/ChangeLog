@@ -1,4 +1,4 @@
-HEAD
+3.0.5
 	+ Using EBox::FileSystem::mountPointIsMounted when checking if
 	  file system backup target is mounted
 	+ Avoid double utf8 encode when escaping file for commands, this
