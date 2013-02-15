@@ -1,4 +1,5 @@
 HEAD
+	+ Client popup made more compatible with different browsers
 	+ Removed superfluos firewall rules removal, better management of
 	  firewall lock
 	+ Added 'Continue to destination' link
