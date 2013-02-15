@@ -1,5 +1,7 @@
 HEAD
 	+ Reduce dns resolver timeout on provision checks when joining a domain
+	+ Let zentyal manage all samba dependant daemons. Automatic start/stop
+	  is disabled now.
 3.0.13
 	+ Integration of new samba 4.0.3 bundled version
 	+ Add script to transfer FSMO roles to local server, useful to
