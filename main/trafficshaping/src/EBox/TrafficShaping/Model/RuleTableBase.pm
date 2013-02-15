@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::TrafficShaping::Model::RuleTableBase
 #
@@ -23,10 +25,6 @@
 #
 
 package EBox::TrafficShaping::Model::RuleTableBase;
-
-use strict;
-use warnings;
-
 use base 'EBox::Model::DataTable';
 
 use integer;
@@ -118,15 +116,18 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
-
     if ( defined ( $params->{guaranteed_rate} )) {
         $self->_checkRate( $params->{guaranteed_rate},
                 __('Guaranteed rate'));
     }
-
     if ( defined ( $params->{limited_rate} )) {
         $self->_checkRate( $params->{limited_rate},
                 __('Limited rate'));
+    }
+    my $reactivated = 0;
+    if (exists $changedParams->{enabled}) {
+        # new rules are also marked as reactivated but we can live with it
+        $reactivated = $changedParams->{enabled}->value();
     }
 
     # Check objects have members
@@ -190,6 +191,7 @@ sub validateTypedRow
             limitedRate    => $params->{limited_rate}->value(),
             ruleId         => $params->{id}, # undef on addition
             enabled        => $params->{enabled},
+            reactivated    => $reactivated,
             );
     }
 }
