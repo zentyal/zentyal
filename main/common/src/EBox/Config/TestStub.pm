@@ -12,19 +12,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Config::TestStub;
 # Description:
 #
-use strict;
-use warnings;
+
 
 use Test::MockObject;
 use Perl6::Junction qw(all);
 use EBox::Config;
 use Error qw(:try);
 
-# XXX: Derivated paths are ttoally decoupled from their base path (datadir, sysconfdir, localstatedir, libdir)
+# XXX: Derivated paths are totally decoupled from their base path (datadir, sysconfdir, localstatedir, libdir)
 # possible solution 1:  rewrite EBox::Config so the derivated elements use a sub to get the needed element
 # possible solution 2: rewrite this package to have specialized fakes for those subs
 
@@ -35,22 +36,30 @@ sub _defaultConfig
 {
     my @defaultConfig;
 
-    my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
+    my @configKeys = qw(prefix etc var user group share scripts locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
+    my %problematicKeys = (
+        user => 'ebox',
+        group => 'ebox',
+       );
     foreach my $key (@configKeys) {
-	my $configKeySub_r = EBox::Config->can($key);
-	defined $configKeySub_r or die "Can not find $key sub in EBox::Config module";
-	my $value;
+        my $configKeySub_r = EBox::Config->can($key);
+        defined $configKeySub_r or die "Can not find $key sub in EBox::Config module";
+        my $value;
 
-	try {
-	  $value = $configKeySub_r->();
-	}
-	otherwise {
-	  # ignore systems where configuration files are  not installed
-	  $value = undef;
-	  print "\n\nFailed: $key \n";;
-	};
+        try {
+            if (exists $problematicKeys{$key}) {
+                $value = $problematicKeys{$key};
+            } else {
+                $value = $configKeySub_r->();
+            }
+        }
+        otherwise {
+          # ignore systems where configuration files are  not installed
+          $value = undef;
+          print "\n\nFailed: $key \n";;
+        };
 
-	push @defaultConfig, ($key => $value );
+        push @defaultConfig, ($key => $value );
     }
 
     return @defaultConfig;
