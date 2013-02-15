@@ -1,4 +1,5 @@
 HEAD
+	+ Dont allow to set a local address as network proxy
 	+ Fixed error in json response trigered by widget size
 3.0.2
 	+ Disable IPv6 on enable actions to avoid problems with samba4
