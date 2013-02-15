@@ -1014,7 +1014,9 @@ sub _setAptPreferences
             EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
             return;
         }
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'");
+        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'",
+                         "chmod 0644 '$preferencesDirFile'",
+                        );
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
