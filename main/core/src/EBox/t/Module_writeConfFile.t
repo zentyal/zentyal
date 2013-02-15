@@ -53,7 +53,7 @@ sub writeConfFileTest
     # force test
     system "chmod 0312 $testFile";
     $defaults->{force} = 1;
-    lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck execution upon a inexistent file';
+    lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck with force defaults execution upon a file with different permissions';
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
 
