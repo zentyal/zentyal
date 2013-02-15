@@ -242,13 +242,11 @@ sub getLogsModules
 sub getAllTables
 {
     my ($self, $noCache) = @_;
-    my $global = EBox::Global->getInstance();
-    my $tables;
-
     if (not $noCache and $self->{tables}) {
         return $self->{tables};
     }
 
+    my $tables = {};
     foreach my $mod (@{getLogsModules()}) {
         my @tableInfos = @{ $self->getModTableInfos($mod) };
 
@@ -279,15 +277,12 @@ sub getTableInfo
     my ($self, $index) = @_;
 
     my $tables = $self->getAllTables();
-    unless (exists $tables->{$index}) {
-        $self->{tables} = undef; # Delete cache
-        $tables = $self->getAllTables(); # Ask again
+    if (exists $tables->{$index}) {
+        return $tables->{$index};
     }
 
-    return $tables->{$index};
+    return undef;
 }
-
-
 
 sub getModTableInfos
 {

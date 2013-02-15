@@ -1,4 +1,5 @@
 HEAD
+	+ In logs modules fixed table cache behaviour on cache miss
 	+ DataTables with sortedBy are now orderer alphabetically with
 	  proper case treatment
 	+ Display messages in model even when there are not elements and
