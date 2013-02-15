@@ -1,4 +1,5 @@
 HEAD
+	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
 	+ Added force default mode and permission to writeConfFileNoCheck(),
 	  writeFile() and derivatives
 	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
