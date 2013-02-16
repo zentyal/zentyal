@@ -1,4 +1,4 @@
-HEAD
+3.0.13
 	+ Integration of new samba 4.0.3 bundled version
 	+ Samba daemon is now managed with init.d to avoid unexpected fork problems
 	+ Reduce dns resolver timeout on provision checks when joining a domain
