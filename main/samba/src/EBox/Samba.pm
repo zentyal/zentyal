@@ -853,8 +853,7 @@ sub _s4syncCond
     my $sambaSettings = $self->model('GeneralSettings');
     my $mode = $sambaSettings->modeValue();
     my $adc  = $sambaSettings->MODE_ADC();
-    return ($self->isEnabled() and $self->getProvision->isProvisioned() and
-            $mode eq $adc);
+    return ($self->isEnabled() and $self->getProvision->isProvisioned());
 }
 
 sub _antivirusEnabled
@@ -881,6 +880,11 @@ sub _daemons
     return [
         {
             name => 'samba4',
+            type => 'init.d',
+            pidfiles => ['/opt/samba4/var/run/samba.pid'],
+        },
+        {
+            name => 'zentyal.nmbd',
         },
         {
             name => 'zentyal.s4sync',
