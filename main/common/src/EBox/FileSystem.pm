@@ -153,13 +153,10 @@ sub isSubdir
 sub dirIsEmpty
 {
     my ($dir) = @_;
-    my $empty = 0;
-    try {
-        EBox::Sudo::root("ls $dir/*");
-    }otherwise {
-        $empty = 1;
-    };
-    return $empty;
+    # ls command will fail with non-zero if they are not files udner the
+    # directory
+    EBox::Sudo::silentRoot("ls $dir/*");
+    return $? != 0;
 }
 
 # Function: unusedFileName

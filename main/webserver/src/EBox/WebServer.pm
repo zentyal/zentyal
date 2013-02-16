@@ -743,7 +743,7 @@ sub dumpConfig
     my @dirs = keys %{ _availableSites() };
 
     if (not @dirs) {
-        EBox::error(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
+        EBox::warn(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
         return;
     }
 
