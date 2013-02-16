@@ -664,6 +664,8 @@ sub checkAddress
     EBox::info("Checking reverse DNS resolution of '$adServerIp'...");
     my $answer = '';
     my $resolver = new Net::DNS::Resolver(nameservers => ['127.0.0.1']);
+    $resolver->tcp_timeout(5);
+    $resolver->udp_timeout(5);
     my $target = join('.', reverse split(/\./, $adServerIp)).".in-addr.arpa";
     my $query = $resolver->query($target, 'PTR');
     if ($query) {
