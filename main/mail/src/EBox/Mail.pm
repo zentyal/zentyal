@@ -98,15 +98,6 @@ sub greylist
     return $self->{greylist};
 }
 
-# neccesary for daemon precondition
-sub greylistIsEnabled
-{
-    my ($self) = @_;
-    return $self->greylist()->isEnabled();
-}
-
-
-
 # Method: actions
 #
 #       Override EBox::Module::Service::actions
@@ -912,7 +903,7 @@ sub _daemons
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
-    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
+#    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
     push(@{$daemons}, $greylist_daemon);
 
     return $daemons;

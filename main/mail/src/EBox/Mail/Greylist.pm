@@ -57,18 +57,11 @@ sub usedFiles
            ];
 }
 
-
-# sub actions
-# {
-#    my ($self) = @_;
-#     return [];
-# }
-
 sub daemon
 {
     return {
             'name' => GREYLIST_SERVICE,
-            'precondition' => \&EBox::Mail::greylistIsEnabled #  awkward but
+            'precondition' => \&EBox::Mail::isGreylistEnabled #  awkward but
                    # precondition  method must reside in the main package
            };
 }
