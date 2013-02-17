@@ -34,6 +34,7 @@ Package: samba4
 Architecture: any
 Depends: python,
          python-dnspython,
+         libpython2.7,
          libattr1,
          libacl1,
          libcap2,
