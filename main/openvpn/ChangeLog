@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ LogHelper does not sees longer 'X509NAME OK' verification status
 	  as unknown
 	+ Added float option to clients to allow server IP/port changes
