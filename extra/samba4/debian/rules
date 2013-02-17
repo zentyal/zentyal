@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	make distclean
+	rm -f `find . -name *\.pyc`
+
+override_dh_auto_configure:
+	./configure \
+		--prefix=/opt/samba4 \
+        --sysconfdir=/etc/samba \
+		--bundled-libraries=ALL \
+        --enable-zavs
+
+override_dh_auto_test:
+	#no selftest
+
+override_dh_shlibdeps:
+	#shlibdeps disabled (rpath)
+
+override_dh_installdocs:
+	#do not installdocs
+
+override_dh_installchangelogs:
+	#do not installchangelogs
+
+override_dh_installexamples:
+	#do not installexamples
+
+override_dh_strip:
+	#do not strip

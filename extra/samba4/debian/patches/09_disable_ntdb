@@ -1,0 +1,59 @@
+commit 59b00e1bc340db51f48858f96d546b3042673936
+Author: Jelmer Vernooij <jelmer@samba.org>
+Date:   Thu Jun 21 16:44:55 2012 +0200
+
+    Add --disable-ntdb option for building.
+
+diff --git a/lib/ntdb/wscript b/lib/ntdb/wscript
+index ff8f24e..f034631 100644
+--- a/lib/ntdb/wscript
++++ b/lib/ntdb/wscript
+@@ -27,6 +27,7 @@ def set_options(opt):
+     opt.add_option('--valgrind-log',
+                    help=("where to put the valgrind log"),
+                    action="store", dest='VALGRINDLOG', default=None)
++
+     if opt.IN_LAUNCH_DIR():
+         opt.add_option('--disable-python',
+                        help=("disable the pyntdb module"),
+diff --git a/wscript b/wscript
+index 9caa673..e77d35a 100755
+--- a/wscript
++++ b/wscript
+@@ -61,6 +61,11 @@ def set_options(opt):
+                    help='enable special build farm options',
+                    action='store_true', dest='BUILD_FARM')
+ 
++    opt.add_option('--disable-ntdb',
++                   help=("disable ntdb"),
++                   action="store_true", dest='disable_ntdb', default=False)
++
++
+     opt.tool_options('python') # options for disabling pyc or pyo compilation
+     # enable options related to building python extensions
+ 
+@@ -124,7 +129,9 @@ def configure(conf):
+     conf.RECURSE('source4/ntvfs/sysdep')
+     conf.RECURSE('lib/util')
+     conf.RECURSE('lib/ccan')
+-    conf.RECURSE('lib/ntdb')
++    conf.env.disable_ntdb = getattr(Options.options, 'disable_ntdb', False)
++    if not Options.options.disable_ntdb:
++        conf.RECURSE('lib/ntdb')
+     conf.RECURSE('lib/zlib')
+     conf.RECURSE('lib/util/charset')
+     conf.RECURSE('source4/auth')
+diff --git a/wscript_build b/wscript_build
+index dc06b64..b671699 100755
+--- a/wscript_build
++++ b/wscript_build
+@@ -34,7 +34,8 @@ bld.RECURSE('lib/tevent')
+ bld.RECURSE('lib/addns')
+ bld.RECURSE('lib/ccan')
+ bld.RECURSE('lib/tdb_compat')
+-bld.RECURSE('lib/ntdb')
++if not bld.env.disable_ntdb:
++    bld.RECURSE('lib/ntdb')
+ bld.RECURSE('lib/ldb')
+ bld.RECURSE('lib/param')
+ bld.RECURSE('dynconfig')

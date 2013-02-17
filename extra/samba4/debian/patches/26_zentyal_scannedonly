@@ -1,0 +1,286 @@
+Index: samba/source3/modules/vfs_scannedonly.c
+===================================================================
+--- samba.orig/source3/modules/vfs_scannedonly.c	2013-01-15 17:29:56.097867062 +0100
++++ samba/source3/modules/vfs_scannedonly.c	2013-01-15 17:30:30.929867300 +0100
+@@ -50,6 +50,7 @@
+ #include "includes.h"
+ #include "smbd/smbd.h"
+ #include "system/filesys.h"
++#include "librpc/gen_ndr/auth.h"
+ 
+ #include "config.h"
+ 
+@@ -60,6 +61,12 @@
+ 				+ strlen((sunp)->sun_path))
+ #endif
+ 
++struct scannedonly_DIR {
++	char *base;
++	int recheck_tries_done; /* if 0 the directory listing has not yet
++	been checked for files that need to be scanned. */
++	DIR *DIR;
++};
+ 
+ struct Tscannedonly {
+ 	int socket;
+@@ -82,16 +89,12 @@
+ 	const char *p_virus; /* prefix for virus containing files */
+ 	const char *p_failed; /* prefix for failed to scan files */
+ 	char gsendbuffer[SENDBUFFERSIZE + 1];
++
++    struct scannedonly_DIR *dir_data;
+ };
+ 
+ #define STRUCTSCANO(var) ((struct Tscannedonly *)var)
+ 
+-struct scannedonly_DIR {
+-	char *base;
+-	int recheck_tries_done; /* if 0 the directory listing has not yet
+-	been checked for files that need to be scanned. */
+-	DIR *DIR;
+-};
+ #define SCANNEDONLY_DEBUG 9
+ /*********************/
+ /* utility functions */
+@@ -511,6 +541,7 @@
+ 					   const char *mask, uint32 attr)
+ {
+ 	DIR *DIRp;
++	struct Tscannedonly *data = NULL;
+ 	struct scannedonly_DIR *sDIR;
+ 
+ 	DIRp = SMB_VFS_NEXT_OPENDIR(handle, fname, mask, attr);
+@@ -518,7 +549,7 @@
+ 		return NULL;
+ 	}
+ 
+-	sDIR = talloc(NULL, struct scannedonly_DIR);
++	sDIR = talloc(handle->conn, struct scannedonly_DIR);
+ 	if (fname[0] != '/') {
+ 		sDIR->base = construct_full_path(sDIR,handle, fname, true);
+ 	} else {
+@@ -528,7 +559,12 @@
+ 			("scannedonly_opendir, fname=%s, base=%s\n",fname,sDIR->base));
+ 	sDIR->DIR = DIRp;
+ 	sDIR->recheck_tries_done = 0;
+-	return (DIR *) sDIR;
++
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++				return NULL);
++	data->dir_data = sDIR;
++
++	return DIRp;
+ }
+ 
+ static DIR *scannedonly_fdopendir(vfs_handle_struct * handle,
+@@ -538,6 +574,7 @@
+ 	DIR *DIRp;
+ 	struct scannedonly_DIR *sDIR;
+ 	const char *fname;
++	struct Tscannedonly *data = NULL;
+ 
+ 	DIRp = SMB_VFS_NEXT_FDOPENDIR(handle, fsp, mask, attr);
+ 	if (!DIRp) {
+@@ -546,7 +583,7 @@
+ 
+ 	fname = (const char *)fsp->fsp_name->base_name;
+ 
+-	sDIR = talloc(NULL, struct scannedonly_DIR);
++	sDIR = talloc(handle->conn, struct scannedonly_DIR);
+ 	if (fname[0] != '/') {
+ 		sDIR->base = construct_full_path(sDIR,handle, fname, true);
+ 	} else {
+@@ -556,7 +593,11 @@
+ 			("scannedonly_fdopendir, fname=%s, base=%s\n",fname,sDIR->base));
+ 	sDIR->DIR = DIRp;
+ 	sDIR->recheck_tries_done = 0;
+-	return (DIR *) sDIR;
++
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++				return NULL);
++	data->dir_data = sDIR;
++	return DIRp;
+ }
+ 
+ 
+@@ -572,9 +613,12 @@
+ 	int namelen;
+ 	struct dirent *newdirent;
+ 	TALLOC_CTX *ctx=talloc_tos();
+-
+-	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
+-	if (!dirp) {
++	struct Tscannedonly *data = NULL;
++	struct scannedonly_DIR *sDIR = NULL;
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++			return NULL);
++	sDIR = data->dir_data;
++	if (!sDIR) {
+ 		return NULL;
+ 	}
+ 
+@@ -647,35 +691,20 @@
+ 	return newdirent;
+ }
+ 
+-static void scannedonly_seekdir(struct vfs_handle_struct *handle,
+-				DIR * dirp, long offset)
+-{
+-	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
+-	SMB_VFS_NEXT_SEEKDIR(handle, sDIR->DIR, offset);
+-}
+-
+-static long scannedonly_telldir(struct vfs_handle_struct *handle,
+-				DIR * dirp)
+-{
+-	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
+-	return SMB_VFS_NEXT_TELLDIR(handle, sDIR->DIR);
+-}
+-
+-static void scannedonly_rewinddir(struct vfs_handle_struct *handle,
+-				  DIR * dirp)
+-{
+-	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
+-	SMB_VFS_NEXT_REWINDDIR(handle, sDIR->DIR);
+-}
+-
+ static int scannedonly_closedir(vfs_handle_struct * handle,
+ 				DIR * dirp)
+ {
+ 	int retval;
+-	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
+-	flush_sendbuffer(handle);
+-	retval = SMB_VFS_NEXT_CLOSEDIR(handle, sDIR->DIR);
++	struct Tscannedonly *data = NULL;
++	struct scannedonly_DIR *sDIR = NULL;
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly, NULL);
++	if (data) {
++		sDIR = data->dir_data;
++		flush_sendbuffer(handle);
++	}
++	retval = SMB_VFS_NEXT_CLOSEDIR(handle, dirp);
+ 	TALLOC_FREE(sDIR);
++	data->dir_data = NULL;
+ 	return retval;
+ }
+ 
+@@ -837,6 +866,7 @@
+ static int scannedonly_unlink(vfs_handle_struct * handle,
+ 			      const struct smb_filename *smb_fname)
+ {
++	int ret;
+ 	/* unlink the 'scanned' file too */
+ 	struct smb_filename *smb_fname_cache = NULL;
+ 	char * cachefile;
+@@ -848,10 +878,29 @@
+ 		STRUCTSCANO(handle->data)->p_scanned);
+ 	create_synthetic_smb_fname(ctx, cachefile,NULL,NULL,
+ 				   &smb_fname_cache);
+-	if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
+-		DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
+-					  smb_fname_cache->base_name));
++	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
++	if (ret == 0) {
++	    if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
++			DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
++						smb_fname_cache->base_name));
++		}
+ 	}
++
++	/* unlink the 'failed' file too */
++	cachefile = cachefile_name_f_fullpath(
++		ctx,
++		smb_fname->base_name,
++		STRUCTSCANO(handle->data)->p_failed);
++	create_synthetic_smb_fname(ctx, cachefile,NULL,NULL,
++			&smb_fname_cache);
++	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
++	if (ret == 0) {
++		if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
++			DEBUG(0, ("_unlink: failed to unlink %s\n",
++						smb_fname_cache->base_name));
++		}
++	}
++
+ 	return SMB_VFS_NEXT_UNLINK(handle, smb_fname);
+ }
+ 
+@@ -864,6 +913,7 @@
+ 	TALLOC_CTX *ctx = talloc_tos();
+ 	bool only_deletable_files = true, have_files = false;
+ 	char *path_w_slash;
++	int ret;
+ 
+ 	if (!STRUCTSCANO(handle->data)->rm_hidden_files_on_rmdir)
+ 		return SMB_VFS_NEXT_RMDIR(handle, path);
+@@ -930,12 +980,45 @@
+ 		}
+ 	}
+ 	SMB_VFS_NEXT_CLOSEDIR(handle, dirp);
++
++	/* unlink the 'scanned' file too */
++	struct smb_filename *smb_fname_cache = NULL;
++	char * cachefile;
++	cachefile = cachefile_name_f_fullpath(
++			ctx,
++			path,
++			STRUCTSCANO(handle->data)->p_scanned);
++	create_synthetic_smb_fname(ctx, cachefile,NULL,NULL,
++			&smb_fname_cache);
++	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
++	if (ret == 0) {
++		if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
++			DEBUG(0, ("_unlink: failed to unlink %s\n",
++						smb_fname_cache->base_name));
++		}
++	}
++	/* unlink the 'failed' file too */
++	cachefile = cachefile_name_f_fullpath(
++			ctx,
++			path,
++			STRUCTSCANO(handle->data)->p_failed);
++	create_synthetic_smb_fname(ctx, cachefile,NULL,NULL,
++			&smb_fname_cache);
++	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
++	if (ret == 0) {
++		if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
++			DEBUG(0, ("_unlink: failed to unlink %s\n",
++						smb_fname_cache->base_name));
++		}
++	}
+ 	return SMB_VFS_NEXT_RMDIR(handle, path);
+ }
+ 
+-static void free_scannedonly_data(void **data)
++static void free_scannedonly_data(void **datap)
+ {
+-	SAFE_FREE(*data);
++	struct Tscannedonly *data = (struct Tscannedonly *) *datap;
++	SAFE_FREE(data);
++	*datap = NULL;
+ }
+ 
+ static int scannedonly_connect(struct vfs_handle_struct *handle,
+@@ -949,8 +1032,10 @@
+ 		errno = ENOMEM;
+ 		return -1;
+ 	}
+-	handle->data = (void *)so;
+-	handle->free_data = free_scannedonly_data;
++	SMB_VFS_HANDLE_SET_DATA(handle, so, free_scannedonly_data,
++				struct Tscannedonly, return -1);
++
++	so->dir_data = NULL;
+ 	so->gsendbuffer[0]='\0';
+ 	so->domain_socket =
+ 		lp_parm_bool(SNUM(handle->conn), "scannedonly",
+@@ -1024,9 +1109,6 @@
+ 	.opendir_fn = scannedonly_opendir,
+ 	.fdopendir_fn = scannedonly_fdopendir,
+ 	.readdir_fn = scannedonly_readdir,
+-	.seekdir_fn = scannedonly_seekdir,
+-	.telldir_fn = scannedonly_telldir,
+-	.rewind_dir_fn = scannedonly_rewinddir,
+ 	.closedir_fn = scannedonly_closedir,
+ 	.rmdir_fn = scannedonly_rmdir,
+ 	.stat_fn = scannedonly_stat,

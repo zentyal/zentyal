@@ -1,0 +1,68 @@
+Index: samba/source3/modules/vfs_scannedonly.c
+===================================================================
+--- samba.orig/source3/modules/vfs_scannedonly.c	2013-01-15 17:29:56.097867062 +0100
++++ samba/source3/modules/vfs_scannedonly.c	2013-01-15 17:30:30.929867300 +0100
+@@ -311,28 +311,55 @@
+ 	}
+ }
+ 
++static char *zavs_prefix(TALLOC_CTX *ctx, connection_struct *conn)
++{
++	char *result = NULL;
++
++	result = talloc_sub_advanced(ctx,
++			lp_servicename(talloc_tos(), SNUM(conn)),
++			conn->session_info->unix_info->unix_name,
++			conn->connectpath,
++			conn->session_info->unix_token->gid,
++			conn->session_info->unix_info->sanitized_username,
++			conn->session_info->info->domain_name,
++			"%u\x1E%I");
++	return result;
++}
++
+ static void notify_scanner(vfs_handle_struct * handle, const char *scanfile)
+ {
+-	const char *tmp;
+-	int tmplen, gsendlen;
++	char *tmp, *prefix, *msg;
++	int msglen, gsendlen;
+ 	struct Tscannedonly *so = (struct Tscannedonly *)handle->data;
+ 	TALLOC_CTX *ctx=talloc_tos();
+ 	if (scanfile[0] != '/') {
+ 		tmp = construct_full_path(ctx,handle, scanfile, false);
+ 	} else {
+-		tmp = (const char *)scanfile;
++		tmp = (char *)scanfile;
++	}
++	prefix = zavs_prefix(ctx, handle->conn);
++	if (!prefix) {
++		return;
++	}
++	msg = talloc_asprintf(ctx, "%s\x1E%s", prefix, tmp);
++	if (!msg) {
++		TALLOC_FREE(prefix);
++		return;
+ 	}
+-	tmplen = strlen(tmp);
++
++	msglen = strlen(msg);
+ 	gsendlen = strlen(so->gsendbuffer);
+ 	DEBUG(SCANNEDONLY_DEBUG,
+-	      ("scannedonly notify_scanner: tmp=%s, tmplen=%d, gsendlen=%d\n",
+-	       tmp, tmplen, gsendlen));
+-	if (gsendlen + tmplen >= SENDBUFFERSIZE) {
++	      ("scannedonly notify_scanner: msg=%s, msglen=%d, gsendlen=%d\n",
++	       msg, msglen, gsendlen));
++	if (gsendlen + msglen >= SENDBUFFERSIZE) {
+ 		flush_sendbuffer(handle);
+ 	}
+ 	/* FIXME ! Truncate checks... JRA. */
+-	(void)strlcat(so->gsendbuffer, tmp, SENDBUFFERSIZE + 1);
++	(void)strlcat(so->gsendbuffer, msg, SENDBUFFERSIZE + 1);
+ 	(void)strlcat(so->gsendbuffer, "\n", SENDBUFFERSIZE + 1);
++	TALLOC_FREE(prefix);
++	TALLOC_FREE(msg);
+ }
+ 
+ static bool is_scannedonly_file(struct Tscannedonly *so, const char *shortname)
