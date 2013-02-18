@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed table cache behaviour on cache miss in logs module
 	+ Fix wrong button label when deleting rows in 'datainuse' template
 	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
 	+ Added force default mode and permission to writeConfFileNoCheck(),
