@@ -1226,10 +1226,11 @@ sub restoreConfig
     EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
     # Unpack sysvol and private
-    my $sambaPrefix = 'var/lib/samba/';
-    foreach my $archive ('sysvol', 'private') {
+    my %dest = ( sysvol => $sysvolDir, private => $privateDir );
+    foreach my $archive (keys %dest) {
         if (EBox::Sudo::fileTest('-f', "$dir/$archive.tar.bz2")) {
-            EBox::Sudo::root("tar jxfp $dir/$archive.tar.bz2 --transform 's!^$sambaPrefix!!' -C /$sambaPrefix");
+            my $destdir = dirname($dest{$archive});
+            EBox::Sudo::root("tar jxfp $dir/$archive.tar.bz2 -C $destdir");
         }
     }
 
@@ -1263,7 +1264,7 @@ sub restoreConfig
 
     $self->restartService();
 
-    $self->resetSysvolACL();
+    $self->getProvision()->resetSysvolACL();
 }
 
 sub restoreDependencies
