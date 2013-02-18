@@ -417,11 +417,12 @@ sub _setWebServerConf
 
     if ($vhost eq 'disabled') {
         my $destFile = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
-        $self->writeConfFile($destFile, 'webmail/apache.mas', []);
+        $self->writeConfFile($destFile, 'webmail/apache.mas', [vhost => 0]);
     } else {
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
-        $self->writeConfFile($destFile, 'webmail/apache.mas', []);
+        EBox::debug("DEST $destFile");
+        $self->writeConfFile($destFile, 'webmail/apache.mas', [vhost => 1]);
     }
 }
 
