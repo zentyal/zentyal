@@ -34,6 +34,7 @@ use EBox::DNS::Model::AliasTable;
 use EBox::Model::Manager;
 use EBox::Sudo;
 use EBox::DNS::FirewallHelper;
+use EBox::NetWrappers;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
@@ -825,6 +826,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'internalLocalNets' => $self->_internalLocalNets());
     push(@array, 'sambaZones' => $sambaZones);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
@@ -922,6 +924,20 @@ sub _intnets
     }
 
     return \@intnets;
+}
+
+sub _internalLocalNets
+{
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
+    my @localNets = map {
+        my $iface = $_;
+        my $net  = $network->ifaceNetwork($iface);
+        my $fullmask = $network->ifaceNetmask($iface);
+        my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+        ("$net/$mask");
+    } @{ $network->InternalIfaces };
+    return \@localNets;
 }
 
 # Method: _domainIpAddresses

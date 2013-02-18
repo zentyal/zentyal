@@ -2,6 +2,7 @@
     @domains
     @inaddrs
     @intnets
+    @internalLocalNets => ()
     $confDir
     $dynamicConfDir
     $sambaZones => undef
@@ -40,6 +41,12 @@ acl "trusted" {
 % }
     localhost;
     localnets;
+};
+
+acl "internal-local-nets" {
+% foreach my $net (@internalLocalNets) {
+    <% $net %>;
+% }
 };
 
 % if (defined $sambaZones and scalar @{$sambaZones}) {
