@@ -1,4 +1,6 @@
 HEAD
+	+ Logged in log file the begin and the end of consolidation of
+	  logs in database
 	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
 	+ Added force default mode and permission to writeConfFileNoCheck(),
 	  writeFile() and derivatives

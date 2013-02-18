@@ -958,6 +958,11 @@ sub _checkSize
         }
     };
 
+    if (not $size) {
+        EBox::warn("No size information in the backup, cannot check free space");
+        return;
+    }
+
     my $backupDir = $self->backupDir();
     $freeSpace = df($backupDir, 1024)->{bfree};
 

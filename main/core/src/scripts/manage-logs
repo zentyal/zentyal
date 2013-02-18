@@ -28,7 +28,9 @@ try {
     unless (EBox::Config::boolean('disable_consolidation')) {
         # we consolidate before the purge to not lose any data
         # This is intended for summarised reports
+        EBox::info('Begin logs consolidation');
         EBox::Logs::Consolidate->consolidate('all');
+        EBox::info('End of logs consolidation');
     }
 
     $logs->archiveBackupSlices();
