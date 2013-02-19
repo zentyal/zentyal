@@ -1,4 +1,6 @@
 HEAD
+	+ Fix generation of reverse zones, the host part of the addresses
+	  was not removed
 	+ Fixed bug which used all addresses available in a interface to
 	  generate DNS reverse zone instead of the configured ranges
 3.0.2
