@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug that made that the lock was shared between owners
 	+ Allowed error class in msg template
 	+ Better form validation message when there are no ids for
 	  foreign rows in select control with add new popup
