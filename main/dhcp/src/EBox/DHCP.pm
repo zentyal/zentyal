@@ -1154,7 +1154,6 @@ sub _setDHCPConf
         }
     }
     push(@params, ('pidFile' => PIDFILE));
-
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 
 }
@@ -1420,10 +1419,11 @@ sub _reverseZones
         do {
             my $rev = Net::IP->new($ip->ip())->reverse_ip();
             if ( defined($rev) ) {
-                # It returns 0.netaddr.in-addr.arpa so we need to remove it
+                # It returns 100.55.168.192.netaddr.in-addr.arpa for
+                # example so we need to remove the first group
                 # to make it compilant with bind zone definition
-                $rev =~ s/^0\.//;
-                push(@revZones, $rev);
+                $rev =~ s/^[0-9]+\.//;
+                push (@revZones, $rev);
             }
         } while ( $ip += 256 );
     }
