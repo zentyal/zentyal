@@ -958,6 +958,11 @@ sub _checkSize
         }
     };
 
+    if (not $size) {
+        EBox::warn("Size file not found in the backup. Can not check if there is enough space to complete the restore");
+        return;
+    }
+
     my $backupDir = $self->backupDir();
     $freeSpace = df($backupDir, 1024)->{bfree};
 
