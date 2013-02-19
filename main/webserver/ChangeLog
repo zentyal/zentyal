@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug when checking hostname aliases on creation of a
+	  virtual host
 	+ When dumping config the no existence of configuration
 	  directories generates a warning instead of a error
 3.0.2

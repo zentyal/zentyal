@@ -1,3 +1,6 @@
+HEAD
+	+ When using virtual host the webmail interface is available at
+	  the virtual host root
 2.3.3
 	+ Use full path for notifier of notifyActions. More restrictive
 	  notifyForeignModelAction()

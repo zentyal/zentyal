@@ -151,7 +151,7 @@ Define the SNMP configuration as SNMP agent
 </%doc>
 acl snmppublic snmp_community public
 snmp_port 3401
-snmp_access allow snmppublic to_localhost
+snmp_access allow snmppublic from_localhost
 snmp_access deny all
 </%def>
 ###################################################################################

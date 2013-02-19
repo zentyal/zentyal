@@ -262,6 +262,13 @@ sub setConfigured
             $self->setNeedsSaveAfterConfig(undef);
         }
     }
+
+    # clear log cache info because tables could have been added or removed
+    my $logs = $self->global()->modInstance('logs');
+    if ($logs) {
+        $logs->clearTableInfoCache();
+    }
+
     return $self->st_set_bool('_serviceConfigured', $status);
 }
 
