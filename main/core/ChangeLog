@@ -1,4 +1,6 @@
 HEAD
+	+ Better warning if size file is missing in a backup when
+	  restoring it
 	+ Fixed table cache behaviour on cache miss in logs module
 	+ Fix wrong button label when deleting rows in 'datainuse' template
 	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
