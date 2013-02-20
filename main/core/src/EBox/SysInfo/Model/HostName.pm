@@ -38,16 +38,6 @@ use constant MAX_HOSTNAME_LENGTH => 15;
 use constant MIN_HOSTDOMAIN_LENGTH => 2;
 use constant MAX_HOSTDOMAIN_LENGTH => 64 - 1 - MAX_HOSTNAME_LENGTH;
 
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
-
 sub _table
 {
     my ($self) = @_;
@@ -82,11 +72,15 @@ sub _table
                       return undef;
                   }
 
-
                   my $title = __('Change hostname');
-                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
-                              new => $newHostname . '.' . $newHostdomain
-                             );
+                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change', new => $newHostname . '.' . $newHostdomain);
+
+                  # TODO: implement this in a cooler way with SysInfo::Observer so more modules
+                  #       can warn about the hostname change if needed
+                  if (EBox::Global->modExists('samba') and EBox::Global->modInstance('samba')->isProvisioned()) {
+                    $msg = __x('WARNING: As the Samba module is already installed and configured, if you change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure you want to continue?', new => $newHostname . '.' . $newHostdomain);
+                  }
+
                   if ($newHostdomain =~ m/\.local$/i) {
                       $msg .= q{<p>};
                       $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");

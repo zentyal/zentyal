@@ -1,4 +1,6 @@
 HEAD
+	+ Show confirmation dialog when trying to change host or domain
+	  if zentyal-samba is installed and provisioned
 	+ Better warning if size file is missing in a backup when
 	  restoring it
 	+ Fixed table cache behaviour on cache miss in logs module

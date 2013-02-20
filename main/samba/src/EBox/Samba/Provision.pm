@@ -267,6 +267,12 @@ sub provision
     }
 }
 
+sub reprovision
+{
+    #FIXME
+    EBox::info("Reprovisioning...");
+}
+
 sub resetSysvolACL
 {
     my ($self) = @_;

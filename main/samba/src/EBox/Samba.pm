@@ -792,8 +792,15 @@ sub _setConf
 
     return unless $self->configured() and $self->isEnabled();
 
-    $self->getProvision->provision()
-        unless $self->getProvision->isProvisioned();
+    my $prov = $self->getProvision();
+    if ($prov->isProvisioned()) {
+        if ($self->get('need_reprovision')) {
+            $prov->reprovision();
+            $self->unset('need_reprovision');
+        }
+    } else {
+        $prov->provision();
+    }
 
     $self->writeSambaConfig();
 
@@ -1899,10 +1906,7 @@ sub hostNameChanged
     my ($self, $oldHostName, $newHostName) = @_;
 
     if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The samba database has already been provisioned. ' .
-                         'Changing the host name will cause domain services to ' .
-                         'stop working.'));
+        $self->set('need_reprovision', 1);
     }
 }
 
@@ -1930,10 +1934,7 @@ sub hostDomainChanged
     my ($self, $oldDomainName, $newDomainName) = @_;
 
     if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The samba database has already been provisioned. ' .
-                         'Changing the host domain will cause domain services to ' .
-                         'stop working.'));
+        $self->set('need_reprovision', 1);
     }
 }
 
