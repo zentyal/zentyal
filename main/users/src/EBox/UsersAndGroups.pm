@@ -1689,10 +1689,13 @@ sub hostDomainChanged
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
-    if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
-    }
+    # FIXME: implement here a reprovision mechanism similar to the one in samba
+    #        we just need to make sure we don't reprovision twice
+
+    #if ($self->configured()) {
+    #    throw EBox::Exceptions::UnwillingToPerform(
+    #        reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
+    #}
 }
 
 # Method: hostDomainChangedDone
