@@ -1905,9 +1905,7 @@ sub hostNameChanged
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    if ($self->configured()) {
-        $self->set('need_reprovision', 1);
-    }
+    $self->_hostOrDomainChanged();
 }
 
 # Method: hostNameChangedDone
@@ -1932,6 +1930,16 @@ sub hostNameChangedDone
 sub hostDomainChanged
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
+
+    $self->_hostOrDomainChanged();
+}
+
+sub _hostOrDomainChanged
+{
+    my ($self) = @_;
+
+    # FIXME: If joined to domain, throw UnwillingToPerform exception
+    #        as reprovision of that situation won't be supported yet
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
