@@ -1,4 +1,4 @@
-HEAD
+3.0.13
 	+ Better warning if size file is missing in a backup when
 	  restoring it
 	+ Fixed table cache behaviour on cache miss in logs module
