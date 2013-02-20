@@ -1,3 +1,5 @@
+HEAD
+	+ Added method to clear entire LDAP database (used for samba reprovision)
 3.0.9
 	+ Stop heimdal daemons on enableActions
 	+ Fixed alphabetical order in listing of users and groups

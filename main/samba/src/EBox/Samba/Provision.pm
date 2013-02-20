@@ -269,8 +269,13 @@ sub provision
 
 sub reprovision
 {
-    #FIXME
-    EBox::info("Reprovisioning...");
+    my ($self) = @_;
+
+    EBox::info("Reprovisioning users module ...");
+    EBox::Global->modInstance('users')->reprovision();
+
+    EBox::info("Reprovisioning samba module ...");
+    $self->provision();
 }
 
 sub resetSysvolACL

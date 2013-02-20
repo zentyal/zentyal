@@ -1711,6 +1711,22 @@ sub hostDomainChangedDone
     }
 }
 
+# Method: reprovision
+#
+#   Destroys all LDAP/Kerberos configuration and creates a new
+#   empty one. Useful after a host/domain change.
+#
+sub reprovision
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    # FIXME: delete current data?
+
+    $self->enableActions();
+}
+
 # Implement EBox::SyncFolders::Provider interface
 sub syncFolders
 {
