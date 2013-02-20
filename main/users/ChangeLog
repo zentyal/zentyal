@@ -1,3 +1,5 @@
+HEAD
+	+ Ldap modules should do a slaveSetup when slave mode enabled
 3.0.9
 	+ Stop heimdal daemons on enableActions
 	+ Fixed alphabetical order in listing of users and groups

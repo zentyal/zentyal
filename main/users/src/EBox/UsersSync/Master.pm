@@ -275,7 +275,18 @@ sub _recreateLDAP
     # Enable actions (without slave setup to avoid recursion)
     $users->enableActions();
 
-    # TODO: reenable all LDAP modules
+    # LDAP modules should reconfigure them selves for its slave role
+    my @mods = @{ $users->global()->modInstances() };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $users->name()) {
+            # already reconfigured
+            next;
+        }
+
+        $mod->slaveSetup();
+    }
 }
 
 sub _analyzeException

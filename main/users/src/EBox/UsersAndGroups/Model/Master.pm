@@ -215,13 +215,34 @@ sub validateTypedRow
         }
     }
 
+    # mail need special treatment, if we have more modules like that we will
+    # generalize its interface of setSlaveSetup and slaveSetupWarning
+    my $mailMod = $self->global()->modInstance('mail');
+
     unless ($force) {
+        my $warnMsg = '';
         my $nUsers = scalar @{$users->users()};
         if ($nUsers > 0 and $destroy) {
-            throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
+            $warnMsg = (__('CAUTION: this will delete all defined users and import master ones.'));
+        }
+
+        if ($mailMod) {
+            my $mailWarn = $mailMod->slaveSetupWarning($master);
+            if ($mailWarn) {
+                $warnMsg .= '<br/>' if $warnMsg;
+                $warnMsg .= $mailWarn;
+            }
+        }
+
+        if ($warnMsg) {
+            throw EBox::Exceptions::DataInUse($warnMsg);
         }
     }
 
+    # notify to mail module that we will have a
+    if ($mailMod) {
+        $mailMod->preSlaveSetup($master);
+    }
     # set apache as changed
     my $apache = EBox::Global->modInstance('apache');
     $apache->setAsChanged();

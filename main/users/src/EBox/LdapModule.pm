@@ -261,4 +261,10 @@ sub performLDAPActions
     }
 }
 
+sub slaveSetup
+{
+    my ($self) = @_;
+    $self->performLDAPActions();
+}
+
 1;
