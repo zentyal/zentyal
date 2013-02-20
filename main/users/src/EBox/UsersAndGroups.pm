@@ -1691,6 +1691,7 @@ sub hostDomainChanged
 
     # FIXME: implement here a reprovision mechanism similar to the one in samba
     #        we just need to make sure we don't reprovision twice
+    EBox::Global->modChange('samba');
 
     #if ($self->configured()) {
     #    throw EBox::Exceptions::UnwillingToPerform(
@@ -1725,7 +1726,9 @@ sub reprovision
 
     return unless $self->configured();
 
-    # FIXME: delete current data?
+    $self->_manageService('stop');
+    EBox::Sudo::root('rm -rf /var/lib/ldap/*');
+    $self->_manageService('start');
 
     $self->enableActions();
 }

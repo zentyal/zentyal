@@ -1955,16 +1955,16 @@ sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
-    unless ($self->configured()) {
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue('realm', uc ($newDomainName));
+    # FIXME: don't do this if joined to a domain as additional DC
 
-        my @parts = split (/\./, $newDomainName);
-        my $value = substr($parts[0], 0, 15);
-        $value = 'ZENTYAL-DOMAIN' unless defined $value;
-        $value = uc ($value);
-        $settings->setValue('workgroup', $value);
-    }
+    my $settings = $self->model('GeneralSettings');
+    $settings->setValue('realm', uc ($newDomainName));
+
+    my @parts = split (/\./, $newDomainName);
+    my $value = substr($parts[0], 0, 15);
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
+    $value = uc ($value);
+    $settings->setValue('workgroup', $value);
 }
 
 1;
