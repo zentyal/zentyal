@@ -599,7 +599,7 @@ sub checkDnsZonesInMainPartition
 
     if (scalar @zoneNames > 0) {
         my $zoneNames = join (', ', @zoneNames);
-        my $wikiLink = "http://wiki.zentyal.org"; # TODO
+        my $link = 'http://technet.microsoft.com/en-us/library/cc730964';
         my $msg = __x('Could not join to domain. The following DNS zones are ' .
                       'stored in the main domain partition: {zones}. ' .
                       'This normally happen when the server is upgraded from ' .
@@ -607,7 +607,7 @@ sub checkDnsZonesInMainPartition
                       'these zones. Please, move the zones to the ' .
                       '"DomainDnsZones" or "ForestDnsZones" and try again. ' .
                       'Check {link} for help on how to do that.',
-                      zones => $zoneNames, link => $wikiLink);
+                      zones => $zoneNames, link => $link);
         throw EBox::Exceptions::External($msg);
     }
 }

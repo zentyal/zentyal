@@ -1,4 +1,5 @@
 HEAD
+	+ Fix wrong URL on provision message
 	+ Better error messages when the environment checks for provision fail
 	+ Forbid provision if the server is replicating users either master or slave
 3.0.13
