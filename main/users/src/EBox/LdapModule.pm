@@ -261,6 +261,16 @@ sub performLDAPActions
     }
 }
 
+# Method: slaveSetup
+#
+#  this is called when the slave setup. The slave setup is done when saving
+#  changes so this is normally used to modify LDAP or other tasks which don't
+#  change configuration.
+#
+#  The default implementation perform the initial LDAP actions
+#
+# For changing configuration before the save changes we will use the
+# preSlaveSetup methos which currently is only called for module mail
 sub slaveSetup
 {
     my ($self) = @_;
