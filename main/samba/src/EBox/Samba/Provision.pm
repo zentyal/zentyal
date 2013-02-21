@@ -23,6 +23,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
+use EBox::Global;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
@@ -77,12 +78,13 @@ sub setProvisioned
 sub checkEnvironment
 {
     my ($self, $throwException) = @_;
-
     unless (defined $throwException) {
         throw EBox::Exceptions::MissingArgument('throwException');
     }
 
-    # Get the own doamin
+    $self->_checkUsersState();
+
+    # Get the own domain
     my $sysinfo    = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
     my $hostName   = $sysinfo->hostName();
@@ -91,7 +93,7 @@ sub checkEnvironment
     my $users = EBox::Global->modInstance('users');
     my $realm = $users->kerberosRealm();
 
-    # The own doamin and the kerberos realm must be equal
+    # The own domain and the kerberos realm must be equal
     my $samba = EBox::Global->modInstance('samba');
     unless (lc $hostDomain eq lc $realm) {
         $samba->enableService(0);
@@ -233,6 +235,30 @@ sub setupDNS
 
     # And force service restart
     $dnsModule->save();
+}
+
+sub _checkUsersState
+{
+    my ($self) = @_;
+    my $users = EBox::Global->modInstance('users');
+    if ($users->master() eq 'zentyal') {
+        throw EBox::Exceptions::External(
+            __x('Cannot enable Samba because this server is synchronizing its users as slave of other Zentyal.' .
+                '<br/>You can change this state at {ohref}synchronization options{chref}',
+                ohref => q{<a href='/Users/Composite/Sync'>},
+                chref => '</a>'
+               )
+           );
+    }
+    if (@{ $users->slaves()} > 0) {
+        throw EBox::Exceptions::External(
+            __x('Cannot enable Samba because this server is acting as users replication master.' .
+                '<br/>You can change this state at {ohref}synchronization options{chref}',
+                ohref => q{<a href='/Users/Composite/Sync'>},
+                chref => '</a>'
+               )
+           );
+    }
 }
 
 # Method: provision
