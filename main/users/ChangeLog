@@ -1,4 +1,5 @@
 HEAD
+	+ Display users groups in slave mode
 	+ Avoided hang when the local host is wrongly used as master slave
 	+ Ldap modules should do a slaveSetup when slave mode enabled
 3.0.9
