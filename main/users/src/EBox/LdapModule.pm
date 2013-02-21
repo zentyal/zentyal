@@ -277,4 +277,34 @@ sub slaveSetup
     $self->performLDAPActions();
 }
 
+# Method: preSlaveSetup
+#
+#  This is called to made change in the module when the server
+#  is configured to enter in slave mode. Configuration changes
+#  should be done there and will be committed in the next saving of changes.
+#
+# Parameters:
+#  master - master type
+#
+sub preSlaveSetup
+{
+    my ($self, $master) = @_;
+}
+
+# Method: preSlaveSetup
+#
+# This method can be used to put a warning to be seen by the administrator
+# before setting slave mode. The module should warn of nay destructive action
+# entailed by the change of mode.
+#
+# Parameters:
+#  master -master type
+#
+sub slaveSetupWarning
+{
+    my ($self, $master) = @_;
+    return undef;
+}
+
+
 1;
