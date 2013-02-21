@@ -16,7 +16,7 @@ $ORIGIN <% $groupip %>.in-addr.arpa.
 			1D )		;
 ;
 % foreach my $ns (@{$rdata->{'ns'}}) {
-		NS	<% $ns %>.<% $rdata->{'domain'} %>.
+<% $groupip %>.in-addr.arpa.    NS	<% $ns %>.<% $rdata->{'domain'} %>.
 % }
 ;
 % foreach my $host (@{$rdata->{'hosts'}}) {
