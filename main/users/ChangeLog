@@ -1,3 +1,5 @@
+HEAD
+	+ Forbid user synchronization with other zentyals if samba is provisioned
 3.0.9
 	+ Stop heimdal daemons on enableActions
 	+ Fixed alphabetical order in listing of users and groups
