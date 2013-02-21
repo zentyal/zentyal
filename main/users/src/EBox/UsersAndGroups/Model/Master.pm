@@ -165,7 +165,7 @@ sub _unlocked
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $allParams, $force) = @_;
-
+    $self->_checkSamba();
 
     my $master = exists $allParams->{master} ?
                         $allParams->{master}->value() :
@@ -251,5 +251,15 @@ sub validateTypedRow
     $apache->setAsChanged();
 }
 
+sub _checkSamba
+{
+    my $samba = EBox::Global->modInstance('samba');
+    if (not $samba) {
+        return;
+    }
+    if ($samba->configured()) {
+        throw EBox::Exceptions::External(__('Cannot synchronize users with other Zentyal if Samba is either in use or provisioned'));
+    }
+}
 
 1;
