@@ -61,6 +61,9 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
                 </td>
             </tr>
+% if ($slave) {
+         <& .groupsRO, usergroups => \@usergroups &>
+% }
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
@@ -93,6 +96,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 </td>
             </tr>
 % }
+
             <tr>
                 <td>
                 </td>
@@ -107,7 +111,49 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
         </form>
 
 % unless ($slave) {
-<!-- Groups widget -->
+<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
+% }
+
+% foreach my $comp (@components) {
+      <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
+% }
+
+% unless ($slave) {
+
+<h3><%__('Delete user')%></h3>
+<div class='note'>
+    <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
+</div>
+<form action='Del' method='POST'>
+<p>
+<input type="hidden" name="objectname" value="<% $user->dn() %>">
+            <input class='inputButton' type='submit' name='deluser'
+                   value="<% __('Delete user') %>"
+                   alt="<% __('Delete user') %>">
+</p>
+</form>
+% }
+
+<%def masterSlaveUserAttr>
+<%args>
+$name
+$value
+$slave
+</%args>
+% if ($slave) {
+<% $value %>
+ <input type="hidden" name="<% $name %>" value="<% $value %>" />
+% } else {
+ <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+%}
+</%def>
+
+<%def .groupsRW>
+<%args>
+$user
+@usergroups
+@remaingroups
+</%args>
 <table>
 <thead>
     <tr>
@@ -174,38 +220,39 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 </tr>
 </tbody>
 </table>
-% }
 
-% foreach my $comp (@components) {
-      <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
-% }
+</%def>
 
-% unless ($slave) {
-
-<h3><%__('Delete user')%></h3>
-<div class='note'>
-    <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
-</div>
-<form action='Del' method='POST'>
-<p>
-<input type="hidden" name="objectname" value="<% $user->dn() %>">
-            <input class='inputButton' type='submit' name='deluser'
-                   value="<% __('Delete user') %>"
-                   alt="<% __('Delete user') %>">
-</p>
-</form>
-% }
-
-<%def masterSlaveUserAttr>
+<%def .groupsRO>
 <%args>
-$name
-$value
-$slave
+@usergroups
 </%args>
-% if ($slave) {
-<% $value %>
- <input type="hidden" name="<% $name %>" value="<% $value %>" />
-% } else {
- <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
-%}
+<%init>
+my $groupStr;
+if (@usergroups) {
+    my $firstGroup = shift @usergroups;
+    $groupStr =  $firstGroup->name();
+} else {
+   $groupStr =  __('No member of any group');
+}
+</%init>
+           <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('Groups') %>:
+                    </span>
+                </td>
+                <td>
+                   <% $groupStr %>
+                </td>
+            </tr>
+% foreach my $group (@usergroups) {
+           <tr>
+                <td class='tright'>
+                </td>
+                <td>
+                   <% $group->name() %>
+                </td>
+            </tr>
+% }
 </%def>
