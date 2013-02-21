@@ -67,7 +67,9 @@ sub printableValue
     my ($self) = @_;
 
     if (defined($self->{'hour'}) and defined($self->{'min'}) and defined($self->{'sec'})) {
-        return "$self->{'hour'}:$self->{'min'}:$self->{'sec'}";
+        return sprintf("%02d", $self->{hour}) . ':'  .
+               sprintf("%02d", $self->{min}) . ':'  .
+               sprintf("%02d", $self->{sec});
     } else   {
         return '';
     }
@@ -229,9 +231,9 @@ sub _setValue # (value)
     my ($self, $value) = @_;
 
     my ($hour, $min, $sec) = split (':', $value);
-    $hour =~ s/^0+//;
-    $min =~ s/^0+//;
-    $sec =~ s/^0+//;
+    $hour =~ s/^0// if defined $hour;
+    $min =~ s/^0//  if defined $min;
+    $sec =~ s/^0//  if defined $sec;
 
 
     my $params = {
