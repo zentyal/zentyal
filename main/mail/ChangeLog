@@ -1,4 +1,5 @@
 HEAD
+	+ Added module particular facilities for slave setup
 	+ Added a ebox.postgrey upstart config file in package to avoid
 	  errors before we generate it in the _setConf
 	+ Fixed bug triggered when removing all users from a virtual domain

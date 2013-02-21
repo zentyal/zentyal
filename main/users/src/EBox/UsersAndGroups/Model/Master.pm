@@ -215,11 +215,35 @@ sub validateTypedRow
         }
     }
 
+    my @ldapMods = grep {
+        my $mod = $_;
+        ($mod->name() ne $users->name()) and
+         ($mod->isa('EBox::LdapModule'))
+    } @{ $self->global->modInstances() };
+
     unless ($force) {
+        my $warnMsg = '';
         my $nUsers = scalar @{$users->users()};
         if ($nUsers > 0 and $destroy) {
-            throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
+            $warnMsg = (__('CAUTION: this will delete all defined users and import master ones.'));
         }
+
+        foreach my $mod (@ldapMods) {
+            my $modWarn = $mod->slaveSetupWarning($master);
+            if ($modWarn) {
+                $warnMsg .= '<br/>' if $warnMsg;
+                $warnMsg .= $modWarn;
+            }
+        }
+
+
+        if ($warnMsg) {
+            throw EBox::Exceptions::DataInUse($warnMsg);
+        }
+    }
+
+    foreach my $mod (@ldapMods) {
+        $mod->preSlaveSetup($master);
     }
 
     # set apache as changed

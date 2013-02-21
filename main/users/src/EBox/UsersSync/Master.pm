@@ -88,7 +88,6 @@ sub getCertificate()
 sub setupMaster
 {
     my ($self, $pass) = @_;
-
     defined $pass or
         $pass = EBox::Util::Random::generate(15);
 
@@ -161,9 +160,35 @@ sub addSlave
 sub checkMaster
 {
     my ($self, $host, $port, $password) = @_;
+    # use global RW because this is checked when modifying sync setup
+    my $global = EBox::Global->getInstance();
 
-    my $apache = EBox::Global->modInstance('apache');
-    my $users = EBox::Global->modInstance('users');
+    if (($host eq 'localhost') or ($host =~ m/^127\.\d+\.\d+\.\d+/)) {
+        throw EBox::Exceptions::External(
+            __x('Master {addr} is invalid because it is the address of the loopback interface',
+                addr => $host
+            )
+           );
+    }
+
+    my $netMod = $global->modInstance('network');
+    foreach my $iface (@{ $netMod->allIfaces() }) {
+        my @addrs = @{ $netMod->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            my $addr = $addr_r->{address};
+            if ($addr eq $host) {
+                throw EBox::Exceptions::External(
+                    __x('Master {addr} is invalid because it is the address of the interface {if}',
+                        addr => $host,
+                        if   => $iface,
+                       )
+                   );
+            }
+        }
+    }
+
+    my $apache = $global->modInstance('apache');
+    my $users = $global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $master = EBox::SOAPClient->instance(
@@ -275,7 +300,18 @@ sub _recreateLDAP
     # Enable actions (without slave setup to avoid recursion)
     $users->enableActions();
 
-    # TODO: reenable all LDAP modules
+    # LDAP modules should reconfigure them selves for its slave role
+    my @mods = @{ $users->global()->modInstances() };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $users->name()) {
+            # already reconfigured
+            next;
+        }
+
+        $mod->slaveSetup();
+    }
 }
 
 sub _analyzeException
