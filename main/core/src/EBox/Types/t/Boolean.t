@@ -17,24 +17,18 @@
 use strict;
 use warnings;
 
-use Test::More tests => 19;
-
-use EBox::TestStubs;
-
+use Test::More tests => 13;
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::Boolean;
 
-EBox::TestStubs::activateTestStubs();
 
-EBox::Types::Test::defaultValueOk('EBox::Types::Boolean', 0);
-EBox::Types::Test::defaultValueOk('EBox::Types::Boolean', 1);
+EBox::Types::TestHelper::setupFakes();
 
-EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 1, 0);
-EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 0, 1);
-
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Boolean', 0);
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Boolean', 1);
 
 my $trueBoolean = new EBox::Types::Boolean(
                                        fieldName => 'trueBool',
@@ -47,19 +41,19 @@ my $falseBoolean = new EBox::Types::Boolean(
                                        value => 0,
                                       );
 
-EBox::Types::Test::cloneTest($trueBoolean);
-EBox::Types::Test::cloneTest($falseBoolean);
+EBox::Types::TestHelper::cloneTest($trueBoolean);
+EBox::Types::TestHelper::cloneTest($falseBoolean);
 
-ok $falseBoolean->isEqualTo($falseBoolean->clone()), 
+ok $falseBoolean->isEqualTo($falseBoolean->clone()),
     'checking isEqualTo for equality';
 ok( (not $falseBoolean->isEqualTo($trueBoolean)),
     'checking isEqualTo for inequality'
   );
 
 is $trueBoolean->cmp($trueBoolean->clone()), 0, 'checking cmp method for equality';
-is $trueBoolean->cmp($falseBoolean), 1, 
+is $trueBoolean->cmp($falseBoolean), 1,
     'checking cmp method for lesser other object';
-is $falseBoolean->cmp($trueBoolean), -1, 
+is $falseBoolean->cmp($trueBoolean), -1,
     'checking cmp method for grater other object';
 
 1;

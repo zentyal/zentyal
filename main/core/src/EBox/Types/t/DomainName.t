@@ -12,23 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
 use strict;
 use warnings;
 
 use Test::More  tests => 5;
 
-use EBox::TestStubs;
 
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::DomainName;
-
-EBox::TestStubs::activateTestStubs();
-
 
 sub creationTest
 {
@@ -42,20 +36,20 @@ sub creationTest
                               '32.21.12.12',
                               'domi$$nio.biz',
                              );
-    
+
 
     foreach my $domain (@validDomainNames) {
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
                                     'EBox::Types::DomainName',
                                     fieldName => 'test',
                                     value => $domain,
                                     "Checking instance creation with valid domain name $domain"
                                    );
-        
+
     }
 
     foreach my $domain (@invalidDomainNames) {
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
                                       'EBox::Types::DomainName',
                                       fieldName => 'test',
                                       printableName => 'test',
@@ -63,11 +57,11 @@ sub creationTest
                                       "Checking instance creation raises error when called with invalid domain name $domain"
                                      );
     }
-    
+
 }
 
 
-
+EBox::Types::TestHelper::setupFakes();
 creationTest();
 
 

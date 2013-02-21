@@ -19,15 +19,14 @@ use warnings;
 
 use Test::More tests => 4;
 
-use EBox::TestStubs;
 
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::IPNetwork;
 
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 
 my %validNetworks = (
                      '192.168.45.0' => 24,
@@ -44,7 +43,7 @@ my %invalidNetworks = (
 
 
 while (my ($ip, $mask) = each %validNetworks) {
-    EBox::Types::Test::createOk(
+    EBox::Types::TestHelper::createOk(
                                 'EBox::Types::IPNetwork',
                                 fieldName => 'test',
                                 ip   => $ip,
@@ -56,7 +55,7 @@ while (my ($ip, $mask) = each %validNetworks) {
 
 
 while (my ($ip, $mask) = each %invalidNetworks) {
-    EBox::Types::Test::createFail(
+    EBox::Types::TestHelper::createFail(
                                   'EBox::Types::IPNetwork',
                                   fieldName => 'test',
                                   printableName => 'test',
