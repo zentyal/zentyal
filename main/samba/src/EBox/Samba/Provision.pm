@@ -113,7 +113,12 @@ sub checkEnvironment
     unless (defined $domainRow) {
         $samba->enableService(0);
         my $err = __x("The required domain '{d}' could not be found in the " .
-                      "dns module", d => $hostDomain);
+                      "dns module.<br/>" .
+                      "You can add it in the {ohref}DNS domains page{chref}",
+                      d => $hostDomain,
+                      ohref => "<a href='/DNS/Composite/Global'>",
+                      chref => '</a>'
+                     );
         if ($throwException) {
             throw EBox::Exceptions::External($err);
         } else {
@@ -126,8 +131,16 @@ sub checkEnvironment
     my $hostRow = $hostsModel->find(hostname => $hostName);
     unless (defined $hostRow) {
         $samba->enableService(0);
+        my $hostTableUrl = '/DNS/View/HostnameTable?directory=DomainTable/keys/' . $domainRow->id() .
+                                                          '/hostnames';
         my $err = __x("The required host record '{h}' could not be found in " .
-                      "the domain '{d}'", h => $hostName, d => $hostDomain);
+                      "the domain '{d}'.<br/>" .
+                      "You can add it in the {ohref}host names page for domain {d}{chref}.",
+                      h => $hostName,
+                      d => $hostDomain,
+                      ohref => "<a href='$hostTableUrl'>",
+                      chref => '</a>'
+                       );
         if ($throwException) {
             throw EBox::Exceptions::External($err);
         } else {
@@ -135,49 +148,36 @@ sub checkEnvironment
         }
     }
 
-    # Get the IP addresses models (domain and hostname)
-    my $domainIPsModel = $domainRow->subModel('ipAddresses');
-    my $hostIPsModel = $hostRow->subModel('ipAddresses');
+    # Get the IP addresses for domain
+    my %domainsIp = %{ $self->_domainsIP($samba, $domainRow, $throwException) };
 
+    my $hostIPsModel = $hostRow->subModel('ipAddresses');
     # Get the IP address to use for provision, and check that this IP is assigned
     # to the domain
-    my $network = EBox::Global->modInstance('network');
-    my $ifaces = $samba->sambaInterfaces();
     my $provisionIP = undef;
-    foreach my $iface (@{$ifaces}) {
-        next if $iface eq 'lo';
-        my $ifaceAddrs = $network->ifaceAddresses($iface);
-        foreach my $data (@{$ifaceAddrs}) {
-            # Got one candidate address, check that it is assigned to the DNS domain
-            my $inDomainModel = 0;
-            my $inHostModel = 0;
-            foreach my $rowId (@{$domainIPsModel->ids()}) {
-                my $row = $domainIPsModel->row($rowId);
-                if ($row->valueByName('ip') eq $data->{address}) {
-                    $inDomainModel = 1;
-                    last;
-                }
-            }
-            foreach my $rowId (@{$hostIPsModel->ids()}) {
-                my $row = $hostIPsModel->row($rowId);
-                if ($row->valueByName('ip') eq $data->{address}) {
-                    $inHostModel = 1;
-                    last;
-                }
-            }
-            if ($inDomainModel and $inHostModel) {
-                $provisionIP = $data->{address};
-                last;
-            }
+    foreach my $rowId (@{$hostIPsModel->ids()}) {
+        my $row = $hostIPsModel->row($rowId);
+        my $ip = $row->valueByName('ip');
+        if ($domainsIp{$ip}) {
+            $provisionIP = $ip;
+            last;
         }
-        last if defined $provisionIP;
     }
+
     unless (defined $provisionIP) {
         $samba->enableService(0);
-        my $err = __("Samba can't be provisioned if no IP addresses are set and the " .
-                   "DNS domain is properly configured. Ensure that you have at least a " .
-                   "IP address assigned to an internal interface, and this IP has to be " .
-                   "assigned to the domain and to the hostname in the DNS domain.");
+        my $ipUrl = '/DNS/View/HostIpTable?directory=' .
+                    'DomainTable/keys/' . $domainRow->id() .
+                    '/hostnames/keys/' .  $hostRow->id() . '/ipAddresses';
+        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for host {host}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+                       "assigned to the domain {dom} and to the hostname {host}.<br/>" .
+                       "You can add it in the {ohref}IP addresses page for {host}{chref}",
+                      host => $hostName,
+                      dom  => $hostDomain,
+                      ohref => "<a href='$ipUrl'>",
+                      chref => '</a>'
+                      );
         if ($throwException) {
             throw EBox::Exceptions::External($err);
         } else {
@@ -186,6 +186,57 @@ sub checkEnvironment
     }
 
     return $provisionIP;
+}
+
+sub _domainsIP
+{
+    my ($self, $samba, $domainRow, $throwException) = @_;
+
+    my $domainIPsModel = $domainRow->subModel('ipAddresses');
+    my @ipIds = @{$domainIPsModel->ids()};
+
+    my $network = EBox::Global->modInstance('network');
+    my $ifaces = $samba->sambaInterfaces();
+
+    my %domainsIp;
+    foreach my $iface (@{$ifaces}) {
+        next if $iface eq 'lo';
+        my $ifaceAddrs = $network->ifaceAddresses($iface);
+        foreach my $data (@{$ifaceAddrs}) {
+            # Got one candidate address, check that it is assigned to the DNS domain
+            my $inDomainModel = 0;
+            my $inHostModel = 0;
+            foreach my $rowId (@ipIds) {
+                my $row = $domainIPsModel->row($rowId);
+                my $ip = $row->valueByName('ip');
+                if ($ip eq $data->{address}) {
+                    $domainsIp{$ip} = 1;
+                }
+            }
+        }
+    }
+
+    if (%domainsIp == 0) {
+        $samba->enableService(0);
+        my $domain = $domainRow->valueByName('domain');
+        my $domainIpUrl = '/DNS/View/DomainIpTable?directory=DomainTable/keys/' .
+                          $domainRow->id() . '/ipAddresses';
+        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for domain {dom}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+                       "assigned to the domain {dom} and to the local hostname.<br/>" .
+                       "You can assign it in the {ohref}IP addresses page for {dom}{chref}",
+                       dom => $domain,
+                      ohref => "<a href='$domainIpUrl'>",
+                      chref => '</a>'
+                      );
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
+    }
+
+    return \%domainsIp;
 }
 
 # Method: setupDNS
