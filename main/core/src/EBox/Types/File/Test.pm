@@ -45,6 +45,7 @@ my $path = '/tmp/ebox.type.file.test';
 
 sub setEBoxTmp : Test(startup)
 {
+    die "XXX TEST CLASS NOT FIXED YET";
     EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp/');
 }
 

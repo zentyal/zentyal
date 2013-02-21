@@ -1,4 +1,5 @@
 HEAD
+	+ In widgets items of type ajax now use asynchronous request
 	+ Better warning if size file is missing in a backup when
 	  restoring it
 	+ Fixed table cache behaviour on cache miss in logs module
