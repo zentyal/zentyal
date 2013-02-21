@@ -12,7 +12,7 @@ Package: zentyal-samba
 Architecture: all
 Replaces: ebox-samba (<< 2.0.100)
 Breaks: ebox-samba (<< 2.0.100), zentyal-printers (<< 3.0.2)
-Depends: zentyal-core (>= 3.0.13), zentyal-core (<< 3.0.100), zentyal-network,
+Depends: zentyal-core (>= 3.0.14), zentyal-core (<< 3.0.100), zentyal-network,
          zentyal-firewall, zentyal-users (>= 3.0.10), zentyal-dns (>= 3.0.5),
          rsync, acl, libdate-calc-perl, libnet-dns-perl, libauthen-krb5-easy-perl,
          libclamav-client-perl, libnet-ntp-perl, samba4 (>= 4.0.3-zentyal1),
