@@ -200,6 +200,61 @@ sub _attrs
 #
 sub _paramIsValid
 {
+    my ($self, $params) = @_;
+    my $fieldName = $self->fieldName();
+    my @parts = grep { defined $_  } (
+        $params->{$fieldName . "_hour"},
+        $params->{$fieldName . "_min"},
+        $params->{$fieldName . "_sec"},
+       );
+
+
+    if (@parts == 0) {
+        # empty type
+        return 1;
+    }
+
+    if (@parts != 3) {
+        throw EBox::Exceptions::InvalidData(
+            data   => $self->printableName(),
+            value  => join ':', @parts,
+            advice => __('Must be in the form HH:MM::SS')
+        );
+    }
+
+    foreach my $part (@parts) {
+        if (not $part =~ m/^\d+$/) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $self->printableName(),
+                value  => $part,
+                advice => __('No digit character in time component')
+               );
+        }
+    }
+
+    my ($hour, $sec, $min) = @parts;
+    if ($hour > 23) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $self->printableName(),
+                value  => $hour,
+                advice => __('Invalid hours value')
+               );
+    }
+    if ($min > 59) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $self->printableName(),
+                value  => $min,
+                advice => __('Invalid minutes value')
+               );
+    }
+    if ($sec > 59) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $self->printableName(),
+                value  => $sec,
+                advice => __('Invalid seconds value')
+               );
+    }
+
     return 1;
 }
 
@@ -230,11 +285,10 @@ sub _setValue # (value)
 {
     my ($self, $value) = @_;
 
-    my ($hour, $min, $sec) = split (':', $value);
-    $hour =~ s/^0// if defined $hour;
-    $min =~ s/^0//  if defined $min;
-    $sec =~ s/^0//  if defined $sec;
-
+    my ($hour, $min, $sec) = split (':', $value, 3);
+    $hour =~ s/^0+(\d)/$1/ if defined $hour;
+    $min =~ s/^0+(\d)/$1/  if defined $min;
+    $sec =~ s/^0+(\d)/$1/  if defined $sec;
 
     my $params = {
         $self->fieldName() . '_hour' => $hour,

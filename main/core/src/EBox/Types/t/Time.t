@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More qw(no_plan); # tests => 4;
+use Test::More  tests => 36;
 
 use lib '../../..';
 
@@ -29,6 +29,19 @@ use EBox::Types::Time;
 sub creationTest
 {
     my @straightCases = (
+           # no default value
+           {
+               expected => {
+                   printableValue => '',
+               }
+           },
+           {
+               value => undef,
+               expected => {
+                   printableValue => '',
+               }
+           },
+           # with default values
            {
                value => '12:45:21',
                expected => {
@@ -67,22 +80,45 @@ sub creationTest
            },
        );
 
+    my @deviantCases = (
+        #invalid number of components
+        '21', '21:23', '11:22:33:44',
+        # blank component
+        '21::21', ':11:11', '10:10::',
+        # no digit component
+        'aa:21:12', '00:a2:00', '00:00:2a',
+        # out of range
+        '60:00:00', '00:60:00', '00:00:60',
+       );
+
+    foreach my $case (@deviantCases) {
+            EBox::Types::TestHelper::createFail(
+                'EBox::Types::Time',
+                fieldName => 'test',
+                defaultValue => $case,
+                "Checking instance creation with incorrect value $case"
+           );
+    }
+
     foreach my $case (@straightCases) {
-        my $value = $case->{value};
+        my @creationParams = ( fieldName => 'test',);
+        if (exists $case->{value}) {
+            push @creationParams, (defaultValue => $case->{value});
+        }
         my $instance =
             EBox::Types::TestHelper::createOk(
                 'EBox::Types::Time',
-                fieldName => 'test',
+                @creationParams,
                 "Checking instance creation"
            );
 
-        $instance->setValue($value);
         while (my ($method, $expectedResult) = each %{ $case->{expected} }) {
             my $actualResult = $instance->$method();
             is $actualResult, $expectedResult, "Checking '$method'";
         }
     }
 }
+
 
 
 EBox::Types::TestHelper::setupFakes();
