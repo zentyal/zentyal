@@ -75,12 +75,9 @@ sub defaultValueOk
        "Checking that default value $value was set correctly for $class";
 }
 
-
-
-
 sub createOk
 {
-    _createTest(1, @_);
+    return _createTest(1, @_);
 }
 
 sub createFail
@@ -128,7 +125,7 @@ sub _createTest
     };
 
     $failed and
-        return;
+        return $instance;
 
 
     try {
@@ -152,7 +149,7 @@ sub _createTest
     };
 
     $failed and
-        return;
+        return $instance;
 
     if ($wantSuccess) {
         pass $testName;
@@ -160,6 +157,8 @@ sub _createTest
     else {
         fail  $testName
     }
+
+    return $instance;
 }
 
 1;
