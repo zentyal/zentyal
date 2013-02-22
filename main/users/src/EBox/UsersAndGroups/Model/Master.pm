@@ -165,7 +165,7 @@ sub _unlocked
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $allParams, $force) = @_;
-
+    $self->_checkSamba();
 
     my $master = exists $allParams->{master} ?
                         $allParams->{master}->value() :
@@ -215,11 +215,35 @@ sub validateTypedRow
         }
     }
 
+    my @ldapMods = grep {
+        my $mod = $_;
+        ($mod->name() ne $users->name()) and
+         ($mod->isa('EBox::LdapModule'))
+    } @{ $self->global->modInstances() };
+
     unless ($force) {
+        my $warnMsg = '';
         my $nUsers = scalar @{$users->users()};
         if ($nUsers > 0 and $destroy) {
-            throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
+            $warnMsg = (__('CAUTION: this will delete all defined users and import master ones.'));
         }
+
+        foreach my $mod (@ldapMods) {
+            my $modWarn = $mod->slaveSetupWarning($master);
+            if ($modWarn) {
+                $warnMsg .= '<br/>' if $warnMsg;
+                $warnMsg .= $modWarn;
+            }
+        }
+
+
+        if ($warnMsg) {
+            throw EBox::Exceptions::DataInUse($warnMsg);
+        }
+    }
+
+    foreach my $mod (@ldapMods) {
+        $mod->preSlaveSetup($master);
     }
 
     # set apache as changed
@@ -227,5 +251,15 @@ sub validateTypedRow
     $apache->setAsChanged();
 }
 
+sub _checkSamba
+{
+    my $samba = EBox::Global->modInstance('samba');
+    if (not $samba) {
+        return;
+    }
+    if ($samba->configured()) {
+        throw EBox::Exceptions::External(__('Cannot synchronize users with other Zentyal if Samba is either in use or provisioned'));
+    }
+}
 
 1;

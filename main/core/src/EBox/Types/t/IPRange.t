@@ -19,14 +19,13 @@ use warnings;
 
 use Test::More qw(no_plan); # tests => 4;
 
-use EBox::TestStubs;
 
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::IPRange;
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 
 
 sub creationTest
@@ -83,7 +82,7 @@ sub creationTest
         my $begin = $case->{begin};
         my $end   = $case->{end};
 
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
             'EBox::Types::IPRange',
             fieldName => 'test',
             begin   => $begin,
@@ -95,7 +94,7 @@ sub creationTest
     foreach my $case (@straightCases) {
         my $begin = $case->{begin};
         my $end   = $case->{end};
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
             'EBox::Types::IPRange',
             fieldName => 'test',
             begin   => $begin,

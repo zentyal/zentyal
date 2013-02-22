@@ -20,11 +20,9 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More tests => 37;
+use Test::More tests => 25;
 
-use EBox::TestStubs;
-
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::Text;
 BEGIN {
     use_ok('EBox::Types::Float')
@@ -96,7 +94,7 @@ sub creationTest
 
     foreach my $case_r (@validCases) {
         my @params = @{ $case_r };
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
             'EBox::Types::Float',
             fieldName => 'test',
             @params,
@@ -106,7 +104,7 @@ sub creationTest
 
     foreach my $case_r (@deviantCases) {
         my @params = @{ $case_r };
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
             'EBox::Types::Float',
             @params,
             'Checking instance creation raises error when '
@@ -169,17 +167,16 @@ sub cmpTest
 
 }
 
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 creationTest();
 
-EBox::Types::Test::defaultValueOk('EBox::Types::Float', 4.0);
-EBox::Types::Test::defaultValueOk('EBox::Types::Float', 0);
-EBox::Types::Test::defaultValueOk('EBox::Types::Float', 2e3);
-EBox::Types::Test::defaultValueOk('EBox::Types::Float', -2.03,
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Float', 4.0);
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Float', 0);
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Float', 2e3);
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Float', -2.03,
                                   (extraNewParams => [ min => '-5' ]));
 
-EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Float',
-                                            4.0, 1.02, 2 ,5e0, 3.03e1);
+
 
 cmpTest();
 

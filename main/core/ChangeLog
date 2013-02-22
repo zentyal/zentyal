@@ -1,6 +1,7 @@
 HEAD
 	+ Show confirmation dialog when trying to change host or domain
 	  if zentyal-samba is installed and provisioned
+	+ Fixed errors with zero digits components in time type
 3.0.13
 	+ Better warning if size file is missing in a backup when
 	  restoring it

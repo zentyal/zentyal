@@ -261,4 +261,50 @@ sub performLDAPActions
     }
 }
 
+# Method: slaveSetup
+#
+#  this is called when the slave setup. The slave setup is done when saving
+#  changes so this is normally used to modify LDAP or other tasks which don't
+#  change configuration.
+#
+#  The default implementation perform the initial LDAP actions
+#
+# For changing configuration before the save changes we will use the
+# preSlaveSetup methos which currently is only called for module mail
+sub slaveSetup
+{
+    my ($self) = @_;
+    $self->performLDAPActions();
+}
+
+# Method: preSlaveSetup
+#
+#  This is called to made change in the module when the server
+#  is configured to enter in slave mode. Configuration changes
+#  should be done there and will be committed in the next saving of changes.
+#
+# Parameters:
+#  master - master type
+#
+sub preSlaveSetup
+{
+    my ($self, $master) = @_;
+}
+
+# Method: preSlaveSetup
+#
+# This method can be used to put a warning to be seen by the administrator
+# before setting slave mode. The module should warn of nay destructive action
+# entailed by the change of mode.
+#
+# Parameters:
+#  master -master type
+#
+sub slaveSetupWarning
+{
+    my ($self, $master) = @_;
+    return undef;
+}
+
+
 1;

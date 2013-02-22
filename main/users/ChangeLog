@@ -1,5 +1,9 @@
 HEAD
 	+ Added method to clear entire LDAP database (used for samba reprovision)
+	+ Forbid user synchronization with other zentyals if samba is provisioned
+	+ Display users groups in slave mode
+	+ Avoided hang when the local host is wrongly used as master slave
+	+ Ldap modules should do a slaveSetup when slave mode enabled
 3.0.9
 	+ Stop heimdal daemons on enableActions
 	+ Fixed alphabetical order in listing of users and groups
