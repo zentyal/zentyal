@@ -1726,6 +1726,12 @@ sub reprovision
 
     return unless $self->configured();
 
+    my @removeHomeCmds;
+    foreach my $user (map { $_->name() } @{$self->users()}) {
+        push (@removeHomeCmds, "rm -rf /home/$user");
+    }
+    EBox::Sudo::root(@removeHomeCmds);
+
     $self->_manageService('stop');
     EBox::Sudo::root('rm -rf /var/lib/ldap/*');
     $self->_manageService('start');
