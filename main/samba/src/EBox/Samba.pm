@@ -842,24 +842,25 @@ sub _setConf
     }
 }
 
+sub _adcMode
+{
+    my ($self) = @_;
+
+    my $settings = $self->model('GeneralSettings');
+    return ($settings->modeValue() eq $settings->MODE_ADC());
+}
+
 sub _sysvolSyncCond
 {
     my ($self) = @_;
 
-    my $sambaSettings = $self->model('GeneralSettings');
-    my $mode = $sambaSettings->modeValue();
-    my $adc = $sambaSettings->MODE_ADC();
-
-    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $mode eq $adc);
+    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
 }
 
 sub _s4syncCond
 {
     my ($self) = @_;
 
-    my $sambaSettings = $self->model('GeneralSettings');
-    my $mode = $sambaSettings->modeValue();
-    my $adc  = $sambaSettings->MODE_ADC();
     return ($self->isEnabled() and $self->getProvision->isProvisioned());
 }
 
