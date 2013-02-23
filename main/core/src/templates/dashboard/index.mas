@@ -322,6 +322,7 @@ function updateWidget(widget) {
                     if (item.value_type == 'ajax') {
                         new Ajax.Request(item.ajax_url, {
                             asynchronous: false,
+                            data: '',
                             onSuccess: function(response) {
                                 item.value = response.responseJSON.value;
                                 element.className = 'summary_value';
