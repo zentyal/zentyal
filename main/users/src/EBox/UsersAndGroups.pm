@@ -1727,8 +1727,8 @@ sub reprovision
     return unless $self->configured();
 
     my @removeHomeCmds;
-    foreach my $user (map { $_->name() } @{$self->users()}) {
-        push (@removeHomeCmds, "rm -rf /home/$user");
+    foreach my $home (map { $_->home() } @{$self->users()}) {
+        push (@removeHomeCmds, "rm -rf $home");
     }
     EBox::Sudo::root(@removeHomeCmds);
 
