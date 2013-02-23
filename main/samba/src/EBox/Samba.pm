@@ -793,13 +793,9 @@ sub _setConf
     return unless $self->configured() and $self->isEnabled();
 
     my $prov = $self->getProvision();
-    if ($prov->isProvisioned()) {
-        if ($self->get('need_reprovision')) {
-            $prov->reprovision();
-            $self->unset('need_reprovision');
-        }
-    } else {
+    if (not $prov->isProvisioned() or $self->get('need_reprovision')) {
         $prov->provision();
+        $self->unset('need_reprovision');
     }
 
     $self->writeSambaConfig();
@@ -1939,10 +1935,13 @@ sub _hostOrDomainChanged
 {
     my ($self) = @_;
 
-    # FIXME: If joined to domain, throw UnwillingToPerform exception
-    #        as reprovision of that situation won't be supported yet
-
     if ($self->configured()) {
+        if ($self->_adcMode()) {
+            throw EBox::Exceptions::UnwillingToPerform(
+                reason => __('The hostname or domain cannot be changed if Zentyal is configured as additional domain controller.')
+            );
+        }
+
         $self->set('need_reprovision', 1);
     }
 }
@@ -1955,8 +1954,6 @@ sub _hostOrDomainChanged
 sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
-
-    # FIXME: don't do this if joined to a domain as additional DC
 
     my $settings = $self->model('GeneralSettings');
     $settings->setValue('realm', uc ($newDomainName));

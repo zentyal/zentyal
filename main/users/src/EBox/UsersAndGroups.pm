@@ -478,6 +478,11 @@ sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
 
+    if ($self->get('need_reprovision')) {
+        $self->unset('need_reprovision');
+        $self->reprovision();
+    }
+
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(LIBNSS_SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
@@ -1689,14 +1694,9 @@ sub hostDomainChanged
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
-    # FIXME: implement here a reprovision mechanism similar to the one in samba
-    #        we just need to make sure we don't reprovision twice
-    EBox::Global->modChange('samba');
-
-    #if ($self->configured()) {
-    #    throw EBox::Exceptions::UnwillingToPerform(
-    #        reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
-    #}
+    if ($self->configured()) {
+        $self->set('need_reprovision', 1);
+    }
 }
 
 # Method: hostDomainChangedDone
@@ -1736,6 +1736,7 @@ sub reprovision
     EBox::Sudo::root('rm -rf /var/lib/ldap/*');
     $self->_manageService('start');
 
+    # FIXME: properly reconfigure DNS module
     $self->enableActions();
 }
 
