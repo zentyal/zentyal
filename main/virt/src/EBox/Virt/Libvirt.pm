@@ -456,15 +456,18 @@ sub attachDevice
     $device->{block} = ($file =~ /^\/dev\//);
     my $cd = $type eq 'cd';
     $device->{type} = $cd ? 'cdrom' : 'disk';
-    if ($cd or EBox::Config::boolean('use_ide_disks')) {
-        $device->{bus} = 'ide';
-        $device->{letter} = $self->{ideDriveLetter};
-        $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);
-    } else {
-        $device->{bus} = 'scsi';
-        $device->{letter} = $self->{scsiDriveLetter};
-        $self->{scsiDriveLetter} = chr (ord ($self->{scsiDriveLetter}) + 1);
+    my $bus = 'virtio';
+    if ($cd) {
+        $bus = 'ide';
     }
+    if (not exists $self->{driveLetterByBus}->{$bus}) {
+        throw EBox::Exceptions::Internal("Invalid bus type: $bus");
+    }
+
+    $device->{bus} = $bus;
+    my $letter = $self->{driveLetterByBus}->{$bus};
+    $device->{letter} = $letter;
+    $self->{driveLetterByBus}->{$bus} = chr (ord ($letter) + 1);
 
     push (@{$self->{vmConf}->{$name}->{devices}}, $device);
 }
@@ -577,8 +580,11 @@ sub initDeviceNumbers
 {
     my ($self) = @_;
 
-    $self->{ideDriveLetter} = 'a';
-    $self->{scsiDriveLetter} = 'a';
+    $self->{driveLetterByBus} = {
+        ide => 'a',
+        scsi => 'a',
+        virtio => 'a',
+       };
 }
 
 sub initInternalNetworks

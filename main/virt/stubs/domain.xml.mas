@@ -10,6 +10,13 @@
     $arch
     $boot
 </%args>
+<%init>
+my %devicePrefixByBus = (
+   ide => 'hd',
+   scsi => 'sd',
+   virtio => 'vd',
+);
+</%init>
 <domain type='<% $emulator %>'>
     <name><% $name %></name>
     <memory><% $memory * 1024 %></memory>
@@ -38,7 +45,7 @@
 % my $type = $device->{type};
 % my $letter = $device->{letter};
 % my $bus = $device->{bus};
-% my $prefix = ($bus eq 'ide') ? 'hd' : 'sd';
+% my $prefix = $devicePrefixByBus{$bus};
         <disk type='<% $block ? 'block' : 'file' %>' device='<% $type %>'>
 % if ($type eq 'disk') {
             <driver name='qemu' type='qcow2'/>
