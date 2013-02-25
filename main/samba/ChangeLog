@@ -1,3 +1,7 @@
+HEAD
+	+ Fix wrong URL on provision message
+	+ Better error messages when the environment checks for provision fail
+	+ Forbid provision if the server is replicating users either master or slave
 3.0.13
 	+ Integration of new samba 4.0.3 bundled version
 	+ Samba daemon is now managed with init.d to avoid unexpected fork problems

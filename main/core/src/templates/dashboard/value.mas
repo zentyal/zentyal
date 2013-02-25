@@ -21,6 +21,7 @@
 % if ($item->{value_type} eq 'ajax') {
   <script>
     new Ajax.Request('<% $item->{ajax_url} %>', {
+        data: '',
         onSuccess: function(response) {
             var container = $('<% $container_id %>');
             container.className = 'summary_value';

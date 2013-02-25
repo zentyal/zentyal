@@ -19,15 +19,14 @@ use warnings;
 
 use Test::More qw(no_plan); # tests => 4;
 
-use EBox::TestStubs;
 
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::IPAddr;
 
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 
 
 sub creationTest
@@ -51,7 +50,7 @@ sub creationTest
 
 
     while (my ($ip, $mask) = each %validIPAddrs) {
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
                                     'EBox::Types::IPAddr',
                                     fieldName => 'test',
                                     ip   => $ip,
@@ -63,7 +62,7 @@ sub creationTest
 
 
     while (my ($ip, $mask) = each %invalidIPAddrs) {
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
                                       'EBox::Types::IPAddr',
                                       fieldName => 'test',
                                       printableName => 'test',
