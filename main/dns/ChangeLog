@@ -1,4 +1,5 @@
 HEAD
+	+ Rename domain if exists when changing it in System -> General
 	+ Only allow AXFR from internal networks
 3.0.5
 	+ Query samba module for zones stored in LDB. Those ones will override
