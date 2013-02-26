@@ -635,11 +635,7 @@ sub removeInclude
     }
     my @includes = @{$self->_includes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
-    if ( @newIncludes eq @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously");
-    }
     $self->set_list(INCLUDE_KEY, 'string', \@newIncludes);
-
 }
 
 # Return those include files that has been added
