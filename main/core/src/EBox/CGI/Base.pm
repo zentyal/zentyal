@@ -370,7 +370,7 @@ sub run
                  "be found in the logs.");
           $self->_print_error($error);
       } elsif ($ex->isa('APR::Error')) {
-        my $debug = EBox::Config::configkey('debug') eq 'yes';
+        my $debug = EBox::Config::boolean('debug');
         my $error = $debug ? $ex->confess() : $ex->strerror();
         $self->_print_error($error);
       } else {
