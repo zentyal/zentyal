@@ -1,4 +1,5 @@
 HEAD
+	+ Removed exception from Apache removeInclude when nothing is being removed
 	+ Fixed dashboard check updates ajax requests in Chrome
 	+ Fixed errors with zero digits components in time type
 3.0.13
