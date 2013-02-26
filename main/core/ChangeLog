@@ -1,4 +1,5 @@
 HEAD
+	+ EBox::CGI::run now supports correct handling of APR::Error
 	+ Fixed dashboard check updates ajax requests in Chrome
 	+ Fixed errors with zero digits components in time type
 3.0.13
