@@ -1,4 +1,5 @@
 HEAD
+	+ More os type options, using virtio as device bus for linux guests
 	+ Better checking of device path
 3.0.1
 	+ Support for another output of file program for qcow2 format

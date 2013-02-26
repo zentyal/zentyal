@@ -34,11 +34,40 @@ my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
 my $DEFAULT_KEYMAP = 'en-us';
+my $VIRT_ISO_PATH = '/var/lib/zentyal/machines/virt.iso';
 
 # Class: EBox::Virt::Libvirt
 #
 #   Backend implementation for libvirt
 #
+my %opSys = (
+        windows => {
+            printableValue => __('Windows'),
+            arch => 'i686',
+        },
+        windows64 => {
+            printableValue => __('Windows amd64 compatible'),
+            arch => 'x86_64',
+        },
+        'linux' => {
+            printableValue => __('Linux'),
+            bus => 'virtio',
+            arch => 'i686',
+        },
+        'linux64' => {
+            printableValue => __('Linux amd64 compatible'),
+            bus => 'virtio',
+            arch => 'x86_64',
+        },
+        i686 => {
+            printableValue => __('Other i686 compatible'),
+            arch => 'i686',
+        },
+        'x86_64' => {
+            printableValue => __('Other amd64 compatible'),
+            arch => 'x86_64',
+        }
+);
 
 sub new
 {
@@ -372,8 +401,10 @@ sub setMemory
 sub setOS
 {
     my ($self, $name, $os) = @_;
-
-    $self->{vmConf}->{$name}->{arch} = $os;
+    if (not $opSys{$os}) {
+        throw EBox::Exceptions::Internal("Operating system $os not supported");
+    }
+    $self->{vmConf}->{$name}->{os} = $os;
 }
 
 # Method: setIface
@@ -456,10 +487,13 @@ sub attachDevice
     $device->{block} = ($file =~ /^\/dev\//);
     my $cd = $type eq 'cd';
     $device->{type} = $cd ? 'cdrom' : 'disk';
-    my $bus = 'virtio';
+    my $bus;
     if ($cd) {
         $bus = 'ide';
+    } else {
+        $bus = $self->_busUsedByVm($name);
     }
+
     if (not exists $self->{driveLetterByBus}->{$bus}) {
         throw EBox::Exceptions::Internal("Invalid bus type: $bus");
     }
@@ -469,13 +503,36 @@ sub attachDevice
     $device->{letter} = $letter;
     $self->{driveLetterByBus}->{$bus} = chr (ord ($letter) + 1);
 
-    push (@{$self->{vmConf}->{$name}->{devices}}, $device);
+    my $vmConf = $self->{vmConf}->{$name};
+    push (@{$vmConf->{devices}}, $device);
+}
+
+sub _busUsedByVm
+{
+    my ($self, $name) = @_;
+    my $os = $self->{vmConf}->{$name}->{os};
+
+    my $bus;
+    if ($opSys{$os}->{bus}) {
+        $bus = $opSys{$os}->{bus};
+    } else  {
+        $bus = 'scsi';
+    }
+
+    if (($bus eq 'scsi') and EBox::Config::boolean('use_ide_disks')) {
+        $bus = 'ide';
+    }
+
+    return $bus;
 }
 
 sub systemTypes
 {
-    return [ { value => 'i686', printableValue => __('i686 compatible') },
-             { value => 'x86_64', printableValue => __('amd64 compatible') } ]
+    my @types;
+    while (my ($osName, $osAttrs) = each %opSys) {
+        push @types, {value => $osName, printableValue => $osAttrs->{printableValue}};
+    }
+    return \@types;
 }
 
 sub manageScript
@@ -550,13 +607,16 @@ sub writeConf
         $bootDev = 'cdrom';
     }
 
+
+    my $os = $vmConf->{os};
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
         [
          name => $name,
+         os   => $os,
          emulator => $self->{emulator},
-         arch => $vmConf->{arch},
+         arch => $opSys{$os}->{arch},
          memory => $vmConf->{memory},
          ifaces => $vmConf->{ifaces},
          devices => $vmConf->{devices},
