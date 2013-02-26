@@ -1,11 +1,12 @@
 /var/log/dansguardian/access.log {
-	rotate 5
-	daily
-	create 644 dansguardian dansguardian
-	prerotate
-		/usr/share/zentyal-squid/manage-services stop > /dev/null 2>&1 || true
-	endscript
-	postrotate
-		/usr/share/zentyal-squid/manage-services start > /dev/null 2>&1 || true
-	endscript
+    daily
+    compress
+    delaycompress
+    rotate 2
+    missingok
+    nocreate
+    sharedscripts
+    postrotate
+        test ! -e /var/run/dansguardian.pid || /usr/sbin/dansguardian -r
+    endscript
 }
