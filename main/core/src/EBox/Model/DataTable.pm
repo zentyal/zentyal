@@ -3529,25 +3529,32 @@ sub _filterRows
     my @newRows;
     if (defined($filter) and length($filter) > 0) {
         my @words = split (/\s+/, $filter);
-        my $totalWords = scalar(@words);
+        @words = map { $self->adaptRowFilter($_) } @words;
+
+#        my $totalWords = scalar(@words);
         for my $row (@{$rows}) {
-            my $nwords = $totalWords;
-            my %wordFound;
+#            my $nwords = $totalWords;
+#            my %wordFound;
             for my $element (@{$row->elements()}) {
                 my $printableVal = $element->printableValue();
                 next unless defined($printableVal);
                 my $rowFound;
-                for my $regExp (@words) {
-                    if (not exists $wordFound{$regExp}
-                            and $printableVal =~ /$regExp/) {
-                        $nwords--;
-                        $wordFound{$regExp} = 1;
-                        unless ($nwords) {
-                            push(@newRows, $row);
-                            $rowFound = 1;
-                            last;
-                        }
+                foreach my $regExp (@words) {
+                    if ($printableVal =~ m/$regExp/) {
+                        $rowFound = 1;
+                        last;
                     }
+
+                    # if (not exists $wordFound{$regExp}
+                    #         and $printableVal =~ /$regExp/) {
+                    #     $nwords--;
+                    #     $wordFound{$regExp} = 1;
+                    #     unless ($nwords) {
+                    #         push(@newRows, $row);
+                    #         $rowFound = 1;
+                    #         last;
+                    #     }
+                    # }
 
                 }
                 last if $rowFound;
@@ -3607,6 +3614,26 @@ sub _mainController
     }
     return $defAction;
 }
+
+sub adaptRowFilter
+{
+    my ($self, $filter) = @_;
+    my $compiled;
+    # allow starting '*'
+    if ($filter =~ m/^\*/) {
+        $filter = '.' . $filter;
+    }
+    eval {  $compiled = qr/$filter/ };
+    if ($@) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Search rows term'),
+            value => $filter,
+            advice => __('Must be a valid regular expression'),
+           );
+    }
+    return $compiled;
+}
+
 
 # Set the default controller to that actions which do not have a
 # custom controller
