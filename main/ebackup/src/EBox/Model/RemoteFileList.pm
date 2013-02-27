@@ -83,9 +83,12 @@ sub customFilterIds
 
     my @status = @{$self->{confmodule}->remoteListFiles()};
     return [] unless (@status);
+
+    $filter = $self->adaptRowFilter($filter);
+
     my @filtered;
     for my $id (1 .. (scalar(@status))) {
-        push (@filtered, $id) if ($status[$id - 1] =~ /$filter/);
+        push (@filtered, $id) if ($status[$id - 1] =~ m/$filter/);
     }
 
     return \@filtered;
