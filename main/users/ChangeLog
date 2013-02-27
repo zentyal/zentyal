@@ -1,5 +1,5 @@
 HEAD
-	+ Use less costly LDAP operations when adding or rmeoving members
+	+ Use less costly LDAP operations when adding or removing members
 	  from a group
 	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
 	+ Forbid user synchronization with other zentyals if samba is provisioned
