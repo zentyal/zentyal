@@ -34,7 +34,6 @@ my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
 my $DEFAULT_KEYMAP = 'en-us';
-my $VIRT_ISO_PATH = '/var/lib/zentyal/machines/virt.iso';
 
 # Class: EBox::Virt::Libvirt
 #
