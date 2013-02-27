@@ -129,19 +129,17 @@ sub addMember
 {
     my ($self, $user, $lazy) = @_;
 
+    # XXX see if we can check membership with add resutl code
     my @members = $self->get('member');
-
     # return if user already in the group
     foreach my $dn (@members) {
         if (lc ($dn) eq lc ($user->dn())) {
             return;
         }
     }
-    push (@members, $user->dn());
 
-    $self->set('member', \@members, $lazy);
+    $self->add('member', $user->dn(), $lazy);
 }
-
 
 # Method: removeMember
 #
