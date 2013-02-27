@@ -1,7 +1,4 @@
 HEAD
-	+ Use less costly LDAP operations when adding or rmeoving members
-	  from a group
-	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
 	+ Better checking of device path
 3.0.1
 	+ Support for another output of file program for qcow2 format
