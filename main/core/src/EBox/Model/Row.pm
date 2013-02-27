@@ -647,8 +647,6 @@ sub matchFilter
         throw EBox::Exceptions::MissingArgument('filter');
     }
 
-    $filter = $self->model()->adaptRowFilter($filter);
-
     for my $value (@{$self->{values}}) {
         return 1 if ($value->printableValue() =~ /$filter/i);
     }

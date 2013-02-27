@@ -88,6 +88,11 @@ if ($checkAllProperty) {
        ( $field => $id)
     } @{ $checkAllProperty } ;
 }
+
+my $adaptedFilter;
+if ($filter) {
+    $adaptedFilter = $model->adaptRowFilter($filter);
+}
 </%init>
 <& .pageTitle,
    crumbs => $model->viewCustomizer()->HTMLTitle()
@@ -167,9 +172,9 @@ if ($checkAllProperty) {
     for ( my $idx = 0; $idx < scalar(@ids); $idx++)
     {
       my  $row;
-      if (not $model->customFilter() and defined($filter) and (length($filter) > 0)) {
+      if (not $model->customFilter() and defined($adaptedFilter) and (length($filter) > 0)) {
         $row = $model->row($ids[$idx]);
-        if (not ($row->matchFilter($filter))) {
+        if (not ($row->matchFilter($adaptedFilter))) {
           next;
         }
       } else {
