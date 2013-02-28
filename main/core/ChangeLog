@@ -1,4 +1,7 @@
 HEAD
+	+ Allow search filters with a leading '*'
+	+ Better error reporting when choosing a bad search filter
+	+ External exceptions from _print method are caught correctly in CGIs
 	+ EBox::CGI::run now supports correct handling of APR::Error
 	+ Fixed dashboard check updates ajax requests in Chrome
 	+ Fixed errors with zero digits components in time type

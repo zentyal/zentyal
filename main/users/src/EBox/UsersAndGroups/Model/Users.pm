@@ -89,18 +89,15 @@ sub customFilterIds
 {
     my ($self, $filter) = @_;
 
-    unless ($filter) {
+    unless (defined $filter) {
         return $self->ids();
     }
 
-    my @filtered;
-    foreach my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        if ($row->valueByName('name') =~ /$filter/ or
-            $row->valueByName('fullname') =~ /$filter/) {
-            push (@filtered, $id);
-        }
-    }
+    $filter = qr{uid=.*?$filter.*?,};
+    my @filtered = grep {
+        $_ =~ m{$filter}
+    } @{$self->ids()};
+
     return \@filtered;
 }
 
