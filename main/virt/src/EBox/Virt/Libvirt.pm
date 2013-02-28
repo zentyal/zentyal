@@ -40,7 +40,7 @@ my $DEFAULT_KEYMAP = 'en-us';
 #   Backend implementation for libvirt
 #
 my %opSys = (
-        windowsxp => {
+        windowsXp => {
             printableValue => __('Windows XP'),
             bus => 'ide',
         },
