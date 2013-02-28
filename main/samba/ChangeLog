@@ -1,4 +1,7 @@
 HEAD
+	+ Use less costly LDB operations when adding or removing members
+	  from a group
+	+ Added EBox:Samba::LDBObject::deleteValues method
 	+ Fix wrong URL on provision message
 	+ Better error messages when the environment checks for provision fail
 	+ Forbid provision if the server is replicating users either master or slave
