@@ -355,7 +355,7 @@ sub run
 
     try  {
       $self->_print
-    } catch EBox::Exceptions::Internal with {
+    } catch EBox::Exceptions::Base with {
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->_print_error($self->{error});
