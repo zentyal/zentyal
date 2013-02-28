@@ -40,10 +40,14 @@ my $DEFAULT_KEYMAP = 'en-us';
 #   Backend implementation for libvirt
 #
 my %opSys = (
-        windows => {
-            printableValue => __('Windows'),
-            bus => 'sata',
+        windowsxp => {
+            printableValue => __('Windows XP'),
+            bus => 'ide',
         },
+        windowsVista => {
+            printableValue => __('Windows Vista, Windows 7, Windows 8'),
+            bus => 'sata',
+         },
         'linux' => {
             printableValue => __('Linux'),
             bus => 'virtio',
