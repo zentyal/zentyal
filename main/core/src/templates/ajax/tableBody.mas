@@ -58,11 +58,17 @@ use Perl6::Junction qw(any);
   my $printableTableName = $model->table()->{'printableTableName'};
   my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
   my $withoutActions = $model->table()->{'withoutActions'};
+
+  my $adaptedFilter;
+  if ($filter) {
+     $adaptedFilter = $model->adaptRowFilter($filter);
+  }
+
   my @ids;
   if (not $model->customFilter()) {
     @ids =  @{$model->ids()};
   } else {
-    @ids = @{$model->customFilterIds($filter)};
+    @ids = @{$model->customFilterIds($adaptedFilter)};
   }
   unless ($page) {
     $page = 0;
@@ -89,10 +95,7 @@ if ($checkAllProperty) {
     } @{ $checkAllProperty } ;
 }
 
-my $adaptedFilter;
-if ($filter) {
-    $adaptedFilter = $model->adaptRowFilter($filter);
-}
+
 </%init>
 <& .pageTitle,
    crumbs => $model->viewCustomizer()->HTMLTitle()
