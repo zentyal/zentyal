@@ -1,4 +1,5 @@
 HEAD
+	+ Allow access to /etc/ldap/ldap.conf on apparmor profile
 	+ Fix generation of reverse zones, the host part of the addresses
 	  was not removed
 	+ Fixed bug which used all addresses available in a interface to
