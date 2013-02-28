@@ -1,4 +1,5 @@
 HEAD
+	+ Only disable ipv6 in enableActions if ipv6 is available
 	+ Dont allow to set a local address as network proxy
 	+ Fixed error in json response trigered by widget size
 3.0.2
