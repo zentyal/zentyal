@@ -156,6 +156,42 @@ sub add
 
 # Method: delete
 #
+#   Delete all values from an attribute
+#
+#   Parameters (for attribute deletion):
+#
+#       attribute - Attribute name to remove
+#       lazy      - Do not update the entry in LDAP
+#
+sub delete
+{
+    my ($self, $attr, $lazy) = @_;
+    $self->deleteValues($attr, [], $lazy);
+}
+
+# Method: deleteValues
+#
+#   Deletes values from an object if they exists
+#
+#   Parameters (for attribute deletion):
+#
+#       attribute - Attribute name to read
+#       values    - reference to the list of values to delete.
+#                   Empty list means all attributes
+#       lazy      - Do not update the entry in LDAP
+#
+sub deleteValues
+{
+    my ($self, $attr, $values, $lazy) = @_;
+
+    if ($attr eq any $self->_entry->attributes) {
+        $self->_entry->delete($attr, $values);
+        $self->save() unless $lazy;
+    }
+}
+
+# Method: delete
+#
 #   Deletes an attribute from the object if given
 #
 # Parameters (for attribute deletion):
@@ -163,7 +199,7 @@ sub add
 #   attribute - Attribute name to read
 #   lazy      - Do not update the entry in LDAP
 #
-sub delete
+sub deleteOld
 {
     my ($self, $attr, $lazy) = @_;
 
