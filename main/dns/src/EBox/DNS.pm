@@ -784,7 +784,7 @@ sub _setConf
         }
     }
 
-    my $reversedData = $self->switchToReverseInfoData(\@domainData);
+    my $reversedData = $self->_reverseData();
 
     # Remove the unused reverse files
     $self->_removeUnusedReverseFiles($reversedData);
@@ -799,9 +799,7 @@ sub _setConf
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        if ($reversedDataItem->{samba}) {
-            $self->_updateDynReverseZone($reversedDataItem);
-        } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
             $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
@@ -813,8 +811,7 @@ sub _setConf
         # Store to write the zone in named.conf.local
         push (@inaddrs, { ip       => $group,
                           file     => $file,
-                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ],
-                       } );
+                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
     }
 
     my @domains = @{$self->domains()};
@@ -846,6 +843,67 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
+}
+
+sub _reverseData
+{
+    my ($self) = @_;
+
+    my $reverseData = {};
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $domainName = $domainRow->valueByName('domain');
+        my $dynamic = $domainRow->valueByName('dynamic') or
+                      $domainRow->valueByName('samba');
+
+        my $domainNameservers = [];
+        my $nsModel = $domainRow->subModel('nameServers');
+        foreach my $nsRowId (@{$nsModel->ids()}) {
+            my $nsRow = $nsModel->row($nsRowId);
+            my $name = $nsRow->printableValueByName('hostName');
+            push (@{$domainNameservers}, $name);
+        }
+
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $hostRow = $hostnamesModel->row($hostnameRowId);
+            my $hostName = $hostRow->valueByName('hostname');
+            my $hostIpAddrsModel = $hostRow->subModel('ipAddresses');
+            foreach my $hostIpRowId (@{$hostIpAddrsModel->ids()}) {
+                my $hostIpRow = $hostIpAddrsModel->row($hostIpRowId);
+                my $ip = $hostIpRow->valueByName('ip');
+                my @reverseIp = reverse split (/\./, $ip);
+                my $hostPart = shift @reverseIp;
+                my $groupPart = join ('.', @reverseIp);
+
+                $reverseData->{$groupPart} = {}
+                    unless exists $reverseData->{$groupPart};
+                if (exists $reverseData->{$groupPart}->{domain} and
+                    $domainName ne $reverseData->{$groupPart}->{domain}) {
+                    my $warn = "Inconsistent DNS configuration deteceted. " .
+                               "IP group $groupPart is already mapped to domain " .
+                               $reverseData->{$groupPart}->{domain} . ". " .
+                               "The host $hostName.$domainName with IP $ip is not going " .
+                               "to be added to that group";
+                    EBox::warn($warn);
+                    next;
+                }
+
+                $reverseData->{$groupPart}->{dynamic} = $dynamic;
+                $reverseData->{$groupPart}->{tsigKeyName} = $domainName;
+                $reverseData->{$groupPart}->{group} = $groupPart;
+                $reverseData->{$groupPart}->{domain} = $domainName;
+                $reverseData->{$groupPart}->{soa} = $self->NameserverHost();
+                $reverseData->{$groupPart}->{ns} = $domainNameservers;
+                $reverseData->{$groupPart}->{hosts} = []
+                    unless exists $reverseData->{$groupPart}->{hosts};
+                push (@{$reverseData->{$groupPart}->{hosts}},
+                        { name => $hostName, ip => $hostPart });
+            }
+        }
+    }
+    return $reverseData;
 }
 
 # Method: menu
@@ -1383,8 +1441,7 @@ sub _updateDynReverseZone
     my ($self, $rdata) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
-
-    my $zone = $rdata->{'groupip'} . ".in-addr.arpa";
+    my $zone = $rdata->{'group'} . ".in-addr.arpa";
     foreach my $host (@{$rdata->{'hosts'}}) {
         print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
         my $prefix = "";
@@ -1773,75 +1830,6 @@ sub _getRanges
         }
     }
     return \@ranges;
-}
-
-# Method: switchToReverseInfoData
-#
-#  Return a structure with all necessary data to build reverse db config
-#  files.
-#
-# Parameters:
-#
-#  array ref - structure returned by <EBox::DNS::_completeDomain>
-#
-# Returns:
-#
-#  array ref structure data with:
-#
-#  'groupip': ip range to define a zone file info
-#  'dynamic': boolean indicating if the zone is dynamic
-#  'tsigKeyName' : String indicating the name of the TSIG key for
-#                  being updated if the domain is dynamic
-#  'domain': an array of hosts and domain data:
-#  'name': domain name
-#  'hosts': an array of hostnames and hostip:
-#  'ip': less significant block of an ip address
-#  'name': name of the host in the domain
-#
-sub switchToReverseInfoData
-{
-    my ($self, $domains) = @_;
-
-    my $reversedData = {};
-    foreach my $domain (@{$domains}) {
-        foreach my $host (@{$domain->{'hosts'}}) {
-            # Remove wildcard since it is possible to set a reverse domain
-            next if ($host->{'name'} eq '*');
-            foreach my $hostIp (@{$host->{'ip'}}) {
-                my @ipblocks = split (/\./, $hostIp);
-                my $groupip = join ('.', $ipblocks[2], $ipblocks[1], $ipblocks[0]);
-                my $ip = $ipblocks[3];
-
-                if (exists $reversedData->{$groupip}) {
-                    my $d = $reversedData->{$groupip}->{domain};
-                    my $d2 = $domain->{name};
-                    if ($d ne $d2) {
-                        EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 ignored");
-                        next;
-                    }
-                } else {
-                    $reversedData->{$groupip} = {
-                        groupip => $groupip,
-                        dynamic => $domain->{dynamic},
-                        domain => $domain->{name},
-                        hosts => [],
-                        ns => [],
-                        soa => $domain->{primaryNameServer},
-                        tsigKeyName => $domain->{name},
-                    };
-                    foreach my $ns (@{$domain->{nameServers}}) {
-                        push (@{ $reversedData->{$groupip}->{ns} }, $ns);
-                    }
-                }
-
-                # add host data
-                my $hostData = { ip => $ip, name => $host->{'name'}};
-                push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
-            }
-        }
-    }
-
-    return $reversedData;
 }
 
 sub _updateManagedDomainIPsModel
