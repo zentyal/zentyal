@@ -15,6 +15,7 @@
 my %devicePrefixByBus = (
    ide => 'hd',
    scsi => 'sd',
+   sata => 'sd',
    virtio => 'vd',
 );
 </%init>

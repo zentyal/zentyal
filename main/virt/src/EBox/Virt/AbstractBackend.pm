@@ -211,6 +211,20 @@ sub setOS
     throw EBox::Exceptions::NotImplemented();
 }
 
+# Method: setArch
+#
+#   Set the architecture type for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   arch      - architecture identifier
+#
+sub setArch
+{
+    throw EBox::Exceptions::NotImplemented();
+}
+
 # Method: setIface
 #
 #   Set a network interface for the given VM.

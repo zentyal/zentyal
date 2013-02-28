@@ -42,30 +42,22 @@ my $DEFAULT_KEYMAP = 'en-us';
 my %opSys = (
         windows => {
             printableValue => __('Windows'),
-            arch => 'i686',
-        },
-        windows64 => {
-            printableValue => __('Windows amd64 compatible'),
-            arch => 'x86_64',
+            bus => 'sata',
         },
         'linux' => {
             printableValue => __('Linux'),
             bus => 'virtio',
+        },
+        other => {
+            printableValue => __('Other'),
             arch => 'i686',
         },
-        'linux64' => {
-            printableValue => __('Linux amd64 compatible'),
-            bus => 'virtio',
-            arch => 'x86_64',
-        },
-        i686 => {
-            printableValue => __('Other i686 compatible'),
-            arch => 'i686',
-        },
-        'x86_64' => {
-            printableValue => __('Other amd64 compatible'),
-            arch => 'x86_64',
-        }
+
+);
+
+my %architectures = (
+        'i686' =>  __('i686 compatible'),
+        'x86_64' =>  __('amd64 compatible'),
 );
 
 sub new
@@ -406,6 +398,24 @@ sub setOS
     $self->{vmConf}->{$name}->{os} = $os;
 }
 
+# Method: setArch
+#
+#   Set the architecture type for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   arch      - architecture identifier
+#
+sub setArch
+{
+    my ($self, $name, $arch) = @_;
+    if (not $architectures{$arch}) {
+        throw EBox::Exceptions::Internal("Architecture $arch not supported");
+    }
+    $self->{vmConf}->{$name}->{arch} = $arch;
+}
+
 # Method: setIface
 #
 #   Set a network interface for the given VM.
@@ -534,6 +544,15 @@ sub systemTypes
     return \@types;
 }
 
+sub architectureTypes
+{
+    my @types;
+    while (my ($arch, $printableValue) = each %architectures) {
+        push @types, {value => $arch, printableValue => $printableValue};
+    }
+    return \@types;
+}
+
 sub manageScript
 {
     my ($self, $name) = @_;
@@ -615,7 +634,7 @@ sub writeConf
          name => $name,
          os   => $os,
          emulator => $self->{emulator},
-         arch => $opSys{$os}->{arch},
+         arch => $vmConf->{arch},
          memory => $vmConf->{memory},
          ifaces => $vmConf->{ifaces},
          devices => $vmConf->{devices},
@@ -642,6 +661,7 @@ sub initDeviceNumbers
     $self->{driveLetterByBus} = {
         ide => 'a',
         scsi => 'a',
+        sata => 'a',
         virtio => 'a',
        };
 }
