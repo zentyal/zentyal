@@ -110,7 +110,7 @@ sub _table
                                fieldName     => 'sync',
                                printableName => __('Sync with Zentyal Cloud'),
                                editable      => 1,
-                               defaultValue  => 1,
+                               defaultValue  => 0,
                                help          => __('Files will be synchronized with Zentyal Cloud.'),
                                hidden        => \&_hideSyncOption,
                                ),

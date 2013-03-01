@@ -1,3 +1,5 @@
+HEAD
+	+ Default value of sync option in SambaShares is now 0
 3.0.14
 	+ Improve management of DNS zones stored in samba LDAP
 	+ Add classes to decode DNS data from samba LDAP
