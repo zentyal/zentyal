@@ -81,7 +81,6 @@ sub checkEnvironment
     unless (defined $throwException) {
         throw EBox::Exceptions::MissingArgument('throwException');
     }
-
     $self->_checkUsersState();
 
     # Get the own domain
@@ -243,36 +242,11 @@ sub _domainsIP
 #
 #   Modify the domain setup for samba or for users module
 #
-# Parameters:
-#
-#   dlz - If set to 1, the domain will be set up for samba, else it will be
-#         set up for users module
-#
 sub setupDNS
 {
-    my ($self, $dlz) = @_;
+    my ($self) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
-    my $dnsModule = EBox::Global->modInstance('dns');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    # Ensure that the managed domain exists
-    my $domainModel = $dnsModule->model('DomainTable');
-    my $domainRow = $domainModel->find(domain => $sysinfo->hostDomain());
-    unless (defined $domainRow) {
-        throw EBox::Exceptions::Internal("Domain named '" . $sysinfo->hostDomain()
-            . "' not found");
-    }
-
-    # Mark the domain as samba
-    if ($dlz) {
-        EBox::debug('Setting up DNS for samba');
-        $domainRow->elementByName('samba')->setValue(1);
-    } else {
-        EBox::debug('Setting up DNS for users');
-        $domainRow->elementByName('samba')->setValue(0);
-    }
-    $domainRow->store();
 
     if (EBox::Sudo::fileTest('-f', $samba->SAMBA_DNS_KEYTAB())) {
         my @cmds;
@@ -280,17 +254,12 @@ sub setupDNS
         push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
         EBox::Sudo::root(@cmds);
     }
-
-    # Stop service to avoid nsupdate failure
-    $dnsModule->stopService();
-
-    # And force service restart
-    $dnsModule->save();
 }
 
 sub _checkUsersState
 {
     my ($self) = @_;
+
     my $users = EBox::Global->modInstance('users');
     if ($users->master() eq 'zentyal') {
         throw EBox::Exceptions::External(
@@ -442,12 +411,10 @@ sub provisionDC
         throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
 
+    $self->setupDNS();
     $self->setProvisioned(1);
 
     try {
-        # Setup DNS. The domain should have been created by the users module.
-        $self->setupDNS(1);
-
         # Disable password policy
         # NOTE complexity is disabled because when changing password in
         #      zentyal the command may fail if it do not meet requirements,
@@ -476,7 +443,6 @@ sub provisionDC
     } otherwise {
         my ($error) = @_;
         $self->setProvisioned(0);
-        $self->setupDNS(0);
         throw EBox::Exceptions::External($error);
     };
 }
@@ -1073,9 +1039,9 @@ sub provisionADC
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
         $self->fixDnsSPN();
+        $self->setupDNS();
 
         $self->setProvisioned(1);
-        $self->setupDNS(1);
 
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
@@ -1120,7 +1086,7 @@ sub provisionADC
     } otherwise {
         my ($error) = @_;
         $self->setProvisioned(0);
-        $self->setupDNS(0);
+        $self->setupDNS();
         throw $error;
     } finally {
         # Revert primary resolver changes

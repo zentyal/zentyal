@@ -706,7 +706,7 @@ sub _setConf
             $sambaModule->getProvision->isProvisioned()) {
             # Get the zones stored in the samba LDB
             my $ldb = $sambaModule->ldb();
-            $sambaZones = $ldb->dnsZones();
+            @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
