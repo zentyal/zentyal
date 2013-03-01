@@ -1,4 +1,4 @@
-HEAD
+3.0.14
 	+ Improve management of DNS zones stored in samba LDAP
 	+ Add classes to decode DNS data from samba LDAP
 	+ Use less costly LDB operations when adding or removing members
