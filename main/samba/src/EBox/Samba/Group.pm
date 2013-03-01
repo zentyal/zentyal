@@ -60,10 +60,8 @@ sub new
 sub removeAllMembers
 {
     my ($self, $lazy) = @_;
-
-    $self->set('member', [], $lazy);
+    $self->delete('member');
 }
-
 
 # Method: addMember
 #
@@ -85,9 +83,8 @@ sub addMember
             return;
         }
     }
-    push (@members, $user->dn());
 
-    $self->set('member', \@members, $lazy);
+    $self->add('member', $user->dn(), $lazy);
 }
 
 
@@ -108,7 +105,7 @@ sub removeMember
         push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
     }
 
-    $self->set('member', \@members, $lazy);
+    $self->deleteValues('member', [$user->dn()], $lazy);
 }
 
 

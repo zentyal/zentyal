@@ -1,5 +1,8 @@
 HEAD
-	+ More faster custom row id filter for Users model
+	+ Use less costly LDAP operations when adding or removing members
+	  from a group
+	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
+	+ Faster custom row id filter for Users model
 	+ Forbid user synchronization with other zentyals if samba is provisioned
 	+ Display users groups in slave mode
 	+ Avoided hang when the local host is wrongly used as master slave
