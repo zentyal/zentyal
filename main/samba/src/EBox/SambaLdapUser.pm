@@ -119,6 +119,28 @@ sub _addUser
         $sambaUser->setupUidMapping($uidNumber);
     }
 
+    # If server is first DC and roaming profiles are enabled, write
+    # the attributes
+    my $sambaSettings = $self->{samba}->model('GeneralSettings');
+    my $dc = $sambaSettings->MODE_DC();
+    if ($self->{samba}->mode() eq $dc) {
+        my $netbiosName = $self->{samba}->netbiosName();
+        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+        if ($self->{samba}->roamingProfiles()) {
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            EBox::info("Enabling roaming profile for user '$samAccountName'");
+            $sambaUser->setRoamingProfile(1, $path, 1);
+        } else {
+            $sambaUser->setRoamingProfile(0);
+        }
+
+        # Mount user home on network drive
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        EBox::info("Setting home network drive for user '$samAccountName'");
+        $sambaUser->setHomeDrive($self->{samba}->drive(), $drivePath, 1);
+        $sambaUser->save();
+    }
+
     EBox::info("Enabling '$samAccountName' account");
     $sambaUser->setAccountEnabled(1);
 }
