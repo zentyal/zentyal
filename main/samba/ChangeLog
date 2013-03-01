@@ -1,4 +1,6 @@
 HEAD
+	+ Set roaming profile and home drive for new created users if server
+	  is first DC
 	+ Default value of sync option in SambaShares is now 0
 3.0.14
 	+ Improve management of DNS zones stored in samba LDAP
