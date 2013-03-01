@@ -199,10 +199,8 @@ sub removeRow
 
 sub editField
 {
-    my $self = shift;
-
+    my ($self, %params) = @_;
     my $model = $self->{'tableModel'};
-    my %params = $self->getParams();
     my $force = $self->param('force');
     my $tableDesc = $model->table()->{'tableDescription'};
 
@@ -214,6 +212,7 @@ sub editField
     my %changedValues;
     for my $field (@{$tableDesc} ) {
         my $fieldName = $field->fieldName();
+
         unless ($field->isa('EBox::Types::Boolean')) {
             next unless defined $params{$fieldName};
         }
@@ -254,24 +253,33 @@ sub editField
     }
 }
 
-
 sub editBoolean
 {
     my ($self) = @_;
 
     my $model = $self->{'tableModel'};
     my $id = $self->unsafeParam('id');
-    my $field = $self->param('field');
-    my $value = 0;
+    my $boolField = $self->param('field');
+
+    my $value = undef;
     if ($self->param('value')) {
         $value = 1;
     }
 
-    my $currentRow = $model->row($id);
-    my $oldValue = $currentRow->valueByName($field);
-    my $element = $currentRow->elementByName($field);
-    $element->setValue($value);
-    $model->setTypedRow($id, { $field => $element}, readOnly => 0);
+    my @editParams = (id => $id, $boolField => $value);
+    # fill edit params with row fields
+    my $row = $model->row($id);
+    my $tableDesc =  $model->table()->{'tableDescription'};
+    for my $field (@{$tableDesc} ) {
+        my $fieldName = $field->fieldName();
+        if ($fieldName eq $boolField) {
+            next;
+        }
+        push @editParams, $fieldName => $row->valueByName($fieldName);
+    }
+    # do the edit
+    $self->editField(@editParams);
+
     $model->popMessage();
     my $global = EBox::Global->getInstance();
     # XXX Factor this class to be able to print 'application/json'
@@ -281,9 +289,6 @@ sub editBoolean
     if ($global->unsaved()) {
         $self->_responseToEnableChangesMenuElement();
     }
-
-    my $auditId = $self->_getAuditId($id);
-    $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
 
 sub setAllChecks
@@ -368,7 +373,8 @@ sub refreshTable
 sub editAction
 {
     my ($self) = @_;
-    $self->editField();
+    my @params = $self->getParams();
+    $self->editField(@params);
     $self->refreshTable();
 }
 
