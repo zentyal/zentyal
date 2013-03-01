@@ -190,25 +190,6 @@ sub deleteValues
     }
 }
 
-# Method: delete
-#
-#   Deletes an attribute from the object if given
-#
-# Parameters (for attribute deletion):
-#
-#   attribute - Attribute name to read
-#   lazy      - Do not update the entry in LDAP
-#
-sub deleteOld
-{
-    my ($self, $attr, $lazy) = @_;
-
-    if ($attr eq any $self->_entry->attributes) {
-        $self->_entry->delete($attr);
-        $self->save() unless $lazy;
-    }
-}
-
 # Method: deleteObject
 #
 #   Deletes this object from the LDAP
