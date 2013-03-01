@@ -1,4 +1,4 @@
-HEAD
+3.0.10
 	+ Use less costly LDAP operations when adding or removing members
 	  from a group
 	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
