@@ -1,4 +1,4 @@
-HEAD
+3.0.6
 	+ Improve management of DNS zones stored in samba LDAP
 	+ Improve data generation for reverse zones.
 	+ Only allow AXFR from internal networks
