@@ -13,3 +13,5 @@
 
   # For allowing custom tweaking (Zentyal)
   <% $confDir %>* r,
+
+  /etc/ldap/ldap.conf r,

@@ -189,14 +189,10 @@ sub enableService
         $self->getProvision->checkEnvironment($throwException);
     }
 
-    if ($self->isEnabled() and not $status) {
-        $self->getProvision->setupDNS(0);
-    } elsif (not $self->isEnabled() and $status and
-        $self->getProvision->isProvisioned()) {
-        $self->getProvision->setupDNS(1);
-    }
-
     $self->SUPER::enableService($status);
+
+    my $dns = EBox::Global->modInstance('dns');
+    $dns->setAsChanged();
 }
 
 # Method: _startService
