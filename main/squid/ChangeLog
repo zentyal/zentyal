@@ -1,4 +1,4 @@
-HEAD
+3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module
 	+ Overwrite squid3 logrotate file to take care of the squid-external daemon
