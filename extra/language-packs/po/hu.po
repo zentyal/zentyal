@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2012-09-13 16:58+0200\n"
+"PO-Revision-Date: 2012-11-16 04:33+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: hu\n"
@@ -96,6 +96,8 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"A(z) {name} nem használható, mert már van könyvtár ehhez a névhez: {dir}.\n"
+" Ez talán egy nem véglegesített eltávolítás?"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:44
 msgid "Time period"
@@ -218,12 +220,16 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Nem vehet fel „Allow” vagy „Profile” szabályt egy objektumhoz vagy "
+"tetszőleges címhez, ha csoportszabályokat használ "
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:178
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Nem vehet fel csoportalapú szabályt, ha már van „Allow” vagy „Profile” "
+"szabály objektumokhoz vagy tetszőleges címhez"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:410
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:152
@@ -674,7 +680,7 @@ msgstr "A szóköz nem engedélyezett a profilnevekben"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:159
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "A „~” karakter foglalt, és nem használható profilnevekben"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -1036,11 +1042,11 @@ msgstr "HTTP proxy forgalom jelentés"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
 msgid "Supplied file is not a archive file"
-msgstr ""
+msgstr "A megadott fájl nem egy archívum"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:77
 msgid "Supplied archive file has not correct list structure"
-msgstr ""
+msgstr "A megadott archívumfájl nem rendelkezik helyes listastruktúrával"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:96
 #, perl-brace-format
@@ -1161,14 +1167,12 @@ msgid "The time period must be at least active on one day"
 msgstr "Az időtartamnak legalább egy napon aktívnak kell lennie"
 
 #: ../../main/squid/src/EBox/Squid.pm:162
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
-msgstr "HTTP proxy beállító fájl"
+msgstr "Első HTTP proxy beállító fájl"
 
 #: ../../main/squid/src/EBox/Squid.pm:167
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
-msgstr "HTTP proxy beállító fájl"
+msgstr "Hátsó HTTP proxy beállító fájl"
 
 #: ../../main/squid/src/EBox/Squid.pm:172
 msgid "Content filter configuration file"
@@ -1264,7 +1268,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:287
 msgid "Override squid upstart job"
-msgstr ""
+msgstr "Squid upstart feladat felülbírálása"
 
 #: ../../main/squid/src/EBox/Squid.pm:288
 #: ../../main/squid/src/EBox/Squid.pm:294 ../../main/dns/src/EBox/DNS.pm:508
@@ -3579,9 +3583,9 @@ msgid "hostname"
 msgstr "gépnév"
 
 #: ../../main/dns/src/EBox/DNS.pm:1888
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Már létezik {al} álnevű csatoló"
+msgstr "Már létezik {x} gépnév a(z) {y} tartományban"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -4108,14 +4112,12 @@ msgid "Small Business"
 msgstr "Kisvállalati"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:96
-#, fuzzy
 msgid "Enterprise Trial"
-msgstr "Vállalati"
+msgstr "Vállalati próbaverzió"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:118
-#, fuzzy
 msgid "Zentyal Remote Client"
-msgstr "Zentyal Cloud kliens"
+msgstr "Zentyal távoli kliens"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:428
 msgid "Not subscribed"
@@ -4126,14 +4128,12 @@ msgid "Subscribed"
 msgstr "Előfizetve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:462
-#, fuzzy
 msgid "Registration"
-msgstr "Cél"
+msgstr "Regisztráció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:467
-#, fuzzy
 msgid "Server Registration"
-msgstr "Szerver változat"
+msgstr "Szerverregisztráció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:472
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
@@ -4149,18 +4149,16 @@ msgstr "Biztonsági frissítések"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:493
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:45
-#, fuzzy
 msgid "Your Zentyal Server Account"
-msgstr "Másik Zentyal szerver"
+msgstr "Az Ön Zentyal szerver fiókja"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:608
-#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Remote"
 msgstr ""
 "A megfigyelésgyűjtő IP-címek csak akkor érhetők el, ha a gép elő van fizetve "
-"a Zentyal Cloud szolgáltatásra"
+"a Zentyal Remote szolgáltatásra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:799
 msgid "Zentyal must be subscribed to reload the bundle"
@@ -4169,7 +4167,7 @@ msgstr "A csomag újratöltéséhez a Zentyalt elő kell fizetnie"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:806
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
-msgstr ""
+msgstr "A csomag nem tölthető újra: {reason}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1657
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1660
@@ -4254,40 +4252,36 @@ msgid "No data backup has been done yet"
 msgstr "Még nem készült biztonsági mentés az adatokról"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2088
-#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr ""
 "Az előfizetett gépnév csak akkor érhető el, ha a gép elő van fizetve a "
-"Zentyal Cloud szolgáltatásra"
+"Zentyal Remote szolgáltatásra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2117
-#, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
-"Az UUID csak akkor érhető el, ha a gép elő van fizetve a Zentyal Cloud "
+"Az UUID csak akkor érhető el, ha a gép elő van fizetve a Zentyal Remote "
 "szolgáltatásra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2146
-#, fuzzy
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
-"A Zentyal felhőtartomány csak akkor érhető el, ha a gép elő van fizetve"
+"A Zentyal Remote tartomány csak akkor érhető el, ha a gép elő van fizetve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2176
-#, fuzzy
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
 msgstr ""
-"A Zentyal felhőtartomány csak akkor érhető el, ha a gép elő van fizetve"
+"A Zentyal Remote dinamikus tartomány csak akkor érhető el, ha a gép elő van "
+"fizetve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2205
-#, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
-"A Zentyal felhő hitelesítési adatok csak akkor érhető el, ha a gép elő van "
+"A Zentyal Remote hitelesítési adatok csak akkor érhető el, ha a gép elő van "
 "fizetve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4299,20 +4293,20 @@ msgid "Service Level Agreement"
 msgstr "Szolgáltatásiszint-megállapodás"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-#, fuzzy
 msgid "Allow remote access to Zentyal support"
-msgstr "Távoli elérés engedélyezése a Zentyal alkalmazottainak"
+msgstr "Távoli elérés engedélyezése a Zentyal terméktámogatás számára"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
 msgid ""
 "Allow Zentyal support engineers to connect to your server from Zentyal "
 "Remote network."
 msgstr ""
+"A Zentyal terméktámogató mérnökök csatlakozhatnak a szerveréhez a Zentyal "
+"Remote hálózatról."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
-#, fuzzy
 msgid "Allow access from the Internet"
-msgstr "Hozzáférés engedélyezése minden internetcímről"
+msgstr "Hozzáférés engedélyezése az internetről"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
 msgid ""
@@ -4320,6 +4314,9 @@ msgid ""
 "Internet to your public IP address. Only use this option if you could not "
 "connect to Zentyal Remote."
 msgstr ""
+"A Zentyal terméktámogató mérnökök közvetlenül az internetről csatlakozhatnak "
+"szerverére az Ön nyilvános IP-címéhez. Ezt a lehetőséget csak akkor "
+"használja, ha nem tud csatlakozni a Zentyal Remote-hoz."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
@@ -4341,13 +4338,12 @@ msgstr ""
 "{cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is registered to "
 "Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
-"A címek korlátozásához elő kell fizetni a Zentyal Cloud szolgáltatásra. "
-"Előfizetés nélkül a hozzáférés nem korlátozható"
+"A címek korlátozásához regisztrálni kell a szervert a Zentyal Remote "
+"szolgáltatáson. Regisztrálja, vagy engedélyezze a hozzáférést bármely címről"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:162
 #, perl-brace-format
@@ -4440,28 +4436,24 @@ msgid "Alerts"
 msgstr "Riasztások"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (Dynamic DNS)"
-msgstr "Külső szervernév (DynDNS)"
+msgstr "Külső szervernév (Dinamikus DNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
 msgstr "Ezt a nevet használja a Zentyal eléréséhez kívülről"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-#, fuzzy
 msgid "Renovation date"
-msgstr "Előfizetés megújítási dátuma"
+msgstr "Megújítási dátum"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-#, fuzzy
 msgid "Server info"
-msgstr "A szerver nem található"
+msgstr "Szerverinformációk"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-#, fuzzy
 msgid "Not using Zentyal Dynamic DNS service"
-msgstr "Nem használja a Zentyal Cloud DynDNS szolgáltatást"
+msgstr "Nem használja a Zentyal dinamikus DNS szolgáltatást"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
@@ -4477,9 +4469,8 @@ msgid "The VPN server is reachable"
 msgstr "A VPN-szerver elérhető"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
-#, fuzzy
 msgid "Zentyal Remote VPN Connectivity Check"
-msgstr "Zentyal Cloud VPN-kapcsolat ellenőrzése"
+msgstr "Zentyal Remote VPN-kapcsolat ellenőrzése"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
@@ -4500,22 +4491,20 @@ msgid "Select one of the available options"
 msgstr "Válasszon egy elérhető lehetőséget"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
-#, fuzzy
 msgid ""
 "Registration was done correctly. Wait a minute to guarantee the system "
 "carries out the process of registration. Later on, you can start using the "
 "cloud based services you are entitled to with your edition (remote backup, "
 "updates, alerts, etc.)"
 msgstr ""
-"Az előfizetés befejeződött. Mentse el a beállításokat, és várjon egy percet "
-"annak érdekében, hogy a rendszer lezárjon mindent az előfizetési "
-"folyamatban. Később használhatja a felhő alapú szolgáltatásokat amelyeket az "
-"előfizetéssel kapott (távoli mentés, frissítések, értesítések stb.)"
+"A regisztráció befejeződött. Várjon egy percet annak érdekében, hogy a "
+"rendszer befejezze a regisztrációs folyamatot. Később használhatja a felhő "
+"alapú szolgáltatásokat, amelyeket a kiadáshoz kapott (távoli mentés, "
+"frissítések, értesítések stb.)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
-#, fuzzy
 msgid "Registration data retrieved correctly."
-msgstr "Az előfizetési adatok sikeresen lekérve."
+msgstr "A regisztrációs adatok sikeresen lekérve."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:169
 #: ../../main/core/src/EBox/Model/DataForm.pm:667
@@ -4524,28 +4513,25 @@ msgid "Done"
 msgstr "Kész"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:270
-#, fuzzy
 msgid ""
 "Take into account that registering your Zentyal server to the Zentyal Remote "
 "can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
-"A Zentyal Cloudba való előfizetés végrehajtása egy kis időbe telik. Ne "
-"csináljon semmit, amíg az előfizetési folyamat be nem fejeződik."
+"A Zentyal Remote-ba való regisztráció végrehajtása egy kis időbe telik. Ne "
+"csináljon semmit, amíg az regisztrációs folyamat be nem fejeződik."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:311
-#, fuzzy
 msgid ""
 "Prior to make a registration on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
-"Mielőtt előfizetne a távoli szolgáltatásokra, mentse vagy vesse el az "
+"Mielőtt regisztrálna a távoli szolgáltatásokra, mentse vagy vesse el az "
 "OpenVPN modul beállításait"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:338
-#, fuzzy
 msgid "Registration Email Address"
-msgstr "Felhasználónév vagy e-mail cím"
+msgstr "Regisztrációs e-mail cím"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:346
 msgid "Server Name"
@@ -4596,23 +4582,20 @@ msgid "Select one of your purchases"
 msgstr "Válasszon egy vásárlást"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
-#, fuzzy
 msgid "Zentyal registration details"
-msgstr "Zentyal előfizetés részletei"
+msgstr "Zentyal regisztráció részletei"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:382
-#, fuzzy
 msgid "Unregister"
-msgstr "Szürkelistára téve"
+msgstr "Regisztráció törlése"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:386
-#, fuzzy
 msgid "Register your Zentyal Server"
-msgstr "Regisztrált Zentyal szerverek"
+msgstr "Regisztrálja Zentyal szerverét"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:387
 msgid "Register"
-msgstr ""
+msgstr "Regisztráció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:607
 msgid " module"
@@ -4668,18 +4651,15 @@ msgid "Reload available options"
 msgstr "Elérhető lehetőségek újratöltése"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
-#, fuzzy
 msgid "Unregistering a server"
-msgstr "külső levelezőszerver"
+msgstr "Szerver regisztrációjának törlése"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:699
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:316
-#, fuzzy
 msgid "Registering a server"
-msgstr "külső levelezőszerver"
+msgstr "Szerver regisztrációja"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:96
-#, fuzzy
 msgid "Get latest report"
 msgstr "Utolsó jelentés letöltése"
 
@@ -4697,17 +4677,16 @@ msgstr "Jelentések"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:115
 msgid "Reports are done based on automatically gathered data in hourly basis"
-msgstr ""
+msgstr "A jelentések óránként automatikusan gyűjtött adatokra épülnek"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:139
-#, fuzzy
 msgid "Not registered"
-msgstr "Nem lett létrehozva"
+msgstr "Nem lett regisztrálva"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:140
 #, perl-brace-format
 msgid "{oh}Take a look on the example{ch}"
-msgstr ""
+msgstr "{oh}Nézze meg a példát{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 msgid "The consolidation is disabled. No report data is gathered"
@@ -4716,12 +4695,11 @@ msgstr "A konszolidáció letiltva. Nem kerültek összegyűjtésre jelentésada
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:157
 #, perl-brace-format
 msgid "{oh}Take a look{ch}"
-msgstr ""
+msgstr "{oh}Vessen rá egy pillantást{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:161
-#, fuzzy
 msgid "No consolidation done yet"
-msgstr "Nem történt konszolidáció"
+msgstr "Még nem történt konszolidáció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:140
 msgid "Disaster recovery"
@@ -4922,13 +4900,13 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "{host} nem érhető el. Ellenőrizze az internetkapcsolatát"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:722
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
-"Nem lehet csatlakozni a WS szerverhez: „{addr}:{port}/{proto}”. Ellenőrizze "
-"a névfeloldást és a tűzfalat"
+"Nem lehet csatlakozni az API szerverhez: „{addr}:{port}/{proto}”. "
+"Ellenőrizze a névfeloldást és a tűzfalat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:750
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:311
@@ -4979,9 +4957,8 @@ msgstr "A szolgáltatás tartománykulcsa nem található"
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:119
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:132
 #: ../../main/core/src/templates/headTitle.mas:19
-#, fuzzy
 msgid "Zentyal Remote"
-msgstr "Zentyal gép"
+msgstr "Zentyal Remote"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
@@ -5144,11 +5121,12 @@ msgstr ""
 "megnézheti itt:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:170
-#, fuzzy
 msgid ""
 "Password must have at least 6 characters. Leading or trailing spaces will be "
 "ignored."
-msgstr "A jelszó minimális hossza 6 karakter."
+msgstr ""
+"A jelszó minimális hossza 6 karakter. A nyitó és záró szóközök figyelmen "
+"kívül maradnak."
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:173
 msgid ""
@@ -5159,39 +5137,34 @@ msgstr ""
 "kapcsolatot az info@zentyal.com címmel."
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:73
-#, fuzzy
 msgid "Registering your server"
-msgstr "Regisztrált Zentyal szerverek"
+msgstr "Szerver regisztrációja"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:74
-#, fuzzy
 msgid "Registration finished"
-msgstr "Telepítés kész"
+msgstr "Regisztráció kész"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:75
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:82
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There was an error in the registration. There are more information in the "
 "logs directory {dir}"
 msgstr ""
-"Néhány modul hibát jelzett a változtatások mentésekor. További információk a "
-"naplókban találhatók itt: {dir}"
+"Hiba történt a regisztrációkor. További információk a naplókban találhatók "
+"itt: {dir}"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:80
-#, fuzzy
 msgid "Unregistering your server"
-msgstr "Szerverek listája"
+msgstr "Szerver regisztrációjának törlése"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:81
-#, fuzzy
 msgid "Unregistration finished"
-msgstr "Telepítés kész"
+msgstr "Regisztráció törlése kész"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:90
-#, fuzzy
 msgid "Making changes in your configuration"
-msgstr "Az új modulok beállításának befejezése"
+msgstr "A beállítások módosítása"
 
 #: ../../main/remoteservices/src/EBox/CGI/Subscription.pm:92
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:84
@@ -6365,9 +6338,8 @@ msgstr "A fájllista frissítése folyamat fut, próbálja újra később"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:127
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:66
-#, fuzzy
 msgid "There are no backed up files yet"
-msgstr "Jelenleg nincsenek mentett fájlok"
+msgstr "Még nincsenek mentett fájlok"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:144
 msgid "There are not backed up files yet"
@@ -6636,9 +6608,9 @@ msgid "Invalid value for {data}: {value}."
 msgstr "Érvénytelen érték: {data}: {value}."
 
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The requested action cannot be performed. Reason: {r}"
-msgstr "Az eltávolítás művelet nem fejezhető be a következő ok miatt: "
+msgstr "A kért művelet nem végezhető el a következő ok miatt: {r}"
 
 #: ../../main/common/src/EBox/Config.pm:158
 #, perl-brace-format
@@ -7571,13 +7543,12 @@ msgid "bridge"
 msgstr "bridge"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:148
-#, fuzzy
 msgid ""
 "The PPPoE password contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
 msgstr ""
-"A bemenet érvénytelen karaktereket tartalmaz. Csak alfanumerikus karakterek "
-"és /.?&+:-@ illetve a szóköz engedélyezett."
+"A PPPoE jelszó érvénytelen karaktereket tartalmaz. Csak alfanumerikus "
+"karakterek és  /.?!&+:-_\\@$%=* illetve a szóköz engedélyezett."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:45
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:115
@@ -7955,7 +7926,7 @@ msgstr "statikus IP-cím"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:241
 msgid "Not object added for fixed addresses"
-msgstr ""
+msgstr "Nem került felvételre objektum rögzített címekhez"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:244
 msgid ""
@@ -7989,13 +7960,15 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:165
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
-msgstr ""
+msgstr "Nincsenek engedélyezve csatolók. A DHCP-szerver nem fog címeket kiadni"
 
 #: ../../main/dhcp/src/EBox/Model/Interfaces.pm:167
 msgid ""
 "The enabled interfaces have not any range or fixed address configured.  The "
 "DHCP server  will not serve any address"
 msgstr ""
+"Az engedélyezett csatolókhoz nincs beállítva tartomány vagy rögzített cím. A "
+"DHCP-szerver nem fog címeket kiadni"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:78
 #, perl-brace-format
@@ -8387,6 +8360,8 @@ msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
 msgstr ""
+"Ez a csatoló nincs engedélyezve. A DHCP-szerver nem fog címeket kiadni ezen "
+"a csatolón"
 
 #: ../../main/dhcp/src/EBox/Composite/General.pm:57
 #, perl-brace-format
@@ -9569,13 +9544,12 @@ msgstr ""
 "csatlakozva marad, amíg a Jabber hitelesítés újra szükséges nem lesz."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:93
-#, fuzzy
 msgid "Sync with Zentyal Cloud"
-msgstr "Zentyal Cloud"
+msgstr "Szinkronizálás a Zentyal Clouddal"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:96
 msgid "Files will be synchronized with Zentyal Cloud."
-msgstr ""
+msgstr "A fájlok szinkronizálásra kerülnek a Zentyal Clouddal."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:101
 msgid "Share name"
@@ -9646,17 +9620,18 @@ msgstr ""
 "nevét, és a Zentyal létrehozza azt."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:46
-#, fuzzy
 msgid "Sync all with Zentyal Cloud"
-msgstr "Zentyal Cloud"
+msgstr "Minden szinkronizálása a Zentyal Clouddal"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:49
 msgid "All shares and user homes will be synchronized using Zentyal Cloud."
 msgstr ""
+"Minden megosztás és felhasználói könyvtár szinkronizálásra kerül a Zentyal "
+"Cloud használatával."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:55
 msgid "Cloud Sync"
-msgstr ""
+msgstr "Cloud szinkronizálás"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:108
 msgid "path"
@@ -9720,7 +9695,7 @@ msgstr "NetBIOS tartománynév"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:162
 msgid "Site"
-msgstr ""
+msgstr "Hely"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:168
 msgid "NetBIOS computer name"
@@ -9902,7 +9877,7 @@ msgstr "Kuka"
 #: ../../main/samba/src/EBox/Samba/User.pm:220
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
-msgstr ""
+msgstr "A(z) {x} objektum egy rendszerszinten kritikus objektum."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:232
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:222
@@ -9983,17 +9958,17 @@ msgstr "Fájlmegosztó protokoll (Samba)"
 #: ../../main/samba/src/EBox/Samba.pm:620
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
-msgstr ""
+msgstr "A gép „{d}” tartományának egyeznie kell a(z) „{r}” kerberos zónával"
 
 #: ../../main/samba/src/EBox/Samba.pm:634
 #, perl-brace-format
 msgid "The required domain '{d}' could not be found in the dns module"
-msgstr ""
+msgstr "A szükséges „{d}” tartomány nem található a DNS modulban"
 
 #: ../../main/samba/src/EBox/Samba.pm:647
 #, perl-brace-format
 msgid "The required host record '{h}' could not be found in the domain '{d}'"
-msgstr ""
+msgstr "A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban"
 
 #: ../../main/samba/src/EBox/Samba.pm:695
 msgid ""
@@ -10002,6 +9977,10 @@ msgid ""
 "an internal interface, and this IP has to be assigned to the domain and to "
 "the hostname in the DNS domain."
 msgstr ""
+"A Samba nem állítható be, ha nincsenek beállítva IP-címek, és a DNS "
+"tartomány nincs megfelelően beállítva. Biztosítsa, hogy legalább egy IP-cím "
+"tartozik egy belső csatolóhoz, ezt az IP-t pedig a DNS tartományban lévő "
+"gépnévhez és tartományhoz kell rendelni."
 
 #: ../../main/samba/src/EBox/Samba.pm:832
 #, perl-brace-format
@@ -10009,7 +9988,6 @@ msgid "The mode {mode} is not supported"
 msgstr "A(z) {mode} mód nem támogatott"
 
 #: ../../main/samba/src/EBox/Samba.pm:937
-#, fuzzy
 msgid ""
 "The server domain and kerberos realm must match the domain you are trying to "
 "join."
@@ -10022,6 +10000,8 @@ msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
+"A visszaállítás csak akkor lehetséges, ha a szerver az erdő egyedi "
+"tartományvezérlője"
 
 #: ../../main/samba/src/EBox/Samba.pm:1762
 msgid "Resource"
@@ -10103,12 +10083,16 @@ msgid ""
 "The samba database has already been provisioned. Changing the host name will "
 "cause domain services to stop working."
 msgstr ""
+"A Samba adatbázisa már létrejött. A gépnév megváltoztatásának hatására a "
+"tartományszolgáltatások nem fognak tovább működni."
 
 #: ../../main/samba/src/EBox/Samba.pm:2347
 msgid ""
 "The samba database has already been provisioned. Changing the host domain "
 "will cause domain services to stop working."
 msgstr ""
+"A Samba adatbázisa már létrejött. A géptartomány megváltoztatásának hatására "
+"a tartományszolgáltatások nem fognak tovább működni."
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:399
 msgid "A name should be provided for the share."
@@ -11041,9 +11025,8 @@ msgid "Country code"
 msgstr "Országkód"
 
 #: ../../main/ca/src/EBox/CA.pm:224
-#, fuzzy
 msgid "The country code must be the 2-characters ISO code"
-msgstr "A jelszó minimális hossza 6 karakter"
+msgstr "Az országkódnak a 2 karakteres ISO kódnak kell lennie"
 
 #: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:742
 #: ../../main/ca/src/EBox/CA.pm:1373
@@ -11111,9 +11094,8 @@ msgid "Created but not available"
 msgstr "Létrehozva, de nem érhető el"
 
 #: ../../main/ca/src/EBox/CA.pm:1886
-#, fuzzy
 msgid "The field cannot contain only blank characters"
-msgstr "A beírt adatok érvénytelen karaktereket tartalmaznak"
+msgstr "A mező nem tartalmazhat csak üreshely karaktereket"
 
 #: ../../main/ca/src/EBox/CA.pm:1909
 msgid "String"
@@ -11874,13 +11856,12 @@ msgid "Free Disk Space Watcher"
 msgstr "Szabadterület-figyelő"
 
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:165
-#, fuzzy
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen."
 msgstr ""
-"Figyelmez: A naplófigyelő nincs bekapcsolva. Kapcsolja be, ha értesítést "
-"szeretne a naplóbejegyzésekről."
+"Figyelmeztetés: A naplófigyelő nincs bekapcsolva. Kapcsolja be, ha "
+"értesítést szeretne a naplóbejegyzésekről."
 
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:192
 msgid "Filtering"
@@ -12443,7 +12424,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:243
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:258
 msgid "never purge"
@@ -12735,15 +12716,16 @@ msgid ""
 "Additionally, using a domain ending in '.local' can conflict with other "
 "protocols like zeroconf and is, in general, discouraged."
 msgstr ""
+"Ezen kívül a „.local” végződésű tartományok használata ütközhet más, a "
+"zeroconfhoz hasonló protokollokkal, és általánosságban nem javasolt."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:173
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:186
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
-msgstr "{min} és {max} közötti szám."
+msgstr "A hossz {min} és {max} karakter között lehet."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:184
-#, fuzzy
 msgid "Host domain"
 msgstr "Gép tartományneve"
 
@@ -12752,6 +12734,8 @@ msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
 msgstr ""
+"A DNS nevek csak kisbetűket (a-z), számokat (0-9) és a mínusz jelet (-) "
+"tartalmazhatják"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:90
@@ -12759,14 +12743,12 @@ msgid "On this page you can set different general system settings"
 msgstr "Ezen az oldalon különböző általános rendszerbeállítások adhatók meg"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:62
-#, fuzzy
 msgid "Administrator Accounts"
-msgstr "Rendszergazdai fiók"
+msgstr "Rendszergazdai fiókok"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
-#, fuzzy
 msgid "administrator"
-msgstr "Rendszergazda"
+msgstr "rendszergazda"
 
 #: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:95
 #: ../../main/core/src/EBox/Types/DomainName.pm:116
@@ -12897,7 +12879,7 @@ msgstr "Nyelv kiválasztása"
 
 #: ../../main/core/src/EBox/Apache/Model/Language.pm:79
 msgid "New language selected, save changes to commit"
-msgstr ""
+msgstr "Új nyelv kiválasztva, mentse a módosításokat a véglegesítéshez"
 
 #: ../../main/core/src/EBox/Apache/Model/AdminPort.pm:54
 msgid "Administration interface TCP port"
@@ -14742,14 +14724,12 @@ msgid "account name"
 msgstr "felhasználói fiók neve"
 
 #: ../../main/mail/src/EBox/CGI/AddExternalAccount.pm:77
-#, fuzzy
 msgid "Mail protocol"
-msgstr "protokoll"
+msgstr "Levelezőprotokoll"
 
 #: ../../main/mail/src/EBox/CGI/DelExternalAccount.pm:45
-#, fuzzy
 msgid "External mail account"
-msgstr "Külső postafiókok"
+msgstr "Külső postafiók"
 
 #: ../../main/mail/src/EBox/CGI/SetAccountMaildirQuota.pm:62
 msgid "Quota must be a amount of MB greter than zero"
@@ -15037,6 +15017,7 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:126
 msgid "Enable Single Sign On on the Webaccess and Webapp interface."
 msgstr ""
+"Egyszeres bejelentkezés engedélyezése a Webaccess és Webapp felületeken."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:136
 msgid ""
@@ -15206,9 +15187,8 @@ msgid "To properly configure Zarafa webaccess."
 msgstr "A Zarafa webhozzáférés helyes beállítása."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:132
-#, fuzzy
 msgid "To properly configure Zarafa XMPP integration."
-msgstr "A Zarafa LDAP kapcsolat helyes beállítása."
+msgstr "A Zarafa XMPP integráció beállítása."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:137
 msgid "To properly configure Zarafa gateway server."
@@ -15752,6 +15732,8 @@ msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "this server {slave}."
 msgstr ""
+"Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
+"{master}, ez a szerver: {slave}. "
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:221
 msgid "CAUTION: this will delete all defined users and import master ones."
@@ -15915,6 +15897,8 @@ msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
 msgstr ""
+"A jelszómódosítás csak elsődleges vagy önálló szervereken engedélyezett. A "
+"jelszót az elsődleges kiszolgáló felhasználói sarkában módosíthatja."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:47
 msgid "Password management"
@@ -16056,9 +16040,8 @@ msgstr "csoportnév"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:396
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:636
-#, fuzzy
 msgid "There was an error: "
-msgstr "Hiba történt az LDAP frissítése során: "
+msgstr "Hiba történt: "
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:462
 msgid "Maximum number of groups reached"
@@ -16145,9 +16128,8 @@ msgid "Maximum number of system users reached"
 msgstr "A rendszerfelhasználók maximális száma elérve"
 
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:786
-#, fuzzy
 msgid "Maximum number of users reached"
-msgstr "A rendszerfelhasználók maximális száma elérve"
+msgstr "A felhasználók maximális száma elérve"
 
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:803
 #, perl-brace-format
@@ -16270,7 +16252,7 @@ msgstr ""
 msgid ""
 "The kerberos realm is already initialized and it is tied with the domain "
 "name."
-msgstr ""
+msgstr "A kerberos zóna már elő van készítve, és a tartománynévhez van kötve."
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:259
 #, perl-brace-format
@@ -16278,6 +16260,8 @@ msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "slave {slave}."
 msgstr ""
+"Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
+"{master}, az alárendelt: {slave}. "
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:286
 msgid "Invalid password"
@@ -16739,9 +16723,8 @@ msgstr ""
 "Frissítés gomb megnyomása után."
 
 #: ../../main/software/src/templates/updates.mas:156
-#, fuzzy
 msgid "Upgrading system packages"
-msgstr "Csomagok frissítése"
+msgstr "Rendszercsomagok frissítése"
 
 #: ../../main/software/src/templates/updates.mas:156
 msgid "Upgrade"
@@ -16753,6 +16736,8 @@ msgid ""
 "This feature is only available if you register your server. You can register "
 "it at the {oh}register page{ch}."
 msgstr ""
+"Ez a szolgáltatás csak a szerver regisztrálása után érhető el. Ezt a "
+"{oh}regisztrációs oldalon{ch} teheti meg."
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -17716,9 +17701,8 @@ msgid "Read-only row: clone disabled"
 msgstr "Csak olvasható sor: klónozás tiltva"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:769
-#, fuzzy
 msgid "Cannot move up"
-msgstr "{row} sor fölfelé mozgatva"
+msgstr "Nem lehet fölfelé mozgatni"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:770
 #: ../../main/core/src/templates/ajax/tableModalView.mas:629
@@ -17726,9 +17710,8 @@ msgid "Read-only row: move up disabled"
 msgstr "Csak olvasható sor: felfelé mozgatás tiltva"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:785
-#, fuzzy
 msgid "Cannot move down"
-msgstr "{row} sor lefelé mozgatva"
+msgstr "Nem lehet lefelé mozgatni"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:786
 #: ../../main/core/src/templates/ajax/tableModalView.mas:645
