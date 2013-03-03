@@ -2,6 +2,7 @@ class: 'EBox::Samba'
 
 depends:
     - network
+    - users
     - printers
 
 enabledepends:

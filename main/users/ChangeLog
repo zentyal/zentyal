@@ -1,5 +1,6 @@
 HEAD
 	+ Allow domain name change in System -> General reprovisioning LDAP db
+	+ Depend on dns module to fix save changes order during reprovision
 3.0.10
 	+ Use less costly LDAP operations when adding or removing members
 	  from a group
