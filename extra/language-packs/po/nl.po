@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 11:55+0200\n"
-"PO-Revision-Date: 2012-10-03 01:50+0200\n"
-"Last-Translator: robb <r_bosch@gmx.net>\n"
+"PO-Revision-Date: 2012-11-10 16:11+0200\n"
+"Last-Translator: Disaster_Master <mauricewillers@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -4311,7 +4311,6 @@ msgstr ""
 "op Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2205
-#, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
@@ -17606,16 +17605,15 @@ msgstr "laatste"
 
 #: ../../main/core/src/templates/ajax/tableSelector.mas:13
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "Kies een van de opties om de bijbehorende tabel weer te geven"
 
 #: ../../main/core/src/templates/ajax/tableSelector.mas:29
 msgid "Choose one..."
-msgstr ""
+msgstr "Kies een ..."
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
-#, fuzzy
 msgid "Current file"
-msgstr "Huidige module"
+msgstr "Huidige bestand"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:320
 #: ../../main/core/src/templates/ajax/tableModal.mas:173
@@ -17663,7 +17661,7 @@ msgstr "Alleen lezen rij:klonen uitgeschakeld"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:769
 msgid "Cannot move up"
-msgstr ""
+msgstr "Kan niet naar boven verplaatsen"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:770
 #: ../../main/core/src/templates/ajax/tableModalView.mas:629
@@ -17671,9 +17669,8 @@ msgid "Read-only row: move up disabled"
 msgstr "Alleen lezen rij: naar boven bewegen uitgeschakeld"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:785
-#, fuzzy
 msgid "Cannot move down"
-msgstr "Naar beneden"
+msgstr "Kan niet naar beneden verplaatsen"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:786
 #: ../../main/core/src/templates/ajax/tableModalView.mas:645
@@ -17896,9 +17893,8 @@ msgid "Exit"
 msgstr "Exit"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Save changes?"
-msgstr "Wijzigingen opslaan"
+msgstr "Wijzigingen opslaan?"
 
 #: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
@@ -17950,15 +17946,17 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
+"Waarschuwing: U gebruikt een browser die niet {url}, de enige officieel "
+"ondersteund. Alsjeblieft, houd u er rekening mee dat u wellicht een aantal "
+"problemen tegenkomt tijdens het navigeren op Zentyal UI."
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
 msgstr "Lokaal"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote"
-msgstr "Verwijderen"
+msgstr "Op afstand"
 
 #: ../../main/core/src/templates/report/diskUsage.mas:26
 msgid "Mounted on"
@@ -17969,13 +17967,13 @@ msgid "Partition Properties"
 msgstr "Partitie Eigenschappen"
 
 #: ../../main/core/src/templates/report/raid.mas:19
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent RAID array {a}"
-msgstr "Onbestaande actie: {a}"
+msgstr "Onbestaande RAID array {a}"
 
 #: ../../main/core/src/templates/report/raid.mas:41
 msgid "RAID is not enabled in this system."
-msgstr ""
+msgstr "RAID is niet ingeschakeld op dit systeem"
 
 #: ../../main/core/src/templates/report/raid.mas:90
 msgid "left-asymmetric"
@@ -17995,50 +17993,47 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:138
 msgid "Active RAID devices"
-msgstr ""
+msgstr "Actieve RAID apparaten"
 
 #: ../../main/core/src/templates/report/raid.mas:139
-#, fuzzy
 msgid "Active RAID devices needed"
-msgstr "December"
+msgstr "Actieve RAID apparaten benodigd"
 
 #: ../../main/core/src/templates/report/raid.mas:140
 msgid "Size in blocks"
-msgstr ""
+msgstr "Groote in blokken"
 
 #: ../../main/core/src/templates/report/raid.mas:141
 msgid "Chunk size"
-msgstr ""
+msgstr "Chunk grote"
 
 #: ../../main/core/src/templates/report/raid.mas:144
 msgid "Parity algorithm"
-msgstr ""
+msgstr "Parity algoritme"
 
 #: ../../main/core/src/templates/report/raid.mas:156
 msgid "Bitmap"
-msgstr ""
+msgstr "Bitmap"
 
 #: ../../main/core/src/templates/report/raid.mas:177
-#, fuzzy
 msgid "Array properties"
-msgstr "Partitie Eigenschappen"
+msgstr "Array Eigenschappen"
 
 #: ../../main/core/src/templates/report/raid.mas:192
 msgid "Resyncing array"
-msgstr ""
+msgstr "Her synchroniseer array"
 
 #: ../../main/core/src/templates/report/raid.mas:193
 msgid "Rebuild array"
-msgstr ""
+msgstr "Herbouw array"
 
 #: ../../main/core/src/templates/report/raid.mas:194
 msgid "Reshape array"
-msgstr ""
+msgstr "Hervorm array"
 
 #: ../../main/core/src/templates/report/raid.mas:202
-#, fuzzy
 msgid "Operation type"
-msgstr "Werkwijze"
+msgstr "Werking type"
 
 #: ../../main/core/src/templates/report/raid.mas:204
 #, fuzzy
@@ -18051,37 +18046,32 @@ msgid "Estimated time left"
 msgstr "Verwachte eind tijd: {time}."
 
 #: ../../main/core/src/templates/report/raid.mas:208
-#, fuzzy
 msgid "Operation speed"
-msgstr "Werkwijze"
+msgstr "Verwerking snelheid"
 
 #: ../../main/core/src/templates/report/raid.mas:221
-#, fuzzy
 msgid "RAID device number"
-msgstr "December"
+msgstr "RAID apparaat nummer"
 
 #: ../../main/core/src/templates/report/raid.mas:222
-#, fuzzy
 msgid "Device"
-msgstr "Dienst"
+msgstr "Apparaat"
 
 #: ../../main/core/src/templates/report/raid.mas:229
-#, fuzzy
 msgid "failure"
-msgstr "Uitgeschakeld"
+msgstr "mislukt"
 
 #: ../../main/core/src/templates/report/raid.mas:231
 msgid "Failure on spare"
-msgstr ""
+msgstr "Fout op reserve"
 
 #: ../../main/core/src/templates/report/raid.mas:259
-#, fuzzy
 msgid "No unused RAID devices"
-msgstr "Ongebruikt apparaat"
+msgstr "Geen ongebruikte RAID apparaten"
 
 #: ../../main/core/src/templates/report/raid.mas:262
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "Ongebruikte RAID arrays"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
@@ -18169,14 +18159,12 @@ msgid "Restore configuration using this file"
 msgstr "Configuratie herstellen met dit bestand"
 
 #: ../../main/core/src/templates/backup.mas:155
-#, fuzzy
 msgid "Download backup file"
-msgstr "Algemene configuratie"
+msgstr "Download backup bestand"
 
 #: ../../main/core/src/templates/backup.mas:156
-#, fuzzy
 msgid "Delete backup"
-msgstr "Groep verwijderen"
+msgstr "Verwijder backup"
 
 #: ../../main/core/src/templates/backup.mas:159
 msgid "Full"
@@ -18188,23 +18176,20 @@ msgid "Configuration only"
 msgstr "Configuratie herstellen"
 
 #: ../../main/core/src/templates/backup.mas:161
-#, fuzzy
 msgid "Unknown type"
-msgstr "Ongekend"
+msgstr "Onbekend type"
 
 #: ../../main/core/src/templates/backup.mas:228
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Configuratie herstellen"
+msgstr "Configuratie overzicht"
 
 #: ../../main/core/src/templates/backup.mas:229
-#, fuzzy
 msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
 msgstr ""
-"Op deze pagina kan je een bestand met informatie over je systeem genereren. "
-"Het bestand is nuttig bij het rapporteren van een fout in eBox."
+"U kunt een bestand met informatie over de status van uw systeem maken. Dit "
+"bestand kan handig zijn als u een probleem wilt melden of om hulp te zoeken."
 
 #: ../../main/core/src/templates/backup.mas:233
 msgid "Generate and Download report file"
@@ -18238,9 +18223,8 @@ msgid "From date:"
 msgstr "Van datum:"
 
 #: ../../main/core/src/templates/input/multiSelect.mas:12
-#, fuzzy
 msgid "No options"
-msgstr "Omschrijving"
+msgstr "Geen opties"
 
 #: ../../main/mail/src/templates/groupalias.mas:7
 msgid "Mail alias settings"
@@ -18264,9 +18248,8 @@ msgid "Create mail account"
 msgstr "Creëer mail account"
 
 #: ../../main/mail/src/templates/createaccount.mas:48
-#, fuzzy
 msgid "Maildir size"
-msgstr "Bestandsgrootte"
+msgstr "Mailmap grootte"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
@@ -18457,7 +18440,7 @@ msgstr ""
 
 #: ../../main/zarafa/src/templates/zarafa.mas:101
 msgid "Zarafa takes quota settings from mail account settings."
-msgstr ""
+msgstr "Zarafa neemt quota instellingen van mail account instellingen"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:107
 #, fuzzy
@@ -18661,19 +18644,16 @@ msgstr ""
 "Beheers rechten"
 
 #: ../../main/users/src/templates/user.mas:58
-#, fuzzy
 msgid "User quota"
-msgstr "quota"
+msgstr "Gebruiker quota"
 
 #: ../../main/users/src/templates/user.mas:99
-#, fuzzy
 msgid "User groups"
-msgstr "Gebruikers in groep"
+msgstr "Gebruiker groepen"
 
 #: ../../main/users/src/templates/user.mas:100
-#, fuzzy
 msgid "Other groups"
-msgstr "Groep verwijderen"
+msgstr "Andere groepen"
 
 #: ../../main/users/src/templates/user.mas:121
 #, fuzzy
