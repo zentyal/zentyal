@@ -1696,6 +1696,7 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
+        EBox::Global->modInstance('apache')->setAsChanged();
     }
 }
 
@@ -1736,7 +1737,6 @@ sub reprovision
     EBox::Sudo::root('rm -rf /var/lib/ldap/*');
     $self->_manageService('start');
 
-    # FIXME: properly reconfigure DNS module
     $self->enableActions();
 }
 
