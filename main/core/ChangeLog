@@ -1,6 +1,12 @@
 HEAD
 	+ Show confirmation dialog when trying to change host or domain
 	  if zentyal-samba is installed and provisioned
+3.0.14
+	+ Allow search filters with a leading '*'
+	+ Better error reporting when choosing a bad search filter
+	+ External exceptions from _print method are caught correctly in CGIs
+	+ EBox::CGI::run now supports correct handling of APR::Error
+	+ Fixed dashboard check updates ajax requests in Chrome
 	+ Fixed errors with zero digits components in time type
 3.0.13
 	+ Better warning if size file is missing in a backup when

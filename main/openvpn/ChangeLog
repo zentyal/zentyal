@@ -1,3 +1,5 @@
+HEAD
+	+ Daemon configuration files are created, as expected, in _setConf method
 3.0.3
 	+ LogHelper does not sees longer 'X509NAME OK' verification status
 	  as unknown

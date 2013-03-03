@@ -65,7 +65,7 @@ sub getParams
     }
 
     $params{'id'} = $self->param('id');
-    $params{'filter'} = $self->param('filter');
+    $params{'filter'} = $self->unsafeParam('filter');
 
     return %params;
 }
@@ -198,7 +198,7 @@ sub refreshTable
         $model->setPageSize($pageSize);
     }
 
-    my $filter = $self->param('filter');
+    my $filter = $self->unsafeParam('filter');
     if (not defined $filter) {
         $filter = '';
     }

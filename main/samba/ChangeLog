@@ -1,5 +1,14 @@
 HEAD
 	+ Samba can now be reprovisioned if the hostname or domain changes
+	+ Set roaming profile and home drive for new created users if server
+	  is first DC
+	+ Default value of sync option in SambaShares is now 0
+3.0.14
+	+ Improve management of DNS zones stored in samba LDAP
+	+ Add classes to decode DNS data from samba LDAP
+	+ Use less costly LDB operations when adding or removing members
+	  from a group
+	+ Added EBox:Samba::LDBObject::deleteValues method
 	+ Fix wrong URL on provision message
 	+ Better error messages when the environment checks for provision fail
 	+ Forbid provision if the server is replicating users either master or slave

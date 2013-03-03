@@ -643,7 +643,6 @@ sub subModel
 sub matchFilter
 {
     my ($self, $filter) = @_;
-
     unless ($filter) {
         throw EBox::Exceptions::MissingArgument('filter');
     }

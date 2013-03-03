@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
+
 # Class:
 #
 #   EBox::DNS::Model::DomainTable
@@ -24,6 +25,7 @@ use warnings;
 #   <EBox::DNS::Model::HostnameTable>
 #
 package EBox::DNS::Model::DomainTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -47,17 +49,6 @@ use Digest::HMAC_MD5;
 use MIME::Base64;
 
 # Group: Public methods
-
-sub new
-{
-    my $class = shift;
-    my %parms = @_;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
 
 # Method: addDomain
 #
@@ -663,20 +654,27 @@ sub syncRows
         %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
     }
 
+    my %sambaZones;
+    my $sambaEnabled = 0;
+    if ($global->modExists('samba')) {
+        my $samba = $global->modInstance('samba');
+        $sambaEnabled = $samba->isEnabled() && $samba->getProvision->isProvisioned();
+        if ($sambaEnabled) {
+            my $sambaZones = $samba->ldb->dnsZones();
+            %sambaZones = map { $_->name() => $_ } @{$sambaZones};
+        }
+    }
+
     my $changed;
     foreach my $id (@{$currentIds}) {
         my $newValue = undef;
         my $row = $self->row($id);
         my $dynamicElement = $row->elementByName('dynamic');
-        my $value = $dynamicElement->value();
-        if ($value) {
-            if (not $dynamicDomainsIds{$id}) {
-                $newValue = 0;
-            }
+        my $dynamicValue   = $dynamicElement->value();
+        if ($dynamicValue) {
+            $newValue = 0 if (not $dynamicDomainsIds{$id});
         } else {
-            if ($dynamicDomainsIds{$id}) {
-                $newValue = 1;
-            }
+            $newValue = 1 if ($dynamicDomainsIds{$id});
         }
 
         if (defined $newValue) {
@@ -684,6 +682,23 @@ sub syncRows
             $row->store();
             $changed = 1;
         }
+
+        my $sambaElement = $row->elementByName('samba');
+        my $domainName = $row->valueByName('domain');
+        # If the domain is not marked as stored in LDB and is present in samba zones array, mark
+        if ($sambaEnabled and exists $sambaZones{$domainName} and not $sambaElement->value()) {
+            $sambaElement->setValue(1);
+            $row->store();
+            $changed = 1;
+        }
+
+        # If the domain is marked as stored in LDB and is not present in samba zones array, unmark
+        if (not $sambaEnabled or (not exists $sambaZones{$domainName} and $sambaElement->value())) {
+            $sambaElement->setValue(0);
+            $row->store();
+            $changed = 1;
+        }
+        delete $sambaZones{$domainName};
     }
 
     return $changed;

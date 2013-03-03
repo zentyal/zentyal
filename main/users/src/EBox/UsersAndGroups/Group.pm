@@ -112,8 +112,7 @@ sub name
 sub removeAllMembers
 {
     my ($self, $lazy) = @_;
-
-    $self->set('member', [], $lazy);
+    $self->delete('member');
 }
 
 
@@ -130,18 +129,15 @@ sub addMember
     my ($self, $user, $lazy) = @_;
 
     my @members = $self->get('member');
-
     # return if user already in the group
     foreach my $dn (@members) {
         if (lc ($dn) eq lc ($user->dn())) {
             return;
         }
     }
-    push (@members, $user->dn());
 
-    $self->set('member', \@members, $lazy);
+    $self->add('member', $user->dn(), $lazy);
 }
-
 
 # Method: removeMember
 #
@@ -160,7 +156,7 @@ sub removeMember
         push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
     }
 
-    $self->set('member', \@members, $lazy);
+    $self->deleteValues('member', [$user->dn()], $lazy);
 }
 
 

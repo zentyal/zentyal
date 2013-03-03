@@ -355,7 +355,7 @@ sub run
 
     try  {
       $self->_print
-    } catch EBox::Exceptions::Internal with {
+    } catch EBox::Exceptions::Base with {
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->_print_error($self->{error});
@@ -369,7 +369,11 @@ sub run
                  "a bug, relevant information can ".
                  "be found in the logs.");
           $self->_print_error($error);
-        } else {
+      } elsif ($ex->isa('APR::Error')) {
+        my $debug = EBox::Config::boolean('debug');
+        my $error = $debug ? $ex->confess() : $ex->strerror();
+        $self->_print_error($error);
+      } else {
           # will be logged in EBox::CGI::Run
           throw $ex;
         }

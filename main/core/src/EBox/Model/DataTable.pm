@@ -3521,77 +3521,6 @@ sub _notifyManager
     return $manager->modelActionTaken($contextName, $action, $row);
 }
 
-sub _filterRows
-{
-    my ($self, $rows, $filter, $page) = @_;
-
-    # Filter using regExp
-    my @newRows;
-    if (defined($filter) and length($filter) > 0) {
-        my @words = split (/\s+/, $filter);
-        my $totalWords = scalar(@words);
-        for my $row (@{$rows}) {
-            my $nwords = $totalWords;
-            my %wordFound;
-            for my $element (@{$row->elements()}) {
-                my $printableVal = $element->printableValue();
-                next unless defined($printableVal);
-                my $rowFound;
-                for my $regExp (@words) {
-                    if (not exists $wordFound{$regExp}
-                            and $printableVal =~ /$regExp/) {
-                        $nwords--;
-                        $wordFound{$regExp} = 1;
-                        unless ($nwords) {
-                            push(@newRows, $row);
-                            $rowFound = 1;
-                            last;
-                        }
-                    }
-
-                }
-                last if $rowFound;
-            }
-        }
-    } else {
-        @newRows = @{$rows};
-    }
-
-    # Paging
-    unless (defined($page) and $self->pageSize()) {
-        return \@newRows;
-    }
-
-    my $pageSize = $self->pageSize();
-    my $tpages;
-    if (@newRows == 0) {
-        $tpages = 0;
-    } else {
-        $tpages = ceil(@newRows / $pageSize) - 1;
-    }
-
-    if ($page < 0) { $page = 0; }
-    if ($page > $tpages) { $page = $tpages; }
-
-    my $index;
-    if ($tpages > 0 and defined($pageSize) and $pageSize > 0) {
-        $index = $page * $pageSize;
-    } else {
-        $index = 0;
-        $pageSize = @{$rows} - 1;
-    }
-    my $offset = $index + $pageSize;
-    if ($page == $tpages) {
-        $offset = @newRows;
-    }
-
-    if ($tpages > 0) {
-        return [@newRows[$index ..  ($offset - 1)]];
-    } else {
-        return \@newRows;
-    }
-}
-
 sub _mainController
 {
     my ($self) = @_;
@@ -3607,6 +3536,26 @@ sub _mainController
     }
     return $defAction;
 }
+
+sub adaptRowFilter
+{
+    my ($self, $filter) = @_;
+    my $compiled;
+    # allow starting '*'
+    if ($filter =~ m/^\*/) {
+        $filter = '.' . $filter;
+    }
+    eval {  $compiled = qr/$filter/ };
+    if ($@) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Search rows term'),
+            value => $filter,
+            advice => __('Must be a valid regular expression'),
+           );
+    }
+    return $compiled;
+}
+
 
 # Set the default controller to that actions which do not have a
 # custom controller
