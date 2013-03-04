@@ -21,6 +21,10 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Types::Action;
 use EBox::DBEngineFactory;
+use EBox::Util::Lock;
+use Error qw(:try);
+
+my $haltInProgress;
 
 sub new
 {
@@ -44,6 +48,7 @@ sub _table
             model => $self,
             handler => \&_doHalt,
             message => __('Zentyal is going down for halt'),
+            enabled => \&_buttonEnabled,
         ),
         new EBox::Types::Action(
             name => 'reboot',
@@ -51,6 +56,7 @@ sub _table
             model => $self,
             handler => \&_doReboot,
             message => __("Zentyal is going down for reboot"),
+            enabled => \&_buttonEnabled,
         ),
     ];
 
@@ -84,6 +90,12 @@ sub popMessage
 sub _doHalt
 {
     my ($self, $action, %params) = @_;
+    $self->_updateHaltInProgress();
+    if ($haltInProgress) {
+        return;
+    }
+    $haltInProgress = 1;
+
     $self->_prepareSystemForHalt($action);
     EBox::Sudo::root('/sbin/poweroff');
 }
@@ -91,8 +103,26 @@ sub _doHalt
 sub _doReboot
 {
     my ($self, $action, %params) = @_;
+    $self->_updateHaltInProgress();
+    if ($haltInProgress) {
+        return;
+    }
+    $haltInProgress = 1;
+
     $self->_prepareSystemForHalt($action);
     EBox::Sudo::root("/sbin/reboot");
+}
+
+# this is to detect hatl/reboot from other processes
+sub _updateHaltInProgress
+{
+    my ($class) = @_;
+    try {
+        EBox::Util::Lock::lock("sysinfo-halt");
+        # it is a system halt/reboot so we will not unlock this
+    } otherwise {
+        $haltInProgress = 1;
+    };
 }
 
 sub _prepareSystemForHalt
@@ -110,6 +140,12 @@ sub _prepareSystemForHalt
 
     EBox::info($actionMsg);
     $self->setMessage($actionMsg, 'note');
+}
+
+sub _buttonEnabled
+{
+    __PACKAGE__->_updateHaltInProgress();
+    return not $haltInProgress;
 }
 
 1;
