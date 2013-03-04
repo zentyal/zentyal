@@ -1336,10 +1336,7 @@ sub _formatSRV
                 $targetHost = $targetHost . '.';
             }
         } else {
-            $targetHost = $row->parentRow()
-               ->subModel('hostnames')
-               ->row($targetHost)
-               ->valueByName('hostname');
+            $targetHost = $row->printableValueByName('hostName');
         }
         push (@srvRecords, {
                 service_name => $row->valueByName('service_name'),
