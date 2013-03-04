@@ -2862,10 +2862,13 @@ sub generateInterfaces
     open(IFACES, ">", $tmpfile) or
         throw EBox::Exceptions::Internal("Could not write on $file");
     print IFACES "auto lo";
-    foreach (@{$iflist}) {
-        if (($self->ifaceMethod($_) eq 'static') or
-            ($self->ifaceMethod($_) eq 'dhcp')) {
-            print IFACES " " . $_;
+    foreach my $iface (@{$iflist}) {
+        my $ifMethod = $self->ifaceMethod($iface);
+        if (($ifMethod eq 'static') or
+            ($ifMethod eq 'dhcp') or
+            ($ifMethod eq 'bridged')
+        ) {
+            print IFACES " " . $iface;
         }
     }
 
