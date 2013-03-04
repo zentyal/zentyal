@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 
 # Class: EBox::TrafficShaping
 #
@@ -29,10 +30,6 @@
 #      interface
 #
 package EBox::TrafficShaping;
-
-use strict;
-use warnings;
-
 use base qw(EBox::Module::Service EBox::NetworkObserver);
 
 ######################################
@@ -431,7 +428,6 @@ sub checkRule
     # Check rule availability
     my $nRules =  $self->model('InternalRules')->size();
     $nRules    += $self->model('ExternalRules')->size();
-
     if ($nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(
             __x('The maximum rule account {max} is reached, ' .
@@ -446,9 +442,13 @@ sub checkRule
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-    $self->_createBuilders(regenConfig => 0);
+    my @createBuildersParams = (regenConfig => 0);
+    if ($ruleParams{enabled}) {
+        push @createBuildersParams, activeIface => $ruleParams{interface};
+    }
+    $self->_createBuilders(@createBuildersParams);
 
-    if (defined ($ruleParams{ruleId})) {
+    if (defined ($ruleParams{ruleId}) and not $ruleParams{reactivated}) {
       # Try to update the rule
       $self->_updateRule( $ruleParams{interface}, $ruleParams{ruleId}, \%ruleParams, 'test' );
     } else {
@@ -1005,7 +1005,13 @@ sub _createBuilders
     my @ifaces = @{$self->_realIfaces()};
     foreach my $iface (@ifaces) {
         $self->{builders}->{$iface} = {};
-        if ( $self->_areRulesActive($iface, not $regenConfig) ) {
+        my $active;
+        if ($params{activeIface} and ($params{activeIface} eq $iface)) {
+            $active = 1;
+        } else {
+            $active = $self->_areRulesActive($iface, not $regenConfig);
+        }
+        if ( $active  ) {
             # If there's any rule, for now use an HTBTreeBuilder
             $self->_createTree($iface, "HTB", $regenConfig);
 

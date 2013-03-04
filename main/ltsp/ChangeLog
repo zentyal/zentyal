@@ -1,3 +1,15 @@
+HEAD
+	+ Fixed encoding of language select list
+	+ Clean error messages on install-local-applications and update-image
+	+ Cleanup after an exception in the scripts
+	+ Remove unnecessary call to sudo in install-local-applications script
+	+ Connected users info in the dashboard is only shown if the DHCP module
+	  is installed and enabled
+	+ All the scripts log to ltsp.log
+	+ Checks for connected users info in the dashboard widget adapted to
+	  the current DHCP module
+	+ Avoid overwriting an existing image
+	+ Allow image removal from the image list
 3.0.1
 	+ Catch exceptions in the update and install local applications scripts
 	+ desktop environment selection for the fat clients in the build script

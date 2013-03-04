@@ -1,0 +1,18 @@
+Source: libauthen-krb5-easy-perl
+Section: perl
+Priority: optional
+Maintainer: Samuel Cabrero <scabrero@zentyal.com>
+Build-Depends: debhelper (>= 8),
+ perl,
+ heimdal-dev
+Standards-Version: 3.9.2
+Homepage: http://search.cpan.org/dist/Authen-Krb5-Easy/
+
+Package: libauthen-krb5-easy-perl
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends}
+Description: Simple Kerberos 5 interaction
+ This allows simple access to getting kerberos 5 ticket granting tickets using
+ a keytab file.
+ .
+ This description was automagically extracted from the module by dh-make-perl.

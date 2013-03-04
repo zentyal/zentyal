@@ -112,9 +112,9 @@ sub setTypedRow
             if ( $subsData->{availableEditions} ) {
                 my $subOptions = { 'options' => $subsData->{availableEditions},
                                    'pass'    => $password };
-                my $state = $self->{confmodule}->get_state();
+                my $state = $self->parentModule()->get_state();
                 $state->{sub_options} = $subOptions;
-                $self->{confmodule}->set_state($state);
+                $self->parentModule()->set_state($state);
                 $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
                 $self->reloadTable();
                 $self->setMessage(__('Select one of the available options'));
@@ -131,8 +131,8 @@ sub setTypedRow
                 $self->{returnedMsg} = __('Registration data retrieved correctly.');
             }
 
-            $self->{confmodule}->st_set_bool('just_subscribed', 1);
-            $self->{confmodule}->st_unset('sub_options');
+            $self->parentModule()->st_set_bool('just_subscribed', 1);
+            $self->parentModule()->st_unset('sub_options');
         }
     }
     # Call the parent method to store data in our conf storage
@@ -199,7 +199,7 @@ sub showAvailable
 {
     my ($self) = @_;
 
-    return exists $self->{confmodule}->get_state()->{'sub_options'};
+    return exists $self->parentModule()->get_state()->{'sub_options'};
 }
 
 # Method: unsubscribe
@@ -226,7 +226,7 @@ sub unsubscribe
         # unsubscribing if Zentyal is subscribed
         $row->store();
         # clear cache
-        $self->{confmodule}->clearCache();
+        $self->parentModule()->clearCache();
 
         return 1;
     } else {

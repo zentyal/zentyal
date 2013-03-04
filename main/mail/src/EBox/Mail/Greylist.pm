@@ -57,32 +57,29 @@ sub usedFiles
            ];
 }
 
-
-# sub actions
-# {
-#    my ($self) = @_;
-#     return [];
-# }
-
 sub daemon
 {
     return {
             'name' => GREYLIST_SERVICE,
-            'precondition' => \&EBox::Mail::greylistIsEnabled #  awkward but
+            'precondition' => \&EBox::Mail::isGreylistEnabled #  awkward but
                    # precondition  method must reside in the main package
            };
 }
 
 sub isEnabled
 {
-  my ($self) = @_;
-  return $self->_confAttr('service');
+    my ($self) = @_;
+    return $self->_confAttr('service');
 }
-
 
 sub isRunning
 {
     my ($self) = @_;
+
+    unless (EBox::Global->modInstance('mail')->configured()) {
+        return undef;
+    }
+
     my $upstartFile = $self->upstartFile();
     if (not -e $upstartFile) {
         return undef;

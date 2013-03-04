@@ -19,7 +19,8 @@ package EBox::Mail;
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
-            EBox::KerberosModule EBox::Events::DispatcherProvider);
+            EBox::KerberosModule EBox::SyncFolders::Provider
+            EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -35,12 +36,12 @@ use EBox::MailFirewall;
 use EBox::Mail::Greylist;
 use EBox::Mail::FetchmailLdap;
 use EBox::Service;
-
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
+use EBox::SyncFolders::Folder;
 
 use Error qw( :try );
 use Proc::ProcessTable;
@@ -96,15 +97,6 @@ sub greylist
     my ($self) = @_;
     return $self->{greylist};
 }
-
-# neccesary for daemon precondition
-sub greylistIsEnabled
-{
-    my ($self) = @_;
-    return $self->greylist()->isEnabled();
-}
-
-
 
 # Method: actions
 #
@@ -882,6 +874,7 @@ sub _fqdn
 sub isGreylistEnabled
 {
     my ($self) = @_;
+    $self->configured() or return undef;
     return $self->greylist()->isEnabled();
 }
 
@@ -910,7 +903,7 @@ sub _daemons
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
-    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
+#    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
     push(@{$daemons}, $greylist_daemon);
 
     return $daemons;
@@ -1353,7 +1346,7 @@ sub mailServicesWidget
 {
     my ($self, $widget) = @_;
 
-    $widget->{size} = 1.5;
+    $widget->{size} = "'1.5'";
     my $section = new EBox::Dashboard::Section('mailservices', 'Services');
     $widget->add($section);
 
@@ -1822,6 +1815,65 @@ sub postmasterAddress
     my $mailname = $self->mailname();
 
     return $address . '@' .  $mailname;
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir ($self->_storageMailDirs()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Mailboxes');
+}
+
+sub preSlaveSetup
+{
+    my ($self, $master) = @_;
+    if ($master ne 'zentyal') {
+        return;
+    }
+
+    # remove vdomains
+    $self->model('VDomains')->removeAll(1);
+}
+
+sub slaveSetup
+{
+    my ($self) = @_;
+
+    # regenerate mail ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
+
+    $self->SUPER::slaveSetup();
+}
+
+sub slaveSetupWarning
+{
+    my ($self, $master) = @_;
+    if (not $self->configured()) {
+        return undef;
+    }
+    if ($master ne 'zentyal') {
+        return undef;
+    }
+    my $vdomainsModel = $self->model('VDomains');
+    if ($vdomainsModel->size() == 0) {
+        return undef;
+    }
+
+    return __('The mail domains and its accounts will be removed when the slave setup is complete');
 }
 
 1;

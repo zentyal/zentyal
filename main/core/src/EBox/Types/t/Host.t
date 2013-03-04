@@ -12,28 +12,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
 use strict;
 use warnings;
 
 use Test::More tests => 12;
 
-use EBox::TestStubs;
-
-
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::Host;
 
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 
 my @validHostNames = (
                      'macaco.monos.org',
                      'gorilla',
                       'baboon5.monos.org',
-                     
+
                     );
 
 my @invalidHostNames = (
@@ -49,13 +44,13 @@ my @validHostAddresses = (
 my @invalidHostAddresses = (
                                   '198.23.423.12',
                            );
-    
+
 
 
 sub newTest  # 7 checks
     {
         foreach my $host (@validHostNames, @validHostAddresses) {
-            EBox::Types::Test::createOk(
+            EBox::Types::TestHelper::createOk(
                                         'EBox::Types::Host',
                                         fieldName => 'test',
                                         value     => $host,
@@ -66,7 +61,7 @@ sub newTest  # 7 checks
 
 
         foreach my $host (@invalidHostNames, @invalidHostAddresses) {
-            EBox::Types::Test::createFail(
+            EBox::Types::TestHelper::createFail(
                                           'EBox::Types::Host',
                                           fieldName => 'test',
                                           printableName => 'Host invalid test',
@@ -92,14 +87,14 @@ sub cmpTest # 5 tests
                    $addr1 => $addr2,
                   );
 
-        
+
     my %incomparable = ( $name1 => $addr1 );
 
     while (my ($aV, $bV) = each %equal) {
         my $a = _createHost($aV);
         my $b = _createHost($bV);
 
-        is $a->cmp($b), 0, 
+        is $a->cmp($b), 0,
             "Checking equality between hosts with value $aV and $bV";
     }
 
@@ -107,7 +102,7 @@ sub cmpTest # 5 tests
         my $a = _createHost($aV);
         my $b = _createHost($bV);
 
-        isnt $a->cmp($b), 0, 
+        isnt $a->cmp($b), 0,
             "Checking unequality between hosts with value $aV and $bV";
     }
 
@@ -115,7 +110,7 @@ sub cmpTest # 5 tests
         my $a = _createHost($aV);
         my $b = _createHost($bV);
 
-        is $a->cmp($b), undef, 
+        is $a->cmp($b), undef,
           "Checking that hosts with value $aV and $bV are uncomparable";
     }
 }

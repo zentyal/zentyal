@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-09-13 04:03+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2013-02-21 01:56+0200\n"
+"Last-Translator: Picholeiro <info@picholeiro.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -679,7 +679,7 @@ msgstr "No se permiten espacios en los nombres de los perfiles"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:159
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "The '~' character is reserved and cannot be used in profile names"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -1038,9 +1038,8 @@ msgid "HTTP proxy traffic report"
 msgstr "Informe del tráfico de Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not a archive file"
-msgstr "Fichero de archivo inexistente "
+msgstr "Tipo de archivo inexistente "
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:77
 msgid "Supplied archive file has not correct list structure"
@@ -1166,14 +1165,12 @@ msgid "The time period must be at least active on one day"
 msgstr "El período de tiempo debe estar activo al menos un día"
 
 #: ../../main/squid/src/EBox/Squid.pm:162
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
-msgstr "Fichero de configuración de Proxy HTTP"
+msgstr "Archivo de configuración del Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:167
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
-msgstr "Fichero de configuración de Proxy HTTP"
+msgstr "Archivo de configuración de Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:172
 msgid "Content filter configuration file"
@@ -3597,7 +3594,7 @@ msgid "hostname"
 msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1888
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Ya existe un host llamado {host} registrado en este Zentyal"
 
@@ -4125,9 +4122,8 @@ msgid "Small Business"
 msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:96
-#, fuzzy
 msgid "Enterprise Trial"
-msgstr "Empresarial"
+msgstr "Prueba Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:118
 msgid "Zentyal Remote Client"
@@ -4284,7 +4280,6 @@ msgstr ""
 "El Dominio de Zentyal Remote solo está disponible si la máquina está suscrita"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2176
-#, fuzzy
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
 msgstr ""
@@ -5145,11 +5140,12 @@ msgstr ""
 "revisar los datos de la cuenta en"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:170
-#, fuzzy
 msgid ""
 "Password must have at least 6 characters. Leading or trailing spaces will be "
 "ignored."
-msgstr "La contraseña debe tener al menos 6 caracteres."
+msgstr ""
+"La contraseña debe tener al menos 6 caracteres. Espacios iniciales o finales "
+"serán ignorados"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:173
 msgid ""
@@ -6651,9 +6647,9 @@ msgid "Invalid value for {data}: {value}."
 msgstr "{data} inválido, valor: {value}."
 
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The requested action cannot be performed. Reason: {r}"
-msgstr "La operación de borrado no puede completarse. Razón: "
+msgstr "La operación de borrado no puede completarse. Razón: {r}"
 
 #: ../../main/common/src/EBox/Config.pm:158
 #, perl-brace-format
@@ -8006,7 +8002,7 @@ msgstr "asignación estática"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:241
 msgid "Not object added for fixed addresses"
-msgstr ""
+msgstr "Objrto non Añadido fijado en red"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:244
 msgid ""
@@ -8440,6 +8436,8 @@ msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
 msgstr ""
+"Las interfaces no están habilitadas . El servidor DHCP no servirá "
+"direcciones en esa interfaz"
 
 #: ../../main/dhcp/src/EBox/Composite/General.pm:57
 #, perl-brace-format
@@ -9627,13 +9625,12 @@ msgstr ""
 "nuevo."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:93
-#, fuzzy
 msgid "Sync with Zentyal Cloud"
-msgstr "Zentyal Cloud"
+msgstr "Sincronizando con Zentyal Cloud"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:96
 msgid "Files will be synchronized with Zentyal Cloud."
-msgstr ""
+msgstr "Los archivos se sincronizan con Zentyal Cloud."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:101
 msgid "Share name"
@@ -9711,6 +9708,8 @@ msgstr "Zentyal Cloud"
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:49
 msgid "All shares and user homes will be synchronized using Zentyal Cloud."
 msgstr ""
+"Todos los Archivos y las carpetas de usuarios se sincronizan con Zentyal "
+"Cloud."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:55
 msgid "Cloud Sync"
@@ -12530,7 +12529,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:243
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:258
 msgid "never purge"
@@ -12840,6 +12839,8 @@ msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
 msgstr ""
+"Nombres DNS pueden contener sólo caracteres alfabéticos (az), caracteres "
+"numéricos (0-9) y el signo menos (-)"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:90
@@ -14855,7 +14856,6 @@ msgid "Mail protocol"
 msgstr "protocolo"
 
 #: ../../main/mail/src/EBox/CGI/DelExternalAccount.pm:45
-#, fuzzy
 msgid "External mail account"
 msgstr "Cuenta de correo externa"
 
@@ -16381,6 +16381,8 @@ msgid ""
 "The kerberos realm is already initialized and it is tied with the domain "
 "name."
 msgstr ""
+"El dominio kerberos ya se ha inicializado y está uniendo con el nombre del "
+"dominio."
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:259
 #, perl-brace-format

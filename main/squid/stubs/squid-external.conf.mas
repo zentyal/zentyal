@@ -151,7 +151,7 @@ Define the SNMP configuration as SNMP agent
 </%doc>
 acl snmppublic snmp_community public
 snmp_port 3401
-snmp_access allow snmppublic to_localhost
+snmp_access allow snmppublic from_localhost
 snmp_access deny all
 </%def>
 ###################################################################################
@@ -161,7 +161,6 @@ http_port localhost:<% $port %>
 visible_hostname (external)<% $hostfqdn %>
 
 coredump_dir /var/spool/squid3
-cache_log /var/log/squid3/cache-external.log
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB

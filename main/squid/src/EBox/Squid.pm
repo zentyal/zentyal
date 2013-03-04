@@ -187,6 +187,11 @@ sub usedFiles
              'reason' => __('Back HTTP Proxy configuration file')
             },
             {
+             'file' => SQUID_LOGROTATE_CONF,
+             'module' => 'squid',
+             'reason' => __(q{Squid's log rotation configuration}),
+            },
+            {
              'file' => DGDIR . '/dansguardian.conf',
              'module' => 'squid',
              'reason' => __('Content filter configuration file')
@@ -620,6 +625,8 @@ sub _writeSquidConf
     if (EBox::Config::boolean('debug')) {
         $self->_checkSquidFile(SQUID_CONF_FILE);
     }
+
+    $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
 }
 
 sub _writeSquidExternalConf

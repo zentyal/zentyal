@@ -1,0 +1,1755 @@
+Index: samba/source3/modules/zavs_clamav.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_clamav.c	2012-11-27 17:38:27.000000000 +0100
+@@ -0,0 +1,168 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <clamav.h>
++#include <includes.h>
++
++#include "zavs_param.h"
++#include "zavs_clamav.h"
++#include "zavs_log.h"
++
++void zavs_clamav_lib_init(vfs_handle_struct *handle)
++{
++	struct zavs_config_struct *pd = NULL;
++    unsigned int sigs = 0;
++    int ret;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++    if (pd->clamav_loaded) {
++        return;
++    }
++
++    // Initialize library
++    if ((ret = cl_init(CL_INIT_DEFAULT)) != CL_SUCCESS) {
++        ZAVS_ERROR(handle, "Could not initialize libclamav: %s\n", cl_strerror(ret));
++        pd->clamav_loaded = false;
++        return;
++    }
++
++    // Load scan engine
++    if (!(pd->engine = cl_engine_new())) {
++        ZAVS_ERROR(handle, "Could not create clamav engine\n");
++        pd->clamav_loaded = false;
++        return;
++    }
++
++    // Set the engine limits
++    zavs_set_engine_option(handle, CL_ENGINE_MAX_SCANSIZE, pd->clamav_limits.max_scan_size);
++    zavs_set_engine_option(handle, CL_ENGINE_MAX_FILESIZE, pd->clamav_limits.max_file_size);
++    zavs_set_engine_option(handle, CL_ENGINE_MAX_RECURSION, pd->clamav_limits.max_recursion_level);
++    zavs_set_engine_option(handle, CL_ENGINE_MAX_FILES, pd->clamav_limits.max_files);
++
++    // Load all available databases from default directory
++    if ((ret = cl_load(cl_retdbdir(), pd->engine, &sigs, CL_DB_STDOPT)) != CL_SUCCESS) {
++        ZAVS_ERROR(handle, "Could not load clamav database: %s\n", cl_strerror(ret));
++        cl_engine_free(pd->engine);
++        pd->clamav_loaded = false;
++        return;
++    }
++
++    // Build engine
++    if ((ret = cl_engine_compile(pd->engine)) != CL_SUCCESS) {
++        ZAVS_ERROR(handle, "Database initialization error: %s\n", cl_strerror(ret));
++        cl_engine_free(pd->engine);
++        pd->clamav_loaded = false;
++        return;
++    }
++
++    ZAVS_INFO(handle, "ClamAV engine initialized, %u signatures loaded\n", sigs);
++    pd->clamav_loaded = true;
++}
++
++void zavs_clamav_lib_done(vfs_handle_struct *handle)
++{
++	struct zavs_config_struct *pd = NULL;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++    cl_engine_free(pd->engine);
++    pd->clamav_loaded = false;
++}
++
++/**
++  *
++  * Scan a file using lib clamav
++  *
++  */
++int zavs_clamav_lib_scanfile(vfs_handle_struct *handle,
++        const char *filepath, files_struct *fsp)
++{
++	struct zavs_config_struct *pd = NULL;
++    const char *virname;
++    const char *clientip = handle->conn->connectpath;
++    int ret;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return ZAVS_SCAN_ERROR);
++
++    if (!pd->clamav_loaded) {
++        ZAVS_ERROR(handle, "ClamAV library returned an error scaning file '%s': %s", filepath, cl_strerror(ret));
++        return ZAVS_SCAN_ERROR;
++    }
++
++    ret = cl_scanfile(filepath, &virname, NULL, pd->engine, CL_SCAN_STDOPT);
++    if (ret == CL_CLEAN) {
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "Access to file '%s' granted, no virus detected\n", filepath);
++        ret = ZAVS_SCAN_CLEAN;
++
++        // File is clean, add to lrufiles
++        struct stat stat_buf;
++        if (stat(filepath, &stat_buf) == 0)
++            lrufiles_add(filepath, stat_buf.st_mtime, false);
++    } else if (ret == CL_VIRUS) {
++        ZAVS_INFO(handle, "VIRUS DETECTED! virus '%s' detected in file '%s'\n", virname, filepath);
++        ret = ZAVS_SCAN_INFECTED;
++
++        // Add/update file. mark file as infected!
++        struct stat stat_buf;
++        if (stat(filepath, &stat_buf) == 0)
++            lrufiles_add(filepath, stat_buf.st_mtime, true);
++
++        // Do action
++        zavs_do_infected_file_action(handle, filepath, fsp);
++    } else {
++        ZAVS_ERROR(handle, "ClamAV library returned an error scaning file '%s': %s", filepath, cl_strerror(ret));
++        ret = ZAVS_SCAN_ERROR;
++
++        // To be safe, remove file from lrufiles
++        lrufiles_delete(filepath);
++    }
++    return ret;
++}
++
++void zavs_set_engine_option(vfs_handle_struct *handle,
++    enum cl_engine_field field, long long value)
++{
++	struct zavs_config_struct *pd = NULL;
++    int ret;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++    if ((ret = cl_engine_set_num(pd->engine, field, value)) != CL_SUCCESS) {
++        ZAVS_ERROR(handle, "Could not set clamav engine options: %s\n", cl_strerror(ret));
++    }
++}
++
+Index: samba/source3/modules/zavs_filetype.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_filetype.c	2012-11-27 17:40:07.000000000 +0100
+@@ -0,0 +1,179 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++#include <magic.h>
++
++#include "zavs_filetype.h"
++#include "zavs_log.h"
++#include "zavs_param.h"
++
++// Pointer to magic :-)
++static magic_t filetype_magic = NULL;
++
++// Contains the list of MIME-types which files should be excluded from scanning
++static char filetype_excludelist[1024] = "";
++
++// Indicates whether init libmagic was successfull or not
++static bool filetype_init_magic = false;
++
++/**
++ *
++ * Initialise libmagic and load magic
++ *
++ * @param flags - flags for libmagic, see man libmagic
++ * @param exclude_list - list of file types to exclude
++ *
++ */
++bool filetype_init(vfs_handle_struct *handle, int f)
++{
++	struct zavs_config_struct *pd = NULL;
++    int flags;
++    const char *exclude_list;
++
++	SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return false);
++
++    flags = f;
++    exclude_list = pd->common.exclude_file_types;
++
++    // Clear buffer
++    memset(filetype_excludelist, 0, sizeof(filetype_excludelist));
++    // Copy the exclude list and trim, let one byte at the end as '\0' for safety
++    strncpy(filetype_excludelist, exclude_list,
++            sizeof(filetype_excludelist) - 1);
++    trim_string(filetype_excludelist, " ", " ");
++
++    // Init library
++    if (strnlen(filetype_excludelist, sizeof(filetype_excludelist)) > 0) {
++        ZAVS_DEBUG(5, "exclude list is: '%s'\n", filetype_excludelist);
++        ZAVS_DEBUG(5, "initialise libmagic\n");
++
++        flags |= MAGIC_MIME;
++        ZAVS_DEBUG(5, "magic flags: %d\n", flags);
++
++        filetype_magic = magic_open(flags);
++        if ( filetype_magic == NULL ) {
++            ZAVS_ERROR(handle, "could not initialise libmagic");
++        } else {
++            ZAVS_DEBUG(5, "loading magic\n");
++            // NULL = load default file, probably we need another user
++            // setting here to specifiy alternative magic files
++            if (magic_load(filetype_magic, NULL) != 0) {
++                ZAVS_ERROR(handle, "couldn't load magic: %s", magic_error(filetype_magic));
++            } else {
++                ZAVS_DEBUG(5, "libmagic init and loading was successfull\n");
++                filetype_init_magic = true;
++            }
++        }
++    } else {
++        ZAVS_DEBUG(5, "exclude list is empty - nothing to do\n");
++    }
++
++    return filetype_init_magic;
++}
++
++
++/**
++ *
++ * Closes libmagic
++ *
++ */
++void filetype_close(void)
++{
++    if (filetype_init_magic) {
++        magic_close(filetype_magic);
++        filetype_init_magic = false;
++    }
++}
++
++
++/**
++ *
++ * determins whether scan of file should be skipped or not
++ *
++ * @param fnamefile name
++ * @return
++ *      -1  error occured; file must be scanned
++ *       0  file type not in list, file must be scanned
++ *       1  file type in exclude list, skip file
++ *
++ */
++
++int filetype_skipscan(const char *fname)
++{
++    // As next_token modifies input
++//    pstring ex_list;
++//    pstring exclude;
++//    const char* p; /* needed to avoid compiler warning */
++//    pstring ft_string, filetype_string;
++//    char* p_ft;
++//
++    if (!filetype_init_magic) {
++        if (strnlen(filetype_excludelist, sizeof(filetype_excludelist)) == 0) {
++            ZAVS_DEBUG(5, "exclude list is empty - feature disabled\n");
++        } else {
++            ZAVS_DEBUG(5, "libmagic init has failed  - feature disabled\n");
++        }
++        return ZAVS_FT_ERROR_MUST_SCAN;
++    }
++
++    // Get the file type
++//    pstrcpy(ft_string, magic_file(filetype_magic, fname));
++//    if ( ft_string == NULL ) {  /* error */
++//        vscan_syslog("could not get file type, %s", magic_error(filetype_magic));
++//        /* error occured */
++//        return VSCAN_FT_ERROR_MUST_SCAN;
++//    } /* end if */
++//    trim_string(ft_string, " ", " ");
++//    /* hack alert ... */
++//    p_ft = ft_string;
++//    pstrcpy(filetype_string, strsep(&p_ft, ";"));
++//    DEBUG(5, ("file type of file %s is %s\n", fname, filetype_string));
++
++//    /* next_token modifies input list, so copy it */
++//    pstrcpy(ex_list, filetype_excludelist);
++
++//    /* to avoid compiler warnings */
++//    p = ex_list;
++
++//    while ( next_token(&p, exclude, ";", sizeof(exclude)) ) {
++//        trim_string(exclude, " ", " ");
++//        DEBUG(5, ("current exclude type is: '%s'\n", exclude));
++//        if ( StrCaseCmp(exclude, filetype_string) == 0 ) {
++//            /* file type is in exlude list */
++//            DEBUG(5, ("file type '%s' is in exclude list\n", exclude));
++//            /* advise to skip scanning of file */
++//            return VSCAN_FT_SKIP_SCAN;
++//        } /* end if */
++//    } /* end while */
++
++    // File must be scanned
++    ZAVS_DEBUG(5, "no match - file must be scanned\n");
++    return ZAVS_FT_MUST_SCAN;
++}
+Index: samba/source3/modules/zavs_log.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_log.c	2012-11-27 17:50:42.000000000 +0100
+@@ -0,0 +1,102 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++#include <system/syslog.h>
++#include "librpc/gen_ndr/auth.h"
++
++int zavs_syslog_facility(vfs_handle_struct *handle)
++{
++	static const struct enum_list enum_log_facilities[] = {
++		{ LOG_USER, "USER" },
++		{ LOG_LOCAL0, "LOCAL0" },
++		{ LOG_LOCAL1, "LOCAL1" },
++		{ LOG_LOCAL2, "LOCAL2" },
++		{ LOG_LOCAL3, "LOCAL3" },
++		{ LOG_LOCAL4, "LOCAL4" },
++		{ LOG_LOCAL5, "LOCAL5" },
++		{ LOG_LOCAL6, "LOCAL6" },
++		{ LOG_LOCAL7, "LOCAL7" },
++		{ -1, NULL}
++	};
++
++	int facility;
++
++	facility = lp_parm_enum(SNUM(handle->conn), "zavs", "facility", enum_log_facilities, LOG_USER);
++
++	return facility;
++}
++
++static char *zavs_log_prefix(TALLOC_CTX *ctx, connection_struct *conn)
++{
++    char *result = NULL;
++    char *prefix = NULL;
++
++    prefix = talloc_strdup(ctx, "%u|%I");
++    if (!prefix) {
++        return NULL;
++    }
++
++    result = talloc_sub_advanced(ctx,
++            lp_servicename(talloc_tos(), SNUM(conn)),
++            conn->session_info->unix_info->unix_name,
++            conn->connectpath,
++            conn->session_info->unix_token->gid,
++            conn->session_info->unix_info->sanitized_username,
++            conn->session_info->info->domain_name,
++            prefix);
++    TALLOC_FREE(prefix);
++    return result;
++}
++
++void zavs_do_log(vfs_handle_struct *handle, int priority, const char *format, ...)
++{
++	char *audit_pre = NULL;
++	char *msg = NULL;
++	va_list ap;
++
++	va_start(ap, format);
++	msg = talloc_vasprintf(talloc_tos(), format, ap);
++	va_end(ap);
++
++	if (!msg) {
++		goto out;
++	}
++
++	audit_pre = zavs_log_prefix(talloc_tos(), handle->conn);
++    openlog("zavs", 0, zavs_syslog_facility(handle));
++	syslog(priority, "%s|%s\n", audit_pre ? audit_pre : "", msg);
++    closelog();
++
++ out:
++	TALLOC_FREE(audit_pre);
++	TALLOC_FREE(msg);
++}
++
++void zavs_init_log(vfs_handle_struct *handle)
++{
++}
+Index: samba/source3/modules/zavs_core.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_core.h	2012-11-26 16:09:53.000000000 +0100
+@@ -0,0 +1,12 @@
++#ifndef __VFS_ZAVS_H__
++#define __VFS_ZAVS_H__
++
++void zavs_initialize(vfs_handle_struct *handle);
++void zavs_finalize(vfs_handle_struct *handle);
++bool zavs_open_handler(vfs_handle_struct *handle, files_struct *fsp);
++void zavs_close_handler(vfs_handle_struct *handle, files_struct *fsp);
++
++bool skip_file(vfs_handle_struct *handle, files_struct *fsp, const char *filepath);
++void build_filepath();
++
++#endif
+Index: samba/source3/modules/zavs_log.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_log.h	2012-11-27 17:37:03.000000000 +0100
+@@ -0,0 +1,31 @@
++#ifndef __VFS_ZAVS_LOG_H__
++#define __VFS_ZAVS_LOG_H__
++
++#define ZAVS_DEBUG_ENABLED 0
++
++#include <syslog.h>
++
++#if ZAVS_DEBUG_ENABLED
++#define ZAVS_DEBUG(_lvl, _fmt, ...) do { \
++    syslog(LOG_DEBUG, "(%s:%d): " _fmt, __func__, __LINE__, ##__VA_ARGS__); \
++} while (0)
++#else
++#define ZAVS_DEBUG(_lvl, _fmt, ...)
++#endif
++
++#define ZAVS_INFO(_handle, _fmt, ...) do { \
++    zavs_do_log(_handle, LOG_INFO, _fmt, ##__VA_ARGS__); \
++} while (0)
++
++#define ZAVS_WARN(_handle, _fmt, ...) do { \
++    zavs_do_log(_handle, LOG_WARNING, "WARNING: " _fmt, ##__VA_ARGS__); \
++} while (0)
++
++#define ZAVS_ERROR(_handle, _fmt, ...) do { \
++    zavs_do_log(_handle, LOG_ERR, "ERROR: " _fmt, ##__VA_ARGS__); \
++} while (0)
++
++void zavs_do_log(vfs_handle_struct *handle, int priority, const char *format, ...);
++void zavs_init_log(vfs_handle_struct *handle);
++
++#endif
+Index: samba/source3/modules/zavs_module.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_module.c	2012-11-27 17:49:21.000000000 +0100
+@@ -0,0 +1,91 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++
++#include "zavs_core.h"
++#include "zavs_log.h"
++#include "zavs_param.h"
++
++static struct zavs_config_struct *pd = NULL;
++
++static int zavs_connect(vfs_handle_struct *handle, const char *service, const char *user)
++{
++    int ret;
++
++    if (pd == NULL) {
++        pd = talloc_zero(handle, struct zavs_config_struct);
++        if (pd == NULL) {
++            SMB_VFS_NEXT_DISCONNECT(handle);
++            return -1;
++        }
++
++        SMB_VFS_HANDLE_SET_DATA(handle, pd, NULL,
++                struct zavs_config_struct, return -1);
++
++        zavs_initialize(handle);
++    } else {
++        SMB_VFS_HANDLE_SET_DATA(handle, pd, NULL,
++                struct zavs_config_struct, return -1);
++    }
++    return SMB_VFS_NEXT_CONNECT(handle, service, user);
++}
++
++static void zavs_disconnect(vfs_handle_struct *handle)
++{
++    SMB_VFS_NEXT_DISCONNECT(handle);
++    zavs_finalize(handle);
++}
++
++static int zavs_open(vfs_handle_struct *handle, struct smb_filename *smb_fname, files_struct *fsp, int flags, mode_t mode)
++{
++    if (zavs_open_handler(handle, fsp)) {
++        return SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
++    } else {
++        errno = EACCES;
++        return -1;
++    }
++}
++
++static int zavs_close(vfs_handle_struct *handle, files_struct *fsp)
++{
++    // First close the file
++    int retval = SMB_VFS_NEXT_CLOSE(handle, fsp);
++    zavs_close_handler(handle, fsp);
++    return retval;
++}
++
++static struct vfs_fn_pointers zavs_fn_pointers = {
++    .connect_fn = zavs_connect,
++    .open_fn = zavs_open,
++    .close_fn = zavs_close,
++};
++
++NTSTATUS samba_init_module(void)
++{
++    return smb_register_vfs(SMB_VFS_INTERFACE_VERSION, "zavs", &zavs_fn_pointers);
++}
+Index: samba/source3/modules/zavs_param.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_param.h	2012-11-26 17:12:33.000000000 +0100
+@@ -0,0 +1,78 @@
++#ifndef __ZAVS_PARAM_H_
++#define __ZAVS_PARAM_H_
++
++// false = log only infected file, true = log every file access
++#define ZAVS_VERBOSE_FILE_LOGGING false
++
++// true = scan files on open
++#define ZAVS_SCAN_ON_OPEN true
++
++// true = scan files on close
++#define ZAVS_SCAN_ON_CLOSE true
++
++// true = deny access in case of virus scanning failure
++#define ZAVS_DENY_ACCESS_ON_ERROR false
++
++// true = send a warning message via window messenger service for viruses found
++#define ZAVS_SEND_WARNING_MESSAGE true
++
++// default infected file action
++#define ZAVS_INFECTED_FILE_ACTION INFECTED_QUARANTINE
++
++// default quarantine settings
++#define ZAVS_QUARANTINE_DIRECTORY "/tmp"
++#define ZAVS_QUARANTINE_PREFIX    "infected-"
++
++// set default value for maximum lrufile entries
++#define ZAVS_MAX_LRUFILES 100
++
++// time after an entry is considered as expired
++#define ZAVS_LRUFILES_INVALIDATE_TIME 5
++
++// default value for delete files on quarantine value
++#define ZAVS_DELETE_FILE_ON_QUARANTINE_FAILURE 0
++
++// MIME-types of files to be exluded from scanning; that's an
++// semi-colon seperated list
++#define ZAVS_FT_EXCLUDE_LIST ""
++#define ZAVS_FT_EXCLUDE_REGEXP ""
++
++// This values are copied from libclamav defaults.h
++#define ZAVS_CLAMAV_MAX_SCAN_SIZE     104857600
++#define ZAVS_CLAMAV_MAX_FILE_SIZE     26214400
++#define ZAVS_CLAMAV_MAX_REC_LEVEL     16
++#define ZAVS_CLAMAV_MAX_FILES         10000
++
++struct vfs_handle_struct;
++struct cl_engine;
++
++struct zavs_config_struct {
++    struct {
++        bool verbose_file_logging;
++        bool scan_on_open;
++        bool scan_on_close;
++        bool deny_access_on_error;
++        bool send_warning_message;
++        const char *quarantine_dir;
++        const char *quarantine_prefix;
++        int infected_file_action;
++        int max_lrufiles;
++        time_t lrufiles_invalidate_time;
++        const char *exclude_file_types;
++        const char *exclude_file_regexp;
++        bool delete_file_on_quarantine_failure;
++    } common;
++    struct {
++        long long max_files;
++        long long max_file_size;
++        long long max_scan_size;
++        long long max_recursion_level;
++    } clamav_limits;
++    struct cl_engine *engine;
++    bool clamav_loaded;
++    void* specific;
++};
++
++void zavs_parse_settings(struct vfs_handle_struct *handle);
++
++#endif
+Index: samba/source3/modules/zavs_fileaccesslog.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_fileaccesslog.h	2012-11-26 17:24:36.000000000 +0100
+@@ -0,0 +1,27 @@
++#ifndef __ZAVS_FILEACCESSLOG_H_
++#define __ZAVS_FILEACCESSLOG_H_
++
++/* file needs to be scanned */
++#define ZAVS_LRU_SCAN_FILE     1
++/* deny access to file */
++#define ZAVS_LRU_DENY_ACCESS  -1
++/* grant access without scanning */
++#define ZAVS_LRU_GRANT_ACCESS  0
++
++
++struct lrufiles_struct {
++    struct lrufiles_struct *prev, *next;
++    char fname[1024];   /* the file name */
++    time_t mtime;       /* mtime of file */
++    bool infected;      /* infected? */
++    time_t time_added;  /* time entry was added to list */
++};
++
++void lrufiles_init(vfs_handle_struct *handle);
++struct lrufiles_struct *lrufiles_add(const char *filepath, time_t mtime, bool infected);
++void lrufiles_destroy_all(void);
++struct lrufiles_struct *lrufiles_search(const char *filepath);
++void lrufiles_delete(const char *filepath);
++int lrufiles_must_be_checked (const char *filepath, time_t mtime);
++
++#endif /* __ZAVS_FILEACCESSLOG_H_ */
+Index: samba/source3/modules/zavs_fileaccesslog.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_fileaccesslog.c	2012-11-26 17:24:38.000000000 +0100
+@@ -0,0 +1,330 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++
++#include "zavs_fileaccesslog.h"
++#include "zavs_param.h"
++#include "zavs_log.h"
++
++// Pointer to the first entry of list
++static struct lrufiles_struct *Lrufiles = NULL;
++
++// Pointer to the last entry of list
++static struct lrufiles_struct *LrufilesEnd = NULL;
++
++// Counter for entries in list
++static int lrufiles_count = 0;
++
++// Default values
++static int lrufiles_max_entries = ZAVS_MAX_LRUFILES;
++static time_t lrufiles_invalidate_time = ZAVS_LRUFILES_INVALIDATE_TIME;
++
++/** Delete an entry from the lrufile list given by pointer. The
++ * entry must be in the list (this is not checked).
++ * @param entry The entry to be deleted
++ */
++//static void lrufiles_delete_p(struct lrufiles_struct *entry)
++//{
++//	DEBUG(10, ("removing entry from lrufiles list: '%s'\n",
++//			entry->fname));
++//	/* should the last entry be deleted? If yes, set LrufilesEnd pointer */
++//	if ( LrufilesEnd == entry )
++//		LrufilesEnd = entry->prev;
++//	DLIST_REMOVE(Lrufiles, entry);
++//	ZERO_STRUCTP(entry);
++//	SAFE_FREE(entry);
++//	lrufiles_count--;
++//	DEBUG(10, ("entry deleted, %d left in list\n", lrufiles_count));
++//
++//}
++
++/**
++ * initialise the double-linked list
++ *
++ * @param max_entries	specifies the maximum number of entries, if 0
++ *				        the lru file access feature is disabled completly!!!
++ *
++ * @param invalidate_time	specifies the life time of an entry in seconds
++ *
++*/
++void lrufiles_init(vfs_handle_struct *handle)
++{
++	struct zavs_config_struct *pd = NULL;
++    int max_entries;
++    time_t invalidate_time;
++
++	SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++
++    max_entries = pd->common.max_lrufiles;
++    invalidate_time = pd->common.lrufiles_invalidate_time;
++
++	ZAVS_DEBUG(10, "initialise lrufiles\n");
++	ZERO_STRUCTP(Lrufiles);
++	Lrufiles = NULL;
++	ZERO_STRUCTP(LrufilesEnd);
++	LrufilesEnd = NULL;
++	lrufiles_count = 0;
++	lrufiles_max_entries = max_entries;
++	lrufiles_invalidate_time = invalidate_time;
++	ZAVS_DEBUG(10, "initilising lrufiles finished\n");
++}
++
++
++/**
++ * Search an entry as specified via file name. If found, moved entry
++ * to the end of the list, too
++ * @param fname file name
++ * @return a pointer to the found entry or NULL
++ *
++*/
++//struct lrufiles_struct *lrufiles_search(pstring fname) {
++//        struct lrufiles_struct *curr, *tmp = NULL;
++//
++//	DEBUG(10, ("search for '%s' in lrufiles\n", fname));
++//        /* search backwards */
++//        curr = LrufilesEnd;
++//        while ( curr != NULL ) {
++//                if ( StrCaseCmp(fname, curr->fname) == 0 ) {
++//			DEBUG(10, ("file '%s' matched\n", fname));
++//                        /* match ... */
++//                        /* move to end of list */
++//                        DLIST_REMOVE(Lrufiles, curr);
++//			#if (SMB_VFS_INTERFACE_VERSION >= 21)
++//			 DLIST_ADD_END(Lrufiles, curr, struct lrufiles_struct *);
++//			#else
++//                         DLIST_ADD_END(Lrufiles, curr, tmp);
++//			#endif
++//                        LrufilesEnd = curr;
++//                        /* return it */
++//                        return curr;
++//                }
++//                curr = curr->prev;
++//        }
++//
++//        /* not found */
++//	DEBUG(10, ("file '%s' not matched\n", fname));
++//        return NULL;
++//}
++
++
++/**
++ * Adds a new entry, or if the entry already exists, mtime and infected values
++ * are updated
++ * @param fname the file name
++ * @param mtime time the file was last modified
++ * @param infected marks a file as infected or not infected
++ * @return returns a pointer of the new entry, the updated entry or NULL
++ *	   if no memory could be allocated
++ *
++*/
++struct lrufiles_struct *lrufiles_add(const char *filepath, time_t mtime, bool infected) {
++//	struct lrufiles_struct *new_entry, *tmp, *found = NULL;
++//
++//	/* check if lru file access was disabled by setting the corresponding
++//	   value in the configuration file to zero (or below zero) */
++//	if ( lrufiles_max_entries <= 0 ) {
++//		DEBUG(1, ("lru files feature is disabled, do nothing\n"));
++//		/* do nothing, simply return NULL */
++//		return NULL;
++//	}
++//	DEBUG(10, ("file '%s' should be added\n", fname));
++//	/* check if file has already been added */
++//	found = lrufiles_search(fname);
++//	if ( found != NULL ) {
++//		/* has already been added, update mtime and infected only */
++//		DEBUG(10, ("file '%s' in list, update mtime and infected\n", fname));
++//		found->mtime = mtime;
++//		found->infected = infected;
++//		/* FIXME hm, should we updated it or not?! */
++//		/* found->time_added = time(NULL); */
++//		return found;
++//	} else {
++//		DEBUG(10, ("alloc space for file entry '%s'\n", fname));
++//		new_entry = (struct lrufiles_struct *)malloc(sizeof(*new_entry));
++//		if (!new_entry) return NULL;
++//
++//		ZERO_STRUCTP(new_entry);
++//
++//		pstrcpy(new_entry->fname, fname);
++//		new_entry->mtime = mtime;
++//		new_entry->infected = infected;
++//		new_entry->time_added = time(NULL);
++//
++//		/* reached maximum? */
++//		if ( lrufiles_count == lrufiles_max_entries ) {
++//			DEBUG(10, ("lru maximum reached '%d'\n", lrufiles_count));
++//			/* remove the first one - it really removes only the first one */
++//			tmp = Lrufiles;
++//			DEBUG(10, ("removing first entry..."));
++//			lrufiles_delete_p(tmp);
++//		}
++//
++//		DEBUG(10, ("adding new entry to list...\n"));
++//		#if (SMB_VFS_INTERFACE_VERSION >= 21)
++// 		 DLIST_ADD_END(Lrufiles, new_entry, struct lrufiles_struct *);
++//		#else
++//		 DLIST_ADD_END(Lrufiles, new_entry, tmp);
++//		#endif
++//		LrufilesEnd = new_entry;
++//		lrufiles_count++;
++//		DEBUG(10, ("entry '%s' added, count '%d'\n", fname, lrufiles_count));
++//
++//		return new_entry;
++//	}
++
++    return NULL;
++}
++
++/**
++ * List is beeing destroyed and all entries freed
++ */
++void lrufiles_destroy_all()
++{
++	struct lrufiles_struct *tmp, *curr;
++
++	// Check if lru file access was disabled by setting the corresponding
++	// value in the configuration file to zero (or below zero)
++	if (lrufiles_max_entries <= 0) {
++		ZAVS_DEBUG(10, "lru files feature is disabled, do nothing\n");
++		// do nothing, simply return
++		return;
++	}
++
++	ZAVS_DEBUG(10, "destroy lrufiles\n");
++	curr = Lrufiles;
++	while (curr != NULL) {
++		tmp = curr;
++		curr = curr->next;
++		DLIST_REMOVE(Lrufiles, tmp);
++		ZERO_STRUCTP(tmp);
++		SAFE_FREE(tmp);
++	}
++	Lrufiles = NULL;
++	LrufilesEnd = NULL;
++	lrufiles_count = 0;
++	ZAVS_DEBUG(10, "lrufiles destroyed\n");
++}
++
++
++/**
++ * Deletes an entry in the list as specified via fname
++ * @param fname the file name
++ *
++*/
++void lrufiles_delete(const char *filepath) {
++//	struct lrufiles_struct *found = NULL;
++//
++//	/* check if lru file access was disabled by setting the corresponding
++//	   value in the configuration file to zero (or below zero) */
++//	if ( lrufiles_max_entries <= 0 ) {
++//		DEBUG(10, ("lru files feature is disabled, do nothing\n"));
++//		/* do nothing, simply return NULL */
++//		return;
++//	}
++//
++//	DEBUG(10, ("file entry '%s' should be deleted\n", fname));
++//	found = lrufiles_search(fname);
++//	if ( found != NULL )
++//		lrufiles_delete_p(found);
++}
++
++
++/**
++ * This method is used to detect whether a file must be scanned, it must not
++ * be scanned but access denied (as file is marked as infected) or if it
++ * must not be scanned and access granted.
++ * @param fname the file name
++ * @param mtime the time file was last modified
++ * @return
++ * 	-1 - file is in list and marked as infected
++ * 	 0 - file is in list, not marked as infected and not modified
++ *	 1 - file is in list, not marked as infected but modified _OR_
++ *           file is not in list _OR_ lru file access feature is disabled
++ *
++*/
++int lrufiles_must_be_checked (const char *filepath, time_t mtime) {
++//	struct lrufiles_struct *found = NULL;
++//
++//	/* check if lru file access was disabled by setting the corresponding
++//	   value in the configuration file to zero (or below zero) */
++//	if ( lrufiles_max_entries <= 0 ) {
++//		DEBUG(10, ("lru files feature is disabled, do nothing\n"));
++//		/* do nothing, simply return 1 to advise scanning of file */
++//		return VSCAN_LRU_SCAN_FILE;
++//	}
++//
++//	DEBUG(10, ("lookup '%s'\n", fname));
++//	/* lookup the entry */
++//	found = lrufiles_search(fname);
++//	if (found == NULL ) {
++//		/* not found */
++//		DEBUG(10, ("entry '%s' not found\n", fname));
++//		/* file must be scanned */
++//		return VSCAN_LRU_SCAN_FILE;
++//	} else {
++//		if ( found->time_added > time(NULL) ) {
++//			/* uhm, someone has changed the clock?!? */
++//			/* delete entry and advise to scan file */
++//			DEBUG(10, ("Clock has changed. Invalidate '%s'\n", found->fname));
++//			lrufiles_delete_p(found);
++//			/* file must be scanned */
++//			return VSCAN_LRU_SCAN_FILE;
++//		} else if ( time(NULL) >= (found->time_added + lrufiles_invalidate_time) ) {
++//			/* lifetime expired */
++//			/* remove entry, advide to scan */
++//                        DEBUG(10, ("Lifetime expired. Invalidate '%s'\n", found->fname));
++//			lrufiles_delete_p(found);
++//			/* file must be scanned */
++//			return VSCAN_LRU_SCAN_FILE;
++//		} else {
++//			if ( found->mtime == mtime ) {
++//				/* found, not modified */
++//				DEBUG(10, ("entry '%s' found, file was not modified\n", fname));
++//				if ( found->infected ) {
++//					DEBUG(10, ("entry '%s' marked as infected\n", fname));
++//					/* file mark as infected, access must be denied */
++//					return VSCAN_LRU_DENY_ACCESS;
++//				} else {
++//					DEBUG(10, ("entry '%s' marked as not infected\n", fname));
++//					/* ok, it's safe to grant access without virus scan */
++//					return VSCAN_LRU_GRANT_ACCESS;
++//				}
++//			} else {
++//				/* found, was modified */
++//				DEBUG(10, ("entry '%s' found, file was modified\n", fname));
++//				/* file was modified, it must be scanned */
++//				return VSCAN_LRU_SCAN_FILE;
++//			}
++//		}
++//	}
++//	/* shouln't get there - but to be safe file must be scanned */
++    return ZAVS_LRU_SCAN_FILE;
++}
+Index: samba/source3/modules/zavs_quarantine.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_quarantine.h	2012-11-26 19:07:36.000000000 +0100
+@@ -0,0 +1,27 @@
++#ifndef __ZAVS_QUARANTINE_H_
++#define __ZAVS_QUARANTINE_H_
++
++#include <loadparm.h>
++#include "zavs_param.h"
++
++#define INFECTED_QUARANTINE 0
++#define INFECTED_DELETE     1
++#define INFECTED_NOTHING    2
++
++static const struct enum_list infected_file_action_enum[] = {
++    { INFECTED_QUARANTINE, "quarantine" },
++    { INFECTED_DELETE,     "delete"     },
++    { INFECTED_NOTHING,    "nothing"    },
++    { -1, NULL}
++};
++
++int zavs_delete_virus(vfs_handle_struct *handle, const char *filepath,
++        files_struct *fsp);
++
++int zavs_quarantine_virus(vfs_handle_struct *handle, const char *filepath,
++        files_struct *fsp);
++
++int zavs_do_infected_file_action(vfs_handle_struct *handle,
++        const char *filepath, files_struct *fsp);
++
++#endif
+Index: samba/source3/modules/zavs_quarantine.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_quarantine.c	2012-11-27 17:41:00.000000000 +0100
+@@ -0,0 +1,146 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++
++#include "zavs_quarantine.h"
++#include "zavs_param.h"
++#include "zavs_log.h"
++
++int zavs_delete_virus(vfs_handle_struct *handle,
++        const char *filepath, files_struct *fsp)
++{
++    int rc = SMB_VFS_NEXT_UNLINK(handle, fsp->fsp_name);
++
++    if (rc) {
++        ZAVS_ERROR(handle, "Removing file '%s' failed, reason: %s", filepath, strerror(errno));
++        return rc;
++    }
++    ZAVS_INFO(handle, "File '%s' removed successfully", filepath);
++
++    return 0;
++}
++
++int zavs_quarantine_virus(vfs_handle_struct *handle,
++        const char *filepath, files_struct *fsp)
++{
++	struct zavs_config_struct *pd = NULL;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return -1);
++
++    // Build the destination file path
++    char *slash;
++    char tmp_filepath[1024];
++    char dest_filepath[1024];
++    memset(dest_filepath, 0, sizeof(dest_filepath));
++    memset(tmp_filepath, 0, sizeof(tmp_filepath));
++    snprintf(tmp_filepath, sizeof(tmp_filepath)-1, "%s.XXXXXX", fsp->fsp_name->base_name);
++    while ((slash = strstr(tmp_filepath, "/")) != NULL)
++        *slash = '_';
++    snprintf(dest_filepath, sizeof(dest_filepath)-1, "%s/%s%s",
++        pd->common.quarantine_dir, pd->common.quarantine_prefix,
++        tmp_filepath);
++
++    // Create temp file templated to avoid overwriting files with sambe name
++    int fd = mkstemp(dest_filepath);
++    ZAVS_DEBUG(3, "Quarantine temp file is: %s\n", dest_filepath);
++
++    if (fd == -1) {
++        ZAVS_ERROR(handle, "Cannot create unique quarantine file, reason: %s",
++                strerror(errno));
++        return -1;
++    }
++
++    // Close the opened, 0-byte file
++    int rc = close(fd);
++    if (rc == -1) {
++        ZAVS_ERROR(handle, "While closing quarantine file, reason: %s", strerror(errno));
++        return -1;
++    }
++
++    // Create the destination smb_filename struct
++    struct smb_filename *smb_fname_final = NULL;
++    NTSTATUS status = create_synthetic_smb_fname(talloc_tos(), dest_filepath,
++            fsp->fsp_name->stream_name, NULL,
++            &smb_fname_final);
++    if (!NT_STATUS_IS_OK(status)) {
++        ZAVS_ERROR(handle, "While building filename metadata, reason: %s", nt_errstr(status));
++        return -1;
++    }
++
++    // Now do the actual quarantine, i.e. renaming
++    ZAVS_DEBUG(10, "Moving %s to %s\n", filepath, dest_filepath);
++    rc = SMB_VFS_NEXT_RENAME(handle, fsp->fsp_name, smb_fname_final);
++    if (rc != 0) {
++        ZAVS_ERROR(handle, "Quarantining file '%s' to '%s' failed, reason: %s", filepath,
++                dest_filepath, strerror(errno));
++        if (!pd->common.delete_file_on_quarantine_failure)
++            return -1;
++    }
++
++    ZAVS_INFO(handle, "Quarantining file '%s' to '%s' was successful", filepath,
++            dest_filepath);
++    return 0;
++}
++
++/**
++ *
++ * do action on infected file
++ *
++ */
++int zavs_do_infected_file_action(vfs_handle_struct *handle,
++        const char *filepath, files_struct *fsp)
++{
++	struct zavs_config_struct *pd = NULL;
++    int rc = -1;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return INFECTED_NOTHING);
++
++    int action = pd->common.infected_file_action;
++    switch (action) {
++        case INFECTED_QUARANTINE:
++            rc = zavs_quarantine_virus(handle, filepath, fsp);
++            break;
++        case INFECTED_DELETE:
++            rc = zavs_delete_virus(handle, filepath, fsp);
++            break;
++        case INFECTED_NOTHING:
++            rc = 0;
++            if (pd->common.verbose_file_logging)
++                ZAVS_INFO(handle, "No action performed on infected file '%s'\n", filepath);
++            break;
++        default:
++            ZAVS_ERROR(handle, "Unknown infected file action %d!", action);
++            break;
++    }
++
++    return rc;
++}
+Index: samba/source3/modules/zavs_filetype.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_filetype.h	2012-11-26 17:27:56.000000000 +0100
+@@ -0,0 +1,17 @@
++#ifndef __ZAVS_FILETYPE_H_
++#define __ZAVS_FILETYPE_H_
++
++// Error occured; file must be scanned
++#define ZAVS_FT_ERROR_MUST_SCAN    -1
++
++// File type not in list; file must be scanned
++#define ZAVS_FT_MUST_SCAN          0
++
++// File type in exclude list; do not scan file
++#define ZAVS_FT_SKIP_SCAN          1
++
++bool filetype_init(vfs_handle_struct *handle, int flags);
++void filetype_close(void);
++int filetype_skipscan(const char *fname);
++
++#endif /* __ZAVS_FILETYPE_H_ */
+Index: samba/source3/modules/zavs_param.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_param.c	2012-11-27 17:07:58.000000000 +0100
+@@ -0,0 +1,100 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++
++#include "zavs_param.h"
++#include "zavs_log.h"
++#include "zavs_quarantine.h"
++
++
++void zavs_parse_settings(struct vfs_handle_struct *handle)
++{
++	struct zavs_config_struct *pd = NULL;
++    int snum = SNUM(handle->conn);
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++    // TODO Free char pointers
++
++    ZAVS_DEBUG(3, "Loading settings\n");
++
++    pd->common.verbose_file_logging = lp_parm_bool(snum, "zavs", "verbose_file_logging", ZAVS_VERBOSE_FILE_LOGGING);
++    ZAVS_DEBUG(3, "value for 'verbose_file_logging': %d\n", pd->common.verbose_file_logging);
++
++    pd->common.scan_on_open = lp_parm_bool(snum, "zavs", "scan_on_open", ZAVS_SCAN_ON_OPEN);
++    ZAVS_DEBUG(3, "value for 'scan_on_open': %d\n", pd->common.scan_on_open);
++
++    pd->common.scan_on_close = lp_parm_bool(snum, "zavs", "scan_on_close", ZAVS_SCAN_ON_CLOSE);
++    ZAVS_DEBUG(3, "value for 'scan_on_close': %d\n", pd->common.scan_on_close);
++
++    pd->common.deny_access_on_error = lp_parm_bool(snum, "zavs", "deny_access_on_error", ZAVS_DENY_ACCESS_ON_ERROR);
++    ZAVS_DEBUG(3, "value for 'deny_access_on_error': %d\n", pd->common.deny_access_on_error);
++
++    pd->common.send_warning_message = lp_parm_bool(snum, "zavs", "send_warning_message", ZAVS_SEND_WARNING_MESSAGE);
++    ZAVS_DEBUG(3, "value for 'send_warning_message': %d\n", pd->common.send_warning_message);
++
++    pd->common.infected_file_action = lp_parm_enum(snum, "zavs", "infected_file_action", infected_file_action_enum, ZAVS_INFECTED_FILE_ACTION);
++    ZAVS_DEBUG(3, "value for 'infected_file_action': %d\n", pd->common.infected_file_action);
++
++    pd->common.quarantine_dir = lp_parm_const_string(snum, "zavs", "quarantine_dir",  ZAVS_QUARANTINE_DIRECTORY);
++    ZAVS_DEBUG(3, "value for 'quarantine_dir': %s\n", pd->common.quarantine_dir);
++
++    pd->common.quarantine_prefix = lp_parm_const_string(snum, "zavs", "quarantine_prefix", ZAVS_QUARANTINE_PREFIX);
++    ZAVS_DEBUG(3, "value for 'quarantine_prefix': %s\n", pd->common.quarantine_prefix);
++
++    pd->common.max_lrufiles = lp_parm_int(snum, "zavs", "max_lrufiles", ZAVS_MAX_LRUFILES);
++    ZAVS_DEBUG(3, "value for 'max_lrufiles': %d\n", pd->common.max_lrufiles);
++
++    pd->common.lrufiles_invalidate_time = lp_parm_int(snum, "zavs", "lrufiles_invalidate_time", ZAVS_LRUFILES_INVALIDATE_TIME);
++    ZAVS_DEBUG(3, "value for 'lrufiles_invalidate_time': %llu\n", (unsigned long long)pd->common.lrufiles_invalidate_time);
++
++    pd->common.exclude_file_types = lp_parm_const_string(snum, "zavs", "exclude_file_types", ZAVS_FT_EXCLUDE_LIST);
++    ZAVS_DEBUG(3, "value for 'exclude_file_types': %s\n", pd->common.exclude_file_types);
++
++    pd->common.exclude_file_regexp = lp_parm_const_string(snum, "zavs", "exclude_file_regexp", ZAVS_FT_EXCLUDE_REGEXP);
++    ZAVS_DEBUG(3, "value for 'exclude_file_regexp': %s\n", pd->common.exclude_file_regexp);
++
++    pd->common.delete_file_on_quarantine_failure = lp_parm_bool(snum, "zavs", "delete_file_on_quarantine_failure", ZAVS_DELETE_FILE_ON_QUARANTINE_FAILURE);
++    ZAVS_DEBUG(3, "value for 'delete_file_on_quarantine_failure': %d\n", pd->common.delete_file_on_quarantine_failure);
++
++    // ClamAV library limits
++    pd->clamav_limits.max_file_size = lp_parm_ulong(snum, "zavs", "max_file_size", ZAVS_CLAMAV_MAX_FILE_SIZE);
++    ZAVS_DEBUG(3, "value for 'max_file_size': %lli\n", pd->clamav_limits.max_file_size);
++
++    pd->clamav_limits.max_scan_size = lp_parm_ulong(snum, "zavs", "max_scan_size", ZAVS_CLAMAV_MAX_SCAN_SIZE);
++    ZAVS_DEBUG(3, "value for 'max_scan_size': %lli\n", pd->clamav_limits.max_scan_size);
++
++    pd->clamav_limits.max_files = lp_parm_ulong(snum, "zavs", "max_files", ZAVS_CLAMAV_MAX_FILES);
++    ZAVS_DEBUG(3, "value for 'max_files': %lli\n", pd->clamav_limits.max_files);
++
++    pd->clamav_limits.max_recursion_level = lp_parm_ulong(snum, "zavs", "max_recursion_level", ZAVS_CLAMAV_MAX_REC_LEVEL);
++    ZAVS_DEBUG(3, "value for 'max_recursion_level': %lli\n", pd->clamav_limits.max_recursion_level);
++}
++
+Index: samba/source3/modules/zavs_core.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_core.c	2012-11-27 17:49:31.000000000 +0100
+@@ -0,0 +1,194 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <includes.h>
++#include <version.h>
++
++#include "zavs_core.h"
++#include "zavs_log.h"
++#include "zavs_param.h"
++#include "zavs_fileaccesslog.h"
++#include "zavs_filetype.h"
++#include "zavs_fileregexp.h"
++#include "zavs_clamav.h"
++
++void zavs_initialize(vfs_handle_struct *handle)
++{
++    ZAVS_INFO(handle, "Zentyal AntiVirus for Samba connected (%s), (c) by eBox Technologies", SAMBA_VERSION_STRING);
++
++    // Parse user specified settings
++    zavs_parse_settings(handle);
++
++    // Initialise clamav library
++    ZAVS_DEBUG(5, "init clamav library\n");
++	zavs_clamav_lib_init(handle);
++
++    // Initialise lrufiles list
++    ZAVS_DEBUG(5, "init lrufiles list\n");
++    lrufiles_init(handle);
++
++    // Initialise file type exclussion
++    ZAVS_DEBUG(5, "init file type\n");
++    filetype_init(handle, 0);
++
++    // Initialise file regexp exclussion
++    ZAVS_DEBUG(5, "init file regexp\n");
++    fileregexp_init(handle);
++}
++
++void zavs_finalize(vfs_handle_struct *handle)
++{
++    fileregexp_close();
++    filetype_close();
++    lrufiles_destroy_all();
++	zavs_clamav_lib_done(handle);
++}
++
++bool zavs_open_handler(vfs_handle_struct *handle, files_struct *fsp)
++{
++	struct zavs_config_struct *pd = NULL;
++    bool allow_access = true;
++    char filepath[1024];
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++            struct zavs_config_struct,
++            return true);
++
++    // Build the full file path
++    memset(filepath, 0, sizeof(filepath));
++    snprintf(filepath, sizeof(filepath)-1, "%s/%s", fsp->conn->connectpath, fsp->fsp_name->base_name);
++
++    if (!pd->common.scan_on_open) {
++        // Scan files on open not set
++        ZAVS_DEBUG(3, "File '%s' not scanned as 'scan on open' is not set\n", filepath);
++    } else if (!skip_file(handle, fsp, filepath)) {
++        int must_be_checked = ZAVS_LRU_SCAN_FILE;
++
++        // Must file actually be scanned?
++        struct stat stat_buf;
++        if (stat(filepath, &stat_buf) == 0)
++            must_be_checked = lrufiles_must_be_checked(filepath, stat_buf.st_mtime);
++
++        if (must_be_checked == ZAVS_LRU_DENY_ACCESS) {
++            // File has already been checked and marked as infected
++            if (pd->common.verbose_file_logging)
++                ZAVS_INFO(handle, "File '%s' has already been scanned and marked as infected. Not scanned any more. Access denied", filepath);
++            errno = EACCES;
++            allow_access = false;
++        } else if (must_be_checked == ZAVS_LRU_GRANT_ACCESS) {
++            // File has already been checked, not marked as infected and not modified
++            if (pd->common.verbose_file_logging)
++                ZAVS_INFO(handle, "File '%s' has already been scanned, not marked as infected and not modified. Not scanned anymore. Access granted", filepath);
++        } else {
++            // Scan the file
++            int retval = zavs_clamav_lib_scanfile(handle, filepath, fsp);
++            if (retval == ZAVS_SCAN_CLEAN) {
++                allow_access = true;
++            } else if (retval == ZAVS_SCAN_INFECTED) {
++                errno = EACCES;
++                allow_access = false;
++            } else if (retval == ZAVS_SCAN_ERROR) {
++                if (pd->common.deny_access_on_error) {
++                    ZAVS_INFO(handle, "Access to file '%s' denied as 'deny access on error' is set", filepath);
++                    errno = EACCES;
++                    allow_access = false;
++                } else {
++                    allow_access = true;
++                }
++            }
++        }
++    }
++    return allow_access;
++}
++
++void zavs_close_handler(vfs_handle_struct *handle, files_struct *fsp)
++{
++	struct zavs_config_struct *pd = NULL;
++    char filepath[1024];
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return);
++
++    // Build the full file path
++    memset(filepath, 0, sizeof(filepath));
++    snprintf(filepath, sizeof(filepath)-1, "%s/%s", fsp->conn->connectpath, fsp->fsp_name->base_name);
++
++    if (!pd->common.scan_on_close) {
++        // Scan files on close not set
++        ZAVS_DEBUG(3, "File '%s' not scanned as 'scan on close' is not set\n", filepath);
++    } else if (!fsp->modified) {
++        // Don't scan files which have not been modified
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "File '%s' was not modified - not scanned", filepath);
++    } else if (!skip_file(handle, fsp, filepath)) {
++        zavs_clamav_lib_scanfile(handle, filepath, fsp);
++    }
++}
++
++bool skip_file(vfs_handle_struct *handle, files_struct *fsp, const char *filepath)
++{
++	struct zavs_config_struct *pd = NULL;
++    bool ret = false;
++    struct stat statbuf;
++
++    SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return ret);
++
++    if ((ret = stat(filepath, &statbuf)) != 0) {
++        // An error occured
++        ret = true;
++        if (errno == ENOENT) {
++            if (pd->common.verbose_file_logging)
++                ZAVS_WARN(handle, "File '%s' not found! Not scanned!", filepath);
++        } else {
++            ZAVS_ERROR(handle, "File '%s' not readable or an error occured", filepath);
++        }
++    } else if (S_ISDIR(statbuf.st_mode)) {
++        // It a directory
++        ret = true;
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "open: File '%s' is a directory! Not scanned!", filepath);
++    } else if (statbuf.st_size == 0) {
++        // Do not scan empty files
++        ret = true;
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "open: File '%s' has size zero! Not scanned!", filepath);
++    } else if (fileregexp_skipscan(filepath) == ZAVS_FR_SKIP_SCAN) {
++        // Check regular expression exlude
++        ret = true;
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "open: File '%s' not scanned as file is machted by exclude regexp", filepath);
++    } else if (filetype_skipscan(filepath) == ZAVS_FT_SKIP_SCAN) {
++        // Check file type exclude
++        ret = true;
++        if (pd->common.verbose_file_logging)
++            ZAVS_INFO(handle, "open: File '%s' not scanned as file type is on exclude list", filepath);
++    }
++    return ret;
++}
+Index: samba/source3/modules/zavs_clamav.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_clamav.h	2012-11-26 17:21:23.000000000 +0100
+@@ -0,0 +1,19 @@
++#ifndef __ZAVS_CLAMAV_H__
++#define __ZAVS_CLAMAV_H__
++
++#include "zavs_param.h"
++
++enum cl_engine_field;
++
++#define ZAVS_SCAN_CLEAN         1
++#define ZAVS_SCAN_INFECTED      2
++#define ZAVS_SCAN_ERROR         3
++
++void zavs_clamav_lib_init(vfs_handle_struct *handle);
++void zavs_clamav_lib_done(vfs_handle_struct *handle);
++int zavs_clamav_lib_scanfile(vfs_handle_struct *handle,
++    const char *filepath, files_struct *fsp);
++void zavs_set_engine_option(vfs_handle_struct *handle,
++    enum cl_engine_field field, long long value);
++
++#endif
+Index: samba/source3/modules/zavs_fileregexp.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_fileregexp.h	2012-11-26 17:30:26.000000000 +0100
+@@ -0,0 +1,17 @@
++#ifndef __ZAVS_FILEREGEXP_H_
++#define __ZAVS_FILEREGEXP_H_
++
++// Error occured; file must be scanned
++#define ZAVS_FR_ERROR_MUST_SCAN	-1
++
++// File not in list; file must be scanned
++#define ZAVS_FR_MUST_SCAN 		 0
++
++// File in exclude regexp; do not scan file
++#define ZAVS_FR_SKIP_SCAN 		 1
++
++bool fileregexp_init(vfs_handle_struct *handle);
++void fileregexp_close(void);
++int fileregexp_skipscan(const char *fname);
++
++#endif /* __ZAVS_FILEREGEXP_H_ */
+Index: samba/source3/modules/zavs_fileregexp.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba/source3/modules/zavs_fileregexp.c	2012-11-27 17:39:25.000000000 +0100
+@@ -0,0 +1,132 @@
++/*
++ * Copyright (C) 2012 eBox Technologies S.L.
++ *
++ * Zentyal Anti Virus for Samba.
++ *
++ * Based on samba-vscan VFS module by
++ *  Copyright (c) Rainer Link <rainer@openantivirus.org>, 2001-2004
++ *  Copyright (C) William Harris <harris@perspectix.com>, 2002
++ *  Copyright (C) Kurt Huwig <kurt@openantivirus.org>, 2002
++ *  Copyright (c) Dariusz Markowicz <dariusz@markowicz.net>, 2003
++ *  Copyright (C) Stefan (metze) Metzmacher <metze@metzemix.de>, 2003
++ *  Copyright (c) Sven Strickroth <email@cs-ware.de>, 2005
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License, version 2, as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++#include <pcre.h>
++#include <includes.h>
++
++#include "zavs_fileregexp.h"
++#include "zavs_log.h"
++#include "zavs_param.h"
++
++#define OVECCOUNT 30 // Should be a multiple of 3
++
++
++static pcre *exclude_re = NULL;
++
++bool fileregexp_init(vfs_handle_struct *handle)
++{
++	struct zavs_config_struct *pd = NULL;
++    const char *exclude_regexp = NULL;
++
++	SMB_VFS_HANDLE_GET_DATA(handle, pd,
++		struct zavs_config_struct,
++		return false);
++
++    exclude_regexp = pd->common.exclude_file_regexp;
++
++    if (strnlen(exclude_regexp, sizeof(exclude_regexp)) > 0) {
++        const char *error;
++        int erroffset;
++
++        ZAVS_DEBUG(5, "exclude regular expression is: '%s'\n", exclude_regexp);
++
++        // Compile the regular expression
++        exclude_re = pcre_compile(
++                exclude_regexp, // the pattern, C string terminated by a binary zero
++                0,              // default options
++                &error,         // for error message
++                &erroffset,     // for error offset
++                NULL);          // use default character tables
++
++        if (exclude_re == NULL) {
++            ZAVS_ERROR(handle, "PCRE compilation of pattern '%s' failed at offset %d: %s\n", exclude_regexp, erroffset, error);
++            return ZAVS_FR_ERROR_MUST_SCAN;
++        }
++    } else {
++        ZAVS_DEBUG(5, "exclude regexp is empty - nothing to do\n");
++    }
++
++    return true;
++}
++
++void fileregexp_close(void)
++{
++    if (exclude_re != NULL) {
++        pcre_free(exclude_re);
++        exclude_re = NULL;
++    }
++}
++
++/**
++ *
++ * Determins whether scan of file should be skipped or not
++ *
++ * @param fnamefile name
++ * @return
++ *      -1  error occured; file must be scanned
++ *       0  file not in list, file must be scanned
++ *       1  file in exclude regexp, skip file, i.e. do not
++ *          scan file
++ *
++ */
++int fileregexp_skipscan(const char *fname)
++{
++    if (exclude_re != NULL) {
++        int ovector[OVECCOUNT];
++
++        int rc;
++        rc = pcre_exec(
++                exclude_re,     // The compiled pattern
++                NULL,           // no extra data - we didn't study the pattern
++                fname,          // the subject string
++                strlen(fname),  // the length of the subject
++                0,              // start at offset 0 in the subject
++                0,              // default options
++                ovector,        // output vector for substring information
++                OVECCOUNT);     // number of elements in the output vector
++
++        // Matching failed, handle error cases
++        if (rc < 0) {
++            switch (rc) {
++                case PCRE_ERROR_NOMATCH:
++                    ZAVS_DEBUG(5, "File name '%s' no match regular expression\n", fname);
++                    return ZAVS_FR_MUST_SCAN;
++                    break;
++                default:
++                    ZAVS_DEBUG(5, "Unexpected error executing regular expression: %d\n", rc);
++                    return ZAVS_FR_ERROR_MUST_SCAN;
++                    break;
++            }
++        }
++
++        // Match succeded
++        ZAVS_DEBUG(5, "File name '%s' matched the regular expression, skip scan\n", fname);
++        return ZAVS_FR_SKIP_SCAN;
++    }
++
++    return ZAVS_FR_MUST_SCAN;
++}

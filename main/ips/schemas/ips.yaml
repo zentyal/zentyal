@@ -1,0 +1,18 @@
+class: 'EBox::IPS'
+
+depends:
+    - firewall
+
+enabledepends:
+    - firewall
+
+models:
+    - Interfaces
+    - Rules
+    - AlertDetails
+    - AlertGraph
+    - AlertReportOptions
+
+composites:
+    General: [Interfaces, Rules]
+    AlertReport: [AlertReportOptions, AlertGraph, AlertDetails]

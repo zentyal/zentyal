@@ -288,7 +288,10 @@ sub checkService
                             ($_->{protocol} eq $allFields->{protocol}->value()) } @{$services};
         if ($nMatch < 1) {
             throw EBox::Exceptions::External(
-                __x('The chosen service is not in {file}', file => SERVICE_FILE));
+                __x("Service '{srv}' is not present in {file}",
+                    srv => $allFields->{service_name}->value(),
+                    file => SERVICE_FILE)
+            );
         }
     }
 }

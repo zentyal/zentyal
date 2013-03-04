@@ -56,7 +56,7 @@ sub _new
     $self->_respawn;
 
     $self->{pid} = $$;
-    $self->{json_pretty} = JSON::XS->new->pretty;
+    $self->{json_pretty} = JSON::XS->new->pretty->utf8;
 
     unless ($lock) {
         my $path = undef;
@@ -216,7 +216,7 @@ sub export_dir_to_file
     );
     my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
-        write_file($file, @lines);
+        write_file($file, { binmode => ':raw' }, @lines);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to $file");
     };
@@ -426,10 +426,8 @@ sub _redis_call
                 $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
-                    map { utf8::encode($_) if defined ($_) } @response;
                 } else {
                     $response = $self->{redis}->__read_response();
-                    utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
             };
@@ -488,7 +486,7 @@ sub _respawn
     my $home = $self->_home();
     my $filepasswd = $self->_passwd();
 
-    my $redis = Redis->new(sock => "$home/redis.$user.sock");
+    my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
@@ -506,7 +504,7 @@ sub _initRedis
     return if ( $self->_user eq 'ebox-usercorner' );
 
     unless (EBox::Service::running('ebox.redis')) {
-        EBox::info('Starting redis server');
+        EBox::debug("[$$] Starting redis server");
 
         # Write redis daemon conf file
         $self->writeConfigFile();

@@ -1,4 +1,58 @@
-HEAD
+3.0.14
+	+ Allow search filters with a leading '*'
+	+ Better error reporting when choosing a bad search filter
+	+ External exceptions from _print method are caught correctly in CGIs
+	+ EBox::CGI::run now supports correct handling of APR::Error
+	+ Fixed dashboard check updates ajax requests in Chrome
+	+ Fixed errors with zero digits components in time type
+3.0.13
+	+ Better warning if size file is missing in a backup when
+	  restoring it
+	+ Fixed table cache behaviour on cache miss in logs module
+	+ Fix wrong button label when deleting rows in 'datainuse' template
+	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
+	+ Added force default mode and permission to writeConfFileNoCheck(),
+	  writeFile() and derivatives
+	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
+	  parameter names
+	+ DataTables with sortedBy are now orderer alphabetically with
+	  proper case treatment
+	+ Display messages in model even when there are not elements and
+	  table body is not shown
+3.0.12
+	+ Improve change-hostname script, delete all references to current name
+	+ Faster dashboard loading with asynchronous check of software updates
+	+ Workaround for when the progress id parameter has been lost
+	+ Fixed problems calling upstart coomands from cron jobs with wrong PATH
+	+ Decode CGI unsafeParams as utf8
+	+ Avoid double encoding when printing JSON response in EBox::CGI::Base
+	+ Remove warning in EBox::Menu::Folder when currentfolder is not defined
+	+ Removed unnecesary and misleading method new from EBox::Auth package
+3.0.11
+	+ Avoid flickering loading pages when switching between menu entries
+	+ Incorrect regular expression in logs search page are correctly handled
+	+ Fix input badly hidden in the logs screen
+	+ reloadTable from DataTable now remove cached fields as well
+3.0.10
+	+ Fixed unsafe characters error when getting title of progress
+	  indicator in progress dialog
+	+ Added use utf8 to dashboard template to fix look of closable messages
+3.0.9
+	+ Adapted file downloads to the new utf8 fixes
+	+ Write backup files in raw mode to avoid utf8 problems
+	+ Print always utf8 in STDOUT on all CGIs
+	+ Decode CGI params of values entered at the interface as utf8
+	+ Proper encode/decode of utf8 with also pretty JSON
+	+ Fixed utf8 decoding in date shown at dashboard
+	+ Removed old workarounds for utf8 problems
+	+ Added new recoveryEnabled() helper method to Module::Base
+	+ Added recoveryDomainName() method to SyncProvider interface
+	+ Restore backup can now install missing modules in Disaster Recovery
+	+ Show specific slides when installing a commercial edition
+	+ Redirect to proper CGI after login in disaster recovery mode
+	+ Removed old debconf workaround for first stage installation
+	+ Log redis start message as debug instead of info to avoid flood
+	+ Use unsafeParam in EBox::CGI::Base::paramsAsHash
 	+ EBox::Module::Service does not raise exception and logs
 	  nothing when using init.d status
 	+ Fixed glitch in backup CGI which sometimes showed
@@ -17,6 +71,7 @@ HEAD
 	+ Fixed bug that made that the lock was shared between owners
 	+ Some fixes in the function to add the rule for desktops services
 	  to the firewall
+	+ Delete obsolete EBox::CGI::MenuCSS package
 3.0.7
 	+ Add new EBox::Module::Service::Observer to notify modules about
 	  changes in the service status

@@ -1,0 +1,12 @@
+=== modified file 'source4/torture/libnetapi/wscript_build'
+Index: samba4/source4/torture/libnetapi/wscript_build
+===================================================================
+--- samba4.orig/source4/torture/libnetapi/wscript_build	2012-11-13 19:09:49.863216556 +0100
++++ samba4/source4/torture/libnetapi/wscript_build	2012-11-13 19:10:23.979215909 +0100
+@@ -7,5 +7,6 @@
+ 	init_function='torture_libnetapi_init',
+ 	deps='POPT_CREDENTIALS netapi',
+ 	internal_module=True,
++	enabled=False,
+ 	)
+ 

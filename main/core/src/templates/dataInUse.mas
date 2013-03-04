@@ -15,18 +15,25 @@ $page = 0 unless ( $page );
 </%init>
 
 <div class='warning'>
-<% $warning %> 
+<% $warning %>
 </div>
-
 % if ( $action eq 'edit' )
 % {
 %    my @fields = map { "'" . $_ . "'" } keys %{$params};
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>"
-       onclick="changeRow('<% $url %>', '<% $table %>', 
+       onclick="changeRow('<% $url %>', '<% $table %>',
        [ <% join(', ', @fields) %> ], '<% $directory %>',
        '<% $rowId %>', <% $page %>, true); return false"
 />
+% }
+% elsif ($action eq 'del')
+% {
+<input class='inputButton' type='submit' name='change'
+       value="<% __('Delete') %>" title="Delete"
+	onclick="actionClicked('<% $url %>', '<% $table %>', '<%
+        $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
+        '<% $page %>'); return false"/>
 % }
 % else
 % {
@@ -36,7 +43,7 @@ $page = 0 unless ( $page );
         $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
         '<% $page %>'); return false"/>
 % }
-	
+
 <input  class='inputButton' type='submit' name='cancel'
 		value="<% __('Cancel') %>" title="Cancel"
 		onclick="changeView('<% $url %>', '<% $table %>', '<% $directory %>', 'changeList')" />

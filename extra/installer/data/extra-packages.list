@@ -4,7 +4,6 @@ zentyal-gateway
 zentyal-infrastructure
 zentyal-office
 zentyal-communication
-zentyal-remoteservices
 language-packs-zentyal-all
 dahdi
 linux-headers-generic-pae
@@ -25,3 +24,4 @@ plymouth-theme-ubuntu-text
 acpid
 zenity
 xfsprogs
+gtk2-engines

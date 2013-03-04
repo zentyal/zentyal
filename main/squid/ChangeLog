@@ -1,4 +1,13 @@
-HEAD
+3.0.5
+	+ Reload dansguardian configuration in log rotation instead of
+	  restarting the full module
+	+ Overwrite squid3 logrotate file to take care of the squid-external daemon
+3.0.4
+	+ Fixed SNMP acl
+	+ Removed redundant cache_log line from squid-external configuration
+	+ Fixed bug which did not include users from __USERS__ group in
+	  dansguardian filter group file
+3.0.3
 	+ Fixed error triggered when creating a delay pool without an object
 	+ Make sure in categorized lists model that list archives are not
 	  backed up

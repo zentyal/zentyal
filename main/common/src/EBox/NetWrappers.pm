@@ -237,8 +237,13 @@ sub _ifaceShowAddress
     my @output = `/bin/ip -f inet -o address show $if 2> /dev/null`;
 
     my @addrs = map {
-        my ($number, $iface, $family,  $ip) =  split /\s+/, $_, 5;
-        $ip;
+        my ($number, $iface, $family,  $ip, $otherAddrType, $otherAddr) =  split /\s+/, $_, 7;
+        if ($otherAddrType eq 'peer') {
+            my ($peerIp, $peerMask) = split '/', $otherAddr, 2;
+            "$ip/$peerMask"
+        } else {
+            $ip;
+        }
     }  @output;
 
     return @addrs;

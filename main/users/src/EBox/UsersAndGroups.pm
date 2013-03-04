@@ -16,11 +16,13 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups;
-use base qw( EBox::Module::Service
-             EBox::LdapModule
-             EBox::SysInfo::Observer
-             EBox::UserCorner::Provider
-             EBox::UsersAndGroups::SyncProvider );
+use base qw(EBox::Module::Service
+            EBox::LdapModule
+            EBox::SysInfo::Observer
+            EBox::UserCorner::Provider
+            EBox::SyncFolders::Provider
+            EBox::UsersAndGroups::SyncProvider
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -41,6 +43,7 @@ use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::SyncFolders::Folder;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -241,6 +244,10 @@ sub setupKerberos
     my $realm = $self->kerberosRealm();
 
     my @cmds = ();
+    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kdc || true');
+    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
@@ -669,11 +676,8 @@ sub _daemons
 
     return [
         { name => 'ebox.slapd' },
-        {
-            name => 'heimdal-kdc',
-            type => 'init.d',
-            pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
-        },
+        { name => 'zentyal.heimdal-kdc'  },
+        { name => 'zentyal.heimdal-kpasswd'  },
     ];
 }
 
@@ -795,7 +799,6 @@ sub initUser
     }
 }
 
-
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
@@ -808,14 +811,14 @@ sub reloadNSCD
 
 # Method: user
 #
-# Returns the object which represents a give user. Raises a excpetion if
+# Returns the object which represents a give user. Raises a exception if
 # the user does not exists
 #
 #  Parameters:
 #      username
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::User .
+#    the instance of EBox::UsersAndGroups::User for the given user
 sub user
 {
     my ($self, $username) = @_;
@@ -827,6 +830,19 @@ sub user
     return $user;
 }
 
+# Method: userExists
+#
+# Returns:
+#
+#   bool - whether the user exists or not
+#
+sub userExists
+{
+    my ($self, $username) = @_;
+    my $dn = $self->userDn($username);
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    return $user->exists();
+}
 
 # Method: users
 #
@@ -855,7 +871,7 @@ sub users
     my $result = $self->ldap->search(\%args);
 
     my @users = ();
-    foreach my $entry ($result->sorted('uid'))
+    foreach my $entry ($result->entries)
     {
         my $user = new EBox::UsersAndGroups::User(entry => $entry);
 
@@ -865,19 +881,27 @@ sub users
         push (@users, $user);
     }
 
+    # sort by name
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
+
     return \@users;
 }
 
 # Method: group
 #
-# Returns the object which represents a give group. Raises a excpetion if
+# Returns the object which represents a give group. Raises a exception if
 # the group does not exists
 #
 #  Parameters:
 #      groupname
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::Group .
+#    the instance of EBox::UsersAndGroups::Group for the group
 sub group
 {
     my ($self, $groupname) = @_;
@@ -889,8 +913,19 @@ sub group
     return $group;
 }
 
-
-
+# Method: groupExists
+#
+#  Returns:
+#
+#      bool - whether the group exists or not
+#
+sub groupExists
+{
+    my ($self, $groupname) = @_;
+    my $dn = $self->groupDn($groupname);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    return $group->exists();
+}
 
 # Method: groups
 #
@@ -918,7 +953,7 @@ sub groups
     my $result = $self->ldap->search(\%args);
 
     my @groups = ();
-    foreach my $entry ($result->sorted('cn'))
+    foreach my $entry ($result->entries())
     {
         my $group = new EBox::UsersAndGroups::Group(entry => $entry);
 
@@ -927,6 +962,13 @@ sub groups
 
         push (@groups, $group);
     }
+    # sort grups by name
+    @groups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @groups;
 
     return \@groups;
 }
@@ -1762,5 +1804,39 @@ sub hostDomainChangedDone
         $mode->setValue('dn', $newDN);
     }
 }
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        push (@folders, new EBox::SyncFolders::Folder('/home', 'recovery'));
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Users data');
+}
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+    my ($self) = @_;
+
+    my $usersPrintableName  = __(q{Users data});
+    my $usersPath           = '/home';
+
+    return {
+        $usersPrintableName   => [ $usersPath ],
+    };
+}
+
 
 1;

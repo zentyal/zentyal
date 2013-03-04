@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-03-17 04:14+0200\n"
-"Last-Translator: zzymaster <ndox.hc@gmail.com>\n"
+"PO-Revision-Date: 2013-02-13 08:46+0200\n"
+"Last-Translator: nurohman <maman.nurohman@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -96,6 +96,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Tidak bisa memakai nama {name} karena telah ada direktori untuk nama ini: "
+"{dir}.\n"
+" Mungkin penghapusan belum dipastikan"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:44
 msgid "Time period"
@@ -366,7 +369,7 @@ msgstr "Proxy transparant"
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Hidupkan Sign-on tunggal (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
@@ -688,6 +691,7 @@ msgstr "Tidak boleh ada spasi pada nama profil"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:159
 msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
+"Karakter '~' telah dipergunakan dan tidak bisa digunakan pada nama profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -728,11 +732,14 @@ msgstr ""
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Jika batasan global dihidupkan anda harus mengisi ukuran dan nilai rasionya"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:69
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Jikan batasan per-client dihidupkan anda harus mengisi ukuran dan nilai "
+"rasionya"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:78
 #, perl-brace-format
@@ -740,6 +747,7 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Rasio per-clien ({clt_rate} KB/s) tidak boleh lebih besar dari rasio global"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:134
 msgid "Network object"
@@ -747,7 +755,7 @@ msgstr "Obyek jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:143
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Hidupkan batasan global untuk obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:150
 #, fuzzy
@@ -778,6 +786,8 @@ msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Rasio pengunduhan dibatasi setelah ukuran maksimum dicapai untuk semua obyek "
+"jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
@@ -786,7 +796,7 @@ msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:167
 msgid "Enable per client limit"
-msgstr ""
+msgstr "Hidupkan pembatasan per client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:174
 #, fuzzy
@@ -959,6 +969,8 @@ msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
+"Tidak ada kategori yang telah ditentukan, Anda harus menambah file daftar "
+"berkategori jikaingin menyaring berdasar kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1655

@@ -233,7 +233,6 @@ sub finished
 sub setAsFinished
 {
     my ($self, $retValue, $errorMsg) = @_;
-
     defined $retValue or $retValue = 0;
 
     if (not $self->started()) {
@@ -336,7 +335,6 @@ sub stateAsHash
 sub id
 {
     my ($self) = @_;
-
     return $self->{id};
 }
 
@@ -486,14 +484,25 @@ sub _collectChildrens
 
 sub _unique_id
 {
-    my %ids = map { $_ => 1 } _currentIds();
-
+    my $lastId = _lastId();
     my $id;
-    do {
-        $id = int(rand(1000));
-    } while (exists $ids{$id});
+    if ($lastId) {
+        $id = $lastId + 1;
+    } else {
+        $id = 1;
+    }
 
     return $id;
+}
+
+sub _lastId
+{
+    my @currentIds = sort _currentIds();
+    if (@currentIds == 0) {
+        return undef;
+    }
+    my $lastId = $currentIds[-1];
+    return $lastId;
 }
 
 1;

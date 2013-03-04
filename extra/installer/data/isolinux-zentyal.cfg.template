@@ -1,0 +1,27 @@
+default install
+label install
+  menu label ^Install Zentyal VERSION (delete all disk)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 initrd=/install/initrd.gz quiet --
+label expert
+  menu label ^Install Zentyal VERSION (expert mode)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server.seed vga=788 initrd=/install/initrd.gz quiet --
+label disaster
+  menu label ^Recover from a disaster (delete all disk)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery-auto.seed vga=788 initrd=/install/initrd.gz quiet --
+label disaster-expert
+  menu label ^Recover from a disaster (expert mode)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery.seed vga=788 initrd=/install/initrd.gz quiet --
+label check
+  menu label ^Check disc for defects
+  kernel /install/vmlinuz
+  append  MENU=/bin/cdrom-checker-menu vga=788 initrd=/install/initrd.gz quiet --
+LABEL memtest
+  menu label Test ^memory
+  kernel /install/mt86plus
+LABEL hd
+  menu label ^Boot from first hard disk
+  localboot 0x80

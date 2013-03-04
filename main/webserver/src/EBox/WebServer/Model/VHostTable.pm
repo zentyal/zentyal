@@ -186,7 +186,7 @@ sub addedRowNotify
         my @currentNames = map { $_->{name} } @hostNames;
         # Push aliases
         foreach my $host (@hostNames) {
-            push(@currentNames, map { $_->{name} } @{$host->{aliases}});
+            push (@currentNames, @{$host->{aliases}});
         }
         if ( none(@currentNames) eq $hostName ) {
             # Add a host name

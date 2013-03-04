@@ -28,7 +28,7 @@ if ($privacy) {
 }
 </%init>
 pre-start script
-# XXX commented out and prelaced until
+# XXX commented out and replaced with workaround until
 #     https://bugs.launchpad.net/ubuntu/+source/postgrey/+bug/981789
 #     is fixed
 #    invoke-rc.d postgrey stop || true

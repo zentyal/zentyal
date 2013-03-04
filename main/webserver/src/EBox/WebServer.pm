@@ -16,11 +16,11 @@ use strict;
 use warnings;
 
 package EBox::WebServer;
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::SyncFolders::Folder;
 use EBox::Service;
 
 use EBox::Exceptions::External;
@@ -743,7 +743,7 @@ sub dumpConfig
     my @dirs = keys %{ _availableSites() };
 
     if (not @dirs) {
-        EBox::error(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
+        EBox::warn(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
         return;
     }
 
@@ -805,6 +805,28 @@ sub backupDomainsFileSelection
     }
 
     return {};
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir (EBox::WebServer::PlatformPath::DocumentRoot(),
+                         EBox::WebServer::PlatformPath::VDocumentRoot()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Web server data');
 }
 
 1;

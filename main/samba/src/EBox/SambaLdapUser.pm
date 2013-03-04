@@ -28,6 +28,7 @@ use EBox::Samba::User;
 use EBox::Samba::Group;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::Gettext;
 
 use base qw(EBox::LdapUserBase);
 
@@ -146,6 +147,28 @@ sub _addUser
         $sambaUser->setupUidMapping($uidNumber);
     }
 
+    # If server is first DC and roaming profiles are enabled, write
+    # the attributes
+    my $sambaSettings = $self->{samba}->model('GeneralSettings');
+    my $dc = $sambaSettings->MODE_DC();
+    if ($self->{samba}->mode() eq $dc) {
+        my $netbiosName = $self->{samba}->netbiosName();
+        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+        if ($self->{samba}->roamingProfiles()) {
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            EBox::info("Enabling roaming profile for user '$samAccountName'");
+            $sambaUser->setRoamingProfile(1, $path, 1);
+        } else {
+            $sambaUser->setRoamingProfile(0);
+        }
+
+        # Mount user home on network drive
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        EBox::info("Setting home network drive for user '$samAccountName'");
+        $sambaUser->setHomeDrive($self->{samba}->drive(), $drivePath, 1);
+        $sambaUser->save();
+    }
+
     EBox::info("Enabling '$samAccountName' account");
     $sambaUser->setAccountEnabled(1);
 }
@@ -256,6 +279,7 @@ sub _preAddGroup
     my $dn = $entry->dn();
     my $description = $entry->get_value('description');
     my $gid         = $entry->get_value('cn');
+    $self->_checkWindowsBuiltin($gid);
 
     my $params = {
         description   => $description,
@@ -491,6 +515,24 @@ sub _groupAddOns
     };
 
     return { path => '/samba/samba.mas', params => $args };
+}
+
+
+# Method: _checkWindowsBuiltin
+#
+# check whether the group already exists in the Builtin branch
+sub _checkWindowsBuiltin
+{
+    my ($self, $name) = @_;
+
+    my $dn = "CN=$name,CN=Builtin";
+    if ($self->{ldb}->existsDN($dn, 1)) {
+        throw EBox::Exceptions::External(
+            __x('{name} already exists as windows bult-in group',
+                name => $name
+               )
+           );
+    }
 }
 
 1;

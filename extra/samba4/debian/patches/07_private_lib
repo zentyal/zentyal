@@ -1,0 +1,19 @@
+Description: Always specify rpath for private libraries
+Author: Jelmer Vernooij <jelmer@samba.org>
+Last-Update: 2012-02-24
+Applied-Upstream: no
+
+=== modified file 'buildtools/wafsamba/samba_utils.py'
+Index: samba4/buildtools/wafsamba/samba_utils.py
+===================================================================
+--- samba4.orig/buildtools/wafsamba/samba_utils.py	2012-11-13 19:09:49.807216557 +0100
++++ samba4/buildtools/wafsamba/samba_utils.py	2012-11-13 19:10:35.903215683 +0100
+@@ -79,7 +79,7 @@
+     ret = set()
+     if bld.env.RPATH_ON_INSTALL:
+         ret.add(bld.EXPAND_VARIABLES(bld.env.LIBDIR))
+-    if bld.env.RPATH_ON_INSTALL_PRIVATE and needs_private_lib(bld, target):
++    if bld.env.RPATH_ON_INSTALL_PRIVATE:
+         ret.add(bld.EXPAND_VARIABLES(bld.env.PRIVATELIBDIR))
+     return list(ret)
+ 

@@ -1,4 +1,10 @@
 HEAD
+	+ Fixed bug when checking hostname aliases on creation of a
+	  virtual host
+	+ When dumping config the no existence of configuration
+	  directories generates a warning instead of a error
+3.0.2
+	+ Integration with Disaster Recovery service
 	+ Fixed error when creating directories for virtual host for hostname
 	+ Add DNS records for virtual hosts but without IP addresses
 3.0.1

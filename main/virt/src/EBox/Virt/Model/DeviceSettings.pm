@@ -12,19 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::Virt::Model::DeviceSettings;
-
+use strict;
+use warnings;
 # Class: EBox::Virt::Model::DeviceSettings
 #
 #      Table with the network interfaces of the Virtual Machine
 #
-
+package EBox::Virt::Model::DeviceSettings;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -169,12 +164,7 @@ sub validateTypedRow
     my $path = exists $changedFields->{path} ? $changedFields->{path}->value() :
                                                $allFields->{path}->value();
     if ($type eq 'cd') {
-        unless ($path) {
-            throw EBox::Exceptions::External(__('You need to provide the path of a ISO image'));
-        }
-        unless (-e $path) {
-            throw EBox::Exceptions::External(__x("ISO image '{img}' does not exist", img => $path));
-        }
+        $self->_checkDevicePath($path, 0, __('ISO image'));
         unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
             throw EBox::Exceptions::External(
                     __x('The CD disk image {img} should be in ISO format',
@@ -185,13 +175,12 @@ sub validateTypedRow
         my $disk_action = exists $changedFields->{disk_action} ? $changedFields->{disk_action}->value() :
                                                                  $allFields->{disk_action}->value();
         if ($disk_action eq 'use') {
-            unless ($path) {
-                throw EBox::Exceptions::External(__('You need to provide the path of a hard disk image'));
-            }
-            unless (-e $path) {
-                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", img => $path));
-            }
-            unless (_checkFileOutput($path, qr/Format:\s+Qcow\s+,\s+Version:\s+2/)) {
+            $self->_checkDevicePath($path, 1, __('Hard disk image'));
+            my @qcow2Re = (
+                qr/Format:\s+Qcow\s+,\s+Version:\s+2/,
+                qr/QEMU\s+QCOW\s+Image\s+\(v2\)/
+               );
+            unless (_checkFileOutput($path, @qcow2Re)) {
                 throw EBox::Exceptions::External(
                     __x('The hard disk image {img} should be in qcow2 format',
                         img => $path)
@@ -247,9 +236,15 @@ sub validateTypedRow
 
 sub _checkFileOutput
 {
-    my ($path, $wantedRe) = @_;
+    my ($path, @wantedRes) = @_;
     my $fileOutput = EBox::Sudo::root("file $path");
-    return $fileOutput->[0] =~ m/$wantedRe/
+    foreach my $wantedRe (@wantedRes) {
+        if ($fileOutput->[0] =~ m/$wantedRe/) {
+            return 1;
+        }
+    }
+
+    return undef;
 }
 
 sub _checkHdName
@@ -259,11 +254,47 @@ sub _checkHdName
         throw EBox::Exceptions::InvalidData(
             data => __('HardDisk name'),
             value => $name,
-            advice => __('The name should contain only character, digits and underscores'),
+            advice => __('The name should contain only characters, digits and underscores'),
            );
     }
 
 }
+
+sub _checkDevicePath
+{
+    my ($self, $path, $rw, $name) = @_;
+    unless ($path) {
+        throw EBox::Exceptions::External(__x('You need to provide the path of a {name}',
+                                             name => lcfirst $name
+                                            ));
+    }
+    unless ($path =~ m{^[\d\w/.\\]+$}) {
+        throw EBox::Exceptions::InvalidData(
+            data => $path,
+            value => $name,
+            advice => __(q{The path should contain only characters, digits, dots, dashes, directory separators  and underscores}),
+           );
+    }
+
+    unless (-e $path) {
+        throw EBox::Exceptions::External(__x("{name} '{img}' does not exist",
+                                             name => $name,
+                                             img => $path));
+    }
+    unless (-r $path) {
+        throw EBox::Exceptions::External(__x("{name} '{img}' is not readable",
+                                             name => $name,
+                                             img => $path));
+    }
+    if ($rw) {
+        unless (-w $path) {
+            throw EBox::Exceptions::External(__x("{name} '{img}' is not writable",
+                                             name => $name,
+                                             img => $path));
+        }
+    }
+}
+
 
 sub deletedRowNotify
 {
@@ -317,5 +348,6 @@ sub viewCustomizer
 
     return $customizer;
 }
+
 
 1;

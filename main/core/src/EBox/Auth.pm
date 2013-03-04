@@ -42,14 +42,8 @@ use constant MAX_SCRIPT_SESSION => 10; # In seconds
 # Remote access constants
 use constant CC_USER => '__remote_access__';
 
-sub new
-{
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
-    return $self;
-}
-
+# Method: _savesession
+#
 # Parameters:
 #
 #   - session id : if the id is undef, it truncates the session file

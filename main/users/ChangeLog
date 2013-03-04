@@ -4,6 +4,39 @@ HEAD
 	+ Point kerberos-master and kpasswd DNS records to master on slave
 	  servers
 	+ Sync kerberos OU from master to slaves
+3.0.10
+	+ Use less costly LDAP operations when adding or removing members
+	  from a group
+	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
+	+ Faster custom row id filter for Users model
+	+ Forbid user synchronization with other zentyals if samba is provisioned
+	+ Display users groups in slave mode
+	+ Avoided hang when the local host is wrongly used as master slave
+	+ Ldap modules should do a slaveSetup when slave mode enabled
+3.0.9
+	+ Stop heimdal daemons on enableActions
+	+ Fixed alphabetical order in listing of users and groups
+3.0.8
+	+ Filter in users table no longer matches LDAP dn
+	+ Recover better of no-usercorner journal error in slave-sync
+	+ Added read-only rootDn and password to LDAP settings screen
+	+ Don't allow empty first name in CGIs for user
+	  creation/modification. Otherwise you can get LDAP errors.
+	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
+3.0.7
+	+ Fixed LdapObject::get() for list context
+	+ Decode utf8 attributes from LDAP at LdapObject::get()
+	+ Removed unused method _utf8Attrs
+	+ Integration with Disaster Recovery service
+	+ Include /home as disk usage facility
+	+ Fix enable quotas without rebooting when module is enabled.
+	+ Users and groups cannot longer share names because it is incompatible
+	  with AD accounts
+	+ Use upstart to manage heimdal daemons
+	+ Increase the maximum UID number to avoid problems with samba integration
+	+ Fixed bug in group creation which on error could call a method
+	  in a undefined value
+	+ Do not stop openldap daemon when dumping database
 	+ Generate kerberos AES keys to be compatible with active directory in
 	  W2k8 or higher functional levels
 	+ Fixed user quota edition in slave server

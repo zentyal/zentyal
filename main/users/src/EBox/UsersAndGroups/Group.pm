@@ -112,8 +112,7 @@ sub name
 sub removeAllMembers
 {
     my ($self, $lazy) = @_;
-
-    $self->set('member', [], $lazy);
+    $self->delete('member');
 }
 
 
@@ -130,18 +129,15 @@ sub addMember
     my ($self, $user, $lazy) = @_;
 
     my @members = $self->get('member');
-
     # return if user already in the group
     foreach my $dn (@members) {
         if (lc ($dn) eq lc ($user->dn())) {
             return;
         }
     }
-    push (@members, $user->dn());
 
-    $self->set('member', \@members, $lazy);
+    $self->add('member', $user->dn(), $lazy);
 }
-
 
 # Method: removeMember
 #
@@ -160,7 +156,7 @@ sub removeMember
         push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
     }
 
-    $self->set('member', \@members, $lazy);
+    $self->deleteValues('member', [$user->dn()], $lazy);
 }
 
 
@@ -182,10 +178,16 @@ sub users
     unless ($system) {
         @members = grep { not $_->system() } @members;
     }
+    # sort by uid
+    @members = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @members;
 
     return \@members;
 }
-
 
 # Method: usersNotIn
 #
@@ -207,17 +209,21 @@ sub usersNotIn
 
     my $result = $self->_ldap->search(\%attrs);
 
-    my @users;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->sorted('uid'))
-        {
-            push (@users, new EBox::UsersAndGroups::User(entry => $entry));
-        }
-    }
+    my @users = map {
+            EBox::UsersAndGroups::User->new(entry => $_)
+        } $result->entries();
+
     unless ($system) {
         @users = grep { not $_->system() } @users;
     }
+
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
+
     return \@users;
 }
 
@@ -368,6 +374,13 @@ sub create
             'data' => __('group'),
             'value' => $group);
     }
+    # Verify than a user with the same name does not exists
+    if ($users->userExists($group)) {
+        throw EBox::Exceptions::External(
+            __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $group)
+           );
+    }
 
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :
@@ -412,7 +425,7 @@ sub create
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if ($res and $res->exists()) {
             $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {

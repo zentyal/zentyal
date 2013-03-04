@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-12-14 18:49+0200\n"
-"Last-Translator: mindfree <admin@mindfree.ir>\n"
+"PO-Revision-Date: 2012-11-09 20:02+0200\n"
+"Last-Translator: mehranweb <mehranweb@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "نام"
 #: ../../main/core/src/templates/configureView.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
-msgstr ""
+msgstr "پوشه"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:106
@@ -70,22 +70,25 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid.pm:82
 #: ../../main/squid/src/EBox/Squid.pm:1066
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "پروکسی با پروتکل HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1016
 msgid "Categorized Lists"
-msgstr ""
+msgstr "طبقه بندی لیست ها"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:76
 msgid "categorized list"
-msgstr ""
+msgstr "فهرست بندی"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:77
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"شما می توانید فایل هایتان را با لیست های طبقه بندی شده بارگذاری (آپلود) "
+"کنید.همچنین شما قادر خواهید بود آن لیست ها را بر اساس هر قالب فیلتر کردن "
+"فیلتر کنید."
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:136
 #, perl-brace-format
@@ -94,14 +97,17 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"شما نمی توانید از نام {name} استفاده کنید زیرا در حال حاضر یک دایرکتوری برای "
+"این نام وجود دارد:  {dir}.\n"
+"آیا ممکن است حذف نکرده باشید؟"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:44
 msgid "Time period"
-msgstr ""
+msgstr "مدت دوره"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period when the rule is applied"
-msgstr ""
+msgstr "مدت زمانی که طول می کشد تا این قانون (رول) اعمال شود"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
 #: ../../main/firewall/src/EBox/Firewall.pm:741
@@ -113,25 +119,16 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:45
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:65
 #: ../../main/core/src/EBox/Events.pm:433 ../../main/ids/src/EBox/IDS.pm:267
-#, fuzzy
 msgid "Source"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"مبدأ\n"
-"#-#-#-#-#  fa.po (ebox-firewall 0.12.100)  #-#-#-#-#\n"
-"مبدأ\n"
-"#-#-#-#-#  fa.po (ebox-trafficshaping 0.12.100)  #-#-#-#-#\n"
-"مبدا"
+msgstr "منبع"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:58
-#, fuzzy
 msgid "Network Object"
 msgstr "شیء شبکه"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:65
-#, fuzzy
 msgid "Users Group"
-msgstr "کاربر/گروه"
+msgstr "گروه کاربران"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:75
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
@@ -151,17 +148,8 @@ msgstr "کاربر/گروه"
 #: ../../main/core/src/EBox/Types/Service.pm:182
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/services/src/EBox/Services.pm:86
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"هیچ\n"
-"#-#-#-#-#  fa.po (ebox-firewall 0.12.100)  #-#-#-#-#\n"
-"هر\n"
-"#-#-#-#-#  fa.po (ebox-trafficshaping 0.12.100)  #-#-#-#-#\n"
-"هر چه\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"هر"
+msgstr "هیچ"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:40
@@ -174,24 +162,22 @@ msgstr "تصمیم"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
-#, fuzzy
 msgid "Allow All"
-msgstr "اجازه‌دهی"
+msgstr "اجازه دادن به همه"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
-msgstr ""
+msgstr "منع کردن همه"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
 msgid "Apply Filter Profile"
-msgstr ""
+msgstr "فیلتر کردن پروفایل را اعمال کن"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:107
 #: ../../main/squid/src/EBox/Squid.pm:1010
-#, fuzzy
 msgid "Access Rules"
-msgstr "درخواست‌های دسترسی"
+msgstr "قوانین دسترسی"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:115
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:202
@@ -206,73 +192,65 @@ msgstr "درخواست‌های دسترسی"
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:183
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
 #: ../../main/ids/src/EBox/Model/Rules.pm:194
-#, fuzzy
 msgid "rule"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"قانون\n"
-"#-#-#-#-#  fa.po (ebox-firewall 0.12.100)  #-#-#-#-#\n"
-"قانون\n"
-"#-#-#-#-#  fa.po (ebox-trafficshaping 0.12.100)  #-#-#-#-#\n"
-"قاعده"
+msgstr "قانون"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
+"در اینجا شما می توانید دسترسی داشتن گروه کاربران و یا شئ های شبکه را اجازه "
+"دهید و یا فیلتر و یا منع کنید.قوانین تنها در طول دوره زمانی انتخاب شده اعمال "
+"می شوند."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:126
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
 #: ../../main/radius/src/EBox/Model/Auth.pm:105
-#, fuzzy
 msgid "All users"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
-"کاربر"
+msgstr "تمامی کاربران"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:145
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "تطبیق منبع با گروه کاربری در حالت پروکسی سازگار نیست"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:173
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"در حالتی که شما قوانینی برای گروه دارید نمی توانید قوانین \"Allow\" یا "
+"\"profile\"را به شئ یا آدرسی اعمال کنید."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:178
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"شما در صورتی که برای اشیا ویا آدرسی قانون \"Allow' یا\"Profile\"دارید نمی "
+"توانید قوانین مخصوص به گروه ها اضافه کنید."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:410
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:152
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"شی\n"
-"#-#-#-#-#  fa.po (ebox-objects 0.12.100)  #-#-#-#-#\n"
-"شیء"
+msgstr "شئ : {0}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:412
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "گروه"
+msgstr "گروه: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:423
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "پروفایل '{p}' را اعمال کن"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:33
 msgid "Domain or URL"
-msgstr ""
+msgstr "دامنه(Domain) یا آدرس اینترنتی(URL)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:63
@@ -284,11 +262,11 @@ msgstr "اجازه‌دهی"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:53
 msgid "Deny"
-msgstr ""
+msgstr "منع"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "دامنه و یا آدرس IP قسمتی از آدرس اینترنتی (URL)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:91
 #: ../../main/squid/src/EBox/Squid.pm:1054
@@ -306,11 +284,11 @@ msgstr "دامنه"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:93
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "شما نباید درابتدای دامنه .www را قرار دهید."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:97
 msgid "Domain or IP address"
-msgstr ""
+msgstr "دامنه و یا آدرس IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:231
 msgid "Domains and URL rules"
@@ -340,43 +318,43 @@ msgstr "به روز نمودن دامین یا URL"
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
 msgid "Domain Name Address"
-msgstr ""
+msgstr "آدرس نام دامنه"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
 msgid "Skip Transparent Proxy"
-msgstr ""
+msgstr "از پروکسی (Transparent Proxy) گذر کن"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
 msgid "Transparent Proxy Exemptions"
-msgstr ""
+msgstr "معافیت های پروکسی (Transparent Proxy)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
 msgid "domain name address"
-msgstr ""
+msgstr "آدرس نام دامنه"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
 msgid "You can exempt some addresses from transparent proxy"
-msgstr ""
+msgstr "شما می توانید در این پروکسی بعضی از آدرس ها را مورد استثنا قرار دهید."
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
 msgid "Address added"
-msgstr ""
+msgstr "نشانی های اضافه شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:64
 msgid "Address removed"
-msgstr ""
+msgstr "آدرس های حذف شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:65
 msgid "Address updated"
-msgstr ""
+msgstr "آدرس های به روز شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:43
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "پروکسی (Transparent Proxy)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
@@ -385,7 +363,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "قفل کردن"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"

@@ -1,0 +1,45 @@
+Index: samba/source4/kdc/wdc-samba4.c
+===================================================================
+--- samba.orig/source4/kdc/wdc-samba4.c	2012-11-15 18:35:29.000000000 +0100
++++ samba/source4/kdc/wdc-samba4.c	2012-11-16 01:19:55.482813115 +0100
+@@ -128,7 +128,7 @@
+ 			talloc_free(mem_ctx);
+ 			return EINVAL;
+ 		}
+-		
++
+ 		if (is_in_db) {
+ 			/* Now check the KDC signature, fetching the correct key based on the enc type */
+ 			ret = kdc_check_pac(context, pac_srv_sig->signature, pac_kdc_sig, krbtgt);
+@@ -217,7 +217,7 @@
+ 						     hdb_entry_ex *client_ex, const char *client_name,
+ 						     hdb_entry_ex *server_ex, const char *server_name,
+ 						     KDC_REQ *req,
+-						     krb5_data *e_data)
++                             METHOD_DATA *md)
+ {
+ 	struct samba_kdc_entry *kdc_entry;
+ 	bool password_change;
+@@ -239,11 +239,19 @@
+ 			return ENOMEM;
+ 		}
+ 
+-		if (e_data) {
+-			DATA_BLOB data;
++		if (md) {
++            int ret;
++            krb5_data kd;
++            DATA_BLOB data;
+ 
+ 			samba_kdc_build_edata_reply(nt_status, &data);
+-			*e_data = fill_krb5_data(data.data, data.length);
++			kd = fill_krb5_data(data.data, data.length);
++            ret = krb5_padata_add(context, md,
++                          KRB5_PADATA_FX_ERROR,
++                          kd.data, kd.length);
++            if (ret) {
++                krb5_data_free(&kd);
++            }
+ 		}
+ 
+ 		return samba_kdc_map_policy_err(nt_status);

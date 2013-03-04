@@ -248,29 +248,6 @@ sub _totalRow
     return $self->_setValueRow( %{ $row } );
 }
 
-sub _tailoredOrder # (rows)
-{
-    my ($self, $rows) = @_;
-
-    # Sorted by sortedBy field element if it's given
-    my $fieldName = $self->sortedBy();
-    $fieldName or
-        $fieldName = 'date';
-    if (not $self->fieldHeader($fieldName) ) {
-        throw EBox::Exceptions::Internal("orderBy field $fieldName does not exist");
-    }
-
-    my $allString = __('All');
-
-    my @sortedRows = sort {
-        _compareDates($a, $b, $allString);
-    } @{$rows};
-
-
-    return \@sortedRows;
-}
-
-
 sub _compareDates
 {
     my ($a, $b, $allString) = @_;

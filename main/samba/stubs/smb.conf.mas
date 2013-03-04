@@ -10,7 +10,8 @@
     @shares
     $roamingProfiles => 0
     $profilesPath
-    $printers => []
+    $sysvolPath
+    $print => 0
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -31,39 +32,39 @@ use EBox::Gettext;
 use EBox::Samba;
 </%init>
 [global]
-    netbios name = <% $netbiosName %>
     workgroup = <% $workgroup %>
+    realm = <% $realm %>
+    netbios name = <% $netbiosName %>
     server string = <% $description %>
-
-    wins support = yes
-    dns proxy = yes
-    name resolve order = wins bcast host
+    server role = <% $mode %>
+    server role check:inhibit = yes
+% if ($fs eq 's3fs') {
+    server services = s3fs, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
+% } else {
+    server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
+% }
+    server signing = auto
 
     interfaces = <% $ifaces %>
     bind interfaces only = yes
 
-    server role = <% $mode %>
-    server role check:inhibit = yes
-    realm = <% $realm %>
-
     log level = 3
     log file = /var/log/samba/samba.log
 
-    passdb backend = samba4
     idmap_ldb:use rfc2307 = yes
-% if ($fs eq 's3fs') {
-    server services = -dns -nbt -wrepl
-% } else {
-    server services = rpc, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
-    dcerpc endpoint servers = epmapper, wkssvc, rpcecho, samr, netlogon, lsarpc, spoolss, drsuapi, dssetup, unixinfo, browser, eventlog6, backupkey, dnsserver, winreg, srvsvc
-% }
-    server signing = auto
 
 % if ($guestAccess) {
     guest ok = yes
     map to guest = bad user
     guest account = <% $guestAccount %>
     auth methods = guest sam_ignoredomain
+% }
+
+% unless ($print) {
+    load printers = no
+    printcap name = /dev/null
+    show add printer wizard = no
+    disable spoolss = yes
 % }
 
 % if ($mode eq 'dc') {
@@ -75,12 +76,12 @@ use EBox::Samba;
 %   }
 
 [netlogon]
-    path = /var/lib/samba/sysvol/<% $domain %>/scripts
+    path = <% $sysvolPath %>/<% $domain %>/scripts
     browseable = no
     read only = yes
 
 [sysvol]
-    path = /var/lib/samba/sysvol
+    path = <% $sysvolPath %>
     read only = no
 % }
 
@@ -95,7 +96,7 @@ use EBox::Samba;
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' zavs';
+%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -106,7 +107,7 @@ use EBox::Samba;
 % if ($av) {
 %   foreach my $key (keys %{$antivirus_config}) {
 %       next unless $key;
-    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
 %   }
 % }
 % if ($rb) {
@@ -129,7 +130,7 @@ use EBox::Samba;
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr full_audit';
 % if ($av) {
-%   $objects .= ' zavs';
+%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -140,7 +141,7 @@ use EBox::Samba;
 % if ($av) {
 %   foreach my $key (keys %{$antivirus_config}) {
 %       next unless $key;
-    zavs: <% $key %> = <% $antivirus_config->{$key} %>
+    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
 %   }
 % }
 % if ($rb) {
@@ -151,42 +152,24 @@ use EBox::Samba;
 % }
 % }
 
-% foreach my $printer (@{$printers}) {
-[<% $printer->{name} %>]
-    comment = "<% $printer->{description} %>"
-    path = /var/spool/samba
-    printable = yes
-    read only = yes
-% if ($printer->{guest}) {
-    guest ok = yes
-% } else {
-%   my $acl = join (", ", @{$printer->{acl}});
-    valid users = <% $acl %>
-% }
-
-% }
-
+% if ($print) {
 [print$]
-    comment = "Printer Drivers"
-    path = /var/lib/samba/printers
-    browseable = yes
-    read only = yes
-    guest ok = no
-    write list = @"Domain Admins"
-    valid users = @"Domain Users"
+    comment = Point and Print Printer Drivers
+    path = /opt/samba4/var/print
+    read only = No
 
-#[<% $prefix %>-internal-backups]
-# path = <% $backup_path %>
-# browseable = yes
-# read only = yes
-# valid users = @"Domain Admins"
-# admin users = @"Domain Admins"
-# force group = ebox
-# force user = ebox
+[printers]
+    comment = All Printers
+    path = /opt/samba4/var/spool
+    browseable = Yes
+    read only = No
+    printable = Yes
+% }
 
+% if ($antivirus) {
 [<% $prefix %>-quarantine]
     comment = "Quarantine"
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
-
+% }

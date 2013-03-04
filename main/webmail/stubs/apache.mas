@@ -1,4 +1,9 @@
 <%args>
+$vhost => 0
 </%args>
 Alias /program/js/tiny_mce/ /usr/share/tinymce/www/
+% if ($vhost) {
+Alias / /var/lib/roundcube/
+% } else {
 Alias /webmail /var/lib/roundcube
+% }

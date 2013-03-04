@@ -72,23 +72,23 @@ sub _create
     return $self;
 }
 
-#TODO: this method needs to be splitted in setConf and enforceServiceState
-# but right now some of the methods invoked do both configuration file
-# handling and daemon stopping/running so they need a lot of work. the only
-# drawback of doing this for now is that the hook between setConf and
-# enforceServiceState won't be useful
+# TODO: this module should use _daemons method and, if possible,
+# not to override _enforceServiceState. This was left to do when _daemons
+# and friend were added to the base modules
 sub _enforceServiceState
 {
     my ($self) = @_;
 
     $self->_cleanupDeletedDaemons();
-
     $self->initializeInterfaces();
+    $self->_doDaemon();
+}
 
+sub _setConf
+{
+    my ($self) = @_;
     $self->_writeConfFiles();
     $self->_prepareLogFiles();
-
-    $self->_doDaemon();
 }
 
 # Method: initializeInterfaces

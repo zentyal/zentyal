@@ -1,4 +1,14 @@
 HEAD
+	+ Added module particular facilities for slave setup
+	+ Added a ebox.postgrey upstart config file in package to avoid
+	  errors before we generate it in the _setConf
+	+ Fixed bug triggered when removing all users from a virtual domain
+	+ Do not try to manage postgrey daemon if module is unconfigured
+	+ Fixed error in json response trigered by widget size
+	+ Added libsasl2-modules dependency because it seems that is not
+	  always installed
+3.0.4
+	+ Integration with Disaster Recovery service
 	+ Fixed user object misuse in EBox::Mail::FetchmailLdap::removeExternalAccount
 3.0.3
 	+ Adapted to changes in EBox::LogHelper::_convertTimestamp

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -45,6 +45,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Service;
 use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::AdminPort;
@@ -74,13 +75,12 @@ use Data::UUID;
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
 use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
-use constant FILES_SYNC_DIR      => EBox::Config::conf() . 'filesync/';
-use constant FILES_SYNC_UPSTART  => 'zentyal.filesync';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 # OCS conf constants
 use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
@@ -156,13 +156,13 @@ sub _setConf
         $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_reportAdminPort();
-        $self->_setFilesSyncConf();
     }
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
     $self->_setNETRCFile();
     $self->_startupTasks();
+    $self->_updateMotd();
 }
 
 # Method: initialSetup
@@ -219,40 +219,6 @@ sub _setRemoteSupportAccessConf
     }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
-
-sub _setFilesSyncConf
-{
-    my ($self) = @_;
-
-    # Retrieve folders for each provider module
-    my @folders;
-    my @fmods = @{EBox::Global->modInstancesOfType('EBox::SyncFolders::Provider')};
-    for my $mod (@fmods) {
-        push(@folders, @{$mod->syncFolders()});
-    }
-
-    # get credentials
-    my $cred = new EBox::RemoteServices::Cred();
-    my $access_id = $cred->subscribedUUID();
-    my $access_key = $cred->{cred}->{password};
-
-    my @params;
-    push (@params, store_dir => FILES_SYNC_DIR);
-    push (@params, access_id => $access_id);
-    push (@params, access_key => $access_key);
-    push (@params, folders => \@folders);
-
-    unless (-d FILES_SYNC_DIR) {
-        mkdir(FILES_SYNC_DIR);
-    }
-
-    $self->writeConfFile(
-            FILES_SYNC_DIR . 'sync.conf',
-            'remoteservices/files.conf.mas',
-            \@params,
-            { 'uid' => 0, 'gid' => 0, mode => '500' });
-}
-
 
 sub _setInventoryAgentConf
 {
@@ -364,10 +330,6 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
-        },
-        {
-            'name'         => FILES_SYNC_UPSTART,
-            'precondition' => \&filesSyncAvailable,
         }
        ];
 }
@@ -476,6 +438,23 @@ sub menu
         'text' => __('Security Updates'),
        ));
     $root->add($folder);
+
+    if ($self->disasterRecoveryAvailable()) {
+        my $system = new EBox::Menu::Folder(
+            'name' => 'SysInfo',
+            'text' => __('System'),
+            'order' => 30
+        );
+
+        $system->add(new EBox::Menu::Item(
+            'url' => 'SysInfo/DisasterRecovery',
+            'separator' => 'Core',
+            'order' => 45,
+            'text' => __('Disaster Recovery')
+        ));
+
+        $root->add($system);
+    }
 }
 
 # Method: widgets
@@ -989,7 +968,7 @@ sub usersSyncAvailable
 
 # Method: filesSyncAvailable
 #
-#   Returns 1 if file syncrhonization is available
+#   Returns 1 if file synchronisation is available
 #
 sub filesSyncAvailable
 {
@@ -1025,9 +1004,9 @@ sub securityUpdatesAddOn
     return $ret;
 }
 
-# Method: disasterRecoveryAddOn
+# Method: disasterRecoveryAvailable
 #
-#      Get whether the company has disaster recovery add-on or not
+#      Get whether the server has disaster recovery available
 #
 # Parameters:
 #
@@ -1036,27 +1015,15 @@ sub securityUpdatesAddOn
 #
 # Returns:
 #
-#      Boolean - indicating whether the company has disaster recovery
-#      add-on or not
+#      Boolean - indicating whether the server has disaster recovery
+#                available or not
 #
-# Exceptions:
-#
-#      <EBox::Exceptions::NotConnected> - thrown if the server cannot
-#      connect to Zentyal Cloud to know the answer
-#
-sub disasterRecoveryAddOn
+sub disasterRecoveryAvailable
 {
     my ($self, $force) = @_;
 
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
-    } otherwise {
-        throw EBox::Exceptions::NotConnected();
-    };
-    return $ret;
+    my $ret = $self->addOnDetails('disaster-recovery', $force);
+    return ( scalar(keys(%{$ret})) > 0);
 }
 
 # Method: commAddOn
@@ -1076,13 +1043,44 @@ sub commAddOn
 {
     my ($self, $force) = @_;
 
+    my $ret = $self->addOnDetails('zarafa', $force);
+    return ( defined($ret->{sb}) and $ret->{sb} == 1 );
+}
+
+# Method: addOnDetails
+#
+#      Get the add-on details for a given add-on
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Hash ref - indicating the add-on details
+#                 Empty hash if no add-on is there for this server
+#
+sub addOnDetails
+{
+    my ($self, $addOn, $force) = @_;
+
     $force = 0 unless defined($force);
 
-    my $ret;
+    my $ret = {};
     try {
-        $ret = $self->_getSubscriptionDetails($force)->{sb_comm_add_on};
+        my $subsDetails = $self->_getSubscriptionDetails($force);
+        if ( not exists $subsDetails->{cap} ) {
+            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
+        }
+        if (exists $subsDetails->{cap}->{$addOn}) {
+            my $detail = $self->_getCapabilityDetail($addOn, $force);
+            $ret = $detail;
+        }
     } otherwise {
-        $ret = 0;
+        $ret = {};
     };
     return $ret;
 }
@@ -1752,7 +1750,7 @@ sub _getSubscriptionDetails
     if ($force or (not exists $state->{subscription}->{level})) {
         unless ($self->eBoxSubscribed()) {
             #EBox::trace();
-            throw EBox::Exceptions::Internal('Not subscribed');
+            throw EBox::Exceptions::Internal('Not subscribed', silent => 1);
         }
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details;
@@ -1774,14 +1772,45 @@ sub _getSubscriptionDetails
                 technical_support => $details->{technical_support},
                 renovation_date   => $details->{renovation_date},
                 security_updates  => $details->{security_updates},
-                disaster_recovery => $details->{disaster_recovery},
-                sb_comm_add_on    => $details->{sb_comm_add_on},
+                # disaster_recovery => $details->{disaster_recovery},
+                # sb_comm_add_on    => $details->{sb_comm_add_on},
             };
+            my $capList;
+            try {
+                $capList = $cap->list();
+                my %capList = map { $_ => 1 } @{$capList};
+                $state->{subscription}->{cap} = \%capList;
+            } catch EBox::Exceptions::Internal with { ; };
             $self->set_state($state);
         }
     }
 
     return $state->{subscription};
+}
+
+# Get and cache the cap details
+sub _getCapabilityDetail
+{
+    my ($self, $capName, $force) = @_;
+
+    my $state = $self->get_state();
+    if ( $force or (not exists $state->{subscription}->{cap_detail}->{$capName}) ) {
+        my $cap = new EBox::RemoteServices::Capabilities();
+        my $detail;
+        try {
+            $detail = $cap->detail($capName);
+        } catch EBox::Exceptions::Internal with {
+            # Impossible to know the current state
+            # Get cached data if any, if there is not, then raise the exception
+            my ($exc) = @_;
+            unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
+                $exc->throw();
+            }
+        };
+        $state->{subscription}->{cap_detail}->{$capName} = $detail;
+        $self->set_state($state);
+    }
+    return $state->{subscription}->{cap_detail}->{$capName};
 }
 
 # Get the latest backup date
@@ -2249,6 +2278,26 @@ sub cloudCredentials
 sub _setQAUpdates
 {
     EBox::RemoteServices::QAUpdates::set();
+
+}
+
+
+# Update MOTD scripts depending on the subscription status
+sub _updateMotd
+{
+    my ($self) = @_;
+
+    my @tmplParams = (
+         (subscribed => $self->eBoxSubscribed())
+        );
+    if ($self->eBoxSubscribed() ) {
+        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
+                                                edition => $self->i18nServerEdition())));
+    }
+    EBox::Module::Base::writeConfFileNoCheck(
+        RELEASE_UPGRADE_MOTD,
+        'remoteservices/release-upgrade-motd.mas',
+        \@tmplParams, { mode => '0755' });
 
 }
 

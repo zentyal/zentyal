@@ -14,4 +14,4 @@
   $proto .= 's' if ($ssl);
   $repositoryHostname .= ":$port" if ($port != 80 and $port != 443);
 </%init>
-deb <% $proto %>://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse
+deb <% $proto %>://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse extra

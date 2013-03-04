@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -75,6 +75,24 @@ sub new
     return $self;
 }
 
+# Method: updatedRowNotify
+#
+#      Notify cloud-prof if installed to be restarted
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $global = EBox::Global->getInstance();
+    if ( $global->modExists('cloud-prof') ) {
+        $global->modChange('cloud-prof');
+    }
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -92,7 +110,7 @@ sub _table
                                fieldName     => 'sync',
                                printableName => __('Sync with Zentyal Cloud'),
                                editable      => 1,
-                               defaultValue  => 1,
+                               defaultValue  => 0,
                                help          => __('Files will be synchronized with Zentyal Cloud.'),
                                hidden        => \&_hideSyncOption,
                                ),
@@ -295,6 +313,10 @@ sub createDirs
         }
         next unless defined $path;
 
+        # Don't do anything if the directory already exists and the option to manage ACLs
+        # only from Windows is set
+        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
+
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
         push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
@@ -338,6 +360,7 @@ sub createDirs
         push (@posixACL, 'u:root:rwx');
         push (@posixACL, 'g::---');
         push (@posixACL, 'g:' . DEFAULT_GROUP . ':---');
+        push (@posixACL, 'g:adm:rwx');
 
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
@@ -379,18 +402,7 @@ sub createDirs
             }
         }
 
-        if (@posixACL) {
-            try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
-                EBox::Sudo::root($cmd);
-                EBox::Sudo::root($defaultCmd);
-
-            } otherwise {
-                my $error = shift;
-                EBox::debug("Couldn't enable POSIX ACLs for $path: $error")
-            };
-        }
+        # Setting NT ACLs seems to reset posix ACLs, so do it first
         if (@aceStrings) {
             try {
                 my $fullAce = join ('', @aceStrings);
@@ -402,7 +414,17 @@ sub createDirs
                 EBox::error("Coundn't enable NT ACLs for $path: $error");
             };
         }
-
+        if (@posixACL) {
+            try {
+                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
+                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
+                EBox::Sudo::root($defaultCmd);
+                EBox::Sudo::root($cmd);
+            } otherwise {
+                my $error = shift;
+                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
+            };
+        }
     }
 }
 

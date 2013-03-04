@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptiveDaemon;
+use strict;
+use warnings;
 
 # Class: EBox::CaptiveDaemon
 #
@@ -23,9 +23,7 @@ package EBox::CaptiveDaemon;
 #
 # Already logged users rules are created at EBox::CaptivePortalFirewall so
 # this daemons is only in charge of new logins and logouts / expired sessions
-
-use strict;
-use warnings;
+package EBox::CaptiveDaemon;
 
 use EBox::Config;
 use EBox::Global;
@@ -36,6 +34,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Util::Lock;
 use Linux::Inotify2;
 use EBox::Gettext;
+use Time::HiRes qw(usleep);
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -54,6 +53,8 @@ sub new
         $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
     }
 
+    $self->{pendingRules} = undef;
+
     bless ($self, $class);
     return $self;
 }
@@ -68,10 +69,11 @@ sub run
 
     # Setup iNotify to detect logins
     my $notifier = Linux::Inotify2->new();
-
     unless (defined($notifier)) {
         throw EBox::Exceptions::External('Unable to create inotify listener');
     }
+
+    $notifier->blocking (0); # set non-block mode
 
     # Create logout file
     EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
@@ -79,9 +81,6 @@ sub run
     # wakeup on new session and logout events
     $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
-
-    # Don't die on ALARM signal
-    local $SIG{ALRM} = sub {};
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
@@ -98,13 +97,19 @@ sub run
         $exceededEvent = 0;
     };
 
+    my $timeLeft;
     while (1) {
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
 
-        # Sleep expiration interval
-        alarm($expirationTime);
-        $notifier->poll; # execution stalls here until alarm or login/out event
+        my $endTime = time() + $expirationTime;
+        while (time() < $endTime) {
+            my $eventsFound = $notifier->poll();
+            if ($eventsFound) {
+                last;
+            }
+            usleep(80);
+        }
     }
 }
 
@@ -185,7 +190,6 @@ sub _updateSessions
             next;
         }
 
-
         # Check for IP change
         unless ($new) {
             my $oldip = $self->{sessions}->{$sid}->{ip};
@@ -205,23 +209,31 @@ sub _updateSessions
         }
     }
 
-    EBox::Util::Lock::lock('firewall');
-    try {
-        EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
-        # remove again to be sure that we don't have left any duplicate rule
-        foreach my $remove (@removeRules) {
-            my $failed = 0;
-            while (not $failed) {
-                try {
-                    EBox::Sudo::root($remove);
-                } otherwise {
-                $failed = 1;
+    if (@rules or @removeRules or $self->{pendingRules}) {
+        # try to get firewall lock
+        my $lockedFw = 0;
+        try {
+            EBox::Util::Lock::lock('firewall');
+            $lockedFw = 1;
+        } otherwise {};
+
+        if ($lockedFw) {
+            try {
+                my @pending;
+                if ($self->{pendingRules}) {
+                    @pending = @{ $self->{pendingRules} };
+                    $self->{pendingRules} = undef;
+                }
+                EBox::Sudo::root(@pending, @rules, @removeRules) ;
+            } finally {
+                EBox::Util::Lock::unlock('firewall');
             };
-            }
+        } else {
+            $self->{pendingRules} or $self->{pendingRules} = [];
+            push @{ $self->{pendingRules} }, @rules, @removeRules;
+            EBox::error("Captive portal cannot lock firewall, we will try to add pending firewall rules later. Users access could be inconsistent until rules are added");
         }
-    } finally {
-        EBox::Util::Lock::unlock('firewall');
-    };
+    }
 }
 
 sub _addRule
@@ -237,6 +249,11 @@ sub _addRule
     push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
     push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
     push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
+    # conntrack remove redirect conntrack (this will remove
+    # conntrack state for other connections from the same source but it is not
+    # important)
+    push (@rules, "conntrack -D -p tcp --src $ip");
+
     return \@rules;
 }
 
@@ -253,6 +270,9 @@ sub _removeRule
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");
     push (@rules, IPTABLES . " -D icaptive $rule");
+    # remove conntrack (this will remove conntack state for other connections
+    # from the same source but it is not important)
+    push (@rules, "conntrack -D --src $ip");
 
     return \@rules;
 }
@@ -270,7 +290,6 @@ sub _matchUser
     }
 }
 
-
 # Unmatch the user in bwmonitor module
 sub _unmatchUser
 {
@@ -281,7 +300,6 @@ sub _unmatchUser
     }
 }
 
-
 ###############
 # Main program
 ###############
@@ -291,4 +309,5 @@ EBox::init();
 EBox::info('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
+
 

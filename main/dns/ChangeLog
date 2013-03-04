@@ -1,4 +1,19 @@
 HEAD
+	+ Use API to retrieve foreign model value
+3.0.6
+	+ Improve management of DNS zones stored in samba LDAP
+	+ Improve data generation for reverse zones.
+	+ Only allow AXFR from internal networks
+3.0.5
+	+ Query samba module for zones stored in LDB. Those ones will override
+	  the zones defined in the UI.
+	+ Changes required by the bundled version of samba4.
+	  Add paths to apparmor profile
+	  Change DLZ library path
+	+ Fixed bread crumbs for hostnames table
+3.0.4
+	+ Service zentyal-desktop-api is now added in initial-setup
+	+ Better exception message when service not exists in /etc/services
 	+ Fix apparmor profile to allow SDLZ driver to read session key
 3.0.3
 	+ Bump bind9 deps to new upstream version

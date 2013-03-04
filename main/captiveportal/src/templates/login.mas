@@ -64,6 +64,5 @@ use EBox::Gettext;
 </center>
 <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %>
 </div>
-<script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
 </html>

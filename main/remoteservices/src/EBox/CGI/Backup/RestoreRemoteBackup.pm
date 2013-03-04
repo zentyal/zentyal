@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::CGI::RemoteServices::Backup::RestoreRemoteBackup;
-use base qw(EBox::CGI::ClientBase  EBox::CGI::ProgressClient);
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use strict;
 use warnings;
@@ -44,7 +44,7 @@ sub requiredParameters
 
 sub optionalParameters
 {
-    return [qw(ok cancel popup)];
+    return [qw(ok cancel popup dr)];
 }
 
 
@@ -56,13 +56,12 @@ sub actuate
 
     my $backup =  new EBox::RemoteServices::Backup;
     my $name   = $self->param('name');
+    my $dr = $self->param('dr');
 
-    my $progress = $backup->prepareRestoreRemoteBackup($name);
+    my $progress = $backup->prepareRestoreRemoteBackup($name, $dr);
 
     $self->showRestoreProgress($progress);
 }
-
-
 
 my @popupProgressParams = (
         raw => 1,
@@ -83,13 +82,20 @@ sub showRestoreProgress
             text               => __('Restoring modules from remote backup'),
             currentItemCaption => __('Module') ,
             itemsLeftMessage   => __('modules left to restore'),
-            endNote            => __('Restore successful'),
             reloadInterval     => 4,
-        );
+    );
+
+    my $endNote = __('Restore successful');
 
     if ($self->param('popup')) {
-        push @params, @popupProgressParams;
+        push (@params, @popupProgressParams);
+    } elsif ($self->param('dr')) {
+        push (@params, 'nextStepUrl' => '/SaveChanges?noPopup=1&save=1');
+        push (@params, 'nextStepText' => __('Click here to save changes'));
+        $endNote .= '<br/><br/>' . __('Please note that you may need to reload the page and accept the new certificate restored from the backup.');
     }
+
+    push (@params, 'endNote' => $endNote);
 
     $self->showProgress(@params);
 }

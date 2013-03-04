@@ -1,0 +1,15 @@
+=== modified file 'buildtools/wafsamba/wafsamba.py'
+Index: samba4/buildtools/wafsamba/wafsamba.py
+===================================================================
+--- samba4.orig/buildtools/wafsamba/wafsamba.py	2012-11-13 19:09:49.887216557 +0100
++++ samba4/buildtools/wafsamba/wafsamba.py	2012-11-13 19:10:13.003216118 +0100
+@@ -210,8 +210,7 @@
+     if target_type == 'PYTHON' or realname or not private_library:
+         bundled_name = libname.replace('_', '-')
+     else:
+-        bundled_name = PRIVATE_NAME(bld, libname, bundled_extension,
+-            private_library)
++        bundled_name = libname
+ 
+     ldflags = TO_LIST(ldflags)
+ 
