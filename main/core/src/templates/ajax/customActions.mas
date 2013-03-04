@@ -11,9 +11,8 @@
 %    {
        <& $customAction->template(),
          action => $customAction,
-         modelName => $model->name(),
          id => $id,
-         type => $type,
+         type => $type
        &>
 %    }
 % }

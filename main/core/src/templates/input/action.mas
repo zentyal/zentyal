@@ -1,19 +1,12 @@
 <%args>
     $action
     $id => undef
-    $modelName => undef
     $type => 'submit'
 </%args>
 <%init>
-my $name = $action->name($id);
-my $htmlId;
-$modelName and
-    ($htmlId = $modelName . '_');
-$htmlId .= $id . '_' . $name;
 my %attributes = (
-    id   => $htmlId,
     type => $type,
-    name => $name,
+    name => $action->name($id),
     value => $action->printableValue($id),
     title => $action->printableValue($id),
     onclick => $action->onclick($id),
