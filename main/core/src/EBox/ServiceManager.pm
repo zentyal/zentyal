@@ -80,7 +80,6 @@ sub moduleStatus
 
     my @mods;
     my $change = undef;
-    #for my $mod (@{$global->modInstancesOfType(CLASS)}) {
     for my $modName (@{$self->_dependencyTree()}) {
         my $mod = $global->modInstance($modName);
         my $status = {};
@@ -90,11 +89,7 @@ sub moduleStatus
         $status->{'name'} = $mod->name();
         $status->{'printableName'} = $mod->printableName();
         $status->{'printableDepends'} = $self->printableDepends($mod->name());
-        unless ($status->{'configured'} and $status->{'depends'}) {
-            $status->{'status'} = undef;
-            $mod->enableService(undef);
-        }
-        if ( $mod->showModuleStatus() ) {
+        if ($mod->showModuleStatus()) {
             push (@mods, $status);
         }
     }

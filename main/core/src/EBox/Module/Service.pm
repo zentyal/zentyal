@@ -25,6 +25,7 @@ use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
 use EBox::AuditLogging;
 
+use Perl6::Junction qw(any);
 use Error qw(:try);
 
 use constant INITDPATH => '/etc/init.d/';
@@ -129,6 +130,38 @@ sub enableActions
 sub disableActions
 {
 
+}
+
+# Method: disableModDepends
+#
+#   This method is used to get the list of modules to be disabled when this
+#   module is disabled (they depend on us).
+#
+#   It doesn't state a configuration dependency, it states a working
+#   dependency.
+#
+#   For example: the firewall module has to be disabled together with the
+#                network module.
+#
+#   By default it returns the modules established in the enabledepends list
+#   in the module YAML file. Override the method if you need something more
+#   specific, e.g., having a dynamic list.
+#
+# Returns:
+#
+#    array ref containing the instances of modules.
+#
+sub disableModDepends
+{
+    my ($self) = @_;
+
+    my $deps = [];
+    foreach my $mod (@{$self->global->modInstances()}) {
+        push (@{$deps}, $mod)
+            if ($self->name() eq any @{$mod->info->{enabledepends}});
+    }
+
+    return $deps;
 }
 
 # Method: enableModDepends
@@ -512,10 +545,19 @@ sub addModuleStatus
 sub enableService
 {
     my ($self, $status) = @_;
+
     defined $status or
         $status = 0;
 
     return unless ($self->isEnabled() xor $status);
+
+    unless ($status) {
+        # Disable all modules that depend on us
+        my $mods = $self->disableModDepends();
+        foreach my $mod (@{$mods}) {
+            $mod->enableService(0);
+        }
+    }
 
     $self->set_bool('_serviceModuleStatus', $status);
 
