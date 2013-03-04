@@ -1,4 +1,5 @@
 HEAD
+	+ Only disable IPv6 in enableActions if IPv6 is available
 	+ Bridged interfaces added to 'auto' directive in
 	  /etc/networks/interfaces to avoid network startup problems
 	+ Dont allow to set a local address as network proxy
