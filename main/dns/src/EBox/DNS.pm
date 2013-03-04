@@ -854,7 +854,7 @@ sub _reverseData
     foreach my $domainRowId (@{$domainModel->ids()}) {
         my $domainRow = $domainModel->row($domainRowId);
         my $domainName = $domainRow->valueByName('domain');
-        my $dynamic = $domainRow->valueByName('dynamic') or
+        my $dynamic = $domainRow->valueByName('dynamic') ||
                       $domainRow->valueByName('samba');
 
         my $domainNameservers = [];
