@@ -54,9 +54,7 @@ my %opSys = (
         },
         other => {
             printableValue => __('Other'),
-            arch => 'i686',
         },
-
 );
 
 my %architectures = (
@@ -529,11 +527,7 @@ sub _busUsedByVm
     if ($opSys{$os}->{bus}) {
         $bus = $opSys{$os}->{bus};
     } else  {
-        $bus = 'scsi';
-    }
-
-    if (($bus eq 'scsi') and EBox::Config::boolean('use_ide_disks')) {
-        $bus = 'ide';
+        $bus = EBox::Config::boolean('use_ide_disks') ? 'ide' : 'scsi';
     }
 
     return $bus;
