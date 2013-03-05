@@ -4,9 +4,6 @@ enabledepends:
     - dns
     - ntp
 
-depends:
-    - dns
-
 models:
     - Mode
     - Users

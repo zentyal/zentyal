@@ -90,6 +90,19 @@ sub _create
     return $self;
 }
 
+sub depends
+{
+    my ($self) = @_;
+
+    my @deps;
+
+    if ($self->get('need_reprovision')) {
+        push (@deps, 'dns');
+    }
+
+    return \@deps;
+}
+
 # Method: actions
 #
 #       Override EBox::ServiceModule::ServiceInterface::actions

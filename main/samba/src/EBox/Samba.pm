@@ -1267,6 +1267,19 @@ sub restoreConfig
     $self->getProvision()->resetSysvolACL();
 }
 
+sub depends
+{
+    my ($self) = @_;
+
+    my @deps = ('network', 'printers');
+
+    if ($self->get('need_reprovision')) {
+        push (@deps, 'users');
+    }
+
+    return \@deps;
+}
+
 sub restoreDependencies
 {
     my @depends = ();
