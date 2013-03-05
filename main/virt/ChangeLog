@@ -1,5 +1,11 @@
 HEAD
-	+ More os type options, using virtio as device bus for linux guests
+	+ Operating System type can now be specified on each VM
+	+ Windows XP machines use IDE disks
+	+ Windows Vista, 7 and 8 machines use SATA disks
+	+ Linux machines use virtio disks
+	+ Other machines use SCSI disks for compatibility with the
+	  previous default, but can use IDE setting the use_ide_disks
+	  key in /etc/zentyal/virt.conf as before
 	+ Better checking of device path
 3.0.1
 	+ Support for another output of file program for qcow2 format
