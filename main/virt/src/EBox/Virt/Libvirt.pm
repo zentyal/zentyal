@@ -39,28 +39,6 @@ my $DEFAULT_KEYMAP = 'en-us';
 #
 #   Backend implementation for libvirt
 #
-my %opSys = (
-        windowsVista => {
-            printableValue => __('Windows'),
-            bus => 'sata',
-        },
-        windowsXp => {
-            printableValue => __('Older Windows (NT, XP, 2000)'),
-            bus => 'ide',
-        },
-        linux => {
-            printableValue => __('Linux'),
-            bus => 'virtio',
-        },
-        other => {
-            printableValue => __('Other'),
-        },
-);
-
-my %architectures = (
-        'i686' =>  __('i686 compatible'),
-        'x86_64' =>  __('amd64 compatible'),
-);
 
 sub new
 {
@@ -394,9 +372,7 @@ sub setMemory
 sub setOS
 {
     my ($self, $name, $os) = @_;
-    if (not $opSys{$os}) {
-        throw EBox::Exceptions::Internal("Operating system $os not supported");
-    }
+
     $self->{vmConf}->{$name}->{os} = $os;
 }
 
@@ -412,9 +388,7 @@ sub setOS
 sub setArch
 {
     my ($self, $name, $arch) = @_;
-    if (not $architectures{$arch}) {
-        throw EBox::Exceptions::Internal("Architecture $arch not supported");
-    }
+
     $self->{vmConf}->{$name}->{arch} = $arch;
 }
 
@@ -523,32 +497,32 @@ sub _busUsedByVm
     my ($self, $name) = @_;
     my $os = $self->{vmConf}->{$name}->{os};
 
-    my $bus;
-    if ($opSys{$os}->{bus}) {
-        $bus = $opSys{$os}->{bus};
-    } else  {
-        $bus = EBox::Config::boolean('use_ide_disks') ? 'ide' : 'scsi';
-    }
+    my %busByOS = (
+        new_windows => 'sata',
+        old_windows => 'ide',
+        linux => 'virtio',
+        other => EBox::Config::boolean('use_ide_disks') ? 'ide' : 'scsi',
+    );
 
-    return $bus;
+    return $busByOS{$os};
 }
 
 sub systemTypes
 {
-    my @types;
-    while (my ($osName, $osAttrs) = each %opSys) {
-        push @types, {value => $osName, printableValue => $osAttrs->{printableValue}};
-    }
-    return \@types;
+    return [
+        { value => 'new_windows', printableValue =>  __('Windows Vista or newer') },
+        { value => 'old_windows', printableValue =>  __('Windows 2003 or older') },
+        { value => 'linux',       printableValue =>  __('Linux') },
+        { value => 'other',       printableValue =>  __('Other') },
+    ];
 }
 
 sub architectureTypes
 {
-    my @types;
-    while (my ($arch, $printableValue) = each %architectures) {
-        push @types, {value => $arch, printableValue => $printableValue};
-    }
-    return \@types;
+    return [
+        { value => 'i686',   printableValue =>  __('i686 compatible') },
+        { value => 'x86_64', printableValue =>  __('amd64 compatible') },
+    ];
 }
 
 sub manageScript

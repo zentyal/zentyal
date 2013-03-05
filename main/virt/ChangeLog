@@ -1,7 +1,7 @@
 HEAD
 	+ Operating System type can now be specified on each VM
-	+ Windows machines use SATA disks
-	+ Older Windows (NT, XP, 2000) machines use IDE disks
+	+ Windows Vista or newer machines use SATA disks
+	+ Windows 2000 or older machines use IDE disks
 	+ Linux machines use virtio disks
 	+ Other machines use SCSI disks for compatibility with the
 	  previous default, but can use IDE setting the use_ide_disks
