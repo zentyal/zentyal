@@ -12,52 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Virt::Migration;
 
-sub importCurrentVNCPorts
-{
-    my ($package, $virt) = @_;
-    # We only can know the currently used ports when using libvirt
-    return if $virt->usingVBox();
-
-    my $base = $virt->firstVNCPort();
-
-    my $updateFwService = 0;
-
-    my @unassigned;
-    my $vms = $virt->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        my $vncport = $virt->{backend}->vncdisplay($name);
-        unless (defined ($vncport)) {
-            push (@unassigned, $vm);
-            next;
-        }
-        $vm->elementByName('vncport')->setValue($base + $vncport);
-        $vm->store();
-        $updateFwService = 1;
-    }
-    foreach my $vm (@unassigned) {
-        $vm->elementByName('vncport')->setValue($virt->firstFreeVNCPort());
-        $vm->store();
-        $updateFwService = 1;
-    }
-
-    if ($updateFwService) {
-        $virt->updateFirewallService();
-        my $firewall = $virt->global()->modInstance('firewall');
-        $firewall->saveConfigRecursive();
-    }
-
-}
-
 sub migrateOS
 {
     my ($package, $virt) = @_;
+
     my $virtualMachines = $virt->model('VirtualMachines');
     foreach my $vmId (@{ $virtualMachines->ids() }) {
         my $vmRow = $virtualMachines->row($vmId);
@@ -78,7 +42,6 @@ sub migrateOS
         $os->setValue('other');
         $sysRow->store();
     }
-
 }
 
 1;

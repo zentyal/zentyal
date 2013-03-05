@@ -83,11 +83,6 @@ sub initialSetup
     my ($self, $version) = @_;
 
     if ($version) {
-        if (EBox::Util::Version::compare($version, '2.2.3') < 0) {
-            # Only when upgrading from <= 2.2.2
-            eval "use EBox::Virt::Migration";
-            EBox::Virt::Migration->importCurrentVNCPorts($self);
-        }
         if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
             eval "use EBox::Virt::Migration";
             EBox::Virt::Migration->migrateOS($self);
