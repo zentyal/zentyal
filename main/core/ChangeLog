@@ -1,4 +1,6 @@
 HEAD
+	+ Install apache2-mpm-worker by default instead of worker and
+	  increase number of threads to 10 for faster request handling
 	+ Show confirmation dialog when trying to change host or domain
 	  if zentyal-samba is installed and provisioned
 	+ Modified data table controller so edit boolean in place reuses

@@ -67,7 +67,7 @@ PidFile <% $tmpdir %>/apache.pid
     StartServers             1
     MinSpareThreads          1
     MaxSpareThreads          1
-    ThreadsPerChild          1
+    ThreadsPerChild         10
     MaxClients               1
     MaxRequestsPerChild  10000
 </IfModule>
