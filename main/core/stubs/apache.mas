@@ -72,6 +72,10 @@ PidFile <% $tmpdir %>/apache.pid
     MaxRequestsPerChild  10000
 </IfModule>
 
+PerlInterpStart 1
+PerlInterpMinSpare 1
+PerlInterpMaxSpare 1
+PerlInterpMax 1
 PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
