@@ -90,6 +90,15 @@ sub _create
     return $self;
 }
 
+# Method: depends
+#
+#     Users depends on dns only to ensure proper order during
+#     save changes when reprovisioning (after host/domain change)
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
 sub depends
 {
     my ($self) = @_;
