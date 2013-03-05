@@ -1,9 +1,5 @@
 class: 'EBox::Samba'
 
-depends:
-    - network
-    - printers
-
 enabledepends:
     - network
     - ntp

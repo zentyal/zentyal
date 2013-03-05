@@ -1,4 +1,6 @@
 HEAD
+	+ Samba can now be reprovisioned if the hostname or domain changes
+	+ Depend on users module to fix save changes order during reprovision
 	+ Set roaming profile and home drive for new created users if server
 	  is first DC
 	+ Default value of sync option in SambaShares is now 0

@@ -1,4 +1,6 @@
 HEAD
+	+ Show confirmation dialog when trying to change host or domain
+	  if zentyal-samba is installed and provisioned
 	+ Modified data table controller so edit boolean in place reuses
 	  the code of regular edits, avoiding getting incorrect read-only
 	  values from cache

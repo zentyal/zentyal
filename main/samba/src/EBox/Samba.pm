@@ -788,8 +788,11 @@ sub _setConf
 
     return unless $self->configured() and $self->isEnabled();
 
-    $self->getProvision->provision()
-        unless $self->getProvision->isProvisioned();
+    my $prov = $self->getProvision();
+    if (not $prov->isProvisioned() or $self->get('need_reprovision')) {
+        $prov->provision();
+        $self->unset('need_reprovision');
+    }
 
     $self->writeSambaConfig();
 
@@ -831,24 +834,25 @@ sub _setConf
     }
 }
 
+sub _adcMode
+{
+    my ($self) = @_;
+
+    my $settings = $self->model('GeneralSettings');
+    return ($settings->modeValue() eq $settings->MODE_ADC());
+}
+
 sub _sysvolSyncCond
 {
     my ($self) = @_;
 
-    my $sambaSettings = $self->model('GeneralSettings');
-    my $mode = $sambaSettings->modeValue();
-    my $adc = $sambaSettings->MODE_ADC();
-
-    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $mode eq $adc);
+    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
 }
 
 sub _s4syncCond
 {
     my ($self) = @_;
 
-    my $sambaSettings = $self->model('GeneralSettings');
-    my $mode = $sambaSettings->modeValue();
-    my $adc  = $sambaSettings->MODE_ADC();
     return ($self->isEnabled() and $self->getProvision->isProvisioned());
 }
 
@@ -1261,6 +1265,28 @@ sub restoreConfig
     $self->restartService();
 
     $self->getProvision()->resetSysvolACL();
+}
+
+# Method: depends
+#
+#     Samba depends on users only to ensure proper order during
+#     save changes when reprovisioning (after host/domain change)
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my @deps = ('network', 'printers');
+
+    if ($self->get('need_reprovision')) {
+        push (@deps, 'users');
+    }
+
+    return \@deps;
 }
 
 sub restoreDependencies
@@ -1894,12 +1920,7 @@ sub hostNameChanged
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The samba database has already been provisioned. ' .
-                         'Changing the host name will cause domain services to ' .
-                         'stop working.'));
-    }
+    $self->_hostOrDomainChanged();
 }
 
 # Method: hostNameChangedDone
@@ -1925,11 +1946,21 @@ sub hostDomainChanged
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
+    $self->_hostOrDomainChanged();
+}
+
+sub _hostOrDomainChanged
+{
+    my ($self) = @_;
+
     if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The samba database has already been provisioned. ' .
-                         'Changing the host domain will cause domain services to ' .
-                         'stop working.'));
+        if ($self->_adcMode()) {
+            throw EBox::Exceptions::UnwillingToPerform(
+                reason => __('The hostname or domain cannot be changed if Zentyal is configured as additional domain controller.')
+            );
+        }
+
+        $self->set('need_reprovision', 1);
     }
 }
 
@@ -1942,16 +1973,14 @@ sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
-    unless ($self->configured()) {
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue('realm', uc ($newDomainName));
+    my $settings = $self->model('GeneralSettings');
+    $settings->setValue('realm', uc ($newDomainName));
 
-        my @parts = split (/\./, $newDomainName);
-        my $value = substr($parts[0], 0, 15);
-        $value = 'ZENTYAL-DOMAIN' unless defined $value;
-        $value = uc ($value);
-        $settings->setValue('workgroup', $value);
-    }
+    my @parts = split (/\./, $newDomainName);
+    my $value = substr($parts[0], 0, 15);
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
+    $value = uc ($value);
+    $settings->setValue('workgroup', $value);
 }
 
 1;

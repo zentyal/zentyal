@@ -90,6 +90,28 @@ sub _create
     return $self;
 }
 
+# Method: depends
+#
+#     Users depends on dns only to ensure proper order during
+#     save changes when reprovisioning (after host/domain change)
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my @deps;
+
+    if ($self->get('need_reprovision')) {
+        push (@deps, 'dns');
+    }
+
+    return \@deps;
+}
+
 # Method: actions
 #
 #       Override EBox::ServiceModule::ServiceInterface::actions
@@ -477,6 +499,11 @@ sub wizardPages
 sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
+
+    if ($self->get('need_reprovision')) {
+        $self->unset('need_reprovision');
+        $self->reprovision();
+    }
 
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(LIBNSS_SECRETFILE, $ldap->getPassword(),
@@ -1690,8 +1717,8 @@ sub hostDomainChanged
     my ($self, $oldDomainName, $newDomainName) = @_;
 
     if ($self->configured()) {
-        throw EBox::Exceptions::UnwillingToPerform(
-            reason => __('The kerberos realm is already initialized and it is tied with the domain name.'));
+        $self->set('need_reprovision', 1);
+        EBox::Global->modInstance('apache')->setAsChanged();
     }
 }
 
@@ -1709,6 +1736,30 @@ sub hostDomainChangedDone
         my $newDN = $mode->getDnFromDomainName($newDomainName);
         $mode->setValue('dn', $newDN);
     }
+}
+
+# Method: reprovision
+#
+#   Destroys all LDAP/Kerberos configuration and creates a new
+#   empty one. Useful after a host/domain change.
+#
+sub reprovision
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    my @removeHomeCmds;
+    foreach my $home (map { $_->home() } @{$self->users()}) {
+        push (@removeHomeCmds, "rm -rf $home");
+    }
+    EBox::Sudo::root(@removeHomeCmds);
+
+    $self->_manageService('stop');
+    EBox::Sudo::root('rm -rf /var/lib/ldap/*');
+    $self->_manageService('start');
+
+    $self->enableActions();
 }
 
 # Implement EBox::SyncFolders::Provider interface

@@ -1,4 +1,6 @@
 HEAD
+	+ Rename domain if exists when changing it in System -> General
+	+ Remove depends on users and samba to avoid deep recursion
 	+ Use API to retrieve foreign model value
 3.0.6
 	+ Improve management of DNS zones stored in samba LDAP

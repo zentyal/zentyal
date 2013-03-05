@@ -1939,7 +1939,7 @@ sub hostNameChanged
 
 # Method: hostNameChangedDone
 #
-#   This method update the hostname in all existant  domains
+#   This method update the hostname in all existant domains
 #
 sub hostNameChangedDone
 {
@@ -1958,6 +1958,22 @@ sub hostNameChangedDone
                 last;
             }
         }
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the domain name if it is already created
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    my $row = $domainModel->find(domain => $oldDomainName);
+    if (defined $row) {
+        $row->elementByName('domain')->setValue($newDomainName);
+        $row->store();
     }
 }
 
