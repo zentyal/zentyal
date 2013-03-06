@@ -242,7 +242,19 @@ sub set
     $self->SUPER::set(@_);
 }
 
-# Catch some of the set ops which need special actions
+sub add
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::add(@_);
+}
+
 sub delete
 {
     my ($self, $attr, $value) = @_;
@@ -254,6 +266,19 @@ sub delete
 
     shift @_;
     $self->SUPER::delete(@_);
+}
+
+sub deleteValues
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::deleteValues(@_);
 }
 
 
