@@ -156,10 +156,12 @@ sub randomMAC
 {
     my ($self) = @_;
 
-    my $mac = '';
-    foreach my $i (0 .. 5) {
+    # XXX the fixed mac prefix is due to a strange networking bug of libvirt,
+    #  with this prefix is less probable to trigger it
+    my $mac = '00:1F:';
+    foreach my $i (0 .. 3) {
         $mac .= sprintf("%02X", int(rand(255)));
-        if ($i < 5) {
+        if ($i < 3) {
             $mac .= ':';
         }
     }

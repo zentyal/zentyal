@@ -1,4 +1,5 @@
 HEAD
+	+ Forced MAC prefix to workaround libvirt bug
 	+ Operating System type can now be specified on each VM
 	+ Windows Vista or newer machines use SATA disks
 	+ Windows 2000 or older machines use IDE disks
