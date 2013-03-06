@@ -1,4 +1,6 @@
 HEAD
+	+ Dont loop through the group members when adding/removing members
+	+ Added EBox::Exceptions::LDAP
 	+ Allow domain name change in System -> General reprovisioning LDAP db
 	+ Depend on dns module to fix save changes order during reprovision
 3.0.10
