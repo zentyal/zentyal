@@ -1,4 +1,6 @@
 HEAD
+	+ Dont loop through the group members when adding/removing members
+	+ Added EBox::Exceptions::LDAP
 	+ Allow unsafe characters in commentary field
 	+ Better check for the incompatibility of Samba with master/slave
 	+ Fix modules extending LdapUserBase not notified modifying groups

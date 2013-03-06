@@ -34,6 +34,7 @@ use EBox::UsersAndGroups::Group;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
@@ -110,7 +111,6 @@ sub name
     return $self->get('uid');
 }
 
-
 sub fullname
 {
     my ($self) = @_;
@@ -124,13 +124,11 @@ sub firstname
     return $self->get('givenName');
 }
 
-
 sub surname
 {
     my ($self) = @_;
     return $self->get('sn');
 }
-
 
 sub home
 {
@@ -138,13 +136,11 @@ sub home
     return $self->get('homeDirectory');
 }
 
-
 sub quota
 {
     my ($self) = @_;
     return $self->get('quota');
 }
-
 
 sub comment
 {
@@ -648,7 +644,7 @@ sub create
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());
+                throw EBox::Exceptions::LDAP(result => $result);
             }
         }
 

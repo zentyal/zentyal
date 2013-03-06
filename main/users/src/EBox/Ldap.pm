@@ -691,15 +691,8 @@ sub _errorOnLdap
 {
     my ($result, $args) = @_;
 
-    my  @frames = caller (2);
     if ($result->is_error){
-        if ($args) {
-            use Data::Dumper;
-            EBox::error( Dumper($args) );
-        }
-        throw EBox::Exceptions::Internal("Unknown error at " .
-                                         $frames[3] . " " .
-                                         $result->error);
+        throw EBox::Exceptions::Ldap(result => $result);
     }
 }
 

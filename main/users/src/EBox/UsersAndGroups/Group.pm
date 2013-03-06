@@ -14,16 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::UsersAndGroups::Group
 #
 #   Zentyal group, stored in LDAP
 #
-
 package EBox::UsersAndGroups::Group;
+use base 'EBox::UsersAndGroups::LdapObject';
 
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Global;
@@ -34,6 +33,7 @@ use EBox::UsersAndGroups::User;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
@@ -44,8 +44,6 @@ use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');
-
-use base 'EBox::UsersAndGroups::LdapObject';
 
 sub new
 {
@@ -93,7 +91,6 @@ sub _entry
     return $self->{entry};
 }
 
-
 # Method: name
 #
 #   Return group name
@@ -103,7 +100,6 @@ sub name
     my ($self) = @_;
     return $self->get('cn');
 }
-
 
 # Method: removeAllMembers
 #
@@ -127,16 +123,16 @@ sub removeAllMembers
 sub addMember
 {
     my ($self, $user, $lazy) = @_;
-
-    my @members = $self->get('member');
-    # return if user already in the group
-    foreach my $dn (@members) {
-        if (lc ($dn) eq lc ($user->dn())) {
+    try {
+        $self->add('member', $user->dn(), $lazy);
+    } catch EBox::Exceptions::LDAP with {
+        my $ex = shift;
+        EBox::debug('LDAP ERR ' . $ex->errorName);
+        if ($ex->errorName eq 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            EBox::debug("Tried to add already existent member $user to group " . $self->name());
             return;
         }
-    }
-
-    $self->add('member', $user->dn(), $lazy);
+    };
 }
 
 # Method: removeMember
@@ -150,13 +146,16 @@ sub addMember
 sub removeMember
 {
     my ($self, $user, $lazy) = @_;
-
-    my @members;
-    foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
-    }
-
-    $self->deleteValues('member', [$user->dn()], $lazy);
+    try {
+        $self->deleteValues('member', [$user->dn()], $lazy);
+    } catch EBox::Exceptions::LDAP with {
+        my $ex = shift;
+        EBox::debug('LDAP ERR ' . $ex->errorName);
+        if ($ex->errorName eq 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
+            return;
+        }
+    };
 }
 
 
@@ -431,7 +430,7 @@ sub create
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::Internal(__('There was an error: ') . $result->error());
+                throw EBox::Exceptions::LDAP($result);
             }
         }
 
