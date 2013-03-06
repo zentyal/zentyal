@@ -1,4 +1,5 @@
 HEAD
+	+ Dynamic domains are now properly detected on _reverseData()
 	+ Rename domain if exists when changing it in System -> General
 	+ Remove depends on users and samba to avoid deep recursion
 	+ Use API to retrieve foreign model value
