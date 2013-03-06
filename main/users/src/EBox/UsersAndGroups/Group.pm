@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -127,11 +125,10 @@ sub addMember
         $self->add('member', $user->dn(), $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
-        EBox::debug('LDAP ERR ' . $ex->errorName);
-        if ($ex->errorName eq 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            EBox::debug("Tried to add already existent member $user to group " . $self->name());
-            return;
+        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $ex->throw();
         }
+        EBox::debug("Tried to add already existent member $user to group " . $self->name());
     };
 }
 
@@ -150,14 +147,12 @@ sub removeMember
         $self->deleteValues('member', [$user->dn()], $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
-        EBox::debug('LDAP ERR ' . $ex->errorName);
-        if ($ex->errorName eq 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
-            return;
+        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $ex->throw();
         }
+        EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
     };
 }
-
 
 # Method: users
 #
