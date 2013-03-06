@@ -978,7 +978,15 @@ sub _intnets
     my @intnets = ();
 
     if (defined($intnets_string)) {
+        $intnets_string = s/\s//g;
         @intnets = split(',', $intnets_string);
+        my $cidrName = __x('Value from {key} in configuration file {conf}',
+                           key => DNS_INTNETS,
+                           value => DNS_CONF_FILE,
+                          );
+        foreach my $net (@intnets) {
+            EBox::Validate::checkCIDR($net, $cidrName);
+        }
     }
 
     return \@intnets;
@@ -991,9 +999,13 @@ sub _internalLocalNets
     my @localNets = map {
         my $iface = $_;
         my $net  = $network->ifaceNetwork($iface);
-        my $fullmask = $network->ifaceNetmask($iface);
-        my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
-        ("$net/$mask");
+        if ($net) {
+            my $fullmask = $network->ifaceNetmask($iface);
+            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+            ("$net/$mask");
+        } else {
+            ()
+        }
     } @{ $network->InternalIfaces };
     return \@localNets;
 }
