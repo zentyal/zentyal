@@ -68,7 +68,7 @@ sub _process($) {
         } else {
             $fullname = $surname;
         }
-        my $comment = $self->param('comment');
+        my $comment = $self->unsafeParam('comment');
         if (length ($comment)) {
             $user->set('description', $comment, 1);
         } else {

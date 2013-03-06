@@ -44,7 +44,7 @@ sub _process($)
     $self->_requireParam('groupname', __('group name'));
 
     my $groupname = $self->param('groupname');
-    my $comment = $self->param('comment');
+    my $comment = $self->unsafeParam('comment');
 
     my $group = EBox::UsersAndGroups::Group->create($groupname, $comment);
 
