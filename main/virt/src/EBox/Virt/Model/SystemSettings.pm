@@ -62,8 +62,13 @@ sub new
 sub _populateOSTypes
 {
     my ($self) = @_;
+    return sub { $self->parentModule()->systemTypes() };
+}
 
-    return EBox::Global->modInstance('virt')->systemTypes();
+sub _populateArchitectures
+{
+    my ($self) = @_;
+    return sub {$self->parentModule()->architectureTypes()};
 }
 
 # Method: _table
@@ -85,7 +90,13 @@ sub _table
        new EBox::Types::Select(
                                fieldName     => 'os',
                                printableName => __('Operating System'),
-                               populate      => \&_populateOSTypes,
+                               populate      => $self->_populateOSTypes,
+                               editable      => 1,
+                              ),
+       new EBox::Types::Select(
+                               fieldName     => 'arch',
+                               printableName => __('Architecture'),
+                               populate      => $self->_populateArchitectures,
                                editable      => 1,
                               ),
        new EBox::Types::Int(

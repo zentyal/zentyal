@@ -83,9 +83,9 @@ sub initialSetup
     my ($self, $version) = @_;
 
     if ($version) {
-        if (EBox::Util::Version::compare($version, '2.2.3') < 0) {
-            # Only when upgrading from <= 2.2.2
-            $self->_importCurrentVNCPorts();
+        if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
+            eval "use EBox::Virt::Migration";
+            EBox::Virt::Migration->migrateOS($self);
         }
     } else {
         # Create default service only if installing the first time
@@ -339,6 +339,13 @@ sub systemTypes
     return $self->{backend}->systemTypes();
 }
 
+sub architectureTypes
+{
+    my ($self) = @_;
+
+    return $self->{backend}->architectureTypes();
+}
+
 sub ifaces
 {
     my ($self) = @_;
@@ -432,10 +439,12 @@ sub _createMachine
     my $backend = $self->{backend};
     my $memory = $system->valueByName('memory');
     my $os = $system->valueByName('os');
+    my $arch = $system->valueByName('arch');
 
     $backend->createVM(name => $name);
 
     $backend->setOS($name, $os);
+    $backend->setArch($name, $arch);
     $backend->setMemory($name, $memory);
 }
 
@@ -609,45 +618,6 @@ sub firstVNCPort
 
     my $vncport = EBox::Config::configkey('first_vnc_port');
     return $vncport ? $vncport : DEFAULT_VNC_PORT;
-}
-
-sub _importCurrentVNCPorts
-{
-    my ($self) = @_;
-
-    # We only can know the currently used ports when using libvirt
-    return if $self->usingVBox();
-
-    my $base = $self->firstVNCPort();
-
-    my $updateFwService = 0;
-
-    my @unassigned;
-    my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        my $vncport = $self->{backend}->vncdisplay($name);
-        unless (defined ($vncport)) {
-            push (@unassigned, $vm);
-            next;
-        }
-        $vm->elementByName('vncport')->setValue($base + $vncport);
-        $vm->store();
-        $updateFwService = 1;
-    }
-    foreach my $vm (@unassigned) {
-        $vm->elementByName('vncport')->setValue($self->firstFreeVNCPort());
-        $vm->store();
-        $updateFwService = 1;
-    }
-
-    if ($updateFwService) {
-        $self->updateFirewallService();
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->saveConfigRecursive();
-    }
-
 }
 
 sub firstFreeVNCPort
