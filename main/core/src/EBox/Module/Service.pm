@@ -555,7 +555,7 @@ sub enableService
     if ($status) {
         foreach my $mod (@{$self->enableModDepends()}) {
             my $instance = $self->global->modInstance($mod);
-            $status = ($status and $instance->isEnabled()) ? 1 : 0;
+            $status = ($status and $instance->isEnabled());
         }
     }
 
