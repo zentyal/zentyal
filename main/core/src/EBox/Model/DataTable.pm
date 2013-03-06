@@ -670,12 +670,12 @@ sub validateRowRemoval
 
 # Method: addedRowNotify
 #
-#    Override this method to be notified whenever
-#    a new row is added
+#    Override this method to be notified just after
+#    a new row is added.
 #
 # Arguments:
 #
-#     row - <EBox::Model::Row> the new row to add
+#     row - <EBox::Model::Row> the new added row
 #
 sub addedRowNotify
 {

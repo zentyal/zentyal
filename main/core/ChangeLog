@@ -1,4 +1,6 @@
 HEAD
+	+ Replaced call with almost deprecated method objToJson with to_json,
+	  thus avoiding warning
 	+ Show confirmation dialog when trying to change host or domain
 	  if zentyal-samba is installed and provisioned
 	+ Modified data table controller so edit boolean in place reuses
