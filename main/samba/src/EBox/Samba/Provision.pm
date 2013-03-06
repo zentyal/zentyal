@@ -23,7 +23,6 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
-use EBox::Global;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
@@ -78,6 +77,7 @@ sub setProvisioned
 sub checkEnvironment
 {
     my ($self, $throwException) = @_;
+
     unless (defined $throwException) {
         throw EBox::Exceptions::MissingArgument('throwException');
     }
@@ -264,15 +264,6 @@ sub _checkUsersState
     if ($users->master() eq 'zentyal') {
         throw EBox::Exceptions::External(
             __x('Cannot enable Samba because this server is synchronizing its users as slave of other Zentyal.' .
-                '<br/>You can change this state at {ohref}synchronization options{chref}',
-                ohref => q{<a href='/Users/Composite/Sync'>},
-                chref => '</a>'
-               )
-           );
-    }
-    if (@{ $users->slaves()} > 0) {
-        throw EBox::Exceptions::External(
-            __x('Cannot enable Samba because this server is acting as users replication master.' .
                 '<br/>You can change this state at {ohref}synchronization options{chref}',
                 ohref => q{<a href='/Users/Composite/Sync'>},
                 chref => '</a>'
