@@ -1,4 +1,5 @@
 HEAD
+	+ Make sure that halt/reboot button can be clicked only once
 	+ Cleaner way of disabling dependant modules when the parent is disabled,
 	  avoiding unnecessary calls to enableService each time the module status
 	  page is loaded.
