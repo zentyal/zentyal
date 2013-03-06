@@ -164,18 +164,16 @@ sub enableServices
 {
     my ($self, $services) = @_;
 
-
     my $global = $self->{'confmodule'};
 
     for my $mod (keys %{$services}) {
-        my $instance = $global->modInstance($mod);
-        unless (defined($instance)) {
+        my $modInstance = $global->modInstance($mod);
+        unless (defined $modInstance) {
             EBox::debug("$mod can't be instanced");
             next;
         }
-
-        next unless ($instance->isa(CLASS));
-        $instance->enableService($services->{$mod});
+        next unless ($modInstance->isa(CLASS));
+        $modInstance->enableService($services->{$mod});
     }
 }
 

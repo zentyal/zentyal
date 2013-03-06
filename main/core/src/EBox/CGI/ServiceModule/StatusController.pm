@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 
 # package EBox::CGI::ServiceModule::StatusController
 #
@@ -21,29 +22,23 @@
 #
 package EBox::CGI::ServiceModule::StatusController;
 
-use strict;
-use warnings;
-
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-
-
 ## arguments:
 ## 	title [required]
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/moduleStatusTable.mas', @_);
 
-    bless($self, $class);
+    my $self = $class->SUPER::new('template' => '/moduleStatusTable.mas', @_);
+    bless ($self, $class);
+
     return $self;
 }
-
-
 
 sub _process
 {
@@ -51,16 +46,13 @@ sub _process
 
     my %modules;
     for my $mod (@{$self->params()}) {
-        my  @params = $self->param($mod);
+        my @params = $self->param($mod);
         my $enabled = undef;
         if (@params > 1) {
             $enabled = 1;
         }
         $modules{$mod} = $enabled;
     }
-
-#     use Data::Dumper;
-#     EBox::debug(Dumper \%modules);
 
     my $manager = new EBox::ServiceManager();
     $manager->enableServices(\%modules);
@@ -86,5 +78,3 @@ sub _print
 }
 
 1;
-
-

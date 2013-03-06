@@ -156,11 +156,10 @@ sub disableModDepends
     my ($self) = @_;
 
     my $deps = [];
-    foreach my $mod (@{$self->global->modInstances()}) {
+    foreach my $mod (@{$self->global->modInstancesOfType('EBox::Module::Service')}) {
         push (@{$deps}, $mod)
             if ($self->name() eq any @{$mod->info->{enabledepends}});
     }
-
     return $deps;
 }
 
@@ -550,6 +549,15 @@ sub enableService
         $status = 0;
 
     return unless ($self->isEnabled() xor $status);
+
+    # If enabling the module check our dependences are also enabled
+    # Otherwise, we have to disable ourself and all modules depending on us
+    if ($status) {
+        foreach my $mod (@{$self->enableModDepends()}) {
+            my $instance = $self->global->modInstance($mod);
+            $status = ($status and $instance->isEnabled()) ? 1 : 0;
+        }
+    }
 
     unless ($status) {
         # Disable all modules that depend on us
