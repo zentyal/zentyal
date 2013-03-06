@@ -23,6 +23,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
+use EBox::Global;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
