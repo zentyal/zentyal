@@ -1,4 +1,5 @@
 HEAD
+	+ Better check for the incompatibility of Samba with master/slave
 	+ Samba can now be reprovisioned if the hostname or domain changes
 	+ Depend on users module to fix save changes order during reprovision
 	+ Set roaming profile and home drive for new created users if server
