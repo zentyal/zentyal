@@ -23,11 +23,11 @@ use base 'EBox::Exceptions::Internal';
 sub new
 {
     my ($class, %args) = @_;
-    my $message = $args{message};
     my $result = $args{result};
     if (not $result) {
         throw EBox::Exceptions::MissingArgument('result');
     }
+    my $message = $args{message};
 
     my $exText;
     if ($message) {
