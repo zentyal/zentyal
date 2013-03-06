@@ -53,7 +53,7 @@ sub _process
     $user->{'password'} = $self->unsafeParam('password');
     $user->{'repassword'} = $self->unsafeParam('repassword');
     $user->{'group'} = $self->unsafeParam('group');
-    $user->{'comment'} = $self->param('comment');
+    $user->{'comment'} = $self->unsafeParam('comment');
 
     for my $field (qw/password repassword/) {
         unless (defined($user->{$field}) and $user->{$field} ne "") {
