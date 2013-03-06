@@ -15,6 +15,8 @@
 use strict;
 use warnings;
 
+use EBox::Exceptions::MissingArgument;
+
 package EBox::Exceptions::LDAP;
 use base 'EBox::Exceptions::Internal';
 
