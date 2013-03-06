@@ -1,4 +1,4 @@
-HEAD
+3.0.7
 	+ Guard against interfaces with unset address
 	+ Dynamic domains are now properly detected on _reverseData()
 	+ Rename domain if exists when changing it in System -> General
