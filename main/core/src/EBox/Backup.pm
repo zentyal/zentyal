@@ -139,14 +139,8 @@ sub _dumpModulesBackupData
                         m => $modName));
         }
 
-        try {
-            EBox::debug("Dumping $modName backup data");
-            $mod->makeBackup($auxDir, %options);
-        }
-        catch EBox::Exceptions::Base with {
-            my $ex = shift;
-            throw EBox::Exceptions::Internal($ex->text);
-        };
+        EBox::debug("Dumping $modName backup data");
+        $mod->makeBackup($auxDir, %options);
     }
 
 }
