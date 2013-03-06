@@ -1,4 +1,7 @@
 HEAD
+	+ Cleaner way of disabling dependant modules when the parent is disabled,
+	  avoiding unnecessary calls to enableService each time the module status
+	  page is loaded.
 	+ Show confirmation dialog when trying to change host or domain
 	  if zentyal-samba is installed and provisioned
 	+ Modified data table controller so edit boolean in place reuses
