@@ -165,7 +165,6 @@ sub _unlocked
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $allParams, $force) = @_;
-    $self->_checkSamba();
 
     my $master = exists $allParams->{master} ?
                         $allParams->{master}->value() :
@@ -175,6 +174,10 @@ sub validateTypedRow
 
     # do not check if disabled
     return unless ($enabled);
+
+    if ($master ne 'cloud') {
+        $self->_checkSamba();
+    }
 
     my $users = EBox::Global->modInstance('users');
 
