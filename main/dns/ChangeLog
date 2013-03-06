@@ -1,5 +1,5 @@
 HEAD
-	+ Fix logical operator
+	+ Dynamic domains are now properly detected on _reverseData()
 	+ Use API to retrieve foreign model value
 3.0.6
 	+ Improve management of DNS zones stored in samba LDAP
