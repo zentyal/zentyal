@@ -940,7 +940,8 @@ sub _writeRIPDaemonConf
                           ifaces       => $ifaces,
                           redistribute => $redistribute,
                           insecurePasswd => _insecureRipPasswd(),
-    );
+                          debug          => EBox::Config::boolean('debug'),
+                         );
     $self->writeConfFile("$confDir/ripd.conf", '/openvpn/quagga/ripd.conf.mas',
                          \@ripdConfParams, $fileAttrs);
 

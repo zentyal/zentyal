@@ -1,4 +1,5 @@
 HEAD
+	+ ripd debug output controlled by debug key
 	+ Modified daemon management to use methods from EBox::Module::Service
 	+ Daemon configuration files are created, as expected, in _setConf method
 3.0.3
