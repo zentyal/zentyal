@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::OpenVPN;
 use base qw(
@@ -20,9 +22,6 @@ use base qw(
              EBox::LogObserver
              EBox::FirewallObserver
              EBox::CA::Observer);
-
-use strict;
-use warnings;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
@@ -81,7 +80,7 @@ sub _enforceServiceState
 
     $self->_cleanupDeletedDaemons();
     $self->initializeInterfaces();
-    $self->_doDaemon();
+    $self->SUPER::_enforceServiceState();
 }
 
 sub _setConf
@@ -830,48 +829,22 @@ sub CAIsReady
     return $ready;
 }
 
-sub _doDaemon
+
+sub _daemons
 {
     my ($self) = @_;
-    my $running = $self->isRunning();
-
-    if ($self->isEnabled()) {
-        if ($running) {
-            $self->_stopDaemon();
-            $self->_startDaemon();
-        }else {
-
-            # XXX rip stuff to assure that quagga is in good state
-            if ($self->ripDaemonRunning) { # tame leftover rip daemons
-                $self->_stopRIPDaemon();
-            }
-
-            $self->_startDaemon();
-        }
-    }else {
-        if ($running) {
-            $self->_stopDaemon();
-        }
-
-        # XXX rip stuff to assure that quagga is stopped
-        elsif ($self->ripDaemonRunning) { # tame leftover rip daemons
-            $self->_stopRIPDaemon();
-        }
+    my @daemons;
+    #first quagga daemon
+    push @daemons, {
+           type => 'init.d',
+           name => 'quagga',
+           precondition => sub {  return $self->ripDaemonService() },
+           pidfiles => ['/var/run/quagga/ripd.pid', '/var/run/quagga/zebra.pid',],
+       };
+    foreach my $daemon ($self->daemons()) {
+        push @daemons, $daemon->toDaemonHash();
     }
-}
-
-sub isRunning
-{
-    my ($self) = @_;
-
-    if ($self->_runningInstances()) {
-        return 1;
-    }elsif ($self->isEnabled()) {
-        my @activeDaemons = grep { (not $_->isEnabled())  } $self->daemons;
-        return (@activeDaemons == 0) ? 1 : 0;
-    }
-
-    return 0;
+    return \@daemons;
 }
 
 sub userRunning
@@ -892,59 +865,11 @@ sub userRunning
         }
     }
 
-
     if ($noneDaemonEnabled) {
         return 1 if $self->isEnabled()
     }
 
     return 0;   # XXX control that there isn't any user daemon incorrectly running
-}
-
-sub _startDaemon
-{
-    my ($self) = @_;
-
-    try {
-        my @daemons =  grep { $_->isEnabled() } $self->daemons;
-
-        foreach my $daemon (@daemons) {
-            $daemon->start();
-        }
-    }
-    finally {
-        $self->_startRIPDaemon(); # XXX RIP stuff
-    };
-}
-
-sub _stopDaemon
-{
-    my ($self) = @_;
-
-    $self->_stopRIPDaemon(); # XXX RIP stuff
-
-    my @daemons = $self->daemons();
-
-    foreach my $daemon (@daemons) {
-        $daemon->stop();
-    }
-}
-
-sub _runningInstances
-{
-    my ($self) = @_;
-
-    my @daemons = $self->daemons();
-    foreach my $d (@daemons) {
-        return 1 if $d->isRunning;
-    }
-
-    return 0;
-}
-
-sub _stopService
-{
-    my ($self) = @_;
-    $self->_stopDaemon();
 }
 
 #  rip daemon/quagga stuff
@@ -1008,50 +933,6 @@ sub ripDaemonService
     }
 
     return undef;
-}
-
-#
-# Method: ripDaemonRunning
-#
-#   Check whether a RIP daemon is running or not
-#
-# Returns:
-#
-#    bool
-sub ripDaemonRunning
-{
-    my ($self) = @_;
-
-    # check for ripd and zebra daemons
-    `pgrep ripd`;
-    `pgrep zebra` if $? != 0;
-
-    return 1 if ($? == 0);
-    return undef;
-}
-
-sub _startRIPDaemon
-{
-    my ($self) = @_;
-
-    $self->ripDaemonService()  or return;
-    $self->_runningInstances()
-      or return
-      ; # if there are not openvpn instances running (surely for error) don't bother to start daemon
-
-    my $cmd = '/etc/init.d/quagga start';
-    EBox::Sudo::root($cmd);
-}
-
-sub _stopRIPDaemon
-{
-    my ($self) = @_;
-
-    if ($self->ripDaemonRunning()) {
-        my $cmd = '/etc/init.d/quagga stop';
-        EBox::Sudo::root($cmd);
-    }
-
 }
 
 sub _writeRIPDaemonConf

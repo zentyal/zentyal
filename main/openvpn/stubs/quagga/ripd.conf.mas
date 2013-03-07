@@ -25,7 +25,7 @@ enable password ripd
 %      if ($insecurePasswd or (not $iface->{passwd})) {
          <& .noAuthIface, iface => $iface  &>
 %      } else {
-        <& .iface, iface => $iface  &> 
+        <& .iface, iface => $iface  &>
 %      }
 
 % }
@@ -46,6 +46,8 @@ redistribute static
 
 debug rip events
 debug rip packet
+debug rip zebra
+
 log file /var/log/quagga/ripd.log
 access-list private permit 10.0.0.0/8
 access-list private permit 172.16.0.0/12
