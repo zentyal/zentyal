@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to disable rp_filter for vlan interfaces
 	+ Only disable IPv6 in enableActions if IPv6 is available
 	+ Bridged interfaces added to 'auto' directive in
 	  /etc/networks/interfaces to avoid network startup problems
