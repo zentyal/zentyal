@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -45,9 +45,11 @@ use EBox::Global;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Service;
+use EBox::Util::Event qw(:constants);
 
 # Core modules
 use Data::Dumper;
+#use File::Temp qw(tempfile);
 use Error qw(:try);
 
 # Constants:
@@ -60,7 +62,6 @@ use constant ENABLED_DISPATCHERS_DIR => CONF_DIR . 'DispatcherEnabled/';
 use constant ENABLED_WATCHERS_DIR    => CONF_DIR . 'WatcherEnabled/';
 use constant CONF_DISPATCHER_MODEL_PREFIX => 'EBox::Events::Model::Dispatcher::';
 use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
-use constant EVENTS_FIFO             => EBox::Config::tmp() . 'events-fifo';
 
 # Group: Protected methods
 
