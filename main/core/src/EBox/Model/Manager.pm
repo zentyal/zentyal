@@ -205,7 +205,7 @@ sub _componentByPath
 
     # Check arguments
     unless (defined ($path)) {
-        throw EBox::Exceptions::MissingArgument('composite');
+        throw EBox::Exceptions::MissingArgument('component');
     }
 
     my ($moduleName, $compName, @other) = grep { $_ ne '' } split ( '/', $path);
