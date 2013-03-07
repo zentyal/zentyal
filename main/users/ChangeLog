@@ -1,3 +1,6 @@
+HEAD
+	+ Added missing use statement in EBox::UsersAndGroups and
+	  EBox::UsersAndGroups::LDAPObject classes
 3.0.11
 	+ Dont loop through the group members when adding/removing members
 	+ Added EBox::Exceptions::LDAP

@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
