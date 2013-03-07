@@ -117,7 +117,7 @@ sub upstartName
 #  Parameters:
 #
 #    $type  - daemon's type
-#    $name  - daemons's ma,e
+#    $name  - daemons's name
 #
 #  Returns:
 #    the name of the upstart service for the daemon type and name given
@@ -664,6 +664,16 @@ sub summary
 {
     my ($self) = @_;
     return ();
+}
+
+sub toDaemonHash
+{
+    my ($self) = @_;
+    return {
+             type => 'upstart',
+             name => $self->upstartName(),
+             precondition => sub { $self->isEnabled },
+           };
 }
 
 1;
