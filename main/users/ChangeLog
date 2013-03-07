@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed typo in exception class name in EBox::Ldap
 	+ Added missing use statement in EBox::UsersAndGroups and
 	  EBox::UsersAndGroups::LDAPObject classes
 3.0.11
