@@ -1,4 +1,5 @@
 HEAD
+	+ Emit event on zentyal start
 	+ Refactor some events-related code
 3.0.15
 	+ Make sure that halt/reboot button can be clicked only once

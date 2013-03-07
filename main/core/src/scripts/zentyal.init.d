@@ -30,6 +30,7 @@ sub main
         if ($ARGV[0] eq 'start') {
             EBox::Util::Init::cleanTmpOnBoot();
             EBox::Util::Init::start();
+            EBox::Sudo::root('initctl emit zentyal-started');
         }
         elsif ($ARGV[0] eq 'restart') {
             EBox::Util::Init::stop();
