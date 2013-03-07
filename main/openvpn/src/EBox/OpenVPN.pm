@@ -847,35 +847,9 @@ sub _daemons
     return \@daemons;
 }
 
-sub userRunning
-{
-    my ($self) = @_;
-
-
-    my $noneDaemonEnabled = 1;
-
-    my @daemons =  $self->daemons;
-    foreach my $daemon (@daemons) {
-        next if $daemon->internal();
-
-        return 1 if $daemon->isRunning();
-
-        if ($daemon->isEnabled()) {
-            $noneDaemonEnabled = 0;
-        }
-    }
-
-    if ($noneDaemonEnabled) {
-        return 1 if $self->isEnabled()
-    }
-
-    return 0;   # XXX control that there isn't any user daemon incorrectly running
-}
-
 #  rip daemon/quagga stuff
-
 #
-# Method: ripDaemons
+# Method: ripDaemon
 #
 #    Get the parameters of the RIP daemon
 #    if the OpenVPN module needs one
