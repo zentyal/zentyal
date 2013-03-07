@@ -1,5 +1,6 @@
 3.0.11
-	+ Added missing use statement in EBox::UsersAndGroups
+	+ Added missing use statement in EBox::UsersAndGroups and
+	  EBox::UsersAndGroups::LDAPObject classes
 	+ Dont loop through the group members when adding/removing members
 	+ Added EBox::Exceptions::LDAP
 	+ Allow unsafe characters in commentary field
