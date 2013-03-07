@@ -71,9 +71,6 @@ sub _create
     return $self;
 }
 
-# TODO: this module should use _daemons method and, if possible,
-# not to override _enforceServiceState. This was left to do when _daemons
-# and friend were added to the base modules
 sub _enforceServiceState
 {
     my ($self) = @_;
@@ -198,7 +195,8 @@ sub _writeConfFiles
 {
     my ($self) = @_;
 
-    $self->_writeRIPDaemonConf(); # XXX RIP stuff
+    $self->_writeRIPDaemonConf();
+
     $self->writeConfFile('/etc/default/openvpn',
         '/openvpn/default-openvpn.mas');
 
