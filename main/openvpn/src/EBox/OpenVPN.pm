@@ -71,13 +71,12 @@ sub _create
     return $self;
 }
 
-sub _enforceServiceState
+sub _preSetConf
 {
     my ($self) = @_;
 
     $self->_cleanupDeletedDaemons();
     $self->initializeInterfaces();
-    $self->SUPER::_enforceServiceState();
 }
 
 sub _setConf
