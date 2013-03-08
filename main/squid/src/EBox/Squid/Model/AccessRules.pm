@@ -190,7 +190,9 @@ sub validateTypedRow
                     __x('The time period of the rule ({t1}) overlaps with the time period of ({t2}) other rule for the same {sourceType}',
                         t1 => $ownTimePeriod->printableValue(),
                         t2 => $rowTimePeriod->printableValue(),
-                        sourceType => $source->subtype()->printableName(),
+                        # XXX due to the bad case in need to do this isntead of
+                        # just one a lcfirst
+                        sourceType => join (' ', map { lcfirst $_ } split '\s+',  $source->subtype()->printableName()),
                        )
                    );
             }
