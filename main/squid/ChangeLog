@@ -1,3 +1,6 @@
+HEAD
+	+ Access rules for the same source can have differents time
+	  periods if they dont overlap
 3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module
