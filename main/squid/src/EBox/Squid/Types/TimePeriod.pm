@@ -281,6 +281,10 @@ sub to
     return $self->{to};
 }
 
+# Method: fromAsTimePiece
+#
+#   Return the "from" hour as Time::Piece object
+#
 sub fromAsTimePiece
 {
     my ($self) = @_;
@@ -289,6 +293,10 @@ sub fromAsTimePiece
     return Time::Piece->strptime($from, '%H:%M');
 }
 
+# Method: toAsTimePiece
+#
+#   Return the "to" hour as Time::Piece object
+#
 sub toAsTimePiece
 {
     my ($self) = @_;
@@ -568,6 +576,12 @@ sub _normalizeTime
     return $newTime;
 }
 
+# Method: overlaps
+#
+#   return wether the time period overlaps with another
+#
+#  Parameters
+#      other - other timeperiod
 sub overlaps
 {
     my ($self, $other) = @_;

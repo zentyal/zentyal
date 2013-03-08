@@ -187,7 +187,11 @@ sub validateTypedRow
             my $rowTimePeriod = $row->elementByName('timePeriod');
             if ($ownTimePeriod->overlaps($rowTimePeriod)) {
                 throw EBox::Exceptions::External(
-                    __('There is already a source rule which overlaps') # Change message
+                    __x('The time period of the rule ({t1}) overlaps with the time period of ({t2}) other rule for the same {sourceType}',
+                        t1 => $ownTimePeriod->printableValue(),
+                        t2 => $rowTimePeriod->printableValue(),
+                        sourceType => $source->subtype()->printableName(),
+                       )
                    );
             }
         }
