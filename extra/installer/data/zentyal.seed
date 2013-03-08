@@ -1,4 +1,4 @@
-# ubuntu-ebox.seed - zentyal preseeding for ubuntu server
+# zentyal.seed - zentyal preseeding for ubuntu server
 
 ##
 ## zentyal stuff
@@ -10,18 +10,20 @@ d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-3.0-ppa.asc
 d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 3.0 main extra
 d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-3.0-archive.asc
 
-# Ignore error downloading key if not Internet connection available
+# ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore
 
 # linux-generic-pae will replaced by linux-generic in the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
 
+# do not isntall recommends by default
 d-i base-installer/install-recommends boolean false
 
 # support installations from USB
 d-i cdrom-detect/try-usb boolean true
 
 # only install basic language packs
+d-i pkgsel/language-packs string
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
@@ -29,20 +31,19 @@ d-i pkgsel/install-language-support boolean false
 # install the system-customization package
 d-i pkgsel/include string zenbuntu-desktop
 
-# disable automatic updates, eBox will take care of that
+# disable automatic updates, Zentyal will take care of that
 d-i pkgsel/update-policy select none
 
 # do not ask for fullname
 d-i passwd/user-fullname string  
 
+# do not encrypt home folder
 d-i user-setup/encrypt-home boolean false
-
-d-i pkgsel/language-packs string
 
 d-i preseed/early_command string \
     touch /tmp/INSTALL_MODE
 
-# late command (we prepare here the ebox custom installer)
+# late command (we prepare here the Zentyal custom installer)
 d-i preseed/late_command string \
     cp -r /target/media/cdrom/zentyal /target/tmp/ && \
     touch /target/tmp/INSTALL_MODE && \
