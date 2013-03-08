@@ -56,16 +56,13 @@ sub _table
                     foreignField  => 'name',
                     foreignNextPageField => 'members',
                     printableName => __('Network Object'),
-                    unique        => 1,
                     editable      => 1,
                     optional      => 0,
                 ),
                 new EBox::Types::Select(
                     fieldName     => 'group',
                     printableName => __('Users Group'),
-
                     populate      => \&populateGroups,
-                    unique        => 1,
                     editable      => 1,
                     optional      => 0,
                     disableCache  => 1,
@@ -138,9 +135,11 @@ sub validateTypedRow
     my $squid = $self->parentModule();
 
 
-    my $sourceType = exists $params_r->{source} ?
-                      $params_r->{source}->selectedType():
-                      $actual_r->{source}->selectedType();
+    my $source = exists $params_r->{source} ?
+                      $params_r->{source}:  $actual_r->{source};
+    my $sourceType  = $source->selectedType();
+    my $sourceValue = $source->value();
+
     if ($squid->transproxy() and ($sourceType eq 'group')) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
@@ -163,22 +162,36 @@ sub validateTypedRow
     }
 
     my $ownId = $params_r->{id};
+    my $ownTimePeriod = exists $params_r->{timePeriod} ?
+                                     $params_r->{timePeriod} :  $actual_r->{timePeriod};
     foreach my $id (@{ $self->ids() }) {
         next if ($id eq $ownId);
 
         my $row = $self->row($id);
-        my $source = $row->elementByName('source')->selectedType();
-        if ($objectProfile and ($source eq 'group')) {
+        my $rowSource = $row->elementByName('source');
+        my $rowSourceType = $rowSource->selectedType();
+        if ($objectProfile and ($rowSourceType eq 'group')) {
             throw EBox::Exceptions::External(
               __("You cannot add a 'Allow' or 'Profile' rule for an object or any address if you have group rules")
              );
-        } elsif ($groupRules and ($source ne 'group')) {
+        } elsif ($groupRules and ($rowSourceType ne 'group')) {
             if ($row->elementByName('policy')->selectedType() ne 'deny') {
                 throw EBox::Exceptions::External(
                  __("You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule for objects or any address")
                );
             }
         }
+
+        if ($sourceValue eq $rowSource->value()) {
+            # same object/group, check time overlaps
+            my $rowTimePeriod = $row->elementByName('timePeriod');
+            if ($ownTimePeriod->overlaps($rowTimePeriod)) {
+                throw EBox::Exceptions::External(
+                    __('There is already a source rule which overlaps') # Change message
+                   );
+            }
+        }
+
     }
 }
 
