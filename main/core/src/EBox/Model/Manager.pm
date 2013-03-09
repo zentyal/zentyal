@@ -243,6 +243,10 @@ sub _component
     my $moduleName = $module->{name};
     my $access = $module->{ro} ? 'ro' : 'rw';
 
+    unless ($self->{knownModules}->{$moduleName}) {
+        $self->_setupInfo();
+    }
+
     unless (exists $self->{$key}->{$moduleName}->{$name}) {
         throw EBox::Exceptions::DataNotFound(data  => $kind, value => $name, silent => 1);
     }
@@ -584,8 +588,12 @@ sub _setupInfo
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
-    foreach my $moduleName (@{$global->modNames()}) {
+    my $global = EBox::Global->instance();
+    my @modNames = @{$global->modNames()};
+    my %knownModules = map { $_ => 1 } @modNames;
+    $self->{knownModules} = \%knownModules;
+
+    foreach my $moduleName (@modNames) {
         my $info = $global->readModInfo($moduleName);
         $self->_setupModelInfo($moduleName, $info);
         $self->_setupCompositeInfo($moduleName, $info);

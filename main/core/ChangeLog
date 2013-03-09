@@ -1,3 +1,5 @@
+HEAD
+	+ Reload models info in model manager if new modules are installed
 3.0.15
 	+ Make sure that halt/reboot button can be clicked only once
 	+ Cleaner way of disabling dependant modules when the parent is disabled,
