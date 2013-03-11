@@ -266,7 +266,7 @@ sub editBoolean
         $value = 1;
     }
 
-    my @editParams = (id => $id, $boolField => $value);
+    my %editParams = (id => $id, $boolField => $value);
     # fill edit params with row fields
     my $row = $model->row($id);
     my $tableDesc =  $model->table()->{'tableDescription'};
@@ -275,10 +275,10 @@ sub editBoolean
         if ($fieldName eq $boolField) {
             next;
         }
-        push @editParams, $fieldName => $row->valueByName($fieldName);
+        $editParams{$fieldName} = $row->valueByName($fieldName);
     }
     # do the edit
-    $self->editField(@editParams);
+    $self->editField(%editParams);
 
     $model->popMessage();
     my $global = EBox::Global->getInstance();
