@@ -41,6 +41,7 @@ sub main
             EBox::Util::Init::start();
         }
         elsif ($ARGV[0] eq 'stop') {
+            EBox::Sudo::root('initctl emit zentyal-stopped');
             EBox::Util::Init::stop();
         } else {
             usage();

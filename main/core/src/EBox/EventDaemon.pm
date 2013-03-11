@@ -137,6 +137,11 @@ sub _init
     EBox::init();
 
     EBox::Util::Event::createFIFO();
+
+    local $SIG{TERM};
+    $SIG{TERM} = sub {
+        EBox::Sudo::root('initctl emit zentyal-stopped');
+    };
 }
 
 # Method: _mainWatcherLoop
