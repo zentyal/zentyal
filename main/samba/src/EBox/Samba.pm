@@ -159,11 +159,15 @@ sub initialSetup
     # AV quarantine dir
     if (defined ($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
-        $dbengine->do("ALTER TABLE samba_virus
-                       ADD COLUMN username VARCHAR(24)");
-        $dbengine->do("ALTER TABLE samba_quarantine
-                       ADD COLUMN username VARCHAR(24),
-                       ADD COLUMN client INT UNSIGNED");
+        unless (defined ($dbengine->checkForColumn('samba_virus', 'username'))) {
+            $dbengine->do("ALTER TABLE samba_virus ADD COLUMN username VARCHAR(24)");
+        }
+        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'username'))) {
+            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN username VARCHAR(24)");
+        }
+        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'client'))) {
+            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN client INT UNSIGNED");
+        }
     }
 
     # Migration from 3.0.12, support sizes greater than 2 GiB
