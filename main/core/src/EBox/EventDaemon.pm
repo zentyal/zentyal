@@ -239,9 +239,13 @@ sub _mainDispatcherLoop
             }
 
             # log the event if log is enabled
-            if (exists $self->{dbengine}) {
-                $self->_logEvent($event);
-            }
+            try {
+                if (exists $self->{dbengine}) {
+                    $self->_logEvent($event);
+                }
+            } otherwise {
+                # Mysql is stopped
+            };
         }
     }
 }
