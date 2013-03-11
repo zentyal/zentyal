@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed apparmor errors trying to access /dev/urandom
 3.0.7
 	+ Guard against interfaces with unset address
 	+ Dynamic domains are now properly detected on _reverseData()
