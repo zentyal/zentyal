@@ -227,15 +227,15 @@ sub _mainDispatcherLoop
 
             bless ($event, 'EBox::Event');
 
-            # log the event if log is enabled
-            if (exists $self->{dbengine}) {
-                $self->_logEvent($event);
-            }
-
             # dispatch event to its watchers
             # skip the given data if it is not a valid EBox::Event object
             if (defined($event) and $event->isa('EBox::Event')) {
                 $self->_dispatchEventByDispatcher($event);
+            }
+
+            # log the event if log is enabled
+            if (exists $self->{dbengine}) {
+                $self->_logEvent($event);
             }
         }
     }
