@@ -373,8 +373,8 @@ sub refreshTable
 sub editAction
 {
     my ($self) = @_;
-    my @params = $self->getParams();
-    $self->editField(@params);
+    my %params = $self->getParams();
+    $self->editField(%params);
     $self->refreshTable();
 }
 
