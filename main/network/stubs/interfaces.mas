@@ -23,7 +23,6 @@ iface lo inet loopback
       mtu =>  EBox::Config::configkey("mtu_$iface")
 &>
 % }
-
 <%def .ifaceSection>
 <%args>
 $networkMod
