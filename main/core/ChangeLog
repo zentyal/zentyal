@@ -1,4 +1,5 @@
 HEAD
+	+ Added some missing timezones to EBox::Types::TimeZone
 	+ Add a new method to DBEngine 'checkForColumn' to retrieve columns
 	  definition from a given table
 	+ Reload models info in model manager if new modules are installed
