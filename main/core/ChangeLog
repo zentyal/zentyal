@@ -1,4 +1,6 @@
 HEAD
+	+ Log events after dispatching them in the EventDaemon and catch exception
+	  to avoid crashes when mysql is already stopped
 	+ Emit events on zentyal start and stop
 	+ Refactor some events-related code
 3.0.15
