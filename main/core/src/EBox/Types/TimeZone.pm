@@ -289,6 +289,16 @@ sub _setValue
 sub _loadZones
 {
     my $table = {};
+
+    # Add zones from the filesystem to include aliases (symlinks)
+    foreach my $dir (qw(Africa America Asia Atlantic Australia Etc Europe Pacific US)) {
+        foreach my $file (glob (ZONES_DIR . "/$dir/*")) {
+            $table->{$dir}->{basename($file)} = 1;
+        }
+    }
+
+    # TODO: Add other zones from zone.tab but we should probably remove this code
+    # in Zentyal 3.1 and read everything from the files
     my @lines = read_file(ZONES_FILE);
     foreach my $line (@lines) {
         chomp $line;
@@ -297,15 +307,15 @@ sub _loadZones
         }
         my @fields = split(/^([^\s\#]+)\s([^\s]+)\s([^\s\/]+)(\/)([^\s]+)/, $line);
         my $continent = $fields[3];
-        my $country = $fields[5];
-        push (@{$table->{$continent}}, $country);
+        my $city = $fields[5];
+        $table->{$continent}->{$city} = 1;
     }
-    # Add US and Etc zones
-    foreach my $dir ('US', 'Etc') {
-        foreach my $file (glob (ZONES_DIR . "/$dir/*")) {
-            push (@{$table->{$dir}}, basename($file));
-        }
+
+    foreach my $continent (keys %{$table}) {
+        my @cities = sort keys %{$table->{$continent}};
+        $table->{$continent} = \@cities;
     }
+
     return $table;
 }
 
