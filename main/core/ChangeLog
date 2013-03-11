@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in boolean in-place edit with Union types
 	+ Added some missing timezones to EBox::Types::TimeZone
 	+ Add a new method to DBEngine 'checkForColumn' to retrieve columns
 	  definition from a given table
