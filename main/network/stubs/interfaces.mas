@@ -1,0 +1,79 @@
+<%args>
+@iflist
+$networkMod
+</%args>
+<%init>
+use EBox::Config;
+
+my @autoIfaces = ('lo');
+push @autoIfaces, grep {
+        my $ifMethod = $networkMod->ifaceMethod($_);
+        ($ifMethod eq 'static') or
+            ($ifMethod eq 'dhcp') or
+            ($ifMethod eq 'bridged')
+   } @iflist;
+</%init>
+auto <% "@autoIfaces" %>
+
+iface lo inet loopback
+% foreach my $iface (@iflist) {
+<& .ifaceSection,
+      networkMod => $networkMod,
+      iface => $iface,
+      mtu =>  EBox::Config::configkey("mtu_$iface")
+&>
+% }
+
+<%def .ifaceSection>
+<%args>
+$networkMod
+$iface
+</%args>
+<%init>
+my $method = $networkMod->ifaceMethod($iface);
+my $bridgedVlan = 0;
+if (($method eq 'bridged') and ($iface =~ /^vlan/)) {
+    $bridgedVlan = 1;
+    $method = 'manual';
+}
+# check if we should ignore the interface
+if (($method ne 'static') and
+    ($method ne 'ppp') and
+    ($method ne 'dhcp') and
+     (not $bridgedVlan)) {
+            return;
+}
+
+my $mtu = EBox::Config::configkey("mtu_$iface");
+my $name = $iface;
+</%init>
+% if ($method eq 'ppp') {
+%   $name = "zentyal-ppp-$iface";
+auto <% $name %>
+% }
+iface <% "$name inet $method" %>
+% if ($iface =~ /^vlan/) {
+%    my $vlan = $networkMod->vlan($iface);
+vlan-raw-device <% $vlan->{interface} %>
+% }
+% if ($method eq 'static') {
+      address <% $networkMod->ifaceAddress($iface) %>
+      netmask <% $networkMod->ifaceNetmask($iface) %>
+      broadcast <% $networkMod->ifaceBroadcast($iface) %>
+%  } elsif ($method eq 'ppp') {
+      pre-up /sbin/ifconfig <% $iface %> up
+      post-down /sbin/ifconfig <% $iface %> down
+      provider <% $name %>
+%  }
+
+% if ( $networkMod->ifaceIsBridge($iface) ) {
+%   my @bridgePorts = @{ $networkMod->bridgeIfaces($iface)};
+      bridge_ports <% "@bridgePorts" %>
+      bridge_stp off
+      bridge_waitport 5\
+% }
+
+% if ($mtu) {
+     mtu <% $mtu %>
+% }
+</%def>

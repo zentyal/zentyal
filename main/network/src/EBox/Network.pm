@@ -2853,7 +2853,14 @@ sub generateInterfaces
     my $file = INTERFACES_FILE;
     my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
-
+    $self->writeConfFile(INTERFACES_FILE,
+                         'network/interfaces.mas',
+                         [
+                             iflist => $iflist,
+                             networkMod => $self,
+                         ],
+                         {'uid' => 0, 'gid' => 0, mode => '755' }
+                        );
     #my $manager = new EBox::ServiceManager();
     #if ($manager->skipModification('network', $file)) {
     #    EBox::info("Skipping modification of $file");

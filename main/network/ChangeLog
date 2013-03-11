@@ -1,4 +1,6 @@
 HEAD
+	+ Use EBox::Module::Base::writeConfFile to generate interfaces
+	  file
 	+ Only disable IPv6 in enableActions if IPv6 is available
 	+ Bridged interfaces added to 'auto' directive in
 	  /etc/networks/interfaces to avoid network startup problems
