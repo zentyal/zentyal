@@ -3,6 +3,8 @@
 
 /etc/ldap/ldap.conf r,
 
+/dev/urandom rw,
+
 # This profile has been modified by Zentyal Server to provide
 # allow samba4 dns updates
 
