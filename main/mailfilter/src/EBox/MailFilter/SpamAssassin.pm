@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-package EBox::MailFilter::SpamAssassin;
-
 use strict;
 use warnings;
 
+package EBox::MailFilter::SpamAssassin;
 
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
@@ -30,13 +29,9 @@ use Error qw(:try);
 
 use constant {
   SA_LEARN_SERVICE    => 'ebox.learnspamd',
-
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
-
   SA_PASSWD_FILE     => '/var/lib/zentyal/conf/sa-mysql.passwd',
-
   CONF_USER          => 'amavis',
-
   BAYES_DB_USER      => 'amavis',
 };
 
@@ -63,14 +58,11 @@ sub usedFiles
            );
 }
 
-
 sub _vdomains
 {
     my ($self) = @_;
     return $self->{vdomains};
 }
-
-
 
 sub _confAttr
 {
@@ -115,7 +107,6 @@ sub doDaemon
         $self->_manageServices('stop');
     }
 }
-
 
 sub stopService
 {
@@ -257,8 +248,6 @@ sub autolearnSpamThreshold
   return $self->_confAttr('autolearnSpamThreshold');
 }
 
-
-
 #
 # Method: autoWhitelist
 #
@@ -324,7 +313,6 @@ sub setVDomainSpamThreshold
     $self->_vdomains->setSpamThreshold($domain, $value);
 }
 
-
 sub _checkSpamThreshold
 {
     my ($self, $threshold) = @_;
@@ -368,7 +356,6 @@ sub bayesPath
     return $self->dbPath . '/bayes';
 }
 
-
 # this assume that the input is reeadable by the ebox user
 sub learn
 {
@@ -387,7 +374,6 @@ sub learn
                                         'In order to be able to learn enable the bayesian filter and save changes')
                                     );
   }
-
 
   my $username =  $params{username};
   if ($username =~ m/@/) {
@@ -423,7 +409,6 @@ sub whitelist
   return $acl->whitelist();
 }
 
-
 # Method: whitelistForAmavisConf
 #
 #  Returns:
@@ -433,8 +418,6 @@ sub whitelistForAmavisConf
   my ($self) = @_;
   return $self->_aclForAmavisConf('whitelist');
 }
-
-
 
 # amavis.conf uses distinct format than ldap to store domain in his ACLs..
 sub _aclForAmavisConf
@@ -451,8 +434,6 @@ sub _aclForAmavisConf
 
   return \@mangledList;
 }
-
-
 
 # Method: whitelistforSpamassassin
 #
@@ -474,7 +455,6 @@ sub blacklistForSpamassassin
   my ($self) = @_;
   return $self->_aclForSpamassassin('blacklist');
 }
-
 
 sub _aclForSpamassassin
 {
@@ -529,8 +509,6 @@ sub blacklistForAmavisConf
   return $self->_aclForAmavisConf('blacklist');
 }
 
-
-
 sub vdomainBlacklist
 {
   my ($self, $vdomain) = @_;
@@ -544,7 +522,6 @@ sub setVDomainBlacklist
 
   return $self->_vdomains->setBlacklist($vdomain, $senderList_r);
 }
-
 
 sub trustedNetworks
 {
@@ -582,7 +559,6 @@ sub setVDomainHamAccount
     my ($self, $vdomain, $active) = @_;
     $self->_vdomains->setHamAccount($vdomain, $active);
 }
-
 
 sub aclChanged
 {
