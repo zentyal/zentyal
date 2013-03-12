@@ -29,7 +29,6 @@ use EBox::MailFilter::VDomainsLdap;
 use Error qw(:try);
 
 use constant {
-  SA_SERVICE          => 'ebox.spamd',
   SA_LEARN_SERVICE    => 'ebox.learnspamd',
 
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
@@ -85,14 +84,18 @@ sub _confAttr
     return $self->{configuration}->$attr();
 }
 
+sub _learnServiceEnabled
+{
+    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
+    my $saLearnService = $vdomainsLdap->learnAccountsExists;
+    return $saLearnService;
+}
 
 sub _manageServices
 {
     my ($self, $action) = @_;
 
-    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
-    my $saLearnService = $vdomainsLdap->learnAccountsExists;
-    if (not $saLearnService) {
+    if (not $self->_learnServiceEnabled()) {
         $action = 'stop';
     }
     EBox::Service::manage(SA_LEARN_SERVICE, $action);
@@ -139,9 +142,6 @@ sub isEnabled
     return $mailfilter->antispamNeeded();
 }
 
-
-
-
 sub setVDomainService
 {
     my ($self, $vdomain, $service) = @_;
@@ -150,7 +150,6 @@ sub setVDomainService
     $vdomainsLdap->checkVDomainExists($vdomain);
     $vdomainsLdap->setAntispam($vdomain, $service);
 }
-
 
 sub vdomainService
 {
@@ -163,9 +162,12 @@ sub vdomainService
 
 sub isRunning
 {
-    return EBox::Service::running(SA_SERVICE);
+    my ($self)= @_;
+    if ($self->_learnServiceEnabled) {
+        return EBox::Service::running(SA_LEARN_SERVICE);
+    }
+    return 1;
 }
-
 
 sub writeConf
 {
@@ -208,8 +210,6 @@ sub bayes
     return $self->_confAttr('bayes');
 }
 
-
-
 #
 # Method: autolearn
 #
@@ -224,8 +224,6 @@ sub autolearn
     my ($self) = @_;
     return $self->_confAttr('autolearn');
 }
-
-
 
 #
 # Method: autolearnHamThreshold
@@ -242,7 +240,6 @@ sub autolearnHamThreshold
   my ($self) = @_;
   return $self->_confAttr('autolearnHamThreshold');
 }
-
 
 #
 # Method: autolearnSpamThreshold
@@ -359,13 +356,11 @@ sub dbPath
     return EBox::Config::home() . '/.spamassassin';
 }
 
-
 sub confUser
 {
     my ($self) = @_;
     return CONF_USER;
 }
-
 
 sub bayesPath
 {
@@ -407,17 +402,12 @@ __x('Accounts from the domain {d} cannot train the bayesian filter',
       }
   }
 
-
-
   my $typeArg  = $params{isSpam} ? '--spam' : '--ham';
   my $input = $params{input};
 
   my $cmd =  q{su } . BAYES_DB_USER . qq{ -c 'sa-learn $typeArg  $input'};
   EBox::Sudo::root($cmd);
 }
-
-
-
 
 # Method: whitelist
 #
