@@ -1,5 +1,7 @@
 HEAD
-	+ Force mode when writing QA apt ocnfiguration file
+	+ Remove filesync upstart file as it is not longer maintained by
+	  this package
+	+ Force mode when writing QA apt configuration file
 	+ Avoid exception in subscription info table when a
 	  no subscribed server use no-ascii character set
 3.0.14
