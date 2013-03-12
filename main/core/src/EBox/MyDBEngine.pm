@@ -515,6 +515,29 @@ sub tables
     return \@tables;
 }
 
+# Method: checkForColumn
+#
+#   Checks if a column exists in a given table and retrive its definition
+#
+# Returns:
+#
+#   Hash ref containing the column definition if it exists,
+#   or undef if it does not exists.
+#
+sub checkForColumn
+{
+    my ($self, $table, $column) = @_;
+
+    my $dbname = $self->_dbname();
+    my $sql = "SELECT * FROM information_schema.COLUMNS WHERE " .
+        "TABLE_SCHEMA = '$dbname' " .
+        "AND TABLE_NAME = '$table' " .
+        "AND COLUMN_NAME = '$column' ";
+    my $res = $self->query($sql);
+    my $colData = @{$res}[0];
+    return $colData;
+}
+
 # Method: quote
 #
 #   returns a quoted version of the string

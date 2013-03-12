@@ -692,7 +692,7 @@ sub _errorOnLdap
     my ($result, $args) = @_;
 
     if ($result->is_error){
-        throw EBox::Exceptions::Ldap(result => $result);
+        throw EBox::Exceptions::LDAP(result => $result);
     }
 }
 

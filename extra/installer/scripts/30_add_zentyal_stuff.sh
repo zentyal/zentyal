@@ -11,10 +11,6 @@ test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
 test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
 
 cp $DATA_DIR/zentyal.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
-if [ "$ARCH" == "amd64" ]
-then
-    sed -i 's/linux-generic-pae/linux-generic/g' $CD_BUILD_DIR/preseed/ubuntu-server.seed
-fi
 
 cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
@@ -59,8 +55,5 @@ rm -rf $CD_EBOX_DIR/*
 TMPDIR=/tmp/zentyal-installer-data-$$
 cp -r $DATA_DIR $TMPDIR
 cp -r $TMPDIR/* $CD_EBOX_DIR/
-if [ "$ARCH" == "amd64" ]
-then
-    sed -i 's/linux-generic-pae/linux-generic/g' $CD_EBOX_DIR/extra-packages.list
-fi
+
 rm -rf $TMPDIR

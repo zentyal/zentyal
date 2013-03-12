@@ -1,3 +1,6 @@
+3.0-2
+    + Based on Ubuntu 12.04.2
+    + Use new generic-lts-quantal kernel for both i386 and amd64
 3.0-1
     + Possibility to install a commercial edition providing credentials
     + New set-debug.sh for fully automated installation with custom
