@@ -1,9 +1,0 @@
-# Zentyal files sync daemon
-#
-#
-
-description     "Zentyal Files Sync daemon"
-author          "eBox Technologies S.L."
-
-respawn
-exec zentyal-files-sync /var/lib/zentyal/conf/filesync/sync.conf >> /var/log/zentyal/filesync.log
