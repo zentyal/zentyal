@@ -20,6 +20,7 @@ os-prober
 dmsetup
 devmapper
 crypt
+linux-image
 generic-lts-quantal
 mdadm
 kpartx
