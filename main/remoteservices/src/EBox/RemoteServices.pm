@@ -203,9 +203,8 @@ sub _setRemoteSupportAccessConf
     my $fromAnyAddress =
         $self->model('RemoteSupportAccess')->fromAnyAddressValue();
 
-
-    if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
-        EBox::error('Cannot restrict access for remote support if Zentyal server is not subscribed');
+    if ($supportAccess and (not $fromAnyAddress) and (not $self->eBoxSubscribed() )) {
+        EBox::debug('Cannot restrict access for remote support if Zentyal server is not subscribed');
         return;
     }
 
