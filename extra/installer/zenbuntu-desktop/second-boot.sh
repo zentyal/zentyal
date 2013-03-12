@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # If Zentyal is already installed...
 if ! [ -f '/var/lib/zentyal/.first' ]
