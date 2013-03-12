@@ -2930,9 +2930,14 @@ sub _disableReversePath
         $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
-        $seen{$iface} and
-            next;
+
+        next if $seen{$iface};
         $seen{$iface} = 1;
+
+        # Skipping vlan interfaces as it seems rp_filter key doesn't
+        # exist for them
+        next ($iface =~ /^vlan/);
+
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
 
