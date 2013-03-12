@@ -27,10 +27,6 @@ sudo chroot $CHROOT apt-get update
 
 test -r data/extra-packages.list || exit 1
 cp data/extra-packages.list /tmp/extra-packages.list
-if [ "$ARCH" == "amd64" ]
-then
-    sed -i 's/linux-headers-generic-pae/linux-headers-generic/' /tmp/extra-packages.list
-fi
 cat /tmp/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --no-install-recommends --allow-unauthenticated --yes
 rm /tmp/extra-packages.list
 
