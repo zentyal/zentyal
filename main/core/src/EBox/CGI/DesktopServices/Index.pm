@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::DesktopServices::Index;
-
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+package EBox::CGI::DesktopServices::Index;
+use base 'EBox::CGI::ClientRawBase';
 
 use Error qw(:try);
 use JSON::XS;
@@ -78,6 +76,16 @@ sub actuate
             }
         }
     }
+}
+
+sub _print
+{
+    my ($self) = @_;
+    my $json = $self->{json};
+    if (not $json) {
+        $json = [];
+    }
+    $self->JSONReply($json);
 }
 
 1;
