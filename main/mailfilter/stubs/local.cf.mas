@@ -137,6 +137,7 @@ ok_locales <% "@okLocales" %>
 loadplugin Mail::SpamAssassin::Plugin::DKIM
 full DKIM_VALID     eval:check_dkim_valid()
 full DKIM_VALID_AU  eval:check_dkim_valid_author_sig()
+$enable_dkim_verification = 1
 
 
 <%def .autolearn>
