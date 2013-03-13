@@ -1,4 +1,6 @@
 HEAD
+	+ Log error when dynamic loading a class fails in
+	  ConfigureDispatchers model
 	+ Update total ticks dynamically in progress indicator if ticks overflow
 3.0.16
 	+ Fixed regression in boolean in-place edit with Union types
