@@ -1,4 +1,5 @@
 HEAD
+	+ Desktop services CGI now only returns JSON responses
 	+ Log error when dynamic loading a class fails in
 	  ConfigureDispatchers model
 	+ Update total ticks dynamically in progress indicator if ticks overflow
