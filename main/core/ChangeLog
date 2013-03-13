@@ -1,4 +1,7 @@
 HEAD
+	+ Avoid CA file check when removing it from Apache module
+	+ Silent removeCA and removeInclude exceptions when removing
+	  non-existant element
 	+ Update total ticks dynamically in progress indicator if ticks overflow
 3.0.16
 	+ Fixed regression in boolean in-place edit with Union types
