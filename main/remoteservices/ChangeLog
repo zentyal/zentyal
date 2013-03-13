@@ -1,4 +1,6 @@
 HEAD
+	+ Proper CA file deletion when unsubscribing
+	+ Try to remove include and CA when unsubscribing separately
 	+ Change to debug remote support no conf message
 	+ Force mode when writing QA apt ocnfiguration file
 	+ Avoid exception in subscription info table when a
