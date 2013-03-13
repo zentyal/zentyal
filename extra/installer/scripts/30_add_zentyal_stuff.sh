@@ -20,10 +20,13 @@ sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery.s
 cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 
-UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
-if ! grep -q zinstaller-remote $UDEB_INCLUDE
+if [ "$INCLUDE_REMOTE" == "true" ]
 then
-    echo zinstaller-remote >> $UDEB_INCLUDE
+    UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
+    if ! grep -q zinstaller-remote $UDEB_INCLUDE
+    then
+        echo zinstaller-remote >> $UDEB_INCLUDE
+    fi
 fi
 
 # Add https apt method to be able to retrieve from QA updates repo
