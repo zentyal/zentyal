@@ -978,7 +978,7 @@ sub _intnets
     my @intnets = ();
 
     if (defined($intnets_string)) {
-        $intnets_string = s/\s//g;
+        $intnets_string =~ s/\s//g;
         @intnets = split(',', $intnets_string);
         my $cidrName = __x('Value from {key} in configuration file {conf}',
                            key => DNS_INTNETS,
