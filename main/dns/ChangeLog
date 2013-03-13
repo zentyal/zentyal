@@ -1,4 +1,5 @@
 HEAD
+	+ Fix intnets config key parsing and validation
 	+ Fixed apparmor errors trying to access /dev/urandom
 3.0.7
 	+ Guard against interfaces with unset address
