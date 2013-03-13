@@ -31,23 +31,16 @@ sub new
     return $self;
 }
 
-sub _validateReferer
-{
-    return;
-}
 
-sub _validateParams
-{
-    return;
-}
-
-# Method: actuate
+# Method: _process
+#
+#  we dont't use actuate() bz is oriented to HTML output CGIs
 #
 # Overrides:
 #
-#   <EBox::CGI::Base::actuate>
+#   <EBox::CGI::Base::_process>
 #
-sub actuate
+sub _process
 {
     my ($self) = @_;
 
