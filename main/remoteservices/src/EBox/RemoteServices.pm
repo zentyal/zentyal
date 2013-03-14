@@ -1919,7 +1919,7 @@ sub restoreConfig
     # first installed server or a disaster recovery one. In those
     # cases, the server password has been modified and the backed one
     # is not valid anymore
-    my ($backupSubscribed, $excludeServerInfo) = (1, 0);
+    my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
     if ( $self->eBoxSubscribed() ) {
         try {
             # For hackers!
