@@ -1,4 +1,4 @@
-HEAD
+3.0.8
 	+ Fix intnets config key parsing and validation
 	+ Fixed apparmor errors trying to access /dev/urandom
 3.0.7
