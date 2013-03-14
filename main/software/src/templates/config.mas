@@ -6,7 +6,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $enableTitle = __('Perform automatic security updates');
+my $enableTitle = __('Perform automatic software updates');
 my ($hour, $minutes) = split ':', $automaticTime;
 
 </%init>
