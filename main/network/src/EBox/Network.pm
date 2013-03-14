@@ -1408,6 +1408,15 @@ sub _checkStaticIP
         if ($if eq $iface) {
             next;
         }
+
+        # don't check against other ifaces in this bridge
+        if ($self->ifaceIsBridge($iface)) {
+            my $brIfaces = $self->bridgeIfaces($iface);
+            if ($if eq any(@{$brIfaces})) {
+                next;
+            }
+        }
+
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
