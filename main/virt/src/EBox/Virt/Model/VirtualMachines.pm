@@ -289,6 +289,13 @@ sub _doStart
     if ($virt->vmRunning($name)) {
         EBox::debug("Virtual machine '$name' started");
         $self->setMessage($action->message(), 'note');
+
+        # Send alert if possible
+        my $roGlobal  = EBox::Global->getInstance(1);
+        if ( $roGlobal->modExists('cloud-prof') ) {
+            my $cloudProf = $roGlobal->modInstance('cloud-prof');
+            $cloudProf->zentyalVMStartAlert($name);
+        }
     } else {
         throw EBox::Exceptions::External(
             __x("Couldn't start virtual machine '{vm}'", vm => $name));
@@ -311,6 +318,13 @@ sub _doStop
     if (not $virt->vmRunning($name)) {
         EBox::debug("Virtual machine '$name' stopped");
         $self->setMessage($action->message(), 'note');
+
+        # Send alert if possible
+        my $roGlobal  = EBox::Global->getInstance(1);
+        if ( $roGlobal->modExists('cloud-prof') ) {
+            my $cloudProf = $roGlobal->modInstance('cloud-prof');
+            $cloudProf->zentyalVMStopAlert($name);
+        }
     } else {
         throw EBox::Exceptions::External(
             __x("Couldn't stop virtual machine '{vm}'", vm => $name));

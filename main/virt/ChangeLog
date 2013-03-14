@@ -1,4 +1,5 @@
 HEAD
+	+ Added calls to methods to generate alerts on VM start/stop
 	+ Forced MAC prefix to workaround libvirt bug
 3.0.2
 	+ Operating System type can now be specified on each VM
