@@ -10,6 +10,8 @@ HEAD
 	  /etc/networks/interfaces to avoid network startup problems
 	+ Dont allow to set a local address as network proxy
 	+ Fixed error in json response trigered by widget size
+	+ Don't check for IPaddr in the same subnet on interfaces
+	  that belong to the same bridge
 3.0.2
 	+ Disable IPv6 on enable actions to avoid problems with samba4
 	+ Added more coherence checks to static routes table
