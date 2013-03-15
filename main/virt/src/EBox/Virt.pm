@@ -150,6 +150,16 @@ sub _preSetConf
                 my $name = $vm->valueByName('name');
                 if ($self->vmRunning($name)) {
                     $self->stopVM($name);
+
+                    # Send stop event for not autostarted VMs on module disable
+                    my $autostarted = $vm->valueByName('autostart');
+                    if ($disabled and not $autostarted) {
+                        my $roGlobal  = EBox::Global->getInstance(1);
+                        if ( $roGlobal->modExists('cloud-prof') ) {
+                            my $cloudProf = $roGlobal->modInstance('cloud-prof');
+                            $cloudProf->zentyalVMStopAlert($name);
+                        }
+                    }
                 }
             }
         }
