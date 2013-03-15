@@ -47,6 +47,7 @@ use IO::Socket::INET;
 use Net::IP;
 use Perl6::Junction qw(any);
 use Tie::File;
+use List::MoreUtils qw(uniq);
 
 use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
@@ -1846,7 +1847,7 @@ sub _updateManagedDomainIPsModel
 
     my $networkModule = EBox::Global->modInstance('network');
     my $ifaces = $networkModule->ifaces();
-    foreach my $iface (@{$ifaces}) {
+    foreach my $iface (uniq @{$ifaces}) {
         my $addrs = $networkModule->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
             my $ifaceName = $iface;

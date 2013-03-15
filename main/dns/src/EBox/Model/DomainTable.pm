@@ -47,6 +47,7 @@ use EBox::DNS::View::DomainTableCustomizer;
 use EBox::Util::Random;
 use Digest::HMAC_MD5;
 use MIME::Base64;
+use List::MoreUtils qw(uniq);
 
 # Group: Public methods
 
@@ -454,7 +455,7 @@ sub addedRowNotify
     my $ifaces = $network->ifaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
-        foreach my $addr (@{$addrs}) {
+        foreach my $addr (uniq @{$addrs}) {
             my $ifaceName = $iface;
             my $ip = $addr->{address};
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
@@ -473,7 +474,7 @@ sub addedRowNotify
     $ipModel = $hostRow->subModel('ipAddresses');
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
-        foreach my $addr (@{$addrs}) {
+        foreach my $addr (uniq @{$addrs}) {
             my $ifaceName = $iface;
             my $ip = $addr->{address};
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
