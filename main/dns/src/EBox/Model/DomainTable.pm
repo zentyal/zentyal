@@ -47,7 +47,6 @@ use EBox::DNS::View::DomainTableCustomizer;
 use EBox::Util::Random;
 use Digest::HMAC_MD5;
 use MIME::Base64;
-use List::MoreUtils qw(uniq);
 
 # Group: Public methods
 
@@ -451,13 +450,17 @@ sub addedRowNotify
 
     # Add the domain IP addresses
     my @addedAddrs;
+    my %seenAddrs;
     my $network = EBox::Global->modInstance('network');
     my $ifaces = $network->ifaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
-        foreach my $addr (uniq @{$addrs}) {
-            my $ifaceName = $iface;
+        foreach my $addr (@{$addrs}) {
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
             push (@addedAddrs, $ip);
@@ -472,11 +475,15 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
+    %seenAddrs = ();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (uniq @{$addrs}) {
-            my $ifaceName = $iface;
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
         }
