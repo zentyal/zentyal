@@ -478,7 +478,7 @@ sub addedRowNotify
     %seenAddrs = ();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
-        foreach my $addr (uniq @{$addrs}) {
+        foreach my $addr (@{$addrs}) {
             my $ip = $addr->{address};
             next if $seenAddrs{$ip};
             $seenAddrs{$ip} = 1;
