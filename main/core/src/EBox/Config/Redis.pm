@@ -356,7 +356,7 @@ sub rollback
 {
     my ($self) = @_;
 
-    if ($self->{multi}) {
+    if ($trans) {
         $self->_redis_call('discard');
     }
 
