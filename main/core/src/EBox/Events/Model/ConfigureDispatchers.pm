@@ -111,6 +111,10 @@ sub syncRows
         next if (exists ($storedEventDispatchers{$dispatcher} ));
         # Create a new instance from this dispatcher
         eval "use $dispatcher";
+        if ($@) {
+            EBox::error("Error loading dispatcher: $@");
+            next;
+        }
         my $enabled = not $dispatcher->DisabledByDefault();
         my %params = (
                 # and the same with watchers
@@ -257,6 +261,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher: $className: $@");
         return undef;
     }
     my $dispatcher = $className->new();
@@ -282,10 +287,11 @@ sub filterReceiver
 {
     my ($instancedType) = @_;
 
-    my $className = $instancedType->row()->valueByName('dispatcher');
+    my $className = $instancedType->row()->valueByName('dispatcher'); #XXX eror here
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
     my $dispatcher = $className->new();
@@ -315,6 +321,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
 
@@ -343,6 +350,7 @@ sub acquireConfModel
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
 

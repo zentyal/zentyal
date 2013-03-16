@@ -430,7 +430,7 @@ sub ifaceIsBridge # (interface)
     my ($self, $iface) = @_;
     defined($iface) or return undef;
 
-    if ( $self->ifaceExists($iface) and $iface =~ /^br/ ) {
+    if ( $self->ifaceExists($iface) and $iface =~ /^br/ and not ($iface =~ /:/)) {
         return 1;
     } else {
         return 0;
@@ -851,8 +851,8 @@ sub _viface2array # (interface)
 #
 # Returns:
 #
-#   boolean - true, if the interface exists, otherwise false
-
+#   boolean - true, if the interface is virtual and exists, otherwise false
+#
 sub vifaceExists # (interface)
 {
     my ($self, $name) = @_;
@@ -1225,6 +1225,10 @@ sub setIfaceDHCP
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     delete $ifaces->{$name}->{address};
@@ -1341,6 +1345,10 @@ sub setIfaceStatic
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     $ifaces->{$name}->{method} = 'static';
@@ -1400,6 +1408,15 @@ sub _checkStaticIP
         if ($if eq $iface) {
             next;
         }
+
+        # don't check against other ifaces in this bridge
+        if ($self->ifaceIsBridge($iface)) {
+            my $brIfaces = $self->bridgeIfaces($iface);
+            if ($if eq any(@{$brIfaces})) {
+                next;
+            }
+        }
+
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
@@ -1486,6 +1503,10 @@ sub setIfacePPP
                 action => 'prechange',
                 force => $force,
             );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -1593,7 +1614,16 @@ sub _trunkIfaceIsUsed # (iface)
     return undef;
 }
 
-
+# remove all vlanes from a trunk interface
+sub _removeTrunkIfaceVlanes
+{
+    my ($self, $iface) = @_;
+    my $vlans = $self->ifaceVlans($iface);
+    foreach my $vlan (@{$vlans}) {
+        defined($vlan) or next;
+        $self->removeVlan($vlan->{id});
+    }
+}
 
 # Method: setIfaceBridged
 #
@@ -1671,6 +1701,9 @@ sub setIfaceBridged
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
     # new bridge
     if ($bridge < 0) {
         my @bridges = @{$self->bridges()};
@@ -1988,8 +2021,12 @@ sub unsetIface # (interface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'prechange',
-        force  => $force,
+            force  => $force,
         );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -2849,96 +2886,15 @@ sub _generatePPPConfig
 sub generateInterfaces
 {
     my ($self) = @_;
-
-    my $file = INTERFACES_FILE;
-    my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
-
-    #my $manager = new EBox::ServiceManager();
-    #if ($manager->skipModification('network', $file)) {
-    #    EBox::info("Skipping modification of $file");
-    #    return;
-    #}
-
-    #writing /etc/network/interfaces
-    open(IFACES, ">", $tmpfile) or
-        throw EBox::Exceptions::Internal("Could not write on $file");
-    print IFACES "auto lo";
-    foreach my $iface (@{$iflist}) {
-        my $ifMethod = $self->ifaceMethod($iface);
-        if (($ifMethod eq 'static') or
-            ($ifMethod eq 'dhcp') or
-            ($ifMethod eq 'bridged')
-        ) {
-            print IFACES " " . $iface;
-        }
-    }
-
-    print IFACES "\n\niface lo inet loopback\n";
-    foreach my $ifname (@{$iflist}) {
-        my $method = $self->ifaceMethod($ifname);
-        my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
-
-        if (($method ne 'static') and
-            ($method ne 'ppp') and
-            ($method ne 'dhcp') and
-            (not $bridgedVlan)) {
-            next;
-        }
-
-        my $name = $ifname;
-        if ($method eq 'ppp') {
-            $name = "zentyal-ppp-$ifname";
-            print IFACES "auto $name\n";
-        }
-
-        if ($bridgedVlan) {
-            $method = 'manual';
-        }
-
-        print IFACES "iface $name inet $method\n";
-
-        if ($ifname =~ /^vlan/) {
-            my $vlan = $self->vlan($ifname);
-            print IFACES "vlan-raw-device $vlan->{interface}\n";
-        }
-
-        if ($method eq 'static') {
-            print IFACES "\taddress ". $self->ifaceAddress($ifname).
-                "\n";
-            print IFACES "\tnetmask ". $self->ifaceNetmask($ifname).
-                "\n";
-            print IFACES "\tbroadcast " .
-                $self->ifaceBroadcast($ifname) . "\n";
-        } elsif ($method eq 'ppp') {
-            print IFACES "\tpre-up /sbin/ifconfig $ifname up\n";
-            print IFACES "\tpost-down /sbin/ifconfig $ifname down\n";
-            print IFACES "\tprovider $name\n";
-        }
-
-        if ( $self->ifaceIsBridge($ifname) ) {
-            print IFACES "\tbridge_ports";
-            my $ifaces = $self->bridgeIfaces($ifname);
-            foreach my $bridged ( @{$ifaces} ) {
-                print IFACES " $bridged";
-            }
-            print IFACES "\n";
-
-            print IFACES "\tbridge_stp off\n";
-            print IFACES "\tbridge_waitport 5\n";
-        }
-
-        my $mtu = EBox::Config::configkey("mtu_$ifname");
-        if ($mtu) {
-            print IFACES "\tmtu $mtu\n";
-        }
-
-        print IFACES "\n";
-    }
-    close(IFACES);
-
-    EBox::Sudo::root("cp $tmpfile $file");
-    #$manager->updateFileDigest('network', $file);
+    $self->writeConfFile(INTERFACES_FILE,
+                         'network/interfaces.mas',
+                         [
+                             iflist => $iflist,
+                             networkMod => $self,
+                         ],
+                         {'uid' => 0, 'gid' => 0, mode => '755' }
+                        );
 }
 
 # Generate the static routes from routes() with "ip" command
@@ -3011,9 +2967,14 @@ sub _disableReversePath
         $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
-        $seen{$iface} and
-            next;
+
+        next if $seen{$iface};
         $seen{$iface} = 1;
+
+        # Skipping vlan interfaces as it seems rp_filter key doesn't
+        # exist for them
+        next if ($iface =~ /^vlan/);
+
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
 

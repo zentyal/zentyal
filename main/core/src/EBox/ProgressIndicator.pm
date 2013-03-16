@@ -98,6 +98,17 @@ sub notifyTick
 
     my $ticks = $self->_get('ticks');
     $ticks += $nTicks;
+
+    my $totalTicks = $self->totalTicks();
+    my $changedTotal = 0;
+    while ($totalTicks < $ticks) {
+        $totalTicks += 5;
+        $changedTotal = 1;
+    }
+
+    if ($changedTotal) {
+        $self->setTotalTicks($totalTicks);
+    }
     $self->_set('ticks', $ticks);
 }
 
@@ -244,6 +255,12 @@ sub setAsFinished
 
     if (defined($errorMsg)) {
         $self->_set('errorMsg', $errorMsg);
+    }
+
+    my $ticks = $self->ticks();
+    my $totalTicks = $self->totalTicks();
+    if ($ticks != $totalTicks) {
+        $self->_set('ticks', $totalTicks);
     }
 }
 

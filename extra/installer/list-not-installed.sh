@@ -20,7 +20,8 @@ os-prober
 dmsetup
 devmapper
 crypt
-generic-pae
+linux-image
+generic-lts-quantal
 mdadm
 kpartx
 multipath
@@ -35,11 +36,6 @@ wireless"
 CHROOT_INSTALLED_PACKAGES=$(sudo chroot ubuntu-precise-$ARCH/ dpkg -l|awk '{ print $2 }'|tail -n +6)
 
 PACKAGES_TO_INSTALL=$(cat data/extra-packages.list | xargs)
-if [ "$ARCH" == "amd64" ]
-then
-    PACKAGES_TO_INSTALL=$(echo $PACKAGES_TO_INSTALL | sed 's/generic-pae/generic/g')
-    MANDATORY_PACKAGES=$(echo $MANDATORY_PACKAGES | sed 's/generic-pae/generic/')
-fi
 
 CHROOT_ZENTYAL_PACKAGES=$(sudo chroot ubuntu-precise-$ARCH/ apt-get install --simulate --no-install-recommends -y --force-yes $PACKAGES_TO_INSTALL |grep ^Inst|awk '{ print $2 }')
 

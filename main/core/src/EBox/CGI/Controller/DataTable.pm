@@ -200,6 +200,14 @@ sub removeRow
 sub editField
 {
     my ($self, %params) = @_;
+
+    $self->_editField(0, %params);
+}
+
+sub _editField
+{
+    my ($self, $inPlace, %params) = @_;
+
     my $model = $self->{'tableModel'};
     my $force = $self->param('force');
     my $tableDesc = $model->table()->{'tableDescription'};
@@ -212,6 +220,12 @@ sub editField
     my %changedValues;
     for my $field (@{$tableDesc} ) {
         my $fieldName = $field->fieldName();
+
+        if ($inPlace and $field->isa('EBox::Types::Union')) {
+            my $selected = $row->elementByName($fieldName)->selectedType();
+            $params{"${fieldName}_selected"} = $selected;
+            $params{$selected} = $row->valueByName($fieldName);
+        }
 
         unless ($field->isa('EBox::Types::Boolean')) {
             next unless defined $params{$fieldName};
@@ -266,7 +280,7 @@ sub editBoolean
         $value = 1;
     }
 
-    my @editParams = (id => $id, $boolField => $value);
+    my %editParams = (id => $id, $boolField => $value);
     # fill edit params with row fields
     my $row = $model->row($id);
     my $tableDesc =  $model->table()->{'tableDescription'};
@@ -275,10 +289,10 @@ sub editBoolean
         if ($fieldName eq $boolField) {
             next;
         }
-        push @editParams, $fieldName => $row->valueByName($fieldName);
+        $editParams{$fieldName} = $row->valueByName($fieldName);
     }
-    # do the edit
-    $self->editField(@editParams);
+
+    $self->_editField(1, %editParams);
 
     $model->popMessage();
     my $global = EBox::Global->getInstance();
@@ -373,8 +387,8 @@ sub refreshTable
 sub editAction
 {
     my ($self) = @_;
-    my @params = $self->getParams();
-    $self->editField(@params);
+    my %params = $self->getParams();
+    $self->editField(%params);
     $self->refreshTable();
 }
 

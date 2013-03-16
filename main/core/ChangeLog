@@ -3,6 +3,16 @@ HEAD
 	  to avoid crashes when mysql is already stopped
 	+ Emit events on zentyal start and stop
 	+ Refactor some events-related code
+	+ Desktop services CGI now only returns JSON responses
+	+ Log error when dynamic loading a class fails in
+	  ConfigureDispatchers model
+	+ Update total ticks dynamically in progress indicator if ticks overflow
+3.0.16
+	+ Fixed regression in boolean in-place edit with Union types
+	+ Added some missing timezones to EBox::Types::TimeZone
+	+ Add a new method to DBEngine 'checkForColumn' to retrieve columns
+	  definition from a given table
+	+ Reload models info in model manager if new modules are installed
 3.0.15
 	+ Make sure that halt/reboot button can be clicked only once
 	+ Cleaner way of disabling dependant modules when the parent is disabled,

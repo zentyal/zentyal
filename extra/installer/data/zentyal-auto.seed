@@ -1,4 +1,4 @@
-# Settings for the automatic (non-expert) mode
+# zentyal.seed - zentyal preseeding for ubuntu server (automatic mode)
 
 # mirror
 d-i mirror/http/proxy string

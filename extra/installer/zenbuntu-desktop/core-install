@@ -118,7 +118,11 @@ then
     /usr/share/zenbuntu-desktop/remote-register
 fi
 
-### CUSTOM_ACTION ###
+if [ -d /usr/share/zentyal-custom/scripts ]
+then
+    plymouth message --text="Running custom installer... Please wait."
+    run-parts /usr/share/zentyal-custom/scripts
+fi
 
 sync
 
