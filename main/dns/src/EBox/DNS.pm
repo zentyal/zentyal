@@ -1846,9 +1846,13 @@ sub _updateManagedDomainIPsModel
 
     my $networkModule = EBox::Global->modInstance('network');
     my $ifaces = $networkModule->ifaces();
+    my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
         my $addrs = $networkModule->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
+            next if $seenAddrs{$addr};
+            $seenAddrs{$addr} = 1;
+
             my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             my $ipRow = $model->find(iface => $ifaceName);

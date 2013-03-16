@@ -450,13 +450,17 @@ sub addedRowNotify
 
     # Add the domain IP addresses
     my @addedAddrs;
+    my %seenAddrs;
     my $network = EBox::Global->modInstance('network');
     my $ifaces = $network->ifaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
-            my $ifaceName = $iface;
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
             push (@addedAddrs, $ip);
@@ -471,11 +475,15 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
+    %seenAddrs = ();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
-            my $ifaceName = $iface;
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
         }
