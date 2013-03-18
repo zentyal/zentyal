@@ -171,6 +171,16 @@ sub hidden
     return 0;
 }
 
+# Method: searchable
+#
+#  returns whether the contents of the type should be examined
+#  when searching rows
+sub searchable
+{
+    my ($self) = @_;
+    return not $self->hidden();
+}
+
 sub fieldName
 {
     my ($self) = @_;

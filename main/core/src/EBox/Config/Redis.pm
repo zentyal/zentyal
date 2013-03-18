@@ -151,6 +151,8 @@ sub delete_dir
     $self->begin();
 
     my @keys = $self->_keys("$dir/*");
+    # XXX as side effect of using cache it not fails if not keys founds. Maybe
+    # we shoudl retun /raise osemthing?
     $self->unset(@keys);
 
     $self->commit();
@@ -226,8 +228,27 @@ sub _keys
 {
     my ($self, $pattern) = @_;
 
-    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+    my %keys = map { $_ => 1  } grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+    # XXX ehat happens with repeated ketys which are already in cache
+    foreach my $name (keys %cache) {
+        if ($name =~ /^$pattern/) {
+            $keys{$name} = 1;
+        }
+    }
 
+    return keys %keys;
+}
+
+
+
+sub _keysDisabled
+{
+    my ($self, $pattern) = @_;
+
+
+
+    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+    # XXX ehat happens with repeated ketys which are already in cache
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
             push (@keys, $name);
@@ -356,6 +377,7 @@ sub rollback
 {
     my ($self) = @_;
 
+    # XXX when {multi} is set?
     if ($self->{multi}) {
         $self->_redis_call('discard');
     }

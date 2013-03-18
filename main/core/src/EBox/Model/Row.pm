@@ -647,14 +647,10 @@ sub matchFilter
         throw EBox::Exceptions::MissingArgument('filter');
     }
 
-    for my $value (@{$self->{values}}) {
-        if ($value->isa('EBox::Types::Link')) {
-            next;
-        } elsif ($value->hidden()) {
-            next;
+    foreach my $value (@{$self->{values}}) {
+        if ($value->searchable()) {
+            return 1 if ($value->printableValue() =~ /$filter/i);
         }
-
-        return 1 if ($value->printableValue() =~ /$filter/i);
     }
 
     return undef;

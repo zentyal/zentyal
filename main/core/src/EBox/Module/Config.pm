@@ -582,12 +582,12 @@ sub set
     $self->_set($key, $value);
 
     # Only mark as changed if stored value in ro is different
-    unless ($self->{ro}) {
+ #   unless ($self->{ro}) {
         my $oldvalue = $self->{redis}->get($self->_ro_key($key));
         unless (eq_deeply($value, $oldvalue)) {
             $self->_change();
         }
-    }
+ #   }
 }
 
 # Method: _set

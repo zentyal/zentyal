@@ -124,4 +124,10 @@ sub _paramIsValid
     return 1;
 }
 
+sub searchable
+{
+    my ($self) = @_;
+    return 0;
+}
+
 1;
