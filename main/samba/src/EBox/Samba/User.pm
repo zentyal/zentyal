@@ -530,4 +530,17 @@ sub updateZentyal
     } otherwise {};
 }
 
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+    $self->SUPER::_checkAccountName($name, $maxLength);
+    if ($name =~ m/^[[:space:]\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>   __('Windows user names cannot be only spaces and dots')
+           );
+    }
+}
+
 1;
