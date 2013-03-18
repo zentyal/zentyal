@@ -32,6 +32,8 @@ sub new
     my $exText;
     if ($message) {
         $exText = $message . ' ';
+    } else {
+        $exText = 'LDAP error: ';
     }
     $exText .= $result->error_text;
 

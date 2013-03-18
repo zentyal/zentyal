@@ -1,4 +1,5 @@
 HEAD
+	+ A bit more explicit text for EBox::Exceptions::LDAP
 	+ Reload nscd also when creating new groups
 3.0.12
 	+ Fixed typo in exception class name in EBox::Ldap
