@@ -203,9 +203,8 @@ sub _setRemoteSupportAccessConf
     my $fromAnyAddress =
         $self->model('RemoteSupportAccess')->fromAnyAddressValue();
 
-
-    if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
-        EBox::error('Cannot restrict access for remote support if Zentyal server is not subscribed');
+    if ($supportAccess and (not $fromAnyAddress) and (not $self->eBoxSubscribed() )) {
+        EBox::debug('Cannot restrict access for remote support if Zentyal server is not subscribed');
         return;
     }
 
@@ -1411,6 +1410,11 @@ sub i18nServerEdition
 #
 #      The subscription directory path
 #
+# Parameters:
+#
+#      force - Boolean indicating to return value stored in the model
+#              even if the server is not subscribed
+#
 # Returns:
 #
 #      String - the path where the bundle is untar'ed and credentials
@@ -1418,12 +1422,12 @@ sub i18nServerEdition
 #
 sub subscriptionDir
 {
-    my ($self) = @_;
-    my $cn = $self->eBoxCommonName();
-    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
-#     if (not defined $cn) {
-#         return undef;
-#     }
+    my ($self, $force) = @_;
+    my $cn;
+    $cn = $self->eBoxCommonName();
+    if ( not defined($cn) and $force ) {
+        $cn = $self->model('Subscription')->eboxCommonNameValue();
+    }
 
     return  SUBS_DIR . $cn;
 }
@@ -1507,13 +1511,13 @@ sub _confSOAPService
             $apacheMod->addCA($self->_caCertPath());
         }
     } else {
+        # Do nothing if CA or include are already removed
         try {
             $apacheMod->removeInclude($confFile);
-            $apacheMod->removeCA($self->_caCertPath());
-        } catch EBox::Exceptions::Internal with {
-            # Do nothing if it's already remove
-            ;
-        };
+        } catch EBox::Exceptions::Internal with { ; };
+        try {
+            $apacheMod->removeCA($self->_caCertPath('force'));
+        } catch EBox::Exceptions::Internal with { ; };
     }
     # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
@@ -1635,10 +1639,9 @@ sub _confKeys
 # Return the CA cert path
 sub _caCertPath
 {
-    my ($self) = @_;
+    my ($self, $force) = @_;
 
-    return $self->subscriptionDir() . '/cacert.pem';
-
+    return $self->subscriptionDir($force) . '/cacert.pem';
 }
 
 # Return the Zentyal Cloud connection widget to be shown in the dashboard
@@ -1916,7 +1919,7 @@ sub restoreConfig
     # first installed server or a disaster recovery one. In those
     # cases, the server password has been modified and the backed one
     # is not valid anymore
-    my ($backupSubscribed, $excludeServerInfo) = (1, 0);
+    my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
     if ( $self->eBoxSubscribed() ) {
         try {
             # For hackers!

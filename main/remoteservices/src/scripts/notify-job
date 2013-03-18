@@ -75,7 +75,7 @@ sub _notify
                                      stderr    => $results{stderr},
                                      exitValue => $results{exitValue});
             }
-        } 
+        }
     } otherwise {
         my ($exc) = @_;
         EBox::error("Problem with job '$jobId'   result notification: $exc");
