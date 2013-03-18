@@ -1,4 +1,6 @@
 HEAD
+	+ Allow numeric zero as search filter
+	+ When filtering rows don't match agains link urls or hidden values
 	+ Update total ticks dynamically in progress indicator if ticks overflow
 3.0.16
 	+ Fixed regression in boolean in-place edit with Union types
