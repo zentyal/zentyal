@@ -37,6 +37,7 @@ package EBox::EventDaemon;
 # Dependencies
 ###################
 
+use EBox;
 use EBox::Config;
 use EBox::Global;
 use EBox::DBEngineFactory;
@@ -244,7 +245,7 @@ sub _mainDispatcherLoop
                     $self->_logEvent($event);
                 }
             } otherwise {
-                # Mysql is stopped
+                EBox::warn("Cannot log event, Mysql is stopped");
             };
         }
     }
