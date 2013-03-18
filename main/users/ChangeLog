@@ -1,3 +1,5 @@
+HEAD
+	+ Search in user table now is standard instead of filter only for uid
 3.0.12
 	+ Fixed typo in exception class name in EBox::Ldap
 	+ Added missing use statement in EBox::UsersAndGroups and
