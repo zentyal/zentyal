@@ -356,9 +356,10 @@ sub rollback
 {
     my ($self) = @_;
 
-    if ($trans) {
-        $self->_redis_call('discard');
-    }
+# FIXME: temporarily disabled for testing purposes
+#    if ($trans) {
+#        $self->_redis_call('discard');
+#    }
 
     $trans = 0;
 
