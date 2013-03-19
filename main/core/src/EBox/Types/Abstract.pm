@@ -146,9 +146,9 @@ sub editable
 {
     my ($self) = @_;
 
-    if ( $self->volatile() and not $self->storer()) {
+    if ($self->volatile() and not $self->storer()) {
         return 0;
-    } elsif (ref $self->{'editable'}) {
+    } elsif (ref $self->{'editable'} eq 'CODE') {
         my $editableFunc = $self->{editable};
         return &$editableFunc();
     } else {

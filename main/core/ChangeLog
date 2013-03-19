@@ -1,4 +1,5 @@
 HEAD
+	+ Improve dynamic editable property detection for framework types
 	+ Avoid CA file check when removing it from Apache module
 	+ Silent removeCA and removeInclude exceptions when removing
 	  non-existant element
