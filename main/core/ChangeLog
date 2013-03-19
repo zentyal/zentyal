@@ -3,6 +3,10 @@ HEAD
 	  to avoid crashes when mysql is already stopped
 	+ Emit events on zentyal start and stop
 	+ Refactor some events-related code
+	+ Avoid CA file check when removing it from Apache module
+	+ Silent removeCA and removeInclude exceptions when removing
+	  non-existant element
+	+ Fixed rollback operation in redis config backend
 	+ Desktop services CGI now only returns JSON responses
 	+ Log error when dynamic loading a class fails in
 	  ConfigureDispatchers model

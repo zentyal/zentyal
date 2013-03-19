@@ -635,8 +635,9 @@ sub removeInclude
     }
     my @includes = @{$self->_includes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
-    if ( @newIncludes eq @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously");
+    if ( @newIncludes == @includes ) {
+        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
+                                         silent => 1);
     }
     $self->set_list(INCLUDE_KEY, 'string', \@newIncludes);
 
@@ -648,15 +649,15 @@ sub _includes
     my ($self, $check) = @_;
     my $includeList = $self->get_list(INCLUDE_KEY);
     if (not $check) {
-        return $includeList
+        return $includeList;
     }
 
     my @includes;
-    foreach my $incPath (@{ $includeList  }) {
+    foreach my $incPath (@{ $includeList }) {
         if ((-f $incPath) and (-r $incPath)) {
             push @includes, $incPath;
         } else {
-            EBox::warn("Ignoring apache include $incPath: cannot read the file or not is a regular file");
+            EBox::warn("Ignoring apache include $incPath: cannot read the file or it is not a regular file");
         }
     }
 
@@ -724,15 +725,11 @@ sub removeCA
     unless(defined($ca)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    unless(-f $ca and -r $ca) {
-        throw EBox::Exceptions::Internal(
-            "File $ca cannot be read or it is not a file"
-           );
-    }
     my @cas = @{$self->_CAs(0)};
     my @newCAs = grep { $_ ne $ca } @cas;
-    if ( @newCAs eq @cas ) {
-        throw EBox::Exceptions::Internal("$ca has not been included previously");
+    if ( @newCAs == @cas ) {
+        throw EBox::Exceptions::Internal("$ca has not been included previously",
+                                         silent => 1);
     }
     $self->set_list(CAS_KEY, 'string', \@newCAs);
 }
@@ -747,7 +744,7 @@ sub _CAs
     }
 
     my @cas;
-    foreach my $ca (@{ $caList  }) {
+    foreach my $ca (@{ $caList }) {
         if ((-f $ca) and (-r $ca)) {
             push @cas, $ca;
         } else {
