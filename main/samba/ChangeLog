@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid not numeric warning in hash size comparation during provision
 	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
 	+ Improve checks when upgrading from 3.0.11 to 3.0.12
