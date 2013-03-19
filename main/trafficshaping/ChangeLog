@@ -1,4 +1,5 @@
 HEAD
+	+ Do not create builder or reset chains for non set or trunk interfaces
 	+ Fixed bug in checking rules when they are re-enabled
 2.3.6
 	+ Use full path for notifier of notifyActions. More restrictive
