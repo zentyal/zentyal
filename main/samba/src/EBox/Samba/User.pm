@@ -41,7 +41,6 @@ use EBox::Samba::Group;
 use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
-use Error qw(:try);
 use Date::Calc;
 
 use constant MAXUSERLENGTH  => 128;
@@ -469,29 +468,23 @@ sub addToZentyal
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba user '$uid' to Zentyal");
-    try {
-        if ($uidNumber) {
-            $optParams{uidNumber} = $uidNumber;
-        } else {
-            $uidNumber = $self->getXidNumberFromRID();
-            $optParams{uidNumber} = $uidNumber;
-            $self->set('uidNumber', $uidNumber);
-            $self->setupUidMapping($uidNumber);
-        }
-        $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
-        $zentyalUser->setIgnoredModules(['samba']);
-    } otherwise {
-    };
 
-    if (defined $zentyalUser) {
-        try {
-            my $sc = $self->get('supplementalCredentials');
-            my $up = $self->get('unicodePwd');
-            my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
-                unicodePwd => $up);
-            $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-        } otherwise {};
+    if ($uidNumber) {
+        $optParams{uidNumber} = $uidNumber;
+    } else {
+        $uidNumber = $self->getXidNumberFromRID();
+        $optParams{uidNumber} = $uidNumber;
+        $self->set('uidNumber', $uidNumber);
+        $self->setupUidMapping($uidNumber);
     }
+    $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    $zentyalUser->setIgnoredModules(['samba']);
+
+    my $sc = $self->get('supplementalCredentials');
+    my $up = $self->get('unicodePwd');
+    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+                                                 unicodePwd => $up);
+    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 }
 
 sub updateZentyal
@@ -502,32 +495,27 @@ sub updateZentyal
     EBox::info("Updating zentyal user '$uid'");
 
     my $zentyalUser = undef;
-    try {
-        my $gn = $self->get('givenName');
-        my $sn = $self->get('sn');
-        my $desc = $self->get('description');
-        $gn = '-' unless defined $gn;
-        $sn = '-' unless defined $sn;
-        my $cn = "$gn $sn";
-        $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
-        $zentyalUser->setIgnoredModules(['samba']);
-        return unless $zentyalUser->exists();
+    my $gn = $self->get('givenName');
+    my $sn = $self->get('sn');
+    my $desc = $self->get('description');
+    $gn = '-' unless defined $gn;
+    $sn = '-' unless defined $sn;
+    my $cn = "$gn $sn";
+    $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
+    $zentyalUser->setIgnoredModules(['samba']);
+    return unless $zentyalUser->exists();
 
-        $zentyalUser->set('givenName', $gn, 1);
-        $zentyalUser->set('sn', $sn, 1);
-        $zentyalUser->set('description', $desc, 1);
-        $zentyalUser->set('cn', $cn, 1);
-        $zentyalUser->save();
-    } otherwise {};
-    return unless defined $zentyalUser;
+    $zentyalUser->set('givenName', $gn, 1);
+    $zentyalUser->set('sn', $sn, 1);
+    $zentyalUser->set('description', $desc, 1);
+    $zentyalUser->set('cn', $cn, 1);
+    $zentyalUser->save();
 
-    try {
-        my $sc = $self->get('supplementalCredentials');
-        my $up = $self->get('unicodePwd');
-        my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
-            unicodePwd => $up);
-        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-    } otherwise {};
+    my $sc = $self->get('supplementalCredentials');
+    my $up = $self->get('unicodePwd');
+    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+                                             unicodePwd => $up);
+    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 }
 
 sub _checkAccountName
