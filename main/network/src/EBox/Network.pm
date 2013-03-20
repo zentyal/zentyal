@@ -2831,6 +2831,10 @@ sub _generatePPPConfig
 
     my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
 
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);

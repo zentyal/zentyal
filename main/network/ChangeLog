@@ -1,4 +1,5 @@
 HEAD
+	+ Remove leftover PPP provider files
 	+ Remove attached vlans when a interface is not longer trunk
 	+ Do not try to disable rp_filter for vlan interfaces
 	+ Virtual interfaces on a bridge interface are not considered
