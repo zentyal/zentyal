@@ -1,4 +1,4 @@
-HEAD
+3.0.13
 	+ Search in user table now is standard instead of filter only for uid
 	+ A bit more explicit text for EBox::Exceptions::LDAP
 	+ Reload nscd also when creating new groups
