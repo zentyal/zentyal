@@ -363,7 +363,13 @@ sub rollback
     my ($self) = @_;
 
     if ($trans) {
+        $self->_redis_call('multi');
         $self->_redis_call('discard');
+        %deleted = ();
+        foreach my $key (keys %modified) {
+            delete $cache{$key};
+        }
+        %modified = ();
     }
 
     $trans = 0;

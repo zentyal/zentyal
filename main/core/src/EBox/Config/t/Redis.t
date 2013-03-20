@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test::More tests => 16;
 use Error qw(:try);
 
 use lib '../../..';
@@ -42,7 +42,13 @@ is ($redis->{redis}->__read_response(), 'rawvalue', 'set & get using lowest-leve
 $redis->_redis_call('set', 'raw-bar', 666);
 is ($redis->_redis_call('get', 'raw-bar'), 666, 'set & get using API without cache');
 
+$redis->_redis_call('incr', 'raw-bar');
+is ($redis->_redis_call('get', 'raw-bar'), 667, 'check that incr function works');
+
 is ($redis->get('unexistent'), undef, 'try to get undefined key');
+
+$redis->_redis_call('incr', 'unexistent');
+is ($redis->_redis_call('get', 'unexistent'), 1, 'check that incr function works with unexistent keys');
 
 $redis->set('foo', 5);
 $redis->set('bar', 'this is a string');
@@ -62,12 +68,19 @@ $redis->commit();
 
 is ($redis->get('multi3'), 3, 'get value after successful transaction');
 
+$redis->{redis}->multi();
+$redis->{redis}->set('multi1', 10);
+$redis->{redis}->set('multi3', 40);
+$redis->{redis}->discard();
+
+is ($redis->get('multi3'), 3, 'get old value after low-level discard');
+
 $redis->begin();
 $redis->set('multi1', 10);
 $redis->set('multi3', 40);
 $redis->rollback();
 
-is ($redis->get('multi1'), 1, 'get old value after rollback');
+is ($redis->get('multi3'), 3, 'get old value after rollback with cache');
 
 $redis->{redis}->multi();
 ok ($redis->{redis}->exec(), 'successful low-level exec after multi');
@@ -80,10 +93,10 @@ try {
 };
 
 try {
-    $redis->rollback();
-    fail('discard without multi not allowed');
+    $redis->{redis}->discard();
+    fail('discard without begin not allowed');
 } otherwise {
-    pass('discard without multi not allowed');
+    pass('discard without begin not allowed');
 };
 
 1;
