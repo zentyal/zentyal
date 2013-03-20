@@ -16,7 +16,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 14;
+use Error qw(:try);
 
 use lib '../../..';
 
@@ -53,5 +54,37 @@ $redis->unset('foo');
 
 is ($redis->get('foo'), undef);
 is ($redis->get('bar'), 'this is a string');
+
+$redis->begin();
+$redis->set('multi1', 1);
+$redis->set('multi2', 2);
+$redis->set('multi3', 3);
+$redis->commit();
+
+is ($redis->get('multi3'), 3);
+
+$redis->begin();
+$redis->set('multi1', 10);
+$redis->set('multi3', 40);
+$redis->rollback();
+
+is ($redis->get('multi1'), 1);
+
+ok $redis->{redis}->multi();
+ok $redis->{redis}->exec();
+
+try {
+    $redis->{redis}->exec();
+    fail('exec without multi not allowed');
+} otherwise {
+    pass('exec without multi not allowed');
+};
+
+try {
+    $redis->rollback();
+    fail('discard without multi not allowed');
+} otherwise {
+    pass('discard without multi not allowed');
+};
 
 1;
