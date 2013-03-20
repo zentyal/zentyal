@@ -1,4 +1,7 @@
 HEAD
+	+ Raise exception if during the provision either the domain
+	  administrator user or the domain administrator group are
+	  incorrectly mapped
 	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
 	+ Improve checks when upgrading from 3.0.11 to 3.0.12

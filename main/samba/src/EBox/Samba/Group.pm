@@ -37,7 +37,6 @@ use EBox::UsersAndGroups::Group;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
 
 use constant MAXGROUPLENGTH => 128;
 
@@ -244,18 +243,16 @@ sub addToZentyal
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba group '$gid' to Zentyal");
     my $zentyalGroup = undef;
-    try {
-        if ($gidNumber) {
-            $optParams{gidNumber} = $gidNumber;
-        } else {
-            $gidNumber = $self->getXidNumberFromRID();
-            $optParams{gidNumber} = $gidNumber;
-            $self->set('gidNumber', $gidNumber);
-            $self->setupGidMapping($gidNumber);
-        }
-        $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
-    } otherwise {};
-    return unless defined $zentyalGroup;
+
+    if ($gidNumber) {
+        $optParams{gidNumber} = $gidNumber;
+    } else {
+        $gidNumber = $self->getXidNumberFromRID();
+        $optParams{gidNumber} = $gidNumber;
+        $self->set('gidNumber', $gidNumber);
+        $self->setupGidMapping($gidNumber);
+    }
+    $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
 
     $self->_membersToZentyal($zentyalGroup);
 }
@@ -268,17 +265,15 @@ sub updateZentyal
     EBox::info("Updating zentyal group '$gid'");
 
     my $zentyalGroup = undef;
-    try {
-        my $desc = $self->get('description');
 
-        $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
-        $zentyalGroup->setIgnoredModules(['samba']);
-        return unless $zentyalGroup->exists();
+    my $desc = $self->get('description');
 
-        $zentyalGroup->set('description', $desc, 1);
-        $zentyalGroup->save();
-    } otherwise {};
-    return unless defined $zentyalGroup;
+    $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
+    $zentyalGroup->setIgnoredModules(['samba']);
+    return unless $zentyalGroup->exists();
+
+    $zentyalGroup->set('description', $desc, 1);
+    $zentyalGroup->save();
 
     $self->_membersToZentyal($zentyalGroup);
 }
@@ -327,12 +322,7 @@ sub _membersToZentyal
     foreach my $memberName (keys %zentyalMembers) {
         unless (exists $sambaMembers{$memberName}) {
             EBox::info("Removing member '$memberName' from Zentyal group '$gid'");
-            try {
-                $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error removing member: $error");
-            };
+            $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
         }
     }
 
@@ -341,14 +331,11 @@ sub _membersToZentyal
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
             my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
             next unless $zentyalUser->exists();
-            try {
-                $zentyalGroup->addMember($zentyalUser, 1);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding member: $error");
-            };
+
+            $zentyalGroup->addMember($zentyalUser, 1);
         }
     }
+
     $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->save();
 }
