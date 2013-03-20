@@ -34,6 +34,14 @@ do
     ln -s $i $BUILD_DIR/scripts/`basename $i`
 done
 
+for arch in $ARCHS
+do
+    if [ -f $cwd/$UBUNTU_ISO_NAME-$arch.iso ]
+    then
+        ln -f $cwd/$UBUNTU_ISO_NAME-$arch.iso $BUILD_DIR/
+    fi
+done
+
 echo "Build directory created at $BUILD_DIR"
 
 exit 0
