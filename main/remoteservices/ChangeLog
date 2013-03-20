@@ -1,4 +1,5 @@
 HEAD
+	+ Get capabilities for files and users sync from the API
 	+ Restore configuration without subscription now works smoothly
 	+ Proper CA file deletion when unsubscribing
 	+ Try to remove include and CA when unsubscribing separately

@@ -960,9 +960,10 @@ sub renovationDate
 #
 sub usersSyncAvailable
 {
-    # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::Config::configkey('users_sync_available');
+    my ($self, $force) = @_;
 
+    my $ret = $self->addOnDetails('cloudusers', $force);
+    return ( scalar(keys(%{$ret})) > 0);
 }
 
 # Method: filesSyncAvailable
@@ -971,8 +972,10 @@ sub usersSyncAvailable
 #
 sub filesSyncAvailable
 {
-    # TODO implement this in capabilities (+convert that to REST?)
-    return EBox::Config::configkey('files_sync_available');
+    my ($self, $force) = @_;
+
+    my $ret = $self->addOnDetails('cloudfiles', $force);
+    return ( scalar(keys(%{$ret})) > 0);
 }
 
 # Method: securityUpdatesAddOn
