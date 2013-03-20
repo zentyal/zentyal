@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 # Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,16 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Samba::Group
 #
 #   Samba group, stored in samba LDAP
 #
 
 package EBox::Samba::Group;
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -37,6 +33,7 @@ use EBox::UsersAndGroups::Group;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
+use Error qw(:try);
 
 use constant MAXGROUPLENGTH => 128;
 
@@ -253,6 +250,7 @@ sub addToZentyal
         $self->setupGidMapping($gidNumber);
     }
     $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
+    $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
 
     $self->_membersToZentyal($zentyalGroup);
 }
@@ -269,9 +267,11 @@ sub updateZentyal
     my $desc = $self->get('description');
 
     $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
-    $zentyalGroup->setIgnoredModules(['samba']);
-    return unless $zentyalGroup->exists();
+    $zentyalGroup->exists() or
+        throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exists");
 
+
+    $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 
@@ -322,17 +322,29 @@ sub _membersToZentyal
     foreach my $memberName (keys %zentyalMembers) {
         unless (exists $sambaMembers{$memberName}) {
             EBox::info("Removing member '$memberName' from Zentyal group '$gid'");
-            $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
-        }
+            try {
+                $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error removing user '$memberName' for group '$gid': $error");
+            };
+         }
     }
 
     foreach my $memberName (keys %sambaMembers) {
         unless (exists $zentyalMembers{$memberName}) {
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
             my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
-            next unless $zentyalUser->exists();
-
-            $zentyalGroup->addMember($zentyalUser, 1);
+            if (not $zentyalUser->exists()) {
+                EBox::error("Cannot add user '$memberName' to group '$gid' brcause the user does not exists");
+                next;
+            }
+            try {
+                $zentyalGroup->addMember($zentyalUser, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding user '$memberName' for group '$gid': $error");
+            };
         }
     }
 

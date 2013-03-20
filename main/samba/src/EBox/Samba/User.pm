@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 # Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,16 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::Samba::User
 #
 #   Samba user, stored in samba LDAP
 #
-
 package EBox::Samba::User;
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -42,6 +38,7 @@ use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
 use Date::Calc;
+use Error qw(:try);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -478,6 +475,10 @@ sub addToZentyal
         $self->setupUidMapping($uidNumber);
     }
     $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    $zentyalUser->exists() or
+        throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");
+
+
     $zentyalUser->setIgnoredModules(['samba']);
 
     my $sc = $self->get('supplementalCredentials');
@@ -502,9 +503,10 @@ sub updateZentyal
     $sn = '-' unless defined $sn;
     my $cn = "$gn $sn";
     $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
-    $zentyalUser->setIgnoredModules(['samba']);
-    return unless $zentyalUser->exists();
+    $zentyalUser->exists() or
+        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exists");
 
+    $zentyalUser->setIgnoredModules(['samba']);
     $zentyalUser->set('givenName', $gn, 1);
     $zentyalUser->set('sn', $sn, 1);
     $zentyalUser->set('description', $desc, 1);
