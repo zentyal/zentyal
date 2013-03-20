@@ -26,6 +26,7 @@ sub new
 
     $self->{keys} = {};
     $self->{multi} = 0;
+    $self->{queue} = [];
 
     bless ($self, $class);
 }
@@ -34,28 +35,44 @@ sub set
 {
     my ($self, $key, $value) = @_;
 
-    $self->{keys}->{$key} = $value;
+    if ($self->{multi}) {
+        push (@{$self->{queue}}, { command => 'set', args => [ $key, $value ] });
+    } else {
+        $self->{keys}->{$key} = $value;
+    }
 }
 
 sub get
 {
     my ($self, $key) = @_;
 
-    return $self->{keys}->{$key};
+    if ($self->{multi}) {
+        return 'QUEUED';
+    } else {
+        return $self->{keys}->{$key};
+    }
 }
 
 sub incr
 {
     my ($self, $key) = @_;
 
-    $self->{keys}->{$key}++;
+    if ($self->{multi}) {
+        push (@{$self->{queue}}, { command => 'set', args => [ $key ] });
+    } else {
+        $self->{keys}->{$key}++;
+    }
 }
 
 sub del
 {
     my ($self, $key) = @_;
 
-    delete $self->{keys}->{$key};
+    if ($self->{multi}) {
+        push (@{$self->{queue}}, { command => 'del', args => [ $key ] });
+    } else {
+        delete $self->{keys}->{$key};
+    }
 }
 
 sub __send_command
@@ -88,6 +105,15 @@ sub exec
     }
 
     $self->{multi} = 0;
+
+    foreach my $cmd (@{$self->{queue}}) {
+        my $command = $cmd->{command};
+        my @args = @{$cmd->{args}};
+        $self->$command(@args);
+    }
+
+    $self->{queue} = [];
+
     return 1;
 }
 
@@ -99,6 +125,7 @@ sub discard
         die "ERROR: discard called without multi";
     }
 
+    $self->{queue} = [];
     $self->{multi} = 0;
 }
 
