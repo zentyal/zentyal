@@ -79,26 +79,9 @@ sub _table
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
         'withoutActions' => 1,
-        'customFilter' => 1,
     };
 
     return $dataTable;
-}
-
-sub customFilterIds
-{
-    my ($self, $filter) = @_;
-
-    unless (defined $filter) {
-        return $self->ids();
-    }
-
-    $filter = qr{uid=.*?$filter.*?,};
-    my @filtered = grep {
-        $_ =~ m{$filter}
-    } @{$self->ids()};
-
-    return \@filtered;
 }
 
 sub Viewer

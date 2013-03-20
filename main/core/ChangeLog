@@ -1,4 +1,6 @@
 HEAD
+	+ Allow numeric zero as search filter
+	+ When filtering rows don't match agains link urls or hidden values
 	+ Avoid CA file check when removing it from Apache module
 	+ Silent removeCA and removeInclude exceptions when removing
 	  non-existant element
