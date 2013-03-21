@@ -76,6 +76,7 @@ EBox::init();
 
 my ($bakFile) = @ARGV;
 
+EBox::info("Begin $0");
 my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
 try {
     EBox::Backup->_unpackModulesRestoreData($bakDir);
@@ -89,6 +90,7 @@ try {
 } finally {
     EBox::Sudo::root("rm -rf $bakDir")
 };
+EBox::info("End $0");
 
 sub _importModule
 {

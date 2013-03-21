@@ -1,6 +1,6 @@
 HEAD
 	+ Document object members ending in zero restriction
 	+ Fixed bug in setting of default network services
-	+ Log begin and end of each module import
+	+ Log begin and end of import-basic-modules operations
 0.1
 	+ Initial release
