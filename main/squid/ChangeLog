@@ -1,3 +1,6 @@
+HEAD
+	+ Avoid to request authorization again when 'deny unknown domain'
+	  options is set
 3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module
