@@ -1,4 +1,8 @@
 HEAD
+	+ Improve addition of localhost as primary resolver when DNS module is
+	  enabled.
+	+ Remove localhost as primary resolver when squid module is configured
+	  to authenticate against external server
 	+ Remove attached vlans when a interface is not longer trunk
 	+ Do not try to disable rp_filter for vlan interfaces
 	+ Virtual interfaces on a bridge interface are not considered
