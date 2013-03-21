@@ -42,6 +42,7 @@ do
 
     CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
     EXTRAS_DIR="$EXTRAS_DIR_BASE-$ARCH"
+    EXTRAS_CUSTOM_DIR="$EXTRAS_CUSTOM_DIR_BASE-$ARCH"
     ISO_IMAGE="$ISO_IMAGE_BASE-$ARCH.iso"
 
     test -d $CD_BUILD_DIR || (echo "CD build directory for $ARCH not found."; false) || exit 1
@@ -50,6 +51,12 @@ do
     # Replace zenbuntu-desktop package
     rm $EXTRAS_DIR/zenbuntu-desktop_*.deb
     cp $TMPDIR/*.deb $EXTRAS_DIR/
+
+    # Add custom extra packages if the dir exists
+    if [ -n "$EXTRAS_CUSTOM_DIR_BASE" ] && [ -d $EXTRAS_CUSTOM_DIR ]
+    then
+        cp $EXTRAS_CUSTOM_DIR/*.deb $EXTRAS_DIR/
+    fi
 
     if [ "$INCLUDE_REMOTE" == "true" ]
     then
