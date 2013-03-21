@@ -12,15 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Logout::Logout;
-
 use strict;
 use warnings;
 
-use mod_perl;
-
+package EBox::CGI::Logout::Logout;
 use base 'EBox::CGI::ClientBase';
+
+use mod_perl;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -28,28 +26,28 @@ use Apache2::RequestUtil;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $r = Apache2::RequestUtil->request;
-	my $auth_type = $r->auth_type;
+    my $r = Apache2::RequestUtil->request;
+    my $auth_type = $r->auth_type;
 
 
-	$self->{redirect} = "Login/Index";
-	$self->{errorchain} = "Logout/Index";
+    $self->{redirect} = "Login/Index";
+    $self->{errorchain} = "Logout/Index";
 
-	my $global = EBox::Global->getInstance();
-	$global->revokeAllModules;
+    my $global = EBox::Global->getInstance();
+    $global->revokeAllModules;
 
-	# Delete the cookie
-	$auth_type->logout($r);
+    # Delete the cookie
+    $auth_type->logout($r);
 }
 
 1;
