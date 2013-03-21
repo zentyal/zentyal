@@ -34,6 +34,8 @@ do
     ln -s $i $BUILD_DIR/scripts/`basename $i`
 done
 
+cp -r $cwd/$CUSTOM_DIR_BASE $BUILD_DIR/
+
 echo "Build directory created at $BUILD_DIR"
 
 exit 0
