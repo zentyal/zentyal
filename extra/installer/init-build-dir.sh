@@ -42,6 +42,8 @@ do
     fi
 done
 
+cp -r $cwd/$CUSTOM_DIR_BASE $BUILD_DIR/
+
 echo "Build directory created at $BUILD_DIR"
 
 exit 0
