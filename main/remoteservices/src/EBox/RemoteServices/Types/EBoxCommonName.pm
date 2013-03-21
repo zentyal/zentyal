@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -52,13 +52,9 @@ sub _paramIsValid
     my $value = $params->{$self->fieldName()};
     my $advice = '';
     # Check if this does not contain underscores neither dots
-    unless (($value =~ m/^\p{ASCII}+$/) and
-            EBox::Validate::checkDomainName($value)) {
+    if ($value !~ m/^[A-Za-z0-9\-]+$/) {
         $advice = __('It must be a valid subdomain name. '
                      . 'It can only contain alphanumeric and - characters');
-    } elsif ( $value =~ m/\./g ) {
-        $advice = __x('It cannot contain "{char}" character',
-                      char => '.');
     } elsif ( length($value) >= MAX_LENGTH ) {
         $advice = __x('It cannot be greater than {n} characters',
                       n => MAX_LENGTH);
