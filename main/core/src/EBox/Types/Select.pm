@@ -156,7 +156,7 @@ sub options
     } else {
         if ((not exists $self->{'options'}) or $self->disableCache()) {
             my $populateFunc = $self->populate();
-            $self->{'options'} = &$populateFunc();
+            $self->{'options'} = &$populateFunc($self->model());
         }
     }
 
