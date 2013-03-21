@@ -43,8 +43,11 @@ sub _process
     $self->{redirect} = "Login/Index";
     $self->{errorchain} = "Logout/Index";
 
-    my $global = EBox::Global->getInstance();
-    $global->revokeAllModules;
+    my $revoke = $self->param('revokeConfig');
+    if ($revoke) {
+        my $global = EBox::Global->getInstance();
+        $global->revokeAllModules;
+    }
 
     # Delete the cookie
     $auth_type->logout($r);
