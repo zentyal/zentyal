@@ -1,4 +1,5 @@
 HEAD
+	+ Mark kerberos principal users as internal to be properly filtered
 	+ Avoid not numeric warning in hash size comparation during provision
 	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
