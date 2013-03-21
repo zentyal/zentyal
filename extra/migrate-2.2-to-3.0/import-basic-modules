@@ -38,6 +38,10 @@ use EBox::Backup;
 #
 # 4- data in imported modules not present in the backup will be lost
 #    this affects to objects, services, network and firewall
+#
+# 5 - object members with address ending in zero and mask /32 will not be
+#     imported  bwcause this is a invalid address
+
 
 # TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
