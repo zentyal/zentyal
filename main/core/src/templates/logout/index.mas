@@ -1,7 +1,7 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	$unsaved => 'no'	
+	$unsaved => 'no'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -15,5 +15,5 @@ use EBox::Gettext;
 	<% __('There are no unsaved changes in this session.') %>
 </div>
 % }
-<a class="big" href='/Logout/Logout'><% __('Exit') %></a>
+<a class="big" href='/Logout/Logout?revokeConfig=1'><% __('Exit') %></a>
 
