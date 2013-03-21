@@ -1,4 +1,5 @@
 HEAD
+	+ Documented bad network proxy configuration restriction
 	+ Document object members ending in zero restriction
 	+ Fixed bug in setting of default network services
 	+ Log begin and end of import-basic-modules operations

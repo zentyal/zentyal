@@ -41,7 +41,8 @@ use EBox::Backup;
 #
 # 5 - object members with address ending in zero and mask /32 will not be
 #     imported  bwcause this is a invalid address
-
+#
+# 6 - invalid netwoek proxy configuration will not be imported
 
 # TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
@@ -71,6 +72,8 @@ my %moduleParameters = (
         preInsertModelsData => \&_networkPreInsert,
     },
 );
+
+
 
 EBox::init();
 
@@ -838,6 +841,18 @@ sub _networkImportInterfaces
     }
 
     $mod->set('interfaces', \%interfaces);
+}
+
+
+{
+    use EBox::Services::Model::ServiceConfigurationTable;
+    no warnings 'redefine';
+    sub EBox::Services::Model::ServiceConfigurationTable::validateTypedRow
+    {
+        # we had to relax this to allow imports of old services with any
+        # {protoclTypes} members
+    }
+
 }
 
 1;
