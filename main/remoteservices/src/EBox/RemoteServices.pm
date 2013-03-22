@@ -962,8 +962,7 @@ sub usersSyncAvailable
 {
     my ($self, $force) = @_;
 
-    my $ret = $self->addOnDetails('cloudusers', $force);
-    return ( scalar(keys(%{$ret})) > 0);
+    return $self->addOnAvailable('cloudusers', $force);
 }
 
 # Method: filesSyncAvailable
@@ -974,8 +973,7 @@ sub filesSyncAvailable
 {
     my ($self, $force) = @_;
 
-    my $ret = $self->addOnDetails('cloudfiles', $force);
-    return ( scalar(keys(%{$ret})) > 0);
+    return $self->addOnAvailable('cloudfiles', $force);
 }
 
 # Method: securityUpdatesAddOn
@@ -1047,6 +1045,36 @@ sub commAddOn
 
     my $ret = $self->addOnDetails('zarafa', $force);
     return ( defined($ret->{sb}) and $ret->{sb} == 1 );
+}
+
+# Method: addOnAvailable
+#
+#      Return 1 if addon is available, undef if not
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+sub addOnAvailable
+{
+    my ($self, $addOn, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    my $ret = undef;
+    try {
+        my $subsDetails = $self->_getSubscriptionDetails($force);
+        if ( not exists $subsDetails->{cap} ) {
+            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
+        }
+        $ret = (exists $subsDetails->{cap}->{$addOn});
+    } otherwise {
+        $ret = undef;
+    };
+    return $ret;
 }
 
 # Method: addOnDetails
