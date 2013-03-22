@@ -1,4 +1,4 @@
-HEAD
+3.0.15
 	+ Get capabilities for files and users sync from the API
 	+ Be very strict with the server name while subscribing. Only
 	  [A-Za-z0-9-]+ are accepted
