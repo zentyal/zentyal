@@ -17,14 +17,13 @@ our @ISA = qw(Exporter DynaLoader);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-	kinit kdestroy kexpires kerror kcheck kexpired
+	kinit_pwd kinit kdestroy kexpires kerror kcheck kexpired
 ) ] );
 
-#our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(
-	
+
 );
 our $VERSION = '0.90';
 
@@ -53,6 +52,17 @@ sub kcheck($$)
 	return 1;
 }
 
+sub kcheck_pwd($$)
+{
+	my($princ, $password) = @_;
+
+	if(kexpired())
+	{
+		return(kinit_pwd($princ, $password));
+	}
+	return 1;
+}
+
 1;
 __END__
 # Below is stub documentation for your module. You better edit it!
@@ -64,7 +74,7 @@ Authen::Krb5::Easy - Simple Kerberos 5 interaction
 =head1 SYNOPSIS
 
  use Authen::Krb5::Easy qw{kinit kexpires kexpired kcheck kdestroy};
-  
+
  kinit("keytab", "someone") || die kerror();
 
  # how long until the ticket expires?
@@ -78,7 +88,7 @@ Authen::Krb5::Easy - Simple Kerberos 5 interaction
 
  # check for expiration and get new ticket if expired
  kcheck("keytab", "someone") || die kerror();
- 
+
  # destroy current ticket
  kdestroy();
 
