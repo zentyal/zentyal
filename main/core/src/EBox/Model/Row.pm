@@ -648,6 +648,8 @@ sub matchFilter
     }
 
     for my $value (@{$self->{values}}) {
+        next if ($value->hidden() or $value->isa('EBox::Types::Link'));
+
         return 1 if ($value->printableValue() =~ /$filter/i);
     }
 

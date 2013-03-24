@@ -446,28 +446,22 @@ sub _checkAccountName
     my $advice = undef;
 
     if ($name =~ m/\.$/) {
-        $advice = __('Windows account names cannot end with a period');
-    }
-
-    if ($name =~ m/^[[:space:]0-9\.]+$/) {
-        $advice = __('Windows account names cannot be only spaces, numbers and dots');
-    }
-
-    unless ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
+        $advice = __('Windows account names cannot end with a dot');
+    } elsif ($name =~ m/^-/) {
+        $advice = __('Windows account names cannot start with a dash');
+    } elsif (not $name =~ /^[a-zA-Z\d\s_\-\.]+$/) {
         $advice = __('To avoid problems, the account name should ' .
-                'consist only of letters, digits, underscores, ' .
-                'spaces, periods, dashs, not start with a ' .
-                'dash and not end with dot');
-    }
-
-    if (length ($name) > $maxLength) {
+                     'consist only of letters, digits, underscores, ' .
+                      'spaces, periods, and dashes'
+               );
+    } elsif (length ($name) > $maxLength) {
         $advice = __x("Account name must not be longer than {maxLength} characters",
                        maxLength => $maxLength);
     }
 
-    if (defined $advice) {
+    if ($advice) {
         throw EBox::Exceptions::InvalidData(
-                'data' => __('samAccountName'),
+                'data' => __('account name'),
                 'value' => $name,
                 'advice' => $advice);
     }

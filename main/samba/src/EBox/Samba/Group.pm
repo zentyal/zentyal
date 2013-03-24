@@ -353,4 +353,17 @@ sub _membersToZentyal
     $zentyalGroup->save();
 }
 
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+    $self->SUPER::_checkAccountName($name, $maxLength);
+    if ($name =~ m/^[[:space:]0-9\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>  __('Windows group names cannot be only spaces, numbers and dots'),
+           );
+    }
+}
+
 1;

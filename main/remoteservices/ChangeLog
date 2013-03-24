@@ -1,4 +1,7 @@
-HEAD
+3.0.15
+	+ Get capabilities for files and users sync from the API
+	+ Be very strict with the server name while subscribing. Only
+	  [A-Za-z0-9-]+ are accepted
 	+ Restore configuration without subscription now works smoothly
 	+ Proper CA file deletion when unsubscribing
 	+ Try to remove include and CA when unsubscribing separately
