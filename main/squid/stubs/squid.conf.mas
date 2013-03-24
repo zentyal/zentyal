@@ -19,11 +19,17 @@
 
     @rules
     %filterProfiles
+
+    $authModeExternalAD => undef
+    $adPrincipal => undef
+    $adDC => undef
+    $adAclTTL => 3600
 </%args>
 <%shared>
 our $anyPrefix = 'any~src~';
 our $objectPrefix = 'obj~';
 our $groupPrefix = 'grp~';
+our $adPrefix = 'ad~';
 our $timeDaysPrefix = 'timeDays~';
 our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
@@ -98,30 +104,41 @@ sub _printSplitAcl
 %      next;
 %   }
 <%perl>
-   my $object = $rule->{object};
-   my $group = $rule->{group};
-   my ($src, $aclName);
-   if ($object) {
-       $src = $object;
-       $aclName = $objectPrefix . $object;
-   } else {
-       $src = $group;
-       $aclName = $groupPrefix . $group;
-   }
-   $aclName = _aclName($aclName);
+    my $object = $rule->{object};
+    my $group = $rule->{group};
+    my $adDN = $rule->{adDN};
+    my ($src, $aclName);
+    if ($object) {
+        $src = $object;
+        $aclName = $objectPrefix . $object;
+    } elsif ($group) {
+        $src = $group;
+        $aclName = $groupPrefix . $group;
+    } elsif ($adDN) {
+        $src = $adDN;
+        $aclName = $adPrefix . $adDN;
+    } else {
+        next;
+    }
+    $aclName = _aclName($aclName);
 
-   if ($object) {
-       my $acl = "acl $aclName src";
-       _printSplitAcl($acl, $rule->{addresses});
-   } else {
-       # escape user names
-       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-       if ($realm) {
-           @users = map { $_ . '@' . $realm } @users;
-       }
-       my $acl = "acl $aclName proxy_auth";
-       _printSplitAcl($acl, \@users);
-   }
+    if ($object) {
+        my $acl = "acl $aclName src";
+        _printSplitAcl($acl, $rule->{addresses});
+    } elsif ($group) {
+        # escape user names
+        my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+        if ($realm) {
+            @users = map { $_ . '@' . $realm } @users;
+        }
+        my $acl = "acl $aclName proxy_auth";
+        _printSplitAcl($acl, \@users);
+    } elsif ($adDN) {
+        my $acl = "acl $aclName external InetGroup";
+        _printSplitAcl($acl, [ $adDN ]);
+    } else {
+        next;
+    }
 </%perl>
    <& .timeACLs, rule => $rule, id => $src &>
 % }
@@ -134,26 +151,26 @@ sub _printSplitAcl
 </%args>
 % foreach my $rule (@rules) {
 <%perl>
-   my $object = $rule->{'object'};
-   my $objectAcl;
-   if ($rule->{any}) {
-       $objectAcl = 'all';
-   } elsif ($object) {
-       $objectAcl = $objectPrefix . $object;
-   } else {
-       $objectAcl = '';
-   }
+    my $aclName;
+    my $object = $rule->{'object'};
+    if ($rule->{any}) {
+        $aclName = 'all';
+    } elsif ($object) {
+        $aclName = $objectPrefix . $object;
+    }
 
-   my $group = $rule->{'group'};
-   my $groupAcl;
-   if ($group) {
-      $groupAcl = $groupPrefix . $group;
-  } else {
-      $groupAcl = '';
-  }
+    my $group = $rule->{'group'};
+    if ($group) {
+        $aclName = $groupPrefix . $group;
+    }
 
-   my $acl = $groupAcl ? $groupAcl : $objectAcl;
-   $acl = _aclName($acl);
+    my $adDN = $rule->{adDN};
+    if ($adDN) {
+        $aclName = $adPrefix . $adDN;
+    }
+
+    my $acl = _aclName($aclName);
+
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
@@ -257,11 +274,30 @@ always_direct allow to_localhost
 # force clients to use squid-external
 never_direct allow all
 
+% if ($authModeExternalAD) {
+##
+## Authorization
+##
+external_acl_type InetGroup ipv4 children=1 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+    --strip-realm \
+    --host "<% $adDC %>" \
+    --keytab /etc/squid3/HTTP.keytab \
+    --principal <% $adPrincipal %>
+% }
+
+##
+## ACLs from model rules
+##
 <& .rulesACLs, rules => [ @rules ], realm => $realm &>
 
+##
+## Access
+##
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
 
-# default policy
+##
+## Default policy
+##
 # All acces denied by default if no other allow rule matchs
 http_access deny all
 # reply access allowed if not denied before

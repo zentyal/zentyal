@@ -1,3 +1,5 @@
+HEAD
+	+ Authenticate against external AD
 3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module
