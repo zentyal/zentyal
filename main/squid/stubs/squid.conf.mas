@@ -278,7 +278,7 @@ never_direct allow all
 ##
 ## Authorization
 ##
-external_acl_type InetGroup ipv4 children=1 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
     --strip-realm \
     --host "<% $adDC %>" \
     --keytab /etc/squid3/HTTP.keytab \
