@@ -268,7 +268,7 @@ sub updateZentyal
 
     $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
     $zentyalGroup->exists() or
-        throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exists");
+        throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
 
     $zentyalGroup->setIgnoredModules(['samba']);
@@ -336,7 +336,7 @@ sub _membersToZentyal
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
             my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
             if (not $zentyalUser->exists()) {
-                EBox::error("Cannot add user '$memberName' to group '$gid' brcause the user does not exists");
+                EBox::error("Cannot add user '$memberName' to group '$gid' because the user does not exist");
                 next;
             }
             try {

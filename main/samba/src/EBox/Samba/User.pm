@@ -311,13 +311,13 @@ sub createRoamingProfileDirectory
     my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
     my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
 
-    # Create the directory if it does not exists
+    # Create the directory if it does not exist
     my $samba = EBox::Global->modInstance('samba');
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
 
     my @cmds = ();
-    # Create the directory if it does not exists
+    # Create the directory if it does not exist
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
@@ -504,7 +504,7 @@ sub updateZentyal
     my $cn = "$gn $sn";
     $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
     $zentyalUser->exists() or
-        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exists");
+        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
 
     $zentyalUser->setIgnoredModules(['samba']);
     $zentyalUser->set('givenName', $gn, 1);
