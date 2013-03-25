@@ -1,4 +1,5 @@
 HEAD
+	+ Delete .provisioned file when purging zentyal-samba
 	+ Avoid not numeric warning in hash size comparation during provision
 	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
