@@ -179,11 +179,11 @@ sub init
 sub usage
 {
 	print "Usage: squid_ldap_group_sid.pl [options]\n";
-	print "\t-d enable debugging\n";
-	print "\t-h LDAP server\n";
-	print "\t-K strip Kerberos realm from user names\n";
-    print "\t-k keytab path\n";
-    print "\t-s principal name to use from keytab\n";
+	print "\t--host <host>              LDAP server to connect to\n";
+    print "\t--keytab <path>            Keytab path to use to bind to LDAP\n";
+    print "\t--principal <principal>    Principal name to use from keytab\n";
+	print "\t--strip-realm              Strip Kerberos realm from user names\n";
+	print "\t--debug                    Enable debugging\n";
 	exit;
 }
 
