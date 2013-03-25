@@ -1,3 +1,5 @@
+HEAD
+	+ Allow to restore files which basename includes utf8 characters
 2.2.5
 	+ Adapt restore-tool to multitenancy in Zentyal Cloud
 	+ Fixed bug with expiration of file list cache

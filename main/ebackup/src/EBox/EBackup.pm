@@ -175,11 +175,13 @@ sub restoreFile
         $destination = $file;
     my $destinationDir = File::Basename::dirname($destination);
     if ($destinationDir ne '/') {
+        my $printableDir = $destinationDir;
+        utf8::encode($destinationDir);
         if (not EBox::Sudo::fileTest('-e', $destinationDir)) {
             throw EBox::Exceptions::External(
                 __x('Cannot restore to {d}: {dd} does not exists',
                     d => $destination,
-                    dd => $destinationDir,
+                    dd => $printableDir,
                    )
                );
         }
@@ -187,7 +189,7 @@ sub restoreFile
             throw EBox::Exceptions::External(
                 __x('Cannot restore to {d}: {dd} is not a directory',
                     d => $destination,
-                    dd => $destinationDir,
+                    dd => $printableDir,
 
                    )
                );
@@ -253,6 +255,7 @@ sub _duplicityRestoreFileCmd
         $cmd .= "--file-to-restore $rFile ";
     }
     $cmd .= " $url $destination";
+    utf8::encode($cmd);
     return $cmd;
 }
 
@@ -261,7 +264,6 @@ sub _escapeFile
     my ($self, $file) = @_;
     $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $file = shell_quote($file);
-    utf8::encode($file);
     return $file;
 }
 
