@@ -44,6 +44,7 @@ use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::LDAP;
 use EBox::SyncFolders::Folder;
+use EBox::Util::Version;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -249,6 +250,23 @@ sub initialSetup
             $fw->setInternalService($serviceName, 'accept');
         }
         $fw->saveConfigRecursive();
+    }
+
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.14') < 0) {
+        my %kerberosPrincipals = (
+            dns => 1,
+            mail => 1,
+            proxy => 1,
+            zarafa => 1,
+        );
+        my $hostname = EBox::Global->modInstance('sysinfo')->hostName();
+        foreach my $prefix (keys %kerberosPrincipals) {
+            my $principalUser = "$prefix-$hostname";
+            if ($self->userExists($principalUser)) {
+                my $user = EBox::UsersAndGroups::User->new(uid => $principalUser);
+                $user->set('title', 'internal');
+            }
+        }
     }
 
     # Execute initial-setup script
@@ -858,6 +876,32 @@ sub users
             (lc $aValue cmp lc $bValue) or
                 ($aValue cmp $bValue)
     } @users;
+
+    return \@users;
+}
+
+# Method: realUsers
+#
+#       Returns an array containing all the non-internal users
+#
+# Parameters:
+#
+#       withoutAdmin - filter Samba 'Administrator' user (default: false)
+#
+# Returns:
+#
+#       array ref - holding the users. Each user is represented by a
+#       EBox::UsersAndGroups::User object
+#
+sub realUsers
+{
+    my ($self, $withoutAdmin) = @_;
+
+    my @users = grep { not $_->internal() } @{$self->users()};
+
+    if ($withoutAdmin) {
+        @users = grep { $_->name() ne 'Administrator' } @users;
+    }
 
     return \@users;
 }

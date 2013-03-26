@@ -148,6 +148,14 @@ sub comment
     return $self->get('description');
 }
 
+sub internal
+{
+    my ($self) = @_;
+
+    my $title = $self->get('title');
+    return (defined ($title) and ($title eq 'internal'));
+}
+
 # Catch some of the set ops which need special actions
 sub set
 {
@@ -629,6 +637,10 @@ sub create
     );
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
+
+    if ($params{internal}) {
+        push (@attr, 'title' => 'internal') if ($params{internal});
+    }
 
     my $res = undef;
     my $entry = undef;
