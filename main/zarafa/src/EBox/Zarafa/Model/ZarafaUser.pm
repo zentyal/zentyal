@@ -46,7 +46,7 @@ sub _table
         new EBox::Types::Boolean(
             'fieldName' => 'contact',
             'printableName' => __('Groupware Contact'),
-            'help' => __('Enable contact in the addressbook even if account is disabled.'),
+            'help' => __('Enable contact in the addressbook even if it has not Zarafa account.'),
             'editable' => 1,
             'defaultValue' => 1
         ),

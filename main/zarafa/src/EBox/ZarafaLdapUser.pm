@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Model::Manager;
-use Perl6::Junction qw(any);
+use Perl6::Junction qw(any all);
 
 sub new
 {
@@ -41,41 +41,31 @@ sub _userAddOns
 
     return unless ($self->{zarafa}->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($user));
+    my $active = $self->hasAccount($user) ? 'yes' : 'no';
+    my $contact = $self->hasContact($user)? 'yes' : 'no';
+    my $canModifyContact = $self->canModifyContact($user);
+    my $has_pop3 = $self->hasFeature($user, 'pop3') ? 1 : 0;
+    my $has_imap = $self->hasFeature($user, 'imap') ? 1 : 0;
+    my $is_admin = $self->isAdmin($user) ? 1 : 0;
 
-    my $contact = 'no';
-    $contact = 'yes' if ($self->hasContact($user));
+    my $has_meeting_autoaccept = $self->hasMeetingAutoaccept($user) ? 1 : 0;
+    my $has_meeting_declineconflict = $self->hasMeetingDeclineConflict($user) ? 1 : 0;
+    my $has_meeting_declinerecurring = $self->hasMeetingDeclineRecurring($user) ? 1 : 0;
 
-    my $has_pop3 = 0;
-    $has_pop3 = 1 if ($self->hasFeature($user, 'pop3'));
-
-    my $has_imap = 0;
-    $has_imap = 1 if ($self->hasFeature($user, 'imap'));
-
-    my $is_admin = 0;
-    $is_admin = 1 if ($self->isAdmin($user));
-
-    my $has_meeting_autoaccept = 0;
-    $has_meeting_autoaccept = 1 if ($self->hasMeetingAutoaccept($user));
-
-    my $has_meeting_declineconflict = 0;
-    $has_meeting_declineconflict = 1 if ($self->hasMeetingDeclineConflict($user));
-
-    my $has_meeting_declinerecurring = 0;
-    $has_meeting_declinerecurring = 1 if ($self->hasMeetingDeclineRecurring($user));
-
-    my @args;
     my $args = {
         'user' => $user,
         'active'   => $active,
         'has_pop3' => $has_pop3,
         'has_imap' => $has_imap,
         'is_admin' => $is_admin,
+
         'meeting_autoaccept' => $has_meeting_autoaccept,
         'meeting_declineconflict' => $has_meeting_declineconflict,
         'meeting_declinerecurring' => $has_meeting_declinerecurring,
+
         'contact' => $contact,
+        'canModifyContact' => $canModifyContact,
+
         'service' => $self->{zarafa}->isEnabled(),
     };
 
@@ -97,9 +87,8 @@ sub hasFeature
     my ($self, $user, $feature) = @_;
 
     my @features = $user->get('zarafaEnabledFeatures');
-    my %enabled = map { $_ => 1 } @features;
-
-    return $enabled{$feature};
+    my $hasFeature = grep { $_ eq $feature } @features;
+    return $hasFeature;
 }
 
 sub setHasFeature
@@ -242,26 +231,6 @@ sub setHasAccount
 
     } elsif ($hasAccount and not $enable) {
         $user->set('zarafaSharedStoreOnly', 1);
-
-#        my $hasClass = 'zarafa-user' eq any($user->get('objectClass'));
-
-
-        # $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
-        # $user->delete('zarafaAccount', 1);
-        # $user->delete('zarafaAdmin', 1);
-        # $user->delete('zarafaSharedStoreOnly', 1);
-        # $user->delete('zarafaMrAccept', 1);
-        # $user->delete('zarafaMrDeclineConflict', 1);
-        # $user->delete('zarafaMrDeclineRecurring', 1);
-        # $user->delete('zarafaQuotaOverride', 1);
-        # $user->delete('zarafaQuotaWarn', 1);
-        # $user->delete('zarafaQuotaSoft', 1);
-        # $user->delete('zarafaQuotaHard', 1);
-        # $user->delete('zarafaEnabledFeatures', 1);
-        # $user->save();
-
-#        $self->setHasContact($user, $model->contactValue());
-
         $self->{zarafa}->_hook('unsetacc', $user->name());
     }
 
@@ -289,26 +258,26 @@ sub hasContact
 {
     my ($self, $user) = @_;
     return 'zarafa-contact' eq any($user->get('objectClass'));
-
-    # XXX new
-    unless ('zarafa-contact' eq any($user->get('objectClass'))) {
-        return 0;
-    }
-    return $user->get('zarafaSharedStoreOnly');
 }
+
+sub canModifyContact
+{
+    my ($self, $user) = @_;
+    return 'zarafa-user' ne all($user->get('objectClass'));
+}
+
 
 sub setHasContact
 {
     my ($self, $user, $contact) = @_;
 
-    if ($self->hasAccount($user)) {
+    if ($self->hasAccount($user) or not $self->canModifyContact($user)) {
         # nothing to do here
         return;
     }
 
     my $alreadyContact = $self->hasContact($user);
     if ($alreadyContact and not $contact) {
-        # XXX fix store here
         $user->remove('objectClass', 'zarafa-contact');
     }
     elsif (not $alreadyContact and $contact) {

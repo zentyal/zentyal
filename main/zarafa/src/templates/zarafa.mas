@@ -110,7 +110,7 @@
         </td>
     </tr>
 %    }
-%    if ($params->{'active'} eq 'no') {
+%    if (($params->{'active'} eq 'no') and $params->{'canModifyContact'}) {
     <tr>
         <td class="tright">
             <span class="ftitle"><% __('Groupware contact') %>:</span>
