@@ -40,7 +40,17 @@ do
     then
         ln -f $cwd/$UBUNTU_ISO_NAME-$arch.iso $BUILD_DIR/
     fi
+
+    if [ -d $EXTRAS_CUSTOM_DIR_BASE-$arch ]
+    then
+        cp -r $EXTRAS_CUSTOM_DIR_BASE-$arch $BUILD_DIR
+    fi
 done
+
+if [ -d $EXTRAS_CUSTOM_DIR_BASE-all ]
+then
+    cp -r $EXTRAS_CUSTOM_DIR_BASE-all $BUILD_DIR
+fi
 
 cp -r $cwd/$CUSTOM_DIR_BASE $BUILD_DIR/
 
