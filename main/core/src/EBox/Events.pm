@@ -89,7 +89,6 @@ sub _create
     return $self;
 }
 
-
 sub _daemons
 {
     return [
@@ -98,6 +97,21 @@ sub _daemons
             'precondition' => \&_watchersEnabled,
         }
     ];
+}
+
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    # This is needed because EventDaemon instances global as readonly
+    # so syncRows is never called there, this avoids the need of the
+    # user having to visit the models on the Zentyal interface, so
+    # the events module can work out of the box with the default
+    # configuration (log dispatcher enabled and also events log
+    # if logs module is enabled)
+    $self->model('ConfigureWatchers')->ids();
+    $self->model('ConfigureDispatchers')->ids();
+    $self->saveConfig();
 }
 
 # Group: Public methods

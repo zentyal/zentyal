@@ -1,4 +1,5 @@
 HEAD
+	+ Rows in events models are now synced before running EventDaemon
 	+ Better way of checking if event daemon is needed
 3.0.17
 	+ Allow numeric zero as search filter
