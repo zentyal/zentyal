@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Zarafa::ZarafaUserOptions;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Zarafa::ZarafaUserOptions;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -25,28 +23,28 @@ use EBox::Gettext;
 use EBox::ZarafaLdapUser;
 
 ## arguments:
-##	title [required]
+##      title [required]
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Zarafa',
-				      @_);
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Zarafa',
+                                  @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $zarafaldap = new EBox::ZarafaLdapUser;
+    my $zarafaldap = new EBox::ZarafaLdapUser;
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->{redirect} = "UsersAndGroups/User?user=$user";
 
-	$self->keepParam('user');
+    $self->keepParam('user');
 
     $user = new EBox::UsersAndGroups::User(dn => $user);
 
