@@ -92,19 +92,12 @@ sub _create
 
 sub _daemons
 {
-    return [ { 'name' => SERVICE } ];
-}
-
-sub _enforceServiceState
-{
-    my ($self) = @_;
-
-    # Check for admin dumbness, it can throw an exception
-    if ($self->_nothingEnabled()) {
-        $self->_stopService();
-        return;
-    }
-    $self->SUPER::_enforceServiceState();
+    return [
+        {
+            'name' => SERVICE,
+            'precondition' => \&_watchersEnabled,
+        }
+    ];
 }
 
 # Group: Public methods
@@ -377,32 +370,23 @@ sub sendEvent
 
 # Group: Private methods
 
-# Check either if at least one watcher and one dispatcher are enabled or the
-# logs are enabled
-sub _nothingEnabled
+# Check either if there are enabled watchers
+sub _watchersEnabled
 {
     my ($self) = @_;
 
     if ($self->_logIsEnabled()) {
-        return undef;
+        return 1;
     }
 
-    my $eventModel = $self->model('ConfigureWatchers');
-    my $dispatcherModel = $self->model('ConfigureDispatchers');
-
-    my $match = $eventModel->find(enabled => 1);
-    unless (defined ($match)) {
+    my $match = $self->model('ConfigureWatchers')->find(enabled => 1);
+    if (defined ($match)) {
+        return 1;
+    } else {
         EBox::warn('No event watchers have been enabled');
-        return 1;
     }
 
-    $match = $dispatcherModel->find(enabled => 1);
-    unless (defined ($match)) {
-        EBox::warn('No event dispatchers have been enabled');
-        return 1;
-    }
-
-    return undef;
+    return 0;
 }
 
 
