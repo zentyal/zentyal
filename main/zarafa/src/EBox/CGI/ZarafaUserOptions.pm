@@ -65,11 +65,6 @@ sub _process
             } else {
                 $zarafaldap->setIsAdmin($user, 0);
             }
-            if (defined($self->param('is_store'))) {
-                $zarafaldap->setIsStore($user, 1);
-            } else {
-                $zarafaldap->setIsStore($user, 0);
-            }
             if (defined($self->param('meeting_autoaccept'))) {
                 $zarafaldap->setMeetingAutoaccept($user, 1);
             } else {

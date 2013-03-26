@@ -64,18 +64,6 @@
     </tr>
     <tr>
         <td class="tright">
-            <span class="ftitle"><% __('Shared store only') %>:</span>
-        </td>
-        <td>
-            <input type="checkbox" name="is_store" id="external" value="yes"
-%            if ($params->{'is_store'}) {
-                checked
-%            }
-            />
-        </td>
-    </tr>
-    <tr>
-        <td class="tright">
             <span class="ftitle"><% __('Auto accept meeting requests') %>:</span>
         </td>
         <td>
