@@ -51,6 +51,9 @@
 %            }
             />
         </td>
+      </tr>
+
+      <tr>
         <td class="tright">
             <span class="ftitle"><% __('Enable IMAP access') %>:</span>
         </td>
@@ -86,6 +89,9 @@
 %            }
             />
         </td>
+     </tr>
+
+     <tr>
         <td class="tright">
             <span class="ftitle"><% __('Decline recurring meeting requests') %>:</span>
         </td>
