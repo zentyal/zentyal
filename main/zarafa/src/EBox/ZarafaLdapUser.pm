@@ -43,7 +43,6 @@ sub _userAddOns
 
     my $active = $self->hasAccount($user) ? 'yes' : 'no';
     my $contact = $self->hasContact($user)? 'yes' : 'no';
-    my $canModifyContact = $self->canModifyContact($user);
     my $has_pop3 = $self->hasFeature($user, 'pop3') ? 1 : 0;
     my $has_imap = $self->hasFeature($user, 'imap') ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
@@ -64,7 +63,6 @@ sub _userAddOns
         'meeting_declinerecurring' => $has_meeting_declinerecurring,
 
         'contact' => $contact,
-        'canModifyContact' => $canModifyContact,
 
         'service' => $self->{zarafa}->isEnabled(),
     };
@@ -204,11 +202,19 @@ sub setHasAccount
 
     my $hasAccount =  $self->hasAccount($user);
     if ((not $hasAccount) and $enable) {
-        my $hasClass = 'zarafa-user' eq any($user->get('objectClass'));
+        my $anyObjectClass = any($user->get('objectClass'));
+        my $hasClass = 'zarafa-user' eq $anyObjectClass;
+        my $hasContactClass = 'zarafa-contact' eq $anyObjectClass;
+
         if ($hasClass) {
             $user->set('zarafaSharedStoreOnly', 0);
+            if (not $hasContactClass) {
+                $user->add('objectClass', ['zarafa-contact'], 1);
+            }
         } else {
-            $user->add('objectClass', [ 'zarafa-user',  'zarafa-contact'], 1);
+            my @toAdd = ('zarafa-user');
+            push @toAdd, 'zarafa-contact' if not $hasContactClass;
+            $user->add('objectClass', \@toAdd, 1);
 
             $user->set('zarafaAccount', 1, 1);
             $user->set('zarafaAdmin', 0, 1);
@@ -260,18 +266,11 @@ sub hasContact
     return 'zarafa-contact' eq any($user->get('objectClass'));
 }
 
-sub canModifyContact
-{
-    my ($self, $user) = @_;
-    return 'zarafa-user' ne all($user->get('objectClass'));
-}
-
-
 sub setHasContact
 {
     my ($self, $user, $contact) = @_;
 
-    if ($self->hasAccount($user) or not $self->canModifyContact($user)) {
+    if ($self->hasAccount($user)) {
         # nothing to do here
         return;
     }
