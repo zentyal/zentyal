@@ -252,7 +252,7 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.14') < 0) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.14') < 0) and $self->configured()) {
         my %kerberosPrincipals = (
             dns => 1,
             mail => 1,
