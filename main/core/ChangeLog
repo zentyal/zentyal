@@ -1,3 +1,6 @@
+HEAD
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
 3.0.17
 	+ Allow numeric zero as search filter
 	+ When filtering rows don't match agains link urls or hidden values
