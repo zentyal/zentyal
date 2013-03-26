@@ -1034,6 +1034,7 @@ sub sortModulesByDependencies
 #      - After finishing saving changes using <saveAllModules> call
 #      - After a modification in LDAP if users module is present and at
 #      least configured
+#      - After a change in any file under the zentyal configuration files directory
 #
 # Returns:
 #
