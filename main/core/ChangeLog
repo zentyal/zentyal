@@ -1,4 +1,6 @@
 HEAD
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
 	+ Rows in events models are now synced before running EventDaemon
 	+ Better way of checking if event daemon is needed
 3.0.17
