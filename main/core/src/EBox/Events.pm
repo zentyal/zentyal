@@ -109,9 +109,11 @@ sub _preSetConf
     # the events module can work out of the box with the default
     # configuration (log dispatcher enabled and also events log
     # if logs module is enabled)
-    $self->model('ConfigureWatchers')->ids();
-    $self->model('ConfigureDispatchers')->ids();
-    $self->saveConfig();
+    unless ($self->isReadOnly()) {
+        $self->model('ConfigureWatchers')->ids();
+        $self->model('ConfigureDispatchers')->ids();
+        $self->saveConfig();
+    }
 }
 
 # Group: Public methods
