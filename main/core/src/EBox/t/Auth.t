@@ -48,7 +48,6 @@ sub useOkTest
 
 sub globalSetUp
 {
- 
   my $testDir = '/tmp/ebox.auth.test';
   system "rm -rf $testDir";
   ($? == 0) or die "Error deleting $testDir: $!";
@@ -60,30 +59,27 @@ sub globalSetUp
 
   EBox::TestStub::fake();
   EBox::Global::TestStub::fake();
-
 }
-
 
 sub setAndCheckPasswdTest
 {
     setUp();
-    my $auth        = new EBox::Auth;  
+    my $auth= new EBox::Auth;
 
     # passwd too short
     dies_ok { $auth->setPassword('12345')  } "Checking for error with a short password";
 
     my @passwds     = qw(pipadao macaco34 mandril34 ed463fg);
     foreach my $pass (@passwds) {
-	lives_ok {  $auth->setPassword($pass) } 'Trying to set new password';
-	ok $auth->checkPassword($pass, $pass), 'Checking new password';
+        lives_ok {  $auth->setPassword($pass) } 'Trying to set new password';
+	    ok $auth->checkPassword($pass, $pass), 'Checking new password';
     }
-
 }
 
 sub authen_cred_test
 {
-    setUp();
-  my $auth        = new EBox::Auth;
+  setUp();
+  my $auth = new EBox::Auth;
   my $request = _newRequest();
 
   my $passwd = 'macaco';
@@ -91,17 +87,15 @@ sub authen_cred_test
 
   my $badPasswd = $passwd . 'iAmBad';
   ok !$auth->authen_cred($request, $badPasswd), 'authen_cred with bad password';
-  
+
   ok $auth->authen_cred($request, $passwd), 'authen_cred with the correct password';
-
 }
-
 
 sub authen_ses_key_test
 {
-    setUp();
-  my $auth        = new EBox::Auth;
-  my $user        = 'admin';
+  setUp();
+  my $auth = new EBox::Auth;
+  my $user = 'admin';
 
   my $request = _newRequest();
   my $passwd = 'macaco';
@@ -112,9 +106,8 @@ sub authen_ses_key_test
   is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking user returned by authen_cred';
   ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
 
-
-    # retry authen_ses after a while
-    Test::MockTime::set_relative_time(+NOEXPIRE_TIME);
+  # retry authen_ses after a while
+  Test::MockTime::set_relative_time(+NOEXPIRE_TIME);
   $request = _newRequest();
   is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking authen_cred again after a while';
   ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
@@ -124,10 +117,9 @@ sub authen_ses_key_test
   $request = _newRequest();
   ok !$auth->authen_ses_key($request, $sessionKey), 'Trying a expired login';
   eq_or_diff $request->subprocess_env(), [LoginReason => 'Expired'], 'See if apache request subprocess_env field marks the login error as expired';
-  
-    Test::MockTime::restore();
-}
 
+  Test::MockTime::restore();
+}
 
 sub alreadyLoggedTest
 {
@@ -137,17 +129,16 @@ sub alreadyLoggedTest
 
     ok !$auth->alreadyLogged(), 'alreadyLogged when no login has happened';
 
-
     my $passwd = 'macaco';
     $auth->setPassword($passwd);
     my $request = _newRequest();
 
     # unsuccessful login
-    $auth->authen_cred($request, $passwd . 'bad'); 
+    $auth->authen_cred($request, $passwd . 'bad');
     ok !$auth->alreadyLogged(), 'alreadyLogged after a unsuccessful login';
 
     # successful login..
-    $auth->authen_cred($request, $passwd); 
+    $auth->authen_cred($request, $passwd);
     ok $auth->alreadyLogged(), 'alreadyLogged after a successful login';
 
     # retry after a while..
@@ -157,14 +148,12 @@ sub alreadyLoggedTest
     # expired session
     Test::MockTime::set_relative_time(+EXPIRE_TIME+NOEXPIRE_TIME);
     ok !$auth->alreadyLogged(), 'alreadyLogged with a expired session';
-
-
 }
 
 sub simultaneousLoginTest
 {
-  my $auth        = new EBox::Auth;
-  my $user        = 'admin';
+  my $auth = new EBox::Auth;
+  my $user = 'admin';
 
   my $request = _newRequest();
   my $passwd = 'macaco';
@@ -173,16 +162,14 @@ sub simultaneousLoginTest
   # log first user ..
   my $firstSessionKey = $auth->authen_cred($request, $passwd);
   $request = _newRequest();
-  $auth->authen_ses_key($request, $firstSessionKey); 
+  $auth->authen_ses_key($request, $firstSessionKey);
 
   # try simultaneous login
 
   $request = _newRequest();
   my $secondSessionKey = $auth->authen_cred($request, $passwd);
   ok $auth->authen_ses_key($request, $secondSessionKey), 'Trying a simultaneous login';
- }
-
-
+}
 
 sub defaultPasswdChangedTest
 {
@@ -195,8 +182,6 @@ sub defaultPasswdChangedTest
 
     $auth->setPassword('12345678');
     is $auth->defaultPasswdChanged(), 1, 'Checking defaultPasswdChanged after changig default passwd';
-
-
 }
 
 sub _newRequest
@@ -219,7 +204,6 @@ sub _newRequest
   return $r;
 }
 
-
 sub setUp
 {
     foreach my $f (EBox::Config::passwd EBox::Config::sessionid) {
@@ -229,10 +213,10 @@ sub setUp
 }
 
 sub resetDefaultPasswd
-  {
+{
     my $passwd = 'ebox';
     open(my $PASSWD_F, "> ". EBox::Config->passwd) or die ('Could not open passwd file');
-    
+
     my $md5 = Digest::MD5->new;
     $md5->add($passwd);
     my $encpasswd = $md5->hexdigest;
@@ -240,4 +224,5 @@ sub resetDefaultPasswd
     print $PASSWD_F $encpasswd;
     close($PASSWD_F);
 }
+
 1;

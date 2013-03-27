@@ -43,14 +43,12 @@ EBox::Types::TestHelper::createFail($class,
            'Optional and defaultValue parameters are incompatible',
           );
 
-
 my $fieldName = 'testInstance';
 my $instance = EBox::Types::Abstract->new(
                                           fieldName => $fieldName
                                          );
 is $instance->printableName, $fieldName,
     'checking that printableName defaults to fieldName';
-
 
 EBox::Types::TestHelper::cloneTest($instance);
 

@@ -13,11 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 use strict;
 use warnings;
- 
+
 use lib '../../..';
 
 use EBox::Printers::LogHelper;
@@ -35,36 +33,6 @@ my $dumpInsertedData = 0;
 use constant JOB_TABLE => "printers_jobs";
 use constant PAGES_TABLE => "printers_pages";
 
-
-# {
-#     no warnings 'redefine';
-#     sub EBox::Global::modInstance
-#      {
-#          my ($class, $name) = @_;
-    
-#          if ($name ne 'mail') {
-#              die 'Only mocked EBox::Global::modInstance for module mail';
-#          }
-    
-
-#          my $fakeVDomains = Test::MockObject->new();
-#          $fakeVDomains->mock('vdomains' => sub {
-#                                  return ('monos.org', 'a.com')
-#                              }
-#                             );
-
-#          my $mailMod = {
-#                         vdomains => $fakeVDomains,
-#                        };
-
-#          return $mailMod;
-#      }
-# }
-
-
-
-
-
 sub newFakeDBEngine
 {
     my $dbengine = Test::MockObject->new();
@@ -73,7 +41,6 @@ sub newFakeDBEngine
                         my ($self, $table, $data) = @_;
                         if (not exists $self->{rows}) {
                             $self->{rows} = [];
-                            
                         }
 
                         my $row = $data;
@@ -81,18 +48,16 @@ sub newFakeDBEngine
 
                         push @{ $self->{rows} }, $row;
                     }
+    );
 
-                   );
-                            
     $dbengine->mock('clear' => sub {
                         my ($self) = @_;
                         $self->{rows} = [];
                     }
-                   );
-                    
+     );
+
     return $dbengine;
 }
-                    
 
 sub _currentYear
 {
@@ -101,40 +66,20 @@ sub _currentYear
     return $year;
 }
 
-
 sub checkInsert
 {
     my ($dbengine, $expectedData) = @_;
 
-    
     my $data = delete $dbengine->{rows};
     if ($dumpInsertedData) {
         diag "Inserted Data:\n" . Dumper $data;
     }
 
-#     my @notNullFields = qw(client_host_ip client_host_name timestamp);
-#     my $failed = 0;
-#     foreach my $field (@notNullFields) {
-#         if ((not exists $data->{$field}) or (not defined $data->{$field})) {
-#             fail "NOT NULL field $field was NULL";
-#             $failed = 1;
-#             last;
-#         }
-#     }
-    
-#     if (not $failed) {
-#         pass "All NOT-NULL fields don't contain NULLs";
-#     }
-
-
-
-    is_deeply $data, $expectedData,
-        'checking if inserted data is correct';
+    is_deeply $data, $expectedData, 'checking if inserted data is correct';
 }
 
 my $year = _currentYear();
 my @cases = (
-
              {
               name => 'page_log file',
               file  => '/var/log/cups/page_log',
@@ -155,35 +100,35 @@ my @cases = (
                                  'timestamp' => '15/Jul/2010 17:12:17 +0200',
                                  'printer' => 'hpqueue',
                                  'job' => 3,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
                                  'timestamp' => '15/Jul/2010 17:13:30 +0200',
                                  'printer' => 'hpqueue',
                                  'job' => 3,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
                                  'timestamp' => '15/Jul/2010 17:14:06 +0200',
                                  'printer' => 'hpqueue',
                                  'job' => 3,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
                                  'timestamp' => '15/Jul/2010 17:36:57 +0200',
                                  'printer' => 'epsonqueue',
                                  'job' => 4,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
                                  'timestamp' => '15/Jul/2010 17:14:42 +0200',
                                  'printer' => 'hpqueue',
                                  'job' => 3,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
 
                                 {
@@ -191,14 +136,14 @@ my @cases = (
                                  'printer' => 'epsonqueue',
                                  'timestamp' => '15/Jul/2010 17:38:14 +0200',
                                  'job' => 4,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
                                  'timestamp' => '15/Jul/2010 17:38:50 +0200',
                                  'printer' => 'epsonqueue',
                                  'job' => 4,
-                                 'pages' => 1 
+                                 'pages' => 1
                                 },
                                 {
                                  '_table' => 'printers_pages',
@@ -293,8 +238,6 @@ q{W [15/Jul/2010:18:03:59 +0200] No limit for CUPS-Get-Document defined in polic
              },
 
             );
- 
-
 
 
 my $logHelper = new EBox::Printers::LogHelper();
@@ -307,15 +250,11 @@ foreach my $case (@cases) {
     my $dbEngine = newFakeDBEngine();
     lives_ok {
         foreach my $line (@lines) {
-            $logHelper->processLine($case->{file}, $line, $dbEngine); 
+            $logHelper->processLine($case->{file}, $line, $dbEngine);
         }
     } 'processing lines';
 
     checkInsert($dbEngine,$case->{expectedData});
 }
 
-
-
 1;
-
-__DATA__

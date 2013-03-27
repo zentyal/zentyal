@@ -4,7 +4,6 @@ use warnings;
 use TestHelper;
 use Test::More tests => 5;
 
-
 my @columnTitles = qw(arabic roman binary);
 my @rows = (
 	    ['0', 'no symbol for zero', 0,],
@@ -13,7 +12,7 @@ my @rows = (
 	   );
 my @additionalComponents = (
 		       'msg.mas', msg => "suddenly, a message",
-		      );
+);
 
 my @cases = (
 	     [],  # no arguments case
@@ -23,8 +22,6 @@ my @cases = (
 	     [columnTitles => \@columnTitles, rows => \@rows, additionalComponents => \@additionalComponents],
 	    );
 
-
 TestHelper::testComponent('table.mas', \@cases);
-
 
 1;

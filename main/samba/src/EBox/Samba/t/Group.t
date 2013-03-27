@@ -55,4 +55,5 @@ sub testCheckAccountName
 
 EBox::TestStub::fake();
 testCheckAccountName();
+
 1;

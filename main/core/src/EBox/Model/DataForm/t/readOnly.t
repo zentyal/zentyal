@@ -33,7 +33,6 @@ BEGIN {
     use_ok( 'EBox::Test::StaticForm');
 }
 
-
 my $logs = EBox::Global->modInstance('logs');
 my $model = new EBox::Test::StaticForm( confmodule => $logs,
                                         directory   => '1');
@@ -59,6 +58,7 @@ cmp_deeply( $model->row()->{printableValueHash},
              port_range          => '20:2000',
              compulsory_service  => 'ICMP',
             },
-            'Get the static row from the content method return value');
+            'Get the static row from the content method return value'
+);
 
 1;

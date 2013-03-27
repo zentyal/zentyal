@@ -5,15 +5,13 @@ use TestHelper;
 
 use lib '../..';
 
-
 use Test::More tests => 3;
-
 
 my @cases = (
 	     [ name => 'textEnabled'],
 	     [ name => 'textEnabledAndFilled', value => 'textValue'],
 	     [ name => 'hiidenDisabled', value => 'textValue', disabled => 'disabled'],
-	    );
+);
 
 TestHelper::testComponent('text.mas', \@cases);
 

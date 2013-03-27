@@ -16,15 +16,13 @@ my $htmlAttributesTemplate =   getcwd() . '/../htmlAttributes.mas';
 
 my @cases = (
 	     [],
-	     [qw(name macaco)], 
+	     [qw(name macaco)],
 	     [qw(name macaco value jefatura)],
-	    );
+);
 
 
 foreach my $params (@cases) {
   EBox::Test::Mason::checkTemplateExecution(template => $htmlAttributesTemplate, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
 }
-
-
 
 1;

@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 
-
 use Test::More skip_all => 'Unmantained tests, fix them at some point';
 use Test::More tests => 9;
 use Test::Exception;
@@ -20,7 +19,6 @@ sub mockTest
 	dies_ok { EBox::debug($debugMsg)  } 'This must fail because the log file is not  writable by ordinary users';
     } qr/$debugMsg/, 'Checking that debug text is not printed';
 
-
     EBox::TestStub::fake();
 
     stderr_like {
@@ -31,14 +29,11 @@ sub mockTest
 	lives_ok { EBox::debug($debugMsg)  } 'Checking that after the first initializtion the behaviour is unchanged';
     } qr/$debugMsg/;
 
-
-# unfake removed
-
+    #FIXME: unfake removed
     EBox::TestStub::unfake();
-   stderr_unlike {
-	dies_ok { EBox::debug($debugMsg)  } 'After unmocking we get the same behaviour than before';   } qr/$debugMsg/, 'Checking that debug text is not printed like before';
-
-
- }
+    stderr_unlike {
+	    dies_ok { EBox::debug($debugMsg)  } 'After unmocking we get the same behaviour than before';
+    } qr/$debugMsg/, 'Checking that debug text is not printed like before';
+}
 
 1;

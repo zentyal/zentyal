@@ -175,7 +175,7 @@ if ( $servs->serviceExists( name => 'icmp') ) {
 
 my @rulesAdded = ();
 lives_ok {
-push (@rulesAdded,
+    push (@rulesAdded,
       $ts->addRule($intIface,
                    service         => $sshServ,
                    source          => { source_any => '.' },
@@ -188,7 +188,7 @@ push (@rulesAdded,
 } 'Adding a rule as service (step 1)';
 
 lives_ok {
-push (@rulesAdded,
+    push (@rulesAdded,
       $ts->addRule($intIface,
                    service         => $anyServ,
                    source          => { source_ipaddr => '192.168.45.0/24' },
@@ -201,7 +201,7 @@ push (@rulesAdded,
 } 'Adding a rule shaping from IP source only (step 2)';
 
 lives_ok {
-push (@rulesAdded,
+    push (@rulesAdded,
       $ts->addRule($intIface,
                    service         => $greServ,
                    source          => { source_macaddr => '00:0C:29:32:2D:E3' },
@@ -214,7 +214,7 @@ push (@rulesAdded,
 } 'Adding a rule shaping GRE traffic from a MAC address (step 2)';
 
 lives_ok {
-push (@rulesAdded,
+    push (@rulesAdded,
       $ts->addRule($intIface,
                    service         => $icmpServ,
                    source          => { source_object => $testObj },
@@ -227,7 +227,7 @@ push (@rulesAdded,
 } 'Adding a rule shaping ICMP traffic from an object (step 2)';
 
 lives_ok {
-push (@rulesAdded,
+    push (@rulesAdded,
       $ts->addRule($intIface,
                    service         => $customServ,
                    source          => { source_object => $testObj },
@@ -409,7 +409,6 @@ $rules_ref = $ts->listRules($intIface);
 # Get the rule id from recently created rule
 my $ruleId;
 foreach my $rule_ref (@{$rules_ref}) {
-
     $ruleId = $rule_ref->{ruleId};
     last if ($rule_ref->{service} eq $customServ
              and $rule_ref->{guaranteed_rate} == 60

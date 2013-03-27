@@ -13,9 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-#
-
 use strict;
 use warnings;
 
@@ -32,7 +29,6 @@ sortModulesByDependenciesTest();
 
 sub sortModulesByDependenciesTest
 {
-
     # caution! method does not resolve cyclic dependencies
     diag 'Testing sortModulesByDependencies with 40 modules';
     my %modDependencies =  (
@@ -52,37 +48,25 @@ sub sortModulesByDependenciesTest
     _checkSortModulesByDependencies(\%modDependencies);
 }
 
-
-
 sub sortOneModuleByDependenciesTest
 {
     my @modules;
     my $dependenciesMethod = 'dependencies';
 
-
     diag 'Testing sortModulesByDependencies with one module without dependencies';
-    my %modDependencies =  (
-        0 => [],
-                           );
+    my %modDependencies = (0 => []);
     _checkSortModulesByDependencies(\%modDependencies);
-
 
     diag 'Testing sortModulesByDependencies with one module with unsolved dpendnecies';
-    %modDependencies =  (
-        0 => [1],
-                           );
+    %modDependencies = (0 => [1]);
 
     _checkSortModulesByDependencies(\%modDependencies);
-
-
 }
-
 
 sub sortTwoModulesByDependenciesTest
 {
     my @modules;
     my $dependenciesMethod = 'dependencies';
-
 
     diag 'Testing sortModulesByDependencies with two modules: without dependencies and without all non-transitive dependencies combinations';
     my %modDependencies =  (
@@ -90,7 +74,6 @@ sub sortTwoModulesByDependenciesTest
         1 => [],
                            );
     _checkSortModulesByDependencies(\%modDependencies);
-
 
     %modDependencies =  (
         0 => [1],
@@ -120,7 +103,7 @@ sub _checkSortModulesByDependencies
     my ($modDependencies_r) = @_;
     my @modules;
     my $dependenciesMethod = 'dependencies';
-    
+
     my %modDependencies =  %{$modDependencies_r};
     my $maxMod = 0;
     foreach (keys %modDependencies) {
@@ -133,7 +116,7 @@ sub _checkSortModulesByDependencies
         my $modName = $_;
         my $mod = Test::MockObject->new();
         $mod->set_always('name', $modName);
-        my $dependencies_r = exists $modDependencies{$modName} ? 
+        my $dependencies_r = exists $modDependencies{$modName} ?
                                      $modDependencies{$modName} : [];
         $mod->set_always($dependenciesMethod, $dependencies_r);
         push @modules, $mod;
@@ -142,10 +125,10 @@ sub _checkSortModulesByDependencies
 
     my @sortedModules;
     lives_ok {
-        @sortedModules = @{ 
+        @sortedModules = @{
            EBox::Global->sortModulesByDependencies(
-                                 \@modules, $dependenciesMethod) 
-                          };
+                                 \@modules, $dependenciesMethod)
+        };
     } 'Sorting modules by dependencies';
 
     diag 'checking sorted by dependencies module list';
@@ -165,6 +148,5 @@ sub _checkSortModulesByDependencies
         }
     }
 }
-
 
 1;

@@ -211,4 +211,3 @@ $listCerts = $ca->listCertificates();
 
 cmp_ok ( scalar(@{$listCerts}), '==', 5, 'listing current certificates');
 
-

@@ -39,16 +39,13 @@ BEGIN {
 #      Fake to manage model manager within this test suite
 #
 sub _fakeSetUpModels
-  {
-
+{
       my ($self) = @_;
 
       $self->{models}->{MemberTable} = new EBox::Objects::Model::MemberTable(
                          confmodule => EBox::Global->modInstance('objects'),
                          directory   => 'memberTable'
-                                                                            );
-
-  }
+}
 
 # Fake the model manager
 Test::MockObject->fake_module('EBox::Model::Manager',
@@ -56,36 +53,28 @@ Test::MockObject->fake_module('EBox::Model::Manager',
 
 # Fake eBox
 EBox::TestStubs::activateTestStubs();
-EBox::TestStubs::fakeEBoxModule( name => 'foo' );
-EBox::TestStubs::fakeEBoxModule( name => 'objects',
-                                 class  => 'EBox::Objects',
-                               );
+EBox::TestStubs::fakeEBoxModule(name => 'foo');
+EBox::TestStubs::fakeEBoxModule(name => 'objects', class  => 'EBox::Objects');
 my $fakeModule = EBox::Global->modInstance('foo');
 
-my $model = new EBox::Test::Model(
-                                  confmodule => $fakeModule,
-                                  directory   => 'model'
-                                 );
+my $model = new EBox::Test::Model(confmodule => $fakeModule, directory   => 'model');
 
-isa_ok ( $model, 'EBox::Test::Model' );
+isa_ok ($model, 'EBox::Test::Model');
 
-lives_ok
-  {
-      $fakeModule->delete_dir($model->directory());
-  } 'deleting previous data';
+lives_ok {
+    $fakeModule->delete_dir($model->directory());
+} 'deleting previous data';
 
 diag ('Checking method name parsing');
 
 # Check the method Name
-throws_ok
-  {
-      $model->addFooToTestTable();
-  } 'EBox::Exceptions::Internal', 'Wrong submodel name';
+throws_ok {
+    $model->addFooToTestTable();
+} 'EBox::Exceptions::Internal', 'Wrong submodel name';
 
-throws_ok
-  {
-      $model->fooTestTable();
-  } 'EBox::Exceptions::Internal', 'Wrong action name';
+throws_ok {
+    $model->fooTestTable();
+} 'EBox::Exceptions::Internal', 'Wrong action name';
 
 diag( 'Checking additions' );
 
@@ -317,6 +306,5 @@ throws_ok
   {
       $model->setMemberToTestTable( $addedId, 'ada', 'foolba' => '232');
   } 'EBox::Exceptions::Internal', 'Updating an inexistent field in a sub model';
-
 
 1;

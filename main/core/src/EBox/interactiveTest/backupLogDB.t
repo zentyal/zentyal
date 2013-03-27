@@ -39,10 +39,8 @@ my $slicedMode = $basic ? 0 : 1;
 
 EBox::init();
 
-
 my $dir = '/tmp/testdb';
 (-d $dir) or mkdir $dir;
-
 
 my $basename = 'test';
 

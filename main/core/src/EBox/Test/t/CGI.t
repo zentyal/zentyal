@@ -5,22 +5,15 @@ use warnings;
 use Test::Tester ;
 use Test::More tests => 38;
 use Test::Exception;
-#use Test::Builder::Tester;
-
 
 use lib '../../..';
 
 use_ok ('EBox::Test::CGI', qw(:all));
 use EBox::CGI::Base;
 
-
-
-
 runCgiTest();
 cgiErrorAssertionsTest();
 muteHtmlOutputTest();
-
-
 
 sub runCgiTest
 {
@@ -43,7 +36,7 @@ sub runCgiTest
 
 	lives_ok { runCgi($cgi, @cgiParams) } "runCgi() call with cgi's parameters: @cgiParams";
 	ok $cgi->hasRun(), "Checking if cgi has run"  ;
-	
+
 	my $error =  $cgi->{error};
 	my $hasError =  defined $error;
 	ok $hasError, 'Checking for error status in CGI'      if $awaitedError;
@@ -58,10 +51,10 @@ sub cgiErrorAssertionsTest
     my $errorFreeCgi = new EBox::CGI::DumbCGI;
     my $errorRiddenCgi = new EBox::CGI::DumbCGI;
     $errorRiddenCgi->{error} = 'a error';
-    
+
     # cgiErrorNotOk..
 
-  $testName = 'Checking positive assertion for cgiErrorNotOk';
+    $testName = 'Checking positive assertion for cgiErrorNotOk';
 
     check_test(
 	      sub {
@@ -69,29 +62,29 @@ sub cgiErrorAssertionsTest
 	      },
 	      {
 	       ok => 1,
-	       name =>  $testName,  
+	       name =>  $testName,
 	      }
 	     );
 
 
   $testName = 'Checking negative assertion for cgiErrorNotOk';
-    check_test( 
-	       sub { cgiErrorNotOk($errorRiddenCgi, $testName); }, 
-	       { ok => 0, name =>  $testName },  
+    check_test(
+	       sub { cgiErrorNotOk($errorRiddenCgi, $testName); },
+	       { ok => 0, name =>  $testName },
 	      );
 
     # cgiErrorOk..
   $testName = 'Checking positive assertion for cgiErrorOk';
-  check_test( 
+  check_test(
 	     sub { cgiErrorOk($errorRiddenCgi, $testName) },
-	     { ok => 1, name =>  $testName },  
+	     { ok => 1, name =>  $testName },
 	    );
 
 
     $testName  = 'Checking negative assertion for cgiErrorOk';
-    check_test( 
-	       sub { cgiErrorOk($errorFreeCgi, $testName); } 
-		, { ok => 0, name =>  $testName },  
+    check_test(
+	       sub { cgiErrorOk($errorFreeCgi, $testName); }
+		, { ok => 0, name =>  $testName },
 	      );
 }
 
@@ -108,11 +101,11 @@ sub muteHtmlOutputTest
 package EBox::CGI::DumbCGI;
 use base 'EBox::CGI::Base';
 
-sub new 
+sub new
 {
     my ($class, @params) = @_;
     my $self = $class->SUPER::new(@params);
-    $self->{hasRun} = 0; 
+    $self->{hasRun} = 0;
 
     bless $self, $class;
     return $self;
@@ -125,19 +118,16 @@ sub  _process
 
     my $errorParam = $self->param('forceError');
 
-
     if ($errorParam) {
-	$self->{error} = 'Error forced by parameter';
+	    $self->{error} = 'Error forced by parameter';
     }
 }
-
 
 sub hasRun
 {
     my ($self ) = @_;
     return $self->{hasRun};
 }
-
 
 # to eliminate html output while running cgi:
 sub _print
@@ -156,7 +146,6 @@ sub new
 }
 
 
-
 sub _print
 {
   $noise = 1;
@@ -164,8 +153,6 @@ sub _print
 
 sub noise
 {
-#  defined $noise and return $noise;
-#  return 0;
   return $noise;
 }
 

@@ -23,8 +23,6 @@ use EBox::Types::TestHelper;
 use EBox::Types::Int;
 use EBox::Types::Text;
 
-
-
 sub creationTest
 {
     my @validCases = (
@@ -82,8 +80,6 @@ sub creationTest
                         ]
                        );
 
-
-
     foreach my $case_r (@validCases) {
         my @params = @{ $case_r };
         EBox::Types::TestHelper::createOk(
@@ -92,7 +88,6 @@ sub creationTest
                                     @params,
                                     "Checking instance creation with valid parameters and value"
                                    );
-
     }
 
     foreach my $case_r (@deviantCases) {
@@ -103,7 +98,6 @@ sub creationTest
                                       "Checking instance creation raises error when called with invalid parameters and value"
                                      );
     }
-
 }
 
 sub cmpTest
@@ -125,8 +119,6 @@ sub cmpTest
                                     fieldName => 'seven',
                                     value    => 7,
                                    );
-
-
 
     my $fourWithMin = new EBox::Types::Int(
                                     fieldName => 'fourWithMin',
@@ -162,9 +154,7 @@ sub cmpTest
 
     is $four->cmp($text), undef,
         'whether different types are incomparable';
-
 }
-
 
 EBox::Types::TestHelper::setupFakes();
 creationTest();

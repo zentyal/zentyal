@@ -57,4 +57,3 @@ ok ( $rssDispatcher->send($event),
      'Sending test event to the admin');
 
 1;
-

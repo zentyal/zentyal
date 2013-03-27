@@ -35,7 +35,6 @@ Test::MockObject->fake_module(
 
 my @cases;
 
-
 # RAID 1  resyncing
 push @cases,  {
                mdstatFile => './testdata/raid1-mdstat-resync.txt',
@@ -563,9 +562,7 @@ push @cases,  {
                                device => '/dev/sda1',
                                state => 'up',
                              },
-
                     },
-
                   },
                },
 };
@@ -603,10 +600,7 @@ foreach my $case (@cases) {
   }
 }
 
-
-
-
-FAKE_SUBS:{
+FAKE_SUBS: {
   my $mdstatFile;
 
   sub setFakeMdInfo
@@ -621,9 +615,6 @@ FAKE_SUBS:{
       my $contents_r = read_file($mdstatFile, array_ref => 1);
       return $contents_r;
     }
-
-
-
 }
 
 1;

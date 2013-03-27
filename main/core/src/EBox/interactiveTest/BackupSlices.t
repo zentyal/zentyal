@@ -16,7 +16,6 @@
 use strict;
 use warnings;
 
-
 use EBox;
 use EBox::Sudo;
 use EBox::DBEngineFactory;
@@ -50,12 +49,10 @@ my $timeline = 1;
 #my $maxId    = _maxArchiveIdInTimeline($dbengine, $timeline, $toDate);
 # check that no slices are made with a empty table
 
-
 my @actualSlice;
 
 @actualSlice = EBox::Logs::SlicedBackup::_actualTableSlice($dbengine, $table, $periodInEpoch, $nowTs);
 is @actualSlice, 0, 'Checkign that actualSlice returns empty';
-
 
 my $sqlGetSlices = "select * from backup_slices where tablename = '$table'";
 my $res = $dbengine->query($sqlGetSlices);
@@ -92,32 +89,29 @@ my $nowTsFor3SliceBackup =  _tsToEpoch($nowFor3SliceBackup);
 $dbengine->backupDB($backupDirIn3Slice, 'basaename', slicedMode => 1, nowTs => $nowTsFor3SliceBackup);
 
 # moving time to 4th slice
-$nowTs  = _tsToEpoch('2010-05-30 04:45:42');  
+$nowTs  = _tsToEpoch('2010-05-30 04:45:42');
 @actualSlice = EBox::Logs::SlicedBackup::_actualTableSlice($dbengine, $table, $periodInEpoch, $nowTs);
-is_deeply [@actualSlice], 
-    [4, '2010-05-20 10:45:15', '2010-05-30 10:45:15', 1], 
+is_deeply [@actualSlice],
+    [4, '2010-05-20 10:45:15', '2010-05-30 10:45:15', 1],
     'Checkign that actualSlice returns he valeus for the fourth active one';
-
-
-
 
 $res = $dbengine->query($sqlGetSlices);
 is @{ $res}, 4, 'Check that sql rows count is ok';
 
 @actualSlice = EBox::Logs::SlicedBackup::_actualTableSlice($dbengine, $table, $periodInEpoch, $nowTs);
-is_deeply [@actualSlice], 
-    [4, '2010-05-20 10:45:15', '2010-05-30 10:45:15', 1], 
+is_deeply [@actualSlice],
+    [4, '2010-05-20 10:45:15', '2010-05-30 10:45:15', 1],
     'Checkign that actualSlice is stable';
 
 
 
 
 # moving nowTs to a new period to see if new slices are created
-$nowTs  = _tsToEpoch('2010-06-4 04:45:42'); 
+$nowTs  = _tsToEpoch('2010-06-4 04:45:42');
 
 @actualSlice = EBox::Logs::SlicedBackup::_actualTableSlice($dbengine, $table, $periodInEpoch, $nowTs);
-is_deeply [@actualSlice], 
-    [5, '2010-05-30 10:45:16', '2010-06-09 10:45:16', 1], 
+is_deeply [@actualSlice],
+    [5, '2010-05-30 10:45:16', '2010-06-09 10:45:16', 1],
     'Checking that a new slice has been created';
 # insert some data for this time slice
 my @slice5Timestamps = (
@@ -133,15 +127,12 @@ _checkMaxSlice($dbengine, $table, $timeline, 5);
 _checkSlices({ mustExist => 1, compressed => 0 }, $backupDir, $table, $timeline, 5);
 _checkSlices(0, $backupDir, $table, $timeline, 1, 2, 3, 4);
 
-# 
 is EBox::Logs::SlicedBackup::_noStoredSlices($dbengine, $timeline, 5), 4,
     'see the backup has not archived itself any slice';
-
 
 # check purge threshodl with no archives
 _checkLimitPurgeThreshold($dbengine, $table,  '2010-05-04 21:21:12', 'Tue Apr 20 10:45:11 2010'); # in slice 2
 _checkLimitPurgeThreshold($dbengine, $table,  '2010-06-2 10:10:10', 'Tue Apr 20 10:45:11 2010' ); # in slice 5
-
 
 # restore without archive
 _deleteTable($dbengine, $table);
@@ -160,8 +151,6 @@ _checkActualTimeline($dbengine, 1);
 
 # regenate DB for archive tests
 _regenerateAllDatabase($dbengine, $table, $timeline);
-
-
 
 diag 'archive';
 EBox::Logs::SlicedBackup::archive($dbengine,
@@ -201,7 +190,6 @@ my @expectedFiles = sort map {
 
 is_deeply \@archiveFiles, \@expectedFiles,
     "Checkign retireval files on the archive";
-
 
 diag ' restore with archive';
 my $dataFromAllSlices= {
@@ -349,15 +337,11 @@ sub _checkMarkAsArchived
                fail "$slice of $table was marked as archived";
                $ok = 0;
            }
-           
        }
        if ($ok) {
            pass "Slices @slices of table $table were not marked as archived as expected";
        }
-       
    }
-
-
 }
 
 sub _checkSlices
@@ -371,7 +355,6 @@ sub _checkSlices
     } else {
         $mustExist = $options;
     }
-
 
     my @filesWanted = map {
         my $f = EBox::Logs::SlicedBackup::_backupFileForTable($dir, $table, $timeline, $_);
@@ -387,14 +370,10 @@ sub _checkSlices
         if ($mustExist) {
             ok $exists, "Checking that slice file $file exists";
         } else {
-            is  $exists, undef,
-                "Checking that slice file $file NOT exists";            
+            is $exists, undef, "Checking that slice file $file NOT exists";
         }
-
-        
     }
 }
-
 
 sub _checkLimitPurgeThreshold
 {
@@ -417,7 +396,6 @@ sub _checkDataNoLaterThan
     my ($res) = @{ $dbengine->query($query) };
     my $human = $res->{human};
     is $res->{count}, 0, "checking that no record later than $human for $table";
-
 }
 
 sub _checkActualTimeline
@@ -431,7 +409,6 @@ sub _deleteTable
 {
      my ($dbengine, $table) = @_;
      $dbengine->do("DELETE FROM $table");
-
 }
 
 sub _clearTables
@@ -444,8 +421,6 @@ sub _clearTables
 
     $dbengine->do("CREATE TABLE IF NOT EXISTS $table (timestamp TIMESTAMP, value INT )");
     $dbengine->do("DELETE FROM backup_slices WHERE tablename='$table'");
-
-
 }
 
 sub _clearDir
@@ -453,17 +428,15 @@ sub _clearDir
     my ($dir) = @_;
     system "rm -rf $dir";
     system "mkdir -p $dir";
-
 }
+
 sub _insertTsAndValue
 {
     my ($dbengine, $table, $tsList, $value) = @_;
     foreach my $ts (@{ $tsList}) {
         $dbengine->unbufferedInsert($table, { timestamp => "'$ts'", value => $value} );
     }
-    
 }
-
 
 sub _tsToEpoch
 {
@@ -474,7 +447,6 @@ sub _tsToEpoch
     # perl lcoatiem adjsutments
     $mon -= 1;
     $year -= 1900;
-
 
     my $time = timelocal($sec,$min,$hour,$mday,$mon, $year);
     return $time;

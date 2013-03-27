@@ -1,11 +1,8 @@
-# Description:
-# 
 use strict;
 use warnings;
 
 use Test::More tests => 21;
 use Test::Exception;
-
 
 use lib '../../..';
 
@@ -20,15 +17,13 @@ modInstanceTest();
 changedTest();
 clearTest();
 
-
-
 sub testStubsSetup
 {
     EBox::TestStub::fake();
     EBox::Global::TestStub::fake();
     EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
 
-      MOCK_CLASS:{
+    MOCK_CLASS:{
 	  package EBox::Baboon;
 	  use base 'EBox::Module::Config';
 	  $INC{'EBox/Baboon.pm'} =1;
@@ -37,12 +32,9 @@ sub testStubsSetup
 	      my ($class, @optParams) = @_;
 	      my $self = $class->SUPER::_create(name => 'baboon', @optParams);
 	      return $self;
-	      
 	  }
-     }
+    }
 }
-
-
 
 sub modExistsTest
 {
@@ -53,15 +45,14 @@ sub modExistsTest
 sub modInstanceTest
 {
     my $global = EBox::Global->getInstance();
-    
+
     foreach my $n  (0 .. 1) {
 	my $baboonModule;
 	lives_ok { $baboonModule = $global->modInstance('baboon') } 'modInstance';
-	ok defined $baboonModule, 'Checking module returned by modInstance';
-	isa_ok $baboonModule, 'EBox::Module::Config';
-	isa_ok $baboonModule, 'EBox::Baboon';
-   }
-
+	    ok defined $baboonModule, 'Checking module returned by modInstance';
+	    isa_ok $baboonModule, 'EBox::Module::Config';
+	    isa_ok $baboonModule, 'EBox::Baboon';
+    }
 }
 
 sub getInstanceTest
@@ -69,12 +60,11 @@ sub getInstanceTest
     my $global;
 
     foreach my $n (0 .. 1) {
-	foreach my $readonly (0, 1) {
-	    lives_ok { $global = EBox::Global->getInstance($readonly) } 'EBox::Global::getInstance';
-	    isa_ok $global, 'EBox::Global';
-	}
+	    foreach my $readonly (0, 1) {
+	        lives_ok { $global = EBox::Global->getInstance($readonly) } 'EBox::Global::getInstance';
+	        isa_ok $global, 'EBox::Global';
+	    }
     }
-
 }
 
 sub changedTest
@@ -96,12 +86,11 @@ sub clearTest
 		      '/ebox/unrelatedToGlobal/bool'    => 1,
 		      '/ebox/unrelatedToGlobal/integer' => 100,
 		      '/anotherApp/string'              => 'a string',
-	  );
-    EBox::Module::Config::TestStub::setConfig(%originalConfig); 
+	);
+    EBox::Module::Config::TestStub::setConfig(%originalConfig);
 
     EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
     EBox::Global::TestStub::setEBoxModule('mandrill', 'EBox::Mandrill');
-
 
     EBox::Global::TestStub::clear();
     my %actualConfig = @{ EBox::Module::Config::TestStub::dumpConfig() };

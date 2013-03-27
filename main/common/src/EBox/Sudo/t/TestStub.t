@@ -1,15 +1,13 @@
 use strict;
 use warnings;
 
-
-use Test::More tests =>7;
+use Test::More tests => 7;
 use Test::Exception;
 
 use lib '../../..';
 
 use EBox::Sudo;
 use EBox::Sudo::TestStub;
-
 
 my $GOOD_SUDO_PATH = $EBox::Sudo::SUDO_PATH;
 my $GOOD_STDERR_FILE = $EBox::Sudo::STDERR_FILE;

@@ -1,8 +1,5 @@
-package main;
-#
 use strict;
 use warnings;
-
 
 use Test::More tests => 8;
 use Test::Exception;
@@ -11,22 +8,18 @@ use EBox;
 use EBox::Global;
 use EBox::Config::TestStub;
 
-
 use constant {
   MODULE_NAME => 'apache',
   CONF_KEY    => 'testConfKey',
-  STATE_KEY   => 'testStateKey',  
-
+  STATE_KEY   => 'testStateKey',
 };
-
 
 try {
   startup();
   setAsChangedTest();
   changeConfKeyTest();
   changeStateKeyTest();
-}
-finally {
+} finally {
   finalize();
 };
 
@@ -34,7 +27,6 @@ sub warning
 {
   diag 'This test may modify your eBox configuration';
   diag 'Do NOT use it in production environments';
-
 }
 
 sub _fakeConfDir
@@ -50,14 +42,12 @@ sub startup
   system  "rm -rf $fakeConfDir";
 
   EBox::init();
-  
-  
+
   my $global = EBox::Global->getInstance();
   if ($global->modIsChanged(MODULE_NAME)) {
     die 'This test needs that ' . MODULE_NAME . ' module is in a non-changed state';
   }
 
-  
   system "mkdir -p $fakeConfDir";
   EBox::Config::TestStub::fake(conf => $fakeConfDir);
 }
@@ -78,12 +68,12 @@ sub setAsChangedTest # 3
   checkModuleChanged(1);
 
   lives_ok {
-    $mod->revokeConfig(); 
+    $mod->revokeConfig();
   } 'checking if revoke config do not fail';
 }
 
 
-sub changeConfKeyTest # 3 
+sub changeConfKeyTest # 3
 {
   my $mod     = EBox::Global->modInstance(MODULE_NAME);
   $mod->set_int(CONF_KEY, 4);
@@ -91,7 +81,7 @@ sub changeConfKeyTest # 3
   checkModuleChanged(1);
 
   lives_ok {
-    $mod->revokeConfig(); 
+    $mod->revokeConfig();
   } 'checking if revoke config do not fail';
 }
 
@@ -104,10 +94,9 @@ sub changeStateKeyTest # 2 ch
   checkModuleChanged(0);
 
   lives_ok {
-    $mod->revokeConfig(); 
+    $mod->revokeConfig();
   } 'checking if revoke config do not fail';
 }
-
 
 sub checkModuleChanged
 {
@@ -123,9 +112,7 @@ sub checkModuleChanged
   if ( $changeExpected) {
     checkBakFile(1, 'Checking bak file for expcted changed module');
   }
-
 }
-
 
 sub checkBakFile
 {
@@ -137,7 +124,5 @@ sub checkBakFile
 
   is $bakFilePresent, $bakFileExpected, $msg;
 }
-
-
 
 1;

@@ -51,8 +51,8 @@ lives_ok
       $model = $events->configureEventModel()
   } 'Getting the event watcher model';
 
-isa_ok ( $model, 'EBox::Events::Model::ConfigureEventDataTable', 
-         'Getting the appropiate model');
+isa_ok ($model, 'EBox::Events::Model::ConfigureEventDataTable',
+        'Getting the appropiate model');
 
 my $oldRow;
 lives_ok

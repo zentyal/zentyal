@@ -56,14 +56,6 @@ sub writeConfFileTest
     lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck with force defaults execution upon a file with different permissions';
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
-
-#    Cannot execute this testcase because by default chowns to root!
-#     # called without any optional parameter
-#     my $defaultMode = '0644';
-#     unlink $testFile or die "Cannot unlink test file $testFile";
-#     lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent) } 'EBox::Module::Base::writeConfFileNoCheck execution without any optional parameter';
-#     file_exists_ok $testFile;
-#     file_mode_is ($testFile, oct '0644');
 }
 
 sub filesSetup
@@ -79,8 +71,6 @@ sub filesSetup
     ($? == 0) or die "Cannot create testFile $testFile";
     system "chmod $wantedMode $testFile";
     ($? == 0) or die "Cannot change mode of test file $testFile";
-
-
 }
 
 sub testStubsSetup
@@ -88,9 +78,9 @@ sub testStubsSetup
     my ($testDir, $testFile) = @_;
     EBox::Config::TestStub::setConfigKeys(tmp => $testDir);
 
-   _setMasonOutpuFile($testFile);
+    _setMasonOutpuFile($testFile);
     _mockMasonInterp();
- }
+}
 
 MOCK_MASON: {
     my $fileToCreate;
@@ -122,8 +112,6 @@ MOCK_MASON: {
         my ($file) = @_;
         $fileToCreate = $file;
     }
-
-
 };
 
 sub _destroyFileStat
@@ -134,12 +122,5 @@ sub _destroyFileStat
         throw EBox::Exception::Internal($@);
     }
 };
-
-
-
-
-
-
-
 
 1;

@@ -73,14 +73,10 @@ push @cases,  {
 			       device => '/dev/sdc1',
 			       state => 'spare',
 			     },
-
-			
 		    },
-		     
 		  },
-	       },
-
-	      }; # close push
+	    },
+}; # close push
 
 
 # RAID 1 normal state
@@ -118,19 +114,10 @@ push @cases,  {
 			       device => '/dev/sdc1',
 			       state => 'spare',
 			     },
-
-			
 		    },
-		     
 		  },
-	       },
-
-
-	      }; # close push
-
-
-
-
+      },
+}; # close push
 
 # # RAID 1 failure in one device, rebuilding
 push @cases,  {
@@ -160,22 +147,15 @@ push @cases,  {
 		        3 => {
 			       device => '/dev/sdc1',
 			       state => 'spare',
-
 			     },
 		       2 =>  {
 			       device => '/dev/sda2',
 			       state => 'failure',
 			     },
-
-			
 		    },
-		     
 		  },
-	       },
-
-
+	   },
 };
-
 
 # # RAID 1 failure in one device, aafter rebuilding
 push @cases,  {
@@ -207,16 +187,10 @@ push @cases,  {
 			       device => '/dev/sdb1',
 			       state => 'failure',
 			     },
-
-			
 		    },
-		     
-		  },
-	       },
-
-
+		},
+	 },
 };
-
 
 #  two raid arrays: raid0 and raid1
 push @cases,  {
@@ -248,10 +222,7 @@ push @cases,  {
 			       device => '/dev/sdc1',
 			       state => 'spare',
 			     },
-
-			
 		    },
-		     
 		  },
 
 		 '/dev/md1' => {
@@ -261,7 +232,7 @@ push @cases,  {
 
 				activeDevices       => 1,
 				activeDevicesNeeded => 1,
-			 	blocks              => 1566208,
+				blocks              => 1566208,
 				chunkSize           => '64k',
 
 				operation => 'none',
@@ -274,10 +245,7 @@ push @cases,  {
 					 },
 			       },
 	       },
-
-
 };
-
 
 # RAID5
 push @cases,  {
@@ -310,19 +278,11 @@ push @cases,  {
 		        2 => {
 			       device => 'scsi/host0/bus0/target2/lun0/part1',
 			       state => 'up',
-
 			     },
-
-			
 		    },
-		     
 		  },
-	       },
-
-
+	    },
 };
-
-
 
 # RAID5, mixed ide & scsi
 push @cases,  {
@@ -360,13 +320,9 @@ push @cases,  {
 			       device => '/dev/hdb1',
 			       state => 'spare',
 			     },
-			
 		    },
-		     
 		  },
-	       },
-
-
+	    },
 };
 
 my $watcher = new EBox::Event::Watcher::RAID();
@@ -406,10 +362,6 @@ FAKE_SUBS:{
       my $contents_r = read_file($mdstatFile, array_ref => 1);
       return $contents_r;
     }
-
-
-
 }
-
 
 1;

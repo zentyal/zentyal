@@ -21,11 +21,8 @@ my @cases = (
 	     [href => "http://www.google.com", text => "simple link title", image => "/www/simple/jpg"],
 	    );
 
-
 foreach my $params (@cases) {
   EBox::Test::Mason::checkTemplateExecution(template => $linkTemplate, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
 }
-
-
 
 1;

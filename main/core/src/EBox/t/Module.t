@@ -8,7 +8,6 @@ use lib '../..';
 use EBox::Module;
 use EBox::TestStubs qw(fakeEBoxModule);
 
-
 EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 backupDirTest();
@@ -48,10 +47,10 @@ sub createBackupDirTest
   my @cases = (
                ["$dir" => "$dir/testMod.bak"],
                ["$dir" => "$dir/testMod.bak"], # check that can be called two times in a row
-               ["$dir/testMod.bak" => "$dir/testMod.bak"], 
-               ["$dir/testMod.bak/" => "$dir/testMod.bak"], 
-               ["$dir/testMod.bak/testMod.bak" => "$dir/testMod.bak"], 
-              );
+               ["$dir/testMod.bak" => "$dir/testMod.bak"],
+               ["$dir/testMod.bak/" => "$dir/testMod.bak"],
+               ["$dir/testMod.bak/testMod.bak" => "$dir/testMod.bak"],
+  );
 
   foreach my $case_r (@cases) {
     my ($dir, $expectedBackupDir) = @{ $case_r };
@@ -60,7 +59,6 @@ sub createBackupDirTest
     my $dirExists =  (-d $expectedBackupDir);
     ok $dirExists, "Checking that the backup directory  $dir is in place";
   }
-
 }
 
 sub setAsChangedTest
@@ -71,18 +69,15 @@ sub setAsChangedTest
   (! $global->modIsChanged('testMod')) or die "Module must not be changed";
 
   lives_and (
-
-             sub {  
+             sub {
                my $mod = $global->modInstance('testMod');
                $mod->setAsChanged();
 
                ok $global->modIsChanged('testMod');
              },
              'Module was marked as changed'
-            );
+  );
 }
-
-
 
 sub noTemplateFileTest
 {
@@ -97,7 +92,6 @@ sub noTemplateFileTest
 
                            );
     } 'Checking that writeConfFile dies when supplied with a inexistent template file';
-
 }
 
 1;

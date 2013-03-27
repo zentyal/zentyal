@@ -13,10 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package main;
-
-#
-
 use strict;
 use warnings;
 
@@ -28,13 +24,10 @@ use lib '../..';
 use EBox::Module;
 use EBox::TestStubs qw(fakeEBoxModule);
 
-
 EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 
 my $dir = '/tmp/confmodule_files.t';
-
-
 
 my $mod = EBox::Global->modInstance('testMod');
 
@@ -42,7 +35,7 @@ my @cases = (
              {
               name => 'simple saveConfig',
               actions => [
-                           addFileToRemoveIfCommitted => [ 
+                           addFileToRemoveIfCommitted => [
                                                           "$dir/revoked1",
                                                           "$dir/revoked2",
                                                           # repeated entry
@@ -67,7 +60,7 @@ my @cases = (
              {
               name => 'simple revokeConfig',
               actions => [
-                           addFileToRemoveIfCommitted => [ 
+                           addFileToRemoveIfCommitted => [
                                                           "$dir/revoked1",
                                                           "$dir/revoked2",
                                                           # repeated entry
@@ -92,7 +85,7 @@ my @cases = (
              {
               name => 'revokeConfig with file after added to committed list',
               actions => [
-                           addFileToRemoveIfCommitted => [ 
+                           addFileToRemoveIfCommitted => [
                                                           "$dir/revoked1",
                                                           "$dir/revoked2",
                                                           # repeated entry
@@ -101,7 +94,7 @@ my @cases = (
                            addFileToRemoveIfRevoked  => [
                                                          "$dir/committed1",
                                                         ],
-                           addFileToRemoveIfCommitted => [ 
+                           addFileToRemoveIfCommitted => [
                                                           "$dir/committed1",
                                                          ],
                            _revokeConfigFiles          => [],
@@ -121,7 +114,7 @@ my @cases = (
              {
               name => 'saveConfig with file added afterwas to revoked remove list',
               actions => [
-                           addFileToRemoveIfCommitted => [ 
+                           addFileToRemoveIfCommitted => [
                                                           "$dir/revoked1",
                                                           "$dir/revoked2",
                                                           # repeated entry
@@ -130,7 +123,7 @@ my @cases = (
                            addFileToRemoveIfRevoked  => [
                                                          "$dir/committed1",
                                                         ],
-                           addFileToRemoveIfRevoked => [ 
+                           addFileToRemoveIfRevoked => [
                                                           "$dir/revoked1",
                                                          ],
                            _saveConfigFiles          => [],
@@ -158,7 +151,7 @@ foreach my $case (@cases) {
 sub _executeTestCase
 {
     my ($case, $mod) = @_;
-    
+
     my $name = $case->{name};
     $name or $name = 'new test case';
     diag $name;
@@ -175,9 +168,7 @@ sub _executeTestCase
         } else {
             $mod->$method();
         }
-        
     }
-
 
     my $expected = $case->{expected};
     my @filesSaved    =  @{ $expected->{files} };

@@ -34,7 +34,7 @@ BEGIN {
 }
 
 my $manager = EBox::Model::Manager->instance();
-isa_ok( $manager, 'EBox::Model::Manager');
+isa_ok($manager, 'EBox::Model::Manager');
 
 my $logs = EBox::Global->modInstance('logs');
 my $testMod1 = new EBox::Test::Model( confmodule => $logs,

@@ -1,7 +1,5 @@
-# Description:
 use strict;
 use warnings;
-
 
 use Test::More tests => 72;
 use Test::Exception;
@@ -19,7 +17,6 @@ paramsAsHashTest();
 validateParamsTestWithRegularCases();
 validateParamsTestWithFlexibleCases();
 processTest();
-
 
 sub paramsAsHashTest
 {
@@ -46,13 +43,12 @@ sub validateParamsTestWithRegularCases
     my @deviantCases = @{ cgiParametersDeviantCases() };
 
     foreach my $case_r (@correctCases) {
-	my $cgi = new EBox::CGI::DumbCGI;
-	my @params = @{ $case_r };
-	setCgiParams($cgi, @params);
+	    my $cgi = new EBox::CGI::DumbCGI;
+	    my @params = @{ $case_r };
+	    setCgiParams($cgi, @params);
 
-	lives_ok { $cgi->_validateParams()  } "Checking parameters validation with correct parameters: @params";
+	    lives_ok { $cgi->_validateParams()  } "Checking parameters validation with correct parameters: @params";
     }
- 
 
     foreach my $case_r (@deviantCases) {
 	my $cgi = new EBox::CGI::DumbCGI;
@@ -68,22 +64,22 @@ sub validateParamsTestWithFlexibleCases
     my @deviantCases = (
 			[],  # none parameter
 			 ['mandatoryParameterEa'], # one mandatory alone
- 			 ['mandatoryParameter', 'macacoA'], 
+			 ['mandatoryParameter', 'macacoA'],
 			# extra params:
-			 ['mandatoryParameter3', '8macaco', 'hoolibuz'], 
+			 ['mandatoryParameter3', '8macaco', 'hoolibuz'],
 			 ['mandatoryParameter3', 'supermacaco', 'mandatoryParameter'],
 		    );
     my @straightCases = (
-			 ['mandatoryParameterZ', 'macacoA'], 
-			 ['mandatoryParameter1', 'forevermacacoforever'], 
+			 ['mandatoryParameterZ', 'macacoA'],
+			 ['mandatoryParameter1', 'forevermacacoforever'],
 			 ['mandatoryParametermacaco'],   # this lone param makes two matches. For now we consider it correct...
-			 ['mandatoryParameter1', 'foomacaco'], 
+			 ['mandatoryParameter1', 'foomacaco'],
 			 # various mandatory matches:
 			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon'],
 			 # adding optionals:
-			 ['mandatoryParameter1', 'foomacaco', 'fooop1'], 
+			 ['mandatoryParameter1', 'foomacaco', 'fooop1'],
 			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon', 'chimop1'],
-			 ['mandatoryParameter1', 'foomacaco', 'fooop1', 'barop1'], 
+			 ['mandatoryParameter1', 'foomacaco', 'fooop1', 'barop1'],
 			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon', 'chimop1', 'titiop7'],
 			 );
 
@@ -92,7 +88,7 @@ sub validateParamsTestWithFlexibleCases
 	my $cgi = new EBox::CGI::FlexibleOptions;
 	my @params = map { ($_ => 1)  } @{ $case_r };
 	setCgiParams($cgi, @params);
-	
+
 	return $cgi;
     };
 
@@ -100,18 +96,17 @@ sub validateParamsTestWithFlexibleCases
 	my $cgi = $prepareCgi_r->($case_r);
 	lives_ok { $cgi->_validateParams()  } "Checking parameters validation with correct parameters: @{$case_r}";
     }
-    
+
     foreach my $case_r (@deviantCases) {
 	my $cgi = $prepareCgi_r->($case_r);
 	dies_ok { $cgi->_validateParams()  } "Checking parameters validation with deviant parameters: @{$case_r}";
     }
-    
 }
 
 sub processTest
 {
     my @correctCases = @{ cgiParametersCorrectCases() };
-    
+
     foreach my $case_r (@correctCases) {
 	my $cgi = new EBox::CGI::DumbCGI;
 	my @cgiParams = @{ $case_r };
@@ -144,16 +139,15 @@ sub processTest
 	cgiErrorOk($cgi, 'Checking that error is correctly marked');
 	checkMasonParameters($cgi, wantedParameters => {@expectedMasonParametes}, testName => 'Checking mason parameters for CGI with error');
     }
-    
 
     # masonParameter dies case
-    my @deviantMasonCases = map   {    
+    my @deviantMasonCases = map   {
                                    my @case = @{ $_ };
-                                   push @case, (masonFails =>  1); 
-				   [ @case ];  
+                                   push @case, (masonFails =>  1);
+				   [ @case ];
 				 } (
 				    # exception only in masonParameters
-				    @correctCases[0, 1], 
+				    @correctCases[0, 1],
 				    # exception both in actuate and in  masonParameters
 				    @deviantCases[-1, -2],  # we pick the last two because they have good cgi parameters
 				   );
@@ -167,8 +161,6 @@ sub processTest
 	cgiErrorOk($cgi, 'Checking wether error is correctly marked');
 	checkMasonParameters($cgi, wantedParameters => { }, testName => 'Checking mason parameters for CGI with masonParameters aborted ');
     }
-
-
 }
 
 
@@ -180,9 +172,9 @@ sub cgiParametersCorrectCases
 
  my @correctCases = (
 			[ map { $_ => 'req'  } @requiredParams ] ,
- 			[ (map { $_ => 'req'  } @requiredParams), map { ($_ => 'opt')  } @optionalParams, ] ,
-		    	[ (map { $_ => 'req'  } @requiredParams), map { $_ => 'opt'  }  (grep { $_ =~ m/[12]/ }  @optionalParams) ] ,
-		        [ (map { $_ => 'req'  } @requiredParams), map { $_ => 'opt'  }  (grep { $_ =~ m/3/ }  @optionalParams) ] ,
+			[ (map { $_ => 'req'  } @requiredParams), map { ($_ => 'opt')  } @optionalParams, ] ,
+			[ (map { $_ => 'req'  } @requiredParams), map { $_ => 'opt'  }  (grep { $_ =~ m/[12]/ }  @optionalParams) ] ,
+		    [ (map { $_ => 'req'  } @requiredParams), map { $_ => 'opt'  }  (grep { $_ =~ m/3/ }  @optionalParams) ] ,
      );
 
   return \@correctCases;
@@ -213,7 +205,7 @@ use lib '../../..';
 use base 'EBox::CGI::Base';
 use Test::More;
 
-sub new 
+sub new
 {
     my ($class, @params) = @_;
     my $self = $class->SUPER::new(@params);
@@ -258,7 +250,7 @@ sub masonParameters
       throw EBox::Exceptions::External 'masonParameters failed';
     }
 
-    my @params = map { $_ => $self->param($_) } @names; 
+    my @params = map { $_ => $self->param($_) } @names;
 
     my $error    = $self->{error};
     my $oldError = $self->{olderror};
@@ -279,7 +271,7 @@ sub _print
 package EBox::CGI::FlexibleOptions;
 use base 'EBox::CGI::Base';
 
-sub new 
+sub new
 {
     my ($class, @params) = @_;
     my $self = $class->SUPER::new(@params);
