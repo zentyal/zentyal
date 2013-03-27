@@ -1,3 +1,7 @@
+HEAD
+	+ Capture exceptions are now compatible with http proxy
+	  transparent mode
+	+ Capture exceptions are applied to input to the server itself
 3.0.2
 	+ Client popup made more compatible with different browsers
 	+ Removed superfluos firewall rules removal, better management of
