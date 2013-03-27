@@ -1225,6 +1225,10 @@ sub setIfaceDHCP
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     delete $ifaces->{$name}->{address};
@@ -1341,6 +1345,10 @@ sub setIfaceStatic
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     $ifaces->{$name}->{method} = 'static';
@@ -1400,6 +1408,15 @@ sub _checkStaticIP
         if ($if eq $iface) {
             next;
         }
+
+        # don't check against other ifaces in this bridge
+        if ($self->ifaceIsBridge($iface)) {
+            my $brIfaces = $self->bridgeIfaces($iface);
+            if ($if eq any(@{$brIfaces})) {
+                next;
+            }
+        }
+
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
@@ -1486,6 +1503,10 @@ sub setIfacePPP
                 action => 'prechange',
                 force => $force,
             );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -1593,7 +1614,16 @@ sub _trunkIfaceIsUsed # (iface)
     return undef;
 }
 
-
+# remove all vlanes from a trunk interface
+sub _removeTrunkIfaceVlanes
+{
+    my ($self, $iface) = @_;
+    my $vlans = $self->ifaceVlans($iface);
+    foreach my $vlan (@{$vlans}) {
+        defined($vlan) or next;
+        $self->removeVlan($vlan->{id});
+    }
+}
 
 # Method: setIfaceBridged
 #
@@ -1671,6 +1701,9 @@ sub setIfaceBridged
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
     # new bridge
     if ($bridge < 0) {
         my @bridges = @{$self->bridges()};
@@ -1988,8 +2021,12 @@ sub unsetIface # (interface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'prechange',
-        force  => $force,
+            force  => $force,
         );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -2794,6 +2831,10 @@ sub _generatePPPConfig
 
     my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
 
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);
@@ -2936,7 +2977,7 @@ sub _disableReversePath
 
         # Skipping vlan interfaces as it seems rp_filter key doesn't
         # exist for them
-        next ($iface =~ /^vlan/);
+        next if ($iface =~ /^vlan/);
 
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }

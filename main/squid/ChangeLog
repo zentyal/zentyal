@@ -1,3 +1,8 @@
+HEAD
+	+ Avoid to request authorization again when 'deny unknown domain'
+	  option is set in filter profile
+	+ Access rules for the same source can have different time
+	  periods if they dont overlap
 3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module

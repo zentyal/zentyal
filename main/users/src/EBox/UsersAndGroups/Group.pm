@@ -431,6 +431,8 @@ sub create
 
         $res = new EBox::UsersAndGroups::Group(dn => $dn);
         unless ($system) {
+            $users->reloadNSCD();
+
             # Call modules initialization
             $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
         }

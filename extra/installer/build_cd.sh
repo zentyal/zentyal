@@ -51,6 +51,15 @@ do
     rm $EXTRAS_DIR/zenbuntu-desktop_*.deb
     cp $TMPDIR/*.deb $EXTRAS_DIR/
 
+    # Add custom extra packages if the dir exists
+    for dir in $EXTRAS_CUSTOM_DIR_BASE-$ARCH $EXTRAS_CUSTOM_DIR_BASE-all
+    do
+        if [ -d $dir ]
+        then
+            cp $dir/*.deb $EXTRAS_DIR/
+        fi
+    done
+
     if [ "$INCLUDE_REMOTE" == "true" ]
     then
         # Add zinstaller-remote udeb

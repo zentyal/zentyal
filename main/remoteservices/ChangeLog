@@ -1,4 +1,12 @@
-HEAD
+3.0.15
+	+ Get capabilities for files and users sync from the API
+	+ Be very strict with the server name while subscribing. Only
+	  [A-Za-z0-9-]+ are accepted
+	+ Restore configuration without subscription now works smoothly
+	+ Proper CA file deletion when unsubscribing
+	+ Try to remove include and CA when unsubscribing separately
+	+ Change to debug remote support no conf message
+	+ Force mode when writing QA apt ocnfiguration file
 	+ Remove filesync upstart file as it is not longer maintained by
 	  this package
 	+ Force mode when writing QA apt configuration file

@@ -14,4 +14,6 @@ mkisofs -r -V "Zentyal $EBOX_VERSION$EBOX_APPEND $ARCH" \
             -boot-load-size 4 -boot-info-table \
             -o $ISO_IMAGE $CD_BUILD_DIR
 
-md5sum $ISO_IMAGE > $ISO_IMAGE.md5
+pushd $BASE_DIR
+md5sum $(basename $ISO_IMAGE) > $ISO_IMAGE.md5
+popd

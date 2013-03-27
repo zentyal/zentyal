@@ -79,26 +79,9 @@ sub _table
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
         'withoutActions' => 1,
-        'customFilter' => 1,
     };
 
     return $dataTable;
-}
-
-sub customFilterIds
-{
-    my ($self, $filter) = @_;
-
-    unless (defined $filter) {
-        return $self->ids();
-    }
-
-    $filter = qr{uid=.*?$filter.*?,};
-    my @filtered = grep {
-        $_ =~ m{$filter}
-    } @{$self->ids()};
-
-    return \@filtered;
 }
 
 sub Viewer
@@ -176,13 +159,6 @@ sub noUsersMsg
 }
 
 
-my %kerberosUsers = (
-    dns => 1,
-    mail => 1,
-    proxy => 1,
-    zarafa => 1,
-
-);
 # Method: ids
 #
 #   Override <EBox::Model::DataTable::ids> to return rows identifiers
@@ -197,18 +173,7 @@ sub ids
         return [];
     }
 
-    my $hostname = $global->modInstance('sysinfo')->hostName();
-    my $kerberosRe = qr/^([A-Za-z]+)-$hostname$/;
-    my @list = map {
-        my $user = $_;
-        my $name = $user->name;
-        my $isKerberos = 0;
-        if ($name =~ $kerberosRe) {
-            $isKerberos = exists $kerberosUsers{$1};
-        }
-
-        $isKerberos ? () : $user->dn()
-    } @{$users->users()};
+    my @list = map { $_->dn() } @{$users->realUsers()};
 
     my $filterOU = $self->filterOU();
     if ($filterOU) {

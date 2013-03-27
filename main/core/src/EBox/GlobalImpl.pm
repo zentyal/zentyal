@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::GlobalImpl;
-
 use strict;
 use warnings;
 
+package EBox::GlobalImpl;
 use base qw(EBox::Module::Config Apache::Singleton::Process);
 
 use EBox;
@@ -1034,8 +1032,9 @@ sub sortModulesByDependencies
 #      these events:
 #
 #      - After finishing saving changes using <saveAllModules> call
-#      - After a modification in LDAP in users module is present and at
+#      - After a modification in LDAP if users module is present and at
 #      least configured
+#      - After a change in any file under the zentyal configuration files directory
 #
 # Returns:
 #
@@ -1061,7 +1060,36 @@ sub lastModificationTime
         }
     }
 
+    my $lastFileStamp = $self->configFilesLastModificationTime();
+    if ( $lastFileStamp > $lastStamp ) {
+        $lastStamp = $lastFileStamp;
+    }
+
     return $lastStamp;
+}
+
+# Method: configFilesLastModificationTime
+#
+#  return the last modification time of the configuration files
+#
+#  Limitation:
+#    - it is assummed that all configuration files are readable by the zentyal user
+sub configFilesLastModificationTime
+{
+    my ($self) = @_;
+    my $lastTimestamp = 0;
+
+    my $confDir = EBox::Config::etc();
+    my $findCommand = "find $confDir | xargs stat -c'%Y'";
+    my @mtimes = `$findCommand`;
+    foreach my $mtime (@mtimes) {
+        chomp $mtime;
+        if ($mtime > $lastTimestamp) {
+            $lastTimestamp = $mtime;
+        }
+    }
+
+    return $lastTimestamp;
 }
 
 # Method: first

@@ -202,7 +202,7 @@ sub _setConf
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
 
-    # disabled until vsftpd allows it, see #4133
+    # disabled until vsftpd allows it, see #4113
     # my $chrootUsers = $options->chrootUsers();
     my $chrootUsers = 0;
 

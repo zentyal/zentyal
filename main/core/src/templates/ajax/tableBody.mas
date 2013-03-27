@@ -60,7 +60,7 @@ use Perl6::Junction qw(any);
   my $withoutActions = $model->table()->{'withoutActions'};
 
   my $adaptedFilter;
-  if ($filter) {
+  if (defined $filter and ($filter ne '')) {
      $adaptedFilter = $model->adaptRowFilter($filter);
   }
 
@@ -175,7 +175,7 @@ if ($checkAllProperty) {
     for ( my $idx = 0; $idx < scalar(@ids); $idx++)
     {
       my  $row;
-      if (not $model->customFilter() and defined($adaptedFilter) and (length($filter) > 0)) {
+      if (not $model->customFilter() and defined($adaptedFilter)) {
         $row = $model->row($ids[$idx]);
         if (not ($row->matchFilter($adaptedFilter))) {
           next;
@@ -680,7 +680,9 @@ $page
           $clone = 'clone-inactive';
           $clone_msg = __('Read-only row: clone disabled');
       }
-      my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
+
+      my $table = $model->table();
+      my $onlyCustomActions = $table->{'onlyCustomActions'};
 </%perl>
 <& /ajax/customActions.mas, model => $model, id => $row->{id}, type => 'image' &>
 
@@ -749,7 +751,7 @@ $page
 
 %      }
 
-%      if ($model->table()->{'order'} == 1)
+%      if ($table->{'order'} and ($table->{'order'} == 1))
 %      {
         <& SELF:.moveRowActions,
             model => $model,

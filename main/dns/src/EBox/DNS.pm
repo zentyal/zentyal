@@ -975,12 +975,11 @@ sub _intnets
 
     my $intnets_string = EBox::Config::configkeyFromFile(DNS_INTNETS,
                                                          DNS_CONF_FILE);
-    my @intnets = ();
-
-    if (defined($intnets_string)) {
-        $intnets_string = s/\s//g;
-        @intnets = split(',', $intnets_string);
-        my $cidrName = __x('Value from {key} in configuration file {conf}',
+    my @intnets;
+    if (length $intnets_string) {
+        $intnets_string =~ s/\s//g;
+        @intnets = split (/,/, $intnets_string);
+        my $cidrName = __x("key '{key}' in configuration file {value}",
                            key => DNS_INTNETS,
                            value => DNS_CONF_FILE,
                           );
@@ -1847,9 +1846,13 @@ sub _updateManagedDomainIPsModel
 
     my $networkModule = EBox::Global->modInstance('network');
     my $ifaces = $networkModule->ifaces();
+    my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
         my $addrs = $networkModule->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
+            next if $seenAddrs{$addr};
+            $seenAddrs{$addr} = 1;
+
             my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             my $ipRow = $model->find(iface => $ifaceName);
