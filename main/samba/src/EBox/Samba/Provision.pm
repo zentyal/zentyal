@@ -337,6 +337,7 @@ sub mapAccounts
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     $domainAdmin->addToZentyal() if ($domainAdmin->exists());
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     $domainAdmins->addToZentyal() if ($domainAdmins->exists());
