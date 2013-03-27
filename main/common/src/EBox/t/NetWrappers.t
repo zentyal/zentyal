@@ -3,7 +3,7 @@ package main;
 use strict;
 use warnings;
 
-use Test::More tests => 72;
+use Test::More tests => 38;
 use Test::MockObject;
 use Test::Differences;
 use Test::Exception;
@@ -27,10 +27,10 @@ sub fakeIfaceShowAddress
 		     _ifaceShowAddress => sub {
 		       my ($if) = @_;
 		       if (exists $ifaceData{$if}) {
-			 return @{ $ifaceData{$if}->{_ifaceShowAddressOutput} };
+			    return @{ $ifaceData{$if}->{_ifaceShowAddressOutput} };
 		       }
 		       else {
-			 throw EBox::Exceptions::External "";
+			    throw EBox::Exceptions::External "";
 		       }
 		     }
 		    );
@@ -185,11 +185,11 @@ sub networkConversionTests
 sub iface_by_address_test
 {
   my %ifaceData = (
-		eth0   => {   
+		eth0   => {
 			   _ifaceShowAddressOutput =>  ['192.168.45.4/24'],
 			   addresses               =>  ['192.168.45.4'],
 			   addressesWithNetmask    =>  {'192.168.45.4' => '255.255.255.0'}			  },
-		vmnet4   => {   
+		vmnet4   => {
 			     _ifaceShowAddressOutput =>  ['45.34.12.12/8', '129.45.34.12/16'],
 			     addresses               =>   ['45.34.12.12', '129.45.34.12'],
 			     addressesWithNetmask    =>   {'45.34.12.12' => '255.0.0.0', '129.45.34.12' => '255.255.0.0'},
