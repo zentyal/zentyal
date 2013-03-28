@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 24;
+use Test::More tests => 27;
 use Test::Exception;
 use Test::Deep;
 
@@ -41,7 +41,9 @@ EBox::Config::TestStub::fake(modules => 'core/schemas/');
 my $apacheMod = EBox::Apache->_create(redis => EBox::Test::RedisMock->new());
 isa_ok($apacheMod, 'EBox::Apache');
 
-my @resourceNames = ( 'foo/a', 'bar/a', 'foo/b' );
+my @resourceNames = ('foo/a', 'bar/a', 'foo/b');
+
+is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 0, 'Resource not exists before adding');
 
 lives_ok {
     $apacheMod->setRestrictedResource($resourceNames[0], [ '192.168.45.2/32', '10.0.0.0/24' ], 'file');
@@ -54,6 +56,8 @@ lives_ok {
 lives_ok {
     $apacheMod->setRestrictedResource($resourceNames[1], [ 'all', '102.1.2.3/32' ], 'location');
 } 'Adding an all allow restricted location';
+
+is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 1, 'Resource exists after adding');
 
 throws_ok {
     $apacheMod->setRestrictedResource($resourceNames[2]);
@@ -95,6 +99,8 @@ lives_ok {
         $apacheMod->delRestrictedResource($resourceName);
     }
 } 'Deleting correct restricted resources';
+
+is ($apacheMod->_restrictedResourceExists($resourceNames[1]), 0, 'Resource not exists after deleting');
 
 throws_ok {
     $apacheMod->delRestrictedResource($resourceNames[2]);

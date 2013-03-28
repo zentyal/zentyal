@@ -1,4 +1,5 @@
 HEAD
+	+ Apache::setRestrictedResource updates properly if already exists
 	+ Global and Module::Config allow to set redis instance to ease testing
 	+ Now EBox::GlobalImpl::lastModificationTime also checks
 	  modification time of configuration files
