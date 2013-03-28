@@ -75,34 +75,6 @@ throws_ok {
     $apacheMod->setRestrictedResource($resourceNames[2], ['all'], 'foobar');
 } 'EBox::Exceptions::InvalidType', 'Invalid resource type';
 
-use Data::Dumper;
-print STDERR Dumper( $apacheMod->get_list('restricted_resources'));
-
-$VAR1 = [
-          {
-            'allowedIPs' => [
-                              '192.168.45.2/32',
-                              '10.0.0.0/24'
-                            ],
-            'name' => 'foo/a',
-            'type' => 'file'
-          },
-          {
-            'allowedIPs' => [
-                              '192.168.1.4/32'
-                            ],
-            'name' => 'foo/a',
-            'type' => 'file'
-          },
-          {
-            'allowedIPs' => [
-                              'all'
-                            ],
-            'name' => 'bar/a',
-            'type' => 'location'
-          }
-        ];
-
 cmp_deeply($apacheMod->get_list('restricted_resources'),
            [ { allowedIPs => [ '192.168.1.4/32' ],
                name       => $resourceNames[0],
