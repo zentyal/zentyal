@@ -79,7 +79,7 @@ use EBox::Types::Text;
     }
 }
 
-sub setEBoxModules : Test(setup)
+sub setModules : Test(setup)
 {
     EBox::TestStubs::fakeModule(name => 'fakeModule');
 }

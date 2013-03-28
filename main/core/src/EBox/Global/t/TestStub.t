@@ -21,7 +21,7 @@ sub testStubsSetup
 {
     EBox::TestStub::fake();
     EBox::Global::TestStub::fake();
-    EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
+    EBox::Global::TestStub::setModule('baboon', 'EBox::Baboon');
 
     MOCK_CLASS: {
         package EBox::Baboon;
@@ -88,8 +88,8 @@ sub clearTest
             );
     EBox::Module::Config::TestStub::setConfig(%originalConfig);
 
-    EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
-    EBox::Global::TestStub::setEBoxModule('mandrill', 'EBox::Mandrill');
+    EBox::Global::TestStub::setModule('baboon', 'EBox::Baboon');
+    EBox::Global::TestStub::setModule('mandrill', 'EBox::Mandrill');
 
     EBox::Global::TestStub::clear();
     my %actualConfig = @{ EBox::Module::Config::TestStub::dumpConfig() };

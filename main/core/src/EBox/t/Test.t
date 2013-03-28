@@ -49,7 +49,7 @@ sub fakeModules
             }
     );
 
-    EBox::Global::TestStub::setAllEBoxModules (badCreate => 'EBox::BadCreate', simple => 'EBox::Simple') ;
+    EBox::Global::TestStub::setAllModules (badCreate => 'EBox::BadCreate', simple => 'EBox::Simple') ;
     # setUp ended
 }
 

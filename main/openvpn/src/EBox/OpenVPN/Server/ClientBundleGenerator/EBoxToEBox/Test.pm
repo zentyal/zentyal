@@ -85,7 +85,7 @@ sub fakeCA : Test(startup)
   my $clientCertPath = "$dir/clientCert.crt";
   my $clientCertKeyPath = "$dir/clientCert.key";
 
-  EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+  EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
   my $ca = EBox::Global->modInstance('ca');
   my @fakeCertificates = (
@@ -130,8 +130,8 @@ sub setUpConfiguration : Test(setup)
 
     EBox::Module::Service::TestStub::setConfig(@config);
 
-    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     EBox::OpenVPN::Test::fakeInterfaces();
     EBox::OpenVPN::Test::fakeFirewall();

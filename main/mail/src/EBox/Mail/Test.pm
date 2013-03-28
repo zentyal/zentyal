@@ -64,7 +64,7 @@ sub setUpConfiguration : Test(setup)
                   );
 
     EBox::Module::Config::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('mail' => 'EBox::Mail');
+    EBox::Global::TestStub::setModule('mail' => 'EBox::Mail');
 
     EBox::TestStubs::fakeModule(name => 'firewall',
                                     subs => [

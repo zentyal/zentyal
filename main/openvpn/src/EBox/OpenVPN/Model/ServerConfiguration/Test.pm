@@ -139,7 +139,7 @@ sub setUpConfiguration : Test(setup)
                             },
                            ],
                   );
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
 
     EBox::OpenVPN::Test::fakeNetworkModule();

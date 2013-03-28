@@ -183,8 +183,8 @@ sub setUpConfiguration : Test(setup)
         system "mkdir -p $confDir" or die "$!";
     }
 
-    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     fakeInterfaces();
     fakeFirewall();

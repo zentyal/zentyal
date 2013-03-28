@@ -36,7 +36,7 @@ use EBox::Model::DataTable;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 
-sub setEBoxModules : Test(setup)
+sub setModules : Test(setup)
 {
     EBox::TestStubs::fakeModule(name => 'fakeModule');
 }

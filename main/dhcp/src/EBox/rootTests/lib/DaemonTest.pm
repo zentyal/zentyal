@@ -71,8 +71,8 @@ sub _setupEBoxConf : Test(setup)
 		  );
 
     EBox::Module::Config::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
-    EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
+    EBox::Global::TestStub::setModule('dhcp' => 'EBox::DHCP');
+    EBox::Global::TestStub::setModule('network' => 'EBox::Network');
     EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
 
     Test::MockObject->fake_module('EBox::DHCP',
@@ -143,7 +143,7 @@ sub setupNetwork : Test(setup)
 {
   EBox::NetWrappers::TestStub::setFakeIfaces( { $TEST_IFACE => { up => 1, address => $TEST_ADDRESS, netmask => $TEST_NETMASK }  }  );
 
-  EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
+  EBox::Global::TestStub::setModule('network' => 'EBox::Network');
   my $net = EBox::Global->modInstance('network');
   $net->setIfaceStatic($TEST_IFACE, $TEST_ADDRESS, $TEST_NETMASK, 0, 0);
 }

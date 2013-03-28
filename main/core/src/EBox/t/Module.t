@@ -5,7 +5,6 @@ use Test::More qw(no_plan);
 use Test::Exception;
 
 use lib '../..';
-use EBox::Module;
 use EBox::TestStubs qw(fakeModule);
 
 EBox::TestStubs::activateTestStubs();
@@ -63,7 +62,7 @@ sub createBackupDirTest
 
 sub setAsChangedTest
 {
-  EBox::TestStubs::setEBoxModule('global' => 'EBox::Global');
+  EBox::TestStubs::setModule('global' => 'EBox::Global');
 
   my $global = EBox::Global->getInstance();
   (! $global->modIsChanged('testMod')) or die "Module must not be changed";

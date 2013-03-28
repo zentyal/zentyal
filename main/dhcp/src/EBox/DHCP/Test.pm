@@ -46,17 +46,17 @@ sub _moduleInstantiationTest : Test
 
 
 
-sub setDHCPEBoxModule : Test(setup)
+sub setDHCPModule : Test(setup)
 {
-  EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
+  EBox::Global::TestStub::setModule('dhcp' => 'EBox::DHCP');
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/dhcp/active', 0);
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/global/modules/dhcp/depends', ['network']);
 
 }
 
-sub clearEBoxModules : Test(teardown)
+sub clearModules : Test(teardown)
 {
-  EBox::Global::TestStub::setAllEBoxModules();
+  EBox::Global::TestStub::setAllModules();
 }
 
 

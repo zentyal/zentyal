@@ -119,7 +119,7 @@ sub clearConfiguration : Test(teardown)
 
 sub setUpCertificates : Test(setup)
 {
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     my $ca    = EBox::Global->modInstance('ca');
     my @certificates = (

@@ -27,16 +27,16 @@ use EBox::Test::RedisMock;
 
 my %modulesInfo;
 
-sub setAllEBoxModules
+sub setAllModules
 {
     my (%modulesByName) = @_;
 
     while (my ($name, $module) = each %modulesByName) {
-        setEBoxModule($name, $module);
+        setModule($name, $module);
     }
 }
 
-sub setEBoxModule
+sub setModule
 {
     my ($name, $class, $depends) = @_;
     validate_pos(@_ ,1, 1, 0);
