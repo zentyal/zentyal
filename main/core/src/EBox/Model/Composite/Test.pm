@@ -21,13 +21,11 @@ use base 'EBox::Test::Class';
 use strict;
 use warnings;
 
-
 use Test::More;;
 use Test::Exception;
 use Test::MockObject;
 use Test::MockObject::Extends;
 use Perl6::Junction qw(any);
-
 
 use EBox::Types::Abstract;
 
@@ -39,8 +37,6 @@ use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
-
-
 {
     my $rowIdUsed;
 
@@ -50,8 +46,7 @@ use EBox::Types::Text;
         my ($self, $context, $id) = @_;
         if (not defined $rowIdUsed) {
             return;
-        }
-        elsif ($rowIdUsed eq $id) {
+        } elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
 
@@ -62,8 +57,7 @@ use EBox::Types::Text;
         my ($self, $tableName, $id) = @_;
         if (not defined $rowIdUsed) {
             return;
-        }
-        elsif ($rowIdUsed eq $id) {
+        } elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
     }
@@ -78,21 +72,20 @@ use EBox::Types::Text;
         # do nothing
     }
 
-
     my %models;
 
     sub EBox::Model::Manager::model
     {
         my ($self, $path) = @_;
 
-        unless (  $path ) {
+        unless ($path) {
             throw EBox::Exceptions::MissingArgument('path');
         }
 
         my $model = $models{$path};
         if (not defined $model) {
             throw EBox::Exceptions::DataNotFound( data  => 'model',
-                                                  value => $path);
+                    value => $path);
         }
 
         return $model;
@@ -123,14 +116,14 @@ use EBox::Types::Text;
     {
         my ($self, $path) = @_;
 
-        unless (  $path ) {
+        unless ($path) {
             throw EBox::Exceptions::MissingArgument('path');
         }
 
         my $composite = $composites{$path};
         if (not defined $composite) {
             throw EBox::Exceptions::DataNotFound( data  => 'composite',
-                                                  value => $path);
+                    value => $path);
         }
 
         return $composite;
@@ -147,18 +140,16 @@ use EBox::Types::Text;
     {
         %composites = ();
     }
-
 }
 
 sub setEBoxModules : Test(setup)
 {
     EBox::TestStubs::fakeEBoxModule(name => 'fakeModule');
-
 }
 
 sub clearGConf : Test(teardown)
 {
-  EBox::TestStubs::setConfig();
+    EBox::TestStubs::setConfig();
 }
 
 
@@ -167,7 +158,6 @@ sub clearModelsAndComposites : Test(teardown)
     clearModelsForPath();
     clearCompositesForPath();
 }
-
 
 sub standardSetupForModelsAndComposites
 {
@@ -187,53 +177,54 @@ sub standardSetupForModelsAndComposites
         $composite->set_always('name' => $name);
         $composite->set_isa('EBox::Model::Composite', 'EBox::Model::Component');
 
-        $composite->mock('setDirectory' => sub {
-                         my ($self, $dir) = @_;
-                         defined $dir or
-                             die 'no dir';
+        $composite->mock(
+            'setDirectory' => sub {
+                my ($self, $dir) = @_;
+                defined $dir or
+                die 'no dir';
 
-                         $self->{confdir} = $dir;
-                     }
-                    );
-        $composite->mock('directory' => sub {
-                             my ($self) = @_;
-                             return $self->{confdir};
-                            }
-                        );
-        $composite->mock('addComponent' => sub {
-                             my ($self, $comp) = @_;
-                             push @{ $self->{components} }, $comp,
-                         }
-                        );
-        $composite->mock('components' => sub {
-                             my ($self) = @_;
-                             return  $self->{components} ;
-                           }
-                         ),
-        $composite->mock('componentByName' => sub {
-                             my ($self, $name, $recursive) = @_;
-                             # XXX recursive otpion not supproted
-                             my @comps = @{ $self->components() };
-                             my ($comp) = grep {
-                                 $name eq $_->name()
-                             } @comps;
-                             return $comp;
-                            },
-                        );
-    $composite->mock('setParent' => \&EBox::Model::Component::setParent);
-    $composite->mock('parent'    => \&EBox::Model::Component::parent);
-    $composite->mock('parentRow'    => \&EBox::Model::Composite::parentRow);
-    $composite->mock('setParentComposite'    => \&EBox::Model::Component::setParentComposite);
-    $composite->mock('parentComposite'    => \&EBox::Model::Component::parentComposite);
+                $self->{confdir} = $dir;
+            }
+        );
+        $composite->mock(
+            'directory' => sub {
+                my ($self) = @_;
+                return $self->{confdir};
+            }
+        );
+        $composite->mock(
+            'addComponent' => sub {
+                my ($self, $comp) = @_;
+                push @{ $self->{components} }, $comp,
+                }
+                );
+        $composite->mock(
+            'components' => sub {
+                my ($self) = @_;
+                return  $self->{components} ;
+            }
+        );
+        $composite->mock(
+            'componentByName' => sub {
+                my ($self, $name, $recursive) = @_;
+                # XXX recursive otpion not supported
+                my @comps = @{ $self->components() };
+                my ($comp) = grep {
+                    $name eq $_->name()
+                } @comps;
+                return $comp;
+            },
+        );
+        $composite->mock('setParent' => \&EBox::Model::Component::setParent);
+        $composite->mock('parent'    => \&EBox::Model::Component::parent);
+        $composite->mock('parentRow'    => \&EBox::Model::Composite::parentRow);
+        $composite->mock('setParentComposite'    => \&EBox::Model::Component::setParentComposite);
+        $composite->mock('parentComposite'    => \&EBox::Model::Component::parentComposite);
 
         # path is the same than name for now
         setCompositeForPath($name, $composite);
     }
-
-
 }
-
-
 
 sub _setMockModel
 {
@@ -243,24 +234,26 @@ sub _setMockModel
     $model->set_always('name' => $name);
     $model->set_isa('EBox::Model::DataTable', 'EBox::Model::Component');
 
-    $model->mock('setDirectory' => sub {
-                     my ($self, $dir) = @_;
-                     $dir or
-                         die 'no dir';
+    $model->mock(
+        'setDirectory' => sub {
+            my ($self, $dir) = @_;
+            $dir or
+            die 'no dir';
 
-                     $self->{confdir} = $dir;
-                 }
-                );
-    $model->mock('directory' => sub {
-                     my ($self) = @_;
-                     return $self->{confdir};
-                 }
-                );
+            $self->{confdir} = $dir;
+        }
+    );
+    $model->mock(
+        'directory' => sub {
+            my ($self) = @_;
+            return $self->{confdir};
+        }
+    );
     $model->mock('setParent' => \&EBox::Model::Component::setParent);
     $model->mock('parent' => \&EBox::Model::Component::parent);
     $model->mock('parentRow' => \&EBox::Model::DataTable::parentRow);
-    $model->mock('setParentComposite'    => \&EBox::Model::Component::setParentComposite);
-    $model->mock('parentComposite'    => \&EBox::Model::Component::parentComposite);
+    $model->mock('setParentComposite' => \&EBox::Model::Component::setParentComposite);
+    $model->mock('parentComposite' => \&EBox::Model::Component::parentComposite);
 
     # path is the same than name for now
     setModelForPath($name, $model);
@@ -270,18 +263,17 @@ sub deviantDescriptionTest : Test(2)
 {
     my ($self) = @_;
     my %cases = (
-                 'select layout text but select layout was not setted'      => {
-                                        name => 'ctest',
-                                        printableName => 'ctest',
-                                        layout        => 'tabbed',
-                                        selectMessage => 'select',
-                                       },
-                 'empty name' =>  {
-                                        name => '',
-                                        printableName => 'ctest',
-
-                                       },
-                );
+        'select layout text but select layout was not setted' => {
+            name => 'ctest',
+            printableName => 'ctest',
+            layout        => 'tabbed',
+            selectMessage => 'select',
+        },
+        'empty name' =>  {
+            name => '',
+            printableName => 'ctest',
+        },
+    );
 
     while (my ($testName, $description) = each %cases) {
         CompositeSubclass->setNextDescription($description);
@@ -290,10 +282,7 @@ sub deviantDescriptionTest : Test(2)
         dies_ok {
             $composite = new CompositeSubclass();
         } $testName
-
-
     }
-
 }
 
 
@@ -301,12 +290,12 @@ sub descriptionTest : Test(2)
 {
     my ($self) = @_;
     my %cases = (
-                 'empty descrition' => {},
-                 'description'      => {
-                                        name => 'ctest',
-                                        printableName => 'ctest',
-                                       }
-                );
+        'empty descrition' => {},
+        'description'      => {
+            name => 'ctest',
+            printableName => 'ctest',
+        }
+    );
 
     while (my ($testName, $description) = each %cases) {
         CompositeSubclass->setNextDescription($description);
@@ -317,11 +306,9 @@ sub descriptionTest : Test(2)
         } $testName;
 
     }
-
 }
 
-
-sub componentsTest  : Test(17)
+sub componentsTest : Test(17)
 {
     my ($self) = @_;
 
@@ -337,7 +324,7 @@ sub componentsTest  : Test(17)
 
     foreach my $comp (@components) {
         isa_ok $comp, 'EBox::Model::Component',
-            'Checking class of value form the list returned in components()';
+               'Checking class of value form the list returned in components()';
     }
 
     # check componentByName
@@ -346,17 +333,17 @@ sub componentsTest  : Test(17)
     foreach my $name (@componentNames) {
         my $component = $composite->componentByName($name);
         is $component->name(), $name,
-            'checking component fetched with componentByName';
+           'checking component fetched with componentByName';
     }
 
     foreach my $name (@componentNames) {
         my $component = $composite->componentByName($name, 1);
         is $component->name(), $name,
- 'checking component fetched with componentByName with recursive option';
+           'checking component fetched with componentByName with recursive option';
     }
 
     is $composite->componentByName('sdfd'), undef,
-   'checking that componentByName for inexistent component returns undef';
+       'checking that componentByName for inexistent component returns undef';
 
     my $composite1 = $composite->componentByName('composite1');
     my $nestedComponentName = 'nested1';
@@ -368,18 +355,13 @@ sub componentsTest  : Test(17)
     defined($composite1->componentByName($nestedComponentName)) or
         die 'addComponent error';
 
-
     is $composite->componentByName($nestedComponentName), undef,
-   'checking that componentByName without recursive cannot get a nested component';
-
-
+       'checking that componentByName without recursive cannot get a nested component';
 
     my $fetchedNestedModel = $composite->componentByName($nestedComponentName, 1);
     is $fetchedNestedModel->name(), $nestedComponentName,
-    'checking name of nested model fetched with componentByName with resursive option';
-
+       'checking name of nested model fetched with componentByName with resursive option';
 }
-
 
 sub setDirectoryTest : Test(10)
 {
@@ -389,8 +371,7 @@ sub setDirectoryTest : Test(10)
 
     my $composite = new CompositeSubclass();
     is '', $composite->directory(),
-        'checking that default directory is root (empty string))';
-
+       'checking that default directory is root (empty string))';
 
     my $directory = '/ea/oe';
 
@@ -399,7 +380,7 @@ sub setDirectoryTest : Test(10)
     } 'setDirectory in a composite with No components';
 
     is $composite->directory(), $directory,
-        'checking directory';
+       'checking directory';
 
     dies_ok {
         $composite->setDirectory(undef);
@@ -414,7 +395,7 @@ sub setDirectoryTest : Test(10)
     } 'setDirectory for a composite with components';
 
     is $composite->directory(), $directory,
-        'checking directory change';
+       'checking directory change';
     foreach my $component (@{ $composite->components() }) {
         my $compDir = $directory;
         if (not $component->isa('EBox::Model::Composite')) {
@@ -422,14 +403,11 @@ sub setDirectoryTest : Test(10)
         }
 
         is $component->directory(), $compDir,
-                'checking that directory was changed in subcompoents too';
+           'checking that directory was changed in subcompoents too';
     }
-
 }
 
-
-
-sub parentTest  : Test(13)
+sub parentTest : Test(13)
 {
     my ($self) = @_;
 
@@ -440,46 +418,41 @@ sub parentTest  : Test(13)
 
     my $parent = Test::MockObject->new();
     $parent->set_isa('EBox::Model::DataTable');
-    $parent->mock( 'row' => sub {
-                           my ($self, $id) = @_;
+    $parent->mock(
+        'row' => sub {
+            my ($self, $id) = @_;
 
-                           if ($id eq $parentRowId) {
-                               my $row = Test::MockObject->new();
-                               $row->set_isa('EBox::Model::Row');
-                               $row->set_always(id => $parentRowId);
-                               return $row;
-                           }
-                           else {
-                               return undef;
-                           }
-                       }
-                     );
-
-
-
-
-
+            if ($id eq $parentRowId) {
+                my $row = Test::MockObject->new();
+                $row->set_isa('EBox::Model::Row');
+                $row->set_always(id => $parentRowId);
+                return $row;
+            } else {
+                return undef;
+            }
+        }
+    );
 
 
     my $composite = new CompositeSubclass();
     $composite->setDirectory($compDirectory);
 
     is $composite->parent(), undef,
-        'checking that default parent is undef';
+       'checking that default parent is undef';
     is $composite->parentRow(), undef,
-     'checkign that parentRow without parent returns undef';
+       'checkign that parentRow without parent returns undef';
 
     lives_ok {
         $composite->setParent($parent);
     } 'Setting parent for composite';
 
     is $composite->parent(), $parent,
-        'checking that parent was correctly setted';
+       'checking that parent was correctly setted';
 
     my $parentRow = $composite->parentRow();
     is $parentRow->id(),
-        $parentRowId,
-        'checking that parentRow upon composite returns the correct row';
+       $parentRowId,
+       'checking that parentRow upon composite returns the correct row';
 
     my @components = @{ $composite->components() };
     while (@components) {
@@ -489,12 +462,12 @@ sub parentTest  : Test(13)
         }
 
         is $component->parent(), $parent,
-            'checking that parent was correctly setted in component';
+           'checking that parent was correctly setted in component';
 
         $parentRow = $component->parentRow();
         is $parentRow->id(),
-            $parentRowId,
-                'checking that parentRow upon component returns the correct row';
+           $parentRowId,
+           'checking that parentRow upon component returns the correct row';
     }
 }
 
@@ -504,12 +477,10 @@ use base 'EBox::Model::Composite';
 
 my $nextDescription;
 
-
 sub _description
 {
     return $nextDescription;
 }
-
 
 sub setNextDescription
 {
@@ -517,20 +488,18 @@ sub setNextDescription
     $nextDescription = $desc;
 }
 
-
 sub setStandardDescription
 {
     my ($class) = @_;
 
     my $desc = {
-                name => 'ctest',
-                printableName => 'ctest',
-                components => [],
-               };
+        name => 'ctest',
+        printableName => 'ctest',
+        components => [],
+    };
 
     $class->setNextDescription($desc);
 }
-
 
 sub setStandardDescriptionWithComponents
 {
@@ -539,11 +508,10 @@ sub setStandardDescriptionWithComponents
     EBox::Model::Composite::Test->standardSetupForModelsAndComposites();
 
     my $desc = {
-
-                name => 'ctest',
-                printableName => 'ctest',
-                components => [qw(model1 model2 composite1 composite2)],
-               };
+        name => 'ctest',
+        printableName => 'ctest',
+        components => [qw(model1 model2 composite1 composite2)],
+    };
 
     $class->setNextDescription($desc);
 }

@@ -14,8 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Global::TestStub;
-# Description:
-#
+
 use strict;
 use warnings;
 
@@ -24,17 +23,15 @@ use Params::Validate;
 use EBox::Global;
 use EBox::Module::Config::TestStub;
 
-
 my %modulesInfo;
 
 sub setAllEBoxModules
 {
-  my (%modulesByName) = @_;
+    my (%modulesByName) = @_;
 
-  while (my ($name, $module)  = each %modulesByName) {
-      setEBoxModule($name, $module);
-  }
-
+    while (my ($name, $module)  = each %modulesByName) {
+        setEBoxModule($name, $module);
+    }
 }
 
 sub setEBoxModule
@@ -45,15 +42,11 @@ sub setEBoxModule
     defined $depends or
         $depends = [];
 
-
     $modulesInfo{$name} = {
         class => $class,
         depends => $depends,
         changed => 0,
-       };
-
-
-
+    };
 }
 
 sub clear
@@ -89,19 +82,17 @@ sub _fakedModNames
 sub fake
 {
     EBox::Module::Config::TestStub::fake(); # needed by some method, like changed
-                                         # state of modules
+                                            # state of modules
+
     Test::MockObject->fake_module('EBox::Global',
                                   readModInfo => \&_fakedReadModInfo,
                                   modNames     => \&_fakedModNames,
-                              );
-
-
+    );
 }
 
 # only for interface completion
 sub unfake
 {
 }
-
 
 1;

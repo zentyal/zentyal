@@ -23,35 +23,35 @@ sub testStubsSetup
     EBox::Global::TestStub::fake();
     EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
 
-    MOCK_CLASS:{
-	  package EBox::Baboon;
-	  use base 'EBox::Module::Config';
-	  $INC{'EBox/Baboon.pm'} =1;
-	  sub _create
-	  {
-	      my ($class, @optParams) = @_;
-	      my $self = $class->SUPER::_create(name => 'baboon', @optParams);
-	      return $self;
-	  }
+    MOCK_CLASS: {
+        package EBox::Baboon;
+        use base 'EBox::Module::Config';
+        $INC{'EBox/Baboon.pm'} =1;
+        sub _create
+        {
+            my ($class, @optParams) = @_;
+            my $self = $class->SUPER::_create(name => 'baboon', @optParams);
+            return $self;
+        }
     }
 }
 
 sub modExistsTest
 {
-  my $global = EBox::Global->getInstance();
-  ok $global->modExists('baboon'), 'Checking Global modExists method agaisnt a fake module';
+    my $global = EBox::Global->getInstance();
+    ok $global->modExists('baboon'), 'Checking Global modExists method agaisnt a fake module';
 }
 
 sub modInstanceTest
 {
     my $global = EBox::Global->getInstance();
 
-    foreach my $n  (0 .. 1) {
-	my $baboonModule;
-	lives_ok { $baboonModule = $global->modInstance('baboon') } 'modInstance';
-	    ok defined $baboonModule, 'Checking module returned by modInstance';
-	    isa_ok $baboonModule, 'EBox::Module::Config';
-	    isa_ok $baboonModule, 'EBox::Baboon';
+    foreach my $n (0 .. 1) {
+        my $baboonModule;
+        lives_ok { $baboonModule = $global->modInstance('baboon') } 'modInstance';
+        ok defined $baboonModule, 'Checking module returned by modInstance';
+        isa_ok $baboonModule, 'EBox::Module::Config';
+        isa_ok $baboonModule, 'EBox::Baboon';
     }
 }
 
@@ -60,16 +60,16 @@ sub getInstanceTest
     my $global;
 
     foreach my $n (0 .. 1) {
-	    foreach my $readonly (0, 1) {
-	        lives_ok { $global = EBox::Global->getInstance($readonly) } 'EBox::Global::getInstance';
-	        isa_ok $global, 'EBox::Global';
-	    }
+        foreach my $readonly (0, 1) {
+            lives_ok { $global = EBox::Global->getInstance($readonly) } 'EBox::Global::getInstance';
+            isa_ok $global, 'EBox::Global';
+        }
     }
 }
 
 sub changedTest
 {
-    my  $baboonModule = EBox::Global->modInstance('baboon');
+    my $baboonModule = EBox::Global->modInstance('baboon');
     defined $baboonModule or die "Cannot get a baboon module";
     my $global = EBox::Global->getInstance();
 
@@ -79,14 +79,13 @@ sub changedTest
     ok !$global->modIsChanged('baboon'), 'Checking modRestarted and modIsChanged';
 }
 
-
 sub clearTest
 {
     my %originalConfig = (
-		      '/ebox/unrelatedToGlobal/bool'    => 1,
-		      '/ebox/unrelatedToGlobal/integer' => 100,
-		      '/anotherApp/string'              => 'a string',
-	);
+            '/ebox/unrelatedToGlobal/bool'    => 1,
+            '/ebox/unrelatedToGlobal/integer' => 100,
+            '/anotherApp/string'              => 'a string',
+            );
     EBox::Module::Config::TestStub::setConfig(%originalConfig);
 
     EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');

@@ -21,7 +21,6 @@ use base 'EBox::Test::Class';
 use strict;
 use warnings;
 
-
 use Test::More;;
 use Test::Exception;
 use Test::MockObject;
@@ -29,7 +28,6 @@ use Test::MockObject::Extends;
 use Test::File;
 use Perl6::Junction qw(any);
 use POSIX;
-
 
 use EBox::Types::Abstract;
 
@@ -40,8 +38,6 @@ use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
-
-
 {
     my $rowIdUsed;
 
@@ -51,11 +47,9 @@ use EBox::Types::Text;
         my ($self, $context, $id) = @_;
         if (not defined $rowIdUsed) {
             return;
-        }
-        elsif ($rowIdUsed eq $id) {
+        } elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
-
     }
 
     sub EBox::Model::Manager::warnOnChangeOnId
@@ -63,8 +57,7 @@ use EBox::Types::Text;
         my ($self, $tableName, $id) = @_;
         if (not defined $rowIdUsed) {
             return;
-        }
-        elsif ($rowIdUsed eq $id) {
+        } elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
     }
@@ -79,8 +72,6 @@ use EBox::Types::Text;
         # do nothing
     }
 
-
-
     sub setRowIdInUse
     {
         my ($rowId) = @_;
@@ -91,92 +82,67 @@ use EBox::Types::Text;
 sub setEBoxModules : Test(setup)
 {
     EBox::TestStubs::fakeEBoxModule(name => 'fakeModule');
-
 }
 
 sub clearGConf : Test(teardown)
 {
-  EBox::TestStubs::setConfig();
+    EBox::TestStubs::setConfig();
 }
-
 
 sub deviantTableTest : Test(6)
 {
     my ($self) = @_;
 
     my @cases;
-    push @cases,  [  'empty table description' => {
-                                                   tableName => 'test',
-                         }
-
-                  ];
-    push @cases,  [  'empty tableDescription' => {
-                            tableDescription => [],
-                            tableName => 'test',
-                         }
-
-                  ];
+    push @cases, [ 'empty table description' => {
+                        tableName => 'test',
+                   }
+    ];
+    push @cases, [ 'empty tableDescription' => {
+                        tableDescription => [],
+                        tableName => 'test',
+                   }
+    ];
 
     push @cases, [
-                  'repeated field name' => {
-                                               tableDescription => [
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'repeated',
-                                                                          ),
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'repeated',
-                                                                          ),
-                                                                   ],
+        'repeated field name' => {
+            tableDescription => [
+                new EBox::Types::Abstract(
+                        fieldName => 'repeated',
+                        ),
+                    new EBox::Types::Abstract(
+                            fieldName => 'repeated',
+                            ),
+                    ],
+                    tableName => 'test',
+        }
 
-                                                tableName => 'test',
-                                              }
-
-                 ];
+    ];
     push @cases, [
-                  'no table name' => {
-                                               tableDescription => [
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'field1',
-                                                                          ),
+        'no table name' => {
+            tableDescription => [
+                new EBox::Types::Abstract(
+                        fieldName => 'field1',
+                        ),
+                    ],
+        }
 
-                                                                   ],
-
-
-                                              }
-
-                 ];
-
-#  XXX this feature was temporally removed form DataTable
-#     push @cases, [
-#                   'sortedBy uses unexistent field' => {
-#                                                tableDescription => [
-#                                                  new EBox::Types::Abstract(
-#                                                        fieldName => 'field1',
-#                                                                           ),
-
-#                                                                    ],
-
-#                                                 tableName => 'test',
-#                                                 sortedBy => 'unexistentField',
-#                                               }
-
-#                  ];
+    ];
 
     push @cases, [
-                  'sortedBy and order are both set' => {
-                                               tableDescription => [
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'field1',
-                                                                          ),
+        'sortedBy and order are both set' => {
+            tableDescription => [
+                new EBox::Types::Abstract(
+                        fieldName => 'field1',
+                        ),
 
-                                                                   ],
+                    ],
 
-                                                tableName => 'test',
-                                                sortedBy => 'field1',
-                                                order    => 1,
-                                              }
-
-                 ];
+                    tableName => 'test',
+                    sortedBy => 'field1',
+                    order    => 1,
+        }
+    ];
 
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
@@ -186,8 +152,6 @@ sub deviantTableTest : Test(6)
             $dataTable->table();
         } "expecting error with deviant table case: $caseName";
     }
-
-
 }
 
 sub tableTest : Test(6)
@@ -196,46 +160,44 @@ sub tableTest : Test(6)
 
     my @cases;
     push @cases,  [  'simple table' => {
-                                               tableDescription => [
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'field1',
-                                                                          ),
+        tableDescription => [
+            new EBox::Types::Abstract(
+                    fieldName => 'field1',
+                    ),
 
-                                                                   ],
-                                                   tableName => 'test',
-                         }
+                ],
+                tableName => 'test',
+    }
 
-                  ];
+    ];
     push @cases,  [  'sorted table' => {
-                                        tableDescription => [
-                                            new EBox::Types::Abstract(
-                                                      fieldName => 'field1',
-                                                                     ),
-                                            new EBox::Types::Abstract(
-                                                       fieldName => 'field2',
-                                                                     ),
+        tableDescription => [
+            new EBox::Types::Abstract(
+                    fieldName => 'field1',
+                    ),
+                new EBox::Types::Abstract(
+                        fieldName => 'field2',
+                        ),
 
-                                                            ],
-                                        tableName => 'test',
-                                        sortedBy => 'field1',
-                                       }
-
-                  ];
+                ],
+                tableName => 'test',
+                sortedBy => 'field1',
+        }
+    ];
     push @cases,  [  'ordered by user table' => {
-                                        tableDescription => [
-                                            new EBox::Types::Abstract(
-                                                      fieldName => 'field1',
-                                                                     ),
-                                            new EBox::Types::Abstract(
-                                                       fieldName => 'field2',
-                                                                     ),
+        tableDescription => [
+            new EBox::Types::Abstract(
+                    fieldName => 'field1',
+                    ),
+                new EBox::Types::Abstract(
+                        fieldName => 'field2',
+                        ),
 
-                                                            ],
-                                        tableName => 'test',
-                                        order => 1,
-                                       }
-
-                  ];
+                ],
+                tableName => 'test',
+                order => 1,
+        }
+    ];
 
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
@@ -248,31 +210,17 @@ sub tableTest : Test(6)
 
         ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fileds were inserted by first time setup';
     }
-
 }
 
-
-sub contextNameTest : Test(2)
+sub contextNameTest : Test(1)
 {
     my ($self) = @_;
     my $dataTable = $self->_newDataTable();
 
     my $expectedContenxtName = '/fakeModule/test/';
     is $dataTable->contextName, $expectedContenxtName,
-        'checking contextName';
-
-    # text with index
-    $dataTable->set_always('index' => 'indexed');
-$expectedContenxtName = '/fakeModule/test/indexed';
-    is $dataTable->contextName, $expectedContenxtName,
-        'checking contextName for model with index';
-
-
+       'checking contextName';
 }
-
-
-
-
 
 sub deviantAddTest : Test(4)
 {
@@ -286,16 +234,14 @@ sub deviantAddTest : Test(4)
     $dataTable->add(uniqueField => 'a', regularField => 'regular');
 
     my %invalidAdds = (
-                       'unique field repeated' => [
-                                                   uniqueField => 'a',
-                                                   regularField =>'adaads',
-                                                  ],
-                       'missing required field' => [
-                                                    uniqueField => 'c',
-                                                   ],
-
-                      );
-
+            'unique field repeated' => [
+            uniqueField => 'a',
+            regularField =>'adaads',
+            ],
+            'missing required field' => [
+            uniqueField => 'c',
+            ],
+    );
 
     my $dataTableSize = $dataTable->size();
     while (my ($testName, $addParams_r) = each %invalidAdds) {
@@ -303,9 +249,8 @@ sub deviantAddTest : Test(4)
             $dataTable->add(  @{ $addParams_r });
         } "expecting error with incorrect row addition: $testName";
         is $dataTable->size(), $dataTableSize,
-            'checking wether no new rows were added using size method';
+           'checking wether no new rows were added using size method';
     }
-
 }
 
 sub addTest : Test(25)
@@ -315,65 +260,60 @@ sub addTest : Test(25)
 
     my $dataTable = $self->_newDataTable($tableDescription);
 
-
-
     my @correctAdds = (
-                       # only mandatory
-                       [ uniqueField => 'a', regularField => 'regular' ],
-                       # value for default field
-                       [
-                        uniqueField => 'b', regularField => 'regular',
-                        defaultField => 'noDefaultText'
-                       ],
-                       # value for optional field
-                       [
-                        uniqueField => 'c', regularField => 'regular',
-                        optionalField => 'noDefaultText'
-                       ],
-                      );
+            # only mandatory
+            [ uniqueField => 'a', regularField => 'regular' ],
+            # value for default field
+            [
+                uniqueField => 'b', regularField => 'regular',
+                defaultField => 'noDefaultText'
+            ],
+            # value for optional field
+            [
+                uniqueField => 'c', regularField => 'regular',
+                optionalField => 'noDefaultText'
+            ],
+    );
 
     my @addParams;
     my %expectedAddedRowFields;
 
     $dataTable->mock(validateTypedRow => sub {
-                         my @callParams = @_;
+            my @callParams = @_;
 
+            my %expectedChanged = @addParams;
+            if (not exists $expectedChanged{defaultField}) {
+                # default field is always added with its default value
+                $expectedChanged{defaultField} = 'defaultText';
+            }
 
-                         my %expectedChanged = @addParams;
-                         if (not exists $expectedChanged{defaultField}) {
-                             # defualt field always is added with its default value
-                             $expectedChanged{defaultField} = 'defaultText';
-                         }
+            # for and add call changed and all fields are the same
+            my %expectedAll = %expectedChanged;
 
-                         # for and add call changed and all fields are the same
-                         my %expectedAll = %expectedChanged;
-
-                         _checkValidateTypedRowCall(
-                                            callParams => \@callParams,
-                                            expectedAction => 'add',
-                                            expectedChanged => \%expectedChanged,
-                                            expectedAll     => \%expectedAll,
-                                                   );
-                     }
-                    );
+            _checkValidateTypedRowCall(
+                callParams => \@callParams,
+                expectedAction => 'add',
+                expectedChanged => \%expectedChanged,
+                expectedAll     => \%expectedAll,
+                );
+            }
+    );
 
     $dataTable->mock(addedRowNotify => sub {
-                         my @callParams = @_;
+            my @callParams = @_;
 
-                         _checkAddeRowNotifyCall(
-                                    callParams => \@callParams,
-                                    expectedFields => \%expectedAddedRowFields
-                                                )
-                         }
-                    );
-
-
+            _checkAddeRowNotifyCall(
+                callParams => \@callParams,
+                expectedFields => \%expectedAddedRowFields
+                )
+            }
+    );
 
     foreach my $addCase (@correctAdds) {
         @addParams =  @{ $addCase  };
         %expectedAddedRowFields = @addParams;
         if (not exists $expectedAddedRowFields{defaultField}) {
-            # default field always is added with its default value
+            # default field is always added with its default value
             $expectedAddedRowFields{defaultField} = 'defaultText';
         }
         if (not exists $expectedAddedRowFields{optionalField}) {
@@ -392,14 +332,14 @@ sub addTest : Test(25)
 
         my $row = $dataTable->row($rowId);
         _checkRow(
-                  row => $row,
-                  expectedFields => \%expectedAddedRowFields,
-                  testName => 'checking new added row after retrieval'
-                 );
+                row => $row,
+                expectedFields => \%expectedAddedRowFields,
+                testName => 'checking new added row after retrieval'
+        );
     }
 
     is $dataTable->size(), scalar @correctAdds,
-        'Checking data table size after the additions';
+       'Checking data table size after the additions';
 }
 
 
@@ -416,49 +356,46 @@ sub moveRowsTest : Test(8)
     my $dataTable = $self->_newDataTable($tableDescription);
     $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
 
-
-
     my @tableRows = (
-                [ uniqueField => 'a', regularField => 'regular' ],
-                [ uniqueField => 'b', regularField => 'regular', ],
-               );
+            [ uniqueField => 'a', regularField => 'regular' ],
+            [ uniqueField => 'b', regularField => 'regular', ],
+            );
     foreach (@tableRows) {
         $dataTable->add( @{  $_  }  );
     }
 
     my @order = @{ $dataTable->order() };
 
-
     my $upperRow = $order[0];
     my $lowerRow = $order[1];
 
     $dataTable->moveUp($upperRow);
     is_deeply $dataTable->order, \@order,
-        'checking that moving up the upper row has not changed the order';
+              'checking that moving up the upper row has not changed the order';
     ok ((not $dataTable->called('movedUpRowNotify')),
-        'Checking that movedUpRowNotify has not been triggered');
+            'Checking that movedUpRowNotify has not been triggered');
     $dataTable->clear();
 
     $dataTable->moveDown($lowerRow);
     is_deeply $dataTable->order, \@order,
-        'checking that moving down the  lower row has not changed the order';
+              'checking that moving down the  lower row has not changed the order';
     ok ((not $dataTable->called('movedDownRowNotify')),
-        'Checking that movedDownRowNotify has not been triggered');
+            'Checking that movedDownRowNotify has not been triggered');
     $dataTable->clear();
 
     my @reverseOrder = reverse @order;
     $dataTable->moveUp($lowerRow);
     is_deeply $dataTable->order, \@reverseOrder,
-        'checking that lower row was moved up';
+              'checking that lower row was moved up';
     ok ( $dataTable->called('movedUpRowNotify'),
-        'Checking that movedUpRowNotify has  been triggered');
+            'Checking that movedUpRowNotify has  been triggered');
     $dataTable->clear();
 
     $dataTable->moveDown($lowerRow);
     is_deeply $dataTable->order, \@order,
-        'checking that upper row was moved down';
+              'checking that upper row was moved down';
     ok ( $dataTable->called('movedDownRowNotify'),
-        'Checking that movedDownRowNotify has  been triggered');
+            'Checking that movedDownRowNotify has  been triggered');
     $dataTable->clear();
 }
 
@@ -479,31 +416,27 @@ sub removeAllTest : Test(8)
         $dataTable->removeAll();
     } 'call removeAll in a empty table';
 
-
-
     $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
     my $rowId =  $dataTable->rows()->[0]->id();
     setRowIdInUse($rowId);
 
-
     throws_ok {
         $dataTable->removeAll(0)
-    } 'EBox::Exceptions::DataInUse',
-       'Checking  removeAll without force with autoremove and used files';
+    } 'EBox::Exceptions::DataInUse', 'Checking  removeAll without force with autoremove and used files';
 
     lives_ok {
         $dataTable->removeAll(1)
     } 'Checking  removeAll with force with autoremove and used files';
     is $dataTable->size, 0, 'checking that after removing all rowswith force=1  the table is empty';
 
-    # automatic remve with no row used case
+    # automatic remove with no row used case
     setRowIdInUse(undef);
     $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
 
     lives_ok {
         $dataTable->removeAll(0)
     } 'Checking  removeAll withoy force with autoremove option but no used rows';
-        is $dataTable->size, 0, 'checking that after removing all rows with force-0 but not used rows  the table is empty';
+    is $dataTable->size, 0, 'checking that after removing all rows with force-0 but not used rows  the table is empty';
 }
 
 
@@ -515,7 +448,6 @@ sub removeRowTest : Test(13)
     my $id;
 
     my $notifyMethodName = 'deletedRowNotify';
-
 
     $dataTable = $self->_newPopulatedDataTable();
 
@@ -532,8 +464,8 @@ sub removeRowTest : Test(13)
         $dataTable->removeRow('inexistent');
     } 'expecting error when trying to remove a inexistent row';
     ok (
-        (not $dataTable->called($notifyMethodName)),
-        'checking that on error notify method was not called',
+            (not $dataTable->called($notifyMethodName)),
+            'checking that on error notify method was not called',
        );
 
     $id = shift @ids;
@@ -541,7 +473,7 @@ sub removeRowTest : Test(13)
         $dataTable->removeRow($id);
     } 'removing row';
     is $dataTable->row($id), undef,
-        'checking that row is not longer in the table';
+       'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 
@@ -557,22 +489,20 @@ sub removeRowTest : Test(13)
 
     setRowIdInUse($id);
 
-
-
     throws_ok {
         $dataTable->removeRow($id, 0)
     } 'EBox::Exceptions::DataInUse',
-      'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
+              'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
     ok (
-        (not $dataTable->called($notifyMethodName)),
-        'checking that on DataInUse excpeion notify method was not called',
+            (not $dataTable->called($notifyMethodName)),
+            'checking that on DataInUse excpeion notify method was not called',
        );
 
     lives_ok {
         $dataTable->removeRow($id, 1)
     } 'removeRow with force in a used row within a automaticRemove table works';
     is $dataTable->row($id), undef,
-        'checking that row is not longer in the table';
+       'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 
@@ -581,7 +511,7 @@ sub removeRowTest : Test(13)
         $dataTable->removeRow($id, 0)
     } 'removeRow with force in a unused row within a automaticRemove table works';
     is $dataTable->row($id), undef,
-        'checking that row is not longer in the table';
+       'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 }
@@ -598,53 +528,42 @@ sub deviantSetTest : Test(12)
 
     my $notifyMethodName = 'updatedRowNotify';
 
-
     my $repeatedUnique = $dataTable->row($ids[0])->valueByName('uniqueField');
     $self->_checkDeviantSet(
-                               $dataTable,
-                               $id,
-                               {
-                                uniqueField => $repeatedUnique,
-                                regularField => 'distinctData',
-                                defaultField => 'aa',
-                               },
-                               'Checking that setting repeated unique field raises error'
-                              );
+        $dataTable,
+        $id,
+        {
+            uniqueField => $repeatedUnique,
+            regularField => 'distinctData',
+            defaultField => 'aa',
+        },
+        'Checking that setting repeated unique field raises error'
+    );
 
-
-
-   $self->_checkDeviantSet(
-                               $dataTable,
-                               $id,
-                               {
-                                inexistentField => 'inexistentData',
-                                uniqueField =>  'zaszxza',
-                                regularField => 'distinctData',
-                                defaultField => 'aa',
-
-                               },
-                              'Checking that setting a inexistent field raises error'
-
-                             );
-
+    $self->_checkDeviantSet(
+        $dataTable,
+        $id,
+        {
+            inexistentField => 'inexistentData',
+            uniqueField =>  'zaszxza',
+            regularField => 'distinctData',
+            defaultField => 'aa',
+        },
+        'Checking that setting a inexistent field raises error'
+    );
 
     $dataTable->mock('validateTypedRow' => sub { die 'always fail' });
     $self->_checkDeviantSet(
-                               $dataTable,
-                               $id,
-                               {
-                                uniqueField =>  'zaszxza',
-                                regularField => 'distinctData',
-                                defaultField => 'aa',
-
-                               },
-                              'Checking error when validateTypedRow fails'
-
-                             );
-
-
+        $dataTable,
+        $id,
+        {
+            uniqueField =>  'zaszxza',
+            regularField => 'distinctData',
+            defaultField => 'aa',
+        },
+        'Checking error when validateTypedRow fails'
+    );
 }
-
 
 sub _checkDeviantSet # counts as 4 tests
 {
@@ -656,23 +575,20 @@ sub _checkDeviantSet # counts as 4 tests
 
     dies_ok {
         $dataTable->set(
-                         $id,
-                         %{ $params_r }
-                        );
-
+                $id,
+                %{ $params_r }
+        );
     } $testName;
 
-
     is_deeply $dataTable->row($id)->hashElements, $oldValues,
-        'checking that erroneous operation has not changed the row values';
+              'checking that erroneous operation has not changed the row values';
     is $version, $dataTable->_storedVersion(),
-     'checking that stored table version has not changed after incorrect set operation';
+       'checking that stored table version has not changed after incorrect set operation';
     ok (
         (not $dataTable->called($notifyMethodName)),
         'checking that on error notify method was not called',
-       );
+    );
 }
-
 
 sub _checkSet
 {
@@ -684,9 +600,9 @@ sub _checkSet
     my $version = $dataTable->_storedVersion();
     lives_ok {
         $dataTable->set (
-                         $id,
-                         %changeParams,
-                        );
+                $id,
+                %changeParams,
+                );
 
     } $testName;
 
@@ -696,14 +612,14 @@ sub _checkSet
             next;
 
         is $row->valueByName($field),
-            $value,
-             "testing if $field has the updated value";
+           $value,
+           "testing if $field has the updated value";
     }
 
     is $dataTable->_storedVersion, ($version + 1),
-        'checking that stored version has been incremented';
+       'checking that stored version has been incremented';
     is $dataTable->size(), $oldSize,
-        'checking that table size has not changed after the setRow';
+       'checking that table size has not changed after the setRow';
 
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
@@ -723,38 +639,34 @@ sub setTest : Test(10)
     my $notifyMethodName = 'updatedRowNotify';
     $dataTable->set_true($notifyMethodName);
 
-
-
     my %changeParams = (
-                        regularField => 'distinctData',
-                        uniqueField => 'newUniqueValue',
-                        defaultField => 'aaa',
-                       );
+            regularField => 'distinctData',
+            uniqueField => 'newUniqueValue',
+            defaultField => 'aaa',
+    );
     $self->_checkSet(
-                     $dataTable,
-                     $id,
-                     \%changeParams,
-                     'Setting row',
-                    );
-
-
+            $dataTable,
+            $id,
+            \%changeParams,
+            'Setting row',
+    );
 
     my $version = $dataTable->_storedVersion();
     lives_ok {
         $dataTable->set (
-                         $id,
-                         %changeParams,
-                        );
+                $id,
+                %changeParams,
+                );
 
     } 'Setting row with the same values';
-    is $version, $dataTable->_storedVersion(),
-        'checking that stored table version has not changed';
-    ok (
-        (not $dataTable->called($notifyMethodName)),
-        'checking that on setting row with no changes notify method was not called',
-       );
-}
 
+    is $version, $dataTable->_storedVersion(),
+       'checking that stored table version has not changed';
+    ok (
+            (not $dataTable->called($notifyMethodName)),
+            'checking that on setting row with no changes notify method was not called',
+    );
+}
 
 sub setWithDataInUseTest : Test(18)
 {
@@ -771,35 +683,35 @@ sub setWithDataInUseTest : Test(18)
     setRowIdInUse($id);
 
     my %changeParams = (
-                        regularField => 'distinctData',
-                        uniqueField => 'newUniqueValue',
-                        defaultField => 'aaa',
-                       );
+            regularField => 'distinctData',
+            uniqueField => 'newUniqueValue',
+            defaultField => 'aaa',
+    );
 
     $self->_checkDeviantSet (
-                      $dataTable,
-                      $id,
-                      \%changeParams,
-      'Checking that setting a row with data on use raises error'
-                     );
+            $dataTable,
+            $id,
+            \%changeParams,
+            'Checking that setting a row with data on use raises error'
+    );
 
     $changeParams{force} = 1;
     $self->_checkSet (
-                      $dataTable,
-                      $id,
-                      \%changeParams,
-      'Checking that setting a row with data on use and force =1 works'
-                     );
+            $dataTable,
+            $id,
+            \%changeParams,
+            'Checking that setting a row with data on use and force =1 works'
+    );
 
     delete $changeParams{force};
     setRowIdInUse(undef);
     $changeParams{defaultField} = 'anotherValue';
     $self->_checkSet (
-                      $dataTable,
-                      $id,
-                      \%changeParams,
-      'Checking that setting a row with no data on use and force =0 works in a automaticRemoveTable'
-                     );
+            $dataTable,
+            $id,
+            \%changeParams,
+            'Checking that setting a row with no data on use and force =0 works in a automaticRemoveTable'
+    );
 }
 
 sub _checkValidateTypedRowCall
@@ -819,18 +731,13 @@ sub _checkValidateTypedRowCall
         $_ = $_->value();
     }
 
-
-
     is $action, $expectedAction, "checking action parameter in validateTypedRow";
 
-        is_deeply \%changedFields, \%expectedChangedFields,
-        'checking changedFields names in validateTypeRow';
+    is_deeply \%changedFields, \%expectedChangedFields,
+              'checking changedFields names in validateTypeRow';
     is_deeply \%allFields , \%expectedAllFields,
-        'checkinf allFields names in validateTypeRow';
-
-
+              'checkinf allFields names in validateTypeRow';
 }
-
 
 sub _checkAddeRowNotifyCall
 {
@@ -839,12 +746,11 @@ sub _checkAddeRowNotifyCall
     my ($dataTable, $row) = @{ $params{callParams} };
 
     _checkRow(
-              row => $row,
-              expectedFields => $params{expectedFields},
-              testName =>  'checking row contents in addedRowNotify',
-             );
+            row => $row,
+            expectedFields => $params{expectedFields},
+            testName =>  'checking row contents in addedRowNotify',
+    );
 }
-
 
 sub _checkRow
 {
@@ -855,7 +761,7 @@ sub _checkRow
     $testName or
         $testName = 'checking row';
 
-    my %valueHash = %{  $row->hashElements };
+    my %valueHash = %{ $row->hashElements };
     foreach (values %valueHash) {
         $_ = $_->value();
     }
@@ -867,21 +773,21 @@ sub optionsFromForeignModelTest : Test(2)
 {
     my ($self) = @_;
     my $tableDescription = {
-                  tableDescription => [
-                                       new EBox::Types::Text(
-                                                    fieldName => 'field1',
-                                                    printableName => 'field1',
-                                                    unique        => 1,
-                                                                ),
-                                       new EBox::Types::Text(
-                                                    fieldName => 'field2',
-                                                    printableName => 'field2',
-                                                                ),
+        tableDescription => [
+            new EBox::Types::Text(
+                    fieldName => 'field1',
+                    printableName => 'field1',
+                    unique        => 1,
+                    ),
+        new EBox::Types::Text(
+                fieldName => 'field2',
+                printableName => 'field2',
+                ),
 
-                                      ],
-                            tableName => 'test',
+        ],
+        tableName => 'test',
 
-                           };
+    };
 
     my $dataTable = $self->_newDataTable($tableDescription);
 
@@ -890,32 +796,25 @@ sub optionsFromForeignModelTest : Test(2)
         $dataTable->add(field1 => $value, field2 => 'irrelevant');
     }
 
-
     dies_ok {
         $dataTable->optionsFromForeignModel('inexistentField');
     }'expecting error when using a inexistent field for optionsFromForeignModel';
 
-
     my $field = 'field1';
 
-   my @expectedOptions =  map {
-                                   {
-                              value => $_->id(),
-                              printableValue => $_->printableValueByName($field),
-                                   }
-                               } @{ $dataTable->rows() };
+    my @expectedOptions =  map {
+        {
+            value => $_->id(),
+                  printableValue => $_->printableValueByName($field),
+        }
+    } @{ $dataTable->rows() };
+
+    my $options=  $dataTable->optionsFromForeignModel($field);
 
 
-
-
-     my $options=  $dataTable->optionsFromForeignModel($field);
-
-
-     is_deeply  $options, \@expectedOptions,
-        'checking optionsFromForeignModel for a existent field';
-
+    is_deeply  $options, \@expectedOptions,
+               'checking optionsFromForeignModel for a existent field';
 }
-
 
 sub findTest : Test(6)
 {
@@ -932,33 +831,27 @@ sub findTest : Test(6)
         $dataTable->find('inexistentField' => 'b');
     } 'checking that find() with a inexistent field fails' ;
 
-
     $row = $dataTable->find($fieldName => 'inexistent');
     ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
 
     $row = $dataTable->find($fieldName => $fieldValue);
     isa_ok ($row,
-            'EBox::Model::Row',
-            'checking that find with row name and value returns  a row'
-           );
-
+        'EBox::Model::Row',
+        'checking that find with row name and value returns  a row'
+    );
 
     my $rowfound =  $dataTable->findRow($fieldName => $fieldValue);
     is $row->id(), $rowfound->id(),
-        'checking return value of findRow method';
+       'checking return value of findRow method';
 
     my $idfound = $dataTable->findId($fieldName => $fieldValue);
     is $idfound, $row->id(),
-        'checking return value of findId metthod';
+       'checking return value of findId metthod';
 
     my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
-        is $valueFound->id(), $row->id(),
-        'checking return value of findValue method';
-
-
-
+    is $valueFound->id(), $row->id(),
+       'checking return value of findValue method';
 }
-
 
 sub filterTest : Test(5)
 {
@@ -966,23 +859,21 @@ sub filterTest : Test(5)
 
     my $dataTable = $self->_newPopulatedDataTable();
     $dataTable->add(
-                    'uniqueField' => 'x',
-                    'regularField' => 'onceRepeated twiceRepeated',
-
-                   );
+            'uniqueField' => 'x',
+            'regularField' => 'onceRepeated twiceRepeated',
+    );
     $dataTable->add(
-                    'uniqueField' => 'z',
-                    'regularField' => 'twiceRepeated',
-
-                   );
+            'uniqueField' => 'z',
+            'regularField' => 'twiceRepeated',
+    );
 
     my %filterAndRowsExpected = (
-                                 'twiceRepeated' => 2,
-                                 'onceRepeated' => 1,
-                                 'twiceRepeated onceRepeated' => 1,
-                                 'onceRepeated zeroRepeated' => 0,
-                                 'zeroRepeated' => 0,
-                                );
+            'twiceRepeated' => 2,
+            'onceRepeated' => 1,
+            'twiceRepeated onceRepeated' => 1,
+            'onceRepeated zeroRepeated' => 0,
+            'zeroRepeated' => 0,
+    );
 
     while (my ($filter, $rowsExpected) = each %filterAndRowsExpected) {
         $dataTable->setFilter($filter);
@@ -990,8 +881,6 @@ sub filterTest : Test(5)
         is $nRows, $rowsExpected, "Checking number of rows returned with filter: $filter";
     }
 }
-
-
 
 sub pageTest : Test(38)
 {
@@ -1001,9 +890,9 @@ sub pageTest : Test(38)
     my $dataTable = $self->_newDataTable($self->_tableDescription4fields());
     foreach (1 .. $rows) {
         $dataTable->add(
-                        uniqueField => $_,
-                        regularField => "regular for $_",
-                       );
+                uniqueField => $_,
+                regularField => "regular for $_",
+                );
     }
 
     my @pagesSizes = (1, 5, 7, 11);
@@ -1018,98 +907,80 @@ sub pageTest : Test(38)
         my $lastPage     = $pageCount - 1;
         my $lastPageRows = $rows - ( ($pageCount -1) * $size );
         foreach my $page (0 .. $lastPage) {
-            my $expectedRows = ($page != $lastPage) ?
-                                                 $size        :
-                                                 $lastPageRows;
-
+            my $expectedRows = ($page != $lastPage) ?  $size : $lastPageRows;
 
             my @rows  =  @{ $dataTable->rows(undef, $page) };
             foreach my $row (@rows) {
                 my $id = $row->id();
                 if (exists $rowsSeen{$id}) {
-                    fail
-            "Row with id $id was previously returned i nanother page";
+                    fail "Row with id $id was previously returned i nanother page";
                     next;
-
                 }
 
                 $rowsSeen{$id} = 1;
             }
 
             is scalar @rows, $expectedRows,
-              "Checking expected number of rows ($expectedRows) for page $page with size $size";
-
+               "Checking expected number of rows ($expectedRows) for page $page with size $size";
         }
-
     }
 
     dies_ok {
         $dataTable->rows(undef, -1);
     } 'Check that rows() raises error when requested a negative page';
 
-
     $dataTable->setPageSize($rows);
     is_deeply $dataTable->rows(undef, 0),
               $dataTable->rows(undef, 1),
-        'Checking that a number greater than available page means last page';
+              'Checking that a number greater than available page means last page';
 
     dies_ok {
         $dataTable->setPageSize(-1);
     } 'Setting page size to a negative number must raise error';
 
-
     $dataTable->setPageSize($rows + 1);
     is scalar @{ $dataTable->rows(undef, 1)  }, $rows,
-'Checking that a apge size greater than the number of rows returns all the rows';
+       'Checking that a apge size greater than the number of rows returns all the rows';
 
     $dataTable->setPageSize(0);
     is scalar @{ $dataTable->rows(undef, 1)  }, $rows,
-        'Checking that pageZise ==0 means unlimited page size';
-
-
+       'Checking that pageZise ==0 means unlimited page size';
 }
-
-
-
 
 sub _newDataTable
 {
     my ($self, $table) = @_;
     if (not defined $table) {
         $table = {
-                  tableDescription => [
-                                       new EBox::Types::Abstract(
-                                                    fieldName => 'field1',
-                                                    printableName => 'field1',
-                                                                ),
+            tableDescription => [
+                new EBox::Types::Abstract(
+                        fieldName => 'field1',
+                        printableName => 'field1',
+                        ),
 
-                                      ],
-                  tableName => 'test',
-                 };
+            ],
+            tableName => 'test',
+        };
 
     }
 
     my $confmodule = EBox::Global->modInstance('fakeModule');
 
-    my $dataTableDir = '/ebox/modules/fakeModule/DataTable';
+    my $dataTableDir = '/conf/fakeModule/DataTable';
     # remove old data from prvious modules
     $confmodule->delete_dir($dataTableDir);
 
-
     my $dataTableBase = EBox::Model::DataTable->new(
-                                                 confmodule => $confmodule,
-                                                 directory   => $dataTableDir,
-                                                 domain      => 'domain',
-                                                );
-
+            confmodule => $confmodule,
+            directory   => $dataTableDir,
+            domain      => 'domain',
+            );
 
     my $dataTable = Test::MockObject::Extends->new($dataTableBase);
     $dataTable->set_always('_table' => $table);
 
-
     return $dataTable;
 }
-
 
 sub _newPopulatedDataTable
 {
@@ -1117,30 +988,26 @@ sub _newPopulatedDataTable
 
     my $tableDescription = _tableDescription4fields();
 
-
     my $dataTable = $self->_newDataTable($tableDescription);
 
     my @values = (
-
-                       [ uniqueField => 'a', regularField => 'regular' ],
-                       [
-                        uniqueField => 'b', regularField => 'regular',
-                        defaultField => 'noDefaultText'
-                       ],
-                       [
-                        uniqueField => 'c', regularField => 'regular',
-                        optionalField => 'noDefaultText'
-                       ],
-                      );
+            [ uniqueField => 'a', regularField => 'regular' ],
+            [
+                uniqueField => 'b', regularField => 'regular',
+                defaultField => 'noDefaultText'
+            ],
+            [
+                uniqueField => 'c', regularField => 'regular',
+                optionalField => 'noDefaultText'
+            ],
+    );
 
     foreach (@values) {
         $dataTable->add( @{ $_  } );
     }
 
-
     return $dataTable;
 }
-
 
 sub _newPopulatedDataTableWithAutomaticRemove
 {
@@ -1151,20 +1018,19 @@ sub _newPopulatedDataTableWithAutomaticRemove
     my $dataTable = $self->_newDataTable($tableDescription);
 
     my @values = (
-
-                       [ uniqueField => 'a', regularField => 'regular' ],
-                       [
-                        uniqueField => 'b', regularField => 'regular',
-                        defaultField => 'noDefaultText'
-                       ],
-                       [
-                        uniqueField => 'c', regularField => 'regular',
-                        optionalField => 'noDefaultText'
-                       ],
-                      );
+            [ uniqueField => 'a', regularField => 'regular' ],
+            [
+                uniqueField => 'b', regularField => 'regular',
+                defaultField => 'noDefaultText'
+            ],
+            [
+                uniqueField => 'c', regularField => 'regular',
+                optionalField => 'noDefaultText'
+            ],
+    );
 
     foreach (@values) {
-        $dataTable->add( @{  $_  }  );
+        $dataTable->add(@{ $_ } );
     }
 
     return $dataTable;
@@ -1172,36 +1038,32 @@ sub _newPopulatedDataTableWithAutomaticRemove
 
 sub _tableDescription4fields
 {
-      my $tableDescription = {
-                  tableDescription => [
-                                       new EBox::Types::Text(
-                                                   fieldName => 'uniqueField',
-                                                   printableName => 'uniqueField',
-                                                   unique        => 1,
-                                                                ),
-                                       new EBox::Types::Text(
-                                                  fieldName => 'regularField',
-                                                 printableName => 'regularField',
-                                                                ),
-                                       new EBox::Types::Text(
-                                                fieldName => 'defaultField',
-                                                printableName => 'defaultField',
-                                                defaultValue    => 'defaultText',
-                                                                ),
+    my $tableDescription = {
+        tableDescription => [
+            new EBox::Types::Text(
+                    fieldName => 'uniqueField',
+                    printableName => 'uniqueField',
+                    unique        => 1,
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'regularField',
+                    printableName => 'regularField',
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'defaultField',
+                    printableName => 'defaultField',
+                    defaultValue    => 'defaultText',
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'optionalField',
+                    printableName => 'optionalField',
+                    optional      => 1,
+            ),
+        ],
+        tableName => 'test',
+    };
 
-                                       new EBox::Types::Text(
-                                                fieldName => 'optionalField',
-                                                printableName => 'optionalField',
-                                                optional      => 1,
-                                                                ),
-
-                                      ],
-                            tableName => 'test',
-
-                           };
-
-      return $tableDescription;
+    return $tableDescription;
 }
-
 
 1;
