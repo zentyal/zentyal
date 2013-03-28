@@ -38,7 +38,7 @@ use EBox::Types::HasMany;
 
 sub setEBoxModules : Test(setup)
 {
-    EBox::TestStubs::fakeEBoxModule(name => 'fakeModule');
+    EBox::TestStubs::fakeModule(name => 'fakeModule');
 }
 
 sub clearGConf : Test(teardown)

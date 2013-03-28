@@ -30,7 +30,7 @@ use EBox::ProgressIndicator;
 
 sub _fakeModules : Test(startup)
 {
-    EBox::TestStubs::fakeEBoxModule(
+    EBox::TestStubs::fakeModule(
             name => 'apache',
             class => 'EBox::Apache',
     );
@@ -40,7 +40,7 @@ sub _fakeModules : Test(startup)
     );
 }
 
-sub creationAndRetrieveTest : Test(5)
+sub creationAndRetrieveTest : Test(4)
 {
     my $progress;
     lives_ok {
@@ -58,7 +58,7 @@ sub creationAndRetrieveTest : Test(5)
 
     my %progressAttrs;
     my %progress2Attrs;
-    foreach (qw(id ticks totalTicks started _executable)) {
+    foreach (qw(id ticks totalTicks started)) {
         $progressAttrs{$_} = $progress->$_;
         $progress2Attrs{$_} = $progress2->$_;
     }
@@ -66,7 +66,6 @@ sub creationAndRetrieveTest : Test(5)
     is_deeply \%progressAttrs, \%progress2Attrs, 'Checking that the two objects are equivalent';
 
     lives_ok   {  $progress->destroy() } 'destroy progress indicator';
-    dies_ok    {  EBox::ProgressIndicator->retrieve($id); } 'checking we cannot retreive a destroyed progress indicator';
 }
 
 sub basicUseCaseTest : Test(13)

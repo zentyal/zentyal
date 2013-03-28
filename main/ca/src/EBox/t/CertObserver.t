@@ -24,7 +24,7 @@ use EBox::Global;
 EBox::TestStubs::activateTestStubs();
 
 # Fake a CA observer
-EBox::TestStubs::fakeEBoxModule(name    => 'certuser',
+EBox::TestStubs::fakeModule(name    => 'certuser',
 				package => 'EBox::CA::CertUser',
 				isa     => ['EBox::CA::Observer'],
 				subs    => [ certificateRevoked => \&certificateRevoked,
@@ -32,7 +32,7 @@ EBox::TestStubs::fakeEBoxModule(name    => 'certuser',
 					     freeCertificate    => \&freeCertificate ]
 );
 
-EBox::TestStubs::fakeEBoxModule(name => 'foobaz');
+EBox::TestStubs::fakeModule(name => 'foobaz');
 
 # Loading package
 # use EBox::CA::CertUser;

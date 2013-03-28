@@ -30,7 +30,7 @@ use EBox::Global;
 use EBox::OpenVPN;
 
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 
 use File::Basename;

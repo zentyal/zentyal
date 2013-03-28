@@ -27,7 +27,7 @@ use Test::Differences;
 use Test::MockObject;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Perl6::Junction qw(all any);
 
@@ -66,7 +66,7 @@ sub setUpConfiguration : Test(setup)
     EBox::Module::Config::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('mail' => 'EBox::Mail');
 
-    EBox::TestStubs::fakeEBoxModule(name => 'firewall',
+    EBox::TestStubs::fakeModule(name => 'firewall',
                                     subs => [
                                              availablePort => sub {
                                                return 1

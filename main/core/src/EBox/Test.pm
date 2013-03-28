@@ -21,7 +21,7 @@ use base 'Exporter';
 #  Contains specifically-ebox checks and helper.
 #
 # deprecated:
-#     activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys
+#     activateEBoxTestStubs fakeModule setConfig setConfigKeys
 #     this was moved to EBox::TestStub
 
 use Test::More;

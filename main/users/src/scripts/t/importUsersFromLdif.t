@@ -102,7 +102,7 @@ sub fakeAddUserToGroup # (user, group)
 }
 
 EBox::TestStubs::activateTestStubs();
-EBox::TestStubs::fakeEBoxModule(
+EBox::TestStubs::fakeModule(
 				name => 'users',
 				package => 'EBox::UsersAndGroups',
 				subs => [

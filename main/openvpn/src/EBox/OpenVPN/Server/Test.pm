@@ -22,7 +22,7 @@ use warnings;
 use base qw(EBox::Test::Class);
 
 use EBox::Test;
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Test::More;
 use Test::Exception;
@@ -51,7 +51,7 @@ sub fakeCA : Test(startup)
 
 sub fakeFirewall
 {
-    fakeEBoxModule(
+    fakeModule(
         name => 'firewall',
         package => 'EBox::Firewall',
         subs => [
@@ -96,7 +96,7 @@ sub setUpConfiguration : Test(setup)
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    fakeEBoxModule(
+    fakeModule(
         name => 'openvpn',
         package => 'EBox::OpenVPN',
         subs => [

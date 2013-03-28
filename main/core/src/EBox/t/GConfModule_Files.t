@@ -21,11 +21,10 @@ use Test::Exception;
 use Test::File;
 
 use lib '../..';
-use EBox::Module;
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 EBox::TestStubs::activateTestStubs();
-fakeEBoxModule(name => 'testMod');
+fakeModule(name => 'testMod');
 
 my $dir = '/tmp/confmodule_files.t';
 

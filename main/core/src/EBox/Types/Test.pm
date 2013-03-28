@@ -152,7 +152,7 @@ sub storeAndRestoreGConfTest
     defined $otherValue or
         die "you ,must suply a correct base value";
 
-    EBox::TestStubs::fakeEBoxModule(name => 'store');
+    EBox::TestStubs::fakeModule(name => 'store');
 
     my $mod = EBox::Global->modInstance('store');
     my $dir = 'storeAndRestoreTest';

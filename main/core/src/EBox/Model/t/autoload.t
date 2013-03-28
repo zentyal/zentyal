@@ -53,8 +53,8 @@ Test::MockObject->fake_module('EBox::Model::Manager',
 
 # Fake eBox
 EBox::TestStubs::activateTestStubs();
-EBox::TestStubs::fakeEBoxModule(name => 'foo');
-EBox::TestStubs::fakeEBoxModule(name => 'objects', class  => 'EBox::Objects');
+EBox::TestStubs::fakeModule(name => 'foo');
+EBox::TestStubs::fakeModule(name => 'objects', class  => 'EBox::Objects');
 my $fakeModule = EBox::Global->modInstance('foo');
 
 my $model = new EBox::Test::Model(confmodule => $fakeModule, directory   => 'model');

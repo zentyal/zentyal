@@ -31,7 +31,7 @@ use Test::Differences;
 use Test::File;
 
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
@@ -60,7 +60,7 @@ sub notice : Test(startup)
 # needed for progress indicator stuff
 sub setupProgressIndicatorHostModule : Test(setup)
 {
-    fakeEBoxModule(name => 'apache',
+    fakeModule(name => 'apache',
                 subs => [
                             _regenConfig => sub {},
 
@@ -104,7 +104,7 @@ sub setUpCanaries : Test(setup)
 
 sub setupGConfCanary
 {
-    fakeEBoxModule(
+    fakeModule(
         name => 'gConfCanary',
         subs => [
             revokeConfig => sub {
@@ -116,7 +116,7 @@ sub setupGConfCanary
 
 sub setupExtendedCanary
 {
-    fakeEBoxModule(
+    fakeModule(
         name => 'extendedCanary',
         subs => [
                 setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
@@ -143,7 +143,7 @@ sub setupExtendedCanary
 # this canary contains sensitive data so in debug
 sub setupMixedConfCanary
 {
-    fakeEBoxModule(
+    fakeModule(
             name => 'mixedConfCanary',
             subs => [
                 setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
@@ -696,7 +696,7 @@ sub restoreFailedTest #: Test(6)
 
     # we force failure in one of the modules
     my $forcedFailureMsg  = 'forced failure ';
-    fakeEBoxModule(
+    fakeModule(
             name => 'unrestorableModule',
             subs => [
                 restoreConfig => sub {

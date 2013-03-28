@@ -26,7 +26,7 @@ use EBox::Global::TestStub;
 use EBox::Module::Config::TestStub;
 use EBox::Config::TestStub;
 use EBox::NetWrappers::TestStub;
-use EBox::TestStubs ('fakeEBoxModule');
+use EBox::TestStubs ('fakeModule');
 
 use EBox::Service;
 
@@ -169,10 +169,10 @@ sub daemonTestWithStaticRoutes : Test(10)
 			    '192.168.32.0/24' => { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.32.5' },
 			   );
 
-  fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'titiNoStaticRoutes');
-  fakeEBoxModule(name => 'mandrillNoStaticRoutes');
+  fakeModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
+  fakeModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
+  fakeModule(name => 'titiNoStaticRoutes');
+  fakeModule(name => 'mandrillNoStaticRoutes');
 
   # run the service test
   my $dhcp = EBox::Global->modInstance('dhcp');

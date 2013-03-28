@@ -216,7 +216,7 @@ sub _setupDB
     my ($modName, $modClass) =  $self->modNameAndClass();
     if (not defined $modName) {
         $modName =  'testMod';
-        EBox::TestStubs::fakeEBoxModule(
+        EBox::TestStubs::fakeModule(
             name => $modName,
             subs => [
                      isEnabled => sub { return 1  },
