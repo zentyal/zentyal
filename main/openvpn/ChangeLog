@@ -1,4 +1,5 @@
 HEAD
+	+ Better filename for tunnel client bundle
 	+ Zebra daemon debug controlled by global debug setting
 	+ Allow again client-to-client connection in tunnel mode
 	+ ripd debug output controlled by debug key
