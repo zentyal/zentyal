@@ -7,7 +7,6 @@ use Test::More ;
 use  lib '../..';
 
 use EBox::Global::TestStub;
-use EBox::TestStub;
 use Test::MockObject;
 
 BEGIN { use_ok ('EBox::Test', ':all') };
@@ -17,7 +16,6 @@ checkModuleInstantiationTest();
 sub setUp
 {
     EBox::Global::TestStub::fake();
-    EBox::TestStub::fake();
 }
 
 sub fakeModules
@@ -59,7 +57,7 @@ sub checkModuleInstantiationTest
     fakeModules();
 
     check_test (
-            sub { checkModuleInstantiation('simple', 'EBox::Simple');  },
+            sub { checkModuleInstantiation('sysinfo', 'EBox::SysInfo');  },
             { ok => 1 },
     );
 
