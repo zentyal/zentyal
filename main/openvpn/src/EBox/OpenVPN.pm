@@ -922,6 +922,8 @@ sub _writeRIPDaemonConf
     defined $quaggaUser
       or throw EBox::Exceptions::Internal('No quagga user found in the system');
 
+    my $debug = EBox::Config::boolean('debug');
+
     my $fileAttrs = {
                      uid  => $quaggaUid,
                      gid  => $quaggaGid,
@@ -932,14 +934,17 @@ sub _writeRIPDaemonConf
                          $fileAttrs);
     $self->writeConfFile("$confDir/daemons", '/openvpn/quagga/daemons.mas', [],
                          $fileAttrs);
-    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas', [],
+    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas',
+                         [
+                             debug => $debug
+                         ],
                          $fileAttrs);
 
     my @ripdConfParams = (
                           ifaces       => $ifaces,
                           redistribute => $redistribute,
                           insecurePasswd => _insecureRipPasswd(),
-                          debug          => EBox::Config::boolean('debug'),
+                          debug          => $debug,
                          );
     $self->writeConfFile("$confDir/ripd.conf", '/openvpn/quagga/ripd.conf.mas',
                          \@ripdConfParams, $fileAttrs);

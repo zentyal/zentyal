@@ -1,4 +1,5 @@
 HEAD
+	+ Zebra daemon debug controlled by global debug setting
 	+ Allow again client-to-client connection in tunnel mode
 	+ ripd debug output controlled by debug key
 	+ Modified daemon management to use methods from EBox::Module::Service
