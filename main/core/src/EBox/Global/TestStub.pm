@@ -68,6 +68,7 @@ sub fake
     EBox::TestStub::fake();
     EBox::Config::TestStub::fake(modules => 'core/schemas/');
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
+    *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
 }
 
 # only for interface completion

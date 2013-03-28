@@ -26,6 +26,7 @@ use strict;
 use warnings;
 
 use Test::MockObject::Extends;
+use File::Slurp;
 
 use EBox::Sudo::TestStub;
 use EBox::TestStub;
@@ -34,7 +35,7 @@ use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 
-our @EXPORT_OK = qw(activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys);
+our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 # Function: activateTestStubs
@@ -131,10 +132,10 @@ sub setConfigKey
     return EBox::Module::Config::TestStub::setEntry(@_);
 }
 
-# Function: setEBoxModule
+# Function: setModule
 #
 #   Register an eBox module in eBox configuration. This is not needed
-#   for modules created with fakeEBoxModule
+#   for modules created with fakeModule
 #
 # Parameters:
 #   $name     - the module name
@@ -144,10 +145,21 @@ sub setConfigKey
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#    setEBoxModule('openvpn' => 'EBox::OpenVPN');
-sub setEBoxModule
+#    setModule('openvpn' => 'EBox::OpenVPN');
+sub setModule
 {
-    return EBox::Global::TestStub::setEBoxModule(@_);
+    my ($name, $package, @depends) = @_;
+
+    my $yaml = "class: $package\n";
+    if (@depends) {
+        $yaml .= "depends:\n";
+        foreach my $dep (@depends) {
+            $yaml .= "    - $dep\n";
+        }
+    }
+
+    EBox::Config::TestStub::fake(modules => '/tmp/');
+    write_file("/tmp/$name.yaml", $yaml);
 }
 
 # Function: setEBoxConfigKeys
@@ -172,7 +184,7 @@ sub setEBoxConfigKeys
     return EBox::Config::TestStub::setConfigKeys(@_);
 }
 
-# Function: fakeEBoxModule
+# Function: fakeModule
 #
 #    Create on the fly fake eBox modules
 #
@@ -194,16 +206,16 @@ sub setEBoxConfigKeys
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#   fakeEBoxModule(name => 'idleModule');
-#       fakeEBoxModules(
+#   fakeModule(name => 'idleModule');
+#       fakeModules(
 #                name => 'macaco', package => 'EBox::Macaco',
 #                subs => [ sayHello => sub { print 'hi'  }  ],
 #       );
 #
-sub fakeEBoxModule
+sub fakeModule
 {
     my %params = @_;
-    exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
+    exists $params{name} or throw EBox::Exceptions::Internal('fakeModule: lacks name paramater');
     exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
 
     my @isa = ('EBox::Module::Config');
@@ -212,7 +224,7 @@ sub fakeEBoxModule
         push @isa,  @extraIsa;
     }
 
-    my $createIsaCode =  'package ' . $params{package} . "; use base qw(@isa);";
+    my $createIsaCode = 'package ' . $params{package} . "; use base qw(@isa);";
     eval $createIsaCode;
     die "When creating ISA array $@" if  $@;
 
@@ -229,7 +241,7 @@ sub fakeEBoxModule
         @{ $params{subs} }
     );
 
-    EBox::Global::TestStub::setEBoxModule($params{name} => $params{package});
+    setModule($params{name}, $params{package});
 }
 
 # Function: setFakeIfaces

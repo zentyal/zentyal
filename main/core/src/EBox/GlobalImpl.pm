@@ -89,7 +89,6 @@ sub readModInfo # (module)
     unless ($self->{mod_info}->{$name}) {
         my $yaml;
         try {
-            my $foo = EBox::Config::modules() . "$name.yaml";
             ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
         } otherwise {
             $yaml = undef;
