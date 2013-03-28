@@ -24,7 +24,6 @@ use EBox;
 use Test::MockObject;
 use Log::Log4perl qw(:easy);
 
-
 my $logLevel;
 
 sub fake
@@ -47,7 +46,6 @@ sub fake
     Test::MockObject->fake_module('EBox',
 				  logger => \&_mockedLogger,
 				 );
-
 }
 
 

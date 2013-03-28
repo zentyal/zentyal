@@ -21,7 +21,9 @@ use warnings;
 use Test::MockObject;
 use Params::Validate;
 use EBox::Global;
-use EBox::Module::Config::TestStub;
+use EBox::TestStub;
+use EBox::Config::TestStub;
+use EBox::Test::RedisMock;
 
 my %modulesInfo;
 
@@ -29,7 +31,7 @@ sub setAllEBoxModules
 {
     my (%modulesByName) = @_;
 
-    while (my ($name, $module)  = each %modulesByName) {
+    while (my ($name, $module) = each %modulesByName) {
         setEBoxModule($name, $module);
     }
 }
@@ -54,18 +56,6 @@ sub clear
     %modulesInfo = ();
 }
 
-sub _fakedReadModInfo
-{
-    my ($name) = @_;
-
-    if (exists $modulesInfo{$name}) {
-        return $modulesInfo{$name};
-    }
-
-    return undef;
-}
-
-
 sub  _fakedWriteModInfo
 {
     my ($self, $name, $info) = @_;
@@ -73,21 +63,11 @@ sub  _fakedWriteModInfo
     $modulesInfo{$name} = $info;
 }
 
-
-sub _fakedModNames
-{
-    return [keys %modulesInfo];
-}
-
 sub fake
 {
-    EBox::Module::Config::TestStub::fake(); # needed by some method, like changed
-                                            # state of modules
-
-    Test::MockObject->fake_module('EBox::Global',
-                                  readModInfo => \&_fakedReadModInfo,
-                                  modNames     => \&_fakedModNames,
-    );
+    EBox::TestStub::fake();
+    EBox::Config::TestStub::fake(modules => 'core/schemas/');
+    EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
 }
 
 # only for interface completion

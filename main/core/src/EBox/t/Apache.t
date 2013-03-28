@@ -26,19 +26,13 @@ use Test::Deep;
 
 use lib '../../..';
 
-use EBox::TestStub;
-use EBox::Config::TestStub;
-use EBox::Test::RedisMock;
+use EBox::Global::TestStub;
 
-BEGIN {
-    diag('Starting test for some methods on Apache module');
-    use_ok('EBox::Apache') or die;
-}
+EBox::Global::TestStub::fake();
 
-EBox::TestStub::fake();
-EBox::Config::TestStub::fake(modules => 'core/schemas/');
+use_ok('EBox::Apache') or die;
 
-my $apacheMod = EBox::Apache->_create(redis => EBox::Test::RedisMock->new());
+my $apacheMod = EBox::Global->modInstance('apache');
 isa_ok($apacheMod, 'EBox::Apache');
 
 my @resourceNames = ('foo/a', 'bar/a', 'foo/b');

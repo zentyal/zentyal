@@ -22,14 +22,11 @@ use Test::Exception;
 
 use lib  '../..';
 
-use EBox::TestStub;
-use EBox::Test::RedisMock;
-
-EBox::TestStub::fake();
+use EBox::Global::TestStub;
 
 use_ok('EBox::Global');
 
-my $global = EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
+EBox::Global::TestStub::fake();
 
 sortOneModuleByDependenciesTest();
 sortTwoModulesByDependenciesTest();
@@ -134,7 +131,7 @@ sub _checkSortModulesByDependencies
     my @sortedModules;
     lives_ok {
         @sortedModules = @{
-           $global->sortModulesByDependencies(\@modules, $dependenciesMethod)
+           EBox::Global->sortModulesByDependencies(\@modules, $dependenciesMethod)
         };
     } 'Sorting modules by dependencies';
 
