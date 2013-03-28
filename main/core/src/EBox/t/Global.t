@@ -21,7 +21,15 @@ use Test::MockObject;
 use Test::Exception;
 
 use lib  '../..';
+
+use EBox::TestStub;
+use EBox::Test::RedisMock;
+
+EBox::TestStub::fake();
+
 use_ok('EBox::Global');
+
+my $global = EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
 
 sortOneModuleByDependenciesTest();
 sortTwoModulesByDependenciesTest();
@@ -36,12 +44,12 @@ sub sortModulesByDependenciesTest
         1 => [4, 5],
         6 => [1, 15],
         8 => [4],
-        13 => [6, 15, 190], # unavaialble dpendenciy and correct dpednecies
+        13 => [6, 15, 190], # unavaialble dependenciy and correct depedencies
         17 => [19],
         19 => [1],
         25 => [19],
         30 => [40],
-        38 => [74],  # unavailable dpendency
+        38 => [74],  # unavailable dependency
         40 => [12],
        );
 
@@ -126,8 +134,7 @@ sub _checkSortModulesByDependencies
     my @sortedModules;
     lives_ok {
         @sortedModules = @{
-           EBox::Global->sortModulesByDependencies(
-                                 \@modules, $dependenciesMethod)
+           $global->sortModulesByDependencies(\@modules, $dependenciesMethod)
         };
     } 'Sorting modules by dependencies';
 

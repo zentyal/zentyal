@@ -33,7 +33,7 @@ sub _defaultConfig
 {
     my @defaultConfig;
 
-    my @configKeys = qw(prefix etc var user group share scripts locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
+    my @configKeys = qw(prefix etc var user group share scripts locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang modules);
     my %problematicKeys = (
         user => 'ebox',
         group => 'ebox',
