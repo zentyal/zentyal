@@ -22,6 +22,11 @@ use lib '../..';
 
 use base 'EBox::Test::Class';
 
+use EBox::Global::TestStub;
+use EBox::TestStubs;
+
+EBox::Global::TestStub::fake();
+
 use EBox::Backup;
 
 use Test::MockObject;
@@ -30,17 +35,13 @@ use Test::Exception;
 use Test::Differences;
 use Test::File;
 
-use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeModule);
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
 use Perl6::Junction qw(all);
 
 use Readonly;
-Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/modules/gConfCanary/canary';
-Readonly::Scalar my $GCONF_EXTENDED_CANARY_KEY => '/ebox/modules/extendedCanary/key';
-Readonly::Scalar my $GCONF_MIXEDCONF_CANARY_KEY => '/ebox/modules/mixedConfCanary/key';
+Readonly::Scalar my $CANARY_CONF_KEY => 'canary_testkey';
 
 use constant BEFORE_BACKUP_VALUE => 'beforeBackup';
 use constant AFTER_BACKUP_VALUE  => 'afterBackup';
@@ -48,27 +49,18 @@ use constant BUG_BACKUP_VALUE  => 'bug';
 
 sub testDir
 {
-    return '/tmp/ebox.backup.test';
-}
-
-sub notice : Test(startup)
-{
-  diag 'This test use GConf and may left behind some test entries in the tree /ebox';
-  diag 'Remember you need the special GConf packages from eBox repository. Otherwise these tests will fail in awkward ways';
+    return '/tmp/zentyal.backup.test';
 }
 
 # needed for progress indicator stuff
 sub setupProgressIndicatorHostModule : Test(setup)
 {
-    fakeModule(name => 'apache',
+    EBox::TestStubs::fakeModule(name => 'apache',
                 subs => [
                             _regenConfig => sub {},
-
                         ],
-
                 );
 }
-
 
 sub setupDirs : Test(setup)
 {
@@ -76,11 +68,7 @@ sub setupDirs : Test(setup)
 
     return if !exists $INC{'EBox/Backup.pm'};
 
-    EBox::TestStubs::setEBoxConfigKeys(
-                                        conf => testDir(),
-                                        tmp => $self->testDir(),
-                                        group => 'ebox',
-                                        );
+    EBox::TestStubs::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir(), group => 'ebox');
 
     my $testDir = $self->testDir();
     system "rm -rf $testDir";
@@ -92,59 +80,11 @@ sub setupDirs : Test(setup)
     makePrivateDir('/tmp/backup');
 }
 
-sub setUpCanaries : Test(setup)
-{
-    my ($self) = @_;
-
-    setupGConfCanary();
-    setupExtendedCanary();
-    setupMixedConfCanary();
-}
-
-
-sub setupGConfCanary
-{
-    fakeModule(
-        name => 'gConfCanary',
-        subs => [
-            revokeConfig => sub {
-                _canaryRevokeGConf($GCONF_CANARY_KEY);
-            }
-        ]
-    );
-}
-
-sub setupExtendedCanary
-{
-    fakeModule(
-        name => 'extendedCanary',
-        subs => [
-                setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
-                canary => sub { my ($self) = @_; return $self->{canary} },
-
-                extendedBackup => sub {
-                    my ($self, %params) = @_;
-                    my $dir = $params{dir};
-                    write_file ("$dir/canary", $self->{canary} );
-                },
-                extendedRestore => sub {
-                    my ($self, %params) = @_;
-                    my $dir = $params{dir};
-                    my $backedUpData =  read_file ("$dir/canary" );
-                    $self->setCanary($backedUpData);
-                },
-                revokeConfig => sub {
-                    _canaryRevokeGConf($GCONF_EXTENDED_CANARY_KEY);
-                }
-            ],
-    );
-}
-
 # this canary contains sensitive data so in debug
-sub setupMixedConfCanary
+sub setupCanaryModule : Test(setup)
 {
-    fakeModule(
-            name => 'mixedConfCanary',
+    EBox::TestStubs::fakeModule(
+            name => 'canary',
             subs => [
                 setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
                 canary => sub { my ($self) = @_; return $self->{canary} },
@@ -161,194 +101,43 @@ sub setupMixedConfCanary
                 restoreConfig => sub {
                     my ($self, $dir) = @_;
                     EBox::Module::Config::_load_from_file($self, $dir);
-                    my $backedUpData =  read_file ("$dir/canary" );
+                    my $backedUpData =  read_file ("$dir/canary");
                     $self->setCanary($backedUpData);
                 },
                 revokeConfig => sub {
-                    _canaryRevokeGConf($GCONF_MIXEDCONF_CANARY_KEY);
+                    _canaryRevokeConfig($CANARY_CONF_KEY);
                 }
             ],
     );
 }
 
-sub setCanaries
+sub setConfigCanary
 {
     my ($value) = @_;
 
-    setGConfCanary($value);
-    setExtendedCanary($value);
-    setMixedConfCanary($value);
-}
-
-
-sub setGConfCanary
-{
-    my ($value) = @_;
-    _setGConfString($GCONF_CANARY_KEY, $value);
-
-    my $canaryConf = EBox::Global->modInstance('gConfCanary');
+    my $canaryConf = EBox::Global->modInstance('canary');
+    $canaryConf->set($CANARY_CONF_KEY, $value);
     $canaryConf->setAsChanged();
 }
 
-sub setExtendedCanary
-{
-    my ($value) = @_;
-
-    _setGConfString($GCONF_EXTENDED_CANARY_KEY, $value);
-
-    my $extendedCanary = EBox::Global->modInstance('extendedCanary');
-    $extendedCanary->setCanary($value);
-    $extendedCanary->setAsChanged();
-
-    die 'canary not changed' if $extendedCanary->canary() ne $value;
-}
-
-
-sub setMixedConfCanary
-{
-    my ($value) = @_;
-
-    _setGConfString($GCONF_MIXEDCONF_CANARY_KEY, $value);
-
-    my $mixedConfCanary = EBox::Global->modInstance('mixedConfCanary');
-    $mixedConfCanary->setCanary($value);
-    $mixedConfCanary->setAsChanged();
-
-    die 'canary not changed' if $mixedConfCanary->canary() ne $value;
-}
-
-
-sub _canaryRevokeGConf
+sub _canaryRevokeConfig
 {
     my ($key) = @_;
-    _setGConfString($key, AFTER_BACKUP_VALUE);
+
+    EBox::Global->getInstance()->{redis}->set("/conf/canary/$key", AFTER_BACKUP_VALUE);
 }
 
-
-sub _setGConfString
-{
-    my ($key, $value) = @_;
-    defined $key or die "Not key supplied";
-    defined $value or die "Not value supplied for key $key";
-
-    my $client = Gnome2::GConf::Client->get_default;
-    defined $client or die "Can not retrieve GConf client";
-
-    $client->set_string($key, $value);
-
-    die "gconf key $key not changed" if $client->get_string($key) ne $value;
-}
-
-
-sub checkCanaries
-{
-    my ($expectedValue, $fullRestore) = @_;
-
-    checkGConfCanary($expectedValue);
-    checkExtendedCanary($expectedValue, $fullRestore);
-    checkMixedConfCanary($expectedValue);
-}
-
-
-
-sub checkCanariesOnlyGConf
+sub checkConfigCanary
 {
     my ($expectedValue) = @_;
 
-    checkGConfCanaryGconf($expectedValue);
-    checkExtendedCanaryGConf($expectedValue);
-    checkMixedConfCanaryGconf($expectedValue);
+    my $value = EBox::Global->modInstance('canary')->get_string($CANARY_CONF_KEY);
+    is ($value, $expectedValue, 'Checking Config data of simple module canary');
 }
 
-sub checkGConfCanary
+sub teardownConfigCanary : Test(teardown)
 {
-    my ($expectedValue) = @_;
-
-    checkGConfCanaryGconf($expectedValue);
-}
-
-sub checkGConfCanaryGconf
-{
-    my ($expectedValue) = @_;
-
-    my $client = Gnome2::GConf::Client->get_default;
-    my $value = $client->get_string($GCONF_CANARY_KEY);
-    is $value, $expectedValue, 'Checking GConf data of simple module canary';
-}
-
-
-sub checkExtendedCanaryGConf
-{
-    my ($expectedValue) = @_;
-
-    my $client = Gnome2::GConf::Client->get_default;
-    my $value;
-
-    $value = $client->get_string($GCONF_EXTENDED_CANARY_KEY);
-    is $value, $expectedValue, 'Checking GConf data of canary module with extended backup and restore';
-}
-
-sub checkExtendedCanary
-{
-    my ($expectedValue, $fullRestore) = @_;
-
-    checkExtendedCanaryGConf($expectedValue);
-    checkExtendedCanaryData($expectedValue, $fullRestore);
-}
-
-
-sub checkExtendedCanaryData
-{
-    my ($expectedValue, $dataRestored) = @_;
-
-    my $value;
-    my $extendedCanary = EBox::Global->modInstance('extendedCanary');
-    $value = $extendedCanary->canary();
-    if ($dataRestored ) {
-        is $value, $expectedValue, 'Checking extra data of canary module with extended backup and restore';
-    }
-    else {
-        isnt $value, $expectedValue, 'Checking extra data of canary module was not restored with configuration restore';
-    }
-}
-
-
-
-sub checkMixedConfCanaryGconf
-{
-    my ($expectedValue) = @_;
-
-    my $client = Gnome2::GConf::Client->get_default;
-    my $value;
-
-    $value = $client->get_string($GCONF_MIXEDCONF_CANARY_KEY);
-    is $value, $expectedValue, 'Checking GConf configuration data of canary module with mixed config';
-}
-
-
-sub checkMixedConfCanaryOtherConf
-{
-    my ($expectedValue) = @_;
-
-    my $mixedConfCanary = EBox::Global->modInstance('mixedConfCanary');
-    my $value = $mixedConfCanary->canary();
-    is $value, $expectedValue, 'Checking no-GConf configuration  data of canary module';
-}
-
-sub checkMixedConfCanary
-{
-    my ($expectedValue) = @_;
-
-    checkMixedConfCanaryGconf($expectedValue);
-    checkMixedConfCanaryOtherConf($expectedValue);
-}
-
-sub teardownGConfCanary : Test(teardown)
-{
-    my $client = Gnome2::GConf::Client->get_default;
-    $client->unset($GCONF_CANARY_KEY);
-    $client->unset($GCONF_EXTENDED_CANARY_KEY);
-    $client->unset($GCONF_MIXEDCONF_CANARY_KEY);
+    EBox::Global->modInstance('canary')->unset($CANARY_CONF_KEY);
 }
 
 sub teardownCanaryModule : Test(teardown)
@@ -363,11 +152,11 @@ sub checkStraightRestore
     my ($archiveFile, $options_r, $msg) = @_;
 
     my $backup = new EBox::Backup();
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
     lives_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
 
     my %options = @{ $options_r  };
-    checkCanaries(BEFORE_BACKUP_VALUE, $options{fullRestore});
+    checkConfigCanary(BEFORE_BACKUP_VALUE, $options{fullRestore});
 
     checkModulesChanged(
             name => 'Checking wether all restored modules have the changed state set'
@@ -404,11 +193,11 @@ sub checkDeviantRestore
     my ($archiveFile, $options_r, $msg) = @_;
 
     my $backup = new EBox::Backup();
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
     dies_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
 
     diag "Checking that failed restore has not changed the configuration";
-    checkCanaries(AFTER_BACKUP_VALUE, 1);
+    checkConfigCanary(AFTER_BACKUP_VALUE, 1);
 }
 
 sub checkMakeBackup
@@ -424,7 +213,6 @@ sub checkMakeBackup
 
     return $backupArchive;
 }
-
 
 # this requires a correct testdata dir
 sub invalidArchiveTest : Test(30)
@@ -464,12 +252,12 @@ sub restoreConfigurationBackupTest : Test(16)
     my ($self) = @_;
 
     my $configurationBackup;
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup');
     checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
 
     my $fullBackup;
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
     checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
@@ -481,19 +269,14 @@ sub restoreBugreportTest : Test(13)
     my $backup = new EBox::Backup();
     my $bugReportBackup;
 
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     lives_ok { $bugReportBackup = $backup->makeBugReport() } 'make a bug report';
 
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     lives_ok { $backup->restoreBackup($bugReportBackup) } 'Restoring bug report';
 
-    checkGConfCanary(BEFORE_BACKUP_VALUE);
-    checkExtendedCanary(BEFORE_BACKUP_VALUE, 0 );
-
-    # mixedConfCanary contains sensitive data in his non-gconf configuration
-    checkMixedConfCanaryGconf(BEFORE_BACKUP_VALUE);
-    checkMixedConfCanaryOtherConf(BUG_BACKUP_VALUE);
+    checkConfigCanary(BEFORE_BACKUP_VALUE);
 
     checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
@@ -503,26 +286,20 @@ sub restoreFullBackupTest : Test(15)
     my ($self) = @_;
 
     my $configurationBackup;
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
     checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
-
-    my $fullBackup;
-    setCanaries(BEFORE_BACKUP_VALUE);
-    $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
-    checkStraightRestore($fullBackup, [fullRestore => 1], 'full restore from a full backup');
 }
-
 
 sub partialRestoreTest : Test(15)
 {
     my ($self) = @_;
 
     my $configurationBackup;
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
 
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     # bad case: not modules to restore
     dies_ok {
@@ -533,34 +310,25 @@ sub partialRestoreTest : Test(15)
     dies_ok {
         EBox::Backup->restoreBackup(
                 $configurationBackup,
-                modsToRestore => ['gConfCanary', 'inexistent'],
+                modsToRestore => ['canary', 'inexistent'],
                 );
     } 'called restoreBackup with a list of modules t orestore which contains inexistent modules';
 
-    # good cases
-    my @cases = (
-            [qw(gConfCanary)],
-            [qw(gConfCanary extendedCanary)],
-            [qw(gConfCanary extendedCanary mixedConfCanary)],
-    );
+    my @modsToRestore = ('canary');
+    lives_ok {
+        EBox::Backup->restoreBackup(
+                $configurationBackup,
+                modsToRestore => \@modsToRestore,
+                )
+    } "Partial restore with modules @modsToRestore";
 
-    foreach my $case (@cases) {
-        my @modsToRestore = @{ $case };
-        lives_ok {
-            EBox::Backup->restoreBackup(
-                    $configurationBackup,
-                    modsToRestore => \@modsToRestore,
-                    )
-        } "Partial restore with modules @modsToRestore";
+    my @checkSubs = map {
+        'check' . ucfirst $_
+    } @modsToRestore;
 
-        my @checkSubs = map {
-            'check' . ucfirst $_
-        } @modsToRestore;
-
-        foreach my $subName (@checkSubs) {
-            my $sub = __PACKAGE__->can($subName);
-            $sub->(BEFORE_BACKUP_VALUE, 0);
-        }
+    foreach my $subName (@checkSubs) {
+        my $sub = __PACKAGE__->can($subName);
+        $sub->(BEFORE_BACKUP_VALUE, 0);
     }
 }
 
@@ -594,7 +362,7 @@ sub listBackupsTest : Test(5)
             [description => 'full backup', fullBackup => 1],
             );
 
-    setCanaries('indiferent configuration');
+    setConfigCanary('indiferent configuration');
 
     foreach (@backupParams) {
         my $global = EBox::Global->getInstance();
@@ -624,7 +392,7 @@ sub listBackupsTest : Test(5)
 
 sub backupDetailsFromArchiveTest : Test(9)
 {
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     my $global = EBox::Global->getInstance();
     $global->saveAllModules();
 
@@ -668,9 +436,9 @@ sub backupForbiddenWithChangesTest : Test(7)
 {
     my ($self) = @_;
 
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
 
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     my $global = EBox::Global->getInstance();
     my @changedModules = grep {
@@ -682,7 +450,7 @@ sub backupForbiddenWithChangesTest : Test(7)
         $b->makeBackup(description => 'test');
     }  qr/not saved changes/, 'Checkign wether the backup is forbidden with changed modules';
 
-    checkCanaries(AFTER_BACKUP_VALUE, 1);
+    checkConfigCanary(AFTER_BACKUP_VALUE, 1);
 
     checkModulesChanged(
             name => 'Check wether module changed state has not be changed',
@@ -696,7 +464,7 @@ sub restoreFailedTest #: Test(6)
 
     # we force failure in one of the modules
     my $forcedFailureMsg  = 'forced failure ';
-    fakeModule(
+    EBox::TestStubs::fakeModule(
             name => 'unrestorableModule',
             subs => [
                 restoreConfig => sub {
@@ -708,10 +476,10 @@ sub restoreFailedTest #: Test(6)
 
     my $global = EBox::Global->getInstance();
 
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     my $backupArchive = checkMakeBackup();
 
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     $global->saveAllModules();
     foreach my $mod (@{ $global->modInstances }) {
@@ -726,8 +494,8 @@ sub restoreFailedTest #: Test(6)
 
     } qr /$forcedFailureMsg/, 'Checking wether restore failed as expected';
 
-    diag "Checking modules for revoked values. We check only GConf values because currently the revokation only takes care of them";
-    checkCanariesOnlyGConf(AFTER_BACKUP_VALUE);
+    diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
+    checkConfigCanaryOnlyConfig(AFTER_BACKUP_VALUE);
 
     my @modules = @{$global->modNames()};
 
@@ -741,32 +509,23 @@ sub dataRestoreTest : Test(7)
 {
     my ($self) = @_;
 
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     my $fullBackup = checkMakeBackup(fullBackup => 1);
-
-    setCanaries(AFTER_BACKUP_VALUE);
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     lives_ok {
         EBox::Backup->restoreBackup($fullBackup, dataRestore => 1)
     } 'trying a data restore';
 
-    # gconf canary shouldn't be restored
-    checkGConfCanary(AFTER_BACKUP_VALUE);
-    # mixed conf canary shouldn't changed
-    checkMixedConfCanary(AFTER_BACKUP_VALUE);
-
-    # extended canary configuration should not be changed ..
-    checkExtendedCanaryGConf(AFTER_BACKUP_VALUE);
-    # .. but data must be restored
-    checkExtendedCanaryData(BEFORE_BACKUP_VALUE, 1);
+    # conf canary shouldn't be restored
+    checkConfigCanary(AFTER_BACKUP_VALUE);
 }
-
 
 sub checkArchivePermissions : Test(3)
 {
     my ($self) = @_;
 
-    setCanaries(BEFORE_BACKUP_VALUE);
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     my $archive = checkMakeBackup(fullBackup => 0);
     Test::File::file_mode_is($archive, 0600, 'Checking wether the archive permission only allow reads by its owner');
     my @op = `ls -l $archive`;

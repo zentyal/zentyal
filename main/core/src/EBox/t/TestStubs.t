@@ -13,6 +13,7 @@ EBox::Global::TestStub::fake();
 
 lives_ok { EBox::TestStubs::activateTestStubs() } 'Activating ebox test stubs';
 fakeModuleTest();
+tearDown();
 
 sub fakeModuleTest
 {
@@ -129,6 +130,11 @@ sub _testModInstancesOfType
             isa_ok ($mod, $type);
         }
     }
+}
+
+sub tearDown
+{
+    EBox::TestStubs::unsetModules();
 }
 
 1;

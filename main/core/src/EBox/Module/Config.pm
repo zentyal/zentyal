@@ -546,11 +546,12 @@ sub get_hash
 #
 # Parameters:
 #
-#       key -
+#       key - string with the key
+#       value - default value to be returned if the key does not exist
 #
 # Returns:
 #
-#   Returns a <Gnome2::Gconf2::value>
+#   value of the key or defaultValue if specified and key does not exist
 #
 sub get
 {

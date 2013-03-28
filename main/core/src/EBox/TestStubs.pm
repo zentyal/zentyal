@@ -132,6 +132,8 @@ sub setConfigKey
     return EBox::Module::Config::TestStub::setEntry(@_);
 }
 
+my $moduleDir = "/tmp/zentyal-modules-test-$$/";
+
 # Function: setModule
 #
 #   Register an eBox module in eBox configuration. This is not needed
@@ -158,8 +160,15 @@ sub setModule
         }
     }
 
-    EBox::Config::TestStub::fake(modules => '/tmp/');
-    write_file("/tmp/$name.yaml", $yaml);
+    EBox::Config::TestStub::fake(modules => $moduleDir);
+    system ("mkdir -p $moduleDir");
+
+    write_file("${moduleDir}${name}.yaml", $yaml);
+}
+
+sub unsetModules
+{
+    system ("rm -rf $moduleDir");
 }
 
 # Function: setEBoxConfigKeys
