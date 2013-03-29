@@ -14,11 +14,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Test::Mason;
+
 # package: EBox::Test::Mason
 #  to ease the testing of mason components. This does NOT test all the content (use HTML::Maason::Test for this) but only checks if compiles.
-# You can revise the output files by eye after running the tests
+#  You can revise the output files by eye after running the tests
 #
-# This currently depends from exec-mason-temaplate tool
+# This currently depends from exec-mason-template tool
 
 use strict;
 use warnings;
@@ -26,107 +27,118 @@ use warnings;
 use File::Slurp;
 use File::Basename;
 use HTML::Mason;
-use Cwd qw(abs_path);
+use Cwd;
 use Test::More;
 use Error qw(:try);
 
+use EBox::Config::TestStub;
+
+EBox::Config::TestStub::fake(templates => 'core/src/templates/');
+
 sub checkTemplateExecution
 {
-  my %args = @_;
-  my $template       = $args{template};
-  my $templateParams = exists $args{templateParams} ? $args{templateParams} : [];
-  my $compRoot      =  exists $args{compRoot}       ? $args{compRoot } : [];
+    my %args = @_;
+    my $template       = $args{template};
+    my $templateParams = exists $args{templateParams} ? $args{templateParams} : [];
+    my $compRoot      =  exists $args{compRoot}       ? $args{compRoot } : [];
 
-  my $testName       = exists $args{name} ? $args{name} : "Testing if execution of template $template with params @$templateParams was successful";
-  my $printOutput    = $args{printOutput};
-  my $outputFile     = exists $args{outputFile} ? $args{outputFile} : '/tmp/' . basename $template;
+    my $testName       = exists $args{name} ? $args{name} : "Testing if execution of template $template with params @$templateParams was successful";
+    my $printOutput    = $args{printOutput};
+    my $outputFile     = exists $args{outputFile} ? $args{outputFile} : '/tmp/' . basename($template);
 
-  my $templateOutput;
-  my $templateError;
+    my $templateOutput;
+    my $templateError;
 
-  my $templateExecutionOk = 0;
-  try {
-    $templateOutput = executeTemplate(template       => $template,
-				      templateParams => $templateParams,
-				      compRoot       => $compRoot,
-				     );
-    $templateExecutionOk = 1;
-  }
-  otherwise {
-    my $ex = shift @_;
-    $templateError = "$ex";
-    $templateOutput = \$templateError; # templateOutput must be a scalar ref to be in the same form that the return value of executeTemplate
-  };
+    my $templateExecutionOk = 0;
+    try {
+        $templateOutput = executeTemplate(template => $template, templateParams => $templateParams, compRoot => $compRoot);
+        $templateExecutionOk = 1;
+    } otherwise {
+        my $ex = shift @_;
+        $templateError = "$ex";
+        $templateOutput = \$templateError; # templateOutput must be a scalar ref to be in the same form that the return value of executeTemplate
+    };
 
-  ok $templateExecutionOk, $testName;
+    ok $templateExecutionOk, $testName;
 
-  if ($printOutput || $templateError) {
-    diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
-  }
-  if ($outputFile) {
-    _printOutputFile($outputFile, $templateOutput);
-  }
+    if ($printOutput || $templateError) {
+        diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
+    }
+    if ($outputFile) {
+        _printOutputFile($outputFile, $templateOutput);
+    }
 
-  return $templateExecutionOk;
+    return $templateExecutionOk;
 }
-
 
 sub executeTemplate
 {
-  my %args = @_;
-  my $template        = $args{template};
-  my @params          = exists $args{templateParams} ?  @{ $args{templateParams} } : ();
-  my $additionalRoots = exists $args{compRoot}       ?  $args{compRoot}            : [];
+    my %args = @_;
+    my $template        = $args{template};
+    my @params          = exists $args{templateParams} ?  @{ $args{templateParams} } : ();
+    my $additionalRoots = exists $args{compRoot}       ?  $args{compRoot}            : [];
 
-  my $comp_root = _comp_root($template, $additionalRoots);
-  my $templateOutput;
+    my $comp_root = _comp_root($template, $additionalRoots);
+    my $templateOutput;
 
-  my $interp = HTML::Mason::Interp->new(comp_root => $comp_root, out_method => \$templateOutput);
+    my $interp = HTML::Mason::Interp->new(comp_root => $comp_root, out_method => \$templateOutput);
 
-  my $comp = $interp->make_component(comp_file => $template);
+    my $comp = $interp->make_component(comp_file => $template);
 
+    $interp->exec($comp, @params);
 
-  $interp->exec($comp, @params);
-
-  return \$templateOutput;
+    return \$templateOutput;
 }
 
+sub testComponent
+{
+    my ($component, $cases_r, $printOutput) = @_;
+    defined $printOutput or $printOutput = 0;
 
+    my ($componentWoExt) = split '\.', (basename $component);
+    my $outputFile  = "/tmp/$componentWoExt.html";
+    system "rm -rf $outputFile";
+
+    my $compRoot = getcwd() . '/' . EBox::Config::templates();
+    my $template = "$compRoot/$component";
+
+    diag "\nComponent root $compRoot\n\n";
+
+    foreach my $params (@{ $cases_r }) {
+        EBox::Test::Mason::checkTemplateExecution(template => $template, templateParams => $params, compRoot => [$compRoot], printOutput => $printOutput, outputFile => $outputFile);
+    }
+}
 
 sub _comp_root
 {
-  my ($template, $root_paths_r) = @_;
-  my @root_paths = @{ $root_paths_r } ;
+    my ($template, $root_paths_r) = @_;
+    my @root_paths = @{ $root_paths_r } ;
 
-  my $main_root = abs_path ($template);
-  $main_root = dirname $main_root;
+    my $main_root = Cwd::abs_path($template);
+    $main_root = dirname($main_root);
 
-  my $i = 0; # counter to generate comp_root ids
-  my @roots = map {
-    $i++;
-    [ "user-$i" => $_ ] }
-    @root_paths;
+    my $i = 0; # counter to generate comp_root ids
+    my @roots = map { $i++; [ "user-$i" => $_ ] } @root_paths;
 
-  unshift @roots, [ MAIN => $main_root ];
+    unshift @roots, [ MAIN => $main_root ];
 
-
-  return \@roots;
+    return \@roots;
 }
 
 sub _printOutputFile
 {
-  my ($outputFile, $data) = @_;
-  my $separator;
+    my ($outputFile, $data) = @_;
+    my $separator;
 
-  if ($outputFile =~ m/\.html?$/) {
-    $separator = '<hr/>';
-  }
-  else {
-    $separator = "---------------\n";
-  }
+    if ($outputFile =~ m/\.html?$/) {
+        $separator = '<hr/>';
+    }
+    else {
+        $separator = "---------------\n";
+    }
 
-  write_file($outputFile, { append => 1}, $separator );
-  write_file($outputFile, {append =>  1 }, $data );
+    write_file($outputFile, { append => 1}, $separator );
+    write_file($outputFile, {append =>  1 }, $data );
 }
 
 1;

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 use Test::More tests => 5;
 
 my @columnTitles = qw(arabic roman binary);
@@ -22,6 +22,6 @@ my @cases = (
 	     [columnTitles => \@columnTitles, rows => \@rows, additionalComponents => \@additionalComponents],
 	    );
 
-TestHelper::testComponent('table.mas', \@cases);
+EBox::Test::Mason::testComponent('table.mas', \@cases);
 
 1;

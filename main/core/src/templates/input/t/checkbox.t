@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
@@ -13,6 +13,6 @@ my @cases = (
 	     [ name => 'checkedBoxDisabled', value => 1, disabled => 'disabled'],
 );
 
-TestHelper::testComponent('checkbox.mas', \@cases);
+EBox::Test::Mason::testComponent('input/checkbox.mas', \@cases);
 
 1;

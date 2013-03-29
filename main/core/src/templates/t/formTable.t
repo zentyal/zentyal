@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use Test::More tests => 4;
 
@@ -29,6 +29,6 @@ my @cases = (
 	     [rows => [@hiddenFields, @noHiddenFields] ],
 );
 
-TestHelper::testComponent('formTable.mas', \@cases);
+EBox::Test::Mason::testComponent('formTable.mas', \@cases);
 
 1;

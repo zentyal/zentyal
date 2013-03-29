@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
@@ -13,6 +13,6 @@ my @cases = (
 	     [ name => 'fileInputDisabled',  disabled => 'disabled'],
 );
 
-TestHelper::testComponent('file.mas', \@cases);
+EBox::Test::Mason::testComponent('input/file.mas', \@cases);
 
 1;

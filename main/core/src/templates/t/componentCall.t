@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 use Test::More tests => 3;
 
 my @cases  = (
@@ -13,6 +13,6 @@ my @cases  = (
 	      ],
 );
 
-TestHelper::testComponent('componentCall.mas', \@cases);
+EBox::Test::Mason::testComponent('componentCall.mas', \@cases);
 
 1;

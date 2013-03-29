@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
@@ -12,6 +12,6 @@ my @cases = (
 	     [ name => 'submitDisabled', value => 'Disabled submit', disabled => 'disabled'],
 );
 
-TestHelper::testComponent('submit.mas', \@cases);
+EBox::Test::Mason::testComponent('input/submit.mas', \@cases);
 
 1;

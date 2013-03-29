@@ -11,15 +11,13 @@ my $printOutput = 0;
 my $outputFile  = '/tmp/htmlAttributes.txt';
 system "rm -rf $outputFile";
 
-
-my $htmlAttributesTemplate =   getcwd() . '/../htmlAttributes.mas';
-
 my @cases = (
 	     [],
 	     [qw(name macaco)],
 	     [qw(name macaco value jefatura)],
 );
 
+my $htmlAttributesTemplate = getcwd() . '/core/src/templates/htmlAttributes.mas';
 
 foreach my $params (@cases) {
   EBox::Test::Mason::checkTemplateExecution(template => $htmlAttributesTemplate, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);

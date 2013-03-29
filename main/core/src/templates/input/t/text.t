@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
@@ -13,6 +13,6 @@ my @cases = (
 	     [ name => 'hiidenDisabled', value => 'textValue', disabled => 'disabled'],
 );
 
-TestHelper::testComponent('text.mas', \@cases);
+EBox::Test::Mason::testComponent('input/text.mas', \@cases);
 
 1;

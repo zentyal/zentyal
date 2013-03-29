@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use lib '../..';
-use TestHelper;;
+
 use EBox::Test::Mason;
 
 use Test::More tests => 5;
@@ -23,6 +23,6 @@ my @cases = (
 	     [@nameAndValue, options => \@options,  multiple => 'multiple'],
 );
 
-TestHelper::testComponent('select.mas', \@cases);
+EBox::Test::Mason::testComponent('input/select.mas', \@cases);
 
 1;

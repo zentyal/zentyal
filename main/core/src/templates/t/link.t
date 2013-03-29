@@ -12,7 +12,7 @@ my $outputFile  = '/tmp/link.html';
 system "rm -rf $outputFile";
 
 
-my $linkTemplate =   getcwd() . '/../link.mas';
+my $linkTemplate =   getcwd() . '/core/src/templates/link.mas';
 
 my @cases = (
 	     [href => "http://www.google.com"],

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
@@ -9,9 +9,9 @@ use Test::More tests => 2;
 
 my @cases = (
 	     [ name => 'hiddenEnabled', value => 'hiddenValue'],
-	     [ name => 'hiidenDisabled', value => 'hiddenValue', disabled => 'disabled'],
+	     [ name => 'hiddenDisabled', value => 'hiddenValue', disabled => 'disabled'],
 );
 
-TestHelper::testComponent('hidden.mas', \@cases);
+EBox::Test::Mason::testComponent('input/hidden.mas', \@cases);
 
 1;
