@@ -28,8 +28,14 @@ use Error qw(:try);
 
 sub bundleFilename
 {
-    my ($class, $serverName) = @_;
-    return EBox::Config::downloads() . "$serverName-EBoxToEBox.tar.gz";
+    my ($class, $serverName, $cn) = @_;
+
+    my $filename= "$serverName-ZentyalToZentyal";
+    if ($cn) {
+        $filename .= "-$cn";
+    }
+    $filename .= '.tar.gz';
+    return EBox::Config::downloads() . $filename;
 }
 
 sub createBundleCmds
