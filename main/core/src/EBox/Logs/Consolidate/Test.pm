@@ -32,8 +32,11 @@ use Data::Dumper;
 
 use lib '../../..';
 
+use EBox::Global::TestStub;
 use EBox::Logs::Consolidate;
 use EBox::TestStubs;
+
+EBox::Global::TestStub::fake();
 
 sub weeklyDateTest #: Test(6)
 {
@@ -73,25 +76,21 @@ sub setFakeTableInfoForMod
 sub fakeConsolidate : Test(startup)
 {
     Test::MockObject->fake_module(
-                                  'EBox::Logs::Consolidate',
-                                  _tableInfoFromMod => \&fakeTableInfoFromMod,
-                                  _sourceRows => \&fakeSourceRows,
-                                  _cleanRows => sub {},
+         'EBox::Logs::Consolidate',
+         _tableInfoFromMod => \&fakeTableInfoFromMod,
+         _sourceRows => \&fakeSourceRows,
+         _cleanRows => sub {},
 
-                                  # we donot test last consolidation dates for
-                                  # now
-                                 _lastConsolidationDate => sub {  return undef },
-                                  _updateLastConsolidationDate => sub {   },
-
+         # we donot test last consolidation dates for
+         # now
+         _lastConsolidationDate => sub { return undef },
+         _updateLastConsolidationDate => sub {},
     );
 }
 
 sub fakeDBEngineFactory : Test(startup)
 {
-    Test::MockObject->fake_module(
-                                  'EBox::DBEngineFactory',
-                                  DBEngine => \&fakeDBEngine,
-     );
+    Test::MockObject->fake_module('EBox::DBEngineFactory', DBEngine => \&fakeDBEngine);
 }
 
 my %fakeDB = ();
@@ -227,7 +226,7 @@ sub _setupDB
 
                      }
                     ],
-            isa => ['EBox::LogObserver'],
+            isa => ['EBox::Module::Service', 'EBox::LogObserver'],
         );
     }
 
