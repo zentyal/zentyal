@@ -13,13 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
 use Test::More qw(no_plan); # tests => 4;
-
-
 
 use lib '../../..';
 
@@ -28,26 +25,21 @@ use EBox::Types::IPAddr;
 
 EBox::Types::TestHelper::setupFakes();
 
-
 sub creationTest
 {
     my %validIPAddrs = (
                          '192.168.45.0' => 24,
                          '45.34.13.123' => 32,
-                     
                         );
 
     my %invalidIPAddrs = (
                            '40.24.3.129' => 35,
                            '40.24.3.129' => -1,
-                           '40.24.3.129' => 0,       
+                           '40.24.3.129' => 0,
                             '45.321.12.12' => 8,
                           # bad mask: hosts need a 32 bit mask
                           '192.168.45.1' => 24,
                           );
-
-
-
 
     while (my ($ip, $mask) = each %validIPAddrs) {
         EBox::Types::TestHelper::createOk(
@@ -57,9 +49,7 @@ sub creationTest
                                     mask => $mask,
                                     "Checking instance creation with valid parameters ip => $ip, mask => $mask"
                                    );
-        
     }
-
 
     while (my ($ip, $mask) = each %invalidIPAddrs) {
         EBox::Types::TestHelper::createFail(
@@ -71,7 +61,6 @@ sub creationTest
                                       "Checking instance creation raises error when called with invalid parameters ip => $ip, mask => $mask"
                                      );
     }
-    
 }
 
 
@@ -106,20 +95,16 @@ sub cmpTest
 
     is $netA->cmp($netA->clone), 0, 'checking cmp for equality within nets';
     is $netA->cmp($netB), 1, 'checking cmp for inequality within nets';
-    is $netA->cmp($netC), 1, 
+    is $netA->cmp($netC), 1,
         'checking cmp for inequality within nets with the same mask';
-    is $netA->cmp($hostA), 1, 
+    is $netA->cmp($hostA), 1,
         'checking cmp for inequality within a net and a host';
 
     is $hostA->cmp($hostEqA), 0,
         'checking cmp for equality between hosts';
-    
 }
-
 
 creationTest();
 cmpTest();
-
-
 
 1;

@@ -32,8 +32,11 @@ use Data::Dumper;
 
 use lib '../../..';
 
+use EBox::Global::TestStub;
 use EBox::Logs::Consolidate;
 use EBox::TestStubs;
+
+EBox::Global::TestStub::fake();
 
 sub weeklyDateTest #: Test(6)
 {
@@ -51,13 +54,9 @@ sub weeklyDateTest #: Test(6)
         is $date, $expectedDate,
             "checking weekly date for time stam $timeStamp";
     }
-
 }
 
-
-
 # XXX DELETE operation is not tested
-
 
 my %tableInfoByMod;
 
@@ -77,41 +76,31 @@ sub setFakeTableInfoForMod
 sub fakeConsolidate : Test(startup)
 {
     Test::MockObject->fake_module(
-                                  'EBox::Logs::Consolidate',
-                                  _tableInfoFromMod => \&fakeTableInfoFromMod,
-                                  _sourceRows => \&fakeSourceRows,
-                                  _cleanRows => sub {},
+         'EBox::Logs::Consolidate',
+         _tableInfoFromMod => \&fakeTableInfoFromMod,
+         _sourceRows => \&fakeSourceRows,
+         _cleanRows => sub {},
 
-                                  # we donot test last consolidation dates for
-                                  # now
-                                 _lastConsolidationDate => sub {  return undef },
-                                  _updateLastConsolidationDate => sub {   },
-
-                                 );
-
+         # we donot test last consolidation dates for
+         # now
+         _lastConsolidationDate => sub { return undef },
+         _updateLastConsolidationDate => sub {},
+    );
 }
 
 sub fakeDBEngineFactory : Test(startup)
 {
-    Test::MockObject->fake_module(
-                                  'EBox::DBEngineFactory',
-                                    DBEngine => \&fakeDBEngine,
-                                 );
-
+    Test::MockObject->fake_module('EBox::DBEngineFactory', DBEngine => \&fakeDBEngine);
 }
-
-
 
 my %fakeDB = ();
 my $dbengine;
-
 
 sub fakeDBEngine
 {
     if ($dbengine) {
         return $dbengine;
     }
-
 
     $dbengine = Test::MockObject->new();
     $dbengine->mock('insert' => sub {
@@ -120,11 +109,9 @@ sub fakeDBEngine
                         if (not exists $fakeDB{$table}) {
                             $fakeDB{$table} = [];
                         }
-
-
                         push @{ $fakeDB{$table} },  $row;
                     }
-                   );
+    );
     $dbengine->mock('do' => sub {
                         my ($self, $query) = @_;
 
@@ -145,7 +132,6 @@ sub fakeDBEngine
                             return 0;
                         }
 
-
                         my %accummulator;
                         foreach my $part (split ',', $setPortion) {
                             $part =~ m/= (.*) \+ (.*)/;
@@ -153,11 +139,8 @@ sub fakeDBEngine
                             $accummulator{$col} = $inc;
                         }
 
-
-
                         $query =~ s/^UPDATE.*WHERE.*\(//;
                         $query =~ s/\).*$//;
-
 
                         my %row;
 
@@ -195,37 +178,26 @@ sub fakeDBEngine
                             $updated += 1;
                         }
 
-
                         return $updated;
                     }
-                   );
-
+    );
 
     return $dbengine;
 }
-
-
 
 sub fakeSourceRows
 {
     my ($self, $dbengine, $table, $dateCol) = @_;
 
-
     return $fakeDB{$table};
 }
-
 
 sub setFakeDB
 {
     my ($table, $columns_r,) = @_;
 
-    %fakeDB = (
-               $table => $columns_r
-             );
+    %fakeDB = ($table => $columns_r);
 }
-
-
-
 
 # Method : modNameAndClass
 #
@@ -236,32 +208,27 @@ sub modNameAndClass
     return (undef, undef);
 }
 
-
 sub _setupDB
 {
     my ($self, $dbRows_r, $consolidate) = @_;
 
-
     my ($modName, $modClass) =  $self->modNameAndClass();
     if (not defined $modName) {
         $modName =  'testMod';
-        EBox::TestStubs::fakeEBoxModule(
-                                       name => $modName,
-                                       subs => [
-                                                isEnabled => sub { return 1  },
-                                                tableInfo => sub {
-                                                    my ($mock) = @_;
-                                                    return
-                                                      $self->fakeTableInfoFromMod($mock->name);
+        EBox::TestStubs::fakeModule(
+            name => $modName,
+            subs => [
+                     isEnabled => sub { return 1  },
+                     tableInfo => sub {
+                         my ($mock) = @_;
+                         return
+                           $self->fakeTableInfoFromMod($mock->name);
 
-                                                }
-#                                                name => sub {  return $modName },
-                                               ],
-                                        isa => ['EBox::LogObserver'],
-                                      );
+                     }
+                    ],
+            isa => ['EBox::Module::Service', 'EBox::LogObserver'],
+        );
     }
-
-
 
     my $tableInfo;
 
@@ -269,44 +236,37 @@ sub _setupDB
         $tableInfo = $modClass->tableInfo();
     }
     else {
-#        my %titles =  map {  $_ => $_ } @{ $dbColumns_r };
         my %titles = ();
 
-
         $tableInfo = {
-                     name => $modName,
-                     index => $modName,
+             name => $modName,
+             index => $modName,
 
-                     titles => \%titles,
-                     order => [  keys %titles ],
+             titles => \%titles,
+             order => [  keys %titles ],
 
-                     tablename => 'testTable',
+             tablename => 'testTable',
 
-                     timecol => 'date',
-                     filter => [],
+             timecol => 'date',
+             filter => [],
 
-                     events => { eventOne => 'eventOne', eventTwo => 'eventTwo'},
-                     eventcol => 'event',
+             events => { eventOne => 'eventOne', eventTwo => 'eventTwo'},
+             eventcol => 'event',
 
-                     consolidate => $consolidate,
-
-                     };
+             consolidate => $consolidate,
+        };
     }
 
     my @dbRows    = @{ $dbRows_r };
-
 
     setFakeDB($tableInfo->{tablename}, \@dbRows);
 
     setFakeTableInfoForMod($modName => $tableInfo);
 }
 
-
-
-
 sub _standardDbContent
 {
-    return   [
+    return [
               {
                date => '2008-08-24 13:12:36',
                event => 'eventOne',
@@ -338,14 +298,12 @@ sub _standardDbContent
                 recipient => 'macaco@monos.org',
                 size => 821,
               },
-
               { date => '2008-08-25 13:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
                 recipient => 'macaco@monos.org',
                 size => 121,
               },
-
               { date => '2008-08-26 19:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
@@ -364,8 +322,7 @@ sub _standardDbContent
                 recipient => 'macaco@monos.org',
                 size => 121,
               },
-             ];
-
+    ];
 }
 
 #  Method: consolidateTest
@@ -378,12 +335,6 @@ sub consolidateTest : Test(32)
     $self->runCases();
 }
 
-
-
-
-
-
-
 sub runCases
 {
     my ($self) = @_;
@@ -393,25 +344,22 @@ sub runCases
     foreach my $case_r (@{ $cases }) {
         $self->_checkConsolidate($case_r);
     }
-
 }
 
 sub _checkConsolidate
 {
-     my ($self, $case) = @_;
+    my ($self, $case) = @_;
 
-
-     diag $case->{name};
+    diag $case->{name};
 
     $self->_setupDB(
-             $case->{dbRows},
-             $case->{consolidate}
+            $case->{dbRows},
+            $case->{consolidate}
             );
 
-
-     my ($modName) = $self->modNameAndClass();
-     defined $modName or
-         $modName = 'testMod';
+    my ($modName) = $self->modNameAndClass();
+    defined $modName or
+        $modName = 'testMod';
 
     lives_ok {
         EBox::Logs::Consolidate->consolidate($modName);
@@ -421,39 +369,30 @@ sub _checkConsolidate
     $dbEngine->called_ok('insert');
     $dbEngine->called_ok('do');
 
-
-     my @expectedRows = @{ $case->{expectedConsolidatedRows} };
-     my %expectedTables;
-     foreach  ( @expectedRows ) {
-         my $table = $_->{table};
-         $expectedTables{$table} = 1;
-     }
-
-
-
+    my @expectedRows = @{ $case->{expectedConsolidatedRows} };
+    my %expectedTables;
+    foreach  ( @expectedRows ) {
+        my $table = $_->{table};
+        $expectedTables{$table} = 1;
+    }
 
     my @dbRows;
-     foreach my $table (keys %expectedTables) {
-         if (not exists $fakeDB{$table}) {
-             die "Expected table was not existent: $table";
-         }
+    foreach my $table (keys %expectedTables) {
+        if (not exists $fakeDB{$table}) {
+            die "Expected table was not existent: $table";
+        }
 
-         foreach my $row  (@{ $fakeDB{$table}  }  ) {
-             push @dbRows, {  table => $table, value => $row, };
-         }
+        foreach my $row  (@{ $fakeDB{$table}  }  ) {
+            push @dbRows, {  table => $table, value => $row, };
+        }
 
-     }
-
-     use Data::Dumper;
-#     diag Dumper \@dbRows;
-
+    }
 
     is_deeply(
-                _rowsToCompare(\@dbRows),
-                _rowsToCompare(\@expectedRows),
-                'Checking database rows'
-               );
-
+            _rowsToCompare(\@dbRows),
+            _rowsToCompare(\@expectedRows),
+            'Checking database rows'
+    );
 
     $dbEngine->clear();
     $dbEngine->{rows} = [];
@@ -475,10 +414,10 @@ sub _rowsToCompare
 }
 
 
-#   Method: cases
+#  Method: cases
 #
 #  Provides runCases with cases to run
-# override in client classes to provide other cases
+#  override in client classes to provide other cases
 sub cases
 {
     my @cases = (
@@ -703,7 +642,6 @@ sub cases
                                                           sender => 'insects.com',
                                                                  count => 1,
                                                          },
-
                                                },
 
                                                {
@@ -714,9 +652,7 @@ sub cases
                                                           sender => 'reptiles.net',
                                                                  count => 1,
                                                          },
-
                                                },
-
 
                                                {
                                                 table => 'testTable_daily',
@@ -740,7 +676,6 @@ sub cases
                                               ]
                  },
 #                 end case
-
 
                 {
                   name => 'case with accumulation (size by sender)',
@@ -886,7 +821,6 @@ sub cases
                  },
 #                 end case
 
-
                {
                   name => 'case with filtered out rows',
                   dbColumns =>  [qw(date event sender recipient size)],
@@ -923,9 +857,6 @@ sub cases
 
                                                },
 
-
-
-
                                                {
                                                 table => 'testTable_daily',
                                                 value => {
@@ -946,7 +877,6 @@ sub cases
                                               ]
                  },
 #                 end case
-
 
                 {
                   name => 'case with two tables',
@@ -1111,7 +1041,6 @@ sub cases
                  },
 #                 end case
 
-
                 {
                   name => 'case with hourly consolodation and daily reconsolidation',
                   dbColumns =>  [qw(date event sender recipient size)],
@@ -1242,7 +1171,6 @@ sub cases
 #                 end case
 
                 );
-
 
     return \@cases;
 }

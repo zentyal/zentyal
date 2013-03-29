@@ -22,20 +22,18 @@ use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 
-use EBox;
-use EBox::Event;
-use EBox::Global;
-
-my $watcherName;
+use EBox::Global::TestStub;
 
 BEGIN {
-    $watcherName = $ARGV[0];
+    my $defaultWatcherName = 'State';
+
+    $watcherName = $ARGV[0] || $defaultWatcherName;
     diag ( "Starting EBox::Event::Watcher::$watcherName test" );
     use_ok ( "EBox::Event::Watcher::$watcherName" )
       or die;
 }
 
-EBox::init();
+EBox::Global::TestStub::fake();
 
 my $watcherClassName = "EBox::Event::Watcher::$watcherName";
 my $watcher = new $watcherClassName();

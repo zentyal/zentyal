@@ -36,14 +36,14 @@ sub _fakeNetwork
                                   ifaceAddress => \&_ifaceAddress,
                                   ifaces    => \&_ifaces,
                                   ifaceMethod  => \&_ifaceMethod,
-                                 );
+    );
 }
 
 sub _fakeDNS
 {
     Test::MockObject->fake_module('EBox::DNS',
                                   service => sub { return 1; },
-                                 );
+    );
 }
 
 sub _ifaceNetwork

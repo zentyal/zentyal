@@ -14,94 +14,67 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Global::TestStub;
-# Description:
-#
+
 use strict;
 use warnings;
 
 use Test::MockObject;
+use File::Slurp;
 use Params::Validate;
 use EBox::Global;
-use EBox::Module::Config::TestStub;
+use EBox::TestStub;
+use EBox::Config::TestStub;
+use EBox::Test::RedisMock;
 
+my $moduleDir = "/tmp/zentyal-modules-test-$$/";
 
-my %modulesInfo;
-
-sub setAllEBoxModules
+sub setModule
 {
-  my (%modulesByName) = @_;
+    my ($name, $package, @depends) = @_;
 
-  while (my ($name, $module)  = each %modulesByName) {
-      setEBoxModule($name, $module);
-  }
+    my $yaml = "class: $package\n";
+    if (@depends) {
+        $yaml .= "depends:\n";
+        foreach my $dep (@depends) {
+            $yaml .= "    - $dep\n";
+        }
+    }
 
-}
+    EBox::Config::TestStub::fake(modules => $moduleDir);
+    system ("mkdir -p $moduleDir");
 
-sub setEBoxModule
-{
-    my ($name, $class, $depends) = @_;
-    validate_pos(@_ ,1, 1, 0);
-
-    defined $depends or
-        $depends = [];
-
-
-    $modulesInfo{$name} = {
-        class => $class,
-        depends => $depends,
-        changed => 0,
-       };
-
-
-
+    write_file("${moduleDir}${name}.yaml", $yaml);
 }
 
 sub clear
 {
-    %modulesInfo = ();
+    system ("rm -rf $moduleDir");
 }
 
-sub _fakedReadModInfo
+sub setAllModules
 {
-    my ($name) = @_;
+    my (%modulesByName) = @_;
 
-    if (exists $modulesInfo{$name}) {
-        return $modulesInfo{$name};
+    while (my ($name, $module) = each %modulesByName) {
+        setModule($name, $module);
     }
-
-    return undef;
-}
-
-
-sub  _fakedWriteModInfo
-{
-    my ($self, $name, $info) = @_;
-
-    $modulesInfo{$name} = $info;
-}
-
-
-sub _fakedModNames
-{
-    return [keys %modulesInfo];
 }
 
 sub fake
 {
-    EBox::Module::Config::TestStub::fake(); # needed by some method, like changed
-                                         # state of modules
-    Test::MockObject->fake_module('EBox::Global',
-                                  readModInfo => \&_fakedReadModInfo,
-                                  modNames     => \&_fakedModNames,
-                              );
+    my $tmpConfDir = '/tmp/zentyal-test-conf/';
+    system ("rm -rf $tmpConfDir");
+    mkdir ("mkdir $tmpConfDir");
 
-
+    EBox::TestStub::fake();
+    EBox::Config::TestStub::fake(modules => 'core/schemas/', conf => $tmpConfDir);
+    EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
+    *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
 }
 
 # only for interface completion
 sub unfake
 {
 }
-
 
 1;

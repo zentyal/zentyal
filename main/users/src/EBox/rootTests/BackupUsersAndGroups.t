@@ -16,16 +16,12 @@ Readonly::Scalar my $CANARY_USER  => 'canary';
 
 system "rm -rf $TEST_DIR";
 
-
 use EBox;
 EBox::init();
 
 foreach my $dir ($TEST_DIR, $BACKUP_DIR, $EXTENDED_BACKUP_DIR) {
-  mkdir $dir or die "Can not create directory $dir"; 
+  mkdir $dir or die "Can not create directory $dir";
 }
-
-
-
 
 use_ok('EBox::UsersAndGroups');
 
@@ -37,7 +33,6 @@ finally {
   _cleanUsers();
 };
 
-
 sub _backupCanaryTest
 {
   my $usersAndGroups = EBox::Global->modInstance('users');
@@ -48,11 +43,9 @@ sub _backupCanaryTest
   lives_ok { $usersAndGroups->makeBackup($EXTENDED_BACKUP_DIR, fullBackup => 1)  }  "Configuration backup tried in $EXTENDED_BACKUP_DIR";
   checkLdap($usersAndGroups);
 
-
   $usersAndGroups->addUser ({user => $CANARY_USER, fullname => 'ea', password => 'ea', comment => 'ea'}, 0);
 
   ok $usersAndGroups->userExists($CANARY_USER), 'Checking that canary was added';
-
 
   lives_ok { $usersAndGroups->restoreBackup($BACKUP_DIR, fullRestore => 0)  }  "Configuration restore";
   ok !$usersAndGroups->userExists($CANARY_USER), 'Checking that canary is not here';
@@ -67,7 +60,6 @@ sub checkLdap
 
   lives_ok { $usersAndGroups->users() } 'Checking that we can get user list from ldap via users and groups';
 }
-
 
 sub _cleanUsers
 {

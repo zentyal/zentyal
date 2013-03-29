@@ -22,7 +22,6 @@ use EBox::Sudo;
 use File::Slurp;
 use Data::Dumper;
 
-
 use lib '../..';
 use EBox::MailQueue;
 
@@ -48,13 +47,10 @@ sub testMailQueueList
     }
 
     ok $allFieldsOk, 'checking for the presence of fields in mail queue list';
-
 }
 
-
-
 {
-    no warnings 'redefine';
+   no warnings 'redefine';
 
    sub EBox::Sudo::root
    {
@@ -63,6 +59,6 @@ sub testMailQueueList
    }
 }
 
-
 testMailQueueList();
+
 1;
