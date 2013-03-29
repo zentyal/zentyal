@@ -26,7 +26,6 @@ use strict;
 use warnings;
 
 use Test::MockObject::Extends;
-use File::Slurp;
 
 use EBox::Sudo::TestStub;
 use EBox::TestStub;
@@ -132,8 +131,6 @@ sub setConfigKey
     return EBox::Module::Config::TestStub::setEntry(@_);
 }
 
-my $moduleDir = "/tmp/zentyal-modules-test-$$/";
-
 # Function: setModule
 #
 #   Register an eBox module in eBox configuration. This is not needed
@@ -150,25 +147,12 @@ my $moduleDir = "/tmp/zentyal-modules-test-$$/";
 #    setModule('openvpn' => 'EBox::OpenVPN');
 sub setModule
 {
-    my ($name, $package, @depends) = @_;
-
-    my $yaml = "class: $package\n";
-    if (@depends) {
-        $yaml .= "depends:\n";
-        foreach my $dep (@depends) {
-            $yaml .= "    - $dep\n";
-        }
-    }
-
-    EBox::Config::TestStub::fake(modules => $moduleDir);
-    system ("mkdir -p $moduleDir");
-
-    write_file("${moduleDir}${name}.yaml", $yaml);
+    EBox::Global::TestStub::setModule(@_);
 }
 
 sub unsetModules
 {
-    system ("rm -rf $moduleDir");
+    EBox::Global::TestStub::clear();
 }
 
 # Function: setEBoxConfigKeys

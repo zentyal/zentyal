@@ -1,26 +1,26 @@
 use strict;
 use warnings;
 
-use Test::More tests => 21;
+use Test::More tests => 20;
 use Test::Exception;
 
 use lib '../../..';
 
-use EBox::TestStub;
+use EBox::Global::TestStub;
 
 use_ok 'EBox::Global::TestStub';
+
+EBox::Global::TestStub::fake();
 
 testStubsSetup();
 modExistsTest();
 getInstanceTest();
 modInstanceTest();
 changedTest();
-clearTest();
+clear();
 
 sub testStubsSetup
 {
-    EBox::TestStub::fake();
-    EBox::Global::TestStub::fake();
     EBox::Global::TestStub::setModule('baboon', 'EBox::Baboon');
 
     MOCK_CLASS: {
@@ -79,21 +79,9 @@ sub changedTest
     ok !$global->modIsChanged('baboon'), 'Checking modRestarted and modIsChanged';
 }
 
-sub clearTest
+sub clear
 {
-    my %originalConfig = (
-            '/ebox/unrelatedToGlobal/bool'    => 1,
-            '/ebox/unrelatedToGlobal/integer' => 100,
-            '/anotherApp/string'              => 'a string',
-            );
-    EBox::Module::Config::TestStub::setConfig(%originalConfig);
-
-    EBox::Global::TestStub::setModule('baboon', 'EBox::Baboon');
-    EBox::Global::TestStub::setModule('mandrill', 'EBox::Mandrill');
-
     EBox::Global::TestStub::clear();
-    my %actualConfig = @{ EBox::Module::Config::TestStub::dumpConfig() };
-    is_deeply(\%actualConfig, \%originalConfig, 'Checking that all keys of module global are remvoed from the config and the rest is left untouched');
 }
 
 1;

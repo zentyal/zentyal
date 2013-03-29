@@ -19,13 +19,37 @@ use strict;
 use warnings;
 
 use Test::MockObject;
+use File::Slurp;
 use Params::Validate;
 use EBox::Global;
 use EBox::TestStub;
 use EBox::Config::TestStub;
 use EBox::Test::RedisMock;
 
-my %modulesInfo;
+my $moduleDir = "/tmp/zentyal-modules-test-$$/";
+
+sub setModule
+{
+    my ($name, $package, @depends) = @_;
+
+    my $yaml = "class: $package\n";
+    if (@depends) {
+        $yaml .= "depends:\n";
+        foreach my $dep (@depends) {
+            $yaml .= "    - $dep\n";
+        }
+    }
+
+    EBox::Config::TestStub::fake(modules => $moduleDir);
+    system ("mkdir -p $moduleDir");
+
+    write_file("${moduleDir}${name}.yaml", $yaml);
+}
+
+sub clear
+{
+    system ("rm -rf $moduleDir");
+}
 
 sub setAllModules
 {
@@ -34,33 +58,6 @@ sub setAllModules
     while (my ($name, $module) = each %modulesByName) {
         setModule($name, $module);
     }
-}
-
-sub setModule
-{
-    my ($name, $class, $depends) = @_;
-    validate_pos(@_ ,1, 1, 0);
-
-    defined $depends or
-        $depends = [];
-
-    $modulesInfo{$name} = {
-        class => $class,
-        depends => $depends,
-        changed => 0,
-    };
-}
-
-sub clear
-{
-    %modulesInfo = ();
-}
-
-sub  _fakedWriteModInfo
-{
-    my ($self, $name, $info) = @_;
-
-    $modulesInfo{$name} = $info;
 }
 
 sub fake
