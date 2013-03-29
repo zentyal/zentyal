@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,38 +13,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test Event::Dispatcher::Jabber module
+# A module to test EBox::Event::Dispatcher::RSS module
 
+use Test::More skip_all => 'FIXME';
 use Test::More tests => 4;
 use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 
-use lib ('../../../..');
+use lib ('../../../..', '../../../../../../../common/libebox/src');
 
 use EBox::Global::TestStub;
-EBox::Global::TestStub::fake();
 
 BEGIN {
-    diag ('Starting EBox::Event::Dispatcher::Jabber test');
-    use_ok ( 'EBox::Event::Dispatcher::Jabber' ) or die;
+    diag ( 'Starting EBox::Event::Dispatcher::RSS test' );
+    use_ok ( 'EBox::Event::Dispatcher::RSS' )
+      or die;
 }
 
-my $jabberDispatcher;
+EBox::Global::TestStub::fake();
+
+my $rssDispatcher;
 my $event;
+lives_ok {
+    $rssDispatcher = new EBox::Event::Dispatcher::RSS();
+    $event = new EBox::Event(
+                             message => 'test event',
+                             level   => 'info',
+                             source  => 'unit test',
+                            );
+} 'Creating the RSS dispatcher and the event to send';
 
 lives_ok {
-   $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
-   $event = new EBox::Event(
-                            message => 'test event',
-                            level   => 'info',
-                            source  => 'unit test',
-                           );
-} 'Creating the jabber dispatcher and the event to send';
+      $rssDispatcher->enable()
+} 'Enabling the RSS dispatcher';
 
-lives_ok { $jabberDispatcher->enable() } 'Enabling the jabber dispatcher';
-
-ok ($jabberDispatcher->send($event), 'Sending test event to the admin');
+ok ($rssDispatcher->send($event), 'Sending test event to the admin');
 
 1;
-

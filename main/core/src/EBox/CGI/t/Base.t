@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Test::More skip_all => 'FIXME';
 use Test::More tests => 72;
 use Test::Exception;
 
