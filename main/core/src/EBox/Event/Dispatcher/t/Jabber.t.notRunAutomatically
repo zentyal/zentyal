@@ -22,40 +22,31 @@ use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 
-use lib ('../../../..', '../../../../../../../common/libebox/src');
+use lib ('../../../..');
 
-use EBox;
-use EBox::Event;
-use EBox::Global;
+use EBox::Global::TestStub;
+EBox::Global::TestStub::fake();
 
 BEGIN {
-    diag ( 'Starting EBox::Event::Dispatcher::Jabber test' );
-    use_ok ( 'EBox::Event::Dispatcher::Jabber' )
-      or die;
+    diag ('Starting EBox::Event::Dispatcher::Jabber test');
+    use_ok ( 'EBox::Event::Dispatcher::Jabber' ) or die;
 }
-
-use EBox::TestStub;
-EBox::TestStub::fake();
 
 my $jabberDispatcher;
 my $event;
-lives_ok
-  {
-      $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
-      $event = new EBox::Event(
-                               message => 'test event',
-                               level   => 'info',
-                               source  => 'unit test',
-                              );
-  } 'Creating the jabber dispatcher and the event to send';
 
-lives_ok
-  {
-      $jabberDispatcher->enable()
-  } 'Enabling the jabber dispatcher';
+lives_ok {
+   $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
+   $event = new EBox::Event(
+                            message => 'test event',
+                            level   => 'info',
+                            source  => 'unit test',
+                           );
+} 'Creating the jabber dispatcher and the event to send';
 
-ok ( $jabberDispatcher->send($event),
-     'Sending test event to the admin');
+lives_ok { $jabberDispatcher->enable() } 'Enabling the jabber dispatcher';
+
+ok ($jabberDispatcher->send($event), 'Sending test event to the admin');
 
 1;
 

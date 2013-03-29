@@ -65,8 +65,12 @@ sub  _fakedWriteModInfo
 
 sub fake
 {
+    my $tmpConfDir = '/tmp/zentyal-test-conf/';
+    system ("rm -rf $tmpConfDir");
+    mkdir ("mkdir $tmpConfDir");
+
     EBox::TestStub::fake();
-    EBox::Config::TestStub::fake(modules => 'core/schemas/');
+    EBox::Config::TestStub::fake(modules => 'core/schemas/', conf => $tmpConfDir);
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
     *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
 }
