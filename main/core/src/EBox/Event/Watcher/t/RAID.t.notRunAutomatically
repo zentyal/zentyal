@@ -13,6 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# FIXME: lots of duplicated stuff here, it should be fusioned
+#        with EBox/Report/t/RAID.t
 use strict;
 use warnings;
 
@@ -102,7 +104,7 @@ push @cases, {
                     state => 'up',
 
                 },
-                2 =>  {
+                2 => {
                     device => '/dev/sdc1',
                     state => 'spare',
                 },
@@ -114,6 +116,7 @@ push @cases, {
 # # RAID 1 failure in one device, rebuilding
 push @cases, {
     mdstatFile => "$datadir/raid1-mdstat-failure-rebuild.txt",
+
     expectedRaidInfo => {
         unusedDevices => [],
 
@@ -134,7 +137,7 @@ push @cases, {
             raidDevices => {
                 1 => {
                     device => '/dev/sdb1',
-                    state  => 'up',
+                    state  => 'failure',
                 },
                 3 => {
                     device => '/dev/sdc1',
@@ -149,9 +152,10 @@ push @cases, {
     },
 };
 
-# # RAID 1 failure in one device, aafter rebuilding
+# # RAID 1 failure in one device, after rebuilding
 push @cases, {
     mdstatFile => "$datadir/raid1-mdstat-failure.txt",
+
     expectedRaidInfo => {
         unusedDevices => [],
 
@@ -187,6 +191,7 @@ push @cases, {
 # two raid arrays: raid0 and raid1
 push @cases, {
     mdstatFile => "$datadir/raid1-raid0-mdstat.txt",
+
     expectedRaidInfo => {
         unusedDevices => [],
 
@@ -208,7 +213,6 @@ push @cases, {
                 1 => {
                     device => '/dev/sdb1',
                     state => 'up',
-
                 },
                 2 =>  {
                     device => '/dev/sdc1',
@@ -242,6 +246,7 @@ push @cases, {
 # RAID5
 push @cases, {
     mdstatFile => "$datadir/raid5-mdstat.txt",
+
     expectedRaidInfo => {
         unusedDevices => [],
 

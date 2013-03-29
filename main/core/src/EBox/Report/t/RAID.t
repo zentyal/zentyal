@@ -255,7 +255,6 @@ push @cases, {
     },
 };
 
-
 # # RAID 1 failure in one device, after rebuilding
 push @cases, {
     mdstatFile => "$datadir/raid1-mdstat-failure.txt",
@@ -292,7 +291,7 @@ push @cases, {
     },
 };
 
-#  two raid arrays: raid0 and raid1
+# two raid arrays: raid0 and raid1
 push @cases, {
     mdstatFile => "$datadir/raid1-raid0-mdstat.txt",
 
@@ -540,7 +539,6 @@ FAKE_SUBS: {
         ($mdstatFile) = @_;
         diag "Using file $mdstatFile as  /proc/mdstat";
     }
-
 
     sub _fakeMdstatContents
     {
