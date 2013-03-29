@@ -49,7 +49,6 @@ use EBox::Types::Text;
         elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
-
     }
 
     sub EBox::Model::Manager::warnOnChangeOnId
@@ -95,61 +94,39 @@ sub deviantFormTest : Test(6)
     my ($self) = @_;
 
     my @cases;
-    push @cases,  [  'empty table description' => { tableName => 'test' } ];
-    push @cases,  [  'empty tableDescription' => {
-                            tableDescription => [],
-                            tableName => 'test',
-                         }
+    push @cases,  [ 'empty table description' => { tableName => 'test' } ];
+    push @cases,  [ 'empty tableDescription' => { tableDescription => [], tableName => 'test' } ];
+    push @cases, [
+        'repeated field name' => {
+            tableDescription => [
+                new EBox::Types::Abstract(fieldName => 'repeated'),
+                new EBox::Types::Abstract(fieldName => 'repeated'),
+            ],
+            tableName => 'test',
+        }
     ];
     push @cases, [
-                  'repeated field name' => {
-                          tableDescription => [
-                            new EBox::Types::Abstract(
-                                  fieldName => 'repeated',
-                                                     ),
-                            new EBox::Types::Abstract(
-                                  fieldName => 'repeated',
-                                                     ),
-                                              ],
-
-                           tableName => 'test',
-                         }
+        'no table name' => {
+            tableDescription => [
+                new EBox::Types::Abstract(fieldName => 'field1'),
+            ],
+        }
     ];
     push @cases, [
-                  'no table name' => {
-                         tableDescription => [
-                            new EBox::Types::Abstract(
-                                  fieldName => 'field1',
-                                                     ),
-
-                                              ],
-
-
-                         }
+        'form with order' => {
+            tableDescription => [
+                new EBox::Types::Abstract(fieldName => 'field1'),
+            ],
+            order => 1,
+        }
     ];
     push @cases, [
-                  'form with order' => {
-                         tableDescription => [
-                            new EBox::Types::Abstract(
-                                  fieldName => 'field1',
-                                                     ),
-
-                                              ],
-                           order => 1,
-
-                         }
-    ];
-    push @cases, [
-                  'form with sortedBy' => {
-                         tableDescription => [
-                            new EBox::Types::Abstract(
-                                  fieldName => 'field1',
-                                                     ),
-
-                                              ],
-
-                              sortedBy => 'field1',
-                         }
+        'form with sortedBy' => {
+            tableDescription => [
+                new EBox::Types::Abstract(fieldName => 'field1'),
+            ],
+            sortedBy => 'field1',
+        }
     ];
 
     foreach my $case_r (@cases) {
@@ -167,14 +144,11 @@ sub formTest : Test(2)
     my ($self) = @_;
 
     my @cases;
-    push @cases,  [  'simple form' => {
-                        tableDescription => [
-                           new EBox::Types::Abstract(
-                                 fieldName => 'field1',
-                                                    ),
-                                             ],
-                             tableName => 'test',
-                        }
+    push @cases, [
+        'simple form' => {
+            tableDescription => [ new EBox::Types::Abstract(fieldName => 'field1') ],
+            tableName => 'test',
+        }
     ];
 
     foreach my $case_r (@cases) {
@@ -196,23 +170,16 @@ sub deviantSetTest : Test(2)
     my $dataForm = $self->_newDataForm();
     $dataForm->set_true('addedRowNotify', 'updatedRowNotify');
 
-    my @cases = (
-                 {
-                  secondField => 'aaa',
-                 },
-    );
+    my @cases = ( { secondField => 'aaa', invalidField => 'foo' });
 
     foreach my $case (@cases) {
         my %params = %{ $case };
 
         dies_ok {
             $dataForm->set(%params);
-        } 'expecting error with incorrect srt operation';
+        } 'expecting error with incorrect set operation';
 
-        ok(
-           (not $dataForm->called('updatedRowNotify')),
-           'Checing that noitfication method was nto called'
-          );
+        ok((not $dataForm->called('updatedRowNotify')), 'Checking that notification method was not called');
     }
 }
 
@@ -264,20 +231,15 @@ sub _newDataForm
     my ($self, $table) = @_;
     if (not defined $table) {
         $table = $self->_tableDescription4fields();
-
     }
 
     my $confmodule = EBox::Global->modInstance('fakeModule');
 
-    my $dataFormDir = '/ebox/modules/fakeModule/DataForm';
+    my $dataFormDir = '/conf/fakeModule/DataForm';
     # remove old data from previous modules
     $confmodule->delete_dir($dataFormDir);
 
-    my $dataFormBase = EBox::Model::DataForm->new(
-                                                 confmodule => $confmodule,
-                                                 directory   => $dataFormDir,
-                                                 domain      => 'domain',
-    );
+    my $dataFormBase = EBox::Model::DataForm->new(confmodule => $confmodule, directory   => $dataFormDir);
 
     my $dataForm = Test::MockObject::Extends->new($dataFormBase);
     $dataForm->set_always('_table' => $table);
@@ -289,24 +251,24 @@ sub _tableDescription4fields
 {
     my $tableDescription = {
         tableDescription => [
-                             new EBox::Types::Text(
-                                         fieldName => 'firstField',
-                                         printableName => 'firstField',
-                             ),
-                             new EBox::Types::Text(
-                                        fieldName => 'secondField',
-                                       printableName => 'secondField',
-                             ),
-                             new EBox::Types::Text(
-                                      fieldName => 'defaultField',
-                                      printableName => 'defaultField',
-                                      defaultValue    => 'defaultText',
-                             ),
-                             new EBox::Types::Text(
-                                      fieldName => 'optionalField',
-                                      printableName => 'optionalField',
-                                      optional      => 1,
-                             ),
+            new EBox::Types::Text(
+                    fieldName => 'firstField',
+                    printableName => 'firstField',
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'secondField',
+                    printableName => 'secondField',
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'defaultField',
+                    printableName => 'defaultField',
+                    defaultValue    => 'defaultText',
+            ),
+            new EBox::Types::Text(
+                    fieldName => 'optionalField',
+                    printableName => 'optionalField',
+                    optional      => 1,
+            ),
         ],
         tableName => 'test',
     };
