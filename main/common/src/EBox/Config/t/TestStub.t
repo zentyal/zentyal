@@ -78,20 +78,20 @@ sub _checkConfigSubs
     my ($expectedResultsBySub_r) = @_;
 
     while (my ($subName, $expectedResult) = each %{$expectedResultsBySub_r}) {
-	    my $sub_r = UNIVERSAL::can('EBox::Config', $subName);
-	    defined $sub_r or next;# die 'Sub not found';
+        my $sub_r = UNIVERSAL::can('EBox::Config', $subName);
+        defined $sub_r or next;# die 'Sub not found';
 
         SKIP: {
-	        my $actualResult;
-	        try {
-	            $actualResult =  $sub_r->();
-	        } otherwise {
-	            skip 1, "To retrieve key $subName is needed a eBox full installation";
-	            next;
-	        };
+            my $actualResult;
+            try {
+                $actualResult =  $sub_r->();
+            } otherwise {
+                skip 1, "To retrieve key $subName is needed a eBox full installation";
+                next;
+            };
 
-	        is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
-	    }
+            is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
+        }
     }
 }
 

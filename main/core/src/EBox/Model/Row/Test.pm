@@ -305,49 +305,30 @@ sub filesToRemoveTest : Test(3)
     my $element1 = _filesPaths('element1');
     my $element2 = _filesPaths('element2');
 
-    $row->addElement(
-            new EBox::Types::Abstract(
-                fieldName => "1",
-                printableName => "1",
-                )
-            );
-    $row->addElement(
-            new EBox::Types::Abstract(
-                fieldName => "2",
-                printableName => "2",
-                )
-            );
+    $row->addElement(new EBox::Types::Abstract(fieldName => "1", printableName => "1"));
+    $row->addElement(new EBox::Types::Abstract( fieldName => "2", printableName => "2"));
     $row->addElement($element1);
 
-    $row->addElement(
-            new EBox::Types::Abstract(
-                fieldName => "5",
-                printableName => "5",
-                )
-            );
+    $row->addElement(new EBox::Types::Abstract( fieldName => "5", printableName => "5"));
     $row->addElement($element2);
 
-    is_deeply(
-            $row->filesPaths(),
-            [],
-            'Checking filesPaths when there are not files to remove'
-            );
+    is_deeply($row->filesPaths(), [], 'Checking filesPaths when there are not files to remove');
 
     my @element1Files = qw(aFile);
     $row->elementByName('element1')->_setFilesToRemoveIfDeleted(\@element1Files);
     is_deeply(
-            $row->filesPaths(),
-            [@element1Files],
-            'Checking filesPaths when there is a element with files to remove'
-            );
+        $row->filesPaths(),
+        [@element1Files],
+        'Checking filesPaths when there is a element with files to remove'
+    );
 
     my @element2Files = qw(bFile cFile);
     $row->elementByName('element2')->_setFilesToRemoveIfDeleted(\@element2Files);
     is_deeply(
-            $row->filesPaths(),
-            [@element1Files, @element2Files],
-            'Checking filesPaths when there are toe element with files to remove'
-            );
+        $row->filesPaths(),
+        [@element1Files, @element2Files],
+        'Checking filesPaths when there are toe element with files to remove'
+    );
 }
 
 sub _filesPaths

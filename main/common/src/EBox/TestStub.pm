@@ -32,12 +32,12 @@ sub fake
     (defined $minLogLevel) or $minLogLevel = 'debug';
 
     my %logLevelsByName = (
-            'debug' => $DEBUG,
-            'info'  => $INFO,
-            'warn'  => $WARN,
-            'error'  => $ERROR,
-            'fatal'  => $FATAL,
-            );
+        'debug' => $DEBUG,
+        'info'  => $INFO,
+        'warn'  => $WARN,
+        'error'  => $ERROR,
+        'fatal'  => $FATAL,
+    );
 
     (exists $logLevelsByName{$minLogLevel}) or die "Incorrect log level: $minLogLevel";
     $logLevel = $logLevelsByName{$minLogLevel};

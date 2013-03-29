@@ -23,13 +23,13 @@ sub paramsAsHashTest
 {
     my $cgi = new EBox::CGI::DumbCGI;
     my %params = (
-          mono    => 'macaco',
-          primate => 'gorila',
-          lemur   => 'indri',
-          numero  => 34,
-          cero    => '0',
-          numeroCero => 0,
-          );
+        mono    => 'macaco',
+        primate => 'gorila',
+        lemur   => 'indri',
+        numero  => 34,
+        cero    => '0',
+        numeroCero => 0,
+    );
 
     setCgiParams($cgi, %params);
 
@@ -63,13 +63,13 @@ sub validateParamsTestWithRegularCases
 sub validateParamsTestWithFlexibleCases
 {
     my @deviantCases = (
-         [],  # none parameter
-         ['mandatoryParameterEa'], # one mandatory alone
-         ['mandatoryParameter', 'macacoA'],
-         # extra params:
-         ['mandatoryParameter3', '8macaco', 'hoolibuz'],
-         ['mandatoryParameter3', 'supermacaco', 'mandatoryParameter'],
-        );
+        [],  # none parameter
+        ['mandatoryParameterEa'], # one mandatory alone
+        ['mandatoryParameter', 'macacoA'],
+        # extra params:
+        ['mandatoryParameter3', '8macaco', 'hoolibuz'],
+        ['mandatoryParameter3', 'supermacaco', 'mandatoryParameter'],
+    );
     my @straightCases = (
         ['mandatoryParameterZ', 'macacoA'],
         ['mandatoryParameter1', 'forevermacacoforever'],

@@ -19,11 +19,11 @@ sub liskovTest
     my $commandException;
 
     my %attributes = (
-            cmd => 'test cmd',
-            output => [qw(output1 output2)],
-            error => [qw(error1)],
-            exitValue => 1
-            );
+        cmd => 'test cmd',
+        output => [qw(output1 output2)],
+        error => [qw(error1)],
+        exitValue => 1
+    );
 
     lives_ok {
         $commandException = new EBox::Exceptions::Command (%attributes);

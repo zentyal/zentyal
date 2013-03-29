@@ -33,54 +33,56 @@ my $dumpInsertedData = 0;
 
 use constant TABLENAME => "mail_message";
 my %validStatus = (
-                   sent => 1,
-                   rejected => 1,
-                   bounced => 1,
-                   deferred => 1,
-                  );
-my %validEvent = ( 'msgsent' => 1,
-                   'maxmsgsize' => 1,
-                   'maxusrsize' => 1,
-                   'norelay' => 1,
-                   'noaccount' => 1,
-                   'nohost' => 1,
-                   'noauth' => 1,
-                   'greylist' => 1,
-                   'nosmarthostrelay' => 1,
-                   'other' => 1,
-                  );
+    sent => 1,
+    rejected => 1,
+    bounced => 1,
+    deferred => 1,
+);
 
-my %validType = ( 'internal' => 1,
-                   'sent' => 1,
-                   'received' => 1,
-                   'relay' => 1,
-                   'unknown' => 1,
-                   'nohost' => 1,
-                  );
+my %validEvent = (
+    'msgsent' => 1,
+    'maxmsgsize' => 1,
+    'maxusrsize' => 1,
+    'norelay' => 1,
+    'noaccount' => 1,
+    'nohost' => 1,
+    'noauth' => 1,
+    'greylist' => 1,
+    'nosmarthostrelay' => 1,
+    'other' => 1,
+);
 
+my %validType = (
+    'internal' => 1,
+    'sent' => 1,
+    'received' => 1,
+    'relay' => 1,
+    'unknown' => 1,
+    'nohost' => 1,
+);
 
 {
     no warnings 'redefine';
     sub EBox::Global::modInstance
-     {
-         my ($class, $name) = @_;
+    {
+        my ($class, $name) = @_;
 
-         if ($name ne 'mail') {
-             die 'Only mocked EBox::Global::modInstance for module mail';
-         }
+        if ($name ne 'mail') {
+            die 'Only mocked EBox::Global::modInstance for module mail';
+        }
 
-         my $fakeVDomains = Test::MockObject->new();
-         $fakeVDomains->mock('vdomains' => sub {
-                                 return ('monos.org', 'a.com')
-                             }
-                            );
+        my $fakeVDomains = Test::MockObject->new();
+        $fakeVDomains->mock('vdomains' => sub {
+                return ('monos.org', 'a.com')
+                }
+                );
 
-         my $mailMod = {
-                        vdomains => $fakeVDomains,
-                       };
+        my $mailMod = {
+            vdomains => $fakeVDomains,
+        };
 
-         return $mailMod;
-     }
+        return $mailMod;
+    }
 }
 
 sub newFakeDBEngine
@@ -88,14 +90,15 @@ sub newFakeDBEngine
     my $dbengine = Test::MockObject->new();
     $dbengine->{nInserts} = 0;
 
-    $dbengine->mock('insert' => sub {
-                        my ($self, $table, $data) = @_;
-                        _validateInsertedData($table, $data);
-                        $self->{insertedTable} = $table;
-                        $self->{insertedData}  = $data;
-                        $self->{nInserts} += 1;
-                    }
-                   );
+    $dbengine->mock(
+            'insert' => sub {
+                my ($self, $table, $data) = @_;
+                _validateInsertedData($table, $data);
+                $self->{insertedTable} = $table;
+                $self->{insertedData}  = $data;
+                $self->{nInserts} += 1;
+            }
+    );
     return $dbengine;
 }
 
@@ -108,19 +111,20 @@ sub _validateInsertedData
     }
 
     my %actualColumns = %{ $data };
-    my @columns = qw(      from_address
-                          to_address
-                               message_id
-                               message_size
-                               status
-                               timestamp
-                               event
-                               message
-                               client_host_name
-                               client_host_ip
-                               relay
-                                message_type
-                   );
+    my @columns = qw(
+        from_address
+        to_address
+        message_id
+        message_size
+        status
+        timestamp
+        event
+        message
+        client_host_name
+        client_host_ip
+        relay
+        message_type
+    );
 
     my $failure = 0;
     foreach my $column (@columns) {
@@ -138,7 +142,6 @@ sub _validateInsertedData
         fail "No expected columns present: @unknownColumns";
         $failure = 1;
     }
-
 
     if ($failure) {
         diag "Failure whe inserting the following columns:\n". Dumper($data);
@@ -331,6 +334,7 @@ sub check_message_type
 
     return 1;
 }
+
 sub _currentYear
 {
     my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time());

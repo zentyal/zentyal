@@ -224,11 +224,11 @@ sub invalidArchiveTest : Test(30)
     checkDeviantRestore($incorrectFile, [], 'restoreBackup() called with a incorrect file');
 
     my @deviantFiles = (
-            ['badchecksum.tar', 'restoreBackup() called with a archive with fails checksum'],
-            ['badsize.tar', 'restoreBackup() called with a archive with uncompressed size exceeds available storage'],
-            ['missingtype.tar', 'restoreBackup() called with a archive missing type of backup information'],
-            ['badtype.tar', 'restoreBackup() called with a archive wuth incorrect backup type information'],
-            );
+        ['badchecksum.tar', 'restoreBackup() called with a archive with fails checksum'],
+        ['badsize.tar', 'restoreBackup() called with a archive with uncompressed size exceeds available storage'],
+        ['missingtype.tar', 'restoreBackup() called with a archive missing type of backup information'],
+        ['badtype.tar', 'restoreBackup() called with a archive wuth incorrect backup type information'],
+    );
 
     foreach my $case (@deviantFiles) {
         my ($file, $msg) = @{ $case };
