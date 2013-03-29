@@ -21,7 +21,7 @@ use base 'EBox::Test::Class';
 use strict;
 use warnings;
 
-use Test::More;;
+use Test::More;
 use Test::Exception;
 use Test::MockObject;
 use Test::MockObject::Extends;
@@ -50,7 +50,7 @@ sub deviantElementsTest : Test(8)
 {
     my ($self) = @_;
 
-    my $row= $self->_newRow();
+    my $row = $self->_newRow();
 
     dies_ok {
         $row->addElement(undef);
