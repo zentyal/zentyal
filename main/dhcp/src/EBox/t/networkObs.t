@@ -31,7 +31,6 @@ my $obj  = EBox::Global->modInstance('objects');
 
 sub testCareVI
 {
-
     my ($iface, $viface, $care) = @_;
 
     if ( $care ) {
@@ -42,7 +41,6 @@ sub testCareVI
     } else {
         ok( ! $dhcp->vifaceDelete($iface, $viface), 'Not caring about deleting');
     }
-
 }
 
 # Add a virtual interface

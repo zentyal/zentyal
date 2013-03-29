@@ -14,8 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Test::CGI;
-# Description:
-#
+
 use strict;
 use warnings;
 
@@ -42,10 +41,9 @@ sub setCgiParams
     my ($cgi, %params) = @_;
 
     while (my ($paramName, $paramValue) = each %params) {
-	my $query = $cgi->{cgi};
-	$query->param( $paramName =>  $paramValue);
+        my $query = $cgi->{cgi};
+        $query->param( $paramName =>  $paramValue);
     }
-
 }
 
 # there are 3 subs to check error because i am not sure what style/name is better
@@ -70,10 +68,10 @@ sub checkCgiError
 {
     my ($cgi, $wantError, $name) = @_;
     if ($wantError) {
-	cgiErrorOk($cgi, $name);
+        cgiErrorOk($cgi, $name);
     }
     else {
-	cgiErrorNotOk($cgi, $name);
+        cgiErrorNotOk($cgi, $name);
     }
 }
 
@@ -86,18 +84,14 @@ sub _errorInCgi
 
 sub muteHtmlOutput
 {
-  my ($class) = @_;
+    my ($class) = @_;
 
-  my $mutePrintHtmlCode = "no warnings; package $class; sub _print {}; ";
-  eval $mutePrintHtmlCode;
-  if ($@) {
-    die "Error when overriding _printHtml with a muted version: $@";
-  }
-
+    my $mutePrintHtmlCode = "no warnings; package $class; sub _print {}; ";
+    eval $mutePrintHtmlCode;
+    if ($@) {
+        die "Error when overriding _printHtml with a muted version: $@";
+    }
 }
-
-
-
 
 sub checkMasonParameters
 {
@@ -108,12 +102,11 @@ sub checkMasonParameters
 
     my $testName = exists $params{testName} ? $params{testName} : 'Checking mason parameters';
 
-   # we convert to hash to eliminate order issues
+    # we convert to hash to eliminate order issues
     my $masonParameters = $cgi->{params};
     my $params = defined $masonParameters ?  { @{ $masonParameters } } : {};
 
     eq_or_diff $params, $wantedParameters, $testName;
 }
-
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,23 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+package EBox::Types::Test;
+
 use strict;
 use warnings;
-
-# this package is for helpinmg in creating types unit tests
-
-package EBox::Types::TestHelper;
 
 use Test::More;
 use Test::Exception;
 use Error qw(:try);
-use EBox::TestStub;
-
-sub setupFakes
-{
-    EBox::TestStub::fake();
-}
-
+use EBox::Global;
 
 # count as 3 tests
 sub cloneTest
@@ -58,13 +51,12 @@ sub defaultValueOk
     my $instance;
     try {
         $instance = $class->new(
-                               fieldName => 'defaultValueTest',
-                               printableName=>'defaultValueTest',
-                               defaultValue => $value,
-                               @extraNewParams
-                              );
-    }
-    otherwise {
+            fieldName => 'defaultValueTest',
+            printableName=>'defaultValueTest',
+            defaultValue => $value,
+            @extraNewParams
+        );
+    } otherwise {
         my $ex = shift @_;
         diag "$ex";
         fail "Cannot create a instance of $class with default value $value";
@@ -77,7 +69,7 @@ sub defaultValueOk
 
 sub createOk
 {
-    return _createTest(1, @_);
+    _createTest(1, @_);
 }
 
 sub createFail
@@ -88,6 +80,7 @@ sub createFail
 sub _createTest
 {
     my ($wantSuccess, $class, @p) = @_;
+
     eval "use $class";
     if ($@) {
         die "Incorrect class $class: $@";
@@ -97,11 +90,9 @@ sub _createTest
     if (@p % 2) {
         # odd number of elements
         $testName = pop @p;
-    }
-    else {
+    } else {
         $testName = "Creation of $class";
     }
-
 
     my $failed = 0;
 
@@ -111,28 +102,24 @@ sub _createTest
     my $instance;
     try {
         $instance = $class->new(%params);
-    }
-    otherwise {
+    } otherwise {
         $failed =1;
 
         if ($wantSuccess) {
             fail $testName;
-        }
-        else {
+        } else {
             pass $testName
         }
-
     };
 
     $failed and
-        return $instance;
+        return;
 
     try {
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    }
-    otherwise {
+    } otherwise {
         $failed = 1;
 
         my $ex = shift @_;
@@ -140,24 +127,77 @@ sub _createTest
 
         if ($wantSuccess) {
             fail $testName;
-        }
-        else {
+        } else {
             pass $testName
         }
-
     };
 
     $failed and
-        return $instance;
+        return;
 
     if ($wantSuccess) {
         pass $testName;
-    }
-    else {
+    } else {
         fail  $testName
     }
+}
 
-    return $instance;
+# count as 3 tests per value
+sub storeAndRestoreGConfTest
+{
+    my ($class, $otherValue, @values) = @_;
+    if (not @values) {
+        die "You must supply test values";
+    }
+    defined $otherValue or
+        die "you ,must suply a correct base value";
+
+    EBox::TestStubs::fakeModule(name => 'store');
+
+    my $mod = EBox::Global->modInstance('store');
+    my $dir = 'storeAndRestoreTest';
+
+    # to remove remains for other tests
+    $mod->delete_dir($dir);
+
+    my $instance;
+    try {
+        $instance = $class->new(
+            fieldName => 'storeAndRestoreGConfTest',
+            printableName => 'storeAndRestoreGConfTest',
+        );
+    } otherwise {
+        my $ex = shift;
+        die "Cannot create instance of $class";
+    };
+
+    foreach my $value (@values) {
+        try {
+            $instance->setValue($value)
+        } otherwise {
+            my $ex = shift;
+            die "Cannot set value $value: $ex";
+        };
+
+        lives_ok {
+            $instance->storeInGConf($mod, $dir);
+        } "storing in GConf $class with value $value";
+
+        try {
+            $instance->setValue($otherValue);
+        } otherwise {
+            my $ex = shift;
+            die "Cannot set value $value: $ex";
+        };
+
+        my $hash = $mod->hash_from_dir($dir);
+        lives_ok {
+            $instance->restoreFromHash($hash);
+        } 'restoring form hash returned by hash_from_dir';
+
+        is $instance->value(), $value,
+            'checking that the value was restored';
+    }
 }
 
 1;

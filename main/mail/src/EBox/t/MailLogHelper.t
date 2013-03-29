@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 use strict;
 use warnings;
 
@@ -35,78 +33,74 @@ my $dumpInsertedData = 0;
 
 use constant TABLENAME => "mail_message";
 my %validStatus = (
-                   sent => 1,
-                   rejected => 1,
-                   bounced => 1,
-                   deferred => 1,
+    sent => 1,
+    rejected => 1,
+    bounced => 1,
+    deferred => 1,
+);
 
-                  );
-my %validEvent = ( 'msgsent' => 1,
-                   'maxmsgsize' => 1,
-                   'maxusrsize' => 1,
-                   'norelay' => 1,
-                   'noaccount' => 1,
-                   'nohost' => 1,
-                   'noauth' => 1,
-                   'greylist' => 1,
-                   'nosmarthostrelay' => 1,
-                   'other' => 1,
-                  );
+my %validEvent = (
+    'msgsent' => 1,
+    'maxmsgsize' => 1,
+    'maxusrsize' => 1,
+    'norelay' => 1,
+    'noaccount' => 1,
+    'nohost' => 1,
+    'noauth' => 1,
+    'greylist' => 1,
+    'nosmarthostrelay' => 1,
+    'other' => 1,
+);
 
-my %validType = ( 'internal' => 1,
-                   'sent' => 1,
-                   'received' => 1,
-                   'relay' => 1,
-                   'unknown' => 1,
-                   'nohost' => 1,
-                  );
-
+my %validType = (
+    'internal' => 1,
+    'sent' => 1,
+    'received' => 1,
+    'relay' => 1,
+    'unknown' => 1,
+    'nohost' => 1,
+);
 
 {
     no warnings 'redefine';
     sub EBox::Global::modInstance
-     {
-         my ($class, $name) = @_;
-    
-         if ($name ne 'mail') {
-             die 'Only mocked EBox::Global::modInstance for module mail';
-         }
-    
+    {
+        my ($class, $name) = @_;
 
-         my $fakeVDomains = Test::MockObject->new();
-         $fakeVDomains->mock('vdomains' => sub {
-                                 return ('monos.org', 'a.com')
-                             }
-                            );
+        if ($name ne 'mail') {
+            die 'Only mocked EBox::Global::modInstance for module mail';
+        }
 
-         my $mailMod = {
-                        vdomains => $fakeVDomains,
-                       };
+        my $fakeVDomains = Test::MockObject->new();
+        $fakeVDomains->mock('vdomains' => sub {
+                return ('monos.org', 'a.com')
+                }
+                );
 
-         return $mailMod;
-     }
+        my $mailMod = {
+            vdomains => $fakeVDomains,
+        };
+
+        return $mailMod;
+    }
 }
-
-
-
-
 
 sub newFakeDBEngine
 {
     my $dbengine = Test::MockObject->new();
     $dbengine->{nInserts} = 0;
 
-    $dbengine->mock('insert' => sub {
-                        my ($self, $table, $data) = @_;
-                        _validateInsertedData($table, $data);
-                        $self->{insertedTable} = $table;
-                        $self->{insertedData}  = $data;
-                        $self->{nInserts} += 1;
-                    }
-                   );
+    $dbengine->mock(
+            'insert' => sub {
+                my ($self, $table, $data) = @_;
+                _validateInsertedData($table, $data);
+                $self->{insertedTable} = $table;
+                $self->{insertedData}  = $data;
+                $self->{nInserts} += 1;
+            }
+    );
     return $dbengine;
 }
-                    
 
 sub _validateInsertedData
 {
@@ -116,21 +110,21 @@ sub _validateInsertedData
         return;
     }
 
-    
     my %actualColumns = %{ $data };
-    my @columns = qw(      from_address 
-                          to_address 
-                               message_id 
-                               message_size 
-                               status 
-                               timestamp 
-                               event 
-                               message 
-                               client_host_name 
-                               client_host_ip 
-                               relay
-                                message_type    
-                   ); 
+    my @columns = qw(
+        from_address
+        to_address
+        message_id
+        message_size
+        status
+        timestamp
+        event
+        message
+        client_host_name
+        client_host_ip
+        relay
+        message_type
+    );
 
     my $failure = 0;
     foreach my $column (@columns) {
@@ -149,13 +143,10 @@ sub _validateInsertedData
         $failure = 1;
     }
 
-
     if ($failure) {
         diag "Failure whe inserting the following columns:\n". Dumper($data);
     }
 }
-
-
 
 sub check_from_address
 {
@@ -163,13 +154,11 @@ sub check_from_address
     return $package->_checkAddressColumn('check_from_address', $value);
 }
 
-
 sub check_to_address
 {
     my ($package, $value) = @_;
     return $package->_checkAddressColumn('check_to_address', $value);
 }
-
 
 sub _checkAddressColumn
 {
@@ -189,7 +178,7 @@ sub check_message_id
     my ($package, $value) = @_;
     defined $value or
         return 1;
-    
+
     if ($value =~ m/[<>]/) {
         fail "Bad charaters < or > in message_id value: $value";
         return 0;
@@ -203,7 +192,7 @@ sub check_message_size
     my ($package, $value) = @_;
     defined $value or
         return 1;
-    
+
     if (not $value =~ m/^\d+$/) {
         fail "Bad message_size value: $value (must be a int)";
         return 0;
@@ -211,7 +200,6 @@ sub check_message_size
 
     return 1;
 }
-
 
 sub check_status
 {
@@ -226,7 +214,6 @@ sub check_status
     return 1;
 }
 
-
 sub check_timestamp
 {
     my ($package, $value) = @_;
@@ -239,7 +226,6 @@ sub check_timestamp
     return 1;
 }
 
-
 sub check_event
 {
     my ($package, $value) = @_;
@@ -248,10 +234,6 @@ sub check_event
         fail 'event  must de defined';
         return 0;
     }
-
-
-#     defined $value or
-#         return 1;
 
     if (not $validEvent{$value}) {
         fail "Bad event value: $value";
@@ -271,7 +253,6 @@ sub check_message
     return 1;
 }
 
-
 sub check_client_host_name
 {
     my ($package, $value) = @_;
@@ -285,7 +266,6 @@ sub check_client_host_name
         fail "Bad client_host_name value: $value";
         return 0;
     }
-
 
     return 1;
 }
@@ -304,10 +284,8 @@ sub check_client_host_ip
         return 0;
     }
 
-
     return 1;
 }
-
 
 sub check_relay
 {
@@ -337,8 +315,6 @@ sub check_relay
         if ($fail) {
             return 0;
         }
-
-
     } else {
         # service name
         if (not $value =~ m/^[a-zA-Z]+$/) {
@@ -358,13 +334,13 @@ sub check_message_type
 
     return 1;
 }
+
 sub _currentYear
 {
     my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time());
     $year += 1900;
     return $year;
 }
-
 
 sub checkInsert
 {
@@ -376,7 +352,7 @@ sub checkInsert
     my $nInserts = delete $dbengine->{nInserts};
     is 1, $nInserts,
         'checking that insert was done only one time per case';
-    
+
     my $data = delete $dbengine->{insertedData};
     if ($dumpInsertedData) {
         diag "Inserted Data:\n" . Dumper $data;
@@ -391,11 +367,10 @@ sub checkInsert
             last;
         }
     }
-    
+
     if (not $failed) {
         pass "All NOT-NULL fields don't contain NULLs";
     }
-
 
     if ($expectedData) {
         is_deeply $data, $expectedData,
@@ -523,7 +498,6 @@ my @cases = (
                               },
 
              },
-             
              {
               name => 'Bounced message; sent to a inexitent account in a external server',
               lines => [
@@ -586,7 +560,6 @@ my @cases = (
                                client_host_ip => '192.168.9.1',
                                 message_type => 'relay',
                               },
-
              },
 
              {
@@ -617,14 +590,10 @@ my @cases = (
                                client_host_ip => '192.168.9.1',
                                message_type => 'relay',
                               },
-
              },
-
-
              {
               name => 'Error. Smarthost and client have the same hostname',
                  lines => [
-
 'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: setting up TLS connection from unknown[192.168.9.1]',
 'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
 'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: 7B98D5262E: client=unknown[192.168.9.1]',
@@ -635,8 +604,6 @@ my @cases = (
 'Oct 30 13:13:10 ebox011101 postfix/smtp[17167]: 7B98D5262E: to=<jag@gmail.com>, relay=192.168.45.120[192.168.45.120]:25, delay=0.56, delays=0.04/0.02/0.5/0, dsn=5.4.6, status=bounced (mail for 192.168.45.120 loops back to myself)',
 'Oct 30 13:13:10 ebox011101 postfix/bounce[17168]: 7B98D5262E: sender non-delivery notification: 10ADB52631',
 'Oct 30 13:13:10 ebox011101 postfix/qmgr[16604]: 7B98D5262E: removed',
-
-
                           ],
               expectedData =>  {
                                from_address => 'spam@zentyal.org',
@@ -652,9 +619,7 @@ my @cases = (
                                client_host_ip => '192.168.9.1',
                                message_type => 'relay',
                               },
-
              },
-
              {
               name => 'Remote smarthost denies relay',
                  lines => [
@@ -784,10 +749,8 @@ my @cases = (
                                client_host_name => 'unknown',
                                client_host_ip => '192.168.9.1',
                                message_type => 'unknown',
-                              },                 
-                 
+                              },
                 },
-
              {
                  name => 'helo reject. (NOQUEUE event)',
                  lines => [
@@ -806,37 +769,8 @@ my @cases = (
                                status => 'rejected',
                                message =>'504 5.5.2 <huginn>: Helo command rejected: need fully-qualified hostname',
                                message_type => 'received',
-                              },                 
-
+                              },
              },
-#XXX this case seems to work in the real applcationm, strange..
-#             {
-#                 name => 'Deferred by external SMTP',
-#                  lines => [
-# 'Sep 23 10:57:38 ebox011101 postfix/smtpd[15939]: connect from unknown[192.168.9.1]',
-# 'Sep 23 10:57:40 ebox011101 postfix/smtpd[15939]: setting up TLS connection from unknown[192.168.9.1]',
-# 'Sep 23 10:57:41 ebox011101 postfix/smtpd[15939]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
-# 'Sep 23 10:57:45 ebox011101 postfix/smtpd[15939]: 48D98526BC: client=unknown[192.168.9.1], sasl_method=PLAIN, sasl_username=macaco@monos.org',
-# 'Sep 23 10:57:45 ebox011101 postfix/cleanup[15977]: 48D98526BC: message-id=<383994.577310176-sendEmail@localhost>',
-# 'Sep 23 10:57:45 ebox011101 postfix/qmgr[15873]: 48D98526BC: from=<macaco@monos.org>, size=935, nrcpt=1 (queue active)',
-# 'Sep 23 10:57:45 ebox011101 postfix/smtpd[15939]: disconnect from unknown[192.168.9.1]',
-# 'Sep 23 10:58:19 ebox011101 postfix/smtp[15981]: 48D98526BC: host gmail-smtp-in.l.google.com[209.85.219.2] said: 421-4.7.0 [88.16.31.62] Our system has detected an unusual amount of unsolicited 421-4.7.0 mail originating from your IP address. To protect our users from 421-4.7.0 spam, mail sent from your IP address has been temporarily blocked. 421-4.7.0 Please visit http://www.google.com/mail/help/bulk_mail.html to review 421 4.7.0 our Bulk Email Senders Guidelines. 2si6795794ewy.104 (in reply to end of DATA command)',
-
-
-#                           ],
-#               expectedData =>  {
-#                                from_address => 'macaco@monos.org',
-#                                status => 'deferred',
-#                                timestamp => "$year-Sep-23 10:21:21",
-#                                event => 'norelay',
-#                                message => '554 5.7.1 <ckent@dplanet.com>: Relay access denied',
-#                                to_address => 'ckent@dplanet.com',
-#                                client_host_name => 'unknown',
-#                                client_host_ip => '192.168.9.1'
-#                               },
-
-#              },
-
              {
                  name => 'User quota exceeded',
                  lines => [
@@ -1027,9 +961,6 @@ my @cases = (
                               },
              },
             );
- 
-
-
 
 my $logHelper = new EBox::MailLogHelper();
 
@@ -1039,7 +970,7 @@ if ($logFile) {
     open my $FH, '<', $logFile or
         die "Cannot open file $logFile";
     while (my $line = <$FH>) {
-        $logHelper->processLine('fakeFile', $line, $dbEngine); 
+        $logHelper->processLine('fakeFile', $line, $dbEngine);
     }
     close $FH;
 
@@ -1056,16 +987,12 @@ foreach my $case (@cases) {
     my $dbEngine = newFakeDBEngine();
     lives_ok {
         foreach my $line (@lines) {
-            $logHelper->processLine('fakeFile', $line, $dbEngine); 
+            $logHelper->processLine('fakeFile', $line, $dbEngine);
         }
     } 'processing lines';
 
     checkInsert($dbEngine, $case->{expectedData});
 }
-
-
-
-
 1;
 
 __END__

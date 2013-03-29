@@ -1,9 +1,8 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 use Test::More tests => 5;
-
 
 my @columnTitles = qw(arabic roman binary);
 my @rows = (
@@ -13,7 +12,7 @@ my @rows = (
 	   );
 my @additionalComponents = (
 		       'msg.mas', msg => "suddenly, a message",
-		      );
+);
 
 my @cases = (
 	     [],  # no arguments case
@@ -23,8 +22,6 @@ my @cases = (
 	     [columnTitles => \@columnTitles, rows => \@rows, additionalComponents => \@additionalComponents],
 	    );
 
-
-TestHelper::testComponent('table.mas', \@cases);
-
+EBox::Test::Mason::testComponent('table.mas', \@cases);
 
 1;

@@ -1,20 +1,18 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use EBox::Test::Mason;
 
 use lib '../..';
 
-
 use Test::More tests => 3;
-
 
 my @cases = (
 	     [ name => 'passwordEnabled'],
 	     [ name => 'passwordEnabledAndFilled', value => 'passwordValue'],
-	     [ name => 'hiidenDisabled', value => 'passwordValue', disabled => 'disabled'],
-	    );
+	     [ name => 'hiddenDisabled', value => 'passwordValue', disabled => 'disabled'],
+);
 
-TestHelper::testComponent('password.mas', \@cases);
+EBox::Test::Mason::testComponent('input/password.mas', \@cases);
 
 1;
