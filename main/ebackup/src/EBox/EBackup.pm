@@ -94,6 +94,16 @@ sub addModuleStatus
         nobutton      => 1));
 }
 
+
+# This hook is called before checking if a target is ready for the backup
+# It is intended to be used to mount filesystems or
+# to  do any operation needed to make ready the targer
+sub preCheckTargetHook
+{
+    my ($self) = @_;
+    $self->_hook('prechecktarget');
+}
+
 sub preBackupHook
 {
     my ($self) = @_;
