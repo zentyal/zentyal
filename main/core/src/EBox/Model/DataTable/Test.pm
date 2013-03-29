@@ -38,47 +38,6 @@ use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
-{
-    my $rowIdUsed;
-
-    no warnings 'redefine';
-    sub EBox::Model::Manager::warnIfIdIsUsed
-    {
-        my ($self, $context, $id) = @_;
-        if (not defined $rowIdUsed) {
-            return;
-        } elsif ($rowIdUsed eq $id) {
-            throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
-        }
-    }
-
-    sub EBox::Model::Manager::warnOnChangeOnId
-    {
-        my ($self, $tableName, $id) = @_;
-        if (not defined $rowIdUsed) {
-            return;
-        } elsif ($rowIdUsed eq $id) {
-            throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
-        }
-    }
-
-    sub EBox::Model::Manager::removeRowsUsingId
-    {
-        # do nothing
-    }
-
-    sub EBox::Model::Manager::modelActionTaken
-    {
-        # do nothing
-    }
-
-    sub setRowIdInUse
-    {
-        my ($rowId) = @_;
-        $rowIdUsed = $rowId;
-    }
-}
-
 sub setModules : Test(setup)
 {
     EBox::TestStubs::fakeModule(name => 'fakeModule');
@@ -218,8 +177,7 @@ sub contextNameTest : Test(1)
     my $dataTable = $self->_newDataTable();
 
     my $expectedContenxtName = '/fakeModule/test/';
-    is $dataTable->contextName, $expectedContenxtName,
-       'checking contextName';
+    is $dataTable->contextName, $expectedContenxtName, 'checking contextName';
 }
 
 sub deviantAddTest : Test(4)
@@ -235,21 +193,21 @@ sub deviantAddTest : Test(4)
 
     my %invalidAdds = (
             'unique field repeated' => [
-            uniqueField => 'a',
-            regularField =>'adaads',
+                uniqueField => 'a',
+                regularField =>'adaads',
             ],
             'missing required field' => [
-            uniqueField => 'c',
+                uniqueField => 'c',
             ],
     );
 
     my $dataTableSize = $dataTable->size();
     while (my ($testName, $addParams_r) = each %invalidAdds) {
         dies_ok {
-            $dataTable->add(  @{ $addParams_r });
+            $dataTable->add(@{ $addParams_r });
         } "expecting error with incorrect row addition: $testName";
-        is $dataTable->size(), $dataTableSize,
-           'checking wether no new rows were added using size method';
+
+        is $dataTable->size(), $dataTableSize, 'checking wether no new rows were added using size method';
     }
 }
 
@@ -361,7 +319,7 @@ sub moveRowsTest : Test(8)
             [ uniqueField => 'b', regularField => 'regular', ],
             );
     foreach (@tableRows) {
-        $dataTable->add( @{  $_  }  );
+        $dataTable->add(@{$_});
     }
 
     my @order = @{ $dataTable->order() };
@@ -387,19 +345,15 @@ sub moveRowsTest : Test(8)
     $dataTable->moveUp($lowerRow);
     is_deeply $dataTable->order, \@reverseOrder,
               'checking that lower row was moved up';
-    ok ( $dataTable->called('movedUpRowNotify'),
-            'Checking that movedUpRowNotify has  been triggered');
+    ok ($dataTable->called('movedUpRowNotify'), 'Checking that movedUpRowNotify has been triggered');
     $dataTable->clear();
 
     $dataTable->moveDown($lowerRow);
     is_deeply $dataTable->order, \@order,
               'checking that upper row was moved down';
-    ok ( $dataTable->called('movedDownRowNotify'),
-            'Checking that movedDownRowNotify has  been triggered');
+    ok ($dataTable->called('movedDownRowNotify'), 'Checking that movedDownRowNotify has been triggered');
     $dataTable->clear();
 }
-
-
 
 sub removeAllTest : Test(8)
 {
@@ -459,14 +413,11 @@ sub removeRowTest : Test(13)
         $_->id()
     } @{ $dataTable->rows() };
 
-
     dies_ok {
         $dataTable->removeRow('inexistent');
     } 'expecting error when trying to remove a inexistent row';
-    ok (
-            (not $dataTable->called($notifyMethodName)),
-            'checking that on error notify method was not called',
-       );
+
+    ok ((not $dataTable->called($notifyMethodName)), 'checking that on error notify method was not called');
 
     $id = shift @ids;
     lives_ok {
@@ -493,16 +444,13 @@ sub removeRowTest : Test(13)
         $dataTable->removeRow($id, 0)
     } 'EBox::Exceptions::DataInUse',
               'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
-    ok (
-            (not $dataTable->called($notifyMethodName)),
-            'checking that on DataInUse excpeion notify method was not called',
-       );
+    ok ((not $dataTable->called($notifyMethodName)), 'checking that on DataInUse excpeion notify method was not called');
 
     lives_ok {
         $dataTable->removeRow($id, 1)
     } 'removeRow with force in a used row within a automaticRemove table works';
-    is $dataTable->row($id), undef,
-       'checking that row is not longer in the table';
+
+    is $dataTable->row($id), undef, 'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 
@@ -510,8 +458,8 @@ sub removeRowTest : Test(13)
     lives_ok {
         $dataTable->removeRow($id, 0)
     } 'removeRow with force in a unused row within a automaticRemove table works';
-    is $dataTable->row($id), undef,
-       'checking that row is not longer in the table';
+
+    is $dataTable->row($id), undef, 'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 }
@@ -521,9 +469,7 @@ sub deviantSetTest : Test(12)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
-    my @ids = map {
-        $_->id()
-    } @{ $dataTable->rows() };
+    my @ids = map { $_->id() } @{ $dataTable->rows() };
     my $id = shift @ids;
 
     my $notifyMethodName = 'updatedRowNotify';
@@ -565,7 +511,7 @@ sub deviantSetTest : Test(12)
     );
 }
 
-sub _checkDeviantSet # counts as 4 tests
+sub _checkDeviantSet
 {
     my ($self, $dataTable, $id, $params_r, $testName) = @_;
     my $notifyMethodName = 'updatedRowNotify';
@@ -599,11 +545,7 @@ sub _checkSet
     my $oldSize = $dataTable->size();
     my $version = $dataTable->_storedVersion();
     lives_ok {
-        $dataTable->set (
-                $id,
-                %changeParams,
-                );
-
+        $dataTable->set ($id, %changeParams);
     } $testName;
 
     my $row = $dataTable->row($id);
@@ -626,14 +568,12 @@ sub _checkSet
 }
 
 
-# XXX tODO add notification method parameters test
+# XXX TODO add notification method parameters test
 sub setTest : Test(10)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
-    my @ids = map {
-        $_->id()
-    } @{ $dataTable->rows() };
+    my @ids = map { $_->id() } @{ $dataTable->rows() };
     my $id = shift @ids;
 
     my $notifyMethodName = 'updatedRowNotify';
@@ -653,24 +593,17 @@ sub setTest : Test(10)
 
     my $version = $dataTable->_storedVersion();
     lives_ok {
-        $dataTable->set (
-                $id,
-                %changeParams,
-                );
-
+        $dataTable->set ($id, %changeParams);
     } 'Setting row with the same values';
 
-    is $version, $dataTable->_storedVersion(),
-       'checking that stored table version has not changed';
-    ok (
-            (not $dataTable->called($notifyMethodName)),
-            'checking that on setting row with no changes notify method was not called',
-    );
+    is $version, $dataTable->_storedVersion(), 'checking that stored table version has not changed';
+    ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
 }
 
 sub setWithDataInUseTest : Test(18)
 {
     my ($self) = @_;
+
     my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
     my @ids = map {
         $_->id()
@@ -961,7 +894,6 @@ sub _newDataTable
             ],
             tableName => 'test',
         };
-
     }
 
     my $confmodule = EBox::Global->modInstance('fakeModule');
@@ -1043,7 +975,7 @@ sub _tableDescription4fields
             new EBox::Types::Text(
                     fieldName => 'uniqueField',
                     printableName => 'uniqueField',
-                    unique        => 1,
+                    unique => 1,
             ),
             new EBox::Types::Text(
                     fieldName => 'regularField',
@@ -1052,12 +984,12 @@ sub _tableDescription4fields
             new EBox::Types::Text(
                     fieldName => 'defaultField',
                     printableName => 'defaultField',
-                    defaultValue    => 'defaultText',
+                    defaultValue  => 'defaultText',
             ),
             new EBox::Types::Text(
                     fieldName => 'optionalField',
                     printableName => 'optionalField',
-                    optional      => 1,
+                    optional => 1,
             ),
         ],
         tableName => 'test',
