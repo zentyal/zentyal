@@ -259,11 +259,6 @@ sub restoreConfigurationBackupTest #: Test(16)
     setConfigCanary(BEFORE_BACKUP_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup');
     checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
-
-    my $fullBackup;
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
-    checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
 sub restoreBugreportTest #: Test(13)
@@ -285,23 +280,13 @@ sub restoreBugreportTest #: Test(13)
     checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
 
-sub restoreFullBackupTest #: Test(15)
-{
-    my ($self) = @_;
-
-    my $configurationBackup;
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
-    checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
-}
-
 sub partialRestoreTest #: Test(15)
 {
     my ($self) = @_;
 
     my $configurationBackup;
     setConfigCanary(BEFORE_BACKUP_VALUE);
-    $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
+    $configurationBackup = checkMakeBackup(description => 'test configuration backup');
 
     setConfigCanary(AFTER_BACKUP_VALUE);
 
@@ -355,15 +340,15 @@ sub _mangleModuleListInBackup
     system "rm -rf $backupDir";
 }
 
-sub listBackupsTest #: Test(5)
+sub listBackupsTest #: Test(3)
 {
     my ($self) = @_;
     diag "The backup's details of id a are not tested for now. The date detail it is only tested as relative order";
 
     my $backup = new EBox::Backup();
     my @backupParams = (
-            [description => 'configuration backup', fullBackup => 0],
-            [description => 'full backup', fullBackup => 1],
+            [description => 'configuration backup'],
+            [description => 'full backup'],
             );
 
     setConfigCanary('indiferent configuration');
@@ -387,10 +372,8 @@ sub listBackupsTest #: Test(5)
     foreach my $backup (@backups) {
         my %backupParam = @{ pop @backupParams };
         my $awaitedDescription = $backupParam{description};
-        my $awaitedType        = $backupParam{fullBackup} ? 'full backup' : 'configuration backup';
 
         is $backup->{description}, $awaitedDescription, 'Checking backup description';
-        is $backup->{type}, $awaitedType, 'Checking backup type';
     }
 }
 
@@ -401,10 +384,7 @@ sub backupDetailsFromArchiveTest #: Test(9)
     $global->saveAllModules();
 
     my $configurationBackupDescription = 'test configuration backup for detail test';
-    my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription, fullBackup => 0) ;
-
-    my $fullBackupDescription = 'test full backup for detail test';
-    my $fullBackup = EBox::Backup->makeBackup(description => $fullBackupDescription, fullBackup => 1);
+    my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription) ;
 
     my $bugreportBackupDescription = 'Bug report'; # string foun in EBox::Backup::makeBugReport
     my $bugreportBackup = EBox::Backup->makeBugReport();
@@ -414,10 +394,6 @@ sub backupDetailsFromArchiveTest #: Test(9)
             $configurationBackup => {
                 description => $configurationBackupDescription,
                 type        => $EBox::Backup::CONFIGURATION_BACKUP_ID,
-            },
-            $fullBackup => {
-                description => $fullBackupDescription,
-                type        => $EBox::Backup::FULL_BACKUP_ID,
             },
             $bugreportBackup => {
                 description => $bugreportBackupDescription,
@@ -509,28 +485,12 @@ sub restoreFailedTest ##: Test(6)
         ' some  modules not longer a changed state (this is a clue of revokation)' ;
 }
 
-sub dataRestoreTest #: Test(7)
-{
-    my ($self) = @_;
-
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    my $fullBackup = checkMakeBackup(fullBackup => 1);
-    setConfigCanary(AFTER_BACKUP_VALUE);
-
-    lives_ok {
-        EBox::Backup->restoreBackup($fullBackup, dataRestore => 1)
-    } 'trying a data restore';
-
-    # conf canary shouldn't be restored
-    checkConfigCanary(AFTER_BACKUP_VALUE);
-}
-
 sub checkArchivePermissions : Test(3)
 {
     my ($self) = @_;
 
     setConfigCanary(BEFORE_BACKUP_VALUE);
-    my $archive = checkMakeBackup(fullBackup => 0);
+    my $archive = checkMakeBackup();
     Test::File::file_mode_is($archive, 0660, 'Checking wether the archive permission only allow reads by its owner');
     my @op = `ls -l $archive`;
     diag "LS -l @op";
