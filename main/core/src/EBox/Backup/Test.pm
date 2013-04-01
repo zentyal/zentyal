@@ -51,6 +51,13 @@ sub testDir
     return '/tmp/zentyal.backup.test';
 }
 
+sub ignoreZentyalVersionCheck : Test(startup)
+{
+    Test::MockObject->fake_module('EBox::Backup',
+                                  '_checkZentyalVersion' => sub {},
+                                 );
+}
+
 # needed for progress indicator stuff
 sub setupProgressIndicatorHostModule : Test(setup)
 {
@@ -150,7 +157,7 @@ sub teardownCanaryModule : Test(teardown)
     EBox::TestStubs::setConfig();
 }
 
-# this counts for 7 tests
+# this counts for 3 tests
 sub checkStraightRestore
 {
     my ($archiveFile, $options_r, $msg) = @_;
@@ -251,7 +258,7 @@ sub _testdataDir
     return $dir;
 }
 
-sub restoreConfigurationBackupTest #: Test(7)
+sub restoreConfigurationBackupTest : Test(4)
 {
     my ($self) = @_;
 
