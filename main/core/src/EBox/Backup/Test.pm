@@ -12,15 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Backup::Test;
-
 use strict;
 use warnings;
 
-use lib '../..';
-
+package EBox::Backup::Test;
 use base 'EBox::Test::Class';
+
+use lib '../..';
 
 use EBox::Global::TestStub;
 use EBox::TestStubs;
@@ -34,6 +32,7 @@ use Test::More;
 use Test::Exception;
 use Test::Differences;
 use Test::File;
+use EBox::Sudo::TestStub;
 
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
@@ -109,6 +108,11 @@ sub setupCanaryModule : Test(setup)
                 }
             ],
     );
+}
+
+sub banRootCommands : Test(setup)
+{
+    EBox::Sudo::TestStub::addCommandBanFilter('chown');
 }
 
 sub setConfigCanary
@@ -215,7 +219,7 @@ sub checkMakeBackup
 }
 
 # this requires a correct testdata dir
-sub invalidArchiveTest : Test(30)
+sub invalidArchiveTest #: Test(30)
 {
     my ($self) = @_;
     my $incorrectFile = $self->testDir() . '/incorrect';
@@ -247,7 +251,7 @@ sub _testdataDir
     return $dir;
 }
 
-sub restoreConfigurationBackupTest : Test(16)
+sub restoreConfigurationBackupTest #: Test(16)
 {
     my ($self) = @_;
 
@@ -262,7 +266,7 @@ sub restoreConfigurationBackupTest : Test(16)
     checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
-sub restoreBugreportTest : Test(13)
+sub restoreBugreportTest #: Test(13)
 {
     my ($self) = @_;
 
@@ -281,7 +285,7 @@ sub restoreBugreportTest : Test(13)
     checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
 
-sub restoreFullBackupTest : Test(15)
+sub restoreFullBackupTest #: Test(15)
 {
     my ($self) = @_;
 
@@ -291,7 +295,7 @@ sub restoreFullBackupTest : Test(15)
     checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
 }
 
-sub partialRestoreTest : Test(15)
+sub partialRestoreTest #: Test(15)
 {
     my ($self) = @_;
 
@@ -351,7 +355,7 @@ sub _mangleModuleListInBackup
     system "rm -rf $backupDir";
 }
 
-sub listBackupsTest : Test(5)
+sub listBackupsTest #: Test(5)
 {
     my ($self) = @_;
     diag "The backup's details of id a are not tested for now. The date detail it is only tested as relative order";
@@ -390,7 +394,7 @@ sub listBackupsTest : Test(5)
     }
 }
 
-sub backupDetailsFromArchiveTest : Test(9)
+sub backupDetailsFromArchiveTest #: Test(9)
 {
     setConfigCanary(BEFORE_BACKUP_VALUE);
     my $global = EBox::Global->getInstance();
@@ -432,7 +436,7 @@ sub backupDetailsFromArchiveTest : Test(9)
     }
 }
 
-sub backupForbiddenWithChangesTest : Test(7)
+sub backupForbiddenWithChangesTest #: Test(7)
 {
     my ($self) = @_;
 
@@ -458,7 +462,7 @@ sub backupForbiddenWithChangesTest : Test(7)
     );
 }
 
-sub restoreFailedTest #: Test(6)
+sub restoreFailedTest ##: Test(6)
 {
     my ($self) = @_;
 
@@ -505,7 +509,7 @@ sub restoreFailedTest #: Test(6)
         ' some  modules not longer a changed state (this is a clue of revokation)' ;
 }
 
-sub dataRestoreTest : Test(7)
+sub dataRestoreTest #: Test(7)
 {
     my ($self) = @_;
 
@@ -527,7 +531,7 @@ sub checkArchivePermissions : Test(3)
 
     setConfigCanary(BEFORE_BACKUP_VALUE);
     my $archive = checkMakeBackup(fullBackup => 0);
-    Test::File::file_mode_is($archive, 0600, 'Checking wether the archive permission only allow reads by its owner');
+    Test::File::file_mode_is($archive, 0660, 'Checking wether the archive permission only allow reads by its owner');
     my @op = `ls -l $archive`;
     diag "LS -l @op";
 
