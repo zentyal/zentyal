@@ -285,7 +285,7 @@ sub restoreBugreportTest : Test(3)
     checkConfigCanary(BEFORE_BACKUP_VALUE);
 }
 
-sub partialRestoreTest #: Test(15)
+sub partialRestoreTest : Test(5)
 {
     my ($self) = @_;
 
@@ -306,7 +306,7 @@ sub partialRestoreTest #: Test(15)
                 $configurationBackup,
                 modsToRestore => ['canary', 'inexistent'],
                 );
-    } 'called restoreBackup with a list of modules t orestore which contains inexistent modules';
+    } 'called restoreBackup with a list of modules to restore which contains inexistent modules';
 
     my @modsToRestore = ('canary');
     lives_ok {
@@ -316,14 +316,7 @@ sub partialRestoreTest #: Test(15)
                 )
     } "Partial restore with modules @modsToRestore";
 
-    my @checkSubs = map {
-        'check' . ucfirst $_
-    } @modsToRestore;
-
-    foreach my $subName (@checkSubs) {
-        my $sub = __PACKAGE__->can($subName);
-        $sub->(BEFORE_BACKUP_VALUE, 0);
-    }
+    checkConfigCanary(BEFORE_BACKUP_VALUE);
 }
 
 # this must be synchronized with EBox::Backup::_createM
