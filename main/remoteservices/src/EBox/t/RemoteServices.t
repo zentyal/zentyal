@@ -35,13 +35,13 @@ subtest 'security updates time' => sub {
     cmp_ok($rsMod->latestSecurityUpdates(), 'eq', 'unknown');
 
     lives_ok {
-        $rsMod->setSecurityUpdates();
+        $rsMod->setSecurityUpdatesLastTime();
     };
     cmp_ok($rsMod->latestSecurityUpdates(), '==', time());
 
     my $when = time();
     lives_ok {
-        $rsMod->setSecurityUpdates($when);
+        $rsMod->setSecurityUpdatesLastTime($when);
     };
     cmp_ok($rsMod->latestSecurityUpdates(), '==', $when);
 };
