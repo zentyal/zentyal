@@ -268,7 +268,7 @@ sub restoreConfigurationBackupTest : Test(4)
     checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
 }
 
-sub restoreBugreportTest #: Test(13)
+sub restoreBugreportTest : Test(3)
 {
     my ($self) = @_;
 
@@ -283,8 +283,6 @@ sub restoreBugreportTest #: Test(13)
     lives_ok { $backup->restoreBackup($bugReportBackup) } 'Restoring bug report';
 
     checkConfigCanary(BEFORE_BACKUP_VALUE);
-
-    checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
 
 sub partialRestoreTest #: Test(15)
