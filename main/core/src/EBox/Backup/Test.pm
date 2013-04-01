@@ -191,7 +191,7 @@ sub checkModulesChanged
     eq_or_diff [sort @modulesChanged], [sort @modules], $name;
 }
 
-# this counts for 7 tests
+# this counts for 2 tests
 sub checkDeviantRestore
 {
     my ($archiveFile, $options_r, $msg) = @_;
@@ -219,7 +219,7 @@ sub checkMakeBackup
 }
 
 # this requires a correct testdata dir
-sub invalidArchiveTest #: Test(30)
+sub invalidArchiveTest : Test(10)
 {
     my ($self) = @_;
     my $incorrectFile = $self->testDir() . '/incorrect';
@@ -251,7 +251,7 @@ sub _testdataDir
     return $dir;
 }
 
-sub restoreConfigurationBackupTest #: Test(16)
+sub restoreConfigurationBackupTest #: Test(7)
 {
     my ($self) = @_;
 
