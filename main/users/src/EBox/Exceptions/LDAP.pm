@@ -21,6 +21,13 @@ use base 'EBox::Exceptions::Internal';
 use Data::Dumper;
 use EBox::Exceptions::MissingArgument;
 
+# Constructor:  new
+#
+#  Parameters:
+#     result - Net::LDAP::Message with the response of the failed operation
+#     message - Custom message to prepend to the error description (optional)
+#     opArgs - Arguments of the faield LDAP operation (optional)
+#
 sub new
 {
     my ($class, %args) = @_;
@@ -56,6 +63,10 @@ sub new
     return $self;
 }
 
+# Method: errorName
+#
+#  Returns:
+#     the LDAP error name
 sub errorName
 {
     my ($self) = @_;

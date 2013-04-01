@@ -227,7 +227,6 @@ sub remove
     }
 }
 
-
 # Method: save
 #
 #   Store all pending lazy operations (if any)
@@ -251,6 +250,15 @@ sub save
     }
 }
 
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
 sub entryOpChangesInUpdate
 {
     my ($self, $entry) = @_;
