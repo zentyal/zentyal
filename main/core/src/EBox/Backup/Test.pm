@@ -410,23 +410,22 @@ sub backupDetailsFromArchiveTest #: Test(9)
     }
 }
 
-sub backupForbiddenWithChangesTest #: Test(7)
+sub backupWithChangesTest : Test(5)
 {
     my ($self) = @_;
-
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-
-    setConfigCanary(AFTER_BACKUP_VALUE);
 
     my $global = EBox::Global->getInstance();
     my @changedModules = grep {
         $global->modIsChanged($_);
     } @{ $global->modNames };
+    $global->modChange('canary');
 
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     throws_ok {
-        my $b = new EBox::Backup;
-        $b->makeBackup(description => 'test');
-    }  qr/not saved changes/, 'Checkign wether the backup is forbidden with changed modules';
+        EBox::Backup->makeBackup(description => 'test');
+    }  qr/The following modules have unsaved changes/, 'Checking wether the backup is forbidden with changed modules';
+
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     checkConfigCanary(AFTER_BACKUP_VALUE, 1);
 
@@ -434,6 +433,11 @@ sub backupForbiddenWithChangesTest #: Test(7)
             name => 'Check wether module changed state has not be changed',
             modules => \@changedModules,
     );
+
+    lives_ok {
+        EBox::Backup->makeBackup(description => 'test', fallbackToRO => 1);
+    }  'Checking wether the backup  with changed modules is possible with fallback to read-only';
+    checkConfigCanary(AFTER_BACKUP_VALUE, 0);
 }
 
 sub restoreFailedTest ##: Test(6)
