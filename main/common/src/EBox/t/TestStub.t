@@ -1,14 +1,14 @@
 use strict;
 use warnings;
 
-use Test::More skip_all => 'FIXME';
-use Test::More tests => 9;
+#use Test::More skip_all => 'FIXME';
+use Test::More tests => 6;
 use Test::Exception;
 use Test::Output;
 
 use lib '../..';
-
-BEGIN { use_ok 'EBox::TestStub' };
+use EBox;
+use EBox::TestStub;
 
 mockTest();
 
@@ -16,33 +16,30 @@ sub mockTest
 {
     my $debugMsg = "el macaco se desparasita";
 
-    stderr_unlike {
-	    dies_ok {
-            EBox::debug($debugMsg)
-        } 'This must fail because the log file is not  writable by ordinary users';
-    } qr/$debugMsg/, 'Checking that debug text is not printed';
+    stderr_like {
+            EBox::info($debugMsg)
+    } qr/Trace begun at.*EBox/, 'This must print a stderr trace because the logger cannot be intialized by a regular user';
+
 
     EBox::TestStub::fake();
 
     stderr_like {
-	    lives_ok {
-            EBox::debug($debugMsg)
-        } 'After mocking any user can use the ebox logger without raising exception';
-    } qr/$debugMsg/, 'Checking that debug text is printed in stderr';
+        lives_ok {
+            EBox::info($debugMsg)
+        } 'After mocking any user can use the ebox logger normally';
+   } qr/$debugMsg/, 'Checking that debug text is printed in stderr';
 
     stderr_like {
-	    lives_ok {
-            EBox::debug($debugMsg)
+        lives_ok {
+            EBox::info($debugMsg)
         } 'Checking that after the first initializtion the behaviour is unchanged';
-    } qr/$debugMsg/;
+    } qr/$debugMsg/, 'Checking log text';
 
     #FIXME: unfake removed
-    EBox::TestStub::unfake();
-    stderr_unlike {
-        dies_ok {
-            EBox::debug($debugMsg)
-        } 'After unmocking we get the same behaviour than before';
-    } qr/$debugMsg/, 'Checking that debug text is not printed like before';
+     EBox::TestStub::unfake();
+    stderr_like {
+        EBox::info($debugMsg)
+      } qr/Trace begun at.*EBox/, 'After unmocking we get the same behaviour than before';
 }
 
 1;
