@@ -25,8 +25,6 @@ use base 'Test::Class';
 use Test::More;
 use Test::Exception;
 
-
-#use EBox::Test;;
 use EBox::TestStubs;
 
 sub _testStubsForFrameworkModules :  Test(startup) {
