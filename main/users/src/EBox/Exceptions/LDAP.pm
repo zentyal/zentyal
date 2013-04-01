@@ -15,10 +15,11 @@
 use strict;
 use warnings;
 
-use EBox::Exceptions::MissingArgument;
-
 package EBox::Exceptions::LDAP;
 use base 'EBox::Exceptions::Internal';
+
+use Data::Dumper;
+use EBox::Exceptions::MissingArgument;
 
 sub new
 {
@@ -28,6 +29,7 @@ sub new
         throw EBox::Exceptions::MissingArgument('result');
     }
     my $message = $args{message};
+    my $opArgs  = $args{opArgs};
 
     my $exText;
     if ($message) {
@@ -36,6 +38,11 @@ sub new
         $exText = 'LDAP error: ';
     }
     $exText .= $result->error_text;
+    if ($opArgs) {
+        $exText .= ".<br/> Operation parameters:";
+        local $Data::Dumper::Terse = 1;
+        $exText .= Dumper($opArgs);
+    }
 
     local $Error::Depth = $Error::Depth + 1;
     local $Error::Debug = 1;
