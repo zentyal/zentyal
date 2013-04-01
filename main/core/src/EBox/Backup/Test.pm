@@ -375,7 +375,7 @@ sub listBackupsTest #: Test(3)
     }
 }
 
-sub backupDetailsFromArchiveTest #: Test(9)
+sub backupDetailsFromArchiveTest : Test(9)
 {
     setConfigCanary(BEFORE_BACKUP_VALUE);
     my $global = EBox::Global->getInstance();
@@ -384,7 +384,7 @@ sub backupDetailsFromArchiveTest #: Test(9)
     my $configurationBackupDescription = 'test configuration backup for detail test';
     my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription) ;
 
-    my $bugreportBackupDescription = 'Bug report'; # string foun in EBox::Backup::makeBugReport
+    my $bugreportBackupDescription = 'Bug report'; # string found in EBox::Backup::makeBugReport
     my $bugreportBackup = EBox::Backup->makeBugReport();
 
     # XXX date detail IS NOT checked
@@ -440,7 +440,7 @@ sub backupWithChangesTest : Test(5)
     checkConfigCanary(AFTER_BACKUP_VALUE, 0);
 }
 
-sub restoreFailedTest ##: Test(6)
+sub restoreFailedTest #: Test(6)
 {
     my ($self) = @_;
 
@@ -477,7 +477,7 @@ sub restoreFailedTest ##: Test(6)
     } qr /$forcedFailureMsg/, 'Checking wether restore failed as expected';
 
     diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
-    checkConfigCanaryOnlyConfig(AFTER_BACKUP_VALUE);
+    checkConfigCanary(AFTER_BACKUP_VALUE);
 
     my @modules = @{$global->modNames()};
 
