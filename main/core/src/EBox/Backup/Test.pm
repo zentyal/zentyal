@@ -338,7 +338,7 @@ sub _mangleModuleListInBackup
     system "rm -rf $backupDir";
 }
 
-sub listBackupsTest #: Test(3)
+sub listBackupsTest : Test(3)
 {
     my ($self) = @_;
     diag "The backup's details of id a are not tested for now. The date detail it is only tested as relative order";
@@ -346,7 +346,7 @@ sub listBackupsTest #: Test(3)
     my $backup = new EBox::Backup();
     my @backupParams = (
             [description => 'configuration backup'],
-            [description => 'full backup'],
+            [description => 'second backup'],
             );
 
     setConfigCanary('indiferent configuration');
@@ -359,10 +359,10 @@ sub listBackupsTest #: Test(3)
         sleep 1;
     }
 
-    # add nobackup files in backup dir to test reliability
+    # add no-tar files in backup dir to test reliability
     my $backupsDir = $self->testDir() . '/backups';
     system "touch $backupsDir/noBackup";
-    system "touch $backupsDir/noBackup.tar";
+    system "touch $backupsDir/1221";
 
     my @backups = @{$backup->listBackups()};
     is @backups, @backupParams, 'Checking number of backups listed';
