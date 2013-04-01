@@ -35,10 +35,10 @@ Readonly::Scalar our $FAKE_STDERR_FILE => $tmpfile;
 
 sub fake
 {
-    no warnings 'redefine';
     *EBox::Sudo::SUDO_PATH = \$FAKE_SUDO_PATH;
     *EBox::Sudo::STDERR_FILE = \$FAKE_STDERR_FILE;
-    *EBox::Sudo::root = \&_fakeRoot;
+
+        *EBox::Sudo::root = \&_fakeRoot;
     *EBox::Sudo::silentRoot = \&_fakeSilentRoot;
 }
 
@@ -60,7 +60,7 @@ sub _fakeSilentRoot
 sub _fakeRootCommands
 {
     my ($mode, @cmds) = @_;
-    @cmds =  _filterCommands(\@cmds);
+    @cmds =  _filterCommands(@cmds);
     EBox::Sudo::_root(0, @cmds)
 }
 
