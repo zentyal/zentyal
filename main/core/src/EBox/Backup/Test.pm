@@ -440,7 +440,7 @@ sub backupWithChangesTest : Test(5)
     checkConfigCanary(AFTER_BACKUP_VALUE, 0);
 }
 
-sub restoreFailedTest #: Test(6)
+sub restoreFailedTest : Test(6)
 {
     my ($self) = @_;
 
@@ -476,15 +476,19 @@ sub restoreFailedTest #: Test(6)
 
     } qr /$forcedFailureMsg/, 'Checking wether restore failed as expected';
 
-    diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
-    checkConfigCanary(AFTER_BACKUP_VALUE);
+  SKIP: {
+        skip 'Revoking is not yet working with our mocks', 2;
 
-    my @modules = @{$global->modNames()};
+        diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
+        checkConfigCanary(AFTER_BACKUP_VALUE);
 
-    my @modulesNotChanged =  grep { (not $global->modIsChanged($_)) } @modules;
+        my @modules = @{$global->modNames()};
 
-    ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' .
-        ' some  modules not longer a changed state (this is a clue of revokation)' ;
+        my @modulesNotChanged =  grep { (not $global->modIsChanged($_)) } @modules;
+
+        ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' .
+            ' some  modules not longer a changed state (this is a clue of revokation)' ;
+    }
 }
 
 sub checkArchivePermissions : Test(3)
