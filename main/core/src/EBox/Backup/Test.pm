@@ -440,7 +440,7 @@ sub backupWithChangesTest : Test(5)
     checkConfigCanary(AFTER_BACKUP_VALUE, 0);
 }
 
-sub restoreFailedTest : Test(6)
+sub restoreFailedTest : Test(4)
 {
     my ($self) = @_;
 
