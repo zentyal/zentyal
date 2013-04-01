@@ -656,9 +656,13 @@ sub create
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(result => $result);
-            }
-        }
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on user LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $self->entryOpChangesInUpdate($entry),
+                   );
+            };
+    }
 
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 
