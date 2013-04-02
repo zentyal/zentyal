@@ -19,7 +19,9 @@ use warnings;
 use strict;
 
 use EBox::Global::TestStub;
-use Test::More qw(no_plan);
+use Test::Exception;
+use Test::More tests => 3;
+use POSIX;
 
 # use lib '../../..';
 
@@ -36,14 +38,14 @@ subtest 'security updates time' => sub {
 
     lives_ok {
         $rsMod->setSecurityUpdatesLastTime();
-    };
-    cmp_ok($rsMod->latestSecurityUpdates(), '==', time());
+    } 'Set default security updates last time';
+    cmp_ok($rsMod->latestSecurityUpdates(), 'eq', POSIX::strftime("%c", localtime()));
 
     my $when = time();
     lives_ok {
         $rsMod->setSecurityUpdatesLastTime($when);
-    };
-    cmp_ok($rsMod->latestSecurityUpdates(), '==', $when);
+    } 'Set custom security updates last time';
+    cmp_ok($rsMod->latestSecurityUpdates(), 'eq', POSIX::strftime("%c", localtime($when)));
 };
 
 1;
