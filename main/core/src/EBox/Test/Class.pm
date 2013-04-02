@@ -22,6 +22,8 @@ use warnings;
 package EBox::Test::Class;
 use base 'Test::Class';
 
+use lib '../..';
+
 use Test::More;
 use Test::Exception;
 
