@@ -2,10 +2,13 @@
 
 PERLLIBS="test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser"
 
+ADDITIONAL_ARGS=""
+
 while getopts ":vj" opt; do
     case $opt in
     v)
         VERBOSE="yes"
+        ADDITIONAL_ARGS="-v"
         ;;
     j)
         JUNIT="yes"
@@ -48,7 +51,7 @@ if [ "$JUNIT" == "yes" ]
 then
     PROVE="prove -j4 -r --timer --formatter=TAP::Formatter::JUnit $INCLUDES $@"
 else
-    PROVE="prove -v $INCLUDES -j4 -r $@"
+    PROVE="prove $ADDITIONAL_ARGS $INCLUDES -j4 -r $@"
 fi
 
 if [ "$VERBOSE" == "yes" ]
