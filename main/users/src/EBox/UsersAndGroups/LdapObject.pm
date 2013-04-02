@@ -29,6 +29,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
+use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
@@ -226,7 +227,6 @@ sub remove
     }
 }
 
-
 # Method: save
 #
 #   Store all pending lazy operations (if any)
@@ -237,14 +237,35 @@ sub remove
 sub save
 {
     my ($self) = @_;
+    my $entry= $self->_entry;
 
-    my $result = $self->_entry->update($self->_ldap->{ldap});
+    my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
             throw EBox::Exceptions::LDAP( message => __('There was an error updating LDAP:'),
-                                          result =>   $result);
+                                          result =>   $result,
+                                          opArgs   => $self->entryOpChangesInUpdate($entry),
+                                         );
         }
     }
+}
+
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
+sub entryOpChangesInUpdate
+{
+    my ($self, $entry) = @_;
+    local $Data::Dumper::Terse = 1;
+    my @changes = $entry->changes();
+    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
+    return $args;
 }
 
 # Method: dn
