@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Global::TestStub;
-
 use strict;
 use warnings;
+
+package EBox::Global::TestStub;
 
 use Test::MockObject;
 use File::Slurp;
@@ -70,6 +69,8 @@ sub fake
     EBox::Config::TestStub::fake(modules => 'core/schemas/', conf => $tmpConfDir);
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
     *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
+    # dont run scripts from zentyal directorueis
+    *EBox::GlobalImpl::_runExecFromDir = sub {};
 }
 
 # only for interface completion
