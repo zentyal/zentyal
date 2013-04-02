@@ -150,9 +150,11 @@ sub precondition
 #
 sub preconditionFailMsg
 {
+
     return __x('Traffic Shaping is applied when Zentyal is acting as '
-                   . 'a gateway. To achieve this, you need at least an internal '
-                   . 'and an external interface. Check your interface '
+                   . 'a gateway.'
+                   . q{ To achieve so, you'd need, at least, one internal and one external interface.}
+                   . ' Check your interface '
                    . 'configuration to match, at '
                    . '{openhref}Network->Interfaces{closehref}',
                openhref  => '<a href="/Network/Ifaces">',
