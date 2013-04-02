@@ -364,7 +364,7 @@ sub moveRowsTest #L: Test(8)
     $dataTable->clear();
 }
 
-sub removeAllTest : Test(3x)
+sub removeAllTest : Test(3)
 {
     my ($self)  = @_;
 
@@ -557,16 +557,17 @@ sub _checkSet
     my ($self, $dataTable, $id, $changeParams_r, $testName) = @_;
     my $notifyMethodName = 'updatedRowNotify';
     my %changeParams = %{ $changeParams_r };
+    $changeParams{id} = $id;
+    my $force = delete $changeParams{force};
 
     my $oldSize = $dataTable->size();
-    my $version = $dataTable->_storedVersion();
     lives_ok {
-        $dataTable->set ($id, %changeParams);
+        $dataTable->setRow($force, %changeParams);
     } $testName;
 
     my $row = $dataTable->row($id);
     while (my ($field, $value) = each %changeParams) {
-        ($field eq 'force') and
+        ($field eq 'id') and
             next;
 
         is $row->valueByName($field),
@@ -574,8 +575,6 @@ sub _checkSet
            "testing if $field has the updated value";
     }
 
-    is $dataTable->_storedVersion, ($version + 1),
-       'checking that stored version has been incremented';
     is $dataTable->size(), $oldSize,
        'checking that table size has not changed after the setRow';
 
@@ -585,11 +584,11 @@ sub _checkSet
 
 
 # XXX TODO add notification method parameters test
-sub setTest #: Test(10)
+sub setRowTest : Test(8)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
-    my @ids = map { $_->id() } @{ $dataTable->rows() };
+    my @ids =  @{ $dataTable->ids() };
     my $id = shift @ids;
 
     my $notifyMethodName = 'updatedRowNotify';
@@ -607,12 +606,12 @@ sub setTest #: Test(10)
             'Setting row',
     );
 
-    my $version = $dataTable->_storedVersion();
+
     lives_ok {
-        $dataTable->set ($id, %changeParams);
+        $changeParams{id} = $id;
+        $dataTable->setRow(0, %changeParams);
     } 'Setting row with the same values';
 
-    is $version, $dataTable->_storedVersion(), 'checking that stored table version has not changed';
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
 }
 
