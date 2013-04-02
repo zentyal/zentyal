@@ -1,0 +1,59 @@
+#!/bin/bash
+
+PERLLIBS="test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser"
+
+while getopts ":vj" opt; do
+    case $opt in
+    v)
+        VERBOSE="yes"
+        ;;
+    j)
+        JUNIT="yes"
+        shift $((OPTIND-1))
+        ;;
+    esac
+done
+
+MISSINGLIBS=""
+
+# TODO: Improve this
+for i in $PERLLIBS
+do
+    pkg="lib$i-perl"
+    if ! dpkg -s $pkg >/dev/null 2>&1
+    then
+        MISSINGLIBS="$MISSINGLIBS $pkg"
+    fi
+done
+
+if [ -n "$MISSINGLIBS" ]
+then
+    echo -e "The following packages are not installed:\n $MISSINGLIBS"
+    echo -e "Installing them..."
+    sudo apt-get install -y --no-install-recommends $MISSINGLIBS
+fi
+
+# FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package
+INCLUDES=$(find . -name src|grep -v captiveportal|sed 's/.\//-I /'|xargs)
+
+# Create the modules directory
+CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
+rm -f $CONF_DIR/*
+export ZENTYAL_MODULES_SCHEMAS
+
+test -d $CONF_DIR || mkdir $CONF_DIR
+find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
+
+if [ "$JUNIT" == "yes" ]
+then
+    PROVE="prove -j4 -r --timer --formatter=TAP::Formatter::JUnit $INCLUDES $@"
+else
+    PROVE="prove -v $INCLUDES -j4 -r $@"
+fi
+
+if [ "$VERBOSE" == "yes" ]
+then
+    $PROVE
+else
+    $PROVE 2>/dev/null
+fi
