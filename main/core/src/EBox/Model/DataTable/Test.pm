@@ -38,7 +38,7 @@ use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
-sub mockManager  #: Test(startup)
+sub mockManager  : Test(startup)
 {
     my ($self) = @_;
     EBox::Model::Manager::Fake->overrideOriginal();
@@ -364,7 +364,7 @@ sub moveRowsTest #L: Test(8)
     $dataTable->clear();
 }
 
-sub removeAllTest #: Test(8)
+sub removeAllTest : Test(3x)
 {
     my ($self)  = @_;
 
@@ -378,9 +378,14 @@ sub removeAllTest #: Test(8)
     lives_ok {
         $dataTable->removeAll();
     } 'call removeAll in a empty table';
+}
 
-    $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
-    my $rowId =  $dataTable->rows()->[0]->id();
+
+sub removeAllRowsWithAutomaticRemove #:Test(no_plan)
+{
+    my ($self) = @_;
+    my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
+    my $rowId =  $dataTable->ids()->[0];
     setRowIdInUse($rowId);
 
     throws_ok {
@@ -480,7 +485,7 @@ sub deviantSetTest #: Test(12)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
-    my @ids = map { $_->id() } @{ $dataTable->rows() };
+    my @ids = @{ $dataTable->ids() };
     my $id = shift @ids;
 
     my $notifyMethodName = 'updatedRowNotify';
@@ -616,9 +621,7 @@ sub setWithDataInUseTest #: Test(18)
     my ($self) = @_;
 
     my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
-    my @ids = map {
-        $_->id()
-    } @{ $dataTable->rows() };
+    my @ids = @{ $dataTable->ids() };
     my $id = shift @ids;
 
     my $notifyMethodName = 'updatedRowNotify';
@@ -747,11 +750,13 @@ sub optionsFromForeignModelTest #: Test(2)
     my $field = 'field1';
 
     my @expectedOptions =  map {
+        my $id = $_;
+        my $row = $dataTable->row($id);
         {
-            value => $_->id(),
-                  printableValue => $_->printableValueByName($field),
+            value => $id,
+            printableValue => $row->printableValueByName($field),
         }
-    } @{ $dataTable->rows() };
+    } @{ $dataTable->ids() };
 
     my $options=  $dataTable->optionsFromForeignModel($field);
 
