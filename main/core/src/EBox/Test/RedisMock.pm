@@ -15,7 +15,6 @@
 
 use warnings;
 use strict;
-no strict 'refs';
 
 package EBox::Test::RedisMock;
 
@@ -132,6 +131,10 @@ sub exec
     return 1;
 }
 
+sub commit
+{
+}
+
 sub discard
 {
     my ($self) = @_;
@@ -143,5 +146,7 @@ sub discard
     $self->{queue} = [];
     $self->{multi} = 0;
 }
+
+
 
 1;
