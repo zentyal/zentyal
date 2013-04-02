@@ -3044,7 +3044,7 @@ sub _multigwRoutes
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
-            EBox::error("Interface $iface used by gateway " .
+            EBox::warn("Interface $iface used by gateway " .
                             $router ->{name} . " has not address." .
                         " Not adding multi-gateway rules for this gateway.");
             next;
