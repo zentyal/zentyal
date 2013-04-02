@@ -1270,6 +1270,26 @@ sub confKey
     return undef;
 }
 
+# Method: setSecurityUpdatesLastTime
+#
+#      Set the security updates has been applied
+#
+# Parameters:
+#
+#      time - Int seconds since epoch
+#             *(Optional)* Default value: time()
+#
+sub setSecurityUpdatesLastTime
+{
+    my ($self, $time) = @_;
+
+    $time = time() unless (defined($time));
+
+    my $state = $self->get_state();
+    $state->{security_updates}->{last_update} = $time;
+    $self->set_state($state);
+}
+
 # Method: latestSecurityUpdates
 #
 #      Get the last time when the security updates were applied
@@ -1285,15 +1305,15 @@ sub latestSecurityUpdates
     my ($self) = @_;
 
     my $state = $self->get_state();
-    if (exists $state->{subscription}->{securityUpdates_last_update}) {
-        my $curr = $state->{subscription}->{securityUpdates_last_update};
+    if (exists $state->{security_updates}->{last_update}) {
+        my $curr = $state->{security_updates}->{last_update};
         return POSIX::strftime("%c", localtime($curr));
     } else {
         return 'unknown';
     }
 }
 
-# Method: latestSecurityUpdates
+# Method: latestRemoteConfBackup
 #
 #      Get the last time when a configuration backup (manual or
 #      automatic) has been done
