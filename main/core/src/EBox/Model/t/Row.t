@@ -18,7 +18,6 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More skip_all => 'FIXME';
 
 use EBox::Model::Row::Test;
 EBox::Model::Row::Test->runtests();

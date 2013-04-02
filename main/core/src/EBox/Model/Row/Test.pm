@@ -205,14 +205,14 @@ sub parentRowTest : Test(4)
     }
 }
 
-sub subModelTest #: Test(3)
+sub subModelTest : Test(3)
 {
     my ($self) = @_;
 
     my $row= $self->_newRow();
     $self->_populateRow($row);
 
-    my $confmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = $row->configModule();
     my $subModelObject = EBox::Model::DataTable->new(
         confmodule => $confmodule,
         directory   => 'Submodel',
@@ -229,7 +229,6 @@ sub subModelTest #: Test(3)
     );
     $hasManyObject->set_isa('EBox::Types::Abstract', 'EBox::Types::HasMany');
     $hasManyObject->set_always(foreignModelInstance => $subModelObject);
-
     $row->addElement($hasManyObject);
 
     dies_ok {
@@ -248,7 +247,7 @@ sub subModelTest #: Test(3)
     );
 }
 
-sub unionTest #: Test(6)
+sub unionTest : Test(6)
 {
     my ($self) = @_;
 
@@ -283,7 +282,8 @@ sub unionTest #: Test(6)
        'checking that union object exists using elementExists';
     ok $row->elementExists($selectedUnionSubtype),
        'checking that selected union-subtype object exists using elementExists';
-    ok ( not $row->elementExists($unselectedUnionSubtype) ,
+
+    ok ( (not $row->elementExists($unselectedUnionSubtype)) ,
        'checking that unselected union-subtype object does not exist for elementExists');
 
     is_deeply $row->elementByName($unionName), $unionObject,
@@ -404,6 +404,7 @@ sub _newRow
         domain      => 'domain',
     );
     my $mockDataTable = Test::MockObject::Extends->new($dataTable);
+    $mockDataTable->set_always('name' => 'mockedDataTable');
 
     $row->setModel($mockDataTable);
 
