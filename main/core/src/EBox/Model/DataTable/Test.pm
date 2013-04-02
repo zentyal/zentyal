@@ -24,9 +24,12 @@ use Test::More;;
 use Test::Exception;
 use Test::MockObject;
 use Test::MockObject::Extends;
+use Test::MockModule;
 use Test::File;
 use Perl6::Junction qw(any);
 use POSIX;
+
+use  EBox::Model::Manager::Fake;
 
 use EBox::Model::Row;
 use EBox::Model::DataTable;
@@ -34,6 +37,12 @@ use EBox::Model::Manager;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
+
+sub mockManager  #: Test(startup)
+{
+    my ($self) = @_;
+    EBox::Model::Manager::Fake->overrideOriginal();
+}
 
 sub setModules : Test(setup)
 {
@@ -44,6 +53,7 @@ sub clearGConf : Test(teardown)
 {
     EBox::TestStubs::setConfig();
 }
+
 
 sub deviantTableTest : Test(5)
 {
@@ -102,9 +112,9 @@ sub deviantTableTest : Test(5)
 
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
-        my $dataTable = $self->_newDataTable($table);
 
         dies_ok {
+            my $dataTable = $self->_newDataTable($table);
             $dataTable->table();
         } "expecting error with deviant table case: $caseName";
     }
@@ -303,7 +313,7 @@ sub addTest  : Test(25)
 # XXX TODO:
 # deviant test up and down in no-prderer table
 # straight test of moving up and down
-sub moveRowsTest #: Test(8)
+sub moveRowsTest #L: Test(8)
 {
     my ($self) = @_;
 
@@ -314,8 +324,8 @@ sub moveRowsTest #: Test(8)
     $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
 
     my @tableRows = (
-            [ uniqueField => 'a', regularField => 'regular' ],
-            [ uniqueField => 'b', regularField => 'regular', ],
+            [ uniqueField => 'wasFirstAtTheBegin', regularField => 'regular' ],
+            [ uniqueField => 'wasSecondAtTheBegin', regularField => 'regular', ],
             );
     foreach (@tableRows) {
         $dataTable->add(@{$_});
@@ -393,24 +403,19 @@ sub removeAllTest #: Test(8)
 }
 
 
-sub removeRowTest #: Test(13)
+sub removeRowTest : Test(5)
 {
     my ($self) = @_;
 
-    my $dataTable;
-    my $id;
-
     my $notifyMethodName = 'deletedRowNotify';
 
-    $dataTable = $self->_newPopulatedDataTable();
+    my $dataTable = $self->_newPopulatedDataTable();
 
     $dataTable->can($notifyMethodName) or
         die "bad notify method name $notifyMethodName";
     $dataTable->set_true($notifyMethodName);
 
-    my @ids = map {
-        $_->id()
-    } @{ $dataTable->rows() };
+    my @ids = @{ $dataTable->ids() };
 
     dies_ok {
         $dataTable->removeRow('inexistent');
@@ -418,7 +423,7 @@ sub removeRowTest #: Test(13)
 
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on error notify method was not called');
 
-    $id = shift @ids;
+    my $id = shift @ids;
     lives_ok {
         $dataTable->removeRow($id);
     } 'removing row';
@@ -426,18 +431,25 @@ sub removeRowTest #: Test(13)
        'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
+}
 
+
+sub removeRowWithAutomaticRemoveTest #: Test(8)
+{
+    my ($self) = @_;
     # tests with automatic remove
-
-    $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
+    my $notifyMethodName = 'deletedRowNotify';
+    my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
     $dataTable->set_true($notifyMethodName);
 
-    @ids = map {
-        $_->id()
-    } @{ $dataTable->rows() };
-    $id = shift @ids;
+    my @ids =  @{ $dataTable->ids() };
+    my $id = shift @ids;
 
-    setRowIdInUse($id);
+    EBox::Model::Manager::Fake::setModelsUsingId(
+        $dataTable->contextName() => {
+              $id => ['fakeTableUsingId']
+           }
+       );
 
     throws_ok {
         $dataTable->removeRow($id, 0)
@@ -453,12 +465,12 @@ sub removeRowTest #: Test(13)
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 
-    $id = shift @ids;
+    my $unusedId = shift @ids;
     lives_ok {
-        $dataTable->removeRow($id, 0)
+        $dataTable->removeRow($unusedId, 0)
     } 'removeRow with force in a unused row within a automaticRemove table works';
 
-    is $dataTable->row($id), undef, 'checking that row is not longer in the table';
+    is $dataTable->row($unusedId), undef, 'checking that row is not longer in the table';
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 }
@@ -898,7 +910,7 @@ sub _newDataTable
     my $confmodule = EBox::Global->modInstance('fakeModule');
 
     my $dataTableDir = '/conf/fakeModule/DataTable';
-    # remove old data from prvious modules
+    # remove old data from previous runs
     $confmodule->delete_dir($dataTableDir);
 
     my $dataTableBase = EBox::Model::DataTable->new(
@@ -909,6 +921,8 @@ sub _newDataTable
 
     my $dataTable = Test::MockObject::Extends->new($dataTableBase);
     $dataTable->set_always('_table' => $table);
+
+    $dataTable->removeAll(); # to clean remains of faked config # XXX
 
     return $dataTable;
 }
@@ -922,13 +936,13 @@ sub _newPopulatedDataTable
     my $dataTable = $self->_newDataTable($tableDescription);
 
     my @values = (
-            [ uniqueField => 'a', regularField => 'regular' ],
+            [ uniqueField => 'populatedRow1', regularField => 'regular' ],
             [
-                uniqueField => 'b', regularField => 'regular',
+                uniqueField => 'populatedRow2', regularField => 'regular',
                 defaultField => 'noDefaultText'
             ],
             [
-                uniqueField => 'c', regularField => 'regular',
+                uniqueField => 'populatedRow3', regularField => 'regular',
                 optionalField => 'noDefaultText'
             ],
     );
@@ -949,13 +963,13 @@ sub _newPopulatedDataTableWithAutomaticRemove
     my $dataTable = $self->_newDataTable($tableDescription);
 
     my @values = (
-            [ uniqueField => 'a', regularField => 'regular' ],
+            [ uniqueField => 'populatedRow1', regularField => 'regular' ],
             [
-                uniqueField => 'b', regularField => 'regular',
+                uniqueField => 'populatedRow2', regularField => 'regular',
                 defaultField => 'noDefaultText'
             ],
             [
-                uniqueField => 'c', regularField => 'regular',
+                uniqueField => 'populatedRow3', regularField => 'regular',
                 optionalField => 'noDefaultText'
             ],
     );
