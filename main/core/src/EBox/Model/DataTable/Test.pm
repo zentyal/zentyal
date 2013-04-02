@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Model::DataTable::Test;
-
-use lib '../../..';
-use base 'EBox::Test::Class';
-
 use strict;
 use warnings;
+
+use lib '../../..';
+
+package EBox::Model::DataTable::Test;
+use base 'EBox::Test::Class';
 
 use Test::More;;
 use Test::Exception;
@@ -28,8 +27,6 @@ use Test::MockObject::Extends;
 use Test::File;
 use Perl6::Junction qw(any);
 use POSIX;
-
-use EBox::Types::Abstract;
 
 use EBox::Model::Row;
 use EBox::Model::DataTable;
@@ -48,7 +45,7 @@ sub clearGConf : Test(teardown)
     EBox::TestStubs::setConfig();
 }
 
-sub deviantTableTest : Test(6)
+sub deviantTableTest : Test(5)
 {
     my ($self) = @_;
 
@@ -113,7 +110,7 @@ sub deviantTableTest : Test(6)
     }
 }
 
-sub tableTest : Test(6)
+sub tableTest  : Test(6)
 {
     my ($self) = @_;
 
@@ -171,7 +168,7 @@ sub tableTest : Test(6)
     }
 }
 
-sub contextNameTest : Test(1)
+sub contextNameTest  : Test(1)
 {
     my ($self) = @_;
     my $dataTable = $self->_newDataTable();
@@ -180,7 +177,7 @@ sub contextNameTest : Test(1)
     is $dataTable->contextName, $expectedContenxtName, 'checking contextName';
 }
 
-sub deviantAddTest : Test(4)
+sub deviantAddTest : Test(5)
 {
     my ($self) = @_;
 
@@ -189,29 +186,31 @@ sub deviantAddTest : Test(4)
     my $dataTable = $self->_newDataTable($tableDescription);
 
     # add one row
-    $dataTable->add(uniqueField => 'a', regularField => 'regular');
+    lives_ok {
+        $dataTable->addRow(uniqueField => 'valueForUnique', regularField => 'regular');
+    } 'Adding first row';
 
     my %invalidAdds = (
             'unique field repeated' => [
-                uniqueField => 'a',
+                uniqueField => 'valueForUnique',
                 regularField =>'adaads',
             ],
             'missing required field' => [
-                uniqueField => 'c',
+                uniqueField => 'anotherValueForUnique',
             ],
     );
 
     my $dataTableSize = $dataTable->size();
     while (my ($testName, $addParams_r) = each %invalidAdds) {
         dies_ok {
-            $dataTable->add(@{ $addParams_r });
+            $dataTable->addRow(@{ $addParams_r });
         } "expecting error with incorrect row addition: $testName";
 
         is $dataTable->size(), $dataTableSize, 'checking wether no new rows were added using size method';
     }
 }
 
-sub addTest : Test(25)
+sub addTest  : Test(25)
 {
     my ($self) = @_;
     my $tableDescription = _tableDescription4fields();
@@ -304,7 +303,7 @@ sub addTest : Test(25)
 # XXX TODO:
 # deviant test up and down in no-prderer table
 # straight test of moving up and down
-sub moveRowsTest : Test(8)
+sub moveRowsTest #: Test(8)
 {
     my ($self) = @_;
 
@@ -355,7 +354,7 @@ sub moveRowsTest : Test(8)
     $dataTable->clear();
 }
 
-sub removeAllTest : Test(8)
+sub removeAllTest #: Test(8)
 {
     my ($self)  = @_;
 
@@ -394,7 +393,7 @@ sub removeAllTest : Test(8)
 }
 
 
-sub removeRowTest : Test(13)
+sub removeRowTest #: Test(13)
 {
     my ($self) = @_;
 
@@ -465,7 +464,7 @@ sub removeRowTest : Test(13)
 }
 
 
-sub deviantSetTest : Test(12)
+sub deviantSetTest #: Test(12)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
@@ -569,7 +568,7 @@ sub _checkSet
 
 
 # XXX TODO add notification method parameters test
-sub setTest : Test(10)
+sub setTest #: Test(10)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTable();
@@ -600,7 +599,7 @@ sub setTest : Test(10)
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
 }
 
-sub setWithDataInUseTest : Test(18)
+sub setWithDataInUseTest #: Test(18)
 {
     my ($self) = @_;
 
@@ -702,7 +701,7 @@ sub _checkRow
     is_deeply \%valueHash, \%expectedFields, $testName ;
 }
 
-sub optionsFromForeignModelTest : Test(2)
+sub optionsFromForeignModelTest #: Test(2)
 {
     my ($self) = @_;
     my $tableDescription = {
@@ -749,7 +748,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(6)
+sub findTest #: Test(6)
 {
     my ($self) = @_;
 
@@ -786,7 +785,7 @@ sub findTest : Test(6)
        'checking return value of findValue method';
 }
 
-sub filterTest : Test(5)
+sub filterTest #: Test(5)
 {
     my ($self) = @_;
 
@@ -815,7 +814,7 @@ sub filterTest : Test(5)
     }
 }
 
-sub pageTest : Test(38)
+sub pageTest #: Test(38)
 {
     my ($self) = @_;
 
