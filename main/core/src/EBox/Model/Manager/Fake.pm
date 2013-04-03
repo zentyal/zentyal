@@ -30,6 +30,7 @@ sub overrideOriginal
     $mockedModule->mock(instance => \&instance,
                         warnIfIdIsUsed => \&warnIfIdIsUsed,
                         removeRowsUsingId => \&removeRowsUsingId,
+                        warnOnChangeOnId => \&warnOnChangeOnId,
                        );
 }
 
@@ -77,6 +78,13 @@ sub warnIfIdIsUsed
                 ('The data you are removing is being used by
                     the following sections:') . "@tablesUsing");
     }
+}
+
+sub warnOnChangeOnId
+{
+    my ($self, $contextName, $id, $changedElements, $oldRow) = @_;
+    # we will not test the data table callback for now
+    return $self->warnIfIdIsUsed($contextName, $id);
 }
 
 sub removeRowsUsingId
