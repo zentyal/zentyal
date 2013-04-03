@@ -71,6 +71,12 @@ sub _populateArchitectures
     return sub {$self->parentModule()->architectureTypes()};
 }
 
+sub _hideArchitectureSelector
+{
+    my ($self) = @_;
+    return $self->parentModule()->usingVBox();
+}
+
 # Method: _table
 #
 # Overrides:
@@ -97,6 +103,7 @@ sub _table
                                fieldName     => 'arch',
                                printableName => __('Architecture'),
                                populate      => $self->_populateArchitectures,
+                               hidden        => $self->_hideArchitectureSelector,
                                editable      => 1,
                               ),
        new EBox::Types::Int(
