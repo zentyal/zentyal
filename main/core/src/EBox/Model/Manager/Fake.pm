@@ -27,7 +27,10 @@ my $mockedModule;
 sub overrideOriginal
 {
     $mockedModule = new Test::MockModule('EBox::Model::Manager');
-    $mockedModule->mock(instance => \&instance);
+    $mockedModule->mock(instance => \&instance,
+                        warnIfIdIsUsed => \&warnIfIdIsUsed,
+                        removeRowsUsingId => \&removeRowsUsingId,
+                       );
 }
 
 sub restoreOriginal
@@ -62,16 +65,27 @@ sub warnIfIdIsUsed
     my ($self, $modelName, $id) = @_;
 
     my @tablesUsing;
-    if (exists $modelsUsingId{$modelName}->{$id}) {
-        @tablesUsing = @{ $modelsUsingId{$modelName->{$id}} };
+    if ((exists $modelsUsingId{$modelName}) and $modelsUsingId{$modelName}) {
+        my $idsByModelName =  $modelsUsingId{$modelName};
+        if ((exists $idsByModelName->{$id}) and  $idsByModelName->{$id}) {
+            @tablesUsing = @{ $idsByModelName->{$id}};
+        }
     }
 
     if (@tablesUsing) {
         throw EBox::Exceptions::DataInUse(
-                __('The data you are removing is being used by
+                ('The data you are removing is being used by
                     the following sections:') . "@tablesUsing");
     }
 }
+
+sub removeRowsUsingId
+{
+    my ($self, $contextName, $id) = @_;
+    # do nothing
+}
+
+
 
 
 1;
