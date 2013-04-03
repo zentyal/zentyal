@@ -55,7 +55,6 @@ then
 else
     MODULES=$@
 fi
-echo $MODULES
 
 if [ "$JUNIT" == "yes" ]
 then
