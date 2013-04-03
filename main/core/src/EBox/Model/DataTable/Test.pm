@@ -220,7 +220,7 @@ sub deviantAddTest : Test(5)
     }
 }
 
-sub addTest  : Test(25)
+sub addRowTest  : Test(25)
 {
     my ($self) = @_;
     my $tableDescription = _tableDescription4fields();
@@ -313,7 +313,7 @@ sub addTest  : Test(25)
 # XXX TODO:
 # deviant test up and down in no-prderer table
 # straight test of moving up and down
-sub moveRowsTest #L: Test(8)
+sub moveRowsTest : Test(8)
 {
     my ($self) = @_;
 
@@ -381,7 +381,7 @@ sub removeAllTest : Test(3)
 }
 
 
-sub removeAllRowsWithAutomaticRemove #:Test(no_plan)
+sub removeAllRowsWithAutomaticRemove #: Test(no_plan)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
@@ -439,11 +439,12 @@ sub removeRowTest : Test(5)
 }
 
 
-sub removeRowWithAutomaticRemoveTest #: Test(8)
+sub removeRowWithAutomaticRemoveTest : Test(8)
 {
     my ($self) = @_;
     # tests with automatic remove
     my $notifyMethodName = 'deletedRowNotify';
+
     my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
     $dataTable->set_true($notifyMethodName);
 
@@ -461,6 +462,8 @@ sub removeRowWithAutomaticRemoveTest #: Test(8)
     } 'EBox::Exceptions::DataInUse',
               'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on DataInUse excpeion notify method was not called');
+
+
 
     lives_ok {
         $dataTable->removeRow($id, 1)
@@ -837,7 +840,7 @@ sub _newDataTable
     my $dataTable = Test::MockObject::Extends->new($dataTableBase);
     $dataTable->set_always('_table' => $table);
 
-    $dataTable->removeAll(); # to clean remains of faked config # XXX
+    $dataTable->removeAll(); # to clean remains of faked config
 
     return $dataTable;
 }
@@ -849,22 +852,8 @@ sub _newPopulatedDataTable
     my $tableDescription = _tableDescription4fields();
 
     my $dataTable = $self->_newDataTable($tableDescription);
+    $self->_populateDataTable($dataTable);
 
-    my @values = (
-            [ uniqueField => 'populatedRow1', regularField => 'regular' ],
-            [
-                uniqueField => 'populatedRow2', regularField => 'regular',
-                defaultField => 'noDefaultText'
-            ],
-            [
-                uniqueField => 'populatedRow3', regularField => 'regular',
-                optionalField => 'noDefaultText'
-            ],
-    );
-
-    foreach (@values) {
-        $dataTable->add( @{ $_  } );
-    }
 
     return $dataTable;
 }
@@ -874,9 +863,16 @@ sub _newPopulatedDataTableWithAutomaticRemove
     my ($self) = @_;
 
     my $tableDescription = _tableDescription4fields();
-    $tableDescription->{automaticRemove} = 1;
+   $tableDescription->{automaticRemove} = 1;
     my $dataTable = $self->_newDataTable($tableDescription);
+    $self->_populateDataTable($dataTable);
 
+    return $dataTable;
+}
+
+sub _populateDataTable
+{
+    my ($self, $dataTable) = @_;
     my @values = (
             [ uniqueField => 'populatedRow1', regularField => 'regular' ],
             [
@@ -890,10 +886,8 @@ sub _newPopulatedDataTableWithAutomaticRemove
     );
 
     foreach (@values) {
-        $dataTable->add(@{ $_ } );
+        $dataTable->addRow( @{ $_  } );
     }
-
-    return $dataTable;
 }
 
 sub _tableDescription4fields
