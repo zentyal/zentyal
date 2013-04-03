@@ -381,12 +381,17 @@ sub removeAllTest : Test(3)
 }
 
 
-sub removeAllRowsWithAutomaticRemove #: Test(no_plan)
+sub removeAllRowsWithAutomaticRemove : Test(5)
 {
     my ($self) = @_;
     my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
     my $rowId =  $dataTable->ids()->[0];
-    setRowIdInUse($rowId);
+
+    EBox::Model::Manager::Fake::setModelsUsingId(
+        $dataTable->contextName() => {
+              $rowId => ['fakeTableUsingId']
+           }
+       );
 
     throws_ok {
         $dataTable->removeAll(0)
@@ -398,7 +403,7 @@ sub removeAllRowsWithAutomaticRemove #: Test(no_plan)
     is $dataTable->size, 0, 'checking that after removing all rowswith force=1  the table is empty';
 
     # automatic remove with no row used case
-    setRowIdInUse(undef);
+    EBox::Model::Manager::Fake::setModelsUsingId();
     $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
 
     lives_ok {
@@ -622,7 +627,7 @@ sub setRowTest : Test(8)
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
 }
 
-sub setWithDataInUseTest #: Test(18)
+sub setWithDataInUseTest : Test(15)
 {
     my ($self) = @_;
 
@@ -633,7 +638,11 @@ sub setWithDataInUseTest #: Test(18)
     my $notifyMethodName = 'updatedRowNotify';
     $dataTable->set_true($notifyMethodName);
 
-    setRowIdInUse($id);
+    EBox::Model::Manager::Fake::setModelsUsingId(
+        $dataTable->contextName() => {
+              $id => ['fakeTableUsingId']
+           }
+       );
 
     my %changeParams = (
             regularField => 'distinctData',
@@ -645,7 +654,7 @@ sub setWithDataInUseTest #: Test(18)
             $dataTable,
             $id,
             \%changeParams,
-            'Checking that setting a row with data on use raises error'
+            'Checking that try to set a row with data on use raises error'
     );
 
     $changeParams{force} = 1;
@@ -657,7 +666,7 @@ sub setWithDataInUseTest #: Test(18)
     );
 
     delete $changeParams{force};
-    setRowIdInUse(undef);
+    EBox::Model::Manager::Fake::setModelsUsingId();
     $changeParams{defaultField} = 'anotherValue';
     $self->_checkSetRow (
             $dataTable,
