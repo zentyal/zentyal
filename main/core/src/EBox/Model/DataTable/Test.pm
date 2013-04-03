@@ -768,14 +768,14 @@ sub optionsFromForeignModelTest #: Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest #: Test(6)
+sub findTest : Test(6)
 {
     my ($self) = @_;
 
     my $dataTable = $self->_newPopulatedDataTable();
 
     my $fieldName = 'uniqueField';
-    my $fieldValue = 'b';
+    my $fieldValue = 'populatedRow2';
 
     my $row;
 
