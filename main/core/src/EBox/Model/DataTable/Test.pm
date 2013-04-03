@@ -719,7 +719,7 @@ sub _checkRow
     is_deeply \%valueHash, \%expectedFields, $testName ;
 }
 
-sub optionsFromForeignModelTest #: Test(2)
+sub optionsFromForeignModelTest : Test(2)
 {
     my ($self) = @_;
     my $tableDescription = {
