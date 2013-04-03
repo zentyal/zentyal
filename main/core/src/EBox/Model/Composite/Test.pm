@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Model::Composite::Test;
-
-use lib '../../..';
-use base 'EBox::Test::Class';
-
 use strict;
 use warnings;
+
+use lib '../../..';
+
+package EBox::Model::Composite::Test;
+use base 'EBox::Test::Class';
 
 use Test::More;
 use Test::Exception;
@@ -58,11 +57,9 @@ sub deviantDescriptionTest : Test(2)
     );
 
     while (my ($testName, $description) = each %cases) {
-        TestComposite->setNextDescription($description);
         my $composite;
-
         dies_ok {
-            $composite = new TestComposite();
+            $composite = new TestComposite(description => $description);
         } $testName
     }
 }
@@ -79,11 +76,9 @@ sub descriptionTest : Test(2)
     );
 
     while (my ($testName, $description) = each %cases) {
-        TestComposite->setNextDescription($description);
         my $composite;
-
         lives_ok {
-            $composite = new TestComposite();
+            $composite = new TestComposite(description => $description);
         } $testName;
     }
 }
@@ -92,23 +87,19 @@ sub componentsTest : Test(17)
 {
     my ($self) = @_;
 
-    TestComposite->setStandardDescriptionWithComponents();
+    my @origComponents = @{ $self->_standardComponents };
+    my $description = {  name => 'compositeForComponentTests' };
+    my $composite = new TestComposite(description => $description, components => \@origComponents);
 
-    my $composite = new TestComposite();
     my @components;
     lives_ok {
         @components = @{ $composite->components() };
     } 'Checking components method call';
 
-    is (@components, 4, 'checking number of components');
-
-    foreach my $comp (@components) {
-        isa_ok $comp, 'EBox::Model::Component',
-               'Checking class of value form the list returned in components()';
-    }
+    is_deeply (\@components, \@origComponents, 'checking  components');
 
     # check componentByName
-    # @componentByName from setStandardDescriptionWithComponents
+    # @componentByName from _standardComponest
     my @componentNames = qw(model1 model2 composite1 composite2);
     foreach my $name (@componentNames) {
         my $component = $composite->componentByName($name);
@@ -125,16 +116,7 @@ sub componentsTest : Test(17)
     is $composite->componentByName('sdfd'), undef,
        'checking that componentByName for inexistent component returns undef';
 
-    my $composite1 = $composite->componentByName('composite1');
-    my $nestedComponentName = 'nested1';
-    $self->_setMockModel($nestedComponentName);
-
-    my $modelManager =  EBox::Model::Manager->instance();
-    my $nestedModel = $modelManager->model($nestedComponentName);
-    $composite1->addComponent($nestedModel);
-    defined($composite1->componentByName($nestedComponentName)) or
-        die 'addComponent error';
-
+    my $nestedComponentName = 'nestedModel1';
     is $composite->componentByName($nestedComponentName), undef,
        'checking that componentByName without recursive cannot get a nested component';
 
@@ -143,7 +125,7 @@ sub componentsTest : Test(17)
        'checking name of nested model fetched with componentByName with resursive option';
 }
 
-sub setDirectoryTest : Test(10)
+sub setDirectoryTest #: Test(10)
 {
     my ($self) = @_;
 
@@ -186,7 +168,7 @@ sub setDirectoryTest : Test(10)
     }
 }
 
-sub parentTest : Test(13)
+sub parentTest #: Test(13)
 {
     my ($self) = @_;
 
@@ -279,48 +261,69 @@ sub _mockModel
     $model->mock('parentComposite' => \&EBox::Model::Component::parentComposite);
 }
 
+sub _mockModel
+{
+    my ($self, $name) = @_;
+
+    my $model = Test::MockObject::Extends->new('EBox::Model::DataTable');
+    $model->set_always('name' => $name);
+
+    $model->mock(
+        'setDirectory' => sub {
+            my ($self, $dir) = @_;
+            $dir or
+            die 'no dir';
+
+            $self->{confdir} = $dir;
+        }
+    );
+    $model->mock(
+        'directory' => sub {
+            my ($self) = @_;
+            return $self->{confdir};
+        }
+    );
+
+}
+
+sub _standardComponents
+{
+    my ($self) = @_;
+    my @components;
+    push @components, $self->_mockModel('model1');
+    push @components, $self->_mockModel('model2');
+    push @components, new TestComposite(
+                        description => { name => 'composite1'},
+                        components => [ $self->_mockModel('nestedModel1') ],
+                      );
+    push @components, new TestComposite(
+                        description => { name => 'composite2'}
+                      );
+
+    return \@components;
+}
 
 
 package TestComposite;
 use base 'EBox::Model::Composite';
 
-my $nextDescription;
+
+sub new
+{
+    my ($class, %params) = @_;
+    if (exists $params{description}) {
+        my $description = delete $params{description};
+        $params{__description} = $description;
+    }
+    my $self = $class->SUPER::new(%params);
+    bless ($self, $class);
+    return $self;
+}
 
 sub _description
 {
-    return $nextDescription;
-}
-
-sub setNextDescription
-{
-    my ($class, $desc) = @_;
-    $nextDescription = $desc;
-}
-
-sub setStandardDescription
-{
-    my ($class) = @_;
-
-    my $desc = {
-        name => 'ctest',
-        printableName => 'ctest',
-        components => [],
-    };
-
-    $class->setNextDescription($desc);
-}
-
-sub setStandardDescriptionWithComponents
-{
-    my ($class) = @_;
-
-    my $desc = {
-        name => 'ctest',
-        printableName => 'ctest',
-        components => [qw(model1 model2 composite1 composite2)],
-    };
-
-    $class->setNextDescription($desc);
+    my ($self) = @_;
+    return $self->{__description};
 }
 
 1;
