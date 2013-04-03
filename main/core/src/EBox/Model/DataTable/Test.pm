@@ -805,35 +805,6 @@ sub findTest : Test(6)
        'checking return value of findValue method';
 }
 
-sub filterTest #: Test(5)
-{
-    my ($self) = @_;
-
-    my $dataTable = $self->_newPopulatedDataTable();
-    $dataTable->add(
-            'uniqueField' => 'x',
-            'regularField' => 'onceRepeated twiceRepeated',
-    );
-    $dataTable->add(
-            'uniqueField' => 'z',
-            'regularField' => 'twiceRepeated',
-    );
-
-    my %filterAndRowsExpected = (
-            'twiceRepeated' => 2,
-            'onceRepeated' => 1,
-            'twiceRepeated onceRepeated' => 1,
-            'onceRepeated zeroRepeated' => 0,
-            'zeroRepeated' => 0,
-    );
-
-    while (my ($filter, $rowsExpected) = each %filterAndRowsExpected) {
-        $dataTable->setFilter($filter);
-        my $nRows = scalar @{ $dataTable->rows($filter) };
-        is $nRows, $rowsExpected, "Checking number of rows returned with filter: $filter";
-    }
-}
-
 sub pageTest #: Test(38)
 {
     my ($self) = @_;
