@@ -33,6 +33,7 @@ use EBox::Config::TestStub;
 use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
+use EBox::Test::RedisMock;
 
 our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -227,9 +228,11 @@ sub fakeModule
     # add default methods if not supplied by the user
     if (not $subs{_create}) {
         $subs{_create} =  sub {
-            my $self = EBox::Module::Config->_create(name => $modName);
-
+            my $self = EBox::Module::Config->_create(name => $modName,
+                                                     redis => EBox::Test::RedisMock->new());
             bless $self, $modPackage;
+
+
             $self = $initializerSub->($self);
             return $self;
         }
@@ -318,5 +321,6 @@ sub setFakeRoutes
     my $params_r = { @_ };
     EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
+
 
 1;
