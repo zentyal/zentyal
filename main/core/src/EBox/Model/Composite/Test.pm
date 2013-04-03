@@ -87,7 +87,7 @@ sub componentsTest : Test(17)
 {
     my ($self) = @_;
 
-    my @origComponents = @{ $self->_standardComponents };
+    my @origComponents = @{ $self->_defaultComponents };
     my $description = {  name => 'compositeForComponentTests' };
     my $composite = new TestComposite(description => $description, components => \@origComponents);
 
@@ -125,32 +125,36 @@ sub componentsTest : Test(17)
        'checking name of nested model fetched with componentByName with resursive option';
 }
 
-sub setDirectoryTest #: Test(10)
+sub setDirectoryTest : Test(10)
 {
     my ($self) = @_;
 
-    TestComposite->setStandardDescription();
-
-    my $composite = new TestComposite();
-    is '', $composite->directory(),
+    my $emptyComposite = new TestComposite(
+                                       description => {name => 'emptyCompositeForSetDirectoryTest'},
+                                       components => [],
+                                      );
+    is undef, $emptyComposite->directory(),
        'checking that default directory is root (empty string))';
 
     my $directory = '/ea/oe';
 
     lives_ok {
-        $composite->setDirectory($directory);
+        $emptyComposite->setDirectory($directory);
     } 'setDirectory in a composite with No components';
 
-    is $composite->directory(), $directory,
+    is $emptyComposite->directory(), $directory,
        'checking directory';
 
     dies_ok {
-        $composite->setDirectory(undef);
+        $emptyComposite->setDirectory(undef);
     } 'setDirectory to undef fails';
 
-    TestComposite->setStandardDescriptionWithComponents();
+    $directory = '/dir1/dir2';
+    my $composite = new TestComposite(
+                       description => {name => 'compositeForSetDirectoryTest'},
+                       components => $self->_defaultComponents(),
+                      );
 
-    $composite = new TestComposite();
     lives_ok {
         $composite->setDirectory($directory);
     } 'setDirectory for a composite with components';
@@ -164,7 +168,7 @@ sub setDirectoryTest #: Test(10)
         }
 
         is $component->directory(), $compDir,
-           'checking that directory was changed in subcompoents too';
+           'checking that directory was changed in subcomponents too';
     }
 }
 
@@ -174,8 +178,6 @@ sub parentTest #: Test(13)
 
     my $compDirectory = 'GlobalGroupPolicy/keys/glob9253/filterPolicy';
     my $parentRowId = 'glob9253';
-
-    TestComposite->setStandardDescriptionWithComponents();
 
     my $parent = Test::MockObject->new();
     $parent->set_isa('EBox::Model::DataTable');
@@ -194,7 +196,10 @@ sub parentTest #: Test(13)
         }
     );
 
-    my $composite = new TestComposite();
+    my $composite = new TestComposite(
+                                        name => 'compositeForParentTest',
+                                        components => $self->_defaultComponents(),
+                                       );
     $composite->setDirectory($compDirectory);
 
     is $composite->parent(), undef,
@@ -235,58 +240,12 @@ sub _mockModel
 {
     my ($self, $name) = @_;
 
-    my $model = Test::MockObject->new();
-    $model->set_always('name' => $name);
-    $model->set_isa('EBox::Model::DataTable');
-
-    $model->mock(
-        'setDirectory' => sub {
-            my ($self, $dir) = @_;
-            $dir or
-            die 'no dir';
-
-            $self->{confdir} = $dir;
-        }
-    );
-    $model->mock(
-        'directory' => sub {
-            my ($self) = @_;
-            return $self->{confdir};
-        }
-    );
-    $model->mock('setParent' => \&EBox::Model::Component::setParent);
-    $model->mock('parent' => \&EBox::Model::Component::parent);
-    $model->mock('parentRow' => \&EBox::Model::DataTable::parentRow);
-    $model->mock('setParentComposite' => \&EBox::Model::Component::setParentComposite);
-    $model->mock('parentComposite' => \&EBox::Model::Component::parentComposite);
-}
-
-sub _mockModel
-{
-    my ($self, $name) = @_;
-
     my $model = Test::MockObject::Extends->new('EBox::Model::DataTable');
     $model->set_always('name' => $name);
-
-    $model->mock(
-        'setDirectory' => sub {
-            my ($self, $dir) = @_;
-            $dir or
-            die 'no dir';
-
-            $self->{confdir} = $dir;
-        }
-    );
-    $model->mock(
-        'directory' => sub {
-            my ($self) = @_;
-            return $self->{confdir};
-        }
-    );
-
+    return $model;
 }
 
-sub _standardComponents
+sub _defaultComponents
 {
     my ($self) = @_;
     my @components;
@@ -297,7 +256,8 @@ sub _standardComponents
                         components => [ $self->_mockModel('nestedModel1') ],
                       );
     push @components, new TestComposite(
-                        description => { name => 'composite2'}
+                        description => { name => 'composite2'},
+                        components => [],
                       );
 
     return \@components;
