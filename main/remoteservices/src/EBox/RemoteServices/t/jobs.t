@@ -18,6 +18,8 @@
 use warnings;
 use strict;
 
+use Test::More skip_all => 'FIXME';
+
 use EBox;
 use Test::More tests => 4;
 use Test::Exception;
