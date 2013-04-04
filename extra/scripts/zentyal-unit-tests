@@ -47,11 +47,13 @@ export ZENTYAL_MODULES_SCHEMAS
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
 
+COMMON_ARGS="-j4 -r --timer"
+
 if [ "$JUNIT" == "yes" ]
 then
-    PROVE="prove -j4 -r --timer --formatter=TAP::Formatter::JUnit $INCLUDES $@"
+    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $@"
 else
-    PROVE="prove $ADDITIONAL_ARGS $INCLUDES -j4 -r $@"
+    PROVE="prove $ADDITIONAL_ARGS $INCLUDES $COMMON_ARGS $@"
 fi
 
 if [ "$VERBOSE" == "yes" ]
