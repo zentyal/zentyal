@@ -1,4 +1,5 @@
 HEAD
+	+ Override _validateReferer method in Desktop services CGI
 	+ Remove unused method EBox::Auth::alreadyLogged()
 	+ Apache::setRestrictedResource updates properly if already exists
 	+ Global and Module::Config allow to set redis instance to ease testing
