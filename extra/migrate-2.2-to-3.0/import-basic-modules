@@ -43,6 +43,11 @@ use EBox::Backup;
 #     imported  bwcause this is a invalid address
 #
 # 6 - invalid netwoek proxy configuration will not be imported
+#
+# 7- CA module should be imported manually or openvpn importation will fail in
+#    settign server options
+#
+# 8 - openvpn clients are not imported
 
 # TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
