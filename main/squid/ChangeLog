@@ -1,5 +1,5 @@
 HEAD
-	+ Authenticate against external AD
+	+ Authenticate against external AD for Enterprise editions
 3.0.6
 	+ Avoid to request authorization again when 'deny unknown domain'
 	  option is set in filter profile
