@@ -76,7 +76,7 @@ sub fake
     EBox::Config::TestStub::fake(modules => $ENV{ZENTYAL_MODULES_SCHEMAS}, conf => $tmpConfDir, user => 'nobody');
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
     *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
-    # dont run scripts from zentyal directorueis
+    # dont run scripts from zentyal directories
     *EBox::GlobalImpl::_runExecFromDir = sub {};
 }
 
