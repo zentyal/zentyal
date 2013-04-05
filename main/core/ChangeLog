@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed a broken link to SysInfo/Composite/General when activating the
+	  WebServer module.
 	+ Remove unused method EBox::Auth::alreadyLogged()
 	+ Apache::setRestrictedResource updates properly if already exists
 	+ Global and Module::Config allow to set redis instance to ease testing
