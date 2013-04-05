@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Controller::DataTable;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Controller::DataTable;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
@@ -69,7 +67,7 @@ sub getParams
     }
 
     $params{'id'} = $self->param('id');
-    $params{'filter'} = $self->param('filter');
+    $params{'filter'} = $self->unsafeParam('filter');
 
     return %params;
 }
@@ -304,7 +302,7 @@ sub refreshTable
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
-    my $filter = $self->param('filter');
+    my $filter = $self->unsafeParam('filter');
     my $page = $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {
