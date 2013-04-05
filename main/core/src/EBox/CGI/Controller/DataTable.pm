@@ -67,7 +67,10 @@ sub getParams
     }
 
     $params{'id'} = $self->param('id');
-    $params{'filter'} = $self->unsafeParam('filter');
+    my $filter  = $self->unsafeParam('filter');
+    utf8::encode($filter);
+
+    $params{'filter'} = $filter;
 
     return %params;
 }
@@ -303,6 +306,8 @@ sub refreshTable
     my $global = EBox::Global->getInstance();
 
     my $filter = $self->unsafeParam('filter');
+    utf8::encode($filter);
+
     my $page = $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {
