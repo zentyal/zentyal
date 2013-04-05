@@ -38,7 +38,7 @@ sub fake
     *EBox::Sudo::SUDO_PATH = \$FAKE_SUDO_PATH;
     *EBox::Sudo::STDERR_FILE = \$FAKE_STDERR_FILE;
 
-        *EBox::Sudo::root = \&_fakeRoot;
+    *EBox::Sudo::root = \&_fakeRoot;
     *EBox::Sudo::silentRoot = \&_fakeSilentRoot;
 }
 
