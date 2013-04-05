@@ -43,7 +43,6 @@ $dbEngine->mock('_tmClearLastInsert' => sub { my ($self) = @_;
                                     $self->{table}      = undef;
                                });
 
-
 my @cases = (
     {
         line =>
@@ -59,7 +58,7 @@ my @cases = (
             fw_dst => '192.168.1.255',
             fw_dpt => 520,
            }
-       },
+    },
     {
         line =>
 'Jan 25 11:14:52 macostaserver kernel: [2470659.768645] ebox-firewall drop IN=tap0 OUT= MAC= SRC=192.168.160.1 DST=192.168.160.255 LEN=271 TOS=0x00 PREC=0x00 TTL=64 ID=0 DF PROTO=UDP SPT=631 DPT=631 LEN=251 MARK=0x1',
@@ -74,7 +73,7 @@ my @cases = (
             fw_dst => '192.168.160.255',
             fw_dpt => 631,
 
-           },
+        },
     }
 );
 
@@ -97,8 +96,6 @@ foreach my $case (@cases) {
         is $dbEngine->_tmLastInsertTable, 'firewall', 'Check last insert table';
         eq_or_diff  $dbEngine->_tmLastInsert(), $case->{expected}, 'Check inserted data';
     }
-
 }
-
 
 1;

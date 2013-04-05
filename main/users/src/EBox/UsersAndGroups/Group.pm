@@ -422,10 +422,16 @@ sub create
         $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
             $params{ignoreMods}, $params{ignoreSlaves});
 
+                my $changetype =  $entry->changetype();
+                my $changes = [$entry->changes()];
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
-        unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP($result);
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on group LDAP entry creation:'),
+                    result => $result,
+                    opArgs   => $self->entryOpChangesInUpdate($entry),
+                   );
             }
         }
 

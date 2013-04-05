@@ -18,7 +18,6 @@
 use strict;
 use warnings;
 
-
 use Test::More qw(no_plan);
 use Test::Exception;
 
@@ -33,10 +32,8 @@ use lib '../../src';
 
 use EBox::UsersAndGroups::ImportFromLdif::Engine;
 
-
 my %users;
 my %groups;
-
 
 sub fakeModLdapsUserBase
 {
@@ -44,7 +41,7 @@ sub fakeModLdapsUserBase
 
 	my $global = EBox::Global->modInstance('global');
 	my @names = @{$global->modNames};
-	
+
 	my @modules;
 	foreach my $name (@names) {
 		my $mod = EBox::Global->modInstance($name);
@@ -52,12 +49,11 @@ sub fakeModLdapsUserBase
 			push (@modules, $mod->_ldapModImplementation);
 		}
 	}
-	
-	return \@modules;
 
+	return \@modules;
 }
 
-sub fakeAddUser 
+sub fakeAddUser
 {
     my ($self, $user_r, $system, %params) = @_;
     $system = $system ? 1 : 0;
@@ -70,13 +66,10 @@ sub fakeAddUser
 		system => $system,
 		%params,
 
-	       );
-    
-    
+	);
+
     $users{$username} = \%userData;
-
 }
-
 
 sub fakeAddGroup
 {
@@ -92,9 +85,8 @@ sub fakeAddGroup
 		     system => $system,
 		     members => [],
 		     %params,
-		    );
+	);
 
-    
     $groups{$group} = \%groupData;
 }
 
@@ -110,7 +102,7 @@ sub fakeAddUserToGroup # (user, group)
 }
 
 EBox::TestStubs::activateTestStubs();
-EBox::TestStubs::fakeEBoxModule(
+EBox::TestStubs::fakeModule(
 				name => 'users',
 				package => 'EBox::UsersAndGroups',
 				subs => [
@@ -130,14 +122,10 @@ EBox::TestStubs::fakeEBoxModule(
 					 lastGid => sub { return 100 },
 					],
 				isa => ['EBox::LdapModule'],
-
-			       );
-
-
+);
 
 lives_ok {
     EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif(LDIF_FILE);
 } 'Adding users and groups from LDIF file';
-
 
 1;

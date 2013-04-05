@@ -1,4 +1,3 @@
-# Description:
 use strict;
 use warnings;
 
@@ -12,17 +11,16 @@ EBox::TestStub::fake();
 use_ok 'EBox::Config';
 configkeyFromFileTest();
 
-
 sub configkeyFromFileTest
 {
     my $configFileDir = '/tmp/ebox.test';
     my $configFile    = "$configFileDir/file.keys";
 
     my %configuration = (
-			    lemur => 'indri',
-			    mono  => 'macaco',
-			    simio => 'bonobo',
-		     );
+        lemur => 'indri',
+        mono  => 'macaco',
+        simio => 'bonobo',
+    );
 
     # preparing config file..
     system "rm -rf $configFileDir" if ( -e $configFileDir);
@@ -31,13 +29,12 @@ sub configkeyFromFileTest
     _createTestFile($configFile, %configuration);
 
     while (my ($configKey, $configValue) = each %configuration) {
-	my $oldConfigKey = $configKey; 
-	my $gettedConfigValue = EBox::Config::configkeyFromFile($configKey, $configFile);
+        my $oldConfigKey = $configKey;
+        my $gettedConfigValue = EBox::Config::configkeyFromFile($configKey, $configFile);
 
-	is $gettedConfigValue, $configValue;
-	is $configKey, $oldConfigKey, "Checking that configkeyFromFile does not change the supplied key parameter";
+        is $gettedConfigValue, $configValue;
+        is $configKey, $oldConfigKey, "Checking that configkeyFromFile does not change the supplied key parameter";
     }
-    
 }
 
 sub _createTestFile
@@ -46,11 +43,10 @@ sub _createTestFile
 
     open (my $FH, ">$file");
     while (my ($key, $value) = each %keysAndValues  ) {
-	print $FH "$key=$value\n";
+        print $FH "$key=$value\n";
     }
 
     close $FH;
 }
-
 
 1;

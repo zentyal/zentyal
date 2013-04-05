@@ -23,7 +23,7 @@ use Test::More;
 use Test::Exception;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Test::MockObject::Extends;
 use Test::Differences;
@@ -46,17 +46,17 @@ sub _moduleInstantiationTest : Test
 
 
 
-sub setDHCPEBoxModule : Test(setup)
+sub setDHCPModule : Test(setup)
 {
-  EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
+  EBox::Global::TestStub::setModule('dhcp' => 'EBox::DHCP');
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/dhcp/active', 0);
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/global/modules/dhcp/depends', ['network']);
 
 }
 
-sub clearEBoxModules : Test(teardown)
+sub clearModules : Test(teardown)
 {
-  EBox::Global::TestStub::setAllEBoxModules();
+  EBox::Global::TestStub::setAllModules();
 }
 
 
@@ -108,10 +108,10 @@ sub staticRoutes : Test(2)
 			    '192.168.30.0/24'    => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },
 			   );
 
-  fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'titiNoStaticRoutes');
-  fakeEBoxModule(name => 'mandrillNoStaticRoutes');
+  fakeModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
+  fakeModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
+  fakeModule(name => 'titiNoStaticRoutes');
+  fakeModule(name => 'mandrillNoStaticRoutes');
 
   my $dhcp = EBox::Global->modInstance('dhcp');
   my $staticRoutes_r;

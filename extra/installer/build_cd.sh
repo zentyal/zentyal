@@ -52,7 +52,7 @@ do
     cp $TMPDIR/*.deb $EXTRAS_DIR/
 
     # Add custom extra packages if the dir exists
-    for dir in $EXTRAS_CUSTOM_DIR-$ARCH $EXTRAS_CUSTOM_DIR-all
+    for dir in $EXTRAS_CUSTOM_DIR_BASE-$ARCH $EXTRAS_CUSTOM_DIR_BASE-all
     do
         if [ -d $dir ]
         then

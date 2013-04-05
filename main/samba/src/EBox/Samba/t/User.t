@@ -23,7 +23,6 @@ use lib '../../..';
 use EBox::Samba::User;
 use EBox::TestStub;
 
-
 sub testCheckAccountName
 {
     my $maxLen = 20;
@@ -55,4 +54,5 @@ sub testCheckAccountName
 
 EBox::TestStub::fake();
 testCheckAccountName();
+
 1;

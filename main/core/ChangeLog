@@ -1,6 +1,13 @@
 HEAD
 	+ Add instance argument invoking select type populate function
 	+ Improve dynamic editable property detection for framework types
+	+ Remove unused method EBox::Auth::alreadyLogged()
+	+ Apache::setRestrictedResource updates properly if already exists
+	+ Global and Module::Config allow to set redis instance to ease testing
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
+	+ Rows in events models are now synced before running EventDaemon
+	+ Better way of checking if event daemon is needed
 3.0.17
 	+ Allow numeric zero as search filter
 	+ When filtering rows don't match agains link urls or hidden values

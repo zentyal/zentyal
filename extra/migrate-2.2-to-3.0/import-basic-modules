@@ -38,6 +38,11 @@ use EBox::Backup;
 #
 # 4- data in imported modules not present in the backup will be lost
 #    this affects to objects, services, network and firewall
+#
+# 5 - object members with address ending in zero and mask /32 will not be
+#     imported  bwcause this is a invalid address
+#
+# 6 - invalid netwoek proxy configuration will not be imported
 
 # TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
@@ -53,7 +58,7 @@ my %moduleParameters = (
             ServiceTable => 'serviceTable',
             ServiceConfigurationTable => 'serviceConfigurationTable',
         },
-        preInsertModelsData => \&_setDefaultServices,
+        postInsertModelsData => \&_setDefaultServices,
         rowAdapter => {
                'ServiceTable' => \&_serviceTableRowAdapter,
         },
@@ -68,10 +73,13 @@ my %moduleParameters = (
     },
 );
 
+
+
 EBox::init();
 
 my ($bakFile) = @ARGV;
 
+EBox::info("Begin $0");
 my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
 try {
     EBox::Backup->_unpackModulesRestoreData($bakDir);
@@ -85,11 +93,13 @@ try {
 } finally {
     EBox::Sudo::root("rm -rf $bakDir")
 };
+EBox::info("End $0");
 
 sub _importModule
 {
     my ($modName, $bakDir) = @_;
 
+    EBox::info("Begin to import module $modName");
     my $bakData = _parseBakfile($bakDir, $modName);
     if (not $bakData) {
         return;
@@ -97,7 +107,7 @@ sub _importModule
 
     my $module = EBox::Global->getInstance(0)->modInstance($modName);
     if (not $module) {
-        EBox::error("$modName has impot data but it is not installed, not importing");
+        EBox::error("$modName has import data but it is not installed, not importing");
         return;
     }
 
@@ -113,6 +123,12 @@ sub _importModule
         _importKeys($modName, $modParams->{importKeys}, $bakData);
     }
     _insertDataIntoModule($module, $filled);
+
+    if ((exists $modParams->{postInsertModelsData}) and $modParams->{postInsertModelsData} ) {
+        $modParams->{postInsertModelsData}->($module, $filled, $bakData);
+    }
+
+    EBox::info("End of import module $modName");
 }
 
 sub _moduleComponentTree
@@ -663,6 +679,8 @@ sub _cleanModule
     $global->{redis}->delete_dir("$module/conf");
     $global->{redis}->delete_dir("$module/ro");
     $global->{redis}->unset("$module/state");
+
+    EBox::info("Module $module cleaned of old configuration");
 }
 
 sub _importKeys
@@ -735,26 +753,9 @@ sub _lookupComponent
 sub _setDefaultServices
 {
     my ($mod, $configTree, $allKeys)= @_;
+
     # to set default services
     $mod->initialSetup();
-    # remove arlready added default services for services table
-    my $model = _lookupComponentInConfigTree($configTree, 'ServiceTable');
-    if (not $model) {
-        return;
-    }
-
-    my %default;
-    my $defaultServices = $mod->_defaultServices();
-    foreach my $serv (@{ $defaultServices }) {
-        $default{$serv->{name}} = 1;
-    }
-
-    my @rows = @{ $model->{rows} };
-    @rows = grep {
-        not $default{$_->{elements}->{name}}
-    } @rows;
-
-    $model->{rows} = \@rows;
 }
 
 sub _serviceTableRowAdapter
@@ -840,6 +841,18 @@ sub _networkImportInterfaces
     }
 
     $mod->set('interfaces', \%interfaces);
+}
+
+
+{
+    use EBox::Services::Model::ServiceConfigurationTable;
+    no warnings 'redefine';
+    sub EBox::Services::Model::ServiceConfigurationTable::validateTypedRow
+    {
+        # we had to relax this to allow imports of old services with any
+        # {protoclTypes} members
+    }
+
 }
 
 1;

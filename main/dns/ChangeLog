@@ -1,4 +1,5 @@
-HEAD
+3.0.9
+	+ Fixed bind9 dependency to allow to install it with higher versions
 	+ Do not try to add duplicated interface addresses
 3.0.8
 	+ Fix intnets config key parsing and validation

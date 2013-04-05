@@ -1,3 +1,6 @@
+3.0.16
+	+ Added setSecurityUpdatesLastTime method to abstract how to set
+	  the latest performed security update
 3.0.15
 	+ Get capabilities for files and users sync from the API
 	+ Be very strict with the server name while subscribing. Only

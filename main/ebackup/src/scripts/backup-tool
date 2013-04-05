@@ -294,6 +294,20 @@ sub _cleanup
     };
 }
 
+sub _preCheckTargetHook
+{
+    my ($ebackup, $type) = @_;
+    try {
+        $ebackup->preCheckTargetHook();
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error in pre-check target hook: $ex");
+        _prepareAndSendEvent(0, $type, "$ex");
+        $ebackup->backupProcessUnlock();
+        exit 1;
+    };
+}
+
 # Try to back up with n_tries using a geometric progression
 # Returns two values in an array:
 #      success  - Boolean indicating if it was a success
@@ -499,6 +513,8 @@ if ($usingCloud) {
 
 try {
     $type = _adjustType($ebackup, $type);
+
+    _preCheckTargetHook($ebackup, $type);
 
     try {
         $ebackup->checkTargetStatus($type);

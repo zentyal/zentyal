@@ -26,7 +26,7 @@ use Test::Differences;
 use Test::MockObject;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Perl6::Junction qw(all any);
 
@@ -135,7 +135,7 @@ sub fakeNetworkModule
         return \@ifaces;
     };
 
-    fakeEBoxModule(
+    fakeModule(
         name => 'network',
         package => 'EBox::Network',
         subs => [
@@ -154,7 +154,7 @@ sub fakeNetworkModule
 
 sub fakeFirewall
 {
-    fakeEBoxModule(
+    fakeModule(
         name => 'firewall',
         package => 'EBox::Firewall',
         subs => [
@@ -183,8 +183,8 @@ sub setUpConfiguration : Test(setup)
         system "mkdir -p $confDir" or die "$!";
     }
 
-    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     fakeInterfaces();
     fakeFirewall();
@@ -422,7 +422,7 @@ sub fakeInterfaces
         return  ($iface eq $anyExternalIfaces);
     };
 
-    fakeEBoxModule(
+    fakeModule(
                    name => 'network',
                    package => 'EBox::Network',
                    subs => [

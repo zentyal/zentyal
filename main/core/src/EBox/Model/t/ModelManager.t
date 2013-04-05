@@ -20,12 +20,14 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More tests => 10;
+use Test::More tests => 8;
 use Test::Exception;
 use Test::Deep;
 
-use EBox::Global;
-use EBox::Logs;
+use EBox::Global::TestStub;
+
+EBox::Global::TestStub::fake();
+
 use EBox::Test::Model;
 
 BEGIN {
@@ -34,47 +36,27 @@ BEGIN {
 }
 
 my $manager = EBox::Model::Manager->instance();
-isa_ok( $manager, 'EBox::Model::Manager');
+isa_ok($manager, 'EBox::Model::Manager');
 
 my $logs = EBox::Global->modInstance('logs');
-my $testMod1 = new EBox::Test::Model( confmodule => $logs,
-                                      directory   => '1',
-                                      runtimeIndex => '1');
-my $testMod2 = new EBox::Test::Model( confmodule => $logs,
-                                      directory   => '2',
-                                      runtimeIndex => '2');
+my $testMod = new EBox::Test::Model(confmodule => $logs, directory => 'foobar');
 
 lives_ok {
-    $manager->addModel( '/logs/' . $testMod1->name() . '/' . $testMod1->index(),
-                        $testMod1 );
-    $manager->addModel( '/logs/' . $testMod2->name() . '/' . $testMod2->index(),
-                        $testMod2 );
+    $manager->addModel($testMod);
 } 'Adding two test models to the logs menuspace';
 
-is_deeply( $testMod1, $manager->model( '/logs/TestTable/1'),
-           'Getting the test model 1');
+is_deeply($testMod, $manager->model('logs/TestTable'), 'Getting the test model');
 
-is_deeply( $testMod2, $manager->model( '/logs/TestTable/2'),
-           'Getting the test model 2');
+is_deeply($testMod, $manager->model('TestTable'), 'Getting the test model by name');
 
-cmp_set ( $manager->model( '/logs/TestTable/' ),
-          [ $testMod1, $testMod2 ],
-          'Getting multiple model instances');
-
-cmp_set ( $manager->model( '/logs/TestTable/*' ),
-          [ $testMod1, $testMod2 ],
-          'Getting multiple model instances using *');
+is('logs', $manager->model('TestTable')->parentModule()->name(), 'Checking parentModule name');
 
 lives_ok {
-    $manager->removeModel( '/logs/TestTable/1' );
-} 'Removing first model';
+    $manager->removeModel('logs', 'TestTable');
+} 'Removing model';
 
 throws_ok {
-    $manager->model('/logs/TestTable/1');
+    $manager->model('logs', 'TestTable');
 } 'EBox::Exceptions::DataNotFound', 'Removing an inexistant model';
-
-lives_ok {
-    $manager->removeModel( '/logs/TestTable/2' );
-} 'Removing second model';
 
 1;

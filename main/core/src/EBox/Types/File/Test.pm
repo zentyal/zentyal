@@ -13,10 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Types::File::Test;
 use base 'EBox::Test::Class';
-#
 
 use strict;
 use warnings;
@@ -34,21 +32,15 @@ use EBox::Types::Test;
 
 use EBox::Types::File;
 
-
-
-
 my $content = 'first';
 my $secondContent = 'second';
 
 my $path = '/tmp/ebox.type.file.test';
 
-
 sub setEBoxTmp : Test(startup)
 {
     EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp/');
 }
-
-
 
 sub clearFiles : Test(setup)
 {
@@ -68,8 +60,6 @@ sub newTest : Test(1)
                                );
 }
 
-
-
 sub restoreWithoutBackup : Test(2)
 {
     my $file = newFile();
@@ -82,7 +72,6 @@ sub restoreWithoutBackup : Test(2)
     file_exists_ok($path, 'Checking that restore without previous file deletes ');
 }
 
-
 sub restoreWithoutBackup: Test(4)
 {
     my $file = newFile();
@@ -90,7 +79,7 @@ sub restoreWithoutBackup: Test(4)
     write_file($path, $content);
     lives_ok {
         $file->restoreFiles()
-    } ' restore with backup of no existent file';
+    } 'restore with backup of no existent file';
 
     my $actualContent = read_file($path);
     is $actualContent, $content,
@@ -98,25 +87,21 @@ sub restoreWithoutBackup: Test(4)
 
     unlink $path;
 
-        lives_ok {
+    lives_ok {
         $file->restoreFiles()
-    } ' restore with backup of no existent file';
+    } 'restore with backup of no existent file';
 
     Test::File::file_not_exists_ok($path, "checking that restore without backup does not bring back deleted files");
 }
-
 
 sub restoreWithoutPreviousFile : Test(3)
 {
     my $file = newFile();
 
-
-
     # backup of a not existent file
     lives_ok {
         $file->backupFiles()
     } 'backup of a not existent file';
-
 
     write_file($path, $content);
     lives_ok {
@@ -124,9 +109,7 @@ sub restoreWithoutPreviousFile : Test(3)
     } ' restore with backup of no existent file';
 
     Test::File::file_not_exists_ok($path, "checking that restore bckup done without files erases the new file");
-
 }
-
 
 sub restoreWithPreviousFile : Test(5)
 {
@@ -145,16 +128,13 @@ sub restoreWithPreviousFile : Test(5)
     is $actualContent, $content,
          'Checking if the restored file after removal has the right content';
 
-
     write_file($path, $secondContent);
     lives_ok {
         $file->restoreFiles();
     } 'restore after replacing file with another';
     is $actualContent, $content,
         'Checking if the restored file after being replaced has the right content';
-
 }
-
 
 sub isEqualToTest : Test(5)
 {
@@ -172,7 +152,6 @@ sub isEqualToTest : Test(5)
     write_file($path, $content);
     write_file($file2->tmpPath(), $content);
     ok $file->isEqualTo($file2), 'Checking equalTo in identical files objects with the same file already in place and upload file';
-
 
     my $notEqual;
 
@@ -199,18 +178,12 @@ sub existsTest : Test(2)
     ok $file->exist;
 }
 
-
-
-
 sub printableValueTest : Test(2)
 {
     my $path = '/tmp/ea.jpg';
     my $expectedPrintableValue = 'ea.jpg';
 
-    my $fileWithStaticPath =  EBox::Types::File->new(
-                                      filePath => $path,
-                                      fieldName => 'fileTest',
-                                     );
+    my $fileWithStaticPath = EBox::Types::File->new(filePath => $path, fieldName => 'fileTest');
 
     is $fileWithStaticPath->printableValue(),
         $expectedPrintableValue,
@@ -224,13 +197,9 @@ sub printableValueTest : Test(2)
                                      );
 
     is $fileWithDynamicPath->printableValue(),
-        $expectedPrintableValue,
-            'checking printableValue in file with dynamic path';
+       $expectedPrintableValue,
+       'checking printableValue in file with dynamic path';
 }
-
-
-
-
 
 sub filesPaths : Test(2)
 {
@@ -251,11 +220,7 @@ sub filesPaths : Test(2)
                [ $path ],
         'Checking return value of filesPaths when file is present '
               );
-
-
 }
-
-
 
 sub newFile
 {
@@ -270,9 +235,5 @@ sub newFile
 
     return $file;
 }
-
-
-
-
 
 1;

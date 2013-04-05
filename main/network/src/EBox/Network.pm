@@ -2795,6 +2795,10 @@ sub _generatePPPConfig
 
     my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
 
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);
@@ -3004,7 +3008,7 @@ sub _multigwRoutes
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
-            EBox::error("Interface $iface used by gateway " .
+            EBox::warn("Interface $iface used by gateway " .
                             $router ->{name} . " has not address." .
                         " Not adding multi-gateway rules for this gateway.");
             next;

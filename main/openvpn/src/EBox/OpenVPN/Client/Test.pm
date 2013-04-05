@@ -33,7 +33,7 @@ use lib '../../../';
 use EBox::OpenVPN;
 use EBox::OpenVPN::Client;
 use EBox::CA::TestStub;
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 use EBox::OpenVPN::Client::ValidateCertificate;
 
 use English qw(-no_match_vars);
@@ -63,7 +63,7 @@ sub mockNetworkModule
   my ($self, $ifaces_r) = @_;
   my @ifaces = defined $ifaces_r ? @{ $ifaces_r } : ('eth1', 'eth2') ;
 
-  EBox::TestStubs::fakeEBoxModule(
+  EBox::TestStubs::fakeModule(
                                   name => 'network',
                                   module => 'EBox::Network',
                                   subs => [
@@ -107,7 +107,7 @@ sub setUpConfiguration : Test(setup)
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    fakeEBoxModule(
+    fakeModule(
                                            name => 'openvpn',
                                            package => 'EBox::OpenVPN',
                                            subs => [
