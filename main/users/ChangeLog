@@ -1,4 +1,6 @@
 HEAD
+	+ Don't try to update samba password in user corner when samba is
+	  not configured
 	+ Add operation arguments on LDAP error whenever is possible
 	+ EBox::UsersAndGroups::User::create() allows now an internal attribute
 	+ Users marked as internal are not displayed on the interface
