@@ -1,4 +1,5 @@
 HEAD
+	+ Table search control allows utf8 and all characters
 	+ Fixed bug that made that the lock was shared between owners
 	+ Allowed error class in msg template
 	+ Better form validation message when there are no ids for
