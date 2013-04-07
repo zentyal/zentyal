@@ -1,4 +1,5 @@
-HEAD
+3.0.3
+	+ Log warn instead of error when iface has not address in _multigwRoutes()
 	+ Fixed error replacing nameserver when importing resolv.conf
 	+ Remove leftover PPP provider files
 	+ Remove attached vlans when a interface is not longer trunk

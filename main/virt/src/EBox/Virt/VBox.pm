@@ -499,6 +499,11 @@ sub systemTypes
     return \@values;
 }
 
+sub architectureTypes
+{
+    return [];
+}
+
 sub listHDs
 {
     my $list =  `find $VM_PATH -name '*.vdi'`;
