@@ -355,12 +355,14 @@ sub elementExists
         throw EBox::Exceptions::MissingArgument('element');
     }
 
-    return 1 if (exists $self->{valueHash}->{$element});
-
-    # this is only for EBox::Types::Union selected subtype
-    for my $value (@{$self->{values}}) {
-        next unless  ($value->isa('EBox::Types::Union'));
-        return 1 if ($value->selectedType() eq $element);
+    if (exists $self->{valueHash}->{$element}) {
+        return 1;
+    } else {
+        # this is only for EBox::Types::Union selected subtype
+        for my $value (@{$self->{values}}) {
+            next unless  ($value->isa('EBox::Types::Union'));
+            return 1 if ($value->selectedType() eq $element);
+        }
     }
 
     return undef;
@@ -389,7 +391,9 @@ sub elementByName
         throw EBox::Exceptions::MissingArgument('element');
     }
 
-    unless (exists $self->{valueHash}->{$element}) {
+    if (exists $self->{valueHash}->{$element}) {
+        return $self->{valueHash}->{$element};
+    } else {
         for my $value (@{$self->{values}}) {
             next unless  ($value->isa('EBox::Types::Union'));
             if ($value->selectedType() eq $element) {
@@ -399,11 +403,10 @@ sub elementByName
                 return undef if ($type->fieldName() eq $element);
             }
         }
-        throw EBox::Exceptions::DataNotFound( data => 'element',
-                value => $element);
     }
 
-    return $self->{valueHash}->{$element};
+    throw EBox::Exceptions::DataNotFound( data => 'element',
+                                          value => $element);
 }
 
 # Method: elementByIndex

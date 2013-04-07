@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Sudo::TestStub;
-
 use strict;
 use warnings;
+
+package EBox::Sudo::TestStub;
 
 use EBox::Sudo;
 use File::Temp qw(tempfile);
@@ -33,21 +32,63 @@ close $fh;
 
 Readonly::Scalar our $FAKE_STDERR_FILE => $tmpfile;
 
+
 sub fake
 {
     *EBox::Sudo::SUDO_PATH = \$FAKE_SUDO_PATH;
     *EBox::Sudo::STDERR_FILE = \$FAKE_STDERR_FILE;
-}
 
-sub unfake
-{
-    *EBox::Sudo::SUDO_PATH = \$GOOD_SUDO_PATH;
-    *EBox::Sudo::STDERR_FILE = \$GOOD_STDERR_FILE;
+    *EBox::Sudo::root = \&_fakeRoot;
+    *EBox::Sudo::silentRoot = \&_fakeSilentRoot;
 }
 
 sub isFaked
 {
     return $EBox::Sudo::SUDO_PATH ne $GOOD_SUDO_PATH;
+}
+
+sub _fakeRoot
+{
+    _fakeRootCommands(1, @_);
+}
+
+sub _fakeSilentRoot
+{
+    _fakeRootCommands(0, @_);
+}
+
+sub _fakeRootCommands
+{
+    my ($mode, @cmds) = @_;
+    @cmds =  _filterCommands(@cmds);
+    EBox::Sudo::_root(0, @cmds)
+}
+
+
+my @banFilters;
+sub addCommandBanFilter
+{
+    my @filters = @_;
+    push @banFilters, @filters;
+}
+
+sub _filterCommands
+{
+    my @cmds = @_;
+    my @filtered;
+    foreach my $cmd (@cmds) {
+        my $ban;
+        foreach my $banFilter (@banFilters) {
+            if ($cmd =~ m/$banFilter/) {
+                $ban = 1;
+                last;
+            }
+        }
+        if (not $ban) {
+            push @filtered, $cmd;
+        }
+    }
+    return @filtered;
 }
 
 1;

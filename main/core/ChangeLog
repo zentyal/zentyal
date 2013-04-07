@@ -1,4 +1,12 @@
 HEAD
+	+ In EBox:Model::Row, refactored elementExists and
+	  elementByName to make them to have similiar code structure
+	+ Improvement in test help classes and added test fakes for
+	  EBox::Model::Manager and EBox::Util::SHMLock
+	+ Prevented unuseful warning in
+	  EBox::Model::DataTable::setDirectory when the old directory is undef
+	+ Fixed unit tests under EBox/Model/t, backup configuration tests and
+	  some others
 	+ Remove unused method EBox::Auth::alreadyLogged()
 	+ Apache::setRestrictedResource updates properly if already exists
 	+ Global and Module::Config allow to set redis instance to ease testing
