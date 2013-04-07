@@ -35,7 +35,8 @@ if [ -n "$MISSINGLIBS" ]
 then
     echo -e "The following packages are not installed:\n $MISSINGLIBS"
     echo -e "Installing them..."
-    sudo apt-get install -y --no-install-recommends $MISSINGLIBS
+    export DEBIAN_FRONTEND=noninteractive
+    sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS
 fi
 
 # FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package
