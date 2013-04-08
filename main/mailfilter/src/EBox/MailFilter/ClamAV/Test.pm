@@ -53,7 +53,7 @@ sub setUpConfiguration : Test(setup)
 		  );
 
     EBox::Module::Config::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('mailfilter' => 'EBox::MailFilter');
+    EBox::Global::TestStub::setModule('mailfilter' => 'EBox::MailFilter');
 
     EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
 }

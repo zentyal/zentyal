@@ -632,12 +632,13 @@ sub ifaceMethodChanged
 {
     my ($self, $iface, $oldMethod, $newMethod) = @_;
 
-    my @others = qw(notset trunk);
-    if ( grep { $_ eq $oldMethod } @others
-            and (grep { $_ ne $newMethod } @others )) {
+    my @notUsedMethods = qw(notset trunk);
+    my $newUsed = grep { $_ ne $newMethod } @notUsedMethods;
+    my $oldUsed = grep { $_ ne $oldMethod } @notUsedMethods;
+
+    if ( (not $oldUsed) and $newUsed) {
         return 1 unless ( $self->{network}->ifaceIsExternal($iface));
-    } elsif ( grep { $_ eq $newMethod } @others
-            and (grep { $_ ne $oldMethod } @others )) {
+    } elsif ( $oldUsed and (not $newUsed)) {
         return 1;
     } elsif ( $newMethod eq 'dhcp'
             and $oldMethod eq 'static' ) {
@@ -1453,7 +1454,15 @@ sub _realIfaces
 {
     my ($self) = @_;
     my $network = $self->{'network'};
-    return [map {$network->realIface($_)} @{$network->ifaces()}];
+    my @ifaces = grep {
+        my $method = $network->ifaceMethod($_);
+        ($method ne 'notset') and ($method ne 'trunk')
+    }  @{$network->ifaces()};
+    @ifaces =  map {
+        $network->realIface($_)
+    } @ifaces;
+
+    return \@ifaces;
 }
 
 

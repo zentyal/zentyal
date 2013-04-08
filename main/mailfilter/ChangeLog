@@ -1,4 +1,6 @@
 HEAD
+	+ Added dependencies and fixes needed for better sa tests
+	+ Dont run spamd daemon
 	+ Fixed regression in creation of ham/spam mail aliases due to changes
 	  in the users API
 	+ Adapted learnspamd to changes in user module API

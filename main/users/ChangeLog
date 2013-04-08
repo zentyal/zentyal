@@ -1,4 +1,13 @@
 HEAD
+	+ Don't try to update samba password in user corner when samba is
+	  not configured
+	+ Add operation arguments on LDAP error whenever is possible
+	+ EBox::UsersAndGroups::User::create() allows now an internal attribute
+	+ Users marked as internal are not displayed on the interface
+	+ New realUsers() method to filter only non-internal ones
+3.0.13
+	+ Search in user table now is standard instead of filter only for uid
+	+ A bit more explicit text for EBox::Exceptions::LDAP
 	+ Reload nscd also when creating new groups
 3.0.12
 	+ Fixed typo in exception class name in EBox::Ldap

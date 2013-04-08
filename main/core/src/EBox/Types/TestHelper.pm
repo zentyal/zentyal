@@ -127,7 +127,6 @@ sub _createTest
     $failed and
         return $instance;
 
-
     try {
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);

@@ -1004,19 +1004,17 @@ sub _setAptPreferences
     }
 
     my $preferences =  '/etc/apt/preferences';
-    my $preferencesBak  = $preferences . '.ebox.bak';
-    my $preferencesFromCCBak = $preferences . '.zentyal.fromzc';
+    my $preferencesBak = $preferences . '.zentyal.fromzc';
     my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
 
     if ($enabled ) {
-        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
+        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesBak);
         if (not $existsCC) {
             EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
             return;
         }
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'",
-                         "chmod 0644 '$preferencesDirFile'",
-                        );
+        EBox::Sudo::root("cp '$preferencesBak' '$preferencesDirFile'",
+                         "chmod 0644 '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
@@ -1119,8 +1117,7 @@ sub _printMenuItem
 # Is it QA the exclusive source?
 sub _QAExclusive
 {
-    my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
-    return (lc($exclusiveSource) eq 'true');
+    return EBox::Config::boolean('qa_updates_exclusive_source');
 }
 
 sub _cache

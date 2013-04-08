@@ -330,22 +330,28 @@ sub userFirewallRule
 
 sub exceptionsFirewallRules
 {
-    my ($self) = @_;
+    my ($self, $chain) = @_;
     my @rules;
 
     my $exceptionsModel = $self->model('Exceptions');
-    push @rules, @{ $exceptionsModel->firewallRules() };
+    push @rules, @{ $exceptionsModel->firewallRules($chain) };
 
     my $global = $self->global();
     foreach my $mod (@{ $global->modInstances()}) {
         if ($mod->can('firewallCaptivePortalExceptions')) {
-            push @rules, @{ $mod->firewallCaptivePortalExceptions()  };
+            push @rules, @{ $mod->firewallCaptivePortalExceptions($chain)  };
         }
     }
 
     return \@rules;
 }
 
+sub exceptionsPreroutingFirewallRules
+{
+    my ($self) = @_;
+    my $exceptionsModel = $self->model('Exceptions');
+    return $exceptionsModel->firewallPreroutingRules();
+}
 
 # Function: sessionExpired
 #

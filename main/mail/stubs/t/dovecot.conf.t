@@ -15,10 +15,6 @@ my $printOutput = 0;
 my $outputFileBase  = '/tmp/dovecot.conf';  # XXX FIXME file separator in mason tests
 system "rm -rf $outputFileBase*";
 
-
-
-
-
 my @cases = (
              [ uid => 1000, gid => 1000, protocols => ['pop', 'imap'] ],
             );
@@ -30,11 +26,6 @@ foreach my $params (@cases) {
 
   my $execOk;
   $execOk = EBox::Test::Mason::checkTemplateExecution(template => $template, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
-
 }
-
-
-
-
 
 1;

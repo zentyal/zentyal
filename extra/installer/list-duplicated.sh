@@ -34,8 +34,8 @@ cat main_WITHOUT_VERSIONS_$ARCH extras_WITHOUT_VERSIONS_$ARCH | sort | uniq -c |
 
 for i in `cat DUPLICATED_PACKAGES_$ARCH`
 do
-	MAIN_VERSION=`grep $i main_WITH_VERSIONS_$ARCH | cut -d' ' -f2| head -1`
-	EXTRA_VERSION=`grep $i extras_WITH_VERSIONS_$ARCH | cut -d' ' -f2 | head -1`
+	MAIN_VERSION=`grep "^$i " main_WITH_VERSIONS_$ARCH | cut -d' ' -f2| head -1`
+	EXTRA_VERSION=`grep "^$i " extras_WITH_VERSIONS_$ARCH | cut -d' ' -f2 | head -1`
 	CMP=`perl -MDpkg::Version -e "print version_compare('$EXTRA_VERSION', '$MAIN_VERSION')"`
 	if [ $CMP -gt 0 ]
 	then

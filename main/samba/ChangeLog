@@ -1,6 +1,14 @@
 HEAD
+	+ Raise exception if during the provision either the domain
+	  administrator user or the domain administrator group are
+	  incorrectly mapped
+	+ Adapted firewallCaptivePortalExceptions method to API change
+	+ Mark kerberos principal users as internal to be properly filtered
+	+ Delete .provisioned file when purging zentyal-samba
+	+ Avoid not numeric warning in hash size comparation during provision
+	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
-	+ Improve checks when upgrading from 3.0.11 to 3.0.12
+	+ Improve checks when upgrading from 3.0.11
 3.0.15
 	+ Better check for the incompatibility of Samba with master/slave
 	+ Samba can now be reprovisioned if the hostname or domain changes

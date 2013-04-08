@@ -31,11 +31,11 @@ my %rw_only_methods = map { $_ => 1 } qw(modIsChanged modChange modRestarted sav
 
 sub new
 {
-    my ($class, $ro) = @_;
+    my ($class, $ro, %args) = @_;
 
     my $self = {};
     $self->{'ro'} = $ro;
-    $self->{'global'} = EBox::GlobalImpl->instance();
+    $self->{'global'} = EBox::GlobalImpl->instance(%args);
 
     bless($self, $class);
 

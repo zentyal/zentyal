@@ -148,6 +148,14 @@ sub comment
     return $self->get('description');
 }
 
+sub internal
+{
+    my ($self) = @_;
+
+    my $title = $self->get('title');
+    return (defined ($title) and ($title eq 'internal'));
+}
+
 # Catch some of the set ops which need special actions
 sub set
 {
@@ -630,6 +638,10 @@ sub create
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
 
+    if ($params{internal}) {
+        push (@attr, 'title' => 'internal') if ($params{internal});
+    }
+
     my $res = undef;
     my $entry = undef;
     try {
@@ -644,9 +656,13 @@ sub create
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(result => $result);
-            }
-        }
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on user LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $self->entryOpChangesInUpdate($entry),
+                   );
+            };
+    }
 
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 

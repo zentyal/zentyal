@@ -25,7 +25,7 @@ my @mandatoryParams = (
 
 my @cases = (
              [  mqlist => [], getinfo => [], data => [], ], # no queue case
-             [  
+             [
               mqlist => [
                          {
                           qid => '1291588A212*',
@@ -44,10 +44,10 @@ my @cases = (
                           recipients => undef,
                           msg     => 'conversation with p.nsm.ctmail.com[216.163.188.57] timed out while receiving the initial server greeting',
                          },
-                        ], 
-              getinfo => 'none', 
-              data => [], 
-             ], 
+                        ],
+              getinfo => 'none',
+              data => [],
+             ],
             );
 
 my $fileCounter = 0;  # XXX FIXME file separator in mason tests
@@ -68,8 +68,6 @@ foreach my $params (@cases) {
     _checkConfFile($outputFile);
   }
 }
-
-
 
 sub _checkConfFile
 {

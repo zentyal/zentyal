@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 
-
 use Test::More tests => 60;
 use Test::Exception;
 
@@ -11,7 +10,6 @@ use EBox::MailVDomainsLdap;
 use Error qw(:try);
 
 diag "This test uses the Zentyal LDAP. Don't use it in production environments!!";
-
 
 use_ok('EBox::MailFilter::VDomainsLdap');
 
@@ -50,7 +48,6 @@ sub _createTestVDomain
   ok $vdomainExists, 'Checking existence of newly create domain';
 }
 
-
 sub _removeVDomain
 {
   my ($vdomain) = @_;
@@ -64,7 +61,6 @@ sub _removeVDomain
   ok $vdomainNotExists, 'Checking wether domain not longer exists';
 }
 
-
 sub testPrimitives # 3
 {
   my ($vdomain) = @_;
@@ -74,9 +70,7 @@ sub testPrimitives # 3
   can_ok($mailvdomains,
 	'_vdomainAttr',
 	'_setVDomainAttr');
-  
 
-#  my $attr = 'description';
   my $attr = 'amavisSpamTagLevel';
   lives_ok {  $mailvdomains->_setVDomainAttr($vdomain, $attr, 'ea') } 'Setting TagLevel';
   is $mailvdomains->_vdomainAttr($vdomain, $attr), 'ea', 'Checking tag level';
@@ -98,8 +92,8 @@ sub testSenderList  # 8 tests
 	      );
 
   foreach my $senderList (@cases) {
-    lives_ok {  
-      $vdomainsLdap->$setter($vdomain, $senderList) 
+    lives_ok {
+      $vdomainsLdap->$setter($vdomain, $senderList)
     } "Setting $type list with $setter";
     lives_and ( sub {
 		  my $actualList =  [$vdomainsLdap->$getter($vdomain)];
@@ -108,10 +102,7 @@ sub testSenderList  # 8 tests
 
 
   }
-  
-
 }
-
 
 sub testBoolAttr # 10 checks
 {
@@ -119,12 +110,9 @@ sub testBoolAttr # 10 checks
   my $getter = $attr;
   my $setter = "set\u$attr";
 
- 
   my @cases = (0, 0, 1, 1, 0);
   _testMutator($vdomain, $getter, $setter, @cases);
 }
-
-
 
 sub testFloatAttr  # 12 checks
 {
@@ -137,17 +125,15 @@ sub testFloatAttr  # 12 checks
   _testMutator($vdomain, $getter, $setter, @cases);
 }
 
-
-
 sub _testMutator
 {
   my ($vdomain, $getter, $setter, @cases) = @_;
-  
-  my $vdomainsLdap = new EBox::MailFilter::VDomainsLdap;  
+
+  my $vdomainsLdap = new EBox::MailFilter::VDomainsLdap;
 
   foreach my $state (@cases) {
-    lives_ok { 
-      $vdomainsLdap->$setter($vdomain, $state) 
+    lives_ok {
+      $vdomainsLdap->$setter($vdomain, $state)
     } "Setting state $state";
     lives_and (
 	       sub {
@@ -155,15 +141,13 @@ sub _testMutator
 		 is $actualState, $state;
 	       },
 	       'Checking wether the state was correctly set');
-    
   }
 }
-
 
 sub testReset
 {
   my ($vdomain) = @_;
-  my $vdomainsLdap = new EBox::MailFilter::VDomainsLdap; 
+  my $vdomainsLdap = new EBox::MailFilter::VDomainsLdap;
 
   $vdomainsLdap->setAntivirus($vdomain, 1);
   $vdomainsLdap->setAntispam($vdomain, 1);
@@ -181,8 +165,6 @@ sub testReset
     my $value = $vdomainsLdap->$attr($vdomain);
     is $value, 1, "checking wether boolean attribute $attr was cleared to default value (true)";
   }
-
 }
-
 
 1;

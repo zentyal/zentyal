@@ -52,8 +52,12 @@ sub _new
     my $self = {};
     bless($self, $class);
 
-    $self->_initRedis;
-    $self->_respawn;
+    if (exists $args{customRedis}) {
+        $self->{customRedis} = $args{customRedis};
+    }
+
+    $self->_initRedis();
+    $self->_respawn();
 
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty->utf8;
@@ -80,8 +84,10 @@ sub _new
 #
 sub instance
 {
+    my ($class, %args) = @_;
+
     unless (defined ($_instance)) {
-        $_instance = EBox::Config::Redis->_new();
+        $_instance = $class->_new(%args);
     }
 
     return $_instance;
@@ -356,8 +362,14 @@ sub rollback
 {
     my ($self) = @_;
 
-    if ($self->{multi}) {
+    if ($trans) {
+        $self->_redis_call('multi');
         $self->_redis_call('discard');
+        %deleted = ();
+        foreach my $key (keys %modified) {
+            delete $cache{$key};
+        }
+        %modified = ();
     }
 
     $trans = 0;
@@ -421,7 +433,8 @@ sub _redis_call
             local $SIG{PIPE};
             $SIG{PIPE} = sub {
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
-                $failure = 1; };
+                $failure = 1;
+            };
             eval {
                 $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
@@ -482,13 +495,17 @@ sub _respawn
 {
     my ($self) = @_;
 
-    my $user = $self->_user();
-    my $home = $self->_home();
-    my $filepasswd = $self->_passwd();
+    if ($self->{customRedis}) {
+        $self->{redis} = $self->{customRedis};
+    } else {
+        my $user = $self->_user();
+        my $home = $self->_home();
+        my $filepasswd = $self->_passwd();
 
-    my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
-    $redis->auth($filepasswd);
-    $self->{redis} = $redis;
+        my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
+        $redis->auth($filepasswd);
+        $self->{redis} = $redis;
+    }
     $self->{pid} = $$;
 
     # EBox::info("$$ Respawning the redis connection");
@@ -500,8 +517,10 @@ sub _initRedis
 {
     my ($self) = @_;
 
+    return if ($self->{customRedis});
+
     # User corner redis server is managed by service
-    return if ( $self->_user eq 'ebox-usercorner' );
+    return if ($self->_user eq 'ebox-usercorner');
 
     unless (EBox::Service::running('ebox.redis')) {
         EBox::debug("[$$] Starting redis server");

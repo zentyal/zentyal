@@ -54,7 +54,7 @@ sub setUpTestDir : Test(setup)
 #                   );
 
 #     EBox::Module::Config::TestStub::setConfig(@config);
-     EBox::Global::TestStub::setEBoxModule('antivirus' => 'EBox::AntiVirus');
+     EBox::Global::TestStub::setModule('antivirus' => 'EBox::AntiVirus');
 
      EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
  }

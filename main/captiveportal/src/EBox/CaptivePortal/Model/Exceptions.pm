@@ -111,9 +111,20 @@ sub validateTypedRow
 
 sub firewallRules
 {
-    my ($self) = @_;
-    my $objects = $self->global()->modInstance('objects');
-    my $services = $self->global()->modInstance('services');
+    my ($self, $chain) = @_;
+    my $global = $self->global();
+    my $objects = $global->modInstance('objects');
+    my $services = $global->modInstance('services');
+    my $captureHTTPRule;
+    if ($chain eq 'captive') {
+        # captive chain is in NAT/prerouting so we must capture traffic for http
+        # proxy there
+        my $squid = $global->modInstance('squid');
+        if ($squid and $squid->transproxy()) {
+            my $port = $squid->port();
+            $captureHTTPRule =  " -p tcp --dport 80 -j REDIRECT --to-ports $port";
+        }
+    }
 
     my @rules;
     foreach my $id (@{ $self->enabledRows() }) {
@@ -123,20 +134,30 @@ sub firewallRules
         if ($selectedType eq 'exception_object') {
             my $objectId = $exception->subtype()->value();
             my $members = $objects->objectMembers($objectId);
-            push @rules, @{ $members->iptablesSrcParams() };
+
+            if ($captureHTTPRule) {
+                # must have priority over normal redirect rulex
+                push @rules,  map {
+                    $_ . ' ' . $captureHTTPRule
+                } @{ $members->iptablesSrcParams() };
+            }
+
+            push @rules,  map {
+                $_ . ' -j RETURN'
+            } @{ $members->iptablesSrcParams() };
 
         } elsif ($selectedType eq 'exception_service') {
             my $serviceId = $exception->subtype()->value();
-            push @rules,  @{ $services->serviceIptablesArgs($serviceId) };
+            # there are not capture http rules even if is a rule that refers to
+            # port 80, like the proxy ignores fw service rules when in
+            # transparent mode
+            push @rules,  map {
+                $_ . ' -j RETURN'
+            } @{ $services->serviceIptablesArgs($serviceId) };
         } else {
             die "Bad selected type $selectedType";
         }
-
     }
-
-    @rules = map {
-        $_ . ' -j RETURN'
-    } @rules;
 
     return \@rules;
 }

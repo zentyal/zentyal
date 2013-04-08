@@ -1,4 +1,3 @@
-#
 use strict;
 use warnings;
 
@@ -23,22 +22,19 @@ my $caCert2 = 'testdata/cacert2.pem';
 my $cert2   = 'testdata/cert2.pem';
 my $pkey2   = 'testdata/pkey2.pem';
 
-
 my $unrelatedFile = 'testdata/unrelated.pem';
-
 
 my @goodCases = (
 		 [$caCert, $cert, $pkey],
 		 [$caCert2, $cert2, $pkey2],
-		);
+);
+
 foreach my $case (@goodCases) {
   my @files =  @{ $case };
   lives_ok {
     EBox::OpenVPN::Client::ValidateCertificate::check(@files);
   } 'checking valid certificates files';
 }
-
-
 
 my @badCases = (
 		# one unrelated file
@@ -54,8 +50,7 @@ my @badCases = (
 		[$cert, $caCert, $pkey],
 		# pkey instead cert  and viceversa
 		[$caCert, $pkey, $cert],
-	       );
-
+);
 
 foreach my $case (@badCases) {
   my @files =  @{ $case };

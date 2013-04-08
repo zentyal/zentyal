@@ -6,13 +6,10 @@ use Test::Exception;
 
 use lib '../../..';
 
-
-
 use_ok('EBox::Test::Class');
 
 $INC{'SimpleTest.pm'} = 1;
 lives_ok { SimpleTest->runtests()  } 'Checking that runtests method lives in child class';
-
 
 package SimpleTest;
 use base 'EBox::Test::Class';
