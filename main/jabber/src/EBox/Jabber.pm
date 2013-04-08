@@ -321,9 +321,7 @@ sub _clearDatabase
     $self->setAsChanged(1);
     $self->stopService();
 
-    sleep 10;
     killProcesses();
-
     sleep 3;
     killProcesses(1);
 
