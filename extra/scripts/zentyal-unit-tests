@@ -36,7 +36,7 @@ then
     echo -e "The following packages are not installed:\n $MISSINGLIBS"
     echo -e "Installing them..."
     export DEBIAN_FRONTEND=noninteractive
-    sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS
+    sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
 fi
 
 # FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package
@@ -61,7 +61,7 @@ fi
 
 if [ "$JUNIT" == "yes" ]
 then
-    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $MODULES > test_results.xml"
+    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $MODULES"
 else
     PROVE="prove $COMMON_ARGS $ADDITIONAL_ARGS $INCLUDES $MODULES"
 fi
