@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Jabber;
-
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+package EBox::Jabber;
+use base qw(EBox::Module::Service EBox::LdapModule EBox::SysInfo::Observer);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,6 +31,7 @@ use constant JABBERPORTS2S => '5269';
 use constant JABBERPORTSTUN => '3478';
 use constant JABBERPORTPROXY => '7777';
 use constant EJABBERD_CTL => '/usr/sbin/ejabberdctl';
+use constant EJABBERD_DB_DIR =>  '/var/lib/ejabberd';
 
 sub _create
 {
@@ -306,5 +305,49 @@ sub fqdn
     chomp $fqdn;
     return $fqdn;
 }
+
+sub fqdnChanged
+{
+    my ($self, $oldFqdn, $newFqdn) = @_;
+    my $clearDatabaseScript = EBox::Config::share() . 'zentyal-jabber/clear-database --force';
+#    EBox::Sudo::root($clearDatabaseScript);
+    $self->_clearDatabase();
+}
+
+sub _clearDatabase
+{
+    my ($self) = @_;
+
+    $self->setAsChanged(1);
+    $self->stopService();
+
+    sleep 10;
+    killProcesses();
+
+    sleep 3;
+    killProcesses(1);
+
+    EBox::Sudo::root('rm -rf ' . EJABBERD_DB_DIR);
+}
+
+sub killProcesses
+{
+    my ($force) = @_;
+    my @kill;
+    foreach my $process (qw(beam epms)) {
+        `pgrep $process`;
+        if ($? == 0) {
+            push @kill, $process;
+        }
+    }
+    @kill or return;
+
+    if ($force) {
+        system "killall -9 @kill";
+    } else {
+        system "killall  @kill";
+    }
+}
+
 
 1;
