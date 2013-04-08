@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More skip_all => 'FIXME';
-use Test::More tests => 72;
+use Test::More tests => 44;
 use Test::Exception;
 
 use lib '../../..';
@@ -136,31 +135,7 @@ sub processTest
         my @expectedMasonParametes = (@cgiParams, errorFound => 1);
 
         setCgiParams($cgi, @cgiParams);
-        lives_ok { $cgi->_process() } 'Checking that cgi with error does not throw any exception';
-        cgiErrorOk($cgi, 'Checking that error is correctly marked');
-        checkMasonParameters($cgi, wantedParameters => {@expectedMasonParametes}, testName => 'Checking mason parameters for CGI with error');
-    }
-
-    # masonParameter dies case
-    my @deviantMasonCases = map {
-        my @case = @{ $_ };
-        push @case, (masonFails =>  1);
-        [ @case ];
-    } (
-       # exception only in masonParameters
-       @correctCases[0, 1],
-       # exception both in actuate and in masonParameters
-       @deviantCases[-1, -2],  # we pick the last two because they have good cgi parameters
-    );
-
-    foreach my $case_r (@deviantMasonCases) {
-        my $cgi = new EBox::CGI::DumbCGI;
-        my @cgiParams = @{ $case_r };
-
-        setCgiParams($cgi, @cgiParams);
-        lives_ok { $cgi->_process() } 'Checking that cgi with masonParameters error  does not throw any exception';
-        cgiErrorOk($cgi, 'Checking wether error is correctly marked');
-        checkMasonParameters($cgi, wantedParameters => { }, testName => 'Checking mason parameters for CGI with masonParameters aborted ');
+        dies_ok { $cgi->_process() } 'Checking that cgi with error dies';
     }
 }
 

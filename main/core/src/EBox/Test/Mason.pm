@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Test::Mason;
 
@@ -21,28 +23,26 @@ package EBox::Test::Mason;
 #
 # This currently depends from exec-mason-template tool
 
-use strict;
-use warnings;
 
+use Data::Dumper;
 use File::Slurp;
 use File::Basename;
 use HTML::Mason;
-use Cwd;
 use Test::More;
 use Error qw(:try);
-
-use EBox::Config::TestStub;
-
-EBox::Config::TestStub::fake(templates => 'core/src/templates/');
+use Dir::Self;
+use Cwd 'abs_path';
 
 sub checkTemplateExecution
 {
     my %args = @_;
     my $template       = $args{template};
     my $templateParams = exists $args{templateParams} ? $args{templateParams} : [];
-    my $compRoot      =  exists $args{compRoot}       ? $args{compRoot } : [];
+    my $compRoot      =  exists $args{compRoot}       ? $args{compRoot} : [];
+    ref $compRoot or $compRoot = [ $compRoot ];
 
-    my $testName       = exists $args{name} ? $args{name} : "Testing if execution of template $template with params @$templateParams was successful";
+    my $paramsAsText =  @{$templateParams};
+    my $testName       = exists $args{name} ? $args{name} : "Testing if execution of template $template with params $paramsAsText was successful";
     my $printOutput    = $args{printOutput};
     my $outputFile     = exists $args{outputFile} ? $args{outputFile} : '/tmp/' . basename($template);
 
@@ -78,11 +78,10 @@ sub executeTemplate
     my @params          = exists $args{templateParams} ?  @{ $args{templateParams} } : ();
     my $additionalRoots = exists $args{compRoot}       ?  $args{compRoot}            : [];
 
-    my $comp_root = _comp_root($template, $additionalRoots);
+    my $comp_root = _comp_root($additionalRoots);
     my $templateOutput;
 
     my $interp = HTML::Mason::Interp->new(comp_root => $comp_root, out_method => \$templateOutput);
-
     my $comp = $interp->make_component(comp_file => $template);
 
     $interp->exec($comp, @params);
@@ -92,35 +91,33 @@ sub executeTemplate
 
 sub testComponent
 {
-    my ($component, $cases_r, $printOutput) = @_;
-    defined $printOutput or $printOutput = 0;
+    my ($component, $cases_r, %params) = @_;
+    my $printOutput = $params{printOutput};
+    my $compRoot = $params{compRoot};
 
     my ($componentWoExt) = split '\.', (basename $component);
     my $outputFile  = "/tmp/$componentWoExt.html";
     system "rm -rf $outputFile";
 
-    my $compRoot = getcwd() . '/' . EBox::Config::templates();
-    my $template = "$compRoot/$component";
-
-    diag "\nComponent root $compRoot\n\n";
 
     foreach my $params (@{ $cases_r }) {
-        EBox::Test::Mason::checkTemplateExecution(template => $template, templateParams => $params, compRoot => [$compRoot], printOutput => $printOutput, outputFile => $outputFile);
+        my @caseParams = (template => $component, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
+        push @caseParams, (compRoot => $compRoot) if $compRoot;
+        EBox::Test::Mason::checkTemplateExecution(@caseParams);
     }
 }
 
 sub _comp_root
 {
-    my ($template, $root_paths_r) = @_;
+    my ($root_paths_r) = @_;
     my @root_paths = @{ $root_paths_r } ;
 
-    my $main_root = Cwd::abs_path($template);
-    $main_root = dirname($main_root);
-
     my $i = 0; # counter to generate comp_root ids
-    my @roots = map { $i++; [ "user-$i" => $_ ] } @root_paths;
-
-    unshift @roots, [ MAIN => $main_root ];
+    my @roots = map {
+        my $dir = abs_path($_);
+        $i++;
+        [ "user-$i" => $dir ]
+    } @root_paths;
 
     return \@roots;
 }
