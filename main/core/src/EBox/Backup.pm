@@ -242,7 +242,16 @@ sub _createPartitionsFile
         throw EBox::Exceptions::Internal ("Could not create partitions info file.");
     }
 
-    my $partitionsOutput = EBox::Sudo::root('fdisk -l');
+    my $partitionsOutput;
+    try {
+        $partitionsOutput = EBox::Sudo::root('fdisk -l');
+    } otherwise {
+        my ($ex) = @_;
+        my $errMsg = "Zentyal could not create a partition info file because this error: $ex";
+        EBox::error($errMsg);
+        $partitionsOutput = [$errMsg];
+    };
+
     foreach my $line (@{$partitionsOutput}) {
         print $PARTS $line;
     }

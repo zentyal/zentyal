@@ -1,4 +1,6 @@
 HEAD
+	+ Don't abort configuration backup when we get a error retrieving the
+	  partition table information
 	+ In EBox:Model::Row, refactored elementExists and
 	  elementByName to make them to have similiar code structure
 	+ Improvement in test help classes and added test fakes for
