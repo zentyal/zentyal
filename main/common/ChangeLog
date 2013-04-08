@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Sudo::TestStub allows now to ginore given commands, fixed
+	  unit test for this class and EBox::TestStub
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
 	  exception error
 	+ Fixed EBox::Config::TestStub
