@@ -48,8 +48,11 @@ sub fake
 sub unfake
 {
     delete $INC{'EBox.pm'};
-    eval 'use EBox';
-    ($@) and die "Error unfaking EBox: $@";
+    {
+
+        eval q{{no warnings 'redefine'; use EBox;}};
+        ($@) and die "Error unfaking EBox: $@";
+    }
 }
 
 

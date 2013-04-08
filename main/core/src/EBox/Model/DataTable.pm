@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-package EBox::Model::DataTable;
-
-use base 'EBox::Model::Component';
-
 use strict;
 use warnings;
+
+package EBox::Model::DataTable;
+use base 'EBox::Model::Component';
 
 use EBox;
 use EBox::Global;
@@ -1670,7 +1669,10 @@ sub setDirectory
     }
 
     my $olddir = $self->{'confdir'};
-    return if ($dir eq $olddir);
+    if (defined $olddir and ($dir eq $olddir)) {
+        # no changes
+        return;
+    }
 
     $self->{'confdir'} = $dir;
     $self->{'directory'} = "$dir/keys";

@@ -4,6 +4,7 @@ use Cwd;
 
 use lib '../..';
 use EBox::Test::Mason;
+use Dir::Self;
 
 use Test::More tests => 3;
 
@@ -12,12 +13,12 @@ my $outputFile  = '/tmp/htmlAttributes.txt';
 system "rm -rf $outputFile";
 
 my @cases = (
-	     [],
-	     [qw(name macaco)],
-	     [qw(name macaco value jefatura)],
+    [],
+    [qw(name macaco)],
+    [qw(name macaco value jefatura)],
 );
 
-my $htmlAttributesTemplate = getcwd() . '/core/src/templates/htmlAttributes.mas';
+my $htmlAttributesTemplate = __DIR__ . '/../htmlAttributes.mas';
 
 foreach my $params (@cases) {
   EBox::Test::Mason::checkTemplateExecution(template => $htmlAttributesTemplate, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);

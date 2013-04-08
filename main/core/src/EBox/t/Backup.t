@@ -3,8 +3,6 @@ use warnings;
 
 use lib '../..';
 
-use Test::More skip_all => 'FIXME';
-
 use EBox::Backup::Test;
 
 use English qw(-no_match_vars);
