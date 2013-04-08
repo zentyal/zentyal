@@ -68,9 +68,9 @@ sub killProcesses
     @kill or return;
 
     if ($force) {
-        system 'killall -9 @kill';
+        system "killall -9 @kill";
     } else {
-        system 'killall  @kill';
+        system "killall  @kill";
     }
 }
 
