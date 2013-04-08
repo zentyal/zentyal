@@ -12,15 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Backup::Test;
-
 use strict;
 use warnings;
 
-use lib '../..';
-
+package EBox::Backup::Test;
 use base 'EBox::Test::Class';
+
+use lib '../..';
 
 use EBox::Global::TestStub;
 use EBox::TestStubs;
@@ -34,6 +32,7 @@ use Test::More;
 use Test::Exception;
 use Test::Differences;
 use Test::File;
+use EBox::Sudo::TestStub;
 
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
@@ -50,6 +49,13 @@ use constant BUG_BACKUP_VALUE  => 'bug';
 sub testDir
 {
     return '/tmp/zentyal.backup.test';
+}
+
+sub ignoreZentyalVersionCheck : Test(startup)
+{
+    Test::MockObject->fake_module('EBox::Backup',
+                                  '_checkZentyalVersion' => sub {},
+                                 );
 }
 
 # needed for progress indicator stuff
@@ -111,6 +117,11 @@ sub setupCanaryModule : Test(setup)
     );
 }
 
+sub banRootCommands : Test(setup)
+{
+    EBox::Sudo::TestStub::addCommandBanFilter('chown');
+}
+
 sub setConfigCanary
 {
     my ($value) = @_;
@@ -146,7 +157,7 @@ sub teardownCanaryModule : Test(teardown)
     EBox::TestStubs::setConfig();
 }
 
-# this counts for 7 tests
+# this counts for 3 tests
 sub checkStraightRestore
 {
     my ($archiveFile, $options_r, $msg) = @_;
@@ -187,7 +198,7 @@ sub checkModulesChanged
     eq_or_diff [sort @modulesChanged], [sort @modules], $name;
 }
 
-# this counts for 7 tests
+# this counts for 2 tests
 sub checkDeviantRestore
 {
     my ($archiveFile, $options_r, $msg) = @_;
@@ -215,7 +226,7 @@ sub checkMakeBackup
 }
 
 # this requires a correct testdata dir
-sub invalidArchiveTest : Test(30)
+sub invalidArchiveTest : Test(10)
 {
     my ($self) = @_;
     my $incorrectFile = $self->testDir() . '/incorrect';
@@ -247,7 +258,7 @@ sub _testdataDir
     return $dir;
 }
 
-sub restoreConfigurationBackupTest : Test(16)
+sub restoreConfigurationBackupTest : Test(4)
 {
     my ($self) = @_;
 
@@ -255,14 +266,9 @@ sub restoreConfigurationBackupTest : Test(16)
     setConfigCanary(BEFORE_BACKUP_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup');
     checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
-
-    my $fullBackup;
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
-    checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
-sub restoreBugreportTest : Test(13)
+sub restoreBugreportTest : Test(3)
 {
     my ($self) = @_;
 
@@ -277,27 +283,15 @@ sub restoreBugreportTest : Test(13)
     lives_ok { $backup->restoreBackup($bugReportBackup) } 'Restoring bug report';
 
     checkConfigCanary(BEFORE_BACKUP_VALUE);
-
-    checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
 
-sub restoreFullBackupTest : Test(15)
+sub partialRestoreTest : Test(5)
 {
     my ($self) = @_;
 
     my $configurationBackup;
     setConfigCanary(BEFORE_BACKUP_VALUE);
-    $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
-    checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
-}
-
-sub partialRestoreTest : Test(15)
-{
-    my ($self) = @_;
-
-    my $configurationBackup;
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
+    $configurationBackup = checkMakeBackup(description => 'test configuration backup');
 
     setConfigCanary(AFTER_BACKUP_VALUE);
 
@@ -312,7 +306,7 @@ sub partialRestoreTest : Test(15)
                 $configurationBackup,
                 modsToRestore => ['canary', 'inexistent'],
                 );
-    } 'called restoreBackup with a list of modules t orestore which contains inexistent modules';
+    } 'called restoreBackup with a list of modules to restore which contains inexistent modules';
 
     my @modsToRestore = ('canary');
     lives_ok {
@@ -322,14 +316,7 @@ sub partialRestoreTest : Test(15)
                 )
     } "Partial restore with modules @modsToRestore";
 
-    my @checkSubs = map {
-        'check' . ucfirst $_
-    } @modsToRestore;
-
-    foreach my $subName (@checkSubs) {
-        my $sub = __PACKAGE__->can($subName);
-        $sub->(BEFORE_BACKUP_VALUE, 0);
-    }
+    checkConfigCanary(BEFORE_BACKUP_VALUE);
 }
 
 # this must be synchronized with EBox::Backup::_createM
@@ -351,15 +338,15 @@ sub _mangleModuleListInBackup
     system "rm -rf $backupDir";
 }
 
-sub listBackupsTest : Test(5)
+sub listBackupsTest : Test(3)
 {
     my ($self) = @_;
     diag "The backup's details of id a are not tested for now. The date detail it is only tested as relative order";
 
     my $backup = new EBox::Backup();
     my @backupParams = (
-            [description => 'configuration backup', fullBackup => 0],
-            [description => 'full backup', fullBackup => 1],
+            [description => 'configuration backup'],
+            [description => 'second backup'],
             );
 
     setConfigCanary('indiferent configuration');
@@ -372,10 +359,10 @@ sub listBackupsTest : Test(5)
         sleep 1;
     }
 
-    # add nobackup files in backup dir to test reliability
+    # add no-tar files in backup dir to test reliability
     my $backupsDir = $self->testDir() . '/backups';
     system "touch $backupsDir/noBackup";
-    system "touch $backupsDir/noBackup.tar";
+    system "touch $backupsDir/1221";
 
     my @backups = @{$backup->listBackups()};
     is @backups, @backupParams, 'Checking number of backups listed';
@@ -383,10 +370,8 @@ sub listBackupsTest : Test(5)
     foreach my $backup (@backups) {
         my %backupParam = @{ pop @backupParams };
         my $awaitedDescription = $backupParam{description};
-        my $awaitedType        = $backupParam{fullBackup} ? 'full backup' : 'configuration backup';
 
         is $backup->{description}, $awaitedDescription, 'Checking backup description';
-        is $backup->{type}, $awaitedType, 'Checking backup type';
     }
 }
 
@@ -397,12 +382,9 @@ sub backupDetailsFromArchiveTest : Test(9)
     $global->saveAllModules();
 
     my $configurationBackupDescription = 'test configuration backup for detail test';
-    my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription, fullBackup => 0) ;
+    my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription) ;
 
-    my $fullBackupDescription = 'test full backup for detail test';
-    my $fullBackup = EBox::Backup->makeBackup(description => $fullBackupDescription, fullBackup => 1);
-
-    my $bugreportBackupDescription = 'Bug report'; # string foun in EBox::Backup::makeBugReport
+    my $bugreportBackupDescription = 'Bug report'; # string found in EBox::Backup::makeBugReport
     my $bugreportBackup = EBox::Backup->makeBugReport();
 
     # XXX date detail IS NOT checked
@@ -410,10 +392,6 @@ sub backupDetailsFromArchiveTest : Test(9)
             $configurationBackup => {
                 description => $configurationBackupDescription,
                 type        => $EBox::Backup::CONFIGURATION_BACKUP_ID,
-            },
-            $fullBackup => {
-                description => $fullBackupDescription,
-                type        => $EBox::Backup::FULL_BACKUP_ID,
             },
             $bugreportBackup => {
                 description => $bugreportBackupDescription,
@@ -432,23 +410,22 @@ sub backupDetailsFromArchiveTest : Test(9)
     }
 }
 
-sub backupForbiddenWithChangesTest : Test(7)
+sub backupWithChangesTest : Test(5)
 {
     my ($self) = @_;
-
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-
-    setConfigCanary(AFTER_BACKUP_VALUE);
 
     my $global = EBox::Global->getInstance();
     my @changedModules = grep {
         $global->modIsChanged($_);
     } @{ $global->modNames };
+    $global->modChange('canary');
 
+    setConfigCanary(BEFORE_BACKUP_VALUE);
     throws_ok {
-        my $b = new EBox::Backup;
-        $b->makeBackup(description => 'test');
-    }  qr/not saved changes/, 'Checkign wether the backup is forbidden with changed modules';
+        EBox::Backup->makeBackup(description => 'test');
+    }  qr/The following modules have unsaved changes/, 'Checking wether the backup is forbidden with changed modules';
+
+    setConfigCanary(AFTER_BACKUP_VALUE);
 
     checkConfigCanary(AFTER_BACKUP_VALUE, 1);
 
@@ -456,9 +433,14 @@ sub backupForbiddenWithChangesTest : Test(7)
             name => 'Check wether module changed state has not be changed',
             modules => \@changedModules,
     );
+
+    lives_ok {
+        EBox::Backup->makeBackup(description => 'test', fallbackToRO => 1);
+    }  'Checking wether the backup  with changed modules is possible with fallback to read-only';
+    checkConfigCanary(AFTER_BACKUP_VALUE, 0);
 }
 
-sub restoreFailedTest #: Test(6)
+sub restoreFailedTest : Test(4)
 {
     my ($self) = @_;
 
@@ -494,31 +476,19 @@ sub restoreFailedTest #: Test(6)
 
     } qr /$forcedFailureMsg/, 'Checking wether restore failed as expected';
 
-    diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
-    checkConfigCanaryOnlyConfig(AFTER_BACKUP_VALUE);
+  SKIP: {
+        skip 'Revoking is not yet working with our mocks', 2;
 
-    my @modules = @{$global->modNames()};
+        diag "Checking modules for revoked values. We check only Config values because currently the revokation only takes care of them";
+        checkConfigCanary(AFTER_BACKUP_VALUE);
 
-    my @modulesNotChanged =  grep { (not $global->modIsChanged($_)) } @modules;
+        my @modules = @{$global->modNames()};
 
-    ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' .
-        ' some  modules not longer a changed state (this is a clue of revokation)' ;
-}
+        my @modulesNotChanged =  grep { (not $global->modIsChanged($_)) } @modules;
 
-sub dataRestoreTest : Test(7)
-{
-    my ($self) = @_;
-
-    setConfigCanary(BEFORE_BACKUP_VALUE);
-    my $fullBackup = checkMakeBackup(fullBackup => 1);
-    setConfigCanary(AFTER_BACKUP_VALUE);
-
-    lives_ok {
-        EBox::Backup->restoreBackup($fullBackup, dataRestore => 1)
-    } 'trying a data restore';
-
-    # conf canary shouldn't be restored
-    checkConfigCanary(AFTER_BACKUP_VALUE);
+        ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' .
+            ' some  modules not longer a changed state (this is a clue of revokation)' ;
+    }
 }
 
 sub checkArchivePermissions : Test(3)
@@ -526,8 +496,8 @@ sub checkArchivePermissions : Test(3)
     my ($self) = @_;
 
     setConfigCanary(BEFORE_BACKUP_VALUE);
-    my $archive = checkMakeBackup(fullBackup => 0);
-    Test::File::file_mode_is($archive, 0600, 'Checking wether the archive permission only allow reads by its owner');
+    my $archive = checkMakeBackup();
+    Test::File::file_mode_is($archive, 0660, 'Checking wether the archive permission only allow reads by its owner');
     my @op = `ls -l $archive`;
     diag "LS -l @op";
 

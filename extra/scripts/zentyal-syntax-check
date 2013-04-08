@@ -139,6 +139,7 @@ sub filter
 
     if (($src =~ m{/t/}) or
         ($src =~ m{Test}) or
+        ($src =~ m{/Fake\.pm$}) or
         ($src =~ m{/External\.pm$}) or
         ($src =~ m{/SysvolSync\.pm$}) or
         ($src =~ m{/Config\.pm$}) or
