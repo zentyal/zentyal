@@ -1,4 +1,6 @@
 HEAD
+	+ Add instance argument invoking select type populate function
+	+ Improve dynamic editable property detection for framework types
 	+ In EBox:Model::Row, refactored elementExists and
 	  elementByName to make them to have similiar code structure
 	+ Improvement in test help classes and added test fakes for
