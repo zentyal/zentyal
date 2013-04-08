@@ -60,7 +60,7 @@ fi
 
 if [ "$JUNIT" == "yes" ]
 then
-    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $MODULES"
+    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $MODULES > test_results.xml"
 else
     PROVE="prove $COMMON_ARGS $ADDITIONAL_ARGS $INCLUDES $MODULES"
 fi
