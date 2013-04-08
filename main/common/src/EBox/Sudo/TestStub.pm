@@ -32,6 +32,9 @@ close $fh;
 
 Readonly::Scalar our $FAKE_STDERR_FILE => $tmpfile;
 
+{
+
+no warnings 'redefine';
 
 sub fake
 {
@@ -40,6 +43,17 @@ sub fake
 
     *EBox::Sudo::root = \&_fakeRoot;
     *EBox::Sudo::silentRoot = \&_fakeSilentRoot;
+}
+
+sub unfake
+{
+    *EBox::Sudo::SUDO_PATH = \$GOOD_SUDO_PATH;
+    *EBox::Sudo::STDERR_FILE = \$GOOD_STDERR_FILE;
+
+    delete $INC{'EBox/Sudo.pm'};
+    eval 'use EBox::Sudo';
+}
+
 }
 
 sub isFaked

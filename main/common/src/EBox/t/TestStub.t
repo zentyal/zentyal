@@ -34,7 +34,6 @@ sub mockTest
         } 'Checking that after the first initializtion the behaviour is unchanged';
     } qr/$debugMsg/, 'Checking log text';
 
-    #FIXME: unfake removed
      EBox::TestStub::unfake();
     stderr_like {
         EBox::info($debugMsg)
