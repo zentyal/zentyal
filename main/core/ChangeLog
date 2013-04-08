@@ -1,4 +1,6 @@
 HEAD
+	+ Don't abort configuration backup when we get a error retrieving the
+	  partition table information
 	+ Remove unused method EBox::Auth::alreadyLogged()
 	+ Apache::setRestrictedResource updates properly if already exists
 	+ Global and Module::Config allow to set redis instance to ease testing
