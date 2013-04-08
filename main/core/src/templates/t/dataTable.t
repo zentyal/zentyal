@@ -3,7 +3,10 @@ use warnings;
 
 use EBox::Test::Mason;
 use Test::More tests => 5;
+use Dir::Self;
 
+my $compRoot = __DIR__ . '/..';
+my $template = $compRoot . '/dataTable.mas';
 my @columnTitles = qw(Arabic Roman Binary Actions);
 my @rows = (
 	    ['not a number', 'no roman concept', 'NaN',
@@ -42,6 +45,6 @@ my @cases = (
 	     [columnTitles => \@columnTitles, rows => \@rows, additionalComponents => \@additionalComponents],
 );
 
-EBox::Test::Mason::testComponent('dataTable.mas', \@cases);
+EBox::Test::Mason::testComponent($template, \@cases, 0, compRoot => $compRoot);
 
 1;

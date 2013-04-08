@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use EBox::Test::Mason;
-
+use Dir::Self;
 use Test::More tests => 4;
 
 my @hiddenFields = (
@@ -29,6 +29,9 @@ my @cases = (
 	     [rows => [@hiddenFields, @noHiddenFields] ],
 );
 
-EBox::Test::Mason::testComponent('formTable.mas', \@cases);
+my $compRoot = __DIR__ . '/..';
+my $component = $compRoot . '/formTable.mas';
+
+EBox::Test::Mason::testComponent($component, \@cases, 0, compRoot => $compRoot);
 
 1;
