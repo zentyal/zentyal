@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -37,9 +37,11 @@ package EBox::EventDaemon;
 # Dependencies
 ###################
 
+use EBox;
 use EBox::Config;
 use EBox::Global;
 use EBox::DBEngineFactory;
+use EBox::Util::Event qw(:constants);
 
 # Core modules
 use File::Slurp;
@@ -54,12 +56,9 @@ use Data::Dumper;
 #
 #      WATCHERS_DIR - String directory where the Watchers lie
 #      DISPATCHERS_DIR - String directory where the Dispatchers lie
-#      EVENTS_FIFO - String the path to the named pipe to send events to
-#      dispatch
 #      SCANNING_INTERVAL - Integer interval between scannings
 #
 use constant LOG_TABLE => 'events';
-use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 use constant SCANNING_INTERVAL => 60;
 use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
 use constant MAX_MSG_LENGTH => 256;
@@ -138,12 +137,7 @@ sub _init
 
     EBox::init();
 
-    # Create the named pipe
-    unless ( -p EVENTS_FIFO ) {
-        unlink(EVENTS_FIFO);
-        POSIX::mkfifo(EVENTS_FIFO, 0700)
-            or die "Can't make a named pipe: $!";
-    }
+    EBox::Util::Event::createFIFO();
 }
 
 # Method: _mainWatcherLoop
@@ -234,16 +228,20 @@ sub _mainDispatcherLoop
 
             bless ($event, 'EBox::Event');
 
-            # log the event if log is enabled
-            if (exists $self->{dbengine}) {
-                $self->_logEvent($event);
-            }
-
             # dispatch event to its watchers
             # skip the given data if it is not a valid EBox::Event object
             if (defined($event) and $event->isa('EBox::Event')) {
                 $self->_dispatchEventByDispatcher($event);
             }
+
+            # log the event if log is enabled
+            try {
+                if (exists $self->{dbengine}) {
+                    $self->_logEvent($event);
+                }
+            } otherwise {
+                EBox::warn("Cannot log event, Mysql is stopped");
+            };
         }
     }
 }
