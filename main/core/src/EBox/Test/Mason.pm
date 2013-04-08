@@ -91,8 +91,8 @@ sub executeTemplate
 
 sub testComponent
 {
-    my ($component, $cases_r, $printOutput, %params) = @_;
-    defined $printOutput or $printOutput = 0;
+    my ($component, $cases_r, %params) = @_;
+    my $printOutput = $params{printOutput};
     my $compRoot = $params{compRoot};
 
     my ($componentWoExt) = split '\.', (basename $component);

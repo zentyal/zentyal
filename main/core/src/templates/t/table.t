@@ -26,6 +26,6 @@ my @cases = (
             );
 
 
-EBox::Test::Mason::testComponent($template, \@cases, 0, compRoot => $compRoot);
+EBox::Test::Mason::testComponent($template, \@cases, compRoot => $compRoot);
 
 1;

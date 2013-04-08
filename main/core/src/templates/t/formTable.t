@@ -32,6 +32,6 @@ my @cases = (
 my $compRoot = __DIR__ . '/..';
 my $component = $compRoot . '/formTable.mas';
 
-EBox::Test::Mason::testComponent($component, \@cases, 0, compRoot => $compRoot);
+EBox::Test::Mason::testComponent($component, \@cases, compRoot => $compRoot);
 
 1;
