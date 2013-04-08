@@ -309,8 +309,6 @@ sub fqdn
 sub fqdnChanged
 {
     my ($self, $oldFqdn, $newFqdn) = @_;
-    my $clearDatabaseScript = EBox::Config::share() . 'zentyal-jabber/clear-database --force';
-#    EBox::Sudo::root($clearDatabaseScript);
     $self->_clearDatabase();
 }
 
