@@ -1793,6 +1793,7 @@ sub reprovision
     my ($self) = @_;
 
     return unless $self->configured();
+    EBox::info("Reprovisioning LDAP");
 
     my @removeHomeCmds;
     foreach my $home (map { $_->home() } @{$self->users()}) {
@@ -1805,6 +1806,26 @@ sub reprovision
     $self->_manageService('start');
 
     $self->enableActions();
+
+    # LDAP module has lost its schemas and LDAP config after the reprovision
+    my $global = $self->global();
+    my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $self->name()) {
+            # dont reconfigure itself
+            next;
+        } elsif (not $mod->configured()) {
+            next;
+        }
+        $mod->reprovisionLDAP();
+    }
+}
+
+sub reprovisionLDAP
+{
+    throw EBox::Exceptions::Internal("This method should not be called in user module");
 }
 
 # Implement EBox::SyncFolders::Provider interface

@@ -31,9 +31,9 @@ sub update
 
     ($result->is_error) and warn "Cant initialize postfix leaf.";
 
-    my $dn = $vdomain->vdomainDn();
+    $dn = $vdomain->vdomainDn();
 
-    my $result = $ldap->add($dn, attr => [
+    $result = $ldap->add($dn, attr => [
         'ou' => 'vdomains',
         'objectClass' => 'top',
         'objectClass' => 'organizationalUnit'
@@ -41,9 +41,9 @@ sub update
 
     ($result->is_error) and warn "Cant initialize virtual domains leaf.";
 
-    my $dn = $alias->aliasDn();
+    $dn = $alias->aliasDn();
 
-    my $result = $ldap->add($dn, attr => [
+    $result = $ldap->add($dn, attr => [
             'ou'    =>      'mailalias',
             'objectClass' => 'top',
             'objectClass' => 'organizationalUnit'
