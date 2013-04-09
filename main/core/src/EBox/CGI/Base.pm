@@ -967,7 +967,7 @@ sub menuNamespace
 sub JSONReply
 {
     my ($self, $data_r) = @_;
-    print$self->cgi()->header(-charset=>'utf-8',
+    print $self->cgi()->header(-charset=>'utf-8',
                               -type => 'application/JSON',
                              );
     my $error = $self->{error};
