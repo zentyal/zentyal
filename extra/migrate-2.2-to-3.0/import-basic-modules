@@ -43,6 +43,11 @@ use EBox::Backup;
 #     imported  bwcause this is a invalid address
 #
 # 6 - invalid netwoek proxy configuration will not be imported
+#
+# 7- CA module should be imported manually or openvpn importation will fail in
+#    settign server options
+#
+# 8 - openvpn clients are not imported
 
 # TODO: Try (and make it work) with composites which are children of a row
 my %moduleParameters = (
@@ -71,19 +76,26 @@ my %moduleParameters = (
         },
         preInsertModelsData => \&_networkPreInsert,
     },
+
+    openvpn => {
+        rowAdapterBeforeAdd => {
+            'ExposedNetworks' => \&_exposedNetworksAddrToObject
+         }
+    },
 );
 
 
 
 EBox::init();
 
-my ($bakFile) = @ARGV;
+my ($bakFile, @modulesToImport) = @ARGV;
+@modulesToImport or
+    @modulesToImport = qw(services objects network firewall);
 
 EBox::info("Begin $0");
 my $bakDir = EBox::Backup->_unpackAndVerify($bakFile);
 try {
     EBox::Backup->_unpackModulesRestoreData($bakDir);
-    my @modulesToImport = qw(services objects network firewall);
     foreach my $module (@modulesToImport) {
         _cleanModule($module);
     }
@@ -386,6 +398,7 @@ sub _fillModelRows
             EBox::info("Not found data for row with old id $rowId. Skipping" );
             next;
         }
+
         my $row = {
             id => $rowId,
             elements => \%elements,
@@ -606,7 +619,7 @@ sub _insertData
         if ($component->{form}) {
             _insertElementsInForm($model, $component->{elements})
         } else {
-            _insertRowsInModel($model, $component->{rows});
+            _insertRowsInModel($model, $component->{rows}, module => $module);
         }
     } else {
         EBox::error("Bad type: $type. full component: " . Dumper($component));
@@ -639,16 +652,30 @@ sub _insertElementsInForm
 
 sub _insertRowsInModel
 {
-    my ($model, $rows) = @_;
+    my ($model, $rows, %args) = @_;
+
+    my $rowAdapter;
+    my $moduleName = $args{module}->name();
+    my $modelName = $model->name();
+    my $modParams = _moduleParameters($moduleName);
+    if ((exists $modParams->{rowAdapterBeforeAdd}->{$modelName}) and
+        ($modParams->{rowAdapterBeforeAdd}->{$modelName})
+       ) {
+        $rowAdapter = $modParams->{rowAdapterBeforeAdd}->{$modelName};
+    }
+
     foreach my $row (@{ $rows }) {
         my $newRowId;
         try {
-            my @addParams = %{ $row->{elements}};
+            my %addParams = %{ $row->{elements}};
             # try to use oldId to preserve referencies
             if (exists $row->{id} and $row->{id}) {
-                push @addParams, id => $row->{id};
+                $addParams{id} = $row->{id};
             }
-            $newRowId = $model->addRow(@addParams);
+
+            %addParams =  %{ $rowAdapter->(\%addParams)} if $rowAdapter;
+
+            $newRowId = $model->addRow(%addParams);
         } otherwise {
             my ($ex) = @_;
             EBox::error("$ex\nCannot add row in model " . $model->name() .
@@ -662,7 +689,7 @@ sub _insertRowsInModel
         foreach my $child (@{ $row->{childs}}) {
             my $subModelField = $child->{subModelField};
             my $subModel =  $newRow->subModel($subModelField);
-            _insertRowsInModel($subModel, $child->{rows});
+            _insertRowsInModel($subModel, $child->{rows}, module => $args{module});
         }
     }
 }
@@ -844,7 +871,74 @@ sub _networkImportInterfaces
 }
 
 
+my %objectByAddr;
+sub _exposedNetworksAddrToObject
 {
+    my ($elements_r) = @_;
+    if (not keys %objectByAddr) {
+        _initalizeObjectsByAddr();
+    }
+
+    my $addr = delete $elements_r->{network_ip};
+    my $mask = delete $elements_r->{network_mask};
+    my $cidr = "$addr/$mask";
+    my $obj;
+    if (exists $objectByAddr{$cidr}) {
+        $obj = $objectByAddr{$cidr};
+    } else {
+        $obj = _objectForExposedAddr($addr, $mask);
+        $objectByAddr{$cidr} = $obj;
+    }
+    $elements_r->{object} = $obj;
+
+    return $elements_r;
+}
+
+sub _initalizeObjectsByAddr
+{
+    my $objectsMod = EBox::Global->getInstance(0)->modInstance('objects');
+    my @objectIds = @{ $objectsMod->objectIds() };
+    foreach my $id (@objectIds) {
+        my $members = $objectsMod->objectMembers($id);
+        (@{$members} == 1) or next;
+        my ($addr_r) = @{ $members->addresses(mask => 1) };
+        my ($addr, $mask) = @{$addr_r};
+        $objectByAddr{"$addr/$mask"} = $id;
+    }
+
+}
+
+sub _objectForExposedAddr
+{
+    my ($network, $mask) = @_;
+    my $objectMod = EBox::Global->getInstance(0)->modInstance('objects');
+    my $objectTable = $objectMod->model('ObjectTable');
+
+    my $name = "vpn-$network";
+    my $cnt = 1;
+    while ($objectTable->findId(name => $name)) {
+        $cnt += 1;
+        $name = "vpn-$network-$cnt";
+    }
+
+    my $objectId = $objectTable->addObject(
+        name => $name,
+        members => [
+               {
+                   name => 'address from migration',
+                   address_selected => 'ipaddr',
+                   ipaddr_ip => $network,
+                   ipaddr_mask => $mask,
+               },
+                  ],
+       );
+    return $objectId;
+}
+
+
+
+# overwrite modules methods
+BEGIN {
     use EBox::Services::Model::ServiceConfigurationTable;
     no warnings 'redefine';
     sub EBox::Services::Model::ServiceConfigurationTable::validateTypedRow
@@ -853,6 +947,12 @@ sub _networkImportInterfaces
         # {protoclTypes} members
     }
 
+    # remove new openvpn server autoconfiguration...
+    eval 'use EBox::OpenVPN::Model::Servers';
+    if (not $@) {
+        *EBox::OpenVPN::Model::Servers::_configureVPN = sub {};
+    }
 }
+
 
 1;
