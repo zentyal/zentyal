@@ -28,6 +28,7 @@ sub new
     $self->{queue} = [];
 
     bless ($self, $class);
+    return $self;
 }
 
 sub set

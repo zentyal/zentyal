@@ -1,4 +1,5 @@
 HEAD
+	+ Added no-configuration backend data backup tests
 	+ Don't abort configuration backup when we get a error retrieving the
 	  partition table information
 	+ In EBox:Model::Row, refactored elementExists and
