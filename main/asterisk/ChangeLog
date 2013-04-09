@@ -1,4 +1,5 @@
 HEAD
+	+ Forbid to add meeting until the module is configured
 	+ When a user extensions modification is attempted, check
 	  extension number before removing any data from LDAP
 3.0.1
