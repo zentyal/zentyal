@@ -1,3 +1,7 @@
+HEAD
+	+ Change mouse input to tablet driver for absolute positioning
+	  (fixes offset from host cursor to vm cursor).
+	  See https://bugzilla.redhat.com/show_bug.cgi?id=487559.
 3.0.3
 	+ Added missing architectureTypes method to VBox backend
 	+ Forced MAC prefix to workaround libvirt bug
