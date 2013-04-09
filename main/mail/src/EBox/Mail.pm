@@ -1662,7 +1662,6 @@ sub consolidate
     return {  $table => $spec };
 }
 
-
 sub logHelper
 {
     my ($self) = @_;
@@ -1849,14 +1848,13 @@ sub preSlaveSetup
     $self->model('VDomains')->removeAll(1);
 }
 
-sub slaveSetup
+sub reprovisionLDAP
 {
     my ($self) = @_;
-
     # regenerate mail ldap tree
     EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 
-    $self->SUPER::slaveSetup();
+    $self->SUPER::reprovisionLDAP();
 }
 
 sub slaveSetupWarning
