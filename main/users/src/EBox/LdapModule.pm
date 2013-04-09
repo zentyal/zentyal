@@ -232,7 +232,6 @@ sub _addIndexDirectory
     }
 }
 
-
 # Method: performLDAPActions
 #
 #  adds the schemas, acls and local attributes specified in the
@@ -316,9 +315,5 @@ sub slaveSetupWarning
     my ($self, $master) = @_;
     return undef;
 }
-
-
-
-
 
 1;
