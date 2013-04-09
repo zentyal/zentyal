@@ -44,7 +44,10 @@ Readonly::Scalar my $CANARY_CONF_KEY => 'canary_testkey';
 
 use constant BEFORE_BACKUP_VALUE => 'beforeBackup';
 use constant AFTER_BACKUP_VALUE  => 'afterBackup';
-use constant BUG_BACKUP_VALUE  => 'bug';
+
+use constant BEFORE_BACKUP_NOCONF_VALUE => 'beforeBackupNoConf';
+use constant AFTER_BACKUP_NOCONF_VALUE  => 'afterBackupNoConf';
+use constant BUG_BACKUP_NOCONF_VALUE  => 'bugReport';
 
 sub testDir
 {
@@ -89,19 +92,22 @@ sub setupDirs : Test(setup)
 # this canary contains sensitive data so in debug
 sub setupCanaryModule : Test(setup)
 {
+    my $canaryNoConf;
     EBox::TestStubs::fakeModule(
             name => 'canary',
             subs => [
-                setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
-                canary => sub { my ($self) = @_; return $self->{canary} },
+                setCanary => sub { my ($self, $canary) = @_; $canaryNoConf = $canary },
+                canary => sub { my ($self) = @_; return $canaryNoConf },
                 dumpConfig => sub {
                     my ($self, $dir, %options) = @_;
                     EBox::Module::Config::_dump_to_file($self, $dir);
                     if ($options{bug}) {
-                        write_file ("$dir/canary", BUG_BACKUP_VALUE );
+                        write_file ("$dir/canary", BUG_BACKUP_NOCONF_VALUE );
                     }
                     else {
-                        write_file ("$dir/canary", $self->{canary} );
+                        my $data = $self->canary();
+                        $data or $data = '';
+                        write_file ("$dir/canary", $data );
                     }
                 },
                 restoreConfig => sub {
@@ -131,6 +137,14 @@ sub setConfigCanary
     $canaryConf->setAsChanged();
 }
 
+sub setNoConfigCanary
+{
+    my ($value) = @_;
+    my $canaryConf = EBox::Global->modInstance('canary');
+    $canaryConf->setCanary($value);
+    $canaryConf->setAsChanged();
+}
+
 sub _canaryRevokeConfig
 {
     my ($key) = @_;
@@ -142,8 +156,17 @@ sub checkConfigCanary
 {
     my ($expectedValue) = @_;
 
-    my $value = EBox::Global->modInstance('canary')->get_string($CANARY_CONF_KEY);
+    my $canary = EBox::Global->modInstance('canary');
+    my $value = $canary->get_string($CANARY_CONF_KEY);
     is ($value, $expectedValue, 'Checking Config data of simple module canary');
+}
+
+sub checkNoConfigCanary
+{
+    my ($expectedValue) = @_;
+    my $canary = EBox::Global->modInstance('canary');
+    my $extraConf = $canary->canary();
+    is ($extraConf, $expectedValue, 'Checking extra no-config data of canary module');
 }
 
 sub teardownConfigCanary : Test(teardown)
@@ -164,10 +187,16 @@ sub checkStraightRestore
 
     my $backup = new EBox::Backup();
     setConfigCanary(AFTER_BACKUP_VALUE);
+    setNoConfigCanary(AFTER_BACKUP_NOCONF_VALUE);
+
     lives_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
 
     my %options = @{ $options_r  };
-    checkConfigCanary(BEFORE_BACKUP_VALUE, $options{fullRestore});
+    my $bugReport = $options{bugReport};
+
+    checkConfigCanary(BEFORE_BACKUP_VALUE);
+    my $noConfigValue = $bugReport ? BUG_BACKUP_NOCONF_VALUE : BEFORE_BACKUP_NOCONF_VALUE;
+    checkNoConfigCanary($noConfigValue);
 
     checkModulesChanged(
             name => 'Checking wether all restored modules have the changed state set'
@@ -205,10 +234,12 @@ sub checkDeviantRestore
 
     my $backup = new EBox::Backup();
     setConfigCanary(AFTER_BACKUP_VALUE);
+    setNoConfigCanary(AFTER_BACKUP_NOCONF_VALUE);
     dies_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
 
     diag "Checking that failed restore has not changed the configuration";
     checkConfigCanary(AFTER_BACKUP_VALUE, 1);
+    checkNoConfigCanary(AFTER_BACKUP_NOCONF_VALUE, 1);
 }
 
 sub checkMakeBackup
@@ -226,7 +257,7 @@ sub checkMakeBackup
 }
 
 # this requires a correct testdata dir
-sub invalidArchiveTest : Test(10)
+sub invalidArchiveTest : Test(15)
 {
     my ($self) = @_;
     my $incorrectFile = $self->testDir() . '/incorrect';
@@ -258,17 +289,18 @@ sub _testdataDir
     return $dir;
 }
 
-sub restoreConfigurationBackupTest : Test(4)
+sub restoreConfigurationBackupTest : Test(6)
 {
     my ($self) = @_;
 
     my $configurationBackup;
     setConfigCanary(BEFORE_BACKUP_VALUE);
+    setNoConfigCanary(BEFORE_BACKUP_NOCONF_VALUE);
     $configurationBackup = checkMakeBackup(description => 'test configuration backup');
-    checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
+    checkStraightRestore($configurationBackup, [], 'configuration restore from a configuration backup');
 }
 
-sub restoreBugreportTest : Test(3)
+sub restoreBugreportTest : Test(4)
 {
     my ($self) = @_;
 
@@ -276,6 +308,7 @@ sub restoreBugreportTest : Test(3)
     my $bugReportBackup;
 
     setConfigCanary(BEFORE_BACKUP_VALUE);
+    setNoConfigCanary(BEFORE_BACKUP_NOCONF_VALUE);
     lives_ok { $bugReportBackup = $backup->makeBugReport() } 'make a bug report';
 
     setConfigCanary(AFTER_BACKUP_VALUE);
@@ -283,6 +316,7 @@ sub restoreBugreportTest : Test(3)
     lives_ok { $backup->restoreBackup($bugReportBackup) } 'Restoring bug report';
 
     checkConfigCanary(BEFORE_BACKUP_VALUE);
+    checkNoConfigCanary(BUG_BACKUP_NOCONF_VALUE);
 }
 
 sub partialRestoreTest : Test(5)
