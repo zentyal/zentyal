@@ -1,4 +1,6 @@
 HEAD
+	+ Slave setup refactored to reuse common code with reprovision
+	+ Reprovision LDAP for all LDAP based modules
 	+ Don't try to update samba password in user corner when samba is
 	  not configured
 	+ Add operation arguments on LDAP error whenever is possible
