@@ -1,3 +1,8 @@
+HEAD
+	+ Improve addition of localhost as primary resolver when DNS module is
+	  enabled.
+	+ Remove localhost as primary resolver when squid module is configured
+	  to authenticate against external server
 3.0.3
 	+ Log warn instead of error when iface has not address in _multigwRoutes()
 	+ Fixed error replacing nameserver when importing resolv.conf

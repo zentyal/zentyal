@@ -16,8 +16,8 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::AccessRules;
-use base 'EBox::Model::DataTable';
 
+use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Global;
@@ -28,6 +28,11 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
+
+use Net::LDAP;
+use Net::LDAP::Control::Sort;
+use Authen::SASL qw(Perl);
+use Authen::Krb5::Easy qw(kinit kdestroy kerror kcheck);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 
@@ -62,7 +67,7 @@ sub _table
                 new EBox::Types::Select(
                     fieldName     => 'group',
                     printableName => __('Users Group'),
-                    populate      => \&populateGroups,
+                    populate      => \&_populateGroups,
                     editable      => 1,
                     optional      => 0,
                     disableCache  => 1,
@@ -114,18 +119,187 @@ sub _table
     };
 }
 
-sub populateGroups
+sub _populateGroups
 {
-    my $userMod = EBox::Global->modInstance('users');
-    return [] unless ($userMod->isEnabled());
+    my ($self) = @_;
 
-    my @groups;
-    push (@groups, { value => '__USERS__', printableValue => __('All users') });
-    foreach my $group (@{$userMod->groups()}) {
-        my $name = $group->name();
-        push (@groups, { value => $name, printableValue => $name });
+    my $squid = $self->parentModule();
+    my $mode = $squid->authenticationMode();
+    if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
+        return $self->_populateGroupsFromExternalAD();
+    } else {
+        my $userMod = EBox::Global->modInstance('users');
+        return [] unless ($userMod->isEnabled());
+
+        my @groups;
+        push (@groups, { value => '__USERS__', printableValue => __('All users') });
+        foreach my $group (@{$userMod->groups()}) {
+            my $name = $group->name();
+            push (@groups, { value => $name, printableValue => $name });
+        }
+        return \@groups;
     }
-    return \@groups;
+    return [];
+}
+
+sub _adLdap
+{
+    my ($self) = @_;
+
+    unless (defined $self->{adLdap}) {
+    my $squid = $self->parentModule();
+    my $keytab = $squid->KEYTAB_FILE();
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
+
+    EBox::info("Connecting to AD LDAP");
+    my $confFile = $squid->SQUID_ZCONF_FILE();
+    my $dcKey = $squid->AUTH_AD_DC_KEY();
+    my $dc = EBox::Config::configkeyFromFile($dcKey, $confFile);
+
+    my $ccache = EBox::Config::tmp() . 'squid-ad.ccache';
+    $ENV{KRB5CCNAME} = $ccache;
+
+    # Get credentials for computer account
+    my $ok = kinit($keytab, $hostSamAccountName);
+    unless (defined $ok and $ok == 1) {
+        throw EBox::Exceptions::External(
+            __x("Unable to get kerberos ticket to bind to LDAP: {x}",
+                x => kerror()));
+    }
+
+    # Set up a SASL object
+    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
+    unless ($sasl) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup SASL object: {x}",
+                x => $@));
+    }
+
+    # Set up an LDAP connection
+    my $ldap = new Net::LDAP($dc);
+    unless ($ldap) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup LDAP object: {x}",
+                x => $@));
+    }
+
+    # Check GSSAPI support
+    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
+    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
+        throw EBox::Exceptions::External(
+            __("AD LDAP server does not support GSSAPI"));
+    }
+
+    # Finally bind to LDAP using our SASL object
+    my $bindResult = $ldap->bind(sasl => $sasl);
+    if ($bindResult->is_error()) {
+        throw EBox::Exceptions::External(
+            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
+                x => $dc, y => $bindResult->error_desc()));
+    }
+        $self->{adLdap} = $ldap;
+    }
+
+    return $self->{adLdap};
+}
+
+# Method: _sidToString
+#
+#   This method translate binary SIDs retrieved from AD LDAP to its string
+#   representation.
+#
+#   FIXME This method is duplicated from samba module, file LdbObject.pm,
+#         should be in a utility class at common or core
+#
+sub _sidToString
+{
+    my ($self, $sid) = @_;
+
+    return undef
+        unless unpack("C", substr($sid, 0, 1)) == 1;
+
+    return undef
+        unless length($sid) == 8 + 4 * unpack("C", substr($sid, 1, 1));
+
+    my $sid_str = "S-1-";
+
+    $sid_str .= (unpack("C", substr($sid, 7, 1)) +
+                (unpack("C", substr($sid, 6, 1)) << 8) +
+                (unpack("C", substr($sid, 5, 1)) << 16) +
+                (unpack("C", substr($sid, 4, 1)) << 24));
+
+    for my $loop (0 .. unpack("C", substr($sid, 1, 1)) - 1) {
+        $sid_str .= "-" . unpack("I", substr($sid, 4 * $loop + 8, 4));
+    }
+
+    return $sid_str;
+}
+
+sub _populateGroupsFromExternalAD
+{
+    my ($self) = @_;
+
+    my $squid = $self->parentModule();
+    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
+    my $skip = EBox::Config::boolean($key);
+
+    my $groups = [];
+    my $ad = $self->_adLdap();
+    my $dse = $ad->root_dse(attrs => ['defaultNamingContext', '*']);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    my $sort = new Net::LDAP::Control::Sort(order => 'samAccountName');
+    my $filter = $skip ?
+        '(&(objectClass=group)(!(isCriticalSystemObject=*)))':
+        '(objectClass=group)';
+    my $res = $ad->search(base => $defaultNC,
+                          scope => 'sub',
+                          filter => $filter,
+                          attrs => ['samAccountName', 'objectSid'],
+                          control => [$sort]);
+    foreach my $entry ($res->entries()) {
+        my $samAccountName = $entry->get_value('samAccountName');
+        my $sid = $self->_sidToString($entry->get_value('objectSid'));
+        utf8::decode($samAccountName);
+        push (@{$groups}, { value => $sid, printableValue => $samAccountName });
+    }
+
+    # TODO Make connection persistent?
+    $ad->disconnect();
+    delete $self->{adLdap};
+
+    return $groups;
+}
+
+sub _adGroupMembers
+{
+    my ($self, $group) = @_;
+
+    my $members = [];
+    my $ldap = $self->_adLdap();
+    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    my $result = $ldap->search(base => $defaultNC,
+                               scope => 'sub',
+                               filter => "(&(objectClass=group)(objectSid=$group))",
+                               attrs => ['member']);
+    foreach my $groupEntry ($result->entries()) {
+        my @members = $groupEntry->get_value('member');
+        next unless @members;
+        foreach my $memberDN (@members) {
+            my $result2 = $ldap->search(base => $defaultNC,
+                                        scope => 'sub',
+                                        filter => "(&(objectClass=user)(distinguishedName=$memberDN))",
+                                        attrs => ['samAccountName']);
+            foreach my $userEntry ($result2->entries()) {
+                my $samAccountName = $userEntry->get_value('samAccountName');
+                next unless defined $samAccountName;
+                push (@{$members}, $samAccountName);
+            }
+        }
+    }
+
+    return $members;
 }
 
 sub validateTypedRow
@@ -227,24 +401,29 @@ sub rules
             next unless @{$addresses};
             $rule->{addresses} = $addresses;
         } elsif ($source->selectedType() eq 'group') {
-            next unless ($usersEnabled);
-            my $group = $source->value();
-            $rule->{group} = $group;
-            my $users;
-            if ($group eq '__USERS__') {
-                $users = $userMod->users();
-            } else {
-                $users = $userMod->group($group)->users();
-            }
+            my $mode = $self->parentModule->authenticationMode();
+            if ($mode eq $self->parentModule->AUTH_MODE_INTERNAL()) {
+                next unless ($usersEnabled);
+                my $group = $source->value();
+                $rule->{group} = $group;
+                my $users;
+                if ($group eq '__USERS__') {
+                    $users = $userMod->users();
+                } else {
+                    $users = $userMod->group($group)->users();
+                }
 
-            if (not @{ $users }) {
-                # ignore rules for empty groups
-                next;
+                if (not @{$users}) {
+                    # ignore rules for empty groups
+                    next;
+                }
+                $rule->{users} = [ (map {
+                                          my $name =  $_->name();
+                                          lc $name;
+                                      } @{$users}) ];
+            } elsif ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
+                $rule->{adDN} = $source->value();
             }
-            $rule->{users} = [ (map {
-                                      my $name =  $_->name();
-                                      lc $name;
-                                  } @{$users}) ];
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
@@ -324,7 +503,6 @@ sub delPoliciesForGroup
 sub filterProfiles
 {
     my ($self) = @_;
-
     my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
@@ -351,7 +529,6 @@ sub filterProfiles
             throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
         $profile->{policy} = $policyType;
-
         my $timePeriod = $row->elementByName('timePeriod');
         unless ($timePeriod->isAllTime()) {
             $profile->{timePeriod} = 1;
@@ -380,21 +557,26 @@ sub filterProfiles
         } elsif ($sourceType eq 'group') {
             my $group = $source->value();
             $profile->{group} = $group;
-            my $users;
-            if ($group eq '__USERS__') {
-                $users = $userMod->users();
+            my @users;
+            if ($self->parentModule->authenticationMode() eq
+                $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
+                @users = @{$self->_adGroupMembers($group)};
             } else {
-                $users = $userMod->group($group)->users();
+                my $members;
+                if ($group eq '__USERS__') {
+                    $members = $userMod->users();
+                } else {
+                    $members = $userMod->group($group)->users();
+                }
+                @users = [ map { $_->name() } @{$members} ];
             }
-            my @users = @{ $users };
             @users or next;
-            $profile->{users} = [ map { $_->name() }  @users ];
+            $profile->{users} = \@users;
             push @profiles, $profile;
         } else {
             throw EBox::Exceptions::Internal("Unknow source type: $sourceType");
         }
     }
-
     return \@profiles;
 }
 

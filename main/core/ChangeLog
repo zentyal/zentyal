@@ -1,4 +1,6 @@
 HEAD
+	+ Pass model instance when invoking EBox::Types::Select populate function
+	+ Improve dynamic editable property detection for framework types
 	+ Override _validateReferer method in Desktop services CGI
 	+ Don't abort configuration backup when we get a error retrieving the
 	  partition table information
