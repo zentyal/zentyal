@@ -16,7 +16,7 @@ DIST=precise
 PKGNAME=$(basename $DESTDIR)
 
 mkdir -p $DESTDIR/schemas
-mkdir -p $DESTDIR/src/EBox/Model
+mkdir -p $DESTDIR/src/EBox/$MODULENAME/Model
 mkdir -p $DESTDIR/stubs
 mkdir -p $DESTDIR/src/scripts
 mkdir -p $DESTDIR/debian/$DIST
@@ -132,7 +132,7 @@ sub _setConf
 EOF
 
 
-cat >$DESTDIR/src/EBox/Model/Settings.pm <<EOF
+cat >$DESTDIR/src/EBox/$MODULENAME/Model/Settings.pm <<EOF
 package EBox::$MODULENAME::Model::Settings;
 
 use base 'EBox::Model::DataForm';
