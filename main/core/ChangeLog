@@ -1,5 +1,6 @@
 HEAD
 	+ Override _validateReferer method in Desktop services CGI
+	+ Added check http referal unit tests to base CGI and desktop CGI
 	+ Don't abort configuration backup when we get a error retrieving the
 	  partition table information
 	+ In EBox:Model::Row, refactored elementExists and
