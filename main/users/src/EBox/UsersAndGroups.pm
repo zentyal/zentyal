@@ -776,13 +776,32 @@ sub initUser
             my $group = DEFAULTGROUP;
             push(@cmds, "mkdir -p `dirname $qhome`");
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            push(@cmds, "chown -R $quser:$group $qhome");
+            EBox::Sudo::root(@cmds);
+
+            # FIXME: workaroung against mysterious chown bug
+            my $chownCmd = "chown -R $quser:$group $qhome";
+            my $chownTries = 10;
+            foreach my $cnt (1 .. $chownTries) {
+                my $chownOk = 0;
+                try {
+                    EBox::Sudo::root($chownCmd);
+                    $chownOk = 1;
+                } otherwise {
+                    my ($ex) = @_;
+                    if ($cnt < $chownTries) {
+                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
+                        sleep 1;
+                    } else {
+                        $ex->throw();
+                    }
+                };
+                last if $chownOk;
+            };
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-            push(@cmds, "chmod $perms $qhome");
-
-            EBox::Sudo::root(@cmds);
+            my $chmod = "chmod $perms $qhome";
+            EBox::Sudo::root($chmod);
         }
     }
 }
