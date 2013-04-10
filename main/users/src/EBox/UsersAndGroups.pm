@@ -778,9 +778,9 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            # workaroung against misteriosu chown bug
+            # FIXME: workaroung against mysterious chown bug
             my $chownCmd = "chown -R $quser:$group $qhome";
-            my $chownTries = 5;
+            my $chownTries = 10;
             foreach my $cnt (1 .. $chownTries) {
                 my $chownOk = 0;
                 try {
@@ -790,7 +790,7 @@ sub initUser
                     my ($ex) = @_;
                     if ($cnt < $chownTries) {
                         EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
-                        sleep 3;
+                        sleep 1;
                     } else {
                         $ex->throw();
                     }
