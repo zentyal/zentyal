@@ -1,4 +1,7 @@
 HEAD
+	+ Added migrate openvpn server options
+	+ Modules to migrate can be selected with command line arguments
+0.2
 	+ Documented bad network proxy configuration restriction
 	+ Document object members ending in zero restriction
 	+ Fixed bug in setting of default network services

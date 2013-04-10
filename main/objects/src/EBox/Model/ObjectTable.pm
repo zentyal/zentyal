@@ -137,9 +137,7 @@ sub validateTypedRow
 
 # Method: addObject
 #
-#   Add object to the objects table. Note this method must exist
-#   because we must provide an easy way to migrate old objects module
-#   to this new one.
+#   Add object to the objects table.
 #
 # Parameters:
 #
@@ -150,9 +148,17 @@ sub validateTypedRow
 #   members    - array ref containing the following hash ref in each value:
 #
 #                name        - member's name
-#                ipaddr_ip   - member's ipaddr
-#                ipaddr_mask - member's mask
-#                macaddr     - member's mac address *(optional)*
+#                address_selected - type of address, can be:
+#                                'ipaddr', 'iprange' (default: ipdaddr)
+#
+#                ipaddr  parameters:
+#                   ipaddr_ip   - member's ipaddr
+#                   ipaddr_mask - member's mask
+#                   macaddr     - member's mac address *(optional)*
+#
+#               iprange parameters:
+#                   iprange_begin - begin of the range
+#                   iprange_end   - end of range
 #
 #   readOnly   - the service can't be deleted or modified *(optional)*
 #
@@ -161,6 +167,7 @@ sub validateTypedRow
 #       name => 'administration',
 #       members => [
 #                   { 'name'         => 'accounting',
+#                     'address_selected' => 'ipaddr',
 #                     'ipaddr_ip'    => '192.168.1.3',
 #                     'ipaddr_mask'  => '32',
 #                     'macaddr'      => '00:00:00:FA:BA:DA'
@@ -191,6 +198,8 @@ sub addObject
 
     $memberModel->setDirectory($self->{'directory'} . "/$id/members");
     foreach my $member (@{$members}) {
+        $member->{address_selected} or
+            $member->{address_selected} = 'ipaddr';
         $member->{'readOnly'} = $params{'readOnly'};
         $memberModel->addRow(%{$member});
     }

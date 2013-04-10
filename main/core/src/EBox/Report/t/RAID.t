@@ -26,11 +26,14 @@ use Data::Dumper;
 use lib '../../..';
 use EBox::Report::RAID;
 use EBox::TestStub;
+use Dir::Self;
+
 
 EBox::TestStub::fake();
 Test::MockObject->fake_module('EBox::Report::RAID', _mdstatContents => \&_fakeMdstatContents);
 
-my $datadir = 'core/src/EBox/Report/t/testdata';
+# set a datadir
+my $datadir = __DIR__ . '/testdata';
 
 my @cases;
 

@@ -18,18 +18,17 @@
 use warnings;
 use strict;
 
-use EBox::Global::TestStub;
 use Test::Exception;
 use Test::More tests => 3;
 use POSIX;
+use EBox::Test::RedisMock;
 
-# use lib '../../..';
-
-EBox::Global::TestStub::fake();
+use lib '../..';
 
 use_ok('EBox::RemoteServices') or die;
 
-my $rsMod = EBox::Global->modInstance('remoteservices');
+my $redis = EBox::Test::RedisMock->new();
+my $rsMod = EBox::RemoteServices->_create(redis => $redis);
 isa_ok($rsMod, 'EBox::RemoteServices');
 
 # Security updates last time tests

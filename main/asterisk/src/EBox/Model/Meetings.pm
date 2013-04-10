@@ -12,22 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Asterisk::Model::Meetings;
-
-# Class: EBox::Asterisk::Model::Meetings
-#
-#      Form to set the configuration settings for the meetings.
-#
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
 
+package EBox::Asterisk::Model::Meetings;
+use base 'EBox::Model::DataTable';
+
 use EBox::Gettext;
-use EBox::Global;
-use EBox::Config;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
@@ -57,6 +48,79 @@ sub new
     bless ( $self, $class );
 
     return $self;
+}
+
+# Method: _table
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::_table>
+#
+sub _table
+{
+    my @tableHeader =
+      (
+       new EBox::Types::Int(
+                            fieldName     => 'exten',
+                            printableName => __('Extension'),
+                            size          => 4,
+                            unique        => 1,
+                            editable      => 1,
+                            help          => __x('A number between {min} and {max}.',
+                                                 min => EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                                 max => EBox::Asterisk::Extensions->MEETINGMAXEXTN
+                                                ),
+                           ),
+       new EBox::Types::Password(
+                                 fieldName     => 'pin',
+                                 printableName => __('Password'),
+                                 size          => 8,
+                                 unique        => 0,
+                                 editable      => 1,
+                                 optional      => 1,
+                                ),
+       new EBox::Types::Text(
+                             fieldName     => 'desc',
+                             printableName => __('Description'),
+                             size          => 24,
+                             unique        => 0,
+                             editable      => 1,
+                             optional      => 1,
+                            ),
+      );
+
+    my $dataTable =
+    {
+        tableName          => 'Meetings',
+        printableTableName => __('List of Meetings'),
+        pageTitle          => __('Meetings'),
+        printableRowName   => __('meeting'),
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        help               => __("Meeting rooms available on the server."),
+        sortedBy           => 'exten',
+        modelDomain        => 'Asterisk',
+        enableProperty => 1,
+        defaultEnabledValue => 1,
+    };
+
+    return $dataTable;
+}
+
+sub precondition
+{
+    my ($self) = @_;
+    return $self->parentModule()->configured();
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    my $name = $self->parentModule()->printableName();
+    return __x('You must enable the {name} module before to be able to configure meetings',
+               name => $name
+              );
 }
 
 # Method: validateTypedRow
@@ -115,66 +179,6 @@ sub getMeetings
     }
 
     return \@meetings;
-}
-
-# Group: Private methods
-
-# Method: _table
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::_table>
-#
-sub _table
-{
-    my @tableHeader =
-      (
-       new EBox::Types::Int(
-                            fieldName     => 'exten',
-                            printableName => __('Extension'),
-                            size          => 4,
-                            unique        => 1,
-                            editable      => 1,
-                            help          => __x('A number between {min} and {max}.',
-                                                 min => EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                                 max => EBox::Asterisk::Extensions->MEETINGMAXEXTN
-                                                ),
-                           ),
-       new EBox::Types::Password(
-                                 fieldName     => 'pin',
-                                 printableName => __('Password'),
-                                 size          => 8,
-                                 unique        => 0,
-                                 editable      => 1,
-                                 optional      => 1,
-                                ),
-       new EBox::Types::Text(
-                             fieldName     => 'desc',
-                             printableName => __('Description'),
-                             size          => 24,
-                             unique        => 0,
-                             editable      => 1,
-                             optional      => 1,
-                            ),
-      );
-
-    my $dataTable =
-    {
-        tableName          => 'Meetings',
-        printableTableName => __('List of Meetings'),
-        pageTitle          => __('Meetings'),
-        printableRowName   => __('meeting'),
-        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
-        tableDescription   => \@tableHeader,
-        class              => 'dataTable',
-        help               => __("Meeting rooms available on the server."),
-        sortedBy           => 'exten',
-        modelDomain        => 'Asterisk',
-        enableProperty => 1,
-        defaultEnabledValue => 1,
-    };
-
-    return $dataTable;
 }
 
 1;

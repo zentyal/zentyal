@@ -5,14 +5,17 @@ use EBox::Test::Mason;
 
 use lib '../..';
 
-
 use Test::More tests => 2;
+use Dir::Self;
+
+my $compRoot = __DIR__ . '/../..';
+my $compFile = $compRoot . '/input/file.mas';
 
 my @cases = (
-	     [ name => 'fileInput', ],
-	     [ name => 'fileInputDisabled',  disabled => 'disabled'],
+    [ name => 'fileInput', ],
+    [ name => 'fileInputDisabled',  disabled => 'disabled'],
 );
 
-EBox::Test::Mason::testComponent('input/file.mas', \@cases);
+EBox::Test::Mason::testComponent($compFile, \@cases, compRoot => $compRoot);
 
 1;
