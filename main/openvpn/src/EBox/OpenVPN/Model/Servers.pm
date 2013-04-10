@@ -435,8 +435,10 @@ sub _configureVPN
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
     my $advertise = $row->subModel('advertisedNetworks');
-    my $objects = $objMod->objects();
-    for my $iface (@{$networkMod->InternalIfaces()}) {
+    my %objIdByName = map {
+        ($_->{name} => $_->{id})
+    } @{$objMod->objects() };
+    foreach my $iface (@{$networkMod->InternalIfaces()}) {
         next unless ($networkMod->ifaceMethod($iface) eq 'static');
         for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
             my $netAddress = EBox::NetWrappers::ip_network(
@@ -446,15 +448,7 @@ sub _configureVPN
             my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
             my $objName = "openVPN-$iface-$netAddress-$mask";
 
-            my $id = undef;
-
-            # Check if object already exist
-            for my $obj (@{$objects}) {
-                if ($obj->{'name'} eq $objName) {
-                    $id = $obj->{'id'};
-                }
-            }
-
+            my $id = $objIdByName{$objName};
             # Add the object if if does not exist
             if ( not defined $id ) {
                 $id = $objMod->addObject(
@@ -468,10 +462,14 @@ sub _configureVPN
                                 },],
                     readOnly => 1,
                 );
+                $objIdByName{$objName} = $id;
             }
 
-            # Add the object to the list of advertised objects
-            $advertise->add(object => $id);
+            # Add the object to the list of advertised objects if it does not
+            # already exists
+            if (not $advertise->findId(object => $id)) {
+                $advertise->add(object => $id);
+            }
         }
     }
 }
