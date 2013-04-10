@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 44;
+use Test::More tests => 50;
 use Test::Exception;
 
 use lib '../../..';
@@ -10,13 +10,16 @@ use_ok ('EBox::CGI::Base');
 
 use EBox::Test::CGI ':all';
 use EBox::TestStub;
+use EBox::Global::TestStub;
 
 EBox::TestStub::fake();
+EBox::Global::TestStub::fake();
 
 paramsAsHashTest();
 validateParamsTestWithRegularCases();
 validateParamsTestWithFlexibleCases();
 processTest();
+validateRefererTest();
 
 sub paramsAsHashTest
 {
@@ -174,6 +177,79 @@ sub cgiParametersDeviantCases
     return \@deviantCases;
 }
 
+sub validateRefererTest
+{
+    # RS case not tested
+    my $defaultHttpHost = '192.168.1.1';
+    my $defaultValidReferer = "https://$defaultHttpHost/Module/View/Settings";
+    my @cases = (
+        {
+            referer => '',
+            params => [],
+            valid => 1,
+            desc => 'Empty referer, no parameters',
+        },
+        {
+            referer => $defaultValidReferer,
+            params => [],
+            valid => 1,
+            desc => 'Referer, no parameters',
+        },
+        {
+            referer => "https://invalid",
+            params => [],
+            valid => 1,
+            desc => 'Invalid referer, no parameters',
+        },
+        {
+            referer => $defaultValidReferer,
+            params => [foo => 'ea'],
+            valid => 1,
+            desc => 'Referer, with parameters',
+        },
+        {
+            referer => "https://invalid",
+            params => [foo => 'ea'],
+            valid => 0,
+            desc => 'Invalid referer, parameters',
+        },
+        {
+            referer => "http://$defaultHttpHost",,
+            params => [foo => 'ea'],
+            valid => 0,
+            desc => 'Invalid referer(protocol), parameters',
+        },
+   );
+
+
+    my $cgi = new EBox::CGI::DumbCGI;
+    foreach my $case (@cases) {
+        my $valid = $case->{valid};
+        my $desc = $case->{desc};
+        my $referer = $case->{referer};
+        my $httpHost = exists $case->{httpHost} ? $case->{httpHost} : $defaultHttpHost;
+        my @params = @{ $case->{params} };
+
+        setCgiParams($cgi, @params);
+        $ENV{HTTP_REFERER}  = $referer;
+        $ENV{HTTP_HOST}  =  $httpHost;
+
+        if ($valid) {
+            lives_ok {
+                $cgi->_validateReferer();
+            } $desc;
+        } else {
+            dies_ok {
+                $cgi->_validateReferer();
+            } $desc;
+        }
+    }
+
+}
+
+#
+# ebox::CGI::Base subclasses used for test
+#
 package EBox::CGI::DumbCGI;
 use lib '../../..';
 use base 'EBox::CGI::Base';

@@ -31,6 +31,9 @@ sub new
     return $self;
 }
 
+sub _validateReferer
+{
+}
 
 # Method: _process
 #
@@ -67,6 +70,7 @@ sub _process
                 # If the action is the one we are looking for
                 if ($actname eq $action_name) {
                     $self->{json} = $actions{$actname}->();
+                    return;
                 }
             }
         }
