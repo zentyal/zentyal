@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::OpenVPN::Model::Servers;
-
-use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Model::Servers;
+use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,16 +31,12 @@ use EBox::NetWrappers;
 
 use EBox::OpenVPN::Server;
 
-#use EBox::OpenVPN::Model::ServerConfiguration;
 use List::Util; # first
 
 use constant START_ADDRESS_PREFIX => '192.168.';
 use constant FROM_RANGE => 160;
 use constant TO_RANGE => 200;
 use constant PORTS => (1194, 11194 .. 11234);
-
-
-# Group: Public and protected methods
 
 sub new
 {
@@ -123,7 +117,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 sub name
 {
