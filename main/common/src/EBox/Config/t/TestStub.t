@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 19;
 use Test::Exception;
 
 use lib '../../..';
@@ -13,103 +13,60 @@ EBox::TestStub::fake();
 
 BEGIN { use_ok 'EBox::Config::TestStub' }
 
-my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
+badParametersTest();
+mockTest();
 
-mockBadParametersTest();
-#mockTest();
-setConfigKeysBadParametersTest();
-#setConfigKeysTest();
-
-sub mockBadParametersTest
+sub badParametersTest
 {
     dies_ok { EBox::Config::TestStub::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } ' Incorrect parameters call';
-}
-
-sub setConfigKeysBadParametersTest
-{
-    dies_ok { EBox::Config::TestStub::setConfigKeys()  } 'No parameters call';
     dies_ok { EBox::Config::TestStub::setConfigKeys(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } 'Incorrect parameters call';
 }
 
 sub mockTest
 {
     # data case preparation
-    my %beforeMock = _getConfigKeysAndValues();
-    my %afterMock = %beforeMock;
+    my %noMockedKeys = map {
+        my $key = $_;
+        my $getter = EBox::Config->can($key);
+        ($key => $getter->())
+    } qw(var etc);
 
-    $afterMock{prefix}  = '/macaco';
-    $afterMock{logfile} = '/egypt/baboon.log';
-    $afterMock{version} = '-0.4';
 
-    lives_ok { EBox::Config::TestStub::fake(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) } 'mocking EBox::Config';
+    my %mockedKeys = (
+        prefix =>   '/macaco',
+        logfile => '/egypt/baboon.log',
+        version => '-0.4',
+        home => '/home/faked',
+       );
 
-    can_ok('EBox::Config', @configKeys);#, 'Checking that the accessor subs are in the mocked module';
 
-    _checkConfigSubs(\%afterMock);
-
-    lives_ok {EBox::Config::TestStub::unfake()};
-    can_ok('EBox::Config', @configKeys);#, 'Checking that after the unmock the config keys accessors are still here';
-
-    diag "Checking results after umocking EBox::Config";
-
-    _checkConfigSubs(\%beforeMock);
-}
-
-sub setConfigKeysTest
-{
-    can_ok('EBox::Config', @configKeys);
-    my %before = _getConfigKeysAndValues();
-    my %after = %before;
-
-    $after{locale} = 'de';
-    $after{libexec}  = '/usr/bin/macacos';
-    $after{css}    = '/home/dessign/css';
-    $after{lang}   = 'de';
-
-    EBox::Config::TestStub::fake();
-    lives_ok { EBox::Config::TestStub::setConfigKeys(libexec => $after{libexec}, group => $after{group}, css => $after{css}, lang => $after{lang}, locale => $after{locale}) };
-
-    diag "Checking results after setConfigKeys call";
-    _checkConfigSubs(\%after);
-}
-
-sub _checkConfigSubs
-{
-    my ($expectedResultsBySub_r) = @_;
-
-    while (my ($subName, $expectedResult) = each %{$expectedResultsBySub_r}) {
-        my $sub_r = UNIVERSAL::can('EBox::Config', $subName);
-        defined $sub_r or next;# die 'Sub not found';
-
-        SKIP: {
-            my $actualResult;
-            try {
-                $actualResult =  $sub_r->();
-            } otherwise {
-                skip 1, "To retrieve key $subName is needed a eBox full installation";
-                next;
-            };
-
-            is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
-        }
+    lives_ok { EBox::Config::TestStub::fake(%mockedKeys) } 'mocking EBox::Config';
+    while (my ($key, $expected) = each %mockedKeys) {
+        my $sub = EBox::Config->can($key);
+        is ($sub->(), $expected, "Check mocked key $key");
     }
-}
+    while (my ($key, $expected) = each %noMockedKeys) {
+        my $sub = EBox::Config->can($key);
+        is ($sub->(), $expected, "Check that unmocked key $key preserves its value");
+    }
 
-sub _getConfigKeysAndValues
-{
-    my @keyNames = @configKeys;
-    return map {
-        my $getter = EBox::Config->can($_);
-        my $value;
-        try {
-            $value = $getter->();
-        } otherwise {
-            diag "can not get the vaule of $_ because it needs a eBox's full installation";
-            $value = undef;
-        };
+    is EBox::Config::user(), 'ebox', 'Checking default mocked method user';
+    is EBox::Config::group(), 'ebox', 'Checking default mocked method group';
 
-        ($_ => $value)
-    } @keyNames;
+
+    my %newMocked = (
+        user => 'fakeUser',
+        etc => '/tmp/etc',
+       );
+
+    lives_ok { EBox::Config::TestStub::setConfigKeys(%newMocked) } 'setting mocked keys via  EBox::Config::TestStub::setConfigKeys';
+    while (my ($key, $expected) = each %mockedKeys) {
+        my $sub = EBox::Config->can($key);
+        is ($sub->(), $expected, "Check new mocked key $key");
+    }
+
+    lives_ok  { EBox::Config::TestStub::unfake() } 'Unfake module';
+    is EBox::Config::etc(), $noMockedKeys{etc}, 'Checking that nomocked behaviour has been restored';
 }
 
 1;
