@@ -1,4 +1,6 @@
 HEAD
+	+ Banner display mail name instead of host name
+	+ Adapted to EBox::LdapModule changes
 	+ Added module particular facilities for slave setup
 	+ Added a ebox.postgrey upstart config file in package to avoid
 	  errors before we generate it in the _setConf

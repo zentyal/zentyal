@@ -23,21 +23,20 @@ use lib '../../..';
 use Test::More tests => 8;
 use Test::Exception;
 use Test::Deep;
-
-use EBox::Global::TestStub;
-
-EBox::Global::TestStub::fake();
-
 use EBox::Test::Model;
+use EBox::TestStubs;
 
 BEGIN {
     diag ( 'Starting model manager unit test' );
     use_ok( 'EBox::Model::Manager' );
 }
 
+EBox::TestStubs::activateTestStubs();
+
 my $manager = EBox::Model::Manager->instance();
 isa_ok($manager, 'EBox::Model::Manager');
 
+EBox::TestStubs::fakeModule(name => 'logs');
 my $logs = EBox::Global->modInstance('logs');
 my $testMod = new EBox::Test::Model(confmodule => $logs, directory => 'foobar');
 

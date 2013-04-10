@@ -33,6 +33,7 @@ use EBox::Config::TestStub;
 use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
+use EBox::Test::RedisMock;
 
 our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -193,7 +194,7 @@ sub setEBoxConfigKeys
 #       of each sub. (optional)
 #       initializer - a initializer sub for the module. The module
 #       constructor will call this sub passing itself as first
-#       parameter. (optional)
+#       parameter. (optional, is not used if you provide a custom _create method)
 #
 #
 # Prerequisites:
@@ -208,8 +209,11 @@ sub setEBoxConfigKeys
 sub fakeModule
 {
     my %params = @_;
-    exists $params{name} or throw EBox::Exceptions::Internal('fakeModule: lacks name paramater');
-    exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
+    my $modName = $params{name};
+    $modName or throw EBox::Exceptions::Internal('fakeModule: lacks name paramater');
+    my $modPackage = exists $params{package} ? $params{package} :  'EBox::' . ucfirst $modName;
+    my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
+    my %subs =  exists $params{subs} ? @{ $params{subs} } : ();
 
     my @isa = ('EBox::Module::Config');
     if (exists $params{isa} ) {
@@ -217,24 +221,26 @@ sub fakeModule
         push @isa,  @extraIsa;
     }
 
-    my $createIsaCode = 'package ' . $params{package} . "; use base qw(@isa);";
+    my $createIsaCode = 'package ' . $modPackage . "; use base qw(@isa);";
     eval $createIsaCode;
     die "When creating ISA array $@" if  $@;
 
-    my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
+    # add default methods if not supplied by the user
+    if (not $subs{_create}) {
+        $subs{_create} =  sub {
+            my $self = EBox::Module::Config->_create(name => $modName,
+                                                     redis => EBox::Test::RedisMock->new());
+            bless $self, $modPackage;
 
-    Test::MockObject->fake_module($params{package},
-        _create => sub {
-            my $self = EBox::Module::Config->_create(name => $params{name});
 
-            bless $self, $params{package};
             $self = $initializerSub->($self);
             return $self;
-        },
-        @{ $params{subs} }
-    );
+        }
+    }
 
-    setModule($params{name}, $params{package});
+    Test::MockObject->fake_module($modPackage,  %subs,);
+
+    setModule($modName, $modPackage);
 }
 
 # Function: setFakeIfaces
@@ -315,5 +321,6 @@ sub setFakeRoutes
     my $params_r = { @_ };
     EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
+
 
 1;

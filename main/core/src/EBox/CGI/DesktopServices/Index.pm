@@ -46,18 +46,20 @@ sub _validateReferer
 sub _process
 {
     my ($self) = @_;
+    $self->{json} = undef;
 
     # Parse the url
     my $url = $ENV{'script'};
     $url =~ m:^([a-zA-Z]+)/([a-zA-Z]+)/$:;
     my $module_name = $1;
     my $action_name = $2;
+    if ((not $module_name) or (not $action_name)) {
+        return;
+    }
 
     # List of all desktop service providers
     my $global = EBox::Global->getInstance();
     my @modules = @{$global->modInstancesOfType('EBox::Desktop::ServiceProvider')};
-
-    $self->{json} = undef;
     foreach my $module ( @modules ) {
         # If the module is the one we are looking for
         if ($module->name() eq $module_name) {

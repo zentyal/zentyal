@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PERLLIBS="test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self"
 
 ADDITIONAL_ARGS=""
 MODULES_WITH_TESTS="common core samba ebackup firewall antivirus remoteservices"
@@ -35,7 +35,8 @@ if [ -n "$MISSINGLIBS" ]
 then
     echo -e "The following packages are not installed:\n $MISSINGLIBS"
     echo -e "Installing them..."
-    sudo apt-get install -y --no-install-recommends $MISSINGLIBS
+    export DEBIAN_FRONTEND=noninteractive
+    sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
 fi
 
 # FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package

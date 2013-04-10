@@ -73,7 +73,7 @@ smtpd_helo_required = yes
 strict_rfc821_envelopes = yes
 disable_vrfy_command = yes
 
-smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+smtpd_banner = <% $mailname %> ESMTP
 biff = no
 
 # appending .domain is the MUAs job.
