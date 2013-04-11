@@ -1,3 +1,6 @@
+HEAD
+	+ Use 'tablet' device type for pointing device on windows
+	  machines; this avoids cursor offset
 3.0.3
 	+ Added missing architectureTypes method to VBox backend
 	+ Forced MAC prefix to workaround libvirt bug

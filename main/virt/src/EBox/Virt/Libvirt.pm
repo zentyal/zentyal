@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Virt::Libvirt;
-
-use base 'EBox::Virt::AbstractBackend';
-
 use strict;
 use warnings;
+
+package EBox::Virt::Libvirt;
+use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -507,6 +505,16 @@ sub _busUsedByVm
     return $busByOS{$os};
 }
 
+sub _mouseUsedByOs
+{
+    my ($self, $os) = @_;
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        return 'tablet';
+    }
+
+    return 'mouse';
+}
+
 sub systemTypes
 {
     return [
@@ -614,6 +622,7 @@ sub writeConf
          vncpass => $vmConf->{password},
          keymap => _vncKeymap(),
          boot => $bootDev,
+         mouse => $self->_mouseUsedByOs($os),
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );
