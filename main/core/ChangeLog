@@ -1,4 +1,4 @@
-HEAD
+3.0.18
 	+ Pass model instance when invoking EBox::Types::Select populate function
 	+ Improve dynamic editable property detection for framework types
 	+ Override _validateReferer method in Desktop services CGI
