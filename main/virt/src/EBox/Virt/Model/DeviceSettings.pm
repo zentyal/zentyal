@@ -268,7 +268,7 @@ sub _checkDevicePath
                                              name => lcfirst $name
                                             ));
     }
-    unless ($path =~ m{^[\d\w/.\\]+$}) {
+    unless ($path =~ m{^[\d\w/.\\_-]+$}) {
         throw EBox::Exceptions::InvalidData(
             data => $path,
             value => $name,
