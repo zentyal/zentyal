@@ -1,4 +1,4 @@
-HEAD
+3.0.14
 	+ Tentative workaround against home directory chown bug
 	+ Slave setup refactored to reuse common code with reprovision
 	+ Reprovision LDAP for all LDAP based modules
