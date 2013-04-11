@@ -1,4 +1,4 @@
-HEAD
+3.0.7
 	+ Fixed bug which returned the list of users of a profile inside
 	  another list
 	+ Authenticate against external AD for Enterprise editions
