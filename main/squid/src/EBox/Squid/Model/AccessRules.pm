@@ -568,7 +568,7 @@ sub filterProfiles
                 } else {
                     $members = $userMod->group($group)->users();
                 }
-                @users = [ map { $_->name() } @{$members} ];
+                @users = map { $_->name() } @{$members};
             }
             @users or next;
             $profile->{users} = \@users;

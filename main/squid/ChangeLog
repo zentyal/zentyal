@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug which returned the list of users of a profile inside
+	  another list
 	+ Authenticate against external AD for Enterprise editions
 3.0.6
 	+ Avoid to request authorization again when 'deny unknown domain'
