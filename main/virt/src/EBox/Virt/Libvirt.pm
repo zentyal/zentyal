@@ -508,7 +508,7 @@ sub _busUsedByVm
 sub _mouseUsedByOs
 {
     my ($self, $os) = @_;
-    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+    if ($os eq 'new_windows') {
         return 'tablet';
     }
 
