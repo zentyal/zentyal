@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Improve addition of localhost as primary resolver when DNS module is
 	  enabled.
 	+ Remove localhost as primary resolver when squid module is configured
