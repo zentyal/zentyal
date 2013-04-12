@@ -1,4 +1,6 @@
 HEAD
+	+ Use 'tablet' device type for pointing device on machines
+	  with windows Vista or greater versions; this avoids cursor offset
 	+ Allow '_' and '-' in devices paths
 3.0.3
 	+ Added missing architectureTypes method to VBox backend
