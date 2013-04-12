@@ -150,7 +150,7 @@ sub syncRows
     # as primary resolver instead localhost
     if (EBox::Global->modExists('squid')) {
         my $squid = EBox::Global->modInstance('squid');
-        if ($squid->isEnabled()) {
+        if ($squid->isEnabled() and $squid->can('authenticationMode')) {
             my $mode = $squid->authenticationMode();
             if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
                 $add = 0;
