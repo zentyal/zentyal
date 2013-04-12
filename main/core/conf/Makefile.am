@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = hooks
+SUBDIRS = hooks post-save pre-save
 
 Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = events.conf logs.conf core.conf
