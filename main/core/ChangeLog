@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed a broken link to SysInfo/Composite/General when activating the
+	  WebServer module.
 3.0.18
 	+ Pass model instance when invoking EBox::Types::Select populate function
 	+ Improve dynamic editable property detection for framework types
