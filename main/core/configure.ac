@@ -174,6 +174,8 @@ schemas/sql/period/Makefile
 schemas/urls/Makefile
 conf/Makefile
 conf/hooks/Makefile
+conf/pre-save/Makefile
+conf/post-save/Makefile
 migration/Makefile
 migration/logs/Makefile
 migration/events/Makefile
