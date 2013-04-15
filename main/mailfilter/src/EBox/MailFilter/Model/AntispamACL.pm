@@ -23,8 +23,6 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::MailFilter::Types::AmavisSender;
 
-# Group: Public methods
-
 # Constructor: new
 #
 #       Create the new  model
@@ -42,8 +40,6 @@ sub new
     bless $self, $class;
     return $self;
 }
-
-# Group: Protected methods
 
 # Method: _table
 #
@@ -87,7 +83,6 @@ sub _table
 
 }
 
-
 sub _populatePolicy
 {
     return [
@@ -97,7 +92,6 @@ sub _populatePolicy
            ]
 
 }
-
 
 sub addedRowNotify
 {
@@ -126,7 +120,6 @@ sub _aclChanged
     $mailfilter->antispam()->aclChanged();
 }
 
-
 # Method: whitelist
 #
 # Returns:
@@ -137,8 +130,6 @@ sub whitelist
     my ($self) = @_;
     return $self->_listByPolicy('whitelist');
 }
-
-
 
 # Method: blacklist
 #
@@ -153,25 +144,25 @@ sub blacklist
 
 sub viewCustomizer
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $custom =  $self->SUPER::viewCustomizer();
-	if ($self->parentRow()) {
-		$custom->setHTMLTitle([
-			{
-			title => __('Virtual Domains'),
-			link  => '/MailFilter/Composite/Amavis#VDomains'
-			},
-			{
-			title => $self->parentRow()->printableValueByName('vdomain'),
-			link  => ''
-			}
-		]);
-	} else {
-		$custom->setHTMLTitle([]);
-	}
+    my $custom =  $self->SUPER::viewCustomizer();
+    if ($self->parentRow()) {
+        $custom->setHTMLTitle([
+                   {
+                       title => __('Virtual Domains'),
+                       link  => '/MailFilter/Composite/Amavis#VDomains'
+                   },
+                   {
+                       title => $self->parentRow()->printableValueByName('vdomain'),
+                       link  => ''
+                   }
+                ]);
+    } else {
+        $custom->setHTMLTitle([]);
+    }
 
-        return $custom;
+    return $custom;
 }
 
 
@@ -188,7 +179,6 @@ sub _listByPolicy
     }
     return \@list;
 }
-
 
 1;
 
