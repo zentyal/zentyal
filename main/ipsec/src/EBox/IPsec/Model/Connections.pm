@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,45 +24,25 @@ use EBox::Types::HasMany;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#       Create the new Connections model
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::IPsec::Model::Connections> - the recently created model
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless($self, $class);
-
-    return $self;
-}
-
 sub tunnels
 {
     my ($self) = @_;
 
     my @tunnels;
+
     foreach my $id (@{$self->enabledRows()}) {
         my $row = $self->row($id);
         my $conf = $row->elementByName('configuration')->foreignModelInstance();
         my @confComponents = qw(ConfGeneral ConfPhase1 ConfPhase2);
 
         my %settings;
+
         foreach my $name (@confComponents) {
             my $elements = $conf->componentByName($name, 1)->row()->elements();
             foreach my $element (@{ $elements }) {
                 my $fieldName = $element->fieldName();
                 my $fieldValue;
+
                 if (($fieldName eq 'right')) {
                     if ($element->selectedType() eq 'right_any') {
                         $fieldValue = '%any';
@@ -99,36 +79,33 @@ sub tunnels
 #
 sub _table
 {
-    my @tableHeader =
-        (
-         new EBox::Types::Text(
-                                   fieldName => 'name',
-                                   printableName => __('Name'),
-                                   size => 12,
-                                   unique => 1,
-                                   editable => 1,
-                              ),
-         new EBox::Types::HasMany(
-                                   fieldName     => 'configuration',
-                                   printableName => __('Configuration'),
-                                   foreignModel => 'ipsec/Conf',
-                                   foreignModelIsComposite => 1,
+    my @tableHeader = (
+        new EBox::Types::Text(
+           fieldName => 'name',
+           printableName => __('Name'),
+           size => 12,
+           unique => 1,
+           editable => 1,
+        ),
+        new EBox::Types::HasMany(
+            fieldName     => 'configuration',
+            printableName => __('Configuration'),
+            foreignModel => 'ipsec/Conf',
+            foreignModelIsComposite => 1,
+            view => '/IPsec/Composite/Conf',
+            backView => '/IPsec/View/Connections',
+        ),
+        new EBox::Types::Text(
+            fieldName => 'comment',
+            printableName => __('Comment'),
+            size => 24,
+            unique => 0,
+            editable => 1,
+            optional => 1,
+        ),
+    );
 
-                                   view => '/IPsec/Composite/Conf',
-                                   backView => '/IPsec/View/Connections',
-                              ),
-         new EBox::Types::Text(
-                                   fieldName => 'comment',
-                                   printableName => __('Comment'),
-                                   size => 24,
-                                   unique => 0,
-                                   editable => 1,
-                                   optional => 1,
-                              ),
-        );
-
-    my $dataTable =
-    {
+    my $dataTable = {
         tableName => 'Connections',
         pageTitle => __('IPsec Connections'),
         printableTableName => __('IPsec Connections'),
@@ -151,14 +128,14 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r) = @_;
     my $name = $params_r->{name}->value();
+
     if ($name =~ m/\s/) {
         throw EBox::Exceptions::InvalidData(
             data => __('Connection name'),
             value => $name,
             advice => __('Blank characters are not allowed')
-           );
+        );
     }
 }
-
 
 1;
