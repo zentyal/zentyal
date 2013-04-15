@@ -81,11 +81,11 @@ sub _table
 {
     my @tableHeader = (
         new EBox::Types::Text(
-           fieldName => 'name',
-           printableName => __('Name'),
-           size => 12,
-           unique => 1,
-           editable => 1,
+            fieldName => 'name',
+            printableName => __('Name'),
+            size => 12,
+            unique => 1,
+            editable => 1,
         ),
         new EBox::Types::HasMany(
             fieldName     => 'configuration',
