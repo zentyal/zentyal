@@ -1,3 +1,6 @@
+HEAD
+	+ Create correctly advertised network objects for interfaces with
+	  more than one address in the same network
 3.0.4
 	+ Better filename for tunnel client bundle
 	+ Zebra daemon debug controlled by global debug setting
