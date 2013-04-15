@@ -1328,17 +1328,8 @@ sub latestRemoteConfBackup
 {
     my ($self) = @_;
 
-    my $latest = 'unknown';
-    try {
-        my $bakService = new EBox::RemoteServices::Backup();
-        my $bakList    = $bakService->listRemoteBackups();
-        my @sortedBakList = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %{$bakList};
-        if ( @sortedBakList > 0 ) {
-            $latest = $sortedBakList[0]->{Date};
-        }
-    } otherwise { };
-
-    return $latest;
+    my $bakService = new EBox::RemoteServices::Backup();
+    return $bakService->latestRemoteConfBackup();
 }
 
 # Method: reportAdminPort
