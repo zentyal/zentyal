@@ -661,6 +661,26 @@ sub ifaceAddresses
     return \@array;
 }
 
+sub ifaceByAddress
+{
+    my ($self, $address) = @_;
+    foreach my $iface (@{ $self->allIfaces() }) {
+        my @addrs = @{ $self->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            if ($addr_r->{address}  eq $address) {
+                return $iface;
+            }
+        }
+    }
+
+    if ($address =~ m/^127\.*/) {
+        return 'lo';
+    }
+
+    return undef;
+}
+
+
 # Method: vifacesConf
 #
 #   Gathers virtual interfaces from a real interface with their conf
