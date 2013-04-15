@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed missing use statement in MailfilterACL model
 	+ Added dependencies and fixes needed for better sa tests
 	+ Dont run spamd daemon
 	+ Fixed regression in creation of ham/spam mail aliases due to changes
