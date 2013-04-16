@@ -4,6 +4,10 @@
     $width
     $height
 </%args>
+<%init>
+# add vnc status bar height to contents height to get frame height
+$height += 35;
+</%init>
 <iframe id="vnc_frame" src="" width="<% $width %>" height="<% $height %>">This browser does not support frames</iframe>
 <script>
 document.getElementById('vnc_frame').src='http://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>&password=<% $password %>';
