@@ -150,7 +150,7 @@ sub enableActions
 {
     my ($self) = @_;
 
-    # Create the kerberos service princiapl in kerberos,
+    # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
     $self->kerberosCreatePrincipals();
 
@@ -170,6 +170,21 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate kerberos keytab
+    $self->kerberosCreatePrincipals();
 }
 
 
