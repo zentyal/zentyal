@@ -187,7 +187,6 @@ sub reprovisionLDAP
     $self->kerberosCreatePrincipals();
 }
 
-
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::usedFiles
