@@ -1782,6 +1782,7 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
+        $self->setAsChanged(1);
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }
