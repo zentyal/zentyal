@@ -1,4 +1,5 @@
 HEAD
+	+ Add VNC bar height to calculate VNC viewer frame height
 	+ Use 'tablet' device type for pointing device on Windows machines
 	  to avoid cursor offset
 	+ Allow '_' and '-' in devices paths

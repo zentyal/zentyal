@@ -1,4 +1,6 @@
 HEAD
+	+ Changed MB_widedialog CSS class to use all width available in
+	  the screen
 	+ Fixed a broken link to SysInfo/Composite/General when activating the
 	  WebServer module.
 3.0.18

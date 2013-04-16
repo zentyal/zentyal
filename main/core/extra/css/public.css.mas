@@ -1759,8 +1759,11 @@ border-radius: 3px;
     margin: 0px auto;
 }
 
-.MB_widedialog {
-    top: 50px !important;
+#MB_window.MB_widedialog {
+    top: 0px !important;
+    width: 100% !important;
+    left: 0px !important;
+    height: 100% !important;
 }
 
 .MB_widedialog  #MB_content {
