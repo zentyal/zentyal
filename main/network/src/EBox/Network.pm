@@ -474,7 +474,7 @@ sub ifaceOnConfig
 #
 #   String - containing the initial range
 #
-sub netIInitRange # (interface)
+sub netInitRange # (interface)
 {
     my ($self, $iface) = @_;
 
