@@ -645,6 +645,9 @@ sub ifaceAddresses
 sub ifaceByAddress
 {
     my ($self, $address) = @_;
+    EBox::Validate::checkIP($address) or
+          throw EBox::Exceptions::External(__('Argument must be a IP address'));
+
     foreach my $iface (@{ $self->allIfaces() }) {
         my @addrs = @{ $self->ifaceAddresses($iface) };
         foreach my $addr_r (@addrs) {
@@ -660,7 +663,6 @@ sub ifaceByAddress
 
     return undef;
 }
-
 
 # Method: vifacesConf
 #
@@ -1406,7 +1408,6 @@ sub _checkStatic # (iface, force)
         }
     }
 }
-
 
 # check that no IP are in the same network
 # limitation: we could only check against the current
