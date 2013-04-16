@@ -6,12 +6,13 @@ depends:
 models:
     - Connections
     - ConfGeneral
+    - ConfL2TPGeneral
     - ConfPhase1
     - ConfPhase2
+    - RangeTable
 
 composites:
-    Conf: [ConfGeneral, Auth]
+    IPsecConf: [ConfGeneral, Auth]
+    IPsecL2TPConf: [ConfGeneral, L2TP]
     Auth: [ConfPhase1, ConfPhase2]
-
-foreign:
-    Connections: [Conf]
+    L2TP: [ConfL2TPGeneral, RangeTable]

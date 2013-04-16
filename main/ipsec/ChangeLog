@@ -1,4 +1,5 @@
 HEAD
+	+ Added support for IPSEC/L2TP.
 	+ Disabled connection names with spaces
 3.0.1
 	+ Removed inappropiate local subnet checks

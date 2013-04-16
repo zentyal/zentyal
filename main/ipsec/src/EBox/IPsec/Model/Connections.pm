@@ -21,6 +21,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
+use EBox::Types::Select;
 
 # Group: Public methods
 
@@ -71,6 +72,19 @@ sub tunnels
 
 # Group: Private methods
 
+sub _populateType
+{
+
+    my @opts = ();
+
+    push (@opts, { value => 'l2tp', printableValue => 'L2TP/IPSec PSK' });
+    push (@opts, { value => 'ipsec', printableValue => 'IPSec PSK' });
+
+    return \@opts;
+
+}
+
+
 # Method: _table
 #
 # Overrides:
@@ -79,6 +93,7 @@ sub tunnels
 #
 sub _table
 {
+
     my @tableHeader = (
         new EBox::Types::Text(
             fieldName => 'name',
@@ -87,12 +102,20 @@ sub _table
             unique => 1,
             editable => 1,
         ),
+        new EBox::Types::Select(
+            fieldName => 'type',
+            printableName => __('Type'),
+            editable => 1,
+            populate => \&_populateType,
+            help => __('The type of IPSec VPN.'),
+        ),
         new EBox::Types::HasMany(
             fieldName     => 'configuration',
             printableName => __('Configuration'),
-            foreignModel => 'ipsec/Conf',
+            #foreignModel => 'ipsec/Conf',
             foreignModelIsComposite => 1,
-            view => '/IPsec/Composite/Conf',
+            #view => '/IPsec/Composite/Conf',
+            foreignModelAcquirer => \&acquireVPNConfigurationModel,
             backView => '/IPsec/View/Connections',
         ),
         new EBox::Types::Text(
@@ -137,5 +160,43 @@ sub validateTypedRow
         );
     }
 }
+
+# Group: Callback functions
+
+# Function: acquireVPNConfigurationModel
+#
+#       Callback function used to gather the foreignModel and its view
+#       in order to configure the log event watcher filters
+#
+# Parameters:
+#
+#       row - hash ref with the content what is stored in GConf
+#       regarding to this row.
+#
+# Returns:
+#
+#      String - the foreign model to configurate the filters
+#      associated to the VPN being configured.
+#
+sub acquireVPNConfigurationModel
+{
+    my ($row) = @_;
+
+    my $type = $row->valueByName('type');
+
+    if ($type eq 'l2tp') {
+        return 'IPsec/Composite/IPsecL2TPConf';
+    } elsif ($type eq 'ipsec') {
+        return 'IPsec/Composite/IPsecConf';
+    } else {
+        throw EBox::Exceptions::InvalidData(
+            data => __('VPN Type'),
+            value => $type,
+            advice => __('Not supported'),
+        );
+    }
+
+}
+
 
 1;
