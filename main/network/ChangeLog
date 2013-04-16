@@ -1,3 +1,7 @@
+HEAD
+	+ Adapted to use of ifaceByAddress, removed IPAddressExists
+	+ Don't allow to use a local address as gateway address
+	+ Added ifaceByAddress method
 3.0.5
 	+ Guard against previous version of squid without
 	  authenticationMode method

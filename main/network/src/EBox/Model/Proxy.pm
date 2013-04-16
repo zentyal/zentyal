@@ -131,29 +131,23 @@ sub viewCustomizer
     }
     return $customizer;
 }
-
-
 sub validateTypedRow
 {
     my ($self, $action, $newValues_r, $allValues_r) = @_;
     if (exists $allValues_r->{server}) {
         my $server = $allValues_r->{server}->value();
         my $netMod = $self->parentModule();
-        foreach my $iface (@{ $netMod->allIfaces() }) {
-            my @addrs = @{ $netMod->ifaceAddresses($iface) };
-            foreach my $addr_r (@addrs) {
-                my $addr = $addr_r->{address};
-                if ($addr eq $server) {
-                    throw EBox::Exceptions::External(
-                        __x('Proxy {addr} is invalid because it is the address of the interface {if}',
-                            addr => $server,
-                            if   => $iface,
-                           )
-                       );
-                }
-            }
+        my $iface = $netMod->ifaceByAddress($server);
+        if ($iface) {
+            throw EBox::Exceptions::External(
+                __x('Proxy {addr} is invalid because it is the address of the interface {if}',
+                    addr => $server,
+                    if   => $iface,
+                   )
+               );
         }
     }
+
     if (exists $newValues_r->{username}) {
         my $username = $newValues_r->{username}->value();
         if (not $username =~ m{^[\\\w /.?&+:\-\@]*$}) {
