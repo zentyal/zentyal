@@ -1,4 +1,5 @@
 HEAD
+	+ More flexibility for printable message in EBox::Exceptions::DataExists
 	+ EBox::Sudo::TestStub allows now to ginore given commands, fixed
 	  unit test for this class and EBox::TestStub
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log

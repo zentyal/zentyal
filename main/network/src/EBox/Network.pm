@@ -254,36 +254,6 @@ sub eventWatchers
     return [ 'Gateways' ];
 }
 
-
-# Method: IPAddressExists
-#
-#   Returns true if the given IP address belongs to a statically configured
-#   network interface
-#
-# Parameters:
-#
-#       ip - ip adddress to check
-#
-# Returns:
-#
-#       EBox::Module instance
-#
-sub IPAddressExists
-{
-    my ($self, $ip) = @_;
-    my @ifaces = @{$self->allIfaces()};
-
-    foreach my $iface (@ifaces) {
-        unless ($self->ifaceMethod($iface) eq 'static') {
-            next;
-        }
-        if ($self->ifaceAddress($iface) eq $ip) {
-            return 1;
-        }
-    }
-    return undef;
-}
-
 # Method: ExternalIfaces
 #
 #   Returns  a list of all external interfaces
@@ -661,6 +631,39 @@ sub ifaceAddresses
     return \@array;
 }
 
+# Method: ifaceByAddress
+#
+# given a IP address it returns the interface which has it local address
+# or undef if it is nothing. Loopback interface is also acknowledged
+#
+#  Parameters:
+#    address - IP address
+#
+#  Limitations:
+#    only checks interfaces managed by the network module, with the exception
+#    of loopback
+sub ifaceByAddress
+{
+    my ($self, $address) = @_;
+    EBox::Validate::checkIP($address) or
+          throw EBox::Exceptions::External(__('Argument must be a IP address'));
+
+    foreach my $iface (@{ $self->allIfaces() }) {
+        my @addrs = @{ $self->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            if ($addr_r->{address}  eq $address) {
+                return $iface;
+            }
+        }
+    }
+
+    if ($address =~ m/^127\.*/) {
+        return 'lo';
+    }
+
+    return undef;
+}
+
 # Method: vifacesConf
 #
 #   Gathers virtual interfaces from a real interface with their conf
@@ -901,11 +904,16 @@ sub setViface
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
     checkVifaceName($iface, $viface, __('Virtual interface name'));
 
-    if ($self->IPAddressExists($address)) {
+    my $ifaceSameAddress = $self->ifaceByAddress($address);
+    if ($ifaceSameAddress) {
         throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+            text => __x("Address {ip} is already in use by interface {iface}",
+                ip => $address,
+                iface => $ifaceSameAddress
+               )
+           );
     }
+
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
@@ -1289,11 +1297,16 @@ sub setIfaceStatic
         $self->_trunkIfaceIsUsed($name);
     }
 
-    if ((!defined($oldaddr) or ($oldaddr ne $address)) and
-        $self->IPAddressExists($address)) {
-        throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+    if ((!defined($oldaddr) or ($oldaddr ne $address))) {
+        my $ifaceSameAddress = $self->ifaceByAddress($address);
+        if ($ifaceSameAddress) {
+            throw EBox::Exceptions::DataExists(
+                text => __x(
+                    'The IP {ip} is already assigned to interface {iface}',
+                    ip => $address,
+                    iface => $ifaceSameAddress,
+                   ));
+        }
     }
 
     if ($oldm eq any('dhcp', 'ppp')) {
@@ -1395,7 +1408,6 @@ sub _checkStatic # (iface, force)
         }
     }
 }
-
 
 # check that no IP are in the same network
 # limitation: we could only check against the current
