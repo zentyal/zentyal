@@ -1851,10 +1851,11 @@ sub preSlaveSetup
 sub reprovisionLDAP
 {
     my ($self) = @_;
-    # regenerate mail ldap tree
-    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 
     $self->SUPER::reprovisionLDAP();
+
+    # regenerate mail ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 }
 
 sub slaveSetupWarning
