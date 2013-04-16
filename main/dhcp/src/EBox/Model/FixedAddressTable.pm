@@ -327,8 +327,8 @@ sub _allowedMemberInFixedAddress
     my $gl       = EBox::Global->getInstance($readOnly);
     my $net      = $gl->modInstance('network');
     my $objs     = $gl->modInstance('objects');
-    my $netIP    = new Net::IP($dhcp->initRange($iface)
-                               . '-' . $dhcp->endRange($iface));
+    my $netIP    = new Net::IP($net->netInitRange($iface)
+                               . '-' . $net->netEndRange($iface));
 
     # Check if the IP address is within the network
     unless ($memberIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP) {

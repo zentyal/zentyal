@@ -462,6 +462,58 @@ sub ifaceOnConfig
     return defined($self->get_hash('interfaces')->{$name}->{method});
 }
 
+# Method: netInitRange
+#
+#   Return the initial host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   String - containing the initial range
+#
+sub netIInitRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $network = ip_network($address, $netmask);
+    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
+    my $init_range = $first . "." . ($last + 1);
+
+    return $init_range;
+}
+
+# Method: netEndRange
+#
+#   Return the final host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   string - containing the final range
+#
+sub netEndRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $broadcast = ip_broadcast($address, $netmask);
+    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
+    my $end_range = $first . "." . ($last - 1);
+
+    return $end_range;
+}
+
 sub _ignoreIface
 {
     my ($self, $name) = @_;
