@@ -1,3 +1,5 @@
+HEAD
+	+ Regenerate Kerberos keytab on LDAP reprovision
 3.0.7
 	+ Fixed bug which returned the list of users of a profile inside
 	  another list

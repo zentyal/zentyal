@@ -1,4 +1,5 @@
 HEAD
+	+ Always mark as changed if it needs LDAP reprovision
 	+ Fixed member removal operation for groups
 3.0.14
 	+ Tentative workaround against home directory chown bug
