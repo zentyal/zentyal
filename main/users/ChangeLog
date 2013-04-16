@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed member removal operation for groups
 3.0.14
 	+ Tentative workaround against home directory chown bug
 	+ Slave setup refactored to reuse common code with reprovision
