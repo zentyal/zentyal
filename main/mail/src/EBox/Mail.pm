@@ -286,7 +286,7 @@ sub enableActions
     # Remove old keytab file
     EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
 
-    # Create the kerberos service princiapl in kerberos,
+    # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
     $self->kerberosCreatePrincipals();
 
@@ -1851,8 +1851,11 @@ sub preSlaveSetup
 sub reprovisionLDAP
 {
     my ($self) = @_;
-
     $self->SUPER::reprovisionLDAP();
+
+    # Create new kerberos keytab
+    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
+    $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
     EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
