@@ -283,9 +283,6 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    # Remove old keytab file
-    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
-
     # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
     $self->kerberosCreatePrincipals();
@@ -1848,13 +1845,17 @@ sub preSlaveSetup
     $self->model('VDomains')->removeAll(1);
 }
 
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
 sub reprovisionLDAP
 {
     my ($self) = @_;
     $self->SUPER::reprovisionLDAP();
 
     # Create new kerberos keytab
-    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
     $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
