@@ -214,6 +214,21 @@ sub initialSetup
     }
 }
 
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate kerberos keytab
+    $self->kerberosCreatePrincipals();
+}
+
 sub _serviceRules
 {
     return [
