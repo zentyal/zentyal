@@ -74,14 +74,12 @@ sub tunnels
 
 sub _populateType
 {
-
     my @opts = ();
 
     push (@opts, { value => 'l2tp', printableValue => 'L2TP/IPSec PSK' });
     push (@opts, { value => 'ipsec', printableValue => 'IPSec PSK' });
 
     return \@opts;
-
 }
 
 
@@ -93,7 +91,6 @@ sub _populateType
 #
 sub _table
 {
-
     my @tableHeader = (
         new EBox::Types::Text(
             fieldName => 'name',
@@ -193,8 +190,6 @@ sub acquireVPNConfigurationModel
             advice => __('Not supported'),
         );
     }
-
 }
-
 
 1;

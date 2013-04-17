@@ -43,7 +43,7 @@ sub _description
          layout          => 'top-bottom',
          name            => 'L2TP',
          compositeDomain => 'IPsec',
-         printableName   => __('L2TP'),
+         printableName   => 'L2TP',
       };
 
       return $description;

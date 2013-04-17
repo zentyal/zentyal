@@ -108,7 +108,6 @@ sub validateTypedRow
                     }
                 }
             }
-
         }
 
         # Check local IP to be used for the VPN.
@@ -128,7 +127,7 @@ sub validateTypedRow
 
         # Check other ranges.
         my $currentId;
-        if ( $action eq 'update' ) {
+        if ($action eq 'update') {
             $currentId = $allFields->{name}->row()->id();
         }
         foreach my $id (@{$self->ids()}) {
@@ -154,7 +153,6 @@ sub validateTypedRow
                 );
             }
         }
-
     }
 }
 
