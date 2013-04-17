@@ -12,16 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Run;
-
 use strict;
 use warnings;
+
+package EBox::CGI::Run;
 
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::CGI::Base;
 use EBox::Model::Manager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
@@ -56,7 +54,7 @@ sub classFromUrl
 {
     my ($url, $namespace) = @_;
 
-    defined ($url) or exit;
+    defined ($url) or die "Not URL provided";
 
     my $classname = '';
     if ($namespace) {
@@ -103,9 +101,9 @@ sub run # (url, namespace)
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
 
+    my $classname;
     try {
-        my $classname = classFromUrl($url, $namespace);
-
+        $classname = classFromUrl($url, $namespace);
         my $cgi;
         eval "use $classname";
         if ($@) {
@@ -133,7 +131,17 @@ sub run # (url, namespace)
         $cgi->run();
         $redis->commit();
     } otherwise {
+        my ($ex) = @_;
+        my $alreadyLogged;
+        if ((ref $ex)=~ m/^EBox/ ) {
+            $alreadyLogged = $ex->isa('EBox::Exceptions::Base');
+        }
+        unless ($alreadyLogged ) {
+            EBox::error("When running $classname: $ex");
+        }
+
         $redis->rollback();
+        $ex->throw();
     };
 }
 

@@ -12,18 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Subscription;
+use strict;
+use warnings;
 
 # Class: EBox::RemoteServices::Subscription
 #
 #       Class to manage the Zentyal subscription to Zentyal Cloud
 #
-
+package EBox::RemoteServices::Subscription;
 use base 'EBox::RemoteServices::Base';
-
-use strict;
-use warnings;
 
 use feature qw(switch);
 
@@ -51,7 +48,6 @@ use File::Slurp;
 use File::Temp;
 use JSON::XS;
 use HTML::Mason;
-use Net::Ping;
 
 # Constants
 use constant {
@@ -59,6 +55,7 @@ use constant {
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
     SEC_UPD_PKG    => 'zentyal-security-updates',
+    SYNC_PKG       => 'zfilesync',
     REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
 };
 
@@ -205,7 +202,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_mail_add_on}) } @{$availables};
+        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_comm_add_on}) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -214,6 +211,7 @@ sub subscribeServer
                     # for the available options
                     throw EBox::RemoteServices::Exceptions::NotCapable(
                         __('None of the available bundles are valid for this server')
+                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError() )
                        );
                 }
             }
@@ -543,7 +541,7 @@ sub _openHTTPSConnection
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() ) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
@@ -580,7 +578,7 @@ sub _openVPNConnection #(ipaddr, port, protocol)
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
         my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() ) {
+        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
             eval "use EBox::Iptables";
             EBox::Sudo::root(
                 EBox::Iptables::pf(
@@ -758,23 +756,6 @@ sub _checkVPNConnectivity
     }
 }
 
-# Check UDP echo service using Net::Ping
-sub _checkUDPEchoService
-{
-    my ($self, $host, $proto, $port) = @_;
-
-    my $p = new Net::Ping($proto, 3);
-    $p->port_number($port);
-    $p->service_check(1);
-    my @result = $p->ping($host);
-
-    # Timeout reaches, if the service was down, then the
-    # timeout is zero. If the host is available and this check
-    # is done before this one
-    return ( $result[1] == 3 );
-
-}
-
 # Restart RS once the bundle is reloaded
 sub _restartRS
 {
@@ -789,7 +770,7 @@ sub _restartRS
     $fw->save();
     # Required to set the CA correctly
     my $apache = $global->modInstance('apache');
-    $apache-save();
+    $apache->save();
 }
 
 # Downgrade current subscription, if necessary
@@ -813,7 +794,7 @@ sub _removePkgs
     my ($self) = @_;
 
     # Remove pkgs using at to avoid problems when doing so from Zentyal UI
-    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
+    my @pkgs = (PROF_PKG, SEC_UPD_PKG, SYNC_PKG);
     @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
 
     return unless ( @pkgs > 0 );

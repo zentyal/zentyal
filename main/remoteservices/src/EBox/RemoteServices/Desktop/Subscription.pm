@@ -17,6 +17,7 @@ package EBox::RemoteServices::Desktop::Subscription;
 
 use strict;
 use warnings;
+use Error qw(:try);
 
 use EBox::RemoteServices::Cred;
 
@@ -33,11 +34,18 @@ use EBox::RemoteServices::Cred;
 sub subscribe
 {
     my $cred = new EBox::RemoteServices::Cred();
+
     my $ret = $cred->RESTClient()->POST('/v1/desktops/')->data();
-    return {
-        'uuid'      => $ret->{'uuid'},
-        'password'  => $ret->{'secret'},
-    };
+
+    if ($ret->{'limit'}) {
+        return $ret;
+    } else {
+        return {
+            'uuid'      => $ret->{'uuid'},
+            'password'  => $ret->{'secret'},
+            'cloud_domain' => $cred->cloudDomain(),
+        };
+    }
 }
 
 1;

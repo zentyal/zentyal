@@ -1,3 +1,25 @@
+HEAD
+	+ Added preCheckTarget hook
+3.0.5
+	+ Using EBox::FileSystem::mountPointIsMounted when checking if
+	  file system backup target is mounted
+	+ Avoid double utf8 encode when escaping file for commands, this
+	  is neccesary after improved utf8 support in EBox::Sudo
+	+ Make status and file cache work with utf8 characters
+3.0.4
+	+ Remove deprecated code for DR using ebackup
+	+ duplicity-wrapper uses C locale to avoid locale problems
+	+ Removed superfluous module lock in backup-tool
+	+ Removed independent implementation of lock and unlock methods
+	+ Fix small syntax error
+3.0.3
+	+ Removed dependency on events module
+3.0.2
+	+ Fixed code error when checking mount points of file target
+	+ Fixed 'inexistent watcher' error in backup-tool
+	+ Set default niceness of backup process to 10
+3.0.1
+	+ Added python-paramiko dependency which is needed for ssh backend
 2.3.8
 	+ Removed Zentyal Cloud method
 	+ Deleted obsolete Disaster Recovery restore-tool

@@ -110,17 +110,78 @@ sub _help
 sub replace
 {
     my ($self, $pos, $newIP) = @_;
+
     my @ids = @{ $self->ids() };
-    print "IDS @ids";
     if ($pos >= scalar @ids) {
         throw EBox::Exceptions::Internal("Inexistent DNS resolver position $pos");
     }
 
     my $id = $ids[$pos];
     my $row = $self->row($id);
-    $row->elementByName('namserver')->setValue($newIP);
+    $row->elementByName('nameserver')->setValue($newIP);
     $row->store();
 
+}
+
+# Method: syncRows
+#
+#   Overrided to set localhost as primary nameserver if the module is enabled.
+#   This works because DNS module modChange network in enableService
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $changed = 0;
+
+    my $add = 0;
+
+    my $firstId  = @{$currentIds}[0];
+    my $firstRow = $self->row($firstId);
+
+    # Set localhost as primary resolver if DNS is installed and enabled
+    if (EBox::Global->modExists('dns')) {
+        my $dnsModule = EBox::Global->modInstance('dns');
+        $add = 1 if $dnsModule->isEnabled();
+    }
+
+    # Do not set readonly on primary resolver if squid is configured to
+    # authenticate users against external AD, the AD server must be used
+    # as primary resolver instead localhost
+    if (EBox::Global->modExists('squid')) {
+        my $squid = EBox::Global->modInstance('squid');
+        if ($squid->isEnabled() and $squid->can('authenticationMode')) {
+            my $mode = $squid->authenticationMode();
+            if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
+                $add = 0;
+            }
+        }
+    }
+
+    unless ($add) {
+        # Remove if it is configured as primary
+        if (defined $firstRow and $firstRow->valueByName('nameserver') eq '127.0.0.1') {
+            $self->removeRow($firstId);
+            $changed = 1;
+        }
+    }
+
+    if ($add and defined $firstRow and $firstRow->valueByName('nameserver') ne '127.0.0.1') {
+        # First delete to avoid duplicated value exception
+        foreach my $id (@{$currentIds}) {
+            my $row = $self->row($id);
+            if ($row->valueByName('nameserver') eq '127.0.0.1') {
+                $self->removeRow($id);
+                $changed = 1;
+            }
+        }
+        $self->table->{'insertPosition'} = 'front';
+        $self->addRow((nameserver => '127.0.0.1', readOnly => 1));
+        $self->table->{'insertPosition'} = 'back';
+        $changed = 1;
+    }
+
+    return $changed;
 }
 
 1;

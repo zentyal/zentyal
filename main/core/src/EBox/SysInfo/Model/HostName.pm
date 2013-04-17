@@ -12,14 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::SysInfo::Model::HostName
 #
 #   This model is used to configure the host name and domain
 #
-use strict;
-use warnings;
-
 package EBox::SysInfo::Model::HostName;
 use base 'EBox::Model::DataForm';
 
@@ -38,16 +37,6 @@ use constant MAX_HOSTNAME_LENGTH => 15;
 
 use constant MIN_HOSTDOMAIN_LENGTH => 2;
 use constant MAX_HOSTDOMAIN_LENGTH => 64 - 1 - MAX_HOSTNAME_LENGTH;
-
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
 
 sub _table
 {
@@ -83,11 +72,15 @@ sub _table
                       return undef;
                   }
 
-
                   my $title = __('Change hostname');
-                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change',
-                              new => $newHostname . '.' . $newHostdomain
-                             );
+                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change', new => $newHostname . '.' . $newHostdomain);
+
+                  # TODO: implement this in a cooler way with SysInfo::Observer so more modules
+                  #       can warn about the hostname change if needed
+                  if (EBox::Global->modExists('users') and EBox::Global->modInstance('users')->isEnabled()) {
+                      $msg = __x('WARNING: As the Users module is already installed and configured, if you change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure you want to continue?', new => $newHostname . '.' . $newHostdomain);
+                  }
+
                   if ($newHostdomain =~ m/\.local$/i) {
                       $msg .= q{<p>};
                       $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");
@@ -158,33 +151,49 @@ sub _readResolv
 sub validateTypedRow
 {
     my ($self, $action, $changed, $all) = @_;
-    my $hostname = exists $changed->{hostname} ?
-                          $changed->{hostname}->value() : $all->{hostname}->value();
-    my $hostdomain = exists $changed->{hostdomain} ?
-                          $changed->{hostdomain}->value() : $all->{hostdomain}->value();
 
-    $self->_checkDNSName($hostname, 'Host name');
-    unless (length ($hostname) >= MIN_HOSTNAME_LENGTH and
-            length ($hostname) <= MAX_HOSTNAME_LENGTH) {
+    my $oldHostName = $self->hostnameValue();
+    my $newHostName = defined $changed->{hostname} ? $changed->{hostname}->value() : $all->{hostname}->value();
+
+    my $oldDomainName = $self->hostdomainValue();
+    my $newDomainName = defined $changed->{hostdomain} ? $changed->{hostdomain}->value() : $all->{hostdomain}->value();
+
+    $self->_checkDNSName($newHostName, 'Host name');
+    unless (length ($newHostName) >= MIN_HOSTNAME_LENGTH and
+            length ($newHostName) <= MAX_HOSTNAME_LENGTH) {
         throw EBox::Exceptions::InvalidData(
             data => __('Host name'),
-            value => $hostname,
+            value => $newHostName,
             advice => __x('The length must be between {min} and {max} characters',
                           min => MIN_HOSTNAME_LENGTH,
                           max => MAX_HOSTNAME_LENGTH));
     }
 
-    foreach my $label (split (/\./, $hostdomain)) {
+    foreach my $label (split (/\./, $newDomainName)) {
         $self->_checkDNSName($label, 'Host domain');
     }
-    unless (length ($hostdomain) >= MIN_HOSTDOMAIN_LENGTH and
-            length ($hostdomain) <= MAX_HOSTDOMAIN_LENGTH) {
+    unless (length ($newDomainName) >= MIN_HOSTDOMAIN_LENGTH and
+            length ($newDomainName) <= MAX_HOSTDOMAIN_LENGTH) {
         throw EBox::Exceptions::InvalidData(
             data => __('Host domain'),
-            value => $hostdomain,
+            value => $newDomainName,
             advice => __x('The length must be between {min} and {max} characters',
                           min => MIN_HOSTDOMAIN_LENGTH,
                           max => MAX_HOSTDOMAIN_LENGTH));
+    }
+
+    # After our validation, notify observers that this value is about to change
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
+
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChanged($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChanged($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fqdnChanged($oldFqdn, $newFqdn) if ($hostNameChanged or $domainChanged);
     }
 }
 
@@ -203,11 +212,23 @@ sub _checkDNSName
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow) = @_;
-    my $global = $self->global();
-    if ($global->modExists('samba')) {
-        # need to change kerberos realm in samba
-        $global->modInstance('samba')->model('GeneralSettings')->updateHostnameFields();
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $newHostName   = $self->row->valueByName('hostname');
+    my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;
+    my $newDomainName = $self->row->valueByName('hostdomain');
+    my $oldDomainName = defined $oldRow ? $oldRow->valueByName('hostdomain') : $newDomainName;
+    my $newFqdn = $newHostName . '.' . $newDomainName;
+    my $oldFqdn = $oldHostName . '.' . $oldDomainName;
+
+    my $domainChanged = $newDomainName ne $oldDomainName;
+    my $hostNameChanged = $newHostName ne $oldHostName;
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::SysInfo::Observer')};
+    foreach my $obs (@observers) {
+        $obs->hostDomainChangedDone($oldDomainName, $newDomainName) if $domainChanged;
+        $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
+        $obs->fqdnChangedDone($oldFqdn, $newFqdn);
     }
 }
 

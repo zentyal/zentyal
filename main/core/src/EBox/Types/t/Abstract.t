@@ -13,52 +13,45 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
-
 use strict;
 use warnings;
 
-use Test::More tests => 7;
-
-use EBox::TestStubs;
-
+use Test::More tests => 6;
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::Abstract;
 
-EBox::TestStubs::activateTestStubs();
-
+EBox::Types::TestHelper::setupFakes();
 
 my $class = 'EBox::Types::Abstract';
 
-EBox::Types::Test::createFail($class, 
+EBox::Types::TestHelper::createFail($class,
            printableName => 'test',
            'Creating instance without fieldName  must fail',
           );
-EBox::Types::Test::createOk($class,
+EBox::Types::TestHelper::createOk($class,
          fieldName => 'ea',
          'Creating instance with fieldName succeed',
         );
 
-EBox::Types::Test::createFail($class,
+EBox::Types::TestHelper::createFail($class,
            fieldName => 'test',
            optional => 1,
            defaultValue => 'whatever',
            'Optional and defaultValue parameters are incompatible',
           );
 
-
-my $fieldName = 'testInstnace';
+my $fieldName = 'testInstance';
 my $instance = EBox::Types::Abstract->new(
                                           fieldName => $fieldName
                                          );
-is $instance->printableName, $fieldName,
-    'checking that printableName defaults to fieldName';
 
+# FIXME: this behavior was changed in 4b4381dda729c079516220a397a0dcdf5210285a
+#is $instance->printableName, $fieldName,
+#    'checking that printableName defaults to fieldName';
 
-EBox::Types::Test::cloneTest($instance);
+EBox::Types::TestHelper::cloneTest($instance);
 
 1;

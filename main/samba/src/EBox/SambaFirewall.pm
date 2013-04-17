@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::SambaFirewall;
 use strict;
 use warnings;
 
+package EBox::SambaFirewall;
 use base 'EBox::FirewallHelper';
 
 use EBox::Objects;
@@ -44,6 +43,9 @@ sub output
     my $samba = EBox::Global->modInstance('samba');
     my @ifaces = @{ $samba->sambaInterfaces() };
     foreach my $ifc (@ifaces) {
+        # dont firewall loopback interface
+        next if $ifc eq 'lo';
+
         my $output = $self->_outputIface($ifc);
 
         foreach my $port (SAMBAPORTS) {

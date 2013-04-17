@@ -4,6 +4,18 @@
 	@ifaces
 	$selected
 </%args>
+<%init>
+# order vlanes by id
+@ifaces = sort {
+    my ($idA) = $a->{alias} =~ m/^vlan(\d+)$/;
+    my ($idB) = $b->{alias} =~ m/^vlan(\d+)$/;
+    if ($idA and $idB) {
+       $idA <=> $idB
+    } else {
+        0
+    }
+ } @ifaces;
+</%init>
 <div class='ifaces'>
 %  foreach my $if (@ifaces) {
 %     if($if->{'name'} eq $selected) {

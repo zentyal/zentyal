@@ -1,3 +1,18 @@
+3.0.5
+	+ Fixed wrong management of preferences files
+3.0.4
+	+ Improved description of enable automatic updates string
+	+ Force mode when restoring apt preferences file from cloud
+3.0.3
+	+ Adapted firstTimeMenu() for Disaster Recovery
+	+ Added workaround for launchpad bug 994509, which manifests
+	  showing duplicate packages in the updates list
+	+ Hide enable automatic updates form when it cannot be used
+	+ Errors when getting packages dependencies are displayed, this
+	  fixes the empty dialog on error problem
+3.0.2
+	+ Make required changes for new communications add-on
+	  (mailfilter in community + jabber and asterisk in comm add-on)
 3.0.1
 	+ Fixed basic mode boxes behavior when adding/removing individual packages
 	+ Fixed behavior of select/deselect all buttons in Zentyal components

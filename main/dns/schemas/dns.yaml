@@ -1,8 +1,6 @@
 class: 'EBox::DNS'
 depends:
     - network
-    - samba
-    - users
 
 models:
     - DomainTable

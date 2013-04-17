@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortal::Auth;
-
 use strict;
 use warnings;
 
+package EBox::CaptivePortal::Auth;
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
@@ -43,14 +41,11 @@ use YAML::XS;
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007; # (Bond, James Bond)
 
-sub new
-{
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
-    return $self;
-}
+# Init logger
+EBox::initLogger('captiveportal-log.conf');
 
+# Method: _savesession
+#
 # Parameters:
 #
 #   - user name
@@ -220,10 +215,11 @@ sub _checkLdapPassword
             $authorized = 0;
 
             # check also the group for the user
+            my $groupId = "cn=$group,$groupsdn";
             my %attrs = (
-                base => $groupsdn,
-                filter => "&(memberUid=$user)(cn=$group)",
-                scope => 'one'
+                base => $bind,
+                filter => "&(uid=$user)(memberOf=$groupId)",
+                scope => 'base'
             );
 
             my $result = $ldap->search(%attrs);

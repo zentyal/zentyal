@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-package EBox::Apache;
-
 use strict;
 use warnings;
 
+package EBox::Apache;
 use base qw(EBox::Module::Service);
 
 use EBox;
@@ -83,7 +82,6 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-
 # restarting apache from inside apache could be problematic, so we fork()
 sub _daemon
 {
@@ -101,11 +99,19 @@ sub _daemon
         write_file($pidfile, $pid) if $pid;
     }
 
+    my $hardRestart = $self->hardRestart();
+
     if ($action eq 'stop') {
         EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
         EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
+        if ($hardRestart) {
+            EBox::info("Apache hard restart requested");
+            $self->_daemon('stop');
+            $self->_daemon('start');
+            return;
+        }
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
@@ -120,7 +126,24 @@ sub _daemon
     if ($action eq 'stop') {
         # Stop redis server
         $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $hardRestart;
     }
+}
+
+sub setHardRestart
+{
+    my ($self, $reload) = @_;
+    my $state = $self->get_state;
+    $state->{hardRestart} = $reload;
+    $self->set_state($state);
+}
+
+# return wether we should reload the page after saving changes
+sub hardRestart
+{
+    my ($self) = @_;
+    my $state = $self->get_state;
+    return $state->{hardRestart};
 }
 
 sub _stopService
@@ -201,7 +224,7 @@ sub _setLanguage
     # TODO: do this only if language has changed?
     my $lang = $languageModel->value('language');
     EBox::setLocale($lang);
-    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::setLocaleEnvironment($lang);
     EBox::Menu::regenCache();
 }
 
@@ -287,29 +310,14 @@ sub _setDesktopServicesPort
     my $services = EBox::Global->modInstance('services');
     if (defined($fw)) {
         my $serviceName = 'desktop-services';
-        unless ( $services->serviceExists(name => $serviceName) ) {
-            $fw->addInternalService(
-                'name'              => $serviceName,
-                'printableName'     => __('Desktop Services'),
-                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
-                'protocol'          => 'tcp',
-                'sourcePort'        => 'any',
-                'destinationPort'   => $desktop_services_port,
-               );
-            $fw->saveConfigRecursive();
-        } else {
-            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
-            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
-                $services->setService(name          => $serviceName,
-                                      printableName => __('Desktop Services'),
-                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
-                                      protocol      => 'tcp',
-                                      sourcePort    => 'any',
-                                      destinationPort => $desktop_services_port,
-                                      internal => 1, readOnly => 1);
-                $services->saveConfigRecursive();
-            }
-        }
+        $fw->addInternalService(
+            'name'              => $serviceName,
+            'printableName'     => __('Desktop Services'),
+            'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+            'protocol'          => 'tcp',
+            'sourcePort'        => 'any',
+            'destinationPort'   => $desktop_services_port,
+        );
     }
 }
 
@@ -486,6 +494,10 @@ sub setRestrictedResource
     }
 
     my $resources = $self->get_list('restricted_resources');
+    if ($self->_restrictedResourceExists($resourceName)) {
+        my @deleted = grep { $_->{name} ne $resourceName} @{$resources};
+        $resources = \@deleted;
+    }
     push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
     $self->set('restricted_resources', $resources);
 }
@@ -518,13 +530,25 @@ sub delRestrictedResource
 
     my $resources = $self->get_list('restricted_resources');
 
-    unless (exists $resources->{$resourcename}) {
+    unless ($self->_restrictedResourceExists($resourcename)) {
         throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
                                              value => $resourcename);
     }
 
-    my @deleted = grep { $_ ne $resourcename} @{$resources};
+    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
     $self->set('restricted_resources', \@deleted);
+}
+
+sub _restrictedResourceExists
+{
+    my ($self, $resourcename) = @_;
+
+    foreach my $resource (@{$self->get_list('restricted_resources')}) {
+        if ($resource->{name} eq $resourcename) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 # Method: isEnabled
@@ -627,8 +651,9 @@ sub removeInclude
     }
     my @includes = @{$self->_includes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
-    if ( @newIncludes eq @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously");
+    if ( @newIncludes == @includes ) {
+        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
+                                         silent => 1);
     }
     $self->set_list(INCLUDE_KEY, 'string', \@newIncludes);
 
@@ -640,15 +665,15 @@ sub _includes
     my ($self, $check) = @_;
     my $includeList = $self->get_list(INCLUDE_KEY);
     if (not $check) {
-        return $includeList
+        return $includeList;
     }
 
     my @includes;
-    foreach my $incPath (@{ $includeList  }) {
+    foreach my $incPath (@{ $includeList }) {
         if ((-f $incPath) and (-r $incPath)) {
             push @includes, $incPath;
         } else {
-            EBox::warn("Ignoring apache include $incPath: cannot read the file or not is a regular file");
+            EBox::warn("Ignoring apache include $incPath: cannot read the file or it is not a regular file");
         }
     }
 
@@ -716,15 +741,11 @@ sub removeCA
     unless(defined($ca)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    unless(-f $ca and -r $ca) {
-        throw EBox::Exceptions::Internal(
-            "File $ca cannot be read or it is not a file"
-           );
-    }
     my @cas = @{$self->_CAs(0)};
     my @newCAs = grep { $_ ne $ca } @cas;
-    if ( @newCAs eq @cas ) {
-        throw EBox::Exceptions::Internal("$ca has not been included previously");
+    if ( @newCAs == @cas ) {
+        throw EBox::Exceptions::Internal("$ca has not been included previously",
+                                         silent => 1);
     }
     $self->set_list(CAS_KEY, 'string', \@newCAs);
 }
@@ -739,7 +760,7 @@ sub _CAs
     }
 
     my @cas;
-    foreach my $ca (@{ $caList  }) {
+    foreach my $ca (@{ $caList }) {
         if ((-f $ca) and (-r $ca)) {
             push @cas, $ca;
         } else {
@@ -772,6 +793,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
              user => 'ebox',

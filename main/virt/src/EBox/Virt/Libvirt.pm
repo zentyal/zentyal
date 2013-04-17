@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Virt::Libvirt;
-
-use base 'EBox::Virt::AbstractBackend';
-
 use strict;
 use warnings;
+
+package EBox::Virt::Libvirt;
+use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -373,7 +371,23 @@ sub setOS
 {
     my ($self, $name, $os) = @_;
 
-    $self->{vmConf}->{$name}->{arch} = $os;
+    $self->{vmConf}->{$name}->{os} = $os;
+}
+
+# Method: setArch
+#
+#   Set the architecture type for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   arch      - architecture identifier
+#
+sub setArch
+{
+    my ($self, $name, $arch) = @_;
+
+    $self->{vmConf}->{$name}->{arch} = $arch;
 }
 
 # Method: setIface
@@ -456,23 +470,68 @@ sub attachDevice
     $device->{block} = ($file =~ /^\/dev\//);
     my $cd = $type eq 'cd';
     $device->{type} = $cd ? 'cdrom' : 'disk';
-    if ($cd or EBox::Config::boolean('use_ide_disks')) {
-        $device->{bus} = 'ide';
-        $device->{letter} = $self->{ideDriveLetter};
-        $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);
+    my $bus;
+    if ($cd) {
+        $bus = 'ide';
     } else {
-        $device->{bus} = 'scsi';
-        $device->{letter} = $self->{scsiDriveLetter};
-        $self->{scsiDriveLetter} = chr (ord ($self->{scsiDriveLetter}) + 1);
+        $bus = $self->_busUsedByVm($name);
     }
 
-    push (@{$self->{vmConf}->{$name}->{devices}}, $device);
+    if (not exists $self->{driveLetterByBus}->{$bus}) {
+        throw EBox::Exceptions::Internal("Invalid bus type: $bus");
+    }
+
+    $device->{bus} = $bus;
+    my $letter = $self->{driveLetterByBus}->{$bus};
+    $device->{letter} = $letter;
+    $self->{driveLetterByBus}->{$bus} = chr (ord ($letter) + 1);
+
+    my $vmConf = $self->{vmConf}->{$name};
+    push (@{$vmConf->{devices}}, $device);
+}
+
+sub _busUsedByVm
+{
+    my ($self, $name) = @_;
+    my $os = $self->{vmConf}->{$name}->{os};
+
+    my %busByOS = (
+        new_windows => 'sata',
+        old_windows => 'ide',
+        linux => 'virtio',
+        other => EBox::Config::boolean('use_ide_disks') ? 'ide' : 'scsi',
+    );
+
+    return $busByOS{$os};
+}
+
+sub _mouseUsedByOs
+{
+    my ($self, $os) = @_;
+
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        return 'tablet';
+    } else {
+        return 'mouse';
+    }
 }
 
 sub systemTypes
 {
-    return [ { value => 'i686', printableValue => __('i686 compatible') },
-             { value => 'x86_64', printableValue => __('amd64 compatible') } ]
+    return [
+        { value => 'new_windows', printableValue =>  __('Windows Vista or newer') },
+        { value => 'old_windows', printableValue =>  __('Windows 2003 or older') },
+        { value => 'linux',       printableValue =>  __('Linux') },
+        { value => 'other',       printableValue =>  __('Other') },
+    ];
+}
+
+sub architectureTypes
+{
+    return [
+        { value => 'i686',   printableValue =>  __('i686 compatible') },
+        { value => 'x86_64', printableValue =>  __('amd64 compatible') },
+    ];
 }
 
 sub manageScript
@@ -547,11 +606,14 @@ sub writeConf
         $bootDev = 'cdrom';
     }
 
+
+    my $os = $vmConf->{os};
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
         [
          name => $name,
+         os   => $os,
          emulator => $self->{emulator},
          arch => $vmConf->{arch},
          memory => $vmConf->{memory},
@@ -561,6 +623,7 @@ sub writeConf
          vncpass => $vmConf->{password},
          keymap => _vncKeymap(),
          boot => $bootDev,
+         mouse => $self->_mouseUsedByOs($os),
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );
@@ -577,8 +640,12 @@ sub initDeviceNumbers
 {
     my ($self) = @_;
 
-    $self->{ideDriveLetter} = 'a';
-    $self->{scsiDriveLetter} = 'a';
+    $self->{driveLetterByBus} = {
+        ide => 'a',
+        scsi => 'a',
+        sata => 'a',
+        virtio => 'a',
+       };
 }
 
 sub initInternalNetworks

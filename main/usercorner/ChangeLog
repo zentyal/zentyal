@@ -1,3 +1,17 @@
+HEAD
+	+ Create user journal directory in correct path. Migrate old
+	  versions with incorrect path.
+3.0.4
+	+ Write to usercorner log with ut8f encoding
+	+ Log correctly request authorization IP, init logger on loading
+	  of user-corner
+	+ Restricted permissions in log directories
+	+ Removed unnecesary and misleading method 'new' from UserCorner::Auth
+3.0.3
+	+ Adapted to the new utf8 fixes
+	+ Removed suprefluos calls to utf8::decode
+3.0.2
+	+ Added and used serviceId field for service certificates
 3.0.1
 	+ User corner is now allowed on slaves, except for password change
 	+ Updated deprecated master/slave API calls

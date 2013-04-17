@@ -7,37 +7,31 @@
 </%doc>
 <%args>
     $port
-    $transparent
-    $https
-    @localnets
-    @rules
-    @objectsDelayPools
-    @notCachedDomains
-    @nameservers
-    $append_domain
-
-    $cache_host
-    $cache_port
-    $cache_user
-    $cache_passwd
-
+    $transparent => undef
+    $https       => undef
     $filter
 
-    $memory
-    $max_object_size
-
-    $cacheDirSize
-    $snmpEnabled => 0
-
-    $urlRewriteProgram => undef
-
+    $hostfqdn
+    $auth
     $principal
     $realm
-
     $dn
+
+    @rules
+    %filterProfiles
+
+    $authModeExternalAD => undef
+    $adPrincipal => undef
+    $adDC => undef
+    $adAclTTL => 3600
 </%args>
 <%shared>
-our $anyPrefix = 'any_src_';
+our $anyPrefix = 'any~src~';
+our $objectPrefix = 'obj~';
+our $groupPrefix = 'grp~';
+our $adPrefix = 'ad~';
+our $timeDaysPrefix = 'timeDays~';
+our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
 our %longAclNames = ();
 </%shared>
@@ -50,15 +44,15 @@ sub _timeAclsInPolicy
        unshift @ids, $anyPrefix . $policy->{number};
    }
 
-   my $id = join '_', @ids;
+   my $id = join '~', @ids;
 
    my $acls = '';
    if ($policy->{timeDays}) {
-      $acls = _aclName('timeDays_' . $id);
+      $acls = _aclName($timeDaysPrefix . $id);
       $acls .= ' ';
    }
    if ($policy->{timeHours}) {
-       $acls .= _aclName('timeHours_' . $id);
+       $acls .= _aclName($timeHoursPrefix . $id);
    }
 
    return $acls;
@@ -68,10 +62,9 @@ sub _timeAclsInPolicy
 sub _escapeWS
 {
     my ($string) = @_;
-    $string =~ s{ }{__}g;
+    $string =~ s{\s}{~~}g;
     return $string;
 }
-
 # needed to avoid log acl problems
 sub _aclName
 {
@@ -82,295 +75,230 @@ sub _aclName
 
     if (not exists $longAclNames{$name}) {
         my $nextId = 1 + keys %longAclNames;
-        $nextId = 'longAcl' . $nextId;
+        $nextId = 'longAcl~' . $nextId;
         $longAclNames{$name} = $nextId;
     }
 
     return _escapeWS($longAclNames{$name});
 }
 
+sub _printSplitAcl
+{
+   my ($acl, $members_r, $membersPerLine) = @_;
+   $membersPerLine or $membersPerLine = 10;
+   my @members = @{ $members_r };
+   while (@members > 0) {
+        my @membersInAcl = splice(@members, 0, $membersPerLine);
+        $m->print("$acl @membersInAcl\n")
+   }
+}
 </%perl>
-# <EBOX> TAG_HTTPORT #
-% my $transKey = '';
-% if ($transparent) {
-%   $transKey = 'transparent';
-% }
-% my $sslKey = '';
-% if ($https) {
-%   $sslKey = 'ssl-bump';
-% }
-http_port <% $port %> <% $transKey %> <% $sslKey %>
-# END_TAG #
-
-visible_hostname localhost
-% if (@nameservers) {
-% my $dns_nameservers;
-% foreach my $srv (@nameservers) {
-% $dns_nameservers .= "$srv ";
-% }
-dns_nameservers <% $dns_nameservers %>
-% }
-% if ($append_domain) {
-append_domain .<% $append_domain %>
-% }
-hierarchy_stoplist cgi-bin ?
-acl QUERY urlpath_regex cgi-bin \?
-no_cache deny QUERY
-
-# refresh patterns
-
-# windows updates
-refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://.*\.download\.windowsupdate\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
-# linux updates
-refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
-
-refresh_pattern ^ftp:           1440    20%     10080
-refresh_pattern ^gopher:        1440    0%      1440
-refresh_pattern .               0       20%     4320
-# end refresh patterns
-
-coredump_dir /var/spool/squid3
-cache_effective_user proxy
-cache_effective_group proxy
-cache_mem <% $memory %> MB
-maximum_object_size <% $max_object_size %> MB
-access_log /var/log/squid3/access.log squid
-pid_filename /var/run/squid3.pid
-
-cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
-
-
-% if ($cache_host and $cache_port) {
-%   my $peerAuth = '';
-%   if ($cache_user and $cache_passwd) {
-# WARN: remember that for squid auth % are HTML escapes
-%    $peerAuth = 'login=' . $cache_user . ':' . $cache_passwd;
-%   }
-cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
-% }
-
-# <EBOX> TAG_ACL #
-auth_param basic realm Zentyal HTTP proxy
-% if ($realm) {
-auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
-auth_param negotiate children 10
-auth_param negotiate keep_alive on
-% } else {
-auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
-% }
-acl authorized proxy_auth REQUIRED
-
-% if ($urlRewriteProgram) {
-url_rewrite_program <% $urlRewriteProgram %>
-% }
-
-<& .rulesACLs, rules => [ @rules ], realm => $realm &>
-
-<& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
-
-# no cache domains acl
-% foreach my $domain (@notCachedDomains) {
-acl noCached dstdomain <% $domain %>
-% }
-
-# END_TAG #
-acl localhost src 127.0.0.0/8
-acl localhostdst dst 127.0.0.0/8
-acl manager proto cache_object
-acl to_localhost dst 127.0.0.0/8
-acl SSL_ports port 443 563	# https, snews
-acl SSL_ports port 873		# rsync
-acl Safe_ports port 80		# http
-acl Safe_ports port 21		# ftp
-acl Safe_ports port 443 563	# https, snews
-acl Safe_ports port 70		# gopher
-acl Safe_ports port 210		# wais
-acl Safe_ports port 1025-65535	# unregistered ports
-acl Safe_ports port 280		# http-mgmt
-acl Safe_ports port 488		# gss-http
-acl Safe_ports port 591		# filemaker
-acl Safe_ports port 777		# multiling http
-acl Safe_ports port 631		# cups
-acl Safe_ports port 873		# rsync
-acl Safe_ports port 901		# SWAT
-acl purge method PURGE
-acl CONNECT method CONNECT
-
-follow_x_forwarded_for allow localhost
-log_uses_indirect_client off
-
-http_access allow localhost
-
-http_access deny manager
-http_access deny purge
-http_access deny !Safe_ports
-http_access deny CONNECT !SSL_ports
-http_reply_access allow all
-
-% if ($cache_host and $cache_port) {
-never_direct allow all
-% }
-
-% if ($https) {
-# ssl-bump options
-always_direct allow SSL_ports
-ssl_bump allow SSL_ports
-% }
-
-# <EBOX> TAG_DELAYPOOLS #
-
-% if (@localnets) {
-acl localnets_zentyal dst <% join ' ', @localnets %>
-% }
-<& .delayPools, objectsDelayPools => \@objectsDelayPools &>
-
-# END_TAG
-
-# <EBOX> TAG_HTTP_ACCESS #
-
-% if (@notCachedDomains) {
-cache deny noCached
-% }
-
-<& .rulesAccess, rules => \@rules &>
-# default policy
-# All denied by default if no other allow rule matchs
-http_access deny all
-
-# END_TAG #
-
-# <EBOX> TAG SNMP #
-% if ( $snmpEnabled ) {
-<& .snmp &>
-% }
-
-# END_TAG #
-
-always_direct allow localhostdst
-
 <%def .rulesACLs>
 <%args>
-@rules
-$realm
+    @rules
+    $realm
 </%args>
 % foreach my $rule (@rules) {
 %   if ($rule->{any}) {
        <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
 %      next;
 %   }
-%   my $object = $rule->{object};
-%   my $group = $rule->{group};
-%   my $src = $object ? $object : $group;
-%   my $aclName = _aclName($src);
-%   if ($object) {
-acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
-%   } else {
-%       # escape user names
-%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-%       if ($realm) {
-%           @users = map { $_ . '@' . $realm } @users;
-%       }
-acl <% $aclName %> proxy_auth <% join (' ', @users) %>
-%   }
-   <& .timeACLs, rule => $rule, id => $src &>
-% }
-</%def>
+<%perl>
+    my $object = $rule->{object};
+    my $group = $rule->{group};
+    my $adDN = $rule->{adDN};
+    my ($src, $aclName);
+    if ($object) {
+        $src = $object;
+        $aclName = $objectPrefix . $object;
+    } elsif ($group) {
+        $src = $group;
+        $aclName = $groupPrefix . $group;
+    } elsif ($adDN) {
+        $src = $adDN;
+        $aclName = $adPrefix . $adDN;
+    } else {
+        next;
+    }
+    $aclName = _aclName($aclName);
 
-<%def .timeACLs>
-<%args>
-$rule
-$id
-</%args>
-% if ($rule->{timeDays}) {
-acl <% _aclName('timeDays_' . $id) %> time <% $rule->{timeDays} %>
-% }
-% if ($rule->{timeHours}) {
-acl <% _aclName('timeHours_' . $id) %> time <% $rule->{timeHours} %>
+    if ($object) {
+        my $acl = "acl $aclName src";
+        _printSplitAcl($acl, $rule->{addresses});
+    } elsif ($group) {
+        # escape user names
+        my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+        if ($realm) {
+            @users = map { $_ . '@' . $realm } @users;
+        }
+        my $acl = "acl $aclName proxy_auth";
+        _printSplitAcl($acl, \@users);
+    } elsif ($adDN) {
+        my $acl = "acl $aclName external InetGroup";
+        _printSplitAcl($acl, [ $adDN ]);
+    } else {
+        next;
+    }
+</%perl>
+   <& .timeACLs, rule => $rule, id => $src &>
 % }
 </%def>
 
 <%def .rulesAccess>
 <%args>
 @rules
+%profilesRulesStubs
 </%args>
 % foreach my $rule (@rules) {
 <%perl>
-   my $object = $rule->{'object'};
-   my $group = $rule->{'group'};
-   my $groupAcl = $group ? _aclName($group) : '';
-   my $objectAcl = $rule->{'any'} ? 'all' : ($object ? _aclName($object) : '');
-   my $acl = $groupAcl ? $groupAcl : $objectAcl;
+    my $aclName;
+    my $object = $rule->{'object'};
+    if ($rule->{any}) {
+        $aclName = 'all';
+    } elsif ($object) {
+        $aclName = $objectPrefix . $object;
+    }
+
+    my $group = $rule->{'group'};
+    if ($group) {
+        $aclName = $groupPrefix . $group;
+    }
+
+    my $adDN = $rule->{adDN};
+    if ($adDN) {
+        $aclName = $adPrefix . $adDN;
+    }
+
+    my $acl = _aclName($aclName);
+
    my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
-      # need to allow, to be able to pass it to DG
+      my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
+      if (not $rulesStubs) {
+       # need to allow, to be able to pass it to DG
         $policy = 'allow';
+    }  else {
+        # expand rules stubs
+        my $baseAcls = "$timeAcls $acl ";
+        foreach my $stub (@{$rulesStubs  }) {
+            my $ruleStr = $stub->{type};
+            $ruleStr .= ' ' . $stub->{policy};
+            $ruleStr .= ' ' . $baseAcls . _aclName($stub->{acl});
+            $ruleStr .= "\n";
+            # output the rule
+            $m->print($ruleStr);
+        }
+        # dont produce normal rules in this case
+        next;
+    }
    }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
 
-<%def .delayPools>
+<%def .timeACLs>
 <%args>
-@objectsDelayPools
+    $rule
+    $id
 </%args>
-% if ( @objectsDelayPools ) {
-%     my $pools = @objectsDelayPools;
-delay_pools <% $pools + 1%>
-delay_class 1 2
-delay_parameters 1 -1/-1 -1/-1
-delay_access 1 allow localnets_zentyal
+% if ($rule->{timeDays}) {
+acl <% _aclName($timeDaysPrefix . $id) %> time <% $rule->{timeDays} %>
 % }
-<%perl>
- my $id = 1;
- foreach my $objPool (@objectsDelayPools) {
-     $id++;
-     my $rate =  $objPool->{rate};
-     if ($rate > 0) {
-         $rate *= 1024;
-     }
-     my $size = $objPool->{size};
-     if ($size > 0) {
-         $size *= 1024 * 1024;
-     }
-</%perl>
-delay_class <% $id %> <% $objPool->{class} %>
-%     if ( $objPool->{class} eq '1' ) {
-delay_parameters <% $id %> <% $rate %>/<% $size %>
-%     } elsif ( $objPool->{class} eq '2' ) {
-<%perl>
-     my $clt_rate =  $objPool->{clt_rate};
-     if ($clt_rate > 0) {
-         $clt_rate *= 1024;
-     }
-     my $clt_size = $objPool->{clt_size};
-     if ($clt_size > 0) {
-         $clt_size *= 1024 * 1024;
-     }
-</%perl>
-delay_parameters <% $id %> <% $rate %>/<% $size %> <% $clt_rate %>/<% $clt_size %>
-%     }
-delay_initial_bucket_level 90
-delay_access <% $id %> allow <% $objPool->{object} %>
-delay_access <% $id %> deny all
+% if ($rule->{timeHours}) {
+acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 % }
 </%def>
+% #################################################################################################
+% my $transKey = '';
+% if ($transparent) {
+%   $transKey = 'intercept';
+% }
+% my $sslBumpOptions = '';
+% if ($https) {
+%   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
+% }
+http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
+# END_TAG #
 
-<%def .snmp>
-<%doc>
-Define the SNMP configuration as SNMP agent
-</%doc>
-acl snmppublic snmp_community public
-snmp_port 3401
-snmp_access allow snmppublic localhost
-snmp_access deny all
-</%def>
+visible_hostname (frontal)<% $hostfqdn %>
+coredump_dir /var/spool/squid3
+cache_effective_user proxy
+cache_effective_group proxy
+access_log /var/log/squid3/access.log squid
+cache_log /var/log/squid3/cache.log
+cache_store_log /var/log/squid3/store.log
+
+pid_filename /var/run/squid3.pid
+
+% if ($filter) {
+cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+% } else {
+cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+% }
+
+% if ($realm) {
+auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate children 10
+auth_param negotiate keep_alive on
+% } else {
+auth_param basic realm Zentyal HTTP proxy
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+% }
+acl_uses_indirect_client on
+acl authorized proxy_auth REQUIRED
+
+% if ($https) {
+acl SSL_ports port 443  # https, snews
+acl SSL_ports port 873  # rsync
+# ssl-bump options and alllow ssl ports
+always_direct allow SSL_ports
+ssl_bump allow SSL_ports
+% }
+acl from_localhost src 127.0.0.0/8 ::1
+acl to_localhost dst 127.0.0.0/8 ::1
+
+% foreach my $acl (@{ $filterProfiles{acls} }) {
+%   my ($declaration, $name, $params) = split '\s+', $acl, 3;
+%   $name = _aclName($name);
+acl <% "$name $params" %>
+% }
+
+http_access allow to_localhost
+follow_x_forwarded_for allow from_localhost
+forwarded_for on
+log_uses_indirect_client on
+always_direct allow to_localhost
+
+# force clients to use squid-external
+never_direct allow all
+
+% if ($authModeExternalAD) {
+##
+## Authorization
+##
+external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+    --strip-realm \
+    --host "<% $adDC %>" \
+    --keytab /etc/squid3/HTTP.keytab \
+    --principal <% $adPrincipal %>
+% }
+
+##
+## ACLs from model rules
+##
+<& .rulesACLs, rules => [ @rules ], realm => $realm &>
+
+##
+## Access
+##
+<& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
+
+##
+## Default policy
+##
+# All acces denied by default if no other allow rule matchs
+http_access deny all
+# reply access allowed if not denied before
+http_reply_access allow all

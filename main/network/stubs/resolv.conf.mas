@@ -1,9 +1,13 @@
 <%args>
   $searchDomain => ''
+  $domainName => ''
   @nameservers  => ()
 </%args>
-% if ($searchDomain) {
-search <% $searchDomain %>
+% if (length ($domainName) > 0) {
+domain <% $domainName %>
+% }
+% if (length ($searchDomain) > 0) {
+search <% $searchDomain %>.
 % }
 % foreach my $host (@nameservers) {
 nameserver <% $host %>

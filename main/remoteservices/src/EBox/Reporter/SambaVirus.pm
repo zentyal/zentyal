@@ -26,9 +26,6 @@ use strict;
 
 use base 'EBox::Reporter::Base';
 
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
-
 # Method: module
 #
 # Overrides:
@@ -65,10 +62,10 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{client, COUNT(event) AS virus},
+                    . q{username, client, COUNT(event) AS virus},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', client'
+          group  => $self->_groupSQLStr() . ', username, client'
          });
     return $res;
 }

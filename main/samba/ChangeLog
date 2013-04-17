@@ -1,4 +1,118 @@
 HEAD
+	+ Raise exception if during the provision either the domain
+	  administrator user or the domain administrator group are
+	  incorrectly mapped
+	+ Adapted firewallCaptivePortalExceptions method to API change
+	+ Mark kerberos principal users as internal to be properly filtered
+	+ Delete .provisioned file when purging zentyal-samba
+	+ Avoid not numeric warning in hash size comparation during provision
+	+ Allow user names composed only of digits
+	+ Do not add firewall rules to loopback interface
+	+ Improve checks when upgrading from 3.0.11
+3.0.15
+	+ Better check for the incompatibility of Samba with master/slave
+	+ Samba can now be reprovisioned if the hostname or domain changes
+	+ Depend on users module to fix save changes order during reprovision
+	+ Set roaming profile and home drive for new created users if server
+	  is first DC
+	+ Default value of sync option in SambaShares is now 0
+3.0.14
+	+ Improve management of DNS zones stored in samba LDAP
+	+ Add classes to decode DNS data from samba LDAP
+	+ Use less costly LDB operations when adding or removing members
+	  from a group
+	+ Added EBox:Samba::LDBObject::deleteValues method
+	+ Fix wrong URL on provision message
+	+ Better error messages when the environment checks for provision fail
+	+ Forbid provision if the server is replicating users either master or slave
+3.0.13
+	+ Integration of new samba 4.0.3 bundled version
+	+ Samba daemon is now managed with init.d to avoid unexpected fork problems
+	+ Reduce dns resolver timeout on provision checks when joining a domain
+	+ Let zentyal manage all samba dependant daemons. Automatic start/stop
+	  is disabled now.
+	+ Add script to transfer FSMO roles to local server, useful to
+	  migrate from Windows to Zentyal
+	+ New FSMO management module
+	+ Import sysvol maintaining ACLs
+	+ Fixed configuration backup problems, stopping the daemon is no longer
+	  needed when backing up and ACLs and dns partitions hard links are
+	  recreated when restoring.
+	+ Remove deprecated code related to printers module
+	+ Remove unnecessary pidfiles declarations for upstart daemons
+	+ Improve provision procedure
+	+ Use clamd socket instead of shared library for antivirus, this is
+	  faster and reduces memory consumption
+	+ Do not create quarantine share if antivirus is not enabled
+	+ Empty text files are created now when a virus is found on a share
+	+ Modified 'size' field in samba_disk_usage and samba_disk_usage_report
+	  tables from INT to BIGINT
+3.0.12
+	+ New advanced 'unmanaged_acls' option in /etc/zentyal/samba.conf to
+	  disable overwriting of ACLs when saving changes
+	+ Notify cloud-prof when installed when changes happen in
+	  SyncShares and SambaShares models
+	+ shareByFilename method now also returns the path and type of the share
+	+ Fix shareByFilename method
+	+ Update Loghelper to the new log formats
+	+ Remove duplicated slash in samba shares and profiles paths
+3.0.11
+	+ Fixed EBox::Samba::LdbObject::get in list context
+3.0.10
+	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
+	+ Integration with Disaster Recovery service
+	+ Restored backupDomains implementation
+	+ Explicit set of folder name as default value implementation has changed
+	+ Check in group pre-addition whether it already exists as built-in
+	+ Added existsDN method to EBox::LDB
+	+ Grant rx access on privileged ldap socket to allow user corner to
+	  update user passwords
+3.0.9
+	+ Improve domain join process updating the joined domain DNS server
+	+ Set kerberos keys when importing users from samba to zentyal
+	+ Fix ACLs for system type shares
+3.0.8
+	+ Depend on Samba4 RC5
+	+ Fix bug in enforceServiceState causing samba to restart twice while
+	  saving changes
+	+ Set pid file path for nmbd daemon
+	+ Set bootDepends in yaml file
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+	+ Use proper constant in userShares method used by remoteservices module
+3.0.7
+	+ Sync passwords to samba also when using kerberos keys
+3.0.6
+	+ Added missing use of UnwillingToPerform exception
+	+ Fix bug importing service principals when it is not yet created in
+	  LDAP
+	+ Roaming profiles and drive letter options cannot be set when joining
+	  to an existing domain to avoid overwritting per-user settings
+	+ Use the new LdapUserBase interface methods preAddUser and preAddGroup
+	  to create the user in samba before in zentyal LDAP. The uidNumber or
+	  gidNumber of the Zentyal user is infered from the RID to guarantee
+	  unique value in the domain
+	+ Infer user's uidNumber and group's gidNumber from RID when this is
+	  attribute is not present while synchronizing users. This guarantees
+	  the same value for users and groups in all domain controllers
+	+ Implement new preAdd(User|Group)Failed and add(User|Group)Failed to
+	  remove the object from samba database if something goes wrong
+	+ Do not add disabled accounts to Zentyal in s4sync
+3.0.5
+	+ Enabled optional signed SMB protocol in smb.conf
+	+ Delete users and groups from shares ACL when these are deleted
+	+ Refuse to delete system critical objects
+	+ Added syncFolders information method to allow file syncing
+	+ Implement SysInfo::Observer to disallow host or domain name changes if
+	  module is configured and update the required fields if it is not
+	+ Import sysvol after joining a domain, and add an upstart job to sync it
+	  each 5 to 10 minutes (one way).
+	+ Map root account to domain administrator account
+	+ Reset sysvol ACLs after provision
+3.0.4
+	+ Fix netlogon share wrong path
+	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
+	  browsing support
+3.0.3
 	+ Update smb.conf for samba4 RC2
 	+ During domain join precedure, wait a couple of seconds for samba to start
 	+ Add configkey 'treat_contacts_as_users' to import distribution groups

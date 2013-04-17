@@ -10,6 +10,6 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zbuildtools
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, liberror-perl, libfile-slurp-perl, dpkg-dev, cdbs
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberror-perl, libfile-slurp-perl, dpkg-dev, cdbs, devscripts
 Description: Zentyal Build Tools
  These tools are needed to build and install Zentyal modules.

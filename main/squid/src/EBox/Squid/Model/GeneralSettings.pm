@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid::Model::GeneralSettings;
-
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Model::GeneralSettings;
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -37,6 +35,8 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 sub _table
 {
+    my ($self) = @_;
+
     my @tableDesc = (
           new EBox::Types::Boolean(
                   fieldName => 'transparentProxy',
@@ -44,18 +44,18 @@ sub _table
                   editable => 1,
                   defaultValue => 0,
               ),
-          new EBox::Types::Boolean(
-                  fieldName => 'https',
-                  printableName => __('HTTPS Proxy'),
-                  hidden => \&_sslSupportNotAvailable,
-                  editable => 1,
-                  defaultValue => 0,
-                  #help => __('FIXME: add help'),
-              ),
+#           new EBox::Types::Boolean(
+#                   fieldName => 'https',
+#                   printableName => __('HTTPS Proxy'),
+#                   hidden => \&_sslSupportNotAvailable,
+#                   editable => 1,
+#                   defaultValue => 0,
+#                   #help => __('FIXME: add help'),
+#               ),
           new EBox::Types::Boolean(
                   fieldName => 'kerberos',
                   printableName => __('Enable Single Sign-On (Kerberos)'),
-                  editable => 1,
+                  editable => \&_kerberosEnabled,
                   defaultValue => 0,
               ),
           new EBox::Types::Boolean(
@@ -69,7 +69,7 @@ sub _table
                   fieldName => 'port',
                   printableName => __('Port'),
                   editable => 1,
-                  defaultValue => 3128,
+                  defaultValue => $self->parentModule->SQUID_PORT(),
                ),
           new EBox::Types::Int(
                   fieldName => 'cacheDirSize',
@@ -133,11 +133,51 @@ sub validateTypedRow
     my $trans = exists $params_r->{transparentProxy} ?
                         $params_r->{transparentProxy}->value() :
                         $actual_r->{transparentProxy}->value() ;
-    if ($trans and $self->parentModule()->authNeeded()) {
-        throw EBox::Exceptions::External(
+    if ($trans) {
+        if ($self->parentModule()->authNeeded()) {
+            throw EBox::Exceptions::External(
                 __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
-        );
+               );
+        }
+
+        my $kerberos =  exists $params_r->{kerberos} ?
+                         $params_r->{kerberos}->value() :
+                         $actual_r->{kerberos}->value() ;
+        if ($kerberos) {
+            throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with Kerberos authentication')
+               );
+        }
+#         my $https =  exists $params_r->{https} ?
+#                          $params_r->{https}->value() :
+#                          $actual_r->{https}->value() ;
+#         if ($https) {
+#             throw EBox::Exceptions::External(
+#                 __('Transparent proxy is incompatible with HTTPS proxy')
+#                );
+#         }
+
     }
+}
+
+# Method: row
+#
+#   Overrided to enable the kerberos authentication when using
+#   external AD authentication
+#
+sub row
+{
+    my ($self) = @_;
+
+    my $row = $self->SUPER::row();
+    my $mode = $self->parentModule->authenticationMode();
+    if ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
+        my $elem = $row->elementByName('kerberos');
+        unless ($elem->value()) {
+            $elem->setValue(1);
+        }
+    }
+    return $row;
 }
 
 sub _checkPortAvailable
@@ -174,6 +214,15 @@ sub _commercialMsg
 sub _sslSupportNotAvailable
 {
     return system('ldd /usr/sbin/squid3 | grep -q libssl') != 0;
+}
+
+sub _kerberosEnabled
+{
+    my $mod = EBox::Global->modInstance('squid');
+    my $mode = $mod->authenticationMode();
+
+    return 0 if ($mode eq $mod->AUTH_MODE_EXTERNAL_AD());
+    return 1;
 }
 
 1;

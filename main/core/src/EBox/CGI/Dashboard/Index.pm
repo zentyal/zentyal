@@ -53,8 +53,9 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    # Delete first install file if it exists
+    # Delete first install and DR files if they exist
     EBox::Global->deleteFirst();
+    EBox::Global->deleteDisasterRecovery();
 
     unless (defined $widgetsToHide) {
         $widgetsToHide = {
@@ -149,7 +150,62 @@ sub masonParameters
         push(@params, 'softwareInstalled' => 1);
     }
 
+    my $showMessage = 1;
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
+        $showMessage = 0;
+    }
+
+    if ($showMessage) {
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $state = $sysinfo->get_state();
+        my $lastTime = $state->{lastMessageTime};
+        my $currentTime = time();
+        my $offset = ($currentTime - $lastTime) / 60 / 24;
+        foreach my $msg (@{_periodicMessages()}) {
+            my $name = $msg->{name};
+            next if ($state->{closedMessages}->{$name});
+            my $text = $msg->{text};
+            if ($offset >= $msg->{days}) {
+                push (@params, 'message' => $msg);
+                last;
+            }
+        }
+    }
+
     return \@params;
+}
+
+sub _periodicMessages
+{
+    my $WIZARD_URL = '/Wizard?page=RemoteServices/Wizard/Subscription';
+    unless (EBox::Global->modExists('remoteservices')) {
+        $WIZARD_URL = 'https://remote.zentyal.com/register/';
+    }
+
+    # FIXME: Close the message also when clicking the URL, not only with the close button
+    return [
+        {
+         name => 'backup',
+         text => __sx('Do you want a remote configuration backup of your Zentyal server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         days => 1,
+        },
+        {
+         name => 'ddns',
+         text => __sx('Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         days => 7,
+        },
+        {
+         name => 'trial',
+         text => __sx('Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a FREE 30-day trial!', oh => '<a href="https://remote.zentyal.com/trial/">', ch => '</a>'),
+         days => 23,
+        },
+        {
+         name => 'community',
+         text => __sx('Are you a happy Zentyal user? Do you want to help the project? Get involved in the {oh}community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+         days => 30,
+        },
+    ];
 }
 
 1;

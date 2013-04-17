@@ -34,6 +34,20 @@ if ($users->master() ne 'cloud') {
     return;
 }
 
+
+# Update the ldap object if the attr changed
+# return 1 if changed, 0 if not
+sub setIfChanged
+{
+    my ($obj, $attr, $value, $lazy) = @_;
+
+    return 0 if ($obj->get($attr) ~~ $value);
+
+    $obj->set($attr, $value, $lazy);
+    return 1;
+}
+
+
 # Cloud syncing enabled
 EBox::debug("Syncing users with Zentyal Cloud!");
 
@@ -46,6 +60,7 @@ my $res = $rest->GET('/v1/users/users/');
 # local and remote user list
 my $lusers = $users->users();
 my $rusers = $res->data();
+
 my $rusernames;
 
 EBox::debug('Local users:  ' . @$lusers . ' users');
@@ -62,24 +77,35 @@ for my $ruser (@{$rusers}) {
     my $luser;
     try {
         try {
+            my $changed = 0;
+
             $luser = $users->user($ruser->{name});
             $luser->setIgnoredSlaves(IGNORE);
 
             # User exists, update fields:
-            $luser->set('givenname', $ruser->{firstname}, 1);
-            $luser->set('sn', $ruser->{lastname}, 1);
-            $luser->set('gidNumber', $ruser->{gid}, 1);
-            $luser->set('uidNumber', $ruser->{uid}, 1);
+            $changed |= setIfChanged($luser, 'givenname', $ruser->{firstname}, 1);
+            $changed |= setIfChanged($luser, 'sn', $ruser->{lastname}, 1);
+            $changed |= setIfChanged($luser, 'cn', $ruser->{firstname} . ' ' . $ruser->{lastname}, 1);
+            $changed |= setIfChanged($luser, 'gidNumber', $ruser->{gid}, 1);
+            $changed |= setIfChanged($luser, 'uidNumber', $ruser->{uid}, 1);
             if ($ruser->{description}) {
-                $luser->set('comment', $ruser->{description}, 1);
+                $changed |= setIfChanged($luser, 'description', $ruser->{description}, 1);
             } else {
-                $luser->delete('comment', 1);
+                if ($luser->get('description')) {
+                    $luser->delete('description', 1);
+                    $changed = 1;
+                }
             }
 
-            $luser->save();
-
             # Update passwords
-            $luser->setPasswordFromHashes($ruser->{passwords});
+            my @passwords = $luser->get('krb5Key');
+            unless (@{$ruser->{passwords}} ~~ @passwords) {
+                $luser->setPasswordFromHashes($ruser->{passwords}, 1);
+                $changed = 1;
+            }
+
+            $luser->save() if ($changed);
+
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
             my $user;
@@ -135,7 +161,8 @@ for my $rgroup (@{$rgroups}) {
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local group "' . $rgroup->{name} . '" does not exist, creating...');
             $rgroup->{description} = ($rgroup->{description} or '');
-            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, ignoreSlaves => IGNORE);
+            $lgroup->{gidNumber} = $rgroup->{gid};
+            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
         }
         otherwise {
             EBox::error('Failed to sync remote group ' . $rgroup->{name});
@@ -143,11 +170,20 @@ for my $rgroup (@{$rgroups}) {
 
         # Update group info
         $lgroup->setIgnoredSlaves(IGNORE);
-        $lgroup->removeAllMembers(1);
-        foreach my $user (@{$rgroup->{members}}) {
-            $lgroup->addMember($users->user($user), 1);
+        my $changed = 0;
+
+        $changed |= setIfChanged($lgroup, 'gidNumber', $rgroup->{gid}, 1);
+
+        # Check members and resync if different:
+        my @lmembers = map { $_->get('uid') } @{$lgroup->users()};
+        unless (@{$rgroup->{members}} ~~ @lmembers) {
+            $lgroup->removeAllMembers(1);
+            $changed = 1;
+            foreach my $user (@{$rgroup->{members}}) {
+                $lgroup->addMember($users->user($user), 1);
+            }
         }
-        $lgroup->save();
+        $lgroup->save() if ($changed);
     } otherwise {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
     };

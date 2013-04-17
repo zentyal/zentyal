@@ -1,5 +1,6 @@
 <%args>
-@groups
+    @groups
+    $realm => ''
 </%args>
 # Filter Groups List file for DansGuardian
 #
@@ -16,6 +17,6 @@
 
      foreach my $user (@{$group->{users}}) {
 </%perl>
-<% $user %>=filter<% $number %>
+<% $user %><% $realm %>=filter<% $number %>
 %    }
 % }

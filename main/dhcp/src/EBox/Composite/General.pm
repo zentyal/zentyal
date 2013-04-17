@@ -41,8 +41,8 @@ use EBox::Global;
 sub precondition
 {
     my $netMod = EBox::Global->modInstance('network');
-    my @allIfaces = @{$netMod->allIfaces()};
-    my $nStatic = grep { $netMod->ifaceMethod($_) eq 'static' } @allIfaces;
+    my @ifaces = @{$netMod->ifaces()};
+    my $nStatic = grep { $netMod->ifaceMethod($_) eq 'static' } @ifaces;
     return ($nStatic > 0);
 }
 

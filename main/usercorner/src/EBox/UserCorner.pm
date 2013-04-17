@@ -12,19 +12,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::UserCorner;
+use base qw(EBox::Module::Service);
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
 use EBox::UserCorner;
-
-use strict;
-use warnings;
-
-use base qw(EBox::Module::Service);
+use EBox::Util::Version;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
@@ -65,6 +64,18 @@ sub usercornerdir
 sub usersessiondir
 {
     return usercornerdir() . 'sids/';
+}
+
+# Method: journalDir
+#
+#      Get the path where operation files are stored for master/slave sync
+#
+# Returns:
+#
+#      String - the path to that directory
+sub journalDir
+{
+ return EBox::UserCorner::usercornerdir() . 'syncjournal';
 }
 
 # Method: actions
@@ -121,6 +132,15 @@ sub initialSetup
         $self->setPort($port);
     }
 
+    if (EBox::Util::Version::compare($version, '3.0.5') < 0) {
+        my $journalDir = journalDir();
+        my $oldJournalDir = EBox::UserCorner::usercornerdir() . 'userjournal';
+        if ((-d $oldJournalDir) and not (-d $journalDir)) {
+            # fix wrong path
+            EBox::Sudo::root("mv '$oldJournalDir' '$journalDir'");
+        }
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }
@@ -133,6 +153,18 @@ sub enableActions
 {
     my ($self) = @_;
 
+    # Create userjournal dir if it not exists
+    my @commands;
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $usercornerDir = EBox::UserCorner::journalDir();
+    unless (-d $usercornerDir) {
+        push (@commands, "mkdir -p $usercornerDir");
+        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
+        EBox::Sudo::root(@commands);
+    }
+
+    # migrate modules to usercorner
     (-d (EBox::Config::conf() . 'configured')) and return;
 
     my $names = EBox::Global->modNames();
@@ -145,20 +177,6 @@ sub enableActions
         }
     }
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
-
-    # Create userjournal dir only in master setup
-    my @commands;
-
-    my $ucUser = USERCORNER_USER;
-    my $ucGroup = USERCORNER_GROUP;
-    my $usercornerDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-    unless (-d $usercornerDir) {
-        push (@commands, "mkdir -p $usercornerDir");
-        push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
-    }
-    if (@commands) {
-        EBox::Sudo::root(@commands);
-    }
 }
 
 # Method: _daemons
@@ -260,6 +278,7 @@ sub certificates
 
     return [
             {
+             serviceId =>  q{User Corner web server},
              service =>  __(q{User Corner web server}),
              path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
              user => USERCORNER_USER,

@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 # Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,33 +12,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::Samba::User
 #
 #   Samba user, stored in samba LDAP
 #
-
 package EBox::Samba::User;
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
 
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
-use Error qw(:try);
 use Date::Calc;
+use Error qw(:try);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -211,6 +209,14 @@ sub deleteObject
 {
     my ($self) = @_;
 
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    if ($isCritical and lc ($isCritical) eq 'true') {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $self->dn()));
+    }
+
     # remove this user from all its grups
     foreach my $group (@{$self->groups()}) {
         $self->removeGroup($group);
@@ -301,22 +307,21 @@ sub createRoamingProfileDirectory
     my ($self) = @_;
 
     my $samAccountName  = $self->get('samAccountName');
-    my $uidNumber       = $self->get('uidNumber');
     my $userSID         = $self->sid();
     my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
     my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
 
-    # Create the directory if it does not exists
+    # Create the directory if it does not exist
     my $samba = EBox::Global->modInstance('samba');
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
     my $group = EBox::UsersAndGroups::DEFAULTGROUP();
 
     my @cmds = ();
-    # Create the directory if it does not exists
+    # Create the directory if it does not exist
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $uidNumber:$group \'$path\'");
+    push (@cmds, "chown $samAccountName:$group \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
@@ -324,7 +329,7 @@ sub createRoamingProfileDirectory
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
     push (@perms, "g:$group:---");
-    push (@perms, "u:$uidNumber:rwx");
+    push (@perms, "u:$samAccountName:rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
     push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." \'$path\'");
@@ -367,9 +372,9 @@ sub setHomeDrive
 #       'samAccountName'
 #
 #   params hash ref (all optional):
-#      clearPassword - Clear text password
-#      uidNumber - user UID numberer
-#      ou - OU where the user will be created
+#       clearPassword - Clear text password
+#       kerberosKeys - Set of kerberos keys
+#       uidNumber - user UID numberer
 #
 # Returns:
 #
@@ -395,8 +400,7 @@ sub create
     my $usersModule = EBox::Global->modInstance('users');
     my $realm = $usersModule->kerberosRealm();
     my $attr = [];
-    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson',
-        'user', 'posixAccount' ]);
+    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
     push ($attr, sAMAccountName    => "$samAccountName");
     push ($attr, userPrincipalName => "$samAccountName\@$realm");
     push ($attr, userAccountControl => '514');
@@ -445,6 +449,7 @@ sub addToZentyal
     my $givenName = $self->get('givenName');
     my $surName   = $self->get('sn');
     my $comment   = $self->get('description');
+    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
@@ -456,13 +461,31 @@ sub addToZentyal
         comment => $comment,
     };
 
+    my $zentyalUser = undef;
     my %optParams;
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba user '$uid' to Zentyal");
-    try {
-        EBox::UsersAndGroups::User->create($params, 0, %optParams);
-    } otherwise {
-    };
+
+    if ($uidNumber) {
+        $optParams{uidNumber} = $uidNumber;
+    } else {
+        $uidNumber = $self->getXidNumberFromRID();
+        $optParams{uidNumber} = $uidNumber;
+        $self->set('uidNumber', $uidNumber);
+        $self->setupUidMapping($uidNumber);
+    }
+    $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    $zentyalUser->exists() or
+        throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");
+
+
+    $zentyalUser->setIgnoredModules(['samba']);
+
+    my $sc = $self->get('supplementalCredentials');
+    my $up = $self->get('unicodePwd');
+    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+                                                 unicodePwd => $up);
+    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 }
 
 sub updateZentyal
@@ -473,32 +496,41 @@ sub updateZentyal
     EBox::info("Updating zentyal user '$uid'");
 
     my $zentyalUser = undef;
-    try {
-        my $gn = $self->get('givenName');
-        my $sn = $self->get('sn');
-        my $desc = $self->get('description');
-        $gn = '-' unless defined $gn;
-        $sn = '-' unless defined $sn;
-        my $cn = "$gn $sn";
-        $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
-        $zentyalUser->setIgnoredModules(['samba']);
-        return unless $zentyalUser->exists();
+    my $gn = $self->get('givenName');
+    my $sn = $self->get('sn');
+    my $desc = $self->get('description');
+    $gn = '-' unless defined $gn;
+    $sn = '-' unless defined $sn;
+    my $cn = "$gn $sn";
+    $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
+    $zentyalUser->exists() or
+        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
 
-        $zentyalUser->set('givenName', $gn, 1);
-        $zentyalUser->set('sn', $sn, 1);
-        $zentyalUser->set('description', $desc, 1);
-        $zentyalUser->set('cn', $cn, 1);
-        $zentyalUser->save();
-    } otherwise {};
-    return unless defined $zentyalUser;
+    $zentyalUser->setIgnoredModules(['samba']);
+    $zentyalUser->set('givenName', $gn, 1);
+    $zentyalUser->set('sn', $sn, 1);
+    $zentyalUser->set('description', $desc, 1);
+    $zentyalUser->set('cn', $cn, 1);
+    $zentyalUser->save();
 
-    try {
-        my $sc = $self->get('supplementalCredentials');
-        my $up = $self->get('unicodePwd');
-        my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
-            unicodePwd => $up);
-        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-    } otherwise {};
+    my $sc = $self->get('supplementalCredentials');
+    my $up = $self->get('unicodePwd');
+    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
+                                             unicodePwd => $up);
+    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+}
+
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+    $self->SUPER::_checkAccountName($name, $maxLength);
+    if ($name =~ m/^[[:space:]\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>   __('Windows user names cannot be only spaces and dots')
+           );
+    }
 }
 
 1;

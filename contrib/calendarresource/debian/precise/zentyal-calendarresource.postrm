@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    remove)
+        dpkg-trigger --no-await zentyal-core
+	;;
+    purge)
+        /usr/share/zentyal/purge-module calendarresource
+	;;
+esac
+
+exit 0

@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
+
 # Class:
 #
 #   EBox::DNS::Model::DomainTable
@@ -24,6 +25,7 @@ use warnings;
 #   <EBox::DNS::Model::HostnameTable>
 #
 package EBox::DNS::Model::DomainTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -42,21 +44,11 @@ use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
 
 # Dependencies
-use Crypt::OpenSSL::Random;
+use EBox::Util::Random;
+use Digest::HMAC_MD5;
 use MIME::Base64;
 
 # Group: Public methods
-
-sub new
-{
-    my $class = shift;
-    my %parms = @_;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
 
 # Method: addDomain
 #
@@ -140,13 +132,8 @@ sub addHost
     unless (defined $domain) {
         throw EBox::Exceptions::MissingArgument('domain');
     }
-
     unless ($host->{name}) {
         throw EBox::Exceptions::MissingArgument('name');
-    }
-
-    unless (defined $host->{ipAddresses} and scalar @{$host->{ipAddresses}} > 0) {
-        throw EBox::Exceptions::MissingArgument('ipAddresses');
     }
 
     EBox::debug('Adding host record');
@@ -156,10 +143,14 @@ sub addHost
                                        readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
-    my $ipModel = $hostRow->subModel('ipAddresses');
-    foreach my $ip (@{$host->{ipAddresses}}) {
-        EBox::debug('Adding host ip');
-        $ipModel->addRow(ip => $ip);
+    my @ipAddresses;
+    @ipAddresses = @{ $host->{ipAddresses} } if  defined  $host->{ipAddresses};
+    if (@ipAddresses) {
+        my $ipModel = $hostRow->subModel('ipAddresses');
+        foreach my $ip (@ipAddresses) {
+            EBox::debug('Adding host ip');
+            $ipModel->addRow(ip => $ip);
+        }
     }
     my $aliasModel = $hostRow->subModel('alias');
     foreach my $alias (@{$host->{aliases}}) {
@@ -459,13 +450,17 @@ sub addedRowNotify
 
     # Add the domain IP addresses
     my @addedAddrs;
+    my %seenAddrs;
     my $network = EBox::Global->modInstance('network');
     my $ifaces = $network->ifaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
-            my $ifaceName = $iface;
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
             push (@addedAddrs, $ip);
@@ -480,11 +475,15 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
+    %seenAddrs = ();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
-            my $ifaceName = $iface;
             my $ip = $addr->{address};
+            next if $seenAddrs{$ip};
+            $seenAddrs{$ip} = 1;
+
+            my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             $ipModel->addRow(ip => $ip, iface => $ifaceName);
         }
@@ -663,20 +662,27 @@ sub syncRows
         %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
     }
 
+    my %sambaZones;
+    my $sambaEnabled = 0;
+    if ($global->modExists('samba')) {
+        my $samba = $global->modInstance('samba');
+        $sambaEnabled = $samba->isEnabled() && $samba->getProvision->isProvisioned();
+        if ($sambaEnabled) {
+            my $sambaZones = $samba->ldb->dnsZones();
+            %sambaZones = map { $_->name() => $_ } @{$sambaZones};
+        }
+    }
+
     my $changed;
     foreach my $id (@{$currentIds}) {
         my $newValue = undef;
         my $row = $self->row($id);
         my $dynamicElement = $row->elementByName('dynamic');
-        my $value = $dynamicElement->value();
-        if ($value) {
-            if (not $dynamicDomainsIds{$id}) {
-                $newValue = 0;
-            }
+        my $dynamicValue   = $dynamicElement->value();
+        if ($dynamicValue) {
+            $newValue = 0 if (not $dynamicDomainsIds{$id});
         } else {
-            if ($dynamicDomainsIds{$id}) {
-                $newValue = 1;
-            }
+            $newValue = 1 if ($dynamicDomainsIds{$id});
         }
 
         if (defined $newValue) {
@@ -684,6 +690,23 @@ sub syncRows
             $row->store();
             $changed = 1;
         }
+
+        my $sambaElement = $row->elementByName('samba');
+        my $domainName = $row->valueByName('domain');
+        # If the domain is not marked as stored in LDB and is present in samba zones array, mark
+        if ($sambaEnabled and exists $sambaZones{$domainName} and not $sambaElement->value()) {
+            $sambaElement->setValue(1);
+            $row->store();
+            $changed = 1;
+        }
+
+        # If the domain is marked as stored in LDB and is not present in samba zones array, unmark
+        if (not $sambaEnabled or (not exists $sambaZones{$domainName} and $sambaElement->value())) {
+            $sambaElement->setValue(0);
+            $row->store();
+            $changed = 1;
+        }
+        delete $sambaZones{$domainName};
     }
 
     return $changed;
@@ -697,11 +720,12 @@ sub _generateSecret
 {
     my ($self) = @_;
 
-    Crypt::OpenSSL::Random::random_seed(time() . rand(2**512));
-    Crypt::OpenSSL::Random::random_egd('/dev/urandom');
-
-    # Generate a key of 512 bits = 64Bytes
-    return MIME::Base64::encode(Crypt::OpenSSL::Random::random_bytes(64), '');
+    my $secret = EBox::Util::Random::generate(64);
+    my $hasher = Digest::HMAC_MD5->new($secret);
+    my $digest = $hasher->digest();
+    my $b64digest = encode_base64($digest);
+    chomp ($b64digest);
+    return $b64digest;
 }
 
 # Method: _getDomainRow

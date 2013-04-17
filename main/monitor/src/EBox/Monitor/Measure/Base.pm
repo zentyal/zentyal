@@ -12,18 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Monitor::Measure::Base
 #
 #     This is a base class to measure different values of stuff
 #
-
 package EBox::Monitor::Measure::Base;
 
-use strict;
-use warnings;
 use feature ":5.10";
 
+use EBox::Global;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidType;
@@ -97,6 +96,14 @@ sub plugin
 
     return $self->{plugin};
 
+}
+
+sub baseDir
+{
+   # using readonly global to not fail with hostname changes not commited
+    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
+    my $fqdn = $sysinfo->fqdn();
+    return EBox::Monitor::Configuration::RRDBaseDirForFqdn($fqdn);
 }
 
 # Method: fetchData
@@ -209,7 +216,7 @@ sub fetchData
     }
     @rrds = map { "$prefix/$_" } @rrds;
 
-    my $baseDir = EBox::Monitor::Configuration::RRDBaseDirPath();
+    my $baseDir = $self->baseDir();
     my $rrdIdx = 0;
     foreach my $rrdFile (@rrds) {
         my $fullPath = $rrdFile;
@@ -232,7 +239,7 @@ sub fetchData
             }
             $time += $step;
         }
-        $rrdIdx++;
+        $rrdIdx += scalar(@{$data->[0]}); # Put new RRDs files without overwritting
     }
     # Truncating for testing purposes
     foreach my $data (@returnData) {

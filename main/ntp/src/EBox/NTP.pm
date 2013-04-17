@@ -42,6 +42,30 @@ sub _create
     return $self;
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting NTP apparmor profile');
+    my @params = ();
+    return [
+            {
+                'binary' => 'usr.sbin.ntpd',
+                'local'  => 1,
+                'file'   => 'ntp/apparmor-ntpd.local.mas',
+                'params' => \@params,
+            }
+           ];
+}
+
 sub isRunning
 {
     my ($self) = @_;
@@ -58,12 +82,17 @@ sub isRunning
 sub actions
 {
     return [
-    {
-        'action' => __('Remove ntp init script link and networking hooks (if-up.d and dhclient)'),
-        'reason' => __('Zentyal will take care of starting and stopping ' .
-                        'the services.'),
-        'module' => 'ntp'
-    }
+        {
+            'action' => __('Remove ntp init script link and networking hooks (if-up.d and dhclient)'),
+            'reason' => __('Zentyal will take care of starting and stopping ' .
+                            'the services.'),
+            'module' => 'ntp'
+        },
+        {
+            'action' => __('Override ntpd apparmor profile'),
+            'reason' => __('To allow samba clients to synchronize clock with ntp server'),
+            'module' => 'ntp',
+        },
     ];
 }
 

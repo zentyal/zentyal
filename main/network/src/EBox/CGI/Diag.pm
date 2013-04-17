@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Network::Diag;
-
 use strict;
 use warnings;
 
+package EBox::CGI::Network::Diag;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Validate;
 use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
@@ -83,6 +82,12 @@ sub _process
             push(@array, 'output' => $output);
         } elsif ($action eq "wakeonlan") {
             my $id = $self->param("object_id");
+            my $broadcast = $self->param('broadcast');
+            unless  ("$broadcast\." =~ m/^(([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.){4}$/){
+                throw EBox::Exceptions::InvalidData
+                    ('data' => __('Broadcast address'), 'value' => $broadcast);
+            }
+
             if ( $id eq 'other' || $id eq '' ) {
                 try {
                     $self->_requireParam("mac", __("MAC address"));
@@ -94,10 +99,9 @@ sub _process
                     $ex->throw();
                 };
                 my $mac = $self->param("mac");
-
                 EBox::Validate::checkMAC($mac, __("MAC address"));
 
-                my $output = $net->wakeonlan($mac);
+                my $output = $net->wakeonlan($broadcast, $mac);
                 push(@array, 'action' => 'wakeonlan');
                 push(@array, 'target' => $mac);
                 push(@array, 'output' => $output);
@@ -108,7 +112,7 @@ sub _process
                     push(@macs, $member->{macaddr});
                 }
 
-                my $output = $net->wakeonlan(@macs);
+                my $output = $net->wakeonlan($broadcast, @macs);
                 push(@array, 'action' => 'wakeonlan');
                 push(@array, 'target' => $id);
                 push(@array, 'output' => $output);

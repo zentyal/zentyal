@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Mail;
-
 use strict;
 use warnings;
 
+package EBox::Mail;
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
-            EBox::KerberosModule EBox::Events::DispatcherProvider);
+            EBox::KerberosModule EBox::SyncFolders::Provider
+            EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -37,12 +36,12 @@ use EBox::MailFirewall;
 use EBox::Mail::Greylist;
 use EBox::Mail::FetchmailLdap;
 use EBox::Service;
-
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
+use EBox::SyncFolders::Folder;
 
 use Error qw( :try );
 use Proc::ProcessTable;
@@ -98,15 +97,6 @@ sub greylist
     my ($self) = @_;
     return $self->{greylist};
 }
-
-# neccesary for daemon precondition
-sub greylistIsEnabled
-{
-    my ($self) = @_;
-    return $self->greylist()->isEnabled();
-}
-
-
 
 # Method: actions
 #
@@ -293,10 +283,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    # Remove old keytab file
-    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
-
-    # Create the kerberos service princiapl in kerberos,
+    # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
     $self->kerberosCreatePrincipals();
 
@@ -884,6 +871,7 @@ sub _fqdn
 sub isGreylistEnabled
 {
     my ($self) = @_;
+    $self->configured() or return undef;
     return $self->greylist()->isEnabled();
 }
 
@@ -912,7 +900,7 @@ sub _daemons
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
-    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
+#    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
     push(@{$daemons}, $greylist_daemon);
 
     return $daemons;
@@ -923,50 +911,6 @@ sub fetchmailMustRun
     my ($self) = @_;
     return $self->{fetchmail}->daemonMustRun();
 }
-
-
-# Method: isRunning
-#
-#  This method returns if the service is running
-#
-# Parameter:
-#
-#               service - a string with a service name. It could be:
-#                       active for smtp service
-#                       pop for pop service
-#                       imap for imap service
-#
-# Returns
-#
-#               bool - true if the service is running, false otherwise
-sub isRunning
-{
-    my ($self, $service) = @_;
-
-    if (not defined($service)) {
-        if ($self->_dovecotService()) {
-            if ($self->_dovecotIsRunning()) {
-                return 1;
-            } elsif ($self->greylist()->isRunning()) {
-                return 1;
-            }
-
-            return undef;
-        }
-
-        return $self->_postfixIsRunning();
-    } elsif ($service eq 'active') {
-        return $self->_postfixIsRunning();
-    } elsif ($service eq 'pop') {
-        return $self->_dovecotIsRunning();
-    } elsif ($service eq 'imap') {
-        return $self->_dovecotIsRunning();
-    }
-}
-
-
-
-
 
 sub _dovecotIsRunning
 {
@@ -993,9 +937,6 @@ sub _postfixIsRunning
     }
     return undef;
 }
-
-
-
 
 #  Method : externalFilter
 #
@@ -1402,14 +1343,14 @@ sub mailServicesWidget
 {
     my ($self, $widget) = @_;
 
-    $widget->{size} = 1.5;
+    $widget->{size} = "'1.5'";
     my $section = new EBox::Dashboard::Section('mailservices', 'Services');
     $widget->add($section);
 
     my $smtp = new EBox::Dashboard::ModuleStatus(
                                           module => 'mail',
                                           printableName => __('SMTP service'),
-                                          running => $self->isRunning('active'),
+                                          running => $self->_postfixIsRunning(),
                                           enabled => $self->service(),
                                         );
 
@@ -1718,7 +1659,6 @@ sub consolidate
     return {  $table => $spec };
 }
 
-
 sub logHelper
 {
     my ($self) = @_;
@@ -1809,6 +1749,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'Mail SMTP server',
              service =>  __('Mail SMTP server'),
              path    =>  '/etc/postfix/sasl/postfix.pem',
              user => 'root',
@@ -1816,6 +1757,7 @@ sub certificates
              mode => '0400',
             },
             {
+             serviceId => 'Mail POP/IMAP server',
              service =>  __('Mail POP/IMAP server'),
              path    =>  '/etc/dovecot/ssl/dovecot.pem',
              user => 'root',
@@ -1869,6 +1811,72 @@ sub postmasterAddress
     my $mailname = $self->mailname();
 
     return $address . '@' .  $mailname;
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir ($self->_storageMailDirs()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Mailboxes');
+}
+
+sub preSlaveSetup
+{
+    my ($self, $master) = @_;
+    if ($master ne 'zentyal') {
+        return;
+    }
+
+    # remove vdomains
+    $self->model('VDomains')->removeAll(1);
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+    $self->SUPER::reprovisionLDAP();
+
+    # Create new kerberos keytab
+    $self->kerberosCreatePrincipals();
+
+    # regenerate mail ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
+}
+
+sub slaveSetupWarning
+{
+    my ($self, $master) = @_;
+    if (not $self->configured()) {
+        return undef;
+    }
+    if ($master ne 'zentyal') {
+        return undef;
+    }
+    my $vdomainsModel = $self->model('VDomains');
+    if ($vdomainsModel->size() == 0) {
+        return undef;
+    }
+
+    return __('The mail domains and its accounts will be removed when the slave setup is complete');
 }
 
 1;

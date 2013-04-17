@@ -58,13 +58,9 @@ sub _process
     my $module = EBox::Global->modInstance($modName);
 
     try {
-        $module->enableActions();
-        $module->setConfigured(1);
-        $module->enableService(1);
+        $module->configureModule();
     } otherwise {
         my ($excep) = @_;
-        $module->setConfigured(undef);
-        $module->enableService(undef);
         if ($excep->isa("EBox::Exceptions::External")) {
             throw EBox::Exceptions::External("Failed to enable: " .
                 $excep->stringify());

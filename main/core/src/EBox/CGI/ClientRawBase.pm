@@ -203,11 +203,11 @@ sub run
 
     try  {
         $self->_print;
-    } catch EBox::Exceptions::Internal with {
+    } catch EBox::Exceptions::Base with {
         my $ex = shift;
-        $self->_print_error($ex->stacktrace());
-    }
-    otherwise {
+        $self->setErrorFromException($ex);
+        $self->_print_error($self->{error});
+    } otherwise {
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {

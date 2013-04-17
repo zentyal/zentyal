@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Types::File
 #
 #      This type is intended to support file uploading, downloading
@@ -30,10 +31,6 @@
 #
 
 package EBox::Types::File;
-
-use strict;
-use warnings;
-
 use base 'EBox::Types::Abstract';
 
 use EBox;
@@ -613,28 +610,22 @@ sub _moveToPath
 
     my $user = $self->user();
     my $group = $self->group();
-
-    if (($user eq  'root') or ($group eq 'root')) {
-        EBox::Sudo::root("mv '$tmpPath' '$path'");
-        try {
-            EBox::Sudo::root("chown $user.$group '$path'");
+    unless (($user eq 'ebox') and ($group eq 'ebox')) {
+        unless (($user eq  'root') or ($group eq 'root')) {
+            throw EBox::Exceptions::NotImplemented(
+                "user and group combination ($user:$group) not supported"
+           );
         }
-        otherwise {
-            my $ex = shift;
-            EBox::Sudo::root("rm -f '$path'");
-            $ex->throw();
-        };
     }
-    elsif (($user eq 'ebox') and ($group eq 'ebox')) {
-        File::Copy::move($tmpPath, $self->path()) or
-              throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
-                                               . ' to ' . $self->path());
-    }
-    else {
-        throw EBox::Exceptions::NotImplemented(
-                 "user and group combination not supported"
-                                              );
-    }
+
+    EBox::Sudo::root("mv '$tmpPath' '$path'");
+    try {
+        EBox::Sudo::root("chown $user.$group '$path'");
+    }  otherwise {
+        my $ex = shift;
+        EBox::Sudo::root("rm -f '$path'");
+        $ex->throw();
+    };
 }
 
 1;

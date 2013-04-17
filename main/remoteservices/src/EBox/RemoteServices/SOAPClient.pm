@@ -110,11 +110,7 @@ sub instance
           }}
         );
 
-    if ( defined ( $params{certs} )) {
-        $class->_setCerts($params{certs});
-    }
-
-    my $self = { soapConn => $soapConn };
+    my $self = { soapConn => $soapConn, certs => $params{certs} };
 
     bless ( $self, $class );
 
@@ -171,7 +167,10 @@ sub AUTOLOAD
     }
 
 
+    $self->_setCerts();
     my $response = $self->{soapConn}->call($methodName => @soapParams);
+    $self->_unsetCerts();
+
     unless ($response) {
         throw EBox::Exceptions::Internal(
             "SOAP call $methodName(@soapParams) failed without server response"
@@ -207,8 +206,10 @@ sub AUTOLOAD
 # connection
 sub _setCerts
 {
+    my ($self) = @_;
 
-    my ($class, $certs) = @_;
+    return unless defined($self->{certs});
+    my $certs = $self->{certs};
 
     $ENV{HTTPS_CERT_FILE} = $certs->{cert};
     $ENV{HTTPS_KEY_FILE} = $certs->{private};
@@ -217,5 +218,16 @@ sub _setCerts
     }
     $ENV{HTTPS_VERSION} = '3';
 }
+
+sub _unsetCerts
+{
+    my ($self) = @_;
+
+    delete $ENV{HTTPS_CERT_FILE};
+    delete $ENV{HTTPS_KEY_FILE};
+    delete $ENV{HTTPS_CA_FILE};
+    delete $ENV{HTTPS_VERSION};
+}
+
 
 1;

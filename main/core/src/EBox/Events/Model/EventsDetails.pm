@@ -12,14 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Events::Model::EventsDetails;
 use base 'EBox::Logs::Model::Details';
-
-#
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -34,8 +31,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub dbTableName
 {
@@ -54,10 +49,6 @@ sub dbFields
             fatal => { printableName =>  __('Fatal error'), },
            };
 }
-
-
-
-
 
 sub _table
 {

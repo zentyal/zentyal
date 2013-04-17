@@ -12,17 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::DHCPLogHelper;
-package EBox::DHCPLogHelper;
-
-use base 'EBox::LogHelper';
-
 use strict;
 use warnings;
 
-use EBox;
-use EBox::Config;
+package EBox::DHCPLogHelper;
+use base 'EBox::LogHelper';
+
 use EBox::Gettext;
 
 use constant DHCPLOGFILE => '/var/log/syslog';
@@ -83,7 +78,7 @@ sub processLine # (file, line, logger)
         return;
     }
 
-    my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
+    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
     my $data = {
         'timestamp' => $timestamp,
         'ip' => $ip,

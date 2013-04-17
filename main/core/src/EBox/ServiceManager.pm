@@ -21,10 +21,10 @@
 #   It uses MD5 digests to track the changes
 #
 #
-package EBox::ServiceManager;
-
 use strict;
 use warnings;
+
+package EBox::ServiceManager;
 
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
@@ -80,7 +80,6 @@ sub moduleStatus
 
     my @mods;
     my $change = undef;
-    #for my $mod (@{$global->modInstancesOfType(CLASS)}) {
     for my $modName (@{$self->_dependencyTree()}) {
         my $mod = $global->modInstance($modName);
         my $status = {};
@@ -90,11 +89,7 @@ sub moduleStatus
         $status->{'name'} = $mod->name();
         $status->{'printableName'} = $mod->printableName();
         $status->{'printableDepends'} = $self->printableDepends($mod->name());
-        unless ($status->{'configured'} and $status->{'depends'}) {
-            $status->{'status'} = undef;
-            $mod->enableService(undef);
-        }
-        if ( $mod->showModuleStatus() ) {
+        if ($mod->showModuleStatus()) {
             push (@mods, $status);
         }
     }
@@ -169,18 +164,16 @@ sub enableServices
 {
     my ($self, $services) = @_;
 
-
     my $global = $self->{'confmodule'};
 
     for my $mod (keys %{$services}) {
-        my $instance = $global->modInstance($mod);
-        unless (defined($instance)) {
+        my $modInstance = $global->modInstance($mod);
+        unless (defined $modInstance) {
             EBox::debug("$mod can't be instanced");
             next;
         }
-
-        next unless ($instance->isa(CLASS));
-        $instance->enableService($services->{$mod});
+        next unless ($modInstance->isa(CLASS));
+        $modInstance->enableService($services->{$mod});
     }
 }
 
@@ -420,20 +413,13 @@ sub enableAllModules
     my $global = EBox::Global->getInstance();
     for my $modName (@{$self->_dependencyTree()}) {
         my $module = $global->modInstance($modName);
-        $module->setConfigured(1);
-        $module->enableService(1);
-        #$self->updateModuleDigests($modName);
         try {
-            $module->enableActions();
+            $module->configureModule();
         } otherwise {
             my ($ex) = @_;
-            $module->setConfigured(0);
-            $module->enableService(0);
-            EBox::warn("Falied to enable module $modName: "  . $ex->text());
+            EBox::warn("Failed to enable module $modName: "  . $ex->text());
         };
-        #$self->updateModuleDigests($modName);
     }
-
 }
 
 # Method: checkUserModifications

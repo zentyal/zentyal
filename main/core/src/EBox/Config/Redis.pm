@@ -52,11 +52,15 @@ sub _new
     my $self = {};
     bless($self, $class);
 
-    $self->_initRedis;
-    $self->_respawn;
+    if (exists $args{customRedis}) {
+        $self->{customRedis} = $args{customRedis};
+    }
+
+    $self->_initRedis();
+    $self->_respawn();
 
     $self->{pid} = $$;
-    $self->{json_pretty} = JSON::XS->new->pretty;
+    $self->{json_pretty} = JSON::XS->new->pretty->utf8;
 
     unless ($lock) {
         my $path = undef;
@@ -80,8 +84,10 @@ sub _new
 #
 sub instance
 {
+    my ($class, %args) = @_;
+
     unless (defined ($_instance)) {
-        $_instance = EBox::Config::Redis->_new();
+        $_instance = $class->_new(%args);
     }
 
     return $_instance;
@@ -216,7 +222,7 @@ sub export_dir_to_file
     );
     my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
-        write_file($file, @lines);
+        write_file($file, { binmode => ':raw' }, @lines);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to $file");
     };
@@ -226,7 +232,8 @@ sub _keys
 {
     my ($self, $pattern) = @_;
 
-    my @keys = $self->_redis_call('keys', $pattern);
+    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
             push (@keys, $name);
@@ -355,8 +362,14 @@ sub rollback
 {
     my ($self) = @_;
 
-    if ($self->{multi}) {
+    if ($trans) {
+        $self->_redis_call('multi');
         $self->_redis_call('discard');
+        %deleted = ();
+        foreach my $key (keys %modified) {
+            delete $cache{$key};
+        }
+        %modified = ();
     }
 
     $trans = 0;
@@ -420,15 +433,14 @@ sub _redis_call
             local $SIG{PIPE};
             $SIG{PIPE} = sub {
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
-                $failure = 1; };
+                $failure = 1;
+            };
             eval {
                 $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
-                    map { utf8::encode($_) if defined ($_) } @response;
                 } else {
                     $response = $self->{redis}->__read_response();
-                    utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
             };
@@ -483,13 +495,17 @@ sub _respawn
 {
     my ($self) = @_;
 
-    my $user = $self->_user();
-    my $home = $self->_home();
-    my $filepasswd = $self->_passwd();
+    if ($self->{customRedis}) {
+        $self->{redis} = $self->{customRedis};
+    } else {
+        my $user = $self->_user();
+        my $home = $self->_home();
+        my $filepasswd = $self->_passwd();
 
-    my $redis = Redis->new(sock => "$home/redis.$user.sock");
-    $redis->auth($filepasswd);
-    $self->{redis} = $redis;
+        my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
+        $redis->auth($filepasswd);
+        $self->{redis} = $redis;
+    }
     $self->{pid} = $$;
 
     # EBox::info("$$ Respawning the redis connection");
@@ -501,11 +517,13 @@ sub _initRedis
 {
     my ($self) = @_;
 
+    return if ($self->{customRedis});
+
     # User corner redis server is managed by service
-    return if ( $self->_user eq 'ebox-usercorner' );
+    return if ($self->_user eq 'ebox-usercorner');
 
     unless (EBox::Service::running('ebox.redis')) {
-        EBox::info('Starting redis server');
+        EBox::debug("[$$] Starting redis server");
 
         # Write redis daemon conf file
         $self->writeConfigFile();

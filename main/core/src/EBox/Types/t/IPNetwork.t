@@ -19,44 +19,37 @@ use warnings;
 
 use Test::More tests => 4;
 
-use EBox::TestStubs;
 
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::IPNetwork;
 
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 
 my %validNetworks = (
                      '192.168.45.0' => 24,
                      '40.24.3.128' => 25,
-                     
-                    );
+);
 
 my %invalidNetworks = (
                        '192.168.45.1' => 24,
-                     '40.24.3.129' => 25,
-                      );
-
-
-
+                       '40.24.3.129' => 25,
+);
 
 while (my ($ip, $mask) = each %validNetworks) {
-    EBox::Types::Test::createOk(
+    EBox::Types::TestHelper::createOk(
                                 'EBox::Types::IPNetwork',
                                 fieldName => 'test',
                                 ip   => $ip,
                                 mask => $mask,
                                 "Checking instance creation with valid parameters ip => $ip, mask => $mask"
-                               );
-
+    );
 }
 
-
 while (my ($ip, $mask) = each %invalidNetworks) {
-    EBox::Types::Test::createFail(
+    EBox::Types::TestHelper::createFail(
                                   'EBox::Types::IPNetwork',
                                   fieldName => 'test',
                                   printableName => 'test',
@@ -66,25 +59,22 @@ while (my ($ip, $mask) = each %invalidNetworks) {
                                  );
 }
 
-
 sub _create
 {
     my %params = @_;
-    
+
     my $ipn = EBox::Types::IPNetwork->new(
                                           %params
                                          );
-    
+
     my $ipParamName   = $ipn->fieldName() . '_ip';
     my $maskParamName = $ipn->fieldName() . '_mask';
-    
+
     $ipn->setMemValue({
                        $ipParamName    => $params{ip},
                        $maskParamName => $params{mask},
                       });
 }
-
-
 
 
 1;

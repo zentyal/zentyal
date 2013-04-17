@@ -1,8 +1,21 @@
 <%args>
   $hostname
   $portNumber
+  $hostnameVhost
+  $sslportNumber
 </%args>
 ServerName <% $hostname %>
+
+% if ($hostnameVhost) {
+  <& /webserver/vhostHttp.mas,
+       hostname => $hostname,
+       vHostName => $hostname,
+       portNumber => $portNumber,
+       sslportNumber => $sslportNumber,
+       sslSupport => $hostnameVhost->{ssl},
+   &>
+% }
+
 <VirtualHost *:<% $portNumber %>>
 	ServerAdmin webmaster@<% $hostname %>
 

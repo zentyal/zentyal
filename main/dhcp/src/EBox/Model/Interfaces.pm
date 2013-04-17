@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::DHCP::Model::Interfaces
 #
@@ -23,11 +25,7 @@
 #
 
 package EBox::DHCP::Model::Interfaces;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
@@ -62,7 +60,7 @@ sub precondition
     my ($self) = @_;
     my $global = EBox::Global->getInstance($self->parentModule->isReadOnly());
     my $net = $global->modInstance('network');
-    my @ifaces = @{$net->allIfaces()};
+    my @ifaces = @{$net->ifaces()};
     foreach my $iface (@ifaces) {
         if ($net->ifaceMethod($iface) eq 'static') {
             return 1;
@@ -89,7 +87,7 @@ sub syncRows
     my $global = EBox::Global->getInstance($self->parentModule()->isReadOnly());
     my $net = $global->modInstance('network');
 
-    my @ifaces = @{$net->allIfaces()};
+    my @ifaces = @{$net->ifaces()};
     @ifaces = grep { $net->ifaceMethod($_) eq 'static' } @ifaces;
     my %newIfaces =
         map { $_ => 1 } @ifaces;
@@ -151,6 +149,48 @@ sub _table
     };
 
     return $dataTable;
+}
+
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $daemonNeeded = $self->daemonNeeded();
+
+    if (not $daemonNeeded->{enabled}) {
+          $customizer->setPermanentMessage(__('No interfaces enabled.  The DHCP server  will not serve any address'), 'warning');
+    } elsif (not $daemonNeeded->{addresses}) {
+        $customizer->setPermanentMessage(__('The enabled interfaces have not any range or fixed address configured.  The DHCP server  will not serve any address'), 'warning');
+    }
+    return $customizer;
+}
+
+sub daemonNeeded
+{
+    my ($self) = @_;
+
+    my $enabled = 0;
+    my $addresses = 0;
+    foreach my $id (@{ $self->ids() })  {
+        my $row = $self->row($id);
+        if ($row->valueByName('enabled')) {
+            $enabled = 1;
+            my $conf =  $row->subModel('configuration');
+            if ($conf->hasAddresses()) {
+                $addresses = 1;
+                last;
+            }
+        }
+    }
+
+    return {
+        enabled => $enabled,
+        addresses => $addresses,
+    };
 }
 
 sub dynamicDomainsIds

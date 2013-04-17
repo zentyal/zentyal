@@ -12,16 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups;
-
 use strict;
 use warnings;
 
-use base qw( EBox::Module::Service
-             EBox::LdapModule
-             EBox::UserCorner::Provider
-             EBox::UsersAndGroups::SyncProvider );
+package EBox::UsersAndGroups;
+use base qw(EBox::Module::Service
+            EBox::LdapModule
+            EBox::SysInfo::Observer
+            EBox::UserCorner::Provider
+            EBox::SyncFolders::Provider
+            EBox::UsersAndGroups::SyncProvider
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -40,6 +41,10 @@ use EBox::UsersAndGroups::OU;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
+use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::LDAP;
+use EBox::SyncFolders::Folder;
+use EBox::Util::Version;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -85,6 +90,28 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
+}
+
+# Method: depends
+#
+#     Users depends on dns only to ensure proper order during
+#     save changes when reprovisioning (after host/domain change)
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my @deps;
+
+    if ($self->get('need_reprovision')) {
+        push (@deps, 'dns');
+    }
+
+    return \@deps;
 }
 
 # Method: actions
@@ -225,6 +252,23 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.14') < 0) and $self->configured()) {
+        my %kerberosPrincipals = (
+            dns => 1,
+            mail => 1,
+            proxy => 1,
+            zarafa => 1,
+        );
+        my $hostname = EBox::Global->modInstance('sysinfo')->hostName();
+        foreach my $prefix (keys %kerberosPrincipals) {
+            my $principalUser = "$prefix-$hostname";
+            if ($self->userExists($principalUser)) {
+                my $user = EBox::UsersAndGroups::User->new(uid => $principalUser);
+                $user->set('title', 'internal');
+            }
+        }
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }
@@ -237,6 +281,10 @@ sub setupKerberos
     EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
+    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kdc || true');
+    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
@@ -471,6 +519,11 @@ sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
 
+    if ($self->get('need_reprovision')) {
+        $self->unset('need_reprovision');
+        $self->reprovision();
+    }
+
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(LIBNSS_SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
@@ -495,17 +548,32 @@ sub _setConf
     # Slaves cron
     @array = ();
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-
     if ($self->master() eq 'cloud') {
+        my $rs = new EBox::Global->modInstance('remoteservices');
+        my $rest = $rs->REST();
+        my $res = $rest->GET("/v1/users/realm/")->data();
+        my $realm = $res->{realm};
+
+        # Initial sync, set the realm (definitive) and upload current users
+        if (not $realm) {
+            $rest->PUT("/v1/users/realm/", query => { realm => $self->kerberosRealm() });
+
+            # Send current users and groups
+            $self->initialSlaveSync(new EBox::CloudSync::Slave(), 1);
+        }
+
         push(@array, 'cloudsync_enabled' => 1);
-        $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
     }
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
 
     # Configure soap service
     $self->masterConf->confSOAPService();
+
+    # commit slaves removal
+    EBox::UsersAndGroups::Slave->commitRemovals($self->global());
 
     # Get the FQDN
     my $realm = $self->kerberosRealm();
@@ -521,6 +589,14 @@ sub _setConf
 
     @array = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@array);
+}
+
+# overriden to revoke slave removals
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::UsersAndGroups::Slave->revokeRemovals($self->global());
 }
 
 sub kerberosRealm
@@ -588,11 +664,8 @@ sub _daemons
 
     return [
         { name => 'ebox.slapd' },
-        {
-            name => 'heimdal-kdc',
-            type => 'init.d',
-            pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
-        },
+        { name => 'zentyal.heimdal-kdc'  },
+        { name => 'zentyal.heimdal-kpasswd'  },
     ];
 }
 
@@ -703,17 +776,35 @@ sub initUser
             my $group = DEFAULTGROUP;
             push(@cmds, "mkdir -p `dirname $qhome`");
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            push(@cmds, "chown -R $quser:$group $qhome");
+            EBox::Sudo::root(@cmds);
+
+            # FIXME: workaroung against mysterious chown bug
+            my $chownCmd = "chown -R $quser:$group $qhome";
+            my $chownTries = 10;
+            foreach my $cnt (1 .. $chownTries) {
+                my $chownOk = 0;
+                try {
+                    EBox::Sudo::root($chownCmd);
+                    $chownOk = 1;
+                } otherwise {
+                    my ($ex) = @_;
+                    if ($cnt < $chownTries) {
+                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
+                        sleep 1;
+                    } else {
+                        $ex->throw();
+                    }
+                };
+                last if $chownOk;
+            };
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-            push(@cmds, "chmod $perms $qhome");
-
-            EBox::Sudo::root(@cmds);
+            my $chmod = "chmod $perms $qhome";
+            EBox::Sudo::root($chmod);
         }
     }
 }
-
 
 # Reload nscd daemon if it's installed
 sub reloadNSCD
@@ -727,14 +818,14 @@ sub reloadNSCD
 
 # Method: user
 #
-# Returns the object which represents a give user. Raises a excpetion if
+# Returns the object which represents a give user. Raises a exception if
 # the user does not exists
 #
 #  Parameters:
 #      username
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::User .
+#    the instance of EBox::UsersAndGroups::User for the given user
 sub user
 {
     my ($self, $username) = @_;
@@ -746,6 +837,19 @@ sub user
     return $user;
 }
 
+# Method: userExists
+#
+# Returns:
+#
+#   bool - whether the user exists or not
+#
+sub userExists
+{
+    my ($self, $username) = @_;
+    my $dn = $self->userDn($username);
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    return $user->exists();
+}
 
 # Method: users
 #
@@ -774,7 +878,7 @@ sub users
     my $result = $self->ldap->search(\%args);
 
     my @users = ();
-    foreach my $entry ($result->sorted('uid'))
+    foreach my $entry ($result->entries)
     {
         my $user = new EBox::UsersAndGroups::User(entry => $entry);
 
@@ -784,19 +888,53 @@ sub users
         push (@users, $user);
     }
 
+    # sort by name
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
+
+    return \@users;
+}
+
+# Method: realUsers
+#
+#       Returns an array containing all the non-internal users
+#
+# Parameters:
+#
+#       withoutAdmin - filter Samba 'Administrator' user (default: false)
+#
+# Returns:
+#
+#       array ref - holding the users. Each user is represented by a
+#       EBox::UsersAndGroups::User object
+#
+sub realUsers
+{
+    my ($self, $withoutAdmin) = @_;
+
+    my @users = grep { not $_->internal() } @{$self->users()};
+
+    if ($withoutAdmin) {
+        @users = grep { $_->name() ne 'Administrator' } @users;
+    }
+
     return \@users;
 }
 
 # Method: group
 #
-# Returns the object which represents a give group. Raises a excpetion if
+# Returns the object which represents a give group. Raises a exception if
 # the group does not exists
 #
 #  Parameters:
 #      groupname
 #
 #  Returns:
-#    the appropaite EBox::UsersAndGroups::Group .
+#    the instance of EBox::UsersAndGroups::Group for the group
 sub group
 {
     my ($self, $groupname) = @_;
@@ -808,8 +946,19 @@ sub group
     return $group;
 }
 
-
-
+# Method: groupExists
+#
+#  Returns:
+#
+#      bool - whether the group exists or not
+#
+sub groupExists
+{
+    my ($self, $groupname) = @_;
+    my $dn = $self->groupDn($groupname);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    return $group->exists();
+}
 
 # Method: groups
 #
@@ -837,7 +986,7 @@ sub groups
     my $result = $self->ldap->search(\%args);
 
     my @groups = ();
-    foreach my $entry ($result->sorted('cn'))
+    foreach my $entry ($result->entries())
     {
         my $group = new EBox::UsersAndGroups::Group(entry => $entry);
 
@@ -846,6 +995,13 @@ sub groups
 
         push (@groups, $group);
     }
+    # sort grups by name
+    @groups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @groups;
 
     return \@groups;
 }
@@ -950,6 +1106,35 @@ sub allSlaves
 }
 
 
+# Method: notifyModsPreLdapUserBase
+#
+#   Notify all modules implementing LDAP user base interface about
+#   a change in users or groups before it happen.
+#
+# Parameters:
+#
+#   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
+#   args - single value or array ref containing signal parameters
+#   ignored_modules - array ref of modnames to ignore (won't be notified)
+#
+sub notifyModsPreLdapUserBase
+{
+    my ($self, $signal, $args, $ignored_modules) = @_;
+
+    # convert signal to method name
+    my $method = '_' . $signal;
+
+    # convert args to array if it is a single value
+    unless (ref ($args) eq 'ARRAY') {
+        $args = [ $args ];
+    }
+
+    foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
+        $mod->$method(@{$args});
+    }
+}
+
+
 # Method: notifyModsLdapUserBase
 #
 #   Notify all modules implementing LDAP user base interface about
@@ -1016,17 +1201,30 @@ sub notifyModsLdapUserBase
 #   stored user and group.
 #   It should be called on a slave registering
 #
+#   If sync parameter is given, the operation will
+#   be sent instantly, if not, it will be saved for
+#   slave-sync daemon
+#
 sub initialSlaveSync
 {
-    my ($self, $slave) = @_;
+    my ($self, $slave, $sync) = @_;
 
     foreach my $user (@{$self->users()}) {
-        $slave->savePendingSync('addUser', [ $user ]);
+        if ($sync) {
+            $slave->sync('addUser', [ $user ]);
+        } else {
+            $slave->savePendingSync('addUser', [ $user ]);
+        }
     }
 
     foreach my $group (@{$self->groups()}) {
-        $slave->savePendingSync('addGroup', [ $group ]);
-        $slave->savePendingSync('modifyGroup', [ $group ]);
+        if ($sync) {
+            $slave->sync('addGroup', [ $group ]);
+            $slave->sync('modifyGroup', [ $group ]);
+        } else {
+            $slave->savePendingSync('addGroup', [ $group ]);
+            $slave->savePendingSync('modifyGroup', [ $group ]);
+        }
     }
 }
 
@@ -1259,18 +1457,20 @@ sub userMenu
 #
 sub syncJournalDir
 {
-    my ($self, $slave) = @_;
+    my ($self, $slave, $notCreate) = @_;
 
     my $dir = JOURNAL_DIR . $slave->name();
     my $journalsDir = JOURNAL_DIR;
 
-    # Create if the dir does not exists
-    unless (-d $dir) {
-        EBox::Sudo::root(
-            "mkdir -p $dir",
-            "chown -R ebox:ebox $journalsDir",
-            "chmod 0700 $journalsDir",
-        );
+    unless ($notCreate) {
+        # Create if the dir does not exists
+        unless (-d $dir) {
+            EBox::Sudo::root(
+                "mkdir -p $dir",
+                "chown -R ebox:ebox $journalsDir",
+                "chmod 0700 $journalsDir",
+               );
+        }
     }
 
     return $dir;
@@ -1551,5 +1751,135 @@ sub checkNameLimitations
          return undef;
      }
 }
+
+#  Nethod: newUserUidNumber
+#
+#  return the uid for a new user
+#
+#   Parameters:
+#     system - true if we want the uid for a system user, defualt false
+#
+sub newUserUidNumber
+{
+    my ($self, $system) = @_;
+
+    return EBox::UsersAndGroups::User->_newUserUidNumber($system);
+}
+
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostDomainChanged
+#
+#   This method disallow the change of the host domain if the module is
+#   configured (implies that the kerberos realm has been initialized)
+#
+sub hostDomainChanged
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    if ($self->configured()) {
+        $self->set('need_reprovision', 1);
+        $self->setAsChanged(1);
+        EBox::Global->modInstance('apache')->setAsChanged();
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the base DN for LDAP if the module has not
+#   been configured yet
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    unless ($self->configured()) {
+        my $mode = $self->model('Mode');
+        my $newDN = $mode->getDnFromDomainName($newDomainName);
+        $mode->setValue('dn', $newDN);
+    }
+}
+
+# Method: reprovision
+#
+#   Destroys all LDAP/Kerberos configuration and creates a new
+#   empty one. Useful after a host/domain change.
+#
+sub reprovision
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+    EBox::info("Reprovisioning LDAP");
+
+    my @removeHomeCmds;
+    foreach my $home (map { $_->home() } @{$self->users()}) {
+        push (@removeHomeCmds, "rm -rf $home");
+    }
+    EBox::Sudo::root(@removeHomeCmds);
+
+    $self->_manageService('stop');
+    EBox::Sudo::root('rm -rf /var/lib/ldap/*');
+    $self->_manageService('start');
+
+    $self->enableActions();
+
+    # LDAP module has lost its schemas and LDAP config after the reprovision
+    my $global = $self->global();
+    my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $self->name()) {
+            # dont reconfigure itself
+            next;
+        } elsif (not $mod->configured()) {
+            next;
+        }
+        $mod->reprovisionLDAP();
+    }
+}
+
+sub reprovisionLDAP
+{
+    throw EBox::Exceptions::Internal("This method should not be called in user module");
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        push (@folders, new EBox::SyncFolders::Folder('/home', 'recovery'));
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Users data');
+}
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+    my ($self) = @_;
+
+    my $usersPrintableName  = __(q{Users data});
+    my $usersPath           = '/home';
+
+    return {
+        $usersPrintableName   => [ $usersPath ],
+    };
+}
+
 
 1;

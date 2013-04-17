@@ -14,12 +14,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::FTP
-
-package EBox::FTP;
-
 use strict;
 use warnings;
 
+
+package EBox::FTP;
 use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Global;
@@ -175,6 +174,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'FTP',
              service =>  __('FTP'),
              path    =>  '/etc/vsftpd/ssl/ssl.pem',
              user => 'ftp',
@@ -202,7 +202,7 @@ sub _setConf
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
 
-    # disabled until vsftpd allows it, see #4133
+    # disabled until vsftpd allows it, see #4113
     # my $chrootUsers = $options->chrootUsers();
     my $chrootUsers = 0;
 

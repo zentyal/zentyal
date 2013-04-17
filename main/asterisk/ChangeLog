@@ -1,3 +1,11 @@
+HEAD
+	+ Fixed LDAP reprovision
+	+ Forbid to add meeting until the module is configured
+	+ When a user extensions modification is attempted, check
+	  extension number before removing any data from LDAP
+3.0.1
+	+ Create call log file when installing module
+	+ Make sure that timestamps are compatible with MySQL
 2.3.5
 	+ Disable form autocompletion in Provider username and password
 2.3.4

@@ -12,18 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::Radius;
-
-# Class: EBox::Radius
-#
-#
-
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
-
 use strict;
 use warnings;
+
+package EBox::Radius;
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -326,6 +319,7 @@ sub certificates
 
     return [
             {
+             serviceId => 'RADIUS',
              service =>  __('RADIUS'),
              path    =>  '/etc/freeradius/certs/freeradius.pem',
              user => 'root',

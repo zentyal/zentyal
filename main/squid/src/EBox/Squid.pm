@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Squid;
-
 use strict;
 use warnings;
 
+package EBox::Squid;
 use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
@@ -30,11 +28,14 @@ use EBox::Firewall;
 use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
+use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -43,6 +44,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
 use EBox::Gettext;
+use EBox::Util::Version;
 use EBox;
 use Error qw(:try);
 use HTML::Mason;
@@ -50,28 +52,48 @@ use File::Basename;
 
 use EBox::NetWrappers qw(to_network_with_mask);
 
-#Module local conf stuff
+use Net::LDAP;
+use Net::Ping;
+use Net::DNS;
+use Net::NTP qw(get_ntp_response);
+use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror};
+
+# Module local conf stuff
+use constant SQUID_CONF_FILE => '/etc/squid3/squid.conf';
+use constant SQUID_PORT => '3128';
+
 use constant DGDIR => '/etc/dansguardian';
-use constant {
-    SQUIDCONFFILE => '/etc/squid3/squid.conf',
-    SQUIDCSSFILE => '/etc/squid3/errorpage.css',
-    MAXDOMAINSIZ => 255,
-    SQUIDPORT => '3128',
-    DGPORT => '3129',
-    DGLISTSDIR => DGDIR . '/lists',
-    DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian',
-    SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3',
-    CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf',
-    BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
-    BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
-    ADZAPPER_CONF => '/etc/adzapper.conf',
-    KEYTAB_FILE => '/etc/squid3/HTTP.keytab',
-    SQUID3_DEFAULT_FILE => '/etc/default/squid3',
-    CRONFILE => '/etc/cron.d/zentyal-squid',
-};
+use constant DGPORT => '3129';
+
+use constant SQUID_EXTERNAL_CONF_FILE  => '/etc/squid3/squid-external.conf';
+use constant SQUID_EXTERNAL_PORT => '3130';
+
+use constant SQUIDCSSFILE => '/etc/squid3/errorpage.css';
+use constant MAXDOMAINSIZ => 255;
+use constant DGLISTSDIR => DGDIR . '/lists';
+use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
+use constant SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3';
+use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
+use constant BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper';
+use constant BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper';
+use constant ADZAPPER_CONF => '/etc/adzapper.conf';
+use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
+use constant SQUID3_DEFAULT_FILE => '/etc/default/squid3';
+use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
+
+use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
+use constant AUTH_MODE_KEY    => 'auth_mode';
+use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
+use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
+use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
+use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
+
+use constant AUTH_MODE_INTERNAL    => 'internal';
+use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
 sub _create
 {
@@ -106,13 +128,17 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-    # Create default rules only if installing the first time
-    unless ($version) {
+
+   if (not $version) {
+       # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(
             source => { any => undef },
             policy => { allow => undef },
         );
+    } elsif (EBox::Util::Version::compare($version, '3.0.3') < 0) {
+        eval "use EBox::Squid::Migration";
+        EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
     }
 }
 
@@ -124,7 +150,7 @@ sub enableActions
 {
     my ($self) = @_;
 
-    # Create the kerberos service princiapl in kerberos,
+    # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
     $self->kerberosCreatePrincipals();
 
@@ -146,9 +172,19 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-sub isRunning
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
 {
-    return EBox::Service::running('squid3');
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate kerberos keytab
+    $self->kerberosCreatePrincipals();
 }
 
 # Method: usedFiles
@@ -159,9 +195,19 @@ sub usedFiles
 {
     return [
             {
-             'file' => '/etc/squid3/squid.conf',
+             'file' => SQUID_CONF_FILE,
              'module' => 'squid',
-             'reason' => __('HTTP Proxy configuration file')
+             'reason' => __('Front HTTP Proxy configuration file')
+            },
+            {
+             'file' => SQUID_EXTERNAL_CONF_FILE,
+             'module' => 'squid',
+             'reason' => __('Back HTTP Proxy configuration file')
+            },
+            {
+             'file' => SQUID_LOGROTATE_CONF,
+             'module' => 'squid',
+             'reason' => __(q{Squid's log rotation configuration}),
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -281,9 +327,15 @@ sub actions
              'module' => 'squid'
             },
             {
+             'action' => __('Override squid upstart job'),
+             'reason' => __('Zentyal will take care of starting and stopping ' .
+                            'the services.'),
+             'module' => 'squid'
+            },
+            {
              'action' => __('Remove dansguardian init script link'),
              'reason' => __('Zentyal will take care of starting and stopping ' .
-                        'the services.'),
+                            'the services.'),
              'module' => 'squid'
             }
            ];
@@ -322,20 +374,20 @@ sub transproxy
     return $self->model('GeneralSettings')->value('transparentProxy');
 }
 
-# Method: https
-#
-#       Returns if the https mode is enabled
-#
-# Returns:
-#
-#       boolean - true if enabled, otherwise undef
-#
-sub https
-{
-    my ($self) = @_;
+# # Method: https
+# #
+# #       Returns if the https mode is enabled
+# #
+# # Returns:
+# #
+# #       boolean - true if enabled, otherwise undef
+# #
+# sub https
+# {
+#     my ($self) = @_;
 
-    return $self->model('GeneralSettings')->value('https');
-}
+#     return $self->model('GeneralSettings')->value('https');
+# }
 
 # Method: setPort
 #
@@ -368,7 +420,7 @@ sub port
     my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
-        return SQUIDPORT;
+        return SQUID_PORT;
     }
 
     return $port;
@@ -442,7 +494,6 @@ sub setAdBlockExecFile
 sub filterNeeded
 {
     my ($self) = @_;
-
     unless ($self->isEnabled()) {
         return 0;
     }
@@ -476,14 +527,347 @@ sub usesPort
     my ($self, $protocol, $port, $iface) = @_;
 
     ($protocol eq 'tcp') or return undef;
-    # DGPORT is hard-coded, it is reported as used even if
-    # the service is disabled.
+
+    # DGPORT and SQUID_EXTERNAL_PORT are hard-coded, they are reported as used even
+    # if the services are disabled.
     ($port eq DGPORT) and return 1;
-    # the port selected by the user (by default SQUIDPORT) is only reported
+    ($port eq SQUID_EXTERNAL_PORT) and return 1;
+
+    # the port selected by the user (by default SQUID_PORT) is only reported
     # if the service is enabled
     ($self->isEnabled()) or return undef;
-    ($port eq $self->port) and return 1;
+    ($port eq $self->port()) and return 1;
+
     return undef;
+}
+
+# Method: _adDefaultNamingContext
+#
+#   Retrieve the AD default naming context from DC ldap root dse
+#
+sub _adDefaultNamingContext
+{
+    my ($self, $dc) = @_;
+
+    my $ad = new Net::LDAP($dc);
+    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    return $defaultNC;
+}
+
+# Method: _adcheckClockSkew
+#
+#   Checks the clock skew with the remote AD server and throw exception
+#   if the offset is above two minutes.
+#
+#   FIXME This method is duplicated from samba module, file Provision.pm
+#
+#   Maths:
+#       Originate Timestamp     T1 - time request sent by client
+#       Receive Timestamp       T2 - time request received by server
+#       Transmit Timestamp      T3 - time reply sent by server
+#       Destination Timestamp   T4 - time reply received by client
+#
+#       The roundtrip delay d and local clock offset t are defined as:
+#       d = (T4 - T1) - (T2 - T3)
+#       t = ((T2 - T1) + (T3 - T4)) / 2
+#
+sub _adCheckClockSkew
+{
+    my ($self, $adServerIp) = @_;
+
+    throw EBox::Exceptions::MissingArgument('adServerIp')
+        unless (defined $adServerIp and length $adServerIp);
+
+    my %h;
+    try {
+        %h = get_ntp_response($adServerIp);
+    } otherwise {
+        throw EBox::Exceptions::External(
+            __x('Could not retrive time from AD server {x} via NTP.',
+                x => $adServerIp));
+    };
+
+    my $t0 = time;
+    my $T1 = $t0; # $h{'Originate Timestamp'};
+    my $T2 = $h{'Receive Timestamp'};
+    my $T3 = $h{'Transmit Timestamp'};
+    my $T4 = time; # From Time::HiRes
+    my $d = ($T4 - $T1) - ($T2 - $T3);
+    my $t = (($T2 - $T1) + ($T3 - $T4)) / 2;
+    unless (abs($t) < 120) {
+        throw EBox::Exceptions::External(
+            __('The clock skew with the AD server is higher than two minutes. ' .
+               'This can cause problems with kerberos authentication, please ' .
+               'sync both clocks with an external NTP source and try again.'));
+    }
+}
+
+# Method: _setAuthenticationModeAD
+#
+#   Perform all necessary checks and operations to let squid authenticate users
+#   against domain controller
+#
+sub _setAuthenticationModeAD
+{
+    my ($self) = @_;
+
+    EBox::info("Setting AD authentication");
+
+    # Read config keys
+    my $dc      = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
+    my $bindDN  = EBox::Config::configkeyFromFile(AUTH_AD_BIND_DN_KEY, SQUID_ZCONF_FILE);
+    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, SQUID_ZCONF_FILE);
+
+    # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
+    # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
+    if (EBox::Validate::checkIP($dc)) {
+        throw EBox::Exceptions::External(
+            __x('The domain controller must be specified as full qualified domain name'));
+    }
+    unless (EBox::Validate::checkDomainName($dc) and scalar (split (/\./, $dc)) > 1) {
+        throw EBox::Exceptions::External(
+            __x('The FQDN {x} does not seem to be valid', x => $dc));
+    }
+
+    # Check DC can be resolved to IP
+    my $resolver = new Net::DNS::Resolver();
+    $resolver->tcp_timeout(5);
+    $resolver->udp_timeout(5);
+    my $dcIpAddress = undef;
+    my $query = $resolver->query($dc, 'A');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq 'A';
+            $dcIpAddress = $rr->address();
+            last;
+        }
+    }
+    unless (defined $dcIpAddress and length $dcIpAddress) {
+        my $url = '/Network/Composite/DNS';
+        throw EBox::Exceptions::External(
+            __x('The domain controller {x} could not be resolved to its IP address. ' .
+                'Please, make sure you are using one of the AD DNS servers as the ' .
+                'primary resolver in the {oh}resolvers list{ch}.',
+                x => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
+    }
+
+    # Check DC can be reverse resolved
+    my $dcReverseName = undef;
+    my $targetIP = join ('.', reverse split (/\./, $dcIpAddress)) . ".in-addr.arpa";
+    $query = $resolver->query($targetIP, 'PTR');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq "PTR";
+            $dcReverseName = $rr->ptrdname();
+        }
+    }
+    unless (defined $dcReverseName and length $dcReverseName) {
+        my $url = '/Network/Composite/DNS';
+        throw EBox::Exceptions::External(
+            __x("The IP address '{x}' belonging to the domain controller '{y}' could not be " .
+                'reverse resolved. Please, make sure you are using one of the AD DNS servers as the ' .
+                'primary resolver in the {oh}resolvers list{ch}, and it contains the required reverse zones.',
+                x => $dcIpAddress, y => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
+    }
+
+    # Check the reverse resolved name match the DC name supplied by user
+    unless (lc $dcReverseName eq lc $dc) {
+        throw EBox::Exceptions::External(
+            __x("The AD DNS server has resolved the supplied DC name '{x}' to the IP '{y}', " .
+                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
+                "AD DNS records.", x => $dc, y => $dcIpAddress, z => $dcReverseName));
+
+    }
+
+    # Check DC is reachable
+    my $pinger = new Net::Ping('tcp');
+    $pinger->port_number(88);
+    $pinger->service_check(1);
+    unless ($pinger->ping($dc)) {
+        throw EBox::Exceptions::External(
+            __x('The domain controller {x} is unreachable.',
+                x => $dc));
+    }
+    $pinger->close();
+
+    # Check the host domain match the AD dns domain. Requiered by kerberos.
+    my $ad = new Net::LDAP($dc);
+    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
+    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
+    my $dcDomain = $dcDnsHostname[1];
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    unless (lc $hostDomain eq lc $dcDomain) {
+        throw EBox::Exceptions::External(
+            __x("The server domain '{x}' does not match DC domain '{y}'.",
+                x => $hostDomain, y => $dcDomain));
+    }
+
+    # Check the host realm match the AD realm. Required by kerberos.
+    my $defaultNC = $self->_adDefaultNamingContext($dc);
+    my $adRealm = uc ($defaultNC);
+    $adRealm =~ s/DC=//g;
+    $adRealm =~ s/,/\./g;
+    my $usersModule = EBox::Global->modInstance('users');
+    my $hostRealm = $usersModule->kerberosRealm();
+    unless ($adRealm eq $hostRealm) {
+        throw EBox::Exceptions::External(
+            __x("The server kerberos realm '{x}' does not match AD realm '{y}'.",
+                x => $hostRealm, y => $adRealm));
+    }
+
+    # Check clock skew between DC and Zentyal
+    $self->_adCheckClockSkew($dc);
+
+    # Check the AD DNS server has an A record for Zentyal
+    my $hostFQDN = $sysinfo->fqdn();
+    my $hostIpAddress = undef;
+    $query = $resolver->query($hostFQDN, 'A');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq 'A';
+            $hostIpAddress = $rr->address();
+            last;
+        }
+    }
+    unless (defined $hostIpAddress and length $hostIpAddress) {
+        throw EBox::Exceptions::External(
+            __x("The Zentyal server FQDN '{x}' could not be resolved by the AD DNS server. " .
+                "Please, ensure the A and PTR records for the Zentyal server exists in your AD DNS server.",
+                x => $hostFQDN));
+    }
+
+    # Check the AD DNS server has a PTR record for Zentyal
+    my $hostReverseName = undef;
+    my $hostTargetIP = join ('.', reverse split (/\./, $hostIpAddress)) . ".in-addr.arpa";
+    $query = $resolver->query($hostTargetIP, 'PTR');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq "PTR";
+            $hostReverseName = $rr->ptrdname();
+        }
+    }
+    unless (defined $hostReverseName and length $hostReverseName) {
+        throw EBox::Exceptions::External(
+            __x("The IP address '{x}' belonging to Zentyal server '{y}' could not be " .
+                "reverse resolved. Please, make sure your AD DNS server has the " .
+                "required PTR records defined.", x => $hostIpAddress, y => $hostFQDN));
+    }
+
+    # Check the reverse resolved name match the DC name supplied by user
+    unless (lc $hostReverseName eq lc $hostFQDN) {
+        throw EBox::Exceptions::External(
+            __x("The AD DNS server has resolved the Zentyal server name '{x}' to the IP '{y}', " .
+                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
+                "AD DNS records.", x => $hostFQDN, y => $hostIpAddress, z => $hostReverseName));
+
+    }
+
+    # Bind to the AD LDAP
+    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
+    if ($bindResult->is_error()) {
+        throw EBox::Exceptions::External(
+            __x("Could not bind to AD LDAP server '{x}' (Error was '{y}'). " .
+                "Please check the supplied credentials.",
+                x => $dc, y => $bindResult->error_desc()));
+    }
+
+    # Retrieve samAccountName for bind DN and build principal name to get
+    # a kerberos ticket
+    my $result = $ad->search(
+        base => $defaultNC,
+        scope => 'sub',
+        filter => "(distinguishedName=$bindDN)",
+        attrs => ['samAccountName']);
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::External(
+            __x("Could not retrieve samAccountName attribute for DN '{x}'",
+                x => $bindDN));
+    }
+    my $entry = $result->entry(0);
+    my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
+
+    # Check the Zentyal computer account
+    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
+    my $hostFound = undef;
+    $result = $ad->search(base => "CN=Computers,$defaultNC",
+                          scope => 'sub',
+                          filter => '(objectClass=computer)',
+                          attrs => ['samAccountName']);
+    foreach my $entry ($result->entries()) {
+        my $entrySamAccountName = $entry->get_value('samAccountName');
+        if (uc $entrySamAccountName eq uc $hostSamAccountName) {
+            $hostFound = 1;
+            last;
+        }
+    }
+
+    # Extract keytab for squid
+    try {
+        # Remove old credentials cache
+        my $ccache = EBox::Config::tmp() . 'squid-ad-setup.ccache';
+        $ENV{KRB5CCNAME} = $ccache;
+        unlink $ccache if (-f $ccache);
+
+        # Get kerberos ticket for the admin user
+        my $ok = kdestroy();
+        unless (defined $ok and $ok == 1) {
+            EBox::error("kdestroy: " . kerror());
+        }
+        $ok = kinit_pwd($adPrinc, $bindPwd);
+        unless (defined $ok and $ok == 1) {
+            EBox::error("kinit: " . kerror());
+        }
+
+        my $computerName = uc ($sysinfo->hostName());
+        my $keytabTempPath = EBox::Config::tmp() . 'HTTP.keytab';
+        if ($hostFound) {
+            my @cmds;
+            EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
+            EBox::Sudo::root("chown ebox $keytabTempPath");
+            # Update keytab
+            my $cmd = "msktutil --auto-update --verbose --computer-name '$computerName' --keytab '$keytabTempPath'";
+            EBox::Sudo::command($cmd);
+            # Move keytab to the correct place
+            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
+        } else {
+            # Create the account and extract keytab to temporary directory
+            EBox::Sudo::command("rm -f $keytabTempPath");
+            my $cmd = "msktutil -c -b 'CN=COMPUTERS' -s 'HTTP/$hostFQDN' " .
+                      "-k '$keytabTempPath' --computer-name '$computerName' " .
+                      "--upn 'HTTP/$hostFQDN' --server '$dc' --verbose " .
+                      "--user-creds-only";
+            EBox::Sudo::command($cmd);
+
+            # Move keytab to the correct place
+            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
+        }
+        if (EBox::Sudo::fileTest('-f', KEYTAB_FILE)) {
+            EBox::Sudo::root("chown root:proxy " . KEYTAB_FILE);
+            EBox::Sudo::root("chmod 440 " . KEYTAB_FILE);
+        }
+    } otherwise {
+        my ($error) = @_;
+        throw EBox::Exceptions::External(
+            __("Error creating computer account for Zentyal server: $error"));
+    } finally {
+        # Destroy acquired credentials
+        my $ok = kdestroy();
+        unless (defined $ok and $ok == 1) {
+            EBox::error("kdestroy: " . kerror());
+        }
+    };
+}
+
+sub _configureAuthenticationMode
+{
+    my ($self) = @_;
+
+    my $mode = $self->authenticationMode();
+    if ($mode eq AUTH_MODE_EXTERNAL_AD) {
+        $self->_setAuthenticationModeAD();
+    }
 }
 
 sub _setConf
@@ -492,11 +876,23 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
+    $self->_configureAuthenticationMode();
     $self->_writeSquidConf($filter);
+    $self->_writeSquidExternalConf();
+    $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
         $self->_writeDgConf();
     }
+
+    EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
+}
+
+sub revokeConfig
+{
+   my ($self) = @_;
+   $self->SUPER::revokeConfig();
+   EBox::Squid::Types::ListArchive->revokeAllPendingRemovals();
 }
 
 sub _antivirusNeeded
@@ -535,30 +931,17 @@ sub _writeSquidConf
 {
     my ($self, $filter) = @_;
 
-    my $rules = $self->model('AccessRules')->rules();
+    my $accesRulesModel =  $self->model('AccessRules');
+    my $rules = $accesRulesModel->rules();
+    my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
-    my $removeAds    = $generalSettings->removeAdsValue();
-    my $kerberos     = $generalSettings->kerberosValue();
+    my $kerberos = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
-    my $network = $global->modInstance('network');
     my $sysinfo = $global->modInstance('sysinfo');
-
-    my $append_domain = $network->model('SearchDomain')->domainValue();
-
-    my $cache_host = $network->model('Proxy')->serverValue();
-    my $cache_port = $network->model('Proxy')->portValue();
-    my $cache_user = $network->model('Proxy')->usernameValue();
-    my $cache_passwd = $network->model('Proxy')->passwordValue();
-
     my $users = $global->modInstance('users');
-
-    my $krbRealm = '';
-    if ($kerberos) {
-        $krbRealm = $users->kerberosRealm();
-    }
+    my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my $dn = $users->ldap()->dn();
@@ -567,42 +950,109 @@ sub _writeSquidConf
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
-    push @writeParam, ('https'  => $self->https());
-    push @writeParam, ('localnets' => $self->_localnets());
+
+#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
-    push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
-    push @writeParam, ('nameservers' => $network->nameservers());
-    push @writeParam, ('append_domain' => $append_domain);
+    push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
-    push @writeParam, ('cache_host' => $cache_host);
-    push @writeParam, ('cache_port' => $cache_port);
-    push @writeParam, ('cache_user' => $cache_user);
-    push @writeParam, ('cache_passwd' => $cache_passwd);
-
-    push @writeParam, ('memory' => $self->_cache_mem);
-    push @writeParam, ('max_object_size' => $self->_max_object_size);
-    push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
-    push @writeParam, ('cacheDirSize'     => $cacheDirSize);
+    push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
+    push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
     push @writeParam, ('dn' => $dn);
 
-    my $globalRO = EBox::Global->getInstance(1);
-    if ($globalRO->modExists('remoteservices')) {
-        my $rs = $globalRO->modInstance('remoteservices');
-        push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed()));
+    my $mode = $self->authenticationMode();
+    if ($mode eq AUTH_MODE_EXTERNAL_AD) {
+        my $dc = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
+        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
+        my $adPrincipal = uc ($sysinfo->hostName()) . '$';
+
+        push (@writeParam, (authModeExternalAD => 1));
+        push (@writeParam, (adDC        => $dc));
+        push (@writeParam, (adAclTTL    => $adAclTtl));
+        push (@writeParam, (adPrincipal => $adPrincipal));
     }
-    if ($removeAds) {
-        push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
+
+    $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_CONF_FILE);
+    }
+
+    $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
+}
+
+sub _writeSquidExternalConf
+{
+    my ($self) = @_;
+
+    my $globalRO = EBox::Global->getInstance(1);
+    my $global  = $self->global();
+    my $network = $global->modInstance('network');
+    my $users   = $global->modInstance('users');
+    my $sysinfo = $global->modInstance('sysinfo');
+    my $generalSettings = $self->model('GeneralSettings');
+
+    my $writeParam = [];
+
+    push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
+    push (@{$writeParam}, hostfqdn => $sysinfo->fqdn());
+
+    if ($generalSettings->kerberosValue()) {
+        push (@{$writeParam}, realm => $users->kerberosRealm);
+    }
+
+    if ($generalSettings->removeAdsValue()) {
+        push (@{$writeParam}, urlRewriteProgram => BLOCK_ADS_PROGRAM);
         my @adsParams = ();
-        push(@adsParams, ('postMatch' => $self->getAdBlockPostMatch()));
+        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
         $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
 
-    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
+    my $append_domain = $network->model('SearchDomain')->domainValue();
+    push (@{$writeParam}, append_domain => $append_domain);
 
-    $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
+    push (@{$writeParam}, memory => $self->_cache_mem());
+    push (@{$writeParam}, max_object_size => $self->_max_object_size());
+
+    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
+    push (@{$writeParam}, cacheDirSize => $cacheDirSize);
+    push (@{$writeParam}, nameservers => $network->nameservers());
+
+    my $cache_host   = $network->model('Proxy')->serverValue();
+    my $cache_port   = $network->model('Proxy')->portValue();
+    my $cache_user   = $network->model('Proxy')->usernameValue();
+    my $cache_passwd = $network->model('Proxy')->passwordValue();
+    push (@{$writeParam}, cache_host   => $cache_host);
+    push (@{$writeParam}, cache_port   => $cache_port);
+    push (@{$writeParam}, cache_user   => $cache_user);
+    push (@{$writeParam}, cache_passwd => $cache_passwd);
+
+    push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
+    push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
+    if ($globalRO->modExists('remoteservices')) {
+        my $rs = $globalRO->modInstance('remoteservices');
+        push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
+    }
+
+    $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
+                         $writeParam, { mode => '0640'});
+    if (EBox::Config::boolean('debug')) {
+        $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
+    }
+}
+
+sub _checkSquidFile
+{
+    my ($self, $confFile) = @_;
+
+    try {
+        EBox::Sudo::root("squid3 -k parse $confFile");
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $error = join ' ', @{ $ex->error() };
+        throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
+    };
 }
 
 sub _objectsDelayPools
@@ -611,24 +1061,6 @@ sub _objectsDelayPools
 
     my @delayPools = @{$self->model('DelayPools')->delayPools()};
     return \@delayPools;
-}
-
-sub _localnets
-{
-    my ($self) = @_;
-
-    my $network = $self->global()->modInstance('network');
-    my $ifaces = $network->InternalIfaces();
-    my @localnets;
-    for my $iface (@{$ifaces}) {
-        my $ifaceNet = $network->ifaceNetwork($iface);
-        my $ifaceMask = $network->ifaceNetmask($iface);
-        next unless ($ifaceNet and $ifaceMask);
-        my $net = to_network_with_mask($ifaceNet, $ifaceMask);
-        push (@localnets, $net);
-    }
-
-    return \@localnets;
 }
 
 sub _writeDgConf
@@ -644,7 +1076,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => DGPORT);
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => $self->port);
+    push(@writeParam, 'squidport' => SQUID_EXTERNAL_PORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -668,6 +1100,8 @@ sub _writeDgConf
 
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
+
+
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
@@ -710,15 +1144,7 @@ sub _writeDgConf
                 'squid/dansguardianfN.conf.mas', \@writeParam);
 
         if ($policy eq 'filter') {
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
-                                                     'squid/bannedextensionlist.mas',
-                                                     [ 'extensions'  => $group->{bannedExtensions} ]);
-
-            EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedmimetypelist$number",
-                                                     'squid/bannedmimetypelist.mas',
-                                                     [ 'mimeTypes' => $group->{bannedMIMETypes} ]);
-
-            $self->_writeDgDomainsConf($group);
+             $self->_writeDgDomainsConf($group);
         }
     }
 
@@ -736,7 +1162,7 @@ sub _writeCronFile
 
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
-        next unless $profile->{timePeriod};
+        next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
             next;
@@ -819,9 +1245,19 @@ sub writeDgGroups
         }
     }
 
+    my $generalSettings = $self->model('GeneralSettings');
+    my $realm = '';
+    if ($generalSettings->kerberosValue()) {
+        my $users = EBox::Global->modInstance('users');
+        $realm = '@' . $users->kerberosRealm();
+    }
+
+    my @writeParams = ();
+    push (@writeParams, groups => \@groups);
+    push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         [ groups => \@groups ]);
+                         \@writeParams);
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
@@ -881,7 +1317,7 @@ sub _dgProfiles
     my ($self) = @_;
 
     my $profileModel = $self->model('FilterProfiles');
-    return $profileModel->profiles();
+    return $profileModel->dgProfiles();
 }
 
 sub _writeDgDomainsConf
@@ -890,8 +1326,7 @@ sub _writeDgDomainsConf
 
     my $number = $group->{number};
 
-    my @domainsFiles = ('bannedsitelist', 'bannedurllist',
-                        'greysitelist', 'greyurllist',
+    my @domainsFiles = ('bannedsitelist',
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {
@@ -958,11 +1393,14 @@ sub _daemons
 {
     return [
         {
-            'name' => 'squid3'
+            name => 'zentyal.squid3-external'
         },
         {
-            'name' => 'ebox.dansguardian',
-            'precondition' => \&filterNeeded
+            name => 'ebox.dansguardian',
+            precondition => \&filterNeeded
+        },
+        {
+            name => 'squid3'
         }
     ];
 }
@@ -1095,55 +1533,46 @@ sub _DGLang
     return $lang;
 }
 
-# FIXME
-sub aroundDumpConfigDISABLED
+
+sub addPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, $when, @files) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$when};
+    $toRemove or $toRemove = [];
 
-    my $backupCategorizedDomainLists =
-        EBox::Config::boolean('backup_domain_categorized_lists');
-
-    my $bugReport = $options{bug};
-    if (not $bugReport and $backupCategorizedDomainLists) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-    } else {
-        # we don't save archive files
-        $self->_dump_to_file($dir);
-        $self->dumpConfig($dir, %options);
-    }
+    push @{$toRemove }, @files;
+    $state->{$key} = $toRemove;
+    $self->set_state($state);
 }
 
-
-# FIXME
-sub aroundRestoreConfigDISABLED
+sub clearPathsToRemove
 {
-    my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    delete $state->{$key};
+    $self->set_state($state);
 }
 
-# FIXME
-sub restoreConfigDISABLED
+sub pathsToRemove
+{
+    my ($self, $when) = @_;
+    my $key = 'paths_to_remove_on_' . $when;
+    my $state = $self->get_state();
+    my $toRemove = $state->{$key};
+    $toRemove or $toRemove = [];
+    return $toRemove;
+}
+
+sub aroundRestoreConfig
 {
     my ($self, $dir, %options) = @_;
-
-    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
-    if ($removeCategorizedDomainLists) {
-        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-            $domainFilterFiles->removeAll();
-        }
-    }
-
-    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
+    my $categorizedLists =  $self->model('CategorizedLists');
+    $categorizedLists->beforeRestoreConfig();
+    $self->SUPER::aroundRestoreConfig($dir, %options);
+    $categorizedLists->afterRestoreConfig();
 }
 
 # LdapModule implementation
@@ -1172,6 +1601,30 @@ sub _commercialMsg
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
+}
+
+sub authenticationMode
+{
+    my ($self) = @_;
+
+    my $mode = EBox::Config::configkeyFromFile(AUTH_MODE_KEY, SQUID_ZCONF_FILE);
+    $mode = AUTH_MODE_INTERNAL unless length $mode;
+
+    if ($mode eq AUTH_MODE_INTERNAL) {
+        return AUTH_MODE_INTERNAL;
+    } elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
+        if (EBox::Global->edition() eq 'enterprise') {
+            return AUTH_MODE_EXTERNAL_AD;
+        } else {
+            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise edition');
+            return AUTH_MODE_INTERNAL;
+        }
+    } else {
+        my $error = __x("Invalid value for key '{key}' in configuration file {value}",
+                         key => AUTH_MODE_KEY,
+                         value => SQUID_ZCONF_FILE);
+        throw EBox::Exceptions::External($error);
+    }
 }
 
 1;

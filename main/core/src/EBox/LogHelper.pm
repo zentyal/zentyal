@@ -69,7 +69,7 @@ sub processLine # (file, line, dbengine)
 # Helper method to convert to the format accepted by the database
 sub _convertTimestamp
 {
-    my ($self, $format, $timestamp) = @_;
+    my ($self, $timestamp, $format) = @_;
 
     my $t = Time::Piece->strptime($timestamp, $format);
     return $t->strftime('%Y-%m-%d %H:%M:%S');

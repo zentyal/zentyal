@@ -129,7 +129,6 @@ sub send
 {
     my ($self) = @_;
 
-    return; # FIXME: Only for current dev
     foreach my $helper (@{$self->{helpers}}) {
         $helper->send();
     }
@@ -152,6 +151,7 @@ sub log
             $db->insert( $helper->name(), $row);
         }
     }
+    $db->do('SET NAMES UTF8'); # I'm assuming correctly, everything is UTF8
     # Perform the buffered inserts done above
     $db->multiInsert();
 }

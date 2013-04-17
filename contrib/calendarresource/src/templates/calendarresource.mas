@@ -1,0 +1,78 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+</%init>
+    <h3><% __('Calendar resource') %></h3>
+
+    <& .calendarresouceDisabledWarning, $params &>
+
+    <table class="formTable">
+    <form action="/CalendarResource/UserOptions" method="post">
+        <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
+    <tr>
+    <td class="tright">
+        <label for="" class="ftitle"><% __('Is calendaring resource') %>:</label>
+    </td>
+    <td>
+        <select name="is_resource" enabled>
+%    if ($params->{'is_resource'} eq 'yes') {
+        <option value="no" ><% __('No') %></option>
+        <option selected value="yes" ><% __('Yes') %></option>
+%    } else {
+        <option selected value="no" ><% __('No') %></option>
+        <option value="yes" ><% __('Yes') %></option>
+%    }
+        </select>
+    </td>
+    </tr>
+%    if ($params->{'is_resource'} eq 'yes') {
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Auto schedule') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="autoschedule" id="external" value="yes"
+%            if ($params->{'autoschedule'}) {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Maximum multiple bookings') %>:</span>
+        </td>
+        <td>
+            <input type="text" pattern="\d+"
+	        title="Numeric value describing the maximum bookings this resource admits."
+	        name="multiplebookings" id="external"
+                value="<% $params->{'multiplebookings'} %>"
+		/>
+        </td>
+    </tr>
+%    }
+    <tr>
+    <td></td>
+    <td>
+        <input class="inputButton" type="submit" name="change"
+               value="<% __('Change') %>"
+               alt="<% __('Change') %>" />
+    </td>
+    </tr>
+    </form>
+    </table>
+
+<%def .calendarresouceDisabledWarning>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+</%init>
+<div class="warning">
+<% __(
+       q{The following settings will take effect only when the Calendar Resouece module is enabled.},
+     )
+%>
+</div>
+</%def>

@@ -4,8 +4,10 @@
     %toggled
     @brokenPackages
     $softwareInstalled => 0
+    $message => undef
 </%args>
 <%init>
+use utf8;
 use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
@@ -114,6 +116,19 @@ function updateGraph(element,value) {
 }
 //]]>
 </script>
+% if ($message) {
+<script  type="text/javascript">
+function closeNotification() {
+  $('notification_container').hide();
+  var url = '/SysInfo/CloseNotification';
+  new Ajax.Request(url, { parameters: { message: '<% $message->{name} %>' } });
+}
+</script>
+<div id="notification_container" class='tip'>
+<span id="notification_text"><% $message->{text} %></span>
+<a id="popx" onclick="closeNotification(); return false">×</a>
+</div>
+% }
 
 <span id="confbutton">
 <a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
@@ -304,6 +319,17 @@ function updateWidget(widget) {
                 var itemname = sect + '_' + i;
                 var element = $(itemname);
                 if(item.type == 'value') {
+                    if (item.value_type == 'ajax') {
+                        new Ajax.Request(item.ajax_url, {
+                            asynchronous: false,
+                            data: '',
+                            onSuccess: function(response) {
+                                item.value = response.responseJSON.value;
+                                element.className = 'summary_value';
+                                element.addClassName('summary_' + response.responseJSON.type);
+                            }
+                        });
+                    }
                     if (element.innerHTML != item.value) {
                         element.update(item.value);
                         element.visualEffect('highlight');

@@ -36,7 +36,7 @@ use EBox::Exceptions::NotImplemented;
 #
 sub createDisk
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: resizeDisk
@@ -50,7 +50,7 @@ sub createDisk
 #
 sub resizeDisk
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: vmExists
@@ -67,7 +67,7 @@ sub resizeDisk
 #
 sub vmExists
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: vmRunning
@@ -84,7 +84,7 @@ sub vmExists
 #
 sub vmRunning
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: createVM
@@ -97,7 +97,7 @@ sub vmRunning
 #
 sub createVM
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: startVMCommand
@@ -115,7 +115,7 @@ sub createVM
 #
 sub startVMCommand
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: shutdownVMCommand
@@ -128,7 +128,7 @@ sub startVMCommand
 #
 sub shutdownVMCommand
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: shutdownVM
@@ -141,7 +141,7 @@ sub shutdownVMCommand
 #
 sub shutdownVM
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: pauseVM
@@ -154,7 +154,7 @@ sub shutdownVM
 #
 sub pauseVM
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: resumeVM
@@ -167,7 +167,7 @@ sub pauseVM
 #
 sub resumeVM
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: deleteVM
@@ -180,7 +180,7 @@ sub resumeVM
 #
 sub deleteVM
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: setMemory
@@ -194,7 +194,7 @@ sub deleteVM
 #
 sub setMemory
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: setOS
@@ -208,7 +208,21 @@ sub setMemory
 #
 sub setOS
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: setArch
+#
+#   Set the architecture type for the given VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   arch      - architecture identifier
+#
+sub setArch
+{
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: setIface
@@ -224,7 +238,7 @@ sub setOS
 #
 sub setIface
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: initDeviceNumbers
@@ -233,7 +247,7 @@ sub setIface
 #
 sub initDeviceNumbers
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: attachDevice
@@ -250,7 +264,7 @@ sub initDeviceNumbers
 #
 sub attachDevice
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: systemTypes
@@ -263,7 +277,7 @@ sub attachDevice
 #
 sub systemTypes
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: vmsPath
@@ -272,7 +286,7 @@ sub systemTypes
 #
 sub vmsPath
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: ifaces
@@ -282,7 +296,7 @@ sub vmsPath
 #
 sub ifaces
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method : allowsNoneIface
@@ -290,7 +304,7 @@ sub ifaces
 #   return whether the backend allow interfaces set to 'None' (inactive)
 sub allowsNoneIface
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 
@@ -302,7 +316,7 @@ sub allowsNoneIface
 #
 sub listVMs
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: diskFile
@@ -316,7 +330,7 @@ sub listVMs
 #
 sub diskFile
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: manageScript
@@ -329,7 +343,7 @@ sub diskFile
 #
 sub manageScript
 {
-    throw Ebox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 

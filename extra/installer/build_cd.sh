@@ -3,6 +3,11 @@
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
+if [ -f $BASE_DIR/DEBUG_MODE ]
+then
+    $BASE_DIR/set-debug.sh
+fi
+
 SELECTED_ARCH=$1
 
 TMPDIR=/tmp/zentyal-installer-build-$$
@@ -18,6 +23,15 @@ sed -i "s/^Depends: /Depends: $CORE_DEPS /" $TMPDIR/zenbuntu-desktop/debian/cont
 pushd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
 popd
+
+if [ "$INCLUDE_REMOTE" == "true" ]
+then
+    # Build zinstaller-remote udeb
+    cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
+    pushd $TMPDIR/zinstaller-remote
+    dpkg-buildpackage
+    popd
+fi
 
 for ARCH in $ARCHS
 do
@@ -36,6 +50,24 @@ do
     # Replace zenbuntu-desktop package
     rm $EXTRAS_DIR/zenbuntu-desktop_*.deb
     cp $TMPDIR/*.deb $EXTRAS_DIR/
+
+    # Add custom extra packages if the dir exists
+    for dir in $EXTRAS_CUSTOM_DIR_BASE-$ARCH $EXTRAS_CUSTOM_DIR_BASE-all
+    do
+        if [ -d $dir ]
+        then
+            cp $dir/*.deb $EXTRAS_DIR/
+        fi
+    done
+
+    if [ "$INCLUDE_REMOTE" == "true" ]
+    then
+        # Add zinstaller-remote udeb
+        UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
+        mkdir -p $UDEB_DIR
+        rm $UDEB_DIR/*
+        cp $TMPDIR/*.udeb $UDEB_DIR/
+    fi
 
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1

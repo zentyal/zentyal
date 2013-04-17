@@ -6,16 +6,19 @@ Params:
            ifaceName - String the interface name
            passwd    - String the MD5 password
   redistribute   - Boolean indicating if redistributing connected routes or not
-  insecurePasswd - Boolean indicating if allow VTY shell connections using a password or not
+  insecurePasswd - Boolean indicating if allow VTY shell connections using a
+                   password or not
+  debug - add to log output debug statements
 </%doc>
 <%args>
 @ifaces
 $redistribute
 $insecurePasswd
+$debug => 0
 </%args>
 
 % if ($insecurePasswd) {
-hostname ebox
+hostname zentyal
 password ripd
 enable password ripd
 % }
@@ -25,7 +28,7 @@ enable password ripd
 %      if ($insecurePasswd or (not $iface->{passwd})) {
          <& .noAuthIface, iface => $iface  &>
 %      } else {
-        <& .iface, iface => $iface  &> 
+        <& .iface, iface => $iface  &>
 %      }
 
 % }
@@ -44,14 +47,17 @@ redistribute connected
 redistribute static
 % }
 
+% if ($debug) {
 debug rip events
 debug rip packet
+debug rip zebra
+% }
+
 log file /var/log/quagga/ripd.log
 access-list private permit 10.0.0.0/8
 access-list private permit 172.16.0.0/12
 access-list private permit 192.168.0.0/16
 access-list private deny any
-
 
 <%def .noAuthIface>
 <%args>

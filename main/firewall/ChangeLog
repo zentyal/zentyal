@@ -1,3 +1,7 @@
+HEAD
+	+ Added preInput(), preOutput() and preForward() to FirewallHelper
+3.0.1
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
 3.0
 	+ Set RS VPN rule only if the VPN connection is done
 	+ Check connectivity against new API end point for Remote instead

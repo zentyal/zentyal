@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class:
 #
 #   EBox::WebServer::Model::VHostTable
@@ -21,11 +22,7 @@
 #   virtual host table which basically contains virtual hosts information.
 #
 package EBox::WebServer::Model::VHostTable;
-
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -120,7 +117,7 @@ sub validateTypedRow
 }
 
 
-# XXX addedRowNotify and _domainAndHostnameForVHost disabled until we change
+# XXX IPs for vhost removed until we change
 # the DNS module to add all IPs only for the required kerberos domain
 # Method: addedRowNotify
 #
@@ -131,133 +128,114 @@ sub validateTypedRow
 #
 #      <EBox::Model::DataTable::addedRowNotify>
 #
-# sub addedRowNotifyg
-# {
-#     my ($self, $row) = @_;
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
 
-#     # Get the DNS module
-#     my $gl = EBox::Global->getInstance();
-#     if (not  $gl->modExists('dns') ) {
-#         # no DNS module present, nothing to add then
-#         return;
-#     }
-#     my $dns = $gl->modInstance('dns');
-#     my $vHostName = $row->valueByName('name');
+    # Get the DNS module
+    my $gl = EBox::Global->getInstance();
+    if (not  $gl->modExists('dns') ) {
+        # no DNS module present, nothing to add then
+        return;
+    }
+    my $dns = $gl->modInstance('dns');
+    my $vHostName = $row->valueByName('name');
 
-#     my ($hostName, $domain) = $self->_domainAndHostnameForVHost($dns, $vHostName);
-#     return unless ($hostName or $domain);
+    my ($hostName, $domain) = $self->_domainAndHostnameForVHost($dns, $vHostName);
+    return unless ($hostName or $domain);
 
-#     # We try to guess the IP address
-#     my $ip = $self->_guessWebIPAddr();
-#     if ( $ip ) {
-#         if ( none(map { $_->{name} } @{$dns->domains()}) eq $domain ) {
-#             # The domain does not exist, add domain with hostname-ip mapping
-#             my $domainData;
-#             if ($hostName eq $domain) {
-#                 $domainData = {
-#                                domain_name => $domain,
-#                                ipaddr => $ip,
-#                               };
-#             } else {
-#                 $domainData = {
-#                                domain_name => $domain,
-#                                hostnames => [ { name => $hostName, ipAddresses => [$ip],}, ],
-#                               };
-#             }
-#             $dns->addDomain($domainData);
+    # XXX NO IP detection for now, fill the vhost the better we can
+    # refet to previous version of this file if we add again IP guess
+    if ( none(map { $_->{name} } @{$dns->domains()}) eq $domain ) {
+        # The domain does not exist, add domain with hostname-ip mapping
+        my $domainData;
+        if ($hostName eq $domain) {
+            $domainData = {
+                domain_name => $domain,
+            };
+        } else {
+            $domainData = {
+                domain_name => $domain,
+                hostnames => [ { name => $hostName, }, ],
+            };
+        }
+        $dns->addDomain($domainData);
 
-#             my $noDnsWarning = $self->_dnsNoActiveWarning();
+        my $noDnsWarning = $self->_dnsNoActiveWarning();
+        if ($hostName eq $domain) {
+            $self->setMessage(__x('Virtual host {vhost} added. A domain {domain} ' .
+                                  'has been created' .
+                                  'Please, check its IP addresses. {noDnsWarning} ',
+                                  vhost => $vHostName,
+                                  domain   => $domain,
+                                  noDnsWarning => $noDnsWarning,
+                             ));
+        } else {
+            $self->setMessage(__x('Virtual host {vhost} added. A domain {domain} ' .
+                                  'has been created with the host ' .
+                                  'name {name}. Please, set the host IP address. {noDnsWarning} ',
+                                  vhost => $vHostName,
+                                  domain => $domain,
+                                  name   => $hostName,
+                                  noDnsWarning => $noDnsWarning,
+                             ));
 
-#             $self->setMessage(__x('Virtual host {vhost} added. A domain {domain} ' .
-#                                   'has been created with the mapping ' .
-#                                   'name {name} - IP address {ip}. {noDnsWarning} ',
-#                                   vhost => $vHostName,
-#                                   domain => $domain,
-#                                   name   => $hostName,
-#                                   ip     => $ip,
-#                                   noDnsWarning => $noDnsWarning,
-#                                  ));
-#         } else {
-#             my @hostNames = @{$dns->getHostnames($domain)};
-#             my @currentNames = map { $_->{name} } @hostNames;
-#             # Push aliases
-#             foreach my $host (@hostNames) {
-#                 push(@currentNames, map { $_->{name} } @{$host->{aliases}});
-#             }
-#             if ( none(@currentNames) eq $hostName ) {
-#                 # Check the IP address
-#                 my ($commonHostName) = grep { $_->{ip} eq $ip } @hostNames;
-#                 unless ( $commonHostName ) {
-#                     # Add a host name
-#                     $dns->addHost( $domain, {
-#                                        name => $hostName,
-#                                        ipAddresses => [$ip]
-#                                       } );
-#                     $self->setMessage(__x('Virtual host {vhost} added. A mapping ' .
-#                                           'name {name} - IP address {ip} has been added ' .
-#                                           'to {domain} domain.',
-#                                           vhost  => $vHostName,
-#                                           name   => $hostName,
-#                                           ip     => $ip,
-#                                           domain => $domain,
-#                                          ));
-#                 } else {
-#                     # Add an alias
-#                     my $realHostName = $commonHostName->{name};
-#                     try {
-#                         $dns->addAlias( $domain,
-#                                         $realHostName,
-#                                         $hostName);
-#                         $self->setMessage(__x('Virtual host {vhost} added as an alias {alias}'
-#                                               . ' to hostname {hostname}.',
-#                                               vhost    => $vHostName,
-#                                               alias    => $hostName,
-#                                               hostname => $realHostName));
-#                     } catch EBox::Exceptions::DataExists with {
-#                         $self->setMessage(__x('Virtual host {vhost} added.',
-#                                               vhost => $vHostName));
-#                     }
-#                 }
-#             } else {
-#                 $self->setMessage(__x('Virtual host {vhost} added.',
-#                                       vhost => $vHostName));
-#             }
-#         }
-#     } else { # No valid internal IP address
-#         $self->setMessage(__('There is no static internal interface to ' .
-#                              'set the Web server IP address.'));
-#     }
-# }
+        }
+    } else {
+        my @hostNames = @{$dns->getHostnames($domain)};
+        my @currentNames = map { $_->{name} } @hostNames;
+        # Push aliases
+        foreach my $host (@hostNames) {
+            push (@currentNames, @{$host->{aliases}});
+        }
+        if ( none(@currentNames) eq $hostName ) {
+            # Add a host name
+            $dns->addHost( $domain, {
+                name => $hostName,
+            } );
+            $self->setMessage(__x('Virtual host {vhost} added. A host ' .
+                                      '{name} has been added ' .
+                                          'to {domain} domain. Please, set the host IP address',
+                                  vhost  => $vHostName,
+                                  name   => $hostName,
+                                  domain => $domain,
+                                 ));
+        } else {
+            $self->setMessage(__x('Virtual host {vhost} added.',
+                                  vhost => $vHostName));
+        }
+    }
+}
 
-# sub _domainAndHostnameForVHost
-# {
-#     my ($self, $dns, $vHostName) = @_;
-#     my ($hostName, $domain);
+sub _domainAndHostnameForVHost
+{
+    my ($self, $dns, $vHostName) = @_;
+    my ($hostName, $domain);
 
-#     my @configuredDomains = @{ $dns->domains() };
-#     foreach my $configuredDomain (@configuredDomains) {
-#         my $dname = $configuredDomain->{name};
-#         if ($vHostName =~ m/^(.*)\.$dname$/) {
-#             $hostName = $1;
-#             $domain = $dname;
-#             return ($hostName, $domain);
-#         }
-#     }
+    my @configuredDomains = @{ $dns->domains() };
+    foreach my $configuredDomain (@configuredDomains) {
+        my $dname = $configuredDomain->{name};
+        if ($vHostName =~ m/^(.*)\.$dname$/) {
+            $hostName = $1;
+            $domain = $dname;
+            return ($hostName, $domain);
+        }
+    }
 
-#     my @parts = split(/\./, $vHostName);
-#     if (@parts == 1) { # if no dots, only a domain = hostname
-#         $hostName = $vHostName;
-#         $domain = $vHostName;
-#     } else { # If we have dots, last two parts for the domain, rest hostname
-#         my $tld = pop(@parts);
-#         my $topdomain = pop(@parts);
-#         $domain = "$topdomain.$tld";
-#         $hostName = join('.', @parts);
-#         $hostName = $domain unless $hostName; # If hostName is empty, then = domain
-#     }
+    my @parts = split(/\./, $vHostName);
+    if (@parts == 1) { # if no dots, only a domain = hostname
+        $hostName = $vHostName;
+        $domain = $vHostName;
+    } else { # If we have dots, last two parts for the domain, rest hostname
+        my $tld = pop(@parts);
+        my $topdomain = pop(@parts);
+        $domain = "$topdomain.$tld";
+        $hostName = join('.', @parts);
+        $hostName = $domain unless $hostName; # If hostName is empty, then = domain
+    }
 
-#     return ($hostName, $domain);
-# }
+    return ($hostName, $domain);
+}
 
 # Method: getWebServerSAN
 #
@@ -376,34 +354,53 @@ sub _dnsNoActiveWarning
         );
 }
 
-# Method: _table
-#
-#    Guess the IP address to assign in the mapping name - IP. It gets the
-#    first static internal interface address if any, then check if there
-#    is any static external interface to get the address. If there is no
-#    static interfaces, empty string is returned.
-#
-sub _guessWebIPAddr
+# # Method: _guessWebIPAddr
+# #
+# #    Guess the IP address to assign in the mapping name - IP. It gets the
+# #    first static internal interface address if any, then check if there
+# #    is any static external interface to get the address. If there is no
+# #    static interfaces, empty string is returned.
+# #
+# sub _guessWebIPAddr
+# {
+#     my ($self) = @_;
+
+#     my $netMod = EBox::Global->modInstance('network');
+
+#     my @ifaces = @{$netMod->ifaces()};
+
+#     @ifaces = grep { $netMod->ifaceMethod($_) eq 'static' } @ifaces;
+
+#     return '' unless (@ifaces > 0);
+
+#     my @intIfaces = grep { not $netMod->ifaceIsExternal($_) } @ifaces;
+
+#     if ( @intIfaces > 0 ) {
+#         return $netMod->ifaceAddress($intIfaces[0]);
+#     }
+
+#     my @extIfaces = grep { $netMod->ifaceIsExternal($_) } @ifaces;
+
+#     return $netMod->ifaceAddress($extIfaces[0]);
+# }
+
+sub virtualHosts
 {
     my ($self) = @_;
-
-    my $netMod = EBox::Global->modInstance('network');
-
-    my @ifaces = @{$netMod->ifaces()};
-
-    @ifaces = grep { $netMod->ifaceMethod($_) eq 'static' } @ifaces;
-
-    return '' unless (@ifaces > 0);
-
-    my @intIfaces = grep { not $netMod->ifaceIsExternal($_) } @ifaces;
-
-    if ( @intIfaces > 0 ) {
-        return $netMod->ifaceAddress($intIfaces[0]);
+    my %vhosts;
+    foreach my $id (@{  $self->ids() }) {
+        my $row = $self->row($id);
+        my $enabled    = $row->valueByName('enabled');
+        my $vHostName  = $row->valueByName('name');
+        my $sslSupport = $row->valueByName('ssl');
+        $vhosts{$vHostName} = {
+            enabled => $enabled,
+            name  => $vHostName,
+            ssl => $sslSupport,
+        };
     }
 
-    my @extIfaces = grep { $netMod->ifaceIsExternal($_) } @ifaces;
-
-    return $netMod->ifaceAddress($extIfaces[0]);
+    return \%vhosts;
 }
 
 1;

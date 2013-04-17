@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Squid::Model::DomainFilterSettings;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Gettext;
@@ -93,5 +92,27 @@ sub viewCustomizer
 
     return $custom;
 }
+
+sub usesFilter
+{
+    my ($self) = @_;
+    return $self->value('blockIp');
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId) = @_;
+    if ($self->value('blanketBlock')) {
+        return [];
+    }
+
+    my $rule = {
+        type => 'http_access',
+        acl => '',
+        policy => 'allow',
+    };
+    return [ $rule ];
+}
+
 
 1;

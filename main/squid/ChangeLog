@@ -1,6 +1,79 @@
 HEAD
 	+ Change the kerberos service from squid to http. Zarafa and Squid must
 	  share the service principal.
+	+ Regenerate Kerberos keytab on LDAP reprovision
+3.0.7
+	+ Fixed bug which returned the list of users of a profile inside
+	  another list
+	+ Authenticate against external AD for Enterprise editions
+3.0.6
+	+ Avoid to request authorization again when 'deny unknown domain'
+	  option is set in filter profile
+	+ Access rules for the same source can have different time
+	  periods if they dont overlap
+3.0.5
+	+ Reload dansguardian configuration in log rotation instead of
+	  restarting the full module
+	+ Overwrite squid3 logrotate file to take care of the squid-external daemon
+3.0.4
+	+ Fixed SNMP acl
+	+ Removed redundant cache_log line from squid-external configuration
+	+ Fixed bug which did not include users from __USERS__ group in
+	  dansguardian filter group file
+3.0.3
+	+ Fixed error triggered when creating a delay pool without an object
+	+ Make sure in categorized lists model that list archives are not
+	  backed up
+	+ Migrate old directories with blank names and their asociated
+	  configuration values
+	+ Better escape of whitespace in ACL names
+	+ Replace blanks for categorized lists directories to workaround
+	  squid bug.
+	+ Fixed bug which allowed bad long names for ACL for 'all' object
+	+ Set visible_hostname to host '(instance)FQDN'. The standard value
+	  'localhost' causes access denied under certain circumstances
+	+ Ignore access rules for empty objects
+	+ Ignore access rules for empty groups
+	+ Mark module as changed if addition/removal of users modify ACLs
+3.0.2
+	+ Fix escaping in categorised list uploading. This is a regression
+	  from 3.0.1 release.
+	+ Force all connections to pass through squid-external or deny access
+	+ Allow access to the proxy for clients which are not in local networks
+	+ Don't allow to set kerberos and transparent proxy at the same time
+3.0.1
+	+ Changed ownership of categorized list files to ebox to allow download
+	+ Removed no-configured files when saving changes after restoring
+	  a backup
+	+ Added configuration key to load regexes url lists from
+	  categorized lists or not
+	+ Adapted domains files to squid object to be able to use
+	  dstdomain ACLs with thems
+	+ Added explicit error when a squid configuration file is invalid
+	  when debug is enabled
+	+ Limited object ACLs to ten addresses per line
+	+ When creating user ACLs put only ten users per line to avoid
+	  reaching maximun configuration file line length
+	+ Use lowercase user names in configuration file, otherwise
+	  authorization fails
+	+ Use of reserved character in generated ACl names to avoid name clashes
+	+ Protection for ACL from profiles with too long names
+	+ Added validation of categorized list structure
+	+ Changed paths for categorized lists files so they are all under
+	  /var/lib/zentyal/files/squid
+	+ Work arounded the removal of archive files until the framework
+	  takes care again of them
+	+ Fixed categories list removal of extracted files
+	+ Moved a lot of the filter functionality to squid. In DG remains:
+	  filter by text analysys, antivirus and block ip
+	+ Adapted to improvement of EBox::Module::Service::isRunning method
+	+ Moved most of the filter functionality to squid. In DG remains:
+	  filter by text content analysys, antivirus and IP block
+	+ Fix kerberos authentication when filter profile applied. As dansguardian
+	  does not support kerberos auth, now there are two squid instances, one
+	  on the front of dansguardian to perform the authentication and one in
+	  the back to cache contents
+>>>>>>> master
 	+ Added memory cache of seen list directories to DomainFilterCategories
 	+ Categories from bigblacklist are now accepted
 3.0

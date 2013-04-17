@@ -12,28 +12,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-
-# Class: EBox::LTSP::Model::GeneralOpts
-#
-#   TODO: Document class
-#
-
-package EBox::LTSP::Model::GeneralOpts;
-
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::LTSP::Model::GeneralOpts;
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
+use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Time;
 use EBox::Types::Int;
+
+use utf8;
 
 sub new
 {

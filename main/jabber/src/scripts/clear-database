@@ -13,11 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
-my $dbDir = '/var/lib/ejabberd';
+use EBox;
+use EBox::Global;
+
 my $force = grep {
   ($_  eq '-f') or ($_ eq '--force')
 } @ARGV;
@@ -31,7 +32,7 @@ if ($help) {
 
 if (not $force) {
     print "WARNING!!\n";
-    print "This will erase the mnesia databae used by jabber zentyal module. Chat-rooms, off line message and other setting will be lost. The only thing which would remian are the user accounts since they reside in Zentyal LDAP\n";
+    print "This will erase the mnesia database used by Zentyal jabber module. Chat-rooms, off line message and other setting will be lost. The only thing which would remain are the user accounts since they reside in Zentyal LDAP\n";
     while (1) {
         print "Do you want to continue? (y/n)\n";
         my $key;
@@ -44,37 +45,14 @@ if (not $force) {
     }
 }
 
-system("/etc/init.d/zentyal jabber stop");
-sleep 10;
-killProcesses();
-sleep 3;
-killProcesses(1);
-
-system "rm -rf $dbDir/*";
-
-system("/etc/init.d/zentyal jabber restart");
-
-
-sub killProcesses
-{
-    my ($force) = @_;
-    # look for remaining processes
-    my @ps = `ps -uejabberd`;
-    shift @ps; # header line
-    foreach my $line (@ps) {
-        my ($pid) = split '\s+', $line;
-        $pid or next;
-        my $cmd = "kill ";
-        $cmd .= ' -9 ' if $force;
-        $cmd .= $pid;
-        $cmd .= ' 2> /dev/null';
-        system $cmd;
-    }
-}
+EBox::init();
+my $jabber = EBox::Global->modInstance('jabber');
+$jabber->_clearDatabase();
+$jabber->save();
 
 sub usage
 {
-    print "$0 [-f|--force]=n";
+    print "$0 [-f|--force]\n";
     exit 0;
 }
 

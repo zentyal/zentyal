@@ -120,7 +120,9 @@ sub _table
             'printableName' => __('Service name'),
             'localizable' => 1,
             'size' => '20',
-            'unique' => 1,
+            # FIXME: Commented for problems with i18n, maybe it can be restored
+            # after fixing utf8 problems?
+            #'unique' => 1,
             'editable' => 1
         ),
         new EBox::Types::Text(
@@ -158,23 +160,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-# Method: _tailoredOrder
-#
-#        Overrides <EBox::Model::DataTable::_tailoredOrder>
-#
-sub _tailoredOrder # (rows)
-{
-    my ($self, $rows_ref) = @_;
-
-    # Order rules per priority
-    my @orderedRows = sort {
-                            $a->valueByName('name') cmp $b->valueByName('name')
-                            }
-                            @{$rows_ref};
-
-    return \@orderedRows;
 }
 
 # Method: availablePort

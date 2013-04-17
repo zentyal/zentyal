@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::RemoteServices::Base;
 
@@ -20,9 +22,6 @@ package EBox::RemoteServices::Base;
 #       This could be applied as the base class to inherit from when a
 #       connection with a remote service is done
 #
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -33,6 +32,7 @@ use EBox::Config;
 use Date::Calc::Object;
 use Error qw(:try);
 use Net::DNS;
+use Net::Ping;
 
 # Constants
 use constant SRV_CONF_FILE => 'remoteservices.conf';
@@ -429,6 +429,23 @@ sub _checkHostPort
 
     }
     return 0;
+}
+
+# Check UDP echo service using Net::Ping
+sub _checkUDPEchoService
+{
+    my ($self, $host, $proto, $port) = @_;
+
+    my $p = new Net::Ping($proto, 3);
+    $p->port_number($port);
+    $p->service_check(1);
+    my @result = $p->ping($host);
+
+    # Timeout reaches, if the service was down, then the
+    # timeout is zero. If the host is available and this check
+    # is done before this one
+    return ( $result[1] == 3 );
+
 }
 
 1;

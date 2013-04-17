@@ -219,28 +219,50 @@ sub _nSigsAndLastDate
     if (defined $line) {
         my ($dateStr) = $line =~ m/^(.*?)\s+->\s+Database\s+updated/;
         if ($dateStr) {
-            my ($ignoredWday, $monthStr, $mday, $timeString, $year) = split '\s+', $dateStr;
-            my $month = Date::Calc::Decode_Month($monthStr);
-            my ($hour, $min, $sec)= split ':', $timeString, 3;
-            $date = Date::Calc::Date_to_Time($year,$month,$mday, $hour,$min,$sec);
-            defined $date or $date = 0;
+            $date = _strToTime($dateStr);
         }
     }
 
     # get n signatures
-    my $nSig = 0;
-    $cmd = 'grep Loaded.*signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
-    $output = EBox::Sudo::root($cmd);
+    my $nSig = undef;
+    my $lastClamavDate;
+    my @loadRegexes = ('Loaded.*signatures', 'reloaded.*signatures');
+    foreach my $regex (@loadRegexes) {
+        $cmd = "grep $regex " . CLAMAV_LOG_FILE . ' | tail -n 1';
+        $output = EBox::Sudo::root($cmd);
 
-    $line = $output->[0];
-    if (defined $line) {
-        ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
-        defined $nSig or
-            $nSig = 0;
+        $line = $output->[0];
+        if (defined $line) {
+            my ($lineDateStr, $lineSigs) = $line =~ m/^(.*?)\s\->.*?([0-9]+)\ssignatures/;
+            EBox::debug("$line -> \nlienDateStr $lineDateStr lineSigs:$lineSigs:");
+            my $lineDate = _strToTime($lineDateStr);
+            EBox::debug("lineDate: $lineDate");
+            if ($lineDate < $date) {
+                # before last update!
+                next;
+            }
+            if ((not $lastClamavDate) or ($lastClamavDate < $lineDate)) {
+                $lastClamavDate = $lineDate;
+                $nSig = $lineSigs;
+            }
+        }
     }
 
+    defined $nSig or
+        $nSig = 0;
     return ($nSig, $date);
+}
 
+
+sub _strToTime
+{
+    my ($str) = @_;
+    my ($ignoredWday, $monthStr, $mday, $timeString, $year) = split '\s+', $str;
+    my $month = Date::Calc::Decode_Month($monthStr);
+    my ($hour, $min, $sec)= split ':', $timeString, 3;
+    my $date = Date::Calc::Date_to_Time($year,$month,$mday, $hour,$min,$sec);
+    defined $date or $date = 0;
+    return $date;
 }
 
 1;

@@ -31,11 +31,10 @@ use EBox::Model::Manager;
 use EBox::Network;
 
 BEGIN {
-    diag ( 'Starting RangeTable and FixedAddressTable unit test' );
-    use_ok( 'EBox::DHCP::Model::RangeTable' );
-    use_ok( 'EBox::DHCP::Model::FixedAddressTable' );
+    diag('Starting RangeTable and FixedAddressTable unit test');
+    use_ok('EBox::DHCP::Model::RangeTable');
+    use_ok('EBox::DHCP::Model::FixedAddressTable');
 }
-
 
 sub _fakeNetwork
 {
@@ -43,7 +42,7 @@ Test::MockObject->fake_module('EBox::Network',
                               ifaceNetwork => \&_ifaceNetwork,
                               ifaceNetmask => \&_ifaceNetmask,
                               ifaceAddress => \&_ifaceAddress,
-                              allIfaces    => \&_allIfaces,
+                              ifaces    => \&_ifaces,
                               ifaceMethod  => \&_ifaceMethod,
                              );
 }
@@ -73,7 +72,7 @@ sub _ifaceAddress
     }
 }
 
-sub _allIfaces
+sub _ifaces
 {
     return [ 'eth0', 'eth1' ];
 }
@@ -225,4 +224,3 @@ lives_ok {
 } 'Removing everything we made';
 
 1;
-

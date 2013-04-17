@@ -18,15 +18,7 @@ package EBox::UsersSync::Master;
 use strict;
 use warnings;
 
-# File containing password for master's web service (to register a new slave)
-use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
-
-# Dir containing certificates for this master
-use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
-
-# Certificate of the authorized master
-use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
-
+use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Util::Random;
 use EBox::Sudo;
@@ -36,6 +28,15 @@ use URI::Escape;
 use File::Slurp;
 use EBox::UsersSync::Slave;
 use Error qw(:try);
+
+# File containing password for master's web service (to register a new slave)
+use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
+
+# Dir containing certificates for this master
+use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
+
+# Certificate of the authorized master
+use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
 
 sub new
 {
@@ -87,7 +88,6 @@ sub getCertificate()
 sub setupMaster
 {
     my ($self, $pass) = @_;
-
     defined $pass or
         $pass = EBox::Util::Random::generate(15);
 
@@ -160,8 +160,35 @@ sub addSlave
 sub checkMaster
 {
     my ($self, $host, $port, $password) = @_;
+    # use global RW because this is checked when modifying sync setup
+    my $global = EBox::Global->getInstance();
 
-    my $apache = EBox::Global->modInstance('apache');
+    if (($host eq 'localhost') or ($host =~ m/^127\.\d+\.\d+\.\d+/)) {
+        throw EBox::Exceptions::External(
+            __x('Master {addr} is invalid because it is the address of the loopback interface',
+                addr => $host
+            )
+           );
+    }
+
+    my $netMod = $global->modInstance('network');
+    foreach my $iface (@{ $netMod->allIfaces() }) {
+        my @addrs = @{ $netMod->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            my $addr = $addr_r->{address};
+            if ($addr eq $host) {
+                throw EBox::Exceptions::External(
+                    __x('Master {addr} is invalid because it is the address of the interface {if}',
+                        addr => $host,
+                        if   => $iface,
+                       )
+                   );
+            }
+        }
+    }
+
+    my $apache = $global->modInstance('apache');
+    my $users = $global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $master = EBox::SOAPClient->instance(
@@ -176,6 +203,9 @@ sub checkMaster
         my $ex = shift;
         $self->_analyzeException($ex);
     };
+
+    # Check that master's REALM is correct
+    $self->_checkRealm($users, $master);
 }
 
 
@@ -244,6 +274,19 @@ sub setupSlave
 }
 
 
+sub _checkRealm
+{
+    my ($self, $users, $client) = @_;
+
+    my $mrealm = $client->getRealm();
+    my $srealm = $users->kerberosRealm();
+
+    unless ($srealm eq $mrealm) {
+        throw EBox::Exceptions::External(__x("Master server has a different REALM, check hostnames. Master is {master} and slave {slave}.", master => $mrealm, slave => $srealm));
+    }
+}
+
+
 sub _recreateLDAP
 {
     my ($self, $users, $client) = @_;
@@ -257,7 +300,21 @@ sub _recreateLDAP
     # Enable actions (without slave setup to avoid recursion)
     $users->enableActions();
 
-    # TODO: reenable all LDAP modules
+    # LDAP modules should reconfigure themselves for its slave role
+    my $global = $self->global();
+    my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $users->name()) {
+            # already reconfigured
+            next;
+        } elsif (not $mod->configured()) {
+            next;
+        }
+
+        $mod->slaveSetup();
+    }
 }
 
 sub _analyzeException

@@ -214,6 +214,21 @@ sub initialSetup
     }
 }
 
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate kerberos keytab
+    $self->kerberosCreatePrincipals();
+}
+
 sub _serviceRules
 {
     return [
@@ -505,57 +520,46 @@ sub stats
 
     my $statsStr = EBox::Sudo::root(STATS_CMD . ' --users');
 
+    my @stats = @{$statsStr}[2 .. $#{$statsStr}];
+
+    # my %map = ( '0x6748001E' => 'username',
+    #             '0x3001001E' => 'fullname',
+    #             '0x39FE001E' => 'email',
+    #             '0x67210003' => 'soft_quota',
+    #             '0x67220003' => 'hard_quota',
+    #             '0x0E080014' => 'size' );
+    my %header = ( 'username' => 1,
+                   'fullname' => 2,
+                   'email'    => 3,
+                   'soft_quota' => 6,
+                   'hard_quota' => 7,
+                   'size' => 5 );
+
     # Results in a hash by username
     my %result;
-    my $user = {};
-    foreach my $line (@{$statsStr}) {
+    foreach my $line (@stats) {
         chomp($line);
-        given ( $line ) {
-            when (m/^0x6701001E: (.*)$/) {
-                $user->{username} = $1;
+        $line =~ s:\t+:\t:g;
+        my @fields = split(/\t/, $line);
+        my $user = {};
+        foreach my $fieldName (qw(username fullname email soft_quota hard_quota size)) {
+            $user->{$fieldName} = $fields[$header{$fieldName}];
+        }
+        while( my ($k, $v) = each(%{$user}) ) {
+            if ( $v =~ m/^error: 0x/ ) {
+                # Not valid value, then set to -1
+                $user->{$k} = -1;
             }
-            when (m/^0x3001001E: (.*)$/) {
-                my $fullname = $1;
-                # Try to decode from Windows-1252 if zarafa 6, or do nothing if zarafa 7 (UTF-8)
-                if ( $self->{'version'} < 7 ) {
-                    $fullname = Encode::decode('windows-1252', $fullname, Encode::FB_CROAK);
-                }
-                $user->{fullname} = $fullname;
-            }
-            when (m/^0x39FE001E: (.*)$/) {
-                $user->{email} = $1;
-            }
-            when (m/^0x67210003: (.*)$/) {
-                $user->{soft_quota} = $1;
-            }
-            when (m/^0x67220003: (.*)$/) {
-                $user->{hard_quota} = $1;
-            }
-            when (m/^0x0E080014: (.*)$/) {
-                $user->{size} = $1;
-            }
-            when (not $line ) {
-                $result{$user->{username}} = Storable::dclone($user);
-                while( my ($k, $v) = each(%{$result{$user->{username}}})) {
-                    if ( $v =~ m/^error: 0x/ ) {
-                        # Not valid value, then set to -1
-                        $result{$user->{username}}->{$k} = -1;
-                    }
-                    given ( $k ) {
-                        when ( ['soft_quota', 'hard_quota'] ) {
-                            if ( $v != -1 ) {
-                                # Store the result in bytes
-                                $result{$user->{username}}->{$k} = $v * 1024;
-                            }
-                        }
+            given ( $k ) {
+                when ( ['soft_quota', 'hard_quota'] ) {
+                    if ( $v != -1 ) {
+                        # Store the result in bytes
+                        $user->{$k} = $v * 1024;
                     }
                 }
-                unless ( exists $result{$user->{username}}->{size} ) {
-                    $result{$user->{username}}->{size} = 0;
-                }
-                $user = {};
             }
         }
+        $result{$user->{username}} = $user;
     }
 
     return \%result;
@@ -806,6 +810,7 @@ sub certificates
 
     return [
         {
+             serviceId => 'Zarafa Gateway Server',
              service =>  __('Zarafa Gateway Server'),
              path    =>  '/etc/zarafa/ssl/ssl.pem',
              user => 'root',

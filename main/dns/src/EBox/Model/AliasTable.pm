@@ -106,11 +106,7 @@ sub validateTypedRow
         if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
             my $zone = $zoneRow->valueByName('domain');
             my $alias = $oldRow->valueByName('alias');
-            if ($zoneRow->valueByName('samba')) {
-                $self->{toDeleteSamba} = "$alias.$zone";
-            } else {
-                $self->{toDelete} = "$alias.$zone";
-            }
+            $self->{toDelete} = "$alias.$zone";
         }
     }
 }
@@ -129,12 +125,8 @@ sub updatedRowNotify
 
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete}, 0);
+        $self->_addToDelete($self->{toDelete});
         delete $self->{toDelete};
-    }
-    if (exists $self->{toDeleteSamba}) {
-        $self->_addToDelete($self->{toDeleteSamba}, 1);
-        delete $self->{toDeleteSamba};
     }
 }
 
@@ -157,11 +149,7 @@ sub deletedRowNotify
         my $alias = $row->valueByName('alias');
         my $fullName = "$alias.$zone";
         # Delete all aliases
-        if ($zoneRow->valueByName('samba')) {
-            $self->_addToDelete($fullName, 1);
-        } else {
-            $self->_addToDelete($fullName, 0);
-        }
+        $self->_addToDelete($fullName);
     }
 }
 
@@ -217,13 +205,10 @@ sub _table
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $domain, $samba) = @_;
+    my ($self, $domain) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
-    if ($samba) {
-        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
-    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};

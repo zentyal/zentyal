@@ -146,7 +146,7 @@ sub _transmitResult
                                                stderr => $stderr});
         }
     } else {
-        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", query => \%wsParams);
+        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", query => \%wsParams, retry => 1);
     }
 
 }

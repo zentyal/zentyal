@@ -7,6 +7,7 @@ case "$1" in
 
         /usr/share/zentyal/initial-setup captiveportal $2
 
+        service zentyal captiveportal restart || true
         dpkg-trigger --no-await zentyal-core
 esac
 

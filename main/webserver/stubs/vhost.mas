@@ -1,7 +1,7 @@
 <%doc>
    Template to configure a simple named virtual host using the default
    site given with the apache2 debian package
-   
+
    Parameters:
 
    vHostName - String with the virtual host name
@@ -17,57 +17,16 @@
   $sslportNumber
   $sslSupport
 </%args>
-<%init>
-  use EBox::WebServer;
-  use EBox::WebServer::PlatformPath;
-  my $vHostPrefix = EBox::WebServer::VHostPrefix();
-  my $docRoot = EBox::WebServer::PlatformPath::VDocumentRoot();
-  my $etcPath = EBox::WebServer::PlatformPath::ConfDirPath();
-</%init>
-% if ($sslSupport ne 'forcessl') {
-<VirtualHost *:<% $portNumber %>>
-        ServerAdmin webmaster@<% $hostname %>
-
-        ServerName <% $vHostName %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
-
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
-
-        # Custom configuration goes in this file
-        Include <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
-</VirtualHost>
-% } else {
-<VirtualHost *:<% $portNumber %>>
-        ServerAdmin webmaster@<% $hostname %>
-
-        ServerName <% $vHostName %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
-
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
-
-        Redirect permanent / https://<% $vHostName %>:<% $sslportNumber %>/
-</VirtualHost>
-% }
-%
-% if ($sslSupport ne 'disabled') {
-<IfModule mod_ssl.c>
-<VirtualHost *:<% $sslportNumber %>>
-        ServerAdmin webmaster@<% $hostname %>
-
-        ServerName <% $vHostName %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
-
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
-
-        # Custom configuration goes in this file
-        Include <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
-
-        # SSL
-	SSLEngine on
-	SSLCertificateFile    /etc/apache2/ssl/ssl.pem
-</VirtualHost>
-</IfModule>
-% }
+<& /webserver/vhostHttp.mas,
+      vHostName =>  $vHostName,
+      hostname => $hostname,
+      portNumber => $portNumber,
+      sslportNumber => $sslportNumber,
+      sslSupport => $sslSupport,
+&>
+<& /webserver/vhostHttps.mas,
+      vHostName =>  $vHostName,
+      hostname => $hostname,
+      sslportNumber => $sslportNumber,
+      sslSupport => $sslSupport,
+&>

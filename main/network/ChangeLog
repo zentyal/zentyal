@@ -1,4 +1,45 @@
 HEAD
+	+ Adapted to use of ifaceByAddress, removed IPAddressExists
+	+ Don't allow to use a local address as gateway address
+	+ Added ifaceByAddress method
+3.0.5
+	+ Guard against previous version of squid without
+	  authenticationMode method
+3.0.4
+	+ Improve addition of localhost as primary resolver when DNS module is
+	  enabled.
+	+ Remove localhost as primary resolver when squid module is configured
+	  to authenticate against external server
+3.0.3
+	+ Log warn instead of error when iface has not address in _multigwRoutes()
+	+ Fixed error replacing nameserver when importing resolv.conf
+	+ Remove leftover PPP provider files
+	+ Remove attached vlans when a interface is not longer trunk
+	+ Do not try to disable rp_filter for vlan interfaces
+	+ Virtual interfaces on a bridge interface are not considered
+	  bridges themselves
+	+ Use EBox::Module::Base::writeConfFile to generate interfaces
+	  file
+	+ Only disable IPv6 in enableActions if IPv6 is available
+	+ Bridged interfaces added to 'auto' directive in
+	  /etc/networks/interfaces to avoid network startup problems
+	+ Dont allow to set a local address as network proxy
+	+ Fixed error in json response trigered by widget size
+	+ Don't check for IPaddr in the same subnet on interfaces
+	  that belong to the same bridge
+3.0.2
+	+ Disable IPv6 on enable actions to avoid problems with samba4
+	+ Added more coherence checks to static routes table
+	+ Allow to set broadcast address in wakeonlan tool
+	+ Fixed unproper use of last inside try
+3.0.1
+	+ Added domain option to /etc/resolv.conf
+	+ Supersede DHCP offered nameservers, domain name and search domain if
+	  these values are already configured in Zentyal
+	+ Fixed gateways setup in wizard
+	+ Fixed bug in Gateways watcher which inhibited the call to regen
+	  failover notifier method in modules which are network observers
+	+ Vlanes and vifaces are now ordered by name in interface page
 	+ Fixed error disabling reverse path for virtual interfaces
 2.3.15
 	+ Expanded allowed character set in interface PPPoE password

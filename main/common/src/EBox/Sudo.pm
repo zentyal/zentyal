@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Sudo;
-
 use strict;
 use warnings;
+
+package EBox::Sudo;
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -49,10 +48,10 @@ BEGIN {
 
 use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
-Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
+Readonly::Scalar our $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
 
 Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
-Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
+Readonly::Scalar my $TEST_PATH   => '/usr/bin/test';
 
 # Procedure: system
 #
@@ -68,7 +67,7 @@ sub system
 
     my $sudocmd = "$SUDO_PATH /bin/sh -c '$cmd' 2> $STDERR_FILE";
 
-    system ($sudocmd);
+    CORE::system($sudocmd);
 }
 
 # Procedure: command
@@ -183,6 +182,7 @@ sub _root
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
+    binmode( $fhCmdFile, ':utf8' );
     print $fhCmdFile $commands;
     close ($fhCmdFile);
     chmod (0700, $cmdFile);

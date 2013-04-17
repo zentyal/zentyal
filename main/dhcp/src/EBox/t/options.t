@@ -34,16 +34,16 @@ sub _fakeNetwork
                                   ifaceNetwork => \&_ifaceNetwork,
                                   ifaceNetmask => \&_ifaceNetmask,
                                   ifaceAddress => \&_ifaceAddress,
-                                  allIfaces    => \&_allIfaces,
+                                  ifaces    => \&_ifaces,
                                   ifaceMethod  => \&_ifaceMethod,
-                                 );
+    );
 }
 
 sub _fakeDNS
 {
     Test::MockObject->fake_module('EBox::DNS',
                                   service => sub { return 1; },
-                                 );
+    );
 }
 
 sub _ifaceNetwork
@@ -61,7 +61,7 @@ sub _ifaceAddress
     return '10.0.0.1';
 }
 
-sub _allIfaces
+sub _ifaces
 {
     return [ 'eth0' ];
 }

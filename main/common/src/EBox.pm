@@ -20,6 +20,7 @@ use warnings;
 
 use EBox::Config;
 use EBox::Exceptions::DeprecatedMethod;
+use EBox::Exceptions::MissingArgument;
 use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
 use English;
 
@@ -125,26 +126,49 @@ sub setLocale # (locale)
     close ($fh);
 }
 
+
 # returns:
 #   - the locale
 sub locale
 {
-    my $locale = 'C';
-    if (-f (EBox::Config::conf() . 'locale')) {
-        open (my $fh, EBox::Config::conf() . 'locale');
+    my $locale;
+    my $localeFile = EBox::Config::conf() . 'locale';
+    if (-f $localeFile) {
+        open (my $fh, $localeFile);
         $locale = <$fh>;
         close ($fh);
+    } elsif (-f '/etc/default/locale') {
+        open (my $fh, '/etc/default/locale');
+        $locale = <$fh>;
+        close ($fh);
+        ($locale) = $locale =~ /LANG="(.+)"/;
     }
+    unless ($locale) {
+        $locale = 'C';
+    }
+
     return $locale;
 }
+
+sub setLocaleEnvironment
+{
+    my ($locale) = @_;
+    defined $locale or
+        EBox::Exceptions::MissingArgument->throw('locale');
+    POSIX::setlocale(LC_ALL, $locale);
+    POSIX::setlocale(LC_NUMERIC, 'C');
+    $ENV{LANG}     = $locale;
+    $ENV{LANGUAGE} = $locale;
+}
+
 
 sub init
 {
     # FIXME: workaround until permission denied warning in GD is fixed
     use GD;
 
-    POSIX::setlocale(LC_ALL, EBox::locale());
-    POSIX::setlocale(LC_NUMERIC, 'C');
+    my $locale = EBox::locale();
+    setLocaleEnvironment($locale);
 
     my $gids = EBox::Config::gids();
     $GID = $EGID = getgrnam(EBox::Config::group()) . " $gids";

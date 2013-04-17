@@ -1,3 +1,9 @@
+HEAD
+	+ The database is cleared automatically on a hostname change
+	+ Fixed clear-database script
+3.0.1
+	+ Improved clear-database script
+	+ Added and used serviceId field for service certificates
 2.3.4
 	+ Improved help
 	+ Added STUN and Proxy configuration

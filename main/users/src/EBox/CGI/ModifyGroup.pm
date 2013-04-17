@@ -50,7 +50,7 @@ sub _process
     my $group = new EBox::UsersAndGroups::Group(dn => $group);
 
     $self->_requireParamAllowEmpty('comment', __('comment'));
-    my $comment = $self->param('comment');
+    my $comment = $self->unsafeParam('comment');
     if (length ($comment)) {
         $group->set('description', $comment);
     } else {

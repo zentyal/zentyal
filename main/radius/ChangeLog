@@ -1,3 +1,8 @@
+HEAD
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+3.0.1
+	+ Fixed log helper after migration to MySQL
+	+ Added and used serviceId field for service certificates
 2.3.4
 	+ Adapted group membership checking to changes in users
 2.3.3

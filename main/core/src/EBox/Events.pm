@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Events;
+use strict;
+use warnings;
 
 # Class: EBox::Events
 #
@@ -23,12 +23,10 @@ package EBox::Events;
 #      module is currently integrated within the eBox main package
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
-
+package EBox::Events;
 use base qw(EBox::Module::Service EBox::LogObserver
             EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 
-use strict;
-use warnings;
 
 use EBox::DBEngineFactory;
 use EBox::Config;
@@ -91,22 +89,31 @@ sub _create
     return $self;
 }
 
-
 sub _daemons
 {
-    return [ { 'name' => SERVICE } ];
+    return [
+        {
+            'name' => SERVICE,
+            'precondition' => \&_watchersEnabled,
+        }
+    ];
 }
 
-sub _enforceServiceState
+sub _preSetConf
 {
     my ($self) = @_;
 
-    # Check for admin dumbness, it can throw an exception
-    if ($self->_nothingEnabled()) {
-        $self->_stopService();
-        return;
+    # This is needed because EventDaemon instances global as readonly
+    # so syncRows is never called there, this avoids the need of the
+    # user having to visit the models on the Zentyal interface, so
+    # the events module can work out of the box with the default
+    # configuration (log dispatcher enabled and also events log
+    # if logs module is enabled)
+    unless ($self->isReadOnly()) {
+        $self->model('ConfigureWatchers')->ids();
+        $self->model('ConfigureDispatchers')->ids();
+        $self->saveConfig();
     }
-    $self->SUPER::_enforceServiceState();
 }
 
 # Group: Public methods
@@ -139,19 +146,28 @@ sub menu
     $root->add($folder);
 }
 
-# Method: restoreDependencies
+# Method: depends
 #
-#   Override EBox::Module::Base::restoreDependencies
+#       Override EBox::Module::Base::depends
 #
-sub restoreDependencies
+sub depends
 {
-    my @depends = ();
-
-    if (EBox::Global->modExists('mail'))  {
-        push(@depends, 'mail');
+    my $modules = EBox::Global->modInstances();
+    my @names;
+    foreach my $mod (@{ $modules }) {
+        my $name = $mod->name();
+        if ($name eq 'events') {
+            next;
+        } elsif ($name eq 'monitor') {
+            # monitor is a exception it has to depend on events
+            next;
+        } elsif ($name eq 'cloud-prof') {
+            next;
+        } elsif ($mod->isa('EBox::Events::WatcherProvider') or $mod->isa('EBox::Events::DispatcherProvider')) {
+            push @names, $name;
+        }
     }
-
-    return \@depends;
+    return \@names;
 }
 
 # Method: eventWatchers
@@ -370,32 +386,23 @@ sub sendEvent
 
 # Group: Private methods
 
-# Check either if at least one watcher and one dispatcher are enabled or the
-# logs are enabled
-sub _nothingEnabled
+# Check either if there are enabled watchers
+sub _watchersEnabled
 {
     my ($self) = @_;
 
     if ($self->_logIsEnabled()) {
-        return undef;
+        return 1;
     }
 
-    my $eventModel = $self->model('ConfigureWatchers');
-    my $dispatcherModel = $self->model('ConfigureDispatchers');
-
-    my $match = $eventModel->find(enabled => 1);
-    unless (defined ($match)) {
+    my $match = $self->model('ConfigureWatchers')->find(enabled => 1);
+    if (defined ($match)) {
+        return 1;
+    } else {
         EBox::warn('No event watchers have been enabled');
-        return 1;
     }
 
-    $match = $dispatcherModel->find(enabled => 1);
-    unless (defined ($match)) {
-        EBox::warn('No event dispatchers have been enabled');
-        return 1;
-    }
-
-    return undef;
+    return 0;
 }
 
 

@@ -1,3 +1,30 @@
+HEAD
+	+ More flexibility for printable message in EBox::Exceptions::DataExists
+	+ EBox::Sudo::TestStub allows now to ginore given commands, fixed
+	  unit test for this class and EBox::TestStub
+	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
+	  exception error
+	+ Fixed EBox::Config::TestStub
+	+ EBox::NetWrappers::_ifaceShowAddress now works for peer-to-peer addresses
+3.0.6
+	+ Added EBox::Validate::checkRegex function
+	+ Added EBox::FileSystem::mountPointIsMounted function
+	+ EBox::Sudo now writes correctly commands file with utf8 characters
+3.0.5
+	+ Get default language from /etc/default/locale
+	+ Configure Log4perl to use utf8
+	+ Do not try to log default locale message when logger is not initialized
+	+ Added "use utf8" to Gettext needed for the language string literals
+	+ Decode utf8 strings from gettext
+	+ Removed unnecessary utf8::decode calls in exceptions
+	+ Fixed EBox::Gettext for undef and empty strings
+3.0.4
+	+ Added EBox::setLocaleEnvironment method
+3.0.3
+	+ Use default 'C' locale when locale configuration file is empty
+	+ New UnwillingToPerform exception. Thrown when the user requests
+	  an action that cannot be performed for any reason
+	+ Added Yoruba language
 3.0.2
 	+ Added EBox::Sudo::system as equivalent to system() with root permissions
 3.0.1

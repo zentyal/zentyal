@@ -8,7 +8,7 @@ use EBox::Gettext;
 use EBox::Global;
 use Error qw(:try);
 
-if (scalar @ARGV >= 1) {
+if (scalar @ARGV >= 2) {
     my $arch = $ARGV[0];
     my $fat  = $ARGV[1];
     my $chroot = ($fat ? "fat-$arch" : $arch);
@@ -24,7 +24,16 @@ if (scalar @ARGV >= 1) {
 
     my $buildCmd = "ltsp-build-client --arch $arch --purge-chroot";
     if ($fat) {
+        my $desktop;
+        if (scalar @ARGV >= 3) {
+            $desktop = $ARGV[2];
+        } else {
+            print "You didn't enter a desktop environment, using ubuntu-desktop\n";
+            $desktop = 'ubuntu-desktop';
+        }
+
         $buildCmd .= " --chroot $chroot --fat-client";
+        $buildCmd .= " --fat-client-desktop $desktop";
     }
     try {
         # TODO: add more messages to ltsp.log (with timestamps)
@@ -32,11 +41,11 @@ if (scalar @ARGV >= 1) {
         EBox::Sudo::root('service nbd-server restart');
     } otherwise {
         $ltsp->st_set_string('error', __('Build image failed'));
-        print "Build image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+        print "Build image failed. Check /var/log/zentyal/ltsp.log for details.\n";
     } finally {
         $ltsp->st_set_string('work', 'none');
     };
 
 } else {
-    print "Usage: build-image arch fat?\n";
+    print "Usage: build-image arch fat? [desktop-environment]\n";
 }

@@ -61,8 +61,9 @@ sub acls
 sub indexes
 {
     return [
-        'uid', 'uidNumber', 'memberUid', 'cn', 'gidNumber', 'uniqueMember', 'krb5PrincipalName',
-    ];
+                 'uid', 'uidNumber', 'memberUid', 'cn', 'ou',
+                 'gidNumber', 'uniqueMember', 'krb5PrincipalName',
+           ];
 }
 
 1;

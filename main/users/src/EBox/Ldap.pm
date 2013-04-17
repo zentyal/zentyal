@@ -34,7 +34,6 @@ use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
 use Data::Dumper;
-use Encode qw( :all );
 use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
@@ -425,21 +424,24 @@ sub delObjectclass # (dn, objectclass);
     my ($self, $dn, $objectclass) = @_;
 
     my $schema = $self->ldapCon->schema();
-    my $msg = $self->search(
-            { base => $dn, scope => 'base',
-            filter => "(objectclass=$objectclass)"
-            });
-    _errorOnLdap($msg);
+    my $searchArgs = {
+        base => $dn,
+        scope => 'base',
+        filter => "(objectclass=$objectclass)"
+       };
+    my $msg = $self->search($searchArgs);
+    _errorOnLdap($msg, $searchArgs);
     return unless ($msg->entries > 0);
 
     my %attrexist = map {$_ => 1} $msg->pop_entry->attributes;
-
-    $msg = $self->search(
-            { base => $dn, scope => 'base',
-            attrs => ['objectClass'],
-            filter => '(objectclass=*)'
-            });
-    _errorOnLdap($msg);
+    my $attrSearchArgs = {
+        base => $dn,
+        scope => 'base',
+        attrs => ['objectClass'],
+        filter => '(objectclass=*)'
+       };
+    $msg = $self->search($attrSearchArgs);
+    _errorOnLdap($msg, $attrSearchArgs);
     my %attrs;
     for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
         # get objectclass attributes
@@ -470,13 +472,15 @@ sub delObjectclass # (dn, objectclass);
 
     my $result;
     if (%attr2del) {
+        my $deleteArgs = [ objectclass => $objectclass, %attr2del ];
         $result = $self->modify($dn, { changes =>
-                [delete =>[ objectclass => $objectclass, %attr2del ] ] });
-        _errorOnLdap($msg);
+                [delete => $deleteArgs] });
+        _errorOnLdap($msg, $deleteArgs);
     } else {
+        my $deleteArgs = [ objectclass => $objectclass ];
         $result = $self->modify($dn, { changes =>
-                [delete =>[ objectclass => $objectclass ] ] });
-        _errorOnLdap($msg);
+                [delete => $deleteArgs] });
+        _errorOnLdap($msg, $deleteArgs);
     }
     return $result;
 }
@@ -692,36 +696,9 @@ sub _errorOnLdap
 {
     my ($result, $args) = @_;
 
-    my  @frames = caller (2);
     if ($result->is_error){
-        if ($args) {
-            use Data::Dumper;
-            EBox::error( Dumper($args) );
-        }
-        throw EBox::Exceptions::Internal("Unknown error at " .
-                                         $frames[3] . " " .
-                                         $result->error);
+        throw EBox::Exceptions::LDAP(result => $result, opArgs => $args);
     }
-}
-
-# Workaround to mark strings returned from ldap as utf8 strings
-sub _utf8Attrs # (result)
-{
-    my ($result) = @_;
-
-    my @entries = $result->entries;
-    foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
-        my @vals = @{$attr->{vals}};
-        next unless (@vals);
-        my @utfvals;
-        foreach my $val (@vals) {
-            _utf8_on($val);
-            push @utfvals, $val;
-        }
-        $attr->{vals} = \@utfvals;
-    }
-
-    return $result;
 }
 
 sub stop
@@ -773,9 +750,10 @@ sub _dumpLdap
 
     my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
     my $chownCommand = "/bin/chown $user:$group $ldifFile";
-
-    $self->_execute(1, # With pause
-        cmds => [$slapcatCommand, $chownCommand]);
+    EBox::Sudo::root(
+                       $slapcatCommand,
+                       $chownCommand
+                    );
 }
 
 sub dumpLdapData
@@ -838,34 +816,6 @@ sub _slapcatCmd
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
-sub _execute
-{
-    my ($self, $pause, %params) = @_;
-    my @cmds = @{ $params{cmds} };
-    my $onError = $params{onError};
-
-    if ($pause) {
-        $self->stop();
-    }
-    try {
-        EBox::Sudo::root(@cmds);
-    }
-    otherwise {
-        my $ex = shift;
-
-        if ($onError) {
-            $onError->($self);
-        }
-
-        throw $ex;
-    }
-    finally {
-        if ($pause) {
-            $self->start();
-        }
-    };
-}
-
 sub safeConnect
 {
     my ($ldapurl) = @_;
@@ -919,16 +869,15 @@ sub changeUserPassword
         # Update the password using the LDAP extension will update the kerberos keys also
         # if the smbk5pwd module and its overlay are loaded
         require Net::LDAP::Extension::SetPassword;
-
         my $mesg = $self->{ldap}->set_password(user => $dn,
                                                oldpasswd => $oldPasswd,
                                                newpasswd => $newPasswd);
-        _errorOnLdap($mesg);
+        _errorOnLdap($mesg, $dn);
     } else {
         my $mesg = $self->{ldap}->modify( $dn,
                         changes => [ delete => [ userPassword => $oldPasswd ],
                         add     => [ userPassword => $newPasswd ] ]);
-        _errorOnLdap($mesg);
+        _errorOnLdap($mesg, $dn);
     }
 }
 

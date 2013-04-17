@@ -12,16 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::Squid::Composite::ProfileConfiguration
-#
-
-package EBox::Squid::Composite::ProfileConfiguration;
-
-use base 'EBox::Model::Composite';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Composite::ProfileConfiguration;
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 
@@ -61,6 +56,58 @@ sub HTMLTitle
                 link => '',
             },
             ]);
+}
+
+sub _profileId
+{
+    my ($self) = @_;
+    return $self->parentRow()->id();
+}
+
+sub squidSharedAcls
+{
+    my ($self) = @_;
+    my @acls;
+    push @acls, @{ $self->componentByName('DomainFilterCategories', 1)->squidSharedAcls() };
+    return \@acls;
+}
+
+sub squidAcls
+{
+    my ($self) = @_;
+    my @acls;
+    my $profileId = $self->_profileId();
+    push @acls, @{ $self->componentByName('Extensions', 1)->squidAcls($profileId) };
+    push @acls, @{ $self->componentByName('MIME', 1)->squidAcls($profileId) };
+    push @acls, @{ $self->componentByName('DomainFilter', 1)->squidAcls($profileId) };
+
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, @params) = @_;
+    my @rules;
+    my $profileId = $self->_profileId();
+    push @rules, @{ $self->componentByName('Extensions', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('MIME', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilter', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilterCategories', 1)->squidRulesStubs($profileId, @params) };
+    push @rules, @{ $self->componentByName('DomainFilterSettings', 1)->squidRulesStubs($profileId, @params) };
+    return \@rules;
+}
+
+my @filterComponents =('ContentFilterThreshold', 'AntiVirus', 'DomainFilterSettings');
+sub usesFilter
+{
+    my ($self) = @_;
+    foreach my $component (@filterComponents) {
+        if ($self->componentByName($component, 1)->usesFilter()) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;

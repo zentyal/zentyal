@@ -1,3 +1,177 @@
+HEAD
+	+ Changed MB_widedialog CSS class to use all width available in
+	  the screen
+	+ Fixed a broken link to SysInfo/Composite/General when activating the
+	  WebServer module.
+3.0.18
+	+ Pass model instance when invoking EBox::Types::Select populate function
+	+ Improve dynamic editable property detection for framework types
+	+ Override _validateReferer method in Desktop services CGI
+	+ Don't abort configuration backup when we get a error retrieving the
+	  partition table information
+	+ In EBox:Model::Row, refactored elementExists and
+	  elementByName to make them to have similiar code structure
+	+ Improvement in test help classes and added test fakes for
+	  EBox::Model::Manager and EBox::Util::SHMLock
+	+ Prevented unuseful warning in
+	  EBox::Model::DataTable::setDirectory when the old directory is undef
+	+ Fixed unit tests under EBox/Model/t, backup configuration tests and
+	  some others
+	+ Remove unused method EBox::Auth::alreadyLogged()
+	+ Apache::setRestrictedResource updates properly if already exists
+	+ Global and Module::Config allow to set redis instance to ease testing
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
+	+ Rows in events models are now synced before running EventDaemon
+	+ Better way of checking if event daemon is needed
+3.0.17
+	+ Allow numeric zero as search filter
+	+ When filtering rows don't match agains link urls or hidden values
+	+ Avoid CA file check when removing it from Apache module
+	+ Silent removeCA and removeInclude exceptions when removing
+	  non-existant element
+	+ Fixed rollback operation in redis config backend
+	+ Desktop services CGI now only returns JSON responses
+	+ Log error when dynamic loading a class fails in
+	  ConfigureDispatchers model
+	+ Update total ticks dynamically in progress indicator if ticks overflow
+3.0.16
+	+ Fixed regression in boolean in-place edit with Union types
+	+ Added some missing timezones to EBox::Types::TimeZone
+	+ Add a new method to DBEngine 'checkForColumn' to retrieve columns
+	  definition from a given table
+	+ Reload models info in model manager if new modules are installed
+3.0.15
+	+ Make sure that halt/reboot button can be clicked only once
+	+ Cleaner way of disabling dependant modules when the parent is disabled,
+	  avoiding unnecessary calls to enableService each time the module status
+	  page is loaded.
+	+ Show confirmation dialog when trying to change host or domain
+	  if zentyal-samba is installed and provisioned
+	+ Modified data table controller so edit boolean in place reuses
+	  the code of regular edits, avoiding getting incorrect read-only
+	  values from cache
+3.0.14
+	+ Allow search filters with a leading '*'
+	+ Better error reporting when choosing a bad search filter
+	+ External exceptions from _print method are caught correctly in CGIs
+	+ EBox::CGI::run now supports correct handling of APR::Error
+	+ Fixed dashboard check updates ajax requests in Chrome
+	+ Fixed errors with zero digits components in time type
+3.0.13
+	+ Better warning if size file is missing in a backup when
+	  restoring it
+	+ Fixed table cache behaviour on cache miss in logs module
+	+ Fix wrong button label when deleting rows in 'datainuse' template
+	+ Removed unused method EBox::Model::DataTable::_tailoredOrder
+	+ Added force default mode and permission to writeConfFileNoCheck(),
+	  writeFile() and derivatives
+	+ Fixed bug in EBox:::Logs::CGI::Index with internationalized
+	  parameter names
+	+ DataTables with sortedBy are now orderer alphabetically with
+	  proper case treatment
+	+ Display messages in model even when there are not elements and
+	  table body is not shown
+3.0.12
+	+ Improve change-hostname script, delete all references to current name
+	+ Faster dashboard loading with asynchronous check of software updates
+	+ Workaround for when the progress id parameter has been lost
+	+ Fixed problems calling upstart coomands from cron jobs with wrong PATH
+	+ Decode CGI unsafeParams as utf8
+	+ Avoid double encoding when printing JSON response in EBox::CGI::Base
+	+ Remove warning in EBox::Menu::Folder when currentfolder is not defined
+	+ Removed unnecesary and misleading method new from EBox::Auth package
+3.0.11
+	+ Avoid flickering loading pages when switching between menu entries
+	+ Incorrect regular expression in logs search page are correctly handled
+	+ Fix input badly hidden in the logs screen
+	+ reloadTable from DataTable now remove cached fields as well
+3.0.10
+	+ Fixed unsafe characters error when getting title of progress
+	  indicator in progress dialog
+	+ Added use utf8 to dashboard template to fix look of closable messages
+3.0.9
+	+ Adapted file downloads to the new utf8 fixes
+	+ Write backup files in raw mode to avoid utf8 problems
+	+ Print always utf8 in STDOUT on all CGIs
+	+ Decode CGI params of values entered at the interface as utf8
+	+ Proper encode/decode of utf8 with also pretty JSON
+	+ Fixed utf8 decoding in date shown at dashboard
+	+ Removed old workarounds for utf8 problems
+	+ Added new recoveryEnabled() helper method to Module::Base
+	+ Added recoveryDomainName() method to SyncProvider interface
+	+ Restore backup can now install missing modules in Disaster Recovery
+	+ Show specific slides when installing a commercial edition
+	+ Redirect to proper CGI after login in disaster recovery mode
+	+ Removed old debconf workaround for first stage installation
+	+ Log redis start message as debug instead of info to avoid flood
+	+ Use unsafeParam in EBox::CGI::Base::paramsAsHash
+	+ EBox::Module::Service does not raise exception and logs
+	  nothing when using init.d status
+	+ Fixed glitch in backup CGI which sometimes showed
+	  the modal dialog with a incorrect template
+3.0.8
+	+ Use path for default name in SyncFolders::Folder
+	+ Do not restrict characters in data table searchs
+	+ Fixed automatic bug report regression
+	+ Fixed refresh of the table and temporal control states
+	  in customActionClicked callback
+	+ Modified modalbox-zentyal.js to accept wideDialog parameter
+	+ Fixed template method in MultiStateAction to return the default
+	  template when it is not any supplied to the object
+	+ Fixed sendInPlaceBooleanValue method from table-helper.js; it
+	  aborted because bad parameters of Ajax.Updater
+	+ Fixed bug that made that the lock was shared between owners
+	+ Some fixes in the function to add the rule for desktops services
+	  to the firewall
+	+ Delete obsolete EBox::CGI::MenuCSS package
+3.0.7
+	+ Add new EBox::Module::Service::Observer to notify modules about
+	  changes in the service status
+	+ Administration accounts management reflects the changes in
+	  system accounts in ids() or row() method call
+	+ Some fixes in the RAID event watcher
+	+ foreignModelInstance returns undef if foreignModel is
+	  undef. This happens when a module has been uninstalled and it is
+	  referenced in other installed module (events)
+	+ loggerd shows loaded LogHelpers when in debug mode
+	+ Added additional info to events from RAID watcher
+	+ Use sudo to remove temporal files/diectories in backup, avoiding
+	  permissions errors
+	+ Added exception for cloud-prof module to events dependencies
+3.0.6
+	+ Skip keys deleted in cache in Redis::_keys()
+	+ Fixed events modules dependencies to depend on any module which
+	  provides watchers or dispatchers
+	+ Always call enableActions before enableService when configuring modules
+	+ Added needsSaveAfterConfig state to service modules
+	+ Better exceptions logging in EBox::CGI::Run
+	+ Fixed 'element not exists' error when enabling a log watcher
+	+ Scroll up when showing modal dialog
+	+ Added fqdnChanged methods to SysInfo::Observer
+	+ Fixed SSL configuration conflicts betwen SOAPClient and RESTClient
+3.0.5
+	+ Template ajax/simpleModalDialog.mas can now accept text
+	+ Used poweroff instead of halt to assure that system is powered
+	  off after halt
+	+ Fixed log audit database insert error when halting or rebooting
+	+ Added time-based closable notification messages
+	+ Adapted to new EBox::setLocaleEnvironment method
+	+ EBox::Type::File now allows ebox user to own files in directories
+	  which are not writable by him
+	+ Removed cron daily invocation of deprecated report scripts
+3.0.4
+	+ Added EBox::SyncFolders interface
+	+ Fixed invokation of tar for backup of model files
+	+ New observer for sysinfo module to notify modules implementing the
+	  SysInfo::Observer interface when the host name or host domain is
+	  changed by the user, before and after the change takes effect
+	+ Stop and start apache after language change to force environment reload
+	+ Reload page after language change
+	+ EBox::Module::Service::isRunning() skips daemons whose precondition fail
+	+ Fixed undefined reference in DataTable controller for log audit
+	+ Added and used serviceId field for service certificates
+	+ Fixed SQL quoting of column names in unbuffered inserts and consolidation
 3.0.3
 	+ Fixed bug which prevented highlight of selected item in menu
 	+ Fixed base class of event dispatcher to be compatible with the

@@ -1,0 +1,80 @@
+Index: samba4/source4/ldap_server/ldap_server.c
+===================================================================
+--- samba4.orig/source4/ldap_server/ldap_server.c	2012-11-13 19:09:49.659216561 +0100
++++ samba4/source4/ldap_server/ldap_server.c	2012-11-13 19:10:56.019215301 +0100
+@@ -886,10 +886,11 @@
+   open the ldap server sockets
+ */
+ static void ldapsrv_task_init(struct task_server *task)
+-{	
++{
+ 	char *ldapi_path;
+ #ifdef WITH_LDAPI_PRIV_SOCKET
+ 	char *priv_dir;
++    mode_t ldap_priv_mode;
+ #endif
+ 	const char *dns_host_name;
+ 	struct ldapsrv_service *ldap_service;
+@@ -1001,7 +1002,19 @@
+ 	 * Make sure the directory for the privileged ldapi socket exists, and
+ 	 * is of the correct permissions
+ 	 */
+-	if (!directory_create_or_exist(priv_dir, geteuid(), 0750)) {
++    ldap_priv_mode = lpcfg_ldap_priv_socket_mode(task->lp_ctx);
++    if (directory_exist(priv_dir)) {
++       	if (chmod(priv_dir, ldap_priv_mode)) {
++			DEBUG(0, ("chmod failed on directory "
++				  "%s: %s\n", priv_dir,
++				  strerror(errno)));
++		    task_server_terminate(task, "Cannot set ldap privileged ldapi "
++                "directory permissions", true);
++            return;
++		}
++    }
++
++	if (!directory_create_or_exist(priv_dir, geteuid(), ldap_priv_mode)) {
+ 		task_server_terminate(task, "Cannot create ldap "
+ 				      "privileged ldapi directory", true);
+ 		return;
+Index: samba4/lib/param/param_table.c
+===================================================================
+--- samba4.orig/lib/param/param_table.c	2012-11-13 19:09:49.659216561 +0100
++++ samba4/lib/param/param_table.c	2012-11-13 19:10:56.019215301 +0100
+@@ -1146,6 +1146,15 @@
+ 		.enum_list	= NULL,
+ 		.flags		= FLAG_ADVANCED | FLAG_GLOBAL,
+ 	},
++    {
++        .label      = "ldap privileged socket mode",
++        .type       = P_OCTAL,
++        .p_class    = P_GLOBAL,
++        .offset     = GLOBAL_VAR(iLdap_priv_socket_mode),
++        .special    = NULL,
++        .enum_list  = NULL,
++        .flags      = FLAG_ADVANCED | FLAG_GLOBAL,
++    },
+ 
+ 
+ 	{N_("Logging Options"), P_SEP, P_SEPARATOR},
+Index: samba4/lib/param/param_functions.c
+===================================================================
+--- samba4.orig/lib/param/param_functions.c	2012-11-13 19:09:49.659216561 +0100
++++ samba4/lib/param/param_functions.c	2012-11-13 19:10:56.019215301 +0100
+@@ -411,3 +411,4 @@
+ FN_GLOBAL_STRING(username_map, szUsernameMap)
+ FN_GLOBAL_STRING(usershare_path, szUsersharePath)
+ FN_GLOBAL_STRING(wins_hook, szWINSHook)
++FN_GLOBAL_INTEGER(ldap_priv_socket_mode, iLdap_priv_socket_mode)
+Index: samba4/lib/param/loadparm.c
+===================================================================
+--- samba4.orig/lib/param/loadparm.c	2012-11-13 19:09:49.659216561 +0100
++++ samba4/lib/param/loadparm.c	2012-11-13 19:10:56.019215301 +0100
+@@ -2217,6 +2217,8 @@
+         lpcfg_do_global_parameter(lp_ctx, "allow dns updates", "secure only");
+         lpcfg_do_global_parameter(lp_ctx, "dns forwarder", "");
+ 
++    lpcfg_do_global_parameter(lp_ctx, "ldap privileged socket mode", "0750");
++
+ 	for (i = 0; parm_table[i].label; i++) {
+ 		if (!(lp_ctx->flags[i] & FLAG_CMDLINE)) {
+ 			lp_ctx->flags[i] |= FLAG_DEFAULT;

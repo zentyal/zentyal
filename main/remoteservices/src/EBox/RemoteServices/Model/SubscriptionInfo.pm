@@ -12,6 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
+
+use v5.10;
 
 # Class: EBox::RemoteServices::Model::SubscriptionInfo
 #
@@ -24,17 +28,10 @@
 #
 
 package EBox::RemoteServices::Model::SubscriptionInfo;
-
-use strict;
-use warnings;
-
-use v5.10;
-
 use base 'EBox::Model::DataForm::ReadOnly';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Text;
 use EBox::Types::HTML;
 
@@ -96,7 +93,7 @@ sub _table
 
     my @tableDesc =
       (
-       new EBox::RemoteServices::Types::EBoxCommonName(
+       new EBox::Types::Text(
            fieldName     => 'server_name',
            printableName => __('Server name'),
           ),

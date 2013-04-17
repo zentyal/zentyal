@@ -2,19 +2,24 @@
     $automatic
     $automaticTime
     $QAUpdates
+    $alwaysAutomatic
 </%args>
 <%init>
 use EBox::Gettext;
-my $enableTitle = __('Perform automatic security updates');
+my $enableTitle = __('Perform automatic software updates');
 my ($hour, $minutes) = split ':', $automaticTime;
 
 </%init>
-% if ($QAUpdates) {
+% if ($alwaysAutomatic) {
 <div class='note'>
 <% __('Zentyal is configured to use automatic QA updates') %>
 </div>
-% }
+% } else {
+%  if ($QAUpdates) {
+<& /msg.mas, class => 'note', msg => __('Zentyal is configured to use QA repositories')&>
+%  }
 <& enable.mas, title => $enableTitle, active => $automatic &>
+% }
 
 <h3><% __('Settings') %></h3>
 <form action='AutomaticOptions' method='POST'>

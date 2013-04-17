@@ -12,9 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Module::Service;
-
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -24,10 +25,8 @@ use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
 use EBox::AuditLogging;
 
+use Perl6::Junction qw(any);
 use Error qw(:try);
-
-use strict;
-use warnings;
 
 use constant INITDPATH => '/etc/init.d/';
 
@@ -131,6 +130,37 @@ sub enableActions
 sub disableActions
 {
 
+}
+
+# Method: disableModDepends
+#
+#   This method is used to get the list of modules to be disabled when this
+#   module is disabled (they depend on us).
+#
+#   It doesn't state a configuration dependency, it states a working
+#   dependency.
+#
+#   For example: the firewall module has to be disabled together with the
+#                network module.
+#
+#   By default it returns the modules established in the enabledepends list
+#   in the module YAML file. Override the method if you need something more
+#   specific, e.g., having a dynamic list.
+#
+# Returns:
+#
+#    array ref containing the instances of modules.
+#
+sub disableModDepends
+{
+    my ($self) = @_;
+
+    my $deps = [];
+    foreach my $mod (@{$self->global->modInstancesOfType('EBox::Module::Service')}) {
+        push (@{$deps}, $mod)
+            if ($self->name() eq any @{$mod->info->{enabledepends}});
+    }
+    return $deps;
 }
 
 # Method: enableModDepends
@@ -261,8 +291,16 @@ sub setConfigured
             EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured/" . $self->name());
         } else {
             EBox::Sudo::command('rm -f ' . EBox::Config::conf() . "configured/" . $self->name());
+            $self->setNeedsSaveAfterConfig(undef);
         }
     }
+
+    # clear log cache info because tables could have been added or removed
+    my $logs = $self->global()->modInstance('logs');
+    if ($logs) {
+        $logs->clearTableInfoCache();
+    }
+
     return $self->st_set_bool('_serviceConfigured', $status);
 }
 
@@ -285,6 +323,45 @@ sub firstInstall
     }
 
     return 1;
+}
+
+
+sub configureModule
+{
+    my ($self) = @_;
+    my $needsSaveAfterConfig = $self->needsSaveAfterConfig();
+    try {
+        $self->setConfigured(1);
+        #$self->updateModuleDigests($modName);
+        $self->enableActions();
+        $self->enableService(1);
+        $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
+    } otherwise {
+        my ($ex) = @_;
+        $self->setConfigured(0);
+        $self->enableService(0);
+        $self->setNeedsSaveAfterConfig(undef);
+        $ex->throw();
+    };
+}
+
+sub setNeedsSaveAfterConfig
+{
+    my ($self, $needsSave) = @_;
+    my $state = $self->get_state();
+    $state->{_needsSaveAfterConfig} = $needsSave;
+    $self->set_state($state);
+}
+
+sub needsSaveAfterConfig
+{
+    my ($self) = @_;
+    if (not $self->configured()) {
+        return undef;
+    }
+
+    my $state = $self->get_state();
+    return  $state->{_needsSaveAfterConfig};
 }
 
 # Method: setInstalled
@@ -360,16 +437,9 @@ sub _isDaemonRunning
         };
         return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output;
-        my $notOk;
-        try {
-            $output = EBox::Sudo::root(INITDPATH .
+        my $output = EBox::Sudo::silentRoot(INITDPATH .
                 $dname . ' ' . 'status');
-        } catch EBox::Exceptions::Sudo::Command with {
-            # Command returned != 0
-            $notOk = 1;
-        };
-        if ($notOk) {
+        if ($? != 0) {
             return 0;
         }
         my $status = join ("\n", @{$output});
@@ -408,20 +478,26 @@ sub isRunning
 {
     my ($self) = @_;
 
+    my $activeDaemons = 0;
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
-        my $check = 1;
         my $pre = $daemon->{'precondition'};
         if (defined ($pre)) {
-            $check = $pre->($self);
+            # don't check if daemon should not be running
+            next unless $pre->($self);
         }
-        # If precondition does not meet the daemon should not be running.
-        $check or return 0;
+
+        $activeDaemons = 1;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
     }
-    return 1;
+
+    if ($activeDaemons) {
+        return 1;
+    } else {
+        return $self->isEnabled();
+    }
 }
 
 # Method: addModuleStatus
@@ -468,10 +544,28 @@ sub addModuleStatus
 sub enableService
 {
     my ($self, $status) = @_;
+
     defined $status or
         $status = 0;
 
     return unless ($self->isEnabled() xor $status);
+
+    # If enabling the module check our dependences are also enabled
+    # Otherwise, we have to disable ourself and all modules depending on us
+    if ($status) {
+        foreach my $mod (@{$self->enableModDepends()}) {
+            my $instance = $self->global->modInstance($mod);
+            $status = ($status and $instance->isEnabled());
+        }
+    }
+
+    unless ($status) {
+        # Disable all modules that depend on us
+        my $mods = $self->disableModDepends();
+        foreach my $mod (@{$mods}) {
+            $mod->enableService(0);
+        }
+    }
 
     $self->set_bool('_serviceModuleStatus', $status);
 
@@ -640,6 +734,13 @@ sub _startService
 {
     my ($self) = @_;
     $self->_manageService('start');
+
+    # Notify observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::Module::Service::Observer')};
+    foreach my $obs (@observers) {
+        $obs->serviceStarted($self);
+    }
 }
 
 # Method: stopService
@@ -684,7 +785,7 @@ sub _postServiceHook
 
 # Method: _regenConfig
 #
-#	Base method to regenerate configuration. It should NOT be overriden
+#       Base method to regenerate configuration. It should NOT be overriden
 #
 sub _regenConfig
 {
@@ -694,6 +795,10 @@ sub _regenConfig
 
     $self->SUPER::_regenConfig(@_);
     my $enabled = ($self->isEnabled() or 0);
+    if ($enabled) {
+        $self->setNeedsSaveAfterConfig(0);
+    }
+
     $self->_preServiceHook($enabled);
     $self->_enforceServiceState(@_);
     $self->_postServiceHook($enabled);
@@ -799,7 +904,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #   An array ref of hashes containing the following:
 #
-#       service - name of the service using the certificate
+#       serviceId - name of the servicr
+#       service - printable name of the service using the certificate
 #       path    - full path to store this certificate
 #       user    - user owner for this certificate file
 #       group   - group owner for this certificate file
@@ -809,7 +915,8 @@ sub writeConfFile # (file, component, params, defaults)
 #
 #       [
 #           {
-#             'service' => 'jabberd2',
+#             'serviceId' => 'jabberd2',
+#             'service' => __('Jabber daemon)',
 #             'path' => '/etc/jabberd2/ebox.pem',
 #             'user' => 'jabber',
 #             'group' => 'jabber',

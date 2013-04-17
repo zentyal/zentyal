@@ -32,7 +32,6 @@ use lib '../..';
 
 diag ( 'Starting EBox::TrafficShaping test' );
 
-
 BEGIN {
   use_ok ( 'EBox::TrafficShaping' )
     or die;
@@ -43,10 +42,8 @@ EBox::init();
 my $ts;
 lives_ok {
   $ts = EBox::Global->modInstance( 'trafficshaping' );
-}
-  'Getting a traffic shaping instance';
+} 'Getting a traffic shaping instance';
 
 lives_ok {
   $ts->restartService();
-}
-  'Regeneration config';
+} 'Regeneration config';

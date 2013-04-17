@@ -66,10 +66,51 @@ sub subscriptionDetails
 {
     my ($self) = @_;
 
-    my $uuid = $self->{cred}->{uuid};
+    my $uuid = $self->subscribedUUID();
     my $response = $self->RESTClient()->GET("/v1/servers/$uuid/subscription/");
     $self->{details} = $response->data();
     return $self->{details};
+}
+
+# Method: list
+#
+#     Get the capabilities list
+#
+# Returns:
+#
+#     Array ref - containing the list of capabilities for this server
+#
+sub list
+{
+    my ($self) = @_;
+
+    my $uuid = $self->subscribedUUID();
+    my $response = $self->RESTClient()->GET("/v1/servers/$uuid/capability/");
+    $self->{list} = $response->data();
+    return $self->{list};
+}
+
+# Method: detail
+#
+#     Get the capabilty detail given its name
+#
+# Parameters:
+#
+#     capability - String the capability name to get the details. It
+#                  should be one of the returned ones by <list> method
+#
+# Returns:
+#
+#     Hash ref - containing the details. Every capability has freedom
+#                to return whatever it requires
+#
+sub detail
+{
+    my ($self, $capName) = @_;
+
+    my $uuid = $self->subscribedUUID();
+    my $response = $self->RESTClient()->GET("/v1/servers/$uuid/capability/$capName");
+    return $response->data();
 }
 
 1;

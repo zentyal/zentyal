@@ -22,6 +22,7 @@ use warnings;
 use EBox::Gettext;
 
 use Perl6::Junction qw(all);
+use Time::Piece;
 
 my @days = qw(monday tuesday wednesday thursday friday saturday sunday);
 use constant ALL_DAYS => 'MTWHFAS';
@@ -278,6 +279,30 @@ sub to
 {
     my ($self) = @_;
     return $self->{to};
+}
+
+# Method: fromAsTimePiece
+#
+#   Return the "from" hour as Time::Piece object
+#
+sub fromAsTimePiece
+{
+    my ($self) = @_;
+    my $from = $self->from();
+    $from or $from = '00:00';
+    return Time::Piece->strptime($from, '%H:%M');
+}
+
+# Method: toAsTimePiece
+#
+#   Return the "to" hour as Time::Piece object
+#
+sub toAsTimePiece
+{
+    my ($self) = @_;
+    my $to = $self->to();
+    $to or $to = '23:59';
+    return Time::Piece->strptime($to, '%H:%M');
 }
 
 sub monday
@@ -549,6 +574,34 @@ sub _normalizeTime
     $newTime    .= ':';
     $newTime    .= sprintf("%02d", $mn);
     return $newTime;
+}
+
+# Method: overlaps
+#
+#   return wether the time period overlaps with another
+#
+#  Parameters
+#      other - other timeperiod
+sub overlaps
+{
+    my ($self, $other) = @_;
+    if ($self->isAllTime() or $other->isAllTime()) {
+        return 1;
+    }
+
+    my $fromA = $self->fromAsTimePiece();
+    my $toA  =  $self->toAsTimePiece() ;
+    my $fromB = $other->fromAsTimePiece();
+    my $toB =  $other->toAsTimePiece();
+    foreach my $wday (@days) {
+        if ($self->$wday() and $other->$wday()) {
+            if (($fromA <= $toB) and ($fromB <= $toA)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 1;

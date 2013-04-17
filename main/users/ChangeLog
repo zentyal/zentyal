@@ -1,6 +1,103 @@
 HEAD
 	+ Check for already existant service principals before create them.
 	  Required because squid and zarafa share the HTTP SPN
+	+ Always mark as changed if it needs LDAP reprovision
+	+ Fixed member removal operation for groups
+3.0.14
+	+ Tentative workaround against home directory chown bug
+	+ Slave setup refactored to reuse common code with reprovision
+	+ Reprovision LDAP for all LDAP based modules
+	+ Don't try to update samba password in user corner when samba is
+	  not configured
+	+ Add operation arguments on LDAP error whenever is possible
+	+ EBox::UsersAndGroups::User::create() allows now an internal attribute
+	+ Users marked as internal are not displayed on the interface
+	+ New realUsers() method to filter only non-internal ones
+3.0.13
+	+ Search in user table now is standard instead of filter only for uid
+	+ A bit more explicit text for EBox::Exceptions::LDAP
+	+ Reload nscd also when creating new groups
+3.0.12
+	+ Fixed typo in exception class name in EBox::Ldap
+	+ Added missing use statement in EBox::UsersAndGroups and
+	  EBox::UsersAndGroups::LDAPObject classes
+3.0.11
+	+ Dont loop through the group members when adding/removing members
+	+ Added EBox::Exceptions::LDAP
+	+ Allow unsafe characters in commentary field
+	+ Better check for the incompatibility of Samba with master/slave
+	+ Fix modules extending LdapUserBase not notified modifying groups
+	+ Allow domain name change in System -> General reprovisioning LDAP db
+	+ Depend on dns module to fix save changes order during reprovision
+3.0.10
+	+ Use less costly LDAP operations when adding or removing members
+	  from a group
+	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
+	+ Faster custom row id filter for Users model
+	+ Forbid user synchronization with other zentyals if samba is provisioned
+	+ Display users groups in slave mode
+	+ Avoided hang when the local host is wrongly used as master slave
+	+ Ldap modules should do a slaveSetup when slave mode enabled
+3.0.9
+	+ Stop heimdal daemons on enableActions
+	+ Fixed alphabetical order in listing of users and groups
+3.0.8
+	+ Filter in users table no longer matches LDAP dn
+	+ Recover better of no-usercorner journal error in slave-sync
+	+ Added read-only rootDn and password to LDAP settings screen
+	+ Don't allow empty first name in CGIs for user
+	  creation/modification. Otherwise you can get LDAP errors.
+	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
+3.0.7
+	+ Fixed LdapObject::get() for list context
+	+ Decode utf8 attributes from LDAP at LdapObject::get()
+	+ Removed unused method _utf8Attrs
+	+ Integration with Disaster Recovery service
+	+ Include /home as disk usage facility
+	+ Fix enable quotas without rebooting when module is enabled.
+	+ Users and groups cannot longer share names because it is incompatible
+	  with AD accounts
+	+ Use upstart to manage heimdal daemons
+	+ Increase the maximum UID number to avoid problems with samba integration
+	+ Fixed bug in group creation which on error could call a method
+	  in a undefined value
+	+ Do not stop openldap daemon when dumping database
+	+ Generate kerberos AES keys to be compatible with active directory in
+	  W2k8 or higher functional levels
+	+ Fixed user quota edition in slave server
+	+ Update user password also in samba ldap when changed from user corner
+	+ Update 'cn' attribute in cloud-sync
+3.0.6
+	+ Set userPassword attribute when setting kerberos keys for user
+	+ Fixed delGroup operation on cloud slave
+	+ Include exception message when there is an error notifying a slave
+	+ Fix enable quotas without rebooting when module is enabled
+	+ Delete syncjournal files when slave is removed
+3.0.5
+	+ Fixed reinstall script to stop samba module, otherwise new slapd
+	  cannot start because the port is taken
+	+ Sync password changes made from cloud to any slave
+	+ When syncing, do not update ldap of unchanged entries
+3.0.4
+	+ Added missing use of UnwillingToPerform exception
+	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
+	  and preAddGroupFailed) to notify observers
+3.0.3
+	+ Setup Cloud slave on first save changes
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
+	+ Fixed some errors on RESTClient after API change
+	+ Updated REST journaling behavior
+	+ Do not show unavailable options in master select
+	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
+	+ Added check to assure that a no-ldap user has the same uid than
+	  a new user
+	+ Implement SysInfo::Observer to disallow host domain changes after the
+	  kerberos realm has been initialized, and to update the LDAP base DN
+	  if module is not yet configured
+	+ Added LDAP index for ou attribute
+	+ Always write slave-sync script
+>>>>>>> master
 	+ Increase default quota value to 500MB
 3.0.2
 	+ Added clearCache() to LdapObject and force reload of krb5Keys

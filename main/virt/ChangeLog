@@ -1,3 +1,24 @@
+HEAD
+	+ Allow to use host CD drive
+	+ Add VNC bar height to calculate VNC viewer frame height
+	+ Use 'tablet' device type for pointing device on Windows machines
+	  to avoid cursor offset
+	+ Allow '_' and '-' in devices paths
+3.0.3
+	+ Added missing architectureTypes method to VBox backend
+	+ Forced MAC prefix to workaround libvirt bug
+3.0.2
+	+ Operating System type can now be specified on each VM
+	+ Windows Vista or newer machines use SATA disks
+	+ Windows 2000 or older machines use IDE disks
+	+ Linux machines use virtio disks
+	+ Other machines use SCSI disks for compatibility with the
+	  previous default, but can use IDE setting the use_ide_disks
+	  key in /etc/zentyal/virt.conf as before
+	+ Better checking of device path
+3.0.1
+	+ Support for another output of file program for qcow2 format
+	+ Make use of the wideDialog parameter for VNC windows
 2.3.5
 	+ Fixed reference to inexistent attribute when adding a machine
 2.3.4

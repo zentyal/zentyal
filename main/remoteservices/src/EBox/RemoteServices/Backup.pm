@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,7 +15,6 @@
 
 package EBox::RemoteServices::Backup;
 use base 'EBox::RemoteServices::Cred';
-#
 
 use strict;
 use warnings;
@@ -51,7 +50,6 @@ sub new
     my ($class, @params) = @_;
 
     my $self = $class->SUPER::new(@params);
-
 
     bless($self, $class);
 
@@ -155,7 +153,7 @@ sub restoreRemoteBackup
     try {
         EBox::Backup->restoreBackup($archiveFile);
     } finally {
-        if ( -e $archiveFile ) {
+        if (-e $archiveFile) {
             unlink($archiveFile);
         }
     };
@@ -164,7 +162,7 @@ sub restoreRemoteBackup
 
 sub prepareRestoreRemoteBackup
 {
-    my ($self, $name) = @_;
+    my ($self, $name, $dr) = @_;
     $name or throw EBox::Exceptions::MissingArgument('name');
 
     my $archiveFile = $self->downloadRemoteBackup($name);
@@ -175,13 +173,13 @@ sub prepareRestoreRemoteBackup
             $archiveFile,
             fullRestore => 0,
             deleteBackup => 1,
-           );
-    }
-      otherwise {
-          my ($ex) = @_;
-          unlink($archiveFile);
-          $ex->throw();
-      };
+            dr => $dr,
+        );
+    } otherwise {
+        my ($ex) = @_;
+        unlink($archiveFile);
+        $ex->throw();
+    };
 
     return $progress;
 }
@@ -196,7 +194,6 @@ sub downloadRemoteBackup
                                          fh => $fh);
     return $archive;
 }
-
 
 sub removeRemoteBackup
 {
@@ -256,6 +253,39 @@ sub remoteBackupInfo
           __x('Inexistent backup: {n}', n => $name)
          );
     return  $allBackups->{$name};
+}
+
+# Method: latestRemoteConfBackup
+#
+#      Get the latest remote configuration backup
+#
+# Parameters:
+#
+#      force - Boolean indicating to get the information from Zentyal Remote
+#
+# Returns:
+#
+#      String - the date in RFC 2822 format
+#
+#      'unknown' - if the data is not available
+#
+sub latestRemoteConfBackup
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless (defined($force));
+
+    my ($latest, $bakList) = ('unknown', {});
+    if ($force or (not -r $self->_metainfoFile())) {
+        $bakList = $self->listRemoteBackups();
+    } else {
+        $bakList = $self->_metainfoFromCache();
+    }
+    my @sortedBakList = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %{$bakList};
+    if ( @sortedBakList > 0 ) {
+        $latest = $sortedBakList[0]->{Date};
+    }
+    return $latest;
 }
 
 # Group: Private methods
@@ -357,7 +387,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, %p) = @_;
 
-    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, journaling => 0);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, retry => 0);
 
     # Send the file using curl
     my $url = new URI('https://' . $self->{cbServer} . '/conf-backup/put/' . $p{fileName});
@@ -450,7 +480,7 @@ sub _pullAllMetaConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, journaling => 0);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', query => \%p, retry => 0);
 
     _handleResult($res->{result}, %p);
 
@@ -461,7 +491,7 @@ sub _pullFootprintMetaConf
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, journaling => 0);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', query => \%p, retry => 0);
 
     _handleResult($res->{result}, %p);
 
@@ -472,7 +502,7 @@ sub _removeConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, journaling => 0);
+    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, retry => 0);
 
     _handleResult($res->{result}, %p);
 }

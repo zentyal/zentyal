@@ -60,7 +60,7 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
-    my $customizer = new EBox::View::Customizer();
+    my $customizer = $self->SUPER::viewCustomizer();
     $customizer->setModel($self);
     $customizer->setPermanentMessage($self->_configureMessage());
 

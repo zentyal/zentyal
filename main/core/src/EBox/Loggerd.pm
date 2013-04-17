@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Loggerd;
-
 use strict;
 use warnings;
+
+package EBox::Loggerd;
 
 use EBox;
 use EBox::Global;
@@ -57,6 +56,12 @@ sub run
     my $log = $global->modInstance('logs');
     $self->{'loghelpers'} = $log->allEnabledLogHelpers();
     $self->{'dbengine'} = EBox::DBEngineFactory::DBEngine();
+
+    if (EBox::Config::boolean('debug')) {
+        my @logHelpers = map { ref $_ } @{ $self->{'loghelpers'} };
+        EBox::debug("Loaded log helper classes: @logHelpers");
+    }
+
     $self->_prepare();
     $self->_mainloop();
 }

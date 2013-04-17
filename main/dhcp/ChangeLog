@@ -1,3 +1,17 @@
+3.0.3
+	+ Allow access to /etc/ldap/ldap.conf on apparmor profile
+	+ Fix generation of reverse zones, the host part of the addresses
+	  was not removed
+	+ Fixed bug which used all addresses available in a interface to
+	  generate DNS reverse zone instead of the configured ranges
+3.0.2
+	+ Always write ddns keys file when saving changes
+	+ Do not append trailing dot to key names
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+3.0.1
+	+ Do not run daemon and show message when configuration does not
+	  provide addresses for interfaces
+	+ Ignore virtual interfaces
 2.3.9
 	+ Keys shared with bind are now stored under /etc/dhcp/ddns-keys
 	+ Fixed problem in Options model which DNS domain syncRow call

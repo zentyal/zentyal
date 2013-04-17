@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortal;
-
 use strict;
 use warnings;
 
+package EBox::CaptivePortal;
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LdapModule
@@ -332,22 +330,28 @@ sub userFirewallRule
 
 sub exceptionsFirewallRules
 {
-    my ($self) = @_;
+    my ($self, $chain) = @_;
     my @rules;
 
     my $exceptionsModel = $self->model('Exceptions');
-    push @rules, @{ $exceptionsModel->firewallRules() };
+    push @rules, @{ $exceptionsModel->firewallRules($chain) };
 
     my $global = $self->global();
     foreach my $mod (@{ $global->modInstances()}) {
         if ($mod->can('firewallCaptivePortalExceptions')) {
-            push @rules, @{ $mod->firewallCaptivePortalExceptions()  };
+            push @rules, @{ $mod->firewallCaptivePortalExceptions($chain)  };
         }
     }
 
     return \@rules;
 }
 
+sub exceptionsPreroutingFirewallRules
+{
+    my ($self) = @_;
+    my $exceptionsModel = $self->model('Exceptions');
+    return $exceptionsModel->firewallPreroutingRules();
+}
 
 # Function: sessionExpired
 #

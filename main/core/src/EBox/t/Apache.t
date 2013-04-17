@@ -20,82 +20,81 @@
 use warnings;
 use strict;
 
-use Test::More tests => 24;
+use Test::More tests => 27;
 use Test::Exception;
 use Test::Deep;
 
 use lib '../../..';
 
-BEGIN {
-    diag('Starting test for some methods on Apache module');
-    use_ok('EBox::Apache')
-      or die;
-}
+use EBox::Global::TestStub;
 
-my $apacheMod = EBox::Apache->_create();
-isa_ok( $apacheMod, 'EBox::Apache');
+EBox::Global::TestStub::fake();
 
-my @resourceNames = ( 'foo/a', 'bar/a', 'foo/b' );
+use_ok('EBox::Apache') or die;
+
+my $apacheMod = EBox::Global->modInstance('apache');
+isa_ok($apacheMod, 'EBox::Apache');
+
+my @resourceNames = ('foo/a', 'bar/a', 'foo/b');
+
+is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 0, 'Resource not exists before adding');
 
 lives_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[0],
-                                   [ '192.168.45.2/32', '10.0.0.0/24' ],
-                                   'file');
+    $apacheMod->setRestrictedResource($resourceNames[0], [ '192.168.45.2/32', '10.0.0.0/24' ], 'file');
 } 'Adding a correct restricted file';
 
 lives_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[0],
-                                       [ '192.168.1.4/32' ],
-                                       'file');
+    $apacheMod->setRestrictedResource($resourceNames[0], [ '192.168.1.4/32' ], 'file');
 } 'Updating a correct restricted file';
 
 lives_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[1],
-                                       [ 'all', '102.1.2.3/32' ],
-                                       'location');
+    $apacheMod->setRestrictedResource($resourceNames[1], [ 'all', '102.1.2.3/32' ], 'location');
 } 'Adding an all allow restricted location';
 
+is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 1, 'Resource exists after adding');
+
 throws_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[2] );
+    $apacheMod->setRestrictedResource($resourceNames[2]);
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 throws_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[2],
-                                       [ 'nobody' ]);
+    $apacheMod->setRestrictedResource($resourceNames[2], [ 'nobody' ]);
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 throws_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[2], [], 'file' );
+    $apacheMod->setRestrictedResource($resourceNames[2], [], 'file');
 } 'EBox::Exceptions::Internal', 'No given IP address';
 
 throws_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[2], [ 'foobar', '10.0.0.2/24'], 'location' );
+    $apacheMod->setRestrictedResource($resourceNames[2], [ 'foobar', '10.0.0.2/24'], 'location');
 } 'EBox::Exceptions::Internal', 'Deviant IP address';
 
 throws_ok {
-    $apacheMod->setRestrictedResource( $resourceNames[2], ['all'], 'foobar' );
+    $apacheMod->setRestrictedResource($resourceNames[2], ['all'], 'foobar');
 } 'EBox::Exceptions::InvalidType', 'Invalid resource type';
 
-cmp_deeply( $apacheMod->_restrictedResources(),
-            [ { allowedIPs => [ '192.168.1.4/32' ],
-                name       => $resourceNames[0],
-                type       => 'file',
-              },
-              { allowedIPs => ['all'],
-                name       => $resourceNames[1],
-                type       => 'location',
-              }],
+cmp_deeply($apacheMod->get_list('restricted_resources'),
+           [ { allowedIPs => [ '192.168.1.4/32' ],
+               name       => $resourceNames[0],
+               type       => 'file',
+             },
+             { allowedIPs => ['all'],
+               name       => $resourceNames[1],
+               type       => 'location',
+             }],
             'The additions and updates were done correctly');
 
 throws_ok {
-    $apacheMod->delRestrictedResource( );
+    $apacheMod->delRestrictedResource();
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 lives_ok {
     foreach my $resourceName (@resourceNames[0 .. 1]) {
-        $apacheMod->delRestrictedResource( $resourceName );
+        $apacheMod->delRestrictedResource($resourceName);
     }
 } 'Deleting correct restricted resources';
+
+is ($apacheMod->_restrictedResourceExists($resourceNames[1]), 0, 'Resource not exists after deleting');
 
 throws_ok {
     $apacheMod->delRestrictedResource($resourceNames[2]);

@@ -36,4 +36,9 @@ def copy(path):
 # Private functions
 def __get_version(pkg):
     output = local('head -n 1 %s/debian/precise/changelog | grep -o -P " \((.*?)\)" | tr -d "()[:space:]"' % pkg, capture=True)
+    head   = local('head -n 1 %s/ChangeLog' % pkg, capture=True)
+    if head == 'HEAD':
+	major, minor, mminor = output.split('.')
+	mminor = int(mminor) + 1
+	output = "%s.%s.%d" % (major, minor, mminor)
     return output

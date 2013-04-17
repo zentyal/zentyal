@@ -165,7 +165,7 @@ sub _callbackDispatcher
 #
 #     jobDir - String the directory path to run the script which will be
 #     stored in 'script' file and the given arguments will be stored
-#     in 'args' file
+#     in 'args' file  and dataFile in 'dataFile' file
 #
 sub _run
 {
@@ -183,7 +183,6 @@ sub _run
         } else {
             $call = "xargs -a $jobDir/args $jobDir/script";
         }
-
 
         my $retValue = system( "$call > $jobDir/stdout 2> $jobDir/stderr");
         if ( $retValue == -1 ) {

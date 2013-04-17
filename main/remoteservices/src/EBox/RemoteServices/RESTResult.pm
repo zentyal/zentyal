@@ -54,7 +54,9 @@ sub new
 sub as_string
 {
     my ($self) = @_;
-    return $self->{result}->decoded_content();
+    my $value = $self->{result}->decoded_content();
+    utf8::decode($value);
+    return $value;
 }
 
 

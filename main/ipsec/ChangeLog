@@ -1,4 +1,9 @@
 HEAD
+	+ Disabled connection names with spaces
+3.0.1
+	+ Removed inappropiate local subnet checks
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+	+ Added lsof as dependency as it is needed for 'ipsec verify'
 	+ Removed unnecesary unique attributes in ConfGeneral form
 2.3.4
 	+ IPsec is now under Infrastructure instead of UTM

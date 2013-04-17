@@ -30,6 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
+use constant TRIAL_URL       => 'https://remote.zentyal.com/trial/';
 
 # Group: Protected methods
 
@@ -52,7 +53,10 @@ sub _description
     };
 
     my $rs = EBox::Global->modInstance('remoteservices');
-    unless ( $rs->eBoxSubscribed() ) {
+    if ( $rs->eBoxSubscribed() and $rs->subscriptionLevel() <= 0) {
+        $description->{permanentMessage} = _commercialTrialMsg();
+        $description->{permanentMessageType} = 'ad';
+    } elsif ( not $rs->eBoxSubscribed() ) {
         $description->{permanentMessage} = _commercialMsg();
         $description->{permanentMessageType} = 'ad';
     }
@@ -70,6 +74,13 @@ sub _commercialMsg
                 . 'access to these features and much more! Or, if you already have a Small '
                 . 'Business or Enterprise Edition, use your credentials for full access.',
                 ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
+}
+
+sub _commercialTrialMsg
+{
+    return __sx('Are you interested in upgrading to one of commercial editions? Get '
+                . 'a {ohb}free 30-day trial{ch}.',
+                ohb => '<a href="' . TRIAL_URL . '">', ch  => '</a>');
 }
 
 1;

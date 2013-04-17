@@ -1,4 +1,54 @@
-HEAD
+3.0.9
+	+ Fixed bind9 dependency to allow to install it with higher versions
+	+ Do not try to add duplicated interface addresses
+3.0.8
+	+ Fix intnets config key parsing and validation
+	+ Fixed apparmor errors trying to access /dev/urandom
+3.0.7
+	+ Guard against interfaces with unset address
+	+ Dynamic domains are now properly detected on _reverseData()
+	+ Rename domain if exists when changing it in System -> General
+	+ Remove depends on users and samba to avoid deep recursion
+	+ Use API to retrieve foreign model value
+3.0.6
+	+ Improve management of DNS zones stored in samba LDAP
+	+ Improve data generation for reverse zones.
+	+ Only allow AXFR from internal networks
+3.0.5
+	+ Query samba module for zones stored in LDB. Those ones will override
+	  the zones defined in the UI.
+	+ Changes required by the bundled version of samba4.
+	  Add paths to apparmor profile
+	  Change DLZ library path
+	+ Fixed bread crumbs for hostnames table
+3.0.4
+	+ Service zentyal-desktop-api is now added in initial-setup
+	+ Better exception message when service not exists in /etc/services
+	+ Fix apparmor profile to allow SDLZ driver to read session key
+3.0.3
+	+ Bump bind9 deps to new upstream version
+	+ Add the 'zentyal-desktop-api' SRV entry to the domain of the host
+	+ Add 'zentyal-desktop-api' to /etc/services in the _setConf
+3.0.2
+	+ Add method getTsigKeys to allow DHCP module write the ddns keys
+	+ Do not add trailing dot to key names
+	+ Update samba domain using TSIG keys, avoiding TSIG GSSAPI. Allow
+	  updates even if samba daemon is stopped
+	+ Depend on Zentyal patched version of bind to allow samba DLZ domain
+	  to be updated using TSIG keys
+	+ Remove dependence on libcrypt-openssl-random-perl and add on
+	  libdigest-hmac-perl
+	+ Change TSIG key generation algorithm to be compatible with bind
+	  generated keys
+	+ Add config key to disable automatic reverse zone generation. Useful
+	  when samba4 is installed and reverse zones are managed by other DC,
+	  replicated and loaded by DLZ plugin.
+	+ Fixed bug which left PTRs unwritten in reverse file zones
+	+ Allow to add host without IP addresses in addHost() method from
+	  domain table
+	+ Implement SysInfo::Observer to check that the new host name is not
+	  defined in any domain, and update the hostname in the defined domains
+3.0.1
 	+ Fixed host name ip addition when it was more than one host in
 	  the domain
 3.0

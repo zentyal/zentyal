@@ -1,3 +1,7 @@
+HEAD
+	+ Removed override of unused method EBox::Model::DataTable::_tailoredOrder
+3.0.1
+	+ Remove unique in printableName to avoid problems with i18n
 2.3.8
 	+ Forbid to user to create equivalents to any tcp/udp,tcp,udp services
 2.3.7

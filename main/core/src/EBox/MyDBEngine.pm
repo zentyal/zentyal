@@ -188,7 +188,7 @@ sub unbufferedInsert
                 $value = EBox::Util::SQLTypes::storer($type, $value);
             }
         }
-        push(@keys, $key);
+        push(@keys, $self->quoteColumnName($key));
         push(@vals, $value);
     }
 
@@ -515,17 +515,52 @@ sub tables
     return \@tables;
 }
 
+# Method: checkForColumn
+#
+#   Checks if a column exists in a given table and retrive its definition
+#
+# Returns:
+#
+#   Hash ref containing the column definition if it exists,
+#   or undef if it does not exists.
+#
+sub checkForColumn
+{
+    my ($self, $table, $column) = @_;
+
+    my $dbname = $self->_dbname();
+    my $sql = "SELECT * FROM information_schema.COLUMNS WHERE " .
+        "TABLE_SCHEMA = '$dbname' " .
+        "AND TABLE_NAME = '$table' " .
+        "AND COLUMN_NAME = '$column' ";
+    my $res = $self->query($sql);
+    my $colData = @{$res}[0];
+    return $colData;
+}
+
 # Method: quote
 #
 #   returns a quoted version of the string
 #
 # Warning:
 #  it only can quote string values used in SQL statement,
-#   it can not quote the SQL statement itself
+#   it can not quote column names or the SQL statement itself
 sub quote
 {
     my ($self, $string) = @_;
     return $self->{dbh}->quote($string);
+}
+
+# Method: quoteColumnName
+#
+#   returns a quoted version of a colunmName
+#
+# Warning:
+#  it only can quote column names
+sub quoteColumnName
+{
+    my ($self, $name) = @_;
+    return "`$name`";
 }
 
 # Method: setTimezone

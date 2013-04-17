@@ -33,6 +33,7 @@ try {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
+    binmode(STDOUT, ':utf8');
     EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
 } otherwise  {
     my $ex = shift;
@@ -118,7 +119,6 @@ try {
         my $value = $params->{$key};
         $html =~ s/{{ $key }}/$value/g;
     }
-    utf8::decode($html);
     print $html;
 
     print end_html;

@@ -52,7 +52,8 @@ sub _process($) {
 
     $user->set('quota', $self->param('quota'), 1);
 
-    unless ($users->mode() eq 'slave') {
+    if ($users->editableMode()) {
+        $self->_requireParam('name', __('first name'));
         $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('comment', __('comment'));
         $self->_requireParamAllowEmpty('password', __('password'));
@@ -67,7 +68,7 @@ sub _process($) {
         } else {
             $fullname = $surname;
         }
-        my $comment = $self->param('comment');
+        my $comment = $self->unsafeParam('comment');
         if (length ($comment)) {
             $user->set('description', $comment, 1);
         } else {

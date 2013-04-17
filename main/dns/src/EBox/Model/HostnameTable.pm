@@ -109,11 +109,7 @@ sub validateTypedRow
 
             my $fullHostname = $oldRow->valueByName('hostname') . ".$zone";
             push(@toDelete, $fullHostname);
-            if ($zoneRow->valueByName('samba')) {
-                $self->{toDeleteSamba} = \@toDelete;
-            } else {
-                $self->{toDelete} = \@toDelete;
-            }
+            $self->{toDelete} = \@toDelete;
         }
     }
 }
@@ -133,15 +129,9 @@ sub updatedRowNotify
     # The field is added in validateTypedRow
     if (exists $self->{toDelete}) {
         foreach my $rr (@{$self->{toDelete}}) {
-            $self->_addToDelete($rr, 0);
+            $self->_addToDelete($rr);
         }
         delete $self->{toDelete};
-    }
-    if (exists $self->{toDeleteSamba}) {
-        foreach my $rr (@{$self->{toDeleteSamba}}) {
-            $self->_addToDelete($rr, 1);
-        }
-        delete $self->{toDeleteSamba};
     }
 }
 
@@ -224,6 +214,7 @@ sub _table
             printableRowName => __('host name'),
             order => 1,
             insertPosition => 'back',
+            'HTTPUrlView'=> 'DNS/View/HostnameTable',
         };
 
     return $dataTable;
@@ -263,19 +254,11 @@ sub deletedRowNotify
         my $ids = $aliasModel->ids();
         foreach my $id (@{$ids}) {
             my $aliasRow = $aliasModel->row($id);
-            if ($zoneRow->valueByName('samba')) {
-                $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone", 1);
-            } else {
-                $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone", 0);
-            }
+            $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone");
         }
 
         my $fullHostname = $row->valueByName('hostname') . ".$zone";
-        if ($zoneRow->valueByName('samba')) {
-            $self->_addToDelete($fullHostname, 1);
-        } else {
-            $self->_addToDelete($fullHostname, 0);
-        }
+        $self->_addToDelete($fullHostname);
     }
 }
 
@@ -295,13 +278,10 @@ sub pageTitle
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $domain, $samba) = @_;
+    my ($self, $domain) = @_;
 
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
-    if ($samba) {
-        $key = EBox::DNS::DELETED_RR_KEY_SAMBA();
-    }
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};

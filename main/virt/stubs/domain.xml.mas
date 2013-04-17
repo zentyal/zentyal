@@ -1,5 +1,6 @@
 <%args>
     $name
+    $os => 'other'
     $emulator
     $memory
     @ifaces
@@ -9,7 +10,16 @@
     $keymap
     $arch
     $boot
+    $mouse => 'mouse'
 </%args>
+<%init>
+my %devicePrefixByBus = (
+   ide => 'hd',
+   scsi => 'sd',
+   sata => 'sd',
+   virtio => 'vd',
+);
+</%init>
 <domain type='<% $emulator %>'>
     <name><% $name %></name>
     <memory><% $memory * 1024 %></memory>
@@ -38,16 +48,19 @@
 % my $type = $device->{type};
 % my $letter = $device->{letter};
 % my $bus = $device->{bus};
-% my $prefix = ($bus eq 'ide') ? 'hd' : 'sd';
+% my $prefix = $devicePrefixByBus{$bus};
         <disk type='<% $block ? 'block' : 'file' %>' device='<% $type %>'>
 % if ($type eq 'disk') {
             <driver name='qemu' type='qcow2'/>
+% } elsif ($type eq 'cdrom') {
+           <driver name='qemu' type='raw'/>
 % }
             <target dev='<% $prefix %><% $letter %>' bus='<% $bus %>'/>
             <source <% $block ? 'dev' : 'file' %>='<% $device->{file} %>'/>
         </disk>
 % }
-        <input type='mouse' bus='usb'/>
+
+        <input type='<% $mouse %>' bus='usb'/>
         <video>
             <model type='cirrus' vram='9216' heads='1'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>

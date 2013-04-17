@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::OpenVPN::Daemon;
-
-# package: Parent class for the distinct types of OpenVPN daemons
 use strict;
 use warnings;
 
+# package: Parent class for the distinct types of OpenVPN daemons
+package EBox::OpenVPN::Daemon;
 use base qw(EBox::NetworkObserver);
 
 use File::Slurp;
@@ -119,7 +117,7 @@ sub upstartName
 #  Parameters:
 #
 #    $type  - daemon's type
-#    $name  - daemons's ma,e
+#    $name  - daemons's name
 #
 #  Returns:
 #    the name of the upstart service for the daemon type and name given
@@ -666,6 +664,16 @@ sub summary
 {
     my ($self) = @_;
     return ();
+}
+
+sub toDaemonHash
+{
+    my ($self) = @_;
+    return {
+             type => 'upstart',
+             name => $self->upstartName(),
+             precondition => sub { $self->isEnabled },
+           };
 }
 
 1;

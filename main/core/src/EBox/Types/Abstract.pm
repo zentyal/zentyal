@@ -146,9 +146,9 @@ sub editable
 {
     my ($self) = @_;
 
-    if ( $self->volatile() and not $self->storer()) {
+    if ($self->volatile() and not $self->storer()) {
         return 0;
-    } elsif (ref $self->{'editable'}) {
+    } elsif (ref $self->{'editable'} eq 'CODE') {
         my $editableFunc = $self->{editable};
         return &$editableFunc();
     } else {
@@ -448,7 +448,7 @@ sub setMemValue
                 if ($defaultValue) {
                     $self->_setValue($defaultValue);
                 } else {
-                    throw EBox::Exceptions::MissingArgument( $self->printableName() );
+                    throw EBox::Exceptions::MissingArgument($self->printableName());
                 }
             }
         }

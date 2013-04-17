@@ -18,6 +18,7 @@ anonymous_enable=NO
 % } else {
 anonymous_enable=YES
 % }
+anon_world_readable_only=YES
 #
 # Allow local users to log in
 % if ($userHomes) {
@@ -34,18 +35,16 @@ write_enable=YES
 local_umask=022
 anon_umask=022
 #
-# Allow the anonymous FTP user to upload files
+# Allow the anonymous FTP user to write files
 % if ($anonymous eq 'write') {
 anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+# forbid renaming and removal of files
+anon_other_write_enable=NO
 % } else {
 anon_upload_enable=NO
-% }
-#
-# Allow the anonymous FTP user to be able to create new directories
-% if ($anonymous eq 'write') {
-anon_mkdir_write_enable=YES
-% } else {
 anon_mkdir_write_enable=NO
+anon_other_write_enable=NO
 % }
 #
 # Activate directory messages

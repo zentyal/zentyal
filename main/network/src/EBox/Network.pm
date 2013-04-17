@@ -34,6 +34,7 @@ use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
+use constant SYSCTL_FILE => '/etc/sysctl.conf';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -101,7 +102,14 @@ sub actions
         'reason' => __('It will take care of adding the default route' .
                 ' given by a DHCP server to the default route table. '),
         'module' => 'network'
-    }
+    },
+    {
+        'action' => __('Disable IPv6'),
+        'reason' => __('Zentyal does not support yet IPv6, having v6 ' .
+                       'addresses asigned to interfaces can cause problems ' .
+                       'on some services'),
+        'module' => 'network'
+    },
     ];
 }
 
@@ -149,6 +157,11 @@ sub usedFiles
         'reason' => __('Zentyal will store your PPPoE passwords'),
         'module' => 'network'
     },
+    {
+        'file' => SYSCTL_FILE,
+        'reason' => __('Zentyal will disable IPV6 on this system'),
+        'module' => 'network'
+    },
     );
 
     foreach my $iface (@{$self->pppIfaces()}) {
@@ -191,6 +204,31 @@ sub initialSetup
     # TODO: Migration to remove zentyal-network cron tab and obsolete tables
 }
 
+# Method: enableActions
+#
+#   Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    # Disable IPv6 if it is enabled
+    if (-e '/proc/net/if_inet6') {
+        my @cmds;
+        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
+        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);
+        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.lo\.disable_ipv6/d" ' . SYSCTL_FILE);
+
+        push (@cmds, 'echo "net.ipv6.conf.all.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
+        push (@cmds, 'echo "net.ipv6.conf.default.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
+        push (@cmds, 'echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
+
+        push (@cmds, 'sysctl -p');
+
+        EBox::Sudo::root(@cmds);
+    }
+}
+
 # Method: wizardPages
 #
 #   Override EBox::Module::Base::wizardPages
@@ -214,36 +252,6 @@ sub wizardPages
 sub eventWatchers
 {
     return [ 'Gateways' ];
-}
-
-
-# Method: IPAddressExists
-#
-#   Returns true if the given IP address belongs to a statically configured
-#   network interface
-#
-# Parameters:
-#
-#       ip - ip adddress to check
-#
-# Returns:
-#
-#       EBox::Module instance
-#
-sub IPAddressExists
-{
-    my ($self, $ip) = @_;
-    my @ifaces = @{$self->allIfaces()};
-
-    foreach my $iface (@ifaces) {
-        unless ($self->ifaceMethod($iface) eq 'static') {
-            next;
-        }
-        if ($self->ifaceAddress($iface) eq $ip) {
-            return 1;
-        }
-    }
-    return undef;
 }
 
 # Method: ExternalIfaces
@@ -392,7 +400,7 @@ sub ifaceIsBridge # (interface)
     my ($self, $iface) = @_;
     defined($iface) or return undef;
 
-    if ( $self->ifaceExists($iface) and $iface =~ /^br/ ) {
+    if ( $self->ifaceExists($iface) and $iface =~ /^br/ and not ($iface =~ /:/)) {
         return 1;
     } else {
         return 0;
@@ -623,6 +631,39 @@ sub ifaceAddresses
     return \@array;
 }
 
+# Method: ifaceByAddress
+#
+# given a IP address it returns the interface which has it local address
+# or undef if it is nothing. Loopback interface is also acknowledged
+#
+#  Parameters:
+#    address - IP address
+#
+#  Limitations:
+#    only checks interfaces managed by the network module, with the exception
+#    of loopback
+sub ifaceByAddress
+{
+    my ($self, $address) = @_;
+    EBox::Validate::checkIP($address) or
+          throw EBox::Exceptions::External(__('Argument must be a IP address'));
+
+    foreach my $iface (@{ $self->allIfaces() }) {
+        my @addrs = @{ $self->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            if ($addr_r->{address}  eq $address) {
+                return $iface;
+            }
+        }
+    }
+
+    if ($address =~ m/^127\.*/) {
+        return 'lo';
+    }
+
+    return undef;
+}
+
 # Method: vifacesConf
 #
 #   Gathers virtual interfaces from a real interface with their conf
@@ -813,8 +854,8 @@ sub _viface2array # (interface)
 #
 # Returns:
 #
-#   boolean - true, if the interface exists, otherwise false
-
+#   boolean - true, if the interface is virtual and exists, otherwise false
+#
 sub vifaceExists # (interface)
 {
     my ($self, $name) = @_;
@@ -863,11 +904,16 @@ sub setViface
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
     checkVifaceName($iface, $viface, __('Virtual interface name'));
 
-    if ($self->IPAddressExists($address)) {
+    my $ifaceSameAddress = $self->ifaceByAddress($address);
+    if ($ifaceSameAddress) {
         throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+            text => __x("Address {ip} is already in use by interface {iface}",
+                ip => $address,
+                iface => $ifaceSameAddress
+               )
+           );
     }
+
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
@@ -1187,6 +1233,10 @@ sub setIfaceDHCP
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     delete $ifaces->{$name}->{address};
@@ -1247,11 +1297,16 @@ sub setIfaceStatic
         $self->_trunkIfaceIsUsed($name);
     }
 
-    if ((!defined($oldaddr) or ($oldaddr ne $address)) and
-        $self->IPAddressExists($address)) {
-        throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+    if ((!defined($oldaddr) or ($oldaddr ne $address))) {
+        my $ifaceSameAddress = $self->ifaceByAddress($address);
+        if ($ifaceSameAddress) {
+            throw EBox::Exceptions::DataExists(
+                text => __x(
+                    'The IP {ip} is already assigned to interface {iface}',
+                    ip => $address,
+                    iface => $ifaceSameAddress,
+                   ));
+        }
     }
 
     if ($oldm eq any('dhcp', 'ppp')) {
@@ -1303,6 +1358,10 @@ sub setIfaceStatic
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
     my $ifaces = $self->get_hash('interfaces');
     $ifaces->{$name}->{external} = $ext;
     $ifaces->{$name}->{method} = 'static';
@@ -1350,7 +1409,6 @@ sub _checkStatic # (iface, force)
     }
 }
 
-
 # check that no IP are in the same network
 # limitation: we could only check against the current
 # value of dynamic addresses
@@ -1362,6 +1420,15 @@ sub _checkStaticIP
         if ($if eq $iface) {
             next;
         }
+
+        # don't check against other ifaces in this bridge
+        if ($self->ifaceIsBridge($iface)) {
+            my $brIfaces = $self->bridgeIfaces($iface);
+            if ($if eq any(@{$brIfaces})) {
+                next;
+            }
+        }
+
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
@@ -1448,6 +1515,10 @@ sub setIfacePPP
                 action => 'prechange',
                 force => $force,
             );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -1555,7 +1626,16 @@ sub _trunkIfaceIsUsed # (iface)
     return undef;
 }
 
-
+# remove all vlanes from a trunk interface
+sub _removeTrunkIfaceVlanes
+{
+    my ($self, $iface) = @_;
+    my $vlans = $self->ifaceVlans($iface);
+    foreach my $vlan (@{$vlans}) {
+        defined($vlan) or next;
+        $self->removeVlan($vlan->{id});
+    }
+}
 
 # Method: setIfaceBridged
 #
@@ -1633,6 +1713,9 @@ sub setIfaceBridged
         }
     }
 
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
     # new bridge
     if ($bridge < 0) {
         my @bridges = @{$self->bridges()};
@@ -1950,8 +2033,12 @@ sub unsetIface # (interface, force)
             oldMethod => $oldm,
             newMethod => 'notset',
             action => 'prechange',
-        force  => $force,
+            force  => $force,
         );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -2528,53 +2615,18 @@ sub _generateDNSConfig
 {
     my ($self) = @_;
 
-    # Set localhost as primary nameserver if the module is enabled.
-    # This works because DNS module modChange network in enableService
-    if (EBox::Global->modExists('dns')) {
-        my $dns = EBox::Global->modInstance('dns');
-        my $resolver = $self->model('DNSResolver');
-        my $ids = $resolver->ids();
-        my $firstId = $ids->[0];
-        my $firstRow = $resolver->row($firstId);
-        if ($dns->isEnabled()) {
-            my $add = 1;
-            if (defined ($firstRow)) {
-                if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
-                    # Remove local resolver if it exists
-                    foreach my $id (@{$ids}) {
-                        if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
-                            $resolver->removeRow($id);
-                        }
-                    }
-                } else {
-                    $add = 0;
-                }
-            }
-            if ($add) {
-                # Now add in the first place
-                $resolver->table->{'insertPosition'} = 'front';
-                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
-                $resolver->table->{'insertPosition'} = 'back';
-            }
-        } else {
-            # If we have added it before remove when module is disabled.
-            if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
-                $resolver->removeRow($firstId);
-            }
-        }
-    }
-
-    my $nameservers = $self->nameservers();
-    my $request_nameservers = scalar (@{$nameservers}) == 0;
-
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
     $self->writeConfFile(RESOLV_FILE,
                          'network/resolv.conf.mas',
                          [ searchDomain => $self->searchdomain(),
-                           nameservers  => $nameservers ]);
+                           domainName => $sysinfo->hostDomain(),
+                           nameservers  => $self->nameservers() ]);
 
     $self->writeConfFile(DHCLIENTCONF_FILE,
                          'network/dhclient.conf.mas',
-                         [ request_nameservers => $request_nameservers ]);
+                         [ domainNameServers => $self->nameservers(),
+                           domainName => $sysinfo->hostDomain(),
+                           domainSearch => $self->searchdomain() ]);
 }
 
 sub _generateProxyConfig
@@ -2755,6 +2807,10 @@ sub _generatePPPConfig
 
     my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
 
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);
@@ -2810,93 +2866,15 @@ sub _generatePPPConfig
 sub generateInterfaces
 {
     my ($self) = @_;
-
-    my $file = INTERFACES_FILE;
-    my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
-
-    #my $manager = new EBox::ServiceManager();
-    #if ($manager->skipModification('network', $file)) {
-    #    EBox::info("Skipping modification of $file");
-    #    return;
-    #}
-
-    #writing /etc/network/interfaces
-    open(IFACES, ">", $tmpfile) or
-        throw EBox::Exceptions::Internal("Could not write on $file");
-    print IFACES "auto lo";
-    foreach (@{$iflist}) {
-        if (($self->ifaceMethod($_) eq 'static') or
-            ($self->ifaceMethod($_) eq 'dhcp')) {
-            print IFACES " " . $_;
-        }
-    }
-
-    print IFACES "\n\niface lo inet loopback\n";
-    foreach my $ifname (@{$iflist}) {
-        my $method = $self->ifaceMethod($ifname);
-        my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
-
-        if (($method ne 'static') and
-            ($method ne 'ppp') and
-            ($method ne 'dhcp') and
-            (not $bridgedVlan)) {
-            next;
-        }
-
-        my $name = $ifname;
-        if ($method eq 'ppp') {
-            $name = "zentyal-ppp-$ifname";
-            print IFACES "auto $name\n";
-        }
-
-        if ($bridgedVlan) {
-            $method = 'manual';
-        }
-
-        print IFACES "iface $name inet $method\n";
-
-        if ($ifname =~ /^vlan/) {
-            my $vlan = $self->vlan($ifname);
-            print IFACES "vlan-raw-device $vlan->{interface}\n";
-        }
-
-        if ($method eq 'static') {
-            print IFACES "\taddress ". $self->ifaceAddress($ifname).
-                "\n";
-            print IFACES "\tnetmask ". $self->ifaceNetmask($ifname).
-                "\n";
-            print IFACES "\tbroadcast " .
-                $self->ifaceBroadcast($ifname) . "\n";
-        } elsif ($method eq 'ppp') {
-            print IFACES "\tpre-up /sbin/ifconfig $ifname up\n";
-            print IFACES "\tpost-down /sbin/ifconfig $ifname down\n";
-            print IFACES "\tprovider $name\n";
-        }
-
-        if ( $self->ifaceIsBridge($ifname) ) {
-            print IFACES "\tbridge_ports";
-            my $ifaces = $self->bridgeIfaces($ifname);
-            foreach my $bridged ( @{$ifaces} ) {
-                print IFACES " $bridged";
-            }
-            print IFACES "\n";
-
-            print IFACES "\tbridge_stp off\n";
-            print IFACES "\tbridge_waitport 5\n";
-        }
-
-        my $mtu = EBox::Config::configkey("mtu_$ifname");
-        if ($mtu) {
-            print IFACES "\tmtu $mtu\n";
-        }
-
-        print IFACES "\n";
-    }
-    close(IFACES);
-
-    EBox::Sudo::root("cp $tmpfile $file");
-    #$manager->updateFileDigest('network', $file);
+    $self->writeConfFile(INTERFACES_FILE,
+                         'network/interfaces.mas',
+                         [
+                             iflist => $iflist,
+                             networkMod => $self,
+                         ],
+                         {'uid' => 0, 'gid' => 0, mode => '755' }
+                        );
 }
 
 # Generate the static routes from routes() with "ip" command
@@ -2969,9 +2947,14 @@ sub _disableReversePath
         $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
-        $seen{$iface} and
-            next;
+
+        next if $seen{$iface};
         $seen{$iface} = 1;
+
+        # Skipping vlan interfaces as it seems rp_filter key doesn't
+        # exist for them
+        next if ($iface =~ /^vlan/);
+
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
 
@@ -3037,7 +3020,7 @@ sub _multigwRoutes
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
-            EBox::error("Interface $iface used by gateway " .
+            EBox::warn("Interface $iface used by gateway " .
                             $router ->{name} . " has not address." .
                         " Not adding multi-gateway rules for this gateway.");
             next;
@@ -3812,17 +3795,20 @@ sub resolv # (host)
 #
 # Parameters:
 #
+#   broadcast - IP broadcast address to be used
 #   macs - Array of MAC addresses of the computers to wake
 #
 # Returns:
 #
 #   string - output of the wakeonlan command
 #
-sub wakeonlan # (macs)
+sub wakeonlan
 {
-    my ($self, @macs) = @_;
-
-    my $param = join (' ' , @macs);
+    my ($self, $broadcast, @macs) = @_;
+    my $param = "-i '$broadcast'";
+    foreach my $mac (@macs) {
+        $param .= " '$mac'";
+    }
 
     return `wakeonlan $param 2>&1`;
 }
@@ -3834,7 +3820,7 @@ sub interfacesWidget
     my @ifaces = @{$self->ifacesWithRemoved()};
     my $size = scalar (@ifaces) * 1.25;
     $size = 0.1 unless defined ($size);
-    $widget->{size} = $size;
+    $widget->{size} = "'$size'";
 
     my $linkstatus = {};
     EBox::Sudo::silentRoot('/sbin/mii-tool > ' . EBox::Config::tmp . 'linkstatus');

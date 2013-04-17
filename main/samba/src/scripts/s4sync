@@ -5,6 +5,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use Error qw(:try);
 
 use Time::gmtime;
 use File::Slurp;
@@ -31,7 +32,7 @@ my $usersModule = EBox::Global->modInstance('users');
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
-    next unless ($sambaModule->isEnabled() and $sambaModule->isProvisioned());
+    next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
@@ -56,11 +57,23 @@ while (1) {
             my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
-                $sambaUsers{$sambaUserName}->updateZentyal();
+                try {
+                    $sambaUsers{$sambaUserName}->updateZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
+                };
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
-            $sambaUsers{$sambaUserName}->addToZentyal();
+            if ($sambaUsers{$sambaUserName}->isAccountEnabled()) {
+                try {
+                    $sambaUsers{$sambaUserName}->addToZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
+                };
+            }
         }
     }
 
@@ -80,11 +93,21 @@ while (1) {
             my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
-                $sambaGroups{$sambaGroupName}->updateZentyal();
+                try {
+                    $sambaGroups{$sambaGroupName}->updateZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
+                };
             }
             delete $zentyalGroups{$sambaGroupName};
         } else {
-            $sambaGroups{$sambaGroupName}->addToZentyal();
+            try {
+                $sambaGroups{$sambaGroupName}->addToZentyal();
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
+            };
         }
     }
 

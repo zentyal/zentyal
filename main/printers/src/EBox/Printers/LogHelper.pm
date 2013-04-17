@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# Class: EBox::Printers::LogHelper;
-package EBox::Printers::LogHelper;
-use base 'EBox::LogHelper';
-
 use strict;
 use warnings;
+
+package EBox::Printers::LogHelper;
+use base 'EBox::LogHelper';
 
 use EBox;
 use EBox::Config;
@@ -26,7 +24,7 @@ use EBox::Gettext;
 
 use constant CUPS_MAIN_LOG => '/var/log/cups/error_log';
 use constant CUPS_PAGES_LOG => '/var/log/cups/page_log';
-
+use constant TS_FORMAT  => '%d/%b/%Y:%T %z';
 
 my %usernameByJob;
 my %printerByJob;
@@ -82,9 +80,6 @@ sub processLine # (file, line, logger)
 sub _processMainLog
 {
     my ($self, $file, $line, $dbengine) = @_;
-    my $log;
-
-
     if ($line =~ m{
                  ^\w\s+ # message type (EDI)
                   \[(.*?)\]\s+ # date
@@ -93,7 +88,6 @@ sub _processMainLog
                   (.*?)           # log message
                    $
                   }msx) {
-
         my $timestamp = $1;
         my $job  = $2;
         my $msg  = $3;
@@ -119,6 +113,9 @@ sub _processMainLog
             $username = $1;
             $printer  = $printerByJob{$job};
             $deleteJob = 1;
+        } else {
+            # no event to be logged
+            return;
         }
 
         if ($deleteJob) {
@@ -126,42 +123,32 @@ sub _processMainLog
             delete $printerByJob{$job};
         }
 
-        if ($event and $username and $printer ) {
-            # normalize timestamp
-            my ($date, $hour) = split ':', $timestamp, 2;
-            # FIXME: check this is ok with MySQL
-            $timestamp = "$date $hour";
+        # normalize timestamp
+        $timestamp = $self->_convertTimestamp($timestamp, TS_FORMAT);
 
-            my $log = {
-                       timestamp => $timestamp,
-                       job => $job,
-                       printer => $printer,
-                       username   => $username,
-                       event => $event
-                      };
-            $dbengine->insert('printers_jobs', $log);
-        }
+        my $log = {
+            timestamp => $timestamp,
+            job => $job,
+            printer => $printer,
+            username   => $username,
+            event => $event
+           };
+        $dbengine->insert('printers_jobs', $log);
+
     }
 }
 
 sub _processPagesLog
 {
     my ($self, $file, $line, $dbengine) = @_;
-    my $log;
+    EBox::debug("pages log $line");
 
-    if (not $line =~ m{^(.*?)\s+(\d+)\s+.*?\s+\[(.*?)\]\s+\d+\s+(\d+)} ) {
+    my ($printer, $job, $user, $timestamp, $copies) =  $line =~ m/^(.*?)\s+(.*?)\s+(.*?)\s+\[(.*?)\]\s+(\d+)/;
+    if (not $copies) {
         return;
     }
 
-    my $printer = $1;
-    my $job = $2;
-    my $timestamp = $3;
-    my $copies = $4;
-
-    # normalize timestamp
-    my ($date, $hour) = split ':', $timestamp, 2;
-    $timestamp = "$date $hour";
-
+    $timestamp = $self->_convertTimestamp($timestamp,  TS_FORMAT);
     $dbengine->insert('printers_pages',
                       {
                        timestamp => $timestamp,
@@ -171,22 +158,19 @@ sub _processPagesLog
                       }
 
                      );
-
-
-
-
-#'hpqueue 13 user [15/Jul/2010:18:48:23 +0200] 4 1DEBUG: - localhost (stdin) na_letter_8.5x11in -',
 }
 
 
 1;
-
 __DATA__
-
+error_log example:
 I [15/Jul/2010:18:17:27 +0200] [Job 8] Canceled by "user".
 E [15/Jul/2010:15:01:07 +0200] [cups-driverd] Bad driver information file "/usr/share/cups/drv/sample.drv"!
 I [15/Jul/2010:18:36:21 +0200] [Job 11] Queued on "hpqueue" by "user".
 
 I [15/Jul/2010:18:38:54 +0200] [Job 11] Job completed.
 
-1;
+
+page_log example:
+hpqueue 13 user [15/Jul/2010:18:48:23 +0200] 4 1DEBUG: - localhost (stdin) na_letter_8.5x11in -
+

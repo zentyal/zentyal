@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Software;
-
 use strict;
 use warnings;
 
+package EBox::Software;
 use base qw(EBox::Module::Config);
 
 use EBox;
@@ -46,8 +44,7 @@ use constant {
     QA_ARCHIVE     => 'zentyal-qa',
 };
 
-my @RESTRICTED_SB = qw(zentyal-jabber zentyal-asterisk);
-my @MAIL_PKGS = qw(zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-zarafa);
+my @COMM_PKGS = qw(zentyal-jabber zentyal-asterisk zentyal-mail zentyal-webmail zentyal-zarafa);
 
 # Group: Public methods
 
@@ -307,15 +304,12 @@ sub listUpgradablePkgs
     return $upgrade;
 }
 
-
 sub _excludeEBoxPackages
 {
     my ($self, $list) = @_;
     my @withoutEBox = grep { $_->{'name'} !~ /^zentyal.*/ } @{ $list };
     return \@withoutEBox;
 }
-
-
 
 # Method: listPackageInstallDepends
 #
@@ -397,7 +391,6 @@ sub listPackageRemoveDepends
     return $self->_packageDepends('remove', $packages);
 }
 
-
 sub _packageDepends
 {
     my ($self, $action, $packages) = @_;
@@ -408,9 +401,8 @@ sub _packageDepends
     $self->_isAptReady();
     $self->_isModLocked();
 
-    my $aptCmd = "apt-get -qq --no-install-recommends --simulate $action " .
-
-    join ' ',  @{ $packages };
+    my $aptCmd = "apt-get --no-install-recommends --simulate $action " .
+      join ' ',  @{ $packages };
 
     my $header;
     if ($action eq 'install') {
@@ -420,7 +412,31 @@ sub _packageDepends
         $header = 'Remv'
     }
 
-    my $output = EBox::Sudo::root($aptCmd);
+    my $output;
+    try {
+        $output = EBox::Sudo::root($aptCmd);
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        my $aptError;
+        foreach my $line (@{ $ex->error() }) {
+            if ($line =~ m/^E: (.*)$/) {
+                # was an apt error, reformatting
+                foreach my $line (@{ $ex->output() }) {
+                    if ($line =~ m/\.\.\.$/) {
+                        # current action line, ignoring
+                        next;
+                    }
+                    chomp $line;
+                    $aptError .= $line . '<br/>';
+                }
+            }
+        }
+        if ($aptError) {
+            throw EBox::Exceptions::External($aptError);
+        } else {
+            $ex->throw();
+        }
+    };
 
     my @packages = grep {
     $_ =~ m/
@@ -508,13 +524,23 @@ sub getAutomaticUpdates
     my ($self) = @_;
 
     if ($self->QAUpdates()) {
-        if (EBox::Config::boolean('qa_updates_always_automatic')) {
+        if ($self->qaUpdatesAlwaysAutomatic()) {
             return 1;
         }
     }
 
     my $auto = $self->get_bool('automatic');
     return $auto;
+}
+
+# Method: qaUpdatesAlwaysAutomatic
+#
+#  Returns:
+#   boolean - whether if the system is configured to install autmatically
+#             the qa updates packages
+sub qaUpdatesAlwaysAutomatic
+{
+    return EBox::Config::boolean('qa_updates_always_automatic');
 }
 
 # Method: setAutomaticUpdates
@@ -753,19 +779,23 @@ sub _getInfoEBoxPkgs
 
     my %restricted;
     if (EBox::Global->edition() eq 'sb') {
-        %restricted = map { $_ => 1 } @RESTRICTED_SB;
         my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-        unless ( $rs->sbMailAddOn() ) {
-            my %mailRestricted = map { $_ => 1 } @MAIL_PKGS;
-            @restricted{keys %mailRestricted} = values %mailRestricted;
-        }
+        %restricted = map { $_ => 1 } @COMM_PKGS unless ( $rs->commAddOn() );
     }
 
     my $cache = $self->_cache(1);
     my @list;
+
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
             next if $restricted{$pack};
+
+            if ($seen{$pack}) {
+                next;
+            } else {
+                $seen{$pack} = 1;
+            }
 
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
@@ -803,7 +833,14 @@ sub _getUpgradablePkgs
 
     my $cache = $self->_cache(1);
     my @list;
+    my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
+        if ($seen{$pack}) {
+            next;
+        } else {
+            $seen{$pack} = 1;
+        }
+
         my $pkgCache = $cache->packages()->lookup($pack) or next;
 
         my $currentVerObj = $cache->{$pack}{CurrentVer};
@@ -967,17 +1004,17 @@ sub _setAptPreferences
     }
 
     my $preferences =  '/etc/apt/preferences';
-    my $preferencesBak  = $preferences . '.ebox.bak';
-    my $preferencesFromCCBak = $preferences . '.zentyal.fromzc';
+    my $preferencesBak = $preferences . '.zentyal.fromzc';
     my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
 
     if ($enabled ) {
-        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
+        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesBak);
         if (not $existsCC) {
             EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
             return;
         }
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'");
+        EBox::Sudo::root("cp '$preferencesBak' '$preferencesDirFile'",
+                         "chmod 0644 '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
@@ -1027,14 +1064,24 @@ sub firstTimeMenu
 {
     my ($self, $current) = @_;
 
+    my $dr = EBox::Global::disasterRecovery();
+
     print "<div id='menu'><ul id='nav'>\n";
 
     print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
-    $self->_printMenuItem(__('Package Selection'), 0, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Choose Backup'), 0, $current);
+    } else {
+        $self->_printMenuItem(__('Package Selection'), 0, $current);
+    }
     $self->_printMenuItem(__('Confirmation'), 1, $current);
     $self->_printMenuItem(__('Installation'), 2, $current);
-    $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    if ($dr) {
+        $self->_printMenuItem(__('Restore Configuration'), 3, $current);
+    } else {
+        $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    }
     $self->_printMenuItem(__('Save Changes'), 4, $current);
     $self->_printMenuItem(__('Finish'), 5, $current);
 
@@ -1070,8 +1117,7 @@ sub _printMenuItem
 # Is it QA the exclusive source?
 sub _QAExclusive
 {
-    my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
-    return (lc($exclusiveSource) eq 'true');
+    return EBox::Config::boolean('qa_updates_exclusive_source');
 }
 
 sub _cache

@@ -12,13 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+use strict;
+use warnings;
 
 # Class: EBox::UsersAndGroups::Model::Password
 #
-#   TODO: Document class
+#   Class for change password model in user corner
 #
 
 package EBox::UsersAndGroups::Model::Password;
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -26,11 +29,6 @@ use EBox::UsersAndGroups::Types::Password;
 
 use Apache2::RequestUtil;
 use File::Temp qw/tempfile/;
-
-use strict;
-use warnings;
-
-use base 'EBox::Model::DataForm';
 
 sub precondition
 {
@@ -96,6 +94,17 @@ sub setTypedRow
     }
 
     $user->changePassword($pass1->value());
+
+    if (EBox::Global->modExists('samba')) {
+        my $samba = EBox::Global->modInstance('samba');
+        if ($samba->configured()) {
+            my $samAccountName = $user->get('uid');
+            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+            if ($sambaUser->exists()) {
+                $sambaUser->changePassword($pass1->value());
+            }
+        }
+    }
 
     eval 'use EBox::UserCorner::Auth';
     EBox::UserCorner::Auth->updatePassword($user, $pass1->value());

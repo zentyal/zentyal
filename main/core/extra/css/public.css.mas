@@ -627,6 +627,7 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 }
 
 body {
+    overflow-y: scroll;
     width: 960px;
     margin: 0px auto;
     padding:0;
@@ -1758,6 +1759,23 @@ border-radius: 3px;
     margin: 0px auto;
 }
 
+#MB_window.MB_widedialog {
+    top: 0px !important;
+    width: 100% !important;
+    left: 0px !important;
+    height: 100% !important;
+}
+
+.MB_widedialog  #MB_content {
+    max-height: none !important;
+    text-align: center;
+}
+
+.MB_widedialog  #vnc_frame {
+   margin-left: auto;
+   margin-right: auto;
+}
+
 #MB_window {
     width:960px !important;
     margin:0px auto !important;
@@ -1918,4 +1936,36 @@ border-radius: 3px;
 #adsButtonPrev:hover, #adsButtonNext:hover {
     opacity:1;
     filter:alpha(opacity=100)
+}
+
+/* tip */
+
+#popx {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+}
+
+#popx:hover { color: #333; }
+
+.tip {
+    padding: 15px 15px 15px 50px;
+    position: relative;
+    margin-top: 10px;
+    color: #333;
+    font-size: 13px;
+    background: #F8ECAE url("/data/images/tip.png") 10px center no-repeat;
+    border-bottom: 1px solid #E7942A;
+}
+
+.tip a {
+    color: #D37600;
+}
+
+.disabledCustomAction {
+    opacity: 0.5;
 }

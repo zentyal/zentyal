@@ -24,6 +24,7 @@ package EBox::Reporter::Base;
 use warnings;
 use strict;
 
+use EBox;
 use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::NotImplemented;
@@ -129,10 +130,15 @@ sub consolidate
 
     my $beginTime = $self->_beginTime();
     my $endTime   = time();
-    # TODO: Do not store all the result in a single var
-    my $result = $self->_consolidate($beginTime, $endTime);
-    $self->_storeResult($result) if ($result and (@{$result} > 0));
-    $self->_beginTime($endTime);
+    try {
+        # TODO: Do not store all the result in a single var
+        my $result = $self->_consolidate($beginTime, $endTime);
+        $self->_storeResult($result) if ($result and (@{$result} > 0));
+        $self->_beginTime($endTime);
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error("Can't consolidate " . $self->name() . " : $exc");
+    };
 }
 
 # Method: send
@@ -145,8 +151,6 @@ sub send
 {
     my ($self) = @_;
 
-    # FIXME: Only for processing
-    return;
     my $dir = $self->_subdir();
     my @files = <${dir}rep-*json>;
     foreach my $file ( @files ) {
@@ -172,8 +176,13 @@ sub log
     my $logTime = $self->_logTime();
     my $ret = [];
     if ( $logTime + $self->logPeriod() < time() ) {
-        $ret = $self->_log();
-        $self->_logTime(time());
+        try {
+            $ret = $self->_log();
+            $self->_logTime(time());
+        } otherwise {
+            my ($exc) = @_;
+            EBox::error('Cannot log ' . $self->name() . " : $exc");
+        };
     }
     return $ret;
 }

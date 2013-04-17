@@ -2,6 +2,7 @@
 
 case "$1" in
     configure)
+        chown ftp.ftp /srv/ftp/incoming
 
         /usr/share/zentyal/initial-setup ftp $2
 

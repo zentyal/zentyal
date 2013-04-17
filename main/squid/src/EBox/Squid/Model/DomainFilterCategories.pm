@@ -16,7 +16,6 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::DomainFilterCategories;
-
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -27,31 +26,34 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::Sudo;
+use EBox::Config;
+use EBox::Squid::Types::ListArchive;
 
 use Error qw(:try);
 use File::Basename;
 
 my $categoriesFileDir = '/var/lib/zentyal/files/squid';
-my %validParentDirs = (
-    BL => 1,
-    blacklists => 1,
-   );
-my %validBasename = (
-    domain => 1,
-    urls   => 1,
-   );
+
+my %validParentDirs = %{ EBox::Squid::Types::ListArchive::validParentDirs() };
+my %validBasename = %{ EBox::Squid::Types::ListArchive::validBasename() };
 
 
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
 #
+#   If a category directory is present:
+#    - adds its row if it is not already in the table
+#    - turn the present flag to on if it was off
+#
+#   If a category directory is not present:
+#     - removes its from table UNLESS its present flag is off
 sub syncRows
 {
     my ($self, $currentRows) = @_;
     my $modelConfDir = $self->directory();
 
-    my @dirs = glob("$categoriesFileDir/*");
+    my @dirs = glob(EBox::Squid::Types::ListArchive::unpackPath() .  "/*");
     if (not exists $self->{seenListDirectories}) {
         $self->{seenListDirectories} = {};
     }
@@ -59,9 +61,12 @@ sub syncRows
         $self->{seenListDirectories}->{$modelConfDir} = {};
     }
 
+    my %pathsToRemove = map { $_ => 1} @{ $self->parentModule()->pathsToRemove('save')  };
     my $lists;
-
     foreach my $dir (@dirs) {
+        if (exists $pathsToRemove{$dir}) {
+            next;
+        }
         if ($self->{seenListDirectories}->{$modelConfDir}->{$dir}) {
             next;
         } else {
@@ -75,6 +80,7 @@ sub syncRows
         foreach my $file (@files) {
             chomp $file;
             my ($parentDir, $category, $basename) = $file =~ m{$filePathRe};
+            next unless $basename;
             next unless exists $validParentDirs{$parentDir};
              if (exists $validBasename{$basename}) {
                  my $dir = "$dir/$parentDir/$category";
@@ -89,29 +95,37 @@ sub syncRows
     my $modified = 0;
 
     foreach my $list (keys %{$lists}) {
-
-        my @currentRows = grep { $self->row($_)->valueByName('list') eq $list } @{$currentRows};
-        my %current =
-            map { $self->row($_)->valueByName('category') => 1 } @currentRows;
-
         my %categories = %{$lists->{$list}};
-        my @toAdd = grep { not exists $current{$_} } keys %categories;
-        foreach my $category (@toAdd) {
-            my $dir = $categories{$category};
-            $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
-            $modified = 1;
+        my %current;
+        foreach my $id (@{ $currentRows }) {
+            my $row =  $self->row($id);
+            next if $row->valueByName('list') ne $list;
+            my $rowCategory = $row->valueByName('category');
+            my $present = $row->valueByName('present');
+            # remove if not file and present == true (present ==false we assume
+            # thre is not file)
+            if ($present and (not exists $categories{$rowCategory}) ) {
+               $self->removeRow($id);
+               $modified = 1;
+           } else {
+               $current{$rowCategory} =  $present ? undef : $row;
+           }
         }
 
-        # FIXME: instead of remove, set present to 0
-        # Remove old rows
-#       foreach my $id (@{$currentRows}) {
-#           my $row = $self->row($id);
-#           my $category = $row->valueByName('category');
-#           unless (exists $new{$category}) {
-#               $self->removeRow($id);
-#               $modified = 1;
-#           }
-#       }
+        foreach my $category (keys %categories) {
+            if (not exists $current{$category}) {
+                my $dir = $categories{$category};
+                $self->add(category => $category, list => $list, present => 1, dir => $dir, policy => 'ignore');
+                $modified = 1;
+            } else {
+                my $noPresentRow = $current{$category};
+                if ($noPresentRow) {
+                    $noPresentRow->elementByName('present')->setValue(1);
+                    $noPresentRow->store();
+                }
+                $modified = 1;
+            }
+        }
     }
 
     return $modified;
@@ -140,6 +154,7 @@ sub _table
                 fieldName => 'present',
                 printableName => __('File Present'),
                 editable => 0,
+                'HTMLViewer' => '/ajax/viewer/booleanViewer.mas',
             ),
             new EBox::Types::Select(
                 fieldName     => 'policy',
@@ -181,56 +196,29 @@ sub _populate
     return \@elements;
 }
 
-# Function: banned
-#
-#       Fetch the banned domains files
-#
-# Returns:
-#
-#       Array ref - containing the files
-sub banned
-{
-    my ($self) = @_;
-    return $self->_filesByPolicy('deny', 'domains');
-}
 
-# Function: allowed
+# Function: dgAllowed
 #
-#       Fetch the allowed domains files
+#       Fetch the allowed domains files for dansguardian
 #
 # Returns:
 #
 #       Array ref - containing the files
-sub allowed
+sub dgAllowed
 {
     my ($self) = @_;
     return $self->_filesByPolicy('allow', 'domains');
 }
 
-
-# Function: bannedUrls
+# Function: dgAllowedUrls
 #
-#       Fetch the banned urls files
-#
-# Returns:
-#
-#       Array ref - containing the files
-#
-sub bannedUrls
-{
-    my ($self) = @_;
-    return $self->_filesByPolicy('deny', 'urls');
-}
-
-# Function: allowedUrls
-#
-#       Fetch the allowed urls files
+#       Fetch the allowed urls files for dansguardian
 #
 # Returns:
 #
 #       Array ref - containing the files
 #
-sub allowedUrls
+sub dgAllowedUrls
 {
     my ($self) = @_;
     return $self->_filesByPolicy('allow', 'urls');
@@ -278,5 +266,116 @@ sub cleanSeenListDirectories
     $self->{seenListDirectories} = {};
 }
 
+sub markCategoriesAsNoPresent
+{
+    my ($self, $list) = @_;
+    # using _ids to not call syncRows
+    # the rows which are really present we will marked as such
+    # i nthe next call of ids()/syncRows()
+    foreach my $id (@{ $self->_ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('list') ne $list) {
+            next;
+        }
+        $row->elementByName('present')->setValue(0);
+        $row->store();
+    }
+}
+
+sub removeNoPresentCategories
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            $self->removeRow($id, 1);
+        }
+    }
+}
+
+sub _aclBaseName
+{
+    my ($sef, $row) = @_;
+    my $aclName = $row->valueByName('list') . '~dc~' . $row->valueByName('category');
+    $aclName =~ s/\s/~~/g;
+    return $aclName;
+}
+
+sub squidSharedAcls
+{
+    my ($self) = @_;
+    my @acls;
+
+    my $loadUrlLists =  $self->_loadUrlLists();
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            next;
+        } elsif ($row->valueByName('policy') eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        my $dir = $row->valueByName('dir');
+
+        my $domainsFile = "$dir/domains.squid";
+        if (-r $domainsFile) {
+            my $name = $basename . '~dom';
+            push @acls, [$name => qq{acl $name dstdomain "$domainsFile"}];
+        }
+
+        if ($loadUrlLists) {
+            my $urlsFile = "$dir/urls";
+            if (-r $urlsFile) {
+                my $name = $basename . '~urls';
+                push @acls, [$name => qq{acl $name url_regex -i "$urlsFile"}];
+            }
+        }
+    }
+
+    return \@acls;
+}
+
+sub squidRulesStubs
+{
+    my ($self, $profileId, %params) = @_;
+    my $acls = $params{sharedAcls};
+    $acls or return []; # no acls nothing to do..
+
+    my @types = qw(dom);
+    if ($self->_loadUrlLists) {
+        push @types, 'urls';
+    }
+
+    my @rules;
+    foreach my $id (@{ $self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('present')) {
+            next;
+        }
+        my $policy = $row->valueByName('policy');
+        if ($policy eq 'ignore') {
+            next;
+        }
+        my $basename = $self->_aclBaseName($row);
+        foreach my $type (@types) {
+            my $aclName = $basename . '~' . $type;
+            exists $acls->{$aclName} or
+                next;
+            my $rule =  {
+                     type => 'http_access',
+                     acl => $aclName,
+                     policy => $policy
+                    };
+            push @rules, $rule;
+        }
+    }
+
+    return \@rules;
+}
+
+sub _loadUrlLists
+{
+    return  EBox::Config::boolean('load_url_lists');
+}
 
 1;

@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Exceptions::DataExists
 #
 #       External exception raised when a user wants to add an element
@@ -23,26 +24,38 @@ package EBox::Exceptions::DataExists;
 use base 'EBox::Exceptions::External';
 use EBox::Gettext;
 
-sub new # (data=>string,  value=>string)
+
+# Method: new
+#
+#  Parameters:
+#    text - localized error text to be shown
+#    data - Localized name for the repeated value, it will be used to build a
+#           error text if text parameter is not given
+#    value - Repeated value, it will be used to build  error text
+#            if text parameter is not given
+#
+sub new
 {
     my $class = shift;
     my %opts = @_;
 
-
+    my $text = delete $opts{text};
     my $data = delete $opts{data};
-    utf8::decode($data);
     my $value = delete $opts{value};
 
-    my $error = __x("{data} {value} already exists.", data => $data,
+    if (not $text) {
+        $text = __x("{data} {value} already exists.", data => $data,
                              value => $value);
+    }
 
     local $Error::Depth = $Error::Depth + 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;
-    $self = $class->SUPER::new($error, @_);
+    my $self = $class->SUPER::new($text, @_);
     $Log::Log4perl::caller_depth--;
     bless ($self, $class);
     return $self;
 }
+
 1;

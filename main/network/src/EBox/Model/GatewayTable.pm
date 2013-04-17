@@ -12,8 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Network::Model::GatewayTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -30,12 +33,6 @@ use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
 
 use Net::ARP;
-
-use strict;
-use warnings;
-
-
-use base 'EBox::Model::DataTable';
 
 use constant MAC_FETCH_TRIES => 3;
 
@@ -242,7 +239,7 @@ sub _table
 sub validateRow
 {
     my ($self, $action, %params) = @_;
-
+    my $ip = $params{'ip'};
     my $currentRow = $self->row($params{'id'});
     my $auto = 0;
     my $oldIP = '';
@@ -256,11 +253,18 @@ sub validateRow
     }
 
     my $network = EBox::Global->modInstance('network');
+    my $ifaceForAddress = $network->ifaceByAddress($ip);
+    if ($ifaceForAddress) {
+        throw EBox::Exceptions::External(__x(
+            "Gateway address {ip} is already the address of the local interface {iface}",
+            ip => $ip,
+            iface => $ifaceForAddress
+           ));
+    }
 
     # Do not check for valid IP in case of auto-added ifaces
     unless ($auto) {
         my $printableName = __('IP address');
-        my $ip = $params{'ip'};
         unless ($ip) {
             throw EBox::Exceptions::MissingArgument($printableName);
         }

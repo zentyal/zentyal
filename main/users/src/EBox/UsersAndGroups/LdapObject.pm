@@ -14,11 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::UsersAndGroups::LdapObject;
-
 use strict;
 use warnings;
+
+package EBox::UsersAndGroups::LdapObject;
 
 use EBox::Config;
 use EBox::Global;
@@ -28,7 +27,9 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
+use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
@@ -70,7 +71,6 @@ sub new
     return $self;
 }
 
-
 # Method: exists
 #
 #   Returns 1 if the object exist, 0 if not
@@ -87,7 +87,6 @@ sub exists
     return (defined $self->{entry});
 }
 
-
 # Method: get
 #
 #   Read an user attribute
@@ -100,9 +99,18 @@ sub get
 {
     my ($self, $attr) = @_;
 
-    return $self->_entry->get_value($attr);
+    if (wantarray()) {
+        my @value = $self->_entry->get_value($attr);
+        foreach my $el (@value) {
+            utf8::decode($el);
+        }
+        return @value;
+    } else {
+        my $value = $self->_entry->get_value($attr);
+        utf8::decode($value);
+        return $value;
+    }
 }
-
 
 # Method: set
 #
@@ -121,7 +129,6 @@ sub set
     $self->_entry->replace($attr => $value);
     $self->save() unless $lazy;
 }
-
 
 # Method: add
 #
@@ -144,23 +151,39 @@ sub add
 
 # Method: delete
 #
-#   Deletes an attribute from the object if given
+#   Delete all values from an attribute
 #
 #   Parameters (for attribute deletion):
 #
-#       attribute - Attribute name to read
+#       attribute - Attribute name to remove
 #       lazy      - Do not update the entry in LDAP
 #
 sub delete
 {
     my ($self, $attr, $lazy) = @_;
+    $self->deleteValues($attr, [], $lazy);
+}
+
+# Method: deleteValues
+#
+#   Deletes values from an object if they exists
+#
+#   Parameters (for attribute deletion):
+#
+#       attribute - Attribute name to read
+#       values    - reference to the list of values to delete.
+#                   Empty list means all attributes
+#       lazy      - Do not update the entry in LDAP
+#
+sub deleteValues
+{
+    my ($self, $attr, $values, $lazy) = @_;
 
     if ($attr eq any $self->_entry->attributes) {
-        $self->_entry->delete($attr);
+        $self->_entry->delete($attr, $values);
         $self->save() unless $lazy;
     }
 }
-
 
 # Method: deleteObject
 #
@@ -204,7 +227,6 @@ sub remove
     }
 }
 
-
 # Method: save
 #
 #   Store all pending lazy operations (if any)
@@ -215,15 +237,36 @@ sub remove
 sub save
 {
     my ($self) = @_;
+    my $entry= $self->_entry;
 
-    my $result = $self->_entry->update($self->_ldap->{ldap});
+    my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-            throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
+            throw EBox::Exceptions::LDAP( message => __('There was an error updating LDAP:'),
+                                          result =>   $result,
+                                          opArgs   => $self->entryOpChangesInUpdate($entry),
+                                         );
         }
     }
 }
 
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
+sub entryOpChangesInUpdate
+{
+    my ($self, $entry) = @_;
+    local $Data::Dumper::Terse = 1;
+    my @changes = $entry->changes();
+    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
+    return $args;
+}
 
 # Method: dn
 #
@@ -235,7 +278,6 @@ sub dn
 
     return $self->_entry->dn();
 }
-
 
 # Method: baseDn
 #

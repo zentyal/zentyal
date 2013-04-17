@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Events::Model::ConfigureDispatchers;
+use strict;
+use warnings;
 
 # Class:
 #
@@ -25,11 +25,8 @@ package EBox::Events::Model::ConfigureDispatchers;
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-
+package EBox::Events::Model::ConfigureDispatchers;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Config;
@@ -66,12 +63,10 @@ sub headTitle
 #      This method is overridden since the showed data is managed
 #      differently.
 #
-#      - The data is already available from the eBox installation
+#      - The data is already available from the Zentyal installation
 #
 #      - The adding/removal of event dispatchers is done dynamically
-#      reading the directories where the event dispatcher are. The
-#      adding/removal is done installing or deinstalling ebox modules
-#      with dispatchers.
+#        by fetching them from the DispatcherProvider modules
 #
 #
 # Overrides:
@@ -116,6 +111,10 @@ sub syncRows
         next if (exists ($storedEventDispatchers{$dispatcher} ));
         # Create a new instance from this dispatcher
         eval "use $dispatcher";
+        if ($@) {
+            EBox::error("Error loading dispatcher: $@");
+            next;
+        }
         my $enabled = not $dispatcher->DisabledByDefault();
         my %params = (
                 # and the same with watchers
@@ -262,6 +261,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher: $className: $@");
         return undef;
     }
     my $dispatcher = $className->new();
@@ -287,10 +287,11 @@ sub filterReceiver
 {
     my ($instancedType) = @_;
 
-    my $className = $instancedType->row()->valueByName('dispatcher');
+    my $className = $instancedType->row()->valueByName('dispatcher'); #XXX eror here
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
     my $dispatcher = $className->new();
@@ -320,6 +321,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
 
@@ -348,6 +350,7 @@ sub acquireConfModel
 
     eval "use $className";
     if ($@) {
+        EBox::error("When loading dispatcher $className: $@");
         return undef;
     }
 

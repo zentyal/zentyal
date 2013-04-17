@@ -15,13 +15,12 @@
 use strict;
 use warnings;
 
-
 package EBox::WebServer;
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::SyncFolders::Folder;
 use EBox::Service;
 
 use EBox::Exceptions::External;
@@ -118,7 +117,7 @@ sub usedFiles
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -309,12 +308,17 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $vHostModel = $self->model('VHostTable');
+    my $vhosts    = $vHostModel->virtualHosts();
+    my $hostname      = $self->_fqdn();
+    my $hostnameVhost = delete $vhosts->{$hostname};
+
     $self->_setPort();
     $self->_setUserDir();
-    $self->_setDfltVhost();
-    $self->_setDfltSSLVhost();
+    $self->_setDfltVhost($hostname, $hostnameVhost);
+    $self->_setDfltSSLVhost($hostname, $hostnameVhost);
     $self->_checkCertificate();
-    $self->_setVHosts();
+    $self->_setVHosts($vhosts, $hostnameVhost);
 }
 
 # Set up the listening port
@@ -335,15 +339,17 @@ sub _setPort
 # Set up default vhost
 sub _setDfltVhost
 {
-    my ($self) = @_;
+    my ($self, $hostname, $hostnameVhost) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
 
     # Overwrite the default vhost file
     $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas",
                          [
+                           hostname => $hostname,
                            portNumber => $generalConf->portValue(),
-                           hostname => $self->_fqdn(),
+                           sslportNumber =>  $generalConf->sslPort(),
+                           hostnameVhost => $hostnameVhost,
                          ],
                         );
 }
@@ -351,7 +357,7 @@ sub _setDfltVhost
 # Set up default-ssl vhost
 sub _setDfltSSLVhost
 {
-    my ($self) = @_;
+    my ($self, $hostname, $hostnameVhost) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
 
@@ -369,8 +375,9 @@ sub _setDfltSSLVhost
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas",
                              [
-                               sslportNumber => $generalConf->sslPort(),
-                               hostname => $self->_fqdn(),
+                                 hostname      => $hostname,
+                                 sslportNumber =>  $generalConf->sslPort(),
+                                 hostnameVhost  => $hostnameVhost,
                              ],
                             );
         # Enable default-ssl vhost
@@ -482,22 +489,24 @@ sub _setUserDir
 # Set up the virtual hosts
 sub _setVHosts
 {
-    my ($self) = @_;
+    my ($self, $vhosts, $vHostDefault) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
-    my $vHostModel = $self->model('VHostTable');
 
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
     EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . "$vHostPattern");
 
     my %sitesToRemove = %{_availableSites()};
+    if ($vHostDefault) {
+        my $vHostDefaultSite = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostDefault->{name};
+        delete $sitesToRemove{$vHostDefaultSite};
+        $self->_createSiteDirs($vHostDefault);
+    }
 
-    foreach my $id (@{$vHostModel->ids()}) {
-        my $vHost = $vHostModel->row($id);
-
-        my $vHostName  = $vHost->valueByName('name');
-        my $sslSupport = $vHost->valueByName('ssl');
+    foreach my $vHost (values %{$vhosts}) {
+        my $vHostName  = $vHost->{'name'};
+        my $sslSupport = $vHost->{'ssl'};
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
         delete $sitesToRemove{$destFile};
@@ -511,15 +520,9 @@ sub _setVHosts
                                sslSupport => $sslSupport,
                               ],
                             );
+        $self->_createSiteDirs($vHost);
 
-        # Create the subdir if required
-        my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
-                          . $vHostName;
-        unless ( -d $userConfDir ) {
-            EBox::Sudo::root("mkdir -m 755 $userConfDir");
-        }
-
-        if ( $vHost->valueByName('enabled') ) {
+        if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
             try {
                 EBox::Sudo::root("a2ensite $vhostfile");
@@ -530,13 +533,9 @@ sub _setVHosts
                     throw $exc;
                 }
             };
-            # Create the directory content if it is not already
-            my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
-              . '/' . $vHostName;
-            unless ( -d $dir ) {
-                EBox::Sudo::root("mkdir -p -m 755 $dir");
-            }
         }
+
+
     }
 
     # Remove not used old dirs
@@ -544,6 +543,27 @@ sub _setVHosts
         EBox::Sudo::root("rm -f $dir");
     }
 }
+
+sub _createSiteDirs
+{
+    my ($self, $vHost) = @_;
+    my $vHostName  = $vHost->{'name'};
+
+    # Create the user-conf subdir if required
+    my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
+        . $vHostName;
+    unless ( -d $userConfDir ) {
+        EBox::Sudo::root("mkdir -m 755 $userConfDir");
+    }
+
+    # Create the directory content if it is not already
+    my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
+        . '/' . $vHostName;
+    unless ( -d $dir ) {
+        EBox::Sudo::root("mkdir -p -m 755 $dir");
+    }
+}
+
 
 # Return current Zentyal available sites from actual dir
 sub _availableSites
@@ -586,7 +606,8 @@ sub certificates
 
     return [
             {
-             service =>  'Web Server',
+             serviceId =>  'Web Server',
+             service =>  __('Web Server'),
              path    =>  '/etc/apache2/ssl/ssl.pem',
              user => 'root',
              group => 'root',
@@ -722,7 +743,7 @@ sub dumpConfig
     my @dirs = keys %{ _availableSites() };
 
     if (not @dirs) {
-        EBox::error(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
+        EBox::warn(SITES_AVAILABLE_DIR . ' has not custom configuration dirs. Skipping them for the backup');
         return;
     }
 
@@ -784,6 +805,28 @@ sub backupDomainsFileSelection
     }
 
     return {};
+}
+
+# Implement EBox::SyncFolders::Provider interface
+sub syncFolders
+{
+    my ($self) = @_;
+
+    my @folders;
+
+    if ($self->recoveryEnabled()) {
+        foreach my $dir (EBox::WebServer::PlatformPath::DocumentRoot(),
+                         EBox::WebServer::PlatformPath::VDocumentRoot()) {
+            push (@folders, new EBox::SyncFolders::Folder($dir, 'recovery'));
+        }
+    }
+
+    return \@folders;
+}
+
+sub recoveryDomainName
+{
+    return __('Web server data');
 }
 
 1;

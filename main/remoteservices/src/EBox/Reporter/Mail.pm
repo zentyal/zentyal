@@ -66,10 +66,10 @@ sub _consolidate
                         SUBSTRING_INDEX(to_address, '@', 1) AS user_to,
                         SUBSTRING_INDEX(to_address, '@', -1) AS domain_to,
                         SUM(COALESCE(message_size,0)) AS bytes, COUNT(*) AS messages,
-                        message_type, status, event},
+                        message_type, event},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', client_host_ip, user_from, domain_from, user_to, domain_to, message_type, status, event' }
+          group  => $self->_groupSQLStr() . ', client_host_ip, user_from, domain_from, user_to, domain_to, message_type, event' }
        );
     return $res;
 }

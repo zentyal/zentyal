@@ -1,4 +1,14 @@
 HEAD
+	+ Fixed missing use statement in MailfilterACL model
+	+ Added dependencies and fixes needed for better sa tests
+	+ Dont run spamd daemon
+	+ Fixed regression in creation of ham/spam mail aliases due to changes
+	  in the users API
+	+ Adapted learnspamd to changes in user module API
+3.0.3
+	+ Reworked log helper to remove POP proxy and adapt to changes in
+	  base class
+3.0.2
 	+ Removed POP proxy logs from log table, fixed bug which make
 	  summarized smtp filter report page to be blank
 3.0.1

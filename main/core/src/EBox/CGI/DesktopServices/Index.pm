@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::DesktopServices::Index;
-
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+package EBox::CGI::DesktopServices::Index;
+use base 'EBox::CGI::ClientRawBase';
 
 use Error qw(:try);
 use JSON::XS;
@@ -35,35 +33,33 @@ sub new
 
 sub _validateReferer
 {
-    return;
 }
 
-sub _validateParams
-{
-    return;
-}
-
-# Method: actuate
+# Method: _process
+#
+#  we dont't use actuate() bz is oriented to HTML output CGIs
 #
 # Overrides:
 #
-#   <EBox::CGI::Base::actuate>
+#   <EBox::CGI::Base::_process>
 #
-sub actuate
+sub _process
 {
     my ($self) = @_;
+    $self->{json} = undef;
 
     # Parse the url
     my $url = $ENV{'script'};
     $url =~ m:^([a-zA-Z]+)/([a-zA-Z]+)/$:;
     my $module_name = $1;
     my $action_name = $2;
+    if ((not $module_name) or (not $action_name)) {
+        return;
+    }
 
     # List of all desktop service providers
     my $global = EBox::Global->getInstance();
     my @modules = @{$global->modInstancesOfType('EBox::Desktop::ServiceProvider')};
-
-    $self->{json} = undef;
     foreach my $module ( @modules ) {
         # If the module is the one we are looking for
         if ($module->name() eq $module_name) {
@@ -74,10 +70,21 @@ sub actuate
                 # If the action is the one we are looking for
                 if ($actname eq $action_name) {
                     $self->{json} = $actions{$actname}->();
+                    return;
                 }
             }
         }
     }
+}
+
+sub _print
+{
+    my ($self) = @_;
+    my $json = $self->{json};
+    if (not $json) {
+        $json = [];
+    }
+    $self->JSONReply($json);
 }
 
 1;

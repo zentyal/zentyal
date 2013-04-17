@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Logs;
-
 use strict;
 use warnings;
 
+package EBox::Logs;
 use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -244,13 +242,11 @@ sub getLogsModules
 sub getAllTables
 {
     my ($self, $noCache) = @_;
-    my $global = EBox::Global->getInstance();
-    my $tables;
-
     if (not $noCache and $self->{tables}) {
         return $self->{tables};
     }
 
+    my $tables = {};
     foreach my $mod (@{getLogsModules()}) {
         my @tableInfos = @{ $self->getModTableInfos($mod) };
 
@@ -281,15 +277,12 @@ sub getTableInfo
     my ($self, $index) = @_;
 
     my $tables = $self->getAllTables();
-    unless (exists $tables->{$index}) {
-        $self->{tables} = undef; # Delete cache
-        $tables = $self->getAllTables(); # Ask again
+    if (exists $tables->{$index}) {
+        return $tables->{$index};
     }
 
-    return $tables->{$index};
+    return undef;
 }
-
-
 
 sub getModTableInfos
 {
@@ -313,6 +306,12 @@ sub getModTableInfos
     }
 
     return \@tableInfos;
+}
+
+sub clearTableInfoCache
+{
+    my ($self) = @_;
+    $self->{tables} = undef;
 }
 
 sub getLogDomains

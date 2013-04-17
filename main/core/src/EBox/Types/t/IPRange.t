@@ -13,21 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
 use Test::More qw(no_plan); # tests => 4;
 
-use EBox::TestStubs;
-
-
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::IPRange;
-EBox::TestStubs::activateTestStubs();
-
+EBox::Types::TestHelper::setupFakes();
 
 sub creationTest
 {
@@ -45,14 +40,13 @@ sub creationTest
                    '192.168.5.12',
                   ],
            },
-          # max number of addresses               
+           # max number of addresses
            {
                begin => '10.0.0.0',
                end => '10.255.255.255',
-           },          
+           },
        );
 
-    
     my @deviantCases = (
                         # bad begin IP
                         {
@@ -83,7 +77,7 @@ sub creationTest
         my $begin = $case->{begin};
         my $end   = $case->{end};
 
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
             'EBox::Types::IPRange',
             fieldName => 'test',
             begin   => $begin,
@@ -95,7 +89,7 @@ sub creationTest
     foreach my $case (@straightCases) {
         my $begin = $case->{begin};
         my $end   = $case->{end};
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
             'EBox::Types::IPRange',
             fieldName => 'test',
             begin   => $begin,
@@ -120,19 +114,13 @@ sub creationTest
         is_deeply $addresses, $case->{expectedAddresses},
             'Checking addresses in the range';
         my ($addressInside) = @{ $case->{expectedAddresses} };
-        ok $range->isIPInside($addressInside), 
+        ok $range->isIPInside($addressInside),
             'Checking that address is correctly reported inside the range';
         my $outsideAddressIsOutside = not $range->isIPInside($addressOutside);
         ok $outsideAddressIsOutside,
             'Checking that outisdeaddress is correctly reported outside the range';
     }
-
-
-
-
-    
 }
-
 
 sub cmpTest
 {
@@ -152,18 +140,12 @@ sub cmpTest
                                        end => '10.45.12.4',
                                       );
 
-
-
     is $rangeA->cmp($rangeA->clone), 0, 'checking cmp for equality within nets';
     is $rangeA->cmp($rangeB), -1, 'checking cmp for inequality within nets (comparaing against bigger)';
     is $rangeA->cmp($rangeC), 1, 'checking cmp for inequality within nets (comparing against smaller)';
-    
 }
-
 
 creationTest();
 cmpTest();
-
-
 
 1;

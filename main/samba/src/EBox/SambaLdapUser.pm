@@ -28,6 +28,7 @@ use EBox::Samba::User;
 use EBox::Samba::Group;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::Gettext;
 
 use base qw(EBox::LdapUserBase);
 
@@ -42,10 +43,62 @@ sub new
     return $self;
 }
 
+# Method: _preAddUser
+#
+#   This method add the user to samba LDAP. The account will be
+#   created, but without password and disabled.
+#   TODO Support multiples OU
+#
+sub _preAddUser
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $dn = $entry->dn();
+    my $description = $entry->get_value('description');
+    my $givenName   = $entry->get_value('givenName');
+    my $surName     = $entry->get_value('sn');
+    my $uid         = $entry->get_value('uid');
+
+    my $params = {
+        description   => $description,
+        givenName     => $givenName,
+        sn            => $surName,
+    };
+
+    EBox::info("Creating user '$uid'");
+    my $sambaUser = EBox::Samba::User->create($uid, $params);
+    my $newUidNumber = $sambaUser->getXidNumberFromRID();
+    EBox::debug("Changing uidNumber from $uid to $newUidNumber");
+    $sambaUser->set('uidNumber', $newUidNumber);
+    $sambaUser->setupUidMapping($newUidNumber);
+    $entry->replace('uidNumber' => $newUidNumber);
+}
+
+sub _preAddUserFailed
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    try {
+        my $uid = $entry->get_value('uid');
+        my $sambaUser = new EBox::Samba::User(samAccountName => $uid);
+        return unless $sambaUser->exists();
+        EBox::info("Aborted user creation, removing from samba");
+        $sambaUser->deleteObject();
+    } otherwise {
+    };
+}
+
 # Method: _addUser
 #
-#   This method adds the user to samba LDAP
-#   TODO Support multiples OU
+#   This method sets the user password and enable the account
 #
 sub _addUser
 {
@@ -55,17 +108,61 @@ sub _addUser
                    $self->{samba}->isEnabled() and
                    $self->{samba}->isProvisioned());
 
-    my $dn = $zentyalUser->dn();
-    EBox::debug("Adding user '$dn' to samba");
-    my $params = {
-        clearPassword => $zentyalPassword,
-        uidNumber     => scalar ($zentyalUser->get('uidNumber')),
-        description   => scalar ($zentyalUser->get('description')),
-        givenName     => scalar ($zentyalUser->get('givenName')),
-        sn            => scalar ($zentyalUser->get('sn')),
-    };
-    EBox::Samba::User->create($zentyalUser->get('uid'), $params);
+    my $samAccountName = $zentyalUser->get('uid');
+    my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+    my $uidNumber = $sambaUser->get('uidNumber');
+
+    EBox::info("Setting '$samAccountName' password");
+    $sambaUser->changePassword($zentyalPassword);
+
+    if ($uidNumber) {
+        $sambaUser->setupUidMapping($uidNumber);
+    }
+
+    # If server is first DC and roaming profiles are enabled, write
+    # the attributes
+    my $sambaSettings = $self->{samba}->model('GeneralSettings');
+    my $dc = $sambaSettings->MODE_DC();
+    if ($self->{samba}->mode() eq $dc) {
+        my $netbiosName = $self->{samba}->netbiosName();
+        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+        if ($self->{samba}->roamingProfiles()) {
+            my $path = "\\\\$netbiosName.$realmName\\profiles";
+            EBox::info("Enabling roaming profile for user '$samAccountName'");
+            $sambaUser->setRoamingProfile(1, $path, 1);
+        } else {
+            $sambaUser->setRoamingProfile(0);
+        }
+
+        # Mount user home on network drive
+        my $drivePath = "\\\\$netbiosName.$realmName";
+        EBox::info("Setting home network drive for user '$samAccountName'");
+        $sambaUser->setHomeDrive($self->{samba}->drive(), $drivePath, 1);
+        $sambaUser->save();
+    }
+
+    EBox::info("Enabling '$samAccountName' account");
+    $sambaUser->setAccountEnabled(1);
 }
+
+sub _addUserFailed
+{
+    my ($self, $zentyalUser) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    try {
+        my $uid = $zentyalUser->get('uid');
+        my $sambaUser = new EBox::Samba::User(samAccountName => $uid);
+        return unless $sambaUser->exists();
+        EBox::info("Aborted user creation, removing from samba");
+        $sambaUser->deleteObject();
+    } otherwise {
+    };
+}
+
 
 sub _modifyUser
 {
@@ -87,7 +184,12 @@ sub _modifyUser
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
         $sambaUser->set('description', $desc, 1);
-        $sambaUser->changePassword($zentyalPwd, 1) if defined $zentyalPwd;
+        if (defined($zentyalPwd)) {
+            $sambaUser->changePassword($zentyalPwd, 1);
+        } else {
+            my $keys = $zentyalUser->kerberosKeys();
+            $sambaUser->setCredentials($keys);
+        }
         $sambaUser->save();
     } otherwise {
         my ($error) = @_;
@@ -106,21 +208,84 @@ sub _delUser
     my $dn = $zentyalUser->dn();
     EBox::debug("Deleting user '$dn' from samba");
     try {
-        my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
+        my $samAccountName = $zentyalUser->get('uid');
+        my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
         return unless $sambaUser->exists();
         $sambaUser->deleteObject();
+
+        # Remove user from share ACL's
+        my $shares = $self->{samba}->model('SambaShares');
+        my $sharesIds = $shares->ids();
+        foreach my $shareId (@{$sharesIds}) {
+            my $shareRow = $shares->row($shareId);
+            my $acls = $shareRow->subModel('access');
+            my $aclsIds = $acls->ids();
+            foreach my $aclId (@{$aclsIds}) {
+                my $aclRow = $acls->row($aclId);
+                my $type = $aclRow->elementByName('user_group');
+                if ($type->selectedType() eq 'user' and
+                    $type->printableValue() eq $samAccountName) {
+                    $acls->removeRow($aclId);
+                }
+            }
+        }
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting user: $error");
     };
 }
 
-# Method: _addGroup
+# Method: _preAddGroup
 #
 #   This method adds the group to samba LDAP
 #   TODO Support multiples OU
 #
-sub _addGroup
+sub _preAddGroup
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $dn = $entry->dn();
+    my $description = $entry->get_value('description');
+    my $gid         = $entry->get_value('cn');
+    $self->_checkWindowsBuiltin($gid);
+
+    my $params = {
+        description   => $description,
+    };
+
+    EBox::info("Creating group '$gid'");
+    my $sambaGroup = EBox::Samba::Group->create($gid, $params);
+    my $newGidNumber = $sambaGroup->getXidNumberFromRID();
+    EBox::debug("Changing gidNumber to $newGidNumber");
+    $sambaGroup->set('gidNumber', $newGidNumber);
+    $sambaGroup->setupGidMapping($newGidNumber);
+    $entry->replace('gidNumber' => $newGidNumber);
+}
+
+sub _preAddGroupFailed
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $dn = $entry->dn();
+    try {
+        my $samAccountName = $entry->get_value('cn');
+        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
+        return unless $sambaGroup->exists();
+        EBox::info("Aborted group creation, removing from samba");
+        $sambaGroup->deleteObject();
+    } otherwise {
+    };
+}
+
+sub _addGroupFailed
 {
     my ($self, $zentyalGroup) = @_;
 
@@ -129,12 +294,14 @@ sub _addGroup
                    $self->{samba}->isProvisioned());
 
     my $dn = $zentyalGroup->dn();
-    EBox::debug("Adding group '$dn' to samba");
-    my $params = {
-        gidNumber     => scalar ($zentyalGroup->get('gidNumber')),
-        description   => scalar ($zentyalGroup->get('description')),
+    try {
+        my $samAccountName = $zentyalGroup->get('cn');
+        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
+        return unless $sambaGroup->exists();
+        EBox::info("Aborted group creation, removing from samba");
+        $sambaGroup->deleteObject();
+    } otherwise {
     };
-    EBox::Samba::Group->create($zentyalGroup->get('cn'), $params);
 }
 
 sub _modifyGroup
@@ -177,12 +344,30 @@ sub _delGroup
     my $dn = $zentyalGroup->dn();
     EBox::debug("Deleting group '$dn' from samba");
     try {
-        my $sambaGroup = new EBox::Samba::Group(samAccountName => $zentyalGroup->get('cn'));
+        my $samAccountName = $zentyalGroup->get('cn');
+        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         $sambaGroup->deleteObject();
+
+        # Remove group from shares ACLs
+        my $shares = $self->{samba}->model('SambaShares');
+        my $sharesIds = $shares->ids();
+        foreach my $shareId (@{$sharesIds}) {
+            my $shareRow = $shares->row($shareId);
+            my $acls = $shareRow->subModel('access');
+            my $aclsIds = $acls->ids();
+            foreach my $aclId (@{$aclsIds}) {
+                my $aclRow = $acls->row($aclId);
+                my $type = $aclRow->elementByName('user_group');
+                if ($type->selectedType() eq 'group' and
+                    $type->printableValue() eq $samAccountName) {
+                    $acls->removeRow($aclId);
+                }
+            }
+        }
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting user: $error");
+        EBox::error("Error deleting group: $error");
     };
 }
 
@@ -302,6 +487,24 @@ sub _groupAddOns
     };
 
     return { path => '/samba/samba.mas', params => $args };
+}
+
+
+# Method: _checkWindowsBuiltin
+#
+# check whether the group already exists in the Builtin branch
+sub _checkWindowsBuiltin
+{
+    my ($self, $name) = @_;
+
+    my $dn = "CN=$name,CN=Builtin";
+    if ($self->{ldb}->existsDN($dn, 1)) {
+        throw EBox::Exceptions::External(
+            __x('{name} already exists as windows bult-in group',
+                name => $name
+               )
+           );
+    }
 }
 
 1;

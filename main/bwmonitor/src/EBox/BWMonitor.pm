@@ -264,20 +264,6 @@ sub _managedDaemons
     return \@daemons;
 }
 
-sub isRunning
-{
-    my ($self) = @_;
-    my $running =  $self->SUPER::isRunning();
-    if ($running) {
-        # check for zero-daemons edge case
-        my $nDaemons = @{ $self->_daemons() };
-        if ($nDaemons == 0) {
-            return $self->isEnabled();
-        }
-    }
-
-    return $running;
-}
 
 # Override _enforceServiceState to stop disabled daemons
 sub _enforceServiceState

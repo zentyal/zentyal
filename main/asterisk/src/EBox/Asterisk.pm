@@ -12,18 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Asterisk;
-
-# Class: EBox::Asterisk
-#
-#
-
-use base qw(EBox::Module::Service EBox::LdapModule
-            EBox::UserCorner::Provider EBox::LogObserver);
-
 use strict;
 use warnings;
+
+package EBox::Asterisk;
+use base qw(EBox::Module::Service EBox::LdapModule
+            EBox::UserCorner::Provider EBox::LogObserver);
 
 use EBox;
 use EBox::Global;
@@ -209,6 +203,21 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate asterisk ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-asterisk/asterisk-ldap update');
 }
 
 # Method: _daemons

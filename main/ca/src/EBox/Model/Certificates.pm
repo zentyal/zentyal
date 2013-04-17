@@ -12,19 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::CA::Model::Certificates;
+use strict;
+use warnings;
 
 # Class: EBox::CA::Model::Certificates
 #
 #      Form to set the rollover certificates for modules
 #
 
+package EBox::CA::Model::Certificates;
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -109,9 +106,12 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my @srvs = @{EBox::CA::Certificates->srvsCerts()};
-    my %currentSrvs = map { $self->row($_)->valueByName('service') => 1 } @{$currentRows};
+    my %currentSrvs = map {
+        my $sid = $self->row($_)->valueByName('serviceId');
+        $sid ?  ($sid => 1) : ()
+    } @{$currentRows};
 
-    my @srvsToAdd = grep { not exists $currentSrvs{$_->{'service'}} } @srvs;
+    my @srvsToAdd = grep { not exists $currentSrvs{$_->{'serviceId'}} } @srvs;
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
@@ -119,6 +119,7 @@ sub syncRows
         my $allowCustomCN = exists $srv->{allowCustomCN} ?
                                        $srv->{allowCustomCN}  : 1;
         $self->add(module => $srv->{'module'},
+                   serviceId =>  $srv->{'serviceId'},
                    service => $srv->{'service'},
                    cn => $cn,
                    allowCustomCN => $allowCustomCN,
@@ -126,13 +127,26 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsToAdd = map { $_->{service} => 1 } @srvs;
+    my %srvsFromModules = map { $_->{serviceId} => $_ } @srvs;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
-        my $service = $row->valueByName('service');
+
         my $module = $row->valueByName('module');
-        if (not exists $srvsToAdd{$service} or
-                not  EBox::Global->modExists($module)) {
+        if (not EBox::Global->modExists($module)) {
+            $self->removeRow($id);
+            $modified = 1;
+            next;
+        }
+
+        if ($row->valueByName('enable')) {
+            # already created certificates are held
+            next;
+        }
+
+        my $serviceId = $row->valueByName('serviceId');
+        if ( not $serviceId or
+             not exists $srvsFromModules{$serviceId}
+            ) {
             $self->removeRow($id);
             $modified = 1;
         }
@@ -147,9 +161,9 @@ sub syncRows
 #
 sub disableService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->elementByName('enable')->setValue(0);
         $row->store();
@@ -162,9 +176,9 @@ sub disableService
 #
 sub setServiceRO
 {
-    my ($self, $service, $ro) = @_;
+    my ($self, $serviceId, $ro) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->setReadOnly($ro);
         $row->store();
@@ -177,9 +191,9 @@ sub setServiceRO
 #
 sub updateCN
 {
-    my ($self, $service, $cn) = @_;
+    my ($self, $serviceId, $cn) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     if ($row) {
         $row->elementByName('cn')->setValue($cn);
         $row->store();
@@ -214,9 +228,9 @@ sub certUsedByService
 #
 sub cnByService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId => $serviceId);
     return $row->valueByName('cn') if ($row);
     return undef;
 }
@@ -231,9 +245,9 @@ sub cnByService
 #
 sub isEnabledService
 {
-    my ($self, $service) = @_;
+    my ($self, $serviceId) = @_;
 
-    my $row = $self->find(service => $service);
+    my $row = $self->find(serviceId=> $serviceId);
     return $row->valueByName('enable') if ($row);
     return undef;
 }
@@ -251,6 +265,13 @@ sub _table
 {
     my @tableHeader =
       (
+       new EBox::Types::Text(
+                                fieldName     => 'serviceId',
+                                printableName =>  'serviceId',
+                                unique        => 1,
+                                hidden        => 1,
+                                editable      => 0,
+                               ),
        new EBox::Types::Text(
                                 fieldName     => 'module',
                                 printableName => __('Module'),
@@ -270,6 +291,7 @@ sub _table
                                 printableName => __('Service'),
                                 unique        => 1,
                                 editable      => 0,
+                                allowUnsafeChars => 1,
                                ),
        new EBox::Types::DomainName(
                                 fieldName     => 'cn',

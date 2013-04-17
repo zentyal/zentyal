@@ -12,10 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CGI::Base;
 use strict;
 use warnings;
+
+package EBox::CGI::Base;
 
 use HTML::Mason;
 use HTML::Mason::Exceptions;
@@ -60,11 +60,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
         $self->{cgi} = new CGI;
     }
     $self->{paramsKept} = ();
-
-    # XXX workaround for utf8 hell
-    if (Encode::is_utf8($self->{title})) {
-        Encode::_utf8_off($self->{title});
-    }
 
     bless($self, $class);
     return $self;
@@ -148,8 +143,6 @@ sub _body
     $interp->exec($comp, @{$self->{params}});
 }
 
-
-
 MASON_INTERP: {
     my $masonInterp;
 
@@ -219,7 +212,6 @@ sub _checkForbiddenChars
     my ($self, $value) = @_;
     POSIX::setlocale(LC_ALL, EBox::locale());
 
-    _utf8_on($value);
     unless ( $value =~ m{^[\w /.?&+:\-\@]*$} ) {
         my $logger = EBox::logger;
         $logger->info("Invalid characters in param value $value.");
@@ -361,15 +353,13 @@ sub run
         return;
     }
 
-
     try  {
       $self->_print
-    } catch EBox::Exceptions::Internal with {
-      my $ex = shift;
-      $self->setErrorFromException($ex);
-      $self->_print_error($self->{error});
-    }
-    otherwise {
+    } catch EBox::Exceptions::Base with {
+        my $ex = shift;
+        $self->setErrorFromException($ex);
+        $self->_print_error($self->{error});
+    } otherwise {
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
@@ -379,13 +369,12 @@ sub run
                  "a bug, relevant information can ".
                  "be found in the logs.");
           $self->_print_error($error);
-        } else {
-          if ($ex->can('text')) {
-        $logger->error('Exception: ' . $ex->text());
-          } else {
-        $logger->error("Unknown exception");
-          }
-
+      } elsif ($ex->isa('APR::Error')) {
+        my $debug = EBox::Config::boolean('debug');
+        my $error = $debug ? $ex->confess() : $ex->strerror();
+        $self->_print_error($error);
+      } else {
+          # will be logged in EBox::CGI::Run
           throw $ex;
         }
       };
@@ -420,12 +409,10 @@ sub unsafeParam # (param)
     if (wantarray) {
         @array = $cgi->param($param);
         (@array) or return undef;
-        my @ret = ();
         foreach my $v (@array) {
-            _utf8_on($v);
-            push(@ret, $v);
+            utf8::decode($v);
         }
-        return @ret;
+        return @array;
     } else {
         $scalar = $cgi->param($param);
         #check if $param.x exists for input type=image
@@ -433,7 +420,7 @@ sub unsafeParam # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
-        _utf8_on($scalar);
+        utf8::decode($scalar);
         return $scalar;
     }
 }
@@ -449,11 +436,11 @@ sub param # (param)
         (@array) or return undef;
         my @ret = ();
         foreach my $v (@array) {
+            utf8::decode($v);
             $v =~ s/\t/ /g;
             $v =~ s/^ +//;
             $v =~ s/ +$//;
             $self->_checkForbiddenChars($v);
-            _utf8_on($v);
             push(@ret, $v);
         }
         return @ret;
@@ -464,11 +451,11 @@ sub param # (param)
             $scalar = $cgi->param($param . ".x");
         }
         defined($scalar) or return undef;
+        utf8::decode($scalar);
         $scalar =~ s/\t/ /g;
         $scalar =~ s/^ +//;
         $scalar =~ s/ +$//;
         $self->_checkForbiddenChars($scalar);
-        _utf8_on($scalar);
         return $scalar;
     }
 }
@@ -671,13 +658,16 @@ sub setErrorchain
 #
 # Possible implentation improvements:
 #  maybe it will be good idea cache this in some field of the instance
+#
+# Warning:
+#   there is not unsafe parameters check there, do it by hand if you need it
 sub paramsAsHash
 {
     my ($self) = @_;
 
     my @names = @{ $self->params() };
     my %params = map {
-      my $value = $self->param($_) ;
+      my $value =  $self->unsafeParam($_);
       $_ => $value
     } @names;
 
@@ -817,9 +807,6 @@ sub requiredParameters
 {
     return [];
 }
-
-
-
 
 # Method:  actuate
 #
@@ -980,15 +967,14 @@ sub menuNamespace
 sub JSONReply
 {
     my ($self, $data_r) = @_;
-    print$self->cgi()->header(-charset=>'utf-8',
+    print $self->cgi()->header(-charset=>'utf-8',
                               -type => 'application/JSON',
                              );
     my $error = $self->{error};
     if ($error and not $data_r->{error}) {
         $data_r->{error} = $error;
     }
-    print encode_json($data_r);
+    print JSON::XS->new->encode($data_r);
 }
-
 
 1;

@@ -18,12 +18,12 @@ use warnings;
 package EBox::DNS;
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
+             EBox::SysInfo::Observer
              EBox::NetworkObserver );
 
 use EBox::Objects;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Exceptions::Sudo::Command;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Sudo;
@@ -34,6 +34,10 @@ use EBox::DNS::Model::AliasTable;
 use EBox::Model::Manager;
 use EBox::Sudo;
 use EBox::DNS::FirewallHelper;
+use EBox::NetWrappers;
+
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Error qw(:try);
 use File::Temp;
@@ -58,8 +62,9 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
-use constant DELETED_RR_KEY_SAMBA => 'deleted_rr_samba';
 use constant DNS_PORT => 53;
+use constant DESKTOP_SERVICE_PORT => 6895;
+use constant DESKTOP_SERVICE_NAME => 'zentyal-desktop-api';
 
 sub _create
 {
@@ -387,6 +392,25 @@ sub getTexts
     return $self->_textRecords($domainRow->subModel('txt'));
 }
 
+# Method: getTsigKeys
+#
+#   Returns the TSIG keys for the configured domains
+#
+sub getTsigKeys
+{
+    my ($self) = @_;
+
+    my $keys = {};
+    my $model = $self->model('DomainTable');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $keyName = $row->valueByName('domain');
+        my $keySecret = $row->valueByName('tsigKey');
+        $keys->{$keyName} = $keySecret;
+    }
+    return $keys;
+}
+
 # Method: findAlias
 #
 #       Return the hostname which the alias refers to given a domain
@@ -524,6 +548,28 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    # TODO Remove this code after branching for Zentyal 3.1
+    my $state = $self->get_state();
+    unless ($state->{tsigKeysUpdated}) {
+        EBox::info("Updating domain keys");
+        # Update domain TSIG keys to proper format
+        my $domainModel = $self->model('DomainTable');
+        foreach my $id (@{$domainModel->ids()}) {
+            my $row = $domainModel->row($id);
+            my $key = $row->elementByName('tsigKey');
+            $key->setValue($domainModel->_generateSecret());
+            $row->store();
+        }
+        $state->{tsigKeysUpdated} = 1;
+        $self->set_state($state);
+
+        # Save and restart DHCP to reload new TSIG keys
+        if (EBox::Global->modExists('dhcp')) {
+            my $dhcp = EBox::Global->modInstance('dhcp');
+            $dhcp->save();
+        }
+    }
+
     # Create default rules and services only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
@@ -598,6 +644,48 @@ sub enableService
     }
 }
 
+# Method: _preSetConf
+#
+#   Makes sure DNS has the SRV record so that desktops can automatically
+#   detect the server
+#
+# Overrides:
+#
+#  <EBox::Module::Base::_preSetConf>
+#
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+
+    my $domainRow = $domainsModel->find(domain => $hostDomain);
+    if ($domainRow) {
+        my $srvModel = $domainRow->subModel('srv');
+        my $srvRow = $srvModel->find(service_name => DESKTOP_SERVICE_NAME);
+        if ($srvRow) {
+            # TODO: Update the port
+        } else {
+            # Service is not present => Add it
+            my $service = {
+                service => DESKTOP_SERVICE_NAME,
+                protocol => 'tcp',
+                port => DESKTOP_SERVICE_PORT,
+                priority => 0,
+                weight => 0,
+                target_type => 'domainHost',
+                target => $hostName,
+                readOnly => 1
+                };
+            $self->addService($hostDomain, $service);
+        }
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
@@ -611,10 +699,17 @@ sub _setConf
     $self->_updateManagedDomainAddresses();
 
     my $keytabPath = undef;
+    my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled()) {
-            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_KEYTAB())) {
+        if ($sambaModule->isEnabled() and
+            $sambaModule->getProvision->isProvisioned()) {
+            # Get the zones stored in the samba LDB
+            my $ldb = $sambaModule->ldb();
+            @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
+
+            # Get the DNS keytab path used for GSSTSIG zone updates
+            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
         }
@@ -633,7 +728,6 @@ sub _setConf
 
     # Delete the already removed RR from dynamic and dlz zones
     $self->_removeDeletedRR();
-    $self->_removeSambaDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
@@ -679,9 +773,9 @@ sub _setConf
             }
             $sambaDomData->{txt} = $newTXT;
 
-            $self->_updateDynDirectZone($sambaDomData, 1);
+            $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
-            $self->_updateDynDirectZone($domdata, 0);
+            $self->_updateDynDirectZone($domdata);
         } else {
             @array = ();
             push (@array, 'domain' => $domdata);
@@ -690,7 +784,7 @@ sub _setConf
         }
     }
 
-    my $reversedData = $self->switchToReverseInfoData(\@domainData);
+    my $reversedData = $self->_reverseData();
 
     # Remove the unused reverse files
     $self->_removeUnusedReverseFiles($reversedData);
@@ -705,10 +799,8 @@ sub _setConf
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        if ($reversedDataItem->{samba}) {
-            $self->_updateDynReverseZone($reversedDataItem, 1);
-        } elsif ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem, 0);
+        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($reversedDataItem);
         } else {
             @array = ();
             push (@array, 'groupip' => $group);
@@ -719,8 +811,7 @@ sub _setConf
         # Store to write the zone in named.conf.local
         push (@inaddrs, { ip       => $group,
                           file     => $file,
-                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ],
-                       } );
+                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
     }
 
     my @domains = @{$self->domains()};
@@ -732,6 +823,8 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'internalLocalNets' => $self->_internalLocalNets());
+    push(@array, 'sambaZones' => $sambaZones);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
@@ -750,6 +843,67 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
+}
+
+sub _reverseData
+{
+    my ($self) = @_;
+
+    my $reverseData = {};
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $domainName = $domainRow->valueByName('domain');
+        my $dynamic = ($domainRow->valueByName('dynamic') or
+                       $domainRow->valueByName('samba'));
+
+        my $domainNameservers = [];
+        my $nsModel = $domainRow->subModel('nameServers');
+        foreach my $nsRowId (@{$nsModel->ids()}) {
+            my $nsRow = $nsModel->row($nsRowId);
+            my $name = $nsRow->printableValueByName('hostName');
+            push (@{$domainNameservers}, $name);
+        }
+
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $hostRow = $hostnamesModel->row($hostnameRowId);
+            my $hostName = $hostRow->valueByName('hostname');
+            my $hostIpAddrsModel = $hostRow->subModel('ipAddresses');
+            foreach my $hostIpRowId (@{$hostIpAddrsModel->ids()}) {
+                my $hostIpRow = $hostIpAddrsModel->row($hostIpRowId);
+                my $ip = $hostIpRow->valueByName('ip');
+                my @reverseIp = reverse split (/\./, $ip);
+                my $hostPart = shift @reverseIp;
+                my $groupPart = join ('.', @reverseIp);
+
+                $reverseData->{$groupPart} = {}
+                    unless exists $reverseData->{$groupPart};
+                if (exists $reverseData->{$groupPart}->{domain} and
+                    $domainName ne $reverseData->{$groupPart}->{domain}) {
+                    my $warn = "Inconsistent DNS configuration deteceted. " .
+                               "IP group $groupPart is already mapped to domain " .
+                               $reverseData->{$groupPart}->{domain} . ". " .
+                               "The host $hostName.$domainName with IP $ip is not going " .
+                               "to be added to that group";
+                    EBox::warn($warn);
+                    next;
+                }
+
+                $reverseData->{$groupPart}->{dynamic} = $dynamic;
+                $reverseData->{$groupPart}->{tsigKeyName} = $domainName;
+                $reverseData->{$groupPart}->{group} = $groupPart;
+                $reverseData->{$groupPart}->{domain} = $domainName;
+                $reverseData->{$groupPart}->{soa} = $self->NameserverHost();
+                $reverseData->{$groupPart}->{ns} = $domainNameservers;
+                $reverseData->{$groupPart}->{hosts} = []
+                    unless exists $reverseData->{$groupPart}->{hosts};
+                push (@{$reverseData->{$groupPart}->{hosts}},
+                        { name => $hostName, ip => $hostPart });
+            }
+        }
+    }
+    return $reverseData;
 }
 
 # Method: menu
@@ -804,7 +958,7 @@ sub _postServiceHook
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;
-                unlink($filename); # Remove the temporary file
+                unlink($filename) if -f $filename; # Remove the temporary file
             }
             delete $self->{nsupdateCmds};
         }
@@ -821,13 +975,38 @@ sub _intnets
 
     my $intnets_string = EBox::Config::configkeyFromFile(DNS_INTNETS,
                                                          DNS_CONF_FILE);
-    my @intnets = ();
-
-    if (defined($intnets_string)) {
-        @intnets = split(',', $intnets_string);
+    my @intnets;
+    if (length $intnets_string) {
+        $intnets_string =~ s/\s//g;
+        @intnets = split (/,/, $intnets_string);
+        my $cidrName = __x("key '{key}' in configuration file {value}",
+                           key => DNS_INTNETS,
+                           value => DNS_CONF_FILE,
+                          );
+        foreach my $net (@intnets) {
+            EBox::Validate::checkCIDR($net, $cidrName);
+        }
     }
 
     return \@intnets;
+}
+
+sub _internalLocalNets
+{
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
+    my @localNets = map {
+        my $iface = $_;
+        my $net  = $network->ifaceNetwork($iface);
+        if ($net) {
+            my $fullmask = $network->ifaceNetmask($iface);
+            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+            ("$net/$mask");
+        } else {
+            ()
+        }
+    } @{ $network->InternalIfaces };
+    return \@localNets;
 }
 
 # Method: _domainIpAddresses
@@ -1168,10 +1347,7 @@ sub _formatSRV
                 $targetHost = $targetHost . '.';
             }
         } else {
-            $targetHost = $row->parentRow()
-               ->subModel('hostnames')
-               ->row($targetHost)
-               ->valueByName('hostname');
+            $targetHost = $row->printableValueByName('hostName');
         }
         push (@srvRecords, {
                 service_name => $row->valueByName('service_name'),
@@ -1270,11 +1446,10 @@ sub _domainIds
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
 {
-    my ($self, $rdata, $samba) = @_;
+    my ($self, $rdata) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
-
-    my $zone = $rdata->{'groupip'} . ".in-addr.arpa";
+    my $zone = $rdata->{'group'} . ".in-addr.arpa";
     foreach my $host (@{$rdata->{'hosts'}}) {
         print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
         my $prefix = "";
@@ -1288,18 +1463,14 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        if ($samba) {
-            $self->_launchSambaNSupdate($fh);
-        } else {
-            $self->_launchNSupdate($fh);
-        }
+        $self->_launchNSupdate($fh);
     }
 }
 
 # Update the dynamic direct zone
 sub _updateDynDirectZone
 {
-    my ($self, $domData, $samba) = @_;
+    my ($self, $domData) = @_;
 
     my $zone = $domData->{'name'};
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
@@ -1367,11 +1538,7 @@ sub _updateDynDirectZone
 
     print $fh "send\n";
 
-    if ($samba) {
-        $self->_launchSambaNSupdate($fh);
-    } else {
-        $self->_launchNSupdate($fh);
-    }
+    $self->_launchNSupdate($fh);
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1389,51 +1556,6 @@ sub _removeDeletedRR
         print $fh "send\n";
         $self->_launchNSupdate($fh);
         $self->st_unset(DELETED_RR_KEY);
-    }
-}
-
-sub _removeSambaDeletedRR
-{
-    my ($self) = @_;
-
-    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY_SAMBA);
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    foreach my $rr (@{$deletedRRs}) {
-        print $fh "update delete $rr\n";
-    }
-
-    if ( $fh->tell() > 0 ) {
-        print $fh "send\n";
-        $self->_launchSambaNSupdate($fh);
-        $self->st_unset(DELETED_RR_KEY_SAMBA);
-    }
-}
-
-sub _launchSambaNSupdate
-{
-    my ($self, $fh) = @_;
-
-    return unless EBox::Global->modExists('samba');
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    return unless ($sambaModule->isProvisioned() and $sambaModule->isRunning());
-
-    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
-    if ($self->_isNamedListening()) {
-        try {
-            my $sysinfo = EBox::Global->modInstance('sysinfo');
-            my $ucHostname = uc ($sysinfo->hostName());
-            EBox::Sudo::root("kinit --keytab=/var/lib/samba/private/secrets.keytab $ucHostname\$");
-            EBox::Sudo::root($cmd);
-            EBox::Sudo::root('kdestroy');
-        } otherwise {
-            $fh->unlink_on_destroy(0); # For debug purposes
-        };
-    } else {
-        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-        push(@{$self->{nsupdateCmds}}, $cmd);
-        $fh->unlink_on_destroy(0);
-        EBox::warn('Cannot contact with named, trying in posthook');
     }
 }
 
@@ -1471,7 +1593,6 @@ sub _isNamedListening
     } else {
         return 0;
     }
-
 }
 
 # Remove no longer used domain files to avoid confusing the user
@@ -1719,78 +1840,19 @@ sub _getRanges
     return \@ranges;
 }
 
-# Method: switchToReverseInfoData
-#
-#  Return a structure with all necessary data to build reverse db config
-#  files.
-#
-# Parameters:
-#
-#  array ref - structure returned by <EBox::DNS::_completeDomain>
-#
-# Returns:
-#
-#  array ref structure data with:
-#
-#  'groupip': ip range to define a zone file info
-#  'dynamic': boolean indicating if the zone is dynamic
-#  'tsigKeyName' : String indicating the name of the TSIG key for
-#                  being updated if the domain is dynamic
-#  'domain': an array of hosts and domain data:
-#  'name': domain name
-#  'hosts': an array of hostnames and hostip:
-#  'ip': less significant block of an ip address
-#  'name': name of the host in the domain
-#
-sub switchToReverseInfoData
-{
-    my ($self, $domains) = @_;
-
-    my $reversedData = {};
-    foreach my $domain (@{$domains}) {
-        foreach my $host (@{$domain->{'hosts'}}) {
-            # Remove wildcard since it is possible to set a reverse domain
-            next if ($host->{'name'} eq '*');
-            foreach my $hostIp (@{$host->{'ip'}}) {
-                my @ipblocks = split (/\./, $hostIp);
-                my $groupip = join ('.', $ipblocks[2], $ipblocks[1], $ipblocks[0]);
-                my $ip = $ipblocks[3];
-
-                if (exists $reversedData->{$groupip}) {
-                    my $d = $reversedData->{$groupip}->{domain};
-                    my $d2 = $domain->{name};
-                    EBox::warn("Domain '$d' already mapped to IP group '$groupip', domain $d2 skipped");
-                } else {
-                    $reversedData->{$groupip} = {
-                        dynamic => $domain->{dynamic},
-                        domain => $domain->{name},
-                        hosts => [],
-                        ns => [],
-                        soa => $domain->{primaryNameServer},
-                        tsigKeyName => $domain->{name},
-                    };
-                    foreach my $ns (@{$domain->{nameServers}}) {
-                        push (@{ $reversedData->{$groupip}->{ns} }, $ns);
-                    }
-                    my $hostData = { ip => $ip, name => $host->{'name'}};
-                    push (@{$reversedData->{$groupip}->{hosts}}, $hostData);
-                }
-            }
-        }
-    }
-
-    return $reversedData;
-}
-
 sub _updateManagedDomainIPsModel
 {
     my ($self, $model) = @_;
 
     my $networkModule = EBox::Global->modInstance('network');
     my $ifaces = $networkModule->ifaces();
+    my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
         my $addrs = $networkModule->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
+            next if $seenAddrs{$addr};
+            $seenAddrs{$addr} = 1;
+
             my $ifaceName = $iface;
             $ifaceName .= ":$addr->{name}" if exists $addr->{name};
             my $ipRow = $model->find(iface => $ifaceName);
@@ -1856,6 +1918,78 @@ sub internalDhcpIfaceAddressChangedDone
     $self->_updateManagedDomainAddresses();
     # TODO Save only if changes done
     $self->save();
+}
+
+######################################
+##  SysInfo observer implementation ##
+######################################
+
+# Method: hostNameChanged
+#
+#   This method check that the introduced new hostname is not already
+#   defined in any of the user created domains
+#
+sub hostNameChanged
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $row = $hostnamesModel->row($hostnameRowId);
+            my $field = $row->elementByName('hostname');
+            if (lc ($field->value('hostname')) eq lc ($newHostName)) {
+                my $domainRow = $row->parentRow();
+                my $domain = $domainRow->valueByName('domain');
+                throw EBox::Exceptions::UnwillingToPerform(
+                    reason => __x('The host name {x} is already defined in the domain {y}',
+                                  x => $newHostName,
+                                  y => $domain ));
+            }
+        }
+    }
+}
+
+# Method: hostNameChangedDone
+#
+#   This method update the hostname in all existant domains
+#
+sub hostNameChangedDone
+{
+    my ($self, $oldHostName, $newHostName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    foreach my $domainRowId (@{$domainModel->ids()}) {
+        my $domainRow = $domainModel->row($domainRowId);
+        my $hostnamesModel = $domainRow->subModel('hostnames');
+        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
+            my $row = $hostnamesModel->row($hostnameRowId);
+            my $field = $row->elementByName('hostname');
+            if (lc ($field->value('hostname')) eq lc ($oldHostName)) {
+                $field->setValue($newHostName);
+                $row->store();
+                last;
+            }
+        }
+    }
+}
+
+# Method: hostDomainChangedDone
+#
+#   This method updates the domain name if it is already created
+#
+sub hostDomainChangedDone
+{
+    my ($self, $oldDomainName, $newDomainName) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    my $row = $domainModel->find(domain => $oldDomainName);
+    if (defined $row) {
+        $row->elementByName('domain')->setValue($newDomainName);
+        $row->store();
+    }
 }
 
 1;

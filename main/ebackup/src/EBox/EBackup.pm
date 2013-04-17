@@ -12,18 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-package EBox::EBackup;
-
-# Class: EBox::EBackup
-#
-#
-
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
-
 use strict;
 use warnings;
+
+package EBox::EBackup;
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox;
 use EBox::Config;
@@ -44,7 +37,6 @@ use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
-use Fcntl qw(:flock);
 use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
@@ -59,7 +51,6 @@ use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
 use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
-
 
 # Constructor: _create
 #
@@ -101,6 +92,16 @@ sub addModuleStatus
         enabled       => $self->isEnabled(),
         running       => $self->isEnabled(),
         nobutton      => 1));
+}
+
+
+# This hook is called before checking if a target is ready for the backup
+# It is intended to be used to mount filesystems or
+# to  do any operation needed to make ready the targer
+sub preCheckTargetHook
+{
+    my ($self) = @_;
+    $self->_hook('prechecktarget');
 }
 
 sub preBackupHook
@@ -240,7 +241,6 @@ sub _escapeFile
     my ($self, $file) = @_;
     $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $file = shell_quote($file);
-    utf8::encode($file);
     return $file;
 }
 
@@ -262,8 +262,6 @@ sub lastBackupDate
 
     return $status->[-1]->{date};
 }
-
-
 
 # Method: remoteArguments
 #
@@ -599,7 +597,6 @@ sub _autoExcludesArguments
     return $args;
 }
 
-
 # Method: remoteDelOldArguments
 #
 #   Return the arguments to be used by duplicty to delete old files
@@ -701,8 +698,8 @@ sub remoteStatus
     my $retrieve;
     if ($noCacheUrl) {
         $retrieve = 1;
-    } elsif (-f tmpCurrentStatus()) {
-        @lines = File::Slurp::read_file(tmpCurrentStatus());
+    } elsif (_currentStatusIsCached()) {
+        @lines = @{ _currentStatusFromCache() };
     } else {
         $retrieve = 1;
     }
@@ -738,7 +735,6 @@ sub remoteStatus
     return \@status;
 }
 
-
 # Method: tmpCurrentStatus
 #
 #   Return the patch to store the temporary current status cache
@@ -751,6 +747,23 @@ sub tmpCurrentStatus
     return EBox::Config::tmp() . "backupstatus-cache";
 }
 
+sub _currentStatusIsCached
+{
+    return (-f tmpCurrentStatus());
+}
+
+sub _currentStatusFromCache
+{
+    if (not _currentStatusIsCached()) {
+        throw EBox::Exceptions::Internal("No cache for current status");
+    }
+    my @lines = File::Slurp::read_file(tmpCurrentStatus());
+    foreach my $line (@lines) {
+        utf8::decode($line);
+    }
+    return \@lines;
+}
+
 # Method: remoteGenerateStatusCache
 #
 #   Generate a current status cache. This is to be called
@@ -758,26 +771,23 @@ sub tmpCurrentStatus
 #
 sub remoteGenerateStatusCache
 {
-
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
     my $status = $self->_retrieveRemoteStatus($urlParams);
     $self->_setCurrentStatus($status);
 }
 
-
 sub _setCurrentStatus
 {
     my ($self, $status) = @_;
     my $file = tmpCurrentStatus();
     if (defined $status) {
-        File::Slurp::write_file($file, $status);
+        File::Slurp::write_file($file, { binmode => ':raw' }, $status);
     } else {
         ( -e $file) and
             unlink $file;
     }
 }
-
 
 sub _retrieveRemoteStatusInBackground
 {
@@ -816,13 +826,16 @@ sub _retrieveRemoteStatus
         if ($error =~ m/gpg: decryption failed: bad key/) {
             throw EBox::Exceptions::EBackup::BadSymmetricKey();
         }elsif ($error =~ m/No signature chains found/) {
-            $status = '';
+            $status = [];
         }
     };
 
+    foreach my $line (@{ $status  }) {
+        utf8::decode($line);
+    }
+
     return $status;
 }
-
 
 sub updateStatusInBackgroundLock
 {
@@ -881,7 +894,7 @@ sub waitForUpdateStatusInBackground
 
 sub _updateStatusInBackgroundLockFile
 {
-    return EBox::Config::tmp() .'/' . UPDATE_STATUS_IN_BACKGROUND_LOCK . '.lock';
+    return EBox::Util::Lock::_lockFile(UPDATE_STATUS_IN_BACKGROUND_LOCK);
 }
 
 
@@ -925,7 +938,8 @@ sub remoteListFiles
     if ($updateCache) {
         $self->{files_mtime} = $mtime;
         my @files;
-        for my $line (File::Slurp::read_file($file)) {
+        foreach my $line (File::Slurp::read_file($file)) {
+            utf8::decode($line);
             my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
                 . '\d\d:\d\d:\d\d \d{4} )(.*)';
             if ($line =~ /$regexp/ ) {
@@ -1106,36 +1120,6 @@ sub menu
     $root->add($system);
 }
 
-# Method: lock
-#
-#      Lock backup process to avoid overlapping of two processes
-#
-#
-sub lock
-{
-    my ($self) = @_;
-
-    open( $self->{lock}, '>', LOCK_FILE);
-    my $ret = flock( $self->{lock}, LOCK_EX | LOCK_NB );
-    return $ret;
-}
-
-# Method: unlock
-#
-#      Unlock backup process to avoid overlapping of two processes
-#
-#
-sub unlock
-{
-    my ($self) = @_;
-
-    flock( $self->{lock}, LOCK_UN );
-    close($self->{lock});
-}
-
-
-
-
 # XXX TODO: refactor parameters from model and/or subscription its own method
 sub _remoteUrl
 {
@@ -1285,7 +1269,6 @@ sub backupProcessUnlock
     EBox::Util::Lock::unlock($name);
 }
 
-
 # Method: storageUsage
 #
 #   get the available and used space in the storage place used to save the
@@ -1365,8 +1348,6 @@ sub storageUsage
     return $result;
 }
 
-
-
 sub _storageUsageCacheFile
 {
     return EBox::Config::tmp() . 'ebackup-storage-usage';
@@ -1415,7 +1396,6 @@ sub checkTargetStatus
     return 1;
 }
 
-
 sub _checkFileSystemTargetStatus
 {
     my ($self, $target) = @_;
@@ -1429,23 +1409,24 @@ sub _checkFileSystemTargetStatus
     }
 
     my $mountPoint;
-    my %staticFs = %{ EBox::FileSystem::staticFileSystems() };
+    my %staticFs = %{ EBox::FileSystem::fileSystems() };
     foreach my $fsAttr (values %staticFs) {
         my $fsMountPoint = $fsAttr->{mountPoint};
         if ($fsMountPoint eq 'none') {
             next;
         }
         if ($fsMountPoint eq $target) {
+            # exact match
             $mountPoint = $fsMountPoint;
             last;
         }
         EBox::FileSystem::isSubdir($target, $fsMountPoint) or
               next;
         if ($mountPoint) {
-            # check if the mount point is more specific
+            # check if the mount point is more specific than the stored one
             my $mpComponents = split '/+', $mountPoint;
             my $fsMpComponents = split '/+', $fsMountPoint;
-            ($fsMountPoint > $mpComponents) or
+            ($fsMpComponents > $mpComponents) or
                 next;
         }
         $mountPoint = $fsMountPoint;
@@ -1462,33 +1443,26 @@ sub _checkFileSystemTargetStatus
     }
 
     # check if the mount poitn is mounted
-    my %partitionFs = %{ EBox::FileSystem::partitionsFileSystems(1) };
-    foreach my $fsAttr (values %partitionFs) {
-        if ($mountPoint eq $fsAttr->{mountPoint}) {
-            return;
+    if (EBox::FileSystem::mountPointIsMounted($mountPoint)) {
+        return;
+    } else {
+        # no mounted
+        if ($mountPoint eq $target) {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+                __x('{target} is not mounted',
+                    target => $target
+                   )
+               );
+        } else {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+                __x('{mp} is not mounted and {target} is inside it',
+                    mp => $mountPoint,
+                    target => $target
+                   )
+               );
         }
     }
-
-    # no mounted
-    my $msg;
-    if ($mountPoint eq $target) {
-        throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{target} is not mounted',
-              target => $target
-             )
-           );
-    } else {
-        throw EBox::Exceptions::EBackup::TargetNotReady(
-          __x('{mp} is not mounted and {target} is inside it',
-              mp => $mountPoint,
-              target => $target
-             )
-           );
-    }
-
-    throw EBox::Exceptions::EBackup::TargetNotReady($msg);
 }
-
 
 sub _estimateBackupSize
 {
@@ -1520,7 +1494,6 @@ sub _estimateBackupSize
     EBox::debug("Estimated backup size: $average");
     return $average;
 }
-
 
 ## Report methods
 

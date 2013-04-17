@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::Events::Model::LogWatcherConfiguration
 #
 # This class is the model to configurate Log watcher. It has as many
@@ -26,9 +27,6 @@
 #
 
 package EBox::Events::Model::LogWatcherConfiguration;
-use strict;
-use warnings;
-
 use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::DataNotFound;
@@ -141,17 +139,7 @@ sub syncRows
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
-    # Warn if the parent log observer is not enabled
-    if ($row->valueByName('enabled')) {
-        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureWatchers');
-        my $logConfRow = $eventModel->findValue(eventWatcher => 'EBox::Event::Watcher::Log');
-        unless ($logConfRow->valueByName('enabled')) {
-            $self->setMessage(__('Warning! The log watcher is not enabled. '
-                                 . 'Enable to be notified when logs happen. '
-                                 . $self->message()));
-        }
-    }
+    $self->_warnIfParentWatcherNotEnabled($row);
 }
 
 # Method: addedRowNotify
@@ -163,19 +151,24 @@ sub updatedRowNotify
 sub addedRowNotify
 {
     my ($self, $row, $force) = @_;
+    $self->_warnIfParentWatcherNotEnabled($row);
+}
 
+sub _warnIfParentWatcherNotEnabled
+{
+    my ($self, $row) = @_;
     # Warn if the parent log observer is not enabled
-    if ( $row->valueByName('enabled') ) {
-        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureWatchers');
-        my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
-        unless ( $logConfRow->valueByName('enabled') ) {
+    if ($row->valueByName('enabled')) {
+        my $watchersModel = $self->parentModule()->model('ConfigureWatchers');
+        my $watcherEnabled = $watchersModel->isEnabledWatcher('EBox::Event::Watcher::Log');
+        if (not $watcherEnabled) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
-                                 . 'Enable to be notified when logs happen. '
-                                 . $self->message()));
+                                 . 'Enable to be notified when logs happen.')
+                                 . '<br/>'
+                                 . $self->message());
         }
     }
 }
-
 
 # Group: Protected methods
 

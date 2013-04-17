@@ -12,7 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::UsersAndGroups::Slave
 #
 #    These methods will be called when a user or group is added,
@@ -20,12 +21,9 @@
 #    that changes to other machines (master provider).
 #
 package EBox::UsersAndGroups::Slave;
-
-use strict;
-use warnings;
-
 use base 'EBox::LdapUserBase';
 
+use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Error qw(:try);
@@ -36,6 +34,8 @@ use File::Slurp;
 use EBox::UsersAndGroups::LdapObject;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::User;
+
+use constant PENDING_REMOVAL_KEY => 'slaves_to_remove';
 
 # Method: new
 #
@@ -57,7 +57,6 @@ sub new
     return $self;
 }
 
-
 # Method: sync
 #
 #   Synchronize an action to the slave.
@@ -72,13 +71,13 @@ sub sync
         my $method = '_' . $signal;
         $self->$method(@{$args});
     } otherwise {
+        my $ex = shift;
         # Sync failed, save pending action
         my $name = $self->name();
-        EBox::error("Error notifying $name for $signal");
+        EBox::error("Error notifying $name for $signal: $ex");
         $self->savePendingSync($signal, $args);
     };
 }
-
 
 # method: savePendingSync
 #
@@ -128,8 +127,6 @@ sub writeActionInfo
     print $fh encode_json($action);
 }
 
-
-
 # method: syncFromFile
 #
 #   Try to sync a saved action from a previous failed sync
@@ -147,8 +144,9 @@ sub syncFromFile
         $self->$method(@{$args});
         unlink ($file);
     } otherwise {
+        my ($ex) = @_;
         my $name = $self->name();
-        EBox::error("Error notifying $name for $method");
+        EBox::error("Error notifying $name for $method: $ex");
     };
 }
 
@@ -187,5 +185,61 @@ sub name
     return $self->{name};
 }
 
+sub directory
+{
+    my ($self) = @_;
+    my $users = EBox::Global->modInstance('users');
+    my $dir = $users->syncJournalDir($self, 1);
+    return $dir;
+}
+
+sub removeDirectory
+{
+    my ($self) = @_;
+    my $name = $self->name();
+    my $dir = $self->directory();
+    EBox::info("Removing sync dir for slave $name : $dir");
+    EBox::Sudo::root("rm -rf $dir");
+}
+
+sub addRemoval
+{
+    my ($class, $id) = @_;
+    my $users = EBox::Global->getInstance(1)->modInstance('users');
+    my $state = $users->get_state();
+    if (not exists $state->{PENDING_REMOVAL_KEY}) {
+        $state->{PENDING_REMOVAL_KEY} = [];
+    }
+    push @{$state->{PENDING_REMOVAL_KEY}}, $id;
+    $users->set_state($state);
+}
+
+sub commitRemovals
+{
+    my ($class, $global) = @_;
+    my $users = $global->modInstance('users');
+    my $slaveList = $users->model('Slaves');
+    my $state = $users->get_state();
+    my $list = delete  $state->{PENDING_REMOVAL_KEY};
+    foreach my $id (@{ $list }) {
+        # more safety: check if really the slave is not in the list
+        if (defined $slaveList->row($id)) {
+            next;
+        }
+
+        my $slave = new EBox::UsersAndGroups::Slave(name => $id);
+        $slave->removeDirectory();
+    }
+    $users->set_state($state);
+}
+
+sub revokeRemovals
+{
+    my ($class, $global) = @_;
+    my $users = $global->modInstance('users');
+    my $state = $users->get_state();
+    delete  $state->{PENDING_REMOVAL_KEY};
+    $users->set_state($state);
+}
 
 1;

@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/bash -x
 
-export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/3.0/ubuntu"
 ZENTYAL_SOURCES="deb $PPA_URL precise main"
@@ -15,8 +14,12 @@ create_repository()
     # for some reason this worked flawlessly in lucid but not now in precise
     ulimit -n 30000
 
+    if ! [ -d $PKG_DIR ]; then
+        # temporal package directory does not exists, cannot create local repository
+        return
+    fi
     pushd $PKG_DIR
-    apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
+    apt-ftparchive packages . | gzip > Packages.gz
     popd
 
     # Link .deb files to cache to avoid downloading them
@@ -31,19 +34,21 @@ create_repository()
     # just in case we are installing without internet connection
     mv ${SOURCES_LIST} /tmp/sources.list.orig
     echo ${LOCAL_SOURCES} > ${SOURCES_LIST}
-    apt-get update >> $LOG 2>&1
+    apt-get update
     # Restore the original sources.list
     mv /tmp/sources.list.orig ${SOURCES_LIST}
+
+    echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 }
 
 update_if_network()
 {
     # Check if we can connect to the PPA url
-    if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
-        echo "Updating package database from the network..." >> $LOG
-        apt-get update >> $LOG 2>&1
+    if $(wget -T 10 -t 1 $PPA_URL); then
+        echo "Updating package database from the network..."
+        apt-get update
     else
-        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed." >> $LOG
+        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed."
     fi
 }
 
@@ -72,13 +77,9 @@ gen_locales()
 
     # Regenerate locales to update the new messages from Zentyal
     /usr/sbin/locale-gen
-
-    /usr/share/zentyal/set-locale $LANG > /dev/null 2>&1
 }
 
 create_repository # Set up local package repository
-
-echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 
 if ! grep -q ${PPA_URL} ${SOURCES_LIST}
 then
@@ -90,26 +91,38 @@ then
     echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
 fi
 
-update_if_network # apt-get update if we are connected to the internet
-
 # install zentyal core and software
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
+PACKAGES=zentyal
+
+update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
 
-if [ -f /tmp/RECOVER_MODE ]
-then
-    # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
-    touch $DISASTER_FILE
-    chown :admin $DISASTER_FILE
-    chown g+w $DISASTER_FILE
+REGISTER_DATA=/var/lib/zinstaller-remote
 
-    # Clean DR flag for first stage
-    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
+then
+    PACKAGES="$PACKAGES zentyal-remoteservices"
 fi
 
-### CUSTOM_ACTION ###
+DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
+
+if [ -f /var/tmp/.zentyal-disaster-recovery ]
+then
+    touch /var/lib/zentyal/.disaster-recovery
+fi
+
+if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
+then
+    plymouth message --text="Registering your server... Please wait."
+    /usr/share/zenbuntu-desktop/remote-register
+fi
+
+if [ -d /usr/share/zentyal-custom/scripts ]
+then
+    plymouth message --text="Running custom installer... Please wait."
+    run-parts /usr/share/zentyal-custom/scripts
+fi
 
 sync
 

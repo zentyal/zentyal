@@ -32,8 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk jabber);
-use constant MAIL_MODULES   => qw(mail mailfilter webmail zarafa);
+use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -83,13 +82,16 @@ sub unsubscribeIsAllowed
 
 # Method: check
 #
-#    Check if a server is suitable for the given edition codename
+#    Check if a server is suitable for the given edition codename.
+#
+#    Call <lastError> if you want to know why the server is not
+#    suitable for the given edition.
 #
 # Parameters:
 #
 #    edition - String the subscription edition
 #
-#    sbMailAddOn - Boolean SB mail add-on
+#    commAddOn - Boolean Communications add-on
 #
 # Returns:
 #
@@ -97,17 +99,38 @@ sub unsubscribeIsAllowed
 #
 sub check
 {
-    my ($self, $edition, $sbMailAddOn) = @_;
+    my ($self, $edition, $commAddOn) = @_;
 
     my $capable = 1;
     if ($edition eq 'sb') {
         try {
-            $self->_performSBChecks($sbMailAddOn);
+            $self->_performSBChecks($commAddOn);
+            delete $self->{lastError};
         } catch EBox::RemoteServices::Exceptions::NotCapable with {
+            my ($exc) = @_;
+            $self->{lastError} = $exc->text();
             $capable = 0;
         };
     }
     return $capable;
+}
+
+# Method: lastError
+#
+#    Get the last error from last <check> method call
+#
+# Returns:
+#
+#    String - i18ned string with the error
+#
+sub lastError
+{
+    my ($self) = @_;
+
+    if ( exists($self->{lastError}) ) {
+        return $self->{lastError};
+    }
+    return undef;
 }
 
 # Method: checkFromCloud
@@ -132,7 +155,7 @@ sub checkFromCloud
     my $det = $capabilitiesGetter->subscriptionDetails();
 
     if ( $det->{codename} eq 'sb' ) {
-        $self->_performSBChecks();
+        $self->_performSBChecks($det->{sb_comm_add_on});
     }
     return 1;
 }
@@ -142,27 +165,29 @@ sub checkFromCloud
 # Perform the required checks for SB edition
 sub _performSBChecks
 {
-    my ($self, $sbMailAddOn) = @_;
+    my ($self, $commAddOn) = @_;
 
     my $gl = EBox::Global->getInstance();
-    $self->_modCheck($gl, $sbMailAddOn);
+    $self->_modCheck($gl, $commAddOn);
     $self->_usersCheck($gl);
 }
 
-# Check no communication profile and ids module are enabled
+# Check no communication profile is enabled
 sub _modCheck
 {
-    my ($self, $gl, $sbMailAddOn) = @_;
+    my ($self, $gl, $commAddOn) = @_;
 
-    my @mod = BANNED_MODULES;
-    push(@mod, MAIL_MODULES) unless ( $sbMailAddOn );
+    my @mod = ();
+    push(@mod, COMM_MODULES) unless ( $commAddOn );
 
-    foreach my $modName (BANNED_MODULES) {
+    foreach my $modName (@mod) {
         if ( $gl->modExists($modName) ) {
             my $mod = $gl->modInstance($modName);
             if ( $mod->isEnabled() ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The module {mod} is not supported in the Small Business Edition.', mod => $mod->printableName()));
+                    __sx('Communications add-on is required in order to enable '
+                         . '{mod} in the Small Business Edition.',
+                         mod => $mod->printableName()));
             }
         }
     }

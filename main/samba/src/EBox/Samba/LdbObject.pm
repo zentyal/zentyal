@@ -14,17 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Samba::LdbObject;
-
 use strict;
 use warnings;
+
+package EBox::Samba::LdbObject;
 
 use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -105,8 +105,17 @@ sub exists
 sub get
 {
     my ($self, $attr) = @_;
-
-    return $self->_entry->get_value($attr);
+    if (wantarray()) {
+        my @value = $self->_entry->get_value($attr);
+        foreach my $el (@value) {
+            utf8::decode($el);
+        }
+        return @value;
+    } else {
+        my $value = $self->_entry->get_value($attr);
+        utf8::decode($value);
+        return $value;
+    }
 }
 
 # Method: set
@@ -147,19 +156,36 @@ sub add
 
 # Method: delete
 #
-#   Deletes an attribute from the object if given
+#   Delete all values from an attribute
 #
-# Parameters (for attribute deletion):
+#   Parameters (for attribute deletion):
 #
-#   attribute - Attribute name to read
-#   lazy      - Do not update the entry in LDAP
+#       attribute - Attribute name to remove
+#       lazy      - Do not update the entry in LDAP
 #
 sub delete
 {
     my ($self, $attr, $lazy) = @_;
+    $self->deleteValues($attr, [], $lazy);
+}
+
+# Method: deleteValues
+#
+#   Deletes values from an object if they exists
+#
+#   Parameters (for attribute deletion):
+#
+#       attribute - Attribute name to read
+#       values    - reference to the list of values to delete.
+#                   Empty list means all attributes
+#       lazy      - Do not update the entry in LDAP
+#
+sub deleteValues
+{
+    my ($self, $attr, $values, $lazy) = @_;
 
     if ($attr eq any $self->_entry->attributes) {
-        $self->_entry->delete($attr);
+        $self->_entry->delete($attr, $values);
         $self->save() unless $lazy;
     }
 }
@@ -171,6 +197,14 @@ sub delete
 sub deleteObject
 {
     my ($self, $attr, $lazy) = @_;
+
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    if ($isCritical and lc ($isCritical) eq 'true') {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $self->dn()));
+    }
 
     $self->_entry->delete();
     $self->save();
@@ -412,28 +446,22 @@ sub _checkAccountName
     my $advice = undef;
 
     if ($name =~ m/\.$/) {
-        $advice = __('Windows account names cannot end with a period');
-    }
-
-    if ($name =~ m/^[[:space:]0-9\.]+$/) {
-        $advice = __('Windows account names cannot be only spaces, numbers and dots');
-    }
-
-    unless ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
+        $advice = __('Windows account names cannot end with a dot');
+    } elsif ($name =~ m/^-/) {
+        $advice = __('Windows account names cannot start with a dash');
+    } elsif (not $name =~ /^[a-zA-Z\d\s_\-\.]+$/) {
         $advice = __('To avoid problems, the account name should ' .
-                'consist only of letters, digits, underscores, ' .
-                'spaces, periods, dashs, not start with a ' .
-                'dash and not end with dot');
-    }
-
-    if (length ($name) > $maxLength) {
+                     'consist only of letters, digits, underscores, ' .
+                      'spaces, periods, and dashes'
+               );
+    } elsif (length ($name) > $maxLength) {
         $advice = __x("Account name must not be longer than {maxLength} characters",
                        maxLength => $maxLength);
     }
 
-    if (defined $advice) {
+    if ($advice) {
         throw EBox::Exceptions::InvalidData(
-                'data' => __('samAccountName'),
+                'data' => __('account name'),
                 'value' => $name,
                 'advice' => $advice);
     }
@@ -481,6 +509,16 @@ sub setViewInAdvancedOnly
         type => '1.3.6.1.4.1.4203.666.5.12',
         critical => 0 );
     $self->save($relaxOidControl) unless $lazy;
+}
+
+sub getXidNumberFromRID
+{
+    my ($self) = @_;
+
+    my $sid = $self->sid();
+    my $rid = (split (/-/, $sid))[7];
+
+    return $rid + 50000;
 }
 
 1;

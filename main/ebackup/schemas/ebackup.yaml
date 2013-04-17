@@ -1,6 +1,4 @@
 class: 'EBox::EBackup'
-depends:
-    - events
 
 models:
     - RemoteSettings

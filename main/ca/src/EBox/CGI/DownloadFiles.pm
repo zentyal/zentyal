@@ -145,7 +145,8 @@ sub _print
         return;
     }
 
-    open( my $keyFile, $self->{downfile} )
+    binmode(STDOUT, ':raw');
+    open(my $keyFile, $self->{downfile})
         or throw EBox::Exceptions::Internal("Could NOT open key file.");
 
     print($self->cgi()->header(-type => 'application/octet-stream',
@@ -156,6 +157,7 @@ sub _print
     }
 
     close($keyFile);
+    binmode(STDOUT, ':utf8');
 }
 
 1;

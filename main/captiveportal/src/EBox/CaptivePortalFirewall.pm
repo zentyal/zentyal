@@ -35,6 +35,12 @@ sub new
     $self->{network} = $global->modInstance('network');
     $self->{captiveportal} = $global->modInstance('captiveportal');
 
+    $self->{httpCapturePort} = undef;
+    my  $squid = $global->modInstance('squid');
+    if ($squid and $squid->transproxy()) {
+        $self->{httpCapturePort} = $squid->port();
+    }
+
     bless($self, $class);
     return $self;
 }
@@ -110,6 +116,8 @@ sub input
     my $port = $self->{captiveportal}->httpPort();
     my $captiveport = $self->{captiveportal}->httpsPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+
+    push(@rules, @{$self->_exceptionsRules('icaptive')});
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -197,7 +205,7 @@ sub _exceptionsRules
 
     my @rules = map {
         { 'rule' => $_, 'chain' => $chain }
-    } @{  $self->{captiveportal}->exceptionsFirewallRules() };
+    } @{  $self->{captiveportal}->exceptionsFirewallRules($chain) };
 
     return \@rules;
 }

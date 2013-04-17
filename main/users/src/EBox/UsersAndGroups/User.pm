@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
@@ -35,24 +34,26 @@ use EBox::UsersAndGroups::Group;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
 use Convert::ASN1;
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
+use constant MAXUID         => 2**31;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
-                                 'description');
-
-
+                                 'description', 'krb5Key');
 
 sub new
 {
@@ -110,7 +111,6 @@ sub name
     return $self->get('uid');
 }
 
-
 sub fullname
 {
     my ($self) = @_;
@@ -124,13 +124,11 @@ sub firstname
     return $self->get('givenName');
 }
 
-
 sub surname
 {
     my ($self) = @_;
     return $self->get('sn');
 }
-
 
 sub home
 {
@@ -138,18 +136,24 @@ sub home
     return $self->get('homeDirectory');
 }
 
-
 sub quota
 {
     my ($self) = @_;
     return $self->get('quota');
 }
 
-
 sub comment
 {
     my ($self) = @_;
     return $self->get('description');
+}
+
+sub internal
+{
+    my ($self) = @_;
+
+    my $title = $self->get('title');
+    return (defined ($title) and ($title eq 'internal'));
 }
 
 # Catch some of the set ops which need special actions
@@ -267,7 +271,6 @@ sub addGroup
     $group->addMember($self);
 }
 
-
 # Method: removeGroup
 #
 #   Removes this user from the given group
@@ -282,7 +285,6 @@ sub removeGroup
 
     $group->removeMember($self);
 }
-
 
 # Method: groups
 #
@@ -302,7 +304,6 @@ sub groups
 
     return $self->_groups($system);
 }
-
 
 # Method: groupsNotIn
 #
@@ -346,13 +347,20 @@ sub _groups
     my @groups;
     if ($result->count > 0)
     {
-        foreach my $entry ($result->sorted('cn'))
+        foreach my $entry ($result->entries())
         {
             if (not $system) {
                 next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
             }
             push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
         }
+        # sort grups by name
+        @groups = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+        } @groups;
     }
     return \@groups;
 }
@@ -374,7 +382,7 @@ sub _checkQuota
 {
     my ($self, $quota) = @_;
 
-    my $integer = $quota -~ m/^\d+$/;
+    my $integer = $quota =~ m/^\d+$/;
     if (not $integer) {
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
                                             'value' => $quota,
@@ -403,7 +411,7 @@ sub _setFilesystemQuota
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
 
     # check if quota has been really set
-    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my $output = EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
         EBox::error(
@@ -430,7 +438,6 @@ sub changePassword
     $self->save() unless $lazy;
 }
 
-
 # Method: setPasswordFromHashes
 #
 #   Configure user password directly from its kerberos hashes
@@ -441,13 +448,12 @@ sub changePassword
 #
 sub setPasswordFromHashes
 {
-    my ($self, $passwords) = @_;
+    my ($self, $passwords, $lazy) = @_;
 
-    $self->set('userPassword', '{K5KEY}');
-    $self->set('krb5Key', $passwords);
-    $self->set('krb5KeyVersionNumber', 1);
+    $self->set('userPassword', '{K5KEY}', $lazy);
+    $self->set('krb5Key', $passwords, $lazy);
+    $self->set('krb5KeyVersionNumber', 1, $lazy);
 }
-
 
 # Method: deleteObject
 #
@@ -474,7 +480,6 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-
 # Method: passwordHashes
 #
 #   Return an array ref to all krb hashed passwords as:
@@ -489,9 +494,7 @@ sub passwordHashes
     return \@keys;
 }
 
-
 # USER CREATION:
-
 
 # Method: create
 #
@@ -499,12 +502,18 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
-#                               'surname' and 'comment'
+#   user - hash ref containing:
+#       user - user name
+#       password
+#       fullname (optional)
+#       givenname
+#       surname
+#       comment
+#       ou (optional) # TODO param conflict, wrong doc
 #   system - boolean: if true it adds the user as system user, otherwise as
 #                     normal user
 #   params hash (all optional):
-#      uidNumber - user UID numberer
+#      uidNumber - user UID number
 #      ou (multiple_ous enabled only)
 #      ignoreMods - modules that should not be notified about the user creation
 #      ignoreSlaves - slaves that should not be notified about the user creation
@@ -520,7 +529,9 @@ sub create
     my $users = EBox::Global->modInstance('users');
 
     unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+        my $advice = __('To avoid problems, the username should consist only ' .
+                        'of letters, digits, underscores, spaces, periods, ' .
+                        'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
                                             'value' => $user->{'user'},
@@ -549,6 +560,13 @@ sub create
     if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
+    }
+    # Verify than a group with the same name does not exists
+    if ($users->groupExists($user->{user})) {
+        throw EBox::Exceptions::External(
+            __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $user->{user})
+           );
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});
@@ -593,7 +611,7 @@ sub create
 
     my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
-    my @attr =  (
+    my @attr = (
         'cn'            => $user->{fullname},
         'uid'           => $user->{user},
         'sn'            => $user->{surname},
@@ -620,11 +638,32 @@ sub create
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
 
-    my %args = ( attr => \@attr );
+    if ($params{internal}) {
+        push (@attr, 'title' => 'internal') if ($params{internal});
+    }
 
     my $res = undef;
+    my $entry = undef;
     try {
-        my $r = $self->_ldap->add($dn, \%args);
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attr);
+        unless ($system) {
+            $users->notifyModsPreLdapUserBase('preAddUser', $entry,
+                $params{ignoreMods}, $params{ignoreSlaves});
+        }
+
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on user LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $self->entryOpChangesInUpdate($entry),
+                   );
+            };
+    }
+
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 
         # Set the user password and kerberos keys
@@ -652,15 +691,22 @@ sub create
         }
     } otherwise {
         my ($error) = @_;
+
+        EBox::error($error);
+
         # A notified module has thrown an exception. Delete the object from LDAP
         # Call to parent implementation to avoid notifying modules about deletion
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if (defined $res and $res->exists()) {
+            $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
         }
         $res = undef;
+        $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
     };
@@ -673,9 +719,6 @@ sub create
     # Return the new created user
     return $res;
 }
-
-
-
 
 sub _checkName
 {
@@ -742,6 +785,7 @@ sub lastUid
             $lastUid = $uid;
         }
     }
+
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
@@ -753,16 +797,25 @@ sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
 
-    my $uid;
-    if ($systemUser) {
-        $uid = $self->lastUid(1) + 1;
-        if ($uid == MINUID) {
-            throw EBox::Exceptions::Internal(
-                __('Maximum number of system users reached'));
+    my $uid = $self->lastUid($systemUser);
+    do {
+        # try next uid in order
+        $uid++;
+
+        if ($systemUser) {
+            if ($uid >= MINUID) {
+                throw EBox::Exceptions::Internal(
+                    __('Maximum number of system users reached'));
+            }
+        } else {
+            if ($uid >= MAXUID) {
+                throw EBox::Exceptions::Internal(
+                        __('Maximum number of users reached'));
+            }
         }
-    } else {
-        $uid = $self->lastUid + 1;
-    }
+
+        # check if uid is already used
+    } while (defined getpwuid($uid));
 
     return $uid;
 }
@@ -925,7 +978,8 @@ sub setKerberosKeys
         throw EBox::Exceptions::Internal($asn_key->error());
         push (@{$blobs}, $blob);
     }
-        $self->set('krb5Key', $blobs);
+    $self->set('krb5Key', $blobs);
+    $self->set('userPassword', '{K5KEY}');
 }
 
 1;

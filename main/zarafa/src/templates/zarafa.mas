@@ -51,24 +51,15 @@
 %            }
             />
         </td>
+      </tr>
+
+      <tr>
         <td class="tright">
             <span class="ftitle"><% __('Enable IMAP access') %>:</span>
         </td>
         <td>
             <input type="checkbox" name="has_imap" id="external" value="yes"
 %            if ($params->{'has_imap'}) {
-                checked
-%            }
-            />
-        </td>
-    </tr>
-    <tr>
-        <td class="tright">
-            <span class="ftitle"><% __('Shared store only') %>:</span>
-        </td>
-        <td>
-            <input type="checkbox" name="is_store" id="external" value="yes"
-%            if ($params->{'is_store'}) {
                 checked
 %            }
             />
@@ -98,6 +89,9 @@
 %            }
             />
         </td>
+     </tr>
+
+     <tr>
         <td class="tright">
             <span class="ftitle"><% __('Decline recurring meeting requests') %>:</span>
         </td>
@@ -116,7 +110,7 @@
         </td>
     </tr>
 %    }
-%    if ($params->{'active'} eq 'no') {
+%    if (($params->{'active'} eq 'no')) {
     <tr>
         <td class="tright">
             <span class="ftitle"><% __('Groupware contact') %>:</span>

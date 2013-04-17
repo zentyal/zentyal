@@ -54,6 +54,7 @@ sub _setQAUpdates
 {
     # Set the QA Updates if the subscription level is greater than basic
     my $rs = EBox::Global->modInstance('remoteservices');
+    return unless ($rs->eBoxSubscribed());
     return unless ($rs->subscriptionLevel(1) > 0);
 
     _setQASources();
@@ -127,9 +128,7 @@ sub _ubuntuVersion
 # Get the Zentyal version to use in the archive
 sub _zentyalVersion
 {
-    # Comment out when stable is launched
-    # return substr(EBox::Config::version(),0,3);
-    return '3.0';
+    return substr(EBox::Config::version(),0,3);
 }
 
 # Get the QA archive to look
@@ -138,7 +137,7 @@ sub _archive
     my $ubuntuVersion = _ubuntuVersion();
     my $zentyalVersion = _zentyalVersion();
 
-    return "zentyal-qa-$zentyalVersion-$ubuntuVersion";
+    return "zentyal-qa-$zentyalVersion";
 
 }
 
@@ -186,7 +185,14 @@ sub _setQARepoConf
     my $repoHostname = _repositoryHostname();
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
                                              '/remoteservices/qa-conf.mas',
-                                             [ repoHostname => $repoHostname ]);
+                                             [ repoHostname => $repoHostname ],
+                                             {
+                                                 force => 1,
+                                                 mode  => '0644',
+                                                 uid   => 0,
+                                                 gid   => 0,
+                                             }
+                                            );
 }
 
 # Get the repository hostname
@@ -251,7 +257,7 @@ sub _downgrade
 {
     my $rs = EBox::Global->modInstance('remoteservices');
     # If Basic subscription or no subscription at all
-    if ($rs->subscriptionLevel(1) <= 0) {
+    if (not $rs->eBoxSubscribed() or $rs->subscriptionLevel(1) <= 0) {
         if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
             or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
             # Requires to downgrade

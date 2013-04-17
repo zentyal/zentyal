@@ -15,10 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package main;
-
 use warnings;
 use strict;
+
+use Test::More skip_all => 'FIXME';
 
 ###############
 # Dependencies

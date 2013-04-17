@@ -1,3 +1,15 @@
+HEAD
+	+ Fixed bug when checking hostname aliases on creation of a
+	  virtual host
+	+ When dumping config the no existence of configuration
+	  directories generates a warning instead of a error
+3.0.2
+	+ Integration with Disaster Recovery service
+	+ Fixed error when creating directories for virtual host for hostname
+	+ Add DNS records for virtual hosts but without IP addresses
+3.0.1
+	+ Virtual host for hostname overrides default settings
+	+ Added and used serviceId field for service certificates
 2.3.7
 	+ Disabled temporarily dns host record creation until DNS/kerberos
 	  system allows it again

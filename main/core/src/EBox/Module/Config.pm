@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Module::Config;
-
 use strict;
 use warnings;
 
+package EBox::Module::Config;
 use base 'EBox::Module::Base';
 
 use EBox::Config;
@@ -41,7 +39,12 @@ sub _create
         $self->{ro} = 1;
     }
     bless($self, $class);
-    $self->{redis} = EBox::Config::Redis->instance();
+    my $redis = delete $opts{redis};
+    if ($redis) {
+        $self->{redis} = EBox::Config::Redis->instance(customRedis => $redis);
+    } else {
+        $self->{redis} = EBox::Config::Redis->instance();
+    }
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }
@@ -313,7 +316,6 @@ sub set_state
     $self->{redis}->set($self->_st_key(), $hash);
 }
 
-
 sub st_entry_exists
 {
     my ($self, $key) = @_;
@@ -544,11 +546,12 @@ sub get_hash
 #
 # Parameters:
 #
-#       key -
+#       key - string with the key
+#       value - default value to be returned if the key does not exist
 #
 # Returns:
 #
-#   Returns a <Gnome2::Gconf2::value>
+#   value of the key or defaultValue if specified and key does not exist
 #
 sub get
 {
@@ -872,7 +875,6 @@ sub _filesArchive
     return "$dir/modelsFiles.tar";
 }
 
-
 # Method: backupFilesInArchive
 #
 #  Backup all the modules' files in a compressed archive in the given dir
@@ -898,14 +900,14 @@ sub backupFilesInArchive
 
 
     my $firstFile  = shift @filesToBackup;
-    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve --same-owner $firstFile";
+    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";
     EBox::Sudo::root($archiveCmd);
 
     # we append the files one per one bz we don't want to overflow the command
     # line limit. Another approach would be to use a file catalog however I think
     # that for only a few files (typical situation for now) the append method is better
     foreach my $file (@filesToBackup) {
-        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
+        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$file'";
         EBox::Sudo::root($archiveCmd);
     }
 }
@@ -924,7 +926,7 @@ sub restoreFilesFromArchive
 
     (-f $archive) or return;
 
-    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
+    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner";
     EBox::Sudo::root($restoreCmd);
 }
 
@@ -935,7 +937,6 @@ sub restoreFilesFromArchive
 sub global
 {
     my ($self) = @_;
-
     return EBox::Global->getInstance($self->{ro});
 }
 

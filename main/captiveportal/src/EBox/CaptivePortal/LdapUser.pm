@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortal::LdapUser;
-
-use base qw(EBox::LdapUserBase);
-
 use strict;
 use warnings;
+
+package EBox::CaptivePortal::LdapUser;
+use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;
 use EBox::Global;
@@ -67,8 +65,6 @@ sub _userAddOns
              params => $args };
 }
 
-
-
 sub isQuotaOverridden
 {
     my ($self, $user) = @_;
@@ -78,7 +74,6 @@ sub isQuotaOverridden
     }
     return 0;
 }
-
 
 # Method: setQuota
 #
@@ -145,7 +140,6 @@ sub getQuota
     return $model->defaultQuotaValue();
 }
 
-
 sub _addUser
 {
     my ($self, $user, $password) = @_;
@@ -169,7 +163,6 @@ sub _addUser
     }
 }
 
-
 # Method: defaultUserModel
 #
 #   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
@@ -178,6 +171,37 @@ sub _addUser
 sub defaultUserModel
 {
     return 'captiveportal/CaptiveUser';
+}
+
+sub _delGroup
+{
+     my ($self, $group) = @_;
+     $group = $group->name();
+     if ($group ne $self->_authGroup()) {
+         return;
+     }
+
+     my $captive = EBox::Global->modInstance('captiveportal');
+     $captive->model('Settings')->setAuthGroupToAll();
+     $captive->enableService(0);
+}
+
+sub _delGroupWarning
+{
+    my ($self, $group) = @_;
+    $group = $group->name();
+    if ($group eq $self->_authGroup()) {
+        return (__('Captive portal authorized group. The module will be disabled'))
+    } else {
+        return ();
+    }
+}
+
+sub _authGroup
+{
+    my $captive = EBox::Global->modInstance('captiveportal');
+    my $settings = $captive->model('Settings');
+    return  $settings->groupValue();
 }
 
 1;

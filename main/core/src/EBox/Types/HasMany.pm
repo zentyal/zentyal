@@ -134,8 +134,8 @@ sub foreignModelInstance
     my $directory = $value->{directory};
 
     # directory maybe undef if the HasMany is not yet created
-    $directory or
-        return undef;
+    # Some foreignModelAcquirers may return undef for a model
+    return undef unless ($directory and $modelName);
 
     my $model;
     my $manager = EBox::Model::Manager->instance();

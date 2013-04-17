@@ -42,14 +42,8 @@ use constant MAX_SCRIPT_SESSION => 10; # In seconds
 # Remote access constants
 use constant CC_USER => '__remote_access__';
 
-sub new
-{
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
-    return $self;
-}
-
+# Method: _savesession
+#
 # Parameters:
 #
 #   - session id : if the id is undef, it truncates the session file
@@ -145,7 +139,7 @@ sub authen_cred  # (request, $user, password, fromCC)
 
     # If there's a script session opened, give it priority to the
     # Web interface session
-    if ( $self->_actionScriptSession() ){
+    if ($self->_actionScriptSession()) {
         EBox::warn('Failed login since a script session is opened');
         $r->subprocess_env(LoginReason => 'Script active');
         return;
@@ -193,11 +187,11 @@ sub authen_ses_key  # (request, session_key)
 
     my $expired =  _timeExpired($lastime);
 
-    if ( $self->_actionScriptSession() ) {
+    if ($self->_actionScriptSession()) {
         $r->subprocess_env(LoginReason => 'Script active');
         _savesession(undef);
     }
-    elsif ( ($session_key eq $sid) and (!$expired) ) {
+    elsif (($session_key eq $sid) and (!$expired)) {
         my $audit = EBox::Global->modInstance('audit');
         $audit->setUsername($user);
 
@@ -253,18 +247,6 @@ sub loginCC
         }
         return EBox::CGI::Run->run('/Login/Index', 'EBox');
     }
-}
-
-# XXX not sure if this will be useful, if not remove
-sub alreadyLogged
-{
-    my ($self) = @_;
-    my ($sid, $lastime, $user) = _currentSessionId();
-
-    return 0 if !defined $sid;
-    return 0 if _timeExpired($lastime);
-
-    return 1;
 }
 
 # Method: logout
@@ -348,7 +330,7 @@ sub _actionScriptSession
     # The script session filehandle
     my $scriptSessionFile;
 
-    unless ( -e EBox::Config->scriptSession() ){
+    unless (-e EBox::Config->scriptSession()) {
         return undef;
     }
 

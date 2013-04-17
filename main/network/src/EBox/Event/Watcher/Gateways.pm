@@ -16,12 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::Event::Watcher::Gateways;
-
 # Class: EBox::Event::Watcher::Gateways;
 #
 # This class is a watcher which checks connection/disconnection of gateways
 #
+package EBox::Event::Watcher::Gateways;
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Network;
@@ -229,16 +228,20 @@ sub run
         EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
 
-        foreach my $module ($global->modInstancesOfType('EBox::NetworkObserver')) {
+        foreach my $module (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
             my $timeout = 60;
             while ($timeout) {
+                my $done = 0;
                 try {
                     $module->regenGatewaysFailover();
-                    last;
+                    $done = 1;
                 } catch EBox::Exceptions::Lock with {
                     sleep 5;
                     $timeout -= 5;
                 };
+                if ($done) {
+                    last;
+                }
             }
             if ($timeout <= 0) {
                 EBox::error("WAN Failover: $module->{name} module has been locked for 60 seconds.");

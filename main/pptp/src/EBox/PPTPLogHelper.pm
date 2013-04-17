@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::PPTPLogHelper;
 use base 'EBox::LogHelper';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Config;
@@ -96,7 +95,7 @@ sub processLine # (file, line, dbengine)
         my $event  = $eventInfo->{name};
         my $fromIp = $eventInfo->{fromIp};
 
-        my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', "$month $mday $time $year");
+        my $timestamp = $self->_convertTimestamp("$month $mday $time $year", '%b %e %H:%M:%S %Y');
 
         my $dbRow = {
             timestamp  => $timestamp,

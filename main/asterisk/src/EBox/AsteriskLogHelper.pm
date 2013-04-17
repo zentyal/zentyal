@@ -12,21 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::AsteriskLogHelper;
-
-use base 'EBox::LogHelper';
-
-# Class: EBox::AsteriskLogHelper
-#
-#
-#
-
 use strict;
 use warnings;
 
-use EBox;
-use EBox::Config;
+package EBox::AsteriskLogHelper;
+use base 'EBox::LogHelper';
+
 use EBox::Gettext;
 
 use Text::CSV;
@@ -67,7 +58,6 @@ sub logFiles
     return [LOGFILE];
 }
 
-
 # Method: processLine
 #
 #       This function will be run every time a new line is received in
@@ -102,8 +92,8 @@ sub processLine # (file, line, logger)
     $dataToInsert{dstchannel} = $columns[6];
     $dataToInsert{lastapp} = $columns[7];
     $dataToInsert{lastdata} = $columns[8];
-    # FIXME: check timestamp is in proper format for mysql, probably not
-    $dataToInsert{timestamp} = $columns[9]; # 3 fields on logs with dates
+    $dataToInsert{timestamp} = $columns[9]; # this in format '%Y-%m-%d %H:%M:%S'
+                                            # 3 fields on logs with dates
     $dataToInsert{duration} = $columns[12];
     $dataToInsert{billsec} = $columns[13];
     $dataToInsert{disposition} = $columns[14];

@@ -12,23 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
 use strict;
 use warnings;
 
-use Test::More tests => 28;
-
-use EBox::TestStubs;
-
+use Test::More tests => 19;
 
 use lib '../../..';
 
-use EBox::Types::Test;
+use EBox::Types::TestHelper;
 use EBox::Types::Int;
 use EBox::Types::Text;
-
-
 
 sub creationTest
 {
@@ -87,28 +80,24 @@ sub creationTest
                         ]
                        );
 
-
-
     foreach my $case_r (@validCases) {
         my @params = @{ $case_r };
-        EBox::Types::Test::createOk(
+        EBox::Types::TestHelper::createOk(
                                     'EBox::Types::Int',
                                     fieldName => 'test',
                                     @params,
                                     "Checking instance creation with valid parameters and value"
                                    );
-
     }
 
     foreach my $case_r (@deviantCases) {
         my @params = @{ $case_r };
-        EBox::Types::Test::createFail(
+        EBox::Types::TestHelper::createFail(
                                       'EBox::Types::Int',
                                       @params,
                                       "Checking instance creation raises error when called with invalid parameters and value"
                                      );
     }
-
 }
 
 sub cmpTest
@@ -130,8 +119,6 @@ sub cmpTest
                                     fieldName => 'seven',
                                     value    => 7,
                                    );
-
-    
 
     my $fourWithMin = new EBox::Types::Int(
                                     fieldName => 'fourWithMin',
@@ -167,17 +154,12 @@ sub cmpTest
 
     is $four->cmp($text), undef,
         'whether different types are incomparable';
-
 }
 
-
-EBox::TestStubs::activateTestStubs();
+EBox::Types::TestHelper::setupFakes();
 creationTest();
 
-EBox::Types::Test::defaultValueOk('EBox::Types::Int', 4);
-
-
-EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Int', 4, 1, 4 ,5);
+EBox::Types::TestHelper::defaultValueOk('EBox::Types::Int', 4);
 
 cmpTest();
 

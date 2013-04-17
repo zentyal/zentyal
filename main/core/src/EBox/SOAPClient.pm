@@ -116,11 +116,7 @@ sub instance
           }}
         );
 
-    if ( defined ( $params{certs} )) {
-        $class->_setCerts($params{certs});
-    }
-
-    my $self = { soapConn => $soapConn };
+    my $self = { soapConn => $soapConn, certs => $params{certs} };
 
     bless ( $self, $class );
 
@@ -172,7 +168,9 @@ sub AUTOLOAD
     }
 
 
+    $self->_setCerts();
     my $response = $self->{soapConn}->call($methodName => @soapParams);
+    $self->_unsetCerts();
 
     if ( $response->fault() ) {
         if ( defined ( $response->faultdetail() )) {
@@ -200,12 +198,16 @@ sub AUTOLOAD
 
 # Group: Private functions
 
+
 # Set the certificates enviroment variables to establish SSL
 # connection
 sub _setCerts
 {
 
-    my ($class, $certs) = @_;
+    my ($self) = @_;
+
+    return unless defined($self->{certs});
+    my $certs = $self->{certs};
 
     $ENV{HTTPS_CERT_FILE} = $certs->{cert};
     $ENV{HTTPS_KEY_FILE} = $certs->{private};
@@ -221,5 +223,19 @@ sub _setCerts
     }
     $ENV{HTTPS_VERSION} = '3';
 }
+
+sub _unsetCerts
+{
+    my ($self) = @_;
+    delete $ENV{HTTPS_CERT_FILE};
+    delete $ENV{HTTPS_KEY_FILE};
+
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_cert_file} = '';
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_key_file} = '';
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_use_cert} = 0;
+
+    delete $ENV{HTTPS_CA_FILE};
+}
+
 
 1;

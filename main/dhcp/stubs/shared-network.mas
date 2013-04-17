@@ -1,7 +1,6 @@
 <%args>
 	$iface
 	%ifaces
-	@vifaces
 </%args>
 shared-network <% $iface %> {
 <& includes.mas,
@@ -12,12 +11,6 @@ shared-network <% $iface %> {
 <& .thin_client_options, options => $ifaces{$iface}->{'options'} &>
 
 <& subnet.mas, info => $ifaces{$iface} &>
-% foreach my $viface (@vifaces) {
-<& includes.mas,
-   iface => $viface
-&>
-<& subnet.mas, info => $ifaces{$viface} &>
-% }
 }
 
 <%doc>

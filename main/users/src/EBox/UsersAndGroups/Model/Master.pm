@@ -79,11 +79,13 @@ sub _table
 
     ];
 
-    # TODO - check cloud permissions for this feature
     if (EBox::Global->modExists('remoteservices')) {
-        push ($master_options,
-            { value => 'cloud', printableValue  => __('Zentyal Cloud') }
-        );
+        my $rs = EBox::Global->modInstance('remoteservices');
+        if ($rs->usersSyncAvailable()) {
+            push ($master_options,
+                { value => 'cloud', printableValue  => __('Zentyal Cloud') }
+            );
+        }
     }
 
     my @tableDesc = (
@@ -164,7 +166,6 @@ sub validateTypedRow
 {
     my ($self, $action, $changedParams, $allParams, $force) = @_;
 
-
     my $master = exists $allParams->{master} ?
                         $allParams->{master}->value() :
                         $changedParams->{master}->value();
@@ -174,7 +175,14 @@ sub validateTypedRow
     # do not check if disabled
     return unless ($enabled);
 
+    if ($master ne 'cloud') {
+        $self->_checkSamba();
+    }
+
     my $users = EBox::Global->modInstance('users');
+
+    # will the operation destroy current users?
+    my $destroy = 1;
 
     if ($master eq 'zentyal') {
         # Check master is accesible
@@ -193,11 +201,52 @@ sub validateTypedRow
         $users->masterConf->checkMaster($host, $port, $password);
     }
 
-    unless ($force) {
-        my $nUsers = scalar @{$users->users()};
-        if ($nUsers > 0) {
-            throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
+    if ($master eq 'cloud') {
+        my $rs = new EBox::Global->modInstance('remoteservices');
+        my $rest = $rs->REST();
+        my $res = $rest->GET("/v1/users/realm/")->data();
+        my $realm = $res->{realm};
+
+        # If cloud is already provisoned destroy local users before sync
+        $destroy = 0 if (not $realm);
+
+        if ($realm and ($users->kerberosRealm() ne $realm)) {
+            throw EBox::Exceptions::External(__x('Master server has a different REALM, check hostnames. Master is {master} and this server {slave}.',
+                master => $realm,
+                slave => $users->kerberosRealm()
+            ));
         }
+    }
+
+    my @ldapMods = grep {
+        my $mod = $_;
+        ($mod->name() ne $users->name()) and
+         ($mod->isa('EBox::LdapModule'))
+    } @{ $self->global->modInstances() };
+
+    unless ($force) {
+        my $warnMsg = '';
+        my $nUsers = scalar @{$users->users()};
+        if ($nUsers > 0 and $destroy) {
+            $warnMsg = (__('CAUTION: this will delete all defined users and import master ones.'));
+        }
+
+        foreach my $mod (@ldapMods) {
+            my $modWarn = $mod->slaveSetupWarning($master);
+            if ($modWarn) {
+                $warnMsg .= '<br/>' if $warnMsg;
+                $warnMsg .= $modWarn;
+            }
+        }
+
+
+        if ($warnMsg) {
+            throw EBox::Exceptions::DataInUse($warnMsg);
+        }
+    }
+
+    foreach my $mod (@ldapMods) {
+        $mod->preSlaveSetup($master);
     }
 
     # set apache as changed
@@ -205,5 +254,15 @@ sub validateTypedRow
     $apache->setAsChanged();
 }
 
+sub _checkSamba
+{
+    my $samba = EBox::Global->modInstance('samba');
+    if (not $samba) {
+        return;
+    }
+    if ($samba->configured()) {
+        throw EBox::Exceptions::External(__('Cannot synchronize users with other Zentyal if Samba is either in use or provisioned'));
+    }
+}
 
 1;

@@ -8,6 +8,7 @@
 <%init>
 use EBox::Gettext;
 use EBox::NetWrappers qw(:all);
+@vlans = sort { $a->{id} <=> $b->{id} } @vlans;
 </%init>
 <div class='help'>
 <% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
@@ -249,7 +250,6 @@ use EBox::NetWrappers qw(:all);
                         value="<% __("Add") %>" >
             </td>
         </form></tr>
-
 %   foreach my $vlan (@vlans) {
         <tr class='border'><form action='Vlan' method='POST'>
             <td class='tleft'>
@@ -335,8 +335,8 @@ use EBox::NetWrappers qw(:all);
                         value="<% __("Add") %>" >
             </td>
         </form></tr>
-
-%   foreach my $viface (@{$iface->{"virtual"}}) {
+%   my @vifaces = sort { $a->{name} cmp $b->{name}  } @{$iface->{"virtual"}};
+%   foreach my $viface (@vifaces) {
         <tr class='border'><form name="<% $iface->{"name"} %>" action="VIface" method="post">
 
             <td>

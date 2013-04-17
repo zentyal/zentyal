@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::MailUserLdap;
 use base qw(EBox::LdapUserBase);
-
-use strict;
-use warnings;
 
 use EBox::Sudo;
 use EBox::Global;
@@ -225,9 +224,11 @@ sub delAccountsFromVDomain   #vdomain
     my %accs = %{$self->allAccountsFromVDomain($vdomain)};
 
     my $mail = "";
-    foreach my $uid (keys %accs) {
+    while (my ($uid, $mail) = each %accs) {
+        my $user = new EBox::UsersAndGroups::User(uid => $uid);
         $mail = $accs{$uid};
-        $self->delUserAccount($uid, $accs{$uid});
+
+        $self->delUserAccount($user, $accs{$uid});
     }
 }
 
@@ -801,6 +802,11 @@ sub acls
     return [ "to attrs=fetchmailAccount " .
             "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
             "by * none" ];
+}
+
+sub indexes
+{
+    return ['mail', 'dc'];
 }
 
 # Method: defaultUserModel

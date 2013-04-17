@@ -49,7 +49,8 @@ sub _sendEvent
 
     # Generate event
     my $enabled = 0;
-    my $global = EBox::Global->getInstance(1);
+    my $global = EBox::Global->getInstance(0); # must be RW to update with
+                                               # latest event watcher
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ((defined $events)  and ($events->isRunning())) {
@@ -293,6 +294,20 @@ sub _cleanup
     };
 }
 
+sub _preCheckTargetHook
+{
+    my ($ebackup, $type) = @_;
+    try {
+        $ebackup->preCheckTargetHook();
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error in pre-check target hook: $ex");
+        _prepareAndSendEvent(0, $type, "$ex");
+        $ebackup->backupProcessUnlock();
+        exit 1;
+    };
+}
+
 # Try to back up with n_tries using a geometric progression
 # Returns two values in an array:
 #      success  - Boolean indicating if it was a success
@@ -489,22 +504,6 @@ if ($mustExit) {
     exit $mustExit;
 }
 
-
-try {
-   $ebackup->lock() ;
-} otherwise {
-    $ebackup->backupProcessUnlock();
-    my $busyMsg = __('The backup module is busy, retry later');
-    print $busyMsg;
-    print "\n";
-    _prepareAndSendEvent(0, $type, $busyMsg);
-    $mustExit =  1;
-};
-
-if ($mustExit) {
-    exit $mustExit;
-}
-
 my ($success, $successMsg, $errorMsg) = (1, '', '');
 my @extraDataDumped;
 my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
@@ -514,6 +513,8 @@ if ($usingCloud) {
 
 try {
     $type = _adjustType($ebackup, $type);
+
+    _preCheckTargetHook($ebackup, $type);
 
     try {
         $ebackup->checkTargetStatus($type);
@@ -576,7 +577,6 @@ try {
     } finally {
         # This code must be run always
         $ebackup->backupProcessUnlock();
-        $ebackup->unlock();
     }
 };
 

@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+use strict;
+use warnings;
 # Class: EBox::UsersAndGroups::Group
 #
 #   Zentyal group, stored in LDAP
 #
-
 package EBox::UsersAndGroups::Group;
+use base 'EBox::UsersAndGroups::LdapObject';
 
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Global;
@@ -34,17 +31,17 @@ use EBox::UsersAndGroups::User;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant SYSMINGID      => 1900;
-use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('member', 'description');
-
-use base 'EBox::UsersAndGroups::LdapObject';
 
 sub new
 {
@@ -92,7 +89,6 @@ sub _entry
     return $self->{entry};
 }
 
-
 # Method: name
 #
 #   Return group name
@@ -103,7 +99,6 @@ sub name
     return $self->get('cn');
 }
 
-
 # Method: removeAllMembers
 #
 #   Remove all members in the group
@@ -111,8 +106,7 @@ sub name
 sub removeAllMembers
 {
     my ($self, $lazy) = @_;
-
-    $self->set('member', [], $lazy);
+    $self->delete('member', $lazy);
 }
 
 
@@ -127,20 +121,16 @@ sub removeAllMembers
 sub addMember
 {
     my ($self, $user, $lazy) = @_;
-
-    my @members = $self->get('member');
-
-    # return if user already in the group
-    foreach my $dn (@members) {
-        if (lc ($dn) eq lc ($user->dn())) {
-            return;
+    try {
+        $self->add('member', $user->dn(), $lazy);
+    } catch EBox::Exceptions::LDAP with {
+        my $ex = shift;
+        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $ex->throw();
         }
-    }
-    push (@members, $user->dn());
-
-    $self->set('member', \@members, $lazy);
+        EBox::debug("Tried to add already existent member $user to group " . $self->name());
+    };
 }
-
 
 # Method: removeMember
 #
@@ -153,15 +143,16 @@ sub addMember
 sub removeMember
 {
     my ($self, $user, $lazy) = @_;
-
-    my @members;
-    foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
-    }
-
-    $self->set('member', \@members, $lazy);
+    try {
+        $self->deleteValues('member', [$user->dn()], $lazy);
+    } catch EBox::Exceptions::LDAP with {
+        my $ex = shift;
+        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $ex->throw();
+        }
+        EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
+    };
 }
-
 
 # Method: users
 #
@@ -181,10 +172,16 @@ sub users
     unless ($system) {
         @members = grep { not $_->system() } @members;
     }
+    # sort by uid
+    @members = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @members;
 
     return \@members;
 }
-
 
 # Method: usersNotIn
 #
@@ -206,17 +203,21 @@ sub usersNotIn
 
     my $result = $self->_ldap->search(\%attrs);
 
-    my @users;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->sorted('uid'))
-        {
-            push (@users, new EBox::UsersAndGroups::User(entry => $entry));
-        }
-    }
+    my @users = map {
+            EBox::UsersAndGroups::User->new(entry => $_)
+        } $result->entries();
+
     unless ($system) {
         @users = grep { not $_->system() } @users;
     }
+
+    @users = sort {
+            my $aValue = $a->name();
+            my $bValue = $b->name();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @users;
+
     return \@users;
 }
 
@@ -235,7 +236,19 @@ sub set
     $self->SUPER::set(@_);
 }
 
-# Catch some of the set ops which need special actions
+sub add
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::add(@_);
+}
+
 sub delete
 {
     my ($self, $attr, $value) = @_;
@@ -247,6 +260,19 @@ sub delete
 
     shift @_;
     $self->SUPER::delete(@_);
+}
+
+sub deleteValues
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::deleteValues(@_);
 }
 
 
@@ -343,14 +369,17 @@ sub create
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->groupDn($group);
 
-    if (length($group) > MAXGROUPLENGTH) {
+    if (length ($group) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters",
                 maxGroupLength => MAXGROUPLENGTH));
     }
 
     unless (_checkGroupName($group)) {
-        my $advice = __('To avoid problems, the group name should consist only of letters, digits, underscores, spaces, periods, dashs and not start with a dash. They could not contain only number, spaces and dots.');
+        my $advice = __('To avoid problems, the group name should consist ' .
+                        'only of letters, digits, underscores, spaces, ' .
+                        'periods, dashs and not start with a dash. They ' .
+                        'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
             'value' => $group,
@@ -364,41 +393,73 @@ sub create
             'data' => __('group'),
             'value' => $group);
     }
+    # Verify than a user with the same name does not exists
+    if ($users->userExists($group)) {
+        throw EBox::Exceptions::External(
+            __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
+               name => $group)
+           );
+    }
 
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :
                      $self->_gidForNewGroup($system);
-
     $self->_checkGid($gid, $system);
 
-    my %args = (
-        attr => [
-            'cn'          => $group,
-            'gidNumber'   => $gid,
-            'objectclass' => ['posixGroup', 'zentyalGroup'],
-        ]
+    my @attr = (
+        'cn'          => $group,
+        'gidNumber'   => $gid,
+        'objectclass' => ['posixGroup', 'zentyalGroup'],
     );
-    push (@{$args{attr}}, 'description' => $comment) if ($comment);
+    push (@attr, 'description' => $comment) if ($comment);
 
     my $res = undef;
+    my $entry = undef;
     try {
-        my $r = $self->_ldap->add($dn, \%args);
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attr);
+        $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
+            $params{ignoreMods}, $params{ignoreSlaves});
+
+                my $changetype =  $entry->changetype();
+                my $changes = [$entry->changes()];
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on group LDAP entry creation:'),
+                    result => $result,
+                    opArgs   => $self->entryOpChangesInUpdate($entry),
+                   );
+            }
+        }
+
         $res = new EBox::UsersAndGroups::Group(dn => $dn);
         unless ($system) {
+            $users->reloadNSCD();
+
             # Call modules initialization
             $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
+
+        EBox::error($error);
+
         # A notified module has thrown an exception. Delete the object from LDAP
         # Call to parent implementation to avoid notifying modules about deletion
         # TODO Ideally we should notify the modules for beginTransaction,
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
-        if ($res->exists()) {
+        if ($res and $res->exists()) {
+            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
         }
         $res = undef;
+        $entry = undef;
         throw $error;
     };
 

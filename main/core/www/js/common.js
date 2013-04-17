@@ -1,36 +1,5 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
-/**
-function setDefault(){
-//    var elements=getElementByClass("hide");
-    var elements = $$('.hide');
-    var inc=0;
-    while (elements[inc]){
-        elements[inc].style.display="none";
-        inc++;
-    }
-    inc=0;
-//    elements = $$('.show');
-    elements=getElementByClass("show");
-    while (elements[inc]){
-        elements[inc].style.display="inline";
-        inc++;
-    }
-}
-
-function show(id){
-    setDefault();
-    document.getElementById(id).style.display="block";
-    document.getElementById("hideview" + id).style.display="none";
-    document.getElementById("showview" + id).style.display="inline";
-}
-
-function hide(id){
-    setDefault();
-}
-
-**/
-
 var menuShown = '';
 var menuShownAnchor = null;
 

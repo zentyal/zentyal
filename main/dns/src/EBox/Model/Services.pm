@@ -87,11 +87,7 @@ sub validateTypedRow
             my $zone = $zoneRow->valueByName('domain');
             my $srvName  = $oldRow->valueByName('service_name');
             my $protocol = $oldRow->valueByName('protocol');
-            if ($zoneRow->valueByName('samba')) {
-                $self->{toDeleteSamba} = "_${srvName}._${protocol}.${zone}. SRV";
-            } else {
-                $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
-            }
+            $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
         }
     }
 }
@@ -113,11 +109,7 @@ sub deletedRowNotify
         my $zone = $zoneRow->valueByName('domain');
         my $srvName  = $row->valueByName('service_name');
         my $protocol = $row->valueByName('protocol');
-        if ($zoneRow->valueByName('samba')) {
-            $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV", 1);
-        } else {
-            $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV", 0);
-        }
+        $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV");
     }
 }
 
@@ -296,7 +288,10 @@ sub checkService
                             ($_->{protocol} eq $allFields->{protocol}->value()) } @{$services};
         if ($nMatch < 1) {
             throw EBox::Exceptions::External(
-                __x('The chosen service is not in {file}', file => SERVICE_FILE));
+                __x("Service '{srv}' is not present in {file}",
+                    srv => $allFields->{service_name}->value(),
+                    file => SERVICE_FILE)
+            );
         }
     }
 }

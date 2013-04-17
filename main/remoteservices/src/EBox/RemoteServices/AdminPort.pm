@@ -61,7 +61,8 @@ sub setAdminPort
 
     my $uuid = $self->{cred}->{uuid};
     my $response = $self->RESTClient()->PUT("/v1/servers/$uuid/adminport/",
-                                            query => { port => $port });
+                                            query => { port => $port },
+                                            retry => 1);
 
     return ($response->{result}->is_success());
 }
