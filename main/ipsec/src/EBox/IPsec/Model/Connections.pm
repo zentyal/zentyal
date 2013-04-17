@@ -112,9 +112,7 @@ sub _table
         new EBox::Types::HasMany(
             fieldName     => 'configuration',
             printableName => __('Configuration'),
-            #foreignModel => 'ipsec/Conf',
             foreignModelIsComposite => 1,
-            #view => '/IPsec/Composite/Conf',
             foreignModelAcquirer => \&acquireVPNConfigurationModel,
             backView => '/IPsec/View/Connections',
         ),
@@ -185,9 +183,9 @@ sub acquireVPNConfigurationModel
     my $type = $row->valueByName('type');
 
     if ($type eq 'l2tp') {
-        return 'IPsec/Composite/IPsecL2TPConf';
+        return 'IPsecL2TPConf';
     } elsif ($type eq 'ipsec') {
-        return 'IPsec/Composite/IPsecConf';
+        return 'IPsecConf';
     } else {
         throw EBox::Exceptions::InvalidData(
             data => __('VPN Type'),
