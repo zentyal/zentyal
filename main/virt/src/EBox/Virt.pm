@@ -503,23 +503,22 @@ sub _setDevicesConf
     $self->_cleanupDeletedDisks();
 
     $backend->initDeviceNumbers();
+
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);
         my $file;
         my $type = $device->valueByName('type');
-        my $disk_action;
-        if ($type eq 'hd') {
-            $disk_action = $device->valueByName('disk_action');
-        }
 
-        if (defined ($disk_action) and ($disk_action eq 'create')) {
+        if (($type eq 'hd') and ($device->valueByName('disk_action') eq 'create')) {
             my $disk_name = $device->valueByName('name');
             my $size = $device->valueByName('size');
             $file = $backend->diskFile($disk_name, $name);
             unless (-f $file) {
                 $backend->createDisk(file => $file, size => $size);
             }
+        } elsif (($type eq 'cd') and $device->valueByName('useDevice')) {
+            $file = $devices->CDDeviceFile();
         } else {
             $file = $device->valueByName('path');
         }
