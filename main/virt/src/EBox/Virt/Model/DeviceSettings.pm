@@ -23,12 +23,13 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Sudo;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Int;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
-
+use File::Basename;
 use Filesys::Df;
 
 use constant HDDS_DIR => '/var/lib/zentyal';
@@ -169,13 +170,17 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    $self->_checkNumberOfDevices();
+
     my $type =  $allFields->{type}->value();
     my $path = $allFields->{path}->value();
+    my $ownId = $allFields->{id};
 
     if ($type eq 'cd') {
         my $useDevice = $allFields->{useDevice}->value();
         if ($useDevice) {
-            # check that device exists in vm TODO
+            $self->_checkOnlyOneCDDeviceFile($ownId);
+            $self->_checkCDDeviceFile();
         } else {
             $self->_checkDevicePath($path, 0, __('ISO image'));
             unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
@@ -223,14 +228,19 @@ sub validateTypedRow
             throw EBox::Exceptions::Internal("Invalid action for hard disk $disk_action");
         }
     }
+}
+
+sub _checkNumberOfDevices
+{
+    my ($self) = @_;
+    my $numHDs = 0;
+    my $numCDs = 0;
 
     my @devices = @{$self->ids()};
     if (EBox::Config::boolean('use_ide_disks') and (@devices == 4)) {
         throw EBox::Exceptions::External(__x('A maximum of {num} IDE drives are allowed', num => MAX_IDE_NUM));
     }
 
-    my $numCDs = 0;
-    my $numHDs = 0;
     foreach my $id (@devices) {
         my $row = $self->row($id);
 
@@ -247,6 +257,34 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__x('A maximum of {num} Hard Disk drives are allowed', num => MAX_SCSI_NUM));
             }
         }
+    }
+}
+
+sub CDDeviceFile
+{
+    return '/dev/cdrom';
+}
+
+sub _checkOnlyOneCDDeviceFile
+{
+    my ($self, $ownId) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        if ($ownId and ($ownId eq $id)) {
+            next;
+        }
+        my $row = $self->row($id);
+        my $type = $row->elementByName('type')->value();
+        if (($type eq 'cd') and $row->valueByName('useDevice')) {
+            throw EBox::Exceptions::External(__('Only one CD connected to a host drive is supported'))
+        }
+    }
+}
+
+sub _checkCDDeviceFile
+{
+    my $file = CDDeviceFile();
+    if (not -e $file) {
+        throw EBox::Exceptions::External(__x('Device file for CD "{f}" does not exists', f => $file));
     }
 }
 
@@ -275,7 +313,6 @@ sub _checkHdName
     }
 
 }
-
 sub _checkDevicePath
 {
     my ($self, $path, $rw, $name) = @_;
@@ -361,6 +398,10 @@ sub viewCustomizer
                   'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
                   'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
                 },
+              useDevice =>  {
+                   on  => { hide => ['path']  },
+                   off => { show => ['path' ]},
+               },
             });
 
     $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
