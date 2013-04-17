@@ -33,7 +33,7 @@ config setup
         # which IPsec stack to use. netkey,klips,mast,auto or none
         protostack=netkey
         #
-	interfaces=%none
+        interfaces=%none
 
 
 # Add connections here
@@ -57,11 +57,11 @@ config setup
 
 # VPN: <% $tunnel->{'name'} %> : <% $tunnel->{'left_ipaddr'} %> <=> <% $tunnel->{'right_ipaddr'} %>
 conn <% $tunnel->{'name'} %>
-	left=<% $tunnel->{'left_ipaddr'} %>
-	leftsubnet=<% $tunnel->{'left_subnet'} %>
-	right=<% $tunnel->{'right_ipaddr'} %>
-	rightsubnet=<% $tunnel->{'right_subnet'} %>
-	authby=secret
+        left=<% $tunnel->{'left_ipaddr'} %>
+        leftsubnet=<% $tunnel->{'left_subnet'} %>
+        right=<% $tunnel->{'right_ipaddr'} %>
+        rightsubnet=<% $tunnel->{'right_subnet'} %>
+        authby=secret
         auto=start
         auth=esp
         rekey=yes
