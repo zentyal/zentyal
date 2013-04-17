@@ -86,7 +86,7 @@ sub _table
                             ),
        new EBox::Types::Boolean(
                              fieldName     => 'useDevice',
-                             printableName => __('Use device file'),
+                             printableName => __('Use host CD drive'),
                              editable      => 1,
                              optional      => 1,
                              optionalLabel => 0,
