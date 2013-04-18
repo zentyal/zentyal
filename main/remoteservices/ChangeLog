@@ -1,4 +1,7 @@
 HEAD
+	+ Added users module checks for SB:
+	  - No more than 25 users having none or cloud as master
+	  - Zentyal server slaves are forbidden
 	+ Use cache to retrieve latest configuration backup date in
 	  dashboard
 3.0.16

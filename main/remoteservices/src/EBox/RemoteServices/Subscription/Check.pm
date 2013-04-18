@@ -33,7 +33,6 @@ use Error qw(:try);
 
 # Constants
 use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);
-# FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
 # Group: Public methods
@@ -111,7 +110,10 @@ sub check
             $self->{lastError} = $exc->text();
             $capable = 0;
         };
+    } else {
+        delete $self->{lastError};
     }
+
     return $capable;
 }
 
@@ -209,9 +211,12 @@ sub _usersCheck
                          . 'and you currently have {nUsers}',
                          max => MAX_SB_USERS, nUsers => scalar(@{$users})));
             }
-            if ( scalar(@{$usersMod->slaves()}) > 0 ) {
+            my $master  = $usersMod->master();
+            my $nSlaves = scalar(@{$usersMod->slaves()});
+            $nSlaves-- if ($master eq 'cloud'); # Do not count with Zentyal Cloud slave
+            if ($nSlaves > 0) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('Please note that the Small Business Edition cannot have slaves.'));
+                    __s('Please note that the Small Business Edition cannot have Zentyal slaves.'));
             }
         }
     }
