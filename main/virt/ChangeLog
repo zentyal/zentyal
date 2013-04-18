@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Use shutdown command instead of halt in Windows systems
 	+ Allow to use host CD drive
 	+ Add VNC bar height to calculate VNC viewer frame height
