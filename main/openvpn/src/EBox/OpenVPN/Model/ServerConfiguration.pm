@@ -602,7 +602,7 @@ sub _checkTunnelForbiddenParams
         return;
     }
 
-    my @forbidParams = qw(clientToClient dns1 dns2 searchDomain wins);
+    my @forbidParams = qw(dns1 dns2 searchDomain wins);
     foreach my $param (@forbidParams) {
         if ($all_r->{$param}->value()) {
             throw EBox::Exceptions::External(

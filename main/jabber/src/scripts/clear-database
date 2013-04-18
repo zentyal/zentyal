@@ -13,11 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
-my $dbDir = '/var/lib/ejabberd';
+use EBox;
+use EBox::Global;
+
 my $force = grep {
   ($_  eq '-f') or ($_ eq '--force')
 } @ARGV;
@@ -44,35 +45,10 @@ if (not $force) {
     }
 }
 
-system("/etc/init.d/zentyal jabber stop");
-sleep 10;
-killProcesses();
-sleep 3;
-killProcesses(1);
-
-system "rm -rf $dbDir/*";
-
-system("/etc/init.d/zentyal jabber restart");
-
-
-sub killProcesses
-{
-    my ($force) = @_;
-    my @kill;
-    foreach my $process (qw(beam epms)) {
-        `pgrep $process`;
-        if ($? == 0) {
-            push @kill, $process;
-        }
-    }
-    @kill or return;
-
-    if ($force) {
-        system 'killall -9 @kill';
-    } else {
-        system 'killall  @kill';
-    }
-}
+EBox::init();
+my $jabber = EBox::Global->modInstance('jabber');
+$jabber->_clearDatabase();
+$jabber->save();
 
 sub usage
 {

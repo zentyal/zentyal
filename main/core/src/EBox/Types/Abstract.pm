@@ -448,7 +448,7 @@ sub setMemValue
                 if ($defaultValue) {
                     $self->_setValue($defaultValue);
                 } else {
-                    throw EBox::Exceptions::MissingArgument( $self->printableName() );
+                    throw EBox::Exceptions::MissingArgument($self->printableName());
                 }
             }
         }

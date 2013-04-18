@@ -1,3 +1,5 @@
+HEAD
+	+ Added preCheckTarget hook
 3.0.5
 	+ Using EBox::FileSystem::mountPointIsMounted when checking if
 	  file system backup target is mounted

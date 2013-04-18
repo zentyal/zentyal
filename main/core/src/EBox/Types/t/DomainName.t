@@ -17,8 +17,6 @@ use warnings;
 
 use Test::More  tests => 5;
 
-
-
 use lib '../../..';
 
 use EBox::Types::TestHelper;
@@ -60,11 +58,7 @@ sub creationTest
 
 }
 
-
 EBox::Types::TestHelper::setupFakes();
 creationTest();
-
-
-
 
 1;

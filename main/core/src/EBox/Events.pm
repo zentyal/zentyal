@@ -90,22 +90,31 @@ sub _create
     return $self;
 }
 
-
 sub _daemons
 {
-    return [ { 'name' => SERVICE } ];
+    return [
+        {
+            'name' => SERVICE,
+            'precondition' => \&_watchersEnabled,
+        }
+    ];
 }
 
-sub _enforceServiceState
+sub _preSetConf
 {
     my ($self) = @_;
 
-    # Check for admin dumbness, it can throw an exception
-    if ($self->_nothingEnabled()) {
-        $self->_stopService();
-        return;
+    # This is needed because EventDaemon instances global as readonly
+    # so syncRows is never called there, this avoids the need of the
+    # user having to visit the models on the Zentyal interface, so
+    # the events module can work out of the box with the default
+    # configuration (log dispatcher enabled and also events log
+    # if logs module is enabled)
+    unless ($self->isReadOnly()) {
+        $self->model('ConfigureWatchers')->ids();
+        $self->model('ConfigureDispatchers')->ids();
+        $self->saveConfig();
     }
-    $self->SUPER::_enforceServiceState();
 }
 
 # Group: Public methods
@@ -378,32 +387,23 @@ sub sendEvent
 
 # Group: Private methods
 
-# Check either if at least one watcher and one dispatcher are enabled or the
-# logs are enabled
-sub _nothingEnabled
+# Check either if there are enabled watchers
+sub _watchersEnabled
 {
     my ($self) = @_;
 
     if ($self->_logIsEnabled()) {
-        return undef;
+        return 1;
     }
 
-    my $eventModel = $self->model('ConfigureWatchers');
-    my $dispatcherModel = $self->model('ConfigureDispatchers');
-
-    my $match = $eventModel->find(enabled => 1);
-    unless (defined ($match)) {
+    my $match = $self->model('ConfigureWatchers')->find(enabled => 1);
+    if (defined ($match)) {
+        return 1;
+    } else {
         EBox::warn('No event watchers have been enabled');
-        return 1;
     }
 
-    $match = $dispatcherModel->find(enabled => 1);
-    unless (defined ($match)) {
-        EBox::warn('No event dispatchers have been enabled');
-        return 1;
-    }
-
-    return undef;
+    return 0;
 }
 
 

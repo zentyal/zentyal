@@ -24,15 +24,15 @@ use EBox::Global;
 EBox::TestStubs::activateTestStubs();
 
 # Fake a CA observer
-EBox::TestStubs::fakeEBoxModule(name    => 'certuser',
+EBox::TestStubs::fakeModule(name    => 'certuser',
 				package => 'EBox::CA::CertUser',
 				isa     => ['EBox::CA::Observer'],
 				subs    => [ certificateRevoked => \&certificateRevoked,
 					     certificateExpired => \&certificateExpired,
 					     freeCertificate    => \&freeCertificate ]
-			       );
+);
 
-EBox::TestStubs::fakeEBoxModule(name => 'foobaz');
+EBox::TestStubs::fakeModule(name => 'foobaz');
 
 # Loading package
 # use EBox::CA::CertUser;
@@ -46,8 +46,7 @@ print Data::Dumper->Dump($global->modInstancesOfType('EBox::CA::Observer')) . $/
 
 # Observer methods
 sub certificateRevoked
-  {
-
+{
     my ($self, $commonName, $isCACert) = @_;
 
     EBox::debug("Certificate user now knows $commonName is gonna be revoked");
@@ -57,30 +56,25 @@ sub certificateRevoked
     } else {
       return undef;
     }
-
-  }
+}
 
 sub certificateExpired
-  {
-
+{
     my ($self, $commonName, $isCACert) = @_;
 
     EBox::debug("Certificate user now knows $commonName has expired");
     EBox::debug("Is a CA certificate: " . $isCACert );
 
     return;
-
-  }
+}
 
 sub freeCertificate
-  {
-
+{
     my ($self, $commonName) = @_;
 
     EBox::debug("Certificate user now frees $commonName certificate");
 
     return;
-
-  }
+}
 
 1;

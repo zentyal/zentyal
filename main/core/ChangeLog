@@ -3,6 +3,24 @@ HEAD
 	  to avoid crashes when mysql is already stopped
 	+ Emit events on zentyal start and stop
 	+ Refactor some events-related code
+	+ In EBox:Model::Row, refactored elementExists and
+	  elementByName to make them to have similiar code structure
+	+ Improvement in test help classes and added test fakes for
+	  EBox::Model::Manager and EBox::Util::SHMLock
+	+ Prevented unuseful warning in
+	  EBox::Model::DataTable::setDirectory when the old directory is undef
+	+ Fixed unit tests under EBox/Model/t, backup configuration tests and
+	  some others
+	+ Remove unused method EBox::Auth::alreadyLogged()
+	+ Apache::setRestrictedResource updates properly if already exists
+	+ Global and Module::Config allow to set redis instance to ease testing
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
+	+ Rows in events models are now synced before running EventDaemon
+	+ Better way of checking if event daemon is needed
+3.0.17
+	+ Allow numeric zero as search filter
+	+ When filtering rows don't match agains link urls or hidden values
 	+ Avoid CA file check when removing it from Apache module
 	+ Silent removeCA and removeInclude exceptions when removing
 	  non-existant element

@@ -20,10 +20,6 @@ the build directory under ../build_installer.
 
 3) Put extra ubuntu packages (optional, for custom installers only)
 
-You must put all extra .deb archives in the directory pointed by the key
-EXTRAS_DIR (in build_cd.conf).  Today the extra packages needed are all
-Zentyal packages and its dependencies not already provided by the base CD.
-
 You can put the packages you want included in the installer in the
 'extra-packages.list' file and then use 'generate_extras.sh' script to get them
 and their dependencies on a chrooted debootstrap environment.
@@ -33,3 +29,7 @@ from external repositories instead of manually copying the .deb files.
 
 You can use 'build_cd.sh' inside a build directory to regenerate the ISO
 image replacing the whole 'extras' directory.
+
+Aditionally, if you want to include locally built packages, you can create
+a custom-extra-packages directory with three subdirectories for the
+different architectures: i386, amd64 and all.

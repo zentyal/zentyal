@@ -19,7 +19,7 @@ system "rm -rf $outputFileBase*";
 my @mandatoryParams = (
 		       myhostname => 'macaco.monos.org',
 		       mydomain   => 'monos.org',
-		       
+
 		       ldapBase  => 'ea',
 		       ldapQueryFilter  => 'ea',
 		       ldapBindDn  => 'ea',
@@ -30,7 +30,6 @@ my @mandatoryParams = (
 		       allowedExternalMTAs => [],
                        spamSubject        => '**SPAM**',
 );
-
 
 my @cases = (
 	     # all active
@@ -52,8 +51,6 @@ foreach my $params (@cases) {
     _checkConfFile($outputFile);
   }
 }
-
-
 
 sub _checkConfFile
 {

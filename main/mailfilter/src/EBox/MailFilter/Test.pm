@@ -34,7 +34,7 @@ sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
 
-    EBox::Global::TestStub::setEBoxModule('mailfilter' => 'EBox::MailFilter');
+    EBox::Global::TestStub::setModule('mailfilter' => 'EBox::MailFilter');
 }
 
 

@@ -37,6 +37,7 @@ use EBox::MailVDomainsLdap;
 use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
+use EBox::Util::Version;
 
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
@@ -122,12 +123,15 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default rules and services
-    # only if installing the first time
-    unless ($version) {
+    if (not $version) {
+        # Create default rules and services
+        # only if installing the first time
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
+    } elsif (EBox::Util::Version::compare($version, '3.0.4') < 0) {
+        eval "use EBox::MailFilter::Migration";
+        EBox::MailFilter::Migration::removeSpamdService();
     }
 }
 

@@ -39,7 +39,12 @@ sub _create
         $self->{ro} = 1;
     }
     bless($self, $class);
-    $self->{redis} = EBox::Config::Redis->instance();
+    my $redis = delete $opts{redis};
+    if ($redis) {
+        $self->{redis} = EBox::Config::Redis->instance(customRedis => $redis);
+    } else {
+        $self->{redis} = EBox::Config::Redis->instance();
+    }
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }
@@ -541,11 +546,12 @@ sub get_hash
 #
 # Parameters:
 #
-#       key -
+#       key - string with the key
+#       value - default value to be returned if the key does not exist
 #
 # Returns:
 #
-#   Returns a <Gnome2::Gconf2::value>
+#   value of the key or defaultValue if specified and key does not exist
 #
 sub get
 {

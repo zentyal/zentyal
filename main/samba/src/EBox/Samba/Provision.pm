@@ -216,7 +216,7 @@ sub _domainsIP
         }
     }
 
-    if (%domainsIp == 0) {
+    if ((keys %domainsIp) == 0) {
         $samba->enableService(0);
         my $domain = $domainRow->valueByName('domain');
         my $domainIpUrl = '/DNS/View/DomainIpTable?directory=DomainTable/keys/' .
@@ -337,6 +337,7 @@ sub mapAccounts
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     $domainAdmin->addToZentyal() if ($domainAdmin->exists());
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     $domainAdmins->addToZentyal() if ($domainAdmins->exists());

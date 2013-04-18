@@ -494,6 +494,10 @@ sub setRestrictedResource
     }
 
     my $resources = $self->get_list('restricted_resources');
+    if ($self->_restrictedResourceExists($resourceName)) {
+        my @deleted = grep { $_->{name} ne $resourceName} @{$resources};
+        $resources = \@deleted;
+    }
     push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
     $self->set('restricted_resources', $resources);
 }
@@ -526,13 +530,25 @@ sub delRestrictedResource
 
     my $resources = $self->get_list('restricted_resources');
 
-    unless (exists $resources->{$resourcename}) {
+    unless ($self->_restrictedResourceExists($resourcename)) {
         throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
                                              value => $resourcename);
     }
 
-    my @deleted = grep { $_ ne $resourcename} @{$resources};
+    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
     $self->set('restricted_resources', \@deleted);
+}
+
+sub _restrictedResourceExists
+{
+    my ($self, $resourcename) = @_;
+
+    foreach my $resource (@{$self->get_list('restricted_resources')}) {
+        if ($resource->{name} eq $resourcename) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 # Method: isEnabled

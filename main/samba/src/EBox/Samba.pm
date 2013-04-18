@@ -938,7 +938,7 @@ sub firewallHelper
 #  They purpose is to allow domain joins without captive portal interference
 sub firewallCaptivePortalExceptions
 {
-    my ($self) = @_;
+    my ($self, $chain) = @_;
     my @rules;
 
     if (not $self->isEnabled()) {

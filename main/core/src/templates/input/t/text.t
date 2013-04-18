@@ -1,20 +1,21 @@
 use strict;
 use warnings;
 
-use TestHelper;
+use Test::More tests => 3;
+use Dir::Self;
 
 use lib '../..';
+use EBox::Test::Mason;
 
-
-use Test::More tests => 3;
-
+my $compRoot = __DIR__ . '/../..';
+my $compFile = $compRoot . '/input/text.mas';
 
 my @cases = (
-	     [ name => 'textEnabled'],
-	     [ name => 'textEnabledAndFilled', value => 'textValue'],
-	     [ name => 'hiidenDisabled', value => 'textValue', disabled => 'disabled'],
-	    );
+    [ name => 'textEnabled'],
+    [ name => 'textEnabledAndFilled', value => 'textValue'],
+    [ name => 'hiidenDisabled', value => 'textValue', disabled => 'disabled'],
+);
 
-TestHelper::testComponent('text.mas', \@cases);
+EBox::Test::Mason::testComponent($compFile, \@cases, compRoot => $compRoot);
 
 1;

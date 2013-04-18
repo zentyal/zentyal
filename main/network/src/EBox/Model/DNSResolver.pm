@@ -110,15 +110,15 @@ sub _help
 sub replace
 {
     my ($self, $pos, $newIP) = @_;
+
     my @ids = @{ $self->ids() };
-    print "IDS @ids";
     if ($pos >= scalar @ids) {
         throw EBox::Exceptions::Internal("Inexistent DNS resolver position $pos");
     }
 
     my $id = $ids[$pos];
     my $row = $self->row($id);
-    $row->elementByName('namserver')->setValue($newIP);
+    $row->elementByName('nameserver')->setValue($newIP);
     $row->store();
 
 }
