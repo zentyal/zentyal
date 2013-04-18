@@ -109,6 +109,13 @@ sub validateTypedRow
 #
 sub _table
 {
+    my ($self) = @_;
+
+    my $parentRow = $self->parentRow();
+    my $type = $parentRow->valueByName('type');
+
+    EBox::debug($type);
+
     my @tableHeader = (
         new EBox::Types::Host(
             fieldName => 'left_ipaddr',
