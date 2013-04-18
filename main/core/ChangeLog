@@ -1,4 +1,8 @@
 HEAD
+	+ Log events after dispatching them in the EventDaemon and catch exception
+	  to avoid crashes when mysql is already stopped
+	+ Emit events on zentyal start and stop
+	+ Refactor some events-related code
 	+ Changed MB_widedialog CSS class to use all width available in
 	  the screen
 	+ Fixed a broken link to SysInfo/Composite/General when activating the

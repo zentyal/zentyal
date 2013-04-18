@@ -30,6 +30,7 @@ sub main
         if ($ARGV[0] eq 'start') {
             EBox::Util::Init::cleanTmpOnBoot();
             EBox::Util::Init::start();
+            EBox::Sudo::root('initctl emit zentyal-started');
         }
         elsif ($ARGV[0] eq 'restart') {
             EBox::Util::Init::stop();
@@ -40,6 +41,7 @@ sub main
             EBox::Util::Init::start();
         }
         elsif ($ARGV[0] eq 'stop') {
+            EBox::Sudo::root('initctl emit zentyal-stopped');
             EBox::Util::Init::stop();
         } else {
             usage();
