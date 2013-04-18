@@ -285,15 +285,18 @@ sub shutdownVM
 sub shutdownVMCommand
 {
     my ($self, $name) = @_;
+    my $cmd;
 
-    # FIXME: "shutdown" only works when a SO with acpi enabled is running
-    # is there any way to detect this? In the meanwhile the only possibility
-    # seems to be use "destroy"
-    #my $cmd = "$VIRTCMD shutdown $name";
-    my $cmd = "$VIRTCMD destroy $name";
+    my $os = $self->{vmConf}->{$name}->{os};
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        $cmd = "$VIRTCMD shutdown $name";
+    } else {
+        #  "shutdown" only works when a SO with acpi enabled is running
+        #  we are not sure about this systems so we use shutdown
+        $cmd = "$VIRTCMD destroy $name";
+    }
 
     $self->{vmConf}->{$name}->{stopCmd} = $cmd;
-
     return $cmd;
 }
 
