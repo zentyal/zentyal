@@ -292,7 +292,7 @@ sub shutdownVMCommand
         $cmd = "$VIRTCMD shutdown $name";
     } else {
         #  "shutdown" only works when a SO with acpi enabled is running
-        #  we are not sure about this systems so we use shutdown
+        #  we are not sure about these systems so we use shutdown
         $cmd = "$VIRTCMD destroy $name";
     }
 
