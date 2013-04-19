@@ -514,7 +514,7 @@ sub acls
 
     return [
         "to attrs=AstVoicemailPassword,AstVoicemailEmail," .
-        "AstVoicemailAttach,AstVoicemailDelete " .
+        "AstVoicemailAttach,AstVoicemailDelete,AstMD5secret " .
         "by dn.regex=\"" . $self->{ldap}->rootDn() . "\" write " .
         "by self write " .
         "by * none" ];
