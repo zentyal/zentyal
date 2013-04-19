@@ -40,6 +40,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields) = @_;
 
+    shift @_;
     $self->SUPER::validateTypedRow(@_);
 
 #    if ( exists $changedFields->{'ike-auth'} ) {

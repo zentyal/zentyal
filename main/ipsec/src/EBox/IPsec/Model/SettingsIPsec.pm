@@ -40,6 +40,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changed_r, $all_r) = @_;
 
+    shift @_;
     $self->SUPER::validateTypedRow(@_);
 
     my $networkMod = $self->global()->modInstance('network');
