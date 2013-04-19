@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Fixed bug when checking hostname aliases on creation of a
 	  virtual host
 	+ When dumping config the no existence of configuration
