@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Fixed bug which could generate invalid iptable rules when
 	  captive portal listens in more than one interface
 	+ Capture exceptions are now compatible with http proxy
