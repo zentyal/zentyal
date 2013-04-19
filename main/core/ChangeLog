@@ -1,4 +1,6 @@
 HEAD
+	+ Use EBox::Module::Base::writeConfFileNoCheck to write apache
+	  configuration file
 	+ Log events after dispatching them in the EventDaemon and catch exception
 	  to avoid crashes when mysql is already stopped
 	+ Emit events on zentyal start and stop
