@@ -1,10 +1,7 @@
-HEAD
+3.0.7
 	+ More flexibility for printable message in EBox::Exceptions::DataExists
-	+ EBox::Sudo::TestStub allows now to ginore given commands, fixed
-	  unit test for this class and EBox::TestStub
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
 	  exception error
-	+ Fixed EBox::Config::TestStub
 	+ EBox::NetWrappers::_ifaceShowAddress now works for peer-to-peer addresses
 3.0.6
 	+ Added EBox::Validate::checkRegex function
