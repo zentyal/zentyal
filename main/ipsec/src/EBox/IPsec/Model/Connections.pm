@@ -34,7 +34,20 @@ sub tunnels
     foreach my $id (@{$self->enabledRows()}) {
         my $row = $self->row($id);
         my $conf = $row->elementByName('configuration')->foreignModelInstance();
-        my @confComponents = qw(ConfGeneral ConfPhase1 ConfPhase2);
+        my $type = $row->valueByName('type');
+        my @confComponents;
+
+        if ($type eq 'ipsec') {
+            @confComponents = qw(SettingsIPsec ConfPhase1 ConfPhase2);
+        } elsif ($type eq 'l2tp') {
+            @confComponents = qw(SettingsL2TP RangeTable);
+        } else {
+            throw EBox::Exceptions::InvalidData(
+                data => __('VPN Type'),
+                value => $type,
+                advice => __('Unknown type'),
+            );
+        }
 
         my %settings;
 
@@ -61,7 +74,8 @@ sub tunnels
                 $settings{$fieldName} = $fieldValue;
             }
         }
-        $settings{'name'}    = $row->valueByName('name');
+        $settings{'name'} = $row->valueByName('name');
+        $settings{'type'} = $type;
         $settings{'comment'} =  $row->valueByName('comment');
 
         push @tunnels, \%settings;

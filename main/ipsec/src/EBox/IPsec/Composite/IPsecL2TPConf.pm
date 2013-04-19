@@ -38,7 +38,7 @@ sub _description
 {
     my $description =
     {
-        layout          => 'tabbed',
+        layout          => 'top-bottom',
         name            => 'IPsecL2TPConf',
         compositeDomain => 'IPsec',
     };

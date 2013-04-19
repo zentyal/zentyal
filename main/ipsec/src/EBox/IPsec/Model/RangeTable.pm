@@ -112,7 +112,7 @@ sub validateTypedRow
 
         # Check local IP to be used for the VPN.
         my $ipsec = $self->parentModule();
-        my $l2tp_settings = $ipsec->model('ConfL2TPGeneral');
+        my $l2tp_settings = $ipsec->model('SettingsL2TP');
         my $localAddr = $l2tp_settings->value('localIP');
         my $localIPObj = new Net::IP($localAddr);
         unless ( $localIPObj->overlaps($range) == $IP_NO_OVERLAP ) {

@@ -53,31 +53,39 @@ config setup
 #               # at startup, uncomment this.
 #               #auto=start
 
-%    foreach my $tunnel (@tunnels) {
+% foreach my $tunnel (@tunnels) {
 
-# VPN: <% $tunnel->{'name'} %> : <% $tunnel->{'left_ipaddr'} %> <=> <% $tunnel->{'right_ipaddr'} %>
+# VPN: <% $tunnel->{'name'} %> (<% $tunnel->{'type'} %>): <% $tunnel->{'left_ipaddr'} %> <=> <% $tunnel->{'right_ipaddr'} %>
 conn <% $tunnel->{'name'} %>
         left=<% $tunnel->{'left_ipaddr'} %>
-        leftsubnet=<% $tunnel->{'left_subnet'} %>
         right=<% $tunnel->{'right_ipaddr'} %>
-        rightsubnet=<% $tunnel->{'right_subnet'} %>
-        authby=secret
-        auto=start
-        auth=esp
+%   if ($tunnel->{'type'} eq 'ipsec') {
         rekey=yes
         keyingtries=0
-        keyexchange=ike
-%        if ( $tunnel->{'ike-enc'} ne 'any' ) {
-        ike=<% $tunnel->{'ike-enc'} %>-<% $tunnel->{'ike-auth'} %>
-% }
-        ikelifetime=<% $tunnel->{'ike-keylife'} %>s
-%        if ( $tunnel->{'ike-enc'} ne 'any' ) {
-        esp=<% $tunnel->{'phase2-enc'} %>-<% $tunnel->{'phase2-auth'} %>;<% $tunnel->{'phase2-dhgroup'} %>
-% }
-        keylife=<% $tunnel->{'phase2-keylife'} %>s
-%        if ( $tunnel->{'pfs'} ) {
+        leftsubnet=<% $tunnel->{'left_subnet'} %>
+        rightsubnet=<% $tunnel->{'right_subnet'} %>
+%     if ( $tunnel->{'pfs'} ) {
         pfs=yes
-% } else {
+%     } else {
         pfs=no
+%     }
+        auth=esp
+        keyexchange=ike
+%     if ( $tunnel->{'ike-enc'} ne 'any' ) {
+        ike=<% $tunnel->{'ike-enc'} %>-<% $tunnel->{'ike-auth'} %>
+%     }
+        ikelifetime=<% $tunnel->{'ike-keylife'} %>s
+%     if ( $tunnel->{'ike-enc'} ne 'any' ) {
+        esp=<% $tunnel->{'phase2-enc'} %>-<% $tunnel->{'phase2-auth'} %>;<% $tunnel->{'phase2-dhgroup'} %>
+%     }
+        keylife=<% $tunnel->{'phase2-keylife'} %>s
+%   } elsif ($tunnel->{'type'} eq 'l2tp') {
+        rekey=no
+        keyingtries=3
+        pfs=no
+        leftprotoport=17/1701
+        rightprotoport=17/%any
+%   }
+        authby=secret
+        auto=start
 % }
-%    }

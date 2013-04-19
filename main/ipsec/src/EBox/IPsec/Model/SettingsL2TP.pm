@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-package EBox::IPsec::Model::ConfL2TPGeneral;
-use base 'EBox::Model::DataForm';
+package EBox::IPsec::Model::SettingsL2TP;
+use base 'EBox::IPsec::Model::SettingsBase';
 
 use strict;
 use warnings;
@@ -40,6 +40,8 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields) = @_;
 
+    $self->SUPER::validateTypedRow(@_);
+
 #    if ( exists $changedFields->{'ike-auth'} ) {
 #        my $ikeenc = $changedFields->{'ike-enc'};
 #        $ikeenc = $self->row()->valueByName('ike-enc') unless $ikeenc;
@@ -63,21 +65,18 @@ sub validateTypedRow
 #
 sub _table
 {
-    my @fields = (
-        new EBox::Types::HostIP(
-            fieldName => 'localIP',
-            printableName => __('Local IP'),
-            editable => 1,
-        ),
+    my ($self) = @_;
+
+    my $dataTable = $self->SUPER::_table(@_);
+
+    my $field = new EBox::Types::HostIP(
+        fieldName => 'localIP',
+        printableName => __('Local IP'),
+        editable => 1,
     );
 
-    my $dataTable = {
-        tableName => 'ConfL2TPGeneral',
-        printableTableName => __('General configuration'),
-        defaultActions => [ 'editField' ],
-        tableDescription => \@fields,
-        modelDomain => 'IPsec',
-    };
+    splice $dataTable->{tableDescription}, 0, 0, $field;
+    $dataTable->{tableName} = 'SettingsL2TP';
 
     return $dataTable;
 }
