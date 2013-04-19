@@ -205,7 +205,7 @@ sub _writeHttpdConfFile
         gid => EBox::Config::group(),
         mode => '0644',
         force => 1,
-       };
+    };
 
     EBox::Module::Base::writeConfFileNoCheck($httpdconf, $template, \@confFileParams, $permissions);
 }
@@ -229,7 +229,7 @@ sub _writeCSSFiles
 
     my $path = EBox::Config::dynamicwww() . '/css';
     unless (-d $path) {
-    mkdir $path;
+        mkdir $path;
     }
 
     my ($primaryGid) = split / /, $GID, 2;
