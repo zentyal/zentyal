@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Fixed missing use statement in MailfilterACL model
 	+ Added dependencies and fixes needed for better sa tests
 	+ Dont run spamd daemon
