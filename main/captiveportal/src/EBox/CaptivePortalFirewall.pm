@@ -12,16 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortalFirewall;
 use strict;
 use warnings;
 
+package EBox::CaptivePortalFirewall;
 use base 'EBox::FirewallHelper';
 
 use EBox::Global;
 use EBox::Config;
-use EBox::Firewall;
 use EBox::Gettext;
 
 sub new
@@ -74,8 +72,8 @@ sub prerouting
 
         push(@rules, @{$self->_usersRules('captive')});
         push @rules, map {
-            $_->{rule} = $input . ' ' . $_->{rule};
-            ($_)
+            my $rule = $input . ' ' . $_->{rule};
+            ($rule)
         } @exRules;
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
@@ -106,7 +104,6 @@ sub postrouting
 
     return \@rules;
 }
-
 
 sub input
 {
@@ -147,7 +144,6 @@ sub input
     return \@rules;
 }
 
-
 sub forward
 {
     my ($self) = @_;
@@ -167,8 +163,8 @@ sub forward
 
         push(@rules, @{$self->_usersRules('fcaptive')});
         push @rules, map {
-            $_->{rule} = $input . ' ' . $_->{rule};
-            ($_)
+            my $rule = $input . ' ' . $_->{rule};
+            ($rule)
         } @exRules;
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
