@@ -21,6 +21,7 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::External;
 use Getopt::Long;
+use File::Slurp;
 use POSIX;
 use Log::Log4perl;
 
@@ -88,12 +89,6 @@ sub _daemonise
     open( STDOUT, '+>', '/tmp/stdout');
     open( STDERR, '+>', '/tmp/stderr');
 
-    if ( $hcFD ) {
-        my @fh;
-        open( $fh[$_], "</dev/null") foreach ( @fd );
-        # Perl will try to close all handles when @fh leaves scope here
-    }
-
     # FIXME: Do this in EBox.pm
     # Init again logger to open the new descriptor
     Log::Log4perl->init(EBox::Config::conf() . '/eboxlog.conf');
@@ -111,6 +106,15 @@ sub _daemonise
 sub _mainLoop
 {
     my ($interval) = @_;
+
+    my $logFile = EBox::Config::conf() . 'remoteservices/reporter/sent.stamp';
+    if ( -r $logFile ) {
+        my $stamp = File::Slurp::read_file($logFile);
+        if (time() - $stamp < $interval) {
+            # Wait until $stamp + $interval time is done
+            sleep($stamp + $interval - time());
+        }
+    }
 
     while (1) {
         my $pid = fork();
@@ -133,6 +137,8 @@ sub _mainLoop
             # Parent code
             waitpid($pid, 0);
         }
+        # Note down when last report data was sent
+        File::Slurp::write_file($logFile, time());
         sleep($interval);
     }
 }
