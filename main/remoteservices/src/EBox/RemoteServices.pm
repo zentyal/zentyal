@@ -78,6 +78,7 @@ use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
+use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
@@ -329,7 +330,11 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
-        }
+        },
+        {
+            'name'         => REPORTERD_SERVICE,
+            'precondition' => \&reportEnabled,
+        },
        ];
 }
 

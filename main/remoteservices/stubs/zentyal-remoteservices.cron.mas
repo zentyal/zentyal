@@ -30,6 +30,3 @@ PATH=/usr/bin:/bin
 
 # Log data for report hourly
 @hourly root (pgrep -u root,ebox reporter-log || /usr/share/zentyal-remoteservices/reporter-log) > /dev/null 2>&1
-
-# Consolidate and send data when required
-0-59/15 * * * * root (pgrep -u root,ebox reporter-consolidate || /usr/share/zentyal-remoteservices/reporter-consolidate) > /dev/null 2>&1

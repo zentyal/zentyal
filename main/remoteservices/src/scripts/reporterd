@@ -1,0 +1,178 @@
+#!/usr/bin/perl -w
+
+# Copyright (C) 2013 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Daemon to consolidate and send report data to Zentyal Remote
+
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::External;
+use Getopt::Long;
+use POSIX;
+use Log::Log4perl;
+
+# Constants
+use constant INTERVAL => 15 * 60;
+
+# Procedure: _daemonise
+#
+#     Daemonise the current script to become a daemon following the
+#     Stevens chapter 13 coding rules
+#
+# Parameters:
+#
+#     foreground - Boolean indicating if the daemon must be launched
+#     in foreground *(Optional)* Default value: false
+#
+#
+sub _daemonise
+{
+    my ($foreground) = @_;
+
+    unless ( $foreground ) {
+    # Become a session leader to lose controlling TTY
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid != 0 ) {
+            # Parent must die
+            exit(0);
+        }
+    }
+
+    # Change current working directory to root so we won't prevent file
+    # systems from being unmounted
+    chdir('/') or throw EBox::Exceptions::External( "Cannot change directory to / $!" );
+
+    # Clear the file creation mask
+    umask(0);
+
+    POSIX::setsid();
+
+    # Ensure future opens won't allocate controlling TTYs
+    # Proc::Daemon code has the explanation
+    # POSIX::sigaction(POSIX::SIGHUP, POSIX::SigAction->new( POSIX::SIG_IGN ))
+    #     or throw EBox::Exceptions::External( "Cannot ignore SIGHUP: $!");
+    unless ( $foreground ) {
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid != 0 ) {
+            # Parent must die
+            exit(0);
+        }
+    }
+
+    close(STDIN);
+    close(STDOUT);
+    close(STDERR);
+    my @fd; # Closed file descriptors
+    foreach (3 .. 64) {
+        push(@fd,  $_) if POSIX::close( $_ );
+    }
+
+    open( STDIN, '<', '/dev/null');
+    open( STDOUT, '+>', '/tmp/stdout');
+    open( STDERR, '+>', '/tmp/stderr');
+
+    if ( $hcFD ) {
+        my @fh;
+        open( $fh[$_], "</dev/null") foreach ( @fd );
+        # Perl will try to close all handles when @fh leaves scope here
+    }
+
+    # FIXME: Do this in EBox.pm
+    # Init again logger to open the new descriptor
+    Log::Log4perl->init(EBox::Config::conf() . '/eboxlog.conf');
+}
+
+# Procedure: _mainLoop
+#
+#      Run reporting consolidation and send the data to Zentyal Remote
+#      every $interval time
+#
+# Parameters:
+#
+#      interval - Int the interval between consolidations in seconds
+#
+sub _mainLoop
+{
+    my ($interval) = @_;
+
+    while (1) {
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid == 0 ) {
+            # Child code
+            require EBox::Global;
+            require EBox::RemoteServices::Reporter;
+            unless ( EBox::Config::boolean('disable_consolidation') ) {
+                my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+                if ( $rs->reportEnabled() ) {
+                    my $reporter = EBox::RemoteServices::Reporter->instance();
+                    $reporter->consolidate();
+                    $reporter->send();
+                }
+            }
+            exit(0);
+        } else {
+            # Parent code
+            waitpid($pid, 0);
+        }
+        sleep($interval);
+    }
+}
+
+#######
+# MAIN
+#######
+
+# Get arguments
+my ($usage, $foreground) = (0, 0);
+my $correct = GetOptions(
+    'foreground' => \$foreground,
+    'usage|help' => \$usage
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+_daemonise($foreground);
+
+_mainLoop(INTERVAL);
+
+1;
+
+__END__
+
+=head1 NAME
+
+reporterd - Daemon intended to consolidate and report data to Zentyal Remote
+
+=head1 SYNOPSIS
+
+reporterd [--usage|help] [--foreground]
+
+ Options:
+    --foreground  Flag to indicate if daemon must be launched in foreground
+                  Default value: false
+    --usage|help  Print this help and exit
+
+=cut
