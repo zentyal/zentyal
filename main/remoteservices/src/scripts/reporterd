@@ -19,76 +19,24 @@
 
 use EBox;
 use EBox::Config;
-use EBox::Exceptions::External;
 use Getopt::Long;
 use File::Slurp;
-use POSIX;
 use Log::Log4perl;
 
 # Constants
 use constant INTERVAL => 15 * 60;
 
-# Procedure: _daemonise
+# Daemonisation is done by upstart.
+# Follow Stevens chapter 13 coding rules if no upstart is available
+
+# Procedure: _startUp
 #
-#     Daemonise the current script to become a daemon following the
-#     Stevens chapter 13 coding rules
+#     Start up tasks
 #
-# Parameters:
+#      * Logging init
 #
-#     foreground - Boolean indicating if the daemon must be launched
-#     in foreground *(Optional)* Default value: false
-#
-#
-sub _daemonise
+sub _startUp
 {
-    my ($foreground) = @_;
-
-    unless ( $foreground ) {
-    # Become a session leader to lose controlling TTY
-        my $pid = fork();
-        if ( $pid < 0 ) {
-            throw EBox::Exceptions::External( "Cannot fork: $!");
-        } elsif ( $pid != 0 ) {
-            # Parent must die
-            exit(0);
-        }
-    }
-
-    # Change current working directory to root so we won't prevent file
-    # systems from being unmounted
-    chdir('/') or throw EBox::Exceptions::External( "Cannot change directory to / $!" );
-
-    # Clear the file creation mask
-    umask(0);
-
-    POSIX::setsid();
-
-    # Ensure future opens won't allocate controlling TTYs
-    # Proc::Daemon code has the explanation
-    # POSIX::sigaction(POSIX::SIGHUP, POSIX::SigAction->new( POSIX::SIG_IGN ))
-    #     or throw EBox::Exceptions::External( "Cannot ignore SIGHUP: $!");
-    unless ( $foreground ) {
-        my $pid = fork();
-        if ( $pid < 0 ) {
-            throw EBox::Exceptions::External( "Cannot fork: $!");
-        } elsif ( $pid != 0 ) {
-            # Parent must die
-            exit(0);
-        }
-    }
-
-    close(STDIN);
-    close(STDOUT);
-    close(STDERR);
-    my @fd; # Closed file descriptors
-    foreach (3 .. 64) {
-        push(@fd,  $_) if POSIX::close( $_ );
-    }
-
-    open( STDIN, '<', '/dev/null');
-    open( STDOUT, '+>', '/tmp/stdout');
-    open( STDERR, '+>', '/tmp/stderr');
-
     # FIXME: Do this in EBox.pm
     # Init again logger to open the new descriptor
     Log::Log4perl->init(EBox::Config::conf() . '/eboxlog.conf');
@@ -119,7 +67,8 @@ sub _mainLoop
     while (1) {
         my $pid = fork();
         if ( $pid < 0 ) {
-            throw EBox::Exceptions::External( "Cannot fork: $!");
+            EBox::error("Cannot fork: $!");
+            die "Cannot fork: $!";
         } elsif ( $pid == 0 ) {
             # Child code
             require EBox::Global;
@@ -148,9 +97,8 @@ sub _mainLoop
 #######
 
 # Get arguments
-my ($usage, $foreground) = (0, 0);
+my ($usage) = (0);
 my $correct = GetOptions(
-    'foreground' => \$foreground,
     'usage|help' => \$usage
    );
 
@@ -160,7 +108,7 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
-_daemonise($foreground);
+_startUp();
 
 _mainLoop(INTERVAL);
 
@@ -174,11 +122,9 @@ reporterd - Daemon intended to consolidate and report data to Zentyal Remote
 
 =head1 SYNOPSIS
 
-reporterd [--usage|help] [--foreground]
+reporterd [--usage|help]
 
  Options:
-    --foreground  Flag to indicate if daemon must be launched in foreground
-                  Default value: false
     --usage|help  Print this help and exit
 
 =cut
