@@ -1,4 +1,7 @@
 HEAD
+	+ Consolidate and send report data using a new daemon
+	  zentyal.reporterd
+	+ Randomise when reload-bundle and subs-level are sent
 	+ Added users module checks for SB:
 	  - No more than 25 users having none or cloud as master
 	  - Zentyal server slaves are forbidden

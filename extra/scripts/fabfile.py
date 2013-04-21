@@ -22,7 +22,7 @@ def binstall(pkgstr):
 
 def copy(path):
     """
-    Copy the given file to the target host
+    Copy the given Perl file to the target host
     """
     bname = os.path.basename(path)
     class_path = '/'.join(os.path.dirname(path).split('/')[2:])
@@ -32,6 +32,14 @@ def copy(path):
     out = run('perl -c %s%s' % (perl_path, bname))
     if re.search('OK', out):
         sudo('/etc/init.d/zentyal apache restart')
+
+def script_copy(path):
+    """ Copy the script file to the target host """
+    bname = os.path.basename(path)
+    module_name = os.path.dirname(path).split('/')[0]
+    put(path, '~')
+    script_target_path = "/usr/share/zentyal-%s" % module_name
+    sudo('mv ~/%s %s' % (bname, script_target_path))
 
 # Private functions
 def __get_version(pkg):
