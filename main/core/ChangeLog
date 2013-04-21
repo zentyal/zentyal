@@ -1,4 +1,5 @@
 HEAD
+	+ Optimise loading Test::Deep::NoTest to avoid test environment creation
 	+ Use EBox::Module::Base::writeConfFileNoCheck to write apache
 	  configuration file
 	+ Log events after dispatching them in the EventDaemon and catch exception
