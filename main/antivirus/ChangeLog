@@ -1,4 +1,5 @@
 HEAD
+	+ Added LogHelper for storing AV DB updates in the DB
 	+ Disable outdated script hook as it is not shown in the UI
 	+ Make freshclam-observer work again
 3.0.1

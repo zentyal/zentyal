@@ -21,14 +21,8 @@ sub _writeEventFile
 {
   my ($event, $extraParam) = @_;
 
-  # prepare state file permissions
-  my $statefile = EBox::AntiVirus->freshclamStateFile();
-  system ("touch $statefile");
-  system("chmod 0644 $statefile");
-
   EBox::AntiVirus->notifyFreshclamEvent($event, $extraParam);
 }
-
 
 sub _getParams
 {
@@ -50,7 +44,6 @@ sub _event
   if  ($isValidEvent) {
     return $cliEvent;
   }
-
 
   die ("Not a valid freshclam event: $cliEvent");
 }
