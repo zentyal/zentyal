@@ -290,6 +290,20 @@ sub freshclamStateFile
     return freshclamEBoxDir() . 'freshclam.state';
 }
 
+# Class Method: notifyFreshclamEvent
+#
+#     Got notified from a freshclam event and store the state in
+#     /var/lib/clamav/freshclam.state file. This is called by
+#     freshclam-observer script which is called by freshclam after an
+#     attempt of updating the AV Data Base
+#
+# Parameters:
+#
+#     event - String the freshclam event. Valid ones are: update, error, outdated
+#
+#     extraParam - String extra parameters (only expected last version
+#                  for outdated event)
+#
 sub notifyFreshclamEvent
 {
     my ($class, $event, $extraParam) = @_;

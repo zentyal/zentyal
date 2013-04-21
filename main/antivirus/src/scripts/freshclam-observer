@@ -17,9 +17,6 @@ my ($event, $extraParam) = _getParams();
 _writeEventFile($event, $extraParam);
 
 
-
-
-
 sub _writeEventFile
 {
   my ($event, $extraParam) = @_;
@@ -29,7 +26,6 @@ sub _writeEventFile
   system ("touch $statefile");
   system("chmod 0644 $statefile");
 
-
   EBox::AntiVirus->notifyFreshclamEvent($event, $extraParam);
 }
 
@@ -37,7 +33,7 @@ sub _writeEventFile
 sub _getParams
 {
   my $event = _event();
-  
+
   my $extraParam = undef;
   if ($event eq 'outdated') {
     $extraParam = _newVersion();
@@ -78,7 +74,5 @@ sub _checkUser
     die "Only " . ALLOWED_USER . " is allowed to run this script";
   }
 }
-
-
 
 1;

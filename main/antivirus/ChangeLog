@@ -1,4 +1,6 @@
 HEAD
+	+ Disable outdated script hook as it is not shown in the UI
+	+ Make freshclam-observer work again
 	+ Enhanced way of getting signatures form logs: alternative log
 	  line supported and dates checked
 3.0

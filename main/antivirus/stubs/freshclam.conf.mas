@@ -37,7 +37,7 @@ NotifyClamd <% $clamdConfFile %>
 
 OnUpdateExecute  <% "$observerScript update" %>
 OnErrorExecute <% "$observerScript error" %>
-OnOutdatedExecute <% "$observerScript outdated %v" %>
+<%comment>OnOutdatedExecute <% "$observerScript outdated %v" %></%comment>
 
 % if ($proxyServer and $proxyPort) {
 HTTPProxyServer <% $proxyServer %>
