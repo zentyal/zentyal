@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::LDB;
-
 use strict;
 use warnings;
+
+package EBox::LDB;
 
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
@@ -161,7 +160,6 @@ sub safeConnect
 {
     my ($self) = @_;
 
-    my $retries = 6;
     my $ldb = undef;
 
     local $SIG{PIPE};
@@ -169,24 +167,52 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    while (not $ldb = Net::LDAP->new(LDAPI) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba');
-        unless ($samba->isRunning()) {
-            EBox::debug("Samba daemon was stopped, starting it");
-            $samba->_startService();
-            sleep (5);
-            next;
-        }
-        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
-        sleep (5);
+    $ldb = Net::LDAP->new(LDAPI);
+    $ldb and return $ldb;
+
+    my $samba = EBox::Global->modInstance('samba');
+    unless ($samba->isRunning()) {
+        $self->_waitForSambaDaemonStart($samba);
+    }
+
+    my $maxTries = 15;
+    my $ldbError = '';
+    foreach my $try (1 .. $maxTries) {
+        $ldb = Net::LDAP->new(LDAPI);
+        $ldb and last;
+
+        $ldbError = $@;
+        EBox::warn("Couldn't connect to samba LDAP server: $ldbError, retrying. ($try attempt)");
+        sleep 2;
     }
 
     unless ($ldb) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to samba LDAP server");
+            "FATAL: Couldn't connect to samba LDAP server: $ldbError");
     }
 
     return $ldb;
+}
+
+sub _waitForSambaDaemonStart
+{
+    my ($self, $samba) = @_;
+    EBox::warn("Samba daemon was stopped, starting it");
+    $samba->_startService();
+
+    my $running;
+    my $maxTries = 15;
+    foreach my $try (1 .. $maxTries) {
+        $running = $samba->isRunning();
+        $running and last;
+        sleep 2;
+    }
+
+    if (not $running) {
+        throw EBox::Exceptions::External(
+            __('FATAL: Timeout when waiting for Samba daemon')
+           );
+    }
 }
 
 # Method: dn
