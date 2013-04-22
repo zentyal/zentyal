@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed spam/ham mail account check to not fail if the user does
+	  not exists. This avoids a dashboard error.
 	+ Fixed LDAP reprovision to recreate ham and spam users
 3.0.4
 	+ Fixed missing use statement in MailfilterACL model
