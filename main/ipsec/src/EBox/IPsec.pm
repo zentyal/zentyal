@@ -12,9 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 package EBox::IPsec;
-
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::FirewallObserver
@@ -23,7 +21,6 @@ use base qw(EBox::Module::Service
 use strict;
 use warnings;
 
-use EBox::Global;
 use EBox::Gettext;
 
 use EBox::IPsec::FirewallHelper;
@@ -32,6 +29,8 @@ use EBox::NetWrappers qw();
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
 use constant IPSECSECRETSFILE => '/etc/ipsec.secrets';
+use constant XL2TPDCONFFILE => '/etc/xl2tpd/xl2tpd.conf';
+use constant XL2TPDPPPCONFFILE => '/etc/ppp/options.xl2tpd';
 
 # Constructor: _create
 #
@@ -60,18 +59,34 @@ sub _create
 #
 sub usedFiles
 {
-    return [
-            {
-              'file' => IPSECCONFFILE,
-              'module' => 'ipsec',
-              'reason' => __('To configure OpenSwan IPsec.')
-            },
-            {
-              'file' => IPSECSECRETSFILE,
-              'module' => 'ipsec',
-              'reason' => __('To configure OpenSwan IPsec passwords.')
-            },
-    ];
+    my @conf_files = ();
+
+    push (@conf_files, {
+        'file' => IPSECCONFFILE,
+        'module' => 'ipsec',
+        'reason' => __('To configure OpenSwan IPsec.')
+    });
+
+    push (@conf_files, {
+        'file' => IPSECSECRETSFILE,
+        'module' => 'ipsec',
+        'reason' => __('To configure OpenSwan IPsec passwords.')
+    });
+
+    push (@conf_files, {
+        'file' => XL2TPDCONFFILE,
+        'module' => 'ipsec',
+        'reason' => __('To configure XL2TPD.')
+    });
+
+    push (@conf_files, {
+        'file' => XL2TPDPPPCONFFILE,
+        'module' => 'ipsec',
+        'reason' => __('To configure PPP for XL2TPD.')
+    });
+
+    return \@conf_files;
+
 }
 
 # Method: _daemons
@@ -100,9 +115,10 @@ sub _daemons
 sub initialSetup
 {
     my ($self, $version) = @_;
+    my $global = $self->global();
 
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $services = $global->modInstance('services');
 
         my $serviceName = 'IPsec';
         unless($services->serviceExists(name => $serviceName)) {
@@ -115,7 +131,7 @@ sub initialSetup
             );
         }
 
-        my $firewall = EBox::Global->modInstance('firewall');
+        my $firewall = $global->modInstance('firewall');
         $firewall->setExternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
@@ -155,6 +171,7 @@ sub _setConf
 
     $self->_setIPsecConf();
     $self->_setIPsecSecrets();
+    $self->_setXL2TPDConf();
 }
 
 sub _setIPsecConf
@@ -179,6 +196,28 @@ sub _setIPsecSecrets
 
     $self->writeConfFile(IPSECSECRETSFILE, "ipsec/ipsec.secrets.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'root', mode => '600' });
+}
+
+sub _setXL2TPDConf
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    foreach my $tunnel (@{ $self->tunnels() }) {
+        if ($tunnel->{'type'} eq 'l2tp') {
+            push (@params, tunnel => $tunnel);
+            last;
+        }
+    }
+    my $permissions = {
+        uid => 'root',
+        gid => 'root',
+        mode => '644',
+    };
+
+    $self->writeConfFile(XL2TPDCONFFILE, "ipsec/xl2tpd.conf.mas", \@params, $permissions);
+    $self->writeConfFile(XL2TPDPPPCONFFILE, "ipsec/options.xl2tpd.mas", \@params, $permissions);
 }
 
 sub tunnels
