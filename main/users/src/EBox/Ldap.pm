@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Ldap;
-
 use strict;
 use warnings;
+
+package EBox::Ldap;
 
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
@@ -819,26 +818,35 @@ sub _slapcatCmd
 sub safeConnect
 {
     my ($ldapurl) = @_;
-    my $retries = 4;
     my $ldap;
 
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
        EBox::warn('SIGPIPE received connecting to LDAP');
     };
+
+    my $reconnect;
+    my $connError;
+    my $retries = 4;
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
+        $connError = $@;
+        EBox::error("Couldn't connect to LDAP server $ldapurl: $connError. Retrying");
+        $reconnect = 1;
+
         my $users = EBox::Global->modInstance('users');
         $users->_manageService('start');
-        EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
+
         sleep(1);
     }
 
-    unless ($ldap) {
+    if (not $ldap) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to LDAP server: $ldapurl");
-    }
-
-    if ($retries < 3) {
+            __x(q|FATAL: Couldn't connect to LDAP server {url}: {error}|,
+                url => $ldapurl,
+                error => $connError
+               )
+           );
+    } elsif ($reconnect) {
         EBox::info('LDAP reconnect successful');
     }
 
