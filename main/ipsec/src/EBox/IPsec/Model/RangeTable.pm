@@ -28,7 +28,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-use EBox::Global;
 use EBox::Gettext;
 use EBox::Model::Manager;
 use EBox::Types::Text;
@@ -48,6 +47,7 @@ use Net::IP;
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
+    my $global = $self->global();
 
     if ((exists $changedFields->{from}) or
         (exists $changedFields->{to})) {
@@ -65,30 +65,40 @@ sub validateTypedRow
             );
         }
 
-        my $network  = EBox::Global->modInstance('network');
+        my $network  = $global->modInstance('network');
         my $dhcp;
-        if (EBox::Global->modExists('dhcp')) {
-            $dhcp = EBox::Global->modInstance('dhcp');
+        if ($global->modExists('dhcp')) {
+            $dhcp = $global->modInstance('dhcp');
         }
 
+        # Check tunnel IP to be used for the VPN.
+        # FIXME: This code doesn't work...
+        #my $ipsec = $self->parentModule();
+        #my $l2tp_settings = $ipsec->model('SettingsL2TP');
+        #my $localAddr = $l2tp_settings->row()->valueByName('local_ip');
+        #EBox::debug($localAddr);
+        #my $localIPObj = new Net::IP($localAddr);
+        #unless ( $localIPObj->overlaps($range) == $IP_NO_OVERLAP ) {
+        #    throw EBox::Exceptions::External(
+        #        __x('Range {from}-{to} includes the local IP address: {local_ip}',
+        #            from => $from,
+        #            to => $to,
+        #            local_ip => $localAddr,
+        #        )
+        #    );
+        #}
+
         # Check all local networks configured on the server.
-        foreach my $interface (@{$network->allIfaces()}) {
+        my $localNetOverlaps = undef;
+        foreach my $interface (@{$network->InternalIfaces()}) {
 
             my $usedRange = new Net::IP($network->netInitRange($interface) . '-' . $network->netEndRange($interface));
 
             unless ($range->overlaps($usedRange) == $IP_NO_OVERLAP) {
-                throw EBox::Exceptions::External(
-                    __x('Range {from}-{to} overlaps with the network {net} on the existing interface {ifaceName}',
-                        from => $from,
-                        to => $to,
-                        net => EBox::NetWrappers::to_network_with_mask(
-                            $network->ifaceNetwork($interface), $network->ifaceNetmask($interface)),
-                        ifaceName => $interface,
-                    )
-                );
+                $localNetOverlaps = 1;
             }
 
-            if (EBox::Global->modExists('dhcp')) {
+            if ($global->modExists('dhcp')) {
 
                 next if ($network->ifaceMethod($interface) ne 'static');
 
@@ -109,20 +119,8 @@ sub validateTypedRow
                 }
             }
         }
-
-        # Check local IP to be used for the VPN.
-        my $ipsec = $self->parentModule();
-        my $l2tp_settings = $ipsec->model('SettingsL2TP');
-        my $localAddr = $l2tp_settings->value('localIP');
-        my $localIPObj = new Net::IP($localAddr);
-        unless ( $localIPObj->overlaps($range) == $IP_NO_OVERLAP ) {
-            throw EBox::Exceptions::External(
-                __x('Range {from}-{to} includes the local IP address: {localIP}',
-                    from => $from,
-                    to => $to,
-                    localIP => $localAddr,
-                )
-            );
+        unless ($localNetOverlaps) {
+            throw EBox::Exceptions::External(__('The defined range is not part of any local network'));
         }
 
         # Check other ranges.

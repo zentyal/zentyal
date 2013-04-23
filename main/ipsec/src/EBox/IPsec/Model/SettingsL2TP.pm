@@ -21,8 +21,77 @@ use warnings;
 use EBox::Gettext;
 
 use EBox::Types::HostIP;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
+
+################
+# Dependencies
+################
+use Net::IP;
 
 # Group: Public methods
+
+# Method: nameServer
+#
+#     Get the primary or secondary nameserver for this options interface
+#
+# Parameters:
+#
+#     number - Int 1 or 2
+#
+# Returns:
+#
+#     String - the current nameserver IP if any, otherwise undef
+#
+sub nameServer
+{
+    my ($self, $number) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType;
+    if ( $number == 1 ) {
+        $selectedType = $row->elementByName('primary_ns')->selectedType();
+        if ($selectedType eq 'none') {
+            return undef;
+        } elsif ($selectedType eq 'zentyal_ns') {
+            my $network = $self->global()->modInstance('network');
+            my $ifaceAddr = $network->localGatewayIP($row->elementByName('local_ip')->value());
+            return $ifaceAddr;
+        } else {
+            return $row->elementByName('primary_ns')->subtype()->value();
+        }
+    } else {
+            return $row->printableValueByName('secondary_ns');
+    }
+}
+
+# Method: winsServer
+#
+#     Get the wins server
+#
+# Returns:
+#
+#     String - the current wins server IP if any, otherwise undef
+#
+sub winsServer
+{
+    my ($self) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType;
+    $selectedType = $row->elementByName('wins_server')->selectedType();
+    if ($selectedType eq 'none') {
+        return undef;
+    } elsif ($selectedType eq 'zentyal_wins') {
+        my $network = $self->global()->modInstance('network');
+        my $ifaceAddr = $network->localGatewayIP($row->elementByName('local_ip')->value());
+        return $ifaceAddr;
+    } else {
+        return $row->elementByName('wins_server')->subtype()->value();
+    }
+}
 
 # Method: validateTypedRow
 #
@@ -39,21 +108,85 @@ use EBox::Types::HostIP;
 sub validateTypedRow
 {
     my ($self, $action, $changedFields) = @_;
+    my $global = $self->global();
 
     shift @_;
     $self->SUPER::validateTypedRow(@_);
 
-#    if ( exists $changedFields->{'ike-auth'} ) {
-#        my $ikeenc = $changedFields->{'ike-enc'};
-#        $ikeenc = $self->row()->valueByName('ike-enc') unless $ikeenc;
-#        if ( $changedFields->{'ike-auth'}->value() eq 'any' and $ikeenc ne 'any') {
-#                throw EBox::Exceptions::InvalidData(
-#                          'data'  => __('IKE Authentication'),
-#                          'value' => $changedFields->{'ike-auth'}->value(),
-#                      );
-#
-#        }
-#    }
+    my $network = $global->modInstance('network');
+    my $dhcp;
+    if ($global->modExists('dhcp')) {
+        $dhcp = $global->modInstance('dhcp');
+    }
+
+    if (exists $changedFields->{local_ip}) {
+        # Check all local networks configured on the server.
+        my $localIP = new Net::IP($changedFields->{local_ip}->value());
+        my $localIPRangeFound = undef;
+        foreach my $interface (@{$network->InternalIfaces()}) {
+            my $usedRange = new Net::IP($network->netInitRange($interface) . '-' . $network->netEndRange($interface));
+            unless ($localIP->overlaps($usedRange) == $IP_NO_OVERLAP) {
+                $localIPRangeFound = 1;
+            }
+
+            if ($network->ifaceAddress($interface) eq $changedFields->{local_ip}->value()) {
+                throw EBox::Exceptions::External(
+                    __x('The Tunnel IP {localIP} is already used as a fixed address for the iface "{$interface}"',
+                        localIP => $changedFields->{local_ip}->value(),
+                        interface => $interface
+                    )
+                );
+            }
+
+            if ($global->modExists('dhcp')) {
+                next if ($network->ifaceMethod($interface) ne 'static');
+
+                my $fixedAddresses = $dhcp->fixedAddresses($interface, 0);
+
+                foreach my $fixedAddr (@{$fixedAddresses}) {
+                    if ($fixedAddr->{ip} eq $changedFields->{local_ip}->value()) {
+                        throw EBox::Exceptions::External(
+                            __x('The Tunnel IP {localIP} is already used as a fixed address from the object member ' .
+                                '"{name}": {fixedIP}',
+                                localIP => $changedFields->{local_ip}->value(),
+                                name => $fixedAddr->{name},
+                                fixedIP => $fixedAddr->{ip}
+                            )
+                        );
+                    }
+                }
+            }
+        }
+        unless ($localIPRangeFound) {
+            throw EBox::Exceptions::External(
+                __x('The Tunnel IP {localIP} is not part of any local network',
+                    localIP => $changedFields->{local_ip}->value(),
+                )
+            );
+        }
+        # TODO: WE MUST RECHECK THE DEFINED RANGES.
+    }
+
+    if (exists $changedFields->{primary_ns}) {
+        if ($changedFields->{primary_ns}->selectedType() eq 'zentyal_ns') {
+            my $dns = $global->modInstance('dns');
+            unless ($dns->isEnabled()) {
+                throw EBox::Exceptions::External(
+                    __('DNS module must be enabled to be able to select Zentyal as primary DNS server'));
+            }
+        }
+    }
+
+    if (exists $changedFields->{wins_server}) {
+        if ($changedFields->{wins_server}->selectedType() eq 'zentyal_wins') {
+            my $sambaMod = $global->modInstance('samba');
+            unless ($sambaMod->isEnabled()) {
+                throw EBox::Exceptions::External(
+                    __('Samba module must be enabled to be able to select Zentyal as WINS server')
+                   );
+            }
+        }
+    }
 }
 
 # Group: Private methods
@@ -67,19 +200,129 @@ sub validateTypedRow
 sub _table
 {
     my ($self) = @_;
+    my $global = $self->global();
 
+    shift @_;
     my $dataTable = $self->SUPER::_table(@_);
 
-    my $field = new EBox::Types::HostIP(
-        fieldName => 'localIP',
-        printableName => __('Local IP'),
-        editable => 1,
+    # DNS
+    my @primaryNSSubtypes = ();
+
+    if ($global->modExists('dns')) {
+        push (@primaryNSSubtypes,
+            new EBox::Types::Union::Text(
+                fieldName => 'zentyal_ns',
+                printableName => __('local Zentyal DNS'),
+            )
+        );
+    }
+    push (@primaryNSSubtypes,
+        new EBox::Types::HostIP(
+            fieldName     => 'custom_ns',
+            printableName => __('Custom'),
+            editable      => 1,
+            defaultValue  => $self->_fetchPrimaryNS(),
+        ),
+        new EBox::Types::Union::Text(
+            fieldName => 'none',
+            printableName => __('None'),
+        )
     );
 
-    splice $dataTable->{tableDescription}, 0, 0, $field;
+    my @winsSubtypes = (
+        new EBox::Types::Union::Text(
+            fieldName => 'none',
+            printableName => __('None')
+        )
+    );
+
+    if ($global->modExists('samba')) {
+        push (@winsSubtypes,
+            new EBox::Types::Union::Text(
+                fieldName => 'zentyal_wins',
+                printableName => __('local Zentyal')
+            )
+        );
+    }
+    push (@winsSubtypes,
+        new EBox::Types::HostIP(
+            fieldName => 'custom_wins',
+            printableName => __('Custom'),
+            editable      => 1
+        )
+    );
+
+    push ($dataTable->{tableDescription},
+        new EBox::Types::HostIP(
+            fieldName => 'local_ip',
+            printableName => __('Tunnel IP'),
+            editable => 1,
+            help => __('The IP to use for the VPN tunnel on the server side. It must be a free IP belonging to the ' .
+                       'local network where the VPN clients will be connected.'),
+        )
+    );
+
+    push ($dataTable->{tableDescription},
+        new EBox::Types::Union(
+            fieldName  => 'primary_ns',
+            printableName => __('Primary nameserver'),
+            editable => 1,
+            subtypes => \@primaryNSSubtypes,
+            help => __('If "Zentyal DNS" is present and selected, the Zentyal server will act as cache DNS server'),
+        )
+    );
+    push ($dataTable->{tableDescription},
+        new EBox::Types::HostIP(
+            fieldName => 'secondary_ns',
+            printableName => __('Secondary nameserver'),
+            editable => 1,
+            optional => 1,
+        )
+    );
+    push ($dataTable->{tableDescription},
+        new EBox::Types::Union(
+            fieldName => 'wins_server',
+            printableName => __('WINS server'),
+            editable => 1,
+            subtypes => \@winsSubtypes,
+            help => __('If "Zentyal Samba" is present and selected, Zentyal will be the WINS server for L2TP clients'),
+        )
+    );
+
     $dataTable->{tableName} = 'SettingsL2TP';
 
     return $dataTable;
 }
+
+# Method: _fetchPrimaryNS
+#
+#      Fetch primary  nameserver from Network module
+#
+sub _fetchPrimaryNS
+{
+    my ($self) = @_;
+
+    my $network = $self->global()->modInstance('network');
+
+    my $nsOne = $network->nameserverOne();
+    ($nsOne) or return undef;
+    return $nsOne;
+}
+
+# Method: _fetchSecondaryNS
+#
+#      Fetch secondary nameserver from Network module
+#
+sub _fetchSecondaryNS
+{
+    my ($self) = @_;
+
+    my $network = $self->global()->modInstance('network');
+
+    my $nsTwo = $network->nameserverTwo();
+    ($nsTwo) or return undef;
+    return $nsTwo;
+}
+
 
 1;

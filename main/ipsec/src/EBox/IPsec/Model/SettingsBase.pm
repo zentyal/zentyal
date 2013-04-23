@@ -21,6 +21,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Host;
 use EBox::Types::Password;
+use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
@@ -82,11 +83,12 @@ sub validateTypedRow
 sub _table
 {
     my @fields = (
-        new EBox::Types::Host(
+        new EBox::Types::Select(
             fieldName => 'left_ipaddr',
-            printableName => __('Local IP Address'),
+            printableName => __('Public IP address'),
             editable => 1,
-            help => __('Zentyal public IP address.'),
+            populate => \&_populatePublicIPs,
+            help => __('Zentyal public IP address where clients will connect to.'),
         ),
         new EBox::Types::Union(
             fieldName => 'right',
@@ -123,6 +125,27 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Group: Private methods
+
+# Method: _populatePublicIPs
+#
+#      Populate the select widget with all available public IPs for this server.
+#
+sub _populatePublicIPs
+{
+    my ($self) = @_;
+
+    my $network = $self->global()->modInstance('network');
+    my $externalIPAddresses = $network->externalIpAddresses();
+    my @opts = ();
+
+    foreach my $ipaddress (@{$externalIPAddresses}) {
+        push (@opts, { value => $ipaddress, printableValue => $ipaddress });
+    }
+
+    return \@opts;
 }
 
 1;
