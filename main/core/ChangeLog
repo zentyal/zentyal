@@ -1,4 +1,4 @@
-HEAD
+3.0.19
 	+ Removed full restore option for restore-backup tool and
 	  EBox:Backup relevant methods
 	+ Optimise loading Test::Deep::NoTest to avoid test environment creation
