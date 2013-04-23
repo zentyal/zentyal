@@ -954,6 +954,41 @@ sub renovationDate
     return $ret;
 }
 
+
+# Method: maxUsers
+#
+#   Return the max number of users the server can hold,
+#   depending on the current server edition, 0 for unlimited
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxUsers
+{
+    my ($self, $force) = @_;
+
+    # unlimited
+    my $max_users = 0;
+
+    # Small business
+    if ($self->subscriptionLevel($force) == 5) ̣{
+        $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
+    }
+
+    # Cloud
+    if ($self->usersSyncAvailable($force) {
+        my $max_cloud = $self->addOnDetails('cloudusers', $force);
+        if ($max_cloud and $max_cloud < $max_users) {
+            $max_users = $max_cloud;
+        }
+    }
+
+    return $max_users;
+}
+
+
 # Method: usersSyncAvailable
 #
 #   Returns 1 if users syncrhonization is available

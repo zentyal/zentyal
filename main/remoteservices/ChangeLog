@@ -1,3 +1,5 @@
+HEAD
+	+ Implemented maxUsers method
 3.0.18
 	+ Consolidate and send report data using a new daemon
 	  zentyal.reporterd

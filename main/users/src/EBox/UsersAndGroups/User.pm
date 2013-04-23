@@ -539,6 +539,14 @@ sub create
                                            );
     }
 
+    my $real_users = $users->realUsers('without_admin');
+    if ( scalar(@{$real_users}) > $users->maxUsers() ) {
+        throw EBox::RemoteServices::Exceptions::NotCapable(
+                __sx('Please note that the maximum number of users for your edition is {max} '
+                    . 'and you currently have {nUsers}',
+                    max => $users->maxUsers(), nUsers => scalar(@{$real_users})));
+    }
+
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
