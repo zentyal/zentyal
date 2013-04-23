@@ -872,7 +872,7 @@ sub _unpackAndVerify
         }
 
         $self->_checkArchiveMd5Sum($tempdir);
-        $self->_checkArchiveType($tempdir, 0);
+        $self->_checkArchiveType($tempdir);
         unless ($options{forceZentyalVersion}) {
             $self->_checkZentyalVersion($tempdir);
         }
