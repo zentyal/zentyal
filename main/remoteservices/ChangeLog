@@ -1,4 +1,4 @@
-HEAD
+3.0.18
 	+ Consolidate and send report data using a new daemon
 	  zentyal.reporterd
 	+ Randomise when reload-bundle and subs-level are sent
