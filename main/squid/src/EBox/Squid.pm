@@ -827,17 +827,17 @@ sub _setAuthenticationModeAD
             EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
             EBox::Sudo::root("chown ebox $keytabTempPath");
             # Update keytab
-            my $cmd = "msktutil --auto-update --verbose --computer-name '$computerName' --keytab '$keytabTempPath'";
+            my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
             EBox::Sudo::command($cmd);
             # Move keytab to the correct place
             EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
         } else {
             # Create the account and extract keytab to temporary directory
             EBox::Sudo::command("rm -f $keytabTempPath");
-            my $cmd = "msktutil -c -b 'CN=COMPUTERS' -s 'HTTP/$hostFQDN' " .
+            my $cmd = "msktutil -N -c -b 'CN=COMPUTERS' -s 'HTTP/$hostFQDN' " .
                       "-k '$keytabTempPath' --computer-name '$computerName' " .
-                      "--upn 'HTTP/$hostFQDN' --server '$dc' --verbose " .
-                      "--user-creds-only";
+                      "--upn 'HTTP/$hostFQDN' --server '$dc' --user-creds-only " .
+                      "--verbose";
             EBox::Sudo::command($cmd);
 
             # Move keytab to the correct place
