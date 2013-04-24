@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::LDB;
-
 use strict;
 use warnings;
+
+package EBox::LDB;
 
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
@@ -27,6 +26,7 @@ use EBox::Samba::DNS::Zone;
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Gettext;
 
 use Net::LDAP;
 use Net::LDAP::Control;
@@ -38,8 +38,10 @@ use File::Slurp;
 use File::Temp qw(:seekable);
 use Error qw( :try );
 use Perl6::Junction qw(any);
+use Time::HiRes;
 
-use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
+
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -161,32 +163,32 @@ sub safeConnect
 {
     my ($self) = @_;
 
-    my $retries = 6;
-    my $ldb = undef;
-
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    while (not $ldb = Net::LDAP->new(LDAPI) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba');
-        unless ($samba->isRunning()) {
-            EBox::debug("Samba daemon was stopped, starting it");
-            $samba->_startService();
-            sleep (5);
-            next;
+    my $samba = EBox::Global->modInstance('samba');
+    $samba->_startService() unless $samba->isRunning();
+
+    my $error;
+    my $maxTries = 300;
+    for (my $try=1; $try<=$maxTries; $try++) {
+        my $ldb = Net::LDAP->new(LDAPI);
+        if (defined $ldb) {
+            my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
+            if (defined $dse) {
+                return $ldb;
+            }
         }
-        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
-        sleep (5);
+        $error = $@;
+        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)");
+        Time::HiRes::sleep(0.1);
     }
 
-    unless ($ldb) {
-        throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to samba LDAP server");
-    }
-
-    return $ldb;
+    throw EBox::Exceptions::External(
+        __x(q|FATAL: Could not connect to samba LDAP server: {error}|,
+            error => $error));
 }
 
 # Method: dn
