@@ -979,7 +979,7 @@ sub maxUsers
 
     # Cloud
     my $max_cloud = $self->maxCloudUsers($force);
-    if (($max_cloud and $max_cloud < $max_users) or $max_users eq 0) {
+    if (($max_cloud and $max_cloud < $max_users) or ($max_users == 0)) {
         $max_users = $max_cloud;
     }
 

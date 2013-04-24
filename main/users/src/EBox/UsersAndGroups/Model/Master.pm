@@ -220,7 +220,7 @@ sub validateTypedRow
          my $realUsers = $users->realUsers('without_admin');
          $realUsers = scalar(@{$realUsers});
          if ( $realUsers > $rs->maxCloudUsers('force') ) {
-            my $max = $rs->maxCloudUsers('force');
+            my $max = $rs->maxCloudUsers();
             my $current = $realUsers;
             throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current} users created.', current => $current, max => $max));
          }
