@@ -522,8 +522,8 @@ sub _setConf
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
         # workaround to be sure that we don't let a orphan need_reprovision on read-only
-        my $roModule =  EBox::Global->getInstance(1)->modInstance($self->name());
-        $roModule->unset('need_reprovision');
+        my $roKey = 'users/ro/need_reprovision';
+        $self->redis->unset($roKey);
         $self->reprovision();
     }
 
