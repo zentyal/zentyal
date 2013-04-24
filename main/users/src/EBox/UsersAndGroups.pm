@@ -521,6 +521,9 @@ sub _setConf
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
+        # workaround to be sure that we don't let a orphan need_reprovision on read-only
+        my $roKey = 'users/ro/need_reprovision';
+        $self->redis->unset($roKey);
         $self->reprovision();
     }
 
@@ -1793,7 +1796,8 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
-        $self->setAsChanged(1);
+        $self->setAsChanged(1); # for compability with machines with phantom
+                                # need_reprovision in read-only tree
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }
