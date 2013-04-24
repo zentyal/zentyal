@@ -39,10 +39,8 @@ use File::Temp qw(:seekable);
 use Error qw( :try );
 use Perl6::Junction qw(any);
 use Time::HiRes;
-use IO::Socket::INET;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
-use constant LDB_PORT  => 389;
 
 
 # NOTE: The list of attributes available in the different Windows Server versions
@@ -165,81 +163,32 @@ sub safeConnect
 {
     my ($self) = @_;
 
-    my $ldb = undef;
-
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    $ldb = Net::LDAP->new(LDAPI);
-    $ldb and return $ldb;
+    my $samba = EBox::Global->modInstance('samba');
+    $samba->_startService() unless $samba->isRunning();
 
-    if (not _listening()) {
-        my $samba = EBox::Global->modInstance('samba');
-        $self->_waitForSambaDaemonStart($samba);
-    }
-
+    my $error;
     my $maxTries = 300;
-    my $ldbError = undef;
-    my $try = 0;
-    while ($try <= $maxTries) {
-        $try += 1;
-
-        $ldb = Net::LDAP->new(LDAPI);
-        $ldb and last;
-
-        if ((not $ldbError) or ($ldbError ne $@)) {
-            $ldbError = $@;
-            EBox::warn("Couldn't connect to samba LDAP server: $ldbError, retrying. ($try attempt)");
+    for (my $try=1; $try<=$maxTries; $try++) {
+        my $ldb = Net::LDAP->new(LDAPI);
+        if (defined $ldb) {
+            my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
+            if (defined $dse) {
+                return $ldb;
+            }
         }
-        Time::HiRes::sleep(0.1);
-    }
-
-    unless ($ldb) {
-        throw EBox::Exceptions::External(
-            __x(q|FATAL: Couldn't connect to samba LDAP server: {error}|,
-                error => $ldbError
-               )
-        );
-    }
-
-    return $ldb;
-}
-
-sub _waitForSambaDaemonStart
-{
-    my ($self, $samba) = @_;
-    EBox::warn("Samba daemon was stopped, starting it");
-    $samba->_startService();
-
-    my $try = 0;
-    my $maxTries = 300;
-    while ($try >= $maxTries) {
-        $try += 1;
-        if (_listening()) {
-            return;
-        }
-
+        $error = $@;
+        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)");
         Time::HiRes::sleep(0.1);
     }
 
     throw EBox::Exceptions::External(
-        __('FATAL: Timeout when waiting for Samba daemon')
-    );
-}
-
-sub _listening
-{
-    my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
-                                    PeerPort => LDB_PORT,
-                                    Proto    => 'tcp');
-    if ( $sock ) {
-        close($sock);
-        return 1;
-    }
-
-    return 0;
+        __x(q|FATAL: Could not connect to samba LDAP server: {error}|,
+            error => $error));
 }
 
 # Method: dn
