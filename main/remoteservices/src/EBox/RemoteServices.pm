@@ -978,14 +978,32 @@ sub maxUsers
     }
 
     # Cloud
-    if ($self->usersSyncAvailable($force) {
-        my $max_cloud = $self->addOnDetails('cloudusers', $force);
-        if ($max_cloud and $max_cloud < $max_users) {
-            $max_users = $max_cloud;
-        }
+    my $max_cloud = $self->maxCloudUsers($force);
+    if ($max_cloud and $max_cloud < $max_users) {
+        $max_users = $max_cloud;
     }
 
     return $max_users;
+}
+
+
+# Method: maxCloudUsers
+#
+#   Return the max number of users available in Cloud (if enabled)
+#   0 for unlimited or not enabled
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxCloudUsers
+{
+    my ($self, $force) = @_;
+    if ($self->usersSyncAvailable($force) {
+        return $self->addOnDetails('cloudusers', $force);
+    }
+    return 0;
 }
 
 

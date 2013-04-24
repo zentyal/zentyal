@@ -1,5 +1,5 @@
 HEAD
-	+ Check for max number of users when adding a new one
+	+ Check for max number of users
 3.0.15
 	+ Always mark as changed if it needs LDAP reprovision
 	+ Fixed member removal operation for groups

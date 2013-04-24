@@ -216,6 +216,14 @@ sub validateTypedRow
                 slave => $users->kerberosRealm()
             ));
         }
+
+         my $realUsers = $usersMod->realUsers('without_admin');
+         $realUsers = scalar(@{$realUsers});
+         if ( $realUsers > $users->maxCloudUsers('force') ) {
+            my $max = $users->maxCloudUsers('force');
+            my $current = $realUsers;
+            throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current}.', current => $current, max => $max));
+         }
     }
 
     my @ldapMods = grep {
