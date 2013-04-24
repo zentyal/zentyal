@@ -632,7 +632,7 @@ sub controlPanelURL
 {
     my ($self) = @_;
 
-    my $url= 'cloud.zentyal.com';
+    my $url = 'remote.zentyal.com';
     try {
         $url = 'www.' . $self->cloudDomain();
     } otherwise {};
