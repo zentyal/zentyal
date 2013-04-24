@@ -1,6 +1,7 @@
 HEAD
 	+ Check for maximum number of users depending on the edition
-	+ More explicit error when EBox::Ldap::safeConnect fails
+	+ More frequent polling in EBox::Ldap::safeConnect() and
+	  more explicit error when it fails
 3.0.15
 	+ Always mark as changed if it needs LDAP reprovision
 	+ Fixed member removal operation for groups

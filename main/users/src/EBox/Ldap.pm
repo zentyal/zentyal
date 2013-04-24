@@ -37,6 +37,7 @@ use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
 use POSIX;
+use Time::HiRes;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
@@ -826,17 +827,20 @@ sub safeConnect
     };
 
     my $reconnect;
-    my $connError;
-    my $retries = 4;
+    my $connError = undef;
+    my $retries = 50;
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
-        $connError = $@;
-        EBox::error("Couldn't connect to LDAP server $ldapurl: $connError. Retrying");
+        if ((not defined $connError) or ($connError ne $@)) {
+            $connError = $@;
+            EBox::error("Couldn't connect to LDAP server $ldapurl: $connError. Retrying");
+        }
+
         $reconnect = 1;
 
         my $users = EBox::Global->modInstance('users');
         $users->_manageService('start');
 
-        sleep(1);
+        Time::HiRes::sleep(0.1);
     }
 
     if (not $ldap) {
