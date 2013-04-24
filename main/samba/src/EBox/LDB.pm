@@ -171,7 +171,8 @@ sub safeConnect
     my $samba = EBox::Global->modInstance('samba');
     $samba->_startService() unless $samba->isRunning();
 
-    my $error;
+    my $error = undef;
+    my $lastError = undef;
     my $maxTries = 300;
     for (my $try=1; $try<=$maxTries; $try++) {
         my $ldb = Net::LDAP->new(LDAPI);
@@ -182,7 +183,7 @@ sub safeConnect
             }
         }
         $error = $@;
-        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)");
+        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)")   if (($try == 1) or (($try % 100) == 0));
         Time::HiRes::sleep(0.1);
     }
 
