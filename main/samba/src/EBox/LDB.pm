@@ -26,6 +26,7 @@ use EBox::Samba::DNS::Zone;
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Gettext;
 
 use Net::LDAP;
 use Net::LDAP::Control;
@@ -37,8 +38,12 @@ use File::Slurp;
 use File::Temp qw(:seekable);
 use Error qw( :try );
 use Perl6::Junction qw(any);
+use Time::HiRes;
+use IO::Socket::INET;
 
-use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
+use constant LDB_PORT  => 389;
+
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -170,20 +175,25 @@ sub safeConnect
     $ldb = Net::LDAP->new(LDAPI);
     $ldb and return $ldb;
 
-    my $samba = EBox::Global->modInstance('samba');
-    unless ($samba->isRunning()) {
+    if (not _listening()) {
+        my $samba = EBox::Global->modInstance('samba');
         $self->_waitForSambaDaemonStart($samba);
     }
 
-    my $maxTries = 15;
-    my $ldbError = '';
-    foreach my $try (1 .. $maxTries) {
+    my $maxTries = 300;
+    my $ldbError = undef;
+    my $try = 0;
+    while ($try <= $maxTries) {
+        $try += 1;
+
         $ldb = Net::LDAP->new(LDAPI);
         $ldb and last;
 
-        $ldbError = $@;
-        EBox::warn("Couldn't connect to samba LDAP server: $ldbError, retrying. ($try attempt)");
-        sleep 2;
+        if ((not $ldbError) or ($ldbError ne $@)) {
+            $ldbError = $@;
+            EBox::warn("Couldn't connect to samba LDAP server: $ldbError, retrying. ($try attempt)");
+        }
+        Time::HiRes::sleep(0.1);
     }
 
     unless ($ldb) {
@@ -200,19 +210,33 @@ sub _waitForSambaDaemonStart
     EBox::warn("Samba daemon was stopped, starting it");
     $samba->_startService();
 
-    my $running;
-    my $maxTries = 15;
-    foreach my $try (1 .. $maxTries) {
-        $running = $samba->isRunning();
-        $running and last;
-        sleep 2;
+    my $try = 0;
+    my $maxTries = 300;
+    while ($try >= $maxTries) {
+        $try += 1;
+        if (_listening()) {
+            return;
+        }
+
+        Time::HiRes::sleep(0.1);
     }
 
-    if (not $running) {
-        throw EBox::Exceptions::External(
-            __('FATAL: Timeout when waiting for Samba daemon')
-           );
+    throw EBox::Exceptions::External(
+        __('FATAL: Timeout when waiting for Samba daemon')
+    );
+}
+
+sub _listening
+{
+    my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                    PeerPort => LDB_PORT,
+                                    Proto    => 'tcp');
+    if ( $sock ) {
+        close($sock);
+        return 1;
     }
+
+    return 0;
 }
 
 # Method: dn
