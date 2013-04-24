@@ -521,6 +521,9 @@ sub _setConf
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
+        # workaround to be sure that we don't let a orphan need_reprovision on read-only
+        my $roModule =  EBox::Global->getInstance(1)->modInstance($self->name());
+        $roModule->unset('need_reprovision');
         $self->reprovision();
     }
 
@@ -1793,7 +1796,6 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
-        $self->setAsChanged(1);
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }

@@ -1,4 +1,6 @@
 HEAD
+	+ Assure that we don't have a phantom need_reprovision key in
+	  read-only tree
 	+ More explicit error when EBox::Ldap::safeConnect fails
 3.0.15
 	+ Always mark as changed if it needs LDAP reprovision
