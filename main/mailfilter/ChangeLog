@@ -1,4 +1,4 @@
-HEAD
+3.0.5
 	+ Fixed spam/ham mail account check to not fail if the user does
 	  not exists. This avoids a dashboard error.
 	+ Fixed LDAP reprovision to recreate ham and spam users
