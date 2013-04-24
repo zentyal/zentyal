@@ -1796,6 +1796,8 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
+        $self->setAsChanged(1); # for compability with machines with phantom
+                                # need_reprovision in read-only tree
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }
