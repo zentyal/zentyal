@@ -198,7 +198,10 @@ sub safeConnect
 
     unless ($ldb) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to samba LDAP server: $ldbError");
+            __x(q|FATAL: Couldn't connect to samba LDAP server: {error}|,
+                error => $ldbError
+               )
+        );
     }
 
     return $ldb;
