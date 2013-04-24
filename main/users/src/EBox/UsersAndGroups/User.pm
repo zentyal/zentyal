@@ -540,11 +540,19 @@ sub create
     }
 
     my $real_users = $users->realUsers('without_admin');
-    if ( scalar(@{$real_users}) > $users->maxUsers() ) {
-        throw EBox::RemoteServices::Exceptions::NotCapable(
-                __sx('Please note that the maximum number of users for your edition is {max} '
-                    . 'and you currently have {nUsers}',
-                    max => $users->maxUsers(), nUsers => scalar(@{$real_users})));
+    my $max_users = 0;
+
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $max_users = $rs->maxUsers();
+    }
+    if ($max_users) {
+        if ( scalar(@{$real_users}) > $max_users ) {
+            throw EBox::Exceptions::External(
+                    __sx('Please note that the maximum number of users for your edition is {max} '
+                        . 'and you currently have {nUsers}',
+                        max => $users->maxUsers(), nUsers => scalar(@{$real_users})));
+        }
     }
 
     # Is the user added to the default OU?

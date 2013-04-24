@@ -973,13 +973,13 @@ sub maxUsers
     my $max_users = 0;
 
     # Small business
-    if ($self->subscriptionLevel($force) == 5) ̣{
+    if ($self->subscriptionLevel($force) == 5) {
         $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
     }
 
     # Cloud
     my $max_cloud = $self->maxCloudUsers($force);
-    if ($max_cloud and $max_cloud < $max_users) {
+    if (($max_cloud and $max_cloud < $max_users) or $max_users eq 0) {
         $max_users = $max_cloud;
     }
 
@@ -1000,8 +1000,8 @@ sub maxUsers
 sub maxCloudUsers
 {
     my ($self, $force) = @_;
-    if ($self->usersSyncAvailable($force) {
-        return $self->addOnDetails('cloudusers', $force);
+    if ($self->usersSyncAvailable($force)) {
+        return $self->addOnDetails('cloudusers', $force)->{max_users};
     }
     return 0;
 }

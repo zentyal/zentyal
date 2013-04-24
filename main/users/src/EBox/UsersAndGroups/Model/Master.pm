@@ -81,7 +81,7 @@ sub _table
 
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        if ($rs->usersSyncAvailable()) {
+        if ($rs->usersSyncAvailable('force')) {
             push ($master_options,
                 { value => 'cloud', printableValue  => __('Zentyal Cloud') }
             );
@@ -217,12 +217,12 @@ sub validateTypedRow
             ));
         }
 
-         my $realUsers = $usersMod->realUsers('without_admin');
+         my $realUsers = $users->realUsers('without_admin');
          $realUsers = scalar(@{$realUsers});
-         if ( $realUsers > $users->maxCloudUsers('force') ) {
-            my $max = $users->maxCloudUsers('force');
+         if ( $realUsers > $rs->maxCloudUsers('force') ) {
+            my $max = $rs->maxCloudUsers('force');
             my $current = $realUsers;
-            throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current}.', current => $current, max => $max));
+            throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current} users created.', current => $current, max => $max));
          }
     }
 
