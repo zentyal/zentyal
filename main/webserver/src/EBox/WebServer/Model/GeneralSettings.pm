@@ -110,7 +110,7 @@ sub validateTypedRow
         if ($apache->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
                     __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
-                        ohref => '<a href="/SysInfo/General">', chref => '</a>')
+                        ohref => '<a href="/SysInfo/Composite/General">', chref => '</a>')
                     );
         }
         if ($portNumber eq $portNumberSSL) {

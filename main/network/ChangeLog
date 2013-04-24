@@ -1,6 +1,11 @@
 HEAD
 	+ Added netInitRange and netEndRange methods from the dhcp module to be
 	  shared between modules.
+	+ PPPoE set iface script is more robust against locks
+	+ Adapted to use of ifaceByAddress, removed IPAddressExists
+	+ Don't allow to use a local address as gateway address
+	+ Added ifaceByAddress method
+3.0.5
 	+ Guard against previous version of squid without
 	  authenticationMode method
 3.0.4

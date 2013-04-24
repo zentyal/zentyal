@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Virt::Libvirt;
-
-use base 'EBox::Virt::AbstractBackend';
-
 use strict;
 use warnings;
+
+package EBox::Virt::Libvirt;
+use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -287,15 +285,18 @@ sub shutdownVM
 sub shutdownVMCommand
 {
     my ($self, $name) = @_;
+    my $cmd;
 
-    # FIXME: "shutdown" only works when a SO with acpi enabled is running
-    # is there any way to detect this? In the meanwhile the only possibility
-    # seems to be use "destroy"
-    #my $cmd = "$VIRTCMD shutdown $name";
-    my $cmd = "$VIRTCMD destroy $name";
+    my $os = $self->{vmConf}->{$name}->{os};
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        $cmd = "$VIRTCMD shutdown $name";
+    } else {
+        #  "shutdown" only works when a SO with acpi enabled is running
+        #  we are not sure about these systems so we use shutdown
+        $cmd = "$VIRTCMD destroy $name";
+    }
 
     $self->{vmConf}->{$name}->{stopCmd} = $cmd;
-
     return $cmd;
 }
 
@@ -507,6 +508,17 @@ sub _busUsedByVm
     return $busByOS{$os};
 }
 
+sub _mouseUsedByOs
+{
+    my ($self, $os) = @_;
+
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        return 'tablet';
+    } else {
+        return 'mouse';
+    }
+}
+
 sub systemTypes
 {
     return [
@@ -614,6 +626,7 @@ sub writeConf
          vncpass => $vmConf->{password},
          keymap => _vncKeymap(),
          boot => $bootDev,
+         mouse => $self->_mouseUsedByOs($os),
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );

@@ -106,7 +106,7 @@ sub name
 sub removeAllMembers
 {
     my ($self, $lazy) = @_;
-    $self->delete('member');
+    $self->delete('member', $lazy);
 }
 
 

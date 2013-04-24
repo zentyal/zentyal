@@ -220,13 +220,26 @@ sub enableModDepends
         }
     }
 
-
     if ($self->popProxy->isEnabled()) {
         # requires firewall to do the port redirection
         push @depends, 'firewall';
     }
 
     return \@depends;;
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+    $self->SUPER::reprovisionLDAP();
+
+    #  add special ham/spam users to LDAP
+    EBox::Sudo::root('/usr/share/zentyal-mailfilter/mailfilter-ldap update');
 }
 
 # Method: smtpFilter
@@ -358,8 +371,6 @@ sub _assureFilterNotInUse
   }
 
 }
-
-
 
 #
 # Method: _stopService

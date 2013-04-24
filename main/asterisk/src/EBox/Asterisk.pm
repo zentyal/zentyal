@@ -205,6 +205,21 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate asterisk ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-asterisk/asterisk-ldap update');
+}
+
 # Method: _daemons
 #
 # Overrides:

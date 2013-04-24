@@ -1484,6 +1484,17 @@ sub _ldapModImplementation
 }
 
 # SyncProvider implementation
+
+# Method: slaves
+#
+#    Get the slaves for this server
+#
+# Returns:
+#
+#    array ref - containing the slaves for this server. Zentyal server slaves are
+#                <EBox::UsersSync::Slave> instances and Zentyal Cloud slave is
+#                a <EBox::CloudSync::Slave> instance.
+#
 sub slaves
 {
     my ($self) = @_;
@@ -1782,6 +1793,7 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
+        $self->setAsChanged(1);
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }

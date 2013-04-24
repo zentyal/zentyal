@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -253,6 +253,39 @@ sub remoteBackupInfo
           __x('Inexistent backup: {n}', n => $name)
          );
     return  $allBackups->{$name};
+}
+
+# Method: latestRemoteConfBackup
+#
+#      Get the latest remote configuration backup
+#
+# Parameters:
+#
+#      force - Boolean indicating to get the information from Zentyal Remote
+#
+# Returns:
+#
+#      String - the date in RFC 2822 format
+#
+#      'unknown' - if the data is not available
+#
+sub latestRemoteConfBackup
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless (defined($force));
+
+    my ($latest, $bakList) = ('unknown', {});
+    if ($force or (not -r $self->_metainfoFile())) {
+        $bakList = $self->listRemoteBackups();
+    } else {
+        $bakList = $self->_metainfoFromCache();
+    }
+    my @sortedBakList = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %{$bakList};
+    if ( @sortedBakList > 0 ) {
+        $latest = $sortedBakList[0]->{Date};
+    }
+    return $latest;
 }
 
 # Group: Private methods

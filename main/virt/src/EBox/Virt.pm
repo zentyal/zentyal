@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -150,6 +150,16 @@ sub _preSetConf
                 my $name = $vm->valueByName('name');
                 if ($self->vmRunning($name)) {
                     $self->stopVM($name);
+
+                    # Send stop event for not autostarted VMs on module disable
+                    my $autostarted = $vm->valueByName('autostart');
+                    if ($disabled and not $autostarted) {
+                        my $roGlobal  = EBox::Global->getInstance(1);
+                        if ( $roGlobal->modExists('cloud-prof') ) {
+                            my $cloudProf = $roGlobal->modInstance('cloud-prof');
+                            $cloudProf->zentyalVMStopAlert($name);
+                        }
+                    }
                 }
             }
         }
@@ -503,23 +513,22 @@ sub _setDevicesConf
     $self->_cleanupDeletedDisks();
 
     $backend->initDeviceNumbers();
+
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);
         my $file;
         my $type = $device->valueByName('type');
-        my $disk_action;
-        if ($type eq 'hd') {
-            $disk_action = $device->valueByName('disk_action');
-        }
 
-        if (defined ($disk_action) and ($disk_action eq 'create')) {
+        if (($type eq 'hd') and ($device->valueByName('disk_action') eq 'create')) {
             my $disk_name = $device->valueByName('name');
             my $size = $device->valueByName('size');
             $file = $backend->diskFile($disk_name, $name);
             unless (-f $file) {
                 $backend->createDisk(file => $file, size => $size);
             }
+        } elsif (($type eq 'cd') and $device->valueByName('useDevice')) {
+            $file = $devices->CDDeviceFile();
         } else {
             $file = $device->valueByName('path');
         }

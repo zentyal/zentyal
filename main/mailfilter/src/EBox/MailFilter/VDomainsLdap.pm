@@ -329,7 +329,7 @@ sub spamAccount
     my ($self, $vdomain) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('spam');
-    return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
+    return $self->_hasAccount($vdomain, $dn);
 }
 
 # Method: hamAccount
@@ -344,7 +344,7 @@ sub hamAccount
     my ($self, $vdomain) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('ham');
-    return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
+    return $self->_hasAccount($vdomain, $dn);
 }
 
 sub learnAccountsExists
@@ -389,7 +389,11 @@ sub learnAccounts
 
 sub _hasAccount
 {
-    my ($self, $vdomain, $user) = @_;
+    my ($self, $vdomain, $userDN) = @_;
+    my $user= new EBox::UsersAndGroups::User(dn => $userDN);
+    if (not $user->exists()) {
+        return 0;
+    }
 
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();

@@ -16,7 +16,7 @@ DIST=precise
 PKGNAME=$(basename $DESTDIR)
 
 mkdir -p $DESTDIR/schemas
-mkdir -p $DESTDIR/src/EBox/Model
+mkdir -p $DESTDIR/src/EBox/$MODULENAME/Model
 mkdir -p $DESTDIR/stubs
 mkdir -p $DESTDIR/src/scripts
 mkdir -p $DESTDIR/debian/$DIST
@@ -52,10 +52,15 @@ my \$CONFFILE = '/tmp/FIXME.conf';
 sub _create
 {
     my \$class = shift;
-    my \$self = \$class->SUPER::_create(name => '$PKGNAME',
-                                      printableName => __('$MODULENAME'),
-                                      @_);
+
+    my \$self = \$class->SUPER::_create(
+        name => '$PKGNAME',
+        printableName => __('$MODULENAME'),
+        @_
+    );
+
     bless (\$self, \$class);
+
     return \$self;
 }
 
@@ -70,10 +75,10 @@ sub menu
     my (\$self, \$root) = @_;
 
     my \$item = new EBox::Menu::Item(
-        'url' => '$MODULENAME/View/Settings',
-        'text' => \$self->printableName(),
-        'separator' => 'Core',
-        'order' => 1
+        url => '$MODULENAME/View/Settings',
+        text => \$self->printableName(),
+        separator => 'Core',
+        order => 1
     );
 
     \$root->add(\$item);
@@ -92,9 +97,9 @@ sub _daemons
 #        for upstart daemons only the 'name' attribute is needed
 #
 #        {
-#            'name' => 'service',
-#            'type' => 'init.d',
-#            'pidfiles' => ['/var/run/service.pid']
+#            name => 'service',
+#            type => 'init.d',
+#            pidfiles => ['/var/run/service.pid']
 #        },
     ];
 
@@ -124,7 +129,7 @@ sub _setConf
         \$CONFFILE,
         "$PKGNAME/service.conf.mas",
         \@params,
-        { 'uid' => '0', 'gid' => '0', mode => '644' }
+        { uid => '0', gid => '0', mode => '644' }
     );
 }
 
@@ -132,7 +137,7 @@ sub _setConf
 EOF
 
 
-cat >$DESTDIR/src/EBox/Model/Settings.pm <<EOF
+cat >$DESTDIR/src/EBox/$MODULENAME/Model/Settings.pm <<EOF
 package EBox::$MODULENAME::Model::Settings;
 
 use base 'EBox::Model::DataForm';
@@ -157,29 +162,29 @@ sub _table
 
     my @fields = (
         new EBox::Types::Boolean(
-            'fieldName' => 'booleanField',
-            'printableName' => __('Example boolean field'),
-            'editable' => 1,
-            'help' => __('This field is an example.'),
+            fieldName => 'booleanField',
+            printableName => __('Example boolean field'),
+            editable => 1,
+            help => __('This field is an example.'),
         ),
         new EBox::Types::Text(
-            'fieldName' => 'textField',
-            'printableName' => __('Example text field'),
-            'editable' => 1,
-            'size' => '8',
-            'help' => __('This field is another example.'),
+            fieldName => 'textField',
+            printableName => __('Example text field'),
+            editable => 1,
+            size => '8',
+            help => __('This field is another example.'),
         ),
     );
 
     my \$dataTable =
     {
-        'tableName' => 'Settings',
-        'printableTableName' => __('Settings'),
-        'pageTitle' => \$self->parentModule()->printableName(),
-        'defaultActions' => [ 'editField' ],
-        'modelDomain' => '$MODULENAME',
-        'tableDescription' => \@fields,
-        'help' => __('This is the help of the model'),
+        tableName => 'Settings',
+        printableTableName => __('Settings'),
+        pageTitle => \$self->parentModule()->printableName(),
+        defaultActions => [ 'editField' ],
+        modelDomain => '$MODULENAME',
+        tableDescription => \@fields,
+        help => __('This is the help of the model'),
     };
 
     return \$dataTable;
@@ -248,7 +253,7 @@ set -e
 
 case "\$1" in
     configure)
-         /usr/share/zentyal/initial-setup $PKGNAME \$2
+        /usr/share/zentyal/initial-setup $PKGNAME \$2
 
         dpkg-trigger --no-await zentyal-core
     ;;

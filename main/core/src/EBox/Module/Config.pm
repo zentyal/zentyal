@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,7 +27,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
-use Test::Deep qw(eq_deeply);
+use Test::Deep::NoTest qw(eq_deeply);
 
 sub _create
 {

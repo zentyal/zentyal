@@ -9,7 +9,7 @@ use EBox::Config;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
-        <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
+        <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://remote.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
   </div>
 % } else {
   <div class='adwarning'>

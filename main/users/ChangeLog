@@ -1,3 +1,10 @@
+HEAD
+	+ Check for maximum number of users depending on the edition
+	+ More frequent polling in EBox::Ldap::safeConnect() and
+	  more explicit error when it fails
+3.0.15
+	+ Always mark as changed if it needs LDAP reprovision
+	+ Fixed member removal operation for groups
 3.0.14
 	+ Tentative workaround against home directory chown bug
 	+ Slave setup refactored to reuse common code with reprovision

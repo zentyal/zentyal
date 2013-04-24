@@ -1,4 +1,6 @@
-HEAD
+3.0.2
+	+ Added AstMD5secret LDAP attribute to ACL
+	+ Fixed LDAP reprovision
 	+ Forbid to add meeting until the module is configured
 	+ When a user extensions modification is attempted, check
 	  extension number before removing any data from LDAP

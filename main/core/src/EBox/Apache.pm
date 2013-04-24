@@ -179,10 +179,7 @@ sub _writeHttpdConfFile
     $self->_writeCAPath();
 
     my $httpdconf = _httpdConfFile();
-    my $output;
-    my $interp = HTML::Mason::Interp->new(out_method => \$output);
-    my $comp = $interp->make_component(
-            comp_file => (EBox::Config::stubs . 'core/apache.mas'));
+    my $template = 'core/apache.mas';
 
     my @confFileParams = ();
     push @confFileParams, ( port => $self->port());
@@ -203,16 +200,14 @@ sub _writeHttpdConfFile
     my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
 
-    $interp->exec($comp, @confFileParams);
+    my $permissions = {
+        uid => EBox::Config::user(),
+        gid => EBox::Config::group(),
+        mode => '0644',
+        force => 1,
+    };
 
-    my $confile = EBox::Config::tmp . "httpd.conf";
-    unless (open(HTTPD, "> $confile")) {
-        throw EBox::Exceptions::Internal("Could not write to $confile");
-    }
-    print HTTPD $output;
-    close(HTTPD);
-
-    EBox::Sudo::root("/bin/mv $confile $httpdconf");
+    EBox::Module::Base::writeConfFileNoCheck($httpdconf, $template, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -234,7 +229,7 @@ sub _writeCSSFiles
 
     my $path = EBox::Config::dynamicwww() . '/css';
     unless (-d $path) {
-    mkdir $path;
+        mkdir $path;
     }
 
     my ($primaryGid) = split / /, $GID, 2;
@@ -282,7 +277,6 @@ sub _caLinkPath
     chomp($hashValue);
     return CA_CERT_PATH . "${hashValue}.0";
 }
-
 
 # Report the new TCP admin port to Zentyal Cloud
 sub _reportAdminPort
@@ -771,7 +765,6 @@ sub _CAs
     return \@cas;
 }
 
-
 # Method: certificates
 #
 #   This method is used to tell the CA module which certificates
@@ -796,8 +789,8 @@ sub certificates
              serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
              path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
-             user => 'ebox',
-             group => 'ebox',
+             user => EBox::Config::user(),
+             group => EBox::Config::group(),
              mode => '0600',
             },
            ];
