@@ -1,4 +1,6 @@
 HEAD
+	+ Hide sync with cloud options in shares list if remoteservices
+	  is not installed
 	+ Clearer error messages when EBox::LDB::safeConnect fails
 	+ Raise exception if during the provision either the domain
 	  administrator user or the domain administrator group are

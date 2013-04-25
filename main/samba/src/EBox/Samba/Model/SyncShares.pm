@@ -84,4 +84,16 @@ sub _table
       return $dataTable;
 }
 
+sub precondition
+{
+    my $rs = EBox::Global->modInstance('remoteservices');
+    $rs or return 0;
+    return $rs->filesSyncAvailable();
+}
+
+sub preconditionFailMsg
+{
+    return __('Zentyal Cloud Files not available')
+}
+
 1;

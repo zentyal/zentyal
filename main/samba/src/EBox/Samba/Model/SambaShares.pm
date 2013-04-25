@@ -48,10 +48,6 @@ use constant GUEST_DEFAULT_GROUP => '__USERS__';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
 
-# Dependencies
-
-# Group: Public methods
-
 # Constructor: new
 #
 #     Create the new Samba shares table
@@ -92,8 +88,6 @@ sub updatedRowNotify
         $global->modChange('cloud-prof');
     }
 }
-
-# Group: Protected methods
 
 # Method: _table
 #
@@ -437,7 +431,7 @@ sub _hideSyncOption
         return (not $rs->filesSyncAvailable() or _syncAllShares());
     }
 
-    return _syncAllShares();
+    return 1;
 }
 
 sub _syncAllShares
