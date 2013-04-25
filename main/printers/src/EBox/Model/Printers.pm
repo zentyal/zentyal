@@ -12,13 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Printers::Model::Printers;
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Printers::Model::Printers;
+use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::View::Customizer;
@@ -41,7 +39,6 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-
     bless ($self, $class);
 
     return $self;
@@ -86,7 +83,9 @@ sub syncRows
         next if exists $currentPrinters{$printerName};
         my $p = $cupsPrinters{$printerName};
         my $desc = $p->getDescription();
+        utf8::decode($desc);
         my $loc = $p->getLocation();
+        utf8::decode($loc);
         $self->add(printer => $printerName, description => $desc,
                    location => $loc, guest => 0);
         $modified = 1;

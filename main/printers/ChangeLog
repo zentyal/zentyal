@@ -1,3 +1,5 @@
+HEAD
+	+ Print correctly utf8 characters in printer's location and description
 3.0.2
 	+ Change cups daemon type from init.d to upstart
 	+ Changes required by new samba4 bundled package
