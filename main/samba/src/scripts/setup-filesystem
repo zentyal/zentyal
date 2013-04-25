@@ -16,7 +16,10 @@ for my $line (@fstab) {
     # Mount fs with xattr and acl
     if ($fields[2] =~ /^(ext3|ext4)$/) {
         unless ($fields[3] =~ /acl/) {
-            $fields[3] .= ',acl';
+            if ($fields[3]) {
+                $fields[3] .= ',';
+            }
+            $fields[3] .= 'acl';
             $modified = 1;
         }
         unless ($fields[3] =~ /user_xattr/) {

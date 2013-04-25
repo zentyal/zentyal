@@ -1,4 +1,6 @@
 HEAD
+	+ Setup filesystem now writes a valid fstab file event when the filesystem
+	  has not any mount option
 	+ Remove idmap_ldb:use_rf2307 option unnecessary with Samba 4.0.5
 	+ Clearer error messages when EBox::LDB::safeConnect fails
 	+ Raise exception if during the provision either the domain
