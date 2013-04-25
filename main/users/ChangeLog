@@ -1,3 +1,5 @@
+HEAD
+	+ Retrieve global instance correctly in UsersSync
 3.0.16
 	+ Assure that we don't have a phantom need_reprovision key in
 	  read-only tree
