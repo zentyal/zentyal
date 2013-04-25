@@ -1,4 +1,5 @@
 HEAD
+	+ Remove idmap_ldb:use_rf2307 option unnecessary with Samba 4.0.5
 	+ Clearer error messages when EBox::LDB::safeConnect fails
 	+ Raise exception if during the provision either the domain
 	  administrator user or the domain administrator group are
