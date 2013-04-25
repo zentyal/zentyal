@@ -11,16 +11,20 @@ fi
 
 CURRENT=`hostname`
 
-# Delete all lines where current appears
+# Set /etc/hosts
+
+# Delete all lines where current appears un /etc/hosts
 sed -Ei "/^.*\s+$CURRENT\s*$/d" /etc/hosts
 sed -Ei "/^.*\s+$CURRENT\..*$/d" /etc/hosts
 
-# Set localhost
+# Set localhost in /etc/hosts
 sed -Ei "s/^127.0.0.1.*/127.0.0.1\tlocalhost.localdomain localhost/" /etc/hosts
-
 if [ -n "$DOMAIN" ]; then
     sed -Ei "2i\
 127.0.1.1\t$NEW.$DOMAIN $NEW" /etc/hosts
 fi
+
+# Set /etc/hostname
+echo $NEW > /etc/hostname
 
 hostname $NEW
