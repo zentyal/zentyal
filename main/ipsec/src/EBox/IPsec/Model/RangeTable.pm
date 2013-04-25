@@ -32,11 +32,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
-
-################
-# Dependencies
-################
-use Net::IP;
+use EBox::Validate;
 
 # Method: validateTypedRow
 #
@@ -52,15 +48,15 @@ sub validateTypedRow
     if ((exists $changedFields->{from}) or
         (exists $changedFields->{to})) {
 
-        my $from = $allFields->{from}->value();
-        my $to = $allFields->{to}->value();
-        my $range = new Net::IP($from . ' - ' . $to);
-
-        unless (defined ( $range )) {
+        my $newRangeHash = {
+            from => $allFields->{from}->value(),
+            to => $allFields->{to}->value(),
+        };
+        unless (EBox::Validate::isValidRange($newRangeHash->{from}, $newRangeHash->{to})) {
             throw EBox::Exceptions::External(
                 __x('{from} - {to} is an invalid range',
-                    from => $from,
-                    to => $to,
+                    from => $newRangeHash->{from},
+                    to => $$newRangeHash->{to},
                 )
             );
         }
@@ -72,29 +68,27 @@ sub validateTypedRow
         }
 
         # Check tunnel IP to be used for the VPN.
-        # FIXME: This code doesn't work...
-        #my $ipsec = $self->parentModule();
-        #my $l2tp_settings = $ipsec->model('SettingsL2TP');
-        #my $localAddr = $l2tp_settings->row()->valueByName('local_ip');
-        #EBox::debug($localAddr);
-        #my $localIPObj = new Net::IP($localAddr);
-        #unless ( $localIPObj->overlaps($range) == $IP_NO_OVERLAP ) {
-        #    throw EBox::Exceptions::External(
-        #        __x('Range {from}-{to} includes the local IP address: {local_ip}',
-        #            from => $from,
-        #            to => $to,
-        #            local_ip => $localAddr,
-        #        )
-        #    );
-        #}
+        my $ipsec = $self->parentModule();
+        my $l2tp_settings = $ipsec->model('SettingsL2TP');
+        my $localIP = $l2tp_settings->row()->elementByName('local_ip')->value();
+        if (EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
+            throw EBox::Exceptions::External(
+                __x('Range {from}-{to} includes the tunnel IP address: {localIP}',
+                    from => $newRangeHash->{from},
+                    to => $newRangeHash->{to},
+                    localIP => $localIP,
+                )
+            );
+        }
 
         # Check all local networks configured on the server.
         my $localNetOverlaps = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
-
-            my $usedRange = new Net::IP($network->netInitRange($interface) . '-' . $network->netEndRange($interface));
-
-            unless ($range->overlaps($usedRange) == $IP_NO_OVERLAP) {
+            my $internalRangeHash = {
+                from => $network->netInitRange($interface),
+                to => $network->netEndRange($interface),
+            };
+            if (EBox::Validate::isRangeOverlappingWithRange($newRangeHash, $internalRangeHash)) {
                 $localNetOverlaps = 1;
             }
 
@@ -105,12 +99,11 @@ sub validateTypedRow
                 my $fixedAddresses = $dhcp->fixedAddresses($interface, 0);
 
                 foreach my $fixedAddr (@{$fixedAddresses}) {
-                    my $fixedIP = new Net::IP($fixedAddr->{ip});
-                    unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
+                    if (EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $fixedAddr->{ip})) {
                         throw EBox::Exceptions::External(
                             __x('Range {from}-{to} includes fixed address from the object member "{name}": {fixedIP}',
-                                from => $from,
-                                to => $to,
+                                from => $newRangeHash->{from},
+                                to => $newRangeHash->{to},
                                 name => $fixedAddr->{name},
                                 fixedIP => $fixedAddr->{ip}
                             )
@@ -136,17 +129,18 @@ sub validateTypedRow
                 next;
             }
 
-            my $compareFrom = $row->valueByName('from');
-            my $compareTo   = $row->valueByName('to');
-            my $compareRange = new Net::IP($compareFrom . '-' . $compareTo);
-            unless ($compareRange->overlaps($range) == $IP_NO_OVERLAP) {
+            my $existingRangeHash = {
+                from => $row->valueByName('from'),
+                to => $row->valueByName('to'),
+            };
+            if (EBox::Validate::isRangeOverlappingWithRange($newRangeHash, $existingRangeHash)) {
                 throw EBox::Exceptions::External(
                     __x("Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}",
-                        newFrom => $from,
-                        newTo => $to,
+                        newFrom => $newRangeHash->{from},
+                        newTo => $newRangeHash->{to},
                         range => $row->valueByName('name'),
-                        oldFrom => $compareFrom,
-                        oldTo   => $compareTo,
+                        oldFrom => $existingRangeHash->{from},
+                        oldTo   => $existingRangeHash->{to},
                     )
                 );
             }

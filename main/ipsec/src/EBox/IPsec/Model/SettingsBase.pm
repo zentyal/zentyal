@@ -24,9 +24,39 @@ use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
+use EBox::Validate;
 
 # Group: Public methods
+
+# Method: viewCustomizer
 #
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $leftIPAddr = $self->row()->elementByName('left_ipaddr')->value();
+    my $interface = $network->ifaceByAddress($leftIPAddr);
+
+    if ($interface) {
+        if ($network->ifaceMethod($interface) ne 'static') {
+            $customizer->setPermanentMessage(__(
+                'You are using a non fixed IP address as a VPN server address. If the IP changes it may break the ' .
+                'VPN server!'), 'warning');
+        }
+    } else {
+        $customizer->setPermanentMessage(__x(
+            'The server IP changed and the old value "{oldIP}" is not valid anymore.',
+            oldIP => $leftIPAddr), 'warning');
+    }
+    return $customizer;
+}
+
 # Method: validateTypedRow
 #
 #      Check the row to add or update if contains a valid configuration.
@@ -50,26 +80,21 @@ sub validateTypedRow
         if ($rightIP eq $all_r->{left_ipaddr}->value()) {
             throw EBox::Exceptions::External("Local and remote subnets could not be the same");
         }
-    }
 
-    foreach my $iface ( @{ $networkMod->allIfaces() }) {
-        foreach my $addr_hash (@{ $networkMod->ifaceAddresses($iface) }) {
-            my $addr = $addr_hash->{address};
-            my $netmask = $addr_hash->{netmask};
-            if ((defined $rightIP) and ($addr eq $rightIP)) {
-                my $ifname = exists $addr_hash->{name} ? $addr_hash->{name} : $iface;
+        if (defined $rightIP) {
+            my $iface = $networkMod->ifaceByAddress($rightIP);
+            if ($iface) {
                 throw EBox::Exceptions::InvalidData(
                     data => $all_r->{right}->printableName(),
                     value => $rightIP,
                     advice => __x(
                         'Must be the external IP to connect and it was the addresss of local interface {if}',
-                        if => $ifname
+                        if => $iface
                     ),
                 );
             }
-         }
-     }
-
+        }
+    }
 }
 
 # Group: Protected methods
@@ -87,6 +112,7 @@ sub _table
             fieldName => 'left_ipaddr',
             printableName => __('Public IP address'),
             editable => 1,
+            disableCache => 1,
             populate => \&_populatePublicIPs,
             help => __('Zentyal public IP address where clients will connect to.'),
         ),

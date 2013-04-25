@@ -24,11 +24,6 @@ use EBox::Types::HostIP;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
-################
-# Dependencies
-################
-use Net::IP;
-
 # Group: Public methods
 
 # Method: nameServer
@@ -121,18 +116,17 @@ sub validateTypedRow
 
     if (exists $changedFields->{local_ip}) {
         # Check all local networks configured on the server.
-        my $localIP = new Net::IP($changedFields->{local_ip}->value());
+        my $localIP = $changedFields->{local_ip}->value();
         my $localIPRangeFound = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
-            my $usedRange = new Net::IP($network->netInitRange($interface) . '-' . $network->netEndRange($interface));
-            unless ($localIP->overlaps($usedRange) == $IP_NO_OVERLAP) {
+            if (EBox::Validate::isIPInRange(
+                $network->netInitRange($interface), $network->netEndRange($interface), $localIP)) {
                 $localIPRangeFound = 1;
             }
-
-            if ($network->ifaceAddress($interface) eq $changedFields->{local_ip}->value()) {
+            if ($network->ifaceAddress($interface) eq $localIP) {
                 throw EBox::Exceptions::External(
-                    __x('The Tunnel IP {localIP} is already used as a fixed address for the iface "{$interface}"',
-                        localIP => $changedFields->{local_ip}->value(),
+                    __x('The Tunnel IP {localIP} is already used as a fixed address for the interface "{interface}"',
+                        localIP => $localIP,
                         interface => $interface
                     )
                 );
@@ -144,11 +138,11 @@ sub validateTypedRow
                 my $fixedAddresses = $dhcp->fixedAddresses($interface, 0);
 
                 foreach my $fixedAddr (@{$fixedAddresses}) {
-                    if ($fixedAddr->{ip} eq $changedFields->{local_ip}->value()) {
+                    if ($fixedAddr->{ip} eq $localIP) {
                         throw EBox::Exceptions::External(
                             __x('The Tunnel IP {localIP} is already used as a fixed address from the object member ' .
                                 '"{name}": {fixedIP}',
-                                localIP => $changedFields->{local_ip}->value(),
+                                localIP => $localIP,
                                 name => $fixedAddr->{name},
                                 fixedIP => $fixedAddr->{ip}
                             )
@@ -160,11 +154,31 @@ sub validateTypedRow
         unless ($localIPRangeFound) {
             throw EBox::Exceptions::External(
                 __x('The Tunnel IP {localIP} is not part of any local network',
-                    localIP => $changedFields->{local_ip}->value(),
+                    localIP => $localIP,
                 )
             );
         }
-        # TODO: WE MUST RECHECK THE DEFINED RANGES.
+
+        # Check tunnel IP to be used for the VPN.
+        my $ipsec = $self->parentModule();
+        my $rangeTable = $ipsec->model('RangeTable');
+        foreach my $id (@{$rangeTable->ids()}) {
+            my $row = $rangeTable->row($id);
+            my $existingRangeHash = {
+                from => $row->valueByName('from'),
+                to => $row->valueByName('to'),
+            };
+            if (EBox::Validate::isIPInRange($existingRangeHash->{from}, $existingRangeHash->{to}, $localIP)) {
+                throw EBox::Exceptions::External(
+                    __x('Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}',
+                        from => $existingRangeHash->{from},
+                        to => $existingRangeHash->{to},
+                        name => $row->valueByName('name'),
+                        localIP => $localIP,
+                    )
+                );
+            }
+        }
     }
 
     if (exists $changedFields->{primary_ns}) {
