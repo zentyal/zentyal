@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Util::SHM;
-
 use warnings;
 use strict;
+
+package EBox::Util::SHM;
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -93,9 +92,16 @@ sub subkeys
 {
     my ($dir) = @_;
 
-    opendir (my $dh, "$SHM_PATH/$dir");
+    my $path = "$SHM_PATH/$dir";
+    unless (-d $path) {
+        return ();
+    }
+
+    opendir (my $dh, $path) or
+        throw EBox::Exceptions::Internal("SHM: Can't open dir $path: $!");
     my @keys = readdir($dh);
-    closedir ($dh);
+    closedir ($dh) or
+        throw EBox::Exceptions::Internal("SHM: Can't close dir handle for $path: $!");
     return @keys;
 }
 
