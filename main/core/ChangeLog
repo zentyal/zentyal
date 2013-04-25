@@ -1,4 +1,5 @@
 HEAD
+	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Proper link to remote in configuration backup page
 3.0.19
 	+ Removed full restore option for restore-backup tool and
