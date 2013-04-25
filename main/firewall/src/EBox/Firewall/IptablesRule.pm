@@ -127,12 +127,12 @@ sub setService
         if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
 
             if ($srcPort ne 'any') {
-                $iptables .= " --source-port $inverse $srcPort ";
+                $iptables .= " $inverse --source-port  $srcPort ";
             }
 
 
             if ($dstPort ne 'any') {
-                $iptables .= " --destination-port $inverse $dstPort ";
+                $iptables .= " $inverse --destination-port $dstPort ";
             }
 
             if ($protocol eq 'tcp/udp') {
