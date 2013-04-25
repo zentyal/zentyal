@@ -1,4 +1,6 @@
 HEAD
+	+ Setup filesystem now writes a valid fstab file event when the filesystem has
+	  not any mount option
 	+ Clearer error messages when EBox::LDB::safeConnect fails
 	+ Raise exception if during the provision either the domain
 	  administrator user or the domain administrator group are
