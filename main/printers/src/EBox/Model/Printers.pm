@@ -24,8 +24,6 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use Net::CUPS;
 
-# Group: Public methods
-
 # Constructor: new
 #
 #       Create the new model
@@ -42,6 +40,59 @@ sub new
     bless ($self, $class);
 
     return $self;
+}
+
+sub _table
+{
+    my ($self) = @_;
+
+    my @tableDesc = (
+        new EBox::Types::Text(
+            fieldName => 'printer',
+            printableName => __('Printer name'),
+            unique => 0,
+            editable => 0
+        ),
+        new EBox::Types::Text(
+            fieldName => 'description',
+            printableName => __('Description'),
+            editable => 0,
+            optional => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName => 'location',
+            printableName => __('Location'),
+            editable => 0,
+            optional => 1,
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'guest',
+            printableName => __('Guest access'),
+            editable      => 1,
+            defaultValue  => 0,
+            help          => __('This printer will not require authentication.'),
+        ),
+        new EBox::Types::HasMany(
+            fieldName     => 'access',
+            printableName => __('Access control'),
+            foreignModel => 'PrinterPermissions',
+            view => '/Printers/View/PrinterPermissions'
+        ),
+    );
+
+    my $dataForm =
+    {
+        tableName          => 'Printers',
+        printableTableName => __('Printer permissions'),
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableDesc,
+        modelDomain        => 'Printers',
+        sortedBy           => 'printer',
+        printableRowName   => __('printer'),
+        withoutActions     => 1,
+        help               => __('Here you can define the access control list for your printers.'),
+    };
+    return $dataForm;
 }
 
 # Method: viewCustomizer
@@ -181,61 +232,6 @@ sub preconditionFailMsg
                   "our samba4 package, then change the samba config key " .
                   "'samba_fs' to 's3fs' in /etc/zentyal/samba.conf");
     }
-}
-
-# Group: Protected methods
-
-sub _table
-{
-    my ($self) = @_;
-
-    my @tableDesc = (
-        new EBox::Types::Text(
-            fieldName => 'printer',
-            printableName => __('Printer name'),
-            unique => 0,
-            editable => 0
-        ),
-        new EBox::Types::Text(
-            fieldName => 'description',
-            printableName => __('Description'),
-            editable => 0,
-            optional => 1,
-        ),
-        new EBox::Types::Text(
-            fieldName => 'location',
-            printableName => __('Location'),
-            editable => 0,
-            optional => 1,
-        ),
-        new EBox::Types::Boolean(
-            fieldName     => 'guest',
-            printableName => __('Guest access'),
-            editable      => 1,
-            defaultValue  => 0,
-            help          => __('This printer will not require authentication.'),
-        ),
-        new EBox::Types::HasMany(
-            fieldName     => 'access',
-            printableName => __('Access control'),
-            foreignModel => 'PrinterPermissions',
-            view => '/Printers/View/PrinterPermissions'
-        ),
-    );
-
-    my $dataForm =
-    {
-        tableName          => 'Printers',
-        printableTableName => __('Printer permissions'),
-        defaultActions     => [ 'editField', 'changeView' ],
-        tableDescription   => \@tableDesc,
-        modelDomain        => 'Printers',
-        sortedBy           => 'printer',
-        printableRowName   => __('printer'),
-        withoutActions     => 1,
-        help               => __('Here you can define the access control list for your printers.'),
-    };
-    return $dataForm;
 }
 
 sub _configureMessage
