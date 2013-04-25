@@ -1,4 +1,5 @@
 HEAD
+	+ Print correctly UTF8 characters from configuration backup description
 	+ When host name is changed, update /etc/hostname
 	+ Proper link to remote in configuration backup page
 3.0.19
