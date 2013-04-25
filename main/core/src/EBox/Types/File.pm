@@ -124,13 +124,13 @@ sub isEqualTo
         my $tmpPath = $new->tmpPath;
         my $equal;
         try {
-            EBox::Sudo::root("diff -q $path $tmpPath");
+            EBox::Sudo::silentRoot("diff -q $path $tmpPath");
             # diff return value 0; they are equal
             $equal = 1;
         }
         otherwise {
-            # diff command failed, we assume that they ar different (cannot find
-            # a reliable docuentation of diff's return values)
+            # diff command failed, we assume they are different (cannot find
+            # a reliable documentation of diff command's return values)
             $equal = 0;
 
         };
