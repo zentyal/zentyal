@@ -301,7 +301,7 @@ sub _recreateLDAP
     $users->enableActions();
 
     # LDAP modules should reconfigure themselves for its slave role
-    my $global = $self->global();
+    my $global = EBox::Global->getInstance();
     my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
     foreach my $mod (@mods) {
         if (not $mod->isa('EBox::LdapModule')) {
