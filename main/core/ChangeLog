@@ -1,4 +1,5 @@
 HEAD
+	+ Print correctly UTF8 characters from configuration backup description
 	+ Proper link to remote in configuration backup page
 3.0.19
 	+ Removed full restore option for restore-backup tool and
