@@ -1,3 +1,6 @@
+HEAD
+	+ Disable DC reverse DNS lookup for msktutil commands
+	+ Explicitly set the DC for msktutil command when updating the keytab
 3.0.8
 	+ Regenerate Kerberos keytab on LDAP reprovision
 3.0.7
