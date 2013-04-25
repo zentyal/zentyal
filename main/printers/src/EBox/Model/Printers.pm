@@ -73,22 +73,44 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $cupsPrinters = $self->cupsPrinters();
-    my %cupsPrinters = map { $_->getName() => $_ } @{$cupsPrinters};
-    my %currentPrinters =
-        map { $self->row($_)->valueByName('printer') => 1 } @{$currentIds};
+    my %cupsPrinters = map {
+        my $printer = $_;
+        my $name = $printer->getName();
+        utf8::decode($name);
+        ($name => $printer)
+    } @{$cupsPrinters};
+    my %currentPrinters = map {
+        my $id = $_;
+        $self->row($id)->valueByName('printer') => $id
+    } @{$currentIds};
 
     my $modified = 0;
 
     foreach my $printerName (keys %cupsPrinters) {
-        next if exists $currentPrinters{$printerName};
         my $p = $cupsPrinters{$printerName};
         my $desc = $p->getDescription();
         utf8::decode($desc);
         my $loc = $p->getLocation();
         utf8::decode($loc);
-        $self->add(printer => $printerName, description => $desc,
-                   location => $loc, guest => 0);
-        $modified = 1;
+
+        my $existentId = exists $currentPrinters{$printerName} ? $currentPrinters{$printerName} : undef;
+        if ($existentId) {
+            my $row = $self->row($existentId);
+            if (($row->valueByName('description') ne $desc) or
+                 ($row->valueByName('location') ne $loc)
+                ) {
+                $row->elementByName('description')->setValue($desc);
+                $row->elementByName('location')->setValue($loc);
+                $row->store();
+                $modified = 1;
+            }
+        } else {
+            $self->add(printer => $printerName, description => $desc,
+                       location => $loc, guest => 0);
+            $modified = 1;
+        }
+
+
     }
 
     foreach my $id (@{$currentIds}) {
