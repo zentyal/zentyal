@@ -87,27 +87,14 @@ sub networks
     my ($self) = @_;
     my @nets;
 
-    my $serverConfModel = $self->parentRow()->subModel('configuration');
-    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
     my $objMod = $self->global()->modInstance('objects');
     foreach my $rowID (@{$self->ids()}) {
         my $row = $self->row($rowID);
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
-
         foreach my $member (@{$mbs}) {
             # use only IP address member type
             if ($member->{type} ne 'ipaddr') {
-                next;
-            }
-
-            my $network = EBox::NetWrappers::to_network_with_mask(
-                $member->{ip},
-                EBox::NetWrappers::mask_from_bits($member->{mask})
-            );
-
-            # Advertised network address == VPN network address
-            if ($network eq $vpn) {
                 next;
             }
 

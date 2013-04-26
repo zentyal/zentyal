@@ -41,7 +41,6 @@ use constant PORTS => (1194, 11194 .. 11234);
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
