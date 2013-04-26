@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed undefined variable warning when installing the package for
+	  first time
 3.0.5
 	+ Create user journal directory in correct path. Migrate old
 	  versions with incorrect path.
