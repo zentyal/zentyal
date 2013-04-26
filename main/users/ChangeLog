@@ -1,3 +1,6 @@
+HEAD
+	+ Migration to remove any letfover need_reprovision key in
+	  read_only tree
 3.0.16
 	+ Assure that we don't have a phantom need_reprovision key in
 	  read-only tree
