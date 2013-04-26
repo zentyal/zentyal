@@ -87,7 +87,7 @@ sub isRangeOverlappingWithRange # first_range, second_range
 sub isValidRange # from, to
 {
     my ($from, $to) = @_;
-    return Net::IP("$from-$to");
+    return new Net::IP("$from-$to");
 }
 
 # Function: isIPInRange
