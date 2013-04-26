@@ -268,6 +268,14 @@ sub initialSetup
             }
         }
     }
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.17') < 0)) {
+        if (not $self->get('need_reprovision')) {
+            # previous versions could left a leftover ro/need_reprovision which
+            # could force reprovision on reboot
+            my $roKey = 'users/ro/need_reprovision';
+            $self->redis->unset($roKey);
+        }
+    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
@@ -521,7 +529,7 @@ sub _setConf
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
-        # workaround to be sure that we don't let a orphan need_reprovision on read-only
+        # workaround  a orphan need_reprovision on read-only
         my $roKey = 'users/ro/need_reprovision';
         $self->redis->unset($roKey);
         $self->reprovision();
