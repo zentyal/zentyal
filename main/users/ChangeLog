@@ -1,4 +1,4 @@
-HEAD
+3.0.17
 	+ Migration to remove leftover need_reprovision key in redis ro
 	+ Retrieve global instance correctly in UsersSync
 3.0.16
