@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,9 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 package EBox::IPsec::FirewallHelper;
-
 use base 'EBox::FirewallHelper';
 
 use strict;
@@ -28,13 +26,51 @@ sub new
 
     $self->{service} = delete $opts{service};
     $self->{networksNoToMasquerade} = delete $opts{networksNoToMasquerade};
+    $self->{hasL2TP} = delete $opts{hasL2TP};
 
     bless($self, $class);
 
     return $self;
 }
 
-sub isEnabled
+# Method: externalInput
+#
+#   Restricts the xl2tp traffic only to packages using IPSec.
+#
+# Returns:
+#
+#   array ref - containing input rules
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::externalInput>
+#
+sub externalInput
+{
+    my ($self) = @_;
+
+    ($self->_isEnabled() and $self->{hasL2TP}) or return [];
+
+    return ["-m policy --dir in --pol ipsec -p udp --dport 1701 -j ACCEPT"];
+}
+
+# Method: forward
+#
+#   Allow traffic forwarding between ppp devices used by x2lp's ppp daemon.
+#
+# Returns:
+#
+#   array ref - containing forward rules
+sub forward
+{
+    my ($self) = @_;
+
+    ($self->_isEnabled() and $self->{hasL2TP}) or return [];
+
+    return ["-i ppp+ -p all -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"];
+}
+
+sub _isEnabled
 {
     my ($self) = @_;
 
@@ -52,7 +88,7 @@ sub postrouting
 {
     my ($self) = @_;
 
-    $self->isEnabled() or return [];
+    $self->_isEnabled() or return [];
 
     my $network = EBox::Global->modInstance('network');
     my @externalIfaces = @{$network->ExternalIfaces()};

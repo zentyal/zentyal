@@ -124,7 +124,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __('IPsec VPN'),
+                'description' => __('IPsec based VPN'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),
@@ -140,23 +140,30 @@ sub initialSetup
 
 sub _services
 {
-    return [
-             {
-                 'protocol' => 'esp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => 'any',
-             },
-             {
-                 'protocol' => 'udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '500',
-             },
-             {
-                 'protocol' => 'udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '4500',
-             },
-    ];
+    my @services = ();
+
+    # Encapsulation header.
+    push (@services, {
+        'protocol' => 'esp',
+        'sourcePort' => 'any',
+        'destinationPort' => 'any',
+        });
+
+    # Internet Key Exchange
+    push (@services, {
+        'protocol' => 'udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '500',
+        });
+
+    # NAT traversal
+    push (@services, {
+        'protocol' => 'udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '4500',
+        });
+
+    return \@services;
 }
 
 # Method: _setConf
@@ -237,7 +244,11 @@ sub firewallHelper
 
     my @activeTunnels = @{$self->tunnels()};
     my @networksNoToMasquerade = ();
+    my $hasL2TP = undef;
     foreach my $tunnel (@activeTunnels) {
+        if ($tunnel->{type} eq 'l2tp') {
+            $hasL2TP = 1;
+        }
         my $subnet = $tunnel->{'right_subnet'};
         next unless $subnet;
         push(@networksNoToMasquerade, $subnet);
@@ -246,6 +257,7 @@ sub firewallHelper
     my $firewallHelper = new EBox::IPsec::FirewallHelper(
         service => $enabled,
         networksNoToMasquerade => \@networksNoToMasquerade,
+        hasL2TP => $hasL2TP,
     );
 
     return $firewallHelper;
