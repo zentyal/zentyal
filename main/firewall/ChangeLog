@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Changed order for the ! character when adding an inverse rule
 3.0.2
 	+ Added preInput(), preOutput() and preForward() to FirewallHelper
