@@ -132,7 +132,7 @@ sub initialSetup
         $self->setPort($port);
     }
 
-    if (EBox::Util::Version::compare($version, '3.0.5') < 0) {
+    if ($version and (EBox::Util::Version::compare($version, '3.0.5') < 0)) {
         my $journalDir = journalDir();
         my $oldJournalDir = EBox::UserCorner::usercornerdir() . 'userjournal';
         if ((-d $oldJournalDir) and not (-d $journalDir)) {
