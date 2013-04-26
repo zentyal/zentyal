@@ -104,4 +104,52 @@ sub _help
               openpar => '<p>', closepar => '</p>');
 }
 
+# Method: networks
+#
+#  gets the networks contained in the table object members.
+#
+# Note:
+#   object members of IPRange type are ignored
+#
+# Returns: a reference of a list of references to a lists containing the net
+#          address and netmask pair
+sub networks
+{
+    my ($self) = @_;
+    my @nets;
+
+    my $serverConfModel = $self->parentRow()->subModel('configuration');
+    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
+    my $objMod = $self->global()->modInstance('objects');
+    foreach my $rowID (@{$self->ids()}) {
+        my $row = $self->row($rowID);
+        my $objId = $row->valueByName('object');
+        my $mbs   = $objMod->objectMembers($objId);
+
+        foreach my $member (@{$mbs}) {
+            # use only IP address member type
+            if ($member->{type} ne 'ipaddr') {
+                next;
+            }
+
+            my $network = EBox::NetWrappers::to_network_with_mask(
+                $member->{ip},
+                EBox::NetWrappers::mask_from_bits($member->{mask})
+            );
+
+            # Advertised network address == VPN network address
+            if ($network eq $vpn) {
+                next;
+            }
+
+            # Add the member to the list of advertised networks
+            push(@nets,[$member->{ip},
+                        EBox::NetWrappers::mask_from_bits($member->{mask})]
+            );
+        }
+    }
+
+    return \@nets;
+}
+
 1;
