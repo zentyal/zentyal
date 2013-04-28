@@ -29,8 +29,6 @@ use EBox::NetWrappers qw();
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
 use constant IPSECSECRETSFILE => '/etc/ipsec.secrets';
-use constant XL2TPDCONFFILE => '/etc/xl2tpd/xl2tpd.conf';
-use constant XL2TPDPPPCONFFILE => '/etc/ppp/options.xl2tpd';
 
 # Constructor: _create
 #
@@ -71,18 +69,6 @@ sub usedFiles
         'file' => IPSECSECRETSFILE,
         'module' => 'ipsec',
         'reason' => __('To configure OpenSwan IPsec passwords.')
-    });
-
-    push (@conf_files, {
-        'file' => XL2TPDCONFFILE,
-        'module' => 'ipsec',
-        'reason' => __('To configure XL2TPD.')
-    });
-
-    push (@conf_files, {
-        'file' => XL2TPDPPPCONFFILE,
-        'module' => 'ipsec',
-        'reason' => __('To configure PPP for XL2TPD.')
     });
 
     return \@conf_files;
@@ -209,22 +195,32 @@ sub _setXL2TPDConf
 {
     my ($self) = @_;
 
-    my @params = ();
+    # Clean all upstart and configuration files, the current ones will be regenerated
+    EBox::Sudo::silentRoot(
+        "rm -rf /etc/init/zentyal-xl2tpd.*.conf",
+        "rm -rf /etc/ppp/zentyal-options.xl2tpd.*",
+        "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
+    );
 
-    foreach my $tunnel (@{ $self->tunnels() }) {
-        if ($tunnel->{'type'} eq 'l2tp') {
-            push (@params, tunnel => $tunnel);
-            last;
-        }
-    }
     my $permissions = {
         uid => 'root',
         gid => 'root',
         mode => '644',
     };
 
-    $self->writeConfFile(XL2TPDCONFFILE, "ipsec/xl2tpd.conf.mas", \@params, $permissions);
-    $self->writeConfFile(XL2TPDPPPCONFFILE, "ipsec/options.xl2tpd.mas", \@params, $permissions);
+    foreach my $tunnel (@{ $self->tunnels() }) {
+        my @params = ();
+        if ($tunnel->{'type'} eq 'l2tp') {
+            push (@params, tunnel => $tunnel);
+
+            $self->writeConfFile(
+                "/etc/xl2tpd/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
+            $self->writeConfFile(
+                "/etc/ppp/zentyal-options.xl2tpd.$tunnel->{name}", "ipsec/options.xl2tpd.mas", \@params, $permissions);
+            $self->writeConfFile(
+                "/etc/init/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+        }
+    }
 }
 
 sub tunnels

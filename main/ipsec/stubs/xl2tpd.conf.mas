@@ -3,14 +3,14 @@
 </%args>
 
 [global]
-listen-addr = <% $tunnel->{'left_ipaddr'} %>
+listen-addr = <% $tunnel->{left_ipaddr} %>
 
 [lns default]
-ip range = <% $tunnel->{'ip_range'} %>
-local ip = <% $tunnel->{'local_ip'} %>
+ip range = <% $tunnel->{ip_range} %>
+local ip = <% $tunnel->{local_ip} %>
 require chap = yes
 refuse pap = yes
 require authentication = yes
 ppp debug = yes
-pppoptfile = /etc/ppp/options.xl2tpd
+pppoptfile = /etc/ppp/zentyal-options.xl2tpd.<% $tunnel->{name} %>
 length bit = yes
