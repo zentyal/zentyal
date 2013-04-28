@@ -75,9 +75,11 @@ sub tunnels
                         $fieldValue = $component->nameServer(1);
                     } elsif ($fieldName eq 'wins_server') {
                         $fieldValue = $component->winsServer();
-                    } else {
+                    } elsif ($element->value()) {
                         # Value returns array with (ip, netmask)
                         $fieldValue = join ('/', $element->value());
+                    } else {
+                        $fieldValue = undef;
                     }
 
                     $settings{$fieldName} = $fieldValue;
