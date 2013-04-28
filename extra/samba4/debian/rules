@@ -8,11 +8,15 @@ override_dh_auto_clean:
 	rm -f `find . -name *\.pyc`
 
 override_dh_auto_configure:
-	./configure \
+	./configure -C \
+		--enable-developer \
 		--prefix=/opt/samba4 \
-        --sysconfdir=/etc/samba \
+		--sysconfdir=/etc/samba \
 		--bundled-libraries=ALL \
-        --enable-zavs
+		--enable-zavs
+
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/samba4
 
 override_dh_auto_test:
 	#no selftest
@@ -30,4 +34,4 @@ override_dh_installexamples:
 	#do not installexamples
 
 override_dh_strip:
-	#do not strip
+	dh_strip --dbg-package=samba4-dbg
