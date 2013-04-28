@@ -1,0 +1,11 @@
+--- a/buildtools/wafsamba/samba_autoconf.py
++++ b/buildtools/wafsamba/samba_autoconf.py
+@@ -640,7 +640,7 @@
+ 
+     if Options.options.developer:
+         # we add these here to ensure that -Wstrict-prototypes is not set during configure
+-        conf.ADD_CFLAGS('-Wall -g -Wshadow -Werror=strict-prototypes -Wstrict-prototypes -Werror=pointer-arith -Wpointer-arith -Wcast-align -Werror=write-strings -Wwrite-strings -Werror-implicit-function-declaration -Wformat=2 -Wno-format-y2k -Wmissing-prototypes -fno-common -Werror=address',
++        conf.ADD_CFLAGS('-Wall -g -Wshadow -Werror=strict-prototypes -Wstrict-prototypes -Werror=pointer-arith -Wpointer-arith -Wcast-align -Werror=write-strings -Wwrite-strings -Wformat=2 -Wno-format-y2k -Wmissing-prototypes -fno-common -Werror=address',
+                         testflags=True)
+         conf.ADD_CFLAGS('-Wcast-qual', testflags=True)
+         conf.env.DEVELOPER_MODE = True
