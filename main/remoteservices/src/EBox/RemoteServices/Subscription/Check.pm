@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,7 +33,6 @@ use Error qw(:try);
 
 # Constants
 use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);
-# FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
 # Group: Public methods
@@ -111,7 +110,10 @@ sub check
             $self->{lastError} = $exc->text();
             $capable = 0;
         };
+    } else {
+        delete $self->{lastError};
     }
+
     return $capable;
 }
 
@@ -198,24 +200,23 @@ sub _usersCheck
 {
     my ($self, $gl) = @_;
 
-    return; # TODO: Fix this! # Model Master and allSlaves
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
-        if ( $usersMod->isEnabled() ) {
-            if ( not ( ($usersMod->mode() eq 'master') or ($usersMod->mode() eq 'ad-slave') ) ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('Please note that the Small Business Edition can be only used in master mode.'));
-            }
-            if ( scalar(@{$usersMod->listSlaves()}) > 0 ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('Please note that the Small Business Edition cannot have slaves.'));
-            }
-            my $users = $usersMod->usersList();
+        if ( $usersMod->isEnabled() and ($usersMod->master() ne 'zentyal') ) {
+            # This check must be done if the server is master or Zentyal Cloud is
+            my $users = $usersMod->realUsers('without_admin');
             if ( scalar(@{$users}) > MAX_SB_USERS ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
                     __sx('Please note that the maximum number of users for Small Business Edition is {max} '
                          . 'and you currently have {nUsers}',
                          max => MAX_SB_USERS, nUsers => scalar(@{$users})));
+            }
+            my $master  = $usersMod->master();
+            my $nSlaves = scalar(@{$usersMod->slaves()});
+            $nSlaves-- if ($master eq 'cloud'); # Do not count with Zentyal Cloud slave
+            if ($nSlaves > 0) {
+                throw EBox::RemoteServices::Exceptions::NotCapable(
+                    __s('Please note that the Small Business Edition cannot have Zentyal slaves.'));
             }
         }
     }

@@ -1,4 +1,10 @@
 HEAD
+	+ Hide sync with cloud options in shares list if remoteservices
+	  is not installed
+	+ Setup filesystem now writes a valid fstab file even if the filesystem
+	  does not have any mount option
+	+ Remove idmap_ldb:use_rf2307 option unnecessary with Samba 4.0.5
+	+ Clearer error messages when EBox::LDB::safeConnect fails
 	+ Raise exception if during the provision either the domain
 	  administrator user or the domain administrator group are
 	  incorrectly mapped

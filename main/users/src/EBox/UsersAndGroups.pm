@@ -268,6 +268,14 @@ sub initialSetup
             }
         }
     }
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.17') < 0)) {
+        if (not $self->get('need_reprovision')) {
+            # previous versions could left a leftover ro/need_reprovision which
+            # could force reprovision on reboot
+            my $roKey = 'users/ro/need_reprovision';
+            $self->redis->unset($roKey);
+        }
+    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
@@ -521,6 +529,9 @@ sub _setConf
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
+        # workaround  a orphan need_reprovision on read-only
+        my $roKey = 'users/ro/need_reprovision';
+        $self->redis->unset($roKey);
         $self->reprovision();
     }
 
@@ -1484,6 +1495,17 @@ sub _ldapModImplementation
 }
 
 # SyncProvider implementation
+
+# Method: slaves
+#
+#    Get the slaves for this server
+#
+# Returns:
+#
+#    array ref - containing the slaves for this server. Zentyal server slaves are
+#                <EBox::UsersSync::Slave> instances and Zentyal Cloud slave is
+#                a <EBox::CloudSync::Slave> instance.
+#
 sub slaves
 {
     my ($self) = @_;
@@ -1782,7 +1804,8 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
-        $self->setAsChanged(1);
+        $self->setAsChanged(1); # for compability with machines with phantom
+                                # need_reprovision in read-only tree
         EBox::Global->modInstance('apache')->setAsChanged();
     }
 }

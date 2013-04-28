@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Backup;
-
 use strict;
 use warnings;
+
+package EBox::Backup;
 
 use EBox::Config;
 use EBox::Global;
@@ -471,6 +470,7 @@ sub backupDetailsFromArchive
         }
 
         my $value = <$FH>;
+        utf8::decode($value);
         $backupDetails->{$detail} = $value;
 
         close $FH;
@@ -482,7 +482,6 @@ sub backupDetailsFromArchive
     EBox::Sudo::silentRoot("rm -rf '$tempDir'");
     return $backupDetails;
 }
-
 
 sub _printableSize
 {
@@ -562,7 +561,6 @@ sub deleteBackup
     }
 }
 
-
 # Method: listBackups
 #
 #       Returns a list with the availible backups stored in the system.
@@ -578,7 +576,7 @@ sub deleteBackup
 #       id - backup's identifier
 #       date - when it was backed up
 #       description - backup's description
-#       type        - type of backup (full or configuration only)
+#       type        - type of backup (now only one type: configuration)
 #
 sub listBackups
 {
@@ -634,7 +632,6 @@ sub _ensureBackupdirExistence
             ("Could not create backupdir.");
     }
 }
-
 
 # Method: prepareMakeBackup
 #
@@ -855,7 +852,7 @@ sub makeBugReport
 #       string: path to the temporary directory
 sub _unpackAndVerify
 {
-    my ($self, $archive, $fullRestore, %options) = @_;
+    my ($self, $archive, %options) = @_;
     ($archive) or throw EBox::Exceptions::External('No backup file provided.');
     my $tempdir;
 
@@ -873,7 +870,7 @@ sub _unpackAndVerify
         }
 
         $self->_checkArchiveMd5Sum($tempdir);
-        $self->_checkArchiveType($tempdir, $fullRestore);
+        $self->_checkArchiveType($tempdir);
         unless ($options{forceZentyalVersion}) {
             $self->_checkZentyalVersion($tempdir);
         }
@@ -923,7 +920,7 @@ sub  _checkArchiveMd5Sum
 
 sub _checkArchiveType
 {
-    my ($self, $tempdir, $fullRestore) = @_;
+    my ($self, $tempdir) = @_;
 
     my $typeFile = "$tempdir/eboxbackup/type";
     my $TYPE_F;
@@ -937,14 +934,7 @@ sub _checkArchiveType
     if ($type ne all($FULL_BACKUP_ID, $CONFIGURATION_BACKUP_ID, $BUGREPORT_BACKUP_ID)) {
         throw EBox::Exceptions::External(__("The backup archive has a invalid type. Maybe the file is corrupt or you are using a incompatible Zentyal version"));
     }
-
-    if ($fullRestore) {
-        if ($type ne $FULL_BACKUP_ID) {
-            throw EBox::Exceptions::External(__('The archive does not contain a full backup, that made a full restore impossibe. A configuration recovery  may be possible'));
-        }
-    }
 }
-
 
 sub _checkSize
 {
@@ -1039,8 +1029,6 @@ sub _checkZentyalVersion
 # Parameters:
 #
 #       file - backup's file (as positional parameter)
-#       fullRestore - wether do a full restore or restore only configuration (default: false)
-#       dataRestore - wether do a data-only restore
 #       forceDependencies - wether ignore dependency errors between modules
 #       deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
@@ -1063,12 +1051,6 @@ sub prepareRestoreBackup
     my $restoreBackupScript = EBox::Config::scripts() . 'restore-backup';
 
     my $execOptions = '';
-
-    if (exists $options{fullRestore}) {
-        if ($options{fullRestore}) {
-            $execOptions .= '--full-restore ';
-        }
-    }
 
     if (exists $options{forceDependencies}) {
         if ($options{forceDependencies}) {
@@ -1135,9 +1117,7 @@ sub prepareRestoreBackup
 #
 #       file - backup's file (as positional parameter)
 #       progressIndicator - Progress indicator associated
-#                       with htis operation (optional )
-#       fullRestore - wether do a full restore or restore only configuration (default: false)
-#       dataRestore - wether do a data-only restore
+#                       with this operation (optional )
 #       forceDependencies - wether ignore dependency errors between modules
 #       forceZentyalVersion - ignore zentyal version check
 #       deleteBackup      - deletes the backup after resroting it or if the process is aborted
@@ -1174,7 +1154,7 @@ sub restoreBackup
 
         $self->_checkSize($file);
 
-        $tempdir = $self->_unpackAndVerify($file, $options{fullRestore}, %options);
+        $tempdir = $self->_unpackAndVerify($file, %options);
 
         if ($options{installMissing}) {
             $progress->setMessage(__('Installing Zentyal packages in backup...')) if ($progress);

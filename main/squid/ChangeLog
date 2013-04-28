@@ -1,6 +1,10 @@
 HEAD
 	+ Change the kerberos service from squid to http. Zarafa and Squid must
 	  share the service principal.
+	+ Disable DC reverse DNS lookup for msktutil commands
+	+ Explicitly set the DC for msktutil command when updating the keytab
+3.0.8
+>>>>>>> master
 	+ Regenerate Kerberos keytab on LDAP reprovision
 3.0.7
 	+ Fixed bug which returned the list of users of a profile inside

@@ -1,4 +1,17 @@
 HEAD
+	+ Changed location of remote backup metainfo files to preserve cache
+	  after reboot
+3.0.19
+	+ Implemented maxUsers() and maxCloudUsers() methods
+	+ Default control panel URL points to remote.zentyal.com now
+3.0.18
+	+ Consolidate and send report data using a new daemon
+	  zentyal.reporterd
+	+ Randomise when reload-bundle and subs-level are sent
+	+ Added users module checks for SB:
+	  - No more than 25 users having none or cloud as master
+	  - Zentyal server slaves are forbidden
+3.0.17
 	+ Use cache to retrieve latest configuration backup date in
 	  dashboard
 3.0.16

@@ -1,4 +1,19 @@
 HEAD
+	+ Check against inexistent path in EBox::Util::SHM::subkeys
+	+ Silent diff in EBox::Types::File::isEqualTo
+	+ Print correctly UTF8 characters from configuration backup description
+	+ When host name is changed, update /etc/hostname
+	+ Proper link to remote in configuration backup page
+3.0.19
+	+ Removed full restore option for restore-backup tool and
+	  EBox:Backup relevant methods
+	+ Optimise loading Test::Deep::NoTest to avoid test environment creation
+	+ Use EBox::Module::Base::writeConfFileNoCheck to write apache
+	  configuration file
+	+ Log events after dispatching them in the EventDaemon and catch exception
+	  to avoid crashes when mysql is already stopped
+	+ Emit events on zentyal start and stop
+	+ Refactor some events-related code
 	+ Changed MB_widedialog CSS class to use all width available in
 	  the screen
 	+ Fixed a broken link to SysInfo/Composite/General when activating the

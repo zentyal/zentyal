@@ -78,6 +78,7 @@ use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
+use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
@@ -329,7 +330,11 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
-        }
+        },
+        {
+            'name'         => REPORTERD_SERVICE,
+            'precondition' => \&reportEnabled,
+        },
        ];
 }
 
@@ -627,7 +632,7 @@ sub controlPanelURL
 {
     my ($self) = @_;
 
-    my $url= 'cloud.zentyal.com';
+    my $url = 'remote.zentyal.com';
     try {
         $url = 'www.' . $self->cloudDomain();
     } otherwise {};
@@ -948,6 +953,59 @@ sub renovationDate
     };
     return $ret;
 }
+
+
+# Method: maxUsers
+#
+#   Return the max number of users the server can hold,
+#   depending on the current server edition, 0 for unlimited
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxUsers
+{
+    my ($self, $force) = @_;
+
+    # unlimited
+    my $max_users = 0;
+
+    # Small business
+    if ($self->subscriptionLevel($force) == 5) {
+        $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
+    }
+
+    # Cloud
+    my $max_cloud = $self->maxCloudUsers($force);
+    if (($max_cloud and $max_cloud < $max_users) or ($max_users == 0)) {
+        $max_users = $max_cloud;
+    }
+
+    return $max_users;
+}
+
+
+# Method: maxCloudUsers
+#
+#   Return the max number of users available in Cloud (if enabled)
+#   0 for unlimited or not enabled
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxCloudUsers
+{
+    my ($self, $force) = @_;
+    if ($self->usersSyncAvailable($force)) {
+        return $self->addOnDetails('cloudusers', $force)->{max_users};
+    }
+    return 0;
+}
+
 
 # Method: usersSyncAvailable
 #
