@@ -212,6 +212,11 @@ sub initialSetup
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
     }
+
+    # Create new principal when upgrading from 3.0.2
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.3') < 0) {
+        $self->kerberosCreatePrincipals();
+    }
 }
 
 # Method: reprovisionLDAP
