@@ -107,7 +107,6 @@ HEAD
 	  if module is not yet configured
 	+ Added LDAP index for ou attribute
 	+ Always write slave-sync script
->>>>>>> master
 	+ Increase default quota value to 500MB
 3.0.2
 	+ Added clearCache() to LdapObject and force reload of krb5Keys

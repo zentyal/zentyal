@@ -4,7 +4,6 @@ HEAD
 	+ Disable DC reverse DNS lookup for msktutil commands
 	+ Explicitly set the DC for msktutil command when updating the keytab
 3.0.8
->>>>>>> master
 	+ Regenerate Kerberos keytab on LDAP reprovision
 3.0.7
 	+ Fixed bug which returned the list of users of a profile inside
@@ -77,7 +76,6 @@ HEAD
 	  does not support kerberos auth, now there are two squid instances, one
 	  on the front of dansguardian to perform the authentication and one in
 	  the back to cache contents
->>>>>>> master
 	+ Added memory cache of seen list directories to DomainFilterCategories
 	+ Categories from bigblacklist are now accepted
 3.0
