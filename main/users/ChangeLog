@@ -1,3 +1,6 @@
+HEAD
+	+ Check for already existent service principals before create them.
+	  Required because squid and zarafa share the HTTP SPN
 3.0.17
 	+ Migration to remove leftover need_reprovision key in redis ro
 	+ Retrieve global instance correctly in UsersSync

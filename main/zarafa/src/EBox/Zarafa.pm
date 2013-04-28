@@ -172,8 +172,8 @@ sub kerberosServicePrincipals
 {
     my ($self) = @_;
 
-    my $data = { service    => 'zarafa',
-                 principals => [ 'ZARAFA' ],
+    my $data = { service    => 'http',
+                 principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;
@@ -211,6 +211,11 @@ sub initialSetup
             return;
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
+    }
+
+    # Create new principal when upgrading from 3.0.2
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.3') < 0) {
+        $self->kerberosCreatePrincipals();
     }
 }
 

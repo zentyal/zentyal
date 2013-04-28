@@ -36,6 +36,25 @@ sub kerberosServicePrincipals
     return [];
 }
 
+sub _principalExists
+{
+    my ($self, $principal) = @_;
+
+    my $usersModule = EBox::Global->modInstance('users');
+    my $ldap = $usersModule->ldap();
+    my $base = 'OU=Kerberos,' . $ldap->dn();
+    my $realm = $usersModule->kerberosRealm();
+    my $args = {
+        base => $base,
+        scope => 'sub',
+        filter => "(krb5PrincipalName=$principal\@$realm)",
+        attrs => [],
+    };
+    my $result = $ldap->search($args);
+    my $count = $result->count();
+    return $count;
+}
+
 sub kerberosCreatePrincipals
 {
     my ($self) = @_;
@@ -45,27 +64,32 @@ sub kerberosCreatePrincipals
     my $hostdomain = $sysinfo->hostDomain();
 
     my $data = $self->kerberosServicePrincipals();
-    EBox::Sudo::silentRoot("rm -f $data->{keytab}");
+    EBox::Sudo::root("rm -f $data->{keytab}");
 
     my $pass = EBox::Util::Random::generate(20);
     foreach my $service (@{$data->{principals}}) {
         my $principal = "$service/$hostname.$hostdomain";
 
-        # TODO Generate all principals with the same password to import them into samba
-        my @cmds=();
-        push (@cmds, 'kadmin -l add ' .
-                  "--password='$pass' " .
-                  "--max-ticket-life='1 day' " .
-                  "--max-renewable-life='1 week' " .
-                  "--attributes='' " .
-                  "--expiration-time=never " .
-                  "--pw-expiration-time=never " .
-                  "--policy=default '$principal'");
+        # Create principal if not exists
+        unless ($self->_principalExists($principal) > 0) {
+            my $cmd = 'kadmin -l add ' .
+                      "--password='$pass' " .
+                      "--max-ticket-life='1 day' " .
+                      "--max-renewable-life='1 week' " .
+                      "--attributes='' " .
+                      "--expiration-time=never " .
+                      "--pw-expiration-time=never " .
+                      "--policy=default '$principal'";
+            EBox::info("Creating service principal $principal");
+            EBox::Sudo::root($cmd);
+        }
+
+        # Extract keytab
+        my @cmds;
         push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$principal'");
         push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
         push (@cmds, "chmod 440 '$data->{keytab}'");
-        EBox::Sudo::silentRoot("kadmin -l del $principal");
-        EBox::debug("Creating service principal $principal");
+        EBox::info("Extracting keytab for service $service, principal $principal");
         EBox::Sudo::root(@cmds);
     }
 
