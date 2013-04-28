@@ -762,19 +762,19 @@ sub _createDirectories
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    #push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    #push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
+    #push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
@@ -784,6 +784,30 @@ sub _createDirectories
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
     EBox::Sudo::root(@cmds);
+
+    # FIXME: Workaround attempt for the issue of failed chown with __USERS__ group
+    #        remove this and uncomment the three chowns above when fixed for real
+    my $chownTries = 10;
+    @cmds = ();
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
+    foreach my $cnt (1 .. $chownTries) {
+        my $chownOk = 0;
+        try {
+            EBox::Sudo::root(@cmds);
+            $chownOk = 1;
+        } otherwise {
+            my ($ex) = @_;
+            if ($cnt < $chownTries) {
+                EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
+                sleep 1;
+            } else {
+                $ex->throw();
+            }
+        };
+        last if $chownOk;
+    };
 }
 
 sub _setConf

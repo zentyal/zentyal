@@ -1,4 +1,5 @@
 HEAD
+	+ Workaround with retries for the chown __USERS__ bug
 	+ Hide sync with cloud options in shares list if remoteservices
 	  is not installed
 	+ Setup filesystem now writes a valid fstab file even if the filesystem
