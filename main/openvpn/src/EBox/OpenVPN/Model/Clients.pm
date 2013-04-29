@@ -18,7 +18,6 @@ use warnings;
 package EBox::OpenVPN::Model::Clients;
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
-use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
@@ -121,9 +120,6 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
-
-
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -132,7 +128,6 @@ sub validateTypedRow
     $self->_validateName($action, $params_r, $actual_r);
     $self->_validateRipPasswd($action, $params_r, $actual_r);
 }
-
 
 sub _validateService
 {
@@ -155,7 +150,6 @@ sub _validateService
         }
 }
 
-
 sub _validateName
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -165,7 +159,7 @@ sub _validateName
     }
 
     my $name =  $params_r->{name}->value();
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $openvpn = $self->parentModule();
 
     my $internal = exists $params_r->{internal} ?
                             $params_r->{internal}->value() :
@@ -174,7 +168,6 @@ sub _validateName
 
     $openvpn->checkNewDaemonName($name, 'client', $internal);
 }
-
 
 sub _validateRipPasswd
 {
@@ -190,8 +183,6 @@ sub _validateRipPasswd
                                          __('RIP password is mandatory')
                                         )
     }
-
-
 }
 
 sub clients
@@ -204,7 +195,6 @@ sub clients
     return \@clients;
 
 }
-
 
 sub client
 {
@@ -235,13 +225,15 @@ sub addedRowNotify
 
     EBox::OpenVPN::Model::InterfaceTable::addedRowNotify($self, $row);
 
-    my $service = $row->elementByName('service');
+    # populate the advertised networks of the new client
+    my $advertise = $row->subModel('advertisedNetworks');
+    $advertise->populateWithInternalNetworks();
 
+    my $service = $row->elementByName('service');
     if ($service->value()) {
         my $openvpn = $self->parentModule();
         $openvpn->notifyLogChange();
     }
-
 }
 
 sub updatedRowNotify

@@ -109,4 +109,50 @@ sub networks
     return \@nets;
 }
 
+sub populateWithInternalNetworks
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my $networkMod = $global->modInstance('network');
+    my $objMod = $global->modInstance('objects');
+
+    my %objIdByName = map {
+        ($_->{name} => $_->{id})
+    } @{$objMod->objects() };
+    foreach my $iface (@{$networkMod->InternalIfaces()}) {
+        next unless ($networkMod->ifaceMethod($iface) eq 'static');
+        for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
+            my $netAddress = EBox::NetWrappers::ip_network(
+                                $ifaceAddress->{address},
+                                $ifaceAddress->{netmask},
+                             );
+            my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
+            my $objName = "openVPN-$iface-$netAddress-$mask";
+
+            my $id = $objIdByName{$objName};
+            # Add the object if if does not exist
+            if ( not defined $id ) {
+                $id = $objMod->addObject(
+                    name     => $objName,
+                    members  => [{
+                                    name             => "$netAddress-$mask",
+                                    address_selected => 'ipaddr',
+                                    address          => 'ipaddr',
+                                    ipaddr_ip        => $netAddress,
+                                    ipaddr_mask      => $mask,
+                                },],
+                    readOnly => 1,
+                );
+                $objIdByName{$objName} = $id;
+            }
+
+            # Add the object to the list of advertised objects if it does not
+            # already exists
+            if (not $self->findId(object => $id)) {
+                $self->add(object => $id);
+            }
+        }
+    }
+}
+
 1;
