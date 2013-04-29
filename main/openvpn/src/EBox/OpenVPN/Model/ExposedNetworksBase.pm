@@ -38,11 +38,6 @@ sub new
     return $self;
 }
 
-sub name
-{
-    __PACKAGE__->nameFromClass(),
-}
-
 sub _tableHead
 {
     my ($self) = @_;

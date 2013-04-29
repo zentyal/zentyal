@@ -20,6 +20,16 @@ use base 'EBox::OpenVPN::Model::ExposedNetworks';
 
 use EBox::Gettext;
 
+sub new
+{
+    my $class = shift;
+
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+
+    return $self;
+}
+
 sub _table
 {
     my ($self) = @_;
@@ -28,7 +38,7 @@ sub _table
 
     my $dataTable =
         {
-            'tableName'              => __PACKAGE__->name(),
+            'tableName'              => 'ClientExposedNetworks',
             'printableTableName' => __('List of advertised networks to tunnel server'),
             'automaticRemove' => 1,
             'defaultController' => '/OpenVPN/Controller/ClientExposedNetworks',
