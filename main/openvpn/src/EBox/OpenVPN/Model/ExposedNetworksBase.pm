@@ -79,7 +79,7 @@ sub pageTitle
 #          address and netmask pair
 sub networks
 {
-    my ($self) = @_;
+    my ($self, $abbreviatedMask) = @_;
     my @nets;
 
     my $objMod = $self->global()->modInstance('objects');
@@ -93,10 +93,16 @@ sub networks
                 next;
             }
 
+
             # Add the member to the list of advertised networks
-            push(@nets,[$member->{ip},
-                        EBox::NetWrappers::mask_from_bits($member->{mask})]
-            );
+            my $mask;
+            if ($abbreviatedMask) {
+                $mask = $member->{mask};
+            } else {
+                $mask = EBox::NetWrappers::mask_from_bits($member->{mask});
+            }
+
+            push @nets, [$member->{ip}, $mask];
         }
     }
 

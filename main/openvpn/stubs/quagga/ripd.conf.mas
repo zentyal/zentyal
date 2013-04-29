@@ -59,7 +59,7 @@ access-list allowAll permit any
 % foreach my $iface (@ifaces) {
 %  my $aclName = $iface->{ifaceName} . 'ACL';
 %  foreach my $net_r (@{ $iface->{redistributeNets}} ) {
-access-list <% $aclName %> allow <% $net_r->[0] %> <% $net_r->[1] %>
+access-list <% $aclName %> permit <% $net_r->[0] %>/<% $net_r->[1] %>
 %  }
 access-list <% $aclName %> deny any
 % }

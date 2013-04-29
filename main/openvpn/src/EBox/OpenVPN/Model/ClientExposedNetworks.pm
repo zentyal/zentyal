@@ -65,5 +65,11 @@ sub _help
               openpar => '<p>', closepar => '</p>');
 }
 
+sub networks
+{
+    my ($self) = @_;
+    return $self->SUPER::networks(1);
+}
+
 
 1;
