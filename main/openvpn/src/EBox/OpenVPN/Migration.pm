@@ -29,7 +29,11 @@ sub addClientsAdvertisedNetworks
         # populate the advertised networks with all internal interfaces so the
         # behaviour does not change
         my $advertise = $row->subModel('advertisedNetworks');
-        $advertise->populateWithInternalNetworks();
+        if ($advertise->size() > 0) {
+            # already has routes, ignoring
+            next;
+        }
+        $advertise->populateWithInternalNetworks(1);
     }
 
     if ($changedConf) {

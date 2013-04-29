@@ -100,6 +100,18 @@ sub initializeInterfaces
     $clients->initializeInterfaces();
 }
 
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    $self->SUPER::initialSetup($version);
+
+    if ($version and (EBox::Util::Version::compare($version, '3.0.6') < 0)) {
+        eval "use EBox::OpenVPN::Migration";
+        EBox::OpenVPN::Migration::addClientsAdvertisedNetworks($self);
+    }
+}
+
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::usedFiles
@@ -620,7 +632,7 @@ sub checkNewDaemonName
             );
         }
 
-    }elsif ($daemonType eq 'client') {
+    } elsif ($daemonType eq 'client') {
         my $servers = $self->model('Servers');
         if ($servers->serverExists($name)) {
             throw EBox::Exceptions::External(
@@ -630,7 +642,7 @@ sub checkNewDaemonName
                 )
             );
         }
-    }else {
+    } else {
         throw EBox::Exceptions::Internal("Bad daemon type: $daemonType");
     }
 
@@ -825,7 +837,6 @@ sub CAIsReady
 
     return $ready;
 }
-
 
 sub _daemons
 {
@@ -1263,7 +1274,6 @@ sub deleteClient
     $clients->removeRow($id, 1);
 }
 
-
 # Method: menu
 #
 #       Overrides <EBox::Module::menu> method.
@@ -1403,7 +1413,6 @@ sub _backupClientCertificatesDir
     my ($self, $dir) = @_;
     return $dir .'/clientCertificates';
 }
-
 
 sub dumpConfig
 {

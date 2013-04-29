@@ -109,9 +109,16 @@ sub networks
     return \@nets;
 }
 
+# Method: populateWithInternalNetworks
+#
+#   populates the model with objects for all the internal networks
+#
+#  Parameters:
+#    onlyPrivateNets - if true, only add objects for networks with private
+#                      addresses (default: false)
 sub populateWithInternalNetworks
 {
-    my ($self) = @_;
+    my ($self, $onlyPrivateNets) = @_;
     my $global = $self->global();
     my $networkMod = $global->modInstance('network');
     my $objMod = $global->modInstance('objects');
@@ -126,6 +133,17 @@ sub populateWithInternalNetworks
                                 $ifaceAddress->{address},
                                 $ifaceAddress->{netmask},
                              );
+
+            if ($onlyPrivateNets) {
+                my @parts = split '\.', $netAddress, 4;
+                unless ( ($parts[0] == 10) or
+                         (($parts[0] == 172) and ($parts[1] >= 16) and ($parts[1] <= 32)) or
+                         (($parts[0] == 192) and ($parts[1] == 168))
+                       ) {
+                    next;
+                }
+            }
+
             my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
             my $objName = "openVPN-$iface-$netAddress-$mask";
 
