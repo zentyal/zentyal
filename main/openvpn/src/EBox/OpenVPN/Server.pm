@@ -331,9 +331,17 @@ sub subnetNetmask
 #
 # Returns:
 #  whether connection is allowed between clients though the VPN or not
+#
+# Note:
+#   tunnels always allow client to client connections
 sub clientToClient
 {
     my ($self) = @_;
+
+    if ($self->pullRoutes) {
+        return 1;
+    }
+
     return $self->_configAttr('clientToClient');
 }
 
@@ -348,18 +356,28 @@ sub tlsRemote
     return $tlsRemote ? $tlsRemote : undef;
 }
 
-
-
 # Method: pullRoutes
 #
 # Returns:
 #
-#    Boolean - whether the server may pull routes from client or not
+#    boolean - whether the server may pull routes from client or not
 #
 sub pullRoutes
 {
     my ($self) = @_;
     return $self->_configAttr('pullRoutes');
+}
+
+# Method: rejectRoutes
+#
+# Returns:
+#
+#    boolean - whether the server will reject routes pushed by its Zentyal clients
+#
+sub rejectRoutes
+{
+    my ($self) = @_;
+    return $self->_configAttr('rejectRoutes');
 }
 
 sub ripDaemon
@@ -371,6 +389,10 @@ sub ripDaemon
 
     $self->pullRoutes()
       or return undef;
+
+    if ($self->rejectRoutes()) {
+        return undef;
+    }
 
     my $iface = $self->ifaceWithRipPasswd();
     return { iface => $iface };
