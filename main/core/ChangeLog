@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Model::DataForm::formSubmitted called even where is not
+	  previous row
 	+ Silent diff in EBox::Types::File::isEqualTo
 	+ Print correctly UTF8 characters from configuration backup description
 	+ When host name is changed, update /etc/hostname
