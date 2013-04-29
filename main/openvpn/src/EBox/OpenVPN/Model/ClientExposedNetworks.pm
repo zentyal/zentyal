@@ -65,10 +65,33 @@ sub _help
               openpar => '<p>', closepar => '</p>');
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    return not $self->_tun();
+}
+
+sub preconditionFailMsg
+{
+    return __('Advestised routes for clients over a TUN interface are not supported');
+}
+
 sub networks
 {
     my ($self) = @_;
+    # for now is not supported for TUN tunnels
+    if ($self->_tun()) {
+        return [];
+    }
+
     return $self->SUPER::networks(1);
+}
+
+sub _tun
+{
+    my ($self) = @_;
+    my $configuration = $self->parentRow()->subModel('configuration');
+    return $configuration->value('tunInterface');
 }
 
 
