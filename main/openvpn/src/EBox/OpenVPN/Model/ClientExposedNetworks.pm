@@ -76,6 +76,14 @@ sub preconditionFailMsg
     return __('Advestised routes for clients over a TUN interface are not supported');
 }
 
+# Method: networks
+#
+#   overrided to not use advertised networks for clients over TUN
+#
+# Overrides:
+#
+#     <EBox::OpenVPN::Model::ExposedNetworksBase::networks>
+#
 sub networks
 {
     my ($self) = @_;

@@ -67,7 +67,14 @@ sub _help
               openpar => '<p>', closepar => '</p>');
 }
 
-# overloaded to exclude own VPN network
+# Method: networks
+#
+# overrided to exclude own VPN network
+#
+# Overrides:
+#
+#     <EBox::OpenVPN::Model::ExposedNetworksBase::networks>
+#
 sub networksDisabledForNow
 {
     my ($self) = @_;
