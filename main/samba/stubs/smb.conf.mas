@@ -12,6 +12,7 @@
     $profilesPath
     $sysvolPath
     $print => 0
+    $disableFullAudit => 0
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -92,7 +93,10 @@ use EBox::Samba;
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
-% my $objects = 'acl_xattr full_audit';
+% my $objects = 'acl_xattr';
+% unless ($disableFullAudit) {
+%   $objects .= ' full_audit';
+% }
 % if ($av) {
 %   $objects .= ' scannedonly';
 % }
@@ -126,7 +130,10 @@ use EBox::Samba;
     force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
-% my $objects = 'acl_xattr full_audit';
+% my $objects = 'acl_xattr';
+% unless ($disableFullAudit) {
+%   $objects .= ' full_audit';
+% }
 % if ($av) {
 %   $objects .= ' scannedonly';
 % }

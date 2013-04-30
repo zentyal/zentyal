@@ -673,6 +673,7 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
+    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
