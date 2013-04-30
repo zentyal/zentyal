@@ -1,6 +1,7 @@
 <%args>
     $tunnel
 </%args>
+name l2tp
 ipcp-accept-local
 ipcp-accept-remote
 %   if ($tunnel->{'primary_ns'}) {

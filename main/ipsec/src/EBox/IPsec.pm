@@ -27,8 +27,11 @@ use EBox::IPsec::FirewallHelper;
 use EBox::IPsec::LogHelper;
 use EBox::NetWrappers qw();
 
+use File::Slurp;
+
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
 use constant IPSECSECRETSFILE => '/etc/ipsec.secrets';
+use constant CHAPSECRETSFILE => '/etc/ppp/chap-secrets';
 
 # Constructor: _create
 #
@@ -70,6 +73,13 @@ sub usedFiles
         'module' => 'ipsec',
         'reason' => __('To configure OpenSwan IPsec passwords.')
     });
+
+    push (@conf_files, {
+        'file' => CHAPSECRETSFILE,
+        'module' => 'ipsec',
+        'reason' => __('To configure L2TP/IPSec users when not using Active Directory validation.')
+    });
+
 
     return \@conf_files;
 
@@ -191,6 +201,29 @@ sub _setIPsecSecrets
                             { 'uid' => 'root', 'gid' => 'root', mode => '600' });
 }
 
+sub _setXL2TPDUsers
+{
+    my ($self) = @_;
+
+    my $model = $self->model('Users');
+
+    my $l2tpConf = '';
+    foreach my $user (@{$model->getUsers()}) {
+        $user->{ipaddr} = '*' unless $user->{ipaddr};
+        $l2tpConf .= "$user->{user} l2tp $user->{passwd} $user->{ipaddr}\n";
+    }
+    my $file = read_file(CHAPSECRETSFILE);
+    my $mark = '# L2TP_CONFIG - managed by Zentyal. Dont edit this section #';
+    my $endMark = '# END of L2TP_CONFIG section #';
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$l2tpConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $l2tpConf . $endMark . "\n";
+    }
+
+    write_file(CHAPSECRETSFILE, $file);
+}
+
 sub _setXL2TPDConf
 {
     my ($self) = @_;
@@ -201,6 +234,8 @@ sub _setXL2TPDConf
         "rm -rf /etc/ppp/zentyal-options.xl2tpd.*",
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
+
+    $self->_setXL2TPDUsers();
 
     my $permissions = {
         uid => 'root',

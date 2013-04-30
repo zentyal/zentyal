@@ -10,8 +10,10 @@ models:
     - ConfPhase1
     - ConfPhase2
     - RangeTable
+    - Users
 
 composites:
     IPsecConf: [SettingsIPsec, Auth]
-    IPsecL2TPConf: [SettingsL2TP, RangeTable]
+    IPsecL2TPConf: [GeneralL2TPSettings, Users]
+    GeneralL2TPSettings: [SettingsL2TP, RangeTable]
     Auth: [ConfPhase1, ConfPhase2]
