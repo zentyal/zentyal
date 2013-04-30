@@ -62,8 +62,8 @@ sub validateTypedRow
         }
 
         my $network  = $global->modInstance('network');
-        my $dhcp;
-        if ($global->modExists('dhcp')) {
+        my $dhcp = undef;
+        if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
             $dhcp = $global->modInstance('dhcp');
         }
 
@@ -92,7 +92,7 @@ sub validateTypedRow
                 $localNetOverlaps = 1;
             }
 
-            if ($global->modExists('dhcp')) {
+            if ($dhcp) {
 
                 next if ($network->ifaceMethod($interface) ne 'static');
 

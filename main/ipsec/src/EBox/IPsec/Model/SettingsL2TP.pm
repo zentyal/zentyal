@@ -109,8 +109,8 @@ sub validateTypedRow
     $self->SUPER::validateTypedRow(@_);
 
     my $network = $global->modInstance('network');
-    my $dhcp;
-    if ($global->modExists('dhcp')) {
+    my $dhcp = undef;
+    if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         $dhcp = $global->modInstance('dhcp');
     }
 
@@ -132,7 +132,7 @@ sub validateTypedRow
                 );
             }
 
-            if ($global->modExists('dhcp')) {
+            if ($dhcp) {
                 next if ($network->ifaceMethod($interface) ne 'static');
 
                 my $fixedAddresses = $dhcp->fixedAddresses($interface, 0);
@@ -222,7 +222,7 @@ sub _table
     # DNS
     my @primaryNSSubtypes = ();
 
-    if ($global->modExists('dns')) {
+    if ($global->modExists('dns') and $global->modInstance('dns')->isEnabled()) {
         push (@primaryNSSubtypes,
             new EBox::Types::Union::Text(
                 fieldName => 'zentyal_ns',
@@ -250,7 +250,7 @@ sub _table
         )
     );
 
-    if ($global->modExists('samba')) {
+    if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
         push (@winsSubtypes,
             new EBox::Types::Union::Text(
                 fieldName => 'zentyal_wins',
