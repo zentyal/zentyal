@@ -126,7 +126,8 @@ sub _table
             printableName => __('Users Source'),
             editable => 1,
             subtypes => \@usersSourceSubtypes,
-            help => __('XXX'),
+            help => __('Selects the provider for the users allowed to use the VPN. To use the existing user accounts' .
+                       ' you will need to activate "File sharing" module to enable the Active Directory'),
         )
     );
 
@@ -137,7 +138,6 @@ sub _table
         tableDescription => \@fields,
         class => 'dataTable',
         modelDomain => 'IPsec',
-        help => __('XXXX.'),
     };
 
     return $dataTable;
