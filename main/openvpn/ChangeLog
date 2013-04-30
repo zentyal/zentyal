@@ -1,6 +1,6 @@
 HEAD
 	+ Added advertised routes option to the clients
-	+ Added option that allow server tunnels to reject any route from
+	+ Added option that allows server tunnels to reject any route from
 	  the clients
 	+ Client to client connection option is always enforced for tunnel servers
 3.0.5
