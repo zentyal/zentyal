@@ -1,4 +1,6 @@
 HEAD
+	+ Allow to set "disable_fullaudit" config key in /etc/zentyal/samba.conf
+	  to fully disable recording of samba VFS operations in the system log
 	+ Workaround with retries for the chown __USERS__ bug
 	+ Hide sync with cloud options in shares list if remoteservices
 	  is not installed
