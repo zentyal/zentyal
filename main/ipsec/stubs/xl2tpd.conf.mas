@@ -1,5 +1,6 @@
 <%args>
     $tunnel
+    $chap
 </%args>
 
 [global]
@@ -8,7 +9,11 @@ listen-addr = <% $tunnel->{left_ipaddr} %>
 [lns default]
 ip range = <% $tunnel->{ip_range} %>
 local ip = <% $tunnel->{local_ip} %>
+%   if ($chap) {
 require chap = yes
+%   } else {
+refuse chap = yes
+%   }
 refuse pap = yes
 require authentication = yes
 ppp debug = yes

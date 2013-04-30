@@ -205,7 +205,7 @@ sub _setXL2TPDUsers
 {
     my ($self) = @_;
 
-    my $model = $self->model('Users');
+    my $model = $self->model('UsersFile');
 
     my $l2tpConf = '';
     foreach my $user (@{$model->getUsers()}) {
@@ -227,6 +227,7 @@ sub _setXL2TPDUsers
 sub _setXL2TPDConf
 {
     my ($self) = @_;
+    my $global = $self->global();
 
     # Clean all upstart and configuration files, the current ones will be regenerated
     EBox::Sudo::silentRoot(
@@ -235,7 +236,16 @@ sub _setXL2TPDConf
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
 
-    $self->_setXL2TPDUsers();
+    my $workgroup = undef;
+    my $users = $self->model('Users');
+    my $validationGroup = $users->validationGroup();
+
+    if ($validationGroup) {
+        my $samba = $global->modInstance('samba');
+        $workgroup = $samba->workgroup();
+    } else {
+        $self->_setXL2TPDUsers();
+    }
 
     my $permissions = {
         uid => 'root',
@@ -246,6 +256,13 @@ sub _setXL2TPDConf
     foreach my $tunnel (@{ $self->tunnels() }) {
         my @params = ();
         if ($tunnel->{'type'} eq 'l2tp') {
+            if ($validationGroup) {
+                push (@params, group => "$workgroup\\\\$validationGroup");
+                push (@params, chap => 0);
+            } else {
+                push (@params, group => undef);
+                push (@params, chap => 1);
+            }
             push (@params, tunnel => $tunnel);
 
             $self->writeConfFile(

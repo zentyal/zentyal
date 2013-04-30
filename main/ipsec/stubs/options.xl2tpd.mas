@@ -1,5 +1,6 @@
 <%args>
     $tunnel
+    $group
 </%args>
 name l2tp
 ipcp-accept-local
@@ -24,4 +25,8 @@ debug
 lock
 proxyarp
 connect-delay 5000
-
+%   if ($group) {
+require-mschap-v2
+plugin winbind.so
+ntlm_auth-helper '/usr/bin/ntlm_auth --helper-protocol=ntlm-server-1 --require-membership-of="<% $group %>"'
+%   }

@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,47 +13,81 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 package EBox::IPsec::Model::Users;
-use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
 
 use EBox::Gettext;
-use EBox::Types::Text;
-use EBox::Types::IPAddr;
-use EBox::Types::Password;
 
-# Method: getUsers
+use EBox::Types::Select;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
+
+# Method: validateTypedRow
 #
-#      Returns the enabled L2TP/IPSec users
+#      Check the row to add or update if contains a valid configuration.
 #
-# Returns:
+# Overrides:
 #
-#      array - to ref hash clients
+#      <EBox::Model::DataTable::validateTypedRow>
 #
-sub getUsers
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the configuration is not valid.
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+    my $global = $self->global();
+
+}
+
+# Method: validationGroup
+#
+# Return the Active directory group to use to validate L2TP/IPSec VPN users or undef if the validation is not using AD.
+#
+sub validationGroup
+{
+    my ($self) = @_;
+    my $global = $self->global();
+
+    return undef unless ($global->modExists('samba') and $global->modInstance('samba')->isEnabled());
+
+    my $usersSource = $self->row()->elementByName('usersSource');
+    if ($usersSource->selectedType() eq 'group') {
+        return $usersSource->subtype()->value();
+    } else {
+        return undef;
+    }
+}
+
+# Method: _populateGroups
+#
+# List all available groups in the system.
+#
+sub _populateGroups
 {
     my ($self) = @_;
 
-    my @users = ();
+    my $userMod = EBox::Global->modInstance('users');
+    return [] unless ($userMod->isEnabled());
 
-    foreach my $id (@{$self->enabledRows()}) {
+    my @groups;
+    push (@groups, {
+        value => '__USERS__',
+        printableValue => __('All users')
+    });
 
-        my $row = $self->row($id);
-
-        my %user = ();
-
-        $user{'user'} = $row->valueByName('user');
-        $user{'passwd'} = $row->valueByName('passwd');
-        $user{'ipaddr'} = $row->printableValueByName('ipaddr');
-        push (@users, \%user);
+    foreach my $group (@{$userMod->groups()}) {
+        my $name = $group->name();
+        push (@groups, {
+            value => $name,
+            printableValue => $name
+        });
     }
-
-    return \@users;
+    return \@groups;
 }
-
-# TODO: Validate the static IP assignation. It should be part of one of the internal networks and it should not be
-# already assigned to any pool of ips to be used by DHCP or xl2tpd itself.
 
 # Method: _table
 #
@@ -63,39 +97,47 @@ sub getUsers
 #
 sub _table
 {
+    my ($self) = @_;
+    my $global = $self->global();
+
+    my @usersSourceSubtypes = ();
+    if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
+        push (@usersSourceSubtypes,
+            new EBox::Types::Select(
+                fieldName     => 'group',
+                printableName => __('Users Group'),
+                populate      => \&_populateGroups,
+                editable      => 1,
+                optional      => 0,
+                disableCache  => 1,
+            )
+        );
+    }
+    push (@usersSourceSubtypes,
+        new EBox::Types::Union::Text(
+            fieldName => 'usersFile',
+            printableName => __('Manual list of users'),
+        )
+    );
+
     my @fields = (
-        new EBox::Types::Text(
-            fieldName => 'user',
-            printableName => __('User'),
-            size => 12,
-            unique => 1,
+        new EBox::Types::Union(
+            fieldName  => 'usersSource',
+            printableName => __('Users Source'),
             editable => 1,
-        ),
-        new EBox::Types::Password(
-            fieldName => 'passwd',
-            printableName => __('Password'),
-            editable => 1,
-        ),
-        new EBox::Types::IPAddr(
-            fieldName => 'ipaddr',
-            printableName => __('IP Address'),
-            editable => 1,
-            optional => 1,
-            help => __('IP address assigned to this user within the VPN network.'),
-        ),
+            subtypes => \@usersSourceSubtypes,
+            help => __('XXX'),
+        )
     );
 
     my $dataTable = {
         tableName => 'Users',
-        printableTableName => __('L2TP/IPSec Users'),
-        printableRowName => __('user'),
+        printableTableName => __('L2TP/IPSec users source'),
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
         tableDescription => \@fields,
         class => 'dataTable',
         modelDomain => 'IPsec',
-        enableProperty => 1,
-        defaultEnabledValue => 1,
-        help => __('Users allowed to connect using the L2TP/IPSec VPN. This list is independant of users defined on Users and Groups.'),
+        help => __('XXXX.'),
     };
 
     return $dataTable;
