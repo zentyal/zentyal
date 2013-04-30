@@ -58,7 +58,7 @@ EBox::debug("Asking for user list");
 my $res = $rest->GET('/v1/users/users/');
 
 # local and remote user list
-my $lusers = $users->users();
+my $lusers = $users->realUsers(1);
 my $rusers = $res->data();
 
 my $rusernames;

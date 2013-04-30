@@ -1,4 +1,5 @@
 HEAD
+	+ Do not sync internal users with Zentyal Cloud
 	+ Check for already existent service principals before create them.
 	  Required because squid and zarafa share the HTTP SPN
 3.0.17
