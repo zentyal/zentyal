@@ -11,7 +11,7 @@ use EBox::Gettext;
 </%init>
 
 % if ($askPermission) {
-
+<script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js?load=effects">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>

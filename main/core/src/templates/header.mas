@@ -10,6 +10,7 @@ $favicon => '/favicon.ico'
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="<% $favicon %>" />
+<script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
