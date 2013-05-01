@@ -1,9 +1,13 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+"use strict";
+jQuery.noConflict();
 
 var menuShown = '';
 var menuShownAnchor = null;
 
+//MGR
 function showMenu(name, menuAnchor){
+  menuAnchor = jQuery(menuAnchor);
   var open = false;
   if (menuShown === name) {
       menuShown = '';
@@ -11,7 +15,7 @@ function showMenu(name, menuAnchor){
       _closeLeftMenu(name, menuAnchor);
 
   } else if (menuShown === '') {
-    if (menuAnchor.hasClassName('despleg')) {
+    if (menuAnchor.hasClass('despleg')) {
       _closeLeftMenu(name, menuAnchor);
     } else {
       open = true;
@@ -28,35 +32,43 @@ function showMenu(name, menuAnchor){
   }
 }
 
+//MGR
 function _openLeftMenu(name, menuAnchor)
 {
-  $$('.' + name).each(function(e) {
-                                  e.style.display = 'inline';
+    jQuery('.' + name).each(function(index, e) {
+            e.style.display = 'inline';
                             }
                       );
-  menuAnchor.addClassName('despleg');
-  menuAnchor.removeClassName('navarrow');
+    menuAnchor.addClass('despleg');
+    menuAnchor.removeClass('navarrow');
 }
 
-
+// MGR
 function _closeLeftMenu(name, menuAnchor)
 {
-  $$('.' + name).each(function(e) {
-                                     e.style.display = 'none';
-                                 }
-                     );
-  menuAnchor.addClassName('navarrow');
-  menuAnchor.removeClassName('despleg');
+  jQuery('.' + name).each(function(index, e) {
+      e.style.display = 'none';
+                             }
+                    );
+  menuAnchor.addClass('navarrow');
+  menuAnchor.removeClass('despleg');
 }
 
+
 /*
- */
-function stripe(theclass,evenClass,oddClass) {
-    $$('.' + theclass + ' tbody tr:nth-child(even)').each(function(tr) {
+Function: stripe
+
+  Applies a style clas to even childs and another to odd childs
+
+  For example, it is usde to give distinct colort to even and odd rows in tables
+*/
+// MGR
+function stripe(theclass, evenClass, oddClass) {
+    jQuery('.' + theclass + ' tbody tr:nth-child(even)').each(function(index, tr) {
         tr.addClassName(evenClass);
     });
-    $$('.' + theclass + ' tbody tr:nth-child(odd)').each(function(tr) {
-        tr.addClassName(oddClass);
+    jQuery('.' + theclass + ' tbody tr:nth-child(odd)').each(function(index, tr) {
+        jQuery(tr).addClassName(oddClass);
     });
 }
 
@@ -78,7 +90,8 @@ Returns:
 */
 function selectDefault (selectId) {
 
-  if ( $(selectId).selectedIndex == 0 ) {
+//  if ( $(selectId).selectedIndex == 0 ) {
+  if ( jQuery('#' + selectId).selectedIndex == 0 ) {
     return true;
   }
   else {
@@ -99,7 +112,7 @@ Parameters:
 */
 function hide(elementId)
 {
-  Element.addClassName(elementId, 'hidden');
+    jQuery('#' + elementId).addClass('hidden');
 }
 
 /*
@@ -114,20 +127,21 @@ Parameters:
 */
 function show(elementId)
 {
-  Element.removeClassName(elementId, 'hidden');
+  jQuery('#' + elementId).removeClass('hidden');
 }
 
+// XXX used only in  toggleWithToggler ?
 function toggleClass(name, class1, class2)
 {
-    var element = $(name);
-    if (element.hasClassName(class1)) {
-        element.removeClassName(class1);
-        element.addClassName(class2);
-    } else if (element.hasClassName(class2)) {
-        element.removeClassName(class2);
-        element.addClassName(class1);
+    var element = jQuery(name);
+    if (element.hasClass(class1)) {
+        element.removeClass(class1);
+        element.addClass(class2);
+    } else if (element.hasClass(class2)) {
+        element.removeClass(class2);
+        element.addClass(class1);
     } else {
-        element.addClassName(class1);
+        element.addClass(class1);
     }
 }
 
@@ -135,5 +149,6 @@ function toggleWithToggler(name)
 {
     var togglername = name + '_toggler';
     toggleClass(togglername, 'minBox', 'maxBox');
+    // look for change this effect
     Effect.toggle(name, 'blind', {duration: 0.5});
 }
