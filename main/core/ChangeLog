@@ -1,4 +1,6 @@
 HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on mysql-server metapackage instead of mysql-server-5.5
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
 	+ Print correctly UTF8 characters from configuration backup description
