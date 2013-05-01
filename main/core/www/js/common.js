@@ -58,9 +58,15 @@ function _closeLeftMenu(name, menuAnchor)
 /*
 Function: stripe
 
-  Applies a style clas to even childs and another to odd childs
+  Applies a styles class to tr elements childs of a CSS class; the class applied will be different
+  for odd and even elements
 
   For example, it is usde to give distinct colort to even and odd rows in tables
+
+  Parameters:
+     theclass - css class which will vontain a tbody and tr to apply style
+     evenClass - css class to apply to even tr
+     oddClass - css class to apply to odd tr
 */
 // MGR
 function stripe(theclass, evenClass, oddClass) {
