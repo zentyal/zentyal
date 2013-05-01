@@ -325,7 +325,6 @@ sub firstInstall
     return 1;
 }
 
-
 sub configureModule
 {
     my ($self) = @_;
@@ -333,6 +332,7 @@ sub configureModule
     try {
         $self->setConfigured(1);
         #$self->updateModuleDigests($modName);
+        $self->_overrideDaemons();
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
@@ -956,6 +956,43 @@ sub disableApparmorProfile
             EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
     }
+}
+
+# Method: _daemonsToDisable
+#
+#   This is like _daemons but only to specify those init scripts
+#   that need to be stopped and disabled when enabling the module.
+#
+sub _daemonsToDisable
+{
+    return [];
+}
+
+sub _overrideDaemons
+{
+    my ($self) = @_;
+
+    my @daemons = @{$self->_daemonsToDisable()};
+
+    my @cmds;
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        push (@cmds, "service $name stop");
+    }
+
+    push (@daemons, @{$self->_daemons()});
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        if ($daemon->{type} eq 'init.d') {
+            push (@cmds, "update-rc.d $name disable");
+        } else {
+            push (@cmds, "echo manual > /etc/init/$name.override");
+        }
+    }
+
+    EBox::Sudo::rootWithoutException(@cmds);
 }
 
 1;

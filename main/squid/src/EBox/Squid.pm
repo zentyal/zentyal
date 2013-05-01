@@ -1392,8 +1392,7 @@ sub menu
 
 #  Method: _daemons
 #
-#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
-#
+#   Overrides <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
@@ -1408,6 +1407,21 @@ sub _daemons
         {
             name => 'squid3'
         }
+    ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    # XXX: although squid3 is already listed in _daemons, we add it also here
+    #      to force its stop during enabled (it was done in the initial-setup script)
+    #      maybe we can double check if that's really necessary
+    return [
+        { name => 'dansguardian', type => 'init.d' },
+        { name => 'squid3', type => 'upstart' }
     ];
 }
 

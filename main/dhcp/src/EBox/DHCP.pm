@@ -207,17 +207,31 @@ sub actions
 #
 # Overrides:
 #
-#   <EBox::Module::Service::daemons>
+#   <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
     my ($self) = @_;
-    my $preSub = sub { return $self->_dhcpDaemonNeeded()  };
+
+    my $preSub = sub { return $self->_dhcpDaemonNeeded() };
+
     return [
-        { 'name' => DHCP_SERVICE,
-          'precondition' => $preSub
-         }
-       ];
+        {
+            'name' => DHCP_SERVICE,
+            'precondition' => $preSub
+        }
+    ];
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'isc-dhcp-server', 'type' => 'init.d' } ];
 }
 
 sub _dhcpDaemonNeeded

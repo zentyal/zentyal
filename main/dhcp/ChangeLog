@@ -1,3 +1,5 @@
+HEAD
+	+ Implemented _daemonsToDisable()
 3.0.3
 	+ Allow access to /etc/ldap/ldap.conf on apparmor profile
 	+ Fix generation of reverse zones, the host part of the addresses

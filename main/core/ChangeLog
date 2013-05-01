@@ -1,4 +1,6 @@
 HEAD
+	+ Daemons are now disabled when configuring a module, so Zentyal can
+	  manage them directly instead of being autostarted by the system
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
 	+ Print correctly UTF8 characters from configuration backup description
