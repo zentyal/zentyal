@@ -14,8 +14,8 @@ source=samba-$version.tar.gz
 
 [ -f $source ] || wget ftp://ftp.samba.org/pub/samba/$source
 
-dir=samba4_$version
-if [ -d $dir]
+dir=samba4-$version
+if [ -d $dir ]
 then
     cd $dir
 else
@@ -24,6 +24,6 @@ else
     git init
 fi
 
-./configure.developer --prefix=/opt/samba4 --sysconfdir=/etc/samba --bundled-libraries=ALL --enable-zavs
+./configure.developer --prefix=/opt/samba4 --sysconfdir=/etc/samba --bundled-libraries=ALL #--enable-zavs
 make
 make install
