@@ -81,11 +81,10 @@ sub validateTypedRow
                                                 ));
         }
         # Check the range is within the available range
-        my $dhcp = $self->parentModule();
         my $net  = EBox::Global->modInstance('network');
         my $interface = $self->parentRow()->valueByName('iface');
-        my $availableRange = new Net::IP($dhcp->initRange($interface) . '-'
-                                         . $dhcp->endRange($interface));
+        my $availableRange = new Net::IP($net->netInitRange($interface) . '-'
+                                         . $net->netEndRange($interface));
         unless ( $range->overlaps($availableRange) == $IP_A_IN_B_OVERLAP ) {
             throw EBox::Exceptions::External(__x('Range {from}-{to} is not in '
                                                  . 'network {net}',
