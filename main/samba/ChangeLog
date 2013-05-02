@@ -1,3 +1,5 @@
+HEAD
+	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
 3.0.16
 	+ Workaround with retries for the chown __USERS__ bug
 	+ Hide sync with cloud options in shares list if remoteservices
