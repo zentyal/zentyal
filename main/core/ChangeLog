@@ -1,3 +1,6 @@
+HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on mysql-server metapackage instead of mysql-server-5.5
 3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo

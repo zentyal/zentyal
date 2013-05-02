@@ -1,3 +1,5 @@
+HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.5
 	+ Fixed spam/ham mail account check to not fail if the user does
 	  not exists. This avoids a dashboard error.
