@@ -59,6 +59,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 }
 </%init>
+<script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
