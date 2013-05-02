@@ -23,10 +23,10 @@ function _applyHelpStyles(hideHelpDisplay, showHelpDisplay, helpElementsDisplay)
 }
 
 function initHelp() {
-    if(jQuery('.help').len == 0) {
-        jQuery('helpbutton').hide(0);
+    if(jQuery('.help').length == 0) {
+        jQuery('#helpbutton').hide(0);
     } else {
-        jQuery('helpbutton').show(0);
+        jQuery('#helpbutton').show(0);
         if (helpShown) {
             showHelp();
         } else {
