@@ -5,7 +5,15 @@ jQuery.noConflict();
 var menuShown = '';
 var menuShownAnchor = null;
 
-//MGR
+/*
+function: showMenu
+
+Open or closes the relevan section of the left menu
+
+Parameters:
+   name - name of the selected section
+   menuAnchor - DOM object of the clicked menu anchor
+*/
 function showMenu(name, menuAnchor){
   menuAnchor = jQuery(menuAnchor);
   var open = false;
@@ -32,7 +40,6 @@ function showMenu(name, menuAnchor){
   }
 }
 
-//MGR
 function _openLeftMenu(name, menuAnchor)
 {
     jQuery('.' + name).each(function(index, e) {
@@ -43,7 +50,6 @@ function _openLeftMenu(name, menuAnchor)
     menuAnchor.removeClass('navarrow');
 }
 
-// MGR
 function _closeLeftMenu(name, menuAnchor)
 {
   jQuery('.' + name).each(function(index, e) {
@@ -53,7 +59,6 @@ function _closeLeftMenu(name, menuAnchor)
   menuAnchor.addClass('navarrow');
   menuAnchor.removeClass('despleg');
 }
-
 
 /*
 Function: stripe
@@ -68,13 +73,12 @@ Function: stripe
      evenClass - css class to apply to even tr
      oddClass - css class to apply to odd tr
 */
-// MGR
 function stripe(theclass, evenClass, oddClass) {
     jQuery('.' + theclass + ' tbody tr:nth-child(even)').each(function(index, tr) {
         tr.addClassName(evenClass);
     });
     jQuery('.' + theclass + ' tbody tr:nth-child(odd)').each(function(index, tr) {
-        jQuery(tr).addClassName(oddClass);
+        tr.addClassName(oddClass);
     });
 }
 
@@ -123,6 +127,7 @@ function toggleClass(name, class1, class2)
     }
 }
 
+// XXX used only in the not-tottaly implemented data table sections feature
 function toggleWithToggler(name)
 {
     var togglername = name + '_toggler';
