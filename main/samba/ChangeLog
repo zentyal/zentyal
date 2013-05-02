@@ -1,4 +1,5 @@
 HEAD
+	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
 	+ Allow to set "disable_fullaudit" config key in /etc/zentyal/samba.conf
 	  to fully disable recording of samba VFS operations in the system log
 	+ Added Pre-Depends on samba4 to avoid problems with upgrades
