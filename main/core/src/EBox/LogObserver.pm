@@ -101,7 +101,7 @@ sub enableLog
 #            The drfault is a column called count which autoincrements one unit
 #            each time
 #
-#       - filter: refrence to a method used to filter out rows, the method will
+#       - filter: reference to a method used to filter out rows, the method will
 #                 be supplied to a reference to a hash with the row values and
 #                 if it returns false the row would be excluded
 #       - quote: hash ref which signals which columns should be quoted
