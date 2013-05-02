@@ -128,23 +128,20 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-
-   if (not $version) {
-       # Create default rules only if installing the first time
+    if (not $version) {
+        # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
-        $self->model('AccessRules')->add(
-            source => { any => undef },
-            policy => { allow => undef },
-        );
-   } else {
-       if (EBox::Util::Version::compare($version, '3.0.3') < 0) {
-           eval "use EBox::Squid::Migration";
-           EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
-       }
+        $self->model('AccessRules')->add(source => { any => undef },
+                                         policy => { allow => undef });
+    } else {
+        if (EBox::Util::Version::compare($version, '3.0.3') < 0) {
+            eval "use EBox::Squid::Migration";
+            EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
+        }
 
-       if (EBox::Util::Version::compare($version, '3.0.9') < 0) {
-           $self->kerberosCreatePrincipals();
-       }
+        if (EBox::Util::Version::compare($version, '3.0.9') < 0) {
+            $self->kerberosCreatePrincipals() if ($self->configured());
+        }
     }
 }
 
