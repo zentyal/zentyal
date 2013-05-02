@@ -1,4 +1,4 @@
-HEAD
+3.0.3
 	+ Change the kerberos service from zarafa to http. Zarafa and Squid must
 	  share the service principal.
 	+ Regenerate Kerberos keytab on LDAP reprovision
