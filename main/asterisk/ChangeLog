@@ -1,3 +1,5 @@
+HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.2
 	+ Added AstMD5secret LDAP attribute to ACL
 	+ Fixed LDAP reprovision

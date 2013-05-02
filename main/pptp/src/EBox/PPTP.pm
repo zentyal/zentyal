@@ -197,22 +197,7 @@ sub _setUsers
 {
     my ($self) = @_;
 
-    my @params = ();
-    my $pppSecrets = {};
-
-    my $network = EBox::Global->modInstance('network');
-
-    foreach my $iface (@{$network->pppIfaces()}) {
-        my $user = $network->ifacePPPUser($iface);
-        my $pass = $network->ifacePPPPass($iface);
-        $pppSecrets->{$user} = $pass;
-    }
-
-    push (@params, pppoe => $pppSecrets);
-
     my $model = $self->model('Users');
-
-    push (@params, users => $model->getUsers());
 
     my $pptpConf = '';
     foreach my $user (@{$model->getUsers()}) {
