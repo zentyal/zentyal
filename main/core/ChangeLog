@@ -1,4 +1,4 @@
-HEAD
+3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
 	+ Print correctly UTF8 characters from configuration backup description
