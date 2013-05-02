@@ -1,4 +1,12 @@
-HEAD
+3.0.18
+	+ Check for already existent service principals before create them.
+	  Required because squid and zarafa share the HTTP SPN
+3.0.17
+	+ Migration to remove leftover need_reprovision key in redis ro
+	+ Retrieve global instance correctly in UsersSync
+3.0.16
+	+ Assure that we don't have a phantom need_reprovision key in
+	  read-only tree
 	+ Check for maximum number of users depending on the edition
 	+ More frequent polling in EBox::Ldap::safeConnect() and
 	  more explicit error when it fails

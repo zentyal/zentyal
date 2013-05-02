@@ -12,21 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Printers::Model::Printers;
-
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::Printers::Model::Printers;
+use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::View::Customizer;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use Net::CUPS;
-
-# Group: Public methods
 
 # Constructor: new
 #
@@ -41,10 +37,62 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-
     bless ($self, $class);
 
     return $self;
+}
+
+sub _table
+{
+    my ($self) = @_;
+
+    my @tableDesc = (
+        new EBox::Types::Text(
+            fieldName => 'printer',
+            printableName => __('Printer name'),
+            unique => 0,
+            editable => 0
+        ),
+        new EBox::Types::Text(
+            fieldName => 'description',
+            printableName => __('Description'),
+            editable => 0,
+            optional => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName => 'location',
+            printableName => __('Location'),
+            editable => 0,
+            optional => 1,
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'guest',
+            printableName => __('Guest access'),
+            editable      => 1,
+            defaultValue  => 0,
+            help          => __('This printer will not require authentication.'),
+        ),
+        new EBox::Types::HasMany(
+            fieldName     => 'access',
+            printableName => __('Access control'),
+            foreignModel => 'PrinterPermissions',
+            view => '/Printers/View/PrinterPermissions'
+        ),
+    );
+
+    my $dataForm =
+    {
+        tableName          => 'Printers',
+        printableTableName => __('Printer permissions'),
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableDesc,
+        modelDomain        => 'Printers',
+        sortedBy           => 'printer',
+        printableRowName   => __('printer'),
+        withoutActions     => 1,
+        help               => __('Here you can define the access control list for your printers.'),
+    };
+    return $dataForm;
 }
 
 # Method: viewCustomizer
@@ -76,20 +124,44 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $cupsPrinters = $self->cupsPrinters();
-    my %cupsPrinters = map { $_->getName() => $_ } @{$cupsPrinters};
-    my %currentPrinters =
-        map { $self->row($_)->valueByName('printer') => 1 } @{$currentIds};
+    my %cupsPrinters = map {
+        my $printer = $_;
+        my $name = $printer->getName();
+        utf8::decode($name);
+        ($name => $printer)
+    } @{$cupsPrinters};
+    my %currentPrinters = map {
+        my $id = $_;
+        $self->row($id)->valueByName('printer') => $id
+    } @{$currentIds};
 
     my $modified = 0;
 
     foreach my $printerName (keys %cupsPrinters) {
-        next if exists $currentPrinters{$printerName};
         my $p = $cupsPrinters{$printerName};
         my $desc = $p->getDescription();
+        utf8::decode($desc);
         my $loc = $p->getLocation();
-        $self->add(printer => $printerName, description => $desc,
-                   location => $loc, guest => 0);
-        $modified = 1;
+        utf8::decode($loc);
+
+        my $existentId = exists $currentPrinters{$printerName} ? $currentPrinters{$printerName} : undef;
+        if ($existentId) {
+            my $row = $self->row($existentId);
+            if (($row->valueByName('description') ne $desc) or
+                 ($row->valueByName('location') ne $loc)
+                ) {
+                $row->elementByName('description')->setValue($desc);
+                $row->elementByName('location')->setValue($loc);
+                $row->store();
+                $modified = 1;
+            }
+        } else {
+            $self->add(printer => $printerName, description => $desc,
+                       location => $loc, guest => 0);
+            $modified = 1;
+        }
+
+
     }
 
     foreach my $id (@{$currentIds}) {
@@ -160,61 +232,6 @@ sub preconditionFailMsg
                   "our samba4 package, then change the samba config key " .
                   "'samba_fs' to 's3fs' in /etc/zentyal/samba.conf");
     }
-}
-
-# Group: Protected methods
-
-sub _table
-{
-    my ($self) = @_;
-
-    my @tableDesc = (
-        new EBox::Types::Text(
-            fieldName => 'printer',
-            printableName => __('Printer name'),
-            unique => 0,
-            editable => 0
-        ),
-        new EBox::Types::Text(
-            fieldName => 'description',
-            printableName => __('Description'),
-            editable => 0,
-            optional => 1,
-        ),
-        new EBox::Types::Text(
-            fieldName => 'location',
-            printableName => __('Location'),
-            editable => 0,
-            optional => 1,
-        ),
-        new EBox::Types::Boolean(
-            fieldName     => 'guest',
-            printableName => __('Guest access'),
-            editable      => 1,
-            defaultValue  => 0,
-            help          => __('This printer will not require authentication.'),
-        ),
-        new EBox::Types::HasMany(
-            fieldName     => 'access',
-            printableName => __('Access control'),
-            foreignModel => 'PrinterPermissions',
-            view => '/Printers/View/PrinterPermissions'
-        ),
-    );
-
-    my $dataForm =
-    {
-        tableName          => 'Printers',
-        printableTableName => __('Printer permissions'),
-        defaultActions     => [ 'editField', 'changeView' ],
-        tableDescription   => \@tableDesc,
-        modelDomain        => 'Printers',
-        sortedBy           => 'printer',
-        printableRowName   => __('printer'),
-        withoutActions     => 1,
-        help               => __('Here you can define the access control list for your printers.'),
-    };
-    return $dataForm;
 }
 
 sub _configureMessage

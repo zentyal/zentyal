@@ -470,6 +470,7 @@ sub backupDetailsFromArchive
         }
 
         my $value = <$FH>;
+        utf8::decode($value);
         $backupDetails->{$detail} = $value;
 
         close $FH;
@@ -481,7 +482,6 @@ sub backupDetailsFromArchive
     EBox::Sudo::silentRoot("rm -rf '$tempDir'");
     return $backupDetails;
 }
-
 
 sub _printableSize
 {
@@ -561,7 +561,6 @@ sub deleteBackup
     }
 }
 
-
 # Method: listBackups
 #
 #       Returns a list with the availible backups stored in the system.
@@ -633,7 +632,6 @@ sub _ensureBackupdirExistence
             ("Could not create backupdir.");
     }
 }
-
 
 # Method: prepareMakeBackup
 #

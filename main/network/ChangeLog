@@ -1,6 +1,7 @@
 HEAD
 	+ Added netInitRange and netEndRange methods from the dhcp module to be
 	  shared between modules.
+3.0.6
 	+ PPPoE set iface script is more robust against locks
 	+ Adapted to use of ifaceByAddress, removed IPAddressExists
 	+ Don't allow to use a local address as gateway address
