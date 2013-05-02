@@ -16,8 +16,7 @@
 use strict;
 use warnings;
 
-#use Test::More tests => 13;
-use Test::More skip_all => 'FIXME in Jenkins';
+use Test::More tests => 13;
 use Test::Output;
 use Test::Exception;
 
