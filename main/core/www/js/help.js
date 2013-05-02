@@ -24,15 +24,9 @@ function _applyHelpStyles(hideHelpDisplay, showHelpDisplay, helpElementsDisplay)
 
 function initHelp() {
     if(jQuery('.help').len == 0) {
-        var helpbutton = jQuery('helpbutton');
-        if (helpbutton) {
-            helpbutton.hide(0);
-        }
+        jQuery('helpbutton').hide(0);
     } else {
-        var helpbutton = jQuery('helpbutton');
-        if (helpbutton) {
-            helpbutton.show(0);
-        }
+        jQuery('helpbutton').show(0);
         if (helpShown) {
             showHelp();
         } else {
