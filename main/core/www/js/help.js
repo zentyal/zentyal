@@ -1,35 +1,37 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+"use strict";
+jQuery.noConflict();
 
-helpShown = false;
+window.helpShown = false;
 
 function showHelp() {
     helpShown = true;
-    $("hidehelp").style.display = "inline";
-    $("showhelp").style.display = "none";
-    $$(".help").each(function(e) {
-        e.style.display = "block";
-    });
+    _applyHelpStyles('inline', 'none', 'block');
 }
 
 function hideHelp() {
     helpShown = false;
-    $("hidehelp").style.display = "none";
-    $("showhelp").style.display = "inline";
-    $$(".help").each(function(e) {
-        e.style.display = "none";
+    _applyHelpStyles('none', 'inline', 'none');
+}
+
+function _applyHelpStyles(hideHelpDisplay, showHelpDisplay, helpElementsDisplay) {
+    jQuery('#hidehelp').css('display', hideHelpDisplay);
+    jQuery('#showhelp').css('display', showHelpDisplay);
+    jQuery('.help').each(function(i, e) {
+        jQuery(this).css('display', helpElementsDisplay);
     });
 }
 
 function initHelp() {
-    if($$(".help").length == 0) {
-        var helpbutton = $("helpbutton");
+    if(jQuery('.help').len == 0) {
+        var helpbutton = jQuery('helpbutton');
         if (helpbutton) {
-            helpbutton.hide();
+            helpbutton.hide(0);
         }
     } else {
-        var helpbutton = $("helpbutton");
+        var helpbutton = jQuery('helpbutton');
         if (helpbutton) {
-            helpbutton.show();
+            helpbutton.show(0);
         }
         if (helpShown) {
             showHelp();
@@ -40,4 +42,5 @@ function initHelp() {
 }
 
 initHelp();
-document.body.addEventListener("DOMNodeInserted", initHelp, false);
+jQuery('body').bind('DOMNodeInserted', initHelp, false);
+
