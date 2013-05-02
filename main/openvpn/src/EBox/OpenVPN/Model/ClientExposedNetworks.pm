@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,11 +15,10 @@
 use strict;
 use warnings;
 
-package EBox::OpenVPN::Model::ExposedNetworks;
-use base 'EBox::OpenVPN::Model::ExposedNetworksBase';
+package EBox::OpenVPN::Model::ClientExposedNetworks;
+use base 'EBox::OpenVPN::Model::ExposedNetworks';
 
 use EBox::Gettext;
-use EBox::NetWrappers;
 
 sub new
 {
@@ -39,10 +38,10 @@ sub _table
 
     my $dataTable =
         {
-            'tableName'              => 'ExposedNetworks',
-            'printableTableName' => __('List of Advertised Networks'),
+            'tableName'              => 'ClientExposedNetworks',
+            'printableTableName' => __('List of advertised networks to tunnel server'),
             'automaticRemove' => 1,
-            'defaultController' => '/OpenVPN/Controller/ExposedNetworks',
+            'defaultController' => '/OpenVPN/Controller/ClientExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
@@ -55,7 +54,6 @@ sub _table
     return $dataTable;
 }
 
-# Return the model help message
 sub _help
 {
     return __x('{openpar}You can add here those networks which you want to make ' .
@@ -67,29 +65,42 @@ sub _help
               openpar => '<p>', closepar => '</p>');
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    return not $self->_tun();
+}
+
+sub preconditionFailMsg
+{
+    return __('Advestised routes for clients over a TUN interface are not supported');
+}
+
 # Method: networks
 #
-# overrided to exclude own VPN network
+#   overrided to not use advertised networks for clients over TUN
 #
 # Overrides:
 #
 #     <EBox::OpenVPN::Model::ExposedNetworksBase::networks>
 #
-sub networksDisabledForNow
+sub networks
 {
     my ($self) = @_;
-    my $serverConfModel = $self->parentRow()->subModel('configuration');
-    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
-    my @networks = grep {
-        my $network = $_;
-        my $netIP = EBox::NetWrappers::to_network_with_mask(
-                       $network->{ip},
-                       $network->{mask}
-                     );
-        # Advertised network should not be inthe  openvpn network
-        ($netIP ne $vpn)
-    } @{  $self->SUPER::networks() };
-    return \@networks;
+    # for now is not supported for TUN tunnels
+    if ($self->_tun()) {
+        return [];
+    }
+
+    return $self->SUPER::networks(1);
 }
+
+sub _tun
+{
+    my ($self) = @_;
+    my $configuration = $self->parentRow()->subModel('configuration');
+    return $configuration->value('tunInterface');
+}
+
 
 1;

@@ -437,14 +437,17 @@ sub ripDaemon
 #              passwd    - rip password for this daemon
 sub ifaceWithRipPasswd
 {
-    my ($self) = @_;
+    my ($self, $redistributeNets) = @_;
     my $iface = $self->iface;
     my $passwd = $self->ripPasswd;
+    $redistributeNets or
+        $redistributeNets = [];
 
     return {
-            ifaceName => $iface,
-            passwd    => $passwd,
-    };
+             ifaceName => $iface,
+             passwd    => $passwd,
+             redistributeNets => $redistributeNets,
+           };
 }
 
 #  Method: ripPasswd

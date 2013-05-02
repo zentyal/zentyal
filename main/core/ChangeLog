@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Model::DataForm::formSubmitted called even where there is no
+	  previous row
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on mysql-server metapackage instead of mysql-server-5.5
 3.0.20

@@ -275,9 +275,9 @@ sub _privateFilePath
     return "$dir/$fileName";
 }
 
-sub updatedRowNotify
+sub formSubmitted
 {
-    my ($self, $row, $oldRow, $force) = @_;
+    my ($self, $row) = @_;
 
     # The interface type resides in the ServerModels so we must set it in the
     # parentRow

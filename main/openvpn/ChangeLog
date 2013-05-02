@@ -1,4 +1,8 @@
 HEAD
+	+ Added advertised routes option to the clients
+	+ Added option that allows server tunnels to reject any route from
+	  the clients
+	+ Client to client connection option is always enforced for tunnel servers
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.5
 	+ Create correctly advertised network objects for interfaces with

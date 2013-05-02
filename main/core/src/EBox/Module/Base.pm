@@ -975,10 +975,7 @@ sub _setAppArmorProfiles
 #
 sub _regenConfig
 {
-    my ($self) = @_;
-
-    my @params = (@_);
-    shift(@params);
+    my ($self, @params) = @_;
 
     $self->_preSetConf(@params);
     $self->_preSetConfHook();
