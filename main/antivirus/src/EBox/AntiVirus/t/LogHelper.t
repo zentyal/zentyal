@@ -15,7 +15,7 @@
 
 use strict;
 use warnings;
-use Test::More qw(no_plan);
+use Test::More tests => 9;
 use Test::MockObject;
 use Test::Exception;
 use Test::Differences;
