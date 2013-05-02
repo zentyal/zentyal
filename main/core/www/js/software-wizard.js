@@ -1,3 +1,6 @@
+"use strict";
+jQuery.noConflict();
+
 var DURATION = 0.5;
 var actualPage = 0;
 var visible = 0;
@@ -26,19 +29,13 @@ function setGettext(gett)
 function setLoading(loading) {
     if (loading) {
         // Disable more clicks
-        $('wizard-loading1').show();
-        $('wizard-next1').disabled = true;
-        $('wizard-next2').disabled = true;
-        $('wizard-skip1').disabled = true;
-        $('wizard-skip2').disabled = true;
+        jQuery('#wizard-loading1').show(0);
+        jQuery('button').attr('disabled','disabled').hide(0);
         isLoading = true;
     }
     else {
-        $('wizard-loading1').hide();
-        $('wizard-next1').disabled = false;
-        $('wizard-next2').disabled = false;
-        $('wizard-skip1').disabled = false;
-        $('wizard-skip2').disabled = false;
+        jQuery('#wizard-loading1').hide(0);
+        jQuery('button').removeAttr('disabled').show(0);
         isLoading = false;
     }
 }
@@ -50,56 +47,56 @@ function loadPage(index) {
 
     setLoading(true);
 
-    $('wizard_error').hide();
+    jQuery('#wizard_error').hide(0).html('');
 
-    var hidden = visible;
-    var showed = (visible + 1) % 2;
+    var hiddenNumber = visible;
+    var showedNumber = (visible + 1) % 2;
     if ( firstLoad ) {
-        showed = visible;
+        showedNumber = visible;
         firstLoad = false;
     }
-    visible = showed;
+    visible = showedNumber;
 
-    hidden = "wizardPage" + hidden;
-    showed = "wizardPage" + showed;
-
-    if ( index > 0 )
-        Effect.SlideUp(hidden, { duration: DURATION } );
+    if ( index > 0 ) {
+        var hidden = jQuery("#wizardPage" + hiddenNumber);
+        hidden.slideUp(DURATION);
+    }
+//        Effect.SlideUp(hidden, { duration: DURATION } );
 
     // Final stage?
     if ( index >= pages.length ) {
-        $('wizard-next1').hide();
-        $('wizard-next2').hide();
+        jQuery('#wizard-next1').hide(0);
+        jQuery('#wizard-next2').hide(0);
         setLoading(false);
         finalPage(firstInstall);
         return;
     }
 
-    var loaded = function() {
-        Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
+    var loaded = function(code) {
+        var showed = jQuery("#wizardPage" + showedNumber);
+        showed.show(0).html(code).slideDown(DURATION); // XXX no slide down
+//        showed.slideDown(DURATION);
+//        Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
 
-        var form = $$('#' + showed + ' form')[0];
+        var form = jQuery('#wizardPage' + showedNumber + ' form')[0];
         // avoid automatic form submition (by enter press)
         if ( form ) {
-            form.onsubmit = function() { return false; };
+            jQuery(form).submit(function() { return false; });
         }
 
         setLoading(false);
         if ( index == pages.length-1 ) {
           var finishString = gettext('Finish');
-          $('wizard-next1').value = finishString;
-          $('wizard-next2').value = finishString;
+          jQuery('#wizard-next1')[0].value = finishString;
+          jQuery('#wizard-next2')[0].value = finishString;
         }
     };
 
-    new Ajax.Updater(showed,
-                     pages[index],
-                     {
-                        method:'get',
-                        onComplete: loaded,
-                        evalScripts: true
-                     });
-
+   jQuery.ajax({
+    url: pages[index],
+    dataType: 'text',
+    success: loaded
+   });
     actualPage = index;
 }
 
@@ -114,31 +111,22 @@ function nextStep() {
     // avoid possible mess by page calls to this function
     if (isLoading) return;
     setLoading(true);
-
     // Submit form
-    var form = $$('#wizardPage' + visible + ' form')[0];
-
-    var failed = false;
-
+    var form = jQuery('#wizardPage' + visible + ' form');
     var onFail = function(response) {
-        failed = true;
-        $('wizard_error').update(response.responseText);
-        $('wizard_error').appear({
-                duration: 0.5,
-                from: 0, to: 1 });
-
+        jQuery('#wizard_error').show(0).html(response.responseText).fadeIn();
         setLoading(false);
     };
-
-    var onComplete = function(response) {
-        // Load next page
-        if ( !failed )
+    var onSuccess = function(response) {
             loadPage(actualPage+1);
     };
 
-    form.request({
-        onFailure: onFail,
-        onComplete: onComplete
+    jQuery.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        success: onSuccess,
+        error: onFail,
     });
 
 }
@@ -162,6 +150,6 @@ function finalPage(firstInstall) {
   content += 'window.location = "' + url + '";';
   content += '</script>';
 
-  $(showed).update(content);
+  jQuery('#' + showed).html(content);
 }
 
