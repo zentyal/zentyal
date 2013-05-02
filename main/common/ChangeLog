@@ -1,6 +1,8 @@
 HEAD
 	+ Added a function to get the destination address of a Point-to-Point
 	  interface.
+	+ Added isRangeOverlappingWithRange, isValidRange and isIPInRange
+	  functions to EBox::Validate for better handling of IP ranges.
 3.0.7
 	+ More flexibility for printable message in EBox::Exceptions::DataExists
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
