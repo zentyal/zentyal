@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -69,6 +69,36 @@ use File::Slurp;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
+
+# Group: Public methods
+
+# Method: localGatewayIP
+#
+#       Return the local IP address that may be used as the gateway for the given IP or undef if Zentyal is not
+#       directly connected with the given IP.
+#
+# Parameters:
+#
+#       ip - String the IP address for the client that will use the returning IP address as gateway.
+#
+# Returns:
+#
+#       String - Zentyal's IP address that would act as the gateway. undef if not reachable.
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing
+#
+sub localGatewayIP
+{
+    my ($self, $ip) = @_;
+
+    $ip or throw EBox::Exceptions::MissingArgument('ip');
+
+    my $iface = $self->gatewayReachable($ip);
+    return undef unless ($iface);
+    return $self->ifaceAddress($iface);
+}
 
 sub _create
 {
@@ -277,6 +307,31 @@ sub ExternalIfaces
     return \@array;
 }
 
+# Method: externalIpAddresses
+#
+#   Returs a list of external IP addresses
+#
+# Returns:
+#
+#   array ref - Holding the external IP's
+#
+sub externalIpAddresses
+{
+    my ($self) = @_;
+
+    my $ips = [];
+
+    my $externalInterfaces = $self->ExternalIfaces();
+    foreach my $interface (@{$externalInterfaces}) {
+        foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
+            next unless (defined $interfaceInfo);
+            push @{$ips}, $interfaceInfo->{address};
+        }
+    }
+
+    return $ips;
+}
+
 # Method: InternalIfaces
 #
 #   Returns  a list of all internal interfaces
@@ -430,6 +485,58 @@ sub ifaceOnConfig
     }
 
     return defined($self->get_hash('interfaces')->{$name}->{method});
+}
+
+# Method: netInitRange
+#
+#   Return the initial host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   String - containing the initial range
+#
+sub netInitRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $network = ip_network($address, $netmask);
+    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
+    my $init_range = $first . "." . ($last + 1);
+
+    return $init_range;
+}
+
+# Method: netEndRange
+#
+#   Return the final host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   string - containing the final range
+#
+sub netEndRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $broadcast = ip_broadcast($address, $netmask);
+    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
+    my $end_range = $first . "." . ($last - 1);
+
+    return $end_range;
 }
 
 sub _ignoreIface
