@@ -1,7 +1,7 @@
 "use strict";
 jQuery.noConflict();
 
-var DURATION = 0.5; // XXX maybe thissohud be 500?
+var DURATION = 500;
 var actualPage = 0;
 var visible = 0;
 var firstLoad = true;
@@ -57,10 +57,8 @@ function loadPage(index) {
     visible = showedNumber;
 
     if ( index > 0 ) {
-        var hidden = jQuery("#wizardPage" + hiddenNumber);
-        hidden.slideUp(DURATION);
+        jQuery("#wizardPage" + hiddenNumber).slideUp(DURATION);
     }
-//        Effect.SlideUp(hidden, { duration: DURATION } );
 
     // Final stage?
     if ( index >= pages.length ) {
@@ -73,10 +71,7 @@ function loadPage(index) {
 
     var loaded = function(code) {
         var showed = jQuery("#wizardPage" + showedNumber);
-        showed.show(0).html(code).slideDown(DURATION); // XXX no slide down
-//        showed.slideDown(DURATION);
-//        Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
-
+        showed.show(0).html(code).slideDown(DURATION);
         var form = jQuery('#wizardPage' + showedNumber + ' form')[0];
         // avoid automatic form submition (by enter press)
         if ( form ) {
@@ -85,17 +80,17 @@ function loadPage(index) {
 
         setLoading(false);
         if ( index == pages.length-1 ) {
-          var finishString = gettext('Finish');
-          jQuery('#wizard-next1')[0].value = finishString;
-          jQuery('#wizard-next2')[0].value = finishString;
+            var finishString = gettext('Finish');
+            jQuery('#wizard-next1')[0].value = finishString;
+            jQuery('#wizard-next2')[0].value = finishString;
         }
     };
 
-   jQuery.ajax({
-    url: pages[index],
-    dataType: 'text',
-    success: loaded
-   });
+    jQuery.ajax({
+        url: pages[index],
+        dataType: 'text',
+        success: loaded
+    });
     actualPage = index;
 }
 
@@ -103,7 +98,6 @@ function loadPage(index) {
 function skipStep() {
     loadPage(actualPage+1);
 }
-
 
 // Save changes and step into next page
 function nextStep() {
