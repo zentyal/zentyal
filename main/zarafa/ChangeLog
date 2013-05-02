@@ -1,4 +1,5 @@
 HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Change the kerberos service from zarafa to http. Zarafa and Squid must
 	  share the service principal.
 	+ Regenerate Kerberos keytab on LDAP reprovision

@@ -1,2 +1,4 @@
+HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0
 	+ Initial release

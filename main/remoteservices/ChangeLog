@@ -1,4 +1,5 @@
 HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Changed location of remote backup metainfo files to preserve cache
 	  after reboot
 3.0.19

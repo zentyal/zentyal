@@ -1,4 +1,6 @@
 HEAD
+	+ Added Pre-Depends on samba4 to avoid problems with upgrades
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Workaround with retries for the chown __USERS__ bug
 	+ Hide sync with cloud options in shares list if remoteservices
 	  is not installed
