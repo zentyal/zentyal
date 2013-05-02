@@ -219,9 +219,7 @@ sub _table
     shift @_;
     my $dataTable = $self->SUPER::_table(@_);
 
-    # DNS
     my @primaryNSSubtypes = ();
-
     if ($global->modExists('dns') and $global->modInstance('dns')->isEnabled()) {
         push (@primaryNSSubtypes,
             new EBox::Types::Union::Text(
@@ -243,13 +241,7 @@ sub _table
         )
     );
 
-    my @winsSubtypes = (
-        new EBox::Types::Union::Text(
-            fieldName => 'none',
-            printableName => __('None')
-        )
-    );
-
+    my @winsSubtypes = ();
     if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
         push (@winsSubtypes,
             new EBox::Types::Union::Text(
@@ -259,6 +251,10 @@ sub _table
         );
     }
     push (@winsSubtypes,
+        new EBox::Types::Union::Text(
+            fieldName => 'none',
+            printableName => __('None')
+        ),
         new EBox::Types::HostIP(
             fieldName => 'custom_wins',
             printableName => __('Custom'),
