@@ -293,9 +293,14 @@ sub firewallHelper
     my @activeTunnels = @{$self->tunnels()};
     my @networksNoToMasquerade = ();
     my $hasL2TP = undef;
+    my @L2TPInterfaces = ();
     foreach my $tunnel (@activeTunnels) {
         if ($tunnel->{type} eq 'l2tp') {
             $hasL2TP = 1;
+            my $interface = EBox::NetWrappers::iface_by_address($tunnel->{local_ip});
+            if ($interface) {
+                push (@L2TPInterfaces, $interface);
+            }
         }
         my $subnet = $tunnel->{'right_subnet'};
         next unless $subnet;
@@ -306,6 +311,7 @@ sub firewallHelper
         service => $enabled,
         networksNoToMasquerade => \@networksNoToMasquerade,
         hasL2TP => $hasL2TP,
+        L2TPInterfaces => \@L2TPInterfaces,
     );
 
     return $firewallHelper;

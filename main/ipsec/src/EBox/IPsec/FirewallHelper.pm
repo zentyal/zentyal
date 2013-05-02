@@ -18,6 +18,8 @@ use base 'EBox::FirewallHelper';
 use strict;
 use warnings;
 
+use EBox::NetWrappers;
+
 sub new
 {
     my ($class, %opts) = @_;
@@ -27,10 +29,34 @@ sub new
     $self->{service} = delete $opts{service};
     $self->{networksNoToMasquerade} = delete $opts{networksNoToMasquerade};
     $self->{hasL2TP} = delete $opts{hasL2TP};
+    $self->{L2TPInterfaces} = delete $opts{L2TPInterfaces};
 
     bless($self, $class);
 
     return $self;
+}
+
+# Method: inputNoSpoof
+#
+#   Rules returned by this method are added to the inospoofmodules chain in the filter table. We allow here to input
+#   packages for L2TP/IPSec VPN clients that belong to a Zentyal local network as a valid 'spoofed' traffic.
+#
+# Returns:
+#
+#   array ref - containing input no spoof rules
+sub inputNoSpoof
+{
+    my ($self) = @_;
+
+    my @rules = ();
+    foreach my $interface (@{$self->{L2TPInterfaces}}) {
+        my $clientAddress = EBox::NetWrappers::iface_destination_address($interface);
+        if ($clientAddress) {
+            push (@rules, "-s $clientAddress/32 -i $interface -j ACCEPT");
+        }
+    }
+
+    return \@rules;
 }
 
 # Method: externalInput
@@ -56,7 +82,7 @@ sub externalInput
 
 # Method: forward
 #
-#   Allow traffic forwarding between ppp devices used by x2lp's ppp daemon.
+#   Allow traffic forwarding between ppp devices used by x2lpd's ppp daemon.
 #
 # Returns:
 #
@@ -69,6 +95,32 @@ sub forward
 
     return ["-i ppp+ -p all -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"];
 }
+
+# Method: forwardNoSpoof
+#
+#   Rules returned by this method are added to the fnospoofmodules chain in the filter table. We allow here to forward
+#   packages for L2TP/IPSec VPN clients that belong to a Zentyal local network as a valid 'spoofed' traffic.
+#
+# Returns:
+#
+#   array ref - containing forward no spoof rules
+#
+sub forwardNoSpoof
+{
+    my ($self) = @_;
+
+    my @rules = ();
+    my $socket = IO::Socket::INET->new(Proto => 'udp');
+    foreach my $interface (@{$self->{L2TPInterfaces}}) {
+        my $clientAddress = $socket->if_dstaddr($interface);
+        if ($clientAddress) {
+            push (@rules, "-s $clientAddress/32 -i $interface -j ACCEPT");
+        }
+    }
+
+    return \@rules;
+}
+
 
 sub _isEnabled
 {
