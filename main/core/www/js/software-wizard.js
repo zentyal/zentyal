@@ -1,7 +1,7 @@
 "use strict";
 jQuery.noConflict();
 
-var DURATION = 0.5;
+var DURATION = 0.5; // XXX maybe thissohud be 500?
 var actualPage = 0;
 var visible = 0;
 var firstLoad = true;
@@ -32,8 +32,7 @@ function setLoading(loading) {
         jQuery('#wizard-loading1').show(0);
         jQuery('button').attr('disabled','disabled').hide(0);
         isLoading = true;
-    }
-    else {
+    } else {
         jQuery('#wizard-loading1').hide(0);
         jQuery('button').removeAttr('disabled').show(0);
         isLoading = false;
