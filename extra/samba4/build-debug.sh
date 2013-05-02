@@ -22,8 +22,17 @@ else
     tar xzf $source
     cd $dir
     git init
+    git add .
+    git commit -m "initial import"
+
+    ln -s ../debian .
+    export QUILT_PATCHES=debian/patches
+    quilt push -a
+    git add .
+    git commit -m "debian patches applied"
 fi
 
-./configure.developer --prefix=/opt/samba4 --sysconfdir=/etc/samba --bundled-libraries=ALL #--enable-zavs
+
+./configure.developer --prefix=/opt/samba4 --sysconfdir=/etc/samba --bundled-libraries=ALL --enable-zavs
 make
 make install
