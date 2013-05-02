@@ -20,7 +20,7 @@ fetch_ebox_port()
             use EBox::Global;
             EBox::init();
 
-            my $apache = EBox::Global->modInstance('apache');
+            my $apache = EBox::Global->modInstance('webadmin');
             print $apache->port();
             exit 0;
             ' 2> /dev/null );
@@ -89,7 +89,7 @@ set_ebox_port()
             EBox::init();
             my $port = $ARGV[0];
             my $global = EBox::Global->getInstance();
-            my $apache = $global->modInstance('apache');
+            my $apache = $global->modInstance('webadmin');
             $apache->setPort($port);
             $apache->saveConfig();
             if ($global->modExists('services')) {

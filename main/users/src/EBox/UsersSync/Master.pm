@@ -61,7 +61,7 @@ sub confSOAPService
 
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
 
-    my $apache = EBox::Global->modInstance('apache');
+    my $apache = EBox::Global->modInstance('webadmin');
     $apache->addInclude($confFile);
 
     $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
@@ -187,7 +187,7 @@ sub checkMaster
         }
     }
 
-    my $apache = $global->modInstance('apache');
+    my $apache = $global->modInstance('webadmin');
     my $users = $global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
@@ -239,7 +239,7 @@ sub setupSlave
         my $port = $master->portValue();
         my $password = $master->passwordValue();
 
-        my $apache = EBox::Global->modInstance('apache');
+        my $apache = EBox::Global->modInstance('webadmin');
         $password = uri_escape($password);
         my $client = EBox::SOAPClient->instance(
             name  => 'urn:Users/Master',

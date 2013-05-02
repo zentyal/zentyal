@@ -1594,7 +1594,7 @@ sub _confSOAPService
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
-    my $apacheMod = EBox::Global->modInstance('apache');
+    my $apacheMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ( $self->hasBundle() ) {
             my @tmplParams = (
@@ -1623,7 +1623,7 @@ sub _confSOAPService
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
     # $apacheMod->save();
-    EBox::Global->modChange('apache');
+    EBox::Global->modChange('webadmin');
 }
 
 # Assure the VPN connection with our VPN servers is established
@@ -1943,7 +1943,7 @@ sub _reportAdminPort
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance(1);
-    my $apache = $gl->modInstance('apache');
+    my $apache = $gl->modInstance('webadmin');
 
     $self->reportAdminPort($apache->port());
 }

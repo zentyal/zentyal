@@ -91,8 +91,6 @@ Include /etc/apache2/mods-available/mime.load
 Include /etc/apache2/mods-available/negotiation.load
 Include /etc/apache2/mods-available/setenvif.load
 Include /etc/apache2/mods-available/rewrite.load
-Include /etc/apache2/mods-available/ssl.conf
-Include /etc/apache2/mods-available/ssl.load
 Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 Include /etc/apache2/mods-available/expires.load
@@ -160,15 +158,6 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{fore
 ServerSignature Off
 ServerTokens Min
 
-<IfModule mod_ssl.c>
-    SSLEngine on
-    SSLProtocol all
-    SSLCipherSuite HIGH:MEDIUM
-    SSLInsecureRenegotiation on
-    SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-    SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-</IfModule>
-
 <IfModule mod_setenvif.c>
     BrowserMatch "Mozilla/2" nokeepalive
     BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
@@ -183,14 +172,6 @@ ServerTokens Min
 % foreach my $includeFile (@includes) {
      Include <% $includeFile %>
 % }
-
-    <IfModule mod_ssl.c>
-        SSLEngine on
-        SSLProtocol all
-        SSLCipherSuite HIGH:MEDIUM
-        SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-        SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-    </IfModule>
 
     <Directory />
         Options SymLinksIfOwnerMatch
@@ -238,9 +219,6 @@ ServerTokens Min
     </Files>
 
     <Directory /usr/share/zentyal/cgi/>
-        <IfModule mod_ssl.c>
-            SSLOptions +StdEnvVars
-        </IfModule>
 
         AuthType EBox::Auth
         AuthName EBox
@@ -279,19 +257,7 @@ Listen <% $desktop_services_port %>
 <VirtualHost *:<% $desktop_services_port %> >
     DocumentRoot /usr/share/zentyal/www/
 
-    <IfModule mod_ssl.c>
-        SSLEngine on
-        SSLProtocol all
-        SSLCipherSuite HIGH:MEDIUM
-        SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-        SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-    </IfModule>
-
     <Directory /usr/share/zentyal/cgi/>
-        <IfModule mod_ssl.c>
-            SSLOptions +StdEnvVars
-        </IfModule>
-
         SetHandler perl-script
         PerlHandler ModPerl::Registry
         PerlSendHeader On

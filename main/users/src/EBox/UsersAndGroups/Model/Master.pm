@@ -258,7 +258,7 @@ sub validateTypedRow
     }
 
     # set apache as changed
-    my $apache = EBox::Global->modInstance('apache');
+    my $apache = EBox::Global->modInstance('webadmin');
     $apache->setAsChanged();
 }
 

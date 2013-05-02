@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,15 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-use strict;
-use warnings;
-# Class: EBox::Apache::Model::Language
+#
+
+# Class: EBox::WebAdmin::Model::Language
 #
 #   This model is used to configure the interface languaje
 #
-
-package EBox::Apache::Model::Language;
+package EBox::WebAdmin::Model::Language;
 use base 'EBox::Model::DataForm';
+
+use strict;
+use warnings;
 
 use Error qw(:try);
 
@@ -73,7 +75,7 @@ sub _table
     {
         'tableName' => 'Language',
         'printableTableName' => __('Language selection'),
-        'modelDomain' => 'Apache',
+        'modelDomain' => 'WebAdmin',
         'defaultActions' => [ 'editField' ],
         'messages' => {
             'update' => __('New language selected, save changes to commit'),
@@ -108,8 +110,8 @@ sub updatedRowNotify
     my $global = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     $sysinfo->setReloadPageAfterSavingChanges(1);
-    my $apache = $global->modInstance('apache');
-    $apache->setHardRestart(1);
+    my $webAdmin = $global->modInstance('webadmin');
+    $webAdmin->setHardRestart(1);
 }
 
 1;

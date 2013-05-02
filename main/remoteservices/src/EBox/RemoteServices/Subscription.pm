@@ -769,7 +769,7 @@ sub _restartRS
     my $fw = $global->modInstance('firewall');
     $fw->save();
     # Required to set the CA correctly
-    my $apache = $global->modInstance('apache');
+    my $apache = $global->modInstance('webadmin');
     $apache->save();
 }
 

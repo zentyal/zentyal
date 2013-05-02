@@ -26,12 +26,12 @@ use Error qw(:try);
 
 EBox::init();
 
-my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+my $apacheMod = EBox::Global->getInstance()->modInstance('webadmin');
 unless ($apacheMod->restartOnTrigger()) {
     exit 0;
 }
 
-foreach my $modName (qw(apache logs events)) {
+foreach my $modName (qw(webadmin logs events)) {
     EBox::Util::Init::moduleRestart($modName);
 }
 

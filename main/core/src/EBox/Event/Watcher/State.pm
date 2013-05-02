@@ -93,7 +93,7 @@ sub run
     my $gl = EBox::Global->getInstance(1);
     my $sock = IO::Socket::INET->new(
             PeerAddr => "127.0.0.1",
-            PeerPort => $gl->modInstance('apache')->port(),
+            PeerPort => $gl->modInstance('webadmin')->port(),
             Proto	 => "tcp",
             Timeout	 => 5);
     if ($sock) {

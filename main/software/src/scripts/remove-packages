@@ -37,7 +37,7 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die ('progress executable not run');
 
 my $command = EBox::Config::boolean('software-autoremove')  ?  'autoremove' : 'remove';
-my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+my $apacheMod = EBox::Global->getInstance()->modInstance('webadmin');
 
 my ($retValue, $errorMsg) = (0, '');
 try {

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,32 +13,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Apache::Model::AdminPort
+# Class: EBox::WebAdmin::Model::AdminPort
 #
 #   This model is used to configure the interface port
 #
+package EBox::WebAdmin::Model::AdminPort;
+use base 'EBox::Model::DataForm';
+
 use strict;
 use warnings;
-
-package EBox::Apache::Model::AdminPort;
-use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Types::Port;
 
-use constant APACHE_PORT => 443;
-
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
+use constant DEFAULT_ADMIN_PORT => 443;
 
 sub _table
 {
@@ -46,13 +36,13 @@ sub _table
 
     my @tableHead = (new EBox::Types::Port(fieldName      => 'port',
                                            editable       => 1,
-                                           defaultValue   => APACHE_PORT));
+                                           defaultValue   => DEFAULT_ADMIN_PORT));
 
     my $dataTable =
     {
         'tableName' => 'AdminPort',
         'printableTableName' => __('Administration interface TCP port'),
-        'modelDomain' => 'Apache',
+        'modelDomain' => 'WebAdmin',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
     };

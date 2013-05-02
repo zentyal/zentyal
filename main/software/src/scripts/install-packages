@@ -44,7 +44,7 @@ my @packages            = @ARGV;
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die('progress executable is not running');
 
-my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+my $apacheMod = EBox::Global->getInstance()->modInstance('webadmin');
 
 my ($retValue, $errorMsg, $pid) = (0, '', 0);
 try {

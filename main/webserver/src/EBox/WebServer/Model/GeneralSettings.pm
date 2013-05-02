@@ -82,7 +82,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $oldFields) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $apache = $global->modInstance('apache');
+    my $apache = $global->modInstance('webadmin');
     my $services = $global->modInstance('services');
     my $firewall = $global->modInstance('firewall');
     my $portNumber;

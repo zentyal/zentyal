@@ -75,7 +75,7 @@ sub _defaultServices
 
     my $apachePort;
     try {
-        $apachePort = $self->global()->modInstance('apache')->port();
+        $apachePort = $self->global()->modInstance('webadmin')->port();
     } otherwise {
         $apachePort = 443;
     };

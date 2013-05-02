@@ -1,4 +1,4 @@
-class: 'EBox::Apache'
+class: 'EBox::WebAdmin'
 models:
     - Language
     - AdminPort

@@ -53,7 +53,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo apache events global logs audit);
+use constant CORE_MODULES => qw(sysinfo webadmin events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -608,7 +608,7 @@ sub saveAllModules
 
     my $apache = 0;
     foreach my $name (@mods) {
-        if ($name eq 'apache') {
+        if ($name eq 'webadmin') {
             $apache = 1;
             next;
         }
@@ -651,11 +651,11 @@ sub saveAllModules
         EBox::info("Saving configuration: apache");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
-                                       modName => 'apache'));
+                                       modName => 'webadmin'));
             $progress->notifyTick();
         }
 
-        my $mod = EBox::GlobalImpl->modInstance($ro, 'apache');
+        my $mod = EBox::GlobalImpl->modInstance($ro, 'webadmin');
         try {
             $mod->save();
         }  catch EBox::Exceptions::External with {
@@ -663,8 +663,8 @@ sub saveAllModules
             $ex->throw();
         } otherwise {
             my $ex = shift;
-            EBox::error("Failed to save changes in module apache: $ex");
-            $failed .= "apache ";
+            EBox::error("Failed to save changes in module webadmin: $ex");
+            $failed .= "webadmin ";
         };
     }
 

@@ -1310,7 +1310,7 @@ sub menu
 sub refreshIfaceInfoCache
 {
     my ($self) = @_;
-    my $apache = EBox::Global->getInstance()->modInstance('apache');
+    my $apache = EBox::Global->getInstance()->modInstance('webadmin');
     $apache->setAsChanged(1);
 }
 
