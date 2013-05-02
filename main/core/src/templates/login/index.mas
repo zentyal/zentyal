@@ -17,7 +17,6 @@ use EBox::Gettext;
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="shortcut icon" href="<% $favicon %>" />
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
-<script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 <script type="text/javascript">
 function checkBrowser() {
     if (/MSIE/.test(navigator.userAgent)) {
