@@ -9,9 +9,9 @@
         notifempty
         postrotate
                 if [ -x /usr/sbin/invoke-rc.d ]; then \
-                        invoke-rc.d zentyal apache restart > /dev/null; \
+                        invoke-rc.d zentyal webadmin restart > /dev/null; \
                 else \
-                        /etc/init.d/zentyal apache restart > /dev/null; \
+                        /etc/init.d/zentyal webadmin restart > /dev/null; \
                 fi; \
         endscript
 }

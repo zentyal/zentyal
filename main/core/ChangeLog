@@ -1,5 +1,7 @@
 HEAD
 	+ Added nginx as the public HTTP server of Zentyal.
+	+ Renamed 'Apache' module to 'WebAdmin' module. If you need to restart the
+	  web administration you must use 'service zentyal webadmin restart'.
 	+ EBox::Model::DataForm::formSubmitted called even where there is no
 	  previous row
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

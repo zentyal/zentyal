@@ -4,7 +4,10 @@
 
 Parameters:
 
-   port - Int the listening port
+   bind_address - String the bind address.
+                  Default value: 127.0.0.1
+   port - Int the listening port.
+          Default value: 60080
    group - String the group that must live apache-perl process
    user  - String the user that the apache-perl process must be
    serverroot - String the path to the Apache server root
@@ -27,7 +30,8 @@ Parameters:
 # FIXME: unhardcode paths passing them as args...
 </%doc>
 <%args>
-    $port
+    $bind_address => '127.0.0.1'
+    $port => 60080
     $group
     $user
     $serverroot
@@ -95,7 +99,7 @@ Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 Include /etc/apache2/mods-available/expires.load
 
-Listen <% $port %>
+Listen <% $bind_address %>:<% $port %>
 User <% $user %>
 Group <% $group %>
 
