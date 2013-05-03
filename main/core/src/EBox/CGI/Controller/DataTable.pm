@@ -295,11 +295,10 @@ sub editBoolean
     $self->_editField(1, %editParams);
 
     $model->popMessage();
+
     my $global = EBox::Global->getInstance();
-    # XXX Factor this class to be able to print 'application/json'
-    #     and 'text/html' headers. This way we could just return
+    # XXX Use JSON here This way we could just return
     #     a json object { changes_menu: true } and get it evaled
-    #     using prototype. That's the right way :)
     if ($global->unsaved()) {
         $self->_responseToEnableChangesMenuElement();
     }
@@ -328,7 +327,7 @@ sub _responseToEnableChangesMenuElement
 {
     my ($self) = @_;
     $self->_header();
-    print '$("changes_menu").className = "changed"';
+    print 'jQuery("#changes_menu").removeClass().addClass("changed")';
 }
 
 
@@ -450,8 +449,9 @@ sub viewAction
 sub editBooleanAction
 {
     my ($self) = @_;
-    delete $self->{template};
+    delete $self->{template}; # to not print standard response
     $self->editBoolean();
+
 }
 
 sub cloneAction
@@ -572,7 +572,6 @@ sub _print
     unless ($self->{json}) {
         $self->_printRedirect;
     }
-
 }
 
 sub _getAuditId

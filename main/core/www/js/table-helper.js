@@ -7,12 +7,12 @@
 "use strict";
 jQuery.noConflict();
 
-// TT
+// RR
 function cleanError(table) {
     jQuery('#error_' + table).html('');
 }
 
-//TT
+// RR
 function setError(table, html) {
     jQuery('#error_' + table).removeClass().addClass('error').html(html);
 }
@@ -94,6 +94,7 @@ function onFieldChange(event, JSONActions, table) {
     );
 }
 
+// RR
 function encodeFields(table, fields)
 {
     var pars = [];
@@ -235,7 +236,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     setLoading('buttons_' + table, table, true);
 }
 
-
+// RR
 function addNewRow(url, table, fields, directory)
 {
     var params = 'action=add&tablename=' + table + '&directory=' + directory + '&';
@@ -277,6 +278,7 @@ function addNewRow(url, table, fields, directory)
     setLoading('buttons_' + table, table, true);
 }
 
+//RR
 function changeRow(url, table, fields, directory, id, page, force, resizeModalbox, extraParams)
 {
     var params = '&action=edit&tablename=' + table + '&directory='
@@ -347,7 +349,7 @@ Parameters:
     directory - the GConf directory where table is stored
 
 */
-
+//RR
 function actionClicked(url, table, action, rowId, paramsAction, directory, page, extraParams)
 {
     var params = '&action=' + action + '&id=' + rowId;
@@ -404,6 +406,7 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
 
 }
 
+//RR
 function customActionClicked(action, url, table, fields, directory, id, page)
 {
     var params = '&action=' + action;
@@ -457,6 +460,7 @@ function customActionClicked(action, url, table, fields, directory, id, page)
     });
 }
 
+//RR
 function changeView(url, table, directory, action, id, page, isFilter)
 {
     var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
@@ -531,6 +535,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
    }
 }
 
+//TODO
 function modalChangeView(url, table, directory, action, id, extraParams)
 {
     var title = '';
@@ -650,6 +655,7 @@ Parameters:
         *(Optional)* Default: 'loadingTable'
 
 */
+// TODO
 function hangTable(successId, errorId, url, formId, loadingId)
 {
 
@@ -700,6 +706,7 @@ Parameters:
         *(Optional)* Default: 'loadingTable'
 
 */
+// TODO
 function selectComponentToHang(successId, errorId, formId, urls, loadingId)
 {
 
@@ -758,6 +765,7 @@ Parameters:
         selectElement - HTMLSelectElement
 
 */
+// TODO
 function showSelected (selectElement)
 {
 
@@ -786,6 +794,7 @@ Parameters:
     protocols - the list of protocols which need a port to be set
 
 */
+// TODO
 function showPort(protocolSelectId, portId, protocols)
 {
 
@@ -823,6 +832,7 @@ Parameters:
     id - the select identifier which the protocol is chosen
 
 */
+// TODO
 function showPortRange(id)
 {
 
@@ -864,7 +874,8 @@ Parameters:
 
 */
 var savedElements = {};
-//TT
+//XXX modelName does ntvalue = o do anything..
+//RR
 function setLoading (elementId, modelName, isSaved)
 {
   var element = jQuery('#' + elementId);
@@ -904,7 +915,7 @@ Parameters:
         modelName - the model name to distinguish among hiddenDiv tags XXX not used. Remove?
 
 */
-//TT
+//RR
 function restoreHidden (elementId, modelName)
 {
     if (savedElements[elementId] != null) {
@@ -924,6 +935,7 @@ Parameters:
         elementId - the element identifier where all input elements hang
 
 */
+//TODO
 function disableInput(elementId)
 {
 
@@ -954,8 +966,8 @@ Parameters:
                 Default value: true
 
 */
-//TT
-// Seein it with elmentId = udnef!!
+//RR
+// XXX Seein it with elmentId = udnef!!
 function highlightRow(elementId, enable)
 {
   // If enable has value null or undefined
@@ -985,6 +997,7 @@ Returns:
 
     input value if it exits, otherwise empty string
 */
+//RR
 function inputValue(elementId) {
     var value ='';
     jQuery('#' + elementId).each(function (index, element) {
@@ -1014,9 +1027,10 @@ Parameters:
 
     elementId - a EBox::Types::File id
 */
+//TT
 function markFileToRemove(id)
 {
-    $(id + '_remove').value = "1";
+    jQuery('#' + id + '_remove').val(1);
     hide(id + '_current');
 }
 
@@ -1035,45 +1049,51 @@ Parameters:
     field - field name
     element - HTML element
 */
-function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
+// RR
+function sendInPlaceBooleanValue(url, model, id, dir, field, element)
 {
+    var elementId = element.id;
+    element = jQuery(element);
+
     startAjaxRequest();
     cleanError(model);
 
-    var parameters = new Hash();
-    parameters.set('action', 'editBoolean');
-    parameters.set('model', model);
-    parameters.set('dir', dir);
-    parameters.set('field', field);
-    if ($F(element) == 'on') {
-        parameters.set('value', 1);
-    }
-    parameters.set('id', id);
+    var params = 'action=editBoolean';
+    params += '&model=' + model;
+    params += '&dir=' + dir;
+    params += '&field=' + field;
+    params += '&id=' + id;
+    if (element.prop('checked'))
+       params += '&value=1';
 
-    hide(element.id);
-    setLoading(element.id + '_loading');
+    element.hide();
+    setLoading(elementId + '_loading', model, true);
 
-    var MyAjax = new Ajax.Request(
-        controller,
+    var onSuccess = function (responseText) {
+        eval(responseText);
+    };
+    var onFailure = function(response) {
+        jQuery('#error_' + model).html(response.responseText);
+        var befChecked = ! element.prop('checked');
+        element.prop(befChecked);
+    };
+    var onComplete = function(response) {
+        completedAjaxRequest();
+        element.show();
+        jQuery('#' + elementId + '_loading').html('');
+    };
+
+   jQuery.ajax(
         {
-            method: 'post',
-            parameters: parameters,
-            onFailure: function(t) {
-              $('error_' + model).innerHTML = t.responseText;
-              completedAjaxRequest();
-              show(element.id);
-              $(element.id + '_loading').innerHTML = '';
-              element.checked = ! element.checked;
-            },
-            onSuccess: function(t) {
-              eval(t.responseText);
-              completedAjaxRequest();
-              show(element.id);
-              $(element.id + '_loading').innerHTML = '';
-
-            }
-        });
-
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure,
+            complete: onComplete
+        }
+    );
 }
 /*
 Function: startAjaxRequest
@@ -1084,9 +1104,10 @@ Function: startAjaxRequest
     an ajax request starts and stops.
 
 */
+// TT
 function startAjaxRequest()
 {
-    $('ajax_request_cookie').value = 1;
+    jQuery('#ajax_request_cookie').val(1);
 }
 
 /*
@@ -1098,9 +1119,10 @@ Function: completedAjaxRequest
     an ajax request starts and stops.
 
 */
+//TT
 function completedAjaxRequest()
 {
-    $('ajax_request_cookie').value = 0;
+    jQuery('#ajax_request_cookie').val(0);
 }
 
 
