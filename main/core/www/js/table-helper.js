@@ -232,9 +232,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     );
   }
 
-
     setLoading('buttons_' + table, table, true);
-
 }
 
 
@@ -408,121 +406,129 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
 
 function customActionClicked(action, url, table, fields, directory, id, page)
 {
-    var pars = '&action=' + action;
-    pars += '&tablename=' + table;
-    pars += '&directory=' + directory;
-    pars += '&id=' + id;
+    var params = '&action=' + action;
+    params += '&tablename=' + table;
+    params += '&directory=' + directory;
+    params += '&id=' + id;
 
-    if (page) pars += '&page=' + page;
+    if (page)
+        params += '&page=' + page;
 
-    pars += '&filter=' + inputValue(table + '_filter');
-    pars += '&pageSize=' + inputValue(table + '_pageSize');
+    params += '&filter=' + inputValue(table + '_filter');
+    params += '&pageSize=' + inputValue(table + '_pageSize');
 
     cleanError(table);
 
-    if (fields) pars += '&' + encodeFields(table, fields);
+    if (fields)
+        params += '&' + encodeFields(table, fields);
 
-    var MyAjax = new Ajax.Updater(
+    var onSuccess = function(responseText) {
+        jQuery('#' + table).html(responseText);
+
+    };
+    var onFailure = function(response) {
+        jQuery('#error_' + table).html(response.responseText).show();
+    };
+    var onComplete = function(response){
+        jQuery('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
+        jQuery('#' + id + ' .customActions').each(function(index, element) {
+            restoreHidden(element.id, table);
+        });
+    };
+
+   jQuery.ajax(
         {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure,
+            complete: onComplete
         }
     );
 
     /* while the ajax udpater is running the active row is shown as loading
      and the other table rows input are disabled to avoid running two custom
      actions at the same time */
-    $$('tr:not(#' + id +  ') .customActions input').each(function(e) {
-        e.disabled = true;
-        e.addClassName('disabledCustomAction');
-    });
-    $$('#' + id + ' .customActions').each(function(e) {
-        setLoading(e.identify(), table, true);
+    jQuery('tr:not(#' + id +  ') .customActions input').prop('disabled', true).addClass('disabledCustomAction');
+    jQuery('#' + id + ' .customActions').each(function(index, element) {
+        setLoading(element.id, table, true);
     });
 }
 
 function changeView(url, table, directory, action, id, page, isFilter)
 {
-    var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
-
-    pars += '&filter=' + inputValue(table + '_filter');
-    pars += '&pageSize=' + inputValue(table + '_pageSize');
-    pars += '&page=' + page;
+    var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    params += '&filter=' + inputValue(table + '_filter');
+    params += '&pageSize=' + inputValue(table + '_pageSize');
+    params += '&page=' + page;
 
     cleanError(table);
 
-    var MyAjax = new Ajax.Updater(
-        {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-              // Highlight the element
-              if (id != undefined) {
-                highlightRow(id, true);
-              }
-              // Stripe again the table
-              stripe('dataTable', 'even', 'odd');
-              if ( action == 'changeEdit' ) {
-                restoreHidden('actionsCell_' + id, table);
-              }
-              completedAjaxRequest();
-            },
-            onFailure: function(t) {
-              if ( action == 'changeAdd' ) {
-                restoreHidden('creatingForm_' + table, table);
-              }
-              else if ( action == 'changeList' ) {
-                            if (! isFilter ) {
-                              restoreHidden('buttons_' + table, table);
-                            }
-              }
-              else if ( action == 'changeEdit' ) {
-                restoreHidden('actionsCell_' + id, table);
-              } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
-                var selector = 'input[id^="' + table + '_' + id + '_"]';
-                var checkboxes = $$(selector);
-                checkboxes.each(function(e) {
-                                  restoreHidden(e.parentNode.identify(), table);
-                                });
+    var onSuccess = function(responseText) {
+        jQuery('#' + table).html(responseText);
+    };
+    var onFailure = function(response) {
+        jQuery('#error_' + table).html(response.responseText).show();
+        if ( action == 'changeAdd' ) {
+            restoreHidden('creatingForm_' + table, table);
+        } else if ( action == 'changeList' ) {
+            if (! isFilter ) {
+                restoreHidden('buttons_' + table, table);
+            }
+        }  else if ( action == 'changeEdit' ) {
+            restoreHidden('actionsCell_' + id, table);
+        } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+            var selector = 'input[id^="' + table + '_' + id + '_"]';
+            jQuery(selector).each(function(index, element) {
+                restoreHidden(element.parentNode.id, table);
+            });
 
-                restoreHidden(table + '_' + id + '_div_CheckAll', table);
-             }
-         }
+            restoreHidden(table + '_' + id + '_div_CheckAll', table);
+        }
+    };
+    var onComplete = function(response) {
+        // Highlight the element
+        if (id != undefined) {
+            highlightRow(id, true);
+        }
+        // Stripe again the table
+        stripe('dataTable', 'even', 'odd');
+        if ( action == 'changeEdit' ) {
+            restoreHidden('actionsCell_' + id, table);
+        }
+        completedAjaxRequest();
+    };
 
-        });
+   jQuery.ajax(
+        {
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure,
+            complete: onComplete
+        }
+    );
 
     if ( action == 'changeAdd' ) {
       setLoading('creatingForm_' + table, table, true);
-    }
-    else if ( action == 'changeList' ) {
-          if ( ! isFilter ) {
+    } else if ( action == 'changeList' ) {
+        if ( ! isFilter ) {
             setLoading('buttons_' + table, table, true);
-          }
-    }
-    else if ( action == 'changeEdit' ) {
+        }
+    } else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
    } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
        var selector = 'input[id^="' + table + '_' + id + '_"]';
-       var checkboxes = $$(selector);
-       checkboxes.each(function(e) {
-                         setLoading(e.parentNode.identify(), table, true);
-                      });
+       jQuery(selector).each(function(i, e) {
+           setLoading(e.parentNode.id, table, true);
+       });
 
-      setLoading(table + '_' + id + '_div_CheckAll', table, true);
-    }
-
+       setLoading(table + '_' + id + '_div_CheckAll', table, true);
+   }
 }
 
 function modalChangeView(url, table, directory, action, id, extraParams)
