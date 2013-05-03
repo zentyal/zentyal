@@ -88,7 +88,7 @@ function loadPage(index) {
 
     jQuery.ajax({
         url: pages[index],
-        dataType: 'text',
+        dataType: 'html',
         success: loaded
     });
     actualPage = index;
