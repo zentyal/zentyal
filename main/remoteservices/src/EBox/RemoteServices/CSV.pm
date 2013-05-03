@@ -1,4 +1,4 @@
-# Copyright (C) 2009 EBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,7 +24,7 @@ use EBox::Gettext;
 use Text::CSV;
 
 
-sub new 
+sub new
 {
     my ($class, @params) = @_;
     my $self = { @params };
@@ -46,9 +46,9 @@ sub new
     }
 
     $self->{csv} = Text::CSV->new(@csvParams);
-    
+
     $self->_openFile();
-    
+
     return $self;
 }
 
@@ -58,9 +58,9 @@ sub _openFile
     my ($self) = @_;
     my $file = $self->{file};
     my $FH;
-    
-    open $FH, "<$file" or 
-        throw EBox::Exceptions::Internal("$file: $!"); 
+
+    open $FH, "<$file" or
+        throw EBox::Exceptions::Internal("$file: $!");
     $self->{fh} = $FH;
 }
 
@@ -69,17 +69,17 @@ sub readLine
 {
     my ($self) = @_;
     my $csv = $self->{csv};
-    
+
     while (1) {
         my $row = $csv->getline( $self->{fh} );
         if ($row) {
             my @parts = @{ $row };
             if ((@parts < $self->{min}) or (@parts > $self->{max})) {
-                print __x('Skipping bad formed line: {l}', 
+                print __x('Skipping bad formed line: {l}',
                           l => join(',', @parts)
                          );
                 print "\n";
-                next;        
+                next;
             }
 
             return \@parts;
