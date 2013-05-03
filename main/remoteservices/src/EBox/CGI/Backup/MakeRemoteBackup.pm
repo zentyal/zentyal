@@ -13,8 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::RemoteServices::Backup::MakeRemoteBackup;
-use base qw(EBox::CGI::ClientBase  EBox::CGI::ProgressClient);
+package EBox::RemoteServices::CGI::Backup::MakeRemoteBackup;
+use base qw(EBox::ClientBase  EBox::CGI::CGI::ProgressClient);
 
 use strict;
 use warnings;

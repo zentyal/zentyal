@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::SysInfo::PageNotFound;
+package EBox::SysInfo::CGI::PageNotFound;
 use base 'EBox::CGI::ClientBase';
 # Description: CGI for "page not found error"
 use strict;

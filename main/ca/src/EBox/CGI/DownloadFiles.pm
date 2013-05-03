@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::CA::DownloadFiles;
+package EBox::CA::CGI::DownloadFiles;
 
 # CGI to download key pair and certificates from a specific user or
 # to download public key and certificate from Certification Authority

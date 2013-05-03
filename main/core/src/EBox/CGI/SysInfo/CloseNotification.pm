@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::SysInfo::CloseNotification;
+package EBox::SysInfo::CGI::CloseNotification;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;

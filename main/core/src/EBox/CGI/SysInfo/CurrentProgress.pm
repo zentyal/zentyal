@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::SysInfo::CurrentProgress;
+package EBox::SysInfo::CGI::CurrentProgress;
 
 use strict;
 use warnings;

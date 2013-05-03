@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Network::Diag;
+package EBox::Network::CGI::Diag;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;

@@ -15,8 +15,8 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Software::InstallPkgs;
-use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
+package EBox::Software::CGI::InstallPkgs;
+use base qw(EBox::ClientBase EBox::CGI::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Gettext;

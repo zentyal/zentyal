@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Network::Iface;
+package EBox::Network::CGI::Iface;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;

@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Monitor::UpdateGraph;
+package EBox::Monitor::CGI::UpdateGraph;
 
-# Class: EBox::CGI::Monitor::UpdateGraph
+# Class: EBox::Monitor::CGI::UpdateGraph
 #
 #     CGI to update a measure graph
 #
