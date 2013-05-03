@@ -146,7 +146,7 @@ DefaultType text/plain
 
 HostnameLookups Off
 
-ErrorLog /var/log/zentyal/error.log
+ErrorLog /var/log/zentyal/error-perl.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
@@ -200,7 +200,7 @@ ServerTokens Min
         Allow from all
     </Directory>
 
-    CustomLog /var/log/zentyal/access.log combined
+    CustomLog /var/log/zentyal/access-perl.log combined
 
 % if ($debug eq 'yes') {
 # Yes, this is useless right now.

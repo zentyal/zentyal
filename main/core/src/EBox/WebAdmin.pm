@@ -93,8 +93,54 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-# restarting apache from inside apache could be problematic, so we fork()
 sub _daemon
+{
+    my ($self, $action) = @_;
+
+    $self->_daemonNginx($action);
+    $self->_daemonApache($action);
+
+    if ($action eq 'stop') {
+        # Stop redis server
+        $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $self->hardRestart();
+    }
+}
+
+sub _daemonNginx
+{
+    my ($self, $action) = @_;
+
+    my $confDir = EBox::Config::conf();
+    my $conf = $self->_nginxConfFile();
+    my $cmd = "/usr/sbin/nginx -p $confDir -c $conf";
+
+    my $pidfile = '/var/run/zentyal-webadmin.pid';
+    my $pid;
+    if (-f $pidfile) {
+        $pid = read_file($pidfile);
+    } else {
+        $pid = `ps aux|grep 'nginx -d $conf'|awk '/^root/{print \$2;exit}'`;
+        write_file($pidfile, $pid) if $pid;
+    }
+
+    if ($action eq 'stop') {
+        if ($pid) {
+            EBox::Sudo::root("$cmd -s stop");
+        }
+    } elsif ($action eq 'start') {
+        EBox::Sudo::root("$cmd");
+    } elsif ($action eq 'restart') {
+        if ($pid) {
+            EBox::Sudo::root("$cmd -s reload");
+        } else {
+            EBox::Sudo::root("$cmd");
+        }
+    }
+}
+
+# restarting apache from inside apache could be problematic, so we fork()
+sub _daemonApache
 {
     my ($self, $action) = @_;
 
@@ -133,12 +179,6 @@ sub _daemon
             exit ($?);
         }
     }
-
-    if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
-        $self->setHardRestart(0) if $hardRestart;
-    }
 }
 
 sub setHardRestart
@@ -168,6 +208,7 @@ sub _setConf
     my ($self) = @_;
 
     $self->_setLanguage();
+    $self->_writeNginxConfFile();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
@@ -182,14 +223,41 @@ sub _enforceServiceState
     $self->_daemon('restart');
 }
 
-sub _writeHttpdConfFile
+sub _nginxConfFile
+{
+    return '/var/lib/zentyal/conf/nginx.conf';
+}
+
+sub _writeNginxConfFile
 {
     my ($self) = @_;
 
     # Write CA links
     $self->_writeCAPath();
 
-    my $httpdconf = _httpdConfFile();
+    my $nginxconf = $self->_nginxConfFile();
+    my $template = 'core/nginx.conf.mas';
+
+    my @confFileParams = ();
+    push @confFileParams, (port => $self->port());
+    push @confFileParams, (tmpdir => EBox::Config::tmp());
+    push @confFileParams, (zentyalconfdir => EBox::Config::conf());
+
+    my $permissions = {
+        uid => EBox::Config::user(),
+        gid => EBox::Config::group(),
+        mode => '0644',
+        force => 1,
+    };
+
+    EBox::Module::Base::writeConfFileNoCheck($nginxconf, $template, \@confFileParams, $permissions);
+}
+
+sub _writeHttpdConfFile
+{
+    my ($self) = @_;
+
+    my $httpdconf = '/var/lib/zentyal/conf/apache2.conf';
     my $template = 'core/apache.mas';
 
     my @confFileParams = ();
@@ -299,11 +367,6 @@ sub _reportAdminPort
         my $rs = $global->modInstance('remoteservices');
         $rs->reportAdminPort($self->port());
     }
-}
-
-sub _httpdConfFile
-{
-    return '/var/lib/zentyal/conf/apache2.conf';
 }
 
 sub _setDesktopServicesPort
@@ -809,19 +872,19 @@ sub certificates
 
 # Method: disableRestartOnTrigger
 #
-#   Makes apache and other modules listed in the restart-trigger script  to
+#   Makes webadmin and other modules listed in the restart-trigger script  to
 #   ignore it and do nothing
 sub disableRestartOnTrigger
 {
     system 'touch ' . NO_RESTART_ON_TRIGGER;
     if ($? != 0) {
-        EBox::warn('Canot create apache no restart on trigger file');
+        EBox::warn('Canot create "webadmin no restart on trigger" file');
     }
 }
 
 # Method: enableRestartOnTrigger
 #
-#   Makes apache and other modules listed in the restart-trigger script  to
+#   Makes webadmin and other modules listed in the restart-trigger script  to
 #   restart themselves when the script is executed (default behaviour)
 sub enableRestartOnTrigger
 {
@@ -830,7 +893,7 @@ sub enableRestartOnTrigger
 
 # Method: restartOnTrigger
 #
-#  Whether apache and other modules listed in the restart-trigger script  to
+#  Whether webadmin and other modules listed in the restart-trigger script  to
 #  restart themselves when the script is executed
 sub restartOnTrigger
 {
