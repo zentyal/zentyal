@@ -350,47 +350,52 @@ Parameters:
 
 */
 
-function actionClicked(url, table, action, rowId, paramsAction, directory, page, extraParams) {
+function actionClicked(url, table, action, rowId, paramsAction, directory, page, extraParams)
+{
+    var params = '&action=' + action + '&id=' + rowId;
 
-  var pars = '&action=' + action + '&id=' + rowId;
+    if ( paramsAction != '' ) {
+        params += '&' + paramsAction;
+    }
+    if ( page != undefined ) {
+        params += '&page=' + page;
+    }
 
-  if ( paramsAction != '' ) {
-    pars += '&' + paramsAction;
-  }
-  if ( page != undefined ) {
-    pars += '&page=' + page;
-  }
+    params += '&filter=' + inputValue(table + '_filter');
+    params += '&pageSize=' + inputValue(table + '_pageSize');
+    params += '&directory=' + directory + '&tablename=' + table;
+    for (name in extraParams) {
+        params += '&' + name + '=' + extraParams[name];
+    }
 
-  pars += '&filter=' + inputValue(table + '_filter');
-  pars += '&pageSize=' + inputValue(table + '_pageSize');
-  pars += '&directory=' + directory + '&tablename=' + table;
-  for (name in extraParams) {
-    pars += '&' + name + '=' + extraParams[name];
-  }
+    cleanError(table);
 
+    var onSuccess = function(responseText) {
+        jQuery('#' + table).html(responseText);
 
-  cleanError(table);
+    };
+    var onFailure = function(response) {
+        jQuery('#error_' + table).html(response.responseText).show();
+        restoreHidden('actionsCell_' + rowId, table);
+    };
+    var onComplete = function(response) {
+        stripe('dataTable', 'even', 'odd');
+        if ( action == 'del' ) {
+            delete savedElements['actionsCell_' + rowId];
+        }
+    };
 
-  var MyAjax = new Ajax.Updater(
+   jQuery.ajax(
         {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-                stripe('dataTable', 'even', 'odd');
-                if ( action == 'del' ) {
-                  delete savedElements['actionsCell_' + rowId];
-                }
-            },
-            onFailure: function(t) {
-                restoreHidden('actionsCell_' + rowId, table);
-            }
-        });
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure,
+            complete: onComplete
+        }
+    );
 
   if ( action == 'del' ) {
     setLoading('actionsCell_' + rowId, table, true);
