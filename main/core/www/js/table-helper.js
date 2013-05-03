@@ -248,8 +248,9 @@ function addNewRow(url, table, fields, directory)
 
     cleanError(table);
 
-    if (fields) params += '&' + encodeFields(table, fields);
-
+    if (fields) {
+        params += '&' + encodeFields(table, fields);
+    }
 
     var onSuccess = function(responseText) {
         jQuery('#' + table).html(responseText);
@@ -275,76 +276,58 @@ function addNewRow(url, table, fields, directory)
         }
     );
 
-    // var MyAjax = new Ajax.Updater(
-    //     {
-    //         success: table,
-    //         failure: 'error_' + table
-    //     },
-    //     url,
-    //     {
-    //         method: 'post',
-    //         parameters: pars,
-    //         evalScripts: true,
-    //         onComplete: function(t) {
-
-    //         },
-    //         onFailure: function(t) {
-    //           restoreHidden('buttons_' + table, table);
-    //         }
-    //     }
-    // );
-
     setLoading('buttons_' + table, table, true);
 }
 
-
-
 function changeRow(url, table, fields, directory, id, page, force, resizeModalbox, extraParams)
 {
-    var pars = '&action=edit&tablename=' + table + '&directory='
+    var params = '&action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
-    if ( page != undefined ) pars += '&page=' + page;
+    if ( page != undefined ) params += '&page=' + page;
 
-    pars += '&filter=' + inputValue(table + '_filter');
-    pars += '&pageSize=' + inputValue(table + '_pageSize');
+    params += '&filter=' + inputValue(table + '_filter');
+    params += '&pageSize=' + inputValue(table + '_pageSize');
 
     // If force parameter is ready, show it
-    if ( force ) pars += '&force=1';
+    if ( force ) params += '&force=1';
 
     cleanError(table);
     if (fields) {
-      pars += '&' + encodeFields(table, fields);
+      params += '&' + encodeFields(table, fields);
     }
     for (name in extraParams) {
-        pars += '&' + name + '=' + extraParams[name];
+        params += '&' + name + '=' + extraParams[name];
     }
 
+    var onSuccess = function(responseText) {
+        jQuery('#' + table).html(responseText);
+    };
+    var onFailure = function(response) {
+        jQuery('#error_' + table).html(response.responseText).show();
+        restoreHidden('buttons_' + table, table);
+        if (resizeModalbox) {
+            Modalbox.resizeToContent();
+        }
+    };
+    var onComplete = function(response) {
+        highlightRow( id, false);
+        stripe('dataTable', 'even', 'odd');
+        if (resizeModalbox) {
+            Modalbox.resizeToContent();
+        }
+    };
 
-    var MyAjax = new Ajax.Updater(
+    jQuery.ajax(
         {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-                highlightRow( id, false);
-                stripe('dataTable', 'even', 'odd');
-                if (resizeModalbox) {
-                  Modalbox.resizeToContent();
-                }
-            },
-            onFailure: function(t) {
-                restoreHidden('buttons_' + table, table );
-                if (resizeModalbox) {
-                  Modalbox.resizeToContent();
-                }
-
-            }
-        });
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure,
+            complete: onComplete
+        }
+    );
 
      setLoading('buttons_' + table, table, true);
 }
