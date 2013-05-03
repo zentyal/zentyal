@@ -7,6 +7,13 @@
 "use strict";
 jQuery.noConflict();
 
+// Detect session loss on ajax request:
+jQuery(document).ajaxError(function(event, jqxhr, settings, exception) {
+    if (jqxhr.status == 403) {
+        location.reload(true);
+    }
+});
+
 // RR
 function cleanError(table) {
     jQuery('#error_' + table).html('');
@@ -1232,6 +1239,7 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
    };
 }
 
+//TT
 function showConfirmationDialog(params, acceptJS)
 {
   var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
@@ -1242,11 +1250,5 @@ function showConfirmationDialog(params, acceptJS)
   Modalbox.show(modalboxHtml, {'title' : params.title });
 }
 
-// Detect session loss on ajax request:
-Ajax.Responders.register({
- onComplete: function(x,response) {
-    if (response.status == 403) {
-      location.reload(true);
-        }
- }
-});
+
+
