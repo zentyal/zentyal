@@ -1095,6 +1095,7 @@ function sendInPlaceBooleanValue(url, model, id, dir, field, element)
         }
     );
 }
+
 /*
 Function: startAjaxRequest
 
@@ -1104,7 +1105,7 @@ Function: startAjaxRequest
     an ajax request starts and stops.
 
 */
-// TT
+// RR
 function startAjaxRequest()
 {
     jQuery('#ajax_request_cookie').val(1);
@@ -1119,13 +1120,13 @@ Function: completedAjaxRequest
     an ajax request starts and stops.
 
 */
-//TT
+//RR
 function completedAjaxRequest()
 {
     jQuery('#ajax_request_cookie').val(0);
 }
 
-
+//RR
 function addSelectChoice(id, value, printableValue, selected)
 {
     var selectControl = document.getElementById(id);
@@ -1140,8 +1141,7 @@ function addSelectChoice(id, value, printableValue, selected)
     }
 }
 
-
-
+//RR
 function removeSelectChoice(id, value, selectedIndex)
 {
     var selectControl = document.getElementById(id);
@@ -1163,26 +1163,27 @@ function removeSelectChoice(id, value, selectedIndex)
 
 }
 
+//RR
 function checkAllControlValue(url, table, directory, controlId, field)
 {
-    var pars = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
-    pars += '&controlId=' + controlId  + '&field=' + field;
-    pars +=  '&json=1';
+    var params = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
+    params += '&controlId=' + controlId  + '&field=' + field;
+    params +=  '&json=1';
 
-    AjaxParams =  {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-              completedAjaxRequest();
-              var json = t.responseText.evalJSON(true);
-              $(controlId).checked = json.success;
-            }
+    var onComplete = function(response) {
+        completedAjaxRequest();
+        var json = jQuery.parseJSON(response.responseText);
+        jQuery('#' + controlId).prop('checked', json.success);
     };
 
-    MyAjax = new Ajax.Request(
-      url,
-      AjaxParams
+   jQuery.ajax(
+        {
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'json',
+            complete: onComplete
+        }
     );
 }
 
