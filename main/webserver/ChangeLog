@@ -1,3 +1,5 @@
+HEAD
+	+ More error checking when creating virtual host directories
 3.0.3
 	+ Fixed bug when checking hostname aliases on creation of a
 	  virtual host
