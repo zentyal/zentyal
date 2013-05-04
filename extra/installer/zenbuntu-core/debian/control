@@ -1,4 +1,4 @@
-Source: zenbuntu-desktop
+Source: zenbuntu-core
 Section: metapackages
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
@@ -6,9 +6,9 @@ Build-Depends: debhelper (>= 7.0.0), cdbs
 Standards-Version: 3.9.1
 Homepage: http://www.zentyal.org/
 
-Package: zenbuntu-desktop
+Package: zenbuntu-core
 Architecture: all
-Depends: zenbuntu-core, xorg, firefox, lxdm, lxde, xdg-user-dirs, gksu, libnss3-tools, xscreensaver, evince, policykit-1, plymouth-theme-ubuntu-logo, gtk2-engines
-Description: Zentyal Desktop Environment for Ubuntu Server
+Depends: openssh-server, nano, plymouth-theme-ubuntu-text, acpid, ntp, wget
+Description: Zentyal Environment for Ubuntu Server
  This package ships scripts and branding stuff included in
  the Zentyal installer to setup the Zentyal system.

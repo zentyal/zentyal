@@ -13,10 +13,13 @@ fi
 
 plymouth message --text="Core packages installed. Continuing first boot..."
 
-/usr/share/zenbuntu-desktop/x11-setup >> $LOG 2>&1
+if [ -d /usr/share/zenbuntu-desktop ]
+then
+    /usr/share/zenbuntu-desktop/x11-setup >> $LOG 2>&1
 
-mv /usr/share/zenbuntu-desktop/second-boot.sh /etc/rc.local
+    mv /usr/share/zenbuntu-desktop/second-boot.sh /etc/rc.local
 
-initctl emit zentyal-lxdm
+    initctl emit zentyal-lxdm
+fi
 
 exit 0
