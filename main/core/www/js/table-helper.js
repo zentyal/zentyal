@@ -94,6 +94,7 @@ function onFieldChange(event, JSONActions, table) {
                  break;
             }
         }
+        return true;
     });
 }
 
@@ -111,7 +112,7 @@ function encodeFields(table, fields)
     return pars.join('&');
 }
 
-// TODO after addNewRow
+// RR
 function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
 {
     var title = '';
@@ -120,33 +121,33 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     var nextPageContextName;
     var MyAjax;
     var AjaxParams;
-    var pars = 'action=add&tablename=' + table + '&directory=' + directory ;
     var wantJSON = 0;
+    var params = 'action=add&tablename=' + table + '&directory=' + directory ;
 
     if (nextPage){
-     wantJSON = 1;
-     pars +=  '&json=1';
+        wantJSON = 1;
+        params +=  '&json=1';
     } else {
-        pars += '&page=0';
-        pars += '&filter=' + inputValue(table + '_filter');
-        pars += '&pageSize=' + inputValue(table + '_pageSize');
+        params += '&page=0';
+        params += '&filter=' + inputValue(table + '_filter');
+        params += '&pageSize=' + inputValue(table + '_pageSize');
+    }
+    if (fields) {
+        params += '&' + encodeFields(table, fields);
     }
     if (extraParams) {
-      selectCallerId        = extraParams['selectCallerId'];
-      selectForeignField    = extraParams['selectForeignField'];
-      nextPageContextName = extraParams['nextPageContextName'];
+        selectCallerId        = extraParams['selectCallerId'];
+        if (selectCallerId) {
+            params += '&selectCallerId=' + selectCallerId;
+        }
+
+        selectForeignField    = extraParams['selectForeignField'];
+        nextPageContextName = extraParams['nextPageContextName'];
     }
 
     cleanError(table);
 
-    if (fields) {
-        pars += '&' + encodeFields(table, fields);
-    }
-    if (selectCallerId) {
-        pars += '&selectCallerId=' + selectCallerId;
-    }
-
-    var onSucess =  function(text) {
+    var success =  function(text) {
         if (!nextPage) {
             jQuery('#' + table).html(text);
         }
@@ -156,7 +157,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
             return;
         }
 
-        var json = jQuery.parseJSON(text);
+        var json = text;
         if (!json.success) {
             var error = json.error;
             if (!error) {
@@ -210,10 +211,10 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
         restoreHidden('buttons_' + table, table);
         Modalbox.resizeToContent();
     };
-    var onComplete = function () {
+    var complete = function () {
         completedAjaxRequest();
     };
-    var onError = function (jqxhr) {
+    var error = function (jqxhr) {
         if (!nextPage) {
             jQuery('#error_' + table).html(jqxhr.responseText).show();
         }
@@ -226,41 +227,13 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
             url: url,
             data: params,
             type : 'POST',
-            success: onSuccess,
-            error: onError,
-            complete: onComplete
+            success: success,
+            error: error,
+            complete: complete
         }
     );
 
     setLoading('buttons_' + table, table, true);
-
-  //  AjaxParams =  {
-  //      url: url,
-  //      type: 'Post',
-  //      data: pars,
-  //      success:
-  //      error: function(t) {
-  //      }
-  //  };
-
-
-  // if (nextPage) {
-  //   MyAjax = new Ajax.Request(
-  //     url,
-  //     AjaxParams
-  //   );
-  // } else {
-  //   MyAjax = new Ajax.Updater(
-  //       {
-  //           success: table,
-  //           failure: 'error_' + table
-  //       },
-  //     url,
-  //     AjaxParams
-  //   );
-  // }
-
-
 }
 
 // RR
@@ -562,14 +535,14 @@ function changeView(url, table, directory, action, id, page, isFilter)
    }
 }
 
-//TODO
+//TT
 function modalChangeView(url, table, directory, action, id, extraParams)
 {
     var title = '';
     var page = 1;
     var firstShow = false;
     var isFilter= false;
-    var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
     for (name in extraParams) {
       if (name == 'title') {
         title = extraParams['title'];
@@ -577,31 +550,30 @@ function modalChangeView(url, table, directory, action, id, extraParams)
         page = extraParams['page'];
       } else if (name == 'firstShow') {
         firstShow = extraParams['firstShow'];
-        pars += '&firstShow=' + extraParams['firstShow'];
+        params += '&firstShow=' + extraParams['firstShow'];
       } else {
-        pars += '&' + name + '=' + extraParams[name];
+        params += '&' + name + '=' + extraParams[name];
       }
 
     }
+    if (! firstShow ) {
+        params += '&firstShow=0';
+    }
 
-  if (! firstShow ) {
-        pars += '&firstShow=0';
-   }
-
-    pars += '&filter=' + inputValue(table + '_filter');
-    pars += '&pageSize=' + inputValue(table + '_pageSize');
-    pars += '&page=' + page;
+    params += '&filter=' + inputValue(table + '_filter');
+    params += '&pageSize=' + inputValue(table + '_pageSize');
+    params += '&page=' + page;
 
   if (firstShow) {
       Modalbox.show(url, {title: title,
-                          params: pars,
+                          params: params,
                           transitions: false,
                           overlayClose: false,
                           afterLoad: function() {
                                // fudge for pootle bug
                                var badText = document.getElementById('ServiceTable_modal_name');
                                if (badText){
-                                badText.value = '';
+                                   badText.value = '';
                                 }
                               }
                           }
@@ -609,60 +581,60 @@ function modalChangeView(url, table, directory, action, id, extraParams)
 
   } else {
       cleanError(table);
-       var MyAjax = new Ajax.Updater(
+      var success = function(responseText) {
+          jQuery('#' + table).html(responseText);
+      };
+      var failure = function(response) {
+          jQuery('#error_' + table).html(response.responseText).show();
+          if ( action == 'changeAdd' ) {
+              restoreHidden('creatingForm_' + table, table);
+          } else if ( action == 'changeList' ) {
+              if (! isFilter ) {
+                  restoreHidden('buttons_' + table, table);
+              }
+          }
+          else if ( action == 'changeEdit' ) {
+              restoreHidden('actionsCell_' + id, table);
+          }
+          Modalbox.resizeToContent();
+      };
+      var complete = function() {
+          // Highlight the element
+          if (id != undefined) {
+              highlightRow(id, true);
+          }
+          // Stripe again the table
+          stripe('dataTable', 'even', 'odd');
+          if ( action == 'changeEdit' ) {
+              restoreHidden('actionsCell_' + id, table);
+          }
+          completedAjaxRequest();
+          Modalbox.resizeToContent();
+      };
+
+      jQuery.ajax(
         {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
-            method: 'post',
-            parameters: pars,
-            evalScripts: true,
-            onComplete: function(t) {
-              // Highlight the element
-                          if (id != undefined) {
-                highlightRow(id, true);
-                          }
-              // Stripe again the table
-              stripe('dataTable', 'even', 'odd');
-              if ( action == 'changeEdit' ) {
-                restoreHidden('actionsCell_' + id, table);
-              }
-              completedAjaxRequest();
-              Modalbox.resizeToContent();
-            },
-            onFailure: function(t) {
-              if ( action == 'changeAdd' ) {
-                restoreHidden('creatingForm_' + table, table);
-              }
-              else if ( action == 'changeList' ) {
-                            if (! isFilter ) {
-                              restoreHidden('buttons_' + table, table);
-                            }
-              }
-              else if ( action == 'changeEdit' ) {
-                restoreHidden('actionsCell_' + id, table);
-              }
-                Modalbox.resizeToContent();
-            }
-
-        });
-
-
-     if ( action == 'changeAdd' ) {
-        setLoading('creatingForm_' + table, table, true);
-      }
-      else if ( action == 'changeList' ) {
-        if ( ! isFilter ) {
-          setLoading('buttons_' + table, table, true);
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: success,
+            error: failure,
+            complete: complete
         }
+    );
+
+      if ( action == 'changeAdd' ) {
+          setLoading('creatingForm_' + table, table, true);
+      } else if ( action == 'changeList' ) {
+          if ( ! isFilter ) {
+              setLoading('buttons_' + table, table, true);
+          }
       }
       else if ( action == 'changeEdit' ) {
-        setLoading('actionsCell_' + id, table, true);
+          setLoading('actionsCell_' + id, table, true);
       }
-    }
-
+  }
 }
 
 /*
