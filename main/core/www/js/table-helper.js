@@ -1,7 +1,6 @@
 // Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
 
 // TODO
-//      - Use Form.serialize stuff to get params
 //      - Refactor addNewRow and actionClicked, they do almost the same
 //      - Implement a generic function for the onComplete stage
 "use strict";
