@@ -19,7 +19,7 @@
 #   This class is used as a controller to receive the green light
 #   from users to configure which is needed to enable a module
 #
-package EBox::CGI::ServiceModule::ConfigureModuleController;
+package EBox::ServiceModule::CGI::ConfigureModuleController;
 
 use strict;
 use warnings;

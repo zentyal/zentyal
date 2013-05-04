@@ -19,7 +19,7 @@
 #  This class is to used to warn and prompt the user about the
 #  configuration files which are going to be modified
 #
-package EBox::CGI::ServiceModule::View;
+package EBox::ServiceModule::CGI::View;
 
 use strict;
 use warnings;

@@ -19,7 +19,7 @@
 #   This class is used to list the actions and file modifications
 #   that eBox needs to do to enable the module
 #
-package EBox::CGI::ServiceModule::ConfigureView;
+package EBox::ServiceModule::CGI::ConfigureView;
 
 use strict;
 use warnings;

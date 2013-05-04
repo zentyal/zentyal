@@ -20,7 +20,7 @@ use warnings;
 #  This class is to gather those modules which the user wants to enable.
 #  It takes care of disabling/enabling dependencies
 #
-package EBox::CGI::ServiceModule::StatusController;
+package EBox::ServiceModule::CGI::StatusController;
 
 use base 'EBox::CGI::ClientRawBase';
 

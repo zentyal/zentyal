@@ -19,7 +19,7 @@
 #  This class is to gather the files which have been accepted to modify
 #  by the user
 #
-package EBox::CGI::ServiceModule::Controller;
+package EBox::ServiceModule::CGI::Controller;
 
 use strict;
 use warnings;

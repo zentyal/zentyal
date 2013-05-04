@@ -18,7 +18,7 @@
 #
 #   This class is used to list the status of the modules
 #
-package EBox::CGI::ServiceModule::StatusView;
+package EBox::ServiceModule::CGI::StatusView;
 
 use strict;
 use warnings;
