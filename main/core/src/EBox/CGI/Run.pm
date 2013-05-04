@@ -45,12 +45,11 @@ my %urlAlias;
 #    url - String the URL to get the CGI from, it will transform
 #    slashes to double colons
 #
-#    namespace - String the namespace to prefix the CGI to extract the
-#                class name, as explained in <classFromUrl>
+#    htmlblocks - *optional* Custom HtmlBlocks package
 #
 sub run
 {
-    my ($self, $url, $namespace) = @_;
+    my ($self, $url, $htmlblocks) = @_;
 
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
@@ -59,17 +58,23 @@ sub run
         my $cgi = _instanceModelCGI($url);
 
         unless ($cgi) {
+            my @extraParams;
+            if ($htmlblocks) {
+                push (@extraParams, htmlblocks => $htmlblocks);
+            }
+
             my $classname = _cgiFromUrl($url);
             eval "use $classname";
+
             if ($@) {
                 my $log = EBox::logger();
                 $log->error("Unable to load CGI: URL=$url CLASS=$classname ERROR: $@");
 
                 my $error_cgi = 'EBox::SysInfo::CGI::PageNotFound';
                 eval "use $error_cgi";
-                $cgi = new $error_cgi(namespace => $namespace);
+                $cgi = new $error_cgi(@extraParams);
             } else {
-                $cgi = new $classname();
+                $cgi = new $classname(@extraParams);
             }
         }
 
