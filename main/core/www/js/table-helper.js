@@ -778,39 +778,22 @@ Function: showPort
 
 Parameters:
 
-        protocolSelectId - the select identifier which the protocol is chosen
+    protocolSelectId - the select identifier which the protocol is chosen
     portId   - the identifier where port is going to be set
     protocols - the list of protocols which need a port to be set
 
 */
-// TODO
+// TT
 function showPort(protocolSelectId, portId, protocols)
 {
-
-  var selectedIdx = $(protocolSelectId).selectedIndex;
-  var selectedValue = $(protocolSelectId).options[selectedIdx].value;
-
-  var found = false;
-  // Search the selected value into the array to know if it needs a port or not
-  for ( var idx = 0; idx < protocols.length && ! found; idx++) {
-    if ( selectedValue == protocols[idx] ) {
-      found = true;
-      show(portId);
+    var selectedValue = jQuery('#' + protocolSelectId).val();
+    if (selectedValue in protocols) {
+        jQuery('#' + portId).show();
+    } else {
+        jQuery('#' + portId).hide();
     }
-  }
-
-  if (! found) {
-    hide(portId);
-  }
-
 }
 
-/* TODO: showPortRange and showPort do things in common
-     like showing/hiding elments depending on which value
-     is selected elsewhere. We should refactor this
-     and provide a generic function to do that. Logic should
-     come from model and translated in javascript.
-*/
 /*
 Function: showPortRange
 
@@ -821,30 +804,29 @@ Parameters:
     id - the select identifier which the protocol is chosen
 
 */
-// TODO
+// RR
 function showPortRange(id)
 {
+    var selectedValue = jQuery('#' + id + '_range_type').val()
+    var single = jQuery('#' + id + '_single');
+    var range = jQuery('#' + id + '_range');
 
-  var selectId = id + "_range_type";
-  var selectedIdx = $(selectId).selectedIndex;
-  var selectedValue = $(selectId).options[selectedIdx].value;
-
-  if ( selectedValue == "range") {
-    show(id + "_range");
-    hide(id + "_single");
-    $(id + "_single_port").value = "";
-  } else if (selectedValue == "single") {
-    hide(id + "_range");
-    show(id + "_single");
-    $(id + "_to_port").value = "";
-    $(id + "_from_port").value = "";
-  } else {
-    hide(id + "_range");
-    hide(id + "_single");
-    $(id + "_to_port").value = "";
-    $(id + "_from_port").value = "";
-    $(id + "_single_port").value = "";
-  }
+    if ( selectedValue == 'range') {
+        single.hide();
+        range.show();
+        jQuery('#' + id + '_single_port').val('');
+    } else if (selectedValue == 'single') {
+        single.show();
+        range.hide();
+        jQuery('#' + id + '_to_port').val('');
+        jQuery('#' + id + '_from_port').val('');
+    } else {
+        single.hide();
+        range.hide();
+        jQuery('#' + id + '_to_port').val('');
+        jQuery('#' + id + '_from_port').val('');
+        jQuery('#' + id + '_single_port').val('');
+    }
 }
 
 /*
