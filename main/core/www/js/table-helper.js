@@ -30,25 +30,15 @@ function setError(table, html) {
 //
 // Parameters:
 //
-//  element - Parent HTMLElement object
+//  element - Parent jQuery element object
 //  state - boolean, true to enable, false to disable
 //
+// RR
 function setEnableRecursively(element, state) {
-    // XXX TO jquery
-    element.childElements().each(
-        function (child) {
-            //XXX Should we check child is a From or
-            //    prototype takes care of it?
-            if (state) {
-                Form.Element.enable(child);
-            } else {
-                Form.Element.disable(child);
-            }
-            setEnableRecursively(child, state);
-        }
-    );
+    element.find(':input').each(function(index, el) {
+        jQuery(el).prop('disabled', !state);
+    });
 }
-
 
 // Function: onFieldChange
 //
@@ -59,46 +49,52 @@ function setEnableRecursively(element, state) {
 //  Event - Event prototype
 //  JSONActions - JSON Object containing the actions to take
 //
+//RR
 function onFieldChange(event, JSONActions, table) {
-    var actions = new Hash(JSONActions);
-    var selectedValue = $F(Event.element(event));
-    if (selectedValue == undefined) {
+    var target = jQuery(event.target);
+    var selectedValue;
+    if (target.is(':checkbox, :radio') && ! target.prop('checked'))  {
+        // unchecked = no value
         selectedValue = 'off';
+    } else {
+        selectedValue = target.val();
+        if (selectedValue === null) {
+            selectedValue = 'off';
+        }
     }
 
-    if (! actions.get(selectedValue)) {
+    if (!(selectedValue in JSONActions)) {
         return;
     }
-    var onValue = new Hash(actions.get(selectedValue));
-    var supportedActions = new Array('show', 'hide', 'enable', 'disable');
-    supportedActions.each (
-        function (action) {
-            if (onValue.get(action) == undefined) {
-                return;
-            }
-            var fields = onValue.get(action);
-            for (var i = 0; i < fields.length; i++) {
-                var fullId = table + '_' + fields[i] + '_row';
-                switch (action)
-                {
-                    case 'show':
-                        show(fullId);
-                        break;
-                    case 'hide':
-                        hide(fullId);
-                        break;
-                     case 'enable':
-                        setEnableRecursively($(fullId), true);
-                        break;
-                     case 'disable':
-                        setEnableRecursively($(fullId), false);
-                        break;
-                     default:
-                        break;
-                }
+
+    var onValue = JSONActions[selectedValue];
+    var supportedActions = ['show', 'hide', 'enable', 'disable'];
+    jQuery.each(supportedActions, function (index, action) {
+        if (!(action in onValue)) {
+            return true;
+        }
+        var fields = onValue[action];
+        for (var i = 0; i < fields.length; i++) {
+            var fullId = '#' + table + '_' + fields[i] + '_row';
+            var element = jQuery(fullId).first();
+            switch (action)  {
+               case 'show':
+                  element.show();
+                  break;
+               case 'hide':
+                  element.hide();
+                  break;
+               case 'enable':
+                  setEnableRecursively(element, true);
+                  break;
+               case 'disable':
+                  setEnableRecursively(element, false);
+                  break;
+              default:
+                 break;
             }
         }
-    );
+    });
 }
 
 // RR
@@ -144,103 +140,127 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     cleanError(table);
 
     if (fields) {
-      pars += '&' + encodeFields(table, fields);
+        pars += '&' + encodeFields(table, fields);
     }
     if (selectCallerId) {
-     pars += '&selectCallerId=' + selectCallerId;
-   }
+        pars += '&selectCallerId=' + selectCallerId;
+    }
 
+    var onSucess =  function(text) {
+        if (!nextPage) {
+            jQuery('#' + table).html(text);
+        }
+        stripe('dataTable', 'even', 'odd');
+        if (!wantJSON) {
+            Modalbox.resizeToContent();
+            return;
+        }
 
-   AjaxParams =  {
-       url: url,
-       type: 'Post',
-       data: pars,
-       success: function(t) {
-           stripe('dataTable', 'even', 'odd');
-           completedAjaxRequest();
+        var json = jQuery.parseJSON(text);
+        if (!json.success) {
+            var error = json.error;
+            if (!error) {
+                error = 'Unknown error';
+            }
+            setError(table, error);
+            restoreHidden('buttons_' + table, table);
+            Modalbox.resizeToContent();
+            return;
+        }
 
-           if (!wantJSON) {
-               Modalbox.resizeToContent();
-               return;
-           }
+        if (nextPage && nextPageContextName) {
+            var nextDirectory = json.directory;
+            var rowId = json.rowId;
+            if (selectCallerId && selectForeignField){
+                var printableValue = json.callParams[selectForeignField];
+                addSelectChoice(selectCallerId, rowId, printableValue, true);
+                // hide 'Add a new one' element
+                var newLink  = document.getElementById(selectCallerId + '_empty');
+                if (newLink) {
+                    newLink.style.display = 'none';
+                    document.getElementById(selectCallerId).style.display ='inline';
+                }
+            }
 
-           var json = t.responseText.evalJSON(true);
-           if (!json.success) {
-               var error = json.error;
-               if (!error) {
-                   error = 'Unknown error';
+            if (rowId && directory) {
+                var nameParts = nextPageContextName.split('/');
+                var baseUrl = '/zentyal/' + nameParts[1] + '/';
+                baseUrl += 'ModalController/' + nameParts[2];
+                var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
+                var nextPageUrl = baseUrl;
+                nextPageUrl += '?directory=' + newDirectory;
+                nextPageUrl += '&firstShow=0';
+                nextPageUrl += '&action=viewAndAdd';
+                nextPageUrl += "&selectCallerId=" + selectCallerId;
+
+                Modalbox.show(nextPageUrl, {
+                    transitions: false,
+                    overlayClose : false
+                }
+                             );
+            } else {
+                setError(table, 'Cannot get next page URL');
+                restoreHidden('buttons_' + table, table);
+                Modalbox.resizeToContent();
                }
-               setError(table, error);
-               restoreHidden('buttons_' + table, table);
-               Modalbox.resizeToContent();
-               return;
-           }
+            return;
+        }
 
-           if (nextPage && nextPageContextName) {
-               var nextDirectory = json.directory;
-               var rowId = json.rowId;
-               if (selectCallerId && selectForeignField){
-                   var printableValue = json.callParams[selectForeignField];
-                   addSelectChoice(selectCallerId, rowId, printableValue, true);
-                   // hide 'Add a new one' element
-                  var newLink  = document.getElementById(selectCallerId + '_empty');
-                   if (newLink) {
-                       newLink.style.display = 'none';
-                       document.getElementById(selectCallerId).style.display ='inline';
-                   }
-               }
+        //sucesss and not next page
+        restoreHidden('buttons_' + table, table);
+        Modalbox.resizeToContent();
+    };
+    var onComplete = function () {
+        completedAjaxRequest();
+    };
+    var onError = function (jqxhr) {
+        if (!nextPage) {
+            jQuery('#error_' + table).html(jqxhr.responseText).show();
+        }
+        restoreHidden('buttons_' + table, table);
+        Modalbox.resizeToContent();
+    };
 
-               if (rowId && directory) {
-                   var nameParts = nextPageContextName.split('/');
-                   var baseUrl = '/zentyal/' + nameParts[1] + '/';
-                   baseUrl += 'ModalController/' + nameParts[2];
-                   var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
-                   var nextPageUrl = baseUrl;
-                   nextPageUrl += '?directory=' + newDirectory;
-                   nextPageUrl += '&firstShow=0';
-                   nextPageUrl += '&action=viewAndAdd';
-                   nextPageUrl += "&selectCallerId=" + selectCallerId;
-
-                   Modalbox.show(nextPageUrl, {
-                       transitions: false,
-                       overlayClose : false
-                   }
-                                );
-               } else {
-                   setError(table, 'Cannot get next page URL');
-                   restoreHidden('buttons_' + table, table);
-                   Modalbox.resizeToContent();
-               }
-               return;
-           }
-
-           //sucesss and not next page
-           restoreHidden('buttons_' + table, table);
-           Modalbox.resizeToContent();
-       },
-       error: function(t) {
-           restoreHidden('buttons_' + table, table);
-           Modalbox.resizeToContent();
-       }
-   };
-
-  if (nextPage) {
-    MyAjax = new Ajax.Request(
-      url,
-      AjaxParams
-    );
-  } else {
-    MyAjax = new Ajax.Updater(
+   jQuery.ajax(
         {
-            success: table,
-            failure: 'error_' + table
-        },
-      url,
-      AjaxParams
+            url: url,
+            data: params,
+            type : 'POST',
+            success: onSuccess,
+            error: onError,
+            complete: onComplete
+        }
     );
-  }
 
     setLoading('buttons_' + table, table, true);
+
+  //  AjaxParams =  {
+  //      url: url,
+  //      type: 'Post',
+  //      data: pars,
+  //      success:
+  //      error: function(t) {
+  //      }
+  //  };
+
+
+  // if (nextPage) {
+  //   MyAjax = new Ajax.Request(
+  //     url,
+  //     AjaxParams
+  //   );
+  // } else {
+  //   MyAjax = new Ajax.Updater(
+  //       {
+  //           success: table,
+  //           failure: 'error_' + table
+  //       },
+  //     url,
+  //     AjaxParams
+  //   );
+  // }
+
+
 }
 
 // RR
@@ -288,8 +308,8 @@ function addNewRow(url, table, fields, directory)
 //RR
 function changeRow(url, table, fields, directory, id, page, force, resizeModalbox, extraParams)
 {
-    var params = '&action=edit&tablename=' + table + '&directory='
-                   + directory + '&id=' + id + '&';
+    var params = '&action=edit&tablename=' + table;
+    params +=  '&directory='  + directory + '&id=' + id + '&';
     if ( page != undefined ) params += '&page=' + page;
 
     params += '&filter=' + inputValue(table + '_filter');
@@ -361,7 +381,7 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
 {
     var params = '&action=' + action + '&id=' + rowId;
 
-    if ( paramsAction != '' ) {
+    if ( paramsAction !== '' ) {
         params += '&' + paramsAction;
     }
     if ( page != undefined ) {
@@ -925,7 +945,7 @@ Parameters:
 //RR
 function restoreHidden (elementId, modelName)
 {
-    if (savedElements[elementId] != null) {
+    if (savedElements[elementId] !== null) {
         jQuery('#' + elementId).html(savedElements[elementId]);
     } else {
         jQuery('#' + elementId).html('');
@@ -979,16 +999,15 @@ function highlightRow(elementId, enable)
 {
   // If enable has value null or undefined
     console.log("highlightRow " + elementId);
-  if ( enable == null) {
-    enable = true;
-  }
-  if (enable) {
-    // Highlight the element putting the CSS class which does so
-      jQuery('#' + elementId).addClass("highlight");
-  }
-  else {
-      jQuery('#' + elementId).removeClass("highlight");
-  }
+    if ( (enable === null) || (enable === undefined)) {
+        enable = true;
+    }
+    if (enable) {
+        // Highlight the element putting the CSS class which does so
+        jQuery('#' + elementId).addClass("highlight");
+    } else {
+        jQuery('#' + elementId).removeClass("highlight");
+    }
 }
 
 /*
@@ -1194,43 +1213,47 @@ function checkAllControlValue(url, table, directory, controlId, field)
     );
 }
 
-
+//RR
 function confirmationDialog(url, table, directory, actionToConfirm, elements)
 {
-  var wantDialog  = true;
-  var dialogTitle = null;
-  var dialogMsg = null;
+    var wantDialog  = true;
+    var dialogTitle = null;
+    var dialogMsg = null;
 
-  var pars = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
-  pars +='&actionToConfirm=' + actionToConfirm;
-  for (var i=0; i < elements.length; i++) {
-    var name = elements[i];
-    var id = table + '_' + name;
-    var el = $(id);
-    pars +='&'+ name + '=';
-    pars +=el.value;
-  }
+    var params = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
+    params +='&actionToConfirm=' + actionToConfirm;
+    for (var i=0; i < elements.length; i++) {
+        var name = elements[i];
+        var id = table + '_' + name;
+        var el = $(id);
+        params +='&'+ name + '=';
+        params +=el.value;
+    }
 
-  var request = new Ajax.Request(url, {
-        method: 'post',
-        parameters: pars,
-        asynchronous: false,
-        onSuccess: function (t) {
-           var json = t.responseText.evalJSON(true);
-           if (json.wantDialog) {
+    var onSuccess = function (text) {
+        var json = jQuery.parseJSON(text);
+        if (json.wantDialog) {
              dialogTitle = json.title;
              dialogMsg = json.message;
-           } else {
-             wantDialog = false;
-           }
-        },
-        onFailure: function(t) {
+        } else {
+            wantDialog = false;
+        }
+    };
+    var onFailure = function() {
           dialogTitle = '';
           dialogMsg = 'Are you sure?';
+    };
+   jQuery.ajax(
+        {
+            url: url,
+            async: false,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: onSuccess,
+            error: onFailure
         }
-
-      }
-    );
+   );
 
   return {
     'wantDialog' : wantDialog,
@@ -1239,7 +1262,7 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
    };
 }
 
-//TT
+//RR
 function showConfirmationDialog(params, acceptJS)
 {
   var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
