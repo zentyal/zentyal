@@ -897,35 +897,6 @@ function restoreHidden (elementId, modelName)
 }
 
 /*
-Function: disableInput
-
-        Disable all inputs attached as children to the given element
-
-Parameters:
-
-        elementId - the element identifier where all input elements hang
-
-*/
-//TODO
-function disableInput(elementId)
-{
-
-  var children = $(elementId).childNodes;
-
-  for (var idx = 0; idx < children.length; idx++) {
-    // I'd like to use constant but in IE 6 simply they don't exist
-    node = children[idx];
-    if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
-      //      if ( typeof node == "HTMLInputElement" ) {
-
-    node.disable = true;
-    //}
-    }
-  }
-
-}
-
-/*
 Function: highlightRow
 
         Enable/Disable a hightlight over an element on the table
