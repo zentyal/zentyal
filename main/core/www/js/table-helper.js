@@ -535,7 +535,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
    }
 }
 
-//TT
+//RR
 function modalChangeView(url, table, directory, action, id, extraParams)
 {
     var title = '';
@@ -654,40 +654,41 @@ Parameters:
         *(Optional)* Default: 'loadingTable'
 
 */
-// TODO
+// TT
 function hangTable(successId, errorId, url, formId, loadingId)
 {
+    var params = jQuery('#' + formId).first().serialize();
+    // clean error messages
+    jQuery('#' + errorId).html("");
 
-  // Cleaning manually
-  $(errorId).innerHTML = "";
-
-  if ( ! loadingId ) {
-    loadingId = 'loadingTable';
-  }
-
-  var ajaxUpdate = new Ajax.Updater(
-  {
-  success: successId,
-  failure: errorId
-  },
-  url,
-      {
-    method: 'post',
-    parameters: Form.serialize(formId, true), // The parameters are taken from the form
-    asynchronous: true,
-    evalScripts: true,
-    onComplete: function(t) {
-      stripe('dataTable', 'even', 'odd');
-      completedAjaxRequest();
-    },
-    onFailure: function(t) {
-      restoreHidden(loadingId);
+    if ( ! loadingId ) {
+        loadingId = 'loadingTable';
     }
-      }
-  );
+
+    var success = function(responseText) {
+        jQuery('#' + successId).html(responseText);
+    };
+    var failure = function(response) {
+        jQuery('#' + errorId).html(response.responseText).show();
+        restoreHidden('buttons_' + table, table);
+    };
+    var complete = function(response) {
+        stripe('dataTable', 'even', 'odd');
+        completedAjaxRequest();
+    };
+
+    jQuery.ajax({
+        url: url,
+        data: params,
+        type : 'POST',
+        dataType: 'html',
+        success: success,
+        error: failure,
+        complete: complete
+    });
+
 
   setLoading(loadingId);
-
 }
 
 /*
@@ -697,60 +698,51 @@ Function: selectComponentToHang
 
 Parameters:
 
-        successId - div identifier where the new table will be on on success
+    successId - div identifier where the new table will be on on success
     errorId - div identifier
     formId - form identifier which has the parameters to pass to the CGI
-        urls - associative array which contains tthe URL where the CGI which generates the HTML is placed
-        loadingId - String element identifier that it will substitute by the loading image
-        *(Optional)* Default: 'loadingTable'
+    urls - associative array which contains tthe URL where the CGI which generates the HTML is placed
+    loadingId - String element identifier that it will substitute by the loading image
+    *(Optional)* Default: 'loadingTable'
 
 */
-// TODO
+// TT
 function selectComponentToHang(successId, errorId, formId, urls, loadingId)
 {
+    // clean error messages
+    jQuery('#' + errorId).html("");
 
-  // Cleaning manually
-  $(errorId).innerHTML = "";
-
-  if ( ! loadingId ) {
-    loadingId = 'loadingTable';
-  }
-
-  // Currently buggy, since select elements are not inputs
-  // var selects = $(formId).getInputs('select');
-  var children = $(formId).immediateDescendants();
-  var select;
-  for ( var i = 0; i < children.length; i++) {
-    if ( children[i].tagName == 'SELECT' ) {
-      select = children[i];
+    if ( ! loadingId ) {
+        loadingId = 'loadingTable';
     }
-  }
-  var url = urls[ $F(select.id) ];
 
-  var pars = "action=view"; // FIXME: maybe the directory could be sent
+    var selectValue = jQuery('#' + formId).children(':select').first().val();
+    var url = urls[selectValue];
 
-  var ajaxUpdate = new Ajax.Updater(
-  {
-  success: successId,
-  failure: errorId
-  },
-  url,
-      {
-    method: 'post',
-    parameters: pars,
-    asynchronous: true,
-        evalScripts: true,
-        onSuccess: function(t) {
-          restoreHidden(loadingId);
-        },
-    onFailure: function(t) {
-      restoreHidden(loadingId);
-    }
-      }
-  );
+    var params = "action=view"; // FIXME: maybe the directory could be sent
+    var success = function(responseText) {
+        jQuery('#' + successId).html(responseText);
+        restoreHidden(loadingId);
+    };
+    var failure = function(response) {
+        jQuery('#' + errorId).html(response.responseText).show();
+        restoreHidden(loadingId);
+    };
+    var complete = function(response) {
+        completedAjaxRequest();
+    };
+
+    jQuery.ajax({
+        url: url,
+        data: params,
+        type : 'POST',
+        dataType: 'html',
+        success: success,
+        error: failure,
+        complete: complete
+    });
 
   setLoading(loadingId);
-
 }
 
 
@@ -764,21 +756,19 @@ Parameters:
         selectElement - HTMLSelectElement
 
 */
-// TODO
+// RR
 function showSelected (selectElement)
 {
-
-   var selectedValue = $F(selectElement);
-   var options = selectElement.options;
-   for (var i = 0; i < options.length; i++) {
-     var option = options[i].value;
-     var childId = selectElement.id + "_" + option + "_container";
-     if (selectedValue == option) {
-       show(childId);
-     } else {
-       hide(childId);
-     }
-   }
+    var selectedValue = jQuery(selectElement).val();
+    var options = selectElement.options;
+    jQuery.each(options, function(index, option) {
+        var childSelector = '#' + selectElement.id + "_" + option.value + "_container";
+        if (selectedValue == option.value) {
+            jQuery(childSelector).show();
+        } else {
+            jQuery(childSelector).hide();
+        }
+    });
 }
 
 /*
