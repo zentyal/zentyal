@@ -13,13 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::SysInfo::CGI::PageNotFound;
-use base 'EBox::CGI::ClientBase';
-# Description: CGI for "page not found error"
 use strict;
 use warnings;
 
-use  EBox::Gettext;
+package EBox::SysInfo::CGI::PageNotFound;
+use base 'EBox::CGI::ClientBase';
+
+# Description: CGI for "page not found error"
+
+use EBox::Gettext;
 
 sub new
 {
@@ -28,12 +30,13 @@ sub new
     my $template = 'pageNotFound.mas';
     my $self = $class->SUPER::new(title => $title, template => $template, @_);
     bless($self, $class);
-     return $self;
+    return $self;
 }
 
 # we do nothing,
-# we can not even valdiate params because this a page not found error (any parameter can be in)
+# we can not even validate params because this is a page not found error (any parameter can be in)
 sub _process
-{}
+{
+}
 
 1;

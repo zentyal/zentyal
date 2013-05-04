@@ -177,6 +177,17 @@ sub component
     }
 }
 
+# Method: componentExists
+#
+#     Check if a model or composite exists
+#
+sub componentExists
+{
+    my ($self, $path) = @_;
+
+    return ($self->_modelExists($path) or $self->_compositeExists($path));
+}
+
 sub models
 {
     my ($self, $module) = @_;

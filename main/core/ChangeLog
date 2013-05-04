@@ -1,4 +1,5 @@
 HEAD
+	+ CGIs are now EBox::Module::CGI::* instead of EBox::CGI::Module::*
 	+ EBox::Model::DataForm::formSubmitted called even where there is no
 	  previous row
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

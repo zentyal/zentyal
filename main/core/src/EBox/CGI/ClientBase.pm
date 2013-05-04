@@ -39,10 +39,9 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     my $tmp = $class;
     $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
 
-    if(not $namespace) {
+    if (not $namespace) {
         $namespace = $1;
     }
-
 
     if (not $htmlblocks) {
         $htmlblocks = $namespace . "::HtmlBlocks";

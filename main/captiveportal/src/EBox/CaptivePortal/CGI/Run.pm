@@ -25,35 +25,19 @@ use EBox;
 
 use EBox::CaptivePortal::CGI::Login;
 
-
 # this is the same version of EBox::CGI::Run::run() but without redis transactions
-sub run # (url, namespace)
+sub run
 {
-    my ($self, $url, $namespace) = @_;
-
-    my $classname =  EBox::CGI::Run::classFromUrl($url, $namespace);
+    my ($self, $url) = @_;
 
     my $cgi;
+    my $classname = _cgiFromUrl($url);
     eval "use $classname";
     if ($@) {
-        try{
-            $cgi = EBox::CGI::Run::_lookupViewController($classname, $namespace);
-        }  catch EBox::Exceptions::DataNotFound with {
-            # path not valid
-            $cgi = undef;
-        };
-
         if (not $cgi) {
             my $log = EBox::logger;
-            $log->error("Unable to import cgi: "
-                            . "$classname Eval error: $@");
-
-#            my $error_cgi = 'EBox::CGI::PageNotFound';
-
-#            my $error_cgi = 'EBox::CaptivePortal::CGI::Login';
-#            eval "use $error_cgi";
-#            $cgi = $error_cgi->new('namespace' => $namespace);
-             $cgi = EBox::CaptivePortal::CGI::Login->new(namespace => $namespace);
+            $log->error("Unable to import cgi: $classname Eval error: $@");
+            $cgi = EBox::CaptivePortal::CGI::Login->new();
         }
     } else {
         $cgi = new $classname();
@@ -61,6 +45,5 @@ sub run # (url, namespace)
 
     $cgi->run();
 }
-
 
 1;
