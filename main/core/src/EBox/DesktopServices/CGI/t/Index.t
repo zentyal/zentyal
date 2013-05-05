@@ -33,7 +33,7 @@ validateRefererTest();
 
 sub JSONReplyTest
 {
-    my $cgi = EBox::CGI::DesktopServices::Index->new();
+    my $cgi = EBox::DesktopServices::CGI::Index->new();
 
     my $jsonHeader = $cgi->cgi()->header(-charset=>'utf-8',
                                          -type => 'application/JSON',
@@ -143,7 +143,7 @@ sub setupFakeModules
 
 sub validateRefererTest
 {
-    my $cgi = EBox::CGI::DesktopServices::Index->new();
+    my $cgi = EBox::DesktopServices::CGI::Index->new();
 
     my $hostname = '192.168.45.12';
     my $referer = '45.33.33.12';
