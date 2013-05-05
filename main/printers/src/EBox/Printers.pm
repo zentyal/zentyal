@@ -110,9 +110,6 @@ sub initialSetup
                             'destinationPort' => 631,
                            );
         $firewall->saveConfigRecursive();
-    } elsif ($version le '3.0') {
-        my $path = EBox::Config::share() . 'zentyal-' . $self->name() . '/migrate-sql';
-        EBox::Sudo::root("$path $version");
     }
 }
 

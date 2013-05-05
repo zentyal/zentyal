@@ -123,15 +123,12 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if (not $version) {
+    unless ($version) {
         # Create default rules and services
         # only if installing the first time
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
-    } elsif (EBox::Util::Version::compare($version, '3.0.4') < 0) {
-        eval "use EBox::MailFilter::Migration";
-        EBox::MailFilter::Migration::removeSpamdService();
     }
 }
 
