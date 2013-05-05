@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::DesktopServices::Index;
+package EBox::DesktopServices::CGI::Index;
 use base 'EBox::CGI::ClientRawBase';
 
 use Error qw(:try);

@@ -21,7 +21,7 @@ use Test::Output;
 use Test::Exception;
 
 use lib '../../../..';
-use EBox::CGI::DesktopServices::Index;
+use EBox::DesktopServices::CGI::Index;
 
 use EBox::TestStubs;
 use EBox::Test::CGI;

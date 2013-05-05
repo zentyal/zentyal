@@ -13,49 +13,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Report::RAID;
+package EBox::Logout::CGI::Index;
 
 use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientBase';
-
-use EBox;
-use EBox::Report::RAID;
+use EBox::Global;
 use EBox::Gettext;
+
 
 sub new # (error=?, msg=?, cgi=?)
 {
-    my $class = shift;
-    my $self = $class->SUPER::new('title' => 'RAID',
-                                  'template' => '/report/raid.mas',
-                                  @_);
-    bless($self, $class);
-    return $self;
+	my $class = shift;
+	my $self = $class->SUPER::new('title' => __('Logout'),
+				      'template' => '/logout/index.mas',
+				      @_);
+	bless($self, $class);
+	return $self;
 }
 
 sub _process
 {
-    my $self = shift;
-
-    my $raidInfo = EBox::Report::RAID::info();
-    my $array = $self->param('array');
-
-    my @templateParams = (
-                          array    => $array,
-                          raidInfo => $raidInfo,
-                         );
-
-    $self->{params} = \@templateParams;
+	my $self = shift;
+	my $global = EBox::Global->getInstance();
+	if ($global->unsaved) {
+		my @array = ();
+		push(@array, 'unsaved' => 'yes');
+		$self->{params} = \@array;
+	}
 }
 
-# Method: menuFolder
-#
-#   Overrides <EBox::CGI::ClientBase::menuFolder>
-#   to set the menu folder
-sub menuFolder
+sub _loggedIn
 {
-    return 'Maintenance';
+	return 1;
 }
+
 
 1;
