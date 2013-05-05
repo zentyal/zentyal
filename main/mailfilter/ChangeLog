@@ -1,4 +1,5 @@
 HEAD
+	+ Removed 3.0.X migration code
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.5
 	+ Fixed spam/ham mail account check to not fail if the user does

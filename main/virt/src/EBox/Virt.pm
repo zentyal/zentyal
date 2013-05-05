@@ -82,12 +82,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ($version) {
-        if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
-            eval "use EBox::Virt::Migration";
-            EBox::Virt::Migration->migrateOS($self);
-        }
-    } else {
+    unless ($version) {
         # Create default service only if installing the first time
         my $services = EBox::Global->modInstance('services');
 

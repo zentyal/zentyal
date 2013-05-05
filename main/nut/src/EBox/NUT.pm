@@ -54,21 +54,6 @@ sub menu
     $root->add($folder);
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    unless ($version) {
-        # TODO Setup firewall rules when server/client modes will be supported
-    }
-}
-
 # Method: usedFiles
 #
 # Overrides:

@@ -231,7 +231,6 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
-    # TODO: Migration to remove zentyal-network cron tab and obsolete tables
 }
 
 # Method: enableActions

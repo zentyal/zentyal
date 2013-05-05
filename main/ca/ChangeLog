@@ -1,3 +1,5 @@
+HEAD
+	+ Removed 3.0.X migration code
 3.0.3
 	+ Do not show service certificates for removed modules
 	+ Allow wildcard domain in DNS alternative name

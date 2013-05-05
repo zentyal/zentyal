@@ -252,31 +252,6 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.14') < 0) and $self->configured()) {
-        my %kerberosPrincipals = (
-            dns => 1,
-            mail => 1,
-            proxy => 1,
-            zarafa => 1,
-        );
-        my $hostname = EBox::Global->modInstance('sysinfo')->hostName();
-        foreach my $prefix (keys %kerberosPrincipals) {
-            my $principalUser = "$prefix-$hostname";
-            if ($self->userExists($principalUser)) {
-                my $user = EBox::UsersAndGroups::User->new(uid => $principalUser);
-                $user->set('title', 'internal');
-            }
-        }
-    }
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.0.17') < 0)) {
-        if (not $self->get('need_reprovision')) {
-            # previous versions could left a leftover ro/need_reprovision which
-            # could force reprovision on reboot
-            my $roKey = 'users/ro/need_reprovision';
-            $self->redis->unset($roKey);
-        }
-    }
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }

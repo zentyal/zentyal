@@ -132,15 +132,6 @@ sub initialSetup
         $self->setPort($port);
     }
 
-    if ($version and (EBox::Util::Version::compare($version, '3.0.5') < 0)) {
-        my $journalDir = journalDir();
-        my $oldJournalDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-        if ((-d $oldJournalDir) and not (-d $journalDir)) {
-            # fix wrong path
-            EBox::Sudo::root("mv '$oldJournalDir' '$journalDir'");
-        }
-    }
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }
