@@ -67,6 +67,12 @@ function updatePage (xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesO
             }
 
             jQuery('#error-progress').show();
+            // check if we are in a modal box..
+            if (jQuery('div#MB_frame').length > 0) {
+                Modalbox.resizeToInclude(this);
+                Modalbox.resize(0, +20);
+            }
+
             if ('errorMsg' in response) {
                 jQuery('#error-progress-message').html(response.errorMsg);
             }
@@ -114,5 +120,34 @@ function loadWhenAvailable(url, secondsTimeout)
     };
 
     var timerId = setInterval(loadMethod, secondsTimeout*1000);
+}
+
+function adsSlides(nSlides)
+{
+    jQuery('#adsButtonPrev').hide();
+
+    var car_options = {
+          'auto' : true,
+          'frequency' : 20,
+          'circular' : true,
+          'duration' : 0.8,
+          'wheel' : false,
+          'afterMove': null
+    };
+
+    // XXX MIGRATE carousel.js
+    var car_obj = new Carousel('slide_wrapper', $$('#slides .ads'), $$('a.carousel-control'), car_options);
+
+    car_obj.options.afterMove = function () {
+          var slide_num = car_obj.current._index;
+          if (slide_num === 0) {
+              jQuery('#adsButtonPrev').hide();
+          } else if (slide_num >= nSlides) {
+              jQuery('#adsButtonNext').hide();
+          } else {
+              jQuery('#adsButtonPrev').show();
+              jQuery('#adsButtonNext').show();
+          }
+      };
 }
 
