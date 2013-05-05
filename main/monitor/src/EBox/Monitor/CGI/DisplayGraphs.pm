@@ -65,7 +65,6 @@ sub optionalParameters
     return [ 'period', 'action', 'directory' ];
 }
 
-
 # Method: requiredParameters
 #
 # Overrides:
@@ -76,7 +75,6 @@ sub requiredParameters
 {
     return [ ];
 }
-
 
 # Method: masonParameters
 #

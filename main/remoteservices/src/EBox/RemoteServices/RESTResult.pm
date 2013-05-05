@@ -59,7 +59,6 @@ sub as_string
     return $value;
 }
 
-
 # Method: data
 #
 #   Return the result as array or hash ref (it expects a JSON response)
@@ -73,7 +72,6 @@ sub data
     }
     return $self->{result_json};
 }
-
 
 1;
 

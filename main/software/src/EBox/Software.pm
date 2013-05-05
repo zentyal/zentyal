@@ -126,7 +126,6 @@ sub listBrokenPkgs
     return \@list;
 }
 
-
 # Method: installPkgs
 #
 #   Installs a list of packages via apt
@@ -335,7 +334,6 @@ sub listPackageInstallDepends
     return $self->_packageDepends('install', $packages);
 }
 
-
 # Method: listPackageDescription
 #
 #   Returns a list of short descriptions of each package in the list.
@@ -507,7 +505,6 @@ sub isInstalled
         return 0;
     }
 }
-
 
 # Method: getAutomaticUpdates
 #
@@ -984,7 +981,6 @@ sub QAUpdates
     return $self->get_bool('qa_updates');
 }
 
-
 sub _setConf
 {
     my ($self) = @_;
@@ -1047,7 +1043,6 @@ sub _installCronFile
        );
 }
 
-
 # Method: firstTimeMenu
 #
 #   Prints first time menu instead of Zentyal default menu.
@@ -1087,7 +1082,6 @@ sub firstTimeMenu
 
     print "</ul></div>\n";
 }
-
 
 # Method: _printMenuItem
 #

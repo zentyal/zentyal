@@ -102,5 +102,4 @@ sub _tun
     return $configuration->value('tunInterface');
 }
 
-
 1;

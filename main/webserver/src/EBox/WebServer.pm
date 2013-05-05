@@ -535,7 +535,6 @@ sub _setVHosts
             };
         }
 
-
     }
 
     # Remove not used old dirs

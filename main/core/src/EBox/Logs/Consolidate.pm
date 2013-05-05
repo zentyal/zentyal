@@ -56,7 +56,6 @@ sub consolidate
 
                 my $firstTimePeriod = shift @timePeriods;
 
-
                 $self->_consolidateTable(
                                          destinationTable => $destTable,
                                          configuration    => $configuration,
@@ -65,7 +64,6 @@ sub consolidate
 
                                          timePeriod       => $firstTimePeriod,
                                         );
-
 
                 my $prevTimePeriod = $firstTimePeriod;
                 foreach my $timePeriod (@timePeriods) {
@@ -85,7 +83,6 @@ sub consolidate
 
         }
     }
-
 
 }
 
@@ -113,7 +110,6 @@ sub _allModulesWithConsolidation
 
     my $logs = EBox::Global->modInstance('logs');
 
-
     my @modNames;
     my @mods = @{ $logs->getLogsModules() };
 
@@ -128,8 +124,6 @@ sub _allModulesWithConsolidation
         push @modNames, $name;
     }
 
-
-
     return \@modNames;
 }
 
@@ -143,9 +137,7 @@ sub _consolidateTable
 
     my $table =   $destinationTable . '_' . $timePeriod;
 
-
     my $sourceTable  = $tableInfo->{tablename};;
-
 
     my $dateCol = 'timestamp';
     my $consDateSub = "_$timePeriod" . 'Date';
@@ -159,7 +151,6 @@ sub _consolidateTable
     else {
         %accummulateColumns =  (count => 1);
     }
-
 
     my $filterSub = $conf->{filter};
 
@@ -196,7 +187,6 @@ sub _consolidateTable
                $accummulateColumn = $consColumns{$column}->{accummulate}->($value, $row);
            }
 
-
            my $conversor = $consColumns{$column}->{conversor};
            my $consValue = $conversor->($value, $row);
 
@@ -228,7 +218,6 @@ sub _consolidateTable
                      );
 }
 
-
 sub _reconsolidateTable
 {
     my ($self, %args) = @_;
@@ -252,8 +241,6 @@ sub _reconsolidateTable
     else {
         %accummulateColumns =  (count => 0);
     }
-
-
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
 
@@ -302,8 +289,6 @@ sub _reconsolidateTable
                       timePeriod => $timePeriod,
                      );
 }
-
-
 
 my $identitySub_r = sub { return $_[0]  };
 
@@ -377,7 +362,6 @@ sub _clearRows
     my $dateCol  = $params{dateCol};
     my $time     = $params{time};
 
-
     my $deadline = $time - $ttl;
 
     my  ($sec,$min,$hour,$mday,$mon,$year) = localtime($deadline);
@@ -387,7 +371,6 @@ sub _clearRows
 
     my $deleteStatement =
           "DELETE FROM $table WHERE $dateCol < '$deadlineDate'";
-
 
     $dbengine->do($deleteStatement);
 }
@@ -403,7 +386,6 @@ sub _tableInfosFromMod
         throw EBox::Exceptions::Internal("Module $modName has not log capabilities");
     }
 
-
     my @tableInfos;
     my $ti = $mod->tableInfo();
 
@@ -415,7 +397,6 @@ sub _tableInfosFromMod
     else {
         @tableInfos = @{ $ti };
     }
-
 
     @tableInfos = grep { exists $_->{consolidate} } @tableInfos;
 
@@ -460,7 +441,6 @@ sub _weeklyDate
     }
 
     $t -= $daysToMonday * ONE_DAY;
-
 
     return  $t->year() .'-'. $t->mon() . '-' . $t->mday() . ' 00:00:00';
 }
@@ -551,11 +531,9 @@ sub _sourceRows
     }
     $select .= " ORDER BY $dateCol ";
 
-
     my $res = $dbengine->query($select);
 
     $self->_updateLastConsolidationDate($dbengine, $table, $res, $dateCol);
-
 
     return $res;
 }
@@ -592,14 +570,10 @@ sub _updateLastConsolidationDate
 
     my $lastRow = $res->[-1];
 
-
-
     my $lastDate = $lastRow->{$dateCol};
-
 
     my $updateSt = "UPDATE consolidation SET lastDate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
-
 
     my $updateRes = $dbengine->do($updateSt);
     if ($updateRes == 0) {

@@ -72,7 +72,6 @@ sub EditableByUser
     return 0;
 }
 
-
 # Method: ConfigurationMethod
 #
 # Overrides:

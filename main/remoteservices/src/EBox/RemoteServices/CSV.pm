@@ -16,13 +16,11 @@
 use strict;
 use warnings;
 
-
 package EBox::RemoteServices::CSV;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use Text::CSV;
-
 
 sub new
 {
@@ -52,7 +50,6 @@ sub new
     return $self;
 }
 
-
 sub _openFile
 {
     my ($self) = @_;
@@ -63,7 +60,6 @@ sub _openFile
         throw EBox::Exceptions::Internal("$file: $!");
     $self->{fh} = $FH;
 }
-
 
 sub readLine
 {
@@ -93,7 +89,6 @@ sub readLine
         print "\n";
     }
 
-
     close $self->{fh};
     delete $self->{fh};
 
@@ -107,6 +102,5 @@ sub DESTROY
         close $self->{fh};
     }
 }
-
 
 1;

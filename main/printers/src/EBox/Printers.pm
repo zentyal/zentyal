@@ -350,5 +350,4 @@ sub logHelper
     return (new EBox::Printers::LogHelper());
 }
 
-
 1;

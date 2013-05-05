@@ -35,10 +35,8 @@ use Filesys::Df;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 
-
 use constant SPACE_THRESHOLD => 1024; # a file system is considered full with it has
                                   # less than this space (in  1K blocks) free
-
 
 # Group: Public methods
 
@@ -78,7 +76,6 @@ sub ConfigurationMethod
 {
     return 'model';
 }
-
 
 # Method: ConfigureModel
 #
@@ -218,7 +215,6 @@ sub _eventKey
 
     return "event_fired/partition_full/$fs";
 }
-
 
 sub _filesysToMonitor
 {

@@ -117,5 +117,4 @@ sub setConfigKeys
     Test::MockObject->fake_module('EBox::Config', @fakeSubs);
 }
 
-
 1;

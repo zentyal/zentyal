@@ -80,5 +80,4 @@ sub _table
     return $dataTable;
 }
 
-
 1;

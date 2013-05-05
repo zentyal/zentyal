@@ -95,7 +95,6 @@ sub basicUseCaseTest : Test(13)
     ok $progress->started, 'Checking started propierty after notify all the ticks';
     ok (not $progress->finished), 'Checking finished propierty after notify all the ticks';
 
-
     $progress->setAsFinished();
 
     ok $progress->finished(), 'checking wether object is marked as finished after marked as finished';

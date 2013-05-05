@@ -68,13 +68,10 @@ sub _table
     return $dataTable;
 }
 
-
 sub name
 {
     return __PACKAGE__->nameFromClass();
 }
-
-
 
 sub addDaemon
 {
@@ -91,14 +88,11 @@ sub addDaemon
                  );
 }
 
-
 sub clear
 {
     my ($self) = @_;
     $self->removeAll(1);
 }
-
-
 
 sub daemons
 {
@@ -114,7 +108,6 @@ sub daemons
 
     return \@daemons;
 }
-
 
 sub daemonIsDeleted
 {

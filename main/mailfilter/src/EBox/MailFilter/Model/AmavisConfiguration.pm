@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Model::AmavisConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -40,7 +38,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -106,11 +103,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
 
 sub validateTypedRow
 {
@@ -138,9 +132,7 @@ sub validateTypedRow
     }
   }
 
-
 }
-
 
 sub notificationAddress
 {
@@ -155,7 +147,6 @@ sub notificationAddress
     return $addr;
 }
 
-
 # Method: headTitle
 #
 #   Overrides <EBox::Model::Component::headTitle> not to
@@ -164,7 +155,6 @@ sub headTitle
 {
     return undef;
 }
-
 
 1;
 

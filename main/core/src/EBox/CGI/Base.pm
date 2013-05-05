@@ -619,7 +619,6 @@ sub setRedirect
   $self->{redirect} = $redirect;
 }
 
-
 # Method: setChain
 #    set the chain attribute. It works exactly the same way as redirect attribute but instead of sending an HTTP response to the browser, the parent class parses the url, instantiates the matching CGI, copies all data into it and runs it. Messages and errors are copied automatically, the parameters in the HTTP request are not, since an error caused by one of#  them could propagate to the next CGI.
 #
@@ -674,7 +673,6 @@ sub paramsAsHash
     return \%params;
 }
 
-
 sub _validateParams
 {
     my ($self) = @_;
@@ -690,7 +688,6 @@ sub _validateParams
 
     return 1;
 }
-
 
 sub _validateReferer
 {
@@ -721,7 +718,6 @@ sub _validateReferer
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }
 
-
 sub _validateRequiredParams
 {
     my ($self, $params_r) = @_;
@@ -739,7 +735,6 @@ sub _validateRequiredParams
     return \@newParams;
     }
 }
-
 
 sub _validateOptionalParams
 {
@@ -833,7 +828,6 @@ sub masonParameters
   return [];
 }
 
-
 # Method: upload
 #
 #  Upload a file from the client computer. The file is place in
@@ -885,7 +879,6 @@ sub upload
   if (not $FH) {
     throw EBox::Exceptions::External( __('Cannot create a temporally file for the upload'));
   }
-
 
   try {
     #copy the uploaded data to file..

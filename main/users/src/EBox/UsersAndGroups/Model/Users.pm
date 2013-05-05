@@ -158,7 +158,6 @@ sub noUsersMsg
                );
 }
 
-
 # Method: ids
 #
 #   Override <EBox::Model::DataTable::ids> to return rows identifiers
@@ -212,7 +211,6 @@ sub row
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
 }
-
 
 sub setFilterOU
 {

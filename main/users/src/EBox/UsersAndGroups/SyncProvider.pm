@@ -28,9 +28,7 @@ package EBox::UsersAndGroups::SyncProvider;
 use strict;
 use warnings;
 
-
 use EBox::Exceptions::NotImplemented;
-
 
 # Method: slaves
 #
@@ -44,7 +42,6 @@ sub slaves
 {
     throw EBox::Exceptions::NotImplemented();
 }
-
 
 # Method: allowUserChanges
 #

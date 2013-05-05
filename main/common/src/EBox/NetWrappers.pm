@@ -283,7 +283,6 @@ sub iface_destination_address
     }
 }
 
-
 # Function: list_routes
 #
 #   Rertuns the list of current routes

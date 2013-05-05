@@ -25,7 +25,6 @@ sub new
   throw EBox::Exceptions::NotImplemented('This class must be inherited by other class which also inherits from EBox::CGI::Base');
 }
 
-
 # Method: showProgress
 #
 #    Redirect the browser to the progression screen CGI

@@ -22,7 +22,6 @@ use EBox::Config;
 
 use Fcntl qw(:flock);
 
-
 my %LOCKS;
 
 sub lock

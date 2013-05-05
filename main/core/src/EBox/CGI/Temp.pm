@@ -24,13 +24,10 @@ use EBox::Config;
 use File::Temp;
 use File::Basename;
 
-
-
 sub urlImagesDir
 {
   return '/dynamic-data/images/';
 }
-
 
 #  Function: newImage
 #
@@ -83,8 +80,6 @@ sub cleanImages
   }
   closedir $DH;
 }
-
-
 
 1;
 

@@ -33,7 +33,6 @@ use EBox::Service;
 use lib '../../..';
 use EBox::DHCP;
 
-
 my $TEST_IFACE = 'eth1';
 my $TEST_ADDRESS = '192.168.32.1';
 my $TEST_NETMASK = '255.255.255.0';
@@ -53,7 +52,6 @@ sub testDir
 {
     return  '/tmp/ebox.dhcp.daemon.test';
 }
-
 
 sub _confDir
 {
@@ -80,7 +78,6 @@ sub _setupEBoxConf : Test(setup)
 			       );
 }
 
-
 sub setupFiles : Test(setup)
 {
     my ($self) = @_;
@@ -90,7 +87,6 @@ sub setupFiles : Test(setup)
     ($? == 0) or  die "mkdir -p $confDir: $!";
 
 }
-
 
 sub setupStubDir : Test(setup)
 {
@@ -106,7 +102,6 @@ sub setupStubDir : Test(setup)
     EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir);
 }
 
-
 sub killDaemons : Test(setup)
 {
   EBox::Service::manage('dhcpd3', 'stop');
@@ -120,12 +115,10 @@ sub clearStubDir : Test(teardown)
     ($? == 0) or die "Error removing  temp test subdir $stubDir: $!";
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Config::TestStub::setConfig();
 }
-
 
 sub clearFiles : Test(teardown)
 {
@@ -138,7 +131,6 @@ sub clearFiles : Test(teardown)
     }
 }
 
-
 sub setupNetwork : Test(setup)
 {
   EBox::NetWrappers::TestStub::setFakeIfaces( { $TEST_IFACE => { up => 1, address => $TEST_ADDRESS, netmask => $TEST_NETMASK }  }  );
@@ -147,7 +139,6 @@ sub setupNetwork : Test(setup)
   my $net = EBox::Global->modInstance('network');
   $net->setIfaceStatic($TEST_IFACE, $TEST_ADDRESS, $TEST_NETMASK, 0, 0);
 }
-
 
 sub daemonTest : Test(10)
 {
@@ -179,9 +170,6 @@ sub daemonTestWithStaticRoutes : Test(10)
   _checkService($dhcp);
 }
 
-
-
-
 sub _checkService
 {
   my ($dhcp) = @_;
@@ -196,7 +184,5 @@ sub _checkService
 
   }
 }
-
-
 
 1;

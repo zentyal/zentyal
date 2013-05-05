@@ -157,7 +157,6 @@ sub appArmorProfiles
        ];
 }
 
-
 sub usedFiles
 {
     return [

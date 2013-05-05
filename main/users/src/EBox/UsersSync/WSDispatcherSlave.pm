@@ -35,7 +35,6 @@ my $server = SOAP::Transport::HTTP::Apache
       { 'urn:Users/Slave' => 'EBox::UsersSync::SOAPSlave' }
      );
 
-
 # Method: handler
 #
 #     Handle the HTTP request

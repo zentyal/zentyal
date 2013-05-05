@@ -35,7 +35,6 @@ sub runCgi
     $cgi->run();
 }
 
-
 sub setCgiParams
 {
     my ($cgi, %params) = @_;
@@ -63,7 +62,6 @@ sub cgiErrorNotOk
     $Test->ok($errorNotFound, $name);
 }
 
-
 sub checkCgiError
 {
     my ($cgi, $wantError, $name) = @_;
@@ -80,7 +78,6 @@ sub _errorInCgi
     my ($cgi) = @_;
     return defined ($cgi->{error}) or defined ($cgi->{olderror});
 }
-
 
 sub muteHtmlOutput
 {

@@ -163,7 +163,6 @@ sub _addUserFailed
     };
 }
 
-
 sub _modifyUser
 {
     my ($self, $zentyalUser, $zentyalPwd) = @_;
@@ -488,7 +487,6 @@ sub _groupAddOns
 
     return { path => '/samba/samba.mas', params => $args };
 }
-
 
 # Method: _checkWindowsBuiltin
 #

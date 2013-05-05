@@ -150,7 +150,6 @@ sub syncFromFile
     };
 }
 
-
 sub readActionInfo
 {
     my ($self, $file) = @_;

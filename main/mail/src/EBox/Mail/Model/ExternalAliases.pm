@@ -31,7 +31,6 @@ use EBox::Types::MailAddress;
 use EBox::Types::Text;
 use EBox::Types::Select;
 
-
 sub new
 {
     my $class = shift;
@@ -70,7 +69,6 @@ sub _table
                                        'size' => '30',
                                        'editable' => 1,
                                       ),
-
 
          );
 
@@ -117,7 +115,6 @@ sub _vdomainOptionsSub
             }
         } @{ $aliasesModel->aliases()  };
 
-
         return \@options;
     };
 }
@@ -161,7 +158,6 @@ __x('Cannot add alias because domain {vd} is not a virtual domain or virtual dom
 );
 }
 
-
 sub _checkAliasIsNotAccount
 {
     my ($self, $alias) = @_;
@@ -175,7 +171,6 @@ sub _checkAliasIsNotAccount
     }
 
 }
-
 
 sub _checkExternalAccountIsExternal
 {
@@ -197,7 +192,6 @@ sub _realVdomain
     my $vdomain =$parentRow->valueByName('vdomain');
     return $vdomain;
 }
-
 
 # this do clenaup of all aliases with orphaned vdomain alias, not just those of
 # the removed vdomain
@@ -236,7 +230,6 @@ sub firstAliasForExternalVDomain
 
     return undef;
 }
-
 
 sub aliasesAndExternalAccounts
 {

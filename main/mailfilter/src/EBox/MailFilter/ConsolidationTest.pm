@@ -39,7 +39,6 @@ sub modNameAndClass
     return ('mailfilter', 'EBox::MailFilter');
 }
 
-
 sub _standardDbContent
 {
     return   [
@@ -120,13 +119,11 @@ sub _standardDbContent
 
 }
 
-
 sub consolidateTest : Test(4)
 {
     my ($self) = @_;
     $self->runCases();
 }
-
 
 sub cases
 {
@@ -153,6 +150,5 @@ sub cases
     return \@cases;
 
 }
-
 
 1;

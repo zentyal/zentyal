@@ -194,7 +194,6 @@ sub _addIndex
     $self->_addIndexDirectory($ldap, $attribute);
 }
 
-
 sub _addIndexDirectory
 {
     my ($self, $ldap, $attribute) = @_;

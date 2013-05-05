@@ -58,7 +58,6 @@ sub _generateClientConf
     push @confParams, (connStrategy => $extraParams{connStrategy});
     push @confParams, (servers => \@servers);
 
-
     my %certificates = %{$certificatesPath_r};
 
     # transform al lpaths in relative paths
@@ -111,7 +110,6 @@ sub serverAddr
     return [];
 }
 
-
 sub confFileExtraParameters
 {
     return ();
@@ -145,7 +143,6 @@ sub _clientCertificatesPaths
 
     return \%certificates;
 }
-
 
 sub clientBundle
 {

@@ -101,7 +101,6 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-
     # Fetch current measures stored in GConf
     my %storedMeasures =
       map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};

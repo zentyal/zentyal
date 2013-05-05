@@ -174,7 +174,6 @@ sub _delmailboxRelatedObject
 
     return unless $self->_mailboxRelatedObjectExists($alias);
 
-
     my @classes = $group->get('objectClass');
     my @mail = $group->get('mail');
 

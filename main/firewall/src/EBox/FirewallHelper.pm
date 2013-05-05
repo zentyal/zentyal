@@ -168,8 +168,6 @@ sub output
     return [];
 }
 
-
-
 # Method: externalInput
 #
 #   Rules returned by this method are added to the INPUT for EXTERNAL interfaces chain in
@@ -184,7 +182,6 @@ sub externalInput
     return [];
 }
 
-
 # Method: chains
 #
 #   Chains returned by this method are created and can be referenced on this helper
@@ -198,7 +195,6 @@ sub chains
 {
     return {}
 }
-
 
 # Method: _outputIface
 #

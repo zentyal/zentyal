@@ -75,7 +75,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     return $self;
 }
 
-
 # Method: _processWizard
 #
 # Processes form submission and configures module
@@ -84,7 +83,6 @@ sub _processWizard
 {
     # Override this to process wizard page
 }
-
 
 # Method: _masonParameters
 #
@@ -106,7 +104,6 @@ sub _print
     }
 }
 
-
 sub _process
 {
     my $self = shift;
@@ -115,7 +112,6 @@ sub _process
 	    $self->_processWizard();
     }
 }
-
 
 sub _print_error
 {
@@ -165,7 +161,6 @@ sub run
         };
     }
 }
-
 
 sub _title
 {

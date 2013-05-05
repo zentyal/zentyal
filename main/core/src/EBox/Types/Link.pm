@@ -70,7 +70,6 @@ sub new
     return $self;
 }
 
-
 # Method: linkToView
 #
 #     Alias to <EBox::Types::Link::value> method to be used by the

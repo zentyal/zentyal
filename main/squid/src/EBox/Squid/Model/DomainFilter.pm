@@ -97,7 +97,6 @@ sub _validateDomain
     EBox::Validate::checkDomainName($domain, __('Domain or IP address'));
 }
 
-
 # Function: banned
 #
 #       Fetch the banned domains
@@ -111,7 +110,6 @@ sub banned
     return $self->_domainsByPolicy('deny');
 }
 
-
 # Function: allowed
 #
 #       Fetch the allowed domains
@@ -124,7 +122,6 @@ sub allowed
     my ($self) = @_;
     return $self->_domainsByPolicy('allow');
 }
-
 
 # Function: filtered
 #
@@ -260,7 +257,6 @@ sub viewCustomizer
 
     return $custom;
 }
-
 
 sub _aclName
 {

@@ -117,7 +117,6 @@ sub preconditionFailMsg
               'status section in order to use it.');
 }
 
-
 sub alwaysBccByVDomain
 {
     my ($self) = @_;
@@ -161,7 +160,6 @@ sub alwaysBcc
     return 0;
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
@@ -199,9 +197,6 @@ __('The virtual domain name cannot be equal to the mailname')
     }
 }
 
-
-
-
 sub existsVDomain
 {
     my ($self, $vdomain) = @_;
@@ -209,7 +204,6 @@ sub existsVDomain
     my $res = $self->findValue(vdomain => $vdomain);
     return defined $res;
 }
-
 
 sub existsVDomainAlias
 {

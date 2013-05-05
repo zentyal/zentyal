@@ -34,10 +34,7 @@ use lib '../../../..';
 use EBox::OpenVPN;
 use EBox::CA::TestStub;
 
-
 use EBox::OpenVPN::Model::Servers;
-
-
 
 sub testDir
 {
@@ -48,7 +45,6 @@ sub fakeCA : Test(startup)
 {
   EBox::CA::TestStub::fake();
 }
-
 
 sub setupCertificates : Test(setup)
 {
@@ -80,7 +76,6 @@ sub setupCertificates : Test(setup)
   $ca->setInitialState(\@certificates);
 }
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -106,13 +101,9 @@ sub setUpConfiguration : Test(setup)
                            ],
                   );
 
-
      EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
-
-
 }
-
 
 sub clearConfiguration : Test(teardown)
 {
@@ -125,13 +116,11 @@ sub clearCertificates : Test(teardown)
     $ca->destroyCA();
 }
 
-
 sub _confDir
 {
     my ($self) = @_;
     return $self->testDir() . "/config";
 }
-
 
 sub _newServers
 {
@@ -142,10 +131,7 @@ sub _newServers
                       directory   => 'Servers'
                                                          );
 
-
 }
-
-
 
 sub ifaceNumbersTest : Test(2)
 {
@@ -163,7 +149,6 @@ sub ifaceNumbersTest : Test(2)
     lives_ok {
         $servers->initializeInterfaces
     } 'calling method for initializing interface numbers';
-
 
     my $numbersOk = 1;
     my %numbers;
@@ -190,8 +175,6 @@ sub ifaceNumbersTest : Test(2)
     ok $numbersOk,  "All server have unique interface numbers assigned";
 
 }
-
-
 
 1;
 

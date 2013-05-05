@@ -22,7 +22,6 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
@@ -48,6 +47,5 @@ sub _loggedIn
 {
 	return 1;
 }
-
 
 1;

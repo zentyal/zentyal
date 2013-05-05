@@ -378,7 +378,6 @@ sub setInstalled
     return $self->st_set_bool('_serviceInstalled', 1);
 }
 
-
 # Method: isEnabled
 #
 #   Used to tell if a module is enabled or not

@@ -29,9 +29,7 @@ use Test::MockObject::Extends;
 use Test::Differences;
 use lib '../..';
 
-
 my $nStaticIfacesReturnValue = 1; # this controls the output of EBox::DHCP::nStaticIfaces
-
 
 sub _moduleInstantiationTest : Test
 {
@@ -42,9 +40,6 @@ sub _moduleInstantiationTest : Test
 				_configureFirewall => sub {},
 			       );
 }
-
-
-
 
 sub setDHCPModule : Test(setup)
 {
@@ -58,7 +53,6 @@ sub clearModules : Test(teardown)
 {
   EBox::Global::TestStub::setAllModules();
 }
-
 
 sub setServiceTest : Test(6)
 {
@@ -83,7 +77,6 @@ sub ifaceMethodChangedTest : Test(32)
 			    ['notset',  'static'], ['notset', 'dhcp'], ['notset', 'notset' ], ['notset', 'trunk'],
     ['trunk',  'static'], ['trunk', 'dhcp'], ['trunk', 'notset' ], ['trunk', 'trunk'],
 			    );
-
 
   my $dhcp = EBox::Global->modInstance('dhcp');
   ok !$dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp inactive server allows a harmless change in network interface IP method' foreach @harmlessChanges;
@@ -124,6 +117,5 @@ sub staticRoutes : Test(2)
   lives_ok { $staticRoutes_r = $dhcp->staticRoutes()  } 'Calling staticRoutes';
   eq_or_diff $staticRoutes_r, \%expectedRoutes, 'Checking staticRoutes result';
 }
-
 
 1;

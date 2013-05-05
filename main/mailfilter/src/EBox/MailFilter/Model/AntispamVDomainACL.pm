@@ -18,7 +18,6 @@ use warnings;
 package EBox::MailFilter::Model::AntispamVDomainACL;
 use base 'EBox::Model::DataTable';
 
-
 use EBox;
 
 use EBox::Exceptions::Internal;
@@ -90,7 +89,6 @@ sub _table
 
 }
 
-
 sub _populatePolicy
 {
     return [
@@ -100,7 +98,6 @@ sub _populatePolicy
            ]
 
 }
-
 
 sub addedRowNotify
 {
@@ -129,7 +126,6 @@ sub _aclChanged
     $mailfilter->antispam()->aclChanged();
 }
 
-
 # Method: whitelist
 #
 # Returns:
@@ -141,8 +137,6 @@ sub whitelist
     return $self->_listByPolicy('whitelist');
 }
 
-
-
 # Method: blacklist
 #
 # Returns:
@@ -153,8 +147,6 @@ sub blacklist
     my ($self) = @_;
     return $self->_listByPolicy('blacklist');
 }
-
-
 
 sub _listByPolicy
 {
@@ -169,7 +161,6 @@ sub _listByPolicy
     }
     return \@list;
 }
-
 
 1;
 

@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Radius::Model::Auth;
 
 # Class: EBox::Radius::Model::Auth
@@ -57,7 +56,6 @@ sub new
     return $self;
 }
 
-
 # Method: getByGroup
 #
 #      Returns true if a group has been selected
@@ -75,7 +73,6 @@ sub getByGroup
     return ($row->valueByName('group') ne ALL_ID);
 }
 
-
 # Method: getGroup
 #
 #      Returns the allowed group
@@ -92,7 +89,6 @@ sub getGroup
 
     return $row->printableValueByName('group');
 }
-
 
 # Group: Private methods
 
@@ -115,7 +111,6 @@ sub _groups
     }
     return \@groups;
 }
-
 
 # Method: _table
 #

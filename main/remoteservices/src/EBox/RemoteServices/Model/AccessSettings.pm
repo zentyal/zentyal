@@ -59,7 +59,6 @@ sub new
 
 }
 
-
 # Group: Protected methods
 
 # Method: _table

@@ -16,11 +16,9 @@
 use strict;
 use warnings;
 
-
 package EBox::Exceptions::EBackup::FileNotFoundInBackup;
 use base 'EBox::Exceptions::External';
 use EBox::Gettext;
-
 
 sub new
 {

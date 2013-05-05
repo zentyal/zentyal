@@ -74,7 +74,6 @@ sub actions
     ];
 }
 
-
 # Method: usedFiles
 #
 # Overrides:
@@ -179,7 +178,6 @@ sub _daemons
     ];
 }
 
-
 # Method: _setConf
 #
 # Overrides:
@@ -202,7 +200,6 @@ sub _setConf
     $self->_setLDAP();
     $self->_setClients();
 }
-
 
 # set up the Users configuration
 sub _setUsers
@@ -266,7 +263,6 @@ sub _setLDAP
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
-
 # set up the RADIUS clients
 sub _setClients
 {
@@ -279,7 +275,6 @@ sub _setClients
     $self->writeConfFile(CLIENTSCONFFILE, "radius/clients.conf.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
-
 
 # Method: menu
 #

@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Mail::Model::VDomainSettings;
 use base 'EBox::Model::DataForm';
 
@@ -27,12 +26,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::MailAddress;
 
-
-
-
 use EBox::Exceptions::External;
-
-
 
 sub new
 {
@@ -43,7 +37,6 @@ sub new
 
     return $self;
 }
-
 
 #
 sub _table
@@ -80,8 +73,6 @@ sub _table
                       tableDescription   => \@tableDesc,
 
                      };
-
-
 
     return $dataForm;
 }

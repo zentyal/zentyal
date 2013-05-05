@@ -87,7 +87,6 @@ sub populateGroup
     return \@groups;
 }
 
-
 sub populatePermissions
 {
     return [
@@ -184,7 +183,6 @@ sub viewCustomizer
         return $custom;
 }
 
-
 # Group: Protected methods
 
 # Method: _table
@@ -243,8 +241,6 @@ sub _table
       return $dataTable;
 }
 
-
-
 # Private methods
 sub _permissionsHelp
 {
@@ -265,6 +261,5 @@ sub filterUserGroupPrintableValue
 
     return $value;
 }
-
 
 1;

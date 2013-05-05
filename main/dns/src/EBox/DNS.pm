@@ -101,7 +101,6 @@ sub appArmorProfiles
            ];
 }
 
-
 # Method: addDomain
 #
 #  Add new domain to table model
@@ -1354,7 +1353,6 @@ sub _formatSRV
     return \@srvRecords;
 }
 
-
 # Method: _completeDomain
 #
 #  Return a structure with all required data to build bind db config files
@@ -1433,7 +1431,6 @@ sub _domainIds
     my $model = $self->model('DomainTable');
     return $model->ids();
 }
-
 
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone

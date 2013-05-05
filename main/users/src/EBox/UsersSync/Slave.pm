@@ -18,7 +18,6 @@ package EBox::UsersSync::Slave;
 use strict;
 use warnings;
 
-
 use base 'EBox::UsersAndGroups::Slave';
 
 # Dir containing certificates for this master
@@ -48,7 +47,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _addUser
 {
@@ -162,8 +160,6 @@ sub _delGroup
     return 0;
 }
 
-
-
 # CLIENT METHODS
 
 sub soapClient
@@ -186,6 +182,5 @@ sub soapClient
     }
     return $self->{client};
 }
-
 
 1;

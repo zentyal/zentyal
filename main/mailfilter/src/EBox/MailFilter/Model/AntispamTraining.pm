@@ -13,14 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Model::AntispamTraining;
 use base 'EBox::Model::DataForm::Action';
 
 use strict;
 use warnings;
-
 
 use Error qw(:try);
 
@@ -42,7 +39,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -81,14 +77,8 @@ sub _table
                       printableActionName => __('Train'),
                      };
 
-
-
     return $dataForm;
 }
-
-
-
-
 
 sub _populateMailboxContains
 {
@@ -102,22 +92,17 @@ sub validateTypedRow
 {
   my ($self, $action, $params_r, $actual_r) = @_;
 
-
 }
-
 
 sub formSubmitted
 {
     my ($self) = @_;
 
-
     my $mailboxFile    = $self->mailboxType->tmpPath();
     my $mailboxContent = $self->mailboxContent;
 
-
     my $mailfilter= EBox::Global->modInstance('mailfilter');
     my $antispam  = $mailfilter->antispam;
-
 
     my $isSpam;
     if ($mailboxContent eq 'spam') {
@@ -145,7 +130,6 @@ sub formSubmitted
                     );
 
 }
-
 
 1;
 

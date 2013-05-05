@@ -23,7 +23,6 @@ package EBox::Test::Mason;
 #
 # This currently depends from exec-mason-template tool
 
-
 use Data::Dumper;
 use File::Slurp;
 use File::Basename;
@@ -98,7 +97,6 @@ sub testComponent
     my ($componentWoExt) = split '\.', (basename $component);
     my $outputFile  = "/tmp/$componentWoExt.html";
     system "rm -rf $outputFile";
-
 
     foreach my $params (@{ $cases_r }) {
         my @caseParams = (template => $component, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);

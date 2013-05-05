@@ -40,5 +40,4 @@ sub notifyStaticRoutesChange
   $dhcp->notifyStaticRoutesChange();
 }
 
-
 1;

@@ -38,7 +38,6 @@ sub _process
 	my $r = Apache2::RequestUtil->request;
 	my $auth_type = $r->auth_type;
 
-
 	$self->{redirect} = "/Login";
 	$self->{errorchain} = "/Logout";
 

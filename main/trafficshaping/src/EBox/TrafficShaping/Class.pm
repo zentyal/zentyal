@@ -130,7 +130,6 @@ sub getAssociatedQueueDiscipline
 
   }
 
-
 # Method: dumpTcCommands
 #
 #         Dump all tc commands needed to create the class in the Linux

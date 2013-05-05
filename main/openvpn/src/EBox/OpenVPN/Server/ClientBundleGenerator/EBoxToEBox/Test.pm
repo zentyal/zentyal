@@ -32,7 +32,6 @@ use EBox::OpenVPN;
 use EBox::Test qw(checkModuleInstantiation);
 use EBox::TestStubs qw(fakeModule);
 
-
 use File::Basename;
 use File::Slurp qw(read_file write_file);
 use Perl6::Junction qw(all any);
@@ -47,7 +46,6 @@ sub testDir
   return "/tmp/ebox$$.test";
 }
 
-
 sub createTestDir : Test(setup)
 {
   my ($self) = @_;
@@ -61,7 +59,6 @@ sub removeTestDir #: Test(teardown)
   my $d = $self->testDir();
   system "rm -rf $d";
 }
-
 
 sub fakeTmpDir : Test(setup)
 {
@@ -107,7 +104,6 @@ sub fakeCA : Test(startup)
 			 );
   $ca->setInitialState(\@fakeCertificates);
 
-
   write_file($caPath, 'caCertificate');
   write_file($clientCertPath, 'certificate');
   write_file($clientCertKeyPath, 'certificateKey');
@@ -137,7 +133,6 @@ sub setUpConfiguration : Test(setup)
     EBox::OpenVPN::Test::fakeFirewall();
     EBox::OpenVPN::Test::fakeNetworkModule();
 
-
     my $openvpn = EBox::Global->modInstance('openvpn');
 
     my $server = $openvpn->newServer(
@@ -154,12 +149,10 @@ sub setUpConfiguration : Test(setup)
     $self->{server} = $server;
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Service::TestStub::setConfig();
 }
-
 
 sub createBundleTest : Test(11)
 {
@@ -180,7 +173,6 @@ sub createBundleTest : Test(11)
        addresses         => $addresses,
 										    );
   } 'checking bundle creation';
-
 
   my %paramsFromBundle;
   lives_ok {
@@ -204,8 +196,5 @@ sub createBundleTest : Test(11)
     is read_file($path), $certParam, 'checking contents of file in the bundle';
   }
 }
-
-
-
 
 1;

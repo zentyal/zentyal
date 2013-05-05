@@ -39,7 +39,6 @@ sub new
     return $self;
 }
 
-
 # Method: precondition
 #
 # Overrides:
@@ -141,7 +140,6 @@ sub _backupVersion
     return \@versions;
 }
 
-
 sub formSubmitted
 {
     my ($self, $row) = @_;
@@ -161,7 +159,6 @@ sub _backupFile
     my $ebackup  = EBox::Global->modInstance('ebackup');
     my $settings = $ebackup->model('RemoteSettings');
     my $usingCloud = $settings->row()->valueByName('method') eq 'cloud';
-
 
     my $tmpFile = EBox::Config::tmp() . 'eboxbackup-tmp.tar';
 

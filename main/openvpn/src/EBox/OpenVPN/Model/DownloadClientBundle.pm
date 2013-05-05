@@ -112,7 +112,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub _connStrategyOptions
 {
     return [
@@ -120,7 +119,6 @@ sub _connStrategyOptions
         { value => 'failover', printableValue => __('Failover')},
        ];
 }
-
 
 sub _clientTypeOptions
 {
@@ -155,7 +153,6 @@ sub _clientTypeOptions
     return \@options;
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -166,11 +163,9 @@ sub validateTypedRow
     $self->_validateInstaller($action, $params_r, $actual_r);
 }
 
-
 sub _validateServer
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
 
     my $configuration = $self->row()->parentRow()->subModel('configuration');
 
@@ -180,7 +175,6 @@ sub _validateServer
                                             )
         }
 }
-
 
 sub _parentCert
 {
@@ -203,12 +197,10 @@ sub _validateCertificate
     }
 }
 
-
 sub _validateClientType
 {
     my ($self, $action, $params_r, $actual_r) = @_;
     my $clientType = $params_r->{clientType}->value();
-
 
     my $confRow = $self->_serverConfRow();
     my $pullRoutes = $confRow->elementByName('pullRoutes')->value();
@@ -222,7 +214,6 @@ sub _validateClientType
         return;
     }
 
-
     if ($pullRoutes) {
             throw EBox::Exceptions::External(
        __('Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels')
@@ -230,7 +221,6 @@ sub _validateClientType
     }
 
 }
-
 
 sub _serverConfRow
 {
@@ -248,7 +238,6 @@ sub _validateInstaller
         # nothing to verify..
         return;
     }
-
 
     my $clientType = $params_r->{clientType}->value();
     if ($clientType ne 'windows') {
@@ -274,7 +263,6 @@ sub formSubmitted
 {
     my ($self, $row) =  @_;
 
-
     my $type = $row->elementByName('clientType')->value();
     my $certificate = $row->elementByName('certificate')->value();
     my $installer = $row->elementByName('installer')->value();
@@ -289,7 +277,6 @@ sub formSubmitted
         push @serverAddr, $addr;
     }
 
-
     my $server = $self->_server();
     my $bundle= $server->clientBundle(
                                       clientType => $type,
@@ -301,7 +288,6 @@ sub formSubmitted
 
     $self->pushFileToDownload($bundle);
 }
-
 
 sub _server
 {
@@ -387,7 +373,6 @@ sub preconditionFailMsg
     return $msg;
 }
 
-
 sub viewCustomizer
 {
     my ($self) = @_;
@@ -405,8 +390,5 @@ sub viewCustomizer
            }  );
     return $customizer;
 }
-
-
-
 
 1;

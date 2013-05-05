@@ -130,8 +130,6 @@ sub userCheck
     return $users;
 }
 
-
-
 # Function: nUsers
 #
 #      Return the number of users in the system (*NIX and LDAP users)
@@ -205,7 +203,6 @@ sub additionalInfo
 }
 
 # Group: Private procedures
-
 
 # Return the files where to crack from system files
 #

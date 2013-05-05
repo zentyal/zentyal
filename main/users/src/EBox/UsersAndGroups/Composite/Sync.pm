@@ -57,7 +57,6 @@ sub menuFolder
     return 'UsersAndGroups';
 }
 
-
 # Method: precondition
 #
 # Check if the module is configured

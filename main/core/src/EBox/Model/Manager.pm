@@ -712,7 +712,6 @@ sub _setupNotifyActions
             push @{ $self->{notifyActions}->{$notifier} }, $observerPath;
         }
 
-
 #        $self->{notifyActions}->{$contextName} = $notify->{$model};
     }
 }
@@ -790,7 +789,6 @@ sub markAsChanged
 {
 }
 
-
 sub _modelHasMultipleInstances
 {
     my ($self, $module, $component) = @_;
@@ -839,6 +837,5 @@ sub configDirsForModel
 
     return [keys %dirs];
 }
-
 
 1;

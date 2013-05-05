@@ -54,7 +54,6 @@ sub addVDomain
 {
     my ($self, $vdomain, $dftmdsize) = @_;
 
-
     my $ldap = $self->{ldap};
 
     checkDomainName($vdomain, 'Virtual domain name');
@@ -64,8 +63,6 @@ sub addVDomain
         throw EBox::Exceptions::DataExists('data' => __('virtual domain'),
                                            'value' => $vdomain);
     }
-
-
 
     my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
     my %attrs = (
@@ -173,7 +170,6 @@ sub vdomains
 
     return @vdomains;
 }
-
 
 # Method: _updateVDomain
 #
@@ -289,8 +285,6 @@ sub allWarnings
 
     return \@allWarns;
 }
-
-
 
 sub regenConfig
 {

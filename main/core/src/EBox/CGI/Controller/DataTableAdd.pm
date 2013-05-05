@@ -34,7 +34,6 @@ sub new # (cgi=?)
 	return  $self;
 }
 
-
 sub _process
 {
 	my $self = shift;

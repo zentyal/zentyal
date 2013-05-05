@@ -219,7 +219,6 @@ sub afterRestoreConfig
         $_ => 1
     } @{  $squid->pathsToRemove('restoreConfigNoPresent') };
 
-
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         delete $noPresent{$row->valueByName('name')};

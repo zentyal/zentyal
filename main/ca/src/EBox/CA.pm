@@ -995,7 +995,6 @@ sub generateCRL
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
 }
 
-
 # Method: listCertificates
 #
 #       List the certificates that are ready on the system sorted
@@ -1206,7 +1205,6 @@ sub getCACertificateMetadata
 
     return $CACert;
 }
-
 
 # Method: getKeys
 #
@@ -1878,7 +1876,6 @@ sub _checkCertificateFieldsCharacters
                     countryName stateName localityName
                     organizationName organizationNameUnit);
 
-
     foreach my $field (@fieldsToCheck) {
         if (exists $args{$field}) {
             my $value = $args{$field};
@@ -2208,7 +2205,6 @@ sub _signSelfSignRequest # (userReqFile, days?, userCertFile,
     return $output if ($retVal eq "ERROR");
     return undef;
 }
-
 
 # Taken the OpenSSL command (req, x509, rsa...)
 # and add to the args the common arguments to all openssl commands

@@ -55,7 +55,6 @@ sub new
     return $self;
 }
 
-
 # Method: getUsers
 #
 #      Returns the enabled PPTP users
@@ -85,7 +84,6 @@ sub getUsers
 
     return \@users;
 }
-
 
 # Group: Private methods
 

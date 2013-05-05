@@ -43,7 +43,6 @@ sub _process
     $self->setIface();
 }
 
-
 sub setIface
 {
     my ($self) = @_;

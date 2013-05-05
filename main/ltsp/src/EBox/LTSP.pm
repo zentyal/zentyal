@@ -537,7 +537,6 @@ sub _setConf
     $self->_writeConfiguration();
 }
 
-
 sub _who
 {
     return `who`;

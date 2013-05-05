@@ -73,7 +73,6 @@ sub setAttribute # (attrName, attrValue)
 
   }
 
-
 # Method: dumpTcAttr
 #
 #         Dump the options needed to pass the tc command

@@ -55,7 +55,6 @@ sub new
         $opts{printableName} = __('Time zone');
     }
 
-
     $opts{'type'} = 'timezone' unless defined ($opts{'type'});
     my $self = $class->SUPER::new(%opts);
 

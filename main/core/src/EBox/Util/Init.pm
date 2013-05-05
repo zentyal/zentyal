@@ -94,7 +94,6 @@ sub stop
     EBox::info("Stop modules finished");
 }
 
-
 sub moduleAction
 {
     my ($modname, $action, $actionName) = @_;
@@ -175,7 +174,6 @@ sub printModuleMessage
         print STDERR $errorMsg, "\n";
     }
 }
-
 
 sub moduleRestart
 {

@@ -141,7 +141,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     $class->_checkBundleContents($tmpDir);
 
-
     my @initParams;
     try {
         push @initParams, $class->_serverConfigurationFromFile($tmpDir);
@@ -162,7 +161,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     return @initParams;
 }
-
 
 sub _checkBundleContents
 {
@@ -196,14 +194,12 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing
                                         );
     }
 
-
 }
 
 sub _serverConfigurationFromFile
 {
     my ($class, $tmpDir) = @_;
     my $file = $class->serverConfigurationFile($tmpDir);
-
 
     my $contents = read_file($file);
     my %conf = split ',', $contents;

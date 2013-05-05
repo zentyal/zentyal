@@ -217,6 +217,5 @@ sub squidRulesStubs
     return [$rule];
 }
 
-
 1;
 

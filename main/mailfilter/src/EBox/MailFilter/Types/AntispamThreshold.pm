@@ -74,7 +74,6 @@ sub positive
     return $self->{positive};
 }
 
-
 # Group: Protected methods
 
 # Method: _paramIsValid
@@ -88,7 +87,6 @@ sub _paramIsValid
     my ($self, $params) = @_;
 
     my $value = $params->{$self->fieldName()};
-
 
     my $numberOk = 0;
     if ($value =~ m{\.$}) {

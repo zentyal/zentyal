@@ -51,7 +51,6 @@ sub _table
                                                minLength     => 6,
                                                help => __('Your password must be at least 6 characters long.')));
 
-
     my $dataTable =
     {
         'tableName' => 'ManageAdmins',
@@ -65,7 +64,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 sub ids
 {

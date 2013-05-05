@@ -136,7 +136,6 @@ sub EditableByUser
     return 1;
 }
 
-
 # Group: Protected methods
 
 # Method: _name

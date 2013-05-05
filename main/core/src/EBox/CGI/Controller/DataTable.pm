@@ -23,7 +23,6 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
-
 # Dependencies
 use Error qw(:try);
 
@@ -331,7 +330,6 @@ sub _responseToEnableChangesMenuElement
     print '$("changes_menu").className = "changed"';
 }
 
-
 sub customAction
 {
     my ($self, $action) = @_;
@@ -382,7 +380,6 @@ sub refreshTable
 
     $self->{'params'} = \@params;
 }
-
 
 sub editAction
 {
@@ -501,7 +498,6 @@ sub confirmationDialogAction
        };
 }
 
-
 # Group: Protected methods
 
 sub _process
@@ -543,7 +539,6 @@ sub _process
         $model->setMessage('');
     }
 }
-
 
 sub _redirect
 {

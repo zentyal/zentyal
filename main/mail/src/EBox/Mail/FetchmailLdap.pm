@@ -41,7 +41,6 @@ use constant {
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
-
 sub new
 {
     my $class = shift;
@@ -50,7 +49,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _externalAccountString
 {
@@ -125,9 +123,6 @@ sub addExternalAccount
     $user->add('fetchmailAccount', $fetchmailString);
 }
 
-
-
-
 sub existsAnyExternalAccount
 {
     my ($self) = @_;
@@ -179,7 +174,6 @@ sub allExternalAccountsByLocalAccount
             }
         }
 
-
         my @externalAccounts = map {
             $self->_externalAccountHash($_)
         } $entry->get_value('fetchmailAccount');
@@ -226,8 +220,6 @@ sub removeExternalAccount
         throw EBox::Exceptions::Internal( "Cannot find user $username" );
     }
 
-
-
     my @fetchmailAccounts = $entry->get_value('fetchmailAccount');
     foreach my $fetchmailAccount (@fetchmailAccounts) {
         if ($fetchmailAccount =~ m/^$account:/) {
@@ -242,14 +234,12 @@ sub removeExternalAccount
                                     );
 }
 
-
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
     $self->removeExternalAccount($user, $account);
     $self->addExternalAccount(user => $user, @{ $newAccountHash});
 }
-
 
 sub writeConf
 {
@@ -322,7 +312,6 @@ sub isEnabled
 
 }
 
-
 sub stop
 {
     EBox::Service::manage(FETCHMAIL_SERVICE, 'stop');
@@ -332,7 +321,6 @@ sub start
 {
     EBox::Service::manage(FETCHMAIL_SERVICE, 'start');
 }
-
 
 sub running
 {
@@ -410,7 +398,6 @@ sub setFetchmailRegenTs
     my $tsFile = $self->_fetchmailRegenTsFile();
     return File::Slurp::write_file($tsFile, $ts);
 }
-
 
 sub checkExternalAccount
 {
@@ -495,6 +482,5 @@ sub externalAccountRowValues
     return \%values;
 
 }
-
 
 1;

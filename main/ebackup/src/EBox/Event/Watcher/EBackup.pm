@@ -25,7 +25,6 @@ use EBox::Event;
 use EBox::Global;
 use EBox::Gettext;
 
-
 # Group: Public methods
 
 # Constructor: new
@@ -95,7 +94,6 @@ sub run
 {
 }
 
-
 # Group: Protected methods
 
 # Method: _name
@@ -112,7 +110,6 @@ sub _name
 {
     return __('Backup');
 }
-
 
 # Method: _description
 #

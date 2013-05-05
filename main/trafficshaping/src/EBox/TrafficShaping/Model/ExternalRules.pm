@@ -56,7 +56,6 @@ sub new
     return $self;
 }
 
-
 sub allIfacesForRuleTable
 {
     my ($self) = @_;
@@ -102,6 +101,5 @@ sub notifyForeignModelAction
     }
     return $userNotes;
 }
-
 
 1;

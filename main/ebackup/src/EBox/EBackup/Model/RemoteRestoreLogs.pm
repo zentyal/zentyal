@@ -51,7 +51,6 @@ sub new
     return $self;
 }
 
-
 # Method: precondition
 #
 #      The preconditionFailMsg method is only implemented
@@ -152,7 +151,6 @@ sub _backupVersion
     @versions = reverse  @versions;
     return \@versions;
 }
-
 
 sub formSubmitted
 {

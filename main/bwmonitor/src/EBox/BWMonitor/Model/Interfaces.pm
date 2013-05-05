@@ -76,7 +76,6 @@ sub _table
     return $dataTable;
 }
 
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -136,7 +135,6 @@ sub validateTypedRow
            ));
     }
 }
-
 
 sub enabledInterfaces
 {

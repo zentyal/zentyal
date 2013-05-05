@@ -121,11 +121,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
 
 # Method: viewCustomizer
 #
@@ -151,9 +148,6 @@ sub viewCustomizer
         return $customizer;
 }
 
-
-
-
 sub _availableFilters
 {
     my @options = (
@@ -170,7 +164,6 @@ sub validateTypedRow
 
   $self->_checkFWPort($action, $params_r, $actual_r);
 }
-
 
 sub _checkFWPort
 {
@@ -200,12 +193,10 @@ sub precondition
     return not $mailfilter->isEnabled();
 }
 
-
 sub preconditionFailMsg
 {
     return __('As long mailfilter module is enabled the mail server will use the filter it provides');
 }
-
 
 1;
 

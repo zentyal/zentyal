@@ -196,7 +196,6 @@ sub DELETE {
     return $self->request('DELETE', $path, $params{query}, $params{retry});
 }
 
-
 sub request {
     my ($self, $method, $path, $query, $retry) = @_;
 
@@ -299,7 +298,6 @@ sub last_error
 
     return $self->{last_error};
 }
-
 
 # Function: _invalidCredentialsMsg
 #

@@ -98,7 +98,6 @@ sub dropIndex
     runQuery($query);
 }
 
-
 sub addColumn
 {
     my ($table, $column, $columnData) = @_;

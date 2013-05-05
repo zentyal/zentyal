@@ -109,7 +109,6 @@ sub buildRoot # (defaultClass, rate)
     throw EBox::Exceptions::MissingArgument('rate')
       unless defined( $self->{rate} );
 
-
     # There are different ways to implement depending on if the
     # interface is internal or external
     my $netMod = EBox::Global->modInstance('network');
@@ -458,7 +457,6 @@ sub updateRule
 
   }
 
-
 # Method: destroyRule
 #
 #        Remove a rule from the tc tree
@@ -727,7 +725,6 @@ sub _allowedLimitedRate
 
 }
 
-
 # Minimum allowed guaranteed rate to have at least a quantum of 1
 # packet.
 # Returns kbit/s
@@ -753,7 +750,6 @@ sub _maximumAllowedQuantum
     return (60000 * R2Q * 8) / 1000;
 
   }
-
 
 ###
 # Numbers helpers
@@ -982,7 +978,6 @@ sub _createInternalStructure # (defaultClassId)
                      service     => undef,
                      id          => $eBoxId + 1,
                     );
-
 
 }
 

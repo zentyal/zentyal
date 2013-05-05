@@ -104,7 +104,6 @@ sub elementsTest : Test(35)
         }
     } 'Adding elements to the row';
 
-
     is scalar @elementsToAdd, $row->size(),
        'checking size of row after addition of elements';
 
@@ -298,7 +297,6 @@ sub unionTest : Test(6)
     is $row->elementByName($unselectedUnionSubtype), undef,
        'checking that elementByName return undef when requested a unselected union subtype';
 }
-
 
 sub filesToRemoveTest : Test(3)
 {

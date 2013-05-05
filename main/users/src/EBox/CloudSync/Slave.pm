@@ -18,7 +18,6 @@ package EBox::CloudSync::Slave;
 use strict;
 use warnings;
 
-
 use base 'EBox::UsersAndGroups::Slave';
 
 use EBox::Global;
@@ -34,7 +33,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _addUser
 {
@@ -150,7 +148,6 @@ sub _delGroup
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);
     return 0;
 }
-
 
 sub RESTClient
 {

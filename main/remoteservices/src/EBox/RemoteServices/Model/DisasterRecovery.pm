@@ -364,6 +364,5 @@ sub _format
     return $numStr;
 }
 
-
 1;
 

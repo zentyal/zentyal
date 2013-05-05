@@ -423,7 +423,6 @@ sub dumpIptablesCommands
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
 
-
             my $iface = $self->{parent}->getInterface();
 
             my $trafficshaping = EBox::Global->modInstance('trafficshaping');
@@ -457,12 +456,9 @@ sub dumpIptablesCommands
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
         }
 
-
-
         if ($l7Rule) {
 #            push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
         }
-
 
     }
     # FIXME Comment out because it messes up with multipath marks
@@ -501,7 +497,6 @@ sub _extraL7Commands
 
     return @cmds;
 }
-
 
 # Method: dumpProtocols
 #

@@ -31,7 +31,6 @@ sub new
     return $self;
 }
 
-
 # Method: options
 #
 #   Overrides <EBox::Types::Select::options> to not cache the options.

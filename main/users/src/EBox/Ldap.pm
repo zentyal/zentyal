@@ -135,7 +135,6 @@ sub ldapCon
     return $self->{ldap};
 }
 
-
 # Method: anonymousLdapCon
 #
 #       returns a LDAP connection without any binding
@@ -153,7 +152,6 @@ sub anonymousLdapCon
     my $ldap = EBox::Ldap::safeConnect(LDAPI);
     return $ldap;
 }
-
 
 # Method: getPassword
 #
@@ -460,7 +458,6 @@ sub delObjectclass # (dn, objectclass);
         $_->{name}
     }  ($schema->must($objectclass), $schema->may($objectclass));
 
-
     my %attr2del;
     for my $attr (@objectAttrs) {
         # Skip if the attribute belongs to another objectclass
@@ -589,7 +586,6 @@ sub getAttribute # (dn, attribute);
     return $result->entry(0)->get_value($attribute);
 }
 
-
 # Method: isObjectClass
 #
 #      check if a object is member of a given objectclass
@@ -603,7 +599,6 @@ sub getAttribute # (dn, attribute);
 sub isObjectClass
 {
     my ($self, $dn, $objectClass) = @_;
-
 
     my %attrs = (
             base   => $dn,
@@ -717,7 +712,6 @@ sub start
     return  $self->refreshLdap();
 }
 
-
 sub refreshLdap
 {
     my ($self) = @_;
@@ -725,7 +719,6 @@ sub refreshLdap
     $self->{ldap} = undef;
     return $self;
 }
-
 
 sub ldifFile
 {

@@ -29,7 +29,6 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Select;
 
-
 sub new
 {
     my $class = shift;
@@ -74,7 +73,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 # Method: viewCustomizer
 #

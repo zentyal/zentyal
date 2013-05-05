@@ -83,7 +83,6 @@ sub processLine # (file, line, logger)
         return;
     }
 
-
     # date is like 'Mon Nov 8 19:03:14 2004'. rmeove first day
     my $format = '%a %b %e %H:%M:%S %Y';
     my $timestamp = $self->_convertTimestamp($date, $format);

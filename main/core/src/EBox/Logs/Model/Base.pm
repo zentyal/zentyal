@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
@@ -23,8 +22,6 @@ use EBox::DBEngineFactory;
 use EBox::Gettext;
 use Perl6::Junction qw(all);
 use Error qw(:try);
-
-
 
 sub _printableDate
 {
@@ -53,8 +50,6 @@ sub _printableDate
     }
 }
 
-
-
 my $allAllowedTimePeriods = all(qw(hourly daily weekly monthly));
 sub _checkTimePeriod
 {
@@ -65,10 +60,6 @@ sub _checkTimePeriod
     }
 
 }
-
-
-
-
 
 # Method: dbTableName
 #
@@ -100,7 +91,6 @@ sub dbTable
     return $self->dbTableName() . '_' . $timePeriod;
 }
 
-
 # Method: dbFields
 #
 #    this must be return information about the data base field used for the
@@ -117,9 +107,6 @@ sub dbFields
 {
     throw EBox::Exceptions::NotImplemented('dbFields');
 }
-
-
-
 
 # Method: reportRows
 #
@@ -157,11 +144,6 @@ sub reportRows
 
     return $dbRows;
 }
-
-
-
-
-
 
 # Method: timePeriod
 #

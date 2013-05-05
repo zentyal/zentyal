@@ -379,7 +379,6 @@ sub permanentMessage
     return $self->{permanentMessage};
 }
 
-
 # Method: permanentMessageType
 #
 #   Return the type for the defined permanent message
@@ -646,7 +645,6 @@ sub _setDefaultActions
     $self->{actions} = $actionsRef;
 }
 
-
 sub keywords
 {
     my ($self) = @_;
@@ -793,7 +791,6 @@ sub HTMLTitle
              }
            ];
 }
-
 
 # Method: clone
 #

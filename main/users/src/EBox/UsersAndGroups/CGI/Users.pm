@@ -15,7 +15,6 @@
 use strict;
 use warnings;
 
-
 package EBox::UsersAndGroups::CGI::Users;
 use base 'EBox::CGI::ClientBase';
 
@@ -31,7 +30,6 @@ sub new {
     bless($self, $class);
     return $self;
 }
-
 
 sub _process($) {
     my ($self) = @_;

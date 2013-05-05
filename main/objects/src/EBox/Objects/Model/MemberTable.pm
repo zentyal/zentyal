@@ -34,7 +34,6 @@ use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
 
-
 use EBox::Exceptions::External;
 
 use Net::IP;
@@ -91,7 +90,6 @@ sub _table
                                 'editable' => 1,
                                 'optional' => 1
                             ),
-
 
           );
 
@@ -159,8 +157,6 @@ sub validateTypedRow
            );
     }
 }
-
-
 
 # Method: alreadyInSameObject
 #
@@ -252,7 +248,6 @@ sub members
     return $membersObject;
 }
 
-
 # addresses
 #
 #       Return the network addresses
@@ -275,7 +270,6 @@ sub addresses
     my $members = $self->members();
     return $members->addresses(@params);
 }
-
 
 # Method: pageTitle
 #

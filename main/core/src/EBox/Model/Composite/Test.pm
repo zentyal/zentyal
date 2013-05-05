@@ -199,10 +199,8 @@ sub _defaultComponents
     return \@components;
 }
 
-
 package TestComposite;
 use base 'EBox::Model::Composite';
-
 
 sub new
 {

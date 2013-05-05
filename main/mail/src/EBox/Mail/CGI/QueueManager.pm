@@ -82,7 +82,6 @@ sub _process
 	push(@array, 'getinfo'	=> $info);
 	push(@array, 'data'	=> \@data);
 
-
 	$self->{params} = \@array;
 }
 

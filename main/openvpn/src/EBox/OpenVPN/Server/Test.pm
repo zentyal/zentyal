@@ -628,7 +628,6 @@ sub setServiceTest : Test(56)
 		     );
   $ca->setInitialState(\@certificates);
 
-
   diag 'Setting server to use a inexistent certificate';
   $server->setConfString('inexistent');
   $self->_checkSetServiceWithBadStatus($server, 'using a inexistent certificate');
@@ -641,8 +640,6 @@ sub setServiceTest : Test(56)
   $server->setConfString('revoked');
   $self->_checkSetServiceWithBadStatus($server, 'using a revoked certificate');
 }
-
-
 
 sub _checkSetServiceWithBadStatus
 {
@@ -660,7 +657,5 @@ sub _checkSetServiceWithBadStatus
     }
   }
 }
-
-
 
 1;

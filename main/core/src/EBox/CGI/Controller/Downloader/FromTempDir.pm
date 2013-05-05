@@ -32,8 +32,6 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 
-
-
 # Core modules
 use Error qw(:try);
 use Cwd 'abs_path';

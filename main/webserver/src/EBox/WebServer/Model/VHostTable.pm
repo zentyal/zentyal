@@ -116,7 +116,6 @@ sub validateTypedRow
     }
 }
 
-
 # XXX IPs for vhost removed until we change
 # the DNS module to add all IPs only for the required kerberos domain
 # Method: addedRowNotify
@@ -272,7 +271,6 @@ sub _populateSSLsupport
                   );
     return \@options;
 }
-
 
 # Method: _table
 #

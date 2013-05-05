@@ -152,7 +152,6 @@ sub _daemons
     ];
 }
 
-
 # overriden because ejabberd process could be up and not be running
 sub isRunning
 {
@@ -344,6 +343,5 @@ sub killProcesses
         system "killall  @kill";
     }
 }
-
 
 1;

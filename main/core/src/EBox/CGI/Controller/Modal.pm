@@ -20,7 +20,6 @@ use warnings;
 
 use base 'EBox::CGI::ClientRawBase';
 
-
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
@@ -37,7 +36,6 @@ sub new # (cgi=?)
 
     my $self = $class->SUPER::new(@_);
     $self->{'tableModel'} = $tableModel;
-
 
     bless($self, $class);
     return  $self;
@@ -138,7 +136,6 @@ sub editField
 
 }
 
-
 sub editBoolean
 {
     my $self = shift;
@@ -229,7 +226,6 @@ sub refreshTable
     $self->{'params'} = \@params;
 }
 
-
 sub cancelAdd
 {
     my ($self, $model) = @_;
@@ -319,6 +315,5 @@ sub _process
     }
 
 }
-
 
 1;

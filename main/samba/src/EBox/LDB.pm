@@ -42,7 +42,6 @@ use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
-
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
 use constant ROOT_DSE_ATTRS => [

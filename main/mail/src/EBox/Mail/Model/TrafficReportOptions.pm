@@ -31,8 +31,6 @@ sub new
 
 }
 
-
-
 sub tableName
 {
     return 'TrafficReportOptions';
@@ -43,13 +41,9 @@ sub modelDomain
     return 'Mail';
 }
 
-
-
-
 sub reportUrl
 {
     return '/Mail/Composite/TrafficReport';
 }
-
 
 1;

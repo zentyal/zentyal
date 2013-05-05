@@ -148,7 +148,6 @@ sub _table
 {
     my ($self) = @_;
 
-
     my @tableDesc =
       (
        new EBox::Types::Int(

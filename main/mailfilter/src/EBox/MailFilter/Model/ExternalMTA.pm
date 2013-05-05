@@ -97,8 +97,6 @@ sub _table
 
 }
 
-
-
 # Method: allowed
 #
 # Returns:
@@ -116,9 +114,6 @@ sub allowed
     }
     return \@allowed;
 }
-
-
-
 
 sub validateTypedRow
 {
@@ -144,7 +139,6 @@ sub validateTypedRow
   }
 
 }
-
 
 1;
 

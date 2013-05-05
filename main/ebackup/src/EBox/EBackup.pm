@@ -94,7 +94,6 @@ sub addModuleStatus
         nobutton      => 1));
 }
 
-
 # This hook is called before checking if a target is ready for the backup
 # It is intended to be used to mount filesystems or
 # to  do any operation needed to make ready the targer
@@ -203,7 +202,6 @@ sub restoreFile
     };
 }
 
-
 sub _duplicityRestoreFileCmd
 {
     my ($self, $url, $file, $date, $destination) = @_;
@@ -290,7 +288,6 @@ sub remoteArguments
             " / " . $self->_remoteUrl(%{ $urlParams });
     return $cmd;
 }
-
 
 sub extraDataDir
 {
@@ -535,7 +532,6 @@ sub modulesBackupDomainsFileSelections
     return \@selections;
 }
 
-
 sub _backupDomainsFileSelectionArguments
 {
     my ($self) = @_;
@@ -673,7 +669,6 @@ sub remoteGenerateListFile
         EBox::Sudo::root("rm -f $tmpFile");
     }
 }
-
 
 # Method: remoteStatus
 #
@@ -897,7 +892,6 @@ sub _updateStatusInBackgroundLockFile
     return EBox::Util::Lock::_lockFile(UPDATE_STATUS_IN_BACKGROUND_LOCK);
 }
 
-
 # Method: tmpFileList
 #
 #   Return the patch to store the temporary remote file list
@@ -1010,19 +1004,16 @@ sub setRemoteBackupCron
     EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
 }
 
-
 sub removeRemoteBackupCron
 {
     my $rmCmd = "rm -f " . backupCronFile();
     EBox::Sudo::root($rmCmd);
 }
 
-
 sub backupCronFile
 {
     return '/etc/cron.d/ebox-ebackup';
 }
-
 
 # Method: _setConf
 #
@@ -1085,7 +1076,6 @@ sub _setConf
     }
 
 }
-
 
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
 # also the files list
@@ -1202,7 +1192,6 @@ sub _remoteUrl
 
     return $url;
 }
-
 
 sub _volSize
 {
@@ -1333,7 +1322,6 @@ sub storageUsage
         return undef;
     }
 
-
     my $result = {
             used => int($used),
             available => int($available),
@@ -1359,7 +1347,6 @@ sub _clearStorageUsageCache
     my $file = _storageUsageCacheFile();
     system "rm -f $file";
 }
-
 
 sub checkTargetStatus
 {

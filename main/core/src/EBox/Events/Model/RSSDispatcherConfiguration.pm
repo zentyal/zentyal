@@ -214,7 +214,6 @@ sub setLinkToRSS
     return '/dynamic-data/' . $rssPath;
 }
 
-
 # Group: Private methods
 
 # Update link shown at the RSS channel

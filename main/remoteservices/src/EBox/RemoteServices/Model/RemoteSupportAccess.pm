@@ -53,7 +53,6 @@ sub new
 
 }
 
-
 # Group: Protected methods
 
 # Method: _table
@@ -154,7 +153,6 @@ __('To restrict addresses you need that your Zentyal Server is registered to Zen
         }
     }
 }
-
 
 sub _message
 {

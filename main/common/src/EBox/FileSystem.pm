@@ -17,7 +17,6 @@ package EBox::FileSystem;
 use strict;
 use warnings;
 
-
 use base 'Exporter';
 our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem);
 use Params::Validate;
@@ -232,7 +231,6 @@ sub dirDiskUsage
         return $blockCount;
 }
 
-
 # Function: staticFileSystems
 #
 #      Return static file systems information as seen in /etc/fstab
@@ -254,7 +252,6 @@ sub staticFileSystems
 {
     return _fileSystems(FSTAB_PATH, @_);
 }
-
 
 # Function: fileSystems
 #

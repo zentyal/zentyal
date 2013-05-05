@@ -376,7 +376,6 @@ sub _table
                                      storer        => \&_emptyFunc));
     }
 
-
     my ($actionName, $printableTableName);
     my ($customActions, $defaultActions) = ([], []);
     if ( $self->eBoxSubscribed() ) {
@@ -534,7 +533,6 @@ sub _manageSquid
     }
 }
 
-
 sub _configureAndEnable
 {
     my ($self, $mod) = @_;
@@ -615,7 +613,6 @@ sub _modListToHumanStr
     $str = $str . __(' and ') . $last . __(' modules');
     return $str;
 }
-
 
 # Dump the module actions string
 sub _actionsStr

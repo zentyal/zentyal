@@ -348,7 +348,6 @@ sub _checkDevicePath
     }
 }
 
-
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
@@ -408,6 +407,5 @@ sub viewCustomizer
 
     return $customizer;
 }
-
 
 1;

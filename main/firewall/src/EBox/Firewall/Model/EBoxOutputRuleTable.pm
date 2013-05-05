@@ -39,7 +39,6 @@ use EBox::Sudo;
 use strict;
 use warnings;
 
-
 use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 
 sub new

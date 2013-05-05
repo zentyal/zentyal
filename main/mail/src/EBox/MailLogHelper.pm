@@ -77,7 +77,6 @@ sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-
     if (not $line =~ m/(?:postfix)|(?:deliver)/) {
         return;
     }
@@ -114,7 +113,6 @@ sub processLine
                      };
 
         $self->_insert($dbengine, $values);
-
 
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         # auth failed, not admited at queue. Insert noauth event
@@ -204,7 +202,6 @@ sub processLine
             $temp{$qid}{'to'} = $1;
         }
 
-
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
@@ -263,8 +260,6 @@ sub _insertEvent
 {
     my ($self, $qid, $dbengine) = @_;
 
-
-
     my $values = {
                   timestamp => $temp{$qid}{'date'},
                   message_id => $temp{$qid}{'msgid'},
@@ -283,7 +278,6 @@ sub _insertEvent
 
     $self->_insert($dbengine, $values);
 }
-
 
 sub _insert
 {

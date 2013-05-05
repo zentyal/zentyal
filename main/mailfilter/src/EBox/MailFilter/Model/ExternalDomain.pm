@@ -97,7 +97,6 @@ sub _table
 
 }
 
-
 sub validateTypedRow
 {
   my ($self, $action, $params_r, $actual_r) = @_;
@@ -117,7 +116,6 @@ sub validateTypedRow
   }
 
 }
-
 
 # Method: allowed
 #

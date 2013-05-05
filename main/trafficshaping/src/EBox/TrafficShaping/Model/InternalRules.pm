@@ -66,6 +66,4 @@ sub allIfacesForRuleTable
     return $ifaces;
 }
 
-
-
 1;

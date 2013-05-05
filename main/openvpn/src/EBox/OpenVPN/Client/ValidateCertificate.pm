@@ -62,7 +62,6 @@ sub check
                        )
                                         );
 
-
   _verifyCaCert($caPath);
   _verifyCert($certPath);
   _verifyPrivKey($privKeyPath);
@@ -70,8 +69,6 @@ sub check
   _verifyCertWithCa($certPath, $caPath);
   _verifyCertWithPrivKey($certPath, $privKeyPath);
 }
-
-
 
 sub _verifyCaCert
 {
@@ -84,7 +81,6 @@ sub _verifyCaCert
 				    );
   }
 }
-
 
 sub _verifyCert
 {
@@ -100,7 +96,6 @@ sub _verifyCert
 				    );
   };
 }
-
 
 sub _verifyPrivKey {
   my ($privKeyPath) = @_;
@@ -158,15 +153,12 @@ sub _verifyCertWithPrivKey
   };
 }
 
-
-
 sub _opensslVerify
 {
   my (@params) = @_;
   my $cmd =  OPENSSL_PATH . ' verify ' . "@params";
 
   my $output_r = EBox::Sudo::root($cmd);
-
 
   my $lastLine = $output_r->[-1];
   defined $lastLine or return 0;

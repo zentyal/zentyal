@@ -43,7 +43,6 @@ sub new
 
     my $self = $class->SUPER::new(%opts);
 
-
     bless($self, $class);
     return $self;
 }
@@ -65,7 +64,6 @@ sub options
     @options = sort {
         $a->{value} cmp $b->{value}
     } @options;
-
 
     return \@options;
 

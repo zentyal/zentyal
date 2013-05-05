@@ -147,7 +147,6 @@ sub syncRows
     return $modified;
 }
 
-
 sub _table
 {
     my @tableHead =
@@ -557,7 +556,6 @@ sub removeRow
 
     $self->SUPER::removeRow($id, $force);
 }
-
 
 sub checkGWName
 {

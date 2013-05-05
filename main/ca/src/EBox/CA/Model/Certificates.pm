@@ -55,7 +55,6 @@ sub new
     return $self;
 }
 
-
 # Method: precondition
 #
 #   Check if CA has been created.
@@ -72,7 +71,6 @@ sub precondition
 
     return $ca->isAvailable();
 }
-
 
 # Method: preconditionFailMsg
 #
@@ -91,7 +89,6 @@ sub preconditionFailMsg
               openhref  => qq{<a href='/CA/Index'>},
               closehref => qq{</a>});
 }
-
 
 # Method: syncRows
 #
@@ -251,7 +248,6 @@ sub isEnabledService
     return $row->valueByName('enable') if ($row);
     return undef;
 }
-
 
 # Group: Private methods
 

@@ -45,7 +45,6 @@ use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 my $UPSTART_PATH = '/etc/init/';
 my $WWW_PATH = EBox::Config::www();
 
-
 sub _create
 {
     my $class = shift;
@@ -235,7 +234,6 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
-
 sub updateFirewallService
 {
     my ($self) = @_;
@@ -362,7 +360,6 @@ sub allowsNoneIface
     my ($self) = @_;
     return $self->{backend}->allowsNoneIface();
 }
-
 
 sub manageScript
 {

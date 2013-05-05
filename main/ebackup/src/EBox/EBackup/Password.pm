@@ -56,7 +56,6 @@ sub _passwdFile
     return PASSWD_FILE;
 }
 
-
 sub setSymmetricPassword
 {
     my ($symPass, $alternative) = @_;
@@ -67,7 +66,6 @@ sub setSymmetricPassword
             $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
     );
 }
-
 
 sub symmetricPassword
 {
@@ -92,7 +90,6 @@ sub _symmetricPasswordFile
     return $file;
 }
 
-
 sub setGpgPassphrase
 {
     my ($symPass, $alternative) = @_;
@@ -103,7 +100,6 @@ sub setGpgPassphrase
             $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
     );
 }
-
 
 sub gpgPassphrase
 {

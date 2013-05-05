@@ -779,7 +779,6 @@ sub _addFileToList
 #    $self->_removeFilesFromList($dir);
 #}
 
-
 # FIXME: reimplement this
 #sub _clearFilesToRemoveLists
 #{
@@ -897,7 +896,6 @@ sub backupFilesInArchive
         return;
 
     my $archive = $self->_filesArchive($dir);
-
 
     my $firstFile  = shift @filesToBackup;
     my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";

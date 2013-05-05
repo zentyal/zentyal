@@ -92,7 +92,6 @@ my %subByGConfMethod = (
                                       returnValueHash => 0,
                                      },
 
-
                         get_list  => {
                                       sub_r =>  \&_getEntry,
                                       type  => 'list',
@@ -196,7 +195,6 @@ sub _mockedGConfWrapper
     return $resHash;
 }
 
-
 # XXX defaults not supported
 sub _unsetEntry
 {
@@ -230,7 +228,6 @@ sub _setList
     my ($key, $type, $val) = @_;
     $config{$key} = $val;
 }
-
 
 sub _allEntries
 {
@@ -298,7 +295,6 @@ sub _mockedDeleteDirInternal
         }
     }
 }
-
 
 # faking get in gconfwarpper seems to be not enough....
 sub _mockedHashFromDir

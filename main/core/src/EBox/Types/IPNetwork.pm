@@ -27,7 +27,6 @@ use warnings;
 
 use base 'EBox::Types::IPAddr';
 
-
 sub new
 {
     my $class = shift;
@@ -45,8 +44,6 @@ sub new
 
     return $self;
 }
-
-
 
 # Method: _paramIsValid
 #
@@ -130,6 +127,5 @@ sub checkIPIsNetwork
 
     return 1;
 }
-
 
 1;

@@ -20,7 +20,6 @@ use warnings;
 
 use base 'EBox::CaptivePortal::CGI::Base';
 
-
 use EBox::Gettext;
 use EBox::CaptivePortal;
 use Apache2::RequestUtil;

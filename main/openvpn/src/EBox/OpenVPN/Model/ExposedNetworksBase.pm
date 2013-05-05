@@ -93,7 +93,6 @@ sub networks
                 next;
             }
 
-
             # Add the member to the list of advertised networks
             my $mask;
             if ($abbreviatedMask) {

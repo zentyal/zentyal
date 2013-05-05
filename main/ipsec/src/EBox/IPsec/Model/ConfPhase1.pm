@@ -18,7 +18,6 @@ use warnings;
 package EBox::IPsec::Model::ConfPhase1;
 use base 'EBox::Model::DataForm';
 
-
 use EBox::Gettext;
 use EBox::Types::Int;
 use EBox::Types::Select;

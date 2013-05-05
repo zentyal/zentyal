@@ -34,7 +34,6 @@ sub new
     return $self;
 }
 
-
 sub _process
 {
     my ($self) = @_;

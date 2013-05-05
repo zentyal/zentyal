@@ -55,7 +55,6 @@ sub unfake
     }
 }
 
-
 my $loginit;
 
 sub _mockedLogger

@@ -54,7 +54,6 @@ sub new
     return $self;
 }
 
-
 sub precondition
 {
     my ($self) = @_;
@@ -150,7 +149,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 sub viewCustomizer
 {

@@ -37,7 +37,6 @@ use EBox::OpenVPN::Test;
 use EBox::OpenVPN;
 use EBox::CA::TestStub;
 
-
 use English qw(-no_match_vars);
 
 sub testDir
@@ -67,7 +66,6 @@ sub fakeFirewall
 
 }
 
-
 # XXX replace with #419 when it is done
 sub ignoreChownRootCommand : Test(startup)
 {
@@ -83,7 +81,6 @@ sub ignoreChownRootCommand : Test(startup)
     return $root_r->($cmd);
   };
 
-
   defined $root_r or die 'Can not get root sub from EBox::Sudo';
 
   Test::MockObject->fake_module(
@@ -91,7 +88,6 @@ sub ignoreChownRootCommand : Test(startup)
                                 root => $rootIgnoreChown_r,
                                )
 }
-
 
 sub setupCertificates : Test(setup)
 {
@@ -123,7 +119,6 @@ sub setupCertificates : Test(setup)
   $ca->setInitialState(\@certificates);
 }
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -141,12 +136,10 @@ sub setUpConfiguration : Test(setup)
                   );
     EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
-
     EBox::OpenVPN::Test::fakeNetworkModule();
 
     fakeFirewall();
 }
-
 
 sub clearConfiguration : Test(teardown)
 {
@@ -159,13 +152,11 @@ sub clearCertificates : Test(teardown)
     $ca->destroyCA();
 }
 
-
 sub _confDir
 {
     my ($self) = @_;
     return $self->testDir() . "/config";
 }
-
 
 sub _newServerConfiguration
 {
@@ -176,10 +167,7 @@ sub _newServerConfiguration
                       directory   => 'ServerConfiguration'
                                                          );
 
-
 }
-
-
 
 sub _serverConfigurationValues
 {
@@ -190,7 +178,6 @@ sub _serverConfigurationValues
            }
 
 }
-
 
 # XXX this must be tested at type level!
 sub certificateTest : Test(1)
@@ -226,7 +213,6 @@ sub certificateTest : Test(1)
 
   my $serverConfiguration = $self->_newServerConfiguration;
 
-
   my @expectedOptionsValues = sort qw(certificate1 certificate2);
 
   my $row = $serverConfiguration->row();
@@ -245,14 +231,9 @@ sub tlsRemoteTest : Test(1)
 {
   my ($self) = @_;
 
-
-
     my $serverConfiguration   = $self->_newServerConfiguration;
     my $correctCertificates   = ['certificate1', 'certificate2'];
     my $incorrectCertificates = ['inexistentCertificate', 'expired', 'revoked'];
-
-
-
 
   my @expectedOptionsValues = sort qw(certificate1 certificate2 0);
 
@@ -266,11 +247,9 @@ sub tlsRemoteTest : Test(1)
             'Checking values of the TlsRemote control';
 }
 
-
 sub pullRoutesAndRipPasswdTest : Test(6)
 {
   my ($self) = @_;
-
 
   my $serverConfiguration = $self->_newServerConfiguration();
 
@@ -280,9 +259,6 @@ sub pullRoutesAndRipPasswdTest : Test(6)
                       [0, '6charPass'],
                       [1, '6charPass'],
                      );
-
-
-
 
   foreach my $case (@correctCases) {
       my ($pull, $passwd) = @{ $case };
@@ -296,7 +272,6 @@ sub pullRoutesAndRipPasswdTest : Test(6)
             name =>
             "Checking correct combination of pullRoutes and ripPasswd: ($pull, $passwd)"
            )
-
 
   }
 
@@ -321,9 +296,7 @@ sub pullRoutesAndRipPasswdTest : Test(6)
            name      => 'Trying to usnet password when pullRoutes is active must fail'
           );
 
-
 }
-
 
 sub ifaceAndMasqueradeTest : Test(6)
 {
@@ -366,7 +339,6 @@ sub ifaceAndMasqueradeTest : Test(6)
                             },
                  },
 
-
                  {
                   name  =>  'Setting masquerade on and listening on internal interface',
                   values => {
@@ -383,7 +355,6 @@ sub ifaceAndMasqueradeTest : Test(6)
                   deviant => 1,
                  },
                 );
-
 
     foreach my $case (@cases) {
         my $name = $case->{name};
@@ -409,9 +380,6 @@ sub ifaceAndMasqueradeTest : Test(6)
 
     }
 
-
-
-
 }
 
 sub setOk
@@ -419,12 +387,10 @@ sub setOk
     _setTest(1, @_);
 }
 
-
 sub setNotOk
 {
     _setTest(0, @_);
 }
-
 
 sub _setTest
 {
@@ -435,7 +401,6 @@ sub _setTest
     my $name      = $params{name};
     defined $name or
         $name = '';
-
 
     my $error = 0;
 
@@ -469,13 +434,6 @@ sub _setTest
     };
 
 }
-
-
-
-
-
-
-
 
 1;
 __DATA__

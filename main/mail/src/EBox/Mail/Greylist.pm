@@ -33,7 +33,6 @@ use constant {
     WHITELIST_CLIENTS_FILE => '/etc/postgrey/whitelist_clients',
 };
 
-
 sub new
 {
   my $class = shift @_;
@@ -100,13 +99,11 @@ sub retryWindow
   return $self->_confAttr('retryWindow');
 }
 
-
 sub maxAge
 {
   my ($self) = @_;
   return $self->_confAttr('maxAge');
 }
-
 
 sub _confAttr
 {
@@ -121,12 +118,10 @@ sub _confAttr
     return $row->valueByName($attr);
 }
 
-
 sub writeUpstartFile
 {
   my ($self) = @_;
   my $path = $self->upstartFile();
-
 
     my $fileAttrs    = {
                         uid  => 0,
@@ -156,11 +151,9 @@ sub upstartFile
     return UPSTART_DIR . '/' . GREYLIST_SERVICE . '.conf';
 }
 
-
 sub writeConf
 {
     my ($self) = @_;
-
 
     my $network =  EBox::Global->modInstance('network');
     my @internalIf = @{ $network->InternalIfaces()  };
@@ -177,7 +170,6 @@ sub writeConf
         }
 
     } @internalIf;
-
 
     my $mail = EBox::Global->modInstance('mail');
     my $allowedAddresses = $mail->allowedAddresses();
@@ -203,8 +195,6 @@ sub writeConf
                                    );
 }
 
-
-
 sub _antispamWhitelist
 {
     my ($self) = @_;
@@ -220,7 +210,6 @@ sub _antispamWhitelist
     if (not $mailfilter->isEnabled()) {
         return [];
     }
-
 
     my @wl = @{ $mailfilter->antispam()->whitelist() };
     # the format for domains is @domain_name, however postgrey uses domainname

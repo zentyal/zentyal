@@ -52,7 +52,6 @@ sub dbFields
     }
 }
 
-
 # Method: _table
 #
 #       The table description which consists of three fields:

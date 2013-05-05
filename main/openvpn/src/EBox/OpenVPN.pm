@@ -1035,7 +1035,6 @@ sub staticIfaceAddressChanged
     return $self->_anyDaemonReturnsTrue('staticIfaceAddressChanged', @params);
 }
 
-
 # common listeners helpers..
 
 sub _invokeOnServers
@@ -1456,12 +1455,10 @@ sub removeRSClients
         $_ =~ m/^$prefix/
     } $self->clientsNames();
 
-
     foreach my $name (@names) {
         $self->deleteClient($name);
     }
 }
-
 
 # log observer stuff
 

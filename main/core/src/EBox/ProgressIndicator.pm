@@ -468,7 +468,6 @@ sub _currentIds
     EBox::Util::SHM::subkeys($KEY);
 }
 
-
 # Method to clean up the rubbish regarding to the progress indicator
 # It must be called when a new progress indicator is created, because
 # a single ProgressIndicator should be alive on Apache

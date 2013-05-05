@@ -84,8 +84,6 @@ sub _table
                         ),
                     ];
 
-
-
     my $dataTable =
         {
             'tableName' =>__PACKAGE__->tableName(),
@@ -105,18 +103,14 @@ sub _table
     return $dataTable;
 }
 
-
-
 sub tableName
 {
     return 'EventsDetails';
 }
 
-
 sub timePeriod
 {
     my ($self) = @_;
-
 
     my $model = $self->{confmodule}->reportOptionsModel();
     my $row = $model->row();

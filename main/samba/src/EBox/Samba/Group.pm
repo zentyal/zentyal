@@ -48,7 +48,6 @@ sub new
     return $self;
 }
 
-
 # Method: removeAllMembers
 #
 #   Remove all members in the group
@@ -83,7 +82,6 @@ sub addMember
     $self->add('member', $user->dn(), $lazy);
 }
 
-
 # Method: removeMember
 #
 #   Removes the given user as a member
@@ -103,7 +101,6 @@ sub removeMember
 
     $self->deleteValues('member', [$user->dn()], $lazy);
 }
-
 
 # Method: members
 #
@@ -142,7 +139,6 @@ sub members
 
     return $members;
 }
-
 
 # Method: usersNotIn
 #
@@ -184,7 +180,6 @@ sub setupGidMapping
     my $type = $self->_ldap->idmap->TYPE_GID();
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $gidNumber);
 }
-
 
 # Method: create
 #
@@ -269,7 +264,6 @@ sub updateZentyal
     $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
     $zentyalGroup->exists() or
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
-
 
     $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->set('description', $desc, 1);

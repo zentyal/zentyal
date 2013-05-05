@@ -44,7 +44,6 @@ sub new # (cgi=?)
     return $self;
 }
 
-
 sub _masonParameters
 {
     my ($self) = @_;
@@ -76,7 +75,6 @@ sub _masonParameters
     push (@params, hostname => $hostname);
     return \@params;
 }
-
 
 sub _processWizard
 {
@@ -114,7 +112,6 @@ sub _processWizard
     # Subscription
     $self->_subscribe();
 }
-
 
 sub _register
 {

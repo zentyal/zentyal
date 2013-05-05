@@ -80,7 +80,6 @@ sub usedFiles
         'reason' => __('To configure L2TP/IPSec users when not using Active Directory validation.')
     });
 
-
     return \@conf_files;
 
 }
@@ -364,7 +363,6 @@ sub tableInfo
             'eventcol'  => 'event'
            }];
 }
-
 
 # Method: menu
 #

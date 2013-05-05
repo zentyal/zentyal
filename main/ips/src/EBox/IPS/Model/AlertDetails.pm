@@ -43,7 +43,6 @@ sub dbFields
 
 }
 
-
 sub _table
 {
     my $tableHead = [
@@ -78,7 +77,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'ips_alert';
@@ -88,7 +86,6 @@ sub tableName
 {
     return 'AlertDetails';
 }
-
 
 sub timePeriod
 {

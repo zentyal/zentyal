@@ -77,7 +77,6 @@ sub ConfigurationMethod
     return 'none';
 }
 
-
 # Method: run
 #
 #        Check state of the gateways.
@@ -404,7 +403,6 @@ sub _setIptablesRule # (gw, set)
     }
 }
 
-
 # Group: Protected methods
 
 # Method: _name
@@ -421,7 +419,6 @@ sub _name
 {
     return __('WAN Failover');
 }
-
 
 # Method: _description
 #

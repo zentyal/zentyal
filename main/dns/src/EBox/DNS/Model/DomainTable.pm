@@ -585,7 +585,6 @@ sub _table
                                 'backView' => '/DNS/View/Services',
                              ),
 
-
             # This field indicates if the domain is static, dynamic or dlz
             # Not editable from interface
             new EBox::Types::Boolean(
@@ -606,7 +605,6 @@ sub _table
                optional     => 1,
                hidden       => 1,
             ),
-
 
             new EBox::Types::Boolean(
                 fieldName => 'managed',
@@ -643,7 +641,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 # Method: syncRows
 #
@@ -711,7 +708,6 @@ sub syncRows
 
     return $changed;
 }
-
 
 # Group: Private methods
 

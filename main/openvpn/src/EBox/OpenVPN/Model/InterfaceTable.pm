@@ -15,7 +15,6 @@
 
 package EBox::OpenVPN::Model::InterfaceTable;
 
-
 use strict;
 use warnings;
 
@@ -57,7 +56,6 @@ sub interfaceFields
     return @fields;
 }
 
-
 sub addedRowNotify
 {
     my ($self, $row) = @_;
@@ -92,7 +90,6 @@ sub initializeInterfaces
             $interfaceType->setValue(IFACE_TYPE_DEFAULT);
         }
 
-
         my $number = $self->_nextInterfaceNumber();
         $interfaceNumber->setValue($number);
 
@@ -100,9 +97,6 @@ sub initializeInterfaces
     }
 
 }
-
-
-
 
 sub _nextInterfaceNumber
 {
@@ -130,8 +124,6 @@ sub _nextInterfaceNumber
     return $newNumber;
 }
 
-
-
 sub _usedIfaceNumbers
 {
     my ($self) = @_;
@@ -156,8 +148,5 @@ sub _usedIfaceNumbers
 
     return \@numbers;
 }
-
-
-
 
 1;

@@ -19,11 +19,9 @@ use warnings;
 use strict;
 use warnings;
 
-
 package EBox::Exceptions::EBackup::TargetNotReady;
 use base 'EBox::Exceptions::External';
 use EBox::Gettext;
-
 
 sub new
 {
@@ -39,6 +37,5 @@ sub new
     bless ($self, $class);
     return $self;
 }
-
 
 1;

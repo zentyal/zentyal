@@ -160,8 +160,6 @@ sub preconditionFailMsg
     return $self->{preconditionFailMsg};
 }
 
-
-
 # Group: Protected methods
 
 # Method: _table
@@ -217,7 +215,6 @@ sub validateTypedRowBak
 {
     my ($self, $action, $fields) = @_;
 
-
     my $file = $fields->{file}->value();
     if (EBox::Sudo::fileTest('-e', $file)) {
         throw EBox::Exceptions::DataInUse(
@@ -231,7 +228,6 @@ sub validateTypedRowBak
 sub setTypedRow
 {
     my ($self, $id, $fields, $force) = @_;
-
 
     my $file = $fields->{file}->value();
     my $date = $fields->{date}->value();
@@ -257,7 +253,6 @@ sub _backupVersion
     @versions = reverse  @versions;
     return \@versions;
 }
-
 
 # Method: headTitle
 #

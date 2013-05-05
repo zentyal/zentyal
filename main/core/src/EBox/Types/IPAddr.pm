@@ -45,7 +45,6 @@ sub new
     return $self;
 }
 
-
 sub paramExist
 {
     my ($self, $params) = @_;
@@ -55,7 +54,6 @@ sub paramExist
 
     return (defined($params->{$ip}) and defined($params->{$mask}));
 }
-
 
 sub printableValue
 {
@@ -123,7 +121,6 @@ sub compareToHash
     return 1;
 }
 
-
 sub fields
 {
     my ($self) = @_;
@@ -133,7 +130,6 @@ sub fields
 
     return ($ip, $mask);
 }
-
 
 sub value
 {

@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 # package EBox::CGI::ServiceModule::ConfigureModuleController
 #
 #   This class is used as a controller to receive the green light
@@ -33,8 +32,6 @@ use EBox::Gettext;
 use Error qw(:try);
 use EBox::Exceptions::Base;
 
-
-
 ## arguments:
 ## 	title [required]
 sub new
@@ -45,8 +42,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
-
 
 sub _process
 {
@@ -73,5 +68,4 @@ sub _process
 }
 
 1;
-
 

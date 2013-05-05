@@ -98,7 +98,6 @@ sub setReverseService
                 $iptables .= " --source-port $inverse $srcPort ";
             }
 
-
             if ($dstPort ne 'any') {
                 $iptables .= " --destination-port $inverse $dstPort ";
             }
@@ -182,6 +181,5 @@ sub setL7GroupedService
     }
 
 }
-
 
 1;

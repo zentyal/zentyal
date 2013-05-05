@@ -67,7 +67,6 @@ sub HTMLTitle
     ]);
 }
 
-
 sub hasAddresses
 {
     my ($self) = @_;
@@ -97,8 +96,6 @@ sub interface
     my ($self) = @_;
     return $self->parentRow()->valueByName('iface');
 }
-
-
 
 sub permanentMessage
 {

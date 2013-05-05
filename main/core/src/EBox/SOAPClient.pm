@@ -167,7 +167,6 @@ sub AUTOLOAD
         }
     }
 
-
     $self->_setCerts();
     my $response = $self->{soapConn}->call($methodName => @soapParams);
     $self->_unsetCerts();
@@ -197,7 +196,6 @@ sub AUTOLOAD
 }
 
 # Group: Private functions
-
 
 # Set the certificates enviroment variables to establish SSL
 # connection
@@ -236,6 +234,5 @@ sub _unsetCerts
 
     delete $ENV{HTTPS_CA_FILE};
 }
-
 
 1;

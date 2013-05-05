@@ -169,7 +169,6 @@ sub user
     return $user;
 }
 
-
 sub gids
 {
     my $user = user();
@@ -183,7 +182,6 @@ sub uid
     my $uid = getpwnam(user());
     return $uid;
 }
-
 
 sub group
 {
@@ -264,7 +262,6 @@ sub passwd
 {
     return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.passwd';
 }
-
 
 # Method: sessionid
 #

@@ -97,5 +97,4 @@ sub _process($) {
     $self->{redirect} = 'UsersAndGroups/User?user=' . $user->dn();
 }
 
-
 1;

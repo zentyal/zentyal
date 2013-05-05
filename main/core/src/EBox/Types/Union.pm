@@ -164,8 +164,6 @@ sub unique
     return 1;
 }
 
-
-
 sub fields
 {
     my ($self) = @_;
@@ -544,10 +542,8 @@ sub cmp
         return undef;
     }
 
-
     my $selfSelected = $self->subtype();
     my $compareSelected = $compareType->subtype();
-
 
     return $selfSelected->cmp($compareSelected);
 }

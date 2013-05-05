@@ -90,7 +90,6 @@ sub table
     return $self->{'table'};
 }
 
-
 sub _setupTable
 {
     my ($self) = @_;
@@ -220,7 +219,6 @@ sub name
     return $self->modelName();
 }
 
-
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
 {
@@ -292,7 +290,6 @@ sub printableIndex
   #throw EBox::Exceptions::MethodDeprecated();
   return '';
 }
-
 
 # Method: precondition
 #
@@ -392,7 +389,6 @@ sub customFilter
 
     return $self->{'table'}->{'customFilter'};
 }
-
 
 # Method: isEnablePropertySet
 #
@@ -542,7 +538,6 @@ sub optionsFromForeignModel
     return \@options;
 }
 
-
 # Method: selectOptions
 #
 #    Override this method to return your select options
@@ -665,7 +660,6 @@ sub validateRowRemoval
 {
 
 }
-
 
 # Method: addedRowNotify
 #
@@ -878,7 +872,6 @@ sub addTypedRow
     unless ($optParams{noValidateRow}) {
         $self->validateTypedRow('add', $paramsRef, $paramsRef);
     }
-
 
     # Check if the new row is unique, only if needed
     if ($checkRowUnique) {
@@ -1771,7 +1764,6 @@ sub directory
     return $self->{'confdir'};
 }
 
-
 # Method: menuNamespace
 #
 #    Fetch the menu namespace which this model belongs to
@@ -2007,7 +1999,6 @@ sub popMessage
 
     return $msg;
 }
-
 
 # Method: setMessage
 #
@@ -2562,7 +2553,6 @@ sub Viewer
     return '/ajax/tableBody.mas';
 }
 
-
 sub modalViewer
 {
     my ($self, $showTable) = @_;
@@ -2613,7 +2603,6 @@ sub pageSize
     return $self->defaultPageSize();
 }
 
-
 # Method: defaultPageSize
 #
 #     Return the default number of rows per page. This value must be defined in
@@ -2634,7 +2623,6 @@ sub defaultPageSize
     # fallback to defautl value of 10
     return 10;
 }
-
 
 # Method: setPageSize
 #
@@ -2736,7 +2724,6 @@ sub modalChangeViewJS
 
     my $extraParamsJS = _paramsToJSON(%args);
 
-
     my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
 
     my $table = $self->table();
@@ -2778,7 +2765,6 @@ sub modalCancelAddJS
     $js.= '});';
     return $js;
 }
-
 
 # Method: addNewRowJS
 #
@@ -2840,7 +2826,6 @@ sub modalAddNewRowJS
                     $extraParamsJS);
 }
 
-
 # Method: changeRowJS
 #
 #     Return the javascript function for changeRow
@@ -2895,7 +2880,6 @@ sub _paramsToJSON
     $paramString .= '}';
     return $paramString;
 }
-
 
 # Method: actionClicked
 #
@@ -3558,7 +3542,6 @@ sub adaptRowFilter
     return $compiled;
 }
 
-
 # Set the default controller to that actions which do not have a
 # custom controller
 sub _setControllers
@@ -3783,7 +3766,6 @@ sub _autoloadSet
         $self->_autoloadActionSubModel('set', $methodName, $paramsRef);
     }
 }
-
 
 #############################################################
 # Protected helper methods to help autoload helper functions
@@ -4437,7 +4419,6 @@ sub _rollbackTransaction
 
     $self->parentModule()->{redis}->rollback();
 }
-
 
 # Method: clone
 #

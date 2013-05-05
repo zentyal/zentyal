@@ -118,7 +118,6 @@ sub row
     return $row;
 }
 
-
 # Method: precondition
 #
 #   Check if there is at least one vdomain.

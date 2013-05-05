@@ -89,8 +89,6 @@ sub titleNoAction
     return $html;
 }
 
-
-
 #
 # Method: menu
 #
@@ -163,7 +161,6 @@ sub header # (title)
     return $html;
 
 }
-
 
 sub makeHtml
 {

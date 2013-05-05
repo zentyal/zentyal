@@ -608,7 +608,6 @@ sub monitorGathererIPAddresses
     return $monGatherers;
 }
 
-
 # Method: controlPanelURL
 #
 #        Return the control panel fully qualified URL to access
@@ -949,7 +948,6 @@ sub renovationDate
     return $ret;
 }
 
-
 # Method: maxUsers
 #
 #   Return the max number of users the server can hold,
@@ -981,7 +979,6 @@ sub maxUsers
     return $max_users;
 }
 
-
 # Method: maxCloudUsers
 #
 #   Return the max number of users available in Cloud (if enabled)
@@ -1000,7 +997,6 @@ sub maxCloudUsers
     }
     return 0;
 }
-
 
 # Method: usersSyncAvailable
 #
@@ -1489,7 +1485,6 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
-
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
         if ( $self->commAddOn() ) {
@@ -1773,7 +1768,6 @@ sub _ccConnectionWidget
             }
         } # else. No VPN required, then always connected
 
-
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
         my $net = $gl->modInstance('network');
@@ -1797,7 +1791,6 @@ sub _ccConnectionWidget
                 $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
             }
         }
-
 
         $DRValue = __x('Configuration backup enabled');
         my $date = $self->latestRemoteConfBackup();
@@ -2360,7 +2353,6 @@ sub _setQAUpdates
     EBox::RemoteServices::QAUpdates::set();
 
 }
-
 
 # Update MOTD scripts depending on the subscription status
 sub _updateMotd

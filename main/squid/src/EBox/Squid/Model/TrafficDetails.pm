@@ -109,7 +109,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'squid_traffic';
@@ -120,12 +119,10 @@ sub tableName
     return 'TrafficDetails';
 }
 
-
 sub timePeriodModelPath
 {
     return 'TrafficReportOptions';
 }
-
 
 # the user should not be take in accout in the 'all' row
 sub _noAggregateFields

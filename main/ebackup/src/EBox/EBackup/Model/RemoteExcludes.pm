@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::EBackup::Model::RemoteExcludes;
 
 # Class: EBox::EBackup::Model::RemoteExcludes
@@ -182,7 +181,6 @@ sub validateSwapPos
     $self->_validateCoherence(action => 'swap', swapA => $swapA, swapB => $swapB);
 }
 
-
 # Method: validateRemoveRow
 #
 #  Validate row removal
@@ -325,7 +323,6 @@ sub _validateCoherence
     } # end foreach my path
 }
 
-
 sub _actionPrintableName
 {
     my ($action) = @_;
@@ -369,9 +366,6 @@ sub _validate_exclude_regexp
 
 }
 
-
-
-
 sub _validate_include_path
 {
     my ($self, $target) = @_;
@@ -382,14 +376,10 @@ q{'/' is a invalid value for includes. Files in '/' are included if they are not
            );
     }
 
-
     EBox::Validate::checkAbsoluteFilePath($target,
                                           __('include path')
                                           );
 }
-
-
-
 
 sub _actualValues
 {
@@ -451,7 +441,6 @@ sub syncRows
         return $changed;
     }
 
-
     my @domainsSelections = @{ $ebackup->modulesBackupDomainsFileSelections() };
     # check if there are missing or superfluous rows
     my @toAdd;
@@ -495,7 +484,6 @@ sub syncRows
     return 1;
 }
 
-
 # need to overload this to discriminate between user added path and system added paths
 sub _checkRowIsUnique
 {
@@ -508,7 +496,6 @@ sub _checkRowIsUnique
         # system rows are always added
         return;
     }
-
 
     # Call _ids instead of ids because of deep recursion
     foreach my $id (@{$self->_ids(1)}) {
@@ -525,7 +512,6 @@ sub _checkRowIsUnique
                                            'value' => $target->value()
                                            );
         }
-
 
     }
 }
@@ -561,7 +547,6 @@ sub hasIncludes
 
     return 1; # by default '/' is included
 }
-
 
 sub fileSelectionArguments
 {
@@ -655,7 +640,6 @@ sub moveDown
     $self->movedDownRowNotify($self->row($id));
     $self->_notifyManager('moveDown', $self->row($id));
 }
-
 
 # reimplemetation to allow validation of removalopearation using the method validateRemoveRow
 # if we like it we should move it to EBox::Model::DataTable

@@ -167,7 +167,6 @@ sub removeRow
     $self->setMessage(__x('OU {ou} removed', ou => $id));
 }
 
-
 # Method: addTypedRow
 #
 # Overrides:

@@ -306,7 +306,6 @@ sub usedFiles
     ];
 }
 
-
 # Method: actions
 #
 #       Override EBox::Module::Service::actions
@@ -397,7 +396,6 @@ sub setPort
 
     $self->model('GeneralSettings')->setValue('port', $port);
 }
-
 
 # Method: port
 #
@@ -911,7 +909,6 @@ sub _antivirusNeeded
     return 0;
 }
 
-
 sub notifyAntivirusEnabled
 {
     my ($self, $enabled) = @_;
@@ -1094,8 +1091,6 @@ sub _writeDgConf
 
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
-
-
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
@@ -1445,7 +1440,6 @@ sub tableInfo
            }];
 }
 
-
 sub _consolidateConfiguration
 {
     my ($self) = @_;
@@ -1540,7 +1534,6 @@ sub _DGLang
 
     return $lang;
 }
-
 
 sub addPathsToRemove
 {

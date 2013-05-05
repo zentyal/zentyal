@@ -24,7 +24,6 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-
 sub new 
 {
     my $class = shift;
@@ -35,7 +34,6 @@ sub new
     return $self;
 }
 
-
 sub requiredParameters
 {
   return [qw(name newName description)];
@@ -45,7 +43,6 @@ sub optionalParameters
 {
   return [qw(ok cancel)];
 }
-
 
 sub actuate
 {
@@ -58,7 +55,6 @@ sub actuate
 
   # remove old backup
   $backup->removeRemoteBackup($oldName);
-
 
   my $newName = $self->param('newName');
   my $description = $self->param('description');

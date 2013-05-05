@@ -165,7 +165,6 @@ sub viewCustomizer
     return $custom;
 }
 
-
 sub _listByPolicy
 {
     my ($self, $policy) = @_;

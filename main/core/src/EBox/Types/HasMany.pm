@@ -112,7 +112,6 @@ sub foreignModel
     return $self->{'foreignModel'};
 }
 
-
 # Method: foreignModelInstance
 #
 #      Get the foreign model instance used in the HasMany instance
@@ -421,7 +420,6 @@ sub restoreFiles
   }
 }
 
-
 sub setModel
 {
     my ($self, $model, @extraParams) = @_;
@@ -463,7 +461,6 @@ sub model
     return $model;
 }
 
-
 sub setRow
 {
     my ($self, $row, @extraParams) = @_;
@@ -475,7 +472,6 @@ sub setRow
         delete $self->{rowId};
     }
 }
-
 
 sub row
 {

@@ -39,7 +39,6 @@ my %daysToLetters = (
                      sunday    => 'S',
                     );
 
-
 my %daysToPrintableLetters = (
                      monday    => __('M'),
                      tuesday   => __('T'),
@@ -433,7 +432,6 @@ sub _hoursParamsAreValid
     #   to add the missing minutes field
     my ($fromHours, $fromMinutes) = split ':', $params->{$name . '_from'};
     my ($toHours, $toMinutes)     = split ':', $params->{$name . '_to'};
-
 
     if ($fromHours > $toHours) {
         throw EBox::Exceptions::External(

@@ -195,7 +195,6 @@ sub _setValue # (value)
     $self->SUPER::_setValue( $value );
 }
 
-
 sub HTMLSetter
 {
     my ($self) = @_;

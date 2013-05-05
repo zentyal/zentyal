@@ -18,7 +18,6 @@ use warnings;
 package EBox::Network::Model::MultiGwRulesOptions;
 use base 'EBox::Model::DataForm';
 
-
 use EBox::Gettext;
 use EBox::Types::Boolean;
 
@@ -32,7 +31,6 @@ sub new
 
     return $self;
 }
-
 
 sub _table
 {
@@ -77,6 +75,5 @@ sub precondition
     my $nGateways = @{$network->gateways()};
     return $nGateways >= 2;
 }
-
 
 1;

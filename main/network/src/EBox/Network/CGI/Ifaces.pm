@@ -39,7 +39,6 @@ sub _process
 	$self->{params} = $self->masonParameters();
 }
 
-
 sub masonParameters
 {
   my ($self) = @_;

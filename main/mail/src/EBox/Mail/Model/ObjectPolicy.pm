@@ -32,7 +32,6 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 
-
 # Group: Public methods
 
 # Constructor: new
@@ -143,8 +142,6 @@ sub allowedAddresses
 
 }
 
-
-
 sub _objectsByAllowPolicy
 {
   my ($self, $allowPolicy) = @_;
@@ -157,7 +154,6 @@ sub _objectsByAllowPolicy
       $id
   }  @{ $rows_r };
 
-
   return \@objects;
 }
 
@@ -169,7 +165,6 @@ sub isAllowed
 {
   my ($self, $object) = @_;
 
-
   my $objectRow = $self->_findRowByObjectName($object);
   if (not defined $objectRow) {
     # not policy , default is to deny
@@ -179,7 +174,6 @@ sub isAllowed
   return $self->row($objectRow)->elementByName('allow')->value() ? 1 : undef;
 }
 
-
 sub freeObject
 {
     my ($self, $object) = @_;
@@ -188,7 +182,6 @@ sub freeObject
     my $id = $row->id();
     $self->removeRow($id, 1);
 }
-
 
 sub _findRowByObjectName
 {

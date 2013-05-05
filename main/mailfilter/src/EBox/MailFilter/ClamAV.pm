@@ -40,7 +40,6 @@ use EBox::MailFilter::VDomainsLdap;
 #   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
 # };
 
-
 sub new
 {
   my $class = shift @_;
@@ -65,7 +64,6 @@ sub setVDomainService
   $vdomainsLdap->setAntivirus($vdomain, $service);
 }
 
-
 sub vdomainService
 {
   my ($self, $vdomain) = @_;
@@ -74,6 +72,5 @@ sub vdomainService
   $vdomainsLdap->checkVDomainExists($vdomain);
   $vdomainsLdap->antivirus($vdomain);
 }
-
 
 1;

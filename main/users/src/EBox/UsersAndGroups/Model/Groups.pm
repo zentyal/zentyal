@@ -86,8 +86,6 @@ sub _table
     return $dataTable;
 }
 
-
-
 # Method: precondition
 #
 # Check if the module is configured

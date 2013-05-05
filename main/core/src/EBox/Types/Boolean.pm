@@ -71,7 +71,6 @@ sub cmp
     my $ownValue = $self->value();
     my $otherValue = $other->value();
 
-
     if ($ownValue and (not $otherValue)) {
         return 1;
     }

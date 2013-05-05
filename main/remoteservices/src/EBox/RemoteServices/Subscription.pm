@@ -284,7 +284,6 @@ sub subscribeServer
     #     $confKeys->{vpnProtocol},
     #    );
 
-
     # $self->executeBundle($params, $confKeys);
 
     # $params->{new} = $new;
@@ -395,7 +394,6 @@ sub extractBundle
         key => "$dirPath/$keyFile",
         confFile => "$dirPath/$confFile",
     };
-
 
     if (defined $installCloudProf) {
         $bundle->{installCloudProf} = "$dirPath/$installCloudProf";
@@ -623,7 +621,6 @@ sub _installCloudProf
 
 }
 
-
 sub _executeBundleScripts
 {
     my ($self, $params) = @_;
@@ -656,7 +653,6 @@ sub _removeDDNSConf
         EBox::info('DynDNS is using other service, not modifying');
     }
 }
-
 
 # Check if the zentyal-cloud-prof is already installed
 sub _pkgInstalled
@@ -851,6 +847,5 @@ sub _createSubscriptionDir
     }
     return $dirPath;
 }
-
 
 1;

@@ -24,7 +24,6 @@ use EBox::Global;
 use EBox::UsersAndGroups;
 use EBox::Gettext;
 
-
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new(
@@ -33,7 +32,6 @@ sub new {
 	bless($self, $class);
 	return $self;
 }
-
 
 sub _process($) {
 	my $self = shift;
@@ -53,6 +51,5 @@ sub _process($) {
 
 	$self->{params} = \@args;
 }
-
 
 1;

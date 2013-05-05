@@ -121,7 +121,6 @@ sub forwardNoSpoof
     return \@rules;
 }
 
-
 sub _isEnabled
 {
     my ($self) = @_;

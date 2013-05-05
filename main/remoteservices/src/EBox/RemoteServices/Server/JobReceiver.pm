@@ -84,7 +84,6 @@ sub runJob
 
 }
 
-
 # Method: runInternalJob
 #
 # Add as internal job to the run queue. Results for internal jobs are NOT
@@ -123,11 +122,9 @@ sub runInternalJob
     return $retValue
 }
 
-
 sub _addJob
 {
     my ($jobId, $script, $arguments, $dataFile, $internal) = @_;
-
 
     unless (defined($jobId)) {
         throw EBox::Exceptions::MissingArgument('jobId');
@@ -167,18 +164,14 @@ sub _addJob
         File::Slurp::write_file( "$jobDirPath/noDataFile", '');
     }
 
-
     if ($internal) {
         # add the internal file to signal its status
         File::Slurp::write_file( "$jobDirPath/internal", '');
     }
 
-
     # Create the symlink to incoming directory to make it notify to
     # the runnerd
     symlink( $jobDirPath, INCOMING_DIR . $jobId);
-
-
 
     return $retValue;
 }
@@ -274,7 +267,6 @@ sub removeJob
     my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $id;
     system "rm -rf $dirPath";
 }
-
 
 # Method: URI
 #

@@ -62,7 +62,6 @@ sub new
     return $self;
 }
 
-
 # Method: enabledLogs
 #
 #   Return those log domains which must be logged.

@@ -461,7 +461,6 @@ sub ifaceIsBridge # (interface)
     }
 }
 
-
 # Method: ifaceOnConfig
 #
 #   Checks if a given iface is configured
@@ -1572,7 +1571,6 @@ sub setIfacePPP
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
 
-
     my $oldm = $self->ifaceMethod($name);
     my $olduser = $self->ifacePPPUser($name);
     my $oldpass = $self->ifacePPPPass($name);
@@ -1611,7 +1609,6 @@ sub setIfacePPP
             }
         }
     }
-
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(
@@ -1682,7 +1679,6 @@ sub setIfaceTrunk # (iface, force)
     } elsif ($oldm eq 'bridged') {
         $self->BridgedCleanUp($name);
     }
-
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -1771,7 +1767,6 @@ sub setIfaceBridged
                                                  value => "br$bridge");
     }
 
-
     my $oldm = $self->ifaceMethod($name);
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -1783,7 +1778,6 @@ sub setIfaceBridged
     } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
         $self->BridgedCleanUp($name);
     }
-
 
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
@@ -1938,7 +1932,6 @@ sub vlanExists # (vlanID)
     return exists $self->get_hash('vlans')->{$vlan};
 }
 
-
 # Method: ifaceVlans
 #
 #   Returns information about every vlan that exists on the given trunk
@@ -2025,7 +2018,6 @@ sub _removeBridge # (id)
     $self->_removeIface("br$id");
 }
 
-
 # Method: _removeEmptyBridges
 #
 # Removes bridges which has no bridged interfaces
@@ -2046,7 +2038,6 @@ sub _removeEmptyBridges
         $self->_removeBridge($bridge);
     }
 }
-
 
 # Method: bridges
 #
@@ -3381,7 +3372,6 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState();
 }
 
-
 # Method:  restoreConfig
 #
 #   Restore its configuration from the backup file.
@@ -3400,7 +3390,6 @@ sub restoreConfig
 
     $self->SUPER::restoreConfig();
 }
-
 
 sub _stopService
 {
@@ -4109,8 +4098,6 @@ sub _defaultGwAndIface
         return (undef, undef);
     }
 }
-
-
 
 # Method: gatewaysWithMac
 #

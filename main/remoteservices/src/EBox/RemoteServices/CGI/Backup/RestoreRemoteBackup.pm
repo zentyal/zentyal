@@ -36,7 +36,6 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
-
 sub requiredParameters
 {
     return [qw(name)];
@@ -46,7 +45,6 @@ sub optionalParameters
 {
     return [qw(ok cancel popup dr)];
 }
-
 
 sub actuate
 {

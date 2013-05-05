@@ -148,7 +148,6 @@ sub add
     $self->save() unless $lazy;
 }
 
-
 # Method: delete
 #
 #   Delete all values from an attribute
@@ -196,7 +195,6 @@ sub deleteObject
     $self->_entry->delete();
     $self->save();
 }
-
 
 # Method: remove
 #
@@ -291,7 +289,6 @@ sub baseDn
     return $basedn;
 }
 
-
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
@@ -336,14 +333,12 @@ sub clearCache
     $self->{entry} = undef;
 }
 
-
 sub _ldap
 {
     my ($self) = @_;
 
     return EBox::Global->modInstance('users')->ldap();
 }
-
 
 # Method: as_ldif
 #

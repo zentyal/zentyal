@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 # Class EBox::Objects::Members
 #
 #  This class represents the members of a object. It is an array with a element
@@ -34,8 +33,6 @@ package EBox::Objects::Members;
 use strict;
 use warnings;
 
-
-
 sub new
 {
     my ($class, $membersList) = @_;
@@ -45,7 +42,6 @@ sub new
 
     return $self;
 }
-
 
 # Method: addresses
 #
@@ -139,6 +135,5 @@ sub iptablesDstParams
 
     return \@params;
 }
-
 
 1;

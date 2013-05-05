@@ -52,14 +52,12 @@ sub new
         EBox::warn('EBox::Types::InverseMatchSelect cannot be compulsory');
     }
 
-
     $opts{'optional'} = undef;
     my $self = $class->SUPER::new(%opts);
 
     bless($self, $class);
     return $self;
 }
-
 
 sub inverseMatchField
 {

@@ -24,7 +24,6 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
@@ -35,7 +34,6 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-
 sub requiredParameters
 {
   return [qw(name)];
@@ -45,7 +43,6 @@ sub optionalParameters
 {
   return [qw(ok cancel)];
 }
-
 
 sub actuate
 {

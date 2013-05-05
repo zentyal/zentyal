@@ -147,5 +147,4 @@ sub restoreDB
   throw EBox::Exceptions::NotImplemented();
 }
 
-
 1;

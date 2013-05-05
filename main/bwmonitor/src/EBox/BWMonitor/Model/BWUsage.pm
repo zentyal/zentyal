@@ -106,7 +106,6 @@ sub preconditionFailMsg
     return __('Bandwidth Monitor must be enabled in order to get data.');
 }
 
-
 sub syncRows
 {
     my ($self, $currentRows)  = @_;
@@ -142,7 +141,6 @@ sub syncRows
 
     return 1;
 }
-
 
 # convert bytes to a readable string
 sub _format

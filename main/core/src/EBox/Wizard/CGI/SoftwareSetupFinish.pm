@@ -57,6 +57,4 @@ sub _top
     $self->_topNoAction();
 }
 
-
-
 1;

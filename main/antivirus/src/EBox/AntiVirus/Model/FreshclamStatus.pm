@@ -111,8 +111,6 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
 
@@ -252,7 +250,6 @@ sub _nSigsAndLastDate
         $nSig = 0;
     return ($nSig, $date);
 }
-
 
 sub _strToTime
 {

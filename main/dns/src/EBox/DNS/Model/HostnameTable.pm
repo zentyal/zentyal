@@ -220,7 +220,6 @@ sub _table
     return $dataTable;
 }
 
-
 # Method: deletedRowNotify
 #
 # 	Overrides to remove mail exchangers referencing the deleted

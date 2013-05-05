@@ -43,7 +43,6 @@ use EBox::Types::Union::Text;
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
 
-
 # Constants
 use constant LIMIT_RATE_KEY => 'limitRate';
 use constant ALL_IFACES      => '_ALL';
@@ -549,7 +548,6 @@ sub _l7Types
     }
 }
 
-
 sub _populateIfacesSub
 {
     my ($self) = @_;
@@ -619,7 +617,6 @@ sub lowestPriority
     return $lowest;
 }
 
-
 # this is for NetworkObserver so dont count the ALL ifaces rules here
 sub explicitIfaceHasRules
 {
@@ -633,7 +630,6 @@ sub explicitIfaceHasRules
 
     return 0;
 }
-
 
 sub configuredInterfaces
 {
@@ -656,6 +652,5 @@ sub configuredInterfaces
 
     return [keys %ifaces];
 }
-
 
 1;

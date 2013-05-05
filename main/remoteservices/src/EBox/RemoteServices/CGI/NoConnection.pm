@@ -20,10 +20,7 @@ use warnings;
 
 use base qw(EBox::CGI::ClientBase);
 
-
 use EBox::Gettext;
-
-
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -41,7 +38,5 @@ sub optionalParameters
 {
   return ['.*'];
 }
-
-
 
 1;

@@ -66,7 +66,6 @@ sub prepareMakeRemoteBackup
     $name or throw EBox::Exceptions::MissingArgument('name');
     defined $description or $description = '';
 
-
     my @backupOptions = (
         description => $description,
         remoteBackup => $name,
@@ -104,7 +103,6 @@ sub makeRemoteBackup
 
     $self->sendRemoteBackup($archive, $name, $description, $automatic);
 }
-
 
 # Method: sendRemoteBackup
 #
@@ -490,7 +488,6 @@ sub _pullConfBackup
         return $outFile;
     }
 }
-
 
 sub _pullAllMetaConfBackup
 {

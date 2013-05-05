@@ -590,7 +590,6 @@ sub serviceId
     return $row->id();
 }
 
-
 # Method: menu
 #
 #       Overrides EBox::Module method.

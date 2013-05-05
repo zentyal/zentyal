@@ -24,7 +24,6 @@ use Test::More;
 use Test::Exception;
 use Test::Differences;
 
-
 use File::Slurp;
 
 use lib '../..';
@@ -39,7 +38,6 @@ sub _useAndCreationTest : Test
 {
     checkModuleInstantiation('ntp', 'EBox::NTP');
 }
-
 
 sub setAndGetServersDeviantTest : Test(20)
 {
@@ -80,7 +78,6 @@ sub setAndGetServersDeviantTest : Test(20)
     }
 }
 
-
 sub setAndGetServersTest : Test(16)
 {
     my @cases = (
@@ -96,7 +93,6 @@ sub setAndGetServersTest : Test(16)
 		 ['192.168.3.4', 'ntp.macaco.org', '10.45.21.23'],
 	    );
 
-
     my $ntp = EBox::Global->modInstance('ntp');
 
     foreach my $case_r (@cases) {
@@ -107,8 +103,5 @@ sub setAndGetServersTest : Test(16)
 	eq_or_diff \@actualServers, \@expectedServers, 'Checking that servers are stored and retrieved normally';
     }
 }
-
-
-
 
 1;

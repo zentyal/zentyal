@@ -48,7 +48,6 @@ sub configured
     return 1;
 }
 
-
 # Method: ConfigurationMethod
 #
 # Overrides:

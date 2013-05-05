@@ -48,7 +48,6 @@ sub diskUsage
     throw EBox::Exceptions::MissingArgument('blockSize');
   my ($fileSystemToScan) = $params{fileSystem};
 
-
   my %facilities = %{ $self->_facilitiesForDiskUsage() };
 
   my %moduleDiskUsage;
@@ -67,16 +66,10 @@ sub diskUsage
       $moduleDiskUsage{$filesys}->{$facility} += EBox::FileSystem::dirDiskUsage($dir, $blockSize);
     }
 
-
   }
-
-
 
   return \%moduleDiskUsage;
 }
-
-
-
 
 # Method: _facilitiesForDiskUsage
 #
@@ -95,6 +88,5 @@ sub _facilitiesForDiskUsage
 {
   return {};
 }
-
 
 1;

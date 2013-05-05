@@ -166,7 +166,6 @@ sub AUTOLOAD
         }
     }
 
-
     $self->_setCerts();
     my $response = $self->{soapConn}->call($methodName => @soapParams);
     $self->_unsetCerts();
@@ -228,6 +227,5 @@ sub _unsetCerts
     delete $ENV{HTTPS_CA_FILE};
     delete $ENV{HTTPS_VERSION};
 }
-
 
 1;

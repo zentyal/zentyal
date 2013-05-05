@@ -41,8 +41,6 @@ sub new
     return $self;
 }
 
-
-
 sub input
 {
     my ($self) = @_;
@@ -69,7 +67,6 @@ sub input
     return \@rules;
 }
 
-
 sub output
 {
     my ($self) = @_;
@@ -82,9 +79,6 @@ sub output
             push (@rules, "--protocol tcp --dport $fwport -j ACCEPT");
         }
     }
-
-
-
 
     return \@rules;
 }
@@ -134,6 +128,5 @@ sub prerouting
 
     return \@rules;
 }
-
 
 1;

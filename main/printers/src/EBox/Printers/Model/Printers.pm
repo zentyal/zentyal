@@ -161,7 +161,6 @@ sub syncRows
             $modified = 1;
         }
 
-
     }
 
     foreach my $id (@{$currentIds}) {

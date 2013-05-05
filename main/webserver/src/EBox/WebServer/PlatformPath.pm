@@ -70,7 +70,6 @@ sub VDocumentRoot
     return '/srv/www';
 }
 
-
 # Method: Apache2Path
 #
 #      Get the apache2 daemon program from where manage Apache2 daemon.

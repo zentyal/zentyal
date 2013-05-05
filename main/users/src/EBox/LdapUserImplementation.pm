@@ -23,14 +23,12 @@ use base qw(EBox::LdapUserBase);
 use EBox::Global;
 use EBox::Gettext;
 
-
 sub _create {
 	my $class = shift;
 	my $self = {};
 	bless($self, $class);
 	return $self;
 }
-
 
 sub _delGroupWarning {
     my ($self, $group) = @_;

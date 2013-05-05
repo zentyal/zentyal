@@ -43,7 +43,6 @@ sub new
     return $self;
 }
 
-
 sub chains
 {
     return {
@@ -51,7 +50,6 @@ sub chains
         'filter' => ['icaptive', 'fcaptive']
     };
 }
-
 
 sub prerouting
 {
@@ -81,7 +79,6 @@ sub prerouting
     }
     return \@rules;
 }
-
 
 sub postrouting
 {
@@ -179,7 +176,6 @@ sub forward
     }
     return \@rules;
 }
-
 
 # create logged users rules on firewall restart
 sub _usersRules

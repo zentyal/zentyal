@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Logs::Model::Graph;
 use base ( 'EBox::Model::DataTable', 'EBox::Logs::Model::Base',);
 #
@@ -24,7 +23,6 @@ use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
 
 use Time::Local;
-
 
 use Error qw(:try);
 
@@ -53,10 +51,7 @@ sub datasets
         $row->{date} =~ m/^(\d+)\-(\d+)\-(\d+)\s(\d+):/;
         my $month = $2 - 1; # months go throught 0-11
 
-
         my $timestamp = timelocal( 0, 0,  $4, $3, $month, $1);
-
-
 
         foreach my $field (@fields) {
             my $value = $row->{$field};
@@ -69,7 +64,6 @@ sub datasets
 
     }
 
-
     my @dataSet;
     foreach my $field (@fields) {
         push @dataSet, $dataPoints{$field};
@@ -77,7 +71,6 @@ sub datasets
 
     return \@dataSet;
 }
-
 
 # Overrides base method to limit the number of rows according timeperiod
 my %nRowsByTimePeriod = (
@@ -94,7 +87,6 @@ sub reportRows
     my $limit = $self->limitByTimePeriod();
     return $self->SUPER::reportRows($limit);
 }
-
 
 sub limitByTimePeriod
 {
@@ -134,7 +126,6 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
 
-
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -149,11 +140,7 @@ sub checkTable
         }
     }
 
-
-
 }
-
-
 
 # Method altText
 #
@@ -164,21 +151,14 @@ sub altText
     return '';
 }
 
-
 sub Viewer
 {
     return '/ajax/graph.mas';
 }
 
-
 # sub modelDomain
 # {
 #     return 'ebox';
 # }
-
-
-
-
-
 
 1;

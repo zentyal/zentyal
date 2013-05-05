@@ -114,7 +114,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub name
 {
     __PACKAGE__->nameFromClass(),
@@ -132,7 +131,6 @@ sub validateTypedRow
 sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
 
     if ( not exists $params_r->{service} ) {
         return;
@@ -164,7 +162,6 @@ sub _validateName
     my $internal = exists $params_r->{internal} ?
                             $params_r->{internal}->value() :
                             $actual_r->{internal}->value();
-
 
     $openvpn->checkNewDaemonName($name, 'client', $internal);
 }

@@ -333,7 +333,6 @@ sub setAsChanged
     }
 }
 
-
 # Method: makeBackup
 #
 #   restores the module state from a backup
@@ -351,8 +350,6 @@ sub makeBackup # (dir, %options)
 
     $self->aroundDumpConfig($backupDir, %options);
 }
-
-
 
 # Method: backupDir
 #
@@ -373,7 +370,6 @@ sub backupDir
     my $backupDir = $self->_bak_file_from_dir($dir);
     return $backupDir;
 }
-
 
 # Private method: _createBackupDir
 #   creates a directory to dump or restore files containig the module state.
@@ -397,7 +393,6 @@ sub _createBackupDir
 
   return $backupDir;
 }
-
 
 # Method: restoreBackup
 #
@@ -509,7 +504,6 @@ sub restoreConfig
     my ($self, $dir) = @_;
 }
 
-
 #  Method: aroundRestoreConfig
 #
 # wraps the restoreConfig call; the purpose of this sub is to allow specila
@@ -591,7 +585,6 @@ sub setPrintableName
 
     $self->{printableName} = $printableName;
 }
-
 
 # Method: title
 #

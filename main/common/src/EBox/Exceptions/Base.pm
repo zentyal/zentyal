@@ -73,7 +73,4 @@ sub log
 	$Log::Log4perl::caller_depth -=3;
 }
 
-
-
-
 1;

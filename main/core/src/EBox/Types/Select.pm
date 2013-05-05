@@ -91,7 +91,6 @@ sub new
     return $self;
 }
 
-
 sub size
 {
     my ($self) = @_;
@@ -237,7 +236,6 @@ sub foreignField
     }
     return $self->{foreignField};
 }
-
 
 sub foreignNextPageField
 {
@@ -445,7 +443,6 @@ sub _optionsFromForeignModel
 
     return $model->optionsFromForeignModel($field, @params);
 }
-
 
 # Method: _filterOptions
 #

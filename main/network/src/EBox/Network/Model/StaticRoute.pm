@@ -33,7 +33,6 @@ use EBox::Types::Text;
 use EBox::NetWrappers;
 use EBox::Exceptions::External;
 
-
 # Group: Public methods
 
 # Constructor: new

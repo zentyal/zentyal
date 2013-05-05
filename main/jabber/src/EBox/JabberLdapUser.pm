@@ -146,7 +146,6 @@ sub getJabberAdmins
     return \@admins;
 }
 
-
 sub _addUser
 {
    my ($self, $user, $password) = @_;
@@ -157,7 +156,6 @@ sub _addUser
    my $model = $self->{jabber}->model('JabberUser');
    $self->setHasAccount($user, $model->enabledValue());
 }
-
 
 sub _delUserWarning
 {

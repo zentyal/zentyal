@@ -27,7 +27,6 @@ use Test::Exception;
 
 use lib '../../..';
 
-
 sub fakeConfig : Test(setup)
 {
   my ($self) = @_;
@@ -69,8 +68,6 @@ sub _confDir
 {
   return 'testdatas';
 }
-
-
 
 sub processLineTest : Test(24)
 {
@@ -127,7 +124,6 @@ sub processLineTest : Test(24)
 		file => $baboonServer->logFile(),
 		expected => undef,
 	       },
-
 
 	       # verification error: unknown ca
 	       {
@@ -237,7 +233,6 @@ sub processLineTest : Test(24)
 			    },
 	       },
 
-
 	      );
 
   foreach my $case (@cases) {
@@ -245,7 +240,6 @@ sub processLineTest : Test(24)
 
     my $line = $case->{line};
     my $file = $case->{file};
-
 
     my $expected = $case->{expected};
 
@@ -266,11 +260,6 @@ sub processLineTest : Test(24)
   }
 
 }
-
-
-
-
-
 
 package FakeDBEngine;
 
@@ -296,8 +285,6 @@ sub lastInsert
   my ($self) = @_;
   return $self->{data}
 }
-
-
 
 sub clearLastInsert
 {

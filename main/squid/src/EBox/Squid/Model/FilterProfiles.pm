@@ -110,7 +110,6 @@ sub _table
     };
 }
 
-
 sub tableHeader
 {
     my ($self) = @_;
@@ -219,7 +218,6 @@ sub dgProfiles
 
     return \@profiles;
 }
-
 
 sub _setProfileDomainsPolicy
 {

@@ -361,7 +361,6 @@ sub learnAccountsExists
     return 0;
 }
 
-
 # Method: learnAccounts
 #
 #  Parameters:

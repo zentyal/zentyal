@@ -38,8 +38,6 @@ sub setUpTestDir : Test(setup)
   mkdir $dir;
 }
 
-
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -58,18 +56,15 @@ sub setUpConfiguration : Test(setup)
     EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Config::TestStub::setConfig();
 }
 
-
 sub testDir
 {
   return '/tmp/ebox.mailfilter.clamav.test';
 }
-
 
 sub writeConfTest #: Test(3)
 {
@@ -85,7 +80,6 @@ sub writeConfTest #: Test(3)
   }
 
 }
-
 
 sub freshclamEventTest : Test(14)
 {
@@ -150,7 +144,6 @@ sub _fakeFreshclamStateFile
 			       );
 
 }
-
 
 sub _clamavInstance
 {

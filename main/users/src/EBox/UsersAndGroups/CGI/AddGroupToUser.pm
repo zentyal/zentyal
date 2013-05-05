@@ -26,7 +26,6 @@ use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
-
 sub new
 {
     my $class = shift;
@@ -35,7 +34,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _process
 {

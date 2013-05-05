@@ -45,8 +45,6 @@ sub new
     return $self;
 }
 
-
-
 sub protocol
 {
     my  @options =

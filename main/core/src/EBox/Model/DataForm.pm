@@ -77,7 +77,6 @@ sub _ids
     return [ $ROW_ID ];
 }
 
-
 # Method: setValue
 #
 #       Set the value of a element and store the row
@@ -192,7 +191,6 @@ sub _rowStored
     my $rowDir = $self->{directory} . "/$ROW_ID";
     return defined $self->{'confmodule'}->get($rowDir);
 }
-
 
 # Method: moveUp
 #
@@ -430,7 +428,6 @@ sub order
 {
     throw EBox::Exceptions::Internal('It has no sense order in an one-rowed table');
 }
-
 
 # Method: sortedBy
 #
@@ -720,7 +717,6 @@ sub _defaultRow
     }
     return $row;
 }
-
 
 # Method: clone
 #

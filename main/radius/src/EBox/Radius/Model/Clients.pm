@@ -55,7 +55,6 @@ sub new
     return $self;
 }
 
-
 # Method: getClients
 #
 #      Returns the enabled RADIUS clients
@@ -85,7 +84,6 @@ sub getClients
 
     return \@clients;
 }
-
 
 # Group: Private methods
 

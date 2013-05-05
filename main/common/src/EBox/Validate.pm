@@ -266,7 +266,6 @@ sub checkIP6 # (ip, name?)
     }
 }
 
-
 # Function: checkNetmask
 #
 #       Checks if the string param that holds a network mask is valid .
@@ -665,7 +664,6 @@ sub checkDomainName # (domain, name?)
     return 1;
 }
 
-
 # Function: checkHost
 #
 #       Checks if a given host is valid. It is considered valid either a valid
@@ -731,7 +729,6 @@ sub checkEmailAddress
     return 1;
 }
 
-
 # Function: isPrivateDir
 #
 #       Check if the given directory is private and owned by the current user
@@ -763,7 +760,6 @@ sub isPrivateDir
         return undef;
     }
 }
-
 
 # Function: isANumber
 #

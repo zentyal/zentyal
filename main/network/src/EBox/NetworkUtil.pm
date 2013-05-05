@@ -32,7 +32,6 @@ BEGIN {
 	$VERSION = EBox::Config::version;
 }
 
-
 sub gwReachable # (network, address, exception?)
 {
 	my ($network, $gw, $exception) = @_;

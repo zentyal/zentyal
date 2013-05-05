@@ -285,7 +285,6 @@ sub spamSubjectTag
         }
     }
 
-
     return $subjectTag;
 }
 
@@ -444,7 +443,6 @@ sub whitelistForSpamassassin
   my ($self) = @_;
   return $self->_aclForSpamassassin('whitelist');
 }
-
 
 # Method: blacklistforSpamassassin
 #

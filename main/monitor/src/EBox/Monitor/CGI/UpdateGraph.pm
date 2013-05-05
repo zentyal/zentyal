@@ -66,7 +66,6 @@ sub optionalParameters
     return [ 'instance', 'typeInstance' ];
 }
 
-
 # Method: requiredParameters
 #
 # Overrides:
@@ -77,7 +76,6 @@ sub requiredParameters
 {
     return [ 'measure', 'period' ];
 }
-
 
 # Method: masonParameters
 #

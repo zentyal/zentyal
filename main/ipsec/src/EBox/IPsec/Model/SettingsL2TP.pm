@@ -334,5 +334,4 @@ sub _fetchSecondaryNS
     return $nsTwo;
 }
 
-
 1;

@@ -42,7 +42,6 @@ sub new
     return $self;
 }
 
-
 # TODO: extract names from kdb/symbols/*
 my $langs = {
     'ara'   => 'Arabic',

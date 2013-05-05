@@ -154,8 +154,6 @@ sub _table
     return $dataTable;
 }
 
-
-
 sub name
 {
     __PACKAGE__->nameFromClass(),
@@ -185,7 +183,6 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-
     if (exists $params_r->{server}) {
         EBox::OpenVPN::Client->checkServer($params_r->{server}->value());
     }
@@ -193,7 +190,6 @@ sub validateTypedRow
     $self->_validateNoCertParams($action, $params_r, $actual_r);
     $self->_validateCerts($action, $params_r, $actual_r);
 }
-
 
 sub _validateNoCertParams
 {
@@ -253,7 +249,6 @@ sub _validateCerts
             $path{certificateKey}
             );
 }
-
 
 sub _privateFilePath
 {

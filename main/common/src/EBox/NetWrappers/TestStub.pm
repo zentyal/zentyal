@@ -24,7 +24,6 @@ use EBox::NetWrappers;
 my %fakeIfaces;
 my %fakeRoutes;
 
-
 sub fake
 {
   Test::MockObject->fake_module('EBox::NetWrappers',
@@ -47,7 +46,6 @@ sub unfake
   $@ and die "Error reloading EBox::NetWrappers: $@";
 }
 
-
 sub setFakeIfaces
 {
   my ($fakeIfaces_r) = @_;
@@ -59,19 +57,16 @@ sub fakeIfaces
   return \%fakeIfaces;
 }
 
-
 sub setFakeRoutes
 {
   my ($fakeRoutes_r) = @_;
   %fakeRoutes = %{$fakeRoutes_r};
 }
 
-
 sub fakeRoutes
 {
   return \%fakeRoutes;
 }
-
 
 # fake methods:
 sub iface_exists
@@ -90,8 +85,6 @@ sub iface_is_up
   my ($iface) = @_;
   return _ifacePropierty($iface, 'up');
 }
-
-
 
 sub iface_mac_address
 {
@@ -112,7 +105,6 @@ sub iface_addresses_with_netmask
   return _ifacePropierty($iface, 'address');
 }
 
-
 sub _ifacePropierty
 {
   my ($iface, $propierty) = @_;
@@ -130,7 +122,6 @@ sub _ifacePropierty
   return $fakeIfaces{$iface}->{$propierty};
 }
 
-
 sub list_routes
 {
   my @routes;
@@ -139,7 +130,6 @@ sub list_routes
   }
   return @routes;
 }
-
 
 sub route_is_up
 {
@@ -153,6 +143,5 @@ sub route_is_up
 
   return undef;
 }
-
 
 1;

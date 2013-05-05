@@ -108,7 +108,6 @@ sub _syncBWMonitorIface
     return 1;
 }
 
-
 sub interfaceNeedsBWMonitor
 {
     my ($self, $interface) = @_;
@@ -122,7 +121,6 @@ sub interfaceNeedsBWMonitor
     my $row = $self->find(interface => $interface);
     return $row->valueByName('enabled');
 }
-
 
 sub bwmonitorNeeded
 {
@@ -180,6 +178,5 @@ sub syncRows
 
     return 1;
 }
-
 
 1;

@@ -29,14 +29,12 @@ use Test::More;
 
 use lib '../..';
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
 
     EBox::Global::TestStub::setModule('mailfilter' => 'EBox::MailFilter');
 }
-
 
 sub clearConfiguration : Test(teardown)
 {
@@ -47,10 +45,5 @@ sub _moduleInstantiationTest : Test
 {
     EBox::Test::checkModuleInstantiation('mailfilter', 'EBox::MailFilter');
 }
-
-
-
-
-
 
 1;

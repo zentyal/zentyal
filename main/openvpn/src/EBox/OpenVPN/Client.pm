@@ -341,8 +341,6 @@ sub checkServer
     }
 }
 
-
-
 # Method: servers
 #
 #   Get the servers to which the client will try to connect
@@ -515,7 +513,6 @@ sub staticIfaceAddressChanged
     return undef;
 }
 
-
 sub _availableIfaces
 {
     my ($self) = @_;
@@ -567,7 +564,6 @@ sub summary
 sub backupCertificates
 {
     my ($self, $dir) = @_;
-
 
     my $d = "$dir/" . $self->name;
     EBox::FileSystem::makePrivateDir($d);

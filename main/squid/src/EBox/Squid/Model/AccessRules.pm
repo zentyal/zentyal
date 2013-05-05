@@ -308,7 +308,6 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
-
     my $source = exists $params_r->{source} ?
                       $params_r->{source}:  $actual_r->{source};
     my $sourceType  = $source->selectedType();
@@ -453,7 +452,6 @@ sub rules
 
     return \@rules;
 }
-
 
 sub squidFilterProfiles
 {

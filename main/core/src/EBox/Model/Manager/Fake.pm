@@ -50,7 +50,6 @@ sub setModelsUsingId
     %modelsUsingId = @_;
 }
 
-
 my $_instance;
 sub instance
 {
@@ -92,8 +91,5 @@ sub removeRowsUsingId
     my ($self, $contextName, $id) = @_;
     # do nothing
 }
-
-
-
 
 1;

@@ -13,13 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
 package EBox::Logs::Model::Details;
 use base qw(EBox::Model::DataTable EBox::Logs::Model::Base);
-
 
 use EBox::Gettext;
 use Perl6::Junction qw(all);
@@ -93,7 +91,6 @@ sub row
     return $row;
 }
 
-
 # Method: message
 #
 #   overriden method to ignore add messages, bz we re always adding rows when
@@ -122,15 +119,8 @@ sub reportRows
         $row->{date} = $self->_printableDate($row->{date}, $timePeriod);
     }
 
-
-
     return $dbRows;
 }
-
-
-
-
-
 
 my %secondsByTimePeriod = (
                            daily => 24*60*60,
@@ -151,7 +141,6 @@ sub _needUpdate
     $self->{lastUpdate} = $now;
     return 1;
 }
-
 
 # Method: sortedBy
 #
@@ -195,7 +184,6 @@ sub _tableHead
                                    );
     }
 
-
     return \@tableHead;
 
 }
@@ -204,7 +192,6 @@ sub _tableName
 {
     throw EBox::Exceptions::NotImplemented('_tableName');
 }
-
 
 # lists the fields which should not be aggregated in the 'total' row
 sub _noAggregateFields
@@ -242,8 +229,6 @@ sub _totalRow
 
         $row->{$name} = $total;
     }
-
-
 
     return $self->_setValueRow( %{ $row } );
 }

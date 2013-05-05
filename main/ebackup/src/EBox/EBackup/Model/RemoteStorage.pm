@@ -58,7 +58,6 @@ sub new
     return $self;
 }
 
-
 sub _content
 {
     my ($self) = @_;
@@ -86,8 +85,6 @@ sub _content
             total => $self->{storage}->{total} . ' MB',
            };
 }
-
-
 
 sub _getStorageUsage
 {
@@ -117,13 +114,10 @@ sub _getStorageUsage
 
     };
 
-
     $self->{badConnection} = $badConnection;
-
 
     return $self->{storage};
 }
-
 
 # Method: precondition
 #

@@ -100,7 +100,6 @@ sub processLine
         $event = 'BLACKLISTED';
     }
 
-
     my $date = $self->_getDate($header);
 
     my $values = {
@@ -116,7 +115,6 @@ sub processLine
     if ($hits ne '-') {
         $values->{'spam_hits'} = $hits;
     }
-
 
     $dbengine->insert(SMTP_FILTER_TABLE, $values);
 }

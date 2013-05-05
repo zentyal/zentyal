@@ -27,7 +27,6 @@ use warnings;
 use EBox::Config;
 use EBox::Types::Boolean;
 
-
 # External dependencies
 use HTML::Mason::Interp;
 use JSON; # objToJson

@@ -89,8 +89,6 @@ sub _fieldDescription
 {
     my ($self, %params) = @_;
 
-
-
     my @tableHead =
         (
 
@@ -185,9 +183,6 @@ sub _fieldDescription
     return \@tableHead;
 }
 
-
-
-
 # Method: viewCustomizer
 #
 #    Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -217,7 +212,6 @@ sub headTitle
     return __('Configure Rules');
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -238,7 +232,6 @@ sub validateTypedRow
         }
     }
 
-
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
@@ -253,6 +246,5 @@ sub validateTypedRow
         }
     }
 }
-
 
 1;

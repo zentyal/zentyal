@@ -35,7 +35,6 @@ sub new
     return $self;
 }
 
-
 sub requiredParameters
 {
     return [qw(automaticHour automaticMinute)];
@@ -45,7 +44,6 @@ sub optionalParameters
 {
     return [qw(submit ajax_request_cookie)];
 }
-
 
 sub actuate
 {

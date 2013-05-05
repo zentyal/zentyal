@@ -161,7 +161,6 @@ sub srvsCerts
     return \@srvscerts;
 }
 
-
 # Group: Public methods
 
 # Method: _genCert

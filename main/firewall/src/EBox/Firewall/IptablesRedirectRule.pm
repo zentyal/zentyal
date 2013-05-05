@@ -278,7 +278,6 @@ sub setCustomService
 
 }
 
-
 # Method: setLog
 #
 #   Set log flag for rules
@@ -295,7 +294,6 @@ sub setLog
 
     $self->{'log'} = $log;
 }
-
 
 # Method: setLogLevel
 #

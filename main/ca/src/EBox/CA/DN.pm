@@ -18,10 +18,8 @@ package EBox::CA::DN;
 use strict;
 use warnings;
 
-
 use Storable qw(dclone);
 use EBox;
-
 
 # Constructor: new
 #
@@ -163,7 +161,6 @@ sub stringOpenSSLStyle {
   return $outStr;
 
 }
-
 
 # Method: attribute
 #

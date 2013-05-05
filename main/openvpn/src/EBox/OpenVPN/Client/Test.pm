@@ -55,9 +55,6 @@ sub EBox::OpenVPN::Client::ValidateCertificate::check
     return 1
 }
 
-
-
-
 sub mockNetworkModule
 {
   my ($self, $ifaces_r) = @_;
@@ -72,7 +69,6 @@ sub mockNetworkModule
                                           ],
                                  );
 }
-
 
 # XXX replace with #419 when it is done
 sub ignoreChownRootCommand : Test(startup)
@@ -89,7 +85,6 @@ sub ignoreChownRootCommand : Test(startup)
     return $root_r->($cmd);
   };
 
-
   defined $root_r or die 'Can not get root sub from EBox::Sudo';
 
   Test::MockObject->fake_module(
@@ -97,9 +92,6 @@ sub ignoreChownRootCommand : Test(startup)
                                 root => $rootIgnoreChown_r,
                                )
 }
-
-
-
 
 sub setUpConfiguration : Test(setup)
 {
@@ -117,27 +109,16 @@ sub setUpConfiguration : Test(setup)
                                                    ],
                                           );
 
-
     mockNetworkModule();
 
     EBox::Config::TestStub::setConfigKeys(tmp => '/tmp/');
 }
 
-
-
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Service::TestStub::setConfig();
 
-
 }
-
-
-
-
-
-
 
 sub _newClient
 {
@@ -171,13 +152,11 @@ sub _newClient
                        );
     }
 
-
     $clients->addRow(
                      name => $name,
                      service =>  0,
                      @ifaceParams,
                     );
-
 
     # put mock certificate files
     my $tmpDir = EBox::Config::tmp();
@@ -189,7 +168,6 @@ sub _newClient
        ($? == 0) or die "$!";
     }
 
-
     my $clientRow     = $clients->findRow(name => $name);
     my $clientConfRow = $clientRow->subModel('configuration')->row();
     while (my ($attr, $value) = each %conf) {
@@ -197,21 +175,14 @@ sub _newClient
     }
     $clientConfRow->store();
 
-
-
     if ($service) {
         $clientRow->elementByName('service')->setValue(1);
         $clientRow->store();
     }
 
-
     my $client = $clients->client($name);
     return $client;
 }
-
-
-
-
 
 # XXX this two very ugly and fragile fudge must be removed when we make the
 # parent() method to work with the mocked framework
@@ -219,7 +190,6 @@ sub EBox::Types::File::exist
 {
     return 1;
 }
-
 
 # XXX this two very ugly and fragile fudge must be removed when we make the
 # parent() method to work with the mocked framework
@@ -247,11 +217,9 @@ sub writeConfFileTest : Test(2)
         ($? == 0) or die "Error creating  temp test subdir $testSubdir: $!";
     }
 
-
     system "cp ../../../../stubs/openvpn-client.conf.mas $stubDir/openvpn";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
     EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir, tmp => '/tmp/');
-
 
     my $client = $self->_newClient(
                                    name => 'client1' ,
@@ -276,7 +244,6 @@ sub ifaceMethodChangedTest : Test(3)
   ok $client->ifaceMethodChanged('eth0', 'anyPreviousState', 'nonset'), "Checking wether a change to 'non-set is considered disruptive if there is only one interface left ";
 }
 
-
 sub vifaceDeleteTest : Test(2)
 {
   my ($self) = @_;
@@ -284,18 +251,15 @@ sub vifaceDeleteTest : Test(2)
 
   ok !$client->vifaceDelete('wathever', 'eth0'), "Checking wether deleting a viface is not considered disruptive if there are interfaces left";
 
-
   $self->mockNetworkModule(['eth0']);
   ok $client->vifaceDelete('wathever', 'eth0'), "Checking wether deleting a viface is considered disruptive if this is the only interface elft";
 }
-
 
 sub freeIfaceAndFreeVifaceTest : Test(4)
 {
   my ($self) = @_;
 
   my $client = $self->_newClient(service => 1);
-
 
   $client->freeIface('eth3');
   ok $client->service(), 'Checking wether client is active after deleteing a iface';
@@ -311,8 +275,6 @@ sub freeIfaceAndFreeVifaceTest : Test(4)
   $client2->freeViface('eth0', 'eth1');
   ok !$client2->service(), 'Checking wether client was disabled after removing the last interface (the last interface happened to be a virtual interface)';
 }
-
-
 
 sub otherNetworkObserverMethodsTest : Test(2)
 {

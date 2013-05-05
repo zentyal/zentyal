@@ -141,7 +141,6 @@ sub preconditionFailMsg
     return $self->{preconditionFailMsg};
 }
 
-
 # Group: Protected methods
 
 # Method: _table

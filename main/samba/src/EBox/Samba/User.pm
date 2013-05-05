@@ -478,7 +478,6 @@ sub addToZentyal
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");
 
-
     $zentyalUser->setIgnoredModules(['samba']);
 
     my $sc = $self->get('supplementalCredentials');

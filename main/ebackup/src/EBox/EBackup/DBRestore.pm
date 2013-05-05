@@ -59,7 +59,6 @@ sub restoreEBoxLogs
     EBox::Sudo::root("rm -rf $dumpDirTmp");
 }
 
-
 sub restoreEBoxLogsFromDir
 {
     my ($dir, $date) = @_;
@@ -70,7 +69,6 @@ sub restoreEBoxLogsFromDir
     my $basename = dumpBasename();
     $dbengine->restoreDB($dir, $basename, toDate => $dateEpoch);
 }
-
 
 sub backupDir
 {

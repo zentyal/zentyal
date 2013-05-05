@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Model::AmavisPolicy;
 use base 'EBox::Model::DataForm';
 
@@ -25,7 +23,6 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::MailFilter::Types::Policy;
-
 
 use EBox::Exceptions::External;
 
@@ -38,7 +35,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -83,7 +79,6 @@ sub _table
                                               editable      => 1,
                                              ),
 
-
         );
 
       my $dataForm = {
@@ -93,8 +88,6 @@ sub _table
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
                      };
-
-
 
     return $dataForm;
 }

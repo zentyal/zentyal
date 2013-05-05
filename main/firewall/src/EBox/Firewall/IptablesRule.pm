@@ -130,7 +130,6 @@ sub setService
                 $iptables .= " $inverse --source-port  $srcPort ";
             }
 
-
             if ($dstPort ne 'any') {
                 $iptables .= " $inverse --destination-port $dstPort ";
             }

@@ -90,7 +90,6 @@ sub IncomingJobDir
 
 }
 
-
 # Method: OutcomingJobDir
 #
 #      Get where the job instances leave its results
@@ -105,7 +104,6 @@ sub OutcomingJobDir
     return JobsDir() . 'outcoming/';
 
 }
-
 
 # Method: CronJobPrefix
 #

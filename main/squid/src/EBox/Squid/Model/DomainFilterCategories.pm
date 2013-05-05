@@ -37,7 +37,6 @@ my $categoriesFileDir = '/var/lib/zentyal/files/squid';
 my %validParentDirs = %{ EBox::Squid::Types::ListArchive::validParentDirs() };
 my %validBasename = %{ EBox::Squid::Types::ListArchive::validBasename() };
 
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -195,7 +194,6 @@ sub _populate
 
     return \@elements;
 }
-
 
 # Function: dgAllowed
 #

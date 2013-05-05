@@ -90,7 +90,6 @@ sub actuate
   return;
 }
 
-
 sub masonParameters
 {
   my ($self) = @_;
@@ -130,7 +129,6 @@ sub  restoreFromFileAction
   } else {
       $filename = $self->upload('backupfile');
   }
-
 
   my $details = $self->backupDetailsFromFile($filename);
 
@@ -182,7 +180,6 @@ sub setPrintabletype
   elsif ($type eq $EBox::Backup::BUGREPORT_BACKUP_ID) {
     $printableType = __('Bug-report configuration dump');
   }
-
 
   $details_r->{printableType} = $printableType;
   return $details_r;

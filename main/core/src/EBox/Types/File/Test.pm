@@ -170,7 +170,6 @@ sub isEqualToTest : Test(5)
     ok $notEqual, 'Checking equalTo in identical files objects without a file  in place and upload file';
 }
 
-
 sub existsTest : Test(2)
 {
     my $file = newFile();

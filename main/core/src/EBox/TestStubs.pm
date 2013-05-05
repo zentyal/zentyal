@@ -232,7 +232,6 @@ sub fakeModule
                                                      redis => EBox::Test::RedisMock->new());
             bless $self, $modPackage;
 
-
             $self = $initializerSub->($self);
             return $self;
         }
@@ -321,6 +320,5 @@ sub setFakeRoutes
     my $params_r = { @_ };
     EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
-
 
 1;

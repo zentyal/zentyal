@@ -47,7 +47,6 @@ sub _userAddOns
     my $cportal = EBox::Global->modInstance('captiveportal');
     return unless ($cportal->configured());
 
-
     my $overridden = $self->isQuotaOverridden($user);
     my $quota = $self->getQuota($user);
     my $limitBW = $cportal->model('BWSettings')->limitBWValue();
@@ -112,7 +111,6 @@ sub setQuota
 
     return 0;
 }
-
 
 # Method: getQuota
 #

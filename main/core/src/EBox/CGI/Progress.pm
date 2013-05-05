@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 # package EBox::CGI::Progress
 #
 #  This class is to used to show the progress of a long operation
@@ -48,7 +47,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _process
 {
@@ -107,7 +105,6 @@ sub _progressId
     $pId or throw EBox::Exceptions::Internal('No progress indicator id supplied');
     return $pId;
 }
-
 
 # to avoid the <div id=content> in raw mode
 sub _print

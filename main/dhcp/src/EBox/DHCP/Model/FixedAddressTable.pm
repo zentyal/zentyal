@@ -167,7 +167,6 @@ sub viewCustomizer
     return $customizer;
 }
 
-
 # Group: Protected methods
 
 # Method: _table
@@ -222,7 +221,6 @@ sub _table
 
 }
 
-
 sub objectModelGetter
 {
     my ($self) = @_;
@@ -247,7 +245,6 @@ sub _message
          . __('Members whose name is not a valid hostname will be modified to '
               . 'become a valid domain name.');
 }
-
 
 sub addresses
 {
@@ -416,6 +413,5 @@ sub _allowedMemberInFixedAddress
 
     return 1;
 }
-
 
 1;

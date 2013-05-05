@@ -438,7 +438,6 @@ sub _syncAllShares
     return $samba->model('SyncShares')->syncValue();
 }
 
-
 sub _pathHelp
 {
     my ($sharesPath) = @_;

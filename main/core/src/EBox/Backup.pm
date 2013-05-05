@@ -119,7 +119,6 @@ sub _makeBackup
     return $backupArchive;
 }
 
-
 sub _dumpModulesBackupData
 {
     my ($self, $auxDir, %options) = @_;
@@ -160,7 +159,6 @@ sub _modInstancesForBackup
     return \@mods;
 }
 
-
 sub _configuredModInstances
 {
     my ($self, $readOnly) = @_;
@@ -191,7 +189,6 @@ sub _configuredModInstances
 
     return \@configuredModules;
 }
-
 
 sub  _createFilesArchive
 {
@@ -255,7 +252,6 @@ sub _createPartitionsFile
         print $PARTS $line;
     }
 
-
     close $PARTS or
         throw EBox::Exceptions::Internal ("Error writing partitions info file.");
 }
@@ -295,7 +291,6 @@ sub _createMd5DigestForArchive
     print $MD5 $digest;
     close($MD5);
 }
-
 
 sub  _createModulesListFile
 {
@@ -420,7 +415,6 @@ sub backupDetails # (id)
     defined $self or
         throw EBox::Exceptions::MissingArgument('self');
 
-
     $self->_checkId($id);
 
     my $file = $self->_backupFileById($id);
@@ -430,7 +424,6 @@ sub backupDetails # (id)
 
     return $details;
 }
-
 
 # Method: backupDetailsFromArchive
 #
@@ -532,7 +525,6 @@ sub _unpackArchive
     return $tempDir;
 }
 
-
 # Method: deleteBackup
 #
 #       Romoves a stored backup
@@ -622,7 +614,6 @@ sub backupDir
     return $backupdir;
 }
 
-
 sub _ensureBackupdirExistence
 {
     my $backupdir = backupDir();
@@ -684,7 +675,6 @@ sub prepareMakeBackup
     my $makeBackupScript = EBox::Config::scripts() . 'make-backup';
     $makeBackupScript    .=  $scriptParams;
 
-
     my $global     = EBox::Global->getInstance();
     # XXX: this could be wrong, we only do backup of the configured modules
     my $totalTicks = scalar @{ $global->modNames() } + 2; # there are one task for
@@ -703,7 +693,6 @@ sub prepareMakeBackup
 
     return $progressIndicator;
 }
-
 
 # Method: makeBackup
 #
@@ -787,7 +776,6 @@ sub makeBackup
     return $backupFinalPath;
 }
 
-
 sub _changesSaved
 {
     my ($self, $fallbackToRO) = @_;
@@ -816,7 +804,6 @@ sub _changesSaved
     return 1;
 }
 
-
 sub _destinationFromTime
 {
     my ($self, $time) = @_;
@@ -833,7 +820,6 @@ sub _moveToArchives
 
     return "$backupdir/$dest";
 }
-
 
 # Method: makeBugReport
 #
@@ -970,7 +956,6 @@ sub _checkSize
     }
 }
 
-
 sub _checkZentyalVersion
 {
     my ($self, $tempDir)=  @_;
@@ -1020,7 +1005,6 @@ sub _checkZentyalVersion
         );
     }
 }
-
 
 # Method: prepareRestoreBackup
 #
@@ -1107,7 +1091,6 @@ sub prepareRestoreBackup
 
     return $progressIndicator;
 }
-
 
 # Method: restoreBackup
 #
@@ -1244,7 +1227,6 @@ sub restoreBackup
         }
     };
 }
-
 
 sub _unpackModulesRestoreData
 {
@@ -1494,7 +1476,6 @@ sub _modInstancesForRestore
     return $sortedModules;
 }
 
-
 sub _modulesInBackup
 {
     my ($self, $archive) = @_;
@@ -1505,7 +1486,6 @@ sub _modulesInBackup
     my @modules = split '\s', $modulesString;
     return \@modules;
 }
-
 
 sub _checkModDeps
 {

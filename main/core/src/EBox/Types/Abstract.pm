@@ -280,7 +280,6 @@ sub help
     }
 }
 
-
 sub trailingText
 {
     my ($self) = @_;

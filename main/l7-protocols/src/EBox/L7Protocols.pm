@@ -25,7 +25,6 @@ use warnings;
 
 use base qw(EBox::Module::Config);
 
-
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Services::Model::ServiceConfigurationTable;
@@ -42,7 +41,6 @@ use constant PROTOCOL_DIRS => ('/etc/l7-protocols/protocols',
                                '/etc/l7-protocols/extra');
 use constant INITIAL_GROUPS => qw(streaming_audio remote_access mail
                                   streaming_video chat voip game p2p);
-
 
 sub _create
 {

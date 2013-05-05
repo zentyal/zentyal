@@ -360,7 +360,6 @@ sub _setValue # (value)
     $self->setMemValue($params);
 }
 
-
 ####
 # Group: Private methods
 ###
@@ -380,7 +379,6 @@ sub _printableValue # (proto)
 
     return $self->{protocols}->{$proto}->{printableValue};
 }
-
 
 # Return a hash ref with the allowed protocols
 # indexed by protocol value

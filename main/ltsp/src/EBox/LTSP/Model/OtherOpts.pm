@@ -41,7 +41,6 @@ sub new
         return $self;
 }
 
-
 sub _table
 {
 

@@ -22,7 +22,6 @@ use base 'EBox::FirewallHelper';
 use constant STD_SSH_PORT => 22;
 use constant LISTEN_ALL => '0.0.0.0';
 
-
 sub new
 {
     my ($class, %params) = @_;
@@ -35,7 +34,6 @@ sub new
     return $self;
 }
 
-
 # WARNING: the rules should be generated in a form which matches iptables-save
 # output; otherwise route-up-support-access script will not work
 
@@ -45,7 +43,6 @@ sub prerouting
     if (not $self->_mustRedirect()) {
         return [];
     }
-
 
     my $addr = $self->{sshRedirect}->{address};
     my $port = $self->{sshRedirect}->{port};
@@ -62,7 +59,6 @@ sub prerouting
     }
     return [$cmd];
 }
-
 
 sub input
 {
@@ -81,7 +77,6 @@ sub input
     }
     $cmd .= qq{-i $iface } .
               qq{-p tcp -m tcp --dport $port };
-
 
     $cmd .=   qq{-j ACCEPT};
 
@@ -103,6 +98,5 @@ sub _mustRedirect
 
     return 1;
 }
-
 
 1;

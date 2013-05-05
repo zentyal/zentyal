@@ -18,8 +18,6 @@ package EBox::Mail::FilterProvider;
 use strict;
 use warnings;
 
-
-
 # Method: mailFilter
 #
 #  return thes filter name and specifications. The specifications are a
@@ -44,7 +42,6 @@ sub mailFilter
 {
   return undef;
 }
-
 
 # Method: mailFilterDashboard
 #

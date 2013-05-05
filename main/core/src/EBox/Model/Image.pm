@@ -36,19 +36,14 @@ sub new
 
   bless ( $self, $class );
 
-
-
   return $self;
 
 }
-
 
 sub Viewer
 {
   return '/ajax/image.mas';
 }
-
-
 
 # returns a hash with the following:
 #      uri - image uri
@@ -83,9 +78,6 @@ sub image
 
 }
 
-
-
-
 # to override by subclass
 # must return a hash with the following:
 #      image - wether the image was created or not
@@ -97,17 +89,11 @@ sub _generateImage
   throw EBox::Exceptions::NotImplemented();
 }
 
-
-
-
-
-
 # must return the ImageControl subclass associated with the image
 sub _controlModel
 {
   throw EBox::Exceptions::NotImplemented;
 }
-
 
 sub _controlModelField
 {
@@ -117,7 +103,6 @@ sub _controlModelField
   my $getter = $field . 'Value';
   return $control->$getter;
 }
-
 
 # Method: checkTable
 #
@@ -133,7 +118,6 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
 
-
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -148,8 +132,6 @@ sub checkTable
         }
     }
 
-
-
 }
 
 # Method: refreshImage
@@ -162,6 +144,5 @@ sub refreshImage
     my ($self) = @_;
     return 1;
 }
-
 
 1;

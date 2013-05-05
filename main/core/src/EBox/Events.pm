@@ -27,7 +27,6 @@ package EBox::Events;
 use base qw(EBox::Module::Service EBox::LogObserver
             EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 
-
 use EBox::DBEngineFactory;
 use EBox::Config;
 use EBox::Event;
@@ -225,8 +224,6 @@ sub reportGraphModel
     return $self->{EventsGraphModel};
 }
 
-
-
 sub reportOptionsModel
 {
     my ( $self ) = @_;
@@ -261,7 +258,6 @@ sub models
     return $self->SUPER::models();
 }
 
-
 # Method: isRunning
 #
 # Overrides:
@@ -286,7 +282,6 @@ sub isEnabledDispatcher
     $self->model('ConfigureDispatchers')->isEnabledDispatcher($dispatcher);
 }
 
-
 sub enableWatcher
 {
     my ($self, $watcher, $enabled) = @_;
@@ -298,7 +293,6 @@ sub isEnabledWatcher
     my ($self, $watcher) = @_;
     $self->model('ConfigureWatchers')->isEnabledWatcher($watcher);
 }
-
 
 # Method: sendEvent
 #
@@ -405,7 +399,6 @@ sub _watchersEnabled
 
     return 0;
 }
-
 
 # Method: _logIsEnabled
 #

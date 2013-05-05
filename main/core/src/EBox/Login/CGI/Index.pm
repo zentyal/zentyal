@@ -86,7 +86,6 @@ sub _process
 	$self->{params} = \@htmlParams;
 }
 
-
 sub _requestDestination
 {
     my ($r) = @_;

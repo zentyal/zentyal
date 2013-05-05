@@ -33,7 +33,6 @@ use EBox::View::Customizer;
 use strict;
 use warnings;
 
-
 use constant VIEW_CUSTOMIZER => {
     none     => { hide => [ 'host', 'port', 'password' ] },
     zentyal  => { show => [ 'host', 'port', 'password' ] },
@@ -71,7 +70,6 @@ sub _table
 
     # TODO make all this elements non-editable after change
     # (add a destroy button, to unregister from the master)
-
 
     my $master_options = [
         { value => 'none', printableValue => __('None') },
@@ -147,8 +145,6 @@ sub viewCustomizer
     $customizer->setOnChangeActions( { master => VIEW_CUSTOMIZER } );
     return $customizer;
 }
-
-
 
 sub _locked
 {
@@ -246,7 +242,6 @@ sub validateTypedRow
                 $warnMsg .= $modWarn;
             }
         }
-
 
         if ($warnMsg) {
             throw EBox::Exceptions::DataInUse($warnMsg);

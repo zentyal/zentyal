@@ -31,8 +31,6 @@ sub new
 
 }
 
-
-
 sub tableName
 {
     return 'EventsReportOptions';
@@ -43,13 +41,9 @@ sub modelDomain
     return 'Events';
 }
 
-
-
-
 sub reportUrl
 {
     return '/Events/Composite/EventsReport';
 }
-
 
 1;

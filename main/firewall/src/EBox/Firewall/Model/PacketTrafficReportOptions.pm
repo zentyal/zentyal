@@ -31,8 +31,6 @@ sub new
 
 }
 
-
-
 sub tableName
 {
     return 'PacketTrafficReportOptions';
@@ -43,13 +41,9 @@ sub modelDomain
     return 'Firewall';
 }
 
-
-
-
 sub reportUrl
 {
     return '/Firewall/Composite/PacketTrafficReport';
 }
-
 
 1;

@@ -438,7 +438,6 @@ sub _serviceHostNameKey
     throw EBox::Exceptions::NotImplemented();
 }
 
-
 # Group: Private methods
 
 # Client token

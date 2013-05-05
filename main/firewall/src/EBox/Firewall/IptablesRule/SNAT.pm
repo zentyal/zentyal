@@ -15,8 +15,6 @@
 use warnings;
 use strict;
 
-
-
 package EBox::Firewall::IptablesRule::SNAT;
 use base 'EBox::Firewall::IptablesRule';
 
@@ -26,8 +24,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
 
 use Perl6::Junction qw( any );
-
-
 
 sub new
 {
@@ -107,9 +103,6 @@ sub strings
     return \@rules;
 }
 
-
-
-
 # Method: setInterface
 #
 #   Set interface for rules
@@ -145,8 +138,6 @@ sub interface
         return undef;
     }
 }
-
-
 
 # Method: setCustomService
 #
@@ -200,7 +191,6 @@ sub setCustomService
     }
 }
 
-
 # Method: setLog
 #
 #   Set log flag for rules
@@ -217,7 +207,6 @@ sub setLog
 
     $self->{'log'} = $log;
 }
-
 
 # Method: setLogLevel
 #

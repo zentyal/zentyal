@@ -48,5 +48,4 @@ sub _compare # (node)
 	return undef;
 }
 
-
 1;

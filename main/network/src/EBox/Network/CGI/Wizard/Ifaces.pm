@@ -34,7 +34,6 @@ sub new # (cgi=?)
     return $self;
 }
 
-
 sub _masonParameters
 {
     my ($self) = @_;
@@ -45,7 +44,6 @@ sub _masonParameters
     push (@params, 'ifaces' => $net->ifaces());
     return \@params;
 }
-
 
 sub _processWizard
 {

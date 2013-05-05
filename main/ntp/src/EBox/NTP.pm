@@ -96,7 +96,6 @@ sub actions
     ];
 }
 
-
 # Method: usedFiles
 #
 #   Override EBox::Module::Service::usedFiles

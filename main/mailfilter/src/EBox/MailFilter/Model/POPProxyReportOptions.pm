@@ -31,8 +31,6 @@ sub new
 
 }
 
-
-
 sub tableName
 {
     return 'POPProxyReportOptions';
@@ -43,13 +41,9 @@ sub modelDomain
     return 'MailFilter';
 }
 
-
-
-
 sub reportUrl
 {
     return '/MailFilter/Composite/POPProxyReport';
 }
-
 
 1;

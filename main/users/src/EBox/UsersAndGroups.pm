@@ -434,7 +434,6 @@ sub enableService
     }
 }
 
-
 # Load LDAP from config + data files
 sub _loadLDAP
 {
@@ -468,7 +467,6 @@ sub _loadLDAP
     EBox::debug('done');
 }
 
-
 # Generate, store in the given file and return a password
 sub _genPassword
 {
@@ -482,7 +480,6 @@ sub _genPassword
     return $pass;
 }
 
-
 # Method: wizardPages
 #
 #   Override EBox::Module::Base::wizardPages
@@ -492,7 +489,6 @@ sub wizardPages
     my ($self) = @_;
     return [{ page => '/UsersAndGroups/Wizard/Users', order => 300 }];
 }
-
 
 # Method: _setConf
 #
@@ -687,7 +683,6 @@ sub groupsDn
     return GROUPSDN . "," . $dn;
 }
 
-
 # Method: groupDn
 #
 #    Returns the dn for a given group. The group doesn't have to exist
@@ -742,8 +737,6 @@ sub userDn
     my $dn = "uid=$user," .  $self->usersDn;
     return $dn;
 }
-
-
 
 # Init a new user (home and permissions)
 sub initUser
@@ -992,7 +985,6 @@ sub groups
     return \@groups;
 }
 
-
 sub multipleOusEnabled
 {
     return EBox::Config::configkey('multiple_ous');
@@ -1030,7 +1022,6 @@ sub ous
     return \@ous;
 }
 
-
 # Method: _modsLdapUserbase
 #
 # Returns modules implementing LDAP user base interface
@@ -1067,7 +1058,6 @@ sub _modsLdapUserBase
     return \@modules;
 }
 
-
 # Method: allSlaves
 #
 # Returns all slaves from LDAP Sync Provider
@@ -1090,7 +1080,6 @@ sub allSlaves
 
     return \@modules;
 }
-
 
 # Method: notifyModsPreLdapUserBase
 #
@@ -1119,7 +1108,6 @@ sub notifyModsPreLdapUserBase
         $mod->$method(@{$args});
     }
 }
-
 
 # Method: notifyModsLdapUserBase
 #
@@ -1179,7 +1167,6 @@ sub notifyModsLdapUserBase
         $slave->sync($signal, $args);
     }
 }
-
 
 # Method: initialSlaveSync
 #
@@ -1434,7 +1421,6 @@ sub userMenu
                                     'text' => __('Password')));
 }
 
-
 # Method: syncJournalDir
 #
 #   Returns the path holding sync pending actions for
@@ -1461,7 +1447,6 @@ sub syncJournalDir
 
     return $dir;
 }
-
 
 # LdapModule implementation
 sub _ldapModImplementation
@@ -1505,7 +1490,6 @@ sub slaves
     return \@slaves;
 }
 
-
 # Method: master
 #
 #   Return configured master as string, undef in none
@@ -1519,7 +1503,6 @@ sub master
     return $row->elementByName('master')->value();
 }
 
-
 # SyncProvider implementation
 sub allowUserChanges
 {
@@ -1527,8 +1510,6 @@ sub allowUserChanges
 
     return (not $self->masterConf->isSlave());
 }
-
-
 
 # Master-Slave UsersSync object
 sub masterConf
@@ -1689,7 +1670,6 @@ sub _removePasswds
   unlink $tmpFile;
 }
 
-
 # Method: authUser
 #
 #   try to authenticate the given user with the given password
@@ -1709,7 +1689,6 @@ sub authUser
     return $authorized;
 }
 
-
 sub listSchemas
 {
     my ($self, $ldap) = @_;
@@ -1724,7 +1703,6 @@ sub listSchemas
     my @schemas = map { $_->get_value('cn') } $result->entries();
     return \@schemas;
 }
-
 
 sub mode
 {
@@ -1762,7 +1740,6 @@ sub newUserUidNumber
 
     return EBox::UsersAndGroups::User->_newUserUidNumber($system);
 }
-
 
 ######################################
 ##  SysInfo observer implementation ##
@@ -1878,6 +1855,5 @@ sub _facilitiesForDiskUsage
         $usersPrintableName   => [ $usersPath ],
     };
 }
-
 
 1;

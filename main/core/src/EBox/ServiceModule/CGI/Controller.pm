@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 # package EBox::CGI::ServiceModule::Controller
 #
 #  This class is to gather the files which have been accepted to modify
@@ -30,8 +29,6 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-
-
 ## arguments:
 ## 	title [required]
 sub new
@@ -42,8 +39,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
-
 
 sub _process
 {
@@ -61,11 +56,8 @@ sub _process
         @rejected = $self->param('rejectedFiles');
     }
 
-
     $manager->setAcceptedFiles(\@accepted, \@rejected);
 }
 
-
 1;
-
 

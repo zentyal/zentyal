@@ -82,7 +82,6 @@ sub ConfigurationMethod
     return 'none';
 }
 
-
 # Method: run
 #
 #        Check if any service is being restarted many times within a

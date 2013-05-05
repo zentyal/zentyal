@@ -85,7 +85,6 @@ sub restoreOkText
     return __('Restore');
 }
 
-
 sub deleteText
 {
     my ($self) = @_;

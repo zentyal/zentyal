@@ -306,7 +306,6 @@ sub indexes
     return [];
 }
 
-
 # Method: defaultUserModel
 #
 #   Returns the name of model that is used to compose a default template for
@@ -320,7 +319,6 @@ sub defaultUserModel
 {
     return undef;
 }
-
 
 # Method: multipleOUSupport
 #

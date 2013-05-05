@@ -335,7 +335,6 @@ sub unsaved
     return undef;
 }
 
-
 sub prepareRevokeAllModules
 {
     my ($self) = @_;
@@ -820,7 +819,6 @@ sub modInstancesOfType
     return \@array;
 }
 
-
 # Method: modInstance
 #
 #       Build an instance of a module. Can be called as a class method or as an
@@ -875,7 +873,6 @@ sub modInstance
     $instances->{$name} = $classname->_create(ro => $ro);
     return $instances->{$name};
 }
-
 
 # Method: logger
 #
@@ -959,7 +956,6 @@ sub modRevDepends
     }
     return \@revdeps;
 }
-
 
 # Name: sortModulesByDependencies
 #

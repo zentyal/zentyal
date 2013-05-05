@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::WebMail::Model::OperationMode;
 use base 'EBox::Model::DataForm';
 
@@ -34,8 +33,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
@@ -60,12 +57,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
-
 
 sub _populateMode
 {
@@ -88,7 +81,6 @@ sub _populateMode
 
     push @options, $eboxOption;
 
-
     push @options, {
                      value => 'remote',
                      printableValue => __('Remote server'),
@@ -97,14 +89,12 @@ sub _populateMode
     return \@options;
 }
 
-
 sub usesEBoxMail
 {
     my ($self) = @_;
     my $mode = $self->row()->elementByName('mode')->value();
     return $mode eq 'ebox';
 }
-
 
 sub headTitle
 {

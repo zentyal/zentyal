@@ -72,7 +72,6 @@ sub setFakeTableInfoForMod
     $tableInfoByMod{$modName} = $tableInfo;
 }
 
-
 sub fakeConsolidate : Test(startup)
 {
     Test::MockObject->fake_module(
@@ -398,7 +397,6 @@ sub _checkConsolidate
     $dbEngine->{rows} = [];
 }
 
-
 sub _rowsToCompare
 {
     my ($rows_r) = @_;
@@ -412,7 +410,6 @@ sub _rowsToCompare
 
     return \%rtc;
 }
-
 
 #  Method: cases
 #
@@ -523,7 +520,6 @@ sub cases
                                                           count => 1,
                                                          },
                                                },
-
 
                                                {
                                                 table => 'testTable_daily',
@@ -723,7 +719,6 @@ sub cases
 
                                                },
 
-
                                                {
                                                 table => 'testTable_daily',
                                                 value => {
@@ -796,7 +791,6 @@ sub cases
                                                          },
 
                                                },
-
 
                                                {
                                                 table => 'testTable_daily',
@@ -924,7 +918,6 @@ sub cases
                                                          },
                                                },
 
-
                                                {
                                                 table => 'recipientTable_daily',
                                                 value => {
@@ -933,7 +926,6 @@ sub cases
                                                           count => 5,
                                                          },
                                                },
-
 
                                                {
                                                 table => 'senderTable_daily',
@@ -970,7 +962,6 @@ sub cases
                                                           count => 2,
                                                          },
                                                },
-
 
                                                {
                                                 table => 'recipientTable_daily',
@@ -1117,7 +1108,6 @@ sub cases
                                                          },
                                                },
 
-
                                                 # daily table
                                                {
                                                 table => 'testTable_daily',
@@ -1148,7 +1138,6 @@ sub cases
 
                                                },
 
-
                                                {
                                                 table => 'testTable_daily',
                                                 value => {
@@ -1174,6 +1163,5 @@ sub cases
 
     return \@cases;
 }
-
 
 1;

@@ -220,7 +220,6 @@ sub showTypeName
     return $self->{showTypeName};
 }
 
-
 # Protected Methods
 
 # Method: _setMemValue

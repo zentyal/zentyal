@@ -167,7 +167,6 @@ sub _table
     return $dataTable;
 }
 
-
 # Method: viewCustomizer
 #
 #    Overrides <EBox::Model::DataTable::viewCustomizer>

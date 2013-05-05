@@ -268,7 +268,6 @@ sub addresses
     return \@addresses;
 }
 
-
 sub isIPInside
 {
     my ($self, $ip) = @_;

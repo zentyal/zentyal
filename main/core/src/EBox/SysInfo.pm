@@ -97,7 +97,6 @@ sub menu
                                     'separator' => 'Core',
                                     'order' => 20));
 
-
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
                                         'text' => __('System'),
                                         'order' => 30);
@@ -189,7 +188,6 @@ sub hostDomain
     return $domain;
 }
 
-
 # we override aroundRestoreconfig to restore also state data (for the widget)
 sub aroundRestoreConfig
 {
@@ -198,7 +196,6 @@ sub aroundRestoreConfig
     $self->_load_state_from_file($dir);
     $self->setReloadPageAfterSavingChanges(0);
 }
-
 
 sub setReloadPageAfterSavingChanges
 {

@@ -43,7 +43,6 @@ use constant {
     HTTPD_WEBMAIL_DIR => '/var/www/webmail',
 };
 
-
 # Group: Protected methods
 
 # Constructor: _create
@@ -138,7 +137,6 @@ sub _setManageSievePluginConf
             $self->model('RemoteServerConfiguration')->getSieveConfiguration();
     }
 
-
     $self->writeConfFile(
                          SIEVE_PLUGIN_INC_ETC_FILE,
                          'webmail/managesieve-config.php.inc.mas',
@@ -184,7 +182,6 @@ sub _confForRemoteServer
     my ($self) = @_;
     return $self->model('RemoteServerConfiguration')->getConfiguration();
 }
-
 
 # Group: Public methods
 

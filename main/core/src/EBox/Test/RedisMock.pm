@@ -148,6 +148,4 @@ sub discard
     $self->{multi} = 0;
 }
 
-
-
 1;

@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Network::Model::MultiGwRulesDataTable;
 
 use EBox::Global;
@@ -202,7 +201,6 @@ sub iptablesRules
     return \@rules;
 }
 
-
 sub _ifacesForRule
 {
     my ($self, $iface) = @_;
@@ -220,7 +218,6 @@ sub _ifacesForRule
     return \@ifaces;
 }
 
-
 sub _objectMembers
 {
     my ($self, $row, $elementName) = @_;
@@ -228,7 +225,6 @@ sub _objectMembers
     my $objects = $self->global()->modInstance('objects');
     return $objects->objectMembers($oid);
 }
-
 
 sub _buildIptablesRule
 {

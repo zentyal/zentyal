@@ -181,7 +181,6 @@ sub viewCustomizer
     return $custom;
 }
 
-
 # Group: Protected methods
 
 # Method: _table

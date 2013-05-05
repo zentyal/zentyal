@@ -198,7 +198,6 @@ sub run
         return;
     }
 
-
     return if ($finish == 1);
 
     try  {

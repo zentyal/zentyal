@@ -82,7 +82,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub formSubmitted
 {
     my ($self) = @_;
@@ -98,6 +97,5 @@ sub formSubmitted
         }
     }
 }
-
 
 1;

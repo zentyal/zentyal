@@ -51,7 +51,6 @@ sub new
       return $self;
 }
 
-
 # Group: Protected methods
 
 # Method: _table

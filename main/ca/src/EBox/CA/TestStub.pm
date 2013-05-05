@@ -387,7 +387,6 @@ sub CAPublicKey
 
 }
 
-
 # Method: issueCertificate
 #
 #       Fake <EBox::CA::issueCertificate> method

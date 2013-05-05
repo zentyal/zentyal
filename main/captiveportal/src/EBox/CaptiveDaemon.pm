@@ -277,7 +277,6 @@ sub _removeRule
     return \@rules;
 }
 
-
 # Match the user in bwmonitor module
 sub _matchUser
 {
@@ -309,5 +308,4 @@ EBox::init();
 EBox::info('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
-
 

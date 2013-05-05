@@ -26,7 +26,6 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-
 sub new
 {
     my $class = shift;

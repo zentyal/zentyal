@@ -48,7 +48,6 @@ sub parentModule
     return $self->{'confmodule'};
 }
 
-
 # Method: global
 #
 # returns a EBox::Global instance with the correct read-only status
@@ -82,8 +81,6 @@ sub modelGetter
         return $modelInstance;
     };
 }
-
-
 
 # Method: pageTitle
 #

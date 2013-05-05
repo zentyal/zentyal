@@ -353,7 +353,6 @@ sub setService
         $serviceConf->addRow(%confParams);
     }
 
-
 }
 
 # Method: addMultipleService

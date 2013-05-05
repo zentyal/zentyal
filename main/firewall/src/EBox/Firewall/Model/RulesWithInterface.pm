@@ -20,7 +20,6 @@ use warnings;
 
 package EBox::Firewall::Model::RulesWithInterface;
 
-
 sub interfacePopulateSub
 {
     my ($self) = @_;

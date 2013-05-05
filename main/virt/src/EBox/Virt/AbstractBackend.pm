@@ -307,8 +307,6 @@ sub allowsNoneIface
     throw EBox::Exceptions::NotImplemented();
 }
 
-
-
 # Method: listVMs
 #
 #   Returns the list of names of found VMs referenced
@@ -345,7 +343,6 @@ sub manageScript
 {
     throw EBox::Exceptions::NotImplemented();
 }
-
 
 # Method: writeConf
 #

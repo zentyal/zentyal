@@ -618,8 +618,6 @@ sub _genericDependencyTree
 #    return  ($stDigest ne $currDigest)
 #}
 
-
-
 #sub _updateMD5
 #{
 #    my ($self, $file) = @_;

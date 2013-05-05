@@ -175,7 +175,6 @@ sub dumpIptablesCommands
 
   }
 
-
 # Method: dumpProtocols
 #
 #       Dump l7 filter protocols and its iptables mark
@@ -219,7 +218,6 @@ sub dumpProtocols
 
     return \%protocols;
 }
-
 
 # Method: getInterface
 #

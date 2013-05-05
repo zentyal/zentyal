@@ -36,19 +36,15 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
-
 sub requiredParameters
 {
     return [qw(backup name description)];
 }
 
-
 sub optionalParameters
 {
     return ['popup'];
 }
-
-
 
 sub actuate
 {

@@ -85,7 +85,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub _doInstall
 {
     my ($self, $action, $id, %params) = @_;

@@ -125,7 +125,6 @@ sub validateRow()
     my $action = shift;
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $newValues) = @_;
@@ -133,7 +132,6 @@ sub validateTypedRow
         $self->_checkName($newValues->{name}->value())
     }
 }
-
 
 # Method: addObject
 #
@@ -214,7 +212,6 @@ sub _objectHelp
               'is automatically synched in all the modules using it');
 }
 
-
 sub _checkName
 {
     my ($self, $name) = @_;
@@ -236,7 +233,6 @@ __(q{'Any' is a reserved word that could not be used as object name to avoid con
                                         );
     }
 }
-
 
 1;
 

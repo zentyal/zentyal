@@ -88,7 +88,6 @@ sub _tableDescription
     return \@tableDescription;
 }
 
-
 # Method:  _table
 #
 # This method overrides <EBox::Model::DataTable::_table> to return

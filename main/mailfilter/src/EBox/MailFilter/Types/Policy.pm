@@ -57,7 +57,6 @@ sub _populateWithoutBounce
     return [ $passPolicy, $rejectPolicy, $discardPolicy ];
 }
 
-
 sub _paramIsValid
 {
     my ($self, $params) = @_;

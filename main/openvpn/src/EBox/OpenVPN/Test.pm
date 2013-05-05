@@ -246,7 +246,6 @@ sub newAndDeleteClientTest : Test(12)
     eq_or_diff [sort @actualClientsNamesForUI], [sort @userClientsNames],
       "Checking returned test clients names for UI";
 
-
     # delete test
 
     my ($nameToDelete) = @clientsNames;
@@ -306,11 +305,8 @@ sub _checkDeleteDaemon
     my $existsMethod = $type . 'Exists';
     my $listMethod = $type . 'sNames';
 
-
     my $daemon = $openVPN->$type($name);
     my $expectedDeletedData = _expectedDeletedDaemonData($daemon);
-
-
 
     lives_ok {
         $openVPN->$deleteMethod($name);
@@ -325,8 +321,6 @@ sub _checkDeleteDaemon
     dies_ok {
         $openVPN->$deleteMethod($name);
     } 'wether you cannot delete the same daemon twice';
-
-
 
     my @actualDaemonsNames = $openVPN->$listMethod();
     ok $name ne all(@actualDaemonsNames),
@@ -344,7 +338,6 @@ sub _expectedDeletedDaemonData
     $deletedData{name} =  $daemon->name;
     $deletedData{type} =  $daemon->type;
 
-
     return \%deletedData;
 }
 
@@ -359,8 +352,6 @@ sub _checkDeletedDaemonData
 
     is_deeply $deletedData, $expectedDeleted,
         'checking wether deleted data is correct';
-
-
 
 }
 

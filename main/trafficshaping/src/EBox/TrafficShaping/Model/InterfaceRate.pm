@@ -23,8 +23,6 @@ use EBox::Gettext;
 use EBox::Types::Int;
 use EBox::Types::Text;
 
-
-
 use constant DEFAULT_KB => 16384;
 
 sub new

@@ -27,7 +27,6 @@ use EBox::Exceptions::External;
 use EBox::UsersAndGroups::User;
 use EBox::Validate;
 
-
 sub new
 {
     my $class = shift;
@@ -35,8 +34,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
-
 
 my %printableByParam = (
    'externalAccount' => __('External account'),
@@ -90,7 +87,6 @@ sub _process
 
     $params{keep} = $self->param('keep');
     $params{fetchall} = $self->param('fetchall');
-
 
     $mail->{fetchmail}->addExternalAccount(%params);
 }

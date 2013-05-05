@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Model::AntispamConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -28,9 +26,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Text;
 use EBox::MailFilter::Types::AntispamThreshold;
 
-
 use EBox::Exceptions::External;
-
 
 # XX TODO:
 #  disable autolearnSpamThreshold and autolearnHamThreshold when autolearn is off
@@ -44,7 +40,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -118,11 +113,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
 
 sub validateTypedRow
 {
@@ -130,7 +122,6 @@ sub validateTypedRow
 
   $self->_checkThresholds( $action, $params_r, $actual_r);
 }
-
 
 sub _checkThresholds
 {
@@ -147,7 +138,6 @@ sub _checkThresholds
         return;
     }
 
-
     my $autolearn = _attrValue('autolearn', $params_r, $actual_r);
     if (not $autolearn) {
         # no threshold conflict possible
@@ -159,7 +149,6 @@ sub _checkThresholds
     my $autolearnHamThreshold = _attrValue('autolearnHamThreshold', $params_r, $actual_r);
 
     EBox::debug("THTH $spamThreshold $autolearnSpamThreshold $autolearnHamThreshold");
-
 
     if (not $autolearnSpamThreshold) {
         throw EBox::Exceptions::External(
@@ -185,9 +174,7 @@ sub _checkThresholds
                                         );
     }
 
-
 }
-
 
 sub _attrValue
 {
@@ -204,9 +191,6 @@ sub _attrValue
     throw EBox::Exceptions::Internal("Bad attribute $attr");
 
 }
-
-
-
 
 1;
 

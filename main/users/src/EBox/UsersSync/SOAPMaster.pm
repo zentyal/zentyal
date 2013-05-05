@@ -71,7 +71,6 @@ sub registerSlave
     return $self->_soapResult(0);
 }
 
-
 # Method: URI
 #
 # Overrides:
@@ -81,7 +80,6 @@ sub registerSlave
 sub URI {
     return 'urn:Users/Master';
 }
-
 
 # Method: _soapResult
 #

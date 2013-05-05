@@ -218,7 +218,6 @@ sub validateTypedRow
     }
 }
 
-
 sub _acquireRunning
 {
     my ($self, $id) = @_;

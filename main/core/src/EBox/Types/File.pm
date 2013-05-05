@@ -181,7 +181,6 @@ sub path
     return $self->{filePath};
 }
 
-
 # Method: user
 #
 # Returns:
@@ -229,7 +228,6 @@ sub exist
     $path or
         return undef;
 
-
     if ( $self->path() ) {
         return EBox::Sudo::fileTest('-f', $self->path);
     } else {
@@ -251,7 +249,6 @@ sub toRemove
 
     return $self->{remove};
 }
-
 
 sub filesPaths
 {
@@ -401,7 +398,6 @@ sub backupFiles
     defined $path or
       $path = $self->path();
     $path or return;
-
 
     my $backupPath = $self->backupPath($path);
     my $noPreviousFilePath = $self->noPreviousFilePath($path);

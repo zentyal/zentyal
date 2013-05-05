@@ -73,7 +73,6 @@ sub new
   my $exitValue = $params{exitValue};
   my $cmdType = $params{cmdType};
 
-
   local $Error::Depth = $Error::Depth + 1;
   local $Error::Debug = 1;
 
@@ -160,6 +159,5 @@ sub _errorMsg
 
   return "$cmdType $cmd failed. \nError output: $errorStr\nCommand output: $outputStr. \nExit value: $exitValue";
 }
-
 
 1;

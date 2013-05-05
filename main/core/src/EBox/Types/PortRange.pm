@@ -124,7 +124,6 @@ sub value
     }
 }
 
-
 # Method: printableValue
 #
 #    Overrides <EBox::Types::Abstract::printableValue> method
@@ -141,7 +140,6 @@ sub printableValue
 
     return $value;
 }
-
 
 # Method: compareToHash
 #
@@ -186,7 +184,6 @@ sub cmp
 
     return ($self->printableValue() cmp $other->printableValue());
 }
-
 
 # Method: fields
 #
@@ -402,7 +399,6 @@ sub _paramIsValid
 
     return 1;
 }
-
 
 # Method: _paramIsSet
 #

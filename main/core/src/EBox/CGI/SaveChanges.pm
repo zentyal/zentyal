@@ -19,7 +19,6 @@ use warnings;
 package EBox::CGI::SaveChanges;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
-
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
@@ -53,7 +52,6 @@ sub _process
         throw EBox::Exceptions::External("No save or cancel parameter");
     }
 }
-
 
 my @commonProgressParams = (
         reloadInterval  => 2,
@@ -144,7 +142,6 @@ sub revokeAllModulesAction
 
     $self->showProgress(@params);
 }
-
 
 # to avoid the <div id=content>
 sub _print

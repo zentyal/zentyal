@@ -18,7 +18,6 @@ use warnings;
 
 package EBox::Util::Nmap;
 
-
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
@@ -79,7 +78,6 @@ sub singlePortScan
         push @nmapArgs, '-sT'; # connect scan
     }
 
-
     push @nmapArgs, "-p$port";
 
     if ($interface) {
@@ -92,7 +90,6 @@ sub singlePortScan
     }
 
     push @nmapArgs, $host;
-
 
     my $np = _nmap(@nmapArgs);
 
@@ -123,7 +120,6 @@ sub singlePortScan
         return $hostResult->udp_port_state($port);
     }
 }
-
 
 sub _nmap
 {

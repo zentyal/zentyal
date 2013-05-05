@@ -200,7 +200,6 @@ sub servers
 
 }
 
-
 sub server
 {
     my ($self, $name) = @_;
@@ -213,7 +212,6 @@ sub server
 
     return EBox::OpenVPN::Server->new($row);
 }
-
 
 sub serverExists
 {
@@ -271,7 +269,6 @@ sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-
     if ( not exists $params_r->{service} ) {
         return;
     }
@@ -295,7 +292,6 @@ sub _validateService
                 );
     }
 }
-
 
 sub _validateName
 {

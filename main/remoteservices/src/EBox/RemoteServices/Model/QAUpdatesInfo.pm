@@ -115,7 +115,6 @@ sub _content
 {
     my ($self) = @_;
 
-
     my ($qaEnabled, $latest) =
       ( __('Disabled'), __('Disabled') );
 

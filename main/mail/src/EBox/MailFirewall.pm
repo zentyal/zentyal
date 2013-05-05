@@ -26,7 +26,6 @@ use EBox::Mail;
 use EBox::Gettext;
 use EBox::Validate qw( :all );
 
-
 sub new
 {
     my $class = shift;
@@ -35,7 +34,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub output
 {

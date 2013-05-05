@@ -41,7 +41,6 @@ use EBox::Firewall::Model::PacketTrafficDetails;
 use EBox::Firewall::Model::PacketTrafficGraph;
 use EBox::Firewall::Model::PacketTrafficReportOptions;
 
-
 use EBox::FirewallLogHelper;
 use EBox::Gettext;
 
@@ -166,7 +165,6 @@ sub _checkAction # (action, name?)
         return 0;
     }
 }
-
 
 ## api functions
 sub isRunning
@@ -484,7 +482,6 @@ sub _setService
                                              'value' => $service);
     }
 
-
     my $model;
         if ($internal) {
             $model = 'InternalToEBoxRuleModel';
@@ -767,7 +764,6 @@ sub tableInfo
            }];
 }
 
-
 sub _consolidate
 {
     my ($self) = @_;
@@ -788,7 +784,6 @@ sub _consolidate
                                                     return 'drop';
                                                 }
 
-
                                             },
                                         },
                                       }
@@ -797,7 +792,6 @@ sub _consolidate
     return {  $table => $spec };
 
 }
-
 
 sub logHelper
 {

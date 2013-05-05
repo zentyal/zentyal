@@ -43,7 +43,6 @@ use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::POPProxy;
 
-
 use constant SA_LEARN_SCRIPT => '/usr/share/zentyal-mailfilter/saLearn.pl';
 
 #
@@ -97,7 +96,6 @@ __('This users are for the email accounts used for training the bayesian filter'
             },
            ]
 }
-
 
 # Method: usedFiles
 #
@@ -249,7 +247,6 @@ sub smtpFilter
     return $self->{smtpFilter};
 }
 
-
 # Method: antispam
 #
 # Returns:
@@ -270,7 +267,6 @@ sub popProxy
     my ($self) = @_;
     return $self->{popProxy};
 }
-
 
 sub antispamNeeded
 {
@@ -397,10 +393,8 @@ sub usesPort
     return 1;
   }
 
-
   return undef;
 }
-
 
 sub firewallHelper
 {
@@ -409,7 +403,6 @@ sub firewallHelper
   if (not $self->isEnabled()) {
       return undef;
   }
-
 
   my $externalMTAs = $self->smtpFilter()->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
@@ -455,7 +448,6 @@ sub _vdomainModImplementation
     return new EBox::MailFilter::VDomainsLdap();
 }
 
-
 #  Method: mailFilterName
 #
 #   Implements the method needed for EBox::Mail::FilterProvider
@@ -464,7 +456,6 @@ sub mailFilterName
     my ($self) = @_;
     return $self->smtpFilter->mailFilterName();
 }
-
 
 # Method: learnAccountsForDomain
 #
@@ -479,7 +470,6 @@ sub learnAccountsForDomain
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     return $vdomainsLdap->learnAccounts($vdomain);
 }
-
 
 #  Method: mailFilter
 #
@@ -502,7 +492,6 @@ sub dovecotAntispamPluginConf
         }
     }
 
-
     my $conf = {
                 enabled => $enabled,
                 mailtrain => SA_LEARN_SCRIPT,
@@ -513,7 +502,6 @@ sub dovecotAntispamPluginConf
 
     return $conf;
 }
-
 
 sub mailFilterWidget
 {
@@ -544,7 +532,6 @@ sub tableInfo
            ];
 }
 
-
 sub _smtpFilterTableInfo
 {
     my ($self) = @_;
@@ -571,7 +558,6 @@ sub _smtpFilterTableInfo
                   'MTA-BLOCKED' => __('Unable to reinject in the mail server'),
     };
 
-
     my $consolidate = {
                        mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
                       };
@@ -587,7 +573,6 @@ sub _smtpFilterTableInfo
             'consolidate' => $consolidate,
     };
 }
-
 
 # sub _popProxyTableInfo
 # {
@@ -627,14 +612,12 @@ sub _smtpFilterTableInfo
 #     };
 # }
 
-
 sub logHelper
 {
     my ($self) = @_;
 
     return new EBox::MailFilter::LogHelper();
 }
-
 
 sub _filterTrafficConsolidationSpec
 {
@@ -672,7 +655,6 @@ sub _filterTrafficConsolidationSpec
 
     return $spec;
 }
-
 
 sub _popProxyFilterConsolidationSpec
 {
@@ -732,7 +714,6 @@ sub menu
 #                                      'text' => __('POP Transparent Proxy')
 #                 )
 #    );
-
 
     $folder->add(
                  new EBox::Menu::Item(

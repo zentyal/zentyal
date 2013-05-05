@@ -20,7 +20,6 @@ use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
 
-
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;

@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Model::POPProxyConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -37,7 +35,6 @@ sub new
 
     return $self;
 }
-
 
 # TODO
 #  antivirus and antispam option must be disabled if those sub-services aren't enabled
@@ -97,8 +94,6 @@ it processes your email for SPAM.'),
 
                      };
 
-
-
     return $dataForm;
 }
 
@@ -113,7 +108,6 @@ sub validateTypedRow
        __('The POP transparent proxy must scan for something to be useful. If you do not need either antivirus of spam scan we suggest you turn it off')
                                       );
   }
-
 
 }
 
@@ -132,7 +126,6 @@ sub _attrValue
     throw EBox::Exceptions::Internal("Bad attribute $attr");
 
 }
-
 
 1;
 

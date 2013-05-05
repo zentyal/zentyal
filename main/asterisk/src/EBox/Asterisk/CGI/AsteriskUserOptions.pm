@@ -26,7 +26,6 @@ use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
 use EBox::UsersAndGroups::User;
 
-
 sub new
 {
     my $class = shift;
@@ -34,7 +33,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _process
 {

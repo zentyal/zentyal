@@ -69,11 +69,9 @@ sub _actualPage
     return $page;
 }
 
-
 sub addToMasonParameters
 {
     my ($self, @masonParams) = @_;
-
 
     defined $self->{params} or $self->{params} = [];
     my $oldParams_r= $self->{params};
@@ -83,7 +81,6 @@ sub addToMasonParameters
 
     $self->{params}  = \@masonParams;
 }
-
 
 sub _fromDate
 {
@@ -109,10 +106,8 @@ sub _toDate
         $toDate = $self->_getDateArray('to');
     }
 
-
     return $toDate;
 }
-
 
 sub _getDateArray
 {
@@ -130,7 +125,6 @@ sub _getDateArray
     $time{$prefix . 'month'} = $localtime[4] + 1;
     $time{$prefix . 'year'}  = $localtime[5]  + 1900;
 
-
     if ($useParamsValue) {
         foreach my $key (keys %time) {
             my $paramValue = $self->param($key);
@@ -146,7 +140,6 @@ sub _getDateArray
 
     return \@dateArray;
 }
-
 
 sub _searchLogs
 {
@@ -257,7 +250,6 @@ sub _paramFilters
 
 }
 
-
 sub _header
 {
     my ($self) = @_;
@@ -266,7 +258,6 @@ sub _header
         $self->SUPER::_header();
         return;
     }
-
 
     my $destination = "/Logs/Index?";
 

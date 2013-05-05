@@ -220,7 +220,6 @@ sub _setUsers
     write_file(CHAPSECRETSFILE, $file);
 }
 
-
 # Method: menu
 #
 # Overrides:

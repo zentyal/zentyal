@@ -135,7 +135,6 @@ sub _updatesession
     close($sidFile);
 }
 
-
 # Method: checkPassword
 #
 #       Check if a given password matches the stored one after md5 it

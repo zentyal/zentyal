@@ -625,7 +625,6 @@ sub _loadIptModules
     return \@commands;
 }
 
-
 # Execute firewall helper rules for each module
 sub _executeModuleRules
 {
@@ -814,7 +813,6 @@ sub _oglobal
     }
     return \@commands;
 }
-
 
 # Method: _fglobal
 #
@@ -1005,7 +1003,6 @@ sub _inputIface # (iface)
         return "-i $iface";
     }
 }
-
 
 # Method: _natEnabled
 #

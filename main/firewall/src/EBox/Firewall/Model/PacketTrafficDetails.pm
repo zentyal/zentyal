@@ -34,9 +34,6 @@ sub new
     return $self;
 }
 
-
-
-
 sub dbFields
 {
    my ($package) = @_;
@@ -46,11 +43,9 @@ sub dbFields
                       printableName => __('packets dropped'),
                      },
 
-
            }
 
 }
-
 
 sub _table
 {
@@ -67,10 +62,7 @@ sub _table
                                           editable => 0,
                                          ),
 
-
                     ];
-
-
 
     my $dataTable =
         {
@@ -91,7 +83,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'firewall_packet_traffic';
@@ -102,11 +93,9 @@ sub tableName
     return 'PacketTrafficDetails';
 }
 
-
 sub timePeriod
 {
     my ($self) = @_;
-
 
     my $model = $self->{confmodule}->{PacketTrafficReportOptions};
     my $row = $model->row();

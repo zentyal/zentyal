@@ -208,7 +208,6 @@ sub _paramIsValid
         $params->{$fieldName . "_sec"},
        );
 
-
     if (@parts == 0) {
         # empty type
         return 1;

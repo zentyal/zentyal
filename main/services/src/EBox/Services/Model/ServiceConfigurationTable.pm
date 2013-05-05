@@ -66,7 +66,6 @@ sub protocols
 {
         my ($self) = @_;
 
-
         my  @options =
                 (
                  {
@@ -164,8 +163,6 @@ sub _table
                          )
                );
 
-
-
         my $dataTable =
         {
                 'tableName' => 'ServiceConfigurationTable',
@@ -196,7 +193,6 @@ sub pageTitle
 
     return $self->parentRow()->printableValueByName('printableName');
 }
-
 
 sub validateTypedRow
 {

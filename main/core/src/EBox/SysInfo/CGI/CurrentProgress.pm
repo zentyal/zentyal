@@ -62,7 +62,6 @@ sub _print
     print to_json($response);
 }
 
-
 sub modulesChangedStateAsHash
 {
     my ($self) = @_;

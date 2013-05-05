@@ -64,7 +64,6 @@ sub new
     return $self;
 }
 
-
 sub size
 {
     my ($self) = @_;
@@ -88,7 +87,6 @@ sub cmp
 
     return $self->value() <=> $other->value();
 }
-
 
 # Method: max
 #
@@ -141,7 +139,6 @@ sub _paramIsValid
 
                 );
     }
-
 
     my $min = $self->min();
     if (defined $min and ($value < $min)) {

@@ -144,8 +144,6 @@ sub _disabledModules
     return \@modules;
 }
 
-
-
 sub _print
 {
     my ($self) = @_;

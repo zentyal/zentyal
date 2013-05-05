@@ -24,7 +24,6 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;

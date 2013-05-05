@@ -283,7 +283,6 @@ sub delUserExtension
 
     my @extns = map { $_->get_value('cn') } $result->sorted('cn');
 
-
     foreach (@extns) {
         $self->delExtension($_);
     }
@@ -596,7 +595,6 @@ sub delQueueMember
     $user->set('AstQueueMemberof', \@members);
 }
 
-
 sub isQueueMember
 {
     my ($self, $user, $group) = @_;
@@ -683,7 +681,6 @@ sub delQueueExtension
     my $result = $self->{'ldap'}->search(\%attrs);
 
     my @extns = map { $_->get_value('cn') } $result->sorted('cn');
-
 
     foreach (@extns) {
         $self->delExtension($_);

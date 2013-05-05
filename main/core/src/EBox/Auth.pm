@@ -174,7 +174,6 @@ sub authen_cred  # (request, $user, password, fromCC)
     return $sid;
 }
 
-
 # Method: authen_ses_key
 #
 #       Overriden method from <Apache2::AuthCookie>.

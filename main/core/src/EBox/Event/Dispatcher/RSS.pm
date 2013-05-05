@@ -55,7 +55,6 @@ use constant {
     MAX_RSS_ITEMS => 500
 };
 
-
 # Class data
 our $LockFH;
 
@@ -202,7 +201,6 @@ sub ConfigureModel
     return 'RSSDispatcherConfiguration';
 
 }
-
 
 # Group: Protected methods
 

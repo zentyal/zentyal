@@ -971,7 +971,6 @@ sub firewallCaptivePortalExceptions
     return \@rules;
 }
 
-
 sub menu
 {
     my ($self, $root) = @_;

@@ -25,7 +25,6 @@ use warnings;
 
 use EBox::Gettext;
 
-
 # Group: Public methods
 
 # Method: pageTitle

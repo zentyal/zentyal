@@ -40,7 +40,6 @@
 
 package EBox::Model::Row;
 
-
 use strict;
 use warnings;
 
@@ -50,7 +49,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
-
 
 # Dependencies
 
@@ -88,7 +86,6 @@ sub new
     }
     $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
-
 
     bless ( $self, $class);
 
@@ -298,7 +295,6 @@ sub configModule
 
     return $self->{confmodule};
 }
-
 
 # Method: addElement
 #
@@ -533,7 +529,6 @@ sub size
 
     return scalar(@{$self->{'values'}});
 }
-
 
 # Method: store
 #

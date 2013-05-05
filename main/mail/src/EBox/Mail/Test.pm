@@ -19,7 +19,6 @@ use base 'EBox::Test::Class';
 use strict;
 use warnings;
 
-
 use File::Slurp::Tree;
 use Test::More;
 use Test::Exception;
@@ -33,14 +32,12 @@ use Perl6::Junction qw(all any);
 
 use EBox::NetWrappers::TestStub;
 
-
 use lib '../..';
 
 sub testDir
 {
     return  '/tmp/ebox.mail.test';
 }
-
 
 sub cleanTestDir : Test(startup)
 {
@@ -51,11 +48,9 @@ sub cleanTestDir : Test(startup)
   mkdir $dir;
 }
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-
 
     my @config = (
                   '/ebox/modules/mail/active'  => 1,
@@ -75,7 +70,6 @@ sub setUpConfiguration : Test(setup)
                                    );
  }
 
-
 # we fake this to returns that always are one interface. (this is for the
 # setIpFilter method)
 sub fakeGetIfacesForAddress
@@ -84,7 +78,6 @@ sub fakeGetIfacesForAddress
                                 '_getIfacesForAddress' => sub { return ['eth0']  },
                                );
 }
-
 
 sub clearConfiguration : Test(teardown)
 {
@@ -95,7 +88,6 @@ sub _moduleTest : Test(4)
 {
     checkModuleInstantiation('mail', 'EBox::Mail');
     use_ok 'EBox::Mail::FilterProvider';
-
 
   my $mail = EBox::Global->modInstance('mail');
     EBox::Test::checkModels($mail,
@@ -111,7 +103,6 @@ sub _moduleTest : Test(4)
 
                            );
 }
-
 
 sub extendedRestoreTest : Test(7)
 {
@@ -132,7 +123,6 @@ sub extendedRestoreTest : Test(7)
   mkdir $_ foreach (@backupDirs);
   lives_ok { $mail->extendedBackup( dir => $self->testDir )  } 'Running extendedBackup with empty mailboxes';
 
-
   # creating new files in the dirss to be restored
   system "touch $_/shouldNotBeHereAfterRestore" foreach @backupDirs;
 
@@ -146,7 +136,6 @@ sub extendedRestoreTest : Test(7)
       ok 0, "$d must exist";
     }
   }
-
 
   # setup backup dirs
 
@@ -196,7 +185,6 @@ sub extendedRestoreTest : Test(7)
   spew_tree($varDir => $beforeBackup );
   lives_ok { $mail->extendedBackup( dir => $self->testDir )  } 'Running extendedBackup';
 
-
   # setup restore dirs
   spew_tree($varDir => $afterBackup );
   lives_ok { $mail->extendedRestore( dir => $self->testDir )  } 'Running extendedRestore';
@@ -204,11 +192,6 @@ sub extendedRestoreTest : Test(7)
   my $afterRestore = slurp_tree($varDir);
   is_deeply $afterRestore, $beforeBackup, 'Checking restored mail archives';
 }
-
-
-
-
-
 
 sub _fakeStorageMailDirs
 {
@@ -218,8 +201,6 @@ sub _fakeStorageMailDirs
                                 _storageMailDirs => sub { return @dirs }
                                );
 }
-
-
 
 # fake methods needed for the test..
 {

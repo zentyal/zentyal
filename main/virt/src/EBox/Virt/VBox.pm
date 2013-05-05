@@ -587,5 +587,4 @@ sub allowsNoneIface
     return 1;
 }
 
-
 1;

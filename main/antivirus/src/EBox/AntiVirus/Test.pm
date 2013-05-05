@@ -34,7 +34,6 @@ sub setUpConfiguration : Test(startup)
     EBox::Global::TestStub::fake();
 }
 
-
 sub setUpTestDir : Test(startup)
 {
     my ($self) = @_;
@@ -48,7 +47,6 @@ sub clearConfiguration : Test(shutdown)
 {
     EBox::Module::Config::TestStub::setConfig();
 }
-
 
 sub testDir
 {
@@ -121,7 +119,6 @@ sub _fakeFreshclamStateFile
 
 }
 
-
 sub _clamavInstance
 {
     my $redis = new EBox::Test::RedisMock();
@@ -137,6 +134,5 @@ sub _clamavInstance
 
     return $antivirus;
 }
-
 
 1;

@@ -130,7 +130,6 @@ sub _populateType
     return \@opts;
 }
 
-
 # Method: _table
 #
 # Overrides:

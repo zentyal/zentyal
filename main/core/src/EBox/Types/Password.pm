@@ -195,7 +195,6 @@ sub _paramIsValid
     return 1;
 }
 
-
 #  Method: cmp
 #
 #   This method is overrien because we cannot sort the passwords (do so would be

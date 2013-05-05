@@ -28,7 +28,6 @@ use EBox::FileSystem;
 use Error qw(:try);
 use File::Basename;
 
-
 my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
 
 # validation for catogory directories

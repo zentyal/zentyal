@@ -32,7 +32,6 @@ sub new # (cgi=?)
     return $self;
 }
 
-
 sub _masonParameters
 {
     my ($self) = @_;
@@ -54,7 +53,6 @@ sub _masonParameters
     push (@params, 'intifaces' => \@inifaces);
     return \@params;
 }
-
 
 sub _processWizard
 {

@@ -20,7 +20,6 @@ use base EBox::Exceptions::Internal;
 use strict;
 use warnings;
 
-
 sub new
 {
   my $class = shift @_;

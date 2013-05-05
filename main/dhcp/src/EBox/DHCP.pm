@@ -20,7 +20,6 @@ use base qw( EBox::Module::Service
              EBox::NetworkObserver
              EBox::LogObserver );
 
-
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -31,7 +30,6 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Objects;
 use EBox::Validate qw(:all);
-
 
 use EBox::Sudo;
 use EBox::NetWrappers qw(:all);
@@ -45,7 +43,6 @@ use Net::IP;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
-
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
@@ -573,7 +570,6 @@ sub notifyStaticRoutesChange
     $self->setAsChanged();
 }
 
-
 # Method: rangeAction
 #
 #   Set/add a range for a given interface
@@ -878,7 +874,6 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
     return 0;
 }
 
-
 # Method: staticIfaceAddressChanged
 #
 #       Return true *unless*:
@@ -963,7 +958,6 @@ sub freeIface #( self, iface )
 }
 
 # Group: Private methods
-
 
 # Impelment LogHelper interface
 sub tableInfo
@@ -1438,7 +1432,6 @@ sub _dynamicDNSEnabled # (ifacesInfo)
     }
 }
 
-
 # Returns those model instances attached to the given interface
 sub _removeDataModelsAttached
 {
@@ -1470,7 +1463,6 @@ sub _getModel
     return $configuration->componentByName($modelName, 1);
 }
 
-
 sub _getAllModelInstances
 {
     my ($self, $modelName) = @_;
@@ -1493,7 +1485,6 @@ sub dynamicDNSDomains
     my $ddModel= $self->_getModel('DynamicDNS', $iface);
     return $ddModel->row();
 }
-
 
 # Check there are enough static interfaces to have DHCP service enabled
 sub _checkStaticIfaces
@@ -1521,7 +1512,6 @@ sub _nStaticIfaces
 
     return $staticIfaces;
 }
-
 
 # Method: gatewayDelete
 #

@@ -34,9 +34,6 @@ sub new
     return $self;
 }
 
-
-
-
 sub dbFields
 {
    my ($package) = @_;
@@ -59,7 +56,6 @@ sub dbFields
            }
 
 }
-
 
 sub _table
 {
@@ -91,10 +87,7 @@ sub _table
                                           editable => 0,
                                          ),
 
-
                     ];
-
-
 
     my $dataTable =
         {
@@ -115,7 +108,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'mailfilter_pop_traffic';
@@ -126,11 +118,9 @@ sub tableName
     return 'POPProxyDetails';
 }
 
-
 sub timePeriodModelPath
 {
     return '/mailfilter/POPProxyReportOptions';
 }
-
 
 1;

@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::EBackup::Model::RemoteSettings;
 
 # Class: EBox::EBackup::Model::RemoteSettings
@@ -116,7 +115,6 @@ sub crontabStrings
     return $strings;
 }
 
-
 sub _frequencyAndStartsOn
 {
     my ($self, $elementName) = @_;
@@ -127,7 +125,6 @@ sub _frequencyAndStartsOn
     my $startsOn = $element->value();
     return ($freq, $startsOn);
 }
-
 
 # Method: viewCustomizer
 #
@@ -167,7 +164,6 @@ sub viewCustomizer
 
     return $customizer;
 }
-
 
 # Group: Private methods
 
@@ -339,7 +335,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub _weekDays
 {
     return [
@@ -352,7 +347,6 @@ sub _weekDays
              { printableValue => __('on Sunday'), value => 0},
             ];
 }
-
 
 sub _monthDays
 {
@@ -506,7 +500,6 @@ sub _crontabStringIncr
     }
 }
 
-
 sub _crontabStringLastDayMonth
 {
     my ($hour) = @_;
@@ -545,7 +538,6 @@ sub _method
 
     return \@methods;
 }
-
 
 sub _gpgKeys
 {
@@ -629,7 +621,6 @@ sub _deadline
            ];
 }
 
-
 sub removeArguments
 {
     my ($self) = @_;
@@ -643,7 +634,6 @@ sub removeArguments
         return "remove-older-than $keepValue";
     }
 }
-
 
 sub validateTypedRow
 {
@@ -697,13 +687,11 @@ sub _validateTargetForFtp
     $self->_validateTargetForFtpAndScp($target, 1);
 }
 
-
 sub _validateTargetForScp
 {
     my ($self, $target) = @_;
     $self->_validateTargetForFtpAndScp($target, 0);
 }
-
 
 sub _validateTargetForFtpAndScp
 {
@@ -727,7 +715,6 @@ sub _validateTargetForFtpAndScp
              advice => __(q{Correct format is: 'other.host[:port]/some_dir'})
                                            );
     }
-
 
     my ($host, $port, $dir) = ($1, $2, $3);
 
@@ -788,7 +775,6 @@ sub _validateTargetForFile
 {
     my ($self, $target) = @_;
 
-
     if (not $target) {
         throw EBox::Exceptions::MissingArgument(
                 __('File system method needs a target parameter that should be a directory path')
@@ -828,7 +814,6 @@ sub _validateTargetForFile
     }
 }
 
-
 sub _validateFrequencies
 {
     my ($self, $full, $partial, $fullStartAt, $partialStartAt) = @_;
@@ -861,7 +846,6 @@ sub _validateFrequencies
                                         );
     }
 }
-
 
 sub formSubmitted
 {
@@ -900,7 +884,6 @@ sub _actualValues
     return \%actualValues;
 }
 
-
 # we check that we have the target/user/password complete if eBox storage is selected
 # bz is the default configuration and it is not complete. The validation methods
 # avoids that the configuration is incomplete in other cases so we must only
@@ -933,7 +916,6 @@ sub configurationIsComplete
 
     return 1;
 }
-
 
 sub usedEncryptionMode
 {

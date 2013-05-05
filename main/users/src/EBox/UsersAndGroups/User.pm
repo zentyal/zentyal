@@ -117,7 +117,6 @@ sub fullname
     return $self->get('cn');
 }
 
-
 sub firstname
 {
     my ($self) = @_;
@@ -365,7 +364,6 @@ sub _groups
     return \@groups;
 }
 
-
 # Method: system
 #
 #   Return 1 if this is a system user, 0 if not
@@ -376,7 +374,6 @@ sub system
 
     return ($self->get('uidNumber') < MINUID);
 }
-
 
 sub _checkQuota
 {
@@ -753,7 +750,6 @@ sub _checkUserName
     if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
         return undef;
     }
-
 
     # windows user names cannot end with a  period
     if ($name =~ m/\.$/) {

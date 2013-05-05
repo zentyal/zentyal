@@ -64,7 +64,6 @@ sub _process
     $self->{params} = \@array;
 }
 
-
 # Method: _modulesWizardPages
 #
 #   Returns an array ref with installed modules wizard pages
@@ -105,7 +104,5 @@ sub _top
     my ($self)= @_;
     $self->_topNoAction();
 }
-
-
 
 1;

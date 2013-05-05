@@ -29,12 +29,10 @@ use constant CONF_FILE => EBox::Config::etc() . 'logs.conf';
 use constant SLICES_TABLE =>  'backup_slices';
 use constant MIN_SLICE_INTERVAL => 86400; # 1 day (in seconds)
 
-
 sub backupSlicesDBTable
 {
     return SLICES_TABLE;
 }
-
 
 # Method: slicedBackup
 #
@@ -181,7 +179,6 @@ sub _backupTableSlices
     return 1;
 }
 
-
 sub _restoreTables
 {
     my ($dbengine, $dir, %params) = @_;
@@ -246,7 +243,6 @@ sub _restoreTables
     }
 }
 
-
 sub _updateTimeline
 {
     my ($dbengine, $actual, $date) = @_;
@@ -267,7 +263,6 @@ sub _updateTimeline
                          "beginTs <= to_timestamp($date)" ;
     $dbengine->do($updateTimeline);
 }
-
 
 # wether a database table should be backed/restored in sliced mode.
 # currently are exmpted all the report/consolidation tables, 'admin' and 'backup_slices'
@@ -323,7 +318,6 @@ sub _actualTableSlice
     return ($res->{id}, $res->{begints},  $res->{endts}, $res->{timeline});
 }
 
-
 sub _activeTimeline
 {
     my ($dbengine) = @_;
@@ -336,7 +330,6 @@ sub _activeTimeline
 
     return 1; # valeu for first timeline
 }
-
 
 sub _updateSliceMap
 {
@@ -424,7 +417,6 @@ sub _backupFileForTable
     }
 }
 
-
 # Method: archive
 #
 #  Move the data from past slices to the archive. It only archives it,does not purge it
@@ -479,7 +471,6 @@ sub archive
     foreach my $table (@{ archivableTables($dbengine) }) {
         _updateSliceMap($dbengine, table => $table, period => $epochPeriod, nowTs => $nowTs);
     }
-
 
     # get slices to backup
     my $sql = 'SELECT id, tablename, beginTs, endTs FROM ' . SLICES_TABLE . ' '.
@@ -574,7 +565,6 @@ sub slicedMode
     return $value eq 'yes';
 }
 
-
 # Method: limitPurgeThreshold
 #
 #   Push back if needed the purge threshold so data form no-archived slices isnt purged
@@ -631,7 +621,6 @@ sub _superuserTmpDir
 {
     return  EBox::Config::tmp() . 'postgres-tmp';
 }
-
 
 # Method: slicesFromArchive
 #
@@ -714,7 +703,6 @@ sub slicesFromArchive
 
         # end choose files loop
     }
-
 
     my @files = map {
         my $tableValues = $_;

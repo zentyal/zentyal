@@ -51,7 +51,6 @@ sub precondition
     return _bwModEnabled
 }
 
-
 sub preconditionFailMsg
 {
     unless (EBox::Global->modExists('bwmonitor')) {
@@ -61,7 +60,6 @@ sub preconditionFailMsg
     # Not enabled:
     return __x('If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}Module Status{enda} section.', begina => '<a href="/ServiceModule/StatusView">', enda => '</a>');
 }
-
 
 sub limitBWValue
 {
@@ -103,7 +101,6 @@ sub _table
                 )
          );
 
-
     my @options = (
         {
             value => 'day',
@@ -128,7 +125,6 @@ sub _table
                defaultValue => 'month',
                ));
 
-
     my $dataTable =
     {
         tableName          => 'BWSettings',
@@ -142,7 +138,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 # reimplement this with model changed notifier when it works again
 sub updatedRowNotify
@@ -158,6 +153,5 @@ sub updatedRowNotify
         }
     }
 }
-
 
 1;

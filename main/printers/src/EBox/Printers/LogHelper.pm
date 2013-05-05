@@ -76,7 +76,6 @@ sub processLine # (file, line, logger)
     }
 }
 
-
 sub _processMainLog
 {
     my ($self, $file, $line, $dbengine) = @_;
@@ -160,7 +159,6 @@ sub _processPagesLog
                      );
 }
 
-
 1;
 __DATA__
 error_log example:
@@ -169,7 +167,6 @@ E [15/Jul/2010:15:01:07 +0200] [cups-driverd] Bad driver information file "/usr/
 I [15/Jul/2010:18:36:21 +0200] [Job 11] Queued on "hpqueue" by "user".
 
 I [15/Jul/2010:18:38:54 +0200] [Job 11] Job completed.
-
 
 page_log example:
 hpqueue 13 user [15/Jul/2010:18:48:23 +0200] 4 1DEBUG: - localhost (stdin) na_letter_8.5x11in -

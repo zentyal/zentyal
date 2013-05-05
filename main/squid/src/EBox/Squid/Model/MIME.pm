@@ -132,7 +132,6 @@ my @ianaMimeTypes = ("application",
         "[Xx]-.*" );
 my $allIanaMimeType = all @ianaMimeTypes;
 
-
 sub checkMimeType
 {
     my ($self, $type) = @_;
@@ -219,7 +218,6 @@ sub _aclName
     my $aclName = $profileId . '~mime';
     return $aclName;
 }
-
 
 sub squidAcls
 {

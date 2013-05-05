@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Mail::Model::TrafficGraph;
 use base 'EBox::Logs::Model::Graph';
 #
@@ -21,8 +20,6 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-
-
 
 use Error qw(:try);
 
@@ -36,7 +33,6 @@ sub new
     return $self;
 
 }
-
 
 sub dbTableName
 {
@@ -54,18 +50,10 @@ sub dbFields
            };
 }
 
-
-
-
 sub altText
 {
     return __('Traffic summary chart');
 }
-
-
-
-
-
 
 # Method: _table
 #
@@ -100,21 +88,13 @@ sub _table
                                }
                   };
 
-
   return $dataTable;
 }
-
-
-
-
 
 sub tableName
 {
     return 'TrafficGraph';
 }
-
-
-
 
 sub timePeriod
 {

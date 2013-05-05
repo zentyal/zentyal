@@ -87,7 +87,6 @@ sub _process
     $self->{params} = \@htmlParams;
 }
 
-
 sub _requestDestination
 {
   my ($r) = @_;
@@ -95,7 +94,6 @@ sub _requestDestination
   if ($r->prev) {
     return _requestDestination($r->prev);
   }
-
 
   my $request = $r->the_request;
   my $method  = $r->method;

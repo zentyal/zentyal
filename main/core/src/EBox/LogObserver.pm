@@ -192,7 +192,6 @@ sub reportUrls
       my $index = $tableInfo->{tablename};
       my $rawUrl = "/Logs/Index?selected=$index&refresh=1";
 
-
       if (not $tableInfo->{consolidate}) {
           push @urls, { domain => $tableInfo->{name},  raw => $rawUrl, };
           next;
@@ -200,13 +199,10 @@ sub reportUrls
 
       my @consolidateTables = keys %{ $tableInfo->{consolidate} };
 
-
       my @reportComposites = grep {
           ((ref $_) =~ /Report$/) and
               ($self->_compositeUsesDbTable($_, \@consolidateTables) )
       } @{ $self->composites };
-
-
 
       (ref $self) =~  m/::(.*?)$/;;
       my $urlModName= $1;
@@ -234,13 +230,10 @@ sub reportUrls
 
       }
 
-
-
   }
 
     return \@urls;
 }
-
 
 sub _compositeUsesDbTable
 {

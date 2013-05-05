@@ -182,7 +182,6 @@ sub headTitle
     return undef;
 }
 
-
 # Group: Protected methods
 
 # Method: _table

@@ -62,7 +62,6 @@ sub _paramIsValid
     return 1;
 }
 
-
 my $ESCAPED_MIME_SEPARATOR = '_';
 
 sub _escapeMimeType

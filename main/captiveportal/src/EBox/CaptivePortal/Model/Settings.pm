@@ -92,7 +92,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub populateGroups
 {
     my $userMod = EBox::Global->modInstance('users');
@@ -111,8 +110,6 @@ sub populateGroups
     );
     return \@groups;
 }
-
-
 
 # Method: validateTypedRow
 #
@@ -164,6 +161,5 @@ sub setAuthGroupToAll
     my ($self) = @_;
     $self->setValue('group', '__all__');
 }
-
 
 1;

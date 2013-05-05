@@ -33,7 +33,6 @@ sub cloneTest
         $clone = $instance->clone();
     } 'cloning instance';
 
-
     is_deeply $instance, $clone,
         'checking tht data is the same in original and clone';
     is ref $instance, ref $clone,

@@ -156,7 +156,6 @@ sub updateSession
     close($sidFile);
 }
 
-
 # Method: checkPassword
 #
 #   Check if a given password matches the stored
@@ -292,7 +291,6 @@ sub authen_ses_key  # (request, session_key)
 
     return;
 }
-
 
 # Method: logout
 #

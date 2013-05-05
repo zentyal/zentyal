@@ -51,7 +51,6 @@ sub _process($) {
 	my $lhs = $self->param('lhs');
 	my $rhs = $self->param('rhs');
 
-
 	$mail->{malias}->addAlias($lhs."@".$rhs, $maildrop, $maildrop);
 }
 

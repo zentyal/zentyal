@@ -32,7 +32,6 @@ use EBox::Exceptions::External;
 
 use EBox::Mail::Types::WriteOnceDomain;
 
-
 sub new
 {
     my $class = shift;
@@ -57,7 +56,6 @@ sub _table
                                         'unique' => 1,
                                       ),
 
-
          );
 
         my $dataTable =
@@ -80,7 +78,6 @@ sub _table
 
         return $dataTable;
 }
-
 
 sub validateTypedRow
 {
@@ -139,7 +136,6 @@ sub preconditionFailMsg
                   'status section in order to use it.');
 }
 
-
 sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
@@ -158,7 +154,6 @@ sub pageTitle
         my ($self) = @_;
         return $self->parentRow()->printableValueByName('vdomain');
 }
-
 
 sub existsAlias
 {
@@ -179,7 +174,6 @@ sub aliases
 
     return \@aliases;
 }
-
 
 1;
 

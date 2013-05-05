@@ -216,7 +216,6 @@ sub _checkRaidArray
     return \@updatedEvents;
 }
 
-
 sub _storedRaidArraysInfo
 {
     my ($self) = @_;
@@ -393,7 +392,6 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
                       percentage => $arrayInfo->{operationPercentage}
                      );
 
-
     if ( $storedInfo->{operation} ne $arrayInfo->{operation} ) {
         if ( $storedInfo->{operation} eq 'none' ) {
              $evtMsg = __x('RAID device {name} has started operation {opName}.',
@@ -562,7 +560,6 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
 
     return \@compEvents;
 }
-
 
 # Group: Helper methods
 

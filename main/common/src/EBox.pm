@@ -126,7 +126,6 @@ sub setLocale # (locale)
     close ($fh);
 }
 
-
 # returns:
 #   - the locale
 sub locale
@@ -160,7 +159,6 @@ sub setLocaleEnvironment
     $ENV{LANG}     = $locale;
     $ENV{LANGUAGE} = $locale;
 }
-
 
 sub init
 {

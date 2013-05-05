@@ -34,9 +34,6 @@ sub new
     return $self;
 }
 
-
-
-
 sub dbFields
 {
    my ($package) = @_;
@@ -64,7 +61,6 @@ sub dbFields
            }
 
 }
-
 
 sub _table
 {
@@ -109,8 +105,6 @@ sub _table
 
                     ];
 
-
-
     my $dataTable =
         {
             'tableName' =>__PACKAGE__->tableName(),
@@ -130,7 +124,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'mailfilter_smtp_traffic';
@@ -141,11 +134,9 @@ sub tableName
     return 'FilterDetails';
 }
 
-
 sub timePeriodModelPath
 {
     return 'FilterReportOptions';
 }
-
 
 1;

@@ -84,7 +84,6 @@ sub menu
                                     'order' => 226));
 }
 
-
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -98,7 +97,6 @@ sub enableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
-
 
 sub _setConf
 {
@@ -142,7 +140,6 @@ sub _setConf
     $self->_writePeriodFile();
 }
 
-
 sub _writeCSS
 {
     my ($self) = @_;
@@ -161,7 +158,6 @@ sub _writeCSS
                                              [ %params ],
                                              { mode => '0644' });
 }
-
 
 sub _daemons
 {
@@ -189,7 +185,6 @@ sub _daemons
 #{
 #}
 
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -206,7 +201,6 @@ sub _ldapModImplementation
     my ($self) = @_;
     return $self->{cpldap};
 }
-
 
 # Function: usesPort
 #
@@ -227,7 +221,6 @@ sub usesPort # (protocol, port, iface)
     return undef;
 }
 
-
 # Function: httpPort
 #
 #   Returns the port where captive portal HTTP redirection resides
@@ -238,7 +231,6 @@ sub httpPort
     my $settings = $self->model('Settings');
     return $settings->http_portValue(),
 }
-
 
 # Function: httpsPort
 #
@@ -257,7 +249,6 @@ sub expirationTime
     my $settings = $self->model('Settings');
     return $settings->expirationValue(),
 }
-
 
 # Function: ifaces
 #
@@ -278,9 +269,7 @@ sub ifaces
     return \@ifaces;
 }
 
-
 # Session manage methods:
-
 
 # Function: currentUsers
 #
@@ -307,7 +296,6 @@ sub currentUsers
     return $model->currentUsers();
 }
 
-
 # method: userFirewallRule
 #
 #   Parameters:
@@ -326,7 +314,6 @@ sub userFirewallRule
     $macSrc = "-m mac --mac-source $mac" if defined($mac);
     return "-s $ip $macSrc -m comment --comment 'user:$name' -j RETURN";
 }
-
 
 sub exceptionsFirewallRules
 {
@@ -367,7 +354,6 @@ sub sessionExpired
     return time() > ($time + $self->expirationTime() + 30);
 }
 
-
 # Function: quotaExceeded
 #
 #   returns 1 if user has exceeded his quota
@@ -397,7 +383,6 @@ sub quotaExceeded
     # check quota
     return $bwusage > $quota;
 }
-
 
 # Function: removeSession
 #
@@ -431,7 +416,6 @@ sub _bwmonitor {
     my $bwmonitor = EBox::Global->modInstance('bwmonitor');
     return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
-
 
 sub eventWatchers
 {

@@ -103,7 +103,6 @@ sub RRDBaseDirForFqdn
     return RRD_BASE_DIR . $fqdn . '/';
 }
 
-
 # Method: TimePeriods
 #
 #      Return the configured time periods for Monitoring

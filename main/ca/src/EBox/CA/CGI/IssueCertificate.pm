@@ -32,7 +32,6 @@ use Error qw(:try);
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
 
-
 # Method: new
 #
 #       Constructor for IssueCertificate CGI

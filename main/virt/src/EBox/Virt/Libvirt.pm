@@ -609,7 +609,6 @@ sub writeConf
         $bootDev = 'cdrom';
     }
 
-
     my $os = $vmConf->{os};
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
@@ -721,7 +720,6 @@ sub ifaces
     @ifaces = grep { $network->ifaceIsBridge($_) } @ifaces;
     return @ifaces;
 }
-
 
 sub allowsNoneIface
 {

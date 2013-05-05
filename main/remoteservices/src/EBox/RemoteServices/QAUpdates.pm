@@ -103,7 +103,6 @@ sub _setQASources
         push(@tmplParams, (ssl => (not EBox::Config::boolean('qa_updates_repo_no_ssl'))));
     }
 
-
     $interp->exec($comp, @tmplParams);
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());

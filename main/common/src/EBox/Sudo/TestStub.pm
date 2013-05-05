@@ -78,7 +78,6 @@ sub _fakeRootCommands
     EBox::Sudo::_root(0, @cmds)
 }
 
-
 my @banFilters;
 sub addCommandBanFilter
 {

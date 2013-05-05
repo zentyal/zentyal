@@ -54,7 +54,6 @@ sub clearGConf : Test(teardown)
     EBox::TestStubs::setConfig();
 }
 
-
 sub deviantTableTest : Test(5)
 {
     my ($self) = @_;
@@ -309,7 +308,6 @@ sub addRowTest  : Test(25)
        'Checking data table size after the additions';
 }
 
-
 # XXX TODO:
 # deviant test up and down in no-prderer table
 # straight test of moving up and down
@@ -380,7 +378,6 @@ sub removeAllTest : Test(3)
     } 'call removeAll in a empty table';
 }
 
-
 sub removeAllRowsWithAutomaticRemove : Test(5)
 {
     my ($self) = @_;
@@ -412,7 +409,6 @@ sub removeAllRowsWithAutomaticRemove : Test(5)
     is $dataTable->size, 0, 'checking that after removing all rows with force-0 but not used rows  the table is empty';
 }
 
-
 sub removeRowTest : Test(5)
 {
     my ($self) = @_;
@@ -443,7 +439,6 @@ sub removeRowTest : Test(5)
     $dataTable->clear();
 }
 
-
 sub removeRowWithAutomaticRemoveTest : Test(8)
 {
     my ($self) = @_;
@@ -468,8 +463,6 @@ sub removeRowWithAutomaticRemoveTest : Test(8)
               'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on DataInUse excpeion notify method was not called');
 
-
-
     lives_ok {
         $dataTable->removeRow($id, 1)
     } 'removeRow with force in a used row within a automaticRemove table works';
@@ -487,7 +480,6 @@ sub removeRowWithAutomaticRemoveTest : Test(8)
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 }
-
 
 sub deviantSetRowTest : Test(9)
 {
@@ -594,7 +586,6 @@ sub _checkSetRow
     $dataTable->clear();
 }
 
-
 # XXX TODO add notification method parameters test
 sub setRowTest : Test(8)
 {
@@ -617,7 +608,6 @@ sub setRowTest : Test(8)
             \%changeParams,
             'Setting row',
     );
-
 
     lives_ok {
         $changeParams{id} = $id;
@@ -775,7 +765,6 @@ sub optionsFromForeignModelTest : Test(2)
 
     my $options=  $dataTable->optionsFromForeignModel($field);
 
-
     is_deeply  $options, \@expectedOptions,
                'checking optionsFromForeignModel for a existent field';
 }
@@ -816,7 +805,6 @@ sub findTest : Test(6)
     is $valueFound->id(), $row->id(),
        'checking return value of findValue method';
 }
-
 
 sub _newDataTable
 {
@@ -862,7 +850,6 @@ sub _newPopulatedDataTable
 
     my $dataTable = $self->_newDataTable($tableDescription);
     $self->_populateDataTable($dataTable);
-
 
     return $dataTable;
 }
