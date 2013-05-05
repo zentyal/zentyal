@@ -115,7 +115,7 @@ fi
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
 then
     plymouth message --text="Registering your server... Please wait."
-    /usr/share/zenbuntu-desktop/remote-register
+    /usr/share/zenbuntu-core/remote-register
 fi
 
 if [ -d /usr/share/zentyal-custom/scripts ]

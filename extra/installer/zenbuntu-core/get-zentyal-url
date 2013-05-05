@@ -1,0 +1,15 @@
+#!/bin/bash
+
+IP="your_server_ip"
+
+for net in "192.168" "172.16" "10." "."
+do
+    realip=$(ifconfig|grep "inet addr:"|grep $net|cut -d: -f2 |cut -d' ' -f1|head -1)
+    if [ -n "$realip" ]
+    then
+        IP=$realip
+        break
+    fi
+done
+
+echo "https://$IP"
