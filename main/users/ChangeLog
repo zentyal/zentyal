@@ -1,4 +1,6 @@
 HEAD
+	+ Added Pre-Depends on slapd to avoid problems with upgrades
+3.0.18
 	+ Check for already existent service principals before create them.
 	  Required because squid and zarafa share the HTTP SPN
 3.0.17

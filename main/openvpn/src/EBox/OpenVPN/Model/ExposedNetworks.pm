@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,17 +16,10 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ExposedNetworks;
-use base 'EBox::Model::DataTable';
+use base 'EBox::OpenVPN::Model::ExposedNetworksBase';
 
-use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Exceptions::External;
-use EBox::Exceptions::DataExists;
-
-use EBox::Types::Select;
-
-# Group: Public methods
+use EBox::NetWrappers;
 
 sub new
 {
@@ -38,40 +31,20 @@ sub new
     return $self;
 }
 
-sub name
-{
-    __PACKAGE__->nameFromClass(),
-}
-
-# Group: Protected methods
 sub _table
 {
     my ($self) = @_;
 
-
-    my @tableHead =
-    (
-        new EBox::Types::Select(
-                               fieldName     => 'object',
-                               foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
-                               foreignField  => 'name',
-                               foreignNextPageField => 'members',
-
-                               printableName => __('Advertised Network'),
-                               unique        => 1,
-                               editable      => 1,
-                               optional      => 0,
-                              ),
-    );
+    my $tableHead = $self->_tableHead();
 
     my $dataTable =
         {
-            'tableName'              => __PACKAGE__->name(),
+            'tableName'              => 'ExposedNetworks',
             'printableTableName' => __('List of Advertised Networks'),
             'automaticRemove' => 1,
             'defaultController' => '/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
+            'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'printableRowName' => __('Advertised network'),
             'sortedBy' => 'object',
@@ -82,17 +55,7 @@ sub _table
     return $dataTable;
 }
 
-# Method: pageTitle
-#
-#   Overrides <EBox::Model::DataTable::pageTitle>
-#   to show the name of the domain
-sub pageTitle
-{
-    my ($self) = @_;
-    return $self->parentRow()->printableValueByName('name');
-}
-
-# Return the help message
+# Return the model help message
 sub _help
 {
     return __x('{openpar}You can add here those networks which you want to make ' .
@@ -102,6 +65,31 @@ sub _help
               '{openpar}If an advertised network address is the same as the VPN' .
               ' network address, the advertised network will be ignored.{closepar}',
               openpar => '<p>', closepar => '</p>');
+}
+
+# Method: networks
+#
+# overrided to exclude own VPN network
+#
+# Overrides:
+#
+#     <EBox::OpenVPN::Model::ExposedNetworksBase::networks>
+#
+sub networksDisabledForNow
+{
+    my ($self) = @_;
+    my $serverConfModel = $self->parentRow()->subModel('configuration');
+    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
+    my @networks = grep {
+        my $network = $_;
+        my $netIP = EBox::NetWrappers::to_network_with_mask(
+                       $network->{ip},
+                       $network->{mask}
+                     );
+        # Advertised network should not be inthe  openvpn network
+        ($netIP ne $vpn)
+    } @{  $self->SUPER::networks() };
+    return \@networks;
 }
 
 1;

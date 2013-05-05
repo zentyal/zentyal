@@ -3,7 +3,7 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Zentyal Desktop"
 !define PRODUCT_VERSION "0.1"
-!define PRODUCT_PUBLISHER "eBox Technologies S.L."
+!define PRODUCT_PUBLISHER "Zentyal S.L."
 !define PRODUCT_WEB_SITE "http://www.zentyal.com"
 !define PRODUCT_DIR_REGKEY "Software\Zentyal\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_KEY "Software\Zentyal\${PRODUCT_NAME}\Uninstall\"

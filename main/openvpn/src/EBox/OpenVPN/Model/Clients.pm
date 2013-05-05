@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,15 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::OpenVPN::Model::Clients;
-
-use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
-
 use strict;
 use warnings;
 
-use EBox::Global;
+package EBox::OpenVPN::Model::Clients;
+use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
+
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
@@ -31,12 +28,9 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::Text::WriteOnce;
 
-#use EBox::OpenVPN::Model::ClientConfiguration;
-
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
@@ -48,7 +42,6 @@ sub _table
 {
     my @tableHead =
         (
-
          new EBox::Types::Text::WriteOnce
                             (
                                 'fieldName' => 'name',
@@ -75,6 +68,15 @@ sub _table
                              ),
             new EBox::Types::HasMany
                             (
+                                'fieldName' => 'advertisedNetworks',
+                                'printableName' => __('Advertised networks'),
+                                'foreignModel' => 'ClientExposedNetworks',
+                                'view' => '/OpenVPN/View/ClientExposedNetworks',
+                                'backView' => '/OpenVPN/View/Clients',
+                                'size' => '1',
+                             ),
+            new EBox::Types::HasMany
+                            (
                                 'fieldName' => 'upload',
                                 'printableName' => __('Upload client bundle'),
                                 'foreignModel' => 'UploadClientBundle',
@@ -82,8 +84,9 @@ sub _table
                                 'backView' => '/OpenVPN/View/Clients',
                                 'size' => '1',
                              ),
-         new EBox::Types::Boolean
-                            (
+
+            new EBox::Types::Boolean
+                             (
                              fieldName => 'internal',
                              printableName => 'internal',
                              hidden        => 1,
@@ -117,9 +120,6 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
-
-
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -128,7 +128,6 @@ sub validateTypedRow
     $self->_validateName($action, $params_r, $actual_r);
     $self->_validateRipPasswd($action, $params_r, $actual_r);
 }
-
 
 sub _validateService
 {
@@ -151,7 +150,6 @@ sub _validateService
         }
 }
 
-
 sub _validateName
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -161,7 +159,7 @@ sub _validateName
     }
 
     my $name =  $params_r->{name}->value();
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $openvpn = $self->parentModule();
 
     my $internal = exists $params_r->{internal} ?
                             $params_r->{internal}->value() :
@@ -170,7 +168,6 @@ sub _validateName
 
     $openvpn->checkNewDaemonName($name, 'client', $internal);
 }
-
 
 sub _validateRipPasswd
 {
@@ -186,8 +183,6 @@ sub _validateRipPasswd
                                          __('RIP password is mandatory')
                                         )
     }
-
-
 }
 
 sub clients
@@ -200,7 +195,6 @@ sub clients
     return \@clients;
 
 }
-
 
 sub client
 {
@@ -231,13 +225,15 @@ sub addedRowNotify
 
     EBox::OpenVPN::Model::InterfaceTable::addedRowNotify($self, $row);
 
-    my $service = $row->elementByName('service');
+    # populate the advertised networks of the new client
+    my $advertise = $row->subModel('advertisedNetworks');
+    $advertise->populateWithInternalNetworks();
 
+    my $service = $row->elementByName('service');
     if ($service->value()) {
         my $openvpn = $self->parentModule();
         $openvpn->notifyLogChange();
     }
-
 }
 
 sub updatedRowNotify

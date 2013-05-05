@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -114,7 +114,6 @@ sub _content
 {
     my ($self) = @_;
 
-    my $dhcp = $self->{confmodule};
     my $net  = EBox::Global->modInstance('network');
 
     my $interface = $self->parentRow->valueByName('iface');
@@ -125,8 +124,8 @@ sub _content
                             $net->ifaceNetmask($interface)
                                                         );
 
-    my $availableRange = $dhcp->initRange($interface) . ' - '
-      . $dhcp->endRange($interface);
+    my $availableRange = $net->netInitRange($interface) . ' - '
+      . $net->netEndRange($interface);
 
     return {
        iface_address   => $ifaceAddr,

@@ -1,3 +1,5 @@
+HEAD
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.1
 	+ Logrotate preserves interface log file
 	+ Adapted to improvement of EBox::Module::Service::isRunning method

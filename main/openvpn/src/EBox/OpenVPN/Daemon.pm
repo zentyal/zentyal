@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -437,14 +437,17 @@ sub ripDaemon
 #              passwd    - rip password for this daemon
 sub ifaceWithRipPasswd
 {
-    my ($self) = @_;
+    my ($self, $redistributeNets) = @_;
     my $iface = $self->iface;
     my $passwd = $self->ripPasswd;
+    $redistributeNets or
+        $redistributeNets = [];
 
     return {
-            ifaceName => $iface,
-            passwd    => $passwd,
-    };
+             ifaceName => $iface,
+             passwd    => $passwd,
+             redistributeNets => $redistributeNets,
+           };
 }
 
 #  Method: ripPasswd

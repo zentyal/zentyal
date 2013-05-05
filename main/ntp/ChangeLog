@@ -1,5 +1,6 @@
 HEAD
 	+ Implemented _daemonsToDisable()
+3.0.1
 	+ Samba clients can now sync clock with ntp
 2.3.8
 	+ NTP port is open to internal networks by default

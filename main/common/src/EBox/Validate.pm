@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -48,6 +48,68 @@ BEGIN {
         @EXPORT_OK = qw();
         Exporter::export_ok_tags('all');
         $VERSION = EBox::Config::version;
+}
+
+# Function: isRangeOverlappingWithRange
+#
+#   Checks if an given range overlaps with another range
+#
+# Parameters:
+#
+#       first_range  - Hash with the first range (keys: from, to)
+#       second_range - Hash with the second range (keys: from, to)
+#
+# Returns:
+#
+#       boolean - True if the ranges overlap, false otherwise
+#
+sub isRangeOverlappingWithRange # first_range, second_range
+{
+    my ($first_range, $second_range) = @_;
+    my $range1 = new Net::IP("$first_range->{from}-$first_range->{to}");
+    my $range2 = new Net::IP("$second_range->{from}-$second_range->{to}");
+    return ($range1->overlaps($range2) != $IP_NO_OVERLAP);
+}
+
+# Function: isValidRange
+#
+#   Checks if an given range is valid
+#
+# Parameters:
+#
+#       from - IP range start
+#       to   - IP range end
+#
+# Returns:
+#
+#       boolean - True if the range is valid, false otherwise
+#
+sub isValidRange # from, to
+{
+    my ($from, $to) = @_;
+    return new Net::IP("$from-$to");
+}
+
+# Function: isIPInRange
+#
+#   Checks if an IP is within a given range
+#
+# Parameters:
+#
+#       from - IP range start
+#       to   - IP range end
+#       host_ip - host address to check it belongs to the given range
+#
+# Returns:
+#
+#       boolean - True if the address is within the range, false otherwise
+#
+sub isIPInRange # from, to, host_ip
+{
+    my ($from, $to, $host_ip) = @_;
+    my $range = new Net::IP("$from-$to");
+    my $ip = new Net::IP($host_ip);
+    return ($range->overlaps($ip) != $IP_NO_OVERLAP);
 }
 
 # Function: isIPInNetwork

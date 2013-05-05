@@ -1,5 +1,7 @@
 HEAD
 	+ Implemented _daemonsToDisable()
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+3.0.9
 	+ Change the kerberos service from squid to http. Zarafa and Squid must
 	  share the service principal.
 	+ Disable DC reverse DNS lookup for msktutil commands

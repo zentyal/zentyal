@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1814,44 +1814,6 @@ sub firewallHelper
     }
 
     return undef;
-}
-
-# Get the ranges for the given domain if used by DHCP module
-sub _getRanges
-{
-    my ($self, $domainData) = @_;
-
-    my @ranges = ();
-
-    my $dhcp = EBox::Global->modInstance('dhcp');
-    my $net  = EBox::Global->modInstance('network');
-
-    return \@ranges unless (defined($dhcp));
-
-    foreach my $iface (grep { $net->ifaceMethod($_) eq 'static'} @{$net->allIfaces()}) {
-        my $dynDNSRow = $dhcp->dynamicDNSDomains($iface);
-        my @domains = ( $dynDNSRow->printableValueByName('dynamic_domain') );
-        if ( $dynDNSRow->valueByName('static_domain') ne 'same' ) {
-            push(@domains, $dynDNSRow->printableValueByName('static_domain'));
-        }
-        if ( $domainData->{'name'} eq any(@domains) ) {
-            my $initRange = $dhcp->initRange($iface);
-            $initRange =~ s/1$/0/;
-            my $endRange  = $dhcp->endRange($iface);
-            my $ip = new Net::IP("$initRange - $endRange");
-            do {
-                my $rev = Net::IP->new($ip->ip())->reverse_ip();
-                if ( defined($rev) ) {
-                    # It returns 0.netaddr.in-addr.arpa so we need to remove it
-                    # to make it compilant with bind zone definition
-                    $rev =~ s/^0\.//;
-                    $rev =~ s:\.in-addr\.arpa\.::;
-                    push(@ranges, $rev);
-                }
-            } while ($ip += 256);
-        }
-    }
-    return \@ranges;
 }
 
 sub _updateManagedDomainIPsModel

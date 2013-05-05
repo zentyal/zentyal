@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -975,10 +975,7 @@ sub _setAppArmorProfiles
 #
 sub _regenConfig
 {
-    my ($self) = @_;
-
-    my @params = (@_);
-    shift(@params);
+    my ($self, @params) = @_;
 
     $self->_preSetConf(@params);
     $self->_preSetConfHook();

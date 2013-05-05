@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -293,56 +293,24 @@ sub depends
     return $dependsList;
 }
 
-# Method: initRange
-#
-#   Return the initial host address range for a given interface
-#
-# Parameters:
-#
-#   iface - String interface name
-#
-# Returns:
-#
-#   String - containing the initial range
-#
+# DEPRECATED
 sub initRange # (interface)
 {
     my ($self, $iface) = @_;
 
     my $net = $self->global()->modInstance('network');
-    my $address = $net->ifaceAddress($iface);
-    my $netmask = $net->ifaceNetmask($iface);
 
-    my $network = ip_network($address, $netmask);
-    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
-    my $init_range = $first . "." . ($last+1);
-    return $init_range;
+    return $net->netInitRange($iface);
 }
 
-# Method: endRange
-#
-#   Return the final host address range for a given interface
-#
-# Parameters:
-#
-#   iface - String interface name
-#
-# Returns:
-#
-#   string - containing the final range
-#
+# DEPRECATED
 sub endRange # (interface)
 {
     my ($self, $iface) = @_;
 
     my $net = $self->global()->modInstance('network');
-    my $address = $net->ifaceAddress($iface);
-    my $netmask = $net->ifaceNetmask($iface);
 
-    my $broadcast = ip_broadcast($address, $netmask);
-    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
-    my $end_range = $first . "." . ($last-1);
-    return $end_range;
+    return $net->netEndRange($iface);
 }
 
 # Method: defaultGateway

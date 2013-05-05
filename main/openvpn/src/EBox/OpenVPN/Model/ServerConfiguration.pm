@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -129,6 +129,14 @@ sub _table
                  optional => 1,
 
                  ),
+         new EBox::Types::Boolean(
+                 fieldName => 'rejectRoutes',
+                 printableName => __('Reject routes pushed by Zentyal tunnel clients'),
+                 editable => 1,
+                 defaultValue => 0,
+                 help => __('When checked this server will not take any route ' .
+                            'advertised by its client')
+                 ),
          new EBox::Types::Select(
                  fieldName  => 'local',
                  printableName => __('Interface to listen on'),
@@ -200,8 +208,8 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $tunnelParams = [qw/ripPasswd/];
-    my $noTunnelParams = [qw/redirectGw dns1 dns2 searchDomain wins/];
+    my $tunnelParams = [qw/ripPasswd rejectRoutes/];
+    my $noTunnelParams = [qw/clientToClient redirectGw dns1 dns2 searchDomain wins/];
 
     $customizer->setOnChangeActions(
             { pullRoutes =>
@@ -224,9 +232,6 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
-
-
-
 sub _populateLocal
 {
     my @options;
@@ -247,9 +252,6 @@ sub _populateLocal
 
     return \@options;
 }
-
-
-
 
 sub validateTypedRow
 {
@@ -488,8 +490,6 @@ sub _checkIface
             __x('The interface {iface} is not configured'), iface => $iface);
     }
 }
-
-
 
 sub _checkMasqueradeIsAvailable
 {

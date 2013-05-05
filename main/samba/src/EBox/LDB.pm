@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -82,10 +82,15 @@ sub _new_instance
     my @sidsTmp = grep(/^\s*S-/, @lines);
     my @sids = map { s/\n//; $_; } @sidsTmp;
 
+    my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
+    @lines = read_file($ignoredGroupsFile);
+    my %ignoredGroups = map { $_ => 1 } @lines;
+
     my $self = {};
     $self->{ldb} = undef;
     $self->{idamp} = undef;
     $self->{ignoredSids} = \@sids;
+    $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
 }
@@ -602,6 +607,9 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
+
+        next if (exists $self->{ignoredGroups}->{$entry->get_value('samAccountName')});
+
         my $group = new EBox::Samba::Group(entry => $entry);
 
         my $skip = 0;
@@ -613,6 +621,7 @@ sub groups
 
         push (@{$list}, $group);
     }
+
     return $list;
 }
 

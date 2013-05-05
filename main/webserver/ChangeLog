@@ -1,6 +1,7 @@
 HEAD
 	+ Removed no longer required explicit disabling of apache2 init script
 	  as it is now managed by the framework
+	+ More error checking when creating virtual host directories
 3.0.3
 	+ Fixed bug when checking hostname aliases on creation of a
 	  virtual host

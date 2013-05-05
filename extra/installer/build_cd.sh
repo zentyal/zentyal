@@ -16,10 +16,15 @@ mkdir $TMPDIR
 # Download ubuntu keyring if not exists
 test -f $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
 
-# Build zenbuntu-desktop package including core deps
-cp -rL zenbuntu-desktop $TMPDIR/zenbuntu-desktop
+# Build zenbuntu-core package including zentyal-core deps
+cp -rL zenbuntu-core $TMPDIR/zenbuntu-core
 CORE_DEPS=`./extract-core-deps.sh`
-sed -i "s/^Depends: /Depends: $CORE_DEPS /" $TMPDIR/zenbuntu-desktop/debian/control
+sed -i "s/^Depends: /Depends: $CORE_DEPS /" $TMPDIR/zenbuntu-core/debian/control
+pushd $TMPDIR/zenbuntu-core
+dpkg-buildpackage
+popd
+
+cp -rL zenbuntu-desktop $TMPDIR/zenbuntu-desktop
 pushd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
 popd

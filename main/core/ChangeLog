@@ -1,6 +1,11 @@
 HEAD
 	+ Daemons are now disabled when configuring a module, so Zentyal can
 	  manage them directly instead of being autostarted by the system
+	+ EBox::Model::DataForm::formSubmitted called even where there is no
+	  previous row
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on mysql-server metapackage instead of mysql-server-5.5
+3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
 	+ Print correctly UTF8 characters from configuration backup description

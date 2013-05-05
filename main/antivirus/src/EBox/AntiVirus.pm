@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,17 +18,20 @@ package EBox::AntiVirus;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver);
-
-use EBox::Gettext;
-use EBox::Service;
-#use EBox::Dashboard::Module;
+use base qw(EBox::Module::Service
+            EBox::FirewallObserver
+            EBox::LogObserver);
 
 use Perl6::Junction qw(any);
 use File::Slurp qw(read_file write_file);
-use EBox::Config;
-use EBox::Global;
+use File::ReadBackwards;
+
 use EBox::AntiVirus::FirewallHelper;
+use EBox::AntiVirus::LogHelper;
+use EBox::Config;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Service;
 
 use constant CLAMAV_PID_DIR => '/var/run/clamav/';
 
@@ -42,6 +45,7 @@ use constant {
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
+  FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
   FRESHCLAM_USER                => 'clamav',
 };
 
@@ -266,8 +270,9 @@ sub freshclamState
         return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
     }
 
-    my $fileContents  =  read_file($freshclamStateFile);
-    my %state =  split ',', $fileContents, (@stateAttrs * 2);
+    my $file = new File::ReadBackwards($freshclamStateFile);
+    my $lastLine = $file->readline();
+    my %state = split(',', $lastLine, (@stateAttrs * 2));
 
     # checking state file coherence
     foreach my $attr (@stateAttrs) {
@@ -285,11 +290,31 @@ sub freshclamEBoxDir
     return FRESHCLAM_DIR;
 }
 
+# Class method: freshclamStateFile
+#
+# Returns:
+#
+#      String - the path to freshclam state file path
+#
 sub freshclamStateFile
 {
-    return freshclamEBoxDir() . 'freshclam.state';
+    return EBox::AntiVirus::LogHelper::FRESHCLAM_STATE_FILE;
 }
 
+# Class Method: notifyFreshclamEvent
+#
+#     Got notified from a freshclam event and store the state in
+#     /var/lib/clamav/freshclam.state file. This is called by
+#     freshclam-observer script which is called by freshclam after an
+#     attempt of updating the AV Data Base
+#
+# Parameters:
+#
+#     event - String the freshclam event. Valid ones are: update, error, outdated
+#
+#     extraParam - String extra parameters (only expected last version
+#                  for outdated event)
+#
 sub notifyFreshclamEvent
 {
     my ($class, $event, $extraParam) = @_;
@@ -307,18 +332,15 @@ sub notifyFreshclamEvent
 
     if ($event eq 'update') {
         $update = 1;
-    }
-    elsif ($event eq  'error') {
+    } elsif ($event eq 'error') {
         $error = 1;
-    }
-    elsif ($event eq 'outdated') {
-        $outdated = $extraParam; # $extraPAram = last version
-
+    } elsif ($event eq 'outdated') {
+        $outdated = $extraParam; # $extraParam = last version
     }
 
-    my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated";
+    my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated\n";
     my $stateFile = $class->freshclamStateFile();
-    write_file($stateFile, $statePairs);
+    write_file($stateFile, { append => 1 }, $statePairs);
 }
 
 sub firewallHelper
@@ -346,6 +368,48 @@ sub summary
         running       => $self->isRunning(),
         nobutton      => 0);
     $section->add($antivirus);
+}
+
+# Implement LogObserver interface
+
+# Method: logHelper
+#
+# Overrides:
+#
+#     <EBox::LogObserver::logHelper>
+#
+sub logHelper
+{
+    return (new EBox::AntiVirus::LogHelper());
+}
+
+# Method: tableInfo
+#
+# Overrides:
+#
+#     <EBox::LogObserver::tableInfo>
+#
+sub tableInfo
+{
+    my $titles = {
+        'timestamp' => __('Date'),
+        'source'    => __('Source'),
+        'event'     => __('Event')
+       };
+    my @order  = ('timestamp', 'source', 'event' );
+    my @filter = ('source');
+    my $events = { 'success' => __('Success'), 'failure' => __('Failure') };
+
+    return [{
+        'name'      => __('Antivirus DB updates'),
+        'tablename' => 'av_db_updates',
+        'titles'    => $titles,
+        'order'     => \@order,
+        'timecol'   => 'timestamp',
+        'filter'    => \@filter,
+        'events'    => $events,
+        'eventcol'  => 'event',
+    }];
 }
 
 1;
