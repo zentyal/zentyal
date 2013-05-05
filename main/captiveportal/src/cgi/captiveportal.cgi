@@ -34,7 +34,7 @@ try {
     sigprocmask(SIG_UNBLOCK, $sigset);
 
     binmode(STDOUT, ':utf8');
-    EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
+    EBox::CGI::CaptivePortal::Run->run($ENV{'script'});
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;

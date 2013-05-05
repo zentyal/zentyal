@@ -34,7 +34,7 @@ try {
     sigprocmask(SIG_UNBLOCK, $sigset);
 
     binmode(STDOUT, ':utf8');
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner');
+    EBox::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::HtmlBlocks');
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;

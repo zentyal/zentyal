@@ -32,8 +32,8 @@ try {
 
     EBox::init();
     binmode(STDOUT, ':utf8');
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox');
-} otherwise  {
+    EBox::CGI::Run->run($ENV{'script'});
+} otherwise {
     my $ex = shift;
     use Devel::StackTrace;
     use CGI qw/:standard/;
