@@ -8,6 +8,7 @@ plymouth message --text="Installing Zentyal core packages... Please wait."
 if [ $? -ne 0 ]
 then
     plymouth message --text="Installation failed. Press <ESC> to see details."
+    plymouth --wait
     exit 1
 fi
 
