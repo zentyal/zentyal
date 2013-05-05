@@ -63,7 +63,7 @@ sub run
                 push (@extraParams, htmlblocks => $htmlblocks);
             }
 
-            my $classname = _cgiFromUrl($url);
+            my $classname = urlToClass($url);
             eval "use $classname";
 
             if ($@) {
@@ -108,6 +108,28 @@ sub modelFromUrl
     return _instanceComponent($path, $type);
 }
 
+# Method: urlToClass
+#
+#  Returns CGI class for the given URL
+#
+sub urlToClass
+{
+    my ($url) = @_;
+
+    unless ($url) {
+        return "EBox::Dashboard::CGI::Index";
+    }
+
+    my @parts = split('/', $url);
+
+    if (@parts >= 2) {
+        return "EBox::$parts[0]::CGI::$parts[1]";
+    } else {
+        return "EBox::CGI::$parts[0]";
+    }
+}
+
+
 # Helper functions
 
 # Method: _parseModelUrl
@@ -141,23 +163,6 @@ sub _parseModelUrl
     }
 
     return undef;
-}
-
-sub _cgiFromUrl
-{
-    my ($url) = @_;
-
-    unless ($url) {
-        return "EBox::Dashboard::CGI::Index";
-    }
-
-    my @parts = split('/', $url);
-
-    if (@parts >= 2) {
-        return "EBox::$parts[0]::CGI::$parts[1]";
-    } else {
-        return "EBox::CGI::$parts[0]";
-    }
 }
 
 sub _urlAlias

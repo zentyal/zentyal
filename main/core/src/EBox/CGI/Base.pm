@@ -23,6 +23,7 @@ use CGI;
 use EBox::Gettext;
 use EBox;
 use EBox::Global;
+use EBox::CGI::Run;
 use EBox::Exceptions::Base;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -234,16 +235,6 @@ sub _loggedIn
     return 1;
 }
 
-sub _urlToChain # (url)
-{
-    my $str = shift;
-    $str =~ s/\?.*//g;
-    $str =~ s/\//::/g;
-    $str =~ s/::$//g;
-    $str =~ s/^:://g;
-    return "EBox::CGI::" . $str;
-}
-
 # arguments
 #   - name of the required parameter
 #   - display name for the parameter (as seen by the user)
@@ -317,7 +308,7 @@ sub run
     }
 
     if (defined($self->{chain})) {
-        my $classname = _urlToChain($self->{chain});
+        my $classname = EBox::CGI::Run::urlToClass($self->{chain});
         if (not $self->isa($classname)) {
           eval "use $classname";
           if ($@) {

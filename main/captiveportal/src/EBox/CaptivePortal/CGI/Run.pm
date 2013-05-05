@@ -31,7 +31,7 @@ sub run
     my ($self, $url) = @_;
 
     my $cgi;
-    my $classname = _cgiFromUrl($url);
+    my $classname = urlToClass($url);
     eval "use $classname";
     if ($@) {
         if (not $cgi) {
