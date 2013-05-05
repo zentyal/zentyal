@@ -103,6 +103,7 @@ sub modelFromUrl
     my ($url) = @_;
 
     my ($model, $namespace, $type) = _parseModelUrl($url);
+    return undef unless ($model and $namespace);
     my $path = lc ($namespace) . "/$model";
     return _instanceComponent($path, $type);
 }
