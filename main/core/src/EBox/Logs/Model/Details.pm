@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Logs::Model::Details;
+
 use base qw(EBox::Model::DataTable EBox::Logs::Model::Base);
 
 use EBox::Gettext;

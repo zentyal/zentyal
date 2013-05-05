@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 package EBox::Apache::Model::AdminPort;
+
 use base 'EBox::Model::DataForm';
 
 use Error qw(:try);

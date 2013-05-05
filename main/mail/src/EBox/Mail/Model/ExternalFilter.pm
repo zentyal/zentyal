@@ -23,11 +23,12 @@
 #
 #
 
-package EBox::Mail::Model::ExternalFilter;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Mail::Model::ExternalFilter;
+
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;

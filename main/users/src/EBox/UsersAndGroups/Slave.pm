@@ -21,6 +21,7 @@ use warnings;
 #    that changes to other machines (master provider).
 #
 package EBox::UsersAndGroups::Slave;
+
 use base 'EBox::LdapUserBase';
 
 use EBox::Global;

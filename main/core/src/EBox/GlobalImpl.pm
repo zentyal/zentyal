@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::GlobalImpl;
+
 use base qw(EBox::Module::Config Apache::Singleton::Process);
 
 use EBox;

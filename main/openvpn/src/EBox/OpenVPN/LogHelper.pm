@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::LogHelper;
+
 use base 'EBox::LogHelper';
 
 use EBox;

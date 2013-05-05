@@ -20,6 +20,7 @@ use warnings;
 #  This class is intended to use as base, replacing Test:Class, to build eBox's test classes
 #
 package EBox::Test::Class;
+
 use base 'Test::Class';
 
 use lib '../..';

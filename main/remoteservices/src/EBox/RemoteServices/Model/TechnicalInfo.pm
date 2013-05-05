@@ -23,10 +23,10 @@
 #     - SLA
 #
 
-package EBox::RemoteServices::Model::TechnicalInfo;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::TechnicalInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 

@@ -18,10 +18,10 @@
 #   This model is used to configure the system time zone
 #
 
-package EBox::SysInfo::Model::TimeZone;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::TimeZone;
 
 use Error qw(:try);
 use File::Slurp;

@@ -17,10 +17,10 @@
 #
 #      A specialised domain type that not allow single labels
 #
-package EBox::SysInfo::Types::DomainName;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Types::DomainName;
 
 use base 'EBox::Types::DomainName';
 

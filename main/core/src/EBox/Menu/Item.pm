@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Menu::Item;
+
 use base 'EBox::Menu::TextNode';
 
 use EBox::Exceptions::Internal;

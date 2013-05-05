@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::ClientBase;
+
 use base 'EBox::CGI::Base';
 
 use EBox::Gettext;

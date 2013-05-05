@@ -19,12 +19,12 @@
 # using the local mail server.
 #
 
+use strict;
+use warnings;
+
 package EBox::Event::Dispatcher::Mail;
 
 use base 'EBox::Event::Dispatcher::Abstract';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

@@ -25,10 +25,11 @@
 #    persist, then the alerts must be sent after X seconds happened
 #    the same notification level
 
-package EBox::Collectd::Notificate;
-
 use strict;
 use warnings;
+
+package EBox::Collectd::Notificate;
+
 use threads;
 use threads::shared;
 

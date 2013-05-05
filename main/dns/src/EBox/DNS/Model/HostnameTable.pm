@@ -21,6 +21,9 @@
 #   the host names (A resource records) in a domain and a set of alias
 #   described in <EBox::Network::Model::AliasTable>
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::HostnameTable;
 
 use EBox::DNS::Types::Hostname;
@@ -38,9 +41,6 @@ use EBox::Sudo;
 use EBox::Model::Manager;
 
 use Net::IP;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

@@ -14,10 +14,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-package EBox::Util::SQL;
-
 use strict;
 use warnings;
+
+package EBox::Util::SQL;
 
 use EBox::DBEngineFactory;
 use EBox::Logs::Consolidate;

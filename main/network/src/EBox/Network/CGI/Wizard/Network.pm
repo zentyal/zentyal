@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Network::CGI::Wizard::Network;
+
 use base 'EBox::CGI::WizardPage';
 
 use EBox::Global;

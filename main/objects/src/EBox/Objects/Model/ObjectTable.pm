@@ -22,6 +22,9 @@
 #   to a member <EBox::Object::Model::ObjectMemberTable>
 #
 #
+use strict;
+use warnings;
+
 package EBox::Objects::Model::ObjectTable;
 
 use EBox::Global;
@@ -35,9 +38,6 @@ use EBox::Types::HasMany;
 use EBox::Sudo;
 
 use Net::IP;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

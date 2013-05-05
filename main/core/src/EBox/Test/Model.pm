@@ -22,12 +22,12 @@
 #   It subclasses <EBox::Model::DataTable>
 #
 
+use strict;
+use warnings;
+
 package EBox::Test::Model;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;

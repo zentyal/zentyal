@@ -19,10 +19,10 @@
 #       protocols and ports.
 #
 
-package EBox::Services;
-
 use strict;
 use warnings;
+
+package EBox::Services;
 
 use base qw(EBox::Module::Config);
 

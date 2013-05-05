@@ -23,10 +23,10 @@
 #       which requires the configuration of a whole eBox module, you
 #       can advise the user setting this link so that he visits this.
 #
-package EBox::Types::Link;
-
 use strict;
 use warnings;
+
+package EBox::Types::Link;
 
 use base 'EBox::Types::Text';
 

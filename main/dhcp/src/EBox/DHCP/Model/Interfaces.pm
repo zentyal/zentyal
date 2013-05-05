@@ -25,6 +25,7 @@ use warnings;
 #
 
 package EBox::DHCP::Model::Interfaces;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

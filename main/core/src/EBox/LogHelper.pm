@@ -20,10 +20,10 @@
 #       An instance of this class must be returned inheriting from
 #       EBox::LogObserver and implementing the method logHelper()
 #
-package EBox::LogHelper;
-
 use strict;
 use warnings;
+
+package EBox::LogHelper;
 
 use Time::Piece;
 

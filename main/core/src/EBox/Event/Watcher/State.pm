@@ -16,10 +16,11 @@
 package EBox::Event::Watcher::State;
 
 # Class: EBox::Watcher::State;
+
+use base 'EBox::Event::Watcher::Base';
 #
 # This class is a watcher which checks current state from eBox
 #
-use base 'EBox::Event::Watcher::Base';
 
 # Constants:
 #

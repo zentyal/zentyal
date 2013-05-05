@@ -17,10 +17,10 @@
 #
 #   Folder to be synchronized
 #
-package EBox::SyncFolders::Folder;
-
 use strict;
 use warnings;
+
+package EBox::SyncFolders::Folder;
 
 use EBox::Exceptions::NotImplemented;
 use Perl6::Junction qw(any);

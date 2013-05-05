@@ -17,10 +17,10 @@
 #
 #   A specialised text type to represent a kerberos realm
 #
-package EBox::Types::KrbRealm;
-
 use strict;
 use warnings;
+
+package EBox::Types::KrbRealm;
 
 use base 'EBox::Types::DomainName';
 

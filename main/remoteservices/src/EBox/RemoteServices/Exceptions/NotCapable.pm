@@ -21,6 +21,7 @@
 package EBox::RemoteServices::Exceptions::NotCapable;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 sub new

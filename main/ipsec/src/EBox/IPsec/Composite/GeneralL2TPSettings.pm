@@ -16,12 +16,12 @@
 # Class: EBox::IPsec::Composite::GeneralL2TPSettings
 #
 #
+use strict;
+use warnings;
+
 package EBox::IPsec::Composite::GeneralL2TPSettings;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

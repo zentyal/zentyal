@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Firewall::Model::RedirectsTable;
+
 use base qw(EBox::Model::DataTable EBox::Firewall::Model::RulesWithInterface);
 
 use EBox::Global;

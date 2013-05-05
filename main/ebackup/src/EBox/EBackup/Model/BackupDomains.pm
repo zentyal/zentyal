@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup::Model::BackupDomains;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

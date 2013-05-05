@@ -19,6 +19,7 @@ use warnings;
 #   Form to set the Captive Portal general settings.
 #
 package EBox::CaptivePortal::Model::Settings;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

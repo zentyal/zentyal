@@ -20,10 +20,10 @@
 #   Organizational Unit, stored in LDAP
 #
 
-package EBox::UsersAndGroups::OU;
-
 use strict;
 use warnings;
+
+package EBox::UsersAndGroups::OU;
 
 use EBox::Global;
 use EBox::UsersAndGroups;

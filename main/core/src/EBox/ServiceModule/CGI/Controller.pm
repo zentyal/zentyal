@@ -13,28 +13,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::ServiceModule::Controller
-#
-#  This class is to gather the files which have been accepted to modify
-#  by the user
-#
-package EBox::ServiceModule::CGI::Controller;
-
 use strict;
 use warnings;
 
+package EBox::ServiceModule::CGI::Controller;
+
 use base 'EBox::CGI::ClientBase';
+
+#  This class is to gather the files which have been accepted to modify
+#  by the user
 
 use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new( @_);
+    my $self = $class->SUPER::new(@_);
 
     bless($self, $class);
     return $self;

@@ -17,10 +17,10 @@
 #
 #      A specialised text type to represent an domain name
 #
-package EBox::Types::DomainName;
-
 use strict;
 use warnings;
+
+package EBox::Types::DomainName;
 
 use base 'EBox::Types::Text';
 

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Menu::Root;
+
 use base 'EBox::Menu::Node';
 
 use EBox::Gettext;

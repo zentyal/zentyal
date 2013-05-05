@@ -21,12 +21,12 @@
 # TODO: Disconnect seamlessly from the Jabber server
 # TODO: Send presence from time to time
 
+use strict;
+use warnings;
+
 package EBox::Event::Dispatcher::Jabber;
 
 use base 'EBox::Event::Dispatcher::Abstract';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Model::Manager;

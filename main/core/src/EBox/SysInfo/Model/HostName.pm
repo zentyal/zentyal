@@ -20,6 +20,7 @@ use warnings;
 #   This model is used to configure the host name and domain
 #
 package EBox::SysInfo::Model::HostName;
+
 use base 'EBox::Model::DataForm';
 
 use Error qw(:try);

@@ -17,6 +17,7 @@ use warnings;
 
 # Description: Class for modelling each of the OpenVPN servers
 package EBox::OpenVPN::Client;
+
 use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkHost);

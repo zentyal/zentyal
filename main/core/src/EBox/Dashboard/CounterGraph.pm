@@ -15,6 +15,7 @@ use strict;
 use warnings;
 
 package EBox::Dashboard::CounterGraph;
+
 use base 'EBox::Dashboard::Graph';
 
 use EBox::Gettext;

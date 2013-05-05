@@ -19,12 +19,12 @@
 #   that allows modification on the fields of the GatewayTable mode.
 #   We make the interface field non-editable for automatic rows.
 #
+use strict;
+use warnings;
+
 package EBox::Network::View::GatewayTableCustomizer;
 
 use base 'EBox::View::Customizer';
-
-use strict;
-use warnings;
 
 # Group: Public methods
 

@@ -15,11 +15,12 @@
 
 package EBox::Event::Dispatcher::Log;
 
+use base 'EBox::Event::Dispatcher::Abstract';
+
 # Class: EBox::Dispatcher::Log
 #
 # This class is a dispatcher which sends the event to the eBox log.
 #
-use base 'EBox::Event::Dispatcher::Abstract';
 
 ################
 # Dependencies

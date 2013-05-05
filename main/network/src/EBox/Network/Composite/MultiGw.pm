@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Network::Composite::MultiGw;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;

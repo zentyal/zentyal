@@ -200,6 +200,7 @@ sub _defaultComponents
 }
 
 package TestComposite;
+
 use base 'EBox::Model::Composite';
 
 sub new

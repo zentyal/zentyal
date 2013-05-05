@@ -16,7 +16,9 @@ use warnings;
 use strict;
 
 package EBox::RemoteServices::Connection;
+
 use base 'EBox::RemoteServices::Base';
+
 # Class: EBox::RemoteServices::Connection
 #
 #       Class to manage the VPN connection to Zentyal Cloud

@@ -20,6 +20,7 @@ use warnings;
 #      Rules to set the configuration for the delay pools
 #
 package EBox::Squid::Model::DelayPools;
+
 use base 'EBox::Model::DataTable';
 
 use integer;

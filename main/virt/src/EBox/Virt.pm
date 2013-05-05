@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Virt;
+
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
             EBox::NetworkObserver

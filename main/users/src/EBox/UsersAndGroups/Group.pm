@@ -19,6 +19,7 @@ use warnings;
 #   Zentyal group, stored in LDAP
 #
 package EBox::UsersAndGroups::Group;
+
 use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;

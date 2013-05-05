@@ -13,11 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::FileSystem;
 use strict;
 use warnings;
 
+package EBox::FileSystem;
+
 use base 'Exporter';
+
 our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem);
 use Params::Validate;
 use EBox::Validate;

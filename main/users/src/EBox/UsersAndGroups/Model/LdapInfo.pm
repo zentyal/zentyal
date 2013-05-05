@@ -17,6 +17,9 @@
 #
 # This class contains the options needed to enable the usersandgroups module.
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::LdapInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
@@ -24,9 +27,6 @@ use base 'EBox::Model::DataForm::ReadOnly';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
 
 # Method: _table
 #

@@ -19,6 +19,7 @@ use warnings;
 #   This model is used to configure file sharing general settings.
 #
 package EBox::Samba::Model::GeneralSettings;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

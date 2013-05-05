@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::TreeBuilder::Default;
-
 use strict;
 use warnings;
 
-# Its parent class is TreeBuilder::Abstract
+package EBox::TrafficShaping::TreeBuilder::Default;
+
 use base 'EBox::TrafficShaping::TreeBuilder::Abstract';
+
+# Its parent class is TreeBuilder::Abstract
 
 use EBox::TrafficShaping::QDisc::Root;
 use EBox::TrafficShaping::QueueDiscipline::PFIFO_FAST;

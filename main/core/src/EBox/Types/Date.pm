@@ -13,6 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Types::Date;
 
 use base 'EBox::Types::Abstract';
@@ -20,9 +23,6 @@ use base 'EBox::Types::Abstract';
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
-
-use strict;
-use warnings;
 
 # Group: Public methods
 

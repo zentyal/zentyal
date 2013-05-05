@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Types::IPRange;
-use base 'EBox::Types::Abstract';
-
 use strict;
 use warnings;
+
+package EBox::Types::IPRange;
+
+use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;

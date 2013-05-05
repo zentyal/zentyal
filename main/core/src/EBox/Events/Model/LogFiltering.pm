@@ -27,10 +27,10 @@
 #     - event      - Selection between the given selections from tableInfo
 #
 
-package EBox::Events::Model::LogFiltering;
-
 use strict;
 use warnings;
+
+package EBox::Events::Model::LogFiltering;
 
 use base 'EBox::Model::DataTable';
 

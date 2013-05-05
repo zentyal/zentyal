@@ -16,6 +16,7 @@
 package EBox::Monitor::Exceptions::ThresholdOverride;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 # Constructor: new

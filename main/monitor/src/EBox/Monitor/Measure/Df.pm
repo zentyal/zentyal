@@ -21,10 +21,10 @@
 #     Only mounted partitions will be shown
 #
 
-package EBox::Monitor::Measure::Df;
-
 use strict;
 use warnings;
+
+package EBox::Monitor::Measure::Df;
 
 use base qw(EBox::Monitor::Measure::Base);
 

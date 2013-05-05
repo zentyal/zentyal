@@ -13,8 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::TestStubs;
 use base 'Exporter';
+
 # package: EBox::TestStubs
 #
 #  this package is the global facade to all zentyal-base test stubs
@@ -22,8 +26,6 @@ use base 'Exporter';
 # warning:
 # do NOT confuse with EBox::TestStub (this package is the teststub for the -package- EBox)
 #
-use strict;
-use warnings;
 
 use Test::MockObject::Extends;
 
@@ -219,9 +221,11 @@ sub fakeModule
     if (exists $params{isa} ) {
         my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
         push @isa,  @extraIsa;
+
+use base qw(@isa);
     }
 
-    my $createIsaCode = 'package ' . $modPackage . "; use base qw(@isa);";
+    my $createIsaCode = 'package ' . $modPackage . "; ";
     eval $createIsaCode;
     die "When creating ISA array $@" if  $@;
 

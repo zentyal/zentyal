@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Printers;
+
 use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;

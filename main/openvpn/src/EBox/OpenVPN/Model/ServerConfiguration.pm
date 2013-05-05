@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ServerConfiguration;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Global;

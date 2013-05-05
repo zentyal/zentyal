@@ -18,10 +18,10 @@
 #      A specialised text type to represent an host IP address, that
 #      is, those IP addresses whose netmask is equal to 32
 #
-package EBox::Types::HostIP;
-
 use strict;
 use warnings;
+
+package EBox::Types::HostIP;
 
 use base 'EBox::Types::Text';
 

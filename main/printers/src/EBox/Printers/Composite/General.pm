@@ -19,12 +19,12 @@
 #    services
 #
 
+use strict;
+use warnings;
+
 package EBox::Printers::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

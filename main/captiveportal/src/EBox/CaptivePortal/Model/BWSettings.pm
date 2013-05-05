@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::BWSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::CaptivePortal::Model::BWSettings
 #
 #   Form to set the Captive Portal bwmonitor related settings
 #
-
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;

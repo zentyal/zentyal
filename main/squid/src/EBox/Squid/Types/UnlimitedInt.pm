@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Types::UnlimitedInt;
+
 use base 'EBox::Types::Int';
 
 use EBox::Exceptions::External;

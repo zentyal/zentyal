@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Network::Model::GatewayTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

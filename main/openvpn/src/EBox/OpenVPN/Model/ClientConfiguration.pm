@@ -16,11 +16,12 @@
 # Class: EBox::OpenVPN::Model::ClientConfiguration
 #
 
-package EBox::OpenVPN::Model::ClientConfiguration;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Model::ClientConfiguration;
+
+use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
 

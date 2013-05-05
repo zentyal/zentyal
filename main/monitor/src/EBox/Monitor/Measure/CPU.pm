@@ -18,10 +18,10 @@
 #     This measure collects the cpu usage stats
 #
 
-package EBox::Monitor::Measure::CPU;
-
 use strict;
 use warnings;
+
+package EBox::Monitor::Measure::CPU;
 
 use base qw(EBox::Monitor::Measure::Base);
 

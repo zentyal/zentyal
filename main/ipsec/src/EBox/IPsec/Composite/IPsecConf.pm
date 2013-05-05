@@ -17,12 +17,12 @@
 #
 #
 
+use strict;
+use warnings;
+
 package EBox::IPsec::Composite::IPsecConf;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

@@ -20,12 +20,12 @@
 #
 #   We hide the dynamic attribute in add new form
 #
+use strict;
+use warnings;
+
 package EBox::DNS::View::DomainTableCustomizer;
 
 use base 'EBox::View::Customizer';
-
-use strict;
-use warnings;
 
 # Group: Public methods
 

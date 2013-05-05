@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::QDisc::Root;
-
 use strict;
 use warnings;
 
-# Its parent class is QDisc
+package EBox::TrafficShaping::QDisc::Root;
+
 use base 'EBox::TrafficShaping::QDisc::Base';
+
+# Its parent class is QDisc
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;

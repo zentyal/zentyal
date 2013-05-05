@@ -13,12 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Menu::Separator;
-
 use strict;
 use warnings;
 
+package EBox::Menu::Separator;
+
 use base 'EBox::Menu::TextNode';
+
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 

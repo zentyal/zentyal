@@ -32,12 +32,12 @@
 #
 #
 
+use strict;
+use warnings;
+
 package EBox::Model::DataForm::Download;
 
 use base 'EBox::Model::DataForm::Action';
-
-use strict;
-use warnings;
 
 # eBox Exceptions
 use EBox::Exceptions::MissingArgument;

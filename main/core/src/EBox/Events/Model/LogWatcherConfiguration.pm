@@ -27,6 +27,7 @@ use warnings;
 #
 
 package EBox::Events::Model::LogWatcherConfiguration;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::DataNotFound;

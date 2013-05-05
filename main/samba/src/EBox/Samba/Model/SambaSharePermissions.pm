@@ -18,12 +18,12 @@
 #  This model is used to configure permissions of each share
 #  created in EBox::Samba::Model::SambaShares
 #
+use strict;
+use warnings;
+
 package EBox::Samba::Model::SambaSharePermissions;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;

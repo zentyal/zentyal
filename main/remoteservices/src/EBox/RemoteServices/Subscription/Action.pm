@@ -13,15 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Subscription::Action;
+use strict;
+use warnings;
 
+package EBox::RemoteServices::Subscription::Action;
 # Class: EBox::RemoteServices::Subscription::Action
 #
 #     Perform required actions to subscribe or delete data of a server
 #
-
-use strict;
-use warnings;
 
 use EBox::Global;
 

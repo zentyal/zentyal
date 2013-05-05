@@ -21,10 +21,10 @@
 #     - Latest QA update
 #
 
-package EBox::RemoteServices::Model::QAUpdatesInfo;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::QAUpdatesInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 

@@ -22,6 +22,7 @@ use warnings;
 package EBox::Exceptions::DataNotFound;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 sub new # (data=>string,  value=>string)

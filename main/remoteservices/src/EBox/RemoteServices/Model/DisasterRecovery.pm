@@ -28,10 +28,10 @@
 #     - estimated time to recover from a disaster
 #
 
-package EBox::RemoteServices::Model::DisasterRecovery;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::DisasterRecovery;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 

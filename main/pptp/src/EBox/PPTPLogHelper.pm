@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::PPTPLogHelper;
+
 use base 'EBox::LogHelper';
 
 use EBox;

@@ -13,29 +13,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::ServiceModule::ConfigureView
-#
-#   This class is used to list the actions and file modifications
-#   that eBox needs to do to enable the module
-#
-package EBox::ServiceModule::CGI::ConfigureView;
-
 use strict;
 use warnings;
 
+package EBox::ServiceModule::CGI::ConfigureView;
+
 use base 'EBox::CGI::ClientRawBase';
+
+#   This class is used to list the actions and file modifications
+#   that Zentyal needs to do to enable the module
 
 use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new( 'template' => '/configureView.mas',
-            @_);
+    my $self = $class->SUPER::new('template' => '/configureView.mas', @_);
 
     bless($self, $class);
     return $self;

@@ -16,10 +16,11 @@
 package EBox::Event::Watcher::EBackup;
 
 # Class: EBox::Event::Watcher::EBackup;
+
+use base 'EBox::Event::Watcher::Base';
 #
 # This class is a watcher which checks the data backup status
 #
-use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
 use EBox::Global;

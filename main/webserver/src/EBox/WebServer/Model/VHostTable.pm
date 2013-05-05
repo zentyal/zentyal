@@ -22,6 +22,7 @@ use warnings;
 #   virtual host table which basically contains virtual hosts information.
 #
 package EBox::WebServer::Model::VHostTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

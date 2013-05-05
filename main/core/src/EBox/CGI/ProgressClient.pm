@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CGI::ProgressClient;
+
 #  FIXME: Lack of proper doc
 #  this class is to provide helper method for any CGI which must
 #
-use strict;
-use warnings;
 
 sub new
 {

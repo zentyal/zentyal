@@ -17,6 +17,9 @@
 #
 # This class contains the options needed to enable the usersandgroups module.
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::Mode;
 
 use base 'EBox::Model::DataForm';
@@ -25,9 +28,6 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::KrbRealm;
 use EBox::Exceptions::InvalidData;
-
-use strict;
-use warnings;
 
 # Group: Public methods
 

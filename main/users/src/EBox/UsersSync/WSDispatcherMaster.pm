@@ -13,6 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::UsersSync::WSDispatcherMaster;
 
 # Class: EBox::UsersSync::WSDispatcherMaster
@@ -24,9 +27,6 @@ package EBox::UsersSync::WSDispatcherMaster;
 use EBox;
 
 use SOAP::Transport::HTTP;
-
-use strict;
-use warnings;
 
 EBox::init();
 

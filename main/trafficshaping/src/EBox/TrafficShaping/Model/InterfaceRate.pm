@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::TrafficShaping::Model::InterfaceRate;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

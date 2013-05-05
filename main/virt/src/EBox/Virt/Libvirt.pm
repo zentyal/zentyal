@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Virt::Libvirt;
+
 use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;

@@ -25,6 +25,7 @@ use strict;
 use warnings;
 
 package EBox::TrafficShaping::Model::ExternalRules;
+
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 
 use EBox::Gettext;

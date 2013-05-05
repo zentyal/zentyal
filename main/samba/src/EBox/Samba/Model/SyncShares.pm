@@ -20,6 +20,7 @@ use warnings;
 #   Configure Shares syncing
 #
 package EBox::Samba::Model::SyncShares;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

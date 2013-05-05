@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Event::Watcher::Log;
+
+use base 'EBox::Event::Watcher::Base';
 
 # Class: EBox::Event::Watcher::Log
 #
 #   This class is a watcher which search for new logs in Logs module
 #   within an interval.
 #
-
-use base 'EBox::Event::Watcher::Base';
-
-use strict;
-use warnings;
 
 use EBox::Event;
 use EBox::Event::Watcher::Base;

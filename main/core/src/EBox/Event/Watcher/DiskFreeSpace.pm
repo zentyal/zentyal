@@ -15,14 +15,14 @@
 
 package EBox::Event::Watcher::DiskFreeSpace;
 
+use base 'EBox::Event::Watcher::Base';
+
 # Class: EBox::Event::Watcher::DiskFreeSpace
 #
 #   This class is a watcher which checks if a partition has no free
 #   space left. The measure is done in percentages which is
 #   configurable by the user.
 #
-
-use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
 use EBox::Event::Watcher::Base;

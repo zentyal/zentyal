@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::Model::ExternalAliases;
+
 use base 'EBox::Model::DataTable';
 
 # Class: EBox::Mail::Model::ExternalAliases

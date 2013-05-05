@@ -32,6 +32,9 @@
 #            }
 #      ],
 #
+use strict;
+use warnings;
+
 package EBox::Services::Model::ServiceConfigurationTable;
 
 use EBox::Global;
@@ -45,9 +48,6 @@ use EBox::Types::PortRange;
 use EBox::Sudo;
 
 use Perl6::Junction qw( any );
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

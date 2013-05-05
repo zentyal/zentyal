@@ -64,6 +64,9 @@
 #     }
 #   ]
 
+use strict;
+use warnings;
+
 package EBox::Services::Model::ServiceTable;
 
 use EBox::Global;
@@ -75,9 +78,6 @@ use EBox::Types::HasMany;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

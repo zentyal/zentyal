@@ -20,7 +20,9 @@ use warnings;
 #       which is invalid. An advice to the user may be set.
 
 package EBox::Exceptions::InvalidData;
+
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 sub new # (data=>string,  value=>string, advice => string)

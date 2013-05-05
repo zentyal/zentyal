@@ -19,11 +19,12 @@
 #       its returned value is different from zero.
 #
 
-package EBox::Exceptions::Command;
-use base 'EBox::Exceptions::Internal';
-
 use strict;
 use warnings;
+
+package EBox::Exceptions::Command;
+
+use base 'EBox::Exceptions::Internal';
 
 use Params::Validate qw(validate SCALAR ARRAYREF);
 

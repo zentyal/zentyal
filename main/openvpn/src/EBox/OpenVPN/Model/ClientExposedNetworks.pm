@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ClientExposedNetworks;
+
 use base 'EBox::OpenVPN::Model::ExposedNetworks';
 
 use EBox::Gettext;

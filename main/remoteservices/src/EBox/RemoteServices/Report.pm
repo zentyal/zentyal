@@ -13,6 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices::Report;
 
 use base 'EBox::RemoteServices::Cred';
@@ -21,9 +24,6 @@ use base 'EBox::RemoteServices::Cred';
 #
 #      This class sends the report to the cloud using the REST API
 #
-
-use strict;
-use warnings;
 
 # Group: Public methods
 

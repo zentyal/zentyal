@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CGI::Temp;
+
 # Package: EBox::CGI::Temp
 #
 #   this packages contain methods to manage temporal www data, like generated images
-use strict;
-use warnings;
 
 use EBox::Config;
 use File::Temp;

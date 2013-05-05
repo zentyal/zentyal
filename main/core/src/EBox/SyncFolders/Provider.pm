@@ -18,10 +18,10 @@
 #   This module exposes some system paths to be synchronized with an
 #   external provider
 #
-package EBox::SyncFolders::Provider;
-
 use strict;
 use warnings;
+
+package EBox::SyncFolders::Provider;
 
 use EBox::Exceptions::NotImplemented;
 use Perl6::Junction qw(any);

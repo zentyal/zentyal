@@ -42,6 +42,7 @@ use warnings;
 #   At first time, the RAID event watcher will supply all its initial
 #   information as new one.
 package EBox::Event::Watcher::RAID;
+
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;

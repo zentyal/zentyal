@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::IPsec::Model::ConfPhase2;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

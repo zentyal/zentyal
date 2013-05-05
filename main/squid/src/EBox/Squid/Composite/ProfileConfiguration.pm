@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Composite::ProfileConfiguration;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;

@@ -17,10 +17,10 @@
 #
 #      A specialised text type to represent either a host IP address or a host name.
 #
-package EBox::Types::Host;
-
 use strict;
 use warnings;
+
+package EBox::Types::Host;
 
 use base 'EBox::Types::Text';
 

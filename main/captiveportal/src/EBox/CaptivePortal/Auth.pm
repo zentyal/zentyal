@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::Auth;
+
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;

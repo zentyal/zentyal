@@ -20,12 +20,12 @@
 #   This class inherits from <EBox::Types::DomainName> and represents
 #   the hostname as a valid domain or the wildcard for default value
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Types::Hostname;
 
 use base 'EBox::Types::DomainName';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

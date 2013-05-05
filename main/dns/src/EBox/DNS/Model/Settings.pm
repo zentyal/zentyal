@@ -23,12 +23,12 @@
 #
 #      - transparent
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::Settings;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

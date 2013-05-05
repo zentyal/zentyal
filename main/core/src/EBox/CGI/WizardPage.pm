@@ -28,11 +28,13 @@
 #
 # If status is OK the wizard will step into next wizard page.
 #
-package EBox::CGI::WizardPage;
 use strict;
 use warnings;
 
+package EBox::CGI::WizardPage;
+
 use base 'EBox::CGI::Base';
+
 use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;

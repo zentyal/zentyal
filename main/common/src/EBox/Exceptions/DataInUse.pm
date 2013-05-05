@@ -23,6 +23,7 @@
 package EBox::Exceptions::DataInUse;
 
 use base 'EBox::Exceptions::Internal';
+
 use Log::Log4perl;
 use EBox::Gettext;
 

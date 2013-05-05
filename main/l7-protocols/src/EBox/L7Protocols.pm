@@ -18,10 +18,10 @@
 #   FIXME
 #
 
-package EBox::L7Protocols;
-
 use strict;
 use warnings;
+
+package EBox::L7Protocols;
 
 use base qw(EBox::Module::Config);
 

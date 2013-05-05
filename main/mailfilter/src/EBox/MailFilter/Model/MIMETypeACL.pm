@@ -16,7 +16,9 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::MIMETypeACL;
+
 use base 'EBox::Model::DataTable';
+
 # Class:
 #
 #    EBox::Mail::Model::ObjectPolicy

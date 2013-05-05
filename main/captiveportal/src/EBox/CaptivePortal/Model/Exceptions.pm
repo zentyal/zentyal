@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::Model::Exceptions;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

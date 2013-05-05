@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Logs;
+
 use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;

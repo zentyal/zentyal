@@ -16,7 +16,9 @@ use strict;
 use warnings;
 
 package EBox::Mail::Model::ObjectPolicy;
+
 use base 'EBox::Model::DataTable';
+
 # Class:
 #
 #    EBox::Mail::Model::ObjectPolicy

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo::CGI::Backup;
+
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use Error qw(:try);

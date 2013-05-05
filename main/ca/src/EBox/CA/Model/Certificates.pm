@@ -21,6 +21,7 @@ use warnings;
 #
 
 package EBox::CA::Model::Certificates;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

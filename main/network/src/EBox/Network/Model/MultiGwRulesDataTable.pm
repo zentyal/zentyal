@@ -13,6 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Network::Model::MultiGwRulesDataTable;
 
 use EBox::Global;
@@ -27,9 +30,6 @@ use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

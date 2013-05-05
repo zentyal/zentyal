@@ -17,12 +17,12 @@
 #
 #
 
+use strict;
+use warnings;
+
 package EBox::Events::Model::JabberDispatcherConfiguration;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

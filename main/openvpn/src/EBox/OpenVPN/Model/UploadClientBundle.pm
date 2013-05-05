@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::UploadClientBundle;
+
 use base 'EBox::Model::DataForm::Action';
 
 use Error qw(:try);

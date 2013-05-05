@@ -18,10 +18,10 @@
 #   This class exposes the interface to be implemented by a new database backend
 #   module.
 #
-package EBox::AbstractDBEngine;
-
 use strict;
 use warnings;
+
+package EBox::AbstractDBEngine;
 
 use DBI;
 use EBox::Exceptions::NotImplemented;

@@ -29,6 +29,7 @@ use warnings;
 #
 
 package EBox::Logs::Model::ConfigureLogs;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

@@ -24,10 +24,10 @@
 #      It is the parent type where the remainder types overrides from.
 #
 
-package EBox::Types::Abstract;
-
 use strict;
 use warnings;
+
+package EBox::Types::Abstract;
 
 use EBox;
 

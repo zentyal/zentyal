@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Asterisk;
+
 use base qw(EBox::Module::Service EBox::LdapModule
             EBox::UserCorner::Provider EBox::LogObserver);
 

@@ -29,6 +29,7 @@ use strict;
 use warnings;
 
 package EBox::Firewall::Model::BaseRuleTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

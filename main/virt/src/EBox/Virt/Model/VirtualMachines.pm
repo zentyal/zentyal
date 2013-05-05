@@ -20,6 +20,7 @@ use warnings;
 #      Table of Virtual Machines
 #
 package EBox::Virt::Model::VirtualMachines;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

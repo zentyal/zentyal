@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::TestStub;
+
 # Description: Test stub for EBox perl package.
 # It changes the log process to use stdout instead of a file just writable by ebox
 #
-use strict;
-use warnings;
 
 use EBox;
 use Test::MockObject;

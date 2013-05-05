@@ -16,6 +16,7 @@
 package EBox::Exceptions::InvalidType;
 
 use base 'EBox::Exceptions::Internal';
+
 use Log::Log4perl;
 
 # Constructor: new

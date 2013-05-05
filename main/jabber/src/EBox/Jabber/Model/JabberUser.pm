@@ -18,14 +18,14 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::Jabber::Model::JabberUser;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Port;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

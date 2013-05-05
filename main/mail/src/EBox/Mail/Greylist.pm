@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Mail::Greylist;
-
 use strict;
 use warnings;
+
+package EBox::Mail::Greylist;
 
 use Perl6::Junction qw(any all);
 

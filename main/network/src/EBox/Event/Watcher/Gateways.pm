@@ -21,6 +21,7 @@ use warnings;
 # This class is a watcher which checks connection/disconnection of gateways
 #
 package EBox::Event::Watcher::Gateways;
+
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Network;

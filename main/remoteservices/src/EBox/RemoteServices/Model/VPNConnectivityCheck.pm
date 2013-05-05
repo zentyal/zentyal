@@ -18,10 +18,10 @@
 #       Run the VPN connectivity check
 #
 
-package EBox::RemoteServices::Model::VPNConnectivityCheck;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::VPNConnectivityCheck;
 
 use base 'EBox::Model::DataForm';
 

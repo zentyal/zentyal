@@ -18,12 +18,12 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Model::ImageCreation;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);

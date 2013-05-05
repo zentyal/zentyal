@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::LdapUser;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;

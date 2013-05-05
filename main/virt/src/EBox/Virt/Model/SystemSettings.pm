@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Virt::Model::SystemSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::Virt::Model::SystemSettings
 #
 #       Form to set the System Settings for a Virtual Machine.
 #
-
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Select;

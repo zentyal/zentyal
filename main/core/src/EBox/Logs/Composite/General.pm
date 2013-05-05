@@ -20,12 +20,12 @@
 #   <EBox::Events::Model::ConfigurationComposite> and
 #   <EBox::Common::Model::EnableFrom> inside a tabbed layout.
 
+use strict;
+use warnings;
+
 package EBox::Logs::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

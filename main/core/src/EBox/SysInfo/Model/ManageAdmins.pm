@@ -19,6 +19,7 @@ use warnings;
 #   This model is used to configure the administrator user account
 #
 package EBox::SysInfo::Model::ManageAdmins;
+
 use base 'EBox::Model::DataTable';
 
 use Error qw(:try);

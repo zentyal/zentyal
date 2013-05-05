@@ -17,9 +17,10 @@
 #
 #   TODO
 #
-package EBox::UsersAndGroups::Types::Password;
 use strict;
 use warnings;
+
+package EBox::UsersAndGroups::Types::Password;
 
 use base 'EBox::Types::Password';
 

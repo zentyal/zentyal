@@ -13,8 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Event::Watcher::Base;
 
+use base 'EBox::Event::Component';
 # Class: EBox::Event::Watcher::Base
 #
 # This class is the base for developing all event watchers by any
@@ -22,11 +26,6 @@ package EBox::Event::Watcher::Base;
 # events within eBox framework. Every subclass should just watch one
 # event.
 #
-
-use strict;
-use warnings;
-
-use base 'EBox::Event::Component';
 
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;

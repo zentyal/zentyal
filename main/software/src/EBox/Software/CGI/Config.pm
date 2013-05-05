@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Software::CGI::Config;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;

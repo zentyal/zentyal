@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::NUT::Composite::General;
+
 use base qw ( EBox::Model::Composite );
 
 use EBox::Gettext;

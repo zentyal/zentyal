@@ -24,12 +24,12 @@
 #
 #     - forwarder
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::Forwarder;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

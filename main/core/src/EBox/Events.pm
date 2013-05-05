@@ -24,6 +24,7 @@ use warnings;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 package EBox::Events;
+
 use base qw(EBox::Module::Service EBox::LogObserver
             EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 

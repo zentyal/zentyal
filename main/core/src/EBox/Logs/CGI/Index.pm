@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Logs::CGI::Index;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox;

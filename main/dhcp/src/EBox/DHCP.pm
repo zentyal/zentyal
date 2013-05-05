@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::DHCP;
+
 use base qw( EBox::Module::Service
              EBox::NetworkObserver
              EBox::LogObserver );
@@ -1338,11 +1339,11 @@ sub _thinClientOptions # (iface, element)
 #    my $row = $thinClientModel->findValue(hosts => $element);
 #    if ( defined($row) ) {
     if ($thinClientModel->row()->valueByName('nextServer') ne 'none') {
-        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();#$row->id());
-        $ret->{nextServer} = $thinClientModel->nextServer();#$row->id());
-        $ret->{filename}   = $thinClientModel->remoteFilename();#$row->id());
-        $ret->{architecture} = $thinClientModel->architecture();#$row->id());
-        $ret->{fat} = $thinClientModel->fat();#$row->id());
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();
+        $ret->{nextServer} = $thinClientModel->nextServer();
+        $ret->{filename}   = $thinClientModel->remoteFilename();
+        $ret->{architecture} = $thinClientModel->architecture();
+        $ret->{fat} = $thinClientModel->fat();
     }
     return $ret;
 

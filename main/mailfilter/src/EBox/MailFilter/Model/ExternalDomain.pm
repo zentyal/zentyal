@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::ExternalDomain;
+
 use base 'EBox::Model::DataTable';
 
 # Class:

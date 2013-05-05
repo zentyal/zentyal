@@ -23,6 +23,7 @@ use warnings;
 #       be done.
 #
 package EBox::Mail::Model::VDomainAliases;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

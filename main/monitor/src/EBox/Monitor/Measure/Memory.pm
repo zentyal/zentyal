@@ -18,10 +18,10 @@
 #     This measure collects the physical memory utilization
 #
 
-package EBox::Monitor::Measure::Memory;
-
 use strict;
 use warnings;
+
+package EBox::Monitor::Measure::Memory;
 
 use base qw(EBox::Monitor::Measure::Base);
 

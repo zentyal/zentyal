@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::ZarafaLdapUser;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;

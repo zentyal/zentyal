@@ -18,12 +18,12 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Model::AvailableImages;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);

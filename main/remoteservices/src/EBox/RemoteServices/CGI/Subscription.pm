@@ -13,16 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices::CGI::Subscription;
+
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 # Class: EBox::RemoteServices::CGI::Subscription
 #
 #     CGI to perform the indication of subscription process
 #
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

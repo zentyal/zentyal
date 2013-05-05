@@ -17,10 +17,10 @@
 #
 # This file defines the interface and gives the implementation for the EBox
 # namespace
-package EBox::HtmlBlocks;
-
 use strict;
 use warnings;
+
+package EBox::HtmlBlocks;
 
 use EBox::Html;
 

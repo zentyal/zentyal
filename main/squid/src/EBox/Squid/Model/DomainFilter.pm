@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::DomainFilter;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;

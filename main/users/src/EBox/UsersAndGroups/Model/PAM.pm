@@ -16,6 +16,9 @@
 # Class: EBox::UsersAndGroups::Model::PAM
 #
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::PAM;
 
 use base 'EBox::Model::DataForm';
@@ -24,9 +27,6 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use File::Basename;
-
-use strict;
-use warnings;
 
 use constant DEFAULT_SHELL => '/bin/bash';
 

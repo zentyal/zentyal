@@ -17,10 +17,10 @@
 #
 #       This class represents a type which contains raw HTML
 #
-package EBox::Types::HTML;
-
 use strict;
 use warnings;
+
+package EBox::Types::HTML;
 
 use base 'EBox::Types::Text';
 

@@ -21,12 +21,12 @@
 #       not stored for future actions
 #
 
+use strict;
+use warnings;
+
 package EBox::Model::DataForm::Action;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;

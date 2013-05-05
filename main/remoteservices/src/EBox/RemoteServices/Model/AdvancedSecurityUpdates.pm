@@ -23,10 +23,10 @@
 #     - latest security update
 #
 
-package EBox::RemoteServices::Model::AdvancedSecurityUpdates;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::AdvancedSecurityUpdates;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 

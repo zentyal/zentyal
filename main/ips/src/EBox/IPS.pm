@@ -18,10 +18,10 @@
 #      Class description
 #
 
-package EBox::IPS;
-
 use strict;
 use warnings;
+
+package EBox::IPS;
 
 use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo::CGI::ConfirmBackup;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Config;

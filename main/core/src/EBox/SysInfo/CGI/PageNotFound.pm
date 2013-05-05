@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo::CGI::PageNotFound;
+
 use base 'EBox::CGI::ClientBase';
 
 # Description: CGI for "page not found error"

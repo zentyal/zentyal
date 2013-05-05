@@ -24,6 +24,7 @@ use warnings;
 #      and has the credentials
 #
 package EBox::RemoteServices::Bundle;
+
 use base 'EBox::RemoteServices::Cred';
 
 use Error qw(:try);

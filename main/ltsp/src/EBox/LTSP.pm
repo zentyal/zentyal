@@ -17,12 +17,12 @@
 #
 #   TODO: Documentation
 
+use strict;
+use warnings;
+
 package EBox::LTSP;
 
 use base qw(EBox::Module::Service);
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

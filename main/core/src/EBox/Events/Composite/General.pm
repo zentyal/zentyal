@@ -22,12 +22,12 @@
 #   layout.
 #
 
+use strict;
+use warnings;
+
 package EBox::Events::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

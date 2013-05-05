@@ -19,6 +19,7 @@ use warnings;
 #   This is the base cgi to implement controllers to download files
 #
 package EBox::CGI::Controller::Downloader::Base;
+
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;

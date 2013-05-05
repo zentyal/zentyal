@@ -30,6 +30,7 @@ use warnings;
 #      interface
 #
 package EBox::TrafficShaping;
+
 use base qw(EBox::Module::Service EBox::NetworkObserver);
 
 ######################################

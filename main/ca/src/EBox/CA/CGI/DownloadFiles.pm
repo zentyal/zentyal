@@ -13,15 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CA::CGI::DownloadFiles;
-
-# CGI to download key pair and certificates from a specific user or
-# to download public key and certificate from Certification Authority
-
 use strict;
 use warnings;
 
+package EBox::CA::CGI::DownloadFiles;
+
 use base 'EBox::CGI::ClientBase';
+# CGI to download key pair and certificates from a specific user or
+# to download public key and certificate from Certification Authority
 
 use EBox::Gettext;
 use EBox::Global;

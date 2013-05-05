@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Backup::Test;
+
 use base 'EBox::Test::Class';
 
 use lib '../..';

@@ -31,10 +31,10 @@
 
 #   Or you can use printableValue() to fecth an output which is nicely accepted
 #   by iptables.
-package EBox::Types::PortRange;
-
 use strict;
 use warnings;
+
+package EBox::Types::PortRange;
 
 use base 'EBox::Types::Abstract';
 

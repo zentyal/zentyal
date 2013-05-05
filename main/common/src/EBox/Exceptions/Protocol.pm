@@ -15,13 +15,14 @@
 
 package EBox::Exceptions::Protocol;
 
+use base 'EBox::Exceptions::Base';
+
 # Class: EBox::Exceptions::Protocol
 #
 #     An exception launched when the TCP/IP protocol has failed in
 #     some way. For instance, a connection cannot be made.
 #
 
-use base 'EBox::Exceptions::Base';
 use EBox::Gettext;
 
 # Group: Public methods

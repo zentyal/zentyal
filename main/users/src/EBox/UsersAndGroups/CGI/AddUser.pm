@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups::CGI::AddUser;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;

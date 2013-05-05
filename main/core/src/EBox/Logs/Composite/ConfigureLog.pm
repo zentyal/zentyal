@@ -15,12 +15,12 @@
 
 # Class: EBox::Logs::Composite::ConfigureLog
 
+use strict;
+use warnings;
+
 package EBox::Logs::Composite::ConfigureLog;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

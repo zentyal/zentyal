@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::Clients;
+
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use EBox::Gettext;

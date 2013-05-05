@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup::Model::RemoteRestoreConf;
+
 use base 'EBox::Model::DataForm::Action';
 
 use EBox::Global;

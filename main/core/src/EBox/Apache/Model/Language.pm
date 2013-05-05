@@ -20,6 +20,7 @@ use warnings;
 #
 
 package EBox::Apache::Model::Language;
+
 use base 'EBox::Model::DataForm';
 
 use Error qw(:try);

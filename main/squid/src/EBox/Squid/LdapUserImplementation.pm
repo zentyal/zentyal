@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::LdapUserImplementation;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;

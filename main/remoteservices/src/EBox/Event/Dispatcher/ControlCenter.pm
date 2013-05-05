@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Event::Dispatcher::ControlCenter;
+
+use base 'EBox::Event::Dispatcher::Abstract';
 
 # Class: EBox::Dispatcher::ControlCenter
 #
 # This class is a dispatcher which sends the event to the control
 # center where will be display by control panel
 #
-
-use base 'EBox::Event::Dispatcher::Abstract';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;

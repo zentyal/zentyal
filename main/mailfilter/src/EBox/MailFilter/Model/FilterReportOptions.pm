@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::FilterReportOptions;
+
 use base 'EBox::Logs::Model::OptionsBase';
 
 sub new

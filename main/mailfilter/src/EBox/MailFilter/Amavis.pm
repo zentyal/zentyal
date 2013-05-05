@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::Amavis;
-
 use strict;
 use warnings;
+
+package EBox::MailFilter::Amavis;
 
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);

@@ -18,10 +18,10 @@
 #      This class stores every platform dependant path and it is
 #      exposed in static method way.
 #
-package EBox::WebServer::PlatformPath;
-
 use strict;
 use warnings;
+
+package EBox::WebServer::PlatformPath;
 
 # Method: ConfDirPath
 #

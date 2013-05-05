@@ -18,12 +18,12 @@
 #    Display the form and information about technical support
 #
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices::Composite::Technical;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

@@ -18,10 +18,10 @@
 #   This model is used to configure the administrator password
 #
 
-package EBox::SysInfo::Model::Password;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::Password;
 
 use Error qw(:try);
 

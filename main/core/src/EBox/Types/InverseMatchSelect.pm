@@ -13,6 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
+package EBox::Types::InverseMatchSelect;
+
+use base 'EBox::Types::Select';
+
 # Class: EBox::Types::InverseMatchSelect
 #
 #	This class inherits from <EBox::Types::Select> to add
@@ -24,12 +31,7 @@
 #
 #   We are repeating ourselves, this sucks so freaking much.
 #
-package EBox::Types::InverseMatchSelect;
 
-use strict;
-use warnings;
-
-use base 'EBox::Types::Select';
 use EBox;
 use EBox::Gettext;
 

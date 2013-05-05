@@ -21,10 +21,10 @@
 #   each one of the exposed actions, a name and a reference to this action:
 #       'action_name' => \&action
 #
-package EBox::Desktop::ServiceProvider;
-
 use strict;
 use warnings;
+
+package EBox::Desktop::ServiceProvider;
 
 # Method: actions
 #

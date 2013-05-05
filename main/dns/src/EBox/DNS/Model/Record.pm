@@ -20,12 +20,12 @@
 #   This class inherits from <EBox::Model::DataTable> and represents
 #   the record with the common methods used by several records in DNS
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::Record;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::NotImplemented;
 

@@ -21,6 +21,9 @@
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
 # the field description
 #
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::ExternalToInternalRuleTable;
 
 use EBox::Global;
@@ -36,9 +39,6 @@ use EBox::Types::InverseMatchSelect;
 use EBox::Types::IPAddr;
 use EBox::Types::InverseMatchUnion;
 use EBox::Sudo;
-
-use strict;
-use warnings;
 
 use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 

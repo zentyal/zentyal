@@ -18,10 +18,10 @@
 #  This class incorporates those methods which are common for event
 #  architecture components: watchers and dispatchers
 #
-package EBox::Event::Component;
-
 use strict;
 use warnings;
+
+package EBox::Event::Component;
 
 use EBox::Exceptions::MissingArgument;
 

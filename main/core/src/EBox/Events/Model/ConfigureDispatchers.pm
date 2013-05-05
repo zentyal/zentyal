@@ -26,6 +26,7 @@ use warnings;
 #   It subclasses <EBox::Model::DataTable>
 #
 package EBox::Events::Model::ConfigureDispatchers;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;

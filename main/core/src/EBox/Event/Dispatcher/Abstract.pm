@@ -24,6 +24,7 @@ use warnings;
 #
 
 package EBox::Event::Dispatcher::Abstract;
+
 use base 'EBox::Event::Component';
 
 use EBox::Exceptions::NotImplemented;

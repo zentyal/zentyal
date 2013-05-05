@@ -18,10 +18,10 @@
 #   This model is used to configure the system date time
 #
 
-package EBox::SysInfo::Model::DateTime;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::DateTime;
 
 use Error qw(:try);
 

@@ -22,10 +22,10 @@
 # - from : HostIP
 # - to   : HostIP
 #
-package EBox::DHCP::Model::RangeTable;
-
 use strict;
 use warnings;
+
+package EBox::DHCP::Model::RangeTable;
 
 use EBox::Global;
 use EBox::Gettext;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Jabber;
+
 use base qw(EBox::Module::Service EBox::LdapModule EBox::SysInfo::Observer);
 
 use EBox::Global;

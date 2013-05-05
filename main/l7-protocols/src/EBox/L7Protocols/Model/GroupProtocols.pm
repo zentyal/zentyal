@@ -18,15 +18,15 @@
 #   FIXME
 #
 
+use strict;
+use warnings;
+
 package EBox::L7Protocols::Model::GroupProtocols;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Select;
 use EBox::Global;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

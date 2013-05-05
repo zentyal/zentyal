@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::View::DataTable;
+
 use base 'EBox::CGI::ClientBase';
 
 use Error qw(:try);

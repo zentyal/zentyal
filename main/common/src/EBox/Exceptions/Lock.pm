@@ -16,6 +16,7 @@
 package EBox::Exceptions::Lock;
 
 use base 'EBox::Exceptions::Internal';
+
 use Log::Log4perl;
 use EBox::Gettext;
 

@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::Model::AntispamTraining;
-use base 'EBox::Model::DataForm::Action';
-
 use strict;
 use warnings;
+
+package EBox::MailFilter::Model::AntispamTraining;
+
+use base 'EBox::Model::DataForm::Action';
 
 use Error qw(:try);
 

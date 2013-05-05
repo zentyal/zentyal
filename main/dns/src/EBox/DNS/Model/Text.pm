@@ -20,12 +20,12 @@
 #   This class inherits from <EBox::Model::DataTable> and represents
 #   the object table which contains the free based TXT records for a domain
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::Text;
 
 use base 'EBox::DNS::Model::Record';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::External;
 use EBox::Global;

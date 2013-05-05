@@ -17,6 +17,9 @@
 #
 #   EBox::DNS::Model::DomainIpTable
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::DomainIpTable;
 
 use EBox::Global;
@@ -27,9 +30,6 @@ use EBox::Exceptions::DataExists;
 
 use EBox::Types::HostIP;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

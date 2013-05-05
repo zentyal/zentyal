@@ -20,6 +20,7 @@ use warnings;
 #       Class to manage the Zentyal subscription to Zentyal Cloud
 #
 package EBox::RemoteServices::Subscription;
+
 use base 'EBox::RemoteServices::Base';
 
 use feature qw(switch);

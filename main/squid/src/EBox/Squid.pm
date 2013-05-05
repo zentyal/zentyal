@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid;
+
 use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);

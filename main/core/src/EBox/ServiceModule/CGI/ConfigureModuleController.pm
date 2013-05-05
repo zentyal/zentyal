@@ -13,17 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::ServiceModule::ConfigureModuleController
-#
-#   This class is used as a controller to receive the green light
-#   from users to configure which is needed to enable a module
-#
-package EBox::ServiceModule::CGI::ConfigureModuleController;
-
 use strict;
 use warnings;
 
+package EBox::ServiceModule::CGI::ConfigureModuleController;
+
 use base 'EBox::CGI::ClientBase';
+
+#   This class is used as a controller to receive the green light
+#   from users to configure which is needed to enable a module
 
 use EBox::ServiceManager;
 use EBox::Global;
@@ -33,11 +31,11 @@ use Error qw(:try);
 use EBox::Exceptions::Base;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new( @_);
+    my $self = $class->SUPER::new(@_);
 
     bless($self, $class);
     return $self;

@@ -19,6 +19,7 @@ use warnings;
 #      Table with the network interfaces of the Virtual Machine
 #
 package EBox::Virt::Model::DeviceSettings;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

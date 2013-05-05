@@ -16,14 +16,14 @@
 # Class: EBox::NTP::Model::Servers
 #
 
+use strict;
+use warnings;
+
 package EBox::NTP::Model::Servers;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Host;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

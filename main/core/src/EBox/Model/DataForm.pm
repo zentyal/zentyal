@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 package EBox::Model::DataForm;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;

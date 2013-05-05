@@ -22,6 +22,7 @@ use warnings;
 package EBox::Exceptions::DataExists;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 # Method: new

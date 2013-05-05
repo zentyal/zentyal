@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Composite::FilterSettings;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;

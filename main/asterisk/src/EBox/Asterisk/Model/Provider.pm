@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Asterisk::Model::Provider;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::Asterisk::Model::Provider
 #
 #      Form to set the configuration for the SIP provider.
 #
-
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

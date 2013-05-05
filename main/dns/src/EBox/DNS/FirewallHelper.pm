@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::DNS::FirewallHelper;
+
 use base 'EBox::FirewallHelper';
 
 sub output

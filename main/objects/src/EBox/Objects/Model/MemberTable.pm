@@ -21,6 +21,9 @@
 #   membembers beloging to an object
 #
 #
+use strict;
+use warnings;
+
 package EBox::Objects::Model::MemberTable;
 
 use EBox::Objects::Members;
@@ -37,9 +40,6 @@ use EBox::Types::IPRange;
 use EBox::Exceptions::External;
 
 use Net::IP;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 

@@ -25,14 +25,15 @@
 #     client loads
 #
 
+use strict;
+use warnings;
+
 package EBox::DHCP::Model::ThinClientOptions;
 
 # TODO: Restore this when more than one config per interface is possible
 #use base 'EBox::Model::DataTable';
-use base 'EBox::Model::DataForm';
 
-use strict;
-use warnings;
+use base 'EBox::Model::DataForm';
 
 use feature 'switch';
 

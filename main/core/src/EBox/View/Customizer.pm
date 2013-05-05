@@ -18,10 +18,10 @@
 #   This class is used to customize default views. It helps to change the
 #   behaviour and layout of a view using Perl code.
 #
-package EBox::View::Customizer;
-
 use strict;
 use warnings;
+
+package EBox::View::Customizer;
 
 # Dependencies
 use EBox::Config;

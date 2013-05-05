@@ -20,7 +20,9 @@ use strict;
 use warnings;
 
 package EBox::Exceptions::EBackup::BadSymmetricKey;
+
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 sub new

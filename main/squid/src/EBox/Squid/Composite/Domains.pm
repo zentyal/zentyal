@@ -16,12 +16,12 @@
 # Class: EBox::Squid::Composite::Domains
 #
 
+use strict;
+use warnings;
+
 package EBox::Squid::Composite::Domains;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

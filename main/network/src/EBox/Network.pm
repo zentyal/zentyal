@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Network;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored

@@ -19,12 +19,12 @@
 #   configuration on a given interface. It stores three models for
 #   simple options, dynamic DNS ones and advanced ones indexed by interface
 #
+use strict;
+use warnings;
+
 package EBox::DHCP::Composite::OptionsTab;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

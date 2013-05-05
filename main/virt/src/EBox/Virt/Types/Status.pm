@@ -15,10 +15,10 @@
 
 # Class: EBox::Types::Virt::Status;
 #
-package EBox::Virt::Types::Status;
-
 use strict;
 use warnings;
+
+package EBox::Virt::Types::Status;
 
 use base 'EBox::Types::Basic';
 

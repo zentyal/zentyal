@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Network::Composite::WANFailover;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;

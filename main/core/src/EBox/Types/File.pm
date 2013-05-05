@@ -31,6 +31,7 @@ use warnings;
 #
 
 package EBox::Types::File;
+
 use base 'EBox::Types::Abstract';
 
 use EBox;

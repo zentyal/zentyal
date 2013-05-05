@@ -19,10 +19,10 @@
 #     backend
 #
 
-package EBox::Types::Float;
-
 use strict;
 use warnings;
+
+package EBox::Types::Float;
 
 use base 'EBox::Types::Int';
 

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailUserLdap;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Sudo;

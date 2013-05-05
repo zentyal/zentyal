@@ -13,17 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Monitor::CGI::DisplayGraphs;
 
+use base 'EBox::CGI::ClientRawBase';
 # Class: EBox::Monitor::CGI::DisplayGraphs
 #
 #     CGI to display measures graph under a tab
 #
-
-use strict;
-use warnings;
-
-use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;

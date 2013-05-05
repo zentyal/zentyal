@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortalFirewall;
+
 use base 'EBox::FirewallHelper';
 
 use EBox::Global;

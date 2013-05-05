@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Exceptions::Sudo::Command;
-use base qw(EBox::Exceptions::Command EBox::Exceptions::Sudo::Base);
-
 use strict;
 use warnings;
+
+package EBox::Exceptions::Sudo::Command;
+
+use base qw(EBox::Exceptions::Command EBox::Exceptions::Sudo::Base);
 
 sub new
 {

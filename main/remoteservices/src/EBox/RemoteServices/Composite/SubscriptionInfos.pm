@@ -18,12 +18,12 @@
 #    Display the form and information about subscriptions
 #
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices::Composite::SubscriptionInfos;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+
 use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 use EBox::Config;

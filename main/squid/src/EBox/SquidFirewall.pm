@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::SquidFirewall;
+
 use base 'EBox::FirewallHelper';
 
 use EBox::Objects;

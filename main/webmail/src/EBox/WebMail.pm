@@ -18,10 +18,10 @@
 #      Class description
 #
 
-package EBox::WebMail;
-
 use strict;
 use warnings;
+
+package EBox::WebMail;
 
 use base qw(EBox::Module::Service);
 

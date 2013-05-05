@@ -23,12 +23,12 @@
 #   - We need to actually remove the directories at saving changes time,
 #     so we have to write down which directories we must remove
 #
+use strict;
+use warnings;
+
 package EBox::Samba::Model::SambaDeletedShares;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

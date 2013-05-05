@@ -22,10 +22,10 @@
 #   <EBox::TrafficShaping> module itself.
 #
 
-package EBox::TrafficShaping::Model::InternalRules;
-
 use strict;
 use warnings;
+
+package EBox::TrafficShaping::Model::InternalRules;
 
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 

@@ -13,16 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+use strict;
+use warnings;
+
 package EBox::Mail::Model::ExternalAccounts;
+
 use base 'EBox::Model::DataTable';
 
 #
 #  To manage email retrieval form external accounts in the user corner
 #  section
 #
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Gettext;

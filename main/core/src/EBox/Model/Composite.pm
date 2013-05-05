@@ -31,11 +31,12 @@
 #      - tabbed     - the components will be shown in a tab way
 #
 
-package EBox::Model::Composite;
-use base 'EBox::Model::Component';
-
 use strict;
 use warnings;
+
+package EBox::Model::Composite;
+
+use base 'EBox::Model::Component';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;

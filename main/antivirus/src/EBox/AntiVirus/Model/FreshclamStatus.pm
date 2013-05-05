@@ -14,13 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
+use strict;
+use warnings;
+
 package EBox::AntiVirus::Model::FreshclamStatus;
+
 use base 'EBox::Model::DataForm::ReadOnly';
 
 use feature 'switch';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::External;
 use EBox::Global;

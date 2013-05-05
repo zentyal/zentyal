@@ -28,6 +28,7 @@ use warnings;
 #   field - the name of a <EBox::Types::File> type
 #
 package EBox::CGI::Controller::Downloader::FromModel;
+
 use base 'EBox::CGI::Controller::Downloader::Base';
 
 use EBox::Gettext;

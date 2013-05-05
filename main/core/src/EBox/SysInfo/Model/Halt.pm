@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo::Model::Halt;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

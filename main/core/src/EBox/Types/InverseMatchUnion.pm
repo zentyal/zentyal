@@ -30,7 +30,9 @@ use strict;
 use warnings;
 
 package EBox::Types::InverseMatchUnion;
+
 use base 'EBox::Types::Union';
+
 use EBox::Gettext;
 
 # Group: Public methods

@@ -21,6 +21,7 @@ use warnings;
 #
 
 package EBox::Monitor::Measure::Thermal;
+
 use base qw(EBox::Monitor::Measure::Base);
 
 use EBox::Gettext;

@@ -16,14 +16,14 @@
 # Class: EBox::NTP::Model::Settings
 #
 
+use strict;
+use warnings;
+
 package EBox::NTP::Model::Settings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

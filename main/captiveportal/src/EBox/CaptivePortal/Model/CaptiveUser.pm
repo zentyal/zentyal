@@ -19,14 +19,14 @@
 #   user quotas
 #
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::CaptiveUser;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Int;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

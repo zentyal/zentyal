@@ -13,29 +13,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::ServiceModule::StatusView
-#
-#   This class is used to list the status of the modules
-#
-package EBox::ServiceModule::CGI::StatusView;
-
 use strict;
 use warnings;
 
+package EBox::ServiceModule::CGI::StatusView;
+
 use base 'EBox::CGI::ClientBase';
+
+#
+#   This class is used to list the status of the modules
+#
 
 use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new( 'title' => __('Module Status Configuration'),
-                                   'template' => '/moduleStatus.mas',
-            @_);
+    my $self = $class->SUPER::new('title' => __('Module Status Configuration'),
+                                  'template' => '/moduleStatus.mas', @_);
 
     bless($self, $class);
     return $self;
@@ -54,4 +53,3 @@ sub _process
 }
 
 1;
-

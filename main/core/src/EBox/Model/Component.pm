@@ -19,10 +19,10 @@
 #   by <EBox::Model::Composite> and <EBox::Model::DataTable>.
 #
 
-package EBox::Model::Component;
-
 use strict;
 use warnings;
+
+package EBox::Model::Component;
 
 use EBox::Global;
 use EBox::Gettext;

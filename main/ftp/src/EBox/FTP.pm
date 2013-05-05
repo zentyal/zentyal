@@ -18,6 +18,7 @@ use strict;
 use warnings;
 
 package EBox::FTP;
+
 use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Global;

@@ -21,6 +21,7 @@ use warnings;
 #  given by the group share
 #
 package EBox::Samba::Model::SambaShares;
+
 use base 'EBox::Model::DataTable';
 
 use Cwd 'abs_path';

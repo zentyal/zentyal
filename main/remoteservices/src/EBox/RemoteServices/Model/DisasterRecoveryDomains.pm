@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::Model::DisasterRecoveryDomains;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

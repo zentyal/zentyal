@@ -16,11 +16,12 @@
 # Class: EBox::IPsec::Composite::UserSettings
 #
 #
-package EBox::IPsec::Composite::UsersSettings;
-use base 'EBox::Model::Composite';
-
 use strict;
 use warnings;
+
+package EBox::IPsec::Composite::UsersSettings;
+
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 

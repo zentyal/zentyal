@@ -22,6 +22,7 @@ use warnings;
 package EBox::Exceptions::MissingArgument;
 
 use base 'EBox::Exceptions::External';
+
 use Log::Log4perl;
 use EBox::Gettext;
 

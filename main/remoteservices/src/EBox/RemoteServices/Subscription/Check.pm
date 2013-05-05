@@ -19,10 +19,10 @@
 #  your server from the cloud
 #
 
-package EBox::RemoteServices::Subscription::Check;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Subscription::Check;
 
 use EBox::Gettext;
 use EBox::Global;

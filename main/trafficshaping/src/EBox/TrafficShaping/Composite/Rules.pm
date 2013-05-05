@@ -18,12 +18,12 @@
 #   This class is used to manage traffic shaping rule models in a
 #   single element using a dynamic view
 #
+use strict;
+use warnings;
+
 package EBox::TrafficShaping::Composite::Rules;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

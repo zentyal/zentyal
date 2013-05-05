@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter;
+
 use base (
           'EBox::Module::Service',
           'EBox::VDomainModule',
@@ -378,8 +379,6 @@ sub _stopService
     $self->antispam()->stopService();
 #    $self->popProxy()->stopService();
 }
-
-#
 
 ## firewall method
 sub usesPort

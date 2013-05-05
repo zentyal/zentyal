@@ -13,17 +13,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Exceptions::Sudo::Base;
-use base EBox::Exceptions::Internal;
-# package:
-#  this package only exists to give sudo-related exceptions a common  parent
 use strict;
 use warnings;
 
+package EBox::Exceptions::Sudo::Base;
+
+use base 'EBox::Exceptions::Internal';
+
+# package:
+#  this package only exists to give sudo-related exceptions a common parent
+
 sub new
 {
-  my $class = shift @_;
-  return $class->SUPER::new(@_);
+    my $class = shift @_;
+    return $class->SUPER::new(@_);
 }
 
 1;

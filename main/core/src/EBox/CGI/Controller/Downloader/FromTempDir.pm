@@ -18,10 +18,10 @@
 #   This class is a subclass of <EBox::CGI::Controller::Downloader::Base>
 #   to download files from EBox::Config::tmp()
 #
-package EBox::CGI::Controller::Downloader::FromTempDir;
-
 use strict;
 use warnings;
+
+package EBox::CGI::Controller::Downloader::FromTempDir;
 
 use base 'EBox::CGI::Controller::Downloader::Base';
 

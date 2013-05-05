@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ExposedNetworksBase;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

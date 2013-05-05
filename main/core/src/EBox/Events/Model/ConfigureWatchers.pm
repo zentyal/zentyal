@@ -27,6 +27,7 @@ use strict;
 use warnings;
 
 package EBox::Events::Model::ConfigureWatchers;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;

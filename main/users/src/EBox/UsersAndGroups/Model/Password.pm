@@ -21,6 +21,7 @@ use warnings;
 #
 
 package EBox::UsersAndGroups::Model::Password;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Events::Model::EventsDetails;
+
 use base 'EBox::Logs::Model::Details';
 
 use EBox::Gettext;

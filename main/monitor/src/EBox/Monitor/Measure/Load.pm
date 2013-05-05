@@ -18,10 +18,10 @@
 #     This measure collects the system load
 #
 
-package EBox::Monitor::Measure::Load;
-
 use strict;
 use warnings;
+
+package EBox::Monitor::Measure::Load;
 
 use base qw(EBox::Monitor::Measure::Base);
 

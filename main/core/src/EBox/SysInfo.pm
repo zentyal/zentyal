@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo;
+
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;

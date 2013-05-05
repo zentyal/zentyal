@@ -13,17 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::ServiceModule::View
-#
-#  This class is to used to warn and prompt the user about the
-#  configuration files which are going to be modified
-#
-package EBox::ServiceModule::CGI::View;
-
 use strict;
 use warnings;
 
+package EBox::ServiceModule::CGI::View;
+
 use base 'EBox::CGI::ClientRawBase';
+
+#  This class is to used to warn and prompt the user about the
+#  configuration files which are going to be modified
 
 use EBox::ServiceManager;
 use EBox::Global;

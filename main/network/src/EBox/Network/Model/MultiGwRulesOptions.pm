@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Network::Model::MultiGwRulesOptions;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

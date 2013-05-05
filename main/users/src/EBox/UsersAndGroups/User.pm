@@ -23,6 +23,7 @@ use warnings;
 #
 
 package EBox::UsersAndGroups::User;
+
 use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;

@@ -18,12 +18,12 @@
 #       An specialized model from <EBox::Model::DataForm> which
 #       includes a image or a graphic.
 
+use strict;
+use warnings;
+
 package EBox::Model::Image;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::CGI::Temp;
 

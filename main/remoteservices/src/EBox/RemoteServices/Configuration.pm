@@ -13,16 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Configuration;
+use strict;
+use warnings;
 
+package EBox::RemoteServices::Configuration;
 # Class: EBox::RemoteServices::Configuration
 #
 #   This class is a configuration variable holder shared between
 #   several objects in remote services module
 #
-
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Global;

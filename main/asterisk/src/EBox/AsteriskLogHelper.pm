@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::AsteriskLogHelper;
+
 use base 'EBox::LogHelper';
 
 use EBox::Gettext;

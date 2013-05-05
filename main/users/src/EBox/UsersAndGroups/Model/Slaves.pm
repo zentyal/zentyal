@@ -20,6 +20,7 @@ use warnings;
 #   This a class holds the list of registered slave machines
 #
 package EBox::UsersAndGroups::Model::Slaves;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

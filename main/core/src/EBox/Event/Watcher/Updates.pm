@@ -13,8 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Event::Watcher::Updates;
+use strict;
+use warnings;
 
+package EBox::Event::Watcher::Updates;
 # Class: EBox::Event::Watcher::Updates
 #
 #   This class is a watcher which checks if there is any software
@@ -23,8 +25,6 @@ package EBox::Event::Watcher::Updates;
 #
 #   This check is done weekly.
 #
-use strict;
-use warnings;
 
 use 5.010;
 

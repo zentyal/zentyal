@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::Class;
-
 use strict;
 use warnings;
 
-# Its parent class is NodeTS
+package EBox::TrafficShaping::Class;
+
 use base 'EBox::TrafficShaping::Node';
+
+# Its parent class is NodeTS
 
 # Constructor: new
 #

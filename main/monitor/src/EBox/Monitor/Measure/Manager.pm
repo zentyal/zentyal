@@ -22,10 +22,10 @@
 #     <register> instance method to appear in monitoring solution
 #
 
-package EBox::Monitor::Measure::Manager;
-
 use strict;
 use warnings;
+
+package EBox::Monitor::Measure::Manager;
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;

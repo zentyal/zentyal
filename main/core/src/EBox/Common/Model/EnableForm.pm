@@ -22,12 +22,12 @@
 #     - enabled
 #
 
+use strict;
+use warnings;
+
 package EBox::Common::Model::EnableForm;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;

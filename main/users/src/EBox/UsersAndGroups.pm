@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups;
+
 use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::SysInfo::Observer

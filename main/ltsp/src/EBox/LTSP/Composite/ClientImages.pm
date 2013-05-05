@@ -18,12 +18,12 @@
 #   TODO: Document composite
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Composite::ClientImages;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::FirewallHelper;
+
 use base 'EBox::FirewallHelper';
 
 use constant STD_SSH_PORT => 22;

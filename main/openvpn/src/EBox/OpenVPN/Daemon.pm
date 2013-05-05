@@ -17,6 +17,7 @@ use warnings;
 
 # package: Parent class for the distinct types of OpenVPN daemons
 package EBox::OpenVPN::Daemon;
+
 use base qw(EBox::NetworkObserver);
 
 use File::Slurp;

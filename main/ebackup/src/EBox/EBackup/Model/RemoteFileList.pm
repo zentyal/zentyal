@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup::Model::RemoteFileList;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

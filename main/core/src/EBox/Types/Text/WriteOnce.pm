@@ -24,10 +24,10 @@
 # the module manages the VPN files. To avoid nasty stuff, we don't allow to
 # change the name of the VPN. Afterwards the same problem appeared in another places
 #
-package EBox::Types::Text::WriteOnce;
-
 use strict;
 use warnings;
+
+package EBox::Types::Text::WriteOnce;
 
 use base 'EBox::Types::Text';
 

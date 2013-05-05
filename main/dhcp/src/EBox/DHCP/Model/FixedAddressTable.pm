@@ -25,6 +25,7 @@ use strict;
 use warnings;
 
 package EBox::DHCP::Model::FixedAddressTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::External;

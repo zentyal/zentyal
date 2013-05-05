@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Event::Watcher::CaptivePortalQuota;
+
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;

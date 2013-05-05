@@ -25,10 +25,10 @@
 #       reason, Composite type is created.
 #
 
-package EBox::Types::Composite;
-
 use strict;
 use warnings;
+
+package EBox::Types::Composite;
 
 use base 'EBox::Types::Abstract';
 

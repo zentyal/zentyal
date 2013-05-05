@@ -16,6 +16,7 @@
 package EBox::Exceptions::Base;
 
 use base 'Error';
+
 use Log::Log4perl;
 use EBox::Gettext;
 use EBox;

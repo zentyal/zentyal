@@ -31,10 +31,10 @@
 #		- Implement backview correctly to allow the user to go back
 #		  when he is done with the spawned table
 #
-package EBox::Types::HasMany;
-
 use strict;
 use warnings;
+
+package EBox::Types::HasMany;
 
 use base 'EBox::Types::Abstract';
 

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CA::Certificates;
+
 use base qw(EBox::CA::Observer);
 
 use EBox::Gettext;

@@ -18,6 +18,9 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::Mail::Model::MailUser;
 
 use EBox::Gettext;
@@ -25,9 +28,6 @@ use EBox::Validate qw(:all);
 use EBox::Types::Port;
 use EBox::Types::Select;
 use EBox::Global;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

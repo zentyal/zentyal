@@ -15,12 +15,12 @@
 
 # Class: EBox::UsersAndGroups::Composite::Settings
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Composite::Settings;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

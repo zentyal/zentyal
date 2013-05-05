@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::PPTP;
+
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LogObserver);

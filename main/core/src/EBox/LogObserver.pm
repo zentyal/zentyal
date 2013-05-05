@@ -19,10 +19,10 @@
 #       daemon or servide must inherit from this class and implement
 #       the given interface
 #
-package EBox::LogObserver;
-
 use strict;
 use warnings;
+
+package EBox::LogObserver;
 
 use Perl6::Junction qw(any);
 

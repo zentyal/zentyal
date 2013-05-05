@@ -22,10 +22,10 @@
 # the module manages the virtual domains. To avoid nasty stuff, we don't
 # allow to change the name of the domain
 #
-package EBox::Mail::Types::WriteOnceDomain;
-
 use strict;
 use warnings;
+
+package EBox::Mail::Types::WriteOnceDomain;
 
 use base 'EBox::Types::DomainName';
 

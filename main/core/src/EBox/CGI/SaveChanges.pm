@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::SaveChanges;
+
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Config;

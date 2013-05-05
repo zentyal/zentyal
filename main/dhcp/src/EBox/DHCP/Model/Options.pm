@@ -24,12 +24,12 @@
 #     - second nameserver
 #
 
+use strict;
+use warnings;
+
 package EBox::DHCP::Model::Options;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;

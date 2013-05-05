@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Model::DataTable;
+
 use base 'EBox::Model::Component';
 
 use EBox;

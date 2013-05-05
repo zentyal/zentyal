@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::SambaFirewall;
+
 use base 'EBox::FirewallHelper';
 
 use EBox::Objects;

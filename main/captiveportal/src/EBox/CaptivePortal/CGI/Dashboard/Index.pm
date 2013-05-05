@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::Dashboard::Index;
+
 use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;

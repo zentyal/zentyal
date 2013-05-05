@@ -15,13 +15,13 @@
 
 package EBox::Event::Watcher::Runit;
 
+use base 'EBox::Event::Watcher::Base';
+
 # Class: EBox::Event::Watcher::Runit
 #
 #   This class is a watcher which checks if a service has been down
 #   for MAX_DOWN_PERIODS in PERIODS and send an event notifying it
 #
-
-use base 'EBox::Event::Watcher::Base';
 
 use constant PERIOD => 60;
 use constant MAX_DOWN_PERIODS => 5;

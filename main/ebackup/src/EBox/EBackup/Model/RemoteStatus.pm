@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup::Model::RemoteStatus;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

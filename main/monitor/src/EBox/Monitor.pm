@@ -29,6 +29,7 @@ use warnings;
 #
 
 package EBox::Monitor;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider EBox::SysInfo::Observer);
 
 use EBox::Config;

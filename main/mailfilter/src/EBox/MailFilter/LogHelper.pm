@@ -15,6 +15,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::LogHelper;
+
 use base qw(EBox::LogHelper);
 
 use EBox::Gettext;

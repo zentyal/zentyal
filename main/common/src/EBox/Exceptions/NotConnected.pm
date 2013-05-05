@@ -20,6 +20,7 @@
 package EBox::Exceptions::NotConnected;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
 sub new

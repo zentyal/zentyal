@@ -17,10 +17,10 @@
 #
 #
 
-package EBox::Asterisk::Extensions;
-
 use strict;
 use warnings;
+
+package EBox::Asterisk::Extensions;
 
 use EBox::Global;
 use EBox::Gettext;

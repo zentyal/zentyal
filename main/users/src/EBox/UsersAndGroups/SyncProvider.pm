@@ -23,10 +23,10 @@
 #   To act as master, common methods (create, modify and delete) should
 #   be used on users and group objects.
 #
-package EBox::UsersAndGroups::SyncProvider;
-
 use strict;
 use warnings;
+
+package EBox::UsersAndGroups::SyncProvider;
 
 use EBox::Exceptions::NotImplemented;
 

@@ -20,12 +20,12 @@
 #   It subclasses <EBox::Model::DataForm>
 #
 
+use strict;
+use warnings;
+
 package EBox::Test::Form;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;

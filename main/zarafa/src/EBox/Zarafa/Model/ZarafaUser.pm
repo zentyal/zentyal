@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Zarafa::Model::ZarafaUser;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

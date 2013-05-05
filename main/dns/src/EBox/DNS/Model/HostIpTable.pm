@@ -25,6 +25,7 @@ use warnings;
 #
 #
 package EBox::DNS::Model::HostIpTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

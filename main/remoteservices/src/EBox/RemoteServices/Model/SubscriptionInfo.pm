@@ -28,6 +28,7 @@ use v5.10;
 #
 
 package EBox::RemoteServices::Model::SubscriptionInfo;
+
 use base 'EBox::Model::DataForm::ReadOnly';
 
 use EBox::Gettext;

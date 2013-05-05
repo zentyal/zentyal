@@ -16,6 +16,7 @@ use warnings;
 use strict;
 
 package EBox::Firewall::IptablesRule::SNAT;
+
 use base 'EBox::Firewall::IptablesRule';
 
 use EBox::Global;

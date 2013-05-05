@@ -21,12 +21,12 @@
 #
 #    - nameserver
 #
+use strict;
+use warnings;
+
 package EBox::Network::Model::DNSResolver;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

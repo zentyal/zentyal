@@ -17,6 +17,9 @@
 #
 #   From to configure a Zentyal master to provide users to this server
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::Master;
 
 use base 'EBox::Model::DataForm';
@@ -29,9 +32,6 @@ use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
 use EBox::View::Customizer;
-
-use strict;
-use warnings;
 
 use constant VIEW_CUSTOMIZER => {
     none     => { hide => [ 'host', 'port', 'password' ] },

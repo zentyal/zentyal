@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Asterisk::Model::Localnets;
+
+use base 'EBox::Model::DataTable';
 
 # Class: EBox::Asterisk::Model::Localnets
 #
 #      Form to set the configuration settings for the localnets.
 #
-
-use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

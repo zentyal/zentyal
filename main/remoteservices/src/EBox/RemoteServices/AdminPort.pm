@@ -18,11 +18,12 @@
 #     This class is intended as the client side to notify on server changes
 #
 
-package EBox::RemoteServices::AdminPort;
-use base 'EBox::RemoteServices::Cred';
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::AdminPort;
+
+use base 'EBox::RemoteServices::Cred';
 
 use EBox;
 use Error qw(:try);

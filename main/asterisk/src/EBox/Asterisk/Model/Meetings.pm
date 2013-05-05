@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Asterisk::Model::Meetings;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

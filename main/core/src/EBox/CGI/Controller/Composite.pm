@@ -22,12 +22,12 @@
 #      HTML just includes what Viewer method returns
 #
 
+use strict;
+use warnings;
+
 package EBox::CGI::Controller::Composite;
 
 use base 'EBox::CGI::ClientRawBase';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

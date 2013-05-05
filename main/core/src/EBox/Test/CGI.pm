@@ -13,12 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Test::CGI;
-
 use strict;
 use warnings;
 
+package EBox::Test::CGI;
+
 use base 'Exporter';
+
 our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters muteHtmlOutput);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 

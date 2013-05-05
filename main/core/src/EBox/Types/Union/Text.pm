@@ -25,10 +25,10 @@
 #       space.
 #
 
-package EBox::Types::Union::Text;
-
 use strict;
 use warnings;
+
+package EBox::Types::Union::Text;
 
 use base 'EBox::Types::Text';
 

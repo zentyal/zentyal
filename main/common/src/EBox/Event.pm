@@ -13,16 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Event;
+use strict;
+use warnings;
 
+package EBox::Event;
 # Class: EBox::Event
 #
 # This package is intended to support events. These events could be
 # sent to the control center or it is also be recorded
 #
-
-use strict;
-use warnings;
 
 # Constants:
 use constant LEVEL_VALUES => qw(info warn error fatal);

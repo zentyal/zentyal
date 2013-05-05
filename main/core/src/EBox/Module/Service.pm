@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Module::Service;
+
 use base qw(EBox::Module::Config);
 
 use EBox::Config;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::NUT::Model::Mode;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

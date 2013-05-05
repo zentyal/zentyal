@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::LTSP::Model::GeneralOpts;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;

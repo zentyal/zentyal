@@ -18,13 +18,13 @@
 #   Next password to use on slave registering
 #
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::SlavePassword;
 
 use EBox::Gettext;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

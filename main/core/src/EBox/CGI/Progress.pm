@@ -13,18 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# package EBox::CGI::Progress
-#
+use strict;
+use warnings;
+
+package EBox::CGI::Progress
+
+use base 'EBox::CGI::ClientBase';
+
 #  This class is to used to show the progress of a long operation
 #
 #  This CGI is not intended to be caled directly, any CGI whom wants to switch
 #   to a progress view must inherit from ProgressClient and call to the method showProgress
-package EBox::CGI::Progress;
-
-use strict;
-use warnings;
-
-use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::GlobalImpl;

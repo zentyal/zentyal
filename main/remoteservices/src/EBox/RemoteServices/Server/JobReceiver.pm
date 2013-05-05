@@ -22,10 +22,10 @@
 #      some way
 #
 
-package EBox::RemoteServices::Server::JobReceiver;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Server::JobReceiver;
 
 use base 'EBox::RemoteServices::Server::Base';
 

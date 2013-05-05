@@ -13,15 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Job::Helper;
+use strict;
+use warnings;
 
+package EBox::RemoteServices::Job::Helper;
 # Class: EBox::RemoteServices::Job::Helper
 #
 #     Helper for job scripts
 #
-
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Global;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Mail;
+
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider

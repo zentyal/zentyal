@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::Backup;
+
 use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;

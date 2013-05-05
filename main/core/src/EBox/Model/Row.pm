@@ -38,10 +38,10 @@
 #       - 'printableValueHash' => hash ref containing the fields and
 #          their printable value
 
-package EBox::Model::Row;
-
 use strict;
 use warnings;
+
+package EBox::Model::Row;
 
 use EBox::Model::Manager;
 use EBox::Exceptions::Internal;

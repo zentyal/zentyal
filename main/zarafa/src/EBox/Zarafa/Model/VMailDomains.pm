@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Zarafa::Model::VMailDomains;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Config;

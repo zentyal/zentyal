@@ -21,12 +21,12 @@
 #   the object table which contains the nameservers for a domain, that
 #   is, its NS records . A member of <EBox::DNS::Model::DomainTable>
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::NameServer;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

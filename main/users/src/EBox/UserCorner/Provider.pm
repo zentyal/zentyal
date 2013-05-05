@@ -15,10 +15,10 @@
 
 # This is the interface that modules that want to provide UserCorner CGIs need
 # to implement
-package EBox::UserCorner::Provider;
-
 use strict;
 use warnings;
+
+package EBox::UserCorner::Provider;
 
 sub new
 {

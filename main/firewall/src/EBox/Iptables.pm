@@ -13,14 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Iptables;
+
 # Package to manage iptables command utility
 
 # private functions will return references to sets of commands to be run
 # instead of running the commands themselves
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Firewall;

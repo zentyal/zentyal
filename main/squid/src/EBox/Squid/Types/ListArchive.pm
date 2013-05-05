@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Types::ListArchive;
+
 use base 'EBox::Types::File';
 
 use EBox;

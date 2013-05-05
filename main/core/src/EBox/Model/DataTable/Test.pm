@@ -18,6 +18,7 @@ use warnings;
 use lib '../../..';
 
 package EBox::Model::DataTable::Test;
+
 use base 'EBox::Test::Class';
 
 use Test::More;;

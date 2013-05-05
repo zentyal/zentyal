@@ -20,12 +20,12 @@
 #       since no data is required to be stored.
 #
 
+use strict;
+use warnings;
+
 package EBox::Logs::Model::ForcePurge;
 
 use base 'EBox::Model::DataForm::Action';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;

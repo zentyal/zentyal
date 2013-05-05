@@ -16,14 +16,14 @@
 # package:  EBox::Types::IPNetwork
 #
 #    Type class intended to represent addresses of IP networks
+use strict;
+use warnings;
+
 package EBox::Types::IPNetwork;
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
-
-use strict;
-use warnings;
 
 use base 'EBox::Types::IPAddr';
 

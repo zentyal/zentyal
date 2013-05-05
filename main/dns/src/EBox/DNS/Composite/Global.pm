@@ -18,12 +18,12 @@
 #   This class is used to display the global DNS options in a common way
 #
 
+use strict;
+use warnings;
+
 package EBox::DNS::Composite::Global;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

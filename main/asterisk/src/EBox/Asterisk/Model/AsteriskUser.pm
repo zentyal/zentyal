@@ -18,12 +18,12 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::Asterisk::Model::AsteriskUser;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;

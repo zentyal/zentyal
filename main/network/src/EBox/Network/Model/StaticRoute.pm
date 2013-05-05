@@ -24,6 +24,7 @@ use warnings;
 #    - description (optional)
 
 package EBox::Network::Model::StaticRoute;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;

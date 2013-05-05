@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::VDomainsFilter;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;

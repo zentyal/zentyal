@@ -28,10 +28,10 @@
 #               'begin' - ip which marks the begins of the range (no mask)
 #               'end' - ip which marks the begins of the range (no mask)
 
-package EBox::Objects::Members;
-
 use strict;
 use warnings;
+
+package EBox::Objects::Members;
 
 sub new
 {

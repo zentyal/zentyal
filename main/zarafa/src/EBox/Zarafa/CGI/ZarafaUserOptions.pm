@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Zarafa::CGI::ZarafaUserOptions;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;

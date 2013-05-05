@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox;

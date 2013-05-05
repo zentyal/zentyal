@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::EBackup::Model::RemoteStorage;
+
+use base 'EBox::Model::DataForm::ReadOnly';
 
 # Class: EBox::EBackup::Model::RemoteStorage
 #
 #   TODO: Document the class
 #
-
-use base 'EBox::Model::DataForm::ReadOnly';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::GeneralSettings;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Global;

@@ -18,12 +18,12 @@
 #   Class description
 #
 
+use strict;
+use warnings;
+
 package EBox::IPS::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

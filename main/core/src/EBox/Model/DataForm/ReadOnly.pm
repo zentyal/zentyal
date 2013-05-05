@@ -19,12 +19,12 @@
 #       only shows information in a form schema
 #
 
+use strict;
+use warnings;
+
 package EBox::Model::DataForm::ReadOnly;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;

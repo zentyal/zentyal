@@ -22,11 +22,12 @@
 # - from : HostIP
 # - to   : HostIP
 #
-package EBox::IPsec::Model::RangeTable;
-use base 'EBox::Model::DataTable';
-
 use strict;
 use warnings;
+
+package EBox::IPsec::Model::RangeTable;
+
+use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Model::Manager;

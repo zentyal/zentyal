@@ -22,10 +22,10 @@
 #     - Number of available reporters
 #
 
-package EBox::RemoteServices::Model::ReportsInfo;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::ReportsInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 

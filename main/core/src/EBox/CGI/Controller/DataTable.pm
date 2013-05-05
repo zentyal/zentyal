@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::Controller::DataTable;
+
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;

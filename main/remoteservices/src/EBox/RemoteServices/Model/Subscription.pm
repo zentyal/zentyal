@@ -30,10 +30,10 @@
 #     - Zentyal subscribed. After the registration
 #
 
-package EBox::RemoteServices::Model::Subscription;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::Subscription;
 
 use base 'EBox::Model::DataForm';
 

@@ -13,21 +13,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices;
 
-# Class: EBox::RemoteServices
-#
-#      RemoteServices module to handle everything related to the remote
-#      services offered
-#
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
             EBox::Desktop::ServiceProvider
             EBox::FirewallObserver);
 
-use strict;
-use warnings;
+# Class: EBox::RemoteServices
+#
+#      RemoteServices module to handle everything related to the remote
+#      services offered
+#
 
 use feature qw(switch);
 

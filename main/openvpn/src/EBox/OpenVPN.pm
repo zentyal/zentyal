@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN;
+
 use base qw(
              EBox::Module::Service
              EBox::NetworkObserver

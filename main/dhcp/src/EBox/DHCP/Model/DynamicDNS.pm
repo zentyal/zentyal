@@ -24,6 +24,7 @@ use warnings;
 #     - static domain
 #
 package EBox::DHCP::Model::DynamicDNS;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Exceptions::External;

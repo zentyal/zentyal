@@ -22,12 +22,12 @@
 #   with its preference value. A member of
 #   <EBox::DNS::Model::DomainTable>
 #
+use strict;
+use warnings;
+
 package EBox::DNS::Model::MailExchanger;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

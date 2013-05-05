@@ -20,12 +20,12 @@
 #   which stores the lease times configuration, and the latter the
 #   thin client model that stores the thin client configuration
 #
+use strict;
+use warnings;
+
 package EBox::DHCP::Composite::AdvancedOptions;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

@@ -16,6 +16,7 @@
 package EBox::Exceptions::External;
 
 use base 'EBox::Exceptions::Base';
+
 use EBox::Gettext;
 
 # Constructor: new

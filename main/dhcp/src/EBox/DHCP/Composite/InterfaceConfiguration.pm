@@ -21,6 +21,7 @@ use warnings;
 #   composite does
 #
 package EBox::DHCP::Composite::InterfaceConfiguration;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;

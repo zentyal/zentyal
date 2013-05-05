@@ -19,10 +19,10 @@
 #
 #       * Support automatic unique check
 #
-package EBox::Types::Union;
-
 use strict;
 use warnings;
+
+package EBox::Types::Union;
 
 use base 'EBox::Types::Abstract';
 

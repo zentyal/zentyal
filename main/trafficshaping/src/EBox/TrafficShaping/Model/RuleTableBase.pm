@@ -25,6 +25,7 @@ use warnings;
 #
 
 package EBox::TrafficShaping::Model::RuleTableBase;
+
 use base 'EBox::Model::DataTable';
 
 use integer;

@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::VDomainsLdap;
+
 use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
 
 use EBox::Sudo;
