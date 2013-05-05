@@ -14,52 +14,37 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::AntiVirus::Test;
-# package:
+
 use strict;
 use warnings;
 
 use base 'EBox::Test::Class';
 
+use EBox::Global::TestStub;
 use EBox::Test;
-use Test::File;
+use EBox::Test::RedisMock;
+use EBox::TestStubs;
+use Test::MockObject::Extends;
 use Test::More;
 use Test::Exception;
 use Perl6::Junction qw(any);
 
-#use lib '../../..';
+sub setUpConfiguration : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+}
 
-use EBox::AntiVirus;
 
-sub setUpTestDir : Test(setup)
+sub setUpTestDir : Test(startup)
 {
     my ($self) = @_;
     my $dir = $self->testDir();
 
-    system "rm -rf $dir";
-    mkdir $dir;
+    system("rm -rf $dir");
+    mkdir($dir);
 }
 
-
-sub setUpConfiguration : Test(setup)
-  {
-    #     my ($self) = @_;
-
-    #     my @config = (
-    #                   '/ebox/modules/mailfilter/clamav/active' => 1,
-    #                   '/ebox/modules/mailfilter/clamav/conf_dir' => $self->testDir(),
-
-    #                   '/ebox/modules/mailfilter/spamassassin/active' => 0,
-    #                   '/ebox/modules/mailfilter/file_filter/holder' => 1,
-    #                   );
-
-    #     EBox::Module::Config::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setModule('antivirus' => 'EBox::AntiVirus');
-
-    EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
-}
-
-
-sub clearConfiguration : Test(teardown)
+sub clearConfiguration : Test(shutdown)
 {
     EBox::Module::Config::TestStub::setConfig();
 }
@@ -67,9 +52,13 @@ sub clearConfiguration : Test(teardown)
 
 sub testDir
 {
-    return '/tmp/ebox.antivirus.test';
+    return '/tmp/zentyal.antivirus.test';
 }
 
+sub av_isa_ok : Test
+{
+    use_ok('EBox::AntiVirus') or die;
+}
 
 sub freshclamEventTest : Test(14)
 {
@@ -90,7 +79,6 @@ sub freshclamEventTest : Test(14)
 
     my @allFields     = qw(update error outdated);
     my @straightCases = (
-        # { params => [], activeFields => [] }
         {
             params         => [ 'update'],
             activeFields   => ['update', 'date'],
@@ -114,9 +102,9 @@ sub freshclamEventTest : Test(14)
         my $anyActiveField = any ( @{ $case_r->{activeFields} });
         foreach my $field (@allFields) {
             if ($field eq $anyActiveField) {
-                like $freshclamState->{$field}, qr/[\d\w]+/, "Checking wether active field '$field' has a timestamp value or a version value";
+                like $freshclamState->{$field}, qr/[\d\w]+/, "Checking whether active field '$field' has a timestamp value or a version value";
             } else {
-                is $freshclamState->{$field}, 0, "Checking the value of a inactive state field '$field'"
+                cmp_ok($freshclamState->{$field}, '==', 0, "Checking the value of an inactive state field '$field'");
             }
         }
 
@@ -136,22 +124,19 @@ sub _fakeFreshclamStateFile
 
 sub _clamavInstance
 {
-    my $antivirus = EBox::Global->modInstance('antivirus');
+    my $redis = new EBox::Test::RedisMock();
+    my $antivirus = EBox::AntiVirus->_create(redis => $redis);
+    $antivirus = new Test::MockObject::Extends($antivirus);
+    $antivirus->mock('freshclamStateFile', sub {
+                         my ($self) = @_;
+                         my $dir = EBox::AntiVirus::Test::testDir();
+                         my $file = "$dir/freshclam.state";
+                         return $file;
+                     }
+                    );
+
     return $antivirus;
 }
 
-
-package EBox::AntiVirus;
-
-{
-    no warnings;
-    sub freshclamStateFile
-    {
-        my ($self) = @_;
-        my $dir = EBox::AntiVirus::Test::testDir();
-        my $file = "$dir/freshclam.state";
-        return $file;
-    }
-}
 
 1;
