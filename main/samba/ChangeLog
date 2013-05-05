@@ -1,4 +1,6 @@
 HEAD
+	+ New sync_disabled_users option in /etc/zentyal/samba.conf to sync
+	  users with a disabled account in s4sync
 	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
 3.0.16
 	+ Workaround with retries for the chown __USERS__ bug
