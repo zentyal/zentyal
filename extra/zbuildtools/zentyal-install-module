@@ -67,6 +67,7 @@ add_if_exists('schemas/urls', $DIR{URLS}, '*.urls');
 add_if_exists('schemas/sql', $DIR{DATA});
 add_if_exists('www', $DIR{WWW}, '*');
 add_if_exists('src/EBox', $DIR{PERL});
+add_if_exists('src/Zentyal', $DIR{PERL});
 add_if_exists('src/scripts', $DIR{DATA}, '*');
 add_if_exists('src/templates', $DIR{TEMPLATES}, '*');
 add_if_exists('src/cgi', $DIR{CGI}, '*.cgi');
