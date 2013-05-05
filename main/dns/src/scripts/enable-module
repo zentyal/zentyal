@@ -1,9 +1,3 @@
 #!/bin/bash
 
-# stop bind9
-invoke-rc.d bind9 stop
-
-# remove startup link
-update-rc.d -f bind9 remove
-
 chmod g+w /etc/bind

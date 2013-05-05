@@ -614,13 +614,27 @@ sub _services
 
 # Method: _daemons
 #
-#  Override <EBox::Module::Service::_daemons>
+#  Overrides <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
     return [
         {
             'name' => 'ebox.bind9'
+        }
+    ];
+}
+
+# Method: _daemonsToDisable
+#
+#  Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        {
+            'name' => 'bind9',
+            'type' => 'init.d'
         }
     ];
 }
