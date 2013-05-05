@@ -1,4 +1,5 @@
 HEAD
+	+ Remove "use GD" workaround in EBox::init()
 	+ Added a function to get the destination address of a Point-to-Point
 	  interface.
 	+ Added isRangeOverlappingWithRange, isValidRange and isIPInRange
