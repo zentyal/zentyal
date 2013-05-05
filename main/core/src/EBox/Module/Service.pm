@@ -992,7 +992,7 @@ sub _overrideDaemons
         }
     }
 
-    EBox::Sudo::rootWithoutException(@cmds);
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 1;
