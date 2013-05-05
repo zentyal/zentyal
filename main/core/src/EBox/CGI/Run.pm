@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -19,67 +20,20 @@ package EBox::CGI::Run;
 
 use EBox;
 use EBox::Global;
-use EBox::Gettext;
 use EBox::Model::Manager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
 use EBox::CGI::Controller::Modal;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Composite;
-use CGI;
-use File::Slurp;
 
 use Error qw(:try);
+use File::Slurp;
+use Perl6::Junction qw(any);
 
 use constant URL_ALIAS_FILTER => '/usr/share/zentyal/urls/*.urls';
 
 my %urlAlias;
-
-# Method: classFromUrl
-#
-#   Map from an URL to the name of the CGI class that needs to be run when
-#   the URL is accessed
-#
-#   It checks the *.urls files to check if the given URL is an alias
-#   in order to get the real URL of the CGI
-#
-# Parameters:
-#
-#   url - URL to map to a CGI classname
-#
-# Returns:
-#   the name of the CGI class
-#
-sub classFromUrl
-{
-    my ($url, $namespace) = @_;
-
-    defined ($url) or die "Not URL provided";
-
-    my $classname = '';
-    if ($namespace) {
-        $classname = $namespace;
-    }
-    $classname .= '::CGI::';
-
-    $url = _urlAlias($url);
-
-    $url =~ s/\?.*//g;
-    $url =~ s/[\\"']//g;
-    $url =~ s/\//::/g;
-    $url =~ s/^:://;
-
-    $classname .= $url;
-
-    $classname =~ s/::::/::/g;
-    $classname =~ s/::$//;
-
-    if ($classname =~ /::CGI$/) {
-        $classname .= '::Dashboard::Index';
-    }
-
-    return $classname;
-}
 
 # Method: run
 #
@@ -91,40 +45,37 @@ sub classFromUrl
 #    url - String the URL to get the CGI from, it will transform
 #    slashes to double colons
 #
-#    namespace - String the namespace to prefix the CGI to extract the
-#                class name, as explained in <classFromUrl>
+#    htmlblocks - *optional* Custom HtmlBlocks package
 #
-sub run # (url, namespace)
+sub run
 {
-    my ($self, $url, $namespace) = @_;
+    my ($self, $url, $htmlblocks) = @_;
 
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
 
-    my $classname;
     try {
-        $classname = classFromUrl($url, $namespace);
-        my $cgi;
-        eval "use $classname";
-        if ($@) {
-            try{
-                $cgi = _lookupViewController($classname, $namespace);
-            }  catch EBox::Exceptions::DataNotFound with {
-                # path not valid
-                $cgi = undef;
-            };
+        my $cgi = _instanceModelCGI($url);
 
-            if (not $cgi) {
-                my $log = EBox::logger;
-                $log->error("Unable to import cgi: "
-                        . "$classname Eval error: $@");
-
-                my $error_cgi = 'EBox::CGI::SysInfo::PageNotFound';
-                eval "use $error_cgi";
-                $cgi = new $error_cgi('namespace' => $namespace);
+        unless ($cgi) {
+            my @extraParams;
+            if ($htmlblocks) {
+                push (@extraParams, htmlblocks => $htmlblocks);
             }
-        } else {
-            $cgi = new $classname();
+
+            my $classname = _cgiFromUrl($url);
+            eval "use $classname";
+
+            if ($@) {
+                my $log = EBox::logger();
+                $log->error("Unable to load CGI: URL=$url CLASS=$classname ERROR: $@");
+
+                my $error_cgi = 'EBox::SysInfo::CGI::PageNotFound';
+                eval "use $error_cgi";
+                $cgi = new $error_cgi(@extraParams);
+            } else {
+                $cgi = new $classname(@extraParams);
+            }
         }
 
         $cgi->{originalUrl} = $url;
@@ -132,12 +83,10 @@ sub run # (url, namespace)
         $redis->commit();
     } otherwise {
         my ($ex) = @_;
-        my $alreadyLogged;
-        if ((ref $ex)=~ m/^EBox/ ) {
-            $alreadyLogged = $ex->isa('EBox::Exceptions::Base');
-        }
-        unless ($alreadyLogged ) {
-            EBox::error("When running $classname: $ex");
+
+        # Base exceptions are already logged, log the rest
+        unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
+            EBox::error("Exception trying to access $url: $ex");
         }
 
         $redis->rollback();
@@ -145,7 +94,71 @@ sub run # (url, namespace)
     };
 }
 
+# Method: modelFromlUrl
+#
+#  Returns model instance for the given URL
+#
+sub modelFromUrl
+{
+    my ($url) = @_;
+
+    my ($model, $namespace, $type) = _parseModelUrl($url);
+    return undef unless ($model and $namespace);
+    my $path = lc ($namespace) . "/$model";
+    return _instanceComponent($path, $type);
+}
+
 # Helper functions
+
+# Method: _parseModelUrl
+#
+#   Get model path, type and action from the given URL if it's a MVC one
+#
+#   It checks the *.urls files to check if the given URL is an alias
+#   in order to get the real URL of the CGI
+#
+# Parameters:
+#
+#   url - URL to parse
+#
+# Returns:
+#
+#   list  - (model, namespace, type, action) if valid model URL
+#   undef - if regular CGI url
+#
+sub _parseModelUrl
+{
+    my ($url) = @_;
+
+    defined ($url) or die "Not URL provided";
+
+    $url = _urlAlias($url);
+
+    my ($namespace, $type, $model, $action) = split ('/', $url);
+
+    if ($type eq any(qw(Composite View Controller ModalController))) {
+        return ($model, $namespace, $type, $action);
+    }
+
+    return undef;
+}
+
+sub _cgiFromUrl
+{
+    my ($url) = @_;
+
+    unless ($url) {
+        return "EBox::Dashboard::CGI::Index";
+    }
+
+    my @parts = split('/', $url);
+
+    if (@parts >= 2) {
+        return "EBox::$parts[0]::CGI::$parts[1]";
+    } else {
+        return "EBox::CGI::$parts[0]";
+    }
+}
 
 sub _urlAlias
 {
@@ -173,147 +186,62 @@ sub _readUrlAliases
     }
 }
 
-sub _posAfterCGI
+sub _instanceComponent
 {
-    my ($namespaces) = @_;
-    my $i = 0;
-    for my $namespace (@{$namespaces}) {
-        if ($namespace eq 'CGI') {
-            last;
-        }
-        $i++;
-    }
-    return $i+1;
-}
-
-# Method: lookupModel
-#
-#   Map from a CGI class name to the appropriate model
-#
-# Parameters:
-#
-#   classname - CGI class name to map to a model and an action
-#
-# Returns:
-#   the model and action appropriate for the classname
-#
-# Exceptions:
-#   <EBox::Exceptions::DataNotFound> - thrown if the CGI doesn't use models
-#
-sub lookupModel
-{
-    my ($classname) = @_;
-    my @namespaces = split ('::', $classname);
-    my $pos = _posAfterCGI(\@namespaces);
+    my ($path, $type) = @_;
 
     my $manager = EBox::Model::Manager->instance();
-    my ($namespace, $modelName) = ($namespaces[$pos+1], $namespaces[$pos+2]);
-    my ($model, $action) = (undef, undef);
-
-    if ( ($namespace eq 'View') or
-            ($namespace eq 'Controller') or
-             ($namespace eq 'ModalController')) {
-
-        if ( defined ( $namespaces[$pos+3] ) ) {
-            # Set as model name, the context name
-            $modelName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
-        } else {
-            $modelName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
-        }
-        try {
-            $model = $manager->model($modelName);
-            if ( @namespaces >= $pos+4 ) {
-                $action = splice ( @namespaces, $pos+4, 1 );
-            }
-        } catch EBox::Exceptions::DataNotFound with {
-            $action = $namespaces[$pos+3];
-            # Remove the previous thought index
-            $modelName =~ s:/.*?$::g;
-            if (($modelName) ne '') {
-                $model = $manager->model($modelName);
-            } else {
-                throw EBox::Exceptions::DataNotFound(q{model's name});
-            }
-        };
-    } elsif ( $namespace eq 'Composite' ) {
-        if ( defined ( $namespaces[$pos+3] )) {
-            # It may be the index or the action
-            # Compose the composite context name
-            my $contextName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
-            try {
-                $model = $manager->composite($contextName);
-                $action = $namespaces[$pos+4];
-            } catch EBox::Exceptions::DataNotFound with {
-                $action = $namespaces[$pos+3];
-            };
-        }
-        unless ( defined ( $model)) {
-            my $contextName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
-            $model = $manager->composite($contextName);
-        }
+    my $model = undef;
+    if ($type eq 'Composite') {
+        $model = $manager->composite($path);
+    } else {
+        $model = $manager->model($path);
     }
-    return ($model, $action);
+
+    return $model;
 }
 
-# Method:: _lookupViewController
-#
-#       Check if a classname must be mapped to a View or Controller
-#       cgi class from a model or a composite
-#
-sub _lookupViewController
+sub _instanceModelCGI
 {
-        my ($classname, $cginamespace) = @_;
+    my ($url) = @_;
 
-        # URL to map:
-        # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
-        # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model index action
-        # model => '::<modelName>'
-        # index => '::<index>' | epsilon
-        # action => '::<actionName>' | epsilon
+    my ($cgi, $menuNamespace) = (undef, undef);
 
-        my ($cgi, $menuNamespace) = (undef, undef);
+    my ($modelName, $namespace, $type, $action) = _parseModelUrl($url);
 
-        my ($model, $action) = lookupModel($classname);
+    return undef unless ($modelName and $namespace and $type);
 
-        if($model) {
-            my @namespaces = split ( '::', $classname);
-            my $pos = _posAfterCGI(\@namespaces);
+    my $manager = EBox::Model::Manager->instance();
+    my $path = lc ($namespace) . "/$modelName";
+    return undef unless $manager->componentExists($path);
 
-            my ($namespace, $modelName) = ($namespaces[$pos+1], $namespaces[$pos+2]);
+    my $model = _instanceComponent($path, $type);
 
-            $menuNamespace = $model->menuNamespace();
-            if ( $namespace eq 'View' ) {
-                    $cgi = EBox::CGI::View::DataTable->new(
-                        'tableModel' => $model,
-                        'namespace' => $cginamespace);
-            } elsif ( $namespace eq 'Controller' ) {
-                    $cgi = EBox::CGI::Controller::DataTable->new(
-                        'tableModel' => $model,
-                        'namespace' => $cginamespace);
-           } elsif ( $namespace eq 'ModalController' ) {
-                    $cgi = EBox::CGI::Controller::Modal->new(
-                        'tableModel' => $model,
-                        'namespace' => $cginamespace);
-            } elsif ( $namespace eq 'Composite' ) {
-                # Check if the action is defined URL: Composite/<compName>/<action>
-                if ( defined ( $action )) {
-                    $cgi = new EBox::CGI::Controller::Composite(
-                        composite => $model,
-                        action    => $action,
-                        'namespace' => $cginamespace
-                                                               );
-                } else {
-                    $cgi = new EBox::CGI::View::Composite(
-                        composite => $model,
-                        'namespace' => $cginamespace
-                                                         );
-                }
-            }
-            if (defined($cgi) and defined($menuNamespace)) {
-                    $cgi->setMenuNamespace($menuNamespace);
+    if ($model) {
+        $menuNamespace = $model->menuNamespace();
+        if ($type eq 'View') {
+            $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
+        } elsif ($type eq 'Controller') {
+            $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
+        } elsif ($type eq 'ModalController') {
+            $cgi = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace);
+        } elsif ($type eq 'Composite') {
+            if (defined ($action)) {
+                $cgi = new EBox::CGI::Controller::Composite(composite => $model,
+                                                            action    => $action,
+                                                            namespace => $namespace);
+            } else {
+                $cgi = new EBox::CGI::View::Composite(composite => $model,
+                                                      namespace => $namespace);
             }
         }
-        return $cgi;
+
+        if (defined ($cgi) and defined ($menuNamespace)) {
+            $cgi->setMenuNamespace($menuNamespace);
+        }
+    }
+
+    return $cgi;
 }
 
 1;
