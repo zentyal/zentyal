@@ -1,4 +1,5 @@
 HEAD
+	+ Implemented _daemonsToDisable()
 	+ Moved initRange and endRange methods to the network module to be shared.
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 3.0.3

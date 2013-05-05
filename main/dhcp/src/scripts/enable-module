@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# disable isc-dhcp-server
-update-rc.d isc-dhcp-server disable
