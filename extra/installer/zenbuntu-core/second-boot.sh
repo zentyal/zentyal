@@ -15,9 +15,17 @@ then
     rm -rf /var/lib/zinstaller-remote
 
     # Restore default rc.local
-    cp /usr/share/zenbuntu-desktop/rc.local /etc/rc.local
+    if [ -f /usr/share/zenbuntu-desktop/rc.local ]
+    then
+        cp /usr/share/zenbuntu-desktop/rc.local /etc/rc.local
+    else
+        cp /usr/share/zenbuntu-core/rc.local /etc/rc.local
+    fi
 fi
 
-initctl emit zentyal-lxdm
+if [ -d /usr/share/zenbuntu-desktop ]
+then
+    initctl emit zentyal-lxdm
+fi
 
 exit 0
