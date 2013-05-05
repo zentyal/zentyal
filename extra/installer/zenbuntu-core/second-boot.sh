@@ -15,8 +15,10 @@ then
     rm -rf /var/lib/zinstaller-remote
 
     # Restore default rc.local
-    if [ -f /usr/share/zenbuntu-core/rc.local ]
+    if [ -f /usr/share/zenbuntu-desktop/rc.local ]
     then
+        cp /usr/share/zenbuntu-desktop/rc.local /etc/rc.local
+    else
         cp /usr/share/zenbuntu-core/rc.local /etc/rc.local
     fi
 fi
