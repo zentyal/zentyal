@@ -396,17 +396,6 @@ sub initialSetup
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
     }
-
-    if (not $version) {
-        # no migration neeeded
-        return;
-    }
-    # migration from zentyal-ca 3.0 to 3.0.1
-    # force regeneration of service certificates
-    if (EBox::Util::Version::compare($version, '3.0.1') < 0) {
-        $self->{redis}->delete_dir('ca/ro/Certificates');
-        $self->{redis}->delete_dir('ca/conf/Certificates');
-    }
 }
 
 # Method: passwordRequired

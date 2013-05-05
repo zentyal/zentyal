@@ -1,4 +1,5 @@
 HEAD
+	+ Removed 3.0.X migration code
 	+ Implemented _daemonsToDisable()
 3.0.9
 	+ Fixed bind9 dependency to allow to install it with higher versions

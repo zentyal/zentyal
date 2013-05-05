@@ -178,7 +178,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ( defined($version) ) {
+    if (defined ($version)) {
         # Reload bundle without forcing
         $self->reloadBundle(0);
     }
@@ -187,11 +187,6 @@ sub initialSetup
 
     unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
         $self->restartService();
-    }
-
-    if (defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
-        # Perform the migration to 2.3
-        $self->_migrateTo30();
     }
 }
 
@@ -2189,24 +2184,6 @@ sub REST
 
     return $self->{rest};
 }
-
-# Migration to 3.0
-#
-#  * Migrate current subscription data in state to new structure
-#  * Rename VPN client
-#  * Get credentials
-#  * Rename file ebox-qa.list to zentyal-qa.list
-#
-sub _migrateTo30
-{
-    my ($self) = @_;
-
-    # Drop old VPN client
-    # Create a new one
-    # Get credentials again
-    # Rename file ebox-qa.list to zentyal-qa.list
-}
-
 
 # Method: desktopActions
 #

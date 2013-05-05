@@ -1,4 +1,5 @@
 HEAD
+	+ Removed 3.0.X migration code
 	+ Added Pre-Depends on slapd to avoid problems with upgrades
 3.0.18
 	+ Check for already existent service principals before create them.

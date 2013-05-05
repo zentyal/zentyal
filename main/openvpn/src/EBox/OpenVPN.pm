@@ -100,18 +100,6 @@ sub initializeInterfaces
     $clients->initializeInterfaces();
 }
 
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    $self->SUPER::initialSetup($version);
-
-    if ($version and (EBox::Util::Version::compare($version, '3.0.6') < 0)) {
-        eval "use EBox::OpenVPN::Migration";
-        EBox::OpenVPN::Migration::addClientsAdvertisedNetworks($self);
-    }
-}
-
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::usedFiles
