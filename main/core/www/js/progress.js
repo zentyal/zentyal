@@ -6,12 +6,18 @@ jQuery.noConflict();
 
 function updateProgressBar(ticks, totalTicks)
 {
-    var percent = Math.ceil((ticks/totalTicks)*100);
-    if(percent > 100)
-        percent = 100;
-    if(percent < 0)
+    var percent;
+    if (totalTicks > 0) {
+        percent = Math.ceil((ticks/totalTicks)*100);
+        if( percent > 100)
+            percent = 100;
+        if(percent < 0)
+            percent = 0;
+    } else {
         percent = 0;
+    }
     $('progressValue').morph('width: ' + percent + '%', { duration: 0.5 });
+// XX solve animation problems
 //    jQuery('#progressValue').animate( { width: percent + '%' }, { duration: 500} );
     jQuery('#percentValue').html(percent+"%");
 }
@@ -90,7 +96,6 @@ function updateProgressIndicator(progressId, currentItemUrl,  reloadInterval, ne
             data: requestParams,
             type : 'POST',
             complete: function (xhr) {
-                // TODO check ofr success
                 updatePage(xhr, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
             }
         });
@@ -111,8 +116,8 @@ function loadWhenAvailable(url, secondsTimeout)
     var loadMethod = function() {
         jQuery.ajax({
             url: url,
-            success: function (xhr) {
-                        if (transport.responseText) {
+            success: function (text) {
+                        if (text) {
                             clearInterval(timerId);
                             window.location.replace(url);                               }
             }
