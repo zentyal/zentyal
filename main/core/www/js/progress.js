@@ -4,7 +4,7 @@
 "use strict";
 jQuery.noConflict();
 
-function porcentH(i){
+function percentH(i){
     this.value = 0;
     this.ticks = 0;
     this.totalTicks = 0;
@@ -33,14 +33,9 @@ function porcentH(i){
 
 }
 
-var ph = new porcentH('progress');
-
 // Update the page
-function updatePage (xmlHttp, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
-//    var rawResponse = xmlHttp.responseText.replace(/\n/g, "<br />");
-//    var response = eval("(" + rawResponse + ")");
+function updatePage (xmlHttp, ph, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var response = jQuery.parseJSON(xmlHttp.responseText);
-
 
     if (xmlHttp.readyState == 4) {
         if (response.state == 'running') {
@@ -66,7 +61,6 @@ function updatePage (xmlHttp, timerId, nextStepTimeout, nextStepUrl, showNotesOn
         else if (response.state == 'done') {
             clearInterval(timerId);
             if ( nextStepTimeout > 0 ) {
-//                setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
               loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
@@ -104,11 +98,11 @@ function updatePage (xmlHttp, timerId, nextStepTimeout, nextStepUrl, showNotesOn
     }
 }
 
-
-function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish)
+function updateProgressIndicator(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish)
 {
     var time = 0;
     var requestParams = "progress=" + progressId ;
+    var ph = new percentH('progress');
     var callServer = function() {
         jQuery.ajax({
             url: currentItemUrl,
@@ -116,7 +110,7 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
             type : 'POST',
             complete: function (xhr) {
                 // TODO check ofr success
-                updatePage(xhr, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
+                updatePage(xhr, ph, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
             }
         });
         time++;
@@ -131,22 +125,19 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
     var timerId = setInterval(callServer, reloadInterval*1000);
 }
 
-
-var progress_pl; // use progress_pe if it works
 function loadWhenAvailable(url, secondsTimeout)
 {
-  var loadMethod = function() {
-       new Ajax.Request(url, {
-                             onSuccess: function(transport) {
+    var loadMethod = function() {
+        jQuery.ajax({
+            url: url,
+            success: function (xhr) {
+                        if (transport.responseText) {
+                            clearInterval(timerId);
+                            window.location.replace(url);                               }
+            }
+        });
+    };
 
-                               if (transport.responseText) {
-                                  progress_pl.stop();
-                                  window.location.replace(url);                               }
-
-                              }
-                            }
-                        );
-  };
-  progress_pl = new PeriodicalExecuter(loadMethod, secondsTimeout);
+    var timerId = setInterval(loadMethod, secondsTimeout*1000);
 }
 
