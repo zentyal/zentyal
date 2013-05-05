@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::CGI::Subscription;
-use base qw(EBox::ClientBase  EBox::CGI::CGI::ProgressClient);
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 # Class: EBox::RemoteServices::CGI::Subscription
 #
