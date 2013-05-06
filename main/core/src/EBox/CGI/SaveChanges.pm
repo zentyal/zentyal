@@ -107,7 +107,7 @@ sub saveAllModulesAction
             $nextStepUrlOnClick = $jsCloseModalboxAndReload;
             $sysinfo->setReloadPageAfterSavingChanges(0);
         } else {
-            $nextStepUrlOnClick = "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
+            $nextStepUrlOnClick = "Modalbox.hide(); jQuery('#changes_menu').removeClass('changed').addClass('notchanged'); return false";
         }
 
         push @params, nextStepUrlOnclick => $nextStepUrlOnClick;

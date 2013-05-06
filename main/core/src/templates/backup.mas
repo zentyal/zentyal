@@ -60,7 +60,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var description= \$('backup_description').value;
+     var description= jQuery('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup?';
      url += '&description='  +  escape(description);
@@ -96,7 +96,7 @@ var fileUpload = new EBox.FileUpload(
    }
 );
 var res = fileUpload.submit();
-\$('restoreFromFile').disabled = false;
+jQuery('#restoreFromFile').prop('disabled', false);
 return res;
 JS_END
 

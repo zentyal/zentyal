@@ -867,7 +867,7 @@ Parameters:
 
 
 */
-//TT
+//RR
 function setDone (elementId)
 {
     jQuery('#' + elementId).html("<img src='/data/images/apply.gif' " +

@@ -94,7 +94,7 @@ sub html
       # JS call to set the correct variables
         $html .= <<"END_JS"
 <script type="text/javascript">
-    showMenu('$menuClass', \$('$id'));
+    showMenu('$menuClass', jQuery('#$id'));
 </script>
 END_JS
     }

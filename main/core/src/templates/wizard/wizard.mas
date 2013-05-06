@@ -6,6 +6,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<script type="text/javascript" src="/data/js/jsquery.js">//</script>
 <script type="text/javascript" src="/data/js/carousel.js">//</script>
 <script type="text/javascript" src="/data/js/software-wizard.js">//</script>
 
