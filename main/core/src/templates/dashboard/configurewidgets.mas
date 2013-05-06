@@ -11,7 +11,7 @@ use JSON;
 % my $js = objToJson(\@modules);
 
 var modules = <% $js %>;
-var cur_wid_start = 0;
+window.cur_wid_start = 0; // XXX GLOBAL
 
 function htmlFromWidgetList(module, widgets, start, end)
 {
@@ -70,49 +70,14 @@ function htmlForNextModuleWidgets(module, start, maxWidgets, widgetsLength )
     return next;
 }
 
-window.showModuleWidgets = function(module,start) {
-    cur_wid_start = start;
-    var mod = null;
-    for (var i = 0; i < modules.length; ++i) {
-        if(modules[i]["name"] == module) {
-            mod = modules[i];
-        }
-    }
-    if (mod === null) {
-       return;
-    }
-
-    var widgets = mod["widgets"];
-    var max_wids = 4;
-    var end = start + max_wids;
-    if(end > widgets.length) {
-        end = widgets.length;
-    }
-
-    var widget_name_list = new Array();
+function createModuleWidgetsDropable(module, widgets, start, end)
+{
     var j;
-    var k = 0;
     for (j = start; j < end; ++j) {
-        var id = "widget_" + module + ":" + widgets[j]["name"];
-        widgets[j]['id'] = id;
-        //recalculate present because it can have changed
-        widgets[j]["present"] = $(id) && ($(id).parentNode.id.indexOf("dashboard") == 0);
-        widget_name_list[k++] = id + "_placeholder";
-    }
-    widget_name_list[k++] = "dashboard1";
-    widget_name_list[k++] = "dashboard2";
-
-    var html = htmlForPrevModuleWidgets(module, start);
-    html += htmlFromWidgetList(module, widgets, start, end)
-    html += htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
-    jQuery('#widget_list').html(html);
-
-    for (j = start; j < end; ++j) {
-        if(!widgets[j]["present"]) {
-            var widname = widgets[j]["name"];
-            var wid = "widget_" + module + ":" + widname;
+        if(!widgets[j]['present']) {
+            var wid = widgets[j]['id'];
             var drag = new Draggable(wid, {
-                handle: "widgetHandle",
+                handle: 'widgetHandle',
                 onDrag: function(d,e) {
                     if(e.clientY > 100) {
                         if(!this.loaded) {
@@ -145,25 +110,67 @@ window.showModuleWidgets = function(module,start) {
             });
             drag.parent = drag.element.parentNode;
             drag.module = module;
-            drag.widget = widname;
-            drag.element.onChange = function() {}
+            drag.widget = widgets[j]['name'];
+            drag.element.onChange = function() {};
             Sortable.sortables[drag.element.id + '_placeholder'] = drag.element;
         }
     }
-    for (j = 0; j < widget_name_list.length; ++j) {
+}
+
+window.showModuleWidgets = function(module,start) {
+    cur_wid_start = start;
+    var mod = null;
+    for (var i = 0; i < modules.length; ++i) {
+        if(modules[i]['name'] == module) {
+            mod = modules[i];
+        }
+    }
+    if (mod === null) {
+       return;
+    }
+
+    var widgets = mod['widgets'];
+    var max_wids = 4;
+    var end = start + max_wids;
+    if(end > widgets.length) {
+        end = widgets.length;
+    }
+
+    var widget_id_list = new Array();
+    var j;
+    var k = 0;
+    for (j = start; j < end; ++j) {
+        var id = 'widget_' + module + ':' + widgets[j]['name'];
+        widgets[j]['id'] = id;
+        //recalculate present because it can have changed
+        widgets[j]['present'] =  jQuery('.dashboard #' + id).length > 0;
+        widget_id_list[k] = id + '_placeholder';
+        k += 1;
+    }
+    widget_id_list[k] = 'dashboard1';
+    widget_id_list[k+1] = 'dashboard2';
+
+    var html = htmlForPrevModuleWidgets(module, start);
+    html += htmlFromWidgetList(module, widgets, start, end)
+    html += htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
+    jQuery('#widget_list').html(html);
+
+
+    createModuleWidgetsDropable(module, widgets, start, end)
+    for (j = 0; j < widget_id_list.length; ++j) {
         var func = null;
-        if(widget_name_list[j].indexOf("dashboard") == 0) {
-            Sortable.create(widget_name_list[j], {
-                tag: "div",
-                handle: "widgetHandle",
+        if(widget_id_list[j].indexOf('dashboard') == 0) {
+            Sortable.create(widget_id_list[j], {
+                tag: 'div',
+                handle: 'widgetHandle',
                 dropOnEmpty: true,
                 constraint: false,
                 scroll: window,
-                containment: widget_name_list,
+                containment: widget_id_list,
                 onUpdate: function(dashboard) {
                     var id = dashboard.id;
-                    new Ajax.Request("/Dashboard/Update", {
-                        method: "post",
+                    new Ajax.Request('/Dashboard/Update', {
+                        method: 'post',
                         parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
                     });
                 }
