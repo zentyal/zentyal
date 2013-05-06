@@ -117,11 +117,35 @@ function createModuleWidgetsDropable(module, widgets, start, end)
     }
 }
 
-window.showModuleWidgets = function(module,start) {
+function createModuleWidgetsSortable(widget_id_list)
+{
+     jQuery.each(widget_id_list, function (index, id) {
+        if(id.indexOf('dashboard') === 0) {
+            Sortable.create(id, {
+                tag: 'div',
+                handle: 'widgetHandle',
+                dropOnEmpty: true,
+                constraint: false,
+                scroll: window,
+                containment: widget_id_list,
+                onUpdate: function(dashboard) {
+                    var id = dashboard.id;
+                    jQuery.ajax({
+                       url: '/Dashboard/Update',
+                       type: 'post',
+                       data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
+                    });
+                }
+            });
+        }
+    });
+}
+
+window.showModuleWidgets = function(module, start) {
     cur_wid_start = start;
     var mod = null;
     for (var i = 0; i < modules.length; ++i) {
-        if(modules[i]['name'] == module) {
+        if(modules[i]['name'] === module) {
             mod = modules[i];
         }
     }
@@ -155,28 +179,8 @@ window.showModuleWidgets = function(module,start) {
     html += htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
     jQuery('#widget_list').html(html);
 
-
     createModuleWidgetsDropable(module, widgets, start, end)
-    for (j = 0; j < widget_id_list.length; ++j) {
-        var func = null;
-        if(widget_id_list[j].indexOf('dashboard') == 0) {
-            Sortable.create(widget_id_list[j], {
-                tag: 'div',
-                handle: 'widgetHandle',
-                dropOnEmpty: true,
-                constraint: false,
-                scroll: window,
-                containment: widget_id_list,
-                onUpdate: function(dashboard) {
-                    var id = dashboard.id;
-                    new Ajax.Request('/Dashboard/Update', {
-                        method: 'post',
-                        parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-                    });
-                }
-            });
-        }
-    }
+    createModuleWidgetsSortable(widget_id_list);
 }
 
 </script>
