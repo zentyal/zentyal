@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -98,38 +98,34 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my @files;
-    my $usingASU = $self->parentModule()->usingASU();
-    if ( $usingASU ) {
-        @files = </etc/snort/rules/emerging-*.rules>;
-    } else {
-        @files = </etc/snort/rules/*.rules>;
-    }
+    my @files = </etc/snort/rules/*.rules>;
 
     my @names;
     foreach my $file (@files) {
         my $slash = rindex ($file, '/');
         my $dot = rindex ($file, '.');
         my $name = substr ($file, ($slash + 1), ($dot - $slash - 1));
-        next if $name =~ /deleted/;
+        next if ($name =~ /deleted/);
         push (@names, $name);
-    }
-    my %newNames;
-    if ( $usingASU ) {
-        %newNames = map { s/emerging-//; $_ => 1 } @names;
-    } else {
-        %newNames = map { $_ => 1 } @names;
     }
 
     my %currentNames =
         map { $self->row($_)->valueByName('name') => 1 } @{$currentRows};
 
+    my $asuRuleSet = $self->parentModule()->ASURuleSet();
+    my %asuRuleSet = map { $_ => 1 } @{$asuRuleSet};
     my $modified = 0;
 
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
+    my %newNames = ();
     foreach my $name (@namesToAdd) {
+        $newNames{$name} = 1;
         my $enabled = $self->{enableDefault}->{$name} or 0;
-        $self->add(name => $name, enabled => $enabled, decision => 'log');
+        my $source  = 'community';
+        if ( exists $asuRuleSet{$name} ) {
+            $source = 'zentyal';
+        }
+        $self->add(name => $name, source => $source, enabled => $enabled, decision => 'log');
         $modified = 1;
     }
 
@@ -172,7 +168,16 @@ sub _table
             'fieldName' => 'name',
             'printableName' => __('Rule Set'),
             'unique' => 1,
-            'editable' => 0),
+            'editable' => 0
+           ),
+        new EBox::Types::Select(
+            'fieldName'      => 'source',
+            'printableName'  => __('Source'),
+            'populate'       => \&_populateSource,
+            'editable'       => 0,
+            'hidden'         => \&_hiddenUnlessASU,
+            'hiddenOnSetter' => 1,
+           ),
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
             'printableName' => __('Enabled'),
@@ -185,6 +190,14 @@ sub _table
             'populate' => \&_populateActions,
             'editable' => 1
         ),
+        # This field is intended to not overwrite user's decisions
+        new EBox::Types::Boolean(
+            'fieldName'     => 'autoconfigured',
+            'printableName' => 'autoconfigured',
+            'defaultValue'  => 0,
+            'hidden'        => 1,
+            'editable'      => 0,
+           ),
     );
 
     my $dataTable =
@@ -210,6 +223,21 @@ sub _populateActions
         { value => 'block', printableValue => __('Block') },
         { value => 'logblock', printableValue => __('Log & Block') },
     ];
+}
+
+sub _populateSource
+{
+    return [
+        { value => 'community', printableValue => __('Community') },
+        { value => 'zentyal',   printableValue => 'Zentyal Security Updates' },
+       ];
+}
+
+# Return True if the IPS module is not using ASU
+sub _hiddenUnlessASU
+{
+    my $ips = EBox::Global->modInstance('ips');
+    return (not $ips->usingASU())
 }
 
 sub _commercialMsg

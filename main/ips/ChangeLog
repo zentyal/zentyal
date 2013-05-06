@@ -1,4 +1,6 @@
 HEAD
+	+ Change IPS rule management with ASU adding new fields
+	  to Rules model to identify source and autoconfiguration
 	+ Added rule set file management to module API
 3.0
 	+ Initial release
