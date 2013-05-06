@@ -13,6 +13,49 @@ use JSON;
 var modules = <% $js %>;
 var cur_wid_start = 0;
 
+function htmlForPrevModuleWidgets(module, start)
+{
+    var prev = '';
+
+    var new_start = start - 1;
+    var opacity = 1;
+    var link = true;
+    if(new_start < 0) {
+        opacity = 0.5;
+        new_start = 0;
+        link = false;
+    }
+    prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
+    if(link) {
+        prev = prev + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
+    }
+    prev = prev + '<img src="/data/images/left.gif"/>';
+    if(link) {
+        prev = prev + '</a>';
+    }
+    prev = prev + '</div>';
+    return prev;
+}
+
+function htmlForNextModuleWidgets(module, start, maxWidgets, widgetsLength )
+{
+    var next = '';
+    var new_start, opacity;
+    if(start + maxWidgets >= widgetsLength) {
+        new_start = start;
+        opacity = 0.5;
+    }  else {
+        new_start = start + 1;
+        opacity = 1;
+    }
+    next = '<div class="widArrow" style="opacity: ' + opacity + '">';
+    next += '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
+    next += '<img src="/data/images/right.gif"/>';
+    next += '</a>';
+    next += '</div>';
+    return next;
+}
+
 window.showModuleWidgets = function(module,start) {
     cur_wid_start = start;
     var mod = null;
@@ -48,44 +91,9 @@ window.showModuleWidgets = function(module,start) {
     widget_name_list[k++] = "dashboard1";
     widget_name_list[k++] = "dashboard2";
 
-    var prev = '';
 
-    var new_start = start - 1;
-    var opacity = 1;
-    var link = true;
-    if(new_start < 0) {
-        opacity = 0.5;
-        new_start = 0;
-        link = false;
-    }
-    prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    if(link) {
-        prev = prev + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
-    }
-    prev = prev + '<img src="/data/images/left.gif"/>';
-    if(link) {
-        prev = prev + '</a>';
-    }
-    prev = prev + '</div>';
-
-    var next = '';
-    link = true;
-    new_start = start + 1;
-    opacity = 1;
-    if(start + max_wids >= widgets.length) {
-        new_start = start;
-        opacity = 0.5;
-    }
-    next = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    if(link) {
-        next = next + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
-    }
-    next = next + '<img src="/data/images/right.gif"/>';
-    if(link) {
-        next = next + '</a>';
-    }
-    next = next + '</div>';
-
+    var prev = htmlForPrevModuleWidgets(module, start);
+    var next = htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
     str = prev + str + next;
 
     $('widget_list').update(str);
