@@ -302,12 +302,14 @@ sub usingASU
 {
     my ($self, $usingASU) = @_;
 
+    my $state = $self->get_state();
     my $key = 'using_asu';
     if (defined($usingASU)) {
-        $self->st_set_bool($key, $usingASU);
+        $state->{$key} = $usingASU;
+        $self->set_state($state);
     } else {
-        if ( $self->st_entry_exists($key) ) {
-            $usingASU = $self->st_get_bool($key);
+        if ( exists $state->{$key} ) {
+            $usingASU = $state->{$key};
         } else {
             # For now, checking emerging is in rules
             my $rulesDir = SNORT_RULES_DIR . '/';
@@ -317,6 +319,55 @@ sub usingASU
     }
     return $usingASU;
 }
+
+
+# Method: setASURuleSet
+#
+#    Set the rule set file names that ASU is using
+#
+#    This implies <usingASU> is set to True if the ruleset is not
+#    empty and False if the ruleset is empty or not defined.
+#
+# Parameters:
+#
+#    ruleSet - Array ref the rule set for ASU
+#              *(Optional)* If it is not provided, then it is removed
+#
+sub setASURuleSet
+{
+    my ($self, $ruleSet) = @_;
+
+    my $state = $self->get_state();
+    if ( (not defined($ruleSet)) or (scalar(@{$ruleSet}) == 0) ) {
+        delete $state->{asu_rule_set};
+    } else {
+        $state->{asu_rule_set} = $ruleSet;
+    }
+    $self->set_state($state);
+    $self->usingASU(exists $state->{asu_rule_set});
+}
+
+
+# Method: ASURuleSet
+#
+#    Get the rule set file names that ASU is using
+#
+# Returns:
+#
+#    Array ref - the rule set for ASU, empty array ref otherwise
+#
+sub ASURuleSet
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    my $ruleSet = $state->{asu_rule_set};
+    unless (defined($ruleSet)) {
+        $ruleSet = [];
+    }
+    return $ruleSet;
+}
+
 
 # Method: rulesNum
 #
