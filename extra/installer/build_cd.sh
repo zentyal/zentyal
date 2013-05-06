@@ -29,6 +29,12 @@ pushd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
 popd
 
+# Build zinstaller-headless udeb
+cp -rL zinstaller-headless $TMPDIR/zinstaller-headless
+pushd $TMPDIR/zinstaller-headless
+dpkg-buildpackage
+popd
+
 if [ "$INCLUDE_REMOTE" == "true" ]
 then
     # Build zinstaller-remote udeb
@@ -65,14 +71,20 @@ do
         fi
     done
 
+    # Add zinstaller-remote udeb
     if [ "$INCLUDE_REMOTE" == "true" ]
     then
-        # Add zinstaller-remote udeb
         UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
         mkdir -p $UDEB_DIR
         rm $UDEB_DIR/*
-        cp $TMPDIR/*.udeb $UDEB_DIR/
+        cp $TMPDIR/zinstaller-remote*.udeb $UDEB_DIR/
     fi
+
+    # Add zinstaller-headless udeb
+    UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-headless
+    mkdir -p $UDEB_DIR
+    rm $UDEB_DIR/*
+    cp $TMPDIR/zinstaller-headless*.udeb $UDEB_DIR/
 
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1
