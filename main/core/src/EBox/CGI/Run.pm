@@ -121,11 +121,12 @@ sub urlToClass
     }
 
     my @parts = split('/', $url);
+    @parts = grep { $_ } @parts;
 
-    if (@parts >= 2) {
-        return "EBox::$parts[0]::CGI::$parts[1]";
-    } else {
+    if (@parts == 1) {
         return "EBox::CGI::$parts[0]";
+    } else {
+        return "EBox::$parts[0]::CGI::$parts[1]";
     }
 }
 

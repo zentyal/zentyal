@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Progress
+package EBox::CGI::Progress;
 
 use base 'EBox::CGI::ClientBase';
 
