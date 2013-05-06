@@ -2,6 +2,23 @@
 "use strict";
 jQuery.noConflict();
 
+var Zentyal = {
+    namespace: function(ns) {
+        var parts = ns.split("."),
+            nsObject = this,
+            i, len;
+
+        for (i=0, len=parts.length; i < len; i++) {
+            if (!nsObject[parts[i]]) {
+                nsObject[parts[i]] = {};
+            }
+            nsObject = nsObject[parts[i]];
+        }
+
+        return nsObject;
+    }
+};
+
 var menuShown = '';
 var menuShownAnchor = null;
 
