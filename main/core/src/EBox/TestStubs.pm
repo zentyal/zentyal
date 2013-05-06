@@ -221,11 +221,9 @@ sub fakeModule
     if (exists $params{isa} ) {
         my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
         push @isa,  @extraIsa;
-
-use base qw(@isa);
     }
 
-    my $createIsaCode = 'package ' . $modPackage . "; ";
+    my $createIsaCode = 'package ' . $modPackage . "; use base qw(@isa);";
     eval $createIsaCode;
     die "When creating ISA array $@" if  $@;
 
