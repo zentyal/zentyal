@@ -19,6 +19,11 @@ window.Zentyal = {
     }
 };
 
+Zentyal.escapeJQSelector = function(selector)
+{
+    return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+}
+
 var menuShown = '';
 var menuShownAnchor = null;
 

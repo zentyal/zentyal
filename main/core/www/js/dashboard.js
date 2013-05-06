@@ -5,21 +5,21 @@ jQuery.noConflict();
 Zentyal.namespace('Dashboard');
 
 Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
+    var escapedId = Zentyal.escapeJQSelector(containerId);
     jQuery.ajax({
          url: url,
          datatype: 'json',
          success: function (response) {
-            var container = jQuery('#' + container_id);
+            var container = jQuery('#' + escapedId);
             container.removeClass().addClass('summary_value', 'summary_' + response.responseJSON.type);
             container.html(response.responseJSON.value);
          }
     });
 };
 
-
 // XXX migrate blind effect
 Zentyal.Dashboard.toggleClicked = function(element) {
-    var elementId = element.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+    var elementId = Zentyal.escapeJQSelector(element);
     var contentSelector = '#' + elementId + '_content';
     var toggler = jQuery('#' + elementId + '_toggler');
     if(toggler.hasClass('minBox')) {
@@ -37,3 +37,4 @@ Zentyal.Dashboard.toggleClicked = function(element) {
          data:  { element: element }
     });
 };
+
