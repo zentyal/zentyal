@@ -6,11 +6,12 @@ use EBox::Gettext;
 use JSON;
 </%init>
 <script type="text/javascript">
+"use strict";
 % local $JSON::ConvBlessed = 1;
 % my $js = objToJson(\@modules);
 
-modules = <% $js %>;
-cur_wid_start = 0;
+var modules = <% $js %>;
+var cur_wid_start = 0;
 
 showModuleWidgets = function(module,start) {
     cur_wid_start = start;

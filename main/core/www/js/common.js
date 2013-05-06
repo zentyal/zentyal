@@ -2,7 +2,7 @@
 "use strict";
 jQuery.noConflict();
 
-var Zentyal = {
+window.Zentyal = {
     namespace: function(ns) {
         var parts = ns.split("."),
             nsObject = this,

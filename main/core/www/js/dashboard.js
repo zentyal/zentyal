@@ -15,3 +15,25 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
          }
     });
 };
+
+
+// XXX migrate blind effect
+Zentyal.Dashboard.toggleClicked = function(element) {
+    var elementId = element.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+    var contentSelector = '#' + elementId + '_content';
+    var toggler = jQuery('#' + elementId + '_toggler');
+    if(toggler.hasClass('minBox')) {
+//        Effect.BlindUp(contentname, { duration: 0.5 });
+        jQuery(contentSelector).hide();//('blind', { direction: 'vertical' }, 500);
+        toggler.removeClass('minBox').addClass('maxBox');
+    } else {
+//        Effect.BlindDown(contentname, { duration: 0.5 });
+        jQuery(contentSelector).show(); //('blind', { direction: 'vertical' }, 500);
+        toggler.removeClass('maxBox').addClass('minBox');
+    }
+    jQuery.ajax({
+         url: "/Dashboard/Toggle",
+         type: 'post',
+         data:  { element: element }
+    });
+};

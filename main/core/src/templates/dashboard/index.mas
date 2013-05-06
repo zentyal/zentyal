@@ -11,10 +11,11 @@ use utf8;
 use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/jquery.js">//</script>
+<script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
-<script type="text/javascript" src="/data/js/common.js"/>
-<script type="text/javascript" src="/data/js/dashboard.js"/>
+<script type="text/javascript" src="/data/js/common.js">//</script>
+<script type="text/javascript" src="/data/js/dashboard.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
@@ -186,24 +187,6 @@ function closeWidget(wid)
     });
 }
 
-function toggleClicked(element) {
-    var togglername = element + '_toggler';
-    var contentname = element + '_content';
-    var toggler = $(togglername);
-    if(toggler.hasClassName('minBox')) {
-        Effect.BlindUp(contentname, { duration: 0.5 });
-        toggler.removeClassName('minBox');
-        toggler.addClassName('maxBox');
-    } else {
-        Effect.BlindDown(contentname, { duration: 0.5 });
-        toggler.removeClassName('maxBox');
-        toggler.addClassName('minBox');
-    }
-    new Ajax.Request("/Dashboard/Toggle", {
-        method: "post",
-        parameters: { element: element }
-    });
-}
 
 % foreach my $i (1..2) {
 Sortable.create("dashboard<% $i %>", {
