@@ -417,9 +417,9 @@ sub enableActions
     $self->masterConf->confSOAPService();
     $self->masterConf->setupMaster();
 
-    # mark apache as changed to avoid problems with getpwent calls, it needs
+    # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('apache')->setAsChanged();
+    EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
 sub enableService
@@ -1759,7 +1759,7 @@ sub hostDomainChanged
         $self->set('need_reprovision', 1);
         $self->setAsChanged(1); # for compability with machines with phantom
                                 # need_reprovision in read-only tree
-        EBox::Global->modInstance('apache')->setAsChanged();
+        EBox::Global->modInstance('webadmin')->setAsChanged();
     }
 }
 

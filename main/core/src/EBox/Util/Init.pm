@@ -67,8 +67,8 @@ sub start
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
-    @names = grep { $_ ne 'apache' } @names;
-    push(@names, 'apache');
+    @names = grep { $_ ne 'webadmin' } @names;
+    push(@names, 'webadmin');
 
     EBox::info("Modules to start: @names");
     foreach my $modname (@names) {
@@ -83,8 +83,8 @@ sub stop
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
-    @names = grep { $_ ne 'apache' } @names;
-    unshift(@names, 'apache');
+    @names = grep { $_ ne 'webadmin' } @names;
+    unshift(@names, 'webadmin');
 
     EBox::info("Modules to stop: @names");
     foreach my $modname (reverse @names) {
@@ -99,8 +99,8 @@ sub moduleAction
     my ($modname, $action, $actionName) = @_;
     my $mod = checkModule($modname); #exits if module is not manageable
 
-    # Do not restart apache if we are run under zentyal-software
-    if ($actionName eq 'restart' and $modname eq 'apache' ) {
+    # Do not restart webadmin if we are run under zentyal-software
+    if ($actionName eq 'restart' and $modname eq 'webadmin' ) {
         return if (exists $ENV{'EBOX_SOFTWARE'} and
                    $ENV{'EBOX_SOFTWARE'} == 1 );
     }

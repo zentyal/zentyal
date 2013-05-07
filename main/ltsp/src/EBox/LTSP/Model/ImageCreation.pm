@@ -34,7 +34,7 @@ use EBox::Types::Action;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::Apache;
+use EBox::WebAdmin;
 
 sub new
 {
@@ -141,7 +141,7 @@ sub _doCreate
         # Needed here because the code in the script takes some seconds to execute
         $ltsp->st_set_string('work', 'build');
 
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         exec("sudo /usr/share/zentyal-ltsp/build-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');

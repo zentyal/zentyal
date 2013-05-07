@@ -32,7 +32,7 @@ sub _fakeModules : Test(startup)
 {
     EBox::TestStubs::fakeModule(
             name => 'apache',
-            class => 'EBox::Apache',
+            class => 'EBox::WebAdmin',
     );
     Test::MockObject->fake_module(
             'EBox::ProgressIndicator',

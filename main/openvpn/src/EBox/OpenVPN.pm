@@ -1298,8 +1298,8 @@ sub menu
 sub refreshIfaceInfoCache
 {
     my ($self) = @_;
-    my $apache = EBox::Global->getInstance()->modInstance('apache');
-    $apache->setAsChanged(1);
+    my $webAdmin = EBox::Global->getInstance()->modInstance('webadmin');
+    $webAdmin->setAsChanged(1);
 }
 
 sub openVPNWidget

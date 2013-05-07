@@ -62,10 +62,10 @@ sub componentNames
         push (@components, 'sysinfo/AdminUser');
     }
 
-    push (@components, 'apache/Language',
+    push (@components, 'webadmin/Language',
                        'sysinfo/TimeZone',
                        'sysinfo/DateTime',
-                       'apache/AdminPort',
+                       'webadmin/AdminPort',
                        'sysinfo/HostName');
 
     return \@components;

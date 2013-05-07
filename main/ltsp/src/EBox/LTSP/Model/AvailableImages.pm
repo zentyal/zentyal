@@ -34,7 +34,7 @@ use EBox::Types::Action;
 use EBox::Types::HasMany;
 
 use EBox::Exceptions::Internal;
-use EBox::Apache;
+use EBox::WebAdmin;
 use EBox::Sudo;
 
 sub new
@@ -159,7 +159,7 @@ sub _doUpdate
         # Needed here because the code in the script takes some seconds to execute
         $ltsp->st_set_string('work', 'update');
 
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         exec("sudo /usr/share/zentyal-ltsp/update-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');

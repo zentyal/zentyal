@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed 3.0.X migration code
 	+ Added advertised routes option to the clients
 	+ Added option that allows server tunnels to reject any route from

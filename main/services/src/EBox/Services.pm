@@ -73,11 +73,11 @@ sub _defaultServices
 {
     my ($self) = @_;
 
-    my $apachePort;
+    my $webAdminPort;
     try {
-        $apachePort = $self->global()->modInstance('apache')->port();
+        $webAdminPort = $self->global()->modInstance('webadmin')->port();
     } otherwise {
-        $apachePort = 443;
+        $webAdminPort = 443;
     };
 
     return [
@@ -110,7 +110,7 @@ sub _defaultServices
          'printableName' => __('Zentyal Administration'),
          'description' => __('Zentyal Administration Web Server'),
          'protocol' => 'tcp',
-         'destinationPort' => $apachePort,
+         'destinationPort' => $webAdminPort,
          'internal' => 1,
         },
         {
