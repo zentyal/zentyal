@@ -121,12 +121,14 @@ sub urlToClass
     }
 
     my @parts = split('/', $url);
+    # filter '' and undef
     @parts = grep { $_ } @parts;
 
-    if (@parts == 1) {
-        return "EBox::CGI::$parts[0]";
+    my $module = shift @parts;
+    if (@parts) {
+        return "EBox::${module}::CGI::" . join ('::', @parts);
     } else {
-        return "EBox::$parts[0]::CGI::$parts[1]";
+        return "EBox::CGI::${module}";
     }
 }
 

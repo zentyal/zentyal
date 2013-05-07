@@ -83,6 +83,7 @@ sub _new_instance
 
     my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
     @lines = read_file($ignoredGroupsFile);
+    chomp (@lines);
     my %ignoredGroups = map { $_ => 1 } @lines;
 
     my $self = {};
