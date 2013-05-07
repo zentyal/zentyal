@@ -34,7 +34,7 @@ use EBox::Config;
 
 my $customAuthMethodsForGuest = 'guest sam_ignoredomain';
 if (EBox::Config::boolean('join_vista_with_guest_shares')) {
-    $customAuthMethods .= ' samba4';
+    $customAuthMethodsForGuest .= ' samba4';
 }
 </%init>
 [global]
