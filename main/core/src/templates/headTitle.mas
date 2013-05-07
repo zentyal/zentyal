@@ -26,7 +26,7 @@ my $mboxTitle = __('Save changes?');
 % }
 % if ( $save ne '' ) {
 	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish"
-          onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false, afterLoad: function() { $('save').focus()} }); return false">
+          onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false, afterLoad: function() { jQuery('#save').focus()} }); return false">
               <% $save %>
           </a>
 % }
