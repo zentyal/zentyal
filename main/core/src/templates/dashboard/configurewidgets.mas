@@ -29,53 +29,8 @@ jQuery.each(sources, function(index, url) {
 jQuery.noConflict();
 
 % local $JSON::ConvBlessed = 1;
-% my $js = objToJson(\@modules);
-
-var modules = <% $js %>;
-window.cur_wid_start = 0; // XXX GLOBAL
-
-window.showModuleWidgets = function(module, start) {
-    cur_wid_start = start;
-    var mod = null;
-    for (var i = 0; i < modules.length; ++i) {
-        if(modules[i]['name'] === module) {
-            mod = modules[i];
-        }
-    }
-    if (mod === null) {
-       return;
-    }
-
-    var widgets = mod['widgets'];
-    var max_wids = 4;
-    var end = start + max_wids;
-    if(end > widgets.length) {
-        end = widgets.length;
-    }
-
-    var widget_id_list = new Array();
-    var j;
-    var k = 0;
-    for (j = start; j < end; ++j) {
-        var id = 'widget_' + module + ':' + widgets[j]['name'];
-        widgets[j]['id'] = id;
-        // recalculate present because it can have changed
-        widgets[j]['present'] =  jQuery('.dashboard #' + id).length > 0;
-        widget_id_list[k] = id + '_placeholder';
-        k += 1;
-    }
-    widget_id_list[k] = 'dashboard1';
-    widget_id_list[k+1] = 'dashboard2';
-
-    var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end)
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
-    jQuery('#widget_list').html(html);
-
-    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable(module, widgets, start, end)
-    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(widget_id_list);
-}
-
+% my $modulesJSON = objToJson(\@modules);
+Zentyal.Dashboard.ConfigureWidgets.modules = <% $modulesJSON %>;
 </script>
 
 <div id='module_list'>
@@ -83,8 +38,7 @@ window.showModuleWidgets = function(module, start) {
 %   my $modname = $module->{'name'};
 %   my $title = $module->{'title'};
     <div id='<% $modname %>-title'>
-    <a href="#" onclick="showModuleWidgets('<% $modname %>', 0); return false;"><% $title %></a>
-%#    <a href="#" onclick="alert(Zentyal.Dashboard, 0); return false;"><% $title %></a>
+    <a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets('<% $modname %>', 0); return false;"><% $title %></a>
     </div>
 % }
 </div>

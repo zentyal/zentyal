@@ -177,7 +177,7 @@ function closeWidget(wid)
             var parts = name.split('_');
             var parts = parts[1].split(':');
             if($(placeholder)) {
-                showModuleWidgets(parts[0],cur_wid_start);
+                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
             }
             new Ajax.Request("/Dashboard/Update", {
                 method: "post",

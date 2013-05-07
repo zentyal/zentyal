@@ -65,6 +65,9 @@ Zentyal.Dashboard.widget = function(m,w,full) {
 };
 
 // Zentyal.Dashboard.ConfigureWidgets namespace
+Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
+Zentyal.Dashboard.ConfigureWidgets.modules = [];
+
 Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widgets, start, end) {
    var i;
    var html = '';
@@ -90,7 +93,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets = function(module, s
     }
     prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
     if(link) {
-        prev = prev + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">'; // call
+        prev = prev + '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">'; // call
     }
     prev = prev + '<img src="/data/images/left.gif"/>';
     if(link) {
@@ -112,7 +115,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, s
         opacity = 1;
     }
     next = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    next += '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
+    next += '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
     next += '<img src="/data/images/right.gif"/>';
     next += '</a>';
     next += '</div>';
@@ -151,7 +154,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable = function(module
                         y: -top_offset,
                         duration: dur,
                         afterFinish: function() {
-                            showModuleWidgets(d.module,cur_wid_start); // call
+                            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(d.module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
                         }
                     });
                 }
@@ -190,6 +193,50 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function (widge
             });
         }
     });
+};
+
+Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
+    Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = start;
+    var mod = null;
+    jQuery.each(Zentyal.Dashboard.ConfigureWidgets.modules, function(index, modObject) {
+        if (modObject.name === module) {
+            mod = modObject;
+            return false;
+        }
+        return true;
+    });
+    if (mod === null) {
+       return;
+    }
+
+    var widgets = mod['widgets'];
+    var max_wids = 4;
+    var end = start + max_wids;
+    if(end > widgets.length) {
+        end = widgets.length;
+    }
+
+    var widget_id_list = new Array();
+    var j;
+    var k = 0;
+    for (j = start; j < end; ++j) {
+        var id = 'widget_' + module + ':' + widgets[j]['name'];
+        widgets[j]['id'] = id;
+        // recalculate present because it can have changed
+        widgets[j]['present'] =  jQuery('.dashboard #' + id).length > 0;
+        widget_id_list[k] = id + '_placeholder';
+        k += 1;
+    }
+    widget_id_list[k] = 'dashboard1';
+    widget_id_list[k+1] = 'dashboard2';
+
+    var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
+    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end)
+    html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
+    jQuery('#widget_list').html(html);
+
+    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable(module, widgets, start, end)
+    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(widget_id_list);
 };
 
 
