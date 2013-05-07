@@ -45,7 +45,7 @@ use Data::Dumper;
 <div class='endForm'>
 <form id='acceptChanges' method='post'
     action='/ServiceModule/ConfigureModuleController'
-    onsubmit='$("accept").hide(); $("accept_loading").show()'>
+    onsubmit='jQuery("#accept").hide(); jQuery("#accept_loading").show()'>
 
     <input class='inputButton' type='submit' name='accept' id='accept'
         value="<% __('Accept') %>" />

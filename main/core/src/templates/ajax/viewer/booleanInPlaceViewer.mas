@@ -28,18 +28,17 @@ my $onChange = qq{sendInPlaceBooleanValue("$controller",
                  };
 if ($checkAllId) {
     $onChange .= qq|if (this.checked) {
-                       checkAllControlValue("$controller", "$tableName", "$dir",
-                                            "$checkAllId", "$fieldName");
-                      } else { \$("$checkAllId").checked= false;  }
+                       checkAllControlValue("$controller", "$tableName", "$dir", "$checkAllId", "$fieldName");
+                    } else { jQuery("#$checkAllId").prop("checked", false);  }
                 |;
 }
 
 </%init>
 <input
-	type='checkbox' <% $checked %>
-	id='<% $id %>'
+        type='checkbox' <% $checked %>
+        id='<% $id %>'
         onChange='<% $onChange %>'
-	<% $disabled %>
+        <% $disabled %>
 />
 <div id='<% $id %>_loading'></div>
 
