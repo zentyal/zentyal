@@ -9,30 +9,30 @@ use EBox::Gettext;
 <script type="text/javascript">
 function sendStatus()
 {
-    var pars = Form.serialize('statusForm');
+    var params = jQuery('#statusForm').serialize();
+    jQuery.ajax({
+        url: '/ServiceModule/StatusController',
+        type: 'post',
+        data: params,
+        success: function (response) {
+          jQuery('#statusTable').html(response);
+        }
+    });
 
-	var MyAjax = new Ajax.Updater( 'statusTable',
-		'/ServiceModule/StatusController',
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: true,
-			evalScripts: true
-		});
 }
 
 function configureModule(module, title)
 {
-    if ($(module).checked) {
-        $(module).checked = false;
+    var modCheckbox = jQuery('#' + module);
+    if (modCheckbox.prop('checked')) {
+        modCheckbox.prop('checked', false);
         Modalbox.show('/ServiceModule/ConfigureView?module=' + module,
                   {title: title,
                    width: 600,
                    height: 400,
                    afterLoad: function() {
-                        $('accept').focus();
+                        jQuery('#accept').focus();
                     }
-
                    });
     }
 }
@@ -44,9 +44,8 @@ function configureModule(module, title)
 %   } else {
 %       $className = 'notChanged'
 %   }
-$('changes_menu').className = '<% $className %>';
+jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
-
 stripe('dataTable', 'even', 'odd');
 
 </script>
@@ -101,4 +100,5 @@ stripe('dataTable', 'even', 'odd');
         </td>
     </tr>
 % }
-    </table></form>
+  </table>
+</form>
