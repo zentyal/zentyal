@@ -19,7 +19,7 @@ use warnings;
 package EBox::ProgressIndicator;
 
 use EBox::Gettext;
-use EBox::Apache;
+use EBox::WebAdmin;
 use EBox::Util::SHM;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -407,7 +407,7 @@ sub _fork
         $self->{childPid} = $pid;
         return; # parent returns immediately
     } else {
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         my $executable = $self->_get('executable');
         exec ("$executable --progress-id $id");
     }
@@ -470,7 +470,7 @@ sub _currentIds
 
 # Method to clean up the rubbish regarding to the progress indicator
 # It must be called when a new progress indicator is created, because
-# a single ProgressIndicator should be alive on Apache
+# a single ProgressIndicator should be alive on WebAdmin
 sub _cleanupFinished
 {
     my ($class) = @_;

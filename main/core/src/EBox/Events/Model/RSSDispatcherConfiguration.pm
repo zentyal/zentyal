@@ -100,12 +100,12 @@ sub formSubmitted
     } elsif ( $selectedAllowed eq 'allowedAll' ) {
         push( @ips, 'all');
     }
-    my $apacheMod = EBox::Global->modInstance('apache');
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
     my $rssFilePath =  EBox::Event::Dispatcher::RSS::RSSFilePath();
     my $dynamicWWWPath = EBox::Config::dynamicwww();
     $rssFilePath =~ s:$dynamicWWWPath:/dynamic-data/:;
     if ( @ips > 0 ) {
-        $apacheMod->setRestrictedResource($rssFilePath, \@ips, 'location');
+        $webAdminMod->setRestrictedResource($rssFilePath, \@ips, 'location');
     }
 }
 

@@ -61,10 +61,10 @@ sub confSOAPService
 
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
 
-    my $apache = EBox::Global->modInstance('apache');
-    $apache->addInclude($confFile);
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
+    $webAdminMod->addInclude($confFile);
 
-    $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
+    $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);
 }
 
 # SERVER METHODS
@@ -183,7 +183,6 @@ sub checkMaster
         }
     }
 
-    my $apache = $global->modInstance('apache');
     my $users = $global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
@@ -233,7 +232,7 @@ sub setupSlave
         my $port = $master->portValue();
         my $password = $master->passwordValue();
 
-        my $apache = EBox::Global->modInstance('apache');
+        my $webAdminMod = EBox::Global->modInstance('webadmin');
         $password = uri_escape($password);
         my $client = EBox::SOAPClient->instance(
             name  => 'urn:Users/Master',
@@ -248,7 +247,7 @@ sub setupSlave
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            $client->registerSlave($apache->port(), $client_cert, 1);
+            $client->registerSlave($webAdminMod->port(), $client_cert, 1);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);

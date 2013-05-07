@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+package EBox::WebAdmin;
+use base qw(EBox::Module::Service);
+
 use strict;
 use warnings;
-
-package EBox::Apache;
-
-use base qw(EBox::Module::Service);
 
 use EBox;
 use EBox::Validate qw( :all );
@@ -45,14 +44,25 @@ use Error qw(:try);
 use constant INCLUDE_KEY => 'includes';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
-use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
+use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
 
+# Constructor: _create
+#
+#      Create a new EBox::WebAdmin module object
+#
+# Returns:
+#
+#      <EBox::WebAdmin> - the recently created model
+#
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name   => 'apache',
-                                      printableName => __('Zentyal Webadmin'),
-                                      @_);
+    my $self = $class->SUPER::_create(
+        name   => 'webadmin',
+        printableName => __('Zentyal Webadmin'),
+        @_
+    );
+
     bless($self, $class);
     return $self;
 }
@@ -83,8 +93,29 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-# restarting apache from inside apache could be problematic, so we fork()
 sub _daemon
+{
+    my ($self, $action) = @_;
+
+    $self->_manageNginx($action);
+    $self->_manageApache($action);
+
+    if ($action eq 'stop') {
+        # Stop redis server
+        $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $self->hardRestart();
+    }
+}
+
+sub _manageNginx
+{
+    my ($self, $action) = @_;
+
+    EBox::Service::manage($self->_nginxUpstartName(), $action);
+}
+
+# restarting apache from inside apache could be problematic, so we fork()
+sub _manageApache
 {
     my ($self, $action) = @_;
 
@@ -123,12 +154,6 @@ sub _daemon
             exit ($?);
         }
     }
-
-    if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
-        $self->setHardRestart(0) if $hardRestart;
-    }
 }
 
 sub setHardRestart
@@ -149,7 +174,8 @@ sub hardRestart
 
 sub _stopService
 {
-    my $self = shift;
+    my ($self) = @_;
+
     $self->_daemon('stop');
 }
 
@@ -158,6 +184,7 @@ sub _setConf
     my ($self) = @_;
 
     $self->_setLanguage();
+    $self->_writeNginxConfFile();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
@@ -172,18 +199,73 @@ sub _enforceServiceState
     $self->_daemon('restart');
 }
 
-sub _writeHttpdConfFile
+sub _nginxConfFile
+{
+    return '/var/lib/zentyal/conf/nginx.conf';
+}
+
+sub _nginxUpstartName
+{
+    return 'zentyal.webadmin-nginx';
+}
+
+sub _nginxUpstartFile
+{
+    my ($self) = @_;
+
+    my $nginxUpstartName = $self->_nginxUpstartName();
+    return "/etc/init/$nginxUpstartName.conf";
+}
+
+sub _writeNginxConfFile
 {
     my ($self) = @_;
 
     # Write CA links
     $self->_writeCAPath();
 
-    my $httpdconf = _httpdConfFile();
+    my $nginxconf = $self->_nginxConfFile();
+    my $templateConf = 'core/nginx.conf.mas';
+
+    my @confFileParams = ();
+    push @confFileParams, (port => $self->port());
+    push @confFileParams, (tmpdir => EBox::Config::tmp());
+    push @confFileParams, (zentyalconfdir => EBox::Config::conf());
+
+    my $permissions = {
+        uid => EBox::Config::user(),
+        gid => EBox::Config::group(),
+        mode => '0644',
+        force => 1,
+    };
+
+    EBox::Module::Base::writeConfFileNoCheck($nginxconf, $templateConf, \@confFileParams, $permissions);
+
+    my $upstartFile = 'core/upstart-nginx.mas';
+
+    @confFileParams = ();
+    push @confFileParams, (conf => $self->_nginxConfFile());
+    push @confFileParams, (confDir => EBox::Config::conf());
+
+    $permissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+
+    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, $upstartFile, \@confFileParams, $permissions);
+}
+
+sub _writeHttpdConfFile
+{
+    my ($self) = @_;
+
+    my $httpdconf = '/var/lib/zentyal/conf/apache2.conf';
     my $template = 'core/apache.mas';
 
     my @confFileParams = ();
-    push @confFileParams, ( port => $self->port());
+    #push @confFileParams, ( port => $self->port());
     push @confFileParams, ( user => EBox::Config::user());
     push @confFileParams, ( group => EBox::Config::group());
     push @confFileParams, ( serverroot => $self->serverroot());
@@ -288,11 +370,6 @@ sub _reportAdminPort
         my $rs = $global->modInstance('remoteservices');
         $rs->reportAdminPort($self->port());
     }
-}
-
-sub _httpdConfFile
-{
-    return '/var/lib/zentyal/conf/apache2.conf';
 }
 
 sub _setDesktopServicesPort
@@ -795,19 +872,19 @@ sub certificates
 
 # Method: disableRestartOnTrigger
 #
-#   Makes apache and other modules listed in the restart-trigger script  to
+#   Makes webadmin and other modules listed in the restart-trigger script  to
 #   ignore it and do nothing
 sub disableRestartOnTrigger
 {
     system 'touch ' . NO_RESTART_ON_TRIGGER;
     if ($? != 0) {
-        EBox::warn('Canot create apache no restart on trigger file');
+        EBox::warn('Canot create "webadmin no restart on trigger" file');
     }
 }
 
 # Method: enableRestartOnTrigger
 #
-#   Makes apache and other modules listed in the restart-trigger script  to
+#   Makes webadmin and other modules listed in the restart-trigger script  to
 #   restart themselves when the script is executed (default behaviour)
 sub enableRestartOnTrigger
 {
@@ -816,7 +893,7 @@ sub enableRestartOnTrigger
 
 # Method: restartOnTrigger
 #
-#  Whether apache and other modules listed in the restart-trigger script  to
+#  Whether webadmin and other modules listed in the restart-trigger script  to
 #  restart themselves when the script is executed
 sub restartOnTrigger
 {

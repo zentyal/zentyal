@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test restricted resources and includes methods on Apache module
+# A module to test restricted resources and includes methods on WebAdmin module
 
 use warnings;
 use strict;
@@ -30,50 +30,50 @@ use EBox::Global::TestStub;
 
 EBox::Global::TestStub::fake();
 
-use_ok('EBox::Apache') or die;
+use_ok('EBox::WebAdmin') or die;
 
-my $apacheMod = EBox::Global->modInstance('apache');
-isa_ok($apacheMod, 'EBox::Apache');
+my $webAdminMod = EBox::Global->modInstance('webadmin');
+isa_ok($webAdminMod, 'EBox::WebAdmin');
 
 my @resourceNames = ('foo/a', 'bar/a', 'foo/b');
 
-is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 0, 'Resource not exists before adding');
+is ($webAdminMod->_restrictedResourceExists($resourceNames[0]), 0, 'Resource not exists before adding');
 
 lives_ok {
-    $apacheMod->setRestrictedResource($resourceNames[0], [ '192.168.45.2/32', '10.0.0.0/24' ], 'file');
+    $webAdminMod->setRestrictedResource($resourceNames[0], [ '192.168.45.2/32', '10.0.0.0/24' ], 'file');
 } 'Adding a correct restricted file';
 
 lives_ok {
-    $apacheMod->setRestrictedResource($resourceNames[0], [ '192.168.1.4/32' ], 'file');
+    $webAdminMod->setRestrictedResource($resourceNames[0], [ '192.168.1.4/32' ], 'file');
 } 'Updating a correct restricted file';
 
 lives_ok {
-    $apacheMod->setRestrictedResource($resourceNames[1], [ 'all', '102.1.2.3/32' ], 'location');
+    $webAdminMod->setRestrictedResource($resourceNames[1], [ 'all', '102.1.2.3/32' ], 'location');
 } 'Adding an all allow restricted location';
 
-is ($apacheMod->_restrictedResourceExists($resourceNames[0]), 1, 'Resource exists after adding');
+is ($webAdminMod->_restrictedResourceExists($resourceNames[0]), 1, 'Resource exists after adding');
 
 throws_ok {
-    $apacheMod->setRestrictedResource($resourceNames[2]);
+    $webAdminMod->setRestrictedResource($resourceNames[2]);
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 throws_ok {
-    $apacheMod->setRestrictedResource($resourceNames[2], [ 'nobody' ]);
+    $webAdminMod->setRestrictedResource($resourceNames[2], [ 'nobody' ]);
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 throws_ok {
-    $apacheMod->setRestrictedResource($resourceNames[2], [], 'file');
+    $webAdminMod->setRestrictedResource($resourceNames[2], [], 'file');
 } 'EBox::Exceptions::Internal', 'No given IP address';
 
 throws_ok {
-    $apacheMod->setRestrictedResource($resourceNames[2], [ 'foobar', '10.0.0.2/24'], 'location');
+    $webAdminMod->setRestrictedResource($resourceNames[2], [ 'foobar', '10.0.0.2/24'], 'location');
 } 'EBox::Exceptions::Internal', 'Deviant IP address';
 
 throws_ok {
-    $apacheMod->setRestrictedResource($resourceNames[2], ['all'], 'foobar');
+    $webAdminMod->setRestrictedResource($resourceNames[2], ['all'], 'foobar');
 } 'EBox::Exceptions::InvalidType', 'Invalid resource type';
 
-cmp_deeply($apacheMod->get_list('restricted_resources'),
+cmp_deeply($webAdminMod->get_list('restricted_resources'),
            [ { allowedIPs => [ '192.168.1.4/32' ],
                name       => $resourceNames[0],
                type       => 'file',
@@ -85,19 +85,19 @@ cmp_deeply($apacheMod->get_list('restricted_resources'),
             'The additions and updates were done correctly');
 
 throws_ok {
-    $apacheMod->delRestrictedResource();
+    $webAdminMod->delRestrictedResource();
 } 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
 
 lives_ok {
     foreach my $resourceName (@resourceNames[0 .. 1]) {
-        $apacheMod->delRestrictedResource($resourceName);
+        $webAdminMod->delRestrictedResource($resourceName);
     }
 } 'Deleting correct restricted resources';
 
-is ($apacheMod->_restrictedResourceExists($resourceNames[1]), 0, 'Resource not exists after deleting');
+is ($webAdminMod->_restrictedResourceExists($resourceNames[1]), 0, 'Resource not exists after deleting');
 
 throws_ok {
-    $apacheMod->delRestrictedResource($resourceNames[2]);
+    $webAdminMod->delRestrictedResource($resourceNames[2]);
 } 'EBox::Exceptions::DataNotFound', 'Given resource name not found';
 
 # Include related tests
@@ -105,40 +105,40 @@ my @includes = ( '/bin/true', '/bin/false' );
 my @deviantIncludes = ( '/bin/dafdfa' );
 
 throws_ok {
-    $apacheMod->addInclude();
+    $webAdminMod->addInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to include';
 
 throws_ok {
-    $apacheMod->addInclude($deviantIncludes[0]);
+    $webAdminMod->addInclude($deviantIncludes[0]);
 } 'EBox::Exceptions::Internal', 'File to include does not exits';
 
 lives_ok {
-    $apacheMod->addInclude($_) foreach (@includes);
+    $webAdminMod->addInclude($_) foreach (@includes);
 } 'Adding some includes';
 
-cmp_deeply($apacheMod->_includes(), \@includes,
+cmp_deeply($webAdminMod->_includes(), \@includes,
        'The two includes added');
 
 lives_ok {
-    $apacheMod->addInclude($_) foreach (@includes);
+    $webAdminMod->addInclude($_) foreach (@includes);
 } 'Trying to add the same again';
 
-cmp_deeply($apacheMod->_includes(), \@includes,
+cmp_deeply($webAdminMod->_includes(), \@includes,
            'Only the two includes are there');
 
 throws_ok {
-    $apacheMod->removeInclude();
+    $webAdminMod->removeInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to exclude';
 
 throws_ok {
-    $apacheMod->removeInclude($deviantIncludes[0]);
+    $webAdminMod->removeInclude($deviantIncludes[0]);
 } 'EBox::Exceptions::Internal', 'No file to remove';
 
 lives_ok {
-    $apacheMod->removeInclude($_) foreach (@includes);
+    $webAdminMod->removeInclude($_) foreach (@includes);
 } 'Removing all the include files';
 
-cmp_ok(@{$apacheMod->_includes()}, '==', 0,
+cmp_ok(@{$webAdminMod->_includes()}, '==', 0,
        'Nothing has been left');
 
 1;

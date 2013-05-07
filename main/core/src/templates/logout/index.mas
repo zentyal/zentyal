@@ -12,7 +12,7 @@ use EBox::Gettext;
 </div>
 % }else{
 <div class='note'>
-	<% __('There are no unsaved changes in this session.') %>
+	<% __('There are no pending changes to save.') %>
 </div>
 % }
 <a class="big" href='/Logout/Logout'><% __('Exit') %></a>

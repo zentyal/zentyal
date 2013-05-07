@@ -32,7 +32,7 @@ use EBox::Types::Text;
 use EBox::Types::Action;
 
 use EBox::Exceptions::Internal;
-use EBox::Apache;
+use EBox::WebAdmin;
 
 sub new
 {
@@ -118,7 +118,7 @@ sub _doInstall
         # Needed here because the code in the script takes some seconds to execute
         $ltsp->st_set_string('work', 'install');
 
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         exec('sudo /usr/share/zentyal-ltsp/install-local-applications '
              . "$arch $fat \"$applications\"");
     }

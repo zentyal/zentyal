@@ -15,7 +15,7 @@ case "$1" in
               DROP USER '$db_user'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
         rm -f /var/lib/zentyal/.db-created
 
-        # delete apache certificates
+        # delete webadmin certificates
         rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \
             /var/lib/zentyal/conf/ssl.pem/ebox.pem
 

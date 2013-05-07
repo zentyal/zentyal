@@ -417,7 +417,7 @@ sub extractBundle
 #
 #     Current actions:
 #
-#        - Restart remoteservices, firewall and apache modules
+#        - Restart remoteservices, firewall and web admin modules
 #        - Downgrade if necessary
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
@@ -766,8 +766,8 @@ sub _restartRS
     my $fw = $global->modInstance('firewall');
     $fw->save();
     # Required to set the CA correctly
-    my $apache = $global->modInstance('apache');
-    $apache->save();
+    my $webAdmin = $global->modInstance('webadmin');
+    $webAdmin->save();
 }
 
 # Downgrade current subscription, if necessary

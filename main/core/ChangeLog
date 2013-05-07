@@ -1,4 +1,10 @@
 HEAD
+	+ Improved the message shown when there are no changes pending to save on
+	  logout.
+	+ Use the X-Forwarded-Proto header for redirects construction.
+	+ Added nginx as the public HTTP server of Zentyal.
+	+ Renamed 'Apache' module to 'WebAdmin' module. If you need to restart the
+	  web administration you must use 'service zentyal webadmin restart'.
 	+ Set trac milestone for reported bugs to 3.1.X
 	+ CGIs are now EBox::Module::CGI::* instead of EBox::CGI::Module::*
 	+ Daemons are now disabled when configuring a module, so Zentyal can

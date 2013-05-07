@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed no longer required explicit disabling of apache2 init script
 	  as it is now managed by the framework
 	+ More error checking when creating virtual host directories
