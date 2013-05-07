@@ -1,4 +1,5 @@
 HEAD
+	+ Added ips_rule_updates to manage when IPS rule set is updated
 	+ Change IPS rule management with ASU adding new fields
 	  to Rules model to identify source and autoconfiguration
 	+ Added rule set file management to module API

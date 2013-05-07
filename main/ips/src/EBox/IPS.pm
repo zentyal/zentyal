@@ -229,6 +229,11 @@ sub logHelper
 
 # Method: tableInfo
 #
+#       Two tables are created:
+#
+#           - ips_event for IPS events
+#           - ips_rule_updates for IPS rule updates
+#
 # Overrides:
 #
 #       <EBox::LogObserver::tableInfo>
@@ -249,7 +254,8 @@ sub tableInfo
 
     my @order = qw(timestamp priority description source dest protocol event);
 
-    return [{
+    my $tableInfos = [
+        {
             'name' => __('IPS'),
             'tablename' => 'ips_event',
             'titles' => $titles,
@@ -259,7 +265,21 @@ sub tableInfo
             'eventcol' => 'event',
             'filter' => ['priority', 'description', 'source', 'dest'],
             'consolidate' => $self->_consolidate(),
-           }];
+        } ];
+    if ($self->usingASU()) {
+        push(@{$tableInfos}, {
+            'name'      => __('IPS Rule Updates'),
+            'tablename' => 'ips_rule_updates',
+            'titles'    => { 'timestamp' => __('Date'),
+                             'event'     => __('Event') },
+            'order'     => [qw(timestamp event)],
+            'timecol'   => 'timestamp',
+            'events'    => { 'success' => __('Success'), 'failure' => __('Failure') },
+            'eventcol'  => 'event',
+        },
+            );
+    }
+    return $tableInfos;
 }
 
 sub _consolidate
