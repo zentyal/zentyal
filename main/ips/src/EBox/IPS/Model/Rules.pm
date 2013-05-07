@@ -101,25 +101,36 @@ sub syncRows
     my @files = </etc/snort/rules/*.rules>;
 
     my @names;
+    my %names = ();
     foreach my $file (@files) {
         my $slash = rindex ($file, '/');
         my $dot = rindex ($file, '.');
         my $name = substr ($file, ($slash + 1), ($dot - $slash - 1));
         next if ($name =~ /deleted/);
         push (@names, $name);
+        $names{$name} = 1;
     }
 
-    my %currentNames =
-        map { $self->row($_)->valueByName('name') => 1 } @{$currentRows};
 
+    my $modified = 0;
+    my %currentNames;
     my $asuRuleSet = $self->parentModule()->ASURuleSet();
     my %asuRuleSet = map { $_ => 1 } @{$asuRuleSet};
-    my $modified = 0;
+    foreach my $id (@{$currentRows}) {
+        my $currentRow  = $self->row($id);
+        my $currentName = $currentRow->valueByName('name');
+        $currentNames{$currentName} = 1;
+        # Check if we need to change the source
+        if (exists $asuRuleSet{$currentName} and ($currentRow->valueByName('source') ne 'zentyal')) {
+            my $element = $currentRow->elementByName('source');
+            $element->setValue('zentyal');
+            $currentRow->store();
+            $modified = 1;
+        }
+    }
 
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
-    my %newNames = ();
     foreach my $name (@namesToAdd) {
-        $newNames{$name} = 1;
         my $enabled = $self->{enableDefault}->{$name} or 0;
         my $source  = 'community';
         if ( exists $asuRuleSet{$name} ) {
@@ -133,7 +144,7 @@ sub syncRows
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
         my $name = $row->valueByName('name');
-        if (not exists $newNames{$name} or ($name =~ /deleted/)) {
+        if (not exists $names{$name} or ($name =~ /deleted/)) {
             $self->removeRow($id);
             $modified = 1;
         }
