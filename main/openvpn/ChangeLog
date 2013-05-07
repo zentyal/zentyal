@@ -1,4 +1,4 @@
-HEAD
+3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed 3.0.X migration code
 	+ Added advertised routes option to the clients
@@ -6,6 +6,7 @@ HEAD
 	  the clients
 	+ Client to client connection option is always enforced for tunnel servers
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
 3.0.5
 	+ Create correctly advertised network objects for interfaces with
 	  more than one address in the same network

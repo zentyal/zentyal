@@ -1,4 +1,4 @@
-HEAD
+3.1
 	+ Improved the message shown when there are no changes pending to save on
 	  logout.
 	+ Use the X-Forwarded-Proto header for redirects construction.
@@ -13,6 +13,7 @@ HEAD
 	  previous row
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on mysql-server metapackage instead of mysql-server-5.5
+	+ Depend on zentyal-common 3.1
 3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo

@@ -1,4 +1,4 @@
-HEAD
+3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Added netInitRange and netEndRange methods from the dhcp module to be
 	  shared between modules.
@@ -6,6 +6,7 @@ HEAD
 	  used as the gateway of the given IP.
 	+ Added externalIpAddresses method to retrieve the list of IP addresses
 	  that are external.
+	+ Depend on zentyal-core 3.1
 3.0.6
 	+ PPPoE set iface script is more robust against locks
 	+ Adapted to use of ifaceByAddress, removed IPAddressExists
