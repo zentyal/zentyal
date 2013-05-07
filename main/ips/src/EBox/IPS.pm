@@ -42,6 +42,7 @@ use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
 use constant SURICATA_INIT_FILE => '/etc/init/zentyal.suricata.conf';
 use constant SNORT_RULES_DIR => '/etc/snort/rules';
 use constant SURICATA_RULES_DIR => '/etc/suricata/rules';
+use constant SURICATA_LOG_FILE  => '/var/log/suricata/suricata-start.log';
 
 # Group: Protected methods
 
@@ -428,7 +429,10 @@ sub rulesNum
 #      ips_rule_update table.
 #
 #      It suceeds if the daemon is running, it does not if the daemon
-#      is not running waiting for 10s (daemon restarting)
+#      is not running waiting for 10s (daemon restarting lag maximum
+#      time)
+#
+#      It will send an event if the attempt has failed
 #
 sub notifyUpdate
 {
@@ -448,6 +452,10 @@ sub notifyUpdate
         $dbh->unbufferedInsert('ips_rule_updates',
                                { timestamp => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
                                  event     => $event });
+        if ($event == 'failure') {
+            # Send an event
+            $self->_sendFailureEvent();
+        }
     }
 }
 
@@ -462,5 +470,25 @@ sub firewallHelper
 
     return undef;
 }
+
+# Group: Private methods
+
+# Send failure event when a failure attempt happens
+sub _sendFailureEvent
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    if ($global->modExists('events')) {
+        my $events = $global->modInstance('events');
+        if ( $events->isRunning() ) {
+            $events->sendEvent(
+                message    => __x('Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for details', log => SURICATA_LOG_FILE),
+                source     => 'ips-rule-update',
+                level      => 'warn');
+        }
+    }
+}
+
 
 1;
