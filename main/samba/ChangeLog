@@ -1,4 +1,6 @@
 HEAD
+	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
+	  allow join of Windows Vista machines if guest shares are enabled
 	+ New sync_disabled_users option in /etc/zentyal/samba.conf to sync
 	  users with a disabled account in s4sync
 	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
