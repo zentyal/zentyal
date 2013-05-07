@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 package EBox::WebAdmin;
 use base qw(EBox::Module::Service);
 
@@ -94,6 +93,20 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
+sub _daemon
+{
+    my ($self, $action) = @_;
+
+    $self->_manageNginx($action);
+    $self->_manageApache($action);
+
+    if ($action eq 'stop') {
+        # Stop redis server
+        $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $self->hardRestart();
+    }
+}
+
 sub _manageNginx
 {
     my ($self, $action) = @_;
@@ -127,8 +140,8 @@ sub _manageApache
     } elsif ($action eq 'restart') {
         if ($hardRestart) {
             EBox::info("Apache hard restart requested");
-            $self->_manageApache('stop');
-            $self->_manageApache('start');
+            $self->_daemon('stop');
+            $self->_daemon('start');
             return;
         }
         unless (defined($pid = fork())) {
@@ -140,12 +153,6 @@ sub _manageApache
             EBox::Sudo::root("$ctl restart");
             exit ($?);
         }
-    }
-
-    if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
-        $self->setHardRestart(0) if $self->hardRestart();
     }
 }
 
@@ -169,8 +176,7 @@ sub _stopService
 {
     my ($self) = @_;
 
-    $self->_manageNginx('stop');
-    $self->_manageApache('stop');
+    $self->_daemon('stop');
 }
 
 sub _setConf
@@ -190,8 +196,7 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    $self->_manageApache('restart');
-    $self->_manageNginx('restart');
+    $self->_daemon('restart');
 }
 
 sub _nginxConfFile
