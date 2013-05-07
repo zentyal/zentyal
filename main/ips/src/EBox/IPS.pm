@@ -128,9 +128,6 @@ sub _setRules
     foreach my $id (@{$rulesModel->enabledRows()}) {
         my $row = $rulesModel->row($id);
         my $name = $row->valueByName('name');
-        if ($self->usingASU()) {
-            $name = "emerging-$name";
-        }
         my $decision = $row->valueByName('decision');
         if ($decision =~ /log/) {
             push (@cmds, "cp $snortDir/$name.rules $suricataDir/");
@@ -390,13 +387,9 @@ sub rulesNum
 
     my $rulesNum;
     if ( $force or (not $self->st_entry_exists($key)) ) {
-        my @files;
         my $rulesDir = SNORT_RULES_DIR . '/';
-        if ( $self->usingASU() ) {
-            @files = <${rulesDir}emerging-*.rules>;
-        } else {
-            @files = <${rulesDir}*.rules>;
-        }
+        my @files = <${rulesDir}*.rules>;
+
         # Count the number of rules removing blank lines and comment lines
         my @numRules = map { `sed -e '/^#/d' -e '/^\$/d' $_ | wc -l` } @files;
         $rulesNum = List::Util::sum(@numRules);
