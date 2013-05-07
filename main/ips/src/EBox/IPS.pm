@@ -27,13 +27,15 @@ use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 
 use Error qw(:try);
 
-use EBox::Gettext;
-use EBox::Service;
-use EBox::Sudo;
+use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
+use EBox::Gettext;
+use EBox::Service;
+use EBox::Sudo;
 use List::Util;
+use POSIX;
 
 use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
@@ -418,6 +420,35 @@ sub rulesNum
         $rulesNum = $self->st_get_int($key);
     }
     return $rulesNum;
+}
+
+# Method: notifyUpdate
+#
+#      This method is intended to store the update log in the
+#      ips_rule_update table.
+#
+#      It suceeds if the daemon is running, it does not if the daemon
+#      is not running waiting for 10s (daemon restarting)
+#
+sub notifyUpdate
+{
+    my ($self) = @_;
+
+    my $event = 'success';
+    if ($self->isEnabled()) {
+        my $count = 0;
+        while (not $self->isRunning()) {
+            last if (++$count > 10);
+            sleep(1);
+        }
+        if ($count >= 10) {
+            $event = 'failure';
+        }
+        my $dbh = EBox::DBEngineFactory::DBEngine();
+        $dbh->unbufferedInsert('ips_rule_updates',
+                               { timestamp => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
+                                 event     => $event });
+    }
 }
 
 sub firewallHelper
