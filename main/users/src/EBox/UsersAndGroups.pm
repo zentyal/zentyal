@@ -417,7 +417,7 @@ sub enableActions
     $self->masterConf->confSOAPService();
     $self->masterConf->setupMaster();
 
-    # mark apache as changed to avoid problems with getpwent calls, it needs
+    # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('webadmin')->setAsChanged();
 }

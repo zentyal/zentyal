@@ -83,7 +83,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $oldFields) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $apache = $global->modInstance('webadmin');
+    my $webAdminMod = $global->modInstance('webadmin');
     my $services = $global->modInstance('services');
     my $firewall = $global->modInstance('firewall');
     my $portNumber;
@@ -108,7 +108,7 @@ sub validateTypedRow
     if (exists $changedFields->{ssl} and
         $changedFields->{ssl}->selectedType() eq 'ssl_port') {
         my $portNumberSSL = $changedFields->{ssl}->value();
-        if ($apache->port() eq $portNumberSSL) {
+        if ($webAdminMod->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
                     __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
                         ohref => '<a href="/SysInfo/Composite/General">', chref => '</a>')

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This scripts restarts apache, logs and events modules
+# This scripts restarts webadmin, logs and events modules
 
 use warnings;
 use strict;
@@ -26,8 +26,8 @@ use Error qw(:try);
 
 EBox::init();
 
-my $apacheMod = EBox::Global->getInstance()->modInstance('webadmin');
-unless ($apacheMod->restartOnTrigger()) {
+my $webAdminMod = EBox::Global->getInstance()->modInstance('webadmin');
+unless ($webAdminMod->restartOnTrigger()) {
     exit 0;
 }
 

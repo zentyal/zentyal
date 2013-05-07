@@ -1585,7 +1585,7 @@ sub _confSOAPService
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
-    my $apacheMod = EBox::Global->modInstance('webadmin');
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ( $self->hasBundle() ) {
             my @tmplParams = (
@@ -1598,22 +1598,22 @@ sub _confSOAPService
                 'remoteservices/soap-loc.mas',
                 \@tmplParams);
 
-            $apacheMod->addInclude($confFile);
-            $apacheMod->addCA($self->_caCertPath());
+            $webAdminMod->addInclude($confFile);
+            $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
         # Do nothing if CA or include are already removed
         try {
-            $apacheMod->removeInclude($confFile);
+            $webAdminMod->removeInclude($confFile);
         } catch EBox::Exceptions::Internal with { ; };
         try {
-            $apacheMod->removeCA($self->_caCertPath('force'));
+            $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch EBox::Exceptions::Internal with { ; };
     }
-    # We have to save Apache changes:
+    # We have to save web admin changes:
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
-    # $apacheMod->save();
+    # $webAdminMod->save();
     EBox::Global->modChange('webadmin');
 }
 
@@ -1932,9 +1932,9 @@ sub _reportAdminPort
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance(1);
-    my $apache = $gl->modInstance('webadmin');
+    my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($apache->port());
+    $self->reportAdminPort($webAdminMod->port());
 }
 
 # Method: extraSudoerUsers

@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Added netInitRange and netEndRange methods from the dhcp module to be
 	  shared between modules.
 	+ Added localGatewayIP method to get the Zentyal's IP address that may be

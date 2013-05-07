@@ -252,9 +252,9 @@ sub validateTypedRow
         $mod->preSlaveSetup($master);
     }
 
-    # set apache as changed
-    my $apache = EBox::Global->modInstance('webadmin');
-    $apache->setAsChanged();
+    # set webAdmin as changed
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
+    $webAdminMod->setAsChanged();
 }
 
 sub _checkSamba
