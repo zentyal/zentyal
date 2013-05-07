@@ -69,7 +69,7 @@ sub actuate
     my $sections = {};
     my @words = keys(%{$keywords});
     for my $it (@search_items) {
-        my @fullwords = grep(/^$it/,@words);
+        my @fullwords = grep(/^$it/i,@words);
         my $cur = {};
         for my $word (@fullwords) {
             my $sects = $keywords->{$word};
