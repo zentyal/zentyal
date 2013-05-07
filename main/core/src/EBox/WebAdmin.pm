@@ -213,7 +213,7 @@ sub _nginxConfFile
 
 sub _nginxUpstartName
 {
-    return 'zentyal-webadmin-nginx';
+    return 'zentyal.webadmin-nginx';
 }
 
 sub _nginxUpstartFile

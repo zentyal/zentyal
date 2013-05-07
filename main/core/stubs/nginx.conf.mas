@@ -17,6 +17,7 @@ Parameters:
 
 user www-data;
 worker_processes 4;
+daemon off;
 
 events {
     worker_connections 768;

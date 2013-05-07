@@ -4,8 +4,8 @@
 </%args>
 # nginx - Zentyal WebAdmin server
 
-description     "Nginx http daemon"
-author          "Carlos Perelló Marín <cperello@zentyal.com>"
+description     "Nginx http daemon for Zentyal web admin"
+author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
 
 start on (filesystem
           and static-network-up
@@ -16,7 +16,6 @@ env DAEMON=/usr/sbin/nginx
 env CONF=<% $conf %>
 env CONFDIR=<% $confDir %>
 
-expect fork
 respawn
 respawn limit 10 5
 
