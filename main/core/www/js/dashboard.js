@@ -6,7 +6,7 @@ Zentyal.namespace('Dashboard');
 Zentyal.namespace('Dashboard.ConfigureWidgets');
 
 Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
-    var escapedId = Zentyal.escapeJQSelector(containerId);
+    var escapedId = Zentyal.escapeSelector(containerId);
     jQuery.ajax({
          url: url,
          datatype: 'json',
@@ -20,7 +20,7 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
 
 // XXX migrate blind effect
 Zentyal.Dashboard.toggleClicked = function(element) {
-    var elementId = Zentyal.escapeJQSelector(element);
+    var elementId = Zentyal.escapeSelector(element);
     var contentSelector = '#' + elementId + '_content';
     var toggler = jQuery('#' + elementId + '_toggler');
     if(toggler.hasClass('minBox')) {
@@ -231,11 +231,11 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
     widget_id_list[k+1] = 'dashboard2';
 
     var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end)
+    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
     html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
     jQuery('#widget_list').html(html);
 
-    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable(module, widgets, start, end)
+    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable(module, widgets, start, end);
     Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(widget_id_list);
 };
 
