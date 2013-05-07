@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:180
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:209
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:916
+#: ../../main/squid/src/EBox/Squid.pm:1269
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1249
+#: ../../main/squid/src/EBox/Squid.pm:1602
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -49,30 +49,35 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1404
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1492
 msgid "Communications Add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1715
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1805
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1718
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1808
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1734
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1824
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1736
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1826
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1739
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1829
 msgid "Communications add-on"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2367
+#, perl-brace-format
+msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:160
@@ -114,7 +119,7 @@ msgstr ""
 "soporte técnico ni actualizaciones garantizadas, o con soporte completo por "
 "una {oh}cuota mensual asequible{ch}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:145
 #, perl-brace-format
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
 msgstr "<span>Ninguna - {oh}¡Regístrate Gratis!{ch}</span>"
@@ -197,27 +202,14 @@ msgid ""
 "free 30-day trial{ch}."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:164
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:190
 #, fuzzy, perl-brace-format
 msgid ""
 "Communications add-on is required in order to enable {mod} in the Small "
 "Business Edition."
 msgstr "El módulo {mod} no está soportado en la edición Small Business."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:183
-msgid ""
-"Please note that the Small Business Edition can be only used in master mode."
-msgstr ""
-"Por favor, ten en cuenta que la edición Small Business se puede usar "
-"únicamente en modo maestro."
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:187
-msgid "Please note that the Small Business Edition cannot have slaves."
-msgstr ""
-"Por favor, ten en cuenta que la edición Small Business no puede tener "
-"esclavos."
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:192
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:210
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for Small Business Edition is "
@@ -226,11 +218,18 @@ msgstr ""
 "Por favor, ten en cuenta que el máximo número de usuarios para la edición "
 "Small Business es {max} y tienes {nUsers}."
 
-#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:108
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:219
+#, fuzzy
+msgid "Please note that the Small Business Edition cannot have Zentyal slaves."
+msgstr ""
+"Por favor, ten en cuenta que la edición Small Business no puede tener "
+"esclavos."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:106
 msgid "You must agree to the privacy policy to continue"
 msgstr "Debes aceptar la política de privacidad para continuar"
 
-#: ../../main/network/src/EBox/Model/DynDNS.pm:280
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:280
 #, perl-brace-format
 msgid ""
 "You can configure your Dynamic DNS provider here. If your server is already "
@@ -243,6 +242,26 @@ msgstr ""
 "gratuita{ch} u obtén una edición {ohs}Small Business {ch} o {ohe}Enterprise"
 "{ch} para conseguir un subdominio zentyal.me para tu servidor."
 
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:219
+#, perl-brace-format
+msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
+msgstr ""
+"Las Actualizaciones de Seguridad Avanzadas te permiten tener {rules} reglas "
+"actualizadas diariamente"
+
+#: ../../main/ips/src/EBox/IPS/Composite/General.pm:96
+#, fuzzy, perl-brace-format
+msgid ""
+"Want to protect your system against the latest security threats, hacking "
+"attempts and attacks on security vulnerabilities? Get the {ohs}Small Business"
+"{ch} or {ohe}Enterprise Edition{ch} that include the IPS feature in the "
+"automatic security updates."
+msgstr ""
+"¿Quieres proteger tu sistema contra las últimas amenazas de seguridad, "
+"intentos de hacking y ataques a vulnerabilidades de seguridad? Obtén la "
+"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
+"servicio de IDS en las actualizaciones de seguridad automáticas."
+
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:91
 #, perl-brace-format
 msgid ""
@@ -254,7 +273,7 @@ msgstr ""
 "{openhref}Enterprise{closehref} que incluye el servicio de Antispam en las "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:205
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:204
 #, perl-brace-format
 msgid ""
 "Want to protect your system against scams, spear phishing, frauds and other "
@@ -276,7 +295,45 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/SysInfo.pm:509
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:190
+#, perl-brace-format
+msgid ""
+"Do you want a remote configuration backup of your Zentyal server? Set it up "
+"{oh}here{ch} for FREE!"
+msgstr ""
+
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:195
+#, perl-brace-format
+msgid ""
+"Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
+"up {oh}here{ch} for FREE!"
+msgstr ""
+
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:200
+#, perl-brace-format
+msgid ""
+"Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a "
+"FREE 30-day trial!"
+msgstr ""
+
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:205
+#, perl-brace-format
+msgid ""
+"Are you a happy Zentyal user? Do you want to help the project? Get involved "
+"in the {oh}community{ch}!"
+msgstr ""
+
+#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:217
+#, perl-brace-format
+msgid ""
+"Want to know what is your system status and usage? Get the {ohs}Small "
+"Business{ch} or {ohe}Enterprise Edition{ch} to create regular system reports."
+msgstr ""
+"¿Quieres conocer el estado de tu sistema y el uso que se le está dando? "
+"Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para generar "
+"informes frequentes del sistema."
+
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:99
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:206
 #: ../../main/software/src/templates/updateNote.mas:13
 #, perl-brace-format
@@ -292,7 +349,7 @@ msgstr ""
 "del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
 "Ubuntu."
 
-#: ../../main/core/src/EBox/SysInfo.pm:514
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:104
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
@@ -300,64 +357,6 @@ msgid ""
 msgstr ""
 "Tu edición comercial del servidor asegura que estas actualizaciones tienen "
 "garantía de calidad y se aplicarán automáticamente a tu sistema."
-
-#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:217
-#, perl-brace-format
-msgid ""
-"Want to know what is your system status and usage? Get the {ohs}Small "
-"Business{ch} or {ohe}Enterprise Edition{ch} to create regular system reports."
-msgstr ""
-"¿Quieres conocer el estado de tu sistema y el uso que se le está dando? "
-"Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para generar "
-"informes frequentes del sistema."
-
-#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:189
-#, perl-brace-format
-msgid ""
-"Do you want a remote configuration backup of your Zentyal server? Set it up "
-"{oh}here{ch} for FREE!"
-msgstr ""
-
-#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:194
-#, perl-brace-format
-msgid ""
-"Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
-"up {oh}here{ch} for FREE!"
-msgstr ""
-
-#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:199
-#, perl-brace-format
-msgid ""
-"Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a "
-"FREE 30-day trial!"
-msgstr ""
-
-#: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:204
-#, perl-brace-format
-msgid ""
-"Are you a happy Zentyal user? Do you want to help the project? Get involved "
-"in the {oh}community{ch}!"
-msgstr ""
-
-#: ../../main/ids/src/EBox/Model/Rules.pm:206
-#, perl-brace-format
-msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
-msgstr ""
-"Las Actualizaciones de Seguridad Avanzadas te permiten tener {rules} reglas "
-"actualizadas diariamente"
-
-#: ../../main/ids/src/EBox/Composite/General.pm:97
-#, perl-brace-format
-msgid ""
-"Want to protect your system against the latest security threats, hacking "
-"attempts and attacks on security vulnerabilities? Get the {ohs}Small Business"
-"{ch} or {ohe}Enterprise Edition{ch} that include the IDS feature in the "
-"automatic security updates."
-msgstr ""
-"¿Quieres proteger tu sistema contra las últimas amenazas de seguridad, "
-"intentos de hacking y ataques a vulnerabilidades de seguridad? Obtén la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
-"servicio de IDS en las actualizaciones de seguridad automáticas."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:78
 #, perl-format, perl-brace-format
@@ -373,7 +372,16 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1206
+#: ../../main/users/src/EBox/UsersAndGroups/User.pm:550
+#, fuzzy, perl-brace-format
+msgid ""
+"Please note that the maximum number of users for your edition is {max} and "
+"you currently have {nUsers}"
+msgstr ""
+"Por favor, ten en cuenta que el máximo número de usuarios para la edición "
+"Small Business es {max} y tienes {nUsers}."
+
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1324
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -1119,6 +1127,13 @@ msgstr ""
 "¡Registra tu servidor Zentyal de forma gratuita! Y gana acceso a los "
 "siguientes servicios: Configuración de backup remota, subdominio zentyal.me "
 "personalizado, webinarios, whitepapers, trials gratuitos y mucho más!"
+
+#~ msgid ""
+#~ "Please note that the Small Business Edition can be only used in master "
+#~ "mode."
+#~ msgstr ""
+#~ "Por favor, ten en cuenta que la edición Small Business se puede usar "
+#~ "únicamente en modo maestro."
 
 #~ msgid "Zarafa Small Business (25 users)"
 #~ msgstr "Zarafa Small Business (25 usuarios)"
