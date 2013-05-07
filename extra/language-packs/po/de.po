@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2012-09-14 18:01+0200\n"
-"Last-Translator: dermatze <mattheus.erb@googlemail.com>\n"
+"PO-Revision-Date: 2013-05-05 00:08+0200\n"
+"Last-Translator: Pascal <pizzer1@gmx.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:121
@@ -96,6 +96,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Kann den Namen {name} nicht benutzen da schon ein anderer Ordner mit dem "
+"Namen {dir} vorhanden ist.\n"
+"Ohne Rückfrage löschen?"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:44
 msgid "Time period"
@@ -253,14 +256,14 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:412
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Gruppe"
+msgstr "Gruppe: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:423
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "Profil '{p}' anwenden"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:33
 msgid "Domain or URL"
@@ -342,19 +345,17 @@ msgid "Skip Transparent Proxy"
 msgstr "Transparenter Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Transparenter Proxy"
+msgstr "Ausnahmen des transparenten Proxys"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
 msgid "domain name address"
-msgstr "Domänen-Namen-Adresse"
+msgstr "Domännamen-Adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
-#, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
-msgstr "Sie können Adressen vom Zwischenspeichern ausschließen"
+msgstr "Sie können Adressen vom transparenten Proxy ausschließen"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
@@ -378,7 +379,7 @@ msgstr "Transparenter Proxy"
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:57
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:122
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "aktiviere Single-Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
@@ -419,13 +420,12 @@ msgid "Settings changed"
 msgstr "Einstellungen geändert"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:139
-#, fuzzy
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
-"Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-"
-"Regeln, die in bestimmten Objekten gefunden wurden"
+"Auswahl des transparenten Proxy ist nicht kompatibel mit User-Berechtigungs-"
+"Regeln in Zugangsregeln"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:167
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:161
@@ -483,8 +483,8 @@ msgid ""
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
 "HTTP-Verkehr für verschiedene MIME-Typen erlauben/verbieten. Nicht "
-"aufgeführte MIME-Typen sind erlaubt. Der Filter benötigt eine 'Filter'-Regel "
-"um wirksam zu sein."
+"aufgeführte MIME-Typen sind erlaubt. \n"
+"Der Filter benötigt eine 'Filter'-Regel um wirksam zu sein"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:194
 msgid "MIME type added"
@@ -502,7 +502,7 @@ msgstr "MIME-Typ aktualisiert"
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:49
 msgid "Requests"
-msgstr "Anforderungen"
+msgstr "Anfragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:61
@@ -532,13 +532,13 @@ msgstr "Benutzer"
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:50
 msgid "Accepted requests"
-msgstr "akzeptiert Anforderungen"
+msgstr "akzeptierte Anfragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:73
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:49
 msgid "Accepted traffic size (Kb)"
-msgstr "Erlaubte Traffic-Größe (kb)"
+msgstr "Erlaubtes Datenübertragungsvolumen (kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:77
@@ -1422,9 +1422,9 @@ msgid "client"
 msgstr "Client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:129
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Konfigurations-Dateipaket hochladen"
+msgstr "Konfigurations-Dateipaket für {na}  hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
@@ -1707,9 +1707,9 @@ msgid "Other server is listening on the same port"
 msgstr "Anderer Server lauscht am gleichen Port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:422
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Der Port {p}/{pro} wird bereits verwendet"
+msgstr "Der Port {p}/{pro} wird bereits von {mod} verwendet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:483
 #, perl-brace-format
@@ -1726,7 +1726,7 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Kann Network Address Translation (NAT) nicht benutzen, weil es das Modul "
+"Network Address Translation (NAT) kann nicht benutzt werden, da es das Modul "
 "Firewall benötigt. Das Modul ist aber weder installiert noch aktiviert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:516
@@ -1734,9 +1734,9 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Kann Network Address Translation (NAT) nicht verwenden, weil das Modul "
-"Firewall aktiviert sein muss. Bitte aktivieren Sie es und versuchen Sie es "
-"erneut"
+"Network Address Translation (NAT) kann nicht verwendet werden, weil das "
+"Modul Firewall aktiviert sein muss. Bitte aktivieren Sie es und versuchen "
+"Sie es erneut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:547
 msgid ""
@@ -1756,9 +1756,9 @@ msgstr ""
 "die Option NAT aktiviert ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:609
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "Zentyal-zu-Zentyal-Tunnels erlauben"
+msgstr "{par} ist nicht kompatible zum Zentyal-zu-Zentyal-Tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #, fuzzy
@@ -1774,7 +1774,7 @@ msgid "Advertised network"
 msgstr "Erreichbare Netzwerke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:98
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -1782,9 +1782,12 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar}Sie können hier jene Netzwerke eintragen, welche Sie für VPN-"
-"Benutzer erreichbar machen wollen.{closepar}{openpar}Normalerweise erlauben "
-"Sie Zugriff zu Ihrem LAN indem Sie die Netzwerkadresse hier angeben{closepar}"
+"{openpar} Sie können hier die Netzwerke hinzufügen, die Sie für VPN-Benutzer "
+"erreichbar machen wollen.{closepar}{openpar}Normalerweise erlauben Sie "
+"Zugriff zu Ihrem LAN indem Sie die Netzwerkadresse hier "
+"angeben{closepar}{openpar}Hat das zugelassene Netzwerk die gleiche Adresse "
+"wie das VPN-Netzwerk, dann wird das zugelassene Netzwerk "
+"ignoriert.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:61
 #: ../../main/restore-tool:117 ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
@@ -1840,9 +1843,8 @@ msgid "Enable"
 msgstr "Aktivieren"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:79
-#, fuzzy
 msgid "Upload client bundle"
-msgstr "Benutzerdateien herunterladen"
+msgstr "Client-Dateipaket hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:98
 msgid "List of Clients"
@@ -1900,9 +1902,8 @@ msgid "Additional server address (optional)"
 msgstr "zusätzliche Serveradresse (optional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:92
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "zusätzliche Serveradresse (optional)"
+msgstr "Zweite zusätzliche Serveradresse (optional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:101
 msgid "Download Client Bundle"
@@ -19247,7 +19248,7 @@ msgstr "keine Gruppenmitglieder"
 #: ../../main/users/src/templates/user.mas:113
 #: ../../main/users/src/templates/user.mas:138
 msgid "Empty list"
-msgstr "Liste leeren"
+msgstr "Leere Liste"
 
 #: ../../main/users/src/templates/group.mas:50
 msgid "Remove users from group"
@@ -19270,8 +19271,8 @@ msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Dieser Vorgang löscht die Gruppe und alle zugehörigen Daten wie freigegebene "
-"Verzeichnisse."
+"Dieser Vorgang löscht die Gruppe und alle zugehörigen Daten wie z.B. "
+"freigegebene Verzeichnisse"
 
 #: ../../main/users/src/templates/user.mas:14
 msgid "Administration of user"
