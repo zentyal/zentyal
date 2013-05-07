@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Zarafa;
-
 use strict;
 use warnings;
+
+package EBox::Zarafa;
 
 use feature qw(switch);
 
@@ -211,11 +211,6 @@ sub initialSetup
             return;
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
-    }
-
-    # Create new principal when upgrading from 3.0.2
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.3') < 0) {
-        $self->kerberosCreatePrincipals() if ($self->configured());
     }
 }
 

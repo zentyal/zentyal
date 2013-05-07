@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::WebServer::Model::GeneralSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::WebServer::Model::GeneralSettings
 #
 #   Form to set the general configuration settings for the web server.
 #
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

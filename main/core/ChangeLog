@@ -2,6 +2,10 @@ HEAD
 	+ Added nginx as the public HTTP server of Zentyal.
 	+ Renamed 'Apache' module to 'WebAdmin' module. If you need to restart the
 	  web administration you must use 'service zentyal webadmin restart'.
+	+ Set trac milestone for reported bugs to 3.1.X
+	+ CGIs are now EBox::Module::CGI::* instead of EBox::CGI::Module::*
+	+ Daemons are now disabled when configuring a module, so Zentyal can
+	  manage them directly instead of being autostarted by the system
 	+ EBox::Model::DataForm::formSubmitted called even where there is no
 	  previous row
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

@@ -327,7 +327,6 @@ sub _writeCSSFiles
     }
 }
 
-
 # write CA Certificate Path with included CAs
 sub _writeCAPath
 {
@@ -439,7 +438,6 @@ sub setPort # (port)
     $adminPortModel->setValue('port', $port);
     $self->updateAdminPortService($port);
 }
-
 
 sub checkAdminPort
 {
@@ -747,8 +745,6 @@ sub _includes
 
     return \@includes;
 }
-
-
 
 # Method: addCA
 #

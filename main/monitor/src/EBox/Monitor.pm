@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,6 +29,7 @@ use warnings;
 #
 
 package EBox::Monitor;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider EBox::SysInfo::Observer);
 
 use EBox::Config;
@@ -376,7 +377,6 @@ sub measure
     return $self->{measureManager}->measure($name);
 }
 
-
 # Method: thresholdConfigured
 #
 #      Return if a measure with a given data source is configured in
@@ -686,7 +686,6 @@ sub _makeSubscriptionLink
     } # else, collectd creates the directory
 }
 
-
 sub _removeSubscriptionLink
 {
     my ($self, $stopService) = @_;
@@ -783,7 +782,6 @@ sub fqdnChangedDone
     $self->setAsChanged(1);
 }
 
-
 sub _changeRRDDirs
 {
     my ($self, $old, $new) = @_;
@@ -808,7 +806,6 @@ sub _changeRRDDirs
     EBox::info("A collectd directory $oldDir moved to $newDir ");
     $self->_setOldHostname($new);
 }
-
 
 sub _oldHostname
 {

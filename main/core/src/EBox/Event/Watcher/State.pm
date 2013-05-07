@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,10 +16,11 @@
 package EBox::Event::Watcher::State;
 
 # Class: EBox::Watcher::State;
+
+use base 'EBox::Event::Watcher::Base';
 #
 # This class is a watcher which checks current state from eBox
 #
-use base 'EBox::Event::Watcher::Base';
 
 # Constants:
 #

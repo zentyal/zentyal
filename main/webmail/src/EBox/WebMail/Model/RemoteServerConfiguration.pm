@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
-package EBox::WebMail::Model::RemoteServerConfiguration;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::WebMail::Model::RemoteServerConfiguration;
+
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -42,8 +41,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
@@ -157,11 +154,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
 
 sub _connectionTypePopulate
 {
@@ -224,7 +218,6 @@ sub getConfiguration
                    smtpPort   => $smtpPort,
                   );
 
-
     my $smtpAuth = $row->elementByName('smtpAuth');
     if ($smtpAuth->selectedType() eq 'same') {
         push @params, (
@@ -241,7 +234,6 @@ sub getConfiguration
 
     return \@params;
 }
-
 
 sub getSieveConfiguration
 {
@@ -271,14 +263,12 @@ sub validateTypedRow
 
 }
 
-
 sub precondition
 {
     my $webmail = EBox::Global->modInstance('webmail');
     my $mode = $webmail->model('OperationMode');
     return (not $mode->usesEBoxMail())
 }
-
 
 sub preconditionFailMsg
 {

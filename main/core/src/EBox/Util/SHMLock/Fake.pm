@@ -45,9 +45,6 @@ sub cleanAllLocks
     %locks = ();
 }
 
-
-
-
 sub init
 {
     my ($class, $name, $path) = @_;
@@ -83,6 +80,5 @@ sub lock
         $locks{$file} = 1;
     }
 }
-
 
 1;

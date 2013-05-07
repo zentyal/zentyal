@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+
 use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 use EBox::Config;
@@ -141,7 +142,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     $class->_checkBundleContents($tmpDir);
 
-
     my @initParams;
     try {
         push @initParams, $class->_serverConfigurationFromFile($tmpDir);
@@ -162,7 +162,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     return @initParams;
 }
-
 
 sub _checkBundleContents
 {
@@ -196,14 +195,12 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing
                                         );
     }
 
-
 }
 
 sub _serverConfigurationFromFile
 {
     my ($class, $tmpDir) = @_;
     my $file = $class->serverConfigurationFile($tmpDir);
-
 
     my $contents = read_file($file);
     my %conf = split ',', $contents;

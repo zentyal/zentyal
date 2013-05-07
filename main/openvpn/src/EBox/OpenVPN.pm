@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free softwa re; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN;
+
 use base qw(
              EBox::Module::Service
              EBox::NetworkObserver
@@ -98,18 +99,6 @@ sub initializeInterfaces
 
     my $clients = $self->model('Clients');
     $clients->initializeInterfaces();
-}
-
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    $self->SUPER::initialSetup($version);
-
-    if ($version and (EBox::Util::Version::compare($version, '3.0.6') < 0)) {
-        eval "use EBox::OpenVPN::Migration";
-        EBox::OpenVPN::Migration::addClientsAdvertisedNetworks($self);
-    }
 }
 
 # Method: usedFiles
@@ -1047,7 +1036,6 @@ sub staticIfaceAddressChanged
     return $self->_anyDaemonReturnsTrue('staticIfaceAddressChanged', @params);
 }
 
-
 # common listeners helpers..
 
 sub _invokeOnServers
@@ -1468,12 +1456,10 @@ sub removeRSClients
         $_ =~ m/^$prefix/
     } $self->clientsNames();
 
-
     foreach my $name (@names) {
         $self->deleteClient($name);
     }
 }
-
 
 # log observer stuff
 

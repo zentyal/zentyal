@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersSync::Master;
-
 use strict;
 use warnings;
+
+package EBox::UsersSync::Master;
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -67,7 +67,6 @@ sub confSOAPService
     $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
 }
 
-
 # SERVER METHODS
 
 # Method: getCertificate
@@ -104,7 +103,6 @@ sub setupMaster
     );
 }
 
-
 # Method: addSlave
 #
 #   Register a new slave in this master
@@ -118,7 +116,6 @@ sub addSlave
     my $table = $users->model('Slaves');
 
     EBox::info("Adding a new slave on $host:$port");
-
 
     my $changed = $users->changed();
     my $id = $table->addRow(host => $host, port => $port);
@@ -141,7 +138,6 @@ sub addSlave
     # Regenerate slave connection password
     $self->setupMaster();
 }
-
 
 # CLIENT METHODS
 
@@ -196,7 +192,6 @@ sub checkMaster
         proxy => "https://slave:$password\@$host:$port/master",
     );
 
-
     try {
         $master->getDN();
     } otherwise {
@@ -207,7 +202,6 @@ sub checkMaster
     # Check that master's REALM is correct
     $self->_checkRealm($users, $master);
 }
-
 
 # Method: isSlave
 #
@@ -273,7 +267,6 @@ sub setupSlave
     }
 }
 
-
 sub _checkRealm
 {
     my ($self, $users, $client) = @_;
@@ -285,7 +278,6 @@ sub _checkRealm
         throw EBox::Exceptions::External(__x("Master server has a different REALM, check hostnames. Master is {master} and slave {slave}.", master => $mrealm, slave => $srealm));
     }
 }
-
 
 sub _recreateLDAP
 {
@@ -330,6 +322,5 @@ sub _analyzeException
     }
     throw EBox::Exceptions::External(__("Couldn't configure Zentyal as slave") . ": $msg.");
 }
-
 
 1;

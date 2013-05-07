@@ -1,3 +1,9 @@
+zentyal-metapackages (3.1) precise; urgency=low
+
+  * Depend on zentyal-ips instead of zentyal-ids
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 May 2013 00:49:24 +0200
+
 zentyal-metapackages (3.0.1) precise; urgency=low
 
   * Added missing zentyal-remoteservices dependency

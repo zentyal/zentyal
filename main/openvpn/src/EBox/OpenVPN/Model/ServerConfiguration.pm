@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ServerConfiguration;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Global;
@@ -42,7 +43,6 @@ use EBox::View::Customizer;
 
 use constant ALL_INTERFACES => '_ALL';
 
-
 sub new
 {
     my $class = shift;
@@ -53,8 +53,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
@@ -226,7 +224,6 @@ sub viewCustomizer
     return $customizer;
 }
 
-
 sub name
 {
     __PACKAGE__->nameFromClass(),
@@ -243,7 +240,6 @@ sub _populateLocal
     } @{ $network->ifaces() };
 
     @options = map { { value => $_ } }  @enabledIfaces;
-
 
     push @options,  {
                      value => ALL_INTERFACES,
@@ -276,7 +272,6 @@ sub validateTypedRow
 
     $self->_checkPortIsAvailable($action, $params_r, $actual_r);
 }
-
 
 sub _checkRipPasswd
 {
@@ -431,7 +426,6 @@ sub _checkPortIsAvailable
     }
 }
 
-
 sub _alreadyCheckedAvailablity
 {
     my ($self, $proto, $port, $local, $actual_r) = @_;
@@ -462,8 +456,6 @@ sub _alreadyCheckedAvailablity
     return 0;
 }
 
-
-
 #XXX this must be in a iface type...
 sub _checkIface
 {
@@ -476,7 +468,6 @@ sub _checkIface
     if ($iface eq ALL_INTERFACES) {
         return;
     }
-
 
     my $network = EBox::Global->modInstance('network');
 
@@ -502,7 +493,6 @@ sub _checkMasqueradeIsAvailable
         return;
     }
 
-
     my $firewall = EBox::Global->modInstance('firewall');
     if (not $firewall) {
         throw EBox::Exceptions::External(
@@ -526,12 +516,10 @@ sub _checkIfaceAndMasquerade
                                  $params_r->{masquerade}->value() :
                                  $actual_r->{masquerade}->value();
 
-
     if ($masquerade) {
         # with masquerade either internal or external interfaces are correct
         return;
     }
-
 
     my $local   = exists $params_r->{local} ?
                                  $params_r->{local}->value() :
@@ -561,7 +549,6 @@ sub _checkIfaceAndMasquerade
 
 }
 
-
 sub _checkServerCertificate
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -573,11 +560,9 @@ sub _checkServerCertificate
     EBox::OpenVPN::Server->checkCertificate($cn);
 }
 
-
 sub _checkTlsRemote
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
 
     (exists $params_r->{tlsRemote}) or
         return;
@@ -589,10 +574,8 @@ sub _checkTlsRemote
         return;
     }
 
-
     EBox::OpenVPN::Server->checkCertificate($cn);
 }
-
 
 sub _checkTunnelForbiddenParams
 {
@@ -613,7 +596,6 @@ sub _checkTunnelForbiddenParams
         }
     }
 }
-
 
 # The interface type resides in the ServerModels so we must set it in the
 # parentRow
@@ -658,5 +640,4 @@ sub pageTitle
 }
 
 1;
-
 

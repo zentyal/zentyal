@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::Model::ExternalAliases;
+
 use base 'EBox::Model::DataTable';
 
 # Class: EBox::Mail::Model::ExternalAliases
@@ -30,7 +31,6 @@ use EBox::Exceptions::External;
 use EBox::Types::MailAddress;
 use EBox::Types::Text;
 use EBox::Types::Select;
-
 
 sub new
 {
@@ -70,7 +70,6 @@ sub _table
                                        'size' => '30',
                                        'editable' => 1,
                                       ),
-
 
          );
 
@@ -117,7 +116,6 @@ sub _vdomainOptionsSub
             }
         } @{ $aliasesModel->aliases()  };
 
-
         return \@options;
     };
 }
@@ -161,7 +159,6 @@ __x('Cannot add alias because domain {vd} is not a virtual domain or virtual dom
 );
 }
 
-
 sub _checkAliasIsNotAccount
 {
     my ($self, $alias) = @_;
@@ -175,7 +172,6 @@ sub _checkAliasIsNotAccount
     }
 
 }
-
 
 sub _checkExternalAccountIsExternal
 {
@@ -197,7 +193,6 @@ sub _realVdomain
     my $vdomain =$parentRow->valueByName('vdomain');
     return $vdomain;
 }
-
 
 # this do clenaup of all aliases with orphaned vdomain alias, not just those of
 # the removed vdomain
@@ -236,7 +231,6 @@ sub firstAliasForExternalVDomain
 
     return undef;
 }
-
 
 sub aliasesAndExternalAccounts
 {

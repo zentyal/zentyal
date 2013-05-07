@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,6 +21,7 @@ use warnings;
 #    that changes to other machines (master provider).
 #
 package EBox::UsersAndGroups::Slave;
+
 use base 'EBox::LdapUserBase';
 
 use EBox::Global;
@@ -149,7 +150,6 @@ sub syncFromFile
         EBox::error("Error notifying $name for $method: $ex");
     };
 }
-
 
 sub readActionInfo
 {

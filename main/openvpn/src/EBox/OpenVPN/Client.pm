@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use warnings;
 
 # Description: Class for modelling each of the OpenVPN servers
 package EBox::OpenVPN::Client;
+
 use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkHost);
@@ -341,8 +342,6 @@ sub checkServer
     }
 }
 
-
-
 # Method: servers
 #
 #   Get the servers to which the client will try to connect
@@ -515,7 +514,6 @@ sub staticIfaceAddressChanged
     return undef;
 }
 
-
 sub _availableIfaces
 {
     my ($self) = @_;
@@ -567,7 +565,6 @@ sub summary
 sub backupCertificates
 {
     my ($self, $dir) = @_;
-
 
     my $d = "$dir/" . $self->name;
     EBox::FileSystem::makePrivateDir($d);

@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::Interfaces;
+
+use base 'EBox::Model::DataTable';
 
 # Class: EBox::CaptivePortal::Model::Interfaces
 #
 #   Interfaces where a Captive Portal is enabled
 #
-
-use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -108,7 +108,6 @@ sub _syncBWMonitorIface
     return 1;
 }
 
-
 sub interfaceNeedsBWMonitor
 {
     my ($self, $interface) = @_;
@@ -122,7 +121,6 @@ sub interfaceNeedsBWMonitor
     my $row = $self->find(interface => $interface);
     return $row->valueByName('enabled');
 }
-
 
 sub bwmonitorNeeded
 {
@@ -180,6 +178,5 @@ sub syncRows
 
     return 1;
 }
-
 
 1;

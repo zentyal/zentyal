@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Virt;
+
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
@@ -44,7 +45,6 @@ use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 
 my $UPSTART_PATH = '/etc/init/';
 my $WWW_PATH = EBox::Config::www();
-
 
 sub _create
 {
@@ -82,12 +82,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ($version) {
-        if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
-            eval "use EBox::Virt::Migration";
-            EBox::Virt::Migration->migrateOS($self);
-        }
-    } else {
+    unless ($version) {
         # Create default service only if installing the first time
         my $services = EBox::Global->modInstance('services');
 
@@ -240,7 +235,6 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
-
 sub updateFirewallService
 {
     my ($self) = @_;
@@ -367,7 +361,6 @@ sub allowsNoneIface
     my ($self) = @_;
     return $self->{backend}->allowsNoneIface();
 }
-
 
 sub manageScript
 {

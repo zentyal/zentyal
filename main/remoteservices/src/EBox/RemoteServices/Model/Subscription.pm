@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -30,10 +30,10 @@
 #     - Zentyal subscribed. After the registration
 #
 
-package EBox::RemoteServices::Model::Subscription;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::Subscription;
 
 use base 'EBox::Model::DataForm';
 
@@ -376,7 +376,6 @@ sub _table
                                      storer        => \&_emptyFunc));
     }
 
-
     my ($actionName, $printableTableName);
     my ($customActions, $defaultActions) = ([], []);
     if ( $self->eBoxSubscribed() ) {
@@ -534,7 +533,6 @@ sub _manageSquid
     }
 }
 
-
 sub _configureAndEnable
 {
     my ($self, $mod) = @_;
@@ -615,7 +613,6 @@ sub _modListToHumanStr
     $str = $str . __(' and ') . $last . __(' modules');
     return $str;
 }
-
 
 # Dump the module actions string
 sub _actionsStr

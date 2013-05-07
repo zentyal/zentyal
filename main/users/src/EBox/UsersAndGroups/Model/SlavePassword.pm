@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2011 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,13 +18,13 @@
 #   Next password to use on slave registering
 #
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::SlavePassword;
 
 use EBox::Gettext;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

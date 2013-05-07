@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,6 +31,7 @@ use warnings;
 #
 
 package EBox::Types::File;
+
 use base 'EBox::Types::Abstract';
 
 use EBox;
@@ -181,7 +182,6 @@ sub path
     return $self->{filePath};
 }
 
-
 # Method: user
 #
 # Returns:
@@ -229,7 +229,6 @@ sub exist
     $path or
         return undef;
 
-
     if ( $self->path() ) {
         return EBox::Sudo::fileTest('-f', $self->path);
     } else {
@@ -251,7 +250,6 @@ sub toRemove
 
     return $self->{remove};
 }
-
 
 sub filesPaths
 {
@@ -305,7 +303,7 @@ sub linkToDownload
 
     my $contextName = $self->model()->contextName();
 
-    my $link = '/Controller/Downloader/FromModel?';
+    my $link = '/Downloader/FromModel?';
     $link .= 'model=' . $contextName;
     $link .= '&dir=' . $self->model()->directory();
     $link .= '&id=' . $self->row()->id();
@@ -401,7 +399,6 @@ sub backupFiles
     defined $path or
       $path = $self->path();
     $path or return;
-
 
     my $backupPath = $self->backupPath($path);
     my $noPreviousFilePath = $self->noPreviousFilePath($path);

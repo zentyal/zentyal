@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,10 +16,10 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::Dashboard::Index;
+
 use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
-
 
 sub new # (error=?, msg=?, cgi=?)
 {

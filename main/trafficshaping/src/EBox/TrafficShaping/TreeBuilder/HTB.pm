@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::TreeBuilder::HTB;
-
 use strict;
 use warnings;
 
-# Its parent class is AbstractTreeBuilder
+package EBox::TrafficShaping::TreeBuilder::HTB;
+
 use base 'EBox::TrafficShaping::TreeBuilder::Abstract';
+
+# Its parent class is AbstractTreeBuilder
 
 use EBox::Config;
 use EBox::TrafficShaping::Class;
@@ -108,7 +109,6 @@ sub buildRoot # (defaultClass, rate)
       unless defined( $defaultClass );
     throw EBox::Exceptions::MissingArgument('rate')
       unless defined( $self->{rate} );
-
 
     # There are different ways to implement depending on if the
     # interface is internal or external
@@ -458,7 +458,6 @@ sub updateRule
 
   }
 
-
 # Method: destroyRule
 #
 #        Remove a rule from the tc tree
@@ -727,7 +726,6 @@ sub _allowedLimitedRate
 
 }
 
-
 # Minimum allowed guaranteed rate to have at least a quantum of 1
 # packet.
 # Returns kbit/s
@@ -753,7 +751,6 @@ sub _maximumAllowedQuantum
     return (60000 * R2Q * 8) / 1000;
 
   }
-
 
 ###
 # Numbers helpers
@@ -982,7 +979,6 @@ sub _createInternalStructure # (defaultClassId)
                      service     => undef,
                      id          => $eBoxId + 1,
                     );
-
 
 }
 

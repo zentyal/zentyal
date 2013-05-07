@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::IPsec::Model::Connections;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
@@ -129,7 +130,6 @@ sub _populateType
 
     return \@opts;
 }
-
 
 # Method: _table
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter;
+
 use base (
           'EBox::Module::Service',
           'EBox::VDomainModule',
@@ -42,7 +43,6 @@ use EBox::Util::Version;
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::POPProxy;
-
 
 use constant SA_LEARN_SCRIPT => '/usr/share/zentyal-mailfilter/saLearn.pl';
 
@@ -98,7 +98,6 @@ __('This users are for the email accounts used for training the bayesian filter'
            ]
 }
 
-
 # Method: usedFiles
 #
 #       Override EBox::Module::Service::files
@@ -123,15 +122,12 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if (not $version) {
+    unless ($version) {
         # Create default rules and services
         # only if installing the first time
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
-    } elsif (EBox::Util::Version::compare($version, '3.0.4') < 0) {
-        eval "use EBox::MailFilter::Migration";
-        EBox::MailFilter::Migration::removeSpamdService();
     }
 }
 
@@ -164,7 +160,7 @@ sub _serviceRules
     ];
 }
 
-# Method: enableActions
+# Method: enableService
 #
 #       Override EBox::Module::Service::enableService
 #
@@ -252,7 +248,6 @@ sub smtpFilter
     return $self->{smtpFilter};
 }
 
-
 # Method: antispam
 #
 # Returns:
@@ -273,7 +268,6 @@ sub popProxy
     my ($self) = @_;
     return $self->{popProxy};
 }
-
 
 sub antispamNeeded
 {
@@ -386,8 +380,6 @@ sub _stopService
 #    $self->popProxy()->stopService();
 }
 
-#
-
 ## firewall method
 sub usesPort
 {
@@ -400,10 +392,8 @@ sub usesPort
     return 1;
   }
 
-
   return undef;
 }
-
 
 sub firewallHelper
 {
@@ -412,7 +402,6 @@ sub firewallHelper
   if (not $self->isEnabled()) {
       return undef;
   }
-
 
   my $externalMTAs = $self->smtpFilter()->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
@@ -458,7 +447,6 @@ sub _vdomainModImplementation
     return new EBox::MailFilter::VDomainsLdap();
 }
 
-
 #  Method: mailFilterName
 #
 #   Implements the method needed for EBox::Mail::FilterProvider
@@ -467,7 +455,6 @@ sub mailFilterName
     my ($self) = @_;
     return $self->smtpFilter->mailFilterName();
 }
-
 
 # Method: learnAccountsForDomain
 #
@@ -482,7 +469,6 @@ sub learnAccountsForDomain
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     return $vdomainsLdap->learnAccounts($vdomain);
 }
-
 
 #  Method: mailFilter
 #
@@ -505,7 +491,6 @@ sub dovecotAntispamPluginConf
         }
     }
 
-
     my $conf = {
                 enabled => $enabled,
                 mailtrain => SA_LEARN_SCRIPT,
@@ -516,7 +501,6 @@ sub dovecotAntispamPluginConf
 
     return $conf;
 }
-
 
 sub mailFilterWidget
 {
@@ -547,7 +531,6 @@ sub tableInfo
            ];
 }
 
-
 sub _smtpFilterTableInfo
 {
     my ($self) = @_;
@@ -574,7 +557,6 @@ sub _smtpFilterTableInfo
                   'MTA-BLOCKED' => __('Unable to reinject in the mail server'),
     };
 
-
     my $consolidate = {
                        mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
                       };
@@ -590,7 +572,6 @@ sub _smtpFilterTableInfo
             'consolidate' => $consolidate,
     };
 }
-
 
 # sub _popProxyTableInfo
 # {
@@ -630,14 +611,12 @@ sub _smtpFilterTableInfo
 #     };
 # }
 
-
 sub logHelper
 {
     my ($self) = @_;
 
     return new EBox::MailFilter::LogHelper();
 }
-
 
 sub _filterTrafficConsolidationSpec
 {
@@ -675,7 +654,6 @@ sub _filterTrafficConsolidationSpec
 
     return $spec;
 }
-
 
 sub _popProxyFilterConsolidationSpec
 {
@@ -735,7 +713,6 @@ sub menu
 #                                      'text' => __('POP Transparent Proxy')
 #                 )
 #    );
-
 
     $folder->add(
                  new EBox::Menu::Item(

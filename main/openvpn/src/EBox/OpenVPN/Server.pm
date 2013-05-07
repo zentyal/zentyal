@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use warnings;
 
 # Description: Class for modelling each of the OpenVPN servers
 package EBox::OpenVPN::Server;
+
 use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Global;
@@ -423,7 +424,6 @@ sub ippFile
     return __PACKAGE__->_ippFileForDaemon($confDir, $self->name());
 }
 
-
 sub confFileParams
 {
     my ($self, %params) = @_;
@@ -452,7 +452,6 @@ sub confFileParams
         defined $value or next;
         push @templateParams, ($param => $value);
     }
-
 
     push @templateParams, (ippFile => $self->ippFile($confDir));
 
@@ -650,7 +649,6 @@ sub clientBundle
     return $class->clientBundle(%params);
 }
 
-
 sub backupFiles
 {
     my ($self, $dir) = @_;
@@ -696,7 +694,6 @@ sub restoreFiles
     # in EBox::Backup
     EBox::Sudo::root("chown -R root.root $serverConfigDir/*");
 }
-
 
 sub certificateRevoked # (commonName, isCACert)
 {

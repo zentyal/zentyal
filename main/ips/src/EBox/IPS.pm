@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #      Class description
 #
 
-package EBox::IPS;
-
 use strict;
 use warnings;
+
+package EBox::IPS;
 
 use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Types::Service;
-
 use strict;
 use warnings;
+
+package EBox::Types::Service;
 
 use EBox::Validate qw( checkPort checkProtocol);
 use EBox::Exceptions::MissingArgument;
@@ -360,7 +360,6 @@ sub _setValue # (value)
     $self->setMemValue($params);
 }
 
-
 ####
 # Group: Private methods
 ###
@@ -380,7 +379,6 @@ sub _printableValue # (proto)
 
     return $self->{protocols}->{$proto}->{printableValue};
 }
-
 
 # Return a hash ref with the allowed protocols
 # indexed by protocol value

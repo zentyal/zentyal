@@ -1,0 +1,12 @@
+#!/bin/sh
+
+URL=$(/usr/share/zenbuntu-core/get-zentyal-url)
+
+echo "
+
+
+You can access the Zentyal Web Interface at:
+
+ * $URL
+
+"

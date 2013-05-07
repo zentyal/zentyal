@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2011 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Module::Config::TestStub;
-
 use strict;
 use warnings;
+
+package EBox::Module::Config::TestStub;
 
 use Test::MockObject;
 use List::Util qw(first);
@@ -91,7 +91,6 @@ my %subByGConfMethod = (
                                       type  => 'string',
                                       returnValueHash => 0,
                                      },
-
 
                         get_list  => {
                                       sub_r =>  \&_getEntry,
@@ -196,7 +195,6 @@ sub _mockedGConfWrapper
     return $resHash;
 }
 
-
 # XXX defaults not supported
 sub _unsetEntry
 {
@@ -230,7 +228,6 @@ sub _setList
     my ($key, $type, $val) = @_;
     $config{$key} = $val;
 }
-
 
 sub _allEntries
 {
@@ -298,7 +295,6 @@ sub _mockedDeleteDirInternal
         }
     }
 }
-
 
 # faking get in gconfwarpper seems to be not enough....
 sub _mockedHashFromDir

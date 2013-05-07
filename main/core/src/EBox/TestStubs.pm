@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,8 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::TestStubs;
 use base 'Exporter';
+
 # package: EBox::TestStubs
 #
 #  this package is the global facade to all zentyal-base test stubs
@@ -22,8 +26,6 @@ use base 'Exporter';
 # warning:
 # do NOT confuse with EBox::TestStub (this package is the teststub for the -package- EBox)
 #
-use strict;
-use warnings;
 
 use Test::MockObject::Extends;
 
@@ -232,7 +234,6 @@ sub fakeModule
                                                      redis => EBox::Test::RedisMock->new());
             bless $self, $modPackage;
 
-
             $self = $initializerSub->($self);
             return $self;
         }
@@ -321,6 +322,5 @@ sub setFakeRoutes
     my $params_r = { @_ };
     EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
-
 
 1;

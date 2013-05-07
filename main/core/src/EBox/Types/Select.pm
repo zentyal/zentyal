@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Types::Select;
-
 use strict;
 use warnings;
+
+package EBox::Types::Select;
 
 use base 'EBox::Types::Basic';
 
@@ -90,7 +90,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub size
 {
@@ -237,7 +236,6 @@ sub foreignField
     }
     return $self->{foreignField};
 }
-
 
 sub foreignNextPageField
 {
@@ -445,7 +443,6 @@ sub _optionsFromForeignModel
 
     return $model->optionsFromForeignModel($field, @params);
 }
-
 
 # Method: _filterOptions
 #

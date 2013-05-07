@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,8 +19,8 @@ use warnings;
 #   Zentyal group, stored in LDAP
 #
 package EBox::UsersAndGroups::Group;
-use base 'EBox::UsersAndGroups::LdapObject';
 
+use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;
 use EBox::Global;
@@ -108,7 +108,6 @@ sub removeAllMembers
     my ($self, $lazy) = @_;
     $self->delete('member', $lazy);
 }
-
 
 # Method: addMember
 #
@@ -221,7 +220,6 @@ sub usersNotIn
     return \@users;
 }
 
-
 # Catch some of the set ops which need special actions
 sub set
 {
@@ -275,7 +273,6 @@ sub deleteValues
     $self->SUPER::deleteValues(@_);
 }
 
-
 # Method: deleteObject
 #
 #   Delete the user
@@ -292,9 +289,6 @@ sub deleteObject
     shift @_;
     $self->SUPER::deleteObject(@_);
 }
-
-
-
 
 sub save
 {
@@ -344,10 +338,7 @@ sub setIgnoredSlaves
     $self->{ignoreSlaves} = $slaves;
 }
 
-
-
 # GROUP CREATION METHODS
-
 
 # Method: create
 #
@@ -481,14 +472,12 @@ sub _checkGroupName
     return 1;
 }
 
-
 sub system
 {
     my ($self) = @_;
 
     return ($self->get('gidNumber') < MINGID);
 }
-
 
 sub _gidForNewGroup
 {
@@ -507,8 +496,6 @@ sub _gidForNewGroup
 
     return $gid;
 }
-
-
 
 # Method: lastGid
 #

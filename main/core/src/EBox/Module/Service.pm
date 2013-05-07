@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Module::Service;
+
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -325,7 +326,6 @@ sub firstInstall
     return 1;
 }
 
-
 sub configureModule
 {
     my ($self) = @_;
@@ -333,6 +333,7 @@ sub configureModule
     try {
         $self->setConfigured(1);
         #$self->updateModuleDigests($modName);
+        $self->_overrideDaemons();
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
@@ -377,7 +378,6 @@ sub setInstalled
 
     return $self->st_set_bool('_serviceInstalled', 1);
 }
-
 
 # Method: isEnabled
 #
@@ -956,6 +956,43 @@ sub disableApparmorProfile
             EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
     }
+}
+
+# Method: _daemonsToDisable
+#
+#   This is like _daemons but only to specify those init scripts
+#   that need to be stopped and disabled when enabling the module.
+#
+sub _daemonsToDisable
+{
+    return [];
+}
+
+sub _overrideDaemons
+{
+    my ($self) = @_;
+
+    my @daemons = @{$self->_daemonsToDisable()};
+
+    my @cmds;
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        push (@cmds, "service $name stop");
+    }
+
+    push (@daemons, @{$self->_daemons()});
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        if ($daemon->{type} eq 'init.d') {
+            push (@cmds, "update-rc.d $name disable");
+        } else {
+            push (@cmds, "echo manual > /etc/init/$name.override");
+        }
+    }
+
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 1;

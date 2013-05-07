@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::GlobalImpl;
+
 use base qw(EBox::Module::Config Apache::Singleton::Process);
 
 use EBox;
@@ -334,7 +335,6 @@ sub unsaved
     }
     return undef;
 }
-
 
 sub prepareRevokeAllModules
 {
@@ -820,7 +820,6 @@ sub modInstancesOfType
     return \@array;
 }
 
-
 # Method: modInstance
 #
 #       Build an instance of a module. Can be called as a class method or as an
@@ -875,7 +874,6 @@ sub modInstance
     $instances->{$name} = $classname->_create(ro => $ro);
     return $instances->{$name};
 }
-
 
 # Method: logger
 #
@@ -959,7 +957,6 @@ sub modRevDepends
     }
     return \@revdeps;
 }
-
 
 # Name: sortModulesByDependencies
 #

@@ -1,3 +1,5 @@
+HEAD
+	+ Removed 3.0.X migration code
 3.0.5
 	+ Reload the page after saving changes if a VM has been modified
 	+ Added calls to generate VM stop alerts on module stop

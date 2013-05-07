@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -148,7 +148,6 @@ sub add
     $self->save() unless $lazy;
 }
 
-
 # Method: delete
 #
 #   Delete all values from an attribute
@@ -196,7 +195,6 @@ sub deleteObject
     $self->_entry->delete();
     $self->save();
 }
-
 
 # Method: remove
 #
@@ -291,7 +289,6 @@ sub baseDn
     return $basedn;
 }
 
-
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
@@ -336,14 +333,12 @@ sub clearCache
     $self->{entry} = undef;
 }
 
-
 sub _ldap
 {
     my ($self) = @_;
 
     return EBox::Global->modInstance('users')->ldap();
 }
-
 
 # Method: as_ldif
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -58,7 +58,6 @@ sub _generateClientConf
     push @confParams, (connStrategy => $extraParams{connStrategy});
     push @confParams, (servers => \@servers);
 
-
     my %certificates = %{$certificatesPath_r};
 
     # transform al lpaths in relative paths
@@ -111,7 +110,6 @@ sub serverAddr
     return [];
 }
 
-
 sub confFileExtraParameters
 {
     return ();
@@ -145,7 +143,6 @@ sub _clientCertificatesPaths
 
     return \%certificates;
 }
-
 
 sub clientBundle
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Events::Model::EventsDetails;
+
 use base 'EBox::Logs::Model::Details';
 
 use EBox::Gettext;
@@ -84,8 +85,6 @@ sub _table
                         ),
                     ];
 
-
-
     my $dataTable =
         {
             'tableName' =>__PACKAGE__->tableName(),
@@ -105,18 +104,14 @@ sub _table
     return $dataTable;
 }
 
-
-
 sub tableName
 {
     return 'EventsDetails';
 }
 
-
 sub timePeriod
 {
     my ($self) = @_;
-
 
     my $model = $self->{confmodule}->reportOptionsModel();
     my $row = $model->row();

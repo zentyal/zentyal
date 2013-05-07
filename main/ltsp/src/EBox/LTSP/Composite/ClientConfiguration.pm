@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #   TODO: Document composite
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Composite::ClientConfiguration;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

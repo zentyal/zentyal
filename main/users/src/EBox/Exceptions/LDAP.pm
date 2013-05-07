@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Exceptions::LDAP;
+
 use base 'EBox::Exceptions::Internal';
 
 use Data::Dumper;

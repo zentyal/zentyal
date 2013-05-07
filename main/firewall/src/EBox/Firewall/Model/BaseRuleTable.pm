@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,6 +29,7 @@ use strict;
 use warnings;
 
 package EBox::Firewall::Model::BaseRuleTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -88,8 +89,6 @@ sub decision
 sub _fieldDescription
 {
     my ($self, %params) = @_;
-
-
 
     my @tableHead =
         (
@@ -185,9 +184,6 @@ sub _fieldDescription
     return \@tableHead;
 }
 
-
-
-
 # Method: viewCustomizer
 #
 #    Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -217,7 +213,6 @@ sub headTitle
     return __('Configure Rules');
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -238,7 +233,6 @@ sub validateTypedRow
         }
     }
 
-
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
@@ -253,6 +247,5 @@ sub validateTypedRow
         }
     }
 }
-
 
 1;

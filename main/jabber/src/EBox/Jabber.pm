@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Jabber;
+
 use base qw(EBox::Module::Service EBox::LdapModule EBox::SysInfo::Observer);
 
 use EBox::Global;
@@ -151,7 +152,6 @@ sub _daemons
         }
     ];
 }
-
 
 # overriden because ejabberd process could be up and not be running
 sub isRunning
@@ -344,6 +344,5 @@ sub killProcesses
         system "killall  @kill";
     }
 }
-
 
 1;

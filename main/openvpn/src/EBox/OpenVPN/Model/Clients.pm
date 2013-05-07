@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::Clients;
+
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use EBox::Gettext;
@@ -114,7 +115,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub name
 {
     __PACKAGE__->nameFromClass(),
@@ -132,7 +132,6 @@ sub validateTypedRow
 sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
 
     if ( not exists $params_r->{service} ) {
         return;
@@ -164,7 +163,6 @@ sub _validateName
     my $internal = exists $params_r->{internal} ?
                             $params_r->{internal}->value() :
                             $actual_r->{internal}->value();
-
 
     $openvpn->checkNewDaemonName($name, 'client', $internal);
 }

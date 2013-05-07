@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Report::DiskUsage;
-#
 use strict;
 use warnings;
+
+package EBox::Report::DiskUsage;
 
 use EBox::Gettext;
 use EBox::CGI::Temp;
@@ -27,7 +27,6 @@ use Chart::Pie;
 use GD;
 use Filesys::Df;
 use Perl6::Junction qw(all);
-
 
 use constant PERCENTAGE_TO_APPEAR => 0.1; # percentage of disk size must reach a
                                           # facilty to be worthwile of display
@@ -91,7 +90,6 @@ sub chart
   return _chart($datasets);
 }
 
-
 sub _chart
 {
   my ($datasets) = @_;
@@ -119,7 +117,6 @@ sub _chart
                      text_space  => $textSpace,
                     };
 
-
   my $chart = new Chart::Pie( _calcGraphSize($datasets, $chartParams)  );
 
   $chart->set (
@@ -131,7 +128,6 @@ sub _chart
   }
 
   $chart->png($imageLocation->{file});
-
 
   return $imageLocation->{url};
 }
@@ -160,7 +156,6 @@ sub _calcGraphSize
     }
   }
 
-
   my $fWidth = $params->{label_font}->width;
   my $fHeight = $params->{label_font}->height;
 
@@ -178,12 +173,9 @@ sub _calcGraphSize
     $graphWidth = MIN_GRAPH_WIDTH;
   }
 
-
   # graph height
   $graphHeight= $pieLabelsSize + PIE_RADIUS;
   # calculate the height used by the legend and add it to the height
-
-
 
   # we take a row for datapoint to simplify to don't have to follow all the
   # calculations scattered in Chart code
@@ -199,7 +191,6 @@ sub _calcGraphSize
 
   return ($graphWidth, $graphHeight);
 }
-
 
 #  Function: usage
 #
@@ -243,7 +234,6 @@ sub usage
     $_ => { facilitiesUsage => 0, }
   } keys %{ $fileSystems };
 
-
   # get usage infromation from modules
   my @modUsageParams = ( blockSize => $blockSize, );
   if (defined $fileSystemToScan) {
@@ -262,7 +252,6 @@ sub usage
     }
 
   }
-
 
   # calculate system usage and free space for each file system
   foreach my $fileSys (keys %usageByFilesys) {
@@ -298,8 +287,6 @@ sub usage
   return \%usageByFilesys;
 }
 
-
-
 sub _chartDatasets
 {
   my ($usageByFacility_r) = @_;
@@ -312,7 +299,6 @@ sub _chartDatasets
   my $totalSpace = 0;
   $totalSpace += $_ foreach values %usageByFacility;
   my $minSizeToAppear = ($totalSpace * PERCENTAGE_TO_APPEAR) / 100;
-
 
   my $freeSpace   = delete $usageByFacility{free};
   my $systemUsage = delete $usageByFacility{system};

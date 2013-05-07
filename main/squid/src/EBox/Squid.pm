@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid;
+
 use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
@@ -128,20 +129,11 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-    if (not $version) {
+    unless ($version) {
         # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(source => { any => undef },
                                          policy => { allow => undef });
-    } else {
-        if (EBox::Util::Version::compare($version, '3.0.3') < 0) {
-            eval "use EBox::Squid::Migration";
-            EBox::Squid::Migration::migrateWhitespaceCategorizedLists();
-        }
-
-        if (EBox::Util::Version::compare($version, '3.0.9') < 0) {
-            $self->kerberosCreatePrincipals() if ($self->configured());
-        }
     }
 }
 
@@ -315,7 +307,6 @@ sub usedFiles
     ];
 }
 
-
 # Method: actions
 #
 #       Override EBox::Module::Service::actions
@@ -406,7 +397,6 @@ sub setPort
 
     $self->model('GeneralSettings')->setValue('port', $port);
 }
-
 
 # Method: port
 #
@@ -920,7 +910,6 @@ sub _antivirusNeeded
     return 0;
 }
 
-
 sub notifyAntivirusEnabled
 {
     my ($self, $enabled) = @_;
@@ -1103,8 +1092,6 @@ sub _writeDgConf
 
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
-
-
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
             'squid/dansguardian.conf.mas', \@writeParam);
@@ -1389,8 +1376,7 @@ sub menu
 
 #  Method: _daemons
 #
-#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
-#
+#   Overrides <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
@@ -1405,6 +1391,21 @@ sub _daemons
         {
             name => 'squid3'
         }
+    ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    # XXX: although squid3 is already listed in _daemons, we add it also here
+    #      to force its stop during enabled (it was done in the initial-setup script)
+    #      maybe we can double check if that's really necessary
+    return [
+        { name => 'dansguardian', type => 'init.d' },
+        { name => 'squid3', type => 'upstart' }
     ];
 }
 
@@ -1439,7 +1440,6 @@ sub tableInfo
             'consolidate' => $self->_consolidateConfiguration(),
            }];
 }
-
 
 sub _consolidateConfiguration
 {
@@ -1535,7 +1535,6 @@ sub _DGLang
 
     return $lang;
 }
-
 
 sub addPathsToRemove
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -192,7 +192,6 @@ sub _scppassCommandAsString
     my $fullCmd =  qq{ sshpass -f $passwdFile scp  } .
                q{-o GlobalKnownHostsFile=} . FINGERPRINT_FILE . " $src $dst";
 
-
     return $fullCmd;
 }
 
@@ -203,7 +202,6 @@ sub _scppassCloudPath
     my $username = $credentials->{username};
     return $username . '@' . $server . ':' .  $path;
 }
-
 
 sub configuredEncryptionMode
 {
@@ -219,7 +217,6 @@ sub configuredEncryptionPassword
     my $remoteSettings = $ebackup->model('RemoteSettings');
     return $remoteSettings->row()->valueByName('symmetric');
 }
-
 
 # Method: writeDRMetadata
 #
@@ -268,7 +265,6 @@ sub writeDRMetadata
             $backupDomains->{$domain}->{size} = $sizeByDomain->{$domain};
         }
     }
-
 
     my $encryptionType = configuredEncryptionMode();
     my $commonName = $credentials->{commonName};
@@ -339,7 +335,6 @@ sub uploadConfigurationBackup
     _uploadFileToCloud($credentials, $toUpload, $remotePath);
 }
 
-
 sub downloadConfigurationBackup
 {
     my ($credentials, $date, $dst) = @_;
@@ -397,7 +392,6 @@ sub _oldConfigurationBackupRemotePath
     return $path;
 }
 
-
 sub _callGPG
 {
     my (%params) = @_;
@@ -432,7 +426,6 @@ sub _callGPG
     }
 }
 
-
 sub _existsFileInCloud
 {
     my ($credentials, $path) = @_;
@@ -452,7 +445,6 @@ sub _uploadFileToCloud
     my $cmd = _scppassCommandAsString($credentials, $fromLocalPath, $scpTo);
     EBox::Sudo::root($cmd);
 }
-
 
 sub _downloadFileFromCloud
 {

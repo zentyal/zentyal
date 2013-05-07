@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,9 @@
 #
 #   From to configure a Zentyal master to provide users to this server
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::Master;
 
 use base 'EBox::Model::DataForm';
@@ -29,10 +32,6 @@ use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
 use EBox::View::Customizer;
-
-use strict;
-use warnings;
-
 
 use constant VIEW_CUSTOMIZER => {
     none     => { hide => [ 'host', 'port', 'password' ] },
@@ -71,7 +70,6 @@ sub _table
 
     # TODO make all this elements non-editable after change
     # (add a destroy button, to unregister from the master)
-
 
     my $master_options = [
         { value => 'none', printableValue => __('None') },
@@ -147,8 +145,6 @@ sub viewCustomizer
     $customizer->setOnChangeActions( { master => VIEW_CUSTOMIZER } );
     return $customizer;
 }
-
-
 
 sub _locked
 {
@@ -246,7 +242,6 @@ sub validateTypedRow
                 $warnMsg .= $modWarn;
             }
         }
-
 
         if ($warnMsg) {
             throw EBox::Exceptions::DataInUse($warnMsg);

@@ -1,4 +1,4 @@
-# Copyright 2010-2012 eBox Technologies S.L.
+# Copyright 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,6 +18,9 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::Mail::Model::MailUser;
 
 use EBox::Gettext;
@@ -25,9 +28,6 @@ use EBox::Validate qw(:all);
 use EBox::Types::Port;
 use EBox::Types::Select;
 use EBox::Global;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 

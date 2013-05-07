@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -87,7 +87,6 @@ sub _tableDescription
 
     return \@tableDescription;
 }
-
 
 # Method:  _table
 #

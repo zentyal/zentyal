@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -308,7 +308,6 @@ sub validateTypedRow
 
     my $squid = $self->parentModule();
 
-
     my $source = exists $params_r->{source} ?
                       $params_r->{source}:  $actual_r->{source};
     my $sourceType  = $source->selectedType();
@@ -453,7 +452,6 @@ sub rules
 
     return \@rules;
 }
-
 
 sub squidFilterProfiles
 {

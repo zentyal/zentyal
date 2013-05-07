@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,10 +21,10 @@
 #     - passwordless (Boolean)
 #
 
-package EBox::RemoteServices::Model::AccessSettings;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::AccessSettings;
 
 use base 'EBox::Model::DataForm';
 
@@ -58,7 +58,6 @@ sub new
     return $self;
 
 }
-
 
 # Group: Protected methods
 

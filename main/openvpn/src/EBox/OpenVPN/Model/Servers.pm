@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::Servers;
+
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use EBox::Global;
@@ -200,7 +201,6 @@ sub servers
 
 }
 
-
 sub server
 {
     my ($self, $name) = @_;
@@ -213,7 +213,6 @@ sub server
 
     return EBox::OpenVPN::Server->new($row);
 }
-
 
 sub serverExists
 {
@@ -271,7 +270,6 @@ sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-
     if ( not exists $params_r->{service} ) {
         return;
     }
@@ -295,7 +293,6 @@ sub _validateService
                 );
     }
 }
-
 
 sub _validateName
 {

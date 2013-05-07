@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
 
 package EBox::AsteriskLdapUser;
+
+use base qw(EBox::LdapUserBase);
 
 # Class: EBox::AsteriskLdapUser
 #
 #
-
-use base qw(EBox::LdapUserBase);
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -146,7 +145,6 @@ sub _addUser
     }
 }
 
-
 # FIXME doc
 sub _getUserMail
 {
@@ -158,7 +156,6 @@ sub _getUserMail
         return "user\@domain";
     }
 }
-
 
 # Method: _userAddOns
 #
@@ -189,7 +186,6 @@ sub _userAddOns
     return { path => '/asterisk/user.mas',
              params => $args };
 }
-
 
 # Method: _delUser
 #
@@ -246,7 +242,6 @@ sub _delUser
     $global->modChange('asterisk');
 }
 
-
 # FIXME doc
 sub _removeVoicemail
 {
@@ -298,7 +293,6 @@ sub _delGroup
     $global->modChange('asterisk');
 }
 
-
 sub _groupAddOns
 {
     my ($self, $group) = @_;
@@ -323,7 +317,6 @@ sub _groupAddOns
     return { path => '/asterisk/group.mas',
              params => $args };
 }
-
 
 sub _modifyGroup
 {
@@ -350,7 +343,6 @@ sub _modifyGroup
     my $global = EBox::Global->getInstance();
     $global->modChange('asterisk');
 }
-
 
 # Method: setHasAccount
 #
@@ -390,7 +382,6 @@ sub setHasAccount
     }
 }
 
-
 # Method: hasAccount
 #
 #       Check if the user has an Asterisk account
@@ -412,7 +403,6 @@ sub hasAccount
     return ('AsteriskSIPUser' eq any @objectclasses);
 }
 
-
 sub hasQueue
 {
     my ($self, $group) = @_;
@@ -433,7 +423,6 @@ sub hasQueue
     return ($result->count > 0);
 }
 
-
 sub setHasQueue
 {
     my ($self, $group, $option) = @_;
@@ -452,7 +441,6 @@ sub setHasQueue
         $self->_delGroup($group);
     }
 }
-
 
 sub genQueue
 {
@@ -477,7 +465,6 @@ sub genQueue
     $global->modChange('asterisk');
 }
 
-
 sub asteriskUsersInQueue
 {
     my ($self, $group) = @_;
@@ -501,12 +488,10 @@ sub asteriskUsersInQueue
     return @asteriskusers;
 }
 
-
 sub schemas
 {
     return [ EBox::Config::share() . '/zentyal-asterisk/asterisk.ldif' ];
 }
-
 
 sub acls
 {
@@ -519,7 +504,6 @@ sub acls
         "by self write " .
         "by * none" ];
 }
-
 
 # Method: defaultUserModel
 #

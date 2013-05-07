@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #   This class exposes the interface to be implemented by a new database backend
 #   module.
 #
-package EBox::AbstractDBEngine;
-
 use strict;
 use warnings;
+
+package EBox::AbstractDBEngine;
 
 use DBI;
 use EBox::Exceptions::NotImplemented;
@@ -146,6 +146,5 @@ sub restoreDB
 {
   throw EBox::Exceptions::NotImplemented();
 }
-
 
 1;

@@ -3,7 +3,7 @@
 #
 
 description     "Zentyal runner daemon"
-author          "eBox Technologies S.L."
+author          "Zentyal S.L."
 
 respawn
 exec  /usr/share/zentyal-remoteservices/runnerd -f

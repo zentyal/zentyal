@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::POPProxy;
-
 use strict;
 use warnings;
 
+package EBox::MailFilter::POPProxy;
 
 use EBox::Config;
 # use EBox::Service;
@@ -41,7 +40,6 @@ use constant {
     P3SCAN_PORT    => 8110,
 };
 
-
 sub new
 {
     my $class = shift @_;
@@ -51,7 +49,6 @@ sub new
 
     return $self;
 }
-
 
 sub usedFiles
 {
@@ -68,7 +65,6 @@ sub usedFiles
           },
          );
 }
-
 
 sub doDaemon
 {
@@ -91,7 +87,6 @@ sub doDaemon
 
 }
 
-
 sub pidFile
 {
     return  '/var/run/p3scan/p3scan.pid';
@@ -108,7 +103,6 @@ sub pidFile
 #   }
 
 #   EBox::Sudo::root(P3SCAN_INITD . ' stop');
-
 
 #   if (($action eq 'stop') or ($action eq 'restart')) {
 #       my $pid;
@@ -138,7 +132,6 @@ sub pidFile
 #  # XXX we cannot use services bz p3scan is unable to run in foreground for now
 # #  EBox::Service::manage(P3SCAN_SERVICE, $action);
 # }
-
 
 sub _daemon
 {
@@ -224,7 +217,6 @@ sub _confAttr
     return $row->valueByName($attr);
 }
 
-
 sub isEnabled
 {
     my ($self) = @_;
@@ -232,7 +224,6 @@ sub isEnabled
     #return $self->_confAttr('enabled');
     return 0;
 }
-
 
 sub port
 {
@@ -258,7 +249,6 @@ sub stopService
     }
 }
 
-
 sub antivirus
 {
     my ($self) = @_;
@@ -270,7 +260,6 @@ sub antispam
     my ($self) = @_;
     return $self->_confAttr('antispam');
 }
-
 
 sub writeConf
 {
@@ -287,7 +276,6 @@ sub writeConf
                                pidFile => $self->pidFile,
                               ]
                              );
-
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
     my $badExtensions = $mailfilter->model('FileExtensionACL')->banned();

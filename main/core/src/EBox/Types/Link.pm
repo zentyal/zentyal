@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,10 +23,10 @@
 #       which requires the configuration of a whole eBox module, you
 #       can advise the user setting this link so that he visits this.
 #
-package EBox::Types::Link;
-
 use strict;
 use warnings;
+
+package EBox::Types::Link;
 
 use base 'EBox::Types::Text';
 
@@ -69,7 +69,6 @@ sub new
 
     return $self;
 }
-
 
 # Method: linkToView
 #

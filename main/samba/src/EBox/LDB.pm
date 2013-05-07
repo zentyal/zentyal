@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,7 +41,6 @@ use Perl6::Junction qw(any);
 use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
-
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx

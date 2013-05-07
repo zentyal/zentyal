@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #   Class description
 #
 
+use strict;
+use warnings;
+
 package EBox::IPS::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -31,7 +31,6 @@ use EBox::Global;
 # Constants
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=enterprise_edition';
-
 
 # Group: Public methods
 

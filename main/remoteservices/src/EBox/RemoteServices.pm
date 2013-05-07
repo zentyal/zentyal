@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,21 +13,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices;
 
-# Class: EBox::RemoteServices
-#
-#      RemoteServices module to handle everything related to the remote
-#      services offered
-#
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
             EBox::Desktop::ServiceProvider
             EBox::FirewallObserver);
 
-use strict;
-use warnings;
+# Class: EBox::RemoteServices
+#
+#      RemoteServices module to handle everything related to the remote
+#      services offered
+#
 
 use feature qw(switch);
 
@@ -178,7 +179,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ( defined($version) ) {
+    if (defined ($version)) {
         # Reload bundle without forcing
         $self->reloadBundle(0);
     }
@@ -187,11 +188,6 @@ sub initialSetup
 
     unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
         $self->restartService();
-    }
-
-    if (defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
-        # Perform the migration to 2.3
-        $self->_migrateTo30();
     }
 }
 
@@ -613,7 +609,6 @@ sub monitorGathererIPAddresses
     return $monGatherers;
 }
 
-
 # Method: controlPanelURL
 #
 #        Return the control panel fully qualified URL to access
@@ -954,7 +949,6 @@ sub renovationDate
     return $ret;
 }
 
-
 # Method: maxUsers
 #
 #   Return the max number of users the server can hold,
@@ -986,7 +980,6 @@ sub maxUsers
     return $max_users;
 }
 
-
 # Method: maxCloudUsers
 #
 #   Return the max number of users available in Cloud (if enabled)
@@ -1005,7 +998,6 @@ sub maxCloudUsers
     }
     return 0;
 }
-
 
 # Method: usersSyncAvailable
 #
@@ -1494,7 +1486,6 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
-
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
         if ( $self->commAddOn() ) {
@@ -1778,7 +1769,6 @@ sub _ccConnectionWidget
             }
         } # else. No VPN required, then always connected
 
-
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
         my $net = $gl->modInstance('network');
@@ -1802,7 +1792,6 @@ sub _ccConnectionWidget
                 $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
             }
         }
-
 
         $DRValue = __x('Configuration backup enabled');
         my $date = $self->latestRemoteConfBackup();
@@ -2190,24 +2179,6 @@ sub REST
     return $self->{rest};
 }
 
-# Migration to 3.0
-#
-#  * Migrate current subscription data in state to new structure
-#  * Rename VPN client
-#  * Get credentials
-#  * Rename file ebox-qa.list to zentyal-qa.list
-#
-sub _migrateTo30
-{
-    my ($self) = @_;
-
-    # Drop old VPN client
-    # Create a new one
-    # Get credentials again
-    # Rename file ebox-qa.list to zentyal-qa.list
-}
-
-
 # Method: desktopActions
 #
 #   Return an array ref with the exposed methods
@@ -2383,7 +2354,6 @@ sub _setQAUpdates
     EBox::RemoteServices::QAUpdates::set();
 
 }
-
 
 # Update MOTD scripts depending on the subscription status
 sub _updateMotd

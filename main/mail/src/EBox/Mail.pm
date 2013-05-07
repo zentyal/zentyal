@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Mail;
+
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
@@ -271,8 +272,6 @@ sub kerberosServicePrincipals
     return $data;
 }
 
-
-
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -366,7 +365,6 @@ sub _setMailConf
     my $daemonUid = getpwnam('daemon');
     my $daemonGid = getgrnam('daemon');
     my $perm      = '0640';
-
 
     my $daemonMode = {
                       uid => $daemonUid,
@@ -542,7 +540,6 @@ sub _setAlwaysBccTable
 
 }
 
-
 sub _setAliasTable
 {
     my ($self) = @_;
@@ -555,7 +552,6 @@ sub _setAliasTable
         my $postmasterLine = $line =~ m/postmaster:/;
         (not $eboxComment) and (not $postmasterLine)
     } @aliases;
-
 
     my $postmasterAddress = $self->postmasterAddress();
     my $aliasesContents = join '', @aliases;
@@ -574,7 +570,6 @@ sub _setAliasTable
 
     EBox::Sudo::root('postalias ' . MAIL_ALIAS_FILE);
 }
-
 
 sub _setDovecotConf
 {
@@ -613,8 +608,6 @@ sub _setDovecotConf
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 }
 
-
-
 sub _getDovecotAntispamPluginConf
 {
     my ($self) = @_;
@@ -637,7 +630,6 @@ sub _getDovecotAntispamPluginConf
     return $mod->dovecotAntispamPluginConf();
 }
 
-
 sub _setArchivemailConf
 {
     my ($self) = @_;
@@ -651,8 +643,6 @@ sub _setArchivemailConf
         EBox::Sudo::root('rm -f ' . ARCHIVEMAIL_CRON_FILE);
         return;
     }
-
-
 
     my @params = (
                   mailDir =>  $self->{musers}->DIRVMAIL,
@@ -671,10 +661,7 @@ sub _setArchivemailConf
                          },
                         );
 
-
 }
-
-
 
 # Method: defaultMailboxQuota
 #
@@ -688,7 +675,6 @@ sub defaultMailboxQuota
     my $smtpOptions = $self->model('SMTPOptions');
     return $smtpOptions->mailboxQuota();
 }
-
 
 sub _setMailname
 {
@@ -707,7 +693,6 @@ sub _setMailname
                                      }
                                  );
 }
-
 
 sub mailname
 {
@@ -738,7 +723,6 @@ sub checkMailname
                 __('The mail name must be a fully qualified name');
         }
 
-
         throw EBox::Exceptions::InvalidData(
                                             data => __('Host mail name'),
                                             value => $mailname,
@@ -759,7 +743,6 @@ __('The mail name and virtual mail domain name are equal')
         }
     }
 
-
     EBox::Validate::checkDomainName($mailname, __('Host mail name'));
 
 }
@@ -775,10 +758,6 @@ sub _setHeloChecks
                          \@params);
 }
 
-
-
-
-
 sub _retrievalProtocols
 {
     my ($self) = @_;
@@ -786,7 +765,6 @@ sub _retrievalProtocols
     my $model = $self->model('RetrievalServices');
     return $model->activeProtocols();
 }
-
 
 # Method: pop3
 #
@@ -836,7 +814,6 @@ sub imaps
     return $model->imapsValue();
 }
 
-
 # Method: managesieve
 #
 #  Returns:
@@ -848,8 +825,6 @@ sub managesieve
     my $model = $self->model('RetrievalServices');
     return $model->managesieveValue();
 }
-
-
 
 sub _fqdn
 {
@@ -864,7 +839,6 @@ sub _fqdn
     chomp $fqdn;
     return $fqdn;
 }
-
 
 # this method exists to be used as precondition by the EBox::Mail::Greylist
 # package
@@ -950,7 +924,6 @@ sub externalFilter
         return 'zentyal-mailfilter';
     }
 
-
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->row()->valueByName('externalFilter');
 }
@@ -960,8 +933,6 @@ sub customFilterInUse
     my ($self) = @_;
     return $self->externalFilter() eq 'custom';
 }
-
-
 
 sub _zentyalMailfilterAttr
 {
@@ -975,8 +946,6 @@ sub _zentyalMailfilterAttr
       or throw EBox::Exceptions::Internal("Attribute $attr does not exist");
     return $attrs->{$attr};
 }
-
-
 
 # returns wether we must use the filter attr instead of the stored in the
 # module's cponfgiuration
@@ -995,7 +964,6 @@ sub _useFilterAttr
     return 1;
 }
 
-
 # Method: ipfilter
 #
 #  This method returns the ip of the external filter
@@ -1011,8 +979,6 @@ sub ipfilter
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->ipfilter();
 }
-
-
 
 # Method: portfilter
 #
@@ -1030,7 +996,6 @@ sub portfilter
     return $filterModel->portfilter();
 }
 
-
 # Method: fwport
 #
 #  This method returns the port where forward all messages from external filter
@@ -1046,7 +1011,6 @@ sub fwport
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->fwport();
 }
-
 
 # Method: relay
 #
@@ -1080,7 +1044,6 @@ sub relayAuth
 
     return undef;
 }
-
 
 # Method: getMaxMsgSize
 #
@@ -1135,8 +1098,6 @@ sub isAllowed
     my $objectPolicy = $self->model('ObjectPolicy');
     return $objectPolicy->isAllowed($object);
 }
-
-
 
 #
 # Method: freeObject
@@ -1205,10 +1166,6 @@ sub firewallHelper
     return undef;
 }
 
-
-
-
-
 sub _dovecotService
 {
     my ($self) = @_;
@@ -1238,7 +1195,6 @@ sub _regenConfig
     $self->_enforceServiceState();
     $self->_postSetConfHook();
 }
-
 
 # Method: service
 #
@@ -1279,10 +1235,6 @@ sub service
         throw EBox::Exceptions::Internal("Unknown service $service");
     }
 }
-
-
-
-
 
 #
 # Method: anyDaemonServiceActive
@@ -1337,7 +1289,6 @@ sub notifyAntispamACL
 
     $self->setAsChanged();
 }
-
 
 sub mailServicesWidget
 {
@@ -1504,7 +1455,6 @@ sub menu
     $root->add($folder);
 }
 
-
 # Method: userMenu
 #
 #   This function returns is similar to EBox::Module::Base::menu but
@@ -1517,14 +1467,12 @@ sub userMenu
                                     'text' => __('Mail retrieval from external accounts')));
 }
 
-
 sub wizardPages
 {
     my ($self) = @_;
 
     return [{ page => '/Mail/Wizard/VirtualDomain', order => 400 }];
 }
-
 
 sub tableInfo
 {
@@ -1577,12 +1525,10 @@ sub tableInfo
     }];
 }
 
-
 sub consolidate
 {
     my ($self) = @_;
     my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
-
 
     my $table = 'mail_message_traffic';
 
@@ -1597,7 +1543,6 @@ sub consolidate
 
         return undef;
     };
-
 
     my $spec=  {
             consolidateColumns => {
@@ -1766,7 +1711,6 @@ sub certificates
             },
            ];
 }
-
 
 sub fetchmailPollTime
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,6 +18,7 @@ use warnings;
 use lib '../../..';
 
 package EBox::Model::Row::Test;
+
 use base 'EBox::Test::Class';
 
 use Test::More;
@@ -103,7 +104,6 @@ sub elementsTest : Test(35)
             $row->addElement($element);
         }
     } 'Adding elements to the row';
-
 
     is scalar @elementsToAdd, $row->size(),
        'checking size of row after addition of elements';
@@ -298,7 +298,6 @@ sub unionTest : Test(6)
     is $row->elementByName($unselectedUnionSubtype), undef,
        'checking that elementByName return undef when requested a unselected union subtype';
 }
-
 
 sub filesToRemoveTest : Test(3)
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,6 +21,7 @@ use warnings;
 # This class is a watcher which checks connection/disconnection of gateways
 #
 package EBox::Event::Watcher::Gateways;
+
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Network;
@@ -76,7 +77,6 @@ sub ConfigurationMethod
 {
     return 'none';
 }
-
 
 # Method: run
 #
@@ -404,7 +404,6 @@ sub _setIptablesRule # (gw, set)
     }
 }
 
-
 # Group: Protected methods
 
 # Method: _name
@@ -421,7 +420,6 @@ sub _name
 {
     return __('WAN Failover');
 }
-
 
 # Method: _description
 #

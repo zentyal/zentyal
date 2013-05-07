@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::BWMonitor::Model::BWUsage;
+
+use base 'EBox::Model::DataTable';
 
 # Class: EBox::BWMonitor::Model::BWUsage
 #
 #   Bandwidth usage from each IP for last hour
 #
-
-use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -106,7 +106,6 @@ sub preconditionFailMsg
     return __('Bandwidth Monitor must be enabled in order to get data.');
 }
 
-
 sub syncRows
 {
     my ($self, $currentRows)  = @_;
@@ -142,7 +141,6 @@ sub syncRows
 
     return 1;
 }
-
 
 # convert bytes to a readable string
 sub _format

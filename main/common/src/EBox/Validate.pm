@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Validate;
-
 use strict;
 use warnings;
+
+package EBox::Validate;
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -265,7 +265,6 @@ sub checkIP6 # (ip, name?)
         return undef;
     }
 }
-
 
 # Function: checkNetmask
 #
@@ -665,7 +664,6 @@ sub checkDomainName # (domain, name?)
     return 1;
 }
 
-
 # Function: checkHost
 #
 #       Checks if a given host is valid. It is considered valid either a valid
@@ -731,7 +729,6 @@ sub checkEmailAddress
     return 1;
 }
 
-
 # Function: isPrivateDir
 #
 #       Check if the given directory is private and owned by the current user
@@ -763,7 +760,6 @@ sub isPrivateDir
         return undef;
     }
 }
-
 
 # Function: isANumber
 #

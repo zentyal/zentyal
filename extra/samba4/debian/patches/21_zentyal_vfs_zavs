@@ -4,7 +4,7 @@ Index: samba/source3/modules/zavs_clamav.c
 +++ samba/source3/modules/zavs_clamav.c	2012-11-27 17:38:27.000000000 +0100
 @@ -0,0 +1,168 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -177,7 +177,7 @@ Index: samba/source3/modules/zavs_filetype.c
 +++ samba/source3/modules/zavs_filetype.c	2012-11-27 17:40:07.000000000 +0100
 @@ -0,0 +1,179 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -361,7 +361,7 @@ Index: samba/source3/modules/zavs_log.c
 +++ samba/source3/modules/zavs_log.c	2012-11-27 17:50:42.000000000 +0100
 @@ -0,0 +1,102 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -521,7 +521,7 @@ Index: samba/source3/modules/zavs_module.c
 +++ samba/source3/modules/zavs_module.c	2012-11-27 17:49:21.000000000 +0100
 @@ -0,0 +1,91 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -732,7 +732,7 @@ Index: samba/source3/modules/zavs_fileaccesslog.c
 +++ samba/source3/modules/zavs_fileaccesslog.c	2012-11-26 17:24:38.000000000 +0100
 @@ -0,0 +1,330 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -1099,7 +1099,7 @@ Index: samba/source3/modules/zavs_quarantine.c
 +++ samba/source3/modules/zavs_quarantine.c	2012-11-27 17:41:00.000000000 +0100
 @@ -0,0 +1,146 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -1272,7 +1272,7 @@ Index: samba/source3/modules/zavs_param.c
 +++ samba/source3/modules/zavs_param.c	2012-11-27 17:07:58.000000000 +0100
 @@ -0,0 +1,100 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -1377,7 +1377,7 @@ Index: samba/source3/modules/zavs_core.c
 +++ samba/source3/modules/zavs_core.c	2012-11-27 17:49:31.000000000 +0100
 @@ -0,0 +1,194 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *
@@ -1416,7 +1416,7 @@ Index: samba/source3/modules/zavs_core.c
 +
 +void zavs_initialize(vfs_handle_struct *handle)
 +{
-+    ZAVS_INFO(handle, "Zentyal AntiVirus for Samba connected (%s), (c) by eBox Technologies", SAMBA_VERSION_STRING);
++    ZAVS_INFO(handle, "Zentyal AntiVirus for Samba connected (%s), (c) by Zentyal", SAMBA_VERSION_STRING);
 +
 +    // Parse user specified settings
 +    zavs_parse_settings(handle);
@@ -1622,7 +1622,7 @@ Index: samba/source3/modules/zavs_fileregexp.c
 +++ samba/source3/modules/zavs_fileregexp.c	2012-11-27 17:39:25.000000000 +0100
 @@ -0,0 +1,132 @@
 +/*
-+ * Copyright (C) 2012 eBox Technologies S.L.
++ * Copyright (C) 2012-2013 Zentyal S.L.
 + *
 + * Zentyal Anti Virus for Samba.
 + *

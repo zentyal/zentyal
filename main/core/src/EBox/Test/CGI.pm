@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Test::CGI;
-
 use strict;
 use warnings;
 
+package EBox::Test::CGI;
+
 use base 'Exporter';
+
 our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters muteHtmlOutput);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 
@@ -34,7 +35,6 @@ sub runCgi
 
     $cgi->run();
 }
-
 
 sub setCgiParams
 {
@@ -63,7 +63,6 @@ sub cgiErrorNotOk
     $Test->ok($errorNotFound, $name);
 }
 
-
 sub checkCgiError
 {
     my ($cgi, $wantError, $name) = @_;
@@ -80,7 +79,6 @@ sub _errorInCgi
     my ($cgi) = @_;
     return defined ($cgi->{error}) or defined ($cgi->{olderror});
 }
-
 
 sub muteHtmlOutput
 {

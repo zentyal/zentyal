@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::Users;
+
+use base 'EBox::Model::DataTable';
 
 # Class: EBox::CaptivePortal::Model::Users
 #
 #   Captive portal currently logged users
 #
-
-use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -54,7 +54,6 @@ sub new
     return $self;
 }
 
-
 sub periodInfo
 {
     my ($self) = @_;
@@ -83,11 +82,9 @@ sub periodInfo
         $info->{period_name} = __('Day bandwidth usage (MB)')
     }
 
-
     $self->{periodInfo} = $info;
     return $info;
 }
-
 
 # Method: _table
 #
@@ -186,7 +183,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub precondition
 {
     return EBox::Global->modInstance('captiveportal')->isEnabled();
@@ -196,7 +192,6 @@ sub preconditionFailMsg
 {
     return __('Captive portal must be enabled in order to see current users list.');
 }
-
 
 # Method: syncRows
 #
@@ -253,7 +248,6 @@ sub syncRows
         push (@user, ip => $sessions->{$sid}->{ip});
         push (@user, mac => $sessions->{$sid}->{mac});
 
-
         if ($self->_bwmonitorEnabled()) {
             push (@user, bwusage => $self->_bwusage($user));
         }
@@ -301,7 +295,6 @@ sub _kickUser
     $self->setMessage(__x('Closing session for user {user}.', user => $username), 'note');
 }
 
-
 sub _extendUser
 {
     my ($self, $action, $id, %params) = @_;
@@ -323,14 +316,12 @@ sub _extendUser
     $row->store();
 }
 
-
 # return 1 if bwmonitor is enabled
 sub _bwmonitorEnabled
 {
     my ($self) = @_;
     return $self->{bwmonitor_enabled};
 }
-
 
 # BW usage for configured period
 sub _bwusage
@@ -368,6 +359,5 @@ sub currentUsers
     }
     return \@users;
 }
-
 
 1;

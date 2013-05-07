@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -42,6 +42,7 @@ use warnings;
 #   At first time, the RAID event watcher will supply all its initial
 #   information as new one.
 package EBox::Event::Watcher::RAID;
+
 use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
@@ -215,7 +216,6 @@ sub _checkRaidArray
 
     return \@updatedEvents;
 }
-
 
 sub _storedRaidArraysInfo
 {
@@ -393,7 +393,6 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
                       percentage => $arrayInfo->{operationPercentage}
                      );
 
-
     if ( $storedInfo->{operation} ne $arrayInfo->{operation} ) {
         if ( $storedInfo->{operation} eq 'none' ) {
              $evtMsg = __x('RAID device {name} has started operation {opName}.',
@@ -562,7 +561,6 @@ sub _checkComponents # (arrayName, arrayInfo, storedInfo)
 
     return \@compEvents;
 }
-
 
 # Group: Helper methods
 
