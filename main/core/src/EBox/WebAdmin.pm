@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::WebAdmin;
 use base qw(EBox::Module::Service);
 
@@ -93,37 +94,15 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-sub _daemon
+sub _manageNginx
 {
     my ($self, $action) = @_;
 
-    $self->_daemonNginx($action);
-    $self->_daemonApache($action);
-
-    if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
-        $self->setHardRestart(0) if $self->hardRestart();
-    }
-}
-
-sub _daemonNginx
-{
-    my ($self, $action) = @_;
-
-    my $upstartName = $self->_nginxUpstartName();
-
-    if ($action eq 'stop') {
-        EBox::Sudo::root("/sbin/stop $upstartName");
-    } elsif ($action eq 'start') {
-        EBox::Sudo::root("/sbin/start $upstartName");
-    } elsif ($action eq 'restart') {
-        EBox::Sudo::root("/sbin/restart $upstartName");
-    }
+    EBox::Service::manage($self->_nginxUpstartName(), $action);
 }
 
 # restarting apache from inside apache could be problematic, so we fork()
-sub _daemonApache
+sub _manageApache
 {
     my ($self, $action) = @_;
 
@@ -148,8 +127,8 @@ sub _daemonApache
     } elsif ($action eq 'restart') {
         if ($hardRestart) {
             EBox::info("Apache hard restart requested");
-            $self->_daemon('stop');
-            $self->_daemon('start');
+            $self->_manageApache('stop');
+            $self->_manageApache('start');
             return;
         }
         unless (defined($pid = fork())) {
@@ -161,6 +140,12 @@ sub _daemonApache
             EBox::Sudo::root("$ctl restart");
             exit ($?);
         }
+    }
+
+    if ($action eq 'stop') {
+        # Stop redis server
+        $self->{redis}->stopRedis();
+        $self->setHardRestart(0) if $self->hardRestart();
     }
 }
 
@@ -182,8 +167,10 @@ sub hardRestart
 
 sub _stopService
 {
-    my $self = shift;
-    $self->_daemon('stop');
+    my ($self) = @_;
+
+    $self->_manageNginx('stop');
+    $self->_manageApache('stop');
 }
 
 sub _setConf
@@ -203,7 +190,8 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    $self->_daemon('restart');
+    $self->_manageApache('restart');
+    $self->_manageNginx('restart');
 }
 
 sub _nginxConfFile

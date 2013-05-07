@@ -105,6 +105,9 @@ case "$1" in
         # create logs & reports database
         /usr/share/zentyal/create-db
 
+        # disable default nginx init.d script
+        update-rc.d nginx disable
+
         # setup core modules
         /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
