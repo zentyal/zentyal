@@ -17,7 +17,6 @@ Parameters:
 
 user www-data;
 worker_processes 4;
-pid <% $tmpdir %>zentyal-webadmin.pid;
 
 events {
     worker_connections 768;

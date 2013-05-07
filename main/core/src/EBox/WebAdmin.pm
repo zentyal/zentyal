@@ -111,31 +111,14 @@ sub _daemonNginx
 {
     my ($self, $action) = @_;
 
-    my $confDir = EBox::Config::conf();
-    my $conf = $self->_nginxConfFile();
-    my $cmd = "/usr/sbin/nginx -p $confDir -c $conf";
-
-    my $pidfile = '/var/run/zentyal-webadmin.pid';
-    my $pid;
-    if (-f $pidfile) {
-        $pid = read_file($pidfile);
-    } else {
-        $pid = `ps aux|grep 'nginx -d $conf'|awk '/^root/{print \$2;exit}'`;
-        write_file($pidfile, $pid) if $pid;
-    }
+    my $upstartName = $self->_nginxUpstartName();
 
     if ($action eq 'stop') {
-        if ($pid) {
-            EBox::Sudo::root("$cmd -s stop");
-        }
+        EBox::Sudo::root("/sbin/stop $upstartName");
     } elsif ($action eq 'start') {
-        EBox::Sudo::root("$cmd");
+        EBox::Sudo::root("/sbin/start $upstartName");
     } elsif ($action eq 'restart') {
-        if ($pid) {
-            EBox::Sudo::root("$cmd -s reload");
-        } else {
-            EBox::Sudo::root("$cmd");
-        }
+        EBox::Sudo::root("/sbin/restart $upstartName");
     }
 }
 
@@ -228,6 +211,19 @@ sub _nginxConfFile
     return '/var/lib/zentyal/conf/nginx.conf';
 }
 
+sub _nginxUpstartName
+{
+    return 'zentyal-webadmin-nginx';
+}
+
+sub _nginxUpstartFile
+{
+    my ($self) = @_;
+
+    my $nginxUpstartName = $self->_nginxUpstartName();
+    return "/etc/init/$nginxUpstartName.conf";
+}
+
 sub _writeNginxConfFile
 {
     my ($self) = @_;
@@ -236,7 +232,7 @@ sub _writeNginxConfFile
     $self->_writeCAPath();
 
     my $nginxconf = $self->_nginxConfFile();
-    my $template = 'core/nginx.conf.mas';
+    my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
     push @confFileParams, (port => $self->port());
@@ -250,7 +246,22 @@ sub _writeNginxConfFile
         force => 1,
     };
 
-    EBox::Module::Base::writeConfFileNoCheck($nginxconf, $template, \@confFileParams, $permissions);
+    EBox::Module::Base::writeConfFileNoCheck($nginxconf, $templateConf, \@confFileParams, $permissions);
+
+    my $upstartFile = 'core/upstart-nginx.mas';
+
+    @confFileParams = ();
+    push @confFileParams, (conf => $self->_nginxConfFile());
+    push @confFileParams, (confDir => EBox::Config::conf());
+
+    $permissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+
+    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, $upstartFile, \@confFileParams, $permissions);
 }
 
 sub _writeHttpdConfFile

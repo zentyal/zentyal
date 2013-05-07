@@ -328,6 +328,7 @@ sub run
         my $via = $headers->{'Via'};
         my $host= $headers->{'Host'};
         my $fwhost = $headers->{'X-Forwarded-Host'};
+        my $fwproto = $headers->{'X-Forwarded-Proto'};
         # If the connection comes from a Proxy,
         # redirects with the Proxy IP address
         if (defined($via) and defined($fwhost)) {
@@ -338,6 +339,9 @@ sub run
             $protocol = 'https';
         } else {
             $protocol = 'http';
+        }
+        if (defined($fwproto)) {
+            $protocol = $fwproto;
         }
         my $url = "$protocol://${host}/" . $self->{redirect};
         print($self->cgi()->redirect($url));
