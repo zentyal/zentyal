@@ -34,8 +34,6 @@ use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Error qw(:try);
 
-use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
-
 sub new
 {
     my ($class, %params) = @_;
@@ -48,18 +46,17 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
+    my $state = $self->get_state();
+    return $state->{provisioned};
 }
 
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
-    if ($provisioned) {
-        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
-    } else {
-        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
-    }
+    my $state = $self->get_state();
+    $state->{provisioned} = $provisioned;
+    $self->set_state($state);
 }
 
 # Method: checkEnvironment
