@@ -1,3 +1,5 @@
+HEAD
+	+ Replace /home/samba/.provisioned file with a key in redis state
 3.0.17
 	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
 	  allow join of Windows Vista machines if guest shares are enabled
