@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Controller::Uploader;
+package EBox::CGI::Uploader;
 
 use base 'EBox::CGI::ClientRawBase';
 

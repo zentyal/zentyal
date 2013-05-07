@@ -18,7 +18,7 @@
 # An specialized model from <EBox::Model::DataForm::Action>
 # which is used to download a file from an action form.
 #
-# It redirects the response to <EBox::CGI::Controller::Downloader::FromTempDir>
+# It redirects the response to <EBox::CGI::Downloader::FromTempDir>
 # to download a file from EBox::Config::tmp()
 #
 # How to use it?
@@ -44,7 +44,7 @@ use EBox::Exceptions::MissingArgument;
 
 # Core modules
 use Error qw(:try);
-use constant URL_REDIRECT => '/Controller/Downloader/FromTempDir?filename=';
+use constant URL_REDIRECT => '/Downloader/FromTempDir?filename=';
 
 # Group: Public methods
 

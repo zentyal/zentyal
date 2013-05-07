@@ -12,12 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
-# Class: EBox::CGI::Controller::Downloader::FromModel
+# Class: EBox::Downloader::CGI::FromModel
 #
-#   This class is a subclass of <EBox::CGI::Controller::Downloader::Base>
+#   This class is a subclass of <EBox::Downloader::CGI::Base>
 #   to download files from a model.
 #
 #   It will need the following parameters via CGI:
@@ -27,9 +28,9 @@ use warnings;
 #   id - row's id
 #   field - the name of a <EBox::Types::File> type
 #
-package EBox::CGI::Controller::Downloader::FromModel;
+package EBox::Downloader::CGI::FromModel;
 
-use base 'EBox::CGI::Controller::Downloader::Base';
+use base 'EBox::Downloader::CGI::Base';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -43,7 +44,7 @@ use Error qw(:try);
 
 # Constructor: new
 #
-#      Create a <EBox::CGI::Controller::Downloader:FromTempDir>
+#      Create a <EBox::Downloader::CGI:FromTempDir>
 #
 sub new # (cgi=?)
 {
@@ -76,7 +77,7 @@ sub _path
 #
 # Overrides:
 #
-#      <EBox::CGI::Controller::Downloader::Base::_process>
+#      <EBox::Downloader::CGI::Base::_process>
 #
 # Exceptions:
 #

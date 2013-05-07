@@ -303,7 +303,7 @@ sub linkToDownload
 
     my $contextName = $self->model()->contextName();
 
-    my $link = '/Controller/Downloader/FromModel?';
+    my $link = '/Downloader/FromModel?';
     $link .= 'model=' . $contextName;
     $link .= '&dir=' . $self->model()->directory();
     $link .= '&id=' . $self->row()->id();

@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::CGI::Controller::Downloader::FromTempDir
+# Class: EBox::Downloader::CGI::FromTempDir
 #
-#   This class is a subclass of <EBox::CGI::Controller::Downloader::Base>
+#   This class is a subclass of <EBox::Downloader::CGI::Base>
 #   to download files from EBox::Config::tmp()
 #
 use strict;
 use warnings;
 
-package EBox::CGI::Controller::Downloader::FromTempDir;
+package EBox::Downloader::CGI::FromTempDir;
 
-use base 'EBox::CGI::Controller::Downloader::Base';
+use base 'EBox::Downloader::CGI::Base';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -40,7 +40,7 @@ use Cwd 'abs_path';
 
 # Constructor: new
 #
-#      Create a <EBox::CGI::Controller::Downloader:FromTempDir>
+#      Create a <EBox::Downloader::CGI:FromTempDir>
 #
 # Exceptions:
 #
@@ -78,7 +78,7 @@ sub _path
 #
 # Overrides:
 #
-#      <EBox::CGI::Controller::Downloader::Base::_process>
+#      <EBox::Downloader::CGI::Base::_process>
 #
 # Exceptions:
 #
@@ -113,7 +113,7 @@ sub _process
 #
 # Overrides:
 #
-#      <EBox::CGI::Controller::Downloader::Base::_print>
+#      <EBox::Downloader::CGI::Base::_print>
 #
 # To remove the file after it has been downloaded
 #
