@@ -75,7 +75,6 @@ use Data::UUID;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
-use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -1573,18 +1572,19 @@ sub inventoryEnabled
 # Configure the SOAP server
 #
 # if subscribed
-# 1. Write soap-loc.mas template
-# 2. Write the SSLCACertificatePath directory
-# 3. Add include in ebox-apache configuration
+# 1. Write soap-loc.conf.mas and soap-loc-ssl.conf.mas templates
+# 2. Write the CA certificates file
+# 3. Add include in webadmin configuration
 # else
-# 1. Remove SSLCACertificatePath directory
-# 2. Remove include in ebox-apache configuration
+# 1. Remove CA certificates file
+# 2. Remove include in webadmin configuration
 #
 sub _confSOAPService
 {
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
+    my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ( $self->hasBundle() ) {
@@ -1593,18 +1593,20 @@ sub _confSOAPService
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
                );
-            EBox::Module::Base::writeConfFileNoCheck(
-                $confFile,
-                'remoteservices/soap-loc.mas',
-                \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
-            $webAdminMod->addInclude($confFile);
+            $webAdminMod->addApacheInclude($confFile);
+            $webAdminMod->addNginxInclude($confSSLFile);
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
         # Do nothing if CA or include are already removed
         try {
-            $webAdminMod->removeInclude($confFile);
+            $webAdminMod->removeApacheInclude($confFile);
+        } catch EBox::Exceptions::Internal with { ; };
+        try {
+            $webAdminMod->removeNginxInclude($confSSLFile);
         } catch EBox::Exceptions::Internal with { ; };
         try {
             $webAdminMod->removeCA($self->_caCertPath('force'));

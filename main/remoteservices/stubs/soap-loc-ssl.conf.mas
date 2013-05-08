@@ -1,0 +1,69 @@
+<%doc>
+  This template is intended to set up the configuration for the SOAP
+  server configuration in current nginx server
+</%doc>
+<%args>
+   $caDomain
+   $allowedClientCNs
+</%args>
+location /soap {
+    ssl on;
+    ssl_verify_client = on;
+    ssl_verify_depth = 1;
+
+    map $ssl_client_s_dn $ssl_client_s_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    };
+
+    map $ssl_client_s_dn $ssl_client_s_dn_cn {
+        default           "";
+        ~/CN=(?<CN>[^/]+) $CN;
+    };
+
+    map $ssl_client_i_dn $ssl_client_i_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    };
+
+    if ($ssl_client_s_dn_o != "<% $caDomain %>" or
+        $ssl_client_i_dn_o != "<% $caDomain %>" or
+        $ssl_client_s_dn_cn !~ <% $allowedClientCNs %>) {
+        return 403;
+    }
+
+    proxy_set_header    SSL_CLIENT_S_DN_CN  $ssl_client_s_dn_cn;
+
+    try_files $uri @proxy;
+}
+
+location /LOGIN_CC {
+    ssl on;
+    ssl_verify_client = on;
+    ssl_verify_depth = 1;
+
+    map $ssl_client_s_dn $ssl_client_s_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    };
+
+    map $ssl_client_s_dn $ssl_client_s_dn_cn {
+        default           "";
+        ~/CN=(?<CN>[^/]+) $CN;
+    };
+
+    map $ssl_client_i_dn $ssl_client_i_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    };
+
+    if ($ssl_client_s_dn_o != "<% $caDomain %>" or
+        $ssl_client_i_dn_o != "<% $caDomain %>" or
+        $ssl_client_s_dn_cn !~ <% $allowedClientCNs %>) {
+        return 403;
+    }
+
+    proxy_set_header    SSL_CLIENT_S_DN_CN  $ssl_client_s_dn_cn;
+
+    try_files $uri @proxy;
+}

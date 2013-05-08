@@ -1,0 +1,7 @@
+location /slave {
+    ssl on;
+    ssl_verify_client = on;
+    ssl_verify_depth = 1;
+
+    try_files $uri @proxy;
+}
