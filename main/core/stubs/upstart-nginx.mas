@@ -14,16 +14,15 @@ stop on runlevel [016]
 
 env DAEMON=/usr/sbin/nginx
 env CONF=<% $conf %>
-env CONFDIR=<% $confDir %>
 
 respawn
 respawn limit 10 5
 
 pre-start script
-    $DAEMON -p $CONFDIR -c $CONF -t
+    $DAEMON -c $CONF -t
     if [ $? -ne 0 ]; then
         exit $?
     fi
 end script
 
-exec $DAEMON -p $CONFDIR -c $CONF
+exec $DAEMON -c $CONF

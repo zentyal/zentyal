@@ -18,6 +18,7 @@ Parameters:
 user www-data;
 worker_processes 4;
 daemon off;
+pid /var/lib/zentyal/tmp/nginx.pid;
 
 events {
     worker_connections 768;

@@ -96,17 +96,19 @@ case "$1" in
         /usr/share/zentyal/sudoers-friendly
 
         if [ -z "$2" ]; then
-            # Set eBox port only if it's the first time we install
+            # stop disable default nginx init.d script
+            invoke-rc.d nginx stop > /dev/null 2>&1
+            update-rc.d nginx disable > /dev/null 2>&1
+
+            # Set Zentyal port only if it's the first time we install
             set_ebox_port
+
             # Write redis configuration
             invoke-rc.d zentyal webadmin start || true
         fi
 
         # create logs & reports database
         /usr/share/zentyal/create-db
-
-        # disable default nginx init.d script
-        update-rc.d nginx disable > /dev/null 2>&1
 
         # setup core modules
         /usr/share/zentyal/initial-setup sysinfo $2
