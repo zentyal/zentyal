@@ -848,7 +848,7 @@ sub _setAuthenticationModeAD
         }
         if (EBox::Sudo::fileTest('-f', KEYTAB_FILE)) {
             EBox::Sudo::root("chown root:proxy " . KEYTAB_FILE);
-            EBox::Sudo::root("chmod 440 " . KEYTAB_FILE);
+            EBox::Sudo::root("chmod 660 " . KEYTAB_FILE);
         }
     } otherwise {
         my ($error) = @_;
