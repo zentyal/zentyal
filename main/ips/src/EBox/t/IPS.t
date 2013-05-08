@@ -27,6 +27,9 @@ use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
 use Test::Deep;
 use Test::Exception;
+use Test::MockObject;
+use Test::MockObject::Extends;
+use Test::MockModule;
 use Test::More;
 
 sub setUpConfiguration : Test(startup)
@@ -56,6 +59,52 @@ sub test_isa_ok  : Test
 {
     my ($self) = @_;
     isa_ok($self->{mod}, 'EBox::IPS');
+}
+
+sub test_notify_update : Test(10)
+{
+    my ($self) = @_;
+
+    # Mock ips to run tests we need
+    my $ips = new Test::MockObject::Extends($self->{mod});
+    $ips->set_true( 'isEnabled', '_sendFailureEvent' );
+    # Mock DB engine
+    my $module = new Test::MockModule('EBox::DBEngineFactory');
+    my $mockDB = new Test::MockObject();
+    $mockDB->set_true('unbufferedInsert');
+    $module->mock('DBEngine', $mockDB);
+
+    # Notified failure on restarting
+    $ips->set_false('isRunning');
+    $ips->notifyUpdate();
+    $ips->called_ok('_sendFailureEvent');
+    $ips->clear();
+    my ($name, $args) = $mockDB->next_call();
+    $mockDB->clear();
+    like($args->[2]->{failure_reason}, qr/changelog/, 'Expected this failure reason');
+    cmp_ok($args->[2]->{event}, 'eq', 'failure', 'failure on running');
+
+    # Notified success
+    $ips->set_series('isRunning', [ 0, 0, 1 ]);
+    $ips->notifyUpdate();
+    ok( not($ips->called('_sentFailureEvent')), 'Not failure after 2 not running');
+    $ips->clear(); # For next calls
+    ($name, $args) = $mockDB->next_call();
+    $mockDB->clear();
+    cmp_ok($args->[2]->{event}, 'eq', 'success', 'success after 2 not running');
+    cmp_ok($args->[2]->{failure_reason}, 'eq', '', 'No failure reason on success');
+
+    # Notify a known failure
+    $ips->notifyUpdate('reason');
+    $ips->called_ok('_sendFailureEvent');
+    ($name, $args) = $ips->next_call(2); # Skip isEnabled
+    cmp_ok($args->[1], 'eq', 'reason', 'Failure event is sent using passed message');
+    $ips->clear();
+    ($name, $args) = $mockDB->next_call();
+    $mockDB->clear();
+    cmp_ok($args->[2]->{event}, 'eq', 'failure', 'Failure in known failure' );
+    cmp_ok($args->[2]->{failure_reason}, 'eq', 'reason', 'Failure reason from arg');
+
 }
 
 sub test_rule_set : Test(6)

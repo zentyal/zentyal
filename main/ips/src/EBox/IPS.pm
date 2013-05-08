@@ -37,12 +37,13 @@ use EBox::Sudo;
 use List::Util;
 use POSIX;
 
-use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
+use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata-debian.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
-use constant SURICATA_INIT_FILE => '/etc/init/zentyal.suricata.conf';
-use constant SNORT_RULES_DIR => '/etc/snort/rules';
-use constant SURICATA_RULES_DIR => '/etc/suricata/rules';
-use constant SURICATA_LOG_FILE  => '/var/log/suricata/suricata-start.log';
+use constant SURICATA_INIT_FILE    => '/etc/init/zentyal.suricata.conf';
+use constant SNORT_RULES_DIR       => '/etc/snort/rules';
+use constant SURICATA_RULES_DIR    => '/etc/suricata/rules';
+use constant SURICATA_UPSTART_JOB  => 'zentyal.suricata';
+use constant SURICATA_LOG_FILE     => '/var/log/upstart/' . SURICATA_UPSTART_JOB . '.log';
 
 # Group: Protected methods
 
@@ -78,7 +79,7 @@ sub _daemons
 {
     return [
         {
-         'name' => 'zentyal.suricata',
+         'name'         => SURICATA_UPSTART_JOB,
          'precondition' => \&_suricataNeeded,
         }
     ];
@@ -273,13 +274,15 @@ sub tableInfo
         push(@{$tableInfos}, {
             'name'      => __('IPS Rule Updates'),
             'tablename' => 'ips_rule_updates',
-            'titles'    => { 'timestamp' => __('Date'),
-                             'event'     => __('Event') },
-            'order'     => [qw(timestamp event)],
+            'titles'    => { 'timestamp'      => __('Date'),
+                             'failure_reason' => __('Failure reason'),
+                             'event'          => __('Event') },
+            'order'     => [qw(timestamp event failure_reason)],
             'timecol'   => 'timestamp',
             'events'    => { 'success' => __('Success'), 'failure' => __('Failure') },
             'eventcol'  => 'event',
-        },
+            'filter'    => [ 'failure_reason' ],
+           },
             );
     }
     return $tableInfos;
@@ -434,29 +437,46 @@ sub rulesNum
 #
 #      It will send an event if the attempt has failed
 #
+# Parameters:
+#
+#      failureReason - String reason on failure.
+#                      *(Optional)* Default value: check the daemon is running
+#
 sub notifyUpdate
 {
-    my ($self) = @_;
+    my ($self, $failureReason) = @_;
 
     my $event = 'success';
     if ($self->isEnabled()) {
-        my $count = 0;
-        while (not $self->isRunning()) {
-            last if (++$count > 10);
-            sleep(1);
-        }
-        if ($count >= 10) {
-            $event = 'failure';
+        if ( $failureReason ) {
+            $event  = 'failure';
+        } else {
+            my $count = 0;
+            while (not $self->isRunning()) {
+                last if (++$count > 10);
+                sleep(1);
+            }
+            if ($count >= 10) {
+                $event = 'failure';
+                $failureReason = __x('Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for details and rule changelog at {url} ({name} rules)',
+                                     log  => SURICATA_LOG_FILE,
+                                     url  => 'http://rules.emergingthreats.net/changelogs',
+                                     name => 'suricata.open');
+            } else {
+                $failureReason = "";
+            }
         }
         my $dbh = EBox::DBEngineFactory::DBEngine();
         $dbh->unbufferedInsert('ips_rule_updates',
-                               { timestamp => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
-                                 event     => $event });
-        if ($event == 'failure') {
+                               { timestamp      => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
+                                 failure_reason => substr($failureReason, 0, 512), # Truncate
+                                 event          => $event });
+        if ($event eq 'failure') {
             # Send an event
-            $self->_sendFailureEvent();
+            $self->_sendFailureEvent($failureReason);
         }
     }
+
 }
 
 sub firewallHelper
@@ -476,14 +496,14 @@ sub firewallHelper
 # Send failure event when a failure attempt happens
 sub _sendFailureEvent
 {
-    my ($self) = @_;
+    my ($self, $message) = @_;
 
     my $global = $self->global();
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ( $events->isRunning() ) {
             $events->sendEvent(
-                message    => __x('Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for details', log => SURICATA_LOG_FILE),
+                message    => $message,
                 source     => 'ips-rule-update',
                 level      => 'warn');
         }
