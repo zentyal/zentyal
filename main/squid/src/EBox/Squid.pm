@@ -829,6 +829,8 @@ sub _setAuthenticationModeAD
             my @cmds;
             EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
             EBox::Sudo::root("chown ebox $keytabTempPath");
+            EBox::Sudo::root("chmod 660 " . KEYTAB_FILE);
+
             # Update keytab
             my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
             EBox::Sudo::command($cmd);
@@ -848,7 +850,7 @@ sub _setAuthenticationModeAD
         }
         if (EBox::Sudo::fileTest('-f', KEYTAB_FILE)) {
             EBox::Sudo::root("chown root:proxy " . KEYTAB_FILE);
-            EBox::Sudo::root("chmod 660 " . KEYTAB_FILE);
+            EBox::Sudo::root("chmod 440 " . KEYTAB_FILE);
         }
     } otherwise {
         my ($error) = @_;
