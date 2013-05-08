@@ -221,7 +221,7 @@ sub _saveConfig
 #
 sub save
 {
-    my $self = shift;
+    my ($self) = @_;
 
     $self->_lock();
     my $global = EBox::Global->getInstance();

@@ -1,3 +1,6 @@
+HEAD
+	+ Added saveReload method to use reload instead of restart to
+	  reduce service downtime. Use with care and programatically
 3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
