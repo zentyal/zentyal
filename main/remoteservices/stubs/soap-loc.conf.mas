@@ -6,28 +6,24 @@
    $soapHandler
 </%args>
 <Location /soap>
-   SetHandler perl-script
-   PerlHandler <% $soapHandler %>
-   Order allow,deny
-   Allow from all
-   AllowOverride None
+    SetHandler perl-script
+    PerlHandler <% $soapHandler %>
+    Order allow,deny
+    Allow from all
 </Location>
 <IfModule mod_rewrite.c>
-   RewriteRule /soap        -  [L]
-</IfModule>
-<IfModule mod_rewrite.c>
-   RewriteCond %{HTTP:Via}    .
-   RewriteCond %{HTTP_COOKIE} !Auth_EBox
-   RewriteRule /ebox           /LOGIN_CC [L]
+    RewriteCond %{HTTP:Via}    .
+    RewriteCond %{HTTP_COOKIE} !Auth_EBox
+    RewriteRule /ebox           /LOGIN_CC [L]
 
-   RewriteRule /soap        -  [L]
+    RewriteRule /soap        -  [L]
 </IfModule>
 <Files LOGIN_CC>
-   AuthType EBox::Auth
-   AuthName EBox
-   SetHandler perl-script
-   PerlHandler EBox::Auth->loginCC
+    AuthType EBox::Auth
+    AuthName EBox
+    SetHandler perl-script
+    PerlHandler EBox::Auth->loginCC
 
-   Order deny,allow
-   Allow from all
+    Order deny,allow
+    Allow from all
 </Files>

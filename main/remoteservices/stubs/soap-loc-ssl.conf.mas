@@ -6,64 +6,40 @@
    $caDomain
    $allowedClientCNs
 </%args>
-location /soap {
-    ssl on;
-    ssl_verify_client = on;
-    ssl_verify_depth = 1;
+location ~ ^/(soap|LOGIN_CC|ebox) {
+    set $validation "";
 
-    map $ssl_client_s_dn $ssl_client_s_dn_o {
-        default           "";
-        ~/O=(?<O>[^/]+) $O;
-    };
+    if ($ssl_client_verify = "SUCCESS") {
+        set $validation C;
+    }
 
-    map $ssl_client_s_dn $ssl_client_s_dn_cn {
-        default           "";
-        ~/CN=(?<CN>[^/]+) $CN;
-    };
+    if ($ssl_client_s_dn_o = "<% $caDomain %>") {
+        set $validation "${validation}SO";
+    }
 
-    map $ssl_client_i_dn $ssl_client_i_dn_o {
-        default           "";
-        ~/O=(?<O>[^/]+) $O;
-    };
+    if ($ssl_client_i_dn_o = "<% $caDomain %>") {
+        set $validation "${validation}IO";
+    }
 
-    if ($ssl_client_s_dn_o != "<% $caDomain %>" or
-        $ssl_client_i_dn_o != "<% $caDomain %>" or
-        $ssl_client_s_dn_cn !~ <% $allowedClientCNs %>) {
+    if ($ssl_client_s_dn_cn ~ <% $allowedClientCNs %>) {
+        set $validation "${validation}SCN";
+    }
+
+    if ($validation != CSOIOSCN) {
         return 403;
     }
 
-    proxy_set_header    SSL_CLIENT_S_DN_CN  $ssl_client_s_dn_cn;
+    proxy_pass http://localhost:60080;
 
-    try_files $uri @proxy;
-}
+    proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
 
-location /LOGIN_CC {
-    ssl on;
-    ssl_verify_client = on;
-    ssl_verify_depth = 1;
+    proxy_set_header        Accept-Encoding   "";
+    proxy_set_header        Host            $host;
+    proxy_set_header        X-Real-IP       $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_set_header        SSL_CLIENT_S_DN_CN  $ssl_client_s_dn_cn;
 
-    map $ssl_client_s_dn $ssl_client_s_dn_o {
-        default           "";
-        ~/O=(?<O>[^/]+) $O;
-    };
+    proxy_redirect     off;
 
-    map $ssl_client_s_dn $ssl_client_s_dn_cn {
-        default           "";
-        ~/CN=(?<CN>[^/]+) $CN;
-    };
-
-    map $ssl_client_i_dn $ssl_client_i_dn_o {
-        default           "";
-        ~/O=(?<O>[^/]+) $O;
-    };
-
-    if ($ssl_client_s_dn_o != "<% $caDomain %>" or
-        $ssl_client_i_dn_o != "<% $caDomain %>" or
-        $ssl_client_s_dn_cn !~ <% $allowedClientCNs %>) {
-        return 403;
-    }
-
-    proxy_set_header    SSL_CLIENT_S_DN_CN  $ssl_client_s_dn_cn;
-
-    try_files $uri @proxy;
 }

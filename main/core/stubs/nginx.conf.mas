@@ -14,6 +14,7 @@ Parameters:
     $tmpdir
     $zentyalconfdir
     $caFile
+    @includes => ()
 </%args>
 
 user www-data;
@@ -64,13 +65,31 @@ http {
     gzip_http_version 1.1;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
+    map $ssl_client_s_dn $ssl_client_s_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
+    map $ssl_client_s_dn $ssl_client_s_dn_cn {
+        default           "";
+        ~/CN=(?<CN>[^/]+) $CN;
+    }
+
+    map $ssl_client_i_dn $ssl_client_i_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
     server {
         listen <% $port %>;
 
         ssl on;
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
         ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
-        ssl_client_certificate = <% $caFile %>;
+        ssl_client_certificate <% $caFile %>;
+
+        ssl_verify_client optional;
+        ssl_verify_depth 1;
 
         ssl_session_timeout 5m;
 
@@ -114,5 +133,9 @@ http {
         location ~ /\.ht {
            deny all;
         }
+% foreach my $includeFile (@includes) {
+
+        include <% $includeFile %>;
+% }
     }
 }
