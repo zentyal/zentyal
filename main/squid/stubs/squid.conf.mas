@@ -39,12 +39,7 @@ our %longAclNames = ();
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
-   @ids = grep { defined ($_) } @ids;
-   if ($policy->{any}) {
-       unshift @ids, $anyPrefix;
-   }
-
-   my $id = join '~', @ids, $policy->{number};
+   my $id =  $policy->{number};
 
    my $acls = '';
    if ($policy->{timeDays}) {
@@ -146,7 +141,7 @@ sub _printSplitAcl
     }
     $seenACL{$aclName} = 1;
 </%perl>
-   <& .timeACLs, rule => $rule, id => $src &>
+   <& .timeACLs, rule => $rule &>
 % }
 </%def>
 
@@ -207,9 +202,8 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 <%def .timeACLs>
 <%args>
     $rule
-    $id
 </%args>
-% my $fullId = $id . '~'. $rule->{number};
+% my $fullId =  $rule->{number};
 % if ($rule->{timeDays}) {
 acl <% _aclName($timeDaysPrefix . $fullId) %> time <% $rule->{timeDays} %>
 % }
