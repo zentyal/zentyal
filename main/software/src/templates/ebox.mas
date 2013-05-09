@@ -23,17 +23,14 @@ my $popup = $first ? 0 : 1;
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
 <script type="text/javascript">
-    document.observe("dom:loaded", function() {
-        if ($('zentyal-remoteservices')) {
-            selectPackage('zentyal-remoteservices');
+    jQuery(function() {
+        if (jQuery('#zentyal-remoteservices').length > 0) {
+            Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
         }
-        switch(location.hash) {
-           case "#update":
-                tab2();
-                break;
-           case "#delete":
-                tab3();
-                break;
+        if (location.hash === '#delete') {
+            Zentyal.SoftwareManagementUI.showDeleteTab();
+        } else {
+            Zentyal.SoftwareManagementUI.showUpdateTab();
         }
     });
 </script>
@@ -153,10 +150,10 @@ var pkgTable = new Array(
     <h3><%__('Server roles')%></h3>
         <div id="Gateway_head" class="head">
 % unless ($isGateway) {
-            <div class="image" id="Gateway_image" onclick="tick('Gateway', 1); return false">
+            <div class="image" id="Gateway_image" onclick="Zentyal.SoftwareManagementUI.tick('Gateway', 1)"; return false">
                 <img src="/data/software/images/icon_gw.png" alt="Zentyal Gateway"/>
             </div>
-            <div class="image" id="Gateway_image_tick" style="display: none" onclick="untick('Gateway', 1); return false">
+            <div class="image" id="Gateway_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Gateway', 1); return false">
                 <img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
             </div>
 % } else {
@@ -167,17 +164,17 @@ var pkgTable = new Array(
             <div class="text">
                 <h3><% __s('Gateway') %></h3>
                 <div>
-                    <a id="Gateway_down" href="#" onclick="showInfo('Gateway'); return false"><% __s('More info') %></a>
+                    <a id="Gateway_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Gateway'); return false"><% __s('More info') %></a>
                 </div>
             </div>
         </div>
 
         <div id="Infrastructure_head" class="head">
 % unless ($isInfrastructure) {
-            <div class="image" id="Infrastructure_image" onclick="tick('Infrastructure', 1); return false">
+            <div class="image" id="Infrastructure_image" onclick="Zentyal.SoftwareManagementUI.tick('Infrastructure', 1); return false">
                 <img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
             </div>
-            <div class="image" id="Infrastructure_image_tick" style="display: none" onclick="untick('Infrastructure', 1); return false">
+            <div class="image" id="Infrastructure_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Infrastructure', 1); return false">
                 <img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
             </div>
 % } else {
@@ -188,17 +185,17 @@ var pkgTable = new Array(
             <div class="text">
                 <h3><% __s('Infrastructure') %></h3>
                 <div>
-                    <a id="Infrastructure_down" href="#" onclick="showInfo('Infrastructure'); return false"><% __s('More info') %></a>
+                    <a id="Infrastructure_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Infrastructure'); return false"><% __s('More info') %></a>
                 </div>
             </div>
         </div>
 
         <div id="Office_head" class="head">
 % unless (  $isOffice) {
-            <div class="image" id="Office_image" onclick="tick('Office', 1); return false">
+            <div class="image" id="Office_image" onclick="Zentyal.SoftwareManagementUI.tick('Office', 1); return false">
                 <img src="/data/software/images/icon_office.png" alt="Zentyal Office" />
             </div>
-            <div class="image" id="Office_image_tick" style="display: none" onclick="untick('Office', 1); return false">
+            <div class="image" id="Office_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Office', 1); return false">
                 <img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
             </div>
 % } else {
@@ -209,7 +206,7 @@ var pkgTable = new Array(
             <div class="text">
                 <h3><% __s('Office') %></h3>
                 <div>
-                    <a id="Office_down" href="#" onclick="showInfo('Office'); return false"><% __s('More info') %></a>
+                    <a id="Office_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Office'); return false"><% __s('More info') %></a>
                 </div>
             </div>
         </div>
@@ -220,10 +217,11 @@ var pkgTable = new Array(
         <div id="Communications_head" class="head">
 % }
 % unless ($isCommunication) {
-            <div class="image" id="Communications_image" onclick="tick('Communications', 1); return false">
+            <div class="image" id="Communications_image"
+                 onclick="Zentyal.SoftwareManagementUI.tick('Communications', 1); return false">
                 <img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
             </div>
-            <div class="image" id="Communications_image_tick" style="display: none" onclick="untick('Communications', 1); return false">
+            <div class="image" id="Communications_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Communications', 1); return false">
                 <img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
             </div>
 % } else {
@@ -234,7 +232,7 @@ var pkgTable = new Array(
             <div class="text">
                 <h3><% __s('Communications') %></h3>
                 <div>
-                    <a id="Communications_down" href="#" onclick="showInfo('Communications'); return false"><% __s('More info') %></a>
+                    <a id="Communications_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Communications'); return false"><% __s('More info') %></a>
                 </div>
             </div>
         </div>
@@ -242,7 +240,7 @@ var pkgTable = new Array(
 
     <div>
         <div id="Gateway" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="hideInfo('Gateway'); return false">X</a>
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">X</a>
             <h3><% __s('Zentyal Gateway features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/cache.png' alt='Transparent caching' />
@@ -284,7 +282,7 @@ var pkgTable = new Array(
         </div>
 
         <div id="Infrastructure" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="hideInfo('Infrastructure'); return false">X</a>
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">X</a>
             <h3><% __s('Zentyal Infrastructure features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/objects.png' alt='DHCP server' />
@@ -325,7 +323,7 @@ var pkgTable = new Array(
         </div>
 
         <div id="Office" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="hideInfo('Office'); return false">X</a>
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">X</a>
             <h3><% __s('Zentyal Office features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/directory.png' alt='Open Directory' />
@@ -364,7 +362,7 @@ var pkgTable = new Array(
         </div>
 
         <div id="Communications" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="hideInfo('Communications'); return false">X</a>
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">X</a>
             <h3><% __s('Zentyal Unified Communications features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/email.png' alt='Email' />
@@ -417,7 +415,7 @@ var pkgTable = new Array(
 %        if ($pkg->{version}) {
 %           $class='package_installed';
 %        }
-         <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="togglePackage('<% $pkg->{name} %>'); return false">
+         <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
             <div><img src="/data/software/images/package-icons/<% $pkg->{name} %>.png"
                   onerror='this.onerror = null; this.src="/data/software/images/package-icons/generic.png"' /></div>
             <p><% $pkg->{description} %></p>
@@ -451,21 +449,21 @@ var pkgTable = new Array(
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
-                <a id="installTab" href="#" class="current" onclick="tab1()"><% __('Install') %></a>
+                <a id="installTab" href="#" class="current" onclick="Zentyal.SoftwareManagementUI.showInstallTab()"><% __('Install') %></a>
             </li>
 % if ($first) {
             <li style="display:none">
 % } else {
             <li>
 % }
-               <a id="updateTab" href="#" onclick="tab2()"><% __('Update') %>&nbsp;<span id="updNumber">(0)</span>  </a>
+               <a id="updateTab" href="#" onclick="Zentyal.SoftwareManagementUI.showUpdateTab()"><% __('Update') %>&nbsp;<span id="updNumber">(0)</span>  </a>
             </li>
 % if ($first) {
             <li style="display:none">
 % } else {
             <li>
 % }
-                <a id="deleteTab" href="#" onclick="tab3()"><% __('Delete') %></a>
+                <a id="deleteTab" href="#" onclick="Zentyal.SoftwareManagementUI.showDeleteTab()"><% __('Delete') %></a>
             </li>
         </ul>
     </div>
@@ -512,188 +510,179 @@ var pkgTable = new Array(
 % }
 
 <script>
-    var insTable = new Array();
-    var updTable = new Array();
-    var delTable = new Array();
-    var insHtmlId = new Array();
-    var updHtmlId = new Array();
-    var delHtmlId = new Array();
+var insTable = new Array();
+var updTable = new Array();
+var delTable = new Array();
+var insHtmlId = new Array();
+var updHtmlId = new Array();
+var delHtmlId = new Array();
 
-    var obj;
-
-    for(var i = 0; i< pkgTable.length; i++){
-        if(pkgTable[i]['<% __('Component') %>'] .indexOf("Suite") != -1){
-            continue;
-        }
-        if(pkgTable[i]['<% __('Component') %>'] .indexOf("All Modules") != -1){
-            continue;
-        }
-        if (pkgTable[i]['<% __('Installed Version') %>'] == ""){
-            obj = new Object();
-            obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-            obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
+var obj;
+for (var i = 0; i< pkgTable.length; i++){
+    if(pkgTable[i]['<% __('Component') %>'] .indexOf("Suite") != -1){
+       continue;
+    }
+    if(pkgTable[i]['<% __('Component') %>'] .indexOf("All Modules") != -1){
+       continue;
+    }
+    if (pkgTable[i]['<% __('Installed Version') %>'] == ""){
+       obj = new Object();
+       obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+       obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
 %   if ($first) {
-            if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\"></center>";
-            else
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
+        if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
+           obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\"></center>";
+        else
+           obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   } else {
-            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
+       obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
 %   }
-            insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
-            insTable[insTable.length] = obj;
-        }else{
-            if(pkgTable[i]['Removable'] == "1"){
-                if (pkgTable[i]['Name'] != 'zentyal-software'){
-                    obj = new Object();
-                    obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-                    obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='updateActionButton(delHtmlId, \"delete_button\")'></center>";
-                    delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
-                    delTable[delTable.length] = obj;
-                }
-            }
-            if((pkgTable[i]['<% __('Latest Version') %>'] != "")&&(pkgTable[i]['<% __('Latest Version') %>'] != pkgTable[i]['<% __('Installed Version') %>'])){
-                obj = new Object();
-                obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-                obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
-                obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='updateActionButton(updHtmlId, \"update_button\")'></center>";
-                updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
-                updTable[updTable.length] = obj;
-            }
-        }
-    }
-
-    var customMsgs = {
-         loading: '<% __('Loading') %>...',
-         emptyResults: '<% __('No packages found') %>',
-         errorURL: 'invalid data',
-         errorData: 'no data',
-         searchLabel: '<% __('Search') %> : ',
-         filterLabel: 'Filter Column : ',
-         paginationOf: ' <% __('of') %> ',
-         paginationPages: ' <% __('pages') %> ',
-         paginationFirst: '<<',
-         paginationPrev: '<',
-         paginationNext: '>',
-         paginationLast: '>>'
-    };
-    var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-    insTableOrderer.msgs = customMsgs;
-    var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-    updTableOrderer.msgs = customMsgs;
-    var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-    delTableOrderer.msgs = customMsgs;
-
-    document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';
-% if ($first) {
-    document.getElementById('advanced').hide();
-% } else {
-    document.getElementById('basic').hide();
-% }
-    document.getElementById('updateBox').hide();
-    document.getElementById('deleteBox').hide();
-    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
-    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
-    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
-
-   // update button status
-   updateActionButton(insHtmlId, 'install_button');
-   updateActionButton(delHtmlId, 'delete_button');
-   updateActionButton(updHtmlId, 'update_button');
-
-    function selectAll(htmlIds, actionButton){
-        for(var i = 0; i < htmlIds.length; i++){
-            document.getElementById(htmlIds[i]).checked = true;
-        }
-        $(actionButton).disabled = false;
-    }
-
-    function deselectAll(htmlIds, actionButton){
-        for(var i = 0; i < htmlIds.length; i++){
-            document.getElementById(htmlIds[i]).checked = false;
-        }
-        $(actionButton).disabled = true;
-    }
-
-    function sendForm(action, htmlIds, popup) {
-        var packages = [];
-        for(var i = 0; i < htmlIds.length; i++){
-            var element = document.getElementById(htmlIds[i]);
-            if(element && element.checked){
-              packages.push('pkg-'+htmlIds[i].substring(4));
-            }
-        }
-
-        _sendFormPackagesList(action, packages, popup);
-    }
-
-    function sendFormBasic(popup){
-        var packages = [];
-        if (document.getElementById('Gateway_check').checked) {
-            packages.push('pkg-zentyal-gateway');
-        }
-        if (document.getElementById('Office_check').checked) {
-            packages.push('pkg-zentyal-office');
-        }
-        if (document.getElementById('Communications_check').checked) {
-            packages.push('pkg-zentyal-communication');
-        }
-        if (document.getElementById('Infrastructure_check').checked) {
-            packages.push('pkg-zentyal-infrastructure');
-        }
-        $$('.package').each(function (e) {
-            var pkg_id = e.readAttribute('id');
-            if (selected(pkg_id)) {
-                packages.push('pkg-' + pkg_id);
-            }
-        });
-
-        _sendFormPackagesList('install', packages, popup);
-    }
-
-
-    function _sendFormPackagesList(action, packages, popup)
-    {
-        if (packages.length > 0) {
-          var url= 'InstallPkgs?';
-          for (var i=0; i < packages.length; i++) {
-                url += action + '=1';
-                url += '&' +  packages[i] + '=yes';
-          }
-          url += '&popup=' + popup;
-          if (popup) {
-                var title='';
-                if (action == 'install') {
-                    title = '<% __('Installing packages') %>';
-                } else if (action == 'remove') {
-                    title = '<% __('Removing packages') %>';
-                } else if (action == 'upgrade') {
-                    title = '<% __('Upgrading packages') %>';
-                }
-                Modalbox.show(url, {'title': title, 'transitions': false});
-          } else {
-            window.location = url;
-          }
-       } else {
-           alert('<% __('No packages selected') %>');
+       insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
+       insTable[insTable.length] = obj;
+    } else {
+        if(pkgTable[i]['Removable'] == "1"){
+           if (pkgTable[i]['Name'] != 'zentyal-software'){
+               obj = new Object();
+               obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+               obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
+               obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='updateActionButton(delHtmlId, \"delete_button\")'></center>";
+               delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
+               delTable[delTable.length] = obj;
+           }
        }
+       if((pkgTable[i]['<% __('Latest Version') %>'] != "")&&(pkgTable[i]['<% __('Latest Version') %>'] != pkgTable[i]['<% __('Installed Version') %>'])){
+           obj = new Object();
+           obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+           obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
+           obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
+           obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='updateActionButton(updHtmlId, \"update_button\")'></center>";
+           updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
+           updTable[updTable.length] = obj;
+       }
+   }
+}
+
+// XXX tied with OrderertTable
+var customMsgs = {
+    loading: '<% __('Loading') %>...',
+    emptyResults: '<% __('No packages found') %>',
+    errorURL: 'invalid data',
+    errorData: 'no data',
+    searchLabel: '<% __('Search') %> : ',
+    filterLabel: 'Filter Column : ',
+    paginationOf: ' <% __('of') %> ',
+    paginationPages: ' <% __('pages') %> ',
+    paginationFirst: '<<',
+    paginationPrev: '<',
+    paginationNext: '>',
+    paginationLast: '>>'
+};
+var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+insTableOrderer.msgs = customMsgs;
+var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+updTableOrderer.msgs = customMsgs;
+var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+delTableOrderer.msgs = customMsgs;
+
+jQuery('#updNumber').html( '(' +updTable.length +')' );
+% if ($first) {
+jQuery('#advanced').hide();
+% } else {
+jQuery('#basic').hide();
+% }
+jQuery('#updateBox, #deleteBox').hide();
+insTableOrderer.orderRow('<% __('Component') %>', 'asc');
+updTableOrderer.orderRow('<% __('Component') %>', 'asc');
+delTableOrderer.orderRow('<% __('Component') %>', 'asc');
+
+// update button status
+updateActionButton(insHtmlId, 'install_button');
+updateActionButton(delHtmlId, 'delete_button');
+updateActionButton(updHtmlId, 'update_button');
+
+function selectAll(htmlIds, actionButton) {
+    for (var i = 0; i < htmlIds.length; i++){
+        jQuery('#' + htmlIds[i]).prop('checked', true);
     }
+    jQuery('#' + actionButton).prop('disabled', false);
+}
+
+function deselectAll(htmlIds, actionButton) {
+    for (var i = 0; i < htmlIds.length; i++){
+        jQuery('#' + htmlIds[i]).prop('checked', false);
+    }
+    jQuery('#' + actionButton).prop('disabled', true);
+}
+
+function sendForm(action, htmlIds, popup) {
+    var packages = [];
+    for(var i = 0; i < htmlIds.length; i++) {
+        if (jQuery('#' + htmlIds[i]).prop('checked')){
+            packages.push('pkg-' + htmlIds[i].substring(4));
+        }
+     }
+      _sendFormPackagesList(action, packages, popup);
+}
+
+function sendFormBasic(popup) {
+    var packages = [];
+    if (jQuery('#Gateway_check').prop('checked')) {
+        packages.push('pkg-zentyal-gateway');
+    }
+    if (jQuery('#Office_check').prop('checked')) {
+        packages.push('pkg-zentyal-office');
+    }
+    if (jQuery('#Communications_check').prop('checked')) {
+        packages.push('pkg-zentyal-communication');
+    }
+    if (jQuery('#Infrastructure_check').prop('checked')) {
+        packages.push('pkg-zentyal-infrastructure');
+    }
+    jQuery('.package:checked').each(function (index, el) {
+       packages.push('pkg-' + el.attr('id'));
+    });
+
+   _sendFormPackagesList('install', packages, popup);
+}
+
+function _sendFormPackagesList(action, packages, popup)
+{
+   if (packages.length > 0) {
+     var url= 'InstallPkgs?';
+     for (var i=0; i < packages.length; i++) {
+         url += action + '=1';
+         url += '&' +  packages[i] + '=yes';
+     }
+     url += '&popup=' + popup;
+     if (popup) {
+         var title='';
+         if (action == 'install') {
+             title = '<% __('Installing packages') %>';
+         } else if (action == 'remove') {
+             title = '<% __('Removing packages') %>';
+         } else if (action == 'upgrade') {
+             title = '<% __('Upgrading packages') %>';
+         }
+         Modalbox.show(url, {'title': title, 'transitions': false});
+     } else {
+       window.location = url;
+     }
+  } else {
+      alert('<% __('No packages selected') %>');
+  }
+}
 
 function updateActionButton(list, buttonId)
 {
-        var allDisabled = true;
-        for (var i = 0; i < list.length; i++) {
-            var element = $(list[i]);
-            if (element.checked) {
-               allDisabled = false;
-               break;
-            }
+    var allDisabled = true;
+    for (var i = 0; i < list.length; i++) {
+         if (jQuery('#' + list[i]).prop('checked')) {
+             allDisabled = false;
+             break;
         }
+    }
 
-       var element = $(buttonId);
-       element.disabled=  allDisabled;
+    jQuery('#' + buttonId).prop('disabled', allDisabled);
 }
 
 

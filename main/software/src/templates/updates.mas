@@ -9,21 +9,19 @@
 use EBox::Gettext;
 </%init>
 <script  type="text/javascript">
+"use strict";
 function doUpdates(title) {
     var packages = [];
-    var checkboxes = $$('.pkg-checkbox');
-    for (var i=0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          packages.push(checkboxes[i].name);
-        }
-    }
+    jQuery('.pkg-checkbox:checked').each(function(index, element) {
+          packages.push(element.name);
+    });
     if (packages.length > 0) {
        var url= 'InstallPkgs?';
+       url += 'upgrade=yes';
        for (var i=0; i < packages.length; i++) {
-            url += 'upgrade=yes';
             url += '&' +  packages[i] + '=yes';
        }
-      url += '&popup=1';
+       url += '&popup=1';
 
       Modalbox.show(url, {
                            'title': title,
@@ -38,39 +36,33 @@ function doUpdates(title) {
 function checkAllPackages(checkAll)
 {
   var check = checkAll.checked;
-  var checkboxes = $$('.pkg-checkbox');
-  for (var i=0; i < checkboxes.length; i++) {
-       checkboxes[i].checked = check;
-  }
-  $('upgradeButton').disabled = !check;
+  jQuery('.pkg-checkbox').prop('checked', check);
+  jQuery('#upgradeButton').prop('disabled', !check);
 }
 
 function checkboxChange()
 {
     var existsUnchecked = false;
     var existsChecked = false;
-    var checkboxes = $$('.pkg-checkbox');
-    for (var i=0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
+    var checkboxes = jQuery('.pkg-checkbox').each){function(index, checkbox) {
+        if (checkbox.checked) {
            existsChecked = true;
         } else {
           existsUnchecked = true;
         }
-        if (existsChecked && existsUnchecked) {
-           break;
-        }
-    }
+        return ((!existsChecked) && (!existsUnchecked));
+    });
     if (existsChecked) {
-       $('upgradeButton').disabled = false;
+       jQuery('#upgradeButton').popr('disabled, false);
        if (!existsUnchecked) {
-        $('allbox').checked = true;
+        jQuery('#allbox').prop('checked', true);
        }
-
     }
+
     if (existsUnchecked) {
-        $('allbox').checked = false;
+        jQuery('#allbox').prop('checked', false);
         if (! existsChecked) {
-           $('upgradeButton').disabled = true;
+           jQuery('#upgradeButton').prop('disabled', true);
         }
     }
 }
@@ -132,7 +124,7 @@ automatically as scheduled') %>
 %         }
 %         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and ($pkg->{changelog}) ) {
                                 <img src="/data/images/add.gif" alt="more info"
-                                     onclick="$('<% $pkg->{name} %>_changelog').toggle()
+                                     onclick="jQuery('#<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
                                 />
 %         }
