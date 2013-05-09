@@ -26,7 +26,6 @@
     $adAclTTL => 3600
 </%args>
 <%shared>
-our $anyPrefix = 'any~src~';
 our $objectPrefix = 'obj~';
 our $groupPrefix = 'grp~';
 our $adPrefix = 'ad~';
@@ -38,19 +37,29 @@ our %longAclNames = ();
 <%perl>
 sub _timeAclsInPolicy
 {
-   my ($policy, @ids) = @_;
-   my $id =  $policy->{number};
-
+   my ($policy) = @_;
    my $acls = '';
    if ($policy->{timeDays}) {
-      $acls = _aclName($timeDaysPrefix . $id);
+      $acls = _aclForDays($policy->{timeDays});
       $acls .= ' ';
    }
    if ($policy->{timeHours}) {
-       $acls .= _aclName($timeHoursPrefix . $id);
+       $acls .= _aclForHours($policy->{timeHours});
    }
 
    return $acls;
+}
+
+sub _aclForHours
+{
+    my ($hours) = @_;
+    return _aclName($timeHoursPrefix . $hours);
+}
+
+sub _aclForDays
+{
+    my ($days) = @_;
+    return _aclName($timeDaysPrefix . $days);
 }
 
 # needed because space scape doesnt work in acl names
@@ -87,24 +96,22 @@ sub _printSplitAcl
         $m->print("$acl @membersInAcl\n")
    }
 }
-</%perl>
-<%def .rulesACLs>
-<%args>
-    @rules
-    $realm
-</%args>
-% my %seenACL;
-% foreach my $rule (@rules) {
-%   if ($rule->{any}) {
-       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
-%      next;
-%   }
-<%perl>
+
+sub _rulesACLs
+{
+  my %args = @_;
+  my @rules = @{ $args{rules} };
+  my $realm = $args{realm};
+  my %seenACL;
+
+  foreach my $rule (@rules) {
     my $object = $rule->{object};
     my $group = $rule->{group};
     my $adDN = $rule->{adDN};
     my ($src, $aclName);
-    if ($object) {
+    if ($rule->{any}) {
+        # for any object rule, there is not specific acl
+    } elsif ($object) {
         $src = $object;
         $aclName = $objectPrefix . $object;
     } elsif ($group) {
@@ -113,37 +120,53 @@ sub _printSplitAcl
     } elsif ($adDN) {
         $src = $adDN;
         $aclName = $adPrefix . $adDN;
-    } else {
+    } else  {
         next;
     }
-    $aclName = _aclName($aclName);
 
-    if ($seenACL{$aclName}) {
-        # dont print again the ACL, but we cotinue to be able to get time ACLs
-        # which will be different bztime  overlapping ACLs are not allowed
-    } elsif ($object) {
-        my $acl = "acl $aclName src";
-        _printSplitAcl($acl, $rule->{addresses});
-    } elsif ($group) {
-
-        # escape user names
-        my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-        if ($realm) {
+    if ($aclName) {
+        $aclName = _aclName($aclName);
+        if ($seenACL{$aclName}) {
+            # dont print again the ACL, but we cotinue to be able to get time ACLs
+            # which will be different bztime  overlapping ACLs are not allowed
+        } elsif ($object) {
+            my $acl = "acl $aclName src";
+            _printSplitAcl($acl, $rule->{addresses});
+        } elsif ($group) {
+            # escape user names
+            my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+            if ($realm) {
             @users = map { $_ . '@' . $realm } @users;
         }
-        my $acl = "acl $aclName proxy_auth";
-        _printSplitAcl($acl, \@users);
-    } elsif ($adDN) {
-        my $acl = "acl $aclName external InetGroup";
-        _printSplitAcl($acl, [ $adDN ]);
-    } else {
-        next;
+            my $acl = "acl $aclName proxy_auth";
+            _printSplitAcl($acl, \@users);
+        } elsif ($adDN) {
+            my $acl = "acl $aclName external InetGroup";
+            _printSplitAcl($acl, [ $adDN ]);
+        }  else {
+            next;
+        }
+        $seenACL{$aclName} = 1;
     }
-    $seenACL{$aclName} = 1;
+
+    if ($rule->{timeDays}) {
+       my $aclName = _aclForDays($rule->{timeDays});
+       if (not $seenACL{$aclName}) {
+           $m->print("acl $aclName time " . $rule->{timeDays} . "\n");
+           $seenACL{$aclName}= 1;
+       }
+    }
+    if ($rule->{timeHours}) {
+        my $aclName = _aclForHours($rule->{timeHours});
+       if (not $seenACL{$aclName}) {
+           $m->print("acl $aclName time " . $rule->{timeHours} . "\n");
+           $seenACL{$aclName} = 1;
+       }
+    }
+  }
+}
 </%perl>
-   <& .timeACLs, rule => $rule &>
-% }
-</%def>
+
 
 <%def .rulesAccess>
 <%args>
@@ -172,7 +195,7 @@ sub _printSplitAcl
 
     my $acl = _aclName($aclName);
 
-   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+   my $timeAcls = _timeAclsInPolicy($rule);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
       my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
@@ -199,18 +222,6 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
 
-<%def .timeACLs>
-<%args>
-    $rule
-</%args>
-% my $fullId =  $rule->{number};
-% if ($rule->{timeDays}) {
-acl <% _aclName($timeDaysPrefix . $fullId) %> time <% $rule->{timeDays} %>
-% }
-% if ($rule->{timeHours}) {
-acl <% _aclName($timeHoursPrefix . $fullId) %> time <% $rule->{timeHours} %>
-% }
-</%def>
 % #################################################################################################
 % my $transKey = '';
 % if ($transparent) {
@@ -289,8 +300,7 @@ external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/shar
 ##
 ## ACLs from model rules
 ##
-<& .rulesACLs, rules => [ @rules ], realm => $realm &>
-
+% _rulesACLs(rules => \@rules, realm => $realm );
 ##
 ## Access
 ##
