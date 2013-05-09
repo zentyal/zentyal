@@ -22,7 +22,6 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <script type="text/javascript" src="/data/js/flotr.js">//</script>
 <script type="text/javascript">
-//<![CDATA[
 var status_str = {
     'running': {
         'text': '<% __("Running") %>',
@@ -49,37 +48,6 @@ var status_str = {
 var start = '<% __("Start") %>';
 var restart = '<% __("Restart") %>';
 
-widget = function(m,w,full) {
-    var opacity;
-    var top_id;
-    if(full) {
-        opacity = 1;
-        top_id = '';
-        cursor = 'move';
-    } else {
-        opacity = 0.5;
-        top_id = '_bar';
-        cursor = 'default';
-    }
-    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w["name"] + top_id + "'>" +
-        "<div class='widgetTopBar'>" +
-        "<div class='widgetTopBackground'></div>" +
-        "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
-        "<div class='widgetName'>" + w["title"] + "</div>" +
-        "<div style='clear: both;'></div>" +
-        "</div>" +
-        "</div>";
-    return str;
-}
-
-function toggleClose()
-{
-    var elements = document.getElementsByClassName('closeBox');
-    for (var i = 0; i < elements.length; i++) {
-        Effect.toggle(elements[i],'appear');
-    }
-}
-
 function configureWidgets()
 {
    Modalbox.show('/Dashboard/ConfigureWidgets', {
@@ -89,11 +57,11 @@ function configureWidgets()
         overlayOpacity: 0,
         afterLoad: function() {
             $('MB_content').setStyle({overflow: 'visible'});
-            toggleClose();
+            Zentyal.Dashboard.toggleClose();
             Modalbox.MBwindow.removeClassName('MB_dialog');
         },
         beforeHide: function() {
-            toggleClose();
+            Zentyal.Dashboard.toggleClose();
         },
     });
 
@@ -121,16 +89,9 @@ function updateGraph(element,value) {
 //]]>
 </script>
 % if ($message) {
-<script  type="text/javascript">
-function closeNotification() {
-  $('notification_container').hide();
-  var url = '/SysInfo/CloseNotification';
-  new Ajax.Request(url, { parameters: { message: '<% $message->{name} %>' } });
-}
-</script>
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
-<a id="popx" onclick="closeNotification(); return false">×</a>
+<a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
 </div>
 % }
 
@@ -164,30 +125,6 @@ function closeNotification() {
 % }
 </div>
 <script type="text/javascript">
-//<![CDATA[
-function closeWidget(wid)
-{
-    var name = 'widget_' + wid;
-    Effect.Fade(name, {
-        afterFinish: function(e) {
-            var id = e.element.id;
-            var parent = e.element.parentNode.id;
-            Element.remove(id);
-            var placeholder = id + '_placeholder';
-            var parts = name.split('_');
-            var parts = parts[1].split(':');
-            if($(placeholder)) {
-                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
-            }
-            new Ajax.Request("/Dashboard/Update", {
-                method: "post",
-                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
-            });
-        }
-    });
-}
-
-
 % foreach my $i (1..2) {
 Sortable.create("dashboard<% $i %>", {
     tag: "div",
@@ -425,25 +362,7 @@ function updateWidget(widget) {
   }
 }
 
-function updateWidgets() {
-    var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
-    widgets.each(function(w) {
-        var parts = w.split(':');
-        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
-        new Ajax.Request(url, {
-            method: "get",
-            asynchronous: true,
-            onSuccess: function(transport) {
-                updateWidget(transport.responseJSON);
-            }
-        });
-    });
-}
-
-Event.observe(window, 'load', function() {
-  // Update widgets every 30s
-  new PeriodicalExecuter(updateWidgets, 30);
+jQuery( function () {
+      setInterval( Zentyal.Dashboard.updateWidgets, 30000);
 });
-
-//]]>
 </script>

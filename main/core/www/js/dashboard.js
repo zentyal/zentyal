@@ -39,6 +39,62 @@ Zentyal.Dashboard.toggleClicked = function(element) {
     });
 };
 
+Zentyal.Dashboard.closeWidget = function(wid) {
+    var selector = '#widget_' + Zentyal.escapeSelector(wid);
+    jQuery(selector).fadeOut(500, function() {
+        var id = this.id;
+        var parentId = this.parentNode.id;
+        jQuery('#' + parentId).remove();
+
+        var placeholdeSel = '#' + id + '_placeholder';
+        if(jQuery(placeholdeSel).length > 0) {
+                var parts = wid.split(':');
+                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
+         }
+         // jQuery.ajax({
+         //             url: '/Dashboard/Update',
+         //             type : 'post',
+         //             data: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
+         // });
+         new Ajax.Request("/Dashboard/Update", {
+                method: "post",
+                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
+            });
+    });
+
+//    Effect.Fade(name, {
+//        afterFinish: function(e) {
+//            var id = e.element.id;
+//            var parent = e.element.parentNode.id;
+//            Element.remove(id);
+//            var placeholder = id + '_placeholder';
+//            var parts = wid.split(':');
+//            if($(placeholder)) {
+//                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
+//            }
+//            new Ajax.Request("/Dashboard/Update", {
+//                method: "post",
+//                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
+//            });
+//        }
+//    });
+};
+
+Zentyal.Dashboard.updateWidgets = function() {
+    var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
+    widgets.each(function(w) {
+        var parts = w.split(':');
+        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
+        new Ajax.Request(url, {
+            method: "get",
+            asynchronous: true,
+            onSuccess: function(transport) {
+                updateWidget(transport.responseJSON);
+            }
+        });
+    });
+};
+
 Zentyal.Dashboard.widget = function(m,w,full) {
     var opacity,
      top_id,
@@ -62,6 +118,18 @@ Zentyal.Dashboard.widget = function(m,w,full) {
         "</div>" +
         "</div>";
     return str;
+};
+
+Zentyal.Dashboard.toggleClose = function () {
+    jQuery('.closeBox').toggle(500);
+};
+
+Zentyal.Dashboard.closeNotification = function (msg) {
+    jQuery('#notification_container').hide();
+    jQuery.ajax({
+                 url: '/SysInfo/CloseNotification',
+                 data: {  message: msg  }
+                });
 };
 
 // Zentyal.Dashboard.ConfigureWidgets namespace
