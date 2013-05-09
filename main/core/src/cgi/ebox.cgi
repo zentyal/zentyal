@@ -48,12 +48,11 @@ try {
     print start_html(-title => __('Zentyal'),
        -script => [
             {-type => 'text/javascript',
+             -src  => '/data/js/jquery.js'},
+            {-type => 'text/javascript',
              -src  => '/data/js/common.js'},
             {-type => 'text/javascript',
              -src  => '/data/js/prototype.js'},
-            # uncomment when we use jquery there
-            # {-type => 'text/javascript',
-            #  -src  => '/data/js/jquery.js'},
             {-type => 'text/javascript',
              -src  => '/data/js/scriptaculous/scriptaculous.js'}
             ],
