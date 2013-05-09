@@ -1,3 +1,5 @@
+3.1.1
+	+ Fixed wrong setting of state in EBox::Samba::Provision
 3.1
 	+ Replace /home/samba/.provisioned file with a key in redis state
 	+ Depend on zentyal-core 3.1

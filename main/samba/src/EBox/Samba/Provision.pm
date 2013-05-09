@@ -46,7 +46,7 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    my $state = $self->get_state();
+    my $state = EBox::Global->modInstance('samba')->get_state();
     return $state->{provisioned};
 }
 
@@ -54,9 +54,10 @@ sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
-    my $state = $self->get_state();
+    my $samba = EBox::Global->modInstance('samba');
+    my $state = $samba->get_state();
     $state->{provisioned} = $provisioned;
-    $self->set_state($state);
+    $samba->set_state($state);
 }
 
 # Method: checkEnvironment
