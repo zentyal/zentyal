@@ -41,10 +41,10 @@ sub _timeAclsInPolicy
    my ($policy, @ids) = @_;
    @ids = grep { defined ($_) } @ids;
    if ($policy->{any}) {
-       unshift @ids, $anyPrefix . $policy->{number};
+       unshift @ids, $anyPrefix;
    }
 
-   my $id = join '~', @ids;
+   my $id = join '~', @ids, $policy->{number};
 
    my $acls = '';
    if ($policy->{timeDays}) {
@@ -98,6 +98,7 @@ sub _printSplitAcl
     @rules
     $realm
 </%args>
+% my %seenACL;
 % foreach my $rule (@rules) {
 %   if ($rule->{any}) {
        <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
@@ -122,10 +123,14 @@ sub _printSplitAcl
     }
     $aclName = _aclName($aclName);
 
-    if ($object) {
+    if ($seenACL{$aclName}) {
+        # dont print again the ACL, but we cotinue to be able to get time ACLs
+        # which will be different bztime  overlapping ACLs are not allowed
+    } elsif ($object) {
         my $acl = "acl $aclName src";
         _printSplitAcl($acl, $rule->{addresses});
     } elsif ($group) {
+
         # escape user names
         my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
         if ($realm) {
@@ -139,6 +144,7 @@ sub _printSplitAcl
     } else {
         next;
     }
+    $seenACL{$aclName} = 1;
 </%perl>
    <& .timeACLs, rule => $rule, id => $src &>
 % }
@@ -203,11 +209,12 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
     $rule
     $id
 </%args>
+% my $fullId = $id . '~'. $rule->{number};
 % if ($rule->{timeDays}) {
-acl <% _aclName($timeDaysPrefix . $id) %> time <% $rule->{timeDays} %>
+acl <% _aclName($timeDaysPrefix . $fullId) %> time <% $rule->{timeDays} %>
 % }
 % if ($rule->{timeHours}) {
-acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
+acl <% _aclName($timeHoursPrefix . $fullId) %> time <% $rule->{timeHours} %>
 % }
 </%def>
 % #################################################################################################
