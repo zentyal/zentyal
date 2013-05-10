@@ -104,36 +104,6 @@ function stripe(theclass, evenClass, oddClass) {
     });
 }
 
-/*
-Function: hide
-
-        Hide an element
-
-Parameters:
-
-        elementId - the node to show or hide
-
-*/
-function hide(elementId)
-{
-    jQuery('#' + elementId).addClass('hidden');
-}
-
-/*
-Function: show
-
-        Show an element
-
-Parameters:
-
-        elementId - the node to show or hide
-
-*/
-function show(elementId)
-{
-  jQuery('#' + elementId).removeClass('hidden');
-}
-
 // XXX used only in  toggleWithToggler ?
 function toggleClass(name, class1, class2)
 {
