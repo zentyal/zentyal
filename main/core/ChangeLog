@@ -1,5 +1,5 @@
 HEAD
->...+ Implemented a way to include configuration files for Nginx so the SOAP
+	+ Implemented a way to include configuration files for Nginx so the SOAP
 	  services are able to use Nginx for SSL.
 3.1
 	+ Improved the message shown when there are no changes pending to save on
