@@ -16,7 +16,7 @@
  */
 
 /*
- * Class: EBox.FileUpload
+ * Class: Zentyal.FileUpload
  *
  * This object manages a file upload using only JS and Asynchronous
  * requests. It is based on Ajax Iframe method from
@@ -25,65 +25,54 @@
  * submitted when a change on the file input is done, i.e. when "browse"
  * action is finished.
  *
- * Adapted to be use with PrototypeJS library
+ * Adapted to be use with jQuery library
  *
  *
  */
 "use strict";
+/* Method: Zentyal.FileUpload constructor
 
-
-if ( typeof(EBox) == 'undefined' ) {
-  var EBox = {};
-}
-
-EBox.FileUpload = Class.create(); // REMOVE
-
-EBox.FileUpload.prototype = {
-
-  /* Group: Public methods */
-  /*
-     Constructor: initialize
-
-     Create a EBox.FileUpload JS class to manage file upload
+     Create a Zentyal.FileUpload JS class to manage file upload
 
      Parameters:
 
      formId  - String the form identifier which stores the input file
 
-     onStart - Function to be performed before submit the file
+     start - Function to be performed before submit the file
 
-     onComplete - Function to be performed after completing the file
+     complete - Function to be performed after completing the file
      submitting
 
      - Named parameters
 
      Returns:
 
-     <EBox.FileUpload> - the recently created object
+     <Zentyal.FileUpload> - the recently created object
 
-  */
-  initialize : function(params) {
-    this.onStart = params.onStart;
-    this.onComplete = params.onComplete;
+*/
+Zentyal.FileUpload = function (params) {
+    this.start = params.start;
+    this.complete = params.complete;
     this.form = jQuery('#' + params.formId);
     this.iframe = this._createIframe();
     this.form.attr('target', this.iframe.id);
-  },
+    return this;
+};
 
+
+Zentyal.FileUpload.prototype = {
   /* Method: submit
 
      Submit the file
 
   */
   submit : function() {
-    if ( this.onStart ) {
-      this.onStart();
+    if ( this.start ) {
+      this.start();
     }
     this.form.submit();
     return false;
   },
-
-  /* Group: Private methods */
 
   // Method to create the iframe to store the server response
   // Returns the iframe created and already stored in the document
@@ -98,14 +87,14 @@ EBox.FileUpload.prototype = {
     iframe.setAttribute('src', 'about:blank');
     this.div.appendChild(iframe);
 
-    var eventData = {complete: this.onComplete, iframe: iframe};
-    jQuery('#' + iframeId).hide().on('load', eventData, EBox.FileUpload.prototype._onIframeLoad);
+    var eventData = {complete: this.complete, iframe: iframe};
+    jQuery('#' + iframeId).hide().on('load', eventData, Zentyal.FileUpload.prototype._onIframeLoad);
 
     return iframe;
   },
 
   // Handler to manage when the iframe is loaded
-  _onIframeLoad : function ( event ) {
+  _onIframeLoad : function (event) {
     var iframe = event.data.iframe;
     var complete = event.data.complete;
     var doc;
@@ -122,7 +111,7 @@ EBox.FileUpload.prototype = {
 
     if ( typeof(complete == "function") ) {
       complete(doc.body.innerHTML);
-      jQuery(iframe).off('load', EBox.FileUpload.prototype._onIframeLoad);
+      jQuery(iframe).off('load', Zentyal.FileUpload.prototype._onIframeLoad);
     }
 
   }

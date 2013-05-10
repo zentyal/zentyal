@@ -89,10 +89,10 @@ my $id = 'backupfile';
 my $loadingId = $id . '_loading';
 my $formId    = $id . '_form';
 my $onChange = << "JS_END";
-var fileUpload = new EBox.FileUpload(
+var fileUpload = new Zentyal.FileUpload(
    { formId :   '$formId',
-     onStart :    function() { jQuery('#restoreFromFile').prop('disabled', true); setLoading('$loadingId'); },
-     onComplete : function() { setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
+     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); setLoading('$loadingId'); },
+     complete : function() { setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();
