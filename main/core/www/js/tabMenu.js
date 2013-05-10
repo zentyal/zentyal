@@ -17,27 +17,24 @@
 
 /*
  * Class: EBox.Tabs
- * 
+ *
  * This object creates a tab group to manage using CSS and JavaScript.
- * 
+ *
  *
  */
+"use strict";
 
 if ( typeof(EBox) == 'undefined' ) {
   var EBox = {};
 }
 
-EBox.Tabs = Class.create();
-
-EBox.Tabs.prototype = {
-
-  /* 
+  /*
      Constructor: initialize
-     
+
      Create a EBox.Tabs JS class to manage a tab group
 
      Parameters:
-     
+
      tabContainer - String the tab container identifier from where the tabs hang
      modelAttrs   - Associative array indexing by element identifier
                     containing the following properties:
@@ -53,14 +50,13 @@ EBox.Tabs.prototype = {
                     - defaultTab : String the name of the default tab
                                    or first or last
      Returns:
-     
+
      <EBox.Tabs> - the recently created object
 
   */
-
-  initialize : function(tabContainer, modelAttrs, options) {
+EBox.Tabs =  function(tabContainer, modelAttrs, options) {
     // The div where the tabs are
-    this.tabContainer = $(tabContainer);
+    this.tabContainer = jQuery('#' + tabContainer);
     // Set the tabMenu name
     var nameParts = tabContainer.split('_');
     this.tabName = nameParts[1];
@@ -89,26 +85,33 @@ EBox.Tabs.prototype = {
     }
 
     // Menu stores all the A hrefs children from the div tab given
-    var tabs = this.tabContainer.getElementsBySelector('a');
+    this.tabs = this.tabContainer.find('a');
     // Add the onclick function
-    tabs.each( function(linkElement) {
-      this._addTab(linkElement);
-    }.bind(this));
+    var that = this;
+    this.tabs.each( function(index, linkElement) {
+        that._setupTab(that, linkElement);
+    });
+
+    // XXX bind(this) ???
+    // tabs.each( function(linkElement) {
+    //   this._addTab(linkElement);
+    // }.bind(this));
 
     if ( this.defaultTab == 'first' ) {
       this.activeTab = this.tabs.first();
       this.activeTabIdx = 0;
     } else if ( this.defaultTab == 'last' ) {
       this.activeTab = this.tabs.last();
-      this.activeTabIdx = this.tabs.length;
+      this.activeTabIdx = this.tabs.length - 1;
     } else {
-      for( var idx = 0, len = this.tabs.length; idx < len; idx++ ) {
-        if ( this.tabs[idx].id == options.defaultTab ) {
-          this.activeTab = this.tabs[idx];
-          this.activeTabIdx = idx;
-        }
-      }     
-    }
+        tabs.each(function(index, tab) {
+            if (tab.id === options.defaultTab) {
+                this.activeTab = jQuery(tab);
+                this.activeTabIdx = index;
+                return false;
+            }
+        });
+      }
 
     // Show default tab (Done at the template)
 //    if ( this.defaultTab == 'first' ) {
@@ -118,9 +121,10 @@ EBox.Tabs.prototype = {
 //    } else {
 //      this.showActiveTab( this.defaultTab );
 //    }
-                   
-  },
 
+};
+
+EBox.Tabs.prototype = {
   /* Method: showActiveTab
 
      Show the current active tab
@@ -135,42 +139,46 @@ EBox.Tabs.prototype = {
 
   */
   showActiveTab : function(tab) {
-    if ( ! tab ) {
-      // If no tab is passed, then return silently
-      return;
-    }
+      if ( (! tab) || (tab.length === 0) ) {
+          // If no tab is passed, then return silently
+          return;
+      }
 
-    if ( typeof( tab ) == 'string' ) {
+    if ( typeof( tab ) === 'string' ) {
+        // XXX not sure if this is even called
       // Search for the element whose id is call tab
       for ( var idx = 0, len = this.tabs.length; idx < len; idx++) {
         if ( this.tabs[idx].id == tab ) {
           this.showActiveTab(this.tabs[idx]);
           return;
-        }          
+        }
       }
     } else {
-      // Hide the remainder tabs
-      this.tabs.without(tab).each( function(linkElement) {
-        linkElement.removeClassName( this.activeClassName );
-      }.bind(this));
-      // Set the current active tab
-      this.activeTab = tab;
-      // Show the tab
-      tab.addClassName(this.activeClassName);
-      // Set the correct form values
+        // Hide the remainder tabs
+        // XXX legal pass a jquery isntead of a selctor to not
+        this.tabs.not(tab).removeClass(this.activeClassName);
+      // this.tabs.without(tab).each( function(linkElement) {
+        //   linkElement.removeClassName( this.activeClassName );
+        // }.bind(this));
+        // Set the current active tab
+        this.activeTab = tab;
+        // Show the tab
+        tab.addClass(this.activeClassName);
+        // Set the correct form values
         this._setDirInput();
-      // Set additional parameters
-      this._setAdditionalParams();
-      // Load the content from table-helper
-      hangTable( 'tabData_' + this.tabName , 'errorTabData_' + this.tabName,
-                 this.modelAttrs[ tab.id ].action, 'tableForm',
-                 'tabData_' + this.tabName
-               );
+        // Set additional parameters
+        this._setAdditionalParams();
+        // Load the content from table-helper
+        hangTable( 'tabData_' + this.tabName ,
+                   'errorTabData_' + this.tabName,
+                   this.modelAttrs[ tab.attr('id') ].action,
+                   'tableForm',
+                   'tabData_' + this.tabName);
     }
   },
 
   /* Method: next
-     
+
      Show the next tab. If the last one, it does nothing.
 
   */
@@ -186,16 +194,16 @@ EBox.Tabs.prototype = {
   },
 
   /* Method: previous
-     
+
      Show the previous tab. If the first one, it does nothing.
 
   */
   previous : function () {
 
-    if ( this.activeTabIdx == 0 ) {
+    if ( this.activeTabIdx === 0 ) {
       return;
     }
-     
+
     this.activeTabIdx--;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
@@ -203,7 +211,7 @@ EBox.Tabs.prototype = {
   },
 
   /* Method: first
-     
+
      Show the first tab.
 
   */
@@ -216,7 +224,7 @@ EBox.Tabs.prototype = {
   },
 
   /* Method: last
-     
+
      Show the last tab.
 
   */
@@ -230,7 +238,7 @@ EBox.Tabs.prototype = {
 
 
   /* Group: Private method */
-  
+
   /* Method: _addTab
 
      Add the the link element to the EBox.Tabs object
@@ -240,22 +248,15 @@ EBox.Tabs.prototype = {
      linkElement - Element the extended element which it is the <a> element
 
   */
-    _addTab : function(linkElement) {
-      // Add the tab to the this.tabs array in order to manage hrefs
-      this.tabs.push(linkElement);
-      // Create the property key to call by user url#<key>
-      linkElement.key = linkElement.hash.substring(1);
-
-      var clickHandler = function(linkElement) {
-        if ( window.event ) {
-          Event.stop( window.event );
-        }
-        this.showActiveTab(linkElement);
-        return false;
-      }.bind(this, linkElement);
-
-      Event.observe( linkElement, 'click', clickHandler);
-      
+    _setupTab : function(that, linkElement) {
+        var key = linkElement.hash.substring(1)
+        linkElement = jQuery(linkElement);
+        // Create the property key to call by user url#<key>
+        linkElement.attr('key', key);
+        linkElement.on('click', function(event) {
+            that.showActiveTab(linkElement);
+            return false;
+        });
     },
 
   /* Method: _createForm
@@ -274,8 +275,7 @@ EBox.Tabs.prototype = {
     form.setAttribute( 'id', 'tableForm');
     form.appendChild( actionInput );
     // Append the form to the body
-    this.tabContainer.parentNode.appendChild(form);
-
+    this.tabContainer.parent().append(form);
   },
 
   /* Method: _setDirInput
@@ -290,13 +290,13 @@ EBox.Tabs.prototype = {
     var input = $('tableForm')['directory'];
     if ( input ) {
       // Input is defined
-      input.setAttribute('value', this.modelAttrs[this.activeTab.id].directory);
+        input.setAttribute('value', this.modelAttrs[this.activeTab.attr('id')].directory);
     } else {
       // Create the input
       var dirInput = document.createElement('input');
       dirInput.setAttribute('name', 'directory');
       dirInput.setAttribute('type', 'hidden');
-      dirInput.setAttribute('value', this.modelAttrs[this.activeTab.id].directory);
+        dirInput.setAttribute('value', this.modelAttrs[this.activeTab.attr('id')].directory);
       $('tableForm').appendChild(dirInput);
     }
   },
@@ -309,9 +309,9 @@ EBox.Tabs.prototype = {
   _setAdditionalParams : function() {
 
     // Check if additionalParams is defined
-    if ( this.modelAttrs[this.activeTab.id].additionalParams ) {
-      for(var idx=0; idx < this.modelAttrs[this.activeTab.id].additionalParams.length; idx++) {
-        var param = this.modelAttrs[this.activeTab.id].additionalParams[idx];
+    if ( this.modelAttrs[this.activeTab.attr('id')].additionalParams ) {
+      for(var idx=0; idx < this.modelAttrs[this.activeTab.attr('id')].additionalParams.length; idx++) {
+        var param = this.modelAttrs[this.activeTab.attr('id')].additionalParams[idx];
         var input = $('tableForm')[param.name];
         if ( input ) {
           // Input is defined
@@ -324,8 +324,8 @@ EBox.Tabs.prototype = {
           dirInput.setAttribute('value', param.value);
           $('tableForm').appendChild(dirInput);
         }
-      } 
+      }
     }
   }
-    
-}
+
+};
