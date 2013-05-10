@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 27;
+use Test::More tests => 37;
 use Test::Exception;
 use Test::Deep;
 
@@ -104,41 +104,80 @@ throws_ok {
 my @includes = ( '/bin/true', '/bin/false' );
 my @deviantIncludes = ( '/bin/dafdfa' );
 
+# Apache includes.
 throws_ok {
-    $webAdminMod->addInclude();
+    $webAdminMod->addApacheInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to include';
 
 throws_ok {
-    $webAdminMod->addInclude($deviantIncludes[0]);
+    $webAdminMod->addApacheInclude($deviantIncludes[0]);
 } 'EBox::Exceptions::Internal', 'File to include does not exits';
 
 lives_ok {
-    $webAdminMod->addInclude($_) foreach (@includes);
+    $webAdminMod->addApacheInclude($_) foreach (@includes);
 } 'Adding some includes';
 
-cmp_deeply($webAdminMod->_includes(), \@includes,
+cmp_deeply($webAdminMod->_apacheIncludes(), \@includes,
        'The two includes added');
 
 lives_ok {
-    $webAdminMod->addInclude($_) foreach (@includes);
+    $webAdminMod->addApacheInclude($_) foreach (@includes);
 } 'Trying to add the same again';
 
-cmp_deeply($webAdminMod->_includes(), \@includes,
+cmp_deeply($webAdminMod->_apacheIncludes(), \@includes,
            'Only the two includes are there');
 
 throws_ok {
-    $webAdminMod->removeInclude();
+    $webAdminMod->removeApacheInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to exclude';
 
 throws_ok {
-    $webAdminMod->removeInclude($deviantIncludes[0]);
+    $webAdminMod->removeApacheInclude($deviantIncludes[0]);
 } 'EBox::Exceptions::Internal', 'No file to remove';
 
 lives_ok {
-    $webAdminMod->removeInclude($_) foreach (@includes);
+    $webAdminMod->removeApacheInclude($_) foreach (@includes);
 } 'Removing all the include files';
 
-cmp_ok(@{$webAdminMod->_includes()}, '==', 0,
+cmp_ok(@{$webAdminMod->_apacheIncludes()}, '==', 0,
+       'Nothing has been left');
+
+# Nginx includes.
+throws_ok {
+    $webAdminMod->addNginxInclude();
+} 'EBox::Exceptions::MissingArgument', 'No file to include';
+
+throws_ok {
+    $webAdminMod->addNginxInclude($deviantIncludes[0]);
+} 'EBox::Exceptions::Internal', 'File to include does not exits';
+
+lives_ok {
+    $webAdminMod->addNginxInclude($_) foreach (@includes);
+} 'Adding some includes';
+
+cmp_deeply($webAdminMod->_nginxIncludes(), \@includes,
+       'The two includes added');
+
+lives_ok {
+    $webAdminMod->addNginxInclude($_) foreach (@includes);
+} 'Trying to add the same again';
+
+cmp_deeply($webAdminMod->_nginxIncludes(), \@includes,
+           'Only the two includes are there');
+
+throws_ok {
+    $webAdminMod->removeNginxInclude();
+} 'EBox::Exceptions::MissingArgument', 'No file to exclude';
+
+throws_ok {
+    $webAdminMod->removeNginxInclude($deviantIncludes[0]);
+} 'EBox::Exceptions::Internal', 'No file to remove';
+
+lives_ok {
+    $webAdminMod->removeNginxInclude($_) foreach (@includes);
+} 'Removing all the include files';
+
+cmp_ok(@{$webAdminMod->_nginxIncludes()}, '==', 0,
        'Nothing has been left');
 
 1;
