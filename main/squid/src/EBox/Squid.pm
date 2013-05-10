@@ -829,6 +829,8 @@ sub _setAuthenticationModeAD
             my @cmds;
             EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
             EBox::Sudo::root("chown ebox $keytabTempPath");
+            EBox::Sudo::root("chmod 660 $keytabTempPath" );
+
             # Update keytab
             my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
             EBox::Sudo::command($cmd);
