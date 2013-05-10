@@ -653,7 +653,7 @@ Parameters:
         *(Optional)* Default: 'loadingTable'
 
 */
-// TT
+// RR
 function hangTable(successId, errorId, url, formId, loadingId)
 {
     var params = jQuery('#' + formId).first().serialize();
