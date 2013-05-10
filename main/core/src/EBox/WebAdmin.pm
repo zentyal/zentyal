@@ -41,9 +41,11 @@ use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
 
 # Constants
-use constant INCLUDE_KEY => 'includes';
+use constant APACHE_INCLUDE_KEY => 'apacheIncludes';
+use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
+use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
 
 # Constructor: _create
@@ -222,7 +224,7 @@ sub _writeNginxConfFile
     my ($self) = @_;
 
     # Write CA links
-    $self->_writeCAPath();
+    $self->_writeCAFiles();
 
     my $nginxconf = $self->_nginxConfFile();
     my $templateConf = 'core/nginx.conf.mas';
@@ -231,6 +233,8 @@ sub _writeNginxConfFile
     push @confFileParams, (port => $self->port());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
+    push @confFileParams, (includes => $self->_nginxIncludes(1) );
+    push @confFileParams, (caFile => EBox::Config::conf() . 'ssl-ca/nginx-ca.pem');
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -273,7 +277,7 @@ sub _writeHttpdConfFile
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
     push @confFileParams, ( restrictedResources => $self->get_list('restricted_resources') );
-    push @confFileParams, ( includes => $self->_includes(1) );
+    push @confFileParams, ( includes => $self->_apacheIncludes(1) );
 
     my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');
     my $desktop_services_port = EBox::Config::configkey('desktop_services_port');
@@ -331,33 +335,17 @@ sub _writeCSSFiles
     }
 }
 
-# write CA Certificate Path with included CAs
-sub _writeCAPath
+# write CA Certificate file with included CAs
+sub _writeCAFiles
 {
     my ($self) = @_;
 
     system('rm -rf ' . CA_CERT_PATH);
     mkdir(CA_CERT_PATH);
 
-    # Write links for each CA
     foreach my $ca (@{$self->_CAs(1)}) {
-        my $link = $self->_caLinkPath($ca);
-        unlink($link) if ( -l $link );
-        symlink($ca, $link);
-    }
-}
-
-# Return the link name for the CA certificate in the given format
-# hashValue.0 - hash value is the output from openssl ciphering
-sub _caLinkPath
-{
-    my ($self, $ca) = @_;
-
-    my $hashRet = EBox::Sudo::command("openssl x509 -hash -noout -in $ca");
-
-    my $hashValue = $hashRet->[0];
-    chomp($hashValue);
-    return CA_CERT_PATH . "${hashValue}.0";
+        write_file(CA_CERT_FILE, { append => 1 }, read_file($ca)) ;
+   }
 }
 
 # Report the new TCP admin port to Zentyal Cloud
@@ -656,7 +644,101 @@ sub addModuleStatus
 {
 }
 
-# Method: addInclude
+# Method: addNginxInclude
+#
+#      Add an "include" directive to the nginx configuration
+#
+#      Added only in the main virtual host
+#
+# Parameters:
+#
+#      includeFilePath - String the configuration file path to include
+#      in nginx configuration
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file does
+#      not exists
+#
+sub addNginxInclude
+{
+    my ($self, $includeFilePath) = @_;
+
+    unless(defined($includeFilePath)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $includeFilePath and -r $includeFilePath) {
+        throw EBox::Exceptions::Internal(
+            "File $includeFilePath cannot be read or it is not a file"
+           );
+    }
+    my @includes = @{$self->_nginxIncludes(0)};
+    unless ( grep { $_ eq $includeFilePath } @includes) {
+        push(@includes, $includeFilePath);
+        $self->set_list(NGINX_INCLUDE_KEY, 'string', \@includes);
+    }
+
+}
+
+# Method: removeNginxInclude
+#
+#      Remove an "include" directive to the nginx configuration
+#
+# Parameters:
+#
+#      includeFilePath - String the configuration file path to remove
+#      from nginx configuration
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file has not
+#      been included previously
+#
+sub removeNginxInclude
+{
+    my ($self, $includeFilePath) = @_;
+
+    unless(defined($includeFilePath)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    my @includes = @{$self->_nginxIncludes(0)};
+    my @newIncludes = grep { $_ ne $includeFilePath } @includes;
+    if ( @newIncludes == @includes ) {
+        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
+                                         silent => 1);
+    }
+    $self->set_list(NGINX_INCLUDE_KEY, 'string', \@newIncludes);
+
+}
+
+# Return those include files that has been added
+sub _nginxIncludes
+{
+    my ($self, $check) = @_;
+    my $includeList = $self->get_list(NGINX_INCLUDE_KEY);
+    if (not $check) {
+        return $includeList;
+    }
+
+    my @includes;
+    foreach my $incPath (@{ $includeList }) {
+        if ((-f $incPath) and (-r $incPath)) {
+            push @includes, $incPath;
+        } else {
+            EBox::warn("Ignoring apache include $incPath: cannot read the file or it is not a regular file");
+        }
+    }
+
+    return \@includes;
+}
+
+# Method: addApacheInclude
 #
 #      Add an "include" directive to the apache configuration
 #
@@ -675,7 +757,7 @@ sub addModuleStatus
 #      <EBox::Exceptions::Internal> - thrown if the given file does
 #      not exists
 #
-sub addInclude
+sub addApacheInclude
 {
     my ($self, $includeFilePath) = @_;
 
@@ -687,15 +769,15 @@ sub addInclude
             "File $includeFilePath cannot be read or it is not a file"
            );
     }
-    my @includes = @{$self->_includes(0)};
+    my @includes = @{$self->_apacheIncludes(0)};
     unless ( grep { $_ eq $includeFilePath } @includes) {
         push(@includes, $includeFilePath);
-        $self->set_list(INCLUDE_KEY, 'string', \@includes);
+        $self->set_list(APACHE_INCLUDE_KEY, 'string', \@includes);
     }
 
 }
 
-# Method: removeInclude
+# Method: removeApacheInclude
 #
 #      Remove an "include" directive to the apache configuration
 #
@@ -712,28 +794,28 @@ sub addInclude
 #      <EBox::Exceptions::Internal> - thrown if the given file has not
 #      been included previously
 #
-sub removeInclude
+sub removeApacheInclude
 {
     my ($self, $includeFilePath) = @_;
 
     unless(defined($includeFilePath)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    my @includes = @{$self->_includes(0)};
+    my @includes = @{$self->_apacheIncludes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
     if ( @newIncludes == @includes ) {
         throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
                                          silent => 1);
     }
-    $self->set_list(INCLUDE_KEY, 'string', \@newIncludes);
+    $self->set_list(APACHE_INCLUDE_KEY, 'string', \@newIncludes);
 
 }
 
 # Return those include files that has been added
-sub _includes
+sub _apacheIncludes
 {
     my ($self, $check) = @_;
-    my $includeList = $self->get_list(INCLUDE_KEY);
+    my $includeList = $self->get_list(APACHE_INCLUDE_KEY);
     if (not $check) {
         return $includeList;
     }
@@ -752,7 +834,7 @@ sub _includes
 
 # Method: addCA
 #
-#   Include the given CA in the SSLCACertificatePath
+#   Include the given CA in the ssl_client_certificate
 #
 # Parameters:
 #
@@ -771,7 +853,7 @@ sub addCA
     my ($self, $ca) = @_;
 
     unless(defined($ca)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
+        throw EBox::Exceptions::MissingArgument('ca');
     }
     unless(-f $ca and -r $ca) {
         throw EBox::Exceptions::Internal(
@@ -788,7 +870,7 @@ sub addCA
 
 # Method: removeCA
 #
-#      Remove a previously added CA from the SSLCACertificatePath
+#      Remove a previously added CA from the ssl_client_certificate
 #
 # Parameters:
 #
@@ -807,7 +889,7 @@ sub removeCA
     my ($self, $ca) = @_;
 
     unless(defined($ca)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
+        throw EBox::Exceptions::MissingArgument('ca');
     }
     my @cas = @{$self->_CAs(0)};
     my @newCAs = grep { $_ ne $ca } @cas;

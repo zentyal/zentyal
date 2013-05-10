@@ -5,11 +5,6 @@
 <Location /slave>
     SetHandler perl-script
     PerlHandler EBox::UsersSync::WSDispatcherSlave
-    <IfModule mod_ssl.c>
-        SSLRequireSSL
-        SSLVerifyClient require
-        SSLVerifyDepth 1
-    </IfModule>
     Order allow,deny
     Allow from all
 </Location>
