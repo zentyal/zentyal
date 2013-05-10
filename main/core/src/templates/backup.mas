@@ -91,12 +91,11 @@ my $formId    = $id . '_form';
 my $onChange = << "JS_END";
 var fileUpload = new EBox.FileUpload(
    { formId :   '$formId',
-     onStart :    function() { setLoading('$loadingId'); },
-     onComplete : function()  { setDone('$loadingId') ; },
+     onStart :    function() { jQuery('#restoreFromFile').prop('disabled', true); setLoading('$loadingId'); },
+     onComplete : function() { setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();
-jQuery('#restoreFromFile').prop('disabled', false);
 return res;
 JS_END
 
