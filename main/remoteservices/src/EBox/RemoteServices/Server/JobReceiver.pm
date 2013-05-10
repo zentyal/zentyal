@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,8 +38,9 @@ use Fcntl ':mode';
 use File::Path;
 use YAML::XS;
 
-use constant JOBS_DIR     => EBox::Config::conf() . 'remoteservices/jobs/';
-use constant INCOMING_DIR => JOBS_DIR . 'incoming/';
+# Constants
+sub JOBS_DIR { EBox::Config::conf() . 'remoteservices/jobs/' };
+sub INCOMING_DIR { JOBS_DIR . 'incoming/'; }
 
 # Group: Public class methods
 
