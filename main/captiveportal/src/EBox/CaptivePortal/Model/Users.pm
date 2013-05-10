@@ -33,6 +33,7 @@ use EBox::Types::Action;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::CaptivePortal::Auth;
+use EBox::Types::Int;
 
 use Fcntl qw(:flock);
 use YAML::XS;
