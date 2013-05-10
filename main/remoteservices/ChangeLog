@@ -1,3 +1,6 @@
+HEAD
+	+ Added pullStatus SOAP server method to get the job result via
+	  polling
 3.0.20
 	+ Changed location of remote backup metainfo files to preserve cache
 	  after reboot

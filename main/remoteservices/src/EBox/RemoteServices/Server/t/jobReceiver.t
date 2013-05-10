@@ -109,6 +109,44 @@ sub test_run_job : Test(8)
     _testCmd($cmd, $jobDirPath, $args);
 }
 
+sub test_pull_status : Test(4)
+{
+    my ($self) = @_;
+
+    throws_ok {
+        EBox::RemoteServices::Server::JobReceiver->pullStatus();
+    } 'EBox::Exceptions::MissingArgument',
+      'Call without required argument';
+
+    is_deeply(EBox::RemoteServices::Server::JobReceiver->pullStatus(23232),
+              { 'status' => 'noexist', 'exitValue' => undef, 'stdout' => undef,
+                'stderr' => undef }, 'Job does not exist');
+
+    # Queue a job
+    my $jobId = 12322;
+    my $args  = 'test1';
+    my @coolParams = (jobId => $jobId,
+                      script => qq{#!/bin/bash\necho "\$@"},
+                      arguments => $args);
+
+    my $jobDirPath = $self->{jobDir} . "/$jobId";
+    EBox::RemoteServices::Server::JobReceiver->runJob(@coolParams);
+
+    is_deeply(EBox::RemoteServices::Server::JobReceiver->pullStatus($jobId),
+              { 'status' => 'queued', 'exitValue' => undef, 'stdout' => undef,
+                'stderr' => undef }, 'Job is on the queue');
+
+    # Actually run it (mimetise runnerd)
+    system("xargs -a $jobDirPath/args $jobDirPath/script > $jobDirPath/stdout 2> $jobDirPath/stderr");
+    File::Slurp::write_file("$jobDirPath/exitValue", "0");
+    unlink($self->{jobDir} . "/incoming/$jobId");
+
+    is_deeply(EBox::RemoteServices::Server::JobReceiver->pullStatus($jobId),
+              { 'status' => 'finished', 'exitValue' => 0, 'stdout' => $args . "\n",
+                'stderr' => "" }, 'Job has been run');
+
+}
+
 sub _testCmd
 {
     my ($cmd, $jobDirPath, $args) = @_;
