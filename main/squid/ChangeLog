@@ -1,3 +1,5 @@
+HEAD
+	+ Changed HTTP keytab permission in order to avoid krb5_kt_add_entry errors
 3.1
 	+ Removed 3.0.X migration code
 	+ Implemented _daemonsToDisable()
