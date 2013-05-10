@@ -16,7 +16,7 @@
  */
 
 /*
- * Class: EBox.Tabs
+ * Class: Zentyal.Tabs
  *
  * This object creates a tab group to manage using CSS and JavaScript.
  *
@@ -24,50 +24,46 @@
  */
 "use strict";
 
-if ( typeof(EBox) == 'undefined' ) {
-  var EBox = {};
-}
 
-  /*
-     Constructor: initialize
+/*
+   Zentyal.tabs constructor
 
-     Create a EBox.Tabs JS class to manage a tab group
+   Create a Zentyal. Tabs JS class to manage a tab group
 
-     Parameters:
+   Parameters:
 
-     tabContainer - String the tab container identifier from where the tabs hang
-     modelAttrs   - Associative array indexing by element identifier
-                    containing the following properties:
-                     action -  URL for the actions to perform by an AJAX request
-                     additionalParams - array containing associative arrays with
-                                        the following elements:
-                         name  - String the param's name
-                         value - String the param's value
-                     directory - a parameter to send specific for the tab model
-     options      - Associate array which can contain the following
-                    optional parameters:
-                    - activeClassName : String the CSS class name to the active tab
-                    - defaultTab : String the name of the default tab
-                                   or first or last
-     Returns:
+   tabContainer - String the tab container identifier from where the tabs hang
+   modelAttrs   - Associative array indexing by element identifier
+                  containing the following properties:
+                   action -  URL for the actions to perform by an AJAX request
+                   additionalParams - array containing associative arrays with
+                                      the following elements:
+                       name  - String the param's name
+                       value - String the param's value
+                   directory - a parameter to send specific for the tab model
+   options      - Associate array which can contain the following
+                  optional parameters:
+                  - activeClassName : String the CSS class name to the active tab
+                  - defaultTab : String the name of the default tab
+                                 or first or last
+   Returns:
 
-     <EBox.Tabs> - the recently created object
+   <Zentyal.Tabs> - the recently created object
 
-  */
-EBox.Tabs =  function(tabContainer, modelAttrs, options) {
+*/
+Zentyal.Tabs =  function(tabContainer, modelAttrs, options) {
     // The div where the tabs are
     this.tabContainer = jQuery('#' + tabContainer);
     // Set the tabMenu name
     var nameParts = tabContainer.split('_');
     this.tabName = nameParts[1];
-    // Set the active tab
+
     this.activeTab = false;
     this.activeTabIdx = -1;
-    // The tabs
     this.tabs = [];
     // The object where the action URLs are stored, indexed by model name
     this.modelAttrs = modelAttrs;
-    // Create a form to send the parameters
+    // Create a form to send the parameters when requestign a new tab
     this._createForm();
 
     if ( options && options.activeClassName ) {
@@ -86,16 +82,11 @@ EBox.Tabs =  function(tabContainer, modelAttrs, options) {
 
     // Menu stores all the A hrefs children from the div tab given
     this.tabs = this.tabContainer.find('a');
-    // Add the onclick function
+
     var that = this;
     this.tabs.each( function(index, linkElement) {
         that._setupTab(that, linkElement);
     });
-
-    // XXX bind(this) ???
-    // tabs.each( function(linkElement) {
-    //   this._addTab(linkElement);
-    // }.bind(this));
 
     if ( this.defaultTab == 'first' ) {
       this.activeTab = this.tabs.first();
@@ -112,19 +103,10 @@ EBox.Tabs =  function(tabContainer, modelAttrs, options) {
             }
         });
       }
-
-    // Show default tab (Done at the template)
-//    if ( this.defaultTab == 'first' ) {
-//      this.showActiveTab( this.tabs.first() );
-//    } else if ( this.defaultTab == 'last' ) {
-//      this.showActiveTab( this.tabs.last() );
-//    } else {
-//      this.showActiveTab( this.defaultTab );
-//    }
-
+    return this;
 };
 
-EBox.Tabs.prototype = {
+Zentyal.Tabs.prototype = {
   /* Method: showActiveTab
 
      Show the current active tab
@@ -145,7 +127,6 @@ EBox.Tabs.prototype = {
       }
 
     if ( typeof( tab ) === 'string' ) {
-        // XXX not sure if this is even called
       // Search for the element whose id is call tab
       for ( var idx = 0, len = this.tabs.length; idx < len; idx++) {
         if ( this.tabs[idx].id == tab ) {
@@ -154,20 +135,16 @@ EBox.Tabs.prototype = {
         }
       }
     } else {
-        // Hide the remainder tabs
-        // XXX legal pass a jquery isntead of a selctor to not
+        // Hide the no-active tabs
         this.tabs.not(tab).removeClass(this.activeClassName);
-      // this.tabs.without(tab).each( function(linkElement) {
-        //   linkElement.removeClassName( this.activeClassName );
-        // }.bind(this));
-        // Set the current active tab
         this.activeTab = tab;
         // Show the tab
         tab.addClass(this.activeClassName);
         // Set the correct form values
-        this._setDirInput();
-        // Set additional parameters
+        var activeTabDir = this.modelAttrs[this.activeTab.attr('id')].directory;
+        this._setTableFormInput('directory', activeTabDir);
         this._setAdditionalParams();
+
         // Load the content from table-helper
         hangTable( 'tabData_' + this.tabName ,
                    'errorTabData_' + this.tabName,
@@ -207,7 +184,6 @@ EBox.Tabs.prototype = {
     this.activeTabIdx--;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
   /* Method: first
@@ -220,7 +196,6 @@ EBox.Tabs.prototype = {
     this.activeTabIdx = 0;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
   /* Method: last
@@ -233,18 +208,14 @@ EBox.Tabs.prototype = {
     this.activeTabIdx = this.tabs.length - 1;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
+  /* Method: _setupTab
 
-  /* Group: Private method */
-
-  /* Method: _addTab
-
-     Add the the link element to the EBox.Tabs object
+     Add the the link element to the Zentyal.Tabs object and setup it
 
      Parameters:
-
+     that        - Zentyal.Tabs object
      linkElement - Element the extended element which it is the <a> element
 
   */
@@ -278,54 +249,41 @@ EBox.Tabs.prototype = {
     this.tabContainer.parent().append(form);
   },
 
-  /* Method: _setDirInput
-
-     Set the directory input value from the selected tab in order to
-     make the POST request dynamically. It will replace any previous
-     directory input value if any.
-
-  */
-  _setDirInput : function() {
-
-    var input = $('tableForm')['directory'];
-    if ( input ) {
-      // Input is defined
-        input.setAttribute('value', this.modelAttrs[this.activeTab.attr('id')].directory);
-    } else {
-      // Create the input
-      var dirInput = document.createElement('input');
-      dirInput.setAttribute('name', 'directory');
-      dirInput.setAttribute('type', 'hidden');
-        dirInput.setAttribute('value', this.modelAttrs[this.activeTab.attr('id')].directory);
-      $('tableForm').appendChild(dirInput);
-    }
-  },
-
   /* Method: _setAdditionalParams
 
      Set the additional parameters to be sent in POST request.
 
   */
   _setAdditionalParams : function() {
+      var activeTabId = this.activeTab.attr('id');
+      // Check if additionalParams is defined
 
-    // Check if additionalParams is defined
-    if ( this.modelAttrs[this.activeTab.attr('id')].additionalParams ) {
-      for(var idx=0; idx < this.modelAttrs[this.activeTab.attr('id')].additionalParams.length; idx++) {
-        var param = this.modelAttrs[this.activeTab.attr('id')].additionalParams[idx];
-        var input = $('tableForm')[param.name];
-        if ( input ) {
+      if ( this.modelAttrs[activeTabId].additionalParams ) {
+          for(var i=0; i < this.modelAttrs[activeTabId].additionalParams.length; i++) {
+              var param = this.modelAttrs[activeTabId].additionalParams[i];
+              this._setTableFormInput(param.name, param.value);
+          }
+      }
+  },
+
+  /* Method: _setDirInput
+
+     Set the directory input value from the selected tab in order to
+     make the POST request dynamically.
+  */
+  _setTableFormInput : function(name, value) {
+      var input = jQuery('#tableForm #' + name);
+      if ( input.length > 0 ) {
           // Input is defined
-          input.setAttribute('value', param.value);
-        } else {
+          input.setAttribute('value', value);
+      } else {
           // Create the input
           var dirInput = document.createElement('input');
-          dirInput.setAttribute('name', param.name);
+          dirInput.setAttribute('name', name);
           dirInput.setAttribute('type', 'hidden');
-          dirInput.setAttribute('value', param.value);
-          $('tableForm').appendChild(dirInput);
-        }
+          dirInput.setAttribute('value', value);
+          jQuery('#tableForm').append(dirInput);
       }
-    }
   }
 
 };

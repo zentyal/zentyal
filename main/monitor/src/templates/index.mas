@@ -27,6 +27,7 @@ Parameters:
                    ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
                    ch => '</a>');
 </%init>
+<script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
@@ -79,6 +80,6 @@ Parameters:
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].additionalParams =
        [ { 'name' : 'period', 'value' : '<% $periodData->{name} %>' }];
 % }
-  var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
+  var tabMenu_<% $tabName | hu %> = new Zentyal.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>
 

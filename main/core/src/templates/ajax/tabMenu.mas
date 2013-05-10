@@ -80,7 +80,7 @@ use EBox::Gettext;
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].action = '<% $action %>';
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].directory = '<% $modelDir %>';
 % }
-  var tabMenu_<% $tabName | hu %> = new EBox.Tabs(
+  var tabMenu_<% $tabName | hu %> = new Zentyal.Tabs(
      '<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>
   );
   var url = location.href.split('#');
