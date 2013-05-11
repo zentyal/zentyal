@@ -873,7 +873,7 @@ sub _reverseData
                     unless exists $reverseData->{$groupPart};
                 if (exists $reverseData->{$groupPart}->{domain} and
                     $domainName ne $reverseData->{$groupPart}->{domain}) {
-                    my $warn = "Inconsistent DNS configuration deteceted. " .
+                    my $warn = "Inconsistent DNS configuration detected. " .
                                "IP group $groupPart is already mapped to domain " .
                                $reverseData->{$groupPart}->{domain} . ". " .
                                "The host $hostName.$domainName with IP $ip is not going " .
