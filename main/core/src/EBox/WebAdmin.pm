@@ -233,8 +233,12 @@ sub _writeNginxConfFile
     push @confFileParams, (port => $self->port());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
-    push @confFileParams, (includes => $self->_nginxIncludes(1) );
-    push @confFileParams, (caFile => EBox::Config::conf() . 'ssl-ca/nginx-ca.pem');
+    push @confFileParams, (includes => $self->_nginxIncludes(1));
+    if (@{$self->_CAs(1)}) {
+        push @confFileParams, (caFile => EBox::Config::conf() . 'ssl-ca/nginx-ca.pem');
+    } else {
+        push @confFileParams, (caFile => undef);
+    }
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -344,7 +348,7 @@ sub _writeCAFiles
     mkdir(CA_CERT_PATH);
 
     foreach my $ca (@{$self->_CAs(1)}) {
-        write_file(CA_CERT_FILE, { append => 1 }, read_file($ca)) ;
+        write_file(CA_CERT_FILE, { append => 1 }, read_file($ca));
    }
 }
 

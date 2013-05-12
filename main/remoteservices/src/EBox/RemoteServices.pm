@@ -1616,7 +1616,7 @@ sub _confSOAPService
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
     # $webAdminMod->save();
-    EBox::Global->modChange('webadmin');
+    $webAdminMod->setAsChanged();
 }
 
 # Assure the VPN connection with our VPN servers is established
