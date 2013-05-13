@@ -188,19 +188,20 @@ function equals(a,b)
     return true;
 }
 
-//TT
+//RR
 function updateValue(element, item)
 {
     if (item.value_type === 'ajax') {
-        new Ajax.Request(item.ajax_url, {
-            asynchronous: false,
-            data: '',
-            onSuccess: function(response) {
-                item.value = response.responseJSON.value;
-                element.removeClass().addClass('summary_value');
-                element.addClass('summary_' + response.responseJSON.type);
-            }
-        });
+        jQuery.ajax({
+                         url: item.ajax_url,
+                         async: false,
+                         dataType: 'json',
+                         success: function(response) {
+                            item.value = response.value;
+                            element.removeClass().addClass('summary_value');
+                            element.addClass('summary_' + response.type);
+                         }
+                   });
     }
 
     console.log('updateValue for ' + item.ajax_url + ' = ' + item.value);
