@@ -127,22 +127,28 @@ function updateGraph(element,value) {
 <script type="text/javascript">
 
 jQuery.noConflict();
-% foreach my $i (1..2) {
-Sortable.create("dashboard<% $i %>", {
+
+function createDashboardSortable(id, containment)
+{
+  Sortable.create(id, {
     tag: "div",
     handle: "widgetHandle",
     dropOnEmpty: true,
     constraint: false,
     scroll: window,
-    containment: ["dashboard1","dashboard2"],
+    containment: containment,
     onUpdate: function() {
         new Ajax.Request("/Dashboard/Update", {
             method: "post",
-            parameters: { dashboard: "dashboard<% $i %>", widgets: Sortable.sequence("dashboard<% $i %>").join(',') }
+            parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
         });
     }
-});
-% }
+  });
+}
+
+createDashboardSortable('dashboard1', ['dashboard1','dashboard2']);
+createDashboardSortable('dashboard2', ['dashboard1','dashboard2']);
+
 
 var statusInfo = [];
 
@@ -374,7 +380,7 @@ function updateWidgets() {
             method: "get",
             asynchronous: true,
             onSuccess: function(transport) {
-                alert('Updated ' + url);
+                console.log('Updated ' + url);
                 updateWidget(transport.responseJSON);
             }
         });
@@ -389,5 +395,5 @@ jQuery( function () {
 </script>
 
 %#<input type='button' value='DEBUG' onclick='Zentyal.Dashboard.updateWidgets();    alert("widgets update"); return false' />
-<input type='button' value='DEBUG' onclick='updateWidgets();   alert("widgets update"); return false' />
+<input type='button' value='DEBUG' onclick='updateWidgets();  return false' />
 
