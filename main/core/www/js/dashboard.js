@@ -80,20 +80,21 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 //    });
 };
 
-Zentyal.Dashboard.updateWidgets = function() {
-    var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
-    widgets.each(function(w) {
-        var parts = w.split(':');
-        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
-        new Ajax.Request(url, {
-            method: "get",
-            asynchronous: true,
-            onSuccess: function(transport) {
-                updateWidget(transport.responseJSON);
-            }
-        });
-    });
-};
+// Zentyal.Dashboard.updateWidgets = function() {
+//     var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
+//     widgets.each(function(w) {
+//         var parts = w.split(':');
+//         var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
+//         new Ajax.Request(url, {
+//             method: "get",
+//             asynchronous: true,
+//             onSuccess: function(transport) {
+//                 alert('Updated ' + url);
+//                 updateWidget(transport.responseJSON);
+//             }
+//         });
+//     });
+// };
 
 Zentyal.Dashboard.widget = function(m,w,full) {
     var opacity,

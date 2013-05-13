@@ -14,8 +14,8 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
-<script type="text/javascript" src="/data/js/common.js">//</script>
-<script type="text/javascript" src="/data/js/dashboard.js">//</script>
+<script type="text/javascript" async=false defer=false  src="/data/js/common.js">//</script>
+<script type="text/javascript" async=false defer=false src="/data/js/dashboard.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
@@ -125,6 +125,8 @@ function updateGraph(element,value) {
 % }
 </div>
 <script type="text/javascript">
+
+jQuery.noConflict();
 % foreach my $i (1..2) {
 Sortable.create("dashboard<% $i %>", {
     tag: "div",
@@ -142,10 +144,11 @@ Sortable.create("dashboard<% $i %>", {
 });
 % }
 
-var statusInfo = new Array();
+var statusInfo = [];
 
 function equals(a,b)
 {
+    var p;
     for (p in a)
     {
         if (a[p] == null) {
@@ -362,9 +365,29 @@ function updateWidget(widget) {
   }
 }
 
+function updateWidgets() {
+    var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
+    widgets.each(function(w) {
+        var parts = w.split(':');
+        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
+        new Ajax.Request(url, {
+            method: "get",
+            asynchronous: true,
+            onSuccess: function(transport) {
+                alert('Updated ' + url);
+                updateWidget(transport.responseJSON);
+            }
+        });
+    });
+};
+
 jQuery( function () {
-      setInterval( Zentyal.Dashboard.updateWidgets, 30000);
+
+//      setInterval( Zentyal.Dashboard.updateWidgets, 30000);
+      setInterval( updateWidgets, 30000);
 });
 </script>
 
-<input type='button' value='DEBUG' onclick='Zentyal.Dashboard.updateWidgets();   alert("widgets update"); return false' />
+%#<input type='button' value='DEBUG' onclick='Zentyal.Dashboard.updateWidgets();    alert("widgets update"); return false' />
+<input type='button' value='DEBUG' onclick='updateWidgets();   alert("widgets update"); return false' />
+
