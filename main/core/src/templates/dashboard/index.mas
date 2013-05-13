@@ -183,6 +183,129 @@ function equals(a,b)
     return true;
 }
 
+function updateValue(element, item)
+{
+    if (item.value_type === 'ajax') {
+        new Ajax.Request(item.ajax_url, {
+            asynchronous: false,
+            data: '',
+            onSuccess: function(response) {
+                item.value = response.responseJSON.value;
+                element.className = 'summary_value';
+                element.addClassName('summary_' + response.responseJSON.type);
+            }
+        });
+    }
+    if (element.innerHTML != item.value) {
+        element.update(item.value);
+        element.visualEffect('highlight');
+    }
+}
+
+function updateStatus(element, item, itemname)
+{
+        var skip = 0;
+   var highlight = 1;
+   if (statusInfo[itemname]) {
+       if (equals(item,statusInfo[itemname])) {
+           skip = 1;
+       }
+   } else {
+       highlight = 0;
+   }
+   if(!skip) {
+       statusInfo[itemname] = item;
+       var status;
+       var button = restart;
+       var name = 'restart';
+       if (item.enabled && item.running) {
+           status = 'running';
+       } else if (item.enabled && !item.running) {
+           status = 'stopped';
+           button = start;
+           name = 'start'
+       } else if (!item.enabled && item.running) {
+           status = 'unmanaged';
+       } else {
+           status = 'disabled';
+       }
+       var text;
+       var tooltip;
+       if (item.statusStr) {
+           text = item.statusStr;
+           tooltip = '';
+       } else {
+           text = status_str[status]['text'];
+           tooltip = status_str[status]['tip'];
+       }
+       var new_text = "<span title='" + tooltip
+           + "' class='sleft'>" + text
+           + '</span>';
+       if (item.enabled && !item.nobutton) {
+           var restart_form = "\
+    <form action='/SysInfo/RestartService'>\
+   <input type='hidden' name='module' value='" + item.module + "'/>\
+   <span class='sright'>\
+<input class='inputButtonRestart' type='submit' name='" + name + "' value='"
+    + button + "'/>\
+   </span>\
+    </form>";
+           new_text += restart_form;
+       }
+       element.update(new_text);
+       if (highlight) {
+           element.visualEffect('highlight');
+       }
+   }
+}
+
+function updateGraphRow(item, itemname) {
+    var b;
+    for(var g = 0; g < item.graphs.length; g++) {
+        var graphname = itemname + '_' + g;
+        var graph = $(graphname);
+        updateGraph(graph, item.graphs[g].value);
+    }
+}
+
+function updateList(item, itemname) {
+    var listname = itemname + '_table';
+    var nonename = itemname + '_none';
+    var list = $(listname);
+    if(item.ids.length == 0) {
+        $(listname).hide();
+        $(nonename).show();
+    } else {
+        $(listname).show();
+        $(nonename).hide();
+    }
+    var rids = new Array();
+    for (var r = 1; r < list.rows.length; r++) {
+        var row = list.rows[r];
+        var id = row.attributes['id'].value;
+        if(item.ids.indexOf(id) == -1) {
+            row.remove();
+            r--;
+        } else {
+            rids[r] = id;
+        }
+    }
+    for (var i = 0; i < item.ids.length; i++) {
+        var id = item.ids[i];
+        if(rids.indexOf(id) == -1) {
+            var row = list.insertRow(i+1);
+            row.setAttribute('id',id);
+            var content = item.rows[id];
+            for (var c = 0; c < content.length; c++) {
+                var cell = row.insertCell(c);
+                cell.innerHTML = content[c];
+            }
+            row.visualEffect('highlight');
+        }
+    }
+}
+
+
 function updateWidget(widget) {
     if(widget == null) {
         return;
@@ -251,119 +374,15 @@ function updateWidget(widget) {
                 var itemname = sect + '_' + i;
                 var element = $(itemname);
                 if(item.type == 'value') {
-                    if (item.value_type == 'ajax') {
-                        new Ajax.Request(item.ajax_url, {
-                            asynchronous: false,
-                            data: '',
-                            onSuccess: function(response) {
-                                item.value = response.responseJSON.value;
-                                element.className = 'summary_value';
-                                element.addClassName('summary_' + response.responseJSON.type);
-                            }
-                        });
-                    }
-                    if (element.innerHTML != item.value) {
-                        element.update(item.value);
-                        element.visualEffect('highlight');
-                    }
+                    updateValue(element, item);
                 } else if(item.type == 'status') {
-                    var skip = 0;
-                    var highlight = 1;
-                    if (statusInfo[itemname]) {
-                        if (equals(item,statusInfo[itemname])) {
-                            skip = 1;
-                        }
-                    } else {
-                        highlight = 0;
-                    }
-                    if(!skip) {
-                        statusInfo[itemname] = item;
-                        var status;
-                        var button = restart;
-                        var name = 'restart';
-                        if (item.enabled && item.running) {
-                            status = 'running';
-                        } else if (item.enabled && !item.running) {
-                            status = 'stopped';
-                            button = start;
-                            name = 'start'
-                        } else if (!item.enabled && item.running) {
-                            status = 'unmanaged';
-                        } else {
-                            status = 'disabled';
-                        }
-                        var text;
-                        var tooltip;
-                        if (item.statusStr) {
-                            text = item.statusStr;
-                            tooltip = '';
-                        } else {
-                            text = status_str[status]['text'];
-                            tooltip = status_str[status]['tip'];
-                        }
-                        var new_text = "<span title='" + tooltip
-                            + "' class='sleft'>" + text
-                            + '</span>';
-                        if (item.enabled && !item.nobutton) {
-                            var restart_form = "\
-    <form action='/SysInfo/RestartService'>\
-        <input type='hidden' name='module' value='" + item.module + "'/>\
-        <span class='sright'>\
-            <input class='inputButtonRestart' type='submit' name='" + name + "' value='"
-    + button + "'/>\
-        </span>\
-    </form>";
-                            new_text += restart_form;
-                        }
-                        element.update(new_text);
-                        if (highlight) {
-                            element.visualEffect('highlight');
-                        }
-                    }
+                    updateStatus(element, item, itemname);
                 } else if(item.type == 'graph') {
                     updateGraph(element, item.value);
                 } else if(item.type == 'graphrow') {
-                    var b;
-                    for(var g = 0; g < item.graphs.length; g++) {
-                        var graphname = itemname + '_' + g;
-                        var graph = $(graphname);
-                        updateGraph(graph, item.graphs[g].value);
-                    }
+                    updateGraphRow(item, itemname);
                 } else if(item.type == 'list') {
-                    var listname = itemname + '_table';
-                    var nonename = itemname + '_none';
-                    var list = $(listname);
-                    if(item.ids.length == 0) {
-                        $(listname).hide();
-                        $(nonename).show();
-                    } else {
-                        $(listname).show();
-                        $(nonename).hide();
-                    }
-                    var rids = new Array();
-                    for (var r = 1; r < list.rows.length; r++) {
-                        var row = list.rows[r];
-                        var id = row.attributes['id'].value;
-                        if(item.ids.indexOf(id) == -1) {
-                            row.remove();
-                            r--;
-                        } else {
-                            rids[r] = id;
-                        }
-                    }
-                    for (var i = 0; i < item.ids.length; i++) {
-                        var id = item.ids[i];
-                        if(rids.indexOf(id) == -1) {
-                            var row = list.insertRow(i+1);
-                            row.setAttribute('id',id);
-                            var content = item.rows[id];
-                            for (var c = 0; c < content.length; c++) {
-                                var cell = row.insertCell(c);
-                                cell.innerHTML = content[c];
-                            }
-                            row.visualEffect('highlight');
-                        }
-                    }
+                    updateList(item, itemname);
                 }
             });
         }
