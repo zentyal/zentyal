@@ -366,3 +366,5 @@ jQuery( function () {
       setInterval( Zentyal.Dashboard.updateWidgets, 30000);
 });
 </script>
+
+<input type='button' value='DEBUG' onclick='Zentyal.Dashboard.updateWidgets();   alert("widgets update"); return false' />
