@@ -69,14 +69,17 @@ function configureWidgets()
 
 var graphInfo = new Array();
 
+//TT
 function updateGraph(element,value) {
-    var g = graphInfo[element.id];
+    var id = element.attr('id');
+    var g = graphInfo[id];
     for(var i = 0; i < g.length-1; i++) {
         g[i] = [i, g[i+1][1]];
     }
     g[g.length-1] = [g.length-1, value];
+    // XXX waiting for flotr migration
     Flotr.draw(
-        element, [
+        $(id), [
         {
             data: g
         }],
@@ -127,7 +130,7 @@ function updateGraph(element,value) {
 <script type="text/javascript">
 
 jQuery.noConflict();
-
+//RR
 function createDashboardSortable(id, containment)
 {
   Sortable.create(id, {
@@ -140,6 +143,7 @@ function createDashboardSortable(id, containment)
     onUpdate: function() {
         new Ajax.Request("/Dashboard/Update", {
             method: "post",
+            asynchronous: false,
             parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
         });
     }
@@ -152,6 +156,7 @@ createDashboardSortable('dashboard2', ['dashboard1','dashboard2']);
 
 var statusInfo = [];
 
+//TT
 function equals(a,b)
 {
     var p;
@@ -183,6 +188,7 @@ function equals(a,b)
     return true;
 }
 
+//TT
 function updateValue(element, item)
 {
     if (item.value_type === 'ajax') {
@@ -191,97 +197,104 @@ function updateValue(element, item)
             data: '',
             onSuccess: function(response) {
                 item.value = response.responseJSON.value;
-                element.className = 'summary_value';
-                element.addClassName('summary_' + response.responseJSON.type);
+                element.removeClass().addClass('summary_value');
+                element.addClass('summary_' + response.responseJSON.type);
             }
         });
     }
-    if (element.innerHTML != item.value) {
-        element.update(item.value);
-        element.visualEffect('highlight');
+
+    console.log('updateValue for ' + item.ajax_url + ' = ' + item.value);
+    if (element.html() != item.value) {
+        element.html(item.value);
+//XXX        element.effect('highlight');
     }
 }
 
+//TT
 function updateStatus(element, item, itemname)
 {
-        var skip = 0;
-   var highlight = 1;
-   if (statusInfo[itemname]) {
+    var highlight = 1;
+    if (statusInfo[itemname]) {
        if (equals(item,statusInfo[itemname])) {
-           skip = 1;
+           return;
        }
-   } else {
+    } else {
        highlight = 0;
-   }
-   if(!skip) {
-       statusInfo[itemname] = item;
-       var status;
-       var button = restart;
-       var name = 'restart';
-       if (item.enabled && item.running) {
-           status = 'running';
-       } else if (item.enabled && !item.running) {
-           status = 'stopped';
-           button = start;
-           name = 'start'
-       } else if (!item.enabled && item.running) {
-           status = 'unmanaged';
-       } else {
-           status = 'disabled';
-       }
-       var text;
-       var tooltip;
-       if (item.statusStr) {
-           text = item.statusStr;
-           tooltip = '';
-       } else {
-           text = status_str[status]['text'];
-           tooltip = status_str[status]['tip'];
-       }
-       var new_text = "<span title='" + tooltip
-           + "' class='sleft'>" + text
-           + '</span>';
-       if (item.enabled && !item.nobutton) {
-           var restart_form = "\
-    <form action='/SysInfo/RestartService'>\
-   <input type='hidden' name='module' value='" + item.module + "'/>\
-   <span class='sright'>\
+    }
+
+    statusInfo[itemname] = item;
+    var status;
+    var button = restart;
+    var name = 'restart';
+    if (item.enabled && item.running) {
+        status = 'running';
+    } else if (item.enabled && !item.running) {
+        status = 'stopped';
+        button = start;
+        name = 'start'
+    } else if (!item.enabled && item.running) {
+        status = 'unmanaged';
+    } else {
+        status = 'disabled';
+    }
+    var text;
+    var tooltip;
+    if (item.statusStr) {
+        text = item.statusStr;
+        tooltip = '';
+    } else {
+        text = status_str[status]['text'];
+        tooltip = status_str[status]['tip'];
+    }
+    var new_text = "<span title='" + tooltip
+        + "' class='sleft'>" + text
+        + '</span>';
+    if (item.enabled && !item.nobutton) {
+        var restart_form = "\
+ <form action='/SysInfo/RestartService'>\
+<input type='hidden' name='module' value='" + item.module + "'/>\
+<span class='sright'>\
 <input class='inputButtonRestart' type='submit' name='" + name + "' value='"
-    + button + "'/>\
-   </span>\
-    </form>";
-           new_text += restart_form;
-       }
-       element.update(new_text);
-       if (highlight) {
-           element.visualEffect('highlight');
-       }
-   }
+ + button + "'/>\
+</span>\
+ </form>";
+        new_text += restart_form;
+    }
+    element.html(new_text);
+//    element.update(new_text);
+    if (highlight) {
+//       element.effect('highlight');
+    }
 }
 
+//TT
 function updateGraphRow(item, itemname) {
-    var b;
     for(var g = 0; g < item.graphs.length; g++) {
         var graphname = itemname + '_' + g;
-        var graph = $(graphname);
+        var graph = jQuery('#' + Zentyal.escapeSelector(graphname));
+        console.log('updateGraphRow -> ' + graphname + '  ' + item.graphs[g].value);
         updateGraph(graph, item.graphs[g].value);
     }
 }
 
+//TT
 function updateList(item, itemname) {
     var listname = itemname + '_table';
     var nonename = itemname + '_none';
-    var list = $(listname);
+    var list = jQuery('#' + Zentyal.escapeSelector(listname));
+    var none = jQuery('#' + Zentyal.escapeSelector(nonename));
     if(item.ids.length == 0) {
-        $(listname).hide();
-        $(nonename).show();
+        list.hide();
+        none.show();
     } else {
-        $(listname).show();
-        $(nonename).hide();
+        list.show();
+        none.hide();
     }
-    var rids = new Array();
+
+    var listDOM = list.get(0);
+    var rids = [];
     for (var r = 1; r < list.rows.length; r++) {
-        var row = list.rows[r];
+        var row = listDOM.rows[r];
         var id = row.attributes['id'].value;
         if(item.ids.indexOf(id) == -1) {
             row.remove();
@@ -293,14 +306,14 @@ function updateList(item, itemname) {
     for (var i = 0; i < item.ids.length; i++) {
         var id = item.ids[i];
         if(rids.indexOf(id) == -1) {
-            var row = list.insertRow(i+1);
+            var row = listDOM.insertRow(i+1);
             row.setAttribute('id',id);
             var content = item.rows[id];
             for (var c = 0; c < content.length; c++) {
                 var cell = row.insertCell(c);
                 cell.innerHTML = content[c];
             }
-            row.visualEffect('highlight');
+//XXX            jQuery(row).visualEffect('highlight');
         }
     }
 }
@@ -310,69 +323,68 @@ function updateWidget(widget) {
     if(widget == null) {
         return;
     }
-    var widgetcontents = $(widget.module + ":" + widget.name + '_content');
-    var sections = widgetcontents.childElements();
-    for(var i = 0; i < sections.length; i++) {
-        var oldsect = sections[i];
-        var present = false;
-        if(widget.sections) {
-            for(var j = 0; j < widget.sections.length; j++) {
-                var newsect = widget.sections[j];
-                var sectname = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
-                if(sectname == oldsect.id) {
-                    present = true;
-                    break;
-                }
-            }
-        }
-        if(!present) {
-            oldsect.visualEffect('fade',
-            {
-                afterFinish: function(eff) {
-                    eff.element.remove();
-                }
+
+    var widgetSelector = '#' + Zentyal.escapeSelector( widget.module + ":" + widget.name + '_content');
+    var widgetcontents = jQuery(widgetSelector);
+
+
+   //fade out no longer existent sections
+   var currentSections = {};
+   if(widget.sections) {
+        jQuery.each(widget.sections, function(index, newsect) {
+               var id = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
+               currentSections[id] = {};
+        });
+   }
+   widgetcontents.children().each( function(index, oldsect) {
+        if(!(oldsect.id in currentSections)) {
+            oldsect = jQuery(oldsect);
+            oldsect.fadeOut(500, function() {
+                 oldsect.remove()
             });
         }
-    }
+    });
+
 
     var prevsect = null;
     if (widget.sections) {
       for(var i = 0; i < widget.sections.length; i++) {
         var s = widget.sections[i];
         var sect = widget.module + ":" + widget.name + '_' + s.name;
-        var sectname = widget.module + ":" + widget.name + '_' + s.name + '_section';
-        var cursect = $(sectname);
-        if(!cursect) {
+        var sectname = sect + '_section';
+        var cursect = jQuery('#' + Zentyal.escapeSelector(sectname));
+        if(cursect.length === 0) {
             var newsection = document.createElement("div");
             newsection.id = sectname;
-            if(prevsect == null) {
-                var first = widgetcontents.firstChild;
-                if((first == null) || (first.nodeType != 1)) {
-                    widgetcontents.appendChild(newsection);
-                } else {
-                    widgetcontents.insertBefore(newsection, widgetcontents.firstChild);
-                }
+            if (prevsect === null) {
+                 widgetcontents.prepend(newsection);
             } else {
-                var next = prevsect.next('div');
-                widgetcontents.insertBefore(newsection, next);
+                prevsect.after(newsection);
             }
+            // FRO LATE
             var req = new Ajax.Updater(sectname, '/Dashboard/Section', {
+                asynchronous: false,
                 parameters: {
+
                     module: widget.module,
                     widget: widget.name,
                     section: s.name
                 },
                 onComplete: function(res) {
-                    res.request.element.visualEffect('highlight');
+                     var element = newsection;
+//XXX                     element.visualEffect('highlight');
+//                    res.request.element.visualEffect('highlight');
                 }
             });
-            req.element = newsection;
-            prevsect = newsection;
+//            req.element = newsection;
+            prevsect = jQuery(newsection);
+            continue;
+            // END LATE
         } else {
             prevsect = cursect;
             s.items.each(function(item,i) {
                 var itemname = sect + '_' + i;
-                var element = $(itemname);
+                var element = jQuery('#' + Zentyal.escapeSelector(itemname));
                 if(item.type == 'value') {
                     updateValue(element, item);
                 } else if(item.type == 'status') {
@@ -390,19 +402,32 @@ function updateWidget(widget) {
   }
 }
 
+//MM
 function updateWidgets() {
     var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
     widgets.each(function(w) {
         var parts = w.split(':');
-        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
-        new Ajax.Request(url, {
-            method: "get",
-            asynchronous: true,
-            onSuccess: function(transport) {
-                console.log('Updated ' + url);
-                updateWidget(transport.responseJSON);
-            }
-        });
+        var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' +  parts[1];
+        jQuery.ajax({
+                         url:   url,
+                         type: 'get',
+                         dataType: 'json',
+                         async: false,
+                         success: function(data) {
+                            console.log(url + ' = ' + data);
+                            updateWidget(data);
+                         }
+                    });
+
+//        new Ajax.Request(url, {
+//            method: "get",
+////            asynchronous: true,
+//            asynchronous: false,
+//            onSuccess: function(transport) {
+//                console.log('Updated ' + url);
+//                updateWidget(transport.responseJSON);
+//            }
+//        });
     });
 };
 
