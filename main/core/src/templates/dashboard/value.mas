@@ -14,9 +14,7 @@
 % } else {
       class='summary_value'
 % }
-     >
-      <% $item->{value} %>
-  </td>
+     ><% $item->{value} %></td>
 
 % if ($item->{value_type} eq 'ajax') {
   <script type="text/javascript" src="/data/js/common.js"/>

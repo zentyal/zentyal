@@ -158,32 +158,40 @@ createDashboardSortable('dashboard2', ['dashboard1','dashboard2']);
 var statusInfo = [];
 
 //TT
-function equals(a,b)
+function equalsObject(a,b)
 {
     var p;
     for (p in a)
     {
-        if (a[p] == null) {
-           continue;
+        if (!(p in b)) {
+            return false;
         }
 
-        switch(typeof(a[p]))
+        var aEl = a[p];
+        var bEl = b[p];
+        var typeA = typeof(aEl);
+        if (typeA !== typeof(bEl)) {
+            return false;
+        }
+        if (aEl === null) {
+            typeA = 'null';
+        }
+        switch(typeA)
         {
             case 'object':
-                if (!a[p].equals(b[p])) { return false }; break;
+                if (!aEl.equals(bEl)) { return false }; break;
             case 'function':
-                if (typeof(b[p])=='undefined' || (p != 'equals' && a[p].toString() != b[p].toString())) { return false; }; break;
+                if ((p !== 'equals') && (aEl.toString() !== bEl.toString())) { return false; }; break;
             default:
-                if (a[p] != b[p]) { return false; }
+                if (aEl !== bEl) { return false; }; break;
         }
     }
 
     for (p in b)
     {
-        if (a[p] == null) {
-           continue;
+        if (!(p in a)) {
+            return false;
         }
-        if(typeof(a[p])=='undefined') {return false;}
     }
 
     return true;
@@ -217,7 +225,7 @@ function updateStatus(element, item, itemname)
 {
     var changed = 0;
     if (statusInfo[itemname]) {
-       if (equals(item,statusInfo[itemname])) {
+       if (equalsObject(item,statusInfo[itemname])) {
            return;
        }
        changed = 1;
