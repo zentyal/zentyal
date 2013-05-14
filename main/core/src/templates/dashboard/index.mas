@@ -141,12 +141,13 @@ function createDashboardSortable(id, containment)
     scroll: window,
     containment: containment,
     onUpdate: function() {
-        new Ajax.Request("/Dashboard/Update", {
-            method: "post",
-            asynchronous: false, //debug
-            parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-        });
-    }
+        jQuery.ajax({
+                      url: "/Dashboard/Update",
+                      type: 'post',
+                      async: false, // debug
+                      data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
+                   });
+     }
   });
 }
 
@@ -211,16 +212,15 @@ function updateValue(element, item)
     }
 }
 
-//TT
+//RR
 function updateStatus(element, item, itemname)
 {
-    var highlight = 1;
+    var changed = 0;
     if (statusInfo[itemname]) {
        if (equals(item,statusInfo[itemname])) {
            return;
        }
-    } else {
-       highlight = 0;
+       changed = 1;
     }
 
     statusInfo[itemname] = item;
@@ -262,9 +262,8 @@ function updateStatus(element, item, itemname)
         new_text += restart_form;
     }
     element.html(new_text);
-//    element.update(new_text);
-    if (highlight) {
-//       element.effect('highlight');
+    if (changed) {
+       element.effect('highlight');
     }
 }
 
