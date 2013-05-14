@@ -321,12 +321,13 @@ function updateList(item, itemname) {
                 var cell = row.insertCell(c);
                 cell.innerHTML = content[c];
             }
-//XXX            jQuery(row).visualEffect('highlight');
+            jQuery(row).effect('highlight');
         }
     }
 }
 
 
+//RR
 function updateWidget(widget) {
     if(widget == null) {
         return;
@@ -334,7 +335,6 @@ function updateWidget(widget) {
 
     var widgetSelector = '#' + Zentyal.escapeSelector( widget.module + ":" + widget.name + '_content');
     var widgetcontents = jQuery(widgetSelector);
-
 
    //fade out no longer existent sections
    var currentSections = {};
@@ -353,7 +353,6 @@ function updateWidget(widget) {
         }
     });
 
-
     var prevsect = null;
     if (widget.sections) {
       for(var i = 0; i < widget.sections.length; i++) {
@@ -369,22 +368,20 @@ function updateWidget(widget) {
             } else {
                 prevsect.after(newsection);
             }
-            // FRO LATE
-            var req = new Ajax.Updater(sectname, '/Dashboard/Section', {
-                asynchronous: false, // debug
-                parameters: {
-
+            jQuery.ajax({
+                url: '/Dashboard/Section',
+                async: false, //dbg
+                data: {
                     module: widget.module,
                     widget: widget.name,
                     section: s.name
-                },
-                onComplete: function(res) {
-                     var element = newsection;
-//XXX                     element.visualEffect('highlight');
-//                    res.request.element.visualEffect('highlight');
-                }
+               },
+               dataType: 'html',
+               success: function (response) {
+                   jQuery(newsection).html(response).effect('highlight');
+              },
+
             });
-//            req.element = newsection;
             prevsect = jQuery(newsection);
             continue;
             // END LATE
