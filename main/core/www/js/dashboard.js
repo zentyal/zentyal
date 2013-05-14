@@ -41,60 +41,35 @@ Zentyal.Dashboard.toggleClicked = function(element) {
 
 Zentyal.Dashboard.closeWidget = function(wid) {
     var selector = '#widget_' + Zentyal.escapeSelector(wid);
-    jQuery(selector).fadeOut(500, function() {
-        var id = this.id;
-        var parentId = this.parentNode.id;
-        jQuery('#' + parentId).remove();
+    var widget = jQuery(selector);
+    widget.fadeOut(500, function() {
+        var dashboard = widget.closest('.dashboard');
+        widget.remove();
 
-        var placeholdeSel = '#' + id + '_placeholder';
+        var placeholdeSel = '#' + widget.attr('id') + '_placeholder';
         if(jQuery(placeholdeSel).length > 0) {
                 var parts = wid.split(':');
                 Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
          }
-         // jQuery.ajax({
-         //             url: '/Dashboard/Update',
-         //             type : 'post',
-         //             data: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
-         // });
-         new Ajax.Request("/Dashboard/Update", {
-                method: "post",
-                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
-            });
+        Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
     });
-
-//    Effect.Fade(name, {
-//        afterFinish: function(e) {
-//            var id = e.element.id;
-//            var parent = e.element.parentNode.id;
-//            Element.remove(id);
-//            var placeholder = id + '_placeholder';
-//            var parts = wid.split(':');
-//            if($(placeholder)) {
-//                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
-//            }
-//            new Ajax.Request("/Dashboard/Update", {
-//                method: "post",
-//                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
-//            });
-//        }
-//    });
 };
 
-// Zentyal.Dashboard.updateWidgets = function() {
-//     var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
-//     widgets.each(function(w) {
-//         var parts = w.split(':');
-//         var url = '/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
-//         new Ajax.Request(url, {
-//             method: "get",
-//             asynchronous: true,
-//             onSuccess: function(transport) {
-//                 alert('Updated ' + url);
-//                 updateWidget(transport.responseJSON);
-//             }
-//         });
-//     });
-// };
+Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
+    var dashboardId = dashboard.attr('id');
+    var widgets = dashboard.find('.widgetBox').map( function () {
+        if (this.id == '')
+            return null;
+        return this.id.split('_')[1];
+    }).get().join(',');
+
+    jQuery.ajax({
+        url: '/Dashboard/Update',
+        type: 'post',
+        async: false, // debug
+        data: { dashboard: dashboardId, widgets: widgets }
+    });
+};
 
 Zentyal.Dashboard.widget = function(m,w,full) {
     var opacity,
@@ -292,7 +267,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
         var id = 'widget_' + module + ':' + widgets[j]['name'];
         widgets[j]['id'] = id;
         // recalculate present because it can have changed
-        widgets[j]['present'] =  jQuery('.dashboard #' + id).length > 0;
+        widgets[j]['present'] =  jQuery('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
         widget_id_list[k] = id + '_placeholder';
         k += 1;
     }
