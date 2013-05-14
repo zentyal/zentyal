@@ -131,10 +131,9 @@ function updateGraph(element,value) {
 "use strict";
 jQuery.noConflict();
 //RR
-function createDashboardSortable(id, containment)
+function createSortableDashboard()
 {
-     jQuery('#' + id).sortable({
-//                                containment: containment, // XX multiple elementsas?
+     jQuery('.dashboard').sortable({
 //                                  axis: false,
                                    elements: '.widgetBox',
 //                                  handle: 'widgetHandle',
@@ -144,15 +143,13 @@ function createDashboardSortable(id, containment)
                                   update: function(event, ui) {
                                       var dashboard = jQuery(this);
                                       var dashboardId = dashboard.attr('id');
-//                                      var widgets =  dashboard.sortable('toArray').join(',');
-                                       var widgets = jQuery.map(dashboard.sortable('toArray'), function (val) {
-                                                                                                      if (val == '')
-                                                                                                          return null;
-                                                                                                       return val.split('_')[1];
+                                      var widgets = jQuery.map(dashboard.sortable('toArray'), function (val) {
+                                                                      if (val == '')
+                                                                          return null;
+                                                                      return val.split('_')[1];
                                                                   }).join(',');
 
-
-//                                      console.log("dashboardId " + dashboardId + " widgets " + widgets);
+                                      console.log("dashboardId " + dashboardId + " widgets " + widgets);
                                       jQuery.ajax({
                                          url: '/Dashboard/Update',
                                          type: 'post',
@@ -161,28 +158,9 @@ function createDashboardSortable(id, containment)
                                                  });
                                   }
                                });
-
-//  Sortable.create(id, {
-//    tag: "div",
-//    handle: "widgetHandle",
-//    dropOnEmpty: true,
-//    constraint: false,
-//    scroll: window,
-//    containment: containment,
-//    onUpdate: function() {
-//        jQuery.ajax({
-//                      url: "/Dashboard/Update",
-//                      type: 'post',
-//                      async: false, // debug
-//                      data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-//                   });
-//     }
-//  });
 }
 
-createDashboardSortable('dashboard1', '#dashboard2');
-createDashboardSortable('dashboard2', '#dashboard1');
-
+createSortableDashboard();
 
 var statusInfo = [];
 
@@ -440,7 +418,7 @@ function updateWidget(widget) {
 function updateWidgets() {
     jQuery('.widgetBox').each(function(index, widgetBox) {
         var id = widgetBox.id;
-//        //id can be empty when draggin things
+        //id can be empty when draggin things
         if (id === '') {
            return true;
         }
