@@ -128,7 +128,7 @@ function updateGraph(element,value) {
 % }
 </div>
 <script type="text/javascript">
-
+"use strict";
 jQuery.noConflict();
 //RR
 function createDashboardSortable(id, containment)
@@ -143,7 +143,7 @@ function createDashboardSortable(id, containment)
     onUpdate: function() {
         new Ajax.Request("/Dashboard/Update", {
             method: "post",
-            asynchronous: false,
+            asynchronous: false, //debug
             parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
         });
     }
@@ -207,7 +207,7 @@ function updateValue(element, item)
     console.log('updateValue for ' + item.ajax_url + ' = ' + item.value);
     if (element.html() != item.value) {
         element.html(item.value);
-//XXX        element.effect('highlight');
+        element.effect('highlight');
     }
 }
 
@@ -364,7 +364,7 @@ function updateWidget(widget) {
             }
             // FRO LATE
             var req = new Ajax.Updater(sectname, '/Dashboard/Section', {
-                asynchronous: false,
+                asynchronous: false, // debug
                 parameters: {
 
                     module: widget.module,
@@ -413,22 +413,12 @@ function updateWidgets() {
                          url:   url,
                          type: 'get',
                          dataType: 'json',
-                         async: false,
+                         async: false, //debug
                          success: function(data) {
                             console.log(url + ' = ' + data);
                             updateWidget(data);
                          }
                     });
-
-//        new Ajax.Request(url, {
-//            method: "get",
-////            asynchronous: true,
-//            asynchronous: false,
-//            onSuccess: function(transport) {
-//                console.log('Updated ' + url);
-//                updateWidget(transport.responseJSON);
-//            }
-//        });
     });
 };
 
