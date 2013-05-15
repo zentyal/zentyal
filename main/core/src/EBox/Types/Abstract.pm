@@ -232,6 +232,10 @@ sub filter
     }
 }
 
+# Method: value
+#
+#       Return the value for the type
+#
 sub value
 {
     my ($self) = @_;
