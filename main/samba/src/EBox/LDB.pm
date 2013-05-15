@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -457,9 +458,9 @@ sub ldapUsersToLdb
     my $users = $usersModule->users();
     foreach my $user (@{$users}) {
         my $dn = $user->dn();
+        my $samAccountName = $user->get('uid');
         EBox::debug("Loading user $dn");
         try {
-            my $samAccountName = $user->get('uid');
             my $params = {
                 uidNumber    => scalar ($user->get('uidNumber')),
                 sn           => scalar ($user->get('sn')),
@@ -468,6 +469,11 @@ sub ldapUsersToLdb
                 kerberosKeys => $user->kerberosKeys(),
             };
             EBox::Samba::User->create($samAccountName, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("User $dn already in Samba database");
+            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+            $sambaUser->setCredentials($user->kerberosKeys());
+            EBox::debug("Password updated for user $dn");
         } otherwise {
             my $error = shift;
             EBox::error("Error loading user '$dn': $error");
@@ -493,6 +499,8 @@ sub ldapGroupsToLdb
                 description => scalar ($group->get('description')),
             };
             $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Group $dn already in Samba database");
         } otherwise {
             my $error = shift;
             EBox::error("Error loading group '$dn': $error");
