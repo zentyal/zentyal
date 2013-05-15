@@ -134,7 +134,7 @@ jQuery.noConflict();
 function createSortableDashboard()
 {
      jQuery('.dashboard').sortable({
-                                  elements: '.widgetBox',
+                                  elements: '.widgetBox, .widgetBarBox',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,

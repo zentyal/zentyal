@@ -18,20 +18,16 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
     });
 };
 
-// XXX migrate blind effect
 Zentyal.Dashboard.toggleClicked = function(element) {
     var elementId = Zentyal.escapeSelector(element);
     var contentSelector = '#' + elementId + '_content';
     var toggler = jQuery('#' + elementId + '_toggler');
+    // XXX blind effect has problems with the graphs will see if migration to flotr solves it
     if(toggler.hasClass('minBox')) {
-//        Effect.BlindUp(contentname, { duration: 0.5 });
-        jQuery(contentSelector).hide();//('blind', { direction: 'vertical' }, 500);
-//        jQuery(contentSelector).hide('blind', { direction: 'vertical' }, 500);
+        jQuery(contentSelector).hide('blind');
         toggler.removeClass('minBox').addClass('maxBox');
     } else {
-//        Effect.BlindDown(contentname, { duration: 0.5 });
-        jQuery(contentSelector).show(); //('blind', { direction: 'vertical' }, 500);
-//        jQuery(contentSelector).show('blind', { direction: 'vertical' }, 500);
+        jQuery(contentSelector).show('blind');
         toggler.removeClass('maxBox').addClass('minBox');
     }
     jQuery.ajax({
@@ -60,8 +56,9 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     var dashboardId = dashboard.attr('id');
     var widgets = dashboard.find('.widgetBox').map( function () {
-        if (this.id == '')
+        if (this.id == '') {
             return null;
+        }
         return this.id.split('_')[1];
     }).get().join(',');
 
@@ -119,7 +116,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
    for (i = start; i < end; ++i) {
      var id = widgets[i]['id'];
      html += '<div class="widgetBarBox" id="' + id + '_placeholder">';
-     html += Zentyal.Dashboard.widget(module,widgets[i],!widgets[i]['present']);
+     html += Zentyal.Dashboard.widget(module,widgets[i],!widgets[i].present);
      html += '</div>';
    }
    return html;
@@ -167,11 +164,87 @@ Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, s
     return next;
 };
 
+Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module, widget_list_id) {
+    console.log('createModuleWidgetsSortable');
+    var loaded = {};
+    jQuery('#widget_list').sortable({
+        elements: '.widgetBarBox',
+        dropOnEmpty: true,
+        connectWith: '.dashboard',
+        containment: '#widget_list',
+        delay: 100,
+        scroll : false
+        // out: function(event, ui) {
+        //     if (ui.position.top > 100) {
+        //         var id = ui.helper;
+        //         console.log("out id " + id);
+        //         if(! loaded[id]) {
+        //             jQuery.ajax({
+        //                 url: '/Dashboard/Widget?module=' + module + '&widget=' + id,
+        //                 type: 'get',
+        //                 dataType: 'html',
+        //                 success: function(response) {
+        //                     var widgetDrag = jQuery('#' + id);
+        //                     widgetDrag.html(response);
+        //                     widgetDrag.find('.closeBox').toggle(500); // XXX first?
+        //                 }
+        //             });
+        //             loaded[id] = true;
+        //         }
+        //     }
+        // }
+    });
+
+}
+
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable = function(module, widgets, start, end) {
     var j;
     for (j = start; j < end; ++j) {
-        if(!widgets[j]['present']) {
-            var wid = widgets[j]['id'];
+        if(!widgets[j].present) {
+            var wid = widgets[j].id;
+            // var widgetDrag =  jQuery('#' + Zentyal.escapeSelector(wid));
+            // var loaded = false;
+            // widgetDrag.on('change', function() {});
+            // widgetDrag.draggable({
+            //     handle: 'widgetHandle',
+            //     // XXX start?
+            //     drag: function(event, ui) {
+            //         if (ui.position.top > 100) {
+            //             if(!loaded) {
+            //                 jQuery.ajax({
+            //                     url: '/Dashboard/Widget?module=' + module + '&widget=' + widgets[j].name,
+            //                     type: 'get',
+            //                     dataType: 'html',
+            //                     success: function(response) {
+            //                         widgetDrag.html(response);
+            //                         widgetDrag.find('.closeBox').toggle(500); // XXX first?
+            //                     }
+            //                 });
+            //                 // new Ajax.Updater(d.element.id,
+            //                 //         '/Dashboard/Widget?module=' +
+            //                 //         d.module + '&widget=' + d.widget, {
+            //                 //     method: 'get',
+            //                 //     onComplete: function() {
+            //                 //         var elements = widgetDrag.find('.closeBox').toggle(500);
+            //                 //         Effect.toggle(elements[0],'appear');
+            //                 //     }
+            //                 // });
+            //                 loaded = true;
+            //             }
+            //         }
+            //     }
+            //     // XX repalce witht transfer?
+            //     // stop: function(event, ui) {
+            //     //     var helper = ui.helper;
+            //     //     var left_offset = parseInt(helper.css('left'), 10);
+            //     //     var top_offset = parseInt(helper.css('top'), 10);
+            //     //     var duration = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
+            //     //     widgetDrag.effect({
+            //     //         efect: 'move',
+            //     //         duration: duration,
+            //     //     });
+            //     // },
+            // });
             var drag = new Draggable(wid, {
                 handle: 'widgetHandle',
                 onDrag: function(d,e) {
@@ -208,34 +281,45 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable = function(module
             drag.module = module;
             drag.widget = widgets[j]['name'];
             drag.element.onChange = function() {};
-            Sortable.sortables[drag.element.id + '_placeholder'] = drag.element;
+           Sortable.sortables[drag.element.id + '_placeholder'] = drag.element; // XXX ????
         }
     }
 };
 
-Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function (widget_id_list) {
+Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortableDisabled = function (widget_id_list) {
      jQuery.each(widget_id_list, function (index, id) {
         if(id.indexOf('dashboard') === 0) {
-            Sortable.create(id, {
-                tag: 'div',
-                handle: 'widgetHandle',
+            jQuery('#' + Zentyal.escapeSelector(id)).sortable({
+                elements: '.widgetBox',
                 dropOnEmpty: true,
-                constraint: false,
-                scroll: window,
-                containment: widget_id_list,
-                onUpdate: function(dashboard) {
-                    var id = dashboard.id;
-                    new Ajax.Request('/Dashboard/Update', {
-                        method: 'post',
-                        parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-                    });
-//                    jQuery.ajax({
-//                       url: '/Dashboard/Update',
-//                       type: 'post',
-//                       data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-//                    });
+                connectWith: '.dashboard',
+                delay: 100,
+                scroll: false,
+                update: function(event, ui) {
+                    var dashboard = jQuery(this);
+                    Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
                 }
             });
+//             Sortable.create(id, {
+//                 tag: 'div',
+//                 handle: 'widgetHandle',
+//                 dropOnEmpty: true,
+//                 constraint: false,
+//                 scroll: window,
+//                 containment: widget_id_list,
+//                 onUpdate: function(dashboard) {
+//                     var id = dashboard.id;
+//                     new Ajax.Request('/Dashboard/Update', {
+//                         method: 'post',
+//                         parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
+//                     });
+// //                    jQuery.ajax({
+// //                       url: '/Dashboard/Update',
+// //                       type: 'post',
+// //                       data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
+// //                    });
+//                 }
+//             });
         }
     });
 };
@@ -261,19 +345,19 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
         end = widgets.length;
     }
 
-    var widget_id_list = new Array();
+    var widget_id_list = [];
     var j;
     var k = 0;
     for (j = start; j < end; ++j) {
         var id = 'widget_' + module + ':' + widgets[j]['name'];
-        widgets[j]['id'] = id;
+        widgets[j].id = id;
         // recalculate present because it can have changed
-        widgets[j]['present'] =  jQuery('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
+        widgets[j].present =  jQuery('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
         widget_id_list[k] = id + '_placeholder';
         k += 1;
     }
-    widget_id_list[k] = 'dashboard1';
-    widget_id_list[k+1] = 'dashboard2';
+    widget_id_list[k] = 'dashboard1'; //XXX why?
+    widget_id_list[k+1] = 'dashboard2'; // XXX why?
 
     var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
     html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
@@ -281,7 +365,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
     jQuery('#widget_list').html(html);
 
     Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable(module, widgets, start, end);
-    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(widget_id_list);
+    Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(module, widget_id_list);
 };
 
 
