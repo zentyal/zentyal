@@ -353,7 +353,6 @@ function updateWidget(widget) {
             }
             jQuery.ajax({
                 url: '/Dashboard/Section',
-                async: false, //dbg
                 data: {
                     module: widget.module,
                     widget: widget.name,
@@ -404,7 +403,6 @@ function updateWidgets() {
                          url:   url,
                          type: 'get',
                          dataType: 'json',
-                         async: false, //debug
                          success: function(data) {
                             updateWidget(data);
                          }

@@ -26,10 +26,12 @@ Zentyal.Dashboard.toggleClicked = function(element) {
     if(toggler.hasClass('minBox')) {
 //        Effect.BlindUp(contentname, { duration: 0.5 });
         jQuery(contentSelector).hide();//('blind', { direction: 'vertical' }, 500);
+//        jQuery(contentSelector).hide('blind', { direction: 'vertical' }, 500);
         toggler.removeClass('minBox').addClass('maxBox');
     } else {
 //        Effect.BlindDown(contentname, { duration: 0.5 });
         jQuery(contentSelector).show(); //('blind', { direction: 'vertical' }, 500);
+//        jQuery(contentSelector).show('blind', { direction: 'vertical' }, 500);
         toggler.removeClass('maxBox').addClass('minBox');
     }
     jQuery.ajax({
@@ -66,7 +68,6 @@ Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     jQuery.ajax({
         url: '/Dashboard/Update',
         type: 'post',
-        async: false, // debug
         data: { dashboard: dashboardId, widgets: widgets }
     });
 };
