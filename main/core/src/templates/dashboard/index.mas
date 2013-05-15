@@ -47,26 +47,6 @@ var status_str = {
 
 var start = '<% __("Start") %>';
 var restart = '<% __("Restart") %>';
-
-function configureWidgets()
-{
-   Modalbox.show('/Dashboard/ConfigureWidgets', {
-        title: '<% __("Configure Widgets") %>',
-        width: 980,
-        height: 100,
-        overlayOpacity: 0,
-        afterLoad: function() {
-            $('MB_content').setStyle({overflow: 'visible'});
-            Zentyal.Dashboard.toggleClose();
-            Modalbox.MBwindow.removeClassName('MB_dialog');
-        },
-        beforeHide: function() {
-            Zentyal.Dashboard.toggleClose();
-        },
-    });
-
-}
-//]]>
 </script>
 % if ($message) {
 <div id="notification_container" class='tip'>
@@ -76,7 +56,7 @@ function configureWidgets()
 % }
 
 <span id="confbutton">
-<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+<a href="#" onclick=' Zentyal.Dashboard.ConfigureWidgets.show(); return false;' ><% __('Configure widgets') %></a>
 </span>
 % if (@brokenPackages) {
 <div class='error'>
@@ -107,25 +87,7 @@ function configureWidgets()
 <script type="text/javascript">
 "use strict";
 jQuery.noConflict();
-
-function createSortableDashboard()
-{
-     jQuery('.dashboard').sortable({
-                                  elements: '.widgetBox, .widgetBarBox',
-                                  dropOnEmpty: true,
-                                  connectWith: '.dashboard',
-                                  delay: 100,
-                                  update: function(event, ui) {
-                                      var dashboard = jQuery(this);
-                                      Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
-                                  }
-                               });
-}
-
-createSortableDashboard();
-
-var statusInfo = [];
-
+Zentyal.Dashboard.createSortableDashboard();
 jQuery( function () {
       setInterval( Zentyal.Dashboard.updateWidgets, 30000);
 });

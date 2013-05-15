@@ -5,6 +5,19 @@ jQuery.noConflict();
 Zentyal.namespace('Dashboard');
 Zentyal.namespace('Dashboard.ConfigureWidgets');
 
+Zental.Dashboard.createSortableDashboard = function() {
+     jQuery('.dashboard').sortable({
+                                  elements: '.widgetBox, .widgetBarBox',
+                                  dropOnEmpty: true,
+                                  connectWith: '.dashboard',
+                                  delay: 100,
+                                  update: function(event, ui) {
+                                      var dashboard = jQuery(this);
+                                      Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
+                                  }
+                               });
+};
+
 Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
     var escapedId = Zentyal.escapeSelector(containerId);
     jQuery.ajax({
@@ -397,6 +410,23 @@ Zentyal.Dashboard.updateWidgets = function() {
 // Zentyal.Dashboard.ConfigureWidgets namespace
 Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
+
+Zentyal.Dashboard.ConfigureWidgets.show = function () {
+   Modalbox.show('/Dashboard/ConfigureWidgets', {
+        title: '<% __("Configure Widgets") %>',
+        width: 980,
+        height: 100,
+        overlayOpacity: 0,
+        afterLoad: function() {
+            $('MB_content').setStyle({overflow: 'visible'});
+            Zentyal.Dashboard.toggleClose();
+            Modalbox.MBwindow.removeClassName('MB_dialog');
+        },
+        beforeHide: function() {
+            Zentyal.Dashboard.toggleClose();
+        }
+    });
+};
 
 Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widgets, start, end) {
    var i;
