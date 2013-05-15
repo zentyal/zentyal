@@ -106,26 +106,19 @@ function stripe(theclass, evenClass, oddClass) {
     });
 }
 
-// XXX used only in  toggleWithToggler ?
-function toggleClass(name, class1, class2)
-{
-    var element = jQuery(name);
-    if (element.hasClass(class1)) {
-        element.removeClass(class1);
-        element.addClass(class2);
-    } else if (element.hasClass(class2)) {
-        element.removeClass(class2);
-        element.addClass(class1);
-    } else {
-        element.addClass(class1);
-    }
-}
-
 // XXX used only in the not-tottaly implemented data table sections feature
 function toggleWithToggler(name)
 {
     var togglername = name + '_toggler';
-    toggleClass(togglername, 'minBox', 'maxBox');
-    // look for change this effect
-    Effect.toggle(name, 'blind', {duration: 0.5});
+    var element = jQuery(name);
+    if (element.hasClass('minBox')) {
+        element.removeClass('minBox');
+        element.addClass('maxBox');
+    } else if (element.hasClass('maxBox')) {
+        element.removeClass('maxBox');
+        element.addClass('minBox');
+    } else {
+        element.addClass('minBox');
+    }
+    element.hide('blind');
 }
