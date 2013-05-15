@@ -154,9 +154,9 @@ sub setTypedRow
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
-    # Mark the apache module as changed as well
-    my $apacheMod = EBox::Global->modInstance('webadmin');
-    $apacheMod->setAsChanged();
+    # Mark the webadmin module as changed as well
+    my $webadminMod = EBox::Global->modInstance('webadmin');
+    $webadminMod->setAsChanged();
 
     # Reload table
     $self->reloadTable();

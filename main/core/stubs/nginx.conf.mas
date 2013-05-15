@@ -39,6 +39,7 @@ http {
     keepalive_timeout 65;
     types_hash_max_size 2048;
     server_tokens off;
+    client_max_body_size 50m;
 
     server_names_hash_bucket_size 64;
     server_name_in_redirect off;
@@ -86,10 +87,11 @@ http {
         ssl on;
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
         ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
+% if ($caFile) {
         ssl_client_certificate <% $caFile %>;
-
         ssl_verify_client optional;
         ssl_verify_depth 1;
+% }
 
         ssl_session_timeout 5m;
 
