@@ -2,22 +2,24 @@
 "use strict";
 jQuery.noConflict();
 
-window.Zentyal = {
-    namespace: function(ns) {
-        var parts = ns.split("."),
+if (!('Zentyal' in  window)) {
+    window.Zentyal = {
+        namespace: function(ns) {
+            var parts = ns.split("."),
             nsObject = this,
             i, len;
 
-        for (i=0, len=parts.length; i < len; i++) {
-            if (!nsObject[parts[i]]) {
-                nsObject[parts[i]] = {};
+            for (i=0, len=parts.length; i < len; i++) {
+                if (!nsObject[parts[i]]) {
+                    nsObject[parts[i]] = {};
+                }
+                nsObject = nsObject[parts[i]];
             }
-            nsObject = nsObject[parts[i]];
-        }
 
-        return nsObject;
-    }
-};
+            return nsObject;
+        }
+    };
+}
 
 Zentyal.escapeSelector = function(selector)
 {

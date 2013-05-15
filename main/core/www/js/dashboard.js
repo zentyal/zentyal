@@ -1,11 +1,10 @@
 // Copyright (C) 2013 Zentyal Technologies S.L. licensed under the GPLv2
 "use strict";
 jQuery.noConflict();
-
 Zentyal.namespace('Dashboard');
 Zentyal.namespace('Dashboard.ConfigureWidgets');
 
-Zental.Dashboard.createSortableDashboard = function() {
+Zentyal.Dashboard.createSortableDashboard = function() {
      jQuery('.dashboard').sortable({
                                   elements: '.widgetBox, .widgetBarBox',
                                   dropOnEmpty: true,
@@ -25,8 +24,8 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
          datatype: 'json',
          success: function (response) {
             var container = jQuery('#' + escapedId);
-            container.removeClass().addClass('summary_value', 'summary_' + response.responseJSON.type);
-            container.html(response.responseJSON.value);
+            container.removeClass().addClass('summary_value', 'summary_' + response.type);
+            container.html(response.value);
          }
     });
 };
@@ -96,11 +95,11 @@ Zentyal.Dashboard.widget = function(m,w,full) {
         top_id = '_bar';
         cursor = 'default';
     }
-    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w["name"] + top_id + "'>" +
+    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w.name + top_id + "'>" +
         "<div class='widgetTopBar'>" +
         "<div class='widgetTopBackground'></div>" +
         "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
-        "<div class='widgetName'>" + w["title"] + "</div>" +
+        "<div class='widgetName'>" + w.title + "</div>" +
         "<div style='clear: both;'></div>" +
         "</div>" +
         "</div>";
@@ -108,7 +107,7 @@ Zentyal.Dashboard.widget = function(m,w,full) {
 };
 
 Zentyal.Dashboard.toggleClose = function () {
-    jQuery('.closeBox').toggle();
+    jQuery('.closeBox').toggle(10);
 };
 
 Zentyal.Dashboard.closeNotification = function (msg) {
@@ -411,9 +410,9 @@ Zentyal.Dashboard.updateWidgets = function() {
 Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
-Zentyal.Dashboard.ConfigureWidgets.show = function () {
+Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
    Modalbox.show('/Dashboard/ConfigureWidgets', {
-        title: '<% __("Configure Widgets") %>',
+        title: title,
         width: 980,
         height: 100,
         overlayOpacity: 0,

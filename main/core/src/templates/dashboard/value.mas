@@ -17,8 +17,6 @@
      ><% $item->{value} %></td>
 
 % if ($item->{value_type} eq 'ajax') {
-  <script type="text/javascript" src="/data/js/common.js"/>
-  <script type="text/javascript" src="/data/js/dashboard.js"/>
   <script>
     Zentyal.Dashboard.updateAjaxValue('<% $item->{ajax_url} %>', '<% $container_id %>');
   </script>
