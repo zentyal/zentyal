@@ -1,4 +1,5 @@
 HEAD
+	+ RESTClient can now set the URI endpoint programatically
 	+ Added pullStatus SOAP server method to get the job result via
 	  polling
 3.0.20
