@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,12 +17,12 @@
 #
 #  This model is used to set Samba shares for the Recycle Bin
 #
+use strict;
+use warnings;
+
 package EBox::Samba::Model::RecycleExceptions;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

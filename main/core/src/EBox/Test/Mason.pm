@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,7 +22,6 @@ package EBox::Test::Mason;
 #  You can revise the output files by eye after running the tests
 #
 # This currently depends from exec-mason-template tool
-
 
 use Data::Dumper;
 use File::Slurp;
@@ -98,7 +97,6 @@ sub testComponent
     my ($componentWoExt) = split '\.', (basename $component);
     my $outputFile  = "/tmp/$componentWoExt.html";
     system "rm -rf $outputFile";
-
 
     foreach my $params (@{ $cases_r }) {
         my @caseParams = (template => $component, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);

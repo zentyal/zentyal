@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::ProgressIndicator::Test;
-
 use strict;
 use warnings;
+
+package EBox::ProgressIndicator::Test;
 
 use base 'EBox::Test::Class';
 
@@ -32,7 +32,7 @@ sub _fakeModules : Test(startup)
 {
     EBox::TestStubs::fakeModule(
             name => 'apache',
-            class => 'EBox::Apache',
+            class => 'EBox::WebAdmin',
     );
     Test::MockObject->fake_module(
             'EBox::ProgressIndicator',
@@ -94,7 +94,6 @@ sub basicUseCaseTest : Test(13)
 
     ok $progress->started, 'Checking started propierty after notify all the ticks';
     ok (not $progress->finished), 'Checking finished propierty after notify all the ticks';
-
 
     $progress->setAsFinished();
 

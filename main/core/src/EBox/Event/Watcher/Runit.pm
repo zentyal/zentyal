@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,13 +15,13 @@
 
 package EBox::Event::Watcher::Runit;
 
+use base 'EBox::Event::Watcher::Base';
+
 # Class: EBox::Event::Watcher::Runit
 #
 #   This class is a watcher which checks if a service has been down
 #   for MAX_DOWN_PERIODS in PERIODS and send an event notifying it
 #
-
-use base 'EBox::Event::Watcher::Base';
 
 use constant PERIOD => 60;
 use constant MAX_DOWN_PERIODS => 5;
@@ -81,7 +81,6 @@ sub ConfigurationMethod
 {
     return 'none';
 }
-
 
 # Method: run
 #

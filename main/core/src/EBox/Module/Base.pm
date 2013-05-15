@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Module::Base;
-
 use strict;
 use warnings;
+
+package EBox::Module::Base;
 
 use File::Copy;
 use Proc::ProcessTable;
@@ -333,7 +333,6 @@ sub setAsChanged
     }
 }
 
-
 # Method: makeBackup
 #
 #   restores the module state from a backup
@@ -351,8 +350,6 @@ sub makeBackup # (dir, %options)
 
     $self->aroundDumpConfig($backupDir, %options);
 }
-
-
 
 # Method: backupDir
 #
@@ -373,7 +370,6 @@ sub backupDir
     my $backupDir = $self->_bak_file_from_dir($dir);
     return $backupDir;
 }
-
 
 # Private method: _createBackupDir
 #   creates a directory to dump or restore files containig the module state.
@@ -397,7 +393,6 @@ sub _createBackupDir
 
   return $backupDir;
 }
-
 
 # Method: restoreBackup
 #
@@ -509,7 +504,6 @@ sub restoreConfig
     my ($self, $dir) = @_;
 }
 
-
 #  Method: aroundRestoreConfig
 #
 # wraps the restoreConfig call; the purpose of this sub is to allow specila
@@ -591,7 +585,6 @@ sub setPrintableName
 
     $self->{printableName} = $printableName;
 }
-
 
 # Method: title
 #
@@ -975,10 +968,7 @@ sub _setAppArmorProfiles
 #
 sub _regenConfig
 {
-    my ($self) = @_;
-
-    my @params = (@_);
-    shift(@params);
+    my ($self, @params) = @_;
 
     $self->_preSetConf(@params);
     $self->_preSetConfHook();

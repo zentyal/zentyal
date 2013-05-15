@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,7 +16,9 @@ use warnings;
 use strict;
 
 package EBox::RemoteServices::Connection;
+
 use base 'EBox::RemoteServices::Base';
+
 # Class: EBox::RemoteServices::Connection
 #
 #       Class to manage the VPN connection to Zentyal Cloud

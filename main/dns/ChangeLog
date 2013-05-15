@@ -1,3 +1,7 @@
+3.1
+	+ Removed 3.0.X migration code
+	+ Implemented _daemonsToDisable()
+	+ Depend on zentyal-core 3.1
 3.0.9
 	+ Fixed bind9 dependency to allow to install it with higher versions
 	+ Do not try to add duplicated interface addresses

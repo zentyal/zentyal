@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -37,7 +37,7 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die ('progress executable not run');
 
 my $command = EBox::Config::boolean('software-autoremove')  ?  'autoremove' : 'remove';
-my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+my $webAdminMod = EBox::Global->getInstance()->modInstance('webadmin');
 
 my ($retValue, $errorMsg) = (0, '');
 try {
@@ -47,7 +47,7 @@ try {
     EBox::Sudo::silentRoot ("rm $fifo");
     EBox::Sudo::silentRoot ("mkfifo $fifo");
 
-    $apacheMod->disableRestartOnTrigger();
+    $webAdminMod->disableRestartOnTrigger();
 
     EBox::info('Begin packages remove');
 
@@ -100,14 +100,14 @@ try {
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
-    $apacheMod->enableRestartOnTrigger();
+    $webAdminMod->enableRestartOnTrigger();
     try {
         EBox::info("End packages remove");
         my $global = EBox::Global->getInstance(1);
         my $software = $global->modInstance('software');
         #causes the cache to be generated
         $software->listUpgradablePkgs(1);
-        $apacheMod->_daemon('restart');
+        $webAdminMod->_daemon('restart');
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it

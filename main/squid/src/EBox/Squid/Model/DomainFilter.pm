@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::DomainFilter;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -97,7 +98,6 @@ sub _validateDomain
     EBox::Validate::checkDomainName($domain, __('Domain or IP address'));
 }
 
-
 # Function: banned
 #
 #       Fetch the banned domains
@@ -111,7 +111,6 @@ sub banned
     return $self->_domainsByPolicy('deny');
 }
 
-
 # Function: allowed
 #
 #       Fetch the allowed domains
@@ -124,7 +123,6 @@ sub allowed
     my ($self) = @_;
     return $self->_domainsByPolicy('allow');
 }
-
 
 # Function: filtered
 #
@@ -260,7 +258,6 @@ sub viewCustomizer
 
     return $custom;
 }
-
 
 sub _aclName
 {

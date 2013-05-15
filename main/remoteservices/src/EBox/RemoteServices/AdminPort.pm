@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,11 +18,12 @@
 #     This class is intended as the client side to notify on server changes
 #
 
-package EBox::RemoteServices::AdminPort;
-use base 'EBox::RemoteServices::Cred';
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::AdminPort;
+
+use base 'EBox::RemoteServices::Cred';
 
 use EBox;
 use Error qw(:try);

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,6 +25,7 @@ use warnings;
 #
 
 package EBox::TrafficShaping::Model::RuleTableBase;
+
 use base 'EBox::Model::DataTable';
 
 use integer;
@@ -42,7 +43,6 @@ use EBox::Types::Union::Text;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
-
 
 # Constants
 use constant LIMIT_RATE_KEY => 'limitRate';
@@ -549,7 +549,6 @@ sub _l7Types
     }
 }
 
-
 sub _populateIfacesSub
 {
     my ($self) = @_;
@@ -619,7 +618,6 @@ sub lowestPriority
     return $lowest;
 }
 
-
 # this is for NetworkObserver so dont count the ALL ifaces rules here
 sub explicitIfaceHasRules
 {
@@ -633,7 +631,6 @@ sub explicitIfaceHasRules
 
     return 0;
 }
-
 
 sub configuredInterfaces
 {
@@ -656,6 +653,5 @@ sub configuredInterfaces
 
     return [keys %ifaces];
 }
-
 
 1;

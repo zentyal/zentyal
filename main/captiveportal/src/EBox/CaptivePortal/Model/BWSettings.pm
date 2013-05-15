@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::BWSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::CaptivePortal::Model::BWSettings
 #
 #   Form to set the Captive Portal bwmonitor related settings
 #
-
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
@@ -51,7 +51,6 @@ sub precondition
     return _bwModEnabled
 }
 
-
 sub preconditionFailMsg
 {
     unless (EBox::Global->modExists('bwmonitor')) {
@@ -61,7 +60,6 @@ sub preconditionFailMsg
     # Not enabled:
     return __x('If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}Module Status{enda} section.', begina => '<a href="/ServiceModule/StatusView">', enda => '</a>');
 }
-
 
 sub limitBWValue
 {
@@ -103,7 +101,6 @@ sub _table
                 )
          );
 
-
     my @options = (
         {
             value => 'day',
@@ -128,7 +125,6 @@ sub _table
                defaultValue => 'month',
                ));
 
-
     my $dataTable =
     {
         tableName          => 'BWSettings',
@@ -142,7 +138,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 # reimplement this with model changed notifier when it works again
 sub updatedRowNotify
@@ -158,6 +153,5 @@ sub updatedRowNotify
         }
     }
 }
-
 
 1;

@@ -3,7 +3,4 @@
 mkdir -p /etc/apache2/ssl
 /usr/share/zentyal/create-certificate /etc/apache2/ssl
 
-# don't start apache2 with the ubuntu script when disabled
-update-rc.d -f apache2 remove
-
 exit 0

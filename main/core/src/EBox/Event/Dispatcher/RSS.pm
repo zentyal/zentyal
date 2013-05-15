@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Event::Dispatcher::RSS;
+
+use base 'EBox::Event::Dispatcher::Abstract';
 
 # Class: EBox::Dispatcher::RSS
 #
 # This class is a dispatcher which stores the Zentyal events in a single
 # file within the channel
 #
-
-use base 'EBox::Event::Dispatcher::Abstract';
-
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
@@ -54,7 +54,6 @@ use constant {
     CHANNEL_TTL => 5,
     MAX_RSS_ITEMS => 500
 };
-
 
 # Class data
 our $LockFH;
@@ -202,7 +201,6 @@ sub ConfigureModel
     return 'RSSDispatcherConfiguration';
 
 }
-
 
 # Group: Protected methods
 

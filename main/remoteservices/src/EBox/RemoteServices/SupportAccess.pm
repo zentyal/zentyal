@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -43,10 +43,8 @@ sub setEnabled
                    'zentyal-remoteservices/' .
                        'remote-support.keys';
 
-
     # suid neccesary for multiscreen mode
     $self->_setScreenSUID($enable);
-
 
     if (not $self->userExists($user)) {
         if (not $enable) {
@@ -121,8 +119,6 @@ sub remoteAccessUserAddress
     return $network;
 }
 
-
-
 sub userExists
 {
     my ($class, $user) = @_;
@@ -167,7 +163,6 @@ sub _createSshFiles
     EBox::Sudo::root("chown -R $user.$user $sshDir");
 }
 
-
 sub _sshDir
 {
     my ($self, $user) = @_;
@@ -175,7 +170,6 @@ sub _sshDir
     my $path = $homedir . '/.ssh';
     return $path;
 }
-
 
 sub _screenRc
 {
@@ -193,13 +187,11 @@ sub _homedir
     return $homedir;
 }
 
-
 sub _writeScreenConf
 {
     my ($self, $user) = @_;
 
     my $conf = 'multiuser on';
-
 
     my $eboxUser = EBox::Config::user();
     my @parts = getgrnam('adm');
@@ -214,7 +206,6 @@ sub _writeScreenConf
         return;
     }
 
-
     my $logFile = $self->_homedir($user) . "/support.log";
 
     my $userStr = join ',', @users;
@@ -227,8 +218,6 @@ sub _writeScreenConf
     $conf .= "logfile $logFile\n";
     $conf .= "log on\n";
 
-
-
     my $screenRc = $self->_screenRc($user);
     EBox::Module::Base::writeFile(
                                   $screenRc,
@@ -238,7 +227,6 @@ sub _writeScreenConf
     EBox::Sudo::root('chsh -s ' . SCREEN_BIN . " $user");
 
 }
-
 
 sub _setScreenSUID
 {

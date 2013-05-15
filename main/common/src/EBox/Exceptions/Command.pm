@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,11 +19,12 @@
 #       its returned value is different from zero.
 #
 
-package EBox::Exceptions::Command;
-use base 'EBox::Exceptions::Internal';
-
 use strict;
 use warnings;
+
+package EBox::Exceptions::Command;
+
+use base 'EBox::Exceptions::Internal';
 
 use Params::Validate qw(validate SCALAR ARRAYREF);
 
@@ -72,7 +73,6 @@ sub new
   my $error = $params{error};
   my $exitValue = $params{exitValue};
   my $cmdType = $params{cmdType};
-
 
   local $Error::Depth = $Error::Depth + 1;
   local $Error::Debug = 1;
@@ -160,6 +160,5 @@ sub _errorMsg
 
   return "$cmdType $cmd failed. \nError output: $errorStr\nCommand output: $outputStr. \nExit value: $exitValue";
 }
-
 
 1;

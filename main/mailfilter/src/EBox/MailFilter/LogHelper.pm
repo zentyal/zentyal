@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 
@@ -15,6 +15,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::LogHelper;
+
 use base qw(EBox::LogHelper);
 
 use EBox::Gettext;
@@ -100,7 +101,6 @@ sub processLine
         $event = 'BLACKLISTED';
     }
 
-
     my $date = $self->_getDate($header);
 
     my $values = {
@@ -116,7 +116,6 @@ sub processLine
     if ($hits ne '-') {
         $values->{'spam_hits'} = $hits;
     }
-
 
     $dbengine->insert(SMTP_FILTER_TABLE, $values);
 }

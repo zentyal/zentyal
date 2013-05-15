@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -28,11 +28,13 @@
 #
 # If status is OK the wizard will step into next wizard page.
 #
-package EBox::CGI::WizardPage;
 use strict;
 use warnings;
 
+package EBox::CGI::WizardPage;
+
 use base 'EBox::CGI::Base';
+
 use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
@@ -75,7 +77,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     return $self;
 }
 
-
 # Method: _processWizard
 #
 # Processes form submission and configures module
@@ -84,7 +85,6 @@ sub _processWizard
 {
     # Override this to process wizard page
 }
-
 
 # Method: _masonParameters
 #
@@ -106,7 +106,6 @@ sub _print
     }
 }
 
-
 sub _process
 {
     my $self = shift;
@@ -115,7 +114,6 @@ sub _process
 	    $self->_processWizard();
     }
 }
-
 
 sub _print_error
 {
@@ -165,7 +163,6 @@ sub run
         };
     }
 }
-
 
 sub _title
 {

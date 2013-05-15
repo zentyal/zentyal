@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::Amavis;
-
 use strict;
 use warnings;
+
+package EBox::MailFilter::Amavis;
 
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
@@ -44,7 +44,6 @@ use constant {
                                    # which mavis provides
 };
 
-
 sub new
 {
     my $class = shift @_;
@@ -54,7 +53,6 @@ sub new
 
     return $self;
 }
-
 
 sub usedFiles
 {
@@ -93,7 +91,6 @@ sub isEnabled
     my ($self) = @_;
     return 1;
 }
-
 
 # we ignore freshclam running state
 sub isRunning
@@ -163,7 +160,6 @@ sub writeConf
 
     my $uid = getpwnam('root');
     my $gid = getgrnam('root');
-
 
     my $fileAttrs = {
                      mode => '0640',
@@ -266,7 +262,6 @@ sub _fqdn
     return $fqdn;
 }
 
-
 sub _localDomains
 {
     my ($self) = @_;
@@ -276,7 +271,6 @@ sub _localDomains
 
     return [@vdomains];
 }
-
 
 # Method : allowedExternalMTAs
 #
@@ -312,7 +306,6 @@ sub adminAddress
     return $amavisConfiguration->notificationAddress();
 }
 
-
 sub bannedFilesRegexes
 {
     my ($self) = @_;
@@ -323,7 +316,6 @@ sub bannedFilesRegexes
 
     my $extensionACL = $mailfilter->model('FileExtensionACL');
     push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
-
 
     my $mimeACL = $mailfilter->model('MIMETypeACL');
     push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
@@ -392,7 +384,6 @@ sub usesPort
     return undef;
 }
 
-
 #  Method: mailFilterName
 #
 #   Implements the method needed for EBox::Mail::FilterProvider
@@ -429,7 +420,6 @@ sub mailFilter
 
     return ($name, \%properties);
 }
-
 
 sub summary
 {

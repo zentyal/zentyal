@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,10 +31,10 @@
 
 #   Or you can use printableValue() to fecth an output which is nicely accepted
 #   by iptables.
-package EBox::Types::PortRange;
-
 use strict;
 use warnings;
+
+package EBox::Types::PortRange;
 
 use base 'EBox::Types::Abstract';
 
@@ -124,7 +124,6 @@ sub value
     }
 }
 
-
 # Method: printableValue
 #
 #    Overrides <EBox::Types::Abstract::printableValue> method
@@ -141,7 +140,6 @@ sub printableValue
 
     return $value;
 }
-
 
 # Method: compareToHash
 #
@@ -186,7 +184,6 @@ sub cmp
 
     return ($self->printableValue() cmp $other->printableValue());
 }
-
 
 # Method: fields
 #
@@ -402,7 +399,6 @@ sub _paramIsValid
 
     return 1;
 }
-
 
 # Method: _paramIsSet
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,10 +24,10 @@
 # the module manages the VPN files. To avoid nasty stuff, we don't allow to
 # change the name of the VPN. Afterwards the same problem appeared in another places
 #
-package EBox::Types::Text::WriteOnce;
-
 use strict;
 use warnings;
+
+package EBox::Types::Text::WriteOnce;
 
 use base 'EBox::Types::Text';
 

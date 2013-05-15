@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::PacketTrafficDetails;
+
 use base 'EBox::Logs::Model::Details';
 
 #
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Int;
@@ -34,9 +35,6 @@ sub new
     return $self;
 }
 
-
-
-
 sub dbFields
 {
    my ($package) = @_;
@@ -46,11 +44,9 @@ sub dbFields
                       printableName => __('packets dropped'),
                      },
 
-
            }
 
 }
-
 
 sub _table
 {
@@ -67,10 +63,7 @@ sub _table
                                           editable => 0,
                                          ),
 
-
                     ];
-
-
 
     my $dataTable =
         {
@@ -91,7 +84,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'firewall_packet_traffic';
@@ -102,11 +94,9 @@ sub tableName
     return 'PacketTrafficDetails';
 }
 
-
 sub timePeriod
 {
     my ($self) = @_;
-
 
     my $model = $self->{confmodule}->{PacketTrafficReportOptions};
     my $row = $model->row();

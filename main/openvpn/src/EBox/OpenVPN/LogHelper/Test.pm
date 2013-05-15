@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::LogHelper::Test;
-use base 'EBox::Test::Class';
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::LogHelper::Test;
+
+use base 'EBox::Test::Class';
 
 use EBox::OpenVPN;
 use EBox::OpenVPN::LogHelper;
@@ -26,7 +27,6 @@ use Test::More;
 use Test::Exception;
 
 use lib '../../..';
-
 
 sub fakeConfig : Test(setup)
 {
@@ -69,8 +69,6 @@ sub _confDir
 {
   return 'testdatas';
 }
-
-
 
 sub processLineTest : Test(24)
 {
@@ -127,7 +125,6 @@ sub processLineTest : Test(24)
 		file => $baboonServer->logFile(),
 		expected => undef,
 	       },
-
 
 	       # verification error: unknown ca
 	       {
@@ -237,7 +234,6 @@ sub processLineTest : Test(24)
 			    },
 	       },
 
-
 	      );
 
   foreach my $case (@cases) {
@@ -245,7 +241,6 @@ sub processLineTest : Test(24)
 
     my $line = $case->{line};
     my $file = $case->{file};
-
 
     my $expected = $case->{expected};
 
@@ -266,11 +261,6 @@ sub processLineTest : Test(24)
   }
 
 }
-
-
-
-
-
 
 package FakeDBEngine;
 
@@ -296,8 +286,6 @@ sub lastInsert
   my ($self) = @_;
   return $self->{data}
 }
-
-
 
 sub clearLastInsert
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Types::TimePeriod;
-use base 'EBox::Types::Abstract';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Types::TimePeriod;
+
+use base 'EBox::Types::Abstract';
 
 use EBox::Gettext;
 
@@ -38,7 +39,6 @@ my %daysToLetters = (
                      saturday  => 'A',
                      sunday    => 'S',
                     );
-
 
 my %daysToPrintableLetters = (
                      monday    => __('M'),
@@ -433,7 +433,6 @@ sub _hoursParamsAreValid
     #   to add the missing minutes field
     my ($fromHours, $fromMinutes) = split ':', $params->{$name . '_from'};
     my ($toHours, $toMinutes)     = split ':', $params->{$name . '_to'};
-
 
     if ($fromHours > $toHours) {
         throw EBox::Exceptions::External(

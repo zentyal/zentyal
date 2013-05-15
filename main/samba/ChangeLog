@@ -1,4 +1,20 @@
-HEAD
+3.1.1
+	+ Fixed wrong setting of state in EBox::Samba::Provision
+3.1
+	+ Replace /home/samba/.provisioned file with a key in redis state
+	+ Depend on zentyal-core 3.1
+3.0.17
+	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
+	  allow join of Windows Vista machines if guest shares are enabled
+	+ New sync_disabled_users option in /etc/zentyal/samba.conf to sync
+	  users with a disabled account in s4sync
+	+ Removed 3.0.X migration code
+	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
+	+ Allow to set "disable_fullaudit" config key in /etc/zentyal/samba.conf
+	  to fully disable recording of samba VFS operations in the system log
+	+ Added Pre-Depends on samba4 to avoid problems with upgrades
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+3.0.16
 	+ Workaround with retries for the chown __USERS__ bug
 	+ Hide sync with cloud options in shares list if remoteservices
 	  is not installed

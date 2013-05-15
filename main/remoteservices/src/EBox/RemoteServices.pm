@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,21 +13,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::RemoteServices;
 
-# Class: EBox::RemoteServices
-#
-#      RemoteServices module to handle everything related to the remote
-#      services offered
-#
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
             EBox::Desktop::ServiceProvider
             EBox::FirewallObserver);
 
-use strict;
-use warnings;
+# Class: EBox::RemoteServices
+#
+#      RemoteServices module to handle everything related to the remote
+#      services offered
+#
 
 use feature qw(switch);
 
@@ -74,7 +75,6 @@ use Data::UUID;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
-use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -178,7 +178,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ( defined($version) ) {
+    if (defined ($version)) {
         # Reload bundle without forcing
         $self->reloadBundle(0);
     }
@@ -187,11 +187,6 @@ sub initialSetup
 
     unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
         $self->restartService();
-    }
-
-    if (defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
-        # Perform the migration to 2.3
-        $self->_migrateTo30();
     }
 }
 
@@ -613,7 +608,6 @@ sub monitorGathererIPAddresses
     return $monGatherers;
 }
 
-
 # Method: controlPanelURL
 #
 #        Return the control panel fully qualified URL to access
@@ -954,7 +948,6 @@ sub renovationDate
     return $ret;
 }
 
-
 # Method: maxUsers
 #
 #   Return the max number of users the server can hold,
@@ -986,7 +979,6 @@ sub maxUsers
     return $max_users;
 }
 
-
 # Method: maxCloudUsers
 #
 #   Return the max number of users available in Cloud (if enabled)
@@ -1005,7 +997,6 @@ sub maxCloudUsers
     }
     return 0;
 }
-
 
 # Method: usersSyncAvailable
 #
@@ -1494,7 +1485,6 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
-
     if ( exists($i18nLevels{$level}) ) {
         my $ret = $i18nLevels{$level};
         if ( $self->commAddOn() ) {
@@ -1582,19 +1572,20 @@ sub inventoryEnabled
 # Configure the SOAP server
 #
 # if subscribed
-# 1. Write soap-loc.mas template
-# 2. Write the SSLCACertificatePath directory
-# 3. Add include in ebox-apache configuration
+# 1. Write soap-loc.conf.mas and soap-loc-ssl.conf.mas templates
+# 2. Write the CA certificates file
+# 3. Add include in webadmin configuration
 # else
-# 1. Remove SSLCACertificatePath directory
-# 2. Remove include in ebox-apache configuration
+# 1. Remove CA certificates file
+# 2. Remove include in webadmin configuration
 #
 sub _confSOAPService
 {
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
-    my $apacheMod = EBox::Global->modInstance('apache');
+    my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ( $self->hasBundle() ) {
             my @tmplParams = (
@@ -1602,28 +1593,30 @@ sub _confSOAPService
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
                );
-            EBox::Module::Base::writeConfFileNoCheck(
-                $confFile,
-                'remoteservices/soap-loc.mas',
-                \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
-            $apacheMod->addInclude($confFile);
-            $apacheMod->addCA($self->_caCertPath());
+            $webAdminMod->addApacheInclude($confFile);
+            $webAdminMod->addNginxInclude($confSSLFile);
+            $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
         # Do nothing if CA or include are already removed
         try {
-            $apacheMod->removeInclude($confFile);
+            $webAdminMod->removeApacheInclude($confFile);
         } catch EBox::Exceptions::Internal with { ; };
         try {
-            $apacheMod->removeCA($self->_caCertPath('force'));
+            $webAdminMod->removeNginxInclude($confSSLFile);
+        } catch EBox::Exceptions::Internal with { ; };
+        try {
+            $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch EBox::Exceptions::Internal with { ; };
     }
-    # We have to save Apache changes:
+    # We have to save web admin changes:
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
-    # $apacheMod->save();
-    EBox::Global->modChange('apache');
+    # $webAdminMod->save();
+    EBox::Global->modChange('webadmin');
 }
 
 # Assure the VPN connection with our VPN servers is established
@@ -1778,7 +1771,6 @@ sub _ccConnectionWidget
             }
         } # else. No VPN required, then always connected
 
-
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
         my $net = $gl->modInstance('network');
@@ -1802,7 +1794,6 @@ sub _ccConnectionWidget
                 $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
             }
         }
-
 
         $DRValue = __x('Configuration backup enabled');
         my $date = $self->latestRemoteConfBackup();
@@ -1943,9 +1934,9 @@ sub _reportAdminPort
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance(1);
-    my $apache = $gl->modInstance('apache');
+    my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($apache->port());
+    $self->reportAdminPort($webAdminMod->port());
 }
 
 # Method: extraSudoerUsers
@@ -2190,24 +2181,6 @@ sub REST
     return $self->{rest};
 }
 
-# Migration to 3.0
-#
-#  * Migrate current subscription data in state to new structure
-#  * Rename VPN client
-#  * Get credentials
-#  * Rename file ebox-qa.list to zentyal-qa.list
-#
-sub _migrateTo30
-{
-    my ($self) = @_;
-
-    # Drop old VPN client
-    # Create a new one
-    # Get credentials again
-    # Rename file ebox-qa.list to zentyal-qa.list
-}
-
-
 # Method: desktopActions
 #
 #   Return an array ref with the exposed methods
@@ -2383,7 +2356,6 @@ sub _setQAUpdates
     EBox::RemoteServices::QAUpdates::set();
 
 }
-
 
 # Update MOTD scripts depending on the subscription status
 sub _updateMotd

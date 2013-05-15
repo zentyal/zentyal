@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,13 +16,13 @@ use strict;
 use warnings;
 
 package EBox::CGI::Controller::DataTable;
+
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
-
 
 # Dependencies
 use Error qw(:try);
@@ -330,7 +330,6 @@ sub _responseToEnableChangesMenuElement
     print 'jQuery("#changes_menu").removeClass().addClass("changed")';
 }
 
-
 sub customAction
 {
     my ($self, $action) = @_;
@@ -381,7 +380,6 @@ sub refreshTable
 
     $self->{'params'} = \@params;
 }
-
 
 sub editAction
 {
@@ -501,7 +499,6 @@ sub confirmationDialogAction
        };
 }
 
-
 # Group: Protected methods
 
 sub _process
@@ -543,7 +540,6 @@ sub _process
         $model->setMessage('');
     }
 }
-
 
 sub _redirect
 {

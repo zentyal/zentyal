@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,6 +18,9 @@
 #   This model is used to configure the default settings of the user accounts
 #
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::AccountSettings;
 
 use base 'EBox::Model::DataForm';
@@ -28,9 +31,6 @@ use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-
-use strict;
-use warnings;
 
 use constant DEFAULTQUOTA => 500;
 

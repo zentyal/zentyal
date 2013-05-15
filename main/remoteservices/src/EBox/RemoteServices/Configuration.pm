@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Configuration;
+use strict;
+use warnings;
 
+package EBox::RemoteServices::Configuration;
 # Class: EBox::RemoteServices::Configuration
 #
 #   This class is a configuration variable holder shared between
 #   several objects in remote services module
 #
-
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Global;
@@ -90,7 +89,6 @@ sub IncomingJobDir
 
 }
 
-
 # Method: OutcomingJobDir
 #
 #      Get where the job instances leave its results
@@ -105,7 +103,6 @@ sub OutcomingJobDir
     return JobsDir() . 'outcoming/';
 
 }
-
 
 # Method: CronJobPrefix
 #

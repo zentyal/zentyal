@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Printers;
+
 use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
@@ -110,9 +111,6 @@ sub initialSetup
                             'destinationPort' => 631,
                            );
         $firewall->saveConfigRecursive();
-    } elsif ($version le '3.0') {
-        my $path = EBox::Config::share() . 'zentyal-' . $self->name() . '/migrate-sql';
-        EBox::Sudo::root("$path $version");
     }
 }
 
@@ -352,6 +350,5 @@ sub logHelper
 
     return (new EBox::Printers::LogHelper());
 }
-
 
 1;

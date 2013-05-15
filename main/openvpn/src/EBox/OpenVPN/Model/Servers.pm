@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::Servers;
+
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
 use EBox::Global;
@@ -41,7 +42,6 @@ use constant PORTS => (1194, 11194 .. 11234);
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
@@ -201,7 +201,6 @@ sub servers
 
 }
 
-
 sub server
 {
     my ($self, $name) = @_;
@@ -214,7 +213,6 @@ sub server
 
     return EBox::OpenVPN::Server->new($row);
 }
-
 
 sub serverExists
 {
@@ -272,7 +270,6 @@ sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-
     if ( not exists $params_r->{service} ) {
         return;
     }
@@ -296,7 +293,6 @@ sub _validateService
                 );
     }
 }
-
 
 sub _validateName
 {
@@ -377,7 +373,7 @@ sub _configureVPN
     my ($self, $row) = @_;
 
     # Configure network
-    my $networkMod = EBox::Global->modInstance('network');
+    my $networkMod = $self->global()->modInstance('network');
     my @addresses;
     for my $iface (@{$networkMod->allIfaces()}) {
         my $address = $networkMod->ifaceAddress($iface);
@@ -425,46 +421,8 @@ sub _configureVPN
     }
 
     # Advertise local networks
-    my $global  = EBox::Global->getInstance();
-    my $objMod = $global->modInstance('objects');
     my $advertise = $row->subModel('advertisedNetworks');
-    my %objIdByName = map {
-        ($_->{name} => $_->{id})
-    } @{$objMod->objects() };
-    foreach my $iface (@{$networkMod->InternalIfaces()}) {
-        next unless ($networkMod->ifaceMethod($iface) eq 'static');
-        for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
-            my $netAddress = EBox::NetWrappers::ip_network(
-                                $ifaceAddress->{address},
-                                $ifaceAddress->{netmask},
-                             );
-            my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
-            my $objName = "openVPN-$iface-$netAddress-$mask";
-
-            my $id = $objIdByName{$objName};
-            # Add the object if if does not exist
-            if ( not defined $id ) {
-                $id = $objMod->addObject(
-                    name     => $objName,
-                    members  => [{
-                                    name             => "$netAddress-$mask",
-                                    address_selected => 'ipaddr',
-                                    address          => 'ipaddr',
-                                    ipaddr_ip        => $netAddress,
-                                    ipaddr_mask      => $mask,
-                                },],
-                    readOnly => 1,
-                );
-                $objIdByName{$objName} = $id;
-            }
-
-            # Add the object to the list of advertised objects if it does not
-            # already exists
-            if (not $advertise->findId(object => $id)) {
-                $advertise->add(object => $id);
-            }
-        }
-    }
+    $advertise->populateWithInternalNetworks();
 }
 
 1;

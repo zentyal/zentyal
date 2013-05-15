@@ -1,4 +1,4 @@
-# Copyright (C) 2013 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -34,8 +34,6 @@ use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Error qw(:try);
 
-use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
-
 sub new
 {
     my ($class, %params) = @_;
@@ -48,18 +46,18 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
+    my $state = EBox::Global->modInstance('samba')->get_state();
+    return $state->{provisioned};
 }
 
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
-    if ($provisioned) {
-        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
-    } else {
-        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
-    }
+    my $samba = EBox::Global->modInstance('samba');
+    my $state = $samba->get_state();
+    $state->{provisioned} = $provisioned;
+    $samba->set_state($state);
 }
 
 # Method: checkEnvironment

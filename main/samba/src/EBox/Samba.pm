@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba;
-
 use strict;
 use warnings;
+
+package EBox::Samba;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
@@ -148,36 +148,6 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
-    }
-
-    # Migration from 3.0.8, force users resync
-    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
-        EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
-    }
-
-    # Migration from 3.0.11, add fields to the LogHelper tables and set
-    # AV quarantine dir
-    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        unless (defined ($dbengine->checkForColumn('samba_virus', 'username'))) {
-            $dbengine->do("ALTER TABLE samba_virus ADD COLUMN username VARCHAR(24)");
-        }
-        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'username'))) {
-            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN username VARCHAR(24)");
-        }
-        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'client'))) {
-            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN client INT UNSIGNED");
-        }
-    }
-
-    # Migration from 3.0.12, support sizes greater than 2 GiB
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.13') < 0) {
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        $dbengine->do("ALTER TABLE samba_disk_usage
-                       MODIFY size BIGINT DEFAULT 0");
-        $dbengine->do("ALTER TABLE samba_disk_usage_report
-                       MODIFY size BIGINT DEFAULT 0");
-
     }
 }
 
@@ -673,6 +643,7 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
+    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
@@ -999,7 +970,6 @@ sub firewallCaptivePortalExceptions
 
     return \@rules;
 }
-
 
 sub menu
 {

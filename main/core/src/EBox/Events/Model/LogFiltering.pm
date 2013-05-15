@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,10 +27,10 @@
 #     - event      - Selection between the given selections from tableInfo
 #
 
-package EBox::Events::Model::LogFiltering;
-
 use strict;
 use warnings;
+
+package EBox::Events::Model::LogFiltering;
 
 use base 'EBox::Model::DataTable';
 

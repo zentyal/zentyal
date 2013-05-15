@@ -21,7 +21,7 @@ JS_END
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
 </form>
- <form action="/Controller/Uploader"
+ <form action="/Uploader"
         method="POST"
         enctype="multipart/form-data"
         id="<% $id . '_form' %>">

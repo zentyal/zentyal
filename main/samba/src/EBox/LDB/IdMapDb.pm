@@ -1,7 +1,7 @@
-package EBox::LDB::IdMapDb;
-
 use strict;
 use warnings;
+
+package EBox::LDB::IdMapDb;
 
 use constant PRIVATE_DIR => '/opt/samba4/private/';
 use constant FILE        => 'idmap.ldb';

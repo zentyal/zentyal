@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,17 +16,16 @@
 # package:  EBox::Types::IPNetwork
 #
 #    Type class intended to represent addresses of IP networks
+use strict;
+use warnings;
+
 package EBox::Types::IPNetwork;
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 
-use strict;
-use warnings;
-
 use base 'EBox::Types::IPAddr';
-
 
 sub new
 {
@@ -45,8 +44,6 @@ sub new
 
     return $self;
 }
-
-
 
 # Method: _paramIsValid
 #
@@ -130,6 +127,5 @@ sub checkIPIsNetwork
 
     return 1;
 }
-
 
 1;

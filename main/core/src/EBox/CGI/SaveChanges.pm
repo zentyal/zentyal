@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,8 +17,8 @@ use strict;
 use warnings;
 
 package EBox::CGI::SaveChanges;
-use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Config;
 use EBox::Global;
@@ -53,7 +53,6 @@ sub _process
         throw EBox::Exceptions::External("No save or cancel parameter");
     }
 }
-
 
 my @commonProgressParams = (
         reloadInterval  => 2,
@@ -144,7 +143,6 @@ sub revokeAllModulesAction
 
     $self->showProgress(@params);
 }
-
 
 # to avoid the <div id=content>
 sub _print

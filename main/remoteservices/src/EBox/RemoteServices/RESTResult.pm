@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -59,7 +59,6 @@ sub as_string
     return $value;
 }
 
-
 # Method: data
 #
 #   Return the result as array or hash ref (it expects a JSON response)
@@ -73,7 +72,6 @@ sub data
     }
     return $self->{result_json};
 }
-
 
 1;
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::ClamAV;
-# package:
 use strict;
 use warnings;
+
+package EBox::MailFilter::ClamAV;
+
+# package:
 
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
@@ -39,7 +41,6 @@ use EBox::MailFilter::VDomainsLdap;
 #   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
 #   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
 # };
-
 
 sub new
 {
@@ -65,7 +66,6 @@ sub setVDomainService
   $vdomainsLdap->setAntivirus($vdomain, $service);
 }
 
-
 sub vdomainService
 {
   my ($self, $vdomain) = @_;
@@ -74,6 +74,5 @@ sub vdomainService
   $vdomainsLdap->checkVDomainExists($vdomain);
   $vdomainsLdap->antivirus($vdomain);
 }
-
 
 1;

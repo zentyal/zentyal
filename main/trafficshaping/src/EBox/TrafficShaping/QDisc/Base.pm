@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::QDisc::Base;
-
 use strict;
 use warnings;
 
-# Its parent class is NodeTS
+package EBox::TrafficShaping::QDisc::Base;
+
 use base 'EBox::TrafficShaping::Node';
+
+# Its parent class is NodeTS
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
@@ -305,6 +306,5 @@ sub dumpProtocols
 
     return \%protocols;
 }
-
 
 1;

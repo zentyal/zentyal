@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::DomainFilterCategories;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -36,7 +37,6 @@ my $categoriesFileDir = '/var/lib/zentyal/files/squid';
 
 my %validParentDirs = %{ EBox::Squid::Types::ListArchive::validParentDirs() };
 my %validBasename = %{ EBox::Squid::Types::ListArchive::validBasename() };
-
 
 # Method: syncRows
 #
@@ -195,7 +195,6 @@ sub _populate
 
     return \@elements;
 }
-
 
 # Function: dgAllowed
 #

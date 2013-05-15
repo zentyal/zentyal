@@ -462,7 +462,6 @@ sub send_cookie {
     $r->err_headers_out->add("Set-Cookie" => $cookie);
 }
 
-
 # cookie_string takes named parameters:
 #    request
 #    key

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailUserLdap;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Sudo;
@@ -55,7 +56,6 @@ sub mailboxesDir
 {
     return DIRVMAIL;
 }
-
 
 # Method: setUserAccount
 #
@@ -159,7 +159,6 @@ sub delUserAccount
     EBox::Sudo::root(@cmds);
 }
 
-
 # Method: userAccount
 #
 #  return the user mail account or undef if it doesn't exists
@@ -170,7 +169,6 @@ sub userAccount
 
     return $user->get('mail');
 }
-
 
 # Method: userByAccount
 #
@@ -209,7 +207,6 @@ sub userByAccount
     return $usermail;
 }
 
-
 # Method: delAccountsFromVDomain
 #
 #  This method removes all mail accounts from a virtual domain
@@ -231,7 +228,6 @@ sub delAccountsFromVDomain   #vdomain
         $self->delUserAccount($user, $accs{$uid});
     }
 }
-
 
 # Method: _addUser
 #
@@ -333,7 +329,6 @@ sub _userAddOns
         $mail->{fetchmail}->externalAccountRowValues($_)
      } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
-
     my @paramsList = (
             user        => $user,
             mail        => $usermail,
@@ -411,7 +406,6 @@ sub _accountExists
 
     return ($result->count > 0);
 }
-
 
 # Method: allAccountFromVDomain
 #
@@ -498,12 +492,10 @@ sub checkUserMDSize
     return \@warnusers;
 }
 
-
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
     my $dir = DIRVMAIL . "/$vdomain/$lhs/";
-
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
         my $backupDirBase = $dir ;
@@ -554,7 +546,6 @@ sub _createMaildir
     EBox::Sudo::root(@cmds);
 }
 
-
 sub _sieveDir
 {
     my ($self, $lhs, $vdomain) = @_;
@@ -591,7 +582,6 @@ sub maildirQuota
     return $user->get('mailquota');
 }
 
-
 #  Method: maildirQuotaType
 #
 #     get the type of the quota assigned to the user
@@ -623,7 +613,6 @@ sub maildirQuotaType
     return 'default';
 }
 
-
 #  Method: setMaildirQuotaUsesDefault
 #
 #     sets wether the user is using the default quota or not. Additionally if
@@ -648,8 +637,6 @@ sub setMaildirQuotaUsesDefault
     $user->save();
     $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
-
-
 
 #  Method: setMaildirQuota
 #
@@ -718,7 +705,6 @@ sub regenMaildirQuotas
     }
 }
 
-
 # FIXME make a listener-observer for this new code and move it to zentyal-zarafa
 sub _userZarafaAccount
 {
@@ -783,7 +769,6 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-
 sub schemas
 {
     return [
@@ -793,7 +778,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
-
 
 sub acls
 {

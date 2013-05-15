@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Types::File::Test;
-use base 'EBox::Test::Class';
-
 use strict;
 use warnings;
+
+package EBox::Types::File::Test;
+
+use base 'EBox::Test::Class';
 
 use Test::More qw(no_plan);
 use Test::Exception;
@@ -169,7 +170,6 @@ sub isEqualToTest : Test(5)
     $notEqual = not $file->isEqualTo($file2);
     ok $notEqual, 'Checking equalTo in identical files objects without a file  in place and upload file';
 }
-
 
 sub existsTest : Test(2)
 {

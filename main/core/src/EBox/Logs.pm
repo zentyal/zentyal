@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Logs;
+
 use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -40,7 +41,6 @@ use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
 use constant PG_DATA_DIR           => '/var/lib/postgres';
-
 
 #       EBox::Module::Service interface
 #
@@ -76,7 +76,6 @@ sub _daemons
         }
     ];
 }
-
 
 #  Method: _loggerdPrecondition
 #
@@ -368,11 +367,9 @@ sub dumpExtraBackupDataSize
     return $size;
 }
 
-
 sub _checkValidDate # (date)
 {
     my ($datestr) = @_;
-
 
     my ($date, $time) = split (/ /, $datestr);
     my ($year, $month, $day) = split (/-/, $date);
@@ -459,7 +456,6 @@ sub search
                            "Field $field does not appear in tableinfo's titles field");
                         }
 
-
             if ($field eq 'event') {
                 $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
@@ -517,7 +513,6 @@ sub search
     return $hashret;
 }
 
-
 # Method: totalRecords
 #
 #       Get the total records stored in database for a given table
@@ -566,7 +561,6 @@ sub consolidatedLogForDay
     ($date) = split '\s', $date;
     $date .= ' 00:00:00';
 
-
     $table = $table . '_daily';
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
@@ -594,7 +588,6 @@ sub yesterdayDate
     return "$year-$mon-$mday 00:00:00";
 }
 
-
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;
@@ -602,7 +595,6 @@ sub _addFilter
                    and length($filter) > 0);
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
 }
-
 
 sub _addDateFilter
 {
@@ -618,7 +610,6 @@ sub _addPager
     $self->{'sqlselect'}->{'offset'} = $offset;
     $self->{'sqlselect'}->{'limit'} = $limit;
 }
-
 
 sub _addOrder
 {
@@ -667,7 +658,6 @@ sub _sqlStmnt
             push @params, $sql->{'regexp'}->{$field};
         }
     }
-
 
     if ($sql->{'filter'}) {
         foreach my $field (keys %{$sql->{'filter'}}) {
@@ -787,7 +777,6 @@ sub _restoreEnabledLogsModules
     return \%enabled;
 }
 
-
 # Overrides:
 #  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
 #
@@ -890,7 +879,6 @@ sub purge
         }
     }
 }
-
 
 # Transform an hour into a localtime
 sub _thresholdDate

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,10 +31,10 @@
 #		- Implement backview correctly to allow the user to go back
 #		  when he is done with the spawned table
 #
-package EBox::Types::HasMany;
-
 use strict;
 use warnings;
+
+package EBox::Types::HasMany;
 
 use base 'EBox::Types::Abstract';
 
@@ -111,7 +111,6 @@ sub foreignModel
     return '' unless (exists $self->{'foreignModel'});
     return $self->{'foreignModel'};
 }
-
 
 # Method: foreignModelInstance
 #
@@ -421,7 +420,6 @@ sub restoreFiles
   }
 }
 
-
 sub setModel
 {
     my ($self, $model, @extraParams) = @_;
@@ -463,7 +461,6 @@ sub model
     return $model;
 }
 
-
 sub setRow
 {
     my ($self, $row, @extraParams) = @_;
@@ -475,7 +472,6 @@ sub setRow
         delete $self->{rowId};
     }
 }
-
 
 sub row
 {

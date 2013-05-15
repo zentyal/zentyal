@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,8 +32,8 @@ try {
 
     EBox::init();
     binmode(STDOUT, ':utf8');
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox');
-} otherwise  {
+    EBox::CGI::Run->run($ENV{'script'});
+} otherwise {
     my $ex = shift;
     use Devel::StackTrace;
     use CGI qw/:standard/;

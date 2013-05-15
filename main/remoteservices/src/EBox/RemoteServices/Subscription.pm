@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,7 @@ use warnings;
 #       Class to manage the Zentyal subscription to Zentyal Cloud
 #
 package EBox::RemoteServices::Subscription;
+
 use base 'EBox::RemoteServices::Base';
 
 use feature qw(switch);
@@ -284,7 +285,6 @@ sub subscribeServer
     #     $confKeys->{vpnProtocol},
     #    );
 
-
     # $self->executeBundle($params, $confKeys);
 
     # $params->{new} = $new;
@@ -396,7 +396,6 @@ sub extractBundle
         confFile => "$dirPath/$confFile",
     };
 
-
     if (defined $installCloudProf) {
         $bundle->{installCloudProf} = "$dirPath/$installCloudProf";
     }
@@ -418,7 +417,7 @@ sub extractBundle
 #
 #     Current actions:
 #
-#        - Restart remoteservices, firewall and apache modules
+#        - Restart remoteservices, firewall and web admin modules
 #        - Downgrade if necessary
 #        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
@@ -623,7 +622,6 @@ sub _installCloudProf
 
 }
 
-
 sub _executeBundleScripts
 {
     my ($self, $params) = @_;
@@ -656,7 +654,6 @@ sub _removeDDNSConf
         EBox::info('DynDNS is using other service, not modifying');
     }
 }
-
 
 # Check if the zentyal-cloud-prof is already installed
 sub _pkgInstalled
@@ -769,8 +766,8 @@ sub _restartRS
     my $fw = $global->modInstance('firewall');
     $fw->save();
     # Required to set the CA correctly
-    my $apache = $global->modInstance('apache');
-    $apache->save();
+    my $webAdmin = $global->modInstance('webadmin');
+    $webAdmin->save();
 }
 
 # Downgrade current subscription, if necessary
@@ -851,6 +848,5 @@ sub _createSubscriptionDir
     }
     return $dirPath;
 }
-
 
 1;

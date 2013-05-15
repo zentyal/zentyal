@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Event::Watcher::Monitor;
+
+use base 'EBox::Event::Watcher::Base';
 
 # Class: EBox::Event::Watcher::Monitor
 #
 #   This class is a watcher which search for new notifications from
 #   the monitoring system.
 #
-
-use base 'EBox::Event::Watcher::Base';
-
-use strict;
-use warnings;
 
 use EBox::Config;
 use EBox::Event;

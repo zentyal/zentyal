@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::ProgressIndicator;
-
 use strict;
 use warnings;
 
+package EBox::ProgressIndicator;
+
 use EBox::Gettext;
-use EBox::Apache;
+use EBox::WebAdmin;
 use EBox::Util::SHM;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -407,7 +407,7 @@ sub _fork
         $self->{childPid} = $pid;
         return; # parent returns immediately
     } else {
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         my $executable = $self->_get('executable');
         exec ("$executable --progress-id $id");
     }
@@ -468,10 +468,9 @@ sub _currentIds
     EBox::Util::SHM::subkeys($KEY);
 }
 
-
 # Method to clean up the rubbish regarding to the progress indicator
 # It must be called when a new progress indicator is created, because
-# a single ProgressIndicator should be alive on Apache
+# a single ProgressIndicator should be alive on WebAdmin
 sub _cleanupFinished
 {
     my ($class) = @_;

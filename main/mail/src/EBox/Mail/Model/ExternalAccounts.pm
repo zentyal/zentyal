@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,18 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+use strict;
+use warnings;
 
 package EBox::Mail::Model::ExternalAccounts;
+
 use base 'EBox::Model::DataTable';
 
 #
 #  To manage email retrieval form external accounts in the user corner
 #  section
 #
-
-use strict;
-use warnings;
-
 
 use EBox;
 use EBox::Gettext;
@@ -35,7 +34,6 @@ use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
 use EBox::Validate;
-
 
 use Apache2::RequestUtil;
 
@@ -67,7 +65,6 @@ sub pageTitle
 {
     return __('External mail accounts');
 }
-
 
 # Group: Private methods
 
@@ -191,7 +188,6 @@ sub _userAccount
     return $self->{mailMod}->{musers}->userAccount($user);
 }
 
-
 sub ids
 {
     my ($self) = @_;
@@ -228,8 +224,6 @@ sub row
     $row->setId($id);
     return $row;
 }
-
-
 
 sub validateTypedRow
 {
@@ -278,7 +272,6 @@ sub addTypedRow
     return $nAccounts;
 }
 
-
 sub removeRow
 {
     my ($self, $id, $force) = @_;
@@ -304,7 +297,6 @@ sub removeRow
                      );
 }
 
-
 sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
@@ -328,8 +320,6 @@ sub setTypedRow
         $allHashElements->{$name} = $value;
     }
 
-
-
     my $newAccount =
           $self->_elementsToParamsForFetchmailLdapCall($allHashElements);
     $self->{mailMod}->{fetchmail}->modifyExternalAccount(
@@ -339,7 +329,6 @@ sub setTypedRow
                                                         );
 
 }
-
 
 sub _elementsToParamsForFetchmailLdapCall
 {
@@ -354,7 +343,6 @@ sub _elementsToParamsForFetchmailLdapCall
         keep           => $params_r->{keep}->value(),
         fetchall       => $params_r->{fetchall}->value(),
        );
-
 
     my $mailProtocol = $params_r->{protocol}->value();
     if ($mailProtocol eq 'pop3') {
@@ -386,15 +374,12 @@ sub _elementsToParamsForFetchmailLdapCall
     return \@callParams;
 }
 
-
-
 sub precondition
 {
     my ($self) = @_;
     my $account = $self->_userAccount();
     return defined $account;
 }
-
 
 sub preconditionFailMsg
 {

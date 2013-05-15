@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,6 +23,7 @@ use warnings;
 #
 
 package EBox::UsersAndGroups::User;
+
 use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;
@@ -116,7 +117,6 @@ sub fullname
     my ($self) = @_;
     return $self->get('cn');
 }
-
 
 sub firstname
 {
@@ -365,7 +365,6 @@ sub _groups
     return \@groups;
 }
 
-
 # Method: system
 #
 #   Return 1 if this is a system user, 0 if not
@@ -376,7 +375,6 @@ sub system
 
     return ($self->get('uidNumber') < MINUID);
 }
-
 
 sub _checkQuota
 {
@@ -753,7 +751,6 @@ sub _checkUserName
     if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
         return undef;
     }
-
 
     # windows user names cannot end with a  period
     if ($name =~ m/\.$/) {
