@@ -1,4 +1,6 @@
 HEAD
+	+ Custom QA repository can be set at qa_updates_repo configuration
+	  key
 	+ RESTClient can now set the URI endpoint programatically
 	+ Added pullStatus SOAP server method to get the job result via
 	  polling
