@@ -17,7 +17,8 @@ if (!('Zentyal' in  window)) {
             }
 
             return nsObject;
-        }
+        },
+        LeftMenu: {}
     };
 }
 
@@ -25,64 +26,6 @@ Zentyal.escapeSelector = function(selector)
 {
     return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
 };
-
-var menuShown = '';
-var menuShownAnchor = null;
-
-/*
-function: showMenu
-
-Open or closes the relevan section of the left menu
-
-Parameters:
-   name - name of the selected section
-   menuAnchor - DOM object of the clicked menu anchor
-*/
-function showMenu(name, menuAnchor){
-  menuAnchor = jQuery(menuAnchor);
-  var open = false;
-  if (menuShown === name) {
-      menuShown = '';
-      menuShownAnchor = null;
-      _closeLeftMenu(name, menuAnchor);
-
-  } else if (menuShown === '') {
-    if (menuAnchor.hasClass('despleg')) {
-      _closeLeftMenu(name, menuAnchor);
-    } else {
-      open = true;
-    }
-  } else {
-     open = true;
-     _closeLeftMenu(menuShown, menuShownAnchor);
-  }
-
-  if (open){
-      menuShown = name;
-      menuShownAnchor = menuAnchor;
-      _openLeftMenu(name, menuAnchor);
-  }
-}
-
-function _openLeftMenu(name, menuAnchor)
-{
-    jQuery('.' + name).each(function(index, e) {
-            e.style.display = 'inline';
-                            }
-                      );
-    menuAnchor.addClass('despleg');
-    menuAnchor.removeClass('navarrow');
-}
-
-function _closeLeftMenu(name, menuAnchor)
-{
-  jQuery('.' + name).each(function(index, e) {
-      e.style.display = 'none';
-                             }
-                    );
-  menuAnchor.addClass('navarrow');
-  menuAnchor.removeClass('despleg');
-}
 
 /*
 Function: stripe
@@ -97,14 +40,73 @@ Function: stripe
      evenClass - css class to apply to even tr
      oddClass - css class to apply to odd tr
 */
-function stripe(theclass, evenClass, oddClass) {
+Zentyal.stripe = function (theclass, evenClass, oddClass) {
     jQuery('.' + theclass + ' tbody tr:nth-child(even)').each(function(index, tr) {
         tr.addClassName(evenClass);
     });
     jQuery('.' + theclass + ' tbody tr:nth-child(odd)').each(function(index, tr) {
         tr.addClassName(oddClass);
     });
-}
+};
+window.stripe = Zentyal.stripe; // temporal rep[lacement until table-helper is modularized
+
+// Zentyal.LetfMenu namespace
+
+Zentyal.LeftMenu.menuShown = '';
+Zentyal.LeftMenu.menuShownAnchor = null;
+
+/*
+function: showMenu
+
+Open or closes the relevan section of the left menu
+
+Parameters:
+   name - name of the selected section
+   menuAnchor - DOM object of the clicked menu anchor
+*/
+Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
+  menuAnchor = jQuery(menuAnchor);
+  var open = false;
+  if (Zentyal.LeftMenu.menuShown === name) {
+      Zentyal.LeftMenu.menuShown = '';
+      Zentyal.LeftMenu.menuShownAnchor = null;
+      Zentyal.LeftMenu._close(name, menuAnchor);
+
+  } else if (Zentyal.LeftMenu.menuShown === '') {
+    if (menuAnchor.hasClass('despleg')) {
+      Zentyal.LeftMenu._close(name, menuAnchor);
+    } else {
+      open = true;
+    }
+  } else {
+     open = true;
+     Zentyal.LeftMenu._close(Zentyal.LeftMenu.menuShown, Zentyal.LeftMenu.menuShownAnchor);
+  }
+
+  if (open){
+      Zentyal.LeftMenu.menuShown = name;
+      Zentyal.LeftMenu.menuShownAnchor = menuAnchor;
+      Zentyal.LeftMenu._open(name, menuAnchor);
+  }
+};
+
+Zentyal.LeftMenu._open = function(name, menuAnchor) {
+    jQuery('.' + name).each(function(index, e) {
+            e.style.display = 'inline';
+                            }
+                      );
+    menuAnchor.addClass('despleg');
+    menuAnchor.removeClass('navarrow');
+};
+
+Zentyal.LeftMenu._close = function(name, menuAnchor) {
+  jQuery('.' + name).each(function(index, e) {
+      e.style.display = 'none';
+                             }
+                    );
+  menuAnchor.addClass('navarrow');
+  menuAnchor.removeClass('despleg');
+};
 
 // XXX used only in the not-tottaly implemented data table sections feature
 function toggleWithToggler(name)
