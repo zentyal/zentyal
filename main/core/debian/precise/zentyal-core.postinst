@@ -95,11 +95,11 @@ case "$1" in
         # sudo configuration
         /usr/share/zentyal/sudoers-friendly
 
-        if [ -z "$2" ]; then
-            # stop disable default nginx init.d script
-            invoke-rc.d nginx stop > /dev/null 2>&1
-            update-rc.d nginx disable > /dev/null 2>&1
+        # stop disable default nginx init.d script
+        invoke-rc.d nginx stop > /dev/null 2>&1
+        update-rc.d nginx disable > /dev/null 2>&1
 
+        if [ -z "$2" ]; then
             # Set Zentyal port only if it's the first time we install
             set_ebox_port
 
