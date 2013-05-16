@@ -507,6 +507,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
                     var widget = ui.item;
                     widget.removeClass().addClass('widgetBox');
                     widget.attr('id', id.replace(/_placeholder$/, ''));
+                    widget.width(jQuery('#dashboard1').width());
                     widget.html(response);
                     widget.find('.closeBox').toggle(500); // XXX first?
                 }
@@ -519,13 +520,8 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
                 widget.removeClass().addClass('widgetBarBox').html('');
                 // put _placeholder id back in place
                 widget.attr('id', widget.attr('id') + '_placeholder');
-                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
-                console.log('INSIDE');
-            } else {
-                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
-                console.log('OUTSIDE');
             }
-
+            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
         }
     });
 
