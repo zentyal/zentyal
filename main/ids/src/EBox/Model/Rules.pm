@@ -27,7 +27,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
-use EBox::Types::Select;
+use EBox::Types::Text;
 
 use constant DEFAULT_RULES => qw(local bad-traffic exploit community-exploit
     scan finger ftp telnet rpc rservices dos community-dos ddos dns tftp
