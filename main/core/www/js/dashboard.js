@@ -496,6 +496,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         containment: 'body',
         delay: 100,
         scroll : false,
+        opacity: 0.8,
         start: function(event, ui) {
             var id = ui.item.attr('id');
             var idParts = Zentyal.Dashboard.parseWidgetId(id);
