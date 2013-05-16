@@ -28,14 +28,11 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
-use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
 
 use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
-use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
 use Encode;
@@ -43,7 +40,6 @@ use Net::LDAP::Control;
 use Date::Calc;
 use Error qw(:try);
 
-use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
 # Method: changePassword
