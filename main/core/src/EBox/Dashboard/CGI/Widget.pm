@@ -28,11 +28,11 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_,
+    my $class = shift;
+    my $self = $class->SUPER::new(@_,
                                   'template' => '/dashboard/widgetcontent.mas');
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: requiredParameters
