@@ -91,8 +91,8 @@ my $formId    = $id . '_form';
 my $onChange = << "JS_END";
 var fileUpload = new Zentyal.FileUpload(
    { formId :   '$formId',
-     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); setLoading('$loadingId'); },
-     complete : function() { setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
+     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();

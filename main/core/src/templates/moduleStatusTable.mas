@@ -46,7 +46,7 @@ function configureModule(module, title)
 %   }
 jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
-stripe('dataTable', 'even', 'odd');
+Zentyal.stripe('dataTable', 'even', 'odd');
 
 </script>
 <br/>
@@ -94,7 +94,7 @@ stripe('dataTable', 'even', 'odd');
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
-                'onChange' => qq{sendStatus(); setLoading('${name}_status'); }
+                'onChange' => qq{sendStatus(); Zentyal.TableHelper.setLoading('${name}_status'); }
             &>
 %   }
         </td>

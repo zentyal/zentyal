@@ -10,8 +10,8 @@ my $formId    = $id . '_form';
 my $onChange = << "JS_END";
 var fileUpload = new Zentyal.FileUpload(
    { formId:   '$formId',
-     start:    function() { setLoading('$loadingId'); },
-     complete: function()  { setDone('$loadingId') ; },
+     start:    function() { Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete: function() { Zentyal.TableHelper.setDone('$loadingId') ; },
    }
 );
 return fileUpload.submit();

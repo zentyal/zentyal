@@ -146,7 +146,7 @@ Zentyal.Tabs.prototype = {
         this._setAdditionalParams();
 
         // Load the content from table-helper
-        hangTable( 'tabData_' + this.tabName ,
+        Zentyal.TableHelper.hangTable( 'tabData_' + this.tabName ,
                    'errorTabData_' + this.tabName,
                    this.modelAttrs[ tab.attr('id') ].action,
                    'tableForm',

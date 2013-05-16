@@ -199,7 +199,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
       name='filter'
       value="<% __('Search') %>"
       title="Apply"
-      onClick="setLoading('<%
+      onClick="Zentyal.TableHelper.setLoading('<%
                              $filterId
                             %>');
                 <%
@@ -317,7 +317,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
 % }
 
 % if ( $action eq 'changeEdit' and $editid ) {
-<script>highlightRow('<% $editid %>', 1);</script>
+<script>Zentyal.TableHelper.highlightRow('<% $editid %>', 1);</script>
 % }
 <& .doneButton, model => $model, selectCallerId => $selectCallerId &>
 </div>

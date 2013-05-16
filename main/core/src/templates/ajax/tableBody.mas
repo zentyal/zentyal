@@ -258,7 +258,7 @@ if ($checkAllProperty) {
 
 % unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %  if ( $action eq 'changeEdit' and $editid ) {
-<script>highlightRow('<% $editid %>', 1);</script>
+<script>Zentyal.TableHelper.highlightRow('<% $editid %>', 1);</script>
 %  }
 % }
 % # End body method
@@ -309,7 +309,7 @@ $filter
       name='filter'
       value="<% __('Search') %>"
       title="Apply"
-      onClick="setLoading('<%
+      onClick="Zentyal.TableHelper.setLoading('<%
                              $filterId
                             %>');
                 <%

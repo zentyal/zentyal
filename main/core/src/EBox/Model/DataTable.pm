@@ -2683,7 +2683,7 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
+    my $function = "Zentyal.TableHelper.changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
     return sprintf ($function,
@@ -2725,7 +2725,7 @@ sub modalChangeViewJS
 
     my $extraParamsJS = _paramsToJSON(%args);
 
-    my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalChangeView('%s','%s','%s','%s','%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
@@ -2756,7 +2756,7 @@ sub modalCancelAddJS
     my $selectCallerId = $params{selectCallerId};
     my $onSuccess='';
     if ($selectCallerId) {
-        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
+        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
 
     my $js = "new Ajax.Request('$url', { method: 'post',  parameters: '$params'";
@@ -2784,7 +2784,7 @@ sub addNewRowJS
     my ($self, $page, %params) = @_;
     my $cloneId = $params{cloneId};
 
-    my  $function = "addNewRow('%s','%s',%s,'%s',%s)";
+    my  $function = "Zentyal.TableHelper.addNewRow('%s','%s',%s,'%s',%s)";
 
     my $table = $self->table();
     my @extraFields;
@@ -2805,7 +2805,7 @@ sub modalAddNewRowJS
     $nextPage or
         $nextPage = '';
 
-    my  $function = "modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
@@ -2844,7 +2844,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page, $modal, @extraParams) = @_;
 
-    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -2911,7 +2911,7 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $direction");
     }
 
-    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
+    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
 
     if ($direction) {
         $direction = "dir=$direction";
@@ -2966,7 +2966,7 @@ sub customActionClickedJS
         throw EBox::Exceptions::Internal("Wrong custom action $action");
     }
 
-    my $function = "customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
+    my $function = "Zentyal.TableHelper.customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
@@ -4541,7 +4541,7 @@ sub confirmationJS
     } @ {  $table->{tableDescription} };
     my $elementsArrayJS = '['. join(',', @elements) . ']' ;
 
-    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+    my $function = "Zentyal.TableHelper.confirmationDialog('%s', '%s','%s', '%s', %s)";
 
     my $call =  sprintf ($function,
                     $self->_mainController(),
@@ -4559,7 +4559,7 @@ sub confirmationJS
        var specs = $call;
        this.disable = false;
        if (specs.wantDialog) {
-           showConfirmationDialog(specs, '$goAheadJSEscaped');
+           Zentyal.TableHelper.showConfirmationDialog(specs, '$goAheadJSEscaped');
        } else {
           $goAheadJS ;
        }

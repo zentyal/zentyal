@@ -63,7 +63,7 @@ foreach my $component (@{$components}) {
      name    => 'selection_' . $compName,
      options => \@selectOptions,
      id      => 'selection_' . $compName,
-     onchange => qq/selectComponentToHang( 'selectData_$compName',
+     onchange => qq/Zentyal.TableHelper.selectComponentToHang( 'selectData_$compName',
                                            'errorSelectData_$compName',
                                            'selector_$compName',
                                            actions_$compName,
