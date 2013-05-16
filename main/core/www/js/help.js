@@ -2,39 +2,35 @@
 "use strict";
 jQuery.noConflict();
 
-window.helpShown = false;
+Zentyal.namespace('Help');
 
-function showHelp() {
-    helpShown = true;
-    _applyHelpStyles('inline', 'none', 'block');
-}
+Zentyal.Help.helpShown = false;
 
-function hideHelp() {
-    helpShown = false;
-    _applyHelpStyles('none', 'inline', 'none');
-}
+Zentyal.Help.showHelp = function () {
+    Zentyal.Help.helpShown = true;
+    jQuery('#hidehelp, .help').show();
+    jQuery('#showhelp').hide();
+};
 
-function _applyHelpStyles(hideHelpDisplay, showHelpDisplay, helpElementsDisplay) {
-    jQuery('#hidehelp').css('display', hideHelpDisplay);
-    jQuery('#showhelp').css('display', showHelpDisplay);
-    jQuery('.help').each(function(i, e) {
-        jQuery(this).css('display', helpElementsDisplay);
-    });
-}
+Zentyal.Help.hideHelp = function () {
+    Zentyal.Help.helpShown = false;
+    jQuery('#hidehelp, .help').hide();
+    jQuery('#showhelp').show();
+};
 
-function initHelp() {
-    if(jQuery('.help').length == 0) {
-        jQuery('#helpbutton').hide(0);
+Zentyal.Help.initHelp = function () {
+    if(jQuery('.help').length === 0) {
+        jQuery('#helpbutton').hide();
     } else {
-        jQuery('#helpbutton').show(0);
-        if (helpShown) {
-            showHelp();
+        jQuery('#helpbutton').show();
+        if (Zentyal.Help.helpShown) {
+            Zentyal.Help.showHelp();
         } else {
-            hideHelp();
+            Zentyal.Help.hideHelp();
         }
     }
-}
+};
 
-initHelp();
-jQuery('body').bind('DOMNodeInserted', initHelp, false);
+Zentyal.Help.initHelp();
+jQuery('body').bind('DOMNodeInserted', Zentyal.Help.initHelp, false);
 
