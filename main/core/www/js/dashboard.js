@@ -6,7 +6,7 @@ Zentyal.namespace('Dashboard.ConfigureWidgets');
 
 Zentyal.Dashboard.createSortableDashboard = function() {
      jQuery('.dashboard').sortable({
-                                  elements: '.widgetBox, .widgetBarBox',
+                                  elements: '.widgetBox',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
@@ -58,8 +58,8 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 
         var placeholdeSel = '#' + widget.attr('id') + '_placeholder';
         if(jQuery(placeholdeSel).length > 0) {
-                var parts = wid.split(':');
-                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
+            var idParts = Zentyal.Dashboard.parseWidgetId(wid);
+            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(idParts.module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
          }
         Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
     });
@@ -391,7 +391,6 @@ Zentyal.Dashboard.updateWidget = function(widget) {
 
 
 Zentyal.Dashboard.updateWidgets = function() {
-    console.log('BEG updateWidgets');
     jQuery('.widgetBox').each(function(index, widgetBox) {
         var id = widgetBox.id;
         //id can be empty when draggin things
@@ -410,12 +409,11 @@ Zentyal.Dashboard.updateWidgets = function() {
                     });
         return true;
     });
-    console.log('END updateWidgets');
 };
 
 
 
-// Zentyal.Dashboard.ConfigureWidgets namespace
+//*** Zentyal.Dashboard.ConfigureWidgets namespace ***\\
 Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
@@ -491,8 +489,6 @@ Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, s
 };
 
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module, widget_list_id) {
-    console.log('createModuleWidgetsSortable');
-    var loaded = {};
     jQuery('#widget_list').sortable({
         elements: '.widgetBarBox',
         dropOnEmpty: true,
@@ -500,161 +496,43 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         containment: 'body',
         delay: 100,
         scroll : false,
+        // update: function(event, ui) {
+        //     var dashboard = jQuery(this);
+        //     Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
+        // },
         start: function(event, ui) {
             console.log("START   !!!!");
-                var id = ui.item.attr('id');
+            var id = ui.item.attr('id');
 
-                console.log("out id " + id);
-            if(! loaded[id]) {
-                console.log("befire IdParts "  );
-                    var idParts = Zentyal.Dashboard.parseWidgetId(id);
-                    console.log("bef ajax url " + '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget);
-                    jQuery.ajax({
-                        url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget,
-                        type: 'get',
-                        dataType: 'html',
-                        success: function(response) {
-                            console.log('widget drag response ' + response);
-                            var widgetDrag = jQuery('#' + Zentyal.escapeSelector(id));
-                            widgetDrag.html(response);
-                            widgetDrag.find('.closeBox').toggle(500); // XXX first?
-                        }
-                    });
-                        console.log('ajax launched');
-                    loaded[id] = true;
+            console.log("out id " + id);
+            console.log("befire IdParts "  );
+            var idParts = Zentyal.Dashboard.parseWidgetId(id);
+            console.log("bef ajax url " + '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget);
+            jQuery.ajax({
+                url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget,
+                type: 'get',
+                dataType: 'html',
+                success: function(response) {
+                    var widgetDrag = jQuery('#' + Zentyal.escapeSelector(id));
+                    widgetDrag.removeClass().addClass('widgetBox');
+                    widgetDrag.html(response);
+                    widgetDrag.find('.closeBox').toggle(500); // XXX first?
                 }
-   console.log('after if');
+            });
+        },
+        stop: function (event, ui) {
+            var inside = ui.item.closest('#widget_list').length > 0;
+            if (inside) {
+                ui.item.removeClass().addClass('widgetBarBox').html('');
+                Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
+                console.log('INSIDE');
+            } else {
+                console.log('OUTSIDE');
             }
-        // }
-    });
 
-};
-
-Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsDropable = function(module, widgets, start, end) {
-    var j;
-    for (j = start; j < end; ++j) {
-        if(!widgets[j].present) {
-            var wid = widgets[j].id;
-            // var widgetDrag =  jQuery('#' + Zentyal.escapeSelector(wid));
-            // var loaded = false;
-            // widgetDrag.on('change', function() {});
-            // widgetDrag.draggable({
-            //     handle: 'widgetHandle',
-            //     // XXX start?
-            //     drag: function(event, ui) {
-            //         if (ui.position.top > 100) {
-            //             if(!loaded) {
-            //                 jQuery.ajax({
-            //                     url: '/Dashboard/Widget?module=' + module + '&widget=' + widgets[j].name,
-            //                     type: 'get',
-            //                     dataType: 'html',
-            //                     success: function(response) {
-            //                         widgetDrag.html(response);
-            //                         widgetDrag.find('.closeBox').toggle(500); // XXX first?
-            //                     }
-            //                 });
-            //                 // new Ajax.Updater(d.element.id,
-            //                 //         '/Dashboard/Widget?module=' +
-            //                 //         d.module + '&widget=' + d.widget, {
-            //                 //     method: 'get',
-            //                 //     onComplete: function() {
-            //                 //         var elements = widgetDrag.find('.closeBox').toggle(500);
-            //                 //         Effect.toggle(elements[0],'appear');
-            //                 //     }
-            //                 // });
-            //                 loaded = true;
-            //             }
-            //         }
-            //     }
-            //     // XX repalce witht transfer?
-            //     // stop: function(event, ui) {
-            //     //     var helper = ui.helper;
-            //     //     var left_offset = parseInt(helper.css('left'), 10);
-            //     //     var top_offset = parseInt(helper.css('top'), 10);
-            //     //     var duration = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
-            //     //     widgetDrag.effect({
-            //     //         efect: 'move',
-            //     //         duration: duration,
-            //     //     });
-            //     // },
-            // });
-            var drag = new Draggable(wid, {
-                handle: 'widgetHandle',
-                onDrag: function(d,e) {
-                    if(e.clientY > 100) {
-                        if(!this.loaded) {
-                            new Ajax.Updater(d.element.id,
-                                    '/Dashboard/Widget?module=' +
-                                    d.module + '&widget=' + d.widget, {
-                                method: 'get',
-                                onComplete: function() {
-                                    var elements = $(d.element.id).getElementsByClassName('closeBox');
-                                    Effect.toggle(elements[0],'appear');
-                                }
-                            });
-                            this.loaded = true;
-                        }
-                    }
-                },
-                onEnd: function(d) {
-                    var left_offset = parseInt(d.element.getStyle('left'), 10);
-                    var top_offset = parseInt(d.element.getStyle('top'), 10);
-                    var dur = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
-                    new Effect.Move(d.element.id, {
-                        x: -left_offset,
-                        y: -top_offset,
-                        duration: dur,
-                        afterFinish: function() {
-                            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(d.module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
-                        }
-                    });
-                }
-            });
-            drag.parent = drag.element.parentNode;
-            drag.module = module;
-            drag.widget = widgets[j]['name'];
-            drag.element.onChange = function() {};
-           Sortable.sortables[drag.element.id + '_placeholder'] = drag.element; // XXX ????
-        }
-    }
-};
-
-Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortableDisabled = function (widget_id_list) {
-     jQuery.each(widget_id_list, function (index, id) {
-        if(id.indexOf('dashboard') === 0) {
-            jQuery('#' + Zentyal.escapeSelector(id)).sortable({
-                elements: '.widgetBox',
-                dropOnEmpty: true,
-                connectWith: '.dashboard',
-                delay: 100,
-                scroll: false,
-                update: function(event, ui) {
-                    var dashboard = jQuery(this);
-                    Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
-                }
-            });
-//             Sortable.create(id, {
-//                 tag: 'div',
-//                 handle: 'widgetHandle',
-//                 dropOnEmpty: true,
-//                 constraint: false,
-//                 scroll: window,
-//                 containment: widget_id_list,
-//                 onUpdate: function(dashboard) {
-//                     var id = dashboard.id;
-//                     new Ajax.Request('/Dashboard/Update', {
-//                         method: 'post',
-//                         parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-//                     });
-// //                    jQuery.ajax({
-// //                       url: '/Dashboard/Update',
-// //                       type: 'post',
-// //                       data: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
-// //                    });
-//                 }
-//             });
         }
     });
+
 };
 
 Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start) {
