@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -20,6 +21,8 @@ use warnings;
 #   Samba user, stored in samba LDAP
 #
 package EBox::Samba::User;
+
+use base 'EBox::Samba::OrganizationalPerson';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -42,106 +45,6 @@ use Error qw(:try);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
-
-use base 'EBox::Samba::LdbObject';
-
-sub new
-{
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-    return $self;
-}
-
-# Method: addGroup
-#
-#   Add this user to the given group
-#
-# Parameters:
-#
-#   group - Group object
-#
-sub addGroup
-{
-    my ($self, $group) = @_;
-
-    $group->addMember($self);
-}
-
-# Method: removeGroup
-#
-#   Removes this user from the given group
-#
-# Parameters:
-#
-#   group - Group object
-#
-sub removeGroup
-{
-    my ($self, $group) = @_;
-
-    $group->removeMember($self);
-}
-
-# Method: groups
-#
-#   Groups this user belongs to
-#
-# Returns:
-#
-#   array ref of EBox::Samba::Group objects
-#
-sub groups
-{
-    my ($self) = @_;
-
-    return $self->_groups();
-}
-
-# Method: groupsNotIn
-#
-#   Groups this user does not belong to
-#
-# Returns:
-#
-#   array ref of EBox::UsersAndGroups::Group objects
-#
-sub groupsNotIn
-{
-    my ($self) = @_;
-
-    return $self->_groups(1);
-}
-
-sub _groups
-{
-    my ($self, $invert) = @_;
-
-    my $dn = $self->dn();
-    my $filter;
-    if ($invert) {
-        $filter = "(&(objectclass=group)(!(member=$dn)))";
-    } else {
-        $filter = "(&(objectclass=group)(member=$dn))";
-    }
-
-    my $attrs = {
-        base => $self->_ldap->dn(),
-        filter => $filter,
-        scope => 'sub',
-    };
-
-    my $result = $self->_ldap->search($attrs);
-
-    my $groups = [];
-    if ($result->count > 0) {
-        foreach my $entry ($result->sorted('cn')) {
-            push (@{$groups}, new EBox::Samba::Group(entry => $entry));
-        }
-    }
-    return $groups;
-}
 
 # Method: changePassword
 #
@@ -209,17 +112,10 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    # Refuse to delete critical system objects
-    my $isCritical = $self->get('isCriticalSystemObject');
-    if ($isCritical and lc ($isCritical) eq 'true') {
+    if ($self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
-    }
-
-    # remove this user from all its grups
-    foreach my $group (@{$self->groups()}) {
-        $self->removeGroup($group);
     }
 
     # Remove the roaming profile directory
@@ -384,23 +280,16 @@ sub create
 {
     my ($self, $samAccountName, $params) = @_;
 
-    # TODO Is the user added to the default OU?
-    my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$samAccountName,CN=Users,$baseDn";
-
-    $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
-    $self->_checkAccountNotExists($samAccountName);
-
     # Check the password length if specified
     my $clearPassword = $params->{'clearPassword'};
     if (defined $clearPassword) {
         $self->_checkPwdLength($clearPassword);
     }
 
-    my $usersModule = EBox::Global->modInstance('users');
-    my $realm = $usersModule->kerberosRealm();
+    my $usersMod = EBox::Global->modInstance('users');
+    my $realm = $usersMod->kerberosRealm();
     my $attr = [];
-    push ($attr, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
+    push ($attr, objectClass       => ['user', 'posixAccount']);
     push ($attr, sAMAccountName    => "$samAccountName");
     push ($attr, userPrincipalName => "$samAccountName\@$realm");
     push ($attr, userAccountControl => '514');
@@ -409,9 +298,7 @@ sub create
     push ($attr, uidNumber         => $params->{uidNumber}) if defined $params->{uidNumber};
     push ($attr, description       => $params->{description}) if defined $params->{description};
 
-    # Add the entry
-    my $result = $self->_ldap->add($dn, { attr => $attr });
-    my $createdUser = new EBox::Samba::User(dn => $dn);
+    $createdUser = $self->SUPER::create($samAccountName, $attr);
 
     # Setup the uid mapping
     $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};
@@ -517,19 +404,6 @@ sub updateZentyal
     my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
                                              unicodePwd => $up);
     $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-}
-
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-    $self->SUPER::_checkAccountName($name, $maxLength);
-    if ($name =~ m/^[[:space:]\.]+$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot be only spaces and dots')
-           );
-    }
 }
 
 1;

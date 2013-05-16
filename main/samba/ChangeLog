@@ -1,3 +1,6 @@
+HEAD
+	+ Created an OrganizationalPerson object to reuse code between User
+	  accounts and Contacts.
 3.1.1
 	+ Fixed wrong setting of state in EBox::Samba::Provision
 3.1
