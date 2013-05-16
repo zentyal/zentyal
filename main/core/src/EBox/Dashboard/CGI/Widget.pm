@@ -59,7 +59,9 @@ sub masonParameters
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
     my $module = $global->modInstance($modname);
+    $module or throw EBox::Exceptions::Internal("Invalid module: $module");
     my $widget = $module->widget($widgetname);
+    $widget or throw EBox::Exceptions::Internal("Invalid widget: $widget");
 
     my @params = ();
     push(@params, 'widget' => $widget);
