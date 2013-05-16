@@ -58,8 +58,8 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 
         var placeholdeSel = selector + '_placeholder';
         if(jQuery(placeholdeSel).length > 0) {
-            var idParts = Zentyal.Dashboard.parseWidgetId(wid);
-            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(idParts.module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
+            var parts = wid.split(':');
+            Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
          }
         Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
     });

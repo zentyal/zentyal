@@ -22,8 +22,7 @@ if (!('Zentyal' in  window)) {
     };
 }
 
-Zentyal.escapeSelector = function(selector)
-{
+Zentyal.escapeSelector = function(selector) {
     return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
 };
 
