@@ -606,7 +606,6 @@ sub _installCloudProf
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     $fh->unlink_on_destroy(0);
     my $tmpFilename = $fh->filename();
-    EBox::info($tmpFilename);
     my $try = <<END;
 #!/bin/bash
 for try in {1..10}
