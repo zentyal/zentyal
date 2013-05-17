@@ -2754,14 +2754,14 @@ sub modalCancelAddJS
     my $directory = $self->directory();
     my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $onSuccess='';
+    my $success='';
     if ($selectCallerId) {
-        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
+        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
 
-    my $js = "new Ajax.Request('$url', { method: 'post',  parameters: '$params'";
-    if ($onSuccess) {
-        $js .= ", onSuccess: $onSuccess";
+    my $js = "jQuery.ajax('{url: $url', type: 'post', data: '$params'";
+    if ($success) {
+        $js .= ", success: $success";
     }
     $js.= '});';
     return $js;
