@@ -264,6 +264,12 @@ sub setHomeDrive
 #       'samAccountName'
 #
 #   params hash ref (all optional):
+#       objectClass - additional objectClass to add to the ones from User.
+#       givenName
+#       initials
+#       sn
+#       displayName
+#       description
 #       clearPassword - Clear text password
 #       kerberosKeys - Set of kerberos keys
 #       uidNumber - user UID numberer
@@ -285,14 +291,23 @@ sub create
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
     my $attr = [];
-    push ($attr, objectClass       => ['user', 'posixAccount']);
+    my @objectClass = ('user', 'posixAccount');
+    if (defined $params->{objectClass}) {
+        foreach my $object (@{$params->{objectClass}}) {
+            push (@objectClass, $object) unless ($object ~~ @objectClass);
+        }
+    }
+    push ($attr, objectClass => \objectClass);
+    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
+    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
+    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
+    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
+    push ($attr, description => $params->{description}) if defined $params->{description};
+    # User specific attributes.
     push ($attr, sAMAccountName    => "$samAccountName");
     push ($attr, userPrincipalName => "$samAccountName\@$realm");
     push ($attr, userAccountControl => '514');
-    push ($attr, givenName         => $params->{givenName}) if defined $params->{givenName};
-    push ($attr, sn                => $params->{sn}) if defined $params->{sn};
     push ($attr, uidNumber         => $params->{uidNumber}) if defined $params->{uidNumber};
-    push ($attr, description       => $params->{description}) if defined $params->{description};
 
     $createdUser = $self->SUPER::create($samAccountName, $attr);
 

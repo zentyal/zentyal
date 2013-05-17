@@ -24,13 +24,52 @@ package EBox::Samba::Contact;
 
 use base 'EBox::Samba::OrganizationalPerson';
 
-sub new
+
+# Method: create
+#
+#   Adds a new contact
+#
+# Parameters:
+#
+#   contact - hash ref containing:
+#       'name'
+#
+#   params hash ref (all optional):
+#       objectClass - additional objectClass to add to the ones from OrganizationalPerson.
+#       givenName
+#       initials
+#       sn
+#       displayName
+#       description
+#
+# Returns:
+#
+#   Returns the new create user object
+#
+sub create
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-    return $self;
+    my ($self, $name, $params) = @_;
+
+    my $attr = [];
+    my @objectClass = ('contact');
+    if (defined $params->{objectClass}) {
+        foreach my $object (@{$params->{objectClass}}) {
+            push (@objectClass, $object) unless ($object ~~ @objectClass);
+        }
+    }
+    push ($attr, objectClass => \objectClass);
+    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
+    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
+    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
+    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
+    push ($attr, description => $params->{description}) if defined $params->{description};
+    # Contact specific attributes.
+    # TODO
+
+    $createdContact = $self->SUPER::create($name, $attr);
+
+    # Return the new created contact
+    return $createdContact;
 }
 
 1;

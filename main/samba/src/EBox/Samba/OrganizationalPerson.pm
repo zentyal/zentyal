@@ -165,6 +165,12 @@ sub deleteObject
 #   name - The person name
 #
 #   params hash ref (all optional):
+#       objectClass - additional objectClass to add to the ones from OrganizationalPerson.
+#       givenName
+#       initials
+#       sn
+#       displayName
+#       description
 #
 # Returns:
 #
@@ -182,10 +188,18 @@ sub create
     $self->_checkAccountNotExists($name);
 
     my $attr = [];
-    push ($attr, objectClass       => ['top', 'person', 'organizationalPerson']);
-    push ($attr, givenName         => $params->{givenName}) if defined $params->{givenName};
-    push ($attr, sn                => $params->{sn}) if defined $params->{sn};
-    push ($attr, description       => $params->{description}) if defined $params->{description};
+    my @objectClass = ('top', 'person', 'organizationalPerson');
+    if (defined $params->{objectClass}) {
+        foreach my $object (@{$params->{objectClass}}) {
+            push (@objectClass, $object) unless ($object ~~ @objectClass);
+        }
+    }
+    push ($attr, objectClass => \objectClass);
+    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
+    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
+    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
+    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
+    push ($attr, description => $params->{description}) if defined $params->{description};
 
     # Add the entry
     my $result = $self->_ldap->add($dn, { attr => $attr });
@@ -193,93 +207,6 @@ sub create
 
     # Return the new created person
     return $createdPerson;
-}
-
-sub addToZentyal
-{
-    my ($self) = @_;
-
-    return;
-
-    # XXX: IMPLEMENT ME!
-
-    my $uid       = $self->get('samAccountName');
-    my $fullname  = $self->get('name');
-    my $givenName = $self->get('givenName');
-    my $surName   = $self->get('sn');
-    my $comment   = $self->get('description');
-    my $uidNumber = $self->get('uidNumber');
-    $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
-
-    my $params = {
-        user => $uid,
-        fullname => $fullname,
-        givenname => $givenName,
-        surname => $surName,
-        comment => $comment,
-    };
-
-    my $zentyalUser = undef;
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
-    EBox::info("Adding samba user '$uid' to Zentyal");
-
-    if ($uidNumber) {
-        $optParams{uidNumber} = $uidNumber;
-    } else {
-        $uidNumber = $self->getXidNumberFromRID();
-        $optParams{uidNumber} = $uidNumber;
-        $self->set('uidNumber', $uidNumber);
-        $self->setupUidMapping($uidNumber);
-    }
-    $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
-    $zentyalUser->exists() or
-        throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");
-
-    $zentyalUser->setIgnoredModules(['samba']);
-
-    my $sc = $self->get('supplementalCredentials');
-    my $up = $self->get('unicodePwd');
-    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
-                                                 unicodePwd => $up);
-    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-}
-
-sub updateZentyal
-{
-    my ($self) = @_;
-
-    return;
-
-    # XXX: IMPLEMENT ME!
-
-    my $uid = $self->get('samAccountName');
-    EBox::info("Updating zentyal user '$uid'");
-
-    my $zentyalUser = undef;
-    my $gn = $self->get('givenName');
-    my $sn = $self->get('sn');
-    my $desc = $self->get('description');
-    $gn = '-' unless defined $gn;
-    $sn = '-' unless defined $sn;
-    my $cn = "$gn $sn";
-    $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
-    $zentyalUser->exists() or
-        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
-
-    $zentyalUser->setIgnoredModules(['samba']);
-    $zentyalUser->set('givenName', $gn, 1);
-    $zentyalUser->set('sn', $sn, 1);
-    $zentyalUser->set('description', $desc, 1);
-    $zentyalUser->set('cn', $cn, 1);
-    $zentyalUser->save();
-
-    my $sc = $self->get('supplementalCredentials');
-    my $up = $self->get('unicodePwd');
-    my $creds = new EBox::Samba::Credentials(supplementalCredentials => $sc,
-                                             unicodePwd => $up);
-    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 }
 
 sub _checkAccountName
