@@ -48,7 +48,7 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp,  timerId, nextStepTime
         } else if (response.state == 'done') {
             clearInterval(timerId);
             if ( nextStepTimeout > 0 ) {
-              loadWhenAvailable(nextStepUrl, nextStepTimeout);
+              Zentyal.ProgressIndicator.loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
           if (showNotesOnFinish) {

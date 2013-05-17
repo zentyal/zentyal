@@ -267,7 +267,7 @@ th > div {
                     <td style="text-align:right;">
                       <input type="button" value="<% __s('Register') %>"
 % if ( $first ) {
-                             onclick="nextStep()"
+                             onclick="Zentyal.Wizard.Software.nextStep()"
 % } else {
                              onclick="register_save()"
 % }
@@ -324,7 +324,7 @@ th > div {
 
         window.register_save = function() {
            // Mimetise the nextStep
-           setLoading(true);
+           Zentyal.Wizard.Software.setLoading(true);
            var form = jQuery('#wizardPage0 form').first();
            jQuery.ajax({
                         url: form.attr('action'),
@@ -332,7 +332,7 @@ th > div {
                         data: form.serialize(),
                         error : function (response) {
                           jQuery('#wizard_error').html(response.responseText).show(500);
-                          setLoading(false);
+                          Zentyal.Wizard.Software.setLoading(false);
                         },
                         success : function (response) {
                             Modalbox.show('/RemoteServices/Subscription?wizard=1',
