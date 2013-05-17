@@ -35,7 +35,7 @@ function acceptConfFile(id, totalFiles)
 
     acceptedFiles.push(id);
 
-    new Effect.Fade(id);
+    jQuery('#' + id).fadeOut();
 
     checkIfDone(totalFiles);
 
@@ -52,7 +52,7 @@ function rejectConfFile(id, totalFiles)
     }
 
     rejectedFiles.push(id);
-    jQuery('#' + id).fadeOut(400);
+    jQuery('#' + id).fadeOut();
 
     checkIfDone(totalFiles);
 }
