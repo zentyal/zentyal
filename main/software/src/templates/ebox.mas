@@ -144,7 +144,7 @@ var pkgTable = new Array(
 <div id="software" style="padding: 15px 0">
 <div id="basic">
 % unless ($first) {
-    <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
+    <a href='#' onclick="jQuery('#basic').fadeOut(300); jQuery('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
 % }
     <div class="headcontainer">
     <h3><%__('Server roles')%></h3>
@@ -445,7 +445,7 @@ var pkgTable = new Array(
 
 
 <div id="advanced">
-    <a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><% __('View basic mode') %></a>
+    <a href='#' onclick="jQuery('#advanced').fadeOut(300);jQuery('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
