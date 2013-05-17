@@ -18,21 +18,53 @@
 use warnings;
 use strict;
 
-use Test::Exception;
-use Test::More tests => 3;
-use POSIX;
+package EBox::RemoteServices::Test;
+
+use base 'Test::Class';
+
+use EBox::Config::TestStub;
+use EBox::Global::TestStub;
+use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
+use Test::Exception;
+use Test::More tests => 7;
+use POSIX;
 
-use lib '../..';
+sub setUpConfiguration : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+    EBox::Config::TestStub::fake();
+}
 
-use_ok('EBox::RemoteServices') or die;
+sub clearConfiguration : Test(shutdown)
+{
+    EBox::Module::Config::TestStub::setConfig();
+}
 
-my $redis = EBox::Test::RedisMock->new();
-my $rsMod = EBox::RemoteServices->_create(redis => $redis);
-isa_ok($rsMod, 'EBox::RemoteServices');
+sub get_module : Test(setup)
+{
+    my ($self) = @_;
+    my $redis = EBox::Test::RedisMock->new();
+    $self->{rsMod} = EBox::RemoteServices->_create(redis => $redis);
+}
 
-# Security updates last time tests
-subtest 'security updates time' => sub {
+sub use_remoteservices_ok : Test(startup => 1)
+{
+    use_ok('EBox::RemoteServices') or die;
+}
+
+sub test_use_ok : Test
+{
+    my ($self) = @_;
+
+    isa_ok($self->{rsMod}, 'EBox::RemoteServices');
+}
+
+sub test_security_updates_time : Test(5)
+{
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
     cmp_ok($rsMod->latestSecurityUpdates(), 'eq', 'unknown');
 
     lives_ok {
@@ -45,6 +77,10 @@ subtest 'security updates time' => sub {
         $rsMod->setSecurityUpdatesLastTime($when);
     } 'Set custom security updates last time';
     cmp_ok($rsMod->latestSecurityUpdates(), 'eq', POSIX::strftime("%c", localtime($when)));
-};
+}
 
 1;
+
+END {
+    EBox::RemoteServices::Test->runtests();
+}
