@@ -9,23 +9,16 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
 % if ($askPermission) {
-<script type="text/javascript" src="/data/js/jquery.js">//</script>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
-<script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js?load=effects">//</script>
-<script type="text/javascript" src="/data/js/modalbox.js">//</script>
-<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
-
 <script type="text/javascript">
-var acceptedFiles = new Array();
-var rejectedFiles = new Array();
+"use strict";
+var acceptedFiles = [];
+var rejectedFiles = [];
 var checkedFiles = 0;
 
 function checkIfDone(totalFiles)
 {
     checkedFiles++;
-
     if (checkedFiles != totalFiles) {
         return;
     }
@@ -59,25 +52,19 @@ function rejectConfFile(id, totalFiles)
     }
 
     rejectedFiles.push(id);
-
-    new Effect.Fade(id);
+    jQuery('#' + id).fadeOut(400);
 
     checkIfDone(totalFiles);
 }
 
 function sendAcceptedFiles()
 {
- var MyAjax = new Ajax.Request(
-                "/ServiceModule/Controller",
-                {
-                        method: 'get',
-                        parameters: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
-                        asyncrhonous: true,
-                        evalScripts: true,
-
-                }
-                );
-
+    jQuery.ajax({
+                     url:  '/ServiceModule/Controller',
+                     type: 'get',
+                     data: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
+                     async: true
+               });
 }
 
 % my $title = __('Warning');
