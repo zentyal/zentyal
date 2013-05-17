@@ -5,29 +5,7 @@
 use EBox::Gettext;
 use JSON;
 </%init>
-<%doc>
-Modalbox does not allow to load javascript files with src so we will load it programtically below
-This script includes should be put in place if the replacement of Modalbox allows.
-<script type="text/javascript" src="/data/js/jquery.js"></script>
-<script type="text/javascript" src="/data/js/common.js"></script>
-<script type="text/javascript" src="/data/js/dashboard.js"></script>
-</%doc>
-
 <script type='text/javascript'>
-"use strict";
-
-var sources = ["/data/js/common.js", "/data/js/dashboard.js" ];
-jQuery.each(sources, function(index, url) {
-  jQuery.ajax({
-     url: url,
-     async: false,
-     success: function (text) {
-         eval(text);
-       }
-   });
-});
-jQuery.noConflict();
-
 % local $JSON::ConvBlessed = 1;
 % my $modulesJSON = objToJson(\@modules);
 Zentyal.Dashboard.ConfigureWidgets.modules = <% $modulesJSON %>;
@@ -38,7 +16,7 @@ Zentyal.Dashboard.ConfigureWidgets.modules = <% $modulesJSON %>;
 %   my $modname = $module->{'name'};
 %   my $title = $module->{'title'};
     <div id='<% $modname %>-title'>
-    <a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets('<% $modname %>', 0); return false;"><% $title %></a>
+    <a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets('<% $modname %>', 0, true); return false;"><% $title %></a>
     </div>
 % }
 </div>
