@@ -76,6 +76,15 @@ sub validateTypedRow
     my $networkMod = $self->global()->modInstance('network');
     my $rightIP = undef;
 
+    if (!defined $all_r->{right}) {
+        throw EBox::Exceptions::InvalidData(
+            data => __("Remote Address",
+            value => __("undefined"),
+            advice => __("Must be the external IP to connect but it's not defined"),
+            ),
+        );
+    }
+
     if ($all_r->{right}->selectedType() eq 'right_ipaddr') {
         $rightIP = $all_r->{right}->value();
         if ($rightIP eq $all_r->{left_ipaddr}->value()) {

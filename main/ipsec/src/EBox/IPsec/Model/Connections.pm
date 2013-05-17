@@ -211,7 +211,10 @@ sub validateTypedRow
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),
                 value => __('Enabled'),
-                advice => __("Cannot be enabled due to errors in the connection configuration: $error")
+                advice => __x(
+                    'Cannot be enabled due to errors in the connection configuration: {error}',
+                    error => $error)
+                )
             );
         }
     }
