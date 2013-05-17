@@ -1,3 +1,8 @@
+HEAD
+	+ Fixed the connection validation form so the enable / disable checkbox
+	  works.
+	+ Block the connection enabling if the tunnel configuration does not pass
+	  validation.
 3.1.1
 	+ Fixed bug in Users model when zentyal-samba is not installed
 3.1

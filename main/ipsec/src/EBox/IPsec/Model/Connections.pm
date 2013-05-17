@@ -24,6 +24,8 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 
+use Error qw(:try);
+
 # Group: Public methods
 
 sub tunnels
@@ -181,7 +183,7 @@ sub _table
         class => 'dataTable',
         modelDomain => 'IPsec',
         enableProperty => 1,
-        defaultEnabledValue => 1,
+        defaultEnabledValue => 0,
         help => __('IPsec connections allow to deploy secure tunnels between ' .
                    'different subnetworks. This protocol is vendor independant ' .
                    'and will connect Zentyal with other security devices.'),
@@ -192,15 +194,38 @@ sub _table
 
 sub validateTypedRow
 {
-    my ($self, $action, $params_r) = @_;
-    my $name = $params_r->{name}->value();
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ($name =~ m/\s/) {
-        throw EBox::Exceptions::InvalidData(
-            data => __('Connection name'),
-            value => $name,
-            advice => __('Blank characters are not allowed')
-        );
+    if (defined $changedFields->{enabled} && $changedFields->{enabled}->value()) {
+        my $conf = $self->row($allFields->{id})->elementByName('configuration')->foreignModelInstance();
+
+        try {
+            foreach my $model (@{$conf->models(1)}) {
+                foreach my $rowID (@{$model->enabledRows()}) {
+                    my $row = $model->row($rowID);
+                    $model->validateTypedRow('update', $row->hashElements());
+                }
+            }
+        } otherwise {
+            my $error = shift;
+            throw EBox::Exceptions::InvalidData(
+                data => __('Enabled flag'),
+                value => __('Enabled'),
+                advice => __("Cannot be enabled due to errors in the connection configuration: $error")
+            );
+        }
+    }
+
+    if (defined $changedFields->{name}) {
+        my $name = $changedFields->{name}->value();
+
+        if ($name =~ m/\s/) {
+            throw EBox::Exceptions::InvalidData(
+                data => __('Connection name'),
+                value => $name,
+                advice => __('Blank characters are not allowed')
+            );
+        }
     }
 }
 
