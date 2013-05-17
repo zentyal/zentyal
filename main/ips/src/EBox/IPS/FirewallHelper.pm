@@ -1,4 +1,4 @@
-# Copyright (C) 2013 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,9 +41,10 @@ sub _ifaceRules
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
+    my $qNum = $ips->nfQueueNum();
 
     foreach my $iface (@{$ips->enabledIfaces()}) {
-        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE");
+        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE --queue-num $qNum");
     }
 
     return \@rules;
