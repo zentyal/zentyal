@@ -4,9 +4,9 @@
 
 "use strict";
 jQuery.noConflict();
+Zentyal.namespace('ProgressIndicator');
 
-function updateProgressBar(ticks, totalTicks)
-{
+Zentyal.ProgressIndicator.updateProgressBar = function(ticks, totalTicks) {
     var percent;
     if (totalTicks > 0) {
         percent = Math.ceil((ticks/totalTicks)*100);
@@ -21,9 +21,9 @@ function updateProgressBar(ticks, totalTicks)
 // XX solve animation problems
 //    jQuery('#progressValue').animate( { width: percent + '%' }, { duration: 500} );
     jQuery('#percentValue').html(percent+"%");
-}
+};
 
-function updatePage (xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
+Zentyal.ProgressIndicator.updatePage  = function(xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var response = jQuery.parseJSON(xmlHttp.responseText);
 
     if (xmlHttp.readyState == 4) {
@@ -43,7 +43,7 @@ function updatePage (xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesO
             }
 
             if ( totalTicks > 0 ) {
-                updateProgressBar(ticks, totalTicks);
+                Zentyal.ProgressIndicator.updateProgressBar(ticks, totalTicks);
             }
         } else if (response.state == 'done') {
             clearInterval(timerId);
@@ -85,10 +85,9 @@ function updatePage (xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesO
             }
         }
     }
-}
+};
 
-function updateProgressIndicator(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish)
-{
+Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var time = 0;
     var requestParams = "progress=" + progressId ;
     var callServer = function() {
@@ -97,7 +96,7 @@ function updateProgressIndicator(progressId, currentItemUrl,  reloadInterval, ne
             data: requestParams,
             type : 'POST',
             complete: function (xhr) {
-                updatePage(xhr, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
+                Zentyal.ProgressIndicator.updatePage(xhr, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
             }
         });
         time++;
@@ -110,10 +109,9 @@ function updateProgressIndicator(progressId, currentItemUrl,  reloadInterval, ne
     };
 
     var timerId = setInterval(callServer, reloadInterval*1000);
-}
+};
 
-function loadWhenAvailable(url, secondsTimeout)
-{
+Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
     var loadMethod = function() {
         jQuery.ajax({
             url: url,
@@ -126,10 +124,9 @@ function loadWhenAvailable(url, secondsTimeout)
     };
 
     var timerId = setInterval(loadMethod, secondsTimeout*1000);
-}
+};
 
-function adsSlides(nSlides)
-{
+Zentyal.ProgressIndicator.adsSlides = function(nSlides) {
     jQuery('#adsButtonPrev').hide();
 
     var car_options = {
@@ -155,5 +152,5 @@ function adsSlides(nSlides)
               jQuery('#adsButtonNext').show();
           }
       };
-}
+};
 

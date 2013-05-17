@@ -59,10 +59,13 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 }
 </%init>
+<%doc>
+Surely it  it snot needed
 <script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
+</%doc>
 % if ($inModalbox) {
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
@@ -71,7 +74,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % }
 
 <script type="text/javascript">
-        updateProgressIndicator(<% $progressId %>,
+        Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
                              '<% $currentItemUrl %>',
                              <% $reloadInterval %>,
                              <% $nextStepTimeout %>,
@@ -175,7 +178,7 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 % if (@slides) {
 <script type="text/javascript" language="javascript">
-adsSlides(<% scalar (@slides) - 1 %>);
+Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
 </script>
 % }
 
