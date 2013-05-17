@@ -37,17 +37,16 @@ function configureModule(module, title)
     }
 }
 
+jQuery(function() {
+%# Enable changes button if needded
 % my $className;
 % unless (defined($hasChanged) and $hasChanged eq 'notset') {
-%   if ($hasChanged) {
-%       $className = 'changed';
-%   } else {
-%       $className = 'notChanged'
-%   }
-jQuery('#changes_menu').removeClass().addClass('<% $className %>');
+%   $className =  ($hasChanged) ? 'changed' : 'notChanged';
+    jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
-Zentyal.stripe('dataTable', 'even', 'odd');
 
+    Zentyal.stripe('dataTable', 'even', 'odd');
+});
 </script>
 <br/>
 <form id="statusForm">
