@@ -30,6 +30,7 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::Sudo::Command;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
@@ -114,6 +115,33 @@ sub enabledIfaces
     return \@ifaces;
 }
 
+# Method: nfQueueNum
+#
+#     Get the NFQueue number for perform inline IPS.
+#
+# Returns:
+#
+#     Int - between 0 and 65535
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Internal> - thrown if the value to return is
+#     greater than 65535
+#
+sub nfQueueNum
+{
+    my ($self) = @_;
+
+    # As l7filter may take as much as interfaces are up, a security
+    # measure is set to + 10 of enabled interfaces
+    my $netMod = $self->global()->modInstance('network');
+    my $queueNum = scalar(@{$netMod->ifaces()}) + 10;
+    if ( $queueNum > 65535 ) {
+        throw EBox::Exceptions::Internal('There are too many interfaces to set a valid NFQUEUE number');
+    }
+    return $queueNum;
+}
+
 sub _setRules
 {
     my ($self) = @_;
@@ -169,7 +197,7 @@ sub _setConf
                          [ enabled => $self->isEnabled() ]);
 
     $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
-                         [ ]);
+                         [ nfQueueNum => $self->nfQueueNum() ]);
 
 }
 
