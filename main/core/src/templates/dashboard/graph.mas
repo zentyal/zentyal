@@ -28,8 +28,6 @@ Zentyal.Dashboard.graphInfo['<% $elem %>'] = [
     [<% $values-1 %>, <% $item->{'value'} %>]
 ];
 
-console.log ('placeholder #<% $elem %>  :' + jQuery('#<% $elem %>').length);
-
 jQuery.plot(
     '#' + Zentyal.escapeSelector('<% $elem %>'), [
     {
