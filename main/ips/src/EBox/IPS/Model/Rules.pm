@@ -25,6 +25,7 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
+use Devel::StackTrace;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
@@ -153,6 +154,31 @@ sub syncRows
     return $modified;
 }
 
+
+# Method: setTypedRow
+#
+#       Override to set the "manual" field if the caller is
+#       <EBox::Model::DataTable::setRow>
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::setTypedRow>
+#
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+
+    my $trace = new Devel::StackTrace();
+    my $frame = $trace->frame(2);
+    if ( $frame->subroutine() eq 'EBox::Model::DataTable::setRow' ) {
+        $paramsRef->{manual} = $self->fieldHeader('manual');
+        $paramsRef->{manual}->setValue(1);
+    }
+
+    return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+}
+
+
 # Method: headTitle
 #
 #   Overrides <EBox::Model::DataTable::headTitle>
@@ -201,10 +227,12 @@ sub _table
             'populate' => \&_populateActions,
             'editable' => 1
         ),
-        # This field is intended to not overwrite user's decisions
+        # This field is intended to not overwrite user's decisions Set
+        # to true if the enabled field for a row has been edited using
+        # Web UI
         new EBox::Types::Boolean(
-            'fieldName'     => 'autoconfigured',
-            'printableName' => 'autoconfigured',
+            'fieldName'     => 'manual',
+            'printableName' => 'manual',
             'defaultValue'  => 0,
             'hidden'        => 1,
             'editable'      => 0,
