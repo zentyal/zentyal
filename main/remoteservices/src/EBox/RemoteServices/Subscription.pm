@@ -614,7 +614,7 @@ do
    if dpkg -l | grep cloud-prof | grep ^ii; then
       break
    fi
-   sleep 5 * 60
+   sleep 300
 done
 rm -f $tmpFilename
 END
