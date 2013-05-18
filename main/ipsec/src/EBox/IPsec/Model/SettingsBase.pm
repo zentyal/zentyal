@@ -78,10 +78,9 @@ sub validateTypedRow
 
     if (!defined $all_r->{right}) {
         throw EBox::Exceptions::InvalidData(
-            data => __("Remote Address",
+            data => __("Remote Address"),
             value => __("undefined"),
             advice => __("Must be the external IP to connect but it's not defined"),
-            ),
         );
     }
 

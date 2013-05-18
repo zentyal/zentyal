@@ -175,7 +175,7 @@ sub models
             push (@models, $component);
             next;
         } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
-            push (@models, $component->models($recursive));
+            push (@models, @{$component->models($recursive)});
         }
     }
 

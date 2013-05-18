@@ -125,6 +125,47 @@ sub componentsTest : Test(17)
        'checking name of nested model fetched with componentByName with resursive option';
 }
 
+sub modelsTest : Test(9)
+{
+    my ($self) = @_;
+
+    my @origComponents = @{ $self->_defaultComponents };
+    my $description = {  name => 'compositeForModelTests' };
+    my $composite = new TestComposite(description => $description, components => \@origComponents);
+
+    my @models;
+    lives_ok {
+        @models = @{ $composite->models() };
+    } 'Checking components method call';
+
+    my @expectedNames = qw(model1 model2);
+    my @modelNames = ();
+    foreach my $model (@models) {
+        push (@modelNames, $model->name());
+    }
+    is_deeply (\@modelNames, \@expectedNames, 'checking models');
+
+    foreach my $model (@models) {
+        isa_ok ($model, 'EBox::Model::DataTable', 'Checking that return of models has proper class');
+    }
+
+    my @recursiveModels;
+    lives_ok {
+        @recursiveModels = @{ $composite->models(1) };
+    } 'Checking components method call with recursive option';
+
+    foreach my $model (@recursiveModels) {
+        isa_ok ($model, 'EBox::Model::DataTable', 'Checking that return of models with recursive option has proper class');
+    }
+
+    push (@expectedNames, 'nestedModel1');
+    my @recursiveModelNames = ();
+    foreach my $model (@recursiveModels) {
+        push (@recursiveModelNames, $model->name());
+    }
+    is_deeply (\@recursiveModelNames, \@expectedNames, 'checking models with recursive option');
+}
+
 sub setDirectoryTest : Test(10)
 {
     my ($self) = @_;
