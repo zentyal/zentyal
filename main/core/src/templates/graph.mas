@@ -61,8 +61,8 @@ var track_formatter = function(obj) {
     return '(' + time + ': ' + other + ')';
 }
 
-Flotr.draw(
-    $('<% $id %>'), [
+jQuery.plot(
+    '#' + Zentyal.escapeSelector('<% $id %>', [
 % my $first = $series[0]->{'data'};
 % my $min_x = $first->[0]->[0];
 % my $max_x = $first->[$#{$first}]->[0];

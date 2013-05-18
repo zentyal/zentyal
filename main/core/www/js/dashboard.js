@@ -175,9 +175,8 @@ Zentyal.Dashboard.updateGraph = function(element,value) {
         g[i] = [i, g[i+1][1]];
     }
     g[g.length-1] = [g.length-1, value];
-    // XXX waiting for flotr migration
-    Flotr.draw(
-        $(id), [
+    jQuery.plot(
+        '#' + Zentyal.escapeSelector(id), [
         {
             data: g
         }],

@@ -44,7 +44,7 @@ sub new
     return $self;
 }
 
-sub HTMLViewer()
+sub HTMLViewer
 {
     return '/dashboard/graph.mas';
 }
