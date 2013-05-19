@@ -220,7 +220,7 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
 
     Zentyal.Dashboard.statusInfo[itemname] = item;
     var status;
-    var button = Zentyal.Dashboard.statusStrings['restart_button'];;
+    var button = Zentyal.Dashboard.statusStrings['restart_button'];
     var name = 'restart';
     if (item.enabled && item.running) {
         status = 'running';
