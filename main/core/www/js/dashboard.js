@@ -68,7 +68,7 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     var dashboardId = dashboard.attr('id');
     var widgets = dashboard.find('.widgetBox').map( function () {
-        if (this.id == '') {
+        if (this.id === '') {
             return null;
         }
         return this.id.split('_')[1];
@@ -246,14 +246,13 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
     new_text     += "' class='sleft'>" + text;
     new_text     += '</span>';
     if (item.enabled && !item.nobutton) {
-        var restart_form = "\
- <form action='/SysInfo/RestartService'>\
-<input type='hidden' name='module' value='" + item.module + "'/>\
-<span class='sright'>\
-<input class='inputButtonRestart' type='submit' name='" + name + "' value='"
- + button + "'/>\
-</span>\
- </form>";
+        var restart_form = "<form action='/SysInfo/RestartService'>" +
+                           "<input type='hidden' name='module' value='" + item.module + "'/>"  +
+                           "<span class='sright'>" +
+                           "<input class='inputButtonRestart' type='submit' name='" + name +
+                            "' value='" + button + "'/> "+
+                           "</span>" +
+                           "</form>";
         new_text += restart_form;
     }
     element.html(new_text);
@@ -275,7 +274,7 @@ Zentyal.Dashboard.updateList = function(item, itemname) {
     var nonename = itemname + '_none';
     var list = jQuery('#' + Zentyal.escapeSelector(listname));
     var none = jQuery('#' + Zentyal.escapeSelector(nonename));
-    if(item.ids.length == 0) {
+    if(item.ids.length === 0) {
         list.hide();
         none.show();
     } else {
@@ -313,7 +312,7 @@ Zentyal.Dashboard.updateList = function(item, itemname) {
 
 
 Zentyal.Dashboard.updateWidget = function(widget) {
-    if(widget == null) {
+    if(widget === null) {
         return;
     }
 
@@ -527,7 +526,11 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
 
 };
 
-Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, changeModule = false) {
+Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, changeModule) {
+    if (changeModule === undefined) {
+        changeModule = false;
+    }
+
     Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = start;
     var mod = null;
     jQuery.each(Zentyal.Dashboard.ConfigureWidgets.modules, function(index, modObject) {

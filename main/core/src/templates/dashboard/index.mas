@@ -15,33 +15,6 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/format.js">//</script>
 %#<script type="text/javascript" src="/data/js/flotr.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
-<script type="text/javascript">
-var status_str = {
-    'running': {
-        'text': '<% __("Running") %>',
-        'tip': '<% __("The service is enabled and running") %>',
-        'class': 'summaryRunning'
-    },
-    'stopped': {
-        'text': '<% __("Stopped") %>',
-        'tip': '<% __("The service is enabled, but not running") %>',
-        'class': 'summaryStopped'
-    },
-    'unmanaged': {
-        'text': '<% __("Running unmanaged") %>',
-        'tip': '<% __("The service is running, but not enabled in Zentyal") %>',
-        'class': 'summaryDisabled'
-    },
-    'disabled': {
-        'text': '<% __("Disabled") %>',
-        'tip': '<% __("The service is not enabled in Zentyal") %>',
-        'class': 'summaryDisabled'
-    }
-};
-
-var start = '<% __("Start") %>';
-var restart = '<% __("Restart") %>';
-</script>
 % if ($message) {
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
@@ -81,6 +54,32 @@ var restart = '<% __("Restart") %>';
 <script type="text/javascript">
 "use strict";
 jQuery.noConflict();
+
+var status_str = {
+    'running': {
+        'text': '<% __("Running") %>',
+        'tip': '<% __("The service is enabled and running") %>',
+        'class': 'summaryRunning'
+    },
+    'stopped': {
+        'text': '<% __("Stopped") %>',
+        'tip': '<% __("The service is enabled, but not running") %>',
+        'class': 'summaryStopped'
+    },
+    'unmanaged': {
+        'text': '<% __("Running unmanaged") %>',
+        'tip': '<% __("The service is running, but not enabled in Zentyal") %>',
+        'class': 'summaryDisabled'
+    },
+    'disabled': {
+        'text': '<% __("Disabled") %>',
+        'tip': '<% __("The service is not enabled in Zentyal") %>',
+        'class': 'summaryDisabled'
+    }
+};
+
+var start = '<% __("Start") %>';
+var restart = '<% __("Restart") %>';
 
 jQuery( function () {
        Zentyal.Dashboard.createSortableDashboard();
