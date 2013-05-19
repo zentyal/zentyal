@@ -220,13 +220,13 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
 
     Zentyal.Dashboard.statusInfo[itemname] = item;
     var status;
-    var button = restart;
+    var button = Zentyal.Dashboard.statusStrings['restart_button'];;
     var name = 'restart';
     if (item.enabled && item.running) {
         status = 'running';
     } else if (item.enabled && !item.running) {
         status = 'stopped';
-        button = start;
+        button = Zentyal.Dashboard.statusStrings['start_button'];
         name = 'start';
     } else if (!item.enabled && item.running) {
         status = 'unmanaged';
@@ -239,8 +239,8 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
         text = item.statusStr;
         tooltip = '';
     } else {
-        text = status_str[status]['text'];
-        tooltip = status_str[status]['tip'];
+        text = Zentyal.Dashboard.statusStrings[status]['text'];
+        tooltip = Zentyal.Dashboard.statusStrings[status]['tip'];
     }
     var new_text = "<span title='" + tooltip;
     new_text     += "' class='sleft'>" + text;

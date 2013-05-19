@@ -9,6 +9,10 @@
 <%init>
 use utf8;
 use EBox::Gettext;
+use JSON::XS;
+use EBox::SysInfo;
+
+my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStrings());
 </%init>
 <script type="text/javascript"  src="/data/js/dashboard.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
@@ -54,35 +58,9 @@ use EBox::Gettext;
 <script type="text/javascript">
 "use strict";
 jQuery.noConflict();
-
-var status_str = {
-    'running': {
-        'text': '<% __("Running") %>',
-        'tip': '<% __("The service is enabled and running") %>',
-        'class': 'summaryRunning'
-    },
-    'stopped': {
-        'text': '<% __("Stopped") %>',
-        'tip': '<% __("The service is enabled, but not running") %>',
-        'class': 'summaryStopped'
-    },
-    'unmanaged': {
-        'text': '<% __("Running unmanaged") %>',
-        'tip': '<% __("The service is running, but not enabled in Zentyal") %>',
-        'class': 'summaryDisabled'
-    },
-    'disabled': {
-        'text': '<% __("Disabled") %>',
-        'tip': '<% __("The service is not enabled in Zentyal") %>',
-        'class': 'summaryDisabled'
-    }
-};
-
-var start = '<% __("Start") %>';
-var restart = '<% __("Restart") %>';
-
 jQuery( function () {
-       Zentyal.Dashboard.createSortableDashboard();
+      Zentyal.Dashboard.statusStrings = <% $statusStringJson %>;
+      Zentyal.Dashboard.createSortableDashboard();
       setInterval( Zentyal.Dashboard.updateWidgets, 30000);
 });
 </script>

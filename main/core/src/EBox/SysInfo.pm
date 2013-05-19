@@ -464,4 +464,40 @@ sub _restartAllServices
     };
 }
 
+my $_dashboardStatusStrings;
+sub dashboardStatusStrings
+{
+    if (defined $_dashboardStatusStrings) {
+        return $_dashboardStatusStrings;
+    }
+
+    $_dashboardStatusStrings = {
+        'start_button' =>  __('Start'),
+        'restart_button' =>  __('Restart'),
+        'running' => {
+            'text'   => __('Running'),
+            'tip'   => __('The service is enabled and running'),
+            'class' => 'summaryRunning'
+        },
+        'stopped' => {
+            'text'  => __('Stopped'),
+            'tip'   => __('The service is enabled, but not running'),
+            'class' => 'summaryStopped'
+        },
+        'unmanaged' => {
+             'text'  => __('Running unmanaged'),
+             'tip'   => __('The service is running, but not enabled in Zentyal'),
+             'class' => 'summaryDisabled'
+        },
+        'disabled' => {
+            'text'  => __('Disabled'),
+            'tip'   => __('The service is not enabled in Zentyal'),
+            'class' => 'summaryDisabled'
+        }
+     };
+
+    return $_dashboardStatusStrings;
+}
+
+
 1;
