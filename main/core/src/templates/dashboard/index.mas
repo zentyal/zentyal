@@ -17,7 +17,6 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 <script type="text/javascript"  src="/data/js/dashboard.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/format.js">//</script>
-%#<script type="text/javascript" src="/data/js/flotr.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
 % if ($message) {
 <div id="notification_container" class='tip'>
