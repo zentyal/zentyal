@@ -103,10 +103,12 @@ jQuery.plot(
 % }
     ],
     {
-        xaxis: { noTicks: 3,
+        xaxis: {
+            ticks: 3,
             tickFormatter: <% $timeformatter %>
         },
-        yaxis: { noTicks: 5,
+        yaxis: {
+                 ticks: 3,
 % if($formatter) {
   tickFormatter: <% $formatter %>
 % }
@@ -126,12 +128,15 @@ jQuery.plot(
 % my $sensibility = int($max_diff/10);
 % my $point = int($max_diff/10);
         legend: { container: '#' + Zentyal.escapeSelector('legend_<% $id %>'), noColumns: <% $columns %> },
+
+<%doc>
         mouse: {
             track: true,
             sensibility: <% $sensibility %>,
             lineColor: '#ff3f19',
             trackFormatter: track_formatter
         }
+</%doc>
     }
 );
 % unless ( $repainting ) {
