@@ -74,6 +74,9 @@ jQuery.plot(
         data: [
 %   for my $i (0..$#{$data}) {
 %       my $pair = $data->[$i];
+%#      internationalized value could have decimal comma
+%       $pair->[0] =~ s/,/./;
+%       $pair->[1] =~ s/,/./;
 %       if ($pair->[1] ne 'nan') {
 %           if (!defined($min_y) or ($min_y > $pair->[1])) {
 %               $min_y = $pair->[1];
