@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed graph template so it could be feed with data using decimal
+	  comma, it will convert it to a JS array without problems
 3.0.20
 	+ Check against inexistent path in EBox::Util::SHM::subkeys
 	+ Silent diff in EBox::Types::File::isEqualTo
