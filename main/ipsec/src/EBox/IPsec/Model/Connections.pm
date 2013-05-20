@@ -41,23 +41,10 @@ sub tunnels
         my $type = $row->valueByName('type');
         my @confComponents;
 
-        if ($type eq 'ipsec') {
-            @confComponents = qw(SettingsIPsec ConfPhase1 ConfPhase2);
-        } elsif ($type eq 'l2tp') {
-            @confComponents = qw(SettingsL2TP RangeTable);
-        } else {
-            throw EBox::Exceptions::InvalidData(
-                data => __('VPN Type'),
-                value => $type,
-                advice => __('Not supported'),
-            );
-        }
+        @confComponents = @{$conf->models(1)};
 
         my %settings;
-
-        foreach my $name (@confComponents) {
-            my $component = $conf->componentByName($name, 1);
-
+        foreach my $component (@confComponents) {
             if ($component->isa('EBox::Model::DataForm')) {
                 my $elements = $component->row()->elements();
 
@@ -89,24 +76,26 @@ sub tunnels
                 }
 
             } elsif ($component->isa('EBox::Model::DataTable')) {
-                if ($name eq 'RangeTable') {
+                if ($component->name() eq 'RangeTable') {
                     my @ranges = ();
                     foreach my $rowid (@{$component->ids()}) {
                         my $row = $component->row($rowid);
                         push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
                     }
                     $settings{'ip_range'} = join (',', @ranges);
+                } elsif ($component->name() eq 'UsersFile') {
+                    EBox::debug("UsersFile model is not handled with the tunnel information.");
                 } else {
                     throw EBox::Exceptions::InvalidData(
                         data => __('DataTable Component'),
-                        value => $name,
-                        advice => __('Unknown how to handle this component.'),
+                        value => $component->name(),
+                        advice => __('Don\'t know how to handle this component.'),
                     );
                 }
             } else {
                 throw EBox::Exceptions::InvalidType(
                     data => __('Component'),
-                    value => $name,
+                    value => $component->name(),
                     advice => __('Unknown'),
                 );
             }
@@ -203,7 +192,7 @@ sub validateTypedRow
             foreach my $model (@{$conf->models(1)}) {
                 foreach my $rowID (@{$model->enabledRows()}) {
                     my $row = $model->row($rowID);
-                    $model->validateTypedRow('update', $row->hashElements());
+                    $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
                 }
             }
         } otherwise {
@@ -213,7 +202,7 @@ sub validateTypedRow
                 value => __('Enabled'),
                 advice => __x(
                     'Cannot be enabled due to errors in the connection configuration: {error}',
-                    error => $error)
+                    error => $error
                 )
             );
         }

@@ -72,11 +72,11 @@ sub viewCustomizer
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changed_r, $all_r) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
     my $networkMod = $self->global()->modInstance('network');
     my $rightIP = undef;
 
-    if (!defined $all_r->{right}) {
+    if (!defined $allFields->{right}) {
         throw EBox::Exceptions::InvalidData(
             data => __("Remote Address"),
             value => __("undefined"),
@@ -84,9 +84,9 @@ sub validateTypedRow
         );
     }
 
-    if ($all_r->{right}->selectedType() eq 'right_ipaddr') {
-        $rightIP = $all_r->{right}->value();
-        if ($rightIP eq $all_r->{left_ipaddr}->value()) {
+    if ($allFields->{right}->selectedType() eq 'right_ipaddr') {
+        $rightIP = $allFields->{right}->value();
+        if ($rightIP eq $allFields->{left_ipaddr}->value()) {
             throw EBox::Exceptions::External("Local and remote subnets could not be the same");
         }
 
@@ -94,7 +94,7 @@ sub validateTypedRow
             my $iface = $networkMod->ifaceByAddress($rightIP);
             if ($iface) {
                 throw EBox::Exceptions::InvalidData(
-                    data => $all_r->{right}->printableName(),
+                    data => $allFields->{right}->printableName(),
                     value => $rightIP,
                     advice => __x(
                         'Must be the external IP to connect and it was the addresss of local interface {if}',
