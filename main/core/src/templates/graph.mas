@@ -48,7 +48,6 @@ my $tiny = 0.01;
 <div id='<% $id %>' class='graph'></div>
 <div id='legend_<% $id %>'></div>
 <script type="text/javascript">
-//<![CDATA[
 % }
 var track_formatter = function(obj) {
     var time = <% $timeformatter %>(obj.x);
@@ -62,7 +61,7 @@ var track_formatter = function(obj) {
 }
 
 jQuery.plot(
-    '#' + Zentyal.escapeSelector('<% $id %>', [
+    '#' + Zentyal.escapeSelector('<% $id %>'), [
 % my $first = $series[0]->{'data'};
 % my $min_x = $first->[0]->[0];
 % my $max_x = $first->[$#{$first}]->[0];
@@ -123,7 +122,7 @@ jQuery.plot(
 % }
 % my $sensibility = int($max_diff/10);
 % my $point = int($max_diff/10);
-        legend: { container: 'legend_<% $id %>', noColumns: <% $columns %> },
+        legend: { container: '#' + Zentyal.escapeSelector('legend_<% $id %>'), noColumns: <% $columns %> },
         mouse: {
             track: true,
             sensibility: <% $sensibility %>,
@@ -133,6 +132,5 @@ jQuery.plot(
     }
 );
 % unless ( $repainting ) {
-//]]>
 </script>
 % }
