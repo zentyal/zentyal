@@ -130,3 +130,65 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
         }
     }
 };
+
+Zentyal.SoftwareManagementUI.selectAll = function(table, actionButton) {
+    jQuery('#' + table  + ' :checkbox').prop('checked', true);
+    jQuery('#' + actionButton).prop('disabled', false);
+};
+
+Zentyal.SoftwareManagementUI.deselectAll = function(table, actionButton) {
+    jQuery('#' + table  + ' :checkbox').prop('checked', false);
+    jQuery('#' + actionButton).prop('disabled', true);
+};
+
+Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
+    var packages = [];
+    packages = jQuery('#' + container + ' :checked').map(function() {
+         return 'pkg-' + this.getAttribute('data-pkg');
+    }).get();
+    Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup);
+};
+
+Zentyal.SoftwareManagementUI.sendFormBasic = function(popup) {
+    var packages = [];
+    if (jQuery('#Gateway_check').prop('checked')) {
+        packages.push('pkg-zentyal-gateway');
+    }
+    if (jQuery('#Office_check').prop('checked')) {
+        packages.push('pkg-zentyal-office');
+    }
+    if (jQuery('#Communications_check').prop('checked')) {
+        packages.push('pkg-zentyal-communication');
+    }
+    if (jQuery('#Infrastructure_check').prop('checked')) {
+        packages.push('pkg-zentyal-infrastructure');
+    }
+    jQuery('.package:checked').each(function (index, el) {
+       packages.push('pkg-' + el.attr('id'));
+    });
+
+    Zentyal.SoftwareManagementUI._sendFormPackagesList('install', packages, popup, title);
+};
+
+Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, popup, title) {
+   if (packages.length > 0) {
+     var url= 'InstallPkgs?';
+     for (var i=0; i < packages.length; i++) {
+         url += action + '=1';
+         url += '&' +  packages[i] + '=yes';
+     }
+     url += '&popup=' + popup;
+     if (popup) {
+         Modalbox.show(url, {'title': title, 'transitions': false});
+     } else {
+       window.location = url;
+     }
+  } else {
+      alert('No packages selected');
+  }
+};
+
+Zentyal.SoftwareManagementUI.updateActionButton = function(table, buttonId) {
+    var allDisabled = jQuery('#' + table + ' :checked').length === 0;
+    jQuery('#' + buttonId).prop('disabled', allDisabled);
+};

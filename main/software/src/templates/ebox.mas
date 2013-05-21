@@ -43,6 +43,12 @@ my %pkgTablePrintableFields = (
     version =>  __('Installed Version'),
     avail =>  __('Latest Version'),
 );
+
+my %titleByAction = (
+   install =>  __('Installing packages'),
+   remove =>  __('Removing packages'),
+   upgrade =>  __('Upgrading packages'),
+);
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
@@ -453,7 +459,7 @@ var pkgTable = new Array(
 % if ($first) {
         <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip install') %> </button>
 % }
-        <button onclick="sendFormBasic(<% $popup %>)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+        <button onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><img src="/data/images/install.gif"> <% __('Install') %></button>
 
        </div>
 
@@ -508,6 +514,7 @@ var pkgTable = new Array(
                 action => 'install',
                 icon  => '/data/images/install.gif',
                 popup => $popup,
+                popupTitle => $titleByAction{install},
               &>
         </div>
 
@@ -526,6 +533,7 @@ var pkgTable = new Array(
                 action => 'upgrade',
                 icon  => '/data/images/install.gif',
                 popup=> $popup,
+                popupTitle => $titleByAction{upgrade},
               &>
         </div>
         <div id="deleteBox">
@@ -543,6 +551,7 @@ var pkgTable = new Array(
                action => 'remove',
                icon  => '/data/images/delete.gif',
                popup => $popup,
+               popupTitle => $titleByAction{remove},
              &>
     </div>
 </div>
@@ -560,86 +569,12 @@ jQuery('#updateBox, #deleteBox').hide();
 Zentyal.stripe('dataTable', 'even', 'odd');
 
 // update button status
-updateActionButton('installTable', 'install_button');
-updateActionButton('updateTable', 'update_button');
-updateActionButton('deleteTable', 'delete_button');
-
-
-function selectAll(table, actionButton) {
-    jQuery('#' + table  + ' :checkbox').prop('checked', true);
-    jQuery('#' + actionButton).prop('disabled', false);
-}
-
-function deselectAll(table, actionButton) {
-    jQuery('#' + table  + ' :checkbox').prop('checked', false);
-    jQuery('#' + actionButton).prop('disabled', true);
-}
-
-function sendForm(action, container, popup) {
-    var packages = [];
-    packages = jQuery('#' + container + ' :checked').map(function() {
-         return 'pkg-' + this.getAttribute('data-pkg');
-    }).get();
-      _sendFormPackagesList(action, packages, popup);
-}
-
-function sendFormBasic(popup) {
-    var packages = [];
-    if (jQuery('#Gateway_check').prop('checked')) {
-        packages.push('pkg-zentyal-gateway');
-    }
-    if (jQuery('#Office_check').prop('checked')) {
-        packages.push('pkg-zentyal-office');
-    }
-    if (jQuery('#Communications_check').prop('checked')) {
-        packages.push('pkg-zentyal-communication');
-    }
-    if (jQuery('#Infrastructure_check').prop('checked')) {
-        packages.push('pkg-zentyal-infrastructure');
-    }
-    jQuery('.package:checked').each(function (index, el) {
-       packages.push('pkg-' + el.attr('id'));
-    });
-
-   _sendFormPackagesList('install', packages, popup);
-}
-
-function _sendFormPackagesList(action, packages, popup)
-{
-   if (packages.length > 0) {
-     var url= 'InstallPkgs?';
-     for (var i=0; i < packages.length; i++) {
-         url += action + '=1';
-         url += '&' +  packages[i] + '=yes';
-     }
-     url += '&popup=' + popup;
-     if (popup) {
-         var title='';
-         if (action == 'install') {
-             title = '<% __('Installing packages') %>';
-         } else if (action == 'remove') {
-             title = '<% __('Removing packages') %>';
-         } else if (action == 'upgrade') {
-             title = '<% __('Upgrading packages') %>';
-         }
-         Modalbox.show(url, {'title': title, 'transitions': false});
-     } else {
-       window.location = url;
-     }
-  } else {
-      alert('<% __('No packages selected') %>');
-  }
-}
-
-function updateActionButton(table, buttonId)
-{
-    var allDisabled = jQuery('#' + table + ' :checked').length === 0;
-    jQuery('#' + buttonId).prop('disabled', allDisabled);
-}
+Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
+Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
+Zentyal.SoftwareManagementUI.updateActionButton('deleteTable', 'delete_button');
 
 
 </script>
-
 
 <%def .pkgTableButtons>
 <%args>
@@ -649,16 +584,17 @@ $text
 $icon
 $action
 $popup
+$popupTitle
 </%args>
 <div id="<% $action %>Buttons">
-<button  id="<% $id %>" onclick="sendForm('<% $action %>', '<% $table%>', <% $popup %>)"><img src='<% $icon %>'>
+<button  id="<% $id %>" onclick="Zentyal.SoftwareManagementUI.sendForm('<% $action %>', '<% $table%>', <% $popup %>, '<% $popupTitle %>')"><img src='<% $icon %>'>
                   <% $text %>
 </button>
 <button onclick='location.reload()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-<button style="float:right" onclick="deselectAll('<% $table %>' , '<% $id %>')"><img src="/data/images/delete.gif">
+<button style="float:right" onclick="Zentyal.SoftwareManagementUI.deselectAll('<% $table %>' , '<% $id %>')"><img src="/data/images/delete.gif">
       <% __('Deselect All') %>
 </button>
-<button style="float:right" onclick="selectAll('<% $table %>', '<% $id %>')"><img src="/data/images/apply.gif">
+<button style="float:right" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')"><img src="/data/images/apply.gif">
     <% __('Select All') %>
 </button>
 </div>
@@ -686,7 +622,7 @@ $buttonId
 %   foreach my $field (@fields) {
             <td><% $pkg->{$field} %></td>
 %   }
-    <td><input type='checkbox' data-pkg='<% $pkg->{name} %>' onchange='updateActionButton("<% $id %>", "<% $buttonId %>");'/></td>
+    <td><input type='checkbox' data-pkg='<% $pkg->{name} %>' onchange='Zentyal.SoftwareManagementUI.updateActionButton("<% $id %>", "<% $buttonId %>");'/></td>
    </tr>
 % }
 </tbody>
