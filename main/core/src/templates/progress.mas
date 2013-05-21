@@ -66,16 +66,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <script type="text/javascript" src="/data/js/carousel.js">//</script>
 % }
 
-<script type="text/javascript">
-        Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
-                             '<% $currentItemUrl %>',
-                             <% $reloadInterval %>,
-                             <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>',
-                             <% $showNotesOnFinish ? 'true' : 'false' %>
-                             );
-</script>
-
 <style>
 
 #slide_wrapper {
@@ -169,11 +159,21 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
+<script type="text/javascript">
+jQuery( function() {
+        Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
+                             '<% $currentItemUrl %>',
+                             <% $reloadInterval %>,
+                             <% $nextStepTimeout %>,
+                             '<% $nextStepUrl %>',
+                             <% $showNotesOnFinish ? 'true' : 'false' %>
+                             );
 % if (@slides) {
-<script type="text/javascript" language="javascript">
-Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
-</script>
+        Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
 % }
+});
+</script>
+
 
 <%def .nextStep>
 <%args>
