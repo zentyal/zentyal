@@ -40,16 +40,11 @@ Function: stripe
      oddClass - css class to apply to odd tr
 */
 Zentyal.stripe = function (theclass, evenClass, oddClass) {
-    jQuery('.' + theclass + ' tbody tr:nth-child(even)').each(function(index, tr) {
-        tr.addClassName(evenClass);
-    });
-    jQuery('.' + theclass + ' tbody tr:nth-child(odd)').each(function(index, tr) {
-        tr.addClassName(oddClass);
-    });
+    jQuery('.' + theclass + ' tbody tr:nth-child(even)').addClass(evenClass);
+    jQuery('.' + theclass + ' tbody tr:nth-child(odd)').addClass(oddClass);
 };
-window.stripe = Zentyal.stripe; // temporal rep[lacement until table-helper is modularized
 
-// Zentyal.LetfMenu namespace
+//** Zentyal.LetfMenu namespace **\\
 
 Zentyal.LeftMenu.menuShown = '';
 Zentyal.LeftMenu.menuShownAnchor = null;
