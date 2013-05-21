@@ -149,7 +149,7 @@ Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title
     Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup);
 };
 
-Zentyal.SoftwareManagementUI.sendFormBasic = function(popup) {
+Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {
     var packages = [];
     if (jQuery('#Gateway_check').prop('checked')) {
         packages.push('pkg-zentyal-gateway');
