@@ -582,6 +582,8 @@ $action
 $popup
 $popupTitle
 </%args>
+<table class="bDataTable">
+<tbody><tr><td>
 <div id="<% $action %>Buttons">
 <button  id="<% $id %>" onclick="Zentyal.SoftwareManagementUI.sendForm('<% $action %>', '<% $table%>', <% $popup %>, '<% $popupTitle %>')"><img src='<% $icon %>'>
                   <% $text %>
@@ -593,7 +595,8 @@ $popupTitle
 <button style="float:right" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')"><img src="/data/images/apply.gif">
     <% __('Select All') %>
 </button>
-</div>
+</td></tr></tbody>
+</table>
 </%def>
 
 <%def .pkgTable>
