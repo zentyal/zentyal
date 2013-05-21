@@ -125,32 +125,3 @@ Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
 
     var timerId = setInterval(loadMethod, secondsTimeout*1000);
 };
-
-Zentyal.ProgressIndicator.adsSlides = function(nSlides) {
-    jQuery('#adsButtonPrev').hide();
-
-    var car_options = {
-          'auto' : true,
-          'frequency' : 20,
-          'circular' : true,
-          'duration' : 0.8,
-          'wheel' : false,
-          'afterMove': null
-    };
-
-    // XXX MIGRATE carousel.js
-    var car_obj = new Carousel('slide_wrapper', $$('#slides .ads'), $$('a.carousel-control'), car_options);
-
-    car_obj.options.afterMove = function () {
-          var slide_num = car_obj.current._index;
-          if (slide_num === 0) {
-              jQuery('#adsButtonPrev').hide();
-          } else if (slide_num >= nSlides) {
-              jQuery('#adsButtonNext').hide();
-          } else {
-              jQuery('#adsButtonPrev').show();
-              jQuery('#adsButtonNext').show();
-          }
-      };
-};
-

@@ -97,6 +97,8 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         KhtmlOpacity: .9;
         opacity: .9;
 }
+
+% if (@slides) {
 .carousel {
   position: relative;
   margin-bottom: 20px;
@@ -223,35 +225,11 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 .carousel-caption p {
   margin-bottom: 0;
 }
+% }
 </style>
 
 % if (@slides) {
-<div id="carousel" class="carousel_slide">
-     <ol class="carousel-indicators">
-         <li data-target="#carousel" data-slide-to="0" class="active"></li>
-%    my $nSlide = 1;
-%    while ($nSlide < @slides) {
-         <li data-target="#carousel" data-slide-to="<% $nSlide %>"></li>
-%     $nSlide += 1;
-%   }
-     </ol>
-
-     <div class="carousel-inner">
-% $nSlide = 0;
-% foreach my $slide (@slides) {
-%    if ($nSlide == 0) {
-       <div class="item active">
-%      $nSlide += 1;
-%    } else {
-       <div class='item'>
-%    }
-           <% $slide %>
-       </div>
-% }
-    </div>
-    <a class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
-    <a class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
-</div>
+<& .carouselSection, slides => \@slides &>
 % }
 
 <div id='progressing'>
@@ -311,8 +289,7 @@ jQuery( function() {
                         <% $showNotesOnFinish ? 'true' : 'false' %>
   );
 % if (@slides) {
-%#   Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
-        jQuery('.carousel').carousel();
+        jQuery('#carousel').carousel();
 % }
 });
 </script>
@@ -339,4 +316,27 @@ $onclick
     </a>
   </div>
 % }
+</%def>
+
+<%def .carouselSection>
+<%args>
+@slides
+</%args>
+<div id="carousel" class="carousel_slide">
+     <div class="carousel-inner">
+% my $first = 1;
+% foreach my $slide (@slides) {
+%    if ($first) {
+       <div class="item active">
+%      $first = 0;
+%    } else {
+       <div class='item'>
+%    }
+           <% $slide %>
+       </div>
+% }
+    </div>
+    <a class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
+</div>
 </%def>
