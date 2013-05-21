@@ -15,10 +15,34 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Util::Version;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 my $first = EBox::Global->first();
 my $popup = $first ? 0 : 1;
+
+my @advInstallPkgs;
+my @advUpdatePkgs;
+my @advRemovePkgs;
+foreach my $pkg (@eboxpkgs) {
+  ($pkg->{name} eq 'zentyal-all') and next;
+  ($pkg->{description} =~ m/Suite /) and next;
+
+  if ($pkg->{version}) {
+     push @advRemovePkgs, $pkg;
+     if (EBox::Util::Version::compare($pkg->{version}, $pkg->{avail}) > 0) {
+         push @advUpdatePkgs, $pkg
+     }
+ } else {
+     push @advInstallPkgs, $pkg;
+ }
+}
+
+my %pkgTablePrintableFields = (
+    description =>  __('Component'),
+    version =>  __('Installed Version'),
+    avail =>  __('Latest Version'),
+);
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
@@ -30,7 +54,7 @@ my $popup = $first ? 0 : 1;
         if (location.hash === '#delete') {
             Zentyal.SoftwareManagementUI.showDeleteTab();
         } else {
-            Zentyal.SoftwareManagementUI.showUpdateTab();
+            Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
         }
     });
 </script>
@@ -142,6 +166,7 @@ var pkgTable = new Array(
 </div>
 % } else {
 <div id="software" style="padding: 15px 0">
+%# Basic table
 <div id="basic">
 % unless ($first) {
     <a href='#' onclick="jQuery('#basic').fadeOut(300); jQuery('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
@@ -469,158 +494,92 @@ var pkgTable = new Array(
     </div>
     <div class="insideTab">
         <div id="installBox">
-            <div id="installTable"></div>
-            <div id="installButtons">
-                <button id="install_button" onclick="sendForm('install', insHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
-                   <% __('Install') %>
-                </button>
-                <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(insHtmlId, 'install_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(insHtmlId, 'install_button')"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
-            </div>
+              <& .pkgTable,
+                 id => 'installTable',
+                 pkgs => \@advInstallPkgs,
+                 fields => ['description', 'avail'],
+                 printableFieldNames => \%pkgTablePrintableFields,
+                 buttonId => 'install_button',
+             &>
+             <& .pkgTableButtons,
+                id => 'install_button',
+                table => 'installTable',
+                text =>  __('Install'),
+                action => 'install',
+                icon  => '/data/images/install.gif',
+                popup => $popup,
+              &>
         </div>
+
         <div id="updateBox">
-            <div id="updateTable"></div>
-            <div id="updateButtons">
-                <button  id="update_button" onclick="sendForm('install', updHtmlId, <% $popup %>)"><img src="/data/images/install.gif">
-                  <% __('Update') %>
-                </button>
-                <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-                <button style="float:right" onclick="deselectAll(updHtmlId, 'update_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(updHtmlId, 'update_button')"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
-                <form name='updateList' action='EBox' method='post'>
-                        <input type='hidden' name='updatePkgs' value="yes"/>
-                </form>
-            </div>
+              <& .pkgTable,
+                 id => 'updateTable',
+                 pkgs => \@advUpdatePkgs,
+                 fields => ['description', 'version', 'avail'],
+                 printableFieldNames => \%pkgTablePrintableFields,
+                 buttonId => 'update_button',
+             &>
+             <& .pkgTableButtons,
+                id => 'update_button',
+                table => 'updateTable',
+                text =>  __('Update'),
+                action => 'upgrade',
+                icon  => '/data/images/install.gif',
+                popup=> $popup,
+              &>
         </div>
         <div id="deleteBox">
-            <div id="deleteTable"></div>
-            <div id="deleteButtons">
-                <button id="delete_button" onclick="sendForm('remove', delHtmlId, <% $popup %>)"><img src="/data/images/delete.gif" >
-                  <% __('Delete') %>
-                </button>
-                <button style="float:right" onclick="deselectAll(delHtmlId, 'delete_button')"><img src="/data/images/delete.gif"> <% __('Deselect All') %></button>
-                <button style="float:right" onclick="selectAll(delHtmlId, 'delete_button')"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
-            </div>
-        </div>
-        <form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
+             <& .pkgTable,
+                id => 'deleteTable',
+                pkgs => \@advRemovePkgs,
+                fields => ['description', 'version'],
+                printableFieldNames => \%pkgTablePrintableFields,
+                buttonId => 'delete_button',
+             &>
+             <& .pkgTableButtons,
+               id => 'delete_button',
+               table => 'deleteTable',
+               text =>  __('Delete'),
+               action => 'remove',
+               icon  => '/data/images/delete.gif',
+               popup => $popup,
+             &>
     </div>
 </div>
 </div>
 % }
 
 <script>
-var insTable = new Array();
-var updTable = new Array();
-var delTable = new Array();
-var insHtmlId = new Array();
-var updHtmlId = new Array();
-var delHtmlId = new Array();
-
-var obj;
-for (var i = 0; i< pkgTable.length; i++){
-    if(pkgTable[i]['<% __('Component') %>'] .indexOf("Suite") != -1){
-       continue;
-    }
-    if(pkgTable[i]['<% __('Component') %>'] .indexOf("All Modules") != -1){
-       continue;
-    }
-    if (pkgTable[i]['<% __('Installed Version') %>'] == ""){
-       obj = new Object();
-       obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-       obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-%   if ($first) {
-        if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
-           obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\"></center>";
-        else
-           obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
-%   } else {
-       obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='updateActionButton(insHtmlId, \"install_button\")'></center>";
-%   }
-       insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
-       insTable[insTable.length] = obj;
-    } else {
-        if(pkgTable[i]['Removable'] == "1"){
-           if (pkgTable[i]['Name'] != 'zentyal-software'){
-               obj = new Object();
-               obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-               obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-               obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='updateActionButton(delHtmlId, \"delete_button\")'></center>";
-               delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
-               delTable[delTable.length] = obj;
-           }
-       }
-       if((pkgTable[i]['<% __('Latest Version') %>'] != "")&&(pkgTable[i]['<% __('Latest Version') %>'] != pkgTable[i]['<% __('Installed Version') %>'])){
-           obj = new Object();
-           obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
-           obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
-           obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
-           obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='updateActionButton(updHtmlId, \"update_button\")'></center>";
-           updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
-           updTable[updTable.length] = obj;
-       }
-   }
-}
-
-// XXX tied with OrderertTable
-var customMsgs = {
-    loading: '<% __('Loading') %>...',
-    emptyResults: '<% __('No packages found') %>',
-    errorURL: 'invalid data',
-    errorData: 'no data',
-    searchLabel: '<% __('Search') %> : ',
-    filterLabel: 'Filter Column : ',
-    paginationOf: ' <% __('of') %> ',
-    paginationPages: ' <% __('pages') %> ',
-    paginationFirst: '<<',
-    paginationPrev: '<',
-    paginationNext: '>',
-    paginationLast: '>>'
-};
-var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-insTableOrderer.msgs = customMsgs;
-var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-updTableOrderer.msgs = customMsgs;
-var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
-delTableOrderer.msgs = customMsgs;
-
-jQuery('#updNumber').html( '(' +updTable.length +')' );
+jQuery('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
 % if ($first) {
 jQuery('#advanced').hide();
 % } else {
 jQuery('#basic').hide();
 % }
 jQuery('#updateBox, #deleteBox').hide();
-insTableOrderer.orderRow('<% __('Component') %>', 'asc');
-updTableOrderer.orderRow('<% __('Component') %>', 'asc');
-delTableOrderer.orderRow('<% __('Component') %>', 'asc');
+Zentyal.stripe('dataTable', 'even', 'odd');
 
 // update button status
-updateActionButton(insHtmlId, 'install_button');
-updateActionButton(delHtmlId, 'delete_button');
-updateActionButton(updHtmlId, 'update_button');
+updateActionButton('installTable', 'install_button');
+updateActionButton('updateTable', 'update_button');
+updateActionButton('deleteTable', 'delete_button');
 
-function selectAll(htmlIds, actionButton) {
-    for (var i = 0; i < htmlIds.length; i++){
-        jQuery('#' + htmlIds[i]).prop('checked', true);
-    }
+
+function selectAll(table, actionButton) {
+    jQuery('#' + table  + ' :checkbox').prop('checked', true);
     jQuery('#' + actionButton).prop('disabled', false);
 }
 
-function deselectAll(htmlIds, actionButton) {
-    for (var i = 0; i < htmlIds.length; i++){
-        jQuery('#' + htmlIds[i]).prop('checked', false);
-    }
+function deselectAll(table, actionButton) {
+    jQuery('#' + table  + ' :checkbox').prop('checked', false);
     jQuery('#' + actionButton).prop('disabled', true);
 }
 
-function sendForm(action, htmlIds, popup) {
+function sendForm(action, container, popup) {
     var packages = [];
-    for(var i = 0; i < htmlIds.length; i++) {
-        if (jQuery('#' + htmlIds[i]).prop('checked')){
-            packages.push('pkg-' + htmlIds[i].substring(4));
-        }
-     }
+    packages = jQuery('#' + container + ' :checked').map(function() {
+         return 'pkg-' + this.getAttribute('data-pkg');
+    }).get();
       _sendFormPackagesList(action, packages, popup);
 }
 
@@ -672,21 +631,67 @@ function _sendFormPackagesList(action, packages, popup)
   }
 }
 
-function updateActionButton(list, buttonId)
+function updateActionButton(table, buttonId)
 {
-    var allDisabled = true;
-    for (var i = 0; i < list.length; i++) {
-         if (jQuery('#' + list[i]).prop('checked')) {
-             allDisabled = false;
-             break;
-        }
-    }
-
+    var allDisabled = jQuery('#' + table + ' :checked').length === 0;
     jQuery('#' + buttonId).prop('disabled', allDisabled);
 }
 
 
 </script>
+
+
+<%def .pkgTableButtons>
+<%args>
+$id
+$table
+$text
+$icon
+$action
+$popup
+</%args>
+<div id="<% $action %>Buttons">
+<button  id="<% $id %>" onclick="sendForm('<% $action %>', '<% $table%>', <% $popup %>)"><img src='<% $icon %>'>
+                  <% $text %>
+</button>
+<button onclick='location.reload()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
+<button style="float:right" onclick="deselectAll('<% $table %>' , '<% $id %>')"><img src="/data/images/delete.gif">
+      <% __('Deselect All') %>
+</button>
+<button style="float:right" onclick="selectAll('<% $table %>', '<% $id %>')"><img src="/data/images/apply.gif">
+    <% __('Select All') %>
+</button>
+</div>
+</%def>
+
+<%def .pkgTable>
+<%args>
+$id
+@pkgs
+@fields
+%printableFieldNames
+$buttonId
+</%args>
+<table id='<% $id %>' class='dataTable'>
+<thead><tr>
+% foreach my $field (@fields) {
+%    my $printable = $printableFieldNames{$field};
+    <th class='tleft'><% $printable %></th>
+% }
+    <th class='thOptions'><% __('Select') %></th>
+</tr></thead>
+<tbody>
+% foreach my $pkg (@pkgs) {
+    <tr class='border'>
+%   foreach my $field (@fields) {
+            <td><% $pkg->{$field} %></td>
+%   }
+    <td><input type='checkbox' data-pkg='<% $pkg->{name} %>' onchange='updateActionButton("<% $id %>", "<% $buttonId %>");'/></td>
+   </tr>
+% }
+</tbody>
+</table>
+</%def>
 
 <%def .updateList>
 <%args>
@@ -711,5 +716,3 @@ if ($errorMsg) {
 </div>
 % }
 </%def>
-
-
