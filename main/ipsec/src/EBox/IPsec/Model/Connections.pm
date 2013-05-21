@@ -25,6 +25,7 @@ use EBox::Types::HasMany;
 use EBox::Types::Select;
 
 use Error qw(:try);
+use feature "switch";
 
 # Group: Public methods
 
@@ -52,45 +53,55 @@ sub tunnels
                     my $fieldName = $element->fieldName();
                     my $fieldValue;
 
-                    if ($fieldName eq 'right') {
-                        if ($element->selectedType() eq 'right_any') {
-                            $fieldValue = '%any';
-                        } else {
-                            # Value returns array with (ip, netmask)
-                            $fieldValue = join ('/', $element->value());
+                    given ($fieldName) {
+                        when (/^right$/) {
+                            if ($element->selectedType() eq 'right_any') {
+                                $fieldValue = '%any';
+                            } else {
+                                # Value returns array with (ip, netmask)
+                                $fieldValue = join ('/', $element->value());
+                            }
+                            $fieldName = 'right_ipaddr'; # this must be the property
+                                                         # value name
                         }
-                        $fieldName = 'right_ipaddr'; # this must be the property
-                                                     # value name
-                    } elsif ($fieldName eq 'primary_ns') {
-                        $fieldValue = $component->nameServer(1);
-                    } elsif ($fieldName eq 'wins_server') {
-                        $fieldValue = $component->winsServer();
-                    } elsif ($element->value()) {
-                        # Value returns array with (ip, netmask)
-                        $fieldValue = join ('/', $element->value());
-                    } else {
-                        $fieldValue = undef;
+                        when (/^primary_ns$/) {
+                            $fieldValue = $component->nameServer(1);
+                        }
+                        when (/^wins_server$/) {
+                            $fieldValue = $component->winsServer();
+                        }
+                        default {
+                            if ($element->value()) {
+                                # Value returns array with (ip, netmask)
+                                $fieldValue = join ('/', $element->value());
+                            } else {
+                                $fieldValue = undef;
+                            }
+                        }
                     }
-
                     $settings{$fieldName} = $fieldValue;
                 }
 
             } elsif ($component->isa('EBox::Model::DataTable')) {
-                if ($component->name() eq 'RangeTable') {
-                    my @ranges = ();
-                    foreach my $rowid (@{$component->ids()}) {
-                        my $row = $component->row($rowid);
-                        push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
+                given ($component->name()) {
+                    when (/^RangeTable$/) {
+                        my @ranges = ();
+                        foreach my $rowid (@{$component->ids()}) {
+                            my $row = $component->row($rowid);
+                            push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
+                        }
+                        $settings{'ip_range'} = join (',', @ranges);
                     }
-                    $settings{'ip_range'} = join (',', @ranges);
-                } elsif ($component->name() eq 'UsersFile') {
-                    EBox::debug("UsersFile model is not handled with the tunnel information.");
-                } else {
-                    throw EBox::Exceptions::InvalidData(
-                        data => __('DataTable Component'),
-                        value => $component->name(),
-                        advice => __('Don\'t know how to handle this component.'),
-                    );
+                    when (/^UsersFile/) {
+                        EBox::debug("UsersFile model is not handled with the tunnel information.");
+                    }
+                    default {
+                        throw EBox::Exceptions::InvalidData(
+                            data => __('DataTable Component'),
+                            value => $component->name(),
+                            advice => __('Don\'t know how to handle this component.'),
+                        );
+                    }
                 }
             } else {
                 throw EBox::Exceptions::InvalidType(
