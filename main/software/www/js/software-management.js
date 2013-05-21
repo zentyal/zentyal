@@ -163,8 +163,8 @@ Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {
     if (jQuery('#Infrastructure_check').prop('checked')) {
         packages.push('pkg-zentyal-infrastructure');
     }
-    jQuery('.package:checked').each(function (index, el) {
-       packages.push('pkg-' + el.attr('id'));
+    jQuery('.package_selected').each(function (index, el) {
+       packages.push('pkg-' + el.id);
     });
 
     Zentyal.SoftwareManagementUI._sendFormPackagesList('install', packages, popup, title);
