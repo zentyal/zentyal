@@ -161,15 +161,15 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 <script type="text/javascript">
 jQuery( function() {
-        Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
-                             '<% $currentItemUrl %>',
-                             <% $reloadInterval %>,
-                             <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>',
-                             <% $showNotesOnFinish ? 'true' : 'false' %>
-                             );
+   Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
+                        '<% $currentItemUrl %>',
+                        <% $reloadInterval %>,
+                        <% $nextStepTimeout %>,
+                        '<% $nextStepUrl %>',
+                        <% $showNotesOnFinish ? 'true' : 'false' %>
+  );
 % if (@slides) {
-        Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
+   Zentyal.ProgressIndicator.adsSlides(<% scalar (@slides) - 1 %>);
 % }
 });
 </script>
