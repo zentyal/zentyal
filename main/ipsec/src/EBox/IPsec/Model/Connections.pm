@@ -24,6 +24,9 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 
+use Error qw(:try);
+use feature "switch";
+
 # Group: Public methods
 
 sub tunnels
@@ -39,23 +42,10 @@ sub tunnels
         my $type = $row->valueByName('type');
         my @confComponents;
 
-        if ($type eq 'ipsec') {
-            @confComponents = qw(SettingsIPsec ConfPhase1 ConfPhase2);
-        } elsif ($type eq 'l2tp') {
-            @confComponents = qw(SettingsL2TP RangeTable);
-        } else {
-            throw EBox::Exceptions::InvalidData(
-                data => __('VPN Type'),
-                value => $type,
-                advice => __('Not supported'),
-            );
-        }
+        @confComponents = @{$conf->models(1)};
 
         my %settings;
-
-        foreach my $name (@confComponents) {
-            my $component = $conf->componentByName($name, 1);
-
+        foreach my $component (@confComponents) {
             if ($component->isa('EBox::Model::DataForm')) {
                 my $elements = $component->row()->elements();
 
@@ -63,48 +53,60 @@ sub tunnels
                     my $fieldName = $element->fieldName();
                     my $fieldValue;
 
-                    if ($fieldName eq 'right') {
-                        if ($element->selectedType() eq 'right_any') {
-                            $fieldValue = '%any';
-                        } else {
-                            # Value returns array with (ip, netmask)
-                            $fieldValue = join ('/', $element->value());
+                    given ($fieldName) {
+                        when (/^right$/) {
+                            if ($element->selectedType() eq 'right_any') {
+                                $fieldValue = '%any';
+                            } else {
+                                # Value returns array with (ip, netmask)
+                                $fieldValue = join ('/', $element->value());
+                            }
+                            $fieldName = 'right_ipaddr'; # this must be the property
+                                                         # value name
                         }
-                        $fieldName = 'right_ipaddr'; # this must be the property
-                                                     # value name
-                    } elsif ($fieldName eq 'primary_ns') {
-                        $fieldValue = $component->nameServer(1);
-                    } elsif ($fieldName eq 'wins_server') {
-                        $fieldValue = $component->winsServer();
-                    } elsif ($element->value()) {
-                        # Value returns array with (ip, netmask)
-                        $fieldValue = join ('/', $element->value());
-                    } else {
-                        $fieldValue = undef;
+                        when (/^primary_ns$/) {
+                            $fieldValue = $component->nameServer(1);
+                        }
+                        when (/^wins_server$/) {
+                            $fieldValue = $component->winsServer();
+                        }
+                        default {
+                            if ($element->value()) {
+                                # Value returns array with (ip, netmask)
+                                $fieldValue = join ('/', $element->value());
+                            } else {
+                                $fieldValue = undef;
+                            }
+                        }
                     }
-
                     $settings{$fieldName} = $fieldValue;
                 }
 
             } elsif ($component->isa('EBox::Model::DataTable')) {
-                if ($name eq 'RangeTable') {
-                    my @ranges = ();
-                    foreach my $rowid (@{$component->ids()}) {
-                        my $row = $component->row($rowid);
-                        push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
+                given ($component->name()) {
+                    when (/^RangeTable$/) {
+                        my @ranges = ();
+                        foreach my $rowid (@{$component->ids()}) {
+                            my $row = $component->row($rowid);
+                            push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
+                        }
+                        $settings{'ip_range'} = join (',', @ranges);
                     }
-                    $settings{'ip_range'} = join (',', @ranges);
-                } else {
-                    throw EBox::Exceptions::InvalidData(
-                        data => __('DataTable Component'),
-                        value => $name,
-                        advice => __('Unknown how to handle this component.'),
-                    );
+                    when (/^UsersFile/) {
+                        EBox::debug("UsersFile model is not handled with the tunnel information.");
+                    }
+                    default {
+                        throw EBox::Exceptions::InvalidData(
+                            data => __('DataTable Component'),
+                            value => $component->name(),
+                            advice => __('Don\'t know how to handle this component.'),
+                        );
+                    }
                 }
             } else {
                 throw EBox::Exceptions::InvalidType(
                     data => __('Component'),
-                    value => $name,
+                    value => $component->name(),
                     advice => __('Unknown'),
                 );
             }
@@ -181,7 +183,7 @@ sub _table
         class => 'dataTable',
         modelDomain => 'IPsec',
         enableProperty => 1,
-        defaultEnabledValue => 1,
+        defaultEnabledValue => 0,
         help => __('IPsec connections allow to deploy secure tunnels between ' .
                    'different subnetworks. This protocol is vendor independant ' .
                    'and will connect Zentyal with other security devices.'),
@@ -192,15 +194,41 @@ sub _table
 
 sub validateTypedRow
 {
-    my ($self, $action, $params_r) = @_;
-    my $name = $params_r->{name}->value();
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ($name =~ m/\s/) {
-        throw EBox::Exceptions::InvalidData(
-            data => __('Connection name'),
-            value => $name,
-            advice => __('Blank characters are not allowed')
-        );
+    if (defined $changedFields->{enabled} && $changedFields->{enabled}->value()) {
+        my $conf = $self->row($allFields->{id})->elementByName('configuration')->foreignModelInstance();
+
+        try {
+            foreach my $model (@{$conf->models(1)}) {
+                foreach my $rowID (@{$model->enabledRows()}) {
+                    my $row = $model->row($rowID);
+                    $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
+                }
+            }
+        } otherwise {
+            my $error = shift;
+            throw EBox::Exceptions::InvalidData(
+                data => __('Enabled flag'),
+                value => __('Enabled'),
+                advice => __x(
+                    'Cannot be enabled due to errors in the connection configuration: {error}',
+                    error => $error
+                )
+            );
+        }
+    }
+
+    if (defined $changedFields->{name}) {
+        my $name = $changedFields->{name}->value();
+
+        if ($name =~ m/\s/) {
+            throw EBox::Exceptions::InvalidData(
+                data => __('Connection name'),
+                value => $name,
+                advice => __('Blank characters are not allowed')
+            );
+        }
     }
 }
 
