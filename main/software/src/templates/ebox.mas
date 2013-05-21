@@ -26,11 +26,11 @@ my @advUpdatePkgs;
 my @advRemovePkgs;
 foreach my $pkg (@eboxpkgs) {
   ($pkg->{name} eq 'zentyal-all') and next;
-  ($pkg->{description} =~ m/Suite /) and next;
+  ($pkg->{description} =~ m/Suite/) and next;
 
   if ($pkg->{version}) {
      push @advRemovePkgs, $pkg;
-     if (EBox::Util::Version::compare($pkg->{version}, $pkg->{avail}) > 0) {
+     if (EBox::Util::Version::compare($pkg->{version}, $pkg->{avail}) == -1) {
          push @advUpdatePkgs, $pkg
      }
  } else {
