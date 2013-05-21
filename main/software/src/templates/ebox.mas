@@ -89,10 +89,6 @@ h3 {
 
 </style>
 
-    <link href="/dynamic-data/css/tableorderer.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="/data/js/table_orderer.js">//</script>
-
-
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
 
@@ -608,6 +604,20 @@ $id
 %printableFieldNames
 $buttonId
 </%args>
+% my $filterId = $id . '_filter';
+<div>
+<table class="bDataTable">
+    <tr><td>
+       <input type='text' id='<% $filterId %>'/>
+       <input type='submit'
+         name='filter'
+         value='<% __("Search") %>'
+         title='Apply'
+         onclick='Zentyal.SoftwareManagementUI.filterTable("<% $id %>", "<% $filterId %>"); return false'
+       />
+   </td></tr>
+</table>
+</div>
 <table id='<% $id %>' class='dataTable'>
 <thead><tr>
 % foreach my $field (@fields) {

@@ -192,3 +192,30 @@ Zentyal.SoftwareManagementUI.updateActionButton = function(table, buttonId) {
     var allDisabled = jQuery('#' + table + ' :checked').length === 0;
     jQuery('#' + buttonId).prop('disabled', allDisabled);
 };
+
+Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
+    var trSel = '#' + tableId  + ' tbody tr';
+    var tableTr =  jQuery(trSel);
+    var filterText = jQuery('#' + filterId).val();
+
+    filterText = jQuery.trim(filterText).toLowerCase();
+    if (filterText === '') {
+        tableTr.show();
+        Zentyal.stripe('dataTable', 'even', 'odd');
+        return;
+    }
+
+    tableTr.each(function (index, tr) {
+        tr = jQuery(tr)
+        if (tr.text().toLowerCase().indexOf(filterText) >= 0 ) {
+            tr.show();
+        } else {
+            tr.hide();
+            }
+    });
+
+    //stripe with visible status aware
+    var visibleTr =  tableTr.filter(':visible');
+    visibleTr.filter(':even').addClass('even').removeClass('odd');
+    visibleTr.filter(':odd').addClass('odd').removeClass('even');
+};
