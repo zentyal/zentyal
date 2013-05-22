@@ -1,4 +1,4 @@
-HEAD
+3.1.2
 	+ Fixed the connection validation form so the enable / disable checkbox
 	  works.
 	+ Block the connection enabling if the tunnel configuration does not pass
