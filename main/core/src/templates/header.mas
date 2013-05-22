@@ -9,6 +9,7 @@ $favicon => '/favicon.ico'
 <title><% $title %></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
+<link href="/dynamic-data/css/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="<% $favicon %>" />
 <script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/jquery-ui.js">//</script>

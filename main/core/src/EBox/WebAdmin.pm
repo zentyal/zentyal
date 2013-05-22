@@ -329,7 +329,7 @@ sub _writeCSSFiles
     my $theme = $global->theme();
     my %params = %{ $theme };
 
-    foreach my $file ('public.css', 'login.css') {
+    foreach my $file ('public.css', 'login.css', 'jquery-ui.css') {
         EBox::Module::Base::writeConfFileNoCheck("$path/$file",
                                                  "css/$file.mas",
                                                  [ %params ],
