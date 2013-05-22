@@ -15,12 +15,10 @@ jQuery(document).ajaxError(function(event, jqxhr, settings, exception) {
     }
 });
 
-// RR
 Zentyal.TableHelper.cleanError = function (table) {
     jQuery('#error_' + table).html('');
 };
 
-// RR
 Zentyal.TableHelper.setError = function (table, html) {
     jQuery('#error_' + table).removeClass().addClass('error').html(html);
 };
@@ -34,7 +32,6 @@ Zentyal.TableHelper.setError = function (table, html) {
 //  element - Parent jQuery element object
 //  state - boolean, true to enable, false to disable
 //
-// RR
 Zentyal.TableHelper.setEnableRecursively = function (element, state) {
     element.find(':input').each(function(index, el) {
         jQuery(el).prop('disabled', !state);
@@ -50,7 +47,6 @@ Zentyal.TableHelper.setEnableRecursively = function (element, state) {
 //  Event - Event prototype
 //  JSONActions - JSON Object containing the actions to take
 //
-//RR
 Zentyal.TableHelper.onFieldChange = function (event, JSONActions, table) {
     var target = jQuery(event.target);
     var selectedValue;
@@ -99,7 +95,6 @@ Zentyal.TableHelper.onFieldChange = function (event, JSONActions, table) {
     });
 };
 
-// RR
 Zentyal.TableHelper.encodeFields = function (table, fields) {
     var pars = [];
     jQuery.each(fields, function(index, field) {
@@ -112,7 +107,6 @@ Zentyal.TableHelper.encodeFields = function (table, fields) {
     return pars.join('&');
 };
 
-// RR
 Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  nextPage, extraParams) {
     var title = '';
     var selectForeignField;
@@ -235,7 +229,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
-// RR
 Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     var params = 'action=add&tablename=' + table + '&directory=' + directory + '&';
 
@@ -276,7 +269,6 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
-//RR
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, resizeModalbox, extraParams) {
     var params = '&action=edit&tablename=' + table;
     params +=  '&directory='  + directory + '&id=' + id + '&';
@@ -346,7 +338,6 @@ Parameters:
     directory - the GConf directory where table is stored
 
 */
-//RR
 Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsAction, directory, page, extraParams)
 {
     var params = '&action=' + action + '&id=' + rowId;
@@ -403,7 +394,6 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsA
 
 };
 
-//RR
 Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {
     var params = '&action=' + action;
     params += '&tablename=' + table;
@@ -456,7 +446,6 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     });
 };
 
-//RR
 Zentyal.TableHelper.changeView = function (url, table, directory, action, id, page, isFilter)
 {
     var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
@@ -531,7 +520,6 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
    }
 };
 
-//RR
 Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, id, extraParams)
 {
     var title = '';
@@ -650,7 +638,6 @@ Parameters:
         *(Optional)* Default: 'loadingTable'
 
 */
-// RR
 Zentyal.TableHelper.hangTable = function (successId, errorId, url, formId, loadingId) {
     var params = jQuery('#' + formId).first().serialize();
     // clean error messages
@@ -701,7 +688,6 @@ Parameters:
     *(Optional)* Default: 'loadingTable'
 
 */
-// TT
 Zentyal.TableHelper.selectComponentToHang = function (successId, errorId, formId, urls, loadingId) {
     // clean error messages
     jQuery('#' + errorId).html("");
@@ -750,7 +736,6 @@ Parameters:
         selectElement - HTMLSelectElement
 
 */
-// RR
 Zentyal.TableHelper.showSelected  = function (selectElement)
 {
     var selectedValue = jQuery(selectElement).val();
@@ -777,7 +762,6 @@ Parameters:
     protocols - the list of protocols which need a port to be set
 
 */
-// TT
 Zentyal.TableHelper.showPort = function (protocolSelectId, portId, protocols) {
     var selectedValue = jQuery('#' + protocolSelectId).val();
     if (selectedValue in protocols) {
@@ -797,7 +781,6 @@ Parameters:
     id - the select identifier which the protocol is chosen
 
 */
-// RR
 Zentyal.TableHelper.showPortRange = function (id) {
     var selectedValue = jQuery('#' + id + '_range_type').val();
     var single = jQuery('#' + id + '_single');
@@ -838,7 +821,6 @@ Parameters:
 */
 var savedElements = {};
 //XXX modelName does ntvalue = o do anything..
-//RR
 Zentyal.TableHelper.setLoading  = function (elementId, modelName, isSaved) {
   var element = jQuery('#' + elementId);
   if (isSaved) {
@@ -859,7 +841,6 @@ Parameters:
 
 
 */
-//RR
 Zentyal.TableHelper.setDone  = function (elementId)
 {
     jQuery('#' + elementId).html("<img src='/data/images/apply.gif' " +
@@ -877,7 +858,6 @@ Parameters:
         modelName - the model name to distinguish among hiddenDiv tags XXX not used. Remove?
 
 */
-//RR
 Zentyal.TableHelper.restoreHidden  = function (elementId, modelName)
 {
     if (savedElements[elementId] !== null) {
@@ -899,7 +879,6 @@ Parameters:
                 Default value: true
 
 */
-//RR
 // XXX Seein it with elmentId = udnef!!
 Zentyal.TableHelper.highlightRow = function (elementId, enable) {
   // If enable has value null or undefined
@@ -928,7 +907,6 @@ Returns:
 
     input value if it exits, otherwise empty string
 */
-//RR
 Zentyal.TableHelper.inputValue = function (elementId) {
     var value ='';
     jQuery('#' + elementId).each(function (index, element) {
@@ -958,7 +936,6 @@ Parameters:
 
     elementId - a EBox::Types::File id
 */
-//TT
 Zentyal.TableHelper.markFileToRemove = function (id) {
     jQuery('#' + id + '_remove').val(1);
     hide(id + '_current');
@@ -979,7 +956,6 @@ Parameters:
     field - field name
     element - HTML element
 */
-// RR
 Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element)
 {
     var elementId = element.id;
@@ -1035,7 +1011,6 @@ Function: startAjaxRequest
     an ajax request starts and stops.
 
 */
-// RR
 Zentyal.TableHelper.startAjaxRequest = function ()
 {
     jQuery('#ajax_request_cookie').val(1);
@@ -1050,12 +1025,10 @@ Function: completedAjaxRequest
     an ajax request starts and stops.
 
 */
-//RR
 Zentyal.TableHelper.completedAjaxRequest = function () {
     jQuery('#ajax_request_cookie').val(0);
 };
 
-//RR
 Zentyal.TableHelper.addSelectChoice = function (id, value, printableValue, selected) {
     var selectControl = document.getElementById(id);
     if (!selectControl) {
@@ -1069,7 +1042,6 @@ Zentyal.TableHelper.addSelectChoice = function (id, value, printableValue, selec
     }
 };
 
-//RR
 Zentyal.TableHelper.removeSelectChoice = function (id, value, selectedIndex) {
     var selectControl = document.getElementById(id);
     if (!selectControl) {
@@ -1090,7 +1062,6 @@ Zentyal.TableHelper.removeSelectChoice = function (id, value, selectedIndex) {
 
 };
 
-//RR
 Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, controlId, field) {
     var params = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
     params += '&controlId=' + controlId  + '&field=' + field;
@@ -1113,7 +1084,6 @@ Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, cont
     );
 };
 
-//RR
 Zentyal.TableHelper.confirmationDialog = function (url, table, directory, actionToConfirm, elements) {
     var wantDialog  = true;
     var dialogTitle = null;
@@ -1161,7 +1131,6 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
    };
 };
 
-//RR
 Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
     var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
     modalboxHtml += "</p></div><div class='tcenter'>";
