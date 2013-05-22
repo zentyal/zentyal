@@ -8,10 +8,6 @@
         delaycompress
         notifempty
         postrotate
-                if [ -x /usr/sbin/invoke-rc.d ]; then \
-                        invoke-rc.d zentyal apache restart > /dev/null; \
-                else \
-                        /etc/init.d/zentyal apache restart > /dev/null; \
-                fi; \
+                /usr/share/zentyal/restart-trigger
         endscript
 }
