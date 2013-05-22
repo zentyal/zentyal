@@ -60,13 +60,10 @@ var track_formatter = function(obj) {
     return '(' + time + ': ' + other + ')';
 }
 
+var previousPoint;
 jQuery.plot(
     '#' + Zentyal.escapeSelector('<% $id %>'), [
 % my $first = $series[0]->{'data'};
-% my $min_x = $first->[0]->[0];
-% my $max_x = $first->[$#{$first}]->[0];
-% my $min_y = undef;
-% my $max_y = undef;
 % foreach my $set (@series) {
 %   my $data = $set->{'data'};
 %   pop(@{$data}); # Remove the last nan value
@@ -78,15 +75,8 @@ jQuery.plot(
 %       $pair->[0] =~ s/,/./;
 %       $pair->[1] =~ s/,/./;
 %       if ($pair->[1] ne 'nan') {
-%           if (!defined($min_y) or ($min_y > $pair->[1])) {
-%               $min_y = $pair->[1];
-%           }
-%           if (!defined($max_y) or ($max_y < $pair->[1])) {
-%               $max_y = $pair->[1];
-%           }
         [<% $pair->[0] %>,<% $pair->[1] %>],
 %       } else {
-%           $min_y = 0;
 %           if($i != 0) {
                 [<% ($data->[$i-1]->[0] + $tiny) %>,0],
 %           }
@@ -113,32 +103,38 @@ jQuery.plot(
   tickFormatter: <% $formatter %>
 % }
         },
+        grid: { hoverable: true },
 % my $columns = $#series + 1;
 % if ($columns > 5) {
 %   $columns = 5;
 % }
-% my $diff_x = $max_x - $min_x;
-% my $diff_y = $max_y - $min_y;
-% my $max_diff;
-% if ($diff_x > $diff_y) {
-%   $max_diff = $diff_x;
-% } else {
-%   $max_diff = $diff_y;
-% }
-% my $sensibility = int($max_diff/10);
-% my $point = int($max_diff/10);
         legend: { container: '#' + Zentyal.escapeSelector('legend_<% $id %>'), noColumns: <% $columns %> },
-
-<%doc>
-        mouse: {
-            track: true,
-            sensibility: <% $sensibility %>,
-            lineColor: '#ff3f19',
-            trackFormatter: track_formatter
-        }
-</%doc>
     }
 );
+
+jQuery('#' + Zentyal.escapeSelector('<% $id %>')).on('plothover',  function (event, pos, item) {
+         if ( item ) {
+            if (previousPoint !== item.datapoint ) {
+               previousPoint = item.datapoint;
+
+               jQuery("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+               var text = track_formatter(pos);
+               jQuery('<div id="tooltip_<% $id %>">' + text + '</div>').css({
+                    top: pos.y + 5,
+                    left: pos.x + 5,
+                    border: '1px solid #fdd',
+                    padding: '2px',
+                    'background-color': '#fee',
+                    opacity: 0.80,
+                    width: '70%'
+               }).appendTo(event.target);
+           }
+         } else {
+            jQuery("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+            previousPoint = null;
+         }
+});
+
 % unless ( $repainting ) {
 </script>
 % }
