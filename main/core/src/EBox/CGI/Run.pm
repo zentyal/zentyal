@@ -55,6 +55,7 @@ sub run
     $redis->begin();
 
     try {
+        $url = _urlAlias($url);
         my $cgi = _instanceModelCGI($url);
 
         unless ($cgi) {
@@ -156,8 +157,6 @@ sub _parseModelUrl
     my ($url) = @_;
 
     defined ($url) or die "Not URL provided";
-
-    $url = _urlAlias($url);
 
     my ($namespace, $type, $model, $action) = split ('/', $url);
 
