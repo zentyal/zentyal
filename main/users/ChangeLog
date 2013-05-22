@@ -1,4 +1,4 @@
-HEAD
+3.0.19
 	+ Fixed error message when trying to add a user above the edition maximum
 3.0.18
 	+ Check for already existent service principals before create them.
