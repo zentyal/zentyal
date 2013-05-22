@@ -1162,11 +1162,23 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
 };
 
 //RR
-Zentyal.TableHelper.showConfirmationDialog = function (params, acceptJS) {
-  var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
-  modalboxHtml += "</p></div><div class='tcenter'>";
-  modalboxHtml += '<input type="button" value="OK" onclick=" Modalbox.hide();' + acceptJS +  '" />';
-  modalboxHtml += "<input type='button' value='Cancel' onclick='Modalbox.hide()' />";
-  modalboxHtml += "</div>";
-  Modalbox.show(modalboxHtml, {'title' : params.title });
+Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
+    var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
+    modalboxHtml += "</p></div><div class='tcenter'>";
+    modalboxHtml += "</div>";
+
+    jQuery(modalboxHtml).first().dialog({
+        title:  params.title,
+        resizable: false,
+        modal: true,
+        buttons: {
+            Ok: function() {
+                acceptMethod();
+                jQuery( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                jQuery( this ).dialog( "close" );
+            }
+        },
+    });
 };

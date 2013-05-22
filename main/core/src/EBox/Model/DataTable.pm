@@ -4551,15 +4551,14 @@ sub confirmationJS
                     $elementsArrayJS
                     );
 
-    my $goAheadJSEscaped = $goAheadJS;
-    $goAheadJSEscaped =~ s{'}{\\'}g;
-
     my $js =<< "ENDJS";
        this.disable = true;
        var specs = $call;
        this.disable = false;
        if (specs.wantDialog) {
-           Zentyal.TableHelper.showConfirmationDialog(specs, '$goAheadJSEscaped');
+           Zentyal.TableHelper.showConfirmationDialog(specs, function(){
+               $goAheadJS
+           });
        } else {
           $goAheadJS ;
        }
