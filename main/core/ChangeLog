@@ -1,4 +1,5 @@
 HEAD
+	+ Restart all the core daemons instead of only apache after logrotate
 	+ Fixed graph template so it could be feed with data using decimal
 	  comma, it will convert it to a JS array without problems
 3.0.20
