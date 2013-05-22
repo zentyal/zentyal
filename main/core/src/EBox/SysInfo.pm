@@ -70,6 +70,11 @@ sub initialSetup
         $state->{closedMessages} = {};
         $self->set_state($state);
     }
+
+    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.21') < 0) {
+        # Remove unnecessary .bak files
+        EBox::Sudo::root("rm -f /var/lib/zentyal/conf/*.bak");
+    }
 }
 
 # Method: menu
