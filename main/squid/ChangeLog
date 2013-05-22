@@ -1,4 +1,4 @@
-HEAD
+3.0.10
 	+ Squid time ACLs have independient ids. This fixes several issues
 	  with combinations of time, dates and long acls
 	+ Do not repeat Squid ACL declarations
