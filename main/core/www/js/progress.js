@@ -6,7 +6,7 @@
 jQuery.noConflict();
 Zentyal.namespace('ProgressIndicator');
 
-Zentyal.ProgressIndicator.updateProgressBar = function(ticks, totalTicks) {
+Zentyal.ProgressIndicator.updateProgressBar = function(progressbar, ticks, totalTicks) {
     var percent;
     if (totalTicks > 0) {
         percent = Math.ceil((ticks/totalTicks)*100);
@@ -17,13 +17,15 @@ Zentyal.ProgressIndicator.updateProgressBar = function(ticks, totalTicks) {
     } else {
         percent = 0;
     }
-    $('progressValue').morph('width: ' + percent + '%', { duration: 0.5 });
-// XX solve animation problems
-//    jQuery('#progressValue').animate( { width: percent + '%' }, { duration: 500} );
-    jQuery('#percentValue').html(percent+"%");
+
+    if (progressbar.progressbar('option').max !== totalTicks) {
+        progressbar.progressbar('option', 'max', totalTicks);
+    }
+    progressbar.progressbar('value', ticks);
+    jQuery('#percent', progressbar).html(percent+"%");
 };
 
-Zentyal.ProgressIndicator.updatePage  = function(xmlHttp,  timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
+Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var response = jQuery.parseJSON(xmlHttp.responseText);
 
     if (xmlHttp.readyState == 4) {
@@ -43,7 +45,7 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp,  timerId, nextStepTime
             }
 
             if ( totalTicks > 0 ) {
-                Zentyal.ProgressIndicator.updateProgressBar(ticks, totalTicks);
+                Zentyal.ProgressIndicator.updateProgressBar(progressbar, ticks, totalTicks);
             }
         } else if (response.state == 'done') {
             clearInterval(timerId);
@@ -88,7 +90,9 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp,  timerId, nextStepTime
 };
 
 Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
-    var time = 0;
+    var time = 0,
+    progressbar = jQuery('#progress_bar');
+    progressbar.progressbar({ max: false, value: 0});
     var requestParams = "progress=" + progressId ;
     var callServer = function() {
         jQuery.ajax({
@@ -96,7 +100,7 @@ Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, current
             data: requestParams,
             type : 'POST',
             complete: function (xhr) {
-                Zentyal.ProgressIndicator.updatePage(xhr, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
+                Zentyal.ProgressIndicator.updatePage(xhr, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
             }
         });
         time++;

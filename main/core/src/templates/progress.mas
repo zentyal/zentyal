@@ -66,9 +66,9 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 % }
 
+% if (@slides) {
 <style>
-
-#slide_wrapper {
+.carousel-inner {
     width: 690px;
     height: 350px;
     margin-left: 45px;
@@ -79,36 +79,12 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
     width: 6900px;
 }
 
-#slides .ads {
-    float: left;
-    width: 690px;
-    height: 350px;
-}
-
-.percent{
-    float: left;
-    line-height: 30px;
-
-        height:30px;
-        /*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
-        z-index : 100;
-        filter: alpha(opacity=90);
-        -moz-opacity: 0.9;
-        KhtmlOpacity: .9;
-        opacity: .9;
-}
-
-% if (@slides) {
-.carousel {
-  position: relative;
-  margin-bottom: 20px;
-  line-height: 1;
-}
 .carousel-inner {
   overflow: hidden;
   width: 100%;
   position: relative;
 }
+
 .carousel-inner > .item {
   display: none;
   position: relative;
@@ -225,8 +201,8 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 .carousel-caption p {
   margin-bottom: 0;
 }
-% }
 </style>
+% }
 
 % if (@slides) {
 <& .carouselSection, slides => \@slides &>
@@ -236,11 +212,11 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
 <br/>
-<div id="progress_bar">
-        <div class="percent" id="percentValue"></div>
-    <div class="bar" <% $barStyle %> >
-        <div id="progressValue" <% $progresValueStyle %> ></div>
-    </div>
+% if (0) {
+<div class="percent" id="percentValue"></div>
+% }
+<div id='progress_bar'>
+         <div id='percent' class='progress-label tcenter'><% __('Loading...') %></div>
 </div>
 <br/>
 <span id='ticks'>-</span><% __(" of ") %>
