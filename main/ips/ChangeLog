@@ -1,4 +1,4 @@
-HEAD
+3.1.1
 	+ Fix NFQUEUE clashing with l7filter in trafficshaping module
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
