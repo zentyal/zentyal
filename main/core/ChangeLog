@@ -1,4 +1,5 @@
 HEAD
+	+ Added a way to retrieve all Models inside a Composite and its children.
 	+ Increased the size limit for file uploads.
 	+ Implemented a way to include configuration files for Nginx so the SOAP
 	  services are able to use Nginx for SSL.
