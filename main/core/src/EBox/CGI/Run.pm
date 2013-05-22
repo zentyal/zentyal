@@ -161,6 +161,8 @@ sub _parseModelUrl
     my ($namespace, $type, $model, $action) = split ('/', $url);
 
     # Special case for ModalController urls with different format
+    # TODO: try to rewrite modal controller code in order to use
+    #       regular URLs to avoid this workaround
     if ((defined $model) and ($model eq 'ModalController')) {
         my $module = EBox::Global->modInstance($type);
         unless ($module) {
