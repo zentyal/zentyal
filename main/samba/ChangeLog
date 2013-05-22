@@ -1,4 +1,4 @@
-HEAD
+3.0.18
 	+ Fix hostname change when having Samba installed: was trying to create
 	  again Administrator user, now we just update the credentials, ignore
 	  existing groups
