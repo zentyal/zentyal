@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression parsing ModalController urls
+	+ Fixed regression non-model CGIs with aliases
 	+ Increased the size limit for file uploads.
 	+ Implemented a way to include configuration files for Nginx so the SOAP
 	  services are able to use Nginx for SSL.
