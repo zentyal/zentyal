@@ -160,6 +160,17 @@ sub _parseModelUrl
 
     my ($namespace, $type, $model, $action) = split ('/', $url);
 
+    # Special case for ModalController urls with different format
+    if ((defined $model) and ($model eq 'ModalController')) {
+        my $module = EBox::Global->modInstance($type);
+        unless ($module) {
+            return undef;
+        }
+        $type = 'ModalController';
+        $model = $action;
+        $namespace = $module->name();
+    }
+
     if ($type eq any(qw(Composite View Controller ModalController))) {
         return ($model, $namespace, $type, $action);
     }
