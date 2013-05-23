@@ -371,7 +371,7 @@ sub passwordHashes
 #       displayname
 #       comment
 #       ou (multiple_ous enabled only)
-#       system - boolean: if true it adds the user as system user, otherwise as normal user
+#   system - boolean: if true it adds the user as system user, otherwise as normal user
 #   params hash (all optional):
 #       uidNumber - user UID number
 #       internal - Whether this use is internal or not.

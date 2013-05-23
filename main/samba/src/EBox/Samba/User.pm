@@ -260,11 +260,9 @@ sub setHomeDrive
 #
 # Parameters:
 #
-#   user - hash ref containing:
-#       'samAccountName'
-#
+#   samAccountName - string with the user name
 #   params hash ref (all optional):
-#       objectClass - additional objectClass to add to the ones from User.
+#       name
 #       givenName
 #       initials
 #       sn
@@ -280,6 +278,7 @@ sub setHomeDrive
 #
 sub create
 {
+    # FIXME: MS Windows uses name/cn as the user id.
     my ($self, $samAccountName, $params) = @_;
 
     # Check the password length if specified
@@ -288,28 +287,24 @@ sub create
         $self->_checkPwdLength($clearPassword);
     }
 
-    my $usersMod = EBox::Global->modInstance('users');
-    my $realm = $usersMod->kerberosRealm();
-    my $attr = [];
-    my @objectClass = ('user', 'posixAccount');
-    if (defined $params->{objectClass}) {
-        foreach my $object (@{$params->{objectClass}}) {
-            push (@objectClass, $object) unless ($object ~~ @objectClass);
+    $createdUser = $self->SUPER::create($samAccountName, $params);
+
+    my $anyObjectClass = any($createdUser->get('objectClass'));
+    my @userExtraObjectClasses = ('user', 'posixAccount');
+
+    foreach my $extraObjectClass (@userExtraObjectClasses) {
+        if ($extraObjectClass ne $anyObjectClass) {
+            $createdUser->add('objectClass', $extraObjectClass, 1);
         }
     }
-    push ($attr, objectClass => \objectClass);
-    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
-    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
-    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
-    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
-    push ($attr, description => $params->{description}) if defined $params->{description};
-    # User specific attributes.
-    push ($attr, sAMAccountName    => "$samAccountName");
-    push ($attr, userPrincipalName => "$samAccountName\@$realm");
-    push ($attr, userAccountControl => '514');
-    push ($attr, uidNumber         => $params->{uidNumber}) if defined $params->{uidNumber};
 
-    $createdUser = $self->SUPER::create($samAccountName, $attr);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $realm = $usersMod->kerberosRealm();
+
+    $createdUser->set('sAMAccountName', $samAccountName);
+    $createdUser->set('userPrincipalName', "$samAccountName\@$realm");
+    $createdUser->set('userAccountControl', '514');
+    $createdUser->set('uidNumber', $params->{uidNumber}) if defined $params->{uidNumber};
 
     # Setup the uid mapping
     $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};

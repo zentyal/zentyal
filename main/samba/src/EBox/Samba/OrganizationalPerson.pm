@@ -165,7 +165,6 @@ sub deleteObject
 #   name - The person name
 #
 #   params hash ref (all optional):
-#       objectClass - additional objectClass to add to the ones from OrganizationalPerson.
 #       givenName
 #       initials
 #       sn
@@ -188,13 +187,8 @@ sub create
     $self->_checkAccountNotExists($name);
 
     my $attr = [];
-    my @objectClass = ('top', 'person', 'organizationalPerson');
-    if (defined $params->{objectClass}) {
-        foreach my $object (@{$params->{objectClass}}) {
-            push (@objectClass, $object) unless ($object ~~ @objectClass);
-        }
-    }
-    push ($attr, objectClass => \objectClass);
+    push ($attr, objectClass => ('top', 'person', 'organizationalPerson');
+    push ($attr, name        => $name);
     push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
     push ($attr, initials    => $params->{initials}) if defined $params->{initials};
     push ($attr, sn          => $params->{sn}) if defined $params->{sn};

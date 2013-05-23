@@ -31,11 +31,8 @@ use base 'EBox::Samba::OrganizationalPerson';
 #
 # Parameters:
 #
-#   contact - hash ref containing:
-#       'name'
-#
+#   name - string with the contact full name
 #   params hash ref (all optional):
-#       objectClass - additional objectClass to add to the ones from OrganizationalPerson.
 #       givenName
 #       initials
 #       sn
@@ -44,29 +41,24 @@ use base 'EBox::Samba::OrganizationalPerson';
 #
 # Returns:
 #
-#   Returns the new create user object
+#   Returns the new create contact object
 #
 sub create
 {
     my ($self, $name, $params) = @_;
 
-    my $attr = [];
-    my @objectClass = ('contact');
-    if (defined $params->{objectClass}) {
-        foreach my $object (@{$params->{objectClass}}) {
-            push (@objectClass, $object) unless ($object ~~ @objectClass);
+    $createdContact = $self->SUPER::create($name, $params);
+
+    my $anyObjectClass = any($createdContact->get('objectClass'));
+    my @contactExtraObjectClasses = ('contact');
+
+    foreach my $extraObjectClass (@contactExtraObjectClasses) {
+        if ($extraObjectClass ne $anyObjectClass) {
+            $createdContact->add('objectClass', $extraObjectClass, 1);
         }
     }
-    push ($attr, objectClass => \objectClass);
-    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
-    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
-    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
-    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
-    push ($attr, description => $params->{description}) if defined $params->{description};
     # Contact specific attributes.
     # TODO
-
-    $createdContact = $self->SUPER::create($name, $attr);
 
     # Return the new created contact
     return $createdContact;
