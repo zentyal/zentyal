@@ -1,3 +1,5 @@
+HEAD
+	+ Do not add /32 mask to default route when deleting routes
 3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Added netInitRange and netEndRange methods from the dhcp module to be

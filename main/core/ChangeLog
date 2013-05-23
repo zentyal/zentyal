@@ -1,4 +1,11 @@
-HEAD
+3.1.1
+	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
+	+ Restart all the core daemons instead of only apache after logrotate
+	+ Fixed graph template so it could be feed with data using decimal
+	  comma, it will convert it to a JS array without problems
+	+ Fixed regression parsing ModalController urls
+	+ Fixed regression non-model CGIs with aliases
+	+ Added a way to retrieve all Models inside a Composite and its children.
 	+ Increased the size limit for file uploads.
 	+ Implemented a way to include configuration files for Nginx so the SOAP
 	  services are able to use Nginx for SSL.

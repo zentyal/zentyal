@@ -41,9 +41,10 @@ sub _ifaceRules
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
+    my $qNum = $ips->nfQueueNum();
 
     foreach my $iface (@{$ips->enabledIfaces()}) {
-        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE");
+        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE --queue-num $qNum");
     }
 
     return \@rules;

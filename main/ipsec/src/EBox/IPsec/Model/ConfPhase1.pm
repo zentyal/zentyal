@@ -101,16 +101,20 @@ sub viewCustomizer
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{'ike-auth'} ) {
-        my $ikeenc = $changedFields->{'ike-enc'};
-        $ikeenc = $self->row()->valueByName('ike-enc') unless $ikeenc;
+    if (exists $changedFields->{'ike-auth'}) {
+        my $ikeenc;
+        if (exists $changedFields->{'ike-enc'}) {
+            $ikeenc = $changedFields->{'ike-enc'}->value();
+        } else {
+            $ikeenc = $allFields->{'ike-enc'}->value();
+        }
         if ( $changedFields->{'ike-auth'}->value() eq 'any' and $ikeenc ne 'any') {
-                throw EBox::Exceptions::InvalidData(
-                          'data'  => __('IKE Authentication'),
-                          'value' => $changedFields->{'ike-auth'}->value(),
-                      );
+            throw EBox::Exceptions::InvalidData(
+                'data'  => __('IKE Authentication'),
+                'value' => $changedFields->{'ike-auth'}->value(),
+            );
 
         }
     }
