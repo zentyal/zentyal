@@ -2957,7 +2957,7 @@ sub _removeRoutes
     my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
         my $network = $currentRoute->{network};
-        if (not $network =~ m{/}) {
+        unless (($network =~ m{/}) or ($network eq 'default')) {
             # add /32 mask to ips without it so we can compare same format
             $network .= '/32';
         }
