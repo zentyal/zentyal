@@ -19,12 +19,16 @@ Zentyal.Dialog.showURL = function(url, params) {
     var existentDialog = jQuery('#load_in_dialog');
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
+        return;
     }
     dialogParams = {
         resizable: false,
         modal: true,
         create: function (event, ui) {
             Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
+        },
+        close:  function (event, ui) {
+            jQuery(event.target).dialog('destroy');
         }
     };
     for (i=0; i < dialogParamsAllowed.length; i++) {
