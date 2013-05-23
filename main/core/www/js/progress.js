@@ -76,12 +76,6 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
             }
 
             jQuery('#error-progress').show();
-            // check if we are in a modal box..
-            if (jQuery('div#MB_frame').length > 0) {
-                Modalbox.resizeToInclude(this);
-                Modalbox.resize(0, +20);
-            }
-
             if ('errorMsg' in response) {
                 jQuery('#error-progress-message').html(response.errorMsg);
             }
