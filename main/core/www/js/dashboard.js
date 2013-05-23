@@ -416,19 +416,23 @@ Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
 Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
-   Modalbox.show('/Dashboard/ConfigureWidgets', {
+
+    jQuery('<div id="configure_widgets_dialog"></div>').dialog({
         title: title,
         width: 980,
-        height: 100,
-        overlayOpacity: 0,
-        afterLoad: function() {
-            $('MB_content').setStyle({overflow: 'visible'});
-            Zentyal.Dashboard.toggleClose();
-            Modalbox.MBwindow.removeClassName('MB_dialog');
+        height: 120,
+        position: 'top',
+        resizable: false,
+        create: function (event, ui) {
+            Zentyal.TableHelper.setLoading('configure_widgets_dialog');
+            jQuery(event.target).load('/Dashboard/ConfigureWidgets', function() {
+                Zentyal.Dashboard.toggleClose();
+                jQuery(this).css({overflow: 'visible'});
+            });
         },
-        beforeHide: function() {
-            Zentyal.Dashboard.toggleClose();
-        }
+       beforeClose: function() {
+           Zentyal.Dashboard.toggleClose();
+       }
     });
 };
 
