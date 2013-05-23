@@ -5,7 +5,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript">
 function sendStatus()
 {
@@ -26,14 +26,15 @@ function configureModule(module, title)
     var modCheckbox = jQuery('#' + module);
     if (modCheckbox.prop('checked')) {
         modCheckbox.prop('checked', false);
-        Modalbox.show('/ServiceModule/ConfigureView?module=' + module,
-                  {title: title,
+        Zentyal.Dialog.showURL('/ServiceModule/ConfigureView', {
+                   title: title,
                    width: 600,
                    height: 400,
-                   afterLoad: function() {
-                        jQuery('#accept').focus();
+                   data: 'module=' + module,
+                   load: function() {
+                        jQuery('#accept', this).focus();
                     }
-                   });
+        });
     }
 }
 
