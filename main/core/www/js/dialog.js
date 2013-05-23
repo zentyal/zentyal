@@ -14,17 +14,30 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 };
 
 Zentyal.Dialog.showURL = function(url, params) {
+    var i, dialogParams,
+        dialogParamsAllowed = ['title', 'width', 'height'];
     var existentDialog = jQuery('#load_in_dialog');
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
     }
-
-    jQuery('<div id="load_in_dialog"></div>').dialog({
-        title:  (params.title !== undefined) ? params.title : '',
+    dialogParams = {
         resizable: false,
         modal: true,
         create: function (event, ui) {
             Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
         }
-    });
+    };
+    for (i=0; i < dialogParamsAllowed.length; i++) {
+        var paramName = dialogParamsAllowed[i];
+        if (paramName in params) {
+            dialogParams[paramName] = params[paramName];
+        }
+    }
+
+
+    jQuery('<div id="load_in_dialog"></div>').dialog(dialogParams);
+};
+
+Zentyal.Dialog.close = function() {
+    jQuery('#load_in_dialog').dialog('close');
 };
