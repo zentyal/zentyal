@@ -6,6 +6,7 @@
 use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<div id='modulesStatus'>
 <script type="text/javascript">
 function sendStatus()
 {
@@ -15,7 +16,7 @@ function sendStatus()
         type: 'post',
         data: params,
         success: function (response) {
-          jQuery('#statusTable').html(response);
+          jQuery('#modulesStatus').html(response);
         }
     });
 
@@ -102,3 +103,4 @@ jQuery(function() {
 % }
   </table>
 </form>
+</div>
