@@ -1148,6 +1148,6 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
             Cancel: function() {
                 jQuery( this ).dialog( "close" );
             }
-        },
+        }
     });
 };
