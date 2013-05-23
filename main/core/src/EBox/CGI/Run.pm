@@ -55,6 +55,7 @@ sub run
     $redis->begin();
 
     try {
+        $url = _urlAlias($url);
         my $cgi = _instanceModelCGI($url);
 
         unless ($cgi) {
@@ -157,9 +158,20 @@ sub _parseModelUrl
 
     defined ($url) or die "Not URL provided";
 
-    $url = _urlAlias($url);
-
     my ($namespace, $type, $model, $action) = split ('/', $url);
+
+    # Special case for ModalController urls with different format
+    # TODO: try to rewrite modal controller code in order to use
+    #       regular URLs to avoid this workaround
+    if ((defined $model) and ($model eq 'ModalController')) {
+        my $module = EBox::Global->modInstance($type);
+        unless ($module) {
+            return undef;
+        }
+        $type = 'ModalController';
+        $model = $action;
+        $namespace = $module->name();
+    }
 
     if ($type eq any(qw(Composite View Controller ModalController))) {
         return ($model, $namespace, $type, $action);

@@ -1,6 +1,7 @@
 HEAD
 	+ Created an OrganizationalPerson object to reuse code between User
 	  accounts and Contacts.
+3.1.2
 	+ Fix hostname change when having Samba installed: was trying to create
 	  again Administrator user, now we just update the credentials, ignore
 	  existing groups

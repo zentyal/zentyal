@@ -1,5 +1,6 @@
 HEAD
 	+ Added support for Contacts handling.
+3.1.1
 	+ Fixed error message when trying to add a user above the edition maximum
 	+ Migrated SOAP services to use Nginx for SSL.
 3.1

@@ -101,16 +101,20 @@ sub viewCustomizer
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{'phase2-auth'} ) {
-        my $espenc = $changedFields->{'phase2-enc'};
-        $espenc = $self->row()->valueByName('phase2-enc') unless $espenc;
+    if (exists $changedFields->{'phase2-auth'}) {
+        my $espenc;
+        if (exists $changedFields->{'phase2-enc'}) {
+            $espenc = $changedFields->{'phase2-enc'}->value();
+        } else {
+            $espenc = $allFields->{'phase2-enc'}->value();
+        }
         if ( $changedFields->{'phase2-auth'}->value() eq 'any' and $espenc ne 'any') {
-                throw EBox::Exceptions::InvalidData(
-                          'data'  => __('ESP Authentication'),
-                          'value' => $changedFields->{'phase2-auth'}->value(),
-                      );
+            throw EBox::Exceptions::InvalidData(
+                'data'  => __('ESP Authentication'),
+                'value' => $changedFields->{'phase2-auth'}->value(),
+            );
 
         }
     }
