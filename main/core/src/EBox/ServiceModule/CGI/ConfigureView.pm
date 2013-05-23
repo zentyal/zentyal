@@ -56,13 +56,7 @@ sub _process
 sub _print
 {
     my $self = shift;
-
-    if ($self->{'to_print'}) {
-        print($self->cgi()->header(-charset=>'utf-8'));
-        print $self->{'to_print'};
-    } else {
-        $self->SUPER::_print();
-    }
+    return $self->_printPopup();
 }
 
 1;
