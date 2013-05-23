@@ -43,11 +43,7 @@ sub _process
     my @array = ();
     my $global = EBox::Global->getInstance();
     if ($global->unsaved) {
-        my $manager = new EBox::ServiceManager();
-        #my $askPermission = defined @{$manager->checkFiles()};
-
         push(@array, 'unsaved' => 'yes');
-        push(@array, 'askPermission' => 0);
         push(@array, 'disabledModules' => _disabledModules());
         push(@array, 'actions' => _pendingActions());
     } else {

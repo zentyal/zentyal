@@ -4,81 +4,10 @@
     @actions => ()
     $unsaved => 'no'
     @disabledModules => ()
-    $askPermission => undef
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-% if ($askPermission) {
-<script type="text/javascript">
-"use strict";
-var acceptedFiles = [];
-var rejectedFiles = [];
-var checkedFiles = 0;
-
-function checkIfDone(totalFiles)
-{
-    checkedFiles++;
-    if (checkedFiles != totalFiles) {
-        return;
-    }
-
-    sendAcceptedFiles();
-    Modalbox.hide();
-}
-
-function acceptConfFile(id, totalFiles)
-{
-    if (acceptedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    acceptedFiles.push(id);
-
-    jQuery('#' + id).fadeOut();
-
-    checkIfDone(totalFiles);
-
-}
-
-function rejectConfFile(id, totalFiles)
-{
-    if (acceptedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    if (rejectedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    rejectedFiles.push(id);
-    jQuery('#' + id).fadeOut();
-
-    checkIfDone(totalFiles);
-}
-
-function sendAcceptedFiles()
-{
-    jQuery.ajax({
-                     url:  '/ServiceModule/Controller',
-                     type: 'get',
-                     data: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
-                     async: true
-               });
-}
-
-% my $title = __('Warning');
-        Modalbox.show('/ServiceModule/View',
-                      { title: '<% $title %>',
-                       loadingString: 'Loding.. Please wait',
-                       inactiveFade: false,
-                       width: 600,
-                       height: 400});
-        Modalbox.deactivate();
-</script>
-
-% }
-
 % if($unsaved eq 'yes') {
 
 <div class='warning'>
