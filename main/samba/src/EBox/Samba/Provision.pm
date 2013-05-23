@@ -25,6 +25,9 @@ use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
 
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
+
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Net::Ping;
@@ -333,12 +336,14 @@ sub mapAccounts
 
     EBox::info("Mapping domain administrator account");
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
-    $domainAdmin->addToZentyal() if ($domainAdmin->exists());
+    my $domainAdminZentyal = new EBox::UsersAndGroups::User(uid => $domainAdmin->get('samAccountName'));
+    $domainAdmin->addToZentyal() if ($domainAdmin->exists() and (not $domainAdminZentyal->exists()));
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
-    $domainAdmins->addToZentyal() if ($domainAdmins->exists());
+    my $domainAdminsZentyal = new EBox::UsersAndGroups::Group(gid => $domainAdmins->get('samAccountName'));
+    $domainAdmins->addToZentyal() if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists()));
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     # Map domain users group

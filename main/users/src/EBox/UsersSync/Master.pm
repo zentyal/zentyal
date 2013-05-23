@@ -61,7 +61,7 @@ sub confSOAPService
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
 
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.conf.mas', \@params);
-    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap-ssl.conf.mas');
+    EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
 
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     $webAdminMod->addApacheInclude($confFile);
