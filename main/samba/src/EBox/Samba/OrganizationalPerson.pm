@@ -27,7 +27,6 @@ use base 'EBox::Samba::LdbObject';
 use EBox::Global;
 use EBox::Gettext;
 
-use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
@@ -40,8 +39,6 @@ use Encode;
 use Net::LDAP::Control;
 use Date::Calc;
 use Error qw(:try);
-
-use constant MAXUSERLENGTH  => 128;
 
 # Method: addGroup
 #
@@ -183,7 +180,6 @@ sub create
     my $baseDn = $self->_ldap->dn();
     my $dn = "CN=$name,CN=Users,$baseDn";
 
-    $self->_checkAccountName($name, MAXUSERLENGTH);
     $self->_checkAccountNotExists($name);
 
     my $attr = [];
@@ -201,31 +197,6 @@ sub create
 
     # Return the new created person
     return $createdPerson;
-}
-
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-    $self->SUPER::_checkAccountName($name, $maxLength);
-    if ($name =~ m/^[[:space:]\.]+$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot be only spaces and dots.')
-           );
-    } elsif ($name =~ m/\.$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot end with a dot.')
-           );
-    } elsif ($name =~ m/@/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot contain the "@" character.')
-           );
-    }
 }
 
 1;

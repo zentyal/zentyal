@@ -28,6 +28,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
@@ -40,6 +41,7 @@ use Net::LDAP::Control;
 use Date::Calc;
 use Error qw(:try);
 
+use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
 # Method: changePassword
@@ -281,6 +283,8 @@ sub create
     # FIXME: MS Windows uses name/cn as the user id.
     my ($self, $samAccountName, $params) = @_;
 
+    $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
+
     # Check the password length if specified
     my $clearPassword = $params->{'clearPassword'};
     if (defined $clearPassword) {
@@ -320,6 +324,25 @@ sub create
 
     # Return the new created user
     return $createdUser;
+}
+
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+    $self->SUPER::_checkAccountName($name, $maxLength);
+    if ($name =~ m/^[[:space:]\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>   __('Windows user names cannot be only spaces and dots.')
+           );
+    } elsif ($name =~ m/@/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>   __('Windows user names cannot contain the "@" character.')
+           );
+    }
 }
 
 sub _checkPwdLength
