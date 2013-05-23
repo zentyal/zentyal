@@ -45,14 +45,15 @@ unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
 }
 
-my $barStyle ='';
-my $progresValueStyle ='';
-my $percentMargin;
-if ($inModalbox) {
-    $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
-    $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
-    $percentMargin = 245;
-}
+# Old styling for progress bar, I left it as reference
+# my $barStyle ='';
+# my $progresValueStyle ='';
+# my $percentMargin;
+# if ($inModalbox) {
+#     $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
+#     $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
+#     $percentMargin = 245;
+# }
 
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
@@ -60,13 +61,14 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 }
 </%init>
 % if ($inModalbox) {
-<script type="text/javascript" src="/data/js/modalbox.js">//</script>
-<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
+%#<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+%#<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
 % } else {
-<script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
+
 % }
 
 % if (@slides) {
+<script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 <style>
 .carousel-inner {
     width: 690px;
