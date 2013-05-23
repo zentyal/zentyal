@@ -198,24 +198,6 @@ sub enableAllModules
     }
 }
 
-# Method: checkUserModifications
-#
-#     Indicate if eBox must check user modifications from
-#     configuration files or not. It is defined in main Zentyal
-#     configuration file at "/etc/zentyal" by
-#     "override_user_modification" value
-#
-# Returns:
-#
-#     true  - if it must check user modifications
-#
-#     false - otherwise
-#
-#sub checkUserModifications
-#{
-#    return not EBox::Config::boolean('override_user_modification');
-#}
-
 # Method: modulesInDependOrder
 #
 #     Return a module list ordered by the boot dependencies
