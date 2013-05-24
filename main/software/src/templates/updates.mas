@@ -41,29 +41,16 @@ function checkAllPackages(checkAll)
 
 function checkboxChange()
 {
-    var existsUnchecked = false;
-    var existsChecked = false;
-    var checkboxes = jQuery('.pkg-checkbox').each(function(index, checkbox) {
-        if (checkbox.checked) {
-           existsChecked = true;
-        } else {
-          existsUnchecked = true;
-        }
-        return ((!existsChecked) && (!existsUnchecked));
-    });
-    if (existsChecked) {
+    var checkboxes = jQuery('.pkg-checkbox');
+    var checked = checkboxes.filter(':checked');
+
+    if (checked.length != 0) {
        jQuery('#upgradeButton').prop('disabled', false);
-       if (!existsUnchecked) {
-        jQuery('#allbox').prop('checked', true);
-       }
+    } else {
+       jQuery('#upgradeButton').prop('disabled', true);
     }
 
-    if (existsUnchecked) {
-        jQuery('#allbox').prop('checked', false);
-        if (! existsChecked) {
-           jQuery('#upgradeButton').prop('disabled', true);
-        }
-    }
+    jQuery('#allbox').prop('checked', (checked.length == checkboxes.length));
 }
 
 // to sync state in page load
