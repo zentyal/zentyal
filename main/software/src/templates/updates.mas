@@ -11,20 +11,22 @@ use EBox::Gettext;
 <script  type="text/javascript">
 "use strict";
 function doUpdates(title) {
+    var url, data;
     var packages = [];
     jQuery('.pkg-checkbox:checked').each(function(index, element) {
           packages.push(element.name);
     });
     if (packages.length > 0) {
-       var url= 'InstallPkgs?';
-       url += 'upgrade=yes';
+       url= 'InstallPkgs';
+       data = 'upgrade=yes';
        for (var i=0; i < packages.length; i++) {
-            url += '&' +  packages[i] + '=yes';
+            data += '&' +  packages[i] + '=yes';
        }
-       url += '&popup=1';
+       data += '&popup=1';
 
       Zentyal.Dialog.showURL(url, {
                          'title': title,
+                         'data': data,
                          'close': function() { window.location.reload();  }
       });
    } else {
