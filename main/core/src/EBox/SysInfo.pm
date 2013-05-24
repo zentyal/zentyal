@@ -361,7 +361,7 @@ sub linksWidget
     my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
                                          out_method => sub { $html .= $_[0] });
     my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'links-widget.mas'
+        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
        );
     $interp->exec($component, @params);
 
