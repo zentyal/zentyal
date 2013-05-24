@@ -866,7 +866,6 @@ Parameters:
 // XXX Seein it with elmentId = udnef!!
 Zentyal.TableHelper.highlightRow = function (elementId, enable) {
   // If enable has value null or undefined
-    console.log("highlightRow " + elementId); // XXX
     if ( (enable === null) || (enable === undefined)) {
         enable = true;
     }
@@ -900,7 +899,6 @@ Zentyal.TableHelper.inputValue = function (elementId) {
             return true;
         }
         var tmpValue = input.val();
-            console.log("TMP inputValue for " + elementId + ' : ' + tmpValue);
         if ((tmpValue !== null) && (tmpValue !== undefined)){
             value = tmpValue;
             return false;
