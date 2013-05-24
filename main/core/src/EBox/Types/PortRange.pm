@@ -442,7 +442,7 @@ sub _paramIsSet
 #
 #     any - any range
 #     [0-9]+ - single port
-#     [0-9]+:[8-9]+ - from:to port range
+#     [0-9]+:[0-9]+ - from:to port range
 #
 # Overrides:
 #
