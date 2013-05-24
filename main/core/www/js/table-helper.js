@@ -112,8 +112,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var selectForeignField;
     var selectCallerId;
     var nextPageContextName;
-    var MyAjax;
-    var AjaxParams;
     var wantJSON = 0;
     var params = 'action=add&tablename=' + table + '&directory=' + directory ;
 
@@ -146,7 +144,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
         }
         Zentyal.stripe('dataTable', 'even', 'odd');
         if (!wantJSON) {
-            Modalbox.resizeToContent();
+//            Modalbox.resizeToContent();
             return;
         }
 
@@ -158,7 +156,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             }
             Zentyal.TableHelper.setError(table, error);
             Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-            Modalbox.resizeToContent();
+//            Modalbox.resizeToContent();
             return;
         }
 
@@ -182,27 +180,23 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
                 baseUrl += 'ModalController/' + nameParts[2];
                 var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
                 var nextPageUrl = baseUrl;
-                nextPageUrl += '?directory=' + newDirectory;
-                nextPageUrl += '&firstShow=0';
-                nextPageUrl += '&action=viewAndAdd';
-                nextPageUrl += "&selectCallerId=" + selectCallerId;
+                var nextPageData = 'directory=' + newDirectory;
+                nextPageData += '&firstShow=0';
+                nextPageData += '&action=viewAndAdd';
+                nextPageData += "&selectCallerId=" + selectCallerId;
 
-                Modalbox.show(nextPageUrl, {
-                    transitions: false,
-                    overlayClose : false
-                }
-                             );
+                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData});
             } else {
                 Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
                 Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-                Modalbox.resizeToContent();
+//                Modalbox.resizeToContent();
                }
             return;
         }
 
         //sucesss and not next page
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-        Modalbox.resizeToContent();
+//        Modalbox.resizeToContent();
     };
     var complete = function () {
         Zentyal.TableHelper.completedAjaxRequest();
@@ -212,19 +206,17 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             jQuery('#error_' + table).html(jqxhr.responseText).show();
         }
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-        Modalbox.resizeToContent();
+//        Modalbox.resizeToContent();
     };
 
-   jQuery.ajax(
-        {
+   jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
             success: success,
             error: error,
             complete: complete
-        }
-    );
+    });
 
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
@@ -295,28 +287,26 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         jQuery('#error_' + table).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
         if (resizeModalbox) {
-            Modalbox.resizeToContent();
+//            Modalbox.resizeToContent();
         }
     };
     var onComplete = function(response) {
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.stripe('dataTable', 'even', 'odd');
         if (resizeModalbox) {
-            Modalbox.resizeToContent();
+//            Modalbox.resizeToContent();
         }
     };
 
-    jQuery.ajax(
-        {
-            url: url,
-            data: params,
-            type : 'POST',
-            dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
-        }
-    );
+    jQuery.ajax({
+        url: url,
+        data: params,
+        type : 'POST',
+        dataType: 'html',
+        success: onSuccess,
+        error: onFailure,
+        complete: onComplete
+    });
 
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
@@ -549,20 +539,16 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
     params += '&page=' + page;
 
   if (firstShow) {
-      Modalbox.show(url, {title: title,
-                          params: params,
-                          transitions: false,
-                          overlayClose: false,
-                          afterLoad: function() {
-                               // fudge for pootle bug
-                               var badText = document.getElementById('ServiceTable_modal_name');
-                               if (badText){
-                                   badText.value = '';
-                                }
-                              }
-                          }
-          );
-
+      Zentyal.Dialog.showURL(url, {title: title,
+                                   data: params,
+                                   load: function() {
+                                       // fudge for pootle bug
+                                       var badText = document.getElementById('ServiceTable_modal_name');
+                                       if (badText){
+                                           badText.value = '';
+                                       }
+                                   }
+      });
   } else {
       Zentyal.TableHelper.cleanError(table);
       var success = function(responseText) {
@@ -580,7 +566,7 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
           else if ( action == 'changeEdit' ) {
               Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
           }
-          Modalbox.resizeToContent();
+//          Modalbox.resizeToContent();
       };
       var complete = function() {
           // Highlight the element
@@ -593,11 +579,10 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
               Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
           }
           Zentyal.TableHelper.completedAjaxRequest();
-          Modalbox.resizeToContent();
+  //        Modalbox.resizeToContent();
       };
 
-      jQuery.ajax(
-        {
+      jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
@@ -605,8 +590,7 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
             success: success,
             error: failure,
             complete: complete
-        }
-    );
+      });
 
       if ( action == 'changeAdd' ) {
           Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
