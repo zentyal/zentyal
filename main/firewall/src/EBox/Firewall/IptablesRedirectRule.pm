@@ -123,7 +123,7 @@ sub strings
                         "--limit $limit/min ".
                         "--limit-burst $burst " .
                         '--log-level ' . $self->{'log_level'} . ' ' .
-                        '--log-prefix "ebox-firewall redirect "';
+                        '--log-prefix "zentyal-firewall redirect "';
 
                     unshift (@rules, $logRule);
                 }

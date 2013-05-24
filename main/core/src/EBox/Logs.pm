@@ -406,6 +406,8 @@ sub _checkValidDate # (date)
 #
 #       page - Int the page to search for results
 #
+#       timecol - String the timestamp column to perform date filters
+#
 #       filters - hash ref a list of filters indexed by name which
 #       contains the value of the given filter (normally a
 #       string). Passing *undef* no filters are applied
