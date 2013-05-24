@@ -367,7 +367,7 @@ Zentyal.Dashboard.updateWidget = function(widget) {
             continue;
         } else {
             prevsect = cursect;
-            s.items.each(function(item,i) {
+            jQuery.each(s.items, function(item,i) {
                 var itemname = sect + '_' + i;
                 var element = jQuery('#' + Zentyal.escapeSelector(itemname));
                 if(item.type == 'value') {
