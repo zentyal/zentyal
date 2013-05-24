@@ -16,6 +16,10 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 Zentyal.Dialog.showURL = function(url, params) {
     var i, dialogParams,
         dialogParamsAllowed = ['title', 'width', 'height'];
+    if (params === undefined) {
+        params = {};
+    }
+
     var existentDialog = jQuery('#load_in_dialog');
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
@@ -28,6 +32,9 @@ Zentyal.Dialog.showURL = function(url, params) {
             Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
         },
         close:  function (event, ui) {
+            if (typeof(params.close) === 'function') {
+                params.close(event, ui);
+            }
             jQuery(event.target).dialog('destroy');
         }
     };
