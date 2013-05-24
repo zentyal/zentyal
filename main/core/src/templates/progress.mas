@@ -60,13 +60,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 
 }
 </%init>
-% if ($inModalbox) {
-%#<script type="text/javascript" src="/data/js/modalbox.js">//</script>
-%#<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
-% } else {
-
-% }
-
 % if (@slides) {
 <script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 <style>
