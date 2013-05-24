@@ -38,19 +38,17 @@ use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-use constant CORE_ATTRS     => ('cn', 'givenName', 'initials', 'sn', 'displayName', 'description');
-
 sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = {};
+    my $self;
+
+    $self = $class->SUPER::new(@_);
+    $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description'];
 
     if (defined $opts{coreAttrs}) {
-        $self->{coreAttrs} = (CORE_ATTRS, @{$opts{coreAttrs}});
-    } else {
-        $self->{coreAttrs} = CORE_ATTRS;
-        $self = $class->SUPER::new(@_);
+        push ($self->{coreAttrs}, $opts{coreAttrs});
     }
 
     bless ($self, $class);
@@ -334,9 +332,9 @@ sub create
     my $users = EBox::Global->modInstance('users');
 
     # Verify person exists
-    if (new EBox::UsersAndGroups::InetOrgPerson(dn => $person->{'dn'})->exists()) {
+    if (new EBox::UsersAndGroups::InetOrgPerson(dn => $person->{dn})->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('person'),
-                                           'value' => $person->{'dn'});
+                                           'value' => $person->{dn});
     }
 
     $person->{fullname} = self->generatedFullName($person) unless (defined $person->{fullname});
@@ -355,7 +353,7 @@ sub create
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
-        $entry = new Net::LDAP::Entry($dn, @attr);
+        $entry = new Net::LDAP::Entry($person->{dn}, @attr);
 
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
@@ -368,7 +366,7 @@ sub create
             };
         }
 
-        $res = new EBox::UsersAndGroups::InetOrgPerson(dn => $dn);
+        $res = new EBox::UsersAndGroups::InetOrgPerson(dn => $person->{dn});
 
     } otherwise {
         my ($error) = @_;

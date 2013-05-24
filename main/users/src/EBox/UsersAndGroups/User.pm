@@ -49,8 +49,6 @@ use constant MAXUID         => 2**31;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
-use constant CORE_ATTRS     => ('uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota',
-                                'userPassword', 'krb5Key');
 
 sub new
 {
@@ -58,7 +56,8 @@ sub new
     my %opts = @_;
     my $self = {};
 
-    $self = $class->SUPER::new(@_, coreAttrs => CORE_ATTRS);
+    my @coreAttrs = ('uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key');
+    $self = $class->SUPER::new(@_, coreAttrs => @coreAttrs);
 
     if (defined $opts{uid}) {
         $self->{uid} = $opts{uid};
@@ -226,12 +225,13 @@ sub _groups
     shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};
 
-    for my $index (0 .. $#groups) {
-        if (not $system) {
-            splice(@groups, $index, 1) if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
-        }
+    return \@groups if ($system);
+
+    my @filteredGroups = ();
+    for my $group (@groups) {
+        push (@filteredGroups, $group) if ($group->get('gidNumber') >= EBox::UsersAndGroups::Group->MINGID);
     }
-    return \@groups;
+    return \@filteredGroups;
 }
 
 # Method: system
