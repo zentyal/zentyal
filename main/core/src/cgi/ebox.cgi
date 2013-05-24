@@ -51,10 +51,6 @@ try {
              -src  => '/data/js/jquery.js'},
             {-type => 'text/javascript',
              -src  => '/data/js/common.js'},
-            {-type => 'text/javascript',
-             -src  => '/data/js/prototype.js'},
-            {-type => 'text/javascript',
-             -src  => '/data/js/scriptaculous/scriptaculous.js'}
             ],
        -head => Link({-rel=>'stylesheet',
             -href => '/dynamic-data/css/public.css',
