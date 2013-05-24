@@ -171,15 +171,15 @@ Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {
 };
 
 Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, popup, title) {
+    var url  = '/Software/InstallPkgs',
+        data = action + '=1';
    if (packages.length > 0) {
-     var url= 'InstallPkgs?';
      for (var i=0; i < packages.length; i++) {
-         url += action + '=1';
-         url += '&' +  packages[i] + '=yes';
+         data += '&' +  packages[i] + '=yes';
      }
-     url += '&popup=' + popup;
+     data += '&popup=' + popup;
      if (popup) {
-         Modalbox.show(url, {'title': title, 'transitions': false});
+         Zentyal.Dialog.showURL(url, {'title': title, 'data': data});
      } else {
        window.location = url;
      }

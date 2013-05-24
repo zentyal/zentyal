@@ -201,7 +201,7 @@ my @popupProgressParams = (
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false",
+        nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location.reload(); return false",
 );
 
 sub showInstallProgress
@@ -265,7 +265,7 @@ sub showRemoveProgress
 
     if ($self->param('popup')) {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location.reload(); return false";
     } else {
         push @params, title    => __('Removing packages'),
         push @params, text => __('Removing the selected package and its dependent packages');
