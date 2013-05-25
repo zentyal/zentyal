@@ -67,7 +67,7 @@ my @popupProgressParams = (
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => "Modalbox.hide(); window.location='/RemoteServices/Backup/Index'; return false",
+        nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location='/RemoteServices/Backup/Index'; return false",
 );
 
 sub showBackupProgress

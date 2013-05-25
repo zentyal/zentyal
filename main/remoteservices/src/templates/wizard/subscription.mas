@@ -335,8 +335,10 @@ th > div {
                           Zentyal.Wizard.Software.setLoading(false);
                         },
                         success : function (response) {
-                            Modalbox.show('/RemoteServices/Subscription?wizard=1',
-                                { title : '<% __('Registering a server') %>' });
+                            Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
+                                title : '<% __('Registering a server') %>',
+                                data: 'wizard=1'
+                            });
                        }
                      });
         }

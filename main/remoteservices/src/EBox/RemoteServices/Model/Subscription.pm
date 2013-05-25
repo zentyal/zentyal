@@ -705,7 +705,7 @@ var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
   evalScripts : true,
   onSuccess : function(t) { Element.update('$tableName', t.responseText);
                             if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
-                               Modalbox.show('/RemoteServices/Subscription', {  title : '$caption',   overlayClose: false });
+                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
                             }
                           },
   onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');

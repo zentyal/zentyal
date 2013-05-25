@@ -757,7 +757,7 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
         name => 'done',
         value => __('Done'),
         title => 'Done',
-        onclick => 'Modalbox.hide(); return false'
+        onclick => 'Zentyal.Dialog.close(); return false'
     &></td>
     <td><& /input/submit.mas,
         class => 'inputButton',
@@ -765,7 +765,7 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
         name => 'cancel',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick => $cancelJs . '; Modalbox.hide(); return false',
+        onclick => $cancelJs . '; Zentyal.Dialog.close(); return false',
     &></td>
  </tr>
 </table>
