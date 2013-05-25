@@ -905,6 +905,46 @@ sub realUsers
     return \@users;
 }
 
+# Method: contacts
+#
+#       Returns an array containing all the contacts
+#
+# Returns:
+#
+#       array ref - holding the contacts. Each contact is represented by a
+#       EBox::UsersAndGroups::Contact object
+#
+sub contacts
+{
+    my ($self) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => '(&(objectclass=inetOrgPerson)(!(objectclass=posixAccount)))',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @contacts = ();
+    foreach my $entry ($result->entries) {
+        my $contact = new EBox::UsersAndGroups::Contact(entry => $entry);
+
+        push (@contacts, $contact);
+    }
+
+    # sort by name
+    @contacts = sort {
+        my $aValue = $a->fullname();
+        my $bValue = $b->fullname();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @contacts;
+
+    return \@contacts;
+}
+
 # Method: group
 #
 # Returns the object which represents a give group. Raises a exception if
@@ -1374,6 +1414,8 @@ sub menu
                                               'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template'), order => 30));
+            $folder->add(new EBox::Menu::Item('url' => 'Users/View/Contacts',
+                                              'text' => __('Contacts'), order => 35));
 
         } else {
             $folder->add(new EBox::Menu::Item(
@@ -1384,6 +1426,9 @@ sub menu
                         'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template'), order => 30));
+            $folder->add(new EBox::Menu::Item(
+                        'url' => 'Users/View/Contacts',
+                        'text' => __('contacts'), order => 35));
         }
 
         if (EBox::Config::configkey('multiple_ous')) {

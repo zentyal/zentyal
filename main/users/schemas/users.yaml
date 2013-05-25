@@ -8,6 +8,7 @@ models:
     - Mode
     - Users
     - Groups
+    - Contacts
     - Password
     - LdapInfo
     - PAM
