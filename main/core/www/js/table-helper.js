@@ -234,29 +234,27 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var onSuccess = function(responseText) {
+    var success = function(responseText) {
         jQuery('#' + table).html(responseText);
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
     };
-    var onComplete = function(response) {
+    var complete = function(response) {
         Zentyal.stripe('dataTable', 'even', 'odd');
         Zentyal.TableHelper.completedAjaxRequest();
     };
 
-    jQuery.ajax(
-        {
+    jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
             dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
-        }
-    );
+            success: success,
+            error: failure,
+            complete: complete
+    });
 
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
@@ -280,17 +278,17 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         params += '&' + name + '=' + extraParams[name];
     }
 
-    var onSuccess = function(responseText) {
+    var success = function(responseText) {
         jQuery('#' + table).html(responseText);
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
         if (resizeModalbox) {
 //            Modalbox.resizeToContent();
         }
     };
-    var onComplete = function(response) {
+    var complete = function(response) {
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.stripe('dataTable', 'even', 'odd');
         if (resizeModalbox) {
@@ -303,9 +301,9 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         data: params,
         type : 'POST',
         dataType: 'html',
-        success: onSuccess,
-        error: onFailure,
-        complete: onComplete
+        success: success,
+        error: failure,
+        complete: complete
     });
 
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
@@ -328,8 +326,7 @@ Parameters:
     directory - the GConf directory where table is stored
 
 */
-Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsAction, directory, page, extraParams)
-{
+Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsAction, directory, page, extraParams) {
     var params = '&action=' + action + '&id=' + rowId;
 
     if ( paramsAction !== '' ) {
@@ -348,32 +345,30 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsA
 
     Zentyal.TableHelper.cleanError(table);
 
-    var onSuccess = function(responseText) {
+    var success = function(responseText) {
         jQuery('#' + table).html(responseText);
 
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden('actionsCell_' + rowId, table);
     };
-    var onComplete = function(response) {
+    var complete = function(response) {
         Zentyal.stripe('dataTable', 'even', 'odd');
         if ( action == 'del' ) {
             delete savedElements['actionsCell_' + rowId];
         }
     };
 
-   jQuery.ajax(
-        {
+   jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
             dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
-        }
-    );
+            success: success,
+            error: failure,
+            complete: complete
+   });
 
   if ( action == 'del' ) {
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
@@ -402,19 +397,17 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var onSuccess = function(responseText) {
+    var success = function(responseText) {
         jQuery('#' + table).html(responseText);
-
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         jQuery('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
     };
-    var onComplete = function(response){
+    var complete = function(response){
         jQuery('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
-
     };
 
    jQuery.ajax({
@@ -422,9 +415,9 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
             data: params,
             type : 'POST',
             dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
+            success: success,
+            error: failure,
+            complete: complete
     });
 
     /* while the ajax udpater is running the active row is shown as loading
@@ -436,8 +429,7 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     });
 };
 
-Zentyal.TableHelper.changeView = function (url, table, directory, action, id, page, isFilter)
-{
+Zentyal.TableHelper.changeView = function (url, table, directory, action, id, page, isFilter) {
     var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
@@ -445,10 +437,10 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
 
     Zentyal.TableHelper.cleanError(table);
 
-    var onSuccess = function(responseText) {
+    var success = function(responseText) {
         jQuery('#' + table).html(responseText);
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         if ( action == 'changeAdd' ) {
             Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
@@ -467,7 +459,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             Zentyal.TableHelper.restoreHidden(table + '_' + id + '_div_CheckAll', table);
         }
     };
-    var onComplete = function(response) {
+    var complete = function(response) {
         // Highlight the element
         if (id != undefined) {
             Zentyal.TableHelper.highlightRow(id, true);
@@ -485,9 +477,9 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             data: params,
             type : 'POST',
             dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
+            success: success,
+            error: failure,
+            complete: complete
     });
 
     if ( action == 'changeAdd' ) {
@@ -936,8 +928,7 @@ Parameters:
     field - field name
     element - HTML element
 */
-Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element)
-{
+Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element) {
     var elementId = element.id;
     element = jQuery(element);
 
@@ -949,37 +940,36 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     params += '&dir=' + dir;
     params += '&field=' + field;
     params += '&id=' + id;
-    if (element.prop('checked'))
+    if (element.prop('checked')) {
        params += '&value=1';
+    }
 
     element.hide();
     Zentyal.TableHelper.setLoading(elementId + '_loading', model, true);
 
-    var onSuccess = function (responseText) {
+    var success = function (responseText) {
         eval(responseText);
     };
-    var onFailure = function(response) {
+    var failure = function(response) {
         jQuery('#error_' + model).html(response.responseText);
         var befChecked = ! element.prop('checked');
         element.prop(befChecked);
     };
-    var onComplete = function(response) {
+    var complete = function(response) {
         Zentyal.TableHelper.completedAjaxRequest();
         element.show();
         jQuery('#' + elementId + '_loading').html('');
     };
 
-   jQuery.ajax(
-        {
-            url: url,
-            data: params,
-            type : 'POST',
-            dataType: 'html',
-            success: onSuccess,
-            error: onFailure,
-            complete: onComplete
-        }
-    );
+   jQuery.ajax({
+       url: url,
+       data: params,
+       type : 'POST',
+       dataType: 'html',
+       success: success,
+       error: failure,
+       complete: complete
+   });
 };
 
 /*
@@ -1047,21 +1037,19 @@ Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, cont
     params += '&controlId=' + controlId  + '&field=' + field;
     params +=  '&json=1';
 
-    var onComplete = function(response) {
+    var complete = function(response) {
         Zentyal.TableHelper.completedAjaxRequest();
         var json = jQuery.parseJSON(response.responseText);
         jQuery('#' + controlId).prop('checked', json.success);
     };
 
-   jQuery.ajax(
-        {
+    jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
             dataType: 'json',
-            complete: onComplete
-        }
-    );
+            complete: complete
+    });
 };
 
 Zentyal.TableHelper.confirmationDialog = function (url, table, directory, actionToConfirm, elements) {
@@ -1079,7 +1067,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
         params +=el.value;
     }
 
-    var onSuccess = function (text) {
+    var success = function (text) {
         var json = jQuery.parseJSON(text);
         if (json.wantDialog) {
              dialogTitle = json.title;
@@ -1088,21 +1076,19 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
             wantDialog = false;
         }
     };
-    var onFailure = function() {
+    var failure = function() {
           dialogTitle = '';
           dialogMsg = 'Are you sure?';
     };
-   jQuery.ajax(
-        {
-            url: url,
-            async: false,
-            data: params,
-            type : 'POST',
-            dataType: 'html',
-            success: onSuccess,
-            error: onFailure
-        }
-   );
+   jQuery.ajax({
+       url: url,
+       async: false,
+       data: params,
+       type : 'POST',
+       dataType: 'html',
+       success: success,
+       error: failure
+   });
 
   return {
     'wantDialog' : wantDialog,
