@@ -319,12 +319,12 @@ Function: actionClicked
 
 Parameters:
 
-        url - the CGI URL to call to do the action
+    url - the CGI URL to call to do the action
     table - the table's name
-        action - the action to do (move, del)
+    action - the action to do (move, del)
     rowId  - the affected row identifier
     paramsAction - an string with the parameters related to the
-                       action E.g.: param1=value1&param2=value2 *(Optional)*
+                   action E.g.: param1=value1&param2=value2 *(Optional)*
     directory - the GConf directory where table is stored
 
 */
@@ -377,8 +377,7 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsA
 
   if ( action == 'del' ) {
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
-  }
-  else if ( action == 'move' ) {
+  }  else if ( action == 'move' ) {
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table);
   }
 
@@ -390,16 +389,18 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     params += '&directory=' + directory;
     params += '&id=' + id;
 
-    if (page)
+    if (page) {
         params += '&page=' + page;
+    }
 
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
 
     Zentyal.TableHelper.cleanError(table);
 
-    if (fields)
+    if (fields) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
+    }
 
     var onSuccess = function(responseText) {
         jQuery('#' + table).html(responseText);
@@ -407,16 +408,16 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     };
     var onFailure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
-    };
-    var onComplete = function(response){
-        jQuery('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
         jQuery('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
     };
+    var onComplete = function(response){
+        jQuery('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
 
-   jQuery.ajax(
-        {
+    };
+
+   jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
@@ -424,8 +425,7 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
             success: onSuccess,
             error: onFailure,
             complete: onComplete
-        }
-    );
+    });
 
     /* while the ajax udpater is running the active row is shown as loading
      and the other table rows input are disabled to avoid running two custom
@@ -480,8 +480,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
         Zentyal.TableHelper.completedAjaxRequest();
     };
 
-   jQuery.ajax(
-        {
+   jQuery.ajax({
             url: url,
             data: params,
             type : 'POST',
@@ -489,8 +488,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             success: onSuccess,
             error: onFailure,
             complete: onComplete
-        }
-    );
+    });
 
     if ( action == 'changeAdd' ) {
       Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
