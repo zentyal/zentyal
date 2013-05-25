@@ -337,7 +337,7 @@ sub create
                                            'value' => $person->{dn});
     }
 
-    $person->{fullname} = self->generatedFullName($person) unless (defined $person->{fullname});
+    $person->{fullname} = $self->generatedFullName($person) unless (defined $person->{fullname});
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');

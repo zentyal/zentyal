@@ -51,7 +51,7 @@ sub create
 {
     my ($self, $contact, %params) = @_;
 
-    $contact->{fullname} = self->generatedFullName($contact) unless (defined $contact->{fullname});
+    $contact->{fullname} = $self->generatedFullName($contact) unless (defined $contact->{fullname});
 
     unless ($contact->{fullname}) {
         throw EBox::Exceptions::InvalidData(
@@ -75,7 +75,7 @@ sub create
     }
 
     shift @_;
-    my $entry = @{$self->SUPER::create($contact, %params)};
+    $self->SUPER::create($contact, %params);
     return new EBox::UsersAndGroups::Contact(dn => $contact->{dn});
 }
 
