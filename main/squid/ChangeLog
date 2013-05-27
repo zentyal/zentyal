@@ -1,5 +1,5 @@
 HEAD
-	+ Cache Exceptions now imply auth exception when non-transparent-mode  
+	+ Added Auth and Cache Exceptions for non transparent mode (no effect if transparent is enabled) which allow to bypass Squid + Dnasguardian auth 
 3.1.1
 	+ Squid time ACLs have independient ids, this fixes several issues
 	  with combinations of time, dates and long acls
