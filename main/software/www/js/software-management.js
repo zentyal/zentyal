@@ -181,7 +181,7 @@ Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, 
      if (popup) {
          Zentyal.Dialog.showURL(url, {'title': title, 'data': data});
      } else {
-       window.location = url;
+       window.location = url + '?' + data;
      }
   } else {
       alert('No packages selected');

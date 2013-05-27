@@ -52,21 +52,8 @@ my %titleByAction = (
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
-<script type="text/javascript">
-    jQuery(function() {
-        if (jQuery('#zentyal-remoteservices').length > 0) {
-            Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
-        }
-        if (location.hash === '#delete') {
-            Zentyal.SoftwareManagementUI.showDeleteTab();
-        } else {
-            Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
-        }
-    });
-</script>
 
 <style type="text/css">
-
 .head {
 % if ($sb) {
     width: 155px;
@@ -555,21 +542,29 @@ var pkgTable = new Array(
 % }
 
 <script>
-jQuery('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
+jQuery(function() {
+   if (jQuery('#zentyal-remoteservices').length > 0) {
+        Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
+   }
+   if (location.hash === '#delete') {
+        Zentyal.SoftwareManagementUI.showDeleteTab();
+   } else {
+        Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
+  }
+
+   jQuery('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
+   // update button status
+   Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
+   Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
+   Zentyal.SoftwareManagementUI.updateActionButton('deleteTable', 'delete_button');
 % if ($first) {
-jQuery('#advanced').hide();
+   jQuery('#advanced').hide();
 % } else {
-jQuery('#basic').hide();
+   jQuery('#basic').hide();
 % }
-jQuery('#updateBox, #deleteBox').hide();
-Zentyal.stripe('dataTable', 'even', 'odd');
-
-// update button status
-Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
-Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
-Zentyal.SoftwareManagementUI.updateActionButton('deleteTable', 'delete_button');
-
-
+  jQuery('#updateBox, #deleteBox').hide();
+  Zentyal.stripe('dataTable', 'even', 'odd');
+});
 </script>
 
 <%def .pkgTableButtons>
