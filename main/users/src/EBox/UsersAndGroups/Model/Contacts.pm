@@ -210,12 +210,12 @@ sub addTypedRow
     $args{fullname} = $paramsRef->{fullName}->value() if ($paramsRef->{fullName});
     $args{displayname} = $paramsRef->{displayName}->value() if ($paramsRef->{displayName});
 
-    EBox::UsersAndGroups::Contact->create(\%args);
+    my $contact = EBox::UsersAndGroups::Contact->create(\%args);
 
     $self->setMessage(__('Contact added'));
 
     # this is the last row account added and id == pos
-    return length($self->ids());
+    return $contact->{dn};
 }
 
 sub setTypedRow
