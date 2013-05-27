@@ -26,7 +26,11 @@ Zentyal.ProgressIndicator.updateProgressBar = function(progressbar, ticks, total
 };
 
 Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
-    var response = jQuery.parseJSON(xmlHttp.responseText);
+    var response;
+    if (xmlHttp.responseText.length === 0) {
+        return;
+    }
+    response = jQuery.parseJSON(xmlHttp.responseText);
 
     if (xmlHttp.readyState == 4) {
         if (response.state == 'running') {
