@@ -30,7 +30,7 @@ models:
     - TrafficReportOptions
 
 composites:
-    General: [GeneralSettings, NoCacheDomains, NoAuth Domains, TransparentExceptions]
+    General: [GeneralSettings, NoCacheDomains, NoAuthDomains, TransparentExceptions]
     FilterSettings: [ContentFilterThreshold, AntiVirus]
     Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
