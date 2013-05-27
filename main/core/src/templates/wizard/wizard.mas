@@ -35,7 +35,7 @@ var gettext = function (st) {
   return st;
 };
 
-Event.observe(window, 'load', function() {
+jQuery(function() {
    // initialize pages
    var newPages = [];
 % for my $page ( @pages ) {
