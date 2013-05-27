@@ -118,9 +118,10 @@ Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
         jQuery.ajax({
             url: url,
             success: function (text) {
-                        if (text) {
-                            clearInterval(timerId);
-                            window.location.replace(url);                               }
+                if (text) {
+                    clearInterval(timerId);
+                    window.location.replace(url);                               }
+                }
             }
         });
     };
