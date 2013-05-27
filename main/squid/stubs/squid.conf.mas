@@ -16,7 +16,7 @@
     $principal
     $realm
     $dn
-
+    @notCachedDomains
     @rules
     %filterProfiles
 
@@ -234,6 +234,7 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
+
 visible_hostname (frontal)<% $hostfqdn %>
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
@@ -244,6 +245,17 @@ cache_store_log /var/log/squid3/store.log
 
 pid_filename /var/run/squid3.pid
 
+%unless ($transparent) {
+%           my $cachedid = 1;
+%           foreach my $domain (@notCachedDomains) {
+acl noCached<% $cachedid %> dstdomain <% $domain %>
+http_access allow all noCached<% $cachedid %>
+always_direct allow noCached<% $cachedid %>
+%          $cachedid = $cachedid  + 1;
+
+%           }
+
+%} 
 % if ($filter) {
 cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
 % } else {
