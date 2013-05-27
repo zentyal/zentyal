@@ -1,3 +1,9 @@
+HEAD
+	+ Adapted CGIs to new modal dialogs
+	+ Ported graphs from flotr.js to flot.js
+	+ Ported JS code to jQuery and jQuery-ui
+	+ Removed Modalbox.js, table_orderer.js and carousel.js
+	+ Left menu keyword search is now case insensitive
 3.1.1
 	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
 	+ Restart all the core daemons instead of only apache after logrotate
