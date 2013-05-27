@@ -2572,6 +2572,43 @@ sub findRow
     }
 }
 
+# Method: findRowMultipleFields
+#
+#    Return the first row that matches the value of the given fields
+#    against the data returned by the method printableValue() or
+#    method value()
+#
+# Parameters:
+#
+#     fields     - hash ref with the fields and values to look for
+#
+#     Example:
+#
+#     findRowMultipleFields('default' => 1);
+#
+# Returns:
+#
+#    <EBox::Model::Row> - the row from the first matched rule
+#
+#    undef - if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findRowMultipleFields
+{
+    my ($self, $fields) = @_;
+
+    my $id = $self->findIdMultipleFields($fields);
+
+    if ( defined($id) ) {
+        return $self->row($id);
+    } else {
+        return undef;
+    }
+}
+
 # Method: _HTTPUrlView
 #
 #   Returns the HTTP URL base used to get the view for this model
