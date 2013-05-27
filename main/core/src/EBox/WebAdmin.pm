@@ -330,13 +330,22 @@ sub _writeCSSFiles
     my %params = %{ $theme };
 
     foreach my $file ('public.css', 'login.css', 'jquery-ui.css') {
-        EBox::Module::Base::writeConfFileNoCheck("$path/$file",
+        my $dst = "$path/$file";
+        if ($file eq 'jquery-ui.css') {
+            $dst = EBox::Config::www() . '/css/jquery-ui/' . $file;
+        }
+
+        EBox::Module::Base::writeConfFileNoCheck($dst,
                                                  "css/$file.mas",
                                                  [ %params ],
                                                  { mode => '0644',
                                                    uid => $UID,
                                                    gid => $primaryGid});
     }
+
+    # special treatment for jqueryui-c
+
+
 }
 
 # write CA Certificate file with included CAs
