@@ -16,7 +16,7 @@
     $principal
     $realm
     $dn
-    @notCachedDomains
+    @notAuthDomains
     @rules
     %filterProfiles
 
@@ -246,12 +246,12 @@ cache_store_log /var/log/squid3/store.log
 pid_filename /var/run/squid3.pid
 
 %unless ($transparent) {
-%           my $cachedid = 1;
-%           foreach my $domain (@notCachedDomains) {
-acl noCached<% $cachedid %> dstdomain <% $domain %>
-http_access allow all noCached<% $cachedid %>
-always_direct allow noCached<% $cachedid %>
-%          $cachedid = $cachedid  + 1;
+%           my $authdId = 1;
+%           foreach my $domain (@notAuthDomains) {
+acl noAuth<% $authId %> dstdomain <% $domain %>
+http_access allow all noAuth<% $authId %>
+always_direct allow noAuth<% $authId %>
+%          $authId = $authId  + 1;
 
 %           }
 

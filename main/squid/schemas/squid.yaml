@@ -12,6 +12,7 @@ models:
     - GeneralSettings
     - AccessRules
     - NoCacheDomains
+    - NoAuthDomains
     - TransparentExceptions
     - FilterProfiles
     - ContentFilterThreshold
@@ -29,7 +30,7 @@ models:
     - TrafficReportOptions
 
 composites:
-    General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
+    General: [GeneralSettings, NoCacheDomains, NoAuth Domains, TransparentExceptions]
     FilterSettings: [ContentFilterThreshold, AntiVirus]
     Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
