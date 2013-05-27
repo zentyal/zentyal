@@ -246,7 +246,7 @@ cache_store_log /var/log/squid3/store.log
 pid_filename /var/run/squid3.pid
 
 %unless ($transparent) {
-%           my $authdId = 1;
+%           my $authId = 1;
 %           foreach my $domain (@notAuthDomains) {
 acl noAuth<% $authId %> dstdomain <% $domain %>
 http_access allow all noAuth<% $authId %>

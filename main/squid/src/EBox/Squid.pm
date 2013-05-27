@@ -953,7 +953,7 @@ sub _writeSquidConf
     push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
-    push @$writeParam,('notAuthDomains' => $self->_notAuthDomains()); 
+    push @writeParam,('notAuthDomains' => $self->_notAuthDomains()); 
     push @writeParam, ('dn' => $dn);
 
     my $mode = $self->authenticationMode();
