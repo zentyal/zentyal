@@ -18,7 +18,7 @@ if ($popup) {
         my $title = __x('Restore backup: {desc}',
                         desc => $backup->{Comment});
         my $url = '/RemoteServices/Backup/RestoreRemoteBackup';
-        my $data = $data .= 'name=' . $backup->{Filename};
+        my $data =  'name=' . $backup->{Filename};
         $data .= '&ok=1&popup=1';
         $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url', {title:'$title', data: '$data'}); return false"};
     } elsif ($actionCGI eq 'DeleteRemoteBackup') {

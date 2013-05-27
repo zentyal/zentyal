@@ -165,7 +165,7 @@ my @rows = map {
                           name => __('Restore'),
                           icon => $applyImg,
                           text => $restoreTitle,
-                          onclick => "Zentyal.Dialog.loadURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false",
+                          onclick => "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false",
                          },
 
                          {
