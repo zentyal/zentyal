@@ -61,7 +61,7 @@ sub getParams
             }
             # TODO Review code to see if we are actually checking
             # types which are not optional
-                    $params{$fieldName} = $value;
+            $params{$fieldName} = $value;
         }
     }
 
@@ -192,9 +192,12 @@ sub removeRow
     my $id = $self->unsafeParam('id');
     my $force = $self->param('force');
 
+    # We MUST get it before remove the item or it will fail.
+    my $auditId = $self->_getAuditId($id);
+
     $model->removeRow($id, $force);
 
-    $self->_auditLog('del', $self->_getAuditId($id));
+    $self->_auditLog('del', $auditId);
 }
 
 sub editField
