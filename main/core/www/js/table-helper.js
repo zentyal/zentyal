@@ -1062,9 +1062,9 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
     for (var i=0; i < elements.length; i++) {
         var name = elements[i];
         var id = table + '_' + name;
-        var el = $(id);
+        var el = jQuery('#' + id);
         params +='&'+ name + '=';
-        params +=el.value;
+        params += el.val();
     }
 
     var success = function (text) {
