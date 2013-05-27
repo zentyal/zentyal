@@ -691,7 +691,8 @@ sub _vncKeymap
     } else {
         # Autodetect if not defined
         if ($ENV{LANG}) {
-            my ($lang1, $lang2) = split(/_/, $ENV{LANG});
+            my ($lang, $enc) = split(/\./, $ENV{LANG});
+            my ($lang1, $lang2) = split(/_/, $lang);
             if ($lang1) {
                 if ($lang2) {
                     $keymap = "$lang1-" . lc($lang2);
