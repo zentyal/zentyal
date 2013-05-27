@@ -3495,7 +3495,7 @@ sub _findMultipleFields
 {
     my ($self, $fields, $allMatches, $kind, $nosync) = @_;
 
-    unless (defined ($fieldName)) {
+    unless (defined ($fields)) {
         throw EBox::Exceptions::MissingArgument("Missing fields");
     }
     my $conf = $self->{confmodule};
@@ -3507,27 +3507,27 @@ sub _findMultipleFields
     my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        if (defined ($element)) {
-            my $matches = 1;
-            foreach my $field (keys(%{$fields})) {
+        my $matches = 1;
+        foreach my $field (keys(%{$fields})) {
+            my $element = $row->elementByName($field);
+            if (defined ($element)) {
                 my $eValue;
                 if ($kind eq 'printableValue') {
                     $eValue = $element->printableValue();
                 } else {
                     $eValue = $element->value();
                 }
-                unless ((defined $eValue) and ($eValue eq $fields{$field})) {
+                unless ((defined $eValue) and ($eValue eq $fields->{$field})) {
                     $matches = 0;
                 }
             }
+        }
 
-            if ($matches) {
-                if ($allMatches) {
-                    push (@matched, $id);
-                } else {
-                    return [ $id ];
-                }
+        if ($matches) {
+            if ($allMatches) {
+                push (@matched, $id);
+            } else {
+                return [ $id ];
             }
         }
     }
