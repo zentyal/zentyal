@@ -129,6 +129,23 @@ sub initialSetup
     $self->SUPER::initialSetup($version);
 
     if (not $version) {
+	# Create default HTTP and HTTPS services
+	# HTTP service is already added by services module
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'HTTPS';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addService(
+                'name' => $serviceName,
+                'description' => __('HyperText Transport Protocol over SSL'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '443',
+            );
+        }
+
         # Create default rules only if installing the first time
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(source => { any => undef },

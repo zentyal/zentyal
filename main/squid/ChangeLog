@@ -1,3 +1,6 @@
+HEAD
+	+ Create HTTPS service by default to help firewall configuration on
+	  non-transparent scenarios
 3.0.10
 	+ Squid time ACLs have independient ids. This fixes several issues
 	  with combinations of time, dates and long acls
