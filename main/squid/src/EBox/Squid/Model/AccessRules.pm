@@ -338,7 +338,7 @@ sub validateTypedRow
     my $ownTimePeriod = exists $params_r->{timePeriod} ?
                                      $params_r->{timePeriod} :  $actual_r->{timePeriod};
     foreach my $id (@{ $self->ids() }) {
-        next if ($id eq $ownId);
+        next if (defined($ownId) and ($id eq $ownId));
 
         my $row = $self->row($id);
         my $rowSource = $row->elementByName('source');

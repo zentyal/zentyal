@@ -1,3 +1,5 @@
+HEAD
+	+ Fix Qemu keymap detection when having UTF-8 environment
 3.1
 	+ Removed 3.0.X migration code
 	+ Depend on zentyal-core 3.1
