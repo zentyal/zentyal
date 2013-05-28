@@ -810,13 +810,61 @@ sub findTest : Test(6)
 
     my $idfound = $dataTable->findId($fieldName => $fieldValue);
     is $idfound, $row->id(),
-       'checking return value of findId metthod';
+       'checking return value of findId method';
 
     my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
     is $valueFound->id(), $row->id(),
        'checking return value of findValue method';
 }
 
+sub findMultipleFieldsTest : Test(7)
+{
+    my ($self) = @_;
+
+    my $dataTable = $self->_newPopulatedDataTable();
+
+    my $field1Name = 'regularField';
+    my $field1Value = 'regular';
+    my $field2Name = 'uniqueField';
+    my $field2Value = 'populatedRow2';
+    my $field2Value2 = 'populatedRow1';
+
+    my $row;
+
+    dies_ok {
+        $dataTable->findMultipleFields({'inexistentField' => 'b'});
+    } 'checking that findMultipleFields() with a inexistent field fails' ;
+
+    $row = $dataTable->findMultipleFields({$field1Name => 'inexistent'});
+    ok ((not defined $row), 'checking that findMultipleFields() with a inexistent value returns undef' );
+
+    $row = $dataTable->findMultipleFields({$field1Name => $field1Value,
+                                           $field2Name => $field2Value});
+    isa_ok ($row,
+        'EBox::Model::Row',
+        'checking that findMultipleFields with row name and value returns  a row'
+    );
+
+    my $rowfound =  $dataTable->findRowMultipleFields({$field1Name => $field1Value,
+                                                       $field2Name => $field2Value});
+    is $row->id(), $rowfound->id(),
+       'checking return value of findRowMultipleFields method';
+
+    my $idfound = $dataTable->findIdMultipleFields({$field1Name => $field1Value,
+                                                    $field2Name => $field2Value});
+    is $idfound, $row->id(),
+       'checking return value of findIdMultipleFields method';
+
+    my $valueFound = $dataTable->findValueMultipleFields({$field1Name => $field1Value,
+                                                          $field2Name => $field2Value});
+    is $valueFound->id(), $row->id(),
+       'checking return value of findValueMultipleFields method';
+
+    my $anotherRow = $dataTable->findMultipleFields({$field1Name => $field1Value,
+                                                     $field2Name => $field2Value2});
+    isnt $anotherRow->id(), $row->id(),
+       'checking return value of findMultipleFields is another row';
+}
 
 sub _newDataTable
 {
