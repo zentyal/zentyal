@@ -317,15 +317,15 @@ sub _manageVM
 {
     my ($self, $name, $action) = @_;
 
+    my $manageScript = $self->manageScript($name);
+    $manageScript = shell_quote($manageScript);
+    EBox::Sudo::root("$manageScript $action");
+
     my $vncDaemon = $self->vncDaemon($name);
     my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
     if ($action ne $currentStatus) {
         EBox::Service::manage($vncDaemon, $action);
     }
-
-    my $manageScript = $self->manageScript($name);
-    $manageScript = shell_quote($manageScript);
-    EBox::Sudo::root("$manageScript $action");
 }
 
 sub pauseVM
