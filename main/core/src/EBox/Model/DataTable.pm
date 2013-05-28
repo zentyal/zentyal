@@ -2176,46 +2176,7 @@ sub find
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
-
-    if (@matched) {
-        return $self->row($matched[0]);
-    } else {
-        return undef;
-    }
-}
-
-# Method: findMultipleFields
-#
-#    Return the first row which matches the value of the given
-#    fields against the data returned by the method printableValue()
-#
-#    If you want to match against value use
-#    <EBox::Model::DataTable::findValue>
-#
-# Parameters:
-#
-#     fields     - hash ref with the fields and values to look for
-#
-#     Example:
-#
-#     findMultipleFields({'default' => 1});
-#
-# Returns:
-#
-#     <EBox::Model::Row> - The matched row
-#
-#     undef - if there was not any match
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument>
-#
-sub findMultipleFields
-{
-    my ($self, $fields) = @_;
-
-    my @matched = @{$self->_findMultipleFields($fields, undef, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, undef, 'printableValue')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2257,41 +2218,7 @@ sub findAll
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
-
-    return \@matched;
-}
-
-# Method: findAllMultipleFields
-#
-#    Return all the id rows that match the value of the given
-#    fields against the data returned by the method printableValue()
-#
-#    If you want to match against value use
-#    <EBox::Model::DataTable::findValue>
-#
-# Parameters:
-#
-#     fields     - hash ref with the fields and values to look for
-#
-#     Example:
-#
-#     findAllMultipleFields({'default' => 1});
-#
-# Returns:
-#
-#     Array ref of ids which reference to the matched
-#     rows (<EBox::Model::Row>)
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument>
-#
-sub findAllMultipleFields
-{
-    my ($self, $fields) = @_;
-
-    my @matched = @{$self->_findMultipleFields($fields, 1, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'printableValue')};
 
     return \@matched;
 }
@@ -2325,17 +2252,7 @@ sub findValue
 {
     my ($self, $fieldName, $value) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
-    }
-
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
-
-    if (@matched) {
-        return $self->row($matched[0]);
-    } else {
-        return undef;
-    }
+    $self->findValueMultipleFields({ $fieldName => $value });
 }
 
 # Method: findValueMultipleFields
@@ -2367,7 +2284,7 @@ sub findValueMultipleFields
 {
     my ($self, $fields) = @_;
 
-    my @matched = @{$self->_findMultipleFields($fields, undef, 'value')};
+    my @matched = @{$self->_find($fields, undef, 'value')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2411,43 +2328,7 @@ sub findAllValue
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
-
-    return \@matched;
-}
-
-# Method: findAllValueMultipleFields
-#
-#    Return all the rows that match the value of the given
-#    fields against the data returned by the method value()
-#
-#    If you want to match against printable value use
-#    <EBox::Model::DataTable::find>
-#
-#
-# Parameters:
-#
-#     fields     - hash ref with the fields and values to look for
-#
-#     Example:
-#
-#     findAllValueMultipleFields({'default' => 1});
-#
-# Returns:
-#
-#     An array ref of ids that reference matched rows
-#     (<EBox::Model::Row>)
-#
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument>
-#
-sub findAllValueMultipleFields
-{
-    my ($self, $fields) = @_;
-
-    my @matched = @{$self->_findMultipleFields($fields, 1, 'value')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'value')};
 
     return \@matched;
 }
@@ -2484,49 +2365,12 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+    my $values = { $fieldName => $value };
+    my @matched = @{$self->_find($values, undef, 'value')};
     if (@matched) {
         return $matched[0];
     } else {
-        @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
-        return @matched ? $matched[0] : undef;
-    }
-}
-
-
-# Method: findIdMultipleFields
-#
-#    Return the first row identifier which matches the value of the
-#    given fields against the data returned by the method value() or
-#    the method printableValue()
-#
-# Parameters:
-#
-#     fields     - hash ref with the fields and values to look for
-#
-#    Example:
-#
-#    findIdMultipleFields({'default' => 1});
-#
-# Returns:
-#
-#    String - the row identifier from the first matched rule
-#
-#    undef - if there was not any match
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument>
-#
-sub findIdMultipleFields
-{
-    my ($self, $fields) = @_;
-
-    my @matched = @{$self->_findMultipleFields($fields, undef, 'value')};
-    if (@matched) {
-        return $matched[0];
-    } else {
-        @matched = @{$self->_findMultipleFields($fields, undef, 'printableValue')};
+        @matched = @{$self->_find($values, undef, 'printableValue')};
         return @matched ? $matched[0] : undef;
     }
 }
@@ -2564,43 +2408,6 @@ sub findRow
     }
 
     my $id = $self->findId($fieldName, $value);
-
-    if ( defined($id) ) {
-        return $self->row($id);
-    } else {
-        return undef;
-    }
-}
-
-# Method: findRowMultipleFields
-#
-#    Return the first row that matches the value of the given fields
-#    against the data returned by the method printableValue() or
-#    method value()
-#
-# Parameters:
-#
-#     fields     - hash ref with the fields and values to look for
-#
-#     Example:
-#
-#     findRowMultipleFields('default' => 1);
-#
-# Returns:
-#
-#    <EBox::Model::Row> - the row from the first matched rule
-#
-#    undef - if there was not any match
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument>
-#
-sub findRowMultipleFields
-{
-    my ($self, $fields) = @_;
-
-    my $id = $self->findIdMultipleFields($fields);
 
     if ( defined($id) ) {
         return $self->row($id);
@@ -3435,74 +3242,7 @@ sub _volatile
 #
 #    (PRIVATE)
 #
-#    Used by find and findAll to find rows in a table
-#
-# Parameters:
-#
-#    (POSITIONAL)
-#
-#    fieldName  - the name of the field to match
-#    value      - value we want to match
-#    allMatches - 1 or undef to tell the method to return just the
-#                 first match or all of them
-#
-#    kind       - *(Optional)* String if 'printableValue' match against
-#                 printableValue, if 'value' against value
-#                 Default value: 'value'
-#
-#    nosync     - *(Optional)* don't call to syncRows to avoid recursion
-#
-# Example:
-#
-#     _find('default',  1, undef, 'printableValue');
-#
-# Returns:
-#
-#    An array of ids which references those rows that match with the
-#    given filter
-#
-sub _find
-{
-    my ($self, $fieldName, $value, $allMatches, $kind, $nosync) = @_;
-
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
-    }
-    my $conf = $self->{confmodule};
-
-    $kind = 'value' unless defined ($kind);
-
-    my @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
-
-    my @matched;
-    foreach my $id (@rows) {
-        my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        if (defined ($element)) {
-            my $eValue;
-            if ($kind eq 'printableValue') {
-                $eValue = $element->printableValue();
-            } else {
-                $eValue = $element->value();
-            }
-            if ((defined $eValue) and ($eValue eq $value)) {
-                if ($allMatches) {
-                    push (@matched, $id);
-                } else {
-                    return [ $id ];
-                }
-            }
-        }
-    }
-
-    return \@matched;
-}
-
-# Method: _findMultipleFields
-#
-#    (PRIVATE)
-#
-#    Used by find*MultipleFields methods to find rows in a table
+#    Used by find* methods to find rows in a table matching the given fields values
 #
 # Parameters:
 #
@@ -3521,14 +3261,14 @@ sub _find
 #
 # Example:
 #
-#     _findMultipleFields({'default' => 1}, undef, 'printableValue');
+#     _find({'default' => 1}, undef, 'printableValue');
 #
 # Returns:
 #
 #    An array of ids which references those rows that match with the
 #    given filter
 #
-sub _findMultipleFields
+sub _find
 {
     my ($self, $fields, $allMatches, $kind, $nosync) = @_;
 
@@ -3545,7 +3285,7 @@ sub _findMultipleFields
     foreach my $id (@rows) {
         my $row = $self->row($id);
         my $matches = 1;
-        foreach my $field (keys(%{$fields})) {
+        foreach my $field (keys (%{$fields})) {
             my $element = $row->elementByName($field);
             if (defined ($element)) {
                 my $eValue;
@@ -3581,7 +3321,7 @@ sub _checkFieldIsUnique
     }
     my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
+        @{$self->_find({ $newData->fieldName() => $printableValue }, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(
