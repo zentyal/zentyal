@@ -117,14 +117,14 @@ Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
     var loadMethod = function() {
         jQuery.ajax({
             url: url,
-            success: function (text) {
+            success: function(text) {
                 if (text) {
                     clearInterval(timerId);
-                    window.location.replace(url);                               }
+                    window.location.replace(url);
                 }
             }
         });
-    };
+   };
 
     var timerId = setInterval(loadMethod, secondsTimeout*1000);
 };
