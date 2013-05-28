@@ -1,4 +1,5 @@
 HEAD
+	+ Added CUPS and ftp to Safe_ports 
 	+ Avoid warning in AccessRules validateTypedRow
 3.1.1
 	+ Squid time ACLs have independient ids, this fixes several issues
