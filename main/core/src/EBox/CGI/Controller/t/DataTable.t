@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 6;
 use Test::Exception;
 use Test::Deep;
 
@@ -27,6 +27,7 @@ use EBox::Global::TestStub;
 use EBox::TestStubs;
 use EBox::Test::CGI;
 use EBox::Model::DataTable::Test;
+use EBox::Types::Text;
 
 use_ok('EBox::CGI::Controller::DataTable');
 
@@ -34,39 +35,76 @@ EBox::TestStub::fake();
 EBox::Global::TestStub::fake();
 
 EBox::TestStubs::fakeModule(name => 'fakeModule');
-my $model = EBox::Model::DataTable::Test::->_newPopulatedDataTable();
+
+EBox::TestStubs::fakeModule(
+    name => 'audit',
+    subs => [
+        isEnabled => sub {
+            return undef
+        }
+    ]
+);
+
+my $table = {
+    tableDescription => [
+        new EBox::Types::Text(
+            fieldName => 'field1',
+            printableName => 'field1',
+        ),
+    ],
+    tableName => 'test',
+};
+
+my $model = EBox::Model::DataTable::Test::->_newDataTable($table);
 isa_ok( $model, 'EBox::Model::DataTable');
 
-#my $rowId;
+my $rowId;
 
-#addRowTest();
+addRowTest();
 removeRowTest();
 
 sub addRowTest
 {
-    my $controller = new EBox::CGI::Controller::DataTable(tableModel => $model);
+    my $cgi = new CGI({
+        action => 'add',
+        tablename => 'test',
+        directory => '/conf/fakeModule/DataTable',
+        field1 => 'Foo',
+    });
+    $ENV{HTTP_HOST} = '192.168.1.1';
+    $ENV{HTTP_REFERER} = "https://$ENV{HTTP_HOST}/fakeModule/View/DataTable";
+    my $controller = new EBox::CGI::Controller::DataTable(
+        tableModel => $model,
+        cgi => $cgi
+    );
     isa_ok($controller, 'EBox::CGI::Controller::DataTable');
 
-    # XXX: How the hell do we pass arguments to the CGI?!!?!?!
-    #EBox::Test::CGI::setCgiParams($controller, 'POSTDATA' => 'fakeModule_field1=Foo');
-
-    #lives_ok {
-    #    $rowId = $controller->addRow();
-    #} 'Adding a new row';
+    lives_ok {
+        $rowId = $controller->addRow();
+    } 'Adding a new row';
 
 }
 
 sub removeRowTest
 {
+    my $cgi = new CGI({
+        action => 'del',
+        tablename => 'test',
+        directory => '/conf/fakeModule/DataTable',
+        id => $rowId,
+    });
+
+    $ENV{HTTP_HOST} = '192.168.1.1';
+    $ENV{HTTP_REFERER} = "https://$ENV{HTTP_HOST}/fakeModule/View/DataTable";
     my $controller = new EBox::CGI::Controller::DataTable(
         tableModel => $model,
+        cgi => $cgi
     );
+    isa_ok($controller, 'EBox::CGI::Controller::DataTable');
 
-    # XXX: How the hell do we pass arguments to the CGI?!!?!?!
-    #EBox::Test::CGI::setCgiParams($controller, 'POSTDATA' => 'fakeModule_field1=Foo');
-    #lives_ok {
-    #    $controller->removeRow(id => 1);
-    #} 'Removing the previously added row';
+    lives_ok {
+        $controller->removeRow(id => $rowId);
+    } 'Removing the previously added row';
 }
 
 1;
