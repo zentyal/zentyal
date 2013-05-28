@@ -1,4 +1,6 @@
 HEAD
+	+ Added findValueMultipleFields() to DataTable and refactor _find()
+	  to allow search by multiple fields
 	+ Fixed disk usage report for logs component
 	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
 	+ Restart all the core daemons instead of only apache after logrotate

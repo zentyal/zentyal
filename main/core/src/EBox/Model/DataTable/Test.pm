@@ -780,7 +780,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(6)
+sub findTest : Test(8)
 {
     my ($self) = @_;
 
@@ -788,6 +788,9 @@ sub findTest : Test(6)
 
     my $fieldName = 'uniqueField';
     my $fieldValue = 'populatedRow2';
+    my $field2Name = 'uniqueField';
+    my $field2Value = 'populatedRow2';
+    my $field2Value2 = 'populatedRow1';
 
     my $row;
 
@@ -810,13 +813,22 @@ sub findTest : Test(6)
 
     my $idfound = $dataTable->findId($fieldName => $fieldValue);
     is $idfound, $row->id(),
-       'checking return value of findId metthod';
+       'checking return value of findId method';
 
     my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
     is $valueFound->id(), $row->id(),
        'checking return value of findValue method';
-}
 
+    $valueFound = $dataTable->findValueMultipleFields({$fieldName => $fieldValue,
+                                                       $field2Name => $field2Value});
+    is $valueFound->id(), $row->id(),
+       'checking return value of findValueMultipleFields method';
+
+    my $anotherRow = $dataTable->findValueMultipleFields({$fieldName => $fieldValue,
+                                                          $field2Name => $field2Value2});
+    isnt $anotherRow->id(), $row->id(),
+       'checking return value of findMultipleFields is another row';
+}
 
 sub _newDataTable
 {
