@@ -1,0 +1,73 @@
+<%args>
+  $model
+</%args>
+
+<& .pageTitle, title => $model->pageTitle() &>
+
+<& .headTitle, title => $model->headTitle() &>
+
+% # Print the help if any
+% my $help = $model->help();
+% if ($help) {
+<div class="help">
+    <% $model->help() %>
+</div>
+% }
+
+% # Print the disabled module warning if needed
+% my $disabledModuleWarning = $model->disabledModuleWarning();
+% if ($disabledModuleWarning) {
+<div class="warning">
+    <% $disabledModuleWarning %>
+</div>
+%  }
+
+<div id="tree1" />
+
+<script>
+// FIXME: this does not work because header with jquery includes is not properly printed
+$(function () {
+
+  $.jstree._themes = "data/css/jstree-themes/";
+
+  $("#tree1").jstree({
+	"json_data" : {
+		"data" : [
+			{
+              "data" : "Foo",
+              "metadata" : { id : 23 },
+              "children" : [ "Bar1", "Bar2" ]
+            },
+            {  "attr" : { "id" : "li.node.id1" },
+			   "data" : {
+				    "title" : "Baz",
+				    "attr" : { "href" : "#" }
+			   }
+			}
+		],
+	},
+	"plugins" : [ "themes", "json_data", "ui" ]
+  });
+
+});
+</script>
+
+
+<%def .pageTitle>
+<%args>
+  $title => undef
+</%args>
+<& /title.mas, title => $title &>
+</%def>
+
+<%def .headTitle>
+<%args>
+  $title => undef
+</%args>
+% if ($title) {
+<h3>
+    <% $title %>
+</h3>
+% }
+</%def>
+

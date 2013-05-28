@@ -44,6 +44,7 @@ sub _new
     my $self = {};
 
     $self->{models} = {};
+    $self->{trees} = {};
     $self->{composites} = {};
     $self->{foreign} = {};
 
@@ -172,6 +173,8 @@ sub component
         return $self->model($path, $readonly);
     } elsif ($self->_compositeExists($path)) {
         return $self->composite($path, $readonly);
+    } elsif ($self->_treeExists($path)) {
+        return $self->tree($path, $readonly);
     } else {
         throw EBox::Exceptions::Internal("Component $path does not exist");
     }
@@ -185,7 +188,7 @@ sub componentExists
 {
     my ($self, $path) = @_;
 
-    return ($self->_modelExists($path) or $self->_compositeExists($path));
+    return ($self->_modelExists($path) or $self->_compositeExists($path) or $self->_treeExists($path));
 }
 
 sub models
@@ -193,6 +196,13 @@ sub models
     my ($self, $module) = @_;
 
     return $self->_components('model', $module);
+}
+
+sub trees
+{
+    my ($self, $module) = @_;
+
+    return $self->_components('tree', $module);
 }
 
 sub composites
