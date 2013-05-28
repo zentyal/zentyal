@@ -1,3 +1,5 @@
+HEAD
+	+ Fix Qemu keymap detection when having UTF-8 environment
 3.0.5
 	+ Reload the page after saving changes if a VM has been modified
 	+ Added calls to generate VM stop alerts on module stop

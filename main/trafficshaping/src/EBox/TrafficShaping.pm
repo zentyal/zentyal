@@ -1502,7 +1502,7 @@ sub ifaceUniqueId
 {
     my ($self, $iface) = @_;
 
-    my  $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
     my $id = 0;
     foreach my $if ( @{$network->ifaces()} ) {
         if ( $iface eq $if ) {

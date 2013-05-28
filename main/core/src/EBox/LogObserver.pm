@@ -68,6 +68,11 @@ sub enableLog
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
 #        - order: An array with table fields ordered.
+#        - timecol: The timestamp column to perform date filtering
+#        - eventcol : The column which stores the events related to the row
+#        - events: Hash ref containing the possible event choices, the key
+#                  is the stored value in the DB and the value is the i18ned name for that event
+#        - filter: Array ref of the field names that can perform filtering
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)

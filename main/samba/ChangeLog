@@ -1,3 +1,7 @@
+3.0.18
+	+ Fix hostname change when having Samba installed: was trying to create
+	  again Administrator user, now we just update the credentials, ignore
+	  existing groups
 3.0.17
 	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
 	  allow join of Windows Vista machines if guest shares are enabled

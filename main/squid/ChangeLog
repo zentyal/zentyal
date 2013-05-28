@@ -1,3 +1,8 @@
+3.0.10
+	+ Squid time ACLs have independient ids. This fixes several issues
+	  with combinations of time, dates and long acls
+	+ Do not repeat Squid ACL declarations
+	+ Changed HTTP keytab permission in order to avoid krb5_kt_add_entry errors
 3.0.9
 	+ Change the kerberos service from squid to http. Zarafa and Squid must
 	  share the service principal.

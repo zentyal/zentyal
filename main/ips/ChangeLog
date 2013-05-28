@@ -1,2 +1,4 @@
+HEAD
+	+ Fix NFQUEUE clashing with l7filter in trafficshaping module
 3.0
 	+ Initial release
