@@ -199,7 +199,11 @@ sub _setQARepoConf
 sub _repositoryHostname
 {
     my $rs = EBox::Global->modInstance('remoteservices');
-    return 'qa.' . $rs->cloudDomain();
+    if ( EBox::Config::configkey('qa_updates_repo') ) {
+        return EBox::Config::configkey('qa_updates_repo');
+    } else {
+        return 'qa.' . $rs->cloudDomain();
+    }
 }
 
 # Remove QA updates

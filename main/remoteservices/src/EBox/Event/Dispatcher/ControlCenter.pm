@@ -15,7 +15,7 @@
 
 package EBox::Event::Dispatcher::ControlCenter;
 
-# Class: EBox::Dispatcher::ControlCenter
+# Class: EBox::Event::Dispatcher::ControlCenter
 #
 # This class is a dispatcher which sends the event to the control
 # center where will be display by control panel
