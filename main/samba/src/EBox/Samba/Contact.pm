@@ -64,4 +64,74 @@ sub create
     return $createdContact;
 }
 
+sub addToZentyal
+{
+    my ($self) = @_;
+
+    my $fullName = $self->get('name');
+    my $givenName = $self->get('givenName');
+    my $initials = $self->get('initials');
+    my $surName = $self->get('sn');
+    my $displayName = $self->get('displayName');
+    my $comment = $self->get('description');
+    $givenName = '-' unless defined $givenName;
+    $surName = '-' unless defined $surName;
+
+    my $params = {
+        fullname => $fullName,
+        givenname => $givenName,
+        initials => $initials,
+        surname => $surName,
+        displayname => $displayName,
+        comment => $comment,
+    };
+
+    my $zentyalContact = undef;
+    my %optParams;
+    $optParams{ignoreMods} = ['samba'];
+    EBox::info("Adding samba contact '$fullName' to Zentyal");
+
+    $zentyalContact = EBox::UsersAndGroups::Contact->create($params, 0, %optParams);
+    $zentyalContact->exists() or
+        throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
+
+    $zentyalContact->setIgnoredModules(['samba']);
+}
+
+sub updateZentyal
+{
+    my ($self) = @_;
+
+    my $name = $self->get('name');
+    EBox::info("Updating zentyal contact '$name'");
+
+    my $zentyalUser = undef;
+    my $fullName = $name;
+    my $givenName = $self->get('givenName');
+    my $initials = $self->get('initials');
+    my $surName = $self->get('sn');
+    my $displayName = $self->get('displayName');
+    my $description = $self->get('description');
+    my $uidNumber = $self->get('uidNumber');
+    $givenName = '-' unless defined $givenName;
+    $surName = '-' unless defined $surName;
+
+    my $users = EBox::Global->modInstance('users');
+
+    my $dn = 'cn=' . $name . ',' . $users->usersDn();
+
+    $zentyalContact = new EBox::UsersAndGroups::Contact(dn => $dn);
+    $zentyalContact->exists() or
+        throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist");
+
+    $zentyalContact->setIgnoredModules(['samba']);
+    $zentyalContact->set('cn', $fullName, 1);
+    $zentyalContact->set('givenName', $givenName, 1);
+    $zentyalContact->set('initials', $initials, 1);
+    $zentyalContact->set('sn', $surName, 1);
+    $zentyalContact->set('displayName', $displayName, 1);
+    $zentyalContact->set('description', $description, 1);
+    $zentyalContact->save();
+}
+
 1;

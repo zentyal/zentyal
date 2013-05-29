@@ -602,6 +602,27 @@ sub users
     return $list;
 }
 
+sub contacts
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(&(objectclass=contact)(!(objectclass=computer)))' .
+                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('name')) {
+        my $contact = new EBox::Samba::Contact(entry => $entry);
+
+        push (@{$list}, $contact);
+    }
+    return $list;
+}
+
 sub groups
 {
     my ($self) = @_;
