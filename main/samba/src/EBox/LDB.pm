@@ -480,6 +480,37 @@ sub ldapUsersToLdb
     }
 }
 
+sub ldapContactsToLdb
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal contacts into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $contacts = $usersModule->contacts();
+    foreach my $contact (@{$contacts}) {
+        my $dn = $contact->dn();
+        my $fullName = $user->get('cn');
+        my $name = $user->get('cn');
+        EBox::debug("Loading contact $dn");
+        try {
+            my $params = {
+                givenName   => scalar ($user->get('givenName')),
+                initialse   => scalar ($user->get('initials')),
+                sn          => scalar ($user->get('sn')),
+                displayName => scalar ($user->get('displayName')),
+                description => scalar ($user->get('description')),
+            };
+            EBox::Samba::Contact->create($name, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Contact $dn already in Samba database");
+            my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading user '$dn': $error");
+        };
+    }
+}
+
 sub ldapGroupsToLdb
 {
     my ($self) = @_;

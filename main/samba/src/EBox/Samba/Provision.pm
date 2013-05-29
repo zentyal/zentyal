@@ -428,6 +428,7 @@ sub provisionDC
 
         # Load all zentyal users and groups into ldb
         $samba->ldb->ldapUsersToLdb();
+        $samba->ldb->ldapContactsToLdb();
         $samba->ldb->ldapGroupsToLdb();
         $samba->ldb->ldapServicePrincipalsToLdb();
 
