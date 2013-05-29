@@ -520,8 +520,8 @@ sub _mouseUsedByOs
 sub systemTypes
 {
     return [
-        { value => 'new_windows', printableValue =>  __('Windows Vista or newer') },
-        { value => 'old_windows', printableValue =>  __('Windows 2003 or older') },
+        { value => 'new_windows', printableValue =>  __('Windows Vista | Windows 2008 or newer') },
+        { value => 'old_windows', printableValue =>  __('Windows XP | Windows 2003 or older') },
         { value => 'linux',       printableValue =>  __('Linux') },
         { value => 'other',       printableValue =>  __('Other') },
     ];
