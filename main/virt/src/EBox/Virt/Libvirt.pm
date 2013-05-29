@@ -160,6 +160,21 @@ sub vmPaused
     return ($self->_state($name) eq 'paused');
 }
 
+# Method: runningVMCommand
+#
+#   Only used for libvirt for the upstart and manage.sh scripts.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub runningVMCommand
+{
+    my ($self, $name) = @_;
+
+    return "$VIRTCMD domstate $name | grep -q ^running";
+}
+
 sub _state
 {
     my ($self, $name) = @_;
@@ -256,21 +271,6 @@ sub startVMCommand
     return $cmd;
 }
 
-# Method: shutdownVM
-#
-#   Shuts down a virtual machine.
-#
-# Parameters:
-#
-#   name    - virtual machine name
-#
-sub shutdownVM
-{
-    my ($self, $name) = @_;
-
-    _run($self->shutdownVMCommand($name));
-}
-
 # Method: shutdownVMCommand
 #
 #   Command to shut down a virtual machine.
@@ -278,6 +278,7 @@ sub shutdownVM
 # Parameters:
 #
 #   name    - virtual machine name
+#   force   - force hard power off
 #
 # Returns:
 #
@@ -285,19 +286,16 @@ sub shutdownVM
 #
 sub shutdownVMCommand
 {
-    my ($self, $name) = @_;
-    my $cmd;
+    my ($self, $name, $force) = @_;
 
-    my $os = $self->{vmConf}->{$name}->{os};
-    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
-        $cmd = "$VIRTCMD shutdown $name";
+    my $action = $force ? 'destroy' : 'shutdown';
+    my $cmd = "$VIRTCMD $action $name";
+    if ($force) {
+        $self->{vmConf}->{$name}->{forceStopCmd} = $cmd;
     } else {
-        #  "shutdown" only works when a SO with acpi enabled is running
-        #  we are not sure about these systems so we use shutdown
-        $cmd = "$VIRTCMD destroy $name";
+        $self->{vmConf}->{$name}->{stopCmd} = $cmd;
     }
 
-    $self->{vmConf}->{$name}->{stopCmd} = $cmd;
     return $cmd;
 }
 
@@ -599,6 +597,8 @@ sub writeConf
             '/virt/manage.sh.mas',
             [ startCmd => $vmConf->{startCmd},
               stopCmd => $vmConf->{stopCmd},
+              forceStopCmd => $vmConf->{forceStopCmd},
+              runningCmd => $self->runningVMCommand($name),
               user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0755' }
     );

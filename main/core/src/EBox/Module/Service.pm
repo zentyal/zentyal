@@ -614,6 +614,43 @@ sub showModuleStatus
     return 1;
 }
 
+# Method: saveReload
+#
+#   Mimesitise what <EBox::Module::Base::save> does but instead of
+#   restarting the daemon, it reloads it.
+#
+#   For now, it is a separated method, as it is called programatically
+#   only when it is right to call. No issues due to reloading instead
+#   of restarting.
+#
+sub saveReload
+{
+    my ($self, @params) = @_;
+
+    $self->_lock();
+    my $global = $self->global();
+    my $log    = EBox::logger();
+    $log->info('Reloading service for module: ' . $self->name());
+    try {
+        $self->_saveConfig();
+        # Mimetise <EBox::Module::Service::_regenConfig>
+        if ( $self->configured() ) {
+            $self->SUPER::_regenConfig(@params);
+            my $enabled = ($self->isEnabled() or 0);
+            if ($enabled) {
+                $self->setNeedsSaveAfterConfig(0);
+            }
+            $self->_preServiceHook($enabled);
+            $self->_enforceServiceState(reload => 1);
+            $self->_postServiceHook($enabled);
+        }
+    } finally {
+        # Mark as changes has been saved
+        $global->modRestarted($self->name());
+        $self->_unlock();
+    };
+}
+
 # Method: _daemons
 #
 #   This method must be overriden to return the services required by this
@@ -661,20 +698,23 @@ sub _daemons
 
 sub _startDaemon
 {
-    my($self, $daemon) = @_;
+    my($self, $daemon, %params) = @_;
 
     my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
 
+    my $restartAction = 'restart';
+    $restartAction = 'reload' if ((exists $params{reload}) and $params{reload});
+
     if(daemon_type($daemon) eq 'upstart') {
         if($isRunning) {
-            EBox::Service::manage($daemon->{'name'},'restart');
+            EBox::Service::manage($daemon->{'name'}, $restartAction);
         } else {
             EBox::Service::manage($daemon->{'name'},'start');
         }
     } elsif(daemon_type($daemon) eq 'init.d') {
         my $script = INITDPATH . $daemon->{'name'};
         if($isRunning) {
-            $script = $script . ' ' . 'restart';
+            $script = $script . ' ' . $restartAction;
         } else {
             $script = $script . ' ' . 'start';
         }
@@ -706,7 +746,7 @@ sub _stopDaemon
 #
 sub _manageService
 {
-    my ($self,$action) = @_;
+    my ($self, $action, %params) = @_;
 
     my $daemons = $self->_daemons();
     for my $daemon (@{$daemons}) {
@@ -718,9 +758,9 @@ sub _manageService
         #even if parameter is 'start' we might have to stop some daemons
         #if they are no longer needed
         if(($action eq 'start') and $run) {
-            $self->_startDaemon($daemon);
+            $self->_startDaemon($daemon, %params);
         } else {
-            $self->_stopDaemon($daemon);
+            $self->_stopDaemon($daemon, %params);
         }
     }
 }
@@ -732,8 +772,8 @@ sub _manageService
 #
 sub _startService
 {
-    my ($self) = @_;
-    $self->_manageService('start');
+    my ($self, %params) = @_;
+    $self->_manageService('start', %params);
 
     # Notify observers
     my $global = EBox::Global->getInstance();
@@ -848,11 +888,11 @@ sub _supportActions
 #
 sub _enforceServiceState
 {
-    my ($self) = @_;
+    my ($self, @params) = @_;
     if($self->isEnabled()) {
-        $self->_startService();
+        $self->_startService(@params);
     } else {
-        $self->_stopService();
+        $self->_stopService(@params);
     }
 }
 

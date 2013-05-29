@@ -1,4 +1,6 @@
 HEAD
+	+ Do not stop VNC proxies before VMs are stopped
+	+ Always try to shutdown VMs first and then destroy after 30 seconds
 	+ Fix Qemu keymap detection when having UTF-8 environment
 3.1
 	+ Removed 3.0.X migration code

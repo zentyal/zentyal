@@ -311,15 +311,15 @@ sub _manageVM
 {
     my ($self, $name, $action) = @_;
 
+    my $manageScript = $self->manageScript($name);
+    $manageScript = shell_quote($manageScript);
+    EBox::Sudo::root("$manageScript $action");
+
     my $vncDaemon = $self->vncDaemon($name);
     my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
     if ($action ne $currentStatus) {
         EBox::Service::manage($vncDaemon, $action);
     }
-
-    my $manageScript = $self->manageScript($name);
-    $manageScript = shell_quote($manageScript);
-    EBox::Sudo::root("$manageScript $action");
 }
 
 sub pauseVM
@@ -538,12 +538,14 @@ sub _writeMachineConf
 
     my $start = $backend->startVMCommand(name => $name, port => $vncport, pass => $vncpass);
     my $stop = $backend->shutdownVMCommand($name);
+    my $forceStop = $backend->shutdownVMCommand($name, 1);
+    my $running = $backend->runningVMCommand($name);
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
             '/virt/upstart.mas',
-            [ startCmd => $start, stopCmd => $stop, user => $self->{vmUser} ],
+            [ startCmd => $start, stopCmd => $stop, forceStopCmd => $forceStop, runningCmd => $running, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 
