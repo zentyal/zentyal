@@ -1,4 +1,6 @@
 HEAD
+	+ Added saveReload method to use reload instead of restart to
+	  reduce service downtime. Use with care and programatically
 	+ Added findValueMultipleFields() to DataTable and refactor _find()
 	  to allow search by multiple fields
 	+ Fixed disk usage report for logs component
