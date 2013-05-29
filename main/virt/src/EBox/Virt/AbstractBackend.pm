@@ -125,21 +125,9 @@ sub startVMCommand
 # Parameters:
 #
 #   name    - virtual machine name
+#   force   - force hard power off
 #
 sub shutdownVMCommand
-{
-    throw EBox::Exceptions::NotImplemented();
-}
-
-# Method: shutdownVM
-#
-#   Shuts down a virtual machine.
-#
-# Parameters:
-#
-#   name    - virtual machine name
-#
-sub shutdownVM
 {
     throw EBox::Exceptions::NotImplemented();
 }
@@ -400,6 +388,19 @@ sub daemons
 sub attachedDevices
 {
     return 0;
+}
+
+# Method: runningVMCommand
+#
+#   Only used for libvirt for the upstart and manage.sh scripts.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub runningVMCommand
+{
+    return undef;
 }
 
 1;

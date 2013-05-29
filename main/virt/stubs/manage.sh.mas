@@ -1,21 +1,41 @@
 <%args>
 $startCmd
 $stopCmd
+$forceStopCmd => ''
+$runningCmd => ''
 $user => ''
 </%args>
+<%init>
+if ($user) {
+    my $sudoCmd = "sudo -u $user -H";
+    $startCmd = "$sudoCmd $startCmd";
+    $stopCmd = "$sudoCmd $stopCmd";
+    if ($forceStopCmd) {
+        $forceStopCmd = "$sudoCmd $forceStopCmd";
+        $runningCmd = "$sudoCmd $runningCmd";
+    }
+}
+</%init>
 #!/bin/bash
 
 ACTION=$1
 
 if [ "$ACTION" == "stop" ]
 then
-    CMD="<% $stopCmd %>"
-else
-    CMD="<% $startCmd %>"
-fi
+    <% $stopCmd %>
 
-% if ($user) {
-sudo -u <% $user %> -H $CMD
-% } else {
-$CMD
+% if ($forceStopCmd) {
+    for i in `seq 1 30`
+    do
+        if ! <% $runningCmd %>
+        then
+            break
+        fi
+        sleep 1
+    done
+
+    <% $forceStopCmd %>
 % }
+else
+    <% $startCmd %>
+fi
