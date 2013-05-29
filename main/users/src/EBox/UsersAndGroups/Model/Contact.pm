@@ -32,6 +32,12 @@ sub _table
 {
     my @fields = (
         new EBox::Types::Text(
+            fieldName     => 'fullName',
+            printableName => __('Full name'),
+            unique        => 1,
+            editable      => 0,
+        ),
+        new EBox::Types::Text(
             fieldName     => 'firstName',
             printableName => __('First name'),
             editable      => 1,
@@ -51,14 +57,20 @@ sub _table
             optional      => 1,
         ),
         new EBox::Types::Text(
-            fieldName     => 'fullName',
-            printableName => __('Full name'),
-            unique        => 1,
-            editable      => 1,
-        ),
-        new EBox::Types::Text(
             fieldName     => 'displayName',
             printableName => __('Display name'),
+            editable      => 1,
+            optional      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'description',
+            printableName => __('Description'),
+            editable      => 1,
+            optional      => 1,
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'mail',
+            printableName => __('E-mail'),
             editable      => 1,
             optional      => 1,
         ),
@@ -72,7 +84,7 @@ sub _table
         printableRowName => __('Contact'),
         defaultActions => ['editField', 'changeView'],
         tableDescription => \@fields,
-        modelDomain => 'Contact',
+        modelDomain => 'Users',
     };
 
     return $dataTable;
@@ -85,6 +97,17 @@ sub _table
 sub ids
 {
     my ($self) = @_;
+
+    return $self->_ids(@_);
+}
+
+# Method: _ids
+#
+#   Override <EBox::Model::DataTable::_ids> to return id from the request.
+#
+sub _ids
+{
+    my ($self) = @_;
     my $global = $self->global();
     my $users = $global->modInstance('users');
     unless ($users->configured()) {
@@ -92,6 +115,35 @@ sub ids
     }
 
     return [$self->{contact}->dn()];
+}
+
+# Method: row
+#
+#   Override <EBox::Model::DataTable::row> to build and return a
+#   row dependening on the user uid which is the id passwd.
+#
+sub row
+{
+    my ($self, $id) = @_;
+
+    my $contact = $self->{contact};
+
+    if ($contact->exists()) {
+        my %args = ();
+        $args{firstName} = $contact->firstname() if ($contact->firstname());
+        $args{initials} = $contact->initials() if ($contact->initials());
+        $args{surname} = $contact->surname() if ($contact->surname());
+        $args{fullName} = $contact->fullname() if ($contact->fullname());
+        $args{displayName} = $contact->displayname() if ($contact->displayname());
+        $args{description} = $contact->get('description') if ($contact->get('description'));
+        $args{mail} = $contact->get('mail') if ($contact->get('mail'));
+
+        my $row = $self->_setValueRow(%args);
+        $row->setId($contact->dn());
+        return $row;
+    } else {
+        throw EBox::Exceptions::Internal("Contact $id does not exist");
+    }
 }
 
 # Method: setTypedRow
@@ -139,6 +191,8 @@ sub setTypedRow
     $contact->set('initials', $paramsRef->{initials}->value(), 1) if ($paramsRef->{initials});
     $contact->set('sn', $paramsRef->{surname}->value(), 1) if ($paramsRef->{surname});
     $contact->set('displayName', $paramsRef->{displayName}->value(), 1) if ($paramsRef->{displayName});
+    $contact->set('description', $paramsRef->{description}->value(), 1) if ($paramsRef->{description});
+    $contact->set('mail', $paramsRef->{mail}->value(), 1) if ($paramsRef->{mail});
 
     $contact->save();
     $self->setMessage(__('Contact saved'));

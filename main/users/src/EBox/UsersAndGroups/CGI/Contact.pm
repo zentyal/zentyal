@@ -39,15 +39,28 @@ sub _process
 {
     my ($self) = @_;
 
-    $self->SUPER::_process();
-
-
     $self->_requireParam("contact", __('contact'));
 
     my $dn = $self->unsafeParam('contact');
     my $contact = new EBox::UsersAndGroups::Contact(dn => $dn);
 
     $self->{tableModel}->{contact} = $contact;
+
+    my $global = EBox::Global->getInstance();
+
+    my $model = $self->{'tableModel'};
+
+    $self->setMenuFolder($model->menuFolder());
+
+    my @params;
+    push(@params, 'data' => undef );
+    push(@params, 'dataTable' => $model->table());
+    push(@params, 'model'      => $model);
+    push(@params, 'hasChanged' => $global->unsaved());
+    push(@params, 'tpages' => 0);
+    push(@params, 'page' => 0);
+
+    $self->{'params'} = \@params;
 }
 
 1;
