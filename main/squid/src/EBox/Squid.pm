@@ -953,7 +953,7 @@ sub _writeSquidConf
     push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
-
+    push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
     push @writeParam, ('dn' => $dn);
 
     my $mode = $self->authenticationMode();
@@ -1302,6 +1302,13 @@ sub _notCachedDomains
 
     my $model = $self->model('NoCacheDomains');
     return $model->notCachedDomains();
+}
+sub _noAuthDomains
+{
+    my ($self) = @_;
+
+    my $model = $self->model('NoAuthDomains');
+    return $model->noAuthDomains();
 }
 
 sub _dgProfiles
