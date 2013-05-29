@@ -26,11 +26,11 @@
 
 <script>
 // FIXME: this does not work because header with jquery includes is not properly printed
-$(function () {
+jQuery(function () {
 
-  $.jstree._themes = "data/css/jstree-themes/";
+  jQuery.jstree._themes = "data/css/jstree-themes/";
 
-  $("#tree1").jstree({
+  jQuery("#tree1").jstree({
 	"json_data" : {
 		"data" : [
 			{
