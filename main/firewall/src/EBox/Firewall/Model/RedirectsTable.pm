@@ -328,7 +328,7 @@ sub _fieldDescription
             'fieldName' => 'log',
             'printableName' => __('Log'),
             'editable' => 1,
-            'help' => __('Log new forwarded connections'));
+            'help' => __x('Log new forwarded connections to {log}', log => '/var/log/syslog'));
     push (@tableHead, $plog);
 
     my $desc = new EBox::Types::Text(
