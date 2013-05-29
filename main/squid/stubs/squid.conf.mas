@@ -16,7 +16,7 @@
     $principal
     $realm
     $dn
-    @notAuthDomains
+    @noAuthDomains
     @rules
     %filterProfiles
 
@@ -245,17 +245,16 @@ cache_store_log /var/log/squid3/store.log
 
 pid_filename /var/run/squid3.pid
 
-%unless ($transparent) {
-%           my $authId = 1;
-%           foreach my $domain (@notAuthDomains) {
+% unless ($transparent) {
+%   my $authId = 1;
+%   foreach my $domain (@noAuthDomains) {
 acl noAuth<% $authId %> dstdomain <% $domain %>
 http_access allow all noAuth<% $authId %>
 always_direct allow noAuth<% $authId %>
-%          $authId = $authId  + 1;
+%       $authId++;
+%   }
+% }
 
-%           }
-
-%} 
 % if ($filter) {
 cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
 % } else {
