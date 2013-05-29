@@ -15,8 +15,6 @@
 use strict;
 use warnings;
 
-use lib '../../..';
-
 package EBox::Model::DataTable::Test;
 
 use base 'EBox::Test::Class';
@@ -770,7 +768,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(8)
+sub findTest : Test(10)
 {
     my ($self) = @_;
 
@@ -787,6 +785,14 @@ sub findTest : Test(8)
     dies_ok {
         $dataTable->find('inexistentField' => 'b');
     } 'checking that find() with a inexistent field fails' ;
+
+    throws_ok {
+        $dataTable->findValueMultipleFields({});
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on multiple';
+
+    throws_ok {
+        $dataTable->findValue();
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on single';
 
     $row = $dataTable->find($fieldName => 'inexistent');
     ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
