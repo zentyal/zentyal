@@ -50,7 +50,7 @@ export ZENTYAL_MODULES_SCHEMAS
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
 
-COMMON_ARGS="-j4 -r --timer"
+COMMON_ARGS="-r --timer"
 
 if [ "$@" == "ALL" ]
 then
