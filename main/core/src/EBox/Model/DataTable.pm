@@ -3272,7 +3272,7 @@ sub _find
 {
     my ($self, $fields, $allMatches, $kind, $nosync) = @_;
 
-    unless ((ref ($fields) eq 'HASH') and (%{$fields} > 0)) {
+    unless ((ref ($fields) eq 'HASH') and (keys %{$fields} > 0)) {
         throw EBox::Exceptions::MissingArgument("Missing fields or invalid hash ref");
     }
     my $conf = $self->{confmodule};
