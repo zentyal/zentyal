@@ -28,6 +28,7 @@ use EBox::Model::Row;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Types::Text;
+use EBox::Types::Link;
 use EBox::UsersAndGroups::Contact;
 
 # Method: _table
@@ -40,36 +41,40 @@ sub _table
 {
     my @fields = (
         new EBox::Types::Text(
-            fieldName => 'firstName',
+            fieldName     => 'firstName',
             printableName => __('First name'),
-            editable => 1,
-            optional => 1,
+            editable      => 1,
+            optional      => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'initials',
+            fieldName     => 'initials',
             printableName => __('Initials'),
-            size => '6',
-            editable => 1,
-            optional => 1,
+            size          => '6',
+            editable      => 1,
+            optional      => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'surname',
+            fieldName     => 'surname',
             printableName => __('Last name'),
-            editable => 1,
-            optional => 1,
+            editable      => 1,
+            optional      => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'fullName',
+            fieldName     => 'fullName',
             printableName => __('Full name'),
-            unique => 1,
-            editable => 1,
-            optional => 1,
+            unique        => 1,
+            editable      => 1,
+            optional      => 1,
         ),
         new EBox::Types::Text(
-            fieldName => 'displayName',
+            fieldName     => 'displayName',
             printableName => __('Display name'),
-            editable => 1,
-            optional => 1,
+            editable      => 1,
+            optional      => 1,
+        ),
+        new EBox::Types::Link(
+            fieldName               => 'edit',
+            printableName           => __('Edit'),
         ),
     );
 
@@ -161,6 +166,7 @@ sub row
         $args{surname} = $contact->surname() if ($contact->surname());
         $args{fullName} = $contact->fullname() if ($contact->fullname());
         $args{displayName} = $contact->displayname() if ($contact->displayname());
+        $args{edit} = "/UsersAndGroups/Contact?contact=$id";
 
         my $row = $self->_setValueRow(%args);
         $row->setId($id);
@@ -216,16 +222,6 @@ sub addTypedRow
 
     # this is the last row account added and id == pos
     return $contact->{dn};
-}
-
-sub setTypedRow
-{
-    my ($self, $paramsRef, %optParams) = @_;
-
-    my $id = delete $optParams{id};
-    my $contact = new EBox::UsersAndGroups::Contact(dn => $id);
-
-    return $id;
 }
 
 1;

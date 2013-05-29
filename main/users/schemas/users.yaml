@@ -9,6 +9,7 @@ models:
     - Users
     - Groups
     - Contacts
+    - Contact
     - Password
     - LdapInfo
     - PAM
