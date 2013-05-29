@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,8 +14,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
-
-use lib '../../..';
 
 package EBox::Model::DataTable::Test;
 use base 'EBox::Test::Class';
@@ -780,7 +778,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(8)
+sub findTest : Test(10)
 {
     my ($self) = @_;
 
@@ -797,6 +795,14 @@ sub findTest : Test(8)
     dies_ok {
         $dataTable->find('inexistentField' => 'b');
     } 'checking that find() with a inexistent field fails' ;
+
+    throws_ok {
+        $dataTable->findValueMultipleFields({});
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on multiple';
+
+    throws_ok {
+        $dataTable->findValue();
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on single';
 
     $row = $dataTable->find($fieldName => 'inexistent');
     ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
