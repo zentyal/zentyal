@@ -29,7 +29,7 @@ use JSON::XS;
 # numberfy data
 foreach my $ds (@{ $dataset{data} }) {
     $ds->{data} += 0;
-
+    $ds->{data} =~ s/,/./g;
 }
 my $json = JSON::XS->new();
 my $data = $json->encode($dataset{data});
