@@ -1,4 +1,4 @@
-HEAD
+3.0.11
 	+ Avoid warning in AccessRules validateTypedRow
 3.0.10
 	+ Squid time ACLs have independient ids. This fixes several issues
