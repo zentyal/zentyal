@@ -3459,6 +3459,29 @@ sub _swapPos
     $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
+sub swapPosById
+{
+    my ($self, $idA, $idB) = @_;
+    my ($posA, $posB);
+
+    my $confmod = $self->{'confmodule'};
+    my @order = @{$confmod->get_list($self->{'order'})};
+    for (my $i =0 ; $i < @order; $i++) {
+        if ($order[$i] eq $idA) {
+            $posA = $i;
+            $posB and last;
+        } elsif ($order[$i] eq $idB) {
+            $posB = $i;
+            $posA and last;
+        }
+    }
+    if (not $posA and not $posB) {
+        throw EBox::Exceptions::Internal("Cannot find position for ids '$idA' and '$idB'");
+    }
+
+    $self->_swapPos($posA, $posB);
+}
+
 sub _orderHash
 {
     my $self = shift;
@@ -4567,4 +4590,19 @@ ENDJS
 
     return $js;
 }
+
+sub setSortableTableJS
+{
+    my ($self) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.setSortableTable('%s', '%s', '%s')";
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    );
+    return $call;
+}
+
+
 1;

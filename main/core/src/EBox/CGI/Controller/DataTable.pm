@@ -321,6 +321,9 @@ sub checkAllControlValueAction
     $self->{json} = { success => $value  };
 }
 
+
+
+
 # prints a HTML response to enable the 'Save changes' web element
 # don't p[ritn any other HTML if you use this
 sub _responseToEnableChangesMenuElement
@@ -497,6 +500,34 @@ sub confirmationDialogAction
         message => $msg,
         title => $title
        };
+}
+
+sub changeOrderAction
+{
+    my ($self, %params) = @_;
+    my $model = $params{model};
+
+    $self->{json} = { success => 0};
+    my %changes;
+    my $nChanges = $self->param('changes');
+    if ($nChanges <= 0) {
+        throw EBox::Exceptions::Internal("No changes were supplied");
+    }
+
+    my $i = 0;
+    while ($i < $nChanges) {
+        my $idA = $self->param('change' . $i);
+        $i += 1;
+        my $idB = $self->param('change' . $i);
+        if (($idA and $idB) and ($idA ne $idB)) {
+            $model->swapPosById($idA, $idB);
+        } else {
+            throw EBox::Exceptions::Internal("Invalid IDs for swaping positions: '$idA', '$idB'");
+        }
+
+        $i += 1;
+    }
+    $self->{json}->{success} = 1;
 }
 
 # Group: Protected methods

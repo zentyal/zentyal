@@ -1117,3 +1117,65 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
         }
     });
 };
+
+Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
+    var tableBody = jQuery('#' + tableName + '_tbody'),
+        oldOrder = [];
+    var getOrder = function() {
+         return  tableBody.children('tr').map(function() {
+                         return this.id ? this.id : null;
+         }).get();
+    };
+    tableBody.sortable({
+        elements: 'tr',
+        containment: 'parent',
+        delay: 100,
+        helper: function(e, ui) {
+            ui.children().each(function() {
+                jQuery(this).width(jQuery(this).width());
+            });
+            return ui;
+        },
+        start: function() {  oldOrder = getOrder(); },
+        update: function() {
+            var newOrder = getOrder();
+            Zentyal.TableHelper.changeOrder(url, tableName, directory, oldOrder, newOrder);
+        }
+    });
+};
+
+Zentyal.TableHelper.changeOrder = function(url, table, directory, oldOrder, newOrder) {
+    var data;
+    var swap = [];
+    var seen = {};
+    var newId, oldId;
+    if (oldOrder.length !== newOrder.length) {
+        throw new Error('The previous order and the new order have different lengths');
+    }
+    for (var i=0; i < oldOrder.length; i++) {
+        newId = newOrder[i];
+        oldId = oldOrder[i];
+        if (newId in seen) {
+            continue;
+        }
+        if (newId !== oldId) {
+            swap.push(newId, oldId);
+            seen[oldId] = 1;
+        }
+    }
+
+    if (swap.length === 0) {
+        // no real change
+        return;
+    }
+
+    data = 'action=changeOrder&tablename=' + table + '&directory=' + directory;
+    data += '&changes=' + swap.length;
+    for (i=0; i < swap.length; i++) {
+        data += '&change' + i + '=' + swap[i];
+    }
+    jQuery.ajax({
+       url: url,
+       data: data
+   });
+};
