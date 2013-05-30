@@ -1,4 +1,5 @@
 HEAD
+    + Ignore system ACLs for samba shares, using the NT ACLs instead
 	+ Fix id mapping for users and groups added by the s4sync daemon
 3.0.18
 	+ Fix hostname change when having Samba installed: was trying to create
