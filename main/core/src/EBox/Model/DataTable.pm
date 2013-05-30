@@ -3233,7 +3233,7 @@ sub _volatile
 #
 #    (POSITIONAL)
 #
-#    fields     - hash ref with the fields and values to look for
+#    values     - hash ref with the fields and values to look for
 #
 #    allMatches - 1 or undef to tell the method to return just the
 #                 first match or all of them
@@ -3255,11 +3255,18 @@ sub _volatile
 #
 sub _find
 {
-    my ($self, $fields, $allMatches, $kind, $nosync) = @_;
+    my ($self, $values, $allMatches, $kind, $nosync) = @_;
 
-    unless ((ref ($fields) eq 'HASH') and (keys %{$fields} > 0)) {
-        throw EBox::Exceptions::MissingArgument("Missing fields or invalid hash ref");
+    unless (defined ($values) and (ref ($values) eq 'HASH')) {
+        throw EBox::Exceptions::MissingArgument("Missing values or invalid hash ref");
     }
+
+    my @fields = keys (%{$values});
+
+    unless (@fields) {
+        throw EBox::Exceptions::InvalidData("No fields/values provided");
+    }
+
     my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
@@ -3269,8 +3276,8 @@ sub _find
     my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        my $matches = 1;
-        foreach my $field (keys (%{$fields})) {
+        my $matches = 0;
+        foreach my $field (@fields) {
             my $element = $row->elementByName($field);
             if (defined ($element)) {
                 my $eValue;
@@ -3279,13 +3286,13 @@ sub _find
                 } else {
                     $eValue = $element->value();
                 }
-                unless ((defined $eValue) and ($eValue eq $fields->{$field})) {
-                    $matches = 0;
+                if ((defined $eValue) and ($eValue eq $values->{$field})) {
+                    $matches++;
                 }
             }
         }
 
-        if ($matches) {
+        if ($matches == @fields) {
             if ($allMatches) {
                 push (@matched, $id);
             } else {
