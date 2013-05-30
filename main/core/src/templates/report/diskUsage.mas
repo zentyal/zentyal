@@ -38,24 +38,30 @@ my $usageByLabel = $json->encode($dataset{usageByLabel});
 jQuery(function() {
   var data = <% $data %>;
   var usageByLabel = <% $usageByLabel %>;
+  var formatter = function (label, series) {
+                       return label + ' ' + usageByLabel[label];
+  };
 
   jQuery.plot('#diskUsageChart', data, {
         series: {
             pie: {
-                innerRadius: 0.5,
+                innerRadius: 0.1,
                 show: true,
                 label: {
-                    formatter: function (label, series) {
-                       return label + ' ' + usageByLabel[label];
-                   },
+                   formatter: formatter,
                    show: true,
-                }
+                   radius: 0.9
+                },
             },
 
         },
+        legend: {
+// XXX Commented out because a bug concatenates undef to pie labels..
+//         labelFormatter: formatter,
+           show: true,
+        }
   });
 });
-
 </script>
 
 <%def .partitionAttrs>
