@@ -786,9 +786,9 @@ sub findTest : Test(10)
 
     my $fieldName = 'uniqueField';
     my $fieldValue = 'populatedRow2';
-    my $field2Name = 'uniqueField';
-    my $field2Value = 'populatedRow2';
-    my $field2Value2 = 'populatedRow1';
+    my $field2Name = 'regularField';
+    my $field2Value = 'regular';
+    my $fieldValue2 = 'populatedRow1';
 
     my $row;
 
@@ -798,7 +798,7 @@ sub findTest : Test(10)
 
     throws_ok {
         $dataTable->findValueMultipleFields({});
-    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on multiple';
+    } 'EBox::Exceptions::InvalidData', 'thrown exception when no fields is searched on multiple';
 
     throws_ok {
         $dataTable->findValue();
@@ -830,8 +830,8 @@ sub findTest : Test(10)
     is $valueFound->id(), $row->id(),
        'checking return value of findValueMultipleFields method';
 
-    my $anotherRow = $dataTable->findValueMultipleFields({$fieldName => $fieldValue,
-                                                          $field2Name => $field2Value2});
+    my $anotherRow = $dataTable->findValueMultipleFields({$fieldName => $fieldValue2,
+                                                          $field2Name => $field2Value});
     isnt $anotherRow->id(), $row->id(),
        'checking return value of findMultipleFields is another row';
 }
@@ -909,6 +909,10 @@ sub _populateDataTable
             [
                 uniqueField => 'populatedRow3', regularField => 'regular',
                 optionalField => 'noDefaultText'
+            ],
+            [
+                uniqueField => 'populatedRow4', regularField => 'regular',
+                optionalField => 'undef'
             ],
     );
 
