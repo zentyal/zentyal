@@ -132,12 +132,17 @@ sub _zentyalVersion
 }
 
 # Get the QA archive to look
+# qa_updates_archive conf key has higher precedence
 sub _archive
 {
-    my $ubuntuVersion = _ubuntuVersion();
-    my $zentyalVersion = _zentyalVersion();
+    if ( EBox::Config::configkey('qa_updates_archive') ) {
+        return EBox::Config::configkey('qa_updates_archive');
+    } else {
+        my $ubuntuVersion = _ubuntuVersion();
+        my $zentyalVersion = _zentyalVersion();
 
-    return "zentyal-qa-$zentyalVersion";
+        return "zentyal-qa-$zentyalVersion";
+    }
 
 }
 
