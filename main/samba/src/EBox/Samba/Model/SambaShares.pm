@@ -322,102 +322,57 @@ sub createDirs
         }
         EBox::Sudo::root(@cmds);
 
+        my $sd = undef;
         if ($guestAccess) {
-            my $ntACL = '';
-            $ntACL .= "O:$domainAdminsSid"; # Object's owner
-            $ntACL .= "G:$domainUsersSid"; # Object's primary group
-            my $aceString = '(A;OICI;0x001301BF;;;S-1-1-0)';
-            $ntACL .= "D:$aceString";
-            my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
-            try {
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Coundn't enable NT ACLs for $path: $error");
-            };
-            next;
+            $sd = new EBox::Samba::Security::SecurityDescriptor(ownerSID => 'WD', groupSID => 'WD');
+            $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FW', 'FX', 'SD'], objectSID => 'WD'));
+        } else {
+            $sd = new EBox::Samba::Security::SecurityDescriptor(ownerSID => 'BA', groupSID => 'DU');
+            $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'SY'));
+            $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'BA'));
+            $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'LA'));
+
+            for my $subId (@{$row->subModel('access')->ids()}) {
+                my $subRow = $row->subModel('access')->row($subId);
+                my $permissions = $subRow->elementByName('permissions');
+
+                my $userType = $subRow->elementByName('user_group');
+                my $account = $userType->printableValue();
+                my $qobject = shell_quote($account);
+
+                my $object = new EBox::Samba::LdbObject(samAccountName => $account);
+                next unless $object->exists();
+
+                my $sid = $object->sid();
+                if ($permissions->value() eq 'readOnly') {
+                    $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX'], objectSID => $sid));
+                } elsif ($permissions->value() eq 'readWrite') {
+                    $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX', 'FW', 'SD'], objectSID => $sid));
+                } elsif ($permissions->value() eq 'administrator') {
+                    $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => $sid));
+                } else {
+                    my $type = $permissions->value();
+                    EBox::error("Unknown share permission type '$type'");
+                    next;
+                }
+            }
         }
 
-        # Build the security descriptor string
-        my $ntACL = '';
-        $ntACL .= "O:$domainAdminsSid"; # Object's owner
-        $ntACL .= "G:$domainUsersSid"; # Object's primary group
-
-        # Build the ACS strings
-        my @aceStrings = ();
-        push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
-        push (@aceStrings, "(A;;0x001f01ff;;;$domainAdminsSid)"); # Domain admins have full access
-
-        # Posix ACL
-        my @posixACL;
-        push (@posixACL, 'u:root:rwx');
-        push (@posixACL, 'g::---');
-        push (@posixACL, 'g:' . DEFAULT_GROUP . ':---');
-        push (@posixACL, 'g:adm:rwx');
-
-        for my $subId (@{$row->subModel('access')->ids()}) {
-            my $subRow = $row->subModel('access')->row($subId);
-            my $permissions = $subRow->elementByName('permissions');
-
-            my $userType = $subRow->elementByName('user_group');
-            my $perm;
-            if ($userType->selectedType() eq 'group') {
-                $perm = 'g:';
-            } elsif ($userType->selectedType() eq 'user') {
-                $perm = 'u:';
-            }
-            my $account = $userType->printableValue();
-            my $qobject = shell_quote($account);
-            $perm .= $qobject . ':';
-
-            my $aceString = '(A;OICI;';
-            if ($permissions->value() eq 'readOnly') {
-                $aceString .= '0x001200A9;';
-                $perm .= 'rx';
-            } elsif ($permissions->value() eq 'readWrite') {
-                $aceString .= '0x001301BF;';
-                $perm .= 'rwx';
-            } elsif ($permissions->value() eq 'administrator') {
-                $aceString .= '0x001F01FF;';
-                $perm .= 'rwx';
+        # Setting NT ACLs also sets posix ACLs thanks to vfs_xattr plugin
+        try {
+            my $cmd = undef;
+            my $sdString = $sd->getAsString();
+            if ($recursive) {
+                EBox::info("Setting NT ACLs recursively on share '$path', this can take a while");
+                $cmd = EBox::Samba::SAMBATOOL() . " ntacl set --recursive '$sdString' '$path'";
             } else {
-                my $type = $permissions->value();
-                EBox::error("Unknown share permission type '$type'");
-                next;
+                $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$sdString' '$path'";
             }
-            push (@posixACL, $perm);
-
-            # Account Sid
-            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
-            if ($object->exists()) {
-                $aceString .= ';;' . $object->sid() . ')';
-                push (@aceStrings, $aceString);
-            }
-        }
-
-        # Setting NT ACLs seems to reset posix ACLs, so do it first
-        if (@aceStrings) {
-            try {
-                my $fullAce = join ('', @aceStrings);
-                $ntACL .= "D:$fullAce";
-                my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Coundn't enable NT ACLs for $path: $error");
-            };
-        }
-        if (@posixACL) {
-            try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
-                EBox::Sudo::root($defaultCmd);
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
-            };
-        }
+            EBox::Sudo::root($cmd);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Coundn't enable NT ACLs for $path: $error");
+        };
     }
 }
 
