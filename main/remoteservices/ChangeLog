@@ -1,4 +1,4 @@
-HEAD
+3.0.21
 	+ Custom QA repository can be set at qa_updates_repo configuration
 	  key
 	+ RESTClient can now set the URI endpoint programatically
