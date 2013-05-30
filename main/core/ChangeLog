@@ -1,4 +1,4 @@
-HEAD
+3.0.21
 	+ Added EBox::Types::URI type
 	+ Added saveReload method to use reload instead of restart to
 	  reduce service downtime. Use with care and programatically
