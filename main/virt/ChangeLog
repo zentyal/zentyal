@@ -1,4 +1,4 @@
-HEAD
+3.0.6
 	+ More descriptive names for the windows types of virtual machines
 	+ Do not stop VNC proxies before VMs are stopped
 	+ Always try to shutdown VMs first and then destroy after 30 seconds
