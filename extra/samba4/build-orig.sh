@@ -8,8 +8,8 @@ then
     exit 1
 fi
 
-wget ftp://ftp.samba.org/pub/samba/samba-$version.tar.gz
-wget ftp://ftp.samba.org/pub/samba/samba-$version.tar.asc
+wget ftp://ftp.samba.org/pub/samba/stable/samba-$version.tar.gz
+wget ftp://ftp.samba.org/pub/samba/stable/samba-$version.tar.asc
 
 gunzip samba-$version.tar.gz
 gpg --verify samba-$version.tar.asc
