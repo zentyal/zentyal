@@ -1,3 +1,5 @@
+HEAD
+    + Add new exception InvalidArgument
 3.0.7
 	+ More flexibility for printable message in EBox::Exceptions::DataExists
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
