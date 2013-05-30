@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox::Global;
+
+EBox::init();
+
+my $samba = EBox::Global->modInstance('samba');
+my $model = $samba->model('SambaShares');
+$model->createDirs(1);
