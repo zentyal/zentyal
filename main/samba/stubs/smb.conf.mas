@@ -149,6 +149,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
+    acl_xattr:ignore system acls = yes
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($av) {
