@@ -695,34 +695,6 @@ sub deletedRowNotify
 
 }
 
-# Method: movedUpRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved up
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedUpRowNotify
-{
-
-}
-
-# Method: movedDownRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved down
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedDownRowNotify
-{
-
-}
-
 # Method: updatedRowNotify
 #
 #    Override this method to be notified whenever
@@ -1043,7 +1015,6 @@ sub moveUp
     $self->_swapPos($pos, $pos - 1);
 
     $self->setMessage($self->message('moveUp'));
-    $self->movedUpRowNotify($self->row($id));
     $self->_notifyManager('moveUp', $self->row($id));
 }
 
@@ -1062,7 +1033,6 @@ sub moveDown
     $self->_swapPos($pos, $pos + 1);
 
     $self->setMessage($self->message('moveDown'));
-    $self->movedDownRowNotify($self->row($id));
     $self->_notifyManager('moveDown', $self->row($id));
 }
 
