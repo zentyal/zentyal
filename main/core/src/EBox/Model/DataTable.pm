@@ -735,7 +735,7 @@ sub updatedRowNotify
 #
 #   model - model name where the action took place
 #   action - string represting the action:
-#            [ add, del, edit, moveUp, moveDown ]
+#            [ add, del, edit ]
 #
 #   row  - row modified
 #
@@ -1021,41 +1021,6 @@ sub moveRowRelative
     $self->_insertPos($id, $newPos);
 
     $self->_notifyManager('move', $self->row($id));
-}
-
-sub moveUp
-{
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-
-    my $pos = $order{$id};
-    if ($order{$id} == 0) {
-        return;
-    }
-
-    $self->_swapPos($pos, $pos - 1);
-
-    $self->setMessage($self->message('moveUp'));
-    $self->_notifyManager('moveUp', $self->row($id));
-}
-
-sub moveDown
-{
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-    my $numOrder = keys %order;
-
-    my $pos = $order{$id};
-    if ($order{$id} == $numOrder -1) {
-        return;
-    }
-
-    $self->_swapPos($pos, $pos + 1);
-
-    $self->setMessage($self->message('moveDown'));
-    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 # Method: _removeRow
@@ -1942,8 +1907,6 @@ sub help
 #      add - when a row is added
 #      del - when a row is deleted
 #      update - when a row is updated
-#      moveUp - when a row is moved up
-#      moveDown - when a row is moved down
 #
 # Parameters:
 #
@@ -2881,8 +2844,7 @@ sub _paramsToJSON
 #    (POSITIONAL)
 #    action - move or del
 #    editId - row id to edit
-#    direction - up or down
-#     page - page number
+#    page - page number
 #
 # Returns:
 #
@@ -2891,23 +2853,11 @@ sub actionClickedJS
 {
     my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
 
-    unless (($action eq 'move') or ($action eq 'del') or ($action eq 'clone')) {
+    unless (($action eq 'del') or ($action eq 'clone')) {
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    if ($action eq 'move'
-            and not ($direction eq 'up' or $direction eq 'down')) {
-
-        throw EBox::Exceptions::External("Wrong action $direction");
-    }
-
     my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
-
-    if ($direction) {
-        $direction = "dir=$direction";
-    } else {
-        $direction = "";
-    }
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
@@ -3134,8 +3084,6 @@ sub _setDefaultMessages
        'add'       => __x('{row} added', row => $rowName),
        'del'       => __x('{row} deleted', row => $rowName),
        'update'    => __x('{row} updated', row => $rowName),
-       'moveUp'    => __x('{row} moved up', row => $rowName),
-       'moveDown'  => __x('{row} moved down', row => $rowName),
       );
 
     foreach my $action (keys (%defaultMessages)) {
@@ -3455,19 +3403,6 @@ sub removeIdFromOrder
         }
     }
     throw EBox::Exceptions::Internal("Id to remove '$id' not found");
-}
-
-sub _swapPos
-{
-    my ($self, $posA, $posB ) = @_;
-
-    my @order = @{$self->_idsOrderList()};
-
-    my $temp = $order[$posA];
-    $order[$posA] =  $order[$posB];
-    $order[$posB] = $temp;
-
-    $self->_setIdsOrderList(\@order);
 }
 
 sub idPosition

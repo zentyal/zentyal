@@ -85,8 +85,6 @@ sub _table
                                 'add'       => undef,
                                 'del'       => undef,
                                 'update'    => undef,
-                                'moveUp'    => undef,
-                                'moveDown'  => undef,
                                }
                   };
 
@@ -114,7 +112,7 @@ sub reportRows
     my ($self) = @_;
 
     my %totalRowsByDate;
-    
+
     my $rows =  $self->SUPER::reportRows();
     foreach my $row (@{ $rows } ) {
         my $date = $row->{date};
@@ -154,7 +152,7 @@ sub limitByTimePeriod
 
     if ($nSources == 0) {
         $nSources = 1;
-    } 
+    }
 
     return $unityLimit * $nSources;
 }
