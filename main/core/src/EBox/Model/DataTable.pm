@@ -1001,6 +1001,28 @@ sub _selectOptions
     return $self->{'cacheOptions'}->{$field};
 }
 
+sub moveRowRelative
+{
+    my ($self, $id, $prevId, $nextId) = @_;
+    $self->removeIdFromOrder($id);
+    # lokup new positions
+    my $newPos;
+    if ($prevId ne '0') {
+         $newPos = $self->idPosition($prevId) + 1;
+     } else {
+         $newPos = $self->idPosition($nextId);
+     }
+
+    if (not defined $newPos) {
+        $self->_insertPos($id, 0); # to not lose the element
+        throw EBox::Exceptions::Internal("No new position was found for id $id between $prevId and $nextId");
+    }
+
+    $self->_insertPos($id, $newPos);
+
+    $self->_notifyManager('move', $self->row($id));
+}
+
 sub moveUp
 {
     my ($self, $id) = @_;

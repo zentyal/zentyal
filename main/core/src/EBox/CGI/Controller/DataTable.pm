@@ -514,22 +514,7 @@ sub setPositionAction
     if ((not $prevId) and (not $nextId)) {
         throw EBox::Exceptions::Internal("No changes were supplied");
     }
-
-    $model->removeIdFromOrder($id);
-    # lokup new positions
-    my $newPos;
-    if ($prevId ne '0') {
-         $newPos = $model->idPosition($prevId) + 1;
-     } else {
-         $newPos = $model->idPosition($nextId);
-     }
-
-    if (not defined $newPos) {
-        $model->_insertPos($id, 0); # to not lose the element
-        throw EBox::Exceptions::Internal("No new position was found for id $id between $prevId and $nextId");
-    }
-
-    $model->_insertPos($id, $newPos);
+    $model->moveRowRelative($id, $prevId, $nextId);
 
     $self->{json}->{success} = 1;
 }
