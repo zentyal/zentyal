@@ -1001,9 +1001,9 @@ sub _selectOptions
     return $self->{'cacheOptions'}->{$field};
 }
 
-# Method: moveRoeRelative
+# Method: moveRowRelative
 #
-#  Moves the row in the psoition between other two rows
+#  Moves the row to the position between other two rows
 #
 #  Parameters:
 #     id - id of row to move
