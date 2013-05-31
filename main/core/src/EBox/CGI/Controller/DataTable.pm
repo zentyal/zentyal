@@ -485,6 +485,7 @@ sub setPositionAction
         throw EBox::Exceptions::Internal("No changes were supplied");
     }
 
+    $self->moveRowRelative($id, $prevId, $nextId);
 # XX implemnt audilog for this
 #    $self->_auditLog('move', $self->_getAuditId($id), $before, $after);
 
