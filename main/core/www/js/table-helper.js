@@ -1128,6 +1128,7 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
     };
     tableBody.sortable({
         elements: 'tr',
+        cancel: '.readOnly',
         containment: 'parent',
         delay: 100,
         helper: function(e, ui) {
@@ -1137,43 +1138,38 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
             return ui;
         },
         start: function() {  oldOrder = getOrder(); },
-        update: function() {
+        update: function(event, ui) {
+            var movedId = ui.item.attr('id');
             var newOrder = getOrder();
-            Zentyal.TableHelper.changeOrder(url, tableName, directory, oldOrder, newOrder);
+            Zentyal.TableHelper.changeOrder(url, tableName, directory, movedId, newOrder);
         }
     });
 };
 
-Zentyal.TableHelper.changeOrder = function(url, table, directory, oldOrder, newOrder) {
+Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order) {
     var data;
-    var swap = [];
-    var seen = {};
-    var newId, oldId;
-    if (oldOrder.length !== newOrder.length) {
-        throw new Error('The previous order and the new order have different lengths');
-    }
-    for (var i=0; i < oldOrder.length; i++) {
-        newId = newOrder[i];
-        oldId = oldOrder[i];
-        if (newId in seen) {
-            continue;
-        }
-        if (newId !== oldId) {
-            swap.push(newId, oldId);
-            seen[oldId] = 1;
+    var prevId = 0, nextId = 0;
+
+    for (var i=0; i < order.length; i++) {
+        if (order[i] === movedId) {
+            if (i > 0) {
+                prevId = order[i-1];
+            }
+            if (i < (order.length -1)) {
+                nextId = order[i+1];
+            }
         }
     }
 
-    if (swap.length === 0) {
+    if ((prevId === null) && (nextId === null)) {
         // no real change
         return;
     }
 
-    data = 'action=changeOrder&tablename=' + table + '&directory=' + directory;
-    data += '&changes=' + swap.length;
-    for (i=0; i < swap.length; i++) {
-        data += '&change' + i + '=' + swap[i];
-    }
+    data = 'action=setPosition&tablename=' + table + '&directory=' + directory;
+    data += '&id=' + movedId;
+    data += '&prevId=' + prevId;
+    data += '&nextId=' + nextId;
     jQuery.ajax({
        url: url,
        data: data

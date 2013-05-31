@@ -1081,9 +1081,7 @@ sub _removeRow
 
     my $confmod = $self->{'confmodule'};
     $confmod->unset("$self->{'directory'}/$id");
-    my @order = @{$confmod->get_list($self->{'order'})};
-    @order = grep ($_ ne $id, @order);
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->removeIdFromOrder($id);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -3422,74 +3420,84 @@ sub _newId
     return $leadingText . $id;
 }
 
+sub _idsOrderList
+{
+    my ($self) = @_;
+    my $confmod = $self->{'confmodule'};
+    return $confmod->get_list($self->{'order'});
+}
+
+sub _setIdsOrderList
+{
+    my ($self, $order) = @_;
+    $self->{confmodule}->set_list($self->{'order'}, 'string', $order);
+}
+
 # Insert the id element in selected position, if the position is the
 # last + 1 is inserted after the last one
 sub _insertPos #(id, position)
 {
     my ($self, $id, $pos) = @_;
+    my @order = @{$self->_idsOrderList()};
 
-    my $confmod = $self->{'confmodule'};
-
-    my @order = @{$confmod->get_list($self->{'order'})};
-
-    if (@order == 0) {
-        push (@order, $id);
-    } elsif ($pos == 0) {
-        @order = ($id, @order);
-    } elsif ($pos == @order) {
-        push (@order, $id);
+    if ($pos == 0) {
+        unshift @order , $id;
+    } elsif ($pos >= @order) {
+        push @order, $id;
     } else {
-        splice (@order, $pos, 1, ($id, $order[$pos]));
+        splice(@order, $pos, 0, $id);
     }
 
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->_setIdsOrderList(\@order);
+}
+
+sub removeIdFromOrder
+{
+    my ($self, $id) = @_;
+    my @order = @{ $self->_idsOrderList() };
+    for (my $i=0; $i < @order; $i++) {
+        if ($id eq $order[$i]) {
+            splice @order, $i, 1;
+            $self->_setIdsOrderList(\@order);
+            return;
+        }
+    }
+    throw EBox::Exceptions::Internal("Id to remove '$id' not found");
 }
 
 sub _swapPos
 {
     my ($self, $posA, $posB ) = @_;
 
-    my $confmod = $self->{'confmodule'};
-    my @order = @{$confmod->get_list($self->{'order'})};
+    my @order = @{$self->_idsOrderList()};
 
     my $temp = $order[$posA];
     $order[$posA] =  $order[$posB];
     $order[$posB] = $temp;
 
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->_setIdsOrderList(\@order);
 }
 
-sub swapPosById
+sub idPosition
 {
-    my ($self, $idA, $idB) = @_;
-    my ($posA, $posB);
-
+    my ($self, $id) = @_;
     my $confmod = $self->{'confmodule'};
-    my @order = @{$confmod->get_list($self->{'order'})};
+    my @order = @{$self->_idsOrderList()};
     for (my $i =0 ; $i < @order; $i++) {
-        if ($order[$i] eq $idA) {
-            $posA = $i;
-            $posB and last;
-        } elsif ($order[$i] eq $idB) {
-            $posB = $i;
-            $posA and last;
+        if ($order[$i] eq $id) {
+            return $i;
         }
     }
-    if (not $posA and not $posB) {
-        throw EBox::Exceptions::Internal("Cannot find position for ids '$idA' and '$idB'");
-    }
-
-    $self->_swapPos($posA, $posB);
+    return undef;
 }
 
 sub _orderHash
 {
     my $self = shift;
-    my $confmod = $self->{'confmodule'};
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$confmod->get_list($self->{'order'})};
+        my @order = @{$self->_idsOrderList()};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;

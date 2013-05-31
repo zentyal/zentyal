@@ -50,15 +50,16 @@ use Perl6::Junction qw(any);
   use EBox::Gettext;
 
   # Fetch table head from model
-  my @tableHead = @{$model->table()->{'tableDescription'}};
+  my $table     = $model->table();
+  my @tableHead = @{$table->{'tableDescription'}};
   # Pointer to different values for convenience
-  my $actions = $model->table()->{'actions'};
+  my $actions = $table->{'actions'};
   my $changeView = $model->action('changeView');
-  my $printableRowName = $model->table()->{'printableRowName'};
-  my $tableName = $model->table()->{'tableName'};
-  my $printableTableName = $model->table()->{'printableTableName'};
-  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
-  my $withoutActions = $model->table()->{'withoutActions'};
+  my $printableRowName = $table->{'printableRowName'};
+  my $tableName = $table->{'tableName'};
+  my $printableTableName = $table->{'printableTableName'};
+  my $onlyCustomActions = $table->{'onlyCustomActions'};
+  my $withoutActions = $table->{'withoutActions'};
 
   my $adaptedFilter;
   if (defined $filter and ($filter ne '')) {
@@ -158,7 +159,7 @@ if ($checkAllProperty) {
    filter     => $filter,
 &>
 
-<table class='<%  $model->table()->{'class'}  %>'>
+<table class='<%  $table->{'class'}  %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
                    actions   => ((defined $withoutActions) ? not  $withoutActions: 1),
@@ -185,6 +186,10 @@ if ($checkAllProperty) {
         $displayRows++;
       if ($displayRows > $pageSize) { next; };
         $row = $model->row($ids[$idx]);
+      }
+      my @trClass = qw(border);
+      if ($row->readOnly) {
+          push @trClass, 'readOnly';
       }
 </%perl>
       <tr class='border' id="<% $row->id() %>">
@@ -229,12 +234,16 @@ if ($checkAllProperty) {
     </tbody>
 </table>
 
+% if (exists $table->{'order'} and ($table->{'order'} == 1)) {
 <script>
+console.log("table  SORTABLE DDD");
 jQuery(function() {
      <% $model->setSortableTableJS() %>
 });
 </script>
-
+% }  else {
+<script>console.log("table NO SORTABLE DDD");</script>
+% }
 
 <table class="bDataTable">
     <tr>

@@ -502,31 +502,39 @@ sub confirmationDialogAction
        };
 }
 
-sub changeOrderAction
+sub setPositionAction
 {
     my ($self, %params) = @_;
     my $model = $params{model};
 
     $self->{json} = { success => 0};
-    my %changes;
-    my $nChanges = $self->param('changes');
-    if ($nChanges <= 0) {
+    my $id     = $self->param('id');
+    my $prevId = $self->param('prevId');
+    my $nextId = $self->param('nextId');
+    if ((not $prevId) and (not $nextId)) {
         throw EBox::Exceptions::Internal("No changes were supplied");
     }
 
-    my $i = 0;
-    while ($i < $nChanges) {
-        my $idA = $self->param('change' . $i);
-        $i += 1;
-        my $idB = $self->param('change' . $i);
-        if (($idA and $idB) and ($idA ne $idB)) {
-            $model->swapPosById($idA, $idB);
-        } else {
-            throw EBox::Exceptions::Internal("Invalid IDs for swaping positions: '$idA', '$idB'");
-        }
+    EBox::debug("ID $id PREV $prevId NEXT $nextId");
 
-        $i += 1;
+    $model->removeIdFromOrder($id);
+    # lokup new positions
+    my $newPos;
+    if ($prevId != 0) {
+         $newPos = $model->idPosition($prevId) + 1;
+         EBox::debug("NEW POS FROM PREVID $newPos");
+     } else {
+         $newPos = $model->idPosition($nextId);
+         EBox::debug("NEW POS FROM nEXTID $newPos");
+     }
+
+    if (not defined $newPos) {
+        $model->_insertPos($id, 0); # to not lose the element
+        throw EBox::Exceptions::Internal("No new position was found for id $id between $prevId and $nextId");
     }
+
+    $model->_insertPos($id, $newPos);
+
     $self->{json}->{success} = 1;
 }
 
