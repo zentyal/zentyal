@@ -1,3 +1,5 @@
+HEAD
+	+ Changed reload action to force-reload in nscd upstart daemon
 3.0.19
 	+ Fixed error message when trying to add a user above the edition maximum
 3.0.18
