@@ -1130,6 +1130,7 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
         elements: 'tr',
         cancel: '.readOnly',
         containment: 'parent',
+        tolerance: 'pointer',
         delay: 100,
         helper: function(e, ui) {
             ui.children().each(function() {
@@ -1152,10 +1153,10 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
 
     for (var i=0; i < order.length; i++) {
         if (order[i] === movedId) {
-            if (i > 0) {
+            if ((i-1) >= 0) {
                 prevId = order[i-1];
             }
-            if (i < (order.length -1)) {
+            if ((i+1) < order.length) {
                 nextId = order[i+1];
             }
         }
