@@ -477,14 +477,12 @@ sub setPositionAction
     $self->{json} = { success => 0};
     my $id     = $self->param('id');
     my $prevId = $self->param('prevId');
+    (not $prevId) and $prevId = undef;
     my $nextId = $self->param('nextId');
-    if ((not $prevId) and (not $nextId)) {
-        throw EBox::Exceptions::Internal("No changes were supplied");
-    }
+    (not $nextId) and $nextId = undef;
 
-    $self->moveRowRelative($id, $prevId, $nextId);
-# XX implemnt audilog for this
-#    $self->_auditLog('move', $self->_getAuditId($id), $before, $after);
+    my $res = $model->moveRowRelative($id, $prevId, $nextId);
+    $self->_auditLog('move', $self->_getAuditId($id), $res->[0], $res->[1]);
 
     $self->{json}->{success} = 1;
 }

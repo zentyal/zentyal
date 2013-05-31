@@ -1001,13 +1001,32 @@ sub _selectOptions
     return $self->{'cacheOptions'}->{$field};
 }
 
+# Method: moveRoeRelative
+#
+#  Moves the row in the psoition between other two rows
+#
+#  Parameters:
+#     id - id of row to move
+#     prevId - ID of the row directly after the new position, undef if unknow
+#     nextId - ID of the row directly before the new position, undef if unknow
+#
+#    Returns:
+#       - list reference contianing the old row position and the new one
+#
+#  Warning: it is assummed that if both prevId and nextId are supplied, then they
+#  must not have rows between them
 sub moveRowRelative
 {
     my ($self, $id, $prevId, $nextId) = @_;
-    $self->removeIdFromOrder($id);
+    if ((not $prevId) and (not $nextId)) {
+        throw EBox::Exceptions::Internal("No changes were supplied");
+    }
+
+    my $oldPos = $self->removeIdFromOrder($id);
     # lokup new positions
     my $newPos;
-    if ($prevId ne '0') {
+
+    if (defined $prevId) {
          $newPos = $self->idPosition($prevId) + 1;
      } else {
          $newPos = $self->idPosition($nextId);
@@ -1021,6 +1040,7 @@ sub moveRowRelative
     $self->_insertPos($id, $newPos);
 
     $self->_notifyManager('move', $self->row($id));
+    return [$oldPos => $newPos];
 }
 
 # Method: _removeRow
@@ -3391,6 +3411,7 @@ sub _insertPos #(id, position)
     $self->_setIdsOrderList(\@order);
 }
 
+# return the old postion in order
 sub removeIdFromOrder
 {
     my ($self, $id) = @_;
@@ -3399,7 +3420,7 @@ sub removeIdFromOrder
         if ($id eq $order[$i]) {
             splice @order, $i, 1;
             $self->_setIdsOrderList(\@order);
-            return;
+            return $i;
         }
     }
     throw EBox::Exceptions::Internal("Id to remove '$id' not found");
