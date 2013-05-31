@@ -515,17 +515,13 @@ sub setPositionAction
         throw EBox::Exceptions::Internal("No changes were supplied");
     }
 
-    EBox::debug("ID $id PREV $prevId NEXT $nextId");
-
     $model->removeIdFromOrder($id);
     # lokup new positions
     my $newPos;
     if ($prevId != 0) {
          $newPos = $model->idPosition($prevId) + 1;
-         EBox::debug("NEW POS FROM PREVID $newPos");
      } else {
          $newPos = $model->idPosition($nextId);
-         EBox::debug("NEW POS FROM nEXTID $newPos");
      }
 
     if (not defined $newPos) {

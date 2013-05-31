@@ -236,13 +236,10 @@ if ($checkAllProperty) {
 
 % if (exists $table->{'order'} and ($table->{'order'} == 1)) {
 <script>
-console.log("table  SORTABLE DDD");
 jQuery(function() {
      <% $model->setSortableTableJS() %>
 });
 </script>
-% }  else {
-<script>console.log("table NO SORTABLE DDD");</script>
 % }
 
 <table class="bDataTable">
