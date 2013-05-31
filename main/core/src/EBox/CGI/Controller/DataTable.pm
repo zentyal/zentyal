@@ -518,7 +518,7 @@ sub setPositionAction
     $model->removeIdFromOrder($id);
     # lokup new positions
     my $newPos;
-    if ($prevId != 0) {
+    if ($prevId ne '0') {
          $newPos = $model->idPosition($prevId) + 1;
      } else {
          $newPos = $model->idPosition($nextId);
